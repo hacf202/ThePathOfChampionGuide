@@ -36,9 +36,8 @@ import Footer from "./components/layout/footer.jsx";
 import AboutUs from "./components/about/aboutUs.jsx";
 import TermsOfUse from "./components/about/termsOfUse.jsx";
 import Introduction from "./components/about/introduction.jsx";
-import StarterGuide from "./components/about/starterGuide.jsx";
-import RelicGuide from "./components/about/relicGuide.jsx";
-
+import GuidePage from "./components/guide/GuidePage.jsx";
+import GuideListPage from "./pages/guideListPage.jsx";
 import AnnouncementPopup from "./components/common/AnnouncementPopup";
 
 // Luồng admin
@@ -50,7 +49,7 @@ import ItemEditor from "./components/admin/itemEditor.jsx";
 import RuneEditor from "./components/admin/runeEditor.jsx";
 import BuildEditor from "./components/admin/buildEditor.jsx";
 import PrivateRoute from "./components/admin/privateRoute.jsx";
-
+import GuideEditor from "./components/admin/guideEditor.jsx";
 // --- Component Layout có điều kiện ---
 function MainContent() {
 	const location = useLocation();
@@ -97,7 +96,7 @@ function MainContent() {
 				<Route path='/builds/detail/:buildId' element={<BuildDetail />} />
 				<Route path='/runes' element={<Runes />} />
 				<Route path='/rune/:runeCode' element={<RuneDetail />} />
-				{/* <Route path='/reels' element={<BuildReelsPage />} /> */}
+
 				<Route
 					path='/auth'
 					element={<AuthContainer onClose={() => window.history.back()} />}
@@ -105,8 +104,8 @@ function MainContent() {
 				<Route path='/about-us' element={<AboutUs />} />
 				<Route path='/terms-of-use' element={<TermsOfUse />} />
 				<Route path='/introduction' element={<Introduction />} />
-				<Route path='/guide/starterGuide' element={<StarterGuide />} />
-				<Route path='/guide/relicGuide' element={<RelicGuide />} />
+				<Route path='/guides' element={<GuideListPage />} />
+				<Route path='/guides/:slug' element={<GuidePage />} />
 
 				{/* Admin Routes - vẫn dùng container */}
 				<Route element={<PrivateRoute />}>
@@ -117,6 +116,8 @@ function MainContent() {
 					<Route path='/admin/itemEditor' element={<ItemEditor />} />
 					<Route path='/admin/runeEditor' element={<RuneEditor />} />
 					<Route path='/admin/buildEditor' element={<BuildEditor />} />
+					<Route path='/admin/guideEditor' element={<GuideEditor />} />
+					<Route path='/admin/guideEditor/:slug' element={<GuideEditor />} />
 				</Route>
 			</Routes>
 		</main>

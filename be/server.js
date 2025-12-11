@@ -17,6 +17,7 @@ import relicsRoutes from "./src/routes/relics.js";
 import itemsRoutes from "./src/routes/items.js";
 import runesRoutes from "./src/routes/runes.js";
 import buildsAdminRouter from "./src/routes/builds-admin.js";
+import guidesRouter from "./src/routes/guides.js";
 
 dotenv.config(); //đọc .env tải biến môi trường
 
@@ -91,7 +92,7 @@ app.use("/api/builds", commentsRouter);
 app.use("/api/builds", favoritesRouter);
 app.use("/api/builds", buildsRouter); // ĐỂ CUỐI CÙNG!
 app.use("/api/admin/builds", buildsAdminRouter);
-
+app.use("/api/guides", guidesRouter);
 // API để kiểm tra "sức khỏe" của server
 app.get("/api/checkheal", (req, res) => {
 	res.status(200).json({ status: "OK", message: "Server is healthy" });

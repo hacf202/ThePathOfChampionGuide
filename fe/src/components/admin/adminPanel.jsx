@@ -14,6 +14,7 @@ import {
 	Bell,
 	Users,
 	ChevronLeft,
+	BookMarked,
 } from "lucide-react";
 
 // Lazy load các editor để tối ưu bundle
@@ -23,6 +24,7 @@ const RelicEditor = lazy(() => import("./relicEditor"));
 const ItemEditor = lazy(() => import("./itemEditor"));
 const RuneEditor = lazy(() => import("./runeEditor"));
 const BuildEditor = lazy(() => import("./buildEditor"));
+const GuideEditor = lazy(() => import("./guideEditor"));
 
 const StatCard = ({ title, value, icon: Icon, colorClass }) => (
 	<div className='bg-surface-bg border border-border rounded-lg p-5 flex items-center gap-4 shadow-sm hover:shadow-md hover:border-primary-500 transition-all duration-200'>
@@ -57,6 +59,7 @@ const AdminPanel = () => {
 		{ id: "item", label: "Quản lý Vật Phẩm", icon: Package },
 		{ id: "rune", label: "Quản lý Ngọc", icon: Gem },
 		{ id: "build", label: "Quản lý Bộ Cổ Vật", icon: Library },
+		{ id: "guide", label: "Quản lý Hướng Dẫn", icon: BookMarked },
 	];
 
 	const navLinkClass = id =>
@@ -74,6 +77,7 @@ const AdminPanel = () => {
 			item: ItemEditor,
 			rune: RuneEditor,
 			build: BuildEditor,
+			guide: GuideEditor,
 		}[activeTab];
 
 		if (!EditorComponent) return null;

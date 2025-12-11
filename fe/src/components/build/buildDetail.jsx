@@ -332,7 +332,7 @@ const BuildDetail = () => {
 				description={`POC GUIDE: Build bộ cổ vật (Relic) tối ưu tier S/A cho ${build.championName}...`}
 				type='article'
 			/>
-			<div className='max-w-4xl mx-auto p-0 sm:p-6 text-text-primary font-secondary'>
+			<div className='max-w-[1200px] mx-auto p-0 sm:p-6 text-text-primary font-secondary'>
 				<Button variant='outline' onClick={() => navigate(-1)} className='mb-4'>
 					<ChevronLeft size={18} />
 					Quay lại
@@ -432,7 +432,7 @@ const BuildDetail = () => {
 							<h2 className='text-xl sm:text-2xl font-semibold mb-3 font-primary'>
 								Cổ Vật
 							</h2>
-							<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+							<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
 								{fullrelicSet.map((item, index) => (
 									<RenderItem key={`relic-${index}`} item={item} />
 								))}

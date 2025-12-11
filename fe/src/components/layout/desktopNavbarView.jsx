@@ -107,6 +107,9 @@ function DesktopNavbar() {
 						<NavLink to='/champions' className={navLinkClass}>
 							<Swords className='w-6 h-6' /> Tướng
 						</NavLink>
+						<NavLink to='/guides' className={navLinkClass}>
+							<BookMarked className='w-6 h-6' /> Hướng Dẫn
+						</NavLink>
 
 						<div className='relative' ref={itemsDropdownRef}>
 							<button
@@ -195,20 +198,6 @@ function DesktopNavbar() {
 										onClick={handleNavClick}
 									>
 										<LoaderPinwheel className='w-5 h-5' /> Vòng quay
-									</NavLink>
-									<NavLink
-										to='/guide/starterGuide'
-										className={dropdownLinkClass}
-										onClick={handleNavClick}
-									>
-										<BookMarked className='w-5 h-5' /> Hướng Dẫn POC
-									</NavLink>
-									<NavLink
-										to='/guide/relicGuide'
-										className={dropdownLinkClass}
-										onClick={handleNavClick}
-									>
-										<BookCopy className='w-5 h-5' /> Hướng Dẫn Cổ Vật
 									</NavLink>
 									<NavLink
 										to='/introduction'

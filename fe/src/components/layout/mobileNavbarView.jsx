@@ -122,8 +122,15 @@ function MobileSidebar() {
 							onClick={closeSidebar}
 						>
 							<Swords className='w-5 h-5' /> Tướng
+						</NavLink>{" "}
+						<NavLink
+							to='/champions'
+							className='flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-nav-hover-bg transition-all'
+							onClick={closeSidebar}
+						>
+							<BookMarked className='w-5 h-5' />
+							Hướng Dẫn
 						</NavLink>
-
 						<div>
 							<button
 								onClick={() => setIsItemsDropdownOpen(!isItemsDropdownOpen)}
@@ -181,7 +188,6 @@ function MobileSidebar() {
 								</div>
 							)}
 						</div>
-
 						<div>
 							<button
 								onClick={() => setIsToolsDropdownOpen(!isToolsDropdownOpen)}
@@ -216,20 +222,6 @@ function MobileSidebar() {
 										<LoaderPinwheel className='w-4 h-4 ' /> Vòng quay
 									</NavLink>
 									<NavLink
-										to='/guide/starterGuide'
-										className={dropdownLinkClass}
-										onClick={closeSidebar}
-									>
-										<BookMarked className='w-4 h-4' /> Hướng Dẫn POC
-									</NavLink>
-									<NavLink
-										to='/guide/relicGuide'
-										className={dropdownLinkClass}
-										onClick={closeSidebar}
-									>
-										<BookCopy className='w-4 h-4' /> Hướng Dẫn Cổ Vật
-									</NavLink>
-									<NavLink
 										to='/introduction'
 										className={dropdownLinkClass}
 										onClick={closeSidebar}
@@ -239,9 +231,7 @@ function MobileSidebar() {
 								</div>
 							)}
 						</div>
-
 						<div className='my-3 border-t border-gray-700'></div>
-
 						{user ? (
 							<>
 								<div className='flex items-center gap-3 px-3 py-2 text-sm'>

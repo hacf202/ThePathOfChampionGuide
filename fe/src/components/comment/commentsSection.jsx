@@ -20,6 +20,13 @@ const CommentForm = ({
 	const [error, setError] = useState("");
 	const apiUrl = import.meta.env.VITE_API_URL;
 
+	const handleKeyDown = e => {
+		if (e.key === "Enter" && !e.shiftKey) {
+			e.preventDefault(); // Ngăn xuống dòng mặc định
+			handleSubmit(e);
+		}
+	};
+
 	const handleSubmit = async e => {
 		e.preventDefault();
 		if (!content.trim()) return;
@@ -41,14 +48,12 @@ const CommentForm = ({
 				body: JSON.stringify({ content, parentId, replyToUsername }),
 			});
 
-			// ĐÚNG: Nếu thành công (201) → res.ok = true
 			if (res.ok) {
 				const newComment = await res.json();
-				onCommentPosted(newComment); // Thêm vào UI ngay lập tức
+				onCommentPosted(newComment);
 				setContent("");
 				onCancel?.();
 			} else {
-				// Thất bại → lấy lỗi từ server
 				const errData = await res.json();
 				throw new Error(errData.error || "Không thể gửi bình luận");
 			}
@@ -80,13 +85,14 @@ const CommentForm = ({
 			<textarea
 				value={content}
 				onChange={e => setContent(e.target.value)}
+				onKeyDown={handleKeyDown}
 				placeholder={
 					replyToUsername
 						? `Trả lời @${replyToUsername}...`
-						: "Viết bình luận..."
+						: "Viết bình luận... (Enter để gửi, Shift + Enter để xuống dòng)"
 				}
 				className='w-full p-3 bg-surface-bg border border-border rounded-lg text-text-primary placeholder:text-text-secondary focus:border-primary-500 focus:outline-none resize-none'
-				rows={3}
+				rows={4}
 				disabled={isSubmitting}
 				autoFocus={!!parentId}
 			/>
@@ -116,9 +122,8 @@ const CommentItem = ({
 	onCommentUpdated,
 	onCommentPosted,
 	buildId,
-	replies = [],
 	userDisplayNames,
-	depth = 0,
+	isReply = false,
 }) => {
 	const { user, token } = useAuth();
 	const [isEditing, setIsEditing] = useState(false);
@@ -135,6 +140,8 @@ const CommentItem = ({
 	const replyToName = comment.replyToUsername
 		? userDisplayNames[comment.replyToUsername] || comment.replyToUsername
 		: null;
+
+	const indentClass = isReply ? "ml-12" : "ml-0";
 
 	const handleUpdate = async () => {
 		if (!editContent.trim()) return;
@@ -182,9 +189,6 @@ const CommentItem = ({
 		}
 	};
 
-	// Chỉ thụt tối đa 1 cấp
-	const indentClass = depth >= 1 ? "ml-12" : "ml-0";
-
 	return (
 		<div
 			className={`py-5 border-t border-border first:border-t-0 ${indentClass}`}
@@ -226,31 +230,39 @@ const CommentItem = ({
 					<textarea
 						value={editContent}
 						onChange={e => setEditContent(e.target.value)}
-						className='w-full p-3 border rounded-lg bg-surface-bg'
-						rows={3}
+						className='w-full p-3 border border-border rounded-lg bg-surface-bg focus:border-primary-500 focus:outline-none'
+						rows={4}
 						autoFocus
+						placeholder='Chỉnh sửa bình luận...'
 					/>
 					<div className='flex justify-end gap-2 mt-2'>
-						<Button variant='ghost' onClick={() => setIsEditing(false)}>
+						<Button
+							variant='ghost'
+							onClick={() => setIsEditing(false)}
+							disabled={isUpdating}
+						>
 							Hủy
 						</Button>
-						<Button variant='primary' disabled={isUpdating}>
-							{isUpdating ? "..." : "Lưu"}
+						<Button
+							variant='primary'
+							type='submit'
+							disabled={isUpdating || !editContent.trim()}
+						>
+							{isUpdating ? "Đang lưu..." : "Lưu"}
 						</Button>
 					</div>
 				</form>
 			) : (
-				<div className='mt-2 text-text-secondary'>
+				<div className='mt-2 text-text-secondary whitespace-pre-wrap break-words'>
 					{replyToName && (
 						<span className='inline-block mr-2 px-2.5 py-1 bg-primary-500/10 text-primary-600 dark:text-primary-400 rounded-full text-xs font-medium'>
 							Trả lời @{replyToName}
 						</span>
 					)}
-					<span className='break-words'>{comment.content}</span>
+					{comment.content}
 				</div>
 			)}
 
-			{/* Nút Trả lời */}
 			<div className='mt-3'>
 				<Button
 					variant='ghost'
@@ -262,7 +274,6 @@ const CommentItem = ({
 				</Button>
 			</div>
 
-			{/* Form trả lời */}
 			{isReplying && (
 				<div className='mt-4'>
 					<CommentForm
@@ -278,23 +289,24 @@ const CommentItem = ({
 				</div>
 			)}
 
-			{/* QUAN TRỌNG: Giữ nguyên replies để render tiếp */}
-			{replies.length > 0 &&
-				replies.map(reply => (
-					<CommentItem
-						key={reply.id}
-						comment={reply}
-						buildId={buildId}
-						onCommentDeleted={onCommentDeleted}
-						onCommentUpdated={onCommentUpdated}
-						onCommentPosted={onCommentPosted}
-						replies={reply.replies || []} // ← ĐÂY LÀ CHỖ SỬA CHÍNH!
-						userDisplayNames={userDisplayNames}
-						depth={depth + 1}
-					/>
-				))}
+			{/* Render tất cả reply (cấp 1, 2, 3...) với thụt 1 lần duy nhất */}
+			{comment.replies && comment.replies.length > 0 && (
+				<div className='mt-2'>
+					{comment.replies.map(reply => (
+						<CommentItem
+							key={reply.id}
+							comment={reply}
+							buildId={buildId}
+							onCommentDeleted={onCommentDeleted}
+							onCommentUpdated={onCommentUpdated}
+							onCommentPosted={onCommentPosted}
+							userDisplayNames={userDisplayNames}
+							isReply={true}
+						/>
+					))}
+				</div>
+			)}
 
-			{/* Modal xóa */}
 			<Modal
 				isOpen={showDeleteModal}
 				onClose={() => setShowDeleteModal(false)}
@@ -339,8 +351,6 @@ const CommentsSection = ({ buildId }) => {
 	useEffect(() => {
 		fetchComments();
 	}, [fetchComments]);
-
-	// ... (phần fetch tên hiển thị giữ nguyên)
 
 	const rootComments = useMemo(() => {
 		const map = new Map();
@@ -388,9 +398,8 @@ const CommentsSection = ({ buildId }) => {
 							onCommentDeleted={handleDeleted}
 							onCommentUpdated={handleUpdated}
 							onCommentPosted={handlePosted}
-							replies={c.replies}
 							userDisplayNames={userDisplayNames}
-							depth={0}
+							isReply={false}
 						/>
 					))
 				)}
