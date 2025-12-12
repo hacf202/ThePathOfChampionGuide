@@ -296,7 +296,7 @@ const ContentBlock = ({ block, referenceData }) => {
 		case "conclusion":
 			return (
 				<div
-					className='mt-12 p-6 rounded-xl border text-center'
+					className='mt-12 p-6  rounded-xl border text-center'
 					style={{
 						backgroundColor: "var(--color-surface-hover-bg)",
 						borderColor: "var(--color-primary-300)",
@@ -468,7 +468,7 @@ const GuideDetail = () => {
 				className='shadow-sm'
 				style={{ backgroundColor: "var(--color-white)" }}
 			>
-				<div className='container mx-auto px-4 py-8 max-w-[1200px]'>
+				<div className='container mx-auto md:px-4 py-8 max-w-[1200px]'>
 					{/* Nút quay lại danh sách sử dụng Button variant Ghost */}
 					<div className='mb-6'>
 						<Button
@@ -527,9 +527,9 @@ const GuideDetail = () => {
 			</div>
 
 			{/* --- BODY CONTENT --- */}
-			<article className='container mx-auto px-4 py-8 max-w-[1200px]'>
+			<article className='container mx-auto md:px-4 py-8 max-w-[1200px]'>
 				<div
-					className='p-6 md:p-12 rounded-2xl shadow-sm ring-1 ring-opacity-5'
+					className='p-2 md:p-6 rounded-2xl shadow-sm ring-1 ring-opacity-5'
 					style={{
 						backgroundColor: "var(--color-white)",
 						borderColor: "var(--color-border)",
@@ -559,7 +559,7 @@ const GuideDetail = () => {
 			{/* --- SECTION: BÀI VIẾT LIÊN QUAN --- */}
 			{relatedGuides.length > 0 && (
 				<section
-					className='container mx-auto px-4 py-8 max-w-[1200px] mb-16 border-t'
+					className='container mx-auto md:px-4 py-8 max-w-[1200px] mb-16 border-t'
 					style={{ borderColor: "var(--color-border)" }}
 				>
 					<h3

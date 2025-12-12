@@ -124,7 +124,7 @@ function MobileSidebar() {
 							<Swords className='w-5 h-5' /> Tướng
 						</NavLink>{" "}
 						<NavLink
-							to='/champions'
+							to='/guides'
 							className='flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-nav-hover-bg transition-all'
 							onClick={closeSidebar}
 						>
