@@ -1,13 +1,15 @@
+// src/pages/GuidePage.jsx
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import PageTitle from "../common/pageTitle";
-import { Eye, Calendar, PenTool } from "lucide-react";
+import { Eye, Calendar, PenTool, ArrowLeft, Home } from "lucide-react";
 import axios from "axios";
+import Button from "../common/button"; // Đảm bảo đường dẫn đúng
 
 // ==========================================
 // 1. Component hiển thị nội dung đệ quy
 // ==========================================
-const ContentBlock = ({ block }) => {
+const ContentBlock = ({ block, referenceData }) => {
 	if (!block) return null;
 
 	const renderHtml = text => (
@@ -31,7 +33,11 @@ const ContentBlock = ({ block }) => {
 					)}
 					{block.content &&
 						block.content.map((subBlock, index) => (
-							<ContentBlock key={index} block={subBlock} />
+							<ContentBlock
+								key={index}
+								block={subBlock}
+								referenceData={referenceData}
+							/>
 						))}
 				</section>
 			);
@@ -92,7 +98,7 @@ const ContentBlock = ({ block }) => {
 				>
 					{block.title && (
 						<div
-							className='px-4 py-2 font-bold  border-b'
+							className='px-4 py-2 font-bold border-b'
 							style={{ color: "var(--color-text-primary)" }}
 						>
 							{block.title}
@@ -120,9 +126,17 @@ const ContentBlock = ({ block }) => {
 							style={{ borderColor: "var(--color-gray-300)" }}
 						>
 							{block.rows?.map((row, rIdx) => {
-								// Lấy ID tương ứng với hàng hiện tại (nếu có)
-								const relicId = block.relicIds?.[rIdx];
 								const championId = block.championIds?.[rIdx];
+								const relicId = block.relicIds?.[rIdx];
+								const powerId = block.powerIds?.[rIdx];
+
+								const championData = referenceData?.champions?.[championId];
+								const relicData = referenceData?.relics?.[relicId];
+								const powerData = referenceData?.powers?.[powerId];
+
+								const directChampion = block.champions?.[rIdx];
+								const directRelic = block.relics?.[rIdx];
+								const directPower = block.powers?.[rIdx];
 
 								return (
 									<tr
@@ -130,32 +144,54 @@ const ContentBlock = ({ block }) => {
 										className={rIdx % 2 !== 0 ? "bg-gray-50" : "bg-white"}
 									>
 										{row.map((cell, cIdx) => {
-											// Render nội dung gốc
 											let content = renderHtml(cell);
 
-											// Logic: Chỉ xử lý cột đầu tiên (cIdx === 0)
-											// Nếu có relicId -> Link đến trang Relic
-											// Nếu có championId -> Link đến trang Champion
 											if (cIdx === 0) {
-												if (relicId) {
+												let imgSrc = null;
+												let linkUrl = null;
+												let hasMatch = false;
+
+												if (championData || directChampion) {
+													const data = championData || directChampion;
+													imgSrc = data.assets?.[0]?.avatar;
+													linkUrl = `/champion/${
+														championId || data.championID
+													}`;
+													hasMatch = true;
+												} else if (relicData || directRelic) {
+													const data = relicData || directRelic;
+													imgSrc = data.assetAbsolutePath;
+													linkUrl = `/relic/${relicId || data.relicCode}`;
+													hasMatch = true;
+												} else if (powerData || directPower) {
+													const data = powerData || directPower;
+													imgSrc = data.assetAbsolutePath;
+													linkUrl = `/power/${powerId || data.powerCode}`;
+													hasMatch = true;
+												}
+
+												if (hasMatch) {
 													content = (
 														<Link
-															to={`/relic/${relicId}`}
-															className='hover:underline font-semibold'
+															to={linkUrl}
+															className='flex items-center gap-3 hover:underline font-semibold group'
 															style={{ color: "var(--color-primary-500)" }}
 														>
-															{renderHtml(cell)}
-														</Link>
-													);
-												} else if (championId) {
-													content = (
-														<Link
-															to={`/champion/${championId}`}
-															className='hover:underline font-semibold'
-															style={{ color: "var(--color-primary-500)" }}
-															target='_blank'
-														>
-															{renderHtml(cell)}
+															{imgSrc && (
+																<img
+																	src={imgSrc}
+																	alt=''
+																	className='w-10 h-10 rounded object-cover border shadow-sm group-hover:scale-105 transition-transform'
+																	style={{
+																		borderColor: "var(--color-border)",
+																		backgroundColor: "#f3f4f6",
+																	}}
+																	onError={e => {
+																		e.target.style.display = "none";
+																	}}
+																/>
+															)}
+															<span>{renderHtml(cell)}</span>
 														</Link>
 													);
 												}
@@ -186,6 +222,7 @@ const ContentBlock = ({ block }) => {
 					)}
 				</div>
 			);
+
 		case "sublist":
 			return (
 				<div className='mb-8 space-y-6'>
@@ -261,7 +298,7 @@ const ContentBlock = ({ block }) => {
 				<div
 					className='mt-12 p-6 rounded-xl border text-center'
 					style={{
-						backgroundColor: "var(--color-surface-hover-bg)", // Màu xanh nhạt từ theme
+						backgroundColor: "var(--color-surface-hover-bg)",
 						borderColor: "var(--color-primary-300)",
 					}}
 				>
@@ -277,7 +314,7 @@ const ContentBlock = ({ block }) => {
 					<p
 						className='text-lg'
 						style={{
-							color: "var(--color-text-primary)", // Hoặc primary-700 nếu muốn đậm hơn
+							color: "var(--color-text-primary)",
 							fontFamily: "var(--font-secondary)",
 						}}
 					>
@@ -296,23 +333,37 @@ const ContentBlock = ({ block }) => {
 // ==========================================
 const GuideDetail = () => {
 	const { slug } = useParams();
+	const navigate = useNavigate();
 	const [guide, setGuide] = useState(null);
 	const [relatedGuides, setRelatedGuides] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 
+	const [referenceData, setReferenceData] = useState({
+		champions: {},
+		relics: {},
+		powers: {},
+	});
+
 	useEffect(() => {
 		window.scrollTo(0, 0);
 
 		const fetchData = async () => {
+			if (!slug) return;
 			setLoading(true);
 			setError(null);
+
 			try {
 				const backendUrl = import.meta.env.VITE_API_URL;
-				const [detailRes, listRes] = await Promise.all([
-					axios.get(`${backendUrl}/api/guides/${slug}`),
-					axios.get(`${backendUrl}/api/guides`),
-				]);
+
+				const [detailRes, listRes, champsRes, relicsRes, powersRes] =
+					await Promise.all([
+						axios.get(`${backendUrl}/api/guides/${slug}`),
+						axios.get(`${backendUrl}/api/guides`),
+						axios.get(`${backendUrl}/api/champions`),
+						axios.get(`${backendUrl}/api/relics`),
+						axios.get(`${backendUrl}/api/powers`),
+					]);
 
 				if (detailRes.data.success) {
 					setGuide(detailRes.data.data);
@@ -327,19 +378,35 @@ const GuideDetail = () => {
 						.slice(0, 3);
 					setRelatedGuides(otherGuides);
 				}
+
+				const arrayToMap = (arr, keyField) => {
+					if (!Array.isArray(arr)) return {};
+					return arr.reduce((acc, item) => {
+						if (item && item[keyField]) {
+							acc[item[keyField]] = item;
+						}
+						return acc;
+					}, {});
+				};
+
+				setReferenceData({
+					champions: arrayToMap(champsRes.data, "championID"),
+					relics: arrayToMap(relicsRes.data, "relicCode"),
+					powers: arrayToMap(powersRes.data, "powerCode"),
+				});
 			} catch (err) {
-				console.error("Lỗi:", err);
+				console.error("Lỗi khi tải dữ liệu:", err);
 				if (err.response && err.response.status === 404) {
 					setError("Bài viết không tồn tại.");
 				} else {
-					setError("Lỗi kết nối server.");
+					setError("Lỗi kết nối server hoặc tải dữ liệu.");
 				}
 			} finally {
 				setLoading(false);
 			}
 		};
 
-		if (slug) fetchData();
+		fetchData();
 	}, [slug]);
 
 	if (loading)
@@ -370,13 +437,14 @@ const GuideDetail = () => {
 				<p className='mb-6' style={{ color: "var(--color-text-secondary)" }}>
 					{error}
 				</p>
-				<Link
-					to='/'
-					className='hover:underline'
-					style={{ color: "var(--color-primary-500)" }}
+				{/* Nút quay về trang chủ */}
+				<Button
+					variant='primary'
+					onClick={() => navigate("/")}
+					iconLeft={<Home size={18} />}
 				>
 					Quay về trang chủ
-				</Link>
+				</Button>
 			</div>
 		);
 
@@ -401,26 +469,18 @@ const GuideDetail = () => {
 				style={{ backgroundColor: "var(--color-white)" }}
 			>
 				<div className='container mx-auto px-4 py-8 max-w-[1200px]'>
-					<Link
-						to='/guides'
-						className='inline-flex items-center mb-6 font-medium transition hover:opacity-80'
-						style={{ color: "var(--color-primary-500)" }}
-					>
-						<svg
-							className='w-4 h-4 mr-2'
-							fill='none'
-							stroke='currentColor'
-							viewBox='0 0 24 24'
+					{/* Nút quay lại danh sách sử dụng Button variant Ghost */}
+					<div className='mb-6'>
+						<Button
+							variant='ghost'
+							onClick={() => navigate("/guides")}
+							iconLeft={<ArrowLeft size={16} />}
+							className='hover:opacity-80 pl-0'
+							style={{ color: "var(--color-primary-500)" }}
 						>
-							<path
-								strokeLinecap='round'
-								strokeLinejoin='round'
-								strokeWidth='2'
-								d='M10 19l-7-7m0 0l7-7m-7 7h18'
-							></path>
-						</svg>
-						Quay lại danh sách
-					</Link>
+							Quay lại danh sách
+						</Button>
+					</div>
 
 					<h1
 						className='text-3xl md:text-5xl font-extrabold leading-tight mb-4'
@@ -440,7 +500,12 @@ const GuideDetail = () => {
 						}}
 					>
 						<span className='flex items-center gap-1'>
-							<Calendar size={18} /> {guide.publishedDate || "Mới cập nhật"}
+							<Calendar size={18} />
+							Ngày xuất bản: {guide.publishedDate}
+						</span>
+						<span className='flex items-center gap-1'>
+							<Calendar size={18} />
+							Ngày cập nhật: {guide.updateDate}
 						</span>
 						<span className='flex items-center gap-1'>
 							<Eye size={18} />
@@ -482,7 +547,11 @@ const GuideDetail = () => {
 					{/* Nội dung bài viết */}
 					{guide.content &&
 						guide.content.map((block, index) => (
-							<ContentBlock key={index} block={block} />
+							<ContentBlock
+								key={index}
+								block={block}
+								referenceData={referenceData}
+							/>
 						))}
 				</div>
 			</article>
@@ -518,7 +587,6 @@ const GuideDetail = () => {
 									borderColor: "var(--color-gray-300)",
 								}}
 							>
-								{/* Thumbnail nhỏ */}
 								<div className='h-40 overflow-hidden relative'>
 									<img
 										src={
@@ -530,7 +598,6 @@ const GuideDetail = () => {
 									<div className='absolute inset-0 bg-black/10 group-hover:bg-transparent transition'></div>
 								</div>
 
-								{/* Title */}
 								<div className='p-4'>
 									<h4
 										className='font-bold line-clamp-2 transition leading-snug group-hover:text-opacity-80'
@@ -539,16 +606,16 @@ const GuideDetail = () => {
 											fontFamily: "var(--font-primary)",
 										}}
 									>
-										{/* Hover effect thủ công hơi khó với inline style thuần túy mà không có state, 
-                        nhưng CSS class 'group-hover:text-blue-600' cũ có thể thay bằng CSS module hoặc styled-component. 
-                        Ở đây ta giữ màu text-primary và dựa vào opacity hover của thẻ Link cha */}
 										{item.title}
 									</h4>
 									<div
 										className='mt-3 flex items-center text-xs'
 										style={{ color: "var(--color-text-secondary)" }}
 									>
-										<span>📅 {item.publishedDate || "Mới nhất"}</span>
+										<span className='flex items-center gap-1'>
+											<Calendar size={18} /> {item.publishedDate || "Mới nhất"}
+											<Eye size={18} /> {item.views || 0} lượt xem
+										</span>
 									</div>
 								</div>
 							</Link>

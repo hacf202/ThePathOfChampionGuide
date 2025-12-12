@@ -1,24 +1,21 @@
+// src/pages/guideListPage.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Calendar, Eye } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Calendar, Eye, ArrowRight } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import Button from "../components/common/button"; // Đảm bảo đường dẫn đúng
 
 const GuideList = () => {
 	const [guides, setGuides] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
+	const navigate = useNavigate();
 
 	const fetchGuides = async () => {
 		setLoading(true);
 		setError(null);
 		try {
-			// -----------------------------------------------------------
-			// Lấy URL trực tiếp từ biến môi trường (Chuẩn Vite)
-			// Nếu không có biến môi trường thì fallback về localhost
-			// -----------------------------------------------------------
 			const backendUrl = import.meta.env.VITE_API_URL;
-
-			// Gọi API: nối backendUrl với endpoint /api/guides
 			const res = await axios.get(`${backendUrl}/api/guides`);
 
 			if (res.data.success) {
@@ -53,12 +50,15 @@ const GuideList = () => {
 						key={guide.slug}
 						className='bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 overflow-hidden border border-gray-100 flex flex-col'
 					>
+						{/* Hình ảnh vẫn dùng wrapper div, có thể bọc Link nếu muốn click vào ảnh */}
 						<div className='h-48 bg-gray-200 overflow-hidden'>
-							<img
-								src={guide.thumbnail}
-								alt={guide.title}
-								className='w-full h-full object-cover'
-							/>
+							<Link to={`/guides/${guide.slug}`}>
+								<img
+									src={guide.thumbnail}
+									alt={guide.title}
+									className='w-full h-full object-cover hover:scale-105 transition-transform duration-500'
+								/>
+							</Link>
 						</div>
 
 						<div className='p-6 flex-1 flex flex-col'>
@@ -80,12 +80,15 @@ const GuideList = () => {
 								</p>
 							</div>
 							<div className='mt-auto'>
-								<Link
-									to={`/guides/${guide.slug}`}
-									className='inline-block w-full text-center bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition'
+								{/* Sử dụng Button component */}
+								<Button
+									variant='primary'
+									className='w-full'
+									onClick={() => navigate(`/guides/${guide.slug}`)}
+									iconRight={<ArrowRight size={16} />}
 								>
 									Xem chi tiết
-								</Link>
+								</Button>
 							</div>
 						</div>
 					</div>

@@ -1,7 +1,7 @@
 // src/App.jsx
 import { useEffect } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { HelmetProvider } from "react-helmet-async"; // Import HelmetProvider
+import { HelmetProvider } from "react-helmet-async";
 
 // Context xác thực
 import { AuthProvider } from "./context/AuthContext.jsx";
@@ -50,21 +50,20 @@ import RuneEditor from "./components/admin/runeEditor.jsx";
 import BuildEditor from "./components/admin/buildEditor.jsx";
 import PrivateRoute from "./components/admin/privateRoute.jsx";
 import GuideEditor from "./components/admin/guideEditor.jsx";
-// --- Component Layout có điều kiện ---
+
+// --- Component chứa Routes ---
 function MainContent() {
 	const location = useLocation();
 
+	const isAdmin = location.pathname.startsWith("/admin");
 	// Danh sách các trang full-width
-	const fullWidthPaths = [
-		"/",
-		"/randomizer",
-		"/home",
-		"/admin",
-		"/introduction",
-	];
-	const isFullWidth = fullWidthPaths.includes(location.pathname);
+	const fullWidthPaths = ["/", "/randomizer", "/home", "/introduction"];
+	const isFullWidth = isAdmin || fullWidthPaths.includes(location.pathname);
 
 	useEffect(() => {
+		if (!location.pathname.startsWith("/admin")) {
+			window.scrollTo(0, 0);
+		}
 		window.scrollTo(0, 0);
 	}, [location.pathname]);
 
@@ -96,6 +95,8 @@ function MainContent() {
 				<Route path='/builds/detail/:buildId' element={<BuildDetail />} />
 				<Route path='/runes' element={<Runes />} />
 				<Route path='/rune/:runeCode' element={<RuneDetail />} />
+				<Route path='/guides' element={<GuideListPage />} />
+				<Route path='/guides/:slug' element={<GuidePage />} />
 
 				<Route
 					path='/auth'
@@ -104,23 +105,30 @@ function MainContent() {
 				<Route path='/about-us' element={<AboutUs />} />
 				<Route path='/terms-of-use' element={<TermsOfUse />} />
 				<Route path='/introduction' element={<Introduction />} />
-				<Route path='/guides' element={<GuideListPage />} />
-				<Route path='/guides/:slug' element={<GuidePage />} />
 
 				{/* Admin Routes - vẫn dùng container */}
 				<Route element={<PrivateRoute />}>
-					<Route path='/admin' element={<AdminPanel />} />
-					<Route path='/admin/championEditor' element={<ChampionEditor />} />
-					<Route path='/admin/powerEditor' element={<PowerEditor />} />
-					<Route path='/admin/relicEditor' element={<RelicEditor />} />
-					<Route path='/admin/itemEditor' element={<ItemEditor />} />
-					<Route path='/admin/runeEditor' element={<RuneEditor />} />
-					<Route path='/admin/buildEditor' element={<BuildEditor />} />
-					<Route path='/admin/guideEditor' element={<GuideEditor />} />
-					<Route path='/admin/guideEditor/:slug' element={<GuideEditor />} />
+					<Route path='/admin/*' element={<AdminPanel />} />
 				</Route>
 			</Routes>
 		</main>
+	);
+}
+
+// --- Component Layout (Mới) ---
+// Tách ra để có thể dùng useLocation() kiểm tra đường dẫn admin
+function AppLayout() {
+	const location = useLocation();
+	const isAdminRoute = location.pathname.startsWith("/admin");
+
+	return (
+		<div className='flex flex-col min-h-screen'>
+			<Navbar />
+			<AnnouncementPopup />
+			<MainContent />
+			{/* Chỉ hiển thị Footer nếu KHÔNG phải là trang admin */}
+			{!isAdminRoute && <Footer />}
+		</div>
 	);
 }
 
@@ -128,15 +136,10 @@ function MainContent() {
 function App() {
 	return (
 		<HelmetProvider>
-			{/* Bọc toàn bộ ứng dụng */}
 			<AuthProvider>
 				<BrowserRouter>
-					<div className='flex flex-col min-h-screen'>
-						<Navbar />
-						<AnnouncementPopup />
-						<MainContent />
-						<Footer />
-					</div>
+					{/* Sử dụng AppLayout thay vì viết trực tiếp div ở đây */}
+					<AppLayout />
 				</BrowserRouter>
 			</AuthProvider>
 		</HelmetProvider>

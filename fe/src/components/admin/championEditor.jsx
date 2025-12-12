@@ -1,7 +1,6 @@
-// src/pages/admin/ChampionEditor.jsx
+// src/pages/admin/championEditor.jsx
 import { useState, memo, useEffect, useCallback, useMemo } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import Modal from "../common/modal";
+import { useNavigate, Link, Routes, Route, useParams } from "react-router-dom";
 import ChampionCard from "../champion/championCard";
 import Button from "../common/button";
 import { removeAccents } from "../../utils/vietnameseUtils";
@@ -33,101 +32,132 @@ const NEW_CHAMPION_TEMPLATE = {
 	defaultRelicsSet6: [],
 	rune: [],
 	startingDeck: [],
-	assets: [
-		{
-			fullAbsolutePath: "",
-			gameAbsolutePath: "",
-			avatar: "",
-		},
-	],
+	assets: [{ fullAbsolutePath: "", gameAbsolutePath: "", avatar: "" }],
 	videoLink: "",
 };
 
 const ITEMS_PER_PAGE = 20;
 
-const MainContent = memo(
+// === COMPONENT DANH SÁCH (LIST VIEW) ===
+const ChampionListView = memo(
 	({
-		viewMode,
 		paginatedChampions,
 		totalPages,
 		currentPage,
 		onPageChange,
-		onSelectChampion,
-		selectedChampion,
-		onSaveChampion,
-		onCancel, // Đây là hàm kích hoạt modal xác nhận hủy
-		onDelete,
-		isSaving,
-		cachedData,
+		sidePanelProps,
 	}) => {
 		return (
-			<div className='bg-surface-bg rounded-lg'>
-				{viewMode === "list" ? (
-					<>
-						{paginatedChampions.length > 0 ? (
-							<div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6'>
-								{paginatedChampions.map(champion => (
-									<Link
-										key={champion.championID}
-										to={`/champion/${champion.championID}`}
-										className='block hover:scale-105 transition-transform duration-200'
-										onClick={e => {
-											e.preventDefault();
-											onSelectChampion(champion.championID);
-										}}
-									>
-										<ChampionCard champion={champion} />
-									</Link>
-								))}
+			<div className='flex flex-col lg:flex-row gap-6'>
+				<div className='lg:w-4/5 bg-surface-bg rounded-lg p-4'>
+					{paginatedChampions.length > 0 ? (
+						<div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6'>
+							{paginatedChampions.map(champion => (
+								<Link
+									key={champion.championID}
+									to={`./${champion.championID}`}
+									className='block hover:scale-105 transition-transform duration-200'
+								>
+									<ChampionCard champion={champion} />
+								</Link>
+							))}
+						</div>
+					) : (
+						<div className='flex items-center justify-center h-full min-h-[300px] text-center text-text-secondary'>
+							<div>
+								<p className='font-semibold text-lg'>
+									Không tìm thấy tướng nào phù hợp.
+								</p>
+								<p>Vui lòng thử lại với bộ lọc khác.</p>
 							</div>
-						) : (
-							<div className='flex items-center justify-center h-full min-h-[300px] text-center text-text-secondary'>
-								<div>
-									<p className='font-semibold text-lg'>
-										Không tìm thấy tướng nào phù hợp.
-									</p>
-									<p>Vui lòng thử lại với bộ lọc khác hoặc đặt lại bộ lọc.</p>
-								</div>
-							</div>
-						)}
+						</div>
+					)}
 
-						{totalPages > 1 && (
-							<div className='mt-8 flex justify-center items-center gap-2 md:gap-4'>
-								<Button
-									onClick={() => onPageChange(currentPage - 1)}
-									disabled={currentPage === 1}
-									variant='outline'
-								>
-									Trang trước
-								</Button>
-								<span className='text-lg font-medium text-text-primary'>
-									{currentPage} / {totalPages}
-								</span>
-								<Button
-									onClick={() => onPageChange(currentPage + 1)}
-									disabled={currentPage === totalPages}
-									variant='outline'
-								>
-									Trang sau
-								</Button>
-							</div>
-						)}
-					</>
-				) : (
-					<ChampionEditorForm
-						champion={selectedChampion}
-						cachedData={cachedData}
-						onSave={onSaveChampion}
-						onCancel={onCancel} // Truyền xuống Form
-						onDelete={onDelete}
-						isSaving={isSaving}
-					/>
-				)}
+					{totalPages > 1 && (
+						<div className='mt-8 flex justify-center items-center gap-2 md:gap-4'>
+							<Button
+								onClick={() => onPageChange(currentPage - 1)}
+								disabled={currentPage === 1}
+								variant='outline'
+							>
+								Trang trước
+							</Button>
+							<span className='text-lg font-medium text-text-primary'>
+								{currentPage} / {totalPages}
+							</span>
+							<Button
+								onClick={() => onPageChange(currentPage + 1)}
+								disabled={currentPage === totalPages}
+								variant='outline'
+							>
+								Trang sau
+							</Button>
+						</div>
+					)}
+				</div>
+				<div className='lg:w-1/5'>
+					<SidePanel {...sidePanelProps} />
+				</div>
 			</div>
 		);
 	}
 );
 
+// === COMPONENT EDIT WRAPPER ===
+const ChampionEditWrapper = ({
+	champions,
+	cachedData,
+	onSave,
+	onDelete,
+	isSaving,
+}) => {
+	const { id } = useParams(); // 'id' sẽ là "new" hoặc mã tướng (VD: C056)
+	const navigate = useNavigate();
+
+	const selectedChampion = useMemo(() => {
+		if (id === "new") return { ...NEW_CHAMPION_TEMPLATE };
+		return champions.find(c => c.championID === id);
+	}, [id, champions]);
+
+	// Callback quay lại
+	const handleBack = useCallback(() => {
+		navigate("/admin/champions");
+	}, [navigate]);
+
+	// Logic hiển thị lỗi khi không tìm thấy ID hợp lệ
+	if (!selectedChampion && champions.length > 0) {
+		return (
+			<div className='flex flex-col items-center justify-center py-20 text-text-secondary'>
+				<p className='text-xl mb-4'>Không tìm thấy tướng có ID: {id}</p>
+				<Button onClick={handleBack} variant='primary'>
+					Quay lại danh sách
+				</Button>
+			</div>
+		);
+	}
+
+	return (
+		<div className='flex flex-col lg:flex-row gap-6'>
+			<div className='lg:w-4/5 bg-surface-bg rounded-lg'>
+				{selectedChampion && (
+					<ChampionEditorForm
+						champion={selectedChampion}
+						cachedData={cachedData}
+						onSave={onSave}
+						onCancel={handleBack}
+						onDelete={onDelete}
+						isSaving={isSaving}
+					/>
+				)}
+			</div>
+			<div className='lg:w-1/5'>
+				<DropDragSidePanel cachedData={cachedData} onClose={handleBack} />
+			</div>
+		</div>
+	);
+};
+
+// === MAIN COMPONENT ===
 function ChampionEditor() {
 	const [champions, setChampions] = useState([]);
 	const [runes, setRunes] = useState([]);
@@ -135,7 +165,6 @@ function ChampionEditor() {
 	const [powers, setPowers] = useState([]);
 	const [items, setItems] = useState([]);
 
-	const [selectedChampion, setSelectedChampion] = useState(null);
 	const [searchInput, setSearchInput] = useState("");
 	const [searchTerm, setSearchTerm] = useState("");
 	const [selectedRegions, setSelectedRegions] = useState([]);
@@ -144,26 +173,14 @@ function ChampionEditor() {
 	const [selectedTags, setSelectedTags] = useState([]);
 	const [sortOrder, setSortOrder] = useState("name-asc");
 	const [currentPage, setCurrentPage] = useState(1);
-	const [viewMode, setViewMode] = useState("list");
-
-	// STATE MODALS
-	const [isCloseConfirmModalOpen, setIsCloseConfirmModalOpen] = useState(false);
-	const [isDeleteConfirmModalOpen, setIsDeleteConfirmModalOpen] =
-		useState(false);
 
 	const [isLoading, setIsLoading] = useState(true);
 	const [isSaving, setIsSaving] = useState(false);
 	const [error, setError] = useState(null);
-	const [notification, setNotification] = useState({
-		isOpen: false,
-		title: "",
-		message: "",
-	});
 
 	const API_BASE_URL = import.meta.env.VITE_API_URL;
 	const navigate = useNavigate();
 
-	// === FETCH DATA ===
 	const fetchAllData = useCallback(async () => {
 		try {
 			setIsLoading(true);
@@ -205,7 +222,6 @@ function ChampionEditor() {
 		fetchAllData();
 	}, [fetchAllData]);
 
-	// === FILTER & SORT ===
 	const filterOptions = useMemo(() => {
 		const regions = [...new Set(champions.flatMap(c => c.regions || []))]
 			.sort()
@@ -239,7 +255,6 @@ function ChampionEditor() {
 
 	const filteredChampions = useMemo(() => {
 		let result = [...champions];
-
 		if (searchTerm) {
 			const term = removeAccents(searchTerm.toLowerCase());
 			result = result.filter(c =>
@@ -263,7 +278,6 @@ function ChampionEditor() {
 			const B = field === "name" ? b.name : b[field];
 			return dir === "asc" ? (A > B ? 1 : -1) : A < B ? 1 : -1;
 		});
-
 		return result;
 	}, [
 		champions,
@@ -281,24 +295,13 @@ function ChampionEditor() {
 		currentPage * ITEMS_PER_PAGE
 	);
 
-	// === HANDLERS ===
-	const handleSelectChampion = id => {
-		const champ = champions.find(c => c.championID === id);
-		setSelectedChampion(champ ? { ...champ } : null);
-		setViewMode("edit");
-	};
-
-	const handleAddNewChampion = () => {
-		setSelectedChampion({ ...NEW_CHAMPION_TEMPLATE });
-		setViewMode("edit");
-	};
-
 	const handleSaveChampion = async data => {
 		setIsSaving(true);
 		try {
 			const token = localStorage.getItem("token");
 
-			// CẬP NHẬT: Backend chỉ dùng PUT cho cả tạo mới và cập nhật
+			// === LOGIC XỬ LÝ LƯU (KHỚP VỚI BACKEND CŨ) ===
+			// Backend cũ dùng chung 1 endpoint PUT cho cả tạo mới và sửa
 			const method = "PUT";
 			const url = `${API_BASE_URL}/api/champions`;
 
@@ -308,282 +311,157 @@ function ChampionEditor() {
 					"Content-Type": "application/json",
 					Authorization: `Bearer ${token}`,
 				},
+				// Gửi toàn bộ data bao gồm isNew để backend xử lý
 				body: JSON.stringify(data),
 			});
 
 			if (!res.ok) {
-				const err = await res.text();
-				throw new Error(err || "Lưu thất bại");
+				let errorMessage = "Lưu thất bại.";
+				try {
+					const errorBody = await res.json();
+					errorMessage = errorBody.error || errorBody.message || errorMessage;
+				} catch (e) {
+					errorMessage = `Lỗi Server: ${res.status} ${res.statusText}`;
+				}
+				throw new Error(errorMessage);
 			}
 
-			setNotification({
-				isOpen: true,
-				title: "Thành công!",
-				message: data.isNew
-					? "Tạo tướng mới thành công"
-					: "Cập nhật thành công",
-			});
-
 			await fetchAllData();
-			setViewMode("list");
-			setSelectedChampion(null);
+			navigate("/admin/champions");
+			alert(
+				data.isNew ? "Tạo tướng mới thành công" : "Cập nhật tướng thành công"
+			);
 		} catch (e) {
-			setNotification({
-				isOpen: true,
-				title: "Lỗi",
-				message: e.message || "Đã có lỗi xảy ra",
-			});
+			alert(e.message || "Đã có lỗi xảy ra");
 		} finally {
 			setIsSaving(false);
 		}
 	};
 
-	// Xử lý khi bấm nút Hủy
-	const handleAttemptClose = () => {
-		// Kiểm tra nếu có thay đổi thì bật modal
-		if (selectedChampion) {
-			const original = selectedChampion.isNew
-				? NEW_CHAMPION_TEMPLATE
-				: champions.find(c => c.championID === selectedChampion.championID);
-
-			// So sánh đơn giản để xem có thay đổi không
-			if (JSON.stringify(selectedChampion) !== JSON.stringify(original)) {
-				setIsCloseConfirmModalOpen(true);
-				return;
-			}
-		}
-		// Nếu không có thay đổi, đóng luôn
-		handleConfirmClose();
-	};
-
-	const handleConfirmClose = () => {
-		setViewMode("list");
-		setSelectedChampion(null);
-		setIsCloseConfirmModalOpen(false);
-	};
-
-	const handleAttemptDelete = () => setIsDeleteConfirmModalOpen(true);
-
-	const handleConfirmDelete = async () => {
-		if (!selectedChampion || selectedChampion.isNew) return;
+	const handleDeleteChampion = async championID => {
 		setIsSaving(true);
 		try {
 			const token = localStorage.getItem("token");
-			const res = await fetch(
-				`${API_BASE_URL}/api/champions/${selectedChampion.championID}`,
-				{
-					method: "DELETE",
-					headers: { Authorization: `Bearer ${token}` },
-				}
-			);
+			const res = await fetch(`${API_BASE_URL}/api/champions/${championID}`, {
+				method: "DELETE",
+				headers: { Authorization: `Bearer ${token}` },
+			});
 			if (!res.ok) throw new Error("Xóa thất bại");
 
-			setNotification({
-				isOpen: true,
-				title: "Đã xóa",
-				message: `${selectedChampion.name} đã được xóa`,
-			});
 			await fetchAllData();
-			setViewMode("list");
-			setSelectedChampion(null);
+			navigate("/admin/champions");
+			alert("Đã xóa tướng thành công");
 		} catch (e) {
-			setNotification({ isOpen: true, title: "Lỗi", message: e.message });
+			alert(e.message);
 		} finally {
 			setIsSaving(false);
-			setIsDeleteConfirmModalOpen(false);
 		}
 	};
 
-	const handleSearch = () => {
-		setSearchTerm(searchInput.trim());
-		setCurrentPage(1);
+	const sidePanelProps = {
+		searchPlaceholder: "Nhập tên tướng...",
+		addLabel: "Thêm Tướng Mới",
+		resetLabel: "Đặt lại bộ lọc",
+		searchInput,
+		onSearchInputChange: e => setSearchInput(e.target.value),
+		onSearch: () => {
+			setSearchTerm(searchInput.trim());
+			setCurrentPage(1);
+		},
+		onClearSearch: () => {
+			setSearchInput("");
+			setSearchTerm("");
+		},
+		onAddNew: () => navigate("new"), // Điều hướng đến /new
+		onResetFilters: () => {
+			setSearchInput("");
+			setSearchTerm("");
+			setSelectedRegions([]);
+			setSelectedCosts([]);
+			setSelectedMaxStars([]);
+			setSelectedTags([]);
+			setSortOrder("name-asc");
+			setCurrentPage(1);
+		},
+		multiFilterConfigs: [
+			{
+				label: "Vùng",
+				options: filterOptions.regions,
+				selectedValues: selectedRegions,
+				onChange: setSelectedRegions,
+				placeholder: "Tất cả Vùng",
+			},
+			{
+				label: "Năng lượng",
+				options: filterOptions.costs,
+				selectedValues: selectedCosts,
+				onChange: setSelectedCosts,
+				placeholder: "Tất cả Năng lượng",
+			},
+			{
+				label: "Số sao tối đa",
+				options: filterOptions.maxStars,
+				selectedValues: selectedMaxStars,
+				onChange: setSelectedMaxStars,
+				placeholder: "Tất cả Sao",
+			},
+			{
+				label: "Thẻ",
+				options: filterOptions.tags,
+				selectedValues: selectedTags,
+				onChange: setSelectedTags,
+				placeholder: "Tất cả Thẻ",
+			},
+		],
+		sortOptions: filterOptions.sort,
+		sortSelectedValue: sortOrder,
+		onSortChange: setSortOrder,
 	};
 
-	const handleClearSearch = () => {
-		setSearchInput("");
-		setSearchTerm("");
-	};
-
-	const handleResetFilters = () => {
-		handleClearSearch();
-		setSelectedRegions([]);
-		setSelectedCosts([]);
-		setSelectedMaxStars([]);
-		setSelectedTags([]);
-		setSortOrder("name-asc");
-		setCurrentPage(1);
-	};
-
-	const cachedData = { runes, relics, powers, items };
+	const cachedData = { runes, relics, powers, items, regions: [] };
 
 	if (isLoading) {
 		return (
-			<div className='flex flex-col items-center justify-center min-h-screen text-text-secondary'>
+			<div className='flex flex-col items-center justify-center min-h-[400px] text-text-secondary'>
 				<Loader2 className='animate-spin text-primary-500' size={48} />
-				<div className='text-lg mt-4'>Đang tải trình chỉnh sửa tướng...</div>
+				<div className='text-lg mt-4'>Đang tải dữ liệu...</div>
 			</div>
 		);
 	}
 
 	if (error) {
-		return (
-			<div className='text-center text-lg p-10 text-danger-text-dark'>
-				{error}
-				<Button onClick={fetchAllData} variant='primary' className='mt-4'>
-					Thử lại
-				</Button>
-			</div>
-		);
+		return <div className='text-center p-10 text-red-500'>{error}</div>;
 	}
-
-	const multiFilterConfigs = [
-		{
-			label: "Vùng",
-			options: filterOptions.regions,
-			selectedValues: selectedRegions,
-			onChange: setSelectedRegions,
-			placeholder: "Tất cả Vùng",
-		},
-		{
-			label: "Năng lượng",
-			options: filterOptions.costs,
-			selectedValues: selectedCosts,
-			onChange: setSelectedCosts,
-			placeholder: "Tất cả Năng lượng",
-		},
-		{
-			label: "Số sao tối đa",
-			options: filterOptions.maxStars,
-			selectedValues: selectedMaxStars,
-			onChange: setSelectedMaxStars,
-			placeholder: "Tất cả Sao",
-		},
-		{
-			label: "Thẻ",
-			options: filterOptions.tags,
-			selectedValues: selectedTags,
-			onChange: setSelectedTags,
-			placeholder: "Tất cả Thẻ",
-		},
-	];
 
 	return (
 		<div className='font-secondary'>
-			<div className='flex flex-col lg:flex-row gap-6'>
-				<div className='lg:w-4/5'>
-					<MainContent
-						viewMode={viewMode}
-						paginatedChampions={paginatedChampions}
-						totalPages={totalPages}
-						currentPage={currentPage}
-						onPageChange={setCurrentPage}
-						onSelectChampion={handleSelectChampion}
-						selectedChampion={selectedChampion}
-						onSaveChampion={handleSaveChampion}
-						onCancel={handleAttemptClose} // Gắn hàm xử lý xác nhận đóng
-						onDelete={handleAttemptDelete}
-						isSaving={isSaving}
-						cachedData={cachedData}
-					/>
-				</div>
-
-				<div className='lg:w-1/5'>
-					{viewMode === "list" ? (
-						<SidePanel
-							searchPlaceholder='Nhập tên tướng...'
-							addLabel='Thêm Tướng Mới'
-							resetLabel='Đặt lại bộ lọc'
-							searchInput={searchInput}
-							onSearchInputChange={e => setSearchInput(e.target.value)}
-							onSearch={handleSearch}
-							onClearSearch={handleClearSearch}
-							onAddNew={handleAddNewChampion}
-							onResetFilters={handleResetFilters}
-							multiFilterConfigs={multiFilterConfigs}
-							sortOptions={filterOptions.sort}
-							sortSelectedValue={sortOrder}
-							onSortChange={setSortOrder}
+			<Routes>
+				<Route
+					index
+					element={
+						<ChampionListView
+							paginatedChampions={paginatedChampions}
+							totalPages={totalPages}
+							currentPage={currentPage}
+							onPageChange={setCurrentPage}
+							sidePanelProps={sidePanelProps}
 						/>
-					) : (
-						<DropDragSidePanel
+					}
+				/>
+				{/* GỘP ROUTE: :id sẽ bắt cả trường hợp "new" và "Cxxx" */}
+				<Route
+					path=':id'
+					element={
+						<ChampionEditWrapper
+							champions={champions}
 							cachedData={cachedData}
-							onClose={handleAttemptClose}
+							onSave={handleSaveChampion}
+							onDelete={handleDeleteChampion}
+							isSaving={isSaving}
 						/>
-					)}
-				</div>
-			</div>
-
-			{/* Modal xác nhận đóng/Hủy */}
-			<Modal
-				isOpen={isCloseConfirmModalOpen}
-				onClose={() => setIsCloseConfirmModalOpen(false)}
-				title='Xác nhận Hủy'
-			>
-				<div className='text-text-secondary'>
-					<p className='mb-6'>
-						Bạn có chắc chắn muốn hủy bỏ các thay đổi hiện tại? Mọi thay đổi
-						chưa lưu sẽ bị mất.
-					</p>
-					<div className='flex justify-end gap-3'>
-						<Button
-							onClick={() => setIsCloseConfirmModalOpen(false)}
-							variant='ghost'
-						>
-							Tiếp tục chỉnh sửa
-						</Button>
-						<Button onClick={handleConfirmClose} variant='danger'>
-							Xác nhận Hủy
-						</Button>
-					</div>
-				</div>
-			</Modal>
-
-			{/* Modal xác nhận xóa */}
-			<Modal
-				isOpen={isDeleteConfirmModalOpen}
-				onClose={() => setIsDeleteConfirmModalOpen(false)}
-				title='Xác nhận Xóa Tướng'
-			>
-				<div className='text-text-secondary'>
-					<p className='mb-6'>
-						Bạn có thực sự muốn xóa tướng{" "}
-						<strong className='text-text-primary'>
-							{selectedChampion?.name}
-						</strong>
-						? Hành động này không thể hoàn tác.
-					</p>
-					<div className='flex justify-end gap-3'>
-						<Button
-							onClick={() => setIsDeleteConfirmModalOpen(false)}
-							variant='ghost'
-						>
-							Hủy
-						</Button>
-						<Button onClick={handleConfirmDelete} variant='danger'>
-							Xác nhận Xóa
-						</Button>
-					</div>
-				</div>
-			</Modal>
-
-			{/* Notification modal */}
-			<Modal
-				isOpen={notification.isOpen}
-				onClose={() => setNotification(p => ({ ...p, isOpen: false }))}
-				title={notification.title}
-			>
-				<div className='text-text-secondary'>
-					<p className='mb-6'>{notification.message}</p>
-					<div className='flex justify-end'>
-						<Button
-							onClick={() => setNotification(p => ({ ...p, isOpen: false }))}
-							variant='primary'
-						>
-							Đã hiểu
-						</Button>
-					</div>
-				</div>
-			</Modal>
+					}
+				/>
+			</Routes>
 		</div>
 	);
 }

@@ -4,10 +4,10 @@ import {
 	ScanCommand,
 	PutItemCommand,
 	DeleteItemCommand,
-	UpdateItemCommand, // Đảm bảo đã import UpdateItemCommand
+	UpdateItemCommand,
 } from "@aws-sdk/client-dynamodb";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
-import NodeCache from "node-cache"; // Đảm bảo đã cài đặt npm install node-cache
+import NodeCache from "node-cache";
 
 import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
@@ -16,13 +16,20 @@ import { requireAdmin } from "../middleware/requireAdmin.js";
 const router = express.Router();
 const GUIDES_TABLE = "guidePocGuideList";
 
-// Khởi tạo Cache: TTL (Time to live) là 600 giây (10 phút)
+// Khởi tạo Cache: TTL 10 phút
 const cache = new NodeCache({ stdTTL: 600 });
-const CACHE_KEY_LIST = "all_guides"; // Key định danh cho danh sách guide
+const CACHE_KEY_LIST = "all_guides";
 
-// Hàm tạo key cho từng bài viết chi tiết
+// Hàm tạo key cache cho chi tiết
 const getDetailCacheKey = slug => `guide_${slug}`;
 
+const getCurrentDate = () => {
+	const date = new Date();
+	const day = date.getDate().toString().padStart(2, "0"); // Thêm số 0 nếu < 10
+	const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Tháng bắt đầu từ 0
+	const year = date.getFullYear();
+	return `${day}-${month}-${year}`;
+};
 // ==========================================
 // PUBLIC ROUTES
 // ==========================================
@@ -33,16 +40,16 @@ const getDetailCacheKey = slug => `guide_${slug}`;
  */
 router.get("/", async (req, res) => {
 	try {
-		// 1. Kiểm tra Cache trước
+		// 1. Kiểm tra Cache
 		if (cache.has(CACHE_KEY_LIST)) {
-			// console.log("Hit cache: getting guides list from memory");
 			return res.status(200).json(cache.get(CACHE_KEY_LIST));
 		}
 
-		// 2. Nếu không có cache, gọi DynamoDB
+		// 2. Gọi DynamoDB
 		const command = new ScanCommand({ TableName: GUIDES_TABLE });
 		const { Items } = await client.send(command);
 
+		// Unmarshall dữ liệu từ định dạng DynamoDB sang JSON thường
 		const guides = Items.map(item => unmarshall(item));
 
 		const responseData = {
@@ -51,7 +58,7 @@ router.get("/", async (req, res) => {
 			data: guides,
 		};
 
-		// 3. Lưu kết quả vào Cache
+		// 3. Lưu Cache
 		cache.set(CACHE_KEY_LIST, responseData);
 
 		res.status(200).json(responseData);
@@ -65,7 +72,7 @@ router.get("/", async (req, res) => {
 
 /**
  * @route   GET /api/guides/:slug
- * @desc    Lấy chi tiết (CACHE CHẶT - Chỉ tăng view khi hết cache)
+ * @desc    Lấy chi tiết (Tăng view + Cache chặt)
  */
 router.get("/:slug", async (req, res) => {
 	const { slug } = req.params;
@@ -74,25 +81,26 @@ router.get("/:slug", async (req, res) => {
 	try {
 		// 1. KIỂM TRA CACHE
 		if (cache.has(cacheKey)) {
-			// console.log(`Hit cache for ${slug}. No view increment.`);
-			// Nếu có trong cache -> Trả về luôn và KHÔNG gọi DB để tăng view
 			return res.status(200).json({
 				success: true,
 				data: cache.get(cacheKey),
 			});
 		}
 
-		// 2. NẾU KHÔNG CÓ CACHE (Cache Miss) -> Gọi DB, Tăng view, Lưu Cache
+		// 2. GỌI DB & TĂNG VIEW
+		// Lưu ý: Dữ liệu trong DB trường 'views' BẮT BUỘC phải là Number (N).
+		// Nếu 'views' đang là String (S), lệnh này sẽ lỗi ValidationException.
 		const params = {
 			TableName: GUIDES_TABLE,
 			Key: marshall({ slug: slug }),
-			// Tăng view + 1
+			// Logic: views = views cũ + 1. Nếu chưa có views thì bắt đầu từ 0 + 1
 			UpdateExpression: "SET #views = if_not_exists(#views, :start) + :inc",
 			ExpressionAttributeNames: { "#views": "views" },
-			ExpressionAttributeValues: marshall({ ":inc": 1, ":start": 0 }),
-			// Điều kiện: Chỉ update nếu slug đã tồn tại
+			ExpressionAttributeValues: marshall({
+				":inc": 1,
+				":start": 0,
+			}),
 			ConditionExpression: "attribute_exists(slug)",
-			// Trả về dữ liệu mới nhất sau khi tăng view
 			ReturnValues: "ALL_NEW",
 		};
 
@@ -100,7 +108,7 @@ router.get("/:slug", async (req, res) => {
 		const { Attributes } = await client.send(command);
 		const guide = unmarshall(Attributes);
 
-		// 3. Lưu vào Cache
+		// 3. Lưu Cache
 		cache.set(cacheKey, guide);
 
 		res.status(200).json({
@@ -119,12 +127,12 @@ router.get("/:slug", async (req, res) => {
 });
 
 // ==========================================
-// ADMIN ROUTES (Cần xóa Cache khi thay đổi)
+// ADMIN ROUTES
 // ==========================================
 
 /**
  * @route   POST /api/guides
- * @desc    Tạo mới -> Xóa cache list
+ * @desc    Tạo mới: Format ngày dd-mm-yyyy
  */
 router.post("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 	try {
@@ -135,7 +143,6 @@ router.post("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 				.json({ success: false, message: "Thiếu thông tin bắt buộc." });
 		}
 
-		// Check trùng slug
 		const checkParams = {
 			TableName: GUIDES_TABLE,
 			Key: marshall({ slug: guideData.slug }),
@@ -147,11 +154,14 @@ router.post("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 				.json({ success: false, message: "Slug đã tồn tại." });
 		}
 
+		// Sử dụng hàm getCurrentDate()
+		const todayStr = getCurrentDate();
+
 		const preparedData = {
 			...guideData,
-			publishedDate: guideData.publishedDate || new Date().toISOString(),
-			updateDate: guideData.updateDate || new Date().toISOString(),
-			views: 0, // Khởi tạo view
+			views: 0,
+			publishedDate: guideData.publishedDate || todayStr, // VD: "12-12-2025"
+			updateDate: todayStr, // VD: "12-12-2025"
 		};
 
 		const params = {
@@ -160,8 +170,6 @@ router.post("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 		};
 
 		await client.send(new PutItemCommand(params));
-
-		// XÓA CACHE: Chỉ cần xóa list
 		cache.del(CACHE_KEY_LIST);
 
 		res.status(201).json({
@@ -179,7 +187,7 @@ router.post("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 
 /**
  * @route   PUT /api/guides/:slug
- * @desc    Cập nhật -> Xóa cache list VÀ cache detail
+ * @desc    Cập nhật: Format ngày updateDate thành dd-mm-yyyy
  */
 router.put(
 	"/:slug",
@@ -188,26 +196,58 @@ router.put(
 	async (req, res) => {
 		try {
 			const { slug } = req.params;
-			const guideData = req.body;
-			guideData.slug = slug;
-			guideData.updateDate = new Date().toISOString();
+			const incomingData = req.body;
 
-			// Update Item
-			const params = {
+			// Sử dụng hàm getCurrentDate()
+			const todayStr = getCurrentDate();
+
+			// 1. Lấy dữ liệu CŨ
+			const getOldItemParams = {
 				TableName: GUIDES_TABLE,
-				Item: marshall(guideData, { removeUndefinedValues: true }),
+				Key: marshall({ slug: slug }),
+			};
+			const { Item: oldItemRaw } = await client.send(
+				new GetItemCommand(getOldItemParams)
+			);
+
+			if (!oldItemRaw) {
+				return res
+					.status(404)
+					.json({
+						success: false,
+						message: "Không tìm thấy bài viết để cập nhật.",
+					});
+			}
+			const oldItem = unmarshall(oldItemRaw);
+
+			// 2. Gộp dữ liệu
+			const finalData = {
+				...incomingData,
+				slug: slug,
+				views: oldItem.views !== undefined ? oldItem.views : 0,
+
+				// Giữ ngày cũ, nếu chưa có (data cũ quá) thì mới gán ngày hôm nay
+				publishedDate: oldItem.publishedDate || todayStr,
+
+				// Luôn cập nhật ngày sửa là hôm nay (dd-mm-yyyy)
+				updateDate: todayStr,
 			};
 
-			await client.send(new PutItemCommand(params));
+			// 3. Ghi vào DB
+			const putParams = {
+				TableName: GUIDES_TABLE,
+				Item: marshall(finalData, { removeUndefinedValues: true }),
+			};
 
-			// XÓA CACHE: Xóa cả 2 để user thấy nội dung mới update
+			await client.send(new PutItemCommand(putParams));
+
 			cache.del(CACHE_KEY_LIST);
 			cache.del(getDetailCacheKey(slug));
 
 			res.status(200).json({
 				success: true,
 				message: "Cập nhật guide thành công",
-				data: guideData,
+				data: finalData,
 			});
 		} catch (error) {
 			console.error(`Error updating guide ${req.params.slug}:`, error);
@@ -220,7 +260,7 @@ router.put(
 
 /**
  * @route   DELETE /api/guides/:slug
- * @desc    Xóa -> Xóa cache list VÀ cache detail
+ * @desc    Xóa
  */
 router.delete(
 	"/:slug",
@@ -236,7 +276,6 @@ router.delete(
 
 			await client.send(new DeleteItemCommand(params));
 
-			// XÓA CACHE
 			cache.del(CACHE_KEY_LIST);
 			cache.del(getDetailCacheKey(slug));
 
