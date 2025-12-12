@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import PageTitle from "../common/PageTitle";
+import PageTitle from "../common/pageTitle";
 import { Eye, Calendar, PenTool } from "lucide-react";
 import axios from "axios";
 
