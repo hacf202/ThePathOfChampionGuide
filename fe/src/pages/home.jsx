@@ -18,6 +18,7 @@ import {
 
 // Mảng ảnh nền vẫn giữ nguyên
 const BACKGROUND_IMAGES = [
+	"https://wpocpicture.s3.us-east-1.amazonaws.com/images/soloevent.jpg",
 	"https://dd.b.pvp.net/6_3_0/set2/vi_vn/img/cards/02NX007T2-full.png",
 	"https://wiki.leagueoflegends.com/en-us/images/06SI012T1-full.png?0bfd7",
 	"https://wiki.leagueoflegends.com/en-us/images/06SH009-full.png?ff10a",
@@ -98,6 +99,18 @@ const Home = () => {
 
 	// SỬ DỤNG CLASS MÀU TỪ TAILWIND CONFIG
 	const sections = [
+		{
+			title: "QUICK SOLO EVENT",
+			subtitle: "Giải Đấu PvP - Giao Hữu Vui Vẻ",
+			titleColor: "text-accent1-title",
+			subtitleColor: "text-accent1-subtitle",
+			btnBg: "bg-yellow-600",
+			btnHover: "hover:bg-accent1-cta-hover hover:shadow-accent1-cta-bg/70",
+			link: "https://www.facebook.com/share/p/1BumDFPA2y/",
+			btnText: "Đăng Ký Ngay Tại Đây",
+			icon: Swords,
+			align: "right",
+		},
 		{
 			title: "DANH SÁCH TƯỚNG",
 			subtitle: "KHÁM PHÁ SỨC MẠNH – TRỞ THÀNH CAO THỦ",
@@ -217,7 +230,7 @@ const Home = () => {
               `}
 								style={{
 									textShadow:
-										"0 0 20px rgba(255,255,255,0.4), 0 0 40px currentColor",
+										"0 0 20px rgba(255,255,255,0.7), 0 0 40px currentColor",
 								}}
 							>
 								{section.title}
@@ -242,7 +255,7 @@ const Home = () => {
 							</p>
 
 							{/* CARD VAI TRÒ */}
-							{idx === 0 && section.align === "center" && (
+							{idx === 1 && section.align === "center" && (
 								<div className='flex flex-wrap justify-center gap-3 sm:gap-6 md:gap-10 mb-8 px-4 sm:px-0'>
 									{roles.map((role, i) => (
 										<NavLink
@@ -323,25 +336,16 @@ const Home = () => {
 									to={section.link}
 									className={`
                   flex items-center justify-center gap-3 px-9 py-5 ${section.btnBg} rounded-full
-                  font-bold text-lg md:text-xl text-white hover:scale-110 transition-all duration-300
+                  font-bold text-lg md:text-4xl text-white hover:scale-110 transition-all duration-300
                   shadow-2xl ${section.btnHover} backdrop-blur-md group
                 `}
 								>
 									{section.spin ? (
-										<section.icon className='w-6 h-6 animate-spin' />
+										<section.icon className='w-6 h-6 md:w-10 md:h-10 animate-spin' />
 									) : (
-										<section.icon className='w-6 h-6' />
+										<section.icon className='w-6 h-6 md:w-10 md:h-10' />
 									)}
 									{section.btnText}
-									<ChevronRight className='w-6 h-6 group-hover:translate-x-2 transition-transform duration-300' />
-								</NavLink>
-
-								<NavLink
-									to={section.link}
-									// SỬ DỤNG CLASS MÀU TỪ TAILWIND CONFIG
-									className='flex items-center justify-center gap-3 px-9 py-5 bg-glass-bg hover:bg-glass-hover-bg backdrop-blur-md rounded-full font-bold text-lg md:text-xl transition-all duration-300 hover:scale-110 border-2 border-glass-border shadow-xl group'
-								>
-									Khám Phá Ngay
 									<ChevronRight className='w-6 h-6 group-hover:translate-x-2 transition-transform duration-300' />
 								</NavLink>
 							</div>
