@@ -247,15 +247,6 @@ const ContentBlock = ({ block, referenceData }) => {
 								borderColor: "var(--color-border)",
 							}}
 						>
-							{item.image && (
-								<div className='flex-shrink-0'>
-									<img
-										src={item.image}
-										alt={item.imageAlt}
-										className='w-full object-cover rounded-lg'
-									/>
-								</div>
-							)}
 							<div className='flex-1'>
 								<h4
 									className='text-lg font-bold mb-1'
@@ -286,6 +277,15 @@ const ContentBlock = ({ block, referenceData }) => {
 											</li>
 										))}
 									</ul>
+								)}
+								{item.image && (
+									<div className='flex-shrink-0'>
+										<img
+											src={item.image}
+											alt={item.imageAlt}
+											className='w-full h-72 object-cover rounded-lg'
+										/>
+									</div>
 								)}
 							</div>
 						</div>
