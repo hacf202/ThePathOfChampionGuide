@@ -23,7 +23,6 @@ const BACKGROUND_IMAGES = [
 	"https://wiki.leagueoflegends.com/en-us/images/06SI012T1-full.png?0bfd7",
 	"https://wiki.leagueoflegends.com/en-us/images/06SH009-full.png?ff10a",
 ];
-import SafeImage from "@/components/common/SafeImage";
 
 // Hàm preload vẫn giữ nguyên
 const preloadBackgrounds = () => {

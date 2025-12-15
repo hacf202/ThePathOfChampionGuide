@@ -24,6 +24,7 @@ import {
 	LoaderPinwheel,
 	BookMarked,
 	BookCopy,
+	Map,
 } from "lucide-react";
 
 function DesktopNavbar() {
@@ -110,11 +111,20 @@ function DesktopNavbar() {
 						<NavLink to='/guides' className={navLinkClass}>
 							<BookMarked className='w-6 h-6' /> Hướng Dẫn
 						</NavLink>
-
-						<div className='relative' ref={itemsDropdownRef}>
+						<NavLink to='/maps' className={navLinkClass}>
+							<Map className='w-6 h-6' />
+							Bản Đồ
+						</NavLink>
+						<div
+							className='relative'
+							ref={itemsDropdownRef}
+							// CHUYỂN SỰ KIỆN RA ĐÂY
+							onMouseEnter={() => setIsItemsDropdownOpen(true)}
+							onMouseLeave={() => setIsItemsDropdownOpen(false)}
+						>
 							<button
-								onClick={() => setIsItemsDropdownOpen(!isItemsDropdownOpen)}
-								className='flex items-center gap-2 py-2 px-4 rounded-lg hover:bg-nav-hover-bg transition-all'
+								// Bỏ sự kiện ở đây
+								className='flex items-center gap-2 px-4 rounded-lg hover:bg-nav-hover-bg transition-all'
 							>
 								<Package className='w-6 h-6' /> Vật phẩm
 								<svg
@@ -135,7 +145,8 @@ function DesktopNavbar() {
 							</button>
 
 							{isItemsDropdownOpen && (
-								<div className='absolute left-0 mt-2 w-48 bg-dropdown-bg border border-dropdown-border rounded-lg shadow-xl py-2'>
+								// Thêm z-index cao (z-50) để đảm bảo menu nổi lên trên các thành phần khác
+								<div className='absolute z-50 left-0 w-48 bg-dropdown-bg border border-dropdown-border rounded-lg shadow-xl py-2'>
 									<NavLink
 										to='/items'
 										className={dropdownLinkClass}
@@ -167,12 +178,13 @@ function DesktopNavbar() {
 								</div>
 							)}
 						</div>
-
-						<div className='relative' ref={toolsDropdownRef}>
-							<button
-								onClick={() => setIsToolsDropdownOpen(!isToolsDropdownOpen)}
-								className='flex items-center gap-2 py-2 px-4 rounded-lg hover:bg-nav-hover-bg transition-all'
-							>
+						<div
+							className='relative'
+							ref={toolsDropdownRef}
+							onMouseEnter={() => setIsToolsDropdownOpen(true)}
+							onMouseLeave={() => setIsToolsDropdownOpen(false)}
+						>
+							<button className='flex items-center gap-2 py-2 px-4 rounded-lg hover:bg-nav-hover-bg transition-all'>
 								<Wrench className='w-6 h-6' /> Công cụ
 								<svg
 									className={`w-4 h-4 transition-transform ${
@@ -191,7 +203,7 @@ function DesktopNavbar() {
 								</svg>
 							</button>
 							{isToolsDropdownOpen && (
-								<div className='absolute left-0 mt-2 w-48 bg-dropdown-bg border border-dropdown-border rounded-lg shadow-xl py-2'>
+								<div className='absolute z-50 left-0 w-48 bg-dropdown-bg border border-dropdown-border rounded-lg shadow-xl py-2'>
 									<NavLink
 										to='/randomizer'
 										className={dropdownLinkClass}

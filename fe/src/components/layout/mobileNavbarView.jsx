@@ -26,6 +26,7 @@ import {
 	X,
 	BookMarked,
 	BookCopy,
+	Map,
 } from "lucide-react";
 
 function MobileSidebar() {
@@ -130,6 +131,14 @@ function MobileSidebar() {
 						>
 							<BookMarked className='w-5 h-5' />
 							Hướng Dẫn
+						</NavLink>
+						<NavLink
+							to='/maps'
+							className='flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-nav-hover-bg transition-all'
+							onClick={closeSidebar}
+						>
+							<Map className='w-5 h-5' />
+							Bản Đồ
 						</NavLink>
 						<div>
 							<button

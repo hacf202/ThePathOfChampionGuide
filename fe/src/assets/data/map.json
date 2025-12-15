@@ -1,54 +1,1668 @@
 [
-  {
-    "name": "Ác Long Thượng Giới",
-    "desc": "Asol 4*"
-  },
-  {
-    "name": "Kẻ Bất Dung Thứ",
-    "desc": "Yasuo 4.5*"
-  },
-  {
-    "name": "Cơn Thịnh Nộ Xứ Zaun",
-    "desc": "WW Arcane 4.5*"
-  },
-  {
-    "name": "Phù Thuỷ Băng",
-    "desc": "Lissandra 5*"
-  },
-  {
-    "name": "Ác Long Thượng Giới",
-    "desc": "Asol Arcane 6.5*"
-  },
-  {
-    "name": "Kẻ Được Khai Sáng",
-    "desc": "Karma Arcane 5.5*"
-  },
-  {
-    "name": "Nguyên Soái Noxus",
-    "desc": "Swain 5*"
-  },
-  {
-    "name": "Cổng Hắc Tinh",
-    "desc": "Ải tuần 4*"
-  },
-  {
-    "name": "The Relentless Storm",
-    "desc": "Voli 5*"
-  },
-  {
-    "name": "The Dragonsire",
-    "desc": "Rồng ngàn tuổi 6*"
-  },
-  {
-    "name": "The Tidal Trickster",
-    "desc": "Fizz Ác mộng 4*"
-  },
-  {
-    "name": "The Ruined King",
-    "desc": "Viego Ác mộng 5*"
-  },
-  {
-    "name": "The Ancient Fear",
-    "desc": "Fiddlestick Ác mộng 6.5*"
-  }
+	{
+		"adventureName": "Trinh Sát Nhanh Nhẹn",
+		"adventureNameRef": "The Swift Scout",
+		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
+		"typeAdventureRef": "World Adventures",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/01PZ008T2-full.png?a20a9",
+		"difficulty": 0,
+		"specialRules": [],
+		"bosses": [
+			{
+				"name": "Teemo",
+				"power": "Bandle Scout"
+			}
+		],
+		"championXP": 100,
+		"requirement": ["ALL", "ALL", "ALL", "ALL"],
+		"rewards": [
+			{
+				"items": [
+					{ "name": "Kho Báu Đồng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Mảnh Ghép Bí Ẩn", "count": 10 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Mảnh Ghép Bí Ẩn", "count": 10 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Mảnh Ghép Bí Ẩn", "count": 10 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			}
+		]
+	},
+	{
+		"adventureName": "Thợ Săn Tiền Thưởng",
+		"adventureNameRef": "The Bounty Hunter",
+		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
+		"typeAdventureRef": "World Adventures",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/02BW022T2-full.png?a5939",
+		"difficulty": 0.5,
+		"specialRules": [],
+		"bosses": [
+			{
+				"name": "Miss Fortune",
+				"power": "Boarding Party"
+			}
+		],
+		"championXP": 100,
+		"requirement": ["ALL", "ALL", "ALL", "ALL"],
+		"rewards": [
+			{
+				"items": [
+					{ "name": "Mảnh Ghép Bí Ẩn", "count": 10 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Mảnh Ghép Bí Ẩn", "count": 10 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Mảnh Ghép Bí Ẩn", "count": 10 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Mảnh Ghép Bí Ẩn", "count": 10 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			}
+		]
+	},
+	{
+		"adventureName": "Sức Mạnh Của Demacia",
+		"adventureNameRef": "The Might of Demacia",
+		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
+		"typeAdventureRef": "World Adventures",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/01DE012-hd-full.jpg?0d58c",
+		"difficulty": 1,
+		"specialRules": [],
+		"bosses": [
+			{
+				"name": "Ashe",
+				"power": "Creeping Chill"
+			},
+			{
+				"name": "Garen",
+				"power": "For Demacia!"
+			}
+		],
+		"championXP": 305,
+		"requirement": ["ALL"],
+		"rewards": [
+			{
+				"items": [
+					{ "name": "Kho Báu Đồng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			}
+		]
+	},
+	{
+		"adventureName": "Pháp Sư Tinh Linh",
+		"adventureNameRef": "The Fae Sorceress",
+		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
+		"typeAdventureRef": "World Adventures",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/03IO002-full.png?3f0cc",
+		"difficulty": 1,
+		"specialRules": [],
+		"bosses": [
+			{
+				"name": "Fizz",
+				"power": "Nautical Nuisance"
+			},
+			{
+				"name": "Lulu",
+				"power": "Adoribus!"
+			}
+		],
+		"championXP": 305,
+		"requirement": ["ALL"],
+		"rewards": [
+			{
+				"items": [
+					{ "name": "Kho Báu Đồng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			}
+		]
+	},
+	{
+		"adventureName": "Cơn Thịnh Nộ Xứ Zaun",
+		"adventureNameRef": "The Wrath of Zaun",
+		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
+		"typeAdventureRef": "World Adventures",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/98PZ001-full.png?4d749",
+		"difficulty": 1,
+		"specialRules": [],
+		"bosses": [
+			{
+				"name": "Ambessa",
+				"power": "Battle Hardened"
+			},
+			{
+				"name": "Warwick",
+				"power": "Eternal Hunger"
+			}
+		],
+		"championXP": 210,
+		"requirement": ["ALL", "ALL", "ALL", "ALL"],
+		"rewards": [
+			{
+				"items": [
+					{ "name": "Mảnh Ghép Bí Ẩn", "count": 10 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Mảnh Ghép Bí Ẩn", "count": 10 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Mảnh Ghép Bí Ẩn", "count": 10 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Mảnh Ghép Bí Ẩn", "count": 10 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			}
+		]
+	},
+	{
+		"adventureName": "Hiểm Họa Vùng Saltwater",
+		"adventureNameRef": "The Saltwater Scourge",
+		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
+		"typeAdventureRef": "World Adventures",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/02BW032-full.png?441cb",
+		"difficulty": 1.5,
+		"specialRules": ["Blood and Sweat"],
+		"bosses": [
+			{
+				"name": "Swain",
+				"power": "Suffer"
+			},
+			{
+				"name": "Gangplank",
+				"power": "The Saltwater Scourge"
+			}
+		],
+		"championXP": 605,
+		"requirement": ["ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL"],
+		"rewards": [
+			{
+				"items": [
+					{ "name": "Kho Báu Đồng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Hòm Thần Tích Đồng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Hòm Thần Tích Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Hòm Thần Tích Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Hòm Thần Tích Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Hòm Thần Tích Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Hòm Thần Tích Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			}
+		]
+	},
+	{
+		"adventureName": "Nhà Thám Hiểm",
+		"adventureNameRef": "The Prodigal Explorer",
+		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
+		"typeAdventureRef": "World Adventures",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/01PZ036T1-full.png?9e0cd",
+		"difficulty": 1.5,
+		"specialRules": ["I Never Miss"],
+		"bosses": [
+			{
+				"name": "Karma",
+				"power": "Guided Meditation"
+			},
+			{
+				"name": "Ezreal",
+				"power": "Target Practice"
+			}
+		],
+		"championXP": 605,
+		"requirement": ["ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL"],
+		"rewards": [
+			{
+				"items": [
+					{ "name": "Kho Báu Đồng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Hòm Thần Tích Đồng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Hòm Thần Tích Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Hòm Thần Tích Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Hòm Thần Tích Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Hòm Thần Tích Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Hòm Thần Tích Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			}
+		]
+	},
+	{
+		"adventureName": "Chúa Tể Bóng Tối",
+		"adventureNameRef": "The Master of Shadows",
+		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
+		"typeAdventureRef": "World Adventures",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/01IO009-hd-full.jpg?07e01",
+		"difficulty": 2,
+		"specialRules": ["Embrace The Shadows"],
+		"bosses": [
+			{
+				"name": "Fiora",
+				"power": "Time To Duel"
+			},
+			{
+				"name": "Zed",
+				"power": "Blade In The Darkness"
+			}
+		],
+		"championXP": 1110,
+		"requirement": ["ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "Demacia"],
+		"rewards": [
+			{
+				"items": [
+					{ "name": "Kho Báu Đồng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Hòm Thần Tích Đồng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Hòm Thần Tích Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			}
+		]
+	},
+	{
+		"adventureName": "Khổng Lồ Biển Sâu",
+		"adventureNameRef": "The Titan of the Depths",
+		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
+		"typeAdventureRef": "World Adventures",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/02BW053-hd-full.jpg?e0ff8",
+		"difficulty": 2,
+		"specialRules": ["Echoes From The Deep"],
+		"bosses": [
+			{
+				"name": "Sejuani",
+				"power": "Endure"
+			},
+			{
+				"name": "Nautilus",
+				"power": "All Will Drown!"
+			}
+		],
+		"championXP": 985,
+		"requirement": [
+			"ALL",
+			"ALL",
+			"ALL",
+			"ALL",
+			"ALL",
+			"ALL",
+			"ALL",
+			"Piltover & Zaun"
+		],
+		"rewards": [
+			{
+				"items": [
+					{ "name": "Kho Báu Đồng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Hòm Thần Tích Đồng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Hòm Thần Tích Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			}
+		]
+	},
+	{
+		"adventureName": "Đại Tướng Noxus",
+		"adventureNameRef": "The Hand of Noxus",
+		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
+		"typeAdventureRef": "World Adventures",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/01NX038T2-full.png?c90f3",
+		"difficulty": 2,
+		"specialRules": ["Age of Conquest"],
+		"bosses": [
+			{
+				"name": "Zoe",
+				"power": "Sparky Kiddo"
+			},
+			{
+				"name": "Darius",
+				"power": "Hemorrhage"
+			}
+		],
+		"championXP": 985,
+		"requirement": [
+			"ALL",
+			"ALL",
+			"ALL",
+			"ALL",
+			"ALL",
+			"Thành Phố Bandle",
+			"Noxus",
+			"Demacia"
+		],
+		"rewards": [
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			}
+		]
+	},
+	{
+		"adventureName": "Sứ Giả Máy Móc",
+		"adventureNameRef": "The Machine Herald",
+		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
+		"typeAdventureRef": "World Adventures",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/03PZ003-full.png?236d9",
+		"difficulty": 2.5,
+		"specialRules": ["Utmost Efficiency"],
+		"bosses": [
+			{
+				"name": "Azir",
+				"power": "The Emperor's Army"
+			},
+			{
+				"name": "Viktor",
+				"power": "Beyond Mere Flesh"
+			}
+		],
+		"championXP": 1425,
+		"requirement": [
+			"ALL",
+			"Bilgewater",
+			"Noxus",
+			"Thành Phố Bandle",
+			"Bilgewater",
+			"Demacia",
+			"Ionia",
+			"Targon"
+		],
+		"rewards": [
+			{
+				"items": [
+					{ "name": "Hòm Thần Tích Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Hòm Thần Tích Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Bạch Kim", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Bạch Kim", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Bạch Kim", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Bạch Kim", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Bạch Kim", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			}
+		]
+	},
+	{
+		"adventureName": "Đao Phủ Kiêu Hùng",
+		"adventureNameRef": "The Glorious Executioner",
+		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
+		"typeAdventureRef": "World Adventures",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/01NX020-full.png?12da5",
+		"difficulty": 2.5,
+		"specialRules": ["Fan Favorite"],
+		"bosses": [
+			{
+				"name": "Lee Sin",
+				"power": "Always Listening"
+			},
+			{
+				"name": "Draven",
+				"power": "God Among Gladiators"
+			}
+		],
+		"championXP": 1425,
+		"requirement": [
+			"ALL",
+			"Runeterra",
+			"Targon",
+			"Noxus",
+			"Piltover & Zaun",
+			"Quần Đảo Bóng Đêm",
+			"Shurima",
+			"Piltover & Zaun"
+		],
+		"rewards": [
+			{
+				"items": [
+					{ "name": "Hòm Thần Tích Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Hòm Thần Tích Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Bạch Kim", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Bạch Kim", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Bạch Kim", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Bạch Kim", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Bạch Kim", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			}
+		]
+	},
+	{
+		"adventureName": "Hoa Và Nấm",
+		"adventureNameRef": "Blossoms and Mushrooms",
+		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
+		"typeAdventureRef": "World Adventures",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/98SB031-full.png?777e4",
+		"difficulty": 2.5,
+		"specialRules": ["Incorrigible Prankster"],
+		"bosses": [
+			{
+				"name": "The Sorrow Eater",
+				"power": "A Beckoning Spirit"
+			},
+			{
+				"name": "The Fox Spirit",
+				"power": "The Fox Spirit"
+			},
+			{
+				"name": "Pranksters At Heart",
+				"power": "Sadness & Woe"
+			}
+		],
+		"championXP": 1425,
+		"requirement": [
+			"Thành Phố Bandle",
+			"Ionia",
+			"Runeterra",
+			"Quần Đảo Bóng Đêm",
+			"Ionia",
+			"Hoa Linh Lục Địa",
+			"Targon",
+			"Shurima"
+		],
+		"rewards": [
+			{
+				"items": [
+					{ "name": "Kho Báu Bạch Kim", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Bạch Kim", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Bạch Kim", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Bạch Kim", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Bạch Kim", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Bạch Kim", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Bạch Kim", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Bạch Kim", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			}
+		]
+	},
+	{
+		"adventureName": "Ái Nữ Hư Không",
+		"adventureNameRef": "Daughter of the Void",
+		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
+		"typeAdventureRef": "World Adventures",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/06SH009-full.png?37831",
+		"difficulty": 3,
+		"specialRules": ["Endless Adaptation"],
+		"bosses": [
+			{
+				"name": "Irelia",
+				"power": "Infinite Blade Waltz"
+			},
+			{
+				"name": "Kai'Sa",
+				"power": "Rapid Evolution"
+			}
+		],
+		"championXP": 1925,
+		"requirement": [
+			"ALL",
+			"Shurima",
+			"Quần Đảo Bóng Đêm",
+			"Bilgewater",
+			"Piltover & Zaun",
+			"Thành Phố Bandle",
+			"Targon",
+			"Freljord"
+		],
+		"rewards": [
+			{
+				"items": [
+					{ "name": "Hòm Thần Tích Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Bạc Shurima", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Bạc Demacia", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Bạc Ionia", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Bạc Noxus", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Bạc Quần Đảo Bóng Đêm", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			}
+		]
+	},
+	{
+		"adventureName": "Bộ Sưu Tập Linh Hồn",
+		"adventureNameRef": "The Collector of Souls",
+		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
+		"typeAdventureRef": "World Adventures",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/01SI052-hd-full.jpg?89683",
+		"difficulty": 3,
+		"specialRules": ["Tethered Spirits"],
+		"bosses": [
+			{
+				"name": "Tryndamere",
+				"power": "Undying Rage"
+			},
+			{
+				"name": "Thresh",
+				"power": "Damnation"
+			}
+		],
+		"championXP": 1925,
+		"requirement": [
+			"ALL",
+			"Targon",
+			"Freljord",
+			"Shurima",
+			"Runeterra",
+			"Demacia",
+			"Ionia",
+			"Noxus",
+			"Quần Đảo Bóng Đêm"
+		],
+		"rewards": [
+			{
+				"items": [
+					{ "name": "Hòm Thần Tích Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Bạc Bilgewater", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Bạc Piltover & Zaun", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Bạc Thành Phố Bandle", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Bạc Targon", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Bạc Freljord", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Bạc Runeterra", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			}
+		]
+	},
+	{
+		"adventureName": "Long Lực",
+		"adventureNameRef": "The Dragonsire",
+		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
+		"typeAdventureRef": "World Adventures",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/08RU014T9-full.png?2154b",
+		"difficulty": 3,
+		"specialRules": ["Dragon's Wrath"],
+		"bosses": [
+			{
+				"name": "The Half Dragon",
+				"power": "Tasty Snack"
+			},
+			{
+				"name": "The Dragonsire",
+				"power": "Age of Dragons"
+			}
+		],
+		"championXP": 1925,
+		"requirement": [
+			"Runeterra",
+			"Shurima",
+			"Thành Phố Bandle",
+			"Ionia",
+			"Noxus",
+			"Demacia",
+			"Freljord",
+			"Bilgewater"
+		],
+		"rewards": [
+			{
+				"items": [
+					{ "name": "Mảnh Ghép Bí Ẩn", "count": 15 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Mảnh Ghép Bí Ẩn", "count": 15 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Mảnh Ghép Bí Ẩn", "count": 15 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Mảnh Ghép Bí Ẩn", "count": 15 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			}
+		]
+	},
+	{
+		"adventureName": "Vệ Thần Khổng Lồ",
+		"adventureNameRef": "The Colossus",
+		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
+		"typeAdventureRef": "World Adventures",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/05DE009-full.png?7141a",
+		"difficulty": 3.5,
+		"specialRules": ["Withstand"],
+		"bosses": [
+			{
+				"name": "Zoe",
+				"power": "Sparky Kiddo"
+			},
+			{
+				"name": "Viego",
+				"power": "Sovereign's Domination"
+			},
+			{
+				"name": "Galio",
+				"power": "Pick On Someone My Size"
+			}
+		],
+		"championXP": 3100,
+		"requirement": [
+			"ALL",
+			"ALL",
+			"Runeterra",
+			"Bilgewater",
+			"Piltover & Zaun",
+			"Demacia",
+			"Targon",
+			"Ionia"
+		],
+		"rewards": [
+			{
+				"items": [
+					{ "name": "Kho Báu Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Bạch Kim", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Bạc Shurima", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Bạc Thành Phố Bandle", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Bạc Freljord", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Bạc Noxus", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Bạc Quần Đảo Bóng Đêm", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			}
+		]
+	},
+	{
+		"adventureName": "Nỗi Sợ Viễn Cổ",
+		"adventureNameRef": "The Ancient Fear",
+		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
+		"typeAdventureRef": "World Adventures",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/98RU004-full.png?8efdd",
+		"difficulty": 3.5,
+		"specialRules": ["Jumpscare"],
+		"bosses": [
+			{
+				"name": "Elise",
+				"power": "The Skittering"
+			},
+			{
+				"name": "Fiddlesticks",
+				"power": "Reccuring Nightmares"
+			}
+		],
+		"championXP": 3015,
+		"requirement": [
+			"Thành Phố Bandle",
+			"Bilgewater",
+			"Demacia",
+			"Freljord",
+			"Ionia",
+			"Targon",
+			"Noxus",
+			"Piltover & Zaun",
+			"Runeterra",
+			"Quần Đảo Bóng Đêm",
+			"Shurima"
+		],
+		"rewards": [
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Demacia", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Ionia", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Piltover & Zaun", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Noxus", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Quần Đảo Bóng Đêm", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Freljord", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Bilgewater", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Targon", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Shurima", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Thành Phố Bandle", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Runeterra", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			}
+		]
+	},
+	{
+		"adventureName": "Phi Vụ Vĩ Đại",
+		"adventureNameRef": "The Grand Heist",
+		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
+		"typeAdventureRef": "World Adventures",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/98SH002-full.png?dc598",
+		"difficulty": 3.5,
+		"specialRules": ["A Killer Among Us"],
+		"bosses": [
+			{
+				"name": "The Grand Finale",
+				"power": "The Time Keeper"
+			},
+			{
+				"name": "Ezreal, Corrupted",
+				"power": "Curse of Onmiscience"
+			}
+		],
+		"championXP": 1935,
+		"requirement": [
+			"Thành Phố Bandle",
+			"Bilgewater",
+			"Demacia",
+			"Freljord",
+			"Ionia",
+			"Targon",
+			"Noxus",
+			"Piltover & Zaun",
+			"Runeterra",
+			"Quần Đảo Bóng Đêm",
+			"Shurima"
+		],
+		"rewards": [
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Demacia", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Ionia", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Piltover & Zaun", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Noxus", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Quần Đảo Bóng Đêm", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Freljord", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Bilgewater", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Targon", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Shurima", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Thành Phố Bandle", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Runeterra", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			}
+		]
+	},
+	{
+		"adventureName": "Ác Long Thượng Giới",
+		"adventureNameRef": "The Star Forger",
+		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
+		"typeAdventureRef": "World Adventures",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/03MT087-full.png?1d109",
+		"difficulty": 4,
+		"specialRules": ["Legendary Climb"],
+		"bosses": [
+			{
+				"name": "Aurelion Sol",
+				"power": "Cower, Worship, Beg"
+			}
+		],
+		"championXP": 4505,
+		"requirement": [
+			"ALL",
+			"Targon",
+			"Demacia",
+			"Bilgewater",
+			"Runeterra",
+			"Shurima",
+			"Thành Phố Bandle",
+			"Freljord",
+			"Noxus",
+			"Quần Đảo Bóng Đêm",
+			"Runeterra"
+		],
+		"rewards": [
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Bụi Tinh Tú", "count": 1000 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Hòm Thần Tích Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Bạch Kim", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 3000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Hòm Thần Tích Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Bạc Kim", "count": 1 },
+					{ "name": "Hòm Thần Tích Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Bạc Bilgewater", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Bạc Piltover & Zaun", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Bạc Demacia", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Bạc Ionia", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Bạc Noxus", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Bạc Quần Đảo Bóng Đêm", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			}
+		]
+	},
+	{
+		"adventureName": "Kẻ Bất Dung Thứ",
+		"adventureNameRef": "The Unforgiven",
+		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
+		"typeAdventureRef": "World Adventures",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/01IO015T1-full.png?f0f35",
+		"difficulty": 4.5,
+		"specialRules": ["Windswept Wanderers", "Deadly"],
+		"bosses": [
+			{
+				"name": "Ashe",
+				"power": "Creeping Chill"
+			},
+			{
+				"name": "Yasuo",
+				"power": "Gathering Storm"
+			}
+		],
+		"championXP": 4470,
+		"requirement": ["ALL", "ALL", "Ionia", "Ionia", "Quần Đảo Bóng Đêm"],
+		"rewards": [
+			{
+				"items": [
+					{ "name": "Mảnh Ghép Yasuo", "count": 40 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Bụi Tinh Tú", "count": 1000 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Bạch Kim", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Bụi Tinh Tú", "count": 1000 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Ionia", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			}
+		]
+	},
+	{
+		"adventureName": "Phù Thủy Băng",
+		"adventureNameRef": "The Frost Witch",
+		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
+		"typeAdventureRef": "World Adventures",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/04FR005-full.png?e7348",
+		"difficulty": 5,
+		"specialRules": ["Terrors of True Ice"],
+		"bosses": [
+			{
+				"name": "Lissandra",
+				"power": "Kneel Or Freeze"
+			}
+		],
+		"championXP": 5925,
+		"requirement": [
+			"ALL",
+			"ALL",
+			"ALL",
+			"ALL",
+			"ALL",
+			"Thành Phố Bandle",
+			"Bilgewater",
+			"Demacia",
+			"Freljord",
+			"Ionia",
+			"Targon",
+			"Noxus",
+			"Piltover & Zaun",
+			"Runeterra",
+			"Quần Đảo Bóng Đêm",
+			"Shurima"
+		],
+		"rewards": [
+			{
+				"items": [
+					{ "name": "Bụi Tinh Tú", "count": 1000 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Bụi Tinh Tú", "count": 1000 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Bụi Tinh Tú", "count": 1000 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Bụi Tinh Tú", "count": 1000 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Hòm Thần Tích Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Quần Đảo Bóng Đêm", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Shurima", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Runeterra", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Piltover & Zaun", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Noxus", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Targon", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Ionia", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Freljord", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Demacia", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Bilgewater", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Thành Phố Bandle", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			}
+		]
+	},
+	{
+		"adventureName": "Nguyên Soái Noxus",
+		"adventureNameRef": "The Noxian Grand General",
+		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
+		"typeAdventureRef": "World Adventures",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/02NX007T2-full.png?9fc3d",
+		"difficulty": 5,
+		"specialRules": ["Unending Siege", "Deadly"],
+		"bosses": [
+			{
+				"name": "Jhin",
+				"power": "Elaborate Plans"
+			},
+			{
+				"name": "Swain",
+				"power": "Suffer"
+			}
+		],
+		"championXP": 5230,
+		"requirement": ["ALL", "ALL", "Piltover & Zaun", "Ionia", "Demacia"],
+		"rewards": [
+			{
+				"items": [
+					{ "name": "Mảnh Ghép Swain", "count": 40 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Bụi Tinh Tú", "count": 1000 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Bạch Kim", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Bụi Tinh Tú", "count": 1000 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Noxus", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			}
+		]
+	}
 ]

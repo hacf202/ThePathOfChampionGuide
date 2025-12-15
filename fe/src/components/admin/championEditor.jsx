@@ -7,7 +7,7 @@ import { removeAccents } from "../../utils/vietnameseUtils";
 import iconRegions from "../../assets/data/iconRegions.json";
 import ChampionEditorForm from "./championEditorForm";
 import SidePanel from "../common/sidePanel";
-import DropDragSidePanel from "./DropDragSidePanel";
+import DropDragSidePanel from "./dropDragSidePanel";
 import { Loader2 } from "lucide-react";
 
 const NEW_CHAMPION_TEMPLATE = {

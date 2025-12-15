@@ -22,6 +22,7 @@ import Powers from "./pages/powerList.jsx";
 import Items from "./pages/itemList.jsx";
 import Builds from "./pages/buildList.jsx";
 import Runes from "./pages/runeList.jsx";
+import Maps from "./pages/mapList.jsx";
 import RandomizerPage from "./pages/randomWheelPage.jsx";
 
 // Đăng nhập / Đăng ký
@@ -97,6 +98,7 @@ function MainContent() {
 				<Route path='/rune/:runeCode' element={<RuneDetail />} />
 				<Route path='/guides' element={<GuideListPage />} />
 				<Route path='/guides/:slug' element={<GuidePage />} />
+				<Route path='/maps' element={<Maps />} />
 
 				<Route
 					path='/auth'
