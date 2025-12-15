@@ -1,7 +1,7 @@
 // src/pages/admin/DropDragSidePanel.jsx
 import { memo, useMemo, useState } from "react";
-import Button from "./button";
-import InputField from "./inputField";
+import Button from "../common/button";
+import InputField from "../common/inputField";
 import { Search, Package, Gem, Zap, Shield, X } from "lucide-react";
 
 const DropDragItem = memo(({ item, type }) => {
@@ -68,6 +68,8 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 			rune: cachedData.runes || [],
 		};
 		return map[activeTab] || [];
+	}, [cachedData, activeTab]);
+
 	// Rarity options
 	const rarityOptions = useMemo(() => {
 		const rarities = [
