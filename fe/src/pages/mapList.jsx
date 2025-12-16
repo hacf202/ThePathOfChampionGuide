@@ -47,18 +47,11 @@ const StarRating = ({ count }) => {
 					);
 				} else {
 					return (
-						<Star
-							key={i}
-							size={16}
-							className='text-gray-600'
-							strokeWidth={1.5}
-						/>
+						<Star key={i} size={16} className='text-white' strokeWidth={1.5} />
 					);
 				}
 			})}
-			<span className='ml-1.5 text-base font-bold text-text-primary'>
-				({count})
-			</span>
+			<span className='ml-1.5 text-base font-bold text-white'>({count})</span>
 		</div>
 	);
 };
@@ -82,7 +75,6 @@ const AdventureCard = ({ adventure }) => {
 			{/* Lớp này nằm dưới cùng (z-[-1]) để không đè lên nội dung */}
 			{adventure.image && (
 				<div className='absolute inset-0 -z-10 pointer-events-none select-none overflow-hidden rounded-xl'>
-					{/* Ảnh nền với hiệu ứng Zoom + Grayscale chuyển sang màu */}
 					<img
 						src={adventure.image}
 						alt=''
@@ -95,12 +87,8 @@ const AdventureCard = ({ adventure }) => {
 							}
             `}
 					/>
-
-					{/* Gradient 1: Tối dần từ dưới lên (Để đọc nội dung bên dưới) */}
-
-					{/* Gradient 2: Tối dần từ trái sang (Để làm nổi bật Tiêu đề) */}
-					<div className='absolute inset-0 bg-gradient-to-r from-surface-bg via-surface-bg/60 to-transparent opacity-80' />
-
+					\{/* Gradient 2: Tối dần từ trái sang (Để làm nổi bật Tiêu đề) */}
+					<div className='absolute inset-0 bg-gradient-to-r from-black via-black/50 to-transparent' />
 					{/* Lớp phủ màu Primary nhẹ khi hover để tạo cảm giác đồng bộ */}
 					<div className='absolute inset-0 bg-primary-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 mix-blend-overlay' />
 				</div>
@@ -116,10 +104,10 @@ const AdventureCard = ({ adventure }) => {
 					<div className='flex justify-between items-start gap-3 mb-2'>
 						<div className='min-w-0 relative'>
 							{/* Hiệu ứng glow nhẹ sau chữ tiêu đề */}
-							<h3 className='font-bold text-xl md:text-4xl text-text-primary font-primary truncate drop-shadow-md relative z-10'>
+							<h3 className='font-bold text-xl md:text-4xl text-white font-primary truncate drop-shadow-md relative z-10'>
 								{adventure.adventureName}
 							</h3>
-							<p className='text-base text-text-primary italic truncate relative z-10'>
+							<p className='text-base text-white italic truncate relative z-10'>
 								{adventure.adventureNameRef}
 							</p>
 						</div>
@@ -134,8 +122,8 @@ const AdventureCard = ({ adventure }) => {
 						<div className='flex items-center gap-1.5 bg-black/20 px-2 py-0.5 rounded-full border border-white/5 backdrop-blur-[2px]'>
 							<StarRating count={adventure.difficulty} />
 						</div>
-						<span className='text-text-primary/50'>|</span>
-						<div className='flex items-center gap-1.5 text-base text-text-primary bg-black/20 px-2 py-0.5 rounded-full border border-white/5 backdrop-blur-[2px]'>
+						<span className='text-white/50'>|</span>
+						<div className='flex items-center gap-1.5 text-base text-white bg-black/20 px-2 py-0.5 rounded-full border border-white/5 backdrop-blur-[2px]'>
 							<Map size={14} className='text-primary-400' />
 							<span className='truncate max-w-[230px] drop-shadow-sm'>
 								{adventure.typeAdventure}
@@ -145,14 +133,14 @@ const AdventureCard = ({ adventure }) => {
 
 					{/* Boss Preview */}
 					<div className='flex items-center justify-between mt-2 pt-2 border-t border-white/10'>
-						<div className='flex items-center gap-2 text-base text-text-primary group-hover:text-text-primary transition-colors'>
+						<div className='flex items-center gap-2 text-base text-white group-hover:text-white transition-colors'>
 							<div className='p-1 bg-danger-text-dark/10 rounded-full'>
 								<Skull size={14} className='text-danger-text-dark' />
 							</div>
 							<span className='truncate'>
 								<span className='font-medium'>{adventure.bosses[0]?.name}</span>
 								{!isExpanded && adventure.bosses.length > 1 && (
-									<span className='text-base ml-1.5 px-1.5 py-0.5 bg-surface-hover/50 rounded text-text-primary'>
+									<span className='text-base ml-1.5 px-1.5 py-0.5 bg-surface-hover/50 rounded text-white'>
 										+{adventure.bosses.length - 1}
 									</span>
 								)}
@@ -184,11 +172,11 @@ const AdventureCard = ({ adventure }) => {
 				>
 					<div className='overflow-hidden'>
 						{/* Nội dung chi tiết được bọc trong lớp kính mờ */}
-						<div className='px-4 pb-4 pt-1 bg-surface-bg/40 backdrop-blur-xl mx-2 mb-2 rounded-lg border border-white/5 shadow-inner'>
+						<div className='md:px-4 pb-4 pt-1 bg-surface-bg/40 backdrop-blur-xl md:mx-2 mb-2 rounded-lg border border-white/5 shadow-inner'>
 							{/* Boss List */}
 							{adventure.bosses.length > 0 && (
 								<div className='mb-4 mt-3'>
-									<h4 className='text-base font-bold text-text-primary uppercase mb-2 ml-1'>
+									<h4 className='text-base font-bold text-white uppercase mb-2 ml-1'>
 										Trùm
 									</h4>
 									<div className='grid grid-cols-1 gap-2'>
@@ -197,7 +185,7 @@ const AdventureCard = ({ adventure }) => {
 												key={idx}
 												className='flex justify-between items-center text-base p-2 rounded bg-black/20 border border-white/5 hover:border-primary-500/30 transition-colors'
 											>
-												<span className='font-bold text-text-primary text-base flex items-center gap-2'>
+												<span className='font-bold text-white text-base flex items-center gap-2'>
 													<span className='w-1.5 h-1.5 rounded-full bg-danger-text-dark'></span>
 													{boss.name}
 												</span>
@@ -213,7 +201,7 @@ const AdventureCard = ({ adventure }) => {
 							{/* Rewards Table */}
 							<div className='mb-4 rounded-lg overflow-hidden border border-border/60 shadow-sm'>
 								<table className='w-full text-base text-left'>
-									<thead className='text-base text-text-primary uppercase bg-surface-hover/80'>
+									<thead className='text-base text-white uppercase bg-surface-hover/80'>
 										<tr>
 											<th className='px-3 py-2 w-1/3 border-r border-border/50'>
 												Yêu cầu
@@ -229,7 +217,7 @@ const AdventureCard = ({ adventure }) => {
 													key={idx}
 													className='hover:bg-white/5 transition-colors'
 												>
-													<td className='px-3 py-2 font-bold text-text-primary border-r border-border/50 text-base'>
+													<td className='px-3 py-2 font-bold text-white border-r border-border/50 text-base'>
 														{req === "ALL" ? (
 															<span className='text-primary-400 font-bold bg-primary-500/10 px-1.5 py-0.5 rounded'>
 																Tướng Bất Kỳ
@@ -238,16 +226,15 @@ const AdventureCard = ({ adventure }) => {
 															req
 														)}
 													</td>
-													<td className='px-3 py-2 text-text-primary text-base'>
+													<td className='px-3 py-2 text-white text-base'>
 														{adventure.rewards[idx]?.items.map((item, i) => (
 															<div
 																key={i}
 																className='flex items-center gap-1.5 py-0.5'
 															>
-																<span className='text-primary-300 font-bold text-base  px-1 rounded border border-white/10 min-w-[24px] text-center'>
-																	{item.count}
+																<span className=' text-warp '>
+																	{item.count} {item.name}
 																</span>
-																<span className='truncate'>{item.name}</span>
 															</div>
 														))}
 													</td>
@@ -259,18 +246,18 @@ const AdventureCard = ({ adventure }) => {
 
 							{/* Special Rules */}
 							{adventure.specialRules && adventure.specialRules.length > 0 && (
-								<div className='px-4 pb-4 pt-1 bg-surface-bg/40 backdrop-blur-xl mx-2 mb-2 rounded-lg border border-white/5 shadow-inner'>
-									<h4 className='text-base font-bold text-text-primary uppercase mb-2 ml-1'>
+								<div className='px-2 pb-4 pt-1 bg-surface-bg/40 backdrop-blur-xl md:mx-2 mb-2 rounded-lg border border-white/50 shadow-inner'>
+									<h4 className='text-base font-bold text-white uppercase mb-2 ml-1'>
 										Luật Chơi Đặc Biệt
 									</h4>
 									{/* Dải trang trí bên trái */}
-									<div className='absolute left-0 top-0 bottom-0 w-1 bg-blue-500/50'></div>
+									<div className='absolute left-0 top-0 bottom-0 w-1 bg-white'></div>
 
-									<div className='flex justify-between items-center text-base p-2 rounded bg-black/20 border border-white/5 hover:border-primary-500/30 transition-colors'>
-										<ul className='space-y-1'>
+									<div className='flex justify-between items-center text-base p-2 rounded bg-black/20 border border-white/50 hover:border-primary-500/30 transition-colors'>
+										<ul className='space-y-1 text-white'>
 											{adventure.specialRules.map((rule, i) => (
-												<li key={i} className='flex items-start gap-1.5'>
-													<span className='text-blue-400/60'>•</span> {rule}
+												<li key={i} className='flex items-start gap-1.5 '>
+													{rule}
 												</li>
 											))}
 										</ul>
@@ -278,7 +265,7 @@ const AdventureCard = ({ adventure }) => {
 								</div>
 							)}
 
-							<div className='text-center pt-1'>
+							<div className='text-center pt-1 '>
 								<Button
 									variant='outline'
 									size='sm'
@@ -286,7 +273,7 @@ const AdventureCard = ({ adventure }) => {
 										e.stopPropagation();
 										setIsExpanded(false);
 									}}
-									className='w-full h-8 text-base border-border/50 hover:bg-white/5 hover:text-primary-400'
+									className='w-full h-8 text-base border-white hover:bg-white/5 hover:text-primary-400'
 								>
 									Thu gọn
 								</Button>
@@ -392,7 +379,7 @@ function AdventureList() {
 				type='website'
 			/>
 			<div className='font-secondary'>
-				<h1 className='text-3xl font-bold mb-6 text-text-primary font-primary'>
+				<h1 className='text-3xl font-bold mb-6 text-primary font-primary'>
 					Danh Sách Bản Đồ
 				</h1>
 
@@ -412,7 +399,7 @@ function AdventureList() {
 									{searchInput && (
 										<button
 											onClick={handleClearSearch}
-											className='absolute right-3 top-1/2 -translate-y-1/2 text-text-primary hover:text-text-primary'
+											className='absolute right-3 top-1/2 -translate-y-1/2 text-white hover:text-white'
 										>
 											<XCircle size={18} />
 										</button>
@@ -466,7 +453,7 @@ function AdventureList() {
 						{/* Desktop: Full (Giống hệt mẫu) */}
 						<div className='hidden lg:block p-4 rounded-lg border border-border bg-surface-bg space-y-4 shadow-sm'>
 							<div>
-								<label className='block text-base font-medium mb-1 text-text-primary'>
+								<label className='block text-base font-medium mb-1 text-primary'>
 									Tìm kiếm
 								</label>
 								<div className='relative'>
@@ -479,7 +466,7 @@ function AdventureList() {
 									{searchInput && (
 										<button
 											onClick={handleClearSearch}
-											className='absolute right-3 top-1/2 -translate-y-1/2 text-text-primary hover:text-text-primary'
+											className='absolute right-3 top-1/2 -translate-y-1/2 text-white hover:text-white'
 										>
 											<XCircle size={18} />
 										</button>
@@ -514,7 +501,7 @@ function AdventureList() {
 					{/* --- MAIN CONTENT --- */}
 					{/* lg:order-first: Đẩy nội dung lên trước (về bên trái) trên màn hình lớn */}
 					<div className='lg:w-4/5 w-full lg:order-first'>
-						<div className='bg-surface-bg rounded-lg border border-border p-2 sm:p-6 shadow-sm min-h-[500px]'>
+						<div className='bg-surface-bg rounded-lg border border-border p-1 sm:p-6 shadow-sm min-h-[500px]'>
 							{paginatedAdventures.length > 0 ? (
 								<>
 									<div className='grid grid-cols-1 gap-4'>
@@ -524,9 +511,9 @@ function AdventureList() {
 									</div>
 
 									{/* Số lượng kết quả */}
-									<div className='text-center text-base text-text-primary mt-6 mb-2'>
+									<div className='text-center text-base text-primary-500 mt-6 mb-2'>
 										Hiển thị{" "}
-										<span className='font-medium text-text-primary'>
+										<span className='font-medium text-primary-500'>
 											{(currentPage - 1) * ITEMS_PER_PAGE + 1}–
 											{Math.min(
 												currentPage * ITEMS_PER_PAGE,
@@ -534,7 +521,7 @@ function AdventureList() {
 											)}
 										</span>{" "}
 										trong{" "}
-										<span className='font-medium text-text-primary'>
+										<span className='font-medium text-primary-500'>
 											{filteredAdventures.length}
 										</span>{" "}
 										kết quả
@@ -550,7 +537,7 @@ function AdventureList() {
 											>
 												Trang trước
 											</Button>
-											<span className='text-lg font-medium text-text-primary'>
+											<span className='text-lg font-medium text-primary-500'>
 												{currentPage} / {totalPages}
 											</span>
 											<Button
@@ -564,7 +551,7 @@ function AdventureList() {
 									)}
 								</>
 							) : (
-								<div className='flex items-center justify-center h-full min-h-[300px] text-center text-text-primary'>
+								<div className='flex items-center justify-center h-full min-h-[300px] text-center text-white'>
 									<div>
 										<Search size={48} className='mx-auto mb-4 opacity-20' />
 										<p className='font-semibold text-lg'>
