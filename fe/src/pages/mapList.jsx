@@ -5,7 +5,7 @@ import InputField from "../components/common/inputField";
 import MultiSelectFilter from "../components/common/multiSelectFilter";
 import Button from "../components/common/button";
 import PageTitle from "../components/common/pageTitle";
-import DropdownFilter from "../components/common/DropdownFilter";
+import DropdownFilter from "../components/common/dropdownFilter";
 import {
 	Search,
 	RotateCw,
