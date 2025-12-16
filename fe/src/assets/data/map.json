@@ -1664,5 +1664,500 @@
 				]
 			}
 		]
+	},
+	{
+		"adventureName": "Chú Cá Tinh Nghịch",
+		"adventureNameRef": "The Tidal Trickster",
+		"typeAdventure": "Ác Mộng",
+		"typeAdventureRef": "Nightmare Adventures",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/02BW046-full.png?16a03",
+		"difficulty": 4.5,
+		"specialRules": ["Surging Tides", "Deadly"],
+		"bosses": [
+			{
+				"name": "Poppy",
+				"power": "Heroics"
+			},
+			{
+				"name": "Fizz",
+				"power": "Mercurial Nature"
+			}
+		],
+		"championXP": 5230,
+		"requirement": [
+			"Bilgewater",
+			"Bilgewater",
+			"Thành Phố Bandle",
+			"ALL",
+			"ALL"
+		],
+		"rewards": [
+			{
+				"items": [
+					{ "name": "Mảnh Ghép Bí Ẩn", "count": 20 },
+					{ "name": "Điểm Huyền Thoại", "count": 3000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Bạch Kim", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 3000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Mảnh Ghép Bí Ẩn", "count": 20 },
+					{ "name": "Điểm Huyền Thoại", "count": 3000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Bạch Kim", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 3000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Bilgewater", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 3000 }
+				]
+			}
+		]
+	},
+	{
+		"adventureName": "Hắc Diệt Đế Vương",
+		"adventureNameRef": "The Ruined King",
+		"typeAdventure": "Ác Mộng",
+		"typeAdventureRef": "Nightmare Adventures",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/04SI055T2-full.png?d201b",
+		"difficulty": 5,
+		"specialRules": ["Shifting Mists", "Deadly"],
+		"bosses": [
+			{
+				"name": "Fiora",
+				"power": "Time To Duel"
+			},
+			{
+				"name": "Viego",
+				"power": "Sovereign's Domination"
+			}
+		],
+		"championXP": 6030,
+		"requirement": [
+			"Quần Đảo Bóng Đêm",
+			"Quần Đảo Bóng Đêm",
+			"Shurima",
+			"ALL",
+			"ALL"
+		],
+		"rewards": [
+			{
+				"items": [
+					{ "name": "Mảnh Ghép Viego", "count": 40 },
+					{ "name": "Điểm Huyền Thoại", "count": 4000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Bạch Kim", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 4000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Mảnh Ghép Bí Ẩn", "count": 20 },
+					{ "name": "Điểm Huyền Thoại", "count": 4000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Bạch Kim", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 4000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Quần Đảo Bóng Đêm", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 4000 }
+				]
+			}
+		]
+	},
+	{
+		"adventureName": "Nỗi Sợ Viễn Cổ",
+		"adventureNameRef": "The Ancient Fear",
+		"typeAdventure": "Ác Mộng",
+		"typeAdventureRef": "Nightmare Adventures",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/98RU004-full.png?8efdd",
+		"difficulty": 6.5,
+		"specialRules": ["Jumpscare", "Deadly"],
+		"bosses": [
+			{
+				"name": "Elise",
+				"power": "The Skittering"
+			},
+			{
+				"name": "Fiddlesticks",
+				"power": "Reccuring Nightmares"
+			}
+		],
+		"championXP": 6030,
+		"requirement": ["Runeterra", "Runeterra", "Piltover & Zaun", "ALL", "ALL"],
+		"rewards": [
+			{
+				"items": [
+					{ "name": "Mảnh Ghép Fiddlesticks", "count": 40 },
+					{ "name": "Điểm Huyền Thoại", "count": 8000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Bạch Kim", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 8000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Mảnh Ghép Bí Ẩn", "count": 20 },
+					{ "name": "Điểm Huyền Thoại", "count": 8000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Bạch Kim", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 8000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng Runeterra", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 8000 }
+				]
+			}
+		]
+	},
+	{
+		"adventureName": "Nữ Tu Thủy Thần",
+		"adventureNameRef": "The Kraken Priestess",
+		"typeAdventure": "Huyền Thoại Arcane",
+		"typeAdventureRef": "Legends of Arcane",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/06BW006-full.png?079a2",
+		"difficulty": 1.5,
+		"specialRules": ["Teamwork", "Multiplying Tendrils"],
+		"bosses": [
+			{
+				"name": "Tahm Kench",
+				"power": "Big Feast"
+			},
+			{
+				"name": "Illaoi",
+				"power": "Wrath of Nagakabouros"
+			}
+		],
+		"championXP": 305,
+		"requirement": ["Noxus", "Quần Đảo Bóng Đêm", "Runeterra"],
+		"rewards": [
+			{
+				"items": [
+					{ "name": "Kho báu Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho báu Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho báu Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			}
+		]
+	},
+	{
+		"adventureName": "Hoàng Đế Sa Mạc",
+		"adventureNameRef": "The Emperor of the Sands",
+		"typeAdventure": "Huyền Thoại Arcane",
+		"typeAdventureRef": "Legends of Arcane",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/04SH003-full.png?06f14",
+		"difficulty": 2.5,
+		"specialRules": ["Teamwork", "Emperor's Command"],
+		"bosses": [
+			{
+				"name": "Zed",
+				"power": "Blade In The Darkness"
+			},
+			{
+				"name": "Azir",
+				"power": "The Emperor's Army"
+			}
+		],
+		"championXP": 985,
+		"requirement": ["Piltover & Zaun", "Quần Đảo Bóng Đêm", "Targon"],
+		"rewards": [
+			{
+				"items": [
+					{ "name": "Kho báu Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho báu Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho báu Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			}
+		]
+	},
+	{
+		"adventureName": "Sức Mạnh Của Demacia",
+		"adventureNameRef": "The Might of Demacia",
+		"typeAdventure": "Huyền Thoại Arcane",
+		"typeAdventureRef": "Legends of Arcane",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/01DE012T1-full.png?1355e",
+		"difficulty": 3.5,
+		"specialRules": ["Teamwork", "Demacian Might II"],
+		"bosses": [
+			{
+				"name": "Elise",
+				"power": "The Skittering"
+			},
+			{
+				"name": "Viego",
+				"power": "Sovereign's Domination"
+			},
+			{
+				"name": "Garen",
+				"power": "Justice"
+			}
+		],
+		"championXP": 3100,
+		"requirement": ["Noxus", "Quần Đảo Bóng Đêm", "Thành Phố Bandle", "ALL"],
+		"rewards": [
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			}
+		]
+	},
+	{
+		"adventureName": "Cơn Thịnh Nộ Xứ Zaun",
+		"adventureNameRef": "The Wrath of Zaun",
+		"typeAdventure": "Huyền Thoại Arcane",
+		"typeAdventureRef": "Legends of Arcane",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/98PZ001T2-full.png?0e385",
+		"difficulty": 4.5,
+		"specialRules": ["Teamwork", "Chemtech Contraptions", "Deadly"],
+		"bosses": [
+			{
+				"name": "Ambessa",
+				"power": "Battle Hardened"
+			},
+			{
+				"name": "Warwick",
+				"power": "Eternal Hunger"
+			},
+			{
+				"name": "Chemtech Drake",
+				"power": "Cornered Captive"
+			}
+		],
+		"championXP": 4840,
+		"requirement": [
+			"Piltover & Zaun",
+			"Quần Đảo Bóng Đêm",
+			"Ionia",
+			"Bilgewater",
+			"Thành Phố Bandle"
+		],
+		"rewards": [
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 3000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 3000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 3000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 3000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 3000 }
+				]
+			}
+		]
+	},
+	{
+		"adventureName": "Kẻ Được Khai Sáng",
+		"adventureNameRef": "The Enlightened One",
+		"typeAdventure": "Huyền Thoại Arcane",
+		"typeAdventureRef": "Legends of Arcane",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/01IO041T1-full.png?f8ff3",
+		"difficulty": 5.5,
+		"specialRules": ["Teamwork", "Spells & Swells II", "Deadly"],
+		"bosses": [
+			{
+				"name": "Karma",
+				"power": "Guided Meditation"
+			},
+			{
+				"name": "Anivia",
+				"power": "Enlightened Soul"
+			}
+		],
+		"championXP": 6030,
+		"requirement": [
+			"Noxus",
+			"Quần Đảo Bóng Đêm",
+			"Targon",
+			"Demacia",
+			"Freljord",
+			"ALL"
+		],
+		"rewards": [
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 5000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 5000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 5000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 5000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 5000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 5000 }
+				]
+			}
+		]
+	},
+	{
+		"adventureName": "",
+		"adventureNameRef": "The Star Forger",
+		"typeAdventure": "Huyền Thoại Arcane",
+		"typeAdventureRef": "Legends of Arcane",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/03MT087-full.png?1d109",
+		"difficulty": 6.5,
+		"specialRules": ["Teamwork", "Legendary Climb", "Deadly"],
+		"bosses": [
+			{
+				"name": "Aurelion Sol",
+				"power": "Cower, Worship, Beg"
+			}
+		],
+		"championXP": 10670,
+		"requirement": [
+			"Piltover & Zaun",
+			"Quần Đảo Bóng Đêm",
+			"Ionia",
+			"Demacia",
+			"Targon",
+			"ALL"
+		],
+		"rewards": [
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 8000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 8000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 8000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 8000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 8000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 8000 }
+				]
+			}
+		]
 	}
 ]
