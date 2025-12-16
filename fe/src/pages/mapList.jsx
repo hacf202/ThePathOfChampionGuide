@@ -5,6 +5,7 @@ import InputField from "../components/common/inputField";
 import MultiSelectFilter from "../components/common/multiSelectFilter";
 import Button from "../components/common/button";
 import PageTitle from "../components/common/pageTitle";
+import DropdownFilter from "../components/common/DropdownFilter";
 import {
 	Search,
 	RotateCw,
@@ -286,24 +287,62 @@ const AdventureCard = ({ adventure }) => {
 	);
 };
 
-// --- Main Component ---
 function AdventureList() {
 	const adventures = mapsData;
 
-	// States
+	// --- States ---
+	// Search & Pagination
 	const [searchInput, setSearchInput] = usePersistentState(
 		"advSearchInput",
 		""
 	);
 	const [searchTerm, setSearchTerm] = usePersistentState("advSearchTerm", "");
+	const [currentPage, setCurrentPage] = usePersistentState("advCurrentPage", 1);
+	const [isFilterOpen, setIsFilterOpen] = useState(false);
+
+	// Filters
 	const [selectedDifficulties, setSelectedDifficulties] = usePersistentState(
 		"advSelectedDiff",
 		[]
 	);
-	const [isFilterOpen, setIsFilterOpen] = useState(false); // Mobile filter toggle
-	const [currentPage, setCurrentPage] = usePersistentState("advCurrentPage", 1);
+	const [selectedTypes, setSelectedTypes] = usePersistentState(
+		"advSelectedTypes",
+		[]
+	);
+	const [selectedRegions, setSelectedRegions] = usePersistentState(
+		"advSelectedRegions",
+		[]
+	);
 
-	// Filter Options
+	// Sorting (Sử dụng DropdownFilter)
+	const [sortOption, setSortOption] = usePersistentState(
+		"advSortOption",
+		"diff_desc"
+	);
+
+	// --- Options Generator ---
+	// Tạo danh sách loại bản đồ duy nhất từ dữ liệu
+	const typeOptions = useMemo(() => {
+		const types = [
+			...new Set(adventures.map(a => a.typeAdventure).filter(Boolean)),
+		];
+		return types.map(t => ({ value: t, label: t }));
+	}, [adventures]);
+
+	// Tạo danh sách vùng (requirement) duy nhất từ dữ liệu
+	const regionOptions = useMemo(() => {
+		const regions = new Set();
+		adventures.forEach(adv => {
+			if (Array.isArray(adv.requirement)) {
+				adv.requirement.forEach(req => {
+					if (req && req !== "ALL") regions.add(req);
+				});
+			}
+		});
+		return [...regions].map(r => ({ value: r, label: r }));
+	}, [adventures]);
+
+	// Tùy chọn độ khó (Giữ nguyên logic cũ)
 	const difficultyOptions = [
 		{ value: "0", label: "0 - 1 Sao" },
 		{ value: "1", label: "1 - 2 Sao" },
@@ -314,38 +353,104 @@ function AdventureList() {
 		{ value: "6", label: "6+ Sao " },
 	];
 
-	// Filter Logic
-	const filteredAdventures = useMemo(() => {
+	// Tùy chọn sắp xếp
+	const sortOptions = [
+		{ value: "diff_asc", label: "Độ khó: Thấp đến Cao" },
+		{ value: "diff_desc", label: "Độ khó: Cao đến Thấp" },
+		{ value: "xp_asc", label: "XP: Thấp đến Cao" },
+		{ value: "xp_desc", label: "XP: Cao đến Thấp" },
+	];
+
+	// --- Main Logic: Filter & Sort ---
+	const processedAdventures = useMemo(() => {
 		let result = [...adventures];
+
+		// 1. Filter by Search Term
 		if (searchTerm) {
 			const normalized = removeAccents(searchTerm.toLowerCase());
-			result = result.filter(
-				a =>
-					removeAccents(a.adventureName.toLowerCase()).includes(normalized) ||
-					removeAccents(a.adventureNameRef.toLowerCase()).includes(
+			result = result.filter(a => {
+				// Tên Map
+				const matchName =
+					removeAccents(a.adventureName?.toLowerCase() || "").includes(
 						normalized
 					) ||
-					a.bosses.some(b =>
-						removeAccents(b.name.toLowerCase()).includes(normalized)
+					removeAccents(a.adventureNameRef?.toLowerCase() || "").includes(
+						normalized
+					);
+
+				// Tên Boss
+				const matchBoss = a.bosses?.some(b =>
+					removeAccents(b.name.toLowerCase()).includes(normalized)
+				);
+
+				// Requirement (Vùng)
+				const matchReq = a.requirement?.some(r =>
+					removeAccents(r.toLowerCase()).includes(normalized)
+				);
+
+				// Rewards (Tên vật phẩm)
+				const matchReward = a.rewards?.some(rewardGroup =>
+					rewardGroup.items?.some(item =>
+						removeAccents(item.name.toLowerCase()).includes(normalized)
 					)
-			);
+				);
+
+				return matchName || matchBoss || matchReq || matchReward;
+			});
 		}
+
+		// 2. Filter by Properties
 		if (selectedDifficulties.length > 0) {
 			result = result.filter(a =>
 				selectedDifficulties.includes(Math.floor(a.difficulty).toString())
 			);
 		}
+
+		if (selectedTypes.length > 0) {
+			result = result.filter(a => selectedTypes.includes(a.typeAdventure));
+		}
+
+		if (selectedRegions.length > 0) {
+			// Lọc nếu map có chứa BẤT KỲ vùng nào trong danh sách đã chọn
+			result = result.filter(a =>
+				a.requirement?.some(req => selectedRegions.includes(req))
+			);
+		}
+
+		// 3. Sorting
+		result.sort((a, b) => {
+			switch (sortOption) {
+				case "diff_asc":
+					return a.difficulty - b.difficulty;
+				case "diff_desc":
+					return b.difficulty - a.difficulty;
+				case "xp_asc":
+					return (a.championXP || 0) - (b.championXP || 0);
+				case "xp_desc":
+					return (b.championXP || 0) - (a.championXP || 0);
+				default:
+					return 0;
+			}
+		});
+
 		return result;
-	}, [adventures, searchTerm, selectedDifficulties]);
+	}, [
+		adventures,
+		searchTerm,
+		selectedDifficulties,
+		selectedTypes,
+		selectedRegions,
+		sortOption,
+	]);
 
 	// Pagination Logic
-	const totalPages = Math.ceil(filteredAdventures.length / ITEMS_PER_PAGE);
+	const totalPages = Math.ceil(processedAdventures.length / ITEMS_PER_PAGE);
 	const paginatedAdventures = useMemo(() => {
 		const start = (currentPage - 1) * ITEMS_PER_PAGE;
-		return filteredAdventures.slice(start, start + ITEMS_PER_PAGE);
-	}, [filteredAdventures, currentPage]);
+		return processedAdventures.slice(start, start + ITEMS_PER_PAGE);
+	}, [processedAdventures, currentPage]);
 
-	// Handlers
+	// --- Handlers ---
 	const handleSearch = () => {
 		setSearchTerm(searchInput);
 		setCurrentPage(1);
@@ -368,9 +473,13 @@ function AdventureList() {
 	const handleResetFilters = () => {
 		handleClearSearch();
 		setSelectedDifficulties([]);
+		setSelectedTypes([]);
+		setSelectedRegions([]);
+		setSortOption("diff_asc");
 		setCurrentPage(1);
 	};
 
+	// --- Render ---
 	return (
 		<div>
 			<PageTitle
@@ -386,32 +495,31 @@ function AdventureList() {
 				<div className='flex flex-col lg:flex-row gap-8'>
 					{/* --- SIDEBAR (FILTER) --- */}
 					<aside className='lg:w-1/5 w-full lg:sticky lg:top-24 h-fit'>
-						{/* Mobile: Collapsible (Giống hệt mẫu) */}
-						<div className='lg:hidden p-2 rounded-lg border border-border bg-surface-bg shadow-sm'>
+						{/* Mobile Toggle */}
+						<div className='lg:hidden p-2 rounded-lg border border-border bg-surface-bg shadow-sm mb-4'>
 							<div className='flex items-center gap-2'>
 								<div className='flex-1 relative'>
 									<InputField
 										value={searchInput}
 										onChange={e => setSearchInput(e.target.value)}
 										onKeyPress={e => e.key === "Enter" && handleSearch()}
-										placeholder='Tên map, boss...'
+										placeholder='Map, boss, item...'
 									/>
 									{searchInput && (
 										<button
 											onClick={handleClearSearch}
-											className='absolute right-3 top-1/2 -translate-y-1/2 text-white hover:text-white'
+											className='absolute right-3 top-1/2 -translate-y-1/2 text-white'
 										>
 											<XCircle size={18} />
 										</button>
 									)}
 								</div>
-								<Button onClick={handleSearch} className='whitespace-nowrap'>
+								<Button onClick={handleSearch}>
 									<Search size={16} />
 								</Button>
 								<Button
 									variant='outline'
 									onClick={() => setIsFilterOpen(prev => !prev)}
-									className='whitespace-nowrap'
 								>
 									{isFilterOpen ? (
 										<ChevronUp size={18} />
@@ -421,37 +529,58 @@ function AdventureList() {
 								</Button>
 							</div>
 
+							{/* Mobile Expandable Content */}
 							<div
 								className={`transition-all duration-300 ease-in-out overflow-hidden ${
 									isFilterOpen
-										? "max-h-[1000px] opacity-100"
+										? "max-h-[1500px] opacity-100"
 										: "max-h-0 opacity-0"
 								}`}
 							>
-								<div className='pt-4 space-y-4 border-t border-border'>
+								<div className='pt-4 space-y-4 border-t border-border mt-2'>
+									{/* Sort for Mobile */}
+									{/* Filters */}
 									<MultiSelectFilter
 										label='Độ khó'
 										options={difficultyOptions}
 										selectedValues={selectedDifficulties}
 										onChange={setSelectedDifficulties}
-										placeholder='Tất cả độ khó'
+										placeholder='Chọn độ khó'
 									/>
-									<div className='pt-2'>
-										<Button
-											variant='outline'
-											onClick={handleResetFilters}
-											iconLeft={<RotateCw size={16} />}
-											className='w-full'
-										>
-											Đặt lại bộ lọc
-										</Button>
-									</div>
+									<MultiSelectFilter
+										label='Loại Adventure'
+										options={typeOptions}
+										selectedValues={selectedTypes}
+										onChange={setSelectedTypes}
+										placeholder='Chọn loại'
+									/>
+									<MultiSelectFilter
+										label='Vùng yêu cầu'
+										options={regionOptions}
+										selectedValues={selectedRegions}
+										onChange={setSelectedRegions}
+										placeholder='Chọn vùng'
+									/>
+									<DropdownFilter
+										label='Sắp xếp'
+										options={sortOptions}
+										selectedValue={sortOption}
+										onChange={setSortOption}
+									/>
+									<Button
+										variant='outline'
+										onClick={handleResetFilters}
+										iconLeft={<RotateCw size={16} />}
+										className='w-full'
+									>
+										Đặt lại bộ lọc
+									</Button>
 								</div>
 							</div>
 						</div>
 
-						{/* Desktop: Full (Giống hệt mẫu) */}
-						<div className='hidden lg:block p-4 rounded-lg border border-border bg-surface-bg space-y-4 shadow-sm'>
+						{/* Desktop Sidebar */}
+						<div className='hidden lg:block p-4 rounded-lg border border-border bg-surface-bg space-y-6 shadow-sm'>
 							<div>
 								<label className='block text-base font-medium mb-1 text-primary'>
 									Tìm kiếm
@@ -461,12 +590,12 @@ function AdventureList() {
 										value={searchInput}
 										onChange={e => setSearchInput(e.target.value)}
 										onKeyPress={e => e.key === "Enter" && handleSearch()}
-										placeholder='Tên map, boss...'
+										placeholder='Map, boss, item...'
 									/>
 									{searchInput && (
 										<button
 											onClick={handleClearSearch}
-											className='absolute right-3 top-1/2 -translate-y-1/2 text-white hover:text-white'
+											className='absolute right-3 top-1/2 -translate-y-1/2 text-white hover:text-red-400'
 										>
 											<XCircle size={18} />
 										</button>
@@ -482,52 +611,73 @@ function AdventureList() {
 								options={difficultyOptions}
 								selectedValues={selectedDifficulties}
 								onChange={setSelectedDifficulties}
-								placeholder='Tất cả độ khó'
+								placeholder='Tất cả'
 							/>
-
-							<div className='pt-2'>
-								<Button
-									variant='outline'
-									onClick={handleResetFilters}
-									iconLeft={<RotateCw size={16} />}
-									className='w-full'
-								>
-									Đặt lại bộ lọc
-								</Button>
-							</div>
+							<MultiSelectFilter
+								label='Chiến Dịch'
+								options={typeOptions}
+								selectedValues={selectedTypes}
+								onChange={setSelectedTypes}
+								placeholder='Tất cả'
+							/>
+							<MultiSelectFilter
+								label='Vùng yêu cầu'
+								options={regionOptions}
+								selectedValues={selectedRegions}
+								onChange={setSelectedRegions}
+								placeholder='Tất cả'
+							/>
+							{/* Dropdown Sort */}
+							<DropdownFilter
+								label='Sắp xếp theo'
+								options={sortOptions}
+								selectedValue={sortOption}
+								onChange={setSortOption}
+							/>
+							<Button
+								variant='outline'
+								onClick={handleResetFilters}
+								iconLeft={<RotateCw size={16} />}
+								className='w-full'
+							>
+								Đặt lại bộ lọc
+							</Button>
 						</div>
 					</aside>
 
 					{/* --- MAIN CONTENT --- */}
-					{/* lg:order-first: Đẩy nội dung lên trước (về bên trái) trên màn hình lớn */}
 					<div className='lg:w-4/5 w-full lg:order-first'>
 						<div className='bg-surface-bg rounded-lg border border-border p-1 sm:p-6 shadow-sm min-h-[500px]'>
 							{paginatedAdventures.length > 0 ? (
 								<>
 									<div className='grid grid-cols-1 gap-4'>
 										{paginatedAdventures.map((adv, index) => (
-											<AdventureCard key={index} adventure={adv} />
+											// Sử dụng key duy nhất nếu có ID, tạm dùng index kết hợp tên
+											<AdventureCard
+												key={`${adv.adventureName}-${index}`}
+												adventure={adv}
+											/>
 										))}
 									</div>
 
-									{/* Số lượng kết quả */}
+									{/* Pagination Info */}
 									<div className='text-center text-base text-primary-500 mt-6 mb-2'>
 										Hiển thị{" "}
 										<span className='font-medium text-primary-500'>
 											{(currentPage - 1) * ITEMS_PER_PAGE + 1}–
 											{Math.min(
 												currentPage * ITEMS_PER_PAGE,
-												filteredAdventures.length
+												processedAdventures.length
 											)}
 										</span>{" "}
 										trong{" "}
 										<span className='font-medium text-primary-500'>
-											{filteredAdventures.length}
+											{processedAdventures.length}
 										</span>{" "}
 										kết quả
 									</div>
 
-									{/* Phân trang */}
+									{/* Pagination Controls */}
 									{totalPages > 1 && (
 										<div className='mt-4 flex justify-center items-center gap-2 md:gap-4'>
 											<Button
@@ -551,13 +701,13 @@ function AdventureList() {
 									)}
 								</>
 							) : (
-								<div className='flex items-center justify-center h-full min-h-[300px] text-center text-white'>
+								<div className='flex items-center justify-center h-full min-h-[300px] text-center text-text-secondary'>
 									<div>
 										<Search size={48} className='mx-auto mb-4 opacity-20' />
 										<p className='font-semibold text-lg'>
 											Không tìm thấy bản đồ nào phù hợp.
 										</p>
-										<p>Vui lòng thử lại với bộ lọc khác hoặc đặt lại bộ lọc.</p>
+										<p>Vui lòng thử lại với từ khóa hoặc bộ lọc khác.</p>
 									</div>
 								</div>
 							)}
