@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
-
+import { Analytics } from "@vercel/analytics/react";
 // Context xác thực
 import { AuthProvider } from "./context/AuthContext.jsx";
 
@@ -142,6 +142,7 @@ function App() {
 				<BrowserRouter>
 					{/* Sử dụng AppLayout thay vì viết trực tiếp div ở đây */}
 					<AppLayout />
+					<Analytics />
 				</BrowserRouter>
 			</AuthProvider>
 		</HelmetProvider>
