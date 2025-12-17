@@ -2099,7 +2099,7 @@
 		]
 	},
 	{
-		"adventureName": "",
+		"adventureName": "Ác Long Thượng Giới",
 		"adventureNameRef": "The Star Forger",
 		"typeAdventure": "Huyền Thoại Arcane",
 		"typeAdventureRef": "Legends of Arcane",
@@ -2156,6 +2156,298 @@
 				"items": [
 					{ "name": "Kho báu Vàng", "count": 1 },
 					{ "name": "Điểm Huyền Thoại", "count": 8000 }
+				]
+			}
+		]
+	},
+	{
+		"adventureName": "Đại Ca",
+		"adventureNameRef": "The Boss",
+		"typeAdventure": "Người Khổng Lồ Của Runeterra",
+		"typeAdventureRef": "Titans of Runeterra",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/07IO011-full.png?f6e8d",
+		"difficulty": 2,
+		"specialRules": ["Larger Than Life", "Winner's Purse"],
+		"bosses": [
+			{
+				"name": "Jack",
+				"power": "Down But Not Out"
+			},
+			{
+				"name": "Sett",
+				"power": "Champions' Contest"
+			}
+		],
+		"championXP": 985,
+		"requirement": ["Anivia", "Noxus", "Demacia", "Hoa Linh Lục Địa"],
+		"rewards": [
+			{
+				"items": [
+					{ "name": "Kho Báu Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1000 }
+				]
+			}
+		]
+	},
+	{
+		"adventureName": "Ác Quỷ Thiết Giáp",
+		"adventureNameRef": "The Iron Revenant",
+		"typeAdventure": "Người Khổng Lồ Của Runeterra",
+		"typeAdventureRef": "Titans of Runeterra",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/08SI042-full.png?73de0",
+		"difficulty": 3,
+		"specialRules": ["Larger Than Life", "I'm Not Done With You"],
+		"bosses": [
+			{
+				"name": "Nasus",
+				"power": "Feed The Cycle"
+			},
+			{
+				"name": "Mordekaiser",
+				"power": "Into The Death Realm"
+			}
+		],
+		"championXP": 1925,
+		"requirement": ["Tryndamere", "Noxus", "Thành Phố Bandle", "Ionia"],
+		"rewards": [
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 1500 }
+				]
+			}
+		]
+	},
+	{
+		"adventureName": "Khổng Lồ Biển Sâu",
+		"adventureNameRef": "The Titan of the Depths",
+		"typeAdventure": "Người Khổng Lồ Của Runeterra",
+		"typeAdventureRef": "Titans of Runeterra",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/02BW053T1-full.png?e0ab2",
+		"difficulty": 4,
+		"specialRules": ["Larger Than Life", "Fortifications", "Deadly"],
+		"bosses": [
+			{
+				"name": "Darius",
+				"power": "Hemorrhage"
+			},
+			{
+				"name": "Nautilus",
+				"power": "All Will Drown!"
+			}
+		],
+		"championXP": 5230,
+		"requirement": [
+			"Anivia",
+			"Nautilus",
+			"Noxus",
+			"Hoa Linh Lục Địa",
+			"Targon",
+			"ALL"
+		],
+		"rewards": [
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 2000 }
+				]
+			}
+		]
+	},
+	{
+		"adventureName": "Bão Tố Cuồng Nộ",
+		"adventureNameRef": "The Relentless Storm",
+		"typeAdventure": "Người Khổng Lồ Của Runeterra",
+		"typeAdventureRef": "Titans of Runeterra",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/08FR001T1-full.png?7cfd5",
+		"difficulty": 5,
+		"specialRules": ["Larger Than Life", "Land of Giants", "Deadly"],
+		"bosses": [
+			{
+				"name": "Malphite",
+				"power": "Uphill Battle"
+			},
+			{
+				"name": "Volibear",
+				"power": "Storm's Wrath"
+			}
+		],
+		"championXP": 5230,
+		"requirement": [
+			"Rồng Ngàn Tuổi",
+			"Nasus",
+			"Runeterra",
+			"Demacia",
+			"Bilgewater",
+			"ALL"
+		],
+		"rewards": [
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 4000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 4000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 4000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 4000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 4000 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 4000 }
+				]
+			}
+		]
+	},
+	{
+		"adventureName": "Long Lực",
+		"adventureNameRef": "The Dragonsire",
+		"typeAdventure": "Người Khổng Lồ Của Runeterra",
+		"typeAdventureRef": "Titans of Runeterra",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/08RU014T9-full.png?2154b",
+		"difficulty": 6,
+		"specialRules": ["Larger Than Life", "Dragon's Wrath", "Deadly"],
+		"bosses": [
+			{
+				"name": "The Half-Dragon",
+				"power": "Tasty Snack"
+			},
+			{
+				"name": "The Dragonsire",
+				"power": "Age of Dragons"
+			}
+		],
+		"championXP": 6030,
+		"requirement": [
+			"Anivia",
+			"Aatrox",
+			"Freljord",
+			"Freljord",
+			"Hoa Linh Lục Địa",
+			"ALL"
+		],
+		"rewards": [
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 6500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Thùng Tinh Tú Bạc", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 6500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 6500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 6500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 6500 }
+				]
+			},
+			{
+				"items": [
+					{ "name": "Kho Báu Vàng", "count": 1 },
+					{ "name": "Điểm Huyền Thoại", "count": 6500 }
 				]
 			}
 		]

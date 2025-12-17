@@ -43,14 +43,7 @@ import AnnouncementPopup from "./components/common/AnnouncementPopup";
 
 // Luồng admin
 import AdminPanel from "./components/admin/adminPanel.jsx";
-import ChampionEditor from "./components/admin/championEditor.jsx";
-import PowerEditor from "./components/admin/powerEditor";
-import RelicEditor from "./components/admin/relicEditor.jsx";
-import ItemEditor from "./components/admin/itemEditor.jsx";
-import RuneEditor from "./components/admin/runeEditor.jsx";
-import BuildEditor from "./components/admin/buildEditor.jsx";
 import PrivateRoute from "./components/admin/privateRoute.jsx";
-import GuideEditor from "./components/admin/guideEditor.jsx";
 
 // --- Component chứa Routes ---
 function MainContent() {
