@@ -14,7 +14,7 @@ dotenv.config();
 
 // --- CẤU HÌNH ---
 // THAY ĐỔI 1: Cập nhật tên bảng đích
-const DYNAMODB_TABLE_NAME = "guidePocGuideList";
+const DYNAMODB_TABLE_NAME = "guidePocRelics";
 const AWS_REGION = process.env.AWS_REGION;
 
 // --- KHỞI TẠO DYNAMODB CLIENT ---
@@ -31,7 +31,7 @@ async function uploadRelicsData() {
 
 		// THAY ĐỔI 2: Trỏ đến tệp dữ liệu relics-vi_vn.json
 		// Hãy chắc chắn rằng bạn có tệp `relics-vi_vn.json` ở đúng đường dẫn này.
-		const relicsFilePath = path.join(__dirname, "guides.json");
+		const relicsFilePath = path.join(__dirname, "relics1-vi_vn.json");
 
 		console.log(`Đang đọc dữ liệu từ: ${relicsFilePath}`);
 		const fileContent = await fs.readFile(relicsFilePath, "utf8");

@@ -255,7 +255,7 @@ Tổng 50+ relics từ Common (xanh lá) đến Epic (tím), chia theo rarity. L
 							</div>
 
 							<div
-								className={`transition-all duration-300 ease-in-out overflow-hidden ${
+								className={`transition-all duration-300 ease-in-out overflow-visible ${
 									isFilterOpen
 										? "max-h-[1200px] opacity-100"
 										: "max-h-0 opacity-0"

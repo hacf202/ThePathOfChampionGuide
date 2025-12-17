@@ -219,7 +219,7 @@ function ItemList() {
 							</div>
 
 							<div
-								className={`transition-all duration-300 ease-in-out overflow-hidden ${
+								className={`transition-all duration-300 ease-in-out overflow-visible ${
 									isFilterOpen
 										? "max-h-[800px] opacity-100"
 										: "max-h-0 opacity-0"
