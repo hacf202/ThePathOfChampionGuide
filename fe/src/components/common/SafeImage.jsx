@@ -5,6 +5,7 @@ const SafeImage = ({
 	src,
 	alt = "Image",
 	className = "",
+	crossOrigin = undefined, // Mặc định là undefined để không kích hoạt kiểm tra CORS
 	fallback = "/fallback-image.svg",
 	loading = "lazy",
 }) => {
@@ -32,6 +33,7 @@ const SafeImage = ({
 			className={className}
 			onError={handleError}
 			loading={loading}
+			crossOrigin={crossOrigin} // Chỉ có giá trị khi ta truyền vào từ TierListMaker
 		/>
 	);
 };

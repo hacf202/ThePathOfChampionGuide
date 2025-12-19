@@ -5,7 +5,7 @@ const InputField = ({ label, error, rightIcon, className, ...props }) => {
 	return (
 		<div className='w-full'>
 			{label && (
-				<label className='block text-sm font-medium text-text-primary mb-1'>
+				<label className='block text-sm font-medium text-text-primary'>
 					{label}
 				</label>
 			)}

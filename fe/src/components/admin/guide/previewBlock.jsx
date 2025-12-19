@@ -43,6 +43,52 @@ const PreviewBlock = ({ block, referenceData }) => {
 				</figure>
 			);
 
+		/* BLOCK LINK MỚI ĐỒNG BỘ */
+		case "link":
+			return (
+				<div className='my-6'>
+					<a
+						href={block.url}
+						target='_blank'
+						rel='noopener noreferrer'
+						className='flex items-center gap-4 p-4 border rounded-xl bg-white shadow-sm hover:shadow-md hover:border-blue-300 transition-all group'
+					>
+						{block.image && (
+							<div className='flex-shrink-0 w-16 h-16 md:w-20 md:h-20 overflow-hidden rounded-lg border'>
+								<img
+									src={block.image}
+									alt={block.label}
+									className='w-full h-full object-cover group-hover:scale-105 transition-transform'
+								/>
+							</div>
+						)}
+						<div className='flex-1 overflow-hidden'>
+							<h4 className='font-bold text-blue-600 group-hover:text-blue-700 truncate text-lg'>
+								{block.label || "Xem liên kết"}
+							</h4>
+							<p className='text-sm text-gray-400 truncate mt-1'>{block.url}</p>
+						</div>
+						<div className='text-gray-300 group-hover:text-blue-500 pr-2'>
+							<svg
+								xmlns='http://www.w3.org/2000/svg'
+								width='24'
+								height='24'
+								viewBox='0 0 24 24'
+								fill='none'
+								stroke='currentColor'
+								strokeWidth='2'
+								strokeLinecap='round'
+								strokeLinejoin='round'
+							>
+								<path d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6' />
+								<polyline points='15 3 21 3 21 9' />
+								<line x1='10' y1='14' x2='21' y2='3' />
+							</svg>
+						</div>
+					</a>
+				</div>
+			);
+
 		case "list":
 			return (
 				<ul className='list-disc list-outside ml-6 mb-6 space-y-2 text-lg'>
@@ -53,7 +99,6 @@ const PreviewBlock = ({ block, referenceData }) => {
 			);
 
 		case "table":
-			// Hàm hỗ trợ lấy ID và data (giả định đã được khai báo)
 			const getTableData = (type, index, dataMap) => {
 				const id = block[`${type}Ids`]?.[index];
 				return { id, data: dataMap?.[id] };
@@ -69,7 +114,6 @@ const PreviewBlock = ({ block, referenceData }) => {
 					<table className='min-w-full divide-y divide-gray-200'>
 						<thead className='bg-gray-100'>
 							<tr>
-								{/* Thêm cột ID nếu có loại ID được chọn */}
 								{(block.idType === "relic" ||
 									block.idType === "power" ||
 									block.idType === "champion") && (
@@ -121,7 +165,6 @@ const PreviewBlock = ({ block, referenceData }) => {
 										{row.map((cell, cIdx) => {
 											let content = renderHtml(cell);
 
-											// Xử lý hiển thị ảnh và link ở cột đầu tiên
 											if (cIdx === 0) {
 												let imgSrc = null;
 												let linkUrl = null;

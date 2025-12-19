@@ -103,7 +103,7 @@ const MultiSelectFilter = ({
 
 	return (
 		<div className='relative' ref={wrapperRef}>
-			<label className='block text-sm font-medium mb-1 text-text-secondary'>
+			<label className='block text-sm font-medium text-text-secondary'>
 				{label}
 			</label>
 			{/* Đồng bộ style với InputField */}

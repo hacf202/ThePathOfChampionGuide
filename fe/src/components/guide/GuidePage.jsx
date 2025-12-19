@@ -2,9 +2,16 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import PageTitle from "../common/pageTitle";
-import { Eye, Calendar, PenTool, ArrowLeft, Home } from "lucide-react";
+import {
+	Eye,
+	Calendar,
+	PenTool,
+	ArrowLeft,
+	Home,
+	ExternalLink,
+} from "lucide-react"; // Thêm ExternalLink icon
 import axios from "axios";
-import Button from "../common/button"; // Đảm bảo đường dẫn đúng
+import Button from "../common/button";
 
 // ==========================================
 // 1. Component hiển thị nội dung đệ quy
@@ -75,6 +82,56 @@ const ContentBlock = ({ block, referenceData }) => {
 				</figure>
 			);
 
+		/* BLOCK LINK MỚI ĐỒNG BỘ */
+		case "link":
+			return (
+				<div className='my-8'>
+					<a
+						href={block.url}
+						target='_blank'
+						rel='noopener noreferrer'
+						className='flex items-center gap-4 p-4 rounded-2xl border shadow-sm transition-all hover:shadow-md group'
+						style={{
+							backgroundColor: "var(--color-white)",
+							borderColor: "var(--color-border)",
+						}}
+					>
+						{block.image && (
+							<div
+								className='flex-shrink-0 w-20 h-20 md:w-24 md:h-24 overflow-hidden rounded-xl border'
+								style={{ borderColor: "var(--color-border)" }}
+							>
+								<img
+									src={block.image}
+									alt={block.label}
+									className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-500'
+								/>
+							</div>
+						)}
+						<div className='flex-1 min-w-0'>
+							<h4
+								className='font-bold text-lg md:text-xl truncate group-hover:text-blue-600 transition-colors'
+								style={{
+									color: "var(--color-text-primary)",
+									fontFamily: "var(--font-primary)",
+								}}
+							>
+								{block.label || "Xem liên kết"}
+							</h4>
+							<p
+								className='text-sm truncate opacity-60 mt-1'
+								style={{ color: "var(--color-text-secondary)" }}
+							>
+								{block.url}
+							</p>
+						</div>
+						<div className='text-gray-400 group-hover:text-blue-500 transition-colors pr-2'>
+							<ExternalLink size={24} />
+						</div>
+					</a>
+				</div>
+			);
+
 		case "list":
 			return (
 				<ul
@@ -89,13 +146,14 @@ const ContentBlock = ({ block, referenceData }) => {
 					))}
 				</ul>
 			);
-
 		case "table":
+			// ... (Giữ nguyên logic table cũ của bạn)
 			return (
 				<div
 					className='my-6 overflow-x-auto border rounded-lg shadow-sm'
 					style={{ borderColor: "var(--color-border)" }}
 				>
+					{/* ... (Nội dung table giữ nguyên) */}
 					{block.title && (
 						<div
 							className='px-4 py-2 font-bold border-b'
@@ -212,14 +270,6 @@ const ContentBlock = ({ block, referenceData }) => {
 							})}
 						</tbody>
 					</table>
-					{block.caption && (
-						<p
-							className='p-2 text-center text-xs italic border-t'
-							style={{ color: "var(--color-text-secondary)" }}
-						>
-							{block.caption}
-						</p>
-					)}
 				</div>
 			);
 
@@ -279,11 +329,11 @@ const ContentBlock = ({ block, referenceData }) => {
 									</ul>
 								)}
 								{item.image && (
-									<div className='flex-shrink-0'>
+									<div className='flex-shrink-0 mt-3'>
 										<img
 											src={item.image}
-											alt={item.imageAlt}
-											className='w-full h-72 object-cover rounded-lg'
+											alt={item.imageAlt || item.title}
+											className='w-full h-72 object-cover rounded-lg shadow-sm'
 										/>
 									</div>
 								)}
@@ -296,7 +346,7 @@ const ContentBlock = ({ block, referenceData }) => {
 		case "conclusion":
 			return (
 				<div
-					className='mt-12 p-6  rounded-xl border text-center'
+					className='mt-12 p-6 rounded-xl border text-center'
 					style={{
 						backgroundColor: "var(--color-surface-hover-bg)",
 						borderColor: "var(--color-primary-300)",

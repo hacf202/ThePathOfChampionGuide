@@ -27,6 +27,7 @@ import {
 	BookMarked,
 	BookCopy,
 	Map,
+	BarChartHorizontalBig,
 } from "lucide-react";
 
 function MobileSidebar() {
@@ -105,7 +106,7 @@ function MobileSidebar() {
 							onClick={closeSidebar}
 							className='p-1 rounded-lg hover:bg-gray-700 transition-colors'
 						>
-							<X className='w-6 h-6' />
+							<X className='w-6 h-6 text-white' />
 						</button>
 					</div>
 
@@ -229,6 +230,13 @@ function MobileSidebar() {
 										onClick={closeSidebar}
 									>
 										<LoaderPinwheel className='w-4 h-4 ' /> Vòng quay
+									</NavLink>
+									<NavLink
+										to='/tierlist'
+										className={dropdownLinkClass}
+										onClick={closeSidebar}
+									>
+										<BarChartHorizontalBig className='w-4 h-4' /> Xếp hạng
 									</NavLink>
 									<NavLink
 										to='/introduction'

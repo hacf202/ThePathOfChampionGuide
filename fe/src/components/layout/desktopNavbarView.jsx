@@ -25,6 +25,7 @@ import {
 	BookMarked,
 	BookCopy,
 	Map,
+	BarChartHorizontalBig,
 } from "lucide-react";
 
 function DesktopNavbar() {
@@ -210,6 +211,13 @@ function DesktopNavbar() {
 										onClick={handleNavClick}
 									>
 										<LoaderPinwheel className='w-5 h-5' /> Vòng quay
+									</NavLink>
+									<NavLink
+										to='/tierlist'
+										className={dropdownLinkClass}
+										onClick={handleNavClick}
+									>
+										<BarChartHorizontalBig className='w-5 h-5' /> Xếp hạng
 									</NavLink>
 									<NavLink
 										to='/introduction'

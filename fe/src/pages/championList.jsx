@@ -20,6 +20,7 @@ import PageTitle from "../components/common/pageTitle";
 
 const ITEMS_PER_PAGE = 20;
 
+// --- Component phụ ---
 const LoadingSpinner = () => (
 	<div className='flex justify-center items-center h-64'>
 		<div className='animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-primary-500'></div>
@@ -36,6 +37,7 @@ const ErrorMessage = ({ message, onRetry }) => (
 	</div>
 );
 
+// --- Component chính ---
 function ChampionList() {
 	const [champions, setChampions] = useState([]);
 	const [loading, setLoading] = useState(true);
@@ -78,7 +80,7 @@ function ChampionList() {
 		false
 	);
 
-	// === FETCH DATA ===
+	// API
 	const fetchChampions = async () => {
 		setLoading(true);
 		setError(null);
@@ -88,15 +90,12 @@ function ChampionList() {
 			if (!response.ok) throw new Error(`Lỗi server: ${response.status}`);
 			const data = await response.json();
 
-			// Chuẩn hóa dữ liệu cho frontend (avatar + đảm bảo kiểu dữ liệu)
 			const formatted = data.map(champ => ({
 				...champ,
-				// Lấy avatar đúng theo cấu trúc mới
 				avatarUrl:
 					champ.assets?.[0]?.avatar ||
 					champ.assets?.[0]?.fullAbsolutePath ||
 					"/fallback-champion.png",
-				// Đảm bảo cost và maxStar là số
 				cost: Number(champ.cost) || 0,
 				maxStar: Number(champ.maxStar) || 3,
 			}));
@@ -104,7 +103,6 @@ function ChampionList() {
 			setChampions(formatted);
 		} catch (err) {
 			setError(err.message);
-			console.error(err);
 		} finally {
 			setLoading(false);
 		}
@@ -114,7 +112,7 @@ function ChampionList() {
 		fetchChampions();
 	}, []);
 
-	// === FILTER OPTIONS ===
+	// Filter options
 	const filterOptions = useMemo(() => {
 		if (champions.length === 0)
 			return { regions: [], costs: [], maxStars: [], tags: [], sort: [] };
@@ -153,11 +151,10 @@ function ChampionList() {
 		return { regions, costs, maxStars, tags, sort };
 	}, [champions]);
 
-	// === FILTER + SORT ===
+	// Filter & Sort logic
 	const filteredChampions = useMemo(() => {
 		let filtered = [...champions];
 
-		// Tìm kiếm không dấu
 		if (searchTerm) {
 			const term = removeAccents(searchTerm.toLowerCase());
 			filtered = filtered.filter(c =>
@@ -178,17 +175,14 @@ function ChampionList() {
 				c.tag?.some(t => selectedTags.includes(t))
 			);
 
-		// Sắp xếp
 		const [sortKey, sortDir] = sortOrder.split("-");
 		filtered.sort((a, b) => {
 			let valA = sortKey === "name" ? a.name : a[sortKey];
 			let valB = sortKey === "name" ? b.name : b[sortKey];
-
-			if (typeof valA === "string") {
+			if (typeof valA === "string")
 				return sortDir === "asc"
 					? valA.localeCompare(valB)
 					: valB.localeCompare(valA);
-			}
 			return sortDir === "asc" ? valA - valB : valB - valA;
 		});
 
@@ -203,24 +197,22 @@ function ChampionList() {
 		sortOrder,
 	]);
 
-	// Pagination
-	const totalPages = Math.ceil(filteredChampions.length / ITEMS_PER_PAGE);
-	const paginatedChampions = filteredChampions.slice(
-		(currentPage - 1) * ITEMS_PER_PAGE,
-		currentPage * ITEMS_PER_PAGE
-	);
-
 	// Handlers
 	const handleSearch = () => {
 		setSearchTerm(searchInput.trim());
 		setCurrentPage(1);
-		if (window.innerWidth < 1024) setIsFilterOpen(false);
+		// Đóng bộ lọc trên mobile sau khi tìm kiếm giống itemList
+		if (window.innerWidth < 1024) {
+			setIsFilterOpen(false);
+		}
 	};
+
 	const handleClearSearch = () => {
 		setSearchInput("");
 		setSearchTerm("");
 		setCurrentPage(1);
 	};
+
 	const handleResetFilters = () => {
 		handleClearSearch();
 		setSelectedRegions([]);
@@ -231,6 +223,12 @@ function ChampionList() {
 		setCurrentPage(1);
 	};
 
+	const totalPages = Math.ceil(filteredChampions.length / ITEMS_PER_PAGE);
+	const paginatedChampions = filteredChampions.slice(
+		(currentPage - 1) * ITEMS_PER_PAGE,
+		currentPage * ITEMS_PER_PAGE
+	);
+
 	if (loading) return <LoadingSpinner />;
 	if (error) return <ErrorMessage message={error} onRetry={fetchChampions} />;
 
@@ -238,7 +236,7 @@ function ChampionList() {
 		<div>
 			<PageTitle
 				title='Danh sách tướng'
-				description='POC GUIDE: Tier list tướng S/A/B Path of Champions mới nhất 2025: Jinx, LeBlanc, Swain, A.Sol, Viktor dẫn đầu! Lọc theo vùng (Demacia/Noxus), năng lượng, sao tối đa, thẻ. Build relic/power/rune tối ưu + chiến thuật đánh boss Galio dễ dàng!'
+				description='POC GUIDE: Danh sách tướng Path of Champions...'
 				type='website'
 			/>
 			<div className='font-secondary'>
@@ -247,10 +245,10 @@ function ChampionList() {
 				</h1>
 
 				<div className='flex flex-col lg:flex-row gap-8'>
-					{/* === FILTER SIDEBAR (giữ nguyên hoàn toàn giao diện cũ) === */}
+					{/* FILTER SIDEBAR */}
 					<aside className='lg:w-1/5 w-full lg:sticky lg:top-24 h-fit'>
-						{/* Mobile */}
-						<div className='lg:hidden p-2 rounded-lg border border-border bg-surface-bg'>
+						{/* Mobile: Collapsible - Đã đồng bộ shadow và spacing với itemList */}
+						<div className='lg:hidden p-2 rounded-lg border border-border bg-surface-bg shadow-sm'>
 							<div className='flex items-center gap-2'>
 								<div className='flex-1 relative'>
 									<InputField
@@ -285,13 +283,13 @@ function ChampionList() {
 							</div>
 
 							<div
-								className={`transition-all duration-300 ease-in-out overflow-visible${
+								className={`transition-all duration-300 ease-in-out overflow-visible ${
 									isFilterOpen
 										? "max-h-[1200px] opacity-100"
 										: "max-h-0 opacity-0"
 								}`}
 							>
-								<div className='pt-4 space-y-4 border-t border-border'>
+								<div className='pt-4 space-y-4 border-t border-border mt-2'>
 									<MultiSelectFilter
 										label='Vùng'
 										options={filterOptions.regions}
@@ -340,8 +338,8 @@ function ChampionList() {
 							</div>
 						</div>
 
-						{/* Desktop */}
-						<div className='hidden lg:block p-4 rounded-lg border border-border bg-surface-bg space-y-4'>
+						{/* Desktop: Full - Đồng bộ shadow với itemList */}
+						<div className='hidden lg:block p-4 rounded-lg border border-border bg-surface-bg space-y-4 shadow-sm'>
 							<div>
 								<label className='block text-sm font-medium mb-1 text-text-secondary'>
 									Tìm kiếm tướng
@@ -366,7 +364,6 @@ function ChampionList() {
 									<Search size={16} className='mr-2' /> Tìm kiếm
 								</Button>
 							</div>
-
 							<MultiSelectFilter
 								label='Vùng'
 								options={filterOptions.regions}
@@ -414,16 +411,16 @@ function ChampionList() {
 						</div>
 					</aside>
 
-					{/* === MAIN CONTENT === */}
+					{/* MAIN CONTENT */}
 					<div className='lg:w-4/5 w-full lg:order-first'>
-						<div className='bg-surface-bg rounded-lg border border-border p-2 sm:p-6'>
+						<div className='bg-surface-bg rounded-lg border border-border p-2 sm:p-6 shadow-sm'>
 							{paginatedChampions.length > 0 ? (
 								<>
 									<div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6'>
 										{paginatedChampions.map(champion => (
 											<Link
-												key={champion.championID} // Dùng championID làm key thay vì name
-												to={`/champion/${champion.championID}`} // Link theo ID, không bị lỗi ký tự đặc biệt
+												key={champion.championID}
+												to={`/champion/${champion.championID}`}
 												className='hover:scale-105 transition-transform duration-200'
 											>
 												<ChampionCard champion={champion} />
@@ -471,12 +468,9 @@ function ChampionList() {
 								</>
 							) : (
 								<div className='flex items-center justify-center h-full min-h-[300px] text-center text-text-secondary'>
-									<div>
-										<p className='font-semibold text-lg'>
-											Không tìm thấy tướng nào phù hợp.
-										</p>
-										<p>Vui lòng thử lại với bộ lọc khác hoặc đặt lại bộ lọc.</p>
-									</div>
+									<p className='font-semibold text-lg'>
+										Không tìm thấy tướng nào phù hợp.
+									</p>
 								</div>
 							)}
 						</div>

@@ -14,11 +14,10 @@ import {
 	ArrowUp,
 	ArrowDown,
 	LayoutList,
-	Link as LinkIcon, // Đổi tên để tránh nhầm với thẻ Link
+	Link as LinkIcon,
 } from "lucide-react";
 
-// Đảm bảo đường dẫn import đúng với cấu trúc dự án của bạn
-import Button from "../../common/button"; // Ví dụ đường dẫn
+import Button from "../../common/button";
 
 // --- Helper: StrictModeDroppable ---
 const StrictModeDroppable = ({ children, ...props }) => {
@@ -62,6 +61,14 @@ const BlockEditor = ({
 			};
 		} else if (type === "image") {
 			newBlock = { id: newId, type: "image", src: "", alt: "" };
+		} else if (type === "link") {
+			newBlock = {
+				id: newId,
+				type: "link",
+				url: "",
+				image: "",
+				label: "Tiêu đề liên kết",
+			};
 		} else if (type === "list") {
 			newBlock = { id: newId, type: "list", items: [""] };
 		} else if (type === "table") {
@@ -358,6 +365,63 @@ const BlockEditor = ({
 											</div>
 										)}
 
+										{/* LINK WITH IMAGE BLOCK */}
+										{block.type === "link" && (
+											<div className='space-y-3 p-2 bg-blue-50/30 rounded-md border border-blue-100'>
+												<div className='grid grid-cols-1 md:grid-cols-2 gap-3'>
+													<div>
+														<label className='text-[10px] font-bold text-blue-600 uppercase'>
+															Nhãn hiển thị
+														</label>
+														<input
+															value={block.label || ""}
+															onChange={e =>
+																updateBlock(index, { label: e.target.value })
+															}
+															placeholder='Ví dụ: Link tham khảo'
+															className='w-full p-2 border rounded mt-1 text-sm'
+														/>
+													</div>
+													<div>
+														<label className='text-[10px] font-bold text-blue-600 uppercase'>
+															URL đích
+														</label>
+														<input
+															value={block.url || ""}
+															onChange={e =>
+																updateBlock(index, { url: e.target.value })
+															}
+															placeholder='https://...'
+															className='w-full p-2 border rounded mt-1 text-sm'
+														/>
+													</div>
+												</div>
+												<div>
+													<label className='text-[10px] font-bold text-blue-600 uppercase'>
+														Link hình ảnh đi kèm
+													</label>
+													<div className='flex gap-2 mt-1'>
+														<input
+															value={block.image || ""}
+															onChange={e =>
+																updateBlock(index, { image: e.target.value })
+															}
+															placeholder='URL ảnh minh họa'
+															className='flex-1 p-2 border rounded text-sm'
+														/>
+														{block.image && (
+															<img
+																src={block.image}
+																alt='Preview'
+																className='h-9 w-9 object-cover rounded border bg-white'
+																onError={e => (e.target.style.display = "none")}
+															/>
+														)}
+													</div>
+												</div>
+											</div>
+										)}
+
 										{/* LIST */}
 										{block.type === "list" && (
 											<div className='space-y-2'>
@@ -628,7 +692,7 @@ const BlockEditor = ({
 				)}
 			</StrictModeDroppable>
 
-			{/* Nút thêm block - Sử dụng className để giữ màu sắc riêng biệt */}
+			{/* Nút thêm block */}
 			<div className='flex flex-wrap gap-3 mt-6'>
 				<Button
 					onClick={() => addBlock("section")}
@@ -650,6 +714,13 @@ const BlockEditor = ({
 					iconLeft={<ImageIcon size={16} />}
 				>
 					Hình ảnh
+				</Button>
+				<Button
+					onClick={() => addBlock("link")}
+					className='bg-cyan-600 hover:bg-cyan-700 text-white border-transparent'
+					iconLeft={<LinkIcon size={16} />}
+				>
+					Liên kết
 				</Button>
 				<Button
 					onClick={() => addBlock("list")}
