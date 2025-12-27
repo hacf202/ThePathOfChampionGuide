@@ -392,7 +392,7 @@ function TierListMaker() {
 
 	return (
 		<div className='max-w-[1200px] mx-auto p-1 sm:p-6 font-secondary text-text-primary'>
-			<PageTitle title='Tier List Creator' />
+			<PageTitle title='Tier List LoR xếp hạng tướng Huyền Thoại Runeterra Con Đường Anh Hùng' />
 
 			<div className='flex flex-col sm:flex-row justify-between items-center gap-4 mb-6 px-2'>
 				<h1 className='text-xl sm:text-2xl font-bold uppercase'>

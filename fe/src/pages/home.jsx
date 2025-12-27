@@ -18,10 +18,11 @@ import {
 
 // Mảng ảnh nền vẫn giữ nguyên
 const BACKGROUND_IMAGES = [
-	"https://wpocpicture.s3.us-east-1.amazonaws.com/images/soloevent.jpg",
 	"https://dd.b.pvp.net/6_3_0/set2/vi_vn/img/cards/02NX007T2-full.png",
 	"https://wiki.leagueoflegends.com/en-us/images/06SI012T1-full.png?0bfd7",
+	"https://dd.b.pvp.net/6_8_0/tpoc/vi_vn/img/cards/98SB031T2-full.png",
 	"https://wiki.leagueoflegends.com/en-us/images/06SH009-full.png?ff10a",
+	"https://dd.b.pvp.net/6_3_0/tpoc/vi_vn/img/cards/98RU004T1-full.png",
 ];
 
 // Hàm preload vẫn giữ nguyên
@@ -99,18 +100,6 @@ const Home = () => {
 	// SỬ DỤNG CLASS MÀU TỪ TAILWIND CONFIG
 	const sections = [
 		{
-			title: "QUICK SOLO EVENT",
-			subtitle: "Giải Đấu PvP - Giao Hữu Vui Vẻ",
-			titleColor: "text-accent1-title",
-			subtitleColor: "text-accent1-subtitle",
-			btnBg: "bg-yellow-600",
-			btnHover: "hover:bg-accent1-cta-hover hover:shadow-accent1-cta-bg/70",
-			link: "https://www.facebook.com/share/p/1BumDFPA2y/",
-			btnText: "Đăng Ký Ngay Tại Đây",
-			icon: Swords,
-			align: "right",
-		},
-		{
 			title: "DANH SÁCH TƯỚNG",
 			subtitle: "KHÁM PHÁ SỨC MẠNH – TRỞ THÀNH CAO THỦ",
 			titleColor: "text-accent1-title",
@@ -135,6 +124,18 @@ const Home = () => {
 			align: "left",
 		},
 		{
+			title: "Hướng Dẫn POC",
+			subtitle: "CÁC BÀI HƯỚNG DẪN VỀ CON ĐƯỜNG ANH HÙNG",
+			titleColor: "text-purple-200",
+			subtitleColor: "text-purple-100",
+			btnBg: "bg-purple-800",
+			btnHover: "hover:bg-purple-80 hover:bg-purple-800/70",
+			link: "/guides",
+			btnText: "Xem Bộ Cổ Vật",
+			icon: ScrollText,
+			align: "left",
+		},
+		{
 			title: "VÒNG QUAY MAY MẮN",
 			subtitle: "NGẪU NHIÊN HOÀN HẢO – THỬ NGẪU CHIẾN THẮNG",
 			titleColor: "text-accent3-title",
@@ -145,6 +146,18 @@ const Home = () => {
 			btnText: "Quay Ngay",
 			icon: Dices,
 			spin: true,
+			align: "right",
+		},
+		{
+			title: "TIER LIST POC",
+			subtitle: "Tạo Bảng Xếp Hạng Tướng Của Bạn",
+			titleColor: "text-accent1-title",
+			subtitleColor: "text-accent1-subtitle",
+			btnBg: "bg-red-600",
+			btnHover: "hover:bg-accent1-cta-hover hover:shadow-accent1-cta-bg/70",
+			link: "/tierlist",
+			btnText: "Tạo Bảng Xếp Hạng",
+			icon: Swords,
 			align: "right",
 		},
 	];
@@ -207,7 +220,7 @@ const Home = () => {
 									{/* SỬ DỤNG CLASS MỚI TỪ theme.css VÀ TAILWIND CONFIG */}
 									<div className='inline-flex items-center gap-3 px-7 py-3 bg-accent1-badge-bg rounded-full shadow-xl animate-badgeBounce'>
 										<Crown className='w-7 h-7 text-white' />
-										<span className='font-bold uppercase tracking-wider text-white text-lg'>
+										<span className='font-bold uppercase tracking-wider text-white text-lg '>
 											Con Đường Anh Hùng
 										</span>
 									</div>
@@ -254,7 +267,7 @@ const Home = () => {
 							</p>
 
 							{/* CARD VAI TRÒ */}
-							{idx === 1 && section.align === "center" && (
+							{idx === 0 && section.align === "center" && (
 								<div className='flex flex-wrap justify-center gap-3 sm:gap-6 md:gap-10 mb-8 px-4 sm:px-0'>
 									{roles.map((role, i) => (
 										<NavLink
