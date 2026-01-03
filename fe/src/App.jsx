@@ -13,6 +13,7 @@ import PowerDetail from "./components/power/powerDetail.jsx";
 import ItemDetail from "./components/item/itemDetail.jsx";
 import BuildDetail from "./components/build/buildDetail.jsx";
 import RuneDetail from "./components/rune/runeDetail.jsx";
+import GuideDetail from "./components/guide/guideDetail.jsx";
 
 // Trang chính
 import Home from "./pages/home.jsx";
@@ -25,6 +26,7 @@ import Runes from "./pages/runeList.jsx";
 import Maps from "./pages/mapList.jsx";
 import RandomizerPage from "./pages/randomWheelPage.jsx";
 import TierList from "./pages/tierList.jsx";
+import GuideListPage from "./pages/guideListPage.jsx";
 // Đăng nhập / Đăng ký
 import AuthContainer from "./components/auth/authContainer.jsx";
 import Profile from "./components/auth/profile.jsx";
@@ -37,8 +39,6 @@ import Footer from "./components/layout/footer.jsx";
 import AboutUs from "./components/about/aboutUs.jsx";
 import TermsOfUse from "./components/about/termsOfUse.jsx";
 import Introduction from "./components/about/introduction.jsx";
-import GuidePage from "./components/guide/GuidePage.jsx";
-import GuideListPage from "./pages/guideListPage.jsx";
 import AnnouncementPopup from "./components/common/AnnouncementPopup";
 
 // Luồng admin
@@ -90,7 +90,7 @@ function MainContent() {
 				<Route path='/runes' element={<Runes />} />
 				<Route path='/rune/:runeCode' element={<RuneDetail />} />
 				<Route path='/guides' element={<GuideListPage />} />
-				<Route path='/guides/:slug' element={<GuidePage />} />
+				<Route path='/guides/:slug' element={<GuideDetail />} />
 				<Route path='/maps' element={<Maps />} />
 				<Route path='/tierlist' element={<TierList />} />
 				<Route
