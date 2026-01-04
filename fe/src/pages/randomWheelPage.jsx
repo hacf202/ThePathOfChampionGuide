@@ -8,7 +8,12 @@ import SafeImage from "@/components/common/SafeImage";
 import mapsData from "../assets/data/map.json";
 
 // --- HÀM TIỆN ÍCH: Sắp xếp theo tên ---
-const sortByName = (a, b) => a.name.localeCompare(b.name);
+
+const sortByName = (a, b) => {
+	const nameA = a?.name || ""; // Nếu a hoặc name không tồn tại, dùng chuỗi rỗng
+	const nameB = b?.name || "";
+	return nameA.localeCompare(nameB);
+};
 
 function RandomizerPage() {
 	const [originalWheelsData, setOriginalWheelsData] = useState({});
