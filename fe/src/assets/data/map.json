@@ -4,7 +4,7 @@
 		"adventureNameRef": "The Swift Scout",
 		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
 		"typeAdventureRef": "World Adventures",
-		"image": "https://wiki.leagueoflegends.com/en-us/images/01PZ008T2-full.png?a20a9",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/TeemoT1.png",
 		"difficulty": 0,
 		"specialRules": [],
 		"bosses": [
@@ -47,7 +47,7 @@
 		"adventureNameRef": "The Bounty Hunter",
 		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
 		"typeAdventureRef": "World Adventures",
-		"image": "https://wiki.leagueoflegends.com/en-us/images/02BW022T2-full.png?a5939",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/MissFortuneT1.png",
 		"difficulty": 0.5,
 		"specialRules": [],
 		"bosses": [
@@ -90,7 +90,7 @@
 		"adventureNameRef": "The Might of Demacia",
 		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
 		"typeAdventureRef": "World Adventures",
-		"image": "https://wiki.leagueoflegends.com/en-us/images/01DE012-hd-full.jpg?0d58c",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/Garen.jpg",
 		"difficulty": 1,
 		"specialRules": [],
 		"bosses": [
@@ -119,7 +119,7 @@
 		"adventureNameRef": "The Fae Sorceress",
 		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
 		"typeAdventureRef": "World Adventures",
-		"image": "https://wiki.leagueoflegends.com/en-us/images/03IO002-full.png?3f0cc",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/Lulu.png",
 		"difficulty": 1,
 		"specialRules": [],
 		"bosses": [
@@ -148,7 +148,7 @@
 		"adventureNameRef": "The Wrath of Zaun",
 		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
 		"typeAdventureRef": "World Adventures",
-		"image": "https://wiki.leagueoflegends.com/en-us/images/98PZ001-full.png?4d749",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/Warwick.png",
 		"difficulty": 1,
 		"specialRules": [],
 		"bosses": [
@@ -195,7 +195,7 @@
 		"adventureNameRef": "The Saltwater Scourge",
 		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
 		"typeAdventureRef": "World Adventures",
-		"image": "https://wiki.leagueoflegends.com/en-us/images/02BW032-full.png?441cb",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/Gangplank.png",
 		"difficulty": 1.5,
 		"specialRules": ["Blood and Sweat"],
 		"bosses": [
@@ -260,7 +260,7 @@
 		"adventureNameRef": "The Prodigal Explorer",
 		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
 		"typeAdventureRef": "World Adventures",
-		"image": "https://wiki.leagueoflegends.com/en-us/images/01PZ036T1-full.png?9e0cd",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/EzrealT1.png",
 		"difficulty": 1.5,
 		"specialRules": ["I Never Miss"],
 		"bosses": [
@@ -325,7 +325,7 @@
 		"adventureNameRef": "The Master of Shadows",
 		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
 		"typeAdventureRef": "World Adventures",
-		"image": "https://wiki.leagueoflegends.com/en-us/images/01IO009-hd-full.jpg?07e01",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/Zed.jpg",
 		"difficulty": 2,
 		"specialRules": ["Embrace The Shadows"],
 		"bosses": [
@@ -396,7 +396,7 @@
 		"adventureNameRef": "The Titan of the Depths",
 		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
 		"typeAdventureRef": "World Adventures",
-		"image": "https://wiki.leagueoflegends.com/en-us/images/02BW053-hd-full.jpg?e0ff8",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/Nautilus.jpg",
 		"difficulty": 2,
 		"specialRules": ["Echoes From The Deep"],
 		"bosses": [
@@ -476,7 +476,7 @@
 		"adventureNameRef": "The Hand of Noxus",
 		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
 		"typeAdventureRef": "World Adventures",
-		"image": "https://wiki.leagueoflegends.com/en-us/images/01NX038T2-full.png?c90f3",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/DariusT1.png",
 		"difficulty": 2,
 		"specialRules": ["Age of Conquest"],
 		"bosses": [
@@ -556,7 +556,7 @@
 		"adventureNameRef": "The Machine Herald",
 		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
 		"typeAdventureRef": "World Adventures",
-		"image": "https://wiki.leagueoflegends.com/en-us/images/03PZ003-full.png?236d9",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/Viktor.png",
 		"difficulty": 2.5,
 		"specialRules": ["Utmost Efficiency"],
 		"bosses": [
@@ -636,7 +636,7 @@
 		"adventureNameRef": "The Glorious Executioner",
 		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
 		"typeAdventureRef": "World Adventures",
-		"image": "https://wiki.leagueoflegends.com/en-us/images/01NX020-full.png?12da5",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/Draven.png",
 		"difficulty": 2.5,
 		"specialRules": ["Fan Favorite"],
 		"bosses": [
@@ -716,7 +716,7 @@
 		"adventureNameRef": "Blossoms and Mushrooms",
 		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
 		"typeAdventureRef": "World Adventures",
-		"image": "https://wiki.leagueoflegends.com/en-us/images/98SB031-full.png?777e4",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/TeemoSB.png",
 		"difficulty": 2.5,
 		"specialRules": ["Incorrigible Prankster"],
 		"bosses": [
@@ -800,7 +800,7 @@
 		"adventureNameRef": "Daughter of the Void",
 		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
 		"typeAdventureRef": "World Adventures",
-		"image": "https://wiki.leagueoflegends.com/en-us/images/06SH009-full.png?37831",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/Kaisa.png",
 		"difficulty": 3,
 		"specialRules": ["Endless Adaptation"],
 		"bosses": [
@@ -880,7 +880,7 @@
 		"adventureNameRef": "The Collector of Souls",
 		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
 		"typeAdventureRef": "World Adventures",
-		"image": "https://wiki.leagueoflegends.com/en-us/images/01SI052-hd-full.jpg?89683",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/Thresh.jpg",
 		"difficulty": 3,
 		"specialRules": ["Tethered Spirits"],
 		"bosses": [
@@ -967,7 +967,7 @@
 		"adventureNameRef": "The Dragonsire",
 		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
 		"typeAdventureRef": "World Adventures",
-		"image": "https://wiki.leagueoflegends.com/en-us/images/08RU014T9-full.png?2154b",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/ElderDragonT1.png",
 		"difficulty": 3,
 		"specialRules": ["Dragon's Wrath"],
 		"bosses": [
@@ -1047,7 +1047,7 @@
 		"adventureNameRef": "The Colossus",
 		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
 		"typeAdventureRef": "World Adventures",
-		"image": "https://wiki.leagueoflegends.com/en-us/images/05DE009-full.png?7141a",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/Galio.png",
 		"difficulty": 3.5,
 		"specialRules": ["Withstand"],
 		"bosses": [
@@ -1131,7 +1131,7 @@
 		"adventureNameRef": "The Ancient Fear",
 		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
 		"typeAdventureRef": "World Adventures",
-		"image": "https://wiki.leagueoflegends.com/en-us/images/98RU004-full.png?8efdd",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/Fiddlesticks.png",
 		"difficulty": 3.5,
 		"specialRules": ["Jumpscare"],
 		"bosses": [
@@ -1232,7 +1232,7 @@
 		"adventureNameRef": "The Grand Heist",
 		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
 		"typeAdventureRef": "World Adventures",
-		"image": "https://wiki.leagueoflegends.com/en-us/images/98SH002-full.png?dc598",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/AkshanVault.png",
 		"difficulty": 3.5,
 		"specialRules": ["A Killer Among Us"],
 		"bosses": [
@@ -1333,7 +1333,7 @@
 		"adventureNameRef": "The Star Forger",
 		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
 		"typeAdventureRef": "World Adventures",
-		"image": "https://wiki.leagueoflegends.com/en-us/images/03MT087-full.png?1d109",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/AurelionSolT1.png",
 		"difficulty": 4,
 		"specialRules": ["Legendary Climb"],
 		"bosses": [
@@ -1384,7 +1384,7 @@
 			},
 			{
 				"items": [
-					{ "name": "Kho Báu Bạc Kim", "count": 1 },
+					{ "name": "Kho Báu Bạch Kim", "count": 1 },
 					{ "name": "Hòm Thần Tích Bạc", "count": 1 },
 					{ "name": "Điểm Huyền Thoại", "count": 2000 }
 				]
@@ -1432,7 +1432,7 @@
 		"adventureNameRef": "The Unforgiven",
 		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
 		"typeAdventureRef": "World Adventures",
-		"image": "https://wiki.leagueoflegends.com/en-us/images/01IO015T1-full.png?f0f35",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/YasuoT1.png",
 		"difficulty": 4.5,
 		"specialRules": ["Windswept Wanderers", "Deadly"],
 		"bosses": [
@@ -1485,7 +1485,7 @@
 		"adventureNameRef": "The Frost Witch",
 		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
 		"typeAdventureRef": "World Adventures",
-		"image": "https://wiki.leagueoflegends.com/en-us/images/04FR005-full.png?e7348",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/Lissandra.png",
 		"difficulty": 5,
 		"specialRules": ["Terrors of True Ice"],
 		"bosses": [
@@ -1617,7 +1617,7 @@
 		"adventureNameRef": "The Noxian Grand General",
 		"typeAdventure": "Phiêu Lưu Khắp Thế Giới",
 		"typeAdventureRef": "World Adventures",
-		"image": "https://wiki.leagueoflegends.com/en-us/images/02NX007T2-full.png?9fc3d",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/SwainT1.png",
 		"difficulty": 5,
 		"specialRules": ["Unending Siege", "Deadly"],
 		"bosses": [
@@ -1670,7 +1670,7 @@
 		"adventureNameRef": "The Tidal Trickster",
 		"typeAdventure": "Ác Mộng",
 		"typeAdventureRef": "Nightmare Adventures",
-		"image": "https://wiki.leagueoflegends.com/en-us/images/02BW046-full.png?16a03",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/Fizz.png",
 		"difficulty": 4.5,
 		"specialRules": ["Surging Tides", "Deadly"],
 		"bosses": [
@@ -1729,7 +1729,7 @@
 		"adventureNameRef": "The Ruined King",
 		"typeAdventure": "Ác Mộng",
 		"typeAdventureRef": "Nightmare Adventures",
-		"image": "https://wiki.leagueoflegends.com/en-us/images/04SI055T2-full.png?d201b",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/ViegoT1.png",
 		"difficulty": 5,
 		"specialRules": ["Shifting Mists", "Deadly"],
 		"bosses": [
@@ -1788,7 +1788,7 @@
 		"adventureNameRef": "The Ancient Fear",
 		"typeAdventure": "Ác Mộng",
 		"typeAdventureRef": "Nightmare Adventures",
-		"image": "https://wiki.leagueoflegends.com/en-us/images/98RU004-full.png?8efdd",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/Fiddlesticks.png",
 		"difficulty": 6.5,
 		"specialRules": ["Jumpscare", "Deadly"],
 		"bosses": [
@@ -1841,7 +1841,7 @@
 		"adventureNameRef": "The Kraken Priestess",
 		"typeAdventure": "Huyền Thoại Arcane",
 		"typeAdventureRef": "Legends of Arcane",
-		"image": "https://wiki.leagueoflegends.com/en-us/images/06BW006-full.png?079a2",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/Illaoi.png",
 		"difficulty": 1.5,
 		"specialRules": ["Teamwork", "Multiplying Tendrils"],
 		"bosses": [
@@ -1882,7 +1882,7 @@
 		"adventureNameRef": "The Emperor of the Sands",
 		"typeAdventure": "Huyền Thoại Arcane",
 		"typeAdventureRef": "Legends of Arcane",
-		"image": "https://wiki.leagueoflegends.com/en-us/images/04SH003-full.png?06f14",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/Azir.png",
 		"difficulty": 2.5,
 		"specialRules": ["Teamwork", "Emperor's Command"],
 		"bosses": [
@@ -1923,7 +1923,7 @@
 		"adventureNameRef": "The Might of Demacia",
 		"typeAdventure": "Huyền Thoại Arcane",
 		"typeAdventureRef": "Legends of Arcane",
-		"image": "https://wiki.leagueoflegends.com/en-us/images/01DE012T1-full.png?1355e",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/GarenT1.png",
 		"difficulty": 3.5,
 		"specialRules": ["Teamwork", "Demacian Might II"],
 		"bosses": [
@@ -1974,7 +1974,7 @@
 		"adventureNameRef": "The Wrath of Zaun",
 		"typeAdventure": "Huyền Thoại Arcane",
 		"typeAdventureRef": "Legends of Arcane",
-		"image": "https://wiki.leagueoflegends.com/en-us/images/98PZ001T2-full.png?0e385",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/WarwickT1.png",
 		"difficulty": 4.5,
 		"specialRules": ["Teamwork", "Chemtech Contraptions", "Deadly"],
 		"bosses": [
@@ -2037,7 +2037,7 @@
 		"adventureNameRef": "The Enlightened One",
 		"typeAdventure": "Huyền Thoại Arcane",
 		"typeAdventureRef": "Legends of Arcane",
-		"image": "https://wiki.leagueoflegends.com/en-us/images/01IO041T1-full.png?f8ff3",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/KarmaT1.png",
 		"difficulty": 5.5,
 		"specialRules": ["Teamwork", "Spells & Swells II", "Deadly"],
 		"bosses": [
@@ -2103,7 +2103,7 @@
 		"adventureNameRef": "The Star Forger",
 		"typeAdventure": "Huyền Thoại Arcane",
 		"typeAdventureRef": "Legends of Arcane",
-		"image": "https://wiki.leagueoflegends.com/en-us/images/03MT087-full.png?1d109",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/AurelionSolT1.png",
 		"difficulty": 6.5,
 		"specialRules": ["Teamwork", "Legendary Climb", "Deadly"],
 		"bosses": [
@@ -2165,7 +2165,7 @@
 		"adventureNameRef": "The Boss",
 		"typeAdventure": "Người Khổng Lồ Của Runeterra",
 		"typeAdventureRef": "Titans of Runeterra",
-		"image": "https://wiki.leagueoflegends.com/en-us/images/07IO011-full.png?f6e8d",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/Sett.png",
 		"difficulty": 2,
 		"specialRules": ["Larger Than Life", "Winner's Purse"],
 		"bosses": [
@@ -2212,7 +2212,7 @@
 		"adventureNameRef": "The Iron Revenant",
 		"typeAdventure": "Người Khổng Lồ Của Runeterra",
 		"typeAdventureRef": "Titans of Runeterra",
-		"image": "https://wiki.leagueoflegends.com/en-us/images/08SI042-full.png?73de0",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/Mordekaiser.png",
 		"difficulty": 3,
 		"specialRules": ["Larger Than Life", "I'm Not Done With You"],
 		"bosses": [
@@ -2259,7 +2259,7 @@
 		"adventureNameRef": "The Titan of the Depths",
 		"typeAdventure": "Người Khổng Lồ Của Runeterra",
 		"typeAdventureRef": "Titans of Runeterra",
-		"image": "https://wiki.leagueoflegends.com/en-us/images/02BW053T1-full.png?e0ab2",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/NautilusT1.png",
 		"difficulty": 4,
 		"specialRules": ["Larger Than Life", "Fortifications", "Deadly"],
 		"bosses": [
@@ -2325,7 +2325,7 @@
 		"adventureNameRef": "The Relentless Storm",
 		"typeAdventure": "Người Khổng Lồ Của Runeterra",
 		"typeAdventureRef": "Titans of Runeterra",
-		"image": "https://wiki.leagueoflegends.com/en-us/images/08FR001T1-full.png?7cfd5",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/VolibearT1.png",
 		"difficulty": 5,
 		"specialRules": ["Larger Than Life", "Land of Giants", "Deadly"],
 		"bosses": [
@@ -2391,7 +2391,7 @@
 		"adventureNameRef": "The Dragonsire",
 		"typeAdventure": "Người Khổng Lồ Của Runeterra",
 		"typeAdventureRef": "Titans of Runeterra",
-		"image": "https://wiki.leagueoflegends.com/en-us/images/08RU014T9-full.png?2154b",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/ElderDragonT1.png",
 		"difficulty": 6,
 		"specialRules": ["Larger Than Life", "Dragon's Wrath", "Deadly"],
 		"bosses": [

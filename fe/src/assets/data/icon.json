@@ -1,0 +1,114 @@
+[
+	{
+		"name": "Noxus",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/icons/Noxus_LoR_Region.png"
+	},
+	{
+		"name": "Thành Phố Bandle",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/icons/Bandle_City_LoR_Region.png"
+	},
+	{
+		"name": "Bilgewater",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/icons/Bilgewater_LoR_Region.png"
+	},
+	{
+		"name": "Demacia",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/icons/Demacia_LoR_Region.png"
+	},
+	{
+		"name": "Freljord",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/icons/Freljord_LoR_Region.png"
+	},
+	{
+		"name": "Ionia",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/icons/Ionia_LoR_Region.png"
+	},
+	{
+		"name": "Piltover & Zaun",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/icons/Piltover_Zaun_LoR_Region.png"
+	},
+	{
+		"name": "Runeterra",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/icons/Runeterra_LoR_Region.png"
+	},
+	{
+		"name": "Shurima",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/icons/Shurima_LoR_Region.png"
+	},
+	{
+		"name": "Quần Đảo Bóng Đêm",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/icons/Shadow_Isles_LoR_Region.png"
+	},
+	{
+		"name": "Targon",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/icons/Targon_LoR_Region.png"
+	},
+	{
+		"name": "Runeterra",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/icons/Runeterra_LoR_Region.png"
+	},
+	{
+		"name": "Hoa Linh Lục Địa",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/icons/Spirit_Blossom_LoR_Region.png"
+	},
+	{
+		"name": "ALL",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/icons/Neutral_LoR_Region.png"
+	},
+	{
+		"name": "Hòm Thần Tích Đồng",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/icons/Bronze_Reliquary_icon.png"
+	},
+	{
+		"name": "Hòm Thần Tích Bạc",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/icons/Silver_Reliquary_icon.png"
+	},
+	{
+		"name": "Hòm Thần Tích Vàng",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/icons/Gold_Reliquary_icon.png"
+	},
+	{
+		"name": "Kho Báu Đồng",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/icons/Bronze_Vault_icon.png"
+	},
+	{
+		"name": "Kho Báu Bạc",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/icons/Silver_Vault_icon.png"
+	},
+	{
+		"name": "Kho Báu Vàng",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/icons/Gold_Vault_icon.png"
+	},
+	{
+		"name": "Kho Báu Bạch Kim",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/icons/Platinum_Vault_icon.png"
+	},
+	{
+		"name": "Kho Báu Kim Cương",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/icons/Diamond_Vault_icon.png"
+	},
+	{
+		"name": "Thùng Tinh Tú Bạc",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/icons/Silver_Star_Vessel_icon.png"
+	},
+	{
+		"name": "Thùng Tinh Tú Vàng",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/icons/Gold_Star_Vessel_icon.png"
+	},
+	{
+		"name": "Thùng Tinh Tú Bạch Kim",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/icons/Nova_Crystal_Vessel_icon.png"
+	},
+	{
+		"name": "Điểm Huyền Thoại",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/icons/Legend_Points_icon.png"
+	},
+	{
+		"name": "Mảnh Ghép Bí Ẩn",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/icons/Wild_Fragment_icon.png"
+	},
+	{
+		"name": "Bụi Tinh Tú",
+		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/icons/Stardust_icon.png"
+	}
+]
