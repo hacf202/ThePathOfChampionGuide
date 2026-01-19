@@ -25,8 +25,9 @@ import Builds from "./pages/buildList.jsx";
 import Runes from "./pages/runeList.jsx";
 import Maps from "./pages/mapList.jsx";
 import RandomizerPage from "./pages/randomWheelPage.jsx";
-import TierList from "./pages/tierList.jsx";
 import GuideListPage from "./pages/guideListPage.jsx";
+import TierListIndex from "./pages/tierList.jsx";
+
 // Đăng nhập / Đăng ký
 import AuthContainer from "./components/auth/authContainer.jsx";
 import Profile from "./components/auth/profile.jsx";
@@ -92,7 +93,9 @@ function MainContent() {
 				<Route path='/guides' element={<GuideListPage />} />
 				<Route path='/guides/:slug' element={<GuideDetail />} />
 				<Route path='/maps' element={<Maps />} />
-				<Route path='/tierlist' element={<TierList />} />
+				<Route path='/tierlist' element={<TierListIndex />} />
+				<Route path='/tierlist/champions' element={<TierListIndex />} />
+				<Route path='/tierlist/relics' element={<TierListIndex />} />
 				<Route
 					path='/auth'
 					element={<AuthContainer onClose={() => window.history.back()} />}
