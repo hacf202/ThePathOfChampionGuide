@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import PageTitle from "../components/common/pageTitle"; // Chỉnh lại path nếu cần
 import TierListChampions from "../components/tierMaker/champions"; // Chỉnh lại path cho đúng cấu trúc folder của bạn
 import TierListRelics from "../components/tierMaker/relics"; // Chỉnh lại path cho đúng cấu trúc folder của bạn
-import { Users, Diamond } from "lucide-react";
+import { Swords, Sparkles } from "lucide-react";
 
 function TierListIndex() {
 	const navigate = useNavigate();
@@ -52,7 +52,7 @@ function TierListIndex() {
 								: "text-text-secondary hover:text-text-primary hover:bg-white/5"
 						}`}
 					>
-						<Users size={18} />
+						<Swords size={18} />
 						TƯỚNG
 					</button>
 					<button
@@ -63,7 +63,7 @@ function TierListIndex() {
 								: "text-text-secondary hover:text-text-primary hover:bg-white/5"
 						}`}
 					>
-						<Diamond size={18} />
+						<Sparkles size={18} />
 						CỔ VẬT
 					</button>
 				</div>

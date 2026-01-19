@@ -382,7 +382,9 @@ function TierListRelics() {
 				<h1 className='text-xl sm:text-2xl font-bold uppercase'>
 					Tier List Cổ Vật
 				</h1>
-				<div className='flex gap-2 w-full sm:w-auto text-nowrap'>
+
+				{/* CẢI TIẾN: Sử dụng flex-wrap để tự động xuống dòng cho màn hình nhỏ */}
+				<div className='flex flex-wrap items-center justify-center sm:justify-end gap-2 w-full sm:w-auto'>
 					<Button
 						onClick={() =>
 							setTiers([
@@ -397,33 +399,38 @@ function TierListRelics() {
 							])
 						}
 						variant='outline'
-						className='text-xs flex-1'
+						className='text-xs flex-1 sm:flex-none min-w-[110px]'
 					>
 						<Plus size={14} className='mr-1' /> Thêm hàng
 					</Button>
+
 					<Button
 						id='dl-btn-relic'
 						onClick={downloadImage}
-						className='text-xs bg-primary-600 flex-1'
+						className='text-xs bg-primary-600 flex-1 sm:flex-none min-w-[110px]'
 					>
 						<Download size={14} className='mr-1' /> Lưu ảnh
 					</Button>
-					<Button
-						onClick={handleResetToSample}
-						variant='outline'
-						className='p-2 border-primary-500 text-primary-500 hover:bg-primary-500/10'
-						title='Khôi phục mẫu'
-					>
-						<Sparkles size={16} />
-					</Button>
-					<Button
-						onClick={handleResetToEmpty}
-						variant='danger'
-						className='p-2'
-						title='Xóa toàn bộ bảng'
-					>
-						<Trash2 size={16} />
-					</Button>
+
+					{/* Cụm nút icon khôi phục/xóa sẽ tự động nhảy xuống hàng mới nếu không đủ chỗ */}
+					<div className='flex gap-2 w-full sm:w-auto justify-center'>
+						<Button
+							onClick={handleResetToSample}
+							variant='outline'
+							className='p-2 border-primary-500 text-primary-500 hover:bg-primary-500/10 flex-1 sm:flex-none'
+							title='Khôi phục mẫu'
+						>
+							<Sparkles size={16} className='mx-auto' />
+						</Button>
+						<Button
+							onClick={handleResetToEmpty}
+							variant='danger'
+							className='p-2 flex-1 sm:flex-none'
+							title='Xóa toàn bộ bảng'
+						>
+							<Trash2 size={16} className='mx-auto' />
+						</Button>
+					</div>
 				</div>
 			</div>
 

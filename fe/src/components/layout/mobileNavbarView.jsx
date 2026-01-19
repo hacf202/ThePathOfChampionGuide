@@ -124,22 +124,13 @@ function MobileSidebar() {
 							onClick={closeSidebar}
 						>
 							<Swords className='w-5 h-5' /> Tướng
-						</NavLink>{" "}
-						<NavLink
-							to='/guides'
-							className='flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-nav-hover-bg transition-all'
-							onClick={closeSidebar}
-						>
-							<BookMarked className='w-5 h-5' />
-							Hướng Dẫn
 						</NavLink>
 						<NavLink
-							to='/maps'
+							to='/tierlist'
 							className='flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-nav-hover-bg transition-all'
 							onClick={closeSidebar}
 						>
-							<Map className='w-5 h-5' />
-							Bản Đồ
+							<BarChartHorizontalBig className='w-4 h-4' /> Xếp hạng
 						</NavLink>
 						<div>
 							<button
@@ -195,6 +186,14 @@ function MobileSidebar() {
 									>
 										<Gem className='w-4 h-4' /> Ngọc
 									</NavLink>
+									<NavLink
+										to='/maps'
+										className={dropdownLinkClass}
+										onClick={closeSidebar}
+									>
+										<Map className='w-4 h-4' />
+										Bản Đồ
+									</NavLink>
 								</div>
 							)}
 						</div>
@@ -231,19 +230,21 @@ function MobileSidebar() {
 									>
 										<LoaderPinwheel className='w-4 h-4 ' /> Vòng quay
 									</NavLink>
-									<NavLink
-										to='/tierlist'
-										className={dropdownLinkClass}
-										onClick={closeSidebar}
-									>
-										<BarChartHorizontalBig className='w-4 h-4' /> Xếp hạng
-									</NavLink>
+
 									<NavLink
 										to='/introduction'
 										className={dropdownLinkClass}
 										onClick={closeSidebar}
 									>
 										<BookOpen className='w-4 h-4' /> Giới thiệu
+									</NavLink>
+									<NavLink
+										to='/guides'
+										className={dropdownLinkClass}
+										onClick={closeSidebar}
+									>
+										<BookMarked className='w-4 h-4' />
+										Hướng Dẫn
 									</NavLink>
 								</div>
 							)}

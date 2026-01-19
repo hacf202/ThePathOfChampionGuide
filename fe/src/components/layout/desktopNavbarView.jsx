@@ -225,11 +225,8 @@ function DesktopNavbar() {
 									>
 										<BookOpen className='w-5 h-5' /> Giới thiệu
 									</NavLink>
-									<NavLink
-										to='/guides'
-										className={dropdownLinkClass}
-										onClick={handleNavClick}
-									>
+									<NavLink to='/guides' className={dropdownLinkClass}
+										onClick={handleNavClick}>
 										<BookMarked className='w-6 h-6' /> Hướng Dẫn
 									</NavLink>
 								</div>

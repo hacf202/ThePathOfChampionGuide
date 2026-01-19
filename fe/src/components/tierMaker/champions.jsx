@@ -101,7 +101,7 @@ function TierListChampions() {
 		},
 	];
 
-	// Định nghĩa dữ liệu mẫu (Thay đổi ID tướng tại đây)
+	// Định nghĩa dữ liệu mẫu
 	const getSampleData = formattedChampions => {
 		const sampleMapping = {
 			"tier-s": ["C001", "C002", "C003", "C004", "C005"],
@@ -153,7 +153,6 @@ function TierListChampions() {
 					);
 					setUnranked(hydrateItems(parsed.unranked));
 				} else {
-					// Lần đầu tải: Tự động dùng mẫu
 					const { sampleTiers, sampleUnranked } = getSampleData(formatted);
 					setTiers(sampleTiers);
 					setUnranked(sampleUnranked);
@@ -175,7 +174,6 @@ function TierListChampions() {
 			);
 	}, [tiers, unranked, loading]);
 
-	// Chức năng 1: Đặt lại về Tier trống hoàn toàn
 	const handleResetToEmpty = () => {
 		if (confirm("Xóa toàn bộ tướng khỏi bảng và đưa về kho?")) {
 			setTiers(getDefaultTiers());
@@ -183,7 +181,6 @@ function TierListChampions() {
 		}
 	};
 
-	// Chức năng 2: Đặt lại về dữ liệu mẫu
 	const handleResetToSample = () => {
 		if (confirm("Bạn muốn khôi phục bảng xếp hạng mẫu?")) {
 			const { sampleTiers, sampleUnranked } = getSampleData(allChampionsRaw);
@@ -379,11 +376,14 @@ function TierListChampions() {
 		<div className='max-w-[1200px] mx-auto p-0 font-secondary text-text-primary'>
 			<PageTitle title='Tier List Tướng LoR - Path of Champions' />
 
+			{/* HEADER SECTION */}
 			<div className='flex flex-col sm:flex-row justify-between items-center gap-4 mb-6 px-2'>
 				<h1 className='text-xl sm:text-2xl font-bold uppercase'>
 					Tier List Tướng
 				</h1>
-				<div className='flex gap-2 w-full sm:w-auto text-nowrap'>
+
+				{/* BUTTON GROUP WITH WRAPPING */}
+				<div className='flex flex-wrap justify-center sm:justify-end gap-2 w-full sm:w-auto'>
 					<Button
 						onClick={() =>
 							setTiers([
@@ -398,37 +398,39 @@ function TierListChampions() {
 							])
 						}
 						variant='outline'
-						className='text-xs flex-1'
+						className='text-xs flex-1 sm:flex-none'
 					>
 						<Plus size={14} className='mr-1' /> Thêm hàng
 					</Button>
+
 					<Button
 						id='dl-btn'
 						onClick={downloadImage}
-						className='text-xs bg-primary-600 flex-1'
+						className='text-xs bg-primary-600 flex-1 sm:flex-none'
 					>
 						<Download size={14} className='mr-1' /> Lưu ảnh
 					</Button>
 
-					{/* Nút Tier Mẫu */}
-					<Button
-						onClick={handleResetToSample}
-						variant='outline'
-						className='p-2 border-primary-500 text-primary-500 hover:bg-primary-500/10'
-						title='Khôi phục mẫu'
-					>
-						<Sparkles size={16} />
-					</Button>
+					{/* MINI BUTTONS GROUP */}
+					<div className='flex gap-2'>
+						<Button
+							onClick={handleResetToSample}
+							variant='outline'
+							className='p-2 border-primary-500 text-primary-500 hover:bg-primary-500/10'
+							title='Khôi phục mẫu'
+						>
+							<Sparkles size={16} />
+						</Button>
 
-					{/* Nút Xóa trắng */}
-					<Button
-						onClick={handleResetToEmpty}
-						variant='danger'
-						className='p-2'
-						title='Xóa toàn bộ bảng'
-					>
-						<Trash2 size={16} />
-					</Button>
+						<Button
+							onClick={handleResetToEmpty}
+							variant='danger'
+							className='p-2'
+							title='Xóa toàn bộ bảng'
+						>
+							<Trash2 size={16} />
+						</Button>
+					</div>
 				</div>
 			</div>
 
