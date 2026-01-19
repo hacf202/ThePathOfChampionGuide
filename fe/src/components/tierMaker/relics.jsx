@@ -73,7 +73,10 @@ function TierListRelics() {
 		}),
 	);
 
-	// 1. Cấu trúc hàng mặc định rỗng
+	const sortItemsByName = items => {
+		return [...items].sort((a, b) => a.name.localeCompare(b.name, "vi"));
+	};
+
 	const getDefaultTiers = () => [
 		{
 			id: "tier-s",
@@ -99,26 +102,23 @@ function TierListRelics() {
 		},
 	];
 
-	// 2. Logic tạo dữ liệu mẫu (Hãy thay đổi ID theo database của bạn)
 	const getSampleData = formattedRelics => {
 		const sampleMapping = {
-			"tier-s": ["R0066", "R0077", "R0088"], // Ví dụ: Luden, Gatebreaker, v.v.
+			"tier-s": ["R0066", "R0077", "R0088"],
 			"tier-a": ["R0011", "R0022", "R0033"],
 			"tier-b": ["R0044", "R0055"],
 			"tier-c": ["R0099"],
 		};
-
 		const defaultTiers = getDefaultTiers();
 		const usedIds = new Set();
-
 		const sampleTiers = defaultTiers.map(tier => {
 			const targetIds = sampleMapping[tier.id] || [];
 			const items = formattedRelics.filter(r => targetIds.includes(r.id));
 			items.forEach(i => usedIds.add(i.id));
 			return { ...tier, items };
 		});
-
-		const sampleUnranked = formattedRelics.filter(r => !usedIds.has(r.id));
+		const remaining = formattedRelics.filter(r => !usedIds.has(r.id));
+		const sampleUnranked = sortItemsByName(remaining);
 		return { sampleTiers, sampleUnranked };
 	};
 
@@ -127,58 +127,47 @@ function TierListRelics() {
 		const initData = async () => {
 			try {
 				const res = await fetch(`${apiUrl}/api/relics`);
-				if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 				const data = await res.json();
 				if (!isMounted) return;
 
-				const formatted = data.map((r, index) => {
-					const rawPath =
-						r.assetAbsolutePath ||
-						r.avatar ||
-						(r.assets && r.assets[0]?.avatar);
-					const safeAvatar = rawPath
-						? `${apiUrl}/api/relics/proxy-image?url=${encodeURIComponent(rawPath)}`
-						: "/fallback-relic.png";
-
-					return {
-						id: String(r.relicCode || r.relicID || r.id || `relic-${index}`),
-						name: r.name || "Unknown Relic",
-						avatar: safeAvatar,
-						rarity: r.rarity || "THƯỜNG",
-						type: r.type || "Chung",
-						descriptionRaw: r.descriptionRaw || r.description || "",
-					};
-				});
+				const formatted = sortItemsByName(
+					data.map((r, index) => {
+						const rawPath =
+							r.assetAbsolutePath ||
+							r.avatar ||
+							(r.assets && r.assets[0]?.avatar);
+						return {
+							id: String(r.relicCode || r.relicID || r.id || `relic-${index}`),
+							name: r.name || "Unknown Relic",
+							avatar: rawPath
+								? `${apiUrl}/api/relics/proxy-image?url=${encodeURIComponent(rawPath)}`
+								: "/fallback-relic.png",
+							rarity: r.rarity || "THƯỜNG",
+							type: r.type || "Chung",
+							descriptionRaw: r.descriptionRaw || r.description || "",
+						};
+					}),
+				);
 
 				setAllRelicsRaw(formatted);
-
 				const saved = localStorage.getItem(RELICS_STORAGE_KEY);
 				if (saved) {
 					const parsed = JSON.parse(saved);
 					const hydrateItems = items =>
 						(items || [])
-							.map(item => {
-								const original = formatted.find(f => f.id === item.id);
-								return original ? { ...original } : null;
-							})
+							.map(item => formatted.find(f => f.id === item.id))
 							.filter(Boolean);
-
-					const hydratedTiers = parsed.tiers.map(t => ({
-						...t,
-						items: hydrateItems(t.items),
-					}));
-					const hydratedUnranked = hydrateItems(parsed.unranked);
-
-					setTiers(hydratedTiers);
-					setUnranked(hydratedUnranked);
+					setTiers(
+						parsed.tiers.map(t => ({ ...t, items: hydrateItems(t.items) })),
+					);
+					setUnranked(hydrateItems(parsed.unranked));
 				} else {
-					// Lần đầu tải: Tự động load mẫu
 					const { sampleTiers, sampleUnranked } = getSampleData(formatted);
 					setTiers(sampleTiers);
 					setUnranked(sampleUnranked);
 				}
 			} catch (err) {
-				console.error("Error loading relics:", err);
+				console.error(err);
 			} finally {
 				if (isMounted) setLoading(false);
 			}
@@ -197,62 +186,20 @@ function TierListRelics() {
 			);
 	}, [tiers, unranked, loading]);
 
-	// Chức năng: Đặt lại về bảng trống
 	const handleResetToEmpty = () => {
-		if (confirm("Xóa toàn bộ cổ vật khỏi bảng và đưa về kho?")) {
+		if (confirm("Xóa toàn bộ cổ vật khỏi bảng?")) {
 			setTiers(getDefaultTiers());
-			setUnranked(allRelicsRaw);
+			setUnranked(sortItemsByName(allRelicsRaw));
 		}
 	};
 
-	// Chức năng: Khôi phục dữ liệu mẫu
 	const handleResetToSample = () => {
-		if (confirm("Bạn muốn khôi phục bảng xếp hạng cổ vật mẫu?")) {
+		if (confirm("Khôi phục mẫu?")) {
 			const { sampleTiers, sampleUnranked } = getSampleData(allRelicsRaw);
 			setTiers(sampleTiers);
 			setUnranked(sampleUnranked);
 		}
 	};
-
-	const filterOptions = useMemo(() => {
-		const rarities = [...new Set(allRelicsRaw.map(r => r.rarity))]
-			.filter(Boolean)
-			.sort()
-			.map(v => ({ value: v, label: v }));
-		const types = [...new Set(allRelicsRaw.map(r => r.type))]
-			.filter(Boolean)
-			.sort()
-			.map(v => ({ value: v, label: v }));
-		return { rarities, types };
-	}, [allRelicsRaw]);
-
-	const filteredUnranked = useMemo(() => {
-		return unranked.filter(r => {
-			const matchesSearch =
-				!searchTerm ||
-				removeAccents(r.name.toLowerCase()).includes(
-					removeAccents(searchTerm.toLowerCase()),
-				);
-			const matchesRarity =
-				selectedRarities.length === 0 || selectedRarities.includes(r.rarity);
-			const matchesType =
-				selectedTypes.length === 0 || selectedTypes.includes(r.type);
-			return matchesSearch && matchesRarity && matchesType;
-		});
-	}, [unranked, searchTerm, selectedRarities, selectedTypes]);
-
-	const groupedUnranked = useMemo(() => {
-		const groups = { "SỬ THI": [], HIẾM: [], THƯỜNG: [] };
-		filteredUnranked.forEach(r => {
-			const key = String(r.rarity).toUpperCase();
-			if (groups[key]) groups[key].push(r);
-			else groups["THƯỜNG"].push(r);
-		});
-		Object.keys(groups).forEach(key =>
-			groups[key].sort((a, b) => a.name.localeCompare(b.name, "vi")),
-		);
-		return groups;
-	}, [filteredUnranked]);
 
 	const handleSearch = () => {
 		setSearchTerm(searchInput.trim());
@@ -266,9 +213,27 @@ function TierListRelics() {
 		setSelectedTypes([]);
 	};
 
+	// Phân loại kho theo độ hiếm để hiển thị
+	const warehouseGroups = useMemo(() => {
+		return {
+			"SỬ THI": unranked.filter(r => r.rarity === "SỬ THI"),
+			HIẾM: unranked.filter(r => r.rarity === "HIẾM"),
+			THƯỜNG: unranked.filter(
+				r =>
+					r.rarity === "THƯỜNG" ||
+					(r.rarity !== "SỬ THI" && r.rarity !== "HIẾM"),
+			),
+		};
+	}, [unranked]);
+
+	// HÀM QUAN TRỌNG: Tìm Container chứa ID
 	const findContainer = id => {
-		if (id === "unranked") return "unranked";
-		if (unranked.some(i => i.id === id)) return "unranked";
+		if (id.startsWith("unranked-")) return id;
+		// Kiểm tra trong unranked
+		const itemInUnranked = unranked.find(i => i.id === id);
+		if (itemInUnranked)
+			return `unranked-${itemInUnranked.rarity.toUpperCase()}`;
+		// Kiểm tra trong các Tier
 		const tier = tiers.find(t => t.id === id || t.items.some(i => i.id === id));
 		return tier ? tier.id : null;
 	};
@@ -278,36 +243,65 @@ function TierListRelics() {
 	const handleDragOver = event => {
 		const { active, over } = event;
 		if (!over) return;
-		const aCol = findContainer(active.id);
-		const oCol = findContainer(over.id);
-		if (!aCol || !oCol || aCol === oCol) return;
 
-		const activeItems =
-			aCol === "unranked" ? unranked : tiers.find(t => t.id === aCol).items;
-		const item = activeItems.find(i => i.id === active.id);
+		const activeContainer = findContainer(active.id);
+		const overContainer = findContainer(over.id);
 
-		if (aCol === "unranked") {
+		if (!activeContainer || !overContainer || activeContainer === overContainer)
+			return;
+
+		// TRƯỜNG HỢP 1: Di chuyển giữa các vùng độ hiếm trong KHO (Cả 2 đều bắt đầu bằng unranked-)
+		// Không làm gì ở DragOver để tránh mất item, DragEnd sẽ xử lý di chuyển vị trí.
+		if (
+			activeContainer.startsWith("unranked-") &&
+			overContainer.startsWith("unranked-")
+		) {
+			return;
+		}
+
+		// Lấy item đang được kéo
+		const activeItem =
+			unranked.find(i => i.id === active.id) ||
+			tiers.flatMap(t => t.items).find(i => i.id === active.id);
+
+		if (!activeItem) return;
+
+		// TRƯỜNG HỢP 2: Kéo từ KHO vào TIER
+		if (
+			activeContainer.startsWith("unranked-") &&
+			!overContainer.startsWith("unranked-")
+		) {
 			setUnranked(prev => prev.filter(i => i.id !== active.id));
 			setTiers(prev =>
 				prev.map(t =>
-					t.id === oCol ? { ...t, items: [...t.items, item] } : t,
+					t.id === overContainer
+						? { ...t, items: [...t.items, activeItem] }
+						: t,
 				),
 			);
-		} else if (oCol === "unranked") {
+		}
+		// TRƯỜNG HỢP 3: Kéo từ TIER vào KHO
+		else if (
+			!activeContainer.startsWith("unranked-") &&
+			overContainer.startsWith("unranked-")
+		) {
 			setTiers(prev =>
 				prev.map(t =>
-					t.id === aCol
+					t.id === activeContainer
 						? { ...t, items: t.items.filter(i => i.id !== active.id) }
 						: t,
 				),
 			);
-			setUnranked(prev => [...prev, item]);
-		} else {
+			setUnranked(prev => [...prev, activeItem]);
+		}
+		// TRƯỜNG HỢP 4: Kéo giữa các TIER
+		else {
 			setTiers(prev =>
 				prev.map(t => {
-					if (t.id === aCol)
+					if (t.id === activeContainer)
 						return { ...t, items: t.items.filter(i => i.id !== active.id) };
-					if (t.id === oCol) return { ...t, items: [...t.items, item] };
+					if (t.id === overContainer)
+						return { ...t, items: [...t.items, activeItem] };
 					return t;
 				}),
 			);
@@ -316,16 +310,31 @@ function TierListRelics() {
 
 	const handleDragEnd = event => {
 		const { active, over } = event;
-		if (over && active.id !== over.id) {
-			const col = findContainer(active.id);
-			if (col === "unranked") {
+		if (!over) {
+			setActiveId(null);
+			return;
+		}
+
+		const activeContainer = findContainer(active.id);
+		const overContainer = findContainer(over.id);
+
+		if (activeContainer && overContainer) {
+			// Di chuyển vị trí bên trong KHO
+			if (
+				activeContainer.startsWith("unranked-") &&
+				overContainer.startsWith("unranked-")
+			) {
 				const oldIdx = unranked.findIndex(i => i.id === active.id);
 				const newIdx = unranked.findIndex(i => i.id === over.id);
-				setUnranked(arrayMove(unranked, oldIdx, newIdx));
-			} else {
+				if (oldIdx !== -1 && newIdx !== -1) {
+					setUnranked(arrayMove(unranked, oldIdx, newIdx));
+				}
+			}
+			// Di chuyển vị trí bên trong cùng 1 TIER
+			else if (activeContainer === overContainer) {
 				setTiers(prev =>
 					prev.map(t => {
-						if (t.id === col) {
+						if (t.id === activeContainer) {
 							const oldIdx = t.items.findIndex(i => i.id === active.id);
 							const newIdx = t.items.findIndex(i => i.id === over.id);
 							return { ...t, items: arrayMove(t.items, oldIdx, newIdx) };
@@ -335,14 +344,12 @@ function TierListRelics() {
 				);
 			}
 		}
+
 		setActiveId(null);
 	};
 
 	const downloadImage = async () => {
 		setIsExporting(true);
-		const btn = document.getElementById("dl-btn-relic");
-		const originalText = btn.innerText;
-		btn.innerText = "Đang xử lý...";
 		await new Promise(r => setTimeout(r, 400));
 		try {
 			const canvas = await html2canvas(tierListRef.current, {
@@ -359,7 +366,6 @@ function TierListRelics() {
 			console.error(e);
 		} finally {
 			setIsExporting(false);
-			btn.innerText = originalText;
 		}
 	};
 
@@ -409,8 +415,6 @@ function TierListRelics() {
 					>
 						<Download size={14} className='mr-1' /> Lưu ảnh
 					</Button>
-
-					{/* Nút Tier Mẫu */}
 					<Button
 						onClick={handleResetToSample}
 						variant='outline'
@@ -419,8 +423,6 @@ function TierListRelics() {
 					>
 						<Sparkles size={16} />
 					</Button>
-
-					{/* Nút Xóa trắng */}
 					<Button
 						onClick={handleResetToEmpty}
 						variant='danger'
@@ -558,154 +560,50 @@ function TierListRelics() {
 				{/* Kho Cổ Vật */}
 				<div className='mt-8 p-4 bg-surface-bg border border-border rounded-lg shadow-sm'>
 					<h2 className='text-xs font-bold text-text-secondary mb-4 uppercase tracking-widest'>
-						Kho cổ vật ({filteredUnranked.length})
+						Kho cổ vật ({unranked.length})
 					</h2>
 
-					<div className='lg:hidden mb-4 space-y-2'>
-						<div className='flex gap-2'>
-							<div className='flex-1 relative'>
-								<InputField
-									value={searchInput}
-									onChange={e => setSearchInput(e.target.value)}
-									onKeyPress={e => e.key === "Enter" && handleSearch()}
-									placeholder='Tìm tên cổ vật...'
-								/>
-								{searchInput && (
-									<button
-										onClick={() => {
-											setSearchInput("");
-											setSearchTerm("");
-										}}
-										className='absolute right-3 top-1/2 -translate-y-1/2 text-text-secondary'
+					<div className='flex flex-col gap-8'>
+						{Object.entries(warehouseGroups).map(([rarity, items]) => (
+							<div key={rarity} className='flex flex-col gap-3'>
+								<div className='flex items-center gap-2'>
+									<div className='h-[2px] w-6 bg-primary-500'></div>
+									<span className='text-xs font-bold tracking-widest text-text-primary uppercase'>
+										{rarity} ({items.length})
+									</span>
+								</div>
+
+								<SortableContext
+									items={items.map(i => i.id)}
+									strategy={rectSortingStrategy}
+								>
+									<DroppableZone
+										id={`unranked-${rarity.toUpperCase()}`}
+										className='flex flex-wrap gap-2 min-h-[80px] p-3 bg-black/10 rounded-lg border border-white/5'
 									>
-										<XCircle size={18} />
-									</button>
-								)}
+										{items.map(item =>
+											// Bộ lọc search và filter
+											(searchTerm === "" ||
+												removeAccents(item.name.toLowerCase()).includes(
+													removeAccents(searchTerm.toLowerCase()),
+												)) &&
+											(selectedRarities.length === 0 ||
+												selectedRarities.includes(item.rarity)) &&
+											(selectedTypes.length === 0 ||
+												selectedTypes.includes(item.type)) ? (
+												<SortableItem
+													key={item.id}
+													id={item.id}
+													avatar={item.avatar}
+													title={item.descriptionRaw}
+												/>
+											) : null,
+										)}
+									</DroppableZone>
+								</SortableContext>
 							</div>
-							<Button onClick={handleSearch} className='px-3'>
-								<Search size={18} />
-							</Button>
-							<Button
-								variant='outline'
-								onClick={() => setIsFilterOpen(!isFilterOpen)}
-								className='px-3'
-							>
-								{isFilterOpen ? (
-									<ChevronUp size={18} />
-								) : (
-									<ChevronDown size={18} />
-								)}
-							</Button>
-						</div>
-						{isFilterOpen && (
-							<div className='space-y-4 pt-4 border-t border-border'>
-								<MultiSelectFilter
-									options={filterOptions.rarities}
-									selectedValues={selectedRarities}
-									onChange={setSelectedRarities}
-									placeholder='Độ hiếm'
-								/>
-								<MultiSelectFilter
-									options={filterOptions.types}
-									selectedValues={selectedTypes}
-									onChange={setSelectedTypes}
-									placeholder='Loại cổ vật'
-								/>
-								<Button
-									variant='outline'
-									onClick={handleResetFilters}
-									className='w-full'
-								>
-									<RotateCw size={14} className='mr-2' /> Đặt lại bộ lọc
-								</Button>
-							</div>
-						)}
+						))}
 					</div>
-
-					<div className='hidden lg:flex gap-3 mb-6 items-start'>
-						<div className='relative w-1/3'>
-							<InputField
-								value={searchInput}
-								onChange={e => setSearchInput(e.target.value)}
-								onKeyPress={e => e.key === "Enter" && handleSearch()}
-								placeholder='Tìm tên cổ vật...'
-							/>
-							{searchInput && (
-								<button
-									onClick={() => {
-										setSearchInput("");
-										setSearchTerm("");
-									}}
-									className='absolute right-12 top-1/2 -translate-y-1/2 text-text-secondary'
-								>
-									<XCircle size={14} />
-								</button>
-							)}
-							<button
-								onClick={handleSearch}
-								className='absolute right-3 top-1/2 -translate-y-1/2 text-primary-500 hover:text-primary-600'
-							>
-								<Search size={18} />
-							</button>
-						</div>
-						<div className='flex-1'>
-							<MultiSelectFilter
-								options={filterOptions.rarities}
-								selectedValues={selectedRarities}
-								onChange={setSelectedRarities}
-								placeholder='Độ hiếm'
-							/>
-						</div>
-						<div className='flex-1'>
-							<MultiSelectFilter
-								options={filterOptions.types}
-								selectedValues={selectedTypes}
-								onChange={setSelectedTypes}
-								placeholder='Loại cổ vật'
-							/>
-						</div>
-						<Button
-							variant='outline'
-							onClick={handleResetFilters}
-							className='px-4 h-[42px]'
-						>
-							<RotateCw size={14} className='mr-2' /> Đặt lại
-						</Button>
-					</div>
-
-					<SortableContext
-						items={unranked.map(i => i.id)}
-						strategy={rectSortingStrategy}
-					>
-						<DroppableZone
-							id='unranked'
-							className='flex flex-col gap-6 min-h-[200px]'
-						>
-							{Object.entries(groupedUnranked).map(
-								([rarityLabel, items]) =>
-									items.length > 0 && (
-										<div key={rarityLabel} className='flex flex-col gap-2'>
-											<div className='flex items-center gap-2'>
-												<div className='h-[2px] w-4 bg-primary-500'></div>
-												<span className='text-[10px] font-bold tracking-widest text-text-secondary uppercase'>
-													{rarityLabel} ({items.length})
-												</span>
-											</div>
-											<div className='flex flex-wrap gap-1.5 sm:gap-2'>
-												{items.map(item => (
-													<SortableItem
-														key={item.id}
-														id={item.id}
-														avatar={item.avatar}
-														title={item.descriptionRaw}
-													/>
-												))}
-											</div>
-										</div>
-									),
-							)}
-						</DroppableZone>
-					</SortableContext>
 				</div>
 
 				<DragOverlay
