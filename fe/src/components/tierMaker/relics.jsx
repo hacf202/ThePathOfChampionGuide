@@ -73,6 +73,7 @@ function TierListRelics() {
 		}),
 	);
 
+	// Hàm sắp xếp theo tên tiếng Việt
 	const sortItemsByName = items => {
 		return [...items].sort((a, b) => a.name.localeCompare(b.name, "vi"));
 	};
@@ -187,14 +188,14 @@ function TierListRelics() {
 	}, [tiers, unranked, loading]);
 
 	const handleResetToEmpty = () => {
-		if (confirm("Xóa toàn bộ cổ vật khỏi bảng?")) {
+		if (confirm("Xóa toàn bộ cổ vật khỏi bảng và đưa về kho?")) {
 			setTiers(getDefaultTiers());
 			setUnranked(sortItemsByName(allRelicsRaw));
 		}
 	};
 
 	const handleResetToSample = () => {
-		if (confirm("Khôi phục mẫu?")) {
+		if (confirm("Bạn muốn khôi phục bảng xếp hạng mẫu?")) {
 			const { sampleTiers, sampleUnranked } = getSampleData(allRelicsRaw);
 			setTiers(sampleTiers);
 			setUnranked(sampleUnranked);
@@ -213,27 +214,52 @@ function TierListRelics() {
 		setSelectedTypes([]);
 	};
 
-	// Phân loại kho theo độ hiếm để hiển thị
+	const filterOptions = useMemo(() => {
+		const rarities = [...new Set(allRelicsRaw.map(r => r.rarity))]
+			.filter(Boolean)
+			.sort()
+			.map(v => ({ value: v, label: v }));
+		const types = [...new Set(allRelicsRaw.map(r => r.type))]
+			.filter(Boolean)
+			.sort()
+			.map(v => ({ value: v, label: v }));
+		return { rarities, types };
+	}, [allRelicsRaw]);
+
+	// Lọc danh sách unranked dựa trên tìm kiếm và filter
+	const filteredUnranked = useMemo(() => {
+		return unranked.filter(r => {
+			const matchesSearch =
+				!searchTerm ||
+				removeAccents(r.name.toLowerCase()).includes(
+					removeAccents(searchTerm.toLowerCase()),
+				);
+			const matchesRarity =
+				selectedRarities.length === 0 || selectedRarities.includes(r.rarity);
+			const matchesType =
+				selectedTypes.length === 0 || selectedTypes.includes(r.type);
+			return matchesSearch && matchesRarity && matchesType;
+		});
+	}, [unranked, searchTerm, selectedRarities, selectedTypes]);
+
+	// Chia nhóm hiển thị trong kho (giữ nguyên thứ tự của unranked để kéo thả)
 	const warehouseGroups = useMemo(() => {
 		return {
-			"SỬ THI": unranked.filter(r => r.rarity === "SỬ THI"),
-			HIẾM: unranked.filter(r => r.rarity === "HIẾM"),
-			THƯỜNG: unranked.filter(
+			"SỬ THI": filteredUnranked.filter(r => r.rarity === "SỬ THI"),
+			HIẾM: filteredUnranked.filter(r => r.rarity === "HIẾM"),
+			THƯỜNG: filteredUnranked.filter(
 				r =>
 					r.rarity === "THƯỜNG" ||
 					(r.rarity !== "SỬ THI" && r.rarity !== "HIẾM"),
 			),
 		};
-	}, [unranked]);
+	}, [filteredUnranked]);
 
-	// HÀM QUAN TRỌNG: Tìm Container chứa ID
 	const findContainer = id => {
 		if (id.startsWith("unranked-")) return id;
-		// Kiểm tra trong unranked
 		const itemInUnranked = unranked.find(i => i.id === id);
 		if (itemInUnranked)
 			return `unranked-${itemInUnranked.rarity.toUpperCase()}`;
-		// Kiểm tra trong các Tier
 		const tier = tiers.find(t => t.id === id || t.items.some(i => i.id === id));
 		return tier ? tier.id : null;
 	};
@@ -243,65 +269,40 @@ function TierListRelics() {
 	const handleDragOver = event => {
 		const { active, over } = event;
 		if (!over) return;
+		const aCol = findContainer(active.id);
+		const oCol = findContainer(over.id);
+		if (!aCol || !oCol || aCol === oCol) return;
 
-		const activeContainer = findContainer(active.id);
-		const overContainer = findContainer(over.id);
+		// Ngăn chặn logic Over nếu di chuyển giữa các vùng trong kho để tránh mất item
+		if (aCol.startsWith("unranked-") && oCol.startsWith("unranked-")) return;
 
-		if (!activeContainer || !overContainer || activeContainer === overContainer)
-			return;
-
-		// TRƯỜNG HỢP 1: Di chuyển giữa các vùng độ hiếm trong KHO (Cả 2 đều bắt đầu bằng unranked-)
-		// Không làm gì ở DragOver để tránh mất item, DragEnd sẽ xử lý di chuyển vị trí.
-		if (
-			activeContainer.startsWith("unranked-") &&
-			overContainer.startsWith("unranked-")
-		) {
-			return;
-		}
-
-		// Lấy item đang được kéo
 		const activeItem =
 			unranked.find(i => i.id === active.id) ||
 			tiers.flatMap(t => t.items).find(i => i.id === active.id);
-
 		if (!activeItem) return;
 
-		// TRƯỜNG HỢP 2: Kéo từ KHO vào TIER
-		if (
-			activeContainer.startsWith("unranked-") &&
-			!overContainer.startsWith("unranked-")
-		) {
+		if (aCol.startsWith("unranked-") && !oCol.startsWith("unranked-")) {
 			setUnranked(prev => prev.filter(i => i.id !== active.id));
 			setTiers(prev =>
 				prev.map(t =>
-					t.id === overContainer
-						? { ...t, items: [...t.items, activeItem] }
-						: t,
+					t.id === oCol ? { ...t, items: [...t.items, activeItem] } : t,
 				),
 			);
-		}
-		// TRƯỜNG HỢP 3: Kéo từ TIER vào KHO
-		else if (
-			!activeContainer.startsWith("unranked-") &&
-			overContainer.startsWith("unranked-")
-		) {
+		} else if (!aCol.startsWith("unranked-") && oCol.startsWith("unranked-")) {
 			setTiers(prev =>
 				prev.map(t =>
-					t.id === activeContainer
+					t.id === aCol
 						? { ...t, items: t.items.filter(i => i.id !== active.id) }
 						: t,
 				),
 			);
 			setUnranked(prev => [...prev, activeItem]);
-		}
-		// TRƯỜNG HỢP 4: Kéo giữa các TIER
-		else {
+		} else {
 			setTiers(prev =>
 				prev.map(t => {
-					if (t.id === activeContainer)
+					if (t.id === aCol)
 						return { ...t, items: t.items.filter(i => i.id !== active.id) };
-					if (t.id === overContainer)
-						return { ...t, items: [...t.items, activeItem] };
+					if (t.id === oCol) return { ...t, items: [...t.items, activeItem] };
 					return t;
 				}),
 			);
@@ -315,26 +316,19 @@ function TierListRelics() {
 			return;
 		}
 
-		const activeContainer = findContainer(active.id);
-		const overContainer = findContainer(over.id);
+		const aCol = findContainer(active.id);
+		const oCol = findContainer(over.id);
 
-		if (activeContainer && overContainer) {
-			// Di chuyển vị trí bên trong KHO
-			if (
-				activeContainer.startsWith("unranked-") &&
-				overContainer.startsWith("unranked-")
-			) {
+		if (aCol && oCol) {
+			if (aCol.startsWith("unranked-") && oCol.startsWith("unranked-")) {
 				const oldIdx = unranked.findIndex(i => i.id === active.id);
 				const newIdx = unranked.findIndex(i => i.id === over.id);
-				if (oldIdx !== -1 && newIdx !== -1) {
+				if (oldIdx !== -1 && newIdx !== -1)
 					setUnranked(arrayMove(unranked, oldIdx, newIdx));
-				}
-			}
-			// Di chuyển vị trí bên trong cùng 1 TIER
-			else if (activeContainer === overContainer) {
+			} else if (aCol === oCol) {
 				setTiers(prev =>
 					prev.map(t => {
-						if (t.id === activeContainer) {
+						if (t.id === aCol) {
 							const oldIdx = t.items.findIndex(i => i.id === active.id);
 							const newIdx = t.items.findIndex(i => i.id === over.id);
 							return { ...t, items: arrayMove(t.items, oldIdx, newIdx) };
@@ -344,7 +338,6 @@ function TierListRelics() {
 				);
 			}
 		}
-
 		setActiveId(null);
 	};
 
@@ -441,9 +434,10 @@ function TierListRelics() {
 				onDragOver={handleDragOver}
 				onDragEnd={handleDragEnd}
 			>
+				{/* Bảng Tier List */}
 				<div
 					ref={tierListRef}
-					className='bg-surface-bg border border-border rounded-lg flex flex-col gap-1 p-1 shadow-inner'
+					className='bg-surface-bg border border-border rounded-lg flex flex-col gap-1 p-1 shadow-inner overflow-visible mb-8'
 				>
 					{tiers.map(tier => (
 						<div
@@ -498,7 +492,7 @@ function TierListRelics() {
 												showColorPicker === tier.id ? null : tier.id,
 											);
 										}}
-										className='absolute top-1 right-1 p-1 bg-white/40 hover:bg-white/60 rounded opacity-0 group-hover:opacity-100 z-[50] transition-opacity'
+										className='absolute top-1 right-1 p-1 bg-white/40 hover:bg-white/60 rounded opacity-0 group-hover:opacity-100 z-[50]'
 									>
 										<Palette size={20} />
 									</button>
@@ -557,18 +551,133 @@ function TierListRelics() {
 					))}
 				</div>
 
-				{/* Kho Cổ Vật */}
-				<div className='mt-8 p-4 bg-surface-bg border border-border rounded-lg shadow-sm'>
+				{/* Kho Cổ Vật & Bộ Lọc */}
+				<div className='p-4 bg-surface-bg border border-border rounded-lg shadow-sm'>
 					<h2 className='text-xs font-bold text-text-secondary mb-4 uppercase tracking-widest'>
 						Kho cổ vật ({unranked.length})
 					</h2>
 
-					<div className='flex flex-col gap-8'>
+					{/* Search & Filter Bar (Mobile) */}
+					<div className='lg:hidden mb-6 space-y-2'>
+						<div className='flex gap-2'>
+							<div className='flex-1 relative'>
+								<InputField
+									value={searchInput}
+									onChange={e => setSearchInput(e.target.value)}
+									onKeyPress={e => e.key === "Enter" && handleSearch()}
+									placeholder='Tìm cổ vật...'
+								/>
+								{searchInput && (
+									<button
+										onClick={() => {
+											setSearchInput("");
+											setSearchTerm("");
+										}}
+										className='absolute right-3 top-1/2 -translate-y-1/2 text-text-secondary'
+									>
+										<XCircle size={18} />
+									</button>
+								)}
+							</div>
+							<Button onClick={handleSearch} className='px-3'>
+								<Search size={18} />
+							</Button>
+							<Button
+								variant='outline'
+								onClick={() => setIsFilterOpen(!isFilterOpen)}
+								className='px-3'
+							>
+								{isFilterOpen ? (
+									<ChevronUp size={18} />
+								) : (
+									<ChevronDown size={18} />
+								)}
+							</Button>
+						</div>
+						{isFilterOpen && (
+							<div className='space-y-4 pt-4 border-t border-border animate-in slide-in-from-top-2 duration-200'>
+								<MultiSelectFilter
+									options={filterOptions.rarities}
+									selectedValues={selectedRarities}
+									onChange={setSelectedRarities}
+									placeholder='Độ hiếm'
+								/>
+								<MultiSelectFilter
+									options={filterOptions.types}
+									selectedValues={selectedTypes}
+									onChange={setSelectedTypes}
+									placeholder='Loại'
+								/>
+								<Button
+									variant='outline'
+									onClick={handleResetFilters}
+									className='w-full'
+								>
+									<RotateCw size={14} className='mr-2' /> Đặt lại lọc
+								</Button>
+							</div>
+						)}
+					</div>
+
+					{/* Search & Filter Bar (Desktop) */}
+					<div className='hidden lg:flex gap-3 mb-8 items-start'>
+						<div className='relative w-1/3'>
+							<InputField
+								value={searchInput}
+								onChange={e => setSearchInput(e.target.value)}
+								onKeyPress={e => e.key === "Enter" && handleSearch()}
+								placeholder='Tìm tên cổ vật...'
+							/>
+							{searchInput && (
+								<button
+									onClick={() => {
+										setSearchInput("");
+										setSearchTerm("");
+									}}
+									className='absolute right-12 top-1/2 -translate-y-1/2 text-text-secondary'
+								>
+									<XCircle size={14} />
+								</button>
+							)}
+							<button
+								onClick={handleSearch}
+								className='absolute right-3 top-1/2 -translate-y-1/2 text-primary-500 hover:text-primary-600'
+							>
+								<Search size={18} />
+							</button>
+						</div>
+						<div className='flex-1'>
+							<MultiSelectFilter
+								options={filterOptions.rarities}
+								selectedValues={selectedRarities}
+								onChange={setSelectedRarities}
+								placeholder='Độ hiếm'
+							/>
+						</div>
+						<div className='flex-1'>
+							<MultiSelectFilter
+								options={filterOptions.types}
+								selectedValues={selectedTypes}
+								onChange={setSelectedTypes}
+								placeholder='Loại cổ vật'
+							/>
+						</div>
+						<Button
+							variant='outline'
+							onClick={handleResetFilters}
+							className='px-4 h-[42px]'
+						>
+							<RotateCw size={14} className='mr-2' /> Đặt lại
+						</Button>
+					</div>
+
+					{/* Phân vùng theo độ hiếm trong Kho */}
+					<div className='flex flex-col gap-10'>
 						{Object.entries(warehouseGroups).map(([rarity, items]) => (
 							<div key={rarity} className='flex flex-col gap-3'>
 								<div className='flex items-center gap-2'>
 									<div className='h-[2px] w-6 bg-primary-500'></div>
-									<span className='text-xs font-bold tracking-widest text-text-primary uppercase'>
+									<span className='text-[11px] font-bold tracking-widest text-text-primary uppercase opacity-80'>
 										{rarity} ({items.length})
 									</span>
 								</div>
@@ -579,26 +688,21 @@ function TierListRelics() {
 								>
 									<DroppableZone
 										id={`unranked-${rarity.toUpperCase()}`}
-										className='flex flex-wrap gap-2 min-h-[80px] p-3 bg-black/10 rounded-lg border border-white/5'
+										className='flex flex-wrap gap-2.5 min-h-[100px] p-4 bg-black/10 rounded-xl border border-white/5 relative'
 									>
-										{items.map(item =>
-											// Bộ lọc search và filter
-											(searchTerm === "" ||
-												removeAccents(item.name.toLowerCase()).includes(
-													removeAccents(searchTerm.toLowerCase()),
-												)) &&
-											(selectedRarities.length === 0 ||
-												selectedRarities.includes(item.rarity)) &&
-											(selectedTypes.length === 0 ||
-												selectedTypes.includes(item.type)) ? (
-												<SortableItem
-													key={item.id}
-													id={item.id}
-													avatar={item.avatar}
-													title={item.descriptionRaw}
-												/>
-											) : null,
+										{items.length === 0 && (
+											<div className='absolute inset-0 flex items-center justify-center text-[10px] text-text-secondary opacity-30 italic'>
+												Không có mục nào phù hợp
+											</div>
 										)}
+										{items.map(item => (
+											<SortableItem
+												key={item.id}
+												id={item.id}
+												avatar={item.avatar}
+												title={item.descriptionRaw}
+											/>
+										))}
 									</DroppableZone>
 								</SortableContext>
 							</div>
