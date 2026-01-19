@@ -28,6 +28,8 @@ import {
 	Search,
 	ChevronDown,
 	ChevronUp,
+	Trash2,
+	Sparkles,
 } from "lucide-react";
 import html2canvas from "html2canvas";
 import PageTitle from "../../components/common/pageTitle";
@@ -73,6 +75,55 @@ function TierListChampions() {
 		}),
 	);
 
+	// Định nghĩa cấu trúc hàng trống mặc định
+	const getDefaultTiers = () => [
+		{
+			id: "tier-s",
+			name: "S",
+			description: "Bá Đạo",
+			color: "#ff7f7f",
+			items: [],
+		},
+		{
+			id: "tier-a",
+			name: "A",
+			description: "Tốt",
+			color: "#ffbf7f",
+			items: [],
+		},
+		{ id: "tier-b", name: "B", description: "Ổn", color: "#ffff7f", items: [] },
+		{
+			id: "tier-c",
+			name: "C",
+			description: "Yếu",
+			color: "#7fff7f",
+			items: [],
+		},
+	];
+
+	// Định nghĩa dữ liệu mẫu (Thay đổi ID tướng tại đây)
+	const getSampleData = formattedChampions => {
+		const sampleMapping = {
+			"tier-s": ["C001", "C002", "C003", "C004", "C005"],
+			"tier-a": ["C006", "C007", "C008"],
+			"tier-b": ["C009", "C010"],
+			"tier-c": ["C011", "C012", "C013"],
+		};
+
+		const defaultTiers = getDefaultTiers();
+		const usedIds = new Set();
+
+		const sampleTiers = defaultTiers.map(tier => {
+			const targetIds = sampleMapping[tier.id] || [];
+			const items = formattedChampions.filter(c => targetIds.includes(c.id));
+			items.forEach(i => usedIds.add(i.id));
+			return { ...tier, items };
+		});
+
+		const sampleUnranked = formattedChampions.filter(c => !usedIds.has(c.id));
+		return { sampleTiers, sampleUnranked };
+	};
+
 	useEffect(() => {
 		const initData = async () => {
 			try {
@@ -88,6 +139,7 @@ function TierListChampions() {
 					tag: Array.isArray(c.tag) ? c.tag : [],
 				}));
 				setAllChampionsRaw(formatted);
+
 				const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
 				if (saved) {
 					const parsed = JSON.parse(saved);
@@ -101,37 +153,10 @@ function TierListChampions() {
 					);
 					setUnranked(hydrateItems(parsed.unranked));
 				} else {
-					setTiers([
-						{
-							id: "tier-s",
-							name: "S",
-							description: "Bá Đạo",
-							color: "#ff7f7f",
-							items: [],
-						},
-						{
-							id: "tier-a",
-							name: "A",
-							description: "Tốt",
-							color: "#ffbf7f",
-							items: [],
-						},
-						{
-							id: "tier-b",
-							name: "B",
-							description: "Ổn",
-							color: "#ffff7f",
-							items: [],
-						},
-						{
-							id: "tier-c",
-							name: "C",
-							description: "Hơi dưới",
-							color: "#7fff7f",
-							items: [],
-						},
-					]);
-					setUnranked(formatted);
+					// Lần đầu tải: Tự động dùng mẫu
+					const { sampleTiers, sampleUnranked } = getSampleData(formatted);
+					setTiers(sampleTiers);
+					setUnranked(sampleUnranked);
 				}
 			} catch (err) {
 				console.error(err);
@@ -149,6 +174,23 @@ function TierListChampions() {
 				JSON.stringify({ tiers, unranked }),
 			);
 	}, [tiers, unranked, loading]);
+
+	// Chức năng 1: Đặt lại về Tier trống hoàn toàn
+	const handleResetToEmpty = () => {
+		if (confirm("Xóa toàn bộ tướng khỏi bảng và đưa về kho?")) {
+			setTiers(getDefaultTiers());
+			setUnranked(allChampionsRaw);
+		}
+	};
+
+	// Chức năng 2: Đặt lại về dữ liệu mẫu
+	const handleResetToSample = () => {
+		if (confirm("Bạn muốn khôi phục bảng xếp hạng mẫu?")) {
+			const { sampleTiers, sampleUnranked } = getSampleData(allChampionsRaw);
+			setTiers(sampleTiers);
+			setUnranked(sampleUnranked);
+		}
+	};
 
 	const filterOptions = useMemo(() => {
 		const regions = [...new Set(allChampionsRaw.flatMap(c => c.regions))]
@@ -236,12 +278,13 @@ function TierListChampions() {
 		const overContainer = findContainer(over.id);
 		if (!activeContainer || !overContainer || activeContainer === overContainer)
 			return;
+
 		const activeItems =
 			activeContainer === "unranked"
 				? unranked
 				: tiers.find(t => t.id === activeContainer).items;
-		const activeIndex = activeItems.findIndex(i => i.id === active.id);
-		const item = activeItems[activeIndex];
+		const item = activeItems.find(i => i.id === active.id);
+
 		if (activeContainer === "unranked") {
 			setUnranked(prev => prev.filter(i => i.id !== active.id));
 			setTiers(prev =>
@@ -307,7 +350,6 @@ function TierListChampions() {
 				backgroundColor: "#121212",
 				scale: 2,
 				scrollY: -window.scrollY,
-				logging: false,
 			});
 			const link = document.createElement("a");
 			link.download = `tierlist-champions-${Date.now()}.png`;
@@ -335,7 +377,7 @@ function TierListChampions() {
 
 	return (
 		<div className='max-w-[1200px] mx-auto p-0 font-secondary text-text-primary'>
-			<PageTitle title='Tier List Tướng LoR - Huyền Thoại Runeterra Con Đường Anh Hùng' />
+			<PageTitle title='Tier List Tướng LoR - Path of Champions' />
 
 			<div className='flex flex-col sm:flex-row justify-between items-center gap-4 mb-6 px-2'>
 				<h1 className='text-xl sm:text-2xl font-bold uppercase'>
@@ -358,7 +400,7 @@ function TierListChampions() {
 						variant='outline'
 						className='text-xs flex-1'
 					>
-						<Plus size={14} className='mr-1 ' /> Thêm hàng
+						<Plus size={14} className='mr-1' /> Thêm hàng
 					</Button>
 					<Button
 						id='dl-btn'
@@ -367,17 +409,25 @@ function TierListChampions() {
 					>
 						<Download size={14} className='mr-1' /> Lưu ảnh
 					</Button>
+
+					{/* Nút Tier Mẫu */}
 					<Button
-						onClick={() => {
-							if (confirm("Xóa dữ liệu?")) {
-								localStorage.removeItem(LOCAL_STORAGE_KEY);
-								location.reload();
-							}
-						}}
+						onClick={handleResetToSample}
+						variant='outline'
+						className='p-2 border-primary-500 text-primary-500 hover:bg-primary-500/10'
+						title='Khôi phục mẫu'
+					>
+						<Sparkles size={16} />
+					</Button>
+
+					{/* Nút Xóa trắng */}
+					<Button
+						onClick={handleResetToEmpty}
 						variant='danger'
 						className='p-2'
+						title='Xóa toàn bộ bảng'
 					>
-						<RotateCw size={14} />
+						<Trash2 size={16} />
 					</Button>
 				</div>
 			</div>
@@ -389,7 +439,6 @@ function TierListChampions() {
 				onDragOver={handleDragOver}
 				onDragEnd={handleDragEnd}
 			>
-				{/* Bảng Tier List */}
 				<div
 					ref={tierListRef}
 					className='bg-surface-bg border border-border rounded-lg flex flex-col gap-1 p-1 shadow-inner overflow-visible'
@@ -397,14 +446,14 @@ function TierListChampions() {
 					{tiers.map(tier => (
 						<div
 							key={tier.id}
-							className='flex min-h-[60px] sm:min-h-[100px]  bg-black/20 group relative border-b border-white/5 last:border-none'
+							className='flex min-h-[60px] sm:min-h-[100px] bg-black/20 group relative border-b border-white/5 last:border-none'
 						>
 							<div
 								style={{ backgroundColor: tier.color }}
 								className='relative w-20 sm:w-36 flex flex-col items-center justify-center p-1 text-black shrink-0'
 							>
 								{isExporting ? (
-									<span className='font-bold text-sm sm:text-3xl uppercase text-center break-words w-full'>
+									<span className='font-bold text-sm sm:text-3xl uppercase text-center'>
 										{tier.name}
 									</span>
 								) : (
@@ -421,7 +470,7 @@ function TierListChampions() {
 									/>
 								)}
 								{isExporting ? (
-									<span className='text-[9px] sm:text-[12px] italic opacity-70 text-center break-words w-full mt-1'>
+									<span className='text-[9px] sm:text-[12px] italic opacity-70 text-center mt-1'>
 										{tier.description}
 									</span>
 								) : (
@@ -439,23 +488,19 @@ function TierListChampions() {
 										}
 									/>
 								)}
-
-								{/* Palette Button */}
 								{!isExporting && (
 									<button
-										type='button'
 										onClick={e => {
 											e.stopPropagation();
 											setShowColorPicker(
 												showColorPicker === tier.id ? null : tier.id,
 											);
 										}}
-										className='absolute top-1 right-1 p-1  bg-white/40 hover:bg-white/60 rounded opacity-0 group-hover:opacity-100 transition-opacity z-[50]'
+										className='absolute top-1 right-1 p-1 bg-white/40 hover:bg-white/60 rounded opacity-0 group-hover:opacity-100 transition-opacity z-[50]'
 									>
 										<Palette size={20} />
 									</button>
 								)}
-
 								{showColorPicker === tier.id && !isExporting && (
 									<div className='absolute top-full left-0 z-[200] mt-1 p-1 bg-[#1a1a1a] border border-white/20 rounded flex gap-1 flex-wrap w-[110px] shadow-2xl'>
 										{COLOR_OPTIONS.map(c => (
@@ -514,7 +559,6 @@ function TierListChampions() {
 					<h2 className='text-xs font-bold text-text-secondary mb-4 uppercase tracking-widest'>
 						Kho tướng ({filteredUnranked.length})
 					</h2>
-
 					<div className='lg:hidden mb-4'>
 						<div className='flex items-center gap-2'>
 							<div className='flex-1 relative'>
@@ -551,11 +595,7 @@ function TierListChampions() {
 							</Button>
 						</div>
 						<div
-							className={`transition-all duration-300 ease-in-out ${
-								isFilterOpen
-									? "max-h-[800px] opacity-100 mt-4"
-									: "max-h-0 opacity-0 overflow-hidden"
-							}`}
+							className={`transition-all duration-300 ease-in-out ${isFilterOpen ? "max-h-[800px] opacity-100 mt-4" : "max-h-0 opacity-0 overflow-hidden"}`}
 						>
 							<div className='space-y-4 pt-4 border-t border-border'>
 								<MultiSelectFilter
@@ -587,7 +627,7 @@ function TierListChampions() {
 									onClick={handleResetFilters}
 									className='w-full'
 								>
-									<RotateCw size={14} className='mr-2' /> Đặt lại
+									<RotateCw size={14} className='mr-2' /> Đặt lại bộ lọc
 								</Button>
 							</div>
 						</div>

@@ -28,6 +28,8 @@ import {
 	Search,
 	ChevronDown,
 	ChevronUp,
+	Trash2,
+	Sparkles,
 } from "lucide-react";
 import html2canvas from "html2canvas";
 import PageTitle from "../../components/common/pageTitle";
@@ -54,7 +56,7 @@ function TierListRelics() {
 	const [searchInput, setSearchInput] = useState("");
 	const [searchTerm, setSearchTerm] = useState("");
 	const [selectedRarities, setSelectedRarities] = useState([]);
-	const [selectedTypes, setSelectedTypes] = useState([]); // State cho bộ lọc Loại
+	const [selectedTypes, setSelectedTypes] = useState([]);
 	const [showColorPicker, setShowColorPicker] = useState(null);
 	const [isFilterOpen, setIsFilterOpen] = useState(false);
 
@@ -71,80 +73,7 @@ function TierListRelics() {
 		}),
 	);
 
-	useEffect(() => {
-		let isMounted = true;
-		const initData = async () => {
-			try {
-				const res = await fetch(`${apiUrl}/api/relics`);
-				if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-				const data = await res.json();
-				if (!isMounted) return;
-
-				const formatted = data.map((r, index) => {
-					const rawPath =
-						r.assetAbsolutePath ||
-						r.avatar ||
-						(r.assets && r.assets[0]?.avatar);
-					const safeAvatar = rawPath
-						? `${apiUrl}/api/relics/proxy-image?url=${encodeURIComponent(rawPath)}`
-						: "/fallback-relic.png";
-
-					return {
-						id: String(r.relicCode || r.relicID || r.id || `relic-${index}`),
-						name: r.name || "Unknown Relic",
-						avatar: safeAvatar,
-						rarity: r.rarity || "THƯỜNG",
-						type: r.type || "Chung", // Lấy trường type từ dữ liệu
-						descriptionRaw: r.descriptionRaw || r.description || "",
-					};
-				});
-
-				setAllRelicsRaw(formatted);
-
-				const saved = localStorage.getItem(RELICS_STORAGE_KEY);
-				if (saved) {
-					const parsed = JSON.parse(saved);
-					const hydrateItems = items =>
-						(items || [])
-							.map(item => {
-								const original = formatted.find(f => f.id === item.id);
-								return original ? { ...original } : null;
-							})
-							.filter(Boolean);
-
-					const hydratedTiers = parsed.tiers.map(t => ({
-						...t,
-						items: hydrateItems(t.items),
-					}));
-					const hydratedUnranked = hydrateItems(parsed.unranked);
-
-					if (
-						formatted.length > 0 &&
-						hydratedUnranked.length === 0 &&
-						hydratedTiers.every(t => t.items.length === 0)
-					) {
-						setUnranked(formatted);
-						setTiers(getDefaultTiers());
-					} else {
-						setTiers(hydratedTiers);
-						setUnranked(hydratedUnranked);
-					}
-				} else {
-					setTiers(getDefaultTiers());
-					setUnranked(formatted);
-				}
-			} catch (err) {
-				console.error("Error loading relics:", err);
-			} finally {
-				if (isMounted) setLoading(false);
-			}
-		};
-		initData();
-		return () => {
-			isMounted = false;
-		};
-	}, [apiUrl]);
-
+	// 1. Cấu trúc hàng mặc định rỗng
 	const getDefaultTiers = () => [
 		{
 			id: "tier-s",
@@ -170,6 +99,96 @@ function TierListRelics() {
 		},
 	];
 
+	// 2. Logic tạo dữ liệu mẫu (Hãy thay đổi ID theo database của bạn)
+	const getSampleData = formattedRelics => {
+		const sampleMapping = {
+			"tier-s": ["R0066", "R0077", "R0088"], // Ví dụ: Luden, Gatebreaker, v.v.
+			"tier-a": ["R0011", "R0022", "R0033"],
+			"tier-b": ["R0044", "R0055"],
+			"tier-c": ["R0099"],
+		};
+
+		const defaultTiers = getDefaultTiers();
+		const usedIds = new Set();
+
+		const sampleTiers = defaultTiers.map(tier => {
+			const targetIds = sampleMapping[tier.id] || [];
+			const items = formattedRelics.filter(r => targetIds.includes(r.id));
+			items.forEach(i => usedIds.add(i.id));
+			return { ...tier, items };
+		});
+
+		const sampleUnranked = formattedRelics.filter(r => !usedIds.has(r.id));
+		return { sampleTiers, sampleUnranked };
+	};
+
+	useEffect(() => {
+		let isMounted = true;
+		const initData = async () => {
+			try {
+				const res = await fetch(`${apiUrl}/api/relics`);
+				if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+				const data = await res.json();
+				if (!isMounted) return;
+
+				const formatted = data.map((r, index) => {
+					const rawPath =
+						r.assetAbsolutePath ||
+						r.avatar ||
+						(r.assets && r.assets[0]?.avatar);
+					const safeAvatar = rawPath
+						? `${apiUrl}/api/relics/proxy-image?url=${encodeURIComponent(rawPath)}`
+						: "/fallback-relic.png";
+
+					return {
+						id: String(r.relicCode || r.relicID || r.id || `relic-${index}`),
+						name: r.name || "Unknown Relic",
+						avatar: safeAvatar,
+						rarity: r.rarity || "THƯỜNG",
+						type: r.type || "Chung",
+						descriptionRaw: r.descriptionRaw || r.description || "",
+					};
+				});
+
+				setAllRelicsRaw(formatted);
+
+				const saved = localStorage.getItem(RELICS_STORAGE_KEY);
+				if (saved) {
+					const parsed = JSON.parse(saved);
+					const hydrateItems = items =>
+						(items || [])
+							.map(item => {
+								const original = formatted.find(f => f.id === item.id);
+								return original ? { ...original } : null;
+							})
+							.filter(Boolean);
+
+					const hydratedTiers = parsed.tiers.map(t => ({
+						...t,
+						items: hydrateItems(t.items),
+					}));
+					const hydratedUnranked = hydrateItems(parsed.unranked);
+
+					setTiers(hydratedTiers);
+					setUnranked(hydratedUnranked);
+				} else {
+					// Lần đầu tải: Tự động load mẫu
+					const { sampleTiers, sampleUnranked } = getSampleData(formatted);
+					setTiers(sampleTiers);
+					setUnranked(sampleUnranked);
+				}
+			} catch (err) {
+				console.error("Error loading relics:", err);
+			} finally {
+				if (isMounted) setLoading(false);
+			}
+		};
+		initData();
+		return () => {
+			isMounted = false;
+		};
+	}, [apiUrl]);
+
 	useEffect(() => {
 		if (!loading)
 			localStorage.setItem(
@@ -177,6 +196,23 @@ function TierListRelics() {
 				JSON.stringify({ tiers, unranked }),
 			);
 	}, [tiers, unranked, loading]);
+
+	// Chức năng: Đặt lại về bảng trống
+	const handleResetToEmpty = () => {
+		if (confirm("Xóa toàn bộ cổ vật khỏi bảng và đưa về kho?")) {
+			setTiers(getDefaultTiers());
+			setUnranked(allRelicsRaw);
+		}
+	};
+
+	// Chức năng: Khôi phục dữ liệu mẫu
+	const handleResetToSample = () => {
+		if (confirm("Bạn muốn khôi phục bảng xếp hạng cổ vật mẫu?")) {
+			const { sampleTiers, sampleUnranked } = getSampleData(allRelicsRaw);
+			setTiers(sampleTiers);
+			setUnranked(sampleUnranked);
+		}
+	};
 
 	const filterOptions = useMemo(() => {
 		const rarities = [...new Set(allRelicsRaw.map(r => r.rarity))]
@@ -373,17 +409,25 @@ function TierListRelics() {
 					>
 						<Download size={14} className='mr-1' /> Lưu ảnh
 					</Button>
+
+					{/* Nút Tier Mẫu */}
 					<Button
-						onClick={() => {
-							if (confirm("Xóa dữ liệu?")) {
-								localStorage.removeItem(RELICS_STORAGE_KEY);
-								location.reload();
-							}
-						}}
+						onClick={handleResetToSample}
+						variant='outline'
+						className='p-2 border-primary-500 text-primary-500 hover:bg-primary-500/10'
+						title='Khôi phục mẫu'
+					>
+						<Sparkles size={16} />
+					</Button>
+
+					{/* Nút Xóa trắng */}
+					<Button
+						onClick={handleResetToEmpty}
 						variant='danger'
 						className='p-2'
+						title='Xóa toàn bộ bảng'
 					>
-						<RotateCw size={14} />
+						<Trash2 size={16} />
 					</Button>
 				</div>
 			</div>
@@ -452,7 +496,7 @@ function TierListRelics() {
 												showColorPicker === tier.id ? null : tier.id,
 											);
 										}}
-										className='absolute top-1 right-1 p-1 bg-white/40 hover:bg-white/60 rounded opacity-0 group-hover:opacity-100 z-[50]'
+										className='absolute top-1 right-1 p-1 bg-white/40 hover:bg-white/60 rounded opacity-0 group-hover:opacity-100 z-[50] transition-opacity'
 									>
 										<Palette size={20} />
 									</button>
@@ -517,7 +561,6 @@ function TierListRelics() {
 						Kho cổ vật ({filteredUnranked.length})
 					</h2>
 
-					{/* Mobile Filters */}
 					<div className='lg:hidden mb-4 space-y-2'>
 						<div className='flex gap-2'>
 							<div className='flex-1 relative'>
@@ -579,7 +622,6 @@ function TierListRelics() {
 						)}
 					</div>
 
-					{/* Desktop Filters */}
 					<div className='hidden lg:flex gap-3 mb-6 items-start'>
 						<div className='relative w-1/3'>
 							<InputField
@@ -631,7 +673,6 @@ function TierListRelics() {
 						</Button>
 					</div>
 
-					{/* Hiển thị Kho */}
 					<SortableContext
 						items={unranked.map(i => i.id)}
 						strategy={rectSortingStrategy}

@@ -109,12 +109,10 @@ function DesktopNavbar() {
 						<NavLink to='/champions' className={navLinkClass}>
 							<Swords className='w-6 h-6' /> Tướng
 						</NavLink>
-						<NavLink to='/guides' className={navLinkClass}>
-							<BookMarked className='w-6 h-6' /> Hướng Dẫn
-						</NavLink>
-						<NavLink to='/maps' className={navLinkClass}>
-							<Map className='w-6 h-6' />
-							Bản Đồ
+
+						<NavLink to='/tierlist' className={navLinkClass}>
+							<BarChartHorizontalBig className='w-6 h-6' />
+							Bảng Xếp Hạng
 						</NavLink>
 						<div
 							className='relative'
@@ -176,6 +174,13 @@ function DesktopNavbar() {
 									>
 										<Gem className='w-5 h-5' /> Ngọc
 									</NavLink>
+									<NavLink
+										to='/maps'
+										className={dropdownLinkClass}
+										onClick={handleNavClick}
+									>
+										<Map className='w-5 h-5' /> Bản Đồ
+									</NavLink>
 								</div>
 							)}
 						</div>
@@ -212,19 +217,20 @@ function DesktopNavbar() {
 									>
 										<LoaderPinwheel className='w-5 h-5' /> Vòng quay
 									</NavLink>
-									<NavLink
-										to='/tierlist'
-										className={dropdownLinkClass}
-										onClick={handleNavClick}
-									>
-										<BarChartHorizontalBig className='w-5 h-5' /> Xếp hạng
-									</NavLink>
+
 									<NavLink
 										to='/introduction'
 										className={dropdownLinkClass}
 										onClick={handleNavClick}
 									>
 										<BookOpen className='w-5 h-5' /> Giới thiệu
+									</NavLink>
+									<NavLink
+										to='/guides'
+										className={dropdownLinkClass}
+										onClick={handleNavClick}
+									>
+										<BookMarked className='w-6 h-6' /> Hướng Dẫn
 									</NavLink>
 								</div>
 							)}

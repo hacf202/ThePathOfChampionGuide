@@ -4,6 +4,12 @@ import { useSortable } from "@dnd-kit/sortable";
 import { useDroppable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 
+/**
+ * Component hiển thị một item có thể sắp xếp
+ * @param {string} id - ID duy nhất của item
+ * @param {string} avatar - Đường dẫn ảnh đại diện
+ * @param {boolean} isOverlay - Trạng thái khi đang được kéo (hiển thị trên lớp phủ)
+ */
 export const SortableItem = ({ id, avatar, isOverlay }) => {
 	const {
 		attributes,
@@ -22,6 +28,11 @@ export const SortableItem = ({ id, avatar, isOverlay }) => {
 		zIndex: isDragging ? 999 : 1,
 	};
 
+	// Xử lý URL ảnh an toàn để tránh lỗi 'includes' của undefined
+	// Nếu avatar không tồn tại, sử dụng ảnh fallback mặc định
+	const safeAvatar = avatar || "/fallback-relic.png";
+	const finalSrc = `${safeAvatar}${safeAvatar.includes("?") ? "&" : "?"}cache-bust=${id}`;
+
 	return (
 		<div
 			ref={setNodeRef}
@@ -33,18 +44,22 @@ export const SortableItem = ({ id, avatar, isOverlay }) => {
 			}`}
 		>
 			<img
-				src={`${avatar}${avatar.includes("?") ? "&" : "?"}cache-bust=${id}`}
+				src={finalSrc}
 				crossOrigin='anonymous'
 				className='rounded w-full h-full object-cover border border-white/10 pointer-events-none'
-				alt='champion'
+				alt='relic'
 				onError={e => {
-					e.target.src = "/fallback-champion.png";
+					// Fallback nếu ảnh từ server bị lỗi load
+					e.target.src = "/fallback-relic.png";
 				}}
 			/>
 		</div>
 	);
 };
 
+/**
+ * Vùng chứa các item có thể thả vào
+ */
 export const DroppableZone = ({ id, children, className }) => {
 	const { setNodeRef } = useDroppable({ id });
 	return (
@@ -54,14 +69,15 @@ export const DroppableZone = ({ id, children, className }) => {
 	);
 };
 
+// Danh sách mã màu mặc định cho các hàng Tier
 export const COLOR_OPTIONS = [
-	"#ff7f7f",
-	"#ffbf7f",
-	"#ffff7f",
-	"#7fff7f",
-	"#7fbfff",
-	"#7f7fff",
-	"#ff7fff",
+	"#ff7f7f", // Đỏ (S)
+	"#ffbf7f", // Cam (A)
+	"#ffff7f", // Vàng (B)
+	"#7fff7f", // Xanh lá (C)
+	"#7fbfff", // Xanh dương
+	"#7f7fff", // Tím
+	"#ff7fff", // Hồng
 ];
 
 export const LOCAL_STORAGE_KEY = "poc-custom-tierlist-v3";
