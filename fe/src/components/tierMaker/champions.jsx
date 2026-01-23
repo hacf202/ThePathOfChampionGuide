@@ -491,7 +491,6 @@ function TierListChampions() {
 	// --- LOGIC QUÉT CHỌN (BOX SELECTION) ---
 
 	const onMouseDown = e => {
-		// Chỉ bắt đầu quét nếu click vào vùng trống (không phải click vào item đang drag)
 		if (e.target !== e.currentTarget) return;
 
 		const rect = unrankedRef.current.getBoundingClientRect();
@@ -501,7 +500,6 @@ function TierListChampions() {
 		setIsSelecting(true);
 		setSelectionBox({ startX: x, startY: y, currentX: x, currentY: y });
 
-		// Nếu không giữ Shift thì xóa lựa chọn cũ
 		if (!e.shiftKey) setSelectedIds([]);
 	};
 
@@ -518,27 +516,23 @@ function TierListChampions() {
 	const onMouseUp = e => {
 		if (!isSelecting) return;
 
-		// Tính toán vùng chữ nhật cuối cùng
 		const left = Math.min(selectionBox.startX, selectionBox.currentX);
 		const top = Math.min(selectionBox.startY, selectionBox.currentY);
 		const right = Math.max(selectionBox.startX, selectionBox.currentX);
 		const bottom = Math.max(selectionBox.startY, selectionBox.currentY);
 
-		// Tìm tất cả các item nằm trong vùng quét
-		const newSelectedItems = [];
+		const tempSelectedIds = [];
 		const itemElements = unrankedRef.current.querySelectorAll("[data-id]");
 
 		itemElements.forEach(el => {
 			const itemRect = el.getBoundingClientRect();
 			const containerRect = unrankedRef.current.getBoundingClientRect();
 
-			// Chuyển tọa độ item về tương đối với container
 			const itemTop = itemRect.top - containerRect.top;
 			const itemLeft = itemRect.left - containerRect.left;
 			const itemBottom = itemTop + itemRect.height;
 			const itemRight = itemLeft + itemRect.width;
 
-			// Kiểm tra giao nhau
 			const isIntersecting = !(
 				itemLeft > right ||
 				itemRight < left ||
@@ -547,14 +541,17 @@ function TierListChampions() {
 			);
 
 			if (isIntersecting) {
-				newSelectedItems.push(el.getAttribute("data-id"));
+				tempSelectedIds.push(el.getAttribute("data-id"));
 			}
 		});
 
+		// SỬA LỖI TẠI ĐÂY: Loại bỏ các ID trùng lặp bằng Set trước khi cập nhật state
+		const uniqueSelectedIds = [...new Set(tempSelectedIds)];
+
 		if (e.shiftKey) {
-			setSelectedIds(prev => [...new Set([...prev, ...newSelectedItems])]);
+			setSelectedIds(prev => [...new Set([...prev, ...uniqueSelectedIds])]);
 		} else {
-			setSelectedIds(newSelectedItems);
+			setSelectedIds(uniqueSelectedIds);
 		}
 
 		setIsSelecting(false);
@@ -694,6 +691,25 @@ function TierListChampions() {
 		}
 	};
 
+	// --- HÀM XỬ LÝ NÚT CHỨC NĂNG ---
+
+	const handleResetToSample = () => {
+		if (confirm("Khôi phục danh sách mẫu? Mọi thay đổi hiện tại sẽ mất.")) {
+			const { sampleTiers, sampleUnranked } = getSampleData(allChampionsRaw);
+			setTiers(sampleTiers);
+			setUnranked(sampleUnranked);
+			setSelectedIds([]);
+		}
+	};
+
+	const handleClearAllToUnranked = () => {
+		if (confirm("Đưa tất cả tướng về kho?")) {
+			setTiers(getDefaultTiers());
+			setUnranked([...allChampionsRaw]);
+			setSelectedIds([]);
+		}
+	};
+
 	if (loading)
 		return (
 			<div className='flex justify-center p-20'>
@@ -743,21 +759,18 @@ function TierListChampions() {
 					</Button>
 					<div className='flex gap-2'>
 						<Button
-							onClick={() =>
-								confirm("Khôi phục mẫu?") &&
-								setTiers(getSampleData(allChampionsRaw).sampleTiers)
-							}
+							onClick={handleResetToSample}
 							variant='outline'
 							className='p-2 border-primary-500 text-primary-500 hover:bg-primary-500/10'
+							title='Đặt lại mẫu mặc định'
 						>
 							<Sparkles size={16} />
 						</Button>
 						<Button
-							onClick={() =>
-								confirm("Xóa toàn bộ?") && setTiers(getDefaultTiers())
-							}
+							onClick={handleClearAllToUnranked}
 							variant='danger'
 							className='p-2'
+							title='Xóa toàn bộ tướng về kho'
 						>
 							<Trash2 size={16} />
 						</Button>
@@ -854,7 +867,7 @@ function TierListChampions() {
 						</div>
 					</div>
 
-					{/* FILTERS (Giữ nguyên logic cũ nhưng lược bớt hiển thị để tiết kiệm không gian) */}
+					{/* FILTERS */}
 					<div className='grid grid-cols-2 lg:grid-cols-5 gap-3 mb-6'>
 						<InputField
 							value={searchInput}

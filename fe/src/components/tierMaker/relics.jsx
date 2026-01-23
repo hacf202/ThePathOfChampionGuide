@@ -225,16 +225,23 @@ function TierListRelics() {
 
 	const getDefaultTiers = () => [
 		{
+			id: "tier-s+",
+			name: "S",
+			description: "Mạnh Đa dụng",
+			color: "#ff3e3e",
+			items: [],
+		},
+		{
 			id: "tier-s",
 			name: "S",
-			description: "Bá Đạo",
+			description: "Mạnh cho tướng ",
 			color: "#ff7f7f",
 			items: [],
 		},
 		{
 			id: "tier-a",
 			name: "A",
-			description: "Tốt",
+			description: "Đa dụng",
 			color: "#ffbf7f",
 			items: [],
 		},
@@ -250,10 +257,80 @@ function TierListRelics() {
 
 	const getSampleData = formattedRelics => {
 		const sampleMapping = {
-			"tier-s": ["R0066", "R0077", "R0088"],
-			"tier-a": ["R0011", "R0022", "R0033"],
-			"tier-b": ["R0044", "R0055"],
-			"tier-c": ["R0099"],
+			"tier-s+": ["R0082", "R0125", "R0080"],
+			"tier-s": [
+				"R0121",
+				"R0136",
+				"R0060",
+				"R0100",
+				"R0094",
+				"R0139",
+				"R0104",
+				"R0098",
+				"R0123",
+				"R0092",
+				"R0116",
+				"R0124",
+				"R0061",
+				"R0103",
+				"R0065",
+				"R0150",
+			],
+			"tier-a": [
+				"R0066",
+				"R0099",
+				"R0115",
+				"R0109",
+				"R0111",
+				"R0086",
+				"R0079",
+				"R0064",
+				"R0097",
+				"R0113",
+				"R0108",
+				"R0091",
+				"R0062",
+				"R0085",
+			],
+			"tier-b": [
+				"R0134",
+				"R0127",
+				"R0141",
+				"R0112",
+				"R0059",
+				"R0146",
+				"R0144",
+				"R0130",
+				"R0114",
+				"R0133",
+				"R0128",
+				"R0140",
+				"R0137",
+				"R0058",
+				"R0145",
+				"R0151",
+				"R0131",
+				"R0138",
+				"R0105",
+				"R0147",
+				"R0107",
+				"R0122",
+				"R0148",
+				"R0117",
+				"R0089",
+				"R0135",
+			],
+			"tier-c": [
+				"R0118",
+				"R0120",
+				"R0142",
+				"R0143",
+				"R0119",
+				"R0106",
+				"R0126",
+				"R0149",
+				"R0132",
+			],
 		};
 		const defaultTiers = getDefaultTiers();
 		const usedIds = new Set();
@@ -332,7 +409,9 @@ function TierListRelics() {
 			);
 	}, [tiers, unranked, loading]);
 
-	const handleResetToEmpty = () => {
+	// --- CÁC HÀM XỬ LÝ NÚT CHỨC NĂNG ---
+
+	const handleClearAllToUnranked = () => {
 		if (confirm("Xóa toàn bộ cổ vật khỏi bảng và đưa về kho?")) {
 			setTiers(getDefaultTiers());
 			setUnranked(sortItemsByName(allRelicsRaw));
@@ -341,7 +420,11 @@ function TierListRelics() {
 	};
 
 	const handleResetToSample = () => {
-		if (confirm("Bạn muốn khôi phục bảng xếp hạng mẫu?")) {
+		if (
+			confirm(
+				"Bạn muốn khôi phục bảng xếp hạng mẫu? Mọi thay đổi hiện tại sẽ mất.",
+			)
+		) {
 			const { sampleTiers, sampleUnranked } = getSampleData(allRelicsRaw);
 			setTiers(sampleTiers);
 			setUnranked(sampleUnranked);
@@ -433,7 +516,7 @@ function TierListRelics() {
 		const right = Math.max(selectionBox.startX, selectionBox.currentX);
 		const bottom = Math.max(selectionBox.startY, selectionBox.currentY);
 
-		const newSelectedItems = [];
+		const tempSelectedIds = [];
 		const itemElements = warehouseRef.current.querySelectorAll("[data-id]");
 
 		itemElements.forEach(el => {
@@ -447,12 +530,15 @@ function TierListRelics() {
 				itemTop > bottom ||
 				itemTop + itemRect.height < top
 			);
-			if (isIntersecting) newSelectedItems.push(el.getAttribute("data-id"));
+			if (isIntersecting) tempSelectedIds.push(el.getAttribute("data-id"));
 		});
 
+		// SỬA LỖI TẠI ĐÂY: Loại bỏ trùng lặp ID trước khi cập nhật state
+		const uniqueSelectedIds = [...new Set(tempSelectedIds)];
+
 		if (e.shiftKey)
-			setSelectedIds(prev => [...new Set([...prev, ...newSelectedItems])]);
-		else setSelectedIds(newSelectedItems);
+			setSelectedIds(prev => [...new Set([...prev, ...uniqueSelectedIds])]);
+		else setSelectedIds(uniqueSelectedIds);
 
 		setIsSelecting(false);
 		setSelectionBox(null);
@@ -641,15 +727,15 @@ function TierListRelics() {
 							onClick={handleResetToSample}
 							variant='outline'
 							className='p-2 border-primary-500 text-primary-500 hover:bg-primary-500/10 flex-1 sm:flex-none'
-							title='Khôi phục mẫu'
+							title='Khôi phục mẫu mặc định'
 						>
 							<Sparkles size={16} className='mx-auto' />
 						</Button>
 						<Button
-							onClick={handleResetToEmpty}
+							onClick={handleClearAllToUnranked}
 							variant='danger'
 							className='p-2 flex-1 sm:flex-none'
-							title='Xóa toàn bộ bảng'
+							title='Đưa tất cả cổ vật về kho'
 						>
 							<Trash2 size={16} className='mx-auto' />
 						</Button>
