@@ -78,7 +78,7 @@ async function uploadRelicsData() {
 
 		console.log("======================================================");
 		console.log(
-			"🎉 Hoàn tất! Toàn bộ dữ liệu RELICS đã được tải lên DynamoDB thành công."
+			"🎉 Hoàn tất! Toàn bộ dữ liệu RELICS đã được tải lên DynamoDB thành công.",
 		);
 		console.log("======================================================");
 	} catch (error) {

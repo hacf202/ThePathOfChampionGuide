@@ -140,9 +140,9 @@ export const useCrudEditor = ({
 		() =>
 			filteredData.slice(
 				(currentPage - 1) * itemsPerPage,
-				currentPage * itemsPerPage
+				currentPage * itemsPerPage,
 			),
-		[filteredData, currentPage, itemsPerPage]
+		[filteredData, currentPage, itemsPerPage],
 	);
 
 	// --- 8. TÍNH TOÁN SELECTED ITEM ---
@@ -247,7 +247,7 @@ export const useCrudEditor = ({
 				{
 					method: "DELETE",
 					headers: { Authorization: `Bearer ${token}` },
-				}
+				},
 			);
 
 			if (!res.ok) throw new Error(`Lỗi xóa: ${res.status}`);
