@@ -19,6 +19,7 @@ import {
 // Mảng ảnh nền vẫn giữ nguyên
 const BACKGROUND_IMAGES = [
 	"https://dd.b.pvp.net/6_3_0/set2/vi_vn/img/cards/02NX007T2-full.png",
+	"https://dd.b.pvp.net/6_3_0/set3/vi_vn/img/cards/03MT087T1-full.png",
 	"https://wiki.leagueoflegends.com/en-us/images/06SI012T1-full.png?0bfd7",
 	"https://dd.b.pvp.net/6_8_0/tpoc/vi_vn/img/cards/98SB031T2-full.png",
 	"https://wiki.leagueoflegends.com/en-us/images/06SH009-full.png?ff10a",
@@ -109,6 +110,18 @@ const Home = () => {
 			link: "/champions",
 			btnText: "Xem Danh Sách Tướng",
 			icon: Swords,
+			align: "center",
+		},
+		{
+			title: "THỬ THÁCH THÁNG",
+			subtitle: "Hướng Dẫn Từ A-Z Vượt Ải Tháng Hiệu Quả",
+			titleColor: "text-accent2-title",
+			subtitleColor: "text-accent2-subtitle",
+			btnBg: "bg-accent2-cta-bg",
+			btnHover: "hover:bg-accent2-cta-hover hover:shadow-accent2-cta-bg/70",
+			link: "/guides/thu-thach-thang",
+			btnText: "Xem Hướng Dẫn",
+			icon: ScrollText,
 			align: "center",
 		},
 		{
@@ -235,8 +248,8 @@ const Home = () => {
 									section.align === "left"
 										? "text-left"
 										: section.align === "right"
-										? "text-right"
-										: "text-center"
+											? "text-right"
+											: "text-center"
 								}
                 ${section.titleColor}
               `}
@@ -256,8 +269,8 @@ const Home = () => {
 									section.align === "left"
 										? "text-left"
 										: section.align === "right"
-										? "text-right"
-										: "text-center"
+											? "text-right"
+											: "text-center"
 								}
                 ${section.subtitleColor}
               `}
@@ -293,7 +306,7 @@ const Home = () => {
 													.toLowerCase()
 													.replace(
 														/[^a-z]/g,
-														""
+														"",
 													)}), 0 8px 20px rgba(0,0,0,0.15)`,
 												maxWidth: "100px", // Giới hạn chiều rộng trên mobile
 											}}
@@ -339,8 +352,8 @@ const Home = () => {
 									section.align === "left"
 										? "justify-start"
 										: section.align === "right"
-										? "justify-end"
-										: "justify-center"
+											? "justify-end"
+											: "justify-center"
 								}
               `}
 							>
