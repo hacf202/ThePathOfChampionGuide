@@ -3,10 +3,10 @@ import React, { useState, useEffect, useMemo, useContext, useRef } from "react";
 import { AuthContext } from "../../context/AuthContext.jsx";
 import Modal from "../common/modal";
 import Button from "../common/button";
-import { Star, Eye, EyeOff, ChevronDown, AlertCircle, X } from "lucide-react";
+import { Star, Eye, EyeOff, ChevronDown, AlertCircle } from "lucide-react";
 import SafeImage from "../common/SafeImage.jsx";
 
-// === Searchable Dropdown (giữ nguyên) ===
+// === Searchable Dropdown Component ===
 const SearchableDropdown = ({
 	options,
 	selectedValue,
@@ -24,14 +24,14 @@ const SearchableDropdown = ({
 
 	const selectedOption = useMemo(
 		() => options.find(opt => opt.name === selectedValue),
-		[options, selectedValue]
+		[options, selectedValue],
 	);
 
 	const filteredOptions = useMemo(
 		() =>
 			options
 				.filter(opt =>
-					opt.name.toLowerCase().includes(searchTerm.toLowerCase())
+					opt.name.toLowerCase().includes(searchTerm.toLowerCase()),
 				)
 				.filter(opt => {
 					if (!allowDuplicate && selectedValues.includes(opt.name)) {
@@ -39,7 +39,7 @@ const SearchableDropdown = ({
 					}
 					return true;
 				}),
-		[options, searchTerm, allowDuplicate, selectedValues, selectedValue]
+		[options, searchTerm, allowDuplicate, selectedValues, selectedValue],
 	);
 
 	useEffect(() => {
@@ -57,9 +57,8 @@ const SearchableDropdown = ({
 			!allowDuplicate &&
 			selectedValues.includes(value) &&
 			value !== selectedValue
-		) {
+		)
 			return;
-		}
 		onChange(value);
 		setIsOpen(false);
 		setSearchTerm("");
@@ -73,11 +72,9 @@ const SearchableDropdown = ({
 				disabled={disabled || loading}
 				className={`w-full bg-input-bg border rounded-md p-2 flex justify-between items-center text-left transition-colors ${
 					error
-						? "border-input-error-border"
-						: disabled || loading
-						? "border-input-border opacity-50 cursor-not-allowed"
+						? "border-danger-500"
 						: "border-input-border hover:border-primary-500"
-				}`}
+				} ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
 			>
 				<div className='flex items-center truncate'>
 					{selectedOption?.icon && (
@@ -88,26 +85,19 @@ const SearchableDropdown = ({
 						/>
 					)}
 					<span
-						className={`truncate ${
-							selectedValue ? "text-text-primary" : "text-text-secondary"
-						}`}
+						className={`truncate ${selectedValue ? "text-text-primary" : "text-text-secondary"}`}
 					>
 						{loading ? "Đang tải..." : selectedValue || placeholder}
 					</span>
 				</div>
 				<ChevronDown
 					size={20}
-					className={`text-text-secondary transition-transform flex-shrink-0 ${
-						isOpen ? "rotate-180" : ""
-					}`}
+					className={`text-text-secondary transition-transform ${isOpen ? "rotate-180" : ""}`}
 				/>
 			</button>
 
 			{isOpen && (
-				<div
-					className='absolute left-0 right-0 top-full mt-1 bg-surface-bg border border-border rounded-md shadow-2xl max-h-60 overflow-y-hidden z-[100]'
-					style={{ minWidth: "100%" }}
-				>
+				<div className='absolute left-0 right-0 top-full mt-1 bg-surface-bg border border-border rounded-md shadow-2xl max-h-60 overflow-hidden z-[100]'>
 					<div className='p-2 sticky top-0 bg-surface-bg z-10 border-b border-border'>
 						<input
 							type='text'
@@ -119,11 +109,7 @@ const SearchableDropdown = ({
 						/>
 					</div>
 					<ul className='max-h-48 overflow-y-auto'>
-						{loading ? (
-							<li className='p-3 text-center text-text-secondary text-sm'>
-								Đang tải...
-							</li>
-						) : filteredOptions.length > 0 ? (
+						{filteredOptions.length > 0 ? (
 							filteredOptions.map(opt => {
 								const isDisabled =
 									!allowDuplicate &&
@@ -135,23 +121,18 @@ const SearchableDropdown = ({
 										onClick={() => !isDisabled && handleSelect(opt.name)}
 										className={`p-2 flex items-center transition-colors ${
 											isDisabled
-												? "opacity-40 cursor-not-allowed text-text-secondary"
-												: "text-dropdown-item-text hover:bg-dropdown-item-hover-bg cursor-pointer"
+												? "opacity-40 cursor-not-allowed"
+												: "hover:bg-dropdown-item-hover-bg cursor-pointer"
 										}`}
 									>
 										{opt.icon && (
 											<SafeImage
 												src={opt.icon}
 												alt={opt.name}
-												className='w-6 h-6 mr-2 rounded-full object-cover flex-shrink-0'
+												className='w-6 h-6 mr-2 rounded-full object-cover'
 											/>
 										)}
 										<span className='truncate text-sm'>{opt.name}</span>
-										{isDisabled && (
-											<span className='ml-auto text-xs text-danger-text-dark'>
-												Đã chọn
-											</span>
-										)}
 									</li>
 								);
 							})
@@ -163,18 +144,17 @@ const SearchableDropdown = ({
 					</ul>
 				</div>
 			)}
-
 			{error && (
-				<div className='mt-1 flex items-center gap-1 text-input-error-text text-xs'>
+				<div className='mt-1 flex items-center gap-1 text-danger-500 text-xs'>
 					<AlertCircle size={14} />
-					<span>{error}</span>
+					{error}
 				</div>
 			)}
 		</div>
 	);
 };
 
-// === BuildModal ===
+// === Main BuildModal Component ===
 const BuildModal = ({
 	isOpen,
 	onClose,
@@ -185,6 +165,7 @@ const BuildModal = ({
 }) => {
 	const { token } = useContext(AuthContext);
 	const isEditMode = !!initialData;
+	const apiUrl = import.meta.env.VITE_API_URL;
 
 	const [formData, setFormData] = useState(
 		initialData || {
@@ -195,428 +176,259 @@ const BuildModal = ({
 			star: 3,
 			description: "",
 			display: true,
-			regions: [], // [ADD] Thêm trường regions
-		}
+			regions: [],
+		},
 	);
 
-	const [selectedChampion, setSelectedChampion] = useState(null);
+	const [metadata, setMetadata] = useState({
+		relics: [],
+		powers: [],
+		runes: [],
+		champions: [],
+	});
+	const [loading, setLoading] = useState(true);
 	const [submitting, setSubmitting] = useState(false);
-	const [hasChanges, setHasChanges] = useState(false);
-	const [showConfirmClose, setShowConfirmClose] = useState(false);
-
-	const [artifactErrors, setArtifactErrors] = useState([null, null, null]);
-	const [powerErrors, setPowerErrors] = useState(Array(6).fill(null));
-
-	const [relics, setRelics] = useState([]);
-	const [powers, setPowers] = useState([]);
-	const [runes, setRunes] = useState([]);
-	const [champions, setChampions] = useState([]);
-	const [loadingRelics, setLoadingRelics] = useState(true);
-	const [loadingPowers, setLoadingPowers] = useState(true);
-	const [loadingRunes, setLoadingRunes] = useState(true);
-	const [loadingChampions, setLoadingChampions] = useState(true);
 
 	useEffect(() => {
 		if (!isOpen) return;
-		const fetchData = async () => {
-			const baseURL = import.meta.env.VITE_API_URL;
+		const fetchMetadata = async () => {
+			setLoading(true);
 			try {
-				const [relicRes, powerRes, runeRes, championRes] = await Promise.all([
-					fetch(`${baseURL}/api/relics`),
-					fetch(`${baseURL}/api/generalPowers`),
-					fetch(`${baseURL}/api/runes`),
-					fetch(`${baseURL}/api/champions`),
+				// Ép lấy 1000 items để tránh lỗi phân trang làm mất ảnh
+				const query = "?page=1&limit=1000";
+				const [relRes, powRes, runRes, chaRes] = await Promise.all([
+					fetch(`${apiUrl}/api/items${query}`), //
+					fetch(`${apiUrl}/api/generalPowers${query}`), //
+					fetch(`${apiUrl}/api/runes${query}`),
+					fetch(`${apiUrl}/api/champions${query}`),
 				]);
 
-				const relicData = await relicRes.json();
-				const powerData = await powerRes.json();
-				const runeData = await runeRes.json();
-				const championData = await championRes.json();
+				const [rel, pow, run, cha] = await Promise.all([
+					relRes.json(),
+					powRes.json(),
+					runRes.json(),
+					chaRes.json(),
+				]);
 
-				setRelics(
-					relicData.map(r => ({
+				setMetadata({
+					relics: (rel.items || []).map(r => ({
 						name: r.name,
-						icon: r.assetAbsolutePath,
+						icon: r.assetAbsolutePath || r.iconAbsolutePath,
 						stack: r.stack,
-					}))
-				);
-				setPowers(
-					powerData.map(p => ({ name: p.name, icon: p.assetAbsolutePath }))
-				);
-				setRunes(
-					runeData.map(r => ({ name: r.name, icon: r.assetAbsolutePath }))
-				);
-				setChampions(
-					championData.map(c => ({
+					})),
+					powers: (pow.items || []).map(p => ({
+						name: p.name,
+						icon: p.assetAbsolutePath || p.iconAbsolutePath,
+					})),
+					runes: (run.items || []).map(r => ({
+						name: r.name,
+						icon: r.assetAbsolutePath || r.iconAbsolutePath,
+					})),
+					champions: (cha.items || []).map(c => ({
 						name: c.name,
 						icon: c.assets?.[0]?.avatar,
 						regions: c.regions,
-					}))
-				);
-
-				setLoadingRelics(false);
-				setLoadingPowers(false);
-				setLoadingRunes(false);
-				setLoadingChampions(false);
+					})),
+				});
 			} catch (err) {
-				console.error("Lỗi tải dữ liệu:", err);
-				setLoadingRelics(false);
-				setLoadingPowers(false);
-				setLoadingRunes(false);
-				setLoadingChampions(false);
+				console.error("Lỗi tải metadata:", err);
+			} finally {
+				setLoading(false);
 			}
 		};
-		fetchData();
-	}, [isOpen]);
+		fetchMetadata();
+	}, [isOpen, apiUrl]);
 
-	const championOptions = useMemo(() => champions, [champions]);
+	const selectedChampData = useMemo(
+		() => metadata.champions.find(c => c.name === formData.championName),
+		[metadata.champions, formData.championName],
+	);
 
-	// Cập nhật selectedChampion khi mở modal edit (để logic Hoa Linh hoạt động)
-	useEffect(() => {
-		if (initialData && champions.length > 0 && !selectedChampion) {
-			const currentChamp = champions.find(
-				c => c.name === initialData.championName
-			);
-			if (currentChamp) {
-				setSelectedChampion(currentChamp);
-			}
-		}
-	}, [initialData, champions, selectedChampion]);
-
-	const isChampionSelected = !!formData.championName;
-	const isHoaLinhChampion =
-		selectedChampion?.regions?.includes("Hoa Linh Lục Địa");
-
-	const markChange = () => setHasChanges(true);
-
-	const handleCloseAttempt = () => {
-		if (hasChanges) {
-			setShowConfirmClose(true);
-		} else {
-			onClose();
-		}
-	};
-
-	const handleConfirmClose = () => {
-		setShowConfirmClose(false);
-		onClose();
-	};
-
-	const handleCancelClose = () => {
-		setShowConfirmClose(false);
-	};
-
-	const handleArtifactChange = (value, index) => {
-		const newrelicSet = [...formData.relicSet];
-		newrelicSet[index] = value;
-		setFormData(prev => ({ ...prev, relicSet: newrelicSet }));
-		markChange();
-		validaterelicSet();
-	};
-
-	const validaterelicSet = () => {
-		const selected = formData.relicSet.filter(Boolean);
-		const stack1Relics = relics.filter(r => r.stack === "1").map(r => r.name);
-		const errors = [null, null, null];
-
-		selected.forEach((name, idx) => {
-			if (stack1Relics.includes(name) && selected.indexOf(name) !== idx) {
-				errors[idx] = "Cổ vật này không thể chọn trùng";
-			}
-		});
-
-		setArtifactErrors(errors);
-		return errors.every(e => !e);
-	};
-
-	const handlePowerChange = (value, index) => {
-		const newPowers = [...formData.powers];
-		newPowers[index] = value;
-		setFormData(prev => ({ ...prev, powers: newPowers }));
-		markChange();
-		validatePowers();
-	};
-
-	const validatePowers = () => {
-		const selected = formData.powers.filter(Boolean);
-		const errors = Array(6).fill(null);
-
-		selected.forEach((name, idx) => {
-			if (selected.indexOf(name) !== idx) {
-				errors[idx] = "Sức mạnh đã được chọn";
-			}
-		});
-
-		setPowerErrors(errors);
-		return errors.every(e => !e);
-	};
+	const isHoaLinh = selectedChampData?.regions?.includes("Hoa Linh Lục Địa");
 
 	const handleSubmit = async e => {
 		e.preventDefault();
-		if (!isChampionSelected || formData.relicSet.filter(Boolean).length === 0)
+		if (
+			!formData.championName ||
+			formData.relicSet.filter(Boolean).length === 0
+		)
 			return;
-
-		if (!validaterelicSet() || !validatePowers()) return;
-
-		if (formData.star > maxStar) {
-			alert(`Tối đa chỉ được chọn ${maxStar} sao cho tướng này!`);
-			return;
-		}
 
 		setSubmitting(true);
 		try {
 			const url = isEditMode
-				? `${import.meta.env.VITE_API_URL}/api/builds/${initialData._id}`
-				: `${import.meta.env.VITE_API_URL}/api/builds`;
-
-			const response = await fetch(url, {
+				? `${apiUrl}/api/builds/${initialData._id}`
+				: `${apiUrl}/api/builds`;
+			const res = await fetch(url, {
 				method: isEditMode ? "PUT" : "POST",
 				headers: {
 					"Content-Type": "application/json",
 					Authorization: `Bearer ${token}`,
 				},
 				body: JSON.stringify({
-					championName: formData.championName,
-					description: formData.description,
-					star: formData.star,
-					display: formData.display,
+					...formData,
 					relicSet: formData.relicSet.filter(Boolean),
 					powers: formData.powers.filter(Boolean),
 					rune: formData.rune.filter(Boolean),
-					like: initialData?.like || 0,
-					regions: formData.regions, // [ADD] Gửi regions lên server
 				}),
 			});
 
-			const result = await response.json();
-			if (response.ok) {
+			if (res.ok) {
+				const result = await res.json();
 				onConfirm(result.build || result);
 				onClose();
 			}
-		} catch (error) {
-			console.error("Error:", error);
+		} catch (err) {
+			console.error("Lỗi lưu build:", err);
 		} finally {
 			setSubmitting(false);
 		}
 	};
 
 	return (
-		<>
-			<Modal
-				isOpen={isOpen && !showConfirmClose}
-				onClose={handleCloseAttempt}
-				title={isEditMode ? "Chỉnh sửa Build" : "Tạo Build Mới"}
-				maxWidth='max-w-3xl'
-			>
-				<form onSubmit={handleSubmit} className='space-y-5'>
-					{/* Champion */}
-					<div>
-						<label className='block text-sm font-medium text-text-secondary mb-1'>
-							Tướng (Bắt buộc):
+		<Modal
+			isOpen={isOpen}
+			onClose={onClose}
+			title={isEditMode ? "Chỉnh sửa bộ cổ vật" : "Tạo bộ cổ vật mới"}
+			maxWidth='max-w-3xl'
+		>
+			<form onSubmit={handleSubmit} className='space-y-5'>
+				<div>
+					<label className='block text-sm font-medium text-text-secondary mb-1'>
+						Tướng:
+					</label>
+					<SearchableDropdown
+						options={metadata.champions}
+						selectedValue={formData.championName}
+						onChange={v => {
+							const c = metadata.champions.find(x => x.name === v);
+							setFormData(p => ({
+								...p,
+								championName: v,
+								regions: c?.regions || [],
+							}));
+							onChampionChange?.(v);
+						}}
+						placeholder='Chọn tướng...'
+						loading={loading}
+						disabled={isEditMode}
+					/>
+				</div>
+
+				<div
+					className={
+						!formData.championName ? "opacity-50 pointer-events-none" : ""
+					}
+				>
+					<div className='mb-4'>
+						<label className='block text-sm font-medium text-text-secondary mb-2'>
+							Cấp sao (Tối đa {maxStar}):
 						</label>
-						<SearchableDropdown
-							options={championOptions}
-							selectedValue={formData.championName}
-							onChange={v => {
-								const champ = championOptions.find(c => c.name === v);
-								setSelectedChampion(champ);
-								setFormData(prev => ({
-									...prev,
-									championName: v,
-									rune: champ?.regions?.includes("Hoa Linh Lục Địa")
-										? prev.rune
-										: [null],
-									regions: champ?.regions || [], // [ADD] Cập nhật regions khi chọn tướng
-								}));
-								markChange();
-								onChampionChange(v);
-							}}
-							placeholder='Chọn hoặc tìm kiếm tướng...'
-							loading={loadingChampions}
-						/>
+						<div className='flex gap-1'>
+							{Array.from({ length: maxStar }, (_, i) => i + 1).map(s => (
+								<Star
+									key={s}
+									size={28}
+									className={`cursor-pointer ${formData.star >= s ? "text-icon-star" : "text-border"}`}
+									fill={formData.star >= s ? "currentColor" : "none"}
+									onClick={() => setFormData(p => ({ ...p, star: s }))}
+								/>
+							))}
+						</div>
 					</div>
 
-					<fieldset disabled={!isChampionSelected} className='space-y-5'>
-						{/* Star */}
-						<div>
-							<div className='flex items-center justify-between mb-2'>
-								<label className='block text-sm font-medium text-text-secondary'>
-									Xếp hạng sao:
-								</label>
-								<span className='text-xs text-text-secondary'>
-									Tối đa: <strong>{maxStar} sao</strong>
-								</span>
-							</div>
-							<div className='flex items-center gap-1'>
-								{Array.from({ length: maxStar }, (_, i) => i + 1).map(s => (
-									<Star
-										key={s}
-										size={28}
-										className={`cursor-pointer transition-all ${
-											formData.star >= s
-												? "text-icon-star"
-												: "text-border hover:text-text-secondary"
-										}`}
-										fill={formData.star >= s ? "currentColor" : "none"}
-										onClick={() => {
-											setFormData(prev => ({ ...prev, star: s }));
-											markChange();
-										}}
-									/>
-								))}
-							</div>
-						</div>
-
-						{/* relicSet, Rune, Powers */}
-						<div>
-							<label className='block text-sm font-medium text-text-secondary mb-2'>
-								Cổ vật (Bắt buộc ít nhất 1):
-							</label>
-							<div className='grid grid-cols-3 gap-3'>
-								{formData.relicSet.map((_, index) => (
-									<SearchableDropdown
-										key={`artifact-${index}`}
-										options={relics}
-										selectedValue={formData.relicSet[index]}
-										onChange={v => handleArtifactChange(v, index)}
-										placeholder={`Cổ vật ${index + 1}`}
-										loading={loadingRelics}
-										error={artifactErrors[index]}
-										allowDuplicate={
-											relics.find(r => r.name === formData.relicSet[index])
-												?.stack !== "1"
-										}
-										selectedValues={formData.relicSet.filter(
-											(_, i) => i !== index
-										)}
-									/>
-								))}
-							</div>
-						</div>
-
-						{isHoaLinhChampion && (
-							<div>
-								<label className='block text-sm font-medium text-text-secondary mb-2'>
-									Ngọc:
-								</label>
-								<SearchableDropdown
-									options={runes}
-									selectedValue={formData.rune[0]}
-									onChange={v => {
-										setFormData(prev => ({ ...prev, rune: [v] }));
-										markChange();
-									}}
-									placeholder='Chọn Ngọc...'
-									loading={loadingRunes}
-								/>
-							</div>
-						)}
-
-						<div>
-							<label className='block text-sm font-medium text-text-secondary mb-2'>
-								Sức mạnh:
-							</label>
-							<div className='grid grid-cols-3 gap-3'>
-								{formData.powers.map((_, index) => (
-									<SearchableDropdown
-										key={`power-${index}`}
-										options={powers}
-										selectedValue={formData.powers[index]}
-										onChange={v => handlePowerChange(v, index)}
-										placeholder={`Sức mạnh ${index + 1}`}
-										loading={loadingPowers}
-										error={powerErrors[index]}
-										allowDuplicate={false}
-										selectedValues={formData.powers.filter(
-											(_, i) => i !== index
-										)}
-									/>
-								))}
-							</div>
-						</div>
-
-						{/* Description */}
-						<div>
-							<label className='block text-sm font-medium text-text-secondary mb-2'>
-								Ghi chú:
-							</label>
-							<textarea
-								value={formData.description}
-								onChange={e => {
-									setFormData(prev => ({
-										...prev,
-										description: e.target.value,
-									}));
-									markChange();
+					<div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+						{formData.relicSet.map((_, i) => (
+							<SearchableDropdown
+								key={`relic-${i}`}
+								options={metadata.relics}
+								selectedValue={formData.relicSet[i]}
+								onChange={v => {
+									const newSet = [...formData.relicSet];
+									newSet[i] = v;
+									setFormData(p => ({ ...p, relicSet: newSet }));
 								}}
-								placeholder='Mô tả lối chơi, mẹo hay...'
-								className='w-full bg-input-bg text-text-primary rounded-md h-28 p-3 border border-input-border
-                placeholder:text-input-placeholder
-                focus:border-input-focus-border focus:ring-0 focus:outline-none 
-                transition-colors duration-200 resize-none'
+								placeholder={`Cổ vật ${i + 1}`}
+								loading={loading}
+								allowDuplicate={
+									metadata.relics.find(r => r.name === formData.relicSet[i])
+										?.stack !== "1"
+								}
+								selectedValues={formData.relicSet.filter((_, idx) => idx !== i)}
+							/>
+						))}
+					</div>
+
+					{isHoaLinh && (
+						<div className='mt-4'>
+							<label className='block text-sm font-medium text-text-secondary mb-2'>
+								Ngọc Hoa Linh:
+							</label>
+							<SearchableDropdown
+								options={metadata.runes}
+								selectedValue={formData.rune[0]}
+								onChange={v => setFormData(p => ({ ...p, rune: [v] }))}
+								placeholder='Chọn ngọc...'
+								loading={loading}
 							/>
 						</div>
+					)}
 
-						{/* Display */}
-						<div>
-							<label className='block text-sm font-medium text-text-secondary mb-2'>
-								Trạng thái hiển thị:
-							</label>
-							<button
-								type='button'
-								onClick={() => {
-									setFormData(prev => ({ ...prev, display: !prev.display }));
-									markChange();
+					<div className='grid grid-cols-2 md:grid-cols-3 gap-4 mt-4'>
+						{formData.powers.map((_, i) => (
+							<SearchableDropdown
+								key={`pow-${i}`}
+								options={metadata.powers}
+								selectedValue={formData.powers[i]}
+								onChange={v => {
+									const newP = [...formData.powers];
+									newP[i] = v;
+									setFormData(p => ({ ...p, powers: newP }));
 								}}
-								className='flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-bg border border-border 
-                text-text-primary
-                hover:bg-primary-500 hover:text-white hover:border-primary-500
-                transition-all text-sm font-medium'
-							>
-								{formData.display ? <Eye size={18} /> : <EyeOff size={18} />}
-								{formData.display ? "Công khai" : "Riêng tư"}
-							</button>
-						</div>
-					</fieldset>
+								placeholder={`Sức mạnh ${i + 1}`}
+								loading={loading}
+								allowDuplicate={false}
+								selectedValues={formData.powers.filter((_, idx) => idx !== i)}
+							/>
+						))}
+					</div>
 
-					<Button
-						type='submit'
-						variant='primary'
-						className='w-full mt-6 py-3'
-						disabled={submitting || !isChampionSelected || loadingChampions}
-					>
-						{submitting
-							? "Đang xử lý..."
-							: isEditMode
+					<textarea
+						className='w-full mt-4 p-3 bg-input-bg border border-input-border rounded-md text-sm'
+						placeholder='Mô tả lối chơi...'
+						value={formData.description}
+						onChange={e =>
+							setFormData(p => ({ ...p, description: e.target.value }))
+						}
+						rows={3}
+					/>
+
+					<div className='mt-4 flex items-center gap-4'>
+						<button
+							type='button'
+							onClick={() => setFormData(p => ({ ...p, display: !p.display }))}
+							className='flex items-center gap-2 px-4 py-2 border border-border rounded-md text-sm'
+						>
+							{formData.display ? <Eye size={18} /> : <EyeOff size={18} />}
+							{formData.display ? "Công khai" : "Riêng tư"}
+						</button>
+					</div>
+				</div>
+
+				<Button
+					type='submit'
+					variant='primary'
+					className='w-full py-3'
+					disabled={submitting || !formData.championName}
+				>
+					{submitting
+						? "Đang xử lý..."
+						: isEditMode
 							? "Cập nhật Build"
 							: "Tạo Build"}
-					</Button>
-				</form>
-			</Modal>
-
-			{/* Confirm Close Modal */}
-			<Modal
-				isOpen={showConfirmClose}
-				onClose={handleCancelClose}
-				title='Xác nhận đóng'
-				maxWidth='max-w-sm'
-			>
-				<div className='flex items-center gap-2 mb-3'>
-					<AlertCircle className='text-warning' size={20} />
-					<p className='text-sm text-text-secondary'>
-						Bạn có thay đổi chưa lưu. Đóng sẽ mất dữ liệu.
-					</p>
-				</div>
-				<div className='flex gap-3 justify-end mt-4'>
-					<Button variant='ghost' onClick={handleCancelClose}>
-						Hủy
-					</Button>
-					<Button variant='danger' onClick={handleConfirmClose}>
-						Đóng không lưu
-					</Button>
-				</div>
-			</Modal>
-		</>
+				</Button>
+			</form>
+		</Modal>
 	);
 };
 

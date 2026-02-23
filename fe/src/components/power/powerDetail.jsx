@@ -7,7 +7,7 @@ import SafeImage from "../common/SafeImage";
 
 function PowerDetail() {
 	const { powerCode } = useParams();
-	const navigate = useNavigate(); // <-- Thêm useNavigate
+	const navigate = useNavigate();
 	const [power, setPower] = useState(null);
 	const [champions, setChampions] = useState([]);
 	const [loading, setLoading] = useState(true);
@@ -24,9 +24,10 @@ function PowerDetail() {
 
 				const decodedCode = decodeURIComponent(powerCode);
 
+				// SỬA LỖI: Thêm limit=1000 để lấy toàn bộ dữ liệu phục vụ tìm kiếm và lọc
 				const [powersRes, championsRes] = await Promise.all([
-					fetch(`${apiUrl}/api/powers`),
-					fetch(`${apiUrl}/api/champions`),
+					fetch(`${apiUrl}/api/powers?limit=1000`),
+					fetch(`${apiUrl}/api/champions?limit=1000`),
 				]);
 
 				if (!powersRes.ok || !championsRes.ok) {
@@ -36,7 +37,11 @@ function PowerDetail() {
 				const powersData = await powersRes.json();
 				const championsData = await championsRes.json();
 
-				const foundPower = powersData.find(p => p.powerCode === decodedCode);
+				// SỬA LỖI: Truy cập vào thuộc tính .items từ response của API
+				const allPowers = powersData.items || [];
+				const allChampions = championsData.items || [];
+
+				const foundPower = allPowers.find(p => p.powerCode === decodedCode);
 
 				if (!foundPower) {
 					setError(`Không tìm thấy sức mạnh với mã: ${decodedCode}`);
@@ -45,7 +50,7 @@ function PowerDetail() {
 					setPower(foundPower);
 				}
 
-				setChampions(championsData);
+				setChampions(allChampions);
 			} catch (err) {
 				console.error("Lỗi tải dữ liệu:", err);
 				setError(err.message || "Đã xảy ra lỗi khi tải dữ liệu.");
@@ -61,16 +66,18 @@ function PowerDetail() {
 	const compatibleChampions = power
 		? champions
 				.filter(champion => {
+					// So sánh an toàn bằng cách sử dụng trim và toLowerCase
 					const powerStarsMatch = champion.powerStars?.some(
-						p => p === power.name
+						p => p?.trim().toLowerCase() === power.name?.trim().toLowerCase(),
 					);
 					const adventurePowersMatch = champion.adventurePowers?.some(
-						p => p === power.name
+						p => p?.trim().toLowerCase() === power.name?.trim().toLowerCase(),
 					);
 					return powerStarsMatch || adventurePowersMatch;
 				})
 				.map(champion => ({
 					championID: champion.championID,
+					name: champion.name, // SỬA LỖI: Bổ sung name để hiển thị
 					image: champion.assets?.[0]?.avatar || "/images/placeholder.png",
 				}))
 		: [];
@@ -147,12 +154,12 @@ function PowerDetail() {
 					</h2>
 
 					{compatibleChampions.length > 0 ? (
-						<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 rounded-md p-4 bg-surface-hover'>
+						<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 rounded-md bg-surface-hover'>
 							{compatibleChampions.map((champion, index) => (
 								<Link
 									key={index}
 									to={`/champion/${champion.championID}`}
-									className='group rounded-lg p-4 transition-all hover:shadow-lg hover:scale-105 bg-surface-bg border border-border'
+									className='group rounded-lg p-2 transition-all hover:shadow-lg hover:scale-105 bg-surface-bg border border-border'
 								>
 									<SafeImage
 										className='w-full max-w-[120px] h-auto mx-auto rounded-full object-cover border-2 border-border group-hover:border-primary-500 transition-colors'

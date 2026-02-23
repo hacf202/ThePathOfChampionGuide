@@ -1,4 +1,4 @@
-// src/components/build/BuildEditModal.jsx
+// src/components/build/buildEditModal.jsx
 import React, { useState, useEffect } from "react";
 import BuildModal from "./buildModal";
 
@@ -6,7 +6,9 @@ const BuildEditModal = ({ build, isOpen, onClose, onConfirm }) => {
 	const [maxStar, setMaxStar] = useState(7);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
-	// Lấy maxStar khi mở modal
+	/**
+	 * Khi mở modal chỉnh sửa, fetch lại thông tin tướng để lấy maxStar chính xác.
+	 */
 	useEffect(() => {
 		if (!isOpen || !build?.championName) return;
 
@@ -14,15 +16,15 @@ const BuildEditModal = ({ build, isOpen, onClose, onConfirm }) => {
 			try {
 				const apiUrl = import.meta.env.VITE_API_URL;
 				const res = await fetch(
-					`${apiUrl}/api/champions/search?name=${encodeURIComponent(
-						build.championName.trim()
-					)}`
+					`${apiUrl}/api/champions/search?name=${encodeURIComponent(build.championName.trim())}`,
 				);
 				const data = await res.json();
+
+				// Truy cập vào items[0] theo cấu trúc backend mới
 				const champion = data.items?.[0];
 				setMaxStar(champion?.maxStar ?? 7);
 			} catch (err) {
-				console.error("Lỗi lấy maxStar:", err);
+				console.error("Lỗi khi lấy thông tin tướng trong Edit Mode:", err);
 				setMaxStar(7);
 			}
 		};
@@ -31,22 +33,18 @@ const BuildEditModal = ({ build, isOpen, onClose, onConfirm }) => {
 		setIsModalOpen(true);
 	}, [isOpen, build?.championName]);
 
-	// Đóng modal
 	const handleClose = () => {
 		setIsModalOpen(false);
 		onClose?.();
 	};
 
-	// Xác nhận thành công
 	const handleConfirm = updatedBuild => {
 		onConfirm(updatedBuild);
 		handleClose();
 	};
 
-	// Không cho thay đổi tướng khi edit
-	const handleChampionChange = () => {
-		// Không làm gì cả – không cho đổi tướng
-	};
+	// Không cho phép thay đổi tướng khi đang trong chế độ chỉnh sửa để đảm bảo tính toàn vẹn dữ liệu
+	const handleChampionChange = () => {};
 
 	if (!isOpen || !build) return null;
 
@@ -61,6 +59,7 @@ const BuildEditModal = ({ build, isOpen, onClose, onConfirm }) => {
 				description: build.description || "",
 				star: build.star || 3,
 				display: build.display ?? true,
+				// Chuẩn hóa các mảng để Dropdown trong Modal luôn hiển thị đúng số slot
 				relicSet: [...(build.relicSet || []), null, null, null].slice(0, 3),
 				powers: [
 					...(build.powers || []),
@@ -72,9 +71,9 @@ const BuildEditModal = ({ build, isOpen, onClose, onConfirm }) => {
 					null,
 				].slice(0, 6),
 				rune: [...(build.rune || []), null].slice(0, 1),
-				regions: build.regions, // để check Hoa Linh
+				regions: build.regions || [], // Dùng để xác định tướng thuộc Hoa Linh
 			}}
-			onChampionChange={handleChampionChange} // không cho đổi
+			onChampionChange={handleChampionChange}
 			maxStar={maxStar}
 		/>
 	);

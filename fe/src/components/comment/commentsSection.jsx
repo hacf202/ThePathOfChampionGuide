@@ -22,7 +22,7 @@ const CommentForm = ({
 
 	const handleKeyDown = e => {
 		if (e.key === "Enter" && !e.shiftKey) {
-			e.preventDefault(); // Ngăn xuống dòng mặc định
+			e.preventDefault();
 			handleSubmit(e);
 		}
 	};
@@ -89,7 +89,7 @@ const CommentForm = ({
 				placeholder={
 					replyToUsername
 						? `Trả lời @${replyToUsername}...`
-						: "Viết bình luận... (Enter để gửi, Shift + Enter để xuống dòng)"
+						: "Viết bình luận..."
 				}
 				className='w-full p-3 bg-surface-bg border border-border rounded-lg text-text-primary placeholder:text-text-secondary focus:border-primary-500 focus:outline-none resize-none'
 				rows={4}
@@ -115,7 +115,7 @@ const CommentForm = ({
 	);
 };
 
-// --- Một bình luận ---
+// --- Thành phần hiển thị một mục bình luận ---
 const CommentItem = ({
 	comment,
 	onCommentDeleted,
@@ -123,7 +123,7 @@ const CommentItem = ({
 	onCommentPosted,
 	buildId,
 	userDisplayNames,
-	isReply = false,
+	isParentRoot = true, // Logic để xác định cấp độ thụt lề
 }) => {
 	const { user, token } = useAuth();
 	const [isEditing, setIsEditing] = useState(false);
@@ -141,7 +141,15 @@ const CommentItem = ({
 		? userDisplayNames[comment.replyToUsername] || comment.replyToUsername
 		: null;
 
-	const indentClass = isReply ? "ml-12" : "ml-0";
+	// XÁC ĐỊNH LOGIC THỤT LỀ:
+	// 1. Bình luận gốc (parentId === null): Không thụt lề.
+	// 2. Bình luận trả lời cho gốc (isParentRoot === true): Thụt vào 1 cấp.
+	// 3. Bình luận trả lời cho reply (isParentRoot === false): Không thụt thêm.
+	const isRoot = !comment.parentId;
+	const indentClass =
+		!isRoot && isParentRoot
+			? "ml-6 sm:ml-12 border-l-2 border-border pl-4 mt-2"
+			: "ml-0";
 
 	const handleUpdate = async () => {
 		if (!editContent.trim()) return;
@@ -156,7 +164,7 @@ const CommentItem = ({
 						Authorization: `Bearer ${token}`,
 					},
 					body: JSON.stringify({ content: editContent }),
-				}
+				},
 			);
 			if (!res.ok) throw new Error("Không thể sửa");
 			const updated = await res.json();
@@ -177,7 +185,7 @@ const CommentItem = ({
 				{
 					method: "DELETE",
 					headers: { Authorization: `Bearer ${token}` },
-				}
+				},
 			);
 			if (!res.ok) throw new Error("Không thể xóa");
 			onCommentDeleted(comment.id);
@@ -190,30 +198,32 @@ const CommentItem = ({
 	};
 
 	return (
-		<div
-			className={`py-5 border-t border-border first:border-t-0 ${indentClass}`}
-		>
+		<div className={`py-4 ${indentClass}`}>
 			<div className='flex items-start justify-between'>
-				<div>
-					<span className='font-semibold text-text-primary'>{displayName}</span>
-					<span className='ml-2 text-xs text-text-secondary'>
-						{new Date(comment.createdAt).toLocaleString()}
-						{comment.updatedAt && " (đã sửa)"}
-					</span>
+				<div className='flex flex-col'>
+					<div className='flex items-center gap-2'>
+						<span className='font-semibold text-text-primary'>
+							{displayName}
+						</span>
+						<span className='text-[10px] sm:text-xs text-text-secondary'>
+							{new Date(comment.createdAt).toLocaleString()}
+							{comment.updatedAt && " (đã sửa)"}
+						</span>
+					</div>
 				</div>
 				{isOwner && (
-					<div className='flex gap-2'>
+					<div className='flex gap-1'>
 						<button
 							onClick={() => setIsEditing(true)}
-							className='p-1.5 text-text-secondary hover:text-primary-500'
+							className='p-1.5 text-text-secondary hover:text-primary-500 transition-colors'
 						>
-							<Edit size={16} />
+							<Edit size={14} />
 						</button>
 						<button
 							onClick={() => setShowDeleteModal(true)}
-							className='p-1.5 text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 rounded'
+							className='p-1.5 text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 rounded transition-colors'
 						>
-							<Trash2 size={16} />
+							<Trash2 size={14} />
 						</button>
 					</div>
 				)}
@@ -231,13 +241,13 @@ const CommentItem = ({
 						value={editContent}
 						onChange={e => setEditContent(e.target.value)}
 						className='w-full p-3 border border-border rounded-lg bg-surface-bg focus:border-primary-500 focus:outline-none'
-						rows={4}
+						rows={3}
 						autoFocus
-						placeholder='Chỉnh sửa bình luận...'
 					/>
 					<div className='flex justify-end gap-2 mt-2'>
 						<Button
 							variant='ghost'
+							size='sm'
 							onClick={() => setIsEditing(false)}
 							disabled={isUpdating}
 						>
@@ -245,33 +255,33 @@ const CommentItem = ({
 						</Button>
 						<Button
 							variant='primary'
+							size='sm'
 							type='submit'
 							disabled={isUpdating || !editContent.trim()}
 						>
-							{isUpdating ? "Đang lưu..." : "Lưu"}
+							{isUpdating ? "Lưu..." : "Lưu"}
 						</Button>
 					</div>
 				</form>
 			) : (
-				<div className='mt-2 text-text-secondary whitespace-pre-wrap break-words'>
+				<div className='mt-1.5 text-text-secondary whitespace-pre-wrap break-words text-sm sm:text-base'>
 					{replyToName && (
-						<span className='inline-block mr-2 px-2.5 py-1 bg-primary-500/10 text-primary-600 dark:text-primary-400 rounded-full text-xs font-medium'>
-							Trả lời @{replyToName}
+						<span className='inline-block mr-2 text-primary-500 dark:text-primary-400 font-bold'>
+							@{replyToName}
 						</span>
 					)}
 					{comment.content}
 				</div>
 			)}
 
-			<div className='mt-3'>
-				<Button
-					variant='ghost'
-					size='sm'
+			<div className='mt-2'>
+				<button
 					onClick={() => setIsReplying(!isReplying)}
+					className='flex items-center text-xs text-primary-500 hover:underline font-medium'
 				>
-					<MessageSquare size={15} className='mr-1' />
+					<MessageSquare size={12} className='mr-1' />
 					Trả lời
-				</Button>
+				</button>
 			</div>
 
 			{isReplying && (
@@ -289,9 +299,9 @@ const CommentItem = ({
 				</div>
 			)}
 
-			{/* Render tất cả reply (cấp 1, 2, 3...) với thụt 1 lần duy nhất */}
+			{/* Render Replies đệ quy */}
 			{comment.replies && comment.replies.length > 0 && (
-				<div className='mt-2'>
+				<div className='mt-2 space-y-1'>
 					{comment.replies.map(reply => (
 						<CommentItem
 							key={reply.id}
@@ -301,7 +311,7 @@ const CommentItem = ({
 							onCommentUpdated={onCommentUpdated}
 							onCommentPosted={onCommentPosted}
 							userDisplayNames={userDisplayNames}
-							isReply={true}
+							isParentRoot={isRoot} // Truyền trạng thái root của cha xuống con
 						/>
 					))}
 				</div>
@@ -326,13 +336,12 @@ const CommentItem = ({
 	);
 };
 
-// --- Component chính ---
+// --- Component Chính ---
 const CommentsSection = ({ buildId }) => {
 	const [comments, setComments] = useState([]);
 	const [loadingComments, setLoadingComments] = useState(true);
 	const [userDisplayNames, setUserDisplayNames] = useState({});
 	const apiUrl = import.meta.env.VITE_API_URL;
-	const { user } = useAuth();
 
 	const fetchComments = useCallback(async () => {
 		setLoadingComments(true);
@@ -342,7 +351,7 @@ const CommentsSection = ({ buildId }) => {
 			const data = await res.json();
 			setComments(data);
 		} catch (e) {
-			console.error(e);
+			console.error("Fetch comments error:", e);
 		} finally {
 			setLoadingComments(false);
 		}
@@ -352,9 +361,11 @@ const CommentsSection = ({ buildId }) => {
 		fetchComments();
 	}, [fetchComments]);
 
+	// Xây dựng cấu trúc cây bình luận từ mảng phẳng
 	const rootComments = useMemo(() => {
 		const map = new Map();
 		comments.forEach(c => map.set(c.id, { ...c, replies: [] }));
+
 		const roots = [];
 		comments.forEach(c => {
 			if (c.parentId && map.has(c.parentId)) {
@@ -374,34 +385,37 @@ const CommentsSection = ({ buildId }) => {
 
 	return (
 		<div className='mt-10'>
-			<h2 className='text-2xl font-bold text-center mb-6 text-text-primary'>
-				Bình luận ({rootComments.length})
+			<h2 className='text-xl sm:text-2xl font-bold mb-6 text-text-primary border-l-4 border-primary-500 pl-4'>
+				Bình luận ({comments.length})
 			</h2>
 
-			<div className='bg-surface-bg rounded-xl border border-border p-6 shadow-lg'>
+			<div className='bg-surface-bg rounded-xl border border-border p-4 sm:p-6 shadow-sm'>
 				<CommentForm buildId={buildId} onCommentPosted={handlePosted} />
 
 				{loadingComments ? (
-					<p className='text-center text-text-secondary'>
-						Đang tải bình luận...
-					</p>
+					<div className='flex justify-center py-10'>
+						<div className='animate-spin rounded-full h-8 w-8 border-b-2 border-primary-500'></div>
+					</div>
 				) : rootComments.length === 0 ? (
-					<p className='text-center text-text-secondary py-8'>
-						Chưa có bình luận nào.
-					</p>
+					<div className='text-center py-10 opacity-60'>
+						<MessageSquare size={48} className='mx-auto mb-3' />
+						<p>Chưa có bình luận nào. Hãy là người đầu tiên!</p>
+					</div>
 				) : (
-					rootComments.map(c => (
-						<CommentItem
-							key={c.id}
-							comment={c}
-							buildId={buildId}
-							onCommentDeleted={handleDeleted}
-							onCommentUpdated={handleUpdated}
-							onCommentPosted={handlePosted}
-							userDisplayNames={userDisplayNames}
-							isReply={false}
-						/>
-					))
+					<div className='divide-y divide-border'>
+						{rootComments.map(c => (
+							<CommentItem
+								key={c.id}
+								comment={c}
+								buildId={buildId}
+								onCommentDeleted={handleDeleted}
+								onCommentUpdated={handleUpdated}
+								onCommentPosted={handlePosted}
+								userDisplayNames={userDisplayNames}
+								isParentRoot={true} // Gốc luôn được coi là ParentRoot
+							/>
+						))}
+					</div>
 				)}
 			</div>
 		</div>

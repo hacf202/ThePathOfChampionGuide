@@ -1,12 +1,11 @@
-// src/components/tierList/TierListComponents.jsx
-import React, { useState, useEffect, useMemo, memo } from "react";
+// src/pages/tierList/tierListComponents.jsx
+import React, { useState, useMemo, memo } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { useDroppable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 
 /**
- * Component hiển thị item (Tướng/Cổ vật)
- * Khắc phục lỗi loop fallback bằng cách quản lý hasError state
+ * Component hiển thị item (Tướng/Cổ vật) trong bảng Tier List
  */
 export const SortableItem = memo(
 	({ id, avatar, isOverlay, isSelected, onClick, title }) => {
@@ -20,14 +19,18 @@ export const SortableItem = memo(
 		} = useSortable({ id });
 
 		const [hasError, setHasError] = useState(false);
-		const FALLBACK_IMAGE = "/fallback-relic.png";
 
-		// Tạo URL ổn định, chỉ thay đổi khi avatar hoặc trạng thái lỗi thay đổi
+		// Tự động chọn ảnh fallback dựa trên loại ID (C0... cho Champion, R0... cho Relic)
+		const FALLBACK_IMAGE = id?.toString().startsWith("C")
+			? "/fallback-champion.png"
+			: "/fallback-relic.png";
+
 		const displaySrc = useMemo(() => {
 			if (hasError || !avatar) return FALLBACK_IMAGE;
-			// Thêm version ổn định dựa trên id để cache tốt hơn
-			return `${avatar}${avatar.includes("?") ? "&" : "?"}v=${id}`;
-		}, [avatar, hasError, id]);
+			// Thêm tham số version để tránh cache ảnh lỗi
+			const separator = avatar.includes("?") ? "&" : "?";
+			return `${avatar}${separator}v=${id}`;
+		}, [avatar, hasError, id, FALLBACK_IMAGE]);
 
 		const style = {
 			transform: CSS.Translate.toString(transform),
@@ -46,9 +49,9 @@ export const SortableItem = memo(
 				onClick={onClick}
 				data-id={id}
 				title={title}
-				className={`w-12 h-12 sm:w-20 sm:h-20 rounded cursor-grab active:cursor-grabbing shrink-0 select-none touch-none transition-all duration-200 ${
+				className={`w-8 h-8 sm:w-20 sm:h-20 rounded cursor-grab active:cursor-grabbing shrink-0 select-none touch-none transition-all duration-200 ${
 					isSelected
-						? "ring-4 ring-primary-500 ring-offset-2 ring-offset-surface-bg scale-90 z-10"
+						? "ring-1 ring-primary-500 ring-offset-2 ring-offset-surface-bg scale-90 z-10"
 						: "ring-1 ring-white/10"
 				} ${
 					isOverlay
@@ -60,7 +63,7 @@ export const SortableItem = memo(
 					src={displaySrc}
 					crossOrigin='anonymous'
 					className='rounded w-full h-full object-cover pointer-events-none'
-					alt='item'
+					alt='tier-item'
 					onError={() => setHasError(true)}
 				/>
 			</div>
@@ -77,19 +80,19 @@ export const DroppableZone = ({ id, children, className }) => {
 	);
 };
 
-// Danh sách các tùy chọn màu sắc cho hàng Tier
 export const COLOR_OPTIONS = [
-	"#ff3e3e", // Đỏ đậm
-	"#ff7f7f", // Đỏ nhạt
-	"#ff9f40", // Cam
-	"#ffbf7f", // Cam nhạt
-	"#ffff7f", // Vàng
-	"#7fff7f", // Xanh lá
-	"#a855f7", // Tím (Mới thêm)
-	"#3b82f6", // Xanh dương (Mới thêm)
-	"#06b6d4", // Xanh lơ / Cyan (Mới thêm)
-	"#ec4899", // Hồng (Mới thêm)
-	"#555555", // Xám mặc định
+	"#ff3e3e",
+	"#ff7f7f",
+	"#ff9f40",
+	"#ffbf7f",
+	"#ffff7f",
+	"#7fff7f",
+	"#a855f7",
+	"#3b82f6",
+	"#06b6d4",
+	"#ec4899",
+	"#555555",
 ];
 
 export const LOCAL_STORAGE_KEY = "poc-custom-tierlist-v3";
+export const RELIC_STORAGE_KEY = "poc-relic-tierlist-v3";

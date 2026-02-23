@@ -45,20 +45,22 @@ const GuideForm = ({ slug }) => {
 
 			// Load Reference Data
 			const [champsRes, relicsRes, powersRes] = await Promise.all([
-				axios.get(`${baseUrl}/api/champions`),
-				axios.get(`${baseUrl}/api/relics`),
-				axios.get(`${baseUrl}/api/powers`),
+				axios.get(`${baseUrl}/api/champions?limit=1000`), // Thêm limit để lấy đủ dữ liệu
+				axios.get(`${baseUrl}/api/relics?limit=1000`),
+				axios.get(`${baseUrl}/api/powers?limit=1000`),
 			]);
 
-			const arrayToMap = (arr, key) =>
-				arr.reduce((acc, item) => ({ ...acc, [item[key]]: item }), {});
+			const arrayToMap = (dataObj, key) => {
+				// FIX: Truy cập vào thuộc tính .items từ object trả về của API
+				const arr = dataObj?.items || [];
+				return arr.reduce((acc, item) => ({ ...acc, [item[key]]: item }), {});
+			};
 
 			setReferenceData({
 				champions: arrayToMap(champsRes.data, "championID"),
 				relics: arrayToMap(relicsRes.data, "relicCode"),
 				powers: arrayToMap(powersRes.data, "powerCode"),
 			});
-
 			// Load Guide Data
 			let loadedData = {
 				title: "",

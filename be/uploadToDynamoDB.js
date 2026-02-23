@@ -1,90 +1,106 @@
-// be/uploadRelicsToDynamoDB.js
-
-import fs from "fs/promises";
-import path from "path";
-import { fileURLToPath } from "url";
-import dotenv from "dotenv";
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import {
-	DynamoDBClient,
-	BatchWriteItemCommand,
-} from "@aws-sdk/client-dynamodb";
-import { marshall } from "@aws-sdk/util-dynamodb";
+	DynamoDBDocumentClient,
+	BatchWriteCommand,
+} from "@aws-sdk/lib-dynamodb";
+import fs from "fs";
+import dotenv from "dotenv";
 
+// 1. Cấu hình môi trường
 dotenv.config();
 
-// --- CẤU HÌNH ---
-// THAY ĐỔI 1: Cập nhật tên bảng đích
-const DYNAMODB_TABLE_NAME = "guidePocRelics";
-const AWS_REGION = process.env.AWS_REGION;
+// Tăng maxAttempts để SDK tự động thử lại nhiều lần hơn khi bị Throttle
+const client = new DynamoDBClient({
+	region: process.env.AWS_REGION || "us-east-1",
+	maxAttempts: 10,
+});
 
-// --- KHỞI TẠO DYNAMODB CLIENT ---
-const dynamoDbClient = new DynamoDBClient({ region: AWS_REGION });
+const docClient = DynamoDBDocumentClient.from(client);
 
-// --- HÀM CHÍNH ĐỂ THỰC THI VIỆC TẢI DỮ LIỆU ---
-async function uploadRelicsData() {
-	console.log("Bắt đầu quá trình tải dữ liệu RELICS lên DynamoDB...");
+// Hàm tiện ích để tạm dừng (Sleep)
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
+const TABLE_NAME = "guidePocRelics";
+const FILE_PATH = "./relics1-vi_vn.json";
+
+async function uploadPowersData() {
 	try {
-		// 1. Đọc và phân tích tệp JSON chứa dữ liệu relics
-		const __filename = fileURLToPath(import.meta.url);
-		const __dirname = path.dirname(__filename);
+		console.log("🚀 Bắt đầu quá trình tải dữ liệu POWERS lên DynamoDB...");
 
-		// THAY ĐỔI 2: Trỏ đến tệp dữ liệu relics-vi_vn.json
-		// Hãy chắc chắn rằng bạn có tệp `relics-vi_vn.json` ở đúng đường dẫn này.
-		const relicsFilePath = path.join(__dirname, "relics1-vi_vn.json");
-
-		console.log(`Đang đọc dữ liệu từ: ${relicsFilePath}`);
-		const fileContent = await fs.readFile(relicsFilePath, "utf8");
-		const relicsData = JSON.parse(fileContent);
-
-		if (!Array.isArray(relicsData) || relicsData.length === 0) {
-			console.log("Không có dữ liệu trong tệp để tải lên.");
-			return;
+		// 2. Đọc dữ liệu từ file JSON
+		if (!fs.existsSync(FILE_PATH)) {
+			throw new Error(`Không tìm thấy file tại đường dẫn: ${FILE_PATH}`);
 		}
+		const rawData = fs.readFileSync(FILE_PATH, "utf-8");
+		const powers = JSON.parse(rawData);
+		console.log(`📝 Đã tìm thấy ${powers.length} powers để xử lý.`);
 
-		console.log(`Đã tìm thấy ${relicsData.length} relics để xử lý.`);
+		// 3. Chia nhỏ dữ liệu thành các lô (Batch) - DynamoDB giới hạn 25 items/lô
+		const BATCH_SIZE = 25;
+		const batches = [];
+		for (let i = 0; i < powers.length; i += BATCH_SIZE) {
+			batches.push(powers.slice(i, i + BATCH_SIZE));
+		}
+		console.log(`📦 Dữ liệu được chia thành ${batches.length} lô để xử lý.`);
 
-		// 2. Chuẩn bị dữ liệu cho BatchWriteItem
-		// Sử dụng 'relicCode' làm khóa chính (giả sử cấu trúc JSON tương tự; điều chỉnh nếu cần)
-		const putRequests = relicsData.map(relic => {
-			const marshalledItem = marshall(relic);
-			return {
-				PutRequest: {
-					Item: marshalledItem,
+		// 4. Vòng lặp tải dữ liệu với cơ chế kiểm soát tốc độ
+		for (let i = 0; i < batches.length; i++) {
+			const currentBatch = batches[i];
+
+			// Chuyển đổi dữ liệu sang định dạng PutRequest cho BatchWrite
+			const putRequests = currentBatch.map(item => ({
+				PutRequest: { Item: item },
+			}));
+
+			const params = {
+				RequestItems: {
+					[TABLE_NAME]: putRequests,
 				},
 			};
-		});
 
-		// 3. Chia thành các lô nhỏ (chunks) gồm 25 mục
-		const chunks = [];
-		for (let i = 0; i < putRequests.length; i = i + 25) {
-			chunks.push(putRequests.slice(i, i + 25));
+			let success = false;
+			let retries = 0;
+
+			while (!success) {
+				try {
+					await docClient.send(new BatchWriteCommand(params));
+					console.log(`✅ Đã tải thành công lô ${i + 1}/${batches.length}.`);
+					success = true;
+
+					// --- CƠ CHẾ NGHỈ ĐỂ TRÁNH QUÁ TẢI (WCU) ---
+					// Nghỉ 1000ms (1 giây) giữa mỗi lô thành công
+					if (i < batches.length - 1) {
+						await sleep(1000);
+					}
+				} catch (error) {
+					if (
+						error.name === "ProvisionedThroughputExceededException" ||
+						error.$metadata?.httpStatusCode === 400
+					) {
+						retries++;
+						const waitTime = retries * 2000; // Tăng dần thời gian chờ (2s, 4s, 6s...)
+						console.warn(
+							`⚠️ Đang bị bóp băng thông tại lô ${i + 1}. Thử lại lần ${retries} sau ${waitTime}ms...`,
+						);
+						await sleep(waitTime);
+
+						if (retries > 5)
+							throw new Error("Vượt quá số lần thử lại cho phép.");
+					} else {
+						throw error; // Lỗi khác thì dừng chương trình
+					}
+				}
+			}
 		}
 
-		console.log(`Dữ liệu được chia thành ${chunks.length} lô để xử lý.`);
-
-		// 4. Gửi từng lô lên DynamoDB
-		for (let index = 0; index < chunks.length; index++) {
-			const chunk = chunks[index];
-			const command = new BatchWriteItemCommand({
-				RequestItems: {
-					[DYNAMODB_TABLE_NAME]: chunk,
-				},
-			});
-
-			await dynamoDbClient.send(command);
-			console.log(`Đã tải thành công lô ${index + 1}/${chunks.length}.`);
-		}
-
-		console.log("======================================================");
 		console.log(
-			"🎉 Hoàn tất! Toàn bộ dữ liệu RELICS đã được tải lên DynamoDB thành công.",
+			"\n✨ CHÚC MỪNG! Tất cả dữ liệu đã được tải lên DynamoDB thành công.",
 		);
-		console.log("======================================================");
 	} catch (error) {
-		console.error("❌ Đã xảy ra lỗi trong quá trình tải dữ liệu:", error);
+		console.error("\n❌ Đã xảy ra lỗi nghiêm trọng:");
+		console.error(error);
 	}
 }
 
 // Chạy hàm chính
-uploadRelicsData();
+uploadPowersData();

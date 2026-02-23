@@ -38,7 +38,6 @@ const NEW_CHAMPION_TEMPLATE = {
 
 const ITEMS_PER_PAGE = 20;
 
-// === COMPONENT DANH SÁCH (LIST VIEW) ===
 const ChampionListView = memo(
 	({
 		paginatedChampions,
@@ -100,10 +99,9 @@ const ChampionListView = memo(
 				</div>
 			</div>
 		);
-	}
+	},
 );
 
-// === COMPONENT EDIT WRAPPER ===
 const ChampionEditWrapper = ({
 	champions,
 	cachedData,
@@ -111,21 +109,21 @@ const ChampionEditWrapper = ({
 	onDelete,
 	isSaving,
 }) => {
-	const { id } = useParams(); // 'id' sẽ là "new" hoặc mã tướng (VD: C056)
+	const { id } = useParams();
 	const navigate = useNavigate();
 
 	const selectedChampion = useMemo(() => {
 		if (id === "new") return { ...NEW_CHAMPION_TEMPLATE };
-		return champions.find(c => c.championID === id);
+		return Array.isArray(champions)
+			? champions.find(c => c.championID === id)
+			: null;
 	}, [id, champions]);
 
-	// Callback quay lại
 	const handleBack = useCallback(() => {
 		navigate("/admin/champions");
 	}, [navigate]);
 
-	// Logic hiển thị lỗi khi không tìm thấy ID hợp lệ
-	if (!selectedChampion && champions.length > 0) {
+	if (!selectedChampion && Array.isArray(champions) && champions.length > 0) {
 		return (
 			<div className='flex flex-col items-center justify-center py-20 text-text-secondary'>
 				<p className='text-xl mb-4'>Không tìm thấy tướng có ID: {id}</p>
@@ -157,7 +155,6 @@ const ChampionEditWrapper = ({
 	);
 };
 
-// === MAIN COMPONENT ===
 function ChampionEditor() {
 	const [champions, setChampions] = useState([]);
 	const [runes, setRunes] = useState([]);
@@ -184,13 +181,14 @@ function ChampionEditor() {
 	const fetchAllData = useCallback(async () => {
 		try {
 			setIsLoading(true);
+			// Sửa lỗi gọi API: Thêm limit lớn để lấy đủ dữ liệu cho Admin quản lý
 			const [champRes, runeRes, relicRes, powerRes, itemRes] =
 				await Promise.all([
-					fetch(`${API_BASE_URL}/api/champions`),
-					fetch(`${API_BASE_URL}/api/runes`),
-					fetch(`${API_BASE_URL}/api/relics`),
-					fetch(`${API_BASE_URL}/api/powers`),
-					fetch(`${API_BASE_URL}/api/items`),
+					fetch(`${API_BASE_URL}/api/champions?limit=1000`),
+					fetch(`${API_BASE_URL}/api/runes?limit=1000`),
+					fetch(`${API_BASE_URL}/api/relics?limit=1000`),
+					fetch(`${API_BASE_URL}/api/powers?limit=1000`),
+					fetch(`${API_BASE_URL}/api/items?limit=1000`),
 				]);
 
 			if (![champRes, runeRes, relicRes, powerRes, itemRes].every(r => r.ok)) {
@@ -206,11 +204,12 @@ function ChampionEditor() {
 					itemRes.json(),
 				]);
 
-			setChampions(champData);
-			setRunes(runeData);
-			setRelics(relicData);
-			setPowers(powerData);
-			setItems(itemData);
+			// FIX: Lấy thuộc tính .items từ response của Backend
+			setChampions(champData.items || []);
+			setRunes(runeData.items || []);
+			setRelics(relicData.items || []);
+			setPowers(powerData.items || []);
+			setItems(itemData.items || []);
 		} catch (e) {
 			setError("Không thể tải dữ liệu từ server.");
 		} finally {
@@ -223,7 +222,10 @@ function ChampionEditor() {
 	}, [fetchAllData]);
 
 	const filterOptions = useMemo(() => {
-		const regions = [...new Set(champions.flatMap(c => c.regions || []))]
+		// Kiểm tra an toàn để tránh lỗi .flatMap is not a function
+		const safeChampions = Array.isArray(champions) ? champions : [];
+
+		const regions = [...new Set(safeChampions.flatMap(c => c.regions || []))]
 			.sort()
 			.map(r => ({
 				value: r,
@@ -231,13 +233,13 @@ function ChampionEditor() {
 				iconUrl: iconRegions.find(i => i.name === r)?.iconAbsolutePath || "",
 			}));
 
-		const costs = [...new Set(champions.map(c => c.cost))].sort(
-			(a, b) => a - b
+		const costs = [...new Set(safeChampions.map(c => c.cost))].sort(
+			(a, b) => a - b,
 		);
-		const maxStars = [...new Set(champions.map(c => c.maxStar))].sort(
-			(a, b) => a - b
+		const maxStars = [...new Set(safeChampions.map(c => c.maxStar))].sort(
+			(a, b) => a - b,
 		);
-		const tags = [...new Set(champions.flatMap(c => c.tag || []))].sort();
+		const tags = [...new Set(safeChampions.flatMap(c => c.tag || []))].sort();
 
 		return {
 			regions,
@@ -254,16 +256,16 @@ function ChampionEditor() {
 	}, [champions]);
 
 	const filteredChampions = useMemo(() => {
-		let result = [...champions];
+		let result = Array.isArray(champions) ? [...champions] : [];
 		if (searchTerm) {
 			const term = removeAccents(searchTerm.toLowerCase());
 			result = result.filter(c =>
-				removeAccents(c.name.toLowerCase()).includes(term)
+				removeAccents((c.name || "").toLowerCase()).includes(term),
 			);
 		}
 		if (selectedRegions.length)
 			result = result.filter(c =>
-				c.regions?.some(r => selectedRegions.includes(r))
+				c.regions?.some(r => selectedRegions.includes(r)),
 			);
 		if (selectedCosts.length)
 			result = result.filter(c => selectedCosts.includes(c.cost));
@@ -274,8 +276,8 @@ function ChampionEditor() {
 
 		const [field, dir] = sortOrder.split("-");
 		result.sort((a, b) => {
-			const A = field === "name" ? a.name : a[field];
-			const B = field === "name" ? b.name : b[field];
+			const A = field === "name" ? a.name || "" : a[field] || "";
+			const B = field === "name" ? b.name || "" : b[field] || "";
 			return dir === "asc" ? (A > B ? 1 : -1) : A < B ? 1 : -1;
 		});
 		return result;
@@ -292,26 +294,21 @@ function ChampionEditor() {
 	const totalPages = Math.ceil(filteredChampions.length / ITEMS_PER_PAGE);
 	const paginatedChampions = filteredChampions.slice(
 		(currentPage - 1) * ITEMS_PER_PAGE,
-		currentPage * ITEMS_PER_PAGE
+		currentPage * ITEMS_PER_PAGE,
 	);
 
 	const handleSaveChampion = async data => {
 		setIsSaving(true);
 		try {
 			const token = localStorage.getItem("token");
-
-			// === LOGIC XỬ LÝ LƯU (KHỚP VỚI BACKEND CŨ) ===
-			// Backend cũ dùng chung 1 endpoint PUT cho cả tạo mới và sửa
-			const method = "PUT";
 			const url = `${API_BASE_URL}/api/champions`;
 
 			const res = await fetch(url, {
-				method,
+				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
 					Authorization: `Bearer ${token}`,
 				},
-				// Gửi toàn bộ data bao gồm isNew để backend xử lý
 				body: JSON.stringify(data),
 			});
 
@@ -329,7 +326,7 @@ function ChampionEditor() {
 			await fetchAllData();
 			navigate("/admin/champions");
 			alert(
-				data.isNew ? "Tạo tướng mới thành công" : "Cập nhật tướng thành công"
+				data.isNew ? "Tạo tướng mới thành công" : "Cập nhật tướng thành công",
 			);
 		} catch (e) {
 			alert(e.message || "Đã có lỗi xảy ra");
@@ -339,6 +336,7 @@ function ChampionEditor() {
 	};
 
 	const handleDeleteChampion = async championID => {
+		if (!window.confirm("Bạn có chắc chắn muốn xóa tướng này?")) return;
 		setIsSaving(true);
 		try {
 			const token = localStorage.getItem("token");
@@ -372,7 +370,7 @@ function ChampionEditor() {
 			setSearchInput("");
 			setSearchTerm("");
 		},
-		onAddNew: () => navigate("new"), // Điều hướng đến /new
+		onAddNew: () => navigate("new"),
 		onResetFilters: () => {
 			setSearchInput("");
 			setSearchTerm("");
@@ -448,7 +446,6 @@ function ChampionEditor() {
 						/>
 					}
 				/>
-				{/* GỘP ROUTE: :id sẽ bắt cả trường hợp "new" và "Cxxx" */}
 				<Route
 					path=':id'
 					element={

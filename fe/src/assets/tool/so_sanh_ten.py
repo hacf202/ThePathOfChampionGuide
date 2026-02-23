@@ -54,8 +54,8 @@ def tim_ten_khong_trung_lap(duong_dan_tep_mot, duong_dan_tep_hai):
 # duong_dan_file_1 = 'items-vi_vn.json'
 # duong_dan_file_2 = 'items-vi_vn1.json' 
 
-duong_dan_file_1 = 'powers-vi_vn.json'
-duong_dan_file_2 = 'powers-vi_vn1.json' 
+duong_dan_file_1 = 'items-vi_vn.json'
+duong_dan_file_2 = 'items1-vi_vn.json' 
 
 # duong_dan_file_1 = 'relics-vi_vn.json'
 # duong_dan_file_2 = 'relics-vi_vn1.json' 

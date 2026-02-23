@@ -1,4 +1,3 @@
-// src/pages/runeDetail.jsx
 import { memo, useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { Loader2, ChevronLeft } from "lucide-react";
@@ -26,8 +25,8 @@ function RuneDetail() {
 				const decodedCode = decodeURIComponent(runeCode);
 
 				const [runesRes, championsRes] = await Promise.all([
-					fetch(`${apiUrl}/api/runes`),
-					fetch(`${apiUrl}/api/champions`),
+					fetch(`${apiUrl}/api/runes?limit=1000`),
+					fetch(`${apiUrl}/api/champions?limit=1000`),
 				]);
 
 				if (!runesRes.ok || !championsRes.ok) {
@@ -37,7 +36,11 @@ function RuneDetail() {
 				const runesData = await runesRes.json();
 				const championsData = await championsRes.json();
 
-				const foundRune = runesData.find(r => r.runeCode === decodedCode);
+				// FIX: Truy cập .items
+				const allRunes = runesData.items || [];
+				const allChampions = championsData.items || [];
+
+				const foundRune = allRunes.find(r => r.runeCode === decodedCode);
 				if (!foundRune) {
 					setError(`Không tìm thấy ngọc với mã: ${decodedCode}`);
 					setRune(null);
@@ -45,7 +48,7 @@ function RuneDetail() {
 					setRune(foundRune);
 				}
 
-				setChampions(championsData);
+				setChampions(allChampions);
 			} catch (err) {
 				console.error("Lỗi tải dữ liệu ngọc:", err);
 				setError(err.message || "Đã xảy ra lỗi khi tải dữ liệu.");
@@ -57,12 +60,11 @@ function RuneDetail() {
 		if (runeCode) fetchData();
 	}, [runeCode, apiUrl]);
 
-	// Tính toán các tướng có dùng ngọc này trong mảng rune[]
 	const compatibleChampions = rune
 		? champions
 				.filter(
 					champion =>
-						Array.isArray(champion.rune) && champion.rune.includes(rune.name)
+						Array.isArray(champion.rune) && champion.rune.includes(rune.name),
 				)
 				.map(champion => ({
 					championID: champion.championID,
@@ -74,11 +76,10 @@ function RuneDetail() {
 				}))
 		: [];
 
-	// Xử lý xuống dòng \n hoặc \\n trong mô tả
 	const formatDescription = text => {
 		if (!text) return null;
 		return text
-			.replace(/\\n/g, "\n") // xử lý trường hợp \\n
+			.replace(/\\n/g, "\n")
 			.split(/\r?\n/)
 			.map((line, i) => (
 				<p key={i} className={i > 0 ? "mt-3" : ""}>
@@ -123,7 +124,6 @@ function RuneDetail() {
 				</Button>
 
 				<div className='relative mx-auto max-w-[1200px] border border-border p-4 sm:p-6 rounded-lg bg-surface-bg text-text-primary font-secondary'>
-					{/* Thông tin ngọc */}
 					<div className='flex flex-col md:flex-row gap-4 rounded-md p-2 bg-surface-hover'>
 						<SafeImage
 							className='h-auto max-h-[200px] sm:max-h-[300px] object-contain rounded-lg self-center md:self-start'
@@ -147,18 +147,17 @@ function RuneDetail() {
 						</div>
 					</div>
 
-					{/* Danh sách tướng dùng ngọc này */}
 					<h2 className='text-xl sm:text-3xl font-semibold mt-8 mb-4 font-primary'>
 						Các tướng có thể dùng ngọc này
 					</h2>
 
 					{compatibleChampions.length > 0 ? (
-						<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 rounded-md p-4 bg-surface-hover'>
+						<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 rounded-md bg-surface-hover'>
 							{compatibleChampions.map(champ => (
 								<Link
 									key={champ.championID}
 									to={`/champion/${champ.championID}`}
-									className='group rounded-lg p-4 transition-all hover:shadow-lg hover:scale-105 bg-surface-bg border border-border text-center'
+									className='group rounded-lg p-2 transition-all hover:shadow-lg hover:scale-105 bg-surface-bg border border-border text-center'
 								>
 									<SafeImage
 										className='w-full max-w-[120px] h-auto mx-auto rounded-full object-cover border-2 border-border group-hover:border-primary-500 transition-colors'

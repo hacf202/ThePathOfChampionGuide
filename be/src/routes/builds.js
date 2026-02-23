@@ -1,5 +1,4 @@
 // src/routes/builds.js
-
 import express from "express";
 import {
 	PutItemCommand,
@@ -22,15 +21,94 @@ import {
 	getPublicBuilds,
 	invalidatePublicBuildsCache,
 } from "../utils/buildCache.js";
+import { removeAccents } from "../utils/vietnameseUtils.js";
 
 const router = express.Router();
 const BUILDS_TABLE = "Builds";
 
-// GET /api/builds
+/**
+ * @route   GET /api/builds
+ * @desc    Lấy danh sách build công khai với bộ lọc và phân trang
+ */
 router.get("/", async (req, res) => {
 	try {
-		const { items } = await getPublicBuilds();
-		res.json({ items });
+		const {
+			page = 1,
+			limit = 10,
+			searchTerm = "",
+			championNames = "",
+			regions = "",
+			sort = "createdAt-desc",
+		} = req.query;
+
+		const pageSize = parseInt(limit);
+		const currentPage = parseInt(page);
+
+		// 1. Lấy toàn bộ build công khai từ Cache (Sử dụng hàm utility sẵn có của bạn)
+		const { items: allBuilds } = await getPublicBuilds();
+
+		// 2. TRÍCH XUẤT BỘ LỌC ĐỘNG
+		const availableFilters = {
+			championNames: [...new Set(allBuilds.map(b => b.championName))].sort(),
+			regions: [...new Set(allBuilds.flatMap(b => b.regions || []))].sort(),
+		};
+
+		// 3. THỰC HIỆN LỌC (Filtering)
+		let filtered = [...allBuilds];
+
+		// Lọc theo từ khóa (Tìm trong tên tướng hoặc mô tả)
+		if (searchTerm) {
+			const searchKey = removeAccents(searchTerm);
+			filtered = filtered.filter(
+				b =>
+					removeAccents(b.championName || "").includes(searchKey) ||
+					removeAccents(b.description || "").includes(searchKey),
+			);
+		}
+
+		// Lọc theo danh sách tướng
+		if (championNames) {
+			const cList = championNames.split(",");
+			filtered = filtered.filter(b => cList.includes(b.championName));
+		}
+
+		// Lọc theo khu vực
+		if (regions) {
+			const rList = regions.split(",");
+			filtered = filtered.filter(b => b.regions?.some(r => rList.includes(r)));
+		}
+
+		// 4. SẮP XẾP (Sorting)
+		const [field, order] = sort.split("-");
+		filtered.sort((a, b) => {
+			let vA = a[field] ?? "";
+			let vB = b[field] ?? "";
+
+			if (field === "createdAt") {
+				return order === "asc"
+					? new Date(vA) - new Date(vB)
+					: new Date(vB) - new Date(vA);
+			}
+
+			if (typeof vA === "string") {
+				return order === "asc" ? vA.localeCompare(vB) : vB.localeCompare(vA);
+			}
+			return order === "asc" ? vA - vB : vB - vA;
+		});
+
+		// 5. PHÂN TRANG
+		const totalItems = filtered.length;
+		const totalPages = Math.ceil(totalItems / pageSize);
+		const paginatedItems = filtered.slice(
+			(currentPage - 1) * pageSize,
+			currentPage * pageSize,
+		);
+
+		res.json({
+			items: paginatedItems,
+			pagination: { totalItems, totalPages, currentPage, pageSize },
+			availableFilters,
+		});
 	} catch (error) {
 		console.error("Error getting public builds:", error);
 		res.status(500).json({ error: "Could not retrieve builds" });
@@ -79,7 +157,7 @@ router.get("/:id", async (req, res) => {
 			new GetItemCommand({
 				TableName: BUILDS_TABLE,
 				Key: marshall({ id }),
-			})
+			}),
 		);
 
 		if (!Item) return res.status(404).json({ error: "Build not found" });
@@ -94,7 +172,7 @@ router.get("/:id", async (req, res) => {
 					UpdateExpression: "SET #views = if_not_exists(#views, :zero) + :inc",
 					ExpressionAttributeNames: { "#views": "views" },
 					ExpressionAttributeValues: marshall({ ":inc": 1, ":zero": 0 }),
-				})
+				}),
 			);
 			return res.json(build);
 		}
@@ -120,7 +198,7 @@ router.post("/", authenticateCognitoToken, async (req, res) => {
 		rune = [],
 		star = 0,
 		display = false,
-		regions = [], // [ADD] Nhận regions từ request
+		regions = [],
 	} = req.body;
 
 	if (!championName || !Array.isArray(relicSet) || relicSet.length === 0) {
@@ -142,7 +220,7 @@ router.post("/", authenticateCognitoToken, async (req, res) => {
 		star,
 		display,
 		views: 0,
-		regions, // [ADD] Thêm vào object để lưu
+		regions,
 		createdAt: new Date().toISOString(),
 	});
 
@@ -151,7 +229,7 @@ router.post("/", authenticateCognitoToken, async (req, res) => {
 			new PutItemCommand({
 				TableName: BUILDS_TABLE,
 				Item: marshall(build),
-			})
+			}),
 		);
 
 		if (display === true) invalidatePublicBuildsCache();
@@ -169,20 +247,13 @@ router.post("/", authenticateCognitoToken, async (req, res) => {
 // PUT /api/builds/:id
 router.put("/:id", authenticateCognitoToken, async (req, res) => {
 	const { id } = req.params;
-	const {
-		description,
-		relicSet,
-		powers,
-		rune,
-		star,
-		display,
-		regions, // [ADD] Nhận regions khi update
-	} = req.body;
+	const { description, relicSet, powers, rune, star, display, regions } =
+		req.body;
 	const userSub = req.user.sub;
 
 	try {
 		const { Item } = await client.send(
-			new GetItemCommand({ TableName: BUILDS_TABLE, Key: marshall({ id }) })
+			new GetItemCommand({ TableName: BUILDS_TABLE, Key: marshall({ id }) }),
 		);
 		if (!Item) return res.status(404).json({ error: "Build not found" });
 
@@ -203,7 +274,7 @@ router.put("/:id", authenticateCognitoToken, async (req, res) => {
 			rune,
 			star,
 			display,
-			regions, // [ADD] Thêm regions vào fields cần update
+			regions,
 		};
 		Object.entries(fields).forEach(([key, value]) => {
 			if (value !== undefined) {
@@ -234,7 +305,8 @@ router.put("/:id", authenticateCognitoToken, async (req, res) => {
 		const { Attributes } = await client.send(command);
 		const updatedBuild = normalizeBuildFromDynamo(unmarshall(Attributes));
 
-		if (oldBuild.display || updatedBuild.display) {
+		// Quan trọng: Invalidate cache nếu build này là public hoặc vừa được chuyển sang public
+		if (oldBuild.display === "true" || updatedBuild.display === true) {
 			invalidatePublicBuildsCache();
 		}
 
@@ -252,7 +324,7 @@ router.delete("/:id", authenticateCognitoToken, async (req, res) => {
 
 	try {
 		const { Item } = await client.send(
-			new GetItemCommand({ TableName: BUILDS_TABLE, Key: marshall({ id }) })
+			new GetItemCommand({ TableName: BUILDS_TABLE, Key: marshall({ id }) }),
 		);
 		if (!Item) return res.status(404).json({ error: "Build not found" });
 
@@ -261,10 +333,12 @@ router.delete("/:id", authenticateCognitoToken, async (req, res) => {
 			return res.status(403).json({ error: "Unauthorized" });
 		}
 
-		if (build.display === true) invalidatePublicBuildsCache();
+		if (build.display === "true" || build.display === true) {
+			invalidatePublicBuildsCache();
+		}
 
 		await client.send(
-			new DeleteItemCommand({ TableName: BUILDS_TABLE, Key: marshall({ id }) })
+			new DeleteItemCommand({ TableName: BUILDS_TABLE, Key: marshall({ id }) }),
 		);
 		res.json({ message: "Build deleted successfully" });
 	} catch (error) {
@@ -273,6 +347,7 @@ router.delete("/:id", authenticateCognitoToken, async (req, res) => {
 	}
 });
 
+// PATCH /api/builds/:id/like
 router.patch("/:id/like", async (req, res) => {
 	const { id } = req.params;
 
@@ -281,12 +356,10 @@ router.patch("/:id/like", async (req, res) => {
 			new GetItemCommand({
 				TableName: BUILDS_TABLE,
 				Key: marshall({ id }),
-			})
+			}),
 		);
 
-		if (!Item) {
-			return res.status(404).json({ error: "Build not found" });
-		}
+		if (!Item) return res.status(404).json({ error: "Build not found" });
 
 		const build = unmarshall(Item);
 
@@ -296,21 +369,19 @@ router.patch("/:id/like", async (req, res) => {
 				Key: marshall({ id }),
 				UpdateExpression: "SET #like = if_not_exists(#like, :zero) + :inc",
 				ExpressionAttributeNames: { "#like": "like" },
-				ExpressionAttributeValues: marshall({
-					":inc": 1,
-					":zero": 0,
-				}),
+				ExpressionAttributeValues: marshall({ ":inc": 1, ":zero": 0 }),
 				ReturnValues: "UPDATED_NEW",
-			})
+			}),
 		);
+
+		// Nếu build đang được hiển thị công khai, cần xóa cache để cập nhật lượt like mới
+		if (build.display === "true" || build.display === true) {
+			invalidatePublicBuildsCache();
+		}
 
 		const newLikeCount = result.Attributes
 			? unmarshall(result.Attributes).like
-			: (build.like || 0) + 1;
-
-		if (build.display === true) {
-			invalidatePublicBuildsCache();
-		}
+			: (Number(build.like) || 0) + 1;
 
 		res.json({ like: newLikeCount });
 	} catch (error) {

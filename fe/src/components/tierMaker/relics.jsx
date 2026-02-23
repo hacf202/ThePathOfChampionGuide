@@ -1,5 +1,11 @@
 // src/pages/tierList/relics.jsx
-import React, { useState, useEffect, useRef, useMemo } from "react";
+import React, {
+	useState,
+	useEffect,
+	useRef,
+	useMemo,
+	useCallback,
+} from "react";
 import {
 	DndContext,
 	rectIntersection,
@@ -71,7 +77,7 @@ const SortableTierRow = ({
 		isDragging,
 	} = useSortable({
 		id: tier.id,
-		data: { type: "tier" },
+		data: { type: "tier", tier },
 	});
 
 	const style = {
@@ -172,8 +178,12 @@ const SortableTierRow = ({
 			{!isExporting && (
 				<button
 					onClick={() => {
-						setUnranked(prev => [...prev, ...tier.items]);
-						setTiers(prev => prev.filter(t => t.id !== tier.id));
+						if (
+							window.confirm(`Xóa hàng ${tier.name} và đưa các cổ vật về kho?`)
+						) {
+							setUnranked(prev => [...prev, ...tier.items]);
+							setTiers(prev => prev.filter(t => t.id !== tier.id));
+						}
 					}}
 					className='md:px-3 text-red-400 hover:text-red-500 opacity-0 group-hover:opacity-100 self-center'
 				>
@@ -185,6 +195,7 @@ const SortableTierRow = ({
 };
 
 function TierListRelics() {
+	// --- State ---
 	const [allRelicsRaw, setAllRelicsRaw] = useState([]);
 	const [tiers, setTiers] = useState([]);
 	const [unranked, setUnranked] = useState([]);
@@ -193,7 +204,6 @@ function TierListRelics() {
 	const [loading, setLoading] = useState(true);
 	const [isExporting, setIsExporting] = useState(false);
 
-	// Multi-select & Selection Box States
 	const [selectedIds, setSelectedIds] = useState([]);
 	const [selectionBox, setSelectionBox] = useState(null);
 	const [isSelecting, setIsSelecting] = useState(false);
@@ -203,158 +213,209 @@ function TierListRelics() {
 	const [selectedRarities, setSelectedRarities] = useState([]);
 	const [selectedTypes, setSelectedTypes] = useState([]);
 	const [showColorPicker, setShowColorPicker] = useState(null);
+	// Giữ nguyên các biến giao diện
 	const [isFilterOpen, setIsFilterOpen] = useState(false);
 
 	const tierListRef = useRef(null);
 	const warehouseRef = useRef(null);
 	const apiUrl = import.meta.env.VITE_API_URL;
 
+	// --- Logic Sensors ---
 	const sensors = useSensors(
-		useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
+		useSensor(PointerSensor, {
+			activationConstraint: {
+				distance: 5,
+			},
+		}),
 		useSensor(TouchSensor, {
-			activationConstraint: { delay: 250, tolerance: 10 },
+			// Logic quan trọng: Tăng delay hoặc tinh chỉnh tolerance để phân biệt cuộn và kéo
+			activationConstraint: {
+				delay: 300, // Nhấn giữ 300ms để bắt đầu kéo, giúp tránh nhầm với cuộn trang
+				tolerance: 6, // Giảm sai số di chuyển pixel trước khi kích hoạt
+			},
 		}),
 		useSensor(KeyboardSensor, {
 			coordinateGetter: sortableKeyboardCoordinates,
 		}),
 	);
-
-	const sortItemsByName = items => {
+	// --- Helper Functions ---
+	const sortItemsByName = useCallback(items => {
 		return [...items].sort((a, b) => a.name.localeCompare(b.name, "vi"));
-	};
+	}, []);
 
-	const getDefaultTiers = () => [
-		{
-			id: "tier-s+",
-			name: "S",
-			description: "Mạnh Đa dụng",
-			color: "#ff3e3e",
-			items: [],
-		},
-		{
-			id: "tier-s",
-			name: "S",
-			description: "Mạnh cho tướng ",
-			color: "#ff7f7f",
-			items: [],
-		},
-		{
-			id: "tier-a",
-			name: "A",
-			description: "Đa dụng",
-			color: "#ffbf7f",
-			items: [],
-		},
-		{ id: "tier-b", name: "B", description: "Ổn", color: "#ffff7f", items: [] },
-		{
-			id: "tier-c",
-			name: "C",
-			description: "Yếu",
-			color: "#7fff7f",
-			items: [],
-		},
-	];
+	const getDefaultTiers = useCallback(
+		() => [
+			{
+				id: "tier-s-plus",
+				name: "S+",
+				description: "Mạnh Đa dụng",
+				color: "#ff3e3e",
+				items: [],
+			},
+			{
+				id: "tier-s",
+				name: "S",
+				description: "Mạnh cho tướng ",
+				color: "#ff7f7f",
+				items: [],
+			},
+			{
+				id: "tier-a",
+				name: "A",
+				description: "Đa dụng",
+				color: "#ffbf7f",
+				items: [],
+			},
+			{
+				id: "tier-b",
+				name: "B",
+				description: "Ổn",
+				color: "#ffff7f",
+				items: [],
+			},
+			{
+				id: "tier-c",
+				name: "C",
+				description: "Yếu",
+				color: "#7fff7f",
+				items: [],
+			},
+		],
+		[],
+	);
 
-	const getSampleData = formattedRelics => {
-		const sampleMapping = {
-			"tier-s+": ["R0082", "R0125", "R0080"],
-			"tier-s": [
-				"R0121",
-				"R0136",
-				"R0060",
-				"R0100",
-				"R0094",
-				"R0139",
-				"R0104",
-				"R0098",
-				"R0123",
-				"R0092",
-				"R0116",
-				"R0124",
-				"R0061",
-				"R0103",
-				"R0065",
-				"R0150",
-			],
-			"tier-a": [
-				"R0066",
-				"R0099",
-				"R0115",
-				"R0109",
-				"R0111",
-				"R0086",
-				"R0079",
-				"R0064",
-				"R0097",
-				"R0113",
-				"R0108",
-				"R0091",
-				"R0062",
-				"R0085",
-			],
-			"tier-b": [
-				"R0134",
-				"R0127",
-				"R0141",
-				"R0112",
-				"R0059",
-				"R0146",
-				"R0144",
-				"R0130",
-				"R0114",
-				"R0133",
-				"R0128",
-				"R0140",
-				"R0137",
-				"R0058",
-				"R0145",
-				"R0151",
-				"R0131",
-				"R0138",
-				"R0105",
-				"R0147",
-				"R0107",
-				"R0122",
-				"R0148",
-				"R0117",
-				"R0089",
-				"R0135",
-			],
-			"tier-c": [
-				"R0118",
-				"R0120",
-				"R0142",
-				"R0143",
-				"R0119",
-				"R0106",
-				"R0126",
-				"R0149",
-				"R0132",
-			],
-		};
-		const defaultTiers = getDefaultTiers();
-		const usedIds = new Set();
-		const sampleTiers = defaultTiers.map(tier => {
-			const targetIds = sampleMapping[tier.id] || [];
-			const items = formattedRelics.filter(r => targetIds.includes(r.id));
-			items.forEach(i => usedIds.add(i.id));
-			return { ...tier, items };
-		});
-		const remaining = formattedRelics.filter(r => !usedIds.has(r.id));
-		const sampleUnranked = sortItemsByName(remaining);
-		return { sampleTiers, sampleUnranked };
-	};
+	const getSampleData = useCallback(
+		formattedRelics => {
+			const sampleMapping = {
+				"tier-s+": ["R0082", "R0125", "R0080"],
+				"tier-s": [
+					"R0121",
+					"R0136",
+					"R0060",
+					"R0100",
+					"R0094",
+					"R0139",
+					"R0104",
+					"R0098",
+					"R0123",
+					"R0092",
+					"R0116",
+					"R0124",
+					"R0061",
+					"R0103",
+					"R0065",
+					"R0150",
+					"R0153",
+				],
+				"tier-a": [
+					"R0066",
+					"R0099",
+					"R0115",
+					"R0109",
+					"R0111",
+					"R0086",
+					"R0079",
+					"R0064",
+					"R0097",
+					"R0113",
+					"R0108",
+					"R0091",
+					"R0062",
+					"R0085",
+				],
+				"tier-b": [
+					"R0134",
+					"R0127",
+					"R0141",
+					"R0112",
+					"R0059",
+					"R0146",
+					"R0144",
+					"R0130",
+					"R0114",
+					"R0133",
+					"R0128",
+					"R0140",
+					"R0137",
+					"R0058",
+					"R0145",
+					"R0151",
+					"R0131",
+					"R0138",
+					"R0105",
+					"R0147",
+					"R0107",
+					"R0122",
+					"R0148",
+					"R0117",
+					"R0089",
+					"R0135",
+				],
+				"tier-c": [
+					"R0118",
+					"R0120",
+					"R0142",
+					"R0143",
+					"R0119",
+					"R0106",
+					"R0126",
+					"R0149",
+					"R0132",
+				],
+			};
 
+			const defaultTiers = getDefaultTiers();
+			const usedIds = new Set();
+
+			const sampleTiers = defaultTiers.map(tier => {
+				// Kiểm tra cả 2 trường hợp id là "tier-s-plus" hoặc "tier-s+"
+				const mappingKey =
+					tier.id === "tier-s-plus" || tier.id === "tier-s+"
+						? "tier-s+"
+						: tier.id;
+
+				const targetIds = sampleMapping[mappingKey] || [];
+				const items = formattedRelics.filter(r => targetIds.includes(r.id));
+
+				// Đánh dấu các item đã sử dụng
+				items.forEach(i => usedIds.add(i.id));
+
+				return {
+					...tier,
+					items: items,
+				};
+			});
+
+			const remaining = formattedRelics.filter(r => !usedIds.has(r.id));
+
+			return {
+				sampleTiers,
+				sampleUnranked: sortItemsByName(remaining),
+			};
+		},
+		[getDefaultTiers, sortItemsByName],
+	);
+
+	// --- Initial Load ---
 	useEffect(() => {
 		let isMounted = true;
 		const initData = async () => {
 			try {
-				const res = await fetch(`${apiUrl}/api/relics`);
+				// LOGIC SỬA: Thêm limit=-1 để lấy toàn bộ dữ liệu từ backend
+				const res = await fetch(`${apiUrl}/api/relics?limit=-1`);
 				const data = await res.json();
+
 				if (!isMounted) return;
 
+				// Kiểm tra mảng items từ object trả về của backend
+				const relicsArray = Array.isArray(data.items) ? data.items : [];
+
+				if (relicsArray.length === 0) {
+					console.warn("Không có dữ liệu relic trả về");
+				}
+
 				const formatted = sortItemsByName(
-					data.map((r, index) => {
+					relicsArray.map((r, index) => {
 						const rawPath =
 							r.assetAbsolutePath ||
 							r.avatar ||
@@ -362,6 +423,7 @@ function TierListRelics() {
 						return {
 							id: String(r.relicCode || r.relicID || r.id || `relic-${index}`),
 							name: r.name || "Unknown Relic",
+							// Trình duyệt sẽ tự gọi các request proxy-image này khi render
 							avatar: rawPath
 								? `${apiUrl}/api/relics/proxy-image?url=${encodeURIComponent(rawPath)}`
 								: "/fallback-relic.png",
@@ -373,6 +435,8 @@ function TierListRelics() {
 				);
 
 				setAllRelicsRaw(formatted);
+
+				// Logic hydrate cache và sample data giữ nguyên...
 				const saved = localStorage.getItem(RELICS_STORAGE_KEY);
 				if (saved) {
 					const parsed = JSON.parse(saved);
@@ -390,7 +454,7 @@ function TierListRelics() {
 					setUnranked(sampleUnranked);
 				}
 			} catch (err) {
-				console.error(err);
+				console.error("Lỗi khi tải dữ liệu:", err);
 			} finally {
 				if (isMounted) setLoading(false);
 			}
@@ -399,20 +463,32 @@ function TierListRelics() {
 		return () => {
 			isMounted = false;
 		};
-	}, [apiUrl]);
+	}, [apiUrl, getSampleData, sortItemsByName]);
 
+	// --- Auto Save ---
 	useEffect(() => {
-		if (!loading)
+		if (!loading) {
 			localStorage.setItem(
 				RELICS_STORAGE_KEY,
 				JSON.stringify({ tiers, unranked }),
 			);
+		}
 	}, [tiers, unranked, loading]);
+	useEffect(() => {
+		const handler = e => {
+			// Nếu đang trong quá trình kéo thả, ngăn chặn hành vi cuộn mặc định
+			if (activeId) {
+				e.preventDefault();
+			}
+		};
 
-	// --- CÁC HÀM XỬ LÝ NÚT CHỨC NĂNG ---
-
+		// Gắn vào window với { passive: false } để có thể preventDefault
+		window.addEventListener("touchmove", handler, { passive: false });
+		return () => window.removeEventListener("touchmove", handler);
+	}, [activeId]);
+	// --- Actions ---
 	const handleClearAllToUnranked = () => {
-		if (confirm("Xóa toàn bộ cổ vật khỏi bảng và đưa về kho?")) {
+		if (window.confirm("Xóa toàn bộ cổ vật khỏi bảng và đưa về kho?")) {
 			setTiers(getDefaultTiers());
 			setUnranked(sortItemsByName(allRelicsRaw));
 			setSelectedIds([]);
@@ -420,11 +496,7 @@ function TierListRelics() {
 	};
 
 	const handleResetToSample = () => {
-		if (
-			confirm(
-				"Bạn muốn khôi phục bảng xếp hạng mẫu? Mọi thay đổi hiện tại sẽ mất.",
-			)
-		) {
+		if (window.confirm("Khôi phục bảng mẫu mặc định?")) {
 			const { sampleTiers, sampleUnranked } = getSampleData(allRelicsRaw);
 			setTiers(sampleTiers);
 			setUnranked(sampleUnranked);
@@ -445,17 +517,19 @@ function TierListRelics() {
 		setSelectedIds([]);
 	};
 
-	const filterOptions = useMemo(() => {
-		const rarities = [...new Set(allRelicsRaw.map(r => r.rarity))]
-			.filter(Boolean)
-			.sort()
-			.map(v => ({ value: v, label: v }));
-		const types = [...new Set(allRelicsRaw.map(r => r.type))]
-			.filter(Boolean)
-			.sort()
-			.map(v => ({ value: v, label: v }));
-		return { rarities, types };
-	}, [allRelicsRaw]);
+	const filterOptions = useMemo(
+		() => ({
+			rarities: [...new Set(allRelicsRaw.map(r => r.rarity))]
+				.filter(Boolean)
+				.sort()
+				.map(v => ({ value: v, label: v })),
+			types: [...new Set(allRelicsRaw.map(r => r.type))]
+				.filter(Boolean)
+				.sort()
+				.map(v => ({ value: v, label: v })),
+		}),
+		[allRelicsRaw],
+	);
 
 	const filteredUnranked = useMemo(() => {
 		return unranked.filter(r => {
@@ -472,23 +546,22 @@ function TierListRelics() {
 		});
 	}, [unranked, searchTerm, selectedRarities, selectedTypes]);
 
-	const warehouseGroups = useMemo(() => {
-		return {
+	const warehouseGroups = useMemo(
+		() => ({
 			"SỬ THI": filteredUnranked.filter(r => r.rarity === "SỬ THI"),
 			HIẾM: filteredUnranked.filter(r => r.rarity === "HIẾM"),
 			THƯỜNG: filteredUnranked.filter(
-				r =>
-					r.rarity === "THƯỜNG" ||
-					(r.rarity !== "SỬ THI" && r.rarity !== "HIẾM"),
+				r => r.rarity !== "SỬ THI" && r.rarity !== "HIẾM",
 			),
-		};
-	}, [filteredUnranked]);
+		}),
+		[filteredUnranked],
+	);
 
-	// --- LOGIC QUÉT CHỌN (BOX SELECTION) ---
+	// --- Box Selection Logic ---
 	const onMouseDown = e => {
 		if (
 			e.target !== e.currentTarget &&
-			!e.target.classList.contains("group-rarity-container")
+			!e.target.closest(".group-rarity-container")
 		)
 			return;
 		const rect = warehouseRef.current.getBoundingClientRect();
@@ -511,73 +584,70 @@ function TierListRelics() {
 
 	const onMouseUp = e => {
 		if (!isSelecting) return;
-		const left = Math.min(selectionBox.startX, selectionBox.currentX);
-		const top = Math.min(selectionBox.startY, selectionBox.currentY);
-		const right = Math.max(selectionBox.startX, selectionBox.currentX);
-		const bottom = Math.max(selectionBox.startY, selectionBox.currentY);
+		const rect = warehouseRef.current.getBoundingClientRect();
+		const box = {
+			left: Math.min(selectionBox.startX, selectionBox.currentX),
+			top: Math.min(selectionBox.startY, selectionBox.currentY),
+			right: Math.max(selectionBox.startX, selectionBox.currentX),
+			bottom: Math.max(selectionBox.startY, selectionBox.currentY),
+		};
 
 		const tempSelectedIds = [];
-		const itemElements = warehouseRef.current.querySelectorAll("[data-id]");
-
-		itemElements.forEach(el => {
+		warehouseRef.current.querySelectorAll("[data-id]").forEach(el => {
 			const itemRect = el.getBoundingClientRect();
-			const containerRect = warehouseRef.current.getBoundingClientRect();
-			const itemTop = itemRect.top - containerRect.top;
-			const itemLeft = itemRect.left - containerRect.left;
+			const itemTop = itemRect.top - rect.top;
+			const itemLeft = itemRect.left - rect.left;
+
 			const isIntersecting = !(
-				itemLeft > right ||
-				itemLeft + itemRect.width < left ||
-				itemTop > bottom ||
-				itemTop + itemRect.height < top
+				itemLeft > box.right ||
+				itemLeft + itemRect.width < box.left ||
+				itemTop > box.bottom ||
+				itemTop + itemRect.height < box.top
 			);
 			if (isIntersecting) tempSelectedIds.push(el.getAttribute("data-id"));
 		});
 
-		// SỬA LỖI TẠI ĐÂY: Loại bỏ trùng lặp ID trước khi cập nhật state
-		const uniqueSelectedIds = [...new Set(tempSelectedIds)];
-
-		if (e.shiftKey)
-			setSelectedIds(prev => [...new Set([...prev, ...uniqueSelectedIds])]);
-		else setSelectedIds(uniqueSelectedIds);
-
+		setSelectedIds(prev =>
+			e.shiftKey
+				? [...new Set([...prev, ...tempSelectedIds])]
+				: [...new Set(tempSelectedIds)],
+		);
 		setIsSelecting(false);
 		setSelectionBox(null);
 	};
 
-	// --- LOGIC DND ---
+	// --- DND Handlers ---
 	const findContainer = id => {
 		if (id.startsWith("unranked-")) return id;
-		const itemInUnranked = unranked.find(i => i.id === id);
-		if (itemInUnranked)
-			return `unranked-${itemInUnranked.rarity.toUpperCase()}`;
+		const inUnranked = unranked.find(i => i.id === id);
+		if (inUnranked) return `unranked-${inUnranked.rarity.toUpperCase()}`;
 		const tier = tiers.find(t => t.id === id || t.items.some(i => i.id === id));
 		return tier ? tier.id : null;
 	};
 
 	const handleDragStart = event => {
-		const { active } = event;
-		setActiveId(active.id);
-		setActiveType(active.data.current?.type || "item");
+		setActiveId(event.active.id);
+		setActiveType(event.active.data.current?.type || "item");
 	};
 
 	const handleDragOver = event => {
 		const { active, over } = event;
 		if (!over || activeType === "tier") return;
+
 		const aCol = findContainer(active.id);
 		const oCol = findContainer(over.id);
 		if (!aCol || !oCol || aCol === oCol) return;
-		if (aCol.startsWith("unranked-") && oCol.startsWith("unranked-")) return;
 
 		const idsToMove = selectedIds.includes(active.id)
 			? selectedIds
 			: [active.id];
-		const getAllItemsFromCol = col =>
+		const getColItems = col =>
 			col.startsWith("unranked-")
 				? unranked
-				: tiers.find(t => t.id === col).items;
-		const movingItems = getAllItemsFromCol(aCol).filter(i =>
-			idsToMove.includes(i.id),
-		);
+				: tiers.find(t => t.id === col)?.items || [];
+
+		const movingItems = getColItems(aCol).filter(i => idsToMove.includes(i.id));
+		if (movingItems.length === 0) return;
 
 		if (aCol.startsWith("unranked-") && !oCol.startsWith("unranked-")) {
 			setUnranked(prev => prev.filter(i => !idsToMove.includes(i.id)));
@@ -628,13 +698,13 @@ function TierListRelics() {
 		} else {
 			const aCol = findContainer(active.id);
 			const oCol = findContainer(over.id);
-			if (aCol && oCol) {
-				if (aCol.startsWith("unranked-") && oCol.startsWith("unranked-")) {
+			if (aCol === oCol) {
+				if (aCol.startsWith("unranked-")) {
 					const oldIdx = unranked.findIndex(i => i.id === active.id);
 					const newIdx = unranked.findIndex(i => i.id === over.id);
 					if (oldIdx !== -1 && newIdx !== -1)
 						setUnranked(arrayMove(unranked, oldIdx, newIdx));
-				} else if (aCol === oCol) {
+				} else {
 					setTiers(prev =>
 						prev.map(t => {
 							if (t.id === aCol) {
@@ -650,7 +720,7 @@ function TierListRelics() {
 		}
 		setActiveId(null);
 		setActiveType(null);
-		if (active.id && !selectedIds.includes(active.id)) setSelectedIds([]);
+		if (!selectedIds.includes(active.id)) setSelectedIds([]);
 	};
 
 	const downloadImage = async () => {
@@ -669,7 +739,7 @@ function TierListRelics() {
 			link.href = canvas.toDataURL("image/png", 1.0);
 			link.click();
 		} catch (e) {
-			console.error(e);
+			console.error("Download Error:", e);
 		} finally {
 			setIsExporting(false);
 		}
@@ -687,6 +757,7 @@ function TierListRelics() {
 			tiers.flatMap(t => t.items).find(i => i.id === activeId)
 		: null;
 
+	// Giữ nguyên toàn bộ phần Return JSX bên dưới
 	return (
 		<div className='max-w-[1200px] mx-auto p-0 font-secondary text-text-primary select-none'>
 			<PageTitle title='Tier List Cổ Vật LoR - Path of Champions' />

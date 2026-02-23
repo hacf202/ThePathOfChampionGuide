@@ -1,5 +1,17 @@
 [
 	{
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_2_0/adventure/vi_vn/img/relics/R0153.png",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_2_0/adventure/vi_vn/img/relics/R0153-full.png",
+		"description": "<link=keyword.SpellShield><sprite name=SpellShield><style=Keyword>Khiên Phép</style></link>, <link=keyword.Challenger><sprite name=Challenger><style=Keyword>Thách Đấu</style></link><br>Mỗi vòng, lần đầu tiên sát thương được hồi phục từ ta khi ngươi không có lượt tấn công, <link=vocab.Rally><style=Vocab>Tiến Công</style></link>.",
+		"descriptionRaw": "Khiên Phép, Thách ĐấuMỗi vòng, lần đầu tiên sát thương được hồi phục từ ta khi ngươi không có lượt tấn công, Tiến Công.",
+		"name": "Quyền Trượng Thượng Giới",
+		"relicCode": "R0153",
+		"rarity": "SỬ THI",
+		"rarityRef": "Epic",
+		"type": "Trấn",
+		"stack": "1"
+	},
+	{
 		"assetAbsolutePath": "https://dd.b.pvp.net/6_12_0/adventure/vi_vn/img/relics/R0151.png",
 		"assetFullAbsolutePath": "https://dd.b.pvp.net/6_12_0/adventure/vi_vn/img/relics/R0151-full.png",
 		"description": "Ban +1|+1, <link=keyword.Regeneration><sprite name=Regeneration><style=Keyword>Hồi Phục</style></link><br>Ta được giảm 1 tiêu hao với mỗi Poro đồng minh trên bàn.<br>",

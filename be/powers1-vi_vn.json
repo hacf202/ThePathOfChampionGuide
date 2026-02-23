@@ -1,5 +1,49 @@
 [
 	{
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_2_0/adventure/vi_vn/img/powers/P0932.png",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_2_0/adventure/vi_vn/img/powers/P0932-full.png",
+		"description": "Khi ngươi hồi máu cho 1 đồng minh bị thương, ban cho đồng minh đó +1|+1 với mỗi điểm hồi máu (tối đa lên đến +3|+3).",
+		"descriptionRaw": "Khi ngươi hồi máu cho 1 đồng minh bị thương, ban cho đồng minh đó +1|+1 với mỗi điểm hồi máu (tối đa lên đến +3|+3).",
+		"name": "Hưng Thịnh II",
+		"powerCode": "P0932",
+		"rarity": "SỬ THI",
+		"type": ["Star Power"],
+		"rarityRef": "Epic"
+	},
+	{
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_2_0/adventure/vi_vn/img/powers/P0933.png",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_2_0/adventure/vi_vn/img/powers/P0933-full.png",
+		"description": "<link=vocab.RoundStart><style=Vocab>Bắt đầu vòng đấu</style></link>: Tạo trên tay 1 lá <link=card.self><style=AssociatedCard>Tinh Tú Khuếch Tán</style></link> hoặc giảm 2 tiêu hao của lá bài đó nếu đã có sẵn.",
+		"descriptionRaw": "Bắt đầu vòng đấu: Tạo trên tay 1 lá Tinh Tú Khuếch Tán hoặc giảm 2 tiêu hao của lá bài đó nếu đã có sẵn.",
+		"name": "Tinh Tú Hồi Đáp",
+		"powerCode": "P0933",
+		"rarity": "SỬ THI",
+		"type": ["Star Power"],
+		"rarityRef": "Epic"
+	},
+	{
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_2_0/adventure/vi_vn/img/powers/P0931.png",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_2_0/adventure/vi_vn/img/powers/P0931-full.png",
+		"description": "Khi ngươi hồi máu cho 1 đồng minh bị thương, ban cho đồng minh đó +1|+1.",
+		"descriptionRaw": "Khi ngươi hồi máu cho 1 đồng minh bị thương, ban cho đồng minh đó +1|+1.",
+		"name": "Hưng Thịnh",
+		"powerCode": "P0931",
+		"rarity": "THƯỜNG",
+		"type": ["Star Power"],
+		"rarityRef": "Common"
+	},
+	{
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_2_0/adventure/vi_vn/img/powers/P0943.png",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_2_0/adventure/vi_vn/img/powers/P0943-full.png",
+		"description": "Khi ngươi hồi máu cho 1 đồng minh bị thương, ban cho đồng minh đó +1|+1 với mỗi điểm hồi máu.<br>Sau mỗi 6 điểm hồi máu, tạo 1 lá <link=keyword.Fleeting><sprite name=Fleeting><style=Keyword>Phù Du</style></link> không tiêu hao <link=card.self><style=AssociatedCard>Sao Chổi Rơi</style></link> trên tay. <style=Variable></style>",
+		"descriptionRaw": "Khi ngươi hồi máu cho 1 đồng minh bị thương, ban cho đồng minh đó +1|+1 với mỗi điểm hồi máu.Sau mỗi 6 điểm hồi máu, tạo 1 lá Phù Du không tiêu hao Sao Chổi Rơi trên tay. ",
+		"name": "Hưng Thịnh III",
+		"powerCode": "P0943",
+		"rarity": "HUYỀN THOẠI",
+		"type": ["Star Power"],
+		"rarityRef": "Legendary"
+	},
+	{
 		"assetAbsolutePath": "https://dd.b.pvp.net/6_12_0/adventure/vi_vn/img/powers/P0896.png",
 		"assetFullAbsolutePath": "https://dd.b.pvp.net/6_12_0/adventure/vi_vn/img/powers/P0896-full.png",
 		"description": "Bắt Đầu Trận Đấu: Tạo 1 lá <link=card.self><style=AssociatedCard>Renekton</style></link> và 1 lá <style=Variable>CardRef</style> trong bộ bài của ngươi, sau đó ban tất cả vật phẩm của lá <style=Variable>CardRef</style> cho các anh hùng khác trên tay và trên bộ bài của ngươi.<br>",

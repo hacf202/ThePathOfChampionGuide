@@ -101,9 +101,10 @@ const ItemEditWrapper = ({
 	const selectedItem = useMemo(() => {
 		if (id === "new") return { ...NEW_ITEM_TEMPLATE };
 
-		const found = items.find(i => i.itemCode === id);
+		// FIX: Kiểm tra items có phải mảng không trước khi find
+		const safeItems = Array.isArray(items) ? items : [];
+		const found = safeItems.find(i => i.itemCode === id);
 		if (found) {
-			// FORCE isNew: false cho mọi item đã tồn tại
 			return { ...found, isNew: false };
 		}
 		return null;
@@ -113,7 +114,8 @@ const ItemEditWrapper = ({
 		navigate("/admin/items");
 	}, [navigate]);
 
-	if (!selectedItem && items.length > 0) {
+	// FIX: Thêm kiểm tra Array.isArray
+	if (!selectedItem && Array.isArray(items) && items.length > 0) {
 		return (
 			<div className='flex flex-col items-center justify-center py-20 text-text-secondary'>
 				<p className='text-xl mb-4'>Không tìm thấy vật phẩm có mã: {id}</p>
@@ -163,10 +165,13 @@ function ItemEditor() {
 	const fetchAllData = useCallback(async () => {
 		try {
 			setIsLoading(true);
-			const res = await fetch(`${API_BASE_URL}/api/items`);
+			// FIX: Thêm limit=1000 để Admin thấy hết vật phẩm
+			const res = await fetch(`${API_BASE_URL}/api/items?limit=1000`);
 			if (!res.ok) throw new Error("Không thể tải dữ liệu");
 			const data = await res.json();
-			setItems(data);
+
+			// FIX: Lấy data.items vì Backend trả về object phân trang
+			setItems(data.items || []);
 		} catch (e) {
 			setError("Không thể tải dữ liệu từ server.");
 		} finally {
@@ -179,8 +184,10 @@ function ItemEditor() {
 	}, [fetchAllData]);
 
 	const filterOptions = useMemo(() => {
+		// FIX: Kiểm tra an toàn
+		const safeItems = Array.isArray(items) ? items : [];
 		const rarities = [
-			...new Set(items.map(i => i.rarity).filter(Boolean)),
+			...new Set(safeItems.map(i => i.rarity).filter(Boolean)),
 		].sort();
 
 		return {
@@ -193,12 +200,13 @@ function ItemEditor() {
 	}, [items]);
 
 	const filteredItems = useMemo(() => {
-		let result = [...items];
+		// FIX: Kiểm tra an toàn
+		let result = Array.isArray(items) ? [...items] : [];
 
 		if (searchTerm) {
 			const term = removeAccents(searchTerm.toLowerCase());
 			result = result.filter(i =>
-				removeAccents(i.name.toLowerCase()).includes(term),
+				removeAccents((i.name || "").toLowerCase()).includes(term),
 			);
 		}
 
@@ -208,8 +216,8 @@ function ItemEditor() {
 
 		const [field, dir] = sortOrder.split("-");
 		result.sort((a, b) => {
-			const A = a.name;
-			const B = b.name;
+			const A = a.name || "";
+			const B = b.name || "";
 			return dir === "asc" ? (A > B ? 1 : -1) : A < B ? 1 : -1;
 		});
 
@@ -260,6 +268,7 @@ function ItemEditor() {
 
 	const handleDeleteItem = async itemCode => {
 		if (!itemCode) return;
+		if (!window.confirm("Bạn có chắc chắn muốn xóa vật phẩm này?")) return;
 		setIsSaving(true);
 		try {
 			const token = localStorage.getItem("token");

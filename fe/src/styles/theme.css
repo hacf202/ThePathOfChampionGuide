@@ -212,6 +212,40 @@
 	 * 16. BÓNG ĐỔ & HIỆU ỨNG
 	 * ========================================= */
 	--color-shadow-primary: rgba(55, 48, 163, 0.2);
+
+	/* =========================================
+ * 19. BẢNG MÀU CHỦ ĐỀ ĐA DẠNG (BỔ SUNG)
+ * ========================================= */
+
+	/* --- Theme 1: Inferno (Hỏa Ngục - Rực cháy) --- */
+	--color-inferno-500: #f97316;
+	--color-inferno-700: #c2410c;
+	--color-inferno-title: #fdba74;
+	--color-inferno-subtitle: #ffedd5;
+
+	/* --- Theme 2: Emerald (Lục Bảo - Thiên nhiên/Hồi phục) --- */
+	--color-emerald-500: #10b981;
+	--color-emerald-700: #047857;
+	--color-emerald-title: #6ee7b7;
+	--color-emerald-subtitle: #d1fae5;
+
+	/* --- Theme 3: Celestial (Thiên Không - Vũ trụ/Thần thánh) --- */
+	--color-celestial-500: #6366f1;
+	--color-celestial-700: #4338ca;
+	--color-celestial-title: #a5b4fc;
+	--color-celestial-subtitle: #e0e7ff;
+
+	/* --- Theme 4: Blood (Huyết Tộc - Ma mị/Nguy hiểm) --- */
+	--color-blood-500: #dc2626;
+	--color-blood-700: #991b1b;
+	--color-blood-title: #fca5a5;
+	--color-blood-subtitle: #fee2e2;
+
+	/* --- Theme 5: Shadow (Bóng Tối - Bí ẩn) --- */
+	--color-shadow-500: #4b5563;
+	--color-shadow-700: #1f2937;
+	--color-shadow-title: #d1d5db;
+	--color-shadow-subtitle: #f3f4f6;
 }
 
 /* =========================================

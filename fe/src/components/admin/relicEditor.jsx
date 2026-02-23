@@ -103,7 +103,9 @@ const RelicEditWrapper = ({
 	const selectedRelic = useMemo(() => {
 		if (id === "new") return { ...NEW_RELIC_TEMPLATE };
 
-		const found = relics.find(r => r.relicCode === id);
+		// FIX: Đảm bảo relics là mảng trước khi find
+		const safeRelics = Array.isArray(relics) ? relics : [];
+		const found = safeRelics.find(r => r.relicCode === id);
 		if (found) {
 			// FORCE isNew: false cho mọi relic đã tồn tại
 			return { ...found, isNew: false };
@@ -115,7 +117,8 @@ const RelicEditWrapper = ({
 		navigate("/admin/relics");
 	}, [navigate]);
 
-	if (!selectedRelic && relics.length > 0) {
+	// FIX: Kiểm tra an toàn trước khi hiển thị lỗi không tìm thấy
+	if (!selectedRelic && Array.isArray(relics) && relics.length > 0) {
 		return (
 			<div className='flex flex-col items-center justify-center py-20 text-text-secondary'>
 				<p className='text-xl mb-4'>Không tìm thấy cổ vật có mã: {id}</p>
@@ -167,10 +170,13 @@ function RelicEditor() {
 	const fetchAllData = useCallback(async () => {
 		try {
 			setIsLoading(true);
-			const res = await fetch(`${API_BASE_URL}/api/relics`);
+			// FIX: Thêm limit=1000 để lấy toàn bộ dữ liệu phục vụ Admin
+			const res = await fetch(`${API_BASE_URL}/api/relics?limit=1000`);
 			if (!res.ok) throw new Error("Không thể tải dữ liệu");
 			const data = await res.json();
-			setRelics(data);
+
+			// FIX: Lấy data.items vì Backend trả về object phân trang
+			setRelics(data.items || []);
 		} catch (e) {
 			setError("Không thể tải dữ liệu từ server.");
 		} finally {
@@ -183,11 +189,15 @@ function RelicEditor() {
 	}, [fetchAllData]);
 
 	const filterOptions = useMemo(() => {
+		// FIX: Kiểm tra an toàn để tránh lỗi map
+		const safeRelics = Array.isArray(relics) ? relics : [];
 		const rarities = [
-			...new Set(relics.map(r => r.rarity).filter(Boolean)),
+			...new Set(safeRelics.map(r => r.rarity).filter(Boolean)),
 		].sort();
-		const types = [...new Set(relics.map(r => r.type || "Other"))].sort();
-		const stacks = [...new Set(relics.map(r => r.stack))].sort((a, b) => a - b);
+		const types = [...new Set(safeRelics.map(r => r.type || "Other"))].sort();
+		const stacks = [...new Set(safeRelics.map(r => r.stack))].sort(
+			(a, b) => a - b,
+		);
 
 		return {
 			rarities: rarities.map(r => ({ value: r, label: r })),
@@ -201,12 +211,13 @@ function RelicEditor() {
 	}, [relics]);
 
 	const filteredRelics = useMemo(() => {
-		let result = [...relics];
+		// FIX: Kiểm tra an toàn
+		let result = Array.isArray(relics) ? [...relics] : [];
 
 		if (searchTerm) {
 			const term = removeAccents(searchTerm.toLowerCase());
 			result = result.filter(r =>
-				removeAccents(r.name.toLowerCase()).includes(term),
+				removeAccents((r.name || "").toLowerCase()).includes(term),
 			);
 		}
 
@@ -224,8 +235,8 @@ function RelicEditor() {
 
 		const [field, dir] = sortOrder.split("-");
 		result.sort((a, b) => {
-			const A = a.name;
-			const B = b.name;
+			const A = a.name || "";
+			const B = b.name || "";
 			return dir === "asc" ? (A > B ? 1 : -1) : A < B ? 1 : -1;
 		});
 
@@ -281,6 +292,9 @@ function RelicEditor() {
 
 	const handleDeleteRelic = async relicCode => {
 		if (!relicCode) return;
+		// Thêm xác nhận trước khi xóa
+		if (!window.confirm("Bạn có chắc chắn muốn xóa cổ vật này?")) return;
+
 		setIsSaving(true);
 		try {
 			const token = localStorage.getItem("token");

@@ -11,6 +11,24 @@ module.exports = {
 
 			// 2. MÀU SẮC (Thêm các biến mới)
 			colors: {
+				// Thêm vào trong section colors
+				"inferno-500": "var(--color-inferno-500)",
+				"inferno-title": "var(--color-inferno-title)",
+				"inferno-subtitle": "var(--color-inferno-subtitle)",
+
+				"emerald-500": "var(--color-emerald-500)",
+				"emerald-title": "var(--color-emerald-title)",
+				"emerald-subtitle": "var(--color-emerald-subtitle)",
+
+				"celestial-500": "var(--color-celestial-500)",
+				"celestial-title": "var(--color-celestial-title)",
+				"celestial-subtitle": "var(--color-celestial-subtitle)",
+
+				"blood-500": "var(--color-blood-500)",
+				"blood-title": "var(--color-blood-title)",
+
+				"shadow-500": "var(--color-shadow-500)",
+				"shadow-title": "var(--color-shadow-title)",
 				// === 1. MÀU CHÍNH & TRẠNG THÁI CƠ BẢN ===
 				"primary-500": "var(--color-primary-500)",
 				"danger-500": "var(--color-danger-500)",

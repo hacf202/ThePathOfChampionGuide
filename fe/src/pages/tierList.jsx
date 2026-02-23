@@ -1,43 +1,82 @@
 // src/pages/tierList/index.jsx
-import React, { useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import PageTitle from "../components/common/pageTitle"; // Chỉnh lại path nếu cần
-import TierListChampions from "../components/tierMaker/champions"; // Chỉnh lại path cho đúng cấu trúc folder của bạn
-import TierListRelics from "../components/tierMaker/relics"; // Chỉnh lại path cho đúng cấu trúc folder của bạn
-import { Swords, Sparkles } from "lucide-react";
+import PageTitle from "../components/common/pageTitle";
+import TierListChampions from "../components/tierMaker/champions";
+import TierListRelics from "../components/tierMaker/relics";
+import { Swords, Sparkles, Loader2 } from "lucide-react";
 
 function TierListIndex() {
 	const navigate = useNavigate();
 	const location = useLocation();
+	const apiUrl = import.meta.env.VITE_API_URL;
+
+	// State quản lý dữ liệu Metadata để truyền xuống component con
+	const [champions, setChampions] = useState([]);
+	const [relics, setRelics] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
 
 	// Xác định tab hiện tại dựa trên đường dẫn URL
 	const isChampionsActive = location.pathname.includes("/champions");
 	const isRelicsActive = location.pathname.includes("/relics");
 
 	// Kiểm tra nếu đang ở trang gốc /tierlist
-	// Ví dụ: path là "/tierlist" hoặc "/tierlist/"
 	const isRoot =
 		location.pathname === "/tierlist" || location.pathname === "/tierlist/";
 
-	// Logic chuyển hướng tự động
+	/**
+	 * Logic Tải dữ liệu Metadata (Tướng & Cổ vật)
+	 * SỬA LỖI: Sử dụng limit=1000 để lấy đầy đủ danh sách cho bảng Tier List,
+	 * tránh việc chỉ lấy 20 mục mặc định từ Backend.
+	 */
+	const fetchMetadata = useCallback(async () => {
+		setIsLoading(true);
+		try {
+			const queryLimit = "?page=1&limit=1000";
+			const [champRes, relicRes] = await Promise.all([
+				fetch(`${apiUrl}/api/champions${queryLimit}`),
+				fetch(`${apiUrl}/api/relics${queryLimit}`),
+			]);
+
+			if (!champRes.ok || !relicRes.ok)
+				throw new Error("Không thể tải dữ liệu từ máy chủ");
+
+			const [champData, relicData] = await Promise.all([
+				champRes.json(),
+				relicRes.json(),
+			]);
+
+			// [SỬA LỖI]: Backend trả về { items: [...] }, cần bóc tách mảng để tránh lỗi .map()
+			setChampions(champData.items || champData || []);
+			setRelics(relicData.items || relicData || []);
+		} catch (error) {
+			console.error("Lỗi khởi tạo dữ liệu Tier List:", error);
+		} finally {
+			setIsLoading(false);
+		}
+	}, [apiUrl]);
+
+	useEffect(() => {
+		fetchMetadata();
+	}, [fetchMetadata]);
+
+	// Logic chuyển hướng tự động sang Champions khi vào trang gốc
 	useEffect(() => {
 		if (isRoot) {
-			// Điều hướng sang champions mặc định và ghi đè lịch sử (replace)
 			navigate("/tierlist/champions", { replace: true });
 		}
 	}, [isRoot, navigate]);
 
-	// Nếu đang trong quá trình chuyển hướng, có thể trả về null hoặc loader để tránh flicker giao diện cũ
 	if (isRoot) return null;
 
 	return (
 		<div className='max-w-[1200px] mx-auto p-0 font-secondary text-text-primary'>
 			<PageTitle title='Custom Tier List LoR - Huyền Thoại Runeterra' />
 
-			{/* Header Section */}
+			{/* Header Section - Giữ nguyên giao diện CSS của bạn */}
 			<div className='mb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-2 px-2'>
 				<div>
-					<h1 className='text-2xl sm:text-3xl font-bold uppercase mb-0 tracking-tight'>
+					<h1 className='text-2xl sm:text-3xl font-bold uppercase mb-0 tracking-tight text-primary-500'>
 						Custom Tier List POC
 					</h1>
 				</div>
@@ -69,20 +108,33 @@ function TierListIndex() {
 				</div>
 			</div>
 
-			{/* Nội dung hiển thị dựa trên URL Path */}
+			{/* Nội dung hiển thị dựa trên URL Path và trạng thái Loading */}
 			<div className='transition-all duration-300 ease-in-out min-h-[600px]'>
-				{/* Hiển thị bảng Tướng khi URL khớp */}
-				{isChampionsActive && (
-					<div className='animate-in fade-in slide-in-from-bottom-4 duration-500'>
-						<TierListChampions />
+				{isLoading ? (
+					<div className='flex flex-col items-center justify-center h-64 gap-4'>
+						<Loader2 className='animate-spin text-primary-500' size={40} />
+						<p className='text-text-secondary animate-pulse'>
+							Đang tải danh sách...
+						</p>
 					</div>
-				)}
+				) : (
+					<>
+						{/* Hiển thị bảng Tướng khi URL khớp */}
+						{isChampionsActive && (
+							<div className='animate-in fade-in slide-in-from-bottom-4 duration-500'>
+								{/* Truyền dữ liệu đã bóc tách từ .items xuống component con */}
+								<TierListChampions initialChampions={champions} />
+							</div>
+						)}
 
-				{/* Hiển thị bảng Cổ vật khi URL khớp */}
-				{isRelicsActive && (
-					<div className='animate-in fade-in slide-in-from-bottom-4 duration-500'>
-						<TierListRelics />
-					</div>
+						{/* Hiển thị bảng Cổ vật khi URL khớp */}
+						{isRelicsActive && (
+							<div className='animate-in fade-in slide-in-from-bottom-4 duration-500'>
+								{/* Truyền dữ liệu đã bóc tách từ .items xuống component con */}
+								<TierListRelics initialRelics={relics} />
+							</div>
+						)}
+					</>
 				)}
 			</div>
 		</div>

@@ -23,9 +23,10 @@ function ItemDetail() {
 
 				const decodedCode = decodeURIComponent(itemCode);
 
+				// Thêm limit lớn để tìm kiếm đầy đủ trong mảng
 				const [itemsRes, championsRes] = await Promise.all([
-					fetch(`${apiUrl}/api/items`),
-					fetch(`${apiUrl}/api/champions`),
+					fetch(`${apiUrl}/api/items?limit=1000`),
+					fetch(`${apiUrl}/api/champions?limit=1000`),
 				]);
 
 				if (!itemsRes.ok || !championsRes.ok) {
@@ -35,7 +36,11 @@ function ItemDetail() {
 				const itemsData = await itemsRes.json();
 				const championsData = await championsRes.json();
 
-				const foundItem = itemsData.find(i => i.itemCode === decodedCode);
+				// FIX: Lấy mảng từ thuộc tính .items
+				const allItems = itemsData.items || [];
+				const allChampions = championsData.items || [];
+
+				const foundItem = allItems.find(i => i.itemCode === decodedCode);
 
 				if (!foundItem) {
 					setError(`Không tìm thấy vật phẩm với mã: ${decodedCode}`);
@@ -44,7 +49,7 @@ function ItemDetail() {
 					setItem(foundItem);
 				}
 
-				setChampions(championsData);
+				setChampions(allChampions);
 			} catch (err) {
 				console.error("Lỗi tải dữ liệu:", err);
 				setError(err.message || "Đã xảy ra lỗi khi tải dữ liệu.");
@@ -58,11 +63,13 @@ function ItemDetail() {
 		}
 	}, [itemCode, apiUrl]);
 
+	// Giữ nguyên logic filter nhưng đảm bảo champions là mảng và lấy thêm name
 	const compatibleChampions = item
 		? champions
 				.filter(champion => champion.defaultItems?.some(r => r === item.name))
 				.map(champion => ({
 					championID: champion.championID,
+					name: champion.name, // Thêm để hiển thị
 					image: champion.assets?.[0]?.avatar || "/images/placeholder.png",
 				}))
 		: [];
@@ -97,14 +104,12 @@ function ItemDetail() {
 			/>
 
 			<div className='max-w-[1200px] mx-auto p-0 sm:p-6 text-text-primary font-secondary'>
-				{/* NÚT QUAY LẠI – GIỐNG HỆT ChampionDetail */}
 				<Button variant='outline' onClick={() => navigate(-1)} className='mb-4'>
 					<ChevronLeft size={18} />
 					Quay lại
 				</Button>
 
 				<div className='relative mx-auto max-w-[1200px] border border-border p-4 sm:p-6 rounded-lg bg-surface-bg text-text-primary font-secondary'>
-					{/* Thông tin vật phẩm */}
 					<div className='flex flex-col md:flex-row gap-4 rounded-md p-2 bg-surface-hover'>
 						<SafeImage
 							className='h-auto max-h-[200px] sm:max-h-[300px] object-contain rounded-lg self-center md:self-start'
@@ -127,18 +132,17 @@ function ItemDetail() {
 						</div>
 					</div>
 
-					{/* Danh sách tướng tương thích */}
 					<h2 className='text-xl sm:text-3xl font-semibold mt-8 mb-4 font-primary'>
 						Các tướng có thể dùng vật phẩm
 					</h2>
 
 					{compatibleChampions.length > 0 ? (
-						<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 rounded-md p-4 bg-surface-hover'>
+						<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 rounded-md bg-surface-hover'>
 							{compatibleChampions.map((champion, index) => (
 								<Link
 									key={index}
 									to={`/champion/${champion.championID}`}
-									className='group rounded-lg p-4 transition-all hover:shadow-lg hover:scale-105 bg-surface-bg border border-border'
+									className='group rounded-lg p-2 transition-all hover:shadow-lg hover:scale-105 bg-surface-bg border border-border'
 								>
 									<SafeImage
 										className='w-full max-w-[120px] h-auto mx-auto rounded-full object-cover border-2 border-border group-hover:border-primary-500 transition-colors'

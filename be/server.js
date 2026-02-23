@@ -72,7 +72,7 @@ app.use(
 				callback(new Error("Không được phép bởi CORS"));
 			}
 		},
-	})
+	}),
 );
 
 app.use(express.json({ limit: "5mb" }));
@@ -93,6 +93,7 @@ app.use("/api/builds", favoritesRouter);
 app.use("/api/builds", buildsRouter); // ĐỂ CUỐI CÙNG!
 app.use("/api/admin/builds", buildsAdminRouter);
 app.use("/api/guides", guidesRouter);
+app.use("/api/comments", commentsRouter); // Route lấy bình luận mới nhất
 // API để kiểm tra "sức khỏe" của server
 app.get("/api/checkheal", (req, res) => {
 	res.status(200).json({ status: "OK", message: "Server is healthy" });
@@ -117,7 +118,7 @@ if (!process.env.VERCEL) {
 	const port = process.env.PORT; // Dùng port từ .env hoặc fallback 3001
 	app.listen(port, () => {
 		console.log(
-			`✅ Server đang chạy (chế độ local) trên http://localhost:${port}`
+			`✅ Server đang chạy (chế độ local) trên http://localhost:${port}`,
 		);
 	});
 }

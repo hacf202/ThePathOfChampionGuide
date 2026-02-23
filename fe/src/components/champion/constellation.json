@@ -1,0 +1,212 @@
+{
+	"constellationID": "C001",
+	"championName": "Yasuo",
+	"championID": "C026",
+	"backgroundImage": "http://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01IO015T1-full.png",
+	"nodes": [
+		{
+			"nodeID": "n1",
+			"position": {
+				"x": 90,
+				"y": 56
+			},
+			"nodeName": "Cuốn Theo Chiều Gió",
+			"description": "Bắt Đầu Vòng Đấu: Nếu ngươi có lượt tấn công, Làm Choáng kẻ địch mạnh nhất.",
+			"nodeType": "starPower",
+			"nextNodes": ["n2"],
+			"isRecommended": true,
+			"requirements": [{ "type": "Fragment", "value": 10 }]
+		},
+		{
+			"nodeID": "n2",
+			"position": {
+				"x": 80,
+				"y": 66
+			},
+			"nodeName": "Lưỡi Kiếm Sắc Bén",
+			"description": "Khi 1 đồng minh Ra Đòn, ban +1|+0 cho đồng minh đó.",
+			"nodeType": "starPower",
+			"nextNodes": ["n3"],
+			"isRecommended": true,
+			"requirements": [{ "type": "Fragment", "value": 20 }]
+		},
+		{
+			"nodeID": "n3",
+			"position": {
+				"x": 71,
+				"y": 74
+			},
+			"nodeName": "Cuốn Theo Chiều Gió II",
+			"description": "Khi 1 đồng minh Ra Đòn, ban +1|+0 cho đồng minh đó.",
+			"nodeType": "starPower",
+			"nextNodes": ["n4", "n7"],
+			"isRecommended": true,
+			"requirements": [{ "type": "Fragment", "value": 40 }]
+		},
+		{
+			"nodeID": "n4",
+			"position": {
+				"x": 57,
+				"y": 76
+			},
+			"nodeName": "Nộ Long Cước",
+			"description": "Khi triệu hồi 1 đồng minh, ban Cuồng Nộ cho đồng minh đó. Đồng minh này trở thành Rồng.",
+			"nodeType": "starPower",
+			"nextNodes": ["n13"],
+			"isRecommended": true,
+			"requirements": [
+				{ "type": "Fragment", "value": 60 },
+				{ "type": "Crystal", "value": 10 }
+			]
+		},
+		{
+			"nodeID": "n5",
+			"position": {
+				"x": 50,
+				"y": 40
+			},
+			"nodeName": "Dòng Chảy Năng Lượng",
+			"description": "Bắt Đầu Trận Đấu: Nhận 1 ngọc năng lượng.",
+			"nodeType": "starPower",
+			"nextNodes": ["n12"],
+			"isRecommended": true,
+			"requirements": [
+				{ "type": "Fragment", "value": 80 },
+				{ "type": "Crystal", "value": 40 }
+			]
+		},
+		{
+			"nodeID": "n6",
+			"position": {
+				"x": 60.0,
+				"y": 20.0
+			},
+			"nodeName": "Bão Tố",
+			"description": "Kết Thúc Vòng Đấu: Thu Về những kẻ địch Bị Choáng.",
+			"nodeType": "starPower",
+			"nextNodes": [],
+			"isRecommended": false,
+			"requirements": [
+				{ "type": "Fragment", "value": 100 },
+				{ "type": "Nova Crystal", "value": 1 }
+			]
+		},
+		{
+			"nodeID": "n7",
+			"position": {
+				"x": 68,
+				"y": 60
+			},
+			"nodeName": "Ngôi Sao Tiền Thưởng",
+			"description": "+10 Máu Nhà Chính, +100 Vàng.",
+			"nodeType": "bonusStar",
+			"nextNodes": ["n8", "n9"],
+			"isRecommended": true,
+			"requirements": [{ "type": "Fragment", "value": 40 }]
+		},
+		{
+			"nodeID": "n8",
+			"position": {
+				"x": 72,
+				"y": 46
+			},
+			"nodeName": "Ngôi Sao Huyền Thoại",
+			"description": "Các anh hùng hỗ trợ của bạn có Băng Trượng Vĩnh Cửu.",
+			"nodeType": "bonusStar",
+			"nextNodes": ["n11"],
+			"isRecommended": false,
+			"requirements": [{ "type": "Fragment", "value": 40 }]
+		},
+		{
+			"nodeID": "n9",
+			"position": {
+				"x": 60,
+				"y": 50
+			},
+			"nodeName": "Ngôi Sao Chúc Phúc",
+			"description": "Ý Chí Ionia có Bí Kíp Pháp Sư.",
+			"nodeType": "bonusStar",
+			"nextNodes": ["n5"],
+			"isRecommended": true,
+			"requirements": [{ "type": "Fragment", "value": 40 }]
+		},
+		{
+			"nodeID": "n10",
+			"position": {
+				"x": 68,
+				"y": 23
+			},
+			"nodeName": "Ngôi Sao Khám Phá",
+			"description": "Bài phép bạn thu thập trong chuyến phiêu lưu có Bình Năng Lượng.",
+			"nodeType": "bonusStar",
+			"nextNodes": ["n6"],
+			"isRecommended": false,
+			"requirements": [{ "type": "Fragment", "value": 40 }]
+		},
+		{
+			"nodeID": "n11",
+			"position": {
+				"x": 74,
+				"y": 32
+			},
+			"nodeName": "Ngôi Sao Kỳ Thú",
+			"description": "Tinh Linh Lốc Xoáy có Bùa Canh Giữ.",
+			"nodeType": "bonusStar",
+			"nextNodes": ["n10"],
+			"isRecommended": false,
+			"requirements": [{ "type": "Fragment", "value": 40 }]
+		},
+		{
+			"nodeID": "n12",
+			"position": {
+				"x": 36,
+				"y": 48
+			},
+			"nodeName": "Ngôi Sao Huyền Thoại",
+			"description": "Các lá bài hỗ trợ có thêm 1 trang bị.",
+			"nodeType": "bonusStarGem",
+			"nextNodes": ["n15"],
+			"isRecommended": true,
+			"requirements": [{ "type": "Gemstone", "value": 100 }]
+		},
+		{
+			"nodeID": "n13",
+			"position": {
+				"x": 44,
+				"y": 74
+			},
+			"nodeName": "Tài Lộc Thượng Giới",
+			"description": "+5% tỉ lệ xuất hiện vật phẩm và sức mạnh Sử Thi. +1% tỉ lệ xuất hiện sức mạnh Huyền Thoại.",
+			"nodeType": "bonusStarGem",
+			"nextNodes": ["n14"],
+			"isRecommended": false,
+			"requirements": [{ "type": "Gemstone", "value": 200 }]
+		},
+		{
+			"nodeID": "n14",
+			"position": {
+				"x": 32,
+				"y": 70
+			},
+			"nodeName": "Tiền Thưởng Thượng Giới",
+			"description": "Các Anh Hùng Ionia nhận +10 Máu Nhà Chính.",
+			"nodeType": "bonusStarGem",
+			"nextNodes": [],
+			"isRecommended": true,
+			"requirements": [{ "type": "Gemstone", "value": 300 }]
+		},
+		{
+			"nodeID": "n15",
+			"position": {
+				"x": 23,
+				"y": 60.0
+			},
+			"nodeName": "Thấu Thị Thượng Giới",
+			"description": "+100% XP cho các anh hùng Ionia.",
+			"nodeType": "bonusStarGem",
+			"nextNodes": ["n14"],
+			"isRecommended": true,
+			"requirements": [{ "type": "Gemstone", "value": 400 }]
+		}
+	]
+}

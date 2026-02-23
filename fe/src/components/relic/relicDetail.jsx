@@ -7,7 +7,7 @@ import SafeImage from "../common/SafeImage";
 
 function RelicDetail() {
 	const { relicCode } = useParams();
-	const navigate = useNavigate(); // <-- Thêm useNavigate
+	const navigate = useNavigate();
 	const [relic, setRelic] = useState(null);
 	const [champions, setChampions] = useState([]);
 	const [loading, setLoading] = useState(true);
@@ -24,9 +24,10 @@ function RelicDetail() {
 
 				const decodedCode = decodeURIComponent(relicCode);
 
+				// SỬA LỖI: Thêm limit=1000 để lấy toàn bộ dữ liệu phục vụ tìm kiếm và lọc
 				const [relicsRes, championsRes] = await Promise.all([
-					fetch(`${apiUrl}/api/relics`),
-					fetch(`${apiUrl}/api/champions`),
+					fetch(`${apiUrl}/api/relics?limit=1000`),
+					fetch(`${apiUrl}/api/champions?limit=1000`),
 				]);
 
 				if (!relicsRes.ok || !championsRes.ok) {
@@ -36,7 +37,11 @@ function RelicDetail() {
 				const relicsData = await relicsRes.json();
 				const championsData = await championsRes.json();
 
-				const foundRelic = relicsData.find(r => r.relicCode === decodedCode);
+				// SỬA LỖI: Truy cập vào thuộc tính .items từ response của API
+				const allRelics = relicsData.items || [];
+				const allChampions = championsData.items || [];
+
+				const foundRelic = allRelics.find(r => r.relicCode === decodedCode);
 
 				if (!foundRelic) {
 					setError(`Không tìm thấy cổ vật với mã: ${decodedCode}`);
@@ -45,7 +50,7 @@ function RelicDetail() {
 					setRelic(foundRelic);
 				}
 
-				setChampions(championsData);
+				setChampions(allChampions);
 			} catch (err) {
 				console.error("Lỗi tải dữ liệu:", err);
 				setError(err.message || "Đã xảy ra lỗi khi tải dữ liệu.");
@@ -58,18 +63,23 @@ function RelicDetail() {
 	}, [relicCode, apiUrl]);
 
 	// Tính toán tướng tương thích
-	const compatibleChampions = relic
-		? champions
-				.filter(champion =>
-					[1, 2, 3, 4, 5, 6].some(set =>
-						champion[`defaultRelicsSet${set}`]?.some(r => r === relic.name)
+	const compatibleChampions =
+		relic && Array.isArray(champions)
+			? champions
+					.filter(champion =>
+						[1, 2, 3, 4, 5, 6].some(set =>
+							champion[`defaultRelicsSet${set}`]?.some(
+								r =>
+									r?.trim().toLowerCase() === relic.name?.trim().toLowerCase(),
+							),
+						),
 					)
-				)
-				.map(champion => ({
-					championID: champion.championID,
-					image: champion.assets?.[0]?.avatar || "/images/placeholder.png",
-				}))
-		: [];
+					.map(champion => ({
+						championID: champion.championID,
+						name: champion.name, // SỬA LỖI: Bổ sung name để hiển thị
+						image: champion.assets?.[0]?.avatar || "/images/placeholder.png",
+					}))
+			: [];
 
 	// Loading state
 	if (loading) {
@@ -143,12 +153,12 @@ function RelicDetail() {
 					</h2>
 
 					{compatibleChampions.length > 0 ? (
-						<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 rounded-md p-4 bg-surface-hover'>
+						<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 rounded-md bg-surface-hover'>
 							{compatibleChampions.map((champion, index) => (
 								<Link
 									key={index}
 									to={`/champion/${champion.championID}`}
-									className='group rounded-lg p-4 transition-all hover:shadow-lg hover:scale-105 bg-surface-bg border border-border'
+									className='group rounded-lg p-2 transition-all hover:shadow-lg hover:scale-105 bg-surface-bg border border-border'
 								>
 									<SafeImage
 										className='w-full max-w-[120px] h-auto mx-auto rounded-full object-cover border-2 border-border group-hover:border-primary-500 transition-colors'

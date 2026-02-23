@@ -32,6 +32,7 @@ const GuideDetail = () => {
 			try {
 				const backendUrl = import.meta.env.VITE_API_URL;
 
+				// SỬA LỖI: Thêm limit=1000 để đảm bảo lấy đủ dữ liệu tham chiếu cho bảng
 				const [
 					guideDetailResponse,
 					allGuidesResponse,
@@ -41,9 +42,9 @@ const GuideDetail = () => {
 				] = await Promise.all([
 					axios.get(`${backendUrl}/api/guides/${slug}`),
 					axios.get(`${backendUrl}/api/guides`),
-					axios.get(`${backendUrl}/api/champions`),
-					axios.get(`${backendUrl}/api/relics`),
-					axios.get(`${backendUrl}/api/powers`),
+					axios.get(`${backendUrl}/api/champions?limit=1000`),
+					axios.get(`${backendUrl}/api/relics?limit=1000`),
+					axios.get(`${backendUrl}/api/powers?limit=1000`),
 				]);
 
 				if (guideDetailResponse.data.success) {
@@ -69,10 +70,14 @@ const GuideDetail = () => {
 					}, {});
 				};
 
+				// SỬA LỖI: Truy cập vào .items vì API trả về object phân trang
 				setReferenceData({
-					champions: convertArrayToMap(championsResponse.data, "championID"),
-					relics: convertArrayToMap(relicsResponse.data, "relicCode"),
-					powers: convertArrayToMap(powersResponse.data, "powerCode"),
+					champions: convertArrayToMap(
+						championsResponse.data.items,
+						"championID",
+					),
+					relics: convertArrayToMap(relicsResponse.data.items, "relicCode"),
+					powers: convertArrayToMap(powersResponse.data.items, "powerCode"),
 				});
 			} catch (err) {
 				console.error("Lỗi khi tải dữ liệu:", err);

@@ -47,7 +47,7 @@ const BuildSummary = ({
 
 	// Local State cho Like
 	const [likeCount, setLikeCount] = useState(
-		initialLikeCount || build.like || 0
+		initialLikeCount || build.like || 0,
 	);
 	const [isLiked, setIsLiked] = useState(false);
 
@@ -88,7 +88,7 @@ const BuildSummary = ({
 		}
 		const checkOverflow = () => {
 			setIsDescriptionOverflowing(
-				element.scrollHeight > DESCRIPTION_MAX_HEIGHT
+				element.scrollHeight > DESCRIPTION_MAX_HEIGHT,
 			);
 		};
 		const resizeObserver = new ResizeObserver(checkOverflow);
@@ -114,7 +114,7 @@ const BuildSummary = ({
 
 	const isOwner = useMemo(
 		() => user && build.sub === user.sub,
-		[user, build.sub]
+		[user, build.sub],
 	);
 
 	const handleViewDetail = e => {
@@ -226,15 +226,15 @@ const BuildSummary = ({
 
 	const artifactImages = useMemo(
 		() => (build.relicSet || []).map(a => findImage(relicsList, a)),
-		[relicsList, build.relicSet]
+		[relicsList, build.relicSet],
 	);
 	const powerImages = useMemo(
 		() => (build.powers || []).map(p => findImage(powersList, p)),
-		[powersList, build.powers]
+		[powersList, build.powers],
 	);
 	const runeImages = useMemo(
 		() => (build.rune || []).map(r => findImage(runesList, r)),
-		[runesList, build.rune]
+		[runesList, build.rune],
 	);
 
 	const renderImageWithTooltip = (name, src, type, index) => {
@@ -355,7 +355,7 @@ const BuildSummary = ({
 								</p>
 								<div className='flex flex-wrap gap-1.5 sm:gap-2'>
 									{build.relicSet.map((a, i) =>
-										renderImageWithTooltip(a, artifactImages[i], "artifact", i)
+										renderImageWithTooltip(a, artifactImages[i], "artifact", i),
 									)}
 								</div>
 							</div>
@@ -367,7 +367,7 @@ const BuildSummary = ({
 								</p>
 								<div className='flex flex-wrap gap-1.5 sm:gap-2'>
 									{build.rune.map((r, i) =>
-										renderImageWithTooltip(r, runeImages[i], "rune", i)
+										renderImageWithTooltip(r, runeImages[i], "rune", i),
 									)}
 								</div>
 							</div>
@@ -379,7 +379,7 @@ const BuildSummary = ({
 								</p>
 								<div className='flex flex-wrap gap-1.5 sm:gap-2'>
 									{build.powers.map((p, i) =>
-										renderImageWithTooltip(p, powerImages[i], "power", i)
+										renderImageWithTooltip(p, powerImages[i], "power", i),
 									)}
 								</div>
 							</div>

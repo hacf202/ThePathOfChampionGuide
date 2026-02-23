@@ -1,5 +1,11 @@
 // src/pages/tierList/champions.jsx
-import React, { useState, useEffect, useRef, useMemo } from "react";
+import React, {
+	useState,
+	useEffect,
+	useRef,
+	useMemo,
+	useCallback,
+} from "react";
 import {
 	DndContext,
 	rectIntersection,
@@ -186,7 +192,7 @@ const SortableTierRow = ({
 
 // --- Component Chính ---
 
-function TierListChampions() {
+function TierListChampions({ initialChampions }) {
 	const [allChampionsRaw, setAllChampionsRaw] = useState([]);
 	const [tiers, setTiers] = useState([]);
 	const [unranked, setUnranked] = useState([]);
@@ -195,7 +201,6 @@ function TierListChampions() {
 	const [loading, setLoading] = useState(true);
 	const [isExporting, setIsExporting] = useState(false);
 
-	// Multi-select & Selection Box States
 	const [selectedIds, setSelectedIds] = useState([]);
 	const [selectionBox, setSelectionBox] = useState(null);
 	const [isSelecting, setIsSelecting] = useState(false);
@@ -214,9 +219,17 @@ function TierListChampions() {
 	const apiUrl = import.meta.env.VITE_API_URL;
 
 	const sensors = useSensors(
-		useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
+		useSensor(PointerSensor, {
+			activationConstraint: {
+				distance: 5,
+			},
+		}),
 		useSensor(TouchSensor, {
-			activationConstraint: { delay: 250, tolerance: 10 },
+			// Logic quan trọng: Tăng delay hoặc tinh chỉnh tolerance để phân biệt cuộn và kéo
+			activationConstraint: {
+				delay: 300, // Nhấn giữ 300ms để bắt đầu kéo, giúp tránh nhầm với cuộn trang
+				tolerance: 6, // Giảm sai số di chuyển pixel trước khi kích hoạt
+			},
 		}),
 		useSensor(KeyboardSensor, {
 			coordinateGetter: sortableKeyboardCoordinates,
@@ -328,6 +341,7 @@ function TierListChampions() {
 				"C022",
 				"C053",
 				"C068",
+				"C082",
 			],
 			"tier-a": [
 				"C058",
@@ -368,21 +382,40 @@ function TierListChampions() {
 		return { sampleTiers, sampleUnranked };
 	};
 
+	// FIX LỖI: Đồng bộ hóa logic Fetching và Props
 	useEffect(() => {
-		const initData = async () => {
+		const loadInitialData = async () => {
 			try {
-				const res = await fetch(`${apiUrl}/api/champions`);
-				const data = await res.json();
-				const formatted = data.map(c => ({
-					id: String(c.championID),
+				let rawData;
+				// Ưu tiên sử dụng dữ liệu từ props nếu được truyền xuống từ cha
+				if (initialChampions && initialChampions.length > 0) {
+					rawData = initialChampions;
+				} else {
+					// Fallback: Tự động fetch nếu chạy standalone, ép lấy toàn bộ danh sách (limit=1000)
+					const res = await fetch(`${apiUrl}/api/champions?page=1&limit=1000`);
+					const data = await res.json();
+					// [SỬA LỖI]: Backend trả về Object { items: [...] }, cần lấy trường items
+					rawData = data.items || data || [];
+				}
+
+				if (!Array.isArray(rawData))
+					throw new Error("Dữ liệu trả về không phải mảng");
+
+				const formatted = rawData.map(c => ({
+					id: String(c.championID || c.id || c._id),
 					name: c.name,
-					avatar: c.assets?.[0]?.avatar || "/fallback-champion.png",
+					avatar:
+						c.assets?.[0]?.avatar ||
+						c.assetAbsolutePath ||
+						"/fallback-champion.png",
 					regions: Array.isArray(c.regions) ? c.regions : [],
 					cost: Number(c.cost) || 0,
 					maxStar: Number(c.maxStar) || 3,
 					tag: Array.isArray(c.tag) ? c.tag : [],
 				}));
+
 				setAllChampionsRaw(formatted);
+
 				const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
 				if (saved) {
 					const parsed = JSON.parse(saved);
@@ -401,13 +434,13 @@ function TierListChampions() {
 					setUnranked(sampleUnranked);
 				}
 			} catch (err) {
-				console.error("Lỗi khởi tạo:", err);
+				console.error("Lỗi khởi tạo Tier List Tướng:", err);
 			} finally {
 				setLoading(false);
 			}
 		};
-		initData();
-	}, [apiUrl]);
+		loadInitialData();
+	}, [apiUrl, initialChampions]);
 
 	useEffect(() => {
 		if (!loading)
@@ -416,7 +449,18 @@ function TierListChampions() {
 				JSON.stringify({ tiers, unranked }),
 			);
 	}, [tiers, unranked, loading]);
+	useEffect(() => {
+		const handler = e => {
+			// Nếu đang trong quá trình kéo thả, ngăn chặn hành vi cuộn mặc định
+			if (activeId) {
+				e.preventDefault();
+			}
+		};
 
+		// Gắn vào window với { passive: false } để có thể preventDefault
+		window.addEventListener("touchmove", handler, { passive: false });
+		return () => window.removeEventListener("touchmove", handler);
+	}, [activeId]);
 	const handleResetFilters = () => {
 		setSearchInput("");
 		setSearchTerm("");
@@ -488,18 +532,14 @@ function TierListChampions() {
 		if (window.innerWidth < 1024) setIsFilterOpen(false);
 	};
 
-	// --- LOGIC QUÉT CHỌN (BOX SELECTION) ---
-
+	// --- LOGIC BOX SELECTION ---
 	const onMouseDown = e => {
 		if (e.target !== e.currentTarget) return;
-
 		const rect = unrankedRef.current.getBoundingClientRect();
 		const x = e.clientX - rect.left;
 		const y = e.clientY - rect.top;
-
 		setIsSelecting(true);
 		setSelectionBox({ startX: x, startY: y, currentX: x, currentY: y });
-
 		if (!e.shiftKey) setSelectedIds([]);
 	};
 
@@ -515,62 +555,50 @@ function TierListChampions() {
 
 	const onMouseUp = e => {
 		if (!isSelecting) return;
-
 		const left = Math.min(selectionBox.startX, selectionBox.currentX);
 		const top = Math.min(selectionBox.startY, selectionBox.currentY);
 		const right = Math.max(selectionBox.startX, selectionBox.currentX);
 		const bottom = Math.max(selectionBox.startY, selectionBox.currentY);
-
 		const tempSelectedIds = [];
 		const itemElements = unrankedRef.current.querySelectorAll("[data-id]");
-
 		itemElements.forEach(el => {
 			const itemRect = el.getBoundingClientRect();
 			const containerRect = unrankedRef.current.getBoundingClientRect();
-
 			const itemTop = itemRect.top - containerRect.top;
 			const itemLeft = itemRect.left - containerRect.left;
 			const itemBottom = itemTop + itemRect.height;
 			const itemRight = itemLeft + itemRect.width;
-
-			const isIntersecting = !(
-				itemLeft > right ||
-				itemRight < left ||
-				itemTop > bottom ||
-				itemBottom < top
-			);
-
-			if (isIntersecting) {
+			if (
+				!(
+					itemLeft > right ||
+					itemRight < left ||
+					itemTop > bottom ||
+					itemBottom < top
+				)
+			) {
 				tempSelectedIds.push(el.getAttribute("data-id"));
 			}
 		});
-
-		// SỬA LỖI TẠI ĐÂY: Loại bỏ các ID trùng lặp bằng Set trước khi cập nhật state
 		const uniqueSelectedIds = [...new Set(tempSelectedIds)];
-
-		if (e.shiftKey) {
-			setSelectedIds(prev => [...new Set([...prev, ...uniqueSelectedIds])]);
-		} else {
-			setSelectedIds(uniqueSelectedIds);
-		}
-
+		setSelectedIds(
+			e.shiftKey
+				? prev => [...new Set([...prev, ...uniqueSelectedIds])]
+				: uniqueSelectedIds,
+		);
 		setIsSelecting(false);
 		setSelectionBox(null);
 	};
 
 	// --- LOGIC DND ---
-
 	const findContainer = id => {
-		if (id === "unranked") return "unranked";
-		if (unranked.some(i => i.id === id)) return "unranked";
+		if (id === "unranked" || unranked.some(i => i.id === id)) return "unranked";
 		const tier = tiers.find(t => t.id === id || t.items.some(i => i.id === id));
 		return tier ? tier.id : null;
 	};
 
 	const handleDragStart = event => {
-		const { active } = event;
-		setActiveId(active.id);
-		setActiveType(active.data.current?.type || "item");
+		setActiveId(event.active.id);
+		setActiveType(event.active.data.current?.type || "item");
 	};
 
 	const handleDragOver = event => {
@@ -580,17 +608,14 @@ function TierListChampions() {
 		const overContainer = findContainer(over.id);
 		if (!activeContainer || !overContainer || activeContainer === overContainer)
 			return;
-
 		const idsToMove = selectedIds.includes(active.id)
 			? selectedIds
 			: [active.id];
-		const getAllItems = container =>
-			container === "unranked"
+		const movingItems = (
+			activeContainer === "unranked"
 				? unranked
-				: tiers.find(t => t.id === container).items;
-		const movingItems = getAllItems(activeContainer).filter(i =>
-			idsToMove.includes(i.id),
-		);
+				: tiers.find(t => t.id === activeContainer).items
+		).filter(i => idsToMove.includes(i.id));
 
 		if (activeContainer === "unranked") {
 			setUnranked(prev => prev.filter(i => !idsToMove.includes(i.id)));
@@ -632,7 +657,6 @@ function TierListChampions() {
 			setActiveId(null);
 			return;
 		}
-
 		if (activeType === "tier") {
 			if (active.id !== over.id) {
 				const oldIdx = tiers.findIndex(t => t.id === active.id);
@@ -677,7 +701,6 @@ function TierListChampions() {
 				useCORS: true,
 				backgroundColor: "#121212",
 				scale: 2,
-				scrollY: -window.scrollY,
 			});
 			const link = document.createElement("a");
 			link.download = `tierlist-champions-${Date.now()}.png`;
@@ -690,8 +713,6 @@ function TierListChampions() {
 			btn.innerText = originalText;
 		}
 	};
-
-	// --- HÀM XỬ LÝ NÚT CHỨC NĂNG ---
 
 	const handleResetToSample = () => {
 		if (confirm("Khôi phục danh sách mẫu? Mọi thay đổi hiện tại sẽ mất.")) {
@@ -726,7 +747,6 @@ function TierListChampions() {
 		<div className='max-w-[1200px] mx-auto p-0 font-secondary text-text-primary select-none'>
 			<PageTitle title='Tier List Tướng LoR - Path of Champions' />
 
-			{/* HEADER */}
 			<div className='flex flex-col sm:flex-row justify-between items-center gap-4 mb-6 px-2'>
 				<h1 className='text-xl sm:text-2xl font-bold uppercase'>
 					Tier List Tướng
@@ -787,7 +807,7 @@ function TierListChampions() {
 			>
 				<div
 					ref={tierListRef}
-					className='bg-surface-bg border border-border rounded-lg flex flex-col gap-1 p-1 shadow-inner overflow-visible'
+					className='bg-surface-bg border border-border rounded-lg flex flex-col gap-1 p-1 shadow-inner'
 				>
 					<SortableContext
 						items={tiers.map(t => t.id)}
@@ -839,7 +859,6 @@ function TierListChampions() {
 					</SortableContext>
 				</div>
 
-				{/* KHO TƯỚNG */}
 				<div className='mt-8 p-4 bg-surface-bg border border-border rounded-lg shadow-sm'>
 					<div className='flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-4'>
 						<h2 className='text-xs font-bold text-text-secondary uppercase tracking-widest'>
@@ -867,7 +886,6 @@ function TierListChampions() {
 						</div>
 					</div>
 
-					{/* FILTERS */}
 					<div className='grid grid-cols-2 lg:grid-cols-5 gap-3 mb-6'>
 						<InputField
 							value={searchInput}
@@ -898,7 +916,6 @@ function TierListChampions() {
 						</Button>
 					</div>
 
-					{/* VÙNG QUÉT CHỌN */}
 					<div
 						ref={unrankedRef}
 						onMouseDown={onMouseDown}
@@ -907,7 +924,6 @@ function TierListChampions() {
 						onMouseLeave={() => setIsSelecting(false) || setSelectionBox(null)}
 						className='relative min-h-[300px] border-2 border-dashed border-white/5 rounded-xl p-4 bg-black/10'
 					>
-						{/* Khung quét visual */}
 						{isSelecting && selectionBox && (
 							<div
 								style={{
@@ -919,7 +935,6 @@ function TierListChampions() {
 								className='absolute z-[100] border border-primary-500 bg-primary-500/20 pointer-events-none'
 							/>
 						)}
-
 						<SortableContext
 							items={unranked.map(i => i.id)}
 							strategy={rectSortingStrategy}
