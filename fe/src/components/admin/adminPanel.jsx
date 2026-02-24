@@ -28,6 +28,7 @@ const PowerEditor = lazy(() => import("./powerEditor"));
 const RelicEditor = lazy(() => import("./relicEditor"));
 const ItemEditor = lazy(() => import("./itemEditor"));
 const RuneEditor = lazy(() => import("./runeEditor"));
+const BonusStarEditor = lazy(() => import("./bonusStarEditor"));
 const BuildEditor = lazy(() => import("./buildEditor"));
 const GuideEditor = lazy(() => import("./guideEditor"));
 
@@ -90,6 +91,12 @@ const AdminPanel = () => {
 			path: "/admin/powers",
 		},
 		{
+			id: "bonusStar",
+			label: "Quản lý Tăng Thưởng",
+			icon: Gem,
+			path: "/admin/bonusStars",
+		},
+		{
 			id: "relic",
 			label: "Quản lý Cổ Vật",
 			icon: ShieldCheck,
@@ -121,7 +128,7 @@ const AdminPanel = () => {
 		.find(
 			item =>
 				location.pathname.startsWith(item.path) ||
-				(item.path === "/admin" && location.pathname === "/admin")
+				(item.path === "/admin" && location.pathname === "/admin"),
 		);
 
 	return (
@@ -263,6 +270,7 @@ const AdminPanel = () => {
 							<Route path='items/*' element={<ItemEditor />} />
 							<Route path='runes/*' element={<RuneEditor />} />
 							<Route path='builds/*' element={<BuildEditor />} />
+							<Route path='bonusStars/*' element={<BonusStarEditor />} />
 							<Route path='guides/*' element={<GuideEditor />} />
 						</Routes>
 					</Suspense>

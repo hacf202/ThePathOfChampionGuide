@@ -4,6 +4,7 @@ import {
 	ScanCommand,
 	PutItemCommand,
 	DeleteItemCommand,
+	GetItemCommand, // Đảm bảo đã import để tránh lỗi ReferenceError
 } from "@aws-sdk/client-dynamodb";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
 import NodeCache from "node-cache";
@@ -18,7 +19,7 @@ const ITEMS_TABLE = "guidePocItems";
 const itemCache = new NodeCache({ stdTTL: 120 });
 
 /**
- * Lấy toàn bộ Items từ DB hoặc RAM
+ * Hàm lấy toàn bộ Items từ DB hoặc RAM.
  */
 async function getCachedItems() {
 	const CACHE_KEY = "all_items_data";
@@ -38,6 +39,44 @@ async function getCachedItems() {
 }
 
 /**
+ * @route   GET /api/items/:itemCode
+ * @desc    Lấy chi tiết một vật phẩm (Ưu tiên RAM -> Database)
+ */
+router.get("/:itemCode", async (req, res) => {
+	const { itemCode } = req.params;
+	if (!itemCode)
+		return res.status(400).json({ error: "itemCode là bắt buộc." });
+
+	const id = itemCode.trim();
+	const CACHE_KEY = `item_detail_${id}`;
+
+	// 1. Kiểm tra Cache RAM trước để đạt tốc độ < 1ms
+	const cachedItem = itemCache.get(CACHE_KEY);
+	if (cachedItem) return res.json(cachedItem);
+
+	try {
+		// 2. Truy vấn DynamoDB nếu Cache miss
+		const command = new GetItemCommand({
+			TableName: ITEMS_TABLE,
+			Key: marshall({ itemCode: id }),
+		});
+
+		const { Item } = await client.send(command);
+		if (!Item)
+			return res.status(404).json({ error: `Không tìm thấy vật phẩm: ${id}` });
+
+		const itemData = unmarshall(Item);
+		// 3. Lưu vào Cache
+		itemCache.set(CACHE_KEY, itemData);
+
+		res.json(itemData);
+	} catch (error) {
+		console.error(`Lỗi lấy chi tiết vật phẩm ${id}:`, error);
+		res.status(500).json({ error: "Lỗi hệ thống." });
+	}
+});
+
+/**
  * @route   GET /api/items
  * @desc    Lấy danh sách vật phẩm (Phân trang, Lọc, Cache)
  */
@@ -50,35 +89,28 @@ router.get("/", async (req, res) => {
 			rarities = "",
 			sort = "name-asc",
 		} = req.query;
-
 		const pageSize = parseInt(limit);
 		const currentPage = parseInt(page);
 
 		const allItems = await getCachedItems();
-
-		// 1. Trích xuất bộ lọc động
 		const availableFilters = {
 			rarities: [...new Set(allItems.map(i => i.rarity))]
 				.filter(Boolean)
 				.sort(),
 		};
 
-		// 2. Lọc dữ liệu
 		let filtered = [...allItems];
-
 		if (searchTerm) {
 			const searchKey = removeAccents(searchTerm);
 			filtered = filtered.filter(i =>
 				removeAccents(i.name || "").includes(searchKey),
 			);
 		}
-
 		if (rarities) {
 			const rList = rarities.split(",");
 			filtered = filtered.filter(i => rList.includes(i.rarity));
 		}
 
-		// 3. Sắp xếp
 		const [field, order] = sort.split("-");
 		filtered.sort((a, b) => {
 			let vA = a[field] ?? "";
@@ -88,7 +120,6 @@ router.get("/", async (req, res) => {
 				: vB.toString().localeCompare(vA.toString());
 		});
 
-		// 4. Phân trang
 		const totalItems = filtered.length;
 		const totalPages = Math.ceil(totalItems / pageSize);
 		const paginatedItems = filtered.slice(
@@ -102,45 +133,62 @@ router.get("/", async (req, res) => {
 			availableFilters,
 		});
 	} catch (error) {
-		console.error("Lỗi API Items:", error);
 		res.status(500).json({ error: "Could not retrieve items" });
 	}
 });
 
-// Xóa cache khi dữ liệu thay đổi
+/**
+ * @route   POST /api/items/resolve
+ * @desc    Lấy chi tiết danh sách Vật phẩm từ mảng tên
+ */
+router.post("/resolve", async (req, res) => {
+	const { names } = req.body;
+	if (!Array.isArray(names))
+		return res.status(400).json({ error: "Names must be an array" });
+
+	try {
+		const allItems = await getCachedItems();
+		const result = allItems.filter(i => names.includes(i.name));
+		res.json(result);
+	} catch (error) {
+		res.status(500).json({ error: "Lỗi truy vấn Items" });
+	}
+});
+
+/**
+ * @route   PUT /api/items
+ * @desc    Cập nhật vật phẩm và làm mới Cache
+ */
 router.put("/", authenticateCognitoToken, async (req, res) => {
 	const itemData = req.body;
 	if (!itemData.itemCode)
 		return res.status(400).json({ error: "Item code is required" });
 	try {
-		const command = new PutItemCommand({
-			TableName: ITEMS_TABLE,
-			Item: marshall(itemData),
-		});
-		await client.send(command);
-		itemCache.del("all_items_data"); // Clear cache
-		res
-			.status(200)
-			.json({ message: "Item data updated successfully", item: itemData });
+		await client.send(
+			new PutItemCommand({ TableName: ITEMS_TABLE, Item: marshall(itemData) }),
+		);
+		itemCache.del("all_items_data");
+		itemCache.del(`item_detail_${itemData.itemCode}`); // Xóa cache chi tiết để tránh dữ liệu cũ
+		res.status(200).json({ message: "Updated", item: itemData });
 	} catch (error) {
-		res.status(500).json({ error: "Could not update item data" });
+		res.status(500).json({ error: "Could not update" });
 	}
 });
 
 router.delete("/:itemCode", authenticateCognitoToken, async (req, res) => {
 	const { itemCode } = req.params;
 	try {
-		const command = new DeleteItemCommand({
-			TableName: ITEMS_TABLE,
-			Key: marshall({ itemCode }),
-		});
-		await client.send(command);
-		itemCache.del("all_items_data"); // Clear cache
-		res
-			.status(200)
-			.json({ message: `Item with code ${itemCode} deleted successfully` });
+		await client.send(
+			new DeleteItemCommand({
+				TableName: ITEMS_TABLE,
+				Key: marshall({ itemCode }),
+			}),
+		);
+		itemCache.del("all_items_data");
+		itemCache.del(`item_detail_${itemCode}`);
+		res.status(200).json({ message: "Deleted" });
 	} catch (error) {
-		res.status(500).json({ error: "Could not delete item" });
+		res.status(500).json({ error: "Could not delete" });
 	}
 });
 

@@ -2,13 +2,14 @@
 import { memo, useMemo, useState } from "react";
 import Button from "../common/button";
 import InputField from "../common/inputField";
-import { Search, Package, Gem, Zap, Shield, X } from "lucide-react";
+import { Search, Package, Gem, Zap, Shield, Star, X } from "lucide-react";
 
 const DropDragItem = memo(({ item, type }) => {
 	const handleDragStart = e => {
+		// Gửi dữ liệu dưới dạng JSON khi bắt đầu kéo
 		e.dataTransfer.setData(
 			"text/plain",
-			JSON.stringify({ type, name: item.name })
+			JSON.stringify({ type, name: item.name }),
 		);
 		e.dataTransfer.effectAllowed = "copy";
 	};
@@ -19,17 +20,19 @@ const DropDragItem = memo(({ item, type }) => {
 			onDragStart={handleDragStart}
 			className='p-3 bg-surface-hover rounded-md border border-border hover:bg-surface-hover-active transition-colors cursor-grab active:cursor-grabbing flex items-center gap-3 group'
 		>
-			{/* Icon */}
-			{item.assetAbsolutePath ? (
+			{/* Hiển thị Icon/Ảnh của tài nguyên */}
+			{item.assetAbsolutePath || item.image ? (
 				<img
-					src={item.assetAbsolutePath}
+					src={item.assetAbsolutePath || item.image}
 					alt={item.name}
 					className='w-10 h-10 rounded object-contain bg-white border'
 					onError={e => (e.target.style.display = "none")}
 				/>
 			) : (
 				<div className='w-10 h-10 bg-input-bg rounded border flex items-center justify-center'>
-					<span className='text-xs text-text-secondary'>{type.charAt(0)}</span>
+					<span className='text-xs text-text-secondary'>
+						{type.charAt(0).toUpperCase()}
+					</span>
 				</div>
 			)}
 
@@ -51,26 +54,30 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 	const [activeTab, setActiveTab] = useState("item");
 	const [searchInput, setSearchInput] = useState("");
 	const [selectedRarities, setSelectedRarities] = useState([]);
+	const [selectedTypes, setSelectedTypes] = useState([]); // State mới cho bộ lọc loại
 
+	// Danh sách các Tab tài nguyên (Đã thêm Bonus Star)
 	const tabs = [
 		{ id: "item", label: "Vật phẩm", icon: <Package size={16} /> },
 		{ id: "relic", label: "Cổ vật", icon: <Shield size={16} /> },
 		{ id: "power", label: "Sức mạnh", icon: <Zap size={16} /> },
+		{ id: "bonusStar", label: "Bonus Star", icon: <Star size={16} /> },
 		{ id: "rune", label: "Ngọc", icon: <Gem size={16} /> },
 	];
 
-	// Dữ liệu theo tab
+	// Lấy dữ liệu tương ứng với Tab đang chọn
 	const currentData = useMemo(() => {
 		const map = {
 			item: cachedData.items || [],
 			relic: cachedData.relics || [],
 			power: cachedData.powers || [],
 			rune: cachedData.runes || [],
+			bonusStar: cachedData.bonusStars || [],
 		};
 		return map[activeTab] || [];
 	}, [cachedData, activeTab]);
 
-	// Rarity options
+	// Lấy danh sách các độ hiếm
 	const rarityOptions = useMemo(() => {
 		const rarities = [
 			...new Set(currentData.map(i => i.rarity).filter(Boolean)),
@@ -78,39 +85,76 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 		return rarities.map(r => ({ value: r, label: r }));
 	}, [currentData]);
 
-	// Lọc
+	// Lấy danh sách các loại (Type/NodeType) tùy theo tab
+	const typeOptions = useMemo(() => {
+		let types = [];
+		if (activeTab === "relic") {
+			// Relic: lọc theo type (string)
+			types = [...new Set(currentData.map(i => i.type).filter(Boolean))];
+		} else if (activeTab === "power") {
+			// Power: lọc theo type (list string)
+			types = [
+				...new Set(currentData.flatMap(i => i.type || []).filter(Boolean)),
+			];
+		} else if (activeTab === "bonusStar") {
+			// BonusStar: lọc theo nodeType (string)
+			types = [...new Set(currentData.map(i => i.nodeType).filter(Boolean))];
+		}
+		return types.sort().map(t => ({ value: t, label: t }));
+	}, [currentData, activeTab]);
+
+	// Logic lọc dữ liệu tổng hợp
 	const filteredItems = useMemo(() => {
 		let filtered = currentData;
+
+		// 1. Lọc theo tìm kiếm
 		if (searchInput) {
 			const term = searchInput.toLowerCase();
 			filtered = filtered.filter(
 				i =>
 					i.name?.toLowerCase().includes(term) ||
-					i.descriptionRaw?.toLowerCase().includes(term)
+					i.description?.toLowerCase().includes(term) ||
+					i.descriptionRaw?.toLowerCase().includes(term),
 			);
 		}
+
+		// 2. Lọc theo độ hiếm
 		if (selectedRarities.length > 0) {
 			filtered = filtered.filter(i => selectedRarities.includes(i.rarity));
 		}
+
+		// 3. Lọc theo Loại (Type/NodeType)
+		if (selectedTypes.length > 0) {
+			if (activeTab === "relic") {
+				filtered = filtered.filter(i => selectedTypes.includes(i.type));
+			} else if (activeTab === "power") {
+				filtered = filtered.filter(i =>
+					i.type?.some(t => selectedTypes.includes(t)),
+				);
+			} else if (activeTab === "bonusStar") {
+				filtered = filtered.filter(i => selectedTypes.includes(i.nodeType));
+			}
+		}
+
 		return filtered;
-	}, [currentData, searchInput, selectedRarities]);
+	}, [currentData, searchInput, selectedRarities, selectedTypes, activeTab]);
 
 	const handleReset = () => {
 		setSearchInput("");
 		setSelectedRarities([]);
+		setSelectedTypes([]);
 	};
 
 	return (
 		<div className='sticky top-0 h-screen bg-surface-bg border-l border-border flex flex-col'>
-			{/* Header - Không nút đóng */}
 			<div className='p-4 border-b border-border'>
 				<h3 className='text-lg font-semibold text-text-primary'>
 					Kéo thả Tài nguyên
 				</h3>
 			</div>
 
-			{/* Tabs */}
-			<div className='flex border-b border-border'>
+			{/* Thanh chuyển đổi Tab */}
+			<div className='flex border-b border-border overflow-x-auto no-scrollbar'>
 				{tabs.map(tab => (
 					<button
 						key={tab.id}
@@ -118,7 +162,7 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 							setActiveTab(tab.id);
 							handleReset();
 						}}
-						className={`flex-1 flex items-center justify-center gap-1 py-2 px-3 text-sm font-medium transition-colors
+						className={`flex-1 flex items-center justify-center gap-1 py-2 px-3 text-sm font-medium transition-colors min-w-[100px]
 							${
 								activeTab === tab.id
 									? "text-blue-700 border-b-2 border-primary"
@@ -126,12 +170,12 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 							}`}
 					>
 						{tab.icon}
-						<span className='hidden sm:inline'>{tab.label}</span>
+						<span>{tab.label}</span>
 					</button>
 				))}
 			</div>
 
-			{/* Bộ lọc - Scroll độc lập */}
+			{/* Khu vực bộ lọc */}
 			<div className='p-4 space-y-3 border-b border-border bg-surface-hover'>
 				<div className='relative'>
 					<InputField
@@ -150,48 +194,83 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 					)}
 				</div>
 
-				<div>
-					<label className='block text-xs font-medium text-text-secondary mb-1'>
-						Độ hiếm
-					</label>
-					<div className='flex flex-wrap gap-1'>
-						{rarityOptions.map(opt => (
-							<button
-								key={opt.value}
-								onClick={() =>
-									setSelectedRarities(prev =>
-										prev.includes(opt.value)
-											? prev.filter(v => v !== opt.value)
-											: [...prev, opt.value]
-									)
-								}
-								className={`px-2 py-1 text-xs rounded-full transition-colors
-									${
-										selectedRarities.includes(opt.value)
-											? "bg-primary text-blue font-bold"
-											: "bg-surface-hover text-text-secondary hover:bg-surface-hover-active"
-									}`}
-							>
-								{opt.label}
-							</button>
-						))}
+				{/* Lọc theo Loại (Chỉ hiện ở Relic, Power, BonusStar) */}
+				{typeOptions.length > 0 && (
+					<div>
+						<label className='block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5'>
+							Phân loại
+						</label>
+						<div className='flex flex-wrap gap-1'>
+							{typeOptions.map(opt => (
+								<button
+									key={opt.value}
+									onClick={() =>
+										setSelectedTypes(prev =>
+											prev.includes(opt.value)
+												? prev.filter(v => v !== opt.value)
+												: [...prev, opt.value],
+										)
+									}
+									className={`px-2 py-1 text-[10px] rounded-md transition-all border
+										${
+											selectedTypes.includes(opt.value)
+												? "bg-blue-600 border-blue-600 text-white font-bold"
+												: "bg-surface-bg border-border text-text-secondary hover:border-primary"
+										}`}
+								>
+									{opt.label}
+								</button>
+							))}
+						</div>
 					</div>
-				</div>
+				)}
 
-				{(searchInput || selectedRarities.length > 0) && (
+				{rarityOptions.length > 0 && (
+					<div>
+						<label className='block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5'>
+							Độ hiếm
+						</label>
+						<div className='flex flex-wrap gap-1'>
+							{rarityOptions.map(opt => (
+								<button
+									key={opt.value}
+									onClick={() =>
+										setSelectedRarities(prev =>
+											prev.includes(opt.value)
+												? prev.filter(v => v !== opt.value)
+												: [...prev, opt.value],
+										)
+									}
+									className={`px-2 py-1 text-[10px] rounded-md transition-all border
+										${
+											selectedRarities.includes(opt.value)
+												? "bg-primary border-primary text-blue font-bold shadow-sm"
+												: "bg-surface-bg border-border text-text-secondary hover:border-primary"
+										}`}
+								>
+									{opt.label}
+								</button>
+							))}
+						</div>
+					</div>
+				)}
+
+				{(searchInput ||
+					selectedRarities.length > 0 ||
+					selectedTypes.length > 0) && (
 					<Button
 						variant='outline'
 						size='sm'
 						onClick={handleReset}
-						className='w-full text-xs'
+						className='w-full text-xs py-1 h-auto'
 					>
-						Đặt lại bộ lọc
+						Xóa tất cả bộ lọc
 					</Button>
 				)}
 			</div>
 
-			{/* Danh sách - Scroll riêng, giới hạn chiều cao */}
-			<div className='flex-1 overflow-y-auto p-4'>
+			{/* Danh sách các tài nguyên có thể kéo thả */}
+			<div className='flex-1 overflow-y-auto p-4 custom-scrollbar'>
 				{filteredItems.length > 0 ? (
 					<div className='space-y-2'>
 						{filteredItems.map((item, idx) => (
@@ -204,15 +283,16 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 					</div>
 				) : (
 					<div className='text-center py-8 text-text-secondary'>
-						<p className='text-sm'>Không tìm thấy mục nào.</p>
-						<p className='text-xs mt-1'>Thử thay đổi bộ lọc.</p>
+						<p className='text-sm italic'>Không tìm thấy mục nào.</p>
 					</div>
 				)}
 			</div>
 
-			{/* Footer - Cố định dưới cùng */}
-			<div className='p-4 border-t border-border bg-surface-hover text-xs text-text-secondary'>
-				<p>Kéo item vào ô input trong form để thêm tên tự động.</p>
+			<div className='p-4 border-t border-border bg-surface-hover text-[10px] text-text-secondary italic'>
+				<p>
+					Mẹo: Kéo tài nguyên vào các ô nhập liệu tương ứng để tự động điền
+					thông tin.
+				</p>
 			</div>
 		</div>
 	);

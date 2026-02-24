@@ -87,7 +87,7 @@ function DesktopNavbar() {
 
 	return (
 		<>
-			<header className='bg-header-bg text-header-text p-4 shadow-xl sticky top-0 z-50 font-secondary hidden xl:block'>
+			<header className='bg-header-bg text-header-text p-2 shadow-xl sticky top-0 z-50 font-secondary hidden xl:block'>
 				<div className='container mx-auto flex justify-between items-center'>
 					<NavLink
 						to='/'
@@ -225,8 +225,11 @@ function DesktopNavbar() {
 									>
 										<BookOpen className='w-5 h-5' /> Giới thiệu
 									</NavLink>
-									<NavLink to='/guides' className={dropdownLinkClass}
-										onClick={handleNavClick}>
+									<NavLink
+										to='/guides'
+										className={dropdownLinkClass}
+										onClick={handleNavClick}
+									>
 										<BookMarked className='w-6 h-6' /> Hướng Dẫn
 									</NavLink>
 								</div>

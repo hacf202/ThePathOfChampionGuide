@@ -43,7 +43,7 @@ async function getCachedChampions() {
 
 /**
  * @route   GET /api/champions
- * @desc    Lấy danh sách tướng với bộ lọc động dựa trên dữ liệu thực tế
+ * @desc    Lấy danh sách tướng với bộ lọc động và phân trang an toàn
  */
 router.get("/", async (req, res) => {
 	try {
@@ -65,7 +65,6 @@ router.get("/", async (req, res) => {
 		const allChampions = await getCachedChampions();
 
 		// 2. TRÍCH XUẤT BỘ LỌC ĐỘNG (Dynamic Filters)
-		// Dựa trên TOÀN BỘ dữ liệu trong CSDL thay vì dữ liệu đã phân trang
 		const availableFilters = {
 			tags: [...new Set(allChampions.flatMap(c => c.tag || []))].sort(),
 			regions: [...new Set(allChampions.flatMap(c => c.regions || []))].sort(),
@@ -118,18 +117,33 @@ router.get("/", async (req, res) => {
 			return order === "asc" ? vA - vB : vB - vA;
 		});
 
-		// 5. PHÂN TRANG (Pagination)
+		// 5. PHÂN TRANG (Pagination) - ĐÃ FIX LỖI BỎ SÓT PHẦN TỬ CUỐI
 		const totalItems = filtered.length;
-		const totalPages = Math.ceil(totalItems / pageSize);
-		const paginatedItems = filtered.slice(
-			(currentPage - 1) * pageSize,
-			currentPage * pageSize,
-		);
+		let paginatedItems;
+
+		if (pageSize < 0) {
+			// Nếu limit < 0 (ví dụ -1), trả về toàn bộ mảng không cắt
+			paginatedItems = filtered;
+		} else {
+			// Thực hiện phân trang bình thường
+			paginatedItems = filtered.slice(
+				(currentPage - 1) * pageSize,
+				currentPage * pageSize,
+			);
+		}
+
+		// Tính toán số trang chính xác
+		const totalPages = pageSize > 0 ? Math.ceil(totalItems / pageSize) : 1;
 
 		res.json({
 			items: paginatedItems,
-			pagination: { totalItems, totalPages, currentPage, pageSize },
-			availableFilters, // Trả về danh sách tag/vùng thực tế để Frontend hiển thị
+			pagination: {
+				totalItems,
+				totalPages,
+				currentPage,
+				pageSize: pageSize < 0 ? totalItems : pageSize,
+			},
+			availableFilters,
 		});
 	} catch (error) {
 		console.error("Lỗi Backend:", error);
@@ -137,9 +151,55 @@ router.get("/", async (req, res) => {
 	}
 });
 /**
- * @route   GET /api/champions/search?name=Miss%20Fortune
- * @desc    Tìm tướng theo tên (exact match trên name-index)
- * @access  Public
+ * @route   GET /api/champions/:championID
+ * @desc    Lấy chi tiết một tướng (Ưu tiên Cache -> Database)
+ */
+router.get("/:championID", async (req, res) => {
+	const { championID } = req.params;
+
+	if (!championID) {
+		return res.status(400).json({ error: "championID là bắt buộc." });
+	}
+
+	// 1. Tạo khóa Cache riêng cho từng tướng
+	const CACHE_KEY = `champion_detail_${championID}`;
+
+	try {
+		// 2. Kiểm tra dữ liệu trong Cache
+		const cachedChampion = championCache.get(CACHE_KEY);
+		if (cachedChampion) {
+			return res.json(cachedChampion);
+		}
+
+		// 3. Nếu không có trong Cache, truy vấn từ DynamoDB
+		const command = new GetItemCommand({
+			TableName: CHAMPIONS_TABLE,
+			Key: marshall({ championID }),
+		});
+
+		const { Item } = await client.send(command);
+
+		if (!Item) {
+			return res.status(404).json({ error: "Không tìm thấy tướng yêu cầu." });
+		}
+
+		// 4. Giải mã dữ liệu (Unmarshall)
+		const championData = unmarshall(Item);
+
+		// 5. Lưu vào Cache để sử dụng cho lần sau (TTL 120 giây như mặc định)
+		championCache.set(CACHE_KEY, championData);
+
+		// 6. Trả về kết quả
+		res.json(championData);
+	} catch (error) {
+		console.error("Lỗi khi lấy chi tiết tướng:", error);
+		res.status(500).json({ error: "Lỗi hệ thống khi truy vấn dữ liệu." });
+	}
+});
+
+/**
+ * @route   GET /api/champions/search?name=...
+ * @desc    Tìm tướng theo tên (exact match)
  */
 router.get("/search", async (req, res) => {
 	const { name } = req.query;
@@ -171,13 +231,11 @@ router.get("/search", async (req, res) => {
 
 /**
  * @route   PUT /api/champions
- * @desc    Tạo mới hoặc cập nhật một tướng (championID là String: C056, TFT9_, v.v.)
- * @access  Private (Admin only)
+ * @desc    Tạo mới hoặc cập nhật một tướng
  */
 router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
-	const rawData = req.body; // ← đúng
+	const rawData = req.body;
 
-	// === VALIDATION ===
 	if (!rawData.championID || !rawData.name?.trim()) {
 		return res.status(400).json({ error: "championID và name là bắt buộc." });
 	}
@@ -198,7 +256,6 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 		return res.status(400).json({ error: "maxStar phải là số từ 1-7." });
 	}
 
-	// LOẠI BỎ isNew TRƯỚC KHI LƯU – QUAN TRỌNG NHẤT
 	const { isNew, ...dataToSave } = rawData;
 
 	const cleanData = {
@@ -215,7 +272,6 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 		});
 		const { Item } = await client.send(checkCmd);
 
-		// DÙNG isNew TỪ rawData ĐÃ DESTRUCTURING
 		if (isNew === true) {
 			if (Item) {
 				return res.status(400).json({ error: "Tướng với ID này đã tồn tại." });
@@ -238,6 +294,9 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 
 		await client.send(command);
 
+		// Xóa cache sau khi cập nhật dữ liệu để đảm bảo Frontend nhận dữ liệu mới nhất
+		championCache.del("all_champions_list");
+
 		res.json({
 			message: isNew
 				? "Tạo tướng mới thành công."
@@ -255,8 +314,7 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 
 /**
  * @route   DELETE /api/champions/:championID
- * @desc    Xóa tướng theo championID (String)
- * @access  Private (Admin only)
+ * @desc    Xóa tướng theo championID
  */
 router.delete(
 	"/:championID",
@@ -293,8 +351,10 @@ router.delete(
 
 			await client.send(deleteCmd);
 
-			const deletedChampion = unmarshall(Item);
+			// Xóa cache sau khi xóa dữ liệu
+			championCache.del("all_champions_list");
 
+			const deletedChampion = unmarshall(Item);
 			res.status(200).json({
 				message: `Tướng "${deletedChampion.name}" (ID: ${id}) đã được xóa thành công.`,
 			});

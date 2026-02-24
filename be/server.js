@@ -18,7 +18,8 @@ import itemsRoutes from "./src/routes/items.js";
 import runesRoutes from "./src/routes/runes.js";
 import buildsAdminRouter from "./src/routes/builds-admin.js";
 import guidesRouter from "./src/routes/guides.js";
-
+import constellationsRouter from "./src/routes/constellations.js";
+import bonusStarRoutes from "./src/routes/bonusStars.js";
 dotenv.config(); //đọc .env tải biến môi trường
 
 // Kiểm tra các biến môi trường cần thiết
@@ -94,6 +95,8 @@ app.use("/api/builds", buildsRouter); // ĐỂ CUỐI CÙNG!
 app.use("/api/admin/builds", buildsAdminRouter);
 app.use("/api/guides", guidesRouter);
 app.use("/api/comments", commentsRouter); // Route lấy bình luận mới nhất
+app.use("/api/constellations", constellationsRouter);
+app.use("/api/bonusStars", bonusStarRoutes);
 // API để kiểm tra "sức khỏe" của server
 app.get("/api/checkheal", (req, res) => {
 	res.status(200).json({ status: "OK", message: "Server is healthy" });

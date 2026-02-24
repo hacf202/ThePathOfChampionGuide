@@ -3,21 +3,15 @@ import { memo, useMemo, useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import iconRegions from "../../assets/data/iconRegions.json";
-import constellationData from "./constellation.json";
-import { ChevronLeft, Loader2, Star, X } from "lucide-react";
+// Đã loại bỏ: import constellationData from "./constellation.json";
+import { ChevronLeft, Loader2, Star, Sparkles } from "lucide-react";
 import LatestComments from "../comment/latestComments";
 import Button from "../common/button";
 import PageTitle from "../common/pageTitle";
 import SafeImage from "../common/SafeImage";
 
-// THÀNH PHẦN NODE VỚI KÍCH THƯỚC TỐI ƯU
-const ConstellationNode = ({
-	power,
-	index,
-	active,
-	onHover,
-	onShowTooltip,
-}) => {
+// --- THÀNH PHẦN CONSTELLATION NODE (GIỮ NGUYÊN CSS) ---
+const ConstellationNode = ({ power, index, active, onShowTooltip }) => {
 	const nodeRef = useRef(null);
 
 	const leftPos =
@@ -28,7 +22,7 @@ const ConstellationNode = ({
 	const StarIcon = ({ color, glowColor }) => (
 		<svg
 			viewBox='0 0 100 100'
-			className={`w-6 h-6 sm:w-12 sm:h-12`}
+			className='w-6 h-6 sm:w-12 sm:h-12'
 			style={{
 				filter: `drop-shadow(0 0 6px ${glowColor})`,
 				transform: "rotate(25deg)",
@@ -44,11 +38,7 @@ const ConstellationNode = ({
 	const handleMouseEnter = () => {
 		if (nodeRef.current) {
 			const rect = nodeRef.current.getBoundingClientRect();
-			const coords = {
-				x: rect.left + rect.width / 2,
-				y: rect.top - 10,
-			};
-			onShowTooltip(power, coords);
+			onShowTooltip(power, { x: rect.left + rect.width / 2, y: rect.top - 10 });
 		}
 	};
 
@@ -61,7 +51,7 @@ const ConstellationNode = ({
 			<img
 				src={power.image}
 				alt={power.name}
-				className='w-5 h-5 sm:w-12 sm:h-12 rounded-full object-contain'
+				className='w-6 h-6 sm:w-14 sm:h-14 rounded-full object-contain'
 			/>
 		);
 	};
@@ -77,32 +67,21 @@ const ConstellationNode = ({
 			onMouseLeave={() => onShowTooltip(null, null)}
 		>
 			{power.isRecommended && (
-				<div className='absolute -top-4 sm:-top-6 left-1/2 -translate-x-1/2 bg-yellow-500 text-black text-[6px] sm:text-[8px] font-black px-1 rounded-sm shadow-lg whitespace-nowrap animate-bounce'>
-					ĐỀ XUẤT
+				<div className='absolute -top-1 -right-0.5 sm:-top-2 sm:-right-1 z-20 text-yellow-400 animate-pulse'>
+					<Sparkles fill='currentColor' className='w-2 h-2 sm:w-4 sm:h-4' />
 				</div>
 			)}
 
 			<div className='relative flex items-center justify-center'>
 				<div
-					className={`absolute inset-0 rounded-full blur-xl transition-opacity duration-500 ${
+					className={`absolute inset-0 rounded-full blur-2xl transition-opacity duration-500 ${
 						power.isRecommended || active
-							? "opacity-100 bg-yellow-400 animate-pulse"
+							? "opacity-80 bg-yellow-400 animate-pulse"
 							: "opacity-0"
 					}`}
 				/>
-				<div
-					className={`relative transition-colors flex items-center justify-center ${
-						power.nodeType === "starPower"
-							? "bg-surface-bg border-2 rounded-full p-0.5 sm:p-1"
-							: ""
-					} ${
-						(power.isRecommended || active) && power.nodeType === "starPower"
-							? "border-yellow-400 ring-2 ring-yellow-500 ring-offset-0"
-							: power.nodeType === "starPower"
-								? "border-border"
-								: ""
-					}`}
-				>
+
+				<div className='relative flex items-center justify-center'>
 					{renderNodeContent()}
 					{power.nodeType === "starPower" && (
 						<div
@@ -117,12 +96,10 @@ const ConstellationNode = ({
 	);
 };
 
-// COMPONENT HIỂN THỊ ĐƯỜNG NỐI VỚI MŨI TÊN CHỈ SÁT NODE
+// --- THÀNH PHẦN ĐƯỜNG NỐI (GIỮ NGUYÊN CSS) ---
 const ConstellationLine = ({ x1, y1, x2, y2, isRecommended }) => {
 	const angle = Math.atan2(y2 - y1, x2 - x1);
-	// Giảm offset tối đa để mũi tên chạm sát vào viền node (Mobile: 1.8%, Desktop: 3.5%)
-	const offset = window.innerWidth < 640 ? 1.8 : 3.5;
-
+	const offset = window.innerWidth < 640 ? 1.5 : 3.0;
 	const finalX2 = x2 - offset * Math.cos(angle);
 	const finalY2 = y2 - offset * Math.sin(angle);
 
@@ -143,6 +120,7 @@ const ConstellationLine = ({ x1, y1, x2, y2, isRecommended }) => {
 	);
 };
 
+// --- THÀNH PHẦN HIỂN THỊ ITEM (GIỮ NGUYÊN CSS) ---
 const RenderItem = ({ item }) => {
 	if (!item) return null;
 	const linkPath = item.powerCode
@@ -160,10 +138,6 @@ const RenderItem = ({ item }) => {
 				src={item.image || "/fallback-image.svg"}
 				alt={item.name}
 				className='w-16 h-16 rounded-md shrink-0'
-				onError={e => {
-					e.target.src = "/fallback-image.svg";
-				}}
-				loading='lazy'
 			/>
 			<div>
 				<h3 className='font-semibold text-text-primary text-lg'>{item.name}</h3>
@@ -185,10 +159,11 @@ function ChampionDetail() {
 	const apiUrl = import.meta.env.VITE_API_URL;
 
 	const [champion, setChampion] = useState(null);
-	const [powers, setPowers] = useState([]);
-	const [items, setItems] = useState([]);
-	const [relics, setRelics] = useState([]);
-	const [runes, setRunes] = useState([]);
+	const [constellationData, setConstellationData] = useState(null); // Lưu dữ liệu từ API constellations
+	const [resolvedPowers, setResolvedPowers] = useState([]);
+	const [resolvedItems, setResolvedItems] = useState([]);
+	const [resolvedRelics, setResolvedRelics] = useState([]);
+	const [resolvedRunes, setResolvedRunes] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 
@@ -196,174 +171,198 @@ function ChampionDetail() {
 	const [tooltipCoords, setTooltipCoords] = useState(null);
 	const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
 
-	const nodePositionsDefault = useMemo(
-		() => [
-			{ x: 15, y: 65 },
-			{ x: 30, y: 40 },
-			{ x: 50, y: 60 },
-			{ x: 65, y: 35 },
-			{ x: 80, y: 70 },
-			{ x: 90, y: 45 },
-		],
-		[],
-	);
-
 	useEffect(() => {
 		let isMounted = true;
-		const fetchData = async () => {
+		const controller = new AbortController();
+		const signal = controller.signal;
+
+		const initData = async () => {
 			try {
 				setLoading(true);
-				const responses = await Promise.all([
-					fetch(`${apiUrl}/api/champions?limit=-1`),
-					fetch(`${apiUrl}/api/powers?limit=-1`),
-					fetch(`${apiUrl}/api/items?limit=-1`),
-					fetch(`${apiUrl}/api/relics?limit=-1`),
-					fetch(`${apiUrl}/api/runes?limit=-1`),
+
+				// 1. Lấy thông tin tướng và thông tin chòm sao từ API song song
+				const [champRes, constRes] = await Promise.all([
+					fetch(`${apiUrl}/api/champions/${championID}`, { signal }),
+					fetch(`${apiUrl}/api/constellations/${championID}`, { signal }),
 				]);
-				if (!responses.every(r => r.ok))
-					throw new Error("Không thể tải dữ liệu.");
-				const results = await Promise.all(responses.map(r => r.json()));
+
+				if (!champRes.ok) throw new Error("Không thể tải thông tin tướng.");
+				const champData = await champRes.json();
+
+				// Chòm sao có thể không tồn tại cho mọi tướng, nên không throw error ngay
+				const constData = constRes.ok ? await constRes.json() : null;
+
 				if (!isMounted) return;
-				const [championsJson, powersJson, itemsJson, relicsJson, runesJson] =
-					results;
-				const found = (championsJson.items || []).find(
-					c => c.championID === championID,
-				);
-				if (!found) setError(`Không tìm thấy tướng: ${championID}`);
-				else setChampion(found);
-				setPowers(powersJson.items || []);
-				setItems(itemsJson.items || []);
-				setRelics(relicsJson.items || []);
-				setRunes(runesJson.items || []);
+				setChampion(champData);
+				setConstellationData(constData);
+
+				// 2. Xác định danh sách tên cần resolve
+				const constellationNames = constData
+					? constData.nodes.map(n => n.nodeName)
+					: champData.powerStars || [];
+
+				const allPowerNames = [
+					...new Set([
+						...(champData.adventurePowers || []),
+						...constellationNames,
+					]),
+				];
+
+				const relicNames = Array.from(
+					{ length: 6 },
+					(_, i) => champData[`defaultRelicsSet${i + 1}`] || [],
+				).flat();
+
+				const resolveBatchWithSignal = async (endpoint, names) => {
+					if (!names || names.length === 0) return [];
+					try {
+						const res = await fetch(`${apiUrl}/api/${endpoint}/resolve`, {
+							method: "POST",
+							headers: { "Content-Type": "application/json" },
+							body: JSON.stringify({ names }),
+							signal,
+						});
+						return res.ok ? await res.json() : [];
+					} catch (err) {
+						if (err.name === "AbortError") return [];
+						return [];
+					}
+				};
+
+				// 3. Resolve dữ liệu chi tiết
+				const [pDetails, iDetails, rDetails, ruDetails] = await Promise.all([
+					resolveBatchWithSignal("powers", allPowerNames),
+					resolveBatchWithSignal("items", champData.defaultItems || []),
+					resolveBatchWithSignal("relics", relicNames),
+					resolveBatchWithSignal("runes", champData.rune || []),
+				]);
+
+				if (isMounted) {
+					setResolvedPowers(pDetails);
+					setResolvedItems(iDetails);
+					setResolvedRelics(rDetails);
+					setResolvedRunes(ruDetails);
+				}
 			} catch (err) {
-				if (isMounted) setError(err.message);
+				if (isMounted && err.name !== "AbortError") {
+					setError(err.message);
+				}
 			} finally {
 				if (isMounted) setLoading(false);
 			}
 		};
-		fetchData();
+
+		initData();
+
 		return () => {
 			isMounted = false;
+			controller.abort();
 		};
 	}, [championID, apiUrl]);
 
-	const powerStarsFull = useMemo(() => {
-		if (!champion) return [];
-		const isMatch =
-			constellationData && constellationData.championID === championID;
-		if (isMatch) {
-			return constellationData.nodes.map(node => {
-				const p = powers.find(x => x.name === node.nodeName);
+	const constellationInfo = useMemo(() => {
+		if (!champion) return { nodes: [], backgroundImage: "" };
+
+		// Sử dụng constellationData từ API thay vì file JSON
+		if (constellationData) {
+			const nodes = constellationData.nodes.map(node => {
+				const p = resolvedPowers.find(x => x.name === node.nodeName);
 				return {
-					nodeID: node.nodeID,
+					...node,
 					name: node.nodeName,
 					image: p?.assetAbsolutePath || "/images/placeholder.png",
-					description: node.description,
+					description:
+						node.description || p?.description || p?.descriptionRaw || "",
 					pos: node.position,
-					nextNodes: node.nextNodes || [],
-					isRecommended: node.isRecommended,
-					nodeType: node.nodeType,
+					isRecommended: node.isRecommended || false,
 				};
 			});
+			return { nodes, backgroundImage: constellationData.backgroundImage };
 		}
-		return (champion.powerStars || [])
-			.map((name, index) => {
-				const p = powers.find(x => x.name === name);
-				return {
-					name,
-					image: p?.assetAbsolutePath || "/images/placeholder.png",
-					description: p?.description || p?.descriptionRaw || "",
-					pos: nodePositionsDefault[index] || { x: 50, y: 50 },
-					nextNodes: [],
-					isRecommended: false,
-					nodeType: "starPower",
-				};
-			})
-			.filter(i => i.name);
-	}, [champion, championID, powers, nodePositionsDefault]);
 
-	const videoLink =
-		champion?.videoLink || "https://www.youtube.com/embed/mZgnjMeTI5E";
-	const findRegionIconLink = n =>
-		iconRegions.find(i => i.name === n)?.iconAbsolutePath ||
-		"/fallback-image.svg";
-	const bgMap =
-		constellationData?.championID === championID
-			? constellationData.backgroundImage
-			: champion?.assets?.[0]?.avatar || "/fallback-image.svg";
-	const isSpiritBlossom = champion?.regions?.includes("Hoa Linh Lục Địa");
+		// Fallback nếu không có dữ liệu chòm sao từ API
+		const fallbackNodes = (champion.powerStars || []).map((name, i) => {
+			const p = resolvedPowers.find(x => x.name === name);
+			return {
+				nodeID: `fallback-${i}`,
+				name: name,
+				image: p?.assetAbsolutePath || "/images/placeholder.png",
+				description: p?.description || p?.descriptionRaw || "",
+				pos: { x: 15 + i * 15, y: 50 },
+				nextNodes:
+					i < champion.powerStars.length - 1 ? [`fallback-${i + 1}`] : [],
+				nodeType: "starPower",
+				isRecommended: false,
+			};
+		});
+		return {
+			nodes: fallbackNodes,
+			backgroundImage: champion?.assets?.[0]?.avatar,
+		};
+	}, [champion, constellationData, resolvedPowers]);
 
 	const adventurePowersFull = useMemo(
 		() =>
-			(champion?.adventurePowers || [])
-				.map(name => {
-					const p = powers.find(x => x.name === name);
-					return {
-						name,
-						image: p?.assetAbsolutePath || "/images/placeholder.png",
-						description: p?.description || p?.descriptionRaw || "",
-						powerCode: p?.powerCode || null,
-					};
-				})
-				.filter(i => i.name),
-		[champion, powers],
+			(champion?.adventurePowers || []).map(name => {
+				const p = resolvedPowers.find(x => x.name === name);
+				return {
+					name,
+					image: p?.assetAbsolutePath || "/images/placeholder.png",
+					description: p?.description || "",
+					powerCode: p?.powerCode,
+				};
+			}),
+		[champion, resolvedPowers],
 	);
 
 	const defaultItemsFull = useMemo(
 		() =>
-			(champion?.defaultItems || [])
-				.map(name => {
-					const i = items.find(x => x.name === name);
-					return {
-						name,
-						image: i?.assetAbsolutePath || "/images/placeholder.png",
-						description: i?.description || "",
-						itemCode: i?.itemCode || null,
-					};
-				})
-				.filter(i => i.name),
-		[champion, items],
+			(champion?.defaultItems || []).map(name => {
+				const i = resolvedItems.find(x => x.name === name);
+				return {
+					name,
+					image: i?.assetAbsolutePath || "/images/placeholder.png",
+					description: i?.description || "",
+					itemCode: i?.itemCode,
+				};
+			}),
+		[champion, resolvedItems],
 	);
 
 	const runesFull = useMemo(
 		() =>
-			(champion?.rune || [])
-				.map(name => {
-					const r = runes.find(x => x.name === name);
-					return {
-						name,
-						image: r?.assetAbsolutePath || "/images/placeholder.png",
-						description: r?.description || "",
-						runeCode: r?.runeCode || null,
-					};
-				})
-				.filter(i => i.name),
-		[champion, runes],
+			(champion?.rune || []).map(name => {
+				const r = resolvedRunes.find(x => x.name === name);
+				return {
+					name,
+					image: r?.assetAbsolutePath || "/images/placeholder.png",
+					description: r?.description || "",
+					runeCode: r?.runeCode,
+				};
+			}),
+		[champion, resolvedRunes],
 	);
 
-	const defaultRelicsSetsFull = useMemo(() => {
+	const relicSets = useMemo(() => {
 		if (!champion) return [];
-		const sets = [];
-		for (let i = 1; i <= 6; i++) {
-			const arr = champion[`defaultRelicsSet${i}`];
-			if (Array.isArray(arr) && arr.length > 0) {
-				const relicsInSet = arr
+		return Array.from({ length: 6 }, (_, i) => {
+			const names = champion[`defaultRelicsSet${i + 1}`] || [];
+			return {
+				setNumber: i + 1,
+				relics: names
 					.map(name => {
-						const r = relics.find(x => x.name === name);
+						const r = resolvedRelics.find(x => x.name === name);
 						return {
 							name,
 							image: r?.assetAbsolutePath || "/images/placeholder.png",
 							description: r?.description || "",
-							relicCode: r?.relicCode || null,
+							relicCode: r?.relicCode,
 						};
 					})
-					.filter(r => r.name);
-				if (relicsInSet.length > 0)
-					sets.push({ setNumber: i, relics: relicsInSet });
-			}
-		}
-		return sets;
-	}, [champion, relics]);
+					.filter(r => r.name),
+			};
+		}).filter(s => s.relics.length > 0);
+	}, [champion, resolvedRelics]);
 
 	if (loading)
 		return (
@@ -392,24 +391,21 @@ function ChampionDetail() {
 				<Button variant='outline' onClick={() => navigate(-1)} className='mb-4'>
 					<ChevronLeft size={18} /> Quay lại
 				</Button>
-				<div className='relative mx-auto max-w-[1200px] sm:p-6 rounded-lg bg-surface-bg border '>
-					<div className='flex flex-col md:flex-row border  gap-4 rounded-md bg-surface-hover sm:p-4'>
+				<div className='relative mx-auto max-w-[1200px] sm:p-6 rounded-lg bg-surface-bg border'>
+					<div className='flex flex-col md:flex-row border gap-4 rounded-md bg-surface-hover sm:p-4'>
 						<SafeImage
 							className='h-auto max-h-[300px] object-contain rounded-lg'
-							src={
-								champion.assets?.[0]?.gameAbsolutePath ||
-								"/images/placeholder.png"
-							}
+							src={champion.assets?.[0]?.gameAbsolutePath}
 							alt={champion.name}
 						/>
 						<div className='flex-1'>
-							<div className='flex flex-col sm:flex-row sm:justify-between rounded-lg p-2 m-1 gap-2'>
+							<div className='flex flex-col sm:flex-row sm:justify-between p-2 m-1 gap-2'>
 								<h1 className='text-2xl sm:text-4xl font-bold font-primary'>
 									{champion.name}
 								</h1>
-								<div className='flex flex-wrap gap-2 mb-2 items-center'>
-									<div className='flex items-center gap-1 px-2.5 py-1.5 bg-yellow-500/20 border border-yellow-500 rounded-full shadow-sm'>
-										<span className='text-sm sm:text-base font-bold text-yellow-900'>
+								<div className='flex flex-wrap gap-2 items-center'>
+									<div className='flex items-center gap-1 px-2.5 py-1.5 bg-yellow-500/20 border border-yellow-500 rounded-full'>
+										<span className='text-sm font-bold text-yellow-900'>
 											{champion.maxStar}
 										</span>
 										<Star size={16} className='text-yellow-600 fill-current' />
@@ -417,7 +413,10 @@ function ChampionDetail() {
 									{champion.regions?.map((r, i) => (
 										<img
 											key={i}
-											src={findRegionIconLink(r)}
+											src={
+												iconRegions.find(item => item.name === r)
+													?.iconAbsolutePath || "/fallback-image.svg"
+											}
 											alt={r}
 											className='w-10 h-10'
 										/>
@@ -425,11 +424,11 @@ function ChampionDetail() {
 								</div>
 							</div>
 							<div
-								className={`mt-1 mx-1 p-4 border border-border rounded-lg bg-surface-bg text-text-secondary ${!isDescriptionExpanded ? "overflow-y-auto h-48 sm:h-60" : "h-auto"}`}
+								className={`mt-1 mx-1 p-4 border rounded-lg bg-surface-bg ${!isDescriptionExpanded ? "overflow-y-auto h-48 sm:h-60" : "h-auto"}`}
 							>
 								{champion.description
 									?.replace(/\\n/g, "\n")
-									.split(/\r?\n/)
+									.split(/\n/)
 									.map((line, i) => (
 										<p key={i} className={i > 0 ? "mt-3" : ""}>
 											{line || <span className='text-transparent'>empty</span>}
@@ -445,33 +444,31 @@ function ChampionDetail() {
 						</div>
 					</div>
 
-					{/* PHẦN CONSTELLATION MAP VỚI MŨI TÊN CHỈ SÁT NODE */}
-					{powerStarsFull.length > 0 && (
+					{constellationInfo.nodes.length > 0 && (
 						<>
 							<h2 className='p-1 text-lg sm:text-3xl font-semibold my-1 uppercase font-primary'>
 								Chòm sao
 							</h2>
 							<div className='p-1 relative w-full aspect-video bg-slate-950 border rounded-lg overflow-hidden shadow-2xl'>
 								<img
-									src={bgMap}
-									className='absolute inset-0 w-full h-full object-cover opacity-10 blur-sm scale-110 pointer-events-none'
+									src={constellationInfo.backgroundImage}
+									className='absolute inset-0 w-full h-full object-cover opacity-10 blur-sm pointer-events-none'
 									alt='bg'
 								/>
 								<svg className='absolute inset-0 w-full h-full pointer-events-none'>
 									<defs>
-										{/* Mũi tên nhỏ hơn cho mobile */}
 										<marker
 											id='arrowhead'
-											markerWidth={window.innerWidth < 640 ? "3.5" : "5"}
-											markerHeight={window.innerWidth < 640 ? "3.5" : "5"}
-											refX='4.8'
-											refY={window.innerWidth < 640 ? "1.75" : "2.5"}
+											markerWidth={window.innerWidth < 640 ? "3" : "5"}
+											markerHeight={window.innerWidth < 640 ? "3" : "5"}
+											refX={window.innerWidth < 640 ? "2.5" : "4.8"}
+											refY={window.innerWidth < 640 ? "1.5" : "2.5"}
 											orient='auto'
 										>
 											<path
 												d={
 													window.innerWidth < 640
-														? "M0,0 L3.5,1.75 L0,3.5 Z"
+														? "M0,0 L3,1.5 L0,3 Z"
 														: "M0,0 L5,2.5 L0,5 Z"
 												}
 												fill='rgba(234, 179, 8, 0.6)'
@@ -479,92 +476,73 @@ function ChampionDetail() {
 										</marker>
 										<marker
 											id='arrowhead-recommended'
-											markerWidth={window.innerWidth < 640 ? "3.5" : "5"}
-											markerHeight={window.innerWidth < 640 ? "3.5" : "5"}
-											refX='4.8'
-											refY={window.innerWidth < 640 ? "1.75" : "2.5"}
+											markerWidth={window.innerWidth < 640 ? "3" : "5"}
+											markerHeight={window.innerWidth < 640 ? "3" : "5"}
+											refX={window.innerWidth < 640 ? "2.5" : "4.8"}
+											refY={window.innerWidth < 640 ? "1.5" : "2.5"}
 											orient='auto'
 										>
 											<path
 												d={
 													window.innerWidth < 640
-														? "M0,0 L3.5,1.75 L0,3.5 Z"
+														? "M0,0 L3,1.5 L0,3 Z"
 														: "M0,0 L5,2.5 L0,5 Z"
 												}
 												fill='rgba(234, 179, 8, 1)'
 											/>
 										</marker>
 									</defs>
-									{powerStarsFull.map((power, idx) => {
-										const isMatch =
-											constellationData?.championID === championID;
-										if (isMatch) {
-											return power.nextNodes.map(tID => {
-												const target = powerStarsFull.find(
-													n => n.nodeID === tID,
-												);
-												if (!target) return null;
-												return (
+									{constellationInfo.nodes.map(node =>
+										node.nextNodes.map(tID => {
+											const target = constellationInfo.nodes.find(
+												n => n.nodeID === tID,
+											);
+											return (
+												target && (
 													<ConstellationLine
-														key={`${power.nodeID}-${tID}`}
-														x1={power.pos.x}
-														y1={power.pos.y}
+														key={`${node.nodeID}-${tID}`}
+														x1={node.pos.x}
+														y1={node.pos.y}
 														x2={target.pos.x}
 														y2={target.pos.y}
 														isRecommended={
-															power.isRecommended && target.isRecommended
+															node.isRecommended && target.isRecommended
 														}
 													/>
-												);
-											});
-										} else if (idx < powerStarsFull.length - 1) {
-											const next = powerStarsFull[idx + 1];
-											return (
-												<ConstellationLine
-													key={idx}
-													x1={power.pos.x}
-													y1={power.pos.y}
-													x2={next.pos.x}
-													y2={next.pos.y}
-													isRecommended={false}
-												/>
+												)
 											);
-										}
-										return null;
-									})}
+										}),
+									)}
 								</svg>
-								{powerStarsFull.map((power, index) => (
+								{constellationInfo.nodes.map((node, index) => (
 									<ConstellationNode
 										key={index}
 										index={index}
-										power={power}
-										active={hoveredNode?.name === power.name}
-										onHover={setHoveredNode}
-										onShowTooltip={(node, coords) => {
-											setHoveredNode(node);
-											setTooltipCoords(coords);
+										power={node}
+										active={hoveredNode?.name === node.name}
+										onShowTooltip={(n, c) => {
+											setHoveredNode(n);
+											setTooltipCoords(c);
 										}}
 									/>
 								))}
-
 								{hoveredNode &&
 									tooltipCoords &&
 									createPortal(
 										<div
-											className='fixed bg-surface-bg border border-primary-500 rounded-lg shadow-2xl p-2 sm:p-3 z-[9999] pointer-events-none animate-in fade-in zoom-in-95 duration-200'
+											className='fixed bg-surface-bg border border-primary-500 rounded-lg shadow-2xl p-3 z-[9999] pointer-events-none'
 											style={{
 												left: `${tooltipCoords.x}px`,
 												top: `${tooltipCoords.y}px`,
 												transform: "translate(-50%, -100%)",
-												width: "max-content",
-												maxWidth: window.innerWidth < 640 ? "180px" : "280px",
+												maxWidth: "280px",
 											}}
 										>
-											<h3 className='text-primary-500 font-bold text-[10px] sm:text-sm uppercase mb-1'>
+											<h3 className='text-primary-500 font-bold text-sm uppercase mb-1'>
 												{hoveredNode.name}
 											</h3>
 											<div
-												className='text-text-secondary text-[9px] sm:text-xs leading-relaxed line-clamp-5 sm:line-clamp-none'
+												className='text-text-secondary text-xs leading-relaxed'
 												dangerouslySetInnerHTML={{
 													__html: hoveredNode.description,
 												}}
@@ -574,7 +552,6 @@ function ChampionDetail() {
 										document.body,
 									)}
 							</div>
-							<div className='mb-2'></div>
 						</>
 					)}
 
@@ -585,18 +562,22 @@ function ChampionDetail() {
 						<iframe
 							width='100%'
 							height='100%'
-							src={videoLink}
+							src={
+								champion?.videoLink ||
+								"https://www.youtube.com/embed/mZgnjMeTI5E"
+							}
 							frameBorder='0'
 							allowFullScreen
 						></iframe>
 					</div>
-					{defaultRelicsSetsFull.length > 0 && (
+
+					{relicSets.length > 0 && (
 						<>
 							<h2 className='p-1 text-lg sm:text-3xl font-semibold mt-2 font-primary'>
 								Bộ cổ vật
 							</h2>
-							<div className='grid gap-4 bg-surface-hover p-1 md:p-4 rounded-md'>
-								{defaultRelicsSetsFull.map((set, idx) => (
+							<div className='grid gap-4 bg-surface-hover p-4 rounded-md'>
+								{relicSets.map((set, idx) => (
 									<div
 										key={idx}
 										className='bg-surface-bg border border-border rounded-lg grid grid-cols-1 md:grid-cols-3'
@@ -609,18 +590,7 @@ function ChampionDetail() {
 							</div>
 						</>
 					)}
-					{isSpiritBlossom && runesFull.length > 0 && (
-						<>
-							<h2 className='text-lg sm:text-3xl font-semibold my-1 font-primary'>
-								Ngọc
-							</h2>
-							<div className='grid grid-cols-1 md:grid-cols-2 gap-4 bg-surface-hover p-1 rounded-md border border-border'>
-								{runesFull.map((rune, index) => (
-									<RenderItem key={index} item={rune} />
-								))}
-							</div>
-						</>
-					)}
+
 					{adventurePowersFull.length > 0 && (
 						<>
 							<h2 className='text-lg sm:text-3xl font-semibold my-1 font-primary'>
@@ -633,6 +603,7 @@ function ChampionDetail() {
 							</div>
 						</>
 					)}
+
 					{defaultItemsFull.length > 0 && (
 						<>
 							<h2 className='text-lg sm:text-3xl font-semibold my-1 font-primary'>
@@ -645,7 +616,7 @@ function ChampionDetail() {
 							</div>
 						</>
 					)}
-					<div className=' sm:px-0'>
+					<div className='mt-6'>
 						<LatestComments championID={championID} />
 					</div>
 				</div>

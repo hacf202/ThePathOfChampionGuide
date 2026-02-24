@@ -73,7 +73,7 @@ function MobileSidebar() {
 	return (
 		<>
 			{/* Mobile Header */}
-			<header className='bg-header-bg text-header-text p-4 shadow-xl sticky top-0 z-50 xl:hidden flex items-center justify-between'>
+			<header className='bg-header-bg text-header-text p-2 shadow-xl sticky top-0 z-50 xl:hidden flex items-center justify-between'>
 				<NavLink to='/' className='flex items-center gap-2'>
 					<img src={Logo} alt='Logo' className='h-8 w-auto rounded' />
 					<span className='font-primary text-xl'>POC GUIDE</span>

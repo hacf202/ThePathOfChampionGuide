@@ -1,11 +1,49 @@
 // src/pages/admin/championEditorForm.jsx
-import { useState, memo, useEffect } from "react";
+import { useState, memo, useEffect, useCallback, useRef, useMemo } from "react";
 import Button from "../common/button";
 import InputField from "../common/inputField";
 import Modal from "../common/modal";
-import { XCircle, Plus, Link2 } from "lucide-react";
+import {
+	XCircle,
+	Plus,
+	Link2,
+	Map as MapIcon,
+	Star,
+	Gem,
+	ChevronDown,
+	ChevronUp,
+	Crosshair,
+	Sparkles,
+	Youtube,
+} from "lucide-react";
 
-// (Giữ nguyên ArrayInputComponent không thay đổi)
+// --- THÀNH PHẦN HỖ TRỢ: ĐƯỜNG NỐI CHÒM SAO (Tham khảo từ championDetail) ---
+const ConstellationLine = ({ x1, y1, x2, y2, isRecommended }) => {
+	const angle = Math.atan2(y2 - y1, x2 - x1);
+	const offset = window.innerWidth < 640 ? 1.5 : 3.0; //
+	const finalX2 = x2 - offset * Math.cos(angle);
+	const finalY2 = y2 - offset * Math.sin(angle);
+
+	return (
+		<line
+			x1={`${x1}%`}
+			y1={`${y1}%`}
+			x2={`${finalX2}%`}
+			y2={`${finalY2}%`}
+			stroke={
+				isRecommended ? "rgba(234, 179, 8, 1)" : "rgba(234, 179, 8, 0.25)"
+			}
+			strokeWidth={isRecommended ? "3" : "1.5"}
+			strokeDasharray={isRecommended ? "0" : "8,4"}
+			markerEnd={`url(#${isRecommended ? "arrowhead-recommended" : "arrowhead"})`}
+			className={
+				isRecommended ? "drop-shadow-[0_0_8px_rgba(234, 179, 8, 1)]" : ""
+			}
+		/>
+	);
+};
+
+// --- THÀNH PHẦN HỖ TRỢ: NHẬP MẢNG (Items, Relics, Powers...) ---
 const ArrayInputComponent = ({
 	label,
 	data = [],
@@ -45,7 +83,9 @@ const ArrayInputComponent = ({
 	return (
 		<div className='flex flex-col gap-3'>
 			<div className='flex justify-between items-center'>
-				<label className='font-semibold text-text-primary'>{label}</label>
+				<label className='font-semibold text-text-primary uppercase text-xs tracking-wider'>
+					{label}
+				</label>
 				<Button
 					type='button'
 					variant='outline'
@@ -82,14 +122,14 @@ const ArrayInputComponent = ({
 											className='w-10 h-10 rounded object-contain bg-white border border-border'
 										/>
 									) : (
-										<div className='w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded flex items-center justify-center'>
+										<div className='w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded border flex items-center justify-center'>
 											<span className='text-xs text-gray-500'>?</span>
 										</div>
 									)}
 								</div>
 
 								<InputField
-									value={safeValue}
+									value={safeValue || ""}
 									onChange={e => handleItemChange(index, e.target.value)}
 									placeholder={placeholder}
 									className='flex-1'
@@ -112,20 +152,346 @@ const ArrayInputComponent = ({
 	);
 };
 
+// --- THÀNH PHẦN HỖ TRỢ: NHẬP LIÊN KẾT NODE (Mới - Giống Requirements) ---
+const NextNodesInput = ({ nextNodes = [], onChange }) => {
+	const addItem = () => onChange([...nextNodes, ""]);
+	const removeItem = idx => onChange(nextNodes.filter((_, i) => i !== idx));
+	const updateItem = (idx, val) => {
+		const next = [...nextNodes];
+		next[idx] = val;
+		onChange(next);
+	};
+
+	return (
+		<div className='space-y-2 mt-3 p-3 bg-surface-hover/30 rounded-lg border border-border/50'>
+			<div className='flex justify-between items-center'>
+				<label className='text-[10px] font-bold uppercase text-text-secondary tracking-widest'>
+					Liên kết đến Nodes
+				</label>
+				<button
+					type='button'
+					onClick={addItem}
+					className='text-primary-500 text-[10px] font-bold hover:underline'
+				>
+					+ Thêm liên kết
+				</button>
+			</div>
+			{nextNodes.map((nodeID, idx) => (
+				<div
+					key={idx}
+					className='flex gap-2 items-center animate-in fade-in slide-in-from-top-1'
+				>
+					<InputField
+						value={nodeID || ""}
+						onChange={e => updateItem(idx, e.target.value)}
+						placeholder='Nhập Node ID (VD: n2)'
+						className='flex-1'
+					/>
+					<button
+						type='button'
+						onClick={() => removeItem(idx)}
+						className='text-red-500 hover:bg-red-500/10 p-1 rounded-full transition-colors'
+					>
+						<XCircle size={16} />
+					</button>
+				</div>
+			))}
+		</div>
+	);
+};
+
+// --- THÀNH PHẦN HỖ TRỢ: NHẬP YÊU CẦU MỞ KHÓA (Requirements) ---
+const RequirementsInput = ({ requirements = [], onChange }) => {
+	const addItem = () =>
+		onChange([...requirements, { type: "Fragment", value: 10 }]);
+	const removeItem = idx => onChange(requirements.filter((_, i) => i !== idx));
+	const updateItem = (idx, field, val) => {
+		const next = [...requirements];
+		next[idx] = { ...next[idx], [field]: val };
+		onChange(next);
+	};
+
+	return (
+		<div className='space-y-2 mt-3 p-3 bg-surface-hover/30 rounded-lg border border-border/50'>
+			<div className='flex justify-between items-center'>
+				<label className='text-[10px] font-bold uppercase text-text-secondary tracking-widest'>
+					Yêu cầu mở khóa
+				</label>
+				<button
+					type='button'
+					onClick={addItem}
+					className='text-primary-500 text-[10px] font-bold hover:underline'
+				>
+					+ Thêm yêu cầu
+				</button>
+			</div>
+			{requirements.map((req, idx) => (
+				<div key={idx} className='flex gap-2 items-center'>
+					<select
+						value={req.type || "Fragment"}
+						onChange={e => updateItem(idx, "type", e.target.value)}
+						className='text-xs p-1.5 border rounded bg-surface-bg flex-1 outline-none'
+					>
+						<option value='Fragment'>Mảnh tướng</option>
+						<option value='Crystal'>Tinh thể</option>
+						<option value='Nova Crystal'>Tinh thể Nova</option>
+						<option value='Gemstone'>Đá quý</option>
+					</select>
+					<input
+						type='number'
+						value={req.value ?? 0}
+						onChange={e =>
+							updateItem(idx, "value", parseInt(e.target.value) || 0)
+						}
+						className='text-xs p-1.5 border rounded bg-surface-bg w-20 outline-none'
+					/>
+					<button
+						type='button'
+						onClick={() => removeItem(idx)}
+						className='text-red-500'
+					>
+						<XCircle size={16} />
+					</button>
+				</div>
+			))}
+		</div>
+	);
+};
+
+// --- THÀNH PHẦN HỖ TRỢ: CHỈNH SỬA NODE CHÒM SAO ---
+const NodeEditor = ({
+	node,
+	index,
+	isSelected,
+	onSelect,
+	onChange,
+	onMultiChange,
+	onRemove,
+	cachedData,
+}) => {
+	const [isOpen, setIsOpen] = useState(true);
+
+	const nodeAsset = useMemo(() => {
+		const name = node.nodeName?.trim();
+		if (!name) return null;
+		const power = (cachedData.powers || []).find(p => p.name === name);
+		if (power) return power.assetAbsolutePath;
+		const bonus = (cachedData.bonusStars || []).find(b => b.name === name);
+		if (bonus) return bonus.image;
+		return null;
+	}, [node.nodeName, cachedData]);
+
+	const handleDropIntoNode = e => {
+		e.preventDefault();
+		e.stopPropagation();
+		try {
+			const dragged = JSON.parse(e.dataTransfer.getData("text/plain"));
+			if (
+				dragged.name &&
+				(dragged.type === "power" || dragged.type === "bonusStar")
+			) {
+				const updates = { nodeName: dragged.name };
+
+				if (dragged.type === "power") {
+					const item = (cachedData.powers || []).find(
+						p => p.name === dragged.name,
+					);
+					updates.description = item?.descriptionRaw || item?.description || "";
+				} else if (dragged.type === "bonusStar") {
+					const item = (cachedData.bonusStars || []).find(
+						b => b.name === dragged.name,
+					);
+					updates.description = item?.description || "";
+				}
+
+				onMultiChange(index, updates);
+			}
+		} catch (err) {
+			console.warn("Lỗi xử lý kéo thả vào Node");
+		}
+	};
+
+	return (
+		<div
+			className={`border rounded-xl overflow-hidden mb-4 transition-all ${isSelected ? "border-primary-500 ring-2 ring-primary-500/20 shadow-md" : "border-border shadow-sm"}`}
+		>
+			<div
+				className={`flex justify-between items-center p-3 cursor-pointer ${isSelected ? "bg-primary-500/10" : "bg-surface-hover"}`}
+				onClick={() => onSelect(index)}
+			>
+				<div className='flex items-center gap-3'>
+					<div
+						className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xs ${isSelected ? "bg-primary-500 text-white" : "bg-border text-text-secondary"}`}
+					>
+						{node.nodeID || `n${index + 1}`}
+					</div>
+					<div className='flex flex-col'>
+						<span className='font-bold text-sm truncate max-w-[150px]'>
+							{node.nodeName || "Node chưa đặt tên"}
+						</span>
+						<span className='text-[10px] uppercase text-text-secondary font-medium tracking-tighter'>
+							{node.nodeType || "starPower"}
+						</span>
+					</div>
+				</div>
+				<div className='flex items-center gap-1'>
+					<button
+						type='button'
+						onClick={e => {
+							e.stopPropagation();
+							onRemove(index);
+						}}
+						className='p-2 text-red-500 hover:bg-red-500/10 rounded-full transition-colors'
+					>
+						<XCircle size={18} />
+					</button>
+					<button
+						type='button'
+						onClick={e => {
+							e.stopPropagation();
+							setIsOpen(!isOpen);
+						}}
+						className='p-2 text-text-secondary'
+					>
+						{isOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+					</button>
+				</div>
+			</div>
+
+			{isOpen && (
+				<div className='p-4 space-y-4 bg-surface-bg border-t border-border/50'>
+					<div className='grid grid-cols-2 gap-3'>
+						<InputField
+							label='Mã Node (ID)'
+							value={node.nodeID || ""}
+							onChange={e => onChange(index, "nodeID", e.target.value)}
+							placeholder='VD: n1'
+						/>
+						<div className='flex flex-col gap-1'>
+							<label className='text-[10px] font-bold uppercase text-text-secondary'>
+								Loại sức mạnh
+							</label>
+							<select
+								value={node.nodeType || "starPower"}
+								onChange={e => onChange(index, "nodeType", e.target.value)}
+								className='w-full p-2.5 rounded-lg border border-border bg-surface-bg text-sm focus:border-primary-500 outline-none transition-colors'
+							>
+								<option value='starPower'>Star Power</option>
+								<option value='bonusStar'>Bonus Star</option>
+								<option value='bonusStarGem'>Bonus Gem</option>
+							</select>
+						</div>
+					</div>
+
+					<div
+						className='flex items-center gap-3 p-3 bg-surface-hover/50 rounded-lg border border-border'
+						onDrop={handleDropIntoNode}
+						onDragOver={e => e.preventDefault()}
+					>
+						<div className='relative group flex-shrink-0'>
+							{nodeAsset ? (
+								<img
+									src={nodeAsset}
+									className='w-10 h-10 rounded object-contain bg-white border border-border shadow-sm'
+									alt='Icon'
+								/>
+							) : (
+								<div className='w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded border flex items-center justify-center text-gray-500 text-[10px] font-bold'>
+									D&D
+								</div>
+							)}
+						</div>
+						<InputField
+							label='Tên sức mạnh hiển thị'
+							value={node.nodeName || ""}
+							onChange={e => onChange(index, "nodeName", e.target.value)}
+							placeholder='Kéo thả tài nguyên vào đây...'
+							className='flex-1'
+						/>
+					</div>
+
+					<div className='flex flex-col gap-1'>
+						<label className='text-[10px] font-bold uppercase text-text-secondary'>
+							Mô tả kỹ năng node
+						</label>
+						<textarea
+							value={node.description || ""}
+							onChange={e => onChange(index, "description", e.target.value)}
+							rows={3}
+							className='w-full p-3 border border-border rounded-lg bg-surface-bg text-xs focus:border-primary-500 outline-none resize-none leading-relaxed'
+							placeholder='Mô tả sẽ tự điền khi kéo thả tài nguyên phù hợp...'
+						/>
+					</div>
+
+					<div className='flex items-center justify-between p-3 bg-surface-hover/30 rounded-lg border border-dashed border-border'>
+						<label className='flex items-center gap-3 cursor-pointer group'>
+							<div
+								className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${node.isRecommended ? "bg-yellow-500 border-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.5)]" : "bg-surface-bg border-border group-hover:border-yellow-500"}`}
+							>
+								{node.isRecommended && (
+									<Sparkles size={12} className='text-white fill-current' />
+								)}
+							</div>
+							<input
+								type='checkbox'
+								className='hidden'
+								checked={node.isRecommended || false}
+								onChange={e =>
+									onChange(index, "isRecommended", e.target.checked)
+								}
+							/>
+							<span
+								className={`text-xs font-bold uppercase tracking-tight ${node.isRecommended ? "text-yellow-600" : "text-text-secondary"}`}
+							>
+								Khuyên dùng
+							</span>
+						</label>
+						<div className='flex items-center gap-2 text-[10px] font-mono text-text-secondary bg-surface-bg px-2 py-1 rounded border border-border/50 shadow-inner'>
+							<Crosshair size={10} /> X:{node.position?.x ?? 0}% Y:
+							{node.position?.y ?? 0}%
+						</div>
+					</div>
+
+					{/* ĐÃ SỬA LỖI: Chuyển sang NextNodesInput dạng danh sách thêm/xóa mục riêng biệt */}
+					<NextNodesInput
+						nextNodes={node.nextNodes || []}
+						onChange={val => onChange(index, "nextNodes", val)}
+					/>
+
+					<RequirementsInput
+						requirements={node.requirements || []}
+						onChange={val => onChange(index, "requirements", val)}
+					/>
+				</div>
+			)}
+		</div>
+	);
+};
+
 // ==========================================
-// COMPONENT CHÍNH
+// COMPONENT CHÍNH: CHAMPION EDITOR FORM
 // ==========================================
 const ChampionEditorForm = memo(
-	({ champion, cachedData, onSave, onCancel, onDelete, isSaving }) => {
+	({
+		champion,
+		constellation,
+		cachedData,
+		onSave,
+		onCancel,
+		onDelete,
+		isSaving,
+	}) => {
 		const [formData, setFormData] = useState({});
+		const [constData, setConstData] = useState({ nodes: [] });
 		const [initialData, setInitialData] = useState({});
 		const [isDirty, setIsDirty] = useState(false);
 
-		// Modal state
 		const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
 		const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-		// 1. LOAD DATA & DEEP CLONE
+		const [selectedNodeIndex, setSelectedNodeIndex] = useState(null);
+		const mapRef = useRef(null);
+
 		useEffect(() => {
 			if (champion) {
 				const processedData = { ...champion };
@@ -135,24 +501,31 @@ const ChampionEditorForm = memo(
 						.replace(/\\n/g, "\n");
 				}
 
-				// QUAN TRỌNG: Deep Clone để ngắt tham chiếu của các mảng/object con
 				const deepClonedData = JSON.parse(JSON.stringify(processedData));
 
 				setFormData(processedData);
 				setInitialData(deepClonedData);
 				setIsDirty(false);
-			}
-		}, [champion]);
 
-		// 2. CHECK DIRTY
+				if (constellation) {
+					setConstData(JSON.parse(JSON.stringify(constellation)));
+				} else {
+					setConstData({
+						constellationID: champion.championID || "",
+						championName: champion.name || "",
+						backgroundImage: champion.assets?.[0]?.fullAbsolutePath || "",
+						nodes: [],
+					});
+				}
+			}
+		}, [champion, constellation]);
+
 		useEffect(() => {
 			const isChanged =
 				JSON.stringify(formData) !== JSON.stringify(initialData);
 			setIsDirty(isChanged);
 		}, [formData, initialData]);
 
-		// 3. BEFORE UNLOAD (Đóng Browser Tab)
-		// Lưu ý: Chỉ hiện thông báo chuẩn của trình duyệt, không hiện Modal custom
 		useEffect(() => {
 			const handleBeforeUnload = e => {
 				if (isDirty) {
@@ -165,7 +538,6 @@ const ChampionEditorForm = memo(
 				window.removeEventListener("beforeunload", handleBeforeUnload);
 		}, [isDirty]);
 
-		// Handlers
 		const handleInputChange = e => {
 			const { name, value } = e.target;
 			setFormData(prev => ({ ...prev, [name]: value }));
@@ -201,34 +573,58 @@ const ChampionEditorForm = memo(
 		const handleRemoveAsset = index => {
 			setFormData(prev => ({
 				...prev,
-				assets: prev.assets.filter((_, i) => i !== index),
+				assets: (prev.assets || []).filter((_, i) => i !== index),
 			}));
 		};
 
-		const handleAttemptCancel = () => {
-			if (isDirty) {
-				setIsCancelModalOpen(true);
-			} else {
-				onCancel();
-			}
+		const handleMapClick = e => {
+			if (selectedNodeIndex === null || !mapRef.current) return;
+			const rect = mapRef.current.getBoundingClientRect();
+			const x = ((e.clientX - rect.left) / rect.width) * 100;
+			const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+			setConstData(prev => {
+				const nextNodes = [...prev.nodes];
+				nextNodes[selectedNodeIndex] = {
+					...nextNodes[selectedNodeIndex],
+					position: {
+						x: parseFloat(x.toFixed(1)),
+						y: parseFloat(y.toFixed(1)),
+					},
+				};
+				return { ...prev, nodes: nextNodes };
+			});
 		};
 
-		const confirmCancel = () => {
-			setIsCancelModalOpen(false);
-			onCancel();
-		};
+		const handleNodeChange = useCallback((idx, field, val) => {
+			setConstData(prev => {
+				const nextNodes = [...prev.nodes];
+				nextNodes[idx] = { ...nextNodes[idx], [field]: val };
+				return { ...prev, nodes: nextNodes };
+			});
+		}, []);
 
-		const handleAttemptDelete = () => setIsDeleteModalOpen(true);
-		const confirmDelete = () => {
-			setIsDeleteModalOpen(false);
-			if (champion && !champion.isNew) {
-				onDelete(champion.championID);
-			}
-		};
+		const handleNodeMultiChange = useCallback((idx, updates) => {
+			setConstData(prev => {
+				const nextNodes = [...prev.nodes];
+				nextNodes[idx] = { ...nextNodes[idx], ...updates };
+				return { ...prev, nodes: nextNodes };
+			});
+		}, []);
 
 		const handleSubmit = e => {
 			e.preventDefault();
 			const cleanData = { ...formData };
+
+			cleanData.powerStars = constData.nodes
+				.filter(n => n.nodeType === "starPower")
+				.map(n => n.nodeName);
+
+			cleanData.bonusStars = constData.nodes
+				.filter(
+					n => n.nodeType === "bonusStar" || n.nodeType === "bonusStarGem",
+				)
+				.map(n => n.nodeName);
 
 			if (typeof cleanData.description === "string") {
 				cleanData.description = cleanData.description.replace(/\n/g, "\\n");
@@ -254,15 +650,15 @@ const ChampionEditorForm = memo(
 				}
 			});
 
-			onSave(cleanData);
+			onSave(cleanData, constData);
 		};
 
 		const dataLookup = {
 			powers: Object.fromEntries(
-				(cachedData.powers || []).map(p => [p.name, p])
+				(cachedData.powers || []).map(p => [p.name, p]),
 			),
 			relics: Object.fromEntries(
-				(cachedData.relics || []).map(r => [r.name, r])
+				(cachedData.relics || []).map(r => [r.name, r]),
 			),
 			items: Object.fromEntries((cachedData.items || []).map(i => [i.name, i])),
 			runes: Object.fromEntries((cachedData.runes || []).map(r => [r.name, r])),
@@ -270,25 +666,28 @@ const ChampionEditorForm = memo(
 
 		return (
 			<>
-				<form onSubmit={handleSubmit} className='space-y-8'>
-					<div className='flex justify-between border-border sticky top-0 bg-surface-bg z-20 py-2 border-b mb-4'>
+				<form onSubmit={handleSubmit} className='space-y-8 pb-24'>
+					<div className='flex justify-between border-border sticky top-0 bg-surface-bg z-40 py-2 border-b mb-4 shadow-sm'>
 						<div>
 							<label className='block font-semibold text-text-primary text-xl'>
 								{formData.isNew
 									? "Tạo Tướng Mới"
-									: `Chỉnh sửa: ${formData.name}`}
+									: `Biên tập: ${formData.name || ""}`}
 							</label>
 							{isDirty && (
 								<span className='text-xs text-yellow-500 font-medium'>
-									● Có thay đổi chưa lưu
+									{" "}
+									● Có thay đổi chưa lưu{" "}
 								</span>
 							)}
 						</div>
-						<div className='flex items-center gap-3'>
+						<div className='flex items-center gap-3 pr-2'>
 							<Button
 								type='button'
 								variant='ghost'
-								onClick={handleAttemptCancel}
+								onClick={() =>
+									isDirty ? setIsCancelModalOpen(true) : onCancel()
+								}
 							>
 								Hủy
 							</Button>
@@ -296,202 +695,348 @@ const ChampionEditorForm = memo(
 								<Button
 									type='button'
 									variant='danger'
-									onClick={handleAttemptDelete}
+									onClick={() => setIsDeleteModalOpen(true)}
 								>
 									Xóa tướng
 								</Button>
 							)}
 							<Button type='submit' variant='primary' disabled={isSaving}>
-								{isSaving ? "Đang lưu..." : champion?.isNew ? "Tạo mới" : "Lưu"}
+								{isSaving ? "Đang lưu..." : "Lưu & Đồng bộ"}
 							</Button>
 						</div>
 					</div>
 
-					{/* 1. INFO */}
-					<div className='grid grid-cols-1 lg:grid-cols-2 gap-6 p-6 bg-surface-bg border border-border rounded-xl'>
-						<div className='space-y-5'>
-							<InputField
-								label='Champion ID (VD: C056)'
-								name='championID'
-								value={formData.championID || ""}
-								onChange={handleInputChange}
-								required
-								disabled={!formData.isNew}
-								placeholder='C056, C057,...'
-							/>
-							<InputField
-								label='Tên tướng'
-								name='name'
-								value={formData.name || ""}
-								onChange={handleInputChange}
-								required
-							/>
-							<div className='grid grid-cols-2 gap-4'>
-								<InputField
-									label='Năng lượng'
-									name='cost'
-									type='number'
-									value={formData.cost || ""}
-									onChange={handleNumberChange}
-									min='1'
-									max='15'
-								/>
-								<InputField
-									label='Sao tối đa'
-									name='maxStar'
-									type='number'
-									value={formData.maxStar || ""}
-									onChange={handleNumberChange}
-									min='1'
-									max='7'
-								/>
-							</div>
-						</div>
-						<div className='flex flex-col items-center justify-center'>
-							<p className='text-sm font-medium text-text-secondary mb-3'>
-								Avatar Preview
-							</p>
-							{formData.assets?.[0]?.avatar ? (
-								<img
-									src={formData.assets[0].avatar}
-									alt='Avatar'
-									className='w-48 h-48 object-contain rounded-xl border-4 border-primary-500/20 shadow-xl'
-								/>
-							) : (
-								<div className='w-48 h-48 bg-gray-200 dark:bg-gray-700 rounded-xl flex items-center justify-center text-6xl text-gray-400'>
-									?
-								</div>
-							)}
-						</div>
-					</div>
+					<div className='px-6 grid grid-cols-1 xl:grid-cols-2 gap-10'>
+						<div className='space-y-8'>
+							<h3 className='text-lg font-bold border-l-4 border-primary-500 pl-3 uppercase tracking-wider'>
+								Thông tin Guide
+							</h3>
 
-					{/* 2. DESCRIPTION */}
-					<div className='grid grid-cols-1 xl:grid-cols-3 gap-6'>
-						<div className='xl:col-span-2 space-y-8'>
-							<div>
-								<label className='block font-semibold text-text-primary mb-3'>
-									Mô tả chi tiết
-								</label>
-								<textarea
-									name='description'
-									value={formData.description || ""}
-									onChange={handleInputChange}
-									className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary placeholder:text-text-secondary focus:border-primary-500 resize-none font-mono text-sm'
-									rows={10}
-								/>
-							</div>
-							<ArrayInputComponent
-								label='Vùng (Regions)'
-								data={formData.regions || []}
-								onChange={d => handleArrayChange("regions", d)}
-								cachedData={cachedData.regions || {}}
-							/>
-							<ArrayInputComponent
-								label='Tags'
-								data={formData.tag || []}
-								onChange={d => handleArrayChange("tag", d)}
-								placeholder='Nhập tag...'
-								cachedData={{}}
-							/>
-						</div>
-						<div>
-							<label className='block font-semibold text-text-primary mb-2'>
-								Video giới thiệu
-							</label>
-							<InputField
-								name='videoLink'
-								value={formData.videoLink || ""}
-								onChange={handleInputChange}
-								placeholder='https://youtube...'
-							/>
-							{formData.videoLink && (
-								<div className='mt-4 aspect-video rounded-xl overflow-hidden border border-border shadow-lg'>
-									<iframe
-										src={formData.videoLink}
-										title='Video Preview'
-										className='w-full h-full'
+							<div className='grid grid-cols-1 gap-6 p-6 bg-surface-bg border border-border rounded-xl shadow-sm'>
+								<div className='space-y-5'>
+									<InputField
+										label='Champion ID (VD: C056)'
+										name='championID'
+										value={formData.championID || ""}
+										onChange={handleInputChange}
+										required
+										disabled={!formData.isNew}
 									/>
+									<InputField
+										label='Tên tướng'
+										name='name'
+										value={formData.name || ""}
+										onChange={handleInputChange}
+										required
+									/>
+									<div className='grid grid-cols-2 gap-4'>
+										<InputField
+											label='Năng lượng'
+											name='cost'
+											type='number'
+											value={formData.cost ?? 0}
+											onChange={handleNumberChange}
+										/>
+										<InputField
+											label='Sao tối đa'
+											name='maxStar'
+											type='number'
+											value={formData.maxStar ?? 3}
+											onChange={handleNumberChange}
+										/>
+									</div>
 								</div>
-							)}
-						</div>
-					</div>
-
-					{/* 3. ASSETS */}
-					<div>
-						<h4 className='text-lg font-bold text-text-primary mb-4 flex items-center gap-2'>
-							<Link2 size={20} /> Assets
-						</h4>
-						{formData.assets?.map((asset, index) => (
-							<div
-								key={index}
-								className='flex items-center gap-4 p-4 bg-surface-hover rounded-lg border border-border mb-3'
-							>
-								<div className='grid grid-cols-3 gap-3 flex-1'>
-									{["avatar", "fullAbsolutePath", "gameAbsolutePath"].map(
-										field => (
-											<div key={field}>
-												<InputField
-													label={field}
-													value={asset[field] || ""}
-													onChange={e =>
-														handleAssetChange(index, field, e.target.value)
-													}
-												/>
-												{asset[field] && (
-													<img
-														src={asset[field]}
-														alt={field}
-														className='mt-2 h-16 w-auto rounded object-contain bg-black/20'
-														onError={e => (e.target.style.display = "none")}
-													/>
-												)}
-											</div>
-										)
+								<div className='flex flex-col items-center justify-center p-4 bg-surface-hover rounded-xl border border-dashed border-border shadow-inner'>
+									{formData.assets?.[0]?.avatar ? (
+										<img
+											src={formData.assets[0].avatar}
+											alt='Avatar'
+											className='w-32 h-32 object-contain rounded-xl border-4 border-primary-500/20 shadow-xl'
+										/>
+									) : (
+										<div className='w-32 h-32 bg-gray-200 dark:bg-gray-700 rounded-xl flex items-center justify-center text-4xl text-gray-400'>
+											?
+										</div>
 									)}
 								</div>
-								{formData.assets.length > 1 && (
-									<button
-										type='button'
-										onClick={() => handleRemoveAsset(index)}
-										className='text-red-500 hover:text-red-700'
-									>
-										<XCircle size={22} />
-									</button>
-								)}
 							</div>
-						))}
-						<Button type='button' variant='outline' onClick={handleAddAsset}>
-							Thêm Asset
-						</Button>
+
+							<div className='space-y-6'>
+								<div className='space-y-2'>
+									<label className='block font-semibold text-text-primary flex items-center gap-2'>
+										<Youtube size={18} className='text-red-500' /> YouTube Video
+										Link
+									</label>
+									<InputField
+										name='videoLink'
+										value={formData.videoLink || ""}
+										onChange={handleInputChange}
+										placeholder='https://www.youtube.com/embed/...'
+									/>
+								</div>
+								<div className='flex flex-col gap-2'>
+									<label className='block font-semibold text-text-primary'>
+										Mô tả hướng dẫn chơi
+									</label>
+									<textarea
+										name='description'
+										value={formData.description || ""}
+										onChange={handleInputChange}
+										className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary text-sm shadow-inner min-h-[300px]'
+									/>
+								</div>
+							</div>
+
+							<div className='space-y-6'>
+								<ArrayInputComponent
+									label='Sức mạnh Phiêu lưu'
+									data={formData.adventurePowers || []}
+									onChange={d => handleArrayChange("adventurePowers", d)}
+									cachedData={dataLookup.powers}
+								/>
+								<ArrayInputComponent
+									label='Vật phẩm mặc định'
+									data={formData.defaultItems || []}
+									onChange={d => handleArrayChange("defaultItems", d)}
+									cachedData={dataLookup.items}
+								/>
+							</div>
+						</div>
+
+						<div className='space-y-8'>
+							<div className='flex justify-between items-center border-l-4 border-pink-500 pl-3'>
+								<h3 className='text-lg font-bold uppercase tracking-wider flex items-center gap-2'>
+									<MapIcon size={20} className='text-pink-500' /> Bản đồ Chòm
+									sao
+								</h3>
+								<Button
+									type='button'
+									size='sm'
+									variant='outline'
+									onClick={() => {
+										const newID = `n${constData.nodes.length + 1}`;
+										setConstData(prev => ({
+											...prev,
+											nodes: [
+												...prev.nodes,
+												{
+													nodeID: newID,
+													nodeName: "",
+													nodeType: "starPower",
+													position: { x: 50, y: 50 },
+													nextNodes: [],
+													requirements: [],
+													description: "",
+													isRecommended: false,
+												},
+											],
+										}));
+									}}
+									iconLeft={<Plus size={16} />}
+								>
+									{" "}
+									Thêm Node{" "}
+								</Button>
+							</div>
+
+							<div className='space-y-4'>
+								<div
+									className='relative aspect-video bg-slate-950 rounded-2xl overflow-hidden border-2 border-border shadow-2xl cursor-crosshair group'
+									ref={mapRef}
+									onClick={handleMapClick}
+								>
+									<img
+										src={
+											constData.backgroundImage || "/images/placeholder-bg.jpg"
+										}
+										className='w-full h-full object-cover opacity-50'
+										alt='Map'
+									/>
+
+									<svg className='absolute inset-0 w-full h-full pointer-events-none'>
+										<defs>
+											<marker
+												id='arrowhead'
+												markerWidth='5'
+												markerHeight='5'
+												refX='4.8'
+												refY='2.5'
+												orient='auto'
+											>
+												<path
+													d='M0,0 L5,2.5 L0,5 Z'
+													fill='rgba(234, 179, 8, 0.6)'
+												/>
+											</marker>
+											<marker
+												id='arrowhead-recommended'
+												markerWidth='5'
+												markerHeight='5'
+												refX='4.8'
+												refY='2.5'
+												orient='auto'
+											>
+												<path
+													d='M0,0 L5,2.5 L0,5 Z'
+													fill='rgba(234, 179, 8, 1)'
+												/>
+											</marker>
+										</defs>
+										{constData.nodes.map(node =>
+											node.nextNodes?.map(tID => {
+												const target = constData.nodes.find(
+													n => n.nodeID === tID,
+												);
+												return (
+													target && (
+														<ConstellationLine
+															key={`${node.nodeID}-${tID}`}
+															x1={node.position?.x ?? 0}
+															y1={node.position?.y ?? 0}
+															x2={target.position?.x ?? 0}
+															y2={target.position?.y ?? 0}
+															isRecommended={
+																node.isRecommended && target.isRecommended
+															}
+														/>
+													)
+												);
+											}),
+										)}
+									</svg>
+
+									<div className='absolute top-4 left-4 bg-black/80 backdrop-blur-md text-[10px] text-white px-3 py-2 rounded-lg border border-white/10 shadow-xl pointer-events-none'>
+										{selectedNodeIndex !== null
+											? `Đang chỉnh: ${constData.nodes[selectedNodeIndex]?.nodeID || ""} - Click để đặt vị trí`
+											: "Chọn 1 Node để ghim tọa độ"}
+									</div>
+									{constData.nodes.map((n, i) => (
+										<div
+											key={i}
+											className={`absolute w-6 h-6 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 flex items-center justify-center transition-all ${selectedNodeIndex === i ? "bg-primary-500 border-white scale-125 z-30 ring-4 ring-primary-500/30 shadow-[0_0_10px_white]" : "bg-white/10 border-white/40 z-20 hover:bg-white/30"}`}
+											style={{
+												left: `${n.position?.x ?? 0}%`,
+												top: `${n.position?.y ?? 0}%`,
+											}}
+										>
+											{n.nodeType === "starPower" ? (
+												<Star size={10} className='text-white fill-current' />
+											) : (
+												<Gem size={10} className='text-white fill-current' />
+											)}
+											<span className='absolute -bottom-5 text-[8px] font-bold text-white bg-black/40 px-1 rounded'>
+												{n.nodeID || ""}
+											</span>
+										</div>
+									))}
+								</div>
+								<InputField
+									label='URL Ảnh nền bản đồ'
+									value={constData.backgroundImage || ""}
+									onChange={e =>
+										setConstData({
+											...constData,
+											backgroundImage: e.target.value,
+										})
+									}
+									placeholder='Nhập link ảnh...'
+								/>
+							</div>
+
+							<div className='space-y-2 max-h-[2000px] overflow-y-auto pr-3 custom-scrollbar'>
+								{(constData.nodes || []).map((node, idx) => (
+									<NodeEditor
+										key={idx}
+										index={idx}
+										node={node}
+										isSelected={selectedNodeIndex === idx}
+										onSelect={setSelectedNodeIndex}
+										onChange={handleNodeChange}
+										onMultiChange={handleNodeMultiChange}
+										onRemove={i => {
+											setConstData(prev => ({
+												...prev,
+												nodes: prev.nodes.filter((_, idx) => idx !== i),
+											}));
+											if (selectedNodeIndex === i) setSelectedNodeIndex(null);
+										}}
+										cachedData={cachedData}
+									/>
+								))}
+							</div>
+						</div>
 					</div>
 
-					{/* 4. CONFIG */}
-					<div className='space-y-6'>
-						<div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+					<div className='pt-10 border-t px-6 space-y-10'>
+						<div>
+							<h4 className='text-lg font-bold text-text-primary mb-6 flex items-center gap-2'>
+								<Link2 size={20} /> Quản lý Assets
+							</h4>
+							<div className='grid grid-cols-1 gap-4'>
+								{(formData.assets || []).map((asset, index) => (
+									<div
+										key={index}
+										className='flex flex-col md:flex-row items-center gap-6 p-6 bg-surface-hover/30 rounded-xl border border-border relative group shadow-sm'
+									>
+										<div className='grid grid-cols-1 md:grid-cols-3 gap-6 flex-1 w-full'>
+											{["avatar", "fullAbsolutePath", "gameAbsolutePath"].map(
+												field => (
+													<div key={field} className='space-y-2'>
+														<InputField
+															label={field}
+															value={asset[field] || ""}
+															onChange={e =>
+																handleAssetChange(index, field, e.target.value)
+															}
+														/>
+														{asset[field] && (
+															<img
+																src={asset[field]}
+																className='h-20 w-auto rounded-lg object-contain bg-black/40 border shadow-inner'
+																alt=''
+															/>
+														)}
+													</div>
+												),
+											)}
+										</div>
+										<button
+											type='button'
+											onClick={() => handleRemoveAsset(index)}
+											className='text-red-500 hover:bg-red-500/10 p-2 rounded-full'
+										>
+											<XCircle size={22} />
+										</button>
+									</div>
+								))}
+								<Button
+									type='button'
+									variant='outline'
+									size='sm'
+									onClick={handleAddAsset}
+									className='w-max'
+								>
+									Thêm Asset
+								</Button>
+							</div>
+						</div>
+						<div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
 							<ArrayInputComponent
-								label='Chòm sao'
-								data={formData.powerStars || []}
-								onChange={d => handleArrayChange("powerStars", d)}
-								cachedData={dataLookup.powers}
+								label='Vùng'
+								data={formData.regions || []}
+								onChange={d => handleArrayChange("regions", d)}
 							/>
 							<ArrayInputComponent
-								label='Sức mạnh Phiêu lưu'
-								data={formData.adventurePowers || []}
-								onChange={d => handleArrayChange("adventurePowers", d)}
-								cachedData={dataLookup.powers}
-							/>
-							<ArrayInputComponent
-								label='Vật phẩm mặc định'
-								data={formData.defaultItems || []}
-								onChange={d => handleArrayChange("defaultItems", d)}
-								cachedData={dataLookup.items}
+								label='Thẻ'
+								data={formData.tag || []}
+								onChange={d => handleArrayChange("tag", d)}
 							/>
 						</div>
-						<div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+						<div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
 							{[1, 2, 3, 4, 5, 6].map(n => (
 								<ArrayInputComponent
 									key={n}
-									label={`Bộ Cổ vật ${n}`}
+									label={`Bộ Cổ vật khuyên dùng ${n}`}
 									data={formData[`defaultRelicsSet${n}`] || []}
 									onChange={d => handleArrayChange(`defaultRelicsSet${n}`, d)}
 									cachedData={dataLookup.relics}
@@ -499,7 +1044,7 @@ const ChampionEditorForm = memo(
 							))}
 						</div>
 						<ArrayInputComponent
-							label='Ngọc (Runes)'
+							label='Ngọc gợi ý'
 							data={formData.rune || []}
 							onChange={d => handleArrayChange("rune", d)}
 							cachedData={dataLookup.runes}
@@ -507,17 +1052,13 @@ const ChampionEditorForm = memo(
 					</div>
 				</form>
 
-				{/* CONFIRM CANCEL MODAL */}
 				<Modal
 					isOpen={isCancelModalOpen}
 					onClose={() => setIsCancelModalOpen(false)}
 					title='Xác nhận Hủy'
 				>
 					<div className='text-text-secondary'>
-						<p className='mb-6'>
-							Bạn có thay đổi chưa lưu. Nếu rời đi bây giờ, mọi thay đổi sẽ bị
-							mất.
-						</p>
+						<p className='mb-6'>Bạn có thay đổi chưa lưu.</p>
 						<div className='flex justify-end gap-3'>
 							<Button
 								onClick={() => setIsCancelModalOpen(false)}
@@ -525,14 +1066,18 @@ const ChampionEditorForm = memo(
 							>
 								Ở lại
 							</Button>
-							<Button onClick={confirmCancel} variant='danger'>
+							<Button
+								onClick={() => {
+									setIsCancelModalOpen(false);
+									onCancel();
+								}}
+								variant='danger'
+							>
 								Rời đi
 							</Button>
 						</div>
 					</div>
 				</Modal>
-
-				{/* CONFIRM DELETE MODAL */}
 				<Modal
 					isOpen={isDeleteModalOpen}
 					onClose={() => setIsDeleteModalOpen(false)}
@@ -540,9 +1085,7 @@ const ChampionEditorForm = memo(
 				>
 					<div className='text-text-secondary'>
 						<p className='mb-6'>
-							Bạn có chắc chắn muốn xóa{" "}
-							<strong className='text-text-primary'>{champion?.name}</strong>?
-							Hành động này không thể hoàn tác.
+							Xóa {formData.name || ""}? Hành động này không thể hoàn tác.
 						</p>
 						<div className='flex justify-end gap-3'>
 							<Button
@@ -551,15 +1094,21 @@ const ChampionEditorForm = memo(
 							>
 								Hủy
 							</Button>
-							<Button onClick={confirmDelete} variant='danger'>
-								Xóa Tướng
+							<Button
+								onClick={() => {
+									setIsDeleteModalOpen(false);
+									onDelete(formData.championID);
+								}}
+								variant='danger'
+							>
+								Xác nhận Xóa
 							</Button>
 						</div>
 					</div>
 				</Modal>
 			</>
 		);
-	}
+	},
 );
 
 export default ChampionEditorForm;

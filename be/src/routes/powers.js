@@ -4,6 +4,7 @@ import {
 	ScanCommand,
 	PutItemCommand,
 	DeleteItemCommand,
+	GetItemCommand, // THÊM: Để lấy chi tiết sức mạnh lẻ
 } from "@aws-sdk/client-dynamodb";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
 import NodeCache from "node-cache";
@@ -18,15 +19,13 @@ const POWERS_TABLE = "guidePocPowers";
 const powerCache = new NodeCache({ stdTTL: 300, checkperiod: 60 });
 
 /**
- * TỐI ƯU: Lấy dữ liệu từ RAM. Chỉ Scan Database 1 lần mỗi 5 phút.
- * Với >1000 items, việc giữ mảng trong RAM (khoảng 2-5MB) hiệu quả hơn nhiều so với gọi DB.
+ * Lấy dữ liệu từ RAM. Chỉ Scan Database 1 lần mỗi 5 phút.
  */
 async function getCachedPowers() {
 	const CACHE_KEY = "all_powers_data";
 	let cachedData = powerCache.get(CACHE_KEY);
 
 	if (!cachedData) {
-		console.time("DynamoDB_Scan_Powers");
 		const command = new ScanCommand({ TableName: POWERS_TABLE });
 		const { Items } = await client.send(command);
 		cachedData = Items ? Items.map(item => unmarshall(item)) : [];
@@ -35,10 +34,48 @@ async function getCachedPowers() {
 		cachedData.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
 
 		powerCache.set(CACHE_KEY, cachedData);
-		console.timeEnd("DynamoDB_Scan_Powers");
 	}
 	return cachedData;
 }
+
+/**
+ * @route   GET /api/powers/:powerCode
+ * @desc    Lấy chi tiết một sức mạnh (Ưu tiên RAM -> Database)
+ * FIX: Đồng bộ với Frontend
+ */
+router.get("/:powerCode", async (req, res) => {
+	const { powerCode } = req.params;
+	if (!powerCode)
+		return res.status(400).json({ error: "powerCode là bắt buộc." });
+
+	const id = powerCode.trim();
+	const CACHE_KEY = `power_detail_${id}`;
+
+	// 1. Kiểm tra Cache RAM trước
+	const cachedPower = powerCache.get(CACHE_KEY);
+	if (cachedPower) return res.json(cachedPower);
+
+	try {
+		// 2. Truy vấn DynamoDB
+		const command = new GetItemCommand({
+			TableName: POWERS_TABLE,
+			Key: marshall({ powerCode: id }),
+		});
+
+		const { Item } = await client.send(command);
+		if (!Item)
+			return res.status(404).json({ error: `Không tìm thấy sức mạnh: ${id}` });
+
+		const powerData = unmarshall(Item);
+
+		// 3. Lưu vào Cache
+		powerCache.set(CACHE_KEY, powerData);
+		res.json(powerData);
+	} catch (error) {
+		console.error(`Lỗi lấy chi tiết sức mạnh ${id}:`, error);
+		res.status(500).json({ error: "Lỗi hệ thống." });
+	}
+});
 
 /**
  * @route   GET /api/powers
@@ -54,15 +91,11 @@ router.get("/", async (req, res) => {
 			types = "",
 			sort = "name-asc",
 		} = req.query;
-
 		const pageSize = parseInt(limit);
 		const currentPage = parseInt(page);
 
-		// 1. Lấy dữ liệu từ Cache RAM (Tốc độ ~1ms)
 		const allPowers = await getCachedPowers();
 
-		// 2. TRÍCH XUẤT BỘ LỌC ĐỘNG (Dựa trên 1000+ items thực tế)
-		// Dùng Set để lấy các giá trị duy nhất
 		const availableFilters = {
 			rarities: [...new Set(allPowers.map(p => p.rarity))]
 				.filter(Boolean)
@@ -72,27 +105,22 @@ router.get("/", async (req, res) => {
 				.sort(),
 		};
 
-		// 3. LỌC DỮ LIỆU TRÊN RAM (Vô cùng nhanh với mảng 1000 phần tử)
 		let filtered = [...allPowers];
-
 		if (searchTerm) {
 			const searchKey = removeAccents(searchTerm);
 			filtered = filtered.filter(p =>
 				removeAccents(p.name || "").includes(searchKey),
 			);
 		}
-
 		if (rarities) {
 			const rList = rarities.split(",");
 			filtered = filtered.filter(p => rList.includes(p.rarity));
 		}
-
 		if (types) {
 			const tList = types.split(",");
 			filtered = filtered.filter(p => p.type?.some(t => tList.includes(t)));
 		}
 
-		// 4. SẮP XẾP
 		const [field, order] = sort.split("-");
 		filtered.sort((a, b) => {
 			let vA = a[field] ?? "";
@@ -102,7 +130,6 @@ router.get("/", async (req, res) => {
 				: vB.toString().localeCompare(vA.toString());
 		});
 
-		// 5. PHÂN TRANG (Chỉ gửi 21 items về Client để tiết kiệm băng thông)
 		const totalItems = filtered.length;
 		const totalPages = Math.ceil(totalItems / pageSize);
 		const paginatedItems = filtered.slice(
@@ -116,12 +143,29 @@ router.get("/", async (req, res) => {
 			availableFilters,
 		});
 	} catch (error) {
-		console.error("Lỗi API Powers:", error);
 		res.status(500).json({ error: "Could not retrieve powers" });
 	}
 });
 
-// Cập nhật & Xóa: Phải xóa cache ngay lập tức
+/**
+ * @route   POST /api/powers/resolve
+ * @desc    Lấy chi tiết danh sách Sức mạnh từ mảng tên
+ */
+router.post("/resolve", async (req, res) => {
+	const { names } = req.body;
+	if (!Array.isArray(names))
+		return res.status(400).json({ error: "Names must be an array" });
+
+	try {
+		const allPowers = await getCachedPowers();
+		const result = allPowers.filter(p => names.includes(p.name));
+		res.json(result);
+	} catch (error) {
+		res.status(500).json({ error: "Lỗi truy vấn Powers" });
+	}
+});
+
+// Cập nhật và Xóa xóa cache chi tiết
 router.put("/", authenticateCognitoToken, async (req, res) => {
 	const powerData = req.body;
 	if (!powerData.powerCode)
@@ -133,7 +177,8 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 				Item: marshall(powerData),
 			}),
 		);
-		powerCache.del("all_powers_data"); // Ép buộc load lại dữ liệu mới
+		powerCache.del("all_powers_data");
+		powerCache.del(`power_detail_${powerData.powerCode}`);
 		res.status(200).json({ message: "Updated", power: powerData });
 	} catch (e) {
 		res.status(500).send(e.message);
@@ -149,6 +194,7 @@ router.delete("/:powerCode", authenticateCognitoToken, async (req, res) => {
 			}),
 		);
 		powerCache.del("all_powers_data");
+		powerCache.del(`power_detail_${req.params.powerCode}`);
 		res.status(200).json({ message: "Deleted" });
 	} catch (e) {
 		res.status(500).send(e.message);

@@ -303,9 +303,9 @@ const Home = () => {
 									`}
 								>
 									{section.spin ? (
-										<section.icon className='w-5 h-5 md:w-10 animate-spin' />
+										<section.icon className='w-5 h-5 md:w-10 md:h-10 animate-spin' />
 									) : (
-										<section.icon className='w-5 h-5 md:w-10' />
+										<section.icon className='w-5 h-5 md:w-10 md:h-10' />
 									)}
 									<span className='whitespace-nowrap'>{section.btnText}</span>
 									<ChevronRight className='w-5 h-5 md:w-8 group-hover:translate-x-2 transition-transform' />

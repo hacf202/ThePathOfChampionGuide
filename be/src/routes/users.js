@@ -132,7 +132,8 @@ router.put("/user/change-name", authenticateCognitoToken, async (req, res) => {
 });
 
 /**
- * 5. POST /api/users/batch - Lấy thông tin nhiều user (Tối ưu cho List Build)
+ * @route   POST /api/users/batch
+ * @desc    Lấy thông tin nhiều user (FIX LỖI 256 KÝ TỰ)
  */
 router.post("/users/batch", async (req, res) => {
 	const { userIds } = req.body;
@@ -143,14 +144,14 @@ router.post("/users/batch", async (req, res) => {
 	const result = {};
 	const idsToFetch = [];
 
-	// 1. Kiểm tra Cache
+	// 1. Kiểm tra RAM Cache để đạt tốc độ < 1ms
 	uniqueIds.forEach(id => {
 		const cached = userCache.get(id);
 		if (cached) result[id] = cached.name;
 		else idsToFetch.push(id);
 	});
 
-	// 2. Fetch song song các ID thiếu
+	// 2. Fetch song song các ID thiếu (Mỗi ID là 1 request độc lập, không dùng filter string)
 	if (idsToFetch.length > 0) {
 		try {
 			const fetchPromises = idsToFetch.map(async id => {
@@ -160,12 +161,10 @@ router.post("/users/batch", async (req, res) => {
 						Username: id,
 					});
 					const { UserAttributes } = await cognitoClient.send(command);
-					const name =
-						UserAttributes.find(a => a.Name === "name")?.Value || "Người chơi";
-
+					const name = UserAttributes.find(a => a.Name === "name")?.Value || id;
 					userCache.set(id, { name });
 					return { id, name };
-				} catch (err) {
+				} catch {
 					return { id, name: "Người chơi" };
 				}
 			});

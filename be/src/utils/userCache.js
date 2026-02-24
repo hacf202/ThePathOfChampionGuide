@@ -1,68 +1,47 @@
-// src/utils/userCache.js
-
+// be/src/utils/userCache.js
+import { AdminGetUserCommand } from "@aws-sdk/client-cognito-identity-provider";
 import { cognitoClient } from "../config/cognito.js";
-import { ListUsersCommand } from "@aws-sdk/client-cognito-identity-provider";
+import NodeCache from "node-cache";
 
-const userCache = new Map();
-const CACHE_TTL = 5 * 60 * 1000; // 5 phút
+const userCache = new NodeCache({ stdTTL: 600 });
+const COGNITO_USER_POOL_ID = process.env.COGNITO_USER_POOL_ID;
 
-export const getUserNames = async usernames => {
+export async function getUserNames(usernames) {
 	if (!usernames || usernames.length === 0) return {};
 
+	const uniqueNames = [...new Set(usernames)];
 	const result = {};
-	const toFetch = [];
+	const namesToFetch = [];
 
-	// Kiểm tra cache
-	usernames.forEach(username => {
-		const cached = userCache.get(username);
-		if (cached && Date.now() < cached.expiry) {
-			result[username] = cached.name;
-		} else {
-			toFetch.push(username);
-		}
+	uniqueNames.forEach(name => {
+		const cached = userCache.get(name);
+		if (cached) result[name] = cached.name;
+		else namesToFetch.push(name);
 	});
 
-	if (toFetch.length === 0) return result;
-
-	// Batch Cognito (60 users/lần)
-	try {
-		const batches = [];
-		for (let i = 0; i < toFetch.length; i += 60) {
-			batches.push(toFetch.slice(i, i + 60));
-		}
-
-		for (const batch of batches) {
-			const filter = batch.map(u => `username = "${u}"`).join(" OR ");
-			const command = new ListUsersCommand({
-				UserPoolId: process.env.COGNITO_USER_POOL_ID,
-				Filter: filter,
-				Limit: 60,
-			});
-			const { Users } = await cognitoClient.send(command);
-			Users.forEach(user => {
-				const name =
-					user.Attributes.find(a => a.Name === "name")?.Value || user.Username;
-				result[user.Username] = name;
-				userCache.set(user.Username, { name, expiry: Date.now() + CACHE_TTL });
-			});
-		}
-
-		// Fallback
-		toFetch.forEach(username => {
-			if (!result[username]) {
-				result[username] = username;
-				userCache.set(username, {
-					name: username,
-					expiry: Date.now() + CACHE_TTL,
+	if (namesToFetch.length > 0) {
+		// TỐI ƯU: Fetch song song thay vì dùng Filter string gây lỗi 256 ký tự
+		const promises = namesToFetch.map(async uname => {
+			try {
+				const command = new AdminGetUserCommand({
+					UserPoolId: COGNITO_USER_POOL_ID,
+					Username: uname,
 				});
+				const { UserAttributes } = await cognitoClient.send(command);
+				const name =
+					UserAttributes.find(a => a.Name === "name")?.Value || uname;
+				userCache.set(uname, { name });
+				return { uname, name };
+			} catch {
+				return { uname, name: uname };
 			}
 		});
-	} catch (error) {
-		console.error("Batch Cognito error:", error);
-		toFetch.forEach(username => {
-			result[username] = username;
+
+		const fetched = await Promise.all(promises);
+		fetched.forEach(u => {
+			result[u.uname] = u.name;
 		});
 	}
 
 	return result;
-};
+}

@@ -10,6 +10,7 @@ import SidePanel from "../common/sidePanel";
 import DropDragSidePanel from "./dropSidePanel.jsx";
 import { Loader2 } from "lucide-react";
 
+// Template khởi tạo cho tướng mới
 const NEW_CHAMPION_TEMPLATE = {
 	championID: "",
 	isNew: true,
@@ -38,6 +39,7 @@ const NEW_CHAMPION_TEMPLATE = {
 
 const ITEMS_PER_PAGE = 20;
 
+// Thành phần hiển thị danh sách tướng (Grid View)
 const ChampionListView = memo(
 	({
 		paginatedChampions,
@@ -102,8 +104,10 @@ const ChampionListView = memo(
 	},
 );
 
+// Thành phần bao bọc logic chỉnh sửa (Edit/New)
 const ChampionEditWrapper = ({
 	champions,
+	constellations,
 	cachedData,
 	onSave,
 	onDelete,
@@ -112,6 +116,7 @@ const ChampionEditWrapper = ({
 	const { id } = useParams();
 	const navigate = useNavigate();
 
+	// Lọc dữ liệu tướng được chọn hoặc dùng template mới
 	const selectedChampion = useMemo(() => {
 		if (id === "new") return { ...NEW_CHAMPION_TEMPLATE };
 		return Array.isArray(champions)
@@ -119,11 +124,23 @@ const ChampionEditWrapper = ({
 			: null;
 	}, [id, champions]);
 
+	// Lọc dữ liệu chòm sao tương ứng
+	const selectedConstellation = useMemo(() => {
+		return Array.isArray(constellations)
+			? constellations.find(c => c.constellationID === id)
+			: null;
+	}, [id, constellations]);
+
 	const handleBack = useCallback(() => {
 		navigate("/admin/champions");
 	}, [navigate]);
 
-	if (!selectedChampion && Array.isArray(champions) && champions.length > 0) {
+	if (
+		!selectedChampion &&
+		Array.isArray(champions) &&
+		champions.length > 0 &&
+		id !== "new"
+	) {
 		return (
 			<div className='flex flex-col items-center justify-center py-20 text-text-secondary'>
 				<p className='text-xl mb-4'>Không tìm thấy tướng có ID: {id}</p>
@@ -140,6 +157,7 @@ const ChampionEditWrapper = ({
 				{selectedChampion && (
 					<ChampionEditorForm
 						champion={selectedChampion}
+						constellation={selectedConstellation}
 						cachedData={cachedData}
 						onSave={onSave}
 						onCancel={handleBack}
@@ -157,6 +175,8 @@ const ChampionEditWrapper = ({
 
 function ChampionEditor() {
 	const [champions, setChampions] = useState([]);
+	const [constellations, setConstellations] = useState([]);
+	const [bonusStars, setBonusStars] = useState([]); // State cho API bonusStars mới
 	const [runes, setRunes] = useState([]);
 	const [relics, setRelics] = useState([]);
 	const [powers, setPowers] = useState([]);
@@ -178,34 +198,49 @@ function ChampionEditor() {
 	const API_BASE_URL = import.meta.env.VITE_API_URL;
 	const navigate = useNavigate();
 
+	// Hàm tải toàn bộ dữ liệu từ các API cần thiết
 	const fetchAllData = useCallback(async () => {
 		try {
 			setIsLoading(true);
-			// Sửa lỗi gọi API: Thêm limit lớn để lấy đủ dữ liệu cho Admin quản lý
-			const [champRes, runeRes, relicRes, powerRes, itemRes] =
-				await Promise.all([
-					fetch(`${API_BASE_URL}/api/champions?limit=1000`),
-					fetch(`${API_BASE_URL}/api/runes?limit=1000`),
-					fetch(`${API_BASE_URL}/api/relics?limit=1000`),
-					fetch(`${API_BASE_URL}/api/powers?limit=1000`),
-					fetch(`${API_BASE_URL}/api/items?limit=1000`),
-				]);
+			const [
+				champRes,
+				constRes,
+				bonusRes,
+				runeRes,
+				relicRes,
+				powerRes,
+				itemRes,
+			] = await Promise.all([
+				fetch(`${API_BASE_URL}/api/champions?limit=1000`),
+				fetch(`${API_BASE_URL}/api/constellations`),
+				fetch(`${API_BASE_URL}/api/bonusStars`), // API bonusStars mới
+				fetch(`${API_BASE_URL}/api/runes?limit=1000`),
+				fetch(`${API_BASE_URL}/api/relics?limit=1000`),
+				fetch(`${API_BASE_URL}/api/powers?limit=1000`),
+				fetch(`${API_BASE_URL}/api/items?limit=1000`),
+			]);
 
-			if (![champRes, runeRes, relicRes, powerRes, itemRes].every(r => r.ok)) {
-				throw new Error("Không thể tải dữ liệu");
-			}
+			const [
+				champData,
+				constData,
+				bonusData,
+				runeData,
+				relicData,
+				powerData,
+				itemData,
+			] = await Promise.all([
+				champRes.json(),
+				constRes.json(),
+				bonusRes.json(),
+				runeRes.json(),
+				relicRes.json(),
+				powerRes.json(),
+				itemRes.json(),
+			]);
 
-			const [champData, runeData, relicData, powerData, itemData] =
-				await Promise.all([
-					champRes.json(),
-					runeRes.json(),
-					relicRes.json(),
-					powerRes.json(),
-					itemRes.json(),
-				]);
-
-			// FIX: Lấy thuộc tính .items từ response của Backend
 			setChampions(champData.items || []);
+			setConstellations(constData.items || []);
+			setBonusStars(bonusData.items || []);
 			setRunes(runeData.items || []);
 			setRelics(relicData.items || []);
 			setPowers(powerData.items || []);
@@ -221,8 +256,77 @@ function ChampionEditor() {
 		fetchAllData();
 	}, [fetchAllData]);
 
+	// Xử lý lưu đồng bộ lên 2 bảng dữ liệu
+	const handleSaveChampion = async (champData, constData) => {
+		setIsSaving(true);
+		try {
+			const token = localStorage.getItem("token");
+			const headers = {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`,
+			};
+
+			const [resChamp, resConst] = await Promise.all([
+				fetch(`${API_BASE_URL}/api/champions`, {
+					method: "PUT",
+					headers,
+					body: JSON.stringify(champData),
+				}),
+				fetch(`${API_BASE_URL}/api/constellations`, {
+					method: "PUT",
+					headers,
+					body: JSON.stringify(constData),
+				}),
+			]);
+
+			if (!resChamp.ok || !resConst.ok) {
+				throw new Error("Lưu dữ liệu thất bại.");
+			}
+
+			await fetchAllData();
+			navigate("/admin/champions");
+			alert("Cập nhật tướng và chòm sao thành công!");
+		} catch (e) {
+			alert(e.message || "Đã có lỗi xảy ra");
+		} finally {
+			setIsSaving(false);
+		}
+	};
+
+	// Xử lý xóa đồng bộ trên 2 bảng dữ liệu
+	const handleDeleteChampion = async championID => {
+		if (
+			!window.confirm(
+				"Bạn có chắc chắn muốn xóa tướng này? Chòm sao tương ứng cũng sẽ bị xóa.",
+			)
+		)
+			return;
+		setIsSaving(true);
+		try {
+			const token = localStorage.getItem("token");
+			await Promise.all([
+				fetch(`${API_BASE_URL}/api/champions/${championID}`, {
+					method: "DELETE",
+					headers: { Authorization: `Bearer ${token}` },
+				}),
+				fetch(`${API_BASE_URL}/api/constellations/${championID}`, {
+					method: "DELETE",
+					headers: { Authorization: `Bearer ${token}` },
+				}),
+			]);
+
+			await fetchAllData();
+			navigate("/admin/champions");
+			alert("Đã xóa tướng và chòm sao thành công");
+		} catch (e) {
+			alert(e.message);
+		} finally {
+			setIsSaving(false);
+		}
+	};
+
+	// Cấu hình các bộ lọc dựa trên dữ liệu hiện có
 	const filterOptions = useMemo(() => {
-		// Kiểm tra an toàn để tránh lỗi .flatMap is not a function
 		const safeChampions = Array.isArray(champions) ? champions : [];
 
 		const regions = [...new Set(safeChampions.flatMap(c => c.regions || []))]
@@ -233,12 +337,12 @@ function ChampionEditor() {
 				iconUrl: iconRegions.find(i => i.name === r)?.iconAbsolutePath || "",
 			}));
 
-		const costs = [...new Set(safeChampions.map(c => c.cost))].sort(
-			(a, b) => a - b,
-		);
-		const maxStars = [...new Set(safeChampions.map(c => c.maxStar))].sort(
-			(a, b) => a - b,
-		);
+		const costs = [...new Set(safeChampions.map(c => Number(c.cost)))]
+			.filter(Boolean)
+			.sort((a, b) => a - b);
+		const maxStars = [...new Set(safeChampions.map(c => Number(c.maxStar)))]
+			.filter(Boolean)
+			.sort((a, b) => a - b);
 		const tags = [...new Set(safeChampions.flatMap(c => c.tag || []))].sort();
 
 		return {
@@ -255,6 +359,7 @@ function ChampionEditor() {
 		};
 	}, [champions]);
 
+	// Logic lọc và sắp xếp danh sách hiển thị
 	const filteredChampions = useMemo(() => {
 		let result = Array.isArray(champions) ? [...champions] : [];
 		if (searchTerm) {
@@ -268,9 +373,9 @@ function ChampionEditor() {
 				c.regions?.some(r => selectedRegions.includes(r)),
 			);
 		if (selectedCosts.length)
-			result = result.filter(c => selectedCosts.includes(c.cost));
+			result = result.filter(c => selectedCosts.includes(Number(c.cost)));
 		if (selectedMaxStars.length)
-			result = result.filter(c => selectedMaxStars.includes(c.maxStar));
+			result = result.filter(c => selectedMaxStars.includes(Number(c.maxStar)));
 		if (selectedTags.length)
 			result = result.filter(c => c.tag?.some(t => selectedTags.includes(t)));
 
@@ -296,65 +401,6 @@ function ChampionEditor() {
 		(currentPage - 1) * ITEMS_PER_PAGE,
 		currentPage * ITEMS_PER_PAGE,
 	);
-
-	const handleSaveChampion = async data => {
-		setIsSaving(true);
-		try {
-			const token = localStorage.getItem("token");
-			const url = `${API_BASE_URL}/api/champions`;
-
-			const res = await fetch(url, {
-				method: "PUT",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${token}`,
-				},
-				body: JSON.stringify(data),
-			});
-
-			if (!res.ok) {
-				let errorMessage = "Lưu thất bại.";
-				try {
-					const errorBody = await res.json();
-					errorMessage = errorBody.error || errorBody.message || errorMessage;
-				} catch (e) {
-					errorMessage = `Lỗi Server: ${res.status} ${res.statusText}`;
-				}
-				throw new Error(errorMessage);
-			}
-
-			await fetchAllData();
-			navigate("/admin/champions");
-			alert(
-				data.isNew ? "Tạo tướng mới thành công" : "Cập nhật tướng thành công",
-			);
-		} catch (e) {
-			alert(e.message || "Đã có lỗi xảy ra");
-		} finally {
-			setIsSaving(false);
-		}
-	};
-
-	const handleDeleteChampion = async championID => {
-		if (!window.confirm("Bạn có chắc chắn muốn xóa tướng này?")) return;
-		setIsSaving(true);
-		try {
-			const token = localStorage.getItem("token");
-			const res = await fetch(`${API_BASE_URL}/api/champions/${championID}`, {
-				method: "DELETE",
-				headers: { Authorization: `Bearer ${token}` },
-			});
-			if (!res.ok) throw new Error("Xóa thất bại");
-
-			await fetchAllData();
-			navigate("/admin/champions");
-			alert("Đã xóa tướng thành công");
-		} catch (e) {
-			alert(e.message);
-		} finally {
-			setIsSaving(false);
-		}
-	};
 
 	const sidePanelProps = {
 		searchPlaceholder: "Nhập tên tướng...",
@@ -416,7 +462,8 @@ function ChampionEditor() {
 		onSortChange: setSortOrder,
 	};
 
-	const cachedData = { runes, relics, powers, items, regions: [] };
+	// Gom dữ liệu hỗ trợ vào cache để truyền cho các thành phần con
+	const cachedData = { runes, relics, powers, items, bonusStars, regions: [] };
 
 	if (isLoading) {
 		return (
@@ -451,6 +498,7 @@ function ChampionEditor() {
 					element={
 						<ChampionEditWrapper
 							champions={champions}
+							constellations={constellations}
 							cachedData={cachedData}
 							onSave={handleSaveChampion}
 							onDelete={handleDeleteChampion}
