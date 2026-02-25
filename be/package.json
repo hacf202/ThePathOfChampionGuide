@@ -17,6 +17,7 @@
 		"@vercel/kv": "^3.0.0",
 		"aws-jwt-verify": "^5.1.0",
 		"aws-sdk": "^2.1692.0",
+		"axios": "^1.13.5",
 		"client-dynamodb": "github:aws-sdk/client-dynamodb",
 		"cors": "^2.8.5",
 		"dotenv": "^17.2.2",

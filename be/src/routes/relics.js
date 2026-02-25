@@ -8,6 +8,7 @@ import {
 } from "@aws-sdk/client-dynamodb";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
 import NodeCache from "node-cache";
+import axios from "axios"; // BỔ SUNG: Để xử lý proxy hình ảnh
 import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
@@ -34,6 +35,59 @@ async function getCachedRelics() {
 	}
 	return cachedData;
 }
+
+/**
+ * @route   GET /api/relics/proxy-image
+ * @desc    Proxy hình ảnh từ Riot để tránh lỗi CORS và Referer
+ * FIX: Route này phục vụ việc hiển thị ảnh tại frontend
+ */
+router.get("/proxy-image", async (req, res) => {
+	const imageUrl = req.query.url;
+
+	if (!imageUrl) {
+		return res.status(400).json({ error: "URL là bắt buộc." });
+	}
+
+	try {
+		// 1. Kiểm tra trong Cache RAM trước
+		if (imageCache.has(imageUrl)) {
+			const cached = imageCache.get(imageUrl);
+			res.set("Content-Type", cached.contentType);
+			res.set("Cache-Control", "public, max-age=86400");
+			return res.send(cached.data);
+		}
+
+		// 2. Fetch ảnh từ server gốc
+		const response = await axios({
+			url: imageUrl,
+			method: "GET",
+			responseType: "arraybuffer",
+			headers: {
+				"User-Agent":
+					"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+			},
+			timeout: 10000,
+		});
+
+		const contentType = response.headers["content-type"];
+		const buffer = Buffer.from(response.data, "binary");
+
+		// 3. Lưu vào Cache để tối ưu
+		if (imageCache.size < 500) {
+			imageCache.set(imageUrl, {
+				data: buffer,
+				contentType: contentType,
+			});
+		}
+
+		res.set("Content-Type", contentType);
+		res.set("Cache-Control", "public, max-age=86400");
+		res.send(buffer);
+	} catch (error) {
+		console.error(`Proxy lỗi cho ${imageUrl}:`, error.message);
+		res.status(404).json({ error: "Không thể tải ảnh." });
+	}
+});
 
 /**
  * @route   GET /api/relics/:relicCode
@@ -131,6 +185,20 @@ router.get("/", async (req, res) => {
 				? vA.toString().localeCompare(vB.toString())
 				: vB.toString().localeCompare(vA.toString());
 		});
+
+		// Logic xử lý lấy toàn bộ khi limit = -1 (dành cho Tier List)
+		if (pageSize === -1) {
+			return res.json({
+				items: filtered,
+				pagination: {
+					totalItems: filtered.length,
+					totalPages: 1,
+					currentPage: 1,
+					pageSize: filtered.length,
+				},
+				availableFilters,
+			});
+		}
 
 		const totalItems = filtered.length;
 		const totalPages = Math.ceil(totalItems / pageSize);
