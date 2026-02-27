@@ -28,18 +28,18 @@ const BACKGROUND_IMAGES = [
 
 // Hiệu ứng tải trang Skeleton với tông màu tối đồng bộ
 const HomeSkeleton = () => (
-	<div className='fixed inset-0 z-50 bg-[#0f172a] flex flex-col items-center justify-center p-6 space-y-8'>
-		<div className='w-3/4 h-16 md:h-24 bg-gray-800 rounded-lg animate-pulse'></div>
-		<div className='w-1/2 h-6 md:h-10 bg-gray-800 rounded animate-pulse'></div>
+	<div className='fixed inset-0 z-50 bg-surface-bg flex flex-col items-center justify-center p-6 space-y-8'>
+		<div className='w-3/4 h-16 md:h-24 bg-gray-700/50 rounded-lg animate-pulse'></div>
+		<div className='w-1/2 h-6 md:h-10 bg-gray-700/50 rounded animate-pulse'></div>
 		<div className='flex gap-4 mt-4'>
 			{[1, 2, 3, 4].map(i => (
 				<div
 					key={i}
-					className='w-16 h-20 md:w-24 md:h-32 bg-gray-800 rounded-xl animate-pulse'
+					className='w-16 h-20 md:w-24 md:h-32 bg-gray-700/50 rounded-xl animate-pulse'
 				></div>
 			))}
 		</div>
-		<div className='w-48 md:w-80 h-12 md:h-20 bg-gray-700 rounded-full mt-8 animate-pulse'></div>
+		<div className='w-48 md:w-80 h-12 md:h-20 bg-gray-700/50 rounded-full mt-8 animate-pulse'></div>
 	</div>
 );
 
@@ -232,7 +232,7 @@ const Home = () => {
 							className='absolute inset-0 w-full h-full -z-10 bg-cover bg-center transition-opacity duration-1000'
 							style={{
 								backgroundImage: `url(${BACKGROUND_IMAGES[idx % BACKGROUND_IMAGES.length]})`,
-								filter: "brightness(0.8) contrast(1.1)",
+								filter: "brightness(1) contrast(1.1)",
 							}}
 						/>
 						<div className='absolute inset-0 bg-black/40 -z-10' />
