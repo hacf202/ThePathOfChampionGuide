@@ -102,7 +102,6 @@ const BonusStarEditWrapper = ({
 		if (id === "new") return { ...NEW_BONUS_STAR_TEMPLATE };
 		const safeItems = Array.isArray(items) ? items : [];
 		const found = safeItems.find(i => i.bonusStarID === id);
-		// Force isNew: false cho các item lấy từ server
 		return found ? { ...found, isNew: false } : null;
 	}, [id, items]);
 
@@ -197,7 +196,6 @@ function BonusStarEditor() {
 			const result = await res.json();
 
 			if (!res.ok) {
-				// Hiển thị lỗi từ Backend (VD: "Mã Bonus Star đã tồn tại")
 				throw new Error(result.error || "Lưu thất bại.");
 			}
 
@@ -249,9 +247,16 @@ function BonusStarEditor() {
 		let result = [...items];
 		if (searchTerm) {
 			const term = removeAccents(searchTerm.toLowerCase());
-			result = result.filter(i =>
-				removeAccents((i.name || "").toLowerCase()).includes(term),
-			);
+			result = result.filter(i => {
+				const nameMatch = removeAccents((i.name || "").toLowerCase()).includes(
+					term,
+				);
+				const descMatch = removeAccents(
+					(i.description || "").toLowerCase(),
+				).includes(term);
+				// Kết quả trả về nếu tìm thấy trong Tên HOẶC Mô tả
+				return nameMatch || descMatch;
+			});
 		}
 		if (selectedTypes.length) {
 			result = result.filter(i => selectedTypes.includes(i.nodeType));
@@ -267,7 +272,7 @@ function BonusStarEditor() {
 	}, [items, searchTerm, selectedTypes, sortOrder]);
 
 	const sidePanelProps = {
-		searchPlaceholder: "Tìm Bonus Star...",
+		searchPlaceholder: "Tìm theo tên hoặc mô tả...",
 		addLabel: "Thêm Bonus Star Mới",
 		resetLabel: "Đặt lại bộ lọc",
 		searchInput,

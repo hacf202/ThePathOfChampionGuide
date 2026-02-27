@@ -14,8 +14,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01PZ056T10-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01PZ056.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01PZ056T10-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01PZ056.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Heimerdinger.png"
 			}
 		],
@@ -66,7 +66,7 @@
 		"description": "-Heimerdinger nổi bật với Gacha tức là lối chơi phụ thuộc rất nhiều vào may mắn và các bài quân công nghệ.\\n-Các lá bài nổi bật: Bẫy biến sử thi, Mk1: Máy vặn ốc, Dư chấn, Khoảnh khắc khai sáng. Các lá bài với khả năng dàn quân sớm và hồi năng lượng cùng những bài phép giúp triên khai mạnh lối chơi của Heimerdinger.\\n-Với sức mạnh của Heimerdinger bạn sẽ nhận được 1 buff ngẫu nhiên cho bài quân công nghệ với mỗi 6 năng lượng dùng cho bài phép, vì thế nó không ổn định và có tính may rủi rất cao.\\n-Các sức mạnh nên chọn là các sức mạnh giúp dàn quân nhanh chóng và triệu hồi bài quân hoặc buff sức mạnh cho các bài quân được triệu hồi đấy.\\n-Vì lối chơi thiên về câu kéo về sau và con sử dụng nhiều bài phép nên Máy sao chép hóa kỹ là 1 lựa chọn tốt mà bạn nên cân nhắc. \\n-Khi triệu hồi Heimerdinger hãy chắc chắc rằng trên tay bạn còn bài phép hoặc đủ năng lượng sử dụng bài phép nào đó vì Heimerdinger rất mỏng manh nên rất dễ bị tiêu diệt lúc đấy thì bạn sẽ gặp kha khá vấn đề đấy.",
 
 		"maxStar": 6,
-		
+
 		"name": "Heimerdinger",
 		"powerStars": [
 			"KHOA HỌC!",
@@ -98,8 +98,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/4_6_0/set7b/vi_vn/img/cards/07RU012T2-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/4_6_0/set7b/vi_vn/img/cards/07RU012.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/4_6_0/set7b/vi_vn/img/cards/07RU012T2-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/4_6_0/set7b/vi_vn/img/cards/07RU012.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Neeko.png"
 			}
 		],
@@ -170,8 +170,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/6_3_0/set8/vi_vn/img/cards/08SI042T1-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/6_3_0/set8/vi_vn/img/cards/08SI042.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/6_3_0/set8/vi_vn/img/cards/08SI042T1-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/6_3_0/set8/vi_vn/img/cards/08SI042.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Mordekaiser.png"
 			}
 		],
@@ -247,8 +247,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/2_3_0/set4/vi_vn/img/cards/04SH047T2-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/2_3_0/set4/vi_vn/img/cards/04SH047.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/2_3_0/set4/vi_vn/img/cards/04SH047T2-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/2_3_0/set4/vi_vn/img/cards/04SH047.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Nasus.png"
 			}
 		],
@@ -327,8 +327,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/4_2_0/set6cde/vi_vn/img/cards/06BC015T2-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/4_2_0/set6cde/vi_vn/img/cards/06BC015.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/4_2_0/set6cde/vi_vn/img/cards/06BC015T2-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/4_2_0/set6cde/vi_vn/img/cards/06BC015.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Norra.png"
 			}
 		],
@@ -560,8 +560,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/4_2_0/set6cde/vi_vn/img/cards/06RU009T6-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/4_2_0/set6cde/vi_vn/img/cards/06RU009.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/4_2_0/set6cde/vi_vn/img/cards/06RU009T6-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/4_2_0/set6cde/vi_vn/img/cards/06RU009.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Varus.png"
 			}
 		],
@@ -704,8 +704,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/4_2_0/set6cde/vi_vn/img/cards/06IO008T1-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/4_2_0/set6cde/vi_vn/img/cards/06IO008.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/4_2_0/set6cde/vi_vn/img/cards/06IO008T1-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/4_2_0/set6cde/vi_vn/img/cards/06IO008.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Master+Yi.png"
 			}
 		],
@@ -772,8 +772,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01DE012T1-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01DE012.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01DE012T1-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01DE012.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Garen.png"
 			}
 		],
@@ -1012,8 +1012,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01SI053T2-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01SI053.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01SI053T2-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01SI053.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Elise.png"
 			}
 		],
@@ -1254,8 +1254,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/6_3_0/tpoc/vi_vn/img/cards/98NX003T1-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/6_3_0/tpoc/vi_vn/img/cards/98NX003.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/6_3_0/tpoc/vi_vn/img/cards/98NX003T1-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/6_3_0/tpoc/vi_vn/img/cards/98NX003.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Ambessa.png"
 			}
 		],
@@ -1499,8 +1499,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/6_3_0/set8/vi_vn/img/cards/08MT003T4-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/6_3_0/set8/vi_vn/img/cards/08MT003.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/6_3_0/set8/vi_vn/img/cards/08MT003T4-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/6_3_0/set8/vi_vn/img/cards/08MT003.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Morgana.png"
 			}
 		],
@@ -1663,8 +1663,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/6_3_0/tpoc/vi_vn/img/cards/98PZ001T2-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/6_3_0/tpoc/vi_vn/img/cards/98PZ001.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/6_3_0/tpoc/vi_vn/img/cards/98PZ001T2-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/6_3_0/tpoc/vi_vn/img/cards/98PZ001.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Warwick.png"
 			}
 		],
@@ -1731,8 +1731,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/6_3_0/set8/vi_vn/img/cards/08PZ001T3-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/6_3_0/set8/vi_vn/img/cards/08PZ001.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/6_3_0/set8/vi_vn/img/cards/08PZ001T3-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/6_3_0/set8/vi_vn/img/cards/08PZ001.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Janna.png"
 			}
 		],
@@ -1876,8 +1876,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/6_3_0/set2/vi_vn/img/cards/02IO006T1-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/6_3_0/set2/vi_vn/img/cards/02IO006.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/6_3_0/set2/vi_vn/img/cards/02IO006T1-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/6_3_0/set2/vi_vn/img/cards/02IO006.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Lee+Sin.png"
 			}
 		],
@@ -1955,8 +1955,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01IO015T1-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01IO015.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01IO015T1-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01IO015.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Yasuo.png"
 			}
 		],
@@ -2039,8 +2039,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/4_6_0/set7b/vi_vn/img/cards/07SH013T4-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/4_6_0/set7b/vi_vn/img/cards/07SH013.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/4_6_0/set7b/vi_vn/img/cards/07SH013T4-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/4_6_0/set7b/vi_vn/img/cards/07SH013.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Nidalee.png"
 			}
 		],
@@ -2123,8 +2123,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/6_3_0/tpoc/vi_vn/img/cards/98RU004T1-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/6_3_0/tpoc/vi_vn/img/cards/98RU004.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/6_3_0/tpoc/vi_vn/img/cards/98RU004T1-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/6_3_0/tpoc/vi_vn/img/cards/98RU004.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Fiddlesticks.png"
 			}
 		],
@@ -2533,8 +2533,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01FR039T2-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01FR039.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01FR039T2-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01FR039.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Tryndamere.png"
 			}
 		],
@@ -2613,8 +2613,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/6_3_0/set2/vi_vn/img/cards/02PZ008T2-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/6_3_0/set2/vi_vn/img/cards/02PZ008.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/6_3_0/set2/vi_vn/img/cards/02PZ008T2-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/6_3_0/set2/vi_vn/img/cards/02PZ008.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Vi.png"
 			}
 		],
@@ -2690,8 +2690,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/6_3_0/set3/vi_vn/img/cards/03MT054T1-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/6_3_0/set3/vi_vn/img/cards/03MT054.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/6_3_0/set3/vi_vn/img/cards/03MT054T1-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/6_3_0/set3/vi_vn/img/cards/03MT054.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Leona.png"
 			}
 		],
@@ -2850,8 +2850,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01PZ008T2-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01PZ008.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01PZ008T2-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01PZ008.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Teemo.png"
 			}
 		],
@@ -2922,8 +2922,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/4_2_0/set6cde/vi_vn/img/cards/06RU005T2-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/4_2_0/set6cde/vi_vn/img/cards/06RU005.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/4_2_0/set6cde/vi_vn/img/cards/06RU005T2-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/4_2_0/set6cde/vi_vn/img/cards/06RU005.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Kayn.png"
 			}
 		],
@@ -3006,8 +3006,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01FR038T2-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01FR038.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01FR038T2-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01FR038.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Ashe.png"
 			}
 		],
@@ -3326,8 +3326,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/6_3_0/set3/vi_vn/img/cards/03MT087T1-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/6_3_0/set3/vi_vn/img/cards/03MT087.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/6_3_0/set3/vi_vn/img/cards/03MT087T1-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/6_3_0/set3/vi_vn/img/cards/03MT087.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Aurelion+Sol.png"
 			}
 		],
@@ -3410,8 +3410,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/5_4_0/set9/vi_vn/img/cards/09BC001T3-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/5_4_0/set9/vi_vn/img/cards/09BC001.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/5_4_0/set9/vi_vn/img/cards/09BC001T3-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/5_4_0/set9/vi_vn/img/cards/09BC001.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Vex.png"
 			}
 		],
@@ -3482,8 +3482,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/4_2_0/set6cde/vi_vn/img/cards/06DE021T1-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/4_2_0/set6cde/vi_vn/img/cards/06DE021.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/4_2_0/set6cde/vi_vn/img/cards/06DE021T1-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/4_2_0/set6cde/vi_vn/img/cards/06DE021.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Vayne.png"
 			}
 		],
@@ -3558,8 +3558,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/5_4_0/set9/vi_vn/img/cards/09DE034T1-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/5_4_0/set9/vi_vn/img/cards/09DE034.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/5_4_0/set9/vi_vn/img/cards/09DE034T1-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/5_4_0/set9/vi_vn/img/cards/09DE034.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Lux+Ilu.png"
 			}
 		],
@@ -3642,8 +3642,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/6_3_0/set2/vi_vn/img/cards/02NX007T2-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/6_3_0/set2/vi_vn/img/cards/02NX007.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/6_3_0/set2/vi_vn/img/cards/02NX007T2-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/6_3_0/set2/vi_vn/img/cards/02NX007.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Swain.png"
 			}
 		],
@@ -3722,8 +3722,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/6_3_0/set3/vi_vn/img/cards/03PZ003T1-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/6_3_0/set3/vi_vn/img/cards/03PZ003.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/6_3_0/set3/vi_vn/img/cards/03PZ003T1-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/6_3_0/set3/vi_vn/img/cards/03PZ003.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Viktor.png"
 			}
 		],
@@ -3886,8 +3886,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/6_3_0/set3/vi_vn/img/cards/03MT056T1-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/6_3_0/set3/vi_vn/img/cards/03MT056.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/6_3_0/set3/vi_vn/img/cards/03MT056T1-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/6_3_0/set3/vi_vn/img/cards/03MT056.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Diana.png"
 			}
 		],
@@ -4037,8 +4037,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/4_6_0/set7b/vi_vn/img/cards/07RU015T4-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/4_6_0/set7b/vi_vn/img/cards/07RU015.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/4_6_0/set7b/vi_vn/img/cards/07RU015T4-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/4_6_0/set7b/vi_vn/img/cards/07RU015.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Poro+King.png"
 			}
 		],
@@ -4185,8 +4185,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/6_3_0/set2/vi_vn/img/cards/02BW053T1-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/6_3_0/set2/vi_vn/img/cards/02BW053.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/6_3_0/set2/vi_vn/img/cards/02BW053T1-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/6_3_0/set2/vi_vn/img/cards/02BW053.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Nautilus.png"
 			}
 		],
@@ -4265,8 +4265,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/6_3_0/set8/vi_vn/img/cards/08FR001T1-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/6_3_0/set8/vi_vn/img/cards/08FR001.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/6_3_0/set8/vi_vn/img/cards/08FR001T1-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/6_3_0/set8/vi_vn/img/cards/08FR001.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Volibear.png"
 			}
 		],
@@ -4340,8 +4340,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/6_3_0/set2/vi_vn/img/cards/02BW022T2-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/6_3_0/set2/vi_vn/img/cards/02BW022.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/6_3_0/set2/vi_vn/img/cards/02BW022T2-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/6_3_0/set2/vi_vn/img/cards/02BW022.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Miss+Fortune.png"
 			}
 		],
@@ -4419,8 +4419,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/2_14_0/set5/vi_vn/img/cards/05BW005T1-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/2_14_0/set5/vi_vn/img/cards/05BW005.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/2_14_0/set5/vi_vn/img/cards/05BW005T1-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/2_14_0/set5/vi_vn/img/cards/05BW005.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Nami.png"
 			}
 		],
@@ -4731,8 +4731,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/4_2_0/set6cde/vi_vn/img/cards/06FR011T1-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/4_2_0/set6cde/vi_vn/img/cards/06FR011.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/4_2_0/set6cde/vi_vn/img/cards/06FR011T1-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/4_2_0/set6cde/vi_vn/img/cards/06FR011.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Ornn.png"
 			}
 		],
@@ -4953,8 +4953,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/2_14_0/set5/vi_vn/img/cards/05BC093T2-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/2_14_0/set5/vi_vn/img/cards/05BC093.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/2_14_0/set5/vi_vn/img/cards/05BC093T2-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/2_14_0/set5/vi_vn/img/cards/05BC093.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Veigar.png"
 			}
 		],
@@ -5036,8 +5036,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01DE042T2-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01DE042.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01DE042T2-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01DE042.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Lux.png"
 			}
 		],
@@ -5119,8 +5119,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/2_3_0/set4/vi_vn/img/cards/04SH073T2-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/2_3_0/set4/vi_vn/img/cards/04SH073.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/2_3_0/set4/vi_vn/img/cards/04SH073T2-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/2_3_0/set4/vi_vn/img/cards/04SH073.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Taliyah.png"
 			}
 		],
@@ -5194,8 +5194,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01NX038T2-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01NX038.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01NX038T2-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01NX038.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Darius.png"
 			}
 		],
@@ -5404,8 +5404,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/6_3_0/set3/vi_vn/img/cards/03BW004T3-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/6_3_0/set3/vi_vn/img/cards/03BW004.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/6_3_0/set3/vi_vn/img/cards/03BW004T3-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/6_3_0/set3/vi_vn/img/cards/03BW004.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Tahm+Kench.png"
 			}
 		],
@@ -5550,8 +5550,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01SI052T1-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01SI052.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01SI052T1-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01SI052.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Thresh.png"
 			}
 		],
@@ -5621,8 +5621,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/6_3_0/set8/vi_vn/img/cards/08BW008T1-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/6_3_0/set8/vi_vn/img/cards/08BW008.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/6_3_0/set8/vi_vn/img/cards/08BW008T1-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/6_3_0/set8/vi_vn/img/cards/08BW008.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Nilah.png"
 			}
 		],
@@ -5689,8 +5689,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/5_4_0/set9/vi_vn/img/cards/09IO052T1-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/5_4_0/set9/vi_vn/img/cards/09IO052.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/5_4_0/set9/vi_vn/img/cards/09IO052T1-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/5_4_0/set9/vi_vn/img/cards/09IO052.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Lillia.png"
 			}
 		],
@@ -5757,8 +5757,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/6_3_0/set8/vi_vn/img/cards/08RU014-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/6_3_0/set8/vi_vn/img/cards/08RU014.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/6_3_0/set8/vi_vn/img/cards/08RU014-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/6_3_0/set8/vi_vn/img/cards/08RU014.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Elder+Dragon.png"
 			}
 		],
@@ -5837,8 +5837,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/4_2_0/set6cde/vi_vn/img/cards/06RU026T3-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/4_2_0/set6cde/vi_vn/img/cards/06RU026.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/4_2_0/set6cde/vi_vn/img/cards/06RU026T3-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/4_2_0/set6cde/vi_vn/img/cards/06RU026.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Aatrox.png"
 			}
 		],
@@ -5913,8 +5913,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/2_3_0/set4/vi_vn/img/cards/04SI005T1-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/2_3_0/set4/vi_vn/img/cards/04SI005.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/2_3_0/set4/vi_vn/img/cards/04SI005T1-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/2_3_0/set4/vi_vn/img/cards/04SI005.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Kindred.png"
 			}
 		],
@@ -6061,8 +6061,8 @@
 		],
 		"assets": [
 			{
-				"fullAbsolutePath": "http://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01PZ040T1-full.png",
-				"gameAbsolutePath": "http://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01PZ040.png",
+				"fullAbsolutePath": "https://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01PZ040T1-full.png",
+				"gameAbsolutePath": "https://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01PZ040.png",
 				"avatar": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Jinx.png"
 			}
 		],
