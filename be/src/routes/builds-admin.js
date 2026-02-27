@@ -19,11 +19,11 @@ import { removeAccents } from "../utils/vietnameseUtils.js";
 const router = express.Router();
 const BUILDS_TABLE = "Builds";
 
-// Cache dành riêng cho Admin (60 giây) để giảm tải Scan khi quản lý
-const adminBuildCache = new NodeCache({ stdTTL: 60, checkperiod: 30 });
+// Tăng TTL lên 5 phút cho Admin để giảm thiểu Scan liên tục
+const adminBuildCache = new NodeCache({ stdTTL: 300, checkperiod: 60 });
 
 /**
- * Hàm lấy toàn bộ build cho Admin (bao gồm cả ẩn và hiện)
+ * Hàm lấy toàn bộ build cho Admin
  */
 async function getAllBuildsAdmin() {
 	const CACHE_KEY = "admin_all_builds";
@@ -36,7 +36,7 @@ async function getAllBuildsAdmin() {
 			? Items.map(item => normalizeBuildFromDynamo(unmarshall(item)))
 			: [];
 
-		// Mặc định sắp xếp theo ngày tạo mới nhất
+		// Sắp xếp mặc định
 		cachedData.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
 		adminBuildCache.set(CACHE_KEY, cachedData);
@@ -45,7 +45,7 @@ async function getAllBuildsAdmin() {
 }
 
 /**
- * GET /api/admin/builds – LẤY TẤT CẢ (Kèm Phân trang, Lọc, Tìm kiếm)
+ * GET /api/admin/builds
  */
 router.get("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 	try {
@@ -55,33 +55,32 @@ router.get("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 			searchTerm = "",
 			championNames = "",
 			creators = "",
-			display = "", // "true" hoặc "false"
+			display = "",
 			sort = "createdAt-desc",
 		} = req.query;
 
 		const pageSize = parseInt(limit);
 		const currentPage = parseInt(page);
 
-		// 1. Lấy dữ liệu từ Cache Admin
 		const allBuilds = await getAllBuildsAdmin();
 
-		// 2. Trích xuất bộ lọc động cho giao diện Admin
 		const availableFilters = {
 			championNames: [...new Set(allBuilds.map(b => b.championName))].sort(),
 			creators: [...new Set(allBuilds.map(b => b.creator))].sort(),
-			displayStatus: ["true", "false"],
+			displayStatus: [true, false],
 		};
 
-		// 3. Lọc dữ liệu
 		let filtered = [...allBuilds];
 
 		if (searchTerm) {
-			const searchKey = removeAccents(searchTerm);
+			const searchKey = removeAccents(searchTerm.toLowerCase());
 			filtered = filtered.filter(
 				b =>
-					removeAccents(b.championName || "").includes(searchKey) ||
-					removeAccents(b.creator || "").includes(searchKey) ||
-					removeAccents(b.id || "").includes(searchKey),
+					removeAccents((b.championName || "").toLowerCase()).includes(
+						searchKey,
+					) ||
+					removeAccents((b.creator || "").toLowerCase()).includes(searchKey) ||
+					String(b.id).includes(searchKey),
 			);
 		}
 
@@ -95,12 +94,12 @@ router.get("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 			filtered = filtered.filter(b => crList.includes(b.creator));
 		}
 
-		if (display) {
+		if (display !== "") {
 			const isDisplay = display === "true";
 			filtered = filtered.filter(b => b.display === isDisplay);
 		}
 
-		// 4. Sắp xếp
+		// Sắp xếp
 		const [field, order] = sort.split("-");
 		filtered.sort((a, b) => {
 			let vA = a[field] ?? "";
@@ -111,12 +110,16 @@ router.get("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 					? new Date(vA) - new Date(vB)
 					: new Date(vB) - new Date(vA);
 			}
+
+			if (typeof vA === "number") {
+				return order === "asc" ? vA - vB : vB - vA;
+			}
+
 			return order === "asc"
-				? vA.toString().localeCompare(vB.toString())
-				: vB.toString().localeCompare(vA.toString());
+				? String(vA).localeCompare(String(vB))
+				: String(vB).localeCompare(String(vA));
 		});
 
-		// 5. Phân trang
 		const totalItems = filtered.length;
 		const totalPages = Math.ceil(totalItems / pageSize);
 		const paginatedItems = filtered.slice(
@@ -136,7 +139,7 @@ router.get("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 });
 
 /**
- * POST /api/admin/builds – TẠO MỚI
+ * POST /api/admin/builds
  */
 router.post("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 	const buildData = req.body;
@@ -145,16 +148,17 @@ router.post("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 		return res.status(400).json({ error: "Tên tướng là bắt buộc." });
 	}
 
-	const id = Date.now().toString();
+	const id = uuidv4(); // Dùng uuid cho đồng nhất
 	const newBuild = {
-		id,
 		...buildData,
+		id,
 		creator: req.user["cognito:username"],
 		sub: req.user.sub,
 		createdAt: new Date().toISOString(),
 		views: 0,
 		like: 0,
 		display: buildData.display === true,
+		star: Number(buildData.star || 0),
 	};
 
 	try {
@@ -165,7 +169,6 @@ router.post("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 			}),
 		);
 
-		// Xóa cả 2 cache
 		adminBuildCache.del("admin_all_builds");
 		if (newBuild.display) invalidatePublicBuildsCache();
 
@@ -180,7 +183,7 @@ router.post("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 });
 
 /**
- * PUT /api/admin/builds/:id – SỬA
+ * PUT /api/admin/builds/:id
  */
 router.put("/:id", authenticateCognitoToken, requireAdmin, async (req, res) => {
 	const { id } = req.params;
@@ -193,7 +196,7 @@ router.put("/:id", authenticateCognitoToken, requireAdmin, async (req, res) => {
 		if (!Item) return res.status(404).json({ error: "Build không tồn tại." });
 
 		const oldBuild = unmarshall(Item);
-		const oldDisplay = oldBuild.display === "true" || oldBuild.display === true;
+		const oldDisplay = oldBuild.display === true || oldBuild.display === "true";
 
 		let updateExpression = "SET";
 		const expressionAttributeNames = {};
@@ -220,7 +223,7 @@ router.put("/:id", authenticateCognitoToken, requireAdmin, async (req, res) => {
 				updateExpression += ` ${attrKey} = ${valKey},`;
 				expressionAttributeNames[attrKey] = key;
 				expressionAttributeValues[valKey] =
-					key === "display" ? (value ? "true" : "false") : value;
+					key === "display" ? value === true : value;
 			}
 		});
 
@@ -242,10 +245,9 @@ router.put("/:id", authenticateCognitoToken, requireAdmin, async (req, res) => {
 		const { Attributes } = await client.send(command);
 		const updatedBuild = normalizeBuildFromDynamo(unmarshall(Attributes));
 
-		// Làm mới cache
 		adminBuildCache.del("admin_all_builds");
-		const newDisplay = updatedBuild.display === true;
-		if (oldDisplay || newDisplay) invalidatePublicBuildsCache();
+		if (oldDisplay || updatedBuild.display === true)
+			invalidatePublicBuildsCache();
 
 		res.json({ message: "Cập nhật thành công", build: updatedBuild });
 	} catch (error) {
@@ -255,7 +257,7 @@ router.put("/:id", authenticateCognitoToken, requireAdmin, async (req, res) => {
 });
 
 /**
- * DELETE /api/admin/builds/:id – XÓA
+ * DELETE /api/admin/builds/:id
  */
 router.delete(
 	"/:id",
@@ -263,14 +265,14 @@ router.delete(
 	requireAdmin,
 	async (req, res) => {
 		const { id } = req.params;
-
 		try {
 			const { Item } = await client.send(
 				new GetItemCommand({ TableName: BUILDS_TABLE, Key: marshall({ id }) }),
 			);
 			if (!Item) return res.status(404).json({ error: "Build không tồn tại." });
 
-			const wasPublic = unmarshall(Item).display === "true";
+			const build = unmarshall(Item);
+			const wasPublic = build.display === true || build.display === "true";
 
 			await client.send(
 				new DeleteItemCommand({
@@ -279,7 +281,6 @@ router.delete(
 				}),
 			);
 
-			// Làm mới cache
 			adminBuildCache.del("admin_all_builds");
 			if (wasPublic) invalidatePublicBuildsCache();
 

@@ -22,7 +22,7 @@ const NEW_RUNE_TEMPLATE = {
 
 const ITEMS_PER_PAGE = 20;
 
-// === LIST VIEW ===
+// === LIST VIEW COMPONENT ===
 const RuneListView = memo(
 	({
 		paginatedRunes,
@@ -87,7 +87,7 @@ const RuneListView = memo(
 	},
 );
 
-// === EDIT WRAPPER ===
+// === EDIT WRAPPER COMPONENT ===
 const RuneEditWrapper = ({
 	runes,
 	onSave,
@@ -101,10 +101,10 @@ const RuneEditWrapper = ({
 	const selectedRune = useMemo(() => {
 		if (id === "new") return { ...NEW_RUNE_TEMPLATE };
 
-		// FIX: Đảm bảo runes là mảng trước khi find
 		const safeRunes = Array.isArray(runes) ? runes : [];
 		const found = safeRunes.find(r => r.runeCode === id);
 		if (found) {
+			// Đánh dấu isNew: false để Backend nhận biết lệnh Cập nhật
 			return { ...found, isNew: false };
 		}
 		return null;
@@ -114,8 +114,12 @@ const RuneEditWrapper = ({
 		navigate("/admin/runes");
 	}, [navigate]);
 
-	// FIX: Kiểm tra an toàn trước khi hiển thị lỗi không tìm thấy
-	if (!selectedRune && Array.isArray(runes) && runes.length > 0) {
+	if (
+		!selectedRune &&
+		id !== "new" &&
+		Array.isArray(runes) &&
+		runes.length > 0
+	) {
 		return (
 			<div className='flex flex-col items-center justify-center py-20 text-text-secondary'>
 				<p className='text-xl mb-4'>Không tìm thấy ngọc có mã: {id}</p>
@@ -166,12 +170,9 @@ function RuneEditor() {
 	const fetchAllData = useCallback(async () => {
 		try {
 			setIsLoading(true);
-			// FIX: Thêm limit=1000 để lấy toàn bộ dữ liệu phục vụ Admin
 			const res = await fetch(`${API_BASE_URL}/api/runes?limit=1000`);
 			if (!res.ok) throw new Error("Không thể tải dữ liệu");
 			const data = await res.json();
-
-			// FIX: Lấy data.items vì Backend trả về object phân trang
 			setRunes(data.items || []);
 		} catch (e) {
 			setError("Không thể tải dữ liệu từ server.");
@@ -185,7 +186,6 @@ function RuneEditor() {
 	}, [fetchAllData]);
 
 	const filterOptions = useMemo(() => {
-		// FIX: Kiểm tra an toàn để tránh lỗi map
 		const safeRunes = Array.isArray(runes) ? runes : [];
 		const rarities = [
 			...new Set(safeRunes.map(r => r.rarity).filter(Boolean)),
@@ -203,7 +203,6 @@ function RuneEditor() {
 	}, [runes]);
 
 	const filteredRunes = useMemo(() => {
-		// FIX: Kiểm tra an toàn
 		let result = Array.isArray(runes) ? [...runes] : [];
 
 		if (searchTerm) {
@@ -213,19 +212,16 @@ function RuneEditor() {
 			);
 		}
 
-		if (selectedRarities.length) {
+		if (selectedRarities.length)
 			result = result.filter(r => selectedRarities.includes(r.rarity));
-		}
-
-		if (selectedTypes.length) {
+		if (selectedTypes.length)
 			result = result.filter(r => selectedTypes.includes(r.type));
-		}
 
 		const [field, dir] = sortOrder.split("-");
 		result.sort((a, b) => {
 			const A = a.name || "";
 			const B = b.name || "";
-			return dir === "asc" ? (A > B ? 1 : -1) : A < B ? 1 : -1;
+			return dir === "asc" ? A.localeCompare(B) : B.localeCompare(A);
 		});
 
 		return result;
@@ -250,20 +246,16 @@ function RuneEditor() {
 				body: JSON.stringify(data),
 			});
 
+			const result = await res.json();
+
 			if (!res.ok) {
-				let errorMessage = "Lưu thất bại.";
-				try {
-					const errorBody = await res.json();
-					errorMessage = errorBody.error || errorBody.message || errorMessage;
-				} catch {}
-				throw new Error(errorMessage);
+				// Sử dụng lỗi từ backend (Ví dụ: 409 Conflict hoặc 404 Not Found)
+				throw new Error(result.error || "Lưu thất bại.");
 			}
 
 			await fetchAllData();
 			navigate("/admin/runes");
-			alert(
-				data.isNew ? "Tạo ngọc mới thành công" : "Cập nhật ngọc thành công",
-			);
+			alert(result.message || "Lưu thành công");
 		} catch (e) {
 			alert(e.message || "Đã có lỗi xảy ra");
 		} finally {
@@ -272,8 +264,8 @@ function RuneEditor() {
 	};
 
 	const handleDeleteRune = async runeCode => {
-		if (!runeCode) return;
-		if (!window.confirm("Bạn có chắc chắn muốn xóa ngọc này?")) return; // Thêm confirm an toàn
+		if (!runeCode || !window.confirm("Bạn có chắc chắn muốn xóa ngọc này?"))
+			return;
 		setIsSaving(true);
 		try {
 			const token = localStorage.getItem("token");

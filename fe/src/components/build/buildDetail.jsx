@@ -10,6 +10,7 @@ import {
 	ChevronLeft,
 	Loader2,
 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion"; // Thêm Framer Motion
 
 import { useAuth } from "../../context/AuthContext.jsx";
 import Modal from "../common/modal";
@@ -20,9 +21,39 @@ import CommentsSection from "../comment/commentsSection";
 import PageTitle from "../common/pageTitle.jsx";
 import SafeImage from "../common/SafeImage.jsx";
 
-// Import hook trạng thái yêu thích
 import { useFavoriteStatus } from "../../hooks/useFavoriteStatus";
 import regionsData from "../../assets/data/iconRegions.json";
+
+// --- THÀNH PHẦN SKELETON (Đồng bộ phong cách với championDetail) ---
+const BuildDetailSkeleton = () => (
+	<div className='max-w-[1200px] mx-auto p-2 sm:p-6 animate-pulse'>
+		<div className='h-10 w-24 bg-gray-700/50 rounded mb-4' />
+		<div className='bg-surface-bg border rounded-lg p-4 sm:p-6 space-y-8'>
+			<div className='flex flex-col sm:flex-row justify-between items-start gap-4'>
+				<div className='flex items-center gap-4'>
+					<div className='w-20 h-20 rounded-full bg-gray-700/50' />
+					<div className='space-y-2'>
+						<div className='h-8 w-48 bg-gray-700/50 rounded' />
+						<div className='h-4 w-32 bg-gray-700/50 rounded' />
+						<div className='h-5 w-24 bg-gray-700/50 rounded' />
+					</div>
+				</div>
+				<div className='flex gap-2'>
+					<div className='h-10 w-16 bg-gray-700/50 rounded-lg' />
+					<div className='h-10 w-10 bg-gray-700/50 rounded-full' />
+				</div>
+			</div>
+			<div className='space-y-4'>
+				<div className='h-8 w-40 bg-gray-700/50 rounded' />
+				<div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+					{[1, 2, 3].map(i => (
+						<div key={i} className='h-24 bg-gray-700/30 rounded-lg' />
+					))}
+				</div>
+			</div>
+		</div>
+	</div>
+);
 
 const BuildDetail = () => {
 	const { buildId } = useParams();
@@ -34,16 +65,11 @@ const BuildDetail = () => {
 	const [loadingBuild, setLoadingBuild] = useState(true);
 	const [error, setError] = useState(null);
 
-	// Tối ưu: Lấy trực tiếp creator từ object build
 	const creatorDisplayName = useMemo(() => {
 		if (!build) return "Đang tải...";
-
-		// Ưu tiên hiển thị "Tôi" nếu người đang xem là chủ sở hữu
 		if (user && (build.sub === user.sub || build.user_sub === user.sub)) {
 			return user.name || "Tôi";
 		}
-
-		// Sử dụng thuộc tính creator hoặc creatorName có sẵn trong build
 		return build.creator || build.creatorName || "Người chơi";
 	}, [build, user]);
 
@@ -51,7 +77,6 @@ const BuildDetail = () => {
 	const [isLiked, setIsLiked] = useState(false);
 	const [isFavorite, setIsFavorite] = useState(false);
 
-	// Fix lỗi truyền buildId cho hook
 	const { status: favoriteStatus } = useFavoriteStatus(
 		buildId ? [buildId] : [],
 		token,
@@ -67,9 +92,6 @@ const BuildDetail = () => {
 	const [powers, setPowers] = useState([]);
 	const [loadingData, setLoadingData] = useState(true);
 
-	/**
-	 * 1. FETCH METADATA (Cổ vật, Ngọc, Sức mạnh)
-	 */
 	useEffect(() => {
 		const fetchStaticData = async () => {
 			setLoadingData(true);
@@ -96,15 +118,12 @@ const BuildDetail = () => {
 			} catch (err) {
 				console.error("Lỗi tải metadata:", err);
 			} finally {
-				setLoadingData(false);
+				// Để đồng bộ với championDetail, chúng ta sẽ quản lý loadingBuild chính
 			}
 		};
 		fetchStaticData();
 	}, [apiUrl]);
 
-	/**
-	 * 2. FETCH BUILD DETAIL
-	 */
 	const fetchBuild = useCallback(async () => {
 		setLoadingBuild(true);
 		try {
@@ -121,7 +140,11 @@ const BuildDetail = () => {
 		} catch (err) {
 			setError(err.message);
 		} finally {
-			setLoadingBuild(false);
+			// Thêm delay nhẹ 800ms như trang ChampionDetail để hiệu ứng mượt hơn
+			setTimeout(() => {
+				setLoadingBuild(false);
+				setLoadingData(false);
+			}, 800);
 		}
 	}, [buildId, apiUrl, token]);
 
@@ -129,9 +152,6 @@ const BuildDetail = () => {
 		fetchBuild();
 	}, [fetchBuild]);
 
-	/**
-	 * 3. ĐỒNG BỘ TRẠNG THÁI TIM & LIKE
-	 */
 	useEffect(() => {
 		if (favoriteStatus && typeof favoriteStatus[buildId] !== "undefined") {
 			setIsFavorite(favoriteStatus[buildId]);
@@ -143,9 +163,6 @@ const BuildDetail = () => {
 		if (liked) setIsLiked(true);
 	}, [buildId]);
 
-	/**
-	 * 4. MAPPING DỮ LIỆU HIỂN THỊ
-	 */
 	const findFullItem = (list, name) => {
 		if (!Array.isArray(list) || !name) return null;
 		const target = name.trim().toLowerCase();
@@ -186,9 +203,6 @@ const BuildDetail = () => {
 		[build, powers],
 	);
 
-	/**
-	 * 5. TÁC VỤ NGƯỜI DÙNG
-	 */
 	const handleLike = async () => {
 		if (!user) {
 			setShowLoginModal(true);
@@ -265,14 +279,6 @@ const BuildDetail = () => {
 		);
 	};
 
-	if (loadingBuild || loadingData)
-		return (
-			<div className='flex flex-col items-center justify-center py-20 gap-4'>
-				<Loader2 className='animate-spin text-primary-500' size={48} />
-				<p className='text-text-secondary'>Đang tải thông tin bộ cổ vật...</p>
-			</div>
-		);
-
 	if (error)
 		return (
 			<div className='text-center py-20'>
@@ -287,147 +293,183 @@ const BuildDetail = () => {
 			</div>
 		);
 
-	if (!build) return null;
-
 	return (
-		<div>
-			<PageTitle title={`Bộ cổ vật ${build.championName} - ${build.name}`} />
+		<div className='animate-fadeIn'>
+			<PageTitle
+				title={
+					build
+						? `Bộ cổ vật ${build.championName} - ${build.name}`
+						: "Chi tiết bộ cổ vật"
+				}
+			/>
 			<div className='max-w-[1200px] mx-auto p-2 sm:p-6 text-text-primary font-secondary'>
-				<Button variant='outline' onClick={() => navigate(-1)} className='mb-4'>
-					<ChevronLeft size={18} /> Quay lại
-				</Button>
+				<AnimatePresence mode='wait'>
+					{loadingBuild || loadingData ? (
+						<motion.div
+							key='skeleton'
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							exit={{ opacity: 0 }}
+						>
+							<BuildDetailSkeleton />
+						</motion.div>
+					) : (
+						<motion.div
+							key='content'
+							initial={{ opacity: 0, y: 10 }}
+							animate={{ opacity: 1, y: 0 }}
+							exit={{ opacity: 0, y: -10 }}
+							transition={{ duration: 0.3 }}
+						>
+							<Button
+								variant='outline'
+								onClick={() => navigate(-1)}
+								className='mb-4'
+							>
+								<ChevronLeft size={18} /> Quay lại
+							</Button>
 
-				<div className='bg-surface-bg rounded-lg shadow-md p-4 sm:p-6 border border-border'>
-					<div className='flex flex-col sm:flex-row justify-between items-start gap-4 mb-6'>
-						<div className='flex items-center gap-4'>
-							<SafeImage
-								src={championImage}
-								alt={build.championName}
-								className='w-20 h-20 rounded-full border-4 border-icon-star object-cover'
-							/>
-							<div>
-								<div className='flex items-center gap-2'>
-									<h1 className='font-bold text-2xl sm:text-3xl font-primary'>
-										{build.championName}
-									</h1>
-									{championRegions.map(r => (
+							<div className='bg-surface-bg rounded-lg shadow-md p-4 sm:p-6 border border-border'>
+								<div className='flex flex-col sm:flex-row justify-between items-start gap-4 mb-6'>
+									<div className='flex items-center gap-4'>
 										<SafeImage
-											key={r.name}
-											src={r.icon}
-											alt={r.name}
-											className='w-6 h-6'
+											src={championImage}
+											alt={build.championName}
+											className='w-20 h-20 rounded-full border-4 border-icon-star object-cover'
 										/>
-									))}
+										<div>
+											<div className='flex items-center gap-2'>
+												<h1 className='font-bold text-2xl sm:text-3xl font-primary'>
+													{build.championName}
+												</h1>
+												{championRegions.map(r => (
+													<SafeImage
+														key={r.name}
+														src={r.icon}
+														alt={r.name}
+														className='w-6 h-6'
+													/>
+												))}
+											</div>
+											<p className='text-xs sm:text-sm text-text-secondary'>
+												Tạo bởi:{" "}
+												<span className='font-medium'>
+													{creatorDisplayName}
+												</span>
+											</p>
+											<div className='flex mt-2'>
+												{[...Array(build.star || 0)].map((_, i) => (
+													<Star
+														key={i}
+														size={18}
+														className='text-icon-star'
+														fill='currentColor'
+													/>
+												))}
+												{[...Array(7 - (build.star || 0))].map((_, i) => (
+													<Star key={i} size={18} className='text-border' />
+												))}
+											</div>
+										</div>
+									</div>
+
+									<div className='flex items-center gap-2'>
+										<button
+											onClick={handleLike}
+											disabled={isLiked}
+											className={`flex items-center gap-1.5 p-2 rounded-lg transition-colors ${isLiked ? "text-primary-500" : "text-text-secondary hover:bg-surface-hover"}`}
+										>
+											<ThumbsUp
+												size={22}
+												fill={isLiked ? "currentColor" : "none"}
+											/>
+											<span className='font-bold text-lg'>{likeCount}</span>
+										</button>
+										<button
+											onClick={handleToggleFavorite}
+											className={`p-2 rounded-full transition-colors ${isFavorite ? "text-danger-500" : "text-text-secondary hover:bg-surface-hover"}`}
+										>
+											<Heart
+												size={22}
+												fill={isFavorite ? "currentColor" : "none"}
+											/>
+										</button>
+										{isOwner && (
+											<>
+												<button
+													onClick={() => setShowEditModal(true)}
+													className='p-2 rounded-full text-text-secondary hover:bg-surface-hover'
+												>
+													<Edit size={22} />
+												</button>
+												<button
+													onClick={() => setBuildToDelete(build)}
+													className='p-2 rounded-full text-text-secondary hover:bg-surface-hover hover:text-danger-500'
+												>
+													<Trash2 size={22} />
+												</button>
+											</>
+										)}
+									</div>
 								</div>
-								<p className='text-xs sm:text-sm text-text-secondary'>
-									Tạo bởi:{" "}
-									<span className='font-medium'>{creatorDisplayName}</span>
-								</p>
-								<div className='flex mt-2'>
-									{[...Array(build.star || 0)].map((_, i) => (
-										<Star
-											key={i}
-											size={18}
-											className='text-icon-star'
-											fill='currentColor'
-										/>
-									))}
-									{[...Array(7 - (build.star || 0))].map((_, i) => (
-										<Star key={i} size={18} className='text-border' />
-									))}
-								</div>
-							</div>
-						</div>
 
-						<div className='flex items-center gap-2'>
-							<button
-								onClick={handleLike}
-								disabled={isLiked}
-								className={`flex items-center gap-1.5 p-2 rounded-lg transition-colors ${isLiked ? "text-primary-500" : "text-text-secondary hover:bg-surface-hover"}`}
-							>
-								<ThumbsUp size={22} fill={isLiked ? "currentColor" : "none"} />
-								<span className='font-bold text-lg'>{likeCount}</span>
-							</button>
-							<button
-								onClick={handleToggleFavorite}
-								className={`p-2 rounded-full transition-colors ${isFavorite ? "text-danger-500" : "text-text-secondary hover:bg-surface-hover"}`}
-							>
-								<Heart size={22} fill={isFavorite ? "currentColor" : "none"} />
-							</button>
-							{isOwner && (
-								<>
-									<button
-										onClick={() => setShowEditModal(true)}
-										className='p-2 rounded-full text-text-secondary hover:bg-surface-hover'
-									>
-										<Edit size={22} />
-									</button>
-									<button
-										onClick={() => setBuildToDelete(build)}
-										className='p-2 rounded-full text-text-secondary hover:bg-surface-hover hover:text-danger-500'
-									>
-										<Trash2 size={22} />
-									</button>
-								</>
-							)}
-						</div>
-					</div>
+								{relicSet.length > 0 && (
+									<div className='mb-8'>
+										<h2 className='text-xl font-bold mb-4 font-primary border-b border-border pb-2 text-primary-500'>
+											Cổ Vật
+										</h2>
+										<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+											{relicSet.map((item, i) => (
+												<RenderItem key={i} item={item} />
+											))}
+										</div>
+									</div>
+								)}
 
-					{/* Nội dung chính các Items */}
-					{relicSet.length > 0 && (
-						<div className='mb-8'>
-							<h2 className='text-xl font-bold mb-4 font-primary border-b border-border pb-2 text-primary-500'>
-								Cổ Vật
-							</h2>
-							<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
-								{relicSet.map((item, i) => (
-									<RenderItem key={i} item={item} />
-								))}
+								{runeSet.length > 0 && (
+									<div className='mb-8'>
+										<h2 className='text-xl font-bold mb-4 font-primary border-b border-border pb-2 text-primary-500'>
+											Ngọc
+										</h2>
+										<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+											{runeSet.map((item, i) => (
+												<RenderItem key={i} item={item} />
+											))}
+										</div>
+									</div>
+								)}
+
+								{powerSet.length > 0 && (
+									<div className='mb-8'>
+										<h2 className='text-xl font-bold mb-4 font-primary border-b border-border pb-2 text-primary-500'>
+											Sức mạnh
+										</h2>
+										<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+											{powerSet.map((item, i) => (
+												<RenderItem key={i} item={item} />
+											))}
+										</div>
+									</div>
+								)}
+
+								{build.description && (
+									<div className='mb-6'>
+										<h2 className='text-xl font-bold mb-3 font-primary text-primary-500'>
+											Ghi chú chiến thuật
+										</h2>
+										<div className='bg-surface-hover p-4 rounded-md border-l-4 border-primary-500'>
+											<p className='text-text-primary whitespace-pre-wrap italic'>
+												"{build.description}"
+											</p>
+										</div>
+									</div>
+								)}
 							</div>
-						</div>
+
+							<CommentsSection buildId={build.id || buildId} />
+						</motion.div>
 					)}
-
-					{runeSet.length > 0 && (
-						<div className='mb-8'>
-							<h2 className='text-xl font-bold mb-4 font-primary border-b border-border pb-2 text-primary-500'>
-								Ngọc
-							</h2>
-							<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-								{runeSet.map((item, i) => (
-									<RenderItem key={i} item={item} />
-								))}
-							</div>
-						</div>
-					)}
-
-					{powerSet.length > 0 && (
-						<div className='mb-8'>
-							<h2 className='text-xl font-bold mb-4 font-primary border-b border-border pb-2 text-primary-500'>
-								Sức mạnh
-							</h2>
-							<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-								{powerSet.map((item, i) => (
-									<RenderItem key={i} item={item} />
-								))}
-							</div>
-						</div>
-					)}
-
-					{build.description && (
-						<div className='mb-6'>
-							<h2 className='text-xl font-bold mb-3 font-primary text-primary-500'>
-								Ghi chú chiến thuật
-							</h2>
-							<div className='bg-surface-hover p-4 rounded-md border-l-4 border-primary-500'>
-								<p className='text-text-primary whitespace-pre-wrap italic'>
-									"{build.description}"
-								</p>
-							</div>
-						</div>
-					)}
-				</div>
-
-				<CommentsSection buildId={build.id || buildId} />
+				</AnimatePresence>
 
 				<Modal
 					isOpen={showLoginModal}

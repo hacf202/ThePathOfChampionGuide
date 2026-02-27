@@ -1,4 +1,4 @@
-// src/pages/admin/itemEditorForm.jsx (file mới)
+// src/pages/admin/itemEditorForm.jsx
 import { useState, memo, useEffect } from "react";
 import Button from "../common/button";
 import InputField from "../common/inputField";
@@ -13,7 +13,7 @@ const ItemEditorForm = memo(
 		const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
 		const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-		// Load và deep clone data
+		// Khởi tạo và deep clone dữ liệu ban đầu để so sánh
 		useEffect(() => {
 			if (item) {
 				const deepCloned = JSON.parse(JSON.stringify(item));
@@ -23,14 +23,14 @@ const ItemEditorForm = memo(
 			}
 		}, [item]);
 
-		// Kiểm tra dirty
+		// Kiểm tra trạng thái thay đổi dữ liệu (Dirty check)
 		useEffect(() => {
 			const isChanged =
 				JSON.stringify(formData) !== JSON.stringify(initialData);
 			setIsDirty(isChanged);
 		}, [formData, initialData]);
 
-		// Cảnh báo khi rời tab nếu có thay đổi chưa lưu
+		// Chặn trình duyệt đóng tab nếu có thay đổi chưa lưu
 		useEffect(() => {
 			const handleBeforeUnload = e => {
 				if (isDirty) {
@@ -72,25 +72,21 @@ const ItemEditorForm = memo(
 
 		const handleSubmit = e => {
 			e.preventDefault();
-			const cleanData = { ...formData };
-
-			// XÓA isNew khỏi data gửi đi
-			delete cleanData.isNew;
-
-			onSave(cleanData);
+			// Giữ nguyên formData (bao gồm cả isNew) để gửi lên Backend kiểm tra ID tồn tại
+			onSave(formData);
 		};
 
 		return (
 			<>
 				<form onSubmit={handleSubmit} className='space-y-8'>
-					{/* Header */}
-					<div className='flex justify-between border-border sticky top-0 bg-surface-bg z-20 py-2 border-b mb-4'>
+					{/* Header Toolbar */}
+					<div className='flex justify-between border-border sticky top-0 bg-surface-bg z-20 py-2 border-b mb-4 px-4 shadow-sm'>
 						<div>
-							<label className='block font-semibold text-text-primary text-xl'>
+							<h2 className='block font-semibold text-text-primary text-xl'>
 								{formData.isNew
 									? "Tạo Vật Phẩm Mới"
 									: `Chỉnh sửa: ${formData.name}`}
-							</label>
+							</h2>
 							{isDirty && (
 								<span className='text-xs text-yellow-500 font-medium'>
 									● Có thay đổi chưa lưu
@@ -116,23 +112,31 @@ const ItemEditorForm = memo(
 									{isSaving ? "Đang xử lý..." : "Xóa vật phẩm"}
 								</Button>
 							)}
-							<Button type='submit' variant='primary' disabled={isSaving}>
-								{isSaving ? "Đang lưu..." : formData.isNew ? "Tạo mới" : "Lưu"}
+							<Button
+								type='submit'
+								variant='primary'
+								disabled={isSaving || !formData.itemCode}
+							>
+								{isSaving
+									? "Đang lưu..."
+									: formData.isNew
+										? "Tạo mới"
+										: "Lưu thay đổi"}
 							</Button>
 						</div>
 					</div>
 
-					{/* Form nội dung */}
-					<div className='grid grid-cols-1 lg:grid-cols-2 gap-6 p-6 bg-surface-bg border border-border rounded-xl'>
+					{/* Nội dung Form */}
+					<div className='grid grid-cols-1 lg:grid-cols-2 gap-6 p-6 bg-surface-bg border border-border rounded-xl mx-4'>
 						<div className='space-y-5'>
 							<InputField
-								label='Mã vật phẩm (VD: I001)'
+								label='Mã vật phẩm (Duy nhất, VD: I001)'
 								name='itemCode'
 								value={formData.itemCode || ""}
 								onChange={handleInputChange}
 								required
-								disabled={!formData.isNew}
-								placeholder='I001, I002,...'
+								disabled={!formData.isNew} // Khóa mã ID khi cập nhật để bảo vệ database
+								placeholder='Nhập mã vật phẩm...'
 							/>
 							<InputField
 								label='Tên vật phẩm'
@@ -140,43 +144,51 @@ const ItemEditorForm = memo(
 								value={formData.name || ""}
 								onChange={handleInputChange}
 								required
+								placeholder='Nhập tên hiển thị...'
 							/>
 							<InputField
 								label='Độ hiếm'
 								name='rarity'
 								value={formData.rarity || ""}
 								onChange={handleInputChange}
+								placeholder='VD: Common, Rare, Epic...'
 							/>
 							<InputField
-								label='Rarity Ref'
+								label='Rarity Reference'
 								name='rarityRef'
 								value={formData.rarityRef || ""}
 								onChange={handleInputChange}
+								placeholder='VD: rare_item'
 							/>
 							<div>
 								<label className='block font-semibold text-text-primary mb-2'>
-									Mô tả
+									Mô tả hiển thị
 								</label>
 								<textarea
 									name='description'
 									value={formData.description || ""}
 									onChange={handleInputChange}
-									className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary resize-none'
+									className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary focus:ring-2 focus:ring-primary-500 outline-none transition resize-none'
 									rows={6}
+									placeholder='Nhập mô tả chi tiết vật phẩm...'
 								/>
 							</div>
 						</div>
 
 						<div className='space-y-5'>
-							<div className='flex flex-col items-center'>
-								<p className='text-sm font-medium text-text-secondary mb-3'>
-									Preview Ảnh
+							<div className='flex flex-col items-center p-6 bg-surface-hover/30 rounded-xl border border-dashed border-border'>
+								<p className='text-xs font-bold text-text-secondary mb-4 uppercase tracking-widest'>
+									Xem trước hình ảnh
 								</p>
 								{formData.assetAbsolutePath ? (
 									<img
 										src={formData.assetAbsolutePath}
 										alt='Preview'
-										className='w-48 h-48 object-contain rounded-xl border-4 border-primary-500/20 shadow-xl'
+										className='w-48 h-48 object-contain rounded-xl border-4 border-white dark:border-gray-800 shadow-xl'
+										onError={e => {
+											e.target.src =
+												"https://via.placeholder.com/200?text=Error+Link";
+										}}
 									/>
 								) : (
 									<div className='w-48 h-48 bg-gray-200 dark:bg-gray-700 rounded-xl flex items-center justify-center text-6xl text-gray-400'>
@@ -190,36 +202,39 @@ const ItemEditorForm = memo(
 								name='assetAbsolutePath'
 								value={formData.assetAbsolutePath || ""}
 								onChange={handleInputChange}
+								placeholder='https://...'
 							/>
 							<InputField
 								label='Đường dẫn Ảnh đầy đủ'
 								name='assetFullAbsolutePath'
 								value={formData.assetFullAbsolutePath || ""}
 								onChange={handleInputChange}
+								placeholder='https://...'
 							/>
 							<div>
 								<label className='block font-semibold text-text-primary mb-2'>
-									Mô tả thô (Raw)
+									Dữ liệu mô tả thô (Raw)
 								</label>
 								<textarea
 									name='descriptionRaw'
 									value={formData.descriptionRaw || ""}
 									onChange={handleInputChange}
-									className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary resize-none'
+									className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary focus:ring-2 focus:ring-primary-500 outline-none transition font-mono text-sm'
 									rows={6}
+									placeholder='Nhập dữ liệu gốc từ hệ thống...'
 								/>
 							</div>
 						</div>
 					</div>
 				</form>
 
-				{/* Modal Hủy */}
+				{/* Modal Xác nhận Hủy */}
 				<Modal
 					isOpen={isCancelModalOpen}
 					onClose={() => setIsCancelModalOpen(false)}
 					title='Xác nhận Hủy'
 				>
-					<div className='text-text-secondary'>
+					<div className='p-4 text-text-secondary'>
 						<p className='mb-6'>
 							Bạn có thay đổi chưa lưu. Nếu rời đi, mọi thay đổi sẽ bị mất.
 						</p>
@@ -237,13 +252,13 @@ const ItemEditorForm = memo(
 					</div>
 				</Modal>
 
-				{/* Modal Xóa */}
+				{/* Modal Xác nhận Xóa */}
 				<Modal
 					isOpen={isDeleteModalOpen}
 					onClose={() => setIsDeleteModalOpen(false)}
-					title='Xác nhận Xóa'
+					title='Xác nhận Xóa Vĩnh Viễn'
 				>
-					<div className='text-text-secondary'>
+					<div className='p-4 text-text-secondary'>
 						<p className='mb-6'>
 							Bạn có chắc chắn muốn xóa <strong>{item?.name}</strong>? Hành động
 							này không thể hoàn tác.
@@ -256,7 +271,7 @@ const ItemEditorForm = memo(
 								Hủy
 							</Button>
 							<Button onClick={confirmDelete} variant='danger'>
-								Xóa vật phẩm
+								Xác nhận Xóa
 							</Button>
 						</div>
 					</div>

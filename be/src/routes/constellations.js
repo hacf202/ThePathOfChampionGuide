@@ -23,6 +23,7 @@ router.get("/", async (req, res) => {
 		const data = Items ? Items.map(item => unmarshall(item)) : [];
 		res.json({ items: data });
 	} catch (error) {
+		console.error("Error fetching constellations:", error);
 		res.status(500).json({ error: "Lỗi hệ thống." });
 	}
 });
@@ -40,6 +41,7 @@ router.get("/:constellationID", async (req, res) => {
 			return res.status(404).json({ error: "Không tìm thấy chòm sao." });
 		res.json(unmarshall(Item));
 	} catch (error) {
+		console.error("Error fetching constellation detail:", error);
 		res.status(500).json({ error: "Lỗi hệ thống." });
 	}
 });
@@ -47,16 +49,28 @@ router.get("/:constellationID", async (req, res) => {
 // Cập nhật chòm sao
 router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 	const data = req.body;
+
+	// KIỂM TRA DỮ LIỆU ĐẦU VÀO: Ngăn chặn lỗi 500 do thiếu Primary Key (constellationID)
+	if (!data.constellationID || data.constellationID.trim() === "") {
+		return res
+			.status(400)
+			.json({ error: "constellationID là bắt buộc và không được để trống." });
+	}
+
 	try {
 		const command = new PutItemCommand({
 			TableName: CONSTELLATIONS_TABLE,
 			Item: marshall(data, { removeUndefinedValues: true }),
 		});
 		await client.send(command);
+
+		// Xóa cache chi tiết chòm sao sau khi cập nhật thành công
 		constCache.del(`const_detail_${data.constellationID}`);
+
 		res.json({ message: "Cập nhật thành công.", data });
 	} catch (error) {
-		res.status(500).json({ error: "Lỗi lưu dữ liệu." });
+		console.error("DynamoDB PutItem Error:", error);
+		res.status(500).json({ error: "Lỗi lưu dữ liệu vào cơ sở dữ liệu." });
 	}
 });
 
@@ -68,15 +82,33 @@ router.delete(
 	async (req, res) => {
 		const { constellationID } = req.params;
 		try {
+			// Kiểm tra sự tồn tại trước khi xóa (tùy chọn nhưng khuyến khích)
+			const checkCmd = new GetItemCommand({
+				TableName: CONSTELLATIONS_TABLE,
+				Key: marshall({ constellationID }),
+			});
+			const { Item } = await client.send(checkCmd);
+
+			if (!Item) {
+				return res
+					.status(404)
+					.json({ error: "Không tìm thấy chòm sao để xóa." });
+			}
+
 			await client.send(
 				new DeleteItemCommand({
 					TableName: CONSTELLATIONS_TABLE,
 					Key: marshall({ constellationID }),
 				}),
 			);
-			res.json({ message: "Đã xóa chòm sao." });
+
+			// Xóa cache sau khi xóa thành công
+			constCache.del(`const_detail_${constellationID}`);
+
+			res.json({ message: "Đã xóa chòm sao thành công." });
 		} catch (error) {
-			res.status(500).json({ error: "Lỗi khi xóa." });
+			console.error("Delete constellation error:", error);
+			res.status(500).json({ error: "Lỗi khi xóa dữ liệu." });
 		}
 	},
 );

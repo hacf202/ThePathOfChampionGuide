@@ -1,16 +1,42 @@
 // src/components/build/myFavoriteBuild.jsx
-import React, { useEffect, useState, useContext } from "react";
+import React, {
+	useEffect,
+	useState,
+	useContext,
+	useCallback,
+	useRef,
+} from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { AuthContext } from "../../context/AuthContext.jsx";
 import BuildSummary from "./buildSummary";
 import { useBatchFavoriteData } from "../../hooks/useBatchFavoriteData";
 import Button from "../common/button.jsx";
+import { XCircle } from "lucide-react";
 
-const ITEMS_PER_PAGE = 12; // Số lượng build mỗi trang
+const ITEMS_PER_PAGE = 12;
+
+const BuildSkeleton = () => (
+	<div className='rounded-lg border border-border bg-surface-bg p-4 space-y-4 animate-pulse'>
+		<div className='flex items-center gap-3'>
+			<div className='w-12 h-12 bg-gray-700/50 rounded-full' />
+			<div className='flex-1 space-y-2'>
+				<div className='h-4 w-3/4 bg-gray-700/50 rounded' />
+				<div className='h-3 w-1/2 bg-gray-700/50 rounded' />
+			</div>
+		</div>
+		<div className='h-24 w-full bg-gray-700/50 rounded-md' />
+		<div className='flex gap-2'>
+			<div className='h-8 w-8 bg-gray-700/50 rounded-full' />
+			<div className='h-8 w-8 bg-gray-700/50 rounded-full' />
+			<div className='h-8 w-8 bg-gray-700/50 rounded-full' />
+		</div>
+	</div>
+);
 
 const MyFavorite = ({
 	searchTerm,
-	selectedStarLevels, // Chuỗi CSV từ buildList
-	selectedRegions, // Chuỗi CSV từ buildList
+	selectedStarLevels,
+	selectedRegions,
 	championsList,
 	relicsList,
 	powersList,
@@ -18,98 +44,55 @@ const MyFavorite = ({
 	refreshKey,
 	onFavoriteToggle,
 	onDeleteSuccess,
-	sortBy, // Định dạng: "field-order"
+	sortBy,
+	showDesktopFilter,
 }) => {
 	const { token } = useContext(AuthContext);
 	const [favoriteBuilds, setFavoriteBuilds] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState(null);
-	const [creatorNames, setCreatorNames] = useState({});
-
-	// State phân trang đồng bộ với Backend
 	const [currentPage, setCurrentPage] = useState(1);
 	const [totalPages, setTotalPages] = useState(1);
 	const [totalItems, setTotalItems] = useState(0);
+	const isFetching = useRef(false);
 
 	const apiUrl = import.meta.env.VITE_API_URL;
-
-	// Lấy lượt like realtime cho danh sách đang hiển thị
 	const { favoriteCounts } = useBatchFavoriteData(favoriteBuilds, token);
 
-	/**
-	 * Fetch tên người tạo từ danh sách User ID (sub)
-	 */
-	const fetchCreatorNames = async builds => {
-		const userIds = [...new Set(builds.map(b => b.creator).filter(Boolean))];
-		const idsToFetch = userIds.filter(id => !creatorNames[id]);
-		if (idsToFetch.length === 0) return;
+	const fetchFavoriteBuilds = useCallback(async () => {
+		if (!token || isFetching.current) return;
+		isFetching.current = true;
+		setIsLoading(true);
+
+		const params = new URLSearchParams({
+			page: currentPage,
+			limit: ITEMS_PER_PAGE,
+			searchTerm: searchTerm || "",
+			sort: sortBy || "favAt-desc",
+			regions: selectedRegions || "",
+			stars: selectedStarLevels || "",
+		});
 
 		try {
-			const res = await fetch(`${apiUrl}/api/users/batch`, {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ userIds: idsToFetch }),
-			});
-			if (res.ok) {
-				const newNames = await res.json();
-				setCreatorNames(prev => ({ ...prev, ...newNames }));
-			}
+			const response = await fetch(
+				`${apiUrl}/api/builds/favorites?${params.toString()}`,
+				{
+					headers: { Authorization: `Bearer ${token}` },
+				},
+			);
+			if (!response.ok) throw new Error("Không thể tải danh sách yêu thích");
+			const data = await response.json();
+			setFavoriteBuilds(data.items || []);
+			setTotalPages(data.pagination?.totalPages || 1);
+			setTotalItems(data.pagination?.totalItems || 0);
 		} catch (err) {
-			console.error("Lỗi lấy tên người tạo:", err);
+			setError(err.message);
+		} finally {
+			setTimeout(() => {
+				setIsLoading(false);
+				isFetching.current = false;
+			}, 400);
 		}
-	};
-
-	/**
-	 * Effect: Fetch danh sách yêu thích khi filter/page thay đổi
-	 */
-	useEffect(() => {
-		const fetchFavoriteBuilds = async () => {
-			if (!token) {
-				setFavoriteBuilds([]);
-				setIsLoading(false);
-				return;
-			}
-			setIsLoading(true);
-			setError(null);
-
-			// Xây dựng params gửi lên Backend
-			const params = new URLSearchParams({
-				page: currentPage,
-				limit: ITEMS_PER_PAGE,
-				searchTerm: searchTerm || "",
-				sort: sortBy || "favAt-desc", // Sắp xếp theo ngày yêu thích mặc định
-				// Nếu backend favorites.js đã hỗ trợ thêm regions/stars, ta truyền vào đây:
-				regions: selectedRegions || "",
-				stars: selectedStarLevels || "",
-			});
-
-			try {
-				const response = await fetch(
-					`${apiUrl}/api/builds/favorites?${params.toString()}`,
-					{
-						headers: { Authorization: `Bearer ${token}` },
-					},
-				);
-				if (!response.ok) throw new Error("Không thể tải danh sách yêu thích");
-
-				const data = await response.json();
-
-				// Xử lý dữ liệu theo cấu trúc { items, pagination }
-				const items = data.items || [];
-				const pagination = data.pagination || {};
-
-				setFavoriteBuilds(items);
-				setTotalPages(pagination.totalPages || 1);
-				setTotalItems(pagination.totalItems || 0);
-
-				fetchCreatorNames(items);
-			} catch (err) {
-				setError(err.message);
-			} finally {
-				setIsLoading(false);
-			}
-		};
-		fetchFavoriteBuilds();
 	}, [
 		token,
 		refreshKey,
@@ -118,44 +101,47 @@ const MyFavorite = ({
 		sortBy,
 		selectedStarLevels,
 		selectedRegions,
+		apiUrl,
 	]);
 
-	// Reset về trang 1 khi người dùng thay đổi bộ lọc
+	// --- SIDE EFFECTS ---
+
+	// 1. Reset về trang 1 khi thay đổi bộ lọc
 	useEffect(() => {
-		setCurrentPage(1);
+		if (currentPage !== 1) {
+			setCurrentPage(1);
+		}
 	}, [searchTerm, selectedStarLevels, selectedRegions, sortBy]);
 
-	const handlePageChange = newPage => {
-		if (newPage >= 1 && newPage <= totalPages) {
-			setCurrentPage(newPage);
+	// 2. Chỉ gọi fetch dữ liệu qua callback đã tối ưu
+	useEffect(() => {
+		fetchFavoriteBuilds();
+	}, [fetchFavoriteBuilds]);
+
+	const goToNextPage = useCallback(() => {
+		if (currentPage < totalPages && !isLoading) {
+			setCurrentPage(p => p + 1);
 			window.scrollTo({ top: 0, behavior: "smooth" });
 		}
-	};
+	}, [currentPage, totalPages, isLoading]);
 
-	const handleBuildUpdated = updatedBuild => {
-		// Nếu người dùng bỏ yêu thích, xóa build khỏi danh sách hiện tại
-		if (updatedBuild.isFavorited === false) {
-			setFavoriteBuilds(current =>
-				current.filter(b => b.id !== updatedBuild.id),
-			);
-			setTotalItems(prev => Math.max(0, prev - 1));
+	const goToPrevPage = useCallback(() => {
+		if (currentPage > 1 && !isLoading) {
+			setCurrentPage(p => p - 1);
+			window.scrollTo({ top: 0, behavior: "smooth" });
 		}
-		if (onFavoriteToggle) onFavoriteToggle();
-	};
+	}, [currentPage, isLoading]);
 
-	const handleBuildDeleted = deletedBuildId => {
-		setFavoriteBuilds(current => current.filter(b => b.id !== deletedBuildId));
-		if (onDeleteSuccess) onDeleteSuccess();
-	};
-
-	if (isLoading)
-		return (
-			<div className='flex justify-center py-20'>
-				<p className='text-text-secondary animate-pulse'>
-					Đang tải danh sách yêu thích...
-				</p>
-			</div>
-		);
+	useEffect(() => {
+		const handleKeyDown = e => {
+			if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA")
+				return;
+			if (e.key === "ArrowLeft") goToPrevPage();
+			if (e.key === "ArrowRight") goToNextPage();
+		};
+		window.addEventListener("keydown", handleKeyDown);
+		return () => window.removeEventListener("keydown", handleKeyDown);
+	}, [goToNextPage, goToPrevPage]);
 
 	if (error)
 		return (
@@ -164,90 +150,109 @@ const MyFavorite = ({
 				<Button
 					variant='outline'
 					className='mt-4'
-					onClick={() => window.location.reload()}
+					onClick={fetchFavoriteBuilds}
 				>
 					Thử lại
 				</Button>
 			</div>
 		);
 
-	if (favoriteBuilds.length === 0)
-		return (
-			<div className='text-center py-20 bg-surface-bg-alt rounded-lg border border-dashed border-border mt-6'>
-				<p className='text-text-secondary italic'>
-					{searchTerm || selectedRegions || selectedStarLevels
-						? "Không tìm thấy kết quả phù hợp trong danh sách yêu thích."
-						: "Bạn chưa yêu thích bộ cổ vật nào."}
-				</p>
-			</div>
-		);
-
 	return (
-		<>
-			<div className='mb-4 flex justify-between items-center px-2'>
-				<h2 className='text-lg font-bold text-primary-500 font-primary'>
-					Yêu thích của tôi
+		<div className='space-y-4'>
+			<div className='flex justify-between items-center px-1'>
+				<h2 className='text-xl font-bold text-primary-500 font-primary'>
+					Bộ cổ vật yêu thích
 				</h2>
-				<span className='text-xs text-text-secondary'>
-					Tổng số: {totalItems}
+				<span className='text-sm text-text-secondary bg-surface-bg-alt px-3 py-1 rounded-full border border-border'>
+					{totalItems} build
 				</span>
 			</div>
 
-			<div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mt-6'>
-				{favoriteBuilds.map(build => (
-					<BuildSummary
-						key={build.id}
-						build={{
-							...build,
-							creatorName:
-								creatorNames[build.creator] ||
-								build.creatorName ||
-								"Người chơi",
-						}}
-						initialIsFavorited={true} // Trang này mặc định là đã fav
-						championsList={championsList}
-						relicsList={relicsList}
-						powersList={powersList}
-						runesList={runesList}
-						onBuildUpdate={handleBuildUpdated}
-						onBuildDelete={handleBuildDeleted}
-						onFavoriteToggle={onFavoriteToggle}
-						initialLikeCount={favoriteCounts[build.id] || build.like || 0}
-						isFavoritePage={true}
-					/>
-				))}
-			</div>
-
-			{/* UI Phân trang */}
-			{totalPages > 1 && (
-				<div className='mt-12 flex justify-center items-center gap-4 border-t border-border pt-8'>
-					<Button
-						onClick={() => handlePageChange(currentPage - 1)}
-						disabled={currentPage === 1}
-						variant='outline'
-						size='sm'
+			<AnimatePresence mode='wait'>
+				{isLoading ? (
+					<motion.div
+						key='skeleton'
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						exit={{ opacity: 0 }}
+						className={`grid grid-cols-1 md:grid-cols-2 ${showDesktopFilter ? "xl:grid-cols-3" : "xl:grid-cols-4"} gap-6`}
 					>
-						Trang trước
-					</Button>
-
-					<div className='flex items-center gap-2'>
-						<span className='text-sm font-medium text-text-primary'>
-							Trang {currentPage}
-						</span>
-						<span className='text-text-secondary text-sm'>/ {totalPages}</span>
-					</div>
-
-					<Button
-						onClick={() => handlePageChange(currentPage + 1)}
-						disabled={currentPage === totalPages}
-						variant='outline'
-						size='sm'
+						{[...Array(6)].map((_, i) => (
+							<BuildSkeleton key={i} />
+						))}
+					</motion.div>
+				) : (
+					<motion.div
+						key='content'
+						initial={{ opacity: 0, y: 10 }}
+						animate={{ opacity: 1, y: 0 }}
+						exit={{ opacity: 0, y: -10 }}
+						transition={{ duration: 0.3 }}
 					>
-						Trang sau
-					</Button>
-				</div>
-			)}
-		</>
+						{favoriteBuilds.length > 0 ? (
+							<>
+								<div
+									className={`grid grid-cols-1 md:grid-cols-2 ${showDesktopFilter ? "xl:grid-cols-3" : "xl:grid-cols-4"} gap-6`}
+								>
+									{favoriteBuilds.map(build => (
+										<motion.div key={build.id} layout>
+											<BuildSummary
+												build={{
+													...build,
+													creatorName: build.creator || "Người chơi",
+												}}
+												initialIsFavorited={true}
+												championsList={championsList}
+												relicsList={relicsList}
+												powersList={powersList}
+												runesList={runesList}
+												onBuildUpdate={onFavoriteToggle}
+												onBuildDelete={onDeleteSuccess}
+												initialLikeCount={
+													favoriteCounts[build.id] || build.like || 0
+												}
+												isFavoritePage={true}
+											/>
+										</motion.div>
+									))}
+								</div>
+								{totalPages > 1 && (
+									<div className='mt-10 flex justify-center items-center gap-4 border-t border-border pt-6'>
+										<Button
+											onClick={goToPrevPage}
+											disabled={currentPage === 1}
+											variant='outline'
+										>
+											Trang trước
+										</Button>
+										<span className='font-bold text-primary-500 bg-primary-100/10 px-4 py-1.5 rounded-full border border-primary-500/20'>
+											{currentPage} / {totalPages}
+										</span>
+										<Button
+											onClick={goToNextPage}
+											disabled={currentPage === totalPages}
+											variant='outline'
+										>
+											Trang sau
+										</Button>
+									</div>
+								)}
+							</>
+						) : (
+							<div className='text-center py-20 bg-surface-bg-alt rounded-lg border border-dashed border-border'>
+								<XCircle
+									size={48}
+									className='mx-auto mb-4 opacity-20 text-text-secondary'
+								/>
+								<p className='text-text-secondary italic'>
+									Bạn chưa yêu thích bộ cổ vật nào phù hợp.
+								</p>
+							</div>
+						)}
+					</motion.div>
+				)}
+			</AnimatePresence>
+		</div>
 	);
 };
 

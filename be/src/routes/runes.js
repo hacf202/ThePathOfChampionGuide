@@ -4,7 +4,7 @@ import {
 	ScanCommand,
 	PutItemCommand,
 	DeleteItemCommand,
-	GetItemCommand, // THÊM: Import để lấy chi tiết lẻ
+	GetItemCommand,
 } from "@aws-sdk/client-dynamodb";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
 import NodeCache from "node-cache";
@@ -41,7 +41,6 @@ async function getCachedRunes() {
 /**
  * @route   GET /api/runes/:runeCode
  * @desc    Lấy chi tiết một ngọc (Ưu tiên RAM -> Database)
- * FIX: Thêm route này để đồng bộ với Frontend
  */
 router.get("/:runeCode", async (req, res) => {
 	const { runeCode } = req.params;
@@ -106,9 +105,9 @@ router.get("/", async (req, res) => {
 		let filtered = [...allRunes];
 
 		if (searchTerm) {
-			const searchKey = removeAccents(searchTerm);
+			const searchKey = removeAccents(searchTerm.toLowerCase());
 			filtered = filtered.filter(r =>
-				removeAccents(r.name || "").includes(searchKey),
+				removeAccents((r.name || "").toLowerCase()).includes(searchKey),
 			);
 		}
 
@@ -140,7 +139,7 @@ router.get("/", async (req, res) => {
 		});
 	} catch (error) {
 		console.error("Lỗi API Runes:", error);
-		res.status(500).json({ error: "Could not retrieve runes" });
+		res.status(500).json({ error: "Không thể lấy danh sách ngọc." });
 	}
 });
 
@@ -162,27 +161,68 @@ router.post("/resolve", async (req, res) => {
 	}
 });
 
-// Cập nhật/Thêm mới - Xóa cache
+/**
+ * @route   PUT /api/runes
+ * @desc    Tạo mới hoặc Cập nhật ngọc (Kiểm tra tồn tại ID)
+ */
 router.put("/", authenticateCognitoToken, async (req, res) => {
 	const runeData = req.body;
-	if (!runeData.runeCode)
-		return res.status(400).json({ error: "Rune code is required" });
+	const { runeCode, isNew } = runeData;
+
+	if (!runeCode)
+		return res.status(400).json({ error: "Mã ngọc (runeCode) là bắt buộc." });
+
 	try {
+		// 1. Kiểm tra thực tế trong Database
+		const checkCommand = new GetItemCommand({
+			TableName: RUNES_TABLE,
+			Key: marshall({ runeCode: runeCode.trim() }),
+		});
+		const { Item } = await client.send(checkCommand);
+		const exists = !!Item;
+
+		// 2. Logic kiểm tra nghiệp vụ
+		if (isNew && exists) {
+			return res.status(409).json({
+				error: `Mã ngọc "${runeCode}" đã tồn tại. Không thể tạo mới trùng mã.`,
+			});
+		}
+
+		if (!isNew && !exists) {
+			return res.status(404).json({
+				error: `Mã ngọc "${runeCode}" không tồn tại. Không thể cập nhật.`,
+			});
+		}
+
+		// 3. Chuẩn bị dữ liệu và lưu (Xóa cờ hiệu frontend)
+		const dataToSave = { ...runeData };
+		delete dataToSave.isNew;
+
 		await client.send(
 			new PutItemCommand({
 				TableName: RUNES_TABLE,
-				Item: marshall(runeData),
+				Item: marshall(dataToSave, { removeUndefinedValues: true }),
 			}),
 		);
+
+		// 4. Làm mới Cache
 		runeCache.del("all_runes_data");
-		runeCache.del(`rune_detail_${runeData.runeCode}`); // Xóa cache chi tiết
-		res.status(200).json({ message: "Updated", rune: runeData });
+		runeCache.del(`rune_detail_${runeCode}`);
+
+		res.status(200).json({
+			message: isNew ? "Tạo mới thành công" : "Cập nhật thành công",
+			rune: dataToSave,
+		});
 	} catch (error) {
-		res.status(500).json({ error: "Could not update rune data" });
+		console.error("Lỗi khi lưu ngọc:", error);
+		res.status(500).json({ error: "Lỗi hệ thống khi xử lý dữ liệu." });
 	}
 });
 
-// Xóa - Xóa cache
+/**
+ * @route   DELETE /api/runes/:runeCode
+ * @desc    Xóa ngọc
+ */
 router.delete("/:runeCode", authenticateCognitoToken, async (req, res) => {
 	const { runeCode } = req.params;
 	try {
@@ -194,9 +234,10 @@ router.delete("/:runeCode", authenticateCognitoToken, async (req, res) => {
 		);
 		runeCache.del("all_runes_data");
 		runeCache.del(`rune_detail_${runeCode}`);
-		res.status(200).json({ message: "Deleted" });
+		res.status(200).json({ message: "Đã xóa ngọc thành công." });
 	} catch (error) {
-		res.status(500).json({ error: "Could not delete rune" });
+		console.error("Lỗi khi xóa ngọc:", error);
+		res.status(500).json({ error: "Lỗi hệ thống khi xóa dữ liệu." });
 	}
 });
 

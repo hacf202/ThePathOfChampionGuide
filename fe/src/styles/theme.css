@@ -11,8 +11,8 @@
 	--font-secondary: "Open Sans", sans-serif;
 
 	/* =========================================
-	 * 2. BASE PALETTE (Màu nền tảng)
-	 * ========================================= */
+	  * 2. BASE PALETTE (Màu nền tảng)
+	  * ========================================= */
 
 	/* --- Trắng & Đen --- */
 	--color-white: #ffffff;
@@ -24,10 +24,11 @@
 	--color-gray-400: #71829b;
 	--color-gray-500: #64748b;
 	--color-gray-700: #334155;
-	--color-gray-900: #334155;
+	--color-gray-800: #1e293b;
+	--color-gray-900: #0f172a;
 
 	/* --- Màu chính (Primary - Xanh/Tím) --- */
-	--color-primary-100: #ffffff;
+	--color-primary-100: #e0f2fe;
 	--color-primary-300: #38a7e7;
 	--color-primary-500: #3c91c2;
 	--color-primary-700: #2080b8;
@@ -52,23 +53,28 @@
 	--color-star: #f59e0b;
 
 	/* =========================================
-	 * 3. NỀN TRANG & BỀ MẶT CHUNG
-	 * ========================================= */
+	  * 3. NỀN TRANG & BỀ MẶT CHUNG
+	  * ========================================= */
 	--color-page-bg: #f1f6fc;
-	--color-surface-bg: #f1f6fc;
-	--color-surface-hover-bg: #edf3fa;
-	--color-border: #65686b;
+	--color-surface-bg: #ffffff;
+	--color-surface-hover-bg: #f8fafc;
+	--color-border: #e2e8f0;
 
 	/* =========================================
-	 * 4. VĂN BẢN CHUNG
-	 * ========================================= */
+	  * 4. VĂN BẢN CHUNG
+	  * ========================================= */
 	--color-text-primary: var(--color-gray-900);
 	--color-text-secondary: var(--color-gray-500);
 
 	/* =========================================
-	 * 5. LỚP PHỦ & HIỆU ỨNG KÍNH (GLASSMORPHISM)
-	 * ========================================= */
-	--color-bg-overlay: rgba(0, 0, 0, 0.15);
+	  * 5. LỚP PHỦ & HIỆU ỨNG KÍNH (GLASSMORPHISM)
+	  * ========================================= */
+	--color-bg-overlay: rgba(
+		15,
+		23,
+		42,
+		0.8
+	); /* Darker overlay for Magic effect */
 	--color-glass-bg: rgba(255, 255, 255, 0.3);
 	--color-glass-border: rgba(255, 255, 255, 0.5);
 	--color-glass-hover-bg: rgba(255, 255, 255, 0.5);
@@ -76,8 +82,8 @@
 	--color-glass-dark-text: var(--color-gray-800);
 
 	/* =========================================
-	 * 6. BẢNG ĐIỀU KHIỂN KÍNH (PANEL GLASS)
-	 * ========================================= */
+	  * 6. BẢNG ĐIỀU KHIỂN KÍNH (PANEL GLASS)
+	  * ========================================= */
 	--color-panel-glass-bg: rgba(15, 23, 42, 0.7);
 	--color-panel-glass-border: rgba(51, 65, 85, 0.7);
 	--color-panel-text-light: var(--color-white);
@@ -91,14 +97,13 @@
 	--color-panel-checkbox-border: var(--color-gray-500);
 
 	/* =========================================
-	 * 7. TRẠNG THÁI BÁO ĐỘNG (DANGER)
-	 * ========================================= */
+	  * 7. TRẠNG THÁI BÁO ĐỘNG (DANGER)
+	  * ========================================= */
 	--color-danger-bg-light: var(--color-danger-100);
-	--color-danger-text-dark: var(--color-danger-700);
 
 	/* =========================================
-	 * 8. NÚT BẤM (BUTTON VARIANTS)
-	 * ========================================= */
+	  * 8. NÚT BẤM (BUTTON VARIANTS)
+	  * ========================================= */
 	/* Primary */
 	--color-btn-primary-bg: var(--color-primary-500);
 	--color-btn-primary-text: var(--color-white);
@@ -122,8 +127,8 @@
 	--color-btn-warning-hover-bg: var(--color-warning-700);
 
 	/* =========================================
-	 * 9. BIỂU MẪU (FORM INPUTS)
-	 * ========================================= */
+	  * 9. BIỂU MẪU (FORM INPUTS)
+	  * ========================================= */
 	--color-input-bg: var(--color-white);
 	--color-input-text: var(--color-gray-900);
 	--color-input-border: var(--color-gray-300);
@@ -135,22 +140,22 @@
 	--color-input-error-text: var(--color-danger-text-dark);
 
 	/* =========================================
-	 * 10. DROPDOWN
-	 * ========================================= */
-	--color-dropdown-bg: #f1f4f8;
-	--color-dropdown-border: var(--color-gray-500);
-	--color-dropdown-item-text: var(--color-black);
-	--color-dropdown-item-hover-bg: #cdddf1;
-	--color-dropdown-item-selected-bg: #cdddf1;
+	  * 10. DROPDOWN
+	  * ========================================= */
+	--color-dropdown-bg: #ffffff;
+	--color-dropdown-border: var(--color-gray-300);
+	--color-dropdown-item-text: var(--color-gray-900);
+	--color-dropdown-item-hover-bg: var(--color-gray-100);
+	--color-dropdown-item-selected-bg: var(--color-gray-100);
 
 	/* =========================================
-	 * 11. MODAL
-	 * ========================================= */
-	--color-modal-overlay-bg: rgba(0, 0, 0, 0.2);
+	  * 11. MODAL
+	  * ========================================= */
+	--color-modal-overlay-bg: rgba(0, 0, 0, 0.5);
 
 	/* =========================================
-	 * 12. HEADER & NAVBAR
-	 * ========================================= */
+	  * 12. HEADER & NAVBAR
+	  * ========================================= */
 	--color-header-bg: var(--color-primary-500);
 	--color-header-text: var(--color-white);
 	--color-header-border: var(--color-primary-700);
@@ -161,16 +166,16 @@
 	--color-nav-active-bg: var(--color-primary-700);
 
 	/* =========================================
-	 * 13. FOOTER
-	 * ========================================= */
+	  * 13. FOOTER
+	  * ========================================= */
 	--color-footer-bg: var(--color-gray-900);
 	--color-footer-text: var(--color-gray-100);
 	--color-footer-link: var(--color-gray-100);
 	--color-footer-link-hover: var(--color-primary-100);
 
 	/* =========================================
-	 * 14. ICONS
-	 * ========================================= */
+	  * 14. ICONS
+	  * ========================================= */
 	--color-icon-star: var(--color-star);
 	--color-icon-power: #facc15;
 	--color-icon-gem: #ec4899;
@@ -178,8 +183,8 @@
 	--color-text-link-admin: #000000;
 
 	/* =========================================
-	 * 15. MÀU ĐẶC THÙ THEO TRANG (Home.jsx)
-	 * ========================================= */
+	  * 15. MÀU ĐẶC THÙ THEO TRANG (Home.jsx)
+	  * ========================================= */
 	/* Section 1 */
 	--color-accent1-title: #fcd34d;
 	--color-accent1-subtitle: #fed7aa;
@@ -209,13 +214,13 @@
 	--color-role-ftk-otk: #06b6d4;
 
 	/* =========================================
-	 * 16. BÓNG ĐỔ & HIỆU ỨNG
-	 * ========================================= */
+	  * 16. BÓNG ĐỔ & HIỆU ỨNG
+	  * ========================================= */
 	--color-shadow-primary: rgba(55, 48, 163, 0.2);
 
 	/* =========================================
- * 19. BẢNG MÀU CHỦ ĐỀ ĐA DẠNG (BỔ SUNG)
- * ========================================= */
+	  * 19. BẢNG MÀU CHỦ ĐỀ ĐA DẠNG (BỔ SUNG)
+	  * ========================================= */
 
 	/* --- Theme 1: Inferno (Hỏa Ngục - Rực cháy) --- */
 	--color-inferno-500: #f97316;
@@ -249,8 +254,8 @@
 }
 
 /* =========================================
- * 17. KEYFRAMES & ANIMATIONS
- * ========================================= */
+  * 17. KEYFRAMES & ANIMATIONS (UPDATED)
+  * ========================================= */
 @keyframes fadeIn {
 	from {
 		opacity: 0;
@@ -271,24 +276,6 @@
 		transform: translateY(0);
 	}
 }
-@keyframes cardFloat {
-	0%,
-	100% {
-		transform: translateY(0);
-	}
-	50% {
-		transform: translateY(-15px);
-	}
-}
-@keyframes badgeBounce {
-	0%,
-	100% {
-		transform: translateY(0);
-	}
-	50% {
-		transform: translateY(-8px);
-	}
-}
 @keyframes slideDown {
 	from {
 		opacity: 0;
@@ -302,31 +289,124 @@
 @keyframes pulseFocus {
 	0%,
 	100% {
-		box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.4);
+		box-shadow: 0 0 0 0 rgba(60, 145, 194, 0.4);
 	}
 	50% {
-		box-shadow: 0 0 0 4px rgba(139, 92, 246, 0);
-	}
-}
-@keyframes spin {
-	from {
-		transform: rotate(0deg);
-	}
-	to {
-		transform: rotate(360deg);
+		box-shadow: 0 0 0 4px rgba(60, 145, 194, 0);
 	}
 }
 
-/* Animation classes */
+/* HIỆU ỨNG MỚI: Vòng tròn triệu hồi (Magic Circle) */
+@keyframes magicRingSpin {
+	0% {
+		transform: rotate(0deg) scale(0.8);
+		opacity: 0.3;
+	}
+	50% {
+		transform: rotate(180deg) scale(1.1);
+		opacity: 1;
+	}
+	100% {
+		transform: rotate(360deg) scale(0.8);
+		opacity: 0.3;
+	}
+}
+
+/* HIỆU ỨNG MỚI: Lỗi kỹ thuật số (Glitch) */
+@keyframes loadingGlitch {
+	0% {
+		clip-path: inset(50% 0 30% 0);
+		transform: translate(-5px, 5px);
+	}
+	2% {
+		clip-path: inset(10% 0 80% 0);
+		transform: translate(5px, -5px);
+	}
+	4% {
+		clip-path: inset(80% 0 10% 0);
+		transform: translate(-5px, 5px);
+	}
+	6% {
+		clip-path: inset(30% 0 50% 0);
+		transform: translate(5px, -5px);
+	}
+	8% {
+		clip-path: inset(10% 0 80% 0);
+		transform: translate(-5px, 5px);
+	}
+	10% {
+		clip-path: inset(80% 0 10% 0);
+		transform: translate(5px, -5px);
+	}
+	11% {
+		clip-path: inset(0 0 0 0);
+		transform: translate(0, 0);
+	}
+	100% {
+		clip-path: inset(0 0 0 0);
+		transform: translate(0, 0);
+	}
+}
+
+/* HIỆU ỨNG MỚI: Hiển thị nội dung (Content Reveal) */
+@keyframes contentReveal {
+	from {
+		opacity: 0;
+		transform: translateY(15px);
+		filter: blur(5px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+		filter: blur(0);
+	}
+}
+
+/* =========================================
+  * 18. ANIMATION UTILITY CLASSES (UPDATED)
+  * ========================================= */
 .animate-fadeIn {
 	animation: fadeIn 1s ease-out forwards;
 }
 .animate-slideUp {
 	animation: slideUp 0.8s ease-out forwards;
 }
-.animate-cardFloat {
-	animation: cardFloat 3s ease-in-out infinite;
+.animate-pulse-focus {
+	animation: pulseFocus 1.5s ease-in-out infinite;
 }
-.animate-badgeBounce {
-	animation: badgeBounce 1.5s ease-in-out infinite;
+
+/* New Magic Circle Loading Class */
+.loading-magic-circle {
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	border: 4px double var(--color-primary-300); /* Double ring effect */
+	border-top-color: transparent;
+	border-bottom-color: transparent;
+	animation: magicRingSpin 2s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+}
+
+/* New Glitch class */
+.animate-glitch {
+	animation: loadingGlitch 2s ease-in-out forwards;
+}
+
+/* New Content Reveal Class */
+.animate-reveal {
+	animation: contentReveal 0.6s ease-out forwards;
+}
+
+/* Full screen overlay loading */
+.loading-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: var(--color-bg-overlay);
+	backdrop-filter: blur(8px);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 9999;
 }

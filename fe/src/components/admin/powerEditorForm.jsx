@@ -5,6 +5,9 @@ import InputField from "../common/inputField";
 import Modal from "../common/modal";
 import { XCircle, Plus } from "lucide-react";
 
+/**
+ * Component hỗ trợ nhập mảng (Dùng cho field 'type')
+ */
 const ArrayInputComponent = ({
 	label,
 	data = [],
@@ -82,7 +85,7 @@ const PowerEditorForm = memo(
 		const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
 		const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-		// Load và deep clone data
+		// Khởi tạo và Deep Clone dữ liệu để so sánh thay đổi
 		useEffect(() => {
 			if (power) {
 				const deepCloned = JSON.parse(JSON.stringify(power));
@@ -92,14 +95,14 @@ const PowerEditorForm = memo(
 			}
 		}, [power]);
 
-		// Kiểm tra dirty
+		// Kiểm tra xem dữ liệu có bị thay đổi (Dirty check) không
 		useEffect(() => {
 			const isChanged =
 				JSON.stringify(formData) !== JSON.stringify(initialData);
 			setIsDirty(isChanged);
 		}, [formData, initialData]);
 
-		// Cảnh báo khi rời tab nếu có thay đổi chưa lưu
+		// Chặn trình duyệt đóng tab nếu có thay đổi chưa lưu
 		useEffect(() => {
 			const handleBeforeUnload = e => {
 				if (isDirty) {
@@ -147,30 +150,28 @@ const PowerEditorForm = memo(
 			e.preventDefault();
 			const cleanData = { ...formData };
 
-			// XÓA isNew khỏi data gửi đi (chỉ là flag frontend)
-			delete cleanData.isNew;
-
-			// Clean array type
+			// Chỉnh sửa mảng Type: xóa khoảng trắng và lọc bỏ item rỗng
 			if (Array.isArray(cleanData.type)) {
 				cleanData.type = cleanData.type
 					.map(item => item.trim())
 					.filter(item => item !== "");
 			}
 
+			// Gửi dữ liệu đi (isNew sẽ được Backend dùng để kiểm tra tồn tại ID)
 			onSave(cleanData);
 		};
 
 		return (
 			<>
 				<form onSubmit={handleSubmit} className='space-y-8'>
-					{/* Header */}
+					{/* Header Toolbar */}
 					<div className='flex justify-between border-border sticky top-0 bg-surface-bg z-20 py-2 border-b mb-4'>
 						<div>
-							<label className='block font-semibold text-text-primary text-xl'>
+							<h2 className='block font-semibold text-text-primary text-xl'>
 								{formData.isNew
 									? "Tạo Sức Mạnh Mới"
 									: `Chỉnh sửa: ${formData.name}`}
-							</label>
+							</h2>
 							{isDirty && (
 								<span className='text-xs text-yellow-500 font-medium'>
 									● Có thay đổi chưa lưu
@@ -193,26 +194,34 @@ const PowerEditorForm = memo(
 									onClick={handleAttemptDelete}
 									disabled={isSaving}
 								>
-									{isSaving ? "Đang xử lý..." : "Xóa sức mạnh"}
+									Xóa sức mạnh
 								</Button>
 							)}
-							<Button type='submit' variant='primary' disabled={isSaving}>
-								{isSaving ? "Đang lưu..." : formData.isNew ? "Tạo mới" : "Lưu"}
+							<Button
+								type='submit'
+								variant='primary'
+								disabled={isSaving || !formData.powerCode}
+							>
+								{isSaving
+									? "Đang xử lý..."
+									: formData.isNew
+										? "Tạo mới"
+										: "Lưu thay đổi"}
 							</Button>
 						</div>
 					</div>
 
-					{/* Form nội dung */}
+					{/* Nội dung Form */}
 					<div className='grid grid-cols-1 lg:grid-cols-2 gap-6 p-6 bg-surface-bg border border-border rounded-xl'>
 						<div className='space-y-5'>
 							<InputField
-								label='Mã sức mạnh (VD: P001)'
+								label='Mã sức mạnh (Duy nhất, VD: P001)'
 								name='powerCode'
 								value={formData.powerCode || ""}
 								onChange={handleInputChange}
 								required
-								disabled={!formData.isNew}
-								placeholder='P001, P002,...'
+								disabled={!formData.isNew} // Không cho sửa ID khi cập nhật
+								placeholder='Nhập ID sức mạnh...'
 							/>
 							<InputField
 								label='Tên sức mạnh'
@@ -220,123 +229,128 @@ const PowerEditorForm = memo(
 								value={formData.name || ""}
 								onChange={handleInputChange}
 								required
+								placeholder='Nhập tên hiển thị...'
 							/>
 							<InputField
 								label='Độ hiếm'
 								name='rarity'
 								value={formData.rarity || ""}
 								onChange={handleInputChange}
+								placeholder='VD: Common, Rare, Epic, Legendary...'
 							/>
 							<div>
 								<label className='block font-semibold text-text-primary mb-2'>
-									Mô tả
+									Mô tả hiển thị
 								</label>
 								<textarea
 									name='description'
 									value={formData.description || ""}
 									onChange={handleInputChange}
-									className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary resize-none'
+									className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary focus:ring-2 focus:ring-primary-500 outline-none transition resize-none'
 									rows={6}
+									placeholder='Mô tả chi tiết sức mạnh...'
 								/>
 							</div>
 						</div>
 
 						<div className='space-y-5'>
-							<div className='flex flex-col items-center'>
+							<div className='flex flex-col items-center p-4 bg-surface-hover rounded-xl border border-border border-dashed'>
 								<p className='text-sm font-medium text-text-secondary mb-3'>
-									Preview Ảnh
+									Xem trước hình ảnh
 								</p>
 								{formData.assetAbsolutePath ? (
 									<img
 										src={formData.assetAbsolutePath}
 										alt='Preview'
-										className='w-48 h-48 object-contain rounded-xl border-4 border-primary-500/20 shadow-xl'
+										className='w-48 h-48 object-contain rounded-xl border-4 border-white dark:border-gray-800 shadow-lg'
+										onError={e => {
+											e.target.src =
+												"https://via.placeholder.com/200?text=Error+Link";
+										}}
 									/>
 								) : (
-									<div className='w-48 h-48 bg-gray-200 dark:bg-gray-700 rounded-xl flex items-center justify-center text-6xl text-gray-400'>
+									<div className='w-48 h-48 bg-gray-200 dark:bg-gray-700 rounded-xl flex items-center justify-center text-4xl text-gray-400'>
 										?
 									</div>
 								)}
 							</div>
 
 							<InputField
-								label='Đường dẫn Ảnh chính'
+								label='Đường dẫn Ảnh (Asset Path)'
 								name='assetAbsolutePath'
 								value={formData.assetAbsolutePath || ""}
 								onChange={handleInputChange}
+								placeholder='https://...'
 							/>
-							<InputField
-								label='Đường dẫn Ảnh đầy đủ'
-								name='assetFullAbsolutePath'
-								value={formData.assetFullAbsolutePath || ""}
-								onChange={handleInputChange}
-							/>
+
 							<ArrayInputComponent
-								label='Loại (Type)'
+								label='Loại sức mạnh (Tags)'
 								data={formData.type || []}
 								onChange={d => handleArrayChange("type", d)}
-								placeholder='Nhập loại...'
+								placeholder='VD: Buff, Round Start, Attack...'
 							/>
+
 							<div>
 								<label className='block font-semibold text-text-primary mb-2'>
-									Mô tả thô (Raw)
+									Mô tả thô (Raw Description)
 								</label>
 								<textarea
 									name='descriptionRaw'
 									value={formData.descriptionRaw || ""}
 									onChange={handleInputChange}
-									className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary resize-none'
-									rows={6}
+									className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary focus:ring-2 focus:ring-primary-500 outline-none transition font-mono text-sm'
+									rows={4}
+									placeholder='Dữ liệu mô tả thô từ hệ thống...'
 								/>
 							</div>
 						</div>
 					</div>
 				</form>
 
-				{/* Modal Hủy */}
+				{/* Modal Xác nhận Hủy */}
 				<Modal
 					isOpen={isCancelModalOpen}
 					onClose={() => setIsCancelModalOpen(false)}
-					title='Xác nhận Hủy'
+					title='Bạn có chắc muốn hủy?'
 				>
 					<div className='text-text-secondary'>
 						<p className='mb-6'>
-							Bạn có thay đổi chưa lưu. Nếu rời đi, mọi thay đổi sẽ bị mất.
+							Các thay đổi bạn vừa thực hiện sẽ không được lưu lại.
 						</p>
 						<div className='flex justify-end gap-3'>
 							<Button
 								onClick={() => setIsCancelModalOpen(false)}
 								variant='ghost'
 							>
-								Ở lại
+								Tiếp tục chỉnh sửa
 							</Button>
 							<Button onClick={confirmCancel} variant='danger'>
-								Rời đi
+								Hủy bỏ thay đổi
 							</Button>
 						</div>
 					</div>
 				</Modal>
 
-				{/* Modal Xóa */}
+				{/* Modal Xác nhận Xóa */}
 				<Modal
 					isOpen={isDeleteModalOpen}
 					onClose={() => setIsDeleteModalOpen(false)}
-					title='Xác nhận Xóa'
+					title='Xác nhận xóa vĩnh viễn'
 				>
 					<div className='text-text-secondary'>
 						<p className='mb-6'>
-							Bạn có chắc chắn muốn xóa <strong>{power?.name}</strong>? Hành
-							động này không thể hoàn tác.
+							Bạn đang thực hiện xóa sức mạnh <strong>{power?.name}</strong>.
+							Hành động này không thể hoàn tác.
 						</p>
 						<div className='flex justify-end gap-3'>
 							<Button
 								onClick={() => setIsDeleteModalOpen(false)}
 								variant='ghost'
 							>
-								Hủy
+								Đóng
 							</Button>
 							<Button onClick={confirmDelete} variant='danger'>
-								Xóa sức mạnh
+								Xác nhận Xóa
 							</Button>
 						</div>
 					</div>

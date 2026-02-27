@@ -4,11 +4,11 @@ import {
 	ScanCommand,
 	PutItemCommand,
 	DeleteItemCommand,
-	GetItemCommand, // THÊM: Import để lấy chi tiết lẻ
+	GetItemCommand,
 } from "@aws-sdk/client-dynamodb";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
 import NodeCache from "node-cache";
-import axios from "axios"; // BỔ SUNG: Để xử lý proxy hình ảnh
+import axios from "axios";
 import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
@@ -39,7 +39,6 @@ async function getCachedRelics() {
 /**
  * @route   GET /api/relics/proxy-image
  * @desc    Proxy hình ảnh từ Riot để tránh lỗi CORS và Referer
- * FIX: Route này phục vụ việc hiển thị ảnh tại frontend
  */
 router.get("/proxy-image", async (req, res) => {
 	const imageUrl = req.query.url;
@@ -49,7 +48,6 @@ router.get("/proxy-image", async (req, res) => {
 	}
 
 	try {
-		// 1. Kiểm tra trong Cache RAM trước
 		if (imageCache.has(imageUrl)) {
 			const cached = imageCache.get(imageUrl);
 			res.set("Content-Type", cached.contentType);
@@ -57,7 +55,6 @@ router.get("/proxy-image", async (req, res) => {
 			return res.send(cached.data);
 		}
 
-		// 2. Fetch ảnh từ server gốc
 		const response = await axios({
 			url: imageUrl,
 			method: "GET",
@@ -72,7 +69,6 @@ router.get("/proxy-image", async (req, res) => {
 		const contentType = response.headers["content-type"];
 		const buffer = Buffer.from(response.data, "binary");
 
-		// 3. Lưu vào Cache để tối ưu
 		if (imageCache.size < 500) {
 			imageCache.set(imageUrl, {
 				data: buffer,
@@ -91,8 +87,7 @@ router.get("/proxy-image", async (req, res) => {
 
 /**
  * @route   GET /api/relics/:relicCode
- * @desc    Lấy chi tiết một cổ vật (Ưu tiên RAM -> Database)
- * FIX: Thêm route này để đồng bộ với Frontend
+ * @desc    Lấy chi tiết một cổ vật
  */
 router.get("/:relicCode", async (req, res) => {
 	const { relicCode } = req.params;
@@ -102,12 +97,10 @@ router.get("/:relicCode", async (req, res) => {
 	const id = relicCode.trim();
 	const CACHE_KEY = `relic_detail_${id}`;
 
-	// 1. Kiểm tra trong Cache RAM trước
 	const cachedRelic = relicCache.get(CACHE_KEY);
 	if (cachedRelic) return res.json(cachedRelic);
 
 	try {
-		// 2. Truy vấn chính xác từ DynamoDB
 		const command = new GetItemCommand({
 			TableName: RELICS_TABLE,
 			Key: marshall({ relicCode: id }),
@@ -118,8 +111,6 @@ router.get("/:relicCode", async (req, res) => {
 			return res.status(404).json({ error: `Không tìm thấy cổ vật: ${id}` });
 
 		const relicData = unmarshall(Item);
-
-		// 3. Lưu vào Cache để tối ưu các lần gọi sau
 		relicCache.set(CACHE_KEY, relicData);
 		res.json(relicData);
 	} catch (error) {
@@ -130,7 +121,7 @@ router.get("/:relicCode", async (req, res) => {
 
 /**
  * @route   GET /api/relics
- * @desc    Lấy danh sách cổ vật với phân trang, lọc và cache
+ * @desc    Lấy danh sách cổ vật
  */
 router.get("/", async (req, res) => {
 	try {
@@ -159,9 +150,9 @@ router.get("/", async (req, res) => {
 
 		let filtered = [...allRelics];
 		if (searchTerm) {
-			const searchKey = removeAccents(searchTerm);
+			const searchKey = removeAccents(searchTerm.toLowerCase());
 			filtered = filtered.filter(r =>
-				removeAccents(r.name || "").includes(searchKey),
+				removeAccents((r.name || "").toLowerCase()).includes(searchKey),
 			);
 		}
 		if (rarities) {
@@ -186,7 +177,6 @@ router.get("/", async (req, res) => {
 				: vB.toString().localeCompare(vA.toString());
 		});
 
-		// Logic xử lý lấy toàn bộ khi limit = -1 (dành cho Tier List)
 		if (pageSize === -1) {
 			return res.json({
 				items: filtered,
@@ -213,7 +203,7 @@ router.get("/", async (req, res) => {
 			availableFilters,
 		});
 	} catch (error) {
-		res.status(500).json({ error: "Could not retrieve relics" });
+		res.status(500).json({ error: "Không thể lấy danh sách cổ vật." });
 	}
 });
 
@@ -234,26 +224,70 @@ router.post("/resolve", async (req, res) => {
 	}
 });
 
-// Proxy image và các route PUT/DELETE giữ nguyên logic xóa cache chi tiết
+/**
+ * @route   PUT /api/relics
+ * @desc    Tạo mới hoặc cập nhật Cổ vật (Kiểm tra tồn tại)
+ */
 router.put("/", authenticateCognitoToken, async (req, res) => {
 	const relicData = req.body;
-	if (!relicData.relicCode)
-		return res.status(400).json({ error: "Relic code is required" });
+	const { relicCode, isNew } = relicData;
+
+	if (!relicCode)
+		return res
+			.status(400)
+			.json({ error: "Mã cổ vật (relicCode) là bắt buộc." });
+
 	try {
+		// 1. Kiểm tra tồn tại trong DB
+		const checkCommand = new GetItemCommand({
+			TableName: RELICS_TABLE,
+			Key: marshall({ relicCode: relicCode.trim() }),
+		});
+		const { Item } = await client.send(checkCommand);
+		const exists = !!Item;
+
+		// 2. Logic kiểm tra nghiệp vụ
+		if (isNew && exists) {
+			return res.status(409).json({
+				error: `Mã cổ vật "${relicCode}" đã tồn tại. Không thể tạo trùng.`,
+			});
+		}
+
+		if (!isNew && !exists) {
+			return res.status(404).json({
+				error: `Mã cổ vật "${relicCode}" không tồn tại. Không thể cập nhật.`,
+			});
+		}
+
+		// 3. Xóa isNew trước khi lưu vào DB
+		const dataToSave = { ...relicData };
+		delete dataToSave.isNew;
+
 		await client.send(
 			new PutItemCommand({
 				TableName: RELICS_TABLE,
-				Item: marshall(relicData),
+				Item: marshall(dataToSave),
 			}),
 		);
+
+		// 4. Xóa cache
 		relicCache.del("all_relics_data");
-		relicCache.del(`relic_detail_${relicData.relicCode}`);
-		res.status(200).json({ message: "Updated", relic: relicData });
+		relicCache.del(`relic_detail_${relicCode}`);
+
+		res.status(200).json({
+			message: isNew ? "Tạo mới thành công" : "Cập nhật thành công",
+			relic: dataToSave,
+		});
 	} catch (error) {
-		res.status(500).json({ error: "Could not update" });
+		console.error("Lỗi cập nhật Relics:", error);
+		res.status(500).json({ error: "Lỗi hệ thống khi lưu cổ vật." });
 	}
 });
 
+/**
+ * @route   DELETE /api/relics/:relicCode
+ * @desc    Xóa cổ vật
+ */
 router.delete("/:relicCode", authenticateCognitoToken, async (req, res) => {
 	const { relicCode } = req.params;
 	try {
@@ -265,9 +299,10 @@ router.delete("/:relicCode", authenticateCognitoToken, async (req, res) => {
 		);
 		relicCache.del("all_relics_data");
 		relicCache.del(`relic_detail_${relicCode}`);
-		res.status(200).json({ message: "Deleted" });
+		res.status(200).json({ message: "Đã xóa cổ vật thành công." });
 	} catch (error) {
-		res.status(500).json({ error: "Could not delete" });
+		console.error("Lỗi xóa Relics:", error);
+		res.status(500).json({ error: "Lỗi hệ thống khi xóa dữ liệu." });
 	}
 });
 

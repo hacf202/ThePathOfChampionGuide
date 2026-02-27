@@ -14,12 +14,12 @@ const NEW_BONUS_STAR_TEMPLATE = {
 	name: "Bonus Star Mới",
 	description: "",
 	image: "",
-	nodeType: "bonusStar", // mặc định là bonusStar
+	nodeType: "bonusStar",
 };
 
 const ITEMS_PER_PAGE = 20;
 
-// === LIST VIEW ===
+// === LIST VIEW COMPONENT ===
 const BonusStarListView = memo(
 	({
 		paginatedItems,
@@ -39,9 +39,9 @@ const BonusStarListView = memo(
 									to={`./${item.bonusStarID}`}
 									className='block hover:scale-105 transition-transform duration-200'
 								>
-									{/* GenericCard sẽ hiển thị name và image của bonusStar */}
 									<GenericCard
 										item={{ ...item, assetAbsolutePath: item.image }}
+										onClick={() => {}}
 									/>
 								</Link>
 							))}
@@ -87,7 +87,7 @@ const BonusStarListView = memo(
 	},
 );
 
-// === EDIT WRAPPER ===
+// === EDIT WRAPPER COMPONENT ===
 const BonusStarEditWrapper = ({
 	items,
 	onSave,
@@ -102,21 +102,20 @@ const BonusStarEditWrapper = ({
 		if (id === "new") return { ...NEW_BONUS_STAR_TEMPLATE };
 		const safeItems = Array.isArray(items) ? items : [];
 		const found = safeItems.find(i => i.bonusStarID === id);
-		if (found) {
-			return { ...found, isNew: false };
-		}
-		return null;
+		// Force isNew: false cho các item lấy từ server
+		return found ? { ...found, isNew: false } : null;
 	}, [id, items]);
 
-	const handleBack = useCallback(() => {
-		navigate("/admin/bonus-stars");
-	}, [navigate]);
+	const handleBack = useCallback(
+		() => navigate("/admin/bonusStars"),
+		[navigate],
+	);
 
 	if (
 		!selectedItem &&
+		id !== "new" &&
 		Array.isArray(items) &&
-		items.length > 0 &&
-		id !== "new"
+		items.length > 0
 	) {
 		return (
 			<div className='flex flex-col items-center justify-center py-20 text-text-secondary'>
@@ -156,7 +155,6 @@ function BonusStarEditor() {
 	const [selectedTypes, setSelectedTypes] = useState([]);
 	const [sortOrder, setSortOrder] = useState("name-asc");
 	const [currentPage, setCurrentPage] = useState(1);
-
 	const [isLoading, setIsLoading] = useState(true);
 	const [isSaving, setIsSaving] = useState(false);
 	const [error, setError] = useState(null);
@@ -170,7 +168,8 @@ function BonusStarEditor() {
 			const res = await fetch(`${API_BASE_URL}/api/bonusStars`);
 			if (!res.ok) throw new Error("Không thể tải dữ liệu");
 			const data = await res.json();
-			setItems(data.items || []);
+			const finalItems = Array.isArray(data) ? data : data.items || [];
+			setItems(finalItems);
 		} catch (e) {
 			setError("Không thể tải dữ liệu từ server.");
 		} finally {
@@ -181,51 +180,6 @@ function BonusStarEditor() {
 	useEffect(() => {
 		fetchAllData();
 	}, [fetchAllData]);
-
-	const filterOptions = useMemo(() => {
-		const safeItems = Array.isArray(items) ? items : [];
-		const types = [
-			...new Set(safeItems.map(i => i.nodeType).filter(Boolean)),
-		].sort();
-
-		return {
-			types: types.map(t => ({ value: t, label: t })),
-			sort: [
-				{ value: "name-asc", label: "Tên A-Z" },
-				{ value: "name-desc", label: "Tên Z-A" },
-			],
-		};
-	}, [items]);
-
-	const filteredItems = useMemo(() => {
-		let result = Array.isArray(items) ? [...items] : [];
-
-		if (searchTerm) {
-			const term = removeAccents(searchTerm.toLowerCase());
-			result = result.filter(i =>
-				removeAccents((i.name || "").toLowerCase()).includes(term),
-			);
-		}
-
-		if (selectedTypes.length) {
-			result = result.filter(i => selectedTypes.includes(i.nodeType));
-		}
-
-		const [field, dir] = sortOrder.split("-");
-		result.sort((a, b) => {
-			const A = a.name || "";
-			const B = b.name || "";
-			return dir === "asc" ? (A > B ? 1 : -1) : A < B ? 1 : -1;
-		});
-
-		return result;
-	}, [items, searchTerm, selectedTypes, sortOrder]);
-
-	const totalPages = Math.ceil(filteredItems.length / ITEMS_PER_PAGE);
-	const paginatedItems = filteredItems.slice(
-		(currentPage - 1) * ITEMS_PER_PAGE,
-		currentPage * ITEMS_PER_PAGE,
-	);
 
 	const handleSaveItem = async data => {
 		setIsSaving(true);
@@ -240,11 +194,16 @@ function BonusStarEditor() {
 				body: JSON.stringify(data),
 			});
 
-			if (!res.ok) throw new Error("Lưu thất bại.");
+			const result = await res.json();
+
+			if (!res.ok) {
+				// Hiển thị lỗi từ Backend (VD: "Mã Bonus Star đã tồn tại")
+				throw new Error(result.error || "Lưu thất bại.");
+			}
 
 			await fetchAllData();
-			navigate("/admin/bonus-stars");
-			alert(data.isNew ? "Tạo Bonus Star thành công" : "Cập nhật thành công");
+			navigate("/admin/bonusStars");
+			alert(result.message || "Lưu dữ liệu thành công");
 		} catch (e) {
 			alert(e.message || "Đã có lỗi xảy ra");
 		} finally {
@@ -253,8 +212,8 @@ function BonusStarEditor() {
 	};
 
 	const handleDeleteItem = async id => {
-		if (!id) return;
-		if (!window.confirm("Bạn có chắc chắn muốn xóa Bonus Star này?")) return;
+		if (!id || !window.confirm("Bạn có chắc chắn muốn xóa Bonus Star này?"))
+			return;
 		setIsSaving(true);
 		try {
 			const token = localStorage.getItem("token");
@@ -263,9 +222,8 @@ function BonusStarEditor() {
 				headers: { Authorization: `Bearer ${token}` },
 			});
 			if (!res.ok) throw new Error("Xóa thất bại");
-
 			await fetchAllData();
-			navigate("/admin/bonus-stars");
+			navigate("/admin/bonusStars");
 			alert("Đã xóa Bonus Star thành công");
 		} catch (e) {
 			alert(e.message || "Xóa thất bại");
@@ -273,6 +231,40 @@ function BonusStarEditor() {
 			setIsSaving(false);
 		}
 	};
+
+	const filterOptions = useMemo(() => {
+		const types = [
+			...new Set(items.map(i => i.nodeType).filter(Boolean)),
+		].sort();
+		return {
+			types: types.map(t => ({ value: t, label: t })),
+			sort: [
+				{ value: "name-asc", label: "Tên A-Z" },
+				{ value: "name-desc", label: "Tên Z-A" },
+			],
+		};
+	}, [items]);
+
+	const filteredItems = useMemo(() => {
+		let result = [...items];
+		if (searchTerm) {
+			const term = removeAccents(searchTerm.toLowerCase());
+			result = result.filter(i =>
+				removeAccents((i.name || "").toLowerCase()).includes(term),
+			);
+		}
+		if (selectedTypes.length) {
+			result = result.filter(i => selectedTypes.includes(i.nodeType));
+		}
+
+		const [field, dir] = sortOrder.split("-");
+		result.sort((a, b) => {
+			const A = a.name || "";
+			const B = b.name || "";
+			return dir === "asc" ? A.localeCompare(B) : B.localeCompare(A);
+		});
+		return result;
+	}, [items, searchTerm, selectedTypes, sortOrder]);
 
 	const sidePanelProps = {
 		searchPlaceholder: "Tìm Bonus Star...",
@@ -314,9 +306,13 @@ function BonusStarEditor() {
 		return (
 			<div className='flex flex-col items-center justify-center min-h-[400px] text-text-secondary'>
 				<Loader2 className='animate-spin text-primary-500' size={48} />
-				<div className='text-lg mt-4'>Đang tải dữ liệu...</div>
+				<div className='mt-4'>Đang tải dữ liệu...</div>
 			</div>
 		);
+	}
+
+	if (error) {
+		return <div className='text-center p-10 text-red-500'>{error}</div>;
 	}
 
 	return (
@@ -326,8 +322,11 @@ function BonusStarEditor() {
 					index
 					element={
 						<BonusStarListView
-							paginatedItems={paginatedItems}
-							totalPages={totalPages}
+							paginatedItems={filteredItems.slice(
+								(currentPage - 1) * ITEMS_PER_PAGE,
+								currentPage * ITEMS_PER_PAGE,
+							)}
+							totalPages={Math.ceil(filteredItems.length / ITEMS_PER_PAGE)}
 							currentPage={currentPage}
 							onPageChange={setCurrentPage}
 							sidePanelProps={sidePanelProps}

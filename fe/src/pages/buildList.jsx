@@ -1,5 +1,6 @@
 // src/pages/buildList.jsx
 import React, { useState, useEffect, useMemo, useContext } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import BuildCreation from "../components/build/buildCreation";
 import MyBuilds from "../components/build/myBuilds";
 import MyFavorite from "../components/build/myFavoriteBuild";
@@ -11,10 +12,11 @@ import {
 	Shield,
 	Heart,
 	Search,
-	XCircle,
 	RotateCw,
 	ChevronDown,
 	ChevronUp,
+	ChevronLeft,
+	ChevronRight,
 	Loader2,
 } from "lucide-react";
 import Button from "../components/common/button";
@@ -28,12 +30,8 @@ import { usePersistentState } from "../hooks/usePersistentState";
 
 // === CACHE CONFIG ===
 const CACHE_KEY_PREFIX = "buildsCache_v1";
-const CACHE_DURATION = 5 * 60 * 1000; // 5 phút
+const CACHE_DURATION = 5 * 60 * 1000;
 
-/**
- * Cập nhật SORT_OPTIONS để khớp chính xác với field name tại Backend
- * Cấu trúc: "fieldName-order" (ví dụ: createdAt-desc)
- */
 const SORT_OPTIONS = [
 	{ value: "createdAt-desc", label: "Mới nhất" },
 	{ value: "createdAt-asc", label: "Cũ nhất" },
@@ -50,6 +48,7 @@ const getCacheKey = (tab, filters) => {
 		stars: filters.selectedStarLevels || [],
 		regions: filters.selectedRegions || [],
 		sort: filters.sortBy || "createdAt-desc",
+		page: filters.currentPage || 1, // Thêm trang vào cache key
 	});
 	return `${CACHE_KEY_PREFIX}_${tab}_${filterStr}`;
 };
@@ -119,9 +118,16 @@ const Builds = () => {
 		"buildsSortBy",
 		"createdAt-desc",
 	);
-
+	const [currentPage, setCurrentPage] = usePersistentState(
+		"buildsCurrentPage",
+		1,
+	);
 	const [isFilterOpen, setIsFilterOpen] = usePersistentState(
 		"buildsIsFilterOpen",
+		false,
+	);
+	const [showDesktopFilter, setShowDesktopFilter] = usePersistentState(
+		"buildsShowDesktopFilter",
 		false,
 	);
 
@@ -134,57 +140,55 @@ const Builds = () => {
 	const [loadingData, setLoadingData] = useState(true);
 	const [errorData, setErrorData] = useState(null);
 
-	// === FETCH DATA ===
+	// === LOGIC PHÍM TẮT (Global) ===
+	useEffect(() => {
+		const handleKeyDown = event => {
+			if (event.key === "Tab") {
+				event.preventDefault();
+				setShowDesktopFilter(prev => !prev);
+				return;
+			}
+		};
+		window.addEventListener("keydown", handleKeyDown);
+		return () => window.removeEventListener("keydown", handleKeyDown);
+	}, [setShowDesktopFilter]);
+
+	// === FETCH METADATA ===
 	useEffect(() => {
 		const fetchAllData = async () => {
 			setLoadingData(true);
 			setErrorData(null);
 			try {
 				const apiUrl = import.meta.env.VITE_API_URL;
-
-				/**
-				 * KHẮC PHỤC: Thêm tham số limit lớn (ví dụ: 1000)
-				 * để lấy toàn bộ dữ liệu phục vụ việc hiển thị hình ảnh trong Build.
-				 */
 				const fetchOptions = "?page=1&limit=1000";
-
 				const [champRes, relicRes, powerRes, runeRes] = await Promise.all([
 					fetch(`${apiUrl}/api/champions${fetchOptions}`),
 					fetch(`${apiUrl}/api/relics${fetchOptions}`),
 					fetch(`${apiUrl}/api/generalPowers${fetchOptions}`),
-					fetch(`${apiUrl}/api/runes${fetchOptions}`), // Nếu runes cũng có phân trang
+					fetch(`${apiUrl}/api/runes${fetchOptions}`),
 				]);
-
-				if (!champRes.ok || !relicRes.ok || !powerRes.ok || !runeRes.ok) {
-					throw new Error("Không thể tải dữ liệu từ server");
-				}
-
+				if (!champRes.ok || !relicRes.ok || !powerRes.ok || !runeRes.ok)
+					throw new Error("Lỗi tải dữ liệu");
 				const [champData, relicData, powerData, runeData] = await Promise.all([
 					champRes.json(),
 					relicRes.json(),
 					powerRes.json(),
 					runeRes.json(),
 				]);
-
-				// Backend trả về { items: [...] }, ta gán mảng items vào state
 				setChampionsList(champData.items || []);
 				setRelicsList(relicData.items || []);
 				setPowersList(powerData.items || []);
 				setRunesList(runeData.items || []);
-
 				setIconRegions(iconRegionsData);
 			} catch (err) {
-				console.error("Lỗi tải dữ liệu metadata:", err);
 				setErrorData(err.message);
 			} finally {
 				setLoadingData(false);
 			}
 		};
-
 		fetchAllData();
 	}, []);
 
-	// === MAPS & OPTIONS ===
 	const powerMap = useMemo(
 		() =>
 			new Map(
@@ -195,28 +199,23 @@ const Builds = () => {
 			),
 		[powersList],
 	);
-
 	const championNameToRegionsMap = useMemo(() => {
 		const map = new Map();
-		championsList.forEach(champion => {
-			if (champion.name && Array.isArray(champion.regions)) {
-				map.set(champion.name, champion.regions);
-			}
-		});
+		championsList.forEach(
+			c => c.name && Array.isArray(c.regions) && map.set(c.name, c.regions),
+		);
 		return map;
 	}, [championsList]);
 
 	const regionOptions = useMemo(() => {
 		const allRegions = championsList.flatMap(c => c.regions || []);
-		const uniqueRegions = [...new Set(allRegions)].sort();
-		return uniqueRegions.map(regionName => {
-			const regionData = iconRegions.find(r => r.name === regionName);
-			return {
-				value: regionName,
-				label: regionName,
-				iconUrl: regionData?.iconAbsolutePath ?? "/fallback-image.svg",
-			};
-		});
+		return [...new Set(allRegions)].sort().map(name => ({
+			value: name,
+			label: name,
+			iconUrl:
+				iconRegions.find(r => r.name === name)?.iconAbsolutePath ??
+				"/fallback-image.svg",
+		}));
 	}, [championsList, iconRegions]);
 
 	const starLevelOptions = useMemo(
@@ -232,21 +231,17 @@ const Builds = () => {
 	// === HANDLERS ===
 	const handleSearch = () => {
 		setSearchTerm(searchInput);
-		if (window.innerWidth < 1024) {
-			setIsFilterOpen(false);
-		}
-	};
-
-	const handleClearSearch = () => {
-		setSearchInput("");
-		setSearchTerm("");
+		setCurrentPage(1); // Luôn về trang 1 khi tìm kiếm mới
+		if (window.innerWidth < 1024) setIsFilterOpen(false);
 	};
 
 	const handleResetFilters = () => {
-		handleClearSearch();
+		setSearchInput("");
+		setSearchTerm("");
 		setSelectedStarLevels([]);
 		setSelectedRegions([]);
 		setSortBy("createdAt-desc");
+		setCurrentPage(1); // Đưa về trang đầu tiên
 	};
 
 	const triggerRefresh = () => {
@@ -260,45 +255,43 @@ const Builds = () => {
 		navigate("/builds/my-builds");
 	};
 
-	const handleEditSuccess = () => triggerRefresh();
-	const handleDeleteSuccess = () => triggerRefresh();
-	const handleFavoriteToggle = () => triggerRefresh();
-
 	const changeTab = newTab => {
+		setCurrentPage(1); // Về trang 1 khi chuyển tab
 		navigate(`/builds/${newTab}`);
 	};
 
-	// === CACHE UTILS ===
 	const cacheUtils = {
-		getCache: tabName => {
-			const key = getCacheKey(tabName, {
-				searchTerm,
-				selectedStarLevels,
-				selectedRegions,
-				sortBy,
-			});
-			return getCachedData(key);
-		},
-		setCache: (tabName, data) => {
-			const key = getCacheKey(tabName, {
-				searchTerm,
-				selectedStarLevels,
-				selectedRegions,
-				sortBy,
-			});
-			setCachedData(key, data);
-		},
+		getCache: tabName =>
+			getCachedData(
+				getCacheKey(tabName, {
+					searchTerm,
+					selectedStarLevels,
+					selectedRegions,
+					sortBy,
+					currentPage,
+				}),
+			),
+		setCache: (tabName, data) =>
+			setCachedData(
+				getCacheKey(tabName, {
+					searchTerm,
+					selectedStarLevels,
+					selectedRegions,
+					sortBy,
+					currentPage,
+				}),
+				data,
+			),
 		clearCache: clearAllBuildsCache,
 	};
 
-	// === COMMON PROPS ===
 	const commonProps = {
 		searchTerm,
-		/** * Backend sử dụng split(",") nên ta chuyển mảng thành chuỗi CSV
-		 */
 		selectedStarLevels: selectedStarLevels.join(","),
 		selectedRegions: selectedRegions.join(","),
 		sortBy,
+		currentPage,
+		setCurrentPage,
 		championsList,
 		relicsList,
 		powersList,
@@ -306,33 +299,27 @@ const Builds = () => {
 		refreshKey,
 		powerMap,
 		championNameToRegionsMap,
-		onEditSuccess: handleEditSuccess,
-		onDeleteSuccess: handleDeleteSuccess,
-		onFavoriteToggle: handleFavoriteToggle,
+		showDesktopFilter,
+		onEditSuccess: triggerRefresh,
+		onDeleteSuccess: triggerRefresh,
+		onFavoriteToggle: triggerRefresh,
 		...cacheUtils,
 	};
 
-	// === RENDER CONTENT ===
 	const renderContent = () => {
-		if (loadingData) {
+		if (loadingData)
 			return (
 				<div className='flex justify-center items-center h-64'>
 					<Loader2 className='animate-spin text-primary-500' size={48} />
 				</div>
 			);
-		}
-
-		if (errorData) {
+		if (errorData)
 			return (
 				<div className='text-center p-10 bg-danger-bg-light text-danger-text-dark rounded-lg'>
-					<h2 className='text-xl font-bold mb-2'>Đã xảy ra lỗi</h2>
-					<p className='mb-4'>{errorData}</p>
-					<Button onClick={() => window.location.reload()} variant='danger'>
-						Tải lại trang
-					</Button>
+					<p>{errorData}</p>
+					<Button onClick={() => window.location.reload()}>Tải lại</Button>
 				</div>
 			);
-		}
 
 		switch (activeTab) {
 			case "community":
@@ -341,17 +328,13 @@ const Builds = () => {
 				return user ? (
 					<MyBuilds {...commonProps} />
 				) : (
-					<p className='text-center p-4'>
-						Vui lòng đăng nhập để xem build của bạn.
-					</p>
+					<p className='text-center p-4'>Vui lòng đăng nhập.</p>
 				);
 			case "favorites":
 				return user ? (
 					<MyFavorite {...commonProps} />
 				) : (
-					<p className='text-center p-4'>
-						Vui lòng đăng nhập để xem danh sách yêu thích.
-					</p>
+					<p className='text-center p-4'>Vui lòng đăng nhập.</p>
 				);
 			default:
 				return <CommunityBuilds {...commonProps} />;
@@ -359,19 +342,33 @@ const Builds = () => {
 	};
 
 	return (
-		<div>
+		<div className='animate-fadeIn'>
 			<PageTitle
 				title='Danh sách bộ cổ vật'
-				description='Khám phá và chia sẻ các bộ cổ vật (build) tối ưu cho các tướng trong Path of Champions.'
-				type='website'
+				description='Khám phá các build tối ưu cho POC.'
 			/>
-			<div className='container mx-auto p-2 sm:p-4 text-text-primary font-secondary'>
-				<h1 className='text-3xl font-bold text-primary-500 font-primary mb-2'>
-					Danh Sách Bộ Cổ Vật
-				</h1>
+			<div className='font-secondary'>
+				<div className='flex justify-between items-center mb-2 md:mb-6'>
+					<h1 className='text-3xl font-bold text-text-primary font-primary animate-glitch'>
+						Danh Sách Bộ Cổ Vật
+					</h1>
+					<div className='hidden lg:flex items-center gap-4'>
+						<Button
+							variant='outline'
+							onClick={() => setShowDesktopFilter(!showDesktopFilter)}
+							className='flex items-center gap-2'
+						>
+							{showDesktopFilter ? (
+								<ChevronRight size={18} />
+							) : (
+								<ChevronLeft size={18} />
+							)}
+							{showDesktopFilter ? "Ẩn bộ lọc" : "Hiện bộ lọc"}
+						</Button>
+					</div>
+				</div>
 
-				{/* TABS CONTROL */}
-				<div className='flex flex-wrap justify-between gap-2 border-b border-border mb-6'>
+				<div className='flex flex-wrap justify-between gap-2 border border-border mb-2'>
 					<div className='flex gap-1'>
 						<Button
 							variant={activeTab === "community" ? "primary" : "ghost"}
@@ -405,73 +402,70 @@ const Builds = () => {
 							onClick={() => setShowCreateModal(true)}
 							iconLeft={<PlusCircle size={20} />}
 						>
-							Tạo Bộ Cổ Vật Mới
+							Tạo Mới
 						</Button>
 					) : (
 						<NavLink
 							to='/auth'
 							className='text-md font-bold text-primary-500 hover:underline flex items-center'
 						>
-							Đăng Nhập Để Tạo Bộ Cổ Vật
+							Đăng Nhập Để Tạo
 						</NavLink>
 					)}
 				</div>
 
-				<div className='flex flex-col lg:flex-row gap-4 sm:gap-8'>
-					{/* ASIDE: FILTERS */}
-					<aside className='lg:w-1/5 w-full lg:sticky lg:top-24 h-fit'>
-						{/* MOBILE FILTER */}
-						<div className='lg:hidden p-4 rounded-lg border border-border bg-surface-bg space-y-4 shadow-sm'>
-							<div className='flex items-center gap-2'>
-								<div className='flex-1 relative'>
+				<div className='flex flex-col lg:flex-row items-start'>
+					<div
+						className={`w-full transition-[flex] duration-300 ease-in-out ${
+							showDesktopFilter ? "lg:flex-[3]" : "lg:flex-[1]"
+						}`}
+					>
+						<div className='bg-surface-bg rounded-lg border border-border p-2 sm:p-4 shadow-sm min-h-[500px] relative overflow-hidden'>
+							{renderContent()}
+						</div>
+					</div>
+
+					<AnimatePresence initial={false}>
+						{showDesktopFilter && (
+							<motion.aside
+								key='desktop-filter'
+								initial={{ width: 0, opacity: 0, marginLeft: 0 }}
+								animate={{
+									width: "auto",
+									opacity: 1,
+									marginLeft: "2rem",
+								}}
+								exit={{ width: 0, opacity: 0, marginLeft: 0 }}
+								transition={{ duration: 0.3, ease: "easeInOut" }}
+								className='hidden lg:block sticky top-24 h-fit overflow-hidden'
+							>
+								<div className='w-[280px] xl:w-[320px] p-4 rounded-lg border border-border bg-surface-bg space-y-4 shadow-sm'>
+									<label className='block text-sm font-medium text-text-secondary'>
+										Tìm kiếm
+									</label>
 									<InputField
 										value={searchInput}
 										onChange={e => setSearchInput(e.target.value)}
-										onKeyPress={e => e.key === "Enter" && handleSearch()}
-										placeholder='Tìm bộ cổ vật...'
+										onKeyDown={e => e.key === "Enter" && handleSearch()}
+										placeholder='Tên tướng, cổ vật...'
 									/>
-									{searchInput && (
-										<button
-											onClick={handleClearSearch}
-											className='absolute right-3 top-1/2 -translate-y-1/2 text-text-secondary'
-										>
-											<XCircle size={18} />
-										</button>
-									)}
-								</div>
-								<Button onClick={handleSearch}>
-									<Search size={16} />
-								</Button>
-								<Button
-									variant='outline'
-									onClick={() => setIsFilterOpen(!isFilterOpen)}
-								>
-									{isFilterOpen ? (
-										<ChevronUp size={18} />
-									) : (
-										<ChevronDown size={18} />
-									)}
-								</Button>
-							</div>
-
-							{isFilterOpen && (
-								<div className='pt-4 space-y-4 border-t border-border animate-in fade-in slide-in-from-top-2'>
+									<Button onClick={handleSearch} className='w-full mt-2'>
+										<Search size={16} className='mr-2' /> Tìm kiếm
+									</Button>
 									<MultiSelectFilter
 										label='Cấp sao'
 										options={starLevelOptions}
 										selectedValues={selectedStarLevels}
 										onChange={setSelectedStarLevels}
-										placeholder='Tất cả cấp sao'
 									/>
 									<MultiSelectFilter
 										label='Khu vực'
 										options={regionOptions}
 										selectedValues={selectedRegions}
 										onChange={setSelectedRegions}
-										placeholder='Tất cả khu vực'
 									/>
 									<DropdownFilter
-										label='Sắp xếp theo'
+										label='Sắp xếp'
 										options={SORT_OPTIONS}
 										selectedValue={sortBy}
 										onChange={setSortBy}
@@ -479,77 +473,78 @@ const Builds = () => {
 									<Button
 										variant='outline'
 										onClick={handleResetFilters}
-										iconLeft={<RotateCw size={16} />}
 										className='w-full'
 									>
-										Đặt lại
+										<RotateCw size={16} className='mr-2' /> Đặt lại bộ lọc
 									</Button>
 								</div>
-							)}
-						</div>
+							</motion.aside>
+						)}
+					</AnimatePresence>
 
-						{/* DESKTOP FILTER */}
-						<div className='hidden lg:block p-4 rounded-lg border border-border bg-surface-bg space-y-4 shadow-sm'>
-							<div>
-								<label className='block text-sm font-medium mb-1 text-text-secondary'>
-									Tìm kiếm
-								</label>
-								<div className='relative'>
-									<InputField
-										value={searchInput}
-										onChange={e => setSearchInput(e.target.value)}
-										onKeyPress={e => e.key === "Enter" && handleSearch()}
-										placeholder='Tên tướng, mô tả...'
-									/>
-									{searchInput && (
-										<button
-											onClick={handleClearSearch}
-											className='absolute right-3 top-1/2 -translate-y-1/2 text-text-secondary'
-										>
-											<XCircle size={18} />
-										</button>
-									)}
-								</div>
-								<Button onClick={handleSearch} className='w-full mt-2'>
-									<Search size={16} className='mr-2' /> Tìm kiếm
-								</Button>
+					<div className='lg:hidden w-full p-2 mb-4 rounded-lg border border-border bg-surface-bg shadow-sm order-first'>
+						<div className='flex items-center gap-2'>
+							<div className='flex-1 relative min-w-0'>
+								<InputField
+									value={searchInput}
+									onChange={e => setSearchInput(e.target.value)}
+									onKeyDown={e => e.key === "Enter" && handleSearch()}
+									placeholder='Tìm tướng, cổ vật...'
+								/>
 							</div>
-							<MultiSelectFilter
-								label='Cấp sao'
-								options={starLevelOptions}
-								selectedValues={selectedStarLevels}
-								onChange={setSelectedStarLevels}
-								placeholder='Tất cả cấp sao'
-							/>
-							<MultiSelectFilter
-								label='Khu vực'
-								options={regionOptions}
-								selectedValues={selectedRegions}
-								onChange={setSelectedRegions}
-								placeholder='Tất cả khu vực'
-							/>
-							<DropdownFilter
-								label='Sắp xếp theo'
-								options={SORT_OPTIONS}
-								selectedValue={sortBy}
-								onChange={setSortBy}
-							/>
+							<Button onClick={handleSearch} className='px-3'>
+								<Search size={18} />
+							</Button>
 							<Button
 								variant='outline'
 								onClick={handleResetFilters}
-								iconLeft={<RotateCw size={16} />}
-								className='w-full pt-2'
+								className='px-3'
 							>
-								Đặt lại bộ lọc
+								<RotateCw size={18} />
+							</Button>
+							<Button
+								variant='outline'
+								onClick={() => setIsFilterOpen(!isFilterOpen)}
+								className='px-3'
+							>
+								{isFilterOpen ? (
+									<ChevronUp size={18} />
+								) : (
+									<ChevronDown size={18} />
+								)}
 							</Button>
 						</div>
-					</aside>
-
-					{/* MAIN CONTENT Area */}
-					<div className='lg:w-4/5 w-full lg:order-first'>
-						<div className='bg-surface-bg rounded-lg border border-border p-2 sm:p-6 min-h-[400px]'>
-							{renderContent()}
-						</div>
+						<AnimatePresence>
+							{isFilterOpen && (
+								<motion.div
+									initial={{ height: 0, opacity: 0 }}
+									animate={{ height: "auto", opacity: 1 }}
+									exit={{ height: 0, opacity: 0 }}
+									className='overflow-hidden'
+								>
+									<div className='pt-4 space-y-4 border-t border-border mt-3'>
+										<MultiSelectFilter
+											label='Cấp sao'
+											options={starLevelOptions}
+											selectedValues={selectedStarLevels}
+											onChange={setSelectedStarLevels}
+										/>
+										<MultiSelectFilter
+											label='Khu vực'
+											options={regionOptions}
+											selectedValues={selectedRegions}
+											onChange={setSelectedRegions}
+										/>
+										<DropdownFilter
+											label='Sắp xếp'
+											options={SORT_OPTIONS}
+											selectedValue={sortBy}
+											onChange={setSortBy}
+										/>
+									</div>
+								</motion.div>
+							)}
+						</AnimatePresence>
 					</div>
 				</div>
 

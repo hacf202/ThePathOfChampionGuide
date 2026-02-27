@@ -2,18 +2,35 @@
 import { memo, useMemo, useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { Link, useParams, useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion"; // Thêm để làm hiệu ứng loading mượt
 import iconRegions from "../../assets/data/iconRegions.json";
-// Đã loại bỏ: import constellationData from "./constellation.json";
-import { ChevronLeft, Loader2, Star, Sparkles } from "lucide-react";
+import { ChevronLeft, Loader2, Star, Sparkles, XCircle } from "lucide-react";
 import LatestComments from "../comment/latestComments";
 import Button from "../common/button";
 import PageTitle from "../common/pageTitle";
 import SafeImage from "../common/SafeImage";
 
-// --- THÀNH PHẦN CONSTELLATION NODE (GIỮ NGUYÊN CSS) ---
+// --- THÀNH PHẦN SKELETON (Giữ nguyên phong cách của ChampionList) ---
+const ChampionDetailSkeleton = () => (
+	<div className='max-w-[1200px] mx-auto p-0 sm:p-6 animate-pulse'>
+		<div className='h-10 w-24 bg-gray-700/50 rounded mb-4 ml-4 sm:ml-0' />
+		<div className='bg-surface-bg border rounded-lg p-4 sm:p-6 space-y-8'>
+			<div className='flex flex-col md:flex-row gap-4'>
+				<div className='w-full md:w-[300px] aspect-[3/4] bg-gray-700/50 rounded-lg' />
+				<div className='flex-1 space-y-4'>
+					<div className='h-10 w-1/3 bg-gray-700/50 rounded' />
+					<div className='h-48 w-full bg-gray-700/50 rounded' />
+				</div>
+			</div>
+			<div className='h-8 w-40 bg-gray-700/50 rounded' />
+			<div className='w-full aspect-video bg-gray-700/30 rounded-lg' />
+		</div>
+	</div>
+);
+
+// --- CÁC THÀNH PHẦN CONSTELLATION (GIỮ NGUYÊN CSS GỐC) ---
 const ConstellationNode = ({ power, index, active, onShowTooltip }) => {
 	const nodeRef = useRef(null);
-
 	const leftPos =
 		typeof power.pos.x === "number" ? `${power.pos.x}%` : power.pos.x;
 	const topPos =
@@ -59,9 +76,7 @@ const ConstellationNode = ({ power, index, active, onShowTooltip }) => {
 	return (
 		<div
 			ref={nodeRef}
-			className={`absolute transform -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-all duration-300 z-10 ${
-				active ? "z-50 scale-125" : "hover:scale-110"
-			}`}
+			className={`absolute transform -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-all duration-300 z-10 ${active ? "z-50 scale-125" : "hover:scale-110"}`}
 			style={{ left: leftPos, top: topPos }}
 			onMouseEnter={handleMouseEnter}
 			onMouseLeave={() => onShowTooltip(null, null)}
@@ -71,16 +86,10 @@ const ConstellationNode = ({ power, index, active, onShowTooltip }) => {
 					<Sparkles fill='currentColor' className='w-2 h-2 sm:w-4 sm:h-4' />
 				</div>
 			)}
-
 			<div className='relative flex items-center justify-center'>
 				<div
-					className={`absolute inset-0 rounded-full blur-2xl transition-opacity duration-500 ${
-						power.isRecommended || active
-							? "opacity-80 bg-yellow-400 animate-pulse"
-							: "opacity-0"
-					}`}
+					className={`absolute inset-0 rounded-full blur-2xl transition-opacity duration-500 ${power.isRecommended || active ? "opacity-80 bg-yellow-400 animate-pulse" : "opacity-0"}`}
 				/>
-
 				<div className='relative flex items-center justify-center'>
 					{renderNodeContent()}
 					{power.nodeType === "starPower" && (
@@ -96,7 +105,6 @@ const ConstellationNode = ({ power, index, active, onShowTooltip }) => {
 	);
 };
 
-// --- THÀNH PHẦN ĐƯỜNG NỐI (GIỮ NGUYÊN CSS) ---
 const ConstellationLine = ({ x1, y1, x2, y2, isRecommended }) => {
 	const angle = Math.atan2(y2 - y1, x2 - x1);
 	const offset = window.innerWidth < 640 ? 1.5 : 3.0;
@@ -120,7 +128,6 @@ const ConstellationLine = ({ x1, y1, x2, y2, isRecommended }) => {
 	);
 };
 
-// --- THÀNH PHẦN HIỂN THỊ ITEM (GIỮ NGUYÊN CSS) ---
 const RenderItem = ({ item }) => {
 	if (!item) return null;
 	const linkPath = item.powerCode
@@ -132,6 +139,7 @@ const RenderItem = ({ item }) => {
 				: item.runeCode
 					? `/rune/${encodeURIComponent(item.runeCode)}`
 					: null;
+
 	const content = (
 		<div className='flex items-start gap-1 bg-surface-hover rounded-md h-full hover:border-primary-500 transition-colors p-2'>
 			<SafeImage
@@ -153,13 +161,14 @@ const RenderItem = ({ item }) => {
 	return linkPath ? <Link to={linkPath}>{content}</Link> : content;
 };
 
+// --- MAIN COMPONENT ---
 function ChampionDetail() {
 	const { championID } = useParams();
 	const navigate = useNavigate();
 	const apiUrl = import.meta.env.VITE_API_URL;
 
 	const [champion, setChampion] = useState(null);
-	const [constellationData, setConstellationData] = useState(null); // Lưu dữ liệu từ API constellations
+	const [constellationData, setConstellationData] = useState(null);
 	const [resolvedPowers, setResolvedPowers] = useState([]);
 	const [resolvedItems, setResolvedItems] = useState([]);
 	const [resolvedRelics, setResolvedRelics] = useState([]);
@@ -179,8 +188,6 @@ function ChampionDetail() {
 		const initData = async () => {
 			try {
 				setLoading(true);
-
-				// 1. Lấy thông tin tướng và thông tin chòm sao từ API song song
 				const [champRes, constRes] = await Promise.all([
 					fetch(`${apiUrl}/api/champions/${championID}`, { signal }),
 					fetch(`${apiUrl}/api/constellations/${championID}`, { signal }),
@@ -188,53 +195,42 @@ function ChampionDetail() {
 
 				if (!champRes.ok) throw new Error("Không thể tải thông tin tướng.");
 				const champData = await champRes.json();
-
-				// Chòm sao có thể không tồn tại cho mọi tướng, nên không throw error ngay
 				const constData = constRes.ok ? await constRes.json() : null;
 
 				if (!isMounted) return;
 				setChampion(champData);
 				setConstellationData(constData);
 
-				// 2. Xác định danh sách tên cần resolve
 				const constellationNames = constData
 					? constData.nodes.map(n => n.nodeName)
 					: champData.powerStars || [];
-
 				const allPowerNames = [
 					...new Set([
 						...(champData.adventurePowers || []),
 						...constellationNames,
 					]),
 				];
-
 				const relicNames = Array.from(
 					{ length: 6 },
 					(_, i) => champData[`defaultRelicsSet${i + 1}`] || [],
 				).flat();
 
-				const resolveBatchWithSignal = async (endpoint, names) => {
+				const resolveBatch = async (endpoint, names) => {
 					if (!names || names.length === 0) return [];
-					try {
-						const res = await fetch(`${apiUrl}/api/${endpoint}/resolve`, {
-							method: "POST",
-							headers: { "Content-Type": "application/json" },
-							body: JSON.stringify({ names }),
-							signal,
-						});
-						return res.ok ? await res.json() : [];
-					} catch (err) {
-						if (err.name === "AbortError") return [];
-						return [];
-					}
+					const res = await fetch(`${apiUrl}/api/${endpoint}/resolve`, {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({ names }),
+						signal,
+					});
+					return res.ok ? await res.json() : [];
 				};
 
-				// 3. Resolve dữ liệu chi tiết
 				const [pDetails, iDetails, rDetails, ruDetails] = await Promise.all([
-					resolveBatchWithSignal("powers", allPowerNames),
-					resolveBatchWithSignal("items", champData.defaultItems || []),
-					resolveBatchWithSignal("relics", relicNames),
-					resolveBatchWithSignal("runes", champData.rune || []),
+					resolveBatch("powers", allPowerNames),
+					resolveBatch("items", champData.defaultItems || []),
+					resolveBatch("relics", relicNames),
+					resolveBatch("runes", champData.rune || []),
 				]);
 
 				if (isMounted) {
@@ -244,16 +240,13 @@ function ChampionDetail() {
 					setResolvedRunes(ruDetails);
 				}
 			} catch (err) {
-				if (isMounted && err.name !== "AbortError") {
-					setError(err.message);
-				}
+				if (isMounted && err.name !== "AbortError") setError(err.message);
 			} finally {
-				if (isMounted) setLoading(false);
+				if (isMounted) setTimeout(() => setLoading(false), 800);
 			}
 		};
 
 		initData();
-
 		return () => {
 			isMounted = false;
 			controller.abort();
@@ -262,8 +255,6 @@ function ChampionDetail() {
 
 	const constellationInfo = useMemo(() => {
 		if (!champion) return { nodes: [], backgroundImage: "" };
-
-		// Sử dụng constellationData từ API thay vì file JSON
 		if (constellationData) {
 			const nodes = constellationData.nodes.map(node => {
 				const p = resolvedPowers.find(x => x.name === node.nodeName);
@@ -279,13 +270,11 @@ function ChampionDetail() {
 			});
 			return { nodes, backgroundImage: constellationData.backgroundImage };
 		}
-
-		// Fallback nếu không có dữ liệu chòm sao từ API
 		const fallbackNodes = (champion.powerStars || []).map((name, i) => {
 			const p = resolvedPowers.find(x => x.name === name);
 			return {
 				nodeID: `fallback-${i}`,
-				name: name,
+				name,
 				image: p?.assetAbsolutePath || "/images/placeholder.png",
 				description: p?.description || p?.descriptionRaw || "",
 				pos: { x: 15 + i * 15, y: 50 },
@@ -329,20 +318,6 @@ function ChampionDetail() {
 		[champion, resolvedItems],
 	);
 
-	const runesFull = useMemo(
-		() =>
-			(champion?.rune || []).map(name => {
-				const r = resolvedRunes.find(x => x.name === name);
-				return {
-					name,
-					image: r?.assetAbsolutePath || "/images/placeholder.png",
-					description: r?.description || "",
-					runeCode: r?.runeCode,
-				};
-			}),
-		[champion, resolvedRunes],
-	);
-
 	const relicSets = useMemo(() => {
 		if (!champion) return [];
 		return Array.from({ length: 6 }, (_, i) => {
@@ -364,15 +339,10 @@ function ChampionDetail() {
 		}).filter(s => s.relics.length > 0);
 	}, [champion, resolvedRelics]);
 
-	if (loading)
-		return (
-			<div className='flex justify-center p-20'>
-				<Loader2 className='animate-spin text-primary-500' size={48} />
-			</div>
-		);
-	if (error || !champion)
+	if (error)
 		return (
 			<div className='p-10 text-center text-red-500'>
+				<XCircle size={48} className='mx-auto mb-4 opacity-50' />
 				<p>{error}</p>
 				<Button onClick={() => navigate(-1)} className='mt-4'>
 					Quay lại
@@ -381,245 +351,277 @@ function ChampionDetail() {
 		);
 
 	return (
-		<div>
+		<div className='animate-fadeIn'>
 			<PageTitle
-				title={champion.name}
-				description={`POC GUIDE cho ${champion.name}`}
+				title={champion?.name || "Chi tiết tướng"}
+				description={`POC GUIDE cho ${champion?.name}`}
 				type='article'
 			/>
 			<div className='max-w-[1200px] mx-auto p-0 sm:p-6 text-text-primary font-secondary'>
-				<Button variant='outline' onClick={() => navigate(-1)} className='mb-4'>
-					<ChevronLeft size={18} /> Quay lại
-				</Button>
-				<div className='relative mx-auto max-w-[1200px] sm:p-6 rounded-lg bg-surface-bg border'>
-					<div className='flex flex-col md:flex-row border gap-4 rounded-md bg-surface-hover sm:p-4'>
-						<SafeImage
-							className='h-auto max-h-[300px] object-contain rounded-lg'
-							src={champion.assets?.[0]?.gameAbsolutePath}
-							alt={champion.name}
-						/>
-						<div className='flex-1'>
-							<div className='flex flex-col sm:flex-row sm:justify-between p-2 m-1 gap-2'>
-								<h1 className='text-2xl sm:text-4xl font-bold font-primary'>
-									{champion.name}
-								</h1>
-								<div className='flex flex-wrap gap-2 items-center'>
-									<div className='flex items-center gap-1 px-2.5 py-1.5 bg-yellow-500/20 border border-yellow-500 rounded-full'>
-										<span className='text-sm font-bold text-yellow-900'>
-											{champion.maxStar}
-										</span>
-										<Star size={16} className='text-yellow-600 fill-current' />
-									</div>
-									{champion.regions?.map((r, i) => (
-										<img
-											key={i}
-											src={
-												iconRegions.find(item => item.name === r)
-													?.iconAbsolutePath || "/fallback-image.svg"
+				<AnimatePresence mode='wait'>
+					{loading ? (
+						<motion.div
+							key='skeleton'
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							exit={{ opacity: 0 }}
+						>
+							<ChampionDetailSkeleton />
+						</motion.div>
+					) : (
+						<motion.div
+							key='content'
+							initial={{ opacity: 0, y: 10 }}
+							animate={{ opacity: 1, y: 0 }}
+							exit={{ opacity: 0, y: -10 }}
+							transition={{ duration: 0.3 }}
+						>
+							<Button
+								variant='outline'
+								onClick={() => navigate(-1)}
+								className='mb-4 ml-4 sm:ml-0'
+							>
+								<ChevronLeft size={18} /> Quay lại
+							</Button>
+							<div className='relative mx-auto max-w-[1200px] sm:p-6 rounded-lg bg-surface-bg border'>
+								<div className='flex flex-col md:flex-row border gap-4 rounded-md bg-surface-hover sm:p-4'>
+									<SafeImage
+										className='h-auto max-h-[300px] object-contain rounded-lg'
+										src={champion.assets?.[0]?.gameAbsolutePath}
+										alt={champion.name}
+									/>
+									<div className='flex-1'>
+										<div className='flex flex-col sm:flex-row sm:justify-between p-2 m-1 gap-2'>
+											<h1 className='text-2xl sm:text-4xl font-bold font-primary'>
+												{champion.name}
+											</h1>
+											<div className='flex flex-wrap gap-2 items-center'>
+												<div className='flex items-center gap-1 px-2.5 py-1.5 bg-yellow-500/20 border border-yellow-500 rounded-full'>
+													<span className='text-sm font-bold text-yellow-900'>
+														{champion.maxStar}
+													</span>
+													<Star
+														size={16}
+														className='text-yellow-600 fill-current'
+													/>
+												</div>
+												{champion.regions?.map((r, i) => (
+													<img
+														key={i}
+														src={
+															iconRegions.find(item => item.name === r)
+																?.iconAbsolutePath || "/fallback-image.svg"
+														}
+														alt={r}
+														className='w-10 h-10'
+													/>
+												))}
+											</div>
+										</div>
+										<div
+											className={`mt-1 mx-1 p-4 border rounded-lg bg-surface-bg ${!isDescriptionExpanded ? "overflow-y-auto h-48 sm:h-60" : "h-auto"}`}
+										>
+											{champion.description
+												?.replace(/\\n/g, "\n")
+												.split(/\n/)
+												.map((line, i) => (
+													<p key={i} className={i > 0 ? "mt-3" : ""}>
+														{line || (
+															<span className='text-transparent'>empty</span>
+														)}
+													</p>
+												))}
+										</div>
+										<button
+											onClick={() =>
+												setIsDescriptionExpanded(!isDescriptionExpanded)
 											}
-											alt={r}
-											className='w-10 h-10'
-										/>
-									))}
+											className='text-primary-500 text-sm font-bold mt-2 ml-2'
+										>
+											{isDescriptionExpanded ? "Thu gọn" : "Hiển thị toàn bộ"}
+										</button>
+									</div>
+								</div>
+
+								{constellationInfo.nodes.length > 0 && (
+									<>
+										<h2 className='p-1 text-lg sm:text-3xl font-semibold my-1 uppercase font-primary'>
+											Chòm sao
+										</h2>
+										<div className='p-1 relative w-full aspect-video bg-slate-950 border rounded-lg overflow-hidden shadow-2xl'>
+											<img
+												src={constellationInfo.backgroundImage}
+												className='absolute inset-0 w-full h-full object-cover opacity-10 blur-sm pointer-events-none'
+												alt='bg'
+											/>
+											<svg className='absolute inset-0 w-full h-full pointer-events-none'>
+												<defs>
+													<marker
+														id='arrowhead'
+														markerWidth={window.innerWidth < 640 ? "3" : "5"}
+														markerHeight={window.innerWidth < 640 ? "3" : "5"}
+														refX={window.innerWidth < 640 ? "2.5" : "4.8"}
+														refY={window.innerWidth < 640 ? "1.5" : "2.5"}
+														orient='auto'
+													>
+														<path
+															d={
+																window.innerWidth < 640
+																	? "M0,0 L3,1.5 L0,3 Z"
+																	: "M0,0 L5,2.5 L0,5 Z"
+															}
+															fill='rgba(234, 179, 8, 0.6)'
+														/>
+													</marker>
+													<marker
+														id='arrowhead-recommended'
+														markerWidth={window.innerWidth < 640 ? "3" : "5"}
+														markerHeight={window.innerWidth < 640 ? "3" : "5"}
+														refX={window.innerWidth < 640 ? "2.5" : "4.8"}
+														refY={window.innerWidth < 640 ? "1.5" : "2.5"}
+														orient='auto'
+													>
+														<path
+															d={
+																window.innerWidth < 640
+																	? "M0,0 L3,1.5 L0,3 Z"
+																	: "M0,0 L5,2.5 L0,5 Z"
+															}
+															fill='rgba(234, 179, 8, 1)'
+														/>
+													</marker>
+												</defs>
+												{constellationInfo.nodes.map(node =>
+													node.nextNodes.map(tID => {
+														const target = constellationInfo.nodes.find(
+															n => n.nodeID === tID,
+														);
+														return (
+															target && (
+																<ConstellationLine
+																	key={`${node.nodeID}-${tID}`}
+																	x1={node.pos.x}
+																	y1={node.pos.y}
+																	x2={target.pos.x}
+																	y2={target.pos.y}
+																	isRecommended={
+																		node.isRecommended && target.isRecommended
+																	}
+																/>
+															)
+														);
+													}),
+												)}
+											</svg>
+											{constellationInfo.nodes.map((node, index) => (
+												<ConstellationNode
+													key={index}
+													index={index}
+													power={node}
+													active={hoveredNode?.name === node.name}
+													onShowTooltip={(n, c) => {
+														setHoveredNode(n);
+														setTooltipCoords(c);
+													}}
+												/>
+											))}
+											{hoveredNode &&
+												tooltipCoords &&
+												createPortal(
+													<div
+														className='fixed bg-surface-bg border border-primary-500 rounded-lg shadow-2xl p-3 z-[9999] pointer-events-none'
+														style={{
+															left: `${tooltipCoords.x}px`,
+															top: `${tooltipCoords.y}px`,
+															transform: "translate(-50%, -100%)",
+															maxWidth: "280px",
+														}}
+													>
+														<h3 className='text-primary-500 font-bold text-sm uppercase mb-1'>
+															{hoveredNode.name}
+														</h3>
+														<div
+															className='text-text-secondary text-xs leading-relaxed'
+															dangerouslySetInnerHTML={{
+																__html: hoveredNode.description,
+															}}
+														/>
+														<div className='absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-primary-500' />
+													</div>,
+													document.body,
+												)}
+										</div>
+									</>
+								)}
+
+								<h2 className='p-1 text-lg sm:text-3xl font-semibold mt-2 font-primary'>
+									Video giới thiệu
+								</h2>
+								<div className='aspect-video bg-surface-hover rounded-lg mb-1'>
+									<iframe
+										width='100%'
+										height='100%'
+										src={
+											champion?.videoLink ||
+											"https://www.youtube.com/embed/mZgnjMeTI5E"
+										}
+										frameBorder='0'
+										allowFullScreen
+									></iframe>
+								</div>
+
+								{relicSets.length > 0 && (
+									<>
+										<h2 className='p-1 text-lg sm:text-3xl font-semibold mt-2 font-primary'>
+											Bộ cổ vật
+										</h2>
+										<div className='grid gap-4 bg-surface-hover p-0 rounded-md'>
+											{relicSets.map((set, idx) => (
+												<div
+													key={idx}
+													className='bg-surface-bg border border-border rounded-lg grid grid-cols-1 md:grid-cols-3'
+												>
+													{set.relics.map((r, i) => (
+														<RenderItem key={i} item={r} />
+													))}
+												</div>
+											))}
+										</div>
+									</>
+								)}
+
+								{adventurePowersFull.length > 0 && (
+									<>
+										<h2 className='text-lg sm:text-3xl font-semibold my-1 font-primary'>
+											Sức mạnh khuyên dùng
+										</h2>
+										<div className='grid grid-cols-1 md:grid-cols-2 gap-4 bg-surface-hover p-1 rounded-md border border-border'>
+											{adventurePowersFull.map((power, index) => (
+												<RenderItem key={index} item={power} />
+											))}
+										</div>
+									</>
+								)}
+
+								{defaultItemsFull.length > 0 && (
+									<>
+										<h2 className='text-lg sm:text-3xl font-semibold my-1 font-primary'>
+											Vật phẩm khuyên dùng
+										</h2>
+										<div className='grid grid-cols-1 md:grid-cols-2 gap-4 bg-surface-hover p-1 rounded-md border border-border'>
+											{defaultItemsFull.map((item, index) => (
+												<RenderItem key={index} item={item} />
+											))}
+										</div>
+									</>
+								)}
+								<div className='mt-6'>
+									<LatestComments championID={championID} />
 								</div>
 							</div>
-							<div
-								className={`mt-1 mx-1 p-4 border rounded-lg bg-surface-bg ${!isDescriptionExpanded ? "overflow-y-auto h-48 sm:h-60" : "h-auto"}`}
-							>
-								{champion.description
-									?.replace(/\\n/g, "\n")
-									.split(/\n/)
-									.map((line, i) => (
-										<p key={i} className={i > 0 ? "mt-3" : ""}>
-											{line || <span className='text-transparent'>empty</span>}
-										</p>
-									))}
-							</div>
-							<button
-								onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
-								className='text-primary-500 text-sm font-bold mt-2 ml-2'
-							>
-								{isDescriptionExpanded ? "Thu gọn" : "Hiển thị toàn bộ"}
-							</button>
-						</div>
-					</div>
-
-					{constellationInfo.nodes.length > 0 && (
-						<>
-							<h2 className='p-1 text-lg sm:text-3xl font-semibold my-1 uppercase font-primary'>
-								Chòm sao
-							</h2>
-							<div className='p-1 relative w-full aspect-video bg-slate-950 border rounded-lg overflow-hidden shadow-2xl'>
-								<img
-									src={constellationInfo.backgroundImage}
-									className='absolute inset-0 w-full h-full object-cover opacity-10 blur-sm pointer-events-none'
-									alt='bg'
-								/>
-								<svg className='absolute inset-0 w-full h-full pointer-events-none'>
-									<defs>
-										<marker
-											id='arrowhead'
-											markerWidth={window.innerWidth < 640 ? "3" : "5"}
-											markerHeight={window.innerWidth < 640 ? "3" : "5"}
-											refX={window.innerWidth < 640 ? "2.5" : "4.8"}
-											refY={window.innerWidth < 640 ? "1.5" : "2.5"}
-											orient='auto'
-										>
-											<path
-												d={
-													window.innerWidth < 640
-														? "M0,0 L3,1.5 L0,3 Z"
-														: "M0,0 L5,2.5 L0,5 Z"
-												}
-												fill='rgba(234, 179, 8, 0.6)'
-											/>
-										</marker>
-										<marker
-											id='arrowhead-recommended'
-											markerWidth={window.innerWidth < 640 ? "3" : "5"}
-											markerHeight={window.innerWidth < 640 ? "3" : "5"}
-											refX={window.innerWidth < 640 ? "2.5" : "4.8"}
-											refY={window.innerWidth < 640 ? "1.5" : "2.5"}
-											orient='auto'
-										>
-											<path
-												d={
-													window.innerWidth < 640
-														? "M0,0 L3,1.5 L0,3 Z"
-														: "M0,0 L5,2.5 L0,5 Z"
-												}
-												fill='rgba(234, 179, 8, 1)'
-											/>
-										</marker>
-									</defs>
-									{constellationInfo.nodes.map(node =>
-										node.nextNodes.map(tID => {
-											const target = constellationInfo.nodes.find(
-												n => n.nodeID === tID,
-											);
-											return (
-												target && (
-													<ConstellationLine
-														key={`${node.nodeID}-${tID}`}
-														x1={node.pos.x}
-														y1={node.pos.y}
-														x2={target.pos.x}
-														y2={target.pos.y}
-														isRecommended={
-															node.isRecommended && target.isRecommended
-														}
-													/>
-												)
-											);
-										}),
-									)}
-								</svg>
-								{constellationInfo.nodes.map((node, index) => (
-									<ConstellationNode
-										key={index}
-										index={index}
-										power={node}
-										active={hoveredNode?.name === node.name}
-										onShowTooltip={(n, c) => {
-											setHoveredNode(n);
-											setTooltipCoords(c);
-										}}
-									/>
-								))}
-								{hoveredNode &&
-									tooltipCoords &&
-									createPortal(
-										<div
-											className='fixed bg-surface-bg border border-primary-500 rounded-lg shadow-2xl p-3 z-[9999] pointer-events-none'
-											style={{
-												left: `${tooltipCoords.x}px`,
-												top: `${tooltipCoords.y}px`,
-												transform: "translate(-50%, -100%)",
-												maxWidth: "280px",
-											}}
-										>
-											<h3 className='text-primary-500 font-bold text-sm uppercase mb-1'>
-												{hoveredNode.name}
-											</h3>
-											<div
-												className='text-text-secondary text-xs leading-relaxed'
-												dangerouslySetInnerHTML={{
-													__html: hoveredNode.description,
-												}}
-											/>
-											<div className='absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-primary-500' />
-										</div>,
-										document.body,
-									)}
-							</div>
-						</>
+						</motion.div>
 					)}
-
-					<h2 className='p-1 text-lg sm:text-3xl font-semibold mt-2 font-primary'>
-						Video giới thiệu
-					</h2>
-					<div className='aspect-video bg-surface-hover rounded-lg mb-1'>
-						<iframe
-							width='100%'
-							height='100%'
-							src={
-								champion?.videoLink ||
-								"https://www.youtube.com/embed/mZgnjMeTI5E"
-							}
-							frameBorder='0'
-							allowFullScreen
-						></iframe>
-					</div>
-
-					{relicSets.length > 0 && (
-						<>
-							<h2 className='p-1 text-lg sm:text-3xl font-semibold mt-2 font-primary'>
-								Bộ cổ vật
-							</h2>
-							<div className='grid gap-4 bg-surface-hover p-4 rounded-md'>
-								{relicSets.map((set, idx) => (
-									<div
-										key={idx}
-										className='bg-surface-bg border border-border rounded-lg grid grid-cols-1 md:grid-cols-3'
-									>
-										{set.relics.map((r, i) => (
-											<RenderItem key={i} item={r} />
-										))}
-									</div>
-								))}
-							</div>
-						</>
-					)}
-
-					{adventurePowersFull.length > 0 && (
-						<>
-							<h2 className='text-lg sm:text-3xl font-semibold my-1 font-primary'>
-								Sức mạnh khuyên dùng
-							</h2>
-							<div className='grid grid-cols-1 md:grid-cols-2 gap-4 bg-surface-hover p-1 rounded-md border border-border'>
-								{adventurePowersFull.map((power, index) => (
-									<RenderItem key={index} item={power} />
-								))}
-							</div>
-						</>
-					)}
-
-					{defaultItemsFull.length > 0 && (
-						<>
-							<h2 className='text-lg sm:text-3xl font-semibold my-1 font-primary'>
-								Vật phẩm khuyên dùng
-							</h2>
-							<div className='grid grid-cols-1 md:grid-cols-2 gap-4 bg-surface-hover p-1 rounded-md border border-border'>
-								{defaultItemsFull.map((item, index) => (
-									<RenderItem key={index} item={item} />
-								))}
-							</div>
-						</>
-					)}
-					<div className='mt-6'>
-						<LatestComments championID={championID} />
-					</div>
-				</div>
+				</AnimatePresence>
 			</div>
 		</div>
 	);

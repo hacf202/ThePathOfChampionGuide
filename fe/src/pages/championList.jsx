@@ -1,6 +1,7 @@
 // src/pages/championList.jsx
 import React, { useState, useMemo, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import { usePersistentState } from "../hooks/usePersistentState";
 import InputField from "../components/common/inputField";
 import MultiSelectFilter from "../components/common/multiSelectFilter";
@@ -13,6 +14,8 @@ import {
 	XCircle,
 	ChevronDown,
 	ChevronUp,
+	ChevronLeft,
+	ChevronRight,
 } from "lucide-react";
 import { removeAccents } from "../utils/vietnameseUtils";
 import iconRegions from "../assets/data/iconRegions.json";
@@ -20,7 +23,16 @@ import PageTitle from "../components/common/pageTitle";
 
 const ITEMS_PER_PAGE = 20;
 
+const ChampionSkeleton = () => (
+	<div className='rounded-lg border border-border bg-surface-bg p-4 space-y-3 animate-pulse'>
+		<div className='aspect-[4/5] w-full bg-gray-700/50 rounded-md' />
+		<div className='h-4 w-3/4 bg-gray-700/50 mx-auto rounded' />
+		<div className='h-3 w-1/2 bg-gray-700/50 mx-auto rounded' />
+	</div>
+);
+
 function ChampionList() {
+	// --- STATE ---
 	const [champions, setChampions] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
@@ -29,8 +41,6 @@ function ChampionList() {
 		totalItems: 0,
 		currentPage: 1,
 	});
-
-	// Lưu trữ bộ lọc động nhận từ Backend
 	const [dynamicFilters, setDynamicFilters] = useState({
 		tags: [],
 		regions: [],
@@ -74,7 +84,60 @@ function ChampionList() {
 		"championsIsFilterOpen",
 		false,
 	);
+	const [showDesktopFilter, setShowDesktopFilter] = usePersistentState(
+		"championsShowDesktopFilter",
+		false,
+	);
 
+	// --- LOGIC ĐIỀU HƯỚNG ---
+	const goToNextPage = useCallback(() => {
+		if (currentPage < pagination.totalPages && !loading) {
+			setCurrentPage(prev => prev + 1);
+			window.scrollTo({ top: 0, behavior: "smooth" });
+		}
+	}, [currentPage, pagination.totalPages, loading, setCurrentPage]);
+
+	const goToPrevPage = useCallback(() => {
+		if (currentPage > 1 && !loading) {
+			setCurrentPage(prev => prev - 1);
+			window.scrollTo({ top: 0, behavior: "smooth" });
+		}
+	}, [currentPage, loading, setCurrentPage]);
+
+	const handleSearch = useCallback(() => {
+		setSearchTerm(removeAccents(searchInput.trim()));
+		setCurrentPage(1);
+		if (window.innerWidth < 1024) setIsFilterOpen(false);
+	}, [searchInput, setSearchTerm, setCurrentPage, setIsFilterOpen]);
+
+	// --- LOGIC PHÍM TẮT (Global) ---
+	useEffect(() => {
+		const handleKeyDown = event => {
+			if (event.key === "Tab") {
+				event.preventDefault();
+				setShowDesktopFilter(prev => !prev);
+				return;
+			}
+
+			if (
+				event.target.tagName === "INPUT" ||
+				event.target.tagName === "TEXTAREA"
+			) {
+				return;
+			}
+
+			if (event.key === "ArrowLeft") {
+				goToPrevPage();
+			} else if (event.key === "ArrowRight") {
+				goToNextPage();
+			}
+		};
+
+		window.addEventListener("keydown", handleKeyDown);
+		return () => window.removeEventListener("keydown", handleKeyDown);
+	}, [goToPrevPage, goToNextPage, setShowDesktopFilter]);
+
+	// --- LOGIC FETCHING ---
 	const queryParams = useMemo(() => {
 		const params = new URLSearchParams();
 		params.append("page", currentPage);
@@ -108,7 +171,6 @@ function ChampionList() {
 			);
 			if (!response.ok) throw new Error("Lỗi tải dữ liệu");
 			const data = await response.json();
-
 			setChampions(
 				data.items.map(c => ({
 					...c,
@@ -121,15 +183,11 @@ function ChampionList() {
 				})),
 			);
 			setPagination(data.pagination);
-
-			// Cập nhật danh sách thẻ và thuộc tính từ CSDL
-			if (data.availableFilters) {
-				setDynamicFilters(data.availableFilters);
-			}
+			if (data.availableFilters) setDynamicFilters(data.availableFilters);
 		} catch (err) {
 			setError(err.message);
 		} finally {
-			setLoading(false);
+			setTimeout(() => setLoading(false), 800);
 		}
 	}, [queryParams]);
 
@@ -137,9 +195,8 @@ function ChampionList() {
 		fetchChampions();
 	}, [fetchChampions]);
 
-	// Xử lý options cho bộ lọc dựa trên dữ liệu động từ Backend
-	const filterOptions = useMemo(() => {
-		return {
+	const filterOptions = useMemo(
+		() => ({
 			regions: dynamicFilters.regions.map(r => ({
 				value: r,
 				label: r,
@@ -154,14 +211,9 @@ function ChampionList() {
 				{ value: "cost-asc", label: "Năng lượng thấp-cao" },
 				{ value: "cost-desc", label: "Năng lượng cao-thấp" },
 			],
-		};
-	}, [dynamicFilters]);
-
-	const handleSearch = () => {
-		setSearchTerm(removeAccents(searchInput.trim()));
-		setCurrentPage(1);
-		if (window.innerWidth < 1024) setIsFilterOpen(false);
-	};
+		}),
+		[dynamicFilters],
+	);
 
 	const handleResetFilters = () => {
 		setSearchInput("");
@@ -175,51 +227,143 @@ function ChampionList() {
 	};
 
 	return (
-		<div>
+		<div className='animate-fadeIn'>
 			<PageTitle title='Danh sách tướng' description='POC GUIDE...' />
+
 			<div className='font-secondary'>
-				<h1 className='text-3xl font-bold mb-6 text-text-primary font-primary'>
-					Danh Sách Tướng
-				</h1>
-				<div className='flex flex-col lg:flex-row gap-8'>
-					<aside className='lg:w-1/5 w-full lg:sticky lg:top-24 h-fit'>
-						{/* Mobile Filter UI (Giữ nguyên CSS cũ) */}
-						<div className='lg:hidden p-2 rounded-lg border border-border bg-surface-bg shadow-sm'>
-							<div className='flex items-center gap-2'>
-								<div className='flex-1 relative'>
+				<div className='flex justify-between items-center mb-2 md:mb-6'>
+					<h1 className='text-3xl font-bold text-text-primary font-primary animate-glitch'>
+						Danh Sách Tướng
+					</h1>
+
+					<div className='hidden lg:flex items-center gap-4'>
+						<Button
+							variant='outline'
+							onClick={() => setShowDesktopFilter(!showDesktopFilter)}
+							className='flex items-center gap-2'
+						>
+							{showDesktopFilter ? (
+								<ChevronRight size={18} />
+							) : (
+								<ChevronLeft size={18} />
+							)}
+							{showDesktopFilter ? "Ẩn bộ lọc" : "Hiện bộ lọc"}
+						</Button>
+					</div>
+				</div>
+
+				<div className='flex flex-col lg:flex-row items-start'>
+					{/* --- MAIN CONTENT Area --- */}
+					<div
+						className={`w-full transition-[flex] duration-300 ease-in-out ${
+							showDesktopFilter ? "lg:flex-[3]" : "lg:flex-[1]"
+						}`}
+					>
+						<div className='bg-surface-bg rounded-lg border border-border p-2 sm:p-4 shadow-sm min-h-[500px] relative overflow-hidden'>
+							<AnimatePresence mode='wait'>
+								{loading ? (
+									<motion.div
+										key='skeleton'
+										initial={{ opacity: 0 }}
+										animate={{ opacity: 1 }}
+										exit={{ opacity: 0 }}
+										className={`grid grid-cols-2 md:grid-cols-3 ${showDesktopFilter ? "xl:grid-cols-4" : "xl:grid-cols-5"} gap-4 sm:gap-6`}
+									>
+										{[...Array(8)].map((_, i) => (
+											<ChampionSkeleton key={i} />
+										))}
+									</motion.div>
+								) : (
+									<motion.div
+										key='content'
+										initial={{ opacity: 0, y: 10 }}
+										animate={{ opacity: 1, y: 0 }}
+										exit={{ opacity: 0, y: -10 }}
+										transition={{ duration: 0.3 }}
+									>
+										{champions.length > 0 ? (
+											<>
+												<div
+													className={`grid grid-cols-2 md:grid-cols-3 ${showDesktopFilter ? "xl:grid-cols-4" : "xl:grid-cols-5"} gap-4 sm:gap-6`}
+												>
+													{champions.map(c => (
+														<motion.div key={c.championID} layout>
+															<Link
+																to={`/champion/${c.championID}`}
+																className='hover:scale-105 transition-transform duration-200 block'
+															>
+																<ChampionCard champion={c} />
+															</Link>
+														</motion.div>
+													))}
+												</div>
+												{/* Phân trang */}
+												<div className='mt-8 flex justify-center items-center gap-4 border-t border-border pt-4'>
+													<Button
+														onClick={goToPrevPage}
+														disabled={currentPage === 1}
+														variant='outline'
+													>
+														Trang trước
+													</Button>
+													<span className='font-bold text-primary-500 bg-primary-100/10 px-3 py-1 rounded-full'>
+														{currentPage} / {pagination.totalPages}
+													</span>
+													<Button
+														onClick={goToNextPage}
+														disabled={currentPage === pagination.totalPages}
+														variant='outline'
+													>
+														Trang sau
+													</Button>
+												</div>
+											</>
+										) : (
+											<div className='text-center py-20 text-text-secondary'>
+												<XCircle
+													size={48}
+													className='mx-auto mb-4 opacity-20'
+												/>
+												Không tìm thấy tướng phù hợp.
+											</div>
+										)}
+									</motion.div>
+								)}
+							</AnimatePresence>
+						</div>
+					</div>
+
+					{/* --- ASIDE (Bộ lọc PC) --- */}
+					<AnimatePresence initial={false}>
+						{showDesktopFilter && (
+							<motion.aside
+								key='desktop-filter'
+								initial={{ width: 0, opacity: 0, marginLeft: 0 }}
+								animate={{
+									width: "auto",
+									opacity: 1,
+									marginLeft: "2rem",
+								}}
+								exit={{ width: 0, opacity: 0, marginLeft: 0 }}
+								transition={{ duration: 0.3, ease: "easeInOut" }}
+								className='hidden lg:block sticky top-24 h-fit overflow-hidden'
+							>
+								<div className='w-[280px] xl:w-[320px] p-4 rounded-lg border border-border bg-surface-bg space-y-4 shadow-sm'>
+									<label className='block text-sm font-medium text-text-secondary'>
+										Tìm kiếm tướng
+									</label>
 									<InputField
 										value={searchInput}
 										onChange={e => setSearchInput(e.target.value)}
-										onKeyPress={e => e.key === "Enter" && handleSearch()}
-										placeholder='Nhập tên tướng...'
+										onKeyDown={e => e.key === "Enter" && handleSearch()}
+										placeholder='Tên tướng...'
 									/>
-									{searchInput && (
-										<button
-											onClick={() => setSearchInput("")}
-											className='absolute right-3 top-1/2 -translate-y-1/2'
-										>
-											<XCircle size={18} />
-										</button>
-									)}
-								</div>
-								<Button onClick={handleSearch}>
-									<Search size={16} />
-								</Button>
-								<Button
-									variant='outline'
-									onClick={() => setIsFilterOpen(!isFilterOpen)}
-								>
-									{isFilterOpen ? (
-										<ChevronUp size={18} />
-									) : (
-										<ChevronDown size={18} />
-									)}
-								</Button>
-							</div>
-							<div
-								className={`transition-all duration-300 overflow-visible ${isFilterOpen ? "max-h-[1400px] opacity-100" : "max-h-0 opacity-0"}`}
-							>
-								<div className='pt-4 space-y-4 border-t border-border mt-2'>
+									<Button
+										onClick={handleSearch}
+										className='w-full mt-2 hover:animate-pulse-focus'
+									>
+										<Search size={16} className='mr-2' /> Tìm kiếm
+									</Button>
 									<MultiSelectFilter
 										label='Vùng'
 										options={filterOptions.regions}
@@ -255,117 +399,89 @@ function ChampionList() {
 										onClick={handleResetFilters}
 										className='w-full'
 									>
-										<RotateCw size={16} className='mr-2' /> Đặt lại
+										<RotateCw size={16} className='mr-2' /> Đặt lại bộ lọc
 									</Button>
 								</div>
-							</div>
-						</div>
+							</motion.aside>
+						)}
+					</AnimatePresence>
 
-						{/* Desktop Filter UI (Giữ nguyên CSS cũ) */}
-						<div className='hidden lg:block p-4 rounded-lg border border-border bg-surface-bg space-y-4 shadow-sm'>
-							<label className='block text-sm font-medium text-text-secondary'>
-								Tìm kiếm tướng
-							</label>
-							<InputField
-								value={searchInput}
-								onChange={e => setSearchInput(e.target.value)}
-								onKeyPress={e => e.key === "Enter" && handleSearch()}
-								placeholder='Tên tướng...'
-							/>
-							<Button onClick={handleSearch} className='w-full mt-2'>
-								<Search size={16} className='mr-2' /> Tìm kiếm
+					{/* --- MOBILE FILTER --- */}
+					<div className='lg:hidden w-full p-2 mb-4 rounded-lg border border-border bg-surface-bg shadow-sm order-first'>
+						<div className='flex items-center gap-2'>
+							<div className='flex-1 relative min-w-0'>
+								<InputField
+									value={searchInput}
+									onChange={e => setSearchInput(e.target.value)}
+									onKeyDown={e => e.key === "Enter" && handleSearch()}
+									placeholder='Tên tướng...'
+								/>
+							</div>
+							<Button onClick={handleSearch} className='px-3'>
+								<Search size={18} />
 							</Button>
-							<MultiSelectFilter
-								label='Vùng'
-								options={filterOptions.regions}
-								selectedValues={selectedRegions}
-								onChange={setSelectedRegions}
-							/>
-							<MultiSelectFilter
-								label='Năng lượng'
-								options={filterOptions.costs}
-								selectedValues={selectedCosts}
-								onChange={setSelectedCosts}
-							/>
-							<MultiSelectFilter
-								label='Sao tối đa'
-								options={filterOptions.maxStars}
-								selectedValues={selectedMaxStars}
-								onChange={setSelectedMaxStars}
-							/>
-							<MultiSelectFilter
-								label='Thẻ'
-								options={filterOptions.tags}
-								selectedValues={selectedTags}
-								onChange={setSelectedTags}
-							/>
-							<DropdownFilter
-								label='Sắp xếp'
-								options={filterOptions.sort}
-								selectedValue={sortOrder}
-								onChange={setSortOrder}
-							/>
 							<Button
 								variant='outline'
 								onClick={handleResetFilters}
-								className='w-full'
+								className='px-3'
 							>
-								<RotateCw size={16} className='mr-2' /> Đặt lại bộ lọc
+								<RotateCw size={18} />
+							</Button>
+							<Button
+								variant='outline'
+								onClick={() => setIsFilterOpen(!isFilterOpen)}
+								className='px-3'
+							>
+								{isFilterOpen ? (
+									<ChevronUp size={18} />
+								) : (
+									<ChevronDown size={18} />
+								)}
 							</Button>
 						</div>
-					</aside>
-
-					<div className='lg:w-4/5 w-full lg:order-first'>
-						<div className='bg-surface-bg rounded-lg border border-border p-2 sm:p-6 shadow-sm min-h-[500px]'>
-							{loading && champions.length === 0 ? (
-								<div className='flex justify-center items-center h-64'>
-									<div className='animate-spin rounded-full h-12 w-12 border-t-2 border-primary-500'></div>
-								</div>
-							) : champions.length > 0 ? (
-								<>
-									<div className='grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6'>
-										{champions.map(c => (
-											<Link
-												key={c.championID}
-												to={`/champion/${c.championID}`}
-												className='hover:scale-105 transition-transform duration-200'
-											>
-												<ChampionCard champion={c} />
-											</Link>
-										))}
+						<AnimatePresence>
+							{isFilterOpen && (
+								<motion.div
+									initial={{ height: 0, opacity: 0 }}
+									animate={{ height: "auto", opacity: 1 }}
+									exit={{ height: 0, opacity: 0 }}
+									className='overflow-hidden'
+								>
+									<div className='pt-4 space-y-4 border-t border-border mt-3'>
+										<MultiSelectFilter
+											label='Vùng'
+											options={filterOptions.regions}
+											selectedValues={selectedRegions}
+											onChange={setSelectedRegions}
+										/>
+										<MultiSelectFilter
+											label='Năng lượng'
+											options={filterOptions.costs}
+											selectedValues={selectedCosts}
+											onChange={setSelectedCosts}
+										/>
+										<MultiSelectFilter
+											label='Sao tối đa'
+											options={filterOptions.maxStars}
+											selectedValues={selectedMaxStars}
+											onChange={setSelectedMaxStars}
+										/>
+										<MultiSelectFilter
+											label='Thẻ'
+											options={filterOptions.tags}
+											selectedValues={selectedTags}
+											onChange={setSelectedTags}
+										/>
+										<DropdownFilter
+											label='Sắp xếp'
+											options={filterOptions.sort}
+											selectedValue={sortOrder}
+											onChange={setSortOrder}
+										/>
 									</div>
-									<div className='mt-8 flex justify-center items-center gap-4 border-t border-border pt-4'>
-										<Button
-											onClick={() => {
-												setCurrentPage(p => p - 1);
-												window.scrollTo({ top: 0, behavior: "smooth" });
-											}}
-											disabled={currentPage === 1}
-											variant='outline'
-										>
-											Trang trước
-										</Button>
-										<span className='font-bold text-primary-500'>
-											{currentPage} / {pagination.totalPages}
-										</span>
-										<Button
-											onClick={() => {
-												setCurrentPage(p => p + 1);
-												window.scrollTo({ top: 0, behavior: "smooth" });
-											}}
-											disabled={currentPage === pagination.totalPages}
-											variant='outline'
-										>
-											Trang sau
-										</Button>
-									</div>
-								</>
-							) : (
-								<div className='text-center py-20 text-text-secondary'>
-									Không tìm thấy tướng phù hợp.
-								</div>
+								</motion.div>
 							)}
-						</div>
+						</AnimatePresence>
 					</div>
 				</div>
 			</div>

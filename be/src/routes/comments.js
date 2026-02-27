@@ -19,7 +19,10 @@ const router = express.Router();
 const BUILDS_TABLE = "Builds";
 const COMMENTS_TABLE = "Comments";
 
-// GET /api/builds/:buildId/comments
+/**
+ * @route   GET /api/builds/:buildId/comments
+ * @desc    Lấy toàn bộ bình luận của một build cụ thể
+ */
 router.get("/:buildId/comments", async (req, res) => {
 	const { buildId } = req.params;
 	try {
@@ -52,7 +55,6 @@ router.post(
 		if (!content) return res.status(400).json({ error: "Content required" });
 
 		try {
-			// Kiểm tra nếu là bình luận global thì bỏ qua bước check Build tồn tại
 			let build = null;
 			if (buildId !== "global") {
 				const { Item } = await client.send(
@@ -67,14 +69,14 @@ router.post(
 
 			const comment = {
 				id: uuidv4(),
-				buildId: buildId, // Sẽ lưu là 'global' hoặc buildId thực tế
+				buildId: buildId,
 				content,
 				user_sub: req.user.sub,
 				username: req.user["cognito:username"] || req.user.name || "Anonymous",
 				createdAt: new Date().toISOString(),
 				parentId,
 				replyToUsername,
-				type: "comment", // Dùng để Query GSI 100 bình luận mới nhất
+				type: "comment", // PK cho GSI createdAt-index
 			};
 
 			await client.send(
@@ -84,7 +86,6 @@ router.post(
 				}),
 			);
 
-			// Chỉ invalidate cache nếu là bình luận của một build đang hiển thị công khai
 			if (build && build.display === true) {
 				invalidatePublicBuildsCache();
 			}
@@ -97,7 +98,10 @@ router.post(
 	},
 );
 
-// PUT /api/builds/:buildId/comments/:commentId
+/**
+ * @route   PUT /api/builds/:buildId/comments/:commentId
+ * @desc    Cập nhật nội dung bình luận
+ */
 router.put(
 	"/:buildId/comments/:commentId",
 	authenticateCognitoToken,
@@ -155,7 +159,10 @@ router.put(
 	},
 );
 
-// DELETE /api/builds/:buildId/comments/:commentId
+/**
+ * @route   DELETE /api/builds/:buildId/comments/:commentId
+ * @desc    Xóa bình luận (Chỉ chủ sở hữu)
+ */
 router.delete(
 	"/:buildId/comments/:commentId",
 	authenticateCognitoToken,
@@ -191,34 +198,126 @@ router.delete(
 		}
 	},
 );
+
 /**
  * @route   GET /api/comments/latest
- * @desc    Lấy 100 bình luận mới nhất trên toàn hệ thống sử dụng GSI
+ * @desc    Lấy 10 bình luận gốc mới nhất kèm theo toàn bộ reply của chúng
  * @access  Public
  */
 router.get("/latest", async (req, res) => {
 	try {
-		const command = new QueryCommand({
-			TableName: COMMENTS_TABLE,
-			IndexName: "createdAt-index", // Tên Index bạn đã tạo
-			KeyConditionExpression: "#t = :v",
-			ExpressionAttributeNames: {
-				"#t": "type", // Partition Key của GSI
-			},
-			ExpressionAttributeValues: marshall({
-				":v": "comment", // Giá trị chung để nhóm dữ liệu
-			}),
-			ScanIndexForward: false, // Lấy dữ liệu mới nhất (Z -> A)
-			Limit: 100, // Giới hạn 100 bản ghi
+		const { lastKey } = req.query;
+		let exclusiveStartKey = lastKey
+			? JSON.parse(decodeURIComponent(lastKey))
+			: undefined;
+
+		let rootComments = [];
+		let lastEvaluatedKey = exclusiveStartKey;
+		const ROOT_LIMIT = 10;
+
+		// 1. Quét tìm đủ 10 bình luận gốc (parentId = null)
+		while (rootComments.length < ROOT_LIMIT) {
+			const command = new QueryCommand({
+				TableName: COMMENTS_TABLE,
+				IndexName: "createdAt-index",
+				KeyConditionExpression: "#t = :v",
+				ExpressionAttributeNames: { "#t": "type" },
+				ExpressionAttributeValues: marshall({ ":v": "comment" }),
+				ScanIndexForward: false,
+				Limit: 50, // Quét rộng để lọc root
+				ExclusiveStartKey: lastEvaluatedKey,
+			});
+
+			const { Items, LastEvaluatedKey } = await client.send(command);
+			const batch = (Items || []).map(unmarshall);
+
+			const roots = batch.filter(c => !c.parentId);
+			rootComments.push(...roots);
+
+			lastEvaluatedKey = LastEvaluatedKey;
+			if (!lastEvaluatedKey || rootComments.length >= ROOT_LIMIT) break;
+		}
+
+		if (rootComments.length > ROOT_LIMIT) {
+			rootComments = rootComments.slice(0, ROOT_LIMIT);
+		}
+
+		// 2. Lấy tất cả các Reply liên quan đến các root này
+		const rootIds = rootComments.map(c => c.id);
+		const buildIdsOfRoots = [...new Set(rootComments.map(c => c.buildId))];
+		let allCommentsToReturn = [...rootComments];
+
+		if (buildIdsOfRoots.length > 0) {
+			const repliesPromises = buildIdsOfRoots.map(async bId => {
+				const cmd = new QueryCommand({
+					TableName: COMMENTS_TABLE,
+					IndexName: "buildId-index",
+					KeyConditionExpression: "buildId = :bId",
+					ExpressionAttributeValues: marshall({ ":bId": bId }),
+				});
+				const { Items } = await client.send(cmd);
+				return (Items || []).map(unmarshall);
+			});
+
+			const results = await Promise.all(repliesPromises);
+			const potentialReplies = results.flat();
+
+			// Chỉ lấy những reply thuộc về các root đang hiển thị
+			const validReplies = potentialReplies.filter(
+				c => c.parentId && rootIds.includes(c.parentId),
+			);
+
+			// Gộp và loại bỏ trùng lặp
+			const uniqueReplies = validReplies.filter(
+				r => !allCommentsToReturn.find(a => a.id === r.id),
+			);
+			allCommentsToReturn.push(...uniqueReplies);
+		}
+
+		// 3. Truy vấn ChampionName cho các buildId (trừ 'global')
+		const uniqueBuildIds = [
+			...new Set(
+				allCommentsToReturn
+					.filter(c => c.buildId !== "global")
+					.map(c => c.buildId),
+			),
+		];
+		const buildMap = {};
+
+		if (uniqueBuildIds.length > 0) {
+			await Promise.all(
+				uniqueBuildIds.map(async id => {
+					try {
+						const { Item } = await client.send(
+							new GetItemCommand({
+								TableName: BUILDS_TABLE,
+								Key: marshall({ id }),
+							}),
+						);
+						if (Item) buildMap[id] = unmarshall(Item).championName;
+					} catch (e) {
+						console.error(`Error for build ${id}`, e);
+					}
+				}),
+			);
+		}
+
+		// 4. Chuẩn hóa dữ liệu trả về
+		const finalData = allCommentsToReturn.map(c => ({
+			...c,
+			championName:
+				c.buildId === "global" ? null : buildMap[c.buildId] || "Unknown Build",
+		}));
+
+		res.json({
+			comments: finalData,
+			nextKey: lastEvaluatedKey
+				? encodeURIComponent(JSON.stringify(lastEvaluatedKey))
+				: null,
 		});
-
-		const { Items } = await client.send(command);
-		const comments = Items ? Items.map(item => unmarshall(item)) : [];
-
-		res.json(comments);
 	} catch (error) {
-		console.error("Lỗi lấy bình luận mới nhất:", error);
-		res.status(500).json({ error: "Không thể lấy danh sách bình luận mới." });
+		console.error("Lỗi lấy bình luận:", error);
+		res.status(500).json({ error: "Không thể lấy danh sách bình luận." });
 	}
 });
 

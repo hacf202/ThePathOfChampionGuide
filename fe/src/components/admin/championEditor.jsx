@@ -266,28 +266,36 @@ function ChampionEditor() {
 				Authorization: `Bearer ${token}`,
 			};
 
-			const [resChamp, resConst] = await Promise.all([
-				fetch(`${API_BASE_URL}/api/champions`, {
-					method: "PUT",
-					headers,
-					body: JSON.stringify(champData),
-				}),
-				fetch(`${API_BASE_URL}/api/constellations`, {
-					method: "PUT",
-					headers,
-					body: JSON.stringify(constData),
-				}),
-			]);
+			// 1. Lưu Champion trước
+			const resChamp = await fetch(`${API_BASE_URL}/api/champions`, {
+				method: "PUT",
+				headers,
+				body: JSON.stringify(champData),
+			});
+			const champResult = await resChamp.json();
 
-			if (!resChamp.ok || !resConst.ok) {
-				throw new Error("Lưu dữ liệu thất bại.");
+			if (!resChamp.ok)
+				throw new Error(champResult.error || "Lưu tướng thất bại");
+
+			// 2. Nếu lưu tướng thành công, mới lưu Constellation
+			const resConst = await fetch(`${API_BASE_URL}/api/constellations`, {
+				method: "PUT",
+				headers,
+				body: JSON.stringify(constData),
+			});
+
+			if (!resConst.ok) {
+				// Option: Bạn có thể gọi API DELETE tướng vừa tạo ở đây nếu muốn đồng bộ tuyệt đối
+				throw new Error(
+					"Tướng đã lưu nhưng lưu Chòm sao thất bại. Vui lòng kiểm tra lại.",
+				);
 			}
 
 			await fetchAllData();
 			navigate("/admin/champions");
-			alert("Cập nhật tướng và chòm sao thành công!");
+			alert("Cập nhật thành công!");
 		} catch (e) {
-			alert(e.message || "Đã có lỗi xảy ra");
+			alert(e.message);
 		} finally {
 			setIsSaving(false);
 		}

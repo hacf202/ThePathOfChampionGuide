@@ -117,7 +117,7 @@ const SearchableDropdown = ({
 									opt.name !== selectedValue;
 								return (
 									<li
-										key={opt.name}
+										key={opt.id || opt.name}
 										onClick={() => !isDisabled && handleSelect(opt.name)}
 										className={`p-2 flex items-center transition-colors ${
 											isDisabled
@@ -167,6 +167,12 @@ const BuildModal = ({
 	const isEditMode = !!initialData;
 	const apiUrl = import.meta.env.VITE_API_URL;
 
+	// Chuẩn hóa display từ initialData (nếu là string "true" -> true)
+	const getInitialDisplay = () => {
+		if (!initialData) return true;
+		return initialData.display === true || initialData.display === "true";
+	};
+
 	const [formData, setFormData] = useState(
 		initialData || {
 			championName: "",
@@ -175,11 +181,12 @@ const BuildModal = ({
 			rune: [null],
 			star: 3,
 			description: "",
-			display: true,
+			display: getInitialDisplay(),
 			regions: [],
 		},
 	);
 
+	const [errors, setErrors] = useState({});
 	const [metadata, setMetadata] = useState({
 		relics: [],
 		powers: [],
@@ -194,11 +201,10 @@ const BuildModal = ({
 		const fetchMetadata = async () => {
 			setLoading(true);
 			try {
-				// Ép lấy 1000 items để tránh lỗi phân trang làm mất ảnh
 				const query = "?page=1&limit=1000";
 				const [relRes, powRes, runRes, chaRes] = await Promise.all([
-					fetch(`${apiUrl}/api/items${query}`), //
-					fetch(`${apiUrl}/api/generalPowers${query}`), //
+					fetch(`${apiUrl}/api/relics${query}`),
+					fetch(`${apiUrl}/api/generalPowers${query}`),
 					fetch(`${apiUrl}/api/runes${query}`),
 					fetch(`${apiUrl}/api/champions${query}`),
 				]);
@@ -212,19 +218,23 @@ const BuildModal = ({
 
 				setMetadata({
 					relics: (rel.items || []).map(r => ({
+						id: r._id,
 						name: r.name,
 						icon: r.assetAbsolutePath || r.iconAbsolutePath,
 						stack: r.stack,
 					})),
 					powers: (pow.items || []).map(p => ({
+						id: p._id,
 						name: p.name,
 						icon: p.assetAbsolutePath || p.iconAbsolutePath,
 					})),
 					runes: (run.items || []).map(r => ({
+						id: r._id,
 						name: r.name,
 						icon: r.assetAbsolutePath || r.iconAbsolutePath,
 					})),
 					champions: (cha.items || []).map(c => ({
+						id: c._id,
 						name: c.name,
 						icon: c.assets?.[0]?.avatar,
 						regions: c.regions,
@@ -246,31 +256,68 @@ const BuildModal = ({
 
 	const isHoaLinh = selectedChampData?.regions?.includes("Hoa Linh Lục Địa");
 
+	// Hàm kiểm tra logic
+	const validate = () => {
+		const newErrors = {};
+
+		// Tướng không được trống
+		if (!formData.championName) {
+			newErrors.championName = "Vui lòng chọn tướng.";
+		}
+
+		// Có ít nhất 1 cổ vật
+		const activeRelics = formData.relicSet.filter(Boolean);
+		if (activeRelics.length === 0) {
+			newErrors.relicSet = "Cần chọn ít nhất 1 cổ vật.";
+		}
+
+		// Kiểm tra trùng lặp cổ vật stack=1
+		const relicErrors = [];
+		formData.relicSet.forEach((name, index) => {
+			if (name) {
+				const relicInfo = metadata.relics.find(r => r.name === name);
+				if (relicInfo?.stack === "1" || relicInfo?.stack === 1) {
+					const isDuplicate = formData.relicSet.some(
+						(otherName, otherIdx) => otherName === name && otherIdx !== index,
+					);
+					if (isDuplicate) {
+						relicErrors[index] = "Cổ vật này không thể dùng trùng.";
+					}
+				}
+			}
+		});
+		if (relicErrors.length > 0) newErrors.relicItems = relicErrors;
+
+		setErrors(newErrors);
+		return Object.keys(newErrors).length === 0;
+	};
+
 	const handleSubmit = async e => {
 		e.preventDefault();
-		if (
-			!formData.championName ||
-			formData.relicSet.filter(Boolean).length === 0
-		)
-			return;
+		if (!validate()) return;
 
 		setSubmitting(true);
 		try {
 			const url = isEditMode
 				? `${apiUrl}/api/builds/${initialData._id}`
 				: `${apiUrl}/api/builds`;
+
+			const payload = {
+				...formData,
+				relicSet: formData.relicSet.filter(Boolean),
+				powers: formData.powers.filter(Boolean),
+				rune: formData.rune.filter(Boolean),
+				// Đảm bảo display được gửi đi đúng trạng thái Boolean
+				display: formData.display,
+			};
+
 			const res = await fetch(url, {
 				method: isEditMode ? "PUT" : "POST",
 				headers: {
 					"Content-Type": "application/json",
 					Authorization: `Bearer ${token}`,
 				},
-				body: JSON.stringify({
-					...formData,
-					relicSet: formData.relicSet.filter(Boolean),
-					powers: formData.powers.filter(Boolean),
-					rune: formData.rune.filter(Boolean),
-				}),
+				body: JSON.stringify(payload),
 			});
 
 			if (res.ok) {
@@ -293,6 +340,7 @@ const BuildModal = ({
 			maxWidth='max-w-3xl'
 		>
 			<form onSubmit={handleSubmit} className='space-y-5'>
+				{/* Chọn Tướng */}
 				<div>
 					<label className='block text-sm font-medium text-text-secondary mb-1'>
 						Tướng:
@@ -307,11 +355,14 @@ const BuildModal = ({
 								championName: v,
 								regions: c?.regions || [],
 							}));
+							if (errors.championName)
+								setErrors(prev => ({ ...prev, championName: null }));
 							onChampionChange?.(v);
 						}}
 						placeholder='Chọn tướng...'
 						loading={loading}
 						disabled={isEditMode}
+						error={errors.championName}
 					/>
 				</div>
 
@@ -320,7 +371,8 @@ const BuildModal = ({
 						!formData.championName ? "opacity-50 pointer-events-none" : ""
 					}
 				>
-					<div className='mb-4'>
+					{/* Cấp sao */}
+					<div className='mb-2'>
 						<label className='block text-sm font-medium text-text-secondary mb-2'>
 							Cấp sao (Tối đa {maxStar}):
 						</label>
@@ -337,7 +389,16 @@ const BuildModal = ({
 						</div>
 					</div>
 
-					<div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+					{/* Cổ vật */}
+					<label className='block text-sm font-medium text-text-secondary mb-2'>
+						Cổ vật:
+						{errors.relicSet && (
+							<span className='text-danger-500 ml-2 text-xs font-normal'>
+								({errors.relicSet})
+							</span>
+						)}
+					</label>
+					<div className='grid grid-cols-1 md:grid-cols-3 gap-2'>
 						{formData.relicSet.map((_, i) => (
 							<SearchableDropdown
 								key={`relic-${i}`}
@@ -347,9 +408,15 @@ const BuildModal = ({
 									const newSet = [...formData.relicSet];
 									newSet[i] = v;
 									setFormData(p => ({ ...p, relicSet: newSet }));
+									setErrors(prev => ({
+										...prev,
+										relicSet: null,
+										relicItems: null,
+									}));
 								}}
 								placeholder={`Cổ vật ${i + 1}`}
 								loading={loading}
+								error={errors.relicItems?.[i]}
 								allowDuplicate={
 									metadata.relics.find(r => r.name === formData.relicSet[i])
 										?.stack !== "1"
@@ -359,8 +426,9 @@ const BuildModal = ({
 						))}
 					</div>
 
+					{/* Ngọc Hoa Linh */}
 					{isHoaLinh && (
-						<div className='mt-4'>
+						<div className='mt-2'>
 							<label className='block text-sm font-medium text-text-secondary mb-2'>
 								Ngọc Hoa Linh:
 							</label>
@@ -374,7 +442,11 @@ const BuildModal = ({
 						</div>
 					)}
 
-					<div className='grid grid-cols-2 md:grid-cols-3 gap-4 mt-4'>
+					{/* Sức mạnh */}
+					<label className='block text-sm font-medium text-text-secondary my-2'>
+						Sức mạnh khuyên dùng:
+					</label>
+					<div className='grid grid-cols-2 md:grid-cols-3 gap-4'>
 						{formData.powers.map((_, i) => (
 							<SearchableDropdown
 								key={`pow-${i}`}
@@ -393,6 +465,7 @@ const BuildModal = ({
 						))}
 					</div>
 
+					{/* Mô tả */}
 					<textarea
 						className='w-full mt-4 p-3 bg-input-bg border border-input-border rounded-md text-sm'
 						placeholder='Mô tả lối chơi...'
@@ -403,11 +476,12 @@ const BuildModal = ({
 						rows={3}
 					/>
 
+					{/* Trạng thái hiển thị (display) */}
 					<div className='mt-4 flex items-center gap-4'>
 						<button
 							type='button'
 							onClick={() => setFormData(p => ({ ...p, display: !p.display }))}
-							className='flex items-center gap-2 px-4 py-2 border border-border rounded-md text-sm'
+							className='flex items-center gap-2 px-4 py-2 border border-border rounded-md text-sm hover:bg-surface-hover transition-colors'
 						>
 							{formData.display ? <Eye size={18} /> : <EyeOff size={18} />}
 							{formData.display ? "Công khai" : "Riêng tư"}
@@ -419,7 +493,7 @@ const BuildModal = ({
 					type='submit'
 					variant='primary'
 					className='w-full py-3'
-					disabled={submitting || !formData.championName}
+					disabled={submitting}
 				>
 					{submitting
 						? "Đang xử lý..."

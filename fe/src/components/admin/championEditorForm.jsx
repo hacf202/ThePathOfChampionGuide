@@ -17,10 +17,10 @@ import {
 	Youtube,
 } from "lucide-react";
 
-// --- THÀNH PHẦN HỖ TRỢ: ĐƯỜNG NỐI CHÒM SAO (Tham khảo từ championDetail) ---
+// --- THÀNH PHẦN HỖ TRỢ: ĐƯỜNG NỐI CHÒM SAO ---
 const ConstellationLine = ({ x1, y1, x2, y2, isRecommended }) => {
 	const angle = Math.atan2(y2 - y1, x2 - x1);
-	const offset = window.innerWidth < 640 ? 1.5 : 3.0; //
+	const offset = window.innerWidth < 640 ? 1.5 : 3.0;
 	const finalX2 = x2 - offset * Math.cos(angle);
 	const finalY2 = y2 - offset * Math.sin(angle);
 
@@ -57,19 +57,13 @@ const ArrayInputComponent = ({
 		onChange(newData);
 	};
 
-	const handleAddItem = () => {
-		onChange([...data, ""]);
-	};
-
-	const handleRemoveItem = index => {
+	const handleAddItem = () => onChange([...data, ""]);
+	const handleRemoveItem = index =>
 		onChange(data.filter((_, i) => i !== index));
-	};
-
 	const getItemData = name => cachedData[name] || {};
 
 	const handleDrop = (e, index) => {
 		e.preventDefault();
-		e.stopPropagation();
 		try {
 			const dragged = JSON.parse(e.dataTransfer.getData("text/plain"));
 			if (dragged.name) handleItemChange(index, dragged.name.trim());
@@ -77,8 +71,6 @@ const ArrayInputComponent = ({
 			console.warn("Drag data không hợp lệ");
 		}
 	};
-
-	const handleDragOver = e => e.preventDefault();
 
 	return (
 		<div className='flex flex-col gap-3'>
@@ -96,7 +88,6 @@ const ArrayInputComponent = ({
 					Thêm
 				</Button>
 			</div>
-
 			<div className='space-y-2'>
 				{data.length === 0 ? (
 					<p className='text-center text-sm text-text-secondary py-4 bg-surface-hover/50 rounded-lg border border-dashed border-border'>
@@ -104,42 +95,34 @@ const ArrayInputComponent = ({
 					</p>
 				) : (
 					data.map((value, index) => {
-						const safeValue = value || "";
-						const item = getItemData(safeValue.trim());
-
+						const item = getItemData((value || "").trim());
 						return (
 							<div
 								key={index}
 								className='flex items-center gap-3 p-3 bg-surface-hover rounded-lg border border-border hover:border-primary-500 transition-all'
 								onDrop={e => handleDrop(e, index)}
-								onDragOver={handleDragOver}
+								onDragOver={e => e.preventDefault()}
 							>
-								<div className='relative group flex-shrink-0'>
+								<div className='w-10 h-10 rounded bg-white border flex items-center justify-center overflow-hidden'>
 									{item.assetAbsolutePath ? (
 										<img
 											src={item.assetAbsolutePath}
-											alt={item.name}
-											className='w-10 h-10 rounded object-contain bg-white border border-border'
+											className='w-full h-full object-contain'
 										/>
 									) : (
-										<div className='w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded border flex items-center justify-center'>
-											<span className='text-xs text-gray-500'>?</span>
-										</div>
+										<span className='text-xs text-gray-500'>?</span>
 									)}
 								</div>
-
 								<InputField
-									value={safeValue || ""}
+									value={value || ""}
 									onChange={e => handleItemChange(index, e.target.value)}
 									placeholder={placeholder}
 									className='flex-1'
 								/>
-
 								<button
 									type='button'
 									onClick={() => handleRemoveItem(index)}
-									className='text-red-500 hover:text-red-600 transition'
-									title='Xóa'
+									className='text-red-500 hover:text-red-600'
 								>
 									<XCircle size={20} />
 								</button>
@@ -152,7 +135,7 @@ const ArrayInputComponent = ({
 	);
 };
 
-// --- THÀNH PHẦN HỖ TRỢ: NHẬP LIÊN KẾT NODE (Mới - Giống Requirements) ---
+// --- THÀNH PHẦN HỖ TRỢ: NHẬP LIÊN KẾT NODE ---
 const NextNodesInput = ({ nextNodes = [], onChange }) => {
 	const addItem = () => onChange([...nextNodes, ""]);
 	const removeItem = idx => onChange(nextNodes.filter((_, i) => i !== idx));
@@ -177,10 +160,7 @@ const NextNodesInput = ({ nextNodes = [], onChange }) => {
 				</button>
 			</div>
 			{nextNodes.map((nodeID, idx) => (
-				<div
-					key={idx}
-					className='flex gap-2 items-center animate-in fade-in slide-in-from-top-1'
-				>
+				<div key={idx} className='flex gap-2 items-center'>
 					<InputField
 						value={nodeID || ""}
 						onChange={e => updateItem(idx, e.target.value)}
@@ -190,7 +170,7 @@ const NextNodesInput = ({ nextNodes = [], onChange }) => {
 					<button
 						type='button'
 						onClick={() => removeItem(idx)}
-						className='text-red-500 hover:bg-red-500/10 p-1 rounded-full transition-colors'
+						className='text-red-500'
 					>
 						<XCircle size={16} />
 					</button>
@@ -200,7 +180,7 @@ const NextNodesInput = ({ nextNodes = [], onChange }) => {
 	);
 };
 
-// --- THÀNH PHẦN HỖ TRỢ: NHẬP YÊU CẦU MỞ KHÓA (Requirements) ---
+// --- THÀNH PHẦN HỖ TRỢ: NHẬP YÊU CẦU MỞ KHÓA ---
 const RequirementsInput = ({ requirements = [], onChange }) => {
 	const addItem = () =>
 		onChange([...requirements, { type: "Fragment", value: 10 }]);
@@ -258,7 +238,7 @@ const RequirementsInput = ({ requirements = [], onChange }) => {
 	);
 };
 
-// --- THÀNH PHẦN HỖ TRỢ: CHỈNH SỬA NODE CHÒM SAO ---
+// --- THÀNH PHẦN HỖ TRỢ: CHỈNH SỬA NODE ---
 const NodeEditor = ({
 	node,
 	index,
@@ -283,7 +263,6 @@ const NodeEditor = ({
 
 	const handleDropIntoNode = e => {
 		e.preventDefault();
-		e.stopPropagation();
 		try {
 			const dragged = JSON.parse(e.dataTransfer.getData("text/plain"));
 			if (
@@ -291,23 +270,15 @@ const NodeEditor = ({
 				(dragged.type === "power" || dragged.type === "bonusStar")
 			) {
 				const updates = { nodeName: dragged.name };
-
-				if (dragged.type === "power") {
-					const item = (cachedData.powers || []).find(
-						p => p.name === dragged.name,
-					);
-					updates.description = item?.descriptionRaw || item?.description || "";
-				} else if (dragged.type === "bonusStar") {
-					const item = (cachedData.bonusStars || []).find(
-						b => b.name === dragged.name,
-					);
-					updates.description = item?.description || "";
-				}
-
+				const item =
+					dragged.type === "power"
+						? (cachedData.powers || []).find(p => p.name === dragged.name)
+						: (cachedData.bonusStars || []).find(b => b.name === dragged.name);
+				updates.description = item?.descriptionRaw || item?.description || "";
 				onMultiChange(index, updates);
 			}
 		} catch (err) {
-			console.warn("Lỗi xử lý kéo thả vào Node");
+			console.warn("Lỗi kéo thả vào Node");
 		}
 	};
 
@@ -329,7 +300,7 @@ const NodeEditor = ({
 						<span className='font-bold text-sm truncate max-w-[150px]'>
 							{node.nodeName || "Node chưa đặt tên"}
 						</span>
-						<span className='text-[10px] uppercase text-text-secondary font-medium tracking-tighter'>
+						<span className='text-[10px] uppercase text-text-secondary font-medium'>
 							{node.nodeType || "starPower"}
 						</span>
 					</div>
@@ -341,7 +312,7 @@ const NodeEditor = ({
 							e.stopPropagation();
 							onRemove(index);
 						}}
-						className='p-2 text-red-500 hover:bg-red-500/10 rounded-full transition-colors'
+						className='p-2 text-red-500 hover:bg-red-500/10 rounded-full'
 					>
 						<XCircle size={18} />
 					</button>
@@ -374,7 +345,7 @@ const NodeEditor = ({
 							<select
 								value={node.nodeType || "starPower"}
 								onChange={e => onChange(index, "nodeType", e.target.value)}
-								className='w-full p-2.5 rounded-lg border border-border bg-surface-bg text-sm focus:border-primary-500 outline-none transition-colors'
+								className='w-full p-2.5 rounded-lg border border-border bg-surface-bg text-sm outline-none'
 							>
 								<option value='starPower'>Star Power</option>
 								<option value='bonusStar'>Bonus Star</option>
@@ -388,21 +359,15 @@ const NodeEditor = ({
 						onDrop={handleDropIntoNode}
 						onDragOver={e => e.preventDefault()}
 					>
-						<div className='relative group flex-shrink-0'>
+						<div className='w-10 h-10 rounded bg-white border flex items-center justify-center overflow-hidden'>
 							{nodeAsset ? (
-								<img
-									src={nodeAsset}
-									className='w-10 h-10 rounded object-contain bg-white border border-border shadow-sm'
-									alt='Icon'
-								/>
+								<img src={nodeAsset} className='w-full h-full object-contain' />
 							) : (
-								<div className='w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded border flex items-center justify-center text-gray-500 text-[10px] font-bold'>
-									D&D
-								</div>
+								<span className='text-[10px] font-bold text-gray-400'>D&D</span>
 							)}
 						</div>
 						<InputField
-							label='Tên sức mạnh hiển thị'
+							label='Tên hiển thị'
 							value={node.nodeName || ""}
 							onChange={e => onChange(index, "nodeName", e.target.value)}
 							placeholder='Kéo thả tài nguyên vào đây...'
@@ -418,15 +383,15 @@ const NodeEditor = ({
 							value={node.description || ""}
 							onChange={e => onChange(index, "description", e.target.value)}
 							rows={3}
-							className='w-full p-3 border border-border rounded-lg bg-surface-bg text-xs focus:border-primary-500 outline-none resize-none leading-relaxed'
-							placeholder='Mô tả sẽ tự điền khi kéo thả tài nguyên phù hợp...'
+							className='w-full p-3 border border-border rounded-lg bg-surface-bg text-xs outline-none resize-none'
+							placeholder='Mô tả tự điền...'
 						/>
 					</div>
 
 					<div className='flex items-center justify-between p-3 bg-surface-hover/30 rounded-lg border border-dashed border-border'>
 						<label className='flex items-center gap-3 cursor-pointer group'>
 							<div
-								className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${node.isRecommended ? "bg-yellow-500 border-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.5)]" : "bg-surface-bg border-border group-hover:border-yellow-500"}`}
+								className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${node.isRecommended ? "bg-yellow-500 border-yellow-500" : "bg-surface-bg border-border"}`}
 							>
 								{node.isRecommended && (
 									<Sparkles size={12} className='text-white fill-current' />
@@ -441,23 +406,20 @@ const NodeEditor = ({
 								}
 							/>
 							<span
-								className={`text-xs font-bold uppercase tracking-tight ${node.isRecommended ? "text-yellow-600" : "text-text-secondary"}`}
+								className={`text-xs font-bold uppercase ${node.isRecommended ? "text-yellow-600" : "text-text-secondary"}`}
 							>
 								Khuyên dùng
 							</span>
 						</label>
-						<div className='flex items-center gap-2 text-[10px] font-mono text-text-secondary bg-surface-bg px-2 py-1 rounded border border-border/50 shadow-inner'>
-							<Crosshair size={10} /> X:{node.position?.x ?? 0}% Y:
-							{node.position?.y ?? 0}%
+						<div className='text-[10px] font-mono text-text-secondary bg-surface-bg px-2 py-1 rounded border'>
+							X:{node.position?.x ?? 0}% Y:{node.position?.y ?? 0}%
 						</div>
 					</div>
 
-					{/* ĐÃ SỬA LỖI: Chuyển sang NextNodesInput dạng danh sách thêm/xóa mục riêng biệt */}
 					<NextNodesInput
 						nextNodes={node.nextNodes || []}
 						onChange={val => onChange(index, "nextNodes", val)}
 					/>
-
 					<RequirementsInput
 						requirements={node.requirements || []}
 						onChange={val => onChange(index, "requirements", val)}
@@ -485,12 +447,23 @@ const ChampionEditorForm = memo(
 		const [constData, setConstData] = useState({ nodes: [] });
 		const [initialData, setInitialData] = useState({});
 		const [isDirty, setIsDirty] = useState(false);
-
 		const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
 		const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-
 		const [selectedNodeIndex, setSelectedNodeIndex] = useState(null);
 		const mapRef = useRef(null);
+
+		// Tự động đồng bộ hóa ConstellationID khi thay đổi ChampionID (Quan trọng để fix lỗi 500)
+		useEffect(() => {
+			if (
+				formData.championID &&
+				constData.constellationID !== formData.championID
+			) {
+				setConstData(prev => ({
+					...prev,
+					constellationID: formData.championID,
+				}));
+			}
+		}, [formData.championID, constData.constellationID]);
 
 		useEffect(() => {
 			if (champion) {
@@ -500,11 +473,8 @@ const ChampionEditorForm = memo(
 						.replace(/\\\\n/g, "\n")
 						.replace(/\\n/g, "\n");
 				}
-
-				const deepClonedData = JSON.parse(JSON.stringify(processedData));
-
 				setFormData(processedData);
-				setInitialData(deepClonedData);
+				setInitialData(JSON.parse(JSON.stringify(processedData)));
 				setIsDirty(false);
 
 				if (constellation) {
@@ -521,76 +491,29 @@ const ChampionEditorForm = memo(
 		}, [champion, constellation]);
 
 		useEffect(() => {
-			const isChanged =
-				JSON.stringify(formData) !== JSON.stringify(initialData);
-			setIsDirty(isChanged);
+			setIsDirty(JSON.stringify(formData) !== JSON.stringify(initialData));
 		}, [formData, initialData]);
-
-		useEffect(() => {
-			const handleBeforeUnload = e => {
-				if (isDirty) {
-					e.preventDefault();
-					e.returnValue = "";
-				}
-			};
-			window.addEventListener("beforeunload", handleBeforeUnload);
-			return () =>
-				window.removeEventListener("beforeunload", handleBeforeUnload);
-		}, [isDirty]);
 
 		const handleInputChange = e => {
 			const { name, value } = e.target;
 			setFormData(prev => ({ ...prev, [name]: value }));
 		};
 
-		const handleNumberChange = e => {
-			const { name, value } = e.target;
-			setFormData(prev => ({ ...prev, [name]: parseInt(value) || 0 }));
-		};
-
-		const handleArrayChange = (field, newArray) => {
-			setFormData(prev => ({ ...prev, [field]: newArray }));
-		};
-
-		const handleAssetChange = (index, field, value) => {
-			setFormData(prev => {
-				const newAssets = [...(prev.assets || [])];
-				newAssets[index] = { ...newAssets[index], [field]: value };
-				return { ...prev, assets: newAssets };
-			});
-		};
-
-		const handleAddAsset = () => {
-			setFormData(prev => ({
-				...prev,
-				assets: [
-					...(prev.assets || []),
-					{ fullAbsolutePath: "", gameAbsolutePath: "", avatar: "" },
-				],
-			}));
-		};
-
-		const handleRemoveAsset = index => {
-			setFormData(prev => ({
-				...prev,
-				assets: (prev.assets || []).filter((_, i) => i !== index),
-			}));
-		};
-
 		const handleMapClick = e => {
 			if (selectedNodeIndex === null || !mapRef.current) return;
 			const rect = mapRef.current.getBoundingClientRect();
-			const x = ((e.clientX - rect.left) / rect.width) * 100;
-			const y = ((e.clientY - rect.top) / rect.height) * 100;
+			const x = parseFloat(
+				(((e.clientX - rect.left) / rect.width) * 100).toFixed(1),
+			);
+			const y = parseFloat(
+				(((e.clientY - rect.top) / rect.height) * 100).toFixed(1),
+			);
 
 			setConstData(prev => {
 				const nextNodes = [...prev.nodes];
 				nextNodes[selectedNodeIndex] = {
 					...nextNodes[selectedNodeIndex],
-					position: {
-						x: parseFloat(x.toFixed(1)),
-						y: parseFloat(y.toFixed(1)),
-					},
+					position: { x, y },
 				};
 				return { ...prev, nodes: nextNodes };
 			});
@@ -614,43 +537,28 @@ const ChampionEditorForm = memo(
 
 		const handleSubmit = e => {
 			e.preventDefault();
-			const cleanData = { ...formData };
+			if (!formData.championID?.trim())
+				return alert("Vui lòng nhập Champion ID!");
 
+			const cleanData = { ...formData };
 			cleanData.powerStars = constData.nodes
 				.filter(n => n.nodeType === "starPower")
 				.map(n => n.nodeName);
-
 			cleanData.bonusStars = constData.nodes
-				.filter(
-					n => n.nodeType === "bonusStar" || n.nodeType === "bonusStarGem",
-				)
+				.filter(n => n.nodeType !== "starPower")
 				.map(n => n.nodeName);
 
-			if (typeof cleanData.description === "string") {
+			if (typeof cleanData.description === "string")
 				cleanData.description = cleanData.description.replace(/\n/g, "\\n");
-			}
 
-			const arrayFields = [
-				"regions",
-				"tag",
-				"powerStars",
-				"bonusStars",
-				"adventurePowers",
-				"defaultItems",
-				"rune",
-				"startingDeck",
-			];
-			for (let i = 1; i <= 6; i++) arrayFields.push(`defaultRelicsSet${i}`);
+			// Chuẩn hóa mảng và đồng bộ ID cuối cùng
+			const finalConstData = {
+				...constData,
+				constellationID: cleanData.championID.trim(),
+				championName: cleanData.name,
+			};
 
-			arrayFields.forEach(field => {
-				if (Array.isArray(cleanData[field])) {
-					cleanData[field] = cleanData[field]
-						.map(item => (typeof item === "string" ? item.trim() : item))
-						.filter(item => item !== "");
-				}
-			});
-
-			onSave(cleanData, constData);
+			onSave(cleanData, finalConstData);
 		};
 
 		const dataLookup = {
@@ -667,7 +575,7 @@ const ChampionEditorForm = memo(
 		return (
 			<>
 				<form onSubmit={handleSubmit} className='space-y-8 pb-24'>
-					<div className='flex justify-between border-border sticky top-0 bg-surface-bg z-40 py-2 border-b mb-4 shadow-sm'>
+					<div className='flex justify-between border-border sticky top-0 bg-surface-bg z-40 py-2 border-b mb-4 shadow-sm px-4'>
 						<div>
 							<label className='block font-semibold text-text-primary text-xl'>
 								{formData.isNew
@@ -681,7 +589,7 @@ const ChampionEditorForm = memo(
 								</span>
 							)}
 						</div>
-						<div className='flex items-center gap-3 pr-2'>
+						<div className='flex items-center gap-3'>
 							<Button
 								type='button'
 								variant='ghost'
@@ -708,10 +616,9 @@ const ChampionEditorForm = memo(
 
 					<div className='px-6 grid grid-cols-1 xl:grid-cols-2 gap-10'>
 						<div className='space-y-8'>
-							<h3 className='text-lg font-bold border-l-4 border-primary-500 pl-3 uppercase tracking-wider'>
+							<h3 className='text-lg font-bold border-l-4 border-primary-500 pl-3 uppercase'>
 								Thông tin Guide
 							</h3>
-
 							<div className='grid grid-cols-1 gap-6 p-6 bg-surface-bg border border-border rounded-xl shadow-sm'>
 								<div className='space-y-5'>
 									<InputField
@@ -735,22 +642,31 @@ const ChampionEditorForm = memo(
 											name='cost'
 											type='number'
 											value={formData.cost ?? 0}
-											onChange={handleNumberChange}
+											onChange={e =>
+												setFormData({
+													...formData,
+													cost: parseInt(e.target.value) || 0,
+												})
+											}
 										/>
 										<InputField
 											label='Sao tối đa'
 											name='maxStar'
 											type='number'
 											value={formData.maxStar ?? 3}
-											onChange={handleNumberChange}
+											onChange={e =>
+												setFormData({
+													...formData,
+													maxStar: parseInt(e.target.value) || 0,
+												})
+											}
 										/>
 									</div>
 								</div>
-								<div className='flex flex-col items-center justify-center p-4 bg-surface-hover rounded-xl border border-dashed border-border shadow-inner'>
+								<div className='flex flex-col items-center justify-center p-4 bg-surface-hover rounded-xl border border-dashed border-border'>
 									{formData.assets?.[0]?.avatar ? (
 										<img
 											src={formData.assets[0].avatar}
-											alt='Avatar'
 											className='w-32 h-32 object-contain rounded-xl border-4 border-primary-500/20 shadow-xl'
 										/>
 									) : (
@@ -782,7 +698,7 @@ const ChampionEditorForm = memo(
 										name='description'
 										value={formData.description || ""}
 										onChange={handleInputChange}
-										className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary text-sm shadow-inner min-h-[300px]'
+										className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary text-sm min-h-[300px]'
 									/>
 								</div>
 							</div>
@@ -791,13 +707,15 @@ const ChampionEditorForm = memo(
 								<ArrayInputComponent
 									label='Sức mạnh Phiêu lưu'
 									data={formData.adventurePowers || []}
-									onChange={d => handleArrayChange("adventurePowers", d)}
+									onChange={d =>
+										setFormData({ ...formData, adventurePowers: d })
+									}
 									cachedData={dataLookup.powers}
 								/>
 								<ArrayInputComponent
 									label='Vật phẩm mặc định'
 									data={formData.defaultItems || []}
-									onChange={d => handleArrayChange("defaultItems", d)}
+									onChange={d => setFormData({ ...formData, defaultItems: d })}
 									cachedData={dataLookup.items}
 								/>
 							</div>
@@ -805,7 +723,7 @@ const ChampionEditorForm = memo(
 
 						<div className='space-y-8'>
 							<div className='flex justify-between items-center border-l-4 border-pink-500 pl-3'>
-								<h3 className='text-lg font-bold uppercase tracking-wider flex items-center gap-2'>
+								<h3 className='text-lg font-bold uppercase flex items-center gap-2'>
 									<MapIcon size={20} className='text-pink-500' /> Bản đồ Chòm
 									sao
 								</h3>
@@ -815,10 +733,10 @@ const ChampionEditorForm = memo(
 									variant='outline'
 									onClick={() => {
 										const newID = `n${constData.nodes.length + 1}`;
-										setConstData(prev => ({
-											...prev,
+										setConstData({
+											...constData,
 											nodes: [
-												...prev.nodes,
+												...constData.nodes,
 												{
 													nodeID: newID,
 													nodeName: "",
@@ -830,18 +748,17 @@ const ChampionEditorForm = memo(
 													isRecommended: false,
 												},
 											],
-										}));
+										});
 									}}
 									iconLeft={<Plus size={16} />}
 								>
-									{" "}
-									Thêm Node{" "}
+									Thêm Node
 								</Button>
 							</div>
 
 							<div className='space-y-4'>
 								<div
-									className='relative aspect-video bg-slate-950 rounded-2xl overflow-hidden border-2 border-border shadow-2xl cursor-crosshair group'
+									className='relative aspect-video bg-slate-950 rounded-2xl overflow-hidden border-2 border-border shadow-2xl cursor-crosshair'
 									ref={mapRef}
 									onClick={handleMapClick}
 								>
@@ -850,9 +767,7 @@ const ChampionEditorForm = memo(
 											constData.backgroundImage || "/images/placeholder-bg.jpg"
 										}
 										className='w-full h-full object-cover opacity-50'
-										alt='Map'
 									/>
-
 									<svg className='absolute inset-0 w-full h-full pointer-events-none'>
 										<defs>
 											<marker
@@ -904,16 +819,10 @@ const ChampionEditorForm = memo(
 											}),
 										)}
 									</svg>
-
-									<div className='absolute top-4 left-4 bg-black/80 backdrop-blur-md text-[10px] text-white px-3 py-2 rounded-lg border border-white/10 shadow-xl pointer-events-none'>
-										{selectedNodeIndex !== null
-											? `Đang chỉnh: ${constData.nodes[selectedNodeIndex]?.nodeID || ""} - Click để đặt vị trí`
-											: "Chọn 1 Node để ghim tọa độ"}
-									</div>
 									{constData.nodes.map((n, i) => (
 										<div
 											key={i}
-											className={`absolute w-6 h-6 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 flex items-center justify-center transition-all ${selectedNodeIndex === i ? "bg-primary-500 border-white scale-125 z-30 ring-4 ring-primary-500/30 shadow-[0_0_10px_white]" : "bg-white/10 border-white/40 z-20 hover:bg-white/30"}`}
+											className={`absolute w-6 h-6 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 flex items-center justify-center transition-all ${selectedNodeIndex === i ? "bg-primary-500 border-white scale-125 z-30 shadow-[0_0_10px_white]" : "bg-white/10 border-white/40 z-20"}`}
 											style={{
 												left: `${n.position?.x ?? 0}%`,
 												top: `${n.position?.y ?? 0}%`,
@@ -943,7 +852,7 @@ const ChampionEditorForm = memo(
 								/>
 							</div>
 
-							<div className='space-y-2 max-h-[2000px] overflow-y-auto pr-3 custom-scrollbar'>
+							<div className='space-y-2 max-h-[800px] overflow-y-auto pr-3 custom-scrollbar'>
 								{(constData.nodes || []).map((node, idx) => (
 									<NodeEditor
 										key={idx}
@@ -954,10 +863,10 @@ const ChampionEditorForm = memo(
 										onChange={handleNodeChange}
 										onMultiChange={handleNodeMultiChange}
 										onRemove={i => {
-											setConstData(prev => ({
-												...prev,
-												nodes: prev.nodes.filter((_, idx) => idx !== i),
-											}));
+											setConstData({
+												...constData,
+												nodes: constData.nodes.filter((_, idx) => idx !== i),
+											});
 											if (selectedNodeIndex === i) setSelectedNodeIndex(null);
 										}}
 										cachedData={cachedData}
@@ -967,78 +876,99 @@ const ChampionEditorForm = memo(
 						</div>
 					</div>
 
+					{/* Asset Management Section */}
 					<div className='pt-10 border-t px-6 space-y-10'>
-						<div>
-							<h4 className='text-lg font-bold text-text-primary mb-6 flex items-center gap-2'>
-								<Link2 size={20} /> Quản lý Assets
-							</h4>
-							<div className='grid grid-cols-1 gap-4'>
-								{(formData.assets || []).map((asset, index) => (
-									<div
-										key={index}
-										className='flex flex-col md:flex-row items-center gap-6 p-6 bg-surface-hover/30 rounded-xl border border-border relative group shadow-sm'
-									>
-										<div className='grid grid-cols-1 md:grid-cols-3 gap-6 flex-1 w-full'>
-											{["avatar", "fullAbsolutePath", "gameAbsolutePath"].map(
-												field => (
-													<div key={field} className='space-y-2'>
-														<InputField
-															label={field}
-															value={asset[field] || ""}
-															onChange={e =>
-																handleAssetChange(index, field, e.target.value)
-															}
-														/>
-														{asset[field] && (
-															<img
-																src={asset[field]}
-																className='h-20 w-auto rounded-lg object-contain bg-black/40 border shadow-inner'
-																alt=''
-															/>
-														)}
-													</div>
-												),
-											)}
-										</div>
-										<button
-											type='button'
-											onClick={() => handleRemoveAsset(index)}
-											className='text-red-500 hover:bg-red-500/10 p-2 rounded-full'
-										>
-											<XCircle size={22} />
-										</button>
-									</div>
-								))}
-								<Button
-									type='button'
-									variant='outline'
-									size='sm'
-									onClick={handleAddAsset}
-									className='w-max'
+						<h4 className='text-lg font-bold flex items-center gap-2'>
+							<Link2 size={20} /> Quản lý Assets
+						</h4>
+						<div className='grid grid-cols-1 gap-4'>
+							{(formData.assets || []).map((asset, index) => (
+								<div
+									key={index}
+									className='flex flex-col md:flex-row items-center gap-6 p-6 bg-surface-hover/30 rounded-xl border border-border relative group'
 								>
-									Thêm Asset
-								</Button>
-							</div>
+									<div className='grid grid-cols-1 md:grid-cols-3 gap-6 flex-1 w-full'>
+										{["avatar", "fullAbsolutePath", "gameAbsolutePath"].map(
+											field => (
+												<div key={field} className='space-y-2'>
+													<InputField
+														label={field}
+														value={asset[field] || ""}
+														onChange={e => {
+															const newAssets = [...formData.assets];
+															newAssets[index][field] = e.target.value;
+															setFormData({ ...formData, assets: newAssets });
+														}}
+													/>
+													{asset[field] && (
+														<img
+															src={asset[field]}
+															className='h-20 w-auto rounded-lg object-contain bg-black/40 border shadow-inner'
+														/>
+													)}
+												</div>
+											),
+										)}
+									</div>
+									<button
+										type='button'
+										onClick={() =>
+											setFormData({
+												...formData,
+												assets: formData.assets.filter((_, i) => i !== index),
+											})
+										}
+										className='text-red-500'
+									>
+										<XCircle size={22} />
+									</button>
+								</div>
+							))}
+							<Button
+								type='button'
+								variant='outline'
+								size='sm'
+								onClick={() =>
+									setFormData({
+										...formData,
+										assets: [
+											...(formData.assets || []),
+											{
+												fullAbsolutePath: "",
+												gameAbsolutePath: "",
+												avatar: "",
+											},
+										],
+									})
+								}
+								className='w-max'
+							>
+								Thêm Asset
+							</Button>
 						</div>
+
 						<div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
 							<ArrayInputComponent
 								label='Vùng'
 								data={formData.regions || []}
-								onChange={d => handleArrayChange("regions", d)}
+								onChange={d => setFormData({ ...formData, regions: d })}
 							/>
 							<ArrayInputComponent
 								label='Thẻ'
 								data={formData.tag || []}
-								onChange={d => handleArrayChange("tag", d)}
+								onChange={d => setFormData({ ...formData, tag: d })}
 							/>
 						</div>
+
 						<div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
 							{[1, 2, 3, 4, 5, 6].map(n => (
 								<ArrayInputComponent
 									key={n}
 									label={`Bộ Cổ vật khuyên dùng ${n}`}
 									data={formData[`defaultRelicsSet${n}`] || []}
-									onChange={d => handleArrayChange(`defaultRelicsSet${n}`, d)}
+									onChange={d =>
+										setFormData({ ...formData, [`defaultRelicsSet${n}`]: d })
+									}
 									cachedData={dataLookup.relics}
 								/>
 							))}
@@ -1046,7 +976,7 @@ const ChampionEditorForm = memo(
 						<ArrayInputComponent
 							label='Ngọc gợi ý'
 							data={formData.rune || []}
-							onChange={d => handleArrayChange("rune", d)}
+							onChange={d => setFormData({ ...formData, rune: d })}
 							cachedData={dataLookup.runes}
 						/>
 					</div>

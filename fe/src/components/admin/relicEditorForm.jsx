@@ -1,9 +1,8 @@
-// src/pages/admin/relicEditorForm.jsx (file mới)
+// src/pages/admin/relicEditorForm.jsx
 import { useState, memo, useEffect } from "react";
 import Button from "../common/button";
 import InputField from "../common/inputField";
 import Modal from "../common/modal";
-import { XCircle } from "lucide-react";
 
 const RelicEditorForm = memo(
 	({ relic, onSave, onCancel, onDelete, isSaving }) => {
@@ -14,7 +13,7 @@ const RelicEditorForm = memo(
 		const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
 		const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-		// Load và deep clone data
+		// Khởi tạo và deep clone dữ liệu để so sánh
 		useEffect(() => {
 			if (relic) {
 				const deepCloned = JSON.parse(JSON.stringify(relic));
@@ -24,14 +23,14 @@ const RelicEditorForm = memo(
 			}
 		}, [relic]);
 
-		// Kiểm tra dirty
+		// Kiểm tra trạng thái thay đổi dữ liệu (Dirty check)
 		useEffect(() => {
 			const isChanged =
 				JSON.stringify(formData) !== JSON.stringify(initialData);
 			setIsDirty(isChanged);
 		}, [formData, initialData]);
 
-		// Cảnh báo khi rời tab nếu có thay đổi chưa lưu
+		// Chặn đóng tab nếu có thay đổi chưa lưu
 		useEffect(() => {
 			const handleBeforeUnload = e => {
 				if (isDirty) {
@@ -46,6 +45,7 @@ const RelicEditorForm = memo(
 
 		const handleInputChange = e => {
 			const { name, value } = e.target;
+			// Chuyển đổi stack sang kiểu số
 			const parsedValue = name === "stack" ? parseInt(value) || 0 : value;
 			setFormData(prev => ({ ...prev, [name]: parsedValue }));
 		};
@@ -74,25 +74,21 @@ const RelicEditorForm = memo(
 
 		const handleSubmit = e => {
 			e.preventDefault();
-			const cleanData = { ...formData };
-
-			// XÓA isNew khỏi data gửi đi
-			delete cleanData.isNew;
-
-			onSave(cleanData);
+			// Gửi toàn bộ formData (bao gồm cả isNew) để Backend kiểm tra ID tồn tại
+			onSave(formData);
 		};
 
 		return (
 			<>
 				<form onSubmit={handleSubmit} className='space-y-8'>
-					{/* Header */}
-					<div className='flex justify-between border-border sticky top-0 bg-surface-bg z-20 py-2 border-b mb-4'>
+					{/* Header Toolbar */}
+					<div className='flex justify-between border-border sticky top-0 bg-surface-bg z-20 py-2 border-b mb-4 px-4'>
 						<div>
-							<label className='block font-semibold text-text-primary text-xl'>
+							<h2 className='block font-semibold text-text-primary text-xl'>
 								{formData.isNew
 									? "Tạo Cổ Vật Mới"
 									: `Chỉnh sửa: ${formData.name}`}
-							</label>
+							</h2>
 							{isDirty && (
 								<span className='text-xs text-yellow-500 font-medium'>
 									● Có thay đổi chưa lưu
@@ -118,23 +114,31 @@ const RelicEditorForm = memo(
 									{isSaving ? "Đang xử lý..." : "Xóa cổ vật"}
 								</Button>
 							)}
-							<Button type='submit' variant='primary' disabled={isSaving}>
-								{isSaving ? "Đang lưu..." : formData.isNew ? "Tạo mới" : "Lưu"}
+							<Button
+								type='submit'
+								variant='primary'
+								disabled={isSaving || !formData.relicCode}
+							>
+								{isSaving
+									? "Đang lưu..."
+									: formData.isNew
+										? "Tạo mới"
+										: "Lưu thay đổi"}
 							</Button>
 						</div>
 					</div>
 
-					{/* Form nội dung */}
-					<div className='grid grid-cols-1 lg:grid-cols-2 gap-6 p-6 bg-surface-bg border border-border rounded-xl'>
+					{/* Nội dung Form */}
+					<div className='grid grid-cols-1 lg:grid-cols-2 gap-6 p-6 bg-surface-bg border border-border rounded-xl mx-4'>
 						<div className='space-y-5'>
 							<InputField
-								label='Mã cổ vật (VD: R001)'
+								label='Mã cổ vật (Duy nhất, VD: R001)'
 								name='relicCode'
 								value={formData.relicCode || ""}
 								onChange={handleInputChange}
 								required
-								disabled={!formData.isNew}
-								placeholder='R001, R002,...'
+								disabled={!formData.isNew} // Khóa ID khi cập nhật
+								placeholder='Nhập mã cổ vật...'
 							/>
 							<InputField
 								label='Tên cổ vật'
@@ -142,21 +146,24 @@ const RelicEditorForm = memo(
 								value={formData.name || ""}
 								onChange={handleInputChange}
 								required
+								placeholder='Nhập tên hiển thị...'
 							/>
 							<InputField
 								label='Độ hiếm'
 								name='rarity'
 								value={formData.rarity || ""}
 								onChange={handleInputChange}
+								placeholder='VD: Common, Rare, Epic...'
 							/>
 							<InputField
-								label='Độ hiếm tham chiếu'
+								label='Độ hiếm tham chiếu (Asset)'
 								name='rarityRef'
 								value={formData.rarityRef || ""}
 								onChange={handleInputChange}
+								placeholder='VD: rare_relic'
 							/>
 							<InputField
-								label='Stack'
+								label='Số lượng cộng dồn (Stack)'
 								name='stack'
 								type='number'
 								value={formData.stack ?? ""}
@@ -168,19 +175,24 @@ const RelicEditorForm = memo(
 								name='type'
 								value={formData.type || ""}
 								onChange={handleInputChange}
+								placeholder='VD: Adventure, Battle...'
 							/>
 						</div>
 
 						<div className='space-y-5'>
-							<div className='flex flex-col items-center'>
-								<p className='text-sm font-medium text-text-secondary mb-3'>
+							<div className='flex flex-col items-center p-4 bg-surface-hover/50 rounded-xl border border-dashed border-border'>
+								<p className='text-xs font-bold text-text-secondary mb-3 uppercase tracking-widest'>
 									Preview Ảnh
 								</p>
 								{formData.assetAbsolutePath ? (
 									<img
 										src={formData.assetAbsolutePath}
 										alt='Preview'
-										className='w-48 h-48 object-contain rounded-xl border-4 border-primary-500/20 shadow-xl'
+										className='w-48 h-48 object-contain rounded-xl border-4 border-white dark:border-gray-800 shadow-xl'
+										onError={e => {
+											e.target.src =
+												"https://via.placeholder.com/200?text=Error+Link";
+										}}
 									/>
 								) : (
 									<div className='w-48 h-48 bg-gray-200 dark:bg-gray-700 rounded-xl flex items-center justify-center text-6xl text-gray-400'>
@@ -194,52 +206,54 @@ const RelicEditorForm = memo(
 								name='assetAbsolutePath'
 								value={formData.assetAbsolutePath || ""}
 								onChange={handleInputChange}
+								placeholder='https://...'
 							/>
 							<InputField
 								label='Đường dẫn Ảnh đầy đủ'
 								name='assetFullAbsolutePath'
 								value={formData.assetFullAbsolutePath || ""}
 								onChange={handleInputChange}
+								placeholder='https://...'
 							/>
 							<div>
 								<label className='block font-semibold text-text-primary mb-2'>
-									Mô tả
+									Mô tả kỹ năng
 								</label>
 								<textarea
 									name='description'
 									value={formData.description || ""}
 									onChange={handleInputChange}
-									className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary resize-none'
-									rows={6}
+									className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary focus:ring-2 focus:ring-primary-500 outline-none transition resize-none'
+									rows={4}
+									placeholder='Mô tả chi tiết cổ vật...'
 								/>
 							</div>
 							<div>
 								<label className='block font-semibold text-text-primary mb-2'>
-									Mô tả thô (Raw)
+									Mô tả thô (Dữ liệu gốc)
 								</label>
 								<textarea
 									name='descriptionRaw'
 									value={formData.descriptionRaw || ""}
 									onChange={handleInputChange}
-									className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary resize-none'
-									rows={6}
+									className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary focus:ring-2 focus:ring-primary-500 outline-none transition font-mono text-sm'
+									rows={4}
+									placeholder='Dữ liệu mô tả thô...'
 								/>
 							</div>
 						</div>
 					</div>
 				</form>
 
-				{/* Modal Hủy */}
+				{/* Modal Xác nhận Hủy */}
 				<Modal
 					isOpen={isCancelModalOpen}
 					onClose={() => setIsCancelModalOpen(false)}
 					title='Xác nhận Hủy'
 				>
-					<div className='text-text-secondary'>
-						<p className='mb-6'>
-							Bạn có thay đổi chưa lưu. Nếu rời đi, mọi thay đổi sẽ bị mất.
-						</p>
-						<div className='flex justify-end gap-3'>
+					<div className='p-4 text-text-secondary'>
+						<p>Mọi thay đổi chưa lưu sẽ bị mất. Bạn chắc chắn muốn rời đi?</p>
+						<div className='flex justify-end gap-3 mt-6'>
 							<Button
 								onClick={() => setIsCancelModalOpen(false)}
 								variant='ghost'
@@ -253,18 +267,18 @@ const RelicEditorForm = memo(
 					</div>
 				</Modal>
 
-				{/* Modal Xóa */}
+				{/* Modal Xác nhận Xóa */}
 				<Modal
 					isOpen={isDeleteModalOpen}
 					onClose={() => setIsDeleteModalOpen(false)}
-					title='Xác nhận Xóa'
+					title='Xác nhận Xóa Vĩnh Viễn'
 				>
-					<div className='text-text-secondary'>
-						<p className='mb-6'>
-							Bạn có chắc chắn muốn xóa <strong>{relic?.name}</strong>? Hành
+					<div className='p-4 text-text-secondary'>
+						<p>
+							Bạn có chắc muốn xóa cổ vật <strong>{relic?.name}</strong>? Hành
 							động này không thể hoàn tác.
 						</p>
-						<div className='flex justify-end gap-3'>
+						<div className='flex justify-end gap-3 mt-6'>
 							<Button
 								onClick={() => setIsDeleteModalOpen(false)}
 								variant='ghost'
@@ -272,7 +286,7 @@ const RelicEditorForm = memo(
 								Hủy
 							</Button>
 							<Button onClick={confirmDelete} variant='danger'>
-								Xóa cổ vật
+								Xác nhận Xóa
 							</Button>
 						</div>
 					</div>

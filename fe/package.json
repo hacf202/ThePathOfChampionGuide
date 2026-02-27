@@ -28,6 +28,7 @@
 		"cors": "^2.8.5",
 		"dotenv": "^17.2.2",
 		"express": "^5.1.0",
+		"framer-motion": "^12.34.3",
 		"html2canvas": "^1.4.1",
 		"jwt-decode": "^4.0.0",
 		"lucide-react": "^0.545.0",

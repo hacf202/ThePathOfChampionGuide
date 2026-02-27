@@ -24,7 +24,7 @@ const NEW_RELIC_TEMPLATE = {
 
 const ITEMS_PER_PAGE = 20;
 
-// === LIST VIEW ===
+// === LIST VIEW COMPONENT ===
 const RelicListView = memo(
 	({
 		paginatedRelics,
@@ -89,7 +89,7 @@ const RelicListView = memo(
 	},
 );
 
-// === EDIT WRAPPER ===
+// === EDIT WRAPPER COMPONENT ===
 const RelicEditWrapper = ({
 	relics,
 	onSave,
@@ -103,11 +103,10 @@ const RelicEditWrapper = ({
 	const selectedRelic = useMemo(() => {
 		if (id === "new") return { ...NEW_RELIC_TEMPLATE };
 
-		// FIX: Đảm bảo relics là mảng trước khi find
 		const safeRelics = Array.isArray(relics) ? relics : [];
 		const found = safeRelics.find(r => r.relicCode === id);
 		if (found) {
-			// FORCE isNew: false cho mọi relic đã tồn tại
+			// Ép isNew: false để Backend biết đây là lệnh cập nhật
 			return { ...found, isNew: false };
 		}
 		return null;
@@ -117,8 +116,12 @@ const RelicEditWrapper = ({
 		navigate("/admin/relics");
 	}, [navigate]);
 
-	// FIX: Kiểm tra an toàn trước khi hiển thị lỗi không tìm thấy
-	if (!selectedRelic && Array.isArray(relics) && relics.length > 0) {
+	if (
+		!selectedRelic &&
+		id !== "new" &&
+		Array.isArray(relics) &&
+		relics.length > 0
+	) {
 		return (
 			<div className='flex flex-col items-center justify-center py-20 text-text-secondary'>
 				<p className='text-xl mb-4'>Không tìm thấy cổ vật có mã: {id}</p>
@@ -170,12 +173,9 @@ function RelicEditor() {
 	const fetchAllData = useCallback(async () => {
 		try {
 			setIsLoading(true);
-			// FIX: Thêm limit=1000 để lấy toàn bộ dữ liệu phục vụ Admin
 			const res = await fetch(`${API_BASE_URL}/api/relics?limit=1000`);
 			if (!res.ok) throw new Error("Không thể tải dữ liệu");
 			const data = await res.json();
-
-			// FIX: Lấy data.items vì Backend trả về object phân trang
 			setRelics(data.items || []);
 		} catch (e) {
 			setError("Không thể tải dữ liệu từ server.");
@@ -189,7 +189,6 @@ function RelicEditor() {
 	}, [fetchAllData]);
 
 	const filterOptions = useMemo(() => {
-		// FIX: Kiểm tra an toàn để tránh lỗi map
 		const safeRelics = Array.isArray(relics) ? relics : [];
 		const rarities = [
 			...new Set(safeRelics.map(r => r.rarity).filter(Boolean)),
@@ -211,7 +210,6 @@ function RelicEditor() {
 	}, [relics]);
 
 	const filteredRelics = useMemo(() => {
-		// FIX: Kiểm tra an toàn
 		let result = Array.isArray(relics) ? [...relics] : [];
 
 		if (searchTerm) {
@@ -221,23 +219,18 @@ function RelicEditor() {
 			);
 		}
 
-		if (selectedRarities.length) {
+		if (selectedRarities.length)
 			result = result.filter(r => selectedRarities.includes(r.rarity));
-		}
-
-		if (selectedTypes.length) {
+		if (selectedTypes.length)
 			result = result.filter(r => selectedTypes.includes(r.type));
-		}
-
-		if (selectedStacks.length) {
+		if (selectedStacks.length)
 			result = result.filter(r => selectedStacks.includes(r.stack));
-		}
 
 		const [field, dir] = sortOrder.split("-");
 		result.sort((a, b) => {
 			const A = a.name || "";
 			const B = b.name || "";
-			return dir === "asc" ? (A > B ? 1 : -1) : A < B ? 1 : -1;
+			return dir === "asc" ? A.localeCompare(B) : B.localeCompare(A);
 		});
 
 		return result;
@@ -269,20 +262,16 @@ function RelicEditor() {
 				body: JSON.stringify(data),
 			});
 
+			const result = await res.json();
+
 			if (!res.ok) {
-				let errorMessage = "Lưu thất bại.";
-				try {
-					const errorBody = await res.json();
-					errorMessage = errorBody.error || errorBody.message || errorMessage;
-				} catch {}
-				throw new Error(errorMessage);
+				// Hiển thị lỗi từ Backend (VD: "Mã cổ vật đã tồn tại")
+				throw new Error(result.error || "Lưu thất bại.");
 			}
 
 			await fetchAllData();
 			navigate("/admin/relics");
-			alert(
-				data.isNew ? "Tạo cổ vật mới thành công" : "Cập nhật cổ vật thành công",
-			);
+			alert(result.message || "Lưu thành công");
 		} catch (e) {
 			alert(e.message || "Đã có lỗi xảy ra");
 		} finally {
@@ -291,9 +280,8 @@ function RelicEditor() {
 	};
 
 	const handleDeleteRelic = async relicCode => {
-		if (!relicCode) return;
-		// Thêm xác nhận trước khi xóa
-		if (!window.confirm("Bạn có chắc chắn muốn xóa cổ vật này?")) return;
+		if (!relicCode || !window.confirm("Bạn có chắc chắn muốn xóa cổ vật này?"))
+			return;
 
 		setIsSaving(true);
 		try {

@@ -13,7 +13,6 @@ import { v4 as uuidv4 } from "uuid";
 import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import {
-	boolToString,
 	prepareBuildForDynamo,
 	normalizeBuildFromDynamo,
 } from "../utils/dynamodb.js";
@@ -34,17 +33,18 @@ router.get("/", async (req, res) => {
 	try {
 		const {
 			page = 1,
-			limit = 10,
+			limit = 12,
 			searchTerm = "",
 			championNames = "",
 			regions = "",
+			stars = "",
 			sort = "createdAt-desc",
 		} = req.query;
 
 		const pageSize = parseInt(limit);
 		const currentPage = parseInt(page);
 
-		// 1. Lấy toàn bộ build công khai từ Cache (Sử dụng hàm utility sẵn có của bạn)
+		// 1. Lấy toàn bộ build công khai từ Cache
 		const { items: allBuilds } = await getPublicBuilds();
 
 		// 2. TRÍCH XUẤT BỘ LỌC ĐỘNG
@@ -56,26 +56,32 @@ router.get("/", async (req, res) => {
 		// 3. THỰC HIỆN LỌC (Filtering)
 		let filtered = [...allBuilds];
 
-		// Lọc theo từ khóa (Tìm trong tên tướng hoặc mô tả)
 		if (searchTerm) {
-			const searchKey = removeAccents(searchTerm);
+			const searchKey = removeAccents(searchTerm.toLowerCase());
 			filtered = filtered.filter(
 				b =>
-					removeAccents(b.championName || "").includes(searchKey) ||
-					removeAccents(b.description || "").includes(searchKey),
+					removeAccents((b.championName || "").toLowerCase()).includes(
+						searchKey,
+					) ||
+					removeAccents((b.description || "").toLowerCase()).includes(
+						searchKey,
+					),
 			);
 		}
 
-		// Lọc theo danh sách tướng
 		if (championNames) {
 			const cList = championNames.split(",");
 			filtered = filtered.filter(b => cList.includes(b.championName));
 		}
 
-		// Lọc theo khu vực
 		if (regions) {
 			const rList = regions.split(",");
 			filtered = filtered.filter(b => b.regions?.some(r => rList.includes(r)));
+		}
+
+		if (stars) {
+			const sList = stars.split(",");
+			filtered = filtered.filter(b => sList.includes(String(b.star)));
 		}
 
 		// 4. SẮP XẾP (Sorting)
@@ -90,10 +96,13 @@ router.get("/", async (req, res) => {
 					: new Date(vB) - new Date(vA);
 			}
 
-			if (typeof vA === "string") {
-				return order === "asc" ? vA.localeCompare(vB) : vB.localeCompare(vA);
+			if (typeof vA === "number" && typeof vB === "number") {
+				return order === "asc" ? vA - vB : vB - vA;
 			}
-			return order === "asc" ? vA - vB : vB - vA;
+
+			return order === "asc"
+				? String(vA).localeCompare(String(vB))
+				: String(vB).localeCompare(String(vA));
 		});
 
 		// 5. PHÂN TRANG
@@ -162,18 +171,24 @@ router.get("/:id", async (req, res) => {
 
 		if (!Item) return res.status(404).json({ error: "Build not found" });
 
-		const build = normalizeBuildFromDynamo(unmarshall(Item));
+		const buildData = unmarshall(Item);
+		const build = normalizeBuildFromDynamo(buildData);
+		const isPublic = buildData.display === true || buildData.display === "true";
 
-		if (build.display === true) {
-			await client.send(
-				new UpdateItemCommand({
-					TableName: BUILDS_TABLE,
-					Key: marshall({ id }),
-					UpdateExpression: "SET #views = if_not_exists(#views, :zero) + :inc",
-					ExpressionAttributeNames: { "#views": "views" },
-					ExpressionAttributeValues: marshall({ ":inc": 1, ":zero": 0 }),
-				}),
-			);
+		if (isPublic) {
+			client
+				.send(
+					new UpdateItemCommand({
+						TableName: BUILDS_TABLE,
+						Key: marshall({ id }),
+						UpdateExpression:
+							"SET #views = if_not_exists(#views, :zero) + :inc",
+						ExpressionAttributeNames: { "#views": "views" },
+						ExpressionAttributeValues: marshall({ ":inc": 1, ":zero": 0 }),
+					}),
+				)
+				.catch(e => console.error("View increment error:", e));
+
 			return res.json(build);
 		}
 
@@ -207,6 +222,8 @@ router.post("/", authenticateCognitoToken, async (req, res) => {
 			.json({ error: "Champion name and relicSet are required." });
 	}
 
+	const displayValue = display === true ? "true" : "false";
+
 	const build = prepareBuildForDynamo({
 		id: uuidv4(),
 		sub: req.user.sub,
@@ -217,8 +234,8 @@ router.post("/", authenticateCognitoToken, async (req, res) => {
 		powers,
 		rune,
 		like: 0,
-		star,
-		display,
+		star: Number(star),
+		display: displayValue,
 		views: 0,
 		regions,
 		createdAt: new Date().toISOString(),
@@ -228,11 +245,12 @@ router.post("/", authenticateCognitoToken, async (req, res) => {
 		await client.send(
 			new PutItemCommand({
 				TableName: BUILDS_TABLE,
-				Item: marshall(build),
+				// FIX: Thêm option removeUndefinedValues để tránh lỗi Marshalling khi có thuộc tính undefined
+				Item: marshall(build, { removeUndefinedValues: true }),
 			}),
 		);
 
-		if (display === true) invalidatePublicBuildsCache();
+		if (displayValue === "true") invalidatePublicBuildsCache();
 
 		res.status(201).json({
 			message: "Build created successfully",
@@ -276,6 +294,7 @@ router.put("/:id", authenticateCognitoToken, async (req, res) => {
 			display,
 			regions,
 		};
+
 		Object.entries(fields).forEach(([key, value]) => {
 			if (value !== undefined) {
 				hasUpdates = true;
@@ -283,8 +302,12 @@ router.put("/:id", authenticateCognitoToken, async (req, res) => {
 				const valKey = `:${key}`;
 				updateExpression += ` ${attrKey} = ${valKey},`;
 				expressionAttributeNames[attrKey] = key;
-				expressionAttributeValues[valKey] =
-					key === "display" ? boolToString(value) : value;
+
+				if (key === "display") {
+					expressionAttributeValues[valKey] = value === true ? "true" : "false";
+				} else {
+					expressionAttributeValues[valKey] = value;
+				}
 			}
 		});
 
@@ -298,15 +321,20 @@ router.put("/:id", authenticateCognitoToken, async (req, res) => {
 			Key: marshall({ id }),
 			UpdateExpression: updateExpression,
 			ExpressionAttributeNames: expressionAttributeNames,
-			ExpressionAttributeValues: marshall(expressionAttributeValues),
+			// FIX: Thêm option removeUndefinedValues để tránh lỗi khi cập nhật các mảng có chứa null/undefined
+			ExpressionAttributeValues: marshall(expressionAttributeValues, {
+				removeUndefinedValues: true,
+			}),
 			ReturnValues: "ALL_NEW",
 		});
 
 		const { Attributes } = await client.send(command);
 		const updatedBuild = normalizeBuildFromDynamo(unmarshall(Attributes));
 
-		// Quan trọng: Invalidate cache nếu build này là public hoặc vừa được chuyển sang public
-		if (oldBuild.display === "true" || updatedBuild.display === true) {
+		const wasPublic = oldBuild.display === true || oldBuild.display === "true";
+		const isNowPublic = updatedBuild.display === true;
+
+		if (wasPublic || isNowPublic) {
 			invalidatePublicBuildsCache();
 		}
 
@@ -333,7 +361,7 @@ router.delete("/:id", authenticateCognitoToken, async (req, res) => {
 			return res.status(403).json({ error: "Unauthorized" });
 		}
 
-		if (build.display === "true" || build.display === true) {
+		if (build.display === true || build.display === "true") {
 			invalidatePublicBuildsCache();
 		}
 
@@ -374,8 +402,7 @@ router.patch("/:id/like", async (req, res) => {
 			}),
 		);
 
-		// Nếu build đang được hiển thị công khai, cần xóa cache để cập nhật lượt like mới
-		if (build.display === "true" || build.display === true) {
+		if (build.display === true || build.display === "true") {
 			invalidatePublicBuildsCache();
 		}
 

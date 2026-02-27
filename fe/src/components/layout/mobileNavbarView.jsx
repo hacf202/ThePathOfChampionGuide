@@ -90,7 +90,7 @@ function MobileSidebar() {
 			{/* Sidebar */}
 			<div
 				ref={sidebarRef}
-				className={`fixed inset-y-0 left-0 z-50 w-72 bg-header-bg shadow-2xl transform transition-transform duration-300 ease-in-out ${
+				className={`fixed inset-y-0 left-0 z-50 w-64 bg-header-bg shadow-2xl transform transition-transform duration-300 ease-in-out ${
 					isSidebarOpen ? "translate-x-0" : "-translate-x-full"
 				} xl:hidden overflow-y-auto`}
 			>

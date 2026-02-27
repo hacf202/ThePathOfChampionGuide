@@ -25,7 +25,7 @@ function AdventureList() {
 	// --- States ---
 	const [searchInput, setSearchInput] = usePersistentState(
 		"advSearchInput",
-		""
+		"",
 	);
 	const [searchTerm, setSearchTerm] = usePersistentState("advSearchTerm", "");
 	const [currentPage, setCurrentPage] = usePersistentState("advCurrentPage", 1);
@@ -33,19 +33,19 @@ function AdventureList() {
 
 	const [selectedDifficulties, setSelectedDifficulties] = usePersistentState(
 		"advSelectedDiff",
-		[]
+		[],
 	);
 	const [selectedTypes, setSelectedTypes] = usePersistentState(
 		"advSelectedTypes",
-		[]
+		[],
 	);
 	const [selectedRegions, setSelectedRegions] = usePersistentState(
 		"advSelectedRegions",
-		[]
+		[],
 	);
 	const [sortOption, setSortOption] = usePersistentState(
 		"advSortOption",
-		"diff_desc"
+		"diff_desc",
 	);
 
 	// --- Logic Options ---
@@ -93,34 +93,34 @@ function AdventureList() {
 			result = result.filter(a => {
 				const matchName =
 					removeAccents(a.adventureName?.toLowerCase() || "").includes(
-						normalized
+						normalized,
 					) ||
 					removeAccents(a.adventureNameRef?.toLowerCase() || "").includes(
-						normalized
+						normalized,
 					);
 				const matchBoss = a.bosses?.some(b =>
-					removeAccents(b.name.toLowerCase()).includes(normalized)
+					removeAccents(b.name.toLowerCase()).includes(normalized),
 				);
 				const matchReq = a.requirement?.some(r =>
-					removeAccents(r.toLowerCase()).includes(normalized)
+					removeAccents(r.toLowerCase()).includes(normalized),
 				);
 				const matchReward = a.rewards?.some(rg =>
 					rg.items?.some(i =>
-						removeAccents(i.name.toLowerCase()).includes(normalized)
-					)
+						removeAccents(i.name.toLowerCase()).includes(normalized),
+					),
 				);
 				return matchName || matchBoss || matchReq || matchReward;
 			});
 		}
 		if (selectedDifficulties.length > 0)
 			result = result.filter(a =>
-				selectedDifficulties.includes(Math.floor(a.difficulty).toString())
+				selectedDifficulties.includes(Math.floor(a.difficulty).toString()),
 			);
 		if (selectedTypes.length > 0)
 			result = result.filter(a => selectedTypes.includes(a.typeAdventure));
 		if (selectedRegions.length > 0)
 			result = result.filter(a =>
-				a.requirement?.some(req => selectedRegions.includes(req))
+				a.requirement?.some(req => selectedRegions.includes(req)),
 			);
 
 		result.sort((a, b) => {
@@ -211,7 +211,7 @@ function AdventureList() {
 											{(currentPage - 1) * ITEMS_PER_PAGE + 1}–
 											{Math.min(
 												currentPage * ITEMS_PER_PAGE,
-												processedAdventures.length
+												processedAdventures.length,
 											)}
 										</span>{" "}
 										trong{" "}
@@ -264,7 +264,7 @@ function AdventureList() {
 					{/* --- SIDEBAR BỘ LỌC (BÊN PHẢI) --- */}
 					<aside className='lg:w-1/4 w-full lg:sticky lg:top-24 h-fit order-1 lg:order-2'>
 						{/* Mobile View */}
-						<div className='lg:hidden p-2 rounded-lg border border-border bg-surface-bg shadow-sm mb-4'>
+						<div className='xl:hidden p-2 rounded-lg border border-border bg-surface-bg shadow-sm mb-4'>
 							<div className='flex items-center gap-2'>
 								<div className='flex-1 relative'>
 									<InputField

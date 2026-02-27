@@ -4,7 +4,7 @@ import {
 	ScanCommand,
 	PutItemCommand,
 	DeleteItemCommand,
-	GetItemCommand, // Đảm bảo đã import để tránh lỗi ReferenceError
+	GetItemCommand,
 } from "@aws-sdk/client-dynamodb";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
 import NodeCache from "node-cache";
@@ -50,12 +50,10 @@ router.get("/:itemCode", async (req, res) => {
 	const id = itemCode.trim();
 	const CACHE_KEY = `item_detail_${id}`;
 
-	// 1. Kiểm tra Cache RAM trước để đạt tốc độ < 1ms
 	const cachedItem = itemCache.get(CACHE_KEY);
 	if (cachedItem) return res.json(cachedItem);
 
 	try {
-		// 2. Truy vấn DynamoDB nếu Cache miss
 		const command = new GetItemCommand({
 			TableName: ITEMS_TABLE,
 			Key: marshall({ itemCode: id }),
@@ -66,7 +64,6 @@ router.get("/:itemCode", async (req, res) => {
 			return res.status(404).json({ error: `Không tìm thấy vật phẩm: ${id}` });
 
 		const itemData = unmarshall(Item);
-		// 3. Lưu vào Cache
 		itemCache.set(CACHE_KEY, itemData);
 
 		res.json(itemData);
@@ -101,9 +98,9 @@ router.get("/", async (req, res) => {
 
 		let filtered = [...allItems];
 		if (searchTerm) {
-			const searchKey = removeAccents(searchTerm);
+			const searchKey = removeAccents(searchTerm.toLowerCase());
 			filtered = filtered.filter(i =>
-				removeAccents(i.name || "").includes(searchKey),
+				removeAccents((i.name || "").toLowerCase()).includes(searchKey),
 			);
 		}
 		if (rarities) {
@@ -133,7 +130,7 @@ router.get("/", async (req, res) => {
 			availableFilters,
 		});
 	} catch (error) {
-		res.status(500).json({ error: "Could not retrieve items" });
+		res.status(500).json({ error: "Không thể lấy danh sách vật phẩm." });
 	}
 });
 
@@ -157,24 +154,68 @@ router.post("/resolve", async (req, res) => {
 
 /**
  * @route   PUT /api/items
- * @desc    Cập nhật vật phẩm và làm mới Cache
+ * @desc    Tạo mới hoặc Cập nhật vật phẩm (Kiểm tra tồn tại)
  */
 router.put("/", authenticateCognitoToken, async (req, res) => {
 	const itemData = req.body;
-	if (!itemData.itemCode)
-		return res.status(400).json({ error: "Item code is required" });
+	const { itemCode, isNew } = itemData;
+
+	if (!itemCode)
+		return res
+			.status(400)
+			.json({ error: "Mã vật phẩm (itemCode) là bắt buộc." });
+
 	try {
+		// 1. Kiểm tra tồn tại trong Database
+		const checkCommand = new GetItemCommand({
+			TableName: ITEMS_TABLE,
+			Key: marshall({ itemCode: itemCode.trim() }),
+		});
+		const { Item } = await client.send(checkCommand);
+		const exists = !!Item;
+
+		// 2. Logic kiểm tra nghiệp vụ
+		if (isNew && exists) {
+			return res.status(409).json({
+				error: `Mã vật phẩm "${itemCode}" đã tồn tại. Không thể tạo mới trùng mã.`,
+			});
+		}
+
+		if (!isNew && !exists) {
+			return res.status(404).json({
+				error: `Mã vật phẩm "${itemCode}" không tồn tại. Không thể cập nhật.`,
+			});
+		}
+
+		// 3. Chuẩn bị dữ liệu lưu (Xóa isNew cờ hiệu frontend)
+		const dataToSave = { ...itemData };
+		delete dataToSave.isNew;
+
 		await client.send(
-			new PutItemCommand({ TableName: ITEMS_TABLE, Item: marshall(itemData) }),
+			new PutItemCommand({
+				TableName: ITEMS_TABLE,
+				Item: marshall(dataToSave, { removeUndefinedValues: true }),
+			}),
 		);
+
+		// 4. Làm mới Cache
 		itemCache.del("all_items_data");
-		itemCache.del(`item_detail_${itemData.itemCode}`); // Xóa cache chi tiết để tránh dữ liệu cũ
-		res.status(200).json({ message: "Updated", item: itemData });
+		itemCache.del(`item_detail_${itemCode}`);
+
+		res.status(200).json({
+			message: isNew ? "Tạo mới thành công" : "Cập nhật thành công",
+			item: dataToSave,
+		});
 	} catch (error) {
-		res.status(500).json({ error: "Could not update" });
+		console.error("Lỗi khi lưu vật phẩm:", error);
+		res.status(500).json({ error: "Lỗi hệ thống khi xử lý dữ liệu." });
 	}
 });
 
+/**
+ * @route   DELETE /api/items/:itemCode
+ * @desc    Xóa vật phẩm
+ */
 router.delete("/:itemCode", authenticateCognitoToken, async (req, res) => {
 	const { itemCode } = req.params;
 	try {
@@ -186,9 +227,10 @@ router.delete("/:itemCode", authenticateCognitoToken, async (req, res) => {
 		);
 		itemCache.del("all_items_data");
 		itemCache.del(`item_detail_${itemCode}`);
-		res.status(200).json({ message: "Deleted" });
+		res.status(200).json({ message: "Đã xóa vật phẩm thành công." });
 	} catch (error) {
-		res.status(500).json({ error: "Could not delete" });
+		console.error("Lỗi khi xóa vật phẩm:", error);
+		res.status(500).json({ error: "Lỗi hệ thống khi xóa." });
 	}
 });
 

@@ -9,9 +9,9 @@ module.exports = {
 				secondary: ["var(--font-secondary)", "sans-serif"],
 			},
 
-			// 2. MÀU SẮC (Thêm các biến mới)
+			// 2. MÀU SẮC
 			colors: {
-				// Thêm vào trong section colors
+				// Theme đa dạng (Inferno, Emerald, Celestial, Blood, Shadow)
 				"inferno-500": "var(--color-inferno-500)",
 				"inferno-title": "var(--color-inferno-title)",
 				"inferno-subtitle": "var(--color-inferno-subtitle)",
@@ -29,23 +29,24 @@ module.exports = {
 
 				"shadow-500": "var(--color-shadow-500)",
 				"shadow-title": "var(--color-shadow-title)",
-				// === 1. MÀU CHÍNH & TRẠNG THÁI CƠ BẢN ===
+
+				// Màu chính & Trạng thái
 				"primary-500": "var(--color-primary-500)",
 				"danger-500": "var(--color-danger-500)",
 				warning: "var(--color-warning-text)",
 				success: "var(--color-success-text)",
 
-				// === 2. NỀN TRANG & BỀ MẶT CHUNG ===
+				// Nền & Bề mặt
 				"page-bg": "var(--color-page-bg)",
 				"surface-bg": "var(--color-surface-bg)",
 				"surface-hover": "var(--color-surface-hover-bg)",
 				border: "var(--color-border)",
 
-				// === 3. VĂN BẢN CHUNG ===
+				// Văn bản
 				"text-primary": "var(--color-text-primary)",
 				"text-secondary": "var(--color-text-secondary)",
 
-				// === 4. LỚP PHỦ & HIỆU ỨNG KÍNH (GLASSMORPHISM) ===
+				// Glassmorphism
 				"page-overlay": "var(--color-bg-overlay)",
 				"glass-bg": "var(--color-glass-bg)",
 				"glass-border": "var(--color-glass-border)",
@@ -53,7 +54,7 @@ module.exports = {
 				"glass-hover-border": "var(--color-glass-hover-border)",
 				"glass-text": "var(--color-glass-dark-text)",
 
-				// === 5. BẢNG ĐIỀU KHIỂN KÍNH (PANEL GLASS) ===
+				// Panel Glass
 				"panel-glass-bg": "var(--color-panel-glass-bg)",
 				"panel-glass-border": "var(--color-panel-glass-border)",
 				"panel-text-light": "var(--color-panel-text-light)",
@@ -66,39 +67,27 @@ module.exports = {
 				"panel-checkbox-bg": "var(--color-panel-checkbox-bg)",
 				"panel-checkbox-border": "var(--color-panel-checkbox-border)",
 
-				// === 6. TRẠNG THÁI BÁO ĐỘNG (DANGER) ===
+				// Danger State
 				"danger-bg-light": "var(--color-danger-bg-light)",
 				"danger-text-dark": "var(--color-danger-text-dark)",
 
-				// === 7. NÚT BẤM (BUTTON VARIANTS) ===
-				// Primary
+				// Buttons
 				"btn-primary-bg": "var(--color-btn-primary-bg)",
 				"btn-primary-text": "var(--color-btn-primary-text)",
 				"btn-primary-hover-bg": "var(--color-btn-primary-hover-bg)",
-
-				// Accent
-				"btn-accent-bg": "var(--color-btn-accent-bg)",
-				"btn-accent-text": "var(--color-btn-accent-text)",
-				"btn-accent-hover-bg": "var(--color-btn-accent-hover-bg)",
-
-				// Secondary
 				"btn-secondary-bg": "var(--color-btn-secondary-bg)",
 				"btn-secondary-text": "var(--color-btn-secondary-text)",
 				"btn-secondary-border": "var(--color-btn-secondary-border)",
 				"btn-secondary-hover-bg": "var(--color-btn-secondary-hover-bg)",
 				"btn-secondary-hover-text": "var(--color-btn-secondary-hover-text)",
-
-				// Danger
 				"btn-danger-bg": "var(--color-btn-danger-bg)",
 				"btn-danger-text": "var(--color-btn-danger-text)",
 				"btn-danger-hover-bg": "var(--color-btn-danger-hover-bg)",
-
-				// Warning
 				"btn-warning-bg": "var(--color-btn-warning-bg)",
 				"btn-warning-text": "var(--color-btn-warning-text)",
 				"btn-warning-hover-bg": "var(--color-btn-warning-hover-bg)",
 
-				// === 8. BIỂU MẪU (FORM INPUTS) ===
+				// Forms
 				"input-bg": "var(--color-input-bg)",
 				"input-text": "var(--color-input-text)",
 				"input-border": "var(--color-input-border)",
@@ -106,64 +95,27 @@ module.exports = {
 				"input-focus-border": "var(--color-input-focus-border)",
 				"input-disabled-bg": "var(--color-input-disabled-bg)",
 				"input-disabled-text": "var(--color-input-disabled-text)",
-
 				"input-error-border": "var(--color-input-error-border)",
 				"input-error-text": "var(--color-input-error-text)",
 
-				"text-success": "var(--color-success-text)",
-				"text-warning": "var(--color-warning-text)",
-
-				// === 9. DROPDOWN ===
+				// Dropdown & Modal
 				"dropdown-bg": "var(--color-dropdown-bg)",
 				"dropdown-border": "var(--color-dropdown-border)",
 				"dropdown-item-text": "var(--color-dropdown-item-text)",
 				"dropdown-item-hover-bg": "var(--color-dropdown-item-hover-bg)",
 				"dropdown-item-selected-bg": "var(--color-dropdown-item-selected-bg)",
-
-				// === 10. MODAL ===
 				"modal-overlay-bg": "var(--color-modal-overlay-bg)",
 
-				// === 11. HEADER & NAVBAR ===
+				// Header & Footer
 				"header-bg": "var(--color-header-bg)",
 				"header-text": "var(--color-header-text)",
 				"header-border": "var(--color-header-border)",
-				"nav-link-text": "var(--color-nav-link-text)",
-				"nav-link-hover": "var(--color-nav-link-hover)",
-				"nav-link-selected": "var(--color-nav-link-selected)",
-				"nav-hover-bg": "var(--color-nav-hover-bg)",
-				"nav-active-bg": "var(--color-nav-active-bg)",
-
-				// === 12. FOOTER ===
 				"footer-bg": "var(--color-footer-bg)",
 				"footer-text": "var(--color-footer-text)",
 				"footer-link": "var(--color-footer-link)",
-				"footer-link-hover": "var(--color-footer-link-hover)",
 
-				// === 13. ICONS ===
+				// Icons & Roles
 				"icon-star": "var(--color-icon-star)",
-				"icon-power": "var(--color-icon-power)",
-				"icon-gem": "var(--color-icon-gem)",
-				"icon-random": "var(--color-icon-random)",
-
-				// === 14. MÀU ĐẶC THÙ THEO TRANG (Home.jsx) ===
-				// Accent Sections
-				"accent1-title": "var(--color-accent1-title)",
-				"accent1-subtitle": "var(--color-accent1-subtitle)",
-				"accent1-cta-bg": "var(--color-accent1-cta-bg)",
-				"accent1-cta-hover": "var(--color-accent1-cta-hover)",
-				"accent1-badge-bg": "var(--color-accent1-badge-bg)",
-
-				"accent2-title": "var(--color-accent2-title)",
-				"accent2-subtitle": "var(--color-accent2-subtitle)",
-				"accent2-cta-bg": "var(--color-accent2-cta-bg)",
-				"accent2-cta-hover": "var(--color-accent2-cta-hover)",
-
-				"accent3-title": "var(--color-accent3-title)",
-				"accent3-subtitle": "var(--color-accent3-subtitle)",
-				"accent3-cta-bg": "var(--color-accent3-cta-bg)",
-				"accent3-cta-hover": "var(--color-accent3-cta-hover)",
-
-				// Role Colors
 				"role-aggro": "var(--color-role-aggro)",
 				"role-combo": "var(--color-role-combo)",
 				"role-mill": "var(--color-role-mill)",
@@ -171,23 +123,18 @@ module.exports = {
 				"role-midrange": "var(--color-role-midrange)",
 				"role-burn": "var(--color-role-burn)",
 				"role-ftk-otk": "var(--color-role-ftk-otk)",
-
-				// === 15. KHÁC (LIÊN KẾT ADMIN, v.v.) ===
-				"text-link-admin": "var(--color-text-link-admin)",
 			},
-			/* --- Thêm: Bóng đổ (Shadow) --- */
+
+			// 3. HIỆU ỨNG (Shadow, Fill)
 			boxShadow: {
 				"primary-md": "0 8px 24px var(--color-shadow-primary)",
 			},
-			/* --- Thêm: Fill (cho icon) --- */
 			fill: {
 				"danger-500": "var(--color-danger-500)",
 			},
 
-			// 3. MỞ RỘNG ANIMATION & KEYFRAMES
+			// 4. KEYFRAMES
 			keyframes: {
-				// (Các keyframes cũ từ Home.jsx đã có trong theme.css)
-				// Thêm keyframes MỚI
 				slideDown: {
 					from: { opacity: "0", transform: "translateY(-10px) scaleY(0.9)" },
 					to: { opacity: "1", transform: "translateY(0) scaleY(1)" },
@@ -204,20 +151,33 @@ module.exports = {
 					from: { opacity: "0", transform: "scale(0.95)" },
 					to: { opacity: "1", transform: "scale(1)" },
 				},
+				// Keyframes Loading mới bổ sung
+				shimmer: {
+					"0%": { backgroundPosition: "-200% 0" },
+					"100%": { backgroundPosition: "200% 0" },
+				},
+				ripplePulse: {
+					"0%": { boxShadow: "0 0 0 0 rgba(60, 145, 194, 0.4)" },
+					"70%": { boxShadow: "0 0 0 20px rgba(60, 145, 194, 0)" },
+					"100%": { boxShadow: "0 0 0 0 rgba(60, 145, 194, 0)" },
+				},
 			},
+
+			// 5. ANIMATION CLASSES
 			animation: {
-				// (Các class .animate-... đã có trong theme.css)
-				// Tạo class tiện ích MỚI
 				"slide-down": "slideDown 0.3s ease-out forwards",
 				"pulse-focus": "pulseFocus 1.5s ease-in-out infinite",
 				"scale-up": "scaleUp 0.2s ease-out forwards",
+				"spin-slow": "spin 3s linear infinite",
+				// Animation Loading tiện ích mới bổ sung
+				shimmer: "shimmer 1.5s infinite linear",
+				"ripple-pulse": "ripplePulse 2s infinite",
 			},
 		},
 	},
 	plugins: [
 		function ({ addUtilities }) {
 			addUtilities({
-				// Gạch chân active (dày 2px, màu theo text)
 				".underline-active::after": {
 					content: '""',
 					position: "absolute",
@@ -229,7 +189,6 @@ module.exports = {
 					borderRadius: "1px",
 					transition: "all 0.3s ease",
 				},
-				// Gạch chân mượt hơn (từ giữa ra)
 				".underline-active-center::after": {
 					content: '""',
 					position: "absolute",

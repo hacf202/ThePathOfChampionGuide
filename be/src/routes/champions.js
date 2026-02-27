@@ -150,6 +150,40 @@ router.get("/", async (req, res) => {
 		res.status(500).json({ error: "Lỗi hệ thống." });
 	}
 });
+
+/**
+ * @route   GET /api/champions/search?name=...
+ * @desc    Tìm tướng theo tên (exact match)
+ * @note    ĐẶT TRƯỚC /:championID ĐỂ TRÁNH XUNG ĐỘT ROUTE
+ */
+router.get("/search", async (req, res) => {
+	const { name } = req.query;
+
+	if (!name || typeof name !== "string" || name.trim().length < 1) {
+		return res.status(400).json({ error: "Tham số 'name' là bắt buộc." });
+	}
+
+	const searchName = name.trim();
+
+	try {
+		const command = new QueryCommand({
+			TableName: CHAMPIONS_TABLE,
+			IndexName: "name-index",
+			KeyConditionExpression: "#name = :name",
+			ExpressionAttributeNames: { "#name": "name" },
+			ExpressionAttributeValues: marshall({ ":name": searchName }),
+		});
+
+		const { Items } = await client.send(command);
+		const champions = Items ? Items.map(item => unmarshall(item)) : [];
+
+		res.json({ items: champions });
+	} catch (error) {
+		console.error("Lỗi tìm kiếm tướng theo tên:", error);
+		res.status(500).json({ error: "Không thể tìm kiếm tướng." });
+	}
+});
+
 /**
  * @route   GET /api/champions/:championID
  * @desc    Lấy chi tiết một tướng (Ưu tiên Cache -> Database)
@@ -194,38 +228,6 @@ router.get("/:championID", async (req, res) => {
 	} catch (error) {
 		console.error("Lỗi khi lấy chi tiết tướng:", error);
 		res.status(500).json({ error: "Lỗi hệ thống khi truy vấn dữ liệu." });
-	}
-});
-
-/**
- * @route   GET /api/champions/search?name=...
- * @desc    Tìm tướng theo tên (exact match)
- */
-router.get("/search", async (req, res) => {
-	const { name } = req.query;
-
-	if (!name || typeof name !== "string" || name.trim().length < 1) {
-		return res.status(400).json({ error: "Tham số 'name' là bắt buộc." });
-	}
-
-	const searchName = name.trim();
-
-	try {
-		const command = new QueryCommand({
-			TableName: CHAMPIONS_TABLE,
-			IndexName: "name-index",
-			KeyConditionExpression: "#name = :name",
-			ExpressionAttributeNames: { "#name": "name" },
-			ExpressionAttributeValues: marshall({ ":name": searchName }),
-		});
-
-		const { Items } = await client.send(command);
-		const champions = Items ? Items.map(item => unmarshall(item)) : [];
-
-		res.json({ items: champions });
-	} catch (error) {
-		console.error("Lỗi tìm kiếm tướng theo tên:", error);
-		res.status(500).json({ error: "Không thể tìm kiếm tướng." });
 	}
 });
 

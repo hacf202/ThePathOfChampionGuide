@@ -33,16 +33,13 @@ import {
 	RotateCw,
 	Download,
 	Palette,
-	XCircle,
-	Search,
-	ChevronDown,
-	ChevronUp,
 	Trash2,
 	Sparkles,
 	GripVertical,
 	CheckSquare,
 	Square,
 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion"; // Thêm Framer Motion
 import html2canvas from "html2canvas";
 import PageTitle from "../../components/common/pageTitle";
 import Button from "../../components/common/button";
@@ -57,7 +54,36 @@ import {
 
 const RELICS_STORAGE_KEY = "poc-custom-tierlist-relics-v1";
 
-// --- Thành phần bọc từng hàng Tier để có thể kéo thả cả hàng ---
+// --- THÀNH PHẦN SKELETON (Đồng bộ phong cách) ---
+const RelicTierSkeleton = () => (
+	<div className='max-w-[1200px] mx-auto p-2 sm:p-6 animate-pulse'>
+		<div className='flex justify-between items-center mb-6 px-2'>
+			<div className='h-8 w-48 bg-gray-700/50 rounded' />
+			<div className='flex gap-2'>
+				<div className='h-9 w-28 bg-gray-700/50 rounded' />
+				<div className='h-9 w-28 bg-gray-700/50 rounded' />
+			</div>
+		</div>
+		<div className='bg-surface-bg border border-border rounded-lg p-1 space-y-1 mb-8'>
+			{[1, 2, 3, 4].map(i => (
+				<div key={i} className='flex h-20 sm:h-24 bg-white/5 rounded'>
+					<div className='w-20 sm:w-36 bg-gray-700/30 shrink-0' />
+					<div className='flex-1 p-2 flex gap-2'>
+						{[1, 2, 3, 4, 5].map(j => (
+							<div
+								key={j}
+								className='w-12 h-12 sm:w-16 sm:h-16 bg-gray-700/20 rounded'
+							/>
+						))}
+					</div>
+				</div>
+			))}
+		</div>
+		<div className='h-48 w-full bg-gray-700/10 rounded-xl' />
+	</div>
+);
+
+// --- Thành phần bọc từng hàng Tier (Giữ nguyên) ---
 const SortableTierRow = ({
 	tier,
 	isExporting,
@@ -93,7 +119,6 @@ const SortableTierRow = ({
 			style={style}
 			className='flex min-h-[60px] sm:min-h-[100px] bg-black/20 group relative border-b border-white/5 last:border-none'
 		>
-			{/* Drag Handle cho Tier */}
 			{!isExporting && (
 				<div
 					{...attributes}
@@ -195,7 +220,6 @@ const SortableTierRow = ({
 };
 
 function TierListRelics() {
-	// --- State ---
 	const [allRelicsRaw, setAllRelicsRaw] = useState([]);
 	const [tiers, setTiers] = useState([]);
 	const [unranked, setUnranked] = useState([]);
@@ -213,32 +237,21 @@ function TierListRelics() {
 	const [selectedRarities, setSelectedRarities] = useState([]);
 	const [selectedTypes, setSelectedTypes] = useState([]);
 	const [showColorPicker, setShowColorPicker] = useState(null);
-	// Giữ nguyên các biến giao diện
-	const [isFilterOpen, setIsFilterOpen] = useState(false);
 
 	const tierListRef = useRef(null);
 	const warehouseRef = useRef(null);
 	const apiUrl = import.meta.env.VITE_API_URL;
 
-	// --- Logic Sensors ---
 	const sensors = useSensors(
-		useSensor(PointerSensor, {
-			activationConstraint: {
-				distance: 5,
-			},
-		}),
+		useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
 		useSensor(TouchSensor, {
-			// Logic quan trọng: Tăng delay hoặc tinh chỉnh tolerance để phân biệt cuộn và kéo
-			activationConstraint: {
-				delay: 300, // Nhấn giữ 300ms để bắt đầu kéo, giúp tránh nhầm với cuộn trang
-				tolerance: 6, // Giảm sai số di chuyển pixel trước khi kích hoạt
-			},
+			activationConstraint: { delay: 300, tolerance: 6 },
 		}),
 		useSensor(KeyboardSensor, {
 			coordinateGetter: sortableKeyboardCoordinates,
 		}),
 	);
-	// --- Helper Functions ---
+
 	const sortItemsByName = useCallback(items => {
 		return [...items].sort((a, b) => a.name.localeCompare(b.name, "vi"));
 	}, []);
@@ -255,7 +268,7 @@ function TierListRelics() {
 			{
 				id: "tier-s",
 				name: "S",
-				description: "Mạnh cho tướng ",
+				description: "Mạnh cho tướng",
 				color: "#ff7f7f",
 				items: [],
 			},
@@ -363,57 +376,34 @@ function TierListRelics() {
 					"R0132",
 				],
 			};
-
 			const defaultTiers = getDefaultTiers();
 			const usedIds = new Set();
-
 			const sampleTiers = defaultTiers.map(tier => {
-				// Kiểm tra cả 2 trường hợp id là "tier-s-plus" hoặc "tier-s+"
 				const mappingKey =
 					tier.id === "tier-s-plus" || tier.id === "tier-s+"
 						? "tier-s+"
 						: tier.id;
-
 				const targetIds = sampleMapping[mappingKey] || [];
 				const items = formattedRelics.filter(r => targetIds.includes(r.id));
-
-				// Đánh dấu các item đã sử dụng
 				items.forEach(i => usedIds.add(i.id));
-
-				return {
-					...tier,
-					items: items,
-				};
+				return { ...tier, items };
 			});
-
 			const remaining = formattedRelics.filter(r => !usedIds.has(r.id));
-
-			return {
-				sampleTiers,
-				sampleUnranked: sortItemsByName(remaining),
-			};
+			return { sampleTiers, sampleUnranked: sortItemsByName(remaining) };
 		},
 		[getDefaultTiers, sortItemsByName],
 	);
 
-	// --- Initial Load ---
 	useEffect(() => {
 		let isMounted = true;
 		const initData = async () => {
 			try {
-				// LOGIC SỬA: Thêm limit=-1 để lấy toàn bộ dữ liệu từ backend
+				setLoading(true);
 				const res = await fetch(`${apiUrl}/api/relics?limit=-1`);
 				const data = await res.json();
-
 				if (!isMounted) return;
 
-				// Kiểm tra mảng items từ object trả về của backend
 				const relicsArray = Array.isArray(data.items) ? data.items : [];
-
-				if (relicsArray.length === 0) {
-					console.warn("Không có dữ liệu relic trả về");
-				}
-
 				const formatted = sortItemsByName(
 					relicsArray.map((r, index) => {
 						const rawPath =
@@ -423,7 +413,6 @@ function TierListRelics() {
 						return {
 							id: String(r.relicCode || r.relicID || r.id || `relic-${index}`),
 							name: r.name || "Unknown Relic",
-							// Trình duyệt sẽ tự gọi các request proxy-image này khi render
 							avatar: rawPath
 								? `${apiUrl}/api/relics/proxy-image?url=${encodeURIComponent(rawPath)}`
 								: "/fallback-relic.png",
@@ -435,8 +424,6 @@ function TierListRelics() {
 				);
 
 				setAllRelicsRaw(formatted);
-
-				// Logic hydrate cache và sample data giữ nguyên...
 				const saved = localStorage.getItem(RELICS_STORAGE_KEY);
 				if (saved) {
 					const parsed = JSON.parse(saved);
@@ -456,7 +443,7 @@ function TierListRelics() {
 			} catch (err) {
 				console.error("Lỗi khi tải dữ liệu:", err);
 			} finally {
-				if (isMounted) setLoading(false);
+				if (isMounted) setTimeout(() => setLoading(false), 800);
 			}
 		};
 		initData();
@@ -465,28 +452,22 @@ function TierListRelics() {
 		};
 	}, [apiUrl, getSampleData, sortItemsByName]);
 
-	// --- Auto Save ---
 	useEffect(() => {
-		if (!loading) {
+		if (!loading)
 			localStorage.setItem(
 				RELICS_STORAGE_KEY,
 				JSON.stringify({ tiers, unranked }),
 			);
-		}
 	}, [tiers, unranked, loading]);
+
 	useEffect(() => {
 		const handler = e => {
-			// Nếu đang trong quá trình kéo thả, ngăn chặn hành vi cuộn mặc định
-			if (activeId) {
-				e.preventDefault();
-			}
+			if (activeId) e.preventDefault();
 		};
-
-		// Gắn vào window với { passive: false } để có thể preventDefault
 		window.addEventListener("touchmove", handler, { passive: false });
 		return () => window.removeEventListener("touchmove", handler);
 	}, [activeId]);
-	// --- Actions ---
+
 	const handleClearAllToUnranked = () => {
 		if (window.confirm("Xóa toàn bộ cổ vật khỏi bảng và đưa về kho?")) {
 			setTiers(getDefaultTiers());
@@ -504,11 +485,7 @@ function TierListRelics() {
 		}
 	};
 
-	const handleSearch = () => {
-		setSearchTerm(searchInput.trim());
-		if (window.innerWidth < 1024) setIsFilterOpen(false);
-	};
-
+	const handleSearch = () => setSearchTerm(searchInput.trim());
 	const handleResetFilters = () => {
 		setSearchInput("");
 		setSearchTerm("");
@@ -591,22 +568,22 @@ function TierListRelics() {
 			right: Math.max(selectionBox.startX, selectionBox.currentX),
 			bottom: Math.max(selectionBox.startY, selectionBox.currentY),
 		};
-
 		const tempSelectedIds = [];
 		warehouseRef.current.querySelectorAll("[data-id]").forEach(el => {
 			const itemRect = el.getBoundingClientRect();
 			const itemTop = itemRect.top - rect.top;
 			const itemLeft = itemRect.left - rect.left;
-
-			const isIntersecting = !(
-				itemLeft > box.right ||
-				itemLeft + itemRect.width < box.left ||
-				itemTop > box.bottom ||
-				itemTop + itemRect.height < box.top
-			);
-			if (isIntersecting) tempSelectedIds.push(el.getAttribute("data-id"));
+			if (
+				!(
+					itemLeft > box.right ||
+					itemLeft + itemRect.width < box.left ||
+					itemTop > box.bottom ||
+					itemTop + itemRect.height < box.top
+				)
+			) {
+				tempSelectedIds.push(el.getAttribute("data-id"));
+			}
 		});
-
 		setSelectedIds(prev =>
 			e.shiftKey
 				? [...new Set([...prev, ...tempSelectedIds])]
@@ -633,11 +610,9 @@ function TierListRelics() {
 	const handleDragOver = event => {
 		const { active, over } = event;
 		if (!over || activeType === "tier") return;
-
 		const aCol = findContainer(active.id);
 		const oCol = findContainer(over.id);
 		if (!aCol || !oCol || aCol === oCol) return;
-
 		const idsToMove = selectedIds.includes(active.id)
 			? selectedIds
 			: [active.id];
@@ -645,7 +620,6 @@ function TierListRelics() {
 			col.startsWith("unranked-")
 				? unranked
 				: tiers.find(t => t.id === col)?.items || [];
-
 		const movingItems = getColItems(aCol).filter(i => idsToMove.includes(i.id));
 		if (movingItems.length === 0) return;
 
@@ -687,7 +661,6 @@ function TierListRelics() {
 			setActiveId(null);
 			return;
 		}
-
 		if (activeType === "tier") {
 			if (active.id !== over.id) {
 				const oldIdx = tiers.findIndex(t => t.id === active.id);
@@ -745,310 +718,335 @@ function TierListRelics() {
 		}
 	};
 
-	if (loading)
-		return (
-			<div className='flex justify-center p-20'>
-				<Loader2 className='animate-spin text-primary-500' size={40} />
-			</div>
-		);
-
 	const activeItem = activeId
 		? unranked.find(i => i.id === activeId) ||
 			tiers.flatMap(t => t.items).find(i => i.id === activeId)
 		: null;
 
-	// Giữ nguyên toàn bộ phần Return JSX bên dưới
 	return (
-		<div className='max-w-[1200px] mx-auto p-0 font-secondary text-text-primary select-none'>
+		<div className='animate-fadeIn'>
 			<PageTitle title='Tier List Cổ Vật LoR - Path of Champions' />
-
-			{/* HEADER */}
-			<div className='flex flex-col sm:flex-row justify-between items-center gap-4 mb-6 px-2'>
-				<h1 className='text-xl sm:text-2xl font-bold uppercase'>
-					Tier List Cổ Vật
-				</h1>
-				<div className='flex flex-wrap items-center justify-center sm:justify-end gap-2 w-full sm:w-auto'>
-					<Button
-						onClick={() =>
-							setTiers([
-								...tiers,
-								{
-									id: `t-${Date.now()}`,
-									name: "NEW",
-									description: "Mô tả",
-									color: "#555555",
-									items: [],
-								},
-							])
-						}
-						variant='outline'
-						className='text-xs flex-1 sm:flex-none min-w-[110px]'
-					>
-						<Plus size={14} className='mr-1' /> Thêm hàng
-					</Button>
-					<Button
-						id='dl-btn-relic'
-						onClick={downloadImage}
-						className='text-xs bg-primary-600 flex-1 sm:flex-none min-w-[110px]'
-					>
-						<Download size={14} className='mr-1' /> Lưu ảnh
-					</Button>
-					<div className='flex gap-2 w-full sm:w-auto justify-center'>
-						<Button
-							onClick={handleResetToSample}
-							variant='outline'
-							className='p-2 border-primary-500 text-primary-500 hover:bg-primary-500/10 flex-1 sm:flex-none'
-							title='Khôi phục mẫu mặc định'
+			<div className='max-w-[1200px] mx-auto p-0 font-secondary text-text-primary select-none'>
+				<AnimatePresence mode='wait'>
+					{loading ? (
+						<motion.div
+							key='skeleton'
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							exit={{ opacity: 0 }}
 						>
-							<Sparkles size={16} className='mx-auto' />
-						</Button>
-						<Button
-							onClick={handleClearAllToUnranked}
-							variant='danger'
-							className='p-2 flex-1 sm:flex-none'
-							title='Đưa tất cả cổ vật về kho'
+							<RelicTierSkeleton />
+						</motion.div>
+					) : (
+						<motion.div
+							key='content'
+							initial={{ opacity: 0, y: 10 }}
+							animate={{ opacity: 1, y: 0 }}
+							exit={{ opacity: 0, y: -10 }}
+							transition={{ duration: 0.3 }}
 						>
-							<Trash2 size={16} className='mx-auto' />
-						</Button>
-					</div>
-				</div>
-			</div>
-
-			<DndContext
-				sensors={sensors}
-				collisionDetection={rectIntersection}
-				onDragStart={handleDragStart}
-				onDragOver={handleDragOver}
-				onDragEnd={handleDragEnd}
-			>
-				{/* Bảng Tier List */}
-				<div
-					ref={tierListRef}
-					className='bg-surface-bg border border-border rounded-lg flex flex-col gap-1 p-1 shadow-inner overflow-visible mb-8'
-				>
-					<SortableContext
-						items={tiers.map(t => t.id)}
-						strategy={verticalListSortingStrategy}
-					>
-						{tiers.map(tier => (
-							<SortableTierRow
-								key={tier.id}
-								tier={tier}
-								isExporting={isExporting}
-								setTiers={setTiers}
-								tiers={tiers}
-								showColorPicker={showColorPicker}
-								setShowColorPicker={setShowColorPicker}
-								setUnranked={setUnranked}
-							>
-								<SortableContext
-									items={tier.items.map(i => i.id)}
-									strategy={rectSortingStrategy}
-								>
-									<DroppableZone
-										id={tier.id}
-										className='flex-1 p-1 sm:p-2 flex flex-wrap gap-1 sm:gap-2 items-center'
+							<div className='flex flex-col sm:flex-row justify-between items-center gap-4 mb-6 px-2'>
+								<h1 className='text-xl sm:text-2xl font-bold uppercase'>
+									Tier List Cổ Vật
+								</h1>
+								<div className='flex flex-wrap items-center justify-center sm:justify-end gap-2 w-full sm:w-auto'>
+									<Button
+										onClick={() =>
+											setTiers([
+												...tiers,
+												{
+													id: `t-${Date.now()}`,
+													name: "NEW",
+													description: "Mô tả",
+													color: "#555555",
+													items: [],
+												},
+											])
+										}
+										variant='outline'
+										className='text-xs flex-1 sm:flex-none min-w-[110px]'
 									>
-										{tier.items.map(item => (
-											<div
-												key={item.id}
-												onClick={e => {
-													if (e.ctrlKey || e.metaKey)
-														setSelectedIds(prev =>
-															prev.includes(item.id)
-																? prev.filter(x => x !== item.id)
-																: [...prev, item.id],
-														);
-													else
-														setSelectedIds(prev =>
-															prev.includes(item.id) ? [] : [item.id],
-														);
-												}}
-												className={`rounded-md transition-all ${selectedIds.includes(item.id) ? "ring-2 ring-primary-500 ring-offset-2 ring-offset-surface-bg scale-90" : ""}`}
+										<Plus size={14} className='mr-1' /> Thêm hàng
+									</Button>
+									<Button
+										id='dl-btn-relic'
+										onClick={downloadImage}
+										className='text-xs bg-primary-600 flex-1 sm:flex-none min-w-[110px]'
+									>
+										<Download size={14} className='mr-1' /> Lưu ảnh
+									</Button>
+									<div className='flex gap-2 w-full sm:w-auto justify-center'>
+										<Button
+											onClick={handleResetToSample}
+											variant='outline'
+											className='p-2 border-primary-500 text-primary-500 hover:bg-primary-500/10 flex-1 sm:flex-none'
+											title='Khôi phục mẫu mặc định'
+										>
+											<Sparkles size={16} className='mx-auto' />
+										</Button>
+										<Button
+											onClick={handleClearAllToUnranked}
+											variant='danger'
+											className='p-2 flex-1 sm:flex-none'
+											title='Đưa tất cả cổ vật về kho'
+										>
+											<Trash2 size={16} className='mx-auto' />
+										</Button>
+									</div>
+								</div>
+							</div>
+
+							<DndContext
+								sensors={sensors}
+								collisionDetection={rectIntersection}
+								onDragStart={handleDragStart}
+								onDragOver={handleDragOver}
+								onDragEnd={handleDragEnd}
+							>
+								<div
+									ref={tierListRef}
+									className='bg-surface-bg border border-border rounded-lg flex flex-col gap-1 p-1 shadow-inner overflow-visible mb-8'
+								>
+									<SortableContext
+										items={tiers.map(t => t.id)}
+										strategy={verticalListSortingStrategy}
+									>
+										{tiers.map(tier => (
+											<SortableTierRow
+												key={tier.id}
+												tier={tier}
+												isExporting={isExporting}
+												setTiers={setTiers}
+												tiers={tiers}
+												showColorPicker={showColorPicker}
+												setShowColorPicker={setShowColorPicker}
+												setUnranked={setUnranked}
 											>
-												<SortableItem
-													id={item.id}
-													avatar={item.avatar}
-													title={item.descriptionRaw}
-												/>
+												<SortableContext
+													items={tier.items.map(i => i.id)}
+													strategy={rectSortingStrategy}
+												>
+													<DroppableZone
+														id={tier.id}
+														className='flex-1 p-1 sm:p-2 flex flex-wrap gap-1 sm:gap-2 items-center'
+													>
+														{tier.items.map(item => (
+															<div
+																key={item.id}
+																onClick={e => {
+																	if (e.ctrlKey || e.metaKey)
+																		setSelectedIds(prev =>
+																			prev.includes(item.id)
+																				? prev.filter(x => x !== item.id)
+																				: [...prev, item.id],
+																		);
+																	else
+																		setSelectedIds(prev =>
+																			prev.includes(item.id) ? [] : [item.id],
+																		);
+																}}
+																className={`rounded-md transition-all ${selectedIds.includes(item.id) ? "ring-2 ring-primary-500 ring-offset-2 ring-offset-surface-bg scale-90" : ""}`}
+															>
+																<SortableItem
+																	id={item.id}
+																	avatar={item.avatar}
+																	title={item.descriptionRaw}
+																/>
+															</div>
+														))}
+													</DroppableZone>
+												</SortableContext>
+											</SortableTierRow>
+										))}
+									</SortableContext>
+								</div>
+
+								<div className='p-4 bg-surface-bg border border-border rounded-lg shadow-sm'>
+									<div className='flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-4'>
+										<h2 className='text-xs font-bold text-text-secondary uppercase tracking-widest'>
+											Kho cổ vật ({unranked.length})
+										</h2>
+										<div className='flex gap-2 w-full sm:w-auto'>
+											<Button
+												variant='outline'
+												size='sm'
+												onClick={() =>
+													setSelectedIds(filteredUnranked.map(c => c.id))
+												}
+												className='text-[10px] h-8 flex-1 sm:flex-none'
+											>
+												<CheckSquare size={14} className='mr-1' /> Chọn tất cả
+											</Button>
+											<Button
+												variant='outline'
+												size='sm'
+												onClick={() => setSelectedIds([])}
+												className='text-[10px] h-8 flex-1 sm:flex-none'
+												disabled={selectedIds.length === 0}
+											>
+												<Square size={14} className='mr-1' /> Bỏ chọn (
+												{selectedIds.length})
+											</Button>
+										</div>
+									</div>
+
+									<div className='grid grid-cols-2 lg:grid-cols-5 gap-3 mb-6'>
+										<InputField
+											value={searchInput}
+											onChange={e => setSearchInput(e.target.value)}
+											onKeyPress={e => e.key === "Enter" && handleSearch()}
+											placeholder='Tìm cổ vật...'
+										/>
+										<MultiSelectFilter
+											options={filterOptions.rarities}
+											selectedValues={selectedRarities}
+											onChange={setSelectedRarities}
+											placeholder='Độ hiếm'
+										/>
+										<MultiSelectFilter
+											options={filterOptions.types}
+											selectedValues={selectedTypes}
+											onChange={setSelectedTypes}
+											placeholder='Loại'
+										/>
+										<Button variant='outline' onClick={handleResetFilters}>
+											<RotateCw size={14} className='mr-2' /> Reset
+										</Button>
+									</div>
+
+									<div
+										ref={warehouseRef}
+										onMouseDown={onMouseDown}
+										onMouseMove={onMouseMove}
+										onMouseUp={onMouseUp}
+										onMouseLeave={() =>
+											setIsSelecting(false) || setSelectionBox(null)
+										}
+										className='relative min-h-[400px] flex flex-col gap-10 bg-black/10 rounded-xl p-4 border border-white/5 overflow-hidden'
+									>
+										{isSelecting && selectionBox && (
+											<div
+												style={{
+													left: Math.min(
+														selectionBox.startX,
+														selectionBox.currentX,
+													),
+													top: Math.min(
+														selectionBox.startY,
+														selectionBox.currentY,
+													),
+													width: Math.abs(
+														selectionBox.startX - selectionBox.currentX,
+													),
+													height: Math.abs(
+														selectionBox.startY - selectionBox.currentY,
+													),
+												}}
+												className='absolute z-[100] border border-primary-500 bg-primary-500/20 pointer-events-none'
+											/>
+										)}
+
+										{Object.entries(warehouseGroups).map(([rarity, items]) => (
+											<div
+												key={rarity}
+												className='flex flex-col gap-3 group-rarity-container'
+											>
+												<div className='flex items-center gap-2 pointer-events-none'>
+													<div className='h-[2px] w-6 bg-primary-500'></div>
+													<span className='text-[11px] font-bold tracking-widest text-text-primary uppercase opacity-80'>
+														{rarity} ({items.length})
+													</span>
+												</div>
+												<SortableContext
+													items={items.map(i => i.id)}
+													strategy={rectSortingStrategy}
+												>
+													<DroppableZone
+														id={`unranked-${rarity.toUpperCase()}`}
+														className='flex flex-wrap gap-2.5 min-h-[60px] relative pointer-events-none'
+													>
+														{items.map(item => {
+															const isSelected = selectedIds.includes(item.id);
+															return (
+																<div
+																	key={item.id}
+																	data-id={item.id}
+																	className={`rounded-md transition-all pointer-events-auto cursor-pointer ${isSelected ? "ring-2 ring-primary-500 ring-offset-2 ring-offset-surface-bg scale-90" : ""}`}
+																	onClick={e => {
+																		e.stopPropagation();
+																		if (e.ctrlKey || e.metaKey)
+																			setSelectedIds(prev =>
+																				prev.includes(item.id)
+																					? prev.filter(x => x !== item.id)
+																					: [...prev, item.id],
+																			);
+																		else
+																			setSelectedIds(prev =>
+																				prev.includes(item.id) ? [] : [item.id],
+																			);
+																	}}
+																>
+																	<SortableItem
+																		id={item.id}
+																		avatar={item.avatar}
+																		title={item.descriptionRaw}
+																	/>
+																</div>
+															);
+														})}
+													</DroppableZone>
+												</SortableContext>
 											</div>
 										))}
-									</DroppableZone>
-								</SortableContext>
-							</SortableTierRow>
-						))}
-					</SortableContext>
-				</div>
-
-				{/* Kho Cổ Vật */}
-				<div className='p-4 bg-surface-bg border border-border rounded-lg shadow-sm'>
-					<div className='flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-4'>
-						<h2 className='text-xs font-bold text-text-secondary uppercase tracking-widest'>
-							Kho cổ vật ({unranked.length})
-						</h2>
-						<div className='flex gap-2 w-full sm:w-auto'>
-							<Button
-								variant='outline'
-								size='sm'
-								onClick={() => setSelectedIds(filteredUnranked.map(c => c.id))}
-								className='text-[10px] h-8 flex-1 sm:flex-none'
-							>
-								<CheckSquare size={14} className='mr-1' /> Chọn tất cả
-							</Button>
-							<Button
-								variant='outline'
-								size='sm'
-								onClick={() => setSelectedIds([])}
-								className='text-[10px] h-8 flex-1 sm:flex-none'
-								disabled={selectedIds.length === 0}
-							>
-								<Square size={14} className='mr-1' /> Bỏ chọn (
-								{selectedIds.length})
-							</Button>
-						</div>
-					</div>
-
-					<div className='grid grid-cols-2 lg:grid-cols-5 gap-3 mb-6'>
-						<InputField
-							value={searchInput}
-							onChange={e => setSearchInput(e.target.value)}
-							onKeyPress={e => e.key === "Enter" && handleSearch()}
-							placeholder='Tìm cổ vật...'
-						/>
-						<MultiSelectFilter
-							options={filterOptions.rarities}
-							selectedValues={selectedRarities}
-							onChange={setSelectedRarities}
-							placeholder='Độ hiếm'
-						/>
-						<MultiSelectFilter
-							options={filterOptions.types}
-							selectedValues={selectedTypes}
-							onChange={setSelectedTypes}
-							placeholder='Loại'
-						/>
-						<Button variant='outline' onClick={handleResetFilters}>
-							<RotateCw size={14} className='mr-2' /> Reset
-						</Button>
-					</div>
-
-					{/* VÙNG QUÉT CHỌN KHO ĐỒ */}
-					<div
-						ref={warehouseRef}
-						onMouseDown={onMouseDown}
-						onMouseMove={onMouseMove}
-						onMouseUp={onMouseUp}
-						onMouseLeave={() => setIsSelecting(false) || setSelectionBox(null)}
-						className='relative min-h-[400px] flex flex-col gap-10 bg-black/10 rounded-xl p-4 border border-white/5 overflow-hidden'
-					>
-						{isSelecting && selectionBox && (
-							<div
-								style={{
-									left: Math.min(selectionBox.startX, selectionBox.currentX),
-									top: Math.min(selectionBox.startY, selectionBox.currentY),
-									width: Math.abs(selectionBox.startX - selectionBox.currentX),
-									height: Math.abs(selectionBox.startY - selectionBox.currentY),
-								}}
-								className='absolute z-[100] border border-primary-500 bg-primary-500/20 pointer-events-none'
-							/>
-						)}
-
-						{Object.entries(warehouseGroups).map(([rarity, items]) => (
-							<div
-								key={rarity}
-								className='flex flex-col gap-3 group-rarity-container'
-							>
-								<div className='flex items-center gap-2 pointer-events-none'>
-									<div className='h-[2px] w-6 bg-primary-500'></div>
-									<span className='text-[11px] font-bold tracking-widest text-text-primary uppercase opacity-80'>
-										{rarity} ({items.length})
-									</span>
-								</div>
-
-								<SortableContext
-									items={items.map(i => i.id)}
-									strategy={rectSortingStrategy}
-								>
-									<DroppableZone
-										id={`unranked-${rarity.toUpperCase()}`}
-										className='flex flex-wrap gap-2.5 min-h-[60px] relative pointer-events-none'
-									>
-										{items.map(item => {
-											const isSelected = selectedIds.includes(item.id);
-											return (
-												<div
-													key={item.id}
-													data-id={item.id}
-													className={`rounded-md transition-all pointer-events-auto cursor-pointer ${isSelected ? "ring-2 ring-primary-500 ring-offset-2 ring-offset-surface-bg scale-90" : ""}`}
-													onClick={e => {
-														e.stopPropagation();
-														if (e.ctrlKey || e.metaKey)
-															setSelectedIds(prev =>
-																prev.includes(item.id)
-																	? prev.filter(x => x !== item.id)
-																	: [...prev, item.id],
-															);
-														else
-															setSelectedIds(prev =>
-																prev.includes(item.id) ? [] : [item.id],
-															);
-													}}
-												>
-													<SortableItem
-														id={item.id}
-														avatar={item.avatar}
-														title={item.descriptionRaw}
-													/>
-												</div>
-											);
-										})}
-									</DroppableZone>
-								</SortableContext>
-							</div>
-						))}
-					</div>
-				</div>
-
-				<DragOverlay
-					dropAnimation={{
-						sideEffects: defaultDropAnimationSideEffects({
-							styles: { active: { opacity: "0.4" } },
-						}),
-					}}
-				>
-					{activeId ? (
-						activeType === "tier" ? (
-							<div className='flex min-h-[100px] w-full bg-surface-bg border-2 border-primary-500 opacity-80 rounded-lg overflow-hidden shadow-2xl'>
-								<div
-									style={{
-										backgroundColor: tiers.find(t => t.id === activeId)?.color,
-									}}
-									className='w-36 flex items-center justify-center font-bold text-3xl text-black uppercase'
-								>
-									{tiers.find(t => t.id === activeId)?.name}
-								</div>
-								<div className='flex-1 p-4 bg-black/40 text-text-secondary italic flex items-center'>
-									Di chuyển hàng...
-								</div>
-							</div>
-						) : (
-							<div className='relative'>
-								<SortableItem
-									id={activeId}
-									avatar={activeItem?.avatar}
-									title={activeItem?.descriptionRaw}
-									isOverlay
-								/>
-								{selectedIds.length > 1 && selectedIds.includes(activeId) && (
-									<div className='absolute -top-2 -right-2 bg-primary-600 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center shadow-lg border-2 border-white'>
-										{selectedIds.length}
 									</div>
-								)}
-							</div>
-						)
-					) : null}
-				</DragOverlay>
-			</DndContext>
+								</div>
+
+								<DragOverlay
+									dropAnimation={{
+										sideEffects: defaultDropAnimationSideEffects({
+											styles: { active: { opacity: "0.4" } },
+										}),
+									}}
+								>
+									{activeId ? (
+										activeType === "tier" ? (
+											<div className='flex min-h-[100px] w-full bg-surface-bg border-2 border-primary-500 opacity-80 rounded-lg overflow-hidden shadow-2xl'>
+												<div
+													style={{
+														backgroundColor: tiers.find(t => t.id === activeId)
+															?.color,
+													}}
+													className='w-36 flex items-center justify-center font-bold text-3xl text-black uppercase'
+												>
+													{tiers.find(t => t.id === activeId)?.name}
+												</div>
+												<div className='flex-1 p-4 bg-black/40 text-text-secondary italic flex items-center'>
+													Di chuyển hàng...
+												</div>
+											</div>
+										) : (
+											<div className='relative'>
+												<SortableItem
+													id={activeId}
+													avatar={activeItem?.avatar}
+													title={activeItem?.descriptionRaw}
+													isOverlay
+												/>
+												{selectedIds.length > 1 &&
+													selectedIds.includes(activeId) && (
+														<div className='absolute -top-2 -right-2 bg-primary-600 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center shadow-lg border-2 border-white'>
+															{selectedIds.length}
+														</div>
+													)}
+											</div>
+										)
+									) : null}
+								</DragOverlay>
+							</DndContext>
+						</motion.div>
+					)}
+				</AnimatePresence>
+			</div>
 		</div>
 	);
 }

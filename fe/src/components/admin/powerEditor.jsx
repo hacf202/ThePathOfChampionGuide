@@ -22,7 +22,7 @@ const NEW_POWER_TEMPLATE = {
 
 const ITEMS_PER_PAGE = 20;
 
-// === LIST VIEW ===
+// === LIST VIEW COMPONENT ===
 const PowerListView = memo(
 	({
 		paginatedPowers,
@@ -87,7 +87,7 @@ const PowerListView = memo(
 	},
 );
 
-// === EDIT WRAPPER ===
+// === EDIT WRAPPER COMPONENT ===
 const PowerEditWrapper = ({
 	powers,
 	onSave,
@@ -101,11 +101,9 @@ const PowerEditWrapper = ({
 	const selectedPower = useMemo(() => {
 		if (id === "new") return { ...NEW_POWER_TEMPLATE };
 
-		// FIX: Đảm bảo powers là mảng trước khi find
 		const safePowers = Array.isArray(powers) ? powers : [];
 		const found = safePowers.find(p => p.powerCode === id);
 		if (found) {
-			// FORCE isNew: false cho mọi power đã tồn tại (từ server)
 			return { ...found, isNew: false };
 		}
 		return null;
@@ -115,8 +113,12 @@ const PowerEditWrapper = ({
 		navigate("/admin/powers");
 	}, [navigate]);
 
-	// FIX: Kiểm tra an toàn trước khi hiển thị lỗi không tìm thấy
-	if (!selectedPower && Array.isArray(powers) && powers.length > 0) {
+	if (
+		!selectedPower &&
+		id !== "new" &&
+		Array.isArray(powers) &&
+		powers.length > 0
+	) {
 		return (
 			<div className='flex flex-col items-center justify-center py-20 text-text-secondary'>
 				<p className='text-xl mb-4'>Không tìm thấy sức mạnh có mã: {id}</p>
@@ -167,12 +169,9 @@ function PowerEditor() {
 	const fetchAllData = useCallback(async () => {
 		try {
 			setIsLoading(true);
-			// FIX: Thêm limit=1000 để lấy toàn bộ dữ liệu phục vụ Admin quản lý
 			const res = await fetch(`${API_BASE_URL}/api/powers?limit=1000`);
 			if (!res.ok) throw new Error("Không thể tải dữ liệu");
 			const data = await res.json();
-
-			// FIX: Backend trả về object { items: [], pagination: {} }
 			setPowers(data.items || []);
 		} catch (e) {
 			setError("Không thể tải dữ liệu từ server.");
@@ -186,7 +185,6 @@ function PowerEditor() {
 	}, [fetchAllData]);
 
 	const filterOptions = useMemo(() => {
-		// FIX: Kiểm tra mảng an toàn để tránh lỗi map/flatMap
 		const safePowers = Array.isArray(powers) ? powers : [];
 		const rarities = [
 			...new Set(safePowers.map(p => p.rarity).filter(Boolean)),
@@ -204,7 +202,6 @@ function PowerEditor() {
 	}, [powers]);
 
 	const filteredPowers = useMemo(() => {
-		// FIX: Kiểm tra mảng an toàn
 		let result = Array.isArray(powers) ? [...powers] : [];
 
 		if (searchTerm) {
@@ -226,7 +223,7 @@ function PowerEditor() {
 		result.sort((a, b) => {
 			const A = a.name || "";
 			const B = b.name || "";
-			return dir === "asc" ? (A > B ? 1 : -1) : A < B ? 1 : -1;
+			return dir === "asc" ? A.localeCompare(B) : B.localeCompare(A);
 		});
 
 		return result;
@@ -251,22 +248,16 @@ function PowerEditor() {
 				body: JSON.stringify(data),
 			});
 
+			const result = await res.json();
+
 			if (!res.ok) {
-				let errorMessage = "Lưu thất bại.";
-				try {
-					const errorBody = await res.json();
-					errorMessage = errorBody.error || errorBody.message || errorMessage;
-				} catch {}
-				throw new Error(errorMessage);
+				// Hiển thị lỗi từ backend (ví dụ: "Mã sức mạnh đã tồn tại")
+				throw new Error(result.error || "Lưu thất bại.");
 			}
 
 			await fetchAllData();
 			navigate("/admin/powers");
-			alert(
-				data.isNew
-					? "Tạo sức mạnh mới thành công"
-					: "Cập nhật sức mạnh thành công",
-			);
+			alert(result.message || "Lưu thành công");
 		} catch (e) {
 			alert(e.message || "Đã có lỗi xảy ra");
 		} finally {
@@ -276,8 +267,6 @@ function PowerEditor() {
 
 	const handleDeletePower = async powerCode => {
 		if (!powerCode) return;
-		if (!window.confirm("Bạn có chắc chắn muốn xóa sức mạnh này?")) return; // Thêm xác nhận an toàn
-
 		setIsSaving(true);
 		try {
 			const token = localStorage.getItem("token");

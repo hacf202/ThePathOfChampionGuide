@@ -67,7 +67,7 @@ const BuildSummary = ({
 		if (user && build.sub === user.sub) {
 			return user.name || "Tôi";
 		}
-		return "Đang tải...";
+		return build.creator;
 	}, [build.creatorName, build.creator, build.sub, user]);
 
 	// Đồng bộ lại khi props thay đổi (đề phòng trường hợp API batch trả về chậm)

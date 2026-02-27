@@ -22,7 +22,7 @@ const NEW_ITEM_TEMPLATE = {
 
 const ITEMS_PER_PAGE = 20;
 
-// === LIST VIEW ===
+// === LIST VIEW COMPONENT ===
 const ItemListView = memo(
 	({
 		paginatedItems,
@@ -87,7 +87,7 @@ const ItemListView = memo(
 	},
 );
 
-// === EDIT WRAPPER ===
+// === EDIT WRAPPER COMPONENT ===
 const ItemEditWrapper = ({
 	items,
 	onSave,
@@ -101,10 +101,10 @@ const ItemEditWrapper = ({
 	const selectedItem = useMemo(() => {
 		if (id === "new") return { ...NEW_ITEM_TEMPLATE };
 
-		// FIX: Kiểm tra items có phải mảng không trước khi find
 		const safeItems = Array.isArray(items) ? items : [];
 		const found = safeItems.find(i => i.itemCode === id);
 		if (found) {
+			// Đánh dấu isNew: false để Backend nhận biết lệnh Cập nhật
 			return { ...found, isNew: false };
 		}
 		return null;
@@ -114,8 +114,12 @@ const ItemEditWrapper = ({
 		navigate("/admin/items");
 	}, [navigate]);
 
-	// FIX: Thêm kiểm tra Array.isArray
-	if (!selectedItem && Array.isArray(items) && items.length > 0) {
+	if (
+		!selectedItem &&
+		id !== "new" &&
+		Array.isArray(items) &&
+		items.length > 0
+	) {
 		return (
 			<div className='flex flex-col items-center justify-center py-20 text-text-secondary'>
 				<p className='text-xl mb-4'>Không tìm thấy vật phẩm có mã: {id}</p>
@@ -165,12 +169,9 @@ function ItemEditor() {
 	const fetchAllData = useCallback(async () => {
 		try {
 			setIsLoading(true);
-			// FIX: Thêm limit=1000 để Admin thấy hết vật phẩm
 			const res = await fetch(`${API_BASE_URL}/api/items?limit=1000`);
 			if (!res.ok) throw new Error("Không thể tải dữ liệu");
 			const data = await res.json();
-
-			// FIX: Lấy data.items vì Backend trả về object phân trang
 			setItems(data.items || []);
 		} catch (e) {
 			setError("Không thể tải dữ liệu từ server.");
@@ -184,7 +185,6 @@ function ItemEditor() {
 	}, [fetchAllData]);
 
 	const filterOptions = useMemo(() => {
-		// FIX: Kiểm tra an toàn
 		const safeItems = Array.isArray(items) ? items : [];
 		const rarities = [
 			...new Set(safeItems.map(i => i.rarity).filter(Boolean)),
@@ -200,7 +200,6 @@ function ItemEditor() {
 	}, [items]);
 
 	const filteredItems = useMemo(() => {
-		// FIX: Kiểm tra an toàn
 		let result = Array.isArray(items) ? [...items] : [];
 
 		if (searchTerm) {
@@ -218,7 +217,7 @@ function ItemEditor() {
 		result.sort((a, b) => {
 			const A = a.name || "";
 			const B = b.name || "";
-			return dir === "asc" ? (A > B ? 1 : -1) : A < B ? 1 : -1;
+			return dir === "asc" ? A.localeCompare(B) : B.localeCompare(A);
 		});
 
 		return result;
@@ -243,22 +242,16 @@ function ItemEditor() {
 				body: JSON.stringify(data),
 			});
 
+			const result = await res.json();
+
 			if (!res.ok) {
-				let errorMessage = "Lưu thất bại.";
-				try {
-					const errorBody = await res.json();
-					errorMessage = errorBody.error || errorBody.message || errorMessage;
-				} catch {}
-				throw new Error(errorMessage);
+				// CITE: Sử dụng lỗi từ backend đã cập nhật ở be/src/routes/items.js
+				throw new Error(result.error || "Lưu thất bại.");
 			}
 
 			await fetchAllData();
 			navigate("/admin/items");
-			alert(
-				data.isNew
-					? "Tạo vật phẩm mới thành công"
-					: "Cập nhật vật phẩm thành công",
-			);
+			alert(result.message || "Lưu thành công");
 		} catch (e) {
 			alert(e.message || "Đã có lỗi xảy ra");
 		} finally {
@@ -267,8 +260,8 @@ function ItemEditor() {
 	};
 
 	const handleDeleteItem = async itemCode => {
-		if (!itemCode) return;
-		if (!window.confirm("Bạn có chắc chắn muốn xóa vật phẩm này?")) return;
+		if (!itemCode || !window.confirm("Bạn có chắc chắn muốn xóa vật phẩm này?"))
+			return;
 		setIsSaving(true);
 		try {
 			const token = localStorage.getItem("token");
