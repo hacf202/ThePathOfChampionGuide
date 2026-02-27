@@ -1,5 +1,5 @@
 // src/pages/Home.jsx
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import PageTitle from "../components/common/pageTitle";
 import {
@@ -26,69 +26,90 @@ const BACKGROUND_IMAGES = [
 	"https://dd.b.pvp.net/6_3_0/tpoc/vi_vn/img/cards/98RU004T1-full.png",
 ];
 
-const preloadBackgrounds = () => {
-	BACKGROUND_IMAGES.forEach(src => {
-		const link = document.createElement("link");
-		link.rel = "preload";
-		link.as = "image";
-		link.href = src;
-		document.head.appendChild(link);
-	});
-};
+// Hiệu ứng tải trang Skeleton với tông màu tối đồng bộ
+const HomeSkeleton = () => (
+	<div className='fixed inset-0 z-50 bg-[#0f172a] flex flex-col items-center justify-center p-6 space-y-8'>
+		<div className='w-3/4 h-16 md:h-24 bg-gray-800 rounded-lg animate-pulse'></div>
+		<div className='w-1/2 h-6 md:h-10 bg-gray-800 rounded animate-pulse'></div>
+		<div className='flex gap-4 mt-4'>
+			{[1, 2, 3, 4].map(i => (
+				<div
+					key={i}
+					className='w-16 h-20 md:w-24 md:h-32 bg-gray-800 rounded-xl animate-pulse'
+				></div>
+			))}
+		</div>
+		<div className='w-48 md:w-80 h-12 md:h-20 bg-gray-700 rounded-full mt-8 animate-pulse'></div>
+	</div>
+);
 
 const Home = () => {
+	const [isLoading, setIsLoading] = useState(true);
+
 	useEffect(() => {
-		preloadBackgrounds();
+		const preloadImages = async () => {
+			const promises = BACKGROUND_IMAGES.map(src => {
+				return new Promise(resolve => {
+					const img = new Image();
+					img.src = src;
+					img.onload = resolve;
+					img.onerror = resolve;
+				});
+			});
+			await Promise.all(promises);
+			setTimeout(() => setIsLoading(false), 800);
+		};
+		preloadImages();
 	}, []);
 
 	const roles = [
 		{
 			icon: Swords,
-			bg: "bg-role-aggro",
+			bg: "bg-[var(--color-role-aggro)]",
 			label: "AGGRO",
-			shadow: "shadow-role-aggro/50",
+			shadow: "shadow-[var(--color-role-aggro)]/50",
 			link: "/champions",
 		},
 		{
 			icon: Zap,
-			bg: "bg-role-combo",
+			bg: "bg-[var(--color-role-combo)]",
 			label: "COMBO",
-			shadow: "shadow-role-combo/60",
+			shadow: "shadow-[var(--color-role-combo)]/60",
 			link: "/champions",
 		},
 		{
 			icon: Shield,
-			bg: "bg-role-control",
+			bg: "bg-[var(--color-role-control)]",
 			label: "CONTROL",
-			shadow: "shadow-role-control/50",
+			shadow: "shadow-[var(--color-role-control)]/50",
 			link: "/champions",
 		},
 		{
 			icon: Skull,
-			bg: "bg-role-mill",
+			bg: "bg-[var(--color-role-mill)]",
 			label: "MILL",
-			shadow: "shadow-role-mill/50",
+			shadow: "shadow-[var(--color-role-mill)]/50",
 			link: "/champions",
 		},
 		{
 			icon: Target,
-			bg: "bg-role-midrange",
+			bg: "bg-[var(--color-role-midrange)]",
 			label: "MIDRANGE",
-			shadow: "shadow-role-midrange/50",
+			shadow: "shadow-[var(--color-role-midrange)]/50",
 			link: "/champions",
 		},
 		{
 			icon: Flame,
-			bg: "bg-role-burn",
+			bg: "bg-[var(--color-role-burn)]",
 			label: "BURN",
-			shadow: "shadow-role-burn/50",
+			shadow: "shadow-[var(--color-role-burn)]/50",
 			link: "/champions",
 		},
 		{
 			icon: HandFist,
-			bg: "bg-role-ftk-otk",
+			bg: "bg-[var(--color-role-ftk-otk)]",
 			label: "FTK/OTK",
-			shadow: "shadow-role-ftk-otk/50",
+			shadow: "shadow-[var(--color-role-ftk-otk)]/50",
 			link: "/champions",
 		},
 	];
@@ -97,10 +118,11 @@ const Home = () => {
 		{
 			title: "SORAKA - TINH NỮ",
 			subtitle: "Lữ Khách Thượng Giới",
-			titleColor: "text-inferno-title",
-			subtitleColor: "text-inferno-subtitle",
-			btnBg: "bg-inferno-500",
-			btnHover: "hover:bg-inferno-700 hover:shadow-inferno-500/60",
+			titleColor: "text-[var(--color-inferno-title)]",
+			subtitleColor: "text-[var(--color-inferno-subtitle)]",
+			btnBg: "bg-[var(--color-inferno-500)]",
+			btnHover:
+				"hover:bg-[var(--color-inferno-700)] shadow-[var(--color-inferno-500)]/40",
 			link: "/champion/C082",
 			btnText: "Xem chi tiết tướng",
 			icon: Flame,
@@ -109,23 +131,24 @@ const Home = () => {
 		{
 			title: "DANH SÁCH TƯỚNG",
 			subtitle: "KHÁM PHÁ SỨC MẠNH – TRỞ THÀNH CAO THỦ",
-			titleColor: "text-accent1-title",
-			subtitleColor: "text-accent1-subtitle",
-			btnBg: "bg-accent1-cta-bg",
-			btnHover: "hover:bg-accent1-cta-hover hover:shadow-accent1-cta-bg/70",
+			titleColor: "text-[var(--color-accent1-title)]",
+			subtitleColor: "text-[var(--color-accent1-subtitle)]",
+			btnBg: "bg-[var(--color-accent1-cta-bg)]",
+			btnHover:
+				"hover:bg-[var(--color-accent1-cta-hover)] shadow-[var(--color-accent1-cta-bg)]/50",
 			link: "/champions",
 			btnText: "Xem Danh Sách Tướng",
 			icon: Swords,
 			align: "center",
 		},
-
 		{
 			title: "THỬ THÁCH THÁNG",
 			subtitle: "Hướng Dẫn Vượt Ải Hiệu Quả",
-			titleColor: "text-accent2-title",
-			subtitleColor: "text-accent2-subtitle",
-			btnBg: "bg-accent2-cta-bg",
-			btnHover: "hover:bg-accent2-cta-hover hover:shadow-accent2-cta-bg/70",
+			titleColor: "text-[var(--color-accent2-title)]",
+			subtitleColor: "text-[var(--color-accent2-subtitle)]",
+			btnBg: "bg-[var(--color-accent2-cta-bg)]",
+			btnHover:
+				"hover:bg-[var(--color-accent2-cta-hover)] shadow-[var(--color-accent2-cta-bg)]/50",
 			link: "/guides/thu-thach-thang",
 			btnText: "Xem Hướng Dẫn",
 			icon: ScrollText,
@@ -134,22 +157,24 @@ const Home = () => {
 		{
 			title: "DANH SÁCH CỔ VẬT",
 			subtitle: "TỐI ƯU HÓA SỨC MẠNH",
-			titleColor: "text-accent2-title",
-			subtitleColor: "text-accent2-subtitle",
-			btnBg: "bg-accent2-cta-bg",
-			btnHover: "hover:bg-accent2-cta-hover hover:shadow-accent2-cta-bg/70",
+			titleColor: "text-[var(--color-emerald-title)]",
+			subtitleColor: "text-[var(--color-emerald-subtitle)]",
+			btnBg: "bg-[var(--color-emerald-500)]",
+			btnHover:
+				"hover:bg-[var(--color-emerald-700)] shadow-[var(--color-emerald-500)]/40",
 			link: "/builds",
 			btnText: "Xem Bộ Cổ Vật",
 			icon: ScrollText,
 			align: "left",
 		},
 		{
-			title: "Hướng Dẫn POC",
+			title: "HƯỚNG DẪN POC",
 			subtitle: "BÍ KÍP CON ĐƯỜNG ANH HÙNG",
-			titleColor: "text-purple-200",
-			subtitleColor: "text-purple-100",
-			btnBg: "bg-purple-800",
-			btnHover: "hover:bg-purple-700 hover:shadow-purple-800/50",
+			titleColor: "text-[var(--color-celestial-title)]",
+			subtitleColor: "text-[var(--color-celestial-subtitle)]",
+			btnBg: "bg-[var(--color-celestial-500)]",
+			btnHover:
+				"hover:bg-[var(--color-celestial-700)] shadow-[var(--color-celestial-500)]/40",
 			link: "/guides",
 			btnText: "Xem Hướng Dẫn",
 			icon: ScrollText,
@@ -158,10 +183,11 @@ const Home = () => {
 		{
 			title: "VÒNG QUAY MAY MẮN",
 			subtitle: "NGẪU NHIÊN HOÀN HẢO",
-			titleColor: "text-accent3-title",
-			subtitleColor: "text-accent3-subtitle",
-			btnBg: "bg-accent3-cta-bg",
-			btnHover: "hover:bg-accent3-cta-hover hover:shadow-accent3-cta-bg/70",
+			titleColor: "text-[var(--color-accent3-title)]",
+			subtitleColor: "text-[var(--color-accent3-subtitle)]",
+			btnBg: "bg-[var(--color-accent3-cta-bg)]",
+			btnHover:
+				"hover:bg-[var(--color-accent3-cta-hover)] shadow-[var(--color-accent3-cta-bg)]/50",
 			link: "/randomizer",
 			btnText: "Quay Ngay",
 			icon: Dices,
@@ -171,19 +197,22 @@ const Home = () => {
 		{
 			title: "TIER LIST POC",
 			subtitle: "Bảng Xếp Hạng Tướng",
-			titleColor: "text-accent1-title",
-			subtitleColor: "text-accent1-subtitle",
-			btnBg: "bg-red-600",
-			btnHover: "hover:bg-red-700 hover:shadow-red-600/50",
+			titleColor: "text-[var(--color-blood-title)]",
+			subtitleColor: "text-[var(--color-blood-subtitle)]",
+			btnBg: "bg-[var(--color-blood-500)]",
+			btnHover:
+				"hover:bg-[var(--color-blood-700)] shadow-[var(--color-blood-500)]/40",
 			link: "/tierlist",
-			btnText: "Tạo Bảng Xếp Hạng",
+			btnText: "Xem Bảng Xếp Hạng",
 			icon: Swords,
 			align: "right",
 		},
 	];
 
+	if (isLoading) return <HomeSkeleton />;
+
 	return (
-		<div>
+		<div className='animate-reveal'>
 			<PageTitle
 				title='Con Đường Anh Hùng'
 				description='POC GUIDE - Wiki Hướng Dẫn Con Đường Anh Hùng (Path of Champions)'
@@ -191,7 +220,7 @@ const Home = () => {
 			/>
 
 			<div className='text-white overflow-x-hidden font-primary'>
-				<div className='fixed inset-0 -z-20 pointer-events-none bg-page-overlay' />
+				<div className='fixed inset-0 -z-20 pointer-events-none bg-[var(--color-bg-overlay)]' />
 
 				{sections.map((section, idx) => (
 					<section
@@ -200,13 +229,13 @@ const Home = () => {
 					>
 						{/* Background layer */}
 						<div
-							className='absolute inset-0 w-full h-full -z-10 bg-cover bg-center'
+							className='absolute inset-0 w-full h-full -z-10 bg-cover bg-center transition-opacity duration-1000'
 							style={{
 								backgroundImage: `url(${BACKGROUND_IMAGES[idx % BACKGROUND_IMAGES.length]})`,
 								filter: "brightness(0.8) contrast(1.1)",
 							}}
 						/>
-						<div className='absolute inset-0 bg-black/20 -z-10' />
+						<div className='absolute inset-0 bg-black/40 -z-10' />
 
 						{/* Content Container */}
 						<div
@@ -217,10 +246,10 @@ const Home = () => {
 								${section.align === "center" ? "left-1/2 -translate-x-1/2 text-center max-w-6xl" : ""}
 							`}
 						>
-							{/* Badge - Chỉ hiện ở section đầu */}
-							{idx === 0 && section.align === "center" && (
-								<div className='flex justify-center mb-6 md:mb-8'>
-									<div className='inline-flex items-center gap-2 md:gap-3 px-5 py-2 md:px-7 md:py-3 bg-accent1-badge-bg rounded-full shadow-xl animate-badgeBounce'>
+							{/* Badge - Section 0 */}
+							{idx === 0 && section.align === "left" && (
+								<div className='flex justify-start mb-6 md:mb-8'>
+									<div className='inline-flex items-center gap-2 md:gap-3 px-5 py-2 md:px-7 md:py-3 bg-[var(--color-accent1-badge-bg)] rounded-full shadow-xl animate-badgeBounce'>
 										<Crown className='w-5 h-5 md:w-7 md:h-7 text-white' />
 										<span className='font-bold uppercase tracking-wider text-white text-sm md:text-lg'>
 											Con Đường Anh Hùng
@@ -229,44 +258,38 @@ const Home = () => {
 								</div>
 							)}
 
-							{/* Title */}
+							{/* Title & Subtitle */}
 							<h2
-								className={`
-									font-bold mb-2 md:mb-4 tracking-wider drop-shadow-2xl animate-fadeIn
-									text-3xl md:text-7xl lg:text-8xl
-									${section.titleColor}
-								`}
-								style={{ textShadow: "0 0 20px rgba(255,255,255,0.3)" }}
+								className={`font-bold mb-2 md:mb-4 tracking-wider drop-shadow-2xl animate-fadeIn text-3xl md:text-7xl lg:text-8xl ${section.titleColor}`}
 							>
 								{section.title}
 							</h2>
-
-							{/* Subtitle */}
 							<p
-								className={`
-									font-bold uppercase tracking-widest mb-6 md:mb-8 drop-shadow-xl animate-slideUp
-									text-sm md:text-3xl lg:text-4xl
-									${section.subtitleColor}
-								`}
+								className={`font-bold uppercase tracking-widest mb-6 md:mb-8 drop-shadow-xl animate-slideUp text-sm md:text-3xl lg:text-4xl ${section.subtitleColor}`}
 							>
 								{section.subtitle}
 							</p>
 
-							{/* Role Cards - Chỉ hiện ở section đầu */}
-							{idx === 0 && section.align === "center" && (
-								<div className='flex flex-wrap justify-center gap-2 md:gap-6 lg:gap-10 mb-8 max-w-full'>
+							{/* Role Cards - Di chuyển sang Section 1 (Index 1) */}
+							{idx === 1 && (
+								<div
+									className={`
+        flex flex-wrap gap-2 md:gap-6 lg:gap-10 mb-8 max-w-full
+        ${section.align === "center" ? "justify-center" : "justify-start"}
+    `}
+								>
 									{roles.map((role, i) => (
 										<NavLink
 											key={i}
 											to={role.link}
 											className={`
-												group flex flex-col items-center gap-1 md:gap-2 
-												p-2 md:p-5 rounded-lg md:rounded-2xl 
-												bg-glass-bg backdrop-blur-md border border-glass-border 
-												hover:bg-glass-hover-bg transition-all duration-500 
-												shadow-lg ${role.shadow} animate-cardFloat
-												w-[70px] md:w-auto
-											`}
+                    group flex flex-col items-center gap-1 md:gap-2 
+                    p-2 md:p-5 rounded-lg md:rounded-2xl 
+                    bg-[var(--color-glass-bg)] border border-[var(--color-glass-border)] 
+                    hover:bg-[var(--color-glass-hover-bg)] transition-all duration-500 
+                    shadow-lg ${role.shadow} animate-cardFloat
+                    w-[70px] md:w-auto
+                `}
 											style={{ animationDelay: `${i * 100}ms` }}
 										>
 											<div
@@ -274,7 +297,7 @@ const Home = () => {
 											>
 												<role.icon className='w-6 h-6 md:w-9 lg:w-11 text-white' />
 											</div>
-											<span className='text-[10px] md:text-sm lg:text-base font-bold text-glass-text text-center'>
+											<span className='text-[10px] md:text-sm lg:text-base font-bold text-white text-center uppercase'>
 												{role.label}
 											</span>
 										</NavLink>
@@ -282,14 +305,9 @@ const Home = () => {
 								</div>
 							)}
 
-							{/* Nút điều hướng (CTA Button) - Đã làm nhỏ lại cho Mobile */}
+							{/* Nút điều hướng (CTA Button) */}
 							<div
-								className={`
-									flex flex-col sm:flex-row gap-4 animate-slideUp
-									${section.align === "left" ? "justify-start" : ""}
-									${section.align === "right" ? "justify-end" : ""}
-									${section.align === "center" ? "justify-center" : ""}
-								`}
+								className={`flex flex-col sm:flex-row gap-4 animate-slideUp ${section.align === "left" ? "justify-start" : section.align === "right" ? "justify-end" : "justify-center"}`}
 							>
 								<NavLink
 									to={section.link}
@@ -299,15 +317,15 @@ const Home = () => {
 										${section.btnBg} rounded-full
 										font-bold text-base md:text-4xl text-white 
 										hover:scale-105 md:hover:scale-110 transition-all duration-300
-										shadow-xl ${section.btnHover} backdrop-blur-md group
+										shadow-xl ${section.btnHover}  group
 									`}
 								>
-									{section.spin ? (
-										<section.icon className='w-5 h-5 md:w-10 md:h-10 animate-spin' />
-									) : (
-										<section.icon className='w-5 h-5 md:w-10 md:h-10' />
-									)}
-									<span className='whitespace-nowrap'>{section.btnText}</span>
+									<section.icon
+										className={`w-5 h-5 md:w-10 md:h-10 ${section.spin ? "animate-spin" : ""}`}
+									/>
+									<span className='whitespace-nowrap uppercase'>
+										{section.btnText}
+									</span>
 									<ChevronRight className='w-5 h-5 md:w-8 group-hover:translate-x-2 transition-transform' />
 								</NavLink>
 							</div>
