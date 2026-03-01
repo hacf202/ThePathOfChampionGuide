@@ -1,12 +1,11 @@
-// Một tệp trợ giúp nhỏ để xử lý logic lặp đi lặp lại trong các lệnh gọi fetch, giúp authService.js gọn gàng hơn.
+// fe/src/context/services/apiHelper.js
+
 const COGNITO_URL = "https://cognito-idp.us-east-1.amazonaws.com";
+// Đảm bảo VITE_API_URL trong file .env là http://localhost:3000
 const BACKEND_URL = import.meta.env.VITE_API_URL;
 
 /**
  * Hàm chung để gọi API của AWS Cognito.
- * @param {string} target - Target của AWS, ví dụ: "AWSCognitoIdentityProviderService.SignUp".
- * @param {object} body - Nội dung của request.
- * @returns {Promise<any>} - Dữ liệu trả về từ API.
  */
 async function cognitoApiRequest(target, body) {
 	const response = await fetch(COGNITO_URL, {
@@ -19,38 +18,31 @@ async function cognitoApiRequest(target, body) {
 	});
 
 	if (!response.ok) {
-		// Cố gắng phân tích lỗi để thông báo rõ ràng hơn
 		const errorText = await response.text();
 		try {
 			const errorJson = JSON.parse(errorText);
 			throw new Error(
 				errorJson.message ||
 					errorJson.__type ||
-					`Lỗi Cognito (mã: ${response.status})`
+					`Lỗi Cognito (mã: ${response.status})`,
 			);
 		} catch {
 			throw new Error(`Lỗi Cognito (mã: ${response.status}): ${errorText}`);
 		}
 	}
 
-	// Đối với một số API thành công không trả về body (ví dụ: ConfirmForgotPassword)
 	const responseText = await response.text();
 	return responseText ? JSON.parse(responseText) : {};
 }
 
 /**
- * Hàm chung để gọi API backend của bạn.
- * @param {string} endpoint - Đường dẫn API, ví dụ: "/api/auth/forgot-password-strict".
- * @param {string} method - Phương thức HTTP (GET, POST, PUT, DELETE).
- * @param {object} body - Nội dung của request (cho POST, PUT).
- * @param {string|null} token - ID token để xác thực.
- * @returns {Promise<any>} - Dữ liệu trả về từ API.
+ * Hàm chung để gọi API backend.
  */
 async function backendApiRequest(
 	endpoint,
 	method = "GET",
 	body = null,
-	token = null
+	token = null,
 ) {
 	const headers = {
 		"Content-Type": "application/json",
@@ -67,8 +59,20 @@ async function backendApiRequest(
 		config.body = JSON.stringify(body);
 	}
 
-	const response = await fetch(`${BACKEND_URL}${endpoint}`, config);
-	const data = await response.json();
+	// TỰ ĐỘNG THÊM /api NẾU THIẾU
+	// Điều này giúp bạn gọi api.post('/analytics/log') mà không bị lỗi 404
+	const safeEndpoint = endpoint.startsWith("/api")
+		? endpoint
+		: `/api${endpoint.startsWith("/") ? "" : "/"}${endpoint}`;
+
+	// Đảm bảo không có 2 dấu // giữa URL và Endpoint
+	const fullUrl = `${BACKEND_URL.replace(/\/$/, "")}${safeEndpoint}`;
+
+	const response = await fetch(fullUrl, config);
+
+	// Kiểm tra xem phản hồi có nội dung không trước khi .json()
+	const responseText = await response.text();
+	const data = responseText ? JSON.parse(responseText) : {};
 
 	if (!response.ok) {
 		throw new Error(data.error || `Lỗi máy chủ (mã: ${response.status})`);
@@ -76,4 +80,17 @@ async function backendApiRequest(
 	return data;
 }
 
+// Đối tượng API hỗ trợ cú pháp ngắn gọn
+const api = {
+	get: (endpoint, token = null) =>
+		backendApiRequest(endpoint, "GET", null, token),
+	post: (endpoint, body, token = null) =>
+		backendApiRequest(endpoint, "POST", body, token),
+	put: (endpoint, body, token = null) =>
+		backendApiRequest(endpoint, "PUT", body, token),
+	delete: (endpoint, token = null) =>
+		backendApiRequest(endpoint, "DELETE", null, token),
+};
+
 export { cognitoApiRequest, backendApiRequest };
+export default api;

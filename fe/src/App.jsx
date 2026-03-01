@@ -46,8 +46,11 @@ import AnnouncementPopup from "./components/common/AnnouncementPopup";
 import AdminPanel from "./components/admin/adminPanel.jsx";
 import PrivateRoute from "./components/admin/privateRoute.jsx";
 
+import usePageTracking from "./hooks/usePageTracking";
+
 // --- Component chứa Routes ---
 function MainContent() {
+	usePageTracking();
 	const location = useLocation();
 
 	const isAdmin = location.pathname.startsWith("/admin");
@@ -113,8 +116,7 @@ function MainContent() {
 	);
 }
 
-// --- Component Layout (Mới) ---
-// Tách ra để có thể dùng useLocation() kiểm tra đường dẫn admin
+// --- Component Layout ---
 function AppLayout() {
 	const location = useLocation();
 	const isAdminRoute = location.pathname.startsWith("/admin");
@@ -124,7 +126,6 @@ function AppLayout() {
 			<Navbar />
 			<AnnouncementPopup />
 			<MainContent />
-			{/* Chỉ hiển thị Footer nếu KHÔNG phải là trang admin */}
 			{!isAdminRoute && <Footer />}
 		</div>
 	);
@@ -136,9 +137,39 @@ function App() {
 		<HelmetProvider>
 			<AuthProvider>
 				<BrowserRouter>
-					{/* Sử dụng AppLayout thay vì viết trực tiếp div ở đây */}
 					<AppLayout />
-					<Analytics />
+					{/* Cấu hình Analytics nâng cao để nhóm Routes */}
+					<Analytics
+						beforeSend={event => {
+							const url = new URL(event.url);
+							let pathname = url.pathname;
+
+							// Logic nhóm các URL động thành cấu trúc Route chung
+							if (pathname.startsWith("/champion/")) {
+								pathname = "/champion/[id]";
+							} else if (pathname.startsWith("/relic/")) {
+								pathname = "/relic/[code]";
+							} else if (pathname.startsWith("/power/")) {
+								pathname = "/power/[code]";
+							} else if (pathname.startsWith("/item/")) {
+								pathname = "/item/[code]";
+							} else if (pathname.startsWith("/builds/detail/")) {
+								pathname = "/builds/detail/[id]";
+							} else if (pathname.startsWith("/rune/")) {
+								pathname = "/rune/[code]";
+							} else if (pathname.startsWith("/guides/")) {
+								pathname = "/guides/[slug]";
+							} else if (pathname.startsWith("/admin/")) {
+								pathname = "/admin/[path]";
+							}
+
+							// Trả về event với URL đã được dán nhãn lại
+							return {
+								...event,
+								url: url.origin + pathname,
+							};
+						}}
+					/>
 				</BrowserRouter>
 			</AuthProvider>
 		</HelmetProvider>

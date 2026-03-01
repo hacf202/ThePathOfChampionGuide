@@ -31,6 +31,7 @@ const RuneEditor = lazy(() => import("./runeEditor"));
 const BonusStarEditor = lazy(() => import("./bonusStarEditor"));
 const BuildEditor = lazy(() => import("./buildEditor"));
 const GuideEditor = lazy(() => import("./guideEditor"));
+const AnalyticsDashboard = lazy(() => import("./analyticsDashboard"));
 
 // Component DashboardHome (Giữ nguyên)
 const DashboardHome = ({ navItems }) => {
@@ -120,6 +121,12 @@ const AdminPanel = () => {
 			label: "Quản lý Hướng Dẫn",
 			icon: BookMarked,
 			path: "/admin/guides",
+		},
+		{
+			id: "analytics",
+			label: "Phân tích hệ thống",
+			icon: LayoutDashboard, // Hoặc dùng BarChart icon từ lucide
+			path: "/admin/analytics",
 		},
 	];
 
@@ -272,6 +279,7 @@ const AdminPanel = () => {
 							<Route path='builds/*' element={<BuildEditor />} />
 							<Route path='bonusStars/*' element={<BonusStarEditor />} />
 							<Route path='guides/*' element={<GuideEditor />} />
+							<Route path='analytics' element={<AnalyticsDashboard />} />
 						</Routes>
 					</Suspense>
 				</main>
