@@ -112,6 +112,8 @@ const ChampionEditWrapper = ({
 	onSave,
 	onDelete,
 	isSaving,
+	isDragPanelOpen,
+	setIsDragPanelOpen,
 }) => {
 	const { id } = useParams();
 	const navigate = useNavigate();
@@ -152,8 +154,10 @@ const ChampionEditWrapper = ({
 	}
 
 	return (
-		<div className='flex flex-col lg:flex-row gap-6'>
-			<div className='lg:w-4/5 bg-surface-bg rounded-lg'>
+		<div className='flex flex-col lg:flex-row gap-6 relative transition-all duration-300'>
+			<div
+				className={`transition-all duration-300 ${isDragPanelOpen ? "lg:w-3/4 xl:w-4/5" : "w-full"} bg-surface-bg rounded-lg`}
+			>
 				{selectedChampion && (
 					<ChampionEditorForm
 						champion={selectedChampion}
@@ -163,12 +167,18 @@ const ChampionEditWrapper = ({
 						onCancel={handleBack}
 						onDelete={onDelete}
 						isSaving={isSaving}
+						isDragPanelOpen={isDragPanelOpen}
+						onToggleDragPanel={() => setIsDragPanelOpen(!isDragPanelOpen)}
 					/>
 				)}
 			</div>
-			<div className='lg:w-1/5'>
-				<DropDragSidePanel cachedData={cachedData} onClose={handleBack} />
-			</div>
+
+			{/* Thanh Sidebar Kéo Thả (Có thể ẩn/hiện) */}
+			{isDragPanelOpen && (
+				<div className='lg:w-1/4 xl:w-1/5 shrink-0 transition-all duration-300'>
+					<DropDragSidePanel cachedData={cachedData} onClose={handleBack} />
+				</div>
+			)}
 		</div>
 	);
 };
@@ -176,7 +186,7 @@ const ChampionEditWrapper = ({
 function ChampionEditor() {
 	const [champions, setChampions] = useState([]);
 	const [constellations, setConstellations] = useState([]);
-	const [bonusStars, setBonusStars] = useState([]); // State cho API bonusStars mới
+	const [bonusStars, setBonusStars] = useState([]);
 	const [runes, setRunes] = useState([]);
 	const [relics, setRelics] = useState([]);
 	const [powers, setPowers] = useState([]);
@@ -194,6 +204,9 @@ function ChampionEditor() {
 	const [isLoading, setIsLoading] = useState(true);
 	const [isSaving, setIsSaving] = useState(false);
 	const [error, setError] = useState(null);
+
+	// State quản lý trạng thái ẩn/hiện thanh Drag&Drop
+	const [isDragPanelOpen, setIsDragPanelOpen] = useState(true);
 
 	const API_BASE_URL = import.meta.env.VITE_API_URL;
 	const navigate = useNavigate();
@@ -213,7 +226,7 @@ function ChampionEditor() {
 			] = await Promise.all([
 				fetch(`${API_BASE_URL}/api/champions?limit=1000`),
 				fetch(`${API_BASE_URL}/api/constellations`),
-				fetch(`${API_BASE_URL}/api/bonusStars`), // API bonusStars mới
+				fetch(`${API_BASE_URL}/api/bonusStars`),
 				fetch(`${API_BASE_URL}/api/runes?limit=1000`),
 				fetch(`${API_BASE_URL}/api/relics?limit=1000`),
 				fetch(`${API_BASE_URL}/api/powers?limit=1000`),
@@ -285,7 +298,6 @@ function ChampionEditor() {
 			});
 
 			if (!resConst.ok) {
-				// Option: Bạn có thể gọi API DELETE tướng vừa tạo ở đây nếu muốn đồng bộ tuyệt đối
 				throw new Error(
 					"Tướng đã lưu nhưng lưu Chòm sao thất bại. Vui lòng kiểm tra lại.",
 				);
@@ -511,6 +523,8 @@ function ChampionEditor() {
 							onSave={handleSaveChampion}
 							onDelete={handleDeleteChampion}
 							isSaving={isSaving}
+							isDragPanelOpen={isDragPanelOpen}
+							setIsDragPanelOpen={setIsDragPanelOpen}
 						/>
 					}
 				/>

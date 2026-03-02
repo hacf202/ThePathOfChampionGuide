@@ -138,38 +138,7 @@ function App() {
 			<AuthProvider>
 				<BrowserRouter>
 					<AppLayout />
-					{/* Cấu hình Analytics nâng cao để nhóm Routes */}
-					<Analytics
-						beforeSend={event => {
-							const url = new URL(event.url);
-							let pathname = url.pathname;
-
-							// Logic nhóm các URL động thành cấu trúc Route chung
-							if (pathname.startsWith("/champion/")) {
-								pathname = "/champion/[id]";
-							} else if (pathname.startsWith("/relic/")) {
-								pathname = "/relic/[code]";
-							} else if (pathname.startsWith("/power/")) {
-								pathname = "/power/[code]";
-							} else if (pathname.startsWith("/item/")) {
-								pathname = "/item/[code]";
-							} else if (pathname.startsWith("/builds/detail/")) {
-								pathname = "/builds/detail/[id]";
-							} else if (pathname.startsWith("/rune/")) {
-								pathname = "/rune/[code]";
-							} else if (pathname.startsWith("/guides/")) {
-								pathname = "/guides/[slug]";
-							} else if (pathname.startsWith("/admin/")) {
-								pathname = "/admin/[path]";
-							}
-
-							// Trả về event với URL đã được dán nhãn lại
-							return {
-								...event,
-								url: url.origin + pathname,
-							};
-						}}
-					/>
+					<Analytics />
 				</BrowserRouter>
 			</AuthProvider>
 		</HelmetProvider>

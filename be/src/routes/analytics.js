@@ -46,15 +46,28 @@ router.post("/log", async (req, res) => {
 	try {
 		const { path, referrer, userAgent, userId, loadTime } = req.body;
 		const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
+
+		// Lấy thời gian UTC gốc hiện tại
 		const now = new Date();
+
+		// Chuyển đổi sang đối tượng Date dựa trên múi giờ Việt Nam (UTC+7)
+		const vnTimeString = now.toLocaleString("en-US", {
+			timeZone: "Asia/Ho_Chi_Minh",
+		});
+		const vnTime = new Date(vnTimeString);
+
+		// Trích xuất các thành phần ngày tháng theo chuẩn giờ Việt Nam
+		const year = vnTime.getFullYear();
+		const month = String(vnTime.getMonth() + 1).padStart(2, "0");
+		const day = String(vnTime.getDate()).padStart(2, "0");
 
 		const logEntry = {
 			id: uuidv4(),
-			timestamp: now.getTime(),
-			date: now.toISOString().split("T")[0],
-			hour: now.getHours(),
-			month: `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`,
-			week: getWeekNumber(now),
+			timestamp: now.getTime(), // Giữ nguyên timestamp UTC tuyệt đối cho việc tính toán khoảng thời gian
+			date: `${year}-${month}-${day}`, // YYYY-MM-DD theo giờ Việt Nam
+			hour: vnTime.getHours(), // Giờ Việt Nam (0-23)
+			month: `${year}-${month}`,
+			week: getWeekNumber(vnTime),
 			path: path || "/",
 			source: getTrafficSource(referrer),
 			userAgent: userAgent || "Unknown",
@@ -80,9 +93,10 @@ router.post("/log", async (req, res) => {
  */
 router.get("/stats", requireAdmin, async (req, res) => {
 	try {
+		// Timestamp là giá trị tuyệt đối, không bị ảnh hưởng bởi múi giờ nên logic lọc này vẫn chính xác hoàn toàn
 		const now = Date.now();
 		const thirtyDaysAgo = now - 30 * 24 * 60 * 60 * 1000;
-		const twentyFourHoursAgo = now - 24 * 60 * 60 * 1000; // Mốc 24h gần nhất
+		const twentyFourHoursAgo = now - 24 * 60 * 60 * 1000;
 
 		// Lấy dữ liệu 30 ngày để phân tích xu hướng
 		const data = await client.send(
@@ -107,13 +121,16 @@ router.get("/stats", requireAdmin, async (req, res) => {
 			topPages: {},
 			slowPages: [],
 			userSessions: {},
+			devices: { Desktop: 0, Mobile: 0, Tablet: 0 },
+			browsers: { Chrome: 0, Safari: 0, Firefox: 0, Edge: 0, Others: 0 },
+			os: { Windows: 0, Mac: 0, iOS: 0, Android: 0, Others: 0 },
 		};
 
 		let totalLoadTime24h = 0;
 		let count24h = 0;
 
 		items.forEach(item => {
-			// Chỉ số thời gian
+			// Vì dữ liệu lúc GHI (POST /log) đã được lưu theo giờ VN, nên lúc ĐỌC không cần xử lý timezone nữa
 			if (item.date)
 				stats.viewsByDate[item.date] = (stats.viewsByDate[item.date] || 0) + 1;
 			if (typeof item.hour === "number" && stats.viewsByHour[item.hour])
@@ -124,30 +141,51 @@ router.get("/stats", requireAdmin, async (req, res) => {
 				stats.viewsByMonth[item.month] =
 					(stats.viewsByMonth[item.month] || 0) + 1;
 
-			// Nguồn và nội dung
 			if (item.source)
 				stats.sources[item.source] = (stats.sources[item.source] || 0) + 1;
 			if (item.path)
 				stats.topPages[item.path] = (stats.topPages[item.path] || 0) + 1;
 
-			// Hiệu năng: Tốc độ tải trung bình chỉ tính trong 24h gần nhất
+			// Phân tích User Agent
+			const ua = (item.userAgent || "").toLowerCase();
+
+			if (
+				ua.includes("mobi") ||
+				ua.includes("android") ||
+				ua.includes("iphone")
+			)
+				stats.devices.Mobile++;
+			else if (ua.includes("tablet") || ua.includes("ipad"))
+				stats.devices.Tablet++;
+			else stats.devices.Desktop++;
+
+			if (ua.includes("edg")) stats.browsers.Edge++;
+			else if (ua.includes("chrome")) stats.browsers.Chrome++;
+			else if (ua.includes("safari") && !ua.includes("chrome"))
+				stats.browsers.Safari++;
+			else if (ua.includes("firefox")) stats.browsers.Firefox++;
+			else stats.browsers.Others++;
+
+			if (ua.includes("windows")) stats.os.Windows++;
+			else if (ua.includes("mac os")) stats.os.Mac++;
+			else if (ua.includes("android")) stats.os.Android++;
+			else if (ua.includes("iphone os") || ua.includes("ipad")) stats.os.iOS++;
+			else stats.os.Others++;
+
 			if (item.timestamp > twentyFourHoursAgo && item.loadTime > 0) {
 				totalLoadTime24h += item.loadTime;
 				count24h++;
 			}
 
-			// Ghi nhận trang chậm (>3s)
 			if (item.loadTime > 3000) {
 				stats.slowPages.push({ path: item.path, time: item.loadTime });
 			}
 
-			// Phân loại phiên (Session)
 			const sessionKey = `${item.userId || item.ip}_${item.date || "unknown"}`;
 			if (!stats.userSessions[sessionKey]) stats.userSessions[sessionKey] = [];
 			stats.userSessions[sessionKey].push(item);
 		});
 
-		// Tính toán chỉ số phiên & Tỷ lệ thoát
 		const totalSessions = Object.keys(stats.userSessions).length;
 		let bouncedSessions = 0;
 		let totalEngagementTime = 0;
@@ -159,6 +197,11 @@ router.get("/stats", requireAdmin, async (req, res) => {
 				totalEngagementTime += times[times.length - 1] - times[0];
 			}
 		});
+
+		const formatChartData = obj =>
+			Object.entries(obj)
+				.map(([name, value]) => ({ name, value }))
+				.filter(i => i.value > 0);
 
 		res.json({
 			summary: {
@@ -176,25 +219,19 @@ router.get("/stats", requireAdmin, async (req, res) => {
 						? (totalEngagementTime / totalSessions / 1000).toFixed(0) + "s"
 						: "0s",
 				avgLoadTime:
-					count24h > 0 ? (totalLoadTime24h / count24h).toFixed(0) : 0, // Dữ liệu 24h
+					count24h > 0 ? (totalLoadTime24h / count24h).toFixed(0) : 0,
 			},
 			charts: {
 				viewsOverTime: Object.entries(stats.viewsByDate)
 					.map(([date, count]) => ({ date, count }))
 					.sort((a, b) => a.date.localeCompare(b.date)),
 				hourly: stats.viewsByHour,
-				weekly: Object.entries(stats.viewsByWeek).map(([name, value]) => ({
-					name,
-					value,
-				})),
-				monthly: Object.entries(stats.viewsByMonth).map(([name, value]) => ({
-					name,
-					value,
-				})),
-				sources: Object.entries(stats.sources).map(([name, value]) => ({
-					name,
-					value,
-				})),
+				weekly: formatChartData(stats.viewsByWeek),
+				monthly: formatChartData(stats.viewsByMonth),
+				sources: formatChartData(stats.sources),
+				devices: formatChartData(stats.devices),
+				browsers: formatChartData(stats.browsers),
+				os: formatChartData(stats.os),
 				topPages: Object.entries(stats.topPages)
 					.map(([path, count]) => ({ path, count }))
 					.sort((a, b) => b.count - a.count)

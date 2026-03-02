@@ -12,10 +12,27 @@ import {
 	Gem,
 	ChevronDown,
 	ChevronUp,
-	Crosshair,
 	Sparkles,
 	Youtube,
+	PanelRightClose,
+	PanelRightOpen,
+	Info,
+	Swords,
+	Box,
 } from "lucide-react";
+
+// Hàm helper để tương thích với tất cả các dạng định danh
+const getUniqueId = item => {
+	return (
+		item._id ||
+		item.id ||
+		item.bonusStarID ||
+		item.powerCode ||
+		item.relicCode ||
+		item.itemCode ||
+		item.runeCode
+	);
+};
 
 // --- THÀNH PHẦN HỖ TRỢ: ĐƯỜNG NỐI CHÒM SAO ---
 const ConstellationLine = ({ x1, y1, x2, y2, isRecommended }) => {
@@ -49,7 +66,7 @@ const ArrayInputComponent = ({
 	data = [],
 	onChange,
 	cachedData = {},
-	placeholder = "Nhập tên hoặc kéo thả vào đây",
+	placeholder = "Nhập ID hoặc kéo thả vào đây",
 }) => {
 	const handleItemChange = (index, newValue) => {
 		const newData = [...data];
@@ -60,13 +77,15 @@ const ArrayInputComponent = ({
 	const handleAddItem = () => onChange([...data, ""]);
 	const handleRemoveItem = index =>
 		onChange(data.filter((_, i) => i !== index));
-	const getItemData = name => cachedData[name] || {};
+
+	const getItemData = identifier => cachedData[identifier] || {};
 
 	const handleDrop = (e, index) => {
 		e.preventDefault();
 		try {
 			const dragged = JSON.parse(e.dataTransfer.getData("text/plain"));
-			if (dragged.name) handleItemChange(index, dragged.name.trim());
+			const identifier = dragged.id || dragged.name;
+			if (identifier) handleItemChange(index, identifier.trim());
 		} catch (err) {
 			console.warn("Drag data không hợp lệ");
 		}
@@ -103,10 +122,10 @@ const ArrayInputComponent = ({
 								onDrop={e => handleDrop(e, index)}
 								onDragOver={e => e.preventDefault()}
 							>
-								<div className='w-10 h-10 rounded bg-white border flex items-center justify-center overflow-hidden'>
-									{item.assetAbsolutePath ? (
+								<div className='w-10 h-10 rounded bg-white border flex items-center justify-center overflow-hidden shrink-0'>
+									{item.assetAbsolutePath || item.image ? (
 										<img
-											src={item.assetAbsolutePath}
+											src={item.assetAbsolutePath || item.image}
 											className='w-full h-full object-contain'
 										/>
 									) : (
@@ -117,12 +136,12 @@ const ArrayInputComponent = ({
 									value={value || ""}
 									onChange={e => handleItemChange(index, e.target.value)}
 									placeholder={placeholder}
-									className='flex-1'
+									className='flex-1 font-mono text-sm'
 								/>
 								<button
 									type='button'
 									onClick={() => handleRemoveItem(index)}
-									className='text-red-500 hover:text-red-600'
+									className='text-red-500 hover:text-red-600 shrink-0'
 								>
 									<XCircle size={20} />
 								</button>
@@ -249,15 +268,23 @@ const NodeEditor = ({
 	onRemove,
 	cachedData,
 }) => {
-	const [isOpen, setIsOpen] = useState(true);
+	const [isOpen, setIsOpen] = useState(false);
 
 	const nodeAsset = useMemo(() => {
-		const name = node.nodeName?.trim();
-		if (!name) return null;
-		const power = (cachedData.powers || []).find(p => p.name === name);
+		const identifier = node.nodeName?.trim();
+		if (!identifier) return null;
+
+		// Quét cẩn thận thông qua hàm getUniqueId
+		const power = (cachedData.powers || []).find(
+			p => getUniqueId(p) === identifier || p.name === identifier,
+		);
 		if (power) return power.assetAbsolutePath;
-		const bonus = (cachedData.bonusStars || []).find(b => b.name === name);
+
+		const bonus = (cachedData.bonusStars || []).find(
+			b => getUniqueId(b) === identifier || b.name === identifier,
+		);
 		if (bonus) return bonus.image;
+
 		return null;
 	}, [node.nodeName, cachedData]);
 
@@ -265,17 +292,31 @@ const NodeEditor = ({
 		e.preventDefault();
 		try {
 			const dragged = JSON.parse(e.dataTransfer.getData("text/plain"));
-			if (
-				dragged.name &&
-				(dragged.type === "power" || dragged.type === "bonusStar")
-			) {
-				const updates = { nodeName: dragged.name };
-				const item =
+			const uniqueId = dragged.id;
+
+			if (dragged.type === "power" || dragged.type === "bonusStar") {
+				const list =
 					dragged.type === "power"
-						? (cachedData.powers || []).find(p => p.name === dragged.name)
-						: (cachedData.bonusStars || []).find(b => b.name === dragged.name);
-				updates.description = item?.descriptionRaw || item?.description || "";
-				onMultiChange(index, updates);
+						? cachedData.powers || []
+						: cachedData.bonusStars || [];
+
+				// 1. Tìm chính xác tuyệt đối item bằng unique ID đã được chuẩn hóa từ Panel kéo thả
+				let item = uniqueId
+					? list.find(p => getUniqueId(p) === uniqueId)
+					: null;
+
+				// 2. Dự phòng
+				if (!item && dragged.name) {
+					item = list.find(p => p.name === dragged.name);
+				}
+
+				if (item) {
+					onMultiChange(index, {
+						// Vẫn lưu name vào nodeName để tương thích DB, nhưng description chắn chắn bốc đúng item từ ID
+						nodeName: item.name,
+						description: item.descriptionRaw || item.description || "",
+					});
+				}
 			}
 		} catch (err) {
 			console.warn("Lỗi kéo thả vào Node");
@@ -298,7 +339,7 @@ const NodeEditor = ({
 					</div>
 					<div className='flex flex-col'>
 						<span className='font-bold text-sm truncate max-w-[150px]'>
-							{node.nodeName || "Node chưa đặt tên"}
+							{node.nodeName || "Node chưa đặt tên/ID"}
 						</span>
 						<span className='text-[10px] uppercase text-text-secondary font-medium'>
 							{node.nodeType || "starPower"}
@@ -359,7 +400,7 @@ const NodeEditor = ({
 						onDrop={handleDropIntoNode}
 						onDragOver={e => e.preventDefault()}
 					>
-						<div className='w-10 h-10 rounded bg-white border flex items-center justify-center overflow-hidden'>
+						<div className='w-10 h-10 rounded bg-white border flex items-center justify-center overflow-hidden shrink-0'>
 							{nodeAsset ? (
 								<img src={nodeAsset} className='w-full h-full object-contain' />
 							) : (
@@ -367,7 +408,7 @@ const NodeEditor = ({
 							)}
 						</div>
 						<InputField
-							label='Tên hiển thị'
+							label='ID hoặc Tên Tài nguyên'
 							value={node.nodeName || ""}
 							onChange={e => onChange(index, "nodeName", e.target.value)}
 							placeholder='Kéo thả tài nguyên vào đây...'
@@ -442,6 +483,8 @@ const ChampionEditorForm = memo(
 		onCancel,
 		onDelete,
 		isSaving,
+		isDragPanelOpen,
+		onToggleDragPanel,
 	}) => {
 		const [formData, setFormData] = useState({});
 		const [constData, setConstData] = useState({ nodes: [] });
@@ -452,7 +495,6 @@ const ChampionEditorForm = memo(
 		const [selectedNodeIndex, setSelectedNodeIndex] = useState(null);
 		const mapRef = useRef(null);
 
-		// Tự động đồng bộ hóa ConstellationID khi thay đổi ChampionID (Quan trọng để fix lỗi 500)
 		useEffect(() => {
 			if (
 				formData.championID &&
@@ -551,7 +593,6 @@ const ChampionEditorForm = memo(
 			if (typeof cleanData.description === "string")
 				cleanData.description = cleanData.description.replace(/\n/g, "\\n");
 
-			// Chuẩn hóa mảng và đồng bộ ID cuối cùng
 			const finalConstData = {
 				...constData,
 				constellationID: cleanData.championID.trim(),
@@ -561,21 +602,31 @@ const ChampionEditorForm = memo(
 			onSave(cleanData, finalConstData);
 		};
 
-		const dataLookup = {
-			powers: Object.fromEntries(
-				(cachedData.powers || []).map(p => [p.name, p]),
-			),
-			relics: Object.fromEntries(
-				(cachedData.relics || []).map(r => [r.name, r]),
-			),
-			items: Object.fromEntries((cachedData.items || []).map(i => [i.name, i])),
-			runes: Object.fromEntries((cachedData.runes || []).map(r => [r.name, r])),
+		const buildLookup = arr => {
+			const lookup = {};
+			(arr || []).forEach(item => {
+				const uid = getUniqueId(item);
+				if (uid) lookup[uid] = item;
+				if (item.name) lookup[item.name] = item;
+			});
+			return lookup;
 		};
+
+		const dataLookup = useMemo(
+			() => ({
+				powers: buildLookup(cachedData.powers),
+				relics: buildLookup(cachedData.relics),
+				items: buildLookup(cachedData.items),
+				runes: buildLookup(cachedData.runes),
+			}),
+			[cachedData],
+		);
 
 		return (
 			<>
-				<form onSubmit={handleSubmit} className='space-y-8 pb-24'>
-					<div className='flex justify-between border-border sticky top-0 bg-surface-bg z-40 py-2 border-b mb-4 shadow-sm px-4'>
+				<form onSubmit={handleSubmit} className='flex flex-col gap-6 pb-24'>
+					{/* TOP BAR FIXED */}
+					<div className='flex justify-between items-center border-border sticky top-0 bg-surface-bg z-40 py-3 border-b shadow-sm px-6 rounded-t-lg'>
 						<div>
 							<label className='block font-semibold text-text-primary text-xl'>
 								{formData.isNew
@@ -590,6 +641,21 @@ const ChampionEditorForm = memo(
 							)}
 						</div>
 						<div className='flex items-center gap-3'>
+							<Button
+								type='button'
+								variant='outline'
+								onClick={onToggleDragPanel}
+								title={
+									isDragPanelOpen ? "Ẩn thanh kéo thả" : "Hiện thanh kéo thả"
+								}
+								className='mr-2'
+							>
+								{isDragPanelOpen ? (
+									<PanelRightClose size={18} />
+								) : (
+									<PanelRightOpen size={18} />
+								)}
+							</Button>
 							<Button
 								type='button'
 								variant='ghost'
@@ -614,15 +680,16 @@ const ChampionEditorForm = memo(
 						</div>
 					</div>
 
-					<div className='px-6 grid grid-cols-1 xl:grid-cols-2 gap-10'>
-						<div className='space-y-8'>
-							<h3 className='text-lg font-bold border-l-4 border-primary-500 pl-3 uppercase'>
-								Thông tin Guide
+					<div className='px-6 space-y-8'>
+						{/* BLOCK 1: THÔNG TIN CƠ BẢN */}
+						<section className='bg-surface-bg border border-border rounded-xl p-6 shadow-sm space-y-6'>
+							<h3 className='text-lg font-bold border-l-4 border-primary-500 pl-3 uppercase flex items-center gap-2'>
+								<Info size={20} className='text-primary-500' /> Thông tin cơ bản
 							</h3>
-							<div className='grid grid-cols-1 gap-6 p-6 bg-surface-bg border border-border rounded-xl shadow-sm'>
-								<div className='space-y-5'>
+							<div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
+								<div className='md:col-span-2 space-y-5'>
 									<InputField
-										label='Champion ID (VD: C056)'
+										label='Champion ID (Khóa chính)'
 										name='championID'
 										value={formData.championID || ""}
 										onChange={handleInputChange}
@@ -638,7 +705,7 @@ const ChampionEditorForm = memo(
 									/>
 									<div className='grid grid-cols-2 gap-4'>
 										<InputField
-											label='Năng lượng'
+											label='Năng lượng (Mana)'
 											name='cost'
 											type='number'
 											value={formData.cost ?? 0}
@@ -663,7 +730,7 @@ const ChampionEditorForm = memo(
 										/>
 									</div>
 								</div>
-								<div className='flex flex-col items-center justify-center p-4 bg-surface-hover rounded-xl border border-dashed border-border'>
+								<div className='flex flex-col items-center justify-center p-4 bg-surface-hover rounded-xl border border-dashed border-border h-full min-h-[200px]'>
 									{formData.assets?.[0]?.avatar ? (
 										<img
 											src={formData.assets[0].avatar}
@@ -674,14 +741,22 @@ const ChampionEditorForm = memo(
 											?
 										</div>
 									)}
+									<p className='text-xs text-text-secondary mt-4 font-medium uppercase tracking-widest'>
+										Ảnh Đại Diện
+									</p>
 								</div>
 							</div>
+						</section>
 
+						{/* BLOCK 2: MÔ TẢ & VIDEO */}
+						<section className='bg-surface-bg border border-border rounded-xl p-6 shadow-sm space-y-6'>
+							<h3 className='text-lg font-bold border-l-4 border-red-500 pl-3 uppercase flex items-center gap-2'>
+								<Youtube size={20} className='text-red-500' /> Hướng dẫn & Video
+							</h3>
 							<div className='space-y-6'>
 								<div className='space-y-2'>
-									<label className='block font-semibold text-text-primary flex items-center gap-2'>
-										<Youtube size={18} className='text-red-500' /> YouTube Video
-										Link
+									<label className='block font-semibold text-text-primary text-sm'>
+										YouTube Video Link (Embed URL)
 									</label>
 									<InputField
 										name='videoLink'
@@ -691,19 +766,27 @@ const ChampionEditorForm = memo(
 									/>
 								</div>
 								<div className='flex flex-col gap-2'>
-									<label className='block font-semibold text-text-primary'>
-										Mô tả hướng dẫn chơi
+									<label className='block font-semibold text-text-primary text-sm'>
+										Mô tả hướng dẫn chơi chi tiết
 									</label>
 									<textarea
 										name='description'
 										value={formData.description || ""}
 										onChange={handleInputChange}
-										className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary text-sm min-h-[300px]'
+										className='w-full p-4 rounded-lg border border-border bg-surface-hover/30 text-text-primary text-sm min-h-[200px] outline-none focus:border-primary-500 transition-colors'
+										placeholder='Nhập mô tả, chiến thuật, cách combo...'
 									/>
 								</div>
 							</div>
+						</section>
 
-							<div className='space-y-6'>
+						{/* BLOCK 3: SỨC MẠNH PHIÊU LƯU & TRANG BỊ */}
+						<section className='bg-surface-bg border border-border rounded-xl p-6 shadow-sm space-y-6'>
+							<h3 className='text-lg font-bold border-l-4 border-blue-500 pl-3 uppercase flex items-center gap-2'>
+								<Swords size={20} className='text-blue-500' /> Khởi đầu & Sức
+								mạnh
+							</h3>
+							<div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
 								<ArrayInputComponent
 									label='Sức mạnh Phiêu lưu'
 									data={formData.adventurePowers || []}
@@ -713,15 +796,16 @@ const ChampionEditorForm = memo(
 									cachedData={dataLookup.powers}
 								/>
 								<ArrayInputComponent
-									label='Vật phẩm mặc định'
+									label='Vật phẩm mặc định (Deck)'
 									data={formData.defaultItems || []}
 									onChange={d => setFormData({ ...formData, defaultItems: d })}
 									cachedData={dataLookup.items}
 								/>
 							</div>
-						</div>
+						</section>
 
-						<div className='space-y-8'>
+						{/* BLOCK 4: BẢN ĐỒ CHÒM SAO */}
+						<section className='bg-surface-bg border border-border rounded-xl p-6 shadow-sm space-y-6'>
 							<div className='flex justify-between items-center border-l-4 border-pink-500 pl-3'>
 								<h3 className='text-lg font-bold uppercase flex items-center gap-2'>
 									<MapIcon size={20} className='text-pink-500' /> Bản đồ Chòm
@@ -756,229 +840,251 @@ const ChampionEditorForm = memo(
 								</Button>
 							</div>
 
-							<div className='space-y-4'>
-								<div
-									className='relative aspect-video bg-slate-950 rounded-2xl overflow-hidden border-2 border-border shadow-2xl cursor-crosshair'
-									ref={mapRef}
-									onClick={handleMapClick}
-								>
-									<img
-										src={
-											constData.backgroundImage || "/images/placeholder-bg.jpg"
-										}
-										className='w-full h-full object-cover opacity-50'
-									/>
-									<svg className='absolute inset-0 w-full h-full pointer-events-none'>
-										<defs>
-											<marker
-												id='arrowhead'
-												markerWidth='5'
-												markerHeight='5'
-												refX='4.8'
-												refY='2.5'
-												orient='auto'
-											>
-												<path
-													d='M0,0 L5,2.5 L0,5 Z'
-													fill='rgba(234, 179, 8, 0.6)'
-												/>
-											</marker>
-											<marker
-												id='arrowhead-recommended'
-												markerWidth='5'
-												markerHeight='5'
-												refX='4.8'
-												refY='2.5'
-												orient='auto'
-											>
-												<path
-													d='M0,0 L5,2.5 L0,5 Z'
-													fill='rgba(234, 179, 8, 1)'
-												/>
-											</marker>
-										</defs>
-										{constData.nodes.map(node =>
-											node.nextNodes?.map(tID => {
-												const target = constData.nodes.find(
-													n => n.nodeID === tID,
-												);
-												return (
-													target && (
-														<ConstellationLine
-															key={`${node.nodeID}-${tID}`}
-															x1={node.position?.x ?? 0}
-															y1={node.position?.y ?? 0}
-															x2={target.position?.x ?? 0}
-															y2={target.position?.y ?? 0}
-															isRecommended={
-																node.isRecommended && target.isRecommended
-															}
-														/>
-													)
-												);
-											}),
-										)}
-									</svg>
-									{constData.nodes.map((n, i) => (
-										<div
-											key={i}
-											className={`absolute w-6 h-6 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 flex items-center justify-center transition-all ${selectedNodeIndex === i ? "bg-primary-500 border-white scale-125 z-30 shadow-[0_0_10px_white]" : "bg-white/10 border-white/40 z-20"}`}
-											style={{
-												left: `${n.position?.x ?? 0}%`,
-												top: `${n.position?.y ?? 0}%`,
-											}}
-										>
-											{n.nodeType === "starPower" ? (
-												<Star size={10} className='text-white fill-current' />
-											) : (
-												<Gem size={10} className='text-white fill-current' />
+							<div className='grid grid-cols-1 xl:grid-cols-2 gap-8 items-start'>
+								{/* CỘT TRÁI: BẢN ĐỒ */}
+								<div className='space-y-4 sticky top-24'>
+									<div
+										className='relative aspect-video bg-slate-950 rounded-2xl overflow-hidden border-2 border-border shadow-lg cursor-crosshair'
+										ref={mapRef}
+										onClick={handleMapClick}
+									>
+										<img
+											src={
+												constData.backgroundImage ||
+												"/images/placeholder-bg.jpg"
+											}
+											className='w-full h-full object-cover opacity-50'
+										/>
+										<svg className='absolute inset-0 w-full h-full pointer-events-none'>
+											<defs>
+												<marker
+													id='arrowhead'
+													markerWidth='5'
+													markerHeight='5'
+													refX='4.8'
+													refY='2.5'
+													orient='auto'
+												>
+													<path
+														d='M0,0 L5,2.5 L0,5 Z'
+														fill='rgba(234, 179, 8, 0.6)'
+													/>
+												</marker>
+												<marker
+													id='arrowhead-recommended'
+													markerWidth='5'
+													markerHeight='5'
+													refX='4.8'
+													refY='2.5'
+													orient='auto'
+												>
+													<path
+														d='M0,0 L5,2.5 L0,5 Z'
+														fill='rgba(234, 179, 8, 1)'
+													/>
+												</marker>
+											</defs>
+											{constData.nodes.map(node =>
+												node.nextNodes?.map(tID => {
+													const target = constData.nodes.find(
+														n => n.nodeID === tID,
+													);
+													return (
+														target && (
+															<ConstellationLine
+																key={`${node.nodeID}-${tID}`}
+																x1={node.position?.x ?? 0}
+																y1={node.position?.y ?? 0}
+																x2={target.position?.x ?? 0}
+																y2={target.position?.y ?? 0}
+																isRecommended={
+																	node.isRecommended && target.isRecommended
+																}
+															/>
+														)
+													);
+												}),
 											)}
-											<span className='absolute -bottom-5 text-[8px] font-bold text-white bg-black/40 px-1 rounded'>
-												{n.nodeID || ""}
-											</span>
-										</div>
-									))}
+										</svg>
+										{constData.nodes.map((n, i) => (
+											<div
+												key={i}
+												className={`absolute w-6 h-6 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 flex items-center justify-center transition-all ${selectedNodeIndex === i ? "bg-primary-500 border-white scale-125 z-30 shadow-[0_0_10px_white]" : "bg-white/10 border-white/40 z-20"}`}
+												style={{
+													left: `${n.position?.x ?? 0}%`,
+													top: `${n.position?.y ?? 0}%`,
+												}}
+											>
+												{n.nodeType === "starPower" ? (
+													<Star size={10} className='text-white fill-current' />
+												) : (
+													<Gem size={10} className='text-white fill-current' />
+												)}
+												<span className='absolute -bottom-5 text-[8px] font-bold text-white bg-black/40 px-1 rounded'>
+													{n.nodeID || ""}
+												</span>
+											</div>
+										))}
+									</div>
+									<InputField
+										label='URL Ảnh nền bản đồ'
+										value={constData.backgroundImage || ""}
+										onChange={e =>
+											setConstData({
+												...constData,
+												backgroundImage: e.target.value,
+											})
+										}
+										placeholder='Nhập link ảnh...'
+									/>
 								</div>
-								<InputField
-									label='URL Ảnh nền bản đồ'
-									value={constData.backgroundImage || ""}
-									onChange={e =>
-										setConstData({
-											...constData,
-											backgroundImage: e.target.value,
+
+								{/* CỘT PHẢI: DANH SÁCH NODE */}
+								<div className='space-y-2 max-h-[800px] overflow-y-auto pr-3 custom-scrollbar'>
+									{constData.nodes.length === 0 ? (
+										<div className='text-center py-10 text-text-secondary border border-dashed border-border rounded-xl bg-surface-hover/30'>
+											Chưa có Node nào. Bấm "Thêm Node" để bắt đầu.
+										</div>
+									) : (
+										(constData.nodes || []).map((node, idx) => (
+											<NodeEditor
+												key={idx}
+												index={idx}
+												node={node}
+												isSelected={selectedNodeIndex === idx}
+												onSelect={setSelectedNodeIndex}
+												onChange={handleNodeChange}
+												onMultiChange={handleNodeMultiChange}
+												onRemove={i => {
+													setConstData({
+														...constData,
+														nodes: constData.nodes.filter(
+															(_, idx) => idx !== i,
+														),
+													});
+													if (selectedNodeIndex === i)
+														setSelectedNodeIndex(null);
+												}}
+												cachedData={cachedData}
+											/>
+										))
+									)}
+								</div>
+							</div>
+						</section>
+
+						{/* BLOCK 5: TÀI SẢN (ASSETS) & RELICS KHUYÊN DÙNG */}
+						<section className='bg-surface-bg border border-border rounded-xl p-6 shadow-sm space-y-8'>
+							<h3 className='text-lg font-bold border-l-4 border-emerald-500 pl-3 uppercase flex items-center gap-2'>
+								<Box size={20} className='text-emerald-500' /> Quản lý Assets &
+								Gợi ý lên đồ
+							</h3>
+
+							<div className='grid grid-cols-1 gap-4 bg-surface-hover/30 p-4 rounded-xl border border-border'>
+								<h4 className='text-sm font-bold flex items-center gap-2 mb-2'>
+									<Link2 size={16} /> Liên kết hình ảnh (Assets)
+								</h4>
+								{(formData.assets || []).map((asset, index) => (
+									<div
+										key={index}
+										className='flex flex-col md:flex-row items-center gap-6 p-4 bg-surface-bg rounded-xl border border-border relative group'
+									>
+										<div className='grid grid-cols-1 md:grid-cols-3 gap-6 flex-1 w-full'>
+											{["avatar", "fullAbsolutePath", "gameAbsolutePath"].map(
+												field => (
+													<div key={field} className='space-y-2'>
+														<InputField
+															label={field}
+															value={asset[field] || ""}
+															onChange={e => {
+																const newAssets = [...formData.assets];
+																newAssets[index][field] = e.target.value;
+																setFormData({ ...formData, assets: newAssets });
+															}}
+														/>
+														{asset[field] && (
+															<img
+																src={asset[field]}
+																className='h-20 w-auto rounded-lg object-contain bg-black/40 border shadow-inner'
+															/>
+														)}
+													</div>
+												),
+											)}
+										</div>
+										<button
+											type='button'
+											onClick={() =>
+												setFormData({
+													...formData,
+													assets: formData.assets.filter((_, i) => i !== index),
+												})
+											}
+											className='text-red-500 shrink-0 hover:bg-red-500/10 p-2 rounded-full transition-colors'
+										>
+											<XCircle size={22} />
+										</button>
+									</div>
+								))}
+								<Button
+									type='button'
+									variant='outline'
+									size='sm'
+									onClick={() =>
+										setFormData({
+											...formData,
+											assets: [
+												...(formData.assets || []),
+												{
+													fullAbsolutePath: "",
+													gameAbsolutePath: "",
+													avatar: "",
+												},
+											],
 										})
 									}
-									placeholder='Nhập link ảnh...'
+									className='w-max mt-2'
+								>
+									+ Thêm Asset
+								</Button>
+							</div>
+
+							<div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
+								<ArrayInputComponent
+									label='Vùng (Region)'
+									data={formData.regions || []}
+									onChange={d => setFormData({ ...formData, regions: d })}
+								/>
+								<ArrayInputComponent
+									label='Thẻ (Tags)'
+									data={formData.tag || []}
+									onChange={d => setFormData({ ...formData, tag: d })}
 								/>
 							</div>
 
-							<div className='space-y-2 max-h-[800px] overflow-y-auto pr-3 custom-scrollbar'>
-								{(constData.nodes || []).map((node, idx) => (
-									<NodeEditor
-										key={idx}
-										index={idx}
-										node={node}
-										isSelected={selectedNodeIndex === idx}
-										onSelect={setSelectedNodeIndex}
-										onChange={handleNodeChange}
-										onMultiChange={handleNodeMultiChange}
-										onRemove={i => {
-											setConstData({
-												...constData,
-												nodes: constData.nodes.filter((_, idx) => idx !== i),
-											});
-											if (selectedNodeIndex === i) setSelectedNodeIndex(null);
-										}}
-										cachedData={cachedData}
+							<div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
+								{[1, 2, 3, 4, 5, 6].map(n => (
+									<ArrayInputComponent
+										key={n}
+										label={`Cổ vật gợi ý Set ${n}`}
+										data={formData[`defaultRelicsSet${n}`] || []}
+										onChange={d =>
+											setFormData({ ...formData, [`defaultRelicsSet${n}`]: d })
+										}
+										cachedData={dataLookup.relics}
 									/>
 								))}
 							</div>
-						</div>
-					</div>
 
-					{/* Asset Management Section */}
-					<div className='pt-10 border-t px-6 space-y-10'>
-						<h4 className='text-lg font-bold flex items-center gap-2'>
-							<Link2 size={20} /> Quản lý Assets
-						</h4>
-						<div className='grid grid-cols-1 gap-4'>
-							{(formData.assets || []).map((asset, index) => (
-								<div
-									key={index}
-									className='flex flex-col md:flex-row items-center gap-6 p-6 bg-surface-hover/30 rounded-xl border border-border relative group'
-								>
-									<div className='grid grid-cols-1 md:grid-cols-3 gap-6 flex-1 w-full'>
-										{["avatar", "fullAbsolutePath", "gameAbsolutePath"].map(
-											field => (
-												<div key={field} className='space-y-2'>
-													<InputField
-														label={field}
-														value={asset[field] || ""}
-														onChange={e => {
-															const newAssets = [...formData.assets];
-															newAssets[index][field] = e.target.value;
-															setFormData({ ...formData, assets: newAssets });
-														}}
-													/>
-													{asset[field] && (
-														<img
-															src={asset[field]}
-															className='h-20 w-auto rounded-lg object-contain bg-black/40 border shadow-inner'
-														/>
-													)}
-												</div>
-											),
-										)}
-									</div>
-									<button
-										type='button'
-										onClick={() =>
-											setFormData({
-												...formData,
-												assets: formData.assets.filter((_, i) => i !== index),
-											})
-										}
-										className='text-red-500'
-									>
-										<XCircle size={22} />
-									</button>
-								</div>
-							))}
-							<Button
-								type='button'
-								variant='outline'
-								size='sm'
-								onClick={() =>
-									setFormData({
-										...formData,
-										assets: [
-											...(formData.assets || []),
-											{
-												fullAbsolutePath: "",
-												gameAbsolutePath: "",
-												avatar: "",
-											},
-										],
-									})
-								}
-								className='w-max'
-							>
-								Thêm Asset
-							</Button>
-						</div>
-
-						<div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
-							<ArrayInputComponent
-								label='Vùng'
-								data={formData.regions || []}
-								onChange={d => setFormData({ ...formData, regions: d })}
-							/>
-							<ArrayInputComponent
-								label='Thẻ'
-								data={formData.tag || []}
-								onChange={d => setFormData({ ...formData, tag: d })}
-							/>
-						</div>
-
-						<div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
-							{[1, 2, 3, 4, 5, 6].map(n => (
+							<div className='w-full md:w-1/3'>
 								<ArrayInputComponent
-									key={n}
-									label={`Bộ Cổ vật khuyên dùng ${n}`}
-									data={formData[`defaultRelicsSet${n}`] || []}
-									onChange={d =>
-										setFormData({ ...formData, [`defaultRelicsSet${n}`]: d })
-									}
-									cachedData={dataLookup.relics}
+									label='Ngọc gợi ý (Runes)'
+									data={formData.rune || []}
+									onChange={d => setFormData({ ...formData, rune: d })}
+									cachedData={dataLookup.runes}
 								/>
-							))}
-						</div>
-						<ArrayInputComponent
-							label='Ngọc gợi ý'
-							data={formData.rune || []}
-							onChange={d => setFormData({ ...formData, rune: d })}
-							cachedData={dataLookup.runes}
-						/>
+							</div>
+						</section>
 					</div>
 				</form>
 
