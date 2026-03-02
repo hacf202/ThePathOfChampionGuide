@@ -3,6 +3,7 @@ import { memo, useMemo, useState } from "react";
 import Button from "../common/button";
 import InputField from "../common/inputField";
 import { Search, Package, Gem, Zap, Shield, Star, X, Info } from "lucide-react";
+import { removeAccents } from "../../utils/vietnameseUtils";
 
 // Hàm helper để lấy ID duy nhất dựa trên bất kỳ cấu trúc CSDL nào
 const getUniqueId = item => {
@@ -143,12 +144,18 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 		let filtered = currentData;
 
 		if (searchInput) {
-			const term = searchInput.toLowerCase();
+			const term = removeAccents(searchInput).toLowerCase();
 			filtered = filtered.filter(
 				i =>
-					i.name?.toLowerCase().includes(term) ||
-					i.description?.toLowerCase().includes(term) ||
-					i.descriptionRaw?.toLowerCase().includes(term),
+					removeAccents(i.name || "")
+						.toLowerCase()
+						.includes(term) ||
+					removeAccents(i.description || "")
+						.toLowerCase()
+						.includes(term) ||
+					removeAccents(i.descriptionRaw || "")
+						.toLowerCase()
+						.includes(term),
 			);
 		}
 

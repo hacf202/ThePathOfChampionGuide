@@ -19,6 +19,8 @@ import {
 	Info,
 	Swords,
 	Box,
+	Eye,
+	EyeOff,
 } from "lucide-react";
 
 // Hàm helper để tương thích với tất cả các dạng định danh
@@ -493,6 +495,7 @@ const ChampionEditorForm = memo(
 		const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
 		const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 		const [selectedNodeIndex, setSelectedNodeIndex] = useState(null);
+		const [isMapVisible, setIsMapVisible] = useState(true);
 		const mapRef = useRef(null);
 
 		useEffect(() => {
@@ -748,7 +751,7 @@ const ChampionEditorForm = memo(
 							</div>
 						</section>
 
-						{/* BLOCK 2: MÔ TẢ & VIDEO */}
+						{/* BLOCK 2: M mô tả & VIDEO */}
 						<section className='bg-surface-bg border border-border rounded-xl p-6 shadow-sm space-y-6'>
 							<h3 className='text-lg font-bold border-l-4 border-red-500 pl-3 uppercase flex items-center gap-2'>
 								<Youtube size={20} className='text-red-500' /> Hướng dẫn & Video
@@ -811,138 +814,165 @@ const ChampionEditorForm = memo(
 									<MapIcon size={20} className='text-pink-500' /> Bản đồ Chòm
 									sao
 								</h3>
-								<Button
-									type='button'
-									size='sm'
-									variant='outline'
-									onClick={() => {
-										const newID = `n${constData.nodes.length + 1}`;
-										setConstData({
-											...constData,
-											nodes: [
-												...constData.nodes,
-												{
-													nodeID: newID,
-													nodeName: "",
-													nodeType: "starPower",
-													position: { x: 50, y: 50 },
-													nextNodes: [],
-													requirements: [],
-													description: "",
-													isRecommended: false,
-												},
-											],
-										});
-									}}
-									iconLeft={<Plus size={16} />}
-								>
-									Thêm Node
-								</Button>
-							</div>
-
-							<div className='grid grid-cols-1 xl:grid-cols-2 gap-8 items-start'>
-								{/* CỘT TRÁI: BẢN ĐỒ */}
-								<div className='space-y-4 sticky top-24'>
-									<div
-										className='relative aspect-video bg-slate-950 rounded-2xl overflow-hidden border-2 border-border shadow-lg cursor-crosshair'
-										ref={mapRef}
-										onClick={handleMapClick}
+								<div className='flex items-center gap-3'>
+									<Button
+										type='button'
+										size='sm'
+										variant='outline'
+										onClick={() => setIsMapVisible(!isMapVisible)}
+										iconLeft={
+											isMapVisible ? <EyeOff size={16} /> : <Eye size={16} />
+										}
 									>
-										<img
-											src={
-												constData.backgroundImage ||
-												"/images/placeholder-bg.jpg"
-											}
-											className='w-full h-full object-cover opacity-50'
-										/>
-										<svg className='absolute inset-0 w-full h-full pointer-events-none'>
-											<defs>
-												<marker
-													id='arrowhead'
-													markerWidth='5'
-													markerHeight='5'
-													refX='4.8'
-													refY='2.5'
-													orient='auto'
-												>
-													<path
-														d='M0,0 L5,2.5 L0,5 Z'
-														fill='rgba(234, 179, 8, 0.6)'
-													/>
-												</marker>
-												<marker
-													id='arrowhead-recommended'
-													markerWidth='5'
-													markerHeight='5'
-													refX='4.8'
-													refY='2.5'
-													orient='auto'
-												>
-													<path
-														d='M0,0 L5,2.5 L0,5 Z'
-														fill='rgba(234, 179, 8, 1)'
-													/>
-												</marker>
-											</defs>
-											{constData.nodes.map(node =>
-												node.nextNodes?.map(tID => {
-													const target = constData.nodes.find(
-														n => n.nodeID === tID,
-													);
-													return (
-														target && (
-															<ConstellationLine
-																key={`${node.nodeID}-${tID}`}
-																x1={node.position?.x ?? 0}
-																y1={node.position?.y ?? 0}
-																x2={target.position?.x ?? 0}
-																y2={target.position?.y ?? 0}
-																isRecommended={
-																	node.isRecommended && target.isRecommended
-																}
-															/>
-														)
-													);
-												}),
-											)}
-										</svg>
-										{constData.nodes.map((n, i) => (
-											<div
-												key={i}
-												className={`absolute w-6 h-6 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 flex items-center justify-center transition-all ${selectedNodeIndex === i ? "bg-primary-500 border-white scale-125 z-30 shadow-[0_0_10px_white]" : "bg-white/10 border-white/40 z-20"}`}
-												style={{
-													left: `${n.position?.x ?? 0}%`,
-													top: `${n.position?.y ?? 0}%`,
-												}}
-											>
-												{n.nodeType === "starPower" ? (
-													<Star size={10} className='text-white fill-current' />
-												) : (
-													<Gem size={10} className='text-white fill-current' />
-												)}
-												<span className='absolute -bottom-5 text-[8px] font-bold text-white bg-black/40 px-1 rounded'>
-													{n.nodeID || ""}
-												</span>
-											</div>
-										))}
-									</div>
-									<InputField
-										label='URL Ảnh nền bản đồ'
-										value={constData.backgroundImage || ""}
-										onChange={e =>
+										{isMapVisible ? "Ẩn Bản đồ" : "Hiện Bản đồ"}
+									</Button>
+									<Button
+										type='button'
+										size='sm'
+										variant='outline'
+										onClick={() => {
+											const newID = `n${constData.nodes.length + 1}`;
 											setConstData({
 												...constData,
-												backgroundImage: e.target.value,
-											})
-										}
-										placeholder='Nhập link ảnh...'
-									/>
+												nodes: [
+													...constData.nodes,
+													{
+														nodeID: newID,
+														nodeName: "",
+														nodeType: "starPower",
+														position: { x: 50, y: 50 },
+														nextNodes: [],
+														requirements: [],
+														description: "",
+														isRecommended: false,
+													},
+												],
+											});
+										}}
+										iconLeft={<Plus size={16} />}
+									>
+										Thêm Node
+									</Button>
 								</div>
+							</div>
 
-								{/* CỘT PHẢI: DANH SÁCH NODE */}
-								<div className='space-y-2 max-h-[800px] overflow-y-auto pr-3 custom-scrollbar'>
+							<div
+								className={`grid grid-cols-1 ${isMapVisible ? "xl:grid-cols-2" : ""} gap-8 items-start`}
+							>
+								{/* CỘT TRÁI: BẢN ĐỒ */}
+								{isMapVisible && (
+									<div className='space-y-4 sticky top-24'>
+										<div
+											className='relative aspect-video bg-slate-950 rounded-2xl overflow-hidden border-2 border-border shadow-lg cursor-crosshair'
+											ref={mapRef}
+											onClick={handleMapClick}
+										>
+											<img
+												src={
+													constData.backgroundImage ||
+													"/images/placeholder-bg.jpg"
+												}
+												className='w-full h-full object-cover opacity-50'
+											/>
+											<svg className='absolute inset-0 w-full h-full pointer-events-none'>
+												<defs>
+													<marker
+														id='arrowhead'
+														markerWidth='5'
+														markerHeight='5'
+														refX='4.8'
+														refY='2.5'
+														orient='auto'
+													>
+														<path
+															d='M0,0 L5,2.5 L0,5 Z'
+															fill='rgba(234, 179, 8, 0.6)'
+														/>
+													</marker>
+													<marker
+														id='arrowhead-recommended'
+														markerWidth='5'
+														markerHeight='5'
+														refX='4.8'
+														refY='2.5'
+														orient='auto'
+													>
+														<path
+															d='M0,0 L5,2.5 L0,5 Z'
+															fill='rgba(234, 179, 8, 1)'
+														/>
+													</marker>
+												</defs>
+												{constData.nodes.map(node =>
+													node.nextNodes?.map(tID => {
+														const target = constData.nodes.find(
+															n => n.nodeID === tID,
+														);
+														return (
+															target && (
+																<ConstellationLine
+																	key={`${node.nodeID}-${tID}`}
+																	x1={node.position?.x ?? 0}
+																	y1={node.position?.y ?? 0}
+																	x2={target.position?.x ?? 0}
+																	y2={target.position?.y ?? 0}
+																	isRecommended={
+																		node.isRecommended && target.isRecommended
+																	}
+																/>
+															)
+														);
+													}),
+												)}
+											</svg>
+											{constData.nodes.map((n, i) => (
+												<div
+													key={i}
+													className={`absolute w-6 h-6 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 flex items-center justify-center transition-all ${selectedNodeIndex === i ? "bg-primary-500 border-white scale-125 z-30 shadow-[0_0_10px_white]" : "bg-white/10 border-white/40 z-20"}`}
+													style={{
+														left: `${n.position?.x ?? 0}%`,
+														top: `${n.position?.y ?? 0}%`,
+													}}
+												>
+													{n.nodeType === "starPower" ? (
+														<Star
+															size={10}
+															className='text-white fill-current'
+														/>
+													) : (
+														<Gem
+															size={10}
+															className='text-white fill-current'
+														/>
+													)}
+													<span className='absolute -bottom-5 text-[8px] font-bold text-white bg-black/40 px-1 rounded'>
+														{n.nodeID || ""}
+													</span>
+												</div>
+											))}
+										</div>
+										<InputField
+											label='URL Ảnh nền bản đồ'
+											value={constData.backgroundImage || ""}
+											onChange={e =>
+												setConstData({
+													...constData,
+													backgroundImage: e.target.value,
+												})
+											}
+											placeholder='Nhập link ảnh...'
+										/>
+									</div>
+								)}
+
+								{/* CỘT PHẢI: DANH SÁCH NODE - ĐÃ ĐIỀU CHỈNH CHIA 2 CỘT KHI ẨN MAP */}
+								<div
+									className={`max-h-[800px] overflow-y-auto pr-3 custom-scrollbar ${isMapVisible ? "space-y-2" : "grid grid-cols-1 lg:grid-cols-2 gap-x-6 content-start"}`}
+								>
 									{constData.nodes.length === 0 ? (
-										<div className='text-center py-10 text-text-secondary border border-dashed border-border rounded-xl bg-surface-hover/30'>
+										<div
+											className={`text-center py-10 text-text-secondary border border-dashed border-border rounded-xl bg-surface-hover/30 ${!isMapVisible ? "lg:col-span-2" : ""}`}
+										>
 											Chưa có Node nào. Bấm "Thêm Node" để bắt đầu.
 										</div>
 									) : (

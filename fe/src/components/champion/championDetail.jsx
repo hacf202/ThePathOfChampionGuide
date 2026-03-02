@@ -28,7 +28,7 @@ const ChampionDetailSkeleton = () => (
 	</div>
 );
 
-// --- CÁC THÀNH PHẦN CONSTELLATION (GIỮ NGUYÊN CSS GỐC) ---
+// --- CÁC THÀNH PHẦN CONSTELLATION (ĐÃ CẬP NHẬT KÍCH THƯỚC GIẢM 25%) ---
 const ConstellationNode = ({ power, index, active, onShowTooltip }) => {
 	const nodeRef = useRef(null);
 	const leftPos =
@@ -39,7 +39,8 @@ const ConstellationNode = ({ power, index, active, onShowTooltip }) => {
 	const StarIcon = ({ color, glowColor }) => (
 		<svg
 			viewBox='0 0 100 100'
-			className='w-6 h-6 sm:w-12 sm:h-12'
+			// Giảm kích thước ~25%: từ 24px/48px xuống 18px/36px
+			className='w-[18px] h-[18px] sm:w-9 sm:h-9'
 			style={{
 				filter: `drop-shadow(0 0 6px ${glowColor})`,
 				transform: "rotate(25deg)",
@@ -68,7 +69,8 @@ const ConstellationNode = ({ power, index, active, onShowTooltip }) => {
 			<img
 				src={power.image}
 				alt={power.name}
-				className='w-6 h-6 sm:w-14 sm:h-14 rounded-full object-contain'
+				// Giảm kích thước ~25%: từ 24px/56px xuống 18px/42px
+				className='w-[18px] h-[18px] sm:w-[42px] sm:h-[42px] rounded-full object-contain'
 			/>
 		);
 	};
@@ -82,8 +84,9 @@ const ConstellationNode = ({ power, index, active, onShowTooltip }) => {
 			onMouseLeave={() => onShowTooltip(null, null)}
 		>
 			{power.isRecommended && (
-				<div className='absolute -top-1 -right-0.5 sm:-top-2 sm:-right-1 z-20 text-yellow-400 animate-pulse'>
-					<Sparkles fill='currentColor' className='w-2 h-2 sm:w-4 sm:h-4' />
+				<div className='absolute -top-1 -right-0.5 sm:-top-1 sm:-right-0.5 z-20 text-yellow-400 animate-pulse'>
+					{/* Giảm icon recommend tỉ lệ theo */}
+					<Sparkles fill='currentColor' className='w-1.5 h-1.5 sm:w-3 sm:h-3' />
 				</div>
 			)}
 			<div className='relative flex items-center justify-center'>
@@ -94,7 +97,8 @@ const ConstellationNode = ({ power, index, active, onShowTooltip }) => {
 					{renderNodeContent()}
 					{power.nodeType === "starPower" && (
 						<div
-							className={`absolute -bottom-1 -right-1 text-black text-[7px] sm:text-[10px] font-black px-1 sm:px-1.5 rounded-sm border border-black shadow-sm ${power.isRecommended ? "bg-yellow-400" : "bg-yellow-500"}`}
+							// Chỉnh lại text cho phù hợp kích thước nhỏ hơn
+							className={`absolute -bottom-1 -right-1 text-black text-[6px] sm:text-[8px] font-black px-1 rounded-sm border border-black shadow-sm ${power.isRecommended ? "bg-yellow-400" : "bg-yellow-500"}`}
 						>
 							{index + 1}★
 						</div>
@@ -515,10 +519,10 @@ function ChampionDetail() {
 											</svg>
 											{constellationInfo.nodes.map((node, index) => (
 												<ConstellationNode
-													key={index}
+													key={node.nodeID || index} // Đổi key thành nodeID
 													index={index}
 													power={node}
-													active={hoveredNode?.name === node.name}
+													active={hoveredNode?.nodeID === node.nodeID} // Sử dụng nodeID để kiểm tra hover
 													onShowTooltip={(n, c) => {
 														setHoveredNode(n);
 														setTooltipCoords(c);
