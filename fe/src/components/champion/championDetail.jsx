@@ -121,14 +121,14 @@ const ConstellationNode = ({ power, index, active, onShowTooltip }) => {
 		// Nếu là Bonus Node thì tăng kích thước +70% (31px trên mobile, 71px trên màn hình lớn)
 		// Ngược lại giữ nguyên kích thước cũ (18px và 42px)
 		const sizeClasses = isBonusNode
-			? "w-[31px] h-[31px] sm:w-[71px] sm:h-[71px]"
-			: "w-[18px] h-[18px] sm:w-[42px] sm:h-[42px]";
+			? "w-[25px] h-[25px] sm:w-[55px] sm:h-[55px]"
+			: "w-[23px] h-[23px] sm:w-[47px] sm:h-[47px]";
 
 		return (
 			<img
 				src={power.image || "/images/placeholder.png"}
 				alt={power.name}
-				className={`${sizeClasses} rounded-full object-contain p-0.5 shadow-md transition-all`}
+				className={`${sizeClasses} object-contain p-0.5 transition-all`}
 			/>
 		);
 	};
@@ -141,11 +141,6 @@ const ConstellationNode = ({ power, index, active, onShowTooltip }) => {
 			onMouseEnter={handleMouseEnter}
 			onMouseLeave={() => onShowTooltip(null, null)}
 		>
-			{power.isRecommended && (
-				<div className='absolute -top-1 -right-0.5 sm:-top-1 sm:-right-0.5 z-20 text-yellow-400 animate-pulse'>
-					<Sparkles fill='currentColor' className='w-1.5 h-1.5 sm:w-3 sm:h-3' />
-				</div>
-			)}
 			<div className='relative flex items-center justify-center'>
 				<div
 					className={`absolute inset-0 rounded-full blur-2xl transition-opacity duration-500 ${power.isRecommended || active ? "opacity-80 bg-yellow-400 animate-pulse" : "opacity-0"}`}
@@ -167,7 +162,8 @@ const ConstellationNode = ({ power, index, active, onShowTooltip }) => {
 
 const ConstellationLine = ({ x1, y1, x2, y2, isRecommended }) => {
 	const angle = Math.atan2(y2 - y1, x2 - x1);
-	const offset = window.innerWidth < 640 ? 1.5 : 3.0;
+	// Giảm offset xuống một chút vì mũi tên dài và nhọn hơn
+	const offset = window.innerWidth < 640 ? 1.5 : 3.5;
 	const finalX2 = x2 - offset * Math.cos(angle);
 	const finalY2 = y2 - offset * Math.sin(angle);
 
@@ -180,7 +176,7 @@ const ConstellationLine = ({ x1, y1, x2, y2, isRecommended }) => {
 			stroke={
 				isRecommended ? "rgba(234, 179, 8, 1)" : "rgba(234, 179, 8, 0.25)"
 			}
-			strokeWidth={isRecommended ? "3" : "1.5"}
+			strokeWidth={isRecommended ? "2.5" : "1.5"} // <-- GIẢM ĐỘ DÀY ĐƯỜNG NỐI TẠI ĐÂY (cũ là 3 và 1.5)
 			strokeDasharray={isRecommended ? "0" : "8,4"}
 			markerEnd={`url(#${isRecommended ? "arrowhead-recommended" : "arrowhead"})`}
 			className={isRecommended ? "drop-shadow-[0_0_8px_rgba(234,179,8,1)]" : ""}
@@ -559,44 +555,44 @@ function ChampionDetail() {
 										</h2>
 
 										{/* BẢN ĐỒ CHÒM SAO */}
-										<div className='p-1 relative w-full aspect-video bg-slate-950 border rounded-lg overflow-hidden shadow-2xl'>
+										<div className='p-1 relative w-full aspect-video bg-black border rounded-lg overflow-hidden shadow-2xl'>
 											<img
 												src={constellationInfo.backgroundImage}
-												className='absolute inset-0 w-full h-full object-cover opacity-10 blur-sm pointer-events-none'
+												className='absolute inset-0 w-full h-full object-cover opacity-30 pointer-events-none'
 												alt='bg'
 											/>
 											<svg className='absolute inset-0 w-full h-full pointer-events-none'>
 												<defs>
 													<marker
 														id='arrowhead'
-														markerWidth={window.innerWidth < 640 ? "3" : "5"}
-														markerHeight={window.innerWidth < 640 ? "3" : "5"}
-														refX={window.innerWidth < 640 ? "2.5" : "4.8"}
-														refY={window.innerWidth < 640 ? "1.5" : "2.5"}
+														markerWidth={window.innerWidth < 640 ? "3" : "6"}
+														markerHeight={window.innerWidth < 640 ? "2" : "5"}
+														refX={window.innerWidth < 640 ? "2.8" : "5.8"}
+														refY={window.innerWidth < 640 ? "1" : "2.5"}
 														orient='auto'
 													>
 														<path
 															d={
 																window.innerWidth < 640
-																	? "M0,0 L3,1.5 L0,3 Z"
-																	: "M0,0 L5,2.5 L0,5 Z"
+																	? "M0,0 L3,1 L0,2 Z"
+																	: "M0,0 L6,2.5 L0,5 Z"
 															}
 															fill='rgba(234, 179, 8, 0.6)'
 														/>
 													</marker>
 													<marker
 														id='arrowhead-recommended'
-														markerWidth={window.innerWidth < 640 ? "3" : "5"}
-														markerHeight={window.innerWidth < 640 ? "3" : "5"}
-														refX={window.innerWidth < 640 ? "2.5" : "4.8"}
-														refY={window.innerWidth < 640 ? "1.5" : "2.5"}
+														markerWidth={window.innerWidth < 640 ? "3" : "6"}
+														markerHeight={window.innerWidth < 640 ? "2" : "5"}
+														refX={window.innerWidth < 640 ? "2.8" : "5.8"}
+														refY={window.innerWidth < 640 ? "1" : "2.5"}
 														orient='auto'
 													>
 														<path
 															d={
 																window.innerWidth < 640
-																	? "M0,0 L3,1.5 L0,3 Z"
-																	: "M0,0 L5,2.5 L0,5 Z"
+																	? "M0,0 L3,1 L0,2 Z"
+																	: "M0,0 L6,2.5 L0,5 Z"
 															}
 															fill='rgba(234, 179, 8, 1)'
 														/>
