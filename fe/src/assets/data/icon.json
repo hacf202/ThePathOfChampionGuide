@@ -110,5 +110,17 @@
 	{
 		"name": "Bụi Tinh Tú",
 		"image": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/icons/Stardust_icon.png"
+	},
+	{
+		"name": "Pha Lê Sao Băng",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/thumb/PoC_Nova_Crystal_icon.png/20px-PoC_Nova_Crystal_icon.png?c3074"
+	},
+	{
+		"name": "Pha Lê Tinh Tú",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/thumb/PoC_Star_Crystal_icon.png/20px-PoC_Star_Crystal_icon.png?59fc0"
+	},
+	{
+		"name": "Đá Quý",
+		"image": "https://wiki.leagueoflegends.com/en-us/images/thumb/PoC_Gemstone_icon.png/20px-PoC_Gemstone_icon.png?e6e65"
 	}
 ]

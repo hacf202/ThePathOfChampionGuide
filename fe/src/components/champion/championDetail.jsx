@@ -2,7 +2,7 @@
 import { memo, useMemo, useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion"; // Thêm để làm hiệu ứng loading mượt
+import { motion, AnimatePresence } from "framer-motion";
 import iconRegions from "../../assets/data/iconRegions.json";
 import { ChevronLeft, Loader2, Star, Sparkles, XCircle } from "lucide-react";
 import LatestComments from "../comment/latestComments";
@@ -10,7 +10,7 @@ import Button from "../common/button";
 import PageTitle from "../common/pageTitle";
 import SafeImage from "../common/SafeImage";
 
-// --- THÀNH PHẦN SKELETON (Giữ nguyên phong cách của ChampionList) ---
+// --- THÀNH PHẦN SKELETON ---
 const ChampionDetailSkeleton = () => (
 	<div className='max-w-[1200px] mx-auto p-0 sm:p-6 animate-pulse'>
 		<div className='h-10 w-24 bg-gray-700/50 rounded mb-4 ml-4 sm:ml-0' />
@@ -28,30 +28,82 @@ const ChampionDetailSkeleton = () => (
 	</div>
 );
 
-// --- CÁC THÀNH PHẦN CONSTELLATION (ĐÃ CẬP NHẬT KÍCH THƯỚC GIẢM 25%) ---
+// --- COMPONENT HỖ TRỢ HIỂN THỊ YÊU CẦU (COST) TỪ FILE JSON ---
+const RequirementIcon = ({ type }) => {
+	let src = "";
+	switch (type) {
+		case "Fragment":
+			src =
+				"https://wpocimg.s3.ap-southeast-2.amazonaws.com/icons/Wild_Fragment_icon.png";
+			break;
+		case "Crystal":
+			src =
+				"https://wiki.leagueoflegends.com/en-us/images/thumb/PoC_Star_Crystal_icon.png/20px-PoC_Star_Crystal_icon.png?59fc0";
+			break;
+		case "Nova Crystal":
+			src =
+				"https://wiki.leagueoflegends.com/en-us/images/thumb/PoC_Nova_Crystal_icon.png/20px-PoC_Nova_Crystal_icon.png?c3074";
+			break;
+		case "Gemstone":
+			src =
+				"https://wiki.leagueoflegends.com/en-us/images/thumb/PoC_Gemstone_icon.png/20px-PoC_Gemstone_icon.png?e6e65";
+			break;
+		default:
+			src =
+				"https://wpocimg.s3.ap-southeast-2.amazonaws.com/icons/Wild_Fragment_icon.png";
+	}
+	return (
+		<img
+			src={src}
+			alt={type}
+			className='w-[14px] h-[14px] sm:w-[18px] sm:h-[18px] object-contain inline-block'
+		/>
+	);
+};
+
+const RenderRequirements = ({ requirements }) => {
+	if (!requirements || requirements.length === 0)
+		return <span className='text-text-secondary'>-</span>;
+
+	return (
+		<div className='flex flex-wrap items-center justify-center gap-1 text-[11px] sm:text-[13px] font-medium text-text-primary'>
+			{requirements.map((req, idx) => (
+				<div key={idx} className='flex items-center gap-1'>
+					{idx > 0 && (
+						<span className='text-text-secondary mx-0.5 text-[10px] sm:text-xs font-bold'>
+							+
+						</span>
+					)}
+					<RequirementIcon type={req.type} />
+					<span>{req.value}</span>
+				</div>
+			))}
+		</div>
+	);
+};
+
+// --- COMPONENT HỖ TRỢ HIỂN THỊ SỐ SAO ---
+const StarRating = ({ count }) => {
+	return (
+		<div className='flex flex-wrap justify-center gap-[1px] w-12 mx-auto'>
+			{[...Array(count)].map((_, i) => (
+				<Star
+					key={i}
+					size={14}
+					className='text-yellow-500 fill-current drop-shadow-sm'
+				/>
+			))}
+		</div>
+	);
+};
+
+// --- CÁC THÀNH PHẦN CONSTELLATION ---
 const ConstellationNode = ({ power, index, active, onShowTooltip }) => {
 	const nodeRef = useRef(null);
 	const leftPos =
 		typeof power.pos.x === "number" ? `${power.pos.x}%` : power.pos.x;
 	const topPos =
 		typeof power.pos.y === "number" ? `${power.pos.y}%` : power.pos.y;
-
-	const StarIcon = ({ color, glowColor }) => (
-		<svg
-			viewBox='0 0 100 100'
-			// Giảm kích thước ~25%: từ 24px/48px xuống 18px/36px
-			className='w-[18px] h-[18px] sm:w-9 sm:h-9'
-			style={{
-				filter: `drop-shadow(0 0 6px ${glowColor})`,
-				transform: "rotate(25deg)",
-			}}
-		>
-			<path
-				d='M50 0 L58 42 L100 50 L58 58 L50 100 L42 58 L0 50 L42 42 Z'
-				fill={color}
-			/>
-		</svg>
-	);
 
 	const handleMouseEnter = () => {
 		if (nodeRef.current) {
@@ -60,17 +112,23 @@ const ConstellationNode = ({ power, index, active, onShowTooltip }) => {
 		}
 	};
 
+	// Đã cập nhật để render thẳng Hình ảnh (image) cho TẤT CẢ các loại Node (Star Power & Bonus Star)
 	const renderNodeContent = () => {
-		if (power.nodeType === "bonusStar")
-			return <StarIcon color='white' glowColor='rgba(255,255,255,0.8)' />;
-		if (power.nodeType === "bonusStarGem")
-			return <StarIcon color='#ff4dfc' glowColor='rgba(255,77,252,0.8)' />;
+		// Kiểm tra xem đây có phải là Bonus Star không (khác starPower)
+		const isBonusNode =
+			power.nodeType === "bonusStar" || power.nodeType === "bonusStarGem";
+
+		// Nếu là Bonus Node thì tăng kích thước +70% (31px trên mobile, 71px trên màn hình lớn)
+		// Ngược lại giữ nguyên kích thước cũ (18px và 42px)
+		const sizeClasses = isBonusNode
+			? "w-[31px] h-[31px] sm:w-[71px] sm:h-[71px]"
+			: "w-[18px] h-[18px] sm:w-[42px] sm:h-[42px]";
+
 		return (
 			<img
-				src={power.image}
+				src={power.image || "/images/placeholder.png"}
 				alt={power.name}
-				// Giảm kích thước ~25%: từ 24px/56px xuống 18px/42px
-				className='w-[18px] h-[18px] sm:w-[42px] sm:h-[42px] rounded-full object-contain'
+				className={`${sizeClasses} rounded-full object-contain p-0.5 shadow-md transition-all`}
 			/>
 		);
 	};
@@ -85,7 +143,6 @@ const ConstellationNode = ({ power, index, active, onShowTooltip }) => {
 		>
 			{power.isRecommended && (
 				<div className='absolute -top-1 -right-0.5 sm:-top-1 sm:-right-0.5 z-20 text-yellow-400 animate-pulse'>
-					{/* Giảm icon recommend tỉ lệ theo */}
 					<Sparkles fill='currentColor' className='w-1.5 h-1.5 sm:w-3 sm:h-3' />
 				</div>
 			)}
@@ -97,7 +154,6 @@ const ConstellationNode = ({ power, index, active, onShowTooltip }) => {
 					{renderNodeContent()}
 					{power.nodeType === "starPower" && (
 						<div
-							// Chỉnh lại text cho phù hợp kích thước nhỏ hơn
 							className={`absolute -bottom-1 -right-1 text-black text-[6px] sm:text-[8px] font-black px-1 rounded-sm border border-black shadow-sm ${power.isRecommended ? "bg-yellow-400" : "bg-yellow-500"}`}
 						>
 							{index + 1}★
@@ -174,6 +230,7 @@ function ChampionDetail() {
 	const [champion, setChampion] = useState(null);
 	const [constellationData, setConstellationData] = useState(null);
 	const [resolvedPowers, setResolvedPowers] = useState([]);
+	const [fetchedBonusStars, setFetchedBonusStars] = useState([]); // State mới lưu dữ liệu Bonus Stars
 	const [resolvedItems, setResolvedItems] = useState([]);
 	const [resolvedRelics, setResolvedRelics] = useState([]);
 	const [resolvedRunes, setResolvedRunes] = useState([]);
@@ -184,6 +241,9 @@ function ChampionDetail() {
 	const [tooltipCoords, setTooltipCoords] = useState(null);
 	const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
 
+	const [activeConstellationTab, setActiveConstellationTab] =
+		useState("starPowers");
+
 	useEffect(() => {
 		let isMounted = true;
 		const controller = new AbortController();
@@ -192,18 +252,23 @@ function ChampionDetail() {
 		const initData = async () => {
 			try {
 				setLoading(true);
-				const [champRes, constRes] = await Promise.all([
+
+				// Đã thêm fetch api bonusStars vào Promise.all
+				const [champRes, constRes, bonusRes] = await Promise.all([
 					fetch(`${apiUrl}/api/champions/${championID}`, { signal }),
 					fetch(`${apiUrl}/api/constellations/${championID}`, { signal }),
+					fetch(`${apiUrl}/api/bonusStars`, { signal }),
 				]);
 
 				if (!champRes.ok) throw new Error("Không thể tải thông tin tướng.");
 				const champData = await champRes.json();
 				const constData = constRes.ok ? await constRes.json() : null;
+				const bonusData = bonusRes.ok ? await bonusRes.json() : { items: [] };
 
 				if (!isMounted) return;
 				setChampion(champData);
 				setConstellationData(constData);
+				setFetchedBonusStars(bonusData.items || []); // Lưu danh sách Bonus Stars vào state
 
 				const constellationNames = constData
 					? constData.nodes.map(n => n.nodeName)
@@ -261,15 +326,39 @@ function ChampionDetail() {
 		if (!champion) return { nodes: [], backgroundImage: "" };
 		if (constellationData) {
 			const nodes = constellationData.nodes.map(node => {
-				const p = resolvedPowers.find(x => x.name === node.nodeName);
+				let resolvedImage = "/images/placeholder.png";
+				let resolvedDescription = node.description || "";
+				let resolvedName = node.nodeName;
+
+				// Logic phân tách: Lấy ảnh từ resolvedPowers (cho starPower) HOẶC từ fetchedBonusStars (cho bonusStar)
+				if (node.nodeType === "starPower" || !node.nodeType) {
+					const p = resolvedPowers.find(x => x.name === node.nodeName);
+					if (p) {
+						resolvedImage = p.assetAbsolutePath || p.image || resolvedImage;
+						if (!node.description)
+							resolvedDescription = p.description || p.descriptionRaw || "";
+					}
+				} else {
+					// Lấy dữ liệu cho Bonus Stars
+					const b = fetchedBonusStars.find(
+						x => x.name === node.nodeName || x.bonusStarID === node.nodeName,
+					);
+					if (b) {
+						resolvedImage = b.image || resolvedImage;
+						resolvedName = b.name || resolvedName;
+						if (!node.description) resolvedDescription = b.description || "";
+					}
+				}
+
 				return {
 					...node,
-					name: node.nodeName,
-					image: p?.assetAbsolutePath || "/images/placeholder.png",
-					description:
-						node.description || p?.description || p?.descriptionRaw || "",
+					name: resolvedName,
+					image: resolvedImage,
+					description: resolvedDescription,
 					pos: node.position,
 					isRecommended: node.isRecommended || false,
+					nodeType: node.nodeType || "starPower",
+					requirements: node.requirements || [],
 				};
 			});
 			return { nodes, backgroundImage: constellationData.backgroundImage };
@@ -286,13 +375,14 @@ function ChampionDetail() {
 					i < champion.powerStars.length - 1 ? [`fallback-${i + 1}`] : [],
 				nodeType: "starPower",
 				isRecommended: false,
+				requirements: [],
 			};
 		});
 		return {
 			nodes: fallbackNodes,
 			backgroundImage: champion?.assets?.[0]?.avatar,
 		};
-	}, [champion, constellationData, resolvedPowers]);
+	}, [champion, constellationData, resolvedPowers, fetchedBonusStars]);
 
 	const adventurePowersFull = useMemo(
 		() =>
@@ -342,6 +432,21 @@ function ChampionDetail() {
 			};
 		}).filter(s => s.relics.length > 0);
 	}, [champion, resolvedRelics]);
+
+	const starPowersList = useMemo(() => {
+		return constellationInfo.nodes.filter(n => n.nodeType === "starPower");
+	}, [constellationInfo.nodes]);
+
+	const bonusStarsList = useMemo(() => {
+		return constellationInfo.nodes.filter(n => n.nodeType !== "starPower");
+	}, [constellationInfo.nodes]);
+
+	// Hàm chuyển đổi nodeType sang text Tiếng Việt cho cột Loại
+	const getBonusStarTypeName = nodeType => {
+		if (nodeType === "bonusStar") return "Thường";
+		if (nodeType === "bonusStarGem") return "Đá Quý";
+		return nodeType;
+	};
 
 	if (error)
 		return (
@@ -449,9 +554,11 @@ function ChampionDetail() {
 
 								{constellationInfo.nodes.length > 0 && (
 									<>
-										<h2 className='p-1 text-lg sm:text-3xl font-semibold my-1 uppercase font-primary'>
+										<h2 className='p-1 text-lg sm:text-3xl font-semibold my-1 uppercase font-primary mt-6'>
 											Chòm sao
 										</h2>
+
+										{/* BẢN ĐỒ CHÒM SAO */}
 										<div className='p-1 relative w-full aspect-video bg-slate-950 border rounded-lg overflow-hidden shadow-2xl'>
 											<img
 												src={constellationInfo.backgroundImage}
@@ -519,10 +626,10 @@ function ChampionDetail() {
 											</svg>
 											{constellationInfo.nodes.map((node, index) => (
 												<ConstellationNode
-													key={node.nodeID || index} // Đổi key thành nodeID
+													key={node.nodeID || index}
 													index={index}
 													power={node}
-													active={hoveredNode?.nodeID === node.nodeID} // Sử dụng nodeID để kiểm tra hover
+													active={hoveredNode?.nodeID === node.nodeID}
 													onShowTooltip={(n, c) => {
 														setHoveredNode(n);
 														setTooltipCoords(c);
@@ -555,10 +662,139 @@ function ChampionDetail() {
 													document.body,
 												)}
 										</div>
+
+										{/* BẢNG CHI TIẾT CHÒM SAO CẬP NHẬT CHIA 5 CỘT RÕ RÀNG */}
+										<div className='mt-8 bg-surface-bg rounded-lg overflow-hidden border border-border shadow-sm'>
+											{/* TABS */}
+											<div className='flex gap-1 border-b border-border px-2 sm:px-4 pt-2 sm:pt-4 bg-surface-hover/30'>
+												<button
+													onClick={() =>
+														setActiveConstellationTab("starPowers")
+													}
+													className={`px-3 sm:px-4 py-2 font-semibold text-[13px] sm:text-sm transition-colors border-b-2 ${
+														activeConstellationTab === "starPowers"
+															? "border-primary-500 text-primary-500 bg-surface-bg"
+															: "border-transparent text-text-secondary hover:text-text-primary"
+													}`}
+												>
+													Ngôi sao sức mạnh
+												</button>
+												<button
+													onClick={() =>
+														setActiveConstellationTab("bonusStars")
+													}
+													className={`px-3 sm:px-4 py-2 font-semibold text-[13px] sm:text-sm transition-colors border-b-2 ${
+														activeConstellationTab === "bonusStars"
+															? "border-primary-500 text-primary-500 bg-surface-bg"
+															: "border-transparent text-text-secondary hover:text-text-primary"
+													}`}
+												>
+													Ngôi sao tăng thưởng
+												</button>
+											</div>
+
+											{/* TABLE */}
+											<div className='overflow-x-auto'>
+												<table className='w-full text-left border-collapse min-w-[700px]'>
+													<thead>
+														<tr className='bg-surface-hover/50 text-text-secondary text-xs sm:text-sm border-b border-border'>
+															<th className='py-2 px-2 sm:px-4 w-16 sm:w-20 text-center font-bold'>
+																{activeConstellationTab === "starPowers"
+																	? "Cấp sao"
+																	: "Loại"}
+															</th>
+															<th className='py-2 px-2 sm:px-4 w-24 sm:w-32 text-center font-bold whitespace-nowrap'>
+																Yêu cầu
+															</th>
+															<th className='py-2 px-2 sm:px-4 w-16 sm:w-24 text-center font-bold'>
+																Hình ảnh
+															</th>
+															<th className='py-2 px-2 sm:px-4 w-32 sm:w-48 font-bold'>
+																Tên
+															</th>
+															<th className='py-2 px-2 sm:px-4 font-bold'>
+																Sức mạnh
+															</th>
+														</tr>
+													</thead>
+													<tbody className='divide-y divide-border'>
+														{(activeConstellationTab === "starPowers"
+															? starPowersList
+															: bonusStarsList
+														).map((node, index) => (
+															<tr
+																key={node.nodeID || index}
+																className='hover:bg-surface-hover/40 transition-colors'
+															>
+																{/* Cột 1: Cấp sao / Loại */}
+																<td className='py-1 px-1 sm:px-2 align-middle border-r border-border/50 text-center'>
+																	{activeConstellationTab === "starPowers" ? (
+																		<StarRating count={index + 1} />
+																	) : (
+																		<span className='text-xs sm:text-[13px] font-semibold text-text-secondary'>
+																			{getBonusStarTypeName(node.nodeType)}
+																		</span>
+																	)}
+																</td>
+
+																{/* Cột 2: Yêu cầu */}
+																<td className='py-1 px-1 sm:px-2 align-middle border-r border-border/50'>
+																	<div className='flex justify-center'>
+																		<RenderRequirements
+																			requirements={node.requirements}
+																		/>
+																	</div>
+																</td>
+
+																{/* Cột 3: Hình ảnh */}
+																<td className='py-1 px-1 sm:px-2 align-middle border-r border-border/50'>
+																	<div className='flex justify-center'>
+																		<div className='w-12 h-12 sm:w-14 sm:h-14 rounded bg-surface-bg '>
+																			<img
+																				src={node.image}
+																				alt={node.name}
+																				className='w-full h-full object-contain drop-shadow-sm'
+																			/>
+																		</div>
+																	</div>
+																</td>
+
+																{/* Cột 4: Tên */}
+																<td className='py-1 px-1 sm:px-2 align-middle border-r border-border/50 text-xs sm:text-sm font-semibold text-text-primary'>
+																	{node.name}
+																</td>
+
+																{/* Cột 5: Sức mạnh (Mô tả) */}
+																<td className='py-1 px-2 sm:px-4 align-middle text-xs sm:text-[13px] text-text-primary leading-relaxed'>
+																	<div
+																		dangerouslySetInnerHTML={{
+																			__html: node.description,
+																		}}
+																	/>
+																</td>
+															</tr>
+														))}
+														{(activeConstellationTab === "starPowers"
+															? starPowersList
+															: bonusStarsList
+														).length === 0 && (
+															<tr>
+																<td
+																	colSpan='5'
+																	className='p-6 text-center text-text-secondary'
+																>
+																	Chưa có dữ liệu cho mục này.
+																</td>
+															</tr>
+														)}
+													</tbody>
+												</table>
+											</div>
+										</div>
 									</>
 								)}
 
-								<h2 className='p-1 text-lg sm:text-3xl font-semibold mt-2 font-primary'>
+								<h2 className='p-1 text-lg sm:text-3xl font-semibold mt-8 font-primary'>
 									Video giới thiệu
 								</h2>
 								<div className='aspect-video bg-surface-hover rounded-lg mb-1'>
