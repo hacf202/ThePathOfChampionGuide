@@ -258,8 +258,8 @@ const Home = () => {
 						<Trophy className='w-12 h-12 text-purple-400 mb-6' />
 						<h3 className='text-3xl font-bold mb-4 uppercase'>Bảng Xếp Hạng</h3>
 						<p className='text-gray-400 mb-8 font-secondary'>
-							Tier List cập nhật theo meta mới nhất. Xem tướng nào đang làm bá
-							chủ Con Đường Anh Hùng.
+							Tier List cập nhật mới nhất. Xem tướng nào đang làm bá chủ Con
+							Đường Anh Hùng.
 						</p>
 						<NavLink
 							to='/tierlist'
