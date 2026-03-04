@@ -156,47 +156,135 @@ const ArrayInputComponent = ({
 	);
 };
 
-// --- THÀNH PHẦN HỖ TRỢ: NHẬP LIÊN KẾT NODE ---
-const NextNodesInput = ({ nextNodes = [], onChange }) => {
-	const addItem = () => onChange([...nextNodes, ""]);
-	const removeItem = idx => onChange(nextNodes.filter((_, i) => i !== idx));
-	const updateItem = (idx, val) => {
-		const next = [...nextNodes];
-		next[idx] = val;
-		onChange(next);
+// --- THÀNH PHẦN HỖ TRỢ: QUẢN LÝ LIÊN KẾT CHUNG ---
+const ConstellationConnections = ({ nodes, onChangeNodes }) => {
+	const [fromNode, setFromNode] = useState("");
+	const [toNode, setToNode] = useState("");
+
+	// Tính toán danh sách phẳng các liên kết để hiển thị
+	const connections = useMemo(() => {
+		const list = [];
+		(nodes || []).forEach(node => {
+			(node.nextNodes || []).forEach(target => {
+				list.push({ from: node.nodeID, to: target });
+			});
+		});
+		return list;
+	}, [nodes]);
+
+	const handleAdd = () => {
+		const fromClean = fromNode.trim();
+		const toClean = toNode.trim();
+
+		if (!fromClean || !toClean)
+			return alert("Vui lòng nhập đầy đủ Node bắt đầu và Node đích.");
+		if (fromClean === toClean)
+			return alert("Node bắt đầu và đích không được trùng nhau.");
+
+		// Tìm vị trí của node xuất phát
+		const startNodeIndex = nodes.findIndex(n => n.nodeID === fromClean);
+		if (startNodeIndex === -1)
+			return alert(`Không tìm thấy Node bắt đầu có ID: ${fromClean}`);
+
+		// Tìm kiếm node đích tồn tại chưa (để validate)
+		const targetNodeIndex = nodes.findIndex(n => n.nodeID === toClean);
+		if (targetNodeIndex === -1)
+			return alert(`Không tìm thấy Node đích có ID: ${toClean}`);
+
+		const startNode = nodes[startNodeIndex];
+		const currentNextNodes = startNode.nextNodes || [];
+
+		if (currentNextNodes.includes(toClean)) {
+			return alert("Đường nối này đã tồn tại.");
+		}
+
+		// Cập nhật mảng nextNodes của Node xuất phát
+		const newNodes = [...nodes];
+		newNodes[startNodeIndex] = {
+			...startNode,
+			nextNodes: [...currentNextNodes, toClean],
+		};
+		onChangeNodes(newNodes);
+		setFromNode("");
+		setToNode("");
+	};
+
+	const handleRemove = (from, to) => {
+		const startNodeIndex = nodes.findIndex(n => n.nodeID === from);
+		if (startNodeIndex === -1) return;
+
+		const startNode = nodes[startNodeIndex];
+		const newNodes = [...nodes];
+		newNodes[startNodeIndex] = {
+			...startNode,
+			nextNodes: (startNode.nextNodes || []).filter(n => n !== to),
+		};
+		onChangeNodes(newNodes);
 	};
 
 	return (
-		<div className='space-y-2 mt-3 p-3 bg-surface-hover/30 rounded-lg border border-border/50'>
-			<div className='flex justify-between items-center'>
-				<label className='text-[10px] font-bold uppercase text-text-secondary tracking-widest'>
-					Liên kết đến Nodes
-				</label>
-				<button
-					type='button'
-					onClick={addItem}
-					className='text-primary-500 text-[10px] font-bold hover:underline'
-				>
-					+ Thêm liên kết
-				</button>
-			</div>
-			{nextNodes.map((nodeID, idx) => (
-				<div key={idx} className='flex gap-2 items-center'>
+		<div className='bg-surface-hover/30 p-5 rounded-xl border border-border/80 shadow-inner mb-6 space-y-4 relative'>
+			<h4 className='text-sm font-bold flex items-center gap-2 text-text-primary uppercase tracking-widest border-b border-border/50 pb-2'>
+				<Link2 size={16} className='text-pink-500' /> Quản lý Liên kết giữa các
+				Nodes
+			</h4>
+
+			<div className='flex flex-col sm:flex-row gap-4 items-end bg-surface-bg p-4 rounded-lg border border-border shadow-sm'>
+				<div className='flex-1 w-full'>
+					<label className='text-[10px] font-bold uppercase text-text-secondary'>
+						Từ Node (Bắt đầu)
+					</label>
 					<InputField
-						value={nodeID || ""}
-						onChange={e => updateItem(idx, e.target.value)}
-						placeholder='Nhập Node ID (VD: n2)'
-						className='flex-1'
+						value={fromNode}
+						onChange={e => setFromNode(e.target.value)}
+						placeholder='Nhập ID Node (VD: n1)'
+						className='mt-1'
 					/>
-					<button
-						type='button'
-						onClick={() => removeItem(idx)}
-						className='text-red-500'
-					>
-						<XCircle size={16} />
-					</button>
 				</div>
-			))}
+				<div className='flex-1 w-full'>
+					<label className='text-[10px] font-bold uppercase text-text-secondary'>
+						Đến Node (Đích)
+					</label>
+					<InputField
+						value={toNode}
+						onChange={e => setToNode(e.target.value)}
+						placeholder='Nhập ID Node (VD: n2)'
+						className='mt-1'
+					/>
+				</div>
+				<Button
+					type='button'
+					variant='outline'
+					onClick={handleAdd}
+					iconLeft={<Plus size={16} />}
+					className='w-full sm:w-auto h-[42px] border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white'
+				>
+					Nối Node
+				</Button>
+			</div>
+
+			{connections.length > 0 && (
+				<div className='flex flex-wrap gap-3 mt-4'>
+					{connections.map((conn, idx) => (
+						<div
+							key={idx}
+							className='flex items-center gap-2 bg-surface-bg border border-border px-3 py-1.5 rounded-lg text-sm font-mono shadow-sm group hover:border-pink-500 transition-colors'
+						>
+							<span className='text-primary-500 font-bold'>{conn.from}</span>
+							<span className='text-text-secondary text-xs'>→</span>
+							<span className='text-emerald-500 font-bold'>{conn.to}</span>
+							<button
+								type='button'
+								onClick={() => handleRemove(conn.from, conn.to)}
+								className='text-text-secondary hover:text-red-500 ml-2 p-1 rounded-md hover:bg-red-500/10 transition-colors opacity-50 group-hover:opacity-100'
+								title='Xóa liên kết'
+							>
+								<XCircle size={16} />
+							</button>
+						</div>
+					))}
+				</div>
+			)}
 		</div>
 	);
 };
@@ -335,12 +423,12 @@ const NodeEditor = ({
 			>
 				<div className='flex items-center gap-3'>
 					<div
-						className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xs ${isSelected ? "bg-primary-500 text-white" : "bg-border text-text-secondary"}`}
+						className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xs shrink-0 ${isSelected ? "bg-primary-500 text-white" : "bg-border text-text-secondary"}`}
 					>
 						{node.nodeID || `n${index + 1}`}
 					</div>
 					<div className='flex flex-col'>
-						<span className='font-bold text-sm truncate max-w-[150px]'>
+						<span className='font-bold text-sm truncate max-w-[120px] sm:max-w-[150px]'>
 							{node.nodeName || "Node chưa đặt tên/ID"}
 						</span>
 						<span className='text-[10px] uppercase text-text-secondary font-medium'>
@@ -348,14 +436,42 @@ const NodeEditor = ({
 						</span>
 					</div>
 				</div>
-				<div className='flex items-center gap-1'>
+				<div className='flex items-center gap-2'>
+					{/* Hiển thị Tọa độ trên thanh tiêu đề */}
+					<div
+						className='text-[10px] font-mono text-text-secondary bg-surface-bg px-1.5 py-0.5 rounded border hidden sm:block'
+						title='Tọa độ Node trên bản đồ'
+					>
+						X:{node.position?.x ?? 0} Y:{node.position?.y ?? 0}
+					</div>
+					{/* Nút Khuyên dùng trên thanh tiêu đề */}
+					<button
+						type='button'
+						onClick={e => {
+							e.stopPropagation(); // Ngăn sự kiện click chọn Node
+							onChange(index, "isRecommended", !node.isRecommended);
+						}}
+						className={`w-6 h-6 rounded border flex items-center justify-center transition-colors ${node.isRecommended ? "bg-yellow-500 border-yellow-500" : "bg-surface-bg border-border hover:border-yellow-500/50"}`}
+						title={
+							node.isRecommended
+								? "Đang khuyên dùng. Bấm để tắt."
+								: "Bấm để đánh dấu Khuyên dùng"
+						}
+					>
+						{node.isRecommended && (
+							<Sparkles size={12} className='text-white fill-current' />
+						)}
+					</button>
+					<div className='w-px h-6 bg-border mx-1'></div>{" "}
+					{/* Vạch chia cách điệu */}
 					<button
 						type='button'
 						onClick={e => {
 							e.stopPropagation();
 							onRemove(index);
 						}}
-						className='p-2 text-red-500 hover:bg-red-500/10 rounded-full'
+						className='p-1.5 text-red-500 hover:bg-red-500/10 rounded-md transition-colors'
+						title='Xóa Node'
 					>
 						<XCircle size={18} />
 					</button>
@@ -365,7 +481,8 @@ const NodeEditor = ({
 							e.stopPropagation();
 							setIsOpen(!isOpen);
 						}}
-						className='p-2 text-text-secondary'
+						className='p-1.5 text-text-secondary hover:bg-surface-bg rounded-md transition-colors'
+						title={isOpen ? "Thu gọn" : "Mở rộng"}
 					>
 						{isOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
 					</button>
@@ -431,38 +548,6 @@ const NodeEditor = ({
 						/>
 					</div>
 
-					<div className='flex items-center justify-between p-3 bg-surface-hover/30 rounded-lg border border-dashed border-border'>
-						<label className='flex items-center gap-3 cursor-pointer group'>
-							<div
-								className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${node.isRecommended ? "bg-yellow-500 border-yellow-500" : "bg-surface-bg border-border"}`}
-							>
-								{node.isRecommended && (
-									<Sparkles size={12} className='text-white fill-current' />
-								)}
-							</div>
-							<input
-								type='checkbox'
-								className='hidden'
-								checked={node.isRecommended || false}
-								onChange={e =>
-									onChange(index, "isRecommended", e.target.checked)
-								}
-							/>
-							<span
-								className={`text-xs font-bold uppercase ${node.isRecommended ? "text-yellow-600" : "text-text-secondary"}`}
-							>
-								Khuyên dùng
-							</span>
-						</label>
-						<div className='text-[10px] font-mono text-text-secondary bg-surface-bg px-2 py-1 rounded border'>
-							X:{node.position?.x ?? 0}% Y:{node.position?.y ?? 0}%
-						</div>
-					</div>
-
-					<NextNodesInput
-						nextNodes={node.nextNodes || []}
-						onChange={val => onChange(index, "nextNodes", val)}
-					/>
 					<RequirementsInput
 						requirements={node.requirements || []}
 						onChange={val => onChange(index, "requirements", val)}
@@ -965,10 +1050,19 @@ const ChampionEditorForm = memo(
 									</div>
 								)}
 
-								{/* CỘT PHẢI: DANH SÁCH NODE - ĐÃ ĐIỀU CHỈNH CHIA 2 CỘT KHI ẨN MAP */}
+								{/* CỘT PHẢI: DANH SÁCH NODE & QUẢN LÝ LIÊN KẾT */}
 								<div
 									className={`max-h-[800px] overflow-y-auto pr-3 custom-scrollbar ${isMapVisible ? "space-y-2" : "grid grid-cols-1 lg:grid-cols-2 gap-x-6 content-start"}`}
 								>
+									<div className={!isMapVisible ? "lg:col-span-2" : ""}>
+										<ConstellationConnections
+											nodes={constData.nodes}
+											onChangeNodes={newNodes =>
+												setConstData(prev => ({ ...prev, nodes: newNodes }))
+											}
+										/>
+									</div>
+
 									{constData.nodes.length === 0 ? (
 										<div
 											className={`text-center py-10 text-text-secondary border border-dashed border-border rounded-xl bg-surface-hover/30 ${!isMapVisible ? "lg:col-span-2" : ""}`}

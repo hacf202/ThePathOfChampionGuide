@@ -430,7 +430,7 @@ const MiniDonutChart = ({ title, icon, data, total }) => (
 			</div>
 		</div>
 		<div className='mt-4 grid grid-cols-2 gap-2 max-h-[100px] overflow-y-auto custom-scrollbar pr-1'>
-			{data
+			{[...data] // ĐÃ SỬA: Tạo bản sao (shallow copy) của mảng trước khi sort
 				.sort((a, b) => b.value - a.value)
 				.map((item, i) => (
 					<div
