@@ -36,6 +36,79 @@ const getUniqueId = item => {
 	);
 };
 
+// --- CẤU HÌNH MẶC ĐỊNH CHO CÁC NODE (Dựa trên dữ liệu Kayle) ---
+const NODE_DEFAULT_TEMPLATES = {
+	n1: {
+		nodeType: "starPower",
+		requirements: [{ type: "Fragment", value: 10 }],
+	},
+	n2: {
+		nodeType: "starPower",
+		requirements: [{ type: "Fragment", value: 20 }],
+	},
+	n3: {
+		nodeType: "starPower",
+		requirements: [{ type: "Fragment", value: 40 }],
+	},
+	n4: {
+		nodeType: "starPower",
+		requirements: [
+			{ type: "Fragment", value: 60 },
+			{ type: "Crystal", value: 10 },
+		],
+	},
+	n5: {
+		nodeType: "starPower",
+		requirements: [
+			{ type: "Fragment", value: 80 },
+			{ type: "Crystal", value: 40 },
+		],
+	},
+	n6: {
+		nodeType: "starPower",
+		requirements: [
+			{ type: "Fragment", value: 100 },
+			{ type: "Nova Crystal", value: 1 },
+		],
+	},
+	n7: {
+		nodeType: "bonusStar",
+		requirements: [{ type: "Fragment", value: 40 }],
+	},
+	n8: {
+		nodeType: "bonusStar",
+		requirements: [{ type: "Fragment", value: 40 }],
+	},
+	n9: {
+		nodeType: "bonusStar",
+		requirements: [{ type: "Fragment", value: 40 }],
+	},
+	n10: {
+		nodeType: "bonusStar",
+		requirements: [{ type: "Fragment", value: 40 }],
+	},
+	n11: {
+		nodeType: "bonusStar",
+		requirements: [{ type: "Fragment", value: 40 }],
+	},
+	n12: {
+		nodeType: "bonusStarGem",
+		requirements: [{ type: "Gemstone", value: 150 }],
+	},
+	n13: {
+		nodeType: "bonusStarGem",
+		requirements: [{ type: "Gemstone", value: 250 }],
+	},
+	n14: {
+		nodeType: "bonusStarGem",
+		requirements: [{ type: "Gemstone", value: 250 }],
+	},
+	n15: {
+		nodeType: "bonusStarGem",
+		requirements: [{ type: "Gemstone", value: 350 }],
+	},
+};
+
 // --- THÀNH PHẦN HỖ TRỢ: ĐƯỜNG NỐI CHÒM SAO ---
 const ConstellationLine = ({ x1, y1, x2, y2, isRecommended }) => {
 	const angle = Math.atan2(y2 - y1, x2 - x1);
@@ -420,8 +493,11 @@ const NodeEditor = ({
 			<div
 				className={`flex justify-between items-center p-3 cursor-pointer ${isSelected ? "bg-primary-500/10" : "bg-surface-hover"}`}
 				onClick={() => onSelect(index)}
+				onDrop={handleDropIntoNode}
+				onDragOver={e => e.preventDefault()}
+				title={!isOpen && node.description ? node.description : ""}
 			>
-				<div className='flex items-center gap-3'>
+				<div className='flex items-center gap-3 pointer-events-none'>
 					<div
 						className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xs shrink-0 ${isSelected ? "bg-primary-500 text-white" : "bg-border text-text-secondary"}`}
 					>
@@ -916,7 +992,14 @@ const ChampionEditorForm = memo(
 										size='sm'
 										variant='outline'
 										onClick={() => {
-											const newID = `n${constData.nodes.length + 1}`;
+											const newIndex = constData.nodes.length + 1;
+											const newID = `n${newIndex}`;
+											// Tự động gán template hoặc dữ liệu trống nếu vượt quá n15
+											const template = NODE_DEFAULT_TEMPLATES[newID] || {
+												nodeType: "starPower",
+												requirements: [],
+											};
+
 											setConstData({
 												...constData,
 												nodes: [
@@ -924,10 +1007,13 @@ const ChampionEditorForm = memo(
 													{
 														nodeID: newID,
 														nodeName: "",
-														nodeType: "starPower",
+														nodeType: template.nodeType,
 														position: { x: 50, y: 50 },
 														nextNodes: [],
-														requirements: [],
+														// Copy mảng để không làm thay đổi template gốc
+														requirements: JSON.parse(
+															JSON.stringify(template.requirements),
+														),
 														description: "",
 														isRecommended: false,
 													},
