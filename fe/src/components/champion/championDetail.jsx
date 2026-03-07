@@ -1,14 +1,17 @@
 // src/pages/championDetail.jsx
-import { memo, useMemo, useState, useEffect, useRef } from "react";
-import { createPortal } from "react-dom";
+import { memo, useMemo, useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import iconRegions from "../../assets/data/iconRegions.json";
-import { ChevronLeft, Loader2, Star, Sparkles, XCircle } from "lucide-react";
+import { ChevronLeft, Star, XCircle } from "lucide-react";
 import LatestComments from "../comment/latestComments";
 import Button from "../common/button";
 import PageTitle from "../common/pageTitle";
 import SafeImage from "../common/SafeImage";
+
+// Import các component chòm sao đã được tách
+import ConstellationMap from "./constellationMap";
+import ConstellationTable from "./constellationTable";
 
 // --- THÀNH PHẦN SKELETON ---
 const ChampionDetailSkeleton = () => (
@@ -27,162 +30,6 @@ const ChampionDetailSkeleton = () => (
 		</div>
 	</div>
 );
-
-// --- COMPONENT HỖ TRỢ HIỂN THỊ YÊU CẦU (COST) TỪ FILE JSON ---
-const RequirementIcon = ({ type }) => {
-	let src = "";
-	switch (type) {
-		case "Fragment":
-			src =
-				"https://wpocimg.s3.ap-southeast-2.amazonaws.com/icons/Wild_Fragment_icon.png";
-			break;
-		case "Crystal":
-			src =
-				"https://wiki.leagueoflegends.com/en-us/images/thumb/PoC_Star_Crystal_icon.png/20px-PoC_Star_Crystal_icon.png?59fc0";
-			break;
-		case "Nova Crystal":
-			src =
-				"https://wiki.leagueoflegends.com/en-us/images/thumb/PoC_Nova_Crystal_icon.png/20px-PoC_Nova_Crystal_icon.png?c3074";
-			break;
-		case "Gemstone":
-			src =
-				"https://wiki.leagueoflegends.com/en-us/images/thumb/PoC_Gemstone_icon.png/20px-PoC_Gemstone_icon.png?e6e65";
-			break;
-		default:
-			src =
-				"https://wpocimg.s3.ap-southeast-2.amazonaws.com/icons/Wild_Fragment_icon.png";
-	}
-	return (
-		<img
-			src={src}
-			alt={type}
-			className='w-[14px] h-[14px] sm:w-[18px] sm:h-[18px] object-contain inline-block'
-		/>
-	);
-};
-
-const RenderRequirements = ({ requirements }) => {
-	if (!requirements || requirements.length === 0)
-		return <span className='text-text-secondary'>-</span>;
-
-	return (
-		<div className='flex flex-wrap items-center justify-center gap-1 text-[11px] sm:text-[13px] font-medium text-text-primary'>
-			{requirements.map((req, idx) => (
-				<div key={idx} className='flex items-center gap-1'>
-					{idx > 0 && (
-						<span className='text-text-secondary mx-0.5 text-[10px] sm:text-xs font-bold'>
-							+
-						</span>
-					)}
-					<RequirementIcon type={req.type} />
-					<span>{req.value}</span>
-				</div>
-			))}
-		</div>
-	);
-};
-
-// --- COMPONENT HỖ TRỢ HIỂN THỊ SỐ SAO ---
-const StarRating = ({ count }) => {
-	return (
-		<div className='flex flex-wrap justify-center gap-[1px] w-12 mx-auto'>
-			{[...Array(count)].map((_, i) => (
-				<Star
-					key={i}
-					size={14}
-					className='text-yellow-500 fill-current drop-shadow-sm'
-				/>
-			))}
-		</div>
-	);
-};
-
-// --- CÁC THÀNH PHẦN CONSTELLATION ---
-const ConstellationNode = ({ power, index, active, onShowTooltip }) => {
-	const nodeRef = useRef(null);
-	const leftPos =
-		typeof power.pos.x === "number" ? `${power.pos.x}%` : power.pos.x;
-	const topPos =
-		typeof power.pos.y === "number" ? `${power.pos.y}%` : power.pos.y;
-
-	const handleMouseEnter = () => {
-		if (nodeRef.current) {
-			const rect = nodeRef.current.getBoundingClientRect();
-			onShowTooltip(power, { x: rect.left + rect.width / 2, y: rect.top - 10 });
-		}
-	};
-
-	// Đã cập nhật để render thẳng Hình ảnh (image) cho TẤT CẢ các loại Node (Star Power & Bonus Star)
-	const renderNodeContent = () => {
-		// Kiểm tra xem đây có phải là Bonus Star không (khác starPower)
-		const isBonusNode =
-			power.nodeType === "bonusStar" || power.nodeType === "bonusStarGem";
-
-		// Nếu là Bonus Node thì tăng kích thước +70% (31px trên mobile, 71px trên màn hình lớn)
-		// Ngược lại giữ nguyên kích thước cũ (18px và 42px)
-		const sizeClasses = isBonusNode
-			? "w-[25px] h-[25px] sm:w-[55px] sm:h-[55px]"
-			: "w-[23px] h-[23px] sm:w-[47px] sm:h-[47px]";
-
-		return (
-			<img
-				src={power.image || "/images/placeholder.png"}
-				alt={power.name}
-				className={`${sizeClasses} object-contain p-0.5 transition-all`}
-			/>
-		);
-	};
-
-	return (
-		<div
-			ref={nodeRef}
-			className={`absolute transform -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-all duration-300 z-10 ${active ? "z-50 scale-125" : "hover:scale-110"}`}
-			style={{ left: leftPos, top: topPos }}
-			onMouseEnter={handleMouseEnter}
-			onMouseLeave={() => onShowTooltip(null, null)}
-		>
-			<div className='relative flex items-center justify-center'>
-				<div
-					className={`absolute inset-0 rounded-full blur-2xl transition-opacity duration-500 ${power.isRecommended || active ? "opacity-80 bg-yellow-400 animate-pulse" : "opacity-0"}`}
-				/>
-				<div className='relative flex items-center justify-center'>
-					{renderNodeContent()}
-					{power.nodeType === "starPower" && (
-						<div
-							className={`absolute -bottom-1 -right-1 text-black text-[6px] sm:text-[8px] font-black px-1 rounded-sm border border-black shadow-sm ${power.isRecommended ? "bg-yellow-400" : "bg-yellow-500"}`}
-						>
-							{index + 1}★
-						</div>
-					)}
-				</div>
-			</div>
-		</div>
-	);
-};
-
-const ConstellationLine = ({ x1, y1, x2, y2, isRecommended }) => {
-	const angle = Math.atan2(y2 - y1, x2 - x1);
-	// Giảm offset xuống một chút vì mũi tên dài và nhọn hơn
-	const offset = window.innerWidth < 640 ? 1.5 : 3.5;
-	const finalX2 = x2 - offset * Math.cos(angle);
-	const finalY2 = y2 - offset * Math.sin(angle);
-
-	return (
-		<line
-			x1={`${x1}%`}
-			y1={`${y1}%`}
-			x2={`${finalX2}%`}
-			y2={`${finalY2}%`}
-			stroke={
-				isRecommended ? "rgba(234, 179, 8, 1)" : "rgba(234, 179, 8, 0.25)"
-			}
-			strokeWidth={isRecommended ? "2.5" : "1.5"} // <-- GIẢM ĐỘ DÀY ĐƯỜNG NỐI TẠI ĐÂY (cũ là 3 và 1.5)
-			strokeDasharray={isRecommended ? "0" : "8,4"}
-			markerEnd={`url(#${isRecommended ? "arrowhead-recommended" : "arrowhead"})`}
-			className={isRecommended ? "drop-shadow-[0_0_8px_rgba(234,179,8,1)]" : ""}
-		/>
-	);
-};
 
 const RenderItem = ({ item }) => {
 	if (!item) return null;
@@ -226,19 +73,14 @@ function ChampionDetail() {
 	const [champion, setChampion] = useState(null);
 	const [constellationData, setConstellationData] = useState(null);
 	const [resolvedPowers, setResolvedPowers] = useState([]);
-	const [fetchedBonusStars, setFetchedBonusStars] = useState([]); // State mới lưu dữ liệu Bonus Stars
+	const [fetchedBonusStars, setFetchedBonusStars] = useState([]);
 	const [resolvedItems, setResolvedItems] = useState([]);
 	const [resolvedRelics, setResolvedRelics] = useState([]);
 	const [resolvedRunes, setResolvedRunes] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 
-	const [hoveredNode, setHoveredNode] = useState(null);
-	const [tooltipCoords, setTooltipCoords] = useState(null);
 	const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
-
-	const [activeConstellationTab, setActiveConstellationTab] =
-		useState("starPowers");
 
 	useEffect(() => {
 		let isMounted = true;
@@ -249,7 +91,6 @@ function ChampionDetail() {
 			try {
 				setLoading(true);
 
-				// Đã thêm fetch api bonusStars vào Promise.all
 				const [champRes, constRes, bonusRes] = await Promise.all([
 					fetch(`${apiUrl}/api/champions/${championID}`, { signal }),
 					fetch(`${apiUrl}/api/constellations/${championID}`, { signal }),
@@ -264,7 +105,7 @@ function ChampionDetail() {
 				if (!isMounted) return;
 				setChampion(champData);
 				setConstellationData(constData);
-				setFetchedBonusStars(bonusData.items || []); // Lưu danh sách Bonus Stars vào state
+				setFetchedBonusStars(bonusData.items || []);
 
 				const constellationNames = constData
 					? constData.nodes.map(n => n.nodeName)
@@ -302,7 +143,7 @@ function ChampionDetail() {
 					setResolvedPowers(pDetails);
 					setResolvedItems(iDetails);
 					setResolvedRelics(rDetails);
-					setResolvedRunes(ruDetails);
+					setResolvedRunes(ruDetails); // Dữ liệu Ngọc đã được load ở đây
 				}
 			} catch (err) {
 				if (isMounted && err.name !== "AbortError") setError(err.message);
@@ -326,7 +167,6 @@ function ChampionDetail() {
 				let resolvedDescription = node.description || "";
 				let resolvedName = node.nodeName;
 
-				// Logic phân tách: Lấy ảnh từ resolvedPowers (cho starPower) HOẶC từ fetchedBonusStars (cho bonusStar)
 				if (node.nodeType === "starPower" || !node.nodeType) {
 					const p = resolvedPowers.find(x => x.name === node.nodeName);
 					if (p) {
@@ -335,7 +175,6 @@ function ChampionDetail() {
 							resolvedDescription = p.description || p.descriptionRaw || "";
 					}
 				} else {
-					// Lấy dữ liệu cho Bonus Stars
 					const b = fetchedBonusStars.find(
 						x => x.name === node.nodeName || x.bonusStarID === node.nodeName,
 					);
@@ -408,6 +247,21 @@ function ChampionDetail() {
 		[champion, resolvedItems],
 	);
 
+	// TÍNH TOÁN DỮ LIỆU RUNE MỚI ĐƯỢC THÊM VÀO Ở ĐÂY
+	const runesFull = useMemo(
+		() =>
+			(champion?.rune || []).map(name => {
+				const r = resolvedRunes.find(x => x.name === name);
+				return {
+					name,
+					image: r?.assetAbsolutePath || "/images/placeholder.png",
+					description: r?.description || "",
+					runeCode: r?.runeCode,
+				};
+			}),
+		[champion, resolvedRunes],
+	);
+
 	const relicSets = useMemo(() => {
 		if (!champion) return [];
 		return Array.from({ length: 6 }, (_, i) => {
@@ -436,13 +290,6 @@ function ChampionDetail() {
 	const bonusStarsList = useMemo(() => {
 		return constellationInfo.nodes.filter(n => n.nodeType !== "starPower");
 	}, [constellationInfo.nodes]);
-
-	// Hàm chuyển đổi nodeType sang text Tiếng Việt cho cột Loại
-	const getBonusStarTypeName = nodeType => {
-		if (nodeType === "bonusStar") return "Thường";
-		if (nodeType === "bonusStarGem") return "Đá Quý";
-		return nodeType;
-	};
 
 	if (error)
 		return (
@@ -554,239 +401,12 @@ function ChampionDetail() {
 											Chòm sao
 										</h2>
 
-										{/* BẢN ĐỒ CHÒM SAO */}
-										<div className='p-1 relative w-full aspect-video bg-black border rounded-lg overflow-hidden shadow-2xl'>
-											<img
-												src={constellationInfo.backgroundImage}
-												className='absolute inset-0 w-full h-full object-cover opacity-30 pointer-events-none'
-												alt='bg'
-											/>
-											<svg className='absolute inset-0 w-full h-full pointer-events-none'>
-												<defs>
-													<marker
-														id='arrowhead'
-														markerWidth={window.innerWidth < 640 ? "3" : "6"}
-														markerHeight={window.innerWidth < 640 ? "2" : "5"}
-														refX={window.innerWidth < 640 ? "2.8" : "5.8"}
-														refY={window.innerWidth < 640 ? "1" : "2.5"}
-														orient='auto'
-													>
-														<path
-															d={
-																window.innerWidth < 640
-																	? "M0,0 L3,1 L0,2 Z"
-																	: "M0,0 L6,2.5 L0,5 Z"
-															}
-															fill='rgba(234, 179, 8, 0.6)'
-														/>
-													</marker>
-													<marker
-														id='arrowhead-recommended'
-														markerWidth={window.innerWidth < 640 ? "3" : "6"}
-														markerHeight={window.innerWidth < 640 ? "2" : "5"}
-														refX={window.innerWidth < 640 ? "2.8" : "5.8"}
-														refY={window.innerWidth < 640 ? "1" : "2.5"}
-														orient='auto'
-													>
-														<path
-															d={
-																window.innerWidth < 640
-																	? "M0,0 L3,1 L0,2 Z"
-																	: "M0,0 L6,2.5 L0,5 Z"
-															}
-															fill='rgba(234, 179, 8, 1)'
-														/>
-													</marker>
-												</defs>
-												{constellationInfo.nodes.map(node =>
-													node.nextNodes.map(tID => {
-														const target = constellationInfo.nodes.find(
-															n => n.nodeID === tID,
-														);
-														return (
-															target && (
-																<ConstellationLine
-																	key={`${node.nodeID}-${tID}`}
-																	x1={node.pos.x}
-																	y1={node.pos.y}
-																	x2={target.pos.x}
-																	y2={target.pos.y}
-																	isRecommended={
-																		node.isRecommended && target.isRecommended
-																	}
-																/>
-															)
-														);
-													}),
-												)}
-											</svg>
-											{constellationInfo.nodes.map((node, index) => (
-												<ConstellationNode
-													key={node.nodeID || index}
-													index={index}
-													power={node}
-													active={hoveredNode?.nodeID === node.nodeID}
-													onShowTooltip={(n, c) => {
-														setHoveredNode(n);
-														setTooltipCoords(c);
-													}}
-												/>
-											))}
-											{hoveredNode &&
-												tooltipCoords &&
-												createPortal(
-													<div
-														className='fixed bg-surface-bg border border-primary-500 rounded-lg shadow-2xl p-3 z-[9999] pointer-events-none'
-														style={{
-															left: `${tooltipCoords.x}px`,
-															top: `${tooltipCoords.y}px`,
-															transform: "translate(-50%, -100%)",
-															maxWidth: "280px",
-														}}
-													>
-														<h3 className='text-primary-500 font-bold text-sm uppercase mb-1'>
-															{hoveredNode.name}
-														</h3>
-														<div
-															className='text-text-secondary text-xs leading-relaxed'
-															dangerouslySetInnerHTML={{
-																__html: hoveredNode.description,
-															}}
-														/>
-														<div className='absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-primary-500' />
-													</div>,
-													document.body,
-												)}
-										</div>
+										<ConstellationMap constellationInfo={constellationInfo} />
 
-										{/* BẢNG CHI TIẾT CHÒM SAO CẬP NHẬT CHIA 5 CỘT RÕ RÀNG */}
-										<div className='mt-8 bg-surface-bg rounded-lg overflow-hidden border border-border shadow-sm'>
-											{/* TABS */}
-											<div className='flex gap-1 border-b border-border px-2 sm:px-4 pt-2 sm:pt-4 bg-surface-hover/30'>
-												<button
-													onClick={() =>
-														setActiveConstellationTab("starPowers")
-													}
-													className={`px-3 sm:px-4 py-2 font-semibold text-[13px] sm:text-sm transition-colors border-b-2 ${
-														activeConstellationTab === "starPowers"
-															? "border-primary-500 text-primary-500 bg-surface-bg"
-															: "border-transparent text-text-secondary hover:text-text-primary"
-													}`}
-												>
-													Ngôi sao sức mạnh
-												</button>
-												<button
-													onClick={() =>
-														setActiveConstellationTab("bonusStars")
-													}
-													className={`px-3 sm:px-4 py-2 font-semibold text-[13px] sm:text-sm transition-colors border-b-2 ${
-														activeConstellationTab === "bonusStars"
-															? "border-primary-500 text-primary-500 bg-surface-bg"
-															: "border-transparent text-text-secondary hover:text-text-primary"
-													}`}
-												>
-													Ngôi sao tăng thưởng
-												</button>
-											</div>
-
-											{/* TABLE */}
-											<div className='overflow-x-auto'>
-												<table className='w-full text-left border-collapse min-w-[700px]'>
-													<thead>
-														<tr className='bg-surface-hover/50 text-text-secondary text-xs sm:text-sm border-b border-border'>
-															<th className='py-2 px-2 sm:px-4 w-16 sm:w-20 text-center font-bold'>
-																{activeConstellationTab === "starPowers"
-																	? "Cấp sao"
-																	: "Loại"}
-															</th>
-															<th className='py-2 px-2 sm:px-4 w-24 sm:w-32 text-center font-bold whitespace-nowrap'>
-																Yêu cầu
-															</th>
-															<th className='py-2 px-2 sm:px-4 w-16 sm:w-24 text-center font-bold'>
-																Hình ảnh
-															</th>
-															<th className='py-2 px-2 sm:px-4 w-32 sm:w-48 font-bold'>
-																Tên
-															</th>
-															<th className='py-2 px-2 sm:px-4 font-bold'>
-																Sức mạnh
-															</th>
-														</tr>
-													</thead>
-													<tbody className='divide-y divide-border'>
-														{(activeConstellationTab === "starPowers"
-															? starPowersList
-															: bonusStarsList
-														).map((node, index) => (
-															<tr
-																key={node.nodeID || index}
-																className='hover:bg-surface-hover/40 transition-colors'
-															>
-																{/* Cột 1: Cấp sao / Loại */}
-																<td className='py-1 px-1 sm:px-2 align-middle border-r border-border/50 text-center'>
-																	{activeConstellationTab === "starPowers" ? (
-																		<StarRating count={index + 1} />
-																	) : (
-																		<span className='text-xs sm:text-[13px] font-semibold text-text-secondary'>
-																			{getBonusStarTypeName(node.nodeType)}
-																		</span>
-																	)}
-																</td>
-
-																{/* Cột 2: Yêu cầu */}
-																<td className='py-1 px-1 sm:px-2 align-middle border-r border-border/50'>
-																	<div className='flex justify-center'>
-																		<RenderRequirements
-																			requirements={node.requirements}
-																		/>
-																	</div>
-																</td>
-
-																{/* Cột 3: Hình ảnh */}
-																<td className='py-1 px-1 sm:px-2 align-middle border-r border-border/50'>
-																	<div className='flex justify-center'>
-																		<div className='w-12 h-12 sm:w-14 sm:h-14 rounded bg-surface-bg '>
-																			<img
-																				src={node.image}
-																				alt={node.name}
-																				className='w-full h-full object-contain drop-shadow-sm'
-																			/>
-																		</div>
-																	</div>
-																</td>
-
-																{/* Cột 4: Tên */}
-																<td className='py-1 px-1 sm:px-2 align-middle border-r border-border/50 text-xs sm:text-sm font-semibold text-text-primary'>
-																	{node.name}
-																</td>
-
-																{/* Cột 5: Sức mạnh (Mô tả) */}
-																<td className='py-1 px-2 sm:px-4 align-middle text-xs sm:text-[13px] text-text-primary leading-relaxed'>
-																	<div
-																		dangerouslySetInnerHTML={{
-																			__html: node.description,
-																		}}
-																	/>
-																</td>
-															</tr>
-														))}
-														{(activeConstellationTab === "starPowers"
-															? starPowersList
-															: bonusStarsList
-														).length === 0 && (
-															<tr>
-																<td
-																	colSpan='5'
-																	className='p-6 text-center text-text-secondary'
-																>
-																	Chưa có dữ liệu cho mục này.
-																</td>
-															</tr>
-														)}
-													</tbody>
-												</table>
-											</div>
-										</div>
+										<ConstellationTable
+											starPowersList={starPowersList}
+											bonusStarsList={bonusStarsList}
+										/>
 									</>
 								)}
 
@@ -851,6 +471,21 @@ function ChampionDetail() {
 										</div>
 									</>
 								)}
+
+								{/* GIAO DIỆN HIỂN THỊ RUNE MỚI ĐƯỢC THÊM VÀO Ở ĐÂY */}
+								{runesFull.length > 0 && (
+									<>
+										<h2 className='text-lg sm:text-3xl font-semibold my-1 font-primary mt-6'>
+											Ngọc bổ trợ khuyên dùng
+										</h2>
+										<div className='grid grid-cols-1 md:grid-cols-2 gap-4 bg-surface-hover p-1 rounded-md border border-border'>
+											{runesFull.map((runeItem, index) => (
+												<RenderItem key={index} item={runeItem} />
+											))}
+										</div>
+									</>
+								)}
+
 								<div className='mt-6'>
 									<LatestComments championID={championID} />
 								</div>

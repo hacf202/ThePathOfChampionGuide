@@ -1,0 +1,2324 @@
+[
+  {
+    "regions": [
+      "Runeterra"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-12-12T08:51:38.301Z",
+    "views": 28,
+    "championName": "Aatrox",
+    "star": 3,
+    "like": 0,
+    "rune": [],
+    "description": "Aatrox cần quân hoặc năng lượng để setup được bàn đấu sớm, kích giảm tiêu hao triệu hồi Aatrox dễ hơn.",
+    "id": "2eebd0eb-ecee-4f17-9363-6924afd37ae5",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0082",
+      "R0026",
+      "R0080"
+    ],
+    "powerIds": [
+      "P0111",
+      "P0053",
+      "P0100",
+      "P0069",
+      "P0067",
+      "P0112"
+    ]
+  },
+  {
+    "regions": [
+      "Shurima"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-12-05T10:33:14.102Z",
+    "views": 32,
+    "championName": "Azir",
+    "star": 3,
+    "like": 2,
+    "rune": [],
+    "description": "Hoàng đế cắt kéo :))",
+    "id": "a5a24b01-7dbc-4a9c-8182-11416ace6ccb",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0092",
+      "R0116",
+      "R0080"
+    ],
+    "powerIds": [
+      "P0451",
+      "P0375",
+      "P0112",
+      "P0100",
+      "P0053",
+      "P0068"
+    ]
+  },
+  {
+    "regions": [
+      "Quần Đảo Bóng Đêm"
+    ],
+    "creator": "comchay15910",
+    "display": "true",
+    "createdAt": "2025-11-05T14:52:01.462Z",
+    "views": 88,
+    "championName": "Elise",
+    "star": 1,
+    "like": 10,
+    "rune": [],
+    "description": "Rush map tới chít\nĂn may thì đấm luôn ải liss\nDễ chơi dễ trúng thưởng ",
+    "id": "ec32ad11-f2d3-4b42-925a-a4ab0b6246f0",
+    "sub": "944804a8-3031-7031-767e-65cdf42d85f0",
+    "relicSetIds": [
+      "R0097",
+      "R0079",
+      "R0050"
+    ],
+    "powerIds": [
+      "P0112",
+      "P0451",
+      "P0074",
+      "P0068",
+      "P0116",
+      "P0062"
+    ]
+  },
+  {
+    "regions": [
+      "Runeterra"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-12-12T08:53:58.551Z",
+    "views": 28,
+    "championName": "Evelynn",
+    "star": 3,
+    "like": 0,
+    "rune": [],
+    "description": "Kết hợp đệ tử bóng đêm cùng Con Mồi Thơm Ngon bạn có thể triệu hồi Evelynn ngay vòng 1 và thăng cấp, từ đó vòng 2 và 3 bạn sẽ thăng cấp thêm 2 lần nữa từ đó ngưỡng sức mạnh của Eve sẽ đến sớm hơn.",
+    "id": "56938547-4c5d-49f0-a653-9229ffae0062",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0060",
+      "R0001",
+      "R0031"
+    ],
+    "powerIds": [
+      "P0380"
+    ]
+  },
+  {
+    "regions": [
+      "Targon"
+    ],
+    "creator": "tienthongcbl",
+    "display": "true",
+    "createdAt": "2025-12-08T02:58:31.842Z",
+    "views": 4,
+    "championName": "Diana",
+    "star": 3,
+    "like": 0,
+    "rune": [],
+    "description": "Nguồn: Spicy Toast Gaming\n",
+    "id": "e78c0302-7b58-4e31-8141-ebfe8dde16d8",
+    "sub": "24883428-80b1-7040-3960-2c53ab6ab5d2",
+    "relicSetIds": [
+      "R0058",
+      "R0061",
+      "R0113"
+    ],
+    "powerIds": []
+  },
+  {
+    "regions": [
+      "Targon",
+      "Thành Phố Bandle"
+    ],
+    "creator": "fanboytaylor",
+    "display": "true",
+    "createdAt": "2025-12-30T04:31:01.556Z",
+    "views": 21,
+    "championName": "Yuumi",
+    "star": 6,
+    "like": 1,
+    "rune": [],
+    "description": "*Chỉ áp dụng với Yuumi 6*\n Triệu hồi những tuỳ tùng nhỏ và gọi Yuumi ra để *ăn thịt* và tạo yêu linh, qua vòng những con yêu linh sẽ được buff chỉ số, gọi 1 con bất kì ra để húp trọn. Gọi thêm tuỳ tùng, qua lượt cả sân của bạn sẽ có chỉ số 4x.",
+    "id": "b0066f59-784d-4f94-9c89-edd34e27b580",
+    "sub": "04d8e438-a001-70ea-b315-0b17594b9342",
+    "relicSetIds": [
+      "R0079",
+      "R0060",
+      "R0053"
+    ],
+    "powerIds": [
+      "P0053",
+      "P0109",
+      "P0604",
+      "P0112",
+      "P0378"
+    ]
+  },
+  {
+    "regions": [
+      "Shurima"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-12-12T09:39:41.488Z",
+    "views": 55,
+    "championName": "Nidalee",
+    "star": 3,
+    "like": 0,
+    "rune": [],
+    "description": "Phục kích bằng Nida, biến hình, tấn công và chiến thắng.",
+    "id": "8f75a032-e078-4a87-b06c-7f657fcbf933",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0081",
+      "R0092",
+      "R0015"
+    ],
+    "powerIds": [
+      "P0375",
+      "P0071",
+      "P0327",
+      "P0451",
+      "P0540",
+      "P0054"
+    ]
+  },
+  {
+    "regions": [
+      "Bilgewater"
+    ],
+    "creator": "tpn01042003",
+    "display": "false",
+    "createdAt": "2026-02-13T22:01:24.331Z",
+    "views": 0,
+    "championName": "Miss Fortune",
+    "star": 3,
+    "like": 0,
+    "rune": [],
+    "description": "",
+    "id": "4b0c7a97-24ed-4b53-b747-48e56020d4fb",
+    "sub": "c4882458-b0c1-7094-b62d-4a098bc96e83",
+    "relicSetIds": [
+      "R0100",
+      "R0082",
+      "R0136"
+    ],
+    "powerIds": []
+  },
+  {
+    "regions": [
+      "Piltover & Zaun"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-12-12T08:47:52.444Z",
+    "views": 23,
+    "championName": "Jinx",
+    "star": 6,
+    "like": 0,
+    "rune": [],
+    "description": "Jinx full ap bắn tên lửa đạn đạo và đấm nhà",
+    "id": "ddbeb3dd-b72e-4112-905b-945858048afe",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0065",
+      "R0017",
+      "R0036"
+    ],
+    "powerIds": [
+      "P0059",
+      "P0684",
+      "P0466",
+      "P0326",
+      "P0864",
+      "P0444"
+    ]
+  },
+  {
+    "regions": [
+      "Demacia"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-11-27T16:16:04.322Z",
+    "views": 28,
+    "championName": "Vayne",
+    "star": 5,
+    "like": 6,
+    "rune": [],
+    "description": "Vayne otk công siêu mạnh",
+    "id": "1306cc6e-7b71-42f4-8ccb-67daa8cd52db",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0059",
+      "R0113",
+      "R0058"
+    ],
+    "powerIds": [
+      "P0090",
+      "P0113",
+      "P0327",
+      "P0451"
+    ]
+  },
+  {
+    "regions": [
+      "Quần Đảo Bóng Đêm"
+    ],
+    "creator": "kongaaa2210",
+    "display": "true",
+    "createdAt": "2026-02-02T16:14:38.664Z",
+    "views": 33,
+    "championName": "Elise",
+    "star": 4,
+    "like": 0,
+    "rune": [],
+    "description": "",
+    "id": "823a8d9b-6342-4f1b-9a2e-d32d2c1d3a48",
+    "sub": "9458f4b8-00e1-705f-0d50-e702071ff014",
+    "relicSetIds": [
+      "R0049",
+      "R0050",
+      "R0096"
+    ],
+    "powerIds": []
+  },
+  {
+    "regions": [
+      "Freljord"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-11-20T05:23:01.474Z",
+    "views": 36,
+    "championName": "Ashe",
+    "star": 6,
+    "like": 4,
+    "rune": [],
+    "description": "Build one shot cho ashe c6",
+    "id": "750d04a2-5350-4fe9-aea0-b1107c0206c9",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0038",
+      "R0038",
+      "R0038"
+    ],
+    "powerIds": [
+      "P0107",
+      "P0054",
+      "P0451"
+    ]
+  },
+  {
+    "regions": [
+      "Noxus"
+    ],
+    "creator": "tienthongcbl",
+    "display": "true",
+    "createdAt": "2025-12-08T02:33:09.150Z",
+    "views": 7,
+    "championName": "Ambessa",
+    "star": 3,
+    "like": 0,
+    "rune": [],
+    "description": "Nguồn: Spicy Toast Gaming",
+    "id": "e1fc3ab3-ab50-4903-a641-ff098f1fd7ab",
+    "sub": "24883428-80b1-7040-3960-2c53ab6ab5d2",
+    "relicSetIds": [
+      "R0013",
+      "R0012",
+      "R0025"
+    ],
+    "powerIds": []
+  },
+  {
+    "regions": [
+      "Runeterra"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-11-20T05:26:44.875Z",
+    "views": 34,
+    "championName": "Neeko",
+    "star": 3,
+    "like": 1,
+    "rune": [],
+    "description": "neeko one shot, cực kì mạnh khi nhân bản được 3 neeko trở lên.",
+    "id": "42a36d66-ac0d-4c08-afb8-9d6ee89e7feb",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0061",
+      "R0097",
+      "R0080"
+    ],
+    "powerIds": [
+      "P0111",
+      "P0113",
+      "P0451",
+      "P0084",
+      "P0908",
+      "P0116"
+    ]
+  },
+  {
+    "regions": [
+      "Quần Đảo Bóng Đêm"
+    ],
+    "creator": "kwaibdk",
+    "display": "true",
+    "createdAt": "2025-12-20T16:02:21.102Z",
+    "views": 57,
+    "championName": "Elise",
+    "star": 4,
+    "like": 5,
+    "rune": [],
+    "description": "rẻ, dễ rush ,ko ra elise thì nhót elise bị đấm cũng nhót(only happen on round 1), thả round 1 đấm 1 cái trinh sát xong lấy nhện con thách đấu ko mất elise, kiếm hút máu bù",
+    "id": "de918ce7-23a0-4bde-a951-833f0735c75e",
+    "sub": "c4b82428-4051-7022-610b-962f846fea9c",
+    "relicSetIds": [
+      "R0089",
+      "R0050",
+      "R0005"
+    ],
+    "powerIds": [
+      "P0908",
+      "P0067",
+      "P0062",
+      "P0116"
+    ]
+  },
+  {
+    "regions": [
+      "Runeterra"
+    ],
+    "creator": "tienthongcbl",
+    "display": "true",
+    "createdAt": "2025-12-08T03:09:58.261Z",
+    "views": 22,
+    "championName": "Evelynn",
+    "star": 3,
+    "like": 1,
+    "rune": [],
+    "description": "Nguồn: Spicy Toast Gaming\n",
+    "id": "1e82eafd-5035-4043-94be-98c8560b6c1e",
+    "sub": "24883428-80b1-7040-3960-2c53ab6ab5d2",
+    "relicSetIds": [
+      "R0114",
+      "R0117",
+      "R0031"
+    ],
+    "powerIds": []
+  },
+  {
+    "regions": [
+      "Freljord"
+    ],
+    "creator": "tpn01042003",
+    "display": "false",
+    "createdAt": "2026-02-13T22:15:10.337Z",
+    "views": 1,
+    "championName": "Ashe",
+    "star": 3,
+    "like": 0,
+    "rune": [],
+    "description": "",
+    "id": "95060b0c-149f-4666-9c05-7f288bef0076",
+    "sub": "c4882458-b0c1-7094-b62d-4a098bc96e83",
+    "relicSetIds": [
+      "R0122",
+      "R0108",
+      "R0123"
+    ],
+    "powerIds": []
+  },
+  {
+    "regions": [
+      "Targon"
+    ],
+    "creator": "tienthongcbl",
+    "display": "true",
+    "createdAt": "2025-12-08T02:59:49.431Z",
+    "views": 4,
+    "championName": "Diana",
+    "star": 3,
+    "like": 0,
+    "rune": [],
+    "description": "Nguồn: Spicy Toast Gaming\n",
+    "id": "d9bf2610-9011-4451-909a-daadebd45a5a",
+    "sub": "24883428-80b1-7040-3960-2c53ab6ab5d2",
+    "relicSetIds": [
+      "R0013",
+      "R0025",
+      "R0012"
+    ],
+    "powerIds": []
+  },
+  {
+    "regions": [
+      "Runeterra"
+    ],
+    "creator": "tienthongcbl",
+    "display": "true",
+    "createdAt": "2025-12-08T02:23:46.324Z",
+    "views": 6,
+    "championName": "Aatrox",
+    "star": 3,
+    "like": 0,
+    "rune": [],
+    "description": "Nguồn: Spicy Toast Gaming",
+    "id": "bb85d86d-5b23-404d-bd2d-055b67bdb301",
+    "sub": "24883428-80b1-7040-3960-2c53ab6ab5d2",
+    "relicSetIds": [
+      "R0013",
+      "R0019",
+      "R0020"
+    ],
+    "powerIds": []
+  },
+  {
+    "regions": [
+      "Runeterra"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-12-12T09:15:10.977Z",
+    "views": 10,
+    "championName": "Kayn",
+    "star": 3,
+    "like": 0,
+    "rune": [],
+    "description": "Đánh thủ đến khi triệu hồi được Kayn, Mỗi lần Kayn được triệu hồi thì ra đòn 2 lần, dọn sàn cực khỏe.",
+    "id": "a447c199-568b-45d0-b407-44a53108e2f7",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0040",
+      "R0040",
+      "R0003"
+    ],
+    "powerIds": [
+      "P0067",
+      "P0222",
+      "P0069",
+      "P0062",
+      "P0112",
+      "P0064"
+    ]
+  },
+  {
+    "regions": [
+      "Noxus"
+    ],
+    "creator": "tienthongcbl",
+    "display": "true",
+    "createdAt": "2025-12-08T02:56:15.490Z",
+    "views": 3,
+    "championName": "Darius",
+    "star": 3,
+    "like": 0,
+    "rune": [],
+    "description": "Nguồn: Spicy Toast Gaming\n",
+    "id": "2ecdb9c9-6ed7-4298-b970-10ea5b87463d",
+    "sub": "24883428-80b1-7040-3960-2c53ab6ab5d2",
+    "relicSetIds": [
+      "R0038",
+      "R0012",
+      "R0001"
+    ],
+    "powerIds": []
+  },
+  {
+    "regions": [
+      "Noxus"
+    ],
+    "creator": "fanboytaylor",
+    "display": "true",
+    "createdAt": "2025-12-30T10:16:45.037Z",
+    "views": 73,
+    "championName": "Annie",
+    "star": 6,
+    "like": 5,
+    "rune": [],
+    "description": "Nếu bạn có súng chú tư và Annie 6 thì đây là combo 1 đấm. Chỉ cần 1 con 1 mana bất kì đánh cùng Annie thì bé sẽ lên cấp, choáng địch và tăng sát thương kĩ năng. Dùng tốt nhất ở những map bot đẻ lính nhiều",
+    "id": "719a11ce-867c-44a7-be89-00e3eec4e688",
+    "sub": "04d8e438-a001-70ea-b315-0b17594b9342",
+    "relicSetIds": [
+      "R0137",
+      "R0100",
+      "R0031"
+    ],
+    "powerIds": [
+      "P0468",
+      "P0684",
+      "P0681",
+      "P0686",
+      "P0326"
+    ]
+  },
+  {
+    "regions": [
+      "Piltover & Zaun"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-12-01T05:00:24.667Z",
+    "views": 27,
+    "championName": "Viktor",
+    "star": 6,
+    "like": 3,
+    "rune": [],
+    "description": "",
+    "id": "e827e81d-56ee-4d69-8061-f3724f4bfb5a",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0061",
+      "R0125",
+      "R0048"
+    ],
+    "powerIds": [
+      "P0380",
+      "P0084",
+      "P0090",
+      "P0684",
+      "P0192"
+    ]
+  },
+  {
+    "regions": [
+      "Hoa Linh Lục Địa",
+      "Ionia"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-11-20T06:11:54.853Z",
+    "views": 34,
+    "championName": "Ahri Chiêu Hồn Thiên Hồ",
+    "star": 4,
+    "like": 1,
+    "rune": [
+      "Giáp Linh Hồn"
+    ],
+    "description": "Ahri đáng gờm",
+    "id": "244a6cd6-b82f-472b-a86e-8adc21658cbd",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0091",
+      "R0079",
+      "R0092"
+    ],
+    "powerIds": [
+      "P0375",
+      "P0540",
+      "P0380"
+    ]
+  },
+  {
+    "regions": [
+      "Bilgewater"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-11-21T10:21:11.186Z",
+    "views": 44,
+    "championName": "Pyke",
+    "star": 6,
+    "like": 5,
+    "rune": [],
+    "description": "Bộ cổ vật cho pyke c6 chỉ cần ko mua địa danh thì tỉ lệ kích rình rập là 100%. Vận hành không cần tới tướng.",
+    "id": "948b29d1-6d9f-4e49-82fa-176f4c77fcb8",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0116",
+      "R0080",
+      "R0114"
+    ],
+    "powerIds": [
+      "P0108",
+      "P0451"
+    ]
+  },
+  {
+    "regions": [
+      "Noxus"
+    ],
+    "creator": "kwaibdk",
+    "display": "true",
+    "createdAt": "2026-01-03T08:51:33.490Z",
+    "views": 34,
+    "championName": "Ambessa",
+    "star": 4,
+    "like": 6,
+    "rune": [],
+    "description": "kiếm trinh sát cho con ri đỗ và tận hưởng ambússy spawm vô hạn thành",
+    "id": "9181b99a-de78-46a9-82b1-4d71dcced591",
+    "sub": "c4b82428-4051-7022-610b-962f846fea9c",
+    "relicSetIds": [
+      "R0092",
+      "R0040",
+      "R0045"
+    ],
+    "powerIds": [
+      "P0100",
+      "P0067"
+    ]
+  },
+  {
+    "regions": [
+      "Piltover & Zaun"
+    ],
+    "creator": "tienthongcbl",
+    "display": "true",
+    "createdAt": "2025-12-08T03:02:23.301Z",
+    "views": 6,
+    "championName": "Ekko",
+    "star": 6,
+    "like": 0,
+    "rune": [],
+    "description": "Nguồn: Spicy Toast Gaming\n",
+    "id": "23089974-f049-469d-845b-642b7d1308b6",
+    "sub": "24883428-80b1-7040-3960-2c53ab6ab5d2",
+    "relicSetIds": [
+      "R0061",
+      "R0114",
+      "R0040"
+    ],
+    "powerIds": []
+  },
+  {
+    "regions": [
+      "Quần Đảo Bóng Đêm"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-12-12T09:06:01.224Z",
+    "views": 12,
+    "championName": "Kindred",
+    "star": 3,
+    "like": 0,
+    "rune": [],
+    "description": "Kindred chơi kiểu đầu thai liên tục bằng Hành Trình Tâm Linh :)) admin",
+    "id": "40f52785-bb40-433e-86fe-3f592533bb0a",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0061",
+      "R0052",
+      "R0052"
+    ],
+    "powerIds": []
+  },
+  {
+    "regions": [
+      "Freljord"
+    ],
+    "creator": "tienthongcbl",
+    "display": "true",
+    "createdAt": "2025-12-08T02:41:37.351Z",
+    "views": 19,
+    "championName": "Ashe",
+    "star": 6,
+    "like": 0,
+    "rune": [],
+    "description": "Nguồn: Spicy Toast Gaming\n",
+    "id": "294cce33-aeb1-47c4-8a96-6263f57197fe",
+    "sub": "24883428-80b1-7040-3960-2c53ab6ab5d2",
+    "relicSetIds": [
+      "R0104",
+      "R0065",
+      "R0061"
+    ],
+    "powerIds": []
+  },
+  {
+    "regions": [
+      "Runeterra"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-12-05T10:27:13.979Z",
+    "views": 9,
+    "championName": "Vua Poro",
+    "star": 3,
+    "like": 2,
+    "rune": [],
+    "description": "Bộ cổ vật poro đủ 4 đặc điểm kích +2|+2 từ sớm. Máy sao chép để cắn bánh quy nhiều lần hơn.",
+    "id": "c606620f-9f3d-4482-b243-5bcea986cc60",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0048",
+      "R0114",
+      "R0079"
+    ],
+    "powerIds": [
+      "P0068",
+      "P0111",
+      "P0375",
+      "P0451",
+      "P0116",
+      "P0067"
+    ]
+  },
+  {
+    "regions": [
+      "Noxus"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-12-12T09:28:16.937Z",
+    "views": 59,
+    "championName": "Swain",
+    "star": 6,
+    "like": 1,
+    "rune": [],
+    "description": "Mở được chòm thức tỉnh hỏa thuật thì chúng sinh bình đẳng",
+    "id": "cbab39e0-4c8a-4087-9d7a-e71cb233993a",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0104",
+      "R0065",
+      "R0020"
+    ],
+    "powerIds": []
+  },
+  {
+    "regions": [
+      "Freljord"
+    ],
+    "creator": "tpn01042003",
+    "display": "false",
+    "createdAt": "2026-02-13T22:16:38.007Z",
+    "views": 0,
+    "championName": "Ashe",
+    "star": 3,
+    "like": 0,
+    "rune": [],
+    "description": "",
+    "id": "5bba23e8-92ee-4acf-b2ad-17664db7335e",
+    "sub": "c4882458-b0c1-7094-b62d-4a098bc96e83",
+    "relicSetIds": [
+      "R0107"
+    ],
+    "powerIds": []
+  },
+  {
+    "regions": [
+      "Runeterra"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-11-20T07:23:09.994Z",
+    "views": 71,
+    "championName": "Fiddlesticks",
+    "star": 6,
+    "like": 3,
+    "rune": [],
+    "description": "P2W build",
+    "id": "1148439c-7aeb-46ac-a2df-ae3a586827b4",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0121",
+      "R0100",
+      "R0094"
+    ],
+    "powerIds": [
+      "P0377",
+      "P0063",
+      "P0059"
+    ]
+  },
+  {
+    "regions": [
+      "Targon",
+      "Thành Phố Bandle"
+    ],
+    "creator": "fanboytaylor",
+    "display": "true",
+    "createdAt": "2025-12-30T10:10:22.667Z",
+    "views": 43,
+    "championName": "Yuumi",
+    "star": 3,
+    "like": 1,
+    "rune": [],
+    "description": "All in poro",
+    "id": "9b0992f3-3278-49ad-99e8-1d4b326af7d6",
+    "sub": "04d8e438-a001-70ea-b315-0b17594b9342",
+    "relicSetIds": [
+      "R0089",
+      "R0060",
+      "R0050"
+    ],
+    "powerIds": [
+      "P0112",
+      "P0089",
+      "P0192",
+      "P0389",
+      "P0090"
+    ]
+  },
+  {
+    "regions": [
+      "Thành Phố Bandle"
+    ],
+    "creator": "nhsonn123",
+    "display": "false",
+    "createdAt": "2025-12-04T05:26:38.112Z",
+    "views": 0,
+    "championName": "Norra",
+    "star": 3,
+    "like": 0,
+    "rune": [],
+    "description": "",
+    "id": "43e5c8b9-7b73-4d8a-b133-4597f2c403e7",
+    "sub": "5488a4c8-b0e1-70a6-23bf-41fe3d1e2825",
+    "relicSetIds": [
+      "R0043",
+      "R0043",
+      "R0064"
+    ],
+    "powerIds": []
+  },
+  {
+    "regions": [
+      "Targon"
+    ],
+    "creator": "tienthongcbl",
+    "display": "true",
+    "createdAt": "2025-12-08T02:43:09.927Z",
+    "views": 17,
+    "championName": "Aurelion Sol",
+    "star": 3,
+    "like": 0,
+    "rune": [],
+    "description": "Nguồn: Spicy Toast Gaming\n",
+    "id": "d994eadc-a779-4612-a042-55862f856f27",
+    "sub": "24883428-80b1-7040-3960-2c53ab6ab5d2",
+    "relicSetIds": [
+      "R0011",
+      "R0001",
+      "R0008"
+    ],
+    "powerIds": []
+  },
+  {
+    "regions": [
+      "Targon"
+    ],
+    "creator": "pikamoi",
+    "display": "true",
+    "createdAt": "2025-11-05T12:20:57.719Z",
+    "views": 41,
+    "championName": "Diana",
+    "star": 3,
+    "like": 10,
+    "rune": [],
+    "description": "",
+    "id": "e533c91a-4225-43d3-849a-2437c5a27462",
+    "sub": "04b82468-50d1-70b0-3f14-992d170e6670",
+    "relicSetIds": [
+      "R0061",
+      "R0058",
+      "R0113"
+    ],
+    "powerIds": [
+      "P0118",
+      "P0075",
+      "P0113",
+      "P0689",
+      "P0084"
+    ]
+  },
+  {
+    "regions": [
+      "Noxus"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-11-29T08:41:19.165Z",
+    "views": 23,
+    "championName": "Leblanc",
+    "star": 3,
+    "like": 2,
+    "rune": [],
+    "description": "old but gold, đơn giản hiệu quả, 3 sao nhưng mạnh vãi ò, đi map 5 6 sao vô tư :))",
+    "id": "dbc794b1-7a1f-43aa-adb1-f6da558c0279",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0040",
+      "R0040",
+      "R0052"
+    ],
+    "powerIds": [
+      "P0062",
+      "P0111",
+      "P0113"
+    ]
+  },
+  {
+    "regions": [
+      "Runeterra"
+    ],
+    "creator": "tienthongcbl",
+    "display": "true",
+    "createdAt": "2025-12-08T02:26:24.784Z",
+    "views": 6,
+    "championName": "Aatrox",
+    "star": 3,
+    "like": 1,
+    "rune": [],
+    "description": "Thả tùy tùng lắp -> lắp trang bị\n->thả qqtrox -> thăng cấp ->\nđấm nhà. Thế thôi...\nNguồn: Evin Lor",
+    "id": "facc8336-7fa2-4e19-bed4-0434fb7aacac",
+    "sub": "24883428-80b1-7040-3960-2c53ab6ab5d2",
+    "relicSetIds": [
+      "R0038",
+      "R0038",
+      "R0038"
+    ],
+    "powerIds": []
+  },
+  {
+    "regions": [
+      "Targon"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-12-12T09:31:00.410Z",
+    "views": 32,
+    "championName": "Diana",
+    "star": 3,
+    "like": 0,
+    "rune": [],
+    "description": "Đơn giản mà khỏe, hầu như ải nào cũng đi được",
+    "id": "95ed222f-b08b-4c38-a0d2-4fd3f1123fe3",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0061",
+      "R0052",
+      "R0052"
+    ],
+    "powerIds": []
+  },
+  {
+    "regions": [
+      "Bilgewater"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-12-12T09:04:58.000Z",
+    "views": 13,
+    "championName": "Illaoi",
+    "star": 3,
+    "like": 0,
+    "rune": [],
+    "description": "Triệu hồi được Mực công lên = WIN :)))",
+    "id": "582469f6-5426-4426-8234-67075a4437fd",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0092",
+      "R0045",
+      "R0001"
+    ],
+    "powerIds": [
+      "P0113",
+      "P0067",
+      "P0222",
+      "P0112",
+      "P0086",
+      "P0111"
+    ]
+  },
+  {
+    "regions": [
+      "Piltover & Zaun"
+    ],
+    "creator": "tienthongcbl",
+    "display": "true",
+    "createdAt": "2025-12-08T02:54:28.834Z",
+    "views": 5,
+    "championName": "Caitlyn",
+    "star": 6,
+    "like": 1,
+    "rune": [],
+    "description": "Nguồn: Spicy Toast Gaming\n",
+    "id": "37945463-8a46-4d41-a21b-c52695f24752",
+    "sub": "24883428-80b1-7040-3960-2c53ab6ab5d2",
+    "relicSetIds": [
+      "R0107",
+      "R0121",
+      "R0113"
+    ],
+    "powerIds": []
+  },
+  {
+    "regions": [
+      "Shurima"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-11-20T05:31:57.895Z",
+    "views": 35,
+    "championName": "Nasus",
+    "star": 3,
+    "like": 1,
+    "rune": [],
+    "description": "nasus farm q",
+    "id": "e0297cff-cdec-4730-ad57-d719553419bd",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0061",
+      "R0085",
+      "R0080"
+    ],
+    "powerIds": [
+      "P0689",
+      "P0223"
+    ]
+  },
+  {
+    "regions": [
+      "Thành Phố Bandle"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-11-21T04:31:31.519Z",
+    "views": 14,
+    "championName": "Norra",
+    "star": 3,
+    "like": 2,
+    "rune": [],
+    "description": "Combo quốc dân",
+    "id": "290d89ec-f840-4729-8557-ecb27f8b7908",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0043",
+      "R0043",
+      "R0064"
+    ],
+    "powerIds": [
+      "P0062",
+      "P0375"
+    ]
+  },
+  {
+    "regions": [
+      "Bilgewater"
+    ],
+    "creator": "chuchu",
+    "display": "true",
+    "createdAt": "2025-11-27T03:00:15.613Z",
+    "views": 35,
+    "championName": "Nami",
+    "star": 3,
+    "like": 4,
+    "rune": [],
+    "description": "",
+    "id": "5c4ac148-4acf-459a-b89a-ff2fe390ce31",
+    "sub": "94f874e8-90a1-70c5-f03f-5f1414729b7d",
+    "relicSetIds": [
+      "R0048",
+      "R0125",
+      "R0017"
+    ],
+    "powerIds": [
+      "P0686",
+      "P0111",
+      "P0681",
+      "P0067",
+      "P0108",
+      "P0056"
+    ]
+  },
+  {
+    "regions": [
+      "Targon"
+    ],
+    "creator": "tienthongcbl",
+    "display": "true",
+    "createdAt": "2025-12-08T02:44:45.695Z",
+    "views": 30,
+    "championName": "Aurelion Sol",
+    "star": 4,
+    "like": 1,
+    "rune": [],
+    "description": "Nguồn: Spicy Toast Gaming\n",
+    "id": "a14dae93-91aa-4bb5-87df-0f682d164f57",
+    "sub": "24883428-80b1-7040-3960-2c53ab6ab5d2",
+    "relicSetIds": [
+      "R0115",
+      "R0001",
+      "R0086"
+    ],
+    "powerIds": [
+      "P0104",
+      "P0108",
+      "P0106"
+    ]
+  },
+  {
+    "regions": [
+      "Noxus"
+    ],
+    "creator": "czgm",
+    "display": "true",
+    "createdAt": "2025-11-05T10:14:44.470Z",
+    "views": 33,
+    "championName": "Leblanc",
+    "star": 2,
+    "like": 6,
+    "rune": [],
+    "description": "băng cầu tới chết 🐧",
+    "id": "7b270b09-e501-4674-9522-b54a236dbbb2",
+    "sub": "f4185418-6041-70e3-b210-f311e784a11c",
+    "relicSetIds": [
+      "R0052",
+      "R0052",
+      "R0052"
+    ],
+    "powerIds": [
+      "P0069",
+      "P0074",
+      "P0067",
+      "P0075",
+      "P0062"
+    ]
+  },
+  {
+    "regions": [
+      "Noxus"
+    ],
+    "creator": "tienthongcbl",
+    "display": "true",
+    "createdAt": "2025-12-08T02:37:59.028Z",
+    "views": 10,
+    "championName": "Annie",
+    "star": 3,
+    "like": 0,
+    "rune": [],
+    "description": "Rĩa hp từ từ bằng bài quân và bài phép, rỉa đến khi nào win thì thôi.\nNguồn: Evin Lor",
+    "id": "1b137b29-02b9-4abc-b97d-2746c99bfed6",
+    "sub": "24883428-80b1-7040-3960-2c53ab6ab5d2",
+    "relicSetIds": [
+      "R0017",
+      "R0021",
+      "R0050"
+    ],
+    "powerIds": []
+  },
+  {
+    "regions": [
+      "Quần Đảo Bóng Đêm"
+    ],
+    "creator": "borrelsword",
+    "display": "true",
+    "createdAt": "2025-12-23T17:30:28.174Z",
+    "views": 117,
+    "championName": "Elise",
+    "star": 4,
+    "like": 4,
+    "rune": [],
+    "description": "Build để đánh Elise khi địch có chỉ số quá to.\n\nC4 của elise combo với giáp thiên thần  và cung phong linh rất tốt, elise triệu hồi lần 1 được tăng 2 đặc điểm, hồi sinh lên được 2 đặc điểm nữa.\n\n\nThiếu áp đảo khiên phép thách đấu thì có thể roll thêm, dù gì game cũng vừa tăng thêm số vật phẩm + sức mạnh có thể ban mấy đặc điểm này.",
+    "id": "37fd7beb-6f74-45ee-9390-eec4c2afa832",
+    "sub": "b4d8b4f8-60e1-70c2-a80b-43c5a679ca67",
+    "relicSetIds": [
+      "R0050",
+      "R0007",
+      "R0150"
+    ],
+    "powerIds": [
+      "P0380",
+      "P0451",
+      "P0062",
+      "P0072",
+      "P0112",
+      "P0908"
+    ]
+  },
+  {
+    "regions": [
+      "Piltover & Zaun"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-12-12T08:47:01.153Z",
+    "views": 38,
+    "championName": "Jinx",
+    "star": 3,
+    "like": 0,
+    "rune": [],
+    "description": "Jinx cơ bản, cưỡng đoạt và xuất trận sau đó tiêu diệt Jinx để kích Thiên Thần Hộ Mệnh",
+    "id": "91202fa3-c1f3-438e-b030-274ec5528fdc",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0036",
+      "R0007",
+      "R0020"
+    ],
+    "powerIds": [
+      "P0062",
+      "P0684",
+      "P0683",
+      "P0113",
+      "P0084",
+      "P0466"
+    ]
+  },
+  {
+    "regions": [
+      "Runeterra"
+    ],
+    "creator": "tienthongcbl",
+    "display": "true",
+    "createdAt": "2025-12-08T02:50:40.921Z",
+    "views": 8,
+    "championName": "Bard",
+    "star": 3,
+    "like": 0,
+    "rune": [],
+    "description": "Rĩa hp từ từ băng bài quân và bài phép, rỉa đến khi nào win thì thôi.\n\nNguồn: Evin Lor",
+    "id": "3f595644-d6b2-4622-9235-2698286840c7",
+    "sub": "24883428-80b1-7040-3960-2c53ab6ab5d2",
+    "relicSetIds": [
+      "R0019",
+      "R0019",
+      "R0019"
+    ],
+    "powerIds": []
+  },
+  {
+    "regions": [
+      "Piltover & Zaun"
+    ],
+    "creator": "kaitoginn",
+    "display": "true",
+    "createdAt": "2026-01-18T13:22:40.396Z",
+    "views": 88,
+    "championName": "Jinx",
+    "star": 3,
+    "like": 3,
+    "rune": [],
+    "description": "lối chơi dành cho jinx 3 sao nhà nghèo, chọn được power xịn có thể đánh dc ải ác mộng tuần 4.5. càn quét tầm 4.5 trở lại. thích hợp với các bạn mới tập chơi game\nkhi jinx được đặt xuống là kết thúc ván đấu",
+    "id": "65f4b7e6-794a-426b-8ba3-a38c91d938cb",
+    "sub": "14583488-2081-70fd-6743-0e3b99ff3490",
+    "relicSetIds": [
+      "R0036",
+      "R0034",
+      "R0015"
+    ],
+    "powerIds": [
+      "P0074",
+      "P0063",
+      "P0114",
+      "P0686",
+      "P0684",
+      "P0113"
+    ]
+  },
+  {
+    "regions": [
+      "Piltover & Zaun"
+    ],
+    "creator": "evin123",
+    "display": "true",
+    "createdAt": "2025-11-28T12:28:53.124Z",
+    "views": 15,
+    "championName": "Warwick",
+    "star": 3,
+    "like": 1,
+    "rune": [],
+    "description": "Nên thả ww ở mức tiêu hao từ 0 hoặc 1 để lấy cuồng nộ và ww sẽ có lượng chỉ số cực cao.",
+    "id": "80b0ebe9-d0e3-480f-9bc2-75c03bb3cfa9",
+    "sub": "64b81448-0021-70b7-759a-080d73ea41fd",
+    "relicSetIds": [
+      "R0060",
+      "R0079",
+      "R0053"
+    ],
+    "powerIds": [
+      "P0380",
+      "P0053",
+      "P0068",
+      "P0054",
+      "P0112",
+      "P0466"
+    ]
+  },
+  {
+    "regions": [
+      "Noxus"
+    ],
+    "creator": "tienthongcbl",
+    "display": "true",
+    "createdAt": "2025-12-08T02:35:41.123Z",
+    "views": 1,
+    "championName": "Annie",
+    "star": 3,
+    "like": 0,
+    "rune": [],
+    "description": "Nguồn: Spicy Toast Gaming",
+    "id": "1c8c09d9-7f9b-441f-9c8e-770c2dec491d",
+    "sub": "24883428-80b1-7040-3960-2c53ab6ab5d2",
+    "relicSetIds": [
+      "R0013",
+      "R0017",
+      "R0012"
+    ],
+    "powerIds": []
+  },
+  {
+    "regions": [
+      "Runeterra"
+    ],
+    "creator": "tienthongcbl",
+    "display": "true",
+    "createdAt": "2025-12-08T02:47:50.480Z",
+    "views": 3,
+    "championName": "Bard",
+    "star": 3,
+    "like": 1,
+    "rune": [],
+    "description": "Nguồn: Spicy Toast Gaming\n",
+    "id": "9dc84553-667d-4b20-87cd-11d3a9d657c4",
+    "sub": "24883428-80b1-7040-3960-2c53ab6ab5d2",
+    "relicSetIds": [
+      "R0019",
+      "R0045",
+      "R0053"
+    ],
+    "powerIds": []
+  },
+  {
+    "regions": [
+      "Hoa Linh Lục Địa",
+      "Thành Phố Bandle"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-12-12T09:41:13.391Z",
+    "views": 84,
+    "championName": "Teemo Phong Linh Tiểu Quái",
+    "star": 7,
+    "like": 1,
+    "rune": [
+      "Nấm Độc Sinh Sôi"
+    ],
+    "description": "Nâng cấp tối đa và tận hưởng niềm vui mà con CHỒN LÙI mang lại cho bạn",
+    "id": "8fac2d99-e15d-4d0d-bf45-f387353597eb",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0107",
+      "R0136",
+      "R0121"
+    ],
+    "powerIds": []
+  },
+  {
+    "regions": [
+      "Piltover & Zaun"
+    ],
+    "creator": "tienthongcbl",
+    "display": "true",
+    "createdAt": "2025-12-08T02:52:10.713Z",
+    "views": 1,
+    "championName": "Caitlyn",
+    "star": 3,
+    "like": 1,
+    "rune": [],
+    "description": "Nguồn: Spicy Toast Gaming\n",
+    "id": "dc580bd3-9a32-4ecf-be5e-fe486c149b97",
+    "sub": "24883428-80b1-7040-3960-2c53ab6ab5d2",
+    "relicSetIds": [
+      "R0040",
+      "R0007",
+      "R0020"
+    ],
+    "powerIds": []
+  },
+  {
+    "regions": [
+      "Runeterra"
+    ],
+    "creator": "thevirtuoso",
+    "display": "true",
+    "createdAt": "2026-02-06T12:17:06.371Z",
+    "views": 133,
+    "championName": "Jhin",
+    "star": 6,
+    "like": 9,
+    "rune": [],
+    "description": "Build cơ bản và hiệu quả nhất của Jhin. Chỉ cần rút và thả được Jhin xuống là win.\nMột vài lưu ý về bug Jhin không sử dụng \"Năng lượng thủy triều\" mà bạn có thể gặp:\n1/ Gặp ải có \"Cưỡng đoạt: ban cho ta +1/+1\". Gặp ải này thì bạn sẽ cần phải tự chủ động kích cưỡng hoạt trước (do Power của ải này làm cho combo cổ vật của Jhin bị bug) rồi mới thả Jhin để kích hoạt được \"Năng lượng thủy triều\".\n2/ Lá Jhin đầu tiên bị tiêu diệt. Nếu gặp trường hợp này, lá Jhin thứ 2 bạn sử dụng nếu thả xuống sẽ bị bug thứ tự cổ vật (\"Nhà thông thái phá thành\" kích hoạt sau cùng) dẫn đến \"Năng lượng thủy triều\" không được kích hoạt. Giải pháp cũng tương tự, bạn sẽ phải tự chủ động kích hoạt cưỡng đoạt trước rồi mới nên thả lá Jhin thứ 2 xuống sau.",
+    "id": "beccd681-786a-4b36-9012-36290966131a",
+    "sub": "54c89418-5001-7064-a4db-714fcc6135dc",
+    "relicSetIds": [
+      "R0038",
+      "R0034",
+      "R0034"
+    ],
+    "powerIds": [
+      "P0444",
+      "P0326",
+      "P0466",
+      "P0681",
+      "P0683",
+      "P0864"
+    ]
+  },
+  {
+    "regions": [
+      "Runeterra"
+    ],
+    "creator": "tienthongcbl",
+    "display": "true",
+    "createdAt": "2025-12-08T03:11:02.715Z",
+    "views": 64,
+    "championName": "Fiddlesticks",
+    "star": 3,
+    "like": 12,
+    "rune": [],
+    "description": "Nguồn: Spicy Toast Gaming\n",
+    "id": "62a0c876-3ae4-44ee-944c-b3d836d72e26",
+    "sub": "24883428-80b1-7040-3960-2c53ab6ab5d2",
+    "relicSetIds": [
+      "R0025",
+      "R0040",
+      "R0040"
+    ],
+    "powerIds": []
+  },
+  {
+    "regions": [
+      "Ionia"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-12-12T09:34:21.634Z",
+    "views": 31,
+    "championName": "Ahri",
+    "star": 6,
+    "like": 0,
+    "rune": [],
+    "description": "Ahri gõ nhà liên tục sau mỗi lần thu về, thăng tiến mạnh mẽ với anh hùng ca",
+    "id": "2d6bfb78-274a-409b-b261-18200fa7b5e8",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0037",
+      "R0061",
+      "R0015"
+    ],
+    "powerIds": [
+      "P0113",
+      "P0084",
+      "P0689",
+      "P0069",
+      "P0327"
+    ]
+  },
+  {
+    "regions": [
+      "Shurima"
+    ],
+    "creator": "hxt208",
+    "display": "true",
+    "createdAt": "2026-01-10T21:33:49.288Z",
+    "views": 46,
+    "championName": "Nasus",
+    "star": 4,
+    "like": 3,
+    "rune": [],
+    "description": "Build của mấy ae trên group hướng dẫn, thấy khá ok và mình cũng dùng combo này qua được map Baron",
+    "id": "ed361e88-9479-41bc-87d8-2b6e03be2923",
+    "sub": "9458b468-80f1-7043-95ce-5dd1f4807953",
+    "relicSetIds": [
+      "R0061",
+      "R0020",
+      "R0058"
+    ],
+    "powerIds": [
+      "P0075",
+      "P0067",
+      "P0074",
+      "P0111",
+      "P0113",
+      "P0325"
+    ]
+  },
+  {
+    "regions": [
+      "Ionia"
+    ],
+    "creator": "tienthongcbl",
+    "display": "true",
+    "createdAt": "2025-12-08T02:31:32.218Z",
+    "views": 26,
+    "championName": "Ahri",
+    "star": 6,
+    "like": 0,
+    "rune": [],
+    "description": "Nguồn: Spicy Toast Gaming",
+    "id": "9f0a8c85-cd5a-46eb-b103-6544583b37ea",
+    "sub": "24883428-80b1-7040-3960-2c53ab6ab5d2",
+    "relicSetIds": [
+      "R0119",
+      "R0092",
+      "R0097"
+    ],
+    "powerIds": []
+  },
+  {
+    "regions": [
+      "Runeterra"
+    ],
+    "creator": "thevirtuoso",
+    "display": "true",
+    "createdAt": "2026-02-06T12:11:33.821Z",
+    "views": 44,
+    "championName": "Jhin",
+    "star": 6,
+    "like": 7,
+    "rune": [],
+    "description": "Một combo cổ vật mới để đổi gió cho lối chơi Jhin C6. \n- Skip turn 1 hoặc tính toán để turn 2 có 4+ mana trở lên. \n- Combo ở turn 2 sẽ là sử dụng \"Lá bài bí ẩn\" nhằm kích cưỡng đoạt cho Jhin xuống sân, khi đó Jhin sẽ có đủ 10 dmg nhờ \"Năng lượng thủy triều\" để tự kích hoạt \"Tả xung hữu đột\" nhằm clear sàn và kiểm soát trận đấu từ đó. \n",
+    "id": "911e7c2d-9a6a-4b5e-ae22-2c0073fa45f2",
+    "sub": "54c89418-5001-7064-a4db-714fcc6135dc",
+    "relicSetIds": [
+      "R0034",
+      "R0134",
+      "R0108"
+    ],
+    "powerIds": [
+      "P0071",
+      "P0327",
+      "P0075",
+      "P0067",
+      "P0112",
+      "P0111"
+    ]
+  },
+  {
+    "regions": [
+      "Runeterra"
+    ],
+    "creator": "tienthongcbl",
+    "display": "true",
+    "createdAt": "2025-12-08T03:04:35.958Z",
+    "views": 4,
+    "championName": "Rồng Ngàn Tuổi",
+    "star": 3,
+    "like": 1,
+    "rune": [],
+    "description": "Nguồn: Spicy Toast Gaming\n",
+    "id": "9558b44e-4cce-41e9-9c79-ae748fb3ceed",
+    "sub": "24883428-80b1-7040-3960-2c53ab6ab5d2",
+    "relicSetIds": [
+      "R0108",
+      "R0082",
+      "R0080"
+    ],
+    "powerIds": []
+  },
+  {
+    "regions": [
+      "Quần Đảo Bóng Đêm"
+    ],
+    "creator": "tienthongcbl",
+    "display": "true",
+    "createdAt": "2025-12-08T03:07:05.168Z",
+    "views": 8,
+    "championName": "Elise",
+    "star": 3,
+    "like": 1,
+    "rune": [],
+    "description": "Nguồn: Spicy Toast Gaming\n",
+    "id": "2447f268-ad2b-4b3e-b8e4-5c79bdd87d77",
+    "sub": "24883428-80b1-7040-3960-2c53ab6ab5d2",
+    "relicSetIds": [
+      "R0049",
+      "R0050",
+      "R0096"
+    ],
+    "powerIds": []
+  },
+  {
+    "regions": [
+      "Thành Phố Bandle"
+    ],
+    "creator": "fanboytaylor",
+    "display": "true",
+    "createdAt": "2025-12-30T10:24:08.521Z",
+    "views": 43,
+    "championName": "Norra",
+    "star": 6,
+    "like": 8,
+    "rune": [],
+    "description": "",
+    "id": "537fec40-92a6-4b26-b6ad-3d56bc489c5a",
+    "sub": "04d8e438-a001-70ea-b315-0b17594b9342",
+    "relicSetIds": [
+      "R0061",
+      "R0113",
+      "R0080"
+    ],
+    "powerIds": [
+      "P0113",
+      "P0451",
+      "P0069",
+      "P0115"
+    ]
+  },
+  {
+    "regions": [
+      "Ionia"
+    ],
+    "creator": "toanproquangau",
+    "display": "false",
+    "createdAt": "2025-12-02T03:45:33.618Z",
+    "views": 0,
+    "championName": "Yasuo",
+    "star": 4,
+    "like": 0,
+    "rune": [],
+    "description": "",
+    "id": "7f757209-9c3c-4bc1-b75a-74ac98ccc3b6",
+    "sub": "6498a4b8-a011-70a1-5f28-627c7ea26aa5",
+    "relicSetIds": [
+      "R0103",
+      "R0040",
+      "R0031"
+    ],
+    "powerIds": []
+  },
+  {
+    "regions": [
+      "Demacia"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-12-12T09:48:21.188Z",
+    "views": 89,
+    "championName": "Lux: rạng ngời",
+    "star": 6,
+    "like": 3,
+    "rune": [],
+    "description": "Set up được thế Lux2 + Lồng Đèn + 1 quân bất kỳ = WIN",
+    "id": "90bf090c-cbc0-47d1-8923-784f5793c6fe",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0125",
+      "R0097",
+      "R0001"
+    ],
+    "powerIds": [
+      "P0118",
+      "P0112",
+      "P0192",
+      "P0451",
+      "P0054",
+      "P0101"
+    ]
+  },
+  {
+    "regions": [
+      "Shurima"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-12-12T09:37:15.222Z",
+    "views": 56,
+    "championName": "Kai'sa",
+    "star": 3,
+    "like": 2,
+    "rune": [],
+    "description": "cố gắng tích đủ đặc điểm cho kai'sa trước khi triệu hồi, thăng cấp và tiến công dứt điểm ngay trong 1 vòng đấu.",
+    "id": "5b8ee3ae-33ba-4df2-9b98-06b8be6407c0",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0096",
+      "R0017",
+      "R0001"
+    ],
+    "powerIds": [
+      "P0451",
+      "P0116",
+      "P0091",
+      "P0908",
+      "P0071",
+      "P0380"
+    ]
+  },
+  {
+    "regions": [
+      "Targon"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-11-20T05:43:46.383Z",
+    "views": 38,
+    "championName": "Kayle",
+    "star": 6,
+    "like": 5,
+    "rune": [],
+    "description": "Roll tìm Fiora và tận hưởng",
+    "id": "7b8455c4-4566-462f-b9d6-b3a338e5c565",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0008",
+      "R0008",
+      "R0008"
+    ],
+    "powerIds": []
+  },
+  {
+    "regions": [
+      "Quần Đảo Bóng Đêm",
+      "Thành Phố Bandle"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-12-12T09:44:36.743Z",
+    "views": 87,
+    "championName": "Vex",
+    "star": 4,
+    "like": 2,
+    "rune": [],
+    "description": "Mở được chòm bài phép thu thập trong phiêu lưu được +4dmg thì Vex sẽ gánh cả vùng Bandle của bạn từ đầu đến cuối.",
+    "id": "0f261723-01f7-492f-9ee8-7712ce56adb6",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0095",
+      "R0059",
+      "R0097"
+    ],
+    "powerIds": [
+      "P0326",
+      "P0684",
+      "P0683",
+      "P0686",
+      "P0111",
+      "P0113"
+    ]
+  },
+  {
+    "regions": [
+      "Ionia"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-12-12T08:45:09.333Z",
+    "views": 19,
+    "championName": "Yasuo",
+    "star": 3,
+    "like": 0,
+    "rune": [],
+    "description": "Yasuo đánh chậm, mỗi lần gây sát thương sẽ gài lượng nấm tương ứng. Có khiên phép đảm bảo an toàn cho Đấng",
+    "id": "8734548b-4da0-42e1-b243-20ce56e2a106",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0136",
+      "R0061",
+      "R0103"
+    ],
+    "powerIds": []
+  },
+  {
+    "regions": [
+      "Quần Đảo Bóng Đêm"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-11-21T05:38:04.743Z",
+    "views": 31,
+    "championName": "Elise",
+    "star": 6,
+    "like": 2,
+    "rune": [],
+    "description": "Elise FTK",
+    "id": "adc2a287-eeb3-4fed-b680-252d468e6223",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0150",
+      "R0050",
+      "R0097"
+    ],
+    "powerIds": [
+      "P0068",
+      "P0375",
+      "P0540",
+      "P0112",
+      "P0116",
+      "P0908"
+    ]
+  },
+  {
+    "regions": [
+      "Runeterra"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-12-12T09:00:15.311Z",
+    "views": 24,
+    "championName": "Vua Poro",
+    "star": 3,
+    "like": 0,
+    "rune": [],
+    "description": "Linh hồn Buhru và khiên đen để lấy đủ đặc điểm cho bạn nhận +2|+2 mỗi vòng, máy sao chép để đánh triệu hồi Vua Poro và cắn bánh quy ở giai đoạn sau.\n",
+    "id": "32d683a8-2769-432e-975b-a31f814c10a3",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0079",
+      "R0114",
+      "R0048"
+    ],
+    "powerIds": [
+      "P0068",
+      "P0111",
+      "P0375",
+      "P0116",
+      "P0451",
+      "P0090"
+    ]
+  },
+  {
+    "regions": [
+      "Runeterra"
+    ],
+    "creator": "tienthongcbl",
+    "display": "true",
+    "createdAt": "2025-12-08T02:49:23.387Z",
+    "views": 6,
+    "championName": "Bard",
+    "star": 3,
+    "like": 0,
+    "rune": [],
+    "description": "Nguồn: Spicy Toast Gaming\n",
+    "id": "a374b370-78e5-48a2-bf78-f327e75324d5",
+    "sub": "24883428-80b1-7040-3960-2c53ab6ab5d2",
+    "relicSetIds": [
+      "R0061",
+      "R0116",
+      "R0114"
+    ],
+    "powerIds": []
+  },
+  {
+    "regions": [
+      "Piltover & Zaun"
+    ],
+    "creator": "tienthongcbl",
+    "display": "true",
+    "createdAt": "2025-12-08T03:01:42.615Z",
+    "views": 3,
+    "championName": "Ekko",
+    "star": 6,
+    "like": 1,
+    "rune": [],
+    "description": "Nguồn: Spicy Toast Gaming\n",
+    "id": "23a7d443-e478-4731-bd6e-55f47041a184",
+    "sub": "24883428-80b1-7040-3960-2c53ab6ab5d2",
+    "relicSetIds": [
+      "R0003",
+      "R0092",
+      "R0082"
+    ],
+    "powerIds": []
+  },
+  {
+    "regions": [
+      "Piltover & Zaun"
+    ],
+    "creator": "evin123",
+    "display": "true",
+    "createdAt": "2025-11-05T03:31:18.763Z",
+    "views": 95,
+    "championName": "Janna",
+    "star": 3,
+    "like": 4,
+    "rune": [],
+    "description": "Dùng đội quân quạ cho phép thả Janna sớm ngay vòng 1, kích hoạt được sức mạnh giảm tiêu hao, giúp Janna giảm tiêu hao được nhiều lá bài hơn ngay từ sớm. evin",
+    "id": "4bad9d43-515a-4f90-af08-70c9fe810a5d",
+    "sub": "64b81448-0021-70b7-759a-080d73ea41fd",
+    "relicSetIds": [
+      "R0061",
+      "R0104",
+      "R0065"
+    ],
+    "powerIds": [
+      "P0056",
+      "P0222",
+      "P0111",
+      "P0113",
+      "P0064",
+      "P0107"
+    ]
+  },
+  {
+    "regions": [
+      "Targon"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-12-12T09:11:59.981Z",
+    "views": 22,
+    "championName": "Kayle",
+    "star": 3,
+    "like": 0,
+    "rune": [],
+    "description": "Ưu tiên chọn tướng tiêu hao thấp triệu hồi để lấy năng lượng buff bài phép sớm để tích chỉ số, triệu hồi các bài quân được cường hóa chỉ số trên tay để out stat đối phương. Kayle sẽ là tướng dứt điểm.",
+    "id": "edb7ed81-26ab-4d03-b97c-9a93dcb6f2e0",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0085",
+      "R0113",
+      "R0124"
+    ],
+    "powerIds": [
+      "P0689",
+      "P0113",
+      "P0111",
+      "P0223",
+      "P0118",
+      "P0327"
+    ]
+  },
+  {
+    "regions": [
+      "Runeterra"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-11-20T05:41:30.398Z",
+    "views": 24,
+    "championName": "Kayn",
+    "star": 3,
+    "like": 1,
+    "rune": [],
+    "description": "Kayn max build gánh hết :))",
+    "id": "ef026f15-e4e8-4bfa-b492-dfb2fe8f6d6f",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0091",
+      "R0082",
+      "R0147"
+    ],
+    "powerIds": [
+      "P0067",
+      "P0327",
+      "P0112",
+      "P0451",
+      "P0062"
+    ]
+  },
+  {
+    "regions": [
+      "Piltover & Zaun"
+    ],
+    "creator": "pikamoi",
+    "display": "true",
+    "createdAt": "2025-11-05T12:27:45.905Z",
+    "views": 24,
+    "championName": "Caitlyn",
+    "star": 6,
+    "like": 3,
+    "rune": [],
+    "description": "",
+    "id": "e9cf2b38-9886-4c09-967e-ed838fe9e075",
+    "sub": "04b82468-50d1-70b0-3f14-992d170e6670",
+    "relicSetIds": [
+      "R0107",
+      "R0121",
+      "R0113"
+    ],
+    "powerIds": [
+      "P0114",
+      "P0075",
+      "P0683",
+      "P0444"
+    ]
+  },
+  {
+    "regions": [
+      "Quần Đảo Bóng Đêm"
+    ],
+    "creator": "evin123",
+    "display": "true",
+    "createdAt": "2025-11-28T12:41:31.878Z",
+    "views": 6,
+    "championName": "Thresh",
+    "star": 6,
+    "like": 1,
+    "rune": [],
+    "description": "Thresh gọi hội",
+    "id": "1ccb21e2-0616-44c1-aaf8-c3b089980063",
+    "sub": "64b81448-0021-70b7-759a-080d73ea41fd",
+    "relicSetIds": [
+      "R0139",
+      "R0061",
+      "R0043"
+    ],
+    "powerIds": [
+      "P0067",
+      "P0222",
+      "P0062"
+    ]
+  },
+  {
+    "regions": [
+      "Shurima"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-12-05T10:32:05.215Z",
+    "views": 23,
+    "championName": "Azir",
+    "star": 6,
+    "like": 3,
+    "rune": [],
+    "description": "Lấy Azir làm chủ đạo, dồn vật phẩm và cổ vật cho Azir để tương tác với c6, Di Sản Crowguard cho phép bạn thăng cấp và tiến công nhiều lần trong 1 vòng đấu.",
+    "id": "8b0fb6c8-cc3f-4d6d-beec-c86d1eacb14b",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0043",
+      "R0043",
+      "R0001"
+    ],
+    "powerIds": [
+      "P0062",
+      "P0327",
+      "P0451",
+      "P0112",
+      "P0222",
+      "P0116"
+    ]
+  },
+  {
+    "regions": [
+      "Runeterra"
+    ],
+    "creator": "tienthongcbl",
+    "display": "true",
+    "createdAt": "2025-12-08T03:09:05.137Z",
+    "views": 7,
+    "championName": "Evelynn",
+    "star": 6,
+    "like": 2,
+    "rune": [],
+    "description": "Nguồn: Spicy Toast Gaming\n",
+    "id": "0a81d6c8-af69-4a6e-aa33-d52301898742",
+    "sub": "24883428-80b1-7040-3960-2c53ab6ab5d2",
+    "relicSetIds": [
+      "R0082",
+      "R0026",
+      "R0031"
+    ],
+    "powerIds": []
+  },
+  {
+    "regions": [
+      "Bilgewater"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-12-01T04:54:52.882Z",
+    "views": 21,
+    "championName": "Nami",
+    "star": 3,
+    "like": 3,
+    "rune": [],
+    "description": "Nami dmg to scale late siêu khỏe, chỉ cần sống đền vòng 5 :v",
+    "id": "dde2e696-dd40-4c43-bbcd-417220cfc7a6",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0048",
+      "R0020",
+      "R0099"
+    ],
+    "powerIds": [
+      "P0326",
+      "P0113",
+      "P0084",
+      "P0067"
+    ]
+  },
+  {
+    "regions": [
+      "Bilgewater"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-12-12T09:08:55.878Z",
+    "views": 21,
+    "championName": "Nami",
+    "star": 3,
+    "like": 1,
+    "rune": [],
+    "description": "Nami câu late. Kích được Máy Sao Chép = END GAME",
+    "id": "f5616990-2205-4c22-862e-9f9aa6265b08",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0048",
+      "R0020",
+      "R0017"
+    ],
+    "powerIds": [
+      "P0113",
+      "P0084",
+      "P0067",
+      "P0223",
+      "P0083",
+      "P0326"
+    ]
+  },
+  {
+    "regions": [
+      "Runeterra"
+    ],
+    "creator": "tienthongcbl",
+    "display": "true",
+    "createdAt": "2025-12-08T03:05:36.865Z",
+    "views": 5,
+    "championName": "Rồng Ngàn Tuổi",
+    "star": 3,
+    "like": 0,
+    "rune": [],
+    "description": "Nguồn: Spicy Toast Gaming\n",
+    "id": "63d6099f-2266-4ad7-8637-a1d6fb161781",
+    "sub": "24883428-80b1-7040-3960-2c53ab6ab5d2",
+    "relicSetIds": [
+      "R0040",
+      "R0040",
+      "R0038"
+    ],
+    "powerIds": []
+  },
+  {
+    "regions": [
+      "Ionia"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-12-12T08:37:12.605Z",
+    "views": 25,
+    "championName": "Yasuo",
+    "star": 3,
+    "like": 0,
+    "rune": [],
+    "description": "Làm choáng và triệu hồi Yasuo đề quét bàn đấu",
+    "id": "c2f64200-8283-42b1-8299-14508732bb8d",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0103",
+      "R0031",
+      "R0018"
+    ],
+    "powerIds": [
+      "P0064",
+      "P0083",
+      "P0111",
+      "P0086"
+    ]
+  },
+  {
+    "regions": [
+      "Targon"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2026-02-27T04:07:36.473Z",
+    "views": 37,
+    "championName": "Soraka",
+    "star": 6,
+    "like": 0,
+    "rune": [],
+    "description": "Soraka Final Form :)))\nby Evin",
+    "id": "03a46044-a80e-4609-b8b6-928ccb6a3644",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0122",
+      "R0153",
+      "R0061"
+    ],
+    "powerIds": [
+      "P0089",
+      "P0112",
+      "P0086"
+    ]
+  },
+  {
+    "regions": [
+      "Freljord"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-12-12T09:23:42.931Z",
+    "views": 36,
+    "championName": "Anivia",
+    "star": 3,
+    "like": 0,
+    "rune": [],
+    "description": "Anivia cảm tử, lấy chim đi chặn đòn để kích trăn trối tạo ra nhiều bản sao Anivia và trứng để stack vọng âm.",
+    "id": "2392888e-3dab-4d7e-baf6-b24995519a12",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0017",
+      "R0017",
+      "R0007"
+    ],
+    "powerIds": [
+      "P0326",
+      "P0113",
+      "P0067",
+      "P0111"
+    ]
+  },
+  {
+    "regions": [
+      "Demacia"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-12-12T09:27:03.429Z",
+    "views": 30,
+    "championName": "Vayne",
+    "star": 3,
+    "like": 1,
+    "rune": [],
+    "description": "Lối build cổ vật cho sv nghèo",
+    "id": "489bb8b4-c668-4b8a-aa4b-b71ffbdbfbda",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0005",
+      "R0024",
+      "R0025"
+    ],
+    "powerIds": [
+      "P0112",
+      "P0113",
+      "P0111",
+      "P0086",
+      "P0389"
+    ]
+  },
+  {
+    "regions": [
+      "Runeterra"
+    ],
+    "creator": "lingq",
+    "display": "true",
+    "createdAt": "2025-12-12T09:02:37.095Z",
+    "views": 28,
+    "championName": "Rồng Ngàn Tuổi",
+    "star": 6,
+    "like": 0,
+    "rune": [],
+    "description": "Rồng đấm liên tục, dùng để leo tháp tháng ở map karma cực tốt.\n",
+    "id": "bda7c2dd-1ab3-439d-a045-10974857ad7d",
+    "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "relicSetIds": [
+      "R0108",
+      "R0061",
+      "R0050"
+    ],
+    "powerIds": []
+  }
+]
