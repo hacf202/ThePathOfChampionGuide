@@ -191,8 +191,8 @@ const VongQuayNgauNhien = ({ title, items, onRemoveWinner }) => {
 		const imageHtml = isChampion
 			? `<img src="${winner.assets[0].avatar}" alt="${winner.name}" class="mx-auto my-4 rounded-lg border-2 border-blue-400" style="max-height: 150px;" />`
 			: isRelicOrItemOrPower
-			? `<img src="${winner.assetAbsolutePath}" alt="${winner.name}" class="mx-auto my-4 rounded-lg border-2 border-blue-400" style="max-height: 150px;" />`
-			: "";
+				? `<img src="${winner.assetAbsolutePath}" alt="${winner.name}" class="mx-auto my-4 rounded-lg border-2 border-blue-400" style="max-height: 150px;" />`
+				: "";
 
 		Swal.fire({
 			title: "Kết quả!",

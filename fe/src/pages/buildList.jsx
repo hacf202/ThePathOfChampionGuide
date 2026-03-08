@@ -6,6 +6,7 @@ import MyBuilds from "../components/build/myBuilds";
 import MyFavorite from "../components/build/myFavoriteBuild";
 import CommunityBuilds from "../components/build/communityBuilds";
 import { AuthContext } from "../context/AuthContext.jsx";
+import { useTranslation } from "../hooks/useTranslation"; // 🟢 Import Hook Đa ngôn ngữ
 import {
 	PlusCircle,
 	Globe,
@@ -32,14 +33,30 @@ import { usePersistentState } from "../hooks/usePersistentState";
 const CACHE_KEY_PREFIX = "buildsCache_v1";
 const CACHE_DURATION = 5 * 60 * 1000;
 
-const SORT_OPTIONS = [
-	{ value: "createdAt-desc", label: "Mới nhất" },
-	{ value: "createdAt-asc", label: "Cũ nhất" },
-	{ value: "championName-asc", label: "Tên tướng (A-Z)" },
-	{ value: "championName-desc", label: "Tên tướng (Z-A)" },
-	{ value: "like-desc", label: "Lượt thích (Cao nhất)" },
-	{ value: "like-asc", label: "Lượt thích (Thấp nhất)" },
-	{ value: "views-desc", label: "Lượt xem (Nhiều nhất)" },
+// Hàm tạo tùy chọn sắp xếp đa ngôn ngữ
+const getSortOptions = language => [
+	{ value: "createdAt-desc", label: language === "vi" ? "Mới nhất" : "Newest" },
+	{ value: "createdAt-asc", label: language === "vi" ? "Cũ nhất" : "Oldest" },
+	{
+		value: "championName-asc",
+		label: language === "vi" ? "Tên tướng (A-Z)" : "Champion (A-Z)",
+	},
+	{
+		value: "championName-desc",
+		label: language === "vi" ? "Tên tướng (Z-A)" : "Champion (Z-A)",
+	},
+	{
+		value: "like-desc",
+		label: language === "vi" ? "Lượt thích (Cao nhất)" : "Most Liked",
+	},
+	{
+		value: "like-asc",
+		label: language === "vi" ? "Lượt thích (Thấp nhất)" : "Least Liked",
+	},
+	{
+		value: "views-desc",
+		label: language === "vi" ? "Lượt xem (Nhiều nhất)" : "Most Viewed",
+	},
 ];
 
 const getCacheKey = (tab, filters) => {
@@ -86,6 +103,7 @@ const clearAllBuildsCache = () => {
 
 const Builds = () => {
 	const { user } = useContext(AuthContext);
+	const { language, t } = useTranslation(); // 🟢 Khởi tạo Hook Đa ngôn ngữ
 	const { tab } = useParams();
 	const navigate = useNavigate();
 
@@ -140,6 +158,9 @@ const Builds = () => {
 	const [loadingData, setLoadingData] = useState(true);
 	const [errorData, setErrorData] = useState(null);
 
+	// Tùy chọn sắp xếp (Cập nhật khi đổi ngôn ngữ)
+	const sortOptions = useMemo(() => getSortOptions(language), [language]);
+
 	// === LOGIC PHÍM TẮT (Global) ===
 	useEffect(() => {
 		const handleKeyDown = event => {
@@ -164,11 +185,14 @@ const Builds = () => {
 				const [champRes, relicRes, powerRes, runeRes] = await Promise.all([
 					fetch(`${apiUrl}/api/champions${fetchOptions}`),
 					fetch(`${apiUrl}/api/relics${fetchOptions}`),
-					fetch(`${apiUrl}/api/generalPowers${fetchOptions}`),
+					// 🟢 Thêm types=General%20Power để lọc ở Backend
+					fetch(`${apiUrl}/api/powers${fetchOptions}&types=General%20Power`),
 					fetch(`${apiUrl}/api/runes${fetchOptions}`),
 				]);
 				if (!champRes.ok || !relicRes.ok || !powerRes.ok || !runeRes.ok)
-					throw new Error("Lỗi tải dữ liệu");
+					throw new Error(
+						language === "vi" ? "Lỗi tải dữ liệu" : "Data loading error",
+					);
 				const [champData, relicData, powerData, runeData] = await Promise.all([
 					champRes.json(),
 					relicRes.json(),
@@ -187,18 +211,14 @@ const Builds = () => {
 			}
 		};
 		fetchAllData();
-	}, []);
+	}, [language]);
 
+	// Tạo Map theo chuẩn Mã ID (powerCode) và dịch tên tự động
 	const powerMap = useMemo(
-		() =>
-			new Map(
-				powersList.map(p => [
-					p.id || p.powerCode || p.generalPowerCode,
-					p.name,
-				]),
-			),
-		[powersList],
+		() => new Map(powersList.map(p => [p.powerCode, t(p, "name")])),
+		[powersList, language, t],
 	);
+
 	const championNameToRegionsMap = useMemo(() => {
 		const map = new Map();
 		championsList.forEach(
@@ -317,7 +337,9 @@ const Builds = () => {
 			return (
 				<div className='text-center p-10 bg-danger-bg-light text-danger-text-dark rounded-lg'>
 					<p>{errorData}</p>
-					<Button onClick={() => window.location.reload()}>Tải lại</Button>
+					<Button onClick={() => window.location.reload()}>
+						{language === "vi" ? "Tải lại" : "Retry"}
+					</Button>
 				</div>
 			);
 
@@ -328,13 +350,21 @@ const Builds = () => {
 				return user ? (
 					<MyBuilds {...commonProps} />
 				) : (
-					<p className='text-center p-4'>Vui lòng đăng nhập.</p>
+					<p className='text-center p-4'>
+						{language === "vi"
+							? "Vui lòng đăng nhập."
+							: "Please login to view."}
+					</p>
 				);
 			case "favorites":
 				return user ? (
 					<MyFavorite {...commonProps} />
 				) : (
-					<p className='text-center p-4'>Vui lòng đăng nhập.</p>
+					<p className='text-center p-4'>
+						{language === "vi"
+							? "Vui lòng đăng nhập."
+							: "Please login to view."}
+					</p>
 				);
 			default:
 				return <CommunityBuilds {...commonProps} />;
@@ -344,13 +374,17 @@ const Builds = () => {
 	return (
 		<div className='animate-fadeIn'>
 			<PageTitle
-				title='Danh sách bộ cổ vật'
-				description='Khám phá các build tối ưu cho POC.'
+				title={language === "vi" ? "Danh sách bộ cổ vật" : "Relic Builds List"}
+				description={
+					language === "vi"
+						? "Khám phá các build tối ưu cho POC."
+						: "Discover optimized builds for POC."
+				}
 			/>
 			<div className='font-secondary'>
 				<div className='flex justify-between items-center mb-2 md:mb-6'>
 					<h1 className='text-3xl font-bold text-text-primary font-primary animate-glitch'>
-						Danh Sách Bộ Cổ Vật
+						{language === "vi" ? "Danh Sách Bộ Cổ Vật" : "Relic Builds List"}
 					</h1>
 					<div className='hidden lg:flex items-center gap-4'>
 						<Button
@@ -363,7 +397,13 @@ const Builds = () => {
 							) : (
 								<ChevronLeft size={18} />
 							)}
-							{showDesktopFilter ? "Ẩn bộ lọc" : "Hiện bộ lọc"}
+							{showDesktopFilter
+								? language === "vi"
+									? "Ẩn bộ lọc"
+									: "Hide Filters"
+								: language === "vi"
+									? "Hiện bộ lọc"
+									: "Show Filters"}
 						</Button>
 					</div>
 				</div>
@@ -375,7 +415,7 @@ const Builds = () => {
 							onClick={() => changeTab("community")}
 							iconLeft={<Globe size={18} />}
 						>
-							Cộng Đồng
+							{language === "vi" ? "Cộng Đồng" : "Community"}
 						</Button>
 						{user && (
 							<>
@@ -384,14 +424,14 @@ const Builds = () => {
 									onClick={() => changeTab("my-builds")}
 									iconLeft={<Shield size={18} />}
 								>
-									Của Tôi
+									{language === "vi" ? "Của Tôi" : "My Builds"}
 								</Button>
 								<Button
 									variant={activeTab === "favorites" ? "primary" : "ghost"}
 									onClick={() => changeTab("favorites")}
 									iconLeft={<Heart size={18} />}
 								>
-									Yêu Thích
+									{language === "vi" ? "Yêu Thích" : "Favorites"}
 								</Button>
 							</>
 						)}
@@ -402,14 +442,14 @@ const Builds = () => {
 							onClick={() => setShowCreateModal(true)}
 							iconLeft={<PlusCircle size={20} />}
 						>
-							Tạo Mới
+							{language === "vi" ? "Tạo Mới" : "Create New"}
 						</Button>
 					) : (
 						<NavLink
 							to='/auth'
 							className='text-md font-bold text-primary-500 hover:underline flex items-center'
 						>
-							Đăng Nhập Để Tạo
+							{language === "vi" ? "Đăng Nhập Để Tạo" : "Login to Create"}
 						</NavLink>
 					)}
 				</div>
@@ -441,32 +481,37 @@ const Builds = () => {
 							>
 								<div className='w-[280px] xl:w-[320px] p-4 rounded-lg border border-border bg-surface-bg space-y-4 shadow-sm'>
 									<label className='block text-sm font-medium text-text-secondary'>
-										Tìm kiếm
+										{language === "vi" ? "Tìm kiếm" : "Search"}
 									</label>
 									<InputField
 										value={searchInput}
 										onChange={e => setSearchInput(e.target.value)}
 										onKeyDown={e => e.key === "Enter" && handleSearch()}
-										placeholder='Tên tướng, cổ vật...'
+										placeholder={
+											language === "vi"
+												? "Tên tướng, cổ vật..."
+												: "Champion, relic..."
+										}
 									/>
 									<Button onClick={handleSearch} className='w-full mt-2'>
-										<Search size={16} className='mr-2' /> Tìm kiếm
+										<Search size={16} className='mr-2' />
+										{language === "vi" ? "Tìm kiếm" : "Search"}
 									</Button>
 									<MultiSelectFilter
-										label='Cấp sao'
+										label={language === "vi" ? "Cấp sao" : "Star Level"}
 										options={starLevelOptions}
 										selectedValues={selectedStarLevels}
 										onChange={setSelectedStarLevels}
 									/>
 									<MultiSelectFilter
-										label='Khu vực'
+										label={language === "vi" ? "Khu vực" : "Region"}
 										options={regionOptions}
 										selectedValues={selectedRegions}
 										onChange={setSelectedRegions}
 									/>
 									<DropdownFilter
-										label='Sắp xếp'
-										options={SORT_OPTIONS}
+										label={language === "vi" ? "Sắp xếp" : "Sort By"}
+										options={sortOptions}
 										selectedValue={sortBy}
 										onChange={setSortBy}
 									/>
@@ -475,7 +520,8 @@ const Builds = () => {
 										onClick={handleResetFilters}
 										className='w-full'
 									>
-										<RotateCw size={16} className='mr-2' /> Đặt lại bộ lọc
+										<RotateCw size={16} className='mr-2' />
+										{language === "vi" ? "Đặt lại bộ lọc" : "Reset Filters"}
 									</Button>
 								</div>
 							</motion.aside>
@@ -489,7 +535,11 @@ const Builds = () => {
 									value={searchInput}
 									onChange={e => setSearchInput(e.target.value)}
 									onKeyDown={e => e.key === "Enter" && handleSearch()}
-									placeholder='Tìm tướng, cổ vật...'
+									placeholder={
+										language === "vi"
+											? "Tìm tướng, cổ vật..."
+											: "Champion, relic..."
+									}
 								/>
 							</div>
 							<Button onClick={handleSearch} className='px-3'>
@@ -524,20 +574,20 @@ const Builds = () => {
 								>
 									<div className='pt-4 space-y-4 border-t border-border mt-3'>
 										<MultiSelectFilter
-											label='Cấp sao'
+											label={language === "vi" ? "Cấp sao" : "Star Level"}
 											options={starLevelOptions}
 											selectedValues={selectedStarLevels}
 											onChange={setSelectedStarLevels}
 										/>
 										<MultiSelectFilter
-											label='Khu vực'
+											label={language === "vi" ? "Khu vực" : "Region"}
 											options={regionOptions}
 											selectedValues={selectedRegions}
 											onChange={setSelectedRegions}
 										/>
 										<DropdownFilter
-											label='Sắp xếp'
-											options={SORT_OPTIONS}
+											label={language === "vi" ? "Sắp xếp" : "Sort By"}
+											options={sortOptions}
 											selectedValue={sortBy}
 											onChange={setSortBy}
 										/>
@@ -552,6 +602,10 @@ const Builds = () => {
 					<BuildCreation
 						onConfirm={handleCreateSuccess}
 						onClose={() => setShowCreateModal(false)}
+						championsList={championsList}
+						relicsList={relicsList}
+						powersList={powersList}
+						runesList={runesList}
 					/>
 				)}
 			</div>

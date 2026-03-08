@@ -38,7 +38,7 @@ const SidePanel = ({
 		if (!originalItems) return [];
 		if (!searchTerm) return originalItems;
 		return originalItems.filter(item =>
-			item.name.toLowerCase().includes(searchTerm.toLowerCase())
+			item.name.toLowerCase().includes(searchTerm.toLowerCase()),
 		);
 	}, [originalItems, searchTerm]);
 
@@ -226,7 +226,7 @@ const SidePanel = ({
 												onCheckboxChange(
 													activeWheelKey,
 													item.name,
-													event.target.checked
+													event.target.checked,
 												)
 											}
 											// Sử dụng class ngữ nghĩa cho checkbox

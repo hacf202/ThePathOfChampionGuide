@@ -1,9 +1,12 @@
-// src/components/common/Modal.jsx
+// src/components/common/modal.jsx
 import React, { useEffect } from "react";
-import { createPortal } from "react-dom"; // Import createPortal
+import { createPortal } from "react-dom";
 import { X } from "lucide-react";
+import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook Đa ngôn ngữ
 
 const Modal = ({ isOpen, onClose, title, children, maxWidth = "max-w-md" }) => {
+	const { tUI } = useTranslation(); // 🟢 Khởi tạo Hook
+
 	// Khóa cuộn trang khi Modal đang mở
 	useEffect(() => {
 		if (isOpen) {
@@ -19,7 +22,6 @@ const Modal = ({ isOpen, onClose, title, children, maxWidth = "max-w-md" }) => {
 	if (!isOpen) return null;
 
 	const modalContent = (
-		// Tăng z-index lên cao (z-[100]) để đè lên Navbar
 		<div
 			className='fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex justify-center items-center p-4 transition-opacity duration-300'
 			onClick={onClose}
@@ -42,21 +44,20 @@ const Modal = ({ isOpen, onClose, title, children, maxWidth = "max-w-md" }) => {
 						className='text-text-secondary hover:text-text-primary transition-colors 
                         rounded-full p-1 focus:outline-none focus:ring-2 
                         focus:ring-offset-surface-bg focus:ring-primary-500'
-						aria-label='Close modal'
+						aria-label={tUI("common.close")} // 🟢 Sử dụng tUI thay vì kiểm tra language === "vi"
 					>
 						<X size={24} />
 					</button>
 				</div>
 
-				{/* Body (có thể cuộn) */}
-				<div className='p-2 md:p-6 overflow-y-auto custom-scrollbar'>
+				{/* Content */}
+				<div className='p-6 overflow-y-auto custom-scrollbar flex-grow'>
 					{children}
 				</div>
 			</div>
 		</div>
 	);
 
-	// Gắn Modal vào document.body thay vì render tại chỗ
 	return createPortal(modalContent, document.body);
 };
 

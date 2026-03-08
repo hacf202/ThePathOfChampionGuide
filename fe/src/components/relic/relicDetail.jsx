@@ -6,6 +6,7 @@ import { Loader2, ChevronLeft, XCircle } from "lucide-react";
 import PageTitle from "../common/pageTitle";
 import Button from "../common/button";
 import SafeImage from "../common/SafeImage";
+import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook Đa ngôn ngữ
 
 // --- THÀNH PHẦN SKELETON LOADING (Đồng bộ với hệ thống) ---
 const RelicDetailSkeleton = () => (
@@ -34,6 +35,7 @@ const RelicDetailSkeleton = () => (
 function RelicDetail() {
 	const { relicCode } = useParams();
 	const navigate = useNavigate();
+	const { language, t } = useTranslation(); // 🟢 Khởi tạo Hook
 
 	const [relic, setRelic] = useState(null);
 	const [champions, setChampions] = useState([]);
@@ -57,8 +59,12 @@ function RelicDetail() {
 				if (!relicRes.ok) {
 					throw new Error(
 						relicRes.status === 404
-							? `Không tìm thấy cổ vật mã: ${decodedCode}`
-							: "Lỗi kết nối server.",
+							? language === "vi"
+								? `Không tìm thấy cổ vật mã: ${decodedCode}`
+								: `Relic code not found: ${decodedCode}`
+							: language === "vi"
+								? "Lỗi tải thông tin cổ vật."
+								: "Error loading relic information.",
 					);
 				}
 
@@ -70,42 +76,49 @@ function RelicDetail() {
 				setRelic(foundRelic);
 				setChampions(championsData.items || []);
 			} catch (err) {
-				console.error("Lỗi tải RelicDetail:", err);
-				setError(err.message);
+				setError(
+					err.message ||
+						(language === "vi"
+							? "Đã xảy ra lỗi khi tải dữ liệu."
+							: "An error occurred while loading data."),
+				);
 			} finally {
-				// Áp dụng độ trễ 800ms để hiệu ứng loading mượt mà đồng bộ với ChampionDetail
 				setTimeout(() => setLoading(false), 800);
 			}
 		};
 
 		if (relicCode) fetchData();
-	}, [relicCode, apiUrl]);
+	}, [relicCode, apiUrl, language]);
+
+	// 🟢 Xử lý Tên và Mô tả đa ngôn ngữ
+	const relicName = relic ? t(relic, "name") : "";
+	const relicDesc = relic
+		? t(relic, "descriptionRaw") || t(relic, "description")
+		: "";
 
 	const compatibleChampions = useMemo(() => {
 		if (!relic || !champions.length) return [];
 		return champions
 			.filter(champion =>
-				[1, 2, 3, 4, 5, 6].some(set =>
-					champion[`defaultRelicsSet${set}`]?.some(
-						r => r?.trim().toLowerCase() === relic.name?.trim().toLowerCase(),
-					),
-				),
+				champion.relicSets?.some(set => set.includes(relic.relicCode)),
 			)
-			.map(champion => ({
-				championID: champion.championID,
-				name: champion.name,
-				image: champion.assets?.[0]?.avatar || "/fallback-image.svg",
+			.map(champ => ({
+				championID: champ.championID,
+				name: t(champ, "name"), // 🟢 Dịch tên Tướng
+				image: champ.assets?.[0]?.avatar || "/fallback-image.svg",
 			}));
-	}, [relic, champions]);
+	}, [relic, champions, t]);
 
 	if (error)
 		return (
 			<div className='p-10 text-center font-secondary'>
-				<div className='bg-surface-hover p-8 rounded-lg border border-border inline-block shadow-sm'>
+				<div className='bg-surface-hover p-8 rounded-lg border border-border inline-block'>
 					<XCircle size={48} className='mx-auto mb-4 text-red-500 opacity-50' />
-					<p className='text-xl font-bold text-red-500'>Lỗi: {error}</p>
+					<p className='text-xl font-bold text-red-500'>
+						{language === "vi" ? "Lỗi:" : "Error:"} {error}
+					</p>
 					<Button onClick={() => navigate(-1)} className='mt-6 mx-auto'>
-						<ChevronLeft size={18} /> Quay lại
+						<ChevronLeft size={18} /> {language === "vi" ? "Quay lại" : "Back"}
 					</Button>
 				</div>
 			</div>
@@ -114,8 +127,14 @@ function RelicDetail() {
 	return (
 		<div className='animate-fadeIn'>
 			<PageTitle
-				title={relic?.name || "Chi tiết cổ vật"}
-				description={`Chi tiết cổ vật ${relic?.name} - Poc Guide.`}
+				title={
+					relicName || (language === "vi" ? "Chi tiết cổ vật" : "Relic Details")
+				}
+				description={
+					language === "vi"
+						? `Chi tiết cổ vật ${relicName}`
+						: `Relic details for ${relicName}`
+				}
 				type='article'
 			/>
 
@@ -143,36 +162,39 @@ function RelicDetail() {
 							onClick={() => navigate(-1)}
 							className='mb-4 ml-4 sm:ml-0'
 						>
-							<ChevronLeft size={18} /> Quay lại
+							<ChevronLeft size={18} />{" "}
+							{language === "vi" ? "Quay lại" : "Back"}
 						</Button>
 
 						<div className='relative mx-auto max-w-[1200px] border border-border p-4 sm:p-6 rounded-lg bg-surface-bg shadow-sm'>
 							<div className='flex flex-col md:flex-row gap-4 rounded-md p-2 bg-surface-hover'>
 								<SafeImage
-									className='h-auto max-h-[300px] object-contain rounded-lg self-center md:self-start bg-surface-bg/50 p-2'
+									className='h-auto max-h-[300px] object-contain rounded-lg bg-surface-bg/50 p-2'
 									src={relic.assetAbsolutePath || "/fallback-image.svg"}
-									alt={relic.name}
+									alt={relicName}
 								/>
 								<div className='flex-1 flex flex-col'>
 									<div className='flex flex-col border border-border sm:flex-row sm:justify-between rounded-lg p-2 text-2xl sm:text-4xl font-bold m-1 bg-surface-bg shadow-sm'>
-										<h1 className='font-primary'>{relic.name}</h1>
-										<h2 className='text-primary-500 uppercase'>
-											ĐỘ HIẾM: {relic.rarity}
-										</h2>
+										<h1 className='font-primary'>{relicName}</h1>
+										<h1 className='font-primary text-primary-500 uppercase'>
+											{relic.rarity}
+										</h1>
 									</div>
-
-									{relic.descriptionRaw && (
+									{relicDesc && (
 										<div className='flex-1 mt-4'>
-											<div className='text-base sm:text-xl rounded-lg p-4 min-h-[120px] max-h-[300px] overflow-y-auto bg-surface-bg border border-border text-text-secondary'>
-												{relic.descriptionRaw}
-											</div>
+											<div
+												className='text-base sm:text-xl rounded-lg p-4 h-full min-h-[120px] leading-relaxed bg-surface-bg border text-text-secondary overflow-y-auto'
+												dangerouslySetInnerHTML={{ __html: relicDesc }}
+											/>
 										</div>
 									)}
 								</div>
 							</div>
 
 							<h2 className='text-xl sm:text-3xl font-semibold mt-8 mb-4 font-primary'>
-								Các tướng có thể dùng cổ vật
+								{language === "vi"
+									? "Các tướng có thể dùng cổ vật"
+									: "Champions using this relic"}
 							</h2>
 
 							{compatibleChampions.length > 0 ? (
@@ -197,7 +219,9 @@ function RelicDetail() {
 							) : (
 								<div className='text-center p-8 rounded-md bg-surface-hover text-text-secondary border border-dashed border-border'>
 									<p className='text-lg'>
-										Không có tướng nào sử dụng cổ vật này.
+										{language === "vi"
+											? "Không có tướng nào sử dụng cổ vật này."
+											: "No champions are using this relic."}
 									</p>
 								</div>
 							)}

@@ -1,12 +1,21 @@
-// ChampionCard.jsx
+// src/components/champion/championCard.jsx
 import { memo } from "react";
 // Giả sử bạn có tệp này để lấy icon của các vùng, hãy đảm bảo đường dẫn chính xác
 import iconRegions from "../../assets/data/iconRegions.json";
 import SafeImage from "../common/SafeImage";
+import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook Đa ngôn ngữ
 
 function ChampionCard({ champion }) {
+	// Sửa lỗi: Khởi tạo Hook lấy tDynamic thay vì t
+	const { language, tDynamic } = useTranslation();
+
 	// Logic lấy URL hình ảnh, ưu tiên avatarUrl đã được xử lý trước, sau đó đến các đường dẫn khác
 	const imageUrl = champion.assets?.[0]?.avatar || "/fallback-image.svg";
+
+	// Sửa lỗi: Gọi tDynamic để lấy tên Tướng đã dịch (hoặc tên mặc định nếu không có)
+	const championName =
+		tDynamic(champion, "name") ||
+		(language === "vi" ? "Tướng không xác định" : "Unknown Champion");
 
 	return (
 		// Khung thẻ chính với các class CSS tiện ích của Tailwind
@@ -15,7 +24,7 @@ function ChampionCard({ champion }) {
 			<SafeImage
 				className='absolute object-cover w-full h-full transition-transform duration-300 group-hover:scale-105'
 				src={imageUrl}
-				alt={champion.name || "Unknown Champion"}
+				alt={championName}
 				loading='lazy'
 			/>
 
@@ -27,7 +36,7 @@ function ChampionCard({ champion }) {
 				<div>
 					{/* Tên tướng */}
 					<h3 className='text-2xl font-bold truncate drop-shadow-lg'>
-						{champion.name}
+						{championName}
 					</h3>
 					{/* Năng lượng của tướng */}
 					<div className='absolute -top-64 left-4 w-12 h-12 flex items-center justify-center bg-blue-600 border-2 border-white rounded-full text-xl font-bold shadow-md'>

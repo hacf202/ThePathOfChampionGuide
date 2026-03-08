@@ -1,7 +1,7 @@
 // fe/src/hooks/usePageTracking.js
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import api from "../context/services/apiHelper"; // Giờ đây import mặc định đã hoạt động
+import { api } from "../context/services/apiHelper"; // 🟢 Sửa thành Named Import (thêm ngoặc nhọn)
 import { useAuth } from "../context/AuthContext";
 
 const usePageTracking = () => {
@@ -23,7 +23,8 @@ const usePageTracking = () => {
 
 			try {
 				// Lấy token từ localStorage (nếu có) để backend xác thực user retention
-				const token = localStorage.getItem("idToken");
+				// 🟢 Đổi "idToken" thành "token" để đồng bộ với key lưu trong AuthContext
+				const token = localStorage.getItem("token");
 
 				await api.post(
 					"/analytics/log",

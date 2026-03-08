@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import {
 	useFloating,
@@ -13,23 +13,25 @@ import {
 	FloatingArrow,
 	arrow,
 } from "@floating-ui/react";
-import { useRef } from "react";
 import RarityIcon from "./rarityIcon";
+import { useTranslation } from "../../hooks/useTranslation"; //
 
 const GenericCard = ({
 	item,
 	onClick,
 	placeholderImage = "/images/placeholder.png",
 }) => {
+	// Khởi tạo Hook đa ngôn ngữ với các hàm tUI và tDynamic
+	const { tUI, tDynamic } = useTranslation();
 	const [isOpen, setIsOpen] = useState(false);
 	const arrowRef = useRef(null);
 
-	// Cấu hình Floating UI
+	// Cấu hình Floating UI để xử lý Tooltip
 	const { refs, floatingStyles, context } = useFloating({
 		open: isOpen,
 		onOpenChange: setIsOpen,
-		placement: "top", // Mặc định hiện phía trên
-		whileElementsMounted: autoUpdate, // Tự động cập nhật vị trí khi scroll/resize
+		placement: "top", // Mặc định hiển thị phía trên
+		whileElementsMounted: autoUpdate, // Tự động cập nhật vị trí khi scroll hoặc resize
 		middleware: [
 			offset(12), // Khoảng cách giữa card và tooltip
 			flip(), // Tự động nhảy xuống dưới nếu phía trên hết chỗ
@@ -48,8 +50,24 @@ const GenericCard = ({
 		focus,
 	]);
 
+	// Xác định nguồn ảnh: Ưu tiên đường dẫn tuyệt đối, sau đó là image field, cuối cùng là placeholder
 	const imageSrc = item.assetAbsolutePath || item.image || placeholderImage;
-	const description = item.descriptionRaw || item.description;
+
+	// 🟢 Sử dụng tDynamic để dịch Tên & Mô tả từ dữ liệu động (Database)
+	const itemName = tDynamic(item, "name");
+	const description =
+		tDynamic(item, "descriptionRaw") || tDynamic(item, "description");
+
+	/**
+	 * Hàm render nhãn hiển thị khi không có độ hiếm (Rarity)
+	 * Sử dụng tUI để lấy text từ file ngôn ngữ tĩnh thay vì hardcode
+	 */
+	const renderNodeTypeLabel = () => {
+		if (item.nodeType === "bonusStarGem") {
+			return tUI("constellation.typeGemstone"); // Lấy từ vi.json/en.json
+		}
+		return tUI("constellation.tabBonusStars"); // Lấy từ vi.json/en.json
+	};
 
 	return (
 		<>
@@ -65,7 +83,7 @@ const GenericCard = ({
 					<div className='flex-shrink-0'>
 						<img
 							src={imageSrc}
-							alt={item.name}
+							alt={itemName}
 							loading='lazy'
 							className='w-16 h-16 object-cover rounded-md border border-border-secondary'
 						/>
@@ -74,7 +92,7 @@ const GenericCard = ({
 					{/* Phần Thông tin */}
 					<div className='flex-grow min-w-0'>
 						<h3 className='font-bold text-lg text-text-primary font-primary truncate'>
-							{item.name}
+							{itemName}
 						</h3>
 						<div className='flex items-center gap-2 text-sm text-text-secondary mt-1'>
 							{item.rarity ? (
@@ -84,9 +102,7 @@ const GenericCard = ({
 								</>
 							) : (
 								<span className='italic text-xs text-text-tertiary'>
-									{item.nodeType === "bonusStarGem"
-										? "Bonus Star Gem"
-										: "Bonus Star"}
+									{renderNodeTypeLabel()}
 								</span>
 							)}
 						</div>
@@ -95,7 +111,7 @@ const GenericCard = ({
 			</div>
 
 			{/* --- Tooltip sử dụng Portal --- */}
-			{/* FloatingPortal đưa nội dung ra ngoài cùng của DOM body */}
+			{/* FloatingPortal đưa nội dung ra ngoài cùng của DOM body để tránh lỗi overflow */}
 			{isOpen && description && (
 				<FloatingPortal>
 					<div
@@ -130,6 +146,7 @@ GenericCard.propTypes = {
 		descriptionRaw: PropTypes.string,
 		description: PropTypes.string,
 		nodeType: PropTypes.string,
+		translations: PropTypes.object, // Thêm cấu trúc translations để tDynamic hoạt động
 	}).isRequired,
 	onClick: PropTypes.func,
 	placeholderImage: PropTypes.string,

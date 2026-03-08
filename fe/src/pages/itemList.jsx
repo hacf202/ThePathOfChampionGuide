@@ -1,8 +1,9 @@
 // src/pages/itemList.jsx
 import React, { useState, useMemo, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion"; // Thêm Framer Motion
+import { motion, AnimatePresence } from "framer-motion";
 import { usePersistentState } from "../hooks/usePersistentState";
+import { useTranslation } from "../hooks/useTranslation"; // 🟢 Import Hook Đa ngôn ngữ
 import InputField from "../components/common/inputField";
 import MultiSelectFilter from "../components/common/multiSelectFilter";
 import DropdownFilter from "../components/common/dropdownFilter";
@@ -23,10 +24,6 @@ import SafeImage from "@/components/common/SafeImage";
 
 const ITEMS_PER_PAGE = 24;
 
-/**
- * COMPONENT: ItemSkeleton
- * Mô phỏng cấu trúc của một Item Card khi đang tải.
- */
 const ItemSkeleton = () => (
 	<div className='flex items-center gap-4 bg-surface-bg p-4 rounded-lg border border-border animate-pulse'>
 		<div className='w-16 h-16 bg-gray-700/50 rounded-md shrink-0' />
@@ -38,6 +35,8 @@ const ItemSkeleton = () => (
 );
 
 function ItemList() {
+	const { language, t } = useTranslation(); // 🟢 Khởi tạo hook đa ngôn ngữ
+
 	// --- STATE ---
 	const [items, setItems] = useState([]);
 	const [loading, setLoading] = useState(true);
@@ -75,7 +74,7 @@ function ItemList() {
 		true,
 	);
 
-	// --- LOGIC ĐIỀU HƯỚNG (Pagination Logic) ---
+	// --- LOGIC ĐIỀU HƯỚNG ---
 	const goToNextPage = useCallback(() => {
 		if (currentPage < pagination.totalPages && !loading) {
 			setCurrentPage(prev => prev + 1);
@@ -96,7 +95,7 @@ function ItemList() {
 		if (window.innerWidth < 1024) setIsFilterOpen(false);
 	}, [searchInput, setSearchTerm, setCurrentPage, setIsFilterOpen]);
 
-	// --- LOGIC PHÍM TẮT (Global Hotkeys) ---
+	// --- LOGIC PHÍM TẮT ---
 	useEffect(() => {
 		const handleKeyDown = event => {
 			if (event.key === "Tab") {
@@ -104,14 +103,12 @@ function ItemList() {
 				setShowDesktopFilter(prev => !prev);
 				return;
 			}
-
 			if (
 				event.target.tagName === "INPUT" ||
 				event.target.tagName === "TEXTAREA"
 			) {
 				return;
 			}
-
 			if (event.key === "ArrowLeft") {
 				goToPrevPage();
 			} else if (event.key === "ArrowRight") {
@@ -140,7 +137,10 @@ function ItemList() {
 		try {
 			const backendUrl = import.meta.env.VITE_API_URL;
 			const response = await fetch(`${backendUrl}/api/items?${queryParams}`);
-			if (!response.ok) throw new Error(`Lỗi: ${response.status}`);
+			if (!response.ok)
+				throw new Error(
+					language === "vi" ? "Lỗi tải dữ liệu" : "Data loading error",
+				);
 			const data = await response.json();
 
 			setItems(data.items || []);
@@ -151,13 +151,13 @@ function ItemList() {
 		} finally {
 			setTimeout(() => setLoading(false), 600);
 		}
-	}, [queryParams]);
+	}, [queryParams, language]);
 
 	useEffect(() => {
 		fetchItems();
 	}, [fetchItems]);
 
-	// --- FILTERS OPTIONS ---
+	// --- FILTERS OPTIONS (Đa ngôn ngữ) ---
 	const filterOptions = useMemo(
 		() => ({
 			rarities: dynamicFilters.rarities.map(r => ({
@@ -166,11 +166,17 @@ function ItemList() {
 				iconComponent: <RarityIcon rarity={r} />,
 			})),
 			sort: [
-				{ value: "name-asc", label: "Tên A-Z" },
-				{ value: "name-desc", label: "Tên Z-A" },
+				{
+					value: "name-asc",
+					label: language === "vi" ? "Tên A-Z" : "Name A-Z",
+				},
+				{
+					value: "name-desc",
+					label: language === "vi" ? "Tên Z-A" : "Name Z-A",
+				},
 			],
 		}),
-		[dynamicFilters],
+		[dynamicFilters, language],
 	);
 
 	const handleResetFilters = () => {
@@ -184,17 +190,20 @@ function ItemList() {
 	return (
 		<div className='animate-fadeIn'>
 			<PageTitle
-				title='Danh sách vật phẩm'
-				description='POC GUIDE: Vật phẩm Path of Champions...'
+				title={language === "vi" ? "Danh sách vật phẩm" : "Items List"}
+				description={
+					language === "vi"
+						? "POC GUIDE: Vật phẩm Path of Champions..."
+						: "POC GUIDE: Path of Champions Items..."
+				}
 			/>
 
 			<div className='font-secondary'>
 				<div className='flex justify-between items-center mb-6'>
 					<h1 className='text-3xl font-bold text-text-primary font-primary animate-glitch'>
-						Danh Sách Vật Phẩm
+						{language === "vi" ? "Danh Sách Vật Phẩm" : "Items List"}
 					</h1>
 
-					{/* Desktop Toggle Button */}
 					<div className='hidden lg:flex items-center gap-4'>
 						<Button
 							variant='outline'
@@ -206,13 +215,18 @@ function ItemList() {
 							) : (
 								<ChevronLeft size={18} />
 							)}
-							{showDesktopFilter ? "Ẩn bộ lọc" : "Hiện bộ lọc"}
+							{showDesktopFilter
+								? language === "vi"
+									? "Ẩn bộ lọc"
+									: "Hide Filters"
+								: language === "vi"
+									? "Hiện bộ lọc"
+									: "Show Filters"}
 						</Button>
 					</div>
 				</div>
 
 				<div className='flex flex-col lg:flex-row items-start'>
-					{/* --- MAIN CONTENT AREA --- */}
 					<div
 						className={`w-full transition-[flex] duration-300 ease-in-out ${
 							showDesktopFilter ? "lg:flex-[3] xl:lg:flex-[4]" : "lg:flex-[1]"
@@ -245,36 +259,46 @@ function ItemList() {
 												<div
 													className={`grid grid-cols-2 md:grid-cols-3 ${showDesktopFilter ? "xl:grid-cols-3" : "xl:grid-cols-4"} gap-4 sm:gap-6`}
 												>
-													{items.map((item, index) => (
-														<motion.div key={item.itemCode} layout>
-															<Link
-																to={`/item/${encodeURIComponent(item.itemCode)}`}
-																className='group relative flex items-center gap-4 bg-surface-bg p-4 rounded-lg hover:bg-surface-hover transition border border-border hover:border-primary-500'
-															>
-																<SafeImage
-																	src={item.assetAbsolutePath}
-																	alt={item.name}
-																	className='w-16 h-16 object-cover rounded-md border shadow-sm group-hover:shadow-primary-md transition-all'
-																/>
-																<div className='flex-grow'>
-																	<h3 className='font-bold text-lg text-text-primary group-hover:text-primary-500 transition-colors'>
-																		{item.name}
-																	</h3>
-																	<div className='flex items-center gap-2 text-sm text-text-secondary'>
-																		<RarityIcon rarity={item.rarity} />
-																		<span>{item.rarity}</span>
+													{items.map(item => {
+														// 🟢 Dịch tên và mô tả bằng t()
+														const itemName = t(item, "name");
+														const itemDesc =
+															t(item, "descriptionRaw") ||
+															t(item, "description");
+
+														return (
+															<motion.div key={item.itemCode} layout>
+																<Link
+																	to={`/item/${encodeURIComponent(item.itemCode)}`}
+																	className='group relative flex items-center gap-4 bg-surface-bg p-4 rounded-lg hover:bg-surface-hover transition border border-border hover:border-primary-500'
+																>
+																	<SafeImage
+																		src={item.assetAbsolutePath}
+																		alt={itemName}
+																		className='w-16 h-16 object-cover rounded-md border shadow-sm group-hover:shadow-primary-md transition-all'
+																	/>
+																	<div className='flex-grow overflow-hidden'>
+																		<h3 className='font-bold text-lg text-text-primary group-hover:text-primary-500 transition-colors truncate'>
+																			{itemName}
+																		</h3>
+																		<div className='flex items-center gap-2 text-sm text-text-secondary'>
+																			<RarityIcon rarity={item.rarity} />
+																			<span className='truncate'>
+																				{item.rarity}
+																			</span>
+																		</div>
 																	</div>
-																</div>
-																{/* Tooltip Description */}
-																<div className='absolute left-1/2 -translate-x-1/2 bottom-full mb-3 w-72 p-4 bg-gray-900/95 backdrop-blur-sm text-white text-xs rounded-xl shadow-2xl opacity-0 group-hover:opacity-100 transition-all duration-300 invisible group-hover:visible pointer-events-none z-50 border border-white/10'>
-																	<p className='whitespace-pre-wrap leading-relaxed'>
-																		{item.descriptionRaw}
-																	</p>
-																	<div className='absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-x-8 border-x-transparent border-t-8 border-t-gray-900/95'></div>
-																</div>
-															</Link>
-														</motion.div>
-													))}
+																	{/* Tooltip Description */}
+																	<div className='absolute left-1/2 -translate-x-1/2 bottom-full mb-3 w-72 p-4 bg-gray-900/95 backdrop-blur-sm text-white text-xs rounded-xl shadow-2xl opacity-0 group-hover:opacity-100 transition-all duration-300 invisible group-hover:visible pointer-events-none z-50 border border-white/10'>
+																		<p className='whitespace-pre-wrap leading-relaxed'>
+																			{itemDesc}
+																		</p>
+																		<div className='absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-x-8 border-x-transparent border-t-8 border-t-gray-900/95'></div>
+																	</div>
+																</Link>
+															</motion.div>
+														);
+													})}
 												</div>
 
 												{/* PHÂN TRANG */}
@@ -285,7 +309,7 @@ function ItemList() {
 														variant='outline'
 													>
 														<ChevronLeft size={16} className='mr-2' />
-														Trang Trước
+														{language === "vi" ? "Trang Trước" : "Previous"}
 													</Button>
 													<span>/</span>
 													<Button
@@ -293,7 +317,7 @@ function ItemList() {
 														disabled={currentPage === pagination.totalPages}
 														variant='outline'
 													>
-														Trang Sau
+														{language === "vi" ? "Trang Sau" : "Next"}
 														<ChevronRight size={16} className='ml-2' />
 													</Button>
 												</div>
@@ -302,14 +326,18 @@ function ItemList() {
 											<div className='flex flex-col items-center justify-center py-20 text-text-secondary'>
 												<XCircle size={64} className='mb-4 opacity-10' />
 												<p className='text-xl font-primary'>
-													Không tìm thấy vật phẩm phù hợp.
+													{language === "vi"
+														? "Không tìm thấy vật phẩm phù hợp."
+														: "No matching items found."}
 												</p>
 												<Button
 													variant='ghost'
 													onClick={handleResetFilters}
 													className='mt-4'
 												>
-													Xóa tất cả bộ lọc
+													{language === "vi"
+														? "Xóa tất cả bộ lọc"
+														: "Clear all filters"}
 												</Button>
 											</div>
 										)}
@@ -336,28 +364,31 @@ function ItemList() {
 							>
 								<div className='w-[280px] xl:w-[320px] p-4 rounded-lg border border-border bg-surface-bg space-y-4 shadow-sm'>
 									<label className='block text-sm font-medium text-text-secondary'>
-										Tìm kiếm vật phẩm
+										{language === "vi" ? "Tìm kiếm vật phẩm" : "Search Items"}
 									</label>
 									<InputField
 										value={searchInput}
 										onChange={e => setSearchInput(e.target.value)}
 										onKeyDown={e => e.key === "Enter" && handleSearch()}
-										placeholder='Tên vật phẩm...'
+										placeholder={
+											language === "vi" ? "Tên vật phẩm..." : "Item name..."
+										}
 									/>
 									<Button
 										onClick={handleSearch}
 										className='w-full mt-2 hover:animate-pulse-focus'
 									>
-										<Search size={16} className='mr-2' /> Tìm kiếm
+										<Search size={16} className='mr-2' />{" "}
+										{language === "vi" ? "Tìm kiếm" : "Search"}
 									</Button>
 									<MultiSelectFilter
-										label='Độ hiếm'
+										label={language === "vi" ? "Độ hiếm" : "Rarity"}
 										options={filterOptions.rarities}
 										selectedValues={selectedRarities}
 										onChange={setSelectedRarities}
 									/>
 									<DropdownFilter
-										label='Sắp xếp'
+										label={language === "vi" ? "Sắp xếp" : "Sort By"}
 										options={filterOptions.sort}
 										selectedValue={sortOrder}
 										onChange={setSortOrder}
@@ -367,7 +398,8 @@ function ItemList() {
 										onClick={handleResetFilters}
 										className='w-full'
 									>
-										<RotateCw size={16} className='mr-2' /> Đặt lại bộ lọc
+										<RotateCw size={16} className='mr-2' />{" "}
+										{language === "vi" ? "Đặt lại bộ lọc" : "Reset Filters"}
 									</Button>
 								</div>
 							</motion.aside>
@@ -382,7 +414,9 @@ function ItemList() {
 									value={searchInput}
 									onChange={e => setSearchInput(e.target.value)}
 									onKeyDown={e => e.key === "Enter" && handleSearch()}
-									placeholder='Tìm vật phẩm...'
+									placeholder={
+										language === "vi" ? "Tìm vật phẩm..." : "Search items..."
+									}
 								/>
 							</div>
 							<Button onClick={handleSearch} className='px-3'>
@@ -417,13 +451,13 @@ function ItemList() {
 								>
 									<div className='pt-4 space-y-4 border-t border-border mt-3'>
 										<MultiSelectFilter
-											label='Độ hiếm'
+											label={language === "vi" ? "Độ hiếm" : "Rarity"}
 											options={filterOptions.rarities}
 											selectedValues={selectedRarities}
 											onChange={setSelectedRarities}
 										/>
 										<DropdownFilter
-											label='Sắp xếp'
+											label={language === "vi" ? "Sắp xếp" : "Sort By"}
 											options={filterOptions.sort}
 											selectedValue={sortOrder}
 											onChange={setSortOrder}

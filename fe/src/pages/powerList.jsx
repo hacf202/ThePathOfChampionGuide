@@ -3,6 +3,7 @@ import React, { useState, useMemo, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion"; // Thêm Framer Motion
 import { usePersistentState } from "../hooks/usePersistentState";
+import { useTranslation } from "../hooks/useTranslation"; // 🟢 Import Hook i18n
 import InputField from "../components/common/inputField";
 import MultiSelectFilter from "../components/common/multiSelectFilter";
 import DropdownFilter from "../components/common/dropdownFilter";
@@ -23,10 +24,6 @@ import SafeImage from "@/components/common/SafeImage";
 
 const ITEMS_PER_PAGE = 24;
 
-/**
- * COMPONENT: PowerSkeleton
- * Mô phỏng cấu trúc của một Power Card khi đang tải.
- */
 const PowerSkeleton = () => (
 	<div className='flex items-center gap-4 bg-surface-bg p-4 rounded-lg border border-border animate-pulse'>
 		<div className='w-16 h-16 bg-gray-700/50 rounded-md shrink-0' />
@@ -38,6 +35,8 @@ const PowerSkeleton = () => (
 );
 
 function PowerList() {
+	const { language, t } = useTranslation(); // 🟢 Khởi tạo Hook
+
 	// --- STATE ---
 	const [powers, setPowers] = useState([]);
 	const [loading, setLoading] = useState(true);
@@ -85,7 +84,7 @@ function PowerList() {
 		true,
 	);
 
-	// --- LOGIC ĐIỀU HƯỚNG (Pagination Logic) ---
+	// --- LOGIC ĐIỀU HƯỚNG ---
 	const goToNextPage = useCallback(() => {
 		if (currentPage < pagination.totalPages && !loading) {
 			setCurrentPage(prev => prev + 1);
@@ -106,7 +105,7 @@ function PowerList() {
 		if (window.innerWidth < 1024) setIsFilterOpen(false);
 	}, [searchInput, setSearchTerm, setCurrentPage, setIsFilterOpen]);
 
-	// --- LOGIC PHÍM TẮT (Global Hotkeys) ---
+	// --- LOGIC PHÍM TẮT ---
 	useEffect(() => {
 		const handleKeyDown = event => {
 			if (event.key === "Tab") {
@@ -114,21 +113,18 @@ function PowerList() {
 				setShowDesktopFilter(prev => !prev);
 				return;
 			}
-
 			if (
 				event.target.tagName === "INPUT" ||
 				event.target.tagName === "TEXTAREA"
 			) {
 				return;
 			}
-
 			if (event.key === "ArrowLeft") {
 				goToPrevPage();
 			} else if (event.key === "ArrowRight") {
 				goToNextPage();
 			}
 		};
-
 		window.addEventListener("keydown", handleKeyDown);
 		return () => window.removeEventListener("keydown", handleKeyDown);
 	}, [goToPrevPage, goToNextPage, setShowDesktopFilter]);
@@ -152,7 +148,10 @@ function PowerList() {
 		try {
 			const backendUrl = import.meta.env.VITE_API_URL;
 			const response = await fetch(`${backendUrl}/api/powers?${queryParams}`);
-			if (!response.ok) throw new Error(`Lỗi: ${response.status}`);
+			if (!response.ok)
+				throw new Error(
+					language === "vi" ? "Lỗi tải dữ liệu" : "Data loading error",
+				);
 			const data = await response.json();
 
 			setPowers(data.items || []);
@@ -161,16 +160,15 @@ function PowerList() {
 		} catch (err) {
 			setError(err.message);
 		} finally {
-			// Delay nhẹ để hiệu ứng skeleton trông tự nhiên hơn
 			setTimeout(() => setLoading(false), 500);
 		}
-	}, [queryParams]);
+	}, [queryParams, language]);
 
 	useEffect(() => {
 		fetchPowers();
 	}, [fetchPowers]);
 
-	// --- FILTERS OPTIONS ---
+	// --- FILTERS OPTIONS (Đa ngôn ngữ) ---
 	const filterOptions = useMemo(
 		() => ({
 			rarities: dynamicFilters.rarities.map(r => ({
@@ -180,11 +178,17 @@ function PowerList() {
 			})),
 			types: dynamicFilters.types.map(t => ({ value: t, label: t })),
 			sort: [
-				{ value: "name-asc", label: "Tên A-Z" },
-				{ value: "name-desc", label: "Tên Z-A" },
+				{
+					value: "name-asc",
+					label: language === "vi" ? "Tên A-Z" : "Name A-Z",
+				},
+				{
+					value: "name-desc",
+					label: language === "vi" ? "Tên Z-A" : "Name Z-A",
+				},
 			],
 		}),
-		[dynamicFilters],
+		[dynamicFilters, language],
 	);
 
 	const handleResetFilters = () => {
@@ -199,17 +203,20 @@ function PowerList() {
 	return (
 		<div className='animate-fadeIn'>
 			<PageTitle
-				title='Danh sách sức mạnh'
-				description='POC GUIDE: Dữ liệu sức mạnh Path of Champions...'
+				title={language === "vi" ? "Danh sách sức mạnh" : "Powers List"}
+				description={
+					language === "vi"
+						? "POC GUIDE: Dữ liệu sức mạnh Path of Champions..."
+						: "POC GUIDE: Path of Champions Powers..."
+				}
 			/>
 
 			<div className='font-secondary'>
 				<div className='flex justify-between items-center mb-6'>
 					<h1 className='text-3xl font-bold text-text-primary font-primary animate-glitch'>
-						Danh Sách Sức Mạnh
+						{language === "vi" ? "Danh Sách Sức Mạnh" : "Powers List"}
 					</h1>
 
-					{/* Desktop Toggle Button */}
 					<div className='hidden lg:flex items-center gap-4'>
 						<Button
 							variant='outline'
@@ -221,7 +228,13 @@ function PowerList() {
 							) : (
 								<ChevronLeft size={18} />
 							)}
-							{showDesktopFilter ? "Ẩn bộ lọc" : "Hiện bộ lọc"}
+							{showDesktopFilter
+								? language === "vi"
+									? "Ẩn bộ lọc"
+									: "Hide Filters"
+								: language === "vi"
+									? "Hiện bộ lọc"
+									: "Show Filters"}
 						</Button>
 					</div>
 				</div>
@@ -260,36 +273,45 @@ function PowerList() {
 												<div
 													className={`grid grid-cols-2 md:grid-cols-3 ${showDesktopFilter ? "xl:grid-cols-3" : "xl:grid-cols-4"} gap-4 sm:gap-6`}
 												>
-													{powers.map(power => (
-														<motion.div key={power.powerCode} layout>
-															<Link
-																to={`/power/${encodeURIComponent(power.powerCode)}`}
-																className='group relative flex items-center gap-4 bg-surface-bg p-4 rounded-lg hover:bg-surface-hover transition border border-border hover:border-primary-500'
-															>
-																<SafeImage
-																	src={power.assetAbsolutePath}
-																	alt={power.name}
-																	className='w-16 h-16 object-cover rounded-md border shadow-sm group-hover:shadow-primary-md transition-all'
-																/>
-																<div className='flex-grow'>
-																	<h3 className='font-bold text-lg text-text-primary group-hover:text-primary-500 transition-colors'>
-																		{power.name}
-																	</h3>
-																	<div className='flex items-center gap-2 text-sm text-text-secondary'>
-																		<RarityIcon rarity={power.rarity} />
-																		<span>{power.rarity}</span>
+													{powers.map(power => {
+														const powerName = t(power, "name");
+														const powerDesc =
+															t(power, "descriptionRaw") ||
+															t(power, "description");
+
+														return (
+															<motion.div key={power.powerCode} layout>
+																<Link
+																	to={`/power/${encodeURIComponent(power.powerCode)}`}
+																	className='group relative flex items-center gap-4 bg-surface-bg p-4 rounded-lg hover:bg-surface-hover transition border border-border hover:border-primary-500'
+																>
+																	<SafeImage
+																		src={power.assetAbsolutePath}
+																		alt={powerName}
+																		className='w-16 h-16 object-cover rounded-md border shadow-sm group-hover:shadow-primary-md transition-all'
+																	/>
+																	<div className='flex-grow overflow-hidden'>
+																		<h3 className='font-bold text-lg text-text-primary group-hover:text-primary-500 transition-colors truncate'>
+																			{powerName}
+																		</h3>
+																		<div className='flex items-center gap-2 text-sm text-text-secondary'>
+																			<RarityIcon rarity={power.rarity} />
+																			<span className='truncate'>
+																				{power.rarity}
+																			</span>
+																		</div>
 																	</div>
-																</div>
-																{/* Tooltip Description */}
-																<div className='absolute left-1/2 -translate-x-1/2 bottom-full mb-3 w-72 p-4 bg-gray-900/95 backdrop-blur-sm text-white text-xs rounded-xl shadow-2xl opacity-0 group-hover:opacity-100 transition-all duration-300 invisible group-hover:visible pointer-events-none z-50 border border-white/10'>
-																	<p className='whitespace-pre-wrap leading-relaxed'>
-																		{power.descriptionRaw}
-																	</p>
-																	<div className='absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-x-8 border-x-transparent border-t-8 border-t-gray-900/95'></div>
-																</div>
-															</Link>
-														</motion.div>
-													))}
+																	{/* Tooltip Description */}
+																	<div className='absolute left-1/2 -translate-x-1/2 bottom-full mb-3 w-72 p-4 bg-gray-900/95 backdrop-blur-sm text-white text-xs rounded-xl shadow-2xl opacity-0 group-hover:opacity-100 transition-all duration-300 invisible group-hover:visible pointer-events-none z-50 border border-white/10'>
+																		<p className='whitespace-pre-wrap leading-relaxed'>
+																			{powerDesc}
+																		</p>
+																		<div className='absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-x-8 border-x-transparent border-t-8 border-t-gray-900/95'></div>
+																	</div>
+																</Link>
+															</motion.div>
+														);
+													})}
 												</div>
 
 												{/* PHÂN TRANG */}
@@ -300,7 +322,7 @@ function PowerList() {
 														variant='outline'
 													>
 														<ChevronLeft size={16} className='mr-2' />
-														Trang Trước
+														{language === "vi" ? "Trang Trước" : "Previous"}
 													</Button>
 													<span>/</span>
 													<Button
@@ -308,7 +330,7 @@ function PowerList() {
 														disabled={currentPage === pagination.totalPages}
 														variant='outline'
 													>
-														Trang Sau
+														{language === "vi" ? "Trang Sau" : "Next"}
 														<ChevronRight size={16} className='ml-2' />
 													</Button>
 												</div>
@@ -317,14 +339,18 @@ function PowerList() {
 											<div className='flex flex-col items-center justify-center py-20 text-text-secondary'>
 												<XCircle size={64} className='mb-4 opacity-10' />
 												<p className='text-xl font-primary'>
-													Không tìm thấy sức mạnh phù hợp.
+													{language === "vi"
+														? "Không tìm thấy sức mạnh phù hợp."
+														: "No matching powers found."}
 												</p>
 												<Button
 													variant='ghost'
 													onClick={handleResetFilters}
 													className='mt-4'
 												>
-													Xóa tất cả bộ lọc
+													{language === "vi"
+														? "Xóa tất cả bộ lọc"
+														: "Clear all filters"}
 												</Button>
 											</div>
 										)}
@@ -340,45 +366,44 @@ function PowerList() {
 							<motion.aside
 								key='desktop-filter'
 								initial={{ width: 0, opacity: 0, marginLeft: 0 }}
-								animate={{
-									width: "auto",
-									opacity: 1,
-									marginLeft: "2rem",
-								}}
+								animate={{ width: "auto", opacity: 1, marginLeft: "2rem" }}
 								exit={{ width: 0, opacity: 0, marginLeft: 0 }}
 								transition={{ duration: 0.3, ease: "easeInOut" }}
 								className='hidden lg:block sticky top-24 h-fit overflow-hidden'
 							>
 								<div className='w-[280px] xl:w-[320px] p-4 rounded-lg border border-border bg-surface-bg space-y-4 shadow-sm'>
 									<label className='block text-sm font-medium text-text-secondary'>
-										Tìm kiếm sức mạnh
+										{language === "vi" ? "Tìm kiếm sức mạnh" : "Search Powers"}
 									</label>
 									<InputField
 										value={searchInput}
 										onChange={e => setSearchInput(e.target.value)}
 										onKeyDown={e => e.key === "Enter" && handleSearch()}
-										placeholder='Tên sức mạnh...'
+										placeholder={
+											language === "vi" ? "Tên sức mạnh..." : "Power name..."
+										}
 									/>
 									<Button
 										onClick={handleSearch}
 										className='w-full mt-2 hover:animate-pulse-focus'
 									>
-										<Search size={16} className='mr-2' /> Tìm kiếm
+										<Search size={16} className='mr-2' />{" "}
+										{language === "vi" ? "Tìm kiếm" : "Search"}
 									</Button>
 									<MultiSelectFilter
-										label='Độ hiếm'
+										label={language === "vi" ? "Độ hiếm" : "Rarity"}
 										options={filterOptions.rarities}
 										selectedValues={selectedRarities}
 										onChange={setSelectedRarities}
 									/>
 									<MultiSelectFilter
-										label='Loại'
+										label={language === "vi" ? "Loại" : "Type"}
 										options={filterOptions.types}
 										selectedValues={selectedTypes}
 										onChange={setSelectedTypes}
 									/>
 									<DropdownFilter
-										label='Sắp xếp'
+										label={language === "vi" ? "Sắp xếp" : "Sort By"}
 										options={filterOptions.sort}
 										selectedValue={sortOrder}
 										onChange={setSortOrder}
@@ -388,14 +413,15 @@ function PowerList() {
 										onClick={handleResetFilters}
 										className='w-full'
 									>
-										<RotateCw size={16} className='mr-2' /> Đặt lại bộ lọc
+										<RotateCw size={16} className='mr-2' />{" "}
+										{language === "vi" ? "Đặt lại bộ lọc" : "Reset Filters"}
 									</Button>
 								</div>
 							</motion.aside>
 						)}
 					</AnimatePresence>
 
-					{/* --- MOBILE FILTER --- */}
+					{/* --- BỘ LỌC MOBILE --- */}
 					<div className='lg:hidden w-full p-2 mb-4 rounded-lg border border-border bg-surface-bg shadow-sm order-first'>
 						<div className='flex items-center gap-2'>
 							<div className='flex-1 relative min-w-0'>
@@ -403,7 +429,9 @@ function PowerList() {
 									value={searchInput}
 									onChange={e => setSearchInput(e.target.value)}
 									onKeyDown={e => e.key === "Enter" && handleSearch()}
-									placeholder='Tìm sức mạnh...'
+									placeholder={
+										language === "vi" ? "Tìm sức mạnh..." : "Search powers..."
+									}
 								/>
 							</div>
 							<Button onClick={handleSearch} className='px-3'>
@@ -438,19 +466,19 @@ function PowerList() {
 								>
 									<div className='pt-4 space-y-4 border-t border-border mt-3'>
 										<MultiSelectFilter
-											label='Độ hiếm'
+											label={language === "vi" ? "Độ hiếm" : "Rarity"}
 											options={filterOptions.rarities}
 											selectedValues={selectedRarities}
 											onChange={setSelectedRarities}
 										/>
 										<MultiSelectFilter
-											label='Loại'
+											label={language === "vi" ? "Loại" : "Type"}
 											options={filterOptions.types}
 											selectedValues={selectedTypes}
 											onChange={setSelectedTypes}
 										/>
 										<DropdownFilter
-											label='Sắp xếp'
+											label={language === "vi" ? "Sắp xếp" : "Sort By"}
 											options={filterOptions.sort}
 											selectedValue={sortOrder}
 											onChange={setSortOrder}

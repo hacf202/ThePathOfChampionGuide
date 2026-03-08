@@ -205,21 +205,26 @@ router.get("/:id", async (req, res) => {
 
 // POST /api/builds
 router.post("/", authenticateCognitoToken, async (req, res) => {
+	// Sử dụng đúng các tên mảng dựa trên ID như schema đã chốt
 	const {
 		championName,
 		description = "",
-		relicSet = [],
-		powers = [],
-		rune = [],
+		relicSetIds = [],
+		powerIds = [],
+		runeIds = [],
 		star = 0,
 		display = false,
 		regions = [],
 	} = req.body;
 
-	if (!championName || !Array.isArray(relicSet) || relicSet.length === 0) {
+	if (
+		!championName ||
+		!Array.isArray(relicSetIds) ||
+		relicSetIds.length === 0
+	) {
 		return res
 			.status(400)
-			.json({ error: "Champion name and relicSet are required." });
+			.json({ error: "Champion name and relicSetIds are required." });
 	}
 
 	const displayValue = display === true ? "true" : "false";
@@ -230,9 +235,9 @@ router.post("/", authenticateCognitoToken, async (req, res) => {
 		creator: req.user["cognito:username"],
 		description,
 		championName,
-		relicSet,
-		powers,
-		rune,
+		relicSetIds,
+		powerIds,
+		runeIds,
 		like: 0,
 		star: Number(star),
 		display: displayValue,
@@ -245,7 +250,6 @@ router.post("/", authenticateCognitoToken, async (req, res) => {
 		await client.send(
 			new PutItemCommand({
 				TableName: BUILDS_TABLE,
-				// FIX: Thêm option removeUndefinedValues để tránh lỗi Marshalling khi có thuộc tính undefined
 				Item: marshall(build, { removeUndefinedValues: true }),
 			}),
 		);
@@ -265,8 +269,16 @@ router.post("/", authenticateCognitoToken, async (req, res) => {
 // PUT /api/builds/:id
 router.put("/:id", authenticateCognitoToken, async (req, res) => {
 	const { id } = req.params;
-	const { description, relicSet, powers, rune, star, display, regions } =
-		req.body;
+	// Sử dụng đúng các tên mảng dựa trên ID như schema đã chốt
+	const {
+		description,
+		relicSetIds,
+		powerIds,
+		runeIds,
+		star,
+		display,
+		regions,
+	} = req.body;
 	const userSub = req.user.sub;
 
 	try {
@@ -287,9 +299,9 @@ router.put("/:id", authenticateCognitoToken, async (req, res) => {
 
 		const fields = {
 			description,
-			relicSet,
-			powers,
-			rune,
+			relicSetIds,
+			powerIds,
+			runeIds,
 			star,
 			display,
 			regions,
@@ -321,7 +333,6 @@ router.put("/:id", authenticateCognitoToken, async (req, res) => {
 			Key: marshall({ id }),
 			UpdateExpression: updateExpression,
 			ExpressionAttributeNames: expressionAttributeNames,
-			// FIX: Thêm option removeUndefinedValues để tránh lỗi khi cập nhật các mảng có chứa null/undefined
 			ExpressionAttributeValues: marshall(expressionAttributeValues, {
 				removeUndefinedValues: true,
 			}),

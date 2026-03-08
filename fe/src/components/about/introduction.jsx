@@ -1,10 +1,12 @@
 // src/pages/Introduction.jsx
 import { memo, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import PageTitle from "../common/pageTitle";
+import PageTitle from "../common/PageTitle";
 import SafeImage from "../common/SafeImage";
+import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook
 
 function Introduction() {
+	const { language, t } = useTranslation(); // 🟢 Khởi tạo Hook
 	const [champions, setChampions] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
@@ -17,10 +19,17 @@ function Introduction() {
 				setError(null);
 
 				const backendUrl = import.meta.env.VITE_API_URL;
-				const response = await fetch(`${backendUrl}/api/champions`);
-				if (!response.ok) throw new Error("Không thể tải dữ liệu");
+				const response = await fetch(
+					`${backendUrl}/api/champions?page=1&limit=1000`,
+				);
+				if (!response.ok)
+					throw new Error(
+						language === "vi" ? "Không thể tải dữ liệu" : "Failed to load data",
+					);
 
-				const allChampions = await response.json();
+				const allData = await response.json();
+				const allChampions = allData.items || allData || [];
+
 				if (!Array.isArray(allChampions) || allChampions.length === 0) {
 					setChampions([]);
 					return;
@@ -43,7 +52,7 @@ function Introduction() {
 		};
 
 		fetchRandomChampions();
-	}, []);
+	}, [language]);
 
 	// === MÀU THEO KHU VỰC ===
 	const getRegionColor = region => {
@@ -67,8 +76,12 @@ function Introduction() {
 	return (
 		<div>
 			<PageTitle
-				title='Giới thiệu về Guide POC'
-				description='POC GUIDE - Wiki Hướng Dẫn Con Đường Anh Hùng (Path of Champions) Path of Champions: Tier list tướng S/A/B mới nhất, build relic Epic/Rare/Common tối ưu cho Jinx, LeBlanc, Swain, A.Sol, Viktor... Hướng dẫn farm relic, unlock slot Epic, chiến thuật đánh boss Galio/A.Sol. 50+ relics, powers, support champs chi tiết!'
+				title={
+					language === "vi"
+						? "Giới thiệu về Guide POC"
+						: "Introduction to Guide POC"
+				}
+				description='POC GUIDE - Wiki Path of Champions: Tier list, builds, relics...'
 				type='website'
 			/>
 			<main className='min-h-screen bg-[var(--color-page-bg)] py-12'>
@@ -76,17 +89,27 @@ function Introduction() {
 					{/* ==================== HERO ==================== */}
 					<section className='text-center mb-16'>
 						<h1 className='text-5xl sm:text-6xl font-bold text-[var(--color-text-primary)] mb-6'>
-							Chào mừng đến{" "}
+							{language === "vi" ? "Chào mừng đến " : "Welcome to "}
 							<span className='text-[var(--color-primary-500)]'>POC GUIDE</span>
 						</h1>
 						<p className='text-xl text-[var(--color-text-secondary)] mx-auto leading-relaxed'>
-							<strong>
-								Con Đường Anh Hùng (Path of champions) là một chế độ chơi
-								roguelike
-							</strong>{" "}
-							độc đáo trong <i>Legends of Runeterra</i> – nơi mỗi lượt chơi là
-							một hành trình mới, mỗi quyết định có thể thay đổi toàn bộ cuộc
-							chiến.
+							{language === "vi" ? (
+								<>
+									<strong>
+										Con Đường Anh Hùng (Path of Champions) là một chế độ chơi
+										roguelike
+									</strong>{" "}
+									độc đáo trong <i>Legends of Runeterra</i> – nơi mỗi lượt chơi
+									là một hành trình mới, mỗi quyết định có thể thay đổi toàn bộ
+									cuộc chiến.
+								</>
+							) : (
+								<>
+									<strong>Path of Champions is a unique roguelike mode</strong>{" "}
+									in <i>Legends of Runeterra</i> – where every run is a new
+									journey, and every decision can alter the entire battle.
+								</>
+							)}
 						</p>
 					</section>
 
@@ -96,11 +119,12 @@ function Introduction() {
 								1
 							</div>
 							<h3 className='text-xl font-bold text-[var(--color-text-primary)] mb-2'>
-								Đường đi ngẫu nhiên
+								{language === "vi" ? "Đường đi ngẫu nhiên" : "Random Paths"}
 							</h3>
 							<p className='text-[var(--color-text-secondary)]'>
-								Mỗi bản đồ được tạo ngẫu nhiên – không có 2 lượt chơi giống
-								nhau.
+								{language === "vi"
+									? "Mỗi bản đồ được tạo ngẫu nhiên – không có 2 lượt chơi giống nhau."
+									: "Every map is procedurally generated – no two runs are identical."}
 							</p>
 						</div>
 
@@ -109,11 +133,12 @@ function Introduction() {
 								2
 							</div>
 							<h3 className='text-xl font-bold text-[var(--color-text-primary)] mb-2'>
-								Relic & Power
+								{language === "vi" ? "Cổ vật & Sức mạnh" : "Relics & Powers"}
 							</h3>
 							<p className='text-[var(--color-text-secondary)]'>
-								Thu thập <strong>Relic</strong> và <strong>Power</strong> để
-								biến tướng thường thành quái vật.
+								{language === "vi"
+									? "Thu thập Relic và Power để biến tướng thường thành quái vật."
+									: "Collect Relics and Powers to turn ordinary champions into monsters."}
 							</p>
 						</div>
 
@@ -122,32 +147,33 @@ function Introduction() {
 								3
 							</div>
 							<h3 className='text-xl font-bold text-[var(--color-text-primary)] mb-2'>
-								7 Sao – Thử thách tối thượng
+								{language === "vi"
+									? "7 Sao – Thử thách tối thượng"
+									: "7 Stars – Ultimate Challenge"}
 							</h3>
 							<p className='text-[var(--color-text-secondary)]'>
-								Hoàn thành mọi boss, mọi ngã rẽ để đạt <strong>7 sao</strong>{" "}
-								cho mỗi tướng.
+								{language === "vi"
+									? "Hoàn thành mọi boss, mọi ngã rẽ để đạt 7 sao cho mỗi tướng."
+									: "Defeat all bosses and crossroads to reach 7 stars for each champion."}
 							</p>
 						</div>
 					</section>
 
-					{/* 10 TƯỚNG NGẪU NHIÊN – CHỈ HIỂN THỊ: TÊN + AVATAR + KHU VỰC */}
+					{/* 10 TƯỚNG NGẪU NHIÊN */}
 					<section className='mb-16'>
 						<h2 className='text-3xl font-bold text-[var(--color-text-primary)] text-center mb-8'>
-							Nhân vật nổi bật
+							{language === "vi" ? "Nhân vật nổi bật" : "Featured Champions"}
 						</h2>
 
-						{/* Loading */}
 						{loading && (
 							<div className='text-center py-12'>
 								<div className='inline-block animate-spin w-10 h-10 border-4 border-[var(--color-primary-500)] border-t-transparent rounded-full'></div>
 								<p className='mt-3 text-[var(--color-text-secondary)]'>
-									Đang tải...
+									{language === "vi" ? "Đang tải..." : "Loading..."}
 								</p>
 							</div>
 						)}
 
-						{/* Error */}
 						{error && (
 							<div className='text-center py-12 text-[var(--color-danger-500)]'>
 								<p>{error}</p>
@@ -155,53 +181,47 @@ function Introduction() {
 									onClick={() => window.location.reload()}
 									className='mt-3 px-5 py-2 bg-[var(--color-btn-primary-bg)] text-[var(--color-btn-primary-text)] rounded-md text-sm'
 								>
-									Tải lại
+									{language === "vi" ? "Tải lại" : "Retry"}
 								</button>
 							</div>
 						)}
 
-						{/* Empty */}
 						{!loading && !error && champions.length === 0 && (
 							<div className='text-center py-12 text-[var(--color-text-secondary)]'>
-								<p>Chưa có dữ liệu tướng.</p>
+								<p>
+									{language === "vi"
+										? "Chưa có dữ liệu tướng."
+										: "No champion data available."}
+								</p>
 							</div>
 						)}
 
-						{/* Grid: Tên + Avatar + Khu vực */}
 						{!loading && !error && champions.length > 0 && (
 							<div className='grid sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6'>
 								{champions.map(champ => {
 									const region =
 										champ.region || champ.regions?.[0] || "Unknown";
-									const color = getRegionColor(region);
+
+									// 🟢 Tự động dịch tên Tướng
+									const champName = t(champ, "name") || champ.name;
 
 									return (
 										<Link
-											key={champ.championID}
-											to={`/champion/${champ.name}`}
+											key={champ.championID || champ.name}
+											to={`/champion/${encodeURIComponent(champ.name)}`}
 											className='group block bg-[var(--color-surface-bg)] p-5 rounded-xl border border-[var(--color-border)] text-center hover:border-[var(--color-primary-500)] hover:shadow-lg transition-all'
 										>
-											{/* Avatar: ảnh thật từ API */}
 											<div className='w-20 h-20 mx-auto mb-3 rounded-full overflow-hidden shadow-md group-hover:scale-110 transition-transform duration-300'>
 												<SafeImage
-													src={
-														// lấy từ assets
-														champ.assets?.[0]?.avatar || "/fallback-image.svg" // fallback nếu không có ảnh
-													}
-													alt={champ.name}
+													src={champ.avatarUrl || "/fallback-image.svg"}
+													alt={champName}
 													className='w-full h-full object-cover'
 													loading='lazy'
-													onError={e => {
-														e.currentTarget.src = "/fallback-image.svg"; // thay ảnh lỗi
-													}}
 												/>
 											</div>
-											{/* Tên tướng */}
 											<h4 className='font-bold text-[var(--color-text-primary)] text-lg truncate group-hover:text-[var(--color-primary-500)] transition-colors'>
-												{champ.name}
+												{champName}
 											</h4>
-
-											{/* Khu vực */}
 											<p className='text-sm text-[var(--color-text-secondary)] mt-1'>
 												{region}
 											</p>
@@ -215,20 +235,20 @@ function Introduction() {
 					{/* CTA */}
 					<section className='text-center'>
 						<h2 className='text-3xl font-bold text-[var(--color-text-primary)] mb-6'>
-							Bắt đầu ngay!
+							{language === "vi" ? "Bắt đầu ngay!" : "Get Started!"}
 						</h2>
 						<div className='flex flex-col sm:flex-row gap-4 justify-center'>
 							<Link
 								to='/champions'
 								className='px-8 py-3 bg-[var(--color-btn-secondary-bg)] text-[var(--color-btn-secondary-text)] border border-[var(--color-btn-secondary-border)] font-medium rounded-md hover:bg-[var(--color-btn-secondary-hover-bg)] transition-colors'
 							>
-								Xem Tất Cả Tướng
+								{language === "vi" ? "Xem Tất Cả Tướng" : "View All Champions"}
 							</Link>
 							<Link
-								to='/guide/starterGuide'
+								to='/guides'
 								className='px-8 py-3 bg-[var(--color-btn-secondary-bg)] text-[var(--color-btn-secondary-text)] border border-[var(--color-btn-secondary-border)] font-medium rounded-md hover:bg-[var(--color-btn-secondary-hover-bg)] transition-colors'
 							>
-								Hướng Dẫn
+								{language === "vi" ? "Hướng Dẫn" : "Guides"}
 							</Link>
 						</div>
 						<p className='mt-8 text-[var(--color-text-secondary)]'>
@@ -236,7 +256,7 @@ function Introduction() {
 								to='/'
 								className='px-8 py-3 bg-[var(--color-btn-primary-bg)] text-[var(--color-btn-primary-text)] font-medium rounded-md hover:bg-[var(--color-btn-primary-hover-bg)] transition-colors'
 							>
-								Quay về Trang chủ
+								{language === "vi" ? "Quay về Trang chủ" : "Back to Home"}
 							</Link>
 						</p>
 					</section>

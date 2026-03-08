@@ -1,0 +1,71 @@
+{
+	"common": {
+		"search": "Search",
+		"save": "Save",
+		"cancel": "Cancel",
+		"loading": "Loading data...",
+		"errorLoadData": "Data loading error",
+		"prevPage": "Previous",
+		"nextPage": "Next",
+		"notFound": "No matching data found.",
+		"close": "Close modal",
+		"selectPlaceholder": "Select one or more",
+		"selectedItems": "{{count}} items selected",
+		"searchPlaceholder": "Search...",
+		"addNew": "Add New",
+		"editTitle": "Edit Data",
+		"addTitle": "Add New Data",
+		"noItemTitle": "No item selected",
+		"noItemDesc": "Please select an item from the left list or click Add New.",
+		"deleteDataTitle": "Delete Data",
+		"deleteConfirmPrefix": "Are you sure you want to delete",
+		"deleteConfirmSuffix": "? This action cannot be undone.",
+		"ok": "OK"
+	},
+	"championList": {
+		"title": "Champions List",
+		"heading": "Champions List",
+		"hideFilter": "Hide Filters",
+		"showFilter": "Show Filters",
+		"searchLabel": "Search Champion",
+		"searchPlaceholder": "Champion name...",
+		"region": "Region",
+		"cost": "Cost",
+		"maxStars": "Max Stars",
+		"tags": "Tags",
+		"sortBy": "Sort By",
+		"resetFilter": "Reset Filters"
+	},
+	"sort": {
+		"nameAsc": "Name A-Z",
+		"nameDesc": "Name Z-A",
+		"costAsc": "Cost Low-High",
+		"costDesc": "Cost High-Low"
+	},
+	"championDetail": {
+		"title": "Champion Details",
+		"back": "Back",
+		"showLess": "Show less",
+		"showMore": "Show more",
+		"constellation": "Constellation",
+		"video": "Showcase Video",
+		"relicSets": "Relic Sets",
+		"recPowers": "Recommended Powers",
+		"recItems": "Recommended Items",
+		"recRunes": "Recommended Runes",
+		"errorLoad": "Cannot load champion information."
+	},
+	"constellation": {
+		"typeNormal": "Normal",
+		"typeGemstone": "Gemstone",
+		"tabStarPowers": "Star Powers",
+		"tabBonusStars": "Bonus Stars",
+		"colStar": "Star",
+		"colType": "Type",
+		"colReq": "Requirements",
+		"colImg": "Image",
+		"colName": "Name",
+		"colPower": "Power",
+		"noData": "No data available for this section."
+	}
+}

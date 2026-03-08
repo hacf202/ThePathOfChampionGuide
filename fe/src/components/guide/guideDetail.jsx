@@ -6,10 +6,12 @@ import PageTitle from "../common/pageTitle.jsx";
 import Button from "../common/button.jsx";
 import GuideContent from "./guideContent.jsx";
 import { removeAccents } from "../../utils/vietnameseUtils.js";
+import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook Đa ngôn ngữ
 
 const GuideDetail = () => {
 	const { slug } = useParams();
 	const navigate = useNavigate();
+	const { language, t } = useTranslation(); // 🟢 Khởi tạo Hook
 
 	const [guide, setGuide] = useState(null);
 	const [relatedGuides, setRelatedGuides] = useState([]);
@@ -32,224 +34,236 @@ const GuideDetail = () => {
 			try {
 				const backendUrl = import.meta.env.VITE_API_URL;
 
-				// SỬA LỖI: Thêm limit=1000 để đảm bảo lấy đủ dữ liệu tham chiếu cho bảng
+				// Lấy dữ liệu bài viết + metadata song song để tiết kiệm thời gian
 				const [
 					guideDetailResponse,
-					allGuidesResponse,
-					championsResponse,
-					relicsResponse,
-					powersResponse,
+					allChampionsRes,
+					allRelicsRes,
+					allPowersRes,
 				] = await Promise.all([
 					axios.get(`${backendUrl}/api/guides/${slug}`),
-					axios.get(`${backendUrl}/api/guides`),
-					axios.get(`${backendUrl}/api/champions?limit=1000`),
-					axios.get(`${backendUrl}/api/relics?limit=1000`),
-					axios.get(`${backendUrl}/api/powers?limit=1000`),
+					axios.get(`${backendUrl}/api/champions?page=1&limit=1000`),
+					axios.get(`${backendUrl}/api/relics?page=1&limit=1000`),
+					axios.get(`${backendUrl}/api/powers?page=1&limit=1000`),
 				]);
 
 				if (guideDetailResponse.data.success) {
-					setGuide(guideDetailResponse.data.data);
-				} else {
-					setError("Không tìm thấy nội dung bài viết.");
+					setGuide(guideDetailResponse.data.data.guide);
+					setRelatedGuides(guideDetailResponse.data.data.relatedGuides || []);
+
+					// Chuyển mảng metadata thành Object map dạng { "tên": {chi_tiết} } để tra cứu O(1)
+					const buildMap = items => {
+						const map = {};
+						items.forEach(item => {
+							map[item.name] = item;
+						});
+						return map;
+					};
+
+					setReferenceData({
+						champions: buildMap(allChampionsRes.data.items || []),
+						relics: buildMap(allRelicsRes.data.items || []),
+						powers: buildMap(allPowersRes.data.items || []),
+					});
 				}
-
-				if (allGuidesResponse.data.success) {
-					const otherGuides = allGuidesResponse.data.data
-						.filter(item => item.slug !== slug)
-						.slice(0, 3);
-					setRelatedGuides(otherGuides);
-				}
-
-				const convertArrayToMap = (array, keyField) => {
-					if (!Array.isArray(array)) return {};
-					return array.reduce((accumulator, item) => {
-						if (item && item[keyField]) {
-							accumulator[item[keyField]] = item;
-						}
-						return accumulator;
-					}, {});
-				};
-
-				// SỬA LỖI: Truy cập vào .items vì API trả về object phân trang
-				setReferenceData({
-					champions: convertArrayToMap(
-						championsResponse.data.items,
-						"championID",
-					),
-					relics: convertArrayToMap(relicsResponse.data.items, "relicCode"),
-					powers: convertArrayToMap(powersResponse.data.items, "powerCode"),
-				});
 			} catch (err) {
-				console.error("Lỗi khi tải dữ liệu:", err);
-				setError("Đã xảy ra lỗi khi kết nối với máy chủ.");
+				console.error("Lỗi tải chi tiết:", err);
+				setError(
+					err.message ||
+						(language === "vi"
+							? "Lỗi kết nối server"
+							: "Server connection error"),
+				);
 			} finally {
 				setLoading(false);
 			}
 		};
 
 		fetchAllData();
-	}, [slug]);
+	}, [slug, language]); // Cập nhật nhẹ nếu ngôn ngữ lỗi thì có thể retry
 
-	// Lọc các block là section có tiêu đề để làm mục lục
-	const sections =
-		guide?.content?.filter(block => block.type === "section" && block.title) ||
-		[];
-
-	const handleScrollToSection = (e, title) => {
-		e.preventDefault();
-		const id = removeAccents(title);
-		const element = document.getElementById(id);
-		if (element) {
-			element.scrollIntoView({ behavior: "smooth", block: "start" });
-		}
-	};
-
-	if (loading) {
+	if (loading)
 		return (
-			<div className='flex justify-center items-center min-h-[50vh]'>
-				<div className='animate-spin rounded-full h-12 w-12 border-t-2 border-blue-500 border-solid'></div>
+			<div className='min-h-screen flex items-center justify-center text-gray-500'>
+				{language === "vi" ? "Đang tải..." : "Loading..."}
 			</div>
 		);
-	}
 
-	if (error) {
+	if (error || !guide)
 		return (
-			<div className='text-center py-20 min-h-screen bg-gray-50'>
-				<h2 className='text-2xl font-bold mb-4 text-red-600'>Lỗi dữ liệu</h2>
-				<p className='mb-6 text-gray-600'>{error}</p>
-				<Button
-					variant='primary'
-					onClick={() => navigate("/")}
-					iconLeft={<Home size={18} />}
-				>
-					Quay về trang chủ
-				</Button>
+			<div className='min-h-screen flex flex-col items-center justify-center text-red-500'>
+				<p className='text-xl mb-4'>
+					{error ||
+						(language === "vi" ? "Không tìm thấy bài viết" : "Guide not found")}
+				</p>
+				<Link to='/guides'>
+					<Button variant='primary'>
+						{language === "vi" ? "Quay lại Trang chủ" : "Back to Home"}
+					</Button>
+				</Link>
 			</div>
 		);
-	}
 
-	if (!guide) return null;
+	// Tạo Table of Contents từ các thẻ heading (section block)
+	// Chú ý: Vẫn giữ id bằng tiêu đề gốc removeAccents để khớp với neo (anchor link)
+	const toc = guide.content
+		.filter(block => block.type === "section" && block.title)
+		.map(block => ({
+			id: removeAccents(block.title),
+			title: t(block, "title"), // 🟢 Hiển thị ngôn ngữ theo tùy chọn
+		}));
 
 	return (
-		<div className='min-h-screen'>
+		<div className='bg-gray-50 min-h-screen pb-20'>
+			{/* Đổi thẻ meta PageTitle */}
 			<PageTitle
-				title={`${guide.title} | POC GUIDE`}
-				description={guide.title}
-				type='article'
+				title={t(guide, "title")}
+				description={t(guide, "description") || guide.description}
+				image={guide.thumbnail}
 			/>
 
-			<header className='bg-white'>
-				<div className='container mx-auto md:px-4 py-8 max-w-[1200px]'>
-					<Button
-						variant='ghost'
-						onClick={() => navigate("/guides")}
-						iconLeft={<ArrowLeft size={16} />}
-						className='mb-6 pl-0 text-blue-600 hover:bg-transparent'
-					>
-						Quay lại danh sách
-					</Button>
+			{/* ===================== HERO SECTION ===================== */}
+			<div className='bg-white border-b border-gray-200 pt-16 pb-12 px-4'>
+				<div className='max-w-5xl mx-auto'>
+					{/* Breadcrumb */}
+					<div className='flex items-center gap-2 text-sm text-gray-500 mb-6 font-medium'>
+						<button
+							onClick={() => navigate(-1)}
+							className='hover:text-blue-600 flex items-center gap-1 mr-4 border border-gray-200 px-3 py-1 rounded-full'
+						>
+							<ArrowLeft size={14} /> {language === "vi" ? "Quay lại" : "Back"}
+						</button>
+						<Link
+							to='/'
+							className='hover:text-blue-600 flex items-center gap-1'
+						>
+							<Home size={14} /> {language === "vi" ? "Trang chủ" : "Home"}
+						</Link>
+						<span>/</span>
+						<Link to='/guides' className='hover:text-blue-600'>
+							{language === "vi" ? "Hướng dẫn" : "Guides"}
+						</Link>
+						<span>/</span>
+						<span className='text-gray-900 font-medium truncate max-w-[200px] sm:max-w-md'>
+							{t(guide, "title")}
+						</span>
+					</div>
 
-					<h1 className='text-3xl md:text-5xl font-extrabold leading-tight mb-4 text-gray-900'>
-						{guide.title}
+					<h1 className='text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 leading-tight'>
+						{t(guide, "title")}
 					</h1>
 
-					<div className='flex flex-wrap items-center gap-4 text-sm text-gray-500 border-t pt-4'>
-						<span className='flex items-center gap-1'>
-							<Calendar size={18} /> Xuất bản: {guide.publishedDate}
+					<div className='flex flex-wrap items-center gap-6 text-sm text-gray-500 mb-8 pb-8 border-b border-gray-200'>
+						<span className='flex items-center gap-2'>
+							<Calendar size={18} /> {guide.publishedDate}
 						</span>
-						<span className='flex items-center gap-1'>
-							<Eye size={18} /> {guide.views || 0} lượt xem
+						<span className='flex items-center gap-2'>
+							<Eye size={18} /> {guide.views}{" "}
+							{language === "vi" ? "lượt xem" : "views"}
 						</span>
-						{guide.author && (
-							<span className='px-2 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold flex items-center gap-1'>
-								<PenTool size={16} /> {guide.author}
-							</span>
-						)}
+						<span className='flex items-center gap-2'>
+							<PenTool size={18} /> {language === "vi" ? "Tác giả:" : "Author:"}{" "}
+							{guide.author || "Admin"}
+						</span>
 					</div>
 				</div>
-			</header>
+			</div>
 
-			<main className='container mx-auto md:px-4 py-8 max-w-[1200px]'>
-				<article className='p-4 md:p-8 rounded-2xl bg-white shadow-sm ring-1 ring-black/5'>
-					<div className='mb-8 rounded-xl overflow-hidden shadow-sm'>
-						<img
-							src={guide.thumbnail}
-							alt={guide.title}
-							className='w-full h-auto object-cover max-h-[450px]'
-						/>
+			{/* ===================== MAIN CONTENT & TOC ===================== */}
+			<div className='max-w-6xl mx-auto px-4 mt-10'>
+				<div className='grid grid-cols-1 lg:grid-cols-4 gap-12'>
+					{/* Nội dung bài viết (Trái - 3 cột) */}
+					<div className='lg:col-span-3'>
+						<div className='bg-white rounded-2xl shadow-sm border border-gray-200 p-6 md:p-10'>
+							{guide.thumbnail && (
+								<img
+									src={guide.thumbnail}
+									alt={t(guide, "title")}
+									className='w-full h-auto max-h-[450px] object-cover rounded-xl mb-10 shadow-sm'
+								/>
+							)}
+
+							<div className='prose prose-lg max-w-none'>
+								{guide.content.map((block, index) => (
+									<GuideContent
+										key={index}
+										block={block}
+										referenceData={referenceData}
+									/>
+								))}
+							</div>
+						</div>
+
+						{/* Phần bài viết liên quan */}
+						{relatedGuides.length > 0 && (
+							<div className='mt-16 border-t pt-10'>
+								<h3 className='text-2xl font-bold mb-8 flex items-center text-gray-900'>
+									<span className='w-1.5 h-8 bg-blue-500 mr-3 rounded-full'></span>
+									{language === "vi"
+										? "Có thể bạn quan tâm"
+										: "You might also like"}
+								</h3>
+
+								<div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+									{relatedGuides.map(item => (
+										<Link
+											to={`/guides/${item.slug}`}
+											key={item.slug}
+											className='group bg-white rounded-xl shadow-sm hover:shadow-md transition-all border border-gray-200 overflow-hidden'
+										>
+											<div className='h-44 overflow-hidden'>
+												<img
+													src={item.thumbnail}
+													alt={t(item, "title")}
+													className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-500'
+												/>
+											</div>
+											<div className='p-4'>
+												<h4 className='font-bold text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors'>
+													{t(item, "title")}
+												</h4>
+												<div className='mt-3 flex items-center text-xs text-gray-500 gap-3'>
+													<span className='flex items-center gap-1'>
+														<Calendar size={14} /> {item.publishedDate}
+													</span>
+													<span className='flex items-center gap-1'>
+														<Eye size={14} /> {item.views}{" "}
+														{language === "vi" ? "lượt xem" : "views"}
+													</span>
+												</div>
+											</div>
+										</Link>
+									))}
+								</div>
+							</div>
+						)}
 					</div>
 
-					{/* PHẦN TÓM LƯỢC NỘI DUNG (TABLE OF CONTENTS) */}
-					{sections.length > 0 && (
-						<div className='mb-10 p-5 md:p-7 bg-slate-50 rounded-2xl border border-slate-200'>
-							<div className='flex items-center gap-3 mb-4 text-slate-800 border-b pb-3 border-slate-200'>
-								<List className='text-blue-600' size={24} />
-								<h3 className='text-xl font-bold'>Tóm tắt nội dung</h3>
-							</div>
-							<nav>
-								<ul className='grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3'>
-									{sections.map((section, index) => (
-										<li key={index} className='flex items-start gap-2 group'>
-											<span className='text-blue-500 font-bold mt-1 text-sm'>
-												{index + 1}.
-											</span>
+					{/* Sidebar - Mục lục (TOC) (Phải - 1 cột) */}
+					{toc.length > 0 && (
+						<div className='lg:col-span-1 hidden lg:block'>
+							<div className='sticky top-24 bg-gray-50 rounded-xl p-6 border border-gray-100'>
+								<h3 className='text-lg font-bold text-gray-900 mb-4 flex items-center gap-2'>
+									<List size={20} className='text-blue-500' />
+									{language === "vi" ? "Nội dung chính" : "Table of Contents"}
+								</h3>
+								<ul className='space-y-3 text-sm'>
+									{toc.map(item => (
+										<li key={item.id}>
 											<a
-												href={`#${removeAccents(section.title)}`}
-												onClick={e => handleScrollToSection(e, section.title)}
-												className='text-slate-700 hover:text-blue-600 hover:underline transition-colors font-medium decoration-blue-400'
+												href={`#${item.id}`}
+												className='text-gray-600 hover:text-blue-600 transition-colors block'
 											>
-												{section.title}
+												{item.title}
 											</a>
 										</li>
 									))}
 								</ul>
-							</nav>
+							</div>
 						</div>
 					)}
-
-					<GuideContent content={guide.content} referenceData={referenceData} />
-				</article>
-
-				{relatedGuides.length > 0 && (
-					<section className='mt-16 border-t pt-10'>
-						<h3 className='text-2xl font-bold mb-8 flex items-center text-gray-900'>
-							<span className='w-1.5 h-8 bg-blue-500 mr-3 rounded-full'></span>
-							Có thể bạn quan tâm
-						</h3>
-
-						<div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
-							{relatedGuides.map(item => (
-								<Link
-									to={`/guides/${item.slug}`}
-									key={item.slug}
-									className='group bg-white rounded-xl shadow-sm hover:shadow-md transition-all border border-gray-200 overflow-hidden'
-								>
-									<div className='h-44 overflow-hidden'>
-										<img
-											src={item.thumbnail}
-											alt={item.title}
-											className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-500'
-										/>
-									</div>
-									<div className='p-4'>
-										<h4 className='font-bold text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors'>
-											{item.title}
-										</h4>
-										<div className='mt-3 flex items-center text-xs text-gray-500 gap-3'>
-											<span className='flex items-center gap-1'>
-												<Calendar size={14} /> {item.publishedDate}
-											</span>
-											<span className='flex items-center gap-1'>
-												<Eye size={14} /> {item.views || 0}
-											</span>
-										</div>
-									</div>
-								</Link>
-							))}
-						</div>
-					</section>
-				)}
-			</main>
+				</div>
+			</div>
 		</div>
 	);
 };

@@ -2,7 +2,14 @@
 import React, { useState } from "react";
 import BuildModal from "./buildModal";
 
-const BuildCreation = ({ onConfirm, onClose }) => {
+const BuildCreation = ({
+	onConfirm,
+	onClose,
+	championsList = [],
+	relicsList = [],
+	powersList = [],
+	runesList = [],
+}) => {
 	const [isOpen, setIsOpen] = useState(true);
 	const [maxStar, setMaxStar] = useState(7);
 	const [championName, setChampionName] = useState("");
@@ -14,13 +21,22 @@ const BuildCreation = ({ onConfirm, onClose }) => {
 			return;
 		}
 
+		// Ưu tiên tìm trong danh sách truyền xuống để tăng tốc độ
+		if (championsList.length > 0) {
+			const champion = championsList.find(c => c.name === name.trim());
+			if (champion) {
+				setMaxStar(champion.maxStar ?? 7);
+				return;
+			}
+		}
+
+		// Fallback gọi API nếu không tìm thấy trong list
 		try {
 			const apiUrl = import.meta.env.VITE_API_URL;
 			const res = await fetch(
 				`${apiUrl}/api/champions/search?name=${encodeURIComponent(name.trim())}`,
 			);
 			const data = await res.json();
-
 			const champion = data.items?.[0];
 			setMaxStar(champion?.maxStar ?? 7);
 		} catch (err) {
@@ -46,6 +62,10 @@ const BuildCreation = ({ onConfirm, onClose }) => {
 			onConfirm={handleConfirm}
 			onChampionChange={handleChampionChange}
 			maxStar={maxStar}
+			championsList={championsList}
+			relicsList={relicsList}
+			powersList={powersList}
+			runesList={runesList}
 		/>
 	);
 };

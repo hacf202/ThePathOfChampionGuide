@@ -9,9 +9,13 @@ import Button from "../common/button";
 import PageTitle from "../common/pageTitle";
 import SafeImage from "../common/SafeImage";
 
+// Import API và i18n
+import { api } from "../../context/services/apiHelper";
+import { useTranslation } from "../../hooks/useTranslation";
+
 // Import các component chòm sao đã được tách
-import ConstellationMap from "./constellationMap";
-import ConstellationTable from "./constellationTable";
+import ConstellationMap from "../champion/constellationMap";
+import ConstellationTable from "../champion/constellationTable";
 
 // --- THÀNH PHẦN SKELETON ---
 const ChampionDetailSkeleton = () => (
@@ -31,7 +35,10 @@ const ChampionDetailSkeleton = () => (
 	</div>
 );
 
+// --- RENDER ITEM ĐA NGÔN NGỮ ---
 const RenderItem = ({ item }) => {
+	const { tDynamic } = useTranslation();
+
 	if (!item) return null;
 	const linkPath = item.powerCode
 		? `/power/${encodeURIComponent(item.powerCode)}`
@@ -43,32 +50,44 @@ const RenderItem = ({ item }) => {
 					? `/rune/${encodeURIComponent(item.runeCode)}`
 					: null;
 
+	const itemName = tDynamic(item, "name");
+	const itemDesc =
+		tDynamic(item, "description") || tDynamic(item, "descriptionRaw");
+
 	const content = (
 		<div className='flex items-start gap-1 bg-surface-hover rounded-md h-full hover:border-primary-500 transition-colors p-2'>
 			<SafeImage
-				src={item.image || "/fallback-image.svg"}
-				alt={item.name}
-				className='w-16 h-16 rounded-md shrink-0'
+				src={item.assetAbsolutePath || item.image || "/fallback-image.svg"}
+				alt={itemName}
+				className='w-16 h-16 rounded-md shrink-0 object-cover bg-surface-bg'
 			/>
 			<div>
-				<h3 className='font-semibold text-text-primary text-lg'>{item.name}</h3>
-				{item.description && (
+				<h3 className='font-semibold text-text-primary text-lg'>{itemName}</h3>
+				{itemDesc && (
 					<p
 						className='text-md text-text-secondary mt-1'
-						dangerouslySetInnerHTML={{ __html: item.description }}
+						dangerouslySetInnerHTML={{ __html: itemDesc }}
 					/>
 				)}
 			</div>
 		</div>
 	);
-	return linkPath ? <Link to={linkPath}>{content}</Link> : content;
+	return linkPath ? (
+		<Link to={linkPath} className='block h-full'>
+			{content}
+		</Link>
+	) : (
+		content
+	);
 };
 
 // --- MAIN COMPONENT ---
 function ChampionDetail() {
 	const { championID } = useParams();
 	const navigate = useNavigate();
-	const apiUrl = import.meta.env.VITE_API_URL;
+
+	// 🟢 Sửa lại: Dùng tDynamic và tUI
+	const { tDynamic, tUI } = useTranslation();
 
 	const [champion, setChampion] = useState(null);
 	const [constellationData, setConstellationData] = useState(null);
@@ -84,69 +103,62 @@ function ChampionDetail() {
 
 	useEffect(() => {
 		let isMounted = true;
-		const controller = new AbortController();
-		const signal = controller.signal;
 
 		const initData = async () => {
 			try {
 				setLoading(true);
 
-				const [champRes, constRes, bonusRes] = await Promise.all([
-					fetch(`${apiUrl}/api/champions/${championID}`, { signal }),
-					fetch(`${apiUrl}/api/constellations/${championID}`, { signal }),
-					fetch(`${apiUrl}/api/bonusStars`, { signal }),
-				]);
+				// 1. Fetch dữ liệu Tướng, Chòm sao, Bonus Star song song (Xử lý lỗi riêng rẽ)
+				const champPromise = api.get(`/champions/${championID}`);
+				const constPromise = api
+					.get(`/constellations/${championID}`)
+					.catch(() => null);
+				const bonusPromise = api
+					.get(`/bonusStars`)
+					.catch(() => ({ items: [] }));
 
-				if (!champRes.ok) throw new Error("Không thể tải thông tin tướng.");
-				const champData = await champRes.json();
-				const constData = constRes.ok ? await constRes.json() : null;
-				const bonusData = bonusRes.ok ? await bonusRes.json() : { items: [] };
+				const [champData, constData, bonusData] = await Promise.all([
+					champPromise,
+					constPromise,
+					bonusPromise,
+				]);
 
 				if (!isMounted) return;
 				setChampion(champData);
 				setConstellationData(constData);
 				setFetchedBonusStars(bonusData.items || []);
 
-				const constellationNames = constData
-					? constData.nodes.map(n => n.nodeName)
-					: champData.powerStars || [];
-				const allPowerNames = [
+				// 2. Thu thập ID để Resolve (Chuẩn mới)
+				const constellationPowerIds = constData
+					? constData.nodes.map(n => n.powerCode).filter(Boolean)
+					: champData.powerStarIds || [];
+
+				const allPowerIds = [
 					...new Set([
-						...(champData.adventurePowers || []),
-						...constellationNames,
+						...(champData.adventurePowerIds || []),
+						...constellationPowerIds,
 					]),
 				];
-				const relicNames = Array.from(
-					{ length: 6 },
-					(_, i) => champData[`defaultRelicsSet${i + 1}`] || [],
-				).flat();
 
-				const resolveBatch = async (endpoint, names) => {
-					if (!names || names.length === 0) return [];
-					const res = await fetch(`${apiUrl}/api/${endpoint}/resolve`, {
-						method: "POST",
-						headers: { "Content-Type": "application/json" },
-						body: JSON.stringify({ names }),
-						signal,
-					});
-					return res.ok ? await res.json() : [];
-				};
+				// Mảng đa chiều relicSets. Làm phẳng (.flat()) để query
+				const allRelicIds = (champData.relicSets || []).flat();
 
+				// 3. Resolve Batch bằng API Helper (Chuẩn ID-based)
 				const [pDetails, iDetails, rDetails, ruDetails] = await Promise.all([
-					resolveBatch("powers", allPowerNames),
-					resolveBatch("items", champData.defaultItems || []),
-					resolveBatch("relics", relicNames),
-					resolveBatch("runes", champData.rune || []),
+					api.resolve("powers", allPowerIds),
+					api.resolve("items", champData.itemIds || []),
+					api.resolve("relics", allRelicIds),
+					api.resolve("runes", champData.runeIds || []),
 				]);
 
 				if (isMounted) {
 					setResolvedPowers(pDetails);
 					setResolvedItems(iDetails);
 					setResolvedRelics(rDetails);
-					setResolvedRunes(ruDetails); // Dữ liệu Ngọc đã được load ở đây
+					setResolvedRunes(ruDetails);
 				}
 			} catch (err) {
-				if (isMounted && err.name !== "AbortError") setError(err.message);
+				if (isMounted) setError(err.message || tUI("championDetail.errorLoad"));
 			} finally {
 				if (isMounted) setTimeout(() => setLoading(false), 800);
 			}
@@ -155,33 +167,35 @@ function ChampionDetail() {
 		initData();
 		return () => {
 			isMounted = false;
-			controller.abort();
 		};
-	}, [championID, apiUrl]);
+	}, [championID, tUI]);
 
+	// Xử lý dữ liệu hiển thị Đa ngôn ngữ cho Chòm sao
 	const constellationInfo = useMemo(() => {
 		if (!champion) return { nodes: [], backgroundImage: "" };
+
 		if (constellationData) {
 			const nodes = constellationData.nodes.map(node => {
 				let resolvedImage = "/images/placeholder.png";
 				let resolvedDescription = node.description || "";
-				let resolvedName = node.nodeName;
+				let resolvedName = node.nodeName || "";
 
 				if (node.nodeType === "starPower" || !node.nodeType) {
-					const p = resolvedPowers.find(x => x.name === node.nodeName);
+					const p = resolvedPowers.find(x => x.powerCode === node.powerCode);
 					if (p) {
 						resolvedImage = p.assetAbsolutePath || p.image || resolvedImage;
-						if (!node.description)
-							resolvedDescription = p.description || p.descriptionRaw || "";
+						resolvedDescription =
+							tDynamic(p, "description") || tDynamic(p, "descriptionRaw") || "";
+						resolvedName = tDynamic(p, "name");
 					}
 				} else {
 					const b = fetchedBonusStars.find(
-						x => x.name === node.nodeName || x.bonusStarID === node.nodeName,
+						x => x.bonusStarID === node.bonusStarID,
 					);
 					if (b) {
 						resolvedImage = b.image || resolvedImage;
-						resolvedName = b.name || resolvedName;
-						if (!node.description) resolvedDescription = b.description || "";
+						resolvedName = tDynamic(b, "name");
+						resolvedDescription = tDynamic(b, "description");
 					}
 				}
 
@@ -190,7 +204,7 @@ function ChampionDetail() {
 					name: resolvedName,
 					image: resolvedImage,
 					description: resolvedDescription,
-					pos: node.position,
+					pos: node.position || node.pos,
 					isRecommended: node.isRecommended || false,
 					nodeType: node.nodeType || "starPower",
 					requirements: node.requirements || [],
@@ -198,16 +212,22 @@ function ChampionDetail() {
 			});
 			return { nodes, backgroundImage: constellationData.backgroundImage };
 		}
-		const fallbackNodes = (champion.powerStars || []).map((name, i) => {
-			const p = resolvedPowers.find(x => x.name === name);
+
+		// Fallback nếu không có cấu hình Chòm sao mới
+		const fallbackNodes = (champion.powerStarIds || []).map((id, i) => {
+			const p = resolvedPowers.find(x => x.powerCode === id);
 			return {
 				nodeID: `fallback-${i}`,
-				name,
+				name: p ? tDynamic(p, "name") : id,
 				image: p?.assetAbsolutePath || "/images/placeholder.png",
-				description: p?.description || p?.descriptionRaw || "",
+				description: p
+					? tDynamic(p, "description") || tDynamic(p, "descriptionRaw")
+					: "",
 				pos: { x: 15 + i * 15, y: 50 },
 				nextNodes:
-					i < champion.powerStars.length - 1 ? [`fallback-${i + 1}`] : [],
+					i < (champion.powerStarIds?.length || 0) - 1
+						? [`fallback-${i + 1}`]
+						: [],
 				nodeType: "starPower",
 				isRecommended: false,
 				requirements: [],
@@ -217,70 +237,50 @@ function ChampionDetail() {
 			nodes: fallbackNodes,
 			backgroundImage: champion?.assets?.[0]?.avatar,
 		};
-	}, [champion, constellationData, resolvedPowers, fetchedBonusStars]);
+	}, [
+		champion,
+		constellationData,
+		resolvedPowers,
+		fetchedBonusStars,
+		tDynamic,
+	]);
 
+	// Map mảng ID thành Object hoàn chỉnh để Render
 	const adventurePowersFull = useMemo(
 		() =>
-			(champion?.adventurePowers || []).map(name => {
-				const p = resolvedPowers.find(x => x.name === name);
-				return {
-					name,
-					image: p?.assetAbsolutePath || "/images/placeholder.png",
-					description: p?.description || "",
-					powerCode: p?.powerCode,
-				};
-			}),
+			(champion?.adventurePowerIds || [])
+				.map(id => resolvedPowers.find(x => x.powerCode === id))
+				.filter(Boolean),
 		[champion, resolvedPowers],
 	);
 
 	const defaultItemsFull = useMemo(
 		() =>
-			(champion?.defaultItems || []).map(name => {
-				const i = resolvedItems.find(x => x.name === name);
-				return {
-					name,
-					image: i?.assetAbsolutePath || "/images/placeholder.png",
-					description: i?.description || "",
-					itemCode: i?.itemCode,
-				};
-			}),
+			(champion?.itemIds || [])
+				.map(id => resolvedItems.find(x => x.itemCode === id))
+				.filter(Boolean),
 		[champion, resolvedItems],
 	);
 
-	// TÍNH TOÁN DỮ LIỆU RUNE MỚI ĐƯỢC THÊM VÀO Ở ĐÂY
 	const runesFull = useMemo(
 		() =>
-			(champion?.rune || []).map(name => {
-				const r = resolvedRunes.find(x => x.name === name);
-				return {
-					name,
-					image: r?.assetAbsolutePath || "/images/placeholder.png",
-					description: r?.description || "",
-					runeCode: r?.runeCode,
-				};
-			}),
+			(champion?.runeIds || [])
+				.map(id => resolvedRunes.find(x => x.runeCode === id))
+				.filter(Boolean),
 		[champion, resolvedRunes],
 	);
 
-	const relicSets = useMemo(() => {
-		if (!champion) return [];
-		return Array.from({ length: 6 }, (_, i) => {
-			const names = champion[`defaultRelicsSet${i + 1}`] || [];
-			return {
+	// Xử lý Render Mảng đa chiều cho Bộ Cổ Vật (Relic Sets)
+	const relicSetsToRender = useMemo(() => {
+		if (!champion || !champion.relicSets) return [];
+		return champion.relicSets
+			.map((ids, i) => ({
 				setNumber: i + 1,
-				relics: names
-					.map(name => {
-						const r = resolvedRelics.find(x => x.name === name);
-						return {
-							name,
-							image: r?.assetAbsolutePath || "/images/placeholder.png",
-							description: r?.description || "",
-							relicCode: r?.relicCode,
-						};
-					})
-					.filter(r => r.name),
-			};
-		}).filter(s => s.relics.length > 0);
+				relics: ids
+					.map(id => resolvedRelics.find(x => x.relicCode === id))
+					.filter(Boolean),
+			}))
+			.filter(s => s.relics.length > 0);
 	}, [champion, resolvedRelics]);
 
 	const starPowersList = useMemo(() => {
@@ -293,11 +293,11 @@ function ChampionDetail() {
 
 	if (error)
 		return (
-			<div className='p-10 text-center text-red-500'>
+			<div className='p-10 text-center text-danger-500'>
 				<XCircle size={48} className='mx-auto mb-4 opacity-50' />
 				<p>{error}</p>
 				<Button onClick={() => navigate(-1)} className='mt-4'>
-					Quay lại
+					{tUI("championDetail.back")}
 				</Button>
 			</div>
 		);
@@ -305,8 +305,10 @@ function ChampionDetail() {
 	return (
 		<div className='animate-fadeIn'>
 			<PageTitle
-				title={champion?.name || "Chi tiết tướng"}
-				description={`POC GUIDE cho ${champion?.name}`}
+				title={
+					champion ? tDynamic(champion, "name") : tUI("championDetail.title")
+				}
+				description={`POC GUIDE cho ${champion?.name || ""}`}
 				type='article'
 			/>
 			<div className='max-w-[1200px] mx-auto p-0 sm:p-6 text-text-primary font-secondary'>
@@ -333,19 +335,20 @@ function ChampionDetail() {
 								onClick={() => navigate(-1)}
 								className='mb-4 ml-4 sm:ml-0'
 							>
-								<ChevronLeft size={18} /> Quay lại
+								<ChevronLeft size={18} /> {tUI("championDetail.back")}
 							</Button>
-							<div className='relative mx-auto max-w-[1200px] sm:p-6 rounded-lg bg-surface-bg border'>
-								<div className='flex flex-col md:flex-row border gap-4 rounded-md bg-surface-hover sm:p-4'>
+
+							<div className='relative mx-auto max-w-[1200px] sm:p-6 rounded-lg bg-surface-bg border border-border shadow-md'>
+								<div className='flex flex-col md:flex-row border border-border gap-4 rounded-md bg-surface-hover sm:p-4'>
 									<SafeImage
 										className='h-auto max-h-[300px] object-contain rounded-lg'
 										src={champion.assets?.[0]?.gameAbsolutePath}
-										alt={champion.name}
+										alt={tDynamic(champion, "name")}
 									/>
 									<div className='flex-1'>
 										<div className='flex flex-col sm:flex-row sm:justify-between p-2 m-1 gap-2'>
 											<h1 className='text-2xl sm:text-4xl font-bold font-primary'>
-												{champion.name}
+												{tDynamic(champion, "name")}
 											</h1>
 											<div className='flex flex-wrap gap-2 items-center'>
 												<div className='flex items-center gap-1 px-2.5 py-1.5 bg-yellow-500/20 border border-yellow-500 rounded-full'>
@@ -371,9 +374,9 @@ function ChampionDetail() {
 											</div>
 										</div>
 										<div
-											className={`mt-1 mx-1 p-4 border rounded-lg bg-surface-bg ${!isDescriptionExpanded ? "overflow-y-auto h-48 sm:h-60" : "h-auto"}`}
+											className={`mt-1 mx-1 p-4 border border-border rounded-lg bg-surface-bg ${!isDescriptionExpanded ? "overflow-y-auto h-48 sm:h-60" : "h-auto"}`}
 										>
-											{champion.description
+											{tDynamic(champion, "description")
 												?.replace(/\\n/g, "\n")
 												.split(/\n/)
 												.map((line, i) => (
@@ -388,17 +391,19 @@ function ChampionDetail() {
 											onClick={() =>
 												setIsDescriptionExpanded(!isDescriptionExpanded)
 											}
-											className='text-primary-500 text-sm font-bold mt-2 ml-2'
+											className='text-primary-500 text-sm font-bold mt-2 ml-2 hover:underline'
 										>
-											{isDescriptionExpanded ? "Thu gọn" : "Hiển thị toàn bộ"}
+											{isDescriptionExpanded
+												? tUI("championDetail.showLess")
+												: tUI("championDetail.showMore")}
 										</button>
 									</div>
 								</div>
 
 								{constellationInfo.nodes.length > 0 && (
 									<>
-										<h2 className='p-1 text-lg sm:text-3xl font-semibold my-1 uppercase font-primary mt-6'>
-											Chòm sao
+										<h2 className='p-1 text-lg sm:text-3xl font-semibold my-1 uppercase font-primary mt-6 text-primary-500 border-b border-border'>
+											{tUI("championDetail.constellation")}
 										</h2>
 
 										<ConstellationMap constellationInfo={constellationInfo} />
@@ -410,10 +415,10 @@ function ChampionDetail() {
 									</>
 								)}
 
-								<h2 className='p-1 text-lg sm:text-3xl font-semibold mt-8 font-primary'>
-									Video giới thiệu
+								<h2 className='p-1 text-lg sm:text-3xl font-semibold mt-8 font-primary text-primary-500 border-b border-border'>
+									{tUI("championDetail.video")}
 								</h2>
-								<div className='aspect-video bg-surface-hover rounded-lg mb-1'>
+								<div className='aspect-video bg-surface-hover rounded-lg mb-1 border border-border'>
 									<iframe
 										width='100%'
 										height='100%'
@@ -423,16 +428,17 @@ function ChampionDetail() {
 										}
 										frameBorder='0'
 										allowFullScreen
+										className='rounded-lg'
 									></iframe>
 								</div>
 
-								{relicSets.length > 0 && (
+								{relicSetsToRender.length > 0 && (
 									<>
-										<h2 className='p-1 text-lg sm:text-3xl font-semibold mt-2 font-primary'>
-											Bộ cổ vật
+										<h2 className='p-1 text-lg sm:text-3xl font-semibold mt-6 font-primary text-primary-500 border-b border-border'>
+											{tUI("championDetail.relicSets")}
 										</h2>
-										<div className='grid gap-4 bg-surface-hover p-0 rounded-md'>
-											{relicSets.map((set, idx) => (
+										<div className='grid gap-4 bg-surface-hover p-2 rounded-md border border-border mt-2'>
+											{relicSetsToRender.map((set, idx) => (
 												<div
 													key={idx}
 													className='bg-surface-bg border border-border rounded-lg grid grid-cols-1 md:grid-cols-3'
@@ -448,10 +454,10 @@ function ChampionDetail() {
 
 								{adventurePowersFull.length > 0 && (
 									<>
-										<h2 className='text-lg sm:text-3xl font-semibold my-1 font-primary'>
-											Sức mạnh khuyên dùng
+										<h2 className='p-1 text-lg sm:text-3xl font-semibold mt-6 mb-1 font-primary text-primary-500 border-b border-border'>
+											{tUI("championDetail.recPowers")}
 										</h2>
-										<div className='grid grid-cols-1 md:grid-cols-2 gap-4 bg-surface-hover p-1 rounded-md border border-border'>
+										<div className='grid grid-cols-1 md:grid-cols-2 gap-4 bg-surface-hover p-2 rounded-md border border-border'>
 											{adventurePowersFull.map((power, index) => (
 												<RenderItem key={index} item={power} />
 											))}
@@ -461,10 +467,10 @@ function ChampionDetail() {
 
 								{defaultItemsFull.length > 0 && (
 									<>
-										<h2 className='text-lg sm:text-3xl font-semibold my-1 font-primary'>
-											Vật phẩm khuyên dùng
+										<h2 className='p-1 text-lg sm:text-3xl font-semibold mt-6 mb-1 font-primary text-primary-500 border-b border-border'>
+											{tUI("championDetail.recItems")}
 										</h2>
-										<div className='grid grid-cols-1 md:grid-cols-2 gap-4 bg-surface-hover p-1 rounded-md border border-border'>
+										<div className='grid grid-cols-1 md:grid-cols-2 gap-4 bg-surface-hover p-2 rounded-md border border-border'>
 											{defaultItemsFull.map((item, index) => (
 												<RenderItem key={index} item={item} />
 											))}
@@ -472,13 +478,12 @@ function ChampionDetail() {
 									</>
 								)}
 
-								{/* GIAO DIỆN HIỂN THỊ RUNE MỚI ĐƯỢC THÊM VÀO Ở ĐÂY */}
 								{runesFull.length > 0 && (
 									<>
-										<h2 className='text-lg sm:text-3xl font-semibold my-1 font-primary mt-6'>
-											Ngọc bổ trợ khuyên dùng
+										<h2 className='p-1 text-lg sm:text-3xl font-semibold mt-6 mb-1 font-primary text-primary-500 border-b border-border'>
+											{tUI("championDetail.recRunes")}
 										</h2>
-										<div className='grid grid-cols-1 md:grid-cols-2 gap-4 bg-surface-hover p-1 rounded-md border border-border'>
+										<div className='grid grid-cols-1 md:grid-cols-2 gap-4 bg-surface-hover p-2 rounded-md border border-border'>
 											{runesFull.map((runeItem, index) => (
 												<RenderItem key={index} item={runeItem} />
 											))}
@@ -486,7 +491,7 @@ function ChampionDetail() {
 									</>
 								)}
 
-								<div className='mt-6'>
+								<div className='mt-8'>
 									<LatestComments championID={championID} />
 								</div>
 							</div>

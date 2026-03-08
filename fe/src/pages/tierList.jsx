@@ -1,13 +1,14 @@
-// src/pages/tierList/index.jsx
+// src/pages/tierList.jsx
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion"; // Thêm Framer Motion
-import PageTitle from "../components/common/pageTitle"; // Giả sử bạn có component này để đặt tiêu đề trang
-import TierListChampions from "../components/tierMaker/champions"; // Điều chỉnh đường dẫn theo cấu trúc của bạn
-import TierListRelics from "../components/tierMaker/relics"; // Điều chỉnh đường dẫn theo cấu trúc của bạn
+import { motion, AnimatePresence } from "framer-motion";
+import PageTitle from "../components/common/pageTitle";
+import TierListChampions from "../components/tierMaker/champions";
+import TierListRelics from "../components/tierMaker/relics";
 import { Swords, Sparkles, Loader2 } from "lucide-react";
+import { useTranslation } from "../hooks/useTranslation"; // 🟢 Import Hook Đa ngôn ngữ
 
-// --- THÀNH PHẦN SKELETON CHO HEADER (Đồng bộ phong cách) ---
+// --- THÀNH PHẦN SKELETON CHO HEADER ---
 const TierListHeaderSkeleton = () => (
 	<div className='mb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-2 px-2 animate-pulse'>
 		<div className='h-10 w-64 bg-gray-700/50 rounded-lg' />
@@ -21,92 +22,69 @@ const TierListHeaderSkeleton = () => (
 function TierListIndex() {
 	const navigate = useNavigate();
 	const location = useLocation();
-	const apiUrl = import.meta.env.VITE_API_URL;
+	const { language } = useTranslation(); // 🟢 Khởi tạo Hook
 
-	const [champions, setChampions] = useState([]);
-	const [relics, setRelics] = useState([]);
-	const [isLoading, setIsLoading] = useState(true);
+	const [isInitializing, setIsInitializing] = useState(true);
 
-	const isChampionsActive = location.pathname.includes("/champions");
-	const isRelicsActive = location.pathname.includes("/relics");
-
-	const isRoot =
-		location.pathname === "/tierlist" || location.pathname === "/tierlist/";
-
-	const fetchMetadata = useCallback(async () => {
-		setIsLoading(true);
-		try {
-			const queryLimit = "?page=1&limit=1000";
-			const [champRes, relicRes] = await Promise.all([
-				fetch(`${apiUrl}/api/champions${queryLimit}`),
-				fetch(`${apiUrl}/api/relics${queryLimit}`),
-			]);
-
-			if (!champRes.ok || !relicRes.ok)
-				throw new Error("Không thể tải dữ liệu từ máy chủ");
-
-			const [champData, relicData] = await Promise.all([
-				champRes.json(),
-				relicRes.json(),
-			]);
-
-			setChampions(champData.items || champData || []);
-			setRelics(relicData.items || relicData || []);
-		} catch (error) {
-			console.error("Lỗi khởi tạo dữ liệu Tier List:", error);
-		} finally {
-			// Thêm delay nhẹ 800ms để hiệu ứng Skeleton mượt mà đồng bộ với các trang khác
-			setTimeout(() => setIsLoading(false), 800);
-		}
-	}, [apiUrl]);
+	const isChampionsActive =
+		location.pathname === "/tierlist/champions" ||
+		location.pathname === "/tierlist";
+	const isRelicsActive = location.pathname === "/tierlist/relics";
 
 	useEffect(() => {
-		fetchMetadata();
-	}, [fetchMetadata]);
+		const timer = setTimeout(() => {
+			setIsInitializing(false);
+		}, 300); // Giả lập độ trễ ngắn để tạo hiệu ứng chuyển cảnh mượt
+		return () => clearTimeout(timer);
+	}, [location.pathname]);
 
-	useEffect(() => {
-		if (isRoot) {
-			navigate("/tierlist/champions", { replace: true });
-		}
-	}, [isRoot, navigate]);
-
-	if (isRoot) return null;
+	const renderContent = useCallback(() => {
+		if (isChampionsActive) return <TierListChampions />;
+		if (isRelicsActive) return <TierListRelics />;
+		return <TierListChampions />; // Fallback
+	}, [isChampionsActive, isRelicsActive]);
 
 	return (
-		<div className='animate-fadeIn'>
-			<PageTitle title='Custom Tier List LoR - Huyền Thoại Runeterra' />
+		<div className='min-h-screen bg-bg-primary text-text-primary animate-fadeIn'>
+			<PageTitle
+				title={
+					language === "vi"
+						? "Xếp hạng Tướng & Cổ vật"
+						: "Champions & Relics Tier List"
+				}
+			/>
 
-			<div className='max-w-[1200px] mx-auto p-0 font-secondary text-text-primary'>
+			<div className='max-w-[1400px] mx-auto p-2 sm:p-4 md:p-6 font-secondary'>
 				<AnimatePresence mode='wait'>
-					{isLoading ? (
+					{isInitializing ? (
 						<motion.div
-							key='skeleton-header'
+							key='skeleton'
 							initial={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
 							exit={{ opacity: 0 }}
+							transition={{ duration: 0.2 }}
 						>
 							<TierListHeaderSkeleton />
-							{/* Phần nội dung Skeleton chi tiết sẽ do component con đảm nhiệm hoặc hiển thị Loader ở đây */}
-							<div className='flex flex-col items-center justify-center h-64 gap-4'>
-								<Loader2 className='animate-spin text-primary-500' size={40} />
-								<p className='text-text-secondary animate-pulse'>
-									Đang tải danh sách...
-								</p>
-							</div>
+							<div className='h-[600px] w-full bg-surface-bg border border-border rounded-xl mt-4 animate-pulse' />
 						</motion.div>
 					) : (
 						<motion.div
-							key='tier-list-content'
+							key='content'
 							initial={{ opacity: 0, y: 10 }}
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ duration: 0.3 }}
 						>
-							{/* Header Section */}
-							<div className='mb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-2 px-2'>
+							{/* Header: Title + Navigation Buttons */}
+							<div className='mb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-4 px-2'>
 								<div>
-									<h1 className='text-2xl sm:text-3xl font-bold uppercase mb-0 tracking-tight text-primary-500'>
-										Custom Tier List POC
+									<h1 className='text-2xl sm:text-3xl md:text-4xl font-bold font-primary uppercase text-primary-500'>
+										{language === "vi" ? "BẢNG XẾP HẠNG" : "TIER LIST"}
 									</h1>
+									<p className='text-sm text-text-secondary mt-1 max-w-xl'>
+										{language === "vi"
+											? "Khám phá sức mạnh của các Tướng và Cổ vật trong Path of Champions hiện tại."
+											: "Discover the power rankings of Champions and Relics in the current Path of Champions meta."}
+									</p>
 								</div>
 
 								<div className='flex bg-surface-bg p-1 rounded-xl border border-border shadow-sm w-fit'>
@@ -119,7 +97,7 @@ function TierListIndex() {
 										}`}
 									>
 										<Swords size={18} />
-										TƯỚNG
+										{language === "vi" ? "TƯỚNG" : "CHAMPIONS"}
 									</button>
 									<button
 										onClick={() => navigate("/tierlist/relics")}
@@ -130,18 +108,24 @@ function TierListIndex() {
 										}`}
 									>
 										<Sparkles size={18} />
-										CỔ VẬT
+										{language === "vi" ? "CỔ VẬT" : "RELICS"}
 									</button>
 								</div>
 							</div>
 
 							{/* Nội dung hiển thị dựa trên URL Path */}
 							<div className='min-h-[600px]'>
-								{isChampionsActive && (
-									<TierListChampions initialChampions={champions} />
-								)}
-
-								{isRelicsActive && <TierListRelics initialRelics={relics} />}
+								<AnimatePresence mode='wait'>
+									<motion.div
+										key={location.pathname}
+										initial={{ opacity: 0, x: -10 }}
+										animate={{ opacity: 1, x: 0 }}
+										exit={{ opacity: 0, x: 10 }}
+										transition={{ duration: 0.2 }}
+									>
+										{renderContent()}
+									</motion.div>
+								</AnimatePresence>
 							</div>
 						</motion.div>
 					)}

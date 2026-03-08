@@ -60,7 +60,6 @@ async function backendApiRequest(
 	}
 
 	// TỰ ĐỘNG THÊM /api NẾU THIẾU
-	// Điều này giúp bạn gọi api.post('/analytics/log') mà không bị lỗi 404
 	const safeEndpoint = endpoint.startsWith("/api")
 		? endpoint
 		: `/api${endpoint.startsWith("/") ? "" : "/"}${endpoint}`;
@@ -81,7 +80,7 @@ async function backendApiRequest(
 }
 
 // Đối tượng API hỗ trợ cú pháp ngắn gọn
-const api = {
+export const api = {
 	get: (endpoint, token = null) =>
 		backendApiRequest(endpoint, "GET", null, token),
 	post: (endpoint, body, token = null) =>
@@ -90,7 +89,19 @@ const api = {
 		backendApiRequest(endpoint, "PUT", body, token),
 	delete: (endpoint, token = null) =>
 		backendApiRequest(endpoint, "DELETE", null, token),
+	patch: (endpoint, body, token = null) =>
+		backendApiRequest(endpoint, "PATCH", body, token),
+
+	// --- THÊM MỚI: Hàm Resolve chuyên dụng cho ID-based Schema ---
+	/**
+	 * Gửi mảng IDs lên Backend để lấy về danh sách chi tiết (Vật phẩm, Sức mạnh, Ngọc...)
+	 * @param {string} resourceType - Tên bảng ('items', 'powers', 'relics', 'runes')
+	 * @param {Array<string>} ids - Mảng chứa các ID (VD: ['I0091', 'I0092'])
+	 */
+	resolve: (resourceType, ids) => {
+		if (!Array.isArray(ids) || ids.length === 0) return Promise.resolve([]);
+		return backendApiRequest(`/${resourceType}/resolve`, "POST", { ids });
+	},
 };
 
 export { cognitoApiRequest, backendApiRequest };
-export default api;

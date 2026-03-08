@@ -8,6 +8,7 @@ import {
 	PutItemCommand,
 } from "@aws-sdk/client-dynamodb";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
+import { v4 as uuidv4 } from "uuid";
 import NodeCache from "node-cache";
 import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
@@ -148,7 +149,7 @@ router.post("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 		return res.status(400).json({ error: "Tên tướng là bắt buộc." });
 	}
 
-	const id = uuidv4(); // Dùng uuid cho đồng nhất
+	const id = uuidv4();
 	const newBuild = {
 		...buildData,
 		id,
@@ -201,12 +202,14 @@ router.put("/:id", authenticateCognitoToken, requireAdmin, async (req, res) => {
 		let updateExpression = "SET";
 		const expressionAttributeNames = {};
 		const expressionAttributeValues = {};
+
+		// ĐÃ ĐỔI THÀNH HẬU TỐ "Ids"
 		const allowedFields = [
 			"championName",
 			"description",
-			"relicSet",
-			"powers",
-			"rune",
+			"relicSetIds", // Sửa từ relicSet
+			"powerIds", // Sửa từ powers
+			"runeIds", // Sửa từ rune
 			"star",
 			"display",
 			"like",
@@ -230,7 +233,7 @@ router.put("/:id", authenticateCognitoToken, requireAdmin, async (req, res) => {
 		if (!hasUpdates)
 			return res
 				.status(400)
-				.json({ error: "Không có trường nào để cập nhật." });
+				.json({ error: "Không có trường nào hợp lệ để cập nhật." });
 
 		updateExpression = updateExpression.slice(0, -1);
 		const command = new UpdateItemCommand({
@@ -238,7 +241,9 @@ router.put("/:id", authenticateCognitoToken, requireAdmin, async (req, res) => {
 			Key: marshall({ id }),
 			UpdateExpression: updateExpression,
 			ExpressionAttributeNames: expressionAttributeNames,
-			ExpressionAttributeValues: marshall(expressionAttributeValues),
+			ExpressionAttributeValues: marshall(expressionAttributeValues, {
+				removeUndefinedValues: true,
+			}),
 			ReturnValues: "ALL_NEW",
 		});
 

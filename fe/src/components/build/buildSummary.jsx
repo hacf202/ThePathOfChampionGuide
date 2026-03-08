@@ -13,6 +13,7 @@ import {
 	ChevronRight,
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext.jsx";
+import { useTranslation } from "../../hooks/useTranslation.js"; // 🟢 Import Hook Đa ngôn ngữ
 import Modal from "../common/modal";
 import Button from "../common/button";
 import BuildDelete from "./buildDelete";
@@ -30,13 +31,12 @@ const BuildSummary = ({
 	style,
 	onBuildUpdate,
 	onBuildDelete,
-	// Nhận dữ liệu từ cha
 	initialIsFavorited = false,
 	initialLikeCount = 0,
-	// [QUAN TRỌNG] Biến này xác định xem có cần xóa build khỏi list khi bỏ tim không
 	isFavoritePage = false,
 }) => {
 	const { user, token } = useAuth();
+	const { language, t } = useTranslation(); // 🟢 Khởi tạo Đa ngôn ngữ
 	const navigate = useNavigate();
 	const apiUrl = import.meta.env.VITE_API_URL;
 	const menuRef = useRef(null);
@@ -44,14 +44,10 @@ const BuildSummary = ({
 
 	const [isDescriptionOverflowing, setIsDescriptionOverflowing] =
 		useState(false);
-
-	// Local State cho Like
 	const [likeCount, setLikeCount] = useState(
 		initialLikeCount || build.like || 0,
 	);
 	const [isLiked, setIsLiked] = useState(false);
-
-	// Local State cho Favorite
 	const [isFavorite, setIsFavorite] = useState(initialIsFavorited);
 	const [favoriteCount, setFavoriteCount] = useState(initialLikeCount || 0);
 
@@ -65,18 +61,16 @@ const BuildSummary = ({
 			return build.creatorName;
 		}
 		if (user && build.sub === user.sub) {
-			return user.name || "Tôi";
+			return language === "vi" ? "Tôi" : "Me"; // 🟢 Dịch chữ "Tôi"
 		}
 		return build.creator;
-	}, [build.creatorName, build.creator, build.sub, user]);
+	}, [build.creatorName, build.creator, build.sub, user, language]);
 
-	// Đồng bộ lại khi props thay đổi (đề phòng trường hợp API batch trả về chậm)
 	useEffect(() => {
 		setIsFavorite(initialIsFavorited);
 	}, [initialIsFavorited]);
 
 	useEffect(() => {
-		// Chỉ update count nếu props > 0 hoặc khác logic cũ
 		if (initialLikeCount > 0) setFavoriteCount(initialLikeCount);
 	}, [initialLikeCount]);
 
@@ -122,47 +116,31 @@ const BuildSummary = ({
 		navigate(`/builds/detail/${build.id}`);
 	};
 
-	// Xử lý Like
 	const handleLike = async e => {
 		e.stopPropagation();
 		if (isLiked) return;
-
-		// 1. Optimistic Update: Cập nhật UI ngay lập tức
 		setLikeCount(prev => prev + 1);
 		setIsLiked(true);
 		sessionStorage.setItem(`liked_${build.id}`, "true");
-
 		try {
-			// 2. Gọi API ngầm
-			await fetch(`${apiUrl}/api/builds/${build.id}/like`, {
-				method: "PATCH",
-			});
-			// [QUAN TRỌNG]: Không gọi onBuildUpdate ở đây để tránh reload list cha
+			await fetch(`${apiUrl}/api/builds/${build.id}/like`, { method: "PATCH" });
 		} catch (err) {
-			console.error("Lỗi like:", err);
-			// Revert nếu lỗi
 			setLikeCount(prev => prev - 1);
 			setIsLiked(false);
 		}
 	};
 
-	// Xử lý Favorite
 	const handleToggleFavorite = async e => {
 		e.stopPropagation();
 		if (!user) {
 			setShowLoginModal(true);
 			return;
 		}
-
 		const previousFavorite = isFavorite;
 		const previousCount = favoriteCount;
-
-		// 1. Optimistic Update: Cập nhật UI ngay lập tức
 		setIsFavorite(!previousFavorite);
 		setFavoriteCount(previousFavorite ? previousCount - 1 : previousCount + 1);
-
 		try {
-			// 2. Gọi API ngầm
 			const res = await fetch(`${apiUrl}/api/builds/${build.id}/favorite`, {
 				method: "PATCH",
 				headers: {
@@ -170,19 +148,12 @@ const BuildSummary = ({
 					Authorization: `Bearer ${token}`,
 				},
 			});
-
 			if (!res.ok) throw new Error("Toggle failed");
 			const result = await res.json();
-
-			// [QUAN TRỌNG]: Chỉ gọi callback update nếu đang ở trang Favorite
-			// Để trang Favorite biết mà xóa item đi.
-			// Các trang khác (Community, MyBuilds) KHÔNG cần gọi để tránh reload.
 			if (isFavoritePage) {
 				onBuildUpdate?.({ ...build, isFavorited: result.isFavorited });
 			}
 		} catch (err) {
-			console.error("Lỗi toggle yêu thích:", err);
-			// Revert nếu lỗi
 			setIsFavorite(previousFavorite);
 			setFavoriteCount(previousCount);
 		}
@@ -201,7 +172,7 @@ const BuildSummary = ({
 	};
 
 	const handleConfirmEdit = updated => {
-		onBuildUpdate?.(updated); // Edit nội dung thì vẫn cần update
+		onBuildUpdate?.(updated);
 		setBuildToEdit(null);
 	};
 
@@ -210,44 +181,61 @@ const BuildSummary = ({
 		setBuildToDelete(null);
 	};
 
+	// 🟢 HÀM GIẢI MÃ ID -> OBJECT & LẤY ĐA NGÔN NGỮ
 	const normalizeName = val =>
 		val && typeof val === "object" ? val.S || "" : String(val || "");
-	const findImage = (list, name) =>
-		list.find(item => item?.name === normalizeName(name))?.assetAbsolutePath ||
-		null;
 
-	const championImage = useMemo(() => {
+	const championData = useMemo(() => {
 		const name = normalizeName(build?.championName);
-		return (
-			championsList.find(c => c?.name === name)?.assets?.[0]?.avatar ||
-			"/fallback-image.svg"
-		);
+		return championsList.find(c => c?.name === name);
 	}, [championsList, build?.championName]);
 
-	const artifactImages = useMemo(
-		() => (build.relicSet || []).map(a => findImage(relicsList, a)),
-		[relicsList, build.relicSet],
-	);
-	const powerImages = useMemo(
-		() => (build.powers || []).map(p => findImage(powersList, p)),
-		[powersList, build.powers],
-	);
-	const runeImages = useMemo(
-		() => (build.rune || []).map(r => findImage(runesList, r)),
-		[runesList, build.rune],
+	const championImage =
+		championData?.assets?.[0]?.avatar || "/fallback-image.svg";
+	const championDisplayName = championData
+		? t(championData, "name")
+		: normalizeName(build?.championName);
+
+	// 🟢 Ánh xạ ID sang Object thay vì Tên
+	const artifactItems = useMemo(
+		() =>
+			(build.relicSetIds || []).map(id =>
+				relicsList.find(r => r.relicCode === id),
+			),
+		[relicsList, build.relicSetIds],
 	);
 
-	const renderImageWithTooltip = (name, src, type, index) => {
-		const key = `${build.id}-${type}-${normalizeName(name)}-${index}`;
+	const powerItems = useMemo(
+		() =>
+			(build.powerIds || []).map(id =>
+				powersList.find(p => p.powerCode === id),
+			),
+		[powersList, build.powerIds],
+	);
+
+	const runeItems = useMemo(
+		() =>
+			(build.runeIds || []).map(id => runesList.find(r => r.runeCode === id)),
+		[runesList, build.runeIds],
+	);
+
+	// 🟢 Render Image nhận cả 1 Object (item) để có thể dịch tooltips tự động
+	const renderImageWithTooltip = (item, type, index) => {
+		if (!item) return null; // Bỏ qua an toàn nếu ID không tìm thấy
+
+		const idKey = item.relicCode || item.powerCode || item.runeCode || index;
+		const key = `${build.id}-${type}-${idKey}-${index}`;
+		const itemName = t(item, "name");
+
 		return (
 			<div key={key} className='group relative'>
 				<SafeImage
-					src={src || "/fallback-image.svg"}
-					alt={normalizeName(name)}
+					src={item.assetAbsolutePath || "/fallback-image.svg"}
+					alt={itemName}
 					className='w-16 h-16 rounded-md border-2 border-border object-cover'
 				/>
 				<div className='absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-10'>
-					{normalizeName(name)}
+					{itemName}
 				</div>
 			</div>
 		);
@@ -266,15 +254,16 @@ const BuildSummary = ({
 						<div className='flex items-center gap-3'>
 							<SafeImage
 								src={championImage}
-								alt={normalizeName(build.championName)}
+								alt={championDisplayName}
 								className='w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover border-2 border-border'
 							/>
 							<div>
 								<h3 className='font-bold text-base sm:text-lg text-text-primary'>
-									{normalizeName(build.championName)}
+									{championDisplayName}
 								</h3>
 								<p className='text-xs sm:text-sm text-text-secondary'>
-									Tạo bởi: <span className='font-medium'>{displayCreator}</span>
+									{language === "vi" ? "Tạo bởi:" : "Created by:"}{" "}
+									<span className='font-medium'>{displayCreator}</span>
 								</p>
 							</div>
 						</div>
@@ -282,7 +271,6 @@ const BuildSummary = ({
 						{/* Actions */}
 						<div className='flex flex-col items-end gap-2'>
 							<div onClick={e => e.stopPropagation()}>
-								{/* Menu */}
 								<div className='relative' ref={menuRef}>
 									<button
 										onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -304,7 +292,13 @@ const BuildSummary = ({
 													}`}
 												/>
 												<span>
-													{isFavorite ? "Bỏ yêu thích" : "Yêu thích"}{" "}
+													{isFavorite
+														? language === "vi"
+															? "Bỏ yêu thích"
+															: "Unfavorite"
+														: language === "vi"
+															? "Yêu thích"
+															: "Favorite"}{" "}
 													{favoriteCount > 0 && `(${favoriteCount})`}
 												</span>
 											</button>
@@ -317,7 +311,13 @@ const BuildSummary = ({
 														<EyeOff size={18} className='text-danger-500' />
 													)}
 													<span>
-														{build.display ? "Công khai" : "Riêng tư"}
+														{build.display
+															? language === "vi"
+																? "Công khai"
+																: "Public"
+															: language === "vi"
+																? "Riêng tư"
+																: "Private"}
 													</span>
 												</div>
 											)}
@@ -329,13 +329,15 @@ const BuildSummary = ({
 														onClick={handleEdit}
 														className='w-full flex items-center gap-3 px-4 py-2 text-left text-sm text-text-secondary hover:bg-surface-hover'
 													>
-														<Edit size={18} /> <span>Sửa</span>
+														<Edit size={18} />{" "}
+														<span>{language === "vi" ? "Sửa" : "Edit"}</span>
 													</button>
 													<button
 														onClick={handleDeleteClick}
 														className='w-full flex items-center gap-3 px-4 py-2 text-left text-sm text-danger-500 hover:bg-surface-hover'
 													>
-														<Trash2 size={18} /> <span>Xóa</span>
+														<Trash2 size={18} />{" "}
+														<span>{language === "vi" ? "Xóa" : "Delete"}</span>
 													</button>
 												</>
 											)}
@@ -348,38 +350,38 @@ const BuildSummary = ({
 
 					{/* Nội dung build */}
 					<div className='flex flex-col gap-3 text-sm'>
-						{build.relicSet?.length > 0 && (
+						{artifactItems.length > 0 && (
 							<div>
 								<p className='text-text-primary font-semibold mb-1 text-xs sm:text-sm'>
-									Cổ Vật:
+									{language === "vi" ? "Cổ Vật:" : "Relics:"}
 								</p>
 								<div className='flex flex-wrap gap-1.5 sm:gap-2'>
-									{build.relicSet.map((a, i) =>
-										renderImageWithTooltip(a, artifactImages[i], "artifact", i),
+									{artifactItems.map((a, i) =>
+										renderImageWithTooltip(a, "artifact", i),
 									)}
 								</div>
 							</div>
 						)}
-						{build.rune?.length > 0 && (
+						{runeItems.length > 0 && (
 							<div>
 								<p className='text-text-primary font-semibold mb-1 text-xs sm:text-sm'>
-									Ngọc:
+									{language === "vi" ? "Ngọc:" : "Runes:"}
 								</p>
 								<div className='flex flex-wrap gap-1.5 sm:gap-2'>
-									{build.rune.map((r, i) =>
-										renderImageWithTooltip(r, runeImages[i], "rune", i),
+									{runeItems.map((r, i) =>
+										renderImageWithTooltip(r, "rune", i),
 									)}
 								</div>
 							</div>
 						)}
-						{build.powers?.length > 0 && (
+						{powerItems.length > 0 && (
 							<div>
 								<p className='text-text-primary font-semibold mb-1 text-xs sm:text-sm'>
-									Sức mạnh:
+									{language === "vi" ? "Sức mạnh:" : "Powers:"}
 								</p>
 								<div className='flex flex-wrap gap-1.5 sm:gap-2'>
-									{build.powers.map((p, i) =>
-										renderImageWithTooltip(p, powerImages[i], "power", i),
+									{powerItems.map((p, i) =>
+										renderImageWithTooltip(p, "power", i),
 									)}
 								</div>
 							</div>
@@ -407,15 +409,15 @@ const BuildSummary = ({
 									onClick={handleViewDetail}
 									className='inline-flex items-center gap-1 text-primary-500 hover:underline text-xs sm:text-sm font-medium mt-1'
 								>
-									Xem thêm...
+									{language === "vi" ? "Xem thêm..." : "See more..."}
 									<ChevronRight size={12} />
 								</button>
 							)}
 						</div>
 					)}
-					{/* --- ĐOẠN CODE ĐÃ CHỈNH SỬA --- */}
+
 					<div
-						className='mt-auto pt-2 flex items-center gap-4' // Thêm mt-auto để đẩy xuống đáy, tăng gap để thoáng hơn
+						className='mt-auto pt-2 flex items-center gap-4'
 						onClick={e => e.stopPropagation()}
 					>
 						{/* Like Section */}
@@ -443,10 +445,8 @@ const BuildSummary = ({
 								{likeCount}
 							</span>
 
-							{/* Tooltip Like */}
 							<div className='absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50'>
-								Thích
-								{/* Mũi tên nhỏ trỏ xuống (tuỳ chọn) */}
+								{language === "vi" ? "Thích" : "Like"}
 								<div className='absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900'></div>
 							</div>
 						</div>
@@ -473,9 +473,14 @@ const BuildSummary = ({
 								</span>
 							)}
 
-							{/* Tooltip Favorite */}
 							<div className='absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50'>
-								{isFavorite ? "Bỏ yêu thích" : "Thêm vào danh sách yêu thích"}
+								{isFavorite
+									? language === "vi"
+										? "Bỏ yêu thích"
+										: "Unfavorite"
+									: language === "vi"
+										? "Thêm vào danh sách yêu thích"
+										: "Add to favorites"}
 								<div className='absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900'></div>
 							</div>
 						</div>
@@ -489,14 +494,14 @@ const BuildSummary = ({
 								{build.star}
 							</span>
 
-							{/* Tooltip Star */}
 							<div className='absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50'>
-								Cấp sao của tướng
+								{language === "vi"
+									? "Cấp sao của tướng"
+									: "Champion Star Level"}
 								<div className='absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900'></div>
 							</div>
 						</div>
 					</div>
-					{/* --- HẾT PHẦN CHỈNH SỬA --- */}
 				</div>
 			</div>
 
@@ -504,14 +509,16 @@ const BuildSummary = ({
 			<Modal
 				isOpen={showLoginModal}
 				onClose={() => setShowLoginModal(false)}
-				title='Yêu cầu đăng nhập'
+				title={language === "vi" ? "Yêu cầu đăng nhập" : "Login Required"}
 			>
 				<p className='text-text-secondary mb-6'>
-					Bạn cần đăng nhập để thực hiện hành động này.
+					{language === "vi"
+						? "Bạn cần đăng nhập để thực hiện hành động này."
+						: "You must be logged in to perform this action."}
 				</p>
 				<div className='flex justify-end gap-4'>
 					<Button variant='ghost' onClick={() => setShowLoginModal(false)}>
-						Hủy
+						{language === "vi" ? "Hủy" : "Cancel"}
 					</Button>
 					<Button
 						variant='primary'
@@ -520,7 +527,7 @@ const BuildSummary = ({
 							navigate("/auth");
 						}}
 					>
-						Đăng nhập
+						{language === "vi" ? "Đăng nhập" : "Login"}
 					</Button>
 				</div>
 			</Modal>

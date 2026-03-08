@@ -11,6 +11,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { AuthContext } from "../../context/AuthContext.jsx";
 import BuildSummary from "./buildSummary";
 import { useBatchFavoriteData } from "../../hooks/useBatchFavoriteData";
+import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook
 import { removeAccents } from "../../utils/vietnameseUtils";
 import Button from "../common/button.jsx";
 import { XCircle } from "lucide-react";
@@ -39,278 +40,235 @@ const MyBuilds = ({
 	searchTerm,
 	selectedStarLevels,
 	selectedRegions,
+	sortBy,
+	currentPage,
+	setCurrentPage,
 	championsList,
 	relicsList,
 	powersList,
 	runesList,
 	refreshKey,
+	powerMap,
 	championNameToRegionsMap,
-	onEditSuccess,
-	onDeleteSuccess,
-	getCache,
-	setCache,
-	sortBy,
 	showDesktopFilter,
 }) => {
-	const { user, token } = useContext(AuthContext);
-	const [myBuilds, setMyBuilds] = useState([]);
-	const [isLoading, setIsLoading] = useState(true);
+	const { token, user } = useContext(AuthContext);
+	const { language } = useTranslation(); // 🟢 Khởi tạo ngôn ngữ
+	const [allBuilds, setAllBuilds] = useState([]);
+	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
-	const [currentPage, setCurrentPage] = useState(1);
-	const isFetching = useRef(false);
+	const containerRef = useRef(null);
 
-	const apiUrl = import.meta.env.VITE_API_URL;
-	const { favoriteStatus, favoriteCounts } = useBatchFavoriteData(
-		myBuilds,
-		token,
-	);
-
-	// --- LOGIC FETCH DỮ LIỆU ---
 	const fetchMyBuilds = useCallback(async () => {
-		if (!token || isFetching.current) return;
-		isFetching.current = true;
-		setIsLoading(true);
-
-		const cacheKey = "my-builds";
-		const cached = getCache?.(cacheKey);
-
-		if (cached) {
-			setMyBuilds(cached);
-			setTimeout(() => {
-				setIsLoading(false);
-				isFetching.current = false;
-			}, 400);
-			return;
-		}
-
+		setLoading(true);
+		setError(null);
 		try {
+			const apiUrl = import.meta.env.VITE_API_URL;
 			const response = await fetch(`${apiUrl}/api/builds/my-builds`, {
 				headers: { Authorization: `Bearer ${token}` },
 			});
 			if (!response.ok)
-				throw new Error("Không thể tải danh sách build của bạn");
+				throw new Error(
+					language === "vi" ? "Lỗi tải dữ liệu" : "Failed to fetch data",
+				);
 			const data = await response.json();
-			const items = data.items || [];
-			setMyBuilds(items);
-			if (setCache) setCache(cacheKey, items);
+			setAllBuilds(data.items || []);
 		} catch (err) {
 			setError(err.message);
 		} finally {
-			setTimeout(() => {
-				setIsLoading(false);
-				isFetching.current = false;
-			}, 400);
+			setLoading(false);
 		}
-	}, [token, refreshKey, apiUrl, getCache, setCache]);
+	}, [token, language]);
 
 	useEffect(() => {
-		fetchMyBuilds();
-	}, [fetchMyBuilds]);
+		if (token) fetchMyBuilds();
+	}, [fetchMyBuilds, refreshKey, token]);
 
-	// --- SIDE EFFECTS LỌC ---
-	// Tự động về trang 1 khi thay đổi bộ lọc
-	useEffect(() => {
-		setCurrentPage(1);
-	}, [searchTerm, selectedStarLevels, selectedRegions, sortBy]);
-
-	// --- HÀM XỬ LÝ CẬP NHẬT/XÓA ---
-	const handleBuildUpdated = useCallback(
-		updatedBuild => {
-			setMyBuilds(current =>
-				current.map(b => (b.id === updatedBuild.id ? updatedBuild : b)),
-			);
-			if (onEditSuccess) onEditSuccess();
-		},
-		[onEditSuccess],
-	);
-
-	const handleBuildDeleted = useCallback(
-		deletedBuildId => {
-			setMyBuilds(current => current.filter(b => b.id !== deletedBuildId));
-			if (onDeleteSuccess) onDeleteSuccess();
-		},
-		[onDeleteSuccess],
-	);
-
-	// --- LOGIC LỌC VÀ SẮP XẾP ---
-	const filteredMyBuilds = useMemo(() => {
-		let result = [...myBuilds];
-		const starFilters = selectedStarLevels ? selectedStarLevels.split(",") : [];
-		const regionFilters = selectedRegions ? selectedRegions.split(",") : [];
+	const filteredBuilds = useMemo(() => {
+		let result = [...allBuilds];
 
 		if (searchTerm) {
-			const lowerTerm = removeAccents(searchTerm.toLowerCase());
+			const searchKey = removeAccents(searchTerm.toLowerCase());
 			result = result.filter(
 				b =>
 					removeAccents((b.championName || "").toLowerCase()).includes(
-						lowerTerm,
+						searchKey,
 					) ||
 					removeAccents((b.description || "").toLowerCase()).includes(
-						lowerTerm,
+						searchKey,
 					),
 			);
 		}
-		if (starFilters.length > 0)
-			result = result.filter(b => starFilters.includes(String(b.star)));
-		if (regionFilters.length > 0) {
-			result = result.filter(b => {
-				const bRegs =
-					b.regions || championNameToRegionsMap?.get(b.championName) || [];
-				return bRegs.some(r => regionFilters.includes(r));
+
+		if (selectedStarLevels.length > 0) {
+			const levels = selectedStarLevels.split(",");
+			result = result.filter(b => levels.includes(String(b.star)));
+		}
+
+		if (selectedRegions.length > 0) {
+			const regions = selectedRegions.split(",");
+			result = result.filter(b => b.regions?.some(r => regions.includes(r)));
+		}
+
+		if (sortBy) {
+			const [field, order] = sortBy.split("-");
+			result.sort((a, b) => {
+				let valA = a[field] || "";
+				let valB = b[field] || "";
+				if (field === "createdAt") {
+					valA = new Date(valA).getTime();
+					valB = new Date(valB).getTime();
+				}
+				if (typeof valA === "string" && typeof valB === "string") {
+					return order === "asc"
+						? valA.localeCompare(valB)
+						: valB.localeCompare(valA);
+				}
+				return order === "asc" ? valA - valB : valB - valA;
 			});
 		}
 
-		const [field, order] = sortBy.split("-");
-		result.sort((a, b) => {
-			let vA = a[field] ?? "";
-			let vB = b[field] ?? "";
-			if (field === "createdAt") {
-				vA = new Date(vA);
-				vB = new Date(vB);
-			}
-			return order === "asc" ? (vA > vB ? 1 : -1) : vA < vB ? 1 : -1;
-		});
 		return result;
-	}, [
-		myBuilds,
-		searchTerm,
-		selectedStarLevels,
-		selectedRegions,
-		sortBy,
-		championNameToRegionsMap,
-	]);
+	}, [allBuilds, searchTerm, selectedStarLevels, selectedRegions, sortBy]);
 
-	const totalPages = Math.ceil(filteredMyBuilds.length / ITEMS_PER_PAGE);
-	const currentBuilds = useMemo(() => {
-		return filteredMyBuilds.slice(
-			(currentPage - 1) * ITEMS_PER_PAGE,
-			currentPage * ITEMS_PER_PAGE,
-		);
-	}, [filteredMyBuilds, currentPage]);
-
-	// --- ĐIỀU HƯỚNG ---
-	const goToNextPage = useCallback(() => {
-		if (currentPage < totalPages && !isLoading) {
-			setCurrentPage(p => p + 1);
-			window.scrollTo({ top: 0, behavior: "smooth" });
-		}
-	}, [currentPage, totalPages, isLoading]);
-
-	const goToPrevPage = useCallback(() => {
-		if (currentPage > 1 && !isLoading) {
-			setCurrentPage(p => p - 1);
-			window.scrollTo({ top: 0, behavior: "smooth" });
-		}
-	}, [currentPage, isLoading]);
+	const totalPages = Math.ceil(filteredBuilds.length / ITEMS_PER_PAGE);
+	const paginatedBuilds = filteredBuilds.slice(
+		(currentPage - 1) * ITEMS_PER_PAGE,
+		currentPage * ITEMS_PER_PAGE,
+	);
 
 	useEffect(() => {
-		const handleKeyDown = e => {
-			if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA")
-				return;
-			if (e.key === "ArrowLeft") goToPrevPage();
-			if (e.key === "ArrowRight") goToNextPage();
-		};
-		window.addEventListener("keydown", handleKeyDown);
-		return () => window.removeEventListener("keydown", handleKeyDown);
-	}, [goToNextPage, goToPrevPage]);
+		if (currentPage > totalPages && totalPages > 0) {
+			setCurrentPage(totalPages);
+		} else if (totalPages === 0 && currentPage !== 1) {
+			setCurrentPage(1);
+		}
+	}, [totalPages, currentPage, setCurrentPage]);
+
+	const { favoriteStatus, favoriteCounts, toggleFavorite } =
+		useBatchFavoriteData(paginatedBuilds, user?.sub);
+
+	const handleBuildUpdated = updatedBuild => {
+		setAllBuilds(prev =>
+			prev.map(b => (b.id === updatedBuild.id ? updatedBuild : b)),
+		);
+	};
+
+	const handleBuildDeleted = deletedBuildId => {
+		setAllBuilds(prev => prev.filter(b => b.id !== deletedBuildId));
+	};
+
+	const goToNextPage = () => {
+		if (currentPage < totalPages) {
+			setCurrentPage(prev => prev + 1);
+			containerRef.current?.scrollIntoView({ behavior: "smooth" });
+		}
+	};
+
+	const goToPrevPage = () => {
+		if (currentPage > 1) {
+			setCurrentPage(prev => prev - 1);
+			containerRef.current?.scrollIntoView({ behavior: "smooth" });
+		}
+	};
 
 	if (error)
 		return (
-			<p className='text-danger-text-dark text-center py-10 font-bold'>
-				{error}
-			</p>
+			<div className='text-center py-10 text-danger-text-dark bg-danger-bg-light rounded-lg'>
+				<p>{error}</p>
+			</div>
 		);
 
 	return (
-		<div className='space-y-4'>
-			<div className='flex justify-between items-center px-1'>
-				<h2 className='text-xl font-bold text-primary-500 font-primary'>
-					Bộ cổ vật của tôi
-				</h2>
-				<span className='text-sm text-text-secondary bg-surface-bg-alt px-3 py-1 rounded-full border border-border'>
-					{filteredMyBuilds.length} build
-				</span>
-			</div>
-
+		<div ref={containerRef} className='min-h-[400px]'>
 			<AnimatePresence mode='wait'>
-				{isLoading ? (
+				{loading ? (
 					<motion.div
 						key='skeleton'
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						exit={{ opacity: 0 }}
-						className={`grid grid-cols-1 md:grid-cols-2 ${showDesktopFilter ? "xl:grid-cols-3" : "xl:grid-cols-4"} gap-6`}
+						className={`grid gap-4 ${
+							showDesktopFilter
+								? "grid-cols-1 md:grid-cols-2"
+								: "grid-cols-1 md:grid-cols-2 xl:grid-cols-3"
+						}`}
 					>
-						{[...Array(6)].map((_, i) => (
+						{[...Array(ITEMS_PER_PAGE)].map((_, i) => (
 							<BuildSkeleton key={i} />
 						))}
 					</motion.div>
-				) : (
-					<motion.div
-						key='content'
-						initial={{ opacity: 0, y: 10 }}
-						animate={{ opacity: 1, y: 0 }}
-						exit={{ opacity: 0, y: -10 }}
-						transition={{ duration: 0.3 }}
-					>
-						{currentBuilds.length > 0 ? (
-							<>
-								<div
-									className={`grid grid-cols-1 md:grid-cols-2 ${showDesktopFilter ? "xl:grid-cols-3" : "xl:grid-cols-4"} gap-6`}
+				) : paginatedBuilds.length > 0 ? (
+					<>
+						<div
+							className={`grid gap-4 ${
+								showDesktopFilter
+									? "grid-cols-1 md:grid-cols-2"
+									: "grid-cols-1 md:grid-cols-2 xl:grid-cols-3"
+							}`}
+						>
+							{paginatedBuilds.map(build => (
+								<motion.div
+									key={build.id}
+									layout
+									initial={{ opacity: 0, scale: 0.9 }}
+									animate={{ opacity: 1, scale: 1 }}
+									transition={{ duration: 0.2 }}
 								>
-									{currentBuilds.map(build => (
-										<motion.div key={build.id} layout>
-											<BuildSummary
-												build={{ ...build, creatorName: user?.name || "Tôi" }}
-												championsList={championsList}
-												relicsList={relicsList}
-												powersList={powersList}
-												runesList={runesList}
-												onBuildUpdate={handleBuildUpdated}
-												onBuildDelete={handleBuildDeleted}
-												initialIsFavorited={!!favoriteStatus[build.id]}
-												initialLikeCount={
-													favoriteCounts[build.id] || build.like || 0
-												}
-												isFavoritePage={false}
-											/>
-										</motion.div>
-									))}
-								</div>
-								{totalPages > 1 && (
-									<div className='mt-10 flex justify-center items-center gap-4 border-t border-border pt-6'>
-										<Button
-											onClick={goToPrevPage}
-											disabled={currentPage === 1}
-											variant='outline'
-										>
-											Trang trước
-										</Button>
-										<span className='font-bold text-primary-500 bg-primary-100/10 px-4 py-1.5 rounded-full border border-primary-500/20'>
-											{currentPage} / {totalPages}
-										</span>
-										<Button
-											onClick={goToNextPage}
-											disabled={currentPage === totalPages}
-											variant='outline'
-										>
-											Trang sau
-										</Button>
-									</div>
-								)}
-							</>
-						) : (
-							<div className='text-center py-20 bg-surface-bg-alt rounded-lg border border-dashed border-border'>
-								<XCircle
-									size={48}
-									className='mx-auto mb-4 opacity-20 text-text-secondary'
-								/>
-								<p className='text-text-secondary italic'>
-									Bạn chưa có bộ cổ vật nào phù hợp.
-								</p>
+									<BuildSummary
+										build={build}
+										championsList={championsList}
+										relicsList={relicsList}
+										powersList={powersList}
+										runesList={runesList}
+										powerMap={powerMap}
+										championNameToRegionsMap={championNameToRegionsMap}
+										showDesktopFilter={showDesktopFilter}
+										onBuildUpdate={handleBuildUpdated}
+										onBuildDelete={handleBuildDeleted}
+										initialIsFavorited={!!favoriteStatus[build.id]}
+										initialLikeCount={
+											favoriteCounts[build.id] || build.like || 0
+										}
+										isFavoritePage={false}
+									/>
+								</motion.div>
+							))}
+						</div>
+						{totalPages > 1 && (
+							<div className='mt-10 flex justify-center items-center gap-4 border-t border-border pt-6'>
+								<Button
+									onClick={goToPrevPage}
+									disabled={currentPage === 1}
+									variant='outline'
+								>
+									{language === "vi" ? "Trang trước" : "Previous"}
+								</Button>
+								<span className='font-bold text-primary-500 bg-primary-100/10 px-4 py-1.5 rounded-full border border-primary-500/20'>
+									{currentPage} / {totalPages}
+								</span>
+								<Button
+									onClick={goToNextPage}
+									disabled={currentPage === totalPages}
+									variant='outline'
+								>
+									{language === "vi" ? "Trang sau" : "Next"}
+								</Button>
 							</div>
 						)}
-					</motion.div>
+					</>
+				) : (
+					<div className='text-center py-20 bg-surface-bg-alt rounded-lg border border-dashed border-border'>
+						<XCircle
+							size={48}
+							className='mx-auto mb-4 opacity-20 text-text-secondary'
+						/>
+						<p className='text-text-secondary italic'>
+							{language === "vi"
+								? "Bạn chưa có bộ cổ vật nào phù hợp."
+								: "You have no matching builds."}
+						</p>
+					</div>
 				)}
 			</AnimatePresence>
 		</div>

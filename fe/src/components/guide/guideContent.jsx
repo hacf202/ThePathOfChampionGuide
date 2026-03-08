@@ -2,11 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { ExternalLink } from "lucide-react";
 import { removeAccents } from "../../utils/vietnameseUtils.js";
+import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook Đa ngôn ngữ
+
 /**
  * Hàm hỗ trợ tạo ID từ tiêu đề để làm Anchor Link
  */
 
 const ContentBlock = ({ block, referenceData }) => {
+	const { language, t } = useTranslation(); // 🟢 Khởi tạo Hook
+
 	if (!block) return null;
 
 	const renderHtml = text => (
@@ -18,6 +22,7 @@ const ContentBlock = ({ block, referenceData }) => {
 			return (
 				<section
 					className='mb-8 mt-6 scroll-mt-20'
+					// ID neo luôn dùng title gốc để đảm bảo Table of Content trỏ đúng
 					id={removeAccents(block.title)}
 				>
 					{block.title && (
@@ -28,7 +33,7 @@ const ContentBlock = ({ block, referenceData }) => {
 								borderColor: "var(--color-border)",
 							}}
 						>
-							{block.title}
+							{t(block, "title")}
 						</h2>
 					)}
 					{block.content &&
@@ -45,236 +50,289 @@ const ContentBlock = ({ block, referenceData }) => {
 		case "paragraph":
 			return (
 				<p
-					className='leading-relaxed mb-4 text-lg'
-					style={{
-						color: "var(--color-text-primary)",
-						fontFamily: "var(--font-secondary)",
+					className='text-base sm:text-lg mb-4 leading-relaxed'
+					style={{ color: "var(--color-text-secondary)" }}
+					dangerouslySetInnerHTML={{
+						__html: t(block, "content") || block.content,
 					}}
-				>
-					{renderHtml(block.text)}
-				</p>
+				/>
 			);
 
-		case "image":
-			return (
-				<figure className='my-8 flex flex-col items-center'>
-					<img
-						src={block.src}
-						alt={block.alt || "Guide Image"}
-						className='rounded-lg shadow-md max-w-full h-auto object-cover'
-						style={{ maxHeight: "500px" }}
-					/>
-					{block.alt && (
-						<figcaption
-							className='mt-2 text-sm italic text-center'
-							style={{ color: "var(--color-text-secondary)" }}
-						>
-							{block.alt}
-						</figcaption>
-					)}
-				</figure>
-			);
+		// 🟢 SỬA LỖI Ở ĐÂY: Thêm ngoặc nhọn {} bao bọc toàn bộ case
+		case "table": {
+			// Xử lý map dữ liệu từ bảng với referenceData
+			const resolvedData = block.data.map(row => {
+				const newRow = { ...row };
+				block.columns.forEach(col => {
+					if (col.type === "reference" && row[col.key]) {
+						const refId = row[col.key];
+						const refType = col.referenceType; // 'champions', 'relics', 'powers'
 
-		case "link":
-			return (
-				<div className='my-8'>
-					<a
-						href={block.url}
-						target='_blank'
-						rel='noopener noreferrer'
-						className='flex items-center gap-4 p-4 rounded-2xl border shadow-sm transition-all hover:shadow-md group'
-						style={{
-							backgroundColor: "var(--color-white)",
-							borderColor: "var(--color-border)",
-						}}
-					>
-						{block.image && (
-							<div
-								className='flex-shrink-0 w-20 h-20 md:w-24 md:h-24 overflow-hidden rounded-xl border'
-								style={{ borderColor: "var(--color-border)" }}
-							>
-								<img
-									src={block.image}
-									alt={block.label}
-									className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-500'
-								/>
-							</div>
-						)}
-						<div className='flex-1 min-w-0'>
-							<h4
-								className='font-bold text-lg md:text-xl truncate group-hover:text-blue-600 transition-colors'
-								style={{
-									color: "var(--color-text-primary)",
-									fontFamily: "var(--font-primary)",
-								}}
-							>
-								{block.label || "Xem liên kết"}
-							</h4>
-							<p
-								className='text-sm truncate opacity-60 mt-1'
-								style={{ color: "var(--color-text-secondary)" }}
-							>
-								{block.url}
-							</p>
-						</div>
-						<div className='text-gray-400 group-hover:text-blue-500 transition-colors pr-2'>
-							<ExternalLink size={24} />
-						</div>
-					</a>
-				</div>
-			);
+						if (referenceData[refType] && referenceData[refType][refId]) {
+							const refItem = referenceData[refType][refId];
 
-		case "list":
-			return (
-				<ul
-					className='list-disc list-outside ml-6 mb-6 space-y-2 text-lg'
-					style={{ color: "var(--color-text-primary)" }}
-				>
-					{block.items.map((item, index) => (
-						<li key={index}>{renderHtml(item)}</li>
-					))}
-				</ul>
-			);
+							// Xây dựng URL động
+							let link = "#";
+							if (refType === "champions") link = `/champion/${refId}`;
+							else if (refType === "relics") link = `/relic/${refId}`;
+							else if (refType === "powers") link = `/power/${refId}`;
 
-		case "table":
+							newRow[col.key] = {
+								...refItem,
+								link,
+							};
+						} else {
+							// Đánh dấu lỗi nếu không tìm thấy dữ liệu tham chiếu
+							newRow._error = true;
+						}
+					}
+				});
+				return newRow;
+			});
+
+			if (resolvedData.some(row => row._error)) {
+				return (
+					<div className='p-4 bg-red-50 text-red-600 rounded-md mb-4 border border-red-200'>
+						{language === "vi"
+							? "Có lỗi xảy ra khi tải dữ liệu tham chiếu."
+							: "An error occurred while loading reference data."}
+					</div>
+				);
+			}
+
+			if (resolvedData.length === 0) {
+				return (
+					<p className='italic text-gray-500'>
+						{language === "vi" ? "Chưa có dữ liệu." : "No data available."}
+					</p>
+				);
+			}
+
 			return (
-				<div
-					className='my-6 overflow-x-auto border rounded-lg shadow-sm'
-					style={{ borderColor: "var(--color-border)" }}
-				>
-					{block.title && (
-						<div
-							className='px-4 py-2 font-bold border-b'
-							style={{ color: "var(--color-text-primary)" }}
-						>
-							{block.title}
-						</div>
-					)}
-					<table
-						className='min-w-full divide-y'
-						style={{ borderColor: "var(--color-gray-300)" }}
-					>
-						<thead style={{ backgroundColor: "var(--color-gray-100)" }}>
-							<tr>
-								{block.headers?.map((header, index) => (
+				<div className='overflow-x-auto mb-6 rounded-lg border border-gray-200 shadow-sm'>
+					<table className='w-full text-left border-collapse'>
+						<thead>
+							<tr className='bg-gray-50 border-b border-gray-200'>
+								{block.columns.map((col, index) => (
 									<th
 										key={index}
-										className='px-4 py-2 text-left font-bold text-sm uppercase text-gray-600'
+										className='p-3 font-semibold text-gray-700 text-sm whitespace-nowrap'
 									>
-										{header}
+										{t(col, "label") || col.label}
 									</th>
 								))}
 							</tr>
 						</thead>
-						<tbody
-							className='divide-y'
-							style={{ borderColor: "var(--color-gray-300)" }}
-						>
-							{block.rows?.map((row, rowIndex) => {
-								const championId = block.championIds?.[rowIndex];
-								const relicId = block.relicIds?.[rowIndex];
-								const powerId = block.powerIds?.[rowIndex];
+						<tbody className='divide-y divide-gray-100'>
+							{resolvedData.map((row, rowIndex) => (
+								<tr
+									key={rowIndex}
+									className='hover:bg-gray-50 transition-colors'
+								>
+									{block.columns.map((col, colIndex) => {
+										const cellData = row[col.key];
+										if (!cellData)
+											return <td key={colIndex} className='p-3'></td>;
 
-								const reference =
-									referenceData?.champions?.[championId] ||
-									referenceData?.relics?.[relicId] ||
-									referenceData?.powers?.[powerId];
+										if (col.type === "reference") {
+											// Dịch Tên & Mô tả từ cục dữ liệu Reference
+											const itemName = t(cellData, "name") || cellData.name;
+											const itemDesc =
+												t(cellData, "descriptionRaw") ||
+												t(cellData, "description") ||
+												t(cellData, "desc") ||
+												cellData.desc;
+											const itemImg =
+												cellData.assetAbsolutePath ||
+												cellData.image ||
+												cellData.icon;
 
-								return (
-									<tr
-										key={rowIndex}
-										className={rowIndex % 2 !== 0 ? "bg-gray-50" : "bg-white"}
-									>
-										{row.map((cell, cellIndex) => {
-											let cellContent = renderHtml(cell);
-											if (cellIndex === 0 && reference) {
-												const imageSrc =
-													reference.assets?.[0]?.avatar ||
-													reference.assetAbsolutePath;
-												const linkPath = reference.championID
-													? `/champion/${championId}`
-													: reference.relicCode
-													? `/relic/${relicId}`
-													: `/power/${powerId}`;
-												cellContent = (
-													<Link
-														to={linkPath}
-														className='flex items-center gap-3 hover:underline font-semibold text-blue-600 group'
-													>
-														{imageSrc && (
+											return (
+												<td key={colIndex} className='p-3 align-top'>
+													<div className='flex items-start gap-3'>
+														{itemImg && (
 															<img
-																src={imageSrc}
-																className='w-10 h-10 rounded object-cover border shadow-sm'
-																alt=''
+																src={itemImg}
+																alt={itemName}
+																className='w-12 h-12 rounded object-cover border border-gray-200 shadow-sm'
 															/>
 														)}
-														<span>{renderHtml(cell)}</span>
-													</Link>
-												);
-											}
-											return (
-												<td
-													key={cellIndex}
-													className='px-4 py-3 text-sm text-gray-800'
-												>
-													{cellContent}
+														<div>
+															<div className='font-semibold text-gray-900 flex items-center gap-2'>
+																{cellData.link ? (
+																	<Link
+																		to={cellData.link}
+																		className='hover:text-blue-600 flex items-center gap-1'
+																	>
+																		{itemName}
+																		<ExternalLink size={14} />
+																	</Link>
+																) : (
+																	itemName
+																)}
+															</div>
+															{itemDesc && (
+																<p className='text-sm text-gray-600 mt-1 line-clamp-2'>
+																	{itemDesc}
+																</p>
+															)}
+														</div>
+													</div>
 												</td>
 											);
-										})}
-									</tr>
-								);
-							})}
+										}
+
+										// Dịch ô text thông thường nếu CSDL có lưu _en
+										const cellText =
+											language === "en" && row[`${col.key}_en`]
+												? row[`${col.key}_en`]
+												: cellData;
+										return (
+											<td
+												key={colIndex}
+												className='p-3 text-gray-700 text-sm align-middle'
+											>
+												{cellText}
+											</td>
+										);
+									})}
+								</tr>
+							))}
 						</tbody>
 					</table>
 				</div>
 			);
+		} // <-- Kết thúc case "table"
 
-		case "sublist":
+		case "infobox":
 			return (
-				<div className='mb-8 space-y-6'>
+				<div
+					className='mb-6 p-4 rounded-lg border-l-4'
+					style={{
+						backgroundColor: "var(--color-surface-hover-bg)",
+						borderColor: "var(--color-primary-500)",
+					}}
+				>
 					{block.title && (
-						<h3
-							className='text-xl font-bold text-blue-800'
-							style={{ fontFamily: "var(--font-primary)" }}
+						<h4
+							className='font-bold mb-1'
+							style={{ color: "var(--color-text-primary)" }}
 						>
-							{block.title}
-						</h3>
+							{t(block, "title")}
+						</h4>
 					)}
-					{block.sublist.map((item, index) => (
-						<div
-							key={index}
-							className='flex flex-col gap-5 p-4 rounded-xl border shadow-sm bg-white hover:shadow-md transition-shadow'
-							style={{ borderColor: "var(--color-border)" }}
-						>
-							<div className='flex-1'>
-								<h4
-									className='text-lg font-bold mb-1'
-									style={{ color: "var(--color-text-primary)" }}
-								>
-									{item.title}
-								</h4>
-								{item.desc && (
-									<p className='text-sm text-gray-600 mb-2'>
-										{renderHtml(item.desc)}
+					<p
+						className='text-sm sm:text-base'
+						style={{ color: "var(--color-text-secondary)" }}
+					>
+						{renderHtml(t(block, "desc") || block.desc)}
+					</p>
+				</div>
+			);
+
+		case "gallery":
+			return (
+				<div className='grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6'>
+					{block.images &&
+						block.images.map((img, index) => (
+							<div key={index} className='flex flex-col'>
+								<img
+									src={img.url}
+									alt={
+										t(img, "caption") || img.caption || `Gallery image ${index}`
+									}
+									className='w-full h-auto rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow'
+								/>
+								{img.caption && (
+									<p className='text-sm text-center text-gray-500 mt-2 italic'>
+										{t(img, "caption")}
 									</p>
 								)}
-								{item.list && (
-									<ul className='list-disc pl-5 space-y-1 text-sm text-gray-700'>
-										{item.list.map((listItem, i) => (
-											<li key={i}>{renderHtml(listItem)}</li>
-										))}
-									</ul>
-								)}
-								{item.image && (
-									<img
-										src={item.image}
-										className='w-full h-72 object-cover rounded-lg mt-3 shadow-sm'
-										alt={item.title}
-									/>
-								)}
 							</div>
-						</div>
-					))}
+						))}
+				</div>
+			);
+
+		case "youtube":
+			return (
+				<div className='mb-6'>
+					<div className='relative w-full overflow-hidden pt-[56.25%] rounded-lg shadow-md border border-gray-200'>
+						<iframe
+							className='absolute top-0 left-0 w-full h-full'
+							src={block.url}
+							title='YouTube video player'
+							frameBorder='0'
+							allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+							allowFullScreen
+						></iframe>
+					</div>
+					{block.caption && (
+						<p className='text-sm text-center text-gray-500 mt-2 italic'>
+							{language === "vi" ? "Nguồn:" : "Source:"} {t(block, "caption")}
+						</p>
+					)}
+				</div>
+			);
+
+		// 🟢 SỬA LỖI Ở ĐÂY: Thêm ngoặc nhọn {} bao bọc toàn bộ case
+		case "list": {
+			const listItems =
+				language === "en" && block.items_en ? block.items_en : block.items;
+			return (
+				<ul
+					className={`mb-6 pl-5 space-y-2 text-base sm:text-lg ${
+						block.style === "ordered" ? "list-decimal" : "list-disc"
+					}`}
+					style={{ color: "var(--color-text-secondary)" }}
+				>
+					{listItems &&
+						listItems.map((item, index) => (
+							<li key={index}>{renderHtml(item)}</li>
+						))}
+				</ul>
+			);
+		} // <-- Kết thúc case "list"
+
+		case "accordion":
+			return (
+				<div className='mb-6 space-y-3'>
+					{block.items &&
+						block.items.map((item, index) => {
+							const accItems =
+								language === "en" && item.list_en ? item.list_en : item.list;
+							return (
+								<div
+									key={index}
+									className='border border-gray-200 rounded-lg p-4 bg-white shadow-sm'
+								>
+									<h4
+										className='font-bold text-lg mb-2'
+										style={{ color: "var(--color-text-primary)" }}
+									>
+										{t(item, "title")}
+									</h4>
+									{item.desc && (
+										<p className='text-sm text-gray-600 mb-2'>
+											{renderHtml(t(item, "desc") || item.desc)}
+										</p>
+									)}
+									{accItems && (
+										<ul className='list-disc pl-5 space-y-1 text-sm text-gray-700'>
+											{accItems.map((listItem, i) => (
+												<li key={i}>{renderHtml(listItem)}</li>
+											))}
+										</ul>
+									)}
+									{item.image && (
+										<img
+											src={item.image}
+											className='w-full h-72 object-cover rounded-lg mt-3 shadow-sm'
+											alt={t(item, "title")}
+										/>
+									)}
+								</div>
+							);
+						})}
 				</div>
 			);
 
@@ -288,9 +346,11 @@ const ContentBlock = ({ block, referenceData }) => {
 					}}
 				>
 					<h3 className='text-xl font-bold mb-2 text-blue-800'>
-						{block.title}
+						{t(block, "title")}
 					</h3>
-					<p className='text-lg text-gray-800'>{renderHtml(block.text)}</p>
+					<p className='text-lg text-gray-700 font-medium italic'>
+						{t(block, "content") || block.content}
+					</p>
 				</div>
 			);
 
@@ -299,15 +359,4 @@ const ContentBlock = ({ block, referenceData }) => {
 	}
 };
 
-const GuideContent = ({ content, referenceData }) => {
-	if (!content || !Array.isArray(content)) return null;
-	return (
-		<>
-			{content.map((block, index) => (
-				<ContentBlock key={index} block={block} referenceData={referenceData} />
-			))}
-		</>
-	);
-};
-
-export default GuideContent;
+export default ContentBlock;

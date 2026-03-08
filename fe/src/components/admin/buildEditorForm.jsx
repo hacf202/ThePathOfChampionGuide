@@ -125,8 +125,8 @@ const BuildEditorForm = memo(
 					type === "checkbox"
 						? checked
 						: type === "number"
-						? Number(value)
-						: value,
+							? Number(value)
+							: value,
 			}));
 		};
 
@@ -320,7 +320,7 @@ const BuildEditorForm = memo(
 				</div>
 			</div>
 		);
-	}
+	},
 );
 
 export default BuildEditorForm;

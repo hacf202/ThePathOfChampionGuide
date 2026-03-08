@@ -1,10 +1,11 @@
-// src/pages/auth/OTPConfirmation.jsx (ĐÃ ĐỒNG BỘ)
+// src/pages/auth/OTPConfirmation.jsx
 
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext.jsx";
 import InputField from "../common/inputField";
 import Button from "../common/button";
 import { Loader2 } from "lucide-react";
+import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook
 
 const OTPConfirmation = ({
 	username,
@@ -15,6 +16,7 @@ const OTPConfirmation = ({
 	newPassword,
 	setNewPassword,
 }) => {
+	const { language } = useTranslation(); // 🟢 Khởi tạo Hook
 	const { confirmSignUp, confirmPasswordReset, resendConfirmationCode } =
 		useContext(AuthContext);
 	const [otp, setOtp] = useState("");
@@ -25,7 +27,9 @@ const OTPConfirmation = ({
 	const handleConfirmOtp = async e => {
 		e.preventDefault();
 		if (!otp.trim()) {
-			setError("Vui lòng nhập mã OTP");
+			setError(
+				language === "vi" ? "Vui lòng nhập mã OTP" : "Please enter OTP code",
+			);
 			return;
 		}
 		setIsLoading(true);
@@ -38,7 +42,11 @@ const OTPConfirmation = ({
 				!/[0-9]/.test(newPassword) ||
 				!/[a-zA-Z]/.test(newPassword)
 			) {
-				setError("Mật khẩu mới phải có ít nhất 8 ký tự, bao gồm chữ và số");
+				setError(
+					language === "vi"
+						? "Mật khẩu mới phải có ít nhất 8 ký tự, bao gồm chữ và số"
+						: "New password must be at least 8 characters, including letters and numbers",
+				);
 				setIsLoading(false);
 				return;
 			}
@@ -47,27 +55,40 @@ const OTPConfirmation = ({
 				otp,
 				newPassword,
 				msg => {
-					setSuccess(msg);
+					setSuccess(
+						language === "vi"
+							? "Đổi mật khẩu thành công!"
+							: "Password reset successful!",
+					);
 					setIsLoading(false);
-					onSuccess(msg);
+					if (onSuccess) onSuccess();
 				},
 				err => {
-					setError(err);
+					setError(
+						err || (language === "vi" ? "Có lỗi xảy ra" : "An error occurred"),
+					);
 					setIsLoading(false);
-				}
+				},
 			);
 		} else {
 			confirmSignUp(
 				username,
 				otp,
 				msg => {
-					setSuccess(msg);
-					onSuccess(msg); // Gọi onSuccess đã được truyền từ Register.jsx
+					setSuccess(
+						language === "vi"
+							? "Xác minh thành công!"
+							: "Verification successful!",
+					);
+					setIsLoading(false);
+					if (onSuccess) onSuccess();
 				},
 				err => {
-					setError(err);
-					setIsLoading(false); // Thêm này
-				}
+					setError(
+						err || (language === "vi" ? "Có lỗi xảy ra" : "An error occurred"),
+					);
+					setIsLoading(false);
+				},
 			);
 		}
 	};
@@ -79,29 +100,49 @@ const OTPConfirmation = ({
 		resendConfirmationCode(
 			username,
 			msg => {
-				setSuccess(msg);
+				setSuccess(
+					language === "vi"
+						? "Đã gửi lại mã OTP vào email của bạn"
+						: "OTP code has been resent to your email",
+				);
 				setIsLoading(false);
 			},
 			err => {
-				setError(err);
+				setError(
+					err ||
+						(language === "vi"
+							? "Không thể gửi lại mã"
+							: "Failed to resend code"),
+				);
 				setIsLoading(false);
-			}
+			},
 		);
 	};
 
 	return (
-		<div className='p-8'>
-			{" "}
-			{/* Tăng padding */}
-			<h2 className='text-2xl font-bold mb-6 text-text-primary font-primary text-center'>
-				{isPasswordReset ? "Xác Minh Mã Khôi Phục" : "Xác Minh OTP"}
+		<div className='p-6 max-w-sm mx-auto'>
+			{error && (
+				<div className='mb-4 p-3 bg-danger-500/10 border border-danger-500 text-danger-500 rounded-md text-sm'>
+					{error}
+				</div>
+			)}
+			{success && (
+				<div className='mb-4 p-3 bg-success/10 border border-success text-success rounded-md text-sm'>
+					{success}
+				</div>
+			)}
+
+			<h2 className='text-2xl font-bold mb-6 text-text-primary text-center font-primary'>
+				{language === "vi" ? "Xác Minh OTP" : "Verify OTP"}
 			</h2>
 			{isPasswordReset && (
 				<div className='mb-4'>
 					<InputField
-						label='Mật khẩu mới:'
+						label={language === "vi" ? "Mật khẩu mới:" : "New password:"}
 						type='password'
-						placeholder='Nhập mật khẩu mới'
+						placeholder={
+							language === "vi" ? "Nhập mật khẩu mới" : "Enter new password"
+						}
 						value={newPassword}
 						onChange={e => setNewPassword(e.target.value)}
 						disabled={isLoading}
@@ -112,7 +153,7 @@ const OTPConfirmation = ({
 			<form onSubmit={handleConfirmOtp}>
 				<InputField
 					type='text'
-					placeholder='Mã OTP'
+					placeholder={language === "vi" ? "Mã OTP" : "OTP Code"}
 					value={otp}
 					onChange={e => setOtp(e.target.value)}
 					disabled={isLoading}
@@ -129,7 +170,13 @@ const OTPConfirmation = ({
 							isLoading && <Loader2 className='animate-spin' size={16} />
 						}
 					>
-						{isLoading ? "..." : "Xác Minh"}
+						{isLoading
+							? language === "vi"
+								? "Đang xử lý..."
+								: "Processing..."
+							: language === "vi"
+								? "Xác Minh"
+								: "Verify"}
 					</Button>
 					<Button
 						type='button'
@@ -141,18 +188,16 @@ const OTPConfirmation = ({
 							isLoading && <Loader2 className='animate-spin' size={16} />
 						}
 					>
-						{isLoading ? "..." : "Gửi Lại OTP"}
+						{isLoading
+							? language === "vi"
+								? "Đang gửi..."
+								: "Sending..."
+							: language === "vi"
+								? "Gửi Lại OTP"
+								: "Resend OTP"}
 					</Button>
 				</div>
 			</form>
-			{error && (
-				<p className='text-danger-text-dark mt-4 text-sm text-center'>
-					{error}
-				</p>
-			)}
-			{success && (
-				<p className='text-success mt-4 text-sm text-center'>{success}</p>
-			)}
 		</div>
 	);
 };

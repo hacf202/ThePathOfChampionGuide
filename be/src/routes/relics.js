@@ -209,15 +209,15 @@ router.get("/", async (req, res) => {
 
 /**
  * @route   POST /api/relics/resolve
- * @desc    Lấy chi tiết danh sách Cổ vật từ mảng tên
+ * @desc    Lấy chi tiết danh sách Cổ vật từ mảng IDs
  */
 router.post("/resolve", async (req, res) => {
-	const { names } = req.body;
-	if (!Array.isArray(names))
-		return res.status(400).json({ error: "Names must be an array" });
+	const { ids } = req.body;
+	if (!Array.isArray(ids))
+		return res.status(400).json({ error: "ids must be an array" });
 	try {
 		const allRelics = await getCachedRelics();
-		const result = allRelics.filter(r => names.includes(r.name));
+		const result = allRelics.filter(r => ids.includes(r.relicCode));
 		res.json(result);
 	} catch (error) {
 		res.status(500).json({ error: "Lỗi truy vấn Relics" });
@@ -238,7 +238,6 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 			.json({ error: "Mã cổ vật (relicCode) là bắt buộc." });
 
 	try {
-		// 1. Kiểm tra tồn tại trong DB
 		const checkCommand = new GetItemCommand({
 			TableName: RELICS_TABLE,
 			Key: marshall({ relicCode: relicCode.trim() }),
@@ -246,7 +245,6 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 		const { Item } = await client.send(checkCommand);
 		const exists = !!Item;
 
-		// 2. Logic kiểm tra nghiệp vụ
 		if (isNew && exists) {
 			return res.status(409).json({
 				error: `Mã cổ vật "${relicCode}" đã tồn tại. Không thể tạo trùng.`,
@@ -259,7 +257,6 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 			});
 		}
 
-		// 3. Xóa isNew trước khi lưu vào DB
 		const dataToSave = { ...relicData };
 		delete dataToSave.isNew;
 
@@ -270,7 +267,6 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 			}),
 		);
 
-		// 4. Xóa cache
 		relicCache.del("all_relics_data");
 		relicCache.del(`relic_detail_${relicCode}`);
 

@@ -6,6 +6,7 @@ import { Loader2, ChevronLeft, XCircle } from "lucide-react";
 import PageTitle from "../common/pageTitle";
 import Button from "../common/button";
 import SafeImage from "../common/SafeImage";
+import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook Đa ngôn ngữ
 
 // --- THÀNH PHẦN SKELETON LOADING (Đồng bộ với ChampionDetail) ---
 const ItemDetailSkeleton = () => (
@@ -38,6 +39,8 @@ const ItemDetailSkeleton = () => (
 function ItemDetail() {
 	const { itemCode } = useParams();
 	const navigate = useNavigate();
+	const { language, t } = useTranslation(); // 🟢 Khởi tạo Hook
+
 	const [item, setItem] = useState(null);
 	const [champions, setChampions] = useState([]);
 	const [loading, setLoading] = useState(true);
@@ -60,8 +63,12 @@ function ItemDetail() {
 				if (!itemRes.ok) {
 					throw new Error(
 						itemRes.status === 404
-							? `Không tìm thấy vật phẩm mã: ${decodedCode}`
-							: "Lỗi tải thông tin vật phẩm.",
+							? language === "vi"
+								? `Không tìm thấy vật phẩm mã: ${decodedCode}`
+								: `Item code not found: ${decodedCode}`
+							: language === "vi"
+								? "Lỗi tải thông tin vật phẩm."
+								: "Error loading item information.",
 					);
 				}
 
@@ -73,7 +80,12 @@ function ItemDetail() {
 				setItem(foundItem);
 				setChampions(championsData.items || []);
 			} catch (err) {
-				setError(err.message || "Đã xảy ra lỗi khi tải dữ liệu.");
+				setError(
+					err.message ||
+						(language === "vi"
+							? "Đã xảy ra lỗi khi tải dữ liệu."
+							: "An error occurred while loading data."),
+				);
 			} finally {
 				// Áp dụng độ trễ 800ms để hiệu ứng loading mượt mà đồng bộ với hệ thống
 				setTimeout(() => setLoading(false), 800);
@@ -81,29 +93,42 @@ function ItemDetail() {
 		};
 
 		if (itemCode) fetchData();
-	}, [itemCode, apiUrl]);
+	}, [itemCode, apiUrl, language]);
+
+	// 🟢 Xử lý Tên và Mô tả đa ngôn ngữ của Vật phẩm
+	const itemName = item ? t(item, "name") : "";
+	const itemDesc = item
+		? t(item, "descriptionRaw") || t(item, "description")
+		: "";
 
 	const compatibleChampions = useMemo(() => {
 		if (!item || !champions.length) return [];
-		return champions
-			.filter(champion =>
-				champion.defaultItems?.some(itemName => itemName === item.name),
-			)
-			.map(champion => ({
-				championID: champion.championID,
-				name: champion.name,
-				image: champion.assets?.[0]?.avatar || "/fallback-image.svg",
-			}));
-	}, [item, champions]);
+		return (
+			champions
+				// So sánh bằng tên gốc trong database để đảm bảo logic không bị vỡ
+				.filter(champion =>
+					champion.defaultItems?.some(
+						defaultItemName => defaultItemName === item.name,
+					),
+				)
+				.map(champion => ({
+					championID: champion.championID,
+					name: t(champion, "name"), // 🟢 Dịch tên Tướng
+					image: champion.assets?.[0]?.avatar || "/fallback-image.svg",
+				}))
+		);
+	}, [item, champions, t]);
 
 	if (error)
 		return (
 			<div className='p-10 text-center font-secondary'>
 				<div className='bg-surface-hover p-8 rounded-lg border border-border inline-block'>
 					<XCircle size={48} className='mx-auto mb-4 text-red-500 opacity-50' />
-					<p className='text-xl font-bold text-red-500'>Lỗi: {error}</p>
+					<p className='text-xl font-bold text-red-500'>
+						{language === "vi" ? "Lỗi:" : "Error:"} {error}
+					</p>
 					<Button onClick={() => navigate(-1)} className='mt-6 mx-auto'>
-						<ChevronLeft size={18} /> Quay lại
+						<ChevronLeft size={18} /> {language === "vi" ? "Quay lại" : "Back"}
 					</Button>
 				</div>
 			</div>
@@ -112,8 +137,14 @@ function ItemDetail() {
 	return (
 		<div className='animate-fadeIn'>
 			<PageTitle
-				title={item?.name || "Chi tiết vật phẩm"}
-				description={`Chi tiết vật phẩm ${item?.name}`}
+				title={
+					itemName || (language === "vi" ? "Chi tiết vật phẩm" : "Item Details")
+				}
+				description={
+					language === "vi"
+						? `Chi tiết vật phẩm ${itemName}`
+						: `Item details for ${itemName}`
+				}
 				type='article'
 			/>
 
@@ -141,7 +172,8 @@ function ItemDetail() {
 							onClick={() => navigate(-1)}
 							className='mb-4 ml-4 sm:ml-0'
 						>
-							<ChevronLeft size={18} /> Quay lại
+							<ChevronLeft size={18} />{" "}
+							{language === "vi" ? "Quay lại" : "Back"}
 						</Button>
 
 						<div className='relative mx-auto max-w-[1200px] border border-border p-4 sm:p-6 rounded-lg bg-surface-bg shadow-sm'>
@@ -149,21 +181,21 @@ function ItemDetail() {
 								<SafeImage
 									className='h-auto max-h-[300px] object-contain rounded-lg bg-surface-bg/50 p-2'
 									src={item.assetAbsolutePath || "/fallback-image.svg"}
-									alt={item.name}
+									alt={itemName}
 								/>
 								<div className='flex-1 flex flex-col'>
 									<div className='flex flex-col border border-border sm:flex-row sm:justify-between rounded-lg p-2 text-2xl sm:text-4xl font-bold m-1 bg-surface-bg shadow-sm'>
-										<h1 className='font-primary'>{item.name}</h1>
+										<h1 className='font-primary'>{itemName}</h1>
 										<h1 className='font-primary text-primary-500 uppercase'>
 											{item.rarity}
 										</h1>
 									</div>
-									{(item.descriptionRaw || item.description) && (
+									{itemDesc && (
 										<div className='flex-1 mt-4'>
 											<div
 												className='text-base sm:text-xl rounded-lg p-4 h-full min-h-[120px] leading-relaxed bg-surface-bg border text-text-secondary overflow-y-auto'
 												dangerouslySetInnerHTML={{
-													__html: item.descriptionRaw || item.description,
+													__html: itemDesc,
 												}}
 											/>
 										</div>
@@ -172,7 +204,9 @@ function ItemDetail() {
 							</div>
 
 							<h2 className='text-xl sm:text-3xl font-semibold mt-8 mb-4 font-primary'>
-								Các tướng sử dụng vật phẩm
+								{language === "vi"
+									? "Các tướng sử dụng vật phẩm"
+									: "Champions using this item"}
 							</h2>
 
 							{compatibleChampions.length > 0 ? (
@@ -197,7 +231,9 @@ function ItemDetail() {
 							) : (
 								<div className='text-center p-8 rounded-md bg-surface-hover text-text-secondary border border-dashed border-border'>
 									<p>
-										Vật phẩm này hiện chưa được trang bị mặc định cho tướng nào.
+										{language === "vi"
+											? "Vật phẩm này hiện chưa được trang bị mặc định cho tướng nào."
+											: "This item is not currently equipped by default on any champion."}
 									</p>
 								</div>
 							)}

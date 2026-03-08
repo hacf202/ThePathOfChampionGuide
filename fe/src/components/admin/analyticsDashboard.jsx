@@ -1,7 +1,8 @@
 // fe/src/components/admin/analyticsDashboard.jsx
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import api from "../../context/services/apiHelper";
+import { api } from "../../context/services/apiHelper";
+import { useTranslation } from "../../hooks/useTranslation"; // Import hook đa ngôn ngữ
 import {
 	AreaChart,
 	Area,
@@ -23,7 +24,6 @@ import {
 	Clock,
 	TrendingUp,
 	MousePointer2,
-	ChevronRight,
 	Activity,
 	Smartphone,
 	Globe,
@@ -39,11 +39,73 @@ const COLORS = [
 	"#06b6d4",
 ];
 
+// Từ điển cục bộ cho Analytics
+const UI_DICT = {
+	vi: {
+		loading: "Đang tổng hợp dữ liệu thời gian thực...",
+		error: "Lỗi: Không thể kết nối dịch vụ phân tích.",
+		title: "Hệ thống Phân tích",
+		subtitle: "Dữ liệu 30 ngày qua • Cập nhật lần cuối:",
+		"stat.unique.title": "Khách Duy Nhất",
+		"stat.unique.sub": "Người dùng",
+		"stat.sessions.title": "Phiên Truy Cập",
+		"stat.sessions.sub": "view/phiên",
+		"stat.bounce.title": "Tỷ lệ Thoát",
+		"stat.bounce.sub": "Chỉ xem 1 trang",
+		"stat.time.title": "Thời gian / Phiên",
+		"stat.time.sub": "Trung bình",
+		"stat.views.title": "Tổng Lượt Xem",
+		"stat.views.sub": "Pageviews",
+		"chart.traffic": "Lưu lượng truy cập hệ thống",
+		"chart.sources": "Nguồn Traffic",
+		"chart.devices": "Thiết bị sử dụng",
+		"chart.os": "Hệ điều hành",
+		"chart.total": "Tổng",
+		"topPages.title": "Trang hoạt động mạnh nhất",
+		"perf.timeTitle": "Tốc độ tải trung bình (24h)",
+		"perf.fast": "RẤT NHANH",
+		"perf.optimize": "CẦN TỐI ƯU",
+		"perf.warning": "Cảnh báo tải chậm (>3s)",
+		"perf.ok": "Hệ thống đang tải cực nhanh!",
+	},
+	en: {
+		loading: "Aggregating real-time data...",
+		error: "Error: Cannot connect to analytics service.",
+		title: "Analytics System",
+		subtitle: "Last 30 days data • Last updated:",
+		"stat.unique.title": "Unique Visitors",
+		"stat.unique.sub": "Users",
+		"stat.sessions.title": "Total Sessions",
+		"stat.sessions.sub": "views/session",
+		"stat.bounce.title": "Bounce Rate",
+		"stat.bounce.sub": "Single page only",
+		"stat.time.title": "Avg Session Time",
+		"stat.time.sub": "Average",
+		"stat.views.title": "Total Views",
+		"stat.views.sub": "Pageviews",
+		"chart.traffic": "System Traffic Overview",
+		"chart.sources": "Traffic Sources",
+		"chart.devices": "Devices",
+		"chart.os": "Operating Systems",
+		"chart.total": "Total",
+		"topPages.title": "Top Performing Pages",
+		"perf.timeTitle": "Avg Load Time (24h)",
+		"perf.fast": "BLAZING FAST",
+		"perf.optimize": "NEEDS OPTIMIZATION",
+		"perf.warning": "Slow Load Warning (>3s)",
+		"perf.ok": "System is loading blazingly fast!",
+	},
+};
+
 const AnalyticsDashboard = () => {
 	const [data, setData] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [viewType, setViewType] = useState("daily");
 	const { token } = useAuth();
+	const { language } = useTranslation();
+
+	// Hàm lấy text giao diện
+	const tUI = key => UI_DICT[language]?.[key] || UI_DICT.vi[key] || key;
 
 	useEffect(() => {
 		const fetchStats = async () => {
@@ -81,7 +143,7 @@ const AnalyticsDashboard = () => {
 			<div className='flex flex-col items-center justify-center min-h-[400px] space-y-4'>
 				<div className='w-12 h-12 border-4 border-blue-500/20 border-t-blue-500 rounded-full animate-spin'></div>
 				<p className='text-text-secondary animate-pulse font-primary text-lg'>
-					Đang tổng hợp dữ liệu thời gian thực...
+					{tUI("loading")}
 				</p>
 			</div>
 		);
@@ -89,7 +151,7 @@ const AnalyticsDashboard = () => {
 	if (!data)
 		return (
 			<div className='p-10 text-red-500 text-center font-primary'>
-				Lỗi: Không thể kết nối dịch vụ phân tích.
+				{tUI("error")}
 			</div>
 		);
 
@@ -99,11 +161,10 @@ const AnalyticsDashboard = () => {
 			<div className='flex flex-col md:flex-row md:items-end justify-between gap-4'>
 				<div>
 					<h2 className='text-3xl font-black text-text-primary font-primary tracking-tight'>
-						Hệ thống Phân tích
+						{tUI("title")}
 					</h2>
 					<p className='text-text-secondary text-sm'>
-						Dữ liệu 30 ngày qua • Cập nhật lần cuối:{" "}
-						{new Date().toLocaleTimeString()}
+						{tUI("subtitle")} {new Date().toLocaleTimeString()}
 					</p>
 				</div>
 				<div className='flex items-center gap-2 bg-surface-bg p-1 rounded-xl border border-border shadow-inner'>
@@ -126,46 +187,46 @@ const AnalyticsDashboard = () => {
 			{/* 1. METRICS CẤP CAO - GRADIENT CARDS */}
 			<div className='grid grid-cols-2 lg:grid-cols-5 gap-4 md:gap-6'>
 				<StatCard
-					title='Khách Duy Nhất'
+					title={tUI("stat.unique.title")}
 					value={data.summary.uniqueVisitors.toLocaleString()}
 					icon={<Users size={22} />}
-					subText='Người dùng'
+					subText={tUI("stat.unique.sub")}
 					gradient='from-indigo-600/20 to-indigo-400/5'
 					border='border-indigo-500/30'
 					iconColor='text-indigo-500'
 				/>
 				<StatCard
-					title='Phiên Truy Cập'
+					title={tUI("stat.sessions.title")}
 					value={data.summary.totalSessions.toLocaleString()}
 					icon={<Layout size={22} />}
-					subText={`~${(data.summary.totalViews / (data.summary.totalSessions || 1)).toFixed(1)} view/phiên`}
+					subText={`~${(data.summary.totalViews / (data.summary.totalSessions || 1)).toFixed(1)} ${tUI("stat.sessions.sub")}`}
 					gradient='from-blue-600/20 to-blue-400/5'
 					border='border-blue-500/30'
 					iconColor='text-blue-500'
 				/>
 				<StatCard
-					title='Tỷ lệ Thoát'
+					title={tUI("stat.bounce.title")}
 					value={data.summary.bounceRate}
 					icon={<MousePointerClick size={22} />}
-					subText='Chỉ xem 1 trang'
+					subText={tUI("stat.bounce.sub")}
 					gradient='from-red-600/20 to-red-400/5'
 					border='border-red-500/30'
 					iconColor='text-red-500'
 				/>
 				<StatCard
-					title='Thời gian / Phiên'
+					title={tUI("stat.time.title")}
 					value={data.summary.avgSessionTime}
 					icon={<Clock size={22} />}
-					subText='Trung bình'
+					subText={tUI("stat.time.sub")}
 					gradient='from-emerald-600/20 to-emerald-400/5'
 					border='border-emerald-500/30'
 					iconColor='text-emerald-500'
 				/>
 				<StatCard
-					title='Tổng Lượt Xem'
+					title={tUI("stat.views.title")}
 					value={data.summary.totalViews.toLocaleString()}
 					icon={<Activity size={22} />}
-					subText='Pageviews'
+					subText={tUI("stat.views.sub")}
 					gradient='from-purple-600/20 to-purple-400/5'
 					border='border-purple-500/30'
 					iconColor='text-purple-500'
@@ -179,7 +240,7 @@ const AnalyticsDashboard = () => {
 				</div>
 				<h3 className='text-xl font-bold font-primary text-text-primary mb-8 flex items-center gap-3'>
 					<div className='w-2 h-8 bg-primary-500 rounded-full'></div>
-					Lưu lượng truy cập hệ thống
+					{tUI("chart.traffic")}
 				</h3>
 				<div className='w-full h-[350px]'>
 					<ResponsiveContainer width='100%' height='100%' minWidth={0}>
@@ -233,22 +294,25 @@ const AnalyticsDashboard = () => {
 			{/* 3. SECTION PHÂN TÍCH NHÂN KHẨU HỌC & MÔI TRƯỜNG */}
 			<div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
 				<MiniDonutChart
-					title='Nguồn Traffic'
+					title={tUI("chart.sources")}
 					icon={<Globe size={20} className='text-emerald-500' />}
 					data={data.charts.sources}
 					total={data.summary.totalViews}
+					totalText={tUI("chart.total")}
 				/>
 				<MiniDonutChart
-					title='Thiết bị sử dụng'
+					title={tUI("chart.devices")}
 					icon={<Smartphone size={20} className='text-blue-500' />}
 					data={data.charts.devices}
 					total={data.summary.totalViews}
+					totalText={tUI("chart.total")}
 				/>
 				<MiniDonutChart
-					title='Hệ điều hành'
+					title={tUI("chart.os")}
 					icon={<Monitor size={20} className='text-amber-500' />}
 					data={data.charts.os}
 					total={data.summary.totalViews}
+					totalText={tUI("chart.total")}
 				/>
 			</div>
 
@@ -258,8 +322,8 @@ const AnalyticsDashboard = () => {
 				<div className='lg:col-span-2 bg-surface-bg p-6 md:p-8 rounded-3xl border border-border shadow-lg'>
 					<div className='flex justify-between items-center mb-6'>
 						<h3 className='text-lg font-bold font-primary flex items-center gap-2'>
-							<MousePointer2 size={20} className='text-purple-500' /> Trang hoạt
-							động mạnh nhất
+							<MousePointer2 size={20} className='text-purple-500' />{" "}
+							{tUI("topPages.title")}
 						</h3>
 					</div>
 					<div className='overflow-x-auto'>
@@ -310,7 +374,7 @@ const AnalyticsDashboard = () => {
 							<Zap size={200} />
 						</div>
 						<p className='text-text-secondary uppercase font-black tracking-widest text-[10px] mb-2 z-10'>
-							Tốc độ tải trung bình (24h)
+							{tUI("perf.timeTitle")}
 						</p>
 						<div className='text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-600 mb-2 z-10'>
 							{data.summary.avgLoadTime}ms
@@ -318,13 +382,15 @@ const AnalyticsDashboard = () => {
 						<div
 							className={`px-4 py-1 rounded-full text-xs font-bold z-10 ${data.summary.avgLoadTime < 1000 ? "bg-emerald-500/20 text-emerald-400" : "bg-amber-500/20 text-amber-400"}`}
 						>
-							{data.summary.avgLoadTime < 1000 ? "RẤT NHANH" : "CẦN TỐI ƯU"}
+							{data.summary.avgLoadTime < 1000
+								? tUI("perf.fast")
+								: tUI("perf.optimize")}
 						</div>
 					</div>
 
 					<div className='bg-surface-bg p-6 rounded-3xl border border-border border-l-4 border-l-red-500 shadow-lg flex-1'>
 						<h3 className='text-md font-bold mb-4 flex items-center gap-2 text-red-500 font-primary'>
-							<AlertTriangle size={18} /> Cảnh báo tải chậm (&gt;3s)
+							<AlertTriangle size={18} /> {tUI("perf.warning")}
 						</h3>
 						<div className='space-y-3 max-h-[150px] overflow-y-auto custom-scrollbar pr-2'>
 							{data.slowPages && data.slowPages.length > 0 ? (
@@ -347,7 +413,7 @@ const AnalyticsDashboard = () => {
 							) : (
 								<div className='flex flex-col items-center justify-center py-6 opacity-50'>
 									<Zap size={30} className='text-emerald-500 mb-2' />
-									<p className='text-xs italic'>Hệ thống đang tải cực nhanh!</p>
+									<p className='text-xs italic'>{tUI("perf.ok")}</p>
 								</div>
 							)}
 						</div>
@@ -390,8 +456,8 @@ const StatCard = ({
 	</div>
 );
 
-// COMPONENT BIỂU ĐỒ DONUT DÙNG CHUNG
-const MiniDonutChart = ({ title, icon, data, total }) => (
+// COMPONENT BIỂU ĐỒ DONUT DÙNG CHUNG (Cập nhật prop totalText)
+const MiniDonutChart = ({ title, icon, data, total, totalText = "Tổng" }) => (
 	<div className='bg-surface-bg p-6 rounded-3xl border border-border shadow-lg flex flex-col justify-between'>
 		<h3 className='text-lg font-bold mb-4 font-primary flex items-center gap-2'>
 			{icon} {title}
@@ -424,13 +490,13 @@ const MiniDonutChart = ({ title, icon, data, total }) => (
 			</ResponsiveContainer>
 			<div className='absolute inset-0 flex flex-col items-center justify-center pointer-events-none'>
 				<p className='text-text-secondary text-[10px] uppercase font-bold'>
-					Tổng
+					{totalText}
 				</p>
 				<p className='text-lg font-black text-text-primary'>{total}</p>
 			</div>
 		</div>
 		<div className='mt-4 grid grid-cols-2 gap-2 max-h-[100px] overflow-y-auto custom-scrollbar pr-1'>
-			{[...data] // ĐÃ SỬA: Tạo bản sao (shallow copy) của mảng trước khi sort
+			{[...data]
 				.sort((a, b) => b.value - a.value)
 				.map((item, i) => (
 					<div

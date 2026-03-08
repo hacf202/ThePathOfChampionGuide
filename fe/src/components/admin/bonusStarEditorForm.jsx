@@ -31,6 +31,21 @@ const BonusStarEditorForm = memo(
 			setFormData(prev => ({ ...prev, [name]: value }));
 		};
 
+		// 🟢 Hàm xử lý riêng cho dữ liệu Đa ngôn ngữ (Translations)
+		const handleTranslationChange = (e, field, lang = "en") => {
+			const { value } = e.target;
+			setFormData(prev => ({
+				...prev,
+				translations: {
+					...prev.translations,
+					[lang]: {
+						...(prev.translations?.[lang] || {}),
+						[field]: value,
+					},
+				},
+			}));
+		};
+
 		const handleSubmit = e => {
 			e.preventDefault();
 			if (!formData.bonusStarID?.trim()) return alert("Vui lòng nhập ID!");
@@ -100,6 +115,7 @@ const BonusStarEditorForm = memo(
 					{/* Content Form */}
 					<div className='grid grid-cols-1 lg:grid-cols-2 gap-6 p-6 bg-surface-bg border border-border rounded-xl mx-4'>
 						<div className='space-y-5'>
+							{/* --- THÔNG TIN CƠ BẢN (TIẾNG VIỆT) --- */}
 							<InputField
 								label='Mã Bonus Star (ID duy nhất)'
 								name='bonusStarID'
@@ -144,6 +160,34 @@ const BonusStarEditorForm = memo(
 									className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary min-h-[150px] outline-none focus:ring-2 focus:ring-primary-500 transition resize-none'
 									placeholder='Nhập nội dung mô tả kỹ năng...'
 								/>
+							</div>
+
+							{/* --- THÔNG TIN ĐA NGÔN NGỮ (TIẾNG ANH) --- */}
+							<div className='pt-6 mt-6 border-t border-border space-y-5'>
+								<h3 className='text-lg font-semibold text-text-primary mb-2'>
+									Đa ngôn ngữ (Tiếng Anh)
+								</h3>
+								<InputField
+									label='Tên hiển thị (Tiếng Anh)'
+									name='name_en'
+									value={formData.translations?.en?.name || ""}
+									onChange={e => handleTranslationChange(e, "name", "en")}
+									placeholder='VD: English Bonus Star Name...'
+								/>
+								<div className='flex flex-col gap-1'>
+									<label className='text-sm font-semibold text-text-primary'>
+										Mô tả kỹ năng (Tiếng Anh)
+									</label>
+									<textarea
+										name='description_en'
+										value={formData.translations?.en?.description || ""}
+										onChange={e =>
+											handleTranslationChange(e, "description", "en")
+										}
+										className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary min-h-[150px] outline-none focus:ring-2 focus:ring-primary-500 transition resize-none'
+										placeholder='Nhập nội dung mô tả bằng Tiếng Anh...'
+									/>
+								</div>
 							</div>
 						</div>
 

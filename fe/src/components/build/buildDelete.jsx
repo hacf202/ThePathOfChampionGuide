@@ -1,12 +1,14 @@
 // src/components/build/buildDelete.jsx
 import React, { useState } from "react";
 import { useAuth } from "../../context/AuthContext.jsx";
+import { useTranslation } from "../../hooks/useTranslation.js"; // 🟢 Import i18n
 import { Loader2 } from "lucide-react";
 import Modal from "../common/modal";
 import Button from "../common/button";
 
 const BuildDelete = ({ build, isOpen, onClose, onConfirm }) => {
 	const { token } = useAuth();
+	const { language } = useTranslation(); // 🟢 Khởi tạo ngôn ngữ
 	const [isDeleting, setIsDeleting] = useState(false);
 	const [message, setMessage] = useState("");
 
@@ -21,33 +23,42 @@ const BuildDelete = ({ build, isOpen, onClose, onConfirm }) => {
 			const response = await fetch(`${apiUrl}/api/builds/${build.id}`, {
 				method: "DELETE",
 				headers: {
-					Authorization: `Bearer ${token}`, // Yêu cầu xác thực Admin hoặc Owner
+					Authorization: `Bearer ${token}`,
 				},
 			});
 
 			if (response.ok) {
 				const result = await response.json();
-				setMessage(result.message || "Bộ cổ vật đã được xóa thành công!");
+				setMessage(
+					language === "vi"
+						? "Bộ cổ vật đã được xóa thành công!"
+						: "Build deleted successfully!",
+				);
 
-				// Đợi 1.5s để người dùng thấy thông báo thành công trước khi đóng
 				setTimeout(() => {
 					onConfirm(build.id);
 					handleClose();
 				}, 1500);
 			} else {
 				const result = await response.json();
-				setMessage(`Lỗi: ${result.error || "Không thể xóa bộ cổ vật."}`);
+				setMessage(
+					`Lỗi: ${result.error || (language === "vi" ? "Không thể xóa bộ cổ vật." : "Cannot delete build.")}`,
+				);
 				setIsDeleting(false);
 			}
 		} catch (error) {
 			console.error("Lỗi khi xóa build:", error);
-			setMessage("Lỗi kết nối đến máy chủ.");
+			setMessage(
+				language === "vi"
+					? "Lỗi kết nối đến máy chủ."
+					: "Server connection error.",
+			);
 			setIsDeleting(false);
 		}
 	};
 
 	const handleClose = () => {
-		if (isDeleting) return; // Không cho phép đóng khi đang thực hiện xóa
+		if (isDeleting) return;
 		setMessage("");
 		setIsDeleting(false);
 		onClose();
@@ -56,24 +67,32 @@ const BuildDelete = ({ build, isOpen, onClose, onConfirm }) => {
 	if (!isOpen) return null;
 
 	return (
-		<Modal isOpen={isOpen} onClose={handleClose} title='Xác nhận xóa bộ cổ vật'>
+		<Modal
+			isOpen={isOpen}
+			onClose={handleClose}
+			title={language === "vi" ? "Xác nhận xóa bộ cổ vật" : "Confirm Deletion"}
+		>
 			<div className='p-1'>
 				<p className='text-text-secondary mb-6'>
-					Bạn có chắc chắn muốn xóa bộ cổ vật cho tướng{" "}
+					{language === "vi"
+						? "Bạn có chắc chắn muốn xóa bộ cổ vật cho tướng "
+						: "Are you sure you want to delete the build for "}
 					<strong className='font-semibold text-text-primary'>
 						{build?.championName}
 					</strong>
 					?
 					<br />
 					<span className='text-danger-500 text-sm italic'>
-						Hành động này không thể hoàn tác.
+						{language === "vi"
+							? "Hành động này không thể hoàn tác."
+							: "This action cannot be undone."}
 					</span>
 				</p>
 
 				{message && (
 					<p
 						className={`mb-4 text-center text-sm font-medium ${
-							message.startsWith("Lỗi")
+							message.startsWith("Lỗi") || message.startsWith("Error")
 								? "text-danger-text-dark"
 								: "text-success"
 						}`}
@@ -84,16 +103,18 @@ const BuildDelete = ({ build, isOpen, onClose, onConfirm }) => {
 
 				<div className='flex justify-end gap-4 border-t border-border pt-4'>
 					<Button variant='ghost' onClick={handleClose} disabled={isDeleting}>
-						Hủy
+						{language === "vi" ? "Hủy" : "Cancel"}
 					</Button>
 					<Button variant='danger' onClick={handleDelete} disabled={isDeleting}>
 						{isDeleting ? (
 							<span className='flex items-center gap-2'>
-								<Loader2 className='animate-spin' size={18} />
-								Đang xóa...
+								<Loader2 className='animate-spin w-4 h-4' />
+								{language === "vi" ? "Đang xóa..." : "Deleting..."}
 							</span>
+						) : language === "vi" ? (
+							"Xóa"
 						) : (
-							"Xóa vĩnh viễn"
+							"Delete"
 						)}
 					</Button>
 				</div>

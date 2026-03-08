@@ -1,0 +1,74 @@
+{
+	"common": {
+		"search": "Tìm kiếm",
+		"save": "Lưu",
+		"cancel": "Hủy",
+		"loading": "Đang tải dữ liệu...",
+		"errorLoadData": "Lỗi tải dữ liệu",
+		"prevPage": "Trang trước",
+		"nextPage": "Trang sau",
+		"notFound": "Không tìm thấy dữ liệu phù hợp.",
+		"close": "Đóng hộp thoại",
+		"selectPlaceholder": "Chọn một hoặc nhiều",
+		"selectedItems": "Đã chọn {{count}} mục",
+		"searchPlaceholder": "Tìm kiếm...",
+		"addNew": "Thêm mới",
+		"editTitle": "Chỉnh sửa dữ liệu",
+		"addTitle": "Thêm dữ liệu mới",
+		"noItemTitle": "Chưa chọn mục nào",
+		"noItemDesc": "Vui lòng chọn một mục từ danh sách bên trái hoặc nhấn Thêm mới.",
+		"deleteDataTitle": "Xóa dữ liệu",
+		"deleteConfirmPrefix": "Bạn muốn xóa",
+		"deleteConfirmSuffix": "? Hành động này không thể hoàn tác.",
+		"ok": "Đồng ý"
+	},
+	"metadata": {
+		"defaultDescription": "Cẩm nang hướng dẫn Path of Champions (Legends of Runeterra) chuyên nghiệp. Cập nhật Tier List, Build và Relics mới nhất."
+	},
+	"championList": {
+		"title": "Danh sách tướng",
+		"heading": "Danh Sách Tướng",
+		"hideFilter": "Ẩn bộ lọc",
+		"showFilter": "Hiện bộ lọc",
+		"searchLabel": "Tìm kiếm tướng",
+		"searchPlaceholder": "Tên tướng...",
+		"region": "Vùng",
+		"cost": "Năng lượng",
+		"maxStars": "Sao tối đa",
+		"tags": "Thẻ",
+		"sortBy": "Sắp xếp",
+		"resetFilter": "Đặt lại bộ lọc"
+	},
+	"sort": {
+		"nameAsc": "Tên A-Z",
+		"nameDesc": "Tên Z-A",
+		"costAsc": "Năng lượng thấp-cao",
+		"costDesc": "Năng lượng cao-thấp"
+	},
+	"championDetail": {
+		"title": "Chi tiết tướng",
+		"back": "Quay lại",
+		"showLess": "Thu gọn",
+		"showMore": "Hiển thị toàn bộ",
+		"constellation": "Chòm sao",
+		"video": "Video giới thiệu",
+		"relicSets": "Bộ cổ vật",
+		"recPowers": "Sức mạnh khuyên dùng",
+		"recItems": "Vật phẩm khuyên dùng",
+		"recRunes": "Ngọc bổ trợ khuyên dùng",
+		"errorLoad": "Không thể tải thông tin tướng."
+	},
+	"constellation": {
+		"typeNormal": "Thường",
+		"typeGemstone": "Đá Quý",
+		"tabStarPowers": "Ngôi sao sức mạnh",
+		"tabBonusStars": "Ngôi sao tăng thưởng",
+		"colStar": "Cấp sao",
+		"colType": "Loại",
+		"colReq": "Yêu cầu",
+		"colImg": "Hình ảnh",
+		"colName": "Tên",
+		"colPower": "Sức mạnh",
+		"noData": "Chưa có dữ liệu cho mục này."
+	}
+}

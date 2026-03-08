@@ -2,25 +2,40 @@
 import React, { useState, useEffect } from "react";
 import BuildModal from "./buildModal";
 
-const BuildEditModal = ({ build, isOpen, onClose, onConfirm }) => {
+const BuildEditModal = ({
+	build,
+	isOpen,
+	onClose,
+	onConfirm,
+	championsList = [],
+	relicsList = [],
+	powersList = [],
+	runesList = [],
+}) => {
 	const [maxStar, setMaxStar] = useState(7);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
-	/**
-	 * Khi mở modal chỉnh sửa, fetch lại thông tin tướng để lấy maxStar chính xác.
-	 */
 	useEffect(() => {
 		if (!isOpen || !build?.championName) return;
 
 		const fetchMaxStar = async () => {
+			// Tìm nhanh trong list master
+			if (championsList.length > 0) {
+				const champion = championsList.find(
+					c => c.name === build.championName.trim(),
+				);
+				if (champion) {
+					setMaxStar(champion.maxStar ?? 7);
+					return;
+				}
+			}
+
 			try {
 				const apiUrl = import.meta.env.VITE_API_URL;
 				const res = await fetch(
 					`${apiUrl}/api/champions/search?name=${encodeURIComponent(build.championName.trim())}`,
 				);
 				const data = await res.json();
-
-				// Truy cập vào items[0] theo cấu trúc backend mới
 				const champion = data.items?.[0];
 				setMaxStar(champion?.maxStar ?? 7);
 			} catch (err) {
@@ -31,7 +46,7 @@ const BuildEditModal = ({ build, isOpen, onClose, onConfirm }) => {
 
 		fetchMaxStar();
 		setIsModalOpen(true);
-	}, [isOpen, build?.championName]);
+	}, [isOpen, build?.championName, championsList]);
 
 	const handleClose = () => {
 		setIsModalOpen(false);
@@ -43,7 +58,7 @@ const BuildEditModal = ({ build, isOpen, onClose, onConfirm }) => {
 		handleClose();
 	};
 
-	// Không cho phép thay đổi tướng khi đang trong chế độ chỉnh sửa để đảm bảo tính toàn vẹn dữ liệu
+	// Không cho phép thay đổi tướng khi đang trong chế độ chỉnh sửa
 	const handleChampionChange = () => {};
 
 	if (!isOpen || !build) return null;
@@ -53,16 +68,23 @@ const BuildEditModal = ({ build, isOpen, onClose, onConfirm }) => {
 			isOpen={isModalOpen}
 			onClose={handleClose}
 			onConfirm={handleConfirm}
+			championsList={championsList}
+			relicsList={relicsList}
+			powersList={powersList}
+			runesList={runesList}
 			initialData={{
 				_id: build.id,
 				championName: build.championName,
 				description: build.description || "",
 				star: build.star || 3,
 				display: build.display ?? true,
-				// Chuẩn hóa các mảng để Dropdown trong Modal luôn hiển thị đúng số slot
-				relicSet: [...(build.relicSet || []), null, null, null].slice(0, 3),
-				powers: [
-					...(build.powers || []),
+				// Ánh xạ sang cấu trúc Ids mới để Modal nhận diện đúng slot
+				relicSetIds: [...(build.relicSetIds || []), null, null, null].slice(
+					0,
+					3,
+				),
+				powerIds: [
+					...(build.powerIds || []),
 					null,
 					null,
 					null,
@@ -70,8 +92,7 @@ const BuildEditModal = ({ build, isOpen, onClose, onConfirm }) => {
 					null,
 					null,
 				].slice(0, 6),
-				rune: [...(build.rune || []), null].slice(0, 1),
-				regions: build.regions || [], // Dùng để xác định tướng thuộc Hoa Linh
+				runeIds: [...(build.runeIds || []), null, null, null].slice(0, 3),
 			}}
 			onChampionChange={handleChampionChange}
 			maxStar={maxStar}

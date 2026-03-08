@@ -66,23 +66,21 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 		const exists = !!Item;
 
 		// Bước 2: Kiểm tra logic nghiệp vụ theo yêu cầu
-		// Trường hợp TẠO MỚI: Nếu ID đã tồn tại -> Báo lỗi 409 Conflict
 		if (isNew && exists) {
 			return res.status(409).json({
 				error: `Mã Bonus Star "${bonusStarID}" đã tồn tại. Vui lòng sử dụng mã khác.`,
 			});
 		}
 
-		// Trường hợp CẬP NHẬT: Nếu ID chưa có trong DB -> Báo lỗi 404 Not Found
 		if (!isNew && !exists) {
 			return res.status(404).json({
 				error: `Không tìm thấy Bonus Star với mã "${bonusStarID}" để cập nhật.`,
 			});
 		}
 
-		// Bước 3: Chuẩn bị dữ liệu để lưu
+		// Bước 3: Chuẩn bị dữ liệu để lưu (Bảo toàn các object như translations)
 		const dataToSave = { ...data };
-		delete dataToSave.isNew; // Xóa cờ hiệu của frontend trước khi lưu vào DB
+		delete dataToSave.isNew;
 
 		const command = new PutItemCommand({
 			TableName: BONUS_STAR_TABLE,
@@ -123,7 +121,6 @@ router.delete(
 			});
 			await client.send(command);
 
-			// Xóa toàn bộ cache sau khi xóa thành công
 			bonusCache.flushAll();
 
 			res.json({ message: "Đã xóa Bonus Star thành công." });

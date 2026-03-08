@@ -157,7 +157,6 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 	}
 
 	try {
-		// Bước 1: Kiểm tra thực tế trong Database
 		const checkCommand = new GetItemCommand({
 			TableName: POWERS_TABLE,
 			Key: marshall({ powerCode: powerCode.trim() }),
@@ -165,7 +164,6 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 		const { Item } = await client.send(checkCommand);
 		const exists = !!Item;
 
-		// Bước 2: Kiểm tra logic nghiệp vụ
 		if (isNew && exists) {
 			return res.status(409).json({
 				error: `Mã sức mạnh "${powerCode}" đã tồn tại. Không thể tạo trùng.`,
@@ -178,9 +176,8 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 			});
 		}
 
-		// Bước 3: Chuẩn bị dữ liệu và lưu
 		const dataToSave = { ...powerData };
-		delete dataToSave.isNew; // Xóa flag frontend trước khi lưu vào DynamoDB
+		delete dataToSave.isNew;
 
 		await client.send(
 			new PutItemCommand({
@@ -189,7 +186,6 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 			}),
 		);
 
-		// Bước 4: Làm mới Cache
 		powerCache.del("all_powers_data");
 		powerCache.del(`power_detail_${powerCode}`);
 
@@ -217,7 +213,6 @@ router.delete("/:powerCode", authenticateCognitoToken, async (req, res) => {
 			}),
 		);
 
-		// Xóa cache sau khi xóa thành công
 		powerCache.del("all_powers_data");
 		powerCache.del(`power_detail_${powerCode}`);
 
@@ -230,16 +225,16 @@ router.delete("/:powerCode", authenticateCognitoToken, async (req, res) => {
 
 /**
  * @route   POST /api/powers/resolve
- * @desc    Lấy chi tiết danh sách Sức mạnh từ mảng tên (Dùng cho deck/champions)
+ * @desc    Lấy chi tiết danh sách Sức mạnh từ mảng IDs
  */
 router.post("/resolve", async (req, res) => {
-	const { names } = req.body;
-	if (!Array.isArray(names))
-		return res.status(400).json({ error: "Names phải là một mảng." });
+	const { ids } = req.body;
+	if (!Array.isArray(ids))
+		return res.status(400).json({ error: "ids phải là một mảng." });
 
 	try {
 		const allPowers = await getCachedPowers();
-		const result = allPowers.filter(p => names.includes(p.name));
+		const result = allPowers.filter(p => ids.includes(p.powerCode));
 		res.json(result);
 	} catch (error) {
 		res.status(500).json({ error: "Lỗi truy vấn Powers." });

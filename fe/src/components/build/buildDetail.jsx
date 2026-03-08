@@ -1,4 +1,4 @@
-// src/components/build/BuildDetail.jsx
+// src/components/build/buildDetail.jsx
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
@@ -10,9 +10,10 @@ import {
 	ChevronLeft,
 	Loader2,
 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion"; // Thêm Framer Motion
+import { motion, AnimatePresence } from "framer-motion";
 
 import { useAuth } from "../../context/AuthContext.jsx";
+import { useTranslation } from "../../hooks/useTranslation.js"; // 🟢 Import Hook Đa ngôn ngữ
 import Modal from "../common/modal";
 import Button from "../common/button";
 import BuildEditModal from "./buildEditModal";
@@ -24,7 +25,7 @@ import SafeImage from "../common/SafeImage.jsx";
 import { useFavoriteStatus } from "../../hooks/useFavoriteStatus";
 import regionsData from "../../assets/data/iconRegions.json";
 
-// --- THÀNH PHẦN SKELETON (Đồng bộ phong cách với championDetail) ---
+// --- THÀNH PHẦN SKELETON ---
 const BuildDetailSkeleton = () => (
 	<div className='max-w-[1200px] mx-auto p-2 sm:p-6 animate-pulse'>
 		<div className='h-10 w-24 bg-gray-700/50 rounded mb-4' />
@@ -59,6 +60,7 @@ const BuildDetail = () => {
 	const { buildId } = useParams();
 	const navigate = useNavigate();
 	const { user, token } = useAuth();
+	const { language, t } = useTranslation(); // 🟢 Khởi tạo ngôn ngữ
 	const apiUrl = import.meta.env.VITE_API_URL;
 
 	const [build, setBuild] = useState(null);
@@ -66,12 +68,16 @@ const BuildDetail = () => {
 	const [error, setError] = useState(null);
 
 	const creatorDisplayName = useMemo(() => {
-		if (!build) return "Đang tải...";
+		if (!build) return language === "vi" ? "Đang tải..." : "Loading...";
 		if (user && (build.sub === user.sub || build.user_sub === user.sub)) {
-			return user.name || "Tôi";
+			return user.name || (language === "vi" ? "Tôi" : "Me");
 		}
-		return build.creator || build.creatorName || "Người chơi";
-	}, [build, user]);
+		return (
+			build.creator ||
+			build.creatorName ||
+			(language === "vi" ? "Người chơi" : "Player")
+		);
+	}, [build, user, language]);
 
 	const [likeCount, setLikeCount] = useState(0);
 	const [isLiked, setIsLiked] = useState(false);
@@ -92,16 +98,17 @@ const BuildDetail = () => {
 	const [powers, setPowers] = useState([]);
 	const [loadingData, setLoadingData] = useState(true);
 
+	// Fetch Master Data để hiển thị và truyền cho Edit Modal
 	useEffect(() => {
 		const fetchStaticData = async () => {
 			setLoadingData(true);
 			try {
-				const query = "?limit=-1";
+				const query = "?page=1&limit=1000";
 				const [champRes, relicRes, runeRes, powerRes] = await Promise.all([
 					fetch(`${apiUrl}/api/champions${query}`),
 					fetch(`${apiUrl}/api/relics${query}`),
 					fetch(`${apiUrl}/api/runes${query}`),
-					fetch(`${apiUrl}/api/powers${query}`),
+					fetch(`${apiUrl}/api/powers${query}`), // Lấy tất cả power để phòng hờ build cũ
 				]);
 
 				const [champData, relicData, runeData, powerData] = await Promise.all([
@@ -117,13 +124,12 @@ const BuildDetail = () => {
 				setPowers(powerData.items || []);
 			} catch (err) {
 				console.error("Lỗi tải metadata:", err);
-			} finally {
-				// Để đồng bộ với championDetail, chúng ta sẽ quản lý loadingBuild chính
 			}
 		};
 		fetchStaticData();
 	}, [apiUrl]);
 
+	// Fetch thông tin Build
 	const fetchBuild = useCallback(async () => {
 		setLoadingBuild(true);
 		try {
@@ -131,7 +137,12 @@ const BuildDetail = () => {
 			if (token) headers.Authorization = `Bearer ${token}`;
 
 			const res = await fetch(`${apiUrl}/api/builds/${buildId}`, { headers });
-			if (!res.ok) throw new Error("Không tìm thấy bộ cổ vật này.");
+			if (!res.ok)
+				throw new Error(
+					language === "vi"
+						? "Không tìm thấy bộ cổ vật này."
+						: "Build not found.",
+				);
 
 			const data = await res.json();
 			const buildData = data.item || data;
@@ -140,13 +151,12 @@ const BuildDetail = () => {
 		} catch (err) {
 			setError(err.message);
 		} finally {
-			// Thêm delay nhẹ 800ms như trang ChampionDetail để hiệu ứng mượt hơn
 			setTimeout(() => {
 				setLoadingBuild(false);
 				setLoadingData(false);
 			}, 800);
 		}
-	}, [buildId, apiUrl, token]);
+	}, [buildId, apiUrl, token, language]);
 
 	useEffect(() => {
 		fetchBuild();
@@ -163,16 +173,16 @@ const BuildDetail = () => {
 		if (liked) setIsLiked(true);
 	}, [buildId]);
 
-	const findFullItem = (list, name) => {
-		if (!Array.isArray(list) || !name) return null;
-		const target = name.trim().toLowerCase();
-		return list.find(item => (item.name || "").trim().toLowerCase() === target);
-	};
-
+	// 🟢 Map theo ID thay vì Name
 	const championInfo = useMemo(
-		() => findFullItem(champions, build?.championName),
+		() => champions.find(c => c.name === build?.championName),
 		[build, champions],
 	);
+
+	const championDisplayName = championInfo
+		? t(championInfo, "name")
+		: build?.championName || "";
+
 	const championImage = useMemo(
 		() => championInfo?.assets?.[0]?.avatar || "/fallback-image.svg",
 		[championInfo],
@@ -188,18 +198,26 @@ const BuildDetail = () => {
 			.filter(Boolean);
 	}, [championInfo]);
 
+	// 🟢 Ánh xạ ID -> Object chi tiết
 	const relicSet = useMemo(
 		() =>
-			(build?.relicSet || []).map(n => findFullItem(relics, n)).filter(Boolean),
+			(build?.relicSetIds || [])
+				.map(id => relics.find(r => r.relicCode === id))
+				.filter(Boolean),
 		[build, relics],
 	);
 	const runeSet = useMemo(
-		() => (build?.rune || []).map(n => findFullItem(runes, n)).filter(Boolean),
+		() =>
+			(build?.runeIds || [])
+				.map(id => runes.find(r => r.runeCode === id))
+				.filter(Boolean),
 		[build, runes],
 	);
 	const powerSet = useMemo(
 		() =>
-			(build?.powers || []).map(n => findFullItem(powers, n)).filter(Boolean),
+			(build?.powerIds || [])
+				.map(id => powers.find(p => p.powerCode === id))
+				.filter(Boolean),
 		[build, powers],
 	);
 
@@ -253,25 +271,29 @@ const BuildDetail = () => {
 		[user, build],
 	);
 
+	// 🟢 RenderItem sử dụng hook dịch thuật
 	const RenderItem = ({ item }) => {
 		if (!item) return null;
 		const imgSrc =
 			item.assetAbsolutePath || item.iconAbsolutePath || "/fallback-image.svg";
+		const itemName = t(item, "name");
+		const itemDesc = t(item, "description");
+
 		return (
 			<div className='flex items-start gap-4 p-3 bg-surface-hover rounded-md border border-border h-full hover:border-primary-500 transition-colors'>
 				<SafeImage
 					src={imgSrc}
-					alt={item.name}
+					alt={itemName}
 					className='w-12 h-12 rounded-md object-cover'
 				/>
 				<div className='flex-1'>
 					<h3 className='font-semibold text-text-primary text-sm sm:text-base'>
-						{item.name}
+						{itemName}
 					</h3>
-					{item.description && (
+					{itemDesc && (
 						<p
 							className='text-xs sm:text-sm text-text-secondary mt-1'
-							dangerouslySetInnerHTML={{ __html: item.description }}
+							dangerouslySetInnerHTML={{ __html: itemDesc }}
 						/>
 					)}
 				</div>
@@ -288,7 +310,7 @@ const BuildDetail = () => {
 					onClick={() => navigate("/builds")}
 					className='mx-auto'
 				>
-					Quay lại
+					{language === "vi" ? "Quay lại" : "Go Back"}
 				</Button>
 			</div>
 		);
@@ -298,8 +320,10 @@ const BuildDetail = () => {
 			<PageTitle
 				title={
 					build
-						? `Bộ cổ vật ${build.championName} - ${build.name}`
-						: "Chi tiết bộ cổ vật"
+						? `${language === "vi" ? "Bộ cổ vật" : "Build"} ${championDisplayName}`
+						: language === "vi"
+							? "Chi tiết bộ cổ vật"
+							: "Build Details"
 				}
 			/>
 			<div className='max-w-[1200px] mx-auto p-2 sm:p-6 text-text-primary font-secondary'>
@@ -326,7 +350,8 @@ const BuildDetail = () => {
 								onClick={() => navigate(-1)}
 								className='mb-4'
 							>
-								<ChevronLeft size={18} /> Quay lại
+								<ChevronLeft size={18} />{" "}
+								{language === "vi" ? "Quay lại" : "Back"}
 							</Button>
 
 							<div className='bg-surface-bg rounded-lg shadow-md p-4 sm:p-6 border border-border'>
@@ -334,13 +359,13 @@ const BuildDetail = () => {
 									<div className='flex items-center gap-4'>
 										<SafeImage
 											src={championImage}
-											alt={build.championName}
+											alt={championDisplayName}
 											className='w-20 h-20 rounded-full border-4 border-icon-star object-cover'
 										/>
 										<div>
 											<div className='flex items-center gap-2'>
 												<h1 className='font-bold text-2xl sm:text-3xl font-primary'>
-													{build.championName}
+													{championDisplayName}
 												</h1>
 												{championRegions.map(r => (
 													<SafeImage
@@ -352,7 +377,7 @@ const BuildDetail = () => {
 												))}
 											</div>
 											<p className='text-xs sm:text-sm text-text-secondary'>
-												Tạo bởi:{" "}
+												{language === "vi" ? "Tạo bởi:" : "Created by:"}{" "}
 												<span className='font-medium'>
 													{creatorDisplayName}
 												</span>
@@ -367,7 +392,11 @@ const BuildDetail = () => {
 													/>
 												))}
 												{[...Array(7 - (build.star || 0))].map((_, i) => (
-													<Star key={i} size={18} className='text-border' />
+													<Star
+														key={`empty-${i}`}
+														size={18}
+														className='text-border'
+													/>
 												))}
 											</div>
 										</div>
@@ -416,7 +445,7 @@ const BuildDetail = () => {
 								{relicSet.length > 0 && (
 									<div className='mb-8'>
 										<h2 className='text-xl font-bold mb-4 font-primary border-b border-border pb-2 text-primary-500'>
-											Cổ Vật
+											{language === "vi" ? "Cổ Vật" : "Relics"}
 										</h2>
 										<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
 											{relicSet.map((item, i) => (
@@ -429,7 +458,7 @@ const BuildDetail = () => {
 								{runeSet.length > 0 && (
 									<div className='mb-8'>
 										<h2 className='text-xl font-bold mb-4 font-primary border-b border-border pb-2 text-primary-500'>
-											Ngọc
+											{language === "vi" ? "Ngọc" : "Runes"}
 										</h2>
 										<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
 											{runeSet.map((item, i) => (
@@ -442,7 +471,7 @@ const BuildDetail = () => {
 								{powerSet.length > 0 && (
 									<div className='mb-8'>
 										<h2 className='text-xl font-bold mb-4 font-primary border-b border-border pb-2 text-primary-500'>
-											Sức mạnh
+											{language === "vi" ? "Sức mạnh" : "Powers"}
 										</h2>
 										<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
 											{powerSet.map((item, i) => (
@@ -455,7 +484,9 @@ const BuildDetail = () => {
 								{build.description && (
 									<div className='mb-6'>
 										<h2 className='text-xl font-bold mb-3 font-primary text-primary-500'>
-											Ghi chú chiến thuật
+											{language === "vi"
+												? "Ghi chú chiến thuật"
+												: "Tactical Notes"}
 										</h2>
 										<div className='bg-surface-hover p-4 rounded-md border-l-4 border-primary-500'>
 											<p className='text-text-primary whitespace-pre-wrap italic'>
@@ -474,14 +505,16 @@ const BuildDetail = () => {
 				<Modal
 					isOpen={showLoginModal}
 					onClose={() => setShowLoginModal(false)}
-					title='Yêu cầu đăng nhập'
+					title={language === "vi" ? "Yêu cầu đăng nhập" : "Login Required"}
 				>
 					<p className='text-text-secondary mb-6'>
-						Bạn cần đăng nhập để thực hiện hành động này.
+						{language === "vi"
+							? "Bạn cần đăng nhập để thực hiện hành động này."
+							: "You must be logged in to perform this action."}
 					</p>
 					<div className='flex justify-end gap-3'>
 						<Button variant='ghost' onClick={() => setShowLoginModal(false)}>
-							Hủy
+							{language === "vi" ? "Hủy" : "Cancel"}
 						</Button>
 						<Button
 							variant='primary'
@@ -490,7 +523,7 @@ const BuildDetail = () => {
 								navigate("/auth");
 							}}
 						>
-							Đăng nhập
+							{language === "vi" ? "Đăng nhập" : "Login"}
 						</Button>
 					</div>
 				</Modal>
@@ -502,12 +535,16 @@ const BuildDetail = () => {
 							onClose={() => setShowEditModal(false)}
 							build={build}
 							onConfirm={u => setBuild(u)}
+							championsList={champions}
+							relicsList={relics}
+							powersList={powers}
+							runesList={runes}
 						/>
 						<BuildDelete
 							isOpen={!!buildToDelete}
 							onClose={() => setBuildToDelete(null)}
 							build={buildToDelete}
-							onSuccess={() => navigate("/builds")}
+							onConfirm={() => navigate("/builds")}
 						/>
 					</>
 				)}

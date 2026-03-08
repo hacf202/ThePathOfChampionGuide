@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Star } from "lucide-react";
 import { RenderRequirements } from "./requirementIcon";
+import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook Đa ngôn ngữ
 
 const StarRating = ({ count }) => {
 	return (
@@ -17,12 +18,13 @@ const StarRating = ({ count }) => {
 };
 
 export default function ConstellationTable({ starPowersList, bonusStarsList }) {
+	const { tUI } = useTranslation(); // 🟢 Khởi tạo Hook gọi tUI
 	const [activeConstellationTab, setActiveConstellationTab] =
 		useState("starPowers");
 
 	const getBonusStarTypeName = nodeType => {
-		if (nodeType === "bonusStar") return "Thường";
-		if (nodeType === "bonusStarGem") return "Đá Quý";
+		if (nodeType === "bonusStar") return tUI("constellation.typeNormal");
+		if (nodeType === "bonusStarGem") return tUI("constellation.typeGemstone");
 		return nodeType;
 	};
 
@@ -41,7 +43,7 @@ export default function ConstellationTable({ starPowersList, bonusStarsList }) {
 							: "border-transparent text-text-secondary hover:text-text-primary"
 					}`}
 				>
-					Ngôi sao sức mạnh
+					{tUI("constellation.tabStarPowers")}
 				</button>
 				<button
 					onClick={() => setActiveConstellationTab("bonusStars")}
@@ -51,7 +53,7 @@ export default function ConstellationTable({ starPowersList, bonusStarsList }) {
 							: "border-transparent text-text-secondary hover:text-text-primary"
 					}`}
 				>
-					Ngôi sao tăng thưởng
+					{tUI("constellation.tabBonusStars")}
 				</button>
 			</div>
 
@@ -61,16 +63,22 @@ export default function ConstellationTable({ starPowersList, bonusStarsList }) {
 					<thead>
 						<tr className='bg-surface-hover/50 text-text-secondary text-xs sm:text-sm border-b border-border'>
 							<th className='py-2 px-2 sm:px-4 w-16 sm:w-20 text-center font-bold'>
-								{activeConstellationTab === "starPowers" ? "Cấp sao" : "Loại"}
+								{activeConstellationTab === "starPowers"
+									? tUI("constellation.colStar")
+									: tUI("constellation.colType")}
 							</th>
 							<th className='py-2 px-2 sm:px-4 w-24 sm:w-32 text-center font-bold whitespace-nowrap'>
-								Yêu cầu
+								{tUI("constellation.colReq")}
 							</th>
 							<th className='py-2 px-2 sm:px-4 w-16 sm:w-24 text-center font-bold'>
-								Hình ảnh
+								{tUI("constellation.colImg")}
 							</th>
-							<th className='py-2 px-2 sm:px-4 w-32 sm:w-48 font-bold'>Tên</th>
-							<th className='py-2 px-2 sm:px-4 font-bold'>Sức mạnh</th>
+							<th className='py-2 px-2 sm:px-4 w-32 sm:w-48 font-bold'>
+								{tUI("constellation.colName")}
+							</th>
+							<th className='py-2 px-2 sm:px-4 font-bold'>
+								{tUI("constellation.colPower")}
+							</th>
 						</tr>
 					</thead>
 					<tbody className='divide-y divide-border'>
@@ -128,7 +136,7 @@ export default function ConstellationTable({ starPowersList, bonusStarsList }) {
 						{currentList.length === 0 && (
 							<tr>
 								<td colSpan='5' className='p-6 text-center text-text-secondary'>
-									Chưa có dữ liệu cho mục này.
+									{tUI("constellation.noData")}
 								</td>
 							</tr>
 						)}

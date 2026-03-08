@@ -136,16 +136,16 @@ router.get("/", async (req, res) => {
 
 /**
  * @route   POST /api/items/resolve
- * @desc    Lấy chi tiết danh sách Vật phẩm từ mảng tên
+ * @desc    Lấy chi tiết danh sách Vật phẩm từ mảng IDs
  */
 router.post("/resolve", async (req, res) => {
-	const { names } = req.body;
-	if (!Array.isArray(names))
-		return res.status(400).json({ error: "Names must be an array" });
+	const { ids } = req.body;
+	if (!Array.isArray(ids))
+		return res.status(400).json({ error: "ids must be an array" });
 
 	try {
 		const allItems = await getCachedItems();
-		const result = allItems.filter(i => names.includes(i.name));
+		const result = allItems.filter(i => ids.includes(i.itemCode));
 		res.json(result);
 	} catch (error) {
 		res.status(500).json({ error: "Lỗi truy vấn Items" });
@@ -166,7 +166,6 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 			.json({ error: "Mã vật phẩm (itemCode) là bắt buộc." });
 
 	try {
-		// 1. Kiểm tra tồn tại trong Database
 		const checkCommand = new GetItemCommand({
 			TableName: ITEMS_TABLE,
 			Key: marshall({ itemCode: itemCode.trim() }),
@@ -174,7 +173,6 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 		const { Item } = await client.send(checkCommand);
 		const exists = !!Item;
 
-		// 2. Logic kiểm tra nghiệp vụ
 		if (isNew && exists) {
 			return res.status(409).json({
 				error: `Mã vật phẩm "${itemCode}" đã tồn tại. Không thể tạo mới trùng mã.`,
@@ -187,7 +185,6 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 			});
 		}
 
-		// 3. Chuẩn bị dữ liệu lưu (Xóa isNew cờ hiệu frontend)
 		const dataToSave = { ...itemData };
 		delete dataToSave.isNew;
 
@@ -198,7 +195,6 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 			}),
 		);
 
-		// 4. Làm mới Cache
 		itemCache.del("all_items_data");
 		itemCache.del(`item_detail_${itemCode}`);
 

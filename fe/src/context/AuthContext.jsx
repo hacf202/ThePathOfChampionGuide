@@ -1,3 +1,4 @@
+// fe/src/context/AuthContext.jsx
 import React, {
 	createContext,
 	useState,
@@ -29,7 +30,7 @@ const decodeJwtPayload = token => {
 					return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
 				})
 
-				.join("")
+				.join(""),
 		);
 		return JSON.parse(jsonPayload);
 	} catch (e) {
@@ -42,10 +43,9 @@ export const AuthProvider = ({ children }) => {
 	const [user, setUser] = useState(null);
 	const [token, setToken] = useState(null);
 	const [accessToken, setAccessToken] = useState(null);
-	const [tempPassword, setTempPassword] = useState(null); // Dùng để tự động đăng nhập sau khi xác nhận tài khoản
-	const [isAdmin, setIsAdmin] = useState(false); // Thêm state mới
+	const [tempPassword, setTempPassword] = useState(null);
+	const [isAdmin, setIsAdmin] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
-	// Thêm state
 	const [refreshToken, setRefreshToken] = useState(null);
 
 	// Tự động làm mới token khi gần hết hạn
@@ -59,6 +59,7 @@ export const AuthProvider = ({ children }) => {
 			try {
 				const data = await authService.refreshToken(refreshToken);
 				const { IdToken, AccessToken } = data.AuthenticationResult;
+				// Lưu ý: Cognito refresh token flow thường không trả về RefreshToken mới, nên ta giữ nguyên cái cũ
 				handleLogin(IdToken, AccessToken, refreshToken);
 			} catch (error) {
 				console.error("Refresh token failed:", error);
@@ -69,29 +70,34 @@ export const AuthProvider = ({ children }) => {
 		return () => clearTimeout(timeout);
 	}, [token, refreshToken]);
 
+	// Khôi phục phiên đăng nhập từ localStorage khi F5 trang
 	useEffect(() => {
 		const storedToken = localStorage.getItem("token");
 		const storedAccessToken = localStorage.getItem("access_token");
 		const storedRefreshToken = localStorage.getItem("refresh_token");
+
 		if (storedToken && storedAccessToken && storedRefreshToken) {
 			const payload = decodeJwtPayload(storedToken);
 			if (payload && payload.exp * 1000 > Date.now()) {
 				handleLogin(storedToken, storedAccessToken, storedRefreshToken);
 			} else {
+				// Nếu token đã hết hạn thì đăng xuất để xóa sạch
 				logout();
 			}
 		}
 		setIsLoading(false);
 	}, []);
 
-	// Trong handleLogin
+	// Hàm dùng chung để cập nhật state và localStorage khi đăng nhập thành công
 	const handleLogin = (idToken, accessToken, refreshToken) => {
 		localStorage.setItem("token", idToken);
 		localStorage.setItem("access_token", accessToken);
-		localStorage.setItem("refresh_token", refreshToken); // LƯU REFRESH TOKEN
+		localStorage.setItem("refresh_token", refreshToken);
+
 		setToken(idToken);
 		setAccessToken(accessToken);
 		setRefreshToken(refreshToken);
+
 		const payload = decodeJwtPayload(idToken);
 		setUser({
 			sub: payload.sub,
@@ -102,7 +108,6 @@ export const AuthProvider = ({ children }) => {
 		setIsAdmin((payload["cognito:groups"] || []).includes("admin"));
 	};
 
-	// Cập nhật login()
 	const login = async (username, password, onSuccess, onError) => {
 		try {
 			const data = await authService.initiateAuth(username, password);
@@ -118,16 +123,17 @@ export const AuthProvider = ({ children }) => {
 		setUser(null);
 		setToken(null);
 		setAccessToken(null);
+		setRefreshToken(null); // BỔ SUNG: Xóa state refresh token
 		setIsAdmin(false);
+
 		localStorage.removeItem("token");
 		localStorage.removeItem("access_token");
+		localStorage.removeItem("refresh_token"); // BỔ SUNG: Dọn dẹp sạch localStorage
 	};
 
 	const signUp = async (username, email, password, onSuccess, onError) => {
 		try {
-			// Bạn có thể thêm validation ở đây nếu muốn
-			// Ví dụ: if (password.length < 8) { ... }
-			setTempPassword(password); // Lưu mật khẩu tạm thời để tự động đăng nhập
+			setTempPassword(password);
 			await authService.signUp(username, email, password);
 			onSuccess("Mã OTP đã được gửi đến email của bạn.");
 		} catch (error) {
@@ -137,20 +143,13 @@ export const AuthProvider = ({ children }) => {
 
 	const confirmSignUp = async (username, code, onSuccess, onError) => {
 		try {
-			// Chỉ gọi xác nhận, không gọi đăng nhập sau đó
 			await authService.confirmSignUp(username, code);
-
-			// Xóa bỏ logic tự động đăng nhập ở đây (initiateAuth và handleLogin)
-			// const data = await authService.initiateAuth(username, tempPassword);
-			// const { IdToken, AccessToken } = data.AuthenticationResult;
-			// handleLogin(IdToken, AccessToken);
-
 			onSuccess("Xác minh thành công! Vui lòng đăng nhập.");
 		} catch (error) {
 			console.error("Lỗi xác nhận:", error);
 			onError(error.message);
 		} finally {
-			setTempPassword(null); // Xóa mật khẩu tạm vì không còn dùng để auto-login
+			setTempPassword(null);
 		}
 	};
 
@@ -177,7 +176,7 @@ export const AuthProvider = ({ children }) => {
 		code,
 		newPassword,
 		onSuccess,
-		onError
+		onError,
 	) => {
 		try {
 			await authService.confirmPasswordReset(username, code, newPassword);
@@ -190,7 +189,6 @@ export const AuthProvider = ({ children }) => {
 	const changeName = async (newName, onSuccess, onError) => {
 		try {
 			const data = await authService.changeName(newName, token);
-			// CẬP NHẬT STATE NGAY LẬP TỨC
 			setUser(prev => (prev ? { ...prev, name: newName } : null));
 			onSuccess(data.message);
 		} catch (err) {
@@ -202,7 +200,7 @@ export const AuthProvider = ({ children }) => {
 		oldPassword,
 		newPassword,
 		onSuccess,
-		onError
+		onError,
 	) => {
 		if (!accessToken) {
 			onError("Không tìm thấy access token");
@@ -213,9 +211,8 @@ export const AuthProvider = ({ children }) => {
 			const data = await authService.changePassword(
 				oldPassword,
 				newPassword,
-
-				accessToken, // ← BẮT BUỘC
-				token // ← ID Token để xác thực (nếu backend cần)
+				accessToken,
+				token,
 			);
 			onSuccess(data.message);
 		} catch (err) {
@@ -232,7 +229,7 @@ export const AuthProvider = ({ children }) => {
 			return null;
 		}
 	};
-	// Tất cả các giá trị và hàm được cung cấp cho toàn bộ ứng dụng
+
 	const value = {
 		user,
 		token,

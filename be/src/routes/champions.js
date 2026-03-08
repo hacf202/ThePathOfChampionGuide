@@ -64,9 +64,9 @@ router.get("/", async (req, res) => {
 		// 1. Lấy toàn bộ danh sách từ Cache (hoặc DB)
 		const allChampions = await getCachedChampions();
 
-		// 2. TRÍCH XUẤT BỘ LỌC ĐỘNG (Dynamic Filters)
+		// 2. TRÍCH XUẤT BỘ LỌC ĐỘNG (Dynamic Filters) - Đã đổi thành tags
 		const availableFilters = {
-			tags: [...new Set(allChampions.flatMap(c => c.tag || []))].sort(),
+			tags: [...new Set(allChampions.flatMap(c => c.tags || []))].sort(),
 			regions: [...new Set(allChampions.flatMap(c => c.regions || []))].sort(),
 			costs: [...new Set(allChampions.map(c => Number(c.cost)))]
 				.filter(Boolean)
@@ -98,7 +98,7 @@ router.get("/", async (req, res) => {
 
 		if (tags) {
 			const tList = tags.split(",");
-			filtered = filtered.filter(c => c.tag?.some(t => tList.includes(t)));
+			filtered = filtered.filter(c => c.tags?.some(t => tList.includes(t)));
 		}
 
 		if (maxStars) {
@@ -117,22 +117,19 @@ router.get("/", async (req, res) => {
 			return order === "asc" ? vA - vB : vB - vA;
 		});
 
-		// 5. PHÂN TRANG (Pagination) - ĐÃ FIX LỖI BỎ SÓT PHẦN TỬ CUỐI
+		// 5. PHÂN TRANG (Pagination)
 		const totalItems = filtered.length;
 		let paginatedItems;
 
 		if (pageSize < 0) {
-			// Nếu limit < 0 (ví dụ -1), trả về toàn bộ mảng không cắt
 			paginatedItems = filtered;
 		} else {
-			// Thực hiện phân trang bình thường
 			paginatedItems = filtered.slice(
 				(currentPage - 1) * pageSize,
 				currentPage * pageSize,
 			);
 		}
 
-		// Tính toán số trang chính xác
 		const totalPages = pageSize > 0 ? Math.ceil(totalItems / pageSize) : 1;
 
 		res.json({
@@ -154,7 +151,6 @@ router.get("/", async (req, res) => {
 /**
  * @route   GET /api/champions/search?name=...
  * @desc    Tìm tướng theo tên (exact match)
- * @note    ĐẶT TRƯỚC /:championID ĐỂ TRÁNH XUNG ĐỘT ROUTE
  */
 router.get("/search", async (req, res) => {
 	const { name } = req.query;
@@ -186,7 +182,7 @@ router.get("/search", async (req, res) => {
 
 /**
  * @route   GET /api/champions/:championID
- * @desc    Lấy chi tiết một tướng (Ưu tiên Cache -> Database)
+ * @desc    Lấy chi tiết một tướng
  */
 router.get("/:championID", async (req, res) => {
 	const { championID } = req.params;
@@ -195,17 +191,14 @@ router.get("/:championID", async (req, res) => {
 		return res.status(400).json({ error: "championID là bắt buộc." });
 	}
 
-	// 1. Tạo khóa Cache riêng cho từng tướng
 	const CACHE_KEY = `champion_detail_${championID}`;
 
 	try {
-		// 2. Kiểm tra dữ liệu trong Cache
 		const cachedChampion = championCache.get(CACHE_KEY);
 		if (cachedChampion) {
 			return res.json(cachedChampion);
 		}
 
-		// 3. Nếu không có trong Cache, truy vấn từ DynamoDB
 		const command = new GetItemCommand({
 			TableName: CHAMPIONS_TABLE,
 			Key: marshall({ championID }),
@@ -217,13 +210,9 @@ router.get("/:championID", async (req, res) => {
 			return res.status(404).json({ error: "Không tìm thấy tướng yêu cầu." });
 		}
 
-		// 4. Giải mã dữ liệu (Unmarshall)
 		const championData = unmarshall(Item);
-
-		// 5. Lưu vào Cache để sử dụng cho lần sau (TTL 120 giây như mặc định)
 		championCache.set(CACHE_KEY, championData);
 
-		// 6. Trả về kết quả
 		res.json(championData);
 	} catch (error) {
 		console.error("Lỗi khi lấy chi tiết tướng:", error);
@@ -295,8 +284,6 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 		});
 
 		await client.send(command);
-
-		// Xóa cache sau khi cập nhật dữ liệu để đảm bảo Frontend nhận dữ liệu mới nhất
 		championCache.del("all_champions_list");
 
 		res.json({
@@ -352,8 +339,6 @@ router.delete(
 			});
 
 			await client.send(deleteCmd);
-
-			// Xóa cache sau khi xóa dữ liệu
 			championCache.del("all_champions_list");
 
 			const deletedChampion = unmarshall(Item);

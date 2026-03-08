@@ -6,7 +6,7 @@
 export const boolToString = value => {
 	if (value === true) return "true";
 	if (value === false) return "false";
-	return undefined; // nếu không phải boolean
+	return undefined;
 };
 
 /**
@@ -15,25 +15,29 @@ export const boolToString = value => {
 export const stringToBool = value => {
 	if (value === "true") return true;
 	if (value === "false") return false;
-	return undefined; // hoặc giữ nguyên nếu không phải "true"/"false"
+	return undefined;
 };
 
 /**
  * Áp dụng chuyển đổi display trong object trước khi lưu vào DynamoDB
+ * Tối ưu: Tạo bản sao (Clone) để tránh lỗi mutate object gốc (Side-effects)
  */
 export const prepareBuildForDynamo = build => {
-	if (build.display !== undefined) {
-		build.display = boolToString(build.display);
+	const newBuild = { ...build };
+	if (newBuild.display !== undefined) {
+		newBuild.display = boolToString(newBuild.display);
 	}
-	return build;
+	return newBuild;
 };
 
 /**
  * Áp dụng chuyển đổi display từ DynamoDB về boolean
+ * Tối ưu: Tạo bản sao (Clone) để tránh lỗi mutate object gốc
  */
 export const normalizeBuildFromDynamo = build => {
-	if (build.display !== undefined) {
-		build.display = stringToBool(build.display);
+	const newBuild = { ...build };
+	if (newBuild.display !== undefined) {
+		newBuild.display = stringToBool(newBuild.display);
 	}
-	return build;
+	return newBuild;
 };

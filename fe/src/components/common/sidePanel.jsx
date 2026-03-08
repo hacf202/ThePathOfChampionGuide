@@ -1,17 +1,17 @@
-// src/components/common/SidePanel.jsx (ĐÃ ĐỒNG BỘ)
-
+// src/components/common/sidePanel.jsx
 import { memo } from "react";
 import InputField from "./inputField";
 import MultiSelectFilter from "./multiSelectFilter";
 import DropdownFilter from "./dropdownFilter";
 import Button from "./button";
 import { Search, Plus, RotateCw, XCircle } from "lucide-react";
+import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook
 
 const SidePanel = memo(
 	({
-		searchPlaceholder = "Tìm kiếm...",
-		addLabel = "Thêm Mới",
-		resetLabel = "Đặt lại bộ lọc",
+		searchPlaceholder,
+		addLabel,
+		resetLabel,
 		searchInput,
 		onSearchInputChange,
 		onSearch,
@@ -23,26 +23,30 @@ const SidePanel = memo(
 		sortSelectedValue,
 		onSortChange,
 	}) => {
+		const { tUI } = useTranslation(); // 🟢 Khởi tạo Hook
+
+		// 🟢 Xử lý giá trị mặc định bằng tUI
+		const currentSearchPlaceholder =
+			searchPlaceholder || tUI("common.searchPlaceholder");
+		const currentAddLabel = addLabel || tUI("common.addNew");
+		const currentResetLabel = resetLabel || tUI("championList.resetFilter");
+
 		return (
-			// Sử dụng class ngữ nghĩa
 			<div className='bg-surface-bg rounded-lg border border-border p-4 sm:p-6 mb-6'>
 				<div className='space-y-4'>
 					{/* Search Block */}
 					<div>
-						<label className='block text-sm font-medium mb-1 text-text-secondary'>
-							Tìm kiếm
-						</label>
 						<div className='relative'>
 							<InputField
+								type='text'
+								placeholder={currentSearchPlaceholder}
 								value={searchInput}
 								onChange={onSearchInputChange}
-								onKeyPress={e => e.key === "Enter" && onSearch()}
-								placeholder={searchPlaceholder}
+								className='pr-10'
 							/>
 							{searchInput && (
 								<button
 									onClick={onClearSearch}
-									// Sử dụng class ngữ nghĩa
 									className='absolute right-3 top-1/2 -translate-y-1/2 text-text-secondary hover:text-text-primary'
 								>
 									<XCircle size={18} />
@@ -51,7 +55,7 @@ const SidePanel = memo(
 						</div>
 						<Button onClick={onSearch} className='w-full mt-2'>
 							<Search size={16} className='mr-2' />
-							Tìm kiếm
+							{tUI("common.search")}
 						</Button>
 					</div>
 
@@ -59,7 +63,7 @@ const SidePanel = memo(
 					<div className='flex flex-col gap-4'>
 						<Button onClick={onAddNew} className='w-full'>
 							<Plus size={16} className='mr-2' />
-							{addLabel}
+							{currentAddLabel}
 						</Button>
 						<Button
 							variant='outline'
@@ -67,7 +71,7 @@ const SidePanel = memo(
 							iconLeft={<RotateCw size={16} />}
 							className='w-full'
 						>
-							{resetLabel}
+							{currentResetLabel}
 						</Button>
 					</div>
 
@@ -88,16 +92,16 @@ const SidePanel = memo(
 					{/* Sort Dropdown Block */}
 					<div>
 						<DropdownFilter
-							label='Sắp xếp'
+							label={tUI("championList.sortBy")}
 							options={sortOptions}
-							selectedValue={sortSelectedValue}
+							value={sortSelectedValue}
 							onChange={onSortChange}
 						/>
 					</div>
 				</div>
 			</div>
 		);
-	}
+	},
 );
 
 export default SidePanel;

@@ -3,6 +3,7 @@ import React, { useState, useMemo, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePersistentState } from "../hooks/usePersistentState";
+import { useTranslation } from "../hooks/useTranslation";
 import InputField from "../components/common/inputField";
 import MultiSelectFilter from "../components/common/multiSelectFilter";
 import DropdownFilter from "../components/common/dropdownFilter";
@@ -32,6 +33,8 @@ const ChampionSkeleton = () => (
 );
 
 function ChampionList() {
+	const { language, tUI } = useTranslation();
+
 	// --- STATE ---
 	const [champions, setChampions] = useState([]);
 	const [loading, setLoading] = useState(true);
@@ -89,7 +92,6 @@ function ChampionList() {
 		false,
 	);
 
-	// --- LOGIC ĐIỀU HƯỚNG ---
 	const goToNextPage = useCallback(() => {
 		if (currentPage < pagination.totalPages && !loading) {
 			setCurrentPage(prev => prev + 1);
@@ -110,7 +112,6 @@ function ChampionList() {
 		if (window.innerWidth < 1024) setIsFilterOpen(false);
 	}, [searchInput, setSearchTerm, setCurrentPage, setIsFilterOpen]);
 
-	// --- LOGIC PHÍM TẮT (Global) ---
 	useEffect(() => {
 		const handleKeyDown = event => {
 			if (event.key === "Tab") {
@@ -118,26 +119,18 @@ function ChampionList() {
 				setShowDesktopFilter(prev => !prev);
 				return;
 			}
-
 			if (
 				event.target.tagName === "INPUT" ||
 				event.target.tagName === "TEXTAREA"
-			) {
+			)
 				return;
-			}
-
-			if (event.key === "ArrowLeft") {
-				goToPrevPage();
-			} else if (event.key === "ArrowRight") {
-				goToNextPage();
-			}
+			if (event.key === "ArrowLeft") goToPrevPage();
+			else if (event.key === "ArrowRight") goToNextPage();
 		};
-
 		window.addEventListener("keydown", handleKeyDown);
 		return () => window.removeEventListener("keydown", handleKeyDown);
 	}, [goToPrevPage, goToNextPage, setShowDesktopFilter]);
 
-	// --- LOGIC FETCHING ---
 	const queryParams = useMemo(() => {
 		const params = new URLSearchParams();
 		params.append("page", currentPage);
@@ -169,7 +162,7 @@ function ChampionList() {
 			const response = await fetch(
 				`${backendUrl}/api/champions?${queryParams}`,
 			);
-			if (!response.ok) throw new Error("Lỗi tải dữ liệu");
+			if (!response.ok) throw new Error(tUI("common.errorLoadData"));
 			const data = await response.json();
 			setChampions(
 				data.items.map(c => ({
@@ -189,12 +182,13 @@ function ChampionList() {
 		} finally {
 			setTimeout(() => setLoading(false), 800);
 		}
-	}, [queryParams]);
+	}, [queryParams, tUI]);
 
 	useEffect(() => {
 		fetchChampions();
 	}, [fetchChampions]);
 
+	// 🟢 Cập nhật Filter Options: Thêm label để MultiSelectFilter có thể hiển thị
 	const filterOptions = useMemo(
 		() => ({
 			regions: dynamicFilters.regions.map(r => ({
@@ -202,17 +196,25 @@ function ChampionList() {
 				label: r,
 				iconUrl: iconRegions.find(i => i.name === r)?.iconAbsolutePath,
 			})),
-			costs: dynamicFilters.costs.map(c => ({ value: c, isCost: true })),
-			maxStars: dynamicFilters.maxStars.map(s => ({ value: s, isStar: true })),
+			costs: dynamicFilters.costs.map(c => ({
+				value: c,
+				label: `${c} ${tUI("championList.cost")}`, // Ví dụ: "1 Năng lượng"
+				isCost: true,
+			})),
+			maxStars: dynamicFilters.maxStars.map(s => ({
+				value: s,
+				label: `${s} ⭐`, // Ví dụ: "3 ⭐"
+				isStar: true,
+			})),
 			tags: dynamicFilters.tags.map(t => ({ value: t, label: t, isTag: true })),
 			sort: [
-				{ value: "name-asc", label: "Tên A-Z" },
-				{ value: "name-desc", label: "Tên Z-A" },
-				{ value: "cost-asc", label: "Năng lượng thấp-cao" },
-				{ value: "cost-desc", label: "Năng lượng cao-thấp" },
+				{ value: "name-asc", label: tUI("sort.nameAsc") },
+				{ value: "name-desc", label: tUI("sort.nameDesc") },
+				{ value: "cost-asc", label: tUI("sort.costAsc") },
+				{ value: "cost-desc", label: tUI("sort.costDesc") },
 			],
 		}),
-		[dynamicFilters],
+		[dynamicFilters, tUI],
 	);
 
 	const handleResetFilters = () => {
@@ -228,12 +230,12 @@ function ChampionList() {
 
 	return (
 		<div className='animate-fadeIn'>
-			<PageTitle title='Danh sách tướng' description='POC GUIDE...' />
+			<PageTitle title={tUI("championList.title")} description='POC GUIDE...' />
 
 			<div className='font-secondary'>
 				<div className='flex justify-between items-center mb-2 md:mb-6'>
 					<h1 className='text-3xl font-bold text-text-primary font-primary animate-glitch'>
-						Danh Sách Tướng
+						{tUI("championList.heading")}
 					</h1>
 
 					<div className='hidden lg:flex items-center gap-4'>
@@ -247,17 +249,16 @@ function ChampionList() {
 							) : (
 								<ChevronLeft size={18} />
 							)}
-							{showDesktopFilter ? "Ẩn bộ lọc" : "Hiện bộ lọc"}
+							{showDesktopFilter
+								? tUI("championList.hideFilter")
+								: tUI("championList.showFilter")}
 						</Button>
 					</div>
 				</div>
 
 				<div className='flex flex-col lg:flex-row items-start'>
-					{/* --- MAIN CONTENT Area --- */}
 					<div
-						className={`w-full transition-[flex] duration-300 ease-in-out ${
-							showDesktopFilter ? "lg:flex-[3]" : "lg:flex-[1]"
-						}`}
+						className={`w-full transition-[flex] duration-300 ease-in-out ${showDesktopFilter ? "lg:flex-[3]" : "lg:flex-[1]"}`}
 					>
 						<div className='bg-surface-bg rounded-lg border border-border p-2 sm:p-4 shadow-sm min-h-[500px] relative overflow-hidden'>
 							<AnimatePresence mode='wait'>
@@ -297,14 +298,13 @@ function ChampionList() {
 														</motion.div>
 													))}
 												</div>
-												{/* Phân trang */}
 												<div className='mt-8 flex justify-center items-center gap-4 border-t border-border pt-4'>
 													<Button
 														onClick={goToPrevPage}
 														disabled={currentPage === 1}
 														variant='outline'
 													>
-														Trang trước
+														{tUI("common.prevPage")}
 													</Button>
 													<span className='font-bold text-primary-500 bg-primary-100/10 px-3 py-1 rounded-full'>
 														{currentPage} / {pagination.totalPages}
@@ -314,7 +314,7 @@ function ChampionList() {
 														disabled={currentPage === pagination.totalPages}
 														variant='outline'
 													>
-														Trang sau
+														{tUI("common.nextPage")}
 													</Button>
 												</div>
 											</>
@@ -324,7 +324,7 @@ function ChampionList() {
 													size={48}
 													className='mx-auto mb-4 opacity-20'
 												/>
-												Không tìm thấy tướng phù hợp.
+												{tUI("championList.notFound") || tUI("common.notFound")}
 											</div>
 										)}
 									</motion.div>
@@ -333,63 +333,58 @@ function ChampionList() {
 						</div>
 					</div>
 
-					{/* --- ASIDE (Bộ lọc PC) --- */}
 					<AnimatePresence initial={false}>
 						{showDesktopFilter && (
 							<motion.aside
 								key='desktop-filter'
 								initial={{ width: 0, opacity: 0, marginLeft: 0 }}
-								animate={{
-									width: "auto",
-									opacity: 1,
-									marginLeft: "2rem",
-								}}
+								animate={{ width: "auto", opacity: 1, marginLeft: "2rem" }}
 								exit={{ width: 0, opacity: 0, marginLeft: 0 }}
 								transition={{ duration: 0.3, ease: "easeInOut" }}
 								className='hidden lg:block sticky top-24 h-fit overflow-hidden'
 							>
 								<div className='w-[280px] xl:w-[320px] p-4 rounded-lg border border-border bg-surface-bg space-y-4 shadow-sm'>
 									<label className='block text-sm font-medium text-text-secondary'>
-										Tìm kiếm tướng
+										{tUI("championList.searchLabel")}
 									</label>
 									<InputField
 										value={searchInput}
 										onChange={e => setSearchInput(e.target.value)}
 										onKeyDown={e => e.key === "Enter" && handleSearch()}
-										placeholder='Tên tướng...'
+										placeholder={tUI("championList.searchPlaceholder")}
 									/>
 									<Button
 										onClick={handleSearch}
 										className='w-full mt-2 hover:animate-pulse-focus'
 									>
-										<Search size={16} className='mr-2' /> Tìm kiếm
+										<Search size={16} className='mr-2' /> {tUI("common.search")}
 									</Button>
 									<MultiSelectFilter
-										label='Vùng'
+										label={tUI("championList.region")}
 										options={filterOptions.regions}
 										selectedValues={selectedRegions}
 										onChange={setSelectedRegions}
 									/>
 									<MultiSelectFilter
-										label='Năng lượng'
+										label={tUI("championList.cost")}
 										options={filterOptions.costs}
 										selectedValues={selectedCosts}
 										onChange={setSelectedCosts}
 									/>
 									<MultiSelectFilter
-										label='Sao tối đa'
+										label={tUI("championList.maxStars")}
 										options={filterOptions.maxStars}
 										selectedValues={selectedMaxStars}
 										onChange={setSelectedMaxStars}
 									/>
 									<MultiSelectFilter
-										label='Thẻ'
+										label={tUI("championList.tags")}
 										options={filterOptions.tags}
 										selectedValues={selectedTags}
 										onChange={setSelectedTags}
 									/>
 									<DropdownFilter
-										label='Sắp xếp'
+										label={tUI("championList.sortBy")}
 										options={filterOptions.sort}
 										selectedValue={sortOrder}
 										onChange={setSortOrder}
@@ -399,7 +394,8 @@ function ChampionList() {
 										onClick={handleResetFilters}
 										className='w-full'
 									>
-										<RotateCw size={16} className='mr-2' /> Đặt lại bộ lọc
+										<RotateCw size={16} className='mr-2' />{" "}
+										{tUI("championList.resetFilter")}
 									</Button>
 								</div>
 							</motion.aside>
@@ -414,7 +410,7 @@ function ChampionList() {
 									value={searchInput}
 									onChange={e => setSearchInput(e.target.value)}
 									onKeyDown={e => e.key === "Enter" && handleSearch()}
-									placeholder='Tên tướng...'
+									placeholder={tUI("championList.searchPlaceholder")}
 								/>
 							</div>
 							<Button onClick={handleSearch} className='px-3'>
@@ -449,31 +445,31 @@ function ChampionList() {
 								>
 									<div className='pt-4 space-y-4 border-t border-border mt-3'>
 										<MultiSelectFilter
-											label='Vùng'
+											label={tUI("championList.region")}
 											options={filterOptions.regions}
 											selectedValues={selectedRegions}
 											onChange={setSelectedRegions}
 										/>
 										<MultiSelectFilter
-											label='Năng lượng'
+											label={tUI("championList.cost")}
 											options={filterOptions.costs}
 											selectedValues={selectedCosts}
 											onChange={setSelectedCosts}
 										/>
 										<MultiSelectFilter
-											label='Sao tối đa'
+											label={tUI("championList.maxStars")}
 											options={filterOptions.maxStars}
 											selectedValues={selectedMaxStars}
 											onChange={setSelectedMaxStars}
 										/>
 										<MultiSelectFilter
-											label='Thẻ'
+											label={tUI("championList.tags")}
 											options={filterOptions.tags}
 											selectedValues={selectedTags}
 											onChange={setSelectedTags}
 										/>
 										<DropdownFilter
-											label='Sắp xếp'
+											label={tUI("championList.sortBy")}
 											options={filterOptions.sort}
 											selectedValue={sortOrder}
 											onChange={setSortOrder}

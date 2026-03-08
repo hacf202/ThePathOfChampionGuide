@@ -10,6 +10,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { AuthContext } from "../../context/AuthContext.jsx";
 import BuildSummary from "./buildSummary";
 import { useBatchFavoriteData } from "../../hooks/useBatchFavoriteData";
+import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook
 import Button from "../common/button.jsx";
 import { XCircle } from "lucide-react";
 
@@ -33,227 +34,206 @@ const BuildSkeleton = () => (
 	</div>
 );
 
-const MyFavorite = ({
+const MyFavoriteBuilds = ({
 	searchTerm,
 	selectedStarLevels,
 	selectedRegions,
+	sortBy,
+	currentPage,
+	setCurrentPage,
 	championsList,
 	relicsList,
 	powersList,
 	runesList,
 	refreshKey,
-	onFavoriteToggle,
-	onDeleteSuccess,
-	sortBy,
+	powerMap,
+	championNameToRegionsMap,
 	showDesktopFilter,
+	onDeleteSuccess,
 }) => {
-	const { token } = useContext(AuthContext);
+	const { token, user } = useContext(AuthContext);
+	const { language } = useTranslation(); // 🟢 Khởi tạo ngôn ngữ
 	const [favoriteBuilds, setFavoriteBuilds] = useState([]);
-	const [isLoading, setIsLoading] = useState(true);
+	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
-	const [currentPage, setCurrentPage] = useState(1);
 	const [totalPages, setTotalPages] = useState(1);
-	const [totalItems, setTotalItems] = useState(0);
-	const isFetching = useRef(false);
-
-	const apiUrl = import.meta.env.VITE_API_URL;
-	const { favoriteCounts } = useBatchFavoriteData(favoriteBuilds, token);
+	const containerRef = useRef(null);
 
 	const fetchFavoriteBuilds = useCallback(async () => {
-		if (!token || isFetching.current) return;
-		isFetching.current = true;
-		setIsLoading(true);
-
-		const params = new URLSearchParams({
-			page: currentPage,
-			limit: ITEMS_PER_PAGE,
-			searchTerm: searchTerm || "",
-			sort: sortBy || "favAt-desc",
-			regions: selectedRegions || "",
-			stars: selectedStarLevels || "",
-		});
-
+		setLoading(true);
+		setError(null);
 		try {
+			const apiUrl = import.meta.env.VITE_API_URL;
+			const queryParams = new URLSearchParams({
+				page: currentPage,
+				limit: ITEMS_PER_PAGE,
+				searchTerm,
+				stars: selectedStarLevels,
+				regions: selectedRegions,
+				sort: sortBy,
+			});
+
 			const response = await fetch(
-				`${apiUrl}/api/builds/favorites?${params.toString()}`,
+				`${apiUrl}/api/favorites?${queryParams.toString()}`,
 				{
 					headers: { Authorization: `Bearer ${token}` },
 				},
 			);
-			if (!response.ok) throw new Error("Không thể tải danh sách yêu thích");
+
+			if (!response.ok)
+				throw new Error(
+					language === "vi"
+						? "Lỗi tải dữ liệu yêu thích"
+						: "Failed to fetch favorites",
+				);
+
 			const data = await response.json();
 			setFavoriteBuilds(data.items || []);
 			setTotalPages(data.pagination?.totalPages || 1);
-			setTotalItems(data.pagination?.totalItems || 0);
 		} catch (err) {
 			setError(err.message);
 		} finally {
-			setTimeout(() => {
-				setIsLoading(false);
-				isFetching.current = false;
-			}, 400);
+			setLoading(false);
 		}
 	}, [
-		token,
-		refreshKey,
 		currentPage,
 		searchTerm,
-		sortBy,
 		selectedStarLevels,
 		selectedRegions,
-		apiUrl,
+		sortBy,
+		token,
+		language,
 	]);
 
-	// --- SIDE EFFECTS ---
-
-	// 1. Reset về trang 1 khi thay đổi bộ lọc
 	useEffect(() => {
-		if (currentPage !== 1) {
-			setCurrentPage(1);
+		if (token) fetchFavoriteBuilds();
+	}, [fetchFavoriteBuilds, refreshKey, token]);
+
+	const { favoriteStatus, favoriteCounts, toggleFavorite } =
+		useBatchFavoriteData(favoriteBuilds, user?.sub);
+
+	const onFavoriteToggle = async (buildId, newStatus, newCount) => {
+		await toggleFavorite(buildId, newStatus, newCount);
+		if (!newStatus) {
+			setFavoriteBuilds(prev => prev.filter(b => b.id !== buildId));
 		}
-	}, [searchTerm, selectedStarLevels, selectedRegions, sortBy]);
+	};
 
-	// 2. Chỉ gọi fetch dữ liệu qua callback đã tối ưu
-	useEffect(() => {
-		fetchFavoriteBuilds();
-	}, [fetchFavoriteBuilds]);
-
-	const goToNextPage = useCallback(() => {
-		if (currentPage < totalPages && !isLoading) {
-			setCurrentPage(p => p + 1);
-			window.scrollTo({ top: 0, behavior: "smooth" });
+	const goToNextPage = () => {
+		if (currentPage < totalPages) {
+			setCurrentPage(prev => prev + 1);
+			containerRef.current?.scrollIntoView({ behavior: "smooth" });
 		}
-	}, [currentPage, totalPages, isLoading]);
+	};
 
-	const goToPrevPage = useCallback(() => {
-		if (currentPage > 1 && !isLoading) {
-			setCurrentPage(p => p - 1);
-			window.scrollTo({ top: 0, behavior: "smooth" });
+	const goToPrevPage = () => {
+		if (currentPage > 1) {
+			setCurrentPage(prev => prev - 1);
+			containerRef.current?.scrollIntoView({ behavior: "smooth" });
 		}
-	}, [currentPage, isLoading]);
-
-	useEffect(() => {
-		const handleKeyDown = e => {
-			if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA")
-				return;
-			if (e.key === "ArrowLeft") goToPrevPage();
-			if (e.key === "ArrowRight") goToNextPage();
-		};
-		window.addEventListener("keydown", handleKeyDown);
-		return () => window.removeEventListener("keydown", handleKeyDown);
-	}, [goToNextPage, goToPrevPage]);
+	};
 
 	if (error)
 		return (
-			<div className='text-center py-10'>
-				<p className='text-danger-text-dark font-bold'>{error}</p>
-				<Button
-					variant='outline'
-					className='mt-4'
-					onClick={fetchFavoriteBuilds}
-				>
-					Thử lại
-				</Button>
+			<div className='text-center py-10 text-danger-text-dark bg-danger-bg-light rounded-lg'>
+				<p>{error}</p>
 			</div>
 		);
 
 	return (
-		<div className='space-y-4'>
-			<div className='flex justify-between items-center px-1'>
-				<h2 className='text-xl font-bold text-primary-500 font-primary'>
-					Bộ cổ vật yêu thích
-				</h2>
-				<span className='text-sm text-text-secondary bg-surface-bg-alt px-3 py-1 rounded-full border border-border'>
-					{totalItems} build
-				</span>
-			</div>
-
+		<div ref={containerRef} className='min-h-[400px]'>
 			<AnimatePresence mode='wait'>
-				{isLoading ? (
+				{loading ? (
 					<motion.div
 						key='skeleton'
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						exit={{ opacity: 0 }}
-						className={`grid grid-cols-1 md:grid-cols-2 ${showDesktopFilter ? "xl:grid-cols-3" : "xl:grid-cols-4"} gap-6`}
+						className={`grid gap-4 ${
+							showDesktopFilter
+								? "grid-cols-1 md:grid-cols-2"
+								: "grid-cols-1 md:grid-cols-2 xl:grid-cols-3"
+						}`}
 					>
-						{[...Array(6)].map((_, i) => (
+						{[...Array(ITEMS_PER_PAGE)].map((_, i) => (
 							<BuildSkeleton key={i} />
 						))}
 					</motion.div>
-				) : (
-					<motion.div
-						key='content'
-						initial={{ opacity: 0, y: 10 }}
-						animate={{ opacity: 1, y: 0 }}
-						exit={{ opacity: 0, y: -10 }}
-						transition={{ duration: 0.3 }}
-					>
-						{favoriteBuilds.length > 0 ? (
-							<>
-								<div
-									className={`grid grid-cols-1 md:grid-cols-2 ${showDesktopFilter ? "xl:grid-cols-3" : "xl:grid-cols-4"} gap-6`}
+				) : favoriteBuilds.length > 0 ? (
+					<>
+						<div
+							className={`grid gap-4 ${
+								showDesktopFilter
+									? "grid-cols-1 md:grid-cols-2"
+									: "grid-cols-1 md:grid-cols-2 xl:grid-cols-3"
+							}`}
+						>
+							{favoriteBuilds.map(build => (
+								<motion.div
+									key={build.id}
+									layout
+									initial={{ opacity: 0, scale: 0.9 }}
+									animate={{ opacity: 1, scale: 1 }}
+									transition={{ duration: 0.2 }}
 								>
-									{favoriteBuilds.map(build => (
-										<motion.div key={build.id} layout>
-											<BuildSummary
-												build={{
-													...build,
-													creatorName: build.creator || "Người chơi",
-												}}
-												initialIsFavorited={true}
-												championsList={championsList}
-												relicsList={relicsList}
-												powersList={powersList}
-												runesList={runesList}
-												onBuildUpdate={onFavoriteToggle}
-												onBuildDelete={onDeleteSuccess}
-												initialLikeCount={
-													favoriteCounts[build.id] || build.like || 0
-												}
-												isFavoritePage={true}
-											/>
-										</motion.div>
-									))}
-								</div>
-								{totalPages > 1 && (
-									<div className='mt-10 flex justify-center items-center gap-4 border-t border-border pt-6'>
-										<Button
-											onClick={goToPrevPage}
-											disabled={currentPage === 1}
-											variant='outline'
-										>
-											Trang trước
-										</Button>
-										<span className='font-bold text-primary-500 bg-primary-100/10 px-4 py-1.5 rounded-full border border-primary-500/20'>
-											{currentPage} / {totalPages}
-										</span>
-										<Button
-											onClick={goToNextPage}
-											disabled={currentPage === totalPages}
-											variant='outline'
-										>
-											Trang sau
-										</Button>
-									</div>
-								)}
-							</>
-						) : (
-							<div className='text-center py-20 bg-surface-bg-alt rounded-lg border border-dashed border-border'>
-								<XCircle
-									size={48}
-									className='mx-auto mb-4 opacity-20 text-text-secondary'
-								/>
-								<p className='text-text-secondary italic'>
-									Bạn chưa yêu thích bộ cổ vật nào phù hợp.
-								</p>
+									<BuildSummary
+										build={build}
+										championsList={championsList}
+										relicsList={relicsList}
+										powersList={powersList}
+										runesList={runesList}
+										powerMap={powerMap}
+										championNameToRegionsMap={championNameToRegionsMap}
+										showDesktopFilter={showDesktopFilter}
+										onBuildUpdate={onFavoriteToggle}
+										onBuildDelete={onDeleteSuccess}
+										initialIsFavorited={!!favoriteStatus[build.id]}
+										initialLikeCount={
+											favoriteCounts[build.id] || build.like || 0
+										}
+										isFavoritePage={true}
+									/>
+								</motion.div>
+							))}
+						</div>
+						{totalPages > 1 && (
+							<div className='mt-10 flex justify-center items-center gap-4 border-t border-border pt-6'>
+								<Button
+									onClick={goToPrevPage}
+									disabled={currentPage === 1}
+									variant='outline'
+								>
+									{language === "vi" ? "Trang trước" : "Previous"}
+								</Button>
+								<span className='font-bold text-primary-500 bg-primary-100/10 px-4 py-1.5 rounded-full border border-primary-500/20'>
+									{currentPage} / {totalPages}
+								</span>
+								<Button
+									onClick={goToNextPage}
+									disabled={currentPage === totalPages}
+									variant='outline'
+								>
+									{language === "vi" ? "Trang sau" : "Next"}
+								</Button>
 							</div>
 						)}
-					</motion.div>
+					</>
+				) : (
+					<div className='text-center py-20 bg-surface-bg-alt rounded-lg border border-dashed border-border'>
+						<XCircle
+							size={48}
+							className='mx-auto mb-4 opacity-20 text-text-secondary'
+						/>
+						<p className='text-text-secondary italic'>
+							{language === "vi"
+								? "Bạn chưa yêu thích bộ cổ vật nào phù hợp."
+								: "You have no matching favorite builds."}
+						</p>
+					</div>
 				)}
 			</AnimatePresence>
 		</div>
 	);
 };
 
-export default MyFavorite;
+export default MyFavoriteBuilds;

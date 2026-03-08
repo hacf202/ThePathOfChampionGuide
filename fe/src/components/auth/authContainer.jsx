@@ -7,8 +7,10 @@ import Register from "./register.jsx";
 import { ChevronLeft } from "lucide-react";
 import Button from "../common/button.jsx";
 import PageTitle from "../common/pageTitle";
+import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook
 
 const AuthContainer = () => {
+	const { language } = useTranslation(); // 🟢 Khởi tạo Hook
 	const [isLoginView, setIsLoginView] = useState(true);
 	const navigate = useNavigate();
 	const location = useLocation();
@@ -37,7 +39,9 @@ const AuthContainer = () => {
 
 	return (
 		<div>
-			<PageTitle title='Đăng nhập / đăng ký' />
+			<PageTitle
+				title={language === "vi" ? "Đăng nhập / đăng ký" : "Login / Register"}
+			/>
 			<div className='flex justify-center min-h-screen p-4 pt-16 sm:pt-20 font-secondary'>
 				<div className='w-full max-w-lg'>
 					{/* === NÚT QUAY LẠI - NẰM TRÊN FORM === */}
@@ -45,7 +49,7 @@ const AuthContainer = () => {
 						<div className='mb-4'>
 							<Button onClick={handleBack} variant='outline'>
 								<ChevronLeft size={18} />
-								Quay lại
+								{language === "vi" ? "Quay lại" : "Back"}
 							</Button>
 						</div>
 					)}
@@ -61,7 +65,7 @@ const AuthContainer = () => {
 									: "bg-surface-hover text-text-secondary hover:text-text-primary hover:bg-surface-active"
 							}`}
 						>
-							Đăng Nhập
+							{language === "vi" ? "Đăng Nhập" : "Login"}
 							{isLoginView && (
 								<span className='absolute bottom-0 left-0 w-full h-1 bg-primary-500'></span>
 							)}
@@ -76,7 +80,7 @@ const AuthContainer = () => {
 									: "bg-surface-hover text-text-secondary hover:text-text-primary hover:bg-surface-active"
 							}`}
 						>
-							Đăng Ký
+							{language === "vi" ? "Đăng Ký" : "Register"}
 							{!isLoginView && (
 								<span className='absolute bottom-0 left-0 w-full h-1 bg-primary-500'></span>
 							)}

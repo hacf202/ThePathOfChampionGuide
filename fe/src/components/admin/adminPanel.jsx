@@ -1,4 +1,4 @@
-// src/pages/admin/AdminPanel.jsx
+// fe/src/components/admin/adminPanel.jsx
 import React, { useState, lazy, Suspense } from "react";
 import {
 	NavLink,
@@ -18,9 +18,49 @@ import {
 	Menu,
 	X,
 	BookMarked,
-	ChevronLeft, // Import thêm icon
-	ChevronRight, // Import thêm icon
+	ChevronLeft,
+	ChevronRight,
+	BarChart,
 } from "lucide-react";
+import { useTranslation } from "../../hooks/useTranslation"; // Import hook đa ngôn ngữ
+
+// Từ điển cục bộ cho Admin Panel UI
+const UI_DICT = {
+	vi: {
+		"nav.dashboard": "Tổng quan",
+		"nav.champion": "Quản lý Tướng",
+		"nav.power": "Quản lý Sức Mạnh",
+		"nav.bonusStar": "Quản lý Tăng Thưởng",
+		"nav.relic": "Quản lý Cổ Vật",
+		"nav.item": "Quản lý Vật Phẩm",
+		"nav.rune": "Quản lý Ngọc",
+		"nav.build": "Quản lý Bộ Cổ Vật",
+		"nav.guide": "Quản lý Hướng Dẫn",
+		"nav.analytics": "Phân tích hệ thống",
+		"home.welcome": "Chào mừng, Admin!",
+		"home.subtitle": "Tổng quan nhanh về hệ thống.",
+		"home.select": "Chọn mục để quản lý",
+		"panel.title": "Admin Panel",
+		copyright: "© 2026 Path of champions",
+	},
+	en: {
+		"nav.dashboard": "Dashboard",
+		"nav.champion": "Champions",
+		"nav.power": "Powers",
+		"nav.bonusStar": "Bonus Stars",
+		"nav.relic": "Relics",
+		"nav.item": "Items",
+		"nav.rune": "Runes",
+		"nav.build": "Builds",
+		"nav.guide": "Guides",
+		"nav.analytics": "Analytics",
+		"home.welcome": "Welcome, Admin!",
+		"home.subtitle": "Quick system overview.",
+		"home.select": "Select a module to manage",
+		"panel.title": "Admin Panel",
+		copyright: "© 2026 Path of champions",
+	},
+};
 
 // Lazy load các editor
 const ChampionEditor = lazy(() => import("./championEditor"));
@@ -33,21 +73,19 @@ const BuildEditor = lazy(() => import("./buildEditor"));
 const GuideEditor = lazy(() => import("./guideEditor"));
 const AnalyticsDashboard = lazy(() => import("./analyticsDashboard"));
 
-// Component DashboardHome (Giữ nguyên)
-const DashboardHome = ({ navItems }) => {
+// Component DashboardHome
+const DashboardHome = ({ navItems, tUI }) => {
 	const navigate = useNavigate();
 	return (
 		<>
 			<h1 className='text-4xl font-bold text-text-primary font-primary mb-2'>
-				Chào mừng, Admin!
+				{tUI("home.welcome")}
 			</h1>
-			<p className='text-lg text-text-secondary mb-8'>
-				Tổng quan nhanh về hệ thống.
-			</p>
+			<p className='text-lg text-text-secondary mb-8'>{tUI("home.subtitle")}</p>
 
 			<div>
 				<h3 className='text-xl font-semibold text-text-primary mb-6 font-primary'>
-					Chọn mục để quản lý
+					{tUI("home.select")}
 				</h3>
 				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
 					{navItems.slice(1).map(item => (
@@ -67,65 +105,69 @@ const DashboardHome = ({ navItems }) => {
 };
 
 const AdminPanel = () => {
-	const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Mobile toggle
-	const [isCollapsed, setIsCollapsed] = useState(false); // Desktop toggle (Mới)
+	const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+	const [isCollapsed, setIsCollapsed] = useState(false);
 	const location = useLocation();
+	const { language } = useTranslation();
+
+	// Hàm lấy text theo ngôn ngữ
+	const tUI = key => UI_DICT[language]?.[key] || UI_DICT.vi[key] || key;
 
 	const navItems = [
 		{
 			id: "dashboard",
-			label: "Tổng quan",
+			label: tUI("nav.dashboard"),
 			icon: LayoutDashboard,
 			path: "/admin",
 			end: true,
 		},
 		{
 			id: "champion",
-			label: "Quản lý Tướng",
+			label: tUI("nav.champion"),
 			icon: BookOpen,
 			path: "/admin/champions",
 		},
 		{
 			id: "power",
-			label: "Quản lý Sức Mạnh",
+			label: tUI("nav.power"),
 			icon: Sparkles,
 			path: "/admin/powers",
 		},
 		{
 			id: "bonusStar",
-			label: "Quản lý Tăng Thưởng",
+			label: tUI("nav.bonusStar"),
 			icon: Gem,
 			path: "/admin/bonusStars",
 		},
 		{
 			id: "relic",
-			label: "Quản lý Cổ Vật",
+			label: tUI("nav.relic"),
 			icon: ShieldCheck,
 			path: "/admin/relics",
 		},
 		{
 			id: "item",
-			label: "Quản lý Vật Phẩm",
+			label: tUI("nav.item"),
 			icon: Package,
 			path: "/admin/items",
 		},
-		{ id: "rune", label: "Quản lý Ngọc", icon: Gem, path: "/admin/runes" },
+		{ id: "rune", label: tUI("nav.rune"), icon: Gem, path: "/admin/runes" },
 		{
 			id: "build",
-			label: "Quản lý Bộ Cổ Vật",
+			label: tUI("nav.build"),
 			icon: Library,
 			path: "/admin/builds",
 		},
 		{
 			id: "guide",
-			label: "Quản lý Hướng Dẫn",
+			label: tUI("nav.guide"),
 			icon: BookMarked,
 			path: "/admin/guides",
 		},
 		{
 			id: "analytics",
-			label: "Phân tích hệ thống",
-			icon: LayoutDashboard, // Hoặc dùng BarChart icon từ lucide
+			label: tUI("nav.analytics"),
+			icon: BarChart,
 			path: "/admin/analytics",
 		},
 	];
@@ -153,7 +195,6 @@ const AdminPanel = () => {
 				className={`fixed inset-y-0 left-0 z-40 bg-surface-bg border-r border-border flex flex-col shadow-lg
         transition-all duration-300 ease-in-out
         ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}
-        /* Logic responsive: Mobile full width khi mở, Desktop width tùy chỉnh */
         xl:relative xl:translate-x-0 xl:shadow-sm
         ${isCollapsed ? "xl:w-20" : "xl:w-64"} 
         w-64`}
@@ -166,7 +207,6 @@ const AdminPanel = () => {
 						}`}
 					>
 						<LayoutDashboard className='text-primary-500 flex-shrink-0' />
-						{/* Ẩn chữ Admin khi collapsed trên desktop */}
 						<span
 							className={`transition-opacity duration-300 ${
 								isCollapsed ? "xl:hidden opacity-0" : "opacity-100"
@@ -237,7 +277,7 @@ const AdminPanel = () => {
 							isCollapsed ? "xl:opacity-0" : "xl:opacity-100"
 						}`}
 					>
-						© 2025 Path of champions
+						{tUI("copyright")}
 					</p>
 				</div>
 			</aside>
@@ -255,7 +295,7 @@ const AdminPanel = () => {
 
 					<div className='flex-1 flex justify-center xl:justify-start'>
 						<h1 className='text-2xl font-bold text-text-primary font-primary hidden sm:block'>
-							{currentNavItem?.label || "Admin Panel"}
+							{currentNavItem?.label || tUI("panel.title")}
 						</h1>
 					</div>
 				</header>
@@ -270,7 +310,10 @@ const AdminPanel = () => {
 						}
 					>
 						<Routes>
-							<Route index element={<DashboardHome navItems={navItems} />} />
+							<Route
+								index
+								element={<DashboardHome navItems={navItems} tUI={tUI} />}
+							/>
 							<Route path='champions/*' element={<ChampionEditor />} />
 							<Route path='powers/*' element={<PowerEditor />} />
 							<Route path='relics/*' element={<RelicEditor />} />

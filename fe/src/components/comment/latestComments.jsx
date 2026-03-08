@@ -14,13 +14,17 @@ import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import Button from "../common/button";
 import Modal from "../common/modal";
+import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook Đa ngôn ngữ
 
 // --- Hiển thị vị trí bình luận (Champion hoặc Global) ---
 const BuildLocation = ({ buildId, championName }) => {
+	const { language } = useTranslation();
+
 	if (buildId === "global") {
 		return (
 			<span className='inline-flex items-center gap-1 text-[10px] bg-surface-hover text-text-secondary px-2 py-0.5 rounded-full border border-border ml-2'>
-				<MapPin size={10} /> Bình luận tổng
+				<MapPin size={10} />{" "}
+				{language === "vi" ? "Bình luận tổng" : "Global Comment"}
 			</span>
 		);
 	}
@@ -29,313 +33,330 @@ const BuildLocation = ({ buildId, championName }) => {
 			to={`/builds/detail/${buildId}`}
 			className='inline-flex items-center gap-1 text-[10px] bg-primary-500/10 text-primary-500 px-2 py-0.5 rounded-full border border-primary-500/20 ml-2 hover:bg-primary-500/20 transition-colors'
 		>
-			<ExternalLink size={10} /> {championName}
+			<ExternalLink size={10} /> {language === "vi" ? "Build:" : "Build:"}{" "}
+			{championName || buildId}
 		</Link>
 	);
 };
 
-// --- Form nhập liệu: Xử lý Enter gửi bài và Shift+Enter xuống dòng ---
+// --- Form Thêm / Sửa Bình luận ---
 const CommentForm = ({
+	initialValue = "",
 	onCommentPosted,
 	parentId = null,
+	buildId = "global",
+	championName = null,
 	replyToUsername = null,
 	onCancel,
+	isEdit = false,
+	commentId = null,
 }) => {
+	const { language } = useTranslation();
 	const { user, token } = useAuth();
-	const navigate = useNavigate();
-	const [content, setContent] = useState("");
+	const [content, setContent] = useState(initialValue);
 	const [isSubmitting, setIsSubmitting] = useState(false);
-	const apiUrl = import.meta.env.VITE_API_URL;
+	const navigate = useNavigate();
 
 	const handleSubmit = async e => {
-		if (e) e.preventDefault();
-		if (!content.trim() || isSubmitting) return;
+		e.preventDefault();
+		if (!content.trim()) return;
 
 		setIsSubmitting(true);
-		try {
-			const res = await fetch(`${apiUrl}/api/builds/global/comments`, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${token}`,
-				},
-				body: JSON.stringify({
-					content: content.trim(),
-					parentId,
-					replyToUsername,
-				}),
-			});
+		const apiUrl = import.meta.env.VITE_API_URL;
 
+		try {
+			let res, data;
+			if (isEdit) {
+				res = await fetch(`${apiUrl}/api/comments/${commentId}`, {
+					method: "PUT",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${token}`,
+					},
+					body: JSON.stringify({ content: content.trim() }),
+				});
+			} else {
+				res = await fetch(`${apiUrl}/api/builds/${buildId}/comments`, {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${token}`,
+					},
+					body: JSON.stringify({
+						content: content.trim(),
+						parentId,
+						championName,
+					}),
+				});
+			}
+
+			data = await res.json();
 			if (res.ok) {
-				const newComment = await res.json();
-				onCommentPosted(newComment);
 				setContent("");
-				onCancel?.();
+				if (onCommentPosted) onCommentPosted(data.comment || data);
+				if (onCancel) onCancel();
+			} else {
+				console.error("Error:", data.error);
 			}
 		} catch (err) {
-			console.error("Lỗi gửi bình luận:", err);
+			console.error("Submit error:", err);
 		} finally {
 			setIsSubmitting(false);
 		}
 	};
 
-	const handleKeyDown = e => {
-		if (e.key === "Enter" && !e.shiftKey) {
-			e.preventDefault();
-			handleSubmit();
-		}
-	};
-
 	if (!user) {
 		return (
-			<div className='text-center py-4 bg-surface-hover rounded-lg border border-dashed border-border'>
-				<p className='text-text-secondary mb-3 text-sm'>
-					Vui lòng đăng nhập để tham gia thảo luận.
-				</p>
-				<Button variant='outline' size='sm' onClick={() => navigate("/auth")}>
-					Đăng nhập
+			<div className='flex items-center justify-between bg-surface-hover p-3 sm:p-4 rounded-xl border border-border'>
+				<div className='flex items-center gap-3 text-text-secondary text-sm'>
+					<User size={18} />
+					<span>
+						{language === "vi" ? "Đăng nhập để bình luận" : "Login to comment"}
+					</span>
+				</div>
+				<Button size='sm' onClick={() => navigate("/auth")}>
+					{language === "vi" ? "Đăng nhập" : "Login"}
 				</Button>
 			</div>
 		);
 	}
 
 	return (
-		<form onSubmit={handleSubmit} className='space-y-3'>
-			<textarea
-				value={content}
-				onChange={e => setContent(e.target.value)}
-				onKeyDown={handleKeyDown}
-				placeholder={
-					replyToUsername
-						? `Trả lời @${replyToUsername}...`
-						: "Viết bình luận (Enter để gửi)..."
-				}
-				className='w-full bg-surface-bg border border-border rounded-lg p-3 text-text-primary focus:ring-2 focus:ring-primary-500 outline-none min-h-[80px] transition-all resize-none'
-				autoFocus={!!parentId}
-			/>
-			<div className='flex justify-between items-center'>
-				<span className='text-[10px] text-text-secondary italic'>
-					Nhấn Enter để gửi, Shift + Enter để xuống dòng
-				</span>
-				<div className='flex gap-2'>
-					{onCancel && (
-						<Button variant='ghost' size='sm' onClick={onCancel}>
-							Hủy
-						</Button>
-					)}
-					<Button
-						type='submit'
-						variant='primary'
-						size='sm'
-						disabled={isSubmitting || !content.trim()}
-					>
-						{isSubmitting ? (
-							<Loader2 className='animate-spin' size={16} />
-						) : (
-							<Send size={18} />
+		<form onSubmit={handleSubmit} className='relative'>
+			<div className='flex items-start gap-3 bg-input-bg border border-input-border rounded-xl p-2 sm:p-3 focus-within:border-primary-500 focus-within:ring-1 focus-within:ring-primary-500 transition-all'>
+				<div className='w-8 h-8 rounded-full bg-gradient-to-br from-primary-500 to-purple-600 flex items-center justify-center text-white font-bold shrink-0 mt-1 text-sm'>
+					{user.name?.charAt(0).toUpperCase() || "U"}
+				</div>
+				<div className='flex-1 flex flex-col'>
+					<textarea
+						value={content}
+						onChange={e => setContent(e.target.value)}
+						placeholder={
+							replyToUsername
+								? `@${replyToUsername} ...`
+								: language === "vi"
+									? "Viết bình luận..."
+									: "Write a comment..."
+						}
+						className='w-full bg-transparent border-none focus:ring-0 text-text-primary text-sm resize-none p-1 min-h-[44px]'
+						rows={Math.min(5, content.split("\n").length || 1)}
+						onKeyDown={e => {
+							if (e.key === "Enter" && !e.shiftKey) {
+								e.preventDefault();
+								handleSubmit(e);
+							}
+						}}
+					/>
+					<div className='flex justify-end gap-2 mt-1'>
+						{onCancel && (
+							<button
+								type='button'
+								onClick={onCancel}
+								className='text-xs text-text-secondary hover:text-text-primary px-2 py-1'
+							>
+								{language === "vi" ? "Hủy" : "Cancel"}
+							</button>
 						)}
-						{parentId ? "Trả lời" : "Gửi"}
-					</Button>
+						<button
+							type='submit'
+							disabled={isSubmitting || !content.trim()}
+							className={`p-1.5 rounded-lg transition-colors ${
+								content.trim()
+									? "bg-primary-500 text-white hover:bg-primary-600"
+									: "bg-surface-hover text-text-secondary cursor-not-allowed"
+							}`}
+						>
+							{isSubmitting ? (
+								<Loader2 size={16} className='animate-spin' />
+							) : (
+								<Send size={16} className='translate-x-0.5 -translate-y-0.5' />
+							)}
+						</button>
+					</div>
 				</div>
 			</div>
 		</form>
 	);
 };
 
-// --- Item hiển thị: Hiển thị ChampionName cho bình luận gốc ---
-const CommentItem = ({
-	comment,
-	onDeleted,
-	onUpdated,
-	onPosted,
-	isParentRoot = true,
-}) => {
+// --- Thành phần hiển thị 1 Comment ---
+const CommentItem = ({ comment, onDeleted, onUpdated, onPosted }) => {
+	const { language } = useTranslation();
 	const { user, token } = useAuth();
-	const [isEditing, setIsEditing] = useState(false);
-	const [editContent, setEditContent] = useState(comment.content);
 	const [isReplying, setIsReplying] = useState(false);
+	const [isEditing, setIsEditing] = useState(false);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
-	const [loadingAction, setLoadingAction] = useState(false);
-	const apiUrl = import.meta.env.VITE_API_URL;
+	const [isDeleting, setIsDeleting] = useState(false);
 
-	const isOwner = user && comment.user_sub === user.sub;
-	const isRoot = !comment.parentId;
-	const indentClass =
-		!isRoot && isParentRoot
-			? "ml-6 sm:ml-12 border-l-2 border-border pl-4 mt-2"
-			: "ml-0";
-
-	const handleUpdate = async () => {
-		setLoadingAction(true);
-		try {
-			const res = await fetch(
-				`${apiUrl}/api/builds/${comment.buildId}/comments/${comment.id}`,
-				{
-					method: "PUT",
-					headers: {
-						"Content-Type": "application/json",
-						Authorization: `Bearer ${token}`,
-					},
-					body: JSON.stringify({ content: editContent }),
-				},
-			);
-			if (res.ok) {
-				const updated = await res.json();
-				onUpdated(updated);
-				setIsEditing(false);
-			}
-		} catch (err) {
-			console.error(err);
-		} finally {
-			setLoadingAction(false);
-		}
-	};
+	const isOwner = user?.sub === comment.sub;
 
 	const handleDelete = async () => {
-		setLoadingAction(true);
+		setIsDeleting(true);
 		try {
 			const res = await fetch(
-				`${apiUrl}/api/builds/${comment.buildId}/comments/${comment.id}`,
+				`${import.meta.env.VITE_API_URL}/api/comments/${comment.id}`,
 				{
 					method: "DELETE",
 					headers: { Authorization: `Bearer ${token}` },
 				},
 			);
-			if (res.ok) onDeleted(comment.id);
-		} catch (err) {
-			console.error(err);
+			if (res.ok) {
+				onDeleted(comment.id);
+				setShowDeleteModal(false);
+			}
 		} finally {
-			setLoadingAction(false);
-			setShowDeleteModal(false);
+			setIsDeleting(false);
 		}
 	};
 
+	const handleAction = action => {
+		if (!user) {
+			alert(
+				language === "vi"
+					? "Bạn cần đăng nhập để thực hiện hành động này."
+					: "You must be logged in to perform this action.",
+			);
+			return;
+		}
+		action();
+	};
+
 	return (
-		<div className={`py-4 ${indentClass}`}>
-			<div className='flex justify-between items-start'>
-				<div className='flex items-center flex-wrap gap-2'>
-					<div className='w-8 h-8 rounded-full bg-surface-hover flex items-center justify-center border border-border'>
-						<User size={16} className='text-text-secondary' />
-					</div>
-					<div className='flex items-center flex-wrap'>
-						<span className='font-bold text-text-primary text-sm'>
+		<div className='py-3 sm:py-4'>
+			<div className='flex gap-3'>
+				<div className='w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-tr from-surface-hover to-border flex items-center justify-center text-text-primary font-bold shrink-0 text-sm sm:text-base border border-border'>
+					{comment.username?.charAt(0).toUpperCase()}
+				</div>
+				<div className='flex-1 min-w-0'>
+					<div className='flex items-center gap-2 mb-0.5 flex-wrap'>
+						<span className='font-bold text-text-primary text-sm sm:text-base truncate max-w-[150px] sm:max-w-xs'>
 							{comment.username}
 						</span>
-						{isRoot && (
+						<span className='text-[10px] sm:text-xs text-text-secondary whitespace-nowrap'>
+							{new Date(comment.createdAt).toLocaleString(
+								language === "vi" ? "vi-VN" : "en-US",
+							)}
+						</span>
+						{!comment.parentId && (
 							<BuildLocation
 								buildId={comment.buildId}
 								championName={comment.championName}
 							/>
 						)}
-						<span className='ml-2 text-[10px] text-text-secondary uppercase'>
-							{new Date(comment.createdAt).toLocaleString("vi-VN")}
-						</span>
 					</div>
+
+					{isEditing ? (
+						<div className='mt-2'>
+							<CommentForm
+								initialValue={comment.content}
+								isEdit={true}
+								commentId={comment.id}
+								onCommentPosted={updated => {
+									setIsEditing(false);
+									onUpdated(updated);
+								}}
+								onCancel={() => setIsEditing(false)}
+							/>
+						</div>
+					) : (
+						<p className='text-sm sm:text-[15px] text-text-secondary whitespace-pre-wrap break-words leading-relaxed mt-1'>
+							{comment.content}
+							{comment.isEdited && (
+								<span className='text-[10px] text-text-secondary opacity-70 italic ml-2'>
+									({language === "vi" ? "Đã chỉnh sửa" : "Edited"})
+								</span>
+							)}
+						</p>
+					)}
+
+					{!isEditing && (
+						<div className='flex items-center gap-3 mt-2'>
+							<button
+								onClick={() => handleAction(() => setIsReplying(!isReplying))}
+								className='text-xs font-medium text-text-secondary hover:text-primary-500 transition-colors flex items-center gap-1'
+							>
+								<MessageSquare size={12} />{" "}
+								{language === "vi" ? "Trả lời" : "Reply"}
+							</button>
+							{isOwner && (
+								<>
+									<span className='w-1 h-1 bg-border rounded-full'></span>
+									<button
+										onClick={() => setIsEditing(true)}
+										className='text-xs text-text-secondary hover:text-primary-500 transition-colors'
+									>
+										{language === "vi" ? "Sửa" : "Edit"}
+									</button>
+									<span className='w-1 h-1 bg-border rounded-full'></span>
+									<button
+										onClick={() => setShowDeleteModal(true)}
+										className='text-xs text-text-secondary hover:text-danger-500 transition-colors'
+									>
+										{language === "vi" ? "Xóa" : "Delete"}
+									</button>
+								</>
+							)}
+						</div>
+					)}
 				</div>
-				{isOwner && (
-					<div className='flex gap-1'>
-						<button
-							onClick={() => setIsEditing(true)}
-							className='p-1 text-text-secondary hover:text-primary-500'
-						>
-							<Edit size={14} />
-						</button>
-						<button
-							onClick={() => setShowDeleteModal(true)}
-							className='p-1 text-red-500'
-						>
-							<Trash2 size={14} />
-						</button>
-					</div>
-				)}
 			</div>
 
-			{isEditing ? (
-				<div className='mt-2 space-y-2'>
-					<textarea
-						value={editContent}
-						onChange={e => setEditContent(e.target.value)}
-						className='w-full p-2 border border-border rounded bg-surface-bg text-sm outline-none'
-					/>
-					<div className='flex justify-end gap-2'>
-						<Button
-							size='sm'
-							variant='ghost'
-							onClick={() => setIsEditing(false)}
-						>
-							Hủy
-						</Button>
-						<Button
-							size='sm'
-							variant='primary'
-							onClick={handleUpdate}
-							disabled={loadingAction}
-						>
-							Lưu
-						</Button>
-					</div>
-				</div>
-			) : (
-				<div className='mt-2 text-text-secondary text-sm sm:text-base whitespace-pre-wrap'>
-					{comment.replyToUsername && (
-						<span className='text-primary-500 font-bold mr-2'>
-							@{comment.replyToUsername}
-						</span>
-					)}
-					{comment.content}
-				</div>
-			)}
-
-			<button
-				onClick={() => setIsReplying(!isReplying)}
-				className='mt-2 text-[11px] font-bold text-primary-500 hover:underline flex items-center gap-1'
-			>
-				<MessageSquare size={10} /> Trả lời
-			</button>
-
 			{isReplying && (
-				<div className='mt-3'>
+				<div className='ml-11 sm:ml-13 mt-3 relative before:absolute before:-left-5 before:top-0 before:w-4 before:h-4 before:border-l-2 before:border-b-2 before:border-border before:rounded-bl-xl'>
 					<CommentForm
+						buildId={comment.buildId}
+						championName={comment.championName}
 						parentId={comment.id}
 						replyToUsername={comment.username}
 						onCommentPosted={c => {
-							onPosted(c);
 							setIsReplying(false);
+							onPosted(c);
 						}}
 						onCancel={() => setIsReplying(false)}
 					/>
 				</div>
 			)}
 
-			{/* Hiển thị con đệ quy */}
-			{comment.replies &&
-				comment.replies.map(reply => (
-					<CommentItem
-						key={reply.id}
-						comment={reply}
-						onDeleted={onDeleted}
-						onUpdated={onUpdated}
-						onPosted={onPosted}
-						isParentRoot={isRoot}
-					/>
-				))}
+			{comment.replies && comment.replies.length > 0 && (
+				<div className='ml-4 sm:ml-5 pl-4 sm:pl-5 mt-3 border-l-2 border-border space-y-3'>
+					{comment.replies.map(reply => (
+						<CommentItem
+							key={reply.id}
+							comment={reply}
+							onDeleted={onDeleted}
+							onUpdated={onUpdated}
+							onPosted={onPosted}
+						/>
+					))}
+				</div>
+			)}
 
 			<Modal
 				isOpen={showDeleteModal}
-				onClose={() => setShowDeleteModal(false)}
-				title='Xóa bình luận?'
+				onClose={() => !isDeleting && setShowDeleteModal(false)}
+				title={language === "vi" ? "Xác nhận xóa" : "Confirm Deletion"}
 			>
-				<p className='text-sm'>Hành động này không thể hoàn tác.</p>
-				<div className='flex justify-end gap-3 mt-4'>
-					<Button variant='ghost' onClick={() => setShowDeleteModal(false)}>
-						Hủy
-					</Button>
+				<p className='text-text-secondary mb-6 text-sm'>
+					{language === "vi"
+						? "Bạn có chắc chắn muốn xóa bình luận này? Hành động này không thể hoàn tác."
+						: "Are you sure you want to delete this comment? This action cannot be undone."}
+				</p>
+				<div className='flex justify-end gap-3'>
 					<Button
-						variant='danger'
-						onClick={handleDelete}
-						disabled={loadingAction}
+						variant='ghost'
+						onClick={() => setShowDeleteModal(false)}
+						disabled={isDeleting}
 					>
-						Xóa
+						{language === "vi" ? "Hủy" : "Cancel"}
+					</Button>
+					<Button variant='danger' onClick={handleDelete} disabled={isDeleting}>
+						{isDeleting ? (
+							<Loader2 className='animate-spin' size={16} />
+						) : language === "vi" ? (
+							"Xóa"
+						) : (
+							"Delete"
+						)}
 					</Button>
 				</div>
 			</Modal>
@@ -343,71 +364,92 @@ const CommentItem = ({
 	);
 };
 
-// --- Component chính: Quản lý State và Cây bình luận ---
-const LatestComments = () => {
-	const [allComments, setAllComments] = useState([]);
-	const [nextKey, setNextKey] = useState(null);
+// --- Main Container: Latest Comments ---
+const LatestComments = ({ championID = null }) => {
+	const { language } = useTranslation();
+	const [comments, setComments] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [loadingMore, setLoadingMore] = useState(false);
-	const apiUrl = import.meta.env.VITE_API_URL;
+	const [nextKey, setNextKey] = useState(null);
 
 	const fetchLatest = useCallback(
 		async (isLoadMore = false) => {
-			try {
-				if (isLoadMore) setLoadingMore(true);
-				else setLoading(true);
+			if (isLoadMore) setLoadingMore(true);
+			else setLoading(true);
 
-				const url = new URL(`${apiUrl}/api/comments/latest`);
-				if (isLoadMore && nextKey) url.searchParams.append("lastKey", nextKey);
+			try {
+				let url = `${import.meta.env.VITE_API_URL}/api/comments/latest?limit=15`;
+				if (championID) url += `&championID=${championID}`;
+
+				// 🟢 SỬA 1: Đổi 'lastEvaluatedKey' thành 'lastKey' để khớp với Backend req.query.lastKey
+				if (isLoadMore && nextKey)
+					url += `&lastKey=${encodeURIComponent(JSON.stringify(nextKey))}`;
 
 				const res = await fetch(url);
 				if (res.ok) {
 					const data = await res.json();
-					// data.comments lúc này chứa cả root và các reply liên quan từ Backend
-					setAllComments(prev =>
-						isLoadMore ? [...prev, ...data.comments] : data.comments,
+
+					// 🟢 SỬA 2: Đọc đúng key 'data.comments' từ Backend gửi về
+					const newComments =
+						data.comments || data.items || (Array.isArray(data) ? data : []);
+
+					setComments(prev =>
+						isLoadMore ? [...(prev || []), ...newComments] : newComments,
 					);
-					setNextKey(data.nextKey);
+
+					// 🟢 SỬA 3: Đọc đúng key 'data.nextKey' từ Backend gửi về
+					setNextKey(data.nextKey || data.lastEvaluatedKey || null);
 				}
-			} catch (err) {
-				console.error(err);
+			} catch (error) {
+				console.error("Failed to fetch comments", error);
+				setComments([]); // Safe fallback on error
 			} finally {
 				setLoading(false);
 				setLoadingMore(false);
 			}
 		},
-		[apiUrl, nextKey],
+		[championID, nextKey],
 	);
 
 	useEffect(() => {
 		fetchLatest();
-	}, []);
+	}, [championID]);
 
-	// Xây dựng cây từ mảng phẳng (Bao gồm cả các reply đã load)
+	// Build Tree
 	const commentTree = useMemo(() => {
-		const map = new Map();
-		allComments.forEach(c => map.set(c.id, { ...c, replies: [] }));
+		const map = {};
 		const roots = [];
-		allComments.forEach(c => {
-			if (c.parentId && map.has(c.parentId)) {
-				map.get(c.parentId).replies.push(map.get(c.id));
-			} else if (!c.parentId) {
-				roots.push(map.get(c.id));
+		// 🟢 FIX LỖI undefined (reading 'forEach'): Đảm bảo biến "comments" luôn là một Array hợp lệ trước khi lặp
+		const safeComments = Array.isArray(comments) ? comments : [];
+
+		safeComments.forEach(c => (map[c.id] = { ...c, replies: [] }));
+		safeComments.forEach(c => {
+			if (c.parentId && map[c.parentId]) {
+				map[c.parentId].replies.push(map[c.id]);
+			} else {
+				roots.push(map[c.id]);
 			}
 		});
-		return roots;
-	}, [allComments]);
 
-	const handlePosted = c => setAllComments(prev => [c, ...prev]);
-	const handleUpdated = c =>
-		setAllComments(prev => prev.map(x => (x.id === c.id ? { ...x, ...c } : x)));
+		roots.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+		roots.forEach(root => {
+			root.replies.sort(
+				(a, b) => new Date(a.createdAt) - new Date(b.createdAt),
+			);
+		});
+		return roots;
+	}, [comments]);
+
+	const handlePosted = c => setComments(p => [c, ...(p || [])]);
 	const handleDeleted = id =>
-		setAllComments(prev => prev.filter(x => x.id !== id && x.parentId !== id));
+		setComments(p => (p || []).filter(c => c.id !== id && c.parentId !== id));
+	const handleUpdated = updated =>
+		setComments(p => (p || []).map(c => (c.id === updated.id ? updated : c)));
 
 	return (
 		<div className='mt-4 border-t border-border pt-4 font-secondary'>
 			<h2 className='text-xl sm:text-2xl font-bold mb-4 text-text-primary border-l-4 border-primary-500 pl-4 uppercase'>
-				Thảo luận cộng đồng
+				{language === "vi" ? "Thảo luận cộng đồng" : "Community Discussions"}
 			</h2>
 
 			<div className='bg-surface-bg rounded-xl border border-border p-2 sm:p-6 shadow-sm'>
@@ -440,15 +482,27 @@ const LatestComments = () => {
 											{loadingMore && (
 												<Loader2 className='animate-spin mr-2' size={16} />
 											)}
-											Xem thêm bình luận
+											{language === "vi"
+												? "Xem thêm bình luận"
+												: "Load more comments"}
 										</Button>
 									</div>
 								)}
+								{!nextKey && (comments || []).length >= 10 && (
+									<p className='text-center text-text-secondary text-sm mt-6 italic'>
+										{language === "vi" ? "Hết bình luận" : "No more comments"}
+									</p>
+								)}
 							</>
 						) : (
-							<p className='text-center py-10 text-text-secondary italic'>
-								Chưa có bình luận nào.
-							</p>
+							<div className='text-center py-10 text-text-secondary'>
+								<MessageSquare size={40} className='mx-auto mb-3 opacity-50' />
+								<p>
+									{language === "vi"
+										? "Chưa có bình luận nào. Hãy là người đầu tiên!"
+										: "No comments yet. Be the first to comment!"}
+								</p>
+							</div>
 						)}
 					</div>
 				)}

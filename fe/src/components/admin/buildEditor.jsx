@@ -149,7 +149,7 @@ const BuildListView = memo(
 				</aside>
 			</div>
 		);
-	}
+	},
 );
 
 // === COMPONENT EDIT WRAPPER ===
@@ -164,7 +164,7 @@ const BuildEditWrapper = ({
 	// Tìm build từ list đã fetch (hoặc có thể fetch riêng lẻ nếu cần)
 	const selectedBuild = useMemo(
 		() => builds.find(b => b.id === id),
-		[builds, id]
+		[builds, id],
 	);
 
 	if (!selectedBuild && builds.length > 0) {
@@ -273,7 +273,7 @@ function BuildEditor() {
 
 		if (selectedStarLevels.length > 0) {
 			result = result.filter(build =>
-				selectedStarLevels.includes(String(build.star || 0))
+				selectedStarLevels.includes(String(build.star || 0)),
 			);
 		}
 
@@ -300,7 +300,7 @@ function BuildEditor() {
 
 	const paginatedBuilds = filteredAndSortedBuilds.slice(
 		(currentPage - 1) * ITEMS_PER_PAGE,
-		currentPage * ITEMS_PER_PAGE
+		currentPage * ITEMS_PER_PAGE,
 	);
 	const totalPages = Math.ceil(filteredAndSortedBuilds.length / ITEMS_PER_PAGE);
 
@@ -361,7 +361,7 @@ function BuildEditor() {
 			const savedBuild = data.build || updatedBuild; // Fallback nếu API trả về khác
 
 			setBuilds(prev =>
-				prev.map(b => (b.id === savedBuild.id ? savedBuild : b))
+				prev.map(b => (b.id === savedBuild.id ? savedBuild : b)),
 			);
 
 			setNotification({

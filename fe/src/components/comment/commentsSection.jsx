@@ -5,6 +5,7 @@ import { useAuth } from "../../context/AuthContext.jsx";
 import { Edit, Trash2, MessageSquare } from "lucide-react";
 import Modal from "../common/modal.jsx";
 import Button from "../common/button.jsx";
+import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook
 
 // --- Form viết bình luận ---
 const CommentForm = ({
@@ -14,6 +15,7 @@ const CommentForm = ({
 	replyToUsername = null,
 	onCancel,
 }) => {
+	const { language } = useTranslation(); // 🟢
 	const { user, token } = useAuth();
 	const [content, setContent] = useState("");
 	const [isSubmitting, setIsSubmitting] = useState(false);
@@ -31,7 +33,11 @@ const CommentForm = ({
 		e.preventDefault();
 		if (!content.trim()) return;
 		if (!user) {
-			setError("Bạn cần đăng nhập để bình luận.");
+			setError(
+				language === "vi"
+					? "Bạn cần đăng nhập để bình luận."
+					: "You must be logged in to comment.",
+			);
 			return;
 		}
 
@@ -45,263 +51,261 @@ const CommentForm = ({
 					"Content-Type": "application/json",
 					Authorization: `Bearer ${token}`,
 				},
-				body: JSON.stringify({ content, parentId, replyToUsername }),
+				body: JSON.stringify({ content: content.trim(), parentId }),
 			});
 
-			if (res.ok) {
-				const newComment = await res.json();
-				onCommentPosted(newComment);
-				setContent("");
-				onCancel?.();
-			} else {
-				const errData = await res.json();
-				throw new Error(errData.error || "Không thể gửi bình luận");
-			}
+			const errData = await res.json();
+			if (!res.ok)
+				throw new Error(
+					errData.error ||
+						(language === "vi"
+							? "Gửi bình luận thất bại"
+							: "Failed to post comment"),
+				);
+
+			setContent("");
+			if (onCommentPosted) onCommentPosted(errData.comment || errData);
+			if (onCancel) onCancel();
 		} catch (err) {
-			console.error("Comment submit error:", err);
-			setError(err.message || "Có lỗi xảy ra khi gửi bình luận");
+			setError(err.message);
 		} finally {
 			setIsSubmitting(false);
 		}
 	};
 
-	if (!user && !parentId) {
-		return (
-			<p className='text-sm text-[var(--color-warning)] mb-4'>
-				Vui lòng{" "}
-				<Link
-					to='/auth'
-					className='underline text-blue-600 hover:text-blue-800'
-				>
-					đăng nhập
-				</Link>{" "}
-				để bình luận.
-			</p>
-		);
-	}
-
 	return (
-		<form onSubmit={handleSubmit} className='flex flex-col gap-3 mb-6'>
+		<form onSubmit={handleSubmit} className='mb-6'>
 			<textarea
+				className='w-full p-3 sm:p-4 bg-input-bg border border-input-border rounded-xl text-sm sm:text-base text-text-primary focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 resize-none transition-all'
+				rows={parentId ? 2 : 3}
+				placeholder={
+					replyToUsername
+						? `${language === "vi" ? "Trả lời" : "Reply to"} @${replyToUsername}...`
+						: language === "vi"
+							? "Viết bình luận của bạn..."
+							: "Write your comment..."
+				}
 				value={content}
 				onChange={e => setContent(e.target.value)}
 				onKeyDown={handleKeyDown}
-				placeholder={
-					replyToUsername
-						? `Trả lời @${replyToUsername}...`
-						: "Viết bình luận..."
-				}
-				className='w-full p-3 bg-surface-bg border border-border rounded-lg text-text-primary placeholder:text-text-secondary focus:border-primary-500 focus:outline-none resize-none'
-				rows={4}
 				disabled={isSubmitting}
-				autoFocus={!!parentId}
 			/>
-			{error && <p className='text-sm text-red-600'>{error}</p>}
-			<div className='flex justify-end gap-3'>
+			{error && (
+				<p className='text-danger-500 text-xs sm:text-sm mt-1'>{error}</p>
+			)}
+			<div className='flex justify-end gap-2 mt-2'>
 				{onCancel && (
-					<Button variant='ghost' onClick={onCancel} disabled={isSubmitting}>
-						Hủy
+					<Button
+						type='button'
+						variant='ghost'
+						onClick={onCancel}
+						disabled={isSubmitting}
+						className='text-xs sm:text-sm px-3 py-1.5'
+					>
+						{language === "vi" ? "Hủy" : "Cancel"}
 					</Button>
 				)}
 				<Button
 					type='submit'
 					variant='primary'
 					disabled={isSubmitting || !content.trim()}
+					className='text-xs sm:text-sm px-4 py-1.5'
 				>
-					{isSubmitting ? "Đang gửi..." : "Gửi"}
+					{isSubmitting
+						? language === "vi"
+							? "Đang gửi..."
+							: "Sending..."
+						: replyToUsername
+							? language === "vi"
+								? "Trả lời"
+								: "Reply"
+							: language === "vi"
+								? "Gửi bình luận"
+								: "Post Comment"}
 				</Button>
 			</div>
 		</form>
 	);
 };
 
-// --- Thành phần hiển thị một mục bình luận ---
+// --- Hiển thị từng bình luận ---
 const CommentItem = ({
 	comment,
+	buildId,
 	onCommentDeleted,
 	onCommentUpdated,
 	onCommentPosted,
-	buildId,
-	userDisplayNames,
-	isParentRoot = true, // Logic để xác định cấp độ thụt lề
 }) => {
+	const { language } = useTranslation(); // 🟢
 	const { user, token } = useAuth();
+	const apiUrl = import.meta.env.VITE_API_URL;
+	const isOwner = user && user.sub === comment.sub;
+
+	const [isReplying, setIsReplying] = useState(false);
 	const [isEditing, setIsEditing] = useState(false);
 	const [editContent, setEditContent] = useState(comment.content);
-	const [isReplying, setIsReplying] = useState(false);
+	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
-	const [isUpdating, setIsUpdating] = useState(false);
 	const [isDeleting, setIsDeleting] = useState(false);
 
-	const apiUrl = import.meta.env.VITE_API_URL;
-	const isOwner = user && comment.user_sub === user.sub;
+	const timeString = new Date(comment.createdAt).toLocaleString(
+		language === "vi" ? "vi-VN" : "en-US",
+	);
 
-	const displayName = userDisplayNames[comment.username] || comment.username;
-	const replyToName = comment.replyToUsername
-		? userDisplayNames[comment.replyToUsername] || comment.replyToUsername
-		: null;
-
-	// XÁC ĐỊNH LOGIC THỤT LỀ:
-	// 1. Bình luận gốc (parentId === null): Không thụt lề.
-	// 2. Bình luận trả lời cho gốc (isParentRoot === true): Thụt vào 1 cấp.
-	// 3. Bình luận trả lời cho reply (isParentRoot === false): Không thụt thêm.
-	const isRoot = !comment.parentId;
-	const indentClass =
-		!isRoot && isParentRoot
-			? "ml-6 sm:ml-12 border-l-2 border-border pl-4 mt-2"
-			: "ml-0";
-
-	const handleUpdate = async () => {
-		if (!editContent.trim()) return;
-		setIsUpdating(true);
-		try {
-			const res = await fetch(
-				`${apiUrl}/api/builds/${buildId}/comments/${comment.id}`,
-				{
-					method: "PUT",
-					headers: {
-						"Content-Type": "application/json",
-						Authorization: `Bearer ${token}`,
-					},
-					body: JSON.stringify({ content: editContent }),
-				},
-			);
-			if (!res.ok) throw new Error("Không thể sửa");
-			const updated = await res.json();
-			onCommentUpdated(updated);
+	const handleEdit = async () => {
+		if (!editContent.trim() || editContent === comment.content) {
 			setIsEditing(false);
+			return;
+		}
+		setIsSubmitting(true);
+		try {
+			const res = await fetch(`${apiUrl}/api/comments/${comment.id}`, {
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${token}`,
+				},
+				body: JSON.stringify({ content: editContent.trim() }),
+			});
+			if (res.ok) {
+				const updated = await res.json();
+				onCommentUpdated(updated.comment || updated);
+				setIsEditing(false);
+			}
 		} catch (err) {
-			alert("Lỗi: " + err.message);
+			console.error(err);
 		} finally {
-			setIsUpdating(false);
+			setIsSubmitting(false);
 		}
 	};
 
 	const handleDelete = async () => {
 		setIsDeleting(true);
 		try {
-			const res = await fetch(
-				`${apiUrl}/api/builds/${buildId}/comments/${comment.id}`,
-				{
-					method: "DELETE",
-					headers: { Authorization: `Bearer ${token}` },
-				},
-			);
-			if (!res.ok) throw new Error("Không thể xóa");
-			onCommentDeleted(comment.id);
+			const res = await fetch(`${apiUrl}/api/comments/${comment.id}`, {
+				method: "DELETE",
+				headers: { Authorization: `Bearer ${token}` },
+			});
+			if (res.ok) {
+				onCommentDeleted(comment.id);
+				setShowDeleteModal(false);
+			}
 		} catch (err) {
-			alert("Lỗi: " + err.message);
+			console.error(err);
 		} finally {
 			setIsDeleting(false);
-			setShowDeleteModal(false);
 		}
 	};
 
 	return (
-		<div className={`py-4 ${indentClass}`}>
-			<div className='flex items-start justify-between'>
-				<div className='flex flex-col'>
-					<div className='flex items-center gap-2'>
-						<span className='font-semibold text-text-primary'>
-							{displayName}
+		<div className='py-4'>
+			<div className='flex gap-3 sm:gap-4'>
+				<div className='w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-tr from-primary-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm sm:text-base shrink-0'>
+					{comment.username?.charAt(0).toUpperCase()}
+				</div>
+				<div className='flex-1 min-w-0'>
+					<div className='flex items-center gap-2 mb-1 flex-wrap'>
+						<span className='font-bold text-text-primary text-sm sm:text-base'>
+							{comment.username}
 						</span>
 						<span className='text-[10px] sm:text-xs text-text-secondary'>
-							{new Date(comment.createdAt).toLocaleString()}
-							{comment.updatedAt && " (đã sửa)"}
+							{timeString}
 						</span>
+						{comment.isEdited && (
+							<span className='text-[10px] sm:text-xs text-text-secondary italic'>
+								({language === "vi" ? "đã chỉnh sửa" : "edited"})
+							</span>
+						)}
 					</div>
-				</div>
-				{isOwner && (
-					<div className='flex gap-1'>
-						<button
-							onClick={() => setIsEditing(true)}
-							className='p-1.5 text-text-secondary hover:text-primary-500 transition-colors'
-						>
-							<Edit size={14} />
-						</button>
-						<button
-							onClick={() => setShowDeleteModal(true)}
-							className='p-1.5 text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 rounded transition-colors'
-						>
-							<Trash2 size={14} />
-						</button>
-					</div>
-				)}
-			</div>
 
-			{isEditing ? (
-				<form
-					onSubmit={e => {
-						e.preventDefault();
-						handleUpdate();
-					}}
-					className='mt-3'
-				>
-					<textarea
-						value={editContent}
-						onChange={e => setEditContent(e.target.value)}
-						className='w-full p-3 border border-border rounded-lg bg-surface-bg focus:border-primary-500 focus:outline-none'
-						rows={3}
-						autoFocus
-					/>
-					<div className='flex justify-end gap-2 mt-2'>
-						<Button
-							variant='ghost'
-							size='sm'
-							onClick={() => setIsEditing(false)}
-							disabled={isUpdating}
-						>
-							Hủy
-						</Button>
-						<Button
-							variant='primary'
-							size='sm'
-							type='submit'
-							disabled={isUpdating || !editContent.trim()}
-						>
-							{isUpdating ? "Lưu..." : "Lưu"}
-						</Button>
-					</div>
-				</form>
-			) : (
-				<div className='mt-1.5 text-text-secondary whitespace-pre-wrap break-words text-sm sm:text-base'>
-					{replyToName && (
-						<span className='inline-block mr-2 text-primary-500 dark:text-primary-400 font-bold'>
-							@{replyToName}
-						</span>
+					{isEditing ? (
+						<div className='mt-2'>
+							<textarea
+								className='w-full p-2 sm:p-3 bg-input-bg border border-primary-500 rounded-lg text-sm sm:text-base text-text-primary focus:outline-none resize-none'
+								rows={2}
+								value={editContent}
+								onChange={e => setEditContent(e.target.value)}
+							/>
+							<div className='flex gap-2 mt-2'>
+								<Button
+									onClick={handleEdit}
+									disabled={isSubmitting}
+									className='text-xs px-3 py-1'
+								>
+									{isSubmitting
+										? language === "vi"
+											? "Đang lưu..."
+											: "Saving..."
+										: language === "vi"
+											? "Lưu"
+											: "Save"}
+								</Button>
+								<Button
+									variant='ghost'
+									onClick={() => {
+										setIsEditing(false);
+										setEditContent(comment.content);
+									}}
+									className='text-xs px-3 py-1'
+								>
+									{language === "vi" ? "Hủy" : "Cancel"}
+								</Button>
+							</div>
+						</div>
+					) : (
+						<p className='text-sm sm:text-base text-text-secondary whitespace-pre-wrap break-words leading-relaxed'>
+							{comment.content}
+						</p>
 					)}
-					{comment.content}
-				</div>
-			)}
 
-			<div className='mt-2'>
-				<button
-					onClick={() => setIsReplying(!isReplying)}
-					className='flex items-center text-xs text-primary-500 hover:underline font-medium'
-				>
-					<MessageSquare size={12} className='mr-1' />
-					Trả lời
-				</button>
+					{!isEditing && (
+						<div className='flex items-center gap-4 mt-2'>
+							{user && (
+								<button
+									onClick={() => setIsReplying(!isReplying)}
+									className='text-xs sm:text-sm text-text-secondary hover:text-primary-500 font-medium transition-colors'
+								>
+									{language === "vi" ? "Trả lời" : "Reply"}
+								</button>
+							)}
+							{isOwner && (
+								<>
+									<button
+										onClick={() => setIsEditing(true)}
+										className='text-text-secondary hover:text-primary-500 transition-colors'
+									>
+										<Edit size={14} />
+									</button>
+									<button
+										onClick={() => setShowDeleteModal(true)}
+										className='text-text-secondary hover:text-danger-500 transition-colors'
+									>
+										<Trash2 size={14} />
+									</button>
+								</>
+							)}
+						</div>
+					)}
+				</div>
 			</div>
 
 			{isReplying && (
-				<div className='mt-4'>
+				<div className='ml-11 sm:ml-14 mt-3'>
 					<CommentForm
 						buildId={buildId}
 						parentId={comment.id}
 						replyToUsername={comment.username}
 						onCommentPosted={c => {
-							onCommentPosted(c);
 							setIsReplying(false);
+							onCommentPosted(c);
 						}}
 						onCancel={() => setIsReplying(false)}
 					/>
 				</div>
 			)}
 
-			{/* Render Replies đệ quy */}
 			{comment.replies && comment.replies.length > 0 && (
-				<div className='mt-2 space-y-1'>
+				<div className='ml-6 sm:ml-10 mt-2 border-l-2 border-border pl-3 sm:pl-4 space-y-2'>
 					{comment.replies.map(reply => (
 						<CommentItem
 							key={reply.id}
@@ -310,8 +314,6 @@ const CommentItem = ({
 							onCommentDeleted={onCommentDeleted}
 							onCommentUpdated={onCommentUpdated}
 							onCommentPosted={onCommentPosted}
-							userDisplayNames={userDisplayNames}
-							isParentRoot={isRoot} // Truyền trạng thái root của cha xuống con
 						/>
 					))}
 				</div>
@@ -319,16 +321,30 @@ const CommentItem = ({
 
 			<Modal
 				isOpen={showDeleteModal}
-				onClose={() => setShowDeleteModal(false)}
-				title='Xóa bình luận?'
+				onClose={() => !isDeleting && setShowDeleteModal(false)}
+				title={language === "vi" ? "Xác nhận xóa" : "Confirm Deletion"}
 			>
-				<p>Bạn có chắc chắn muốn xóa bình luận này?</p>
-				<div className='flex justify-end gap-3 mt-5'>
-					<Button variant='ghost' onClick={() => setShowDeleteModal(false)}>
-						Hủy
+				<p className='text-text-secondary mb-6 text-sm sm:text-base'>
+					{language === "vi"
+						? "Bạn có chắc chắn muốn xóa bình luận này không?"
+						: "Are you sure you want to delete this comment?"}
+				</p>
+				<div className='flex justify-end gap-3'>
+					<Button
+						variant='ghost'
+						onClick={() => setShowDeleteModal(false)}
+						disabled={isDeleting}
+					>
+						{language === "vi" ? "Hủy" : "Cancel"}
 					</Button>
 					<Button variant='danger' onClick={handleDelete} disabled={isDeleting}>
-						{isDeleting ? "Đang xóa..." : "Xóa"}
+						{isDeleting
+							? language === "vi"
+								? "Đang xóa..."
+								: "Deleting..."
+							: language === "vi"
+								? "Xóa"
+								: "Delete"}
 					</Button>
 				</div>
 			</Modal>
@@ -336,45 +352,43 @@ const CommentItem = ({
 	);
 };
 
-// --- Component Chính ---
+// --- Main Section ---
 const CommentsSection = ({ buildId }) => {
+	const { language } = useTranslation(); // 🟢
 	const [comments, setComments] = useState([]);
 	const [loadingComments, setLoadingComments] = useState(true);
-	const [userDisplayNames, setUserDisplayNames] = useState({});
 	const apiUrl = import.meta.env.VITE_API_URL;
 
-	const fetchComments = useCallback(async () => {
-		setLoadingComments(true);
-		try {
-			const res = await fetch(`${apiUrl}/api/builds/${buildId}/comments`);
-			if (!res.ok) throw new Error();
-			const data = await res.json();
-			setComments(data);
-		} catch (e) {
-			console.error("Fetch comments error:", e);
-		} finally {
-			setLoadingComments(false);
-		}
+	useEffect(() => {
+		const fetchComments = async () => {
+			if (!buildId) return;
+			try {
+				const res = await fetch(`${apiUrl}/api/builds/${buildId}/comments`);
+				if (res.ok) {
+					const data = await res.json();
+					setComments(data.items || data);
+				}
+			} catch (err) {
+				console.error(err);
+			} finally {
+				setLoadingComments(false);
+			}
+		};
+		fetchComments();
 	}, [buildId, apiUrl]);
 
-	useEffect(() => {
-		fetchComments();
-	}, [fetchComments]);
-
-	// Xây dựng cấu trúc cây bình luận từ mảng phẳng
 	const rootComments = useMemo(() => {
-		const map = new Map();
-		comments.forEach(c => map.set(c.id, { ...c, replies: [] }));
-
+		const map = {};
 		const roots = [];
+		comments.forEach(c => (map[c.id] = { ...c, replies: [] }));
 		comments.forEach(c => {
-			if (c.parentId && map.has(c.parentId)) {
-				map.get(c.parentId).replies.push(map.get(c.id));
+			if (c.parentId && map[c.parentId]) {
+				map[c.parentId].replies.push(map[c.id]);
 			} else {
-				roots.push(map.get(c.id));
+				roots.push(map[c.id]);
 			}
 		});
-		return roots;
+		return roots.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 	}, [comments]);
 
 	const handlePosted = c => setComments(p => [...p, c]);
@@ -386,7 +400,7 @@ const CommentsSection = ({ buildId }) => {
 	return (
 		<div className='mt-10'>
 			<h2 className='text-xl sm:text-2xl font-bold mb-6 text-text-primary border-l-4 border-primary-500 pl-4'>
-				Bình luận ({comments.length})
+				{language === "vi" ? "Bình luận" : "Comments"} ({comments.length})
 			</h2>
 
 			<div className='bg-surface-bg rounded-xl border border-border p-4 sm:p-6 shadow-sm'>
@@ -399,7 +413,11 @@ const CommentsSection = ({ buildId }) => {
 				) : rootComments.length === 0 ? (
 					<div className='text-center py-10 opacity-60'>
 						<MessageSquare size={48} className='mx-auto mb-3' />
-						<p>Chưa có bình luận nào. Hãy là người đầu tiên!</p>
+						<p>
+							{language === "vi"
+								? "Chưa có bình luận nào. Hãy là người đầu tiên!"
+								: "No comments yet. Be the first to comment!"}
+						</p>
 					</div>
 				) : (
 					<div className='divide-y divide-border'>
@@ -411,8 +429,6 @@ const CommentsSection = ({ buildId }) => {
 								onCommentDeleted={handleDeleted}
 								onCommentUpdated={handleUpdated}
 								onCommentPosted={handlePosted}
-								userDisplayNames={userDisplayNames}
-								isParentRoot={true} // Gốc luôn được coi là ParentRoot
 							/>
 						))}
 					</div>

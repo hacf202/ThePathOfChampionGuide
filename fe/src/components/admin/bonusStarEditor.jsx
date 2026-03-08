@@ -15,6 +15,12 @@ const NEW_BONUS_STAR_TEMPLATE = {
 	description: "",
 	image: "",
 	nodeType: "bonusStar",
+	translations: {
+		en: {
+			name: "",
+			description: "",
+		},
+	},
 };
 
 const ITEMS_PER_PAGE = 20;

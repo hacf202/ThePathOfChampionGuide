@@ -1,18 +1,25 @@
-// src/components/common/DropdownFilter.jsx (ĐÃ REFACTOR - KHÔNG CẦN ĐẶT LẠI)
+// src/components/common/dropdownFilter.jsx
 
 import React, { useState, useRef, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
+import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook Đa ngôn ngữ
 
 function DropdownFilter({
 	label,
 	options,
 	selectedValue,
 	onChange,
-	placeholder = "Chọn một tùy chọn...",
+	placeholder, // 🟢 Bỏ giá trị mặc định tĩnh ở đây để xử lý bên trong
 	renderOption,
 }) {
+	const { language } = useTranslation(); // 🟢 Khởi tạo Hook
 	const [isOpen, setIsOpen] = useState(false);
 	const dropdownRef = useRef(null);
+
+	// 🟢 Xử lý placeholder đa ngôn ngữ
+	const finalPlaceholder =
+		placeholder ||
+		(language === "vi" ? "Chọn một tùy chọn..." : "Select an option...");
 
 	const handleSelect = value => {
 		onChange(value);
@@ -34,7 +41,7 @@ function DropdownFilter({
 	const displayedLabel =
 		(selectedValue &&
 			options.find(opt => opt.value === selectedValue)?.label) ||
-		placeholder;
+		finalPlaceholder; // 🟢 Dùng finalPlaceholder
 
 	return (
 		<div className='relative w-full' ref={dropdownRef}>
