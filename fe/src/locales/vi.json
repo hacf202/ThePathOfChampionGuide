@@ -39,11 +39,28 @@
 		"sortBy": "Sắp xếp",
 		"resetFilter": "Đặt lại bộ lọc"
 	},
+	"buildList": {
+		"title": "Danh sách Build",
+		"heading": "Danh Sách Bộ Cổ Vật",
+		"searchPlaceholder": "Tên tướng, cổ vật...",
+		"starLevel": "Cấp sao",
+		"community": "Cộng Đồng",
+		"myBuilds": "Của Tôi",
+		"favorites": "Yêu Thích",
+		"createNew": "Tạo Mới",
+		"loginToCreate": "Đăng Nhập Để Tạo",
+		"notFound": "Không tìm thấy build phù hợp."
+	},
 	"sort": {
 		"nameAsc": "Tên A-Z",
 		"nameDesc": "Tên Z-A",
 		"costAsc": "Năng lượng thấp-cao",
-		"costDesc": "Năng lượng cao-thấp"
+		"costDesc": "Năng lượng cao-thấp",
+		"createdAtDesc": "Mới nhất",
+		"createdAtAsc": "Cũ nhất",
+		"likeDesc": "Lượt thích (Cao nhất)",
+		"likeAsc": "Lượt thích (Thấp nhất)",
+		"viewsDesc": "Lượt xem (Nhiều nhất)"
 	},
 	"championDetail": {
 		"title": "Chi tiết tướng",
@@ -70,5 +87,43 @@
 		"colName": "Tên",
 		"colPower": "Sức mạnh",
 		"noData": "Chưa có dữ liệu cho mục này."
+	},
+	"home": {
+		"loading": "ĐANG KHỞI TẠO POC GUIDE...",
+		"pageTitle": "POC GUIDE - Con Đường Anh Hùng",
+		"pageDesc": "Wiki & Hướng Dẫn Path of Champions chuyên nghiệp nhất",
+		"heroBadge": "Cẩm Nang Tối Thượng",
+		"heroTitle1": "CON ĐƯỜNG",
+		"heroTitle2": "ANH HÙNG",
+		"heroDesc": "Khám phá sức mạnh tối thượng, tối ưu hóa lối chơi và chinh phục mọi thử thách trong Con Đường Anh Hùng.",
+		"btnExplore": "KHÁM PHÁ NGAY",
+		"btnGuides": "HƯỚNG DẪN MỚI",
+		"scrollDown": "Cuộn xuống",
+		"resourceTitle1": "TÀI NGUYÊN",
+		"resourceTitle2": "HÀNH TRÌNH",
+		"resourceDesc": "Mọi thứ bạn cần để trở thành cao thủ Runeterra",
+		"viewAllChamps": "XEM TẤT CẢ TƯỚNG",
+		"champListDesc": "Chi tiết sức mạnh, lối chơi và mẹo nâng cấp cho từng anh hùng.",
+		"relicVault": "Kho Cổ Vật",
+		"relicVaultDesc": "Kết hợp cổ vật tối ưu nhất cho từng vị tướng.",
+		"monthlyEvent": "Sự kiện hàng tháng",
+		"monthlyTitle1": "Vượt Qua",
+		"monthlyTitle2": "Thử Thách Tháng",
+		"monthlyDesc": "Đừng để 70 màn chơi làm bạn chùn bước. Chúng tôi cung cấp lộ trình chi tiết, gợi ý tướng và cách phân bổ lượt đi thông minh nhất để nhận trọn phần thưởng.",
+		"btnViewGuides": "XEM HƯỚNG DẪN",
+		"challengeStages": "Màn thử thách",
+		"luckyWheel": "Vòng Quay May Mắn",
+		"luckyWheelDesc": "Không biết chơi tướng nào? Hãy để định mệnh quyết định giúp bạn với công cụ quay ngẫu nhiên.",
+		"tryNow": "THỬ NGAY",
+		"tierListTitle": "Bảng Xếp Hạng",
+		"tierListDesc": "Tier List cập nhật mới nhất. Xem tướng nào đang làm bá chủ Con Đường Anh Hùng.",
+		"viewTierList": "XEM XẾP HẠNG",
+		"pocGuidesTitle": "Hướng Dẫn POC",
+		"pocGuidesDesc": "Từ cơ bản đến nâng cao: Cách tích mảnh tướng, tối ưu bụi cổ vật và nâng cấp sức mạnh sao.",
+		"learnToPlay": "HỌC CÁCH CHƠI",
+		"footerCTA1": "Bắt đầu",
+		"footerCTA2": "Hành trình",
+		"footerCTA3": "của bạn?",
+		"btnExploreNow": "KHÁM PHÁ NGAY"
 	}
 }

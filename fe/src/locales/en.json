@@ -36,11 +36,28 @@
 		"sortBy": "Sort By",
 		"resetFilter": "Reset Filters"
 	},
+	"buildList": {
+		"title": "Build List",
+		"heading": "Relic Builds List",
+		"searchPlaceholder": "Champion, relic...",
+		"starLevel": "Star Level",
+		"community": "Community",
+		"myBuilds": "My Builds",
+		"favorites": "Favorites",
+		"createNew": "Create New",
+		"loginToCreate": "Login to Create",
+		"notFound": "No matching builds found."
+	},
 	"sort": {
 		"nameAsc": "Name A-Z",
 		"nameDesc": "Name Z-A",
 		"costAsc": "Cost Low-High",
-		"costDesc": "Cost High-Low"
+		"costDesc": "Cost High-Low",
+		"createdAtDesc": "Newest",
+		"createdAtAsc": "Oldest",
+		"likeDesc": "Most Liked",
+		"likeAsc": "Least Liked",
+		"viewsDesc": "Most Viewed"
 	},
 	"championDetail": {
 		"title": "Champion Details",
@@ -67,5 +84,43 @@
 		"colName": "Name",
 		"colPower": "Power",
 		"noData": "No data available for this section."
+	},
+	"home": {
+		"loading": "INITIALIZING POC GUIDE...",
+		"pageTitle": "POC GUIDE - The Path of Champions",
+		"pageDesc": "The most professional Path of Champions Wiki & Guide",
+		"heroBadge": "The Ultimate Guide",
+		"heroTitle1": "PATH OF",
+		"heroTitle2": "CHAMPIONS",
+		"heroDesc": "Discover ultimate power, optimize your gameplay, and conquer all challenges in The Path of Champions.",
+		"btnExplore": "EXPLORE NOW",
+		"btnGuides": "NEW GUIDES",
+		"scrollDown": "Scroll down",
+		"resourceTitle1": "JOURNEY",
+		"resourceTitle2": "RESOURCES",
+		"resourceDesc": "Everything you need to become a Runeterra master",
+		"viewAllChamps": "VIEW ALL CHAMPIONS",
+		"champListDesc": "Detailed powers, gameplay, and upgrade tips for each hero.",
+		"relicVault": "Relics Vault",
+		"relicVaultDesc": "The most optimal relic combinations for each champion.",
+		"monthlyEvent": "Monthly Event",
+		"monthlyTitle1": "Conquer",
+		"monthlyTitle2": "Monthly Challenges",
+		"monthlyDesc": "Don't let 70 stages hold you back. We provide detailed routes, champion suggestions, and smart pacing to claim all rewards.",
+		"btnViewGuides": "VIEW GUIDES",
+		"challengeStages": "Challenge Stages",
+		"luckyWheel": "Lucky Wheel",
+		"luckyWheelDesc": "Don't know which champion to play? Let fate decide with our randomizer tool.",
+		"tryNow": "TRY IT OUT",
+		"tierListTitle": "Tier List",
+		"tierListDesc": "Latest updated Tier List. See which champions dominate The Path of Champions.",
+		"viewTierList": "VIEW TIER LIST",
+		"pocGuidesTitle": "POC Guides",
+		"pocGuidesDesc": "From basic to advanced: How to farm champion fragments, optimize relics, and upgrade star powers.",
+		"learnToPlay": "LEARN HOW TO PLAY",
+		"footerCTA1": "Start",
+		"footerCTA2": "Your Journey",
+		"footerCTA3": "today?",
+		"btnExploreNow": "EXPLORE NOW"
 	}
 }
