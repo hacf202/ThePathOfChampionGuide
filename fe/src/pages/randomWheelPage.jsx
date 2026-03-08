@@ -4,11 +4,12 @@ import VongQuayNgauNhien from "../components/wheel/radomWheel";
 import SidePanel from "../components/wheel/sidePanelWheel";
 import PageTitle from "../components/common/pageTitle";
 import { Loader2 } from "lucide-react";
+import { useTranslation } from "../hooks/useTranslation"; // 🟢 Import Hook
 
 // Import dữ liệu bản đồ cố định
 import mapsData from "../assets/data/map.json";
 
-// --- HÀM TIỆN ÍCH: Sắp xếp theo tên tiếng Việt ---
+// --- HÀM TIỆN ÍCH: Sắp xếp theo tên ---
 const sortByName = (a, b) => {
 	const nameA = a?.name || "";
 	const nameB = b?.name || "";
@@ -16,6 +17,7 @@ const sortByName = (a, b) => {
 };
 
 function RandomizerPage() {
+	const { tUI, tDynamic, language } = useTranslation(); // 🟢 Khởi tạo Hook
 	const [originalWheelsData, setOriginalWheelsData] = useState({});
 	const [customItemsText, setCustomItemsText] = useState({});
 	const [checkedItems, setCheckedItems] = useState({});
@@ -28,10 +30,6 @@ function RandomizerPage() {
 
 	const backendUrl = import.meta.env.VITE_API_URL;
 
-	/**
-	 * Fetch dữ liệu Metadata từ Backend
-	 * Sử dụng limit=1000 để lấy toàn bộ danh sách cho vòng quay
-	 */
 	const fetchData = useCallback(async () => {
 		setIsLoading(true);
 		try {
@@ -40,9 +38,8 @@ function RandomizerPage() {
 			const [championsRes, relicsRes, itemsRes, powersRes, runesRes] =
 				await Promise.all([
 					fetch(`${backendUrl}/api/champions${queryLimit}`),
-					fetch(`${backendUrl}/api/relics${queryLimit}`), // Cổ vật
-					fetch(`${backendUrl}/api/items${queryLimit}`), // Vật phẩm bổ trợ
-					// Xử lý fallback cho endpoint Powers
+					fetch(`${backendUrl}/api/relics${queryLimit}`),
+					fetch(`${backendUrl}/api/items${queryLimit}`),
 					fetch(`${backendUrl}/api/generalPower${queryLimit}`).then(res =>
 						res.ok
 							? res
@@ -52,7 +49,7 @@ function RandomizerPage() {
 				]);
 
 			if (!championsRes.ok || !relicsRes.ok || !itemsRes.ok || !powersRes.ok) {
-				throw new Error("Không thể tải dữ liệu vòng quay từ máy chủ");
+				throw new Error(tUI("randomWheel.errorLoad"));
 			}
 
 			const [champData, relicData, itemData, powerData, runeData] =
@@ -64,7 +61,6 @@ function RandomizerPage() {
 					runesRes.json(),
 				]);
 
-			// Truy cập vào thuộc tính .items để lấy mảng dữ liệu
 			const championsList = champData.items || champData || [];
 			const relicList = relicData.items || relicData || [];
 			const itemList = itemData.items || itemData || [];
@@ -74,60 +70,55 @@ function RandomizerPage() {
 			const initialData = {
 				champions: {
 					key: "champions",
-					title: "Tướng",
+					title: tUI("randomWheel.champions"),
 					items: [...championsList].sort(sortByName),
 				},
 				maps: {
 					key: "maps",
-					title: "Bản đồ",
+					title: tUI("randomWheel.maps"),
 					items: [...mapsData].sort(sortByName),
 				},
 				relics: {
 					key: "relics",
-					title: "Cổ Vật",
+					title: tUI("randomWheel.relics"),
 					items: relicList
 						.filter(r => r.name)
 						.map(r => ({
-							name: r.name,
-							rarity: r.rarity || "Chung",
-							assetAbsolutePath: r.assetAbsolutePath || r.iconAbsolutePath,
+							...r,
+							rarity: r.rarity || tUI("common.commonRarity"),
 						}))
 						.sort(sortByName),
 				},
 				items: {
 					key: "items",
-					title: "Vật Phẩm",
+					title: tUI("randomWheel.items"),
 					items: itemList
 						.filter(i => i.name)
 						.map(i => ({
-							name: i.name,
-							rarity: i.rarity || "Chung",
-							assetAbsolutePath: i.assetAbsolutePath || i.iconAbsolutePath,
+							...i,
+							rarity: i.rarity || tUI("common.commonRarity"),
 						}))
 						.sort(sortByName),
 				},
 				powers: {
 					key: "powers",
-					title: "Sức Mạnh",
+					title: tUI("randomWheel.powers"),
 					items: powerList
 						.filter(p => p.name)
 						.map(p => ({
-							name: p.name,
-							rarity: p.rarity || "Chung",
-							assetAbsolutePath: p.assetAbsolutePath || p.iconAbsolutePath,
-							description: p.description,
+							...p,
+							rarity: p.rarity || tUI("common.commonRarity"),
 						}))
 						.sort(sortByName),
 				},
 				runes: {
 					key: "runes",
-					title: "Ngọc",
+					title: tUI("randomWheel.runes"),
 					items: runeList
 						.filter(r => r.name)
 						.map(r => ({
-							name: r.name,
-							rarity: r.rarity || "Chung",
-							assetAbsolutePath: r.assetAbsolutePath || r.iconAbsolutePath,
+							...r,
+							rarity: r.rarity || tUI("common.commonRarity"),
 						}))
 						.sort(sortByName),
 				},
@@ -135,11 +126,12 @@ function RandomizerPage() {
 
 			setOriginalWheelsData(initialData);
 
-			// Khởi tạo trạng thái chọn và bộ lọc
 			const initialChecked = {};
 			const initialText = {};
 			const initialFilters = {};
 			const initialActiveFilters = {};
+
+			const allLabel = tUI("common.all");
 
 			for (const key in initialData) {
 				const itemChecks = {};
@@ -152,25 +144,29 @@ function RandomizerPage() {
 				if (key === "champions") {
 					initialFilters.champions = {
 						regions: [
-							"Tất cả",
+							allLabel,
 							...[
 								...new Set(
 									initialData[key].items.flatMap(i => i.regions || []),
 								),
 							].sort(),
 						],
-						maxStar: ["Tất cả", "3", "4", "6", "7"],
+						maxStar: [allLabel, "3", "4", "6", "7"],
 					};
 					initialActiveFilters.champions = {
-						regions: "Tất cả",
-						maxStar: "Tất cả",
+						regions: allLabel,
+						maxStar: allLabel,
 					};
 				} else {
 					initialFilters[key] = [
-						"Tất cả",
-						...new Set(initialData[key].items.map(i => i.rarity || "Chung")),
+						allLabel,
+						...new Set(
+							initialData[key].items.map(
+								i => i.rarity || tUI("common.commonRarity"),
+							),
+						),
 					].sort();
-					initialActiveFilters[key] = "Tất cả";
+					initialActiveFilters[key] = allLabel;
 				}
 			}
 
@@ -183,13 +179,12 @@ function RandomizerPage() {
 		} finally {
 			setIsLoading(false);
 		}
-	}, [backendUrl]);
+	}, [backendUrl, tUI]);
 
 	useEffect(() => {
 		fetchData();
 	}, [fetchData]);
 
-	// --- Handlers cho vòng quay ---
 	const handleSelectWheel = key => {
 		setActiveWheelKey(key);
 		setIsWheelVisible(false);
@@ -220,9 +215,6 @@ function RandomizerPage() {
 		});
 	};
 
-	/**
-	 * Dữ liệu cuối cùng được đưa vào vòng quay dựa trên checkbox và bộ lọc
-	 */
 	const itemsForWheel = useMemo(() => {
 		const wheel = originalWheelsData[activeWheelKey];
 		if (!wheel) return [];
@@ -232,24 +224,25 @@ function RandomizerPage() {
 		);
 
 		const filters = activeFilters[activeWheelKey];
+		const allLabel = tUI("common.all");
+
 		if (filters) {
 			items = items.filter(item => {
 				if (activeWheelKey === "champions") {
 					const { regions, maxStar } = filters;
-					if (regions !== "Tất cả" && !item.regions?.includes(regions))
+					if (regions !== allLabel && !item.regions?.includes(regions))
 						return false;
-					if (maxStar !== "Tất cả" && String(item.maxStar) !== maxStar)
+					if (maxStar !== allLabel && String(item.maxStar) !== maxStar)
 						return false;
 					return true;
 				}
 				if (typeof filters === "string") {
-					return filters === "Tất cả" || item.rarity === filters;
+					return filters === allLabel || item.rarity === filters;
 				}
 				return true;
 			});
 		}
 
-		// Thêm vật phẩm tự nhập
 		const customText = customItemsText[activeWheelKey];
 		if (customText) {
 			const customLines = customText
@@ -266,6 +259,7 @@ function RandomizerPage() {
 		checkedItems,
 		customItemsText,
 		activeFilters,
+		tUI,
 	]);
 
 	if (isLoading) {
@@ -279,8 +273,8 @@ function RandomizerPage() {
 	return (
 		<div>
 			<PageTitle
-				title='Vòng Quay Ngẫu Nhiên'
-				description='Công cụ quay ngẫu nhiên cho Path of Champions'
+				title={tUI("randomWheel.pageTitle")}
+				description={tUI("randomWheel.pageDesc")}
 			/>
 			<div className='bg-gradient-to-br from-slate-600 to-gray-100 min-h-screen flex relative overflow-hidden'>
 				{isPanelOpen && (

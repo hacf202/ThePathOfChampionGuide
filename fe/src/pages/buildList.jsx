@@ -1,56 +1,83 @@
-// src/pages/builds.jsx
-import React, {
-	useState,
-	useMemo,
-	useEffect,
-	useCallback,
-	useContext,
-} from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+// src/pages/buildList.jsx
+import React, { useState, useEffect, useMemo, useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { usePersistentState } from "../hooks/usePersistentState";
-import { useTranslation } from "../hooks/useTranslation";
-import InputField from "../components/common/inputField";
-import MultiSelectFilter from "../components/common/multiSelectFilter";
-import DropdownFilter from "../components/common/dropdownFilter";
-import Button from "../components/common/button";
-import {
-	Search,
-	RotateCw,
-	XCircle,
-	ChevronDown,
-	ChevronUp,
-	ChevronLeft,
-	ChevronRight,
-	PlusCircle,
-	Globe,
-	Shield,
-	Heart,
-} from "lucide-react";
-import { removeAccents } from "../utils/vietnameseUtils";
-import iconRegions from "../assets/data/iconRegions.json";
-import PageTitle from "../components/common/pageTitle";
-import { AuthContext } from "../context/AuthContext.jsx";
 import BuildCreation from "../components/build/buildCreation";
 import MyBuilds from "../components/build/myBuilds";
 import MyFavorite from "../components/build/myFavoriteBuild";
 import CommunityBuilds from "../components/build/communityBuilds";
-import { NavLink } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext.jsx";
+import { useTranslation } from "../hooks/useTranslation"; // 🟢 Hook i18n
+import {
+	PlusCircle,
+	Globe,
+	Shield,
+	Heart,
+	Search,
+	RotateCw,
+	ChevronDown,
+	ChevronUp,
+	ChevronLeft,
+	ChevronRight,
+	Loader2,
+} from "lucide-react";
+import Button from "../components/common/button";
+import MultiSelectFilter from "../components/common/multiSelectFilter";
+import InputField from "../components/common/inputField";
+import DropdownFilter from "../components/common/dropdownFilter";
+import PageTitle from "../components/common/pageTitle";
+import iconRegionsData from "../assets/data/iconRegions.json";
+import { NavLink, useParams, useNavigate } from "react-router-dom";
+import { usePersistentState } from "../hooks/usePersistentState";
 
-const ITEMS_PER_PAGE = 20;
+// === CACHE CONFIG ===
+const CACHE_KEY_PREFIX = "buildsCache_v1";
+const CACHE_DURATION = 5 * 60 * 1000;
 
-const BuildSkeleton = () => (
-	<div className='rounded-lg border border-border bg-surface-bg p-4 space-y-3 animate-pulse'>
-		<div className='aspect-[4/5] w-full bg-gray-700/50 rounded-md' />
-		<div className='h-4 w-3/4 bg-gray-700/50 mx-auto rounded' />
-		<div className='h-3 w-1/2 bg-gray-700/50 mx-auto rounded' />
-	</div>
-);
+const getCacheKey = (tab, filters) => {
+	const filterStr = JSON.stringify({
+		search: filters.searchTerm || "",
+		stars: filters.selectedStarLevels || [],
+		regions: filters.selectedRegions || [],
+		sort: filters.sortBy || "createdAt-desc",
+		page: filters.currentPage || 1,
+	});
+	return `${CACHE_KEY_PREFIX}_${tab}_${filterStr}`;
+};
 
-function Builds() {
+const getCachedData = key => {
+	try {
+		const cached = localStorage.getItem(key);
+		if (!cached) return null;
+		const { data, timestamp } = JSON.parse(cached);
+		if (Date.now() - timestamp > CACHE_DURATION) {
+			localStorage.removeItem(key);
+			return null;
+		}
+		return data;
+	} catch (err) {
+		console.warn("Lỗi đọc cache:", err);
+		return null;
+	}
+};
+
+const setCachedData = (key, data) => {
+	try {
+		const cacheObj = { data, timestamp: Date.now() };
+		localStorage.setItem(key, JSON.stringify(cacheObj));
+	} catch (err) {
+		console.warn("Không thể lưu cache:", err);
+	}
+};
+
+const clearAllBuildsCache = () => {
+	Object.keys(localStorage)
+		.filter(key => key.startsWith(CACHE_KEY_PREFIX))
+		.forEach(key => localStorage.removeItem(key));
+};
+
+const Builds = () => {
 	const { user } = useContext(AuthContext);
-	const { language, tUI, tDynamic } = useTranslation(); // tUI cho text tĩnh, tDynamic cho dữ liệu động
-
+	const { language, tUI, tDynamic } = useTranslation(); // 🟢 Sử dụng tUI, tDynamic
 	const { tab } = useParams();
 	const navigate = useNavigate();
 
@@ -59,25 +86,10 @@ function Builds() {
 		return validTabs.includes(tab) ? tab : "community";
 	}, [tab]);
 
-	const changeTab = newTab => {
-		navigate(`/builds/${newTab}`);
-		setCurrentPage(1);
-	};
+	const [showCreateModal, setShowCreateModal] = useState(false);
+	const [refreshKey, setRefreshKey] = useState(0);
 
-	// --- STATE ---
-	const [builds, setBuilds] = useState([]);
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState(null);
-	const [pagination, setPagination] = useState({
-		totalPages: 1,
-		totalItems: 0,
-		currentPage: 1,
-	});
-	const [dynamicFilters, setDynamicFilters] = useState({
-		regions: [],
-		starLevels: [],
-	});
-
+	// === FILTER STATE (PERSISTENT) ===
 	const [searchInput, setSearchInput] = usePersistentState(
 		"buildsSearchInput",
 		"",
@@ -86,16 +98,16 @@ function Builds() {
 		"buildsSearchTerm",
 		"",
 	);
-	const [selectedRegions, setSelectedRegions] = usePersistentState(
-		"buildsSelectedRegions",
-		[],
-	);
 	const [selectedStarLevels, setSelectedStarLevels] = usePersistentState(
 		"buildsSelectedStarLevels",
 		[],
 	);
-	const [sortOrder, setSortOrder] = usePersistentState(
-		"buildsSortOrder",
+	const [selectedRegions, setSelectedRegions] = usePersistentState(
+		"buildsSelectedRegions",
+		[],
+	);
+	const [sortBy, setSortBy] = usePersistentState(
+		"buildsSortBy",
 		"createdAt-desc",
 	);
 	const [currentPage, setCurrentPage] = usePersistentState(
@@ -110,37 +122,31 @@ function Builds() {
 		"buildsShowDesktopFilter",
 		false,
 	);
-	const [showCreateModal, setShowCreateModal] = useState(false);
-	const [refreshKey, setRefreshKey] = useState(0);
 
-	// Metadata state
+	// === DATA STATE ===
 	const [championsList, setChampionsList] = useState([]);
 	const [relicsList, setRelicsList] = useState([]);
 	const [powersList, setPowersList] = useState([]);
 	const [runesList, setRunesList] = useState([]);
+	const [iconRegions, setIconRegions] = useState([]);
 	const [loadingData, setLoadingData] = useState(true);
 	const [errorData, setErrorData] = useState(null);
 
-	const goToNextPage = useCallback(() => {
-		if (currentPage < pagination.totalPages && !loading) {
-			setCurrentPage(prev => prev + 1);
-			window.scrollTo({ top: 0, behavior: "smooth" });
-		}
-	}, [currentPage, pagination.totalPages, loading, setCurrentPage]);
+	// Tùy chọn sắp xếp (Lấy từ từ điển)
+	const sortOptions = useMemo(
+		() => [
+			{ value: "createdAt-desc", label: tUI("sort.createdAtDesc") },
+			{ value: "createdAt-asc", label: tUI("sort.createdAtAsc") },
+			{ value: "championName-asc", label: tUI("sort.nameAsc") },
+			{ value: "championName-desc", label: tUI("sort.nameDesc") },
+			{ value: "like-desc", label: tUI("sort.likeDesc") },
+			{ value: "like-asc", label: tUI("sort.likeAsc") },
+			{ value: "views-desc", label: tUI("sort.viewsDesc") },
+		],
+		[tUI],
+	);
 
-	const goToPrevPage = useCallback(() => {
-		if (currentPage > 1 && !loading) {
-			setCurrentPage(prev => prev - 1);
-			window.scrollTo({ top: 0, behavior: "smooth" });
-		}
-	}, [currentPage, loading, setCurrentPage]);
-
-	const handleSearch = useCallback(() => {
-		setSearchTerm(removeAccents(searchInput.trim()));
-		setCurrentPage(1);
-		if (window.innerWidth < 1024) setIsFilterOpen(false);
-	}, [searchInput, setSearchTerm, setCurrentPage, setIsFilterOpen]);
-
+	// === LOGIC PHÍM TẮT (Global) ===
 	useEffect(() => {
 		const handleKeyDown = event => {
 			if (event.key === "Tab") {
@@ -148,61 +154,12 @@ function Builds() {
 				setShowDesktopFilter(prev => !prev);
 				return;
 			}
-			if (
-				event.target.tagName === "INPUT" ||
-				event.target.tagName === "TEXTAREA"
-			)
-				return;
-			if (event.key === "ArrowLeft") goToPrevPage();
-			else if (event.key === "ArrowRight") goToNextPage();
 		};
 		window.addEventListener("keydown", handleKeyDown);
 		return () => window.removeEventListener("keydown", handleKeyDown);
-	}, [goToPrevPage, goToNextPage, setShowDesktopFilter]);
+	}, [setShowDesktopFilter]);
 
-	const queryParams = useMemo(() => {
-		const params = new URLSearchParams();
-		params.append("page", currentPage);
-		params.append("limit", ITEMS_PER_PAGE);
-		params.append("sort", sortOrder);
-		params.append("tab", activeTab);
-		if (searchTerm) params.append("searchTerm", searchTerm);
-		if (selectedRegions.length > 0)
-			params.append("regions", selectedRegions.join(","));
-		if (selectedStarLevels.length > 0)
-			params.append("starLevels", selectedStarLevels.join(","));
-		return params.toString();
-	}, [
-		currentPage,
-		searchTerm,
-		selectedRegions,
-		selectedStarLevels,
-		sortOrder,
-		activeTab,
-	]);
-
-	const fetchBuilds = useCallback(async () => {
-		setLoading(true);
-		try {
-			const backendUrl = import.meta.env.VITE_API_URL;
-			const response = await fetch(`${backendUrl}/api/builds?${queryParams}`);
-			if (!response.ok) throw new Error(tUI("common.errorLoadData"));
-			const data = await response.json();
-			setBuilds(data.items || []);
-			setPagination(data.pagination);
-			if (data.availableFilters) setDynamicFilters(data.availableFilters);
-		} catch (err) {
-			setError(err.message);
-		} finally {
-			setTimeout(() => setLoading(false), 800);
-		}
-	}, [queryParams, tUI]);
-
-	useEffect(() => {
-		fetchBuilds();
-	}, [fetchBuilds]);
-
-	// Fetch metadata
+	// === FETCH METADATA ===
 	useEffect(() => {
 		const fetchAllData = async () => {
 			setLoadingData(true);
@@ -228,6 +185,7 @@ function Builds() {
 				setRelicsList(relicData.items || []);
 				setPowersList(powerData.items || []);
 				setRunesList(runeData.items || []);
+				setIconRegions(iconRegionsData);
 			} catch (err) {
 				setErrorData(err.message);
 			} finally {
@@ -237,51 +195,6 @@ function Builds() {
 		fetchAllData();
 	}, [tUI]);
 
-	// Filter Options
-	const filterOptions = useMemo(
-		() => ({
-			regions: dynamicFilters.regions.map(r => ({
-				value: r,
-				label: r,
-				iconUrl: iconRegions.find(i => i.name === r)?.iconAbsolutePath,
-			})),
-			starLevels: dynamicFilters.starLevels.map(s => ({
-				value: s,
-				label: `${s} ⭐`,
-				isStar: true,
-			})),
-			sort: [
-				{
-					value: "createdAt-desc",
-					label: tUI("sort.createdAtDesc") || "Newest",
-				},
-				{ value: "createdAt-asc", label: tUI("sort.createdAtAsc") || "Oldest" },
-				{ value: "championName-asc", label: tUI("sort.nameAsc") },
-				{ value: "championName-desc", label: tUI("sort.nameDesc") },
-				{ value: "like-desc", label: tUI("sort.likeDesc") || "Most Liked" },
-				{ value: "like-asc", label: tUI("sort.likeAsc") || "Least Liked" },
-				{ value: "views-desc", label: tUI("sort.viewsDesc") || "Most Viewed" },
-			],
-		}),
-		[dynamicFilters, tUI],
-	);
-
-	const handleResetFilters = () => {
-		setSearchInput("");
-		setSearchTerm("");
-		setSelectedRegions([]);
-		setSelectedStarLevels([]);
-		setSortOrder("createdAt-desc");
-		setCurrentPage(1);
-	};
-
-	const handleCreateSuccess = () => {
-		setShowCreateModal(false);
-		setRefreshKey(prev => prev + 1);
-		fetchBuilds();
-	};
-
-	// Power Map và Region Map (giữ nguyên)
 	const powerMap = useMemo(
 		() => new Map(powersList.map(p => [p.powerCode, tDynamic(p, "name")])),
 		[powersList, tDynamic],
@@ -295,53 +208,158 @@ function Builds() {
 		return map;
 	}, [championsList]);
 
-	// Render Content dựa trên tab, pass builds và các map cần thiết
+	const regionOptions = useMemo(() => {
+		const allRegions = championsList.flatMap(c => c.regions || []);
+		return [...new Set(allRegions)].sort().map(name => ({
+			value: name,
+			label: name,
+			iconUrl:
+				iconRegions.find(r => r.name === name)?.iconAbsolutePath ??
+				"/fallback-image.svg",
+		}));
+	}, [championsList, iconRegions]);
+
+	const starLevelOptions = useMemo(
+		() =>
+			[1, 2, 3, 4, 5, 6, 7].map(s => ({
+				value: s.toString(),
+				label: "",
+				isStar: true,
+			})),
+		[],
+	);
+
+	// === HANDLERS ===
+	const handleSearch = () => {
+		setSearchTerm(searchInput);
+		setCurrentPage(1); // Luôn về trang 1 khi tìm kiếm mới
+		if (window.innerWidth < 1024) setIsFilterOpen(false);
+	};
+
+	const handleResetFilters = () => {
+		setSearchInput("");
+		setSearchTerm("");
+		setSelectedStarLevels([]);
+		setSelectedRegions([]);
+		setSortBy("createdAt-desc");
+		setCurrentPage(1); // Đưa về trang đầu tiên
+	};
+
+	const triggerRefresh = () => {
+		clearAllBuildsCache();
+		setRefreshKey(prev => prev + 1);
+	};
+
+	const handleCreateSuccess = () => {
+		setShowCreateModal(false);
+		triggerRefresh();
+		navigate("/builds/my-builds");
+	};
+
+	const changeTab = newTab => {
+		setCurrentPage(1); // Về trang 1 khi chuyển tab
+		navigate(`/builds/${newTab}`);
+	};
+
+	const cacheUtils = {
+		getCache: tabName =>
+			getCachedData(
+				getCacheKey(tabName, {
+					searchTerm,
+					selectedStarLevels,
+					selectedRegions,
+					sortBy,
+					currentPage,
+				}),
+			),
+		setCache: (tabName, data) =>
+			setCachedData(
+				getCacheKey(tabName, {
+					searchTerm,
+					selectedStarLevels,
+					selectedRegions,
+					sortBy,
+					currentPage,
+				}),
+				data,
+			),
+		clearCache: clearAllBuildsCache,
+	};
+
+	// === KHÔI PHỤC LẠI COMMON PROPS CHUẨN ĐỂ TRUYỀN XUỐNG CÁC CHILD COMPONENTS ===
+	const commonProps = {
+		searchTerm,
+		selectedStarLevels: selectedStarLevels.join(","),
+		selectedRegions: selectedRegions.join(","),
+		sortBy,
+		currentPage,
+		setCurrentPage,
+		championsList,
+		relicsList,
+		powersList,
+		runesList,
+		refreshKey,
+		powerMap,
+		championNameToRegionsMap,
+		showDesktopFilter,
+		onEditSuccess: triggerRefresh,
+		onDeleteSuccess: triggerRefresh,
+		onFavoriteToggle: triggerRefresh,
+		...cacheUtils, // Hàm getCache, setCache, clearCache được truyền ở đây
+	};
+
 	const renderContent = () => {
-		if (errorData || loadingData) return <div>{tUI("common.loading")}</div>; // Hoặc xử lý error chi tiết hơn
+		if (loadingData)
+			return (
+				<div className='flex justify-center items-center h-64'>
+					<Loader2 className='animate-spin text-primary-500' size={48} />
+				</div>
+			);
+		if (errorData)
+			return (
+				<div className='text-center p-10 bg-danger-bg-light text-danger-text-dark rounded-lg'>
+					<p>{errorData}</p>
+					<Button onClick={() => window.location.reload()}>
+						{tUI("common.ok")} {/* Có thể map "Thử lại" nếu cần */}
+					</Button>
+				</div>
+			);
 
 		switch (activeTab) {
 			case "community":
-				return (
-					<CommunityBuilds
-						builds={builds}
-						powerMap={powerMap}
-						championNameToRegionsMap={championNameToRegionsMap}
-					/>
-				);
+				return <CommunityBuilds {...commonProps} />;
 			case "my-builds":
-				return (
-					<MyBuilds
-						builds={builds}
-						powerMap={powerMap}
-						championNameToRegionsMap={championNameToRegionsMap}
-					/>
+				return user ? (
+					<MyBuilds {...commonProps} />
+				) : (
+					<p className='text-center p-4 italic text-text-secondary'>
+						{tUI("buildList.loginToCreate")}
+					</p>
 				);
 			case "favorites":
-				return (
-					<MyFavorite
-						builds={builds}
-						powerMap={powerMap}
-						championNameToRegionsMap={championNameToRegionsMap}
-					/>
+				return user ? (
+					<MyFavorite {...commonProps} />
+				) : (
+					<p className='text-center p-4 italic text-text-secondary'>
+						{tUI("buildList.loginToCreate")}
+					</p>
 				);
 			default:
-				return null;
+				return <CommunityBuilds {...commonProps} />;
 		}
 	};
 
 	return (
 		<div className='animate-fadeIn'>
 			<PageTitle
-				title={tUI("buildList.title") || "Build List"}
-				description='POC GUIDE...'
+				title={tUI("buildList.title")}
+				description={tUI("metadata.defaultDescription")}
 			/>
-
 			<div className='font-secondary'>
 				<div className='flex justify-between items-center mb-2 md:mb-6'>
 					<h1 className='text-3xl font-bold text-text-primary font-primary animate-glitch'>
-						{tUI("buildList.heading") || "Relic Builds List"}
+						{tUI("buildList.heading")}
 					</h1>
-
 					<div className='hidden lg:flex items-center gap-4'>
 						<Button
 							variant='outline'
@@ -367,7 +385,7 @@ function Builds() {
 							onClick={() => changeTab("community")}
 							iconLeft={<Globe size={18} />}
 						>
-							{tUI("buildList.community") || "Community"}
+							{tUI("buildList.community")}
 						</Button>
 						{user && (
 							<>
@@ -376,14 +394,14 @@ function Builds() {
 									onClick={() => changeTab("my-builds")}
 									iconLeft={<Shield size={18} />}
 								>
-									{tUI("buildList.myBuilds") || "My Builds"}
+									{tUI("buildList.myBuilds")}
 								</Button>
 								<Button
 									variant={activeTab === "favorites" ? "primary" : "ghost"}
 									onClick={() => changeTab("favorites")}
 									iconLeft={<Heart size={18} />}
 								>
-									{tUI("buildList.favorites") || "Favorites"}
+									{tUI("buildList.favorites")}
 								</Button>
 							</>
 						)}
@@ -394,87 +412,27 @@ function Builds() {
 							onClick={() => setShowCreateModal(true)}
 							iconLeft={<PlusCircle size={20} />}
 						>
-							{tUI("buildList.createNew") || "Create New"}
+							{tUI("buildList.createNew")}
 						</Button>
 					) : (
 						<NavLink
 							to='/auth'
 							className='text-md font-bold text-primary-500 hover:underline flex items-center'
 						>
-							{tUI("buildList.loginToCreate") || "Login to Create"}
+							{tUI("buildList.loginToCreate")}
 						</NavLink>
 					)}
 				</div>
 
-				<div className='flex lg:flex-row gap-4'>
-					<div className='flex-1 bg-surface-bg rounded-lg border border-border p-2 sm:p-4 shadow-sm min-h-[500px] relative overflow-hidden'>
-						<AnimatePresence mode='wait'>
-							{loading ? (
-								<motion.div
-									key='skeleton'
-									initial={{ opacity: 0 }}
-									animate={{ opacity: 1 }}
-									exit={{ opacity: 0 }}
-									className={`grid grid-cols-2 md:grid-cols-3 ${showDesktopFilter ? "xl:grid-cols-4" : "xl:grid-cols-5"} gap-4 sm:gap-6`}
-								>
-									{[...Array(8)].map((_, i) => (
-										<BuildSkeleton key={i} />
-									))}
-								</motion.div>
-							) : (
-								<motion.div
-									key='content'
-									initial={{ opacity: 0, y: 10 }}
-									animate={{ opacity: 1, y: 0 }}
-									exit={{ opacity: 0, y: -10 }}
-									transition={{ duration: 0.3 }}
-								>
-									{builds.length > 0 ? (
-										<>
-											<div
-												className={`grid grid-cols-2 md:grid-cols-3 ${showDesktopFilter ? "xl:grid-cols-4" : "xl:grid-cols-5"} gap-4 sm:gap-6`}
-											>
-												{builds.map(b => (
-													<motion.div key={b.id} layout>
-														<Link
-															to={`/build/${b.id}`}
-															className='hover:scale-105 transition-transform duration-200 block'
-														>
-															{/* Giả sử có BuildCard component; tạo nếu chưa */}
-															<BuildCard build={b} />
-														</Link>
-													</motion.div>
-												))}
-											</div>
-											<div className='mt-8 flex justify-center items-center gap-4 border-t border-border pt-4'>
-												<Button
-													onClick={goToPrevPage}
-													disabled={currentPage === 1}
-													variant='outline'
-												>
-													{tUI("common.prevPage")}
-												</Button>
-												<span className='font-bold text-primary-500 bg-primary-100/10 px-3 py-1 rounded-full'>
-													{currentPage} / {pagination.totalPages}
-												</span>
-												<Button
-													onClick={goToNextPage}
-													disabled={currentPage === pagination.totalPages}
-													variant='outline'
-												>
-													{tUI("common.nextPage")}
-												</Button>
-											</div>
-										</>
-									) : (
-										<div className='text-center py-20 text-text-secondary'>
-											<XCircle size={48} className='mx-auto mb-4 opacity-20' />
-											{tUI("common.notFound")}
-										</div>
-									)}
-								</motion.div>
-							)}
-						</AnimatePresence>
+				<div className='flex flex-col lg:flex-row items-start gap-4'>
+					<div
+						className={`w-full transition-[flex] duration-300 ease-in-out ${
+							showDesktopFilter ? "lg:flex-[3]" : "lg:flex-[1]"
+						}`}
+					>
+						<div className='bg-surface-bg rounded-lg border border-border p-2 sm:p-4 shadow-sm min-h-[500px] relative overflow-hidden'>
+							{renderContent()}
+						</div>
 					</div>
 
 					<AnimatePresence initial={false}>
@@ -482,7 +440,11 @@ function Builds() {
 							<motion.aside
 								key='desktop-filter'
 								initial={{ width: 0, opacity: 0, marginLeft: 0 }}
-								animate={{ width: "auto", opacity: 1, marginLeft: "2rem" }}
+								animate={{
+									width: "auto",
+									opacity: 1,
+									marginLeft: "1rem", // Điều chỉnh lại margin để cân đối với gap
+								}}
 								exit={{ width: 0, opacity: 0, marginLeft: 0 }}
 								transition={{ duration: 0.3, ease: "easeInOut" }}
 								className='hidden lg:block sticky top-24 h-fit overflow-hidden'
@@ -495,33 +457,29 @@ function Builds() {
 										value={searchInput}
 										onChange={e => setSearchInput(e.target.value)}
 										onKeyDown={e => e.key === "Enter" && handleSearch()}
-										placeholder={
-											tUI("buildList.searchPlaceholder") || "Champion, relic..."
-										}
+										placeholder={tUI("buildList.searchPlaceholder")}
 									/>
-									<Button
-										onClick={handleSearch}
-										className='w-full mt-2 hover:animate-pulse-focus'
-									>
-										<Search size={16} className='mr-2' /> {tUI("common.search")}
+									<Button onClick={handleSearch} className='w-full mt-2'>
+										<Search size={16} className='mr-2' />
+										{tUI("common.search")}
 									</Button>
 									<MultiSelectFilter
-										label={tUI("buildList.starLevel") || "Star Level"}
-										options={filterOptions.starLevels}
+										label={tUI("buildList.starLevel")}
+										options={starLevelOptions}
 										selectedValues={selectedStarLevels}
 										onChange={setSelectedStarLevels}
 									/>
 									<MultiSelectFilter
 										label={tUI("championList.region")}
-										options={filterOptions.regions}
+										options={regionOptions}
 										selectedValues={selectedRegions}
 										onChange={setSelectedRegions}
 									/>
 									<DropdownFilter
 										label={tUI("championList.sortBy")}
-										options={filterOptions.sort}
-										selectedValue={sortOrder}
-										onChange={setSortOrder}
+										options={sortOptions}
+										selectedValue={sortBy}
+										onChange={setSortBy}
 									/>
 									<Button
 										variant='outline'
@@ -536,7 +494,6 @@ function Builds() {
 						)}
 					</AnimatePresence>
 
-					{/* --- MOBILE FILTER --- */}
 					<div className='lg:hidden w-full p-2 mb-4 rounded-lg border border-border bg-surface-bg shadow-sm order-first'>
 						<div className='flex items-center gap-2'>
 							<div className='flex-1 relative min-w-0'>
@@ -544,9 +501,7 @@ function Builds() {
 									value={searchInput}
 									onChange={e => setSearchInput(e.target.value)}
 									onKeyDown={e => e.key === "Enter" && handleSearch()}
-									placeholder={
-										tUI("buildList.searchPlaceholder") || "Champion, relic..."
-									}
+									placeholder={tUI("buildList.searchPlaceholder")}
 								/>
 							</div>
 							<Button onClick={handleSearch} className='px-3'>
@@ -581,22 +536,22 @@ function Builds() {
 								>
 									<div className='pt-4 space-y-4 border-t border-border mt-3'>
 										<MultiSelectFilter
-											label={tUI("buildList.starLevel") || "Star Level"}
-											options={filterOptions.starLevels}
+											label={tUI("buildList.starLevel")}
+											options={starLevelOptions}
 											selectedValues={selectedStarLevels}
 											onChange={setSelectedStarLevels}
 										/>
 										<MultiSelectFilter
 											label={tUI("championList.region")}
-											options={filterOptions.regions}
+											options={regionOptions}
 											selectedValues={selectedRegions}
 											onChange={setSelectedRegions}
 										/>
 										<DropdownFilter
 											label={tUI("championList.sortBy")}
-											options={filterOptions.sort}
-											selectedValue={sortOrder}
-											onChange={setSortOrder}
+											options={sortOptions}
+											selectedValue={sortBy}
+											onChange={setSortBy}
 										/>
 									</div>
 								</motion.div>
@@ -618,6 +573,6 @@ function Builds() {
 			</div>
 		</div>
 	);
-}
+};
 
 export default Builds;

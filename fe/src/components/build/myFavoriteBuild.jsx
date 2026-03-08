@@ -52,7 +52,7 @@ const MyFavoriteBuilds = ({
 	onDeleteSuccess,
 }) => {
 	const { token, user } = useContext(AuthContext);
-	const { language } = useTranslation(); // 🟢 Khởi tạo ngôn ngữ
+	const { language, tUI } = useTranslation(); // 🟢 Khởi tạo ngôn ngữ và lấy tUI
 	const [favoriteBuilds, setFavoriteBuilds] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
@@ -80,12 +80,7 @@ const MyFavoriteBuilds = ({
 				},
 			);
 
-			if (!response.ok)
-				throw new Error(
-					language === "vi"
-						? "Lỗi tải dữ liệu yêu thích"
-						: "Failed to fetch favorites",
-				);
+			if (!response.ok) throw new Error(tUI("common.errorLoadData"));
 
 			const data = await response.json();
 			setFavoriteBuilds(data.items || []);
@@ -102,7 +97,7 @@ const MyFavoriteBuilds = ({
 		selectedRegions,
 		sortBy,
 		token,
-		language,
+		tUI,
 	]);
 
 	useEffect(() => {
@@ -110,7 +105,7 @@ const MyFavoriteBuilds = ({
 	}, [fetchFavoriteBuilds, refreshKey, token]);
 
 	const { favoriteStatus, favoriteCounts, toggleFavorite } =
-		useBatchFavoriteData(favoriteBuilds, user?.sub);
+		useBatchFavoriteData(favoriteBuilds, token);
 
 	const onFavoriteToggle = async (buildId, newStatus, newCount) => {
 		await toggleFavorite(buildId, newStatus, newCount);
@@ -203,7 +198,7 @@ const MyFavoriteBuilds = ({
 									disabled={currentPage === 1}
 									variant='outline'
 								>
-									{language === "vi" ? "Trang trước" : "Previous"}
+									{tUI("common.prevPage")}
 								</Button>
 								<span className='font-bold text-primary-500 bg-primary-100/10 px-4 py-1.5 rounded-full border border-primary-500/20'>
 									{currentPage} / {totalPages}
@@ -213,7 +208,7 @@ const MyFavoriteBuilds = ({
 									disabled={currentPage === totalPages}
 									variant='outline'
 								>
-									{language === "vi" ? "Trang sau" : "Next"}
+									{tUI("common.nextPage")}
 								</Button>
 							</div>
 						)}
@@ -225,9 +220,7 @@ const MyFavoriteBuilds = ({
 							className='mx-auto mb-4 opacity-20 text-text-secondary'
 						/>
 						<p className='text-text-secondary italic'>
-							{language === "vi"
-								? "Bạn chưa yêu thích bộ cổ vật nào phù hợp."
-								: "You have no matching favorite builds."}
+							{tUI("buildList.noFavoriteBuilds")}
 						</p>
 					</div>
 				)}

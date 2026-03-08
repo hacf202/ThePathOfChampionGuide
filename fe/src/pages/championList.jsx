@@ -33,7 +33,7 @@ const ChampionSkeleton = () => (
 );
 
 function ChampionList() {
-	const { language, tUI } = useTranslation();
+	const { tUI } = useTranslation();
 
 	// --- STATE ---
 	const [champions, setChampions] = useState([]);
@@ -188,7 +188,6 @@ function ChampionList() {
 		fetchChampions();
 	}, [fetchChampions]);
 
-	// 🟢 Cập nhật Filter Options: Thêm label để MultiSelectFilter có thể hiển thị
 	const filterOptions = useMemo(
 		() => ({
 			regions: dynamicFilters.regions.map(r => ({
@@ -198,12 +197,12 @@ function ChampionList() {
 			})),
 			costs: dynamicFilters.costs.map(c => ({
 				value: c,
-				label: `${c} ${tUI("championList.cost")}`, // Ví dụ: "1 Năng lượng"
+				label: `${c} ${tUI("championList.cost")}`,
 				isCost: true,
 			})),
 			maxStars: dynamicFilters.maxStars.map(s => ({
 				value: s,
-				label: `${s} ⭐`, // Ví dụ: "3 ⭐"
+				label: `${s} ⭐`,
 				isStar: true,
 			})),
 			tags: dynamicFilters.tags.map(t => ({ value: t, label: t, isTag: true })),
@@ -230,7 +229,10 @@ function ChampionList() {
 
 	return (
 		<div className='animate-fadeIn'>
-			<PageTitle title={tUI("championList.title")} description='POC GUIDE...' />
+			<PageTitle
+				title={tUI("championList.title")}
+				description={tUI("metadata.defaultDescription")}
+			/>
 
 			<div className='font-secondary'>
 				<div className='flex justify-between items-center mb-2 md:mb-6'>

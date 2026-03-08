@@ -1,6 +1,6 @@
-// src/pages/admin/GuideEditor.jsx
+// src/pages/admin/guideEditor.jsx
 import React from "react";
-import { Routes, Route, useParams, useNavigate } from "react-router-dom";
+import { Routes, Route, useParams } from "react-router-dom";
 import GuideList from "./guideList";
 import GuideForm from "./guideEditorForm";
 

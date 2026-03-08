@@ -60,7 +60,7 @@ const BuildDetail = () => {
 	const { buildId } = useParams();
 	const navigate = useNavigate();
 	const { user, token } = useAuth();
-	const { language, t } = useTranslation(); // 🟢 Khởi tạo ngôn ngữ
+	const { tUI, tDynamic } = useTranslation(); // 🟢 Khởi tạo tUI và tDynamic
 	const apiUrl = import.meta.env.VITE_API_URL;
 
 	const [build, setBuild] = useState(null);
@@ -68,16 +68,14 @@ const BuildDetail = () => {
 	const [error, setError] = useState(null);
 
 	const creatorDisplayName = useMemo(() => {
-		if (!build) return language === "vi" ? "Đang tải..." : "Loading...";
+		if (!build) return tUI("common.loading");
 		if (user && (build.sub === user.sub || build.user_sub === user.sub)) {
-			return user.name || (language === "vi" ? "Tôi" : "Me");
+			return user.name || tUI("buildSummary.me");
 		}
 		return (
-			build.creator ||
-			build.creatorName ||
-			(language === "vi" ? "Người chơi" : "Player")
+			build.creator || build.creatorName || tUI("buildDetail.defaultPlayer")
 		);
-	}, [build, user, language]);
+	}, [build, user, tUI]);
 
 	const [likeCount, setLikeCount] = useState(0);
 	const [isLiked, setIsLiked] = useState(false);
@@ -137,12 +135,7 @@ const BuildDetail = () => {
 			if (token) headers.Authorization = `Bearer ${token}`;
 
 			const res = await fetch(`${apiUrl}/api/builds/${buildId}`, { headers });
-			if (!res.ok)
-				throw new Error(
-					language === "vi"
-						? "Không tìm thấy bộ cổ vật này."
-						: "Build not found.",
-				);
+			if (!res.ok) throw new Error(tUI("buildDetail.notFound"));
 
 			const data = await res.json();
 			const buildData = data.item || data;
@@ -156,7 +149,7 @@ const BuildDetail = () => {
 				setLoadingData(false);
 			}, 800);
 		}
-	}, [buildId, apiUrl, token, language]);
+	}, [buildId, apiUrl, token, tUI]);
 
 	useEffect(() => {
 		fetchBuild();
@@ -180,7 +173,7 @@ const BuildDetail = () => {
 	);
 
 	const championDisplayName = championInfo
-		? t(championInfo, "name")
+		? tDynamic(championInfo, "name") // 🟢 Dùng tDynamic
 		: build?.championName || "";
 
 	const championImage = useMemo(
@@ -271,13 +264,13 @@ const BuildDetail = () => {
 		[user, build],
 	);
 
-	// 🟢 RenderItem sử dụng hook dịch thuật
+	// 🟢 RenderItem sử dụng hook dịch thuật động (tDynamic)
 	const RenderItem = ({ item }) => {
 		if (!item) return null;
 		const imgSrc =
 			item.assetAbsolutePath || item.iconAbsolutePath || "/fallback-image.svg";
-		const itemName = t(item, "name");
-		const itemDesc = t(item, "description");
+		const itemName = tDynamic(item, "name");
+		const itemDesc = tDynamic(item, "description");
 
 		return (
 			<div className='flex items-start gap-4 p-3 bg-surface-hover rounded-md border border-border h-full hover:border-primary-500 transition-colors'>
@@ -310,7 +303,7 @@ const BuildDetail = () => {
 					onClick={() => navigate("/builds")}
 					className='mx-auto'
 				>
-					{language === "vi" ? "Quay lại" : "Go Back"}
+					{tUI("common.back")}
 				</Button>
 			</div>
 		);
@@ -320,10 +313,8 @@ const BuildDetail = () => {
 			<PageTitle
 				title={
 					build
-						? `${language === "vi" ? "Bộ cổ vật" : "Build"} ${championDisplayName}`
-						: language === "vi"
-							? "Chi tiết bộ cổ vật"
-							: "Build Details"
+						? `${tUI("buildDetail.buildFor")} ${championDisplayName}`
+						: tUI("buildDetail.title")
 				}
 			/>
 			<div className='max-w-[1200px] mx-auto p-2 sm:p-6 text-text-primary font-secondary'>
@@ -350,8 +341,7 @@ const BuildDetail = () => {
 								onClick={() => navigate(-1)}
 								className='mb-4'
 							>
-								<ChevronLeft size={18} />{" "}
-								{language === "vi" ? "Quay lại" : "Back"}
+								<ChevronLeft size={18} /> {tUI("common.back")}
 							</Button>
 
 							<div className='bg-surface-bg rounded-lg shadow-md p-4 sm:p-6 border border-border'>
@@ -377,7 +367,7 @@ const BuildDetail = () => {
 												))}
 											</div>
 											<p className='text-xs sm:text-sm text-text-secondary'>
-												{language === "vi" ? "Tạo bởi:" : "Created by:"}{" "}
+												{tUI("buildSummary.createdBy")}{" "}
 												<span className='font-medium'>
 													{creatorDisplayName}
 												</span>
@@ -445,7 +435,7 @@ const BuildDetail = () => {
 								{relicSet.length > 0 && (
 									<div className='mb-8'>
 										<h2 className='text-xl font-bold mb-4 font-primary border-b border-border pb-2 text-primary-500'>
-											{language === "vi" ? "Cổ Vật" : "Relics"}
+											{tUI("buildDetail.relicsHeader")}
 										</h2>
 										<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
 											{relicSet.map((item, i) => (
@@ -458,7 +448,7 @@ const BuildDetail = () => {
 								{runeSet.length > 0 && (
 									<div className='mb-8'>
 										<h2 className='text-xl font-bold mb-4 font-primary border-b border-border pb-2 text-primary-500'>
-											{language === "vi" ? "Ngọc" : "Runes"}
+											{tUI("buildDetail.runesHeader")}
 										</h2>
 										<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
 											{runeSet.map((item, i) => (
@@ -471,7 +461,7 @@ const BuildDetail = () => {
 								{powerSet.length > 0 && (
 									<div className='mb-8'>
 										<h2 className='text-xl font-bold mb-4 font-primary border-b border-border pb-2 text-primary-500'>
-											{language === "vi" ? "Sức mạnh" : "Powers"}
+											{tUI("buildDetail.powersHeader")}
 										</h2>
 										<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
 											{powerSet.map((item, i) => (
@@ -484,9 +474,7 @@ const BuildDetail = () => {
 								{build.description && (
 									<div className='mb-6'>
 										<h2 className='text-xl font-bold mb-3 font-primary text-primary-500'>
-											{language === "vi"
-												? "Ghi chú chiến thuật"
-												: "Tactical Notes"}
+											{tUI("buildDetail.tacticalNotes")}
 										</h2>
 										<div className='bg-surface-hover p-4 rounded-md border-l-4 border-primary-500'>
 											<p className='text-text-primary whitespace-pre-wrap italic'>
@@ -505,16 +493,14 @@ const BuildDetail = () => {
 				<Modal
 					isOpen={showLoginModal}
 					onClose={() => setShowLoginModal(false)}
-					title={language === "vi" ? "Yêu cầu đăng nhập" : "Login Required"}
+					title={tUI("buildSummary.loginRequired")}
 				>
 					<p className='text-text-secondary mb-6'>
-						{language === "vi"
-							? "Bạn cần đăng nhập để thực hiện hành động này."
-							: "You must be logged in to perform this action."}
+						{tUI("buildSummary.loginPrompt")}
 					</p>
 					<div className='flex justify-end gap-3'>
 						<Button variant='ghost' onClick={() => setShowLoginModal(false)}>
-							{language === "vi" ? "Hủy" : "Cancel"}
+							{tUI("common.cancel")}
 						</Button>
 						<Button
 							variant='primary'
@@ -523,7 +509,7 @@ const BuildDetail = () => {
 								navigate("/auth");
 							}}
 						>
-							{language === "vi" ? "Đăng nhập" : "Login"}
+							{tUI("common.login")}
 						</Button>
 					</div>
 				</Modal>

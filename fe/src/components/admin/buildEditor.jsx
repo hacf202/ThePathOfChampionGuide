@@ -1,6 +1,6 @@
 // src/pages/admin/BuildEditor.jsx
 import { useState, useEffect, memo, useMemo, useCallback } from "react";
-import { useNavigate, Routes, Route, useParams, Link } from "react-router-dom"; // Thêm imports
+import { useNavigate, Routes, Route, useParams, Link } from "react-router-dom";
 import Modal from "../common/modal";
 import Button from "../common/button";
 import BuildCard from "./buildCard";
@@ -9,471 +9,482 @@ import MultiSelectFilter from "../common/multiSelectFilter";
 import InputField from "../common/inputField";
 import DropdownFilter from "../common/dropdownFilter";
 import { Loader2, Search, XCircle, RotateCw } from "lucide-react";
+import { useTranslation } from "../../hooks/useTranslation"; // IMPORT HOOK
 
 const ITEMS_PER_PAGE = 12;
 
-// === SẮP XẾP OPTIONS ===
-const SORT_OPTIONS = [
-	{ value: "newest", label: "Mới nhất" },
-	{ value: "oldest", label: "Cũ nhất" },
-	{ value: "likes_desc", label: "Lượt thích nhiều nhất" },
-	{ value: "likes_asc", label: "Lượt thích ít nhất" },
-	{ value: "views_desc", label: "Lượt xem nhiều nhất" },
-	{ value: "views_asc", label: "Lượt xem ít nhất" },
-];
-
-// === CẤP SAO OPTIONS ===
-const STAR_LEVEL_OPTIONS = [
-	{ value: "1", label: "1 sao" },
-	{ value: "2", label: "2 sao" },
-	{ value: "3", label: "3 sao" },
-	{ value: "4", label: "4 sao" },
-	{ value: "5", label: "5 sao" },
-	{ value: "6", label: "6 sao" },
-	{ value: "7", label: "7 sao" },
-];
-
-// === COMPONENT DANH SÁCH (LIST VIEW) ===
-const BuildListView = memo(
-	({
-		paginatedBuilds,
-		totalPages,
-		currentPage,
-		onPageChange,
-		sidePanelProps,
-	}) => {
-		return (
-			<div className='flex flex-col lg:flex-row gap-6'>
-				{/* MAIN CONTENT */}
-				<div className='lg:w-4/5 w-full lg:order-first bg-surface-bg rounded-lg border border-border p-1 sm:p-2'>
-					{paginatedBuilds.length > 0 ? (
-						<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5'>
-							{paginatedBuilds.map(build => (
-								// Dùng Link để chuyển trang mà không reload
-								<Link key={build.id} to={`./${build.id}`} className='block'>
-									<BuildCard build={build} />
-								</Link>
-							))}
-						</div>
-					) : (
-						<div className='text-center py-16 text-text-secondary'>
-							<p className='text-lg font-semibold'>Không tìm thấy build nào.</p>
-						</div>
-					)}
-
-					{totalPages > 1 && (
-						<div className='mt-10 flex justify-center gap-4'>
-							<Button
-								onClick={() => onPageChange(currentPage - 1)}
-								disabled={currentPage === 1}
-								variant='outline'
-							>
-								Trang trước
-							</Button>
-							<span className='self-center text-lg font-medium text-text-primary'>
-								{currentPage} / {totalPages}
-							</span>
-							<Button
-								onClick={() => onPageChange(currentPage + 1)}
-								disabled={currentPage === totalPages}
-								variant='outline'
-							>
-								Trang sau
-							</Button>
-						</div>
-					)}
-				</div>
-
-				{/* BỘ LỌC + SẮP XẾP */}
-				<aside className='lg:w-1/5 w-full space-y-4'>
-					<div className='bg-surface-bg rounded-lg border border-border p-4'>
-						{/* TÌM KIẾM */}
-						<div className='relative mb-4'>
-							<InputField
-								type='text'
-								value={sidePanelProps.searchInput}
-								onChange={e => sidePanelProps.setSearchInput(e.target.value)}
-								onKeyPress={e =>
-									e.key === "Enter" && sidePanelProps.handleSearch()
-								}
-								placeholder='Tìm theo từ khóa...'
-							/>
-							{sidePanelProps.searchInput && (
-								<button
-									onClick={sidePanelProps.handleClearSearch}
-									className='absolute right-3 top-1/2 -translate-y-1/2 text-text-secondary hover:text-text-primary'
-								>
-									<XCircle size={18} />
-								</button>
-							)}
-						</div>
-						<Button
-							onClick={sidePanelProps.handleSearch}
-							className='w-full mb-4'
-						>
-							<Search size={16} className='mr-2' />
-							Tìm kiếm
-						</Button>
-
-						{/* CẤP SAO */}
-						<MultiSelectFilter
-							label='Cấp sao'
-							options={STAR_LEVEL_OPTIONS}
-							selectedValues={sidePanelProps.selectedStarLevels}
-							onChange={sidePanelProps.setSelectedStarLevels}
-							placeholder='Tất cả cấp sao'
-						/>
-
-						{/* SẮP XẾP */}
-						<div className='mt-4'>
-							<DropdownFilter
-								label='Sắp xếp theo'
-								options={SORT_OPTIONS}
-								selectedValue={sidePanelProps.sortBy}
-								onChange={sidePanelProps.setSortBy}
-							/>
-						</div>
-
-						{/* ĐẶT LẠI */}
-						<div className='pt-4'>
-							<Button
-								variant='outline'
-								onClick={sidePanelProps.handleResetFilters}
-								iconLeft={<RotateCw size={16} />}
-								className='w-full'
-							>
-								Đặt lại bộ lọc
-							</Button>
-						</div>
-					</div>
-				</aside>
-			</div>
-		);
-	},
-);
-
-// === COMPONENT EDIT WRAPPER ===
-const BuildEditWrapper = ({
-	builds,
-	onSave,
-	onDelete,
-	isSaving,
-	onCancel, // Hàm xử lý quay lại
-}) => {
-	const { id } = useParams();
-	// Tìm build từ list đã fetch (hoặc có thể fetch riêng lẻ nếu cần)
-	const selectedBuild = useMemo(
-		() => builds.find(b => b.id === id),
-		[builds, id],
-	);
-
-	if (!selectedBuild && builds.length > 0) {
-		return (
-			<div className='p-10 text-center'>Không tìm thấy Build có ID: {id}</div>
-		);
-	}
-
-	return (
-		<div className='bg-surface-bg rounded-lg border border-border p-4'>
-			<div className='mb-2 flex justify-between items-center'>
-				<h2 className='text-2xl font-bold text-text-primary font-primary'>
-					Chỉnh sửa Build
-				</h2>
-			</div>
-			{selectedBuild && (
-				<BuildEditorForm
-					build={selectedBuild}
-					onSave={onSave}
-					onCancel={onCancel}
-					onDelete={onDelete}
-					isSaving={isSaving}
-					onConfirmExit={onCancel} // Nút Hủy trong form sẽ gọi hàm này
-				/>
-			)}
-		</div>
-	);
-};
-
+// === COMPONENT MAIN ===
 function BuildEditor() {
-	const navigate = useNavigate();
-	const apiUrl = import.meta.env.VITE_API_URL;
-
-	const [builds, setBuilds] = useState([]);
-
-	// Filter States
+	const [items, setItems] = useState([]);
 	const [searchInput, setSearchInput] = useState("");
 	const [searchTerm, setSearchTerm] = useState("");
-	const [selectedStarLevels, setSelectedStarLevels] = useState([]);
-	const [sortBy, setSortBy] = useState("newest");
+	const [selectedStars, setSelectedStars] = useState([]);
+	const [sortOrder, setSortOrder] = useState("newest");
 	const [currentPage, setCurrentPage] = useState(1);
-
 	const [isLoading, setIsLoading] = useState(true);
 	const [isSaving, setIsSaving] = useState(false);
-	const [notification, setNotification] = useState({
-		isOpen: false,
-		title: "",
-		message: "",
-	});
+	const [error, setError] = useState(null);
 
-	// Modal States
-	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-	const [buildToDelete, setBuildToDelete] = useState(null);
+	const API_BASE_URL = import.meta.env.VITE_API_URL;
+	const navigate = useNavigate();
+	const { tUI } = useTranslation();
 
-	// Confirm Close logic (Nên chuyển vào form nếu muốn chặt chẽ hơn, ở đây giữ đơn giản)
-	const [isCloseConfirmOpen, setIsCloseConfirmOpen] = useState(false);
-	const [pendingExit, setPendingExit] = useState(null);
+	// Đưa SORT_OPTIONS và STAR_LEVEL_OPTIONS vào trong component để dùng tUI
+	const SORT_OPTIONS = useMemo(
+		() => [
+			{ value: "newest", label: tUI("admin.build.sort.newest") },
+			{ value: "oldest", label: tUI("admin.build.sort.oldest") },
+			{ value: "likes_desc", label: tUI("admin.build.sort.likesDesc") },
+			{ value: "likes_asc", label: tUI("admin.build.sort.likesAsc") },
+			{ value: "views_desc", label: tUI("admin.build.sort.viewsDesc") },
+			{ value: "views_asc", label: tUI("admin.build.sort.viewsAsc") },
+		],
+		[tUI],
+	);
 
-	// === LẤY DỮ LIỆU ===
-	const fetchBuilds = useCallback(async () => {
+	const STAR_LEVEL_OPTIONS = useMemo(
+		() => [
+			{ value: "1", label: `1 ${tUI("admin.build.star")}` },
+			{ value: "2", label: `2 ${tUI("admin.build.star")}` },
+			{ value: "3", label: `3 ${tUI("admin.build.star")}` },
+			{ value: "4", label: `4 ${tUI("admin.build.star")}` },
+			{ value: "5", label: `5 ${tUI("admin.build.star")}` },
+			{ value: "6", label: `6 ${tUI("admin.build.star")}` },
+		],
+		[tUI],
+	);
+
+	// Lấy dữ liệu
+	const fetchAllData = useCallback(async () => {
 		try {
 			setIsLoading(true);
 			const token = localStorage.getItem("token");
-			const res = await fetch(`${apiUrl}/api/admin/builds`, {
-				headers: { Authorization: `Bearer ${token}` },
+			const res = await fetch(`${API_BASE_URL}/api/admin/builds`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
 			});
-			if (!res.ok) throw new Error("Lỗi tải dữ liệu");
-			const { items } = await res.json();
-			setBuilds(items || []);
-		} catch (err) {
-			setNotification({ isOpen: true, title: "Lỗi", message: err.message });
+			if (!res.ok) throw new Error(tUI("admin.common.errorLoad"));
+			const data = await res.json();
+			setItems(Array.isArray(data) ? data : data.items || []);
+		} catch (e) {
+			setError(e.message || tUI("admin.common.errorLoad"));
 		} finally {
 			setIsLoading(false);
 		}
-	}, [apiUrl]);
+	}, [API_BASE_URL, tUI]);
 
 	useEffect(() => {
-		fetchBuilds();
-	}, [fetchBuilds]);
+		fetchAllData();
+	}, [fetchAllData]);
 
-	// === LỌC & SẮP XẾP ===
-	const filteredAndSortedBuilds = useMemo(() => {
-		let result = [...builds];
+	// Lọc & Sắp xếp dữ liệu
+	const filteredItems = useMemo(() => {
+		let result = [...items];
 
+		// Tìm kiếm theo tên tướng / người tạo
 		if (searchTerm) {
-			result = result.filter(build => {
-				const q = searchTerm;
-				const champ = build.championName?.toLowerCase() || "";
-				const creator =
-					build.creatorName?.toLowerCase() ||
-					build.creator?.toLowerCase() ||
-					"";
-				// ... (giữ nguyên logic search)
-				const relicSet = (build.relicSet || []).join(" ").toLowerCase();
-				const powers = (build.powers || []).join(" ").toLowerCase();
-				const rune = (build.rune || []).join(" ").toLowerCase();
-				return (
-					champ.includes(q) ||
-					creator.includes(q) ||
-					relicSet.includes(q) ||
-					powers.includes(q) ||
-					rune.includes(q)
-				);
-			});
-		}
-
-		if (selectedStarLevels.length > 0) {
-			result = result.filter(build =>
-				selectedStarLevels.includes(String(build.star || 0)),
+			const term = searchTerm.toLowerCase();
+			result = result.filter(
+				i =>
+					(i.championName || "").toLowerCase().includes(term) ||
+					(i.creator || "").toLowerCase().includes(term),
 			);
 		}
 
-		result.sort((a, b) => {
-			switch (sortBy) {
-				case "newest":
-					return new Date(b.createdAt) - new Date(a.createdAt);
-				case "oldest":
-					return new Date(a.createdAt) - new Date(b.createdAt);
-				case "likes_desc":
-					return (b.like || 0) - (a.like || 0);
-				case "likes_asc":
-					return (a.like || 0) - (b.like || 0);
-				case "views_desc":
-					return (b.views || 0) - (a.views || 0);
-				case "views_asc":
-					return (a.views || 0) - (b.views || 0);
-				default:
-					return 0;
-			}
-		});
-		return result;
-	}, [builds, searchTerm, selectedStarLevels, sortBy]);
+		// Lọc theo sao
+		if (selectedStars.length > 0) {
+			result = result.filter(i => selectedStars.includes(String(i.star)));
+		}
 
-	const paginatedBuilds = filteredAndSortedBuilds.slice(
+		// Sắp xếp
+		result.sort((a, b) => {
+			if (sortOrder === "newest") {
+				return new Date(b.createdAt) - new Date(a.createdAt);
+			}
+			if (sortOrder === "oldest") {
+				return new Date(a.createdAt) - new Date(b.createdAt);
+			}
+			if (sortOrder === "likes_desc") {
+				return (b.like || 0) - (a.like || 0);
+			}
+			if (sortOrder === "likes_asc") {
+				return (a.like || 0) - (b.like || 0);
+			}
+			if (sortOrder === "views_desc") {
+				return (b.views || 0) - (a.views || 0);
+			}
+			if (sortOrder === "views_asc") {
+				return (a.views || 0) - (b.views || 0);
+			}
+			return 0;
+		});
+
+		return result;
+	}, [items, searchTerm, selectedStars, sortOrder]);
+
+	// Phân trang
+	const totalPages = Math.ceil(filteredItems.length / ITEMS_PER_PAGE);
+	const paginatedItems = filteredItems.slice(
 		(currentPage - 1) * ITEMS_PER_PAGE,
 		currentPage * ITEMS_PER_PAGE,
 	);
-	const totalPages = Math.ceil(filteredAndSortedBuilds.length / ITEMS_PER_PAGE);
 
-	// === HANDLERS ===
-	const handleSearch = () => {
-		setSearchTerm(searchInput.trim().toLowerCase());
-		setCurrentPage(1);
-	};
-
-	const handleClearSearch = () => {
-		setSearchInput("");
-		setSearchTerm("");
-		setCurrentPage(1);
-	};
-
-	const handleResetFilters = () => {
-		setSearchInput("");
-		setSearchTerm("");
-		setSelectedStarLevels([]);
-		setSortBy("newest");
-		setCurrentPage(1);
-	};
-
-	const handleBackToList = useCallback(() => {
-		navigate("/admin/builds");
-	}, [navigate]);
-
-	// Logic thoát an toàn
-	const handleAttemptClose = () => {
-		// Có thể check isDirty ở đây nếu muốn (cần lift state lên hoặc dùng Context)
-		// Hiện tại tạm thời hiện Modal luôn
-		setPendingExit(() => handleBackToList);
-		setIsCloseConfirmOpen(true);
-	};
-
-	const handleConfirmClose = () => {
-		setIsCloseConfirmOpen(false);
-		if (pendingExit) pendingExit();
-		setPendingExit(null);
-	};
-
-	const handleSaveBuild = async updatedBuild => {
+	// Handlers
+	const handleSaveItem = async data => {
 		setIsSaving(true);
 		try {
 			const token = localStorage.getItem("token");
-			const res = await fetch(`${apiUrl}/api/admin/builds/${updatedBuild.id}`, {
+			const res = await fetch(`${API_BASE_URL}/api/admin/builds/${data.id}`, {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
 					Authorization: `Bearer ${token}`,
 				},
-				body: JSON.stringify(updatedBuild),
+				body: JSON.stringify(data),
 			});
-			if (!res.ok) throw new Error("Cập nhật thất bại");
 
-			// Update local state để không cần fetch lại
-			const data = await res.json();
-			const savedBuild = data.build || updatedBuild; // Fallback nếu API trả về khác
+			const result = await res.json();
+			if (!res.ok)
+				throw new Error(result.error || tUI("admin.common.errorOccurred"));
 
-			setBuilds(prev =>
-				prev.map(b => (b.id === savedBuild.id ? savedBuild : b)),
-			);
-
-			setNotification({
-				isOpen: true,
-				title: "Thành công",
-				message: "Cập nhật thành công!",
-			});
-			handleBackToList();
-		} catch (err) {
-			setNotification({ isOpen: true, title: "Lỗi", message: err.message });
+			await fetchAllData();
+			navigate("/admin/builds");
+			alert(tUI("admin.common.saveSuccess"));
+		} catch (e) {
+			alert(e.message || tUI("admin.common.errorOccurred"));
 		} finally {
 			setIsSaving(false);
 		}
 	};
 
-	const handleAttemptDelete = build => {
-		setBuildToDelete(build);
-		setIsDeleteModalOpen(true);
-	};
-
-	const handleConfirmDelete = async () => {
-		if (!buildToDelete) return;
+	const handleDeleteItem = async id => {
+		setIsSaving(true);
 		try {
 			const token = localStorage.getItem("token");
-			await fetch(`${apiUrl}/api/admin/builds/${buildToDelete.id}`, {
+			const res = await fetch(`${API_BASE_URL}/api/admin/builds/${id}`, {
 				method: "DELETE",
 				headers: { Authorization: `Bearer ${token}` },
 			});
-			setBuilds(prev => prev.filter(b => b.id !== buildToDelete.id));
-			setNotification({
-				isOpen: true,
-				title: "Thành công",
-				message: "Đã xóa!",
-			});
-			navigate("/admin/builds"); // Nếu đang ở trang detail thì về list
-		} catch (err) {
-			setNotification({ isOpen: true, title: "Lỗi", message: err.message });
+			if (!res.ok) throw new Error(tUI("admin.common.deleteFailed"));
+			await fetchAllData();
+			navigate("/admin/builds");
+			alert(tUI("admin.common.deleteSuccess"));
+		} catch (e) {
+			alert(e.message || tUI("admin.common.deleteFailed"));
 		} finally {
-			setIsDeleteModalOpen(false);
-			setBuildToDelete(null);
+			setIsSaving(false);
 		}
 	};
 
-	// Props gom nhóm cho SidePanel
-	const sidePanelProps = {
-		searchInput,
-		setSearchInput,
-		handleSearch,
-		handleClearSearch,
-		selectedStarLevels,
-		setSelectedStarLevels,
-		sortBy,
-		setSortBy,
-		handleResetFilters,
+	const handleResetFilters = () => {
+		setSearchInput("");
+		setSearchTerm("");
+		setSelectedStars([]);
+		setSortOrder("newest");
+		setCurrentPage(1);
 	};
 
 	if (isLoading) {
 		return (
-			<div className='flex flex-col items-center justify-center min-h-[600px] text-text-secondary'>
-				<Loader2 className='animate-spin text-primary-500' size={48} />
-				<p className='mt-4'>Đang tải...</p>
+			<div className='flex flex-col items-center justify-center min-h-[400px] text-[var(--color-text-secondary)]'>
+				<Loader2
+					className='animate-spin text-[var(--color-primary)]'
+					size={48}
+				/>
+				<div className='mt-4'>{tUI("admin.common.loading")}</div>
+			</div>
+		);
+	}
+
+	if (error) {
+		return <div className='text-center p-10 text-red-500'>{error}</div>;
+	}
+
+	return (
+		<div className='font-secondary text-[var(--color-text-primary)]'>
+			{/* Header */}
+			<div className='mb-6 border-b border-[var(--color-border)] pb-4'>
+				<h1 className='text-3xl font-bold font-primary text-[var(--color-text-primary)]'>
+					{tUI("admin.build.title")}
+				</h1>
+			</div>
+
+			<Routes>
+				{/* === DANH SÁCH BUILDS === */}
+				<Route
+					index
+					element={
+						<div className='flex flex-col lg:flex-row gap-6'>
+							{/* Bảng điều khiển bộ lọc (Bên phải trên Desktop, nằm trên cùng trên Mobile) */}
+							<div className='lg:w-1/4 flex flex-col gap-4 order-first lg:order-last'>
+								<div className='bg-[var(--color-surface)] p-5 rounded-xl border border-[var(--color-border)] shadow-sm'>
+									<div className='flex justify-between items-center mb-4 pb-2 border-b border-[var(--color-border)]'>
+										<h2 className='font-bold text-lg'>
+											{tUI("admin.common.search")}
+										</h2>
+										<button
+											onClick={handleResetFilters}
+											className='text-xs font-semibold text-[var(--color-primary)] hover:underline flex items-center gap-1'
+										>
+											<RotateCw size={12} /> {tUI("admin.build.resetFilter")}
+										</button>
+									</div>
+
+									<div className='flex flex-col gap-5'>
+										{/* Tìm kiếm Text */}
+										<div className='relative'>
+											<input
+												type='text'
+												placeholder={tUI("admin.build.searchPlaceholder")}
+												value={searchInput}
+												onChange={e => setSearchInput(e.target.value)}
+												onKeyDown={e => {
+													if (e.key === "Enter") {
+														setSearchTerm(searchInput.trim());
+														setCurrentPage(1);
+													}
+												}}
+												className='w-full pl-10 pr-10 py-2.5 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-sm text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-primary)] transition-colors'
+											/>
+											<Search
+												className='absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-text-secondary)]'
+												size={18}
+											/>
+											{searchInput && (
+												<button
+													onClick={() => {
+														setSearchInput("");
+														setSearchTerm("");
+														setCurrentPage(1);
+													}}
+													className='absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-secondary)] hover:text-red-400'
+												>
+													<XCircle size={18} />
+												</button>
+											)}
+										</div>
+										<Button
+											onClick={() => {
+												setSearchTerm(searchInput.trim());
+												setCurrentPage(1);
+											}}
+											variant='primary'
+											className='w-full py-2.5 flex justify-center'
+										>
+											<Search size={18} className='mr-2' />{" "}
+											{tUI("admin.common.search")}
+										</Button>
+
+										<DropdownFilter
+											label={tUI("admin.build.sortTitle")}
+											options={SORT_OPTIONS}
+											selectedValue={sortOrder}
+											onChange={setSortOrder}
+										/>
+
+										<MultiSelectFilter
+											label={tUI("admin.build.starLevel")}
+											options={STAR_LEVEL_OPTIONS}
+											selectedValues={selectedStars}
+											onChange={setSelectedStars}
+											placeholder={tUI("admin.common.all")}
+										/>
+									</div>
+								</div>
+							</div>
+
+							{/* Danh sách thẻ */}
+							<div className='lg:w-3/4 flex flex-col'>
+								{paginatedItems.length > 0 ? (
+									<div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5'>
+										{paginatedItems.map(item => (
+											<Link
+												key={item.id}
+												to={`./${item.id}`}
+												className='block transform transition duration-200 hover:-translate-y-1'
+											>
+												<BuildCard build={item} />
+											</Link>
+										))}
+									</div>
+								) : (
+									<div className='flex flex-col items-center justify-center min-h-[300px] bg-[var(--color-surface)] rounded-xl border border-[var(--color-border)] text-[var(--color-text-secondary)]'>
+										<p className='font-semibold text-lg'>
+											{tUI("admin.build.notFound")}
+										</p>
+										<p>{tUI("admin.build.tryOtherFilter")}</p>
+									</div>
+								)}
+
+								{/* Phân trang */}
+								{totalPages > 1 && (
+									<div className='mt-8 flex justify-center items-center gap-4 bg-[var(--color-surface)] py-3 px-6 rounded-full border border-[var(--color-border)] self-center'>
+										<Button
+											onClick={() => setCurrentPage(p => p - 1)}
+											disabled={currentPage === 1}
+											variant='outline'
+											className='rounded-full px-6'
+										>
+											{tUI("admin.common.prevPage")}
+										</Button>
+										<span className='font-bold text-[var(--color-text-primary)]'>
+											{currentPage} / {totalPages}
+										</span>
+										<Button
+											onClick={() => setCurrentPage(p => p + 1)}
+											disabled={currentPage === totalPages}
+											variant='outline'
+											className='rounded-full px-6'
+										>
+											{tUI("admin.common.nextPage")}
+										</Button>
+									</div>
+								)}
+							</div>
+						</div>
+					}
+				/>
+
+				{/* === CHỈNH SỬA BUILD === */}
+				<Route
+					path=':id'
+					element={
+						<BuildEditWrapper
+							items={items}
+							onSave={handleSaveItem}
+							onDelete={handleDeleteItem}
+							isSaving={isSaving}
+						/>
+					}
+				/>
+			</Routes>
+		</div>
+	);
+}
+
+// === COMPONENT CON QUẢN LÝ VIỆC SỬA ===
+const BuildEditWrapper = ({ items, onSave, onDelete, isSaving }) => {
+	const { id } = useParams();
+	const navigate = useNavigate();
+	const { tUI } = useTranslation();
+
+	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+	const [isCloseConfirmOpen, setIsCloseConfirmOpen] = useState(false);
+	const [isDirty, setIsDirty] = useState(false);
+	const [notification, setNotification] = useState({
+		isOpen: false,
+		message: "",
+		title: "",
+	});
+
+	const buildToEdit = useMemo(() => {
+		return items.find(i => i.id === id);
+	}, [id, items]);
+
+	const handleBack = useCallback(() => {
+		if (isDirty) {
+			setIsCloseConfirmOpen(true);
+		} else {
+			navigate("/admin/builds");
+		}
+	}, [isDirty, navigate]);
+
+	const handleConfirmClose = () => {
+		setIsCloseConfirmOpen(false);
+		navigate("/admin/builds");
+	};
+
+	const handleConfirmDelete = async () => {
+		setIsDeleteModalOpen(false);
+		await onDelete(id);
+	};
+
+	if (!buildToEdit) {
+		return (
+			<div className='flex flex-col items-center justify-center py-20 text-[var(--color-text-secondary)]'>
+				<p className='text-xl mb-4'>
+					{tUI("admin.build.notFoundId")} {id}
+				</p>
+				<Button onClick={() => navigate("/admin/builds")} variant='primary'>
+					{tUI("admin.common.backToList")}
+				</Button>
 			</div>
 		);
 	}
 
 	return (
-		<div className='mx-auto max-w-[1600px] p-1 sm:p-2 font-secondary'>
-			<Routes>
-				{/* Route LIST */}
-				<Route
-					index
-					element={
-						<BuildListView
-							paginatedBuilds={paginatedBuilds}
-							totalPages={totalPages}
-							currentPage={currentPage}
-							onPageChange={setCurrentPage}
-							sidePanelProps={sidePanelProps}
-						/>
-					}
-				/>
+		<div className='flex flex-col max-w-5xl mx-auto'>
+			{/* Toolbar Header Cố định */}
+			<div className='sticky top-0 z-30 bg-[var(--color-surface)] border-b border-[var(--color-border)] p-4 mb-6 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 rounded-b-xl'>
+				<div>
+					<h2 className='text-xl font-bold font-primary'>
+						{tUI("admin.buildForm.editTitle")} {buildToEdit.championName}
+					</h2>
+					{isDirty && (
+						<span className='text-xs font-semibold text-yellow-500'>
+							{tUI("admin.common.unsavedChanges")}
+						</span>
+					)}
+				</div>
+				<div className='flex items-center gap-3 w-full sm:w-auto'>
+					<Button
+						type='button'
+						onClick={handleBack}
+						variant='outline'
+						disabled={isSaving}
+						className='flex-1 sm:flex-none'
+					>
+						{tUI("admin.common.cancel")}
+					</Button>
+					<Button
+						type='button'
+						onClick={() => setIsDeleteModalOpen(true)}
+						variant='danger'
+						disabled={isSaving}
+						className='flex-1 sm:flex-none'
+					>
+						{tUI("admin.common.delete")}
+					</Button>
+					<Button
+						type='button'
+						onClick={() => {
+							document.getElementById("btn-submit-build").click();
+						}}
+						variant='primary'
+						disabled={isSaving}
+						className='flex-1 sm:flex-none'
+					>
+						{isSaving
+							? tUI("admin.common.saving")
+							: tUI("admin.common.saveChanges")}
+					</Button>
+				</div>
+			</div>
 
-				{/* Route EDIT */}
-				<Route
-					path=':id'
-					element={
-						<BuildEditWrapper
-							builds={builds}
-							onSave={handleSaveBuild}
-							onDelete={handleAttemptDelete}
-							isSaving={isSaving}
-							onCancel={handleAttemptClose}
-						/>
-					}
-				/>
-			</Routes>
+			<BuildEditorForm
+				item={buildToEdit}
+				onSave={onSave}
+				isSaving={isSaving}
+				onDirtyChange={setIsDirty}
+			/>
 
 			{/* MODALS */}
 			<Modal
 				isOpen={isDeleteModalOpen}
 				onClose={() => setIsDeleteModalOpen(false)}
-				title='Xác nhận Xóa'
+				title={tUI("admin.common.deleteConfirmTitle")}
 			>
 				<p className='mb-4 text-text-secondary'>
-					Xóa build <strong>{buildToDelete?.championName}</strong>?
+					{tUI("admin.build.deleteConfirmText")}{" "}
+					<strong>{buildToEdit?.championName}</strong>?
 				</p>
 				<div className='flex justify-end gap-3'>
 					<Button onClick={() => setIsDeleteModalOpen(false)} variant='ghost'>
-						Hủy
+						{tUI("admin.common.cancel")}
 					</Button>
 					<Button onClick={handleConfirmDelete} variant='danger'>
-						Xóa
+						{tUI("admin.common.delete")}
 					</Button>
 				</div>
 			</Modal>
@@ -481,17 +492,17 @@ function BuildEditor() {
 			<Modal
 				isOpen={isCloseConfirmOpen}
 				onClose={() => setIsCloseConfirmOpen(false)}
-				title='Xác nhận thoát'
+				title={tUI("admin.common.cancelConfirmTitle")}
 			>
 				<p className='mb-6 text-text-secondary'>
-					Bạn có thay đổi chưa lưu. Thoát sẽ mất dữ liệu.
+					{tUI("admin.common.cancelConfirmText")}
 				</p>
 				<div className='flex justify-end gap-3'>
 					<Button onClick={() => setIsCloseConfirmOpen(false)} variant='ghost'>
-						Ở lại
+						{tUI("admin.common.stay")}
 					</Button>
 					<Button onClick={handleConfirmClose} variant='danger'>
-						Thoát không lưu
+						{tUI("admin.common.leave")}
 					</Button>
 				</div>
 			</Modal>
@@ -502,16 +513,17 @@ function BuildEditor() {
 				title={notification.title}
 			>
 				<p className='text-text-secondary'>{notification.message}</p>
-				<div className='flex justify-end mt-4'>
+				<div className='flex justify-end gap-3 mt-4'>
 					<Button
 						onClick={() => setNotification({ ...notification, isOpen: false })}
+						variant='primary'
 					>
-						Đóng
+						{tUI("admin.common.ok")}
 					</Button>
 				</div>
 			</Modal>
 		</div>
 	);
-}
+};
 
 export default memo(BuildEditor);

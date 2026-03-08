@@ -222,7 +222,7 @@ const Home = () => {
 						<div className='order-1 lg:order-2 relative'>
 							<img
 								src={BACKGROUND_IMAGES[2]}
-								alt='Monthly Challenge'
+								alt={tUI("home.monthlyChallengeAlt")} // 🟢 Cập nhật alt từ điển
 								className='rounded-3xl shadow-2xl border border-white/20 scale-105 rotate-3 hover:rotate-0 transition-transform duration-500'
 							/>
 							<div className='absolute -bottom-6 -left-6 bg-primary-600 p-6 rounded-2xl hidden md:block animate-bounce shadow-xl'>

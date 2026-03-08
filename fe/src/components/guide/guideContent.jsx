@@ -1,15 +1,12 @@
+// src/components/guide/guideContent.jsx
 import React from "react";
 import { Link } from "react-router-dom";
 import { ExternalLink } from "lucide-react";
 import { removeAccents } from "../../utils/vietnameseUtils.js";
 import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook Đa ngôn ngữ
 
-/**
- * Hàm hỗ trợ tạo ID từ tiêu đề để làm Anchor Link
- */
-
 const ContentBlock = ({ block, referenceData }) => {
-	const { language, t } = useTranslation(); // 🟢 Khởi tạo Hook
+	const { language, tUI, tDynamic } = useTranslation(); // 🟢 Sử dụng tUI và tDynamic
 
 	if (!block) return null;
 
@@ -22,7 +19,6 @@ const ContentBlock = ({ block, referenceData }) => {
 			return (
 				<section
 					className='mb-8 mt-6 scroll-mt-20'
-					// ID neo luôn dùng title gốc để đảm bảo Table of Content trỏ đúng
 					id={removeAccents(block.title)}
 				>
 					{block.title && (
@@ -33,7 +29,7 @@ const ContentBlock = ({ block, referenceData }) => {
 								borderColor: "var(--color-border)",
 							}}
 						>
-							{t(block, "title")}
+							{tDynamic(block, "title")}
 						</h2>
 					)}
 					{block.content &&
@@ -53,36 +49,28 @@ const ContentBlock = ({ block, referenceData }) => {
 					className='text-base sm:text-lg mb-4 leading-relaxed'
 					style={{ color: "var(--color-text-secondary)" }}
 					dangerouslySetInnerHTML={{
-						__html: t(block, "content") || block.content,
+						__html: tDynamic(block, "content") || block.content,
 					}}
 				/>
 			);
 
-		// 🟢 SỬA LỖI Ở ĐÂY: Thêm ngoặc nhọn {} bao bọc toàn bộ case
 		case "table": {
-			// Xử lý map dữ liệu từ bảng với referenceData
-			const resolvedData = block.data.map(row => {
+			const resolvedData = (block.data || []).map(row => {
 				const newRow = { ...row };
 				block.columns.forEach(col => {
 					if (col.type === "reference" && row[col.key]) {
 						const refId = row[col.key];
-						const refType = col.referenceType; // 'champions', 'relics', 'powers'
+						const refType = col.referenceType;
 
 						if (referenceData[refType] && referenceData[refType][refId]) {
 							const refItem = referenceData[refType][refId];
-
-							// Xây dựng URL động
 							let link = "#";
 							if (refType === "champions") link = `/champion/${refId}`;
 							else if (refType === "relics") link = `/relic/${refId}`;
 							else if (refType === "powers") link = `/power/${refId}`;
 
-							newRow[col.key] = {
-								...refItem,
-								link,
-							};
+							newRow[col.key] = { ...refItem, link };
 						} else {
-							// Đánh dấu lỗi nếu không tìm thấy dữ liệu tham chiếu
 							newRow._error = true;
 						}
 					}
@@ -92,18 +80,16 @@ const ContentBlock = ({ block, referenceData }) => {
 
 			if (resolvedData.some(row => row._error)) {
 				return (
-					<div className='p-4 bg-red-50 text-red-600 rounded-md mb-4 border border-red-200'>
-						{language === "vi"
-							? "Có lỗi xảy ra khi tải dữ liệu tham chiếu."
-							: "An error occurred while loading reference data."}
+					<div className='p-4 bg-red-50 text-red-600 rounded-md mb-4 border border-red-200 text-sm'>
+						{tUI("guideDetail.errorReference")}
 					</div>
 				);
 			}
 
 			if (resolvedData.length === 0) {
 				return (
-					<p className='italic text-gray-500'>
-						{language === "vi" ? "Chưa có dữ liệu." : "No data available."}
+					<p className='italic text-gray-500 text-sm mb-4'>
+						{tUI("common.noData")}
 					</p>
 				);
 			}
@@ -118,7 +104,7 @@ const ContentBlock = ({ block, referenceData }) => {
 										key={index}
 										className='p-3 font-semibold text-gray-700 text-sm whitespace-nowrap'
 									>
-										{t(col, "label") || col.label}
+										{tDynamic(col, "label") || col.label}
 									</th>
 								))}
 							</tr>
@@ -135,12 +121,11 @@ const ContentBlock = ({ block, referenceData }) => {
 											return <td key={colIndex} className='p-3'></td>;
 
 										if (col.type === "reference") {
-											// Dịch Tên & Mô tả từ cục dữ liệu Reference
-											const itemName = t(cellData, "name") || cellData.name;
+											const itemName =
+												tDynamic(cellData, "name") || cellData.name;
 											const itemDesc =
-												t(cellData, "descriptionRaw") ||
-												t(cellData, "description") ||
-												t(cellData, "desc") ||
+												tDynamic(cellData, "description") ||
+												tDynamic(cellData, "desc") ||
 												cellData.desc;
 											const itemImg =
 												cellData.assetAbsolutePath ||
@@ -164,8 +149,7 @@ const ContentBlock = ({ block, referenceData }) => {
 																		to={cellData.link}
 																		className='hover:text-blue-600 flex items-center gap-1'
 																	>
-																		{itemName}
-																		<ExternalLink size={14} />
+																		{itemName} <ExternalLink size={14} />
 																	</Link>
 																) : (
 																	itemName
@@ -181,8 +165,6 @@ const ContentBlock = ({ block, referenceData }) => {
 												</td>
 											);
 										}
-
-										// Dịch ô text thông thường nếu CSDL có lưu _en
 										const cellText =
 											language === "en" && row[`${col.key}_en`]
 												? row[`${col.key}_en`]
@@ -202,7 +184,7 @@ const ContentBlock = ({ block, referenceData }) => {
 					</table>
 				</div>
 			);
-		} // <-- Kết thúc case "table"
+		}
 
 		case "infobox":
 			return (
@@ -218,14 +200,14 @@ const ContentBlock = ({ block, referenceData }) => {
 							className='font-bold mb-1'
 							style={{ color: "var(--color-text-primary)" }}
 						>
-							{t(block, "title")}
+							{tDynamic(block, "title")}
 						</h4>
 					)}
 					<p
 						className='text-sm sm:text-base'
 						style={{ color: "var(--color-text-secondary)" }}
 					>
-						{renderHtml(t(block, "desc") || block.desc)}
+						{renderHtml(tDynamic(block, "desc") || block.desc)}
 					</p>
 				</div>
 			);
@@ -233,23 +215,24 @@ const ContentBlock = ({ block, referenceData }) => {
 		case "gallery":
 			return (
 				<div className='grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6'>
-					{block.images &&
-						block.images.map((img, index) => (
-							<div key={index} className='flex flex-col'>
-								<img
-									src={img.url}
-									alt={
-										t(img, "caption") || img.caption || `Gallery image ${index}`
-									}
-									className='w-full h-auto rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow'
-								/>
-								{img.caption && (
-									<p className='text-sm text-center text-gray-500 mt-2 italic'>
-										{t(img, "caption")}
-									</p>
-								)}
-							</div>
-						))}
+					{block.images?.map((img, index) => (
+						<div key={index} className='flex flex-col'>
+							<img
+								src={img.url}
+								alt={
+									tDynamic(img, "caption") ||
+									img.caption ||
+									`Gallery image ${index}`
+								}
+								className='w-full h-auto rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow'
+							/>
+							{img.caption && (
+								<p className='text-sm text-center text-gray-500 mt-2 italic'>
+									{tDynamic(img, "caption")}
+								</p>
+							)}
+						</div>
+					))}
 				</div>
 			);
 
@@ -262,77 +245,71 @@ const ContentBlock = ({ block, referenceData }) => {
 							src={block.url}
 							title='YouTube video player'
 							frameBorder='0'
-							allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
 							allowFullScreen
 						></iframe>
 					</div>
 					{block.caption && (
 						<p className='text-sm text-center text-gray-500 mt-2 italic'>
-							{language === "vi" ? "Nguồn:" : "Source:"} {t(block, "caption")}
+							{tUI("guideDetail.sourceLabel")} {tDynamic(block, "caption")}
 						</p>
 					)}
 				</div>
 			);
 
-		// 🟢 SỬA LỖI Ở ĐÂY: Thêm ngoặc nhọn {} bao bọc toàn bộ case
 		case "list": {
 			const listItems =
 				language === "en" && block.items_en ? block.items_en : block.items;
 			return (
 				<ul
-					className={`mb-6 pl-5 space-y-2 text-base sm:text-lg ${
-						block.style === "ordered" ? "list-decimal" : "list-disc"
-					}`}
+					className={`mb-6 pl-5 space-y-2 text-base sm:text-lg ${block.style === "ordered" ? "list-decimal" : "list-disc"}`}
 					style={{ color: "var(--color-text-secondary)" }}
 				>
-					{listItems &&
-						listItems.map((item, index) => (
-							<li key={index}>{renderHtml(item)}</li>
-						))}
+					{listItems?.map((item, index) => (
+						<li key={index}>{renderHtml(item)}</li>
+					))}
 				</ul>
 			);
-		} // <-- Kết thúc case "list"
+		}
 
 		case "accordion":
 			return (
 				<div className='mb-6 space-y-3'>
-					{block.items &&
-						block.items.map((item, index) => {
-							const accItems =
-								language === "en" && item.list_en ? item.list_en : item.list;
-							return (
-								<div
-									key={index}
-									className='border border-gray-200 rounded-lg p-4 bg-white shadow-sm'
+					{block.items?.map((item, index) => {
+						const accItems =
+							language === "en" && item.list_en ? item.list_en : item.list;
+						return (
+							<div
+								key={index}
+								className='border border-gray-200 rounded-lg p-4 bg-white shadow-sm'
+							>
+								<h4
+									className='font-bold text-lg mb-2'
+									style={{ color: "var(--color-text-primary)" }}
 								>
-									<h4
-										className='font-bold text-lg mb-2'
-										style={{ color: "var(--color-text-primary)" }}
-									>
-										{t(item, "title")}
-									</h4>
-									{item.desc && (
-										<p className='text-sm text-gray-600 mb-2'>
-											{renderHtml(t(item, "desc") || item.desc)}
-										</p>
-									)}
-									{accItems && (
-										<ul className='list-disc pl-5 space-y-1 text-sm text-gray-700'>
-											{accItems.map((listItem, i) => (
-												<li key={i}>{renderHtml(listItem)}</li>
-											))}
-										</ul>
-									)}
-									{item.image && (
-										<img
-											src={item.image}
-											className='w-full h-72 object-cover rounded-lg mt-3 shadow-sm'
-											alt={t(item, "title")}
-										/>
-									)}
-								</div>
-							);
-						})}
+									{tDynamic(item, "title")}
+								</h4>
+								{item.desc && (
+									<p className='text-sm text-gray-600 mb-2'>
+										{renderHtml(tDynamic(item, "desc") || item.desc)}
+									</p>
+								)}
+								{accItems && (
+									<ul className='list-disc pl-5 space-y-1 text-sm text-gray-700'>
+										{accItems.map((listItem, i) => (
+											<li key={i}>{renderHtml(listItem)}</li>
+										))}
+									</ul>
+								)}
+								{item.image && (
+									<img
+										src={item.image}
+										className='w-full h-72 object-cover rounded-lg mt-3 shadow-sm'
+										alt={tDynamic(item, "title")}
+									/>
+								)}
+							</div>
+						);
+					})}
 				</div>
 			);
 
@@ -346,10 +323,10 @@ const ContentBlock = ({ block, referenceData }) => {
 					}}
 				>
 					<h3 className='text-xl font-bold mb-2 text-blue-800'>
-						{t(block, "title")}
+						{tDynamic(block, "title")}
 					</h3>
 					<p className='text-lg text-gray-700 font-medium italic'>
-						{t(block, "content") || block.content}
+						{tDynamic(block, "content") || block.content}
 					</p>
 				</div>
 			);
@@ -359,4 +336,15 @@ const ContentBlock = ({ block, referenceData }) => {
 	}
 };
 
-export default ContentBlock;
+const GuideContent = ({ content, referenceData }) => {
+	if (!content || !Array.isArray(content)) return null;
+	return (
+		<div className='guide-rich-content'>
+			{content.map((block, index) => (
+				<ContentBlock key={index} block={block} referenceData={referenceData} />
+			))}
+		</div>
+	);
+};
+
+export default GuideContent;

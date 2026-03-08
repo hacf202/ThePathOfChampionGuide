@@ -18,13 +18,12 @@ import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook
 
 // --- Hiển thị vị trí bình luận (Champion hoặc Global) ---
 const BuildLocation = ({ buildId, championName }) => {
-	const { language } = useTranslation();
+	const { tUI } = useTranslation(); // 🟢
 
 	if (buildId === "global") {
 		return (
 			<span className='inline-flex items-center gap-1 text-[10px] bg-surface-hover text-text-secondary px-2 py-0.5 rounded-full border border-border ml-2'>
-				<MapPin size={10} />{" "}
-				{language === "vi" ? "Bình luận tổng" : "Global Comment"}
+				<MapPin size={10} /> {tUI("comments.globalComment")}
 			</span>
 		);
 	}
@@ -33,7 +32,7 @@ const BuildLocation = ({ buildId, championName }) => {
 			to={`/builds/detail/${buildId}`}
 			className='inline-flex items-center gap-1 text-[10px] bg-primary-500/10 text-primary-500 px-2 py-0.5 rounded-full border border-primary-500/20 ml-2 hover:bg-primary-500/20 transition-colors'
 		>
-			<ExternalLink size={10} /> {language === "vi" ? "Build:" : "Build:"}{" "}
+			<ExternalLink size={10} /> {tUI("comments.buildLabel")}{" "}
 			{championName || buildId}
 		</Link>
 	);
@@ -51,7 +50,7 @@ const CommentForm = ({
 	isEdit = false,
 	commentId = null,
 }) => {
-	const { language } = useTranslation();
+	const { tUI } = useTranslation(); // 🟢
 	const { user, token } = useAuth();
 	const [content, setContent] = useState(initialValue);
 	const [isSubmitting, setIsSubmitting] = useState(false);
@@ -110,12 +109,10 @@ const CommentForm = ({
 			<div className='flex items-center justify-between bg-surface-hover p-3 sm:p-4 rounded-xl border border-border'>
 				<div className='flex items-center gap-3 text-text-secondary text-sm'>
 					<User size={18} />
-					<span>
-						{language === "vi" ? "Đăng nhập để bình luận" : "Login to comment"}
-					</span>
+					<span>{tUI("comments.loginToComment")}</span>
 				</div>
 				<Button size='sm' onClick={() => navigate("/auth")}>
-					{language === "vi" ? "Đăng nhập" : "Login"}
+					{tUI("common.login")}
 				</Button>
 			</div>
 		);
@@ -134,9 +131,7 @@ const CommentForm = ({
 						placeholder={
 							replyToUsername
 								? `@${replyToUsername} ...`
-								: language === "vi"
-									? "Viết bình luận..."
-									: "Write a comment..."
+								: tUI("comments.writeComment")
 						}
 						className='w-full bg-transparent border-none focus:ring-0 text-text-primary text-sm resize-none p-1 min-h-[44px]'
 						rows={Math.min(5, content.split("\n").length || 1)}
@@ -154,7 +149,7 @@ const CommentForm = ({
 								onClick={onCancel}
 								className='text-xs text-text-secondary hover:text-text-primary px-2 py-1'
 							>
-								{language === "vi" ? "Hủy" : "Cancel"}
+								{tUI("common.cancel")}
 							</button>
 						)}
 						<button
@@ -181,7 +176,7 @@ const CommentForm = ({
 
 // --- Thành phần hiển thị 1 Comment ---
 const CommentItem = ({ comment, onDeleted, onUpdated, onPosted }) => {
-	const { language } = useTranslation();
+	const { language, tUI } = useTranslation(); // 🟢
 	const { user, token } = useAuth();
 	const [isReplying, setIsReplying] = useState(false);
 	const [isEditing, setIsEditing] = useState(false);
@@ -211,11 +206,7 @@ const CommentItem = ({ comment, onDeleted, onUpdated, onPosted }) => {
 
 	const handleAction = action => {
 		if (!user) {
-			alert(
-				language === "vi"
-					? "Bạn cần đăng nhập để thực hiện hành động này."
-					: "You must be logged in to perform this action.",
-			);
+			alert(tUI("buildSummary.loginPrompt"));
 			return;
 		}
 		action();
@@ -263,7 +254,7 @@ const CommentItem = ({ comment, onDeleted, onUpdated, onPosted }) => {
 							{comment.content}
 							{comment.isEdited && (
 								<span className='text-[10px] text-text-secondary opacity-70 italic ml-2'>
-									({language === "vi" ? "Đã chỉnh sửa" : "Edited"})
+									({tUI("comments.edited")})
 								</span>
 							)}
 						</p>
@@ -275,8 +266,7 @@ const CommentItem = ({ comment, onDeleted, onUpdated, onPosted }) => {
 								onClick={() => handleAction(() => setIsReplying(!isReplying))}
 								className='text-xs font-medium text-text-secondary hover:text-primary-500 transition-colors flex items-center gap-1'
 							>
-								<MessageSquare size={12} />{" "}
-								{language === "vi" ? "Trả lời" : "Reply"}
+								<MessageSquare size={12} /> {tUI("comments.replyBtn")}
 							</button>
 							{isOwner && (
 								<>
@@ -285,14 +275,14 @@ const CommentItem = ({ comment, onDeleted, onUpdated, onPosted }) => {
 										onClick={() => setIsEditing(true)}
 										className='text-xs text-text-secondary hover:text-primary-500 transition-colors'
 									>
-										{language === "vi" ? "Sửa" : "Edit"}
+										{tUI("common.edit")}
 									</button>
 									<span className='w-1 h-1 bg-border rounded-full'></span>
 									<button
 										onClick={() => setShowDeleteModal(true)}
 										className='text-xs text-text-secondary hover:text-danger-500 transition-colors'
 									>
-										{language === "vi" ? "Xóa" : "Delete"}
+										{tUI("common.delete")}
 									</button>
 								</>
 							)}
@@ -334,12 +324,10 @@ const CommentItem = ({ comment, onDeleted, onUpdated, onPosted }) => {
 			<Modal
 				isOpen={showDeleteModal}
 				onClose={() => !isDeleting && setShowDeleteModal(false)}
-				title={language === "vi" ? "Xác nhận xóa" : "Confirm Deletion"}
+				title={tUI("comments.deleteConfirmTitle")}
 			>
 				<p className='text-text-secondary mb-6 text-sm'>
-					{language === "vi"
-						? "Bạn có chắc chắn muốn xóa bình luận này? Hành động này không thể hoàn tác."
-						: "Are you sure you want to delete this comment? This action cannot be undone."}
+					{tUI("comments.deleteWarning")}
 				</p>
 				<div className='flex justify-end gap-3'>
 					<Button
@@ -347,15 +335,13 @@ const CommentItem = ({ comment, onDeleted, onUpdated, onPosted }) => {
 						onClick={() => setShowDeleteModal(false)}
 						disabled={isDeleting}
 					>
-						{language === "vi" ? "Hủy" : "Cancel"}
+						{tUI("common.cancel")}
 					</Button>
 					<Button variant='danger' onClick={handleDelete} disabled={isDeleting}>
 						{isDeleting ? (
 							<Loader2 className='animate-spin' size={16} />
-						) : language === "vi" ? (
-							"Xóa"
 						) : (
-							"Delete"
+							tUI("common.delete")
 						)}
 					</Button>
 				</div>
@@ -366,7 +352,7 @@ const CommentItem = ({ comment, onDeleted, onUpdated, onPosted }) => {
 
 // --- Main Container: Latest Comments ---
 const LatestComments = ({ championID = null }) => {
-	const { language } = useTranslation();
+	const { tUI } = useTranslation(); // 🟢
 	const [comments, setComments] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [loadingMore, setLoadingMore] = useState(false);
@@ -449,7 +435,7 @@ const LatestComments = ({ championID = null }) => {
 	return (
 		<div className='mt-4 border-t border-border pt-4 font-secondary'>
 			<h2 className='text-xl sm:text-2xl font-bold mb-4 text-text-primary border-l-4 border-primary-500 pl-4 uppercase'>
-				{language === "vi" ? "Thảo luận cộng đồng" : "Community Discussions"}
+				{tUI("comments.communityDiscussions")}
 			</h2>
 
 			<div className='bg-surface-bg rounded-xl border border-border p-2 sm:p-6 shadow-sm'>
@@ -482,26 +468,20 @@ const LatestComments = ({ championID = null }) => {
 											{loadingMore && (
 												<Loader2 className='animate-spin mr-2' size={16} />
 											)}
-											{language === "vi"
-												? "Xem thêm bình luận"
-												: "Load more comments"}
+											{tUI("comments.loadMore")}
 										</Button>
 									</div>
 								)}
 								{!nextKey && (comments || []).length >= 10 && (
 									<p className='text-center text-text-secondary text-sm mt-6 italic'>
-										{language === "vi" ? "Hết bình luận" : "No more comments"}
+										{tUI("comments.noMoreComments")}
 									</p>
 								)}
 							</>
 						) : (
 							<div className='text-center py-10 text-text-secondary'>
 								<MessageSquare size={40} className='mx-auto mb-3 opacity-50' />
-								<p>
-									{language === "vi"
-										? "Chưa có bình luận nào. Hãy là người đầu tiên!"
-										: "No comments yet. Be the first to comment!"}
-								</p>
+								<p>{tUI("comments.noComments")}</p>
 							</div>
 						)}
 					</div>

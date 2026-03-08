@@ -3,7 +3,8 @@ import { useState, memo, useEffect } from "react";
 import Button from "../common/button";
 import InputField from "../common/inputField";
 import Modal from "../common/modal";
-import { XCircle, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
+import { useTranslation } from "../../hooks/useTranslation"; // IMPORT HOOK
 
 /**
  * Component hỗ trợ nhập mảng (Dùng cho field 'type')
@@ -44,32 +45,33 @@ const ArrayInputComponent = ({
 			</div>
 
 			<div className='space-y-2'>
-				{data.length === 0 ? (
-					<p className='text-center text-sm text-text-secondary py-4 bg-surface-hover/50 rounded-lg border border-dashed border-border'>
-						Chưa có dữ liệu
-					</p>
-				) : (
-					data.map((value, index) => (
-						<div
-							key={index}
-							className='flex items-center gap-3 p-3 bg-surface-hover rounded-lg border border-border'
-						>
-							<InputField
-								value={value || ""}
+				{data.length > 0 ? (
+					data.map((item, index) => (
+						<div key={index} className='flex items-center gap-2'>
+							<span className='font-bold text-text-secondary w-6'>
+								{index + 1}.
+							</span>
+							<input
+								type='text'
+								value={item}
 								onChange={e => handleItemChange(index, e.target.value)}
 								placeholder={placeholder}
-								className='flex-1'
+								className='flex-1 p-2 bg-surface-bg border border-border rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-primary-500 transition'
 							/>
 							<button
 								type='button'
 								onClick={() => handleRemoveItem(index)}
-								className='text-red-500 hover:text-red-600 transition'
+								className='p-2 text-red-500 hover:bg-red-500/10 rounded-md transition-colors font-bold'
 								title='Xóa'
 							>
-								<XCircle size={20} />
+								X
 							</button>
 						</div>
 					))
+				) : (
+					<p className='text-sm italic text-text-tertiary bg-surface-bg p-3 rounded-md border border-dashed border-border'>
+						Không có mục nào. Nhấn "Thêm" để tạo mới.
+					</p>
 				)}
 			</div>
 		</div>
@@ -84,25 +86,42 @@ const PowerEditorForm = memo(
 
 		const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
 		const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+		const { tUI } = useTranslation();
 
-		// Khởi tạo và Deep Clone dữ liệu để so sánh thay đổi
+		// Khởi tạo dữ liệu
 		useEffect(() => {
 			if (power) {
 				const deepCloned = JSON.parse(JSON.stringify(power));
-				setFormData(power);
-				setInitialData(deepCloned);
+
+				// Đảm bảo array type và object translations tồn tại
+				if (!Array.isArray(deepCloned.type)) deepCloned.type = [];
+				if (!deepCloned.translations) {
+					deepCloned.translations = {
+						en: { name: "", rarity: "", description: "" },
+					};
+				}
+				if (!deepCloned.translations.en) {
+					deepCloned.translations.en = {
+						name: "",
+						rarity: "",
+						description: "",
+					};
+				}
+
+				setFormData(deepCloned);
+				setInitialData(JSON.parse(JSON.stringify(deepCloned)));
 				setIsDirty(false);
 			}
 		}, [power]);
 
-		// Kiểm tra xem dữ liệu có bị thay đổi (Dirty check) không
+		// Dirty check
 		useEffect(() => {
 			const isChanged =
 				JSON.stringify(formData) !== JSON.stringify(initialData);
 			setIsDirty(isChanged);
 		}, [formData, initialData]);
 
-		// Chặn trình duyệt đóng tab nếu có thay đổi chưa lưu
+		// Prompt Before Unload
 		useEffect(() => {
 			const handleBeforeUnload = e => {
 				if (isDirty) {
@@ -120,16 +139,32 @@ const PowerEditorForm = memo(
 			setFormData(prev => ({ ...prev, [name]: value }));
 		};
 
-		const handleArrayChange = (field, newArray) => {
-			setFormData(prev => ({ ...prev, [field]: newArray }));
+		const handleTranslationChange = (e, lang) => {
+			const { name, value } = e.target;
+			setFormData(prev => ({
+				...prev,
+				translations: {
+					...prev.translations,
+					[lang]: {
+						...prev.translations[lang],
+						[name]: value,
+					},
+				},
+			}));
 		};
 
-		const handleAttemptCancel = () => {
-			if (isDirty) {
-				setIsCancelModalOpen(true);
-			} else {
-				onCancel();
+		const handleSubmit = e => {
+			e.preventDefault();
+			if (!formData.powerCode?.trim()) {
+				alert(tUI("admin.powerForm.errorIdReq"));
+				return;
 			}
+			// Loại bỏ các phần tử rỗng trong mảng type trước khi lưu
+			const dataToSave = {
+				...formData,
+				type: formData.type.map(t => t.trim()).filter(Boolean),
+			};
+			onSave(dataToSave);
 		};
 
 		const confirmCancel = () => {
@@ -137,44 +172,20 @@ const PowerEditorForm = memo(
 			onCancel();
 		};
 
-		const handleAttemptDelete = () => setIsDeleteModalOpen(true);
-
-		const confirmDelete = () => {
-			setIsDeleteModalOpen(false);
-			if (power && power.powerCode && !power.isNew) {
-				onDelete(power.powerCode);
-			}
-		};
-
-		const handleSubmit = e => {
-			e.preventDefault();
-			const cleanData = { ...formData };
-
-			// Chỉnh sửa mảng Type: xóa khoảng trắng và lọc bỏ item rỗng
-			if (Array.isArray(cleanData.type)) {
-				cleanData.type = cleanData.type
-					.map(item => item.trim())
-					.filter(item => item !== "");
-			}
-
-			// Gửi dữ liệu đi (isNew sẽ được Backend dùng để kiểm tra tồn tại ID)
-			onSave(cleanData);
-		};
-
 		return (
 			<>
 				<form onSubmit={handleSubmit} className='space-y-8'>
 					{/* Header Toolbar */}
-					<div className='flex justify-between border-border sticky top-0 bg-surface-bg z-20 py-2 border-b mb-4'>
+					<div className='flex justify-between border-border sticky top-0 bg-surface-bg z-20 py-2 border-b mb-4 shadow-sm px-4'>
 						<div>
 							<h2 className='block font-semibold text-text-primary text-xl'>
 								{formData.isNew
-									? "Tạo Sức Mạnh Mới"
-									: `Chỉnh sửa: ${formData.name}`}
+									? tUI("admin.powerForm.createTitle")
+									: `${tUI("admin.powerForm.editTitle")} ${formData.name}`}
 							</h2>
 							{isDirty && (
 								<span className='text-xs text-yellow-500 font-medium'>
-									● Có thay đổi chưa lưu
+									{tUI("admin.common.unsavedChanges")}
 								</span>
 							)}
 						</div>
@@ -182,19 +193,21 @@ const PowerEditorForm = memo(
 							<Button
 								type='button'
 								variant='ghost'
-								onClick={handleAttemptCancel}
+								onClick={() =>
+									isDirty ? setIsCancelModalOpen(true) : onCancel()
+								}
 								disabled={isSaving}
 							>
-								Hủy
+								{tUI("admin.common.cancel")}
 							</Button>
 							{!formData.isNew && (
 								<Button
 									type='button'
 									variant='danger'
-									onClick={handleAttemptDelete}
+									onClick={() => setIsDeleteModalOpen(true)}
 									disabled={isSaving}
 								>
-									Xóa sức mạnh
+									{tUI("admin.common.delete")}
 								</Button>
 							)}
 							<Button
@@ -203,106 +216,153 @@ const PowerEditorForm = memo(
 								disabled={isSaving || !formData.powerCode}
 							>
 								{isSaving
-									? "Đang xử lý..."
+									? tUI("admin.common.saving")
 									: formData.isNew
-										? "Tạo mới"
-										: "Lưu thay đổi"}
+										? tUI("admin.common.create")
+										: tUI("admin.common.saveChanges")}
 							</Button>
 						</div>
 					</div>
 
-					{/* Nội dung Form */}
-					<div className='grid grid-cols-1 lg:grid-cols-2 gap-6 p-6 bg-surface-bg border border-border rounded-xl'>
+					{/* Content Form */}
+					<div className='grid grid-cols-1 lg:grid-cols-2 gap-6 p-6 bg-surface-bg border border-border rounded-xl mx-4'>
+						{/* CỘT TRÁI */}
 						<div className='space-y-5'>
-							<InputField
-								label='Mã sức mạnh (Duy nhất, VD: P001)'
-								name='powerCode'
-								value={formData.powerCode || ""}
-								onChange={handleInputChange}
-								required
-								disabled={!formData.isNew} // Không cho sửa ID khi cập nhật
-								placeholder='Nhập ID sức mạnh...'
-							/>
-							<InputField
-								label='Tên sức mạnh'
-								name='name'
-								value={formData.name || ""}
-								onChange={handleInputChange}
-								required
-								placeholder='Nhập tên hiển thị...'
-							/>
-							<InputField
-								label='Độ hiếm'
-								name='rarity'
-								value={formData.rarity || ""}
-								onChange={handleInputChange}
-								placeholder='VD: Common, Rare, Epic, Legendary...'
-							/>
-							<div>
-								<label className='block font-semibold text-text-primary mb-2'>
-									Mô tả hiển thị
-								</label>
-								<textarea
-									name='description'
-									value={formData.description || ""}
+							<div className='grid grid-cols-2 gap-4'>
+								<InputField
+									label={tUI("admin.powerForm.idLabel")}
+									name='powerCode'
+									value={formData.powerCode || ""}
 									onChange={handleInputChange}
-									className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary focus:ring-2 focus:ring-primary-500 outline-none transition resize-none'
-									rows={6}
-									placeholder='Mô tả chi tiết sức mạnh...'
+									required
+									disabled={!formData.isNew}
+									placeholder='VD: P001'
 								/>
+								<div className='pt-1'>
+									<ArrayInputComponent
+										label={tUI("admin.powerForm.typeLabel")}
+										data={formData.type || []}
+										onChange={newArr =>
+											setFormData(prev => ({ ...prev, type: newArr }))
+										}
+										placeholder='VD: Relic Power...'
+									/>
+								</div>
+							</div>
+
+							{/* Khu vực ngôn ngữ Tiếng Việt */}
+							<div className='border border-border rounded-lg p-4 bg-page-bg space-y-4 shadow-sm'>
+								<h3 className='text-md font-bold text-text-primary border-b border-border pb-2'>
+									Ngôn ngữ: Tiếng Việt (Mặc định)
+								</h3>
+								<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+									<InputField
+										label={`${tUI("admin.powerForm.nameLabel")} (VI)`}
+										name='name'
+										value={formData.name || ""}
+										onChange={handleInputChange}
+										required
+										placeholder='Nhập tên sức mạnh...'
+									/>
+									<InputField
+										label={`${tUI("admin.powerForm.rarityLabel")} (VI)`}
+										name='rarity'
+										value={formData.rarity || ""}
+										onChange={handleInputChange}
+										placeholder='Thường, Hiếm, Sử Thi...'
+									/>
+								</div>
+								<div className='flex flex-col gap-1'>
+									<label className='text-sm font-semibold text-text-primary'>
+										{tUI("admin.powerForm.descLabel")} (VI)
+									</label>
+									<textarea
+										name='description'
+										value={formData.description || ""}
+										onChange={handleInputChange}
+										className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary min-h-[100px] outline-none focus:ring-2 focus:ring-primary-500 transition resize-none'
+										placeholder='Nội dung mô tả...'
+									/>
+								</div>
+							</div>
+
+							{/* Khu vực ngôn ngữ Tiếng Anh */}
+							<div className='border border-border rounded-lg p-4 bg-page-bg space-y-4 shadow-sm'>
+								<h3 className='text-md font-bold text-blue-500 border-b border-border pb-2'>
+									Ngôn ngữ: Tiếng Anh (Tùy chọn)
+								</h3>
+								<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+									<InputField
+										label={`${tUI("admin.powerForm.nameLabel")} (EN)`}
+										name='name'
+										value={formData.translations?.en?.name || ""}
+										onChange={e => handleTranslationChange(e, "en")}
+										placeholder='English Name...'
+									/>
+									<InputField
+										label={`${tUI("admin.powerForm.rarityLabel")} (EN)`}
+										name='rarity'
+										value={formData.translations?.en?.rarity || ""}
+										onChange={e => handleTranslationChange(e, "en")}
+										placeholder='English Rarity...'
+									/>
+								</div>
+								<div className='flex flex-col gap-1'>
+									<label className='text-sm font-semibold text-text-primary'>
+										{tUI("admin.powerForm.descLabel")} (EN)
+									</label>
+									<textarea
+										name='description'
+										value={formData.translations?.en?.description || ""}
+										onChange={e => handleTranslationChange(e, "en")}
+										className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary min-h-[100px] outline-none focus:ring-2 focus:ring-blue-500 transition resize-none'
+										placeholder='English Description...'
+									/>
+								</div>
 							</div>
 						</div>
 
+						{/* CỘT PHẢI */}
 						<div className='space-y-5'>
-							<div className='flex flex-col items-center p-4 bg-surface-hover rounded-xl border border-border border-dashed'>
-								<p className='text-sm font-medium text-text-secondary mb-3'>
-									Xem trước hình ảnh
+							<div className='flex flex-col items-center bg-surface-hover/30 p-6 rounded-xl border border-dashed border-border'>
+								<p className='text-xs font-bold text-text-secondary mb-4 uppercase tracking-widest'>
+									{tUI("admin.powerForm.previewImage")}
 								</p>
-								{formData.assetAbsolutePath ? (
+								{/* Ưu tiên assetAbsolutePath giống Rune và Relic */}
+								{formData.assetAbsolutePath ||
+								formData.assetFullAbsolutePath ? (
 									<img
-										src={formData.assetAbsolutePath}
+										src={
+											formData.assetAbsolutePath ||
+											formData.assetFullAbsolutePath
+										}
+										className='w-44 h-44 object-contain rounded-xl shadow-xl border-4 border-white dark:border-gray-800'
 										alt='Preview'
-										className='w-48 h-48 object-contain rounded-xl border-4 border-white dark:border-gray-800 shadow-lg'
 										onError={e => {
 											e.target.src =
-												"https://via.placeholder.com/200?text=Error+Link";
+												"https://via.placeholder.com/150?text=No+Image";
 										}}
 									/>
 								) : (
-									<div className='w-48 h-48 bg-gray-200 dark:bg-gray-700 rounded-xl flex items-center justify-center text-4xl text-gray-400'>
+									<div className='w-44 h-44 bg-gray-200 dark:bg-gray-700 rounded-xl flex items-center justify-center text-gray-400 text-5xl'>
 										?
 									</div>
 								)}
 							</div>
-
 							<InputField
-								label='Đường dẫn Ảnh (Asset Path)'
+								label={tUI("admin.powerForm.imageUrlLabel")}
 								name='assetAbsolutePath'
 								value={formData.assetAbsolutePath || ""}
 								onChange={handleInputChange}
 								placeholder='https://...'
 							/>
-
-							<ArrayInputComponent
-								label='Loại sức mạnh (Tags)'
-								data={formData.type || []}
-								onChange={d => handleArrayChange("type", d)}
-								placeholder='VD: Buff, Round Start, Attack...'
+							<InputField
+								label={tUI("admin.powerForm.imageFullUrlLabel")}
+								name='assetFullAbsolutePath'
+								value={formData.assetFullAbsolutePath || ""}
+								onChange={handleInputChange}
+								placeholder='https://...'
 							/>
-
-							<div>
-								<label className='block font-semibold text-text-primary mb-2'>
-									Mô tả thô (Raw Description)
-								</label>
-								<textarea
-									name='descriptionRaw'
-									value={formData.descriptionRaw || ""}
-									onChange={handleInputChange}
-									className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary focus:ring-2 focus:ring-primary-500 outline-none transition font-mono text-sm'
-									rows={4}
-									placeholder='Dữ liệu mô tả thô từ hệ thống...'
-								/>
-							</div>
 						</div>
 					</div>
 				</form>
@@ -311,21 +371,19 @@ const PowerEditorForm = memo(
 				<Modal
 					isOpen={isCancelModalOpen}
 					onClose={() => setIsCancelModalOpen(false)}
-					title='Bạn có chắc muốn hủy?'
+					title={tUI("admin.common.cancelConfirmTitle")}
 				>
 					<div className='text-text-secondary'>
-						<p className='mb-6'>
-							Các thay đổi bạn vừa thực hiện sẽ không được lưu lại.
-						</p>
+						<p className='mb-6'>{tUI("admin.common.cancelConfirmText")}</p>
 						<div className='flex justify-end gap-3'>
 							<Button
 								onClick={() => setIsCancelModalOpen(false)}
 								variant='ghost'
 							>
-								Tiếp tục chỉnh sửa
+								{tUI("admin.common.stay")}
 							</Button>
 							<Button onClick={confirmCancel} variant='danger'>
-								Hủy bỏ thay đổi
+								{tUI("admin.common.leave")}
 							</Button>
 						</div>
 					</div>
@@ -335,22 +393,25 @@ const PowerEditorForm = memo(
 				<Modal
 					isOpen={isDeleteModalOpen}
 					onClose={() => setIsDeleteModalOpen(false)}
-					title='Xác nhận xóa vĩnh viễn'
+					title={tUI("admin.common.deleteConfirmTitle")}
 				>
 					<div className='text-text-secondary'>
 						<p className='mb-6'>
-							Bạn đang thực hiện xóa sức mạnh <strong>{power?.name}</strong>.
-							Hành động này không thể hoàn tác.
+							{tUI("admin.powerForm.deleteConfirmText")}{" "}
+							<strong>{power?.name}</strong>?{tUI("admin.common.cannotUndo")}
 						</p>
 						<div className='flex justify-end gap-3'>
 							<Button
 								onClick={() => setIsDeleteModalOpen(false)}
 								variant='ghost'
 							>
-								Đóng
+								{tUI("admin.common.cancel")}
 							</Button>
-							<Button onClick={confirmDelete} variant='danger'>
-								Xác nhận Xóa
+							<Button
+								onClick={() => onDelete(formData.powerCode)}
+								variant='danger'
+							>
+								{tUI("admin.common.delete")}
 							</Button>
 						</div>
 					</div>

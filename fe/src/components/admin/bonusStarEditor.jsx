@@ -7,11 +7,12 @@ import { removeAccents } from "../../utils/vietnameseUtils";
 import SidePanel from "../common/sidePanel";
 import BonusStarEditorForm from "./bonusStarEditorForm";
 import { Loader2 } from "lucide-react";
+import { useTranslation } from "../../hooks/useTranslation";
 
 const NEW_BONUS_STAR_TEMPLATE = {
 	bonusStarID: "",
 	isNew: true,
-	name: "Bonus Star Mới",
+	name: "",
 	description: "",
 	image: "",
 	nodeType: "bonusStar",
@@ -34,6 +35,8 @@ const BonusStarListView = memo(
 		onPageChange,
 		sidePanelProps,
 	}) => {
+		const { tUI } = useTranslation();
+
 		return (
 			<div className='flex flex-col lg:flex-row gap-6 '>
 				<div className='lg:w-4/5 bg-surface-bg rounded-lg p-4'>
@@ -56,9 +59,9 @@ const BonusStarListView = memo(
 						<div className='flex items-center justify-center h-full min-h-[300px] text-center text-text-secondary'>
 							<div>
 								<p className='font-semibold text-lg'>
-									Không tìm thấy Bonus Star nào phù hợp.
+									{tUI("admin.bonusStar.notFound")}
 								</p>
-								<p>Vui lòng thử lại với bộ lọc khác.</p>
+								<p>{tUI("admin.bonusStar.tryOtherFilter")}</p>
 							</div>
 						</div>
 					)}
@@ -70,7 +73,7 @@ const BonusStarListView = memo(
 								disabled={currentPage === 1}
 								variant='outline'
 							>
-								Trang trước
+								{tUI("admin.common.prevPage")}
 							</Button>
 							<span className='text-lg font-medium text-text-primary'>
 								{currentPage} / {totalPages}
@@ -80,7 +83,7 @@ const BonusStarListView = memo(
 								disabled={currentPage === totalPages}
 								variant='outline'
 							>
-								Trang sau
+								{tUI("admin.common.nextPage")}
 							</Button>
 						</div>
 					)}
@@ -103,6 +106,7 @@ const BonusStarEditWrapper = ({
 }) => {
 	const { id } = useParams();
 	const navigate = useNavigate();
+	const { tUI } = useTranslation();
 
 	const selectedItem = useMemo(() => {
 		if (id === "new") return { ...NEW_BONUS_STAR_TEMPLATE };
@@ -124,9 +128,11 @@ const BonusStarEditWrapper = ({
 	) {
 		return (
 			<div className='flex flex-col items-center justify-center py-20 text-text-secondary'>
-				<p className='text-xl mb-4'>Không tìm thấy Bonus Star có mã: {id}</p>
+				<p className='text-xl mb-4'>
+					{tUI("admin.bonusStar.notFoundId")} {id}
+				</p>
 				<Button onClick={handleBack} variant='primary'>
-					Quay lại danh sách
+					{tUI("admin.common.backToList")}
 				</Button>
 			</div>
 		);
@@ -166,21 +172,22 @@ function BonusStarEditor() {
 
 	const API_BASE_URL = import.meta.env.VITE_API_URL;
 	const navigate = useNavigate();
+	const { tUI, tDynamic } = useTranslation();
 
 	const fetchAllData = useCallback(async () => {
 		try {
 			setIsLoading(true);
 			const res = await fetch(`${API_BASE_URL}/api/bonusStars`);
-			if (!res.ok) throw new Error("Không thể tải dữ liệu");
+			if (!res.ok) throw new Error(tUI("admin.common.errorLoad"));
 			const data = await res.json();
 			const finalItems = Array.isArray(data) ? data : data.items || [];
 			setItems(finalItems);
 		} catch (e) {
-			setError("Không thể tải dữ liệu từ server.");
+			setError(tUI("admin.common.errorLoad"));
 		} finally {
 			setIsLoading(false);
 		}
-	}, [API_BASE_URL]);
+	}, [API_BASE_URL, tUI]);
 
 	useEffect(() => {
 		fetchAllData();
@@ -190,34 +197,43 @@ function BonusStarEditor() {
 		setIsSaving(true);
 		try {
 			const token = localStorage.getItem("token");
+
+			// Dọn dẹp object translations rỗng trước khi save để tối ưu DB
+			const payload = { ...data };
+			if (
+				!payload.translations?.en?.name &&
+				!payload.translations?.en?.description
+			) {
+				delete payload.translations;
+			}
+
 			const res = await fetch(`${API_BASE_URL}/api/bonusStars`, {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
 					Authorization: `Bearer ${token}`,
 				},
-				body: JSON.stringify(data),
+				body: JSON.stringify(payload),
 			});
 
 			const result = await res.json();
 
 			if (!res.ok) {
-				throw new Error(result.error || "Lưu thất bại.");
+				throw new Error(result.error || tUI("admin.common.errorOccurred"));
 			}
 
 			await fetchAllData();
 			navigate("/admin/bonusStars");
-			alert(result.message || "Lưu dữ liệu thành công");
+			alert(result.message || tUI("admin.common.saveSuccess"));
 		} catch (e) {
-			alert(e.message || "Đã có lỗi xảy ra");
+			alert(e.message || tUI("admin.common.errorOccurred"));
 		} finally {
 			setIsSaving(false);
 		}
 	};
 
 	const handleDeleteItem = async id => {
-		if (!id || !window.confirm("Bạn có chắc chắn muốn xóa Bonus Star này?"))
-			return;
+		if (!id || !window.confirm(tUI("admin.common.deleteConfirm"))) return;
 		setIsSaving(true);
 		try {
 			const token = localStorage.getItem("token");
@@ -225,12 +241,12 @@ function BonusStarEditor() {
 				method: "DELETE",
 				headers: { Authorization: `Bearer ${token}` },
 			});
-			if (!res.ok) throw new Error("Xóa thất bại");
+			if (!res.ok) throw new Error(tUI("admin.common.deleteFailed"));
 			await fetchAllData();
 			navigate("/admin/bonusStars");
-			alert("Đã xóa Bonus Star thành công");
+			alert(tUI("admin.common.deleteSuccess"));
 		} catch (e) {
-			alert(e.message || "Xóa thất bại");
+			alert(e.message || tUI("admin.common.deleteFailed"));
 		} finally {
 			setIsSaving(false);
 		}
@@ -243,24 +259,23 @@ function BonusStarEditor() {
 		return {
 			types: types.map(t => ({ value: t, label: t })),
 			sort: [
-				{ value: "name-asc", label: "Tên A-Z" },
-				{ value: "name-desc", label: "Tên Z-A" },
+				{ value: "name-asc", label: tUI("admin.common.sortNameAsc") },
+				{ value: "name-desc", label: tUI("admin.common.sortNameDesc") },
 			],
 		};
-	}, [items]);
+	}, [items, tUI]);
 
 	const filteredItems = useMemo(() => {
 		let result = [...items];
 		if (searchTerm) {
 			const term = removeAccents(searchTerm.toLowerCase());
 			result = result.filter(i => {
-				const nameMatch = removeAccents((i.name || "").toLowerCase()).includes(
-					term,
-				);
-				const descMatch = removeAccents(
-					(i.description || "").toLowerCase(),
+				const nameMatch = removeAccents(
+					tDynamic(i, "name").toLowerCase(),
 				).includes(term);
-				// Kết quả trả về nếu tìm thấy trong Tên HOẶC Mô tả
+				const descMatch = removeAccents(
+					(tDynamic(i, "description") || "").toLowerCase(),
+				).includes(term);
 				return nameMatch || descMatch;
 			});
 		}
@@ -270,17 +285,17 @@ function BonusStarEditor() {
 
 		const [field, dir] = sortOrder.split("-");
 		result.sort((a, b) => {
-			const A = a.name || "";
-			const B = b.name || "";
+			const A = tDynamic(a, "name") || "";
+			const B = tDynamic(b, "name") || "";
 			return dir === "asc" ? A.localeCompare(B) : B.localeCompare(A);
 		});
 		return result;
-	}, [items, searchTerm, selectedTypes, sortOrder]);
+	}, [items, searchTerm, selectedTypes, sortOrder, tDynamic]);
 
 	const sidePanelProps = {
-		searchPlaceholder: "Tìm theo tên hoặc mô tả...",
-		addLabel: "Thêm Bonus Star Mới",
-		resetLabel: "Đặt lại bộ lọc",
+		searchPlaceholder: tUI("admin.bonusStar.searchPlaceholder"),
+		addLabel: tUI("admin.bonusStar.addLabel"),
+		resetLabel: tUI("admin.bonusStar.resetLabel"),
 		searchInput,
 		onSearchInputChange: e => setSearchInput(e.target.value),
 		onSearch: () => {
@@ -301,11 +316,11 @@ function BonusStarEditor() {
 		},
 		multiFilterConfigs: [
 			{
-				label: "Loại Node",
+				label: tUI("admin.bonusStar.nodeType"),
 				options: filterOptions.types,
 				selectedValues: selectedTypes,
 				onChange: setSelectedTypes,
-				placeholder: "Tất cả Loại",
+				placeholder: tUI("admin.bonusStar.allTypes"),
 			},
 		],
 		sortOptions: filterOptions.sort,
@@ -317,7 +332,7 @@ function BonusStarEditor() {
 		return (
 			<div className='flex flex-col items-center justify-center min-h-[400px] text-text-secondary'>
 				<Loader2 className='animate-spin text-primary-500' size={48} />
-				<div className='mt-4'>Đang tải dữ liệu...</div>
+				<div className='mt-4'>{tUI("admin.common.loading")}</div>
 			</div>
 		);
 	}

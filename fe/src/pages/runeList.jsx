@@ -1,9 +1,9 @@
 // src/pages/runeList.jsx
 import React, { useState, useMemo, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion"; // Thêm Framer Motion
+import { motion, AnimatePresence } from "framer-motion";
 import { usePersistentState } from "../hooks/usePersistentState";
-import { useTranslation } from "../hooks/useTranslation"; // 🟢 Import Hook Đa ngôn ngữ
+import { useTranslation } from "../hooks/useTranslation"; // 🟢 Hook i18n
 import InputField from "../components/common/inputField";
 import MultiSelectFilter from "../components/common/multiSelectFilter";
 import DropdownFilter from "../components/common/dropdownFilter";
@@ -24,10 +24,6 @@ import SafeImage from "@/components/common/SafeImage";
 
 const ITEMS_PER_PAGE = 24;
 
-/**
- * COMPONENT: RuneSkeleton
- * Hiển thị trạng thái đang tải dữ liệu cho thẻ Ngọc.
- */
 const RuneSkeleton = () => (
 	<div className='flex items-center gap-4 bg-surface-bg p-4 rounded-lg border border-border animate-pulse'>
 		<div className='w-16 h-16 bg-gray-700/50 rounded-md shrink-0' />
@@ -39,7 +35,7 @@ const RuneSkeleton = () => (
 );
 
 function RuneList() {
-	const { language, t } = useTranslation(); // 🟢 Khởi tạo Hook
+	const { tUI, t } = useTranslation(); // 🟢 Khởi tạo Hook
 
 	// --- STATE ---
 	const [runes, setRunes] = useState([]);
@@ -138,10 +134,7 @@ function RuneList() {
 		try {
 			const backendUrl = import.meta.env.VITE_API_URL;
 			const response = await fetch(`${backendUrl}/api/runes?${queryParams}`);
-			if (!response.ok)
-				throw new Error(
-					language === "vi" ? "Lỗi tải dữ liệu" : "Data loading error",
-				);
+			if (!response.ok) throw new Error(tUI("common.errorLoadData"));
 			const data = await response.json();
 
 			setRunes(data.items || []);
@@ -152,7 +145,7 @@ function RuneList() {
 		} finally {
 			setTimeout(() => setLoading(false), 500);
 		}
-	}, [queryParams, language]);
+	}, [queryParams, tUI]);
 
 	useEffect(() => {
 		fetchRunes();
@@ -169,15 +162,15 @@ function RuneList() {
 			sort: [
 				{
 					value: "name-asc",
-					label: language === "vi" ? "Tên A-Z" : "Name A-Z",
+					label: tUI("sort.nameAsc"),
 				},
 				{
 					value: "name-desc",
-					label: language === "vi" ? "Tên Z-A" : "Name Z-A",
+					label: tUI("sort.nameDesc"),
 				},
 			],
 		}),
-		[dynamicFilters, language],
+		[dynamicFilters, tUI],
 	);
 
 	const handleResetFilters = () => {
@@ -191,18 +184,14 @@ function RuneList() {
 	return (
 		<div className='animate-fadeIn'>
 			<PageTitle
-				title={language === "vi" ? "Danh sách ngọc bổ trợ" : "Runes List"}
-				description={
-					language === "vi"
-						? "POC GUIDE: Danh sách Ngọc bổ trợ..."
-						: "POC GUIDE: Runes list..."
-				}
+				title={tUI("runeList.title")}
+				description={tUI("runeList.metaDesc")}
 			/>
 
 			<div className='font-secondary'>
 				<div className='flex justify-between items-center mb-6'>
 					<h1 className='text-3xl font-bold text-text-primary font-primary animate-glitch'>
-						{language === "vi" ? "Danh Sách Ngọc" : "Runes List"}
+						{tUI("runeList.heading")}
 					</h1>
 
 					<div className='hidden lg:flex items-center gap-4'>
@@ -217,12 +206,8 @@ function RuneList() {
 								<ChevronLeft size={18} />
 							)}
 							{showDesktopFilter
-								? language === "vi"
-									? "Ẩn bộ lọc"
-									: "Hide Filters"
-								: language === "vi"
-									? "Hiện bộ lọc"
-									: "Show Filters"}
+								? tUI("championList.hideFilter")
+								: tUI("championList.showFilter")}
 						</Button>
 					</div>
 				</div>
@@ -316,15 +301,17 @@ function RuneList() {
 														variant='outline'
 													>
 														<ChevronLeft size={16} className='mr-2' />
-														{language === "vi" ? "Trang Trước" : "Previous"}
+														{tUI("common.prevPage")}
 													</Button>
-													<span>/</span>
+													<span className='font-bold text-primary-500 bg-primary-100/10 px-3 py-1 rounded-full'>
+														{currentPage} / {pagination.totalPages}
+													</span>
 													<Button
 														onClick={goToNextPage}
 														disabled={currentPage === pagination.totalPages}
 														variant='outline'
 													>
-														{language === "vi" ? "Trang Sau" : "Next"}
+														{tUI("common.nextPage")}
 														<ChevronRight size={16} className='ml-2' />
 													</Button>
 												</div>
@@ -333,18 +320,14 @@ function RuneList() {
 											<div className='flex flex-col items-center justify-center py-20 text-text-secondary'>
 												<XCircle size={64} className='mb-4 opacity-10' />
 												<p className='text-xl font-primary'>
-													{language === "vi"
-														? "Không tìm thấy ngọc phù hợp."
-														: "No matching runes found."}
+													{tUI("runeList.notFound")}
 												</p>
 												<Button
 													variant='ghost'
 													onClick={handleResetFilters}
 													className='mt-4'
 												>
-													{language === "vi"
-														? "Xóa tất cả bộ lọc"
-														: "Clear all filters"}
+													{tUI("runeList.clearFilters")}
 												</Button>
 											</div>
 										)}
@@ -367,31 +350,28 @@ function RuneList() {
 							>
 								<div className='w-[280px] xl:w-[320px] p-4 rounded-lg border border-border bg-surface-bg space-y-4 shadow-sm'>
 									<label className='block text-sm font-medium text-text-secondary'>
-										{language === "vi" ? "Tìm kiếm ngọc" : "Search Runes"}
+										{tUI("runeList.searchLabel")}
 									</label>
 									<InputField
 										value={searchInput}
 										onChange={e => setSearchInput(e.target.value)}
 										onKeyDown={e => e.key === "Enter" && handleSearch()}
-										placeholder={
-											language === "vi" ? "Tên ngọc..." : "Rune name..."
-										}
+										placeholder={tUI("runeList.placeholder")}
 									/>
 									<Button
 										onClick={handleSearch}
 										className='w-full mt-2 hover:animate-pulse-focus'
 									>
-										<Search size={16} className='mr-2' />{" "}
-										{language === "vi" ? "Tìm kiếm" : "Search"}
+										<Search size={16} className='mr-2' /> {tUI("common.search")}
 									</Button>
 									<MultiSelectFilter
-										label={language === "vi" ? "Độ hiếm" : "Rarity"}
+										label={tUI("common.rarity")}
 										options={filterOptions.rarities}
 										selectedValues={selectedRarities}
 										onChange={setSelectedRarities}
 									/>
 									<DropdownFilter
-										label={language === "vi" ? "Sắp xếp" : "Sort By"}
+										label={tUI("championList.sortBy")}
 										options={filterOptions.sort}
 										selectedValue={sortOrder}
 										onChange={setSortOrder}
@@ -402,7 +382,7 @@ function RuneList() {
 										className='w-full'
 									>
 										<RotateCw size={16} className='mr-2' />{" "}
-										{language === "vi" ? "Đặt lại bộ lọc" : "Reset Filters"}
+										{tUI("championList.resetFilter")}
 									</Button>
 								</div>
 							</motion.aside>
@@ -417,9 +397,7 @@ function RuneList() {
 									value={searchInput}
 									onChange={e => setSearchInput(e.target.value)}
 									onKeyDown={e => e.key === "Enter" && handleSearch()}
-									placeholder={
-										language === "vi" ? "Tìm ngọc..." : "Search runes..."
-									}
+									placeholder={tUI("runeList.placeholder")}
 								/>
 							</div>
 							<Button onClick={handleSearch} className='px-3'>
@@ -454,13 +432,13 @@ function RuneList() {
 								>
 									<div className='pt-4 space-y-4 border-t border-border mt-3'>
 										<MultiSelectFilter
-											label={language === "vi" ? "Độ hiếm" : "Rarity"}
+											label={tUI("common.rarity")}
 											options={filterOptions.rarities}
 											selectedValues={selectedRarities}
 											onChange={setSelectedRarities}
 										/>
 										<DropdownFilter
-											label={language === "vi" ? "Sắp xếp" : "Sort By"}
+											label={tUI("championList.sortBy")}
 											options={filterOptions.sort}
 											selectedValue={sortOrder}
 											onChange={setSortOrder}

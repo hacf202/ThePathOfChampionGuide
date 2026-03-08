@@ -1,29 +1,25 @@
 // src/pages/itemDetail.jsx
 import { memo, useState, useEffect, useMemo } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion"; // Thêm Framer Motion
+import { motion, AnimatePresence } from "framer-motion";
 import { Loader2, ChevronLeft, XCircle } from "lucide-react";
 import PageTitle from "../common/pageTitle";
 import Button from "../common/button";
 import SafeImage from "../common/SafeImage";
 import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook Đa ngôn ngữ
 
-// --- THÀNH PHẦN SKELETON LOADING (Đồng bộ với ChampionDetail) ---
+// --- THÀNH PHẦN SKELETON LOADING ---
 const ItemDetailSkeleton = () => (
 	<div className='max-w-[1200px] mx-auto p-0 sm:p-6 animate-pulse font-secondary'>
 		<div className='h-10 w-24 bg-gray-700/50 rounded mb-4 ml-4 sm:ml-0' />
 		<div className='bg-surface-bg border border-border rounded-lg p-4 sm:p-6 space-y-8'>
 			<div className='flex flex-col md:flex-row gap-6'>
-				{/* Ảnh Skeleton */}
 				<div className='w-full md:w-[300px] aspect-square bg-gray-700/50 rounded-lg' />
 				<div className='flex-1 space-y-4'>
-					{/* Tiêu đề & Rarity Skeleton */}
 					<div className='h-16 w-full bg-gray-700/50 rounded-lg' />
-					{/* Mô tả Skeleton */}
 					<div className='h-48 w-full bg-gray-700/50 rounded-lg' />
 				</div>
 			</div>
-			{/* Danh sách tướng Skeleton */}
 			<div className='space-y-4'>
 				<div className='h-8 w-60 bg-gray-700/50 rounded' />
 				<div className='grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-4'>
@@ -39,7 +35,7 @@ const ItemDetailSkeleton = () => (
 function ItemDetail() {
 	const { itemCode } = useParams();
 	const navigate = useNavigate();
-	const { language, t } = useTranslation(); // 🟢 Khởi tạo Hook
+	const { tUI, tDynamic } = useTranslation(); // 🟢 Sử dụng tUI và tDynamic
 
 	const [item, setItem] = useState(null);
 	const [champions, setChampions] = useState([]);
@@ -63,12 +59,8 @@ function ItemDetail() {
 				if (!itemRes.ok) {
 					throw new Error(
 						itemRes.status === 404
-							? language === "vi"
-								? `Không tìm thấy vật phẩm mã: ${decodedCode}`
-								: `Item code not found: ${decodedCode}`
-							: language === "vi"
-								? "Lỗi tải thông tin vật phẩm."
-								: "Error loading item information.",
+							? `${tUI("itemDetail.notFoundPrefix")} ${decodedCode}`
+							: tUI("itemDetail.errorLoad"),
 					);
 				}
 
@@ -80,44 +72,35 @@ function ItemDetail() {
 				setItem(foundItem);
 				setChampions(championsData.items || []);
 			} catch (err) {
-				setError(
-					err.message ||
-						(language === "vi"
-							? "Đã xảy ra lỗi khi tải dữ liệu."
-							: "An error occurred while loading data."),
-				);
+				setError(err.message || tUI("common.errorLoadData"));
 			} finally {
-				// Áp dụng độ trễ 800ms để hiệu ứng loading mượt mà đồng bộ với hệ thống
 				setTimeout(() => setLoading(false), 800);
 			}
 		};
 
 		if (itemCode) fetchData();
-	}, [itemCode, apiUrl, language]);
+	}, [itemCode, apiUrl, tUI]);
 
-	// 🟢 Xử lý Tên và Mô tả đa ngôn ngữ của Vật phẩm
-	const itemName = item ? t(item, "name") : "";
+	// 🟢 Xử lý Tên và Mô tả đa ngôn ngữ của Vật phẩm bằng tDynamic
+	const itemName = item ? tDynamic(item, "name") : "";
 	const itemDesc = item
-		? t(item, "descriptionRaw") || t(item, "description")
+		? tDynamic(item, "descriptionRaw") || tDynamic(item, "description")
 		: "";
 
 	const compatibleChampions = useMemo(() => {
 		if (!item || !champions.length) return [];
-		return (
-			champions
-				// So sánh bằng tên gốc trong database để đảm bảo logic không bị vỡ
-				.filter(champion =>
-					champion.defaultItems?.some(
-						defaultItemName => defaultItemName === item.name,
-					),
-				)
-				.map(champion => ({
-					championID: champion.championID,
-					name: t(champion, "name"), // 🟢 Dịch tên Tướng
-					image: champion.assets?.[0]?.avatar || "/fallback-image.svg",
-				}))
-		);
-	}, [item, champions, t]);
+		return champions
+			.filter(champion =>
+				champion.defaultItems?.some(
+					defaultItemName => defaultItemName === item.name,
+				),
+			)
+			.map(champion => ({
+				championID: champion.championID,
+				name: tDynamic(champion, "name"), // 🟢 Dịch tên Tướng
+				image: champion.assets?.[0]?.avatar || "/fallback-image.svg",
+			}));
+	}, [item, champions, tDynamic]);
 
 	if (error)
 		return (
@@ -125,10 +108,10 @@ function ItemDetail() {
 				<div className='bg-surface-hover p-8 rounded-lg border border-border inline-block'>
 					<XCircle size={48} className='mx-auto mb-4 text-red-500 opacity-50' />
 					<p className='text-xl font-bold text-red-500'>
-						{language === "vi" ? "Lỗi:" : "Error:"} {error}
+						{tUI("common.errorTitle")}: {error}
 					</p>
 					<Button onClick={() => navigate(-1)} className='mt-6 mx-auto'>
-						<ChevronLeft size={18} /> {language === "vi" ? "Quay lại" : "Back"}
+						<ChevronLeft size={18} /> {tUI("common.back")}
 					</Button>
 				</div>
 			</div>
@@ -137,14 +120,8 @@ function ItemDetail() {
 	return (
 		<div className='animate-fadeIn'>
 			<PageTitle
-				title={
-					itemName || (language === "vi" ? "Chi tiết vật phẩm" : "Item Details")
-				}
-				description={
-					language === "vi"
-						? `Chi tiết vật phẩm ${itemName}`
-						: `Item details for ${itemName}`
-				}
+				title={itemName || tUI("itemDetail.title")}
+				description={`${tUI("itemDetail.metaDesc")} ${itemName}`}
 				type='article'
 			/>
 
@@ -172,8 +149,7 @@ function ItemDetail() {
 							onClick={() => navigate(-1)}
 							className='mb-4 ml-4 sm:ml-0'
 						>
-							<ChevronLeft size={18} />{" "}
-							{language === "vi" ? "Quay lại" : "Back"}
+							<ChevronLeft size={18} /> {tUI("common.back")}
 						</Button>
 
 						<div className='relative mx-auto max-w-[1200px] border border-border p-4 sm:p-6 rounded-lg bg-surface-bg shadow-sm'>
@@ -204,9 +180,7 @@ function ItemDetail() {
 							</div>
 
 							<h2 className='text-xl sm:text-3xl font-semibold mt-8 mb-4 font-primary'>
-								{language === "vi"
-									? "Các tướng sử dụng vật phẩm"
-									: "Champions using this item"}
+								{tUI("itemDetail.compatibleChampions")}
 							</h2>
 
 							{compatibleChampions.length > 0 ? (
@@ -230,11 +204,7 @@ function ItemDetail() {
 								</div>
 							) : (
 								<div className='text-center p-8 rounded-md bg-surface-hover text-text-secondary border border-dashed border-border'>
-									<p>
-										{language === "vi"
-											? "Vật phẩm này hiện chưa được trang bị mặc định cho tướng nào."
-											: "This item is not currently equipped by default on any champion."}
-									</p>
+									<p>{tUI("itemDetail.noCompatibleChampions")}</p>
 								</div>
 							)}
 						</div>

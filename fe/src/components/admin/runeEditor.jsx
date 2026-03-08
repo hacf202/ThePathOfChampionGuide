@@ -7,20 +7,40 @@ import { removeAccents } from "../../utils/vietnameseUtils";
 import SidePanel from "../common/sidePanel";
 import RuneEditorForm from "./runeEditorForm";
 import { Loader2 } from "lucide-react";
+import { useTranslation } from "../../hooks/useTranslation"; // IMPORT HOOK ĐA NGÔN NGỮ
 
 const NEW_RUNE_TEMPLATE = {
 	runeCode: "",
 	isNew: true,
-	name: "Ngọc Mới",
+	name: "",
+	region: "",
 	rarity: "",
-	type: "",
+	type: [], // Mặc định là mảng để chuẩn hóa với DB
 	assetAbsolutePath: "",
 	assetFullAbsolutePath: "",
 	description: "",
-	descriptionRaw: "",
+	translations: {
+		en: {
+			name: "",
+			region: "",
+			rarity: "",
+			description: "",
+		},
+	},
 };
 
 const ITEMS_PER_PAGE = 20;
+
+const RARITY_WEIGHT = {
+	Thường: 1,
+	Common: 1,
+	Hiếm: 2,
+	Rare: 2,
+	"Sử Thi": 3,
+	Epic: 3,
+	"Huyền Thoại": 4,
+	Legendary: 4,
+};
 
 // === LIST VIEW COMPONENT ===
 const RuneListView = memo(
@@ -31,6 +51,8 @@ const RuneListView = memo(
 		onPageChange,
 		sidePanelProps,
 	}) => {
+		const { tUI } = useTranslation();
+
 		return (
 			<div className='flex flex-col lg:flex-row gap-6'>
 				<div className='lg:w-4/5 bg-surface-bg rounded-lg p-4'>
@@ -42,7 +64,7 @@ const RuneListView = memo(
 									to={`./${rune.runeCode}`}
 									className='block hover:scale-105 transition-transform duration-200'
 								>
-									<GenericCard item={rune} />
+									<GenericCard item={rune} onClick={() => {}} />
 								</Link>
 							))}
 						</div>
@@ -50,9 +72,9 @@ const RuneListView = memo(
 						<div className='flex items-center justify-center h-full min-h-[300px] text-center text-text-secondary'>
 							<div>
 								<p className='font-semibold text-lg'>
-									Không tìm thấy ngọc nào phù hợp.
+									{tUI("admin.rune.notFound")}
 								</p>
-								<p>Vui lòng thử lại với bộ lọc khác.</p>
+								<p>{tUI("admin.rune.tryOtherFilter")}</p>
 							</div>
 						</div>
 					)}
@@ -64,7 +86,7 @@ const RuneListView = memo(
 								disabled={currentPage === 1}
 								variant='outline'
 							>
-								Trang trước
+								{tUI("admin.common.prevPage")}
 							</Button>
 							<span className='text-lg font-medium text-text-primary'>
 								{currentPage} / {totalPages}
@@ -74,7 +96,7 @@ const RuneListView = memo(
 								disabled={currentPage === totalPages}
 								variant='outline'
 							>
-								Trang sau
+								{tUI("admin.common.nextPage")}
 							</Button>
 						</div>
 					)}
@@ -97,22 +119,16 @@ const RuneEditWrapper = ({
 }) => {
 	const { id } = useParams();
 	const navigate = useNavigate();
+	const { tUI } = useTranslation();
 
 	const selectedRune = useMemo(() => {
 		if (id === "new") return { ...NEW_RUNE_TEMPLATE };
-
 		const safeRunes = Array.isArray(runes) ? runes : [];
 		const found = safeRunes.find(r => r.runeCode === id);
-		if (found) {
-			// Đánh dấu isNew: false để Backend nhận biết lệnh Cập nhật
-			return { ...found, isNew: false };
-		}
-		return null;
+		return found ? { ...found, isNew: false } : null;
 	}, [id, runes]);
 
-	const handleBack = useCallback(() => {
-		navigate("/admin/runes");
-	}, [navigate]);
+	const handleBack = useCallback(() => navigate("/admin/runes"), [navigate]);
 
 	if (
 		!selectedRune &&
@@ -122,9 +138,11 @@ const RuneEditWrapper = ({
 	) {
 		return (
 			<div className='flex flex-col items-center justify-center py-20 text-text-secondary'>
-				<p className='text-xl mb-4'>Không tìm thấy ngọc có mã: {id}</p>
+				<p className='text-xl mb-4'>
+					{tUI("admin.rune.notFoundId")} {id}
+				</p>
 				<Button onClick={handleBack} variant='primary'>
-					Quay lại danh sách
+					{tUI("admin.common.backToList")}
 				</Button>
 			</div>
 		);
@@ -159,136 +177,182 @@ function RuneEditor() {
 	const [selectedTypes, setSelectedTypes] = useState([]);
 	const [sortOrder, setSortOrder] = useState("name-asc");
 	const [currentPage, setCurrentPage] = useState(1);
-
 	const [isLoading, setIsLoading] = useState(true);
 	const [isSaving, setIsSaving] = useState(false);
 	const [error, setError] = useState(null);
 
 	const API_BASE_URL = import.meta.env.VITE_API_URL;
 	const navigate = useNavigate();
+	const { tUI, tDynamic } = useTranslation();
 
 	const fetchAllData = useCallback(async () => {
 		try {
 			setIsLoading(true);
+			// SỬA NHANH Ở ĐÂY: Đổi limit=-1 thành limit=1000
 			const res = await fetch(`${API_BASE_URL}/api/runes?limit=1000`);
-			if (!res.ok) throw new Error("Không thể tải dữ liệu");
+			if (!res.ok) throw new Error(tUI("admin.common.errorLoad"));
 			const data = await res.json();
-			setRunes(data.items || []);
+			const items = Array.isArray(data) ? data : data.items || [];
+			setRunes(items);
 		} catch (e) {
-			setError("Không thể tải dữ liệu từ server.");
+			setError(tUI("admin.common.errorLoad"));
 		} finally {
 			setIsLoading(false);
 		}
-	}, [API_BASE_URL]);
+	}, [API_BASE_URL, tUI]);
 
 	useEffect(() => {
 		fetchAllData();
 	}, [fetchAllData]);
 
-	const filterOptions = useMemo(() => {
-		const safeRunes = Array.isArray(runes) ? runes : [];
-		const rarities = [
-			...new Set(safeRunes.map(r => r.rarity).filter(Boolean)),
-		].sort();
-		const types = [...new Set(safeRunes.map(r => r.type || "Other"))].sort();
-
-		return {
-			rarities: rarities.map(r => ({ value: r, label: r })),
-			types: types.map(t => ({ value: t, label: t })),
-			sort: [
-				{ value: "name-asc", label: "Tên A-Z" },
-				{ value: "name-desc", label: "Tên Z-A" },
-			],
-		};
-	}, [runes]);
-
-	const filteredRunes = useMemo(() => {
-		let result = Array.isArray(runes) ? [...runes] : [];
-
-		if (searchTerm) {
-			const term = removeAccents(searchTerm.toLowerCase());
-			result = result.filter(r =>
-				removeAccents((r.name || "").toLowerCase()).includes(term),
-			);
-		}
-
-		if (selectedRarities.length)
-			result = result.filter(r => selectedRarities.includes(r.rarity));
-		if (selectedTypes.length)
-			result = result.filter(r => selectedTypes.includes(r.type));
-
-		const [field, dir] = sortOrder.split("-");
-		result.sort((a, b) => {
-			const A = a.name || "";
-			const B = b.name || "";
-			return dir === "asc" ? A.localeCompare(B) : B.localeCompare(A);
-		});
-
-		return result;
-	}, [runes, searchTerm, selectedRarities, selectedTypes, sortOrder]);
-
-	const totalPages = Math.ceil(filteredRunes.length / ITEMS_PER_PAGE);
-	const paginatedRunes = filteredRunes.slice(
-		(currentPage - 1) * ITEMS_PER_PAGE,
-		currentPage * ITEMS_PER_PAGE,
-	);
-
 	const handleSaveRune = async data => {
 		setIsSaving(true);
 		try {
 			const token = localStorage.getItem("token");
+
+			// Dọn dẹp bản dịch rỗng trước khi lưu để tránh rác DB
+			const payload = { ...data };
+			if (
+				!payload.translations?.en?.name &&
+				!payload.translations?.en?.description &&
+				!payload.translations?.en?.region &&
+				!payload.translations?.en?.rarity
+			) {
+				delete payload.translations;
+			}
+
 			const res = await fetch(`${API_BASE_URL}/api/runes`, {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
 					Authorization: `Bearer ${token}`,
 				},
-				body: JSON.stringify(data),
+				body: JSON.stringify(payload),
 			});
 
 			const result = await res.json();
-
-			if (!res.ok) {
-				// Sử dụng lỗi từ backend (Ví dụ: 409 Conflict hoặc 404 Not Found)
-				throw new Error(result.error || "Lưu thất bại.");
-			}
+			if (!res.ok)
+				throw new Error(result.error || tUI("admin.common.saveFailed"));
 
 			await fetchAllData();
 			navigate("/admin/runes");
-			alert(result.message || "Lưu thành công");
+			alert(result.message || tUI("admin.common.saveSuccess"));
 		} catch (e) {
-			alert(e.message || "Đã có lỗi xảy ra");
+			alert(e.message || tUI("admin.common.errorOccurred"));
 		} finally {
 			setIsSaving(false);
 		}
 	};
 
-	const handleDeleteRune = async runeCode => {
-		if (!runeCode || !window.confirm("Bạn có chắc chắn muốn xóa ngọc này?"))
-			return;
+	const handleDeleteRune = async id => {
+		if (!id || !window.confirm(tUI("admin.common.deleteConfirm"))) return;
 		setIsSaving(true);
 		try {
 			const token = localStorage.getItem("token");
-			const res = await fetch(`${API_BASE_URL}/api/runes/${runeCode}`, {
+			const res = await fetch(`${API_BASE_URL}/api/runes/${id}`, {
 				method: "DELETE",
 				headers: { Authorization: `Bearer ${token}` },
 			});
-			if (!res.ok) throw new Error("Xóa thất bại");
+			if (!res.ok) throw new Error(tUI("admin.common.deleteFailed"));
 
 			await fetchAllData();
 			navigate("/admin/runes");
-			alert("Đã xóa ngọc thành công");
+			alert(tUI("admin.common.deleteSuccess"));
 		} catch (e) {
-			alert(e.message || "Xóa thất bại");
+			alert(e.message || tUI("admin.common.deleteFailed"));
 		} finally {
 			setIsSaving(false);
 		}
 	};
 
+	const filterOptions = useMemo(() => {
+		const rarities = [...new Set(runes.map(r => r.rarity).filter(Boolean))];
+		const typesList = [];
+		runes.forEach(r => {
+			if (Array.isArray(r.type)) {
+				r.type.forEach(t => {
+					if (t && !typesList.includes(t)) typesList.push(t);
+				});
+			} else if (typeof r.type === "string" && r.type) {
+				const parts = r.type.split(",").map(s => s.trim());
+				parts.forEach(p => {
+					if (p && !typesList.includes(p)) typesList.push(p);
+				});
+			}
+		});
+
+		// Sắp xếp độ hiếm theo trọng số
+		rarities.sort((a, b) => (RARITY_WEIGHT[a] || 0) - (RARITY_WEIGHT[b] || 0));
+
+		return {
+			rarities: rarities.map(r => ({ value: r, label: r })),
+			types: typesList.sort().map(t => ({ value: t, label: t })),
+			sort: [
+				{ value: "name-asc", label: tUI("admin.common.sortNameAsc") },
+				{ value: "name-desc", label: tUI("admin.common.sortNameDesc") },
+				{ value: "rarity-asc", label: tUI("admin.rune.sortRarityAsc") },
+				{ value: "rarity-desc", label: tUI("admin.rune.sortRarityDesc") },
+			],
+		};
+	}, [runes, tUI]);
+
+	const filteredRunes = useMemo(() => {
+		let result = [...runes];
+
+		if (searchTerm) {
+			const term = removeAccents(searchTerm.toLowerCase());
+			result = result.filter(r => {
+				const nameMatch = removeAccents(
+					(tDynamic(r, "name") || "").toLowerCase(),
+				).includes(term);
+				const descMatch = removeAccents(
+					(tDynamic(r, "description") || "").toLowerCase(),
+				).includes(term);
+				return nameMatch || descMatch;
+			});
+		}
+
+		if (selectedRarities.length) {
+			result = result.filter(r => selectedRarities.includes(r.rarity));
+		}
+
+		if (selectedTypes.length) {
+			result = result.filter(r => {
+				if (!r.type) return false;
+				if (Array.isArray(r.type)) {
+					return r.type.some(t => selectedTypes.includes(t));
+				}
+				const p = r.type.split(",").map(s => s.trim());
+				return p.some(t => selectedTypes.includes(t));
+			});
+		}
+
+		const [field, dir] = sortOrder.split("-");
+		result.sort((a, b) => {
+			if (field === "name") {
+				const A = tDynamic(a, "name") || "";
+				const B = tDynamic(b, "name") || "";
+				return dir === "asc" ? A.localeCompare(B) : B.localeCompare(A);
+			} else if (field === "rarity") {
+				const A = RARITY_WEIGHT[a.rarity] || 0;
+				const B = RARITY_WEIGHT[b.rarity] || 0;
+				if (A === B) {
+					const na = tDynamic(a, "name") || "";
+					const nb = tDynamic(b, "name") || "";
+					return na.localeCompare(nb);
+				}
+				return dir === "asc" ? A - B : B - A;
+			}
+			return 0;
+		});
+
+		return result;
+	}, [runes, searchTerm, selectedRarities, selectedTypes, sortOrder, tDynamic]);
+
 	const sidePanelProps = {
-		searchPlaceholder: "Nhập tên ngọc...",
-		addLabel: "Thêm Ngọc Mới",
-		resetLabel: "Đặt lại bộ lọc",
+		searchPlaceholder: tUI("admin.rune.searchPlaceholder"),
+		addLabel: tUI("admin.rune.addNew"),
+		resetLabel: tUI("admin.rune.resetFilter"),
 		searchInput,
 		onSearchInputChange: e => setSearchInput(e.target.value),
 		onSearch: () => {
@@ -310,18 +374,18 @@ function RuneEditor() {
 		},
 		multiFilterConfigs: [
 			{
-				label: "Độ hiếm",
+				label: tUI("admin.rune.rarity"),
 				options: filterOptions.rarities,
 				selectedValues: selectedRarities,
 				onChange: setSelectedRarities,
-				placeholder: "Tất cả Độ hiếm",
+				placeholder: tUI("admin.rune.allRarities"),
 			},
 			{
-				label: "Loại",
+				label: tUI("admin.rune.type"),
 				options: filterOptions.types,
 				selectedValues: selectedTypes,
 				onChange: setSelectedTypes,
-				placeholder: "Tất cả Loại",
+				placeholder: tUI("admin.rune.allTypes"),
 			},
 		],
 		sortOptions: filterOptions.sort,
@@ -333,7 +397,7 @@ function RuneEditor() {
 		return (
 			<div className='flex flex-col items-center justify-center min-h-[400px] text-text-secondary'>
 				<Loader2 className='animate-spin text-primary-500' size={48} />
-				<div className='text-lg mt-4'>Đang tải dữ liệu...</div>
+				<div className='text-lg mt-4'>{tUI("admin.common.loading")}</div>
 			</div>
 		);
 	}
@@ -349,8 +413,11 @@ function RuneEditor() {
 					index
 					element={
 						<RuneListView
-							paginatedRunes={paginatedRunes}
-							totalPages={totalPages}
+							paginatedRunes={filteredRunes.slice(
+								(currentPage - 1) * ITEMS_PER_PAGE,
+								currentPage * ITEMS_PER_PAGE,
+							)}
+							totalPages={Math.ceil(filteredRunes.length / ITEMS_PER_PAGE)}
 							currentPage={currentPage}
 							onPageChange={setCurrentPage}
 							sidePanelProps={sidePanelProps}

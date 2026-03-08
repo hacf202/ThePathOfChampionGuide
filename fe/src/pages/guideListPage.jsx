@@ -4,15 +4,15 @@ import axios from "axios";
 import { Calendar, Eye, ArrowRight } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/common/button";
-import { useTranslation } from "../hooks/useTranslation"; // 🟢 Import Hook Đa ngôn ngữ
-import PageTitle from "../components/common/pageTitle"; // 🟢 Import PageTitle
+import { useTranslation } from "../hooks/useTranslation"; // 🟢 Hook Đa ngôn ngữ
+import PageTitle from "../components/common/pageTitle";
 
 const GuideList = () => {
 	const [guides, setGuides] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 	const navigate = useNavigate();
-	const { language, t } = useTranslation(); // 🟢 Khởi tạo Hook
+	const { tUI, t } = useTranslation(); // 🟢 Khởi tạo Hook
 
 	const fetchGuides = async () => {
 		setLoading(true);
@@ -26,12 +26,7 @@ const GuideList = () => {
 			}
 		} catch (err) {
 			console.error("Lỗi tải guides:", err);
-			setError(
-				err.message ||
-					(language === "vi"
-						? "Lỗi kết nối server"
-						: "Server connection error"),
-			);
+			setError(err.message || tUI("common.errorLoadData"));
 		} finally {
 			setLoading(false);
 		}
@@ -44,7 +39,7 @@ const GuideList = () => {
 	if (loading)
 		return (
 			<div className='text-center py-10 text-gray-600'>
-				{language === "vi" ? "Đang tải dữ liệu..." : "Loading data..."}
+				{tUI("common.loading")}
 			</div>
 		);
 
@@ -53,26 +48,20 @@ const GuideList = () => {
 
 	return (
 		<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12'>
-			{/* Đổi tiêu đề Tab Trình duyệt theo ngôn ngữ */}
-			<PageTitle
-				title={language === "vi" ? "Hướng dẫn & Cẩm nang" : "Guides & Manuals"}
-			/>
+			<PageTitle title={tUI("guideList.pageTitle")} />
 
 			<div className='text-center mb-12'>
 				<h1 className='text-4xl font-extrabold text-gray-900 mb-4'>
-					{language === "vi" ? "Hướng dẫn & Cẩm nang" : "Guides & Manuals"}
+					{tUI("guideList.heading")}
 				</h1>
 				<p className='text-xl text-gray-500 max-w-2xl mx-auto'>
-					{language === "vi"
-						? "Khám phá các bài viết hướng dẫn chi tiết giúp bạn dễ dàng vượt qua các thử thách trong Path of Champions."
-						: "Discover detailed guides to help you easily overcome challenges in The Path of Champions."}
+					{tUI("guideList.description")}
 				</p>
 			</div>
 
 			<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
 				{guides.map(guide => {
-					// 🟢 Tự động dịch Tiêu đề nếu có hỗ trợ
-					const guideTitle = t(guide, "title");
+					const guideTitle = t(guide, "title"); // 🟢 Tự động dịch tiêu đề động
 
 					return (
 						<div
@@ -104,7 +93,7 @@ const GuideList = () => {
 									</p>
 									<p className='flex items-center gap-1 text-gray-500 text-sm'>
 										<Eye size={18} />
-										{guide.views} {language === "vi" ? "lượt xem" : "views"}
+										{guide.views} {tUI("common.views")}
 									</p>
 								</div>
 								<div className='mt-auto'>
@@ -113,8 +102,7 @@ const GuideList = () => {
 										onClick={() => navigate(`/guides/${guide.slug}`)}
 										className='w-full flex justify-center items-center gap-2'
 									>
-										{language === "vi" ? "Đọc tiếp" : "Read more"}{" "}
-										<ArrowRight size={18} />
+										{tUI("guideList.readMore")} <ArrowRight size={18} />
 									</Button>
 								</div>
 							</div>
@@ -122,12 +110,9 @@ const GuideList = () => {
 					);
 				})}
 
-				{/* Hiển thị khi danh sách trống */}
 				{guides.length === 0 && (
 					<div className='col-span-full text-center py-10 text-gray-500 italic'>
-						{language === "vi"
-							? "Hiện tại chưa có bài hướng dẫn nào."
-							: "No guides available at the moment."}
+						{tUI("guideList.noGuides")}
 					</div>
 				)}
 			</div>

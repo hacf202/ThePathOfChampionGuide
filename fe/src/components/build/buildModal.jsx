@@ -7,10 +7,10 @@ import Button from "../common/button";
 import { Star, Eye, EyeOff, ChevronDown, AlertCircle } from "lucide-react";
 import SafeImage from "../common/SafeImage.jsx";
 
-// === Searchable Dropdown Component (Giữ nguyên giao diện và CSS) ===
+// === Searchable Dropdown Component ===
 const SearchableDropdown = ({
 	options,
-	selectedValue, // 🟢 Sẽ là chuỗi ID/Code
+	selectedValue,
 	onChange,
 	placeholder,
 	disabled = false,
@@ -19,12 +19,11 @@ const SearchableDropdown = ({
 	allowDuplicate = true,
 	selectedValues = [],
 }) => {
-	const { language } = useTranslation();
+	const { tUI } = useTranslation();
 	const [isOpen, setIsOpen] = useState(false);
 	const [searchTerm, setSearchTerm] = useState("");
 	const dropdownRef = useRef(null);
 
-	// Tìm Option dựa trên value (ID) thay vì name
 	const selectedOption = useMemo(
 		() => options.find(opt => opt.value === selectedValue),
 		[options, selectedValue],
@@ -94,9 +93,7 @@ const SearchableDropdown = ({
 						className={`truncate ${selectedValue ? "text-text-primary" : "text-text-secondary"}`}
 					>
 						{loading
-							? language === "vi"
-								? "Đang tải..."
-								: "Loading..."
+							? tUI("common.loading")
 							: selectedOption?.label || placeholder}
 					</span>
 				</div>
@@ -111,7 +108,7 @@ const SearchableDropdown = ({
 					<div className='p-2 sticky top-0 bg-surface-bg z-10 border-b border-border'>
 						<input
 							type='text'
-							placeholder={language === "vi" ? "Tìm kiếm..." : "Search..."}
+							placeholder={tUI("common.searchPlaceholder")}
 							className='w-full bg-surface-hover border border-border rounded-md p-2 text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-primary-500'
 							value={searchTerm}
 							onChange={e => setSearchTerm(e.target.value)}
@@ -148,7 +145,7 @@ const SearchableDropdown = ({
 							})
 						) : (
 							<li className='p-2 text-text-secondary text-sm italic'>
-								{language === "vi" ? "Không tìm thấy" : "Not found"}
+								{tUI("common.notFound")}
 							</li>
 						)}
 					</ul>
@@ -172,23 +169,21 @@ const BuildModal = ({
 	initialData = null,
 	onChampionChange,
 	maxStar = 7,
-	championsList = [], // 🟢 Nhận Master Data từ props để tối ưu
+	championsList = [],
 	relicsList = [],
 	powersList = [],
 	runesList = [],
 }) => {
 	const { token } = useContext(AuthContext);
-	const { language, t } = useTranslation(); // 🟢 Khởi tạo i18n
+	const { tUI, tDynamic } = useTranslation(); // 🟢 Sử dụng tUI và tDynamic
 	const isEditMode = !!initialData;
 	const apiUrl = import.meta.env.VITE_API_URL;
 
-	// Chuẩn hóa trạng thái hiển thị
 	const getInitialDisplay = () => {
 		if (!initialData) return true;
 		return initialData.display === true || initialData.display === "true";
 	};
 
-	// 🟢 Khởi tạo formData sử dụng mảng ID
 	const [formData, setFormData] = useState({
 		championName: initialData?.championName || "",
 		relicSetIds: initialData?.relicSetIds || [null, null, null],
@@ -204,19 +199,18 @@ const BuildModal = ({
 	const [loading, setLoading] = useState(false);
 	const [submitting, setSubmitting] = useState(false);
 
-	// 🟢 Mapper dữ liệu hiển thị (Dùng t() để dịch tên)
 	const championOptions = useMemo(
 		() =>
 			championsList
 				.map(c => ({
-					value: c.name, // Logic DB cũ vẫn cần tên tướng làm định danh
-					label: t(c, "name"),
+					value: c.name,
+					label: tDynamic(c, "name"), // 🟢 Dùng tDynamic thay cho t
 					icon: c.assets?.[0]?.avatar,
 					regions: c.regions,
 					rawName: c.name,
 				}))
 				.sort((a, b) => a.label.localeCompare(b.label)),
-		[championsList, t],
+		[championsList, tDynamic],
 	);
 
 	const relicOptions = useMemo(
@@ -224,13 +218,13 @@ const BuildModal = ({
 			relicsList
 				.map(r => ({
 					value: r.relicCode,
-					label: t(r, "name"),
+					label: tDynamic(r, "name"),
 					icon: r.assetAbsolutePath,
 					stack: r.stack,
 					rawName: r.name,
 				}))
 				.sort((a, b) => a.label.localeCompare(b.label)),
-		[relicsList, t],
+		[relicsList, tDynamic],
 	);
 
 	const powerOptions = useMemo(
@@ -238,12 +232,12 @@ const BuildModal = ({
 			powersList
 				.map(p => ({
 					value: p.powerCode,
-					label: t(p, "name"),
+					label: tDynamic(p, "name"),
 					icon: p.assetAbsolutePath,
 					rawName: p.name,
 				}))
 				.sort((a, b) => a.label.localeCompare(b.label)),
-		[powersList, t],
+		[powersList, tDynamic],
 	);
 
 	const runeOptions = useMemo(
@@ -251,12 +245,12 @@ const BuildModal = ({
 			runesList
 				.map(r => ({
 					value: r.runeCode,
-					label: t(r, "name"),
+					label: tDynamic(r, "name"),
 					icon: r.assetAbsolutePath,
 					rawName: r.name,
 				}))
 				.sort((a, b) => a.label.localeCompare(b.label)),
-		[runesList, t],
+		[runesList, tDynamic],
 	);
 
 	const isHoaLinh = useMemo(
@@ -264,25 +258,17 @@ const BuildModal = ({
 		[formData.regions],
 	);
 
-	// Hàm kiểm tra logic
 	const validate = () => {
 		const newErrors = {};
 		if (!formData.championName) {
-			newErrors.championName =
-				language === "vi"
-					? "Vui lòng chọn tướng."
-					: "Please select a champion.";
+			newErrors.championName = tUI("buildModal.errorSelectChampion");
 		}
 
 		const activeRelics = formData.relicSetIds.filter(Boolean);
 		if (activeRelics.length === 0) {
-			newErrors.relicSet =
-				language === "vi"
-					? "Cần chọn ít nhất 1 cổ vật."
-					: "Select at least 1 relic.";
+			newErrors.relicSet = tUI("buildModal.errorSelectRelic");
 		}
 
-		// Kiểm tra trùng lặp cổ vật không được cộng dồn (stack=1)
 		const relicErrors = [];
 		formData.relicSetIds.forEach((id, index) => {
 			if (id) {
@@ -292,10 +278,7 @@ const BuildModal = ({
 						(otherId, otherIdx) => otherId === id && otherIdx !== index,
 					);
 					if (isDuplicate) {
-						relicErrors[index] =
-							language === "vi"
-								? "Không thể dùng trùng."
-								: "Duplicate not allowed.";
+						relicErrors[index] = tUI("buildModal.errorDuplicate");
 					}
 				}
 			}
@@ -316,7 +299,6 @@ const BuildModal = ({
 				? `${apiUrl}/api/builds/${initialData._id}`
 				: `${apiUrl}/api/builds`;
 
-			// 🟢 Payload gửi mảng ID sạch lên Backend
 			const payload = {
 				...formData,
 				relicSetIds: formData.relicSetIds.filter(Boolean),
@@ -353,13 +335,7 @@ const BuildModal = ({
 			isOpen={isOpen}
 			onClose={onClose}
 			title={
-				isEditMode
-					? language === "vi"
-						? "Chỉnh sửa bộ cổ vật"
-						: "Edit Build"
-					: language === "vi"
-						? "Tạo bộ cổ vật mới"
-						: "Create New Build"
+				isEditMode ? tUI("buildModal.editTitle") : tUI("buildModal.createTitle")
 			}
 			maxWidth='max-w-3xl'
 		>
@@ -367,7 +343,7 @@ const BuildModal = ({
 				{/* Chọn Tướng */}
 				<div>
 					<label className='block text-sm font-medium text-text-secondary mb-1'>
-						{language === "vi" ? "Tướng:" : "Champion:"}
+						{tUI("buildModal.champion")}
 					</label>
 					<SearchableDropdown
 						options={championOptions}
@@ -383,9 +359,7 @@ const BuildModal = ({
 								setErrors(prev => ({ ...prev, championName: null }));
 							onChampionChange?.(v);
 						}}
-						placeholder={
-							language === "vi" ? "Chọn tướng..." : "Select champion..."
-						}
+						placeholder={tUI("buildModal.selectChampion")}
 						loading={loading}
 						disabled={isEditMode}
 						error={errors.championName}
@@ -400,9 +374,7 @@ const BuildModal = ({
 					{/* Cấp sao */}
 					<div className='mb-2'>
 						<label className='block text-sm font-medium text-text-secondary mb-2'>
-							{language === "vi"
-								? `Cấp sao (Tối đa ${maxStar}):`
-								: `Stars (Max ${maxStar}):`}
+							{tUI("buildModal.starsMax").replace("{max}", maxStar)}
 						</label>
 						<div className='flex gap-1'>
 							{Array.from({ length: maxStar }, (_, i) => i + 1).map(s => (
@@ -419,7 +391,7 @@ const BuildModal = ({
 
 					{/* Cổ vật */}
 					<label className='block text-sm font-medium text-text-secondary mb-2'>
-						{language === "vi" ? "Cổ vật:" : "Relics:"}
+						{tUI("buildModal.relics")}
 						{errors.relicSet && (
 							<span className='text-danger-500 ml-2 text-xs font-normal'>
 								({errors.relicSet})
@@ -442,7 +414,7 @@ const BuildModal = ({
 										relicItems: null,
 									}));
 								}}
-								placeholder={`${language === "vi" ? "Cổ vật" : "Relic"} ${i + 1}`}
+								placeholder={`${tUI("buildModal.relicPlaceholder")} ${i + 1}`}
 								error={errors.relicItems?.[i]}
 								allowDuplicate={
 									relicOptions.find(r => r.value === formData.relicSetIds[i])
@@ -459,24 +431,20 @@ const BuildModal = ({
 					{isHoaLinh && (
 						<div className='mt-2'>
 							<label className='block text-sm font-medium text-text-secondary mb-2'>
-								{language === "vi" ? "Ngọc Hoa Linh:" : "Spirit Rune:"}
+								{tUI("buildModal.spiritRune")}
 							</label>
 							<SearchableDropdown
 								options={runeOptions}
 								selectedValue={formData.runeIds[0]}
 								onChange={v => setFormData(p => ({ ...p, runeIds: [v] }))}
-								placeholder={
-									language === "vi" ? "Chọn ngọc..." : "Select rune..."
-								}
+								placeholder={tUI("buildModal.selectRune")}
 							/>
 						</div>
 					)}
 
 					{/* Sức mạnh */}
 					<label className='block text-sm font-medium text-text-secondary my-2'>
-						{language === "vi"
-							? "Sức mạnh khuyên dùng:"
-							: "Recommended powers:"}
+						{tUI("buildModal.recommendedPowers")}
 					</label>
 					<div className='grid grid-cols-2 md:grid-cols-3 gap-4'>
 						{formData.powerIds.map((_, i) => (
@@ -489,7 +457,7 @@ const BuildModal = ({
 									newP[i] = v;
 									setFormData(p => ({ ...p, powerIds: newP }));
 								}}
-								placeholder={`${language === "vi" ? "Sức mạnh" : "Power"} ${i + 1}`}
+								placeholder={`${tUI("buildModal.powerPlaceholder")} ${i + 1}`}
 								allowDuplicate={false}
 								selectedValues={formData.powerIds.filter((_, idx) => idx !== i)}
 							/>
@@ -499,11 +467,7 @@ const BuildModal = ({
 					{/* Mô tả */}
 					<textarea
 						className='w-full mt-4 p-3 bg-input-bg border border-input-border rounded-md text-sm text-text-primary focus:outline-none focus:border-primary-500'
-						placeholder={
-							language === "vi"
-								? "Mô tả lối chơi..."
-								: "Gameplay description..."
-						}
+						placeholder={tUI("buildModal.descriptionPlaceholder")}
 						value={formData.description}
 						onChange={e =>
 							setFormData(p => ({ ...p, description: e.target.value }))
@@ -524,12 +488,8 @@ const BuildModal = ({
 								<EyeOff size={18} className='text-danger-500' />
 							)}
 							{formData.display
-								? language === "vi"
-									? "Công khai"
-									: "Public"
-								: language === "vi"
-									? "Riêng tư"
-									: "Private"}
+								? tUI("buildSummary.public")
+								: tUI("buildSummary.private")}
 						</button>
 					</div>
 				</div>
@@ -541,16 +501,10 @@ const BuildModal = ({
 					disabled={submitting}
 				>
 					{submitting
-						? language === "vi"
-							? "Đang xử lý..."
-							: "Processing..."
+						? tUI("buildModal.processing")
 						: isEditMode
-							? language === "vi"
-								? "Cập nhật Build"
-								: "Update Build"
-							: language === "vi"
-								? "Tạo Build"
-								: "Create Build"}
+							? tUI("buildModal.btnUpdate")
+							: tUI("buildModal.btnCreate")}
 				</Button>
 			</form>
 		</Modal>

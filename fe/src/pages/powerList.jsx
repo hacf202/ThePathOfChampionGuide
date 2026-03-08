@@ -1,9 +1,9 @@
 // src/pages/powerList.jsx
 import React, { useState, useMemo, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion"; // Thêm Framer Motion
+import { motion, AnimatePresence } from "framer-motion";
 import { usePersistentState } from "../hooks/usePersistentState";
-import { useTranslation } from "../hooks/useTranslation"; // 🟢 Import Hook i18n
+import { useTranslation } from "../hooks/useTranslation"; // 🟢 Hook i18n
 import InputField from "../components/common/inputField";
 import MultiSelectFilter from "../components/common/multiSelectFilter";
 import DropdownFilter from "../components/common/dropdownFilter";
@@ -35,7 +35,7 @@ const PowerSkeleton = () => (
 );
 
 function PowerList() {
-	const { language, t } = useTranslation(); // 🟢 Khởi tạo Hook
+	const { tUI, t } = useTranslation(); // 🟢 Khởi tạo Hook
 
 	// --- STATE ---
 	const [powers, setPowers] = useState([]);
@@ -148,10 +148,7 @@ function PowerList() {
 		try {
 			const backendUrl = import.meta.env.VITE_API_URL;
 			const response = await fetch(`${backendUrl}/api/powers?${queryParams}`);
-			if (!response.ok)
-				throw new Error(
-					language === "vi" ? "Lỗi tải dữ liệu" : "Data loading error",
-				);
+			if (!response.ok) throw new Error(tUI("common.errorLoadData"));
 			const data = await response.json();
 
 			setPowers(data.items || []);
@@ -162,7 +159,7 @@ function PowerList() {
 		} finally {
 			setTimeout(() => setLoading(false), 500);
 		}
-	}, [queryParams, language]);
+	}, [queryParams, tUI]);
 
 	useEffect(() => {
 		fetchPowers();
@@ -180,15 +177,15 @@ function PowerList() {
 			sort: [
 				{
 					value: "name-asc",
-					label: language === "vi" ? "Tên A-Z" : "Name A-Z",
+					label: tUI("sort.nameAsc"),
 				},
 				{
 					value: "name-desc",
-					label: language === "vi" ? "Tên Z-A" : "Name Z-A",
+					label: tUI("sort.nameDesc"),
 				},
 			],
 		}),
-		[dynamicFilters, language],
+		[dynamicFilters, tUI],
 	);
 
 	const handleResetFilters = () => {
@@ -203,18 +200,14 @@ function PowerList() {
 	return (
 		<div className='animate-fadeIn'>
 			<PageTitle
-				title={language === "vi" ? "Danh sách sức mạnh" : "Powers List"}
-				description={
-					language === "vi"
-						? "POC GUIDE: Dữ liệu sức mạnh Path of Champions..."
-						: "POC GUIDE: Path of Champions Powers..."
-				}
+				title={tUI("powerList.title")}
+				description={tUI("powerList.metaDesc")}
 			/>
 
 			<div className='font-secondary'>
 				<div className='flex justify-between items-center mb-6'>
 					<h1 className='text-3xl font-bold text-text-primary font-primary animate-glitch'>
-						{language === "vi" ? "Danh Sách Sức Mạnh" : "Powers List"}
+						{tUI("powerList.heading")}
 					</h1>
 
 					<div className='hidden lg:flex items-center gap-4'>
@@ -229,12 +222,8 @@ function PowerList() {
 								<ChevronLeft size={18} />
 							)}
 							{showDesktopFilter
-								? language === "vi"
-									? "Ẩn bộ lọc"
-									: "Hide Filters"
-								: language === "vi"
-									? "Hiện bộ lọc"
-									: "Show Filters"}
+								? tUI("championList.hideFilter")
+								: tUI("championList.showFilter")}
 						</Button>
 					</div>
 				</div>
@@ -322,15 +311,17 @@ function PowerList() {
 														variant='outline'
 													>
 														<ChevronLeft size={16} className='mr-2' />
-														{language === "vi" ? "Trang Trước" : "Previous"}
+														{tUI("common.prevPage")}
 													</Button>
-													<span>/</span>
+													<span className='font-bold text-primary-500 bg-primary-100/10 px-3 py-1 rounded-full'>
+														{currentPage} / {pagination.totalPages}
+													</span>
 													<Button
 														onClick={goToNextPage}
 														disabled={currentPage === pagination.totalPages}
 														variant='outline'
 													>
-														{language === "vi" ? "Trang Sau" : "Next"}
+														{tUI("common.nextPage")}
 														<ChevronRight size={16} className='ml-2' />
 													</Button>
 												</div>
@@ -339,18 +330,14 @@ function PowerList() {
 											<div className='flex flex-col items-center justify-center py-20 text-text-secondary'>
 												<XCircle size={64} className='mb-4 opacity-10' />
 												<p className='text-xl font-primary'>
-													{language === "vi"
-														? "Không tìm thấy sức mạnh phù hợp."
-														: "No matching powers found."}
+													{tUI("powerList.notFound")}
 												</p>
 												<Button
 													variant='ghost'
 													onClick={handleResetFilters}
 													className='mt-4'
 												>
-													{language === "vi"
-														? "Xóa tất cả bộ lọc"
-														: "Clear all filters"}
+													{tUI("powerList.clearFilters")}
 												</Button>
 											</div>
 										)}
@@ -373,37 +360,34 @@ function PowerList() {
 							>
 								<div className='w-[280px] xl:w-[320px] p-4 rounded-lg border border-border bg-surface-bg space-y-4 shadow-sm'>
 									<label className='block text-sm font-medium text-text-secondary'>
-										{language === "vi" ? "Tìm kiếm sức mạnh" : "Search Powers"}
+										{tUI("powerList.searchLabel")}
 									</label>
 									<InputField
 										value={searchInput}
 										onChange={e => setSearchInput(e.target.value)}
 										onKeyDown={e => e.key === "Enter" && handleSearch()}
-										placeholder={
-											language === "vi" ? "Tên sức mạnh..." : "Power name..."
-										}
+										placeholder={tUI("powerList.placeholder")}
 									/>
 									<Button
 										onClick={handleSearch}
 										className='w-full mt-2 hover:animate-pulse-focus'
 									>
-										<Search size={16} className='mr-2' />{" "}
-										{language === "vi" ? "Tìm kiếm" : "Search"}
+										<Search size={16} className='mr-2' /> {tUI("common.search")}
 									</Button>
 									<MultiSelectFilter
-										label={language === "vi" ? "Độ hiếm" : "Rarity"}
+										label={tUI("common.rarity")}
 										options={filterOptions.rarities}
 										selectedValues={selectedRarities}
 										onChange={setSelectedRarities}
 									/>
 									<MultiSelectFilter
-										label={language === "vi" ? "Loại" : "Type"}
+										label={tUI("common.type")}
 										options={filterOptions.types}
 										selectedValues={selectedTypes}
 										onChange={setSelectedTypes}
 									/>
 									<DropdownFilter
-										label={language === "vi" ? "Sắp xếp" : "Sort By"}
+										label={tUI("championList.sortBy")}
 										options={filterOptions.sort}
 										selectedValue={sortOrder}
 										onChange={setSortOrder}
@@ -414,7 +398,7 @@ function PowerList() {
 										className='w-full'
 									>
 										<RotateCw size={16} className='mr-2' />{" "}
-										{language === "vi" ? "Đặt lại bộ lọc" : "Reset Filters"}
+										{tUI("championList.resetFilter")}
 									</Button>
 								</div>
 							</motion.aside>
@@ -429,9 +413,7 @@ function PowerList() {
 									value={searchInput}
 									onChange={e => setSearchInput(e.target.value)}
 									onKeyDown={e => e.key === "Enter" && handleSearch()}
-									placeholder={
-										language === "vi" ? "Tìm sức mạnh..." : "Search powers..."
-									}
+									placeholder={tUI("powerList.placeholder")}
 								/>
 							</div>
 							<Button onClick={handleSearch} className='px-3'>
@@ -466,19 +448,19 @@ function PowerList() {
 								>
 									<div className='pt-4 space-y-4 border-t border-border mt-3'>
 										<MultiSelectFilter
-											label={language === "vi" ? "Độ hiếm" : "Rarity"}
+											label={tUI("common.rarity")}
 											options={filterOptions.rarities}
 											selectedValues={selectedRarities}
 											onChange={setSelectedRarities}
 										/>
 										<MultiSelectFilter
-											label={language === "vi" ? "Loại" : "Type"}
+											label={tUI("common.type")}
 											options={filterOptions.types}
 											selectedValues={selectedTypes}
 											onChange={setSelectedTypes}
 										/>
 										<DropdownFilter
-											label={language === "vi" ? "Sắp xếp" : "Sort By"}
+											label={tUI("championList.sortBy")}
 											options={filterOptions.sort}
 											selectedValue={sortOrder}
 											onChange={setSortOrder}

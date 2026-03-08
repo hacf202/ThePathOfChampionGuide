@@ -3,6 +3,7 @@ import { useState, memo, useEffect } from "react";
 import Button from "../common/button";
 import InputField from "../common/inputField";
 import Modal from "../common/modal";
+import { useTranslation } from "../../hooks/useTranslation";
 
 const BonusStarEditorForm = memo(
 	({ item, onSave, onCancel, onDelete, isSaving }) => {
@@ -12,11 +13,22 @@ const BonusStarEditorForm = memo(
 		const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
 		const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
+		const { tUI } = useTranslation();
+
 		// Khởi tạo và deep clone dữ liệu để theo dõi thay đổi
 		useEffect(() => {
 			if (item) {
-				setFormData(item);
-				setInitialData(JSON.parse(JSON.stringify(item)));
+				const clonedItem = JSON.parse(JSON.stringify(item));
+				// Đảm bảo object translations luôn tồn tại để tránh lỗi undefined
+				if (!clonedItem.translations) {
+					clonedItem.translations = { en: { name: "", description: "" } };
+				}
+				if (!clonedItem.translations.en) {
+					clonedItem.translations.en = { name: "", description: "" };
+				}
+
+				setFormData(clonedItem);
+				setInitialData(JSON.parse(JSON.stringify(clonedItem)));
 				setIsDirty(false);
 			}
 		}, [item]);
@@ -31,16 +43,15 @@ const BonusStarEditorForm = memo(
 			setFormData(prev => ({ ...prev, [name]: value }));
 		};
 
-		// 🟢 Hàm xử lý riêng cho dữ liệu Đa ngôn ngữ (Translations)
-		const handleTranslationChange = (e, field, lang = "en") => {
-			const { value } = e.target;
+		const handleTranslationChange = (e, lang) => {
+			const { name, value } = e.target;
 			setFormData(prev => ({
 				...prev,
 				translations: {
 					...prev.translations,
 					[lang]: {
-						...(prev.translations?.[lang] || {}),
-						[field]: value,
+						...prev.translations[lang],
+						[name]: value,
 					},
 				},
 			}));
@@ -48,10 +59,10 @@ const BonusStarEditorForm = memo(
 
 		const handleSubmit = e => {
 			e.preventDefault();
-			if (!formData.bonusStarID?.trim()) return alert("Vui lòng nhập ID!");
-
-			// Giữ nguyên toàn bộ formData bao gồm cả flag isNew
-			// Backend sẽ dùng isNew để quyết định logic kiểm tra tồn tại ID
+			if (!formData.bonusStarID?.trim()) {
+				alert(tUI("admin.bonusStarForm.errorIdReq"));
+				return;
+			}
 			onSave(formData);
 		};
 
@@ -68,12 +79,12 @@ const BonusStarEditorForm = memo(
 						<div>
 							<h2 className='block font-semibold text-text-primary text-xl'>
 								{formData.isNew
-									? "Tạo Bonus Star Mới"
-									: `Chỉnh sửa: ${formData.name}`}
+									? tUI("admin.bonusStarForm.createTitle")
+									: `${tUI("admin.bonusStarForm.editTitle")} ${formData.name}`}
 							</h2>
 							{isDirty && (
 								<span className='text-xs text-yellow-500 font-medium'>
-									● Có thay đổi chưa lưu
+									{tUI("admin.common.unsavedChanges")}
 								</span>
 							)}
 						</div>
@@ -86,7 +97,7 @@ const BonusStarEditorForm = memo(
 								}
 								disabled={isSaving}
 							>
-								Hủy
+								{tUI("admin.common.cancel")}
 							</Button>
 							{!formData.isNew && (
 								<Button
@@ -95,7 +106,7 @@ const BonusStarEditorForm = memo(
 									onClick={() => setIsDeleteModalOpen(true)}
 									disabled={isSaving}
 								>
-									Xóa
+									{tUI("admin.common.delete")}
 								</Button>
 							)}
 							<Button
@@ -104,10 +115,10 @@ const BonusStarEditorForm = memo(
 								disabled={isSaving || !formData.bonusStarID}
 							>
 								{isSaving
-									? "Đang lưu..."
+									? tUI("admin.common.saving")
 									: formData.isNew
-										? "Tạo mới"
-										: "Lưu thay đổi"}
+										? tUI("admin.common.create")
+										: tUI("admin.common.saveChanges")}
 							</Button>
 						</div>
 					</div>
@@ -115,28 +126,19 @@ const BonusStarEditorForm = memo(
 					{/* Content Form */}
 					<div className='grid grid-cols-1 lg:grid-cols-2 gap-6 p-6 bg-surface-bg border border-border rounded-xl mx-4'>
 						<div className='space-y-5'>
-							{/* --- THÔNG TIN CƠ BẢN (TIẾNG VIỆT) --- */}
 							<InputField
-								label='Mã Bonus Star (ID duy nhất)'
+								label={tUI("admin.bonusStarForm.idLabel")}
 								name='bonusStarID'
 								value={formData.bonusStarID || ""}
 								onChange={handleInputChange}
 								required
-								disabled={!formData.isNew} // Chặn sửa ID khi cập nhật để tránh sai lệch database
-								placeholder='VD: star_power_01'
-							/>
-							<InputField
-								label='Tên hiển thị'
-								name='name'
-								value={formData.name || ""}
-								onChange={handleInputChange}
-								required
-								placeholder='Nhập tên sức mạnh bonus...'
+								disabled={!formData.isNew}
+								placeholder='VD: C0006'
 							/>
 
 							<div className='flex flex-col gap-1'>
 								<label className='text-sm font-semibold text-text-primary'>
-									Loại Node
+									{tUI("admin.bonusStarForm.nodeTypeLabel")}
 								</label>
 								<select
 									name='nodeType'
@@ -149,43 +151,47 @@ const BonusStarEditorForm = memo(
 								</select>
 							</div>
 
-							<div className='flex flex-col gap-1'>
-								<label className='text-sm font-semibold text-text-primary'>
-									Mô tả kỹ năng
-								</label>
-								<textarea
-									name='description'
-									value={formData.description || ""}
-									onChange={handleInputChange}
-									className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary min-h-[150px] outline-none focus:ring-2 focus:ring-primary-500 transition resize-none'
-									placeholder='Nhập nội dung mô tả kỹ năng...'
-								/>
-							</div>
-
-							{/* --- THÔNG TIN ĐA NGÔN NGỮ (TIẾNG ANH) --- */}
-							<div className='pt-6 mt-6 border-t border-border space-y-5'>
-								<h3 className='text-lg font-semibold text-text-primary mb-2'>
-									Đa ngôn ngữ (Tiếng Anh)
-								</h3>
+							<div className='border border-border rounded-lg p-4 bg-page-bg space-y-4'>
 								<InputField
-									label='Tên hiển thị (Tiếng Anh)'
-									name='name_en'
-									value={formData.translations?.en?.name || ""}
-									onChange={e => handleTranslationChange(e, "name", "en")}
-									placeholder='VD: English Bonus Star Name...'
+									label={`${tUI("admin.bonusStarForm.nameLabel")} (VI)`}
+									name='name'
+									value={formData.name || ""}
+									onChange={handleInputChange}
+									required
+									placeholder='Nhập tên...'
 								/>
 								<div className='flex flex-col gap-1'>
 									<label className='text-sm font-semibold text-text-primary'>
-										Mô tả kỹ năng (Tiếng Anh)
+										{tUI("admin.bonusStarForm.descLabel")} (VI)
 									</label>
 									<textarea
-										name='description_en'
+										name='description'
+										value={formData.description || ""}
+										onChange={handleInputChange}
+										className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary min-h-[100px] outline-none focus:ring-2 focus:ring-primary-500 transition resize-none'
+										placeholder='Nhập nội dung mô tả kỹ năng...'
+									/>
+								</div>
+							</div>
+
+							<div className='border border-border rounded-lg p-4 bg-page-bg space-y-4'>
+								<InputField
+									label={`${tUI("admin.bonusStarForm.nameLabel")} (EN)`}
+									name='name'
+									value={formData.translations?.en?.name || ""}
+									onChange={e => handleTranslationChange(e, "en")}
+									placeholder='English Name...'
+								/>
+								<div className='flex flex-col gap-1'>
+									<label className='text-sm font-semibold text-text-primary'>
+										{tUI("admin.bonusStarForm.descLabel")} (EN)
+									</label>
+									<textarea
+										name='description'
 										value={formData.translations?.en?.description || ""}
-										onChange={e =>
-											handleTranslationChange(e, "description", "en")
-										}
-										className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary min-h-[150px] outline-none focus:ring-2 focus:ring-primary-500 transition resize-none'
-										placeholder='Nhập nội dung mô tả bằng Tiếng Anh...'
+										onChange={e => handleTranslationChange(e, "en")}
+										className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary min-h-[100px] outline-none focus:ring-2 focus:ring-blue-500 transition resize-none'
+										placeholder='English Description...'
 									/>
 								</div>
 							</div>
@@ -194,7 +200,7 @@ const BonusStarEditorForm = memo(
 						<div className='space-y-5'>
 							<div className='flex flex-col items-center bg-surface-hover/30 p-6 rounded-xl border border-dashed border-border'>
 								<p className='text-xs font-bold text-text-secondary mb-4 uppercase tracking-widest'>
-									Preview Ảnh
+									{tUI("admin.bonusStarForm.previewImage")}
 								</p>
 								{formData.image ? (
 									<img
@@ -213,7 +219,7 @@ const BonusStarEditorForm = memo(
 								)}
 							</div>
 							<InputField
-								label='Đường dẫn Ảnh (URL)'
+								label={tUI("admin.bonusStarForm.imageUrlLabel")}
 								name='image'
 								value={formData.image || ""}
 								onChange={handleInputChange}
@@ -227,19 +233,19 @@ const BonusStarEditorForm = memo(
 				<Modal
 					isOpen={isCancelModalOpen}
 					onClose={() => setIsCancelModalOpen(false)}
-					title='Xác nhận Hủy'
+					title={tUI("admin.common.cancelConfirmTitle")}
 				>
 					<div className='p-4 text-text-secondary'>
-						<p>Mọi thay đổi chưa lưu sẽ bị mất. Bạn chắc chắn muốn rời đi?</p>
+						<p>{tUI("admin.common.cancelConfirmText")}</p>
 						<div className='flex justify-end gap-3 mt-6'>
 							<Button
 								onClick={() => setIsCancelModalOpen(false)}
 								variant='ghost'
 							>
-								Ở lại
+								{tUI("admin.common.stay")}
 							</Button>
 							<Button onClick={handleConfirmCancel} variant='danger'>
-								Rời đi
+								{tUI("admin.common.leave")}
 							</Button>
 						</div>
 					</div>
@@ -249,25 +255,26 @@ const BonusStarEditorForm = memo(
 				<Modal
 					isOpen={isDeleteModalOpen}
 					onClose={() => setIsDeleteModalOpen(false)}
-					title='Xác nhận Xóa Vĩnh Viễn'
+					title={tUI("admin.common.deleteConfirmTitle")}
 				>
 					<div className='p-4 text-text-secondary'>
 						<p>
-							Bạn có chắc muốn xóa Bonus Star <strong>{formData.name}</strong>?
-							Hành động này không thể hoàn tác.
+							{tUI("admin.bonusStarForm.deleteConfirmText")}{" "}
+							<strong>{formData.name}</strong>
+							{tUI("admin.common.cannotUndo")}
 						</p>
 						<div className='flex justify-end gap-3 mt-6'>
 							<Button
 								onClick={() => setIsDeleteModalOpen(false)}
 								variant='ghost'
 							>
-								Hủy
+								{tUI("admin.common.cancel")}
 							</Button>
 							<Button
 								onClick={() => onDelete(formData.bonusStarID)}
 								variant='danger'
 							>
-								Xác nhận Xóa
+								{tUI("admin.common.delete")}
 							</Button>
 						</div>
 					</div>

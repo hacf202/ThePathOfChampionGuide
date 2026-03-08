@@ -8,7 +8,7 @@ import Button from "../common/button";
 
 const BuildDelete = ({ build, isOpen, onClose, onConfirm }) => {
 	const { token } = useAuth();
-	const { language } = useTranslation(); // 🟢 Khởi tạo ngôn ngữ
+	const { tUI } = useTranslation(); // 🟢 Sử dụng tUI
 	const [isDeleting, setIsDeleting] = useState(false);
 	const [message, setMessage] = useState("");
 
@@ -28,12 +28,7 @@ const BuildDelete = ({ build, isOpen, onClose, onConfirm }) => {
 			});
 
 			if (response.ok) {
-				const result = await response.json();
-				setMessage(
-					language === "vi"
-						? "Bộ cổ vật đã được xóa thành công!"
-						: "Build deleted successfully!",
-				);
+				setMessage(tUI("buildDelete.successMessage"));
 
 				setTimeout(() => {
 					onConfirm(build.id);
@@ -41,18 +36,12 @@ const BuildDelete = ({ build, isOpen, onClose, onConfirm }) => {
 				}, 1500);
 			} else {
 				const result = await response.json();
-				setMessage(
-					`Lỗi: ${result.error || (language === "vi" ? "Không thể xóa bộ cổ vật." : "Cannot delete build.")}`,
-				);
+				setMessage(`Lỗi: ${result.error || tUI("buildDelete.errorMessage")}`);
 				setIsDeleting(false);
 			}
 		} catch (error) {
 			console.error("Lỗi khi xóa build:", error);
-			setMessage(
-				language === "vi"
-					? "Lỗi kết nối đến máy chủ."
-					: "Server connection error.",
-			);
+			setMessage(tUI("common.errorLoadData"));
 			setIsDeleting(false);
 		}
 	};
@@ -70,22 +59,18 @@ const BuildDelete = ({ build, isOpen, onClose, onConfirm }) => {
 		<Modal
 			isOpen={isOpen}
 			onClose={handleClose}
-			title={language === "vi" ? "Xác nhận xóa bộ cổ vật" : "Confirm Deletion"}
+			title={tUI("buildDelete.title")}
 		>
 			<div className='p-1'>
 				<p className='text-text-secondary mb-6'>
-					{language === "vi"
-						? "Bạn có chắc chắn muốn xóa bộ cổ vật cho tướng "
-						: "Are you sure you want to delete the build for "}
+					{tUI("buildDelete.confirmPrompt")}{" "}
 					<strong className='font-semibold text-text-primary'>
 						{build?.championName}
 					</strong>
 					?
 					<br />
 					<span className='text-danger-500 text-sm italic'>
-						{language === "vi"
-							? "Hành động này không thể hoàn tác."
-							: "This action cannot be undone."}
+						{tUI("buildDelete.warning")}
 					</span>
 				</p>
 
@@ -103,18 +88,16 @@ const BuildDelete = ({ build, isOpen, onClose, onConfirm }) => {
 
 				<div className='flex justify-end gap-4 border-t border-border pt-4'>
 					<Button variant='ghost' onClick={handleClose} disabled={isDeleting}>
-						{language === "vi" ? "Hủy" : "Cancel"}
+						{tUI("common.cancel")}
 					</Button>
 					<Button variant='danger' onClick={handleDelete} disabled={isDeleting}>
 						{isDeleting ? (
 							<span className='flex items-center gap-2'>
 								<Loader2 className='animate-spin w-4 h-4' />
-								{language === "vi" ? "Đang xóa..." : "Deleting..."}
+								{tUI("buildDelete.deleting")}
 							</span>
-						) : language === "vi" ? (
-							"Xóa"
 						) : (
-							"Delete"
+							tUI("common.delete")
 						)}
 					</Button>
 				</div>

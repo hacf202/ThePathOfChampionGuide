@@ -53,7 +53,7 @@ const MyBuilds = ({
 	showDesktopFilter,
 }) => {
 	const { token, user } = useContext(AuthContext);
-	const { language } = useTranslation(); // 🟢 Khởi tạo ngôn ngữ
+	const { language, tUI } = useTranslation(); // 🟢 Khởi tạo ngôn ngữ và lấy tUI
 	const [allBuilds, setAllBuilds] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
@@ -67,10 +67,7 @@ const MyBuilds = ({
 			const response = await fetch(`${apiUrl}/api/builds/my-builds`, {
 				headers: { Authorization: `Bearer ${token}` },
 			});
-			if (!response.ok)
-				throw new Error(
-					language === "vi" ? "Lỗi tải dữ liệu" : "Failed to fetch data",
-				);
+			if (!response.ok) throw new Error(tUI("common.errorLoadData"));
 			const data = await response.json();
 			setAllBuilds(data.items || []);
 		} catch (err) {
@@ -78,7 +75,7 @@ const MyBuilds = ({
 		} finally {
 			setLoading(false);
 		}
-	}, [token, language]);
+	}, [token, tUI]);
 
 	useEffect(() => {
 		if (token) fetchMyBuilds();
@@ -146,7 +143,7 @@ const MyBuilds = ({
 	}, [totalPages, currentPage, setCurrentPage]);
 
 	const { favoriteStatus, favoriteCounts, toggleFavorite } =
-		useBatchFavoriteData(paginatedBuilds, user?.sub);
+		useBatchFavoriteData(paginatedBuilds, token);
 
 	const handleBuildUpdated = updatedBuild => {
 		setAllBuilds(prev =>
@@ -242,7 +239,7 @@ const MyBuilds = ({
 									disabled={currentPage === 1}
 									variant='outline'
 								>
-									{language === "vi" ? "Trang trước" : "Previous"}
+									{tUI("common.prevPage")}
 								</Button>
 								<span className='font-bold text-primary-500 bg-primary-100/10 px-4 py-1.5 rounded-full border border-primary-500/20'>
 									{currentPage} / {totalPages}
@@ -252,7 +249,7 @@ const MyBuilds = ({
 									disabled={currentPage === totalPages}
 									variant='outline'
 								>
-									{language === "vi" ? "Trang sau" : "Next"}
+									{tUI("common.nextPage")}
 								</Button>
 							</div>
 						)}
@@ -264,9 +261,7 @@ const MyBuilds = ({
 							className='mx-auto mb-4 opacity-20 text-text-secondary'
 						/>
 						<p className='text-text-secondary italic'>
-							{language === "vi"
-								? "Bạn chưa có bộ cổ vật nào phù hợp."
-								: "You have no matching builds."}
+							{tUI("buildList.noMyBuilds")}
 						</p>
 					</div>
 				)}

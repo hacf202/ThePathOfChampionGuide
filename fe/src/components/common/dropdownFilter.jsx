@@ -9,17 +9,15 @@ function DropdownFilter({
 	options,
 	selectedValue,
 	onChange,
-	placeholder, // 🟢 Bỏ giá trị mặc định tĩnh ở đây để xử lý bên trong
+	placeholder,
 	renderOption,
 }) {
-	const { language } = useTranslation(); // 🟢 Khởi tạo Hook
+	const { tUI } = useTranslation(); // 🟢 Khởi tạo Hook
 	const [isOpen, setIsOpen] = useState(false);
 	const dropdownRef = useRef(null);
 
-	// 🟢 Xử lý placeholder đa ngôn ngữ
-	const finalPlaceholder =
-		placeholder ||
-		(language === "vi" ? "Chọn một tùy chọn..." : "Select an option...");
+	// 🟢 Xử lý placeholder đa ngôn ngữ bằng tUI
+	const finalPlaceholder = placeholder || tUI("common.selectOption");
 
 	const handleSelect = value => {
 		onChange(value);
@@ -41,7 +39,7 @@ function DropdownFilter({
 	const displayedLabel =
 		(selectedValue &&
 			options.find(opt => opt.value === selectedValue)?.label) ||
-		finalPlaceholder; // 🟢 Dùng finalPlaceholder
+		finalPlaceholder;
 
 	return (
 		<div className='relative w-full' ref={dropdownRef}>

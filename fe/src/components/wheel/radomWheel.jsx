@@ -1,11 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import Swal from "sweetalert2";
+import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook
 
 const getRandomRotation = (min, max) => {
 	return Math.floor(Math.random() * (max - min)) + min;
 };
 
 const VongQuayNgauNhien = ({ title, items, onRemoveWinner }) => {
+	const { tUI, tDynamic } = useTranslation(); // 🟢 Khởi tạo Hook
 	const canvasRef = useRef(null);
 	const wheelContainerRef = useRef(null);
 
@@ -108,12 +110,15 @@ const VongQuayNgauNhien = ({ title, items, onRemoveWinner }) => {
 				context.font = `bold ${fontSize}px Arial`;
 				context.textBaseline = "middle";
 				const maxTextWidth = radius - buttonKeepOutRadius - 15;
-				const textToDraw = truncateText(item.name, maxTextWidth);
+
+				// 🟢 Sử dụng tDynamic cho tên trên vòng quay
+				const itemName = item.custom ? item.name : tDynamic(item, "name");
+				const textToDraw = truncateText(itemName, maxTextWidth);
+
 				context.fillText(textToDraw, radius - 10, 0);
 				context.restore();
 			});
 
-			// Center circle
 			context.beginPath();
 			context.arc(centerX, centerY, 35, 0, Math.PI * 2);
 			context.fillStyle = "#1e293b";
@@ -121,7 +126,7 @@ const VongQuayNgauNhien = ({ title, items, onRemoveWinner }) => {
 		};
 
 		drawWheel();
-	}, [rotation, currentSize, fontSize, items]);
+	}, [rotation, currentSize, fontSize, items, tDynamic]);
 
 	// Spin logic
 	const spinWheel = () => {
@@ -152,8 +157,8 @@ const VongQuayNgauNhien = ({ title, items, onRemoveWinner }) => {
 		const accelerationTime = 3;
 		const decelerationTime = duration - accelerationTime;
 		const maxVelocity = (2 * fullTargetRotation) / duration;
-		const alphaAcceleration = maxVelocity / accelerationTime;
-		const alphaDeceleration = -maxVelocity / decelerationTime;
+		const acceleration = maxVelocity / accelerationTime;
+		const deceleration = -maxVelocity / decelerationTime;
 		const startTime = performance.now();
 
 		const animate = now => {
@@ -161,14 +166,14 @@ const VongQuayNgauNhien = ({ title, items, onRemoveWinner }) => {
 			if (elapsed < duration) {
 				let deltaRotation;
 				if (elapsed < accelerationTime) {
-					deltaRotation = 0.5 * alphaAcceleration * elapsed * elapsed;
+					deltaRotation = 0.5 * acceleration * elapsed * elapsed;
 				} else {
 					const timeDecel = elapsed - accelerationTime;
 					const thetaAccel = 0.5 * maxVelocity * accelerationTime;
 					deltaRotation =
 						thetaAccel +
 						maxVelocity * timeDecel +
-						0.5 * alphaDeceleration * timeDecel * timeDecel;
+						0.5 * deceleration * timeDecel * timeDecel;
 				}
 				setRotation(initialRotation + deltaRotation);
 				requestAnimationFrame(animate);
@@ -181,33 +186,32 @@ const VongQuayNgauNhien = ({ title, items, onRemoveWinner }) => {
 		requestAnimationFrame(animate);
 	};
 
-	// Hiển thị kết quả với hình ảnh + tên + nút lựa chọn
 	const showResult = winner => {
-		// Xác định loại item để lấy đúng trường
 		const isChampion = winner.assets?.[0]?.avatar;
 		const isRelicOrItemOrPower = winner.assetAbsolutePath;
 
-		// Lấy hình ảnh
+		// 🟢 Lấy tên winner đa ngôn ngữ
+		const winnerName = winner.custom ? winner.name : tDynamic(winner, "name");
+
 		const imageHtml = isChampion
-			? `<img src="${winner.assets[0].avatar}" alt="${winner.name}" class="mx-auto my-4 rounded-lg border-2 border-blue-400" style="max-height: 150px;" />`
+			? `<img src="${winner.assets[0].avatar}" alt="${winnerName}" class="mx-auto my-4 rounded-lg border-2 border-blue-400" style="max-height: 150px;" />`
 			: isRelicOrItemOrPower
-				? `<img src="${winner.assetAbsolutePath}" alt="${winner.name}" class="mx-auto my-4 rounded-lg border-2 border-blue-400" style="max-height: 150px;" />`
+				? `<img src="${winner.assetAbsolutePath}" alt="${winnerName}" class="mx-auto my-4 rounded-lg border-2 border-blue-400" style="max-height: 150px;" />`
 				: "";
 
 		Swal.fire({
-			title: "Kết quả!",
+			title: tUI("randomWheel.resultTitle"),
 			html: `
       <div class="text-center ">
         ${imageHtml}
-        <p class="mt-3">Bạn đã quay trúng:</p>
-        <b class="text-blue-400 text-2xl">${winner.name}</b>
-	
+        <p class="mt-3">${tUI("randomWheel.resultText")}</p>
+        <b class="text-blue-400 text-2xl">${winnerName}</b>
       </div>
     `,
 			icon: "success",
 			showDenyButton: true,
-			confirmButtonText: "Giữ lại",
-			denyButtonText: "Loại bỏ",
+			confirmButtonText: tUI("randomWheel.keepBtn"),
+			denyButtonText: tUI("randomWheel.removeBtn"),
 			background: "#1e293b",
 			color: "#ffffff",
 			confirmButtonColor: "#3B82F6",
@@ -229,7 +233,7 @@ const VongQuayNgauNhien = ({ title, items, onRemoveWinner }) => {
 			}
 		});
 	};
-	// Nếu không có item
+
 	if (!items || items.length === 0) {
 		return (
 			<div className='flex flex-col items-center justify-center text-center p-8'>
@@ -238,7 +242,7 @@ const VongQuayNgauNhien = ({ title, items, onRemoveWinner }) => {
 				</h2>
 				<div className='relative flex items-center justify-center bg-slate-700/50 border-2 border-dashed border-slate-500 rounded-full w-80 h-80'>
 					<p className='text-slate-400 text-lg max-w-[200px]'>
-						Vui lòng chọn ít nhất một mục trong phần Tùy Chỉnh.
+						{tUI("randomWheel.noItems")}
 					</p>
 				</div>
 			</div>
@@ -260,11 +264,9 @@ const VongQuayNgauNhien = ({ title, items, onRemoveWinner }) => {
 					height={currentSize}
 					className='rounded-full -rotate-90'
 				/>
-				{/* Pointer */}
 				<div className='absolute top-1/2 right-0 -translate-y-1/2 z-20'>
 					<div className='w-0 h-0 border-t-[20px] border-b-[20px] border-r-[40px] border-t-transparent border-b-transparent border-r-blue-500' />
 				</div>
-				{/* Spin Button */}
 				<button
 					onClick={spinWheel}
 					disabled={isSpinning}

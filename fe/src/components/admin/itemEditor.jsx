@@ -7,20 +7,38 @@ import { removeAccents } from "../../utils/vietnameseUtils";
 import SidePanel from "../common/sidePanel";
 import ItemEditorForm from "./itemEditorForm";
 import { Loader2 } from "lucide-react";
+import { useTranslation } from "../../hooks/useTranslation"; // IMPORT HOOK
 
 const NEW_ITEM_TEMPLATE = {
 	itemCode: "",
 	isNew: true,
-	name: "Vật Phẩm Mới",
+	name: "",
 	rarity: "",
 	rarityRef: "",
 	assetAbsolutePath: "",
 	assetFullAbsolutePath: "",
 	description: "",
-	descriptionRaw: "",
+	translations: {
+		en: {
+			name: "",
+			rarity: "",
+			description: "",
+		},
+	},
 };
 
 const ITEMS_PER_PAGE = 20;
+
+const RARITY_WEIGHT = {
+	Thường: 1,
+	Common: 1,
+	Hiếm: 2,
+	Rare: 2,
+	"Sử Thi": 3,
+	Epic: 3,
+	"Huyền Thoại": 4,
+	Legendary: 4,
+};
 
 // === LIST VIEW COMPONENT ===
 const ItemListView = memo(
@@ -31,6 +49,8 @@ const ItemListView = memo(
 		onPageChange,
 		sidePanelProps,
 	}) => {
+		const { tUI } = useTranslation();
+
 		return (
 			<div className='flex flex-col lg:flex-row gap-6'>
 				<div className='lg:w-4/5 bg-surface-bg rounded-lg p-4'>
@@ -42,7 +62,7 @@ const ItemListView = memo(
 									to={`./${item.itemCode}`}
 									className='block hover:scale-105 transition-transform duration-200'
 								>
-									<GenericCard item={item} />
+									<GenericCard item={item} onClick={() => {}} />
 								</Link>
 							))}
 						</div>
@@ -50,9 +70,9 @@ const ItemListView = memo(
 						<div className='flex items-center justify-center h-full min-h-[300px] text-center text-text-secondary'>
 							<div>
 								<p className='font-semibold text-lg'>
-									Không tìm thấy vật phẩm nào phù hợp.
+									{tUI("admin.item.notFound")}
 								</p>
-								<p>Vui lòng thử lại với bộ lọc khác.</p>
+								<p>{tUI("admin.item.tryOtherFilter")}</p>
 							</div>
 						</div>
 					)}
@@ -64,7 +84,7 @@ const ItemListView = memo(
 								disabled={currentPage === 1}
 								variant='outline'
 							>
-								Trang trước
+								{tUI("admin.common.prevPage")}
 							</Button>
 							<span className='text-lg font-medium text-text-primary'>
 								{currentPage} / {totalPages}
@@ -74,7 +94,7 @@ const ItemListView = memo(
 								disabled={currentPage === totalPages}
 								variant='outline'
 							>
-								Trang sau
+								{tUI("admin.common.nextPage")}
 							</Button>
 						</div>
 					)}
@@ -97,22 +117,16 @@ const ItemEditWrapper = ({
 }) => {
 	const { id } = useParams();
 	const navigate = useNavigate();
+	const { tUI } = useTranslation();
 
 	const selectedItem = useMemo(() => {
 		if (id === "new") return { ...NEW_ITEM_TEMPLATE };
-
 		const safeItems = Array.isArray(items) ? items : [];
 		const found = safeItems.find(i => i.itemCode === id);
-		if (found) {
-			// Đánh dấu isNew: false để Backend nhận biết lệnh Cập nhật
-			return { ...found, isNew: false };
-		}
-		return null;
+		return found ? { ...found, isNew: false } : null;
 	}, [id, items]);
 
-	const handleBack = useCallback(() => {
-		navigate("/admin/items");
-	}, [navigate]);
+	const handleBack = useCallback(() => navigate("/admin/items"), [navigate]);
 
 	if (
 		!selectedItem &&
@@ -122,9 +136,11 @@ const ItemEditWrapper = ({
 	) {
 		return (
 			<div className='flex flex-col items-center justify-center py-20 text-text-secondary'>
-				<p className='text-xl mb-4'>Không tìm thấy vật phẩm có mã: {id}</p>
+				<p className='text-xl mb-4'>
+					{tUI("admin.item.notFoundId")} {id}
+				</p>
 				<Button onClick={handleBack} variant='primary'>
-					Quay lại danh sách
+					{tUI("admin.common.backToList")}
 				</Button>
 			</div>
 		);
@@ -158,55 +174,124 @@ function ItemEditor() {
 	const [selectedRarities, setSelectedRarities] = useState([]);
 	const [sortOrder, setSortOrder] = useState("name-asc");
 	const [currentPage, setCurrentPage] = useState(1);
-
 	const [isLoading, setIsLoading] = useState(true);
 	const [isSaving, setIsSaving] = useState(false);
 	const [error, setError] = useState(null);
 
 	const API_BASE_URL = import.meta.env.VITE_API_URL;
 	const navigate = useNavigate();
+	const { tUI, tDynamic } = useTranslation();
 
 	const fetchAllData = useCallback(async () => {
 		try {
 			setIsLoading(true);
+			// Sử dụng limit=1000 để lấy trọn bộ dữ liệu vật phẩm
 			const res = await fetch(`${API_BASE_URL}/api/items?limit=1000`);
-			if (!res.ok) throw new Error("Không thể tải dữ liệu");
+			if (!res.ok) throw new Error(tUI("admin.common.errorLoad"));
 			const data = await res.json();
-			setItems(data.items || []);
+			const itemList = Array.isArray(data) ? data : data.items || [];
+			setItems(itemList);
 		} catch (e) {
-			setError("Không thể tải dữ liệu từ server.");
+			setError(tUI("admin.common.errorLoad"));
 		} finally {
 			setIsLoading(false);
 		}
-	}, [API_BASE_URL]);
+	}, [API_BASE_URL, tUI]);
 
 	useEffect(() => {
 		fetchAllData();
 	}, [fetchAllData]);
 
+	const handleSaveItem = async data => {
+		setIsSaving(true);
+		try {
+			const token = localStorage.getItem("token");
+
+			// Dọn dẹp bản dịch rỗng
+			const payload = { ...data };
+			if (
+				!payload.translations?.en?.name &&
+				!payload.translations?.en?.description &&
+				!payload.translations?.en?.rarity
+			) {
+				delete payload.translations;
+			}
+
+			const res = await fetch(`${API_BASE_URL}/api/items`, {
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${token}`,
+				},
+				body: JSON.stringify(payload),
+			});
+
+			const result = await res.json();
+			if (!res.ok)
+				throw new Error(result.error || tUI("admin.common.saveFailed"));
+
+			await fetchAllData();
+			navigate("/admin/items");
+			alert(result.message || tUI("admin.common.saveSuccess"));
+		} catch (e) {
+			alert(e.message || tUI("admin.common.errorOccurred"));
+		} finally {
+			setIsSaving(false);
+		}
+	};
+
+	const handleDeleteItem = async id => {
+		if (!id || !window.confirm(tUI("admin.common.deleteConfirm"))) return;
+		setIsSaving(true);
+		try {
+			const token = localStorage.getItem("token");
+			const res = await fetch(`${API_BASE_URL}/api/items/${id}`, {
+				method: "DELETE",
+				headers: { Authorization: `Bearer ${token}` },
+			});
+			if (!res.ok) throw new Error(tUI("admin.common.deleteFailed"));
+
+			await fetchAllData();
+			navigate("/admin/items");
+			alert(tUI("admin.common.deleteSuccess"));
+		} catch (e) {
+			alert(e.message || tUI("admin.common.deleteFailed"));
+		} finally {
+			setIsSaving(false);
+		}
+	};
+
 	const filterOptions = useMemo(() => {
-		const safeItems = Array.isArray(items) ? items : [];
-		const rarities = [
-			...new Set(safeItems.map(i => i.rarity).filter(Boolean)),
-		].sort();
+		const rarities = [...new Set(items.map(i => i.rarity).filter(Boolean))];
+
+		// Sắp xếp độ hiếm
+		rarities.sort((a, b) => (RARITY_WEIGHT[a] || 0) - (RARITY_WEIGHT[b] || 0));
 
 		return {
 			rarities: rarities.map(r => ({ value: r, label: r })),
 			sort: [
-				{ value: "name-asc", label: "Tên A-Z" },
-				{ value: "name-desc", label: "Tên Z-A" },
+				{ value: "name-asc", label: tUI("admin.common.sortNameAsc") },
+				{ value: "name-desc", label: tUI("admin.common.sortNameDesc") },
+				{ value: "rarity-asc", label: tUI("admin.item.sortRarityAsc") },
+				{ value: "rarity-desc", label: tUI("admin.item.sortRarityDesc") },
 			],
 		};
-	}, [items]);
+	}, [items, tUI]);
 
 	const filteredItems = useMemo(() => {
-		let result = Array.isArray(items) ? [...items] : [];
+		let result = [...items];
 
 		if (searchTerm) {
 			const term = removeAccents(searchTerm.toLowerCase());
-			result = result.filter(i =>
-				removeAccents((i.name || "").toLowerCase()).includes(term),
-			);
+			result = result.filter(i => {
+				const nameMatch = removeAccents(
+					(tDynamic(i, "name") || "").toLowerCase(),
+				).includes(term);
+				const descMatch = removeAccents(
+					(tDynamic(i, "description") || "").toLowerCase(),
+				).includes(term);
+				return nameMatch || descMatch;
+			});
 		}
 
 		if (selectedRarities.length) {
@@ -215,76 +300,30 @@ function ItemEditor() {
 
 		const [field, dir] = sortOrder.split("-");
 		result.sort((a, b) => {
-			const A = a.name || "";
-			const B = b.name || "";
-			return dir === "asc" ? A.localeCompare(B) : B.localeCompare(A);
+			if (field === "name") {
+				const A = tDynamic(a, "name") || "";
+				const B = tDynamic(b, "name") || "";
+				return dir === "asc" ? A.localeCompare(B) : B.localeCompare(A);
+			} else if (field === "rarity") {
+				const A = RARITY_WEIGHT[a.rarity] || 0;
+				const B = RARITY_WEIGHT[b.rarity] || 0;
+				if (A === B) {
+					const na = tDynamic(a, "name") || "";
+					const nb = tDynamic(b, "name") || "";
+					return na.localeCompare(nb);
+				}
+				return dir === "asc" ? A - B : B - A;
+			}
+			return 0;
 		});
 
 		return result;
-	}, [items, searchTerm, selectedRarities, sortOrder]);
-
-	const totalPages = Math.ceil(filteredItems.length / ITEMS_PER_PAGE);
-	const paginatedItems = filteredItems.slice(
-		(currentPage - 1) * ITEMS_PER_PAGE,
-		currentPage * ITEMS_PER_PAGE,
-	);
-
-	const handleSaveItem = async data => {
-		setIsSaving(true);
-		try {
-			const token = localStorage.getItem("token");
-			const res = await fetch(`${API_BASE_URL}/api/items`, {
-				method: "PUT",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${token}`,
-				},
-				body: JSON.stringify(data),
-			});
-
-			const result = await res.json();
-
-			if (!res.ok) {
-				// CITE: Sử dụng lỗi từ backend đã cập nhật ở be/src/routes/items.js
-				throw new Error(result.error || "Lưu thất bại.");
-			}
-
-			await fetchAllData();
-			navigate("/admin/items");
-			alert(result.message || "Lưu thành công");
-		} catch (e) {
-			alert(e.message || "Đã có lỗi xảy ra");
-		} finally {
-			setIsSaving(false);
-		}
-	};
-
-	const handleDeleteItem = async itemCode => {
-		if (!itemCode || !window.confirm("Bạn có chắc chắn muốn xóa vật phẩm này?"))
-			return;
-		setIsSaving(true);
-		try {
-			const token = localStorage.getItem("token");
-			const res = await fetch(`${API_BASE_URL}/api/items/${itemCode}`, {
-				method: "DELETE",
-				headers: { Authorization: `Bearer ${token}` },
-			});
-			if (!res.ok) throw new Error("Xóa thất bại");
-
-			await fetchAllData();
-			navigate("/admin/items");
-			alert("Đã xóa vật phẩm thành công");
-		} catch (e) {
-			alert(e.message || "Xóa thất bại");
-		} finally {
-			setIsSaving(false);
-		}
-	};
+	}, [items, searchTerm, selectedRarities, sortOrder, tDynamic]);
 
 	const sidePanelProps = {
-		searchPlaceholder: "Nhập tên vật phẩm...",
-		addLabel: "Thêm Vật Phẩm Mới",
-		resetLabel: "Đặt lại bộ lọc",
+		searchPlaceholder: tUI("admin.item.searchPlaceholder"),
+		addLabel: tUI("admin.item.addNew"),
+		resetLabel: tUI("admin.item.resetFilter"),
 		searchInput,
 		onSearchInputChange: e => setSearchInput(e.target.value),
 		onSearch: () => {
@@ -305,11 +344,11 @@ function ItemEditor() {
 		},
 		multiFilterConfigs: [
 			{
-				label: "Độ hiếm",
+				label: tUI("admin.item.rarity"),
 				options: filterOptions.rarities,
 				selectedValues: selectedRarities,
 				onChange: setSelectedRarities,
-				placeholder: "Tất cả Độ hiếm",
+				placeholder: tUI("admin.item.allRarities"),
 			},
 		],
 		sortOptions: filterOptions.sort,
@@ -321,7 +360,7 @@ function ItemEditor() {
 		return (
 			<div className='flex flex-col items-center justify-center min-h-[400px] text-text-secondary'>
 				<Loader2 className='animate-spin text-primary-500' size={48} />
-				<div className='text-lg mt-4'>Đang tải dữ liệu...</div>
+				<div className='text-lg mt-4'>{tUI("admin.common.loading")}</div>
 			</div>
 		);
 	}
@@ -337,8 +376,11 @@ function ItemEditor() {
 					index
 					element={
 						<ItemListView
-							paginatedItems={paginatedItems}
-							totalPages={totalPages}
+							paginatedItems={filteredItems.slice(
+								(currentPage - 1) * ITEMS_PER_PAGE,
+								currentPage * ITEMS_PER_PAGE,
+							)}
+							totalPages={Math.ceil(filteredItems.length / ITEMS_PER_PAGE)}
 							currentPage={currentPage}
 							onPageChange={setCurrentPage}
 							sidePanelProps={sidePanelProps}

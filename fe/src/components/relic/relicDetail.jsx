@@ -1,14 +1,14 @@
 // src/pages/relicDetail.jsx
 import { memo, useState, useEffect, useMemo } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion"; // THÊM: Framer Motion cho hiệu ứng mượt
+import { motion, AnimatePresence } from "framer-motion";
 import { Loader2, ChevronLeft, XCircle } from "lucide-react";
 import PageTitle from "../common/pageTitle";
 import Button from "../common/button";
 import SafeImage from "../common/SafeImage";
-import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook Đa ngôn ngữ
+import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook i18n
 
-// --- THÀNH PHẦN SKELETON LOADING (Đồng bộ với hệ thống) ---
+// --- THÀNH PHẦN SKELETON LOADING ---
 const RelicDetailSkeleton = () => (
 	<div className='max-w-[1200px] mx-auto p-0 sm:p-6 animate-pulse font-secondary'>
 		<div className='h-10 w-24 bg-gray-700/50 rounded mb-4 ml-4 sm:ml-0' />
@@ -35,7 +35,7 @@ const RelicDetailSkeleton = () => (
 function RelicDetail() {
 	const { relicCode } = useParams();
 	const navigate = useNavigate();
-	const { language, t } = useTranslation(); // 🟢 Khởi tạo Hook
+	const { tUI, tDynamic } = useTranslation(); // 🟢 Sử dụng tUI và tDynamic
 
 	const [relic, setRelic] = useState(null);
 	const [champions, setChampions] = useState([]);
@@ -59,12 +59,8 @@ function RelicDetail() {
 				if (!relicRes.ok) {
 					throw new Error(
 						relicRes.status === 404
-							? language === "vi"
-								? `Không tìm thấy cổ vật mã: ${decodedCode}`
-								: `Relic code not found: ${decodedCode}`
-							: language === "vi"
-								? "Lỗi tải thông tin cổ vật."
-								: "Error loading relic information.",
+							? `${tUI("relicDetail.notFoundPrefix")} ${decodedCode}`
+							: tUI("relicDetail.errorLoad"),
 					);
 				}
 
@@ -76,38 +72,33 @@ function RelicDetail() {
 				setRelic(foundRelic);
 				setChampions(championsData.items || []);
 			} catch (err) {
-				setError(
-					err.message ||
-						(language === "vi"
-							? "Đã xảy ra lỗi khi tải dữ liệu."
-							: "An error occurred while loading data."),
-				);
+				setError(err.message || tUI("common.errorLoadData"));
 			} finally {
 				setTimeout(() => setLoading(false), 800);
 			}
 		};
 
 		if (relicCode) fetchData();
-	}, [relicCode, apiUrl, language]);
+	}, [relicCode, apiUrl, tUI]);
 
-	// 🟢 Xử lý Tên và Mô tả đa ngôn ngữ
-	const relicName = relic ? t(relic, "name") : "";
+	// 🟢 Xử lý Tên và Mô tả đa ngôn ngữ của Cổ vật
+	const relicName = relic ? tDynamic(relic, "name") : "";
 	const relicDesc = relic
-		? t(relic, "descriptionRaw") || t(relic, "description")
+		? tDynamic(relic, "description") || tDynamic(relic, "descriptionRaw")
 		: "";
 
 	const compatibleChampions = useMemo(() => {
 		if (!relic || !champions.length) return [];
 		return champions
-			.filter(champion =>
-				champion.relicSets?.some(set => set.includes(relic.relicCode)),
+			.filter(champ =>
+				champ.relicSets?.some(set => set.includes(relic.relicCode)),
 			)
 			.map(champ => ({
 				championID: champ.championID,
-				name: t(champ, "name"), // 🟢 Dịch tên Tướng
+				name: tDynamic(champ, "name"), // 🟢 Dịch tên Tướng
 				image: champ.assets?.[0]?.avatar || "/fallback-image.svg",
 			}));
-	}, [relic, champions, t]);
+	}, [relic, champions, tDynamic]);
 
 	if (error)
 		return (
@@ -115,10 +106,10 @@ function RelicDetail() {
 				<div className='bg-surface-hover p-8 rounded-lg border border-border inline-block'>
 					<XCircle size={48} className='mx-auto mb-4 text-red-500 opacity-50' />
 					<p className='text-xl font-bold text-red-500'>
-						{language === "vi" ? "Lỗi:" : "Error:"} {error}
+						{tUI("common.errorTitle")}: {error}
 					</p>
 					<Button onClick={() => navigate(-1)} className='mt-6 mx-auto'>
-						<ChevronLeft size={18} /> {language === "vi" ? "Quay lại" : "Back"}
+						<ChevronLeft size={18} /> {tUI("common.back")}
 					</Button>
 				</div>
 			</div>
@@ -127,14 +118,8 @@ function RelicDetail() {
 	return (
 		<div className='animate-fadeIn'>
 			<PageTitle
-				title={
-					relicName || (language === "vi" ? "Chi tiết cổ vật" : "Relic Details")
-				}
-				description={
-					language === "vi"
-						? `Chi tiết cổ vật ${relicName}`
-						: `Relic details for ${relicName}`
-				}
+				title={relicName || tUI("relicDetail.title")}
+				description={`${tUI("relicDetail.metaDesc")} ${relicName}`}
 				type='article'
 			/>
 
@@ -162,8 +147,7 @@ function RelicDetail() {
 							onClick={() => navigate(-1)}
 							className='mb-4 ml-4 sm:ml-0'
 						>
-							<ChevronLeft size={18} />{" "}
-							{language === "vi" ? "Quay lại" : "Back"}
+							<ChevronLeft size={18} /> {tUI("common.back")}
 						</Button>
 
 						<div className='relative mx-auto max-w-[1200px] border border-border p-4 sm:p-6 rounded-lg bg-surface-bg shadow-sm'>
@@ -184,7 +168,9 @@ function RelicDetail() {
 										<div className='flex-1 mt-4'>
 											<div
 												className='text-base sm:text-xl rounded-lg p-4 h-full min-h-[120px] leading-relaxed bg-surface-bg border text-text-secondary overflow-y-auto'
-												dangerouslySetInnerHTML={{ __html: relicDesc }}
+												dangerouslySetInnerHTML={{
+													__html: relicDesc,
+												}}
 											/>
 										</div>
 									)}
@@ -192,9 +178,7 @@ function RelicDetail() {
 							</div>
 
 							<h2 className='text-xl sm:text-3xl font-semibold mt-8 mb-4 font-primary'>
-								{language === "vi"
-									? "Các tướng có thể dùng cổ vật"
-									: "Champions using this relic"}
+								{tUI("relicDetail.compatibleChampions")}
 							</h2>
 
 							{compatibleChampions.length > 0 ? (
@@ -219,9 +203,7 @@ function RelicDetail() {
 							) : (
 								<div className='text-center p-8 rounded-md bg-surface-hover text-text-secondary border border-dashed border-border'>
 									<p className='text-lg'>
-										{language === "vi"
-											? "Không có tướng nào sử dụng cổ vật này."
-											: "No champions are using this relic."}
+										{tUI("relicDetail.noCompatibleChampions")}
 									</p>
 								</div>
 							)}

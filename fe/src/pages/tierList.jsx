@@ -22,74 +22,58 @@ const TierListHeaderSkeleton = () => (
 function TierListIndex() {
 	const navigate = useNavigate();
 	const location = useLocation();
-	const { language } = useTranslation(); // 🟢 Khởi tạo Hook
+	const { tUI } = useTranslation(); // 🟢 Sử dụng tUI
 
-	const [isInitializing, setIsInitializing] = useState(true);
-
-	const isChampionsActive =
-		location.pathname === "/tierlist/champions" ||
-		location.pathname === "/tierlist";
-	const isRelicsActive = location.pathname === "/tierlist/relics";
+	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
-		const timer = setTimeout(() => {
-			setIsInitializing(false);
-		}, 300); // Giả lập độ trễ ngắn để tạo hiệu ứng chuyển cảnh mượt
+		const timer = setTimeout(() => setIsLoading(false), 800);
 		return () => clearTimeout(timer);
-	}, [location.pathname]);
+	}, []);
 
-	const renderContent = useCallback(() => {
-		if (isChampionsActive) return <TierListChampions />;
-		if (isRelicsActive) return <TierListRelics />;
-		return <TierListChampions />; // Fallback
-	}, [isChampionsActive, isRelicsActive]);
+	const isRelicsActive = location.pathname.includes("/relics");
+	const isChampionsActive = !isRelicsActive;
 
 	return (
-		<div className='min-h-screen bg-bg-primary text-text-primary animate-fadeIn'>
+		<div className='animate-fadeIn'>
+			{/* 🟢 Tiêu đề trang đa ngôn ngữ */}
 			<PageTitle
-				title={
-					language === "vi"
-						? "Xếp hạng Tướng & Cổ vật"
-						: "Champions & Relics Tier List"
-				}
+				title={tUI("tierList.pageTitle")}
+				description={tUI("metadata.defaultDescription")}
 			/>
 
-			<div className='max-w-[1400px] mx-auto p-2 sm:p-4 md:p-6 font-secondary'>
+			<div className='max-w-[1400px] mx-auto py-4 sm:py-8 font-secondary'>
 				<AnimatePresence mode='wait'>
-					{isInitializing ? (
+					{isLoading ? (
 						<motion.div
 							key='skeleton'
 							initial={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
 							exit={{ opacity: 0 }}
-							transition={{ duration: 0.2 }}
 						>
 							<TierListHeaderSkeleton />
-							<div className='h-[600px] w-full bg-surface-bg border border-border rounded-xl mt-4 animate-pulse' />
+							<div className='h-[800px] bg-surface-bg/30 rounded-2xl border border-border/50 animate-pulse m-2' />
 						</motion.div>
 					) : (
 						<motion.div
 							key='content'
 							initial={{ opacity: 0, y: 10 }}
 							animate={{ opacity: 1, y: 0 }}
-							transition={{ duration: 0.3 }}
+							transition={{ duration: 0.4 }}
 						>
-							{/* Header: Title + Navigation Buttons */}
-							<div className='mb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-4 px-2'>
+							{/* Header: Title & Tab Switcher */}
+							<div className='mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4 px-2'>
 								<div>
-									<h1 className='text-2xl sm:text-3xl md:text-4xl font-bold font-primary uppercase text-primary-500'>
-										{language === "vi" ? "BẢNG XẾP HẠNG" : "TIER LIST"}
+									<h1 className='text-3xl sm:text-5xl font-bold text-text-primary font-primary tracking-tight uppercase italic'>
+										<span className='text-primary-500'>POC</span>{" "}
+										{tUI("home.tierListTitle")}
 									</h1>
-									<p className='text-sm text-text-secondary mt-1 max-w-xl'>
-										{language === "vi"
-											? "Khám phá sức mạnh của các Tướng và Cổ vật trong Path of Champions hiện tại."
-											: "Discover the power rankings of Champions and Relics in the current Path of Champions meta."}
-									</p>
 								</div>
 
-								<div className='flex bg-surface-bg p-1 rounded-xl border border-border shadow-sm w-fit'>
+								{/* Tab Switcher */}
+								<div className='flex bg-surface-bg p-1 rounded-xl border border-border w-fit shadow-inner'>
 									<button
-										onClick={() => navigate("/tierlist/champions")}
+										onClick={() => navigate("/tierlist")}
 										className={`flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-bold transition-all duration-200 ${
 											isChampionsActive
 												? "bg-primary-500 text-white shadow-lg shadow-primary-500/20"
@@ -97,7 +81,7 @@ function TierListIndex() {
 										}`}
 									>
 										<Swords size={18} />
-										{language === "vi" ? "TƯỚNG" : "CHAMPIONS"}
+										{tUI("tierList.tabChampions")}
 									</button>
 									<button
 										onClick={() => navigate("/tierlist/relics")}
@@ -108,7 +92,7 @@ function TierListIndex() {
 										}`}
 									>
 										<Sparkles size={18} />
-										{language === "vi" ? "CỔ VẬT" : "RELICS"}
+										{tUI("tierList.tabRelics")}
 									</button>
 								</div>
 							</div>
@@ -121,9 +105,13 @@ function TierListIndex() {
 										initial={{ opacity: 0, x: -10 }}
 										animate={{ opacity: 1, x: 0 }}
 										exit={{ opacity: 0, x: 10 }}
-										transition={{ duration: 0.2 }}
+										transition={{ duration: 0.3 }}
 									>
-										{renderContent()}
+										{isChampionsActive ? (
+											<TierListChampions />
+										) : (
+											<TierListRelics />
+										)}
 									</motion.div>
 								</AnimatePresence>
 							</div>

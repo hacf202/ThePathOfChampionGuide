@@ -1,3 +1,4 @@
+// src/components/champion/constellationTable.jsx
 import React, { useState } from "react";
 import { Star } from "lucide-react";
 import { RenderRequirements } from "./requirementIcon";
@@ -18,7 +19,7 @@ const StarRating = ({ count }) => {
 };
 
 export default function ConstellationTable({ starPowersList, bonusStarsList }) {
-	const { tUI } = useTranslation(); // 🟢 Khởi tạo Hook gọi tUI
+	const { tUI, tDynamic } = useTranslation(); // 🟢 Khởi tạo Hook
 	const [activeConstellationTab, setActiveConstellationTab] =
 		useState("starPowers");
 
@@ -111,7 +112,7 @@ export default function ConstellationTable({ starPowersList, bonusStarsList }) {
 										<div className='w-12 h-12 sm:w-14 sm:h-14 rounded bg-surface-bg '>
 											<img
 												src={node.image}
-												alt={node.name}
+												alt={tDynamic(node, "name") || node.name}
 												className='w-full h-full object-contain drop-shadow-sm'
 											/>
 										</div>
@@ -120,14 +121,14 @@ export default function ConstellationTable({ starPowersList, bonusStarsList }) {
 
 								{/* Cột 4: Tên */}
 								<td className='py-1 px-1 sm:px-2 align-middle border-r border-border/50 text-xs sm:text-sm font-semibold text-text-primary'>
-									{node.name}
+									{tDynamic(node, "name") || node.name}
 								</td>
 
 								{/* Cột 5: Sức mạnh (Mô tả) */}
 								<td className='py-1 px-2 sm:px-4 align-middle text-xs sm:text-[13px] text-text-primary leading-relaxed'>
 									<div
 										dangerouslySetInnerHTML={{
-											__html: node.description,
+											__html: tDynamic(node, "description") || node.description,
 										}}
 									/>
 								</td>

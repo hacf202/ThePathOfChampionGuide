@@ -7,11 +7,12 @@ import { removeAccents } from "../../utils/vietnameseUtils";
 import SidePanel from "../common/sidePanel";
 import RelicEditorForm from "./relicEditorForm";
 import { Loader2 } from "lucide-react";
+import { useTranslation } from "../../hooks/useTranslation"; // IMPORT HOOK ĐA NGÔN NGỮ
 
 const NEW_RELIC_TEMPLATE = {
 	relicCode: "",
 	isNew: true,
-	name: "Cổ Vật Mới",
+	name: "",
 	rarity: "",
 	rarityRef: "",
 	stack: 1,
@@ -19,10 +20,27 @@ const NEW_RELIC_TEMPLATE = {
 	assetAbsolutePath: "",
 	assetFullAbsolutePath: "",
 	description: "",
-	descriptionRaw: "",
+	translations: {
+		en: {
+			name: "",
+			rarity: "",
+			description: "",
+		},
+	},
 };
 
 const ITEMS_PER_PAGE = 20;
+
+const RARITY_WEIGHT = {
+	Thường: 1,
+	Common: 1,
+	Hiếm: 2,
+	Rare: 2,
+	"Sử Thi": 3,
+	Epic: 3,
+	"Huyền Thoại": 4,
+	Legendary: 4,
+};
 
 // === LIST VIEW COMPONENT ===
 const RelicListView = memo(
@@ -33,6 +51,8 @@ const RelicListView = memo(
 		onPageChange,
 		sidePanelProps,
 	}) => {
+		const { tUI } = useTranslation();
+
 		return (
 			<div className='flex flex-col lg:flex-row gap-6'>
 				<div className='lg:w-4/5 bg-surface-bg rounded-lg p-4'>
@@ -44,7 +64,7 @@ const RelicListView = memo(
 									to={`./${relic.relicCode}`}
 									className='block hover:scale-105 transition-transform duration-200'
 								>
-									<GenericCard item={relic} />
+									<GenericCard item={relic} onClick={() => {}} />
 								</Link>
 							))}
 						</div>
@@ -52,9 +72,9 @@ const RelicListView = memo(
 						<div className='flex items-center justify-center h-full min-h-[300px] text-center text-text-secondary'>
 							<div>
 								<p className='font-semibold text-lg'>
-									Không tìm thấy cổ vật nào phù hợp.
+									{tUI("admin.relic.notFound")}
 								</p>
-								<p>Vui lòng thử lại với bộ lọc khác.</p>
+								<p>{tUI("admin.relic.tryOtherFilter")}</p>
 							</div>
 						</div>
 					)}
@@ -66,7 +86,7 @@ const RelicListView = memo(
 								disabled={currentPage === 1}
 								variant='outline'
 							>
-								Trang trước
+								{tUI("admin.common.prevPage")}
 							</Button>
 							<span className='text-lg font-medium text-text-primary'>
 								{currentPage} / {totalPages}
@@ -76,7 +96,7 @@ const RelicListView = memo(
 								disabled={currentPage === totalPages}
 								variant='outline'
 							>
-								Trang sau
+								{tUI("admin.common.nextPage")}
 							</Button>
 						</div>
 					)}
@@ -99,22 +119,16 @@ const RelicEditWrapper = ({
 }) => {
 	const { id } = useParams();
 	const navigate = useNavigate();
+	const { tUI } = useTranslation();
 
 	const selectedRelic = useMemo(() => {
 		if (id === "new") return { ...NEW_RELIC_TEMPLATE };
-
 		const safeRelics = Array.isArray(relics) ? relics : [];
 		const found = safeRelics.find(r => r.relicCode === id);
-		if (found) {
-			// Ép isNew: false để Backend biết đây là lệnh cập nhật
-			return { ...found, isNew: false };
-		}
-		return null;
+		return found ? { ...found, isNew: false } : null;
 	}, [id, relics]);
 
-	const handleBack = useCallback(() => {
-		navigate("/admin/relics");
-	}, [navigate]);
+	const handleBack = useCallback(() => navigate("/admin/relics"), [navigate]);
 
 	if (
 		!selectedRelic &&
@@ -124,9 +138,11 @@ const RelicEditWrapper = ({
 	) {
 		return (
 			<div className='flex flex-col items-center justify-center py-20 text-text-secondary'>
-				<p className='text-xl mb-4'>Không tìm thấy cổ vật có mã: {id}</p>
+				<p className='text-xl mb-4'>
+					{tUI("admin.relic.notFoundId")} {id}
+				</p>
 				<Button onClick={handleBack} variant='primary'>
-					Quay lại danh sách
+					{tUI("admin.common.backToList")}
 				</Button>
 			</div>
 		);
@@ -162,75 +178,161 @@ function RelicEditor() {
 	const [selectedStacks, setSelectedStacks] = useState([]);
 	const [sortOrder, setSortOrder] = useState("name-asc");
 	const [currentPage, setCurrentPage] = useState(1);
-
 	const [isLoading, setIsLoading] = useState(true);
 	const [isSaving, setIsSaving] = useState(false);
 	const [error, setError] = useState(null);
 
 	const API_BASE_URL = import.meta.env.VITE_API_URL;
 	const navigate = useNavigate();
+	const { tUI, tDynamic } = useTranslation();
 
 	const fetchAllData = useCallback(async () => {
 		try {
 			setIsLoading(true);
+			// Sử dụng limit lớn để đảm bảo lấy đủ toàn bộ dữ liệu Cổ vật
 			const res = await fetch(`${API_BASE_URL}/api/relics?limit=1000`);
-			if (!res.ok) throw new Error("Không thể tải dữ liệu");
+			if (!res.ok) throw new Error(tUI("admin.common.errorLoad"));
 			const data = await res.json();
-			setRelics(data.items || []);
+			const items = Array.isArray(data) ? data : data.items || [];
+			setRelics(items);
 		} catch (e) {
-			setError("Không thể tải dữ liệu từ server.");
+			setError(tUI("admin.common.errorLoad"));
 		} finally {
 			setIsLoading(false);
 		}
-	}, [API_BASE_URL]);
+	}, [API_BASE_URL, tUI]);
 
 	useEffect(() => {
 		fetchAllData();
 	}, [fetchAllData]);
 
+	const handleSaveRelic = async data => {
+		setIsSaving(true);
+		try {
+			const token = localStorage.getItem("token");
+
+			// Dọn dẹp object bản dịch rỗng
+			const payload = { ...data };
+			if (
+				!payload.translations?.en?.name &&
+				!payload.translations?.en?.description &&
+				!payload.translations?.en?.rarity
+			) {
+				delete payload.translations;
+			}
+
+			const res = await fetch(`${API_BASE_URL}/api/relics`, {
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${token}`,
+				},
+				body: JSON.stringify(payload),
+			});
+
+			const result = await res.json();
+			if (!res.ok)
+				throw new Error(result.error || tUI("admin.common.saveFailed"));
+
+			await fetchAllData();
+			navigate("/admin/relics");
+			alert(result.message || tUI("admin.common.saveSuccess"));
+		} catch (e) {
+			alert(e.message || tUI("admin.common.errorOccurred"));
+		} finally {
+			setIsSaving(false);
+		}
+	};
+
+	const handleDeleteRelic = async id => {
+		if (!id || !window.confirm(tUI("admin.common.deleteConfirm"))) return;
+		setIsSaving(true);
+		try {
+			const token = localStorage.getItem("token");
+			const res = await fetch(`${API_BASE_URL}/api/relics/${id}`, {
+				method: "DELETE",
+				headers: { Authorization: `Bearer ${token}` },
+			});
+			if (!res.ok) throw new Error(tUI("admin.common.deleteFailed"));
+
+			await fetchAllData();
+			navigate("/admin/relics");
+			alert(tUI("admin.common.deleteSuccess"));
+		} catch (e) {
+			alert(e.message || tUI("admin.common.deleteFailed"));
+		} finally {
+			setIsSaving(false);
+		}
+	};
+
 	const filterOptions = useMemo(() => {
-		const safeRelics = Array.isArray(relics) ? relics : [];
-		const rarities = [
-			...new Set(safeRelics.map(r => r.rarity).filter(Boolean)),
-		].sort();
-		const types = [...new Set(safeRelics.map(r => r.type || "Other"))].sort();
-		const stacks = [...new Set(safeRelics.map(r => r.stack))].sort(
-			(a, b) => a - b,
-		);
+		const rarities = [...new Set(relics.map(r => r.rarity).filter(Boolean))];
+		const types = [...new Set(relics.map(r => r.type).filter(Boolean))];
+		const stacks = [
+			...new Set(relics.map(r => String(r.stack)).filter(Boolean)),
+		];
+
+		// Sắp xếp độ hiếm theo trọng số
+		rarities.sort((a, b) => (RARITY_WEIGHT[a] || 0) - (RARITY_WEIGHT[b] || 0));
 
 		return {
 			rarities: rarities.map(r => ({ value: r, label: r })),
-			types: types.map(t => ({ value: t, label: t })),
-			stacks: stacks.map(s => ({ value: s, label: `Stack ${s}` })),
+			types: types.sort().map(t => ({ value: t, label: t })),
+			stacks: stacks.sort().map(s => ({ value: s, label: s })),
 			sort: [
-				{ value: "name-asc", label: "Tên A-Z" },
-				{ value: "name-desc", label: "Tên Z-A" },
+				{ value: "name-asc", label: tUI("admin.common.sortNameAsc") },
+				{ value: "name-desc", label: tUI("admin.common.sortNameDesc") },
+				{ value: "rarity-asc", label: tUI("admin.relic.sortRarityAsc") },
+				{ value: "rarity-desc", label: tUI("admin.relic.sortRarityDesc") },
 			],
 		};
-	}, [relics]);
+	}, [relics, tUI]);
 
 	const filteredRelics = useMemo(() => {
-		let result = Array.isArray(relics) ? [...relics] : [];
+		let result = [...relics];
 
 		if (searchTerm) {
 			const term = removeAccents(searchTerm.toLowerCase());
-			result = result.filter(r =>
-				removeAccents((r.name || "").toLowerCase()).includes(term),
-			);
+			result = result.filter(r => {
+				const nameMatch = removeAccents(
+					(tDynamic(r, "name") || "").toLowerCase(),
+				).includes(term);
+				const descMatch = removeAccents(
+					(tDynamic(r, "description") || "").toLowerCase(),
+				).includes(term);
+				return nameMatch || descMatch;
+			});
 		}
 
-		if (selectedRarities.length)
+		if (selectedRarities.length) {
 			result = result.filter(r => selectedRarities.includes(r.rarity));
-		if (selectedTypes.length)
+		}
+
+		if (selectedTypes.length) {
 			result = result.filter(r => selectedTypes.includes(r.type));
-		if (selectedStacks.length)
-			result = result.filter(r => selectedStacks.includes(r.stack));
+		}
+
+		if (selectedStacks.length) {
+			result = result.filter(r => selectedStacks.includes(String(r.stack)));
+		}
 
 		const [field, dir] = sortOrder.split("-");
 		result.sort((a, b) => {
-			const A = a.name || "";
-			const B = b.name || "";
-			return dir === "asc" ? A.localeCompare(B) : B.localeCompare(A);
+			if (field === "name") {
+				const A = tDynamic(a, "name") || "";
+				const B = tDynamic(b, "name") || "";
+				return dir === "asc" ? A.localeCompare(B) : B.localeCompare(A);
+			} else if (field === "rarity") {
+				const A = RARITY_WEIGHT[a.rarity] || 0;
+				const B = RARITY_WEIGHT[b.rarity] || 0;
+				if (A === B) {
+					const na = tDynamic(a, "name") || "";
+					const nb = tDynamic(b, "name") || "";
+					return na.localeCompare(nb);
+				}
+				return dir === "asc" ? A - B : B - A;
+			}
+			return 0;
 		});
 
 		return result;
@@ -241,71 +343,13 @@ function RelicEditor() {
 		selectedTypes,
 		selectedStacks,
 		sortOrder,
+		tDynamic,
 	]);
 
-	const totalPages = Math.ceil(filteredRelics.length / ITEMS_PER_PAGE);
-	const paginatedRelics = filteredRelics.slice(
-		(currentPage - 1) * ITEMS_PER_PAGE,
-		currentPage * ITEMS_PER_PAGE,
-	);
-
-	const handleSaveRelic = async data => {
-		setIsSaving(true);
-		try {
-			const token = localStorage.getItem("token");
-			const res = await fetch(`${API_BASE_URL}/api/relics`, {
-				method: "PUT",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${token}`,
-				},
-				body: JSON.stringify(data),
-			});
-
-			const result = await res.json();
-
-			if (!res.ok) {
-				// Hiển thị lỗi từ Backend (VD: "Mã cổ vật đã tồn tại")
-				throw new Error(result.error || "Lưu thất bại.");
-			}
-
-			await fetchAllData();
-			navigate("/admin/relics");
-			alert(result.message || "Lưu thành công");
-		} catch (e) {
-			alert(e.message || "Đã có lỗi xảy ra");
-		} finally {
-			setIsSaving(false);
-		}
-	};
-
-	const handleDeleteRelic = async relicCode => {
-		if (!relicCode || !window.confirm("Bạn có chắc chắn muốn xóa cổ vật này?"))
-			return;
-
-		setIsSaving(true);
-		try {
-			const token = localStorage.getItem("token");
-			const res = await fetch(`${API_BASE_URL}/api/relics/${relicCode}`, {
-				method: "DELETE",
-				headers: { Authorization: `Bearer ${token}` },
-			});
-			if (!res.ok) throw new Error("Xóa thất bại");
-
-			await fetchAllData();
-			navigate("/admin/relics");
-			alert("Đã xóa cổ vật thành công");
-		} catch (e) {
-			alert(e.message || "Xóa thất bại");
-		} finally {
-			setIsSaving(false);
-		}
-	};
-
 	const sidePanelProps = {
-		searchPlaceholder: "Nhập tên cổ vật...",
-		addLabel: "Thêm Cổ Vật Mới",
-		resetLabel: "Đặt lại bộ lọc",
+		searchPlaceholder: tUI("admin.relic.searchPlaceholder"),
+		addLabel: tUI("admin.relic.addNew"),
+		resetLabel: tUI("admin.relic.resetFilter"),
 		searchInput,
 		onSearchInputChange: e => setSearchInput(e.target.value),
 		onSearch: () => {
@@ -328,25 +372,25 @@ function RelicEditor() {
 		},
 		multiFilterConfigs: [
 			{
-				label: "Độ hiếm",
+				label: tUI("admin.relic.rarity"),
 				options: filterOptions.rarities,
 				selectedValues: selectedRarities,
 				onChange: setSelectedRarities,
-				placeholder: "Tất cả Độ hiếm",
+				placeholder: tUI("admin.relic.allRarities"),
 			},
 			{
-				label: "Loại",
+				label: tUI("admin.relic.type"),
 				options: filterOptions.types,
 				selectedValues: selectedTypes,
 				onChange: setSelectedTypes,
-				placeholder: "Tất cả Loại",
+				placeholder: tUI("admin.relic.allTypes"),
 			},
 			{
-				label: "Stack",
+				label: tUI("admin.relic.stack"),
 				options: filterOptions.stacks,
 				selectedValues: selectedStacks,
 				onChange: setSelectedStacks,
-				placeholder: "Tất cả Stack",
+				placeholder: tUI("admin.relic.allStacks"),
 			},
 		],
 		sortOptions: filterOptions.sort,
@@ -358,7 +402,7 @@ function RelicEditor() {
 		return (
 			<div className='flex flex-col items-center justify-center min-h-[400px] text-text-secondary'>
 				<Loader2 className='animate-spin text-primary-500' size={48} />
-				<div className='text-lg mt-4'>Đang tải dữ liệu...</div>
+				<div className='text-lg mt-4'>{tUI("admin.common.loading")}</div>
 			</div>
 		);
 	}
@@ -374,8 +418,11 @@ function RelicEditor() {
 					index
 					element={
 						<RelicListView
-							paginatedRelics={paginatedRelics}
-							totalPages={totalPages}
+							paginatedRelics={filteredRelics.slice(
+								(currentPage - 1) * ITEMS_PER_PAGE,
+								currentPage * ITEMS_PER_PAGE,
+							)}
+							totalPages={Math.ceil(filteredRelics.length / ITEMS_PER_PAGE)}
 							currentPage={currentPage}
 							onPageChange={setCurrentPage}
 							sidePanelProps={sidePanelProps}

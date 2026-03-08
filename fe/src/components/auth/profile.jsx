@@ -1,5 +1,4 @@
 // src/pages/auth/Profile.jsx
-
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext.jsx";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +6,7 @@ import { Pencil, Loader2, ChevronLeft, Eye, EyeOff } from "lucide-react";
 import InputField from "../common/inputField";
 import Button from "../common/button";
 import PageTitle from "../common/pageTitle";
-import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook
+import { useTranslation } from "../../hooks/useTranslation";
 
 const maskEmail = email => {
 	if (!email || !email.includes("@")) return email;
@@ -27,16 +26,14 @@ const maskEmail = email => {
 };
 
 const Profile = () => {
-	const { language } = useTranslation(); // 🟢 Khởi tạo Hook
+	const { tUI } = useTranslation();
 	const { user, changeName, changePassword } = useAuth();
 	const navigate = useNavigate();
 
-	// === Tên hiển thị ===
 	const [isEditingName, setIsEditingName] = useState(false);
 	const [name, setName] = useState("");
 	const [isNameLoading, setIsNameLoading] = useState(false);
 
-	// === Đổi mật khẩu ===
 	const [isChangingPassword, setIsChangingPassword] = useState(false);
 	const [oldPassword, setOldPassword] = useState("");
 	const [newPassword, setNewPassword] = useState("");
@@ -61,17 +58,11 @@ const Profile = () => {
 		setErrorMessage("");
 		setMessage("");
 		if (!name.trim()) {
-			setErrorMessage(
-				language === "vi" ? "Vui lòng nhập tên" : "Please enter a name",
-			);
+			setErrorMessage(tUI("profile.error.nameReq"));
 			return;
 		}
 		if (!/^[a-zA-Z0-9\s]+$/.test(name)) {
-			setErrorMessage(
-				language === "vi"
-					? "Tên chỉ được chứa chữ, số và khoảng trắng"
-					: "Name can only contain letters, numbers, and spaces",
-			);
+			setErrorMessage(tUI("profile.error.nameInvalid"));
 			return;
 		}
 
@@ -79,15 +70,9 @@ const Profile = () => {
 		try {
 			await changeName(name);
 			setIsEditingName(false);
-			setMessage(
-				language === "vi"
-					? "Cập nhật tên thành công"
-					: "Name updated successfully",
-			);
+			setMessage(tUI("profile.success.nameUpdated"));
 		} catch (error) {
-			setErrorMessage(
-				language === "vi" ? "Lỗi cập nhật tên" : "Failed to update name",
-			);
+			setErrorMessage(tUI("profile.error.nameUpdateFailed"));
 		} finally {
 			setIsNameLoading(false);
 		}
@@ -101,32 +86,15 @@ const Profile = () => {
 
 		let newErrors = {};
 
-		if (!oldPassword)
-			newErrors.oldPassword =
-				language === "vi"
-					? "Vui lòng nhập mật khẩu hiện tại"
-					: "Please enter current password";
-		if (!newPassword)
-			newErrors.newPassword =
-				language === "vi"
-					? "Vui lòng nhập mật khẩu mới"
-					: "Please enter new password";
+		if (!oldPassword) newErrors.oldPassword = tUI("profile.error.oldPassReq");
+		if (!newPassword) newErrors.newPassword = tUI("auth.error.newPassReq");
 		else if (newPassword.length < 8 || !/\d/.test(newPassword))
-			newErrors.newPassword =
-				language === "vi"
-					? "Mật khẩu mới phải ≥ 8 ký tự, có chữ và số"
-					: "New password must be ≥ 8 characters, including letters and numbers";
+			newErrors.newPassword = tUI("auth.error.passFormatFull");
 
 		if (!confirmPassword)
-			newErrors.confirmPassword =
-				language === "vi"
-					? "Vui lòng xác nhận mật khẩu mới"
-					: "Please confirm new password";
+			newErrors.confirmPassword = tUI("auth.error.passConfirmReq");
 		else if (newPassword !== confirmPassword)
-			newErrors.confirmPassword =
-				language === "vi"
-					? "Mật khẩu mới không khớp"
-					: "New passwords do not match";
+			newErrors.confirmPassword = tUI("auth.error.passMismatch");
 
 		if (Object.keys(newErrors).length > 0) {
 			setErrors(newErrors);
@@ -136,22 +104,13 @@ const Profile = () => {
 		setIsPasswordLoading(true);
 		try {
 			await changePassword(oldPassword, newPassword, confirmPassword);
-			setMessage(
-				language === "vi"
-					? "Đổi mật khẩu thành công!"
-					: "Password changed successfully!",
-			);
+			setMessage(tUI("profile.success.passUpdated"));
 			setIsChangingPassword(false);
 			setOldPassword("");
 			setNewPassword("");
 			setConfirmPassword("");
 		} catch (err) {
-			setErrorMessage(
-				err ||
-					(language === "vi"
-						? "Lỗi đổi mật khẩu"
-						: "Failed to change password"),
-			);
+			setErrorMessage(err || tUI("profile.error.passUpdateFailed"));
 		} finally {
 			setIsPasswordLoading(false);
 		}
@@ -161,22 +120,19 @@ const Profile = () => {
 
 	return (
 		<div className='min-h-screen bg-bg-primary pt-24 px-4 font-secondary animate-fadeIn'>
-			<PageTitle title={language === "vi" ? "Hồ Sơ Của Tôi" : "My Profile"} />
+			<PageTitle title={tUI("profile.title")} />
 			<div className='max-w-3xl mx-auto'>
 				<div className='flex items-center justify-between mb-8'>
 					<h1 className='text-3xl font-bold text-text-primary font-primary uppercase tracking-wider'>
-						{language === "vi" ? "Hồ Sơ Của Tôi" : "My Profile"}
+						{tUI("profile.title")}
 					</h1>
 					<Button variant='outline' onClick={() => navigate(-1)}>
 						<ChevronLeft size={18} />
-						<span className='hidden sm:inline'>
-							{language === "vi" ? "Quay lại" : "Back"}
-						</span>
+						<span className='hidden sm:inline'>{tUI("common.back")}</span>
 					</Button>
 				</div>
 
 				<div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
-					{/* Cột trái: Avatar cơ bản */}
 					<div className='md:col-span-1'>
 						<div className='bg-surface-bg rounded-2xl p-6 border border-border flex flex-col items-center justify-center shadow-lg'>
 							<div className='w-32 h-32 rounded-full bg-gradient-to-tr from-primary-500 to-purple-600 flex items-center justify-center text-4xl font-bold text-white mb-4 shadow-inner'>
@@ -191,22 +147,17 @@ const Profile = () => {
 						</div>
 					</div>
 
-					{/* Cột phải: Thông tin chi tiết */}
 					<div className='md:col-span-2 space-y-6'>
-						{/* 1. Thông tin chung */}
 						<div className='bg-surface-bg rounded-2xl p-6 sm:p-8 border border-border shadow-lg relative overflow-hidden'>
 							<div className='absolute top-0 left-0 w-1 h-full bg-primary-500'></div>
 							<h3 className='text-xl font-bold text-text-primary mb-6 font-primary flex items-center gap-2'>
-								{language === "vi"
-									? "Thông tin tài khoản"
-									: "Account Information"}
+								{tUI("profile.accountInfo")}
 							</h3>
 
 							<div className='space-y-6'>
-								{/* Name Field */}
 								<div>
 									<label className='block text-sm font-medium text-text-secondary mb-2'>
-										{language === "vi" ? "Tên hiển thị:" : "Display Name:"}
+										{tUI("profile.displayName")}
 									</label>
 									{isEditingName ? (
 										<div className='flex flex-col sm:flex-row items-start sm:items-center gap-3'>
@@ -226,10 +177,8 @@ const Profile = () => {
 												>
 													{isNameLoading ? (
 														<Loader2 className='animate-spin' size={18} />
-													) : language === "vi" ? (
-														"Lưu"
 													) : (
-														"Save"
+														tUI("common.save")
 													)}
 												</Button>
 												<Button
@@ -241,15 +190,14 @@ const Profile = () => {
 													disabled={isNameLoading}
 													className='flex-1 sm:flex-none'
 												>
-													{language === "vi" ? "Hủy" : "Cancel"}
+													{tUI("common.cancel")}
 												</Button>
 											</div>
 										</div>
 									) : (
 										<div className='flex justify-between items-center bg-surface-hover p-3 rounded-lg border border-border'>
 											<span className='text-text-primary font-medium'>
-												{user.name ||
-													(language === "vi" ? "Chưa có tên" : "No name set")}
+												{user.name || tUI("profile.noName")}
 											</span>
 											<button
 												onClick={() => setIsEditingName(true)}
@@ -261,7 +209,6 @@ const Profile = () => {
 									)}
 								</div>
 
-								{/* Email Field (Read Only) */}
 								<div>
 									<label className='block text-sm font-medium text-text-secondary mb-2'>
 										Email:
@@ -273,20 +220,18 @@ const Profile = () => {
 							</div>
 						</div>
 
-						{/* 2. Đổi mật khẩu */}
 						<div className='bg-surface-bg rounded-2xl p-6 sm:p-8 border border-border shadow-lg relative overflow-hidden'>
 							<div className='absolute top-0 left-0 w-1 h-full bg-purple-500'></div>
 							<div className='flex justify-between items-center mb-6'>
 								<h3 className='text-xl font-bold text-text-primary font-primary'>
-									{language === "vi" ? "Cập nhật mật khẩu" : "Update Password"}
+									{tUI("profile.updatePasswordTitle")}
 								</h3>
 								{!isChangingPassword && (
 									<Button
 										variant='outline'
 										onClick={() => setIsChangingPassword(true)}
 									>
-										<Pencil size={16} className='mr-2' />{" "}
-										{language === "vi" ? "Sửa" : "Edit"}
+										<Pencil size={16} className='mr-2' /> {tUI("common.edit")}
 									</Button>
 								)}
 							</div>
@@ -294,17 +239,9 @@ const Profile = () => {
 							{isChangingPassword && (
 								<form onSubmit={handleUpdatePassword} className='space-y-4'>
 									<InputField
-										label={
-											language === "vi"
-												? "Mật khẩu hiện tại"
-												: "Current password"
-										}
+										label={tUI("profile.currentPassword")}
 										type={showOldPassword ? "text" : "password"}
-										placeholder={
-											language === "vi"
-												? "Nhập mật khẩu hiện tại"
-												: "Enter current password"
-										}
+										placeholder={tUI("profile.currentPassword")}
 										value={oldPassword}
 										onChange={e => setOldPassword(e.target.value)}
 										error={errors.oldPassword}
@@ -325,13 +262,9 @@ const Profile = () => {
 									/>
 
 									<InputField
-										label={language === "vi" ? "Mật khẩu mới" : "New password"}
+										label={tUI("auth.newPassLabel")}
 										type={showNewPassword ? "text" : "password"}
-										placeholder={
-											language === "vi"
-												? "Nhập mật khẩu mới"
-												: "Enter new password"
-										}
+										placeholder={tUI("auth.newPassPlaceholder")}
 										value={newPassword}
 										onChange={e => setNewPassword(e.target.value)}
 										error={errors.newPassword}
@@ -352,17 +285,9 @@ const Profile = () => {
 									/>
 
 									<InputField
-										label={
-											language === "vi"
-												? "Xác nhận mật khẩu mới"
-												: "Confirm new password"
-										}
+										label={tUI("auth.confirmNewPassLabel")}
 										type={showConfirmPassword ? "text" : "password"}
-										placeholder={
-											language === "vi"
-												? "Nhập lại mật khẩu mới"
-												: "Re-enter new password"
-										}
+										placeholder={tUI("auth.confirmNewPassLabel")}
 										value={confirmPassword}
 										onChange={e => setConfirmPassword(e.target.value)}
 										error={errors.confirmPassword}
@@ -385,9 +310,7 @@ const Profile = () => {
 									/>
 
 									<div className='text-xs text-text-secondary'>
-										{language === "vi"
-											? "Mật khẩu chỉ cần tối thiểu 8 ký tự, bao gồm chữ thường và số."
-											: "Password must be at least 8 characters, including lowercase and numbers."}
+										{tUI("auth.passHint")}
 									</div>
 
 									<div className='flex gap-3 pt-2'>
@@ -403,12 +326,8 @@ const Profile = () => {
 											}
 										>
 											{isPasswordLoading
-												? language === "vi"
-													? "Đang cập nhật..."
-													: "Updating..."
-												: language === "vi"
-													? "Xác nhận đổi mật khẩu"
-													: "Confirm password change"}
+												? tUI("profile.updating")
+												: tUI("profile.confirmChange")}
 										</Button>
 										<Button
 											type='button'
@@ -422,13 +341,12 @@ const Profile = () => {
 											}}
 											disabled={isPasswordLoading}
 										>
-											{language === "vi" ? "Hủy" : "Cancel"}
+											{tUI("common.cancel")}
 										</Button>
 									</div>
 								</form>
 							)}
 
-							{/* Thông báo */}
 							<div className='mt-4'>
 								{message && (
 									<p className='text-sm text-success text-center bg-success/10 py-2 rounded-md border border-success/20'>

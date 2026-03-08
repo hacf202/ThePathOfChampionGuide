@@ -1,5 +1,4 @@
 // src/pages/auth/AuthContainer.jsx
-
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Login from "./login.jsx";
@@ -7,24 +6,18 @@ import Register from "./register.jsx";
 import { ChevronLeft } from "lucide-react";
 import Button from "../common/button.jsx";
 import PageTitle from "../common/pageTitle";
-import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook
+import { useTranslation } from "../../hooks/useTranslation";
 
 const AuthContainer = () => {
-	const { language } = useTranslation(); // 🟢 Khởi tạo Hook
+	const { tUI } = useTranslation();
 	const [isLoginView, setIsLoginView] = useState(true);
 	const navigate = useNavigate();
 	const location = useLocation();
 
-	// Chỉ hiển thị nút quay lại nếu có trang trước đó
 	const showBackButton = location.key !== "default";
 
-	const handleLoginSuccess = () => {
-		navigate("/builds");
-	};
-
-	const handleRegisterSuccess = () => {
-		setIsLoginView(true);
-	};
+	const handleLoginSuccess = () => navigate("/builds");
+	const handleRegisterSuccess = () => setIsLoginView(true);
 
 	const switchToRegister = () => setIsLoginView(false);
 	const switchToLogin = () => setIsLoginView(true);
@@ -39,22 +32,18 @@ const AuthContainer = () => {
 
 	return (
 		<div>
-			<PageTitle
-				title={language === "vi" ? "Đăng nhập / đăng ký" : "Login / Register"}
-			/>
+			<PageTitle title={tUI("auth.loginRegisterTitle")} />
 			<div className='flex justify-center min-h-screen p-4 pt-16 sm:pt-20 font-secondary'>
 				<div className='w-full max-w-lg'>
-					{/* === NÚT QUAY LẠI - NẰM TRÊN FORM === */}
 					{showBackButton && (
 						<div className='mb-4'>
 							<Button onClick={handleBack} variant='outline'>
 								<ChevronLeft size={18} />
-								{language === "vi" ? "Quay lại" : "Back"}
+								{tUI("common.back")}
 							</Button>
 						</div>
 					)}
 
-					{/* === TAB ĐĂNG NHẬP / ĐĂNG KÝ === */}
 					<div className='flex mb-0'>
 						<button
 							onClick={switchToLogin}
@@ -65,7 +54,7 @@ const AuthContainer = () => {
 									: "bg-surface-hover text-text-secondary hover:text-text-primary hover:bg-surface-active"
 							}`}
 						>
-							{language === "vi" ? "Đăng Nhập" : "Login"}
+							{tUI("auth.login")}
 							{isLoginView && (
 								<span className='absolute bottom-0 left-0 w-full h-1 bg-primary-500'></span>
 							)}
@@ -80,14 +69,13 @@ const AuthContainer = () => {
 									: "bg-surface-hover text-text-secondary hover:text-text-primary hover:bg-surface-active"
 							}`}
 						>
-							{language === "vi" ? "Đăng Ký" : "Register"}
+							{tUI("auth.register")}
 							{!isLoginView && (
 								<span className='absolute bottom-0 left-0 w-full h-1 bg-primary-500'></span>
 							)}
 						</button>
 					</div>
 
-					{/* === NỘI DUNG FORM === */}
 					<div className='bg-surface-bg rounded-b-xl shadow-primary-md overflow-hidden border-t border-transparent'>
 						{isLoginView ? (
 							<Login

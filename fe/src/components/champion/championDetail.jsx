@@ -308,7 +308,7 @@ function ChampionDetail() {
 				title={
 					champion ? tDynamic(champion, "name") : tUI("championDetail.title")
 				}
-				description={`POC GUIDE cho ${champion?.name || ""}`}
+				description={`${tUI("championDetail.metaDesc")} ${tDynamic(champion, "name")}`}
 				type='article'
 			/>
 			<div className='max-w-[1200px] mx-auto p-0 sm:p-6 text-text-primary font-secondary'>

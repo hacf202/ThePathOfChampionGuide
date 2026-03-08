@@ -7,20 +7,38 @@ import { removeAccents } from "../../utils/vietnameseUtils";
 import SidePanel from "../common/sidePanel";
 import PowerEditorForm from "./powerEditorForm";
 import { Loader2 } from "lucide-react";
+import { useTranslation } from "../../hooks/useTranslation"; // IMPORT HOOK
 
 const NEW_POWER_TEMPLATE = {
 	powerCode: "",
 	isNew: true,
-	name: "Sức Mạnh Mới",
+	name: "",
 	rarity: "",
 	description: "",
-	descriptionRaw: "",
 	type: [],
 	assetAbsolutePath: "",
 	assetFullAbsolutePath: "",
+	translations: {
+		en: {
+			name: "",
+			rarity: "",
+			description: "",
+		},
+	},
 };
 
 const ITEMS_PER_PAGE = 20;
+
+const RARITY_WEIGHT = {
+	Thường: 1,
+	Common: 1,
+	Hiếm: 2,
+	Rare: 2,
+	"Sử Thi": 3,
+	Epic: 3,
+	"Huyền Thoại": 4,
+	Legendary: 4,
+};
 
 // === LIST VIEW COMPONENT ===
 const PowerListView = memo(
@@ -31,6 +49,8 @@ const PowerListView = memo(
 		onPageChange,
 		sidePanelProps,
 	}) => {
+		const { tUI } = useTranslation();
+
 		return (
 			<div className='flex flex-col lg:flex-row gap-6'>
 				<div className='lg:w-4/5 bg-surface-bg rounded-lg p-4'>
@@ -42,7 +62,7 @@ const PowerListView = memo(
 									to={`./${power.powerCode}`}
 									className='block hover:scale-105 transition-transform duration-200'
 								>
-									<GenericCard item={power} />
+									<GenericCard item={power} onClick={() => {}} />
 								</Link>
 							))}
 						</div>
@@ -50,9 +70,9 @@ const PowerListView = memo(
 						<div className='flex items-center justify-center h-full min-h-[300px] text-center text-text-secondary'>
 							<div>
 								<p className='font-semibold text-lg'>
-									Không tìm thấy sức mạnh nào phù hợp.
+									{tUI("admin.power.notFound")}
 								</p>
-								<p>Vui lòng thử lại với bộ lọc khác.</p>
+								<p>{tUI("admin.power.tryOtherFilter")}</p>
 							</div>
 						</div>
 					)}
@@ -64,7 +84,7 @@ const PowerListView = memo(
 								disabled={currentPage === 1}
 								variant='outline'
 							>
-								Trang trước
+								{tUI("admin.common.prevPage")}
 							</Button>
 							<span className='text-lg font-medium text-text-primary'>
 								{currentPage} / {totalPages}
@@ -74,7 +94,7 @@ const PowerListView = memo(
 								disabled={currentPage === totalPages}
 								variant='outline'
 							>
-								Trang sau
+								{tUI("admin.common.nextPage")}
 							</Button>
 						</div>
 					)}
@@ -97,21 +117,16 @@ const PowerEditWrapper = ({
 }) => {
 	const { id } = useParams();
 	const navigate = useNavigate();
+	const { tUI } = useTranslation();
 
 	const selectedPower = useMemo(() => {
 		if (id === "new") return { ...NEW_POWER_TEMPLATE };
-
 		const safePowers = Array.isArray(powers) ? powers : [];
 		const found = safePowers.find(p => p.powerCode === id);
-		if (found) {
-			return { ...found, isNew: false };
-		}
-		return null;
+		return found ? { ...found, isNew: false } : null;
 	}, [id, powers]);
 
-	const handleBack = useCallback(() => {
-		navigate("/admin/powers");
-	}, [navigate]);
+	const handleBack = useCallback(() => navigate("/admin/powers"), [navigate]);
 
 	if (
 		!selectedPower &&
@@ -121,9 +136,11 @@ const PowerEditWrapper = ({
 	) {
 		return (
 			<div className='flex flex-col items-center justify-center py-20 text-text-secondary'>
-				<p className='text-xl mb-4'>Không tìm thấy sức mạnh có mã: {id}</p>
+				<p className='text-xl mb-4'>
+					{tUI("admin.power.notFoundId")} {id}
+				</p>
 				<Button onClick={handleBack} variant='primary'>
-					Quay lại danh sách
+					{tUI("admin.common.backToList")}
 				</Button>
 			</div>
 		);
@@ -158,57 +175,137 @@ function PowerEditor() {
 	const [selectedTypes, setSelectedTypes] = useState([]);
 	const [sortOrder, setSortOrder] = useState("name-asc");
 	const [currentPage, setCurrentPage] = useState(1);
-
 	const [isLoading, setIsLoading] = useState(true);
 	const [isSaving, setIsSaving] = useState(false);
 	const [error, setError] = useState(null);
 
 	const API_BASE_URL = import.meta.env.VITE_API_URL;
 	const navigate = useNavigate();
+	const { tUI, tDynamic } = useTranslation();
 
 	const fetchAllData = useCallback(async () => {
 		try {
 			setIsLoading(true);
-			const res = await fetch(`${API_BASE_URL}/api/powers?limit=1000`);
-			if (!res.ok) throw new Error("Không thể tải dữ liệu");
+			const res = await fetch(`${API_BASE_URL}/api/powers?limit=1000`); // Lấy toàn bộ dữ liệu
+			if (!res.ok) throw new Error(tUI("admin.common.errorLoad"));
 			const data = await res.json();
-			setPowers(data.items || []);
+			const items = Array.isArray(data) ? data : data.items || [];
+			setPowers(items);
 		} catch (e) {
-			setError("Không thể tải dữ liệu từ server.");
+			setError(tUI("admin.common.errorLoad"));
 		} finally {
 			setIsLoading(false);
 		}
-	}, [API_BASE_URL]);
+	}, [API_BASE_URL, tUI]);
 
 	useEffect(() => {
 		fetchAllData();
 	}, [fetchAllData]);
 
+	const handleSavePower = async data => {
+		setIsSaving(true);
+		try {
+			const token = localStorage.getItem("token");
+
+			// Dọn dẹp object bản dịch rỗng
+			const payload = { ...data };
+			if (
+				!payload.translations?.en?.name &&
+				!payload.translations?.en?.description &&
+				!payload.translations?.en?.rarity
+			) {
+				delete payload.translations;
+			}
+
+			const res = await fetch(`${API_BASE_URL}/api/powers`, {
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${token}`,
+				},
+				body: JSON.stringify(payload),
+			});
+
+			const result = await res.json();
+			if (!res.ok)
+				throw new Error(result.error || tUI("admin.common.saveFailed"));
+
+			await fetchAllData();
+			navigate("/admin/powers");
+			alert(result.message || tUI("admin.common.saveSuccess"));
+		} catch (e) {
+			alert(e.message || tUI("admin.common.errorOccurred"));
+		} finally {
+			setIsSaving(false);
+		}
+	};
+
+	const handleDeletePower = async id => {
+		if (!id || !window.confirm(tUI("admin.common.deleteConfirm"))) return;
+		setIsSaving(true);
+		try {
+			const token = localStorage.getItem("token");
+			const res = await fetch(`${API_BASE_URL}/api/powers/${id}`, {
+				method: "DELETE",
+				headers: { Authorization: `Bearer ${token}` },
+			});
+			if (!res.ok) throw new Error(tUI("admin.common.deleteFailed"));
+
+			await fetchAllData();
+			navigate("/admin/powers");
+			alert(tUI("admin.common.deleteSuccess"));
+		} catch (e) {
+			alert(e.message || tUI("admin.common.deleteFailed"));
+		} finally {
+			setIsSaving(false);
+		}
+	};
+
 	const filterOptions = useMemo(() => {
-		const safePowers = Array.isArray(powers) ? powers : [];
-		const rarities = [
-			...new Set(safePowers.map(p => p.rarity).filter(Boolean)),
-		].sort();
-		const types = [...new Set(safePowers.flatMap(p => p.type || []))].sort();
+		const rarities = [...new Set(powers.map(p => p.rarity).filter(Boolean))];
+		const typesList = [];
+		powers.forEach(p => {
+			if (Array.isArray(p.type)) {
+				p.type.forEach(t => {
+					if (t && !typesList.includes(t)) typesList.push(t);
+				});
+			} else if (typeof p.type === "string" && p.type) {
+				const parts = p.type.split(",").map(s => s.trim());
+				parts.forEach(pt => {
+					if (pt && !typesList.includes(pt)) typesList.push(pt);
+				});
+			}
+		});
+
+		// Sắp xếp độ hiếm theo trọng số
+		rarities.sort((a, b) => (RARITY_WEIGHT[a] || 0) - (RARITY_WEIGHT[b] || 0));
 
 		return {
 			rarities: rarities.map(r => ({ value: r, label: r })),
-			types: types.map(t => ({ value: t, label: t })),
+			types: typesList.sort().map(t => ({ value: t, label: t })),
 			sort: [
-				{ value: "name-asc", label: "Tên A-Z" },
-				{ value: "name-desc", label: "Tên Z-A" },
+				{ value: "name-asc", label: tUI("admin.common.sortNameAsc") },
+				{ value: "name-desc", label: tUI("admin.common.sortNameDesc") },
+				{ value: "rarity-asc", label: tUI("admin.power.sortRarityAsc") },
+				{ value: "rarity-desc", label: tUI("admin.power.sortRarityDesc") },
 			],
 		};
-	}, [powers]);
+	}, [powers, tUI]);
 
 	const filteredPowers = useMemo(() => {
-		let result = Array.isArray(powers) ? [...powers] : [];
+		let result = [...powers];
 
 		if (searchTerm) {
 			const term = removeAccents(searchTerm.toLowerCase());
-			result = result.filter(p =>
-				removeAccents((p.name || "").toLowerCase()).includes(term),
-			);
+			result = result.filter(p => {
+				const nameMatch = removeAccents(
+					(tDynamic(p, "name") || "").toLowerCase(),
+				).includes(term);
+				const descMatch = removeAccents(
+					(tDynamic(p, "description") || "").toLowerCase(),
+				).includes(term);
+				return nameMatch || descMatch;
+			});
 		}
 
 		if (selectedRarities.length) {
@@ -216,80 +313,49 @@ function PowerEditor() {
 		}
 
 		if (selectedTypes.length) {
-			result = result.filter(p => p.type?.some(t => selectedTypes.includes(t)));
+			result = result.filter(p => {
+				if (!p.type) return false;
+				if (Array.isArray(p.type)) {
+					return p.type.some(t => selectedTypes.includes(t));
+				}
+				const pt = p.type.split(",").map(s => s.trim());
+				return pt.some(t => selectedTypes.includes(t));
+			});
 		}
 
 		const [field, dir] = sortOrder.split("-");
 		result.sort((a, b) => {
-			const A = a.name || "";
-			const B = b.name || "";
-			return dir === "asc" ? A.localeCompare(B) : B.localeCompare(A);
+			if (field === "name") {
+				const A = tDynamic(a, "name") || "";
+				const B = tDynamic(b, "name") || "";
+				return dir === "asc" ? A.localeCompare(B) : B.localeCompare(A);
+			} else if (field === "rarity") {
+				const A = RARITY_WEIGHT[a.rarity] || 0;
+				const B = RARITY_WEIGHT[b.rarity] || 0;
+				if (A === B) {
+					const na = tDynamic(a, "name") || "";
+					const nb = tDynamic(b, "name") || "";
+					return na.localeCompare(nb);
+				}
+				return dir === "asc" ? A - B : B - A;
+			}
+			return 0;
 		});
 
 		return result;
-	}, [powers, searchTerm, selectedRarities, selectedTypes, sortOrder]);
-
-	const totalPages = Math.ceil(filteredPowers.length / ITEMS_PER_PAGE);
-	const paginatedPowers = filteredPowers.slice(
-		(currentPage - 1) * ITEMS_PER_PAGE,
-		currentPage * ITEMS_PER_PAGE,
-	);
-
-	const handleSavePower = async data => {
-		setIsSaving(true);
-		try {
-			const token = localStorage.getItem("token");
-			const res = await fetch(`${API_BASE_URL}/api/powers`, {
-				method: "PUT",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${token}`,
-				},
-				body: JSON.stringify(data),
-			});
-
-			const result = await res.json();
-
-			if (!res.ok) {
-				// Hiển thị lỗi từ backend (ví dụ: "Mã sức mạnh đã tồn tại")
-				throw new Error(result.error || "Lưu thất bại.");
-			}
-
-			await fetchAllData();
-			navigate("/admin/powers");
-			alert(result.message || "Lưu thành công");
-		} catch (e) {
-			alert(e.message || "Đã có lỗi xảy ra");
-		} finally {
-			setIsSaving(false);
-		}
-	};
-
-	const handleDeletePower = async powerCode => {
-		if (!powerCode) return;
-		setIsSaving(true);
-		try {
-			const token = localStorage.getItem("token");
-			const res = await fetch(`${API_BASE_URL}/api/powers/${powerCode}`, {
-				method: "DELETE",
-				headers: { Authorization: `Bearer ${token}` },
-			});
-			if (!res.ok) throw new Error("Xóa thất bại");
-
-			await fetchAllData();
-			navigate("/admin/powers");
-			alert("Đã xóa sức mạnh thành công");
-		} catch (e) {
-			alert(e.message || "Xóa thất bại");
-		} finally {
-			setIsSaving(false);
-		}
-	};
+	}, [
+		powers,
+		searchTerm,
+		selectedRarities,
+		selectedTypes,
+		sortOrder,
+		tDynamic,
+	]);
 
 	const sidePanelProps = {
-		searchPlaceholder: "Nhập tên sức mạnh...",
-		addLabel: "Thêm Sức Mạnh Mới",
-		resetLabel: "Đặt lại bộ lọc",
+		searchPlaceholder: tUI("admin.power.searchPlaceholder"),
+		addLabel: tUI("admin.power.addNew"),
+		resetLabel: tUI("admin.power.resetFilter"),
 		searchInput,
 		onSearchInputChange: e => setSearchInput(e.target.value),
 		onSearch: () => {
@@ -311,18 +377,18 @@ function PowerEditor() {
 		},
 		multiFilterConfigs: [
 			{
-				label: "Độ hiếm",
+				label: tUI("admin.power.rarity"),
 				options: filterOptions.rarities,
 				selectedValues: selectedRarities,
 				onChange: setSelectedRarities,
-				placeholder: "Tất cả Độ hiếm",
+				placeholder: tUI("admin.power.allRarities"),
 			},
 			{
-				label: "Loại",
+				label: tUI("admin.power.type"),
 				options: filterOptions.types,
 				selectedValues: selectedTypes,
 				onChange: setSelectedTypes,
-				placeholder: "Tất cả Loại",
+				placeholder: tUI("admin.power.allTypes"),
 			},
 		],
 		sortOptions: filterOptions.sort,
@@ -334,7 +400,7 @@ function PowerEditor() {
 		return (
 			<div className='flex flex-col items-center justify-center min-h-[400px] text-text-secondary'>
 				<Loader2 className='animate-spin text-primary-500' size={48} />
-				<div className='text-lg mt-4'>Đang tải dữ liệu...</div>
+				<div className='text-lg mt-4'>{tUI("admin.common.loading")}</div>
 			</div>
 		);
 	}
@@ -350,8 +416,11 @@ function PowerEditor() {
 					index
 					element={
 						<PowerListView
-							paginatedPowers={paginatedPowers}
-							totalPages={totalPages}
+							paginatedPowers={filteredPowers.slice(
+								(currentPage - 1) * ITEMS_PER_PAGE,
+								currentPage * ITEMS_PER_PAGE,
+							)}
+							totalPages={Math.ceil(filteredPowers.length / ITEMS_PER_PAGE)}
 							currentPage={currentPage}
 							onPageChange={setCurrentPage}
 							sidePanelProps={sidePanelProps}

@@ -1,11 +1,10 @@
 // src/pages/auth/OTPConfirmation.jsx
-
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext.jsx";
 import InputField from "../common/inputField";
 import Button from "../common/button";
 import { Loader2 } from "lucide-react";
-import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook
+import { useTranslation } from "../../hooks/useTranslation";
 
 const OTPConfirmation = ({
 	username,
@@ -16,7 +15,7 @@ const OTPConfirmation = ({
 	newPassword,
 	setNewPassword,
 }) => {
-	const { language } = useTranslation(); // 🟢 Khởi tạo Hook
+	const { tUI } = useTranslation();
 	const { confirmSignUp, confirmPasswordReset, resendConfirmationCode } =
 		useContext(AuthContext);
 	const [otp, setOtp] = useState("");
@@ -27,9 +26,7 @@ const OTPConfirmation = ({
 	const handleConfirmOtp = async e => {
 		e.preventDefault();
 		if (!otp.trim()) {
-			setError(
-				language === "vi" ? "Vui lòng nhập mã OTP" : "Please enter OTP code",
-			);
+			setError(tUI("auth.error.otpReq"));
 			return;
 		}
 		setIsLoading(true);
@@ -42,11 +39,7 @@ const OTPConfirmation = ({
 				!/[0-9]/.test(newPassword) ||
 				!/[a-zA-Z]/.test(newPassword)
 			) {
-				setError(
-					language === "vi"
-						? "Mật khẩu mới phải có ít nhất 8 ký tự, bao gồm chữ và số"
-						: "New password must be at least 8 characters, including letters and numbers",
-				);
+				setError(tUI("auth.error.passFormatFull"));
 				setIsLoading(false);
 				return;
 			}
@@ -55,18 +48,12 @@ const OTPConfirmation = ({
 				otp,
 				newPassword,
 				msg => {
-					setSuccess(
-						language === "vi"
-							? "Đổi mật khẩu thành công!"
-							: "Password reset successful!",
-					);
+					setSuccess(tUI("auth.success.passReset"));
 					setIsLoading(false);
 					if (onSuccess) onSuccess();
 				},
 				err => {
-					setError(
-						err || (language === "vi" ? "Có lỗi xảy ra" : "An error occurred"),
-					);
+					setError(err || tUI("auth.error.general"));
 					setIsLoading(false);
 				},
 			);
@@ -75,18 +62,12 @@ const OTPConfirmation = ({
 				username,
 				otp,
 				msg => {
-					setSuccess(
-						language === "vi"
-							? "Xác minh thành công!"
-							: "Verification successful!",
-					);
+					setSuccess(tUI("auth.success.verified"));
 					setIsLoading(false);
 					if (onSuccess) onSuccess();
 				},
 				err => {
-					setError(
-						err || (language === "vi" ? "Có lỗi xảy ra" : "An error occurred"),
-					);
+					setError(err || tUI("auth.error.general"));
 					setIsLoading(false);
 				},
 			);
@@ -100,20 +81,11 @@ const OTPConfirmation = ({
 		resendConfirmationCode(
 			username,
 			msg => {
-				setSuccess(
-					language === "vi"
-						? "Đã gửi lại mã OTP vào email của bạn"
-						: "OTP code has been resent to your email",
-				);
+				setSuccess(tUI("auth.success.otpResent"));
 				setIsLoading(false);
 			},
 			err => {
-				setError(
-					err ||
-						(language === "vi"
-							? "Không thể gửi lại mã"
-							: "Failed to resend code"),
-				);
+				setError(err || tUI("auth.error.resendFailed"));
 				setIsLoading(false);
 			},
 		);
@@ -133,16 +105,14 @@ const OTPConfirmation = ({
 			)}
 
 			<h2 className='text-2xl font-bold mb-6 text-text-primary text-center font-primary'>
-				{language === "vi" ? "Xác Minh OTP" : "Verify OTP"}
+				{tUI("auth.verifyOtpTitle")}
 			</h2>
 			{isPasswordReset && (
 				<div className='mb-4'>
 					<InputField
-						label={language === "vi" ? "Mật khẩu mới:" : "New password:"}
+						label={tUI("auth.newPassLabel")}
 						type='password'
-						placeholder={
-							language === "vi" ? "Nhập mật khẩu mới" : "Enter new password"
-						}
+						placeholder={tUI("auth.newPassPlaceholder")}
 						value={newPassword}
 						onChange={e => setNewPassword(e.target.value)}
 						disabled={isLoading}
@@ -153,15 +123,13 @@ const OTPConfirmation = ({
 			<form onSubmit={handleConfirmOtp}>
 				<InputField
 					type='text'
-					placeholder={language === "vi" ? "Mã OTP" : "OTP Code"}
+					placeholder={tUI("auth.otpLabel")}
 					value={otp}
 					onChange={e => setOtp(e.target.value)}
 					disabled={isLoading}
 					className='mb-6 w-full'
 				/>
 				<div className='flex flex-col sm:flex-row gap-4'>
-					{" "}
-					{/* Responsive buttons */}
 					<Button
 						type='submit'
 						disabled={isLoading}
@@ -170,13 +138,7 @@ const OTPConfirmation = ({
 							isLoading && <Loader2 className='animate-spin' size={16} />
 						}
 					>
-						{isLoading
-							? language === "vi"
-								? "Đang xử lý..."
-								: "Processing..."
-							: language === "vi"
-								? "Xác Minh"
-								: "Verify"}
+						{isLoading ? tUI("auth.processing") : tUI("auth.verifyBtn")}
 					</Button>
 					<Button
 						type='button'
@@ -188,13 +150,7 @@ const OTPConfirmation = ({
 							isLoading && <Loader2 className='animate-spin' size={16} />
 						}
 					>
-						{isLoading
-							? language === "vi"
-								? "Đang gửi..."
-								: "Sending..."
-							: language === "vi"
-								? "Gửi Lại OTP"
-								: "Resend OTP"}
+						{isLoading ? tUI("auth.sending") : tUI("auth.resendBtn")}
 					</Button>
 				</div>
 			</form>

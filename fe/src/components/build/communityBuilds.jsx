@@ -53,8 +53,8 @@ const CommunityBuilds = ({
 	setCache,
 	clearCache,
 }) => {
-	const { user } = useContext(AuthContext);
-	const { language } = useTranslation(); // 🟢 Khởi tạo ngôn ngữ
+	const { user, token } = useContext(AuthContext);
+	const { language, tUI } = useTranslation(); // 🟢 Khởi tạo ngôn ngữ và tUI
 	const [builds, setBuilds] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
@@ -83,12 +83,7 @@ const CommunityBuilds = ({
 					`${apiUrl}/api/builds?${queryParams.toString()}`,
 				);
 
-				if (!response.ok)
-					throw new Error(
-						language === "vi"
-							? "Lỗi tải dữ liệu từ máy chủ"
-							: "Failed to fetch data.",
-					);
+				if (!response.ok) throw new Error(tUI("common.errorLoadData"));
 
 				const data = await response.json();
 
@@ -105,14 +100,7 @@ const CommunityBuilds = ({
 				setLoading(false);
 			}
 		},
-		[
-			searchTerm,
-			selectedStarLevels,
-			selectedRegions,
-			sortBy,
-			setCache,
-			language,
-		],
+		[searchTerm, selectedStarLevels, selectedRegions, sortBy, setCache, tUI],
 	);
 
 	useEffect(() => {
@@ -132,7 +120,7 @@ const CommunityBuilds = ({
 	}, [currentPage, fetchBuilds, refreshKey]);
 
 	const { favoriteStatus, favoriteCounts, toggleFavorite } =
-		useBatchFavoriteData(builds, user?.sub);
+		useBatchFavoriteData(builds, token);
 
 	const onFavoriteToggle = (buildId, newStatus, newCount) => {
 		toggleFavorite(buildId, newStatus, newCount);
@@ -243,7 +231,7 @@ const CommunityBuilds = ({
 									disabled={currentPage === 1}
 									variant='outline'
 								>
-									{language === "vi" ? "Trang trước" : "Previous"}
+									{tUI("common.prevPage")}
 								</Button>
 								<span className='font-bold text-primary-500 bg-primary-100/10 px-4 py-1.5 rounded-full border border-primary-500/20'>
 									{currentPage} / {totalPages}
@@ -253,7 +241,7 @@ const CommunityBuilds = ({
 									disabled={currentPage === totalPages}
 									variant='outline'
 								>
-									{language === "vi" ? "Trang sau" : "Next"}
+									{tUI("common.nextPage")}
 								</Button>
 							</div>
 						)}
@@ -265,9 +253,7 @@ const CommunityBuilds = ({
 							className='mx-auto mb-4 opacity-20 text-text-secondary'
 						/>
 						<p className='text-text-secondary italic'>
-							{language === "vi"
-								? "Không tìm thấy bộ cổ vật nào phù hợp."
-								: "No matching builds found."}
+							{tUI("buildList.notFound")}
 						</p>
 					</div>
 				)}

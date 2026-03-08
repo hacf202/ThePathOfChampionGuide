@@ -1,20 +1,18 @@
 // src/pages/auth/Login.jsx
-
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext.jsx";
 import InputField from "../common/inputField";
 import Button from "../common/button";
 import { Loader2, Eye, EyeOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook
+import { useTranslation } from "../../hooks/useTranslation";
 
 const Login = ({ onSwitchToRegister, onSuccess }) => {
-	const { language } = useTranslation(); // 🟢 Khởi tạo Hook
+	const { tUI } = useTranslation();
 	const { login, forgotPassword, confirmPasswordReset } =
 		useContext(AuthContext);
 	const navigate = useNavigate();
 
-	// === Đăng nhập ===
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [showPassword, setShowPassword] = useState(false);
@@ -23,7 +21,6 @@ const Login = ({ onSwitchToRegister, onSuccess }) => {
 		password: "",
 	});
 
-	// === Quên mật khẩu ===
 	const [isForgotPassword, setIsForgotPassword] = useState(false);
 	const [forgotStep, setForgotStep] = useState(1);
 	const [forgotUsername, setForgotUsername] = useState("");
@@ -44,72 +41,44 @@ const Login = ({ onSwitchToRegister, onSuccess }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [success, setSuccess] = useState("");
 
-	// === Validate (chỉ khi submit) ===
 	const validateLogin = () => {
 		const err = { username: "", password: "" };
-		if (!username.trim())
-			err.username =
-				language === "vi" ? "Vui lòng nhập tài khoản" : "Please enter username";
-		if (!password)
-			err.password =
-				language === "vi" ? "Vui lòng nhập mật khẩu" : "Please enter password";
+		if (!username.trim()) err.username = tUI("auth.error.usernameReq");
+		if (!password) err.password = tUI("auth.error.passwordReq");
 		setLoginErrors(err);
 		return !err.username && !err.password;
 	};
 
 	const validateForgotStep1 = () => {
 		const err = { username: "", email: "" };
-		if (!forgotUsername.trim())
-			err.username =
-				language === "vi"
-					? "Vui lòng nhập tên người dùng"
-					: "Please enter username";
-		if (!forgotEmail)
-			err.email =
-				language === "vi" ? "Vui lòng nhập email" : "Please enter email";
+		if (!forgotUsername.trim()) err.username = tUI("auth.error.usernameReq");
+		if (!forgotEmail) err.email = tUI("auth.error.emailReq");
 		else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(forgotEmail))
-			err.email = language === "vi" ? "Email không hợp lệ" : "Invalid email";
+			err.email = tUI("auth.error.emailInvalid");
 		setForgotErrors({ ...forgotErrors, ...err });
 		return !err.username && !err.email;
 	};
 
 	const validateForgotStep2 = () => {
 		const err = { otp: "", newPassword: "", confirmNewPassword: "" };
-		if (!otp.trim())
-			err.otp = language === "vi" ? "Vui lòng nhập mã OTP" : "Please enter OTP";
-		if (!newPassword)
-			err.newPassword =
-				language === "vi"
-					? "Vui lòng nhập mật khẩu mới"
-					: "Please enter new password";
+		if (!otp.trim()) err.otp = tUI("auth.error.otpReq");
+		if (!newPassword) err.newPassword = tUI("auth.error.newPassReq");
 		else if (newPassword.length < 8)
-			err.newPassword =
-				language === "vi"
-					? "Mật khẩu phải ≥ 8 ký tự"
-					: "Password must be ≥ 8 characters";
+			err.newPassword = tUI("auth.error.passMin");
 		else if (!/[a-z]/.test(newPassword))
-			err.newPassword =
-				language === "vi"
-					? "Phải có 1 chữ thường"
-					: "Must contain 1 lowercase letter";
+			err.newPassword = tUI("auth.error.passLower");
 		else if (!/\d/.test(newPassword))
-			err.newPassword =
-				language === "vi" ? "Phải có 1 số" : "Must contain 1 number";
+			err.newPassword = tUI("auth.error.passNum");
 
 		if (!confirmNewPassword)
-			err.confirmNewPassword =
-				language === "vi"
-					? "Vui lòng xác nhận mật khẩu"
-					: "Please confirm password";
+			err.confirmNewPassword = tUI("auth.error.passConfirmReq");
 		else if (newPassword !== confirmNewPassword)
-			err.confirmNewPassword =
-				language === "vi" ? "Mật khẩu không khớp" : "Passwords do not match";
+			err.confirmNewPassword = tUI("auth.error.passMismatch");
 
 		setForgotErrors({ ...forgotErrors, ...err });
 		return !err.otp && !err.newPassword && !err.confirmNewPassword;
 	};
 
-	// === Xử lý ===
 	const handleLogin = async () => {
 		if (!validateLogin()) return;
 		setIsLoading(true);
@@ -124,10 +93,7 @@ const Login = ({ onSwitchToRegister, onSuccess }) => {
 			() => {
 				setLoginErrors({
 					username: "",
-					password:
-						language === "vi"
-							? "Tài khoản hoặc mật khẩu không đúng"
-							: "Incorrect username or password",
+					password: tUI("auth.error.invalidCredentials"),
 				});
 				setIsLoading(false);
 			},
@@ -183,14 +149,14 @@ const Login = ({ onSwitchToRegister, onSuccess }) => {
 			{isForgotPassword ? (
 				<div>
 					<h2 className='text-2xl font-bold mb-6 text-text-primary font-primary text-center'>
-						{language === "vi" ? "Quên Mật Khẩu" : "Forgot Password"}
+						{tUI("auth.forgotPasswordTitle")}
 					</h2>
 
 					{forgotStep === 1 ? (
 						<>
 							<div className='mb-4'>
 								<InputField
-									label={language === "vi" ? "Tên người dùng" : "Username"}
+									label={tUI("auth.usernameLabel")}
 									type='text'
 									value={forgotUsername}
 									onChange={e => setForgotUsername(e.target.value)}
@@ -202,7 +168,7 @@ const Login = ({ onSwitchToRegister, onSuccess }) => {
 							</div>
 							<div className='mb-6'>
 								<InputField
-									label='Email'
+									label={tUI("auth.emailLabel")}
 									type='email'
 									value={forgotEmail}
 									onChange={e => setForgotEmail(e.target.value)}
@@ -221,20 +187,14 @@ const Login = ({ onSwitchToRegister, onSuccess }) => {
 										isLoading && <Loader2 className='animate-spin' size={16} />
 									}
 								>
-									{isLoading
-										? language === "vi"
-											? "Đang gửi..."
-											: "Sending..."
-										: language === "vi"
-											? "Gửi mã OTP"
-											: "Send OTP"}
+									{isLoading ? tUI("auth.sending") : tUI("auth.sendOtp")}
 								</Button>
 								<button
 									type='button'
 									onClick={() => setIsForgotPassword(false)}
 									className='text-sm underline text-text-link hover:text-primary-700 w-full sm:w-auto'
 								>
-									{language === "vi" ? "Quay lại Đăng nhập" : "Back to Login"}
+									{tUI("auth.backToLogin")}
 								</button>
 							</div>
 						</>
@@ -247,15 +207,11 @@ const Login = ({ onSwitchToRegister, onSuccess }) => {
 							)}
 							<div className='mb-4'>
 								<InputField
-									label={language === "vi" ? "Mã OTP" : "OTP Code"}
+									label={tUI("auth.otpLabel")}
 									type='text'
 									value={otp}
 									onChange={e => setOtp(e.target.value)}
-									placeholder={
-										language === "vi"
-											? "Nhập mã 6 chữ số"
-											: "Enter 6-digit code"
-									}
+									placeholder={tUI("auth.otpPlaceholder")}
 									disabled={isLoading}
 									error={forgotErrors.otp}
 									className='w-full'
@@ -264,7 +220,7 @@ const Login = ({ onSwitchToRegister, onSuccess }) => {
 							</div>
 							<div className='mb-4'>
 								<InputField
-									label={language === "vi" ? "Mật khẩu mới" : "New password"}
+									label={tUI("auth.newPassLabel")}
 									type={showNewPassword ? "text" : "password"}
 									value={newPassword}
 									onChange={e => setNewPassword(e.target.value)}
@@ -290,9 +246,7 @@ const Login = ({ onSwitchToRegister, onSuccess }) => {
 							</div>
 							<div className='mb-4'>
 								<InputField
-									label={
-										language === "vi" ? "Xác nhận mật khẩu" : "Confirm password"
-									}
+									label={tUI("auth.confirmNewPassLabel")}
 									type={showConfirmNewPassword ? "text" : "password"}
 									value={confirmNewPassword}
 									onChange={e => setConfirmNewPassword(e.target.value)}
@@ -319,9 +273,7 @@ const Login = ({ onSwitchToRegister, onSuccess }) => {
 								/>
 							</div>
 							<div className='text-xs text-text-secondary mb-6'>
-								{language === "vi"
-									? "Mật khẩu chỉ cần tối thiểu 8 ký tự, bao gồm chữ thường và số."
-									: "Password must be at least 8 characters, including lowercase and numbers."}
+								{tUI("auth.passHint")}
 							</div>
 							<div className='flex flex-col sm:flex-row justify-between items-center mt-4 gap-4'>
 								<Button
@@ -333,19 +285,15 @@ const Login = ({ onSwitchToRegister, onSuccess }) => {
 									}
 								>
 									{isLoading
-										? language === "vi"
-											? "Đang xử lý..."
-											: "Processing..."
-										: language === "vi"
-											? "Đặt lại mật khẩu"
-											: "Reset Password"}
+										? tUI("auth.processing")
+										: tUI("auth.resetPassword")}
 								</Button>
 								<button
 									type='button'
 									onClick={() => setForgotStep(1)}
 									className='text-sm underline text-text-link hover:text-primary-700 w-full sm:w-auto'
 								>
-									{language === "vi" ? "Gửi lại mã" : "Resend code"}
+									{tUI("auth.resendCode")}
 								</button>
 							</div>
 						</>
@@ -360,18 +308,16 @@ const Login = ({ onSwitchToRegister, onSuccess }) => {
 					className='w-full'
 				>
 					<h2 className='text-2xl font-bold mb-6 text-text-primary font-primary text-center'>
-						{language === "vi" ? "Đăng Nhập" : "Login"}
+						{tUI("auth.login")}
 					</h2>
 
 					<div className='mb-4'>
 						<InputField
-							label={language === "vi" ? "Tài khoản" : "Username"}
+							label={tUI("auth.usernameLabel")}
 							type='text'
 							value={username}
 							onChange={e => setUsername(e.target.value)}
-							placeholder={
-								language === "vi" ? "Nhập tài khoản" : "Enter username"
-							}
+							placeholder={tUI("auth.usernamePlaceholder")}
 							disabled={isLoading}
 							error={loginErrors.username}
 							className='w-full'
@@ -381,13 +327,11 @@ const Login = ({ onSwitchToRegister, onSuccess }) => {
 
 					<div className='mb-6'>
 						<InputField
-							label={language === "vi" ? "Mật khẩu" : "Password"}
+							label={tUI("auth.passwordLabel")}
 							type={showPassword ? "text" : "password"}
 							value={password}
 							onChange={e => setPassword(e.target.value)}
-							placeholder={
-								language === "vi" ? "Nhập mật khẩu" : "Enter password"
-							}
+							placeholder={tUI("auth.passwordPlaceholder")}
 							disabled={isLoading}
 							error={loginErrors.password}
 							className='w-full'
@@ -411,7 +355,7 @@ const Login = ({ onSwitchToRegister, onSuccess }) => {
 							}}
 							className='mt-2 block text-sm underline text-text-link hover:text-primary-700'
 						>
-							{language === "vi" ? "Quên mật khẩu?" : "Forgot password?"}
+							{tUI("auth.forgotPassword")}
 						</button>
 					</div>
 
@@ -424,22 +368,14 @@ const Login = ({ onSwitchToRegister, onSuccess }) => {
 								isLoading && <Loader2 className='animate-spin' size={16} />
 							}
 						>
-							{isLoading
-								? language === "vi"
-									? "Đang xử lý..."
-									: "Processing..."
-								: language === "vi"
-									? "Đăng Nhập"
-									: "Login"}
+							{isLoading ? tUI("auth.processing") : tUI("auth.login")}
 						</Button>
 						<button
 							type='button'
 							onClick={onSwitchToRegister}
 							className='text-sm underline text-text-link hover:text-primary-700 w-full sm:w-auto'
 						>
-							{language === "vi"
-								? "Bạn chưa có tài khoản?"
-								: "Don't have an account?"}
+							{tUI("auth.noAccount")}
 						</button>
 					</div>
 				</form>

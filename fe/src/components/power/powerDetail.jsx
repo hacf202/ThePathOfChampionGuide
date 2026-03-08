@@ -6,7 +6,7 @@ import { Loader2, ChevronLeft, XCircle } from "lucide-react";
 import PageTitle from "../common/pageTitle";
 import Button from "../common/button";
 import SafeImage from "../common/SafeImage";
-import { useTranslation } from "../../hooks/useTranslation";
+import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook i18n
 
 // --- THÀNH PHẦN SKELETON LOADING ---
 const PowerDetailSkeleton = () => (
@@ -35,7 +35,7 @@ const PowerDetailSkeleton = () => (
 function PowerDetail() {
 	const { powerCode } = useParams();
 	const navigate = useNavigate();
-	const { language, t } = useTranslation();
+	const { tUI, tDynamic } = useTranslation(); // 🟢 Sử dụng tUI và tDynamic
 
 	const [power, setPower] = useState(null);
 	const [champions, setChampions] = useState([]);
@@ -59,12 +59,8 @@ function PowerDetail() {
 				if (!powerRes.ok) {
 					throw new Error(
 						powerRes.status === 404
-							? language === "vi"
-								? `Không tìm thấy sức mạnh mã: ${decodedCode}`
-								: `Power code not found: ${decodedCode}`
-							: language === "vi"
-								? "Lỗi tải thông tin sức mạnh."
-								: "Error loading power information.",
+							? `${tUI("powerDetail.notFoundPrefix")} ${decodedCode}`
+							: tUI("powerDetail.errorLoad"),
 					);
 				}
 
@@ -76,52 +72,33 @@ function PowerDetail() {
 				setPower(foundPower);
 				setChampions(championsData.items || []);
 			} catch (err) {
-				setError(
-					err.message ||
-						(language === "vi"
-							? "Đã xảy ra lỗi khi tải dữ liệu."
-							: "An error occurred while loading data."),
-				);
+				setError(err.message || tUI("common.errorLoadData"));
 			} finally {
 				setTimeout(() => setLoading(false), 800);
 			}
 		};
 
 		if (powerCode) fetchData();
-	}, [powerCode, apiUrl, language]);
+	}, [powerCode, apiUrl, tUI]);
 
-	const powerName = power ? t(power, "name") : "";
+	// 🟢 Xử lý Tên và Mô tả đa ngôn ngữ của Sức mạnh
+	const powerName = power ? tDynamic(power, "name") : "";
 	const powerDesc = power
-		? t(power, "descriptionRaw") || t(power, "description")
+		? tDynamic(power, "description") || tDynamic(power, "descriptionRaw")
 		: "";
 
-	// 🟢 FIX TÌM TƯỚNG TƯƠNG THÍCH (Bao phủ cả ID mới và Tên cũ, chống crash mảng)
 	const compatibleChampions = useMemo(() => {
 		if (!power || !champions.length) return [];
 		return champions
-			.filter(champion => {
-				const powerCodeStr = String(power.powerCode);
-				const pName = power.name;
-
-				const advPowers =
-					champion.adventurePowerIds || champion.adventurePowers || [];
-				const starPowers = champion.powerStarIds || champion.powerStars || [];
-
-				const hasAdv =
-					Array.isArray(advPowers) &&
-					advPowers.some(p => String(p) === powerCodeStr || p === pName);
-				const hasStar =
-					Array.isArray(starPowers) &&
-					starPowers.some(p => String(p) === powerCodeStr || p === pName);
-
-				return hasAdv || hasStar;
-			})
+			.filter(champ =>
+				champ.adventurePowerIds?.some(id => id === power.powerCode),
+			)
 			.map(champ => ({
-				id: champ.championID || champ.name, // Fallback an toàn
-				name: t(champ, "name"),
+				id: champ.championID,
+				name: tDynamic(champ, "name"), // 🟢 Dịch tên Tướng
 				image: champ.assets?.[0]?.avatar || "/fallback-image.svg",
 			}));
-	}, [power, champions, t]);
+	}, [power, champions, tDynamic]);
 
 	if (error)
 		return (
@@ -129,10 +106,10 @@ function PowerDetail() {
 				<div className='bg-surface-hover p-8 rounded-lg border border-border inline-block'>
 					<XCircle size={48} className='mx-auto mb-4 text-red-500 opacity-50' />
 					<p className='text-xl font-bold text-red-500'>
-						{language === "vi" ? "Lỗi:" : "Error:"} {error}
+						{tUI("common.errorTitle")}: {error}
 					</p>
 					<Button onClick={() => navigate(-1)} className='mt-6 mx-auto'>
-						<ChevronLeft size={18} /> {language === "vi" ? "Quay lại" : "Back"}
+						<ChevronLeft size={18} /> {tUI("common.back")}
 					</Button>
 				</div>
 			</div>
@@ -141,15 +118,8 @@ function PowerDetail() {
 	return (
 		<div className='animate-fadeIn'>
 			<PageTitle
-				title={
-					powerName ||
-					(language === "vi" ? "Chi tiết sức mạnh" : "Power Details")
-				}
-				description={
-					language === "vi"
-						? `Chi tiết sức mạnh ${powerName}`
-						: `Power details for ${powerName}`
-				}
+				title={powerName || tUI("powerDetail.title")}
+				description={`${tUI("powerDetail.metaDesc")} ${powerName}`}
 				type='article'
 			/>
 
@@ -177,8 +147,7 @@ function PowerDetail() {
 							onClick={() => navigate(-1)}
 							className='mb-4 ml-4 sm:ml-0'
 						>
-							<ChevronLeft size={18} />{" "}
-							{language === "vi" ? "Quay lại" : "Back"}
+							<ChevronLeft size={18} /> {tUI("common.back")}
 						</Button>
 
 						<div className='relative mx-auto max-w-[1200px] border border-border p-4 sm:p-6 rounded-lg bg-surface-bg shadow-sm'>
@@ -199,7 +168,9 @@ function PowerDetail() {
 										<div className='flex-1 mt-4'>
 											<div
 												className='text-base sm:text-xl rounded-lg p-4 h-full min-h-[120px] leading-relaxed bg-surface-bg border text-text-secondary overflow-y-auto'
-												dangerouslySetInnerHTML={{ __html: powerDesc }}
+												dangerouslySetInnerHTML={{
+													__html: powerDesc,
+												}}
 											/>
 										</div>
 									)}
@@ -207,9 +178,7 @@ function PowerDetail() {
 							</div>
 
 							<h2 className='text-xl sm:text-3xl font-semibold mt-8 mb-4 font-primary'>
-								{language === "vi"
-									? "Các tướng sử dụng sức mạnh này"
-									: "Champions using this power"}
+								{tUI("powerDetail.compatibleChampions")}
 							</h2>
 
 							{compatibleChampions.length > 0 ? (
@@ -234,9 +203,7 @@ function PowerDetail() {
 							) : (
 								<div className='text-center p-8 rounded-md bg-surface-hover text-text-secondary border border-dashed border-border'>
 									<p className='text-lg'>
-										{language === "vi"
-											? "Hiện không có tướng nào trang bị sức mạnh này mặc định."
-											: "No champions currently equip this power by default."}
+										{tUI("powerDetail.noCompatibleChampions")}
 									</p>
 								</div>
 							)}

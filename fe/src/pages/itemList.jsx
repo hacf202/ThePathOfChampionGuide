@@ -3,7 +3,7 @@ import React, { useState, useMemo, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePersistentState } from "../hooks/usePersistentState";
-import { useTranslation } from "../hooks/useTranslation"; // 🟢 Import Hook Đa ngôn ngữ
+import { useTranslation } from "../hooks/useTranslation"; // 🟢 Import Hook
 import InputField from "../components/common/inputField";
 import MultiSelectFilter from "../components/common/multiSelectFilter";
 import DropdownFilter from "../components/common/dropdownFilter";
@@ -35,7 +35,7 @@ const ItemSkeleton = () => (
 );
 
 function ItemList() {
-	const { language, t } = useTranslation(); // 🟢 Khởi tạo hook đa ngôn ngữ
+	const { tUI, t } = useTranslation(); // 🟢 Khởi tạo hook
 
 	// --- STATE ---
 	const [items, setItems] = useState([]);
@@ -137,10 +137,7 @@ function ItemList() {
 		try {
 			const backendUrl = import.meta.env.VITE_API_URL;
 			const response = await fetch(`${backendUrl}/api/items?${queryParams}`);
-			if (!response.ok)
-				throw new Error(
-					language === "vi" ? "Lỗi tải dữ liệu" : "Data loading error",
-				);
+			if (!response.ok) throw new Error(tUI("common.errorLoadData"));
 			const data = await response.json();
 
 			setItems(data.items || []);
@@ -151,7 +148,7 @@ function ItemList() {
 		} finally {
 			setTimeout(() => setLoading(false), 600);
 		}
-	}, [queryParams, language]);
+	}, [queryParams, tUI]);
 
 	useEffect(() => {
 		fetchItems();
@@ -168,15 +165,15 @@ function ItemList() {
 			sort: [
 				{
 					value: "name-asc",
-					label: language === "vi" ? "Tên A-Z" : "Name A-Z",
+					label: tUI("sort.nameAsc"),
 				},
 				{
 					value: "name-desc",
-					label: language === "vi" ? "Tên Z-A" : "Name Z-A",
+					label: tUI("sort.nameDesc"),
 				},
 			],
 		}),
-		[dynamicFilters, language],
+		[dynamicFilters, tUI],
 	);
 
 	const handleResetFilters = () => {
@@ -190,18 +187,14 @@ function ItemList() {
 	return (
 		<div className='animate-fadeIn'>
 			<PageTitle
-				title={language === "vi" ? "Danh sách vật phẩm" : "Items List"}
-				description={
-					language === "vi"
-						? "POC GUIDE: Vật phẩm Path of Champions..."
-						: "POC GUIDE: Path of Champions Items..."
-				}
+				title={tUI("itemList.title")}
+				description={tUI("itemList.metaDesc")}
 			/>
 
 			<div className='font-secondary'>
 				<div className='flex justify-between items-center mb-6'>
 					<h1 className='text-3xl font-bold text-text-primary font-primary animate-glitch'>
-						{language === "vi" ? "Danh Sách Vật Phẩm" : "Items List"}
+						{tUI("itemList.heading")}
 					</h1>
 
 					<div className='hidden lg:flex items-center gap-4'>
@@ -216,12 +209,8 @@ function ItemList() {
 								<ChevronLeft size={18} />
 							)}
 							{showDesktopFilter
-								? language === "vi"
-									? "Ẩn bộ lọc"
-									: "Hide Filters"
-								: language === "vi"
-									? "Hiện bộ lọc"
-									: "Show Filters"}
+								? tUI("championList.hideFilter")
+								: tUI("championList.showFilter")}
 						</Button>
 					</div>
 				</div>
@@ -260,7 +249,6 @@ function ItemList() {
 													className={`grid grid-cols-2 md:grid-cols-3 ${showDesktopFilter ? "xl:grid-cols-3" : "xl:grid-cols-4"} gap-4 sm:gap-6`}
 												>
 													{items.map(item => {
-														// 🟢 Dịch tên và mô tả bằng t()
 														const itemName = t(item, "name");
 														const itemDesc =
 															t(item, "descriptionRaw") ||
@@ -309,15 +297,17 @@ function ItemList() {
 														variant='outline'
 													>
 														<ChevronLeft size={16} className='mr-2' />
-														{language === "vi" ? "Trang Trước" : "Previous"}
+														{tUI("common.prevPage")}
 													</Button>
-													<span>/</span>
+													<span className='font-bold text-primary-500 bg-primary-100/10 px-3 py-1 rounded-full'>
+														{currentPage} / {pagination.totalPages}
+													</span>
 													<Button
 														onClick={goToNextPage}
 														disabled={currentPage === pagination.totalPages}
 														variant='outline'
 													>
-														{language === "vi" ? "Trang Sau" : "Next"}
+														{tUI("common.nextPage")}
 														<ChevronRight size={16} className='ml-2' />
 													</Button>
 												</div>
@@ -326,18 +316,14 @@ function ItemList() {
 											<div className='flex flex-col items-center justify-center py-20 text-text-secondary'>
 												<XCircle size={64} className='mb-4 opacity-10' />
 												<p className='text-xl font-primary'>
-													{language === "vi"
-														? "Không tìm thấy vật phẩm phù hợp."
-														: "No matching items found."}
+													{tUI("itemList.notFound")}
 												</p>
 												<Button
 													variant='ghost'
 													onClick={handleResetFilters}
 													className='mt-4'
 												>
-													{language === "vi"
-														? "Xóa tất cả bộ lọc"
-														: "Clear all filters"}
+													{tUI("itemList.clearFilters")}
 												</Button>
 											</div>
 										)}
@@ -364,31 +350,28 @@ function ItemList() {
 							>
 								<div className='w-[280px] xl:w-[320px] p-4 rounded-lg border border-border bg-surface-bg space-y-4 shadow-sm'>
 									<label className='block text-sm font-medium text-text-secondary'>
-										{language === "vi" ? "Tìm kiếm vật phẩm" : "Search Items"}
+										{tUI("itemList.searchLabel")}
 									</label>
 									<InputField
 										value={searchInput}
 										onChange={e => setSearchInput(e.target.value)}
 										onKeyDown={e => e.key === "Enter" && handleSearch()}
-										placeholder={
-											language === "vi" ? "Tên vật phẩm..." : "Item name..."
-										}
+										placeholder={tUI("itemList.placeholder")}
 									/>
 									<Button
 										onClick={handleSearch}
 										className='w-full mt-2 hover:animate-pulse-focus'
 									>
-										<Search size={16} className='mr-2' />{" "}
-										{language === "vi" ? "Tìm kiếm" : "Search"}
+										<Search size={16} className='mr-2' /> {tUI("common.search")}
 									</Button>
 									<MultiSelectFilter
-										label={language === "vi" ? "Độ hiếm" : "Rarity"}
+										label={tUI("common.rarity")}
 										options={filterOptions.rarities}
 										selectedValues={selectedRarities}
 										onChange={setSelectedRarities}
 									/>
 									<DropdownFilter
-										label={language === "vi" ? "Sắp xếp" : "Sort By"}
+										label={tUI("championList.sortBy")}
 										options={filterOptions.sort}
 										selectedValue={sortOrder}
 										onChange={setSortOrder}
@@ -399,7 +382,7 @@ function ItemList() {
 										className='w-full'
 									>
 										<RotateCw size={16} className='mr-2' />{" "}
-										{language === "vi" ? "Đặt lại bộ lọc" : "Reset Filters"}
+										{tUI("championList.resetFilter")}
 									</Button>
 								</div>
 							</motion.aside>
@@ -414,9 +397,7 @@ function ItemList() {
 									value={searchInput}
 									onChange={e => setSearchInput(e.target.value)}
 									onKeyDown={e => e.key === "Enter" && handleSearch()}
-									placeholder={
-										language === "vi" ? "Tìm vật phẩm..." : "Search items..."
-									}
+									placeholder={tUI("itemList.placeholder")}
 								/>
 							</div>
 							<Button onClick={handleSearch} className='px-3'>
@@ -451,13 +432,13 @@ function ItemList() {
 								>
 									<div className='pt-4 space-y-4 border-t border-border mt-3'>
 										<MultiSelectFilter
-											label={language === "vi" ? "Độ hiếm" : "Rarity"}
+											label={tUI("common.rarity")}
 											options={filterOptions.rarities}
 											selectedValues={selectedRarities}
 											onChange={setSelectedRarities}
 										/>
 										<DropdownFilter
-											label={language === "vi" ? "Sắp xếp" : "Sort By"}
+											label={tUI("championList.sortBy")}
 											options={filterOptions.sort}
 											selectedValue={sortOrder}
 											onChange={setSortOrder}

@@ -15,7 +15,7 @@ const CommentForm = ({
 	replyToUsername = null,
 	onCancel,
 }) => {
-	const { language } = useTranslation(); // 🟢
+	const { tUI } = useTranslation(); // 🟢
 	const { user, token } = useAuth();
 	const [content, setContent] = useState("");
 	const [isSubmitting, setIsSubmitting] = useState(false);
@@ -33,11 +33,7 @@ const CommentForm = ({
 		e.preventDefault();
 		if (!content.trim()) return;
 		if (!user) {
-			setError(
-				language === "vi"
-					? "Bạn cần đăng nhập để bình luận."
-					: "You must be logged in to comment.",
-			);
+			setError(tUI("comments.loginRequired"));
 			return;
 		}
 
@@ -55,13 +51,7 @@ const CommentForm = ({
 			});
 
 			const errData = await res.json();
-			if (!res.ok)
-				throw new Error(
-					errData.error ||
-						(language === "vi"
-							? "Gửi bình luận thất bại"
-							: "Failed to post comment"),
-				);
+			if (!res.ok) throw new Error(errData.error || tUI("comments.postFailed"));
 
 			setContent("");
 			if (onCommentPosted) onCommentPosted(errData.comment || errData);
@@ -80,10 +70,8 @@ const CommentForm = ({
 				rows={parentId ? 2 : 3}
 				placeholder={
 					replyToUsername
-						? `${language === "vi" ? "Trả lời" : "Reply to"} @${replyToUsername}...`
-						: language === "vi"
-							? "Viết bình luận của bạn..."
-							: "Write your comment..."
+						? `${tUI("comments.replyTo")} @${replyToUsername}...`
+						: tUI("comments.placeholder")
 				}
 				value={content}
 				onChange={e => setContent(e.target.value)}
@@ -102,7 +90,7 @@ const CommentForm = ({
 						disabled={isSubmitting}
 						className='text-xs sm:text-sm px-3 py-1.5'
 					>
-						{language === "vi" ? "Hủy" : "Cancel"}
+						{tUI("common.cancel")}
 					</Button>
 				)}
 				<Button
@@ -112,16 +100,10 @@ const CommentForm = ({
 					className='text-xs sm:text-sm px-4 py-1.5'
 				>
 					{isSubmitting
-						? language === "vi"
-							? "Đang gửi..."
-							: "Sending..."
+						? tUI("comments.sending")
 						: replyToUsername
-							? language === "vi"
-								? "Trả lời"
-								: "Reply"
-							: language === "vi"
-								? "Gửi bình luận"
-								: "Post Comment"}
+							? tUI("comments.replyBtn")
+							: tUI("comments.postCommentBtn")}
 				</Button>
 			</div>
 		</form>
@@ -136,7 +118,7 @@ const CommentItem = ({
 	onCommentUpdated,
 	onCommentPosted,
 }) => {
-	const { language } = useTranslation(); // 🟢
+	const { language, tUI } = useTranslation(); // 🟢
 	const { user, token } = useAuth();
 	const apiUrl = import.meta.env.VITE_API_URL;
 	const isOwner = user && user.sub === comment.sub;
@@ -213,7 +195,7 @@ const CommentItem = ({
 						</span>
 						{comment.isEdited && (
 							<span className='text-[10px] sm:text-xs text-text-secondary italic'>
-								({language === "vi" ? "đã chỉnh sửa" : "edited"})
+								({tUI("comments.edited")})
 							</span>
 						)}
 					</div>
@@ -232,13 +214,7 @@ const CommentItem = ({
 									disabled={isSubmitting}
 									className='text-xs px-3 py-1'
 								>
-									{isSubmitting
-										? language === "vi"
-											? "Đang lưu..."
-											: "Saving..."
-										: language === "vi"
-											? "Lưu"
-											: "Save"}
+									{isSubmitting ? tUI("common.saving") : tUI("common.save")}
 								</Button>
 								<Button
 									variant='ghost'
@@ -248,7 +224,7 @@ const CommentItem = ({
 									}}
 									className='text-xs px-3 py-1'
 								>
-									{language === "vi" ? "Hủy" : "Cancel"}
+									{tUI("common.cancel")}
 								</Button>
 							</div>
 						</div>
@@ -265,7 +241,7 @@ const CommentItem = ({
 									onClick={() => setIsReplying(!isReplying)}
 									className='text-xs sm:text-sm text-text-secondary hover:text-primary-500 font-medium transition-colors'
 								>
-									{language === "vi" ? "Trả lời" : "Reply"}
+									{tUI("comments.replyBtn")}
 								</button>
 							)}
 							{isOwner && (
@@ -322,12 +298,10 @@ const CommentItem = ({
 			<Modal
 				isOpen={showDeleteModal}
 				onClose={() => !isDeleting && setShowDeleteModal(false)}
-				title={language === "vi" ? "Xác nhận xóa" : "Confirm Deletion"}
+				title={tUI("comments.deleteConfirmTitle")}
 			>
 				<p className='text-text-secondary mb-6 text-sm sm:text-base'>
-					{language === "vi"
-						? "Bạn có chắc chắn muốn xóa bình luận này không?"
-						: "Are you sure you want to delete this comment?"}
+					{tUI("comments.deleteConfirmMsg")}
 				</p>
 				<div className='flex justify-end gap-3'>
 					<Button
@@ -335,16 +309,10 @@ const CommentItem = ({
 						onClick={() => setShowDeleteModal(false)}
 						disabled={isDeleting}
 					>
-						{language === "vi" ? "Hủy" : "Cancel"}
+						{tUI("common.cancel")}
 					</Button>
 					<Button variant='danger' onClick={handleDelete} disabled={isDeleting}>
-						{isDeleting
-							? language === "vi"
-								? "Đang xóa..."
-								: "Deleting..."
-							: language === "vi"
-								? "Xóa"
-								: "Delete"}
+						{isDeleting ? tUI("common.deleting") : tUI("common.delete")}
 					</Button>
 				</div>
 			</Modal>
@@ -354,7 +322,7 @@ const CommentItem = ({
 
 // --- Main Section ---
 const CommentsSection = ({ buildId }) => {
-	const { language } = useTranslation(); // 🟢
+	const { tUI } = useTranslation(); // 🟢
 	const [comments, setComments] = useState([]);
 	const [loadingComments, setLoadingComments] = useState(true);
 	const apiUrl = import.meta.env.VITE_API_URL;
@@ -400,7 +368,7 @@ const CommentsSection = ({ buildId }) => {
 	return (
 		<div className='mt-10'>
 			<h2 className='text-xl sm:text-2xl font-bold mb-6 text-text-primary border-l-4 border-primary-500 pl-4'>
-				{language === "vi" ? "Bình luận" : "Comments"} ({comments.length})
+				{tUI("comments.sectionTitle")} ({comments.length})
 			</h2>
 
 			<div className='bg-surface-bg rounded-xl border border-border p-4 sm:p-6 shadow-sm'>
@@ -413,11 +381,7 @@ const CommentsSection = ({ buildId }) => {
 				) : rootComments.length === 0 ? (
 					<div className='text-center py-10 opacity-60'>
 						<MessageSquare size={48} className='mx-auto mb-3' />
-						<p>
-							{language === "vi"
-								? "Chưa có bình luận nào. Hãy là người đầu tiên!"
-								: "No comments yet. Be the first to comment!"}
-						</p>
+						<p>{tUI("comments.noComments")}</p>
 					</div>
 				) : (
 					<div className='divide-y divide-border'>

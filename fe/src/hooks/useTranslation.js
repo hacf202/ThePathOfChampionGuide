@@ -33,7 +33,7 @@ export const useTranslation = () => {
 			return item[field] || "";
 		},
 		[language],
-	); // Bọc useCallback, chỉ tạo lại khi language thay đổi
+	);
 
 	/**
 	 * Hàm dịch thuật cho VĂN BẢN TĨNH trên giao diện (UI)
@@ -62,7 +62,8 @@ export const useTranslation = () => {
 			return result;
 		},
 		[language],
-	); // Bọc useCallback, chặn đứng vòng lặp vô hạn (Infinite Loop)
+	);
 
-	return { language, toggleLanguage, tDynamic, tUI };
+	// 🟢 TRẢ VỀ THÊM `t: tDynamic` ĐỂ ĐẢM BẢO TƯƠNG THÍCH NGƯỢC VỚI CÁC FILE CŨ
+	return { language, toggleLanguage, tDynamic, tUI, t: tDynamic };
 };

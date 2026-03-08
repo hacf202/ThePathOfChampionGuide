@@ -50,12 +50,11 @@ import {
 	SortableItem,
 	DroppableZone,
 	COLOR_OPTIONS,
+	RELIC_STORAGE_KEY,
 } from "./tierListComponents";
-import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook
+import { useTranslation } from "../../hooks/useTranslation";
 
-const RELICS_STORAGE_KEY = "poc-custom-tierlist-relics-v1";
-
-// --- THÀNH PHẦN SKELETON ---
+// --- 1. ĐỊNH NGHĨA SKELETON (ĐẶT Ở ĐẦU FILE) ---
 const RelicTierSkeleton = () => (
 	<div className='max-w-[1200px] mx-auto p-2 sm:p-6 animate-pulse'>
 		<div className='flex justify-between items-center mb-6 px-2'>
@@ -80,11 +79,10 @@ const RelicTierSkeleton = () => (
 				</div>
 			))}
 		</div>
-		<div className='h-48 w-full bg-gray-700/10 rounded-xl' />
 	</div>
 );
 
-// --- SortableTierRow ---
+// --- 2. THÀNH PHẦN HÀNG TIER ---
 const SortableTierRow = ({
 	tier,
 	isExporting,
@@ -95,7 +93,7 @@ const SortableTierRow = ({
 	setUnranked,
 	children,
 }) => {
-	const { language } = useTranslation();
+	const { tUI } = useTranslation();
 	const {
 		attributes,
 		listeners,
@@ -103,18 +101,13 @@ const SortableTierRow = ({
 		transform,
 		transition,
 		isDragging,
-	} = useSortable({
-		id: tier.id,
-		data: { type: "tier", tier },
-	});
-
+	} = useSortable({ id: tier.id, data: { type: "tier" } });
 	const style = {
 		transform: CSS.Translate.toString(transform),
 		transition,
 		zIndex: isDragging ? 100 : "auto",
 		opacity: isDragging ? 0.5 : 1,
 	};
-
 	return (
 		<div
 			ref={setNodeRef}
@@ -130,45 +123,34 @@ const SortableTierRow = ({
 					<GripVertical size={20} />
 				</div>
 			)}
-
 			<div
 				style={{ backgroundColor: tier.color }}
 				className='relative w-20 sm:w-36 flex flex-col items-center justify-center p-1 text-black shrink-0'
 			>
-				{isExporting ? (
-					<span className='font-bold text-sm sm:text-3xl uppercase text-center'>
-						{tier.name}
-					</span>
-				) : (
-					<input
-						className='bg-transparent text-center w-full font-bold border-none focus:ring-0 text-sm sm:text-3xl uppercase'
-						value={tier.name}
-						onChange={e =>
-							setTiers(
-								tiers.map(t =>
-									t.id === tier.id ? { ...t, name: e.target.value } : t,
-								),
-							)
-						}
-					/>
-				)}
-				{isExporting ? (
-					<span className='text-[9px] sm:text-[12px] italic opacity-70 text-center mt-1'>
-						{tier.description}
-					</span>
-				) : (
-					<input
-						className='bg-transparent text-center w-full text-[9px] sm:text-[12px] italic border-none focus:ring-0 opacity-60 mt-1'
-						value={tier.description}
-						onChange={e =>
-							setTiers(
-								tiers.map(t =>
-									t.id === tier.id ? { ...t, description: e.target.value } : t,
-								),
-							)
-						}
-					/>
-				)}
+				<input
+					className='bg-transparent text-center w-full font-bold border-none focus:ring-0 text-sm sm:text-3xl uppercase'
+					value={tier.name}
+					onChange={e =>
+						setTiers(
+							tiers.map(t =>
+								t.id === tier.id ? { ...t, name: e.target.value } : t,
+							),
+						)
+					}
+					readOnly={isExporting}
+				/>
+				<input
+					className='bg-transparent text-center w-full text-[9px] sm:text-[12px] italic border-none focus:ring-0 opacity-60 mt-1'
+					value={tier.description}
+					onChange={e =>
+						setTiers(
+							tiers.map(t =>
+								t.id === tier.id ? { ...t, description: e.target.value } : t,
+							),
+						)
+					}
+					readOnly={isExporting}
+				/>
 				{!isExporting && (
 					<button
 						onClick={e => {
@@ -199,17 +181,13 @@ const SortableTierRow = ({
 					</div>
 				)}
 			</div>
-
 			{children}
-
 			{!isExporting && (
 				<button
 					onClick={() => {
 						if (
 							window.confirm(
-								language === "vi"
-									? `Xóa hàng ${tier.name} và đưa các cổ vật về kho?`
-									: `Delete row ${tier.name} and move relics to warehouse?`,
+								tUI("tierList.confirmDeleteRow").replace("{name}", tier.name),
 							)
 						) {
 							setUnranked(prev => [...prev, ...tier.items]);
@@ -225,9 +203,9 @@ const SortableTierRow = ({
 	);
 };
 
-// --- Component Chính ---
+// --- 3. COMPONENT CHÍNH ---
 function TierListRelics() {
-	const { language } = useTranslation();
+	const { tUI, tDynamic } = useTranslation();
 	const [allRelicsRaw, setAllRelicsRaw] = useState([]);
 	const [tiers, setTiers] = useState([]);
 	const [unranked, setUnranked] = useState([]);
@@ -235,11 +213,9 @@ function TierListRelics() {
 	const [activeType, setActiveType] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [isExporting, setIsExporting] = useState(false);
-
 	const [selectedIds, setSelectedIds] = useState([]);
 	const [selectionBox, setSelectionBox] = useState(null);
 	const [isSelecting, setIsSelecting] = useState(false);
-
 	const [searchInput, setSearchInput] = useState("");
 	const [searchTerm, setSearchTerm] = useState("");
 	const [selectedRarities, setSelectedRarities] = useState([]);
@@ -247,8 +223,7 @@ function TierListRelics() {
 	const [showColorPicker, setShowColorPicker] = useState(null);
 
 	const tierListRef = useRef(null);
-	const warehouseRef = useRef(null);
-	const boardRef = useRef(null); // 🟢 Bổ sung ref tổng bao trùm toàn bộ
+	const boardRef = useRef(null);
 	const apiUrl = import.meta.env.VITE_API_URL;
 
 	const sensors = useSensors(
@@ -260,57 +235,56 @@ function TierListRelics() {
 			coordinateGetter: sortableKeyboardCoordinates,
 		}),
 	);
-
-	const sortItemsByName = useCallback(items => {
-		return [...items].sort((a, b) => a.name.localeCompare(b.name, "vi"));
-	}, []);
+	const sortItemsByName = useCallback(
+		items => [...items].sort((a, b) => a.name.localeCompare(b.name, "vi")),
+		[],
+	);
 
 	const getDefaultTiers = useCallback(
 		() => [
 			{
 				id: "tier-s-plus",
 				name: "S+",
-				description: language === "vi" ? "Mạnh Đa dụng" : "Versatile & Strong",
+				description: tUI("tierList.versatileStrong"),
 				color: "#ff3e3e",
 				items: [],
 			},
 			{
 				id: "tier-s",
 				name: "S",
-				description:
-					language === "vi" ? "Mạnh cho tướng" : "Strong for specific champs",
+				description: tUI("tierList.strongSpecific"),
 				color: "#ff7f7f",
 				items: [],
 			},
 			{
 				id: "tier-a",
 				name: "A",
-				description: language === "vi" ? "Đa dụng" : "Versatile",
+				description: tUI("tierList.versatile"),
 				color: "#ffbf7f",
 				items: [],
 			},
 			{
 				id: "tier-b",
 				name: "B",
-				description: language === "vi" ? "Ổn" : "Decent",
+				description: tUI("tierList.decent"),
 				color: "#ffff7f",
 				items: [],
 			},
 			{
 				id: "tier-c",
 				name: "C",
-				description: language === "vi" ? "Yếu" : "Weak",
+				description: tUI("tierList.weak"),
 				color: "#7fff7f",
 				items: [],
 			},
 		],
-		[language],
+		[tUI],
 	);
 
 	const getSampleData = useCallback(
-		formattedRelics => {
+		rawData => {
 			const sampleMapping = {
-				"tier-s+": ["R0082", "R0125", "R0080"],
+				"tier-s-plus": ["R0082", "R0125", "R0080"],
 				"tier-s": [
 					"R0121",
 					"R0136",
@@ -386,126 +360,71 @@ function TierListRelics() {
 					"R0132",
 				],
 			};
-			const defaultTiers = getDefaultTiers();
 			const usedIds = new Set();
-			const sampleTiers = defaultTiers.map(tier => {
-				const mappingKey =
-					tier.id === "tier-s-plus" || tier.id === "tier-s+"
-						? "tier-s+"
-						: tier.id;
-				const targetIds = sampleMapping[mappingKey] || [];
-				const items = formattedRelics.filter(r => targetIds.includes(r.id));
+			const sampleTiers = getDefaultTiers().map(tier => {
+				const targetIds = sampleMapping[tier.id] || [];
+				const items = rawData.filter(r => targetIds.includes(r.id));
 				items.forEach(i => usedIds.add(i.id));
 				return { ...tier, items };
 			});
-			const remaining = formattedRelics.filter(r => !usedIds.has(r.id));
-			return { sampleTiers, sampleUnranked: sortItemsByName(remaining) };
+			return {
+				sampleTiers,
+				sampleUnranked: sortItemsByName(
+					rawData.filter(r => !usedIds.has(r.id)),
+				),
+			};
 		},
 		[getDefaultTiers, sortItemsByName],
 	);
 
 	useEffect(() => {
-		let isMounted = true;
 		const initData = async () => {
 			try {
 				setLoading(true);
 				const res = await fetch(`${apiUrl}/api/relics?limit=-1`);
 				const data = await res.json();
-				if (!isMounted) return;
-
-				const relicsArray = Array.isArray(data.items) ? data.items : [];
 				const formatted = sortItemsByName(
-					relicsArray.map((r, index) => {
-						const rawPath =
-							r.assetAbsolutePath ||
-							r.avatar ||
-							(r.assets && r.assets[0]?.avatar);
-						return {
-							id: String(r.relicCode || r.relicID || r.id || `relic-${index}`),
-							name: r.name || "Unknown Relic",
-							avatar: rawPath
-								? `${apiUrl}/api/relics/proxy-image?url=${encodeURIComponent(rawPath)}`
-								: "/fallback-relic.png",
-							rarity: r.rarity || "THƯỜNG",
-							type: r.type || "Chung",
-							descriptionRaw: r.descriptionRaw || r.description || "",
-						};
-					}),
+					(data.items || []).map((r, index) => ({
+						id: String(r.relicCode || r.relicID || r.id),
+						name: r.name,
+						avatar: r.assetAbsolutePath
+							? `${apiUrl}/api/relics/proxy-image?url=${encodeURIComponent(r.assetAbsolutePath)}`
+							: "/fallback-relic.png",
+						rarity: r.rarity || "THƯỜNG",
+						type: r.type || "Chung",
+						descriptionRaw: r.descriptionRaw || "",
+						translations: r.translations,
+					})),
 				);
-
 				setAllRelicsRaw(formatted);
-				const saved = localStorage.getItem(RELICS_STORAGE_KEY);
+				const saved = localStorage.getItem(RELIC_STORAGE_KEY);
 				if (saved) {
 					const parsed = JSON.parse(saved);
-					const hydrateItems = items =>
-						(items || [])
-							.map(item => formatted.find(f => f.id === item.id))
-							.filter(Boolean);
-					setTiers(
-						parsed.tiers.map(t => ({ ...t, items: hydrateItems(t.items) })),
-					);
-					setUnranked(hydrateItems(parsed.unranked));
+					const hydrate = items =>
+						items.map(i => formatted.find(f => f.id === i.id)).filter(Boolean);
+					setTiers(parsed.tiers.map(t => ({ ...t, items: hydrate(t.items) })));
+					setUnranked(hydrate(parsed.unranked));
 				} else {
 					const { sampleTiers, sampleUnranked } = getSampleData(formatted);
 					setTiers(sampleTiers);
 					setUnranked(sampleUnranked);
 				}
 			} catch (err) {
-				console.error("Lỗi khi tải dữ liệu:", err);
+				console.error(err);
 			} finally {
-				if (isMounted) setTimeout(() => setLoading(false), 800);
+				setTimeout(() => setLoading(false), 800);
 			}
 		};
 		initData();
-		return () => {
-			isMounted = false;
-		};
 	}, [apiUrl, getSampleData, sortItemsByName]);
 
 	useEffect(() => {
 		if (!loading)
 			localStorage.setItem(
-				RELICS_STORAGE_KEY,
+				RELIC_STORAGE_KEY,
 				JSON.stringify({ tiers, unranked }),
 			);
 	}, [tiers, unranked, loading]);
-
-	useEffect(() => {
-		const handler = e => {
-			if (activeId) e.preventDefault();
-		};
-		window.addEventListener("touchmove", handler, { passive: false });
-		return () => window.removeEventListener("touchmove", handler);
-	}, [activeId]);
-
-	const handleClearAllToUnranked = () => {
-		if (
-			window.confirm(
-				language === "vi"
-					? "Xóa toàn bộ cổ vật khỏi bảng và đưa về kho?"
-					: "Clear all relics from the board to the warehouse?",
-			)
-		) {
-			setTiers(getDefaultTiers());
-			setUnranked(sortItemsByName(allRelicsRaw));
-			setSelectedIds([]);
-		}
-	};
-
-	const handleResetToSample = () => {
-		if (
-			window.confirm(
-				language === "vi"
-					? "Khôi phục bảng mẫu mặc định?"
-					: "Restore to default sample board?",
-			)
-		) {
-			const { sampleTiers, sampleUnranked } = getSampleData(allRelicsRaw);
-			setTiers(sampleTiers);
-			setUnranked(sampleUnranked);
-			setSelectedIds([]);
-		}
-	};
 
 	const handleSearch = () => setSearchTerm(searchInput.trim());
 	const handleResetFilters = () => {
@@ -530,20 +449,33 @@ function TierListRelics() {
 		[allRelicsRaw],
 	);
 
-	const filteredUnranked = useMemo(() => {
-		return unranked.filter(r => {
-			const matchesSearch =
-				!searchTerm ||
-				removeAccents(r.name.toLowerCase()).includes(
-					removeAccents(searchTerm.toLowerCase()),
+	const filteredUnranked = useMemo(
+		() =>
+			unranked.filter(r => {
+				const rName = tDynamic(r, "name");
+				const matchesSearch =
+					!searchTerm ||
+					removeAccents(rName.toLowerCase()).includes(
+						removeAccents(searchTerm.toLowerCase()),
+					);
+				return (
+					matchesSearch &&
+					(selectedRarities.length === 0 ||
+						selectedRarities.includes(r.rarity)) &&
+					(selectedTypes.length === 0 || selectedTypes.includes(r.type))
 				);
-			const matchesRarity =
-				selectedRarities.length === 0 || selectedRarities.includes(r.rarity);
-			const matchesType =
-				selectedTypes.length === 0 || selectedTypes.includes(r.type);
-			return matchesSearch && matchesRarity && matchesType;
-		});
-	}, [unranked, searchTerm, selectedRarities, selectedTypes]);
+			}),
+		[unranked, searchTerm, selectedRarities, selectedTypes, tDynamic],
+	);
+
+	const handleResetToSample = () => {
+		if (window.confirm(tUI("tierList.confirmResetToSample"))) {
+			const { sampleTiers, sampleUnranked } = getSampleData(allRelicsRaw);
+			setTiers(sampleTiers);
+			setUnranked(sampleUnranked);
+			setSelectedIds([]);
+		}
+	};
 
 	const warehouseGroups = useMemo(
 		() => ({
@@ -556,9 +488,7 @@ function TierListRelics() {
 		[filteredUnranked],
 	);
 
-	// 🟢 --- BỔ SUNG: LOGIC BOX SELECTION TOÀN CỤC ---
 	const onMouseDown = e => {
-		// Chỉ cho phép quét khi nhấn vào không gian trống, bỏ qua các thẻ tương tác và vật phẩm (để kéo thả bình thường)
 		if (
 			e.target.closest("button") ||
 			e.target.tagName === "INPUT" ||
@@ -566,16 +496,16 @@ function TierListRelics() {
 			e.target.closest(".color-picker")
 		)
 			return;
-
 		const rect = boardRef.current.getBoundingClientRect();
-		const x = e.clientX - rect.left;
-		const y = e.clientY - rect.top;
 		setIsSelecting(true);
-		setSelectionBox({ startX: x, startY: y, currentX: x, currentY: y });
-		// Reset nếu không giữ Shift/Ctrl
+		setSelectionBox({
+			startX: e.clientX - rect.left,
+			startY: e.clientY - rect.top,
+			currentX: e.clientX - rect.left,
+			currentY: e.clientY - rect.top,
+		});
 		if (!e.shiftKey && !e.ctrlKey && !e.metaKey) setSelectedIds([]);
 	};
-
 	const onMouseMove = e => {
 		if (!isSelecting) return;
 		const rect = boardRef.current.getBoundingClientRect();
@@ -585,7 +515,6 @@ function TierListRelics() {
 			currentY: e.clientY - rect.top,
 		}));
 	};
-
 	const onMouseUp = e => {
 		if (!isSelecting) return;
 		const rect = boardRef.current.getBoundingClientRect();
@@ -595,93 +524,57 @@ function TierListRelics() {
 			right: Math.max(selectionBox.startX, selectionBox.currentX),
 			bottom: Math.max(selectionBox.startY, selectionBox.currentY),
 		};
-
-		const tempSelectedIds = [];
-		// Tìm tất cả item trên toàn board
+		const temp = [];
 		boardRef.current.querySelectorAll("[data-id]").forEach(el => {
-			const itemRect = el.getBoundingClientRect();
-			const itemTop = itemRect.top - rect.top;
-			const itemLeft = itemRect.left - rect.left;
+			const r = el.getBoundingClientRect();
 			if (
 				!(
-					itemLeft > box.right ||
-					itemLeft + itemRect.width < box.left ||
-					itemTop > box.bottom ||
-					itemTop + itemRect.height < box.top
+					r.left - rect.left > box.right ||
+					r.right - rect.left < box.left ||
+					r.top - rect.top > box.bottom ||
+					r.bottom - rect.top < box.top
 				)
-			) {
-				tempSelectedIds.push(el.getAttribute("data-id"));
-			}
+			)
+				temp.push(el.getAttribute("data-id"));
 		});
-
-		setSelectedIds(prev =>
+		setSelectedIds(p =>
 			e.shiftKey || e.ctrlKey || e.metaKey
-				? [...new Set([...prev, ...tempSelectedIds])]
-				: [...new Set(tempSelectedIds)],
+				? [...new Set([...p, ...temp])]
+				: [...new Set(temp)],
 		);
 		setIsSelecting(false);
 		setSelectionBox(null);
 	};
 
-	// 🟢 --- DND Handlers Đã Nâng Cấp (Chống crash khi di chuyển chéo) ---
-	const findContainer = id => {
-		if (id.startsWith("unranked-")) return id;
-		const inUnranked = unranked.find(i => i.id === id);
-		if (inUnranked) return `unranked-${inUnranked.rarity.toUpperCase()}`;
-		const tier = tiers.find(t => t.id === id || t.items.some(i => i.id === id));
-		return tier ? tier.id : null;
-	};
-
-	const handleDragStart = event => {
-		setActiveId(event.active.id);
-		setActiveType(event.active.data.current?.type || "item");
-	};
-
 	const handleDragOver = event => {
 		const { active, over } = event;
 		if (!over || activeType === "tier") return;
-		const aCol = findContainer(active.id);
-		const oCol = findContainer(over.id);
+		const aCol = unranked.some(i => i.id === active.id)
+			? "unranked"
+			: tiers.find(t => t.items.some(i => i.id === active.id))?.id;
+		const oCol =
+			over.id === "unranked" ||
+			over.id.toString().startsWith("unranked") ||
+			unranked.some(i => i.id === over.id)
+				? "unranked"
+				: tiers.find(
+						t => t.id === over.id || t.items.some(i => i.id === over.id),
+					)?.id;
 		if (!aCol || !oCol || aCol === oCol) return;
-
-		const idsToMove = selectedIds.includes(active.id)
-			? selectedIds
-			: [active.id];
-
-		// 1. Gom tất cả item cần di chuyển từ TẤT CẢ mọi nơi (Tier & Unranked)
-		const movingItems = [];
-		idsToMove.forEach(id => {
-			const inUnranked = unranked.find(i => i.id === id);
-			if (inUnranked) movingItems.push(inUnranked);
-			else {
-				for (const t of tiers) {
-					const inTier = t.items.find(i => i.id === id);
-					if (inTier) {
-						movingItems.push(inTier);
-						break;
-					}
-				}
-			}
+		const ids = selectedIds.includes(active.id) ? selectedIds : [active.id];
+		const moving = ids
+			.map(id => allRelicsRaw.find(i => i.id === id))
+			.filter(Boolean);
+		setUnranked(p => {
+			const f = p.filter(i => !ids.includes(i.id));
+			return oCol === "unranked" ? sortItemsByName([...f, ...moving]) : f;
 		});
-
-		if (movingItems.length === 0) return;
-
-		// 2. Dọn dẹp item ở vị trí cũ VÀ thêm vào vị trí mới trong cùng 1 luồng
-		setUnranked(prev => {
-			const filtered = prev.filter(i => !idsToMove.includes(i.id));
-			if (oCol.startsWith("unranked")) {
-				return [...filtered, ...movingItems];
-			}
-			return filtered;
-		});
-
-		setTiers(prev =>
-			prev.map(t => {
-				const filteredItems = t.items.filter(i => !idsToMove.includes(i.id));
-				if (t.id === oCol) {
-					return { ...t, items: [...filteredItems, ...movingItems] };
-				}
-				return { ...t, items: filteredItems };
+		setTiers(p =>
+			p.map(t => {
+				const f = t.items.filter(i => !ids.includes(i.id));
+				return t.id === oCol
+					? { ...t, items: [...f, ...moving] }
+					: { ...t, items: f };
 			}),
 		);
 	};
@@ -693,75 +586,29 @@ function TierListRelics() {
 			return;
 		}
 		if (activeType === "tier") {
-			if (active.id !== over.id) {
-				const oldIdx = tiers.findIndex(t => t.id === active.id);
-				const newIdx = tiers.findIndex(t => t.id === over.id);
-				if (oldIdx !== -1 && newIdx !== -1)
-					setTiers(arrayMove(tiers, oldIdx, newIdx));
-			}
-		} else {
-			const aCol = findContainer(active.id);
-			const oCol = findContainer(over.id);
-			if (aCol === oCol) {
-				if (aCol.startsWith("unranked-")) {
-					const oldIdx = unranked.findIndex(i => i.id === active.id);
-					const newIdx = unranked.findIndex(i => i.id === over.id);
-					if (oldIdx !== -1 && newIdx !== -1)
-						setUnranked(arrayMove(unranked, oldIdx, newIdx));
-				} else {
-					setTiers(prev =>
-						prev.map(t => {
-							if (t.id === aCol) {
-								const oldIdx = t.items.findIndex(i => i.id === active.id);
-								const newIdx = t.items.findIndex(i => i.id === over.id);
-								return { ...t, items: arrayMove(t.items, oldIdx, newIdx) };
-							}
-							return t;
-						}),
-					);
-				}
-			}
+			if (active.id !== over.id)
+				setTiers(
+					arrayMove(
+						tiers,
+						tiers.findIndex(t => t.id === active.id),
+						tiers.findIndex(t => t.id === over.id),
+					),
+				);
 		}
 		setActiveId(null);
 		setActiveType(null);
 		if (!selectedIds.includes(active.id)) setSelectedIds([]);
 	};
 
-	const downloadImage = async () => {
-		setIsExporting(true);
-		setShowColorPicker(null);
-		await new Promise(r => setTimeout(r, 400));
-		try {
-			const canvas = await html2canvas(tierListRef.current, {
-				useCORS: true,
-				backgroundColor: "#121212",
-				scale: 2,
-				scrollY: -window.scrollY,
-			});
-			const link = document.createElement("a");
-			link.download = `tierlist-relics-${Date.now()}.png`;
-			link.href = canvas.toDataURL("image/png", 1.0);
-			link.click();
-		} catch (e) {
-			console.error("Download Error:", e);
-		} finally {
-			setIsExporting(false);
-		}
-	};
-
 	const activeItem = activeId
-		? unranked.find(i => i.id === activeId) ||
-			tiers.flatMap(t => t.items).find(i => i.id === activeId)
+		? allRelicsRaw.find(r => r.id === activeId)
 		: null;
 
 	return (
 		<div className='animate-fadeIn'>
 			<PageTitle
-				title={
-					language === "vi"
-						? "Tier List Cổ Vật LoR - Path of Champions"
-						: "Relic Tier List LoR - Path of Champions"
-				}
+				title={tUI("tierList.relicPageTitle")}
+				description={tUI("metadata.defaultDescription")}
 			/>
 			<div className='max-w-[1200px] mx-auto p-0 font-secondary text-text-primary select-none'>
 				<AnimatePresence mode='wait'>
@@ -779,14 +626,13 @@ function TierListRelics() {
 							key='content'
 							initial={{ opacity: 0, y: 10 }}
 							animate={{ opacity: 1, y: 0 }}
-							exit={{ opacity: 0, y: -10 }}
 							transition={{ duration: 0.3 }}
 						>
 							<div className='flex flex-col sm:flex-row justify-between items-center gap-4 mb-6 px-2'>
 								<h1 className='text-xl sm:text-2xl font-bold uppercase'>
-									{language === "vi" ? "Tier List Cổ Vật" : "Relic Tier List"}
+									{tUI("home.tierListTitle")} (Cổ vật)
 								</h1>
-								<div className='flex flex-wrap items-center justify-center sm:justify-end gap-2 w-full sm:w-auto'>
+								<div className='flex flex-wrap justify-center sm:justify-end gap-2 w-full sm:w-auto'>
 									<Button
 										onClick={() =>
 											setTiers([
@@ -794,76 +640,83 @@ function TierListRelics() {
 												{
 													id: `t-${Date.now()}`,
 													name: "NEW",
-													description:
-														language === "vi" ? "Mô tả" : "Description",
+													description: tUI("common.description"),
 													color: "#555555",
 													items: [],
 												},
 											])
 										}
 										variant='outline'
-										className='text-xs flex-1 sm:flex-none min-w-[110px]'
+										className='text-xs flex-1 sm:flex-none'
 									>
-										<Plus size={14} className='mr-1' />{" "}
-										{language === "vi" ? "Thêm hàng" : "Add row"}
+										<Plus size={14} className='mr-1' /> {tUI("tierList.addRow")}
 									</Button>
 									<Button
-										id='dl-btn-relic'
-										onClick={downloadImage}
-										className='text-xs bg-primary-600 flex-1 sm:flex-none min-w-[110px]'
+										onClick={async () => {
+											setIsExporting(true);
+											setShowColorPicker(null);
+											await new Promise(r => setTimeout(r, 400));
+											try {
+												const canvas = await html2canvas(tierListRef.current, {
+													useCORS: true,
+													backgroundColor: "#121212",
+													scale: 2,
+												});
+												const link = document.createElement("a");
+												link.download = `tierlist-relics-${Date.now()}.png`;
+												link.href = canvas.toDataURL("image/png", 1.0);
+												link.click();
+											} catch (e) {
+												console.error(e);
+											} finally {
+												setIsExporting(false);
+											}
+										}}
+										className='text-xs bg-primary-600 flex-1 sm:flex-none'
 									>
 										<Download size={14} className='mr-1' />{" "}
-										{language === "vi" ? "Lưu ảnh" : "Save Image"}
+										{tUI("tierList.downloadImage")}
 									</Button>
-									<div className='flex gap-2 w-full sm:w-auto justify-center'>
+									<div className='flex gap-2'>
 										<Button
 											onClick={handleResetToSample}
 											variant='outline'
-											className='p-2 border-primary-500 text-primary-500 hover:bg-primary-500/10 flex-1 sm:flex-none'
-											title={
-												language === "vi"
-													? "Khôi phục mẫu mặc định"
-													: "Restore default template"
-											}
+											className='p-2 border-primary-500 text-primary-500 hover:bg-primary-500/10'
 										>
-											<Sparkles size={16} className='mx-auto' />
+											<Sparkles size={16} />
 										</Button>
 										<Button
-											onClick={handleClearAllToUnranked}
+											onClick={() => {
+												if (window.confirm(tUI("tierList.confirmClearAll"))) {
+													setTiers(getDefaultTiers());
+													setUnranked(sortItemsByName(allRelicsRaw));
+												}
+											}}
 											variant='danger'
-											className='p-2 flex-1 sm:flex-none'
-											title={
-												language === "vi"
-													? "Đưa tất cả cổ vật về kho"
-													: "Move all relics to warehouse"
-											}
+											className='p-2'
 										>
-											<Trash2 size={16} className='mx-auto' />
+											<Trash2 size={16} />
 										</Button>
 									</div>
 								</div>
 							</div>
-
 							<DndContext
 								sensors={sensors}
 								collisionDetection={rectIntersection}
-								onDragStart={handleDragStart}
+								onDragStart={e => {
+									setActiveId(e.active.id);
+									setActiveType(e.active.data.current?.type || "item");
+								}}
 								onDragOver={handleDragOver}
 								onDragEnd={handleDragEnd}
 							>
-								{/* 🟢 Gắn boardRef vào div bọc cả TierList và Warehouse để xử lý quét chuột */}
 								<div
 									ref={boardRef}
 									onMouseDown={onMouseDown}
 									onMouseMove={onMouseMove}
 									onMouseUp={onMouseUp}
-									onMouseLeave={() => {
-										setIsSelecting(false);
-										setSelectionBox(null);
-									}}
 									className='relative min-h-screen'
 								>
-									{/* Hiệu ứng khung xanh khi tô đen quét chuột */}
 									{isSelecting && selectionBox && (
 										<div
 											style={{
@@ -885,8 +738,6 @@ function TierListRelics() {
 											className='absolute z-[9999] border border-primary-500 bg-primary-500/20 pointer-events-none'
 										/>
 									)}
-
-									{/* KHU VỰC TIER LIST */}
 									<div
 										ref={tierListRef}
 										className='bg-surface-bg border border-border rounded-lg flex flex-col gap-1 p-1 shadow-inner overflow-visible mb-8'
@@ -920,23 +771,22 @@ function TierListRelics() {
 																	data-id={item.id}
 																	onClick={e => {
 																		e.stopPropagation();
-																		if (e.ctrlKey || e.metaKey || e.shiftKey)
-																			setSelectedIds(prev =>
-																				prev.includes(item.id)
+																		setSelectedIds(prev =>
+																			e.ctrlKey || e.metaKey || e.shiftKey
+																				? prev.includes(item.id)
 																					? prev.filter(x => x !== item.id)
-																					: [...prev, item.id],
-																			);
-																		else
-																			setSelectedIds(prev =>
-																				prev.includes(item.id) ? [] : [item.id],
-																			);
+																					: [...prev, item.id]
+																				: prev.includes(item.id)
+																					? []
+																					: [item.id],
+																		);
 																	}}
 																	className={`rounded-md transition-all ${selectedIds.includes(item.id) ? "ring-2 ring-primary-500 ring-offset-2 ring-offset-surface-bg scale-90" : ""}`}
 																>
 																	<SortableItem
 																		id={item.id}
 																		avatar={item.avatar}
-																		title={item.descriptionRaw}
+																		title={tDynamic(item, "name")}
 																	/>
 																</div>
 															))}
@@ -946,13 +796,10 @@ function TierListRelics() {
 											))}
 										</SortableContext>
 									</div>
-
-									{/* KHU VỰC KHO CHỨA */}
 									<div className='p-4 bg-surface-bg border border-border rounded-lg shadow-sm'>
-										<div className='flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-4'>
+										<div className='flex flex-col sm:flex-row justify-between items-center mb-4 gap-4'>
 											<h2 className='text-xs font-bold text-text-secondary uppercase tracking-widest'>
-												{language === "vi" ? "Kho cổ vật" : "Relic Warehouse"} (
-												{unranked.length})
+												{tUI("tierList.warehouseRelics")} ({unranked.length})
 											</h2>
 											<div className='flex gap-2 w-full sm:w-auto'>
 												<Button
@@ -964,7 +811,7 @@ function TierListRelics() {
 													className='text-[10px] h-8 flex-1 sm:flex-none'
 												>
 													<CheckSquare size={14} className='mr-1' />{" "}
-													{language === "vi" ? "Chọn tất cả" : "Select All"}
+													{tUI("randomWheel.selectAll")}
 												</Button>
 												<Button
 													variant='outline'
@@ -974,123 +821,86 @@ function TierListRelics() {
 													disabled={selectedIds.length === 0}
 												>
 													<Square size={14} className='mr-1' />{" "}
-													{language === "vi" ? "Bỏ chọn" : "Deselect"} (
-													{selectedIds.length})
+													{tUI("randomWheel.deselectAll")} ({selectedIds.length}
+													)
 												</Button>
 											</div>
 										</div>
-
 										<div className='grid grid-cols-2 lg:grid-cols-5 gap-3 mb-6 relative z-10'>
 											<InputField
 												value={searchInput}
 												onChange={e => setSearchInput(e.target.value)}
-												onKeyPress={e => e.key === "Enter" && handleSearch()}
-												placeholder={
-													language === "vi"
-														? "Tìm cổ vật..."
-														: "Search relic..."
-												}
+												onKeyDown={e => e.key === "Enter" && handleSearch()}
+												placeholder={tUI("relicList.placeholder")}
 											/>
 											<MultiSelectFilter
 												options={filterOptions.rarities}
 												selectedValues={selectedRarities}
 												onChange={setSelectedRarities}
-												placeholder={language === "vi" ? "Độ hiếm" : "Rarity"}
+												placeholder={tUI("common.rarity")}
 											/>
 											<MultiSelectFilter
 												options={filterOptions.types}
 												selectedValues={selectedTypes}
 												onChange={setSelectedTypes}
-												placeholder={language === "vi" ? "Loại" : "Type"}
+												placeholder={tUI("common.type")}
 											/>
 											<Button variant='outline' onClick={handleResetFilters}>
 												<RotateCw size={14} className='mr-2' />{" "}
-												{language === "vi" ? "Reset" : "Reset"}
+												{tUI("common.reset")}
 											</Button>
 										</div>
-
-										<div
-											ref={warehouseRef}
-											className='relative min-h-[400px] flex flex-col gap-10 bg-black/10 rounded-xl p-4 border border-white/5 overflow-hidden'
-										>
+										<div className='relative min-h-[400px] flex flex-col gap-10 bg-black/10 rounded-xl p-4 border border-white/5 overflow-hidden'>
 											{Object.entries(warehouseGroups).map(
-												([rarity, items]) => {
-													let displayRarity = rarity;
-													if (language === "en") {
-														if (rarity === "SỬ THI") displayRarity = "EPIC";
-														else if (rarity === "HIẾM") displayRarity = "RARE";
-														else if (rarity === "THƯỜNG")
-															displayRarity = "COMMON";
-													}
-
-													return (
-														<div
-															key={rarity}
-															className='flex flex-col gap-3 group-rarity-container'
-														>
-															<div className='flex items-center gap-2 pointer-events-none'>
-																<div className='h-[2px] w-6 bg-primary-500'></div>
-																<span className='text-[11px] font-bold tracking-widest text-text-primary uppercase opacity-80'>
-																	{displayRarity} ({items.length})
-																</span>
-															</div>
-															<SortableContext
-																items={items.map(i => i.id)}
-																strategy={rectSortingStrategy}
-															>
-																<DroppableZone
-																	id={`unranked-${rarity.toUpperCase()}`}
-																	className='flex flex-wrap gap-2.5 min-h-[60px] relative pointer-events-none'
-																>
-																	{items.map(item => {
-																		const isSelected = selectedIds.includes(
-																			item.id,
-																		);
-																		return (
-																			<div
-																				key={item.id}
-																				data-id={item.id}
-																				className={`rounded-md transition-all pointer-events-auto cursor-pointer ${isSelected ? "ring-2 ring-primary-500 ring-offset-2 ring-offset-surface-bg scale-90" : ""}`}
-																				onClick={e => {
-																					e.stopPropagation();
-																					if (
-																						e.ctrlKey ||
-																						e.metaKey ||
-																						e.shiftKey
-																					)
-																						setSelectedIds(prev =>
-																							prev.includes(item.id)
-																								? prev.filter(
-																										x => x !== item.id,
-																									)
-																								: [...prev, item.id],
-																						);
-																					else
-																						setSelectedIds(prev =>
-																							prev.includes(item.id)
-																								? []
-																								: [item.id],
-																						);
-																				}}
-																			>
-																				<SortableItem
-																					id={item.id}
-																					avatar={item.avatar}
-																					title={item.descriptionRaw}
-																				/>
-																			</div>
-																		);
-																	})}
-																</DroppableZone>
-															</SortableContext>
+												([rarity, items]) => (
+													<div key={rarity} className='flex flex-col gap-3'>
+														<div className='flex items-center gap-2'>
+															<div className='h-[2px] w-6 bg-primary-500'></div>
+															<span className='text-[11px] font-bold tracking-widest text-text-primary uppercase opacity-80'>
+																{rarity} ({items.length})
+															</span>
 														</div>
-													);
-												},
+														<SortableContext
+															items={items.map(i => i.id)}
+															strategy={rectSortingStrategy}
+														>
+															<DroppableZone
+																id={`unranked-${rarity}`}
+																className='flex flex-wrap gap-2.5 min-h-[60px] relative pointer-events-none'
+															>
+																{items.map(item => (
+																	<div
+																		key={item.id}
+																		data-id={item.id}
+																		className={`rounded-md transition-all pointer-events-auto cursor-pointer ${selectedIds.includes(item.id) ? "ring-2 ring-primary-500 ring-offset-2 ring-offset-surface-bg scale-90" : ""}`}
+																		onClick={e => {
+																			e.stopPropagation();
+																			setSelectedIds(prev =>
+																				e.ctrlKey || e.metaKey || e.shiftKey
+																					? prev.includes(item.id)
+																						? prev.filter(x => x !== item.id)
+																						: [...prev, item.id]
+																					: prev.includes(item.id)
+																						? []
+																						: [item.id],
+																			);
+																		}}
+																	>
+																		<SortableItem
+																			id={item.id}
+																			avatar={item.avatar}
+																			title={tDynamic(item, "name")}
+																		/>
+																	</div>
+																))}
+															</DroppableZone>
+														</SortableContext>
+													</div>
+												),
 											)}
 										</div>
 									</div>
 								</div>
-
 								<DragOverlay
 									dropAnimation={{
 										sideEffects: defaultDropAnimationSideEffects({
@@ -1100,7 +910,7 @@ function TierListRelics() {
 								>
 									{activeId ? (
 										activeType === "tier" ? (
-											<div className='flex min-h-[100px] w-full bg-surface-bg border-2 border-primary-500 opacity-80 rounded-lg overflow-hidden shadow-2xl'>
+											<div className='flex min-h-[100px] w-full bg-surface-bg border-2 border-primary-500 rounded-lg overflow-hidden'>
 												<div
 													style={{
 														backgroundColor: tiers.find(t => t.id === activeId)
@@ -1111,17 +921,19 @@ function TierListRelics() {
 													{tiers.find(t => t.id === activeId)?.name}
 												</div>
 												<div className='flex-1 p-4 bg-black/40 text-text-secondary italic flex items-center'>
-													{language === "vi"
-														? "Di chuyển hàng..."
-														: "Moving row..."}
+													{tUI("tierList.movingRow")}
 												</div>
 											</div>
 										) : (
 											<div className='relative'>
 												<SortableItem
 													id={activeId}
-													avatar={activeItem?.avatar}
-													title={activeItem?.descriptionRaw}
+													avatar={
+														activeId
+															? allRelicsRaw.find(i => i.id === activeId)
+																	?.avatar
+															: null
+													}
 													isOverlay
 												/>
 												{selectedIds.length > 1 &&

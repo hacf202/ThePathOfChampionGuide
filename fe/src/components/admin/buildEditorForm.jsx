@@ -1,8 +1,11 @@
 // src/components/build/BuildEditorForm.jsx
 import { useState, useEffect, memo } from "react";
 import Button from "../common/button";
+import { useTranslation } from "../../hooks/useTranslation"; // IMPORT HOOK
 
 const ArrayInputComponent = ({ label, data = [], onChange }) => {
+	const { tUI } = useTranslation();
+
 	const handleItemChange = (index, newValue) => {
 		const newData = [...data];
 		newData[index] = newValue.trim();
@@ -28,7 +31,7 @@ const ArrayInputComponent = ({ label, data = [], onChange }) => {
 					type='button'
 					className='px-3 py-1 text-xs font-semibold text-white bg-[var(--color-primary)] rounded hover:bg-[var(--color-primary-hover)] transition-colors'
 				>
-					+ Thêm
+					+ {tUI("admin.common.add")}
 				</button>
 			</div>
 			<div className='flex flex-col gap-2'>
@@ -42,32 +45,21 @@ const ArrayInputComponent = ({ label, data = [], onChange }) => {
 								type='text'
 								value={item}
 								onChange={e => handleItemChange(index, e.target.value)}
-								placeholder='Tên...'
-								className='flex-grow p-2 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-md text-[var(--color-text-primary)] focus:ring-2 focus:ring-[var(--color-primary)] focus:outline-none'
+								className='flex-1 p-2 bg-[var(--color-background)] border border-[var(--color-border)] rounded-md font-mono text-sm focus:outline-none focus:border-[var(--color-primary)] transition-colors'
 							/>
 							<button
-								onClick={() => handleRemoveItem(index)}
 								type='button'
-								className='text-[var(--color-text-secondary)] hover:text-[var(--color-danger)] transition-colors'
+								onClick={() => handleRemoveItem(index)}
+								className='p-2 text-red-500 hover:bg-red-500/10 rounded-md transition-colors'
+								title={tUI("admin.common.delete")}
 							>
-								<svg
-									xmlns='http://www.w3.org/2000/svg'
-									className='h-5 w-5'
-									viewBox='0 0 20 20'
-									fill='currentColor'
-								>
-									<path
-										fillRule='evenodd'
-										d='M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z'
-										clipRule='evenodd'
-									/>
-								</svg>
+								X
 							</button>
 						</div>
 					))
 				) : (
-					<p className='text-sm text-center text-[var(--color-text-secondary)] bg-[var(--color-background)] p-2 rounded-md'>
-						Chưa có mục nào.
+					<p className='text-sm italic text-[var(--color-text-tertiary)] bg-[var(--color-background)] p-3 rounded-md border border-dashed border-[var(--color-border)]'>
+						Không có mục nào.
 					</p>
 				)}
 			</div>
@@ -75,252 +67,295 @@ const ArrayInputComponent = ({ label, data = [], onChange }) => {
 	);
 };
 
-const BuildEditorForm = memo(
-	({ build, onSave, onCancel, onDelete, isSaving, onConfirmExit }) => {
-		const [formData, setFormData] = useState({
-			id: "",
-			championName: "",
-			description: "",
-			relicSet: [],
-			powers: [],
-			rune: [],
-			star: 0,
-			display: false,
-			like: 0,
-			views: 0,
-			creator: "",
-			sub: "",
-			createdAt: "",
-		});
+const BuildEditorForm = ({ item, onSave, isSaving, onDirtyChange }) => {
+	const { tUI } = useTranslation();
+	const [formData, setFormData] = useState({});
+	const [initialData, setInitialData] = useState({});
 
-		const [originalData, setOriginalData] = useState(null);
+	// Khởi tạo và đồng bộ object đa ngôn ngữ
+	useEffect(() => {
+		if (item) {
+			const clonedItem = JSON.parse(JSON.stringify(item));
 
-		useEffect(() => {
-			if (build) {
-				const initData = {
-					id: build.id || "",
-					championName: build.championName || "",
-					description: build.description || "",
-					relicSet: Array.isArray(build.relicSet) ? [...build.relicSet] : [],
-					powers: Array.isArray(build.powers) ? [...build.powers] : [],
-					rune: Array.isArray(build.rune) ? [...build.rune] : [],
-					star: Number(build.star) || 0,
-					display: build.display === true,
-					like: Number(build.like) || 0,
-					views: Number(build.views) || 0,
-					creator: build.creator || "",
-					sub: build.sub || "",
-					createdAt: build.createdAt || "",
-				};
-				setFormData(initData);
-				setOriginalData(initData);
+			// Đảm bảo object translations luôn tồn tại cho mô tả (description)
+			if (!clonedItem.translations) {
+				clonedItem.translations = { en: { description: "" } };
 			}
-		}, [build]);
-
-		const handleInputChange = e => {
-			const { name, value, type, checked } = e.target;
-			setFormData(prev => ({
-				...prev,
-				[name]:
-					type === "checkbox"
-						? checked
-						: type === "number"
-							? Number(value)
-							: value,
-			}));
-		};
-
-		const handleArrayChange = (field, newArray) => {
-			setFormData(prev => ({ ...prev, [field]: newArray }));
-		};
-
-		const handleSave = () => {
-			const cleaned = {
-				...formData,
-				relicSet: formData.relicSet.filter(Boolean),
-				powers: formData.powers.filter(Boolean),
-				rune: formData.rune.filter(Boolean),
-			};
-			onSave(cleaned);
-		};
-
-		// Kiểm tra có thay đổi không
-		const hasChanges =
-			originalData && JSON.stringify(formData) !== JSON.stringify(originalData);
-
-		const handleExit = () => {
-			if (hasChanges && onConfirmExit) {
-				onConfirmExit();
-			} else {
-				onCancel();
+			if (!clonedItem.translations.en) {
+				clonedItem.translations.en = { description: "" };
 			}
-		};
 
-		return (
-			<div className=' mx-auto p-4 sm:p-6 bg-[var(--color-surface)] rounded-lg '>
+			setFormData(clonedItem);
+			setInitialData(JSON.parse(JSON.stringify(clonedItem)));
+		}
+	}, [item]);
+
+	useEffect(() => {
+		if (onDirtyChange) {
+			onDirtyChange(JSON.stringify(formData) !== JSON.stringify(initialData));
+		}
+	}, [formData, initialData, onDirtyChange]);
+
+	const handleInputChange = e => {
+		const { name, value, type, checked } = e.target;
+		setFormData(prev => ({
+			...prev,
+			[name]: type === "checkbox" ? checked : value,
+		}));
+	};
+
+	const handleTranslationChange = (e, lang) => {
+		const { name, value } = e.target;
+		setFormData(prev => ({
+			...prev,
+			translations: {
+				...prev.translations,
+				[lang]: {
+					...prev.translations[lang],
+					[name]: value,
+				},
+			},
+		}));
+	};
+
+	const handleSubmit = e => {
+		e.preventDefault();
+
+		const payload = { ...formData };
+		// Dọn dẹp object translations rỗng trước khi gửi lên API
+		if (!payload.translations?.en?.description) {
+			delete payload.translations;
+		}
+
+		onSave(payload);
+	};
+
+	return (
+		<form onSubmit={handleSubmit} className='space-y-6'>
+			<button id='btn-submit-build' type='submit' className='hidden' />
+
+			<div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
+				{/* Cột trái */}
 				<div className='space-y-6'>
-					{/* Các section giữ nguyên */}
-					<div className='p-4 border border-[var(--color-border)] rounded-lg bg-[var(--color-background)]'>
-						<div className='flex justify-between'>
-							<h3 className='text-lg font-semibold text-[var(--color-text-link)]'>
-								1. Thông tin cơ bản
-							</h3>
-							{/* Nút hành động – CHỈ HỦY + LƯU + XÓA */}
-							<div className='flex gap-3'>
-								<Button
-									onClick={onConfirmExit}
-									variant='outline'
-									disabled={isSaving}
-								>
-									Hủy
-								</Button>
-								{onDelete && (
-									<Button
-										onClick={() => onDelete(build)}
-										variant='danger'
-										disabled={isSaving}
-									>
-										Xóa
-									</Button>
-								)}
-								<Button onClick={handleSave} disabled={isSaving}>
-									{isSaving ? "Đang lưu..." : "Lưu thay đổi"}
-								</Button>
-							</div>
-						</div>
-						<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+					{/* Khối Thông tin cơ bản */}
+					<div className='p-5 border border-[var(--color-border)] rounded-xl bg-[var(--color-surface)] shadow-sm'>
+						<h3 className='text-lg font-bold text-[var(--color-primary)] mb-4 border-b border-[var(--color-border)] pb-2'>
+							{tUI("admin.buildForm.basicInfo")}
+						</h3>
+						<div className='space-y-4'>
 							<div>
-								<label className='block font-medium mb-1'>Tên tướng</label>
+								<label className='font-semibold text-[var(--color-text-secondary)]'>
+									{tUI("admin.buildForm.champion")}
+								</label>
 								<input
 									type='text'
 									name='championName'
-									value={formData.championName}
+									value={formData.championName || ""}
 									onChange={handleInputChange}
-									className='w-full p-2 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-md'
+									className='w-full p-2.5 mt-1 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg font-bold text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-primary)] transition-colors'
+									required
 								/>
 							</div>
 							<div>
-								<label className='block font-medium mb-1'>Sao</label>
+								<label className='font-semibold text-[var(--color-text-secondary)]'>
+									{tUI("admin.buildForm.regions")}
+								</label>
+								<input
+									type='text'
+									value={formData.regions?.join(", ") || ""}
+									onChange={e =>
+										setFormData({
+											...formData,
+											regions: e.target.value.split(",").map(r => r.trim()),
+										})
+									}
+									className='w-full p-2.5 mt-1 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-primary)] transition-colors'
+									placeholder='Demacia, Noxus...'
+								/>
+							</div>
+							<div>
+								<label className='font-semibold text-[var(--color-text-secondary)]'>
+									{tUI("admin.buildForm.starLevel")}
+								</label>
 								<input
 									type='number'
 									name='star'
-									value={formData.star}
+									value={formData.star || 0}
 									onChange={handleInputChange}
 									min='0'
-									max='10'
-									className='w-full p-2 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-md'
-								/>
-							</div>
-						</div>
-						<div className='mt-4'>
-							<label className='block font-medium mb-1'>Mô tả</label>
-							<textarea
-								name='description'
-								value={formData.description}
-								onChange={handleInputChange}
-								rows={3}
-								className='w-full p-2 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-md resize-none'
-							/>
-						</div>
-					</div>
-
-					{/* Trang bị & Sức mạnh */}
-					<div className='p-4 border border-[var(--color-border)] rounded-lg bg-[var(--color-background)]'>
-						<h3 className='text-lg font-semibold text-[var(--color-text-link)] mb-4'>
-							2. Trang bị & Sức mạnh
-						</h3>
-						<div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-							<ArrayInputComponent
-								label='Cổ vật'
-								data={formData.relicSet}
-								onChange={data => handleArrayChange("relicSet", data)}
-							/>
-							<ArrayInputComponent
-								label='Sức mạnh'
-								data={formData.powers}
-								onChange={data => handleArrayChange("powers", data)}
-							/>
-						</div>
-					</div>
-
-					{/* Ngọc */}
-					<div className='p-4 border border-[var(--color-border)] rounded-lg bg-[var(--color-background)]'>
-						<h3 className='text-lg font-semibold text-[var(--color-text-link)] mb-4'>
-							3. Ngọc
-						</h3>
-						<ArrayInputComponent
-							label='Ngọc'
-							data={formData.rune}
-							onChange={data => handleArrayChange("rune", data)}
-						/>
-					</div>
-
-					{/* Hiển thị & Thống kê */}
-					<div className='p-4 border border-[var(--color-border)] rounded-lg bg-[var(--color-background)]'>
-						<h3 className='text-lg font-semibold text-[var(--color-text-link)] mb-4'>
-							4. Hiển thị & Thống kê
-						</h3>
-						<div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
-							<div className='flex items-center gap-2'>
-								<input
-									type='checkbox'
-									name='display'
-									checked={formData.display}
-									onChange={handleInputChange}
-									className='w-5 h-5'
-								/>
-								<label>Hiển thị công khai</label>
-							</div>
-							<div>
-								<label>Lượt thích</label>
-								<input
-									type='number'
-									name='like'
-									value={formData.like}
-									onChange={handleInputChange}
-									min='0'
-									className='w-full p-2 mt-1 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-md'
+									max='7'
+									className='w-full p-2.5 mt-1 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-primary)] transition-colors'
 								/>
 							</div>
 							<div>
-								<label>Lượt xem</label>
-								<input
-									type='number'
-									name='views'
-									value={formData.views}
+								<label className='font-semibold text-[var(--color-text-secondary)]'>
+									{tUI("admin.buildForm.descLabel")} (VI)
+								</label>
+								<textarea
+									name='description'
+									value={formData.description || ""}
 									onChange={handleInputChange}
-									min='0'
-									className='w-full p-2 mt-1 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-md'
+									className='w-full p-3 mt-1 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg min-h-[120px] text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-primary)] transition-colors resize-none'
 								/>
+							</div>
+							<div>
+								<label className='font-semibold text-[var(--color-text-secondary)]'>
+									{tUI("admin.buildForm.descLabel")} (EN)
+								</label>
+								<textarea
+									name='description'
+									value={formData.translations?.en?.description || ""}
+									onChange={e => handleTranslationChange(e, "en")}
+									className='w-full p-3 mt-1 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg min-h-[120px] text-[var(--color-text-primary)] focus:outline-none focus:border-blue-500 transition-colors resize-none'
+									placeholder='English Description...'
+								/>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				{/* Cột phải */}
+				<div className='space-y-6'>
+					{/* Khối Trang bị */}
+					<div className='p-5 border border-[var(--color-border)] rounded-xl bg-[var(--color-surface)] shadow-sm'>
+						<h3 className='text-lg font-bold text-amber-500 mb-4 border-b border-[var(--color-border)] pb-2'>
+							{tUI("admin.buildForm.equipment")}
+						</h3>
+						<div className='space-y-6'>
+							<ArrayInputComponent
+								label={tUI("admin.buildForm.relicsCode")}
+								data={formData.relicSetIds || formData.relicSet || []}
+								onChange={val => setFormData({ ...formData, relicSetIds: val })}
+							/>
+							<ArrayInputComponent
+								label={tUI("admin.buildForm.powersCode")}
+								data={formData.powerIds || formData.powers || []}
+								onChange={val => setFormData({ ...formData, powerIds: val })}
+							/>
+							<ArrayInputComponent
+								label={tUI("admin.buildForm.runesCode")}
+								data={formData.runeIds || formData.rune || []}
+								onChange={val => setFormData({ ...formData, runeIds: val })}
+							/>
+						</div>
+					</div>
+
+					{/* Khối Hiển thị và Tương tác */}
+					<div className='p-5 border border-[var(--color-border)] rounded-xl bg-[var(--color-surface)] shadow-sm grid grid-cols-2 gap-4'>
+						<div className='col-span-2'>
+							<h3 className='text-lg font-bold text-emerald-500 mb-3 border-b border-[var(--color-border)] pb-2'>
+								{tUI("admin.buildForm.displaySettings")}
+							</h3>
+							<div className='flex items-center gap-4'>
+								<label className='flex items-center gap-2 cursor-pointer p-2 border border-[var(--color-border)] rounded-lg bg-[var(--color-background)] flex-1'>
+									<input
+										type='radio'
+										name='display'
+										value='true'
+										checked={
+											formData.display === true || formData.display === "true"
+										}
+										onChange={() => setFormData({ ...formData, display: true })}
+										className='w-4 h-4 text-emerald-500'
+									/>
+									<span className='font-medium text-[var(--color-text-primary)]'>
+										{tUI("admin.buildForm.public")}
+									</span>
+								</label>
+								<label className='flex items-center gap-2 cursor-pointer p-2 border border-[var(--color-border)] rounded-lg bg-[var(--color-background)] flex-1'>
+									<input
+										type='radio'
+										name='display'
+										value='false'
+										checked={
+											formData.display === false || formData.display === "false"
+										}
+										onChange={() =>
+											setFormData({ ...formData, display: false })
+										}
+										className='w-4 h-4 text-gray-500'
+									/>
+									<span className='font-medium text-[var(--color-text-primary)]'>
+										{tUI("admin.buildForm.private")}
+									</span>
+								</label>
+							</div>
+						</div>
+
+						<div className='col-span-2 mt-2'>
+							<h3 className='text-lg font-bold text-blue-500 mb-3 border-b border-[var(--color-border)] pb-2'>
+								{tUI("admin.buildForm.interactions")}
+							</h3>
+							<div className='grid grid-cols-2 gap-4'>
+								<div>
+									<label className='font-semibold text-[var(--color-text-secondary)]'>
+										{tUI("admin.buildForm.likes")}
+									</label>
+									<input
+										type='number'
+										name='like'
+										value={formData.like || 0}
+										onChange={handleInputChange}
+										min='0'
+										className='w-full p-2.5 mt-1 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-[var(--color-text-primary)] focus:outline-none focus:border-blue-500 transition-colors'
+									/>
+								</div>
+								<div>
+									<label className='font-semibold text-[var(--color-text-secondary)]'>
+										{tUI("admin.buildForm.views")}
+									</label>
+									<input
+										type='number'
+										name='views'
+										value={formData.views || 0}
+										onChange={handleInputChange}
+										min='0'
+										className='w-full p-2.5 mt-1 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-[var(--color-text-primary)] focus:outline-none focus:border-blue-500 transition-colors'
+									/>
+								</div>
 							</div>
 						</div>
 					</div>
 
 					{/* Thông tin hệ thống */}
-					<div className='p-4 border border-[var(--color-border)] rounded-lg bg-[var(--color-background)] text-sm'>
-						<h3 className='text-lg font-semibold text-[var(--color-text-link)] mb-4'>
-							5. Thông tin hệ thống
+					<div className='p-4 border border-[var(--color-border)] rounded-xl bg-[var(--color-background)] text-sm shadow-inner'>
+						<h3 className='text-md font-bold text-[var(--color-text-tertiary)] mb-3 uppercase tracking-wider'>
+							{tUI("admin.buildForm.systemInfo")}
 						</h3>
 						<div className='grid grid-cols-1 md:grid-cols-2 gap-3 text-[var(--color-text-secondary)]'>
-							<div>
-								<strong>ID:</strong> {formData.id}
+							<div className='truncate' title={formData.id}>
+								<strong className='text-[var(--color-text-primary)]'>
+									ID:
+								</strong>{" "}
+								{formData.id}
+							</div>
+							<div className='truncate' title={formData.creator}>
+								<strong className='text-[var(--color-text-primary)]'>
+									{tUI("admin.buildForm.creator")}:
+								</strong>{" "}
+								{formData.creator}
+							</div>
+							<div
+								className='truncate col-span-1 md:col-span-2'
+								title={formData.sub}
+							>
+								<strong className='text-[var(--color-text-primary)]'>
+									Sub:
+								</strong>{" "}
+								{formData.sub}
 							</div>
 							<div>
-								<strong>Người tạo:</strong> {formData.creator}
-							</div>
-							<div>
-								<strong>Sub:</strong> {formData.sub}
-							</div>
-							<div>
-								<strong>Tạo lúc:</strong>{" "}
+								<strong className='text-[var(--color-text-primary)]'>
+									{tUI("admin.buildForm.createdAt")}:
+								</strong>{" "}
 								{new Date(formData.createdAt).toLocaleString()}
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		);
-	},
-);
+		</form>
+	);
+};
 
-export default BuildEditorForm;
+export default memo(BuildEditorForm);

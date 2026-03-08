@@ -1,14 +1,18 @@
-// src/pages/admin/GuideList.jsx
+// src/pages/admin/guideList.jsx
 import React, { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom"; // Thêm Link
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../../context/AuthContext";
+import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import i18n
 import Button from "../common/button";
-import { Edit, Trash2, Eye, Plus } from "lucide-react";
+import { Edit, Trash2, Eye, Plus, Search } from "lucide-react";
+import InputField from "../common/inputField";
 
 const GuideList = () => {
+	const { tUI, t } = useTranslation();
 	const [guides, setGuides] = useState([]);
 	const [loading, setLoading] = useState(true);
+	const [searchTerm, setSearchTerm] = useState("");
 	const { token } = useAuth();
 	const navigate = useNavigate();
 
@@ -19,13 +23,12 @@ const GuideList = () => {
 				const sorted = res.data.data.sort(
 					(a, b) =>
 						new Date(b.updateDate || b.publishedDate) -
-						new Date(a.updateDate || a.publishedDate)
+						new Date(a.updateDate || a.publishedDate),
 				);
 				setGuides(sorted);
 			}
 		} catch (err) {
-			console.error("Lỗi tải danh sách:", err);
-			alert("Không thể tải danh sách bài viết.");
+			console.error("Error loading guide list:", err);
 		} finally {
 			setLoading(false);
 		}
@@ -36,124 +39,110 @@ const GuideList = () => {
 	}, []);
 
 	const handleDelete = async slug => {
-		if (!window.confirm(`Bạn có chắc muốn xóa bài viết: ${slug}?`)) return;
+		if (!window.confirm(tUI("common.deleteConfirmPrefix") + slug + "?")) return;
+
 		try {
 			await axios.delete(`${import.meta.env.VITE_API_URL}/api/guides/${slug}`, {
 				headers: { Authorization: `Bearer ${token}` },
 			});
-			alert("Đã xóa thành công!");
-			fetchGuides();
+			setGuides(guides.filter(g => g.slug !== slug));
 		} catch (err) {
-			console.error("Lỗi xóa:", err);
-			alert("Có lỗi khi xóa.");
+			alert(tUI("common.errorLoadData"));
 		}
 	};
 
-	if (loading) return <div className='p-8 text-center'>Đang tải...</div>;
+	const filteredGuides = guides.filter(g =>
+		t(g, "title").toLowerCase().includes(searchTerm.toLowerCase()),
+	);
+
+	if (loading)
+		return <div className='p-10 text-center'>{tUI("common.loading")}</div>;
 
 	return (
-		<div className='p-8 max-w-7xl mx-auto font-secondary'>
-			<div className='flex justify-between items-center mb-8'>
-				<h1 className='text-3xl font-bold text-gray-800 font-primary'>
-					Quản lý Guides
+		<div className='p-6'>
+			<div className='flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8'>
+				<h1 className='text-2xl font-bold text-text-primary uppercase'>
+					{tUI("guideList.heading")} (Admin)
 				</h1>
 				<Button
+					onClick={() => navigate("new")}
 					variant='primary'
-					onClick={() => navigate("new")} // Đường dẫn tương đối: /admin/guides/new
 					iconLeft={<Plus size={18} />}
 				>
-					Tạo bài viết mới
+					{tUI("common.addNew")}
 				</Button>
 			</div>
 
-			<div className='bg-white rounded-xl shadow overflow-hidden border border-gray-200'>
-				<table className='min-w-full divide-y divide-gray-200'>
-					<thead className='bg-gray-50'>
+			<div className='mb-6 max-w-md'>
+				<InputField
+					icon={<Search size={18} />}
+					placeholder={tUI("common.searchPlaceholder")}
+					value={searchTerm}
+					onChange={e => setSearchTerm(e.target.value)}
+				/>
+			</div>
+
+			<div className='bg-surface-bg rounded-xl border border-border overflow-hidden shadow-sm'>
+				<table className='w-full text-left border-collapse'>
+					<thead className='bg-surface-hover/50 text-text-secondary text-sm uppercase'>
 						<tr>
-							<th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-								Hình Ảnh
+							<th className='px-6 py-4 font-semibold'>
+								{tUI("constellation.colName")}
 							</th>
-							<th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-								Tiêu đề
+							<th className='px-6 py-4 font-semibold'>
+								{tUI("guideDetail.authorLabel")}
 							</th>
-							<th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-								Ngày đăng
+							<th className='px-6 py-4 font-semibold hidden md:table-cell'>
+								{tUI("common.views")}
 							</th>
-							<th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-								Ngày cập nhật
-							</th>
-							<th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-								Views
-							</th>
-							<th className='px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider'>
-								Thao tác
+							<th className='px-6 py-4 font-semibold text-right'>
+								{tUI("randomWheel.panelTitle")}
 							</th>
 						</tr>
 					</thead>
-					<tbody className='bg-white divide-y divide-gray-200'>
-						{guides.map(guide => (
-							<tr key={guide.slug} className='hover:bg-gray-50 transition'>
-								<td className='px-6 py-4'>
-									<img
-										src={guide.thumbnail}
-										alt={guide.title}
-										className='w-30 h-24 object-cover rounded-md'
-									/>
+					<tbody className='divide-y divide-border'>
+						{filteredGuides.map(guide => (
+							<tr
+								key={guide._id}
+								className='hover:bg-surface-hover/30 transition-colors'
+							>
+								<td className='px-6 py-4 font-medium text-text-primary'>
+									{t(guide, "title")}
 								</td>
-								<td className='px-6 py-4'>
-									{/* Link chuyển trang edit */}
-									<Link to={`./${guide.slug}`} className='group block'>
-										<div className='font-bold text-gray-900 group-hover:text-blue-600 transition-colors'>
-											{guide.title}
-										</div>
-										<div className='text-sm text-gray-500'>{guide.slug}</div>
-									</Link>
+								<td className='px-6 py-4 text-text-secondary'>
+									{guide.author}
 								</td>
-								<td className='px-6 py-4 text-sm text-gray-500'>
-									{new Date(guide.publishedDate).toLocaleDateString("vi-VN")}
-								</td>
-								<td className='px-6 py-4 text-sm text-gray-500'>
-									{new Date(guide.updateDate).toLocaleDateString("vi-VN")}
-								</td>
-								<td className='px-6 py-4 text-sm text-gray-500'>
+								<td className='px-6 py-4 text-text-secondary hidden md:table-cell'>
 									{guide.views || 0}
 								</td>
-								<td className='px-6 py-4 text-right text-sm font-medium space-x-2'>
+								<td className='px-6 py-4 text-right space-x-2'>
 									<Button
 										variant='ghost'
-										onClick={() => navigate(guide.slug)} // Đường dẫn tương đối
-										className='text-indigo-600 hover:text-indigo-900'
-										iconLeft={<Edit size={16} />}
+										onClick={() => navigate(guide.slug)}
+										className='text-blue-500 hover:bg-blue-500/10 p-2'
 									>
-										Sửa
+										<Edit size={18} />
 									</Button>
 									<Button
 										variant='ghost'
 										onClick={() => handleDelete(guide.slug)}
-										className='text-red-600 hover:text-red-900 hover:bg-red-50'
-										iconLeft={<Trash2 size={16} />}
+										className='text-red-500 hover:bg-red-500/10 p-2'
 									>
-										Xóa
+										<Trash2 size={18} />
 									</Button>
 									<a
 										href={`/guides/${guide.slug}`}
 										target='_blank'
-										rel='noopener noreferrer'
-										className='inline-flex items-center gap-1 text-gray-600 hover:text-gray-800 ml-2 px-3 py-2 text-sm font-semibold rounded-md hover:bg-gray-100 transition'
+										rel='noreferrer'
+										className='inline-flex p-2 text-text-secondary hover:text-text-primary'
 									>
-										<Eye size={16} /> Xem
+										<Eye size={18} />
 									</a>
 								</td>
 							</tr>
 						))}
 					</tbody>
 				</table>
-
-				{guides.length === 0 && (
-					<div className='p-8 text-center text-gray-500'>
-						Chưa có bài viết nào.
-					</div>
-				)}
 			</div>
 		</div>
 	);

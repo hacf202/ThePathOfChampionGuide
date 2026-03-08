@@ -3,7 +3,7 @@ import React, { useState, useMemo, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePersistentState } from "../hooks/usePersistentState";
-import { useTranslation } from "../hooks/useTranslation"; // 🟢 Import Hook i18n
+import { useTranslation } from "../hooks/useTranslation"; // 🟢 Import Hook
 import InputField from "../components/common/inputField";
 import MultiSelectFilter from "../components/common/multiSelectFilter";
 import DropdownFilter from "../components/common/dropdownFilter";
@@ -35,7 +35,7 @@ const RelicSkeleton = () => (
 );
 
 function RelicList() {
-	const { language, t } = useTranslation(); // 🟢 Khởi tạo Hook
+	const { tUI, t } = useTranslation(); // 🟢 Khởi tạo Hook
 
 	// --- STATE ---
 	const [relics, setRelics] = useState([]);
@@ -159,10 +159,7 @@ function RelicList() {
 		try {
 			const backendUrl = import.meta.env.VITE_API_URL;
 			const response = await fetch(`${backendUrl}/api/relics?${queryParams}`);
-			if (!response.ok)
-				throw new Error(
-					language === "vi" ? "Lỗi tải dữ liệu" : "Data loading error",
-				);
+			if (!response.ok) throw new Error(tUI("common.errorLoadData"));
 			const data = await response.json();
 
 			setRelics(data.items || []);
@@ -173,7 +170,7 @@ function RelicList() {
 		} finally {
 			setTimeout(() => setLoading(false), 500);
 		}
-	}, [queryParams, language]);
+	}, [queryParams, tUI]);
 
 	useEffect(() => {
 		fetchRelics();
@@ -190,20 +187,20 @@ function RelicList() {
 			types: dynamicFilters.types.map(t => ({ value: t, label: t })),
 			stacks: dynamicFilters.stacks.map(s => ({
 				value: s,
-				label: language === "vi" ? `Số lượng ${s}` : `Stacks ${s}`,
+				label: tUI("relicList.stackLabel").replace("{{count}}", s),
 			})),
 			sort: [
 				{
 					value: "name-asc",
-					label: language === "vi" ? "Tên A-Z" : "Name A-Z",
+					label: tUI("sort.nameAsc"),
 				},
 				{
 					value: "name-desc",
-					label: language === "vi" ? "Tên Z-A" : "Name Z-A",
+					label: tUI("sort.nameDesc"),
 				},
 			],
 		}),
-		[dynamicFilters, language],
+		[dynamicFilters, tUI],
 	);
 
 	const handleResetFilters = () => {
@@ -219,18 +216,14 @@ function RelicList() {
 	return (
 		<div className='animate-fadeIn'>
 			<PageTitle
-				title={language === "vi" ? "Danh sách cổ vật" : "Relics List"}
-				description={
-					language === "vi"
-						? "Dữ liệu đầy đủ cổ vật Path of Champions."
-						: "Comprehensive Relics Data for Path of Champions."
-				}
+				title={tUI("relicList.title")}
+				description={tUI("relicList.metaDesc")}
 			/>
 
 			<div className='font-secondary'>
 				<div className='flex justify-between items-center mb-6'>
 					<h1 className='text-3xl font-bold text-text-primary font-primary animate-glitch'>
-						{language === "vi" ? "Danh Sách Cổ Vật" : "Relics List"}
+						{tUI("relicList.heading")}
 					</h1>
 
 					<div className='hidden lg:flex items-center gap-4'>
@@ -245,12 +238,8 @@ function RelicList() {
 								<ChevronLeft size={18} />
 							)}
 							{showDesktopFilter
-								? language === "vi"
-									? "Ẩn bộ lọc"
-									: "Hide Filters"
-								: language === "vi"
-									? "Hiện bộ lọc"
-									: "Show Filters"}
+								? tUI("championList.hideFilter")
+								: tUI("championList.showFilter")}
 						</Button>
 					</div>
 				</div>
@@ -336,15 +325,17 @@ function RelicList() {
 														variant='outline'
 													>
 														<ChevronLeft size={16} className='mr-2' />
-														{language === "vi" ? "Trang Trước" : "Previous"}
+														{tUI("common.prevPage")}
 													</Button>
-													<span>/</span>
+													<span className='font-bold text-primary-500 bg-primary-100/10 px-3 py-1 rounded-full'>
+														{currentPage} / {pagination.totalPages}
+													</span>
 													<Button
 														onClick={goToNextPage}
 														disabled={currentPage === pagination.totalPages}
 														variant='outline'
 													>
-														{language === "vi" ? "Trang Sau" : "Next"}
+														{tUI("common.nextPage")}
 														<ChevronRight size={16} className='ml-2' />
 													</Button>
 												</div>
@@ -353,18 +344,14 @@ function RelicList() {
 											<div className='flex flex-col items-center justify-center py-20 text-text-secondary'>
 												<XCircle size={64} className='mb-4 opacity-10' />
 												<p className='text-xl font-primary'>
-													{language === "vi"
-														? "Không tìm thấy cổ vật phù hợp."
-														: "No matching relics found."}
+													{tUI("relicList.notFound")}
 												</p>
 												<Button
 													variant='ghost'
 													onClick={handleResetFilters}
 													className='mt-4'
 												>
-													{language === "vi"
-														? "Xóa tất cả bộ lọc"
-														: "Clear all filters"}
+													{tUI("relicList.clearFilters")}
 												</Button>
 											</div>
 										)}
@@ -387,43 +374,40 @@ function RelicList() {
 							>
 								<div className='w-[280px] xl:w-[320px] p-4 rounded-lg border border-border bg-surface-bg space-y-4 shadow-sm'>
 									<label className='block text-sm font-medium text-text-secondary'>
-										{language === "vi" ? "Tìm kiếm cổ vật" : "Search Relics"}
+										{tUI("relicList.searchLabel")}
 									</label>
 									<InputField
 										value={searchInput}
 										onChange={e => setSearchInput(e.target.value)}
 										onKeyDown={e => e.key === "Enter" && handleSearch()}
-										placeholder={
-											language === "vi" ? "Tên cổ vật..." : "Relic name..."
-										}
+										placeholder={tUI("relicList.placeholder")}
 									/>
 									<Button
 										onClick={handleSearch}
 										className='w-full mt-2 hover:animate-pulse-focus'
 									>
-										<Search size={16} className='mr-2' />{" "}
-										{language === "vi" ? "Tìm kiếm" : "Search"}
+										<Search size={16} className='mr-2' /> {tUI("common.search")}
 									</Button>
 									<MultiSelectFilter
-										label={language === "vi" ? "Độ hiếm" : "Rarity"}
+										label={tUI("common.rarity")}
 										options={filterOptions.rarities}
 										selectedValues={selectedRarities}
 										onChange={setSelectedRarities}
 									/>
 									<MultiSelectFilter
-										label={language === "vi" ? "Loại" : "Type"}
+										label={tUI("common.type")}
 										options={filterOptions.types}
 										selectedValues={selectedTypes}
 										onChange={setSelectedTypes}
 									/>
 									<MultiSelectFilter
-										label={language === "vi" ? "Số lượng" : "Stacks"}
+										label={tUI("common.stacks")}
 										options={filterOptions.stacks}
 										selectedValues={selectedStacks}
 										onChange={setSelectedStacks}
 									/>
 									<DropdownFilter
-										label={language === "vi" ? "Sắp xếp" : "Sort By"}
+										label={tUI("championList.sortBy")}
 										options={filterOptions.sort}
 										selectedValue={sortOrder}
 										onChange={setSortOrder}
@@ -434,7 +418,7 @@ function RelicList() {
 										className='w-full'
 									>
 										<RotateCw size={16} className='mr-2' />{" "}
-										{language === "vi" ? "Đặt lại bộ lọc" : "Reset Filters"}
+										{tUI("championList.resetFilter")}
 									</Button>
 								</div>
 							</motion.aside>
@@ -449,9 +433,7 @@ function RelicList() {
 									value={searchInput}
 									onChange={e => setSearchInput(e.target.value)}
 									onKeyDown={e => e.key === "Enter" && handleSearch()}
-									placeholder={
-										language === "vi" ? "Tìm cổ vật..." : "Search relics..."
-									}
+									placeholder={tUI("relicList.placeholder")}
 								/>
 							</div>
 							<Button onClick={handleSearch} className='px-3'>
@@ -486,25 +468,25 @@ function RelicList() {
 								>
 									<div className='pt-4 space-y-4 border-t border-border mt-3'>
 										<MultiSelectFilter
-											label={language === "vi" ? "Độ hiếm" : "Rarity"}
+											label={tUI("common.rarity")}
 											options={filterOptions.rarities}
 											selectedValues={selectedRarities}
 											onChange={setSelectedRarities}
 										/>
 										<MultiSelectFilter
-											label={language === "vi" ? "Loại" : "Type"}
+											label={tUI("common.type")}
 											options={filterOptions.types}
 											selectedValues={selectedTypes}
 											onChange={setSelectedTypes}
 										/>
 										<MultiSelectFilter
-											label={language === "vi" ? "Số lượng" : "Stacks"}
+											label={tUI("common.stacks")}
 											options={filterOptions.stacks}
 											selectedValues={selectedStacks}
 											onChange={setSelectedStacks}
 										/>
 										<DropdownFilter
-											label={language === "vi" ? "Sắp xếp" : "Sort By"}
+											label={tUI("championList.sortBy")}
 											options={filterOptions.sort}
 											selectedValue={sortOrder}
 											onChange={setSortOrder}

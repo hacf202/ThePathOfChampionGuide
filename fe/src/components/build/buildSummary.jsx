@@ -36,7 +36,7 @@ const BuildSummary = ({
 	isFavoritePage = false,
 }) => {
 	const { user, token } = useAuth();
-	const { language, t } = useTranslation(); // 🟢 Khởi tạo Đa ngôn ngữ
+	const { language, tUI, tDynamic } = useTranslation(); // 🟢 Khởi tạo tUI và tDynamic
 	const navigate = useNavigate();
 	const apiUrl = import.meta.env.VITE_API_URL;
 	const menuRef = useRef(null);
@@ -61,10 +61,10 @@ const BuildSummary = ({
 			return build.creatorName;
 		}
 		if (user && build.sub === user.sub) {
-			return language === "vi" ? "Tôi" : "Me"; // 🟢 Dịch chữ "Tôi"
+			return tUI("buildSummary.me"); // 🟢 Dịch chữ "Tôi"
 		}
 		return build.creator;
-	}, [build.creatorName, build.creator, build.sub, user, language]);
+	}, [build.creatorName, build.creator, build.sub, user, tUI]);
 
 	useEffect(() => {
 		setIsFavorite(initialIsFavorited);
@@ -193,7 +193,7 @@ const BuildSummary = ({
 	const championImage =
 		championData?.assets?.[0]?.avatar || "/fallback-image.svg";
 	const championDisplayName = championData
-		? t(championData, "name")
+		? tDynamic(championData, "name") // 🟢 Đã sửa thành tDynamic
 		: normalizeName(build?.championName);
 
 	// 🟢 Ánh xạ ID sang Object thay vì Tên
@@ -225,7 +225,7 @@ const BuildSummary = ({
 
 		const idKey = item.relicCode || item.powerCode || item.runeCode || index;
 		const key = `${build.id}-${type}-${idKey}-${index}`;
-		const itemName = t(item, "name");
+		const itemName = tDynamic(item, "name"); // 🟢 Đã sửa thành tDynamic
 
 		return (
 			<div key={key} className='group relative'>
@@ -262,7 +262,7 @@ const BuildSummary = ({
 									{championDisplayName}
 								</h3>
 								<p className='text-xs sm:text-sm text-text-secondary'>
-									{language === "vi" ? "Tạo bởi:" : "Created by:"}{" "}
+									{tUI("buildSummary.createdBy")}{" "}
 									<span className='font-medium'>{displayCreator}</span>
 								</p>
 							</div>
@@ -293,12 +293,8 @@ const BuildSummary = ({
 												/>
 												<span>
 													{isFavorite
-														? language === "vi"
-															? "Bỏ yêu thích"
-															: "Unfavorite"
-														: language === "vi"
-															? "Yêu thích"
-															: "Favorite"}{" "}
+														? tUI("buildSummary.unfavorite")
+														: tUI("buildSummary.favorite")}{" "}
 													{favoriteCount > 0 && `(${favoriteCount})`}
 												</span>
 											</button>
@@ -312,12 +308,8 @@ const BuildSummary = ({
 													)}
 													<span>
 														{build.display
-															? language === "vi"
-																? "Công khai"
-																: "Public"
-															: language === "vi"
-																? "Riêng tư"
-																: "Private"}
+															? tUI("buildSummary.public")
+															: tUI("buildSummary.private")}
 													</span>
 												</div>
 											)}
@@ -329,15 +321,14 @@ const BuildSummary = ({
 														onClick={handleEdit}
 														className='w-full flex items-center gap-3 px-4 py-2 text-left text-sm text-text-secondary hover:bg-surface-hover'
 													>
-														<Edit size={18} />{" "}
-														<span>{language === "vi" ? "Sửa" : "Edit"}</span>
+														<Edit size={18} /> <span>{tUI("common.edit")}</span>
 													</button>
 													<button
 														onClick={handleDeleteClick}
 														className='w-full flex items-center gap-3 px-4 py-2 text-left text-sm text-danger-500 hover:bg-surface-hover'
 													>
 														<Trash2 size={18} />{" "}
-														<span>{language === "vi" ? "Xóa" : "Delete"}</span>
+														<span>{tUI("common.delete")}</span>
 													</button>
 												</>
 											)}
@@ -353,7 +344,7 @@ const BuildSummary = ({
 						{artifactItems.length > 0 && (
 							<div>
 								<p className='text-text-primary font-semibold mb-1 text-xs sm:text-sm'>
-									{language === "vi" ? "Cổ Vật:" : "Relics:"}
+									{tUI("buildSummary.relics")}
 								</p>
 								<div className='flex flex-wrap gap-1.5 sm:gap-2'>
 									{artifactItems.map((a, i) =>
@@ -365,7 +356,7 @@ const BuildSummary = ({
 						{runeItems.length > 0 && (
 							<div>
 								<p className='text-text-primary font-semibold mb-1 text-xs sm:text-sm'>
-									{language === "vi" ? "Ngọc:" : "Runes:"}
+									{tUI("buildSummary.runes")}
 								</p>
 								<div className='flex flex-wrap gap-1.5 sm:gap-2'>
 									{runeItems.map((r, i) =>
@@ -377,7 +368,7 @@ const BuildSummary = ({
 						{powerItems.length > 0 && (
 							<div>
 								<p className='text-text-primary font-semibold mb-1 text-xs sm:text-sm'>
-									{language === "vi" ? "Sức mạnh:" : "Powers:"}
+									{tUI("buildSummary.powers")}
 								</p>
 								<div className='flex flex-wrap gap-1.5 sm:gap-2'>
 									{powerItems.map((p, i) =>
@@ -409,7 +400,7 @@ const BuildSummary = ({
 									onClick={handleViewDetail}
 									className='inline-flex items-center gap-1 text-primary-500 hover:underline text-xs sm:text-sm font-medium mt-1'
 								>
-									{language === "vi" ? "Xem thêm..." : "See more..."}
+									{tUI("buildSummary.seeMore")}
 									<ChevronRight size={12} />
 								</button>
 							)}
@@ -446,7 +437,7 @@ const BuildSummary = ({
 							</span>
 
 							<div className='absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50'>
-								{language === "vi" ? "Thích" : "Like"}
+								{tUI("buildSummary.like")}
 								<div className='absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900'></div>
 							</div>
 						</div>
@@ -475,12 +466,8 @@ const BuildSummary = ({
 
 							<div className='absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50'>
 								{isFavorite
-									? language === "vi"
-										? "Bỏ yêu thích"
-										: "Unfavorite"
-									: language === "vi"
-										? "Thêm vào danh sách yêu thích"
-										: "Add to favorites"}
+									? tUI("buildSummary.unfavorite")
+									: tUI("buildSummary.addToFavorites")}
 								<div className='absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900'></div>
 							</div>
 						</div>
@@ -495,9 +482,7 @@ const BuildSummary = ({
 							</span>
 
 							<div className='absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50'>
-								{language === "vi"
-									? "Cấp sao của tướng"
-									: "Champion Star Level"}
+								{tUI("buildSummary.championStarLevel")}
 								<div className='absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900'></div>
 							</div>
 						</div>
@@ -509,16 +494,14 @@ const BuildSummary = ({
 			<Modal
 				isOpen={showLoginModal}
 				onClose={() => setShowLoginModal(false)}
-				title={language === "vi" ? "Yêu cầu đăng nhập" : "Login Required"}
+				title={tUI("buildSummary.loginRequired")}
 			>
 				<p className='text-text-secondary mb-6'>
-					{language === "vi"
-						? "Bạn cần đăng nhập để thực hiện hành động này."
-						: "You must be logged in to perform this action."}
+					{tUI("buildSummary.loginPrompt")}
 				</p>
 				<div className='flex justify-end gap-4'>
 					<Button variant='ghost' onClick={() => setShowLoginModal(false)}>
-						{language === "vi" ? "Hủy" : "Cancel"}
+						{tUI("common.cancel")}
 					</Button>
 					<Button
 						variant='primary'
@@ -527,7 +510,7 @@ const BuildSummary = ({
 							navigate("/auth");
 						}}
 					>
-						{language === "vi" ? "Đăng nhập" : "Login"}
+						{tUI("common.login")}
 					</Button>
 				</div>
 			</Modal>

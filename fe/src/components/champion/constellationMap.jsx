@@ -1,5 +1,7 @@
+// src/components/champion/constellationMap.jsx
 import React, { useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook i18n
 
 const ConstellationNode = ({ power, index, active, onShowTooltip }) => {
 	const nodeRef = useRef(null);
@@ -82,6 +84,7 @@ const ConstellationLine = ({ x1, y1, x2, y2, isRecommended }) => {
 };
 
 export default function ConstellationMap({ constellationInfo }) {
+	const { tDynamic } = useTranslation(); // 🟢 Sử dụng tDynamic cho Tooltip
 	const [hoveredNode, setHoveredNode] = useState(null);
 	const [tooltipCoords, setTooltipCoords] = useState(null);
 
@@ -174,12 +177,14 @@ export default function ConstellationMap({ constellationInfo }) {
 						}}
 					>
 						<h3 className='text-primary-500 font-bold text-sm uppercase mb-1'>
-							{hoveredNode.name}
+							{tDynamic(hoveredNode, "name") || hoveredNode.name}
 						</h3>
 						<div
 							className='text-text-secondary text-xs leading-relaxed'
 							dangerouslySetInnerHTML={{
-								__html: hoveredNode.description,
+								__html:
+									tDynamic(hoveredNode, "description") ||
+									hoveredNode.description,
 							}}
 						/>
 						<div className='absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-primary-500' />

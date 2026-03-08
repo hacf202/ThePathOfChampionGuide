@@ -3,6 +3,7 @@ import { useState, memo, useEffect } from "react";
 import Button from "../common/button";
 import InputField from "../common/inputField";
 import Modal from "../common/modal";
+import { useTranslation } from "../../hooks/useTranslation"; // IMPORT HOOK ĐA NGÔN NGỮ
 
 const RelicEditorForm = memo(
 	({ relic, onSave, onCancel, onDelete, isSaving }) => {
@@ -12,13 +13,29 @@ const RelicEditorForm = memo(
 
 		const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
 		const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+		const { tUI } = useTranslation();
 
 		// Khởi tạo và deep clone dữ liệu để so sánh
 		useEffect(() => {
 			if (relic) {
 				const deepCloned = JSON.parse(JSON.stringify(relic));
-				setFormData(relic);
-				setInitialData(deepCloned);
+
+				// Đảm bảo object translations luôn tồn tại
+				if (!deepCloned.translations) {
+					deepCloned.translations = {
+						en: { name: "", rarity: "", description: "" },
+					};
+				}
+				if (!deepCloned.translations.en) {
+					deepCloned.translations.en = {
+						name: "",
+						rarity: "",
+						description: "",
+					};
+				}
+
+				setFormData(deepCloned);
+				setInitialData(JSON.parse(JSON.stringify(deepCloned)));
 				setIsDirty(false);
 			}
 		}, [relic]);
@@ -45,17 +62,33 @@ const RelicEditorForm = memo(
 
 		const handleInputChange = e => {
 			const { name, value } = e.target;
-			// Chuyển đổi stack sang kiểu số
-			const parsedValue = name === "stack" ? parseInt(value) || 0 : value;
-			setFormData(prev => ({ ...prev, [name]: parsedValue }));
+			setFormData(prev => ({
+				...prev,
+				[name]: name === "stack" ? parseInt(value) || 1 : value,
+			}));
 		};
 
-		const handleAttemptCancel = () => {
-			if (isDirty) {
-				setIsCancelModalOpen(true);
-			} else {
-				onCancel();
+		const handleTranslationChange = (e, lang) => {
+			const { name, value } = e.target;
+			setFormData(prev => ({
+				...prev,
+				translations: {
+					...prev.translations,
+					[lang]: {
+						...prev.translations[lang],
+						[name]: value,
+					},
+				},
+			}));
+		};
+
+		const handleSubmit = e => {
+			e.preventDefault();
+			if (!formData.relicCode?.trim()) {
+				alert(tUI("admin.relicForm.errorIdReq"));
+				return;
 			}
+			onSave(formData);
 		};
 
 		const confirmCancel = () => {
@@ -63,35 +96,20 @@ const RelicEditorForm = memo(
 			onCancel();
 		};
 
-		const handleAttemptDelete = () => setIsDeleteModalOpen(true);
-
-		const confirmDelete = () => {
-			setIsDeleteModalOpen(false);
-			if (relic && relic.relicCode && !relic.isNew) {
-				onDelete(relic.relicCode);
-			}
-		};
-
-		const handleSubmit = e => {
-			e.preventDefault();
-			// Gửi toàn bộ formData (bao gồm cả isNew) để Backend kiểm tra ID tồn tại
-			onSave(formData);
-		};
-
 		return (
 			<>
 				<form onSubmit={handleSubmit} className='space-y-8'>
 					{/* Header Toolbar */}
-					<div className='flex justify-between border-border sticky top-0 bg-surface-bg z-20 py-2 border-b mb-4 px-4'>
+					<div className='flex justify-between border-border sticky top-0 bg-surface-bg z-20 py-2 border-b mb-4 shadow-sm px-4'>
 						<div>
 							<h2 className='block font-semibold text-text-primary text-xl'>
 								{formData.isNew
-									? "Tạo Cổ Vật Mới"
-									: `Chỉnh sửa: ${formData.name}`}
+									? tUI("admin.relicForm.createTitle")
+									: `${tUI("admin.relicForm.editTitle")} ${formData.name}`}
 							</h2>
 							{isDirty && (
 								<span className='text-xs text-yellow-500 font-medium'>
-									● Có thay đổi chưa lưu
+									{tUI("admin.common.unsavedChanges")}
 								</span>
 							)}
 						</div>
@@ -99,19 +117,21 @@ const RelicEditorForm = memo(
 							<Button
 								type='button'
 								variant='ghost'
-								onClick={handleAttemptCancel}
+								onClick={() =>
+									isDirty ? setIsCancelModalOpen(true) : onCancel()
+								}
 								disabled={isSaving}
 							>
-								Hủy
+								{tUI("admin.common.cancel")}
 							</Button>
 							{!formData.isNew && (
 								<Button
 									type='button'
 									variant='danger'
-									onClick={handleAttemptDelete}
+									onClick={() => setIsDeleteModalOpen(true)}
 									disabled={isSaving}
 								>
-									{isSaving ? "Đang xử lý..." : "Xóa cổ vật"}
+									{tUI("admin.common.delete")}
 								</Button>
 							)}
 							<Button
@@ -120,127 +140,180 @@ const RelicEditorForm = memo(
 								disabled={isSaving || !formData.relicCode}
 							>
 								{isSaving
-									? "Đang lưu..."
+									? tUI("admin.common.saving")
 									: formData.isNew
-										? "Tạo mới"
-										: "Lưu thay đổi"}
+										? tUI("admin.common.create")
+										: tUI("admin.common.saveChanges")}
 							</Button>
 						</div>
 					</div>
 
-					{/* Nội dung Form */}
+					{/* Content Form */}
 					<div className='grid grid-cols-1 lg:grid-cols-2 gap-6 p-6 bg-surface-bg border border-border rounded-xl mx-4'>
+						{/* CỘT TRÁI */}
 						<div className='space-y-5'>
 							<InputField
-								label='Mã cổ vật (Duy nhất, VD: R001)'
+								label={tUI("admin.relicForm.idLabel")}
 								name='relicCode'
 								value={formData.relicCode || ""}
 								onChange={handleInputChange}
 								required
-								disabled={!formData.isNew} // Khóa ID khi cập nhật
-								placeholder='Nhập mã cổ vật...'
+								disabled={!formData.isNew}
+								placeholder='VD: R001'
 							/>
-							<InputField
-								label='Tên cổ vật'
-								name='name'
-								value={formData.name || ""}
-								onChange={handleInputChange}
-								required
-								placeholder='Nhập tên hiển thị...'
-							/>
-							<InputField
-								label='Độ hiếm'
-								name='rarity'
-								value={formData.rarity || ""}
-								onChange={handleInputChange}
-								placeholder='VD: Common, Rare, Epic...'
-							/>
-							<InputField
-								label='Độ hiếm tham chiếu (Asset)'
-								name='rarityRef'
-								value={formData.rarityRef || ""}
-								onChange={handleInputChange}
-								placeholder='VD: rare_relic'
-							/>
-							<InputField
-								label='Số lượng cộng dồn (Stack)'
-								name='stack'
-								type='number'
-								value={formData.stack ?? ""}
-								onChange={handleInputChange}
-								min='1'
-							/>
-							<InputField
-								label='Loại (Type)'
-								name='type'
-								value={formData.type || ""}
-								onChange={handleInputChange}
-								placeholder='VD: Adventure, Battle...'
-							/>
+
+							<div className='grid grid-cols-2 gap-4'>
+								<InputField
+									label={tUI("admin.relicForm.rarityRefLabel")}
+									name='rarityRef'
+									value={formData.rarityRef || ""}
+									onChange={handleInputChange}
+									placeholder='Rare, Epic...'
+								/>
+								<div className='flex flex-col gap-1'>
+									<label className='text-sm font-semibold text-text-primary'>
+										{tUI("admin.relicForm.stackLabel")}
+									</label>
+									<input
+										type='number'
+										name='stack'
+										value={formData.stack || 1}
+										onChange={handleInputChange}
+										min='1'
+										className='w-full p-2.5 rounded-lg border border-border bg-surface-bg text-text-primary outline-none focus:ring-2 focus:ring-primary-500 transition'
+									/>
+								</div>
+							</div>
+
+							<div className='flex flex-col gap-1'>
+								<label className='text-sm font-semibold text-text-primary'>
+									{tUI("admin.relicForm.typeLabel")}
+								</label>
+								<input
+									type='text'
+									name='type'
+									value={formData.type || ""}
+									onChange={handleInputChange}
+									placeholder='Chung, Trấn...'
+									className='w-full p-2.5 rounded-lg border border-border bg-surface-bg text-text-primary outline-none focus:ring-2 focus:ring-primary-500 transition'
+								/>
+							</div>
+
+							{/* Khu vực ngôn ngữ Tiếng Việt */}
+							<div className='border border-border rounded-lg p-4 bg-page-bg space-y-4 shadow-sm'>
+								<h3 className='text-md font-bold text-text-primary border-b border-border pb-2'>
+									Ngôn ngữ: Tiếng Việt (Mặc định)
+								</h3>
+
+								<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+									<InputField
+										label={`${tUI("admin.relicForm.nameLabel")} (VI)`}
+										name='name'
+										value={formData.name || ""}
+										onChange={handleInputChange}
+										required
+										placeholder='Nhập tên Cổ vật...'
+									/>
+									<InputField
+										label={`${tUI("admin.relicForm.rarityLabel")} (VI)`}
+										name='rarity'
+										value={formData.rarity || ""}
+										onChange={handleInputChange}
+										placeholder='Hiếm, Sử Thi...'
+									/>
+								</div>
+								<div className='flex flex-col gap-1'>
+									<label className='text-sm font-semibold text-text-primary'>
+										{tUI("admin.relicForm.descLabel")} (VI)
+									</label>
+									<textarea
+										name='description'
+										value={formData.description || ""}
+										onChange={handleInputChange}
+										className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary min-h-[100px] outline-none focus:ring-2 focus:ring-primary-500 transition resize-none'
+										placeholder='Nội dung mô tả...'
+									/>
+								</div>
+							</div>
+
+							{/* Khu vực ngôn ngữ Tiếng Anh */}
+							<div className='border border-border rounded-lg p-4 bg-page-bg space-y-4 shadow-sm'>
+								<h3 className='text-md font-bold text-blue-500 border-b border-border pb-2'>
+									Ngôn ngữ: Tiếng Anh (Tùy chọn)
+								</h3>
+
+								<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+									<InputField
+										label={`${tUI("admin.relicForm.nameLabel")} (EN)`}
+										name='name'
+										value={formData.translations?.en?.name || ""}
+										onChange={e => handleTranslationChange(e, "en")}
+										placeholder='English Name...'
+									/>
+									<InputField
+										label={`${tUI("admin.relicForm.rarityLabel")} (EN)`}
+										name='rarity'
+										value={formData.translations?.en?.rarity || ""}
+										onChange={e => handleTranslationChange(e, "en")}
+										placeholder='English Rarity...'
+									/>
+								</div>
+								<div className='flex flex-col gap-1'>
+									<label className='text-sm font-semibold text-text-primary'>
+										{tUI("admin.relicForm.descLabel")} (EN)
+									</label>
+									<textarea
+										name='description'
+										value={formData.translations?.en?.description || ""}
+										onChange={e => handleTranslationChange(e, "en")}
+										className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary min-h-[100px] outline-none focus:ring-2 focus:ring-blue-500 transition resize-none'
+										placeholder='English Description...'
+									/>
+								</div>
+							</div>
 						</div>
 
+						{/* CỘT PHẢI */}
 						<div className='space-y-5'>
-							<div className='flex flex-col items-center p-4 bg-surface-hover/50 rounded-xl border border-dashed border-border'>
-								<p className='text-xs font-bold text-text-secondary mb-3 uppercase tracking-widest'>
-									Preview Ảnh
+							<div className='flex flex-col items-center bg-surface-hover/30 p-6 rounded-xl border border-dashed border-border'>
+								<p className='text-xs font-bold text-text-secondary mb-4 uppercase tracking-widest'>
+									{tUI("admin.relicForm.previewImage")}
 								</p>
-								{formData.assetAbsolutePath ? (
+								{/* Đã sửa: Ưu tiên assetAbsolutePath */}
+								{formData.assetAbsolutePath ||
+								formData.assetFullAbsolutePath ? (
 									<img
-										src={formData.assetAbsolutePath}
+										src={
+											formData.assetAbsolutePath ||
+											formData.assetFullAbsolutePath
+										}
+										className='w-44 h-44 object-contain rounded-xl shadow-xl border-4 border-white dark:border-gray-800'
 										alt='Preview'
-										className='w-48 h-48 object-contain rounded-xl border-4 border-white dark:border-gray-800 shadow-xl'
 										onError={e => {
 											e.target.src =
-												"https://via.placeholder.com/200?text=Error+Link";
+												"https://via.placeholder.com/150?text=No+Image";
 										}}
 									/>
 								) : (
-									<div className='w-48 h-48 bg-gray-200 dark:bg-gray-700 rounded-xl flex items-center justify-center text-6xl text-gray-400'>
+									<div className='w-44 h-44 bg-gray-200 dark:bg-gray-700 rounded-xl flex items-center justify-center text-gray-400 text-5xl'>
 										?
 									</div>
 								)}
 							</div>
-
 							<InputField
-								label='Đường dẫn Ảnh chính'
+								label={tUI("admin.relicForm.imageUrlLabel")}
 								name='assetAbsolutePath'
 								value={formData.assetAbsolutePath || ""}
 								onChange={handleInputChange}
 								placeholder='https://...'
 							/>
 							<InputField
-								label='Đường dẫn Ảnh đầy đủ'
+								label={tUI("admin.relicForm.imageFullUrlLabel")}
 								name='assetFullAbsolutePath'
 								value={formData.assetFullAbsolutePath || ""}
 								onChange={handleInputChange}
 								placeholder='https://...'
 							/>
-							<div>
-								<label className='block font-semibold text-text-primary mb-2'>
-									Mô tả kỹ năng
-								</label>
-								<textarea
-									name='description'
-									value={formData.description || ""}
-									onChange={handleInputChange}
-									className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary focus:ring-2 focus:ring-primary-500 outline-none transition resize-none'
-									rows={4}
-									placeholder='Mô tả chi tiết cổ vật...'
-								/>
-							</div>
-							<div>
-								<label className='block font-semibold text-text-primary mb-2'>
-									Mô tả thô (Dữ liệu gốc)
-								</label>
-								<textarea
-									name='descriptionRaw'
-									value={formData.descriptionRaw || ""}
-									onChange={handleInputChange}
-									className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary focus:ring-2 focus:ring-primary-500 outline-none transition font-mono text-sm'
-									rows={4}
-									placeholder='Dữ liệu mô tả thô...'
-								/>
-							</div>
 						</div>
 					</div>
 				</form>
@@ -249,19 +322,19 @@ const RelicEditorForm = memo(
 				<Modal
 					isOpen={isCancelModalOpen}
 					onClose={() => setIsCancelModalOpen(false)}
-					title='Xác nhận Hủy'
+					title={tUI("admin.common.cancelConfirmTitle")}
 				>
 					<div className='p-4 text-text-secondary'>
-						<p>Mọi thay đổi chưa lưu sẽ bị mất. Bạn chắc chắn muốn rời đi?</p>
-						<div className='flex justify-end gap-3 mt-6'>
+						<p className='mb-6'>{tUI("admin.common.cancelConfirmText")}</p>
+						<div className='flex justify-end gap-3'>
 							<Button
 								onClick={() => setIsCancelModalOpen(false)}
 								variant='ghost'
 							>
-								Ở lại
+								{tUI("admin.common.stay")}
 							</Button>
 							<Button onClick={confirmCancel} variant='danger'>
-								Rời đi
+								{tUI("admin.common.leave")}
 							</Button>
 						</div>
 					</div>
@@ -271,22 +344,25 @@ const RelicEditorForm = memo(
 				<Modal
 					isOpen={isDeleteModalOpen}
 					onClose={() => setIsDeleteModalOpen(false)}
-					title='Xác nhận Xóa Vĩnh Viễn'
+					title={tUI("admin.common.deleteConfirmTitle")}
 				>
 					<div className='p-4 text-text-secondary'>
-						<p>
-							Bạn có chắc muốn xóa cổ vật <strong>{relic?.name}</strong>? Hành
-							động này không thể hoàn tác.
+						<p className='mb-6'>
+							{tUI("admin.relicForm.deleteConfirmText")}{" "}
+							<strong>{relic?.name}</strong>?{tUI("admin.common.cannotUndo")}
 						</p>
-						<div className='flex justify-end gap-3 mt-6'>
+						<div className='flex justify-end gap-3'>
 							<Button
 								onClick={() => setIsDeleteModalOpen(false)}
 								variant='ghost'
 							>
-								Hủy
+								{tUI("admin.common.cancel")}
 							</Button>
-							<Button onClick={confirmDelete} variant='danger'>
-								Xác nhận Xóa
+							<Button
+								onClick={() => onDelete(formData.relicCode)}
+								variant='danger'
+							>
+								{tUI("admin.common.delete")}
 							</Button>
 						</div>
 					</div>

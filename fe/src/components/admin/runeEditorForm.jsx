@@ -3,6 +3,7 @@ import { useState, memo, useEffect } from "react";
 import Button from "../common/button";
 import InputField from "../common/inputField";
 import Modal from "../common/modal";
+import { useTranslation } from "../../hooks/useTranslation"; // IMPORT HOOK ĐA NGÔN NGỮ
 
 const RuneEditorForm = memo(
 	({ rune, onSave, onCancel, onDelete, isSaving }) => {
@@ -12,13 +13,30 @@ const RuneEditorForm = memo(
 
 		const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
 		const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+		const { tUI } = useTranslation();
 
 		// Khởi tạo và deep clone dữ liệu ban đầu để so sánh thay đổi
 		useEffect(() => {
 			if (rune) {
 				const deepCloned = JSON.parse(JSON.stringify(rune));
-				setFormData(rune);
-				setInitialData(deepCloned);
+
+				// Đảm bảo object translations luôn tồn tại với đầy đủ các field của chuẩn mới
+				if (!deepCloned.translations) {
+					deepCloned.translations = {
+						en: { name: "", region: "", rarity: "", description: "" },
+					};
+				}
+				if (!deepCloned.translations.en) {
+					deepCloned.translations.en = {
+						name: "",
+						region: "",
+						rarity: "",
+						description: "",
+					};
+				}
+
+				setFormData(deepCloned);
+				setInitialData(JSON.parse(JSON.stringify(deepCloned)));
 				setIsDirty(false);
 			}
 		}, [rune]);
@@ -48,12 +66,36 @@ const RuneEditorForm = memo(
 			setFormData(prev => ({ ...prev, [name]: value }));
 		};
 
-		const handleAttemptCancel = () => {
-			if (isDirty) {
-				setIsCancelModalOpen(true);
-			} else {
-				onCancel();
+		const handleTranslationChange = (e, lang) => {
+			const { name, value } = e.target;
+			setFormData(prev => ({
+				...prev,
+				translations: {
+					...prev.translations,
+					[lang]: {
+						...prev.translations[lang],
+						[name]: value,
+					},
+				},
+			}));
+		};
+
+		const handleTypeChange = e => {
+			const val = e.target.value;
+			const arr = val
+				.split(",")
+				.map(v => v.trim())
+				.filter(Boolean);
+			setFormData(prev => ({ ...prev, type: arr }));
+		};
+
+		const handleSubmit = e => {
+			e.preventDefault();
+			if (!formData.runeCode?.trim()) {
+				alert(tUI("admin.runeForm.errorIdReq"));
+				return;
 			}
+			onSave(formData);
 		};
 
 		const confirmCancel = () => {
@@ -61,35 +103,20 @@ const RuneEditorForm = memo(
 			onCancel();
 		};
 
-		const handleAttemptDelete = () => setIsDeleteModalOpen(true);
-
-		const confirmDelete = () => {
-			setIsDeleteModalOpen(false);
-			if (rune && rune.runeCode && !rune.isNew) {
-				onDelete(rune.runeCode);
-			}
-		};
-
-		const handleSubmit = e => {
-			e.preventDefault();
-			// Giữ nguyên formData (bao gồm cả flag isNew) để Backend kiểm tra ID tồn tại
-			onSave(formData);
-		};
-
 		return (
 			<>
 				<form onSubmit={handleSubmit} className='space-y-8'>
 					{/* Header Toolbar */}
-					<div className='flex justify-between border-border sticky top-0 bg-surface-bg z-20 py-2 border-b mb-4 px-4 shadow-sm'>
+					<div className='flex justify-between border-border sticky top-0 bg-surface-bg z-20 py-2 border-b mb-4 shadow-sm px-4'>
 						<div>
 							<h2 className='block font-semibold text-text-primary text-xl'>
 								{formData.isNew
-									? "Tạo Ngọc Mới"
-									: `Chỉnh sửa: ${formData.name}`}
+									? tUI("admin.runeForm.createTitle")
+									: `${tUI("admin.runeForm.editTitle")} ${formData.name}`}
 							</h2>
 							{isDirty && (
 								<span className='text-xs text-yellow-500 font-medium'>
-									● Có thay đổi chưa lưu
+									{tUI("admin.common.unsavedChanges")}
 								</span>
 							)}
 						</div>
@@ -97,19 +124,21 @@ const RuneEditorForm = memo(
 							<Button
 								type='button'
 								variant='ghost'
-								onClick={handleAttemptCancel}
+								onClick={() =>
+									isDirty ? setIsCancelModalOpen(true) : onCancel()
+								}
 								disabled={isSaving}
 							>
-								Hủy
+								{tUI("admin.common.cancel")}
 							</Button>
 							{!formData.isNew && (
 								<Button
 									type='button'
 									variant='danger'
-									onClick={handleAttemptDelete}
+									onClick={() => setIsDeleteModalOpen(true)}
 									disabled={isSaving}
 								>
-									{isSaving ? "Đang xử lý..." : "Xóa ngọc"}
+									{tUI("admin.common.delete")}
 								</Button>
 							)}
 							<Button
@@ -118,112 +147,178 @@ const RuneEditorForm = memo(
 								disabled={isSaving || !formData.runeCode}
 							>
 								{isSaving
-									? "Đang lưu..."
+									? tUI("admin.common.saving")
 									: formData.isNew
-										? "Tạo mới"
-										: "Lưu thay đổi"}
+										? tUI("admin.common.create")
+										: tUI("admin.common.saveChanges")}
 							</Button>
 						</div>
 					</div>
 
-					{/* Nội dung Form */}
+					{/* Content Form */}
 					<div className='grid grid-cols-1 lg:grid-cols-2 gap-6 p-6 bg-surface-bg border border-border rounded-xl mx-4'>
+						{/* CỘT TRÁI */}
 						<div className='space-y-5'>
 							<InputField
-								label='Mã ngọc (Duy nhất, VD: RU001)'
+								label={tUI("admin.runeForm.idLabel")}
 								name='runeCode'
 								value={formData.runeCode || ""}
 								onChange={handleInputChange}
 								required
-								disabled={!formData.isNew} // Khóa mã ID khi đang cập nhật để bảo vệ database
-								placeholder='RU001, RU002,...'
+								disabled={!formData.isNew}
+								placeholder='P0224, SR001...'
 							/>
-							<InputField
-								label='Tên ngọc'
-								name='name'
-								value={formData.name || ""}
-								onChange={handleInputChange}
-								required
-								placeholder='Nhập tên hiển thị...'
-							/>
-							<InputField
-								label='Độ hiếm'
-								name='rarity'
-								value={formData.rarity || ""}
-								onChange={handleInputChange}
-								placeholder='VD: Common, Rare, Epic...'
-							/>
-							<InputField
-								label='Loại (Type)'
-								name='type'
-								value={formData.type || ""}
-								onChange={handleInputChange}
-								placeholder='VD: Buff, Combat...'
-							/>
-							<div>
-								<label className='block font-semibold text-text-primary mb-2'>
-									Mô tả kỹ năng
+
+							<div className='flex flex-col gap-1'>
+								<label className='text-sm font-semibold text-text-primary'>
+									{tUI("admin.runeForm.typeLabel")}
 								</label>
-								<textarea
-									name='description'
-									value={formData.description || ""}
-									onChange={handleInputChange}
-									className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary focus:ring-2 focus:ring-primary-500 outline-none transition resize-none'
-									rows={6}
-									placeholder='Mô tả chi tiết tác dụng của ngọc...'
+								<input
+									type='text'
+									value={
+										Array.isArray(formData.type)
+											? formData.type.join(", ")
+											: formData.type || ""
+									}
+									onChange={handleTypeChange}
+									className='w-full p-2.5 rounded-lg border border-border bg-surface-bg text-text-primary outline-none focus:ring-2 focus:ring-primary-500 transition'
+									placeholder='Ngọc, Sức Mạnh...'
 								/>
+							</div>
+
+							{/* Khu vực ngôn ngữ Tiếng Việt */}
+							<div className='border border-border rounded-lg p-4 bg-page-bg space-y-4 shadow-sm'>
+								<h3 className='text-md font-bold text-text-primary border-b border-border pb-2'>
+									Ngôn ngữ: Tiếng Việt (Mặc định)
+								</h3>
+
+								<InputField
+									label={`${tUI("admin.runeForm.nameLabel")} (VI)`}
+									name='name'
+									value={formData.name || ""}
+									onChange={handleInputChange}
+									required
+									placeholder='Nhập tên ngọc...'
+								/>
+
+								<div className='grid grid-cols-2 gap-4'>
+									<InputField
+										label={`${tUI("admin.runeForm.regionLabel")} (VI)`}
+										name='region'
+										value={formData.region || ""}
+										onChange={handleInputChange}
+										placeholder='Spirit Blossom, Demacia...'
+									/>
+									<InputField
+										label={`${tUI("admin.runeForm.rarityLabel")} (VI)`}
+										name='rarity'
+										value={formData.rarity || ""}
+										onChange={handleInputChange}
+										placeholder='Thường, Hiếm, Sử Thi...'
+									/>
+								</div>
+
+								<div className='flex flex-col gap-1'>
+									<label className='text-sm font-semibold text-text-primary'>
+										{tUI("admin.runeForm.descLabel")} (VI)
+									</label>
+									<textarea
+										name='description'
+										value={formData.description || ""}
+										onChange={handleInputChange}
+										className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary min-h-[100px] outline-none focus:ring-2 focus:ring-primary-500 transition resize-none'
+										placeholder='Nội dung mô tả...'
+									/>
+								</div>
+							</div>
+
+							{/* Khu vực ngôn ngữ Tiếng Anh */}
+							<div className='border border-border rounded-lg p-4 bg-page-bg space-y-4 shadow-sm'>
+								<h3 className='text-md font-bold text-blue-500 border-b border-border pb-2'>
+									Ngôn ngữ: Tiếng Anh (Tùy chọn)
+								</h3>
+
+								<InputField
+									label={`${tUI("admin.runeForm.nameLabel")} (EN)`}
+									name='name'
+									value={formData.translations?.en?.name || ""}
+									onChange={e => handleTranslationChange(e, "en")}
+									placeholder='English Name...'
+								/>
+
+								<div className='grid grid-cols-2 gap-4'>
+									<InputField
+										label={`${tUI("admin.runeForm.regionLabel")} (EN)`}
+										name='region'
+										value={formData.translations?.en?.region || ""}
+										onChange={e => handleTranslationChange(e, "en")}
+										placeholder='English Region...'
+									/>
+									<InputField
+										label={`${tUI("admin.runeForm.rarityLabel")} (EN)`}
+										name='rarity'
+										value={formData.translations?.en?.rarity || ""}
+										onChange={e => handleTranslationChange(e, "en")}
+										placeholder='English Rarity...'
+									/>
+								</div>
+
+								<div className='flex flex-col gap-1'>
+									<label className='text-sm font-semibold text-text-primary'>
+										{tUI("admin.runeForm.descLabel")} (EN)
+									</label>
+									<textarea
+										name='description'
+										value={formData.translations?.en?.description || ""}
+										onChange={e => handleTranslationChange(e, "en")}
+										className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary min-h-[100px] outline-none focus:ring-2 focus:ring-blue-500 transition resize-none'
+										placeholder='English Description...'
+									/>
+								</div>
 							</div>
 						</div>
 
+						{/* CỘT PHẢI */}
 						<div className='space-y-5'>
-							<div className='flex flex-col items-center p-6 bg-surface-hover/30 rounded-xl border border-dashed border-border'>
+							<div className='flex flex-col items-center bg-surface-hover/30 p-6 rounded-xl border border-dashed border-border'>
 								<p className='text-xs font-bold text-text-secondary mb-4 uppercase tracking-widest'>
-									Xem trước hình ảnh
+									{tUI("admin.runeForm.previewImage")}
 								</p>
-								{formData.assetAbsolutePath ? (
+								{/* Đã sửa ưu tiên assetAbsolutePath */}
+								{formData.assetAbsolutePath ||
+								formData.assetFullAbsolutePath ? (
 									<img
-										src={formData.assetAbsolutePath}
+										src={
+											formData.assetAbsolutePath ||
+											formData.assetFullAbsolutePath
+										}
+										className='w-44 h-44 object-contain rounded-xl shadow-xl border-4 border-white dark:border-gray-800'
 										alt='Preview'
-										className='w-48 h-48 object-contain rounded-xl border-4 border-white dark:border-gray-800 shadow-xl'
 										onError={e => {
 											e.target.src =
-												"https://via.placeholder.com/200?text=Error+Link";
+												"https://via.placeholder.com/150?text=No+Image";
 										}}
 									/>
 								) : (
-									<div className='w-48 h-48 bg-gray-200 dark:bg-gray-700 rounded-xl flex items-center justify-center text-6xl text-gray-400'>
+									<div className='w-44 h-44 bg-gray-200 dark:bg-gray-700 rounded-xl flex items-center justify-center text-gray-400 text-5xl'>
 										?
 									</div>
 								)}
 							</div>
-
 							<InputField
-								label='Đường dẫn Ảnh chính'
+								label={tUI("admin.runeForm.imageUrlLabel")}
 								name='assetAbsolutePath'
 								value={formData.assetAbsolutePath || ""}
 								onChange={handleInputChange}
 								placeholder='https://...'
 							/>
 							<InputField
-								label='Đường dẫn Ảnh đầy đủ'
+								label={tUI("admin.runeForm.imageFullUrlLabel")}
 								name='assetFullAbsolutePath'
 								value={formData.assetFullAbsolutePath || ""}
 								onChange={handleInputChange}
 								placeholder='https://...'
 							/>
-							<div>
-								<label className='block font-semibold text-text-primary mb-2'>
-									Dữ liệu mô tả thô (Raw)
-								</label>
-								<textarea
-									name='descriptionRaw'
-									value={formData.descriptionRaw || ""}
-									onChange={handleInputChange}
-									className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary focus:ring-2 focus:ring-primary-500 outline-none transition font-mono text-sm'
-									rows={6}
-									placeholder='Dữ liệu mô tả gốc từ hệ thống...'
-								/>
-							</div>
 						</div>
 					</div>
 				</form>
@@ -232,21 +327,19 @@ const RuneEditorForm = memo(
 				<Modal
 					isOpen={isCancelModalOpen}
 					onClose={() => setIsCancelModalOpen(false)}
-					title='Xác nhận Hủy'
+					title={tUI("admin.common.cancelConfirmTitle")}
 				>
 					<div className='p-4 text-text-secondary'>
-						<p className='mb-6'>
-							Bạn có thay đổi chưa lưu. Nếu rời đi, mọi thay đổi sẽ bị mất.
-						</p>
+						<p className='mb-6'>{tUI("admin.common.cancelConfirmText")}</p>
 						<div className='flex justify-end gap-3'>
 							<Button
 								onClick={() => setIsCancelModalOpen(false)}
 								variant='ghost'
 							>
-								Ở lại
+								{tUI("admin.common.stay")}
 							</Button>
 							<Button onClick={confirmCancel} variant='danger'>
-								Rời đi
+								{tUI("admin.common.leave")}
 							</Button>
 						</div>
 					</div>
@@ -256,22 +349,25 @@ const RuneEditorForm = memo(
 				<Modal
 					isOpen={isDeleteModalOpen}
 					onClose={() => setIsDeleteModalOpen(false)}
-					title='Xác nhận Xóa Vĩnh Viễn'
+					title={tUI("admin.common.deleteConfirmTitle")}
 				>
 					<div className='p-4 text-text-secondary'>
 						<p className='mb-6'>
-							Bạn có chắc chắn muốn xóa ngọc <strong>{rune?.name}</strong>? Hành
-							động này không thể hoàn tác.
+							{tUI("admin.runeForm.deleteConfirmText")}{" "}
+							<strong>{rune?.name}</strong>?{tUI("admin.common.cannotUndo")}
 						</p>
 						<div className='flex justify-end gap-3'>
 							<Button
 								onClick={() => setIsDeleteModalOpen(false)}
 								variant='ghost'
 							>
-								Hủy
+								{tUI("admin.common.cancel")}
 							</Button>
-							<Button onClick={confirmDelete} variant='danger'>
-								Xác nhận Xóa
+							<Button
+								onClick={() => onDelete(formData.runeCode)}
+								variant='danger'
+							>
+								{tUI("admin.common.delete")}
 							</Button>
 						</div>
 					</div>

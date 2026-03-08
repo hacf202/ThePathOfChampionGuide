@@ -6,16 +6,15 @@ import SafeImage from "../common/SafeImage";
 import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook Đa ngôn ngữ
 
 function ChampionCard({ champion }) {
-	// Sửa lỗi: Khởi tạo Hook lấy tDynamic thay vì t
-	const { language, tDynamic } = useTranslation();
+	// 🟢 Sử dụng tUI cho text tĩnh và tDynamic cho text từ DB
+	const { tUI, tDynamic } = useTranslation();
 
 	// Logic lấy URL hình ảnh, ưu tiên avatarUrl đã được xử lý trước, sau đó đến các đường dẫn khác
 	const imageUrl = champion.assets?.[0]?.avatar || "/fallback-image.svg";
 
-	// Sửa lỗi: Gọi tDynamic để lấy tên Tướng đã dịch (hoặc tên mặc định nếu không có)
+	// 🟢 Gọi tDynamic để lấy tên Tướng đã dịch (hoặc gọi tUI lấy tên mặc định nếu không có)
 	const championName =
-		tDynamic(champion, "name") ||
-		(language === "vi" ? "Tướng không xác định" : "Unknown Champion");
+		tDynamic(champion, "name") || tUI("championList.unknownChampion");
 
 	return (
 		// Khung thẻ chính với các class CSS tiện ích của Tailwind
