@@ -9,32 +9,36 @@ import ChampionEditorForm from "./championEditorForm";
 import SidePanel from "../common/sidePanel";
 import DropDragSidePanel from "./dropSidePanel.jsx";
 import { Loader2 } from "lucide-react";
+import { useTranslation } from "../../hooks/useTranslation";
 
-// Template khởi tạo cho tướng mới
+// 🟢 TEMPLATE ĐÃ ĐƯỢC CẬP NHẬT KHỚP 100% VỚI CẤU TRÚC JSON BACKEND
 const NEW_CHAMPION_TEMPLATE = {
 	championID: "",
 	isNew: true,
 	name: "Tướng Mới",
 	cost: 1,
-	maxStar: 3,
+	maxStar: 6,
 	description: "",
 	regions: [],
-	regionRefs: [],
-	tag: [],
-	powerStars: [],
-	bonusStars: [],
-	adventurePowers: [],
-	defaultItems: [],
-	defaultRelicsSet1: [],
-	defaultRelicsSet2: [],
-	defaultRelicsSet3: [],
-	defaultRelicsSet4: [],
-	defaultRelicsSet5: [],
-	defaultRelicsSet6: [],
-	rune: [],
+	tags: [], // Đổi từ tag -> tags
+	powerStarIds: [], // Đổi từ powerStars -> powerStarIds
+	adventurePowerIds: [], // Đổi từ adventurePowers -> adventurePowerIds
+	itemIds: [], // Đổi từ defaultItems -> itemIds
+	relicSets: [
+		[], // Khởi tạo mặc định 1 bộ rỗng thay vì 6 bộ
+	],
+	runeIds: [], // Đổi từ rune -> runeIds
 	startingDeck: [],
 	assets: [{ fullAbsolutePath: "", gameAbsolutePath: "", avatar: "" }],
 	videoLink: "",
+	translations: {
+		en: {
+			name: "",
+			description: "",
+			regions: [],
+			tags: [],
+		},
+	},
 };
 
 const ITEMS_PER_PAGE = 20;
@@ -48,6 +52,8 @@ const ChampionListView = memo(
 		onPageChange,
 		sidePanelProps,
 	}) => {
+		const { tUI } = useTranslation();
+
 		return (
 			<div className='flex flex-col lg:flex-row gap-6'>
 				<div className='lg:w-4/5 bg-surface-bg rounded-lg p-4'>
@@ -67,9 +73,9 @@ const ChampionListView = memo(
 						<div className='flex items-center justify-center h-full min-h-[300px] text-center text-text-secondary'>
 							<div>
 								<p className='font-semibold text-lg'>
-									Không tìm thấy tướng nào phù hợp.
+									{tUI("common.notFound")}
 								</p>
-								<p>Vui lòng thử lại với bộ lọc khác.</p>
+								<p>{tUI("admin.build.tryOtherFilter")}</p>
 							</div>
 						</div>
 					)}
@@ -81,7 +87,7 @@ const ChampionListView = memo(
 								disabled={currentPage === 1}
 								variant='outline'
 							>
-								Trang trước
+								{tUI("common.prevPage")}
 							</Button>
 							<span className='text-lg font-medium text-text-primary'>
 								{currentPage} / {totalPages}
@@ -91,7 +97,7 @@ const ChampionListView = memo(
 								disabled={currentPage === totalPages}
 								variant='outline'
 							>
-								Trang sau
+								{tUI("common.nextPage")}
 							</Button>
 						</div>
 					)}
@@ -117,6 +123,7 @@ const ChampionEditWrapper = ({
 }) => {
 	const { id } = useParams();
 	const navigate = useNavigate();
+	const { tUI } = useTranslation();
 
 	// Lọc dữ liệu tướng được chọn hoặc dùng template mới
 	const selectedChampion = useMemo(() => {
@@ -145,9 +152,11 @@ const ChampionEditWrapper = ({
 	) {
 		return (
 			<div className='flex flex-col items-center justify-center py-20 text-text-secondary'>
-				<p className='text-xl mb-4'>Không tìm thấy tướng có ID: {id}</p>
+				<p className='text-xl mb-4'>
+					{tUI("admin.build.notFoundId")} {id}
+				</p>
 				<Button onClick={handleBack} variant='primary'>
-					Quay lại danh sách
+					{tUI("admin.common.backToList")}
 				</Button>
 			</div>
 		);
@@ -184,6 +193,7 @@ const ChampionEditWrapper = ({
 };
 
 function ChampionEditor() {
+	const { tUI, tDynamic } = useTranslation();
 	const [champions, setChampions] = useState([]);
 	const [constellations, setConstellations] = useState([]);
 	const [bonusStars, setBonusStars] = useState([]);
@@ -259,11 +269,11 @@ function ChampionEditor() {
 			setPowers(powerData.items || []);
 			setItems(itemData.items || []);
 		} catch (e) {
-			setError("Không thể tải dữ liệu từ server.");
+			setError(tUI("admin.common.errorLoad"));
 		} finally {
 			setIsLoading(false);
 		}
-	}, [API_BASE_URL]);
+	}, [API_BASE_URL, tUI]);
 
 	useEffect(() => {
 		fetchAllData();
@@ -288,24 +298,26 @@ function ChampionEditor() {
 			const champResult = await resChamp.json();
 
 			if (!resChamp.ok)
-				throw new Error(champResult.error || "Lưu tướng thất bại");
+				throw new Error(champResult.error || tUI("admin.common.errorOccurred"));
 
 			// 2. Nếu lưu tướng thành công, mới lưu Constellation
-			const resConst = await fetch(`${API_BASE_URL}/api/constellations`, {
-				method: "PUT",
-				headers,
-				body: JSON.stringify(constData),
-			});
+			if (constData && Object.keys(constData).length > 0) {
+				const resConst = await fetch(`${API_BASE_URL}/api/constellations`, {
+					method: "PUT",
+					headers,
+					body: JSON.stringify(constData),
+				});
 
-			if (!resConst.ok) {
-				throw new Error(
-					"Tướng đã lưu nhưng lưu Chòm sao thất bại. Vui lòng kiểm tra lại.",
-				);
+				if (!resConst.ok) {
+					throw new Error(
+						"Tướng đã lưu nhưng lưu Chòm sao thất bại. Vui lòng kiểm tra lại.",
+					);
+				}
 			}
 
 			await fetchAllData();
 			navigate("/admin/champions");
-			alert("Cập nhật thành công!");
+			alert(tUI("admin.common.saveSuccess"));
 		} catch (e) {
 			alert(e.message);
 		} finally {
@@ -315,12 +327,7 @@ function ChampionEditor() {
 
 	// Xử lý xóa đồng bộ trên 2 bảng dữ liệu
 	const handleDeleteChampion = async championID => {
-		if (
-			!window.confirm(
-				"Bạn có chắc chắn muốn xóa tướng này? Chòm sao tương ứng cũng sẽ bị xóa.",
-			)
-		)
-			return;
+		if (!window.confirm(tUI("admin.common.deleteConfirm"))) return;
 		setIsSaving(true);
 		try {
 			const token = localStorage.getItem("token");
@@ -337,7 +344,7 @@ function ChampionEditor() {
 
 			await fetchAllData();
 			navigate("/admin/champions");
-			alert("Đã xóa tướng và chòm sao thành công");
+			alert(tUI("admin.common.deleteSuccess"));
 		} catch (e) {
 			alert(e.message);
 		} finally {
@@ -363,7 +370,7 @@ function ChampionEditor() {
 		const maxStars = [...new Set(safeChampions.map(c => Number(c.maxStar)))]
 			.filter(Boolean)
 			.sort((a, b) => a - b);
-		const tags = [...new Set(safeChampions.flatMap(c => c.tag || []))].sort();
+		const tags = [...new Set(safeChampions.flatMap(c => c.tags || []))].sort();
 
 		return {
 			regions,
@@ -371,13 +378,13 @@ function ChampionEditor() {
 			maxStars: maxStars.map(s => ({ value: s, label: `${s} Star` })),
 			tags: tags.map(t => ({ value: t, label: t })),
 			sort: [
-				{ value: "name-asc", label: "Tên A-Z" },
-				{ value: "name-desc", label: "Tên Z-A" },
-				{ value: "cost-asc", label: "Mana thấp → cao" },
-				{ value: "cost-desc", label: "Mana cao → thấp" },
+				{ value: "name-asc", label: tUI("sort.nameAsc") },
+				{ value: "name-desc", label: tUI("sort.nameDesc") },
+				{ value: "cost-asc", label: tUI("sort.costAsc") },
+				{ value: "cost-desc", label: tUI("sort.costDesc") },
 			],
 		};
-	}, [champions]);
+	}, [champions, tUI]);
 
 	// Logic lọc và sắp xếp danh sách hiển thị
 	const filteredChampions = useMemo(() => {
@@ -385,7 +392,7 @@ function ChampionEditor() {
 		if (searchTerm) {
 			const term = removeAccents(searchTerm.toLowerCase());
 			result = result.filter(c =>
-				removeAccents((c.name || "").toLowerCase()).includes(term),
+				removeAccents((tDynamic(c, "name") || "").toLowerCase()).includes(term),
 			);
 		}
 		if (selectedRegions.length)
@@ -396,13 +403,14 @@ function ChampionEditor() {
 			result = result.filter(c => selectedCosts.includes(Number(c.cost)));
 		if (selectedMaxStars.length)
 			result = result.filter(c => selectedMaxStars.includes(Number(c.maxStar)));
+
 		if (selectedTags.length)
-			result = result.filter(c => c.tag?.some(t => selectedTags.includes(t)));
+			result = result.filter(c => c.tags?.some(t => selectedTags.includes(t)));
 
 		const [field, dir] = sortOrder.split("-");
 		result.sort((a, b) => {
-			const A = field === "name" ? a.name || "" : a[field] || "";
-			const B = field === "name" ? b.name || "" : b[field] || "";
+			const A = field === "name" ? tDynamic(a, "name") || "" : a[field] || "";
+			const B = field === "name" ? tDynamic(b, "name") || "" : b[field] || "";
 			return dir === "asc" ? (A > B ? 1 : -1) : A < B ? 1 : -1;
 		});
 		return result;
@@ -414,6 +422,7 @@ function ChampionEditor() {
 		selectedMaxStars,
 		selectedTags,
 		sortOrder,
+		tDynamic,
 	]);
 
 	const totalPages = Math.ceil(filteredChampions.length / ITEMS_PER_PAGE);
@@ -423,9 +432,9 @@ function ChampionEditor() {
 	);
 
 	const sidePanelProps = {
-		searchPlaceholder: "Nhập tên tướng...",
-		addLabel: "Thêm Tướng Mới",
-		resetLabel: "Đặt lại bộ lọc",
+		searchPlaceholder: tUI("championList.searchPlaceholder"),
+		addLabel: tUI("common.addNew"),
+		resetLabel: tUI("championList.resetFilter"),
 		searchInput,
 		onSearchInputChange: e => setSearchInput(e.target.value),
 		onSearch: () => {
@@ -449,32 +458,32 @@ function ChampionEditor() {
 		},
 		multiFilterConfigs: [
 			{
-				label: "Vùng",
+				label: tUI("championList.region"),
 				options: filterOptions.regions,
 				selectedValues: selectedRegions,
 				onChange: setSelectedRegions,
-				placeholder: "Tất cả Vùng",
+				placeholder: tUI("common.all"),
 			},
 			{
-				label: "Năng lượng",
+				label: tUI("championList.cost"),
 				options: filterOptions.costs,
 				selectedValues: selectedCosts,
 				onChange: setSelectedCosts,
-				placeholder: "Tất cả Năng lượng",
+				placeholder: tUI("common.all"),
 			},
 			{
-				label: "Số sao tối đa",
+				label: tUI("championList.maxStars"),
 				options: filterOptions.maxStars,
 				selectedValues: selectedMaxStars,
 				onChange: setSelectedMaxStars,
-				placeholder: "Tất cả Sao",
+				placeholder: tUI("common.all"),
 			},
 			{
-				label: "Thẻ",
+				label: tUI("championList.tags"),
 				options: filterOptions.tags,
 				selectedValues: selectedTags,
 				onChange: setSelectedTags,
-				placeholder: "Tất cả Thẻ",
+				placeholder: tUI("common.all"),
 			},
 		],
 		sortOptions: filterOptions.sort,
@@ -482,14 +491,13 @@ function ChampionEditor() {
 		onSortChange: setSortOrder,
 	};
 
-	// Gom dữ liệu hỗ trợ vào cache để truyền cho các thành phần con
 	const cachedData = { runes, relics, powers, items, bonusStars, regions: [] };
 
 	if (isLoading) {
 		return (
 			<div className='flex flex-col items-center justify-center min-h-[400px] text-text-secondary'>
 				<Loader2 className='animate-spin text-primary-500' size={48} />
-				<div className='text-lg mt-4'>Đang tải dữ liệu...</div>
+				<div className='text-lg mt-4'>{tUI("common.loading")}</div>
 			</div>
 		);
 	}

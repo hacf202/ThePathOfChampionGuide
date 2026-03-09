@@ -33,7 +33,8 @@
 		"errorTitle": "Lỗi",
 		"reset": "Đặt lại",
 		"rarity": "Độ hiếm",
-		"type": "Loại"
+		"type": "Loại",
+		"all": "Tất cả"
 	},
 	"admin": {
 		"rune": {
