@@ -584,6 +584,8 @@
 		"noData": "Chưa có dữ liệu cho mục này."
 	},
 	"home": {
+		"databaseTitle": "Thư Viện Dữ Liệu",
+		"databaseDesc": "Tra cứu nhanh toàn bộ thông tin chi tiết về các vật phẩm, cổ vật, sức mạnh và ngọc trong game.",
 		"monthlyChallengeAlt": "Thử thách tháng",
 		"loading": "ĐANG KHỞI TẠO POC GUIDE...",
 		"pageTitle": "POC GUIDE - Con Đường Anh Hùng",
@@ -775,7 +777,7 @@
 		"builds": "Bộ cổ vật",
 		"champions": "Tướng",
 		"tierList": "Bảng Xếp Hạng",
-		"itemsTitle": "Vật phẩm",
+		"itemsTitle": "Dữ Liệu Game",
 		"items": "Vật phẩm",
 		"relics": "Cổ vật",
 		"powers": "Sức mạnh",

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import PageTitle from "../components/common/pageTitle";
-import { useTranslation } from "../hooks/useTranslation"; //
+import { useTranslation } from "../hooks/useTranslation";
 import {
 	Swords,
 	Dices,
@@ -12,6 +12,10 @@ import {
 	Trophy,
 	Sparkles,
 	BookOpen,
+	Package,
+	Zap,
+	Gem,
+	Map,
 } from "lucide-react";
 
 const BACKGROUND_IMAGES = [
@@ -25,7 +29,7 @@ const BACKGROUND_IMAGES = [
 ];
 
 const Home = () => {
-	const { tUI } = useTranslation(); // Sử dụng tUI để lấy văn bản tĩnh
+	const { tUI } = useTranslation();
 	const [isLoading, setIsLoading] = useState(true);
 	const [scrollY, setScrollY] = useState(0);
 
@@ -190,7 +194,83 @@ const Home = () => {
 				</div>
 			</section>
 
-			{/* SECTION 3: MONTHLY CHALLENGE */}
+			{/* SECTION 3: DATABASE & RESOURCES (KHU VỰC MỚI) */}
+			<section className='py-10 px-6 max-w-7xl mx-auto'>
+				<div className='mb-12'>
+					<h2 className='text-4xl md:text-5xl font-bold uppercase mb-4'>
+						<span className='text-primary-500'>+</span>{" "}
+						{tUI("home.databaseTitle")}
+					</h2>
+					<p className='text-gray-400 text-lg'>{tUI("home.databaseDesc")}</p>
+				</div>
+				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+					<NavLink
+						to='/items'
+						className='group bg-white/5 hover:bg-white/10 p-6 rounded-3xl border border-white/10 transition-colors flex items-center gap-6'
+					>
+						<div className='p-4 bg-orange-500/20 text-orange-400 rounded-2xl group-hover:scale-110 transition-transform'>
+							<Package className='w-8 h-8' />
+						</div>
+						<h3 className='text-2xl font-bold uppercase'>{tUI("nav.items")}</h3>
+					</NavLink>
+
+					<NavLink
+						to='/relics'
+						className='group bg-white/5 hover:bg-white/10 p-6 rounded-3xl border border-white/10 transition-colors flex items-center gap-6'
+					>
+						<div className='p-4 bg-cyan-500/20 text-cyan-400 rounded-2xl group-hover:scale-110 transition-transform'>
+							<Sparkles className='w-8 h-8' />
+						</div>
+						<h3 className='text-2xl font-bold uppercase'>
+							{tUI("nav.relics")}
+						</h3>
+					</NavLink>
+
+					<NavLink
+						to='/powers'
+						className='group bg-white/5 hover:bg-white/10 p-6 rounded-3xl border border-white/10 transition-colors flex items-center gap-6'
+					>
+						<div className='p-4 bg-yellow-500/20 text-yellow-400 rounded-2xl group-hover:scale-110 transition-transform'>
+							<Zap className='w-8 h-8' />
+						</div>
+						<h3 className='text-2xl font-bold uppercase'>
+							{tUI("nav.powers")}
+						</h3>
+					</NavLink>
+
+					<NavLink
+						to='/runes'
+						className='group bg-white/5 hover:bg-white/10 p-6 rounded-3xl border border-white/10 transition-colors flex items-center gap-6'
+					>
+						<div className='p-4 bg-pink-500/20 text-pink-400 rounded-2xl group-hover:scale-110 transition-transform'>
+							<Gem className='w-8 h-8' />
+						</div>
+						<h3 className='text-2xl font-bold uppercase'>{tUI("nav.runes")}</h3>
+					</NavLink>
+
+					<NavLink
+						to='/maps'
+						className='group bg-white/5 hover:bg-white/10 p-6 rounded-3xl border border-white/10 transition-colors flex items-center gap-6'
+					>
+						<div className='p-4 bg-green-500/20 text-green-400 rounded-2xl group-hover:scale-110 transition-transform'>
+							<Map className='w-8 h-8' />
+						</div>
+						<h3 className='text-2xl font-bold uppercase'>{tUI("nav.maps")}</h3>
+					</NavLink>
+
+					<NavLink
+						to='/introduction'
+						className='group bg-white/5 hover:bg-white/10 p-6 rounded-3xl border border-white/10 transition-colors flex items-center gap-6'
+					>
+						<div className='p-4 bg-blue-500/20 text-blue-400 rounded-2xl group-hover:scale-110 transition-transform'>
+							<BookOpen className='w-8 h-8' />
+						</div>
+						<h3 className='text-2xl font-bold uppercase'>{tUI("nav.about")}</h3>
+					</NavLink>
+				</div>
+			</section>
+
+			{/* SECTION 4: MONTHLY CHALLENGE */}
 			<section className='relative py-2 md:py-4 px-6 overflow-hidden'>
 				<div className='absolute top-0 right-0 w-[500px] h-[500px] bg-primary-900/20 blur-[120px] -z-10' />
 				<div className='absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-900/20 blur-[120px] -z-10' />
@@ -222,7 +302,7 @@ const Home = () => {
 						<div className='order-1 lg:order-2 relative'>
 							<img
 								src={BACKGROUND_IMAGES[2]}
-								alt={tUI("home.monthlyChallengeAlt")} // 🟢 Cập nhật alt từ điển
+								alt={tUI("home.monthlyChallengeAlt")}
 								className='rounded-3xl shadow-2xl border border-white/20 scale-105 rotate-3 hover:rotate-0 transition-transform duration-500'
 							/>
 							<div className='absolute -bottom-6 -left-6 bg-primary-600 p-6 rounded-2xl hidden md:block animate-bounce shadow-xl'>
@@ -236,7 +316,7 @@ const Home = () => {
 				</div>
 			</section>
 
-			{/* SECTION 4: QUICK TOOLS */}
+			{/* SECTION 5: QUICK TOOLS */}
 			<section className='py-10 px-6 max-w-7xl mx-auto'>
 				<div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
 					<div className='md:col-span-1 bg-gradient-to-br from-primary-900/40 to-transparent p-10 rounded-3xl border border-white/10'>

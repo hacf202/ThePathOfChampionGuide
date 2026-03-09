@@ -37,8 +37,8 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 	const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 	const [isItemsDropdownOpen, setIsItemsDropdownOpen] = useState(false);
 	const [isToolsDropdownOpen, setIsToolsDropdownOpen] = useState(false);
-	const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false); // Sidebar Lang
-	const [isHeaderLangOpen, setIsHeaderLangOpen] = useState(false); // Header Lang
+	const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false);
+	const [isHeaderLangOpen, setIsHeaderLangOpen] = useState(false);
 	const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
 	const sidebarRef = useRef(null);
@@ -157,27 +157,11 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 
 					<nav className='flex-1 p-4 space-y-1 text-header-text'>
 						<NavLink
-							to='/builds'
-							className='flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-nav-hover-bg transition-all'
-							onClick={closeSidebar}
-						>
-							<ScrollText className='w-5 h-5' />{" "}
-							{tUI("nav.builds") || "Bộ Cổ Vật"}
-						</NavLink>
-						<NavLink
 							to='/champions'
 							className='flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-nav-hover-bg transition-all'
 							onClick={closeSidebar}
 						>
-							<Swords className='w-5 h-5' /> {tUI("nav.champions") || "Tướng"}
-						</NavLink>
-						<NavLink
-							to='/tierlist'
-							className='flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-nav-hover-bg transition-all'
-							onClick={closeSidebar}
-						>
-							<BarChartHorizontalBig className='w-4 h-4' />{" "}
-							{tUI("nav.tierList") || "Xếp hạng"}
+							<Swords className='w-5 h-5' /> {tUI("nav.champions")}
 						</NavLink>
 
 						{/* Menu Vật Phẩm */}
@@ -187,8 +171,7 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 								className='w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-nav-hover-bg transition-all'
 							>
 								<div className='flex items-center gap-3'>
-									<Package className='w-5 h-5' />{" "}
-									{tUI("nav.itemsTitle") || "Vật phẩm"}
+									<Package className='w-5 h-5' /> {tUI("nav.itemsTitle")}
 								</div>
 								<svg
 									className={`w-4 h-4 transition-transform ${
@@ -213,38 +196,35 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 										className={dropdownLinkClass}
 										onClick={closeSidebar}
 									>
-										<Package className='w-4 h-4' />{" "}
-										{tUI("nav.items") || "Vật phẩm"}
+										<Package className='w-4 h-4' /> {tUI("nav.items")}
 									</NavLink>
 									<NavLink
 										to='/relics'
 										className={dropdownLinkClass}
 										onClick={closeSidebar}
 									>
-										<Sparkles className='w-4 h-4' />{" "}
-										{tUI("nav.relics") || "Cổ vật"}
+										<Sparkles className='w-4 h-4' /> {tUI("nav.relics")}
 									</NavLink>
 									<NavLink
 										to='/powers'
 										className={dropdownLinkClass}
 										onClick={closeSidebar}
 									>
-										<Zap className='w-4 h-4' />{" "}
-										{tUI("nav.powers") || "Sức mạnh"}
+										<Zap className='w-4 h-4' /> {tUI("nav.powers")}
 									</NavLink>
 									<NavLink
 										to='/runes'
 										className={dropdownLinkClass}
 										onClick={closeSidebar}
 									>
-										<Gem className='w-4 h-4' /> {tUI("nav.runes") || "Ngọc"}
+										<Gem className='w-4 h-4' /> {tUI("nav.runes")}
 									</NavLink>
 									<NavLink
 										to='/maps'
 										className={dropdownLinkClass}
 										onClick={closeSidebar}
 									>
-										<Map className='w-4 h-4' /> {tUI("nav.maps") || "Bản Đồ"}
+										<Map className='w-4 h-4' /> {tUI("nav.maps")}
 									</NavLink>
 								</div>
 							)}
@@ -257,8 +237,7 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 								className='w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-nav-hover-bg transition-all'
 							>
 								<div className='flex items-center gap-3'>
-									<Wrench className='w-5 h-5' />{" "}
-									{tUI("nav.toolsTitle") || "Công cụ"}
+									<Wrench className='w-5 h-5' /> {tUI("nav.toolsTitle")}
 								</div>
 								<svg
 									className={`w-4 h-4 transition-transform ${
@@ -279,28 +258,41 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 							{isToolsDropdownOpen && (
 								<div className='ml-6 mt-1 space-y-1 border-l-2 border-gray-600 pl-3'>
 									<NavLink
+										to='/builds'
+										className={dropdownLinkClass}
+										onClick={closeSidebar}
+									>
+										<ScrollText className='w-4 h-4' /> {tUI("nav.builds")}
+									</NavLink>
+									<NavLink
+										to='/tierlist'
+										className={dropdownLinkClass}
+										onClick={closeSidebar}
+									>
+										<BarChartHorizontalBig className='w-4 h-4' />{" "}
+										{tUI("nav.tierList")}
+									</NavLink>
+									<NavLink
 										to='/randomizer'
 										className={dropdownLinkClass}
 										onClick={closeSidebar}
 									>
 										<LoaderPinwheel className='w-4 h-4 ' />{" "}
-										{tUI("nav.randomizer") || "Vòng quay"}
+										{tUI("nav.randomizer")}
 									</NavLink>
 									<NavLink
 										to='/introduction'
 										className={dropdownLinkClass}
 										onClick={closeSidebar}
 									>
-										<BookOpen className='w-4 h-4' />{" "}
-										{tUI("nav.about") || "Giới thiệu"}
+										<BookOpen className='w-4 h-4' /> {tUI("nav.about")}
 									</NavLink>
 									<NavLink
 										to='/guides'
 										className={dropdownLinkClass}
 										onClick={closeSidebar}
 									>
-										<BookMarked className='w-4 h-4' />{" "}
-										{tUI("nav.guides") || "Hướng Dẫn"}
+										<BookMarked className='w-4 h-4' /> {tUI("nav.guides")}
 									</NavLink>
 								</div>
 							)}
@@ -313,8 +305,7 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 								className='w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-nav-hover-bg transition-all'
 							>
 								<div className='flex items-center gap-3'>
-									<Globe className='w-5 h-5' />{" "}
-									{tUI("nav.language") || "Ngôn ngữ"}
+									<Globe className='w-5 h-5' /> {tUI("nav.language")}
 								</div>
 								<svg
 									className={`w-4 h-4 transition-transform ${
@@ -368,8 +359,7 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 									className='flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-nav-hover-bg text-sm'
 									onClick={closeSidebar}
 								>
-									<Settings className='w-4 h-4' />{" "}
-									{tUI("nav.profile") || "Thông tin"}
+									<Settings className='w-4 h-4' /> {tUI("nav.profile")}
 								</NavLink>
 								{isAdmin && (
 									<NavLink
@@ -377,8 +367,7 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 										className='flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-nav-hover-bg text-sm font-semibold'
 										onClick={closeSidebar}
 									>
-										<Shield className='w-4 h-4' />{" "}
-										{tUI("nav.admin") || "Trang quản lý"}
+										<Shield className='w-4 h-4' /> {tUI("nav.admin")}
 									</NavLink>
 								)}
 								<button
@@ -388,8 +377,7 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 									}}
 									className='w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-red-900/30 text-sm'
 								>
-									<LogOut className='w-4 h-4' />{" "}
-									{tUI("nav.logout") || "Đăng xuất"}
+									<LogOut className='w-4 h-4' /> {tUI("nav.logout")}
 								</button>
 							</>
 						) : (
@@ -398,7 +386,7 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 								className='flex items-center gap-3 px-3 py-2 rounded-lg bg-btn-primary-bg text-btn-primary-text hover:bg-btn-primary-hover-bg'
 								onClick={closeSidebar}
 							>
-								<LogIn className='w-5 h-5' /> {tUI("nav.login") || "Đăng nhập"}
+								<LogIn className='w-5 h-5' /> {tUI("nav.login")}
 							</NavLink>
 						)}
 					</nav>
@@ -417,21 +405,20 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 			<Modal
 				isOpen={isLogoutModalOpen}
 				onClose={() => setIsLogoutModalOpen(false)}
-				title={tUI("nav.confirmLogoutTitle") || "Xác nhận Đăng xuất"}
+				title={tUI("nav.confirmLogoutTitle")}
 				maxWidth='max-w-sm'
 			>
 				<div>
 					<p className='text-text-secondary flex items-center gap-2'>
 						<LogOut className='w-5 h-5 text-red-500' />
-						{tUI("nav.confirmLogoutDesc") ||
-							"Bạn có chắc chắn muốn kết thúc phiên làm việc này không?"}
+						{tUI("nav.confirmLogoutDesc")}
 					</p>
 					<div className='flex justify-end gap-4 mt-6'>
 						<Button variant='ghost' onClick={() => setIsLogoutModalOpen(false)}>
-							{tUI("nav.cancel") || "Hủy"}
+							{tUI("nav.cancel")}
 						</Button>
 						<Button variant='danger' onClick={confirmLogout}>
-							{tUI("nav.logout") || "Đăng xuất"}
+							{tUI("nav.logout")}
 						</Button>
 					</div>
 				</div>

@@ -107,17 +107,8 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 					</NavLink>
 
 					<nav className='flex items-center gap-1'>
-						<NavLink to='/builds' className={navLinkClass}>
-							<ScrollText className='w-6 h-6' />{" "}
-							{tUI("nav.builds") || "Bộ cổ vật"}
-						</NavLink>
 						<NavLink to='/champions' className={navLinkClass}>
-							<Swords className='w-6 h-6' /> {tUI("nav.champions") || "Tướng"}
-						</NavLink>
-
-						<NavLink to='/tierlist' className={navLinkClass}>
-							<BarChartHorizontalBig className='w-6 h-6' />
-							{tUI("nav.tierList") || "Bảng Xếp Hạng"}
+							<Swords className='w-6 h-6' /> {tUI("nav.champions")}
 						</NavLink>
 
 						<div
@@ -127,8 +118,7 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 							onMouseLeave={() => setIsItemsDropdownOpen(false)}
 						>
 							<button className='flex items-center gap-2 px-4 rounded-lg hover:bg-nav-hover-bg transition-all'>
-								<Package className='w-6 h-6' />{" "}
-								{tUI("nav.itemsTitle") || "Vật phẩm"}
+								<Package className='w-6 h-6' /> {tUI("nav.itemsTitle")}
 								<svg
 									className={`w-4 h-4 transition-transform ${
 										isItemsDropdownOpen ? "rotate-180" : ""
@@ -154,38 +144,35 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 											className={dropdownLinkClass}
 											onClick={handleNavClick}
 										>
-											<Package className='w-5 h-5' />{" "}
-											{tUI("nav.items") || "Vật phẩm"}
+											<Package className='w-5 h-5' /> {tUI("nav.items")}
 										</NavLink>
 										<NavLink
 											to='/relics'
 											className={dropdownLinkClass}
 											onClick={handleNavClick}
 										>
-											<Sparkles className='w-5 h-5' />{" "}
-											{tUI("nav.relics") || "Cổ vật"}
+											<Sparkles className='w-5 h-5' /> {tUI("nav.relics")}
 										</NavLink>
 										<NavLink
 											to='/powers'
 											className={dropdownLinkClass}
 											onClick={handleNavClick}
 										>
-											<Zap className='w-5 h-5' />{" "}
-											{tUI("nav.powers") || "Sức mạnh"}
+											<Zap className='w-5 h-5' /> {tUI("nav.powers")}
 										</NavLink>
 										<NavLink
 											to='/runes'
 											className={dropdownLinkClass}
 											onClick={handleNavClick}
 										>
-											<Gem className='w-5 h-5' /> {tUI("nav.runes") || "Ngọc"}
+											<Gem className='w-5 h-5' /> {tUI("nav.runes")}
 										</NavLink>
 										<NavLink
 											to='/maps'
 											className={dropdownLinkClass}
 											onClick={handleNavClick}
 										>
-											<Map className='w-5 h-5' /> {tUI("nav.maps") || "Bản Đồ"}
+											<Map className='w-5 h-5' /> {tUI("nav.maps")}
 										</NavLink>
 									</div>
 								</div>
@@ -199,8 +186,7 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 							onMouseLeave={() => setIsToolsDropdownOpen(false)}
 						>
 							<button className='flex items-center gap-2 py-2 px-4 rounded-lg hover:bg-nav-hover-bg transition-all'>
-								<Wrench className='w-6 h-6' />{" "}
-								{tUI("nav.toolsTitle") || "Công cụ"}
+								<Wrench className='w-6 h-6' /> {tUI("nav.toolsTitle")}
 								<svg
 									className={`w-4 h-4 transition-transform ${
 										isToolsDropdownOpen ? "rotate-180" : ""
@@ -221,28 +207,41 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 								<div className='absolute z-50 left-0 top-full pt-1'>
 									<div className='w-48 bg-dropdown-bg border border-dropdown-border rounded-lg shadow-xl py-2'>
 										<NavLink
+											to='/builds'
+											className={dropdownLinkClass}
+											onClick={handleNavClick}
+										>
+											<ScrollText className='w-5 h-5' /> {tUI("nav.builds")}
+										</NavLink>
+										<NavLink
+											to='/tierlist'
+											className={dropdownLinkClass}
+											onClick={handleNavClick}
+										>
+											<BarChartHorizontalBig className='w-5 h-5' />{" "}
+											{tUI("nav.tierList")}
+										</NavLink>
+										<NavLink
 											to='/randomizer'
 											className={dropdownLinkClass}
 											onClick={handleNavClick}
 										>
 											<LoaderPinwheel className='w-5 h-5' />{" "}
-											{tUI("nav.randomizer") || "Vòng quay"}
+											{tUI("nav.randomizer")}
 										</NavLink>
 										<NavLink
 											to='/introduction'
 											className={dropdownLinkClass}
 											onClick={handleNavClick}
 										>
-											<BookOpen className='w-5 h-5' />{" "}
-											{tUI("nav.about") || "Giới thiệu"}
+											<BookOpen className='w-5 h-5' /> {tUI("nav.about")}
 										</NavLink>
 										<NavLink
 											to='/guides'
 											className={dropdownLinkClass}
 											onClick={handleNavClick}
 										>
-											<BookMarked className='w-6 h-6' />{" "}
-											{tUI("nav.guides") || "Hướng Dẫn"}
+											<BookMarked className='w-5 h-5' /> {tUI("nav.guides")}
 										</NavLink>
 									</div>
 								</div>
@@ -250,7 +249,6 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 						</div>
 
 						<div className='ml-4 flex items-center gap-2'>
-							{/* === DROPDOWN NGÔN NGỮ ĐÃ ĐƯỢC FIX LỖI HOVER === */}
 							<div
 								className='relative'
 								ref={langDropdownRef}
@@ -330,8 +328,7 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 													className={dropdownLinkClass}
 													onClick={handleNavClick}
 												>
-													<Settings className='w-4 h-4' />{" "}
-													{tUI("nav.profile") || "Thông tin"}
+													<Settings className='w-4 h-4' /> {tUI("nav.profile")}
 												</NavLink>
 												{isAdmin && (
 													<NavLink
@@ -340,15 +337,14 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 														onClick={handleNavClick}
 													>
 														<Shield className='w-4 h-4' />
-														{tUI("nav.admin") || "Trang quản lý"}
+														{tUI("nav.admin")}
 													</NavLink>
 												)}
 												<button
 													onClick={() => setIsLogoutModalOpen(true)}
 													className={`${dropdownLinkClass} w-full text-left`}
 												>
-													<LogOut className='w-4 h-4' />{" "}
-													{tUI("nav.logout") || "Đăng xuất"}
+													<LogOut className='w-4 h-4' /> {tUI("nav.logout")}
 												</button>
 											</div>
 										</div>
@@ -360,8 +356,7 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 									onClick={handleNavClick}
 									className='flex items-center gap-2 py-2 px-4 rounded-lg bg-btn-primary-bg text-btn-primary-text hover:bg-btn-primary-hover-bg transition-all hover:scale-105'
 								>
-									<LogIn className='h-5 w-5' />{" "}
-									{tUI("nav.login") || "Đăng nhập"}
+									<LogIn className='h-5 w-5' /> {tUI("nav.login")}
 								</NavLink>
 							)}
 						</div>
@@ -372,21 +367,20 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 			<Modal
 				isOpen={isLogoutModalOpen}
 				onClose={() => setIsLogoutModalOpen(false)}
-				title={tUI("nav.confirmLogoutTitle") || "Xác nhận Đăng xuất"}
+				title={tUI("nav.confirmLogoutTitle")}
 				maxWidth='max-w-sm'
 			>
 				<div>
 					<p className='text-text-secondary flex items-center gap-2'>
 						<LogOut className='w-5 h-5 text-red-500' />
-						{tUI("nav.confirmLogoutDesc") ||
-							"Bạn có chắc chắn muốn kết thúc phiên làm việc này không?"}
+						{tUI("nav.confirmLogoutDesc")}
 					</p>
 					<div className='flex justify-end gap-4 mt-6'>
 						<Button variant='ghost' onClick={() => setIsLogoutModalOpen(false)}>
-							{tUI("nav.cancel") || "Hủy"}
+							{tUI("nav.cancel")}
 						</Button>
 						<Button variant='danger' onClick={confirmLogout}>
-							{tUI("nav.logout") || "Đăng xuất"}
+							{tUI("nav.logout")}
 						</Button>
 					</div>
 				</div>

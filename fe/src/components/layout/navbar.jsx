@@ -30,8 +30,8 @@ function Navbar() {
 						<LoaderPinwheel className='w-14 h-14 animate-spin mb-4' />
 						<p className='text-lg font-semibold tracking-wider font-primary'>
 							{language === "vi"
-								? "Switching Language..."
-								: "Đang chuyển ngôn ngữ..."}
+								? "Đang chuyển ngôn ngữ..."
+								: "Switching Language..."}
 						</p>
 					</div>
 				</div>

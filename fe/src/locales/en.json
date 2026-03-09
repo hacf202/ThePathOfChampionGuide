@@ -581,6 +581,8 @@
 		"noData": "No data available for this section."
 	},
 	"home": {
+		"databaseTitle": "Game Database",
+		"databaseDesc": "Quickly look up detailed information about all items, relics, powers, and runes in the game.",
 		"monthlyChallengeAlt": "Monthly Challenge",
 		"loading": "INITIALIZING POC GUIDE...",
 		"pageTitle": "POC GUIDE - The Path of Champions",
@@ -772,7 +774,7 @@
 		"builds": "Builds",
 		"champions": "Champions",
 		"tierList": "Tier List",
-		"itemsTitle": "Items",
+		"itemsTitle": "Game Database",
 		"items": "Items",
 		"relics": "Relics",
 		"powers": "Powers",
