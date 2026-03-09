@@ -96,14 +96,14 @@
 		}
 	},
 	"region": {
-		"bandlecity": "Thành Phố Bandle",
+		"thnhphbandle": "Thành Phố Bandle",
 		"bilgewater": "Bilgewater",
 		"demacia": "Demacia",
 		"freljord": "Freljord",
 		"ionia": "Ionia",
 		"noxus": "Noxus",
 		"piltoverzaun": "Piltover & Zaun",
-		"shadowisles": "Quần Đảo Bóng Đêm",
+		"qunobngm": "Quần Đảo Bóng Đêm",
 		"shurima": "Shurima",
 		"targon": "Targon",
 		"runeterra": "Runeterra",
