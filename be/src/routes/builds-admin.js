@@ -22,6 +22,66 @@ const BUILDS_TABLE = "Builds";
 
 // Tăng TTL lên 5 phút cho Admin để giảm thiểu Scan liên tục
 const adminBuildCache = new NodeCache({ stdTTL: 300, checkperiod: 60 });
+// Cache từ điển để tìm kiếm Tiếng Anh / Tiếng Việt
+const dictionaryCache = new NodeCache({ stdTTL: 300, checkperiod: 60 });
+
+/**
+ * Tải từ điển Tướng, Cổ vật, Sức mạnh để phục vụ tính năng tìm kiếm Đa ngôn ngữ
+ */
+async function getSearchDictionaries() {
+	const CACHE_KEY = "builds_search_dicts_admin";
+	let dicts = dictionaryCache.get(CACHE_KEY);
+	if (dicts) return dicts;
+
+	dicts = { champMap: {}, relicMap: {}, powerMap: {} };
+
+	try {
+		const champsRes = await client.send(
+			new ScanCommand({ TableName: "guidePocChampionList" }),
+		);
+		const champs = champsRes.Items
+			? champsRes.Items.map(item => unmarshall(item))
+			: [];
+		champs.forEach(c => {
+			if (c.name) dicts.champMap[c.name] = c.translations?.en?.name || "";
+		});
+
+		const relicsRes = await client.send(
+			new ScanCommand({ TableName: "guidePocRelics" }),
+		);
+		const relics = relicsRes.Items
+			? relicsRes.Items.map(item => unmarshall(item))
+			: [];
+		relics.forEach(r => {
+			const id = r.relicCode || r.itemCode;
+			if (id)
+				dicts.relicMap[id] = {
+					vi: r.name || "",
+					en: r.translations?.en?.name || "",
+				};
+		});
+
+		const powersRes = await client.send(
+			new ScanCommand({ TableName: "guidePocPowers" }),
+		);
+		const powers = powersRes.Items
+			? powersRes.Items.map(item => unmarshall(item))
+			: [];
+		powers.forEach(p => {
+			if (p.powerCode)
+				dicts.powerMap[p.powerCode] = {
+					vi: p.name || "",
+					en: p.translations?.en?.name || "",
+				};
+		});
+
+		dictionaryCache.set(CACHE_KEY, dicts);
+	} catch (error) {
+		console.error("Lỗi khi tải từ điển tìm kiếm (Admin):", error);
+	}
+
+	return dicts;
+}
 
 /**
  * Hàm lấy toàn bộ build cho Admin
@@ -57,10 +117,12 @@ router.get("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 			championNames = "",
 			creators = "",
 			display = "",
+			stars = "",
 			sort = "createdAt-desc",
 		} = req.query;
 
 		const allBuilds = await getAllBuildsAdmin();
+		const { champMap, relicMap, powerMap } = await getSearchDictionaries();
 
 		const availableFilters = {
 			championNames: [...new Set(allBuilds.map(b => b.championName))].sort(),
@@ -72,14 +134,52 @@ router.get("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 
 		if (searchTerm) {
 			const searchKey = removeAccents(searchTerm.toLowerCase());
-			filtered = filtered.filter(
-				b =>
-					removeAccents((b.championName || "").toLowerCase()).includes(
-						searchKey,
-					) ||
-					removeAccents((b.creator || "").toLowerCase()).includes(searchKey) ||
-					String(b.id).includes(searchKey),
-			);
+			filtered = filtered.filter(b => {
+				// 1. Kiểm tra Tên Tướng (Việt & Anh)
+				const champNameVi = removeAccents((b.championName || "").toLowerCase());
+				const champNameEn = removeAccents(
+					(champMap[b.championName] || "").toLowerCase(),
+				);
+				if (champNameVi.includes(searchKey) || champNameEn.includes(searchKey))
+					return true;
+
+				// 2. Kiểm tra Mô tả
+				const desc = removeAccents((b.description || "").toLowerCase());
+				if (desc.includes(searchKey)) return true;
+
+				// 3. Kiểm tra Người tạo và ID
+				if (removeAccents((b.creator || "").toLowerCase()).includes(searchKey))
+					return true;
+				if (String(b.id).includes(searchKey)) return true;
+
+				// 4. Kiểm tra Cổ vật (Việt & Anh)
+				if (Array.isArray(b.relicSetIds)) {
+					for (const rId of b.relicSetIds) {
+						const rInfo = relicMap[rId];
+						if (
+							rInfo &&
+							(removeAccents(rInfo.vi.toLowerCase()).includes(searchKey) ||
+								removeAccents(rInfo.en.toLowerCase()).includes(searchKey))
+						)
+							return true;
+					}
+				}
+
+				// 5. Kiểm tra Sức mạnh (Việt & Anh)
+				if (Array.isArray(b.powerIds)) {
+					for (const pId of b.powerIds) {
+						const pInfo = powerMap[pId];
+						if (
+							pInfo &&
+							(removeAccents(pInfo.vi.toLowerCase()).includes(searchKey) ||
+								removeAccents(pInfo.en.toLowerCase()).includes(searchKey))
+						)
+							return true;
+					}
+				}
+
+				return false;
+			});
 		}
 
 		if (championNames) {
@@ -97,6 +197,11 @@ router.get("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 			filtered = filtered.filter(b => b.display === isDisplay);
 		}
 
+		if (stars) {
+			const sList = stars.split(",");
+			filtered = filtered.filter(b => sList.includes(String(b.star)));
+		}
+
 		// Sắp xếp
 		const [field, order] = sort.split("-");
 		filtered.sort((a, b) => {
@@ -109,8 +214,15 @@ router.get("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 					: new Date(vB) - new Date(vA);
 			}
 
-			if (typeof vA === "number") {
-				return order === "asc" ? vA - vB : vB - vA;
+			if (field === "likes") {
+				vA = a.like || 0;
+				vB = b.like || 0;
+			}
+
+			if (typeof vA === "number" || typeof vB === "number") {
+				return order === "asc"
+					? Number(vA) - Number(vB)
+					: Number(vB) - Number(vA);
 			}
 
 			return order === "asc"
@@ -118,7 +230,7 @@ router.get("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 				: String(vB).localeCompare(String(vA));
 		});
 
-		// FIX: parse an toàn để không bao giờ bị NaN gây sập pagination
+		// Phân trang
 		let pageSize = parseInt(limit);
 		if (isNaN(pageSize) || pageSize <= 0) {
 			pageSize = 1000;

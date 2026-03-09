@@ -202,7 +202,7 @@ const AdminPanel = () => {
 				<div className='hidden xl:flex justify-end px-2 py-2 bg-primary-500 text-white shadow-md'>
 					<button
 						onClick={() => setIsCollapsed(!isCollapsed)}
-						className=' flex p-1.5 w-full justify-end rounded-lg bg-surface-hover text-text-secondary hover:text-primary-500 hover:bg-btn-primary-bg/10 transition-colors'
+						className=' flex p-1.5 w-full justify-end rounded-lg bg-surface-hover text-text-secondary hover:text-primary-500 hover:bg-btn-primary-bg/10  '
 					>
 						{isCollapsed ? (
 							<ChevronRight size={18} />

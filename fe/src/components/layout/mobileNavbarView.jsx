@@ -76,7 +76,7 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 	}, []);
 
 	const dropdownLinkClass =
-		"flex items-center gap-2 px-4 py-2 text-sm hover:bg-dropdown-item-hover-bg transition-colors";
+		"flex items-center gap-2 px-4 py-2 text-sm hover:bg-dropdown-item-hover-bg  ";
 
 	return (
 		<>
@@ -88,41 +88,6 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 				</NavLink>
 
 				<div className='flex items-center gap-2'>
-					{/* Dropdown ngôn ngữ trên Header Mobile */}
-					<div className='relative' ref={headerLangRef}>
-						<button
-							onClick={() => setIsHeaderLangOpen(!isHeaderLangOpen)}
-							className='p-2 rounded-lg hover:bg-nav-hover-bg transition-all flex items-center border border-gray-600'
-						>
-							<Globe className='w-5 h-5 mr-1' />
-							<span className='font-bold text-sm'>
-								{language === "vi" ? "VN" : "EN"}
-							</span>
-						</button>
-						{isHeaderLangOpen && (
-							<div className='absolute right-0 mt-2 w-32 bg-header-bg border border-gray-700 rounded-lg shadow-xl py-2 z-50'>
-								<button
-									onClick={() => {
-										handleLanguageChange("vi");
-										setIsHeaderLangOpen(false);
-									}}
-									className={`w-full text-left px-4 py-2 text-sm transition-colors hover:bg-nav-hover-bg ${language === "vi" ? "font-bold text-blue-400" : "text-white"}`}
-								>
-									Tiếng Việt
-								</button>
-								<button
-									onClick={() => {
-										handleLanguageChange("en");
-										setIsHeaderLangOpen(false);
-									}}
-									className={`w-full text-left px-4 py-2 text-sm transition-colors hover:bg-nav-hover-bg ${language === "en" ? "font-bold text-blue-400" : "text-white"}`}
-								>
-									English
-								</button>
-							</div>
-						)}
-					</div>
-
 					<button
 						onClick={() => setIsSidebarOpen(true)}
 						className='p-2 rounded-lg hover:bg-nav-hover-bg transition-all'
@@ -149,7 +114,7 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 						</div>
 						<button
 							onClick={closeSidebar}
-							className='p-1 rounded-lg hover:bg-gray-700 transition-colors'
+							className='p-1 rounded-lg hover:bg-gray-700  '
 						>
 							<X className='w-6 h-6 text-white' />
 						</button>
@@ -330,7 +295,7 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 											handleLanguageChange("vi");
 											closeSidebar();
 										}}
-										className={`w-full text-left flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-700 transition-colors ${language === "vi" ? "font-bold text-blue-400" : ""}`}
+										className={`w-full text-left flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-700   ${language === "vi" ? "font-bold  text-nav-link-text" : ""}`}
 									>
 										Tiếng Việt
 									</button>
@@ -339,7 +304,7 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 											handleLanguageChange("en");
 											closeSidebar();
 										}}
-										className={`w-full text-left flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-700 transition-colors ${language === "en" ? "font-bold text-blue-400" : ""}`}
+										className={`w-full text-left flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-700   ${language === "en" ? "font-bold  text-nav-link-text" : ""}`}
 									>
 										English
 									</button>

@@ -30,7 +30,7 @@ const BuildLocation = ({ buildId, championName }) => {
 	return (
 		<Link
 			to={`/builds/detail/${buildId}`}
-			className='inline-flex items-center gap-1 text-[10px] bg-primary-500/10 text-primary-500 px-2 py-0.5 rounded-full border border-primary-500/20 ml-2 hover:bg-primary-500/20 transition-colors'
+			className='inline-flex items-center gap-1 text-[10px] bg-primary-500/10 text-primary-500 px-2 py-0.5 rounded-full border border-primary-500/20 ml-2 hover:bg-primary-500/20  '
 		>
 			<ExternalLink size={10} /> {tUI("comments.buildLabel")}{" "}
 			{championName || buildId}
@@ -155,7 +155,7 @@ const CommentForm = ({
 						<button
 							type='submit'
 							disabled={isSubmitting || !content.trim()}
-							className={`p-1.5 rounded-lg transition-colors ${
+							className={`p-1.5 rounded-lg   ${
 								content.trim()
 									? "bg-primary-500 text-white hover:bg-primary-600"
 									: "bg-surface-hover text-text-secondary cursor-not-allowed"
@@ -264,7 +264,7 @@ const CommentItem = ({ comment, onDeleted, onUpdated, onPosted }) => {
 						<div className='flex items-center gap-3 mt-2'>
 							<button
 								onClick={() => handleAction(() => setIsReplying(!isReplying))}
-								className='text-xs font-medium text-text-secondary hover:text-primary-500 transition-colors flex items-center gap-1'
+								className='text-xs font-medium text-text-secondary hover:text-primary-500   flex items-center gap-1'
 							>
 								<MessageSquare size={12} /> {tUI("comments.replyBtn")}
 							</button>
@@ -273,14 +273,14 @@ const CommentItem = ({ comment, onDeleted, onUpdated, onPosted }) => {
 									<span className='w-1 h-1 bg-border rounded-full'></span>
 									<button
 										onClick={() => setIsEditing(true)}
-										className='text-xs text-text-secondary hover:text-primary-500 transition-colors'
+										className='text-xs text-text-secondary hover:text-primary-500  '
 									>
 										{tUI("common.edit")}
 									</button>
 									<span className='w-1 h-1 bg-border rounded-full'></span>
 									<button
 										onClick={() => setShowDeleteModal(true)}
-										className='text-xs text-text-secondary hover:text-danger-500 transition-colors'
+										className='text-xs text-text-secondary hover:text-danger-500  '
 									>
 										{tUI("common.delete")}
 									</button>
@@ -438,7 +438,7 @@ const LatestComments = ({ championID = null }) => {
 				{tUI("comments.communityDiscussions")}
 			</h2>
 
-			<div className='bg-surface-bg rounded-xl border border-border p-2 sm:p-6 shadow-sm'>
+			<div className='bg-surface-bg rounded-xl p-1 sm:p-6 shadow-sm'>
 				<CommentForm onCommentPosted={handlePosted} />
 
 				{loading ? (

@@ -14,7 +14,8 @@ import {
 	arrow,
 } from "@floating-ui/react";
 import RarityIcon from "./rarityIcon";
-import { useTranslation } from "../../hooks/useTranslation"; //
+import { useTranslation } from "../../hooks/useTranslation";
+import { removeAccents } from "../../utils/vietnameseUtils"; // 🟢 Import hàm chuẩn hóa chuỗi
 
 const GenericCard = ({
 	item,
@@ -53,20 +54,36 @@ const GenericCard = ({
 	// Xác định nguồn ảnh: Ưu tiên đường dẫn tuyệt đối, sau đó là image field, cuối cùng là placeholder
 	const imageSrc = item.assetAbsolutePath || item.image || placeholderImage;
 
-	// 🟢 Sử dụng tDynamic để dịch Tên & Mô tả từ dữ liệu động (Database)
+	// Sử dụng tDynamic để dịch Tên & Mô tả từ dữ liệu động (Database)
 	const itemName = tDynamic(item, "name");
 	const description =
 		tDynamic(item, "descriptionRaw") || tDynamic(item, "description");
 
 	/**
 	 * Hàm render nhãn hiển thị khi không có độ hiếm (Rarity)
-	 * Sử dụng tUI để lấy text từ file ngôn ngữ tĩnh thay vì hardcode
 	 */
 	const renderNodeTypeLabel = () => {
 		if (item.nodeType === "bonusStarGem") {
-			return tUI("constellation.typeGemstone"); // Lấy từ vi.json/en.json
+			return tUI("constellation.typeGemstone");
 		}
-		return tUI("constellation.tabBonusStars"); // Lấy từ vi.json/en.json
+		return tUI("constellation.tabBonusStars");
+	};
+
+	// 🟢 FIX HIỂN THỊ ĐỘ HIẾM
+	const getTranslatedRarity = rawRarity => {
+		if (!rawRarity) return "";
+
+		// Ưu tiên tDynamic nếu item có bản dịch sẵn
+		const dynTrans = tDynamic(item, "rarity");
+		if (dynTrans && dynTrans !== rawRarity) {
+			return dynTrans;
+		}
+
+		// Chuẩn hóa: loại bỏ dấu và ký tự đặc biệt ("Sử Thi" -> "suthi")
+		const normalizedKey = removeAccents(rawRarity)
+			.toLowerCase()
+			.replace(/[^a-z0-9]/g, "");
+		return tUI(`rarity.${normalizedKey}`) || rawRarity;
 	};
 
 	return (
@@ -98,7 +115,8 @@ const GenericCard = ({
 							{item.rarity ? (
 								<>
 									<RarityIcon rarity={item.rarity} />
-									<span>{item.rarity}</span>
+									{/* 🟢 Gọi hàm dịch độ hiếm */}
+									<span>{getTranslatedRarity(item.rarity)}</span>
 								</>
 							) : (
 								<span className='italic text-xs text-text-tertiary'>
@@ -111,7 +129,6 @@ const GenericCard = ({
 			</div>
 
 			{/* --- Tooltip sử dụng Portal --- */}
-			{/* FloatingPortal đưa nội dung ra ngoài cùng của DOM body để tránh lỗi overflow */}
 			{isOpen && description && (
 				<FloatingPortal>
 					<div
@@ -122,12 +139,11 @@ const GenericCard = ({
 					>
 						<p className='whitespace-pre-wrap leading-relaxed'>{description}</p>
 
-						{/* Mũi tên tooltip sử dụng FloatingArrow để đồng bộ vị trí */}
 						<FloatingArrow
 							ref={arrowRef}
 							context={context}
-							fill='#111827' // Tương đương bg-gray-900
-							stroke='#374151' // Tương đương border-gray-700
+							fill='#111827'
+							stroke='#374151'
 							strokeWidth={1}
 						/>
 					</div>
@@ -146,7 +162,7 @@ GenericCard.propTypes = {
 		descriptionRaw: PropTypes.string,
 		description: PropTypes.string,
 		nodeType: PropTypes.string,
-		translations: PropTypes.object, // Thêm cấu trúc translations để tDynamic hoạt động
+		translations: PropTypes.object,
 	}).isRequired,
 	onClick: PropTypes.func,
 	placeholderImage: PropTypes.string,

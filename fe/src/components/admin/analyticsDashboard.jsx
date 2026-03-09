@@ -297,7 +297,7 @@ const AnalyticsDashboard = () => {
 										className='group hover:bg-page-bg/40 transition-all duration-200'
 									>
 										<td
-											className='py-4 truncate max-w-[280px] text-text-secondary group-hover:text-primary-400 font-medium transition-colors cursor-default'
+											className='py-4 truncate max-w-[280px] text-text-secondary group-hover:text-primary-400 font-medium   cursor-default'
 											title={page.path}
 										>
 											{page.path}

@@ -239,7 +239,7 @@ const CommentItem = ({
 							{user && (
 								<button
 									onClick={() => setIsReplying(!isReplying)}
-									className='text-xs sm:text-sm text-text-secondary hover:text-primary-500 font-medium transition-colors'
+									className='text-xs sm:text-sm text-text-secondary hover:text-primary-500 font-medium  '
 								>
 									{tUI("comments.replyBtn")}
 								</button>
@@ -248,13 +248,13 @@ const CommentItem = ({
 								<>
 									<button
 										onClick={() => setIsEditing(true)}
-										className='text-text-secondary hover:text-primary-500 transition-colors'
+										className='text-text-secondary hover:text-primary-500  '
 									>
 										<Edit size={14} />
 									</button>
 									<button
 										onClick={() => setShowDeleteModal(true)}
-										className='text-text-secondary hover:text-danger-500 transition-colors'
+										className='text-text-secondary hover:text-danger-500  '
 									>
 										<Trash2 size={14} />
 									</button>

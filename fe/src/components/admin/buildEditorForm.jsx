@@ -29,7 +29,7 @@ const ArrayInputComponent = ({ label, data = [], onChange }) => {
 				<button
 					onClick={handleAddItem}
 					type='button'
-					className='px-3 py-1 text-xs font-semibold text-white bg-[var(--color-primary)] rounded hover:bg-[var(--color-primary-hover)] transition-colors'
+					className='px-3 py-1 text-xs font-semibold text-white bg-[var(--color-primary)] rounded hover:bg-[var(--color-primary-hover)]  '
 				>
 					+ {tUI("admin.common.add")}
 				</button>
@@ -45,12 +45,12 @@ const ArrayInputComponent = ({ label, data = [], onChange }) => {
 								type='text'
 								value={item}
 								onChange={e => handleItemChange(index, e.target.value)}
-								className='flex-1 p-2 bg-[var(--color-background)] border border-[var(--color-border)] rounded-md font-mono text-sm focus:outline-none focus:border-[var(--color-primary)] transition-colors'
+								className='flex-1 p-2 bg-[var(--color-background)] border border-[var(--color-border)] rounded-md font-mono text-sm focus:outline-none focus:border-[var(--color-primary)]  '
 							/>
 							<button
 								type='button'
 								onClick={() => handleRemoveItem(index)}
-								className='p-2 text-red-500 hover:bg-red-500/10 rounded-md transition-colors'
+								className='p-2 text-red-500 hover:bg-red-500/10 rounded-md  '
 								title={tUI("admin.common.delete")}
 							>
 								X
@@ -152,7 +152,7 @@ const BuildEditorForm = ({ item, onSave, isSaving, onDirtyChange }) => {
 									name='championName'
 									value={formData.championName || ""}
 									onChange={handleInputChange}
-									className='w-full p-2.5 mt-1 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg font-bold text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-primary)] transition-colors'
+									className='w-full p-2.5 mt-1 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg font-bold text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-primary)]  '
 									required
 								/>
 							</div>
@@ -169,7 +169,7 @@ const BuildEditorForm = ({ item, onSave, isSaving, onDirtyChange }) => {
 											regions: e.target.value.split(",").map(r => r.trim()),
 										})
 									}
-									className='w-full p-2.5 mt-1 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-primary)] transition-colors'
+									className='w-full p-2.5 mt-1 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-primary)]  '
 									placeholder='Demacia, Noxus...'
 								/>
 							</div>
@@ -184,7 +184,7 @@ const BuildEditorForm = ({ item, onSave, isSaving, onDirtyChange }) => {
 									onChange={handleInputChange}
 									min='0'
 									max='7'
-									className='w-full p-2.5 mt-1 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-primary)] transition-colors'
+									className='w-full p-2.5 mt-1 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-primary)]  '
 								/>
 							</div>
 							<div>
@@ -195,7 +195,7 @@ const BuildEditorForm = ({ item, onSave, isSaving, onDirtyChange }) => {
 									name='description'
 									value={formData.description || ""}
 									onChange={handleInputChange}
-									className='w-full p-3 mt-1 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg min-h-[120px] text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-primary)] transition-colors resize-none'
+									className='w-full p-3 mt-1 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg min-h-[120px] text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-primary)]   resize-none'
 								/>
 							</div>
 							<div>
@@ -206,7 +206,7 @@ const BuildEditorForm = ({ item, onSave, isSaving, onDirtyChange }) => {
 									name='description'
 									value={formData.translations?.en?.description || ""}
 									onChange={e => handleTranslationChange(e, "en")}
-									className='w-full p-3 mt-1 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg min-h-[120px] text-[var(--color-text-primary)] focus:outline-none focus:border-blue-500 transition-colors resize-none'
+									className='w-full p-3 mt-1 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg min-h-[120px] text-[var(--color-text-primary)] focus:outline-none focus:border-blue-500   resize-none'
 									placeholder='English Description...'
 								/>
 							</div>
@@ -297,7 +297,7 @@ const BuildEditorForm = ({ item, onSave, isSaving, onDirtyChange }) => {
 										value={formData.like || 0}
 										onChange={handleInputChange}
 										min='0'
-										className='w-full p-2.5 mt-1 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-[var(--color-text-primary)] focus:outline-none focus:border-blue-500 transition-colors'
+										className='w-full p-2.5 mt-1 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-[var(--color-text-primary)] focus:outline-none focus:border-blue-500  '
 									/>
 								</div>
 								<div>
@@ -310,7 +310,7 @@ const BuildEditorForm = ({ item, onSave, isSaving, onDirtyChange }) => {
 										value={formData.views || 0}
 										onChange={handleInputChange}
 										min='0'
-										className='w-full p-2.5 mt-1 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-[var(--color-text-primary)] focus:outline-none focus:border-blue-500 transition-colors'
+										className='w-full p-2.5 mt-1 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-[var(--color-text-primary)] focus:outline-none focus:border-blue-500  '
 									/>
 								</div>
 							</div>

@@ -38,7 +38,7 @@ export default function ConstellationTable({ starPowersList, bonusStarsList }) {
 			<div className='flex gap-1 border-b border-border px-2 sm:px-4 pt-2 sm:pt-4 bg-surface-hover/30'>
 				<button
 					onClick={() => setActiveConstellationTab("starPowers")}
-					className={`px-3 sm:px-4 py-2 font-semibold text-[13px] sm:text-sm transition-colors border-b-2 ${
+					className={`px-3 sm:px-4 py-2 font-semibold text-[13px] sm:text-sm   border-b-2 ${
 						activeConstellationTab === "starPowers"
 							? "border-primary-500 text-primary-500 bg-surface-bg"
 							: "border-transparent text-text-secondary hover:text-text-primary"
@@ -48,7 +48,7 @@ export default function ConstellationTable({ starPowersList, bonusStarsList }) {
 				</button>
 				<button
 					onClick={() => setActiveConstellationTab("bonusStars")}
-					className={`px-3 sm:px-4 py-2 font-semibold text-[13px] sm:text-sm transition-colors border-b-2 ${
+					className={`px-3 sm:px-4 py-2 font-semibold text-[13px] sm:text-sm   border-b-2 ${
 						activeConstellationTab === "bonusStars"
 							? "border-primary-500 text-primary-500 bg-surface-bg"
 							: "border-transparent text-text-secondary hover:text-text-primary"
@@ -86,7 +86,7 @@ export default function ConstellationTable({ starPowersList, bonusStarsList }) {
 						{currentList.map((node, index) => (
 							<tr
 								key={node.nodeID || index}
-								className='hover:bg-surface-hover/40 transition-colors'
+								className='hover:bg-surface-hover/40  '
 							>
 								{/* Cột 1: Cấp sao / Loại */}
 								<td className='py-1 px-1 sm:px-2 align-middle border-r border-border/50 text-center'>

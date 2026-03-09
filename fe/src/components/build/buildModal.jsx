@@ -75,7 +75,7 @@ const SearchableDropdown = ({
 				type='button'
 				onClick={() => !disabled && !loading && setIsOpen(!isOpen)}
 				disabled={disabled || loading}
-				className={`w-full bg-input-bg border rounded-md p-2 flex justify-between items-center text-left transition-colors ${
+				className={`w-full bg-input-bg border rounded-md p-2 flex justify-between items-center text-left   ${
 					error
 						? "border-danger-500"
 						: "border-input-border hover:border-primary-500"
@@ -126,7 +126,7 @@ const SearchableDropdown = ({
 									<li
 										key={opt.value}
 										onClick={() => !isDisabled && handleSelect(opt.value)}
-										className={`p-2 flex items-center transition-colors ${
+										className={`p-2 flex items-center   ${
 											isDisabled
 												? "opacity-40 cursor-not-allowed"
 												: "hover:bg-dropdown-item-hover-bg cursor-pointer"
@@ -480,7 +480,7 @@ const BuildModal = ({
 						<button
 							type='button'
 							onClick={() => setFormData(p => ({ ...p, display: !p.display }))}
-							className='flex items-center gap-2 px-4 py-2 border border-border rounded-md text-sm hover:bg-surface-hover transition-colors text-text-primary'
+							className='flex items-center gap-2 px-4 py-2 border border-border rounded-md text-sm hover:bg-surface-hover   text-text-primary'
 						>
 							{formData.display ? (
 								<Eye size={18} className='text-success' />

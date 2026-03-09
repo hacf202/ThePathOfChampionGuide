@@ -34,7 +34,80 @@
 		"reset": "Đặt lại",
 		"rarity": "Độ hiếm",
 		"type": "Loại",
-		"all": "Tất cả"
+		"all": "Tất cả",
+		"stack": "Số lượng"
+	},
+	"rarity": {
+		"thuong": "Thường",
+		"hiem": "Hiếm",
+		"suthi": "Sử Thi",
+		"huyenthoai": "Huyền Thoại",
+		"dacbiet": "Đặc Biệt"
+	},
+	"relic": {
+		"rarity": {
+			"common": "Thường",
+			"rare": "Hiếm",
+			"epic": "Sử Thi",
+			"legendary": "Huyền Thoại"
+		},
+		"types": {
+			"general": "Chung",
+			"signature": "Trấn",
+			"consumables": "Tiêu Thụ"
+		}
+	},
+	"power": {
+		"rarity": {
+			"thường": "Thường",
+			"hiếm": "Hiếm",
+			"sử thi": "Sử Thi",
+			"huyền thoại": "Huyền Thoại",
+			"đặc biệt": "Đặc Biệt"
+		},
+		"types": {
+			"arcanepower": "Arcane Power",
+			"debuffpower": "Debuff Power",
+			"encounterpower": "Encounter Power",
+			"foepower": "Foe Power",
+			"generalpower": "General Power",
+			"monthlychallengepower": "Monthly Challenge Power",
+			"removepower": "Remove Power",
+			"runepower": "Rune Power",
+			"spiritblossompower": "Spirit Blossom Power",
+			"starpower": "Star Power",
+			"teamfighttacticspower": "Teamfight Tactics Power",
+			"relicpower": "Relic Power"
+		}
+	},
+	"item": {
+		"rarity": {
+			"thường": "Thường",
+			"hiếm": "Hiếm",
+			"sử thi": "Sử Thi"
+		}
+	},
+	"rune": {
+		"rarity": {
+			"thường": "Thường",
+			"hiếm": "Hiếm",
+			"sử thi": "Sử Thi",
+			"huyền thoại": "Huyền Thoại"
+		}
+	},
+	"region": {
+		"bandlecity": "Thành Phố Bandle",
+		"bilgewater": "Bilgewater",
+		"demacia": "Demacia",
+		"freljord": "Freljord",
+		"ionia": "Ionia",
+		"noxus": "Noxus",
+		"piltoverzaun": "Piltover & Zaun",
+		"shadowisles": "Quần Đảo Bóng Đêm",
+		"shurima": "Shurima",
+		"targon": "Targon",
+		"runeterra": "Runeterra",
+		"hoalinhlca": "Hoa Linh Lục Địa"
 	},
 	"admin": {
 		"rune": {
@@ -524,7 +597,7 @@
 		"searchLabel": "Tìm kiếm tướng",
 		"searchPlaceholder": "Tên tướng...",
 		"region": "Vùng",
-		"cost": "Năng lượng",
+		"cost": "Tiêu hao",
 		"maxStars": "Sao tối đa",
 		"tags": "Thẻ",
 		"sortBy": "Sắp xếp",
@@ -548,8 +621,8 @@
 	"sort": {
 		"nameAsc": "Tên A-Z",
 		"nameDesc": "Tên Z-A",
-		"costAsc": "Năng lượng thấp-cao",
-		"costDesc": "Năng lượng cao-thấp",
+		"costAsc": "Tiêu hao thấp-cao",
+		"costDesc": "Tiêu hao cao-thấp",
 		"createdAtDesc": "Mới nhất",
 		"createdAtAsc": "Cũ nhất",
 		"likeDesc": "Lượt thích (Cao nhất)",

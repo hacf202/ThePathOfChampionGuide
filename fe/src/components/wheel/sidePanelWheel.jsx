@@ -83,7 +83,7 @@ const SidePanel = ({
 					<button
 						key={filter}
 						onClick={() => onFilterChange(activeWheelKey, null, filter)}
-						className={`px-3 py-1 text-sm font-semibold rounded-full whitespace-nowrap transition-colors ${
+						className={`px-3 py-1 text-sm font-semibold rounded-full whitespace-nowrap   ${
 							activeFilter === filter
 								? "bg-primary-500 text-white"
 								: "bg-panel-item-bg text-panel-text-dim hover:bg-panel-item-hover-bg"
@@ -115,7 +115,7 @@ const SidePanel = ({
 			<div className='flex border-b border-panel-glass-border mb-4'>
 				<button
 					onClick={() => setActiveTab("select")}
-					className={`py-2 px-4 font-semibold transition-colors ${
+					className={`py-2 px-4 font-semibold   ${
 						activeTab === "select"
 							? "border-b-2 border-primary-500 text-panel-text-light"
 							: "text-panel-text-dimmer hover:text-panel-text-light"
@@ -125,7 +125,7 @@ const SidePanel = ({
 				</button>
 				<button
 					onClick={() => setActiveTab("customize")}
-					className={`py-2 px-4 font-semibold transition-colors ${
+					className={`py-2 px-4 font-semibold   ${
 						activeTab === "customize"
 							? "border-b-2 border-primary-500 text-panel-text-light"
 							: "text-panel-text-dimmer hover:text-panel-text-light"
@@ -209,7 +209,7 @@ const SidePanel = ({
 								{searchFilteredItems.map(item => (
 									<label
 										key={item.name}
-										className='flex items-center space-x-3 p-2 rounded-md hover:bg-panel-item-hover-bg cursor-pointer transition-colors'
+										className='flex items-center space-x-3 p-2 rounded-md hover:bg-panel-item-hover-bg cursor-pointer  '
 									>
 										<input
 											type='checkbox'

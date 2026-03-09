@@ -69,7 +69,7 @@ const AdventureCard = ({ adventure, onFilterClick }) => {
 			const sortedByAppearance = matches.sort(
 				(a, b) =>
 					normalizedName.indexOf(a.name.toLowerCase()) -
-					normalizedName.indexOf(b.name.toLowerCase())
+					normalizedName.indexOf(b.name.toLowerCase()),
 			);
 
 			// LOGIC MỚI: Đảo ngược lại
@@ -228,10 +228,7 @@ const AdventureCard = ({ adventure, onFilterClick }) => {
 									</thead>
 									<tbody className='divide-y divide-border/50 bg-surface-bg/60 text-white'>
 										{adventure.requirement.map((req, idx) => (
-											<tr
-												key={idx}
-												className='hover:bg-white/5 transition-colors'
-											>
+											<tr key={idx} className='hover:bg-white/5  '>
 												<td className='px-3 py-2 border-r border-border/50'>
 													<RenderLinkItem
 														name={req}

@@ -11,7 +11,7 @@ import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook
 // --- THÀNH PHẦN SKELETON LOADING ---
 const RelicDetailSkeleton = () => (
 	<div className='max-w-[1200px] mx-auto p-0 sm:p-6 animate-pulse font-secondary'>
-		<div className='h-10 w-24 bg-gray-700/50 rounded mb-4 ml-4 sm:ml-0' />
+		<div className='h-10 w-24 bg-gray-700/50 rounded mb-2 ml-1 sm:ml-0' />
 		<div className='bg-surface-bg border border-border rounded-lg p-4 sm:p-6 space-y-8'>
 			<div className='flex flex-col md:flex-row gap-6'>
 				<div className='w-full md:w-[300px] aspect-square bg-gray-700/50 rounded-lg' />
@@ -81,10 +81,13 @@ function RelicDetail() {
 		if (relicCode) fetchData();
 	}, [relicCode, apiUrl, tUI]);
 
-	// 🟢 Xử lý Tên và Mô tả đa ngôn ngữ của Cổ vật
+	// 🟢 Xử lý Tên, Mô tả và Độ hiếm đa ngôn ngữ của Cổ vật
 	const relicName = relic ? tDynamic(relic, "name") : "";
 	const relicDesc = relic
 		? tDynamic(relic, "description") || tDynamic(relic, "descriptionRaw")
+		: "";
+	const relicRarity = relic?.rarity
+		? tDynamic(relic, "rarity") || tUI(relic.rarity) || relic.rarity
 		: "";
 
 	const compatibleChampions = useMemo(() => {
@@ -145,7 +148,7 @@ function RelicDetail() {
 						<Button
 							variant='outline'
 							onClick={() => navigate(-1)}
-							className='mb-4 ml-4 sm:ml-0'
+							className='mb-2 ml-1 sm:ml-0'
 						>
 							<ChevronLeft size={18} /> {tUI("common.back")}
 						</Button>
@@ -161,7 +164,7 @@ function RelicDetail() {
 									<div className='flex flex-col border border-border sm:flex-row sm:justify-between rounded-lg p-2 text-2xl sm:text-4xl font-bold m-1 bg-surface-bg shadow-sm'>
 										<h1 className='font-primary'>{relicName}</h1>
 										<h1 className='font-primary text-primary-500 uppercase'>
-											{relic.rarity}
+											{relicRarity}
 										</h1>
 									</div>
 									{relicDesc && (

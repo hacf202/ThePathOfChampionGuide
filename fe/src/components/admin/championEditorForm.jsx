@@ -364,7 +364,7 @@ const ChampionEditorForm = memo(
 										name='description'
 										value={formData.description || ""}
 										onChange={handleInputChange}
-										className='w-full p-4 rounded-lg border border-border bg-surface-hover/30 text-text-primary text-sm min-h-[200px] outline-none focus:border-primary-500 transition-colors'
+										className='w-full p-4 rounded-lg border border-border bg-surface-hover/30 text-text-primary text-sm min-h-[200px] outline-none focus:border-primary-500  '
 										placeholder='Nhập mô tả, chiến thuật, cách combo...'
 									/>
 								</div>
@@ -655,7 +655,7 @@ const ChampionEditorForm = memo(
 													assets: formData.assets.filter((_, i) => i !== index),
 												})
 											}
-											className='text-red-500 shrink-0 hover:bg-red-500/10 p-2 rounded-full transition-colors'
+											className='text-red-500 shrink-0 hover:bg-red-500/10 p-2 rounded-full  '
 										>
 											<XCircle size={22} />
 										</button>

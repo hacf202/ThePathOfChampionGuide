@@ -36,7 +36,73 @@
 		"rarity": "Rarity",
 		"type": "Type",
 		"stacks": "Stacks",
-		"reset": "Reset"
+		"reset": "Reset",
+		"stack": "Stack"
+	},
+	"relic": {
+		"rarity": {
+			"common": "Common",
+			"rare": "Rare",
+			"epic": "Epic",
+			"legendary": "Legendary"
+		},
+		"types": {
+			"general": "General",
+			"signature": "Signature",
+			"consumables": "Consumables"
+		}
+	},
+	"power": {
+		"rarity": {
+			"thường": "Common",
+			"hiếm": "Rare",
+			"sử thi": "Epic",
+			"huyền thoại": "Legendary",
+			"đặc biệt": "Special"
+		},
+		"types": {
+			"arcanepower": "Arcane Power",
+			"debuffpower": "Debuff Power",
+			"encounterpower": "Encounter Power",
+			"foepower": "Foe Power",
+			"generalpower": "General Power",
+			"monthlychallengepower": "Monthly Challenge Power",
+			"removepower": "Remove Power",
+			"runepower": "Rune Power",
+			"spiritblossompower": "Spirit Blossom Power",
+			"starpower": "Star Power",
+			"teamfighttacticspower": "Teamfight Tactics Power",
+			"relicpower": "Relic Power"
+		}
+	},
+	"item": {
+		"rarity": {
+			"thường": "Common",
+			"hiếm": "Rare",
+			"sử thi": "Epic"
+		}
+	},
+	"rune": {
+		"rarity": {
+			"thường": "Common",
+			"hiếm": "Rare",
+			"sử thi": "Epic",
+			"huyền thoại": "Legendary"
+		}
+	},
+	"region": {
+		"bandlecity": "Bandle City",
+		"bilgewater": "Bilgewater",
+		"demacia": "Demacia",
+		"freljord": "Freljord",
+		"ionia": "Ionia",
+		"noxus": "Noxus",
+		"piltoverzaun": "Piltover & Zaun",
+		"shadowisles": "Shadow Isles",
+		"shurima": "Shurima",
+		"targon": "Targon",
+		"runeterra": "Runeterra",
+		"hoalinhlca": "Spirit Blossom"
 	},
 	"admin": {
 		"rune": {

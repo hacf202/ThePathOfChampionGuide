@@ -85,7 +85,7 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 		}`;
 
 	const dropdownLinkClass =
-		"flex items-center gap-2 px-4 py-2 text-sm text-dropdown-item-text hover:bg-dropdown-item-hover-bg transition-colors";
+		"flex items-center gap-2 px-4 py-2 text-sm text-dropdown-item-text hover:bg-dropdown-item-hover-bg";
 
 	const handleNavClick = () => closeAllMenus();
 
@@ -285,9 +285,9 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 													handleLanguageChange("vi");
 													closeAllMenus();
 												}}
-												className={`w-full flex items-center px-4 py-2 text-sm transition-colors hover:bg-dropdown-item-hover-bg ${
+												className={`w-full flex items-center px-4 py-2 text-sm   hover:bg-dropdown-item-hover-bg ${
 													language === "vi"
-														? "font-bold text-blue-500"
+														? "font-bold text-dropdown-item-text"
 														: "text-dropdown-item-text"
 												}`}
 											>
@@ -298,9 +298,9 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 													handleLanguageChange("en");
 													closeAllMenus();
 												}}
-												className={`w-full flex items-center px-4 py-2 text-sm transition-colors hover:bg-dropdown-item-hover-bg ${
+												className={`w-full flex items-center px-4 py-2 text-sm   hover:bg-dropdown-item-hover-bg ${
 													language === "en"
-														? "font-bold text-blue-500"
+														? "font-bold  text-dropdown-item-text"
 														: "text-dropdown-item-text"
 												}`}
 											>

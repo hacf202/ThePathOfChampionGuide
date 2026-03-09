@@ -22,6 +22,7 @@ const SidePanel = memo(
 		sortOptions = [],
 		sortSelectedValue,
 		onSortChange,
+		onSearchKeyDown, // 🟢 Bổ sung prop này từ component cha
 	}) => {
 		const { tUI } = useTranslation(); // 🟢 Khởi tạo Hook
 
@@ -30,6 +31,16 @@ const SidePanel = memo(
 			searchPlaceholder || tUI("common.searchPlaceholder");
 		const currentAddLabel = addLabel || tUI("common.addNew");
 		const currentResetLabel = resetLabel || tUI("championList.resetFilter");
+
+		// Hàm xử lý khi nhấn phím trong ô input
+		const handleKeyDown = e => {
+			if (onSearchKeyDown) {
+				onSearchKeyDown(e);
+			} else if (e.key === "Enter" && onSearch) {
+				// Mặc định tự gọi hàm onSearch nếu nhấn Enter
+				onSearch();
+			}
+		};
 
 		return (
 			<div className='bg-surface-bg rounded-lg border border-border p-4 sm:p-6 mb-6'>
@@ -42,6 +53,7 @@ const SidePanel = memo(
 								placeholder={currentSearchPlaceholder}
 								value={searchInput}
 								onChange={onSearchInputChange}
+								onKeyDown={handleKeyDown} // 🟢 Lắng nghe sự kiện phím
 								className='pr-10'
 							/>
 							{searchInput && (
@@ -94,7 +106,7 @@ const SidePanel = memo(
 						<DropdownFilter
 							label={tUI("championList.sortBy")}
 							options={sortOptions}
-							value={sortSelectedValue}
+							selectedValue={sortSelectedValue} // 🟢 Fix lại thành selectedValue cho khớp với DropdownFilter
 							onChange={onSortChange}
 						/>
 					</div>

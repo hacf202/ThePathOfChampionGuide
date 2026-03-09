@@ -111,10 +111,7 @@ const ContentBlock = ({ block, referenceData }) => {
 						</thead>
 						<tbody className='divide-y divide-gray-100'>
 							{resolvedData.map((row, rowIndex) => (
-								<tr
-									key={rowIndex}
-									className='hover:bg-gray-50 transition-colors'
-								>
+								<tr key={rowIndex} className='hover:bg-gray-50  '>
 									{block.columns.map((col, colIndex) => {
 										const cellData = row[col.key];
 										if (!cellData)

@@ -15,7 +15,7 @@ const InputField = ({ label, error, rightIcon, className, ...props }) => {
 					className={`w-full p-2 bg-input-bg text-input-text rounded-md border border-input-border
             placeholder:text-input-placeholder
             focus:border-input-focus-border focus:ring-0 focus:outline-none 
-            transition-colors duration-200
+              duration-200
             disabled:bg-input-disabled-bg disabled:text-input-disabled-text
             ${className}`}
 				/>

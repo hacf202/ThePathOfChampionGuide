@@ -185,7 +185,7 @@ function Introduction() {
 													loading='lazy'
 												/>
 											</div>
-											<h4 className='font-bold text-[var(--color-text-primary)] text-lg truncate group-hover:text-[var(--color-primary-500)] transition-colors'>
+											<h4 className='font-bold text-[var(--color-text-primary)] text-lg truncate group-hover:text-[var(--color-primary-500)]  '>
 												{champName}
 											</h4>
 											<p className='text-sm text-[var(--color-text-secondary)] mt-1'>
@@ -206,13 +206,13 @@ function Introduction() {
 						<div className='flex flex-col sm:flex-row gap-4 justify-center'>
 							<Link
 								to='/champions'
-								className='px-8 py-3 bg-[var(--color-btn-secondary-bg)] text-[var(--color-btn-secondary-text)] border border-[var(--color-btn-secondary-border)] font-medium rounded-md hover:bg-[var(--color-btn-secondary-hover-bg)] transition-colors'
+								className='px-8 py-3 bg-[var(--color-btn-secondary-bg)] text-[var(--color-btn-secondary-text)] border border-[var(--color-btn-secondary-border)] font-medium rounded-md hover:bg-[var(--color-btn-secondary-hover-bg)]  '
 							>
 								{tUI("intro.viewAll")}
 							</Link>
 							<Link
 								to='/guides'
-								className='px-8 py-3 bg-[var(--color-btn-secondary-bg)] text-[var(--color-btn-secondary-text)] border border-[var(--color-btn-secondary-border)] font-medium rounded-md hover:bg-[var(--color-btn-secondary-hover-bg)] transition-colors'
+								className='px-8 py-3 bg-[var(--color-btn-secondary-bg)] text-[var(--color-btn-secondary-text)] border border-[var(--color-btn-secondary-border)] font-medium rounded-md hover:bg-[var(--color-btn-secondary-hover-bg)]  '
 							>
 								{tUI("intro.guides")}
 							</Link>
@@ -220,7 +220,7 @@ function Introduction() {
 						<p className='mt-8 text-[var(--color-text-secondary)]'>
 							<Link
 								to='/'
-								className='px-8 py-3 bg-[var(--color-btn-primary-bg)] text-[var(--color-btn-primary-text)] font-medium rounded-md hover:bg-[var(--color-btn-primary-hover-bg)] transition-colors'
+								className='px-8 py-3 bg-[var(--color-btn-primary-bg)] text-[var(--color-btn-primary-text)] font-medium rounded-md hover:bg-[var(--color-btn-primary-hover-bg)]  '
 							>
 								{tUI("common.backToHome")}
 							</Link>

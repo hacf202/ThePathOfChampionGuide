@@ -189,7 +189,7 @@ const GuideDetail = () => {
 												/>
 											</div>
 											<div className='p-4'>
-												<h4 className='font-bold text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors'>
+												<h4 className='font-bold text-gray-900 line-clamp-2 group-hover:text-blue-600  '>
 													{tDynamic(item, "title")}
 												</h4>
 												<div className='mt-3 flex items-center text-xs text-gray-500 gap-3'>
@@ -220,7 +220,7 @@ const GuideDetail = () => {
 										<li key={item.id}>
 											<a
 												href={`#${item.id}`}
-												className='text-gray-600 hover:text-blue-600 transition-colors block'
+												className='text-gray-600 hover:text-blue-600   block'
 											>
 												{item.title}
 											</a>

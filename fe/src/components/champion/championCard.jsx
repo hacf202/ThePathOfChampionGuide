@@ -27,6 +27,11 @@ function ChampionCard({ champion }) {
 				loading='lazy'
 			/>
 
+			{/* Năng lượng của tướng - Đã được ghim cố định ở góc trên bên trái */}
+			<div className='absolute top-4 left-4 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center bg-blue-600 border-2 border-white rounded-full text-lg md:text-xl font-bold shadow-md z-10 text-white'>
+				{champion.cost}
+			</div>
+
 			{/* Lớp phủ gradient để làm nổi bật văn bản */}
 			<div className='absolute bottom-0 left-0 right-0 h-2/5 bg-gradient-to-t from-black/80 via-black/50 to-transparent' />
 
@@ -37,17 +42,20 @@ function ChampionCard({ champion }) {
 					<h3 className='text-2xl font-bold truncate drop-shadow-lg'>
 						{championName}
 					</h3>
-					{/* Năng lượng của tướng */}
-					<div className='absolute -top-64 left-4 w-12 h-12 flex items-center justify-center bg-blue-600 border-2 border-white rounded-full text-xl font-bold shadow-md'>
-						{champion.cost}
-					</div>
 				</div>
 
 				{/* Các vùng của tướng */}
-				<div className='flex items-center gap-2 mt-1'>
+				<div className='flex items-center gap-2 mt-2'>
 					{/* Lặp qua mảng `regions` để lấy tên hiển thị */}
 					{champion.regions?.map(regionName => {
 						const regionIcon = iconRegions.find(r => r.name === regionName);
+
+						// Tạo key từ tên gốc (VD: "Piltover & Zaun" -> "piltoverzaun")
+						const regionKey = regionName
+							.toLowerCase()
+							.replace(/[^a-z0-9]/g, "");
+						// Lấy tên đã dịch từ tUI, nếu không có thì fallback về tên gốc
+						const translatedRegion = tUI(`region.${regionKey}`) || regionName;
 
 						return (
 							<div
@@ -57,12 +65,12 @@ function ChampionCard({ champion }) {
 								{regionIcon && (
 									<SafeImage
 										src={regionIcon.iconAbsolutePath}
-										alt={regionName}
-										className='w-8 h-8 flex-shrink-0'
+										alt={translatedRegion}
+										className='w-6 h-6 md:w-8 md:h-8 flex-shrink-0'
 									/>
 								)}
 								{/* Ẩn tên trên màn hình nhỏ, hiện từ md trở lên */}
-								<span className='hidden md:inline'>{regionName}</span>
+								<span className='hidden md:inline'>{translatedRegion}</span>
 							</div>
 						);
 					})}

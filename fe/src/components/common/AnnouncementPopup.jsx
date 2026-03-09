@@ -41,7 +41,7 @@ const AnnouncementPopup = () => {
 				{/* Nút đóng */}
 				<button
 					onClick={handleClose}
-					className='absolute top-3 right-3 text-text-secondary hover:text-text-primary transition-colors'
+					className='absolute top-3 right-3 text-text-secondary hover:text-text-primary  '
 				>
 					<X size={20} />
 				</button>

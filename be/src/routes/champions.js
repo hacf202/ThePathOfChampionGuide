@@ -80,10 +80,14 @@ router.get("/", async (req, res) => {
 		let filtered = [...allChampions];
 
 		if (searchTerm) {
-			const searchKey = removeAccents(searchTerm);
-			filtered = filtered.filter(c =>
-				removeAccents(c.name || "").includes(searchKey),
-			);
+			const searchKey = removeAccents(searchTerm.toLowerCase());
+			filtered = filtered.filter(c => {
+				const nameVn = removeAccents(c.name || "");
+				const nameEn = removeAccents(c.translations?.en?.name || "");
+
+				// CHỈ TÌM KIẾM THEO TÊN (Tiếng Việt hoặc Tiếng Anh)
+				return nameVn.includes(searchKey) || nameEn.includes(searchKey);
+			});
 		}
 
 		if (regions) {

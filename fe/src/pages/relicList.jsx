@@ -3,7 +3,7 @@ import React, { useState, useMemo, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePersistentState } from "../hooks/usePersistentState";
-import { useTranslation } from "../hooks/useTranslation"; // 🟢 Import Hook
+import { useTranslation } from "../hooks/useTranslation";
 import InputField from "../components/common/inputField";
 import MultiSelectFilter from "../components/common/multiSelectFilter";
 import DropdownFilter from "../components/common/dropdownFilter";
@@ -25,8 +25,8 @@ import SafeImage from "@/components/common/SafeImage";
 const ITEMS_PER_PAGE = 24;
 
 const RelicSkeleton = () => (
-	<div className='flex items-center gap-4 bg-surface-bg p-4 rounded-lg border border-border animate-pulse'>
-		<div className='w-16 h-16 bg-gray-700/50 rounded-md shrink-0' />
+	<div className='flex items-center gap-3 sm:gap-4 bg-surface-bg p-3 sm:p-4 rounded-lg border border-border animate-pulse'>
+		<div className='w-12 h-12 sm:w-16 sm:h-16 bg-gray-700/50 rounded-md shrink-0' />
 		<div className='flex-grow space-y-3'>
 			<div className='h-5 w-2/3 bg-gray-700/50 rounded' />
 			<div className='h-4 w-1/3 bg-gray-700/50 rounded' />
@@ -35,10 +35,10 @@ const RelicSkeleton = () => (
 );
 
 function RelicList() {
-	const { tUI, t } = useTranslation(); // 🟢 Khởi tạo Hook
+	const { tUI, t } = useTranslation();
 
-	// --- STATE ---
 	const [relics, setRelics] = useState([]);
+	const [knownRelics, setKnownRelics] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 	const [pagination, setPagination] = useState({
@@ -46,6 +46,7 @@ function RelicList() {
 		totalItems: 0,
 		currentPage: 1,
 	});
+
 	const [dynamicFilters, setDynamicFilters] = useState({
 		rarities: [],
 		types: [],
@@ -64,6 +65,7 @@ function RelicList() {
 		"relicsSelectedRarities",
 		[],
 	);
+
 	const [selectedTypes, setSelectedTypes] = usePersistentState(
 		"relicsSelectedTypes",
 		[],
@@ -72,6 +74,7 @@ function RelicList() {
 		"relicsSelectedStacks",
 		[],
 	);
+
 	const [sortOrder, setSortOrder] = usePersistentState(
 		"relicsSortOrder",
 		"name-asc",
@@ -80,16 +83,14 @@ function RelicList() {
 		"relicsCurrentPage",
 		1,
 	);
-	const [isFilterOpen, setIsFilterOpen] = usePersistentState(
-		"relicsIsFilterOpen",
-		false,
-	);
+
+	const [isFilterOpen, setIsFilterOpen] = useState(false);
+
 	const [showDesktopFilter, setShowDesktopFilter] = usePersistentState(
 		"relicsShowDesktopFilter",
 		true,
 	);
 
-	// --- LOGIC ĐIỀU HƯỚNG ---
 	const goToNextPage = useCallback(() => {
 		if (currentPage < pagination.totalPages && !loading) {
 			setCurrentPage(prev => prev + 1);
@@ -108,9 +109,8 @@ function RelicList() {
 		setSearchTerm(removeAccents(searchInput.trim()));
 		setCurrentPage(1);
 		if (window.innerWidth < 1024) setIsFilterOpen(false);
-	}, [searchInput, setSearchTerm, setCurrentPage, setIsFilterOpen]);
+	}, [searchInput, setSearchTerm, setCurrentPage]);
 
-	// --- LOGIC PHÍM TẮT ---
 	useEffect(() => {
 		const handleKeyDown = event => {
 			if (event.key === "Tab") {
@@ -124,14 +124,17 @@ function RelicList() {
 			) {
 				return;
 			}
-			if (event.key === "ArrowLeft") goToPrevPage();
-			else if (event.key === "ArrowRight") goToNextPage();
+			if (event.key === "ArrowLeft") {
+				goToPrevPage();
+			} else if (event.key === "ArrowRight") {
+				goToNextPage();
+			}
 		};
+
 		window.addEventListener("keydown", handleKeyDown);
 		return () => window.removeEventListener("keydown", handleKeyDown);
 	}, [goToPrevPage, goToNextPage, setShowDesktopFilter]);
 
-	// --- LOGIC FETCHING ---
 	const queryParams = useMemo(() => {
 		const params = new URLSearchParams();
 		params.append("page", currentPage);
@@ -162,13 +165,21 @@ function RelicList() {
 			if (!response.ok) throw new Error(tUI("common.errorLoadData"));
 			const data = await response.json();
 
-			setRelics(data.items || []);
+			const fetchedItems = data.items || [];
+			setRelics(fetchedItems);
+
+			setKnownRelics(prev => {
+				const map = new Map(prev.map(p => [p.relicCode || p.itemCode, p]));
+				fetchedItems.forEach(p => map.set(p.relicCode || p.itemCode, p));
+				return Array.from(map.values());
+			});
+
 			setPagination(data.pagination);
 			if (data.availableFilters) setDynamicFilters(data.availableFilters);
 		} catch (err) {
 			setError(err.message);
 		} finally {
-			setTimeout(() => setLoading(false), 500);
+			setTimeout(() => setLoading(false), 600);
 		}
 	}, [queryParams, tUI]);
 
@@ -176,19 +187,67 @@ function RelicList() {
 		fetchRelics();
 	}, [fetchRelics]);
 
-	// --- FILTER OPTIONS (Đa ngôn ngữ) ---
-	const filterOptions = useMemo(
-		() => ({
-			rarities: dynamicFilters.rarities.map(r => ({
-				value: r,
-				label: r,
-				iconComponent: <RarityIcon rarity={r} />,
-			})),
-			types: dynamicFilters.types.map(t => ({ value: t, label: t })),
-			stacks: dynamicFilters.stacks.map(s => ({
-				value: s,
-				label: tUI("relicList.stackLabel").replace("{{count}}", s),
-			})),
+	const getTranslatedRarity = useCallback(
+		(rawRarity, item) => {
+			if (!rawRarity) return "";
+
+			if (item) {
+				const dynTrans = t(item, "rarity");
+				if (dynTrans) {
+					return dynTrans;
+				}
+			}
+
+			return tUI(`relic.rarity.${rawRarity.toLowerCase()}`);
+		},
+		[tUI, t],
+	);
+
+	const filterOptions = useMemo(() => {
+		const uniqueRarities = Array.from(new Set(dynamicFilters.rarities || []));
+
+		const rawTypes =
+			dynamicFilters.types && dynamicFilters.types.length > 0
+				? dynamicFilters.types
+				: knownRelics.map(r => r.type).filter(Boolean);
+		const uniqueTypes = Array.from(new Set(rawTypes));
+
+		const rawStacks =
+			dynamicFilters.stacks && dynamicFilters.stacks.length > 0
+				? dynamicFilters.stacks
+				: knownRelics.map(r => r.stack).filter(Boolean);
+		const uniqueStacks = Array.from(new Set(rawStacks));
+
+		return {
+			rarities: uniqueRarities.map(r => {
+				const sampleRelic = knownRelics.find(relic => relic.rarity === r);
+				return {
+					value: r,
+					label: getTranslatedRarity(r, sampleRelic),
+					iconComponent: <RarityIcon rarity={r} />,
+				};
+			}),
+			types: uniqueTypes.map(t_val => {
+				const normalizedType =
+					typeof t_val === "string" ? t_val.toLowerCase() : "";
+
+				return {
+					value: t_val,
+					label: tUI(`relic.types.${normalizedType}`),
+				};
+			}),
+			stacks: uniqueStacks.map(s => {
+				const stackTemplate = tUI("relicList.stackLabel");
+				const labelStr =
+					stackTemplate !== "relicList.stackLabel"
+						? stackTemplate.replace("{{count}}", s)
+						: s;
+
+				return {
+					value: s,
+					label: labelStr,
+				};
+			}),
 			sort: [
 				{
 					value: "name-asc",
@@ -199,9 +258,8 @@ function RelicList() {
 					label: tUI("sort.nameDesc"),
 				},
 			],
-		}),
-		[dynamicFilters, tUI],
-	);
+		};
+	}, [dynamicFilters, knownRelics, tUI, getTranslatedRarity]);
 
 	const handleResetFilters = () => {
 		setSearchInput("");
@@ -245,11 +303,12 @@ function RelicList() {
 				</div>
 
 				<div className='flex flex-col lg:flex-row items-start'>
-					{/* --- MAIN CONTENT AREA --- */}
 					<div
-						className={`w-full transition-[flex] duration-300 ease-in-out ${showDesktopFilter ? "lg:flex-[3] xl:lg:flex-[4]" : "lg:flex-[1]"}`}
+						className={`w-full transition-[flex] duration-300 ease-in-out ${
+							showDesktopFilter ? "lg:flex-[3] xl:lg:flex-[4]" : "lg:flex-[1]"
+						}`}
 					>
-						<div className='bg-surface-bg rounded-lg border border-border p-2 sm:p-6 shadow-sm min-h-[500px] relative overflow-visible'>
+						<div className='bg-surface-bg rounded-lg border border-border p-1 sm:p-6 shadow-sm min-h-[500px] relative overflow-visible'>
 							<AnimatePresence mode='wait'>
 								{loading ? (
 									<motion.div
@@ -257,7 +316,7 @@ function RelicList() {
 										initial={{ opacity: 0 }}
 										animate={{ opacity: 1 }}
 										exit={{ opacity: 0 }}
-										className={`grid grid-cols-2 md:grid-cols-3 ${showDesktopFilter ? "xl:grid-cols-3" : "xl:grid-cols-4"} gap-4 sm:gap-6`}
+										className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ${showDesktopFilter ? "xl:grid-cols-3" : "xl:grid-cols-4"} gap-3 sm:gap-6`}
 									>
 										{[...Array(9)].map((_, i) => (
 											<RelicSkeleton key={i} />
@@ -274,37 +333,43 @@ function RelicList() {
 										{relics.length > 0 ? (
 											<>
 												<div
-													className={`grid grid-cols-2 md:grid-cols-3 ${showDesktopFilter ? "xl:grid-cols-3" : "xl:grid-cols-4"} gap-4 sm:gap-6`}
+													className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ${showDesktopFilter ? "xl:grid-cols-3" : "xl:grid-cols-4"} gap-3 sm:gap-6`}
 												>
 													{relics.map(relic => {
 														const relicName = t(relic, "name");
 														const relicDesc =
 															t(relic, "descriptionRaw") ||
 															t(relic, "description");
+														const relicRarityTranslated = getTranslatedRarity(
+															relic.rarity,
+															relic,
+														);
 
 														return (
-															<motion.div key={relic.relicCode} layout>
+															<motion.div
+																key={relic.relicCode || relic.itemCode}
+																layout
+															>
 																<Link
-																	to={`/relic/${encodeURIComponent(relic.relicCode)}`}
-																	className='group relative flex items-center gap-4 bg-surface-bg p-4 rounded-lg hover:bg-surface-hover transition border border-border hover:border-primary-500'
+																	to={`/relic/${encodeURIComponent(relic.relicCode || relic.itemCode)}`}
+																	className='group relative flex items-center gap-3 sm:gap-4 bg-surface-bg p-2 sm:p-4 rounded-lg transition border border-border hover:border-primary-500'
 																>
 																	<SafeImage
 																		src={relic.assetAbsolutePath}
 																		alt={relicName}
-																		className='w-16 h-16 object-cover rounded-md border shadow-sm group-hover:shadow-primary-md transition-all'
+																		className='w-12 h-12 sm:w-16 sm:h-16 shrink-0 object-cover rounded-md group transition-all'
 																	/>
 																	<div className='flex-grow overflow-hidden'>
-																		<h3 className='font-bold text-lg text-text-primary group-hover:text-primary-500 transition-colors truncate'>
+																		<h3 className='font-bold text-lg text-text-primary group-hover:text-primary-500   truncate'>
 																			{relicName}
 																		</h3>
 																		<div className='flex items-center gap-2 text-sm text-text-secondary'>
 																			<RarityIcon rarity={relic.rarity} />
 																			<span className='truncate'>
-																				{relic.rarity}
+																				{relicRarityTranslated}
 																			</span>
 																		</div>
 																	</div>
-																	{/* Tooltip Description */}
 																	<div className='absolute left-1/2 -translate-x-1/2 bottom-full mb-3 w-72 p-4 bg-gray-900/95 backdrop-blur-sm text-white text-xs rounded-xl shadow-2xl opacity-0 group-hover:opacity-100 transition-all duration-300 invisible group-hover:visible pointer-events-none z-50 border border-white/10'>
 																		<p className='whitespace-pre-wrap leading-relaxed'>
 																			{relicDesc}
@@ -317,7 +382,6 @@ function RelicList() {
 													})}
 												</div>
 
-												{/* PHÂN TRANG */}
 												<div className='mt-8 flex justify-center items-center gap-4 border-t border-border pt-4'>
 													<Button
 														onClick={goToPrevPage}
@@ -361,18 +425,32 @@ function RelicList() {
 						</div>
 					</div>
 
-					{/* --- BỘ LỌC DESKTOP --- */}
 					<AnimatePresence initial={false}>
 						{showDesktopFilter && (
 							<motion.aside
 								key='desktop-filter'
-								initial={{ width: 0, opacity: 0, marginLeft: 0 }}
-								animate={{ width: "auto", opacity: 1, marginLeft: "2rem" }}
-								exit={{ width: 0, opacity: 0, marginLeft: 0 }}
+								initial={{
+									width: 0,
+									opacity: 0,
+									marginLeft: 0,
+									overflow: "hidden",
+								}}
+								animate={{
+									width: "auto",
+									opacity: 1,
+									marginLeft: "2rem",
+									overflow: "visible",
+								}}
+								exit={{
+									width: 0,
+									opacity: 0,
+									marginLeft: 0,
+									overflow: "hidden",
+								}}
 								transition={{ duration: 0.3, ease: "easeInOut" }}
-								className='hidden lg:block sticky top-24 h-fit overflow-hidden'
+								className='hidden lg:block sticky top-24 h-fit z-40'
 							>
-								<div className='w-[280px] xl:w-[320px] p-4 rounded-lg border border-border bg-surface-bg space-y-4 shadow-sm'>
+								<div className='w-[280px] xl:w-[320px] p-4 rounded-lg border border-border bg-surface-bg space-y-4 shadow-sm relative'>
 									<label className='block text-sm font-medium text-text-secondary'>
 										{tUI("relicList.searchLabel")}
 									</label>
@@ -388,24 +466,32 @@ function RelicList() {
 									>
 										<Search size={16} className='mr-2' /> {tUI("common.search")}
 									</Button>
+
 									<MultiSelectFilter
 										label={tUI("common.rarity")}
 										options={filterOptions.rarities}
 										selectedValues={selectedRarities}
 										onChange={setSelectedRarities}
 									/>
-									<MultiSelectFilter
-										label={tUI("common.type")}
-										options={filterOptions.types}
-										selectedValues={selectedTypes}
-										onChange={setSelectedTypes}
-									/>
-									<MultiSelectFilter
-										label={tUI("common.stacks")}
-										options={filterOptions.stacks}
-										selectedValues={selectedStacks}
-										onChange={setSelectedStacks}
-									/>
+
+									{filterOptions.types.length > 0 && (
+										<MultiSelectFilter
+											label={tUI("common.type")}
+											options={filterOptions.types}
+											selectedValues={selectedTypes}
+											onChange={setSelectedTypes}
+										/>
+									)}
+
+									{filterOptions.stacks.length > 0 && (
+										<MultiSelectFilter
+											label={tUI("common.stack")}
+											options={filterOptions.stacks}
+											selectedValues={selectedStacks}
+											onChange={setSelectedStacks}
+										/>
+									)}
+
 									<DropdownFilter
 										label={tUI("championList.sortBy")}
 										options={filterOptions.sort}
@@ -425,8 +511,7 @@ function RelicList() {
 						)}
 					</AnimatePresence>
 
-					{/* --- BỘ LỌC MOBILE --- */}
-					<div className='lg:hidden w-full p-2 mb-4 rounded-lg border border-border bg-surface-bg shadow-sm order-first'>
+					<div className='lg:hidden w-full p-2 mb-4 rounded-lg border border-border bg-surface-bg shadow-sm order-first relative z-40'>
 						<div className='flex items-center gap-2'>
 							<div className='flex-1 relative min-w-0'>
 								<InputField
@@ -461,10 +546,11 @@ function RelicList() {
 						<AnimatePresence>
 							{isFilterOpen && (
 								<motion.div
-									initial={{ height: 0, opacity: 0 }}
-									animate={{ height: "auto", opacity: 1 }}
-									exit={{ height: 0, opacity: 0 }}
-									className='overflow-hidden'
+									initial={{ height: 0, opacity: 0, overflow: "hidden" }}
+									animate={{ height: "auto", opacity: 1, overflow: "visible" }}
+									exit={{ height: 0, opacity: 0, overflow: "hidden" }}
+									transition={{ duration: 0.3 }}
+									className='relative z-40'
 								>
 									<div className='pt-4 space-y-4 border-t border-border mt-3'>
 										<MultiSelectFilter
@@ -473,18 +559,25 @@ function RelicList() {
 											selectedValues={selectedRarities}
 											onChange={setSelectedRarities}
 										/>
-										<MultiSelectFilter
-											label={tUI("common.type")}
-											options={filterOptions.types}
-											selectedValues={selectedTypes}
-											onChange={setSelectedTypes}
-										/>
-										<MultiSelectFilter
-											label={tUI("common.stacks")}
-											options={filterOptions.stacks}
-											selectedValues={selectedStacks}
-											onChange={setSelectedStacks}
-										/>
+
+										{filterOptions.types.length > 0 && (
+											<MultiSelectFilter
+												label={tUI("common.type")}
+												options={filterOptions.types}
+												selectedValues={selectedTypes}
+												onChange={setSelectedTypes}
+											/>
+										)}
+
+										{filterOptions.stacks.length > 0 && (
+											<MultiSelectFilter
+												label={tUI("common.stack")}
+												options={filterOptions.stacks}
+												selectedValues={selectedStacks}
+												onChange={setSelectedStacks}
+											/>
+										)}
+
 										<DropdownFilter
 											label={tUI("championList.sortBy")}
 											options={filterOptions.sort}

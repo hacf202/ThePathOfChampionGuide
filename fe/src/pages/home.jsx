@@ -141,7 +141,7 @@ const Home = () => {
 					</div>
 					<NavLink
 						to='/champions'
-						className='flex items-center gap-2 text-primary-400 hover:text-primary-300 transition-colors font-bold text-lg underline underline-offset-8'
+						className='flex items-center gap-2 text-primary-400 hover:text-primary-300   font-bold text-lg underline underline-offset-8'
 					>
 						{tUI("home.viewAllChamps")} <ChevronRight className='w-5 h-5' />
 					</NavLink>
@@ -206,7 +206,7 @@ const Home = () => {
 				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
 					<NavLink
 						to='/items'
-						className='group bg-white/5 hover:bg-white/10 p-6 rounded-3xl border border-white/10 transition-colors flex items-center gap-6'
+						className='group bg-white/5 hover:bg-white/10 p-6 rounded-3xl border border-white/10   flex items-center gap-6'
 					>
 						<div className='p-4 bg-orange-500/20 text-orange-400 rounded-2xl group-hover:scale-110 transition-transform'>
 							<Package className='w-8 h-8' />
@@ -216,7 +216,7 @@ const Home = () => {
 
 					<NavLink
 						to='/relics'
-						className='group bg-white/5 hover:bg-white/10 p-6 rounded-3xl border border-white/10 transition-colors flex items-center gap-6'
+						className='group bg-white/5 hover:bg-white/10 p-6 rounded-3xl border border-white/10   flex items-center gap-6'
 					>
 						<div className='p-4 bg-cyan-500/20 text-cyan-400 rounded-2xl group-hover:scale-110 transition-transform'>
 							<Sparkles className='w-8 h-8' />
@@ -228,7 +228,7 @@ const Home = () => {
 
 					<NavLink
 						to='/powers'
-						className='group bg-white/5 hover:bg-white/10 p-6 rounded-3xl border border-white/10 transition-colors flex items-center gap-6'
+						className='group bg-white/5 hover:bg-white/10 p-6 rounded-3xl border border-white/10   flex items-center gap-6'
 					>
 						<div className='p-4 bg-yellow-500/20 text-yellow-400 rounded-2xl group-hover:scale-110 transition-transform'>
 							<Zap className='w-8 h-8' />
@@ -240,7 +240,7 @@ const Home = () => {
 
 					<NavLink
 						to='/runes'
-						className='group bg-white/5 hover:bg-white/10 p-6 rounded-3xl border border-white/10 transition-colors flex items-center gap-6'
+						className='group bg-white/5 hover:bg-white/10 p-6 rounded-3xl border border-white/10   flex items-center gap-6'
 					>
 						<div className='p-4 bg-pink-500/20 text-pink-400 rounded-2xl group-hover:scale-110 transition-transform'>
 							<Gem className='w-8 h-8' />
@@ -250,7 +250,7 @@ const Home = () => {
 
 					<NavLink
 						to='/maps'
-						className='group bg-white/5 hover:bg-white/10 p-6 rounded-3xl border border-white/10 transition-colors flex items-center gap-6'
+						className='group bg-white/5 hover:bg-white/10 p-6 rounded-3xl border border-white/10   flex items-center gap-6'
 					>
 						<div className='p-4 bg-green-500/20 text-green-400 rounded-2xl group-hover:scale-110 transition-transform'>
 							<Map className='w-8 h-8' />
@@ -260,7 +260,7 @@ const Home = () => {
 
 					<NavLink
 						to='/introduction'
-						className='group bg-white/5 hover:bg-white/10 p-6 rounded-3xl border border-white/10 transition-colors flex items-center gap-6'
+						className='group bg-white/5 hover:bg-white/10 p-6 rounded-3xl border border-white/10   flex items-center gap-6'
 					>
 						<div className='p-4 bg-blue-500/20 text-blue-400 rounded-2xl group-hover:scale-110 transition-transform'>
 							<BookOpen className='w-8 h-8' />

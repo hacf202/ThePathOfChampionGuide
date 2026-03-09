@@ -81,10 +81,13 @@ function RuneDetail() {
 		if (runeCode) fetchData();
 	}, [runeCode, apiUrl, tUI]);
 
-	// 🟢 Xử lý Tên và Mô tả đa ngôn ngữ của Ngọc
+	// 🟢 Xử lý Tên, Mô tả và Độ hiếm đa ngôn ngữ của Ngọc
 	const runeName = rune ? tDynamic(rune, "name") : "";
 	const runeDesc = rune
 		? tDynamic(rune, "description") || tDynamic(rune, "descriptionRaw")
+		: "";
+	const runeRarity = rune?.rarity
+		? tDynamic(rune, "rarity") || tUI(rune.rarity) || rune.rarity
 		: "";
 
 	const compatibleChampions = useMemo(() => {
@@ -158,6 +161,11 @@ function RuneDetail() {
 								<div className='flex-1 flex flex-col'>
 									<div className='flex flex-col border border-border sm:flex-row sm:justify-between rounded-lg p-2 text-2xl sm:text-4xl font-bold m-1 bg-surface-bg shadow-sm'>
 										<h1 className='font-primary'>{runeName}</h1>
+										{runeRarity && (
+											<h1 className='font-primary text-primary-500 uppercase'>
+												{runeRarity}
+											</h1>
+										)}
 									</div>
 									{runeDesc && (
 										<div className='flex-1 mt-4'>

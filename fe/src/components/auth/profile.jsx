@@ -201,7 +201,7 @@ const Profile = () => {
 											</span>
 											<button
 												onClick={() => setIsEditingName(true)}
-												className='text-text-secondary hover:text-primary-500 transition-colors p-2 rounded-md hover:bg-surface-bg'
+												className='text-text-secondary hover:text-primary-500   p-2 rounded-md hover:bg-surface-bg'
 											>
 												<Pencil size={16} />
 											</button>

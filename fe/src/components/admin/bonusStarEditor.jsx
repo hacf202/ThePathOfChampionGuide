@@ -270,13 +270,21 @@ function BonusStarEditor() {
 		if (searchTerm) {
 			const term = removeAccents(searchTerm.toLowerCase());
 			result = result.filter(i => {
-				const nameMatch = removeAccents(
-					tDynamic(i, "name").toLowerCase(),
-				).includes(term);
-				const descMatch = removeAccents(
-					(tDynamic(i, "description") || "").toLowerCase(),
-				).includes(term);
-				return nameMatch || descMatch;
+				const nameVi = removeAccents((i.name || "").toLowerCase());
+				const descVi = removeAccents((i.description || "").toLowerCase());
+				const nameEn = removeAccents(
+					(i.translations?.en?.name || "").toLowerCase(),
+				);
+				const descEn = removeAccents(
+					(i.translations?.en?.description || "").toLowerCase(),
+				);
+
+				return (
+					nameVi.includes(term) ||
+					descVi.includes(term) ||
+					nameEn.includes(term) ||
+					descEn.includes(term)
+				);
 			});
 		}
 		if (selectedTypes.length) {
@@ -298,6 +306,18 @@ function BonusStarEditor() {
 		resetLabel: tUI("admin.bonusStar.resetLabel"),
 		searchInput,
 		onSearchInputChange: e => setSearchInput(e.target.value),
+		onSearchKeyDown: e => {
+			if (e.key === "Enter") {
+				setSearchTerm(searchInput.trim());
+				setCurrentPage(1);
+			}
+		},
+		onKeyDown: e => {
+			if (e.key === "Enter") {
+				setSearchTerm(searchInput.trim());
+				setCurrentPage(1);
+			}
+		},
 		onSearch: () => {
 			setSearchTerm(searchInput.trim());
 			setCurrentPage(1);

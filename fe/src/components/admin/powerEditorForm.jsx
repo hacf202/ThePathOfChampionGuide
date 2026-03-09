@@ -61,7 +61,7 @@ const ArrayInputComponent = ({
 							<button
 								type='button'
 								onClick={() => handleRemoveItem(index)}
-								className='p-2 text-red-500 hover:bg-red-500/10 rounded-md transition-colors font-bold'
+								className='p-2 text-red-500 hover:bg-red-500/10 rounded-md   font-bold'
 								title='Xóa'
 							>
 								X

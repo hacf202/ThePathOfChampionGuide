@@ -102,10 +102,7 @@ const GuideList = () => {
 					</thead>
 					<tbody className='divide-y divide-border'>
 						{filteredGuides.map(guide => (
-							<tr
-								key={guide._id}
-								className='hover:bg-surface-hover/30 transition-colors'
-							>
+							<tr key={guide._id} className='hover:bg-surface-hover/30  '>
 								<td className='px-6 py-4 font-medium text-text-primary'>
 									{t(guide, "title")}
 								</td>

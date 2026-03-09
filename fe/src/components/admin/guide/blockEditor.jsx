@@ -139,7 +139,7 @@ const BlockItem = ({ block, index, onUpdate, onDelete, referenceData }) => {
 					<div className='flex items-start'>
 						<div
 							{...provided.dragHandleProps}
-							className='p-3 text-text-secondary/40 hover:text-text-primary transition-colors'
+							className='p-3 text-text-secondary/40 hover:text-text-primary  '
 						>
 							<GripVertical size={20} />
 						</div>

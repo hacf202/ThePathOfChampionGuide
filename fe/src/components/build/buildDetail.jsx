@@ -273,7 +273,7 @@ const BuildDetail = () => {
 		const itemDesc = tDynamic(item, "description");
 
 		return (
-			<div className='flex items-start gap-4 p-3 bg-surface-hover rounded-md border border-border h-full hover:border-primary-500 transition-colors'>
+			<div className='flex items-start gap-4 p-3 bg-surface-hover rounded-md border border-border h-full hover:border-primary-500  '>
 				<SafeImage
 					src={imgSrc}
 					alt={itemName}
@@ -396,7 +396,7 @@ const BuildDetail = () => {
 										<button
 											onClick={handleLike}
 											disabled={isLiked}
-											className={`flex items-center gap-1.5 p-2 rounded-lg transition-colors ${isLiked ? "text-primary-500" : "text-text-secondary hover:bg-surface-hover"}`}
+											className={`flex items-center gap-1.5 p-2 rounded-lg   ${isLiked ? "text-primary-500" : "text-text-secondary hover:bg-surface-hover"}`}
 										>
 											<ThumbsUp
 												size={22}
@@ -406,7 +406,7 @@ const BuildDetail = () => {
 										</button>
 										<button
 											onClick={handleToggleFavorite}
-											className={`p-2 rounded-full transition-colors ${isFavorite ? "text-danger-500" : "text-text-secondary hover:bg-surface-hover"}`}
+											className={`p-2 rounded-full   ${isFavorite ? "text-danger-500" : "text-text-secondary hover:bg-surface-hover"}`}
 										>
 											<Heart
 												size={22}

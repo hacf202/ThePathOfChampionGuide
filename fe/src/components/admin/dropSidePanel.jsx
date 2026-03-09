@@ -229,7 +229,7 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 								setActiveTab(tab.id);
 								handleReset();
 							}}
-							className={`flex-1 flex items-center justify-center gap-1 py-3 px-2 text-sm font-medium transition-colors min-w-[80px]
+							className={`flex-1 flex items-center justify-center gap-1 py-3 px-2 text-sm font-medium   min-w-[80px]
 								${
 									activeTab === tab.id
 										? "text-primary-500 border-b-2 border-primary-500 bg-primary-500/5"
@@ -253,7 +253,7 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 						{searchInput ? (
 							<button
 								onClick={() => setSearchInput("")}
-								className='absolute right-2 top-1/2 -translate-y-1/2 text-text-secondary hover:text-red-500 transition-colors p-1'
+								className='absolute right-2 top-1/2 -translate-y-1/2 text-text-secondary hover:text-red-500   p-1'
 							>
 								<X size={16} />
 							</button>

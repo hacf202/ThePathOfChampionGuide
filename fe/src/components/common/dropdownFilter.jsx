@@ -52,7 +52,7 @@ function DropdownFilter({
 				type='button'
 				onClick={() => setIsOpen(!isOpen)}
 				className='w-full flex justify-between items-center p-2 bg-input-bg text-input-text rounded-md border border-input-border
-        text-left transition-colors duration-200 cursor-pointer
+        text-left   duration-200 cursor-pointer
         focus:outline-none focus:ring-0 focus:border-input-focus-border
         hover:border-input-focus-border'
 			>

@@ -89,7 +89,7 @@ function ChampionList() {
 	);
 	const [showDesktopFilter, setShowDesktopFilter] = usePersistentState(
 		"championsShowDesktopFilter",
-		false,
+		true, // Đổi mặc định show filter ra cho dễ nhìn
 	);
 
 	const goToNextPage = useCallback(() => {
@@ -190,11 +190,16 @@ function ChampionList() {
 
 	const filterOptions = useMemo(
 		() => ({
-			regions: dynamicFilters.regions.map(r => ({
-				value: r,
-				label: r,
-				iconUrl: iconRegions.find(i => i.name === r)?.iconAbsolutePath,
-			})),
+			regions: dynamicFilters.regions.map(r => {
+				// Xóa dấu cách, ký tự đặc biệt và chuyển thành chữ thường để tạo key
+				// VD: "Piltover & Zaun" -> "piltoverzaun", "Freljord" -> "freljord"
+				const regionKey = r.toLowerCase().replace(/[^a-z0-9]/g, "");
+				return {
+					value: r,
+					label: tUI(`region.${regionKey}`) || r,
+					iconUrl: iconRegions.find(i => i.name === r)?.iconAbsolutePath,
+				};
+			}),
 			costs: dynamicFilters.costs.map(c => ({
 				value: c,
 				label: `${c} ${tUI("championList.cost")}`,
@@ -259,10 +264,11 @@ function ChampionList() {
 				</div>
 
 				<div className='flex flex-col lg:flex-row items-start'>
+					{/* Khu vực danh sách tướng */}
 					<div
 						className={`w-full transition-[flex] duration-300 ease-in-out ${showDesktopFilter ? "lg:flex-[3]" : "lg:flex-[1]"}`}
 					>
-						<div className='bg-surface-bg rounded-lg border border-border p-2 sm:p-4 shadow-sm min-h-[500px] relative overflow-hidden'>
+						<div className='bg-surface-bg rounded-lg border border-border p-2 sm:p-4 shadow-sm min-h-[500px] relative overflow-visible'>
 							<AnimatePresence mode='wait'>
 								{loading ? (
 									<motion.div
@@ -306,6 +312,7 @@ function ChampionList() {
 														disabled={currentPage === 1}
 														variant='outline'
 													>
+														<ChevronLeft size={16} className='mr-2' />
 														{tUI("common.prevPage")}
 													</Button>
 													<span className='font-bold text-primary-500 bg-primary-100/10 px-3 py-1 rounded-full'>
@@ -317,6 +324,7 @@ function ChampionList() {
 														variant='outline'
 													>
 														{tUI("common.nextPage")}
+														<ChevronRight size={16} className='ml-2' />
 													</Button>
 												</div>
 											</>
@@ -335,17 +343,33 @@ function ChampionList() {
 						</div>
 					</div>
 
+					{/* --- ASIDE (Bộ lọc Desktop) --- */}
 					<AnimatePresence initial={false}>
 						{showDesktopFilter && (
 							<motion.aside
 								key='desktop-filter'
-								initial={{ width: 0, opacity: 0, marginLeft: 0 }}
-								animate={{ width: "auto", opacity: 1, marginLeft: "2rem" }}
-								exit={{ width: 0, opacity: 0, marginLeft: 0 }}
+								initial={{
+									width: 0,
+									opacity: 0,
+									marginLeft: 0,
+									overflow: "hidden",
+								}}
+								animate={{
+									width: "auto",
+									opacity: 1,
+									marginLeft: "2rem",
+									transitionEnd: { overflow: "visible" },
+								}}
+								exit={{
+									width: 0,
+									opacity: 0,
+									marginLeft: 0,
+									overflow: "hidden",
+								}}
 								transition={{ duration: 0.3, ease: "easeInOut" }}
-								className='hidden lg:block sticky top-24 h-fit overflow-hidden'
+								className='hidden lg:block sticky top-24 h-fit z-40'
 							>
-								<div className='w-[280px] xl:w-[320px] p-4 rounded-lg border border-border bg-surface-bg space-y-4 shadow-sm'>
+								<div className='w-[280px] xl:w-[320px] p-4 rounded-lg border border-border bg-surface-bg space-y-4 shadow-sm relative'>
 									<label className='block text-sm font-medium text-text-secondary'>
 										{tUI("championList.searchLabel")}
 									</label>
@@ -361,30 +385,35 @@ function ChampionList() {
 									>
 										<Search size={16} className='mr-2' /> {tUI("common.search")}
 									</Button>
+
 									<MultiSelectFilter
 										label={tUI("championList.region")}
 										options={filterOptions.regions}
 										selectedValues={selectedRegions}
 										onChange={setSelectedRegions}
 									/>
+
 									<MultiSelectFilter
 										label={tUI("championList.cost")}
 										options={filterOptions.costs}
 										selectedValues={selectedCosts}
 										onChange={setSelectedCosts}
 									/>
+
 									<MultiSelectFilter
 										label={tUI("championList.maxStars")}
 										options={filterOptions.maxStars}
 										selectedValues={selectedMaxStars}
 										onChange={setSelectedMaxStars}
 									/>
+
 									<MultiSelectFilter
 										label={tUI("championList.tags")}
 										options={filterOptions.tags}
 										selectedValues={selectedTags}
 										onChange={setSelectedTags}
 									/>
+
 									<DropdownFilter
 										label={tUI("championList.sortBy")}
 										options={filterOptions.sort}
@@ -404,8 +433,8 @@ function ChampionList() {
 						)}
 					</AnimatePresence>
 
-					{/* --- MOBILE FILTER --- */}
-					<div className='lg:hidden w-full p-2 mb-4 rounded-lg border border-border bg-surface-bg shadow-sm order-first'>
+					{/* --- BỘ LỌC MOBILE --- */}
+					<div className='lg:hidden w-full p-2 mb-4 rounded-lg border border-border bg-surface-bg shadow-sm order-first relative z-40'>
 						<div className='flex items-center gap-2'>
 							<div className='flex-1 relative min-w-0'>
 								<InputField
@@ -440,10 +469,13 @@ function ChampionList() {
 						<AnimatePresence>
 							{isFilterOpen && (
 								<motion.div
-									initial={{ height: 0, opacity: 0 }}
-									animate={{ height: "auto", opacity: 1 }}
-									exit={{ height: 0, opacity: 0 }}
-									className='overflow-hidden'
+									initial={{ height: 0, opacity: 0, overflow: "hidden" }}
+									animate={{
+										height: "auto",
+										opacity: 1,
+										transitionEnd: { overflow: "visible" },
+									}}
+									exit={{ height: 0, opacity: 0, overflow: "hidden" }}
 								>
 									<div className='pt-4 space-y-4 border-t border-border mt-3'>
 										<MultiSelectFilter

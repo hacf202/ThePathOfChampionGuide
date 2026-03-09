@@ -6,7 +6,6 @@ import Button from "../common/button";
 import BuildCard from "./buildCard";
 import BuildEditorForm from "./buildEditorForm";
 import MultiSelectFilter from "../common/multiSelectFilter";
-import InputField from "../common/inputField";
 import DropdownFilter from "../common/dropdownFilter";
 import { Loader2, Search, XCircle, RotateCw } from "lucide-react";
 import { useTranslation } from "../../hooks/useTranslation"; // IMPORT HOOK
@@ -16,10 +15,15 @@ const ITEMS_PER_PAGE = 12;
 // === COMPONENT MAIN ===
 function BuildEditor() {
 	const [items, setItems] = useState([]);
+	const [pagination, setPagination] = useState({
+		totalPages: 1,
+		totalItems: 0,
+		currentPage: 1,
+	});
 	const [searchInput, setSearchInput] = useState("");
 	const [searchTerm, setSearchTerm] = useState("");
 	const [selectedStars, setSelectedStars] = useState([]);
-	const [sortOrder, setSortOrder] = useState("newest");
+	const [sortOrder, setSortOrder] = useState("createdAt-desc");
 	const [currentPage, setCurrentPage] = useState(1);
 	const [isLoading, setIsLoading] = useState(true);
 	const [isSaving, setIsSaving] = useState(false);
@@ -29,106 +33,88 @@ function BuildEditor() {
 	const navigate = useNavigate();
 	const { tUI } = useTranslation();
 
-	// Đưa SORT_OPTIONS và STAR_LEVEL_OPTIONS vào trong component để dùng tUI
 	const SORT_OPTIONS = useMemo(
 		() => [
-			{ value: "newest", label: tUI("admin.build.sort.newest") },
-			{ value: "oldest", label: tUI("admin.build.sort.oldest") },
-			{ value: "likes_desc", label: tUI("admin.build.sort.likesDesc") },
-			{ value: "likes_asc", label: tUI("admin.build.sort.likesAsc") },
-			{ value: "views_desc", label: tUI("admin.build.sort.viewsDesc") },
-			{ value: "views_asc", label: tUI("admin.build.sort.viewsAsc") },
+			{
+				value: "createdAt-desc",
+				label: tUI("admin.build.sort.newest") || "Mới nhất",
+			},
+			{
+				value: "createdAt-asc",
+				label: tUI("admin.build.sort.oldest") || "Cũ nhất",
+			},
+			{
+				value: "likes-desc",
+				label: tUI("admin.build.sort.likesDesc") || "Nhiều Like",
+			},
+			{
+				value: "likes-asc",
+				label: tUI("admin.build.sort.likesAsc") || "Ít Like",
+			},
+			{
+				value: "views-desc",
+				label: tUI("admin.build.sort.viewsDesc") || "Nhiều View",
+			},
+			{
+				value: "views-asc",
+				label: tUI("admin.build.sort.viewsAsc") || "Ít View",
+			},
 		],
 		[tUI],
 	);
 
 	const STAR_LEVEL_OPTIONS = useMemo(
 		() => [
-			{ value: "1", label: `1 ${tUI("admin.build.star")}` },
-			{ value: "2", label: `2 ${tUI("admin.build.star")}` },
-			{ value: "3", label: `3 ${tUI("admin.build.star")}` },
-			{ value: "4", label: `4 ${tUI("admin.build.star")}` },
-			{ value: "5", label: `5 ${tUI("admin.build.star")}` },
-			{ value: "6", label: `6 ${tUI("admin.build.star")}` },
+			{ value: "1", label: `1 ${tUI("admin.build.star") || "Sao"}` },
+			{ value: "2", label: `2 ${tUI("admin.build.star") || "Sao"}` },
+			{ value: "3", label: `3 ${tUI("admin.build.star") || "Sao"}` },
+			{ value: "4", label: `4 ${tUI("admin.build.star") || "Sao"}` },
+			{ value: "5", label: `5 ${tUI("admin.build.star") || "Sao"}` },
+			{ value: "6", label: `6 ${tUI("admin.build.star") || "Sao"}` },
 		],
 		[tUI],
 	);
 
-	// Lấy dữ liệu
+	const queryParams = useMemo(() => {
+		const params = new URLSearchParams();
+		params.append("page", currentPage);
+		params.append("limit", ITEMS_PER_PAGE);
+		params.append("sort", sortOrder);
+		if (searchTerm) params.append("searchTerm", searchTerm);
+		if (selectedStars.length > 0)
+			params.append("stars", selectedStars.join(","));
+		return params.toString();
+	}, [currentPage, searchTerm, selectedStars, sortOrder]);
+
+	// Fetch Data with Server-Side Filtering
 	const fetchAllData = useCallback(async () => {
 		try {
 			setIsLoading(true);
 			const token = localStorage.getItem("token");
-			const res = await fetch(`${API_BASE_URL}/api/admin/builds`, {
-				headers: {
-					Authorization: `Bearer ${token}`,
+			const res = await fetch(
+				`${API_BASE_URL}/api/admin/builds?${queryParams}`,
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
 				},
-			});
+			);
 			if (!res.ok) throw new Error(tUI("admin.common.errorLoad"));
 			const data = await res.json();
-			setItems(Array.isArray(data) ? data : data.items || []);
+			setItems(data.items || []);
+			if (data.pagination) {
+				setPagination(data.pagination);
+			}
 		} catch (e) {
 			setError(e.message || tUI("admin.common.errorLoad"));
 		} finally {
 			setIsLoading(false);
 		}
-	}, [API_BASE_URL, tUI]);
+	}, [API_BASE_URL, queryParams, tUI]);
 
 	useEffect(() => {
 		fetchAllData();
 	}, [fetchAllData]);
-
-	// Lọc & Sắp xếp dữ liệu
-	const filteredItems = useMemo(() => {
-		let result = [...items];
-
-		// Tìm kiếm theo tên tướng / người tạo
-		if (searchTerm) {
-			const term = searchTerm.toLowerCase();
-			result = result.filter(
-				i =>
-					(i.championName || "").toLowerCase().includes(term) ||
-					(i.creator || "").toLowerCase().includes(term),
-			);
-		}
-
-		// Lọc theo sao
-		if (selectedStars.length > 0) {
-			result = result.filter(i => selectedStars.includes(String(i.star)));
-		}
-
-		// Sắp xếp
-		result.sort((a, b) => {
-			if (sortOrder === "newest") {
-				return new Date(b.createdAt) - new Date(a.createdAt);
-			}
-			if (sortOrder === "oldest") {
-				return new Date(a.createdAt) - new Date(b.createdAt);
-			}
-			if (sortOrder === "likes_desc") {
-				return (b.like || 0) - (a.like || 0);
-			}
-			if (sortOrder === "likes_asc") {
-				return (a.like || 0) - (b.like || 0);
-			}
-			if (sortOrder === "views_desc") {
-				return (b.views || 0) - (a.views || 0);
-			}
-			if (sortOrder === "views_asc") {
-				return (a.views || 0) - (b.views || 0);
-			}
-			return 0;
-		});
-
-		return result;
-	}, [items, searchTerm, selectedStars, sortOrder]);
-
-	// Phân trang
-	const totalPages = Math.ceil(filteredItems.length / ITEMS_PER_PAGE);
-	const paginatedItems = filteredItems.slice(
-		(currentPage - 1) * ITEMS_PER_PAGE,
-		currentPage * ITEMS_PER_PAGE,
-	);
 
 	// Handlers
 	const handleSaveItem = async data => {
@@ -181,11 +167,11 @@ function BuildEditor() {
 		setSearchInput("");
 		setSearchTerm("");
 		setSelectedStars([]);
-		setSortOrder("newest");
+		setSortOrder("createdAt-desc");
 		setCurrentPage(1);
 	};
 
-	if (isLoading) {
+	if (isLoading && items.length === 0) {
 		return (
 			<div className='flex flex-col items-center justify-center min-h-[400px] text-[var(--color-text-secondary)]'>
 				<Loader2
@@ -197,7 +183,7 @@ function BuildEditor() {
 		);
 	}
 
-	if (error) {
+	if (error && items.length === 0) {
 		return <div className='text-center p-10 text-red-500'>{error}</div>;
 	}
 
@@ -245,7 +231,7 @@ function BuildEditor() {
 														setCurrentPage(1);
 													}
 												}}
-												className='w-full pl-10 pr-10 py-2.5 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-sm text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-primary)] transition-colors'
+												className='w-full pl-10 pr-10 py-2.5 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-sm text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-primary)]'
 											/>
 											<Search
 												className='absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-text-secondary)]'
@@ -295,10 +281,17 @@ function BuildEditor() {
 							</div>
 
 							{/* Danh sách thẻ */}
-							<div className='lg:w-3/4 flex flex-col'>
-								{paginatedItems.length > 0 ? (
+							<div className='lg:w-3/4 flex flex-col relative'>
+								{/* Overlay Loading khi chuyển trang/lọc */}
+								{isLoading && items.length > 0 && (
+									<div className='absolute inset-0 bg-black/20 z-10 flex items-center justify-center rounded-lg backdrop-blur-sm'>
+										<Loader2 className='animate-spin text-white' size={48} />
+									</div>
+								)}
+
+								{items.length > 0 ? (
 									<div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5'>
-										{paginatedItems.map(item => (
+										{items.map(item => (
 											<Link
 												key={item.id}
 												to={`./${item.id}`}
@@ -317,23 +310,25 @@ function BuildEditor() {
 									</div>
 								)}
 
-								{/* Phân trang */}
-								{totalPages > 1 && (
+								{/* Phân trang API */}
+								{pagination.totalPages > 1 && (
 									<div className='mt-8 flex justify-center items-center gap-4 bg-[var(--color-surface)] py-3 px-6 rounded-full border border-[var(--color-border)] self-center'>
 										<Button
 											onClick={() => setCurrentPage(p => p - 1)}
-											disabled={currentPage === 1}
+											disabled={currentPage === 1 || isLoading}
 											variant='outline'
 											className='rounded-full px-6'
 										>
 											{tUI("admin.common.prevPage")}
 										</Button>
 										<span className='font-bold text-[var(--color-text-primary)]'>
-											{currentPage} / {totalPages}
+											{currentPage} / {pagination.totalPages}
 										</span>
 										<Button
 											onClick={() => setCurrentPage(p => p + 1)}
-											disabled={currentPage === totalPages}
+											disabled={
+												currentPage === pagination.totalPages || isLoading
+											}
 											variant='outline'
 											className='rounded-full px-6'
 										>
@@ -378,8 +373,39 @@ const BuildEditWrapper = ({ items, onSave, onDelete, isSaving }) => {
 		title: "",
 	});
 
-	const buildToEdit = useMemo(() => {
-		return items.find(i => i.id === id);
+	const [localBuild, setLocalBuild] = useState(null);
+	const [isLoadingSingle, setIsLoadingSingle] = useState(false);
+
+	// Nếu user refresh trang trực tiếp ở đường dẫn /admin/builds/:id,
+	// state `items` của Parent có thể chưa kịp load hoặc item nằm ở trang khác.
+	// Component sẽ gọi phụ một API fetch bằng searchTerm = id để kéo lại đúng item đó.
+	useEffect(() => {
+		const found = items.find(i => i.id === id);
+		if (found) {
+			setLocalBuild(found);
+		} else {
+			const fetchSingle = async () => {
+				setIsLoadingSingle(true);
+				try {
+					const token = localStorage.getItem("token");
+					const res = await fetch(
+						`${import.meta.env.VITE_API_URL}/api/admin/builds?searchTerm=${id}`,
+						{
+							headers: { Authorization: `Bearer ${token}` },
+						},
+					);
+					const data = await res.json();
+					const fetchedItems = Array.isArray(data) ? data : data.items || [];
+					const itemFound = fetchedItems.find(i => i.id === id);
+					if (itemFound) setLocalBuild(itemFound);
+				} catch (e) {
+					console.error("Lỗi khi tải lẻ build:", e);
+				} finally {
+					setIsLoadingSingle(false);
+				}
+			};
+			fetchSingle();
+		}
 	}, [id, items]);
 
 	const handleBack = useCallback(() => {
@@ -400,7 +426,18 @@ const BuildEditWrapper = ({ items, onSave, onDelete, isSaving }) => {
 		await onDelete(id);
 	};
 
-	if (!buildToEdit) {
+	if (isLoadingSingle) {
+		return (
+			<div className='flex justify-center items-center py-20'>
+				<Loader2
+					className='animate-spin text-[var(--color-primary)]'
+					size={40}
+				/>
+			</div>
+		);
+	}
+
+	if (!localBuild) {
 		return (
 			<div className='flex flex-col items-center justify-center py-20 text-[var(--color-text-secondary)]'>
 				<p className='text-xl mb-4'>
@@ -419,7 +456,7 @@ const BuildEditWrapper = ({ items, onSave, onDelete, isSaving }) => {
 			<div className='sticky top-0 z-30 bg-[var(--color-surface)] border-b border-[var(--color-border)] p-4 mb-6 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 rounded-b-xl'>
 				<div>
 					<h2 className='text-xl font-bold font-primary'>
-						{tUI("admin.buildForm.editTitle")} {buildToEdit.championName}
+						{tUI("admin.buildForm.editTitle")} {localBuild.championName}
 					</h2>
 					{isDirty && (
 						<span className='text-xs font-semibold text-yellow-500'>
@@ -463,7 +500,7 @@ const BuildEditWrapper = ({ items, onSave, onDelete, isSaving }) => {
 			</div>
 
 			<BuildEditorForm
-				item={buildToEdit}
+				item={localBuild}
 				onSave={onSave}
 				isSaving={isSaving}
 				onDirtyChange={setIsDirty}
@@ -477,7 +514,7 @@ const BuildEditWrapper = ({ items, onSave, onDelete, isSaving }) => {
 			>
 				<p className='mb-4 text-text-secondary'>
 					{tUI("admin.build.deleteConfirmText")}{" "}
-					<strong>{buildToEdit?.championName}</strong>?
+					<strong>{localBuild?.championName}</strong>?
 				</p>
 				<div className='flex justify-end gap-3'>
 					<Button onClick={() => setIsDeleteModalOpen(false)} variant='ghost'>

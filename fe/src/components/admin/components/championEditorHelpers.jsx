@@ -166,7 +166,7 @@ export const ArrayInputComponent = ({
 						<button
 							type='button'
 							onClick={onRemoveArray}
-							className='text-red-500 hover:bg-red-500/10 p-1.5 rounded-md transition-colors'
+							className='text-red-500 hover:bg-red-500/10 p-1.5 rounded-md  '
 							title='Xóa danh sách này'
 						>
 							<XCircle size={16} />
@@ -344,7 +344,7 @@ export const ConstellationConnections = ({ nodes, onChangeNodes }) => {
 					{connections.map((conn, idx) => (
 						<div
 							key={idx}
-							className='flex items-center gap-2 bg-surface-bg border border-border px-3 py-1.5 rounded-lg text-sm font-mono shadow-sm group hover:border-pink-500 transition-colors'
+							className='flex items-center gap-2 bg-surface-bg border border-border px-3 py-1.5 rounded-lg text-sm font-mono shadow-sm group hover:border-pink-500  '
 						>
 							<span className='text-primary-500 font-bold'>{conn.from}</span>
 							<span className='text-text-secondary text-xs'>→</span>
@@ -352,7 +352,7 @@ export const ConstellationConnections = ({ nodes, onChangeNodes }) => {
 							<button
 								type='button'
 								onClick={() => handleRemove(conn.from, conn.to)}
-								className='text-text-secondary hover:text-red-500 ml-2 p-1 rounded-md hover:bg-red-500/10 transition-colors opacity-50 group-hover:opacity-100'
+								className='text-text-secondary hover:text-red-500 ml-2 p-1 rounded-md hover:bg-red-500/10   opacity-50 group-hover:opacity-100'
 							>
 								<XCircle size={16} />
 							</button>
@@ -527,7 +527,7 @@ export const NodeEditor = ({
 							e.stopPropagation();
 							onChange(index, "isRecommended", !node.isRecommended);
 						}}
-						className={`w-6 h-6 rounded border flex items-center justify-center transition-colors ${node.isRecommended ? "bg-yellow-500 border-yellow-500" : "bg-surface-bg border-border hover:border-yellow-500/50"}`}
+						className={`w-6 h-6 rounded border flex items-center justify-center   ${node.isRecommended ? "bg-yellow-500 border-yellow-500" : "bg-surface-bg border-border hover:border-yellow-500/50"}`}
 					>
 						{node.isRecommended && (
 							<Sparkles size={12} className='text-white fill-current' />
@@ -540,7 +540,7 @@ export const NodeEditor = ({
 							e.stopPropagation();
 							onRemove(index);
 						}}
-						className='p-1.5 text-red-500 hover:bg-red-500/10 rounded-md transition-colors'
+						className='p-1.5 text-red-500 hover:bg-red-500/10 rounded-md  '
 					>
 						<XCircle size={18} />
 					</button>
@@ -550,7 +550,7 @@ export const NodeEditor = ({
 							e.stopPropagation();
 							setIsOpen(!isOpen);
 						}}
-						className='p-1.5 text-text-secondary hover:bg-surface-bg rounded-md transition-colors'
+						className='p-1.5 text-text-secondary hover:bg-surface-bg rounded-md  '
 					>
 						{isOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
 					</button>

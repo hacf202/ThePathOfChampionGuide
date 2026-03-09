@@ -20,7 +20,7 @@ import ConstellationTable from "../champion/constellationTable";
 // --- THÀNH PHẦN SKELETON ---
 const ChampionDetailSkeleton = () => (
 	<div className='max-w-[1200px] mx-auto p-0 sm:p-6 animate-pulse'>
-		<div className='h-10 w-24 bg-gray-700/50 rounded mb-4 ml-4 sm:ml-0' />
+		<div className='h-10 w-24 bg-gray-700/50 rounded mb-2 ml-1 sm:ml-0' />
 		<div className='bg-surface-bg border rounded-lg p-4 sm:p-6 space-y-8'>
 			<div className='flex flex-col md:flex-row gap-4'>
 				<div className='w-full md:w-[300px] aspect-[3/4] bg-gray-700/50 rounded-lg' />
@@ -55,11 +55,11 @@ const RenderItem = ({ item }) => {
 		tDynamic(item, "description") || tDynamic(item, "descriptionRaw");
 
 	const content = (
-		<div className='flex items-start gap-1 bg-surface-hover rounded-md h-full hover:border-primary-500 transition-colors p-2'>
+		<div className='flex items-start gap-1 bg-surface-hover rounded-md h-full hover:border-primary-500   p-2'>
 			<SafeImage
 				src={item.assetAbsolutePath || item.image || "/fallback-image.svg"}
 				alt={itemName}
-				className='w-16 h-16 rounded-md shrink-0 object-cover bg-surface-bg'
+				className='w-16 h-16 rounded-md shrink-0 object-cover'
 			/>
 			<div>
 				<h3 className='font-semibold text-text-primary text-lg'>{itemName}</h3>
@@ -333,12 +333,12 @@ function ChampionDetail() {
 							<Button
 								variant='outline'
 								onClick={() => navigate(-1)}
-								className='mb-4 ml-4 sm:ml-0'
+								className='mb-2 ml-1 sm:ml-0'
 							>
 								<ChevronLeft size={18} /> {tUI("championDetail.back")}
 							</Button>
 
-							<div className='relative mx-auto max-w-[1200px] sm:p-6 rounded-lg bg-surface-bg border border-border shadow-md'>
+							<div className='relative mx-auto max-w-[1200px] sm:p-6 rounded-lg bg-surface-bg border border-border shadow-md mb-2 md:mb-6'>
 								<div className='flex flex-col md:flex-row border border-border gap-4 rounded-md bg-surface-hover sm:p-4'>
 									<SafeImage
 										className='h-auto max-h-[300px] object-contain rounded-lg'
@@ -346,7 +346,7 @@ function ChampionDetail() {
 										alt={tDynamic(champion, "name")}
 									/>
 									<div className='flex-1'>
-										<div className='flex flex-col sm:flex-row sm:justify-between p-2 m-1 gap-2'>
+										<div className='flex flex-col sm:flex-row sm:justify-between p-1 gap-2'>
 											<h1 className='text-2xl sm:text-4xl font-bold font-primary'>
 												{tDynamic(champion, "name")}
 											</h1>
@@ -374,7 +374,7 @@ function ChampionDetail() {
 											</div>
 										</div>
 										<div
-											className={`mt-1 mx-1 p-4 border border-border rounded-lg bg-surface-bg ${!isDescriptionExpanded ? "overflow-y-auto h-48 sm:h-60" : "h-auto"}`}
+											className={`mt-1 mx-1 p-2 border border-border rounded-lg bg-surface-bg ${!isDescriptionExpanded ? "overflow-y-auto h-48 sm:h-60" : "h-auto"}`}
 										>
 											{tDynamic(champion, "description")
 												?.replace(/\\n/g, "\n")
@@ -402,7 +402,7 @@ function ChampionDetail() {
 
 								{constellationInfo.nodes.length > 0 && (
 									<>
-										<h2 className='p-1 text-lg sm:text-3xl font-semibold my-1 uppercase font-primary mt-6 text-primary-500 border-b border-border'>
+										<h2 className='p-1 text-lg sm:text-3xl font-semibold my-1 uppercase font-primary mt-2 md:mt-6 text-primary-500 border-b border-border'>
 											{tUI("championDetail.constellation")}
 										</h2>
 
@@ -415,7 +415,7 @@ function ChampionDetail() {
 									</>
 								)}
 
-								<h2 className='p-1 text-lg sm:text-3xl font-semibold mt-8 font-primary text-primary-500 border-b border-border'>
+								<h2 className='p-1 text-lg sm:text-3xl font-semibold mt-2 md:mt-6 font-primary text-primary-500 border-b border-border'>
 									{tUI("championDetail.video")}
 								</h2>
 								<div className='aspect-video bg-surface-hover rounded-lg mb-1 border border-border'>
@@ -434,10 +434,10 @@ function ChampionDetail() {
 
 								{relicSetsToRender.length > 0 && (
 									<>
-										<h2 className='p-1 text-lg sm:text-3xl font-semibold mt-6 font-primary text-primary-500 border-b border-border'>
+										<h2 className='p-1 text-lg sm:text-3xl font-semibold mt-2 md:mt-6 font-primary text-primary-500 border-b border-border'>
 											{tUI("championDetail.relicSets")}
 										</h2>
-										<div className='grid gap-4 bg-surface-hover p-2 rounded-md border border-border mt-2'>
+										<div className='grid gap-4 bg-surface-hover p-1 rounded-md mt-2'>
 											{relicSetsToRender.map((set, idx) => (
 												<div
 													key={idx}
@@ -454,7 +454,7 @@ function ChampionDetail() {
 
 								{adventurePowersFull.length > 0 && (
 									<>
-										<h2 className='p-1 text-lg sm:text-3xl font-semibold mt-6 mb-1 font-primary text-primary-500 border-b border-border'>
+										<h2 className='p-1 text-lg sm:text-3xl font-semibold mt-2 md:mt-6 mb-1 font-primary text-primary-500 border-b border-border'>
 											{tUI("championDetail.recPowers")}
 										</h2>
 										<div className='grid grid-cols-1 md:grid-cols-2 gap-4 bg-surface-hover p-2 rounded-md border border-border'>
@@ -467,7 +467,7 @@ function ChampionDetail() {
 
 								{defaultItemsFull.length > 0 && (
 									<>
-										<h2 className='p-1 text-lg sm:text-3xl font-semibold mt-6 mb-1 font-primary text-primary-500 border-b border-border'>
+										<h2 className='p-1 text-lg sm:text-3xl font-semibold mt-2 md:mt-6 mb-1 font-primary text-primary-500 border-b border-border'>
 											{tUI("championDetail.recItems")}
 										</h2>
 										<div className='grid grid-cols-1 md:grid-cols-2 gap-4 bg-surface-hover p-2 rounded-md border border-border'>
@@ -480,7 +480,7 @@ function ChampionDetail() {
 
 								{runesFull.length > 0 && (
 									<>
-										<h2 className='p-1 text-lg sm:text-3xl font-semibold mt-6 mb-1 font-primary text-primary-500 border-b border-border'>
+										<h2 className='p-1 text-lg sm:text-3xl font-semibold mt-2 md:mt-6 mb-1 font-primary text-primary-500 border-b border-border'>
 											{tUI("championDetail.recRunes")}
 										</h2>
 										<div className='grid grid-cols-1 md:grid-cols-2 gap-4 bg-surface-hover p-2 rounded-md border border-border'>

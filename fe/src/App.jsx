@@ -68,7 +68,7 @@ function MainContent() {
 	return (
 		<main
 			className={`flex-grow ${
-				!isFullWidth ? "container mx-auto px-1 sm:px-4 py-4 sm:py-8" : ""
+				!isFullWidth ? "container mx-auto sm:px-4 py-2 sm:py-8" : ""
 			}`}
 		>
 			<Routes>

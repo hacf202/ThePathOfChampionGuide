@@ -123,7 +123,7 @@ function TermsOfUse() {
 						</p>
 						<Link
 							to='/'
-							className='inline-block mt-6 px-8 py-3 bg-[var(--color-btn-primary-bg)] text-[var(--color-btn-primary-text)] font-medium rounded-md hover:bg-[var(--color-btn-primary-hover-bg)] transition-colors'
+							className='inline-block mt-6 px-8 py-3 bg-[var(--color-btn-primary-bg)] text-[var(--color-btn-primary-text)] font-medium rounded-md hover:bg-[var(--color-btn-primary-hover-bg)]  '
 						>
 							{tUI("common.backToHome")}
 						</Link>

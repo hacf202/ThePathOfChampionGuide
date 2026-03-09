@@ -274,7 +274,7 @@ const BuildSummary = ({
 								<div className='relative' ref={menuRef}>
 									<button
 										onClick={() => setIsMenuOpen(!isMenuOpen)}
-										className='p-1.5 rounded-full hover:bg-surface-hover transition-colors'
+										className='p-1.5 rounded-full hover:bg-surface-hover  '
 									>
 										<MoreVertical size={20} className='text-text-secondary' />
 									</button>
@@ -283,7 +283,7 @@ const BuildSummary = ({
 										<div className='absolute top-full right-0 mt-2 w-48 bg-surface-bg border border-border rounded-md shadow-lg z-20'>
 											<button
 												onClick={handleToggleFavorite}
-												className='w-full flex items-center gap-3 px-4 py-2 text-left text-sm text-text-secondary hover:bg-surface-hover transition-colors'
+												className='w-full flex items-center gap-3 px-4 py-2 text-left text-sm text-text-secondary hover:bg-surface-hover  '
 											>
 												<Heart
 													size={18}

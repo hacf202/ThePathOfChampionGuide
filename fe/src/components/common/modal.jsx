@@ -41,7 +41,7 @@ const Modal = ({ isOpen, onClose, title, children, maxWidth = "max-w-md" }) => {
 					</h3>
 					<button
 						onClick={onClose}
-						className='text-text-secondary hover:text-text-primary transition-colors 
+						className='text-text-secondary hover:text-text-primary   
                         rounded-full p-1 focus:outline-none focus:ring-2 
                         focus:ring-offset-surface-bg focus:ring-primary-500'
 						aria-label={tUI("common.close")} // 🟢 Sử dụng tUI thay vì kiểm tra language === "vi"

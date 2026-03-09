@@ -42,7 +42,7 @@ function Footer() {
 							<li>
 								<a
 									href='/champions'
-									className='hover:text-[var(--color-footer-link-hover)] transition-colors'
+									className='hover:text-[var(--color-footer-link-hover)]  '
 								>
 									{tUI("footer.championsList") || "Danh Sách Tướng"}
 								</a>
@@ -50,7 +50,7 @@ function Footer() {
 							<li>
 								<a
 									href='/builds'
-									className='hover:text-[var(--color-footer-link-hover)] transition-colors'
+									className='hover:text-[var(--color-footer-link-hover)]  '
 								>
 									{tUI("footer.buildGuides") || "Hướng Dẫn Build"}
 								</a>
@@ -58,7 +58,7 @@ function Footer() {
 							<li>
 								<a
 									href='/powers'
-									className='hover:text-[var(--color-footer-link-hover)] transition-colors'
+									className='hover:text-[var(--color-footer-link-hover)]  '
 								>
 									{tUI("footer.powersList") || "Danh sách sức mạnh"}
 								</a>
@@ -66,7 +66,7 @@ function Footer() {
 							<li>
 								<a
 									href='/relics'
-									className='hover:text-[var(--color-footer-link-hover)] transition-colors'
+									className='hover:text-[var(--color-footer-link-hover)]  '
 								>
 									{tUI("footer.relicsList") || "Danh sách cổ vật"}
 								</a>
@@ -83,7 +83,7 @@ function Footer() {
 							<li>
 								<a
 									href='/about-us'
-									className='hover:text-[var(--color-footer-link-hover)] transition-colors'
+									className='hover:text-[var(--color-footer-link-hover)]  '
 								>
 									{tUI("footer.aboutUs") || "Về Chúng Tôi"}
 								</a>
@@ -91,7 +91,7 @@ function Footer() {
 							<li>
 								<a
 									href='/introduction'
-									className='hover:text-[var(--color-footer-link-hover)] transition-colors'
+									className='hover:text-[var(--color-footer-link-hover)]  '
 								>
 									{tUI("footer.introduction") || "Giới Thiệu"}
 								</a>
@@ -99,7 +99,7 @@ function Footer() {
 							<li>
 								<a
 									href='/terms-of-use'
-									className='hover:text-[var(--color-footer-link-hover)] transition-colors'
+									className='hover:text-[var(--color-footer-link-hover)]  '
 								>
 									{tUI("footer.terms") || "Điều Khoản Sử Dụng"}
 								</a>
@@ -120,7 +120,7 @@ function Footer() {
 									href='https://www.facebook.com/lkinh.djack/'
 									target='_blank'
 									rel='noopener noreferrer'
-									className='text-[var(--color-footer-link)] hover:text-[var(--color-footer-link-hover)] transition-colors'
+									className='text-[var(--color-footer-link)] hover:text-[var(--color-footer-link-hover)]  '
 								>
 									<Facebook className='inline-block mr-1' />
 									Facebook
@@ -131,7 +131,7 @@ function Footer() {
 									href='https://www.youtube.com/@Evin0126'
 									target='_blank'
 									rel='noopener noreferrer'
-									className='text-[var(--color-footer-link)] hover:text-[var(--color-footer-link-hover)] transition-colors'
+									className='text-[var(--color-footer-link)] hover:text-[var(--color-footer-link-hover)]  '
 								>
 									<Youtube className='inline-block mr-1' />
 									Youtube

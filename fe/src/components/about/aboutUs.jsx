@@ -129,7 +129,7 @@ function AboutUs() {
 					<section className='text-center pt-8'>
 						<Link
 							to='/'
-							className='inline-block px-8 py-3 bg-[var(--color-btn-primary-bg)] text-[var(--color-btn-primary-text)] font-medium rounded-md hover:bg-[var(--color-btn-primary-hover-bg)] transition-colors'
+							className='inline-block px-8 py-3 bg-[var(--color-btn-primary-bg)] text-[var(--color-btn-primary-text)] font-medium rounded-md hover:bg-[var(--color-btn-primary-hover-bg)]  '
 						>
 							{tUI("common.backToHome")}
 						</Link>

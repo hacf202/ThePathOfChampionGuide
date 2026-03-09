@@ -103,9 +103,19 @@ router.get("/", async (req, res) => {
 		let filtered = [...allPowers];
 		if (searchTerm) {
 			const searchKey = removeAccents(searchTerm.toLowerCase());
-			filtered = filtered.filter(p =>
-				removeAccents((p.name || "").toLowerCase()).includes(searchKey),
-			);
+			filtered = filtered.filter(p => {
+				const nameVn = removeAccents(p.name);
+				const descVn = removeAccents(p.description);
+				const nameEn = removeAccents(p.translations?.en?.name);
+				const descEn = removeAccents(p.translations?.en?.description);
+
+				return (
+					nameVn.includes(searchKey) ||
+					descVn.includes(searchKey) ||
+					nameEn.includes(searchKey) ||
+					descEn.includes(searchKey)
+				);
+			});
 		}
 		if (rarities) {
 			const rList = rarities.split(",");

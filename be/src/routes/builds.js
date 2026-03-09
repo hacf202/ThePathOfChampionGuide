@@ -6,9 +6,11 @@ import {
 	DeleteItemCommand,
 	GetItemCommand,
 	QueryCommand,
+	ScanCommand, // Đã bổ sung ScanCommand để tải từ điển
 } from "@aws-sdk/client-dynamodb";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
 import { v4 as uuidv4 } from "uuid";
+import NodeCache from "node-cache"; // Thư viện cache
 
 import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
@@ -24,6 +26,70 @@ import { removeAccents } from "../utils/vietnameseUtils.js";
 
 const router = express.Router();
 const BUILDS_TABLE = "Builds";
+
+// --- KHỞI TẠO CACHE TỪ ĐIỂN TÌM KIẾM (5 Phút) ---
+const dictionaryCache = new NodeCache({ stdTTL: 300 });
+
+/**
+ * Lấy danh sách tướng, cổ vật, sức mạnh để tạo từ điển đối chiếu (hỗ trợ tìm bằng Tiếng Anh)
+ */
+async function getSearchDictionaries() {
+	const CACHE_KEY = "builds_search_dicts";
+	let dicts = dictionaryCache.get(CACHE_KEY);
+	if (dicts) return dicts;
+
+	dicts = { champMap: {}, relicMap: {}, powerMap: {} };
+
+	try {
+		// Fetch Champions
+		const champsRes = await client.send(
+			new ScanCommand({ TableName: "guidePocChampionList" }),
+		);
+		const champs = champsRes.Items
+			? champsRes.Items.map(item => unmarshall(item))
+			: [];
+		champs.forEach(c => {
+			if (c.name) dicts.champMap[c.name] = c.translations?.en?.name || "";
+		});
+
+		// Fetch Relics
+		const relicsRes = await client.send(
+			new ScanCommand({ TableName: "guidePocRelics" }),
+		);
+		const relics = relicsRes.Items
+			? relicsRes.Items.map(item => unmarshall(item))
+			: [];
+		relics.forEach(r => {
+			const id = r.relicCode || r.itemCode;
+			if (id)
+				dicts.relicMap[id] = {
+					vi: r.name || "",
+					en: r.translations?.en?.name || "",
+				};
+		});
+
+		// Fetch Powers
+		const powersRes = await client.send(
+			new ScanCommand({ TableName: "guidePocPowers" }),
+		);
+		const powers = powersRes.Items
+			? powersRes.Items.map(item => unmarshall(item))
+			: [];
+		powers.forEach(p => {
+			if (p.powerCode)
+				dicts.powerMap[p.powerCode] = {
+					vi: p.name || "",
+					en: p.translations?.en?.name || "",
+				};
+		});
+
+		dictionaryCache.set(CACHE_KEY, dicts);
+	} catch (error) {
+		console.error("Lỗi khi tải từ điển tìm kiếm:", error);
+	}
+
+	return dicts;
+}
 
 /**
  * @route   GET /api/builds
@@ -47,26 +113,69 @@ router.get("/", async (req, res) => {
 		// 1. Lấy toàn bộ build công khai từ Cache
 		const { items: allBuilds } = await getPublicBuilds();
 
-		// 2. TRÍCH XUẤT BỘ LỌC ĐỘNG
+		// 2. Lấy bộ từ điển tìm kiếm
+		const { champMap, relicMap, powerMap } = await getSearchDictionaries();
+
+		// 3. TRÍCH XUẤT BỘ LỌC ĐỘNG
 		const availableFilters = {
 			championNames: [...new Set(allBuilds.map(b => b.championName))].sort(),
 			regions: [...new Set(allBuilds.flatMap(b => b.regions || []))].sort(),
 		};
 
-		// 3. THỰC HIỆN LỌC (Filtering)
+		// 4. THỰC HIỆN LỌC (Filtering)
 		let filtered = [...allBuilds];
 
 		if (searchTerm) {
 			const searchKey = removeAccents(searchTerm.toLowerCase());
-			filtered = filtered.filter(
-				b =>
-					removeAccents((b.championName || "").toLowerCase()).includes(
-						searchKey,
-					) ||
-					removeAccents((b.description || "").toLowerCase()).includes(
-						searchKey,
-					),
-			);
+			filtered = filtered.filter(b => {
+				// A. Kiểm tra tên Tướng (Việt & Anh)
+				const champNameVi = removeAccents((b.championName || "").toLowerCase());
+				const champNameEn = removeAccents(
+					(champMap[b.championName] || "").toLowerCase(),
+				);
+				if (
+					champNameVi.includes(searchKey) ||
+					champNameEn.includes(searchKey)
+				) {
+					return true;
+				}
+
+				// B. Kiểm tra Mô tả của bài Build
+				const desc = removeAccents((b.description || "").toLowerCase());
+				if (desc.includes(searchKey)) return true;
+
+				// C. Kiểm tra Cổ vật (Việt & Anh)
+				if (Array.isArray(b.relicSetIds)) {
+					for (const rId of b.relicSetIds) {
+						const rInfo = relicMap[rId];
+						if (rInfo) {
+							if (
+								removeAccents(rInfo.vi.toLowerCase()).includes(searchKey) ||
+								removeAccents(rInfo.en.toLowerCase()).includes(searchKey)
+							) {
+								return true;
+							}
+						}
+					}
+				}
+
+				// D. Kiểm tra Sức mạnh (Việt & Anh)
+				if (Array.isArray(b.powerIds)) {
+					for (const pId of b.powerIds) {
+						const pInfo = powerMap[pId];
+						if (pInfo) {
+							if (
+								removeAccents(pInfo.vi.toLowerCase()).includes(searchKey) ||
+								removeAccents(pInfo.en.toLowerCase()).includes(searchKey)
+							) {
+								return true;
+							}
+						}
+					}
+				}
+
+				return false;
+			});
 		}
 
 		if (championNames) {
@@ -84,7 +193,7 @@ router.get("/", async (req, res) => {
 			filtered = filtered.filter(b => sList.includes(String(b.star)));
 		}
 
-		// 4. SẮP XẾP (Sorting)
+		// 5. SẮP XẾP (Sorting)
 		const [field, order] = sort.split("-");
 		filtered.sort((a, b) => {
 			let vA = a[field] ?? "";
@@ -105,7 +214,7 @@ router.get("/", async (req, res) => {
 				: String(vB).localeCompare(String(vA));
 		});
 
-		// 5. PHÂN TRANG
+		// 6. PHÂN TRANG
 		const totalItems = filtered.length;
 		const totalPages = Math.ceil(totalItems / pageSize);
 		const paginatedItems = filtered.slice(

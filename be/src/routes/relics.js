@@ -151,9 +151,19 @@ router.get("/", async (req, res) => {
 		let filtered = [...allRelics];
 		if (searchTerm) {
 			const searchKey = removeAccents(searchTerm.toLowerCase());
-			filtered = filtered.filter(r =>
-				removeAccents((r.name || "").toLowerCase()).includes(searchKey),
-			);
+			filtered = filtered.filter(r => {
+				const nameVn = removeAccents(r.name || "");
+				const descVn = removeAccents(r.description || "");
+				const nameEn = removeAccents(r.translations?.en?.name || "");
+				const descEn = removeAccents(r.translations?.en?.description || "");
+
+				return (
+					nameVn.includes(searchKey) ||
+					descVn.includes(searchKey) ||
+					nameEn.includes(searchKey) ||
+					descEn.includes(searchKey)
+				);
+			});
 		}
 		if (rarities) {
 			const rList = rarities.split(",");
