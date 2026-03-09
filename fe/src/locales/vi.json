@@ -770,5 +770,42 @@
 		"section6P1": "Chúng tôi có quyền <strong>cập nhật hoặc sửa đổi</strong> các điều khoản này <strong>bất kỳ lúc nào mà không cần báo trước</strong>.",
 		"section6P2": "Việc bạn <strong>tiếp tục sử dụng trang web</strong> sau khi thay đổi đồng nghĩa với việc <strong>chấp nhận phiên bản mới nhất</strong>.",
 		"lastUpdated": "Cập nhật lần cuối:"
+	},
+	"nav": {
+		"builds": "Bộ cổ vật",
+		"champions": "Tướng",
+		"tierList": "Bảng Xếp Hạng",
+		"itemsTitle": "Vật phẩm",
+		"items": "Vật phẩm",
+		"relics": "Cổ vật",
+		"powers": "Sức mạnh",
+		"runes": "Ngọc",
+		"maps": "Bản Đồ",
+		"toolsTitle": "Công cụ",
+		"randomizer": "Vòng quay",
+		"about": "Giới thiệu",
+		"guides": "Hướng Dẫn",
+		"language": "Ngôn ngữ",
+		"profile": "Thông tin",
+		"admin": "Trang quản lý",
+		"logout": "Đăng xuất",
+		"login": "Đăng nhập",
+		"confirmLogoutTitle": "Xác nhận Đăng xuất",
+		"confirmLogoutDesc": "Bạn có chắc chắn muốn kết thúc phiên làm việc này không?",
+		"cancel": "Hủy"
+	},
+	"footer": {
+		"desc1": " là kho tài nguyên độc lập do cộng đồng người chơi chia sẻ.",
+		"desc2": " hay Con Đường Anh Hùng là chế độ chơi PVE của Huyền Thoại Runeterra do Riot phát triển. Tất cả nội dung build, hướng dẫn, hình ảnh đều được tạo ra bởi fan và dành cho fan.",
+		"guidesTitle": "Hướng dẫn",
+		"championsList": "Danh Sách Tướng",
+		"buildGuides": "Hướng Dẫn Build",
+		"powersList": "Danh sách sức mạnh",
+		"relicsList": "Danh sách cổ vật",
+		"aboutTitle": "Giới thiệu về POC GUIDE",
+		"aboutUs": "Về Chúng Tôi",
+		"introduction": "Giới Thiệu",
+		"terms": "Điều Khoản Sử Dụng",
+		"followUs": "Theo dõi chúng tôi"
 	}
 }

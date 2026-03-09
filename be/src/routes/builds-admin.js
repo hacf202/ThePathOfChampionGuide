@@ -60,9 +60,6 @@ router.get("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 			sort = "createdAt-desc",
 		} = req.query;
 
-		const pageSize = parseInt(limit);
-		const currentPage = parseInt(page);
-
 		const allBuilds = await getAllBuildsAdmin();
 
 		const availableFilters = {
@@ -121,8 +118,15 @@ router.get("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 				: String(vB).localeCompare(String(vA));
 		});
 
+		// FIX: parse an toàn để không bao giờ bị NaN gây sập pagination
+		let pageSize = parseInt(limit);
+		if (isNaN(pageSize) || pageSize <= 0) {
+			pageSize = 1000;
+		}
+
+		const currentPage = parseInt(page) || 1;
 		const totalItems = filtered.length;
-		const totalPages = Math.ceil(totalItems / pageSize);
+		const totalPages = Math.ceil(totalItems / pageSize) || 1;
 		const paginatedItems = filtered.slice(
 			(currentPage - 1) * pageSize,
 			currentPage * pageSize,
@@ -203,13 +207,12 @@ router.put("/:id", authenticateCognitoToken, requireAdmin, async (req, res) => {
 		const expressionAttributeNames = {};
 		const expressionAttributeValues = {};
 
-		// ĐÃ ĐỔI THÀNH HẬU TỐ "Ids"
 		const allowedFields = [
 			"championName",
 			"description",
-			"relicSetIds", // Sửa từ relicSet
-			"powerIds", // Sửa từ powers
-			"runeIds", // Sửa từ rune
+			"relicSetIds",
+			"powerIds",
+			"runeIds",
 			"star",
 			"display",
 			"like",

@@ -767,5 +767,42 @@
 		"section6P1": "We reserve the right to <strong>update or modify</strong> these terms <strong>at any time without prior notice</strong>.",
 		"section6P2": "Your <strong>continued use of the website</strong> following any changes signifies your <strong>acceptance of the latest version</strong>.",
 		"lastUpdated": "Last updated:"
+	},
+	"nav": {
+		"builds": "Builds",
+		"champions": "Champions",
+		"tierList": "Tier List",
+		"itemsTitle": "Items",
+		"items": "Items",
+		"relics": "Relics",
+		"powers": "Powers",
+		"runes": "Runes",
+		"maps": "Maps",
+		"toolsTitle": "Tools",
+		"randomizer": "Randomizer",
+		"about": "About",
+		"guides": "Guides",
+		"language": "Language",
+		"profile": "Profile",
+		"admin": "Admin Panel",
+		"logout": "Logout",
+		"login": "Login",
+		"confirmLogoutTitle": "Confirm Logout",
+		"confirmLogoutDesc": "Are you sure you want to log out?",
+		"cancel": "Cancel"
+	},
+	"footer": {
+		"desc1": " is an independent resource hub shared by the player community.",
+		"desc2": " is the PVE game mode of Legends of Runeterra developed by Riot Games. All builds, guides, and images are created by fans, for fans.",
+		"guidesTitle": "Guides",
+		"championsList": "Champions List",
+		"buildGuides": "Build Guides",
+		"powersList": "Powers List",
+		"relicsList": "Relics List",
+		"aboutTitle": "About POC GUIDE",
+		"aboutUs": "About Us",
+		"introduction": "Introduction",
+		"terms": "Terms of Use",
+		"followUs": "Follow Us"
 	}
 }

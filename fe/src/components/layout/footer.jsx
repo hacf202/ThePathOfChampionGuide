@@ -2,10 +2,10 @@
 import React, { memo } from "react";
 import LogoBlack from "/ahriicon.png";
 import { Youtube, Facebook } from "lucide-react";
-import { useTranslation } from "../../hooks/useTranslation"; // Import hook
+import { useTranslation } from "../../hooks/useTranslation";
 
 function Footer() {
-	const { language } = useTranslation();
+	const { tUI } = useTranslation();
 
 	return (
 		<footer className=' bg-[var(--color-footer-bg)] text-[var(--color-footer-text)] pt-4 border-t border-[var(--color-border)] '>
@@ -23,22 +23,20 @@ function Footer() {
 						</a>
 						<p className='text-sm leading-relaxed'>
 							<b className='font-bold'>POC GUIDE (Path of champions)</b>
-							{language === "vi"
-								? " là kho tài nguyên độc lập do cộng đồng người chơi chia sẻ."
-								: " is an independent resource hub shared by the player community."}
+							{tUI("footer.desc1") ||
+								" là kho tài nguyên độc lập do cộng đồng người chơi chia sẻ."}
 						</p>
 						<p className='text-sm leading-relaxed mt-2'>
 							<i className='italic'>Path of champions</i>
-							{language === "vi"
-								? " hay Con Đường Anh Hùng là chế độ chơi PVE của Huyền Thoại Runeterra do Riot phát triển. Tất cả nội dung build, hướng dẫn, hình ảnh đều được tạo ra bởi fan và dành cho fan."
-								: " is the PVE game mode of Legends of Runeterra developed by Riot Games. All builds, guides, and images are created by fans, for fans."}
+							{tUI("footer.desc2") ||
+								" hay Con Đường Anh Hùng là chế độ chơi PVE của Huyền Thoại Runeterra do Riot phát triển. Tất cả nội dung build, hướng dẫn, hình ảnh đều được tạo ra bởi fan và dành cho fan."}
 						</p>
 					</div>
 
 					{/* === CỘT 2: Hướng dẫn === */}
 					<div className='md:col-span-2'>
 						<h3 className='font-bold text-lg mb-4 text-[var(--color-footer-text)]'>
-							{language === "vi" ? "Hướng dẫn" : "Guides"}
+							{tUI("footer.guidesTitle") || "Hướng dẫn"}
 						</h3>
 						<ul className='space-y-2 text-sm'>
 							<li>
@@ -46,7 +44,7 @@ function Footer() {
 									href='/champions'
 									className='hover:text-[var(--color-footer-link-hover)] transition-colors'
 								>
-									{language === "vi" ? "Danh Sách Tướng" : "Champions List"}
+									{tUI("footer.championsList") || "Danh Sách Tướng"}
 								</a>
 							</li>
 							<li>
@@ -54,7 +52,7 @@ function Footer() {
 									href='/builds'
 									className='hover:text-[var(--color-footer-link-hover)] transition-colors'
 								>
-									{language === "vi" ? "Hướng Dẫn Build" : "Build Guides"}
+									{tUI("footer.buildGuides") || "Hướng Dẫn Build"}
 								</a>
 							</li>
 							<li>
@@ -62,7 +60,7 @@ function Footer() {
 									href='/powers'
 									className='hover:text-[var(--color-footer-link-hover)] transition-colors'
 								>
-									{language === "vi" ? "Danh sách sức mạnh" : "Powers List"}
+									{tUI("footer.powersList") || "Danh sách sức mạnh"}
 								</a>
 							</li>
 							<li>
@@ -70,7 +68,7 @@ function Footer() {
 									href='/relics'
 									className='hover:text-[var(--color-footer-link-hover)] transition-colors'
 								>
-									{language === "vi" ? "Danh sách cổ vật" : "Relics List"}
+									{tUI("footer.relicsList") || "Danh sách cổ vật"}
 								</a>
 							</li>
 						</ul>
@@ -79,9 +77,7 @@ function Footer() {
 					{/* === CỘT 3: Giới thiệu === */}
 					<div className='md:col-span-2'>
 						<h3 className='font-bold text-lg mb-4 text-[var(--color-footer-text)]'>
-							{language === "vi"
-								? "Giới thiệu về POC GUIDE"
-								: "About POC GUIDE"}
+							{tUI("footer.aboutTitle") || "Giới thiệu về POC GUIDE"}
 						</h3>
 						<ul className='space-y-2 text-sm'>
 							<li>
@@ -89,7 +85,7 @@ function Footer() {
 									href='/about-us'
 									className='hover:text-[var(--color-footer-link-hover)] transition-colors'
 								>
-									{language === "vi" ? "Về Chúng Tôi" : "About Us"}
+									{tUI("footer.aboutUs") || "Về Chúng Tôi"}
 								</a>
 							</li>
 							<li>
@@ -97,7 +93,7 @@ function Footer() {
 									href='/introduction'
 									className='hover:text-[var(--color-footer-link-hover)] transition-colors'
 								>
-									{language === "vi" ? "Giới Thiệu" : "Introduction"}
+									{tUI("footer.introduction") || "Giới Thiệu"}
 								</a>
 							</li>
 							<li>
@@ -105,7 +101,7 @@ function Footer() {
 									href='/terms-of-use'
 									className='hover:text-[var(--color-footer-link-hover)] transition-colors'
 								>
-									{language === "vi" ? "Điều Khoản Sử Dụng" : "Terms of Use"}
+									{tUI("footer.terms") || "Điều Khoản Sử Dụng"}
 								</a>
 							</li>
 						</ul>
@@ -114,7 +110,7 @@ function Footer() {
 					{/* === CỘT 4: Theo dõi & Form === */}
 					<div className='md:col-span-5'>
 						<h3 className='font-bold text-lg mb-4 text-[var(--color-footer-text)]'>
-							{language === "vi" ? "Theo dõi chúng tôi" : "Follow Us"}
+							{tUI("footer.followUs") || "Theo dõi chúng tôi"}
 						</h3>
 
 						{/* Social Links */}

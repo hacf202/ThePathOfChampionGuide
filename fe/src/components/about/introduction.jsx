@@ -1,7 +1,7 @@
 // src/pages/Introduction.jsx
 import { memo, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import PageTitle from "../common/PageTitle";
+import PageTitle from "../common/pageTitle";
 import SafeImage from "../common/SafeImage";
 import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook
 
