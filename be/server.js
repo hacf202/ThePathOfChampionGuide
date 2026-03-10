@@ -9,7 +9,6 @@ import authRouter from "./src/routes/auth.js";
 import championsRouter from "./src/routes/champions.js";
 import usersRouter from "./src/routes/users.js";
 import buildsRouter from "./src/routes/builds.js";
-import commentsRouter from "./src/routes/comments.js";
 import favoritesRouter from "./src/routes/favorites.js";
 import powersRoutes from "./src/routes/powers.js";
 import generalPowersRoutes from "./src/routes/generalPower.js";
@@ -22,6 +21,7 @@ import constellationsRouter from "./src/routes/constellations.js";
 import bonusStarRoutes from "./src/routes/bonusStars.js";
 import analyticsRouter from "./src/routes/analytics.js";
 import imagesRouter from "./src/routes/images.js";
+import commentRoutes from "./src/routes/comments.js";
 
 dotenv.config(); //đọc .env tải biến môi trường
 
@@ -81,9 +81,6 @@ app.use(
 
 app.use(express.json({ limit: "5mb" }));
 
-// --- API Routes ---
-
-// Gắn các router vào ứng dụng
 app.use("/api/auth", authRouter);
 app.use("/api/champions", championsRouter);
 app.use("/api/powers", powersRoutes);
@@ -92,12 +89,11 @@ app.use("/api/relics", relicsRoutes);
 app.use("/api/items", itemsRoutes);
 app.use("/api/runes", runesRoutes);
 app.use("/api", usersRouter);
-app.use("/api/builds", commentsRouter);
+app.use("/api", commentRoutes);
 app.use("/api/builds", favoritesRouter);
-app.use("/api/builds", buildsRouter); // ĐỂ CUỐI CÙNG!
+app.use("/api/builds", buildsRouter);
 app.use("/api/admin/builds", buildsAdminRouter);
 app.use("/api/guides", guidesRouter);
-app.use("/api/comments", commentsRouter); // Route lấy bình luận mới nhất
 app.use("/api/constellations", constellationsRouter);
 app.use("/api/bonusStars", bonusStarRoutes);
 app.use("/api/analytics", analyticsRouter);

@@ -1,13 +1,11 @@
 // src/components/build/commentsSection.jsx
-import React, { useState, useEffect, useMemo, useCallback } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect, useMemo } from "react";
 import { useAuth } from "../../context/AuthContext.jsx";
 import { Edit, Trash2, MessageSquare } from "lucide-react";
 import Modal from "../common/modal.jsx";
 import Button from "../common/button.jsx";
-import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook
+import { useTranslation } from "../../hooks/useTranslation";
 
-// --- Form viết bình luận ---
 const CommentForm = ({
 	buildId,
 	onCommentPosted,
@@ -15,7 +13,7 @@ const CommentForm = ({
 	replyToUsername = null,
 	onCancel,
 }) => {
-	const { tUI } = useTranslation(); // 🟢
+	const { tUI } = useTranslation();
 	const { user, token } = useAuth();
 	const [content, setContent] = useState("");
 	const [isSubmitting, setIsSubmitting] = useState(false);
@@ -110,7 +108,6 @@ const CommentForm = ({
 	);
 };
 
-// --- Hiển thị từng bình luận ---
 const CommentItem = ({
 	comment,
 	buildId,
@@ -118,10 +115,12 @@ const CommentItem = ({
 	onCommentUpdated,
 	onCommentPosted,
 }) => {
-	const { language, tUI } = useTranslation(); // 🟢
+	const { language, tUI } = useTranslation();
 	const { user, token } = useAuth();
 	const apiUrl = import.meta.env.VITE_API_URL;
-	const isOwner = user && user.sub === comment.sub;
+
+	// Đã sửa: Logic isOwner an toàn hơn
+	const isOwner = user && user.sub === (comment.sub || comment.user_sub);
 
 	const [isReplying, setIsReplying] = useState(false);
 	const [isEditing, setIsEditing] = useState(false);
@@ -130,10 +129,6 @@ const CommentItem = ({
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
 	const [isDeleting, setIsDeleting] = useState(false);
 
-	const timeString = new Date(comment.createdAt).toLocaleString(
-		language === "vi" ? "vi-VN" : "en-US",
-	);
-
 	const handleEdit = async () => {
 		if (!editContent.trim() || editContent === comment.content) {
 			setIsEditing(false);
@@ -141,21 +136,23 @@ const CommentItem = ({
 		}
 		setIsSubmitting(true);
 		try {
+			// Đã sửa: Gửi buildId trong body cho route mới
 			const res = await fetch(`${apiUrl}/api/comments/${comment.id}`, {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
 					Authorization: `Bearer ${token}`,
 				},
-				body: JSON.stringify({ content: editContent.trim() }),
+				body: JSON.stringify({
+					content: editContent.trim(),
+					buildId: comment.buildId || buildId,
+				}),
 			});
 			if (res.ok) {
 				const updated = await res.json();
 				onCommentUpdated(updated.comment || updated);
 				setIsEditing(false);
 			}
-		} catch (err) {
-			console.error(err);
 		} finally {
 			setIsSubmitting(false);
 		}
@@ -164,16 +161,18 @@ const CommentItem = ({
 	const handleDelete = async () => {
 		setIsDeleting(true);
 		try {
-			const res = await fetch(`${apiUrl}/api/comments/${comment.id}`, {
-				method: "DELETE",
-				headers: { Authorization: `Bearer ${token}` },
-			});
+			// Đã sửa: Truyền buildId qua query
+			const res = await fetch(
+				`${apiUrl}/api/comments/${comment.id}?buildId=${comment.buildId || buildId}`,
+				{
+					method: "DELETE",
+					headers: { Authorization: `Bearer ${token}` },
+				},
+			);
 			if (res.ok) {
 				onCommentDeleted(comment.id);
 				setShowDeleteModal(false);
 			}
-		} catch (err) {
-			console.error(err);
 		} finally {
 			setIsDeleting(false);
 		}
@@ -191,7 +190,9 @@ const CommentItem = ({
 							{comment.username}
 						</span>
 						<span className='text-[10px] sm:text-xs text-text-secondary'>
-							{timeString}
+							{new Date(comment.createdAt).toLocaleString(
+								language === "vi" ? "vi-VN" : "en-US",
+							)}
 						</span>
 						{comment.isEdited && (
 							<span className='text-[10px] sm:text-xs text-text-secondary italic'>
@@ -239,7 +240,7 @@ const CommentItem = ({
 							{user && (
 								<button
 									onClick={() => setIsReplying(!isReplying)}
-									className='text-xs sm:text-sm text-text-secondary hover:text-primary-500 font-medium  '
+									className='text-xs sm:text-sm text-text-secondary hover:text-primary-500 font-medium'
 								>
 									{tUI("comments.replyBtn")}
 								</button>
@@ -248,13 +249,13 @@ const CommentItem = ({
 								<>
 									<button
 										onClick={() => setIsEditing(true)}
-										className='text-text-secondary hover:text-primary-500  '
+										className='text-text-secondary hover:text-primary-500'
 									>
 										<Edit size={14} />
 									</button>
 									<button
 										onClick={() => setShowDeleteModal(true)}
-										className='text-text-secondary hover:text-danger-500  '
+										className='text-text-secondary hover:text-danger-500'
 									>
 										<Trash2 size={14} />
 									</button>
@@ -320,9 +321,8 @@ const CommentItem = ({
 	);
 };
 
-// --- Main Section ---
 const CommentsSection = ({ buildId }) => {
-	const { tUI } = useTranslation(); // 🟢
+	const { tUI } = useTranslation();
 	const [comments, setComments] = useState([]);
 	const [loadingComments, setLoadingComments] = useState(true);
 	const apiUrl = import.meta.env.VITE_API_URL;
@@ -336,8 +336,6 @@ const CommentsSection = ({ buildId }) => {
 					const data = await res.json();
 					setComments(data.items || data);
 				}
-			} catch (err) {
-				console.error(err);
 			} finally {
 				setLoadingComments(false);
 			}
@@ -370,10 +368,8 @@ const CommentsSection = ({ buildId }) => {
 			<h2 className='text-xl sm:text-2xl font-bold mb-6 text-text-primary border-l-4 border-primary-500 pl-4'>
 				{tUI("comments.sectionTitle")} ({comments.length})
 			</h2>
-
 			<div className='bg-surface-bg rounded-xl border border-border p-4 sm:p-6 shadow-sm'>
 				<CommentForm buildId={buildId} onCommentPosted={handlePosted} />
-
 				{loadingComments ? (
 					<div className='flex justify-center py-10'>
 						<div className='animate-spin rounded-full h-8 w-8 border-b-2 border-primary-500'></div>
