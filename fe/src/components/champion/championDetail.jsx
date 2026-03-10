@@ -342,7 +342,7 @@ function ChampionDetail() {
 								<div className='flex flex-col md:flex-row border border-border gap-4 rounded-md bg-surface-hover sm:p-4'>
 									<SafeImage
 										className='h-auto max-h-[300px] object-contain rounded-lg'
-										src={champion.assets?.[0]?.gameAbsolutePath}
+										src={champion.assets?.[0]?.avatar}
 										alt={tDynamic(champion, "name")}
 									/>
 									<div className='flex-1'>
