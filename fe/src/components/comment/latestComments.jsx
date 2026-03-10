@@ -1,178 +1,181 @@
-// src/components/build/commentsSection.jsx
-import React, { useState, useEffect, useMemo } from "react";
-import { useAuth } from "../../context/AuthContext.jsx";
-import { Edit, Trash2, MessageSquare } from "lucide-react";
-import Modal from "../common/modal.jsx";
-import Button from "../common/button.jsx";
+// src/components/comment/latestComments.jsx
+import React, { useState, useEffect, useMemo, useCallback } from "react";
+import {
+	Send,
+	MessageSquare,
+	User,
+	Loader2,
+	MapPin,
+	ExternalLink,
+} from "lucide-react";
+import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import Button from "../common/button";
+import Modal from "../common/modal";
 import { useTranslation } from "../../hooks/useTranslation";
 
-// --- Form viết bình luận ---
+const BuildLocation = ({ buildId, championName }) => {
+	const { tUI } = useTranslation();
+	if (buildId === "global") {
+		return (
+			<span className='inline-flex items-center gap-1 text-[10px] bg-surface-hover text-text-secondary px-2 py-0.5 rounded-full border border-border ml-2'>
+				<MapPin size={10} /> {tUI("comments.globalComment")}
+			</span>
+		);
+	}
+	return (
+		<Link
+			to={`/builds/detail/${buildId}`}
+			className='inline-flex items-center gap-1 text-[10px] bg-primary-500/10 text-primary-500 px-2 py-0.5 rounded-full border border-primary-500/20 ml-2 hover:bg-primary-500/20'
+		>
+			<ExternalLink size={10} /> {tUI("comments.buildLabel")}{" "}
+			{championName || buildId}
+		</Link>
+	);
+};
+
 const CommentForm = ({
-	buildId,
+	initialValue = "",
 	onCommentPosted,
 	parentId = null,
+	buildId = "global",
+	championName = null,
 	replyToUsername = null,
 	onCancel,
+	isEdit = false,
+	commentId = null,
 }) => {
 	const { tUI } = useTranslation();
 	const { user, token } = useAuth();
-	const [content, setContent] = useState("");
+	const [content, setContent] = useState(initialValue);
 	const [isSubmitting, setIsSubmitting] = useState(false);
-	const [error, setError] = useState("");
-	const apiUrl = import.meta.env.VITE_API_URL;
-
-	const handleKeyDown = e => {
-		if (e.key === "Enter" && !e.shiftKey) {
-			e.preventDefault();
-			handleSubmit(e);
-		}
-	};
+	const navigate = useNavigate();
 
 	const handleSubmit = async e => {
 		e.preventDefault();
 		if (!content.trim()) return;
-		if (!user) {
-			setError(tUI("comments.loginRequired"));
-			return;
-		}
-
 		setIsSubmitting(true);
-		setError("");
+		const apiUrl = import.meta.env.VITE_API_URL;
 
 		try {
-			const res = await fetch(`${apiUrl}/api/builds/${buildId}/comments`, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${token}`,
-				},
-				body: JSON.stringify({ content: content.trim(), parentId }),
-			});
+			let res;
+			if (isEdit) {
+				res = await fetch(`${apiUrl}/api/comments/${commentId}`, {
+					method: "PUT",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${token}`,
+					},
+					body: JSON.stringify({ content: content.trim(), buildId }),
+				});
+			} else {
+				res = await fetch(`${apiUrl}/api/builds/${buildId}/comments`, {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${token}`,
+					},
+					body: JSON.stringify({
+						content: content.trim(),
+						parentId,
+						championName,
+					}),
+				});
+			}
 
-			const errData = await res.json();
-			if (!res.ok) throw new Error(errData.error || tUI("comments.postFailed"));
-
-			setContent("");
-			if (onCommentPosted) onCommentPosted(errData.comment || errData);
-			if (onCancel) onCancel();
-		} catch (err) {
-			setError(err.message);
+			const data = await res.json();
+			if (res.ok) {
+				if (onCommentPosted) onCommentPosted(data);
+				if (onCancel) onCancel();
+				if (!isEdit) setContent("");
+			}
 		} finally {
 			setIsSubmitting(false);
 		}
 	};
 
-	return (
-		<form onSubmit={handleSubmit} className='mb-6'>
-			<textarea
-				className='w-full p-3 sm:p-4 bg-input-bg border border-input-border rounded-xl text-sm sm:text-base text-text-primary focus:outline-none resize-none transition-all'
-				rows={parentId ? 2 : 3}
-				placeholder={
-					replyToUsername
-						? `${tUI("comments.replyTo")} @${replyToUsername}...`
-						: tUI("comments.placeholder")
-				}
-				value={content}
-				onChange={e => setContent(e.target.value)}
-				onKeyDown={handleKeyDown}
-				disabled={isSubmitting}
-			/>
-			{error && (
-				<p className='text-danger-500 text-xs sm:text-sm mt-1'>{error}</p>
-			)}
-			<div className='flex justify-end gap-2 mt-2'>
-				{onCancel && (
-					<Button
-						type='button'
-						variant='ghost'
-						onClick={onCancel}
-						disabled={isSubmitting}
-						className='text-xs sm:text-sm px-3 py-1.5'
-					>
-						{tUI("common.cancel")}
-					</Button>
-				)}
-				<Button
-					type='submit'
-					variant='primary'
-					disabled={isSubmitting || !content.trim()}
-					className='text-xs sm:text-sm px-4 py-1.5'
-				>
-					{isSubmitting
-						? tUI("comments.sending")
-						: replyToUsername
-							? tUI("comments.replyBtn")
-							: tUI("comments.postCommentBtn")}
+	if (!user) {
+		return (
+			<div className='flex items-center justify-between bg-surface-hover p-4 rounded-xl border border-border'>
+				<div className='flex items-center gap-3 text-text-secondary text-sm'>
+					<User size={18} /> <span>{tUI("comments.loginToComment")}</span>
+				</div>
+				<Button size='sm' onClick={() => navigate("/auth")}>
+					{tUI("common.login")}
 				</Button>
+			</div>
+		);
+	}
+
+	return (
+		<form onSubmit={handleSubmit} className='relative'>
+			<div className='flex items-start gap-3 bg-input-bg border border-input-border rounded-xl p-3 transition-all'>
+				<div className='w-8 h-8 rounded-full bg-gradient-to-br from-primary-500 to-purple-600 flex items-center justify-center text-white font-bold shrink-0 text-sm'>
+					{user.name?.charAt(0).toUpperCase() || "U"}
+				</div>
+				<div className='flex-1 flex flex-col'>
+					<textarea
+						value={content}
+						onChange={e => setContent(e.target.value)}
+						placeholder={
+							replyToUsername
+								? `@${replyToUsername} ...`
+								: tUI("comments.writeComment")
+						}
+						className='w-full bg-transparent border-none focus:ring-0 text-text-primary text-sm resize-none min-h-[44px]'
+						rows={Math.min(5, content.split("\n").length || 1)}
+					/>
+					<div className='flex justify-end gap-2 mt-1'>
+						{onCancel && (
+							<button
+								type='button'
+								onClick={onCancel}
+								className='text-xs text-text-secondary hover:text-text-primary px-2'
+							>
+								{tUI("common.cancel")}
+							</button>
+						)}
+						<button
+							type='submit'
+							disabled={isSubmitting || !content.trim()}
+							className={`p-1.5 rounded-lg ${content.trim() ? "bg-primary-500 text-white" : "bg-surface-hover text-text-secondary cursor-not-allowed"}`}
+						>
+							{isSubmitting ? (
+								<Loader2 size={16} className='animate-spin' />
+							) : (
+								<Send size={16} />
+							)}
+						</button>
+					</div>
+				</div>
 			</div>
 		</form>
 	);
 };
 
-// --- Hiển thị từng bình luận ---
-const CommentItem = ({
-	comment,
-	buildId,
-	onCommentDeleted,
-	onCommentUpdated,
-	onCommentPosted,
-}) => {
+const CommentItem = ({ comment, onDeleted, onUpdated, onPosted }) => {
 	const { language, tUI } = useTranslation();
 	const { user, token } = useAuth();
-	const apiUrl = import.meta.env.VITE_API_URL;
-
-	// Đã sửa: Kiểm tra quyền sở hữu an toàn hỗ trợ cả sub và user_sub
-	const isOwner = user && user.sub === (comment.sub || comment.user_sub);
-
 	const [isReplying, setIsReplying] = useState(false);
 	const [isEditing, setIsEditing] = useState(false);
-	const [editContent, setEditContent] = useState(comment.content);
-	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
 	const [isDeleting, setIsDeleting] = useState(false);
 
-	const handleEdit = async () => {
-		if (!editContent.trim() || editContent === comment.content) {
-			setIsEditing(false);
-			return;
-		}
-		setIsSubmitting(true);
-		try {
-			const res = await fetch(`${apiUrl}/api/comments/${comment.id}`, {
-				method: "PUT",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${token}`,
-				},
-				body: JSON.stringify({
-					content: editContent.trim(),
-					buildId: comment.buildId || buildId,
-				}),
-			});
-			if (res.ok) {
-				const updated = await res.json();
-				onCommentUpdated(updated);
-				setIsEditing(false);
-			}
-		} catch (err) {
-			console.error(err);
-		} finally {
-			setIsSubmitting(false);
-		}
-	};
+	// Kiểm tra quyền sở hữu an toàn
+	const isOwner = user && user.sub === (comment.sub || comment.user_sub);
 
 	const handleDelete = async () => {
 		setIsDeleting(true);
 		try {
 			const res = await fetch(
-				`${apiUrl}/api/comments/${comment.id}?buildId=${comment.buildId || buildId}`,
+				`${import.meta.env.VITE_API_URL}/api/comments/${comment.id}?buildId=${comment.buildId}`,
 				{
 					method: "DELETE",
 					headers: { Authorization: `Bearer ${token}` },
 				},
 			);
 			if (res.ok) {
-				onCommentDeleted(comment.id);
+				onDeleted(comment.id);
 				setShowDeleteModal(false);
 			}
 		} finally {
@@ -182,84 +185,72 @@ const CommentItem = ({
 
 	return (
 		<div className='py-4'>
-			<div className='flex gap-3 sm:gap-4'>
-				<div className='w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-tr from-primary-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm sm:text-base shrink-0'>
+			<div className='flex gap-3'>
+				<div className='w-8 h-8 rounded-full bg-surface-hover flex items-center justify-center text-text-primary font-bold shrink-0 border border-border'>
 					{comment.username?.charAt(0).toUpperCase()}
 				</div>
 				<div className='flex-1 min-w-0'>
 					<div className='flex items-center gap-2 mb-1 flex-wrap'>
-						<span className='font-bold text-text-primary text-sm sm:text-base'>
+						<span className='font-bold text-text-primary text-sm'>
 							{comment.username}
 						</span>
-						<span className='text-[10px] sm:text-xs text-text-secondary'>
+						<span className='text-[10px] text-text-secondary'>
 							{new Date(comment.createdAt).toLocaleString(
 								language === "vi" ? "vi-VN" : "en-US",
 							)}
 						</span>
-						{comment.isEdited && (
-							<span className='text-[10px] sm:text-xs text-text-secondary italic'>
-								({tUI("comments.edited")})
-							</span>
+						{!comment.parentId && (
+							<BuildLocation
+								buildId={comment.buildId}
+								championName={comment.championName}
+							/>
 						)}
 					</div>
 
 					{isEditing ? (
-						<div className='mt-2'>
-							<textarea
-								className='w-full p-2 sm:p-3 bg-input-bg border border-input-border rounded-lg text-sm sm:text-base text-text-primary focus:outline-none resize-none'
-								rows={2}
-								value={editContent}
-								onChange={e => setEditContent(e.target.value)}
-							/>
-							<div className='flex gap-2 mt-2'>
-								<Button
-									onClick={handleEdit}
-									disabled={isSubmitting}
-									className='text-xs px-3 py-1'
-								>
-									{isSubmitting ? tUI("common.saving") : tUI("common.save")}
-								</Button>
-								<Button
-									variant='ghost'
-									onClick={() => {
-										setIsEditing(false);
-										setEditContent(comment.content);
-									}}
-									className='text-xs px-3 py-1'
-								>
-									{tUI("common.cancel")}
-								</Button>
-							</div>
-						</div>
+						<CommentForm
+							initialValue={comment.content}
+							isEdit={true}
+							commentId={comment.id}
+							buildId={comment.buildId}
+							onCommentPosted={u => {
+								setIsEditing(false);
+								onUpdated(u);
+							}}
+							onCancel={() => setIsEditing(false)}
+						/>
 					) : (
-						<p className='text-sm sm:text-base text-text-secondary whitespace-pre-wrap break-words leading-relaxed'>
+						<p className='text-sm text-text-secondary whitespace-pre-wrap break-words leading-relaxed'>
 							{comment.content}
+							{comment.isEdited && (
+								<span className='text-[10px] opacity-70 italic ml-2'>
+									({tUI("comments.edited")})
+								</span>
+							)}
 						</p>
 					)}
 
 					{!isEditing && (
-						<div className='flex items-center gap-4 mt-2'>
-							{user && (
-								<button
-									onClick={() => setIsReplying(!isReplying)}
-									className='text-xs sm:text-sm text-text-secondary hover:text-primary-500 font-medium'
-								>
-									{tUI("comments.replyBtn")}
-								</button>
-							)}
+						<div className='flex items-center gap-3 mt-2'>
+							<button
+								onClick={() => setIsReplying(!isReplying)}
+								className='text-xs text-text-secondary hover:text-primary-500 flex items-center gap-1'
+							>
+								<MessageSquare size={12} /> {tUI("comments.replyBtn")}
+							</button>
 							{isOwner && (
 								<>
 									<button
 										onClick={() => setIsEditing(true)}
-										className='text-text-secondary hover:text-primary-500'
+										className='text-xs text-text-secondary hover:text-primary-500'
 									>
-										<Edit size={14} />
+										{tUI("common.edit")}
 									</button>
 									<button
 										onClick={() => setShowDeleteModal(true)}
-										className='text-text-secondary hover:text-danger-500'
+										className='text-xs text-text-secondary hover:text-danger-500'
 									>
-										<Trash2 size={14} />
+										{tUI("common.delete")}
 									</button>
 								</>
 							)}
@@ -269,14 +260,14 @@ const CommentItem = ({
 			</div>
 
 			{isReplying && (
-				<div className='ml-11 sm:ml-14 mt-3'>
+				<div className='ml-11 mt-3'>
 					<CommentForm
-						buildId={buildId}
+						buildId={comment.buildId}
 						parentId={comment.id}
 						replyToUsername={comment.username}
 						onCommentPosted={c => {
 							setIsReplying(false);
-							onCommentPosted(c);
+							onPosted(c);
 						}}
 						onCancel={() => setIsReplying(false)}
 					/>
@@ -284,15 +275,14 @@ const CommentItem = ({
 			)}
 
 			{comment.replies && comment.replies.length > 0 && (
-				<div className='ml-6 sm:ml-10 mt-2 border-l-2 border-border pl-3 sm:pl-4 space-y-2'>
+				<div className='ml-5 pl-5 mt-3 border-l-2 border-border space-y-3'>
 					{comment.replies.map(reply => (
 						<CommentItem
 							key={reply.id}
 							comment={reply}
-							buildId={buildId}
-							onCommentDeleted={onCommentDeleted}
-							onCommentUpdated={onCommentUpdated}
-							onCommentPosted={onCommentPosted}
+							onDeleted={onDeleted}
+							onUpdated={onUpdated}
+							onPosted={onPosted}
 						/>
 					))}
 				</div>
@@ -303,8 +293,8 @@ const CommentItem = ({
 				onClose={() => !isDeleting && setShowDeleteModal(false)}
 				title={tUI("comments.deleteConfirmTitle")}
 			>
-				<p className='text-text-secondary mb-6 text-sm sm:text-base'>
-					{tUI("comments.deleteConfirmMsg")}
+				<p className='text-text-secondary mb-6 text-sm'>
+					{tUI("comments.deleteWarning")}
 				</p>
 				<div className='flex justify-end gap-3'>
 					<Button
@@ -315,7 +305,11 @@ const CommentItem = ({
 						{tUI("common.cancel")}
 					</Button>
 					<Button variant='danger' onClick={handleDelete} disabled={isDeleting}>
-						{isDeleting ? tUI("common.deleting") : tUI("common.delete")}
+						{isDeleting ? (
+							<Loader2 className='animate-spin' size={16} />
+						) : (
+							tUI("common.delete")
+						)}
 					</Button>
 				</div>
 			</Modal>
@@ -323,79 +317,78 @@ const CommentItem = ({
 	);
 };
 
-// --- Main Section ---
-const CommentsSection = ({ buildId }) => {
+const LatestComments = ({ championID = null }) => {
 	const { tUI } = useTranslation();
 	const [comments, setComments] = useState([]);
-	const [loadingComments, setLoadingComments] = useState(true);
-	const apiUrl = import.meta.env.VITE_API_URL;
+	const [loading, setLoading] = useState(true);
+	const [nextKey, setNextKey] = useState(null);
 
-	useEffect(() => {
-		const fetchComments = async () => {
-			if (!buildId) return;
+	const fetchLatest = useCallback(
+		async (isLoadMore = false) => {
+			setLoading(!isLoadMore);
 			try {
-				const res = await fetch(`${apiUrl}/api/builds/${buildId}/comments`);
+				let url = `${import.meta.env.VITE_API_URL}/api/comments/latest?limit=15`;
+				if (championID) url += `&championID=${championID}`;
+				if (isLoadMore && nextKey)
+					url += `&lastKey=${encodeURIComponent(JSON.stringify(nextKey))}`;
+
+				const res = await fetch(url);
 				if (res.ok) {
 					const data = await res.json();
-					setComments(data.items || data);
+					setComments(prev =>
+						isLoadMore ? [...prev, ...data.comments] : data.comments,
+					);
+					setNextKey(data.nextKey);
 				}
-			} catch (err) {
-				console.error(err);
 			} finally {
-				setLoadingComments(false);
+				setLoading(false);
 			}
-		};
-		fetchComments();
-	}, [buildId, apiUrl]);
+		},
+		[championID, nextKey],
+	);
 
-	const rootComments = useMemo(() => {
+	useEffect(() => {
+		fetchLatest();
+	}, [championID]);
+
+	const commentTree = useMemo(() => {
 		const map = {};
 		const roots = [];
 		comments.forEach(c => (map[c.id] = { ...c, replies: [] }));
 		comments.forEach(c => {
-			if (c.parentId && map[c.parentId]) {
+			if (c.parentId && map[c.parentId])
 				map[c.parentId].replies.push(map[c.id]);
-			} else {
-				roots.push(map[c.id]);
-			}
+			else roots.push(map[c.id]);
 		});
 		return roots.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 	}, [comments]);
 
-	const handlePosted = c => setComments(p => [...p, c]);
-	const handleDeleted = id =>
-		setComments(p => p.filter(c => c.id !== id && c.parentId !== id));
-	const handleUpdated = c =>
-		setComments(p => p.map(x => (x.id === c.id ? c : x)));
-
 	return (
-		<div className='mt-10'>
-			<h2 className='text-xl sm:text-2xl font-bold mb-6 text-text-primary border-l-4 border-primary-500 pl-4'>
-				{tUI("comments.sectionTitle")} ({comments.length})
+		<div className='mt-4 border-t border-border pt-4 font-secondary'>
+			<h2 className='text-xl sm:text-2xl font-bold mb-4 text-text-primary border-l-4 border-primary-500 pl-4 uppercase'>
+				{tUI("comments.communityDiscussions")}
 			</h2>
-
-			<div className='bg-surface-bg rounded-xl border border-border p-4 sm:p-6 shadow-sm'>
-				<CommentForm buildId={buildId} onCommentPosted={handlePosted} />
-
-				{loadingComments ? (
+			<div className='bg-surface-bg rounded-xl p-1 sm:p-6 shadow-sm'>
+				<CommentForm onCommentPosted={c => setComments(p => [c, ...p])} />
+				{loading ? (
 					<div className='flex justify-center py-10'>
-						<div className='animate-spin rounded-full h-8 w-8 border-b-2 border-primary-500'></div>
-					</div>
-				) : rootComments.length === 0 ? (
-					<div className='text-center py-10 opacity-60'>
-						<MessageSquare size={48} className='mx-auto mb-3' />
-						<p>{tUI("comments.noComments")}</p>
+						<Loader2 className='animate-spin text-primary-500' />
 					</div>
 				) : (
-					<div className='divide-y divide-border'>
-						{rootComments.map(c => (
+					<div className='divide-y divide-border mt-6'>
+						{commentTree.map(root => (
 							<CommentItem
-								key={c.id}
-								comment={c}
-								buildId={buildId}
-								onCommentDeleted={handleDeleted}
-								onCommentUpdated={handleUpdated}
-								onCommentPosted={handlePosted}
+								key={root.id}
+								comment={root}
+								onDeleted={id =>
+									setComments(p =>
+										p.filter(c => c.id !== id && c.parentId !== id),
+									)
+								}
+								onUpdated={u =>
+									setComments(p => p.map(c => (c.id === u.id ? u : c)))
+								}
+								onPosted={c => setComments(p => [c, ...p])}
 							/>
 						))}
 					</div>
@@ -405,4 +398,4 @@ const CommentsSection = ({ buildId }) => {
 	);
 };
 
-export default CommentsSection;
+export default LatestComments;
