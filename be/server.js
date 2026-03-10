@@ -21,6 +21,8 @@ import guidesRouter from "./src/routes/guides.js";
 import constellationsRouter from "./src/routes/constellations.js";
 import bonusStarRoutes from "./src/routes/bonusStars.js";
 import analyticsRouter from "./src/routes/analytics.js";
+import imagesRouter from "./src/routes/images.js";
+
 dotenv.config(); //đọc .env tải biến môi trường
 
 // Kiểm tra các biến môi trường cần thiết
@@ -99,6 +101,7 @@ app.use("/api/comments", commentsRouter); // Route lấy bình luận mới nh�
 app.use("/api/constellations", constellationsRouter);
 app.use("/api/bonusStars", bonusStarRoutes);
 app.use("/api/analytics", analyticsRouter);
+app.use("/api/images", imagesRouter);
 // API để kiểm tra "sức khỏe" của server
 app.get("/api/checkheal", (req, res) => {
 	res.status(200).json({ status: "OK", message: "Server is healthy" });

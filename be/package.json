@@ -13,6 +13,7 @@
 	"dependencies": {
 		"@aws-sdk/client-cognito-identity-provider": "^3.914.0",
 		"@aws-sdk/client-dynamodb": "^3.890.0",
+		"@aws-sdk/client-s3": "^3.1005.0",
 		"@aws-sdk/util-dynamodb": "^3.890.0",
 		"@vercel/kv": "^3.0.0",
 		"aws-jwt-verify": "^5.1.0",
@@ -25,8 +26,10 @@
 		"ioredis": "^5.8.2",
 		"lib-dynamodb": "github:aws-sdk/lib-dynamodb",
 		"morgan": "^1.10.1",
+		"multer": "^2.1.1",
 		"node-cache": "^5.1.2",
 		"quick-lru": "^7.3.0",
+		"sharp": "^0.34.5",
 		"uuid": "^13.0.0"
 	}
 }

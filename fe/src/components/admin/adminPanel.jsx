@@ -33,6 +33,7 @@ const BonusStarEditor = lazy(() => import("./bonusStarEditor"));
 const BuildEditor = lazy(() => import("./buildEditor"));
 const GuideEditor = lazy(() => import("./guideEditor"));
 const AnalyticsDashboard = lazy(() => import("./analyticsDashboard"));
+const ImageManager = lazy(() => import("./imageManager"));
 
 // Component DashboardHome
 const DashboardHome = ({ navItems }) => {
@@ -140,6 +141,12 @@ const AdminPanel = () => {
 			label: t("admin.nav.analytics", "Phân tích hệ thống"),
 			icon: LayoutDashboard,
 			path: "/admin/analytics",
+		},
+		{
+			id: "images",
+			label: t("admin.nav.images", "Quản lý Ảnh"),
+			icon: LayoutDashboard,
+			path: "/admin/images",
 		},
 	];
 
@@ -294,6 +301,7 @@ const AdminPanel = () => {
 							<Route path='bonusStars/*' element={<BonusStarEditor />} />
 							<Route path='guides/*' element={<GuideEditor />} />
 							<Route path='analytics' element={<AnalyticsDashboard />} />
+							<Route path='images/*' element={<ImageManager />} />
 						</Routes>
 					</Suspense>
 				</main>

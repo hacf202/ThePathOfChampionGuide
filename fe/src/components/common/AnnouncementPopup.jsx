@@ -55,9 +55,9 @@ const AnnouncementPopup = () => {
 
 				{/* Nội dung */}
 				<h3 className='text-xl font-bold text-center text-text-primary mb-3'>
-					Thông Báo Quan Trọng
+					Chào Mừng đến POC Guide
 				</h3>
-				<p className='text-center text-text-secondary mb-6 leading-relaxed'>
+				<p className='text-center text-text-primary mb-6 leading-relaxed'>
 					Vui lòng cho phép quảng cáo xuất hiện trên trang web để trang web có
 					kinh phí duy trì. Sự ủng hộ của bạn giúp web có thể cập nhật thêm
 					nhiều nội dung hữu ích trong thời gian tới.
@@ -69,7 +69,7 @@ const AnnouncementPopup = () => {
 						onClick={handleClose}
 						className='bg-primary-500 hover:bg-primary-600 text-white font-medium px-6'
 					>
-						Đã hiểu
+						Toi Dong Tinh!
 					</Button>
 				</div>
 			</div>
