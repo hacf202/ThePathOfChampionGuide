@@ -37,7 +37,8 @@
 		"type": "Type",
 		"stacks": "Stacks",
 		"reset": "Reset",
-		"stack": "Stack"
+		"stack": "Stack",
+		"views": "Views"
 	},
 	"relic": {
 		"rarity": {
@@ -658,7 +659,7 @@
 		"heroTitle2": "CHAMPIONS",
 		"heroDesc": "Discover ultimate power, optimize your gameplay, and conquer all challenges in The Path of Champions.",
 		"btnExplore": "EXPLORE NOW",
-		"btnGuides": "NEW GUIDES",
+		"btnNewChampion": "NEW CHAMPIONS",
 		"scrollDown": "Scroll down",
 		"resourceTitle1": "JOURNEY",
 		"resourceTitle2": "RESOURCES",

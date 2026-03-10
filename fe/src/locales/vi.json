@@ -35,7 +35,8 @@
 		"rarity": "Độ hiếm",
 		"type": "Loại",
 		"all": "Tất cả",
-		"stack": "Số lượng"
+		"stack": "Số lượng",
+		"views": "Lượt xem"
 	},
 	"rarity": {
 		"thuong": "Thường",
@@ -668,7 +669,7 @@
 		"heroTitle2": "ANH HÙNG",
 		"heroDesc": "Khám phá sức mạnh tối thượng, tối ưu hóa lối chơi và chinh phục mọi thử thách trong Con Đường Anh Hùng.",
 		"btnExplore": "KHÁM PHÁ NGAY",
-		"btnGuides": "HƯỚNG DẪN MỚI",
+		"btnNewChampion": "Tướng mới",
 		"scrollDown": "Cuộn xuống",
 		"resourceTitle1": "TÀI NGUYÊN",
 		"resourceTitle2": "HÀNH TRÌNH",
