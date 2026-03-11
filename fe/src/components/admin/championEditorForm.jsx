@@ -46,7 +46,7 @@ const ChampionEditorForm = memo(
 	}) => {
 		const { tUI } = useTranslation();
 
-		// 🟢 STATE CHUẨN ĐƯỢC MAP TRỰC TIẾP VỚI CSDL TƯỚNG
+		// 🟢 STATE CHUẨN ĐƯỢC MAP TRỰC TIẾP VỚI CSDL TƯỚNG (Bao gồm translations)
 		const [formData, setFormData] = useState({
 			championID: "",
 			name: "",
@@ -59,9 +59,17 @@ const ChampionEditorForm = memo(
 			adventurePowerIds: [],
 			itemIds: [],
 			runeIds: [],
-			relicSets: champion.relicSets?.length ? champion.relicSets : [[]], // 🟢 Khởi tạo linh hoạt
+			relicSets: champion?.relicSets?.length ? champion.relicSets : [[]],
 			assets: [{ fullAbsolutePath: "", gameAbsolutePath: "", avatar: "" }],
 			videoLink: "",
+			translations: {
+				en: {
+					name: "",
+					description: "",
+					regions: [],
+					tags: [],
+				},
+			},
 		});
 
 		const [constData, setConstData] = useState({ nodes: [] });
@@ -95,18 +103,30 @@ const ChampionEditorForm = memo(
 					adventurePowerIds:
 						champion.adventurePowerIds || champion.adventurePowers || [],
 					runeIds: champion.runeIds || champion.rune || [],
-					relicSets: champion.relicSets?.length ? champion.relicSets : [[]], // 🟢 Nhận linh hoạt số lượng từ CSDL
+					relicSets: champion.relicSets?.length ? champion.relicSets : [[]],
 					assets: champion.assets?.length
 						? champion.assets
 						: [{ fullAbsolutePath: "", gameAbsolutePath: "", avatar: "" }],
+					translations: champion.translations || {
+						en: { name: "", description: "", regions: [], tags: [] },
+					},
 				};
 
-				// Giữ nguyên logic xử lý xuống dòng của bạn
+				// Xử lý xuống dòng cho mô tả Tiếng Việt
 				if (typeof processedData.description === "string") {
 					processedData.description = processedData.description
 						.replace(/\\\\n/g, "\n")
 						.replace(/\\n/g, "\n");
 				}
+
+				// Xử lý xuống dòng cho mô tả Tiếng Anh
+				if (typeof processedData.translations?.en?.description === "string") {
+					processedData.translations.en.description =
+						processedData.translations.en.description
+							.replace(/\\\\n/g, "\n")
+							.replace(/\\n/g, "\n");
+				}
+
 				setFormData(processedData);
 				setInitialData(JSON.parse(JSON.stringify(processedData)));
 				setIsDirty(false);
@@ -132,6 +152,20 @@ const ChampionEditorForm = memo(
 			const { name, value } = e.target;
 			setFormData(prev => ({ ...prev, [name]: value }));
 		};
+
+		// 🟢 Hàm cập nhật state chuyên biệt cho Đa ngôn ngữ (Translations)
+		const handleTranslationChange = useCallback((field, value) => {
+			setFormData(prev => ({
+				...prev,
+				translations: {
+					...prev.translations,
+					en: {
+						...(prev.translations?.en || {}),
+						[field]: value,
+					},
+				},
+			}));
+		}, []);
 
 		const handleMapClick = e => {
 			if (selectedNodeIndex === null || !mapRef.current) return;
@@ -181,9 +215,14 @@ const ChampionEditorForm = memo(
 				.filter(n => n.nodeType === "starPower" && n.powerCode)
 				.map(n => n.powerCode);
 
-			// Giữ nguyên logic replace xuống dòng của bạn
+			// Xử lý escape xuống dòng cho Tiếng Việt
 			if (typeof cleanData.description === "string")
 				cleanData.description = cleanData.description.replace(/\n/g, "\\n");
+
+			// Xử lý escape xuống dòng cho Tiếng Anh
+			if (typeof cleanData.translations?.en?.description === "string")
+				cleanData.translations.en.description =
+					cleanData.translations.en.description.replace(/\n/g, "\\n");
 
 			const finalConstData = {
 				...constData,
@@ -287,13 +326,22 @@ const ChampionEditorForm = memo(
 										required
 										disabled={!formData.isNew}
 									/>
-									<InputField
-										label='Tên tướng'
-										name='name'
-										value={formData.name || ""}
-										onChange={handleInputChange}
-										required
-									/>
+									<div className='grid grid-cols-2 gap-4'>
+										<InputField
+											label='Tên tướng (Tiếng Việt)'
+											name='name'
+											value={formData.name || ""}
+											onChange={handleInputChange}
+											required
+										/>
+										<InputField
+											label='Tên tướng (English Name)'
+											value={formData.translations?.en?.name || ""}
+											onChange={e =>
+												handleTranslationChange("name", e.target.value)
+											}
+										/>
+									</div>
 									<div className='grid grid-cols-2 gap-4'>
 										<InputField
 											label='Năng lượng (Mana)'
@@ -356,17 +404,32 @@ const ChampionEditorForm = memo(
 										placeholder='https://www.youtube.com/embed/...'
 									/>
 								</div>
-								<div className='flex flex-col gap-2'>
-									<label className='block font-semibold text-text-primary text-sm'>
-										Mô tả hướng dẫn chơi chi tiết
-									</label>
-									<textarea
-										name='description'
-										value={formData.description || ""}
-										onChange={handleInputChange}
-										className='w-full p-4 rounded-lg border border-border bg-surface-hover/30 text-text-primary text-sm min-h-[200px] outline-none focus:border-primary-500  '
-										placeholder='Nhập mô tả, chiến thuật, cách combo...'
-									/>
+								<div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+									<div className='flex flex-col gap-2'>
+										<label className='block font-semibold text-text-primary text-sm'>
+											Mô tả hướng dẫn chơi chi tiết (Tiếng Việt)
+										</label>
+										<textarea
+											name='description'
+											value={formData.description || ""}
+											onChange={handleInputChange}
+											className='w-full p-4 rounded-lg border border-border bg-surface-hover/30 text-text-primary text-sm min-h-[200px] outline-none focus:border-primary-500'
+											placeholder='Nhập mô tả, chiến thuật, cách combo...'
+										/>
+									</div>
+									<div className='flex flex-col gap-2'>
+										<label className='block font-semibold text-text-primary text-sm'>
+											Mô tả hướng dẫn chơi chi tiết (English)
+										</label>
+										<textarea
+											value={formData.translations?.en?.description || ""}
+											onChange={e =>
+												handleTranslationChange("description", e.target.value)
+											}
+											className='w-full p-4 rounded-lg border border-border bg-surface-hover/30 text-text-primary text-sm min-h-[200px] outline-none focus:border-primary-500'
+											placeholder='Enter description, strategy, combos...'
+										/>
+									</div>
 								</div>
 							</div>
 						</section>
@@ -655,7 +718,7 @@ const ChampionEditorForm = memo(
 													assets: formData.assets.filter((_, i) => i !== index),
 												})
 											}
-											className='text-red-500 shrink-0 hover:bg-red-500/10 p-2 rounded-full  '
+											className='text-red-500 shrink-0 hover:bg-red-500/10 p-2 rounded-full'
 										>
 											<XCircle size={22} />
 										</button>
@@ -684,20 +747,35 @@ const ChampionEditorForm = memo(
 								</Button>
 							</div>
 
-							<div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
-								<ArrayInputComponent
-									label='Vùng (Region)'
-									data={formData.regions || []}
-									onChange={d => setFormData({ ...formData, regions: d })}
-								/>
-								<ArrayInputComponent
-									label='Thẻ (Tags)'
-									data={formData.tags || []}
-									onChange={d => setFormData({ ...formData, tags: d })}
-								/>
+							<div className='space-y-6'>
+								<div className='grid grid-cols-1 md:grid-cols-2 gap-8 border-b border-border pb-6'>
+									<ArrayInputComponent
+										label='Vùng (Region - Tiếng Việt)'
+										data={formData.regions || []}
+										onChange={d => setFormData({ ...formData, regions: d })}
+									/>
+									<ArrayInputComponent
+										label='Vùng (Region - English)'
+										data={formData.translations?.en?.regions || []}
+										onChange={d => handleTranslationChange("regions", d)}
+									/>
+								</div>
+
+								<div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
+									<ArrayInputComponent
+										label='Thẻ (Tags - Tiếng Việt)'
+										data={formData.tags || []}
+										onChange={d => setFormData({ ...formData, tags: d })}
+									/>
+									<ArrayInputComponent
+										label='Thẻ (Tags - English)'
+										data={formData.translations?.en?.tags || []}
+										onChange={d => handleTranslationChange("tags", d)}
+									/>
+								</div>
 							</div>
 
-							<div className='flex flex-col gap-4'>
+							<div className='flex flex-col gap-4 pt-4 border-t border-border'>
 								{/* 🟢 Render linh hoạt số bộ cổ vật hiện có */}
 								<div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
 									{(formData.relicSets || []).map((set, idx) => (
