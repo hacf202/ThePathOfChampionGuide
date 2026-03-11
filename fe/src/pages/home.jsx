@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 
 const BACKGROUND_IMAGES = [
-	"https://images.pocguide.top/backgrounds/NunuAndWillump.webp",
+	"https://images.pocguide.top/backgrounds/Nunu-Willum.webp",
 	"https://dd.b.pvp.net/6_3_0/set2/vi_vn/img/cards/02NX007T2-full.png",
 	"https://dd.b.pvp.net/6_3_0/set3/vi_vn/img/cards/03MT087T1-full.png",
 	"https://wiki.leagueoflegends.com/en-us/images/06SI012T1-full.png?0bfd7",
@@ -109,7 +109,7 @@ const Home = () => {
 							<div className='absolute inset-0 bg-gradient-to-r from-primary-400 to-primary-600 opacity-0 group-hover:opacity-100 transition-opacity' />
 						</NavLink>
 						<NavLink
-							to='/champion/C082'
+							to='/champion/C083'
 							className='px-10 py-4 border border-white/30 rounded-full font-bold hover:bg-white/10 transition-all text-xl'
 						>
 							{tUI("home.btnNewChampion")}
