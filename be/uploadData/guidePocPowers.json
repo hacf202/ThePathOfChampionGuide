@@ -1,5 +1,709 @@
 [
 	{
+		"powerCode": "P0953",
+		"rarity": "Sử Thi",
+		"name": "Phép Thuật Yeti",
+		"type": ["Star Power"],
+		"description": "+1 Năng Lượng Khởi Điểm.Bắt Đầu Trận Đấu: Tráo 5 lá Cầu Tuyết vào bộ bài của ngươi.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0953-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0953.png",
+		"translations": {
+			"en": {
+				"name": "Yeti Magic",
+				"description": "+1 Starting Mana.Game Start: Shuffle 5 Snowballs into your deck.",
+				"rarity": "Epic"
+			}
+		}
+	},
+	{
+		"powerCode": "P0954",
+		"rarity": "Thường",
+		"name": "Tiếng Gọi Của Freljord",
+		"type": ["Star Power"],
+		"description": "Khi ngươi sử dụng một bài quân, ban cho các đồng minh trong bộ bài +1|+0. Nếu đó là Yeti hoặc có 5 tiêu hao trở lên, ban cho đồng minh trong bộ bài +1|+1 (nếu là cả hai, ban +2|+2).",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0954-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0954.png",
+		"translations": {
+			"en": {
+				"name": "Call of the Freljord",
+				"description": "When you play a unit, grant allies in your deck +1|+0. If it's a Yeti or costs 5+, grant allies in your deck +1|+1 instead (if it's both, grant +2|+2).",
+				"rarity": "Common"
+			}
+		}
+	},
+	{
+		"powerCode": "P0955",
+		"rarity": "Sử Thi",
+		"name": "Tiếng Gọi Của Freljord II",
+		"type": ["Star Power"],
+		"description": "Khi ngươi sử dụng một bài quân, ban cho các đồng minh trong bộ bài +1|+1. Nếu đó là Yeti hoặc có 5 tiêu hao trở lên, ban cho đồng minh trong bộ bài +2|+2 (nếu là cả hai, ban +3|+3).",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0955-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0955.png",
+		"translations": {
+			"en": {
+				"name": "Call of the Freljord II",
+				"description": "When you play a unit, grant allies in your deck +1|+1. If it's a Yeti or costs 5+, grant allies in your deck +2|+2 instead (if it's both, grant +3|+3).",
+				"rarity": "Epic"
+			}
+		}
+	},
+	{
+		"powerCode": "P0956",
+		"rarity": "Huyền Thoại",
+		"name": "Cầu Tuyết Trong Truyền Thuyết!",
+		"type": ["Star Power"],
+		"description": "Khi một đồng minh bị hạ gục, trao chỉ số bằng với Sức mạnh của đồng minh đó cho bài quân đầu tiên trong bộ bài của ngươi. Mỗi vòng, lần đầu tiên một Cầu Tuyết đồng minh bị hạ gục khi tấn công, Tiến Công.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0956-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0956.png",
+		"translations": {
+			"en": {
+				"name": "Biggest Snowball Ever!",
+				"description": "When an ally dies, grant stats equal to its Power to the top unit in your deck.Each round, the first time an allied Snowball dies while attacking, Rally.",
+				"rarity": "Legendary"
+			}
+		}
+	},
+	{
+		"powerCode": "P0957",
+		"rarity": "Thường",
+		"name": "Tử Vong I",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Vô hiệu hóa Sức Mạnh Sao bậc cao nhất của bạn.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0957-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0957.png",
+		"translations": {
+			"en": {
+				"name": "Mortality I",
+				"description": "Disable your highest tier Power Star.",
+				"rarity": "Common"
+			}
+		}
+	},
+	{
+		"powerCode": "P0958",
+		"rarity": "Hiếm",
+		"name": "Khó Khăn II",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Các lá bài của người chơi không thể có tiêu hao dưới 3.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0958-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0958.png",
+		"translations": {
+			"en": {
+				"name": "Taxing II",
+				"description": "The player's cards can't cost less than 3.",
+				"rarity": "Rare"
+			}
+		}
+	},
+	{
+		"powerCode": "P0959",
+		"rarity": "Sử Thi",
+		"name": "Giải Giáp III",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Anh hùng của bạn không thể trang bị cổ vật.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0959-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0959.png",
+		"translations": {
+			"en": {
+				"name": "Disarming III",
+				"description": "Your champion can't equip relics.",
+				"rarity": "Epic"
+			}
+		}
+	},
+	{
+		"powerCode": "P0960",
+		"rarity": "Sử Thi",
+		"name": "Tử Vong III",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Vô hiệu hóa 7 Sức Mạnh Sao bậc cao nhất của bạn.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0960-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0960.png",
+		"translations": {
+			"en": {
+				"name": "Mortality III",
+				"description": "Disable your 7 highest tier Power Stars.",
+				"rarity": "Epic"
+			}
+		}
+	},
+	{
+		"powerCode": "P0962",
+		"rarity": "Hiếm",
+		"name": "Toàn Tri II",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Địch Thủ có +2 Năng Lượng Khởi Đầu và +2 Số Lá Bài Khởi Đầu.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0962-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0962.png",
+		"translations": {
+			"en": {
+				"name": "Omniscient II",
+				"description": "The Foe has +2 Starting Mana and +2 Starting Hand Size.",
+				"rarity": "Rare"
+			}
+		}
+	},
+	{
+		"powerCode": "P0963",
+		"rarity": "Sử Thi",
+		"name": "Không Khoan Nhượng III",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Nhà Chính của người chơi không thể được hồi máu ở bất kỳ đâu trong các cuộc phiêu lưu.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0963-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0963.png",
+		"translations": {
+			"en": {
+				"name": "Unforgiving III",
+				"description": "The player's Nexus can't be healed anywhere in adventures.",
+				"rarity": "Epic"
+			}
+		}
+	},
+	{
+		"powerCode": "P0964",
+		"rarity": "Huyền Thoại",
+		"name": "Khó Khăn IV",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Các lá bài của người chơi không thể có tiêu hao dưới 5.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0964-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0964.png",
+		"translations": {
+			"en": {
+				"name": "Taxing IV",
+				"description": "The player's cards can't cost less than 5.",
+				"rarity": "Legendary"
+			}
+		}
+	},
+	{
+		"powerCode": "P0967",
+		"rarity": "Sử Thi",
+		"name": "Khó Khăn III",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Các lá bài của người chơi không thể có tiêu hao dưới 4.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0967-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0967.png",
+		"translations": {
+			"en": {
+				"name": "Taxing III",
+				"description": "The player's cards can't cost less than 4.",
+				"rarity": "Epic"
+			}
+		}
+	},
+	{
+		"powerCode": "P0968",
+		"rarity": "Thường",
+		"name": "Độc Hại I",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Khi người chơi sử dụng một lá bài, gây 1 sát thương lên Nhà Chính của họ.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0968-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0968.png",
+		"translations": {
+			"en": {
+				"name": "Toxic I",
+				"description": "When the player plays a card, deal 1 to their Nexus.",
+				"rarity": "Common"
+			}
+		}
+	},
+	{
+		"powerCode": "P0969",
+		"rarity": "Sử Thi",
+		"name": "Độc Hại III",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Khi người chơi sử dụng một lá bài, gây 3 sát thương lên Nhà Chính của họ.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0969-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0969.png",
+		"translations": {
+			"en": {
+				"name": "Toxic III",
+				"description": "When the player plays a card, deal 3 to their Nexus.",
+				"rarity": "Epic"
+			}
+		}
+	},
+	{
+		"powerCode": "P0970",
+		"rarity": "Hiếm",
+		"name": "Tử Vong II",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Vô hiệu hóa 3 Sức Mạnh Sao bậc cao nhất của bạn.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0970-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0970.png",
+		"translations": {
+			"en": {
+				"name": "Mortality II",
+				"description": "Disable your 3 highest tier Power Stars.",
+				"rarity": "Rare"
+			}
+		}
+	},
+	{
+		"powerCode": "P0971",
+		"rarity": "Huyền Thoại",
+		"name": "Công Thành Vô Tận II",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Bắt Đầu Trận Đấu: Địch Thủ triệu hồi 3 lá Tàu Leviathan. (Thay thế Công Thành Vô Tận)",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0971-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0971.png",
+		"translations": {
+			"en": {
+				"name": "Unending Siege II",
+				"description": "Game Start: The Foe summons 3 The Leviathans. (replaces Unending Siege)",
+				"rarity": "Legendary"
+			}
+		}
+	},
+	{
+		"powerCode": "P0972",
+		"rarity": "Thường",
+		"name": "Bất Tận I",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Bài quân của Địch Thủ có Áp Đảo.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0972-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0972.png",
+		"translations": {
+			"en": {
+				"name": "Relentless I",
+				"description": "The Foe's units have Overwhelm.",
+				"rarity": "Common"
+			}
+		}
+	},
+	{
+		"powerCode": "P0973",
+		"rarity": "Thường",
+		"name": "Không Khoan Nhượng I",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Nhà Chính của người chơi không thể được hồi máu khi xảy ra giao tranh.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0973-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0973.png",
+		"translations": {
+			"en": {
+				"name": "Unforgiving I",
+				"description": "The player's Nexus can't be healed in combat encounters.",
+				"rarity": "Common"
+			}
+		}
+	},
+	{
+		"powerCode": "P0974",
+		"rarity": "Huyền Thoại",
+		"name": "Toàn Tri IV",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Địch Thủ có +4 Năng Lượng Khởi Đầu và +4 Số Lá Bài Khởi Đầu.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0974-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0974.png",
+		"translations": {
+			"en": {
+				"name": "Omniscient IV",
+				"description": "The Foe has +4 Starting Mana and +4 Starting Hand Size.",
+				"rarity": "Legendary"
+			}
+		}
+	},
+	{
+		"powerCode": "P0975",
+		"rarity": "Thường",
+		"name": "Khó Khăn I",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Các lá bài của người chơi không thể có tiêu hao dưới 2.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0975-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0975.png",
+		"translations": {
+			"en": {
+				"name": "Taxing I",
+				"description": "The player's cards can't cost less than 2.",
+				"rarity": "Common"
+			}
+		}
+	},
+	{
+		"powerCode": "P0976",
+		"rarity": "Thường",
+		"name": "Giải Giáp I",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Anh hùng của bạn không thể trang bị nhiều hơn 2 cổ vật.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0976-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0976.png",
+		"translations": {
+			"en": {
+				"name": "Disarming I",
+				"description": "Your champion can't equip more than 2 relics.",
+				"rarity": "Common"
+			}
+		}
+	},
+	{
+		"powerCode": "P0977",
+		"rarity": "Thường",
+		"name": "Nâng Cấp I",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Bài quân của Địch Thủ có +1|+1.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0977-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0977.png",
+		"translations": {
+			"en": {
+				"name": "Augmented I",
+				"description": "The Foe's units have +1|+1.",
+				"rarity": "Common"
+			}
+		}
+	},
+	{
+		"powerCode": "P0978",
+		"rarity": "Sử Thi",
+		"name": "Nâng Cấp III",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Bài quân của Địch Thủ có +6|+6.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0978-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0978.png",
+		"translations": {
+			"en": {
+				"name": "Augmented III",
+				"description": "The Foe's units have +6|+6.",
+				"rarity": "Epic"
+			}
+		}
+	},
+	{
+		"powerCode": "P0980",
+		"rarity": "Huyền Thoại",
+		"name": "Độc Hại IV",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Khi người chơi sử dụng một lá bài, gây 4 sát thương lên Nhà Chính của họ.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0980-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0980.png",
+		"translations": {
+			"en": {
+				"name": "Toxic IV",
+				"description": "When the player plays a card, deal 4 to their Nexus.",
+				"rarity": "Legendary"
+			}
+		}
+	},
+	{
+		"powerCode": "P0981",
+		"rarity": "Hiếm",
+		"name": "Nâng Cấp II",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Bài quân của Địch Thủ có +3|+3.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0981-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0981.png",
+		"translations": {
+			"en": {
+				"name": "Augmented II",
+				"description": "The Foe's units have +3|+3.",
+				"rarity": "Rare"
+			}
+		}
+	},
+	{
+		"powerCode": "P0982",
+		"rarity": "Thường",
+		"name": "Toàn Tri I",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Địch Thủ có +1 Năng Lượng Khởi Đầu và +1 Số Lá Bài Khởi Đầu.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0982-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0982.png",
+		"translations": {
+			"en": {
+				"name": "Omniscient I",
+				"description": "The Foe has +1 Starting Mana and +1 Starting Hand Size.",
+				"rarity": "Common"
+			}
+		}
+	},
+	{
+		"powerCode": "P0983",
+		"rarity": "Huyền Thoại",
+		"name": "Nâng Cấp IV",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Bài quân của Địch Thủ có +10|+10.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0983-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0983.png",
+		"translations": {
+			"en": {
+				"name": "Augmented IV",
+				"description": "The Foe's units have +10|+10.",
+				"rarity": "Legendary"
+			}
+		}
+	},
+	{
+		"powerCode": "P0984",
+		"rarity": "Hiếm",
+		"name": "Không Khoan Nhượng II",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Nhà Chính của người chơi không thể được hồi máu ngoại trừ tại các ải Hồi Phục Sư.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0984-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0984.png",
+		"translations": {
+			"en": {
+				"name": "Unforgiving II",
+				"description": "The player's Nexus can't be healed except at Healer encounters.",
+				"rarity": "Rare"
+			}
+		}
+	},
+	{
+		"powerCode": "P0985",
+		"rarity": "Hiếm",
+		"name": "Giải Giáp II",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Anh hùng của bạn không thể trang bị nhiều hơn 1 cổ vật.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0985-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0985.png",
+		"translations": {
+			"en": {
+				"name": "Disarming II",
+				"description": "Your champion can't equip more than 1 relic.",
+				"rarity": "Rare"
+			}
+		}
+	},
+	{
+		"powerCode": "P0987",
+		"rarity": "Sử Thi",
+		"name": "Bất Tận III",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Bài quân của Địch Thủ có Áp Đảo và Trinh Sát.Bắt Đầu Vòng Đấu: Địch Thủ Tiến Công.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0987-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0987.png",
+		"translations": {
+			"en": {
+				"name": "Relentless III",
+				"description": "The Foe's units have Overwhelm and Scout.Round Start: The Foe Rallies.",
+				"rarity": "Epic"
+			}
+		}
+	},
+	{
+		"powerCode": "P0988",
+		"rarity": "Hiếm",
+		"name": "Né Tránh II",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Bài quân của Địch Thủ có Huyền Ảo.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0988-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0988.png",
+		"translations": {
+			"en": {
+				"name": "Evasive II",
+				"description": "The Foe's units have Elusive.",
+				"rarity": "Rare"
+			}
+		}
+	},
+	{
+		"powerCode": "P0989",
+		"rarity": "Huyền Thoại",
+		"name": "Tử Vong IV",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Vô hiệu hóa toàn bộ tinh tú của bạn (trừ tăng XP).",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0989-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0989.png",
+		"translations": {
+			"en": {
+				"name": "Mortality IV",
+				"description": "Disable your entire constellation (except XP boosts).",
+				"rarity": "Legendary"
+			}
+		}
+	},
+	{
+		"powerCode": "P0990",
+		"rarity": "Hiếm",
+		"name": "Độc Hại II",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Khi người chơi sử dụng một lá bài, gây 2 sát thương lên Nhà Chính của họ.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0990-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0990.png",
+		"translations": {
+			"en": {
+				"name": "Toxic II",
+				"description": "When the player plays a card, deal 2 to their Nexus.",
+				"rarity": "Rare"
+			}
+		}
+	},
+	{
+		"powerCode": "P0991",
+		"rarity": "Hiếm",
+		"name": "Bất Tận II",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Bài quân của Địch Thủ có Áp Đảo và Trinh Sát.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0991-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0991.png",
+		"translations": {
+			"en": {
+				"name": "Relentless II",
+				"description": "The Foe's units have Overwhelm and Scout.",
+				"rarity": "Rare"
+			}
+		}
+	},
+	{
+		"powerCode": "P0992",
+		"rarity": "Huyền Thoại",
+		"name": "Chống Chọi II",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Bắt Đầu Vòng Đấu: Ban cho các bài quân của Địch Thủ +0|+1.TẤT CẢ bài quân đều có Đáng Gờm.(Thay thế Chống Chọi)",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0992-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0992.png",
+		"translations": {
+			"en": {
+				"name": "Withstand II",
+				"description": "Round Start: Grant the Foe's units +0|+1.ALL units have Formidable.(replaces Withstand)",
+				"rarity": "Legendary"
+			}
+		}
+	},
+	{
+		"powerCode": "P0993",
+		"rarity": "Thường",
+		"name": "Né Tránh I",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Bài quân của Địch Thủ có Đáng Sợ và Ngạo Mạn.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0993-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0993.png",
+		"translations": {
+			"en": {
+				"name": "Evasive I",
+				"description": "The Foe's units have Fearsome and Brash.",
+				"rarity": "Common"
+			}
+		}
+	},
+	{
+		"powerCode": "P0994",
+		"rarity": "Sử Thi",
+		"name": "Toàn Tri III",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Địch Thủ có +3 Năng Lượng Khởi Đầu và +3 Số Lá Bài Khởi Đầu.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0994-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0994.png",
+		"translations": {
+			"en": {
+				"name": "Omniscient III",
+				"description": "The Foe has +3 Starting Mana and +3 Starting Hand Size.",
+				"rarity": "Epic"
+			}
+		}
+	},
+	{
+		"powerCode": "P0996",
+		"rarity": "Huyền Thoại",
+		"name": "Đến Lúc Kết Bạn",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Bắt Đầu Vòng Đấu: Địch Thủ làm đầy hàng sau với Poro 1 tiêu hao. Nếu hàng sau đã đầy, ban cho bài quân của chúng +1|+1 và một đặc điểm ngẫu nhiên ở mọi nơi.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0996-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0996.png",
+		"translations": {
+			"en": {
+				"name": "Time for Friendship",
+				"description": "Round Start: The Foe fills their backrow with 1 cost Poros. If it's already full, grant their units everywhere +1|+1 and a random keyword.",
+				"rarity": "Legendary"
+			}
+		}
+	},
+	{
+		"powerCode": "P0999",
+		"rarity": "Missing Translation",
+		"name": "Hủy Diệt",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Khi Địch Thủ triệu hồi một bài quân, tăng gấp ba chỉ số của nó.\r\nBài phép và kỹ năng của Địch Thủ gây gấp ba lần sát thương.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0999-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P0999.png",
+		"translations": {
+			"en": {
+				"name": "Ruinous",
+				"description": "When the Foe summons a unit, triple its stats.\r\nThe Foe's spells and skills deal triple damage.",
+				"rarity": "Missing Translation"
+			}
+		}
+	},
+	{
+		"powerCode": "P1000",
+		"rarity": "Huyền Thoại",
+		"name": "Muôn Năm",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Chừng nào Địch Thủ có từ 2 anh hùng trở lên, Nhà Chính của chúng sẽ không thể nhận sát thương.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P1000-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P1000.png",
+		"translations": {
+			"en": {
+				"name": "Forever",
+				"description": "As long as the Foe has 2+ champions, their Nexus can't take damage.",
+				"rarity": "Legendary"
+			}
+		}
+	},
+	{
+		"powerCode": "P1001",
+		"rarity": "Huyền Thoại",
+		"name": "Bạn Thân",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Kết Thúc Vòng Đấu: Biến đổi những tùy tùng Poro của Địch Thủ thành các anh hùng mới từ khu vực của chúng.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P1001-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P1001.png",
+		"translations": {
+			"en": {
+				"name": "Best Friends",
+				"description": "Round End: Transform the Foe's Poro followers into new champions from their region.",
+				"rarity": "Legendary"
+			}
+		}
+	},
+	{
+		"powerCode": "P1002",
+		"rarity": "Huyền Thoại",
+		"name": "Chống Chịu",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Bắt Đầu Trận Đấu: Địch Thủ triệu hồi Giáp Phụ. Với mỗi bản đồ người chơi đã hoàn thành, tăng Đếm Ngược của nó lên 1.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P1002-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P1002.png",
+		"translations": {
+			"en": {
+				"name": "Durability",
+				"description": "Game Start: The Foe summons Extra Plating. For each map the player has completed, increase its Countdown by 1.",
+				"rarity": "Legendary"
+			}
+		}
+	},
+	{
+		"powerCode": "P1014",
+		"rarity": "Huyền Thoại",
+		"name": "Thời Khắc Tình Bạn III",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Bắt Đầu Vòng Đấu: Địch Thủ sẽ lấp đầy hàng sau của chúng bằng Poro. Nếu hàng sau đã đầy, các bài quân của chúng sẽ được nhận +5|+5 và một đặc điểm ngẫu nhiên Ở Mọi Nơi.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P1014-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P1014.png",
+		"translations": {
+			"en": {
+				"name": "Time For Friendship III",
+				"description": "Round Start: The Foe fills their backrow with Poros. If it's already full, grant their units everywhere +5|+5 and a random keyword.",
+				"rarity": "Legendary"
+			}
+		}
+	},
+	{
+		"powerCode": "P1015",
+		"rarity": "Huyền Thoại",
+		"name": "Thời Khắc Tình Bạn II",
+		"type": ["Defiance Power", "Foe Power"],
+		"description": "Bắt Đầu Vòng Đấu: Địch Thủ sẽ lấp đầy hàng sau của chúng bằng Poro. Nếu hàng sau đã đầy, các bài quân của chúng sẽ được nhận +3|+3 và một đặc điểm ngẫu nhiên Ở Mọi Nơi.",
+		"assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P1015-full.png",
+		"assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P1015.png",
+		"translations": {
+			"en": {
+				"name": "Time For Friendship II",
+				"description": "Round Start: The Foe fills their backrow with Poros. If it's already full, grant their units everywhere +3|+3 and a random keyword.",
+				"rarity": "Legendary"
+			}
+		}
+	},
+	{
 		"powerCode": "P0517",
 		"rarity": "Sử Thi",
 		"name": "Đại Bác",

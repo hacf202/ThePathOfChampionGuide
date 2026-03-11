@@ -159,8 +159,8 @@ async function runUploader(tableName, filePath) {
 // --- THỰC THI ---
 // Bạn có thể dễ dàng thay đổi thông số ở đây
 const CONFIG = {
-	TABLE: "guidePocBonusStar", // Tên bảng DynamoDB của bạn
-	FILE: "./guidePocBonusStar.json",
+	TABLE: "guidePocPowers", // Tên bảng DynamoDB của bạn
+	FILE: "./converted_powers.json",
 };
 
 runUploader(CONFIG.TABLE, CONFIG.FILE);

@@ -73,6 +73,7 @@
 			"spiritblossompower": "Spirit Blossom Power",
 			"starpower": "Star Power",
 			"teamfighttacticspower": "Teamfight Tactics Power",
+			"defiancepower": "Defiance Power",
 			"relicpower": "Relic Power"
 		}
 	},
@@ -185,7 +186,6 @@
 			"createTitle": "Create New Relic",
 			"editTitle": "Edit:",
 			"idLabel": "Relic ID (Ex: R001, R002...)",
-			"rarityRefLabel": "Rarity Ref",
 			"stackLabel": "Max Stack",
 			"rarityLabel": "Rarity",
 			"typeLabel": "Type",

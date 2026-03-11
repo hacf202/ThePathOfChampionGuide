@@ -163,13 +163,6 @@ const RelicEditorForm = memo(
 							/>
 
 							<div className='grid grid-cols-2 gap-4'>
-								<InputField
-									label={tUI("admin.relicForm.rarityRefLabel")}
-									name='rarityRef'
-									value={formData.rarityRef || ""}
-									onChange={handleInputChange}
-									placeholder='Rare, Epic...'
-								/>
 								<div className='flex flex-col gap-1'>
 									<label className='text-sm font-semibold text-text-primary'>
 										{tUI("admin.relicForm.stackLabel")}

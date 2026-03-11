@@ -14,7 +14,6 @@ const NEW_RELIC_TEMPLATE = {
 	isNew: true,
 	name: "",
 	rarity: "",
-	rarityRef: "",
 	stack: 1,
 	type: "",
 	assetAbsolutePath: "",

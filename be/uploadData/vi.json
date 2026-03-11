@@ -78,6 +78,7 @@
 			"spiritblossompower": "Spirit Blossom Power",
 			"starpower": "Star Power",
 			"teamfighttacticspower": "Teamfight Tactics Power",
+			"defiancepower": "Defiance Power",
 			"relicpower": "Relic Power"
 		}
 	},
@@ -190,7 +191,6 @@
 			"createTitle": "Tạo Cổ Vật Mới",
 			"editTitle": "Chỉnh sửa:",
 			"idLabel": "Mã Cổ Vật (Ví dụ: R001, R002...)",
-			"rarityRefLabel": "Rarity Ref",
 			"stackLabel": "Stack tối đa",
 			"rarityLabel": "Độ hiếm",
 			"typeLabel": "Phân loại (Type)",
