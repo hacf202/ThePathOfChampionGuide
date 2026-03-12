@@ -359,6 +359,8 @@ function TierListChampions({ initialChampions }) {
 					"C053",
 					"C068",
 					"C082",
+					"C072",
+					"C083",
 				],
 				"tier-a": [
 					"C058",
@@ -371,7 +373,6 @@ function TierListChampions({ initialChampions }) {
 					"C054",
 					"C012",
 					"C051",
-					"C072",
 					"C034",
 				],
 				"tier-b": [

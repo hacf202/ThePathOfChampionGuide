@@ -101,7 +101,7 @@ const Home = () => {
 					<div className='flex flex-col sm:flex-row items-center justify-center gap-6'>
 						<NavLink
 							to='/champions'
-							className='group relative px-10 py-4 bg-primary-600 rounded-full font-bold overflow-hidden transition-all hover:scale-105 active:scale-95'
+							className='group relative border border-white/30 px-10 py-4 bg-primary-60 rounded-full font-bold overflow-hidden transition-all hover:bg-white/10 transition-all hover:scale-105 active:scale-95'
 						>
 							<span className='relative z-10 flex items-center gap-2 text-xl'>
 								{tUI("home.btnExplore")} <ChevronRight />
@@ -110,9 +110,9 @@ const Home = () => {
 						</NavLink>
 						<NavLink
 							to='/champion/C083'
-							className='px-10 py-4 border border-white/30 rounded-full font-bold hover:bg-white/10 transition-all text-xl'
+							className='px-10 py-4 border border-white/30 rounded-full font-bold hover:bg-white/10 transition-all text-xl flex items-center gap-2 hover:scale-105'
 						>
-							{tUI("home.btnNewChampion")}
+							{tUI("home.btnNewChampion")} <ChevronRight />
 						</NavLink>
 					</div>
 				</div>

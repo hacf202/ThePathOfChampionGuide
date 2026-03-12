@@ -54,6 +54,16 @@ import {
 } from "./tierListComponents";
 import { useTranslation } from "../../hooks/useTranslation";
 
+// --- 0. HÀM CHUẨN HÓA ĐỘ HIẾM ---
+const normalizeRarity = rarity => {
+	if (!rarity) return "THƯỜNG";
+	const upper = String(rarity).toUpperCase().trim();
+	if (upper === "SỬ THI" || upper === "EPIC") return "SỬ THI";
+	if (upper === "HIẾM" || upper === "RARE") return "HIẾM";
+	if (upper === "THƯỜNG" || upper === "COMMON") return "THƯỜNG";
+	return "THƯỜNG"; // Fallback mặc định
+};
+
 // --- 1. ĐỊNH NGHĨA SKELETON (ĐẶT Ở ĐẦU FILE) ---
 const RelicTierSkeleton = () => (
 	<div className='max-w-[1200px] mx-auto p-2 sm:p-6 animate-pulse'>
@@ -347,6 +357,7 @@ function TierListRelics() {
 					"R0117",
 					"R0089",
 					"R0135",
+					"R0154",
 				],
 				"tier-c": [
 					"R0118",
@@ -390,7 +401,7 @@ function TierListRelics() {
 						avatar: r.assetAbsolutePath
 							? `${apiUrl}/api/relics/proxy-image?url=${encodeURIComponent(r.assetAbsolutePath)}`
 							: "/fallback-relic.png",
-						rarity: r.rarity || "THƯỜNG",
+						rarity: normalizeRarity(r.rarity), // ĐÃ SỬA: Chuẩn hóa độ hiếm
 						type: r.type || "Chung",
 						descriptionRaw: r.descriptionRaw || "",
 						translations: r.translations,

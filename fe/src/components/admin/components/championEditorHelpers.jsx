@@ -283,8 +283,26 @@ export const ConstellationConnections = ({ nodes, onChangeNodes }) => {
 			nextNodes: [...currentNextNodes, toClean],
 		};
 		onChangeNodes(newNodes);
+
+		// Reset state
 		setFromNode("");
 		setToNode("");
+
+		// Focus lại vào input "Từ Node" sau khi nối thành công
+		setTimeout(() => {
+			const fromInput = document.getElementById("fromNodeInput");
+			if (fromInput) {
+				fromInput.focus();
+			}
+		}, 10);
+	};
+
+	// Xử lý sự kiện nhấn phím Enter
+	const handleKeyDown = e => {
+		if (e.key === "Enter") {
+			e.preventDefault();
+			handleAdd();
+		}
 	};
 
 	const handleRemove = (from, to) => {
@@ -312,8 +330,10 @@ export const ConstellationConnections = ({ nodes, onChangeNodes }) => {
 						Từ Node (Bắt đầu)
 					</label>
 					<InputField
+						id='fromNodeInput'
 						value={fromNode}
 						onChange={e => setFromNode(e.target.value)}
+						onKeyDown={handleKeyDown}
 						placeholder='Nhập ID Node (VD: n1)'
 						className='mt-1'
 					/>
@@ -325,6 +345,7 @@ export const ConstellationConnections = ({ nodes, onChangeNodes }) => {
 					<InputField
 						value={toNode}
 						onChange={e => setToNode(e.target.value)}
+						onKeyDown={handleKeyDown}
 						placeholder='Nhập ID Node (VD: n2)'
 						className='mt-1'
 					/>
@@ -448,6 +469,11 @@ export const NodeEditor = ({
 	const nodeAsset = item ? item.assetAbsolutePath || item.image : null;
 	const isResolved = !!item;
 
+	// Lấy mô tả: Ưu tiên mô tả đã chỉnh sửa của node, nếu không có thì lấy mô tả gốc từ cachedData
+	const displayDescription =
+		node.description ||
+		(item ? item.descriptionRaw || item.description || "" : "");
+
 	const handleDropIntoNode = e => {
 		e.preventDefault();
 		try {
@@ -492,7 +518,7 @@ export const NodeEditor = ({
 				onClick={() => onSelect(index)}
 				onDrop={handleDropIntoNode}
 				onDragOver={e => e.preventDefault()}
-				title={!isOpen && node.description ? node.description : ""}
+				title={!isOpen && displayDescription ? displayDescription : ""}
 			>
 				<div className='flex items-center gap-3 pointer-events-none'>
 					<div
@@ -624,7 +650,7 @@ export const NodeEditor = ({
 							Mô tả kỹ năng node
 						</label>
 						<textarea
-							value={node.description || ""}
+							value={displayDescription}
 							onChange={e => onChange(index, "description", e.target.value)}
 							rows={3}
 							className='w-full p-3 border border-border rounded-lg bg-surface-bg text-xs outline-none resize-none'

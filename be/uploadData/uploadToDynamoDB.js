@@ -160,7 +160,7 @@ async function runUploader(tableName, filePath) {
 // Bạn có thể dễ dàng thay đổi thông số ở đây
 const CONFIG = {
 	TABLE: "guidePocPowers", // Tên bảng DynamoDB của bạn
-	FILE: "./converted_powers.json",
+	FILE: "./guidePocPowers.json",
 };
 
 runUploader(CONFIG.TABLE, CONFIG.FILE);
