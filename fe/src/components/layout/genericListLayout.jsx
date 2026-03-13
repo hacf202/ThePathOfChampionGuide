@@ -123,11 +123,8 @@ const GenericListLayout = ({
 						</div>
 					</div>
 				</div>
-				<GoogleAd
-					slot='5918916050'
-					format='horizontal'
-					style={{ display: "block", height: "20px" }}
-				/>
+				<p className='text-xs text-text-secondary text-center mb-2'>AD</p>
+				<GoogleAd slot='5918916050' format='horizontal' />
 				{/* --- CUSTOM TABS (Nếu có, VD: Tab Community / My Builds) --- */}
 				{customTabs && <div className='mb-4'>{customTabs}</div>}
 
