@@ -8,6 +8,7 @@ import LatestComments from "../comment/latestComments";
 import Button from "../common/button";
 import PageTitle from "../common/pageTitle";
 import SafeImage from "../common/SafeImage";
+import GoogleAd from "../common/googleAd";
 
 // Import API và i18n
 import { api } from "../../context/services/apiHelper";
@@ -490,7 +491,12 @@ function ChampionDetail() {
 										</div>
 									</>
 								)}
-
+								<div className='my-10 border-y border-border py-4 bg-surface-bg-alt/50 rounded-lg'>
+									<p className='text-xs text-text-secondary text-center mb-2'>
+										AD
+									</p>
+									<GoogleAd slot='1955949888' format='horizontal' />
+								</div>
 								<div className='mt-8'>
 									<LatestComments championID={championID} />
 								</div>

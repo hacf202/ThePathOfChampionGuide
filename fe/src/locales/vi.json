@@ -53,9 +53,9 @@
 			"legendary": "Huyền Thoại"
 		},
 		"types": {
-			"general": "Chung",
-			"signature": "Trấn",
-			"consumables": "Tiêu Thụ"
+			"chung": "Chung",
+			"trấn": "Trấn",
+			"tiêu thụ": "Tiêu Thụ"
 		}
 	},
 	"power": {
@@ -86,7 +86,9 @@
 		"rarity": {
 			"thường": "Thường",
 			"hiếm": "Hiếm",
-			"sử thi": "Sử Thi"
+			"sử thi": "Sử Thi",
+			"huyền thoại": "Huyền Thoại",
+			"đặc biệt": "Đặc Biệt"
 		}
 	},
 	"rune": {

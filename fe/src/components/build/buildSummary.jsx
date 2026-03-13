@@ -199,26 +199,27 @@ const BuildSummary = ({
 	// 🟢 Ánh xạ ID sang Object thay vì Tên
 	const artifactItems = useMemo(
 		() =>
-			(build.relicSetIds || []).map(id =>
-				relicsList.find(r => r.relicCode === id),
-			),
+			(build.relicSetIds || [])
+				.map(id => relicsList.find(r => r.relicCode === id))
+				.filter(Boolean), // Chặn việc render ra khoảng trống nếu chưa có data
 		[relicsList, build.relicSetIds],
 	);
 
 	const powerItems = useMemo(
 		() =>
-			(build.powerIds || []).map(id =>
-				powersList.find(p => p.powerCode === id),
-			),
+			(build.powerIds || [])
+				.map(id => powersList.find(p => p.powerCode === id))
+				.filter(Boolean),
 		[powersList, build.powerIds],
 	);
 
 	const runeItems = useMemo(
 		() =>
-			(build.runeIds || []).map(id => runesList.find(r => r.runeCode === id)),
+			(build.runeIds || [])
+				.map(id => runesList.find(r => r.runeCode === id))
+				.filter(Boolean),
 		[runesList, build.runeIds],
 	);
-
 	// 🟢 Render Image nhận cả 1 Object (item) để có thể dịch tooltips tự động
 	const renderImageWithTooltip = (item, type, index) => {
 		if (!item) return null; // Bỏ qua an toàn nếu ID không tìm thấy

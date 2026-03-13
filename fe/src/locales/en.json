@@ -48,9 +48,9 @@
 			"legendary": "Legendary"
 		},
 		"types": {
-			"general": "General",
-			"signature": "Signature",
-			"consumables": "Consumables"
+			"chung": "General",
+			"trấn": "Signature",
+			"tiêu thụ": "Consumables"
 		}
 	},
 	"power": {
@@ -81,7 +81,8 @@
 		"rarity": {
 			"thường": "Common",
 			"hiếm": "Rare",
-			"sử thi": "Epic"
+			"sử thi": "Epic",
+			"đặc biệt": "Special"
 		}
 	},
 	"rune": {

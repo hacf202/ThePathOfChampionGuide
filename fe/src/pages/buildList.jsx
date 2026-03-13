@@ -1,385 +1,135 @@
 // src/pages/buildList.jsx
-import React, { useState, useEffect, useMemo, useContext } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import BuildCreation from "../components/build/buildCreation";
-import MyBuilds from "../components/build/myBuilds";
-import MyFavorite from "../components/build/myFavoriteBuild";
-import CommunityBuilds from "../components/build/communityBuilds";
-import { AuthContext } from "../context/AuthContext.jsx";
-import { useTranslation } from "../hooks/useTranslation"; // 🟢 Hook i18n
-import {
-	PlusCircle,
-	Globe,
-	Shield,
-	Heart,
-	Search,
-	RotateCw,
-	ChevronDown,
-	ChevronUp,
-	ChevronLeft,
-	ChevronRight,
-	Loader2,
-} from "lucide-react";
-import Button from "../components/common/button";
-import MultiSelectFilter from "../components/common/multiSelectFilter";
-import InputField from "../components/common/inputField";
-import DropdownFilter from "../components/common/dropdownFilter";
-import PageTitle from "../components/common/pageTitle";
-import iconRegionsData from "../assets/data/iconRegions.json";
+import React, { useState, useMemo, useContext, useEffect } from "react";
 import { NavLink, useParams, useNavigate } from "react-router-dom";
-import { usePersistentState } from "../hooks/usePersistentState";
+import { AuthContext } from "../context/AuthContext.jsx";
+import { useTranslation } from "../hooks/useTranslation";
 
-// === CACHE CONFIG ===
-const CACHE_KEY_PREFIX = "buildsCache_v1";
-const CACHE_DURATION = 5 * 60 * 1000;
+// --- Import Custom Hooks ---
+import { useBuildFilters } from "../hooks/useBuildFilters";
+import { useBuildData } from "../hooks/useBuildData";
+import { useLazyMetadata } from "../hooks/useLazyMetadata";
+import { useBatchFavoriteData } from "../hooks/useBatchFavoriteData";
 
-const getCacheKey = (tab, filters) => {
-	const filterStr = JSON.stringify({
-		search: filters.searchTerm || "",
-		stars: filters.selectedStarLevels || [],
-		regions: filters.selectedRegions || [],
-		sort: filters.sortBy || "createdAt-desc",
-		page: filters.currentPage || 1,
-	});
-	return `${CACHE_KEY_PREFIX}_${tab}_${filterStr}`;
-};
+// --- Import UI Components ---
+import GenericListLayout from "../components/layout/genericListLayout";
+import MultiSelectFilter from "../components/common/multiSelectFilter";
+import DropdownFilter from "../components/common/dropdownFilter";
+import Button from "../components/common/button";
+import BuildCreation from "../components/build/buildCreation";
+import BuildSummary from "../components/build/buildSummary";
+import { PlusCircle, Globe, Shield, Heart, Loader2 } from "lucide-react";
 
-const getCachedData = key => {
-	try {
-		const cached = localStorage.getItem(key);
-		if (!cached) return null;
-		const { data, timestamp } = JSON.parse(cached);
-		if (Date.now() - timestamp > CACHE_DURATION) {
-			localStorage.removeItem(key);
-			return null;
-		}
-		return data;
-	} catch (err) {
-		console.warn("Lỗi đọc cache:", err);
-		return null;
-	}
-};
-
-const setCachedData = (key, data) => {
-	try {
-		const cacheObj = { data, timestamp: Date.now() };
-		localStorage.setItem(key, JSON.stringify(cacheObj));
-	} catch (err) {
-		console.warn("Không thể lưu cache:", err);
-	}
-};
-
-const clearAllBuildsCache = () => {
-	Object.keys(localStorage)
-		.filter(key => key.startsWith(CACHE_KEY_PREFIX))
-		.forEach(key => localStorage.removeItem(key));
-};
+// --- Skeleton Component ---
+const BuildSkeleton = () => (
+	<div className='rounded-lg border border-border bg-surface-bg p-4 space-y-4 animate-pulse'>
+		<div className='flex items-center gap-3'>
+			<div className='w-12 h-12 bg-gray-700/50 rounded-full' />
+			<div className='flex-1 space-y-2'>
+				<div className='h-4 w-3/4 bg-gray-700/50 rounded' />
+				<div className='h-3 w-1/2 bg-gray-700/50 rounded' />
+			</div>
+		</div>
+		<div className='h-24 w-full bg-gray-700/50 rounded-md' />
+		<div className='flex gap-2'>
+			<div className='h-8 w-8 bg-gray-700/50 rounded-full' />
+			<div className='h-8 w-8 bg-gray-700/50 rounded-full' />
+			<div className='h-8 w-8 bg-gray-700/50 rounded-full' />
+		</div>
+	</div>
+);
 
 const Builds = () => {
-	const { user } = useContext(AuthContext);
-	const { language, tUI, tDynamic } = useTranslation(); // 🟢 Sử dụng tUI, tDynamic
+	const { user, token } = useContext(AuthContext);
+	const { tUI } = useTranslation();
 	const { tab } = useParams();
 	const navigate = useNavigate();
 
+	// Xác định Tab hiện tại (Cộng đồng, Của tôi, Yêu thích)
 	const activeTab = useMemo(() => {
 		const validTabs = ["community", "my-builds", "favorites"];
 		return validTabs.includes(tab) ? tab : "community";
 	}, [tab]);
 
 	const [showCreateModal, setShowCreateModal] = useState(false);
-	const [refreshKey, setRefreshKey] = useState(0);
+	const [tempDynamicFilters, setTempDynamicFilters] = useState({});
 
-	// === FILTER STATE (PERSISTENT) ===
-	const [searchInput, setSearchInput] = usePersistentState(
-		"buildsSearchInput",
-		"",
-	);
-	const [searchTerm, setSearchTerm] = usePersistentState(
-		"buildsSearchTerm",
-		"",
-	);
-	const [selectedStarLevels, setSelectedStarLevels] = usePersistentState(
-		"buildsSelectedStarLevels",
-		[],
-	);
-	const [selectedRegions, setSelectedRegions] = usePersistentState(
-		"buildsSelectedRegions",
-		[],
-	);
-	const [sortBy, setSortBy] = usePersistentState(
-		"buildsSortBy",
-		"createdAt-desc",
-	);
-	const [currentPage, setCurrentPage] = usePersistentState(
-		"buildsCurrentPage",
-		1,
-	);
-	const [isFilterOpen, setIsFilterOpen] = usePersistentState(
-		"buildsIsFilterOpen",
-		false,
-	);
-	const [showDesktopFilter, setShowDesktopFilter] = usePersistentState(
-		"buildsShowDesktopFilter",
-		false,
+	// --- 1. Khởi tạo Hook Quản lý Bộ lọc ---
+	const { state, actions, filterOptions, queryParams } = useBuildFilters(
+		tUI,
+		tempDynamicFilters,
 	);
 
-	// === DATA STATE ===
-	const [championsList, setChampionsList] = useState([]);
-	const [relicsList, setRelicsList] = useState([]);
-	const [powersList, setPowersList] = useState([]);
-	const [runesList, setRunesList] = useState([]);
-	const [iconRegions, setIconRegions] = useState([]);
-	const [loadingData, setLoadingData] = useState(true);
-	const [errorData, setErrorData] = useState(null);
+	// --- 2. Khởi tạo Hook Data Fetching (Tự động đổi API theo Tab) ---
+	const { builds, loading, error, pagination, dynamicFilters, refetch } =
+		useBuildData(activeTab, queryParams, tUI, token);
 
-	// Tùy chọn sắp xếp (Lấy từ từ điển)
-	const sortOptions = useMemo(
-		() => [
-			{ value: "createdAt-desc", label: tUI("sort.createdAtDesc") },
-			{ value: "createdAt-asc", label: tUI("sort.createdAtAsc") },
-			{ value: "championName-asc", label: tUI("sort.nameAsc") },
-			{ value: "championName-desc", label: tUI("sort.nameDesc") },
-			{ value: "like-desc", label: tUI("sort.likeDesc") },
-			{ value: "like-asc", label: tUI("sort.likeAsc") },
-			{ value: "views-desc", label: tUI("sort.viewsDesc") },
-		],
-		[tUI],
-	);
-
-	// === LOGIC PHÍM TẮT (Global) ===
+	// Cập nhật filter options khi fetch được dữ liệu metadata từ backend
 	useEffect(() => {
-		const handleKeyDown = event => {
-			if (event.key === "Tab") {
-				event.preventDefault();
-				setShowDesktopFilter(prev => !prev);
-				return;
-			}
-		};
-		window.addEventListener("keydown", handleKeyDown);
-		return () => window.removeEventListener("keydown", handleKeyDown);
-	}, [setShowDesktopFilter]);
+		if (dynamicFilters && dynamicFilters !== tempDynamicFilters) {
+			setTempDynamicFilters(dynamicFilters);
+		}
+	}, [dynamicFilters, tempDynamicFilters]);
 
-	// === FETCH METADATA ===
-	useEffect(() => {
-		const fetchAllData = async () => {
-			setLoadingData(true);
-			setErrorData(null);
-			try {
-				const apiUrl = import.meta.env.VITE_API_URL;
-				const fetchOptions = "?page=1&limit=1000";
-				const [champRes, relicRes, powerRes, runeRes] = await Promise.all([
-					fetch(`${apiUrl}/api/champions${fetchOptions}`),
-					fetch(`${apiUrl}/api/relics${fetchOptions}`),
-					fetch(`${apiUrl}/api/powers${fetchOptions}&types=General%20Power`),
-					fetch(`${apiUrl}/api/runes${fetchOptions}`),
-				]);
-				if (!champRes.ok || !relicRes.ok || !powerRes.ok || !runeRes.ok)
-					throw new Error(tUI("common.errorLoadData"));
-				const [champData, relicData, powerData, runeData] = await Promise.all([
-					champRes.json(),
-					relicRes.json(),
-					powerRes.json(),
-					runeRes.json(),
-				]);
-				setChampionsList(champData.items || []);
-				setRelicsList(relicData.items || []);
-				setPowersList(powerData.items || []);
-				setRunesList(runeData.items || []);
-				setIconRegions(iconRegionsData);
-			} catch (err) {
-				setErrorData(err.message);
-			} finally {
-				setLoadingData(false);
-			}
-		};
-		fetchAllData();
-	}, [tUI]);
+	// --- 3. Hook Quản lý Logic Yêu thích (Favorite) ---
+	const { favoriteStatus, favoriteCounts, toggleFavorite } =
+		useBatchFavoriteData(builds, token);
 
-	const powerMap = useMemo(
-		() => new Map(powersList.map(p => [p.powerCode, tDynamic(p, "name")])),
-		[powersList, tDynamic],
-	);
-
-	const championNameToRegionsMap = useMemo(() => {
-		const map = new Map();
-		championsList.forEach(
-			c => c.name && Array.isArray(c.regions) && map.set(c.name, c.regions),
-		);
-		return map;
-	}, [championsList]);
-
-	const regionOptions = useMemo(() => {
-		const allRegions = championsList.flatMap(c => c.regions || []);
-		return [...new Set(allRegions)].sort().map(name => ({
-			value: name,
-			label: name,
-			iconUrl:
-				iconRegions.find(r => r.name === name)?.iconAbsolutePath ??
-				"/fallback-image.svg",
-		}));
-	}, [championsList, iconRegions]);
-
-	const starLevelOptions = useMemo(
-		() =>
-			[1, 2, 3, 4, 5, 6, 7].map(s => ({
-				value: s.toString(),
-				label: "",
-				isStar: true,
-			})),
-		[],
-	);
-
-	// === HANDLERS ===
-	const handleSearch = () => {
-		setSearchTerm(searchInput);
-		setCurrentPage(1); // Luôn về trang 1 khi tìm kiếm mới
-		if (window.innerWidth < 1024) setIsFilterOpen(false);
+	const handleFavoriteToggle = async (buildId, newStatus, newCount) => {
+		await toggleFavorite(buildId, newStatus, newCount);
+		// Nếu đang ở tab Yêu thích và người dùng bỏ tim (unlike), ta cần gọi refetch để cập nhật lại danh sách ngay lập tức
+		if (activeTab === "favorites" && !newStatus) {
+			refetch();
+		}
 	};
 
-	const handleResetFilters = () => {
-		setSearchInput("");
-		setSearchTerm("");
-		setSelectedStarLevels([]);
-		setSelectedRegions([]);
-		setSortBy("createdAt-desc");
-		setCurrentPage(1); // Đưa về trang đầu tiên
+	// --- 4. Hook Lazy Load Metadata (Chỉ gọi khi tạo Build) ---
+	const { metadata, isLoadingMeta, fetchAllMetadata } = useLazyMetadata(tUI);
+	useEffect(() => {
+		fetchAllMetadata();
+	}, [fetchAllMetadata]);
+
+	// --- Handlers ---
+	const changeTab = newTab => {
+		actions.setCurrentPage(1); // Luôn về trang 1 khi đổi tab
+		navigate(`/builds/${newTab}`);
 	};
 
-	const triggerRefresh = () => {
-		clearAllBuildsCache();
-		setRefreshKey(prev => prev + 1);
+	const handleOpenCreateModal = async () => {
+		await fetchAllMetadata();
+		setShowCreateModal(true);
 	};
 
 	const handleCreateSuccess = () => {
 		setShowCreateModal(false);
-		triggerRefresh();
+		refetch();
 		navigate("/builds/my-builds");
 	};
 
-	const changeTab = newTab => {
-		setCurrentPage(1); // Về trang 1 khi chuyển tab
-		navigate(`/builds/${newTab}`);
+	const handleBuildDeleted = () => {
+		refetch();
 	};
 
-	const cacheUtils = {
-		getCache: tabName =>
-			getCachedData(
-				getCacheKey(tabName, {
-					searchTerm,
-					selectedStarLevels,
-					selectedRegions,
-					sortBy,
-					currentPage,
-				}),
-			),
-		setCache: (tabName, data) =>
-			setCachedData(
-				getCacheKey(tabName, {
-					searchTerm,
-					selectedStarLevels,
-					selectedRegions,
-					sortBy,
-					currentPage,
-				}),
-				data,
-			),
-		clearCache: clearAllBuildsCache,
-	};
-
-	// === KHÔI PHỤC LẠI COMMON PROPS CHUẨN ĐỂ TRUYỀN XUỐNG CÁC CHILD COMPONENTS ===
-	const commonProps = {
-		searchTerm,
-		selectedStarLevels: selectedStarLevels.join(","),
-		selectedRegions: selectedRegions.join(","),
-		sortBy,
-		currentPage,
-		setCurrentPage,
-		championsList,
-		relicsList,
-		powersList,
-		runesList,
-		refreshKey,
-		powerMap,
-		championNameToRegionsMap,
-		showDesktopFilter,
-		onEditSuccess: triggerRefresh,
-		onDeleteSuccess: triggerRefresh,
-		onFavoriteToggle: triggerRefresh,
-		...cacheUtils, // Hàm getCache, setCache, clearCache được truyền ở đây
-	};
-
-	const renderContent = () => {
-		if (loadingData)
-			return (
-				<div className='flex justify-center items-center h-64'>
-					<Loader2 className='animate-spin text-primary-500' size={48} />
-				</div>
-			);
-		if (errorData)
-			return (
-				<div className='text-center p-10 bg-danger-bg-light text-danger-text-dark rounded-lg'>
-					<p>{errorData}</p>
-					<Button onClick={() => window.location.reload()}>
-						{tUI("common.ok")} {/* Có thể map "Thử lại" nếu cần */}
-					</Button>
-				</div>
-			);
-
-		switch (activeTab) {
-			case "community":
-				return <CommunityBuilds {...commonProps} />;
-			case "my-builds":
-				return user ? (
-					<MyBuilds {...commonProps} />
-				) : (
-					<p className='text-center p-4 italic text-text-secondary'>
-						{tUI("buildList.loginToCreate")}
-					</p>
-				);
-			case "favorites":
-				return user ? (
-					<MyFavorite {...commonProps} />
-				) : (
-					<p className='text-center p-4 italic text-text-secondary'>
-						{tUI("buildList.loginToCreate")}
-					</p>
-				);
-			default:
-				return <CommunityBuilds {...commonProps} />;
-		}
-	};
+	// --- Render Lỗi Nếu Có ---
+	if (error) {
+		return (
+			<div className='p-10 text-center bg-danger-bg-light text-danger-text-dark rounded-lg m-6'>
+				<p className='font-bold text-xl mb-4'>{error}</p>
+				<Button onClick={() => window.location.reload()}>
+					{tUI("common.ok")}
+				</Button>
+			</div>
+		);
+	}
 
 	return (
-		<div className='animate-fadeIn'>
-			<PageTitle
-				title={tUI("buildList.title")}
-				description={tUI("metadata.defaultDescription")}
-			/>
-			<div className='font-secondary'>
-				<div className='flex justify-between items-center mb-2 md:mb-6'>
-					<h1 className='text-3xl font-bold text-text-primary font-primary animate-glitch'>
-						{tUI("buildList.heading")}
-					</h1>
-					<div className='hidden lg:flex items-center gap-4'>
-						<Button
-							variant='outline'
-							onClick={() => setShowDesktopFilter(!showDesktopFilter)}
-							className='flex items-center gap-2'
-						>
-							{showDesktopFilter ? (
-								<ChevronRight size={18} />
-							) : (
-								<ChevronLeft size={18} />
-							)}
-							{showDesktopFilter
-								? tUI("championList.hideFilter")
-								: tUI("championList.showFilter")}
-						</Button>
-					</div>
-				</div>
-
-				<div className='flex flex-wrap justify-between gap-2 border border-border mb-2'>
-					<div className='flex gap-1'>
+		<>
+			<GenericListLayout
+				pageTitle={tUI("buildList.title")}
+				pageDescription={tUI("metadata.defaultDescription")}
+				heading={tUI("buildList.heading")}
+				// --- Điều hướng Tabs ---
+				customTabs={
+					<div className='flex flex-wrap gap-2 border border-border p-1 rounded-lg w-fit mb-2 md:mb-0 bg-surface-bg shadow-sm'>
 						<Button
 							variant={activeTab === "community" ? "primary" : "ghost"}
 							onClick={() => changeTab("community")}
@@ -406,172 +156,106 @@ const Builds = () => {
 							</>
 						)}
 					</div>
-					{user ? (
+				}
+				// --- Nút Tạo Mới ---
+				customHeaderActions={
+					user ? (
 						<Button
 							variant='primary'
-							onClick={() => setShowCreateModal(true)}
-							iconLeft={<PlusCircle size={20} />}
+							onClick={handleOpenCreateModal}
+							iconLeft={
+								isLoadingMeta ? (
+									<Loader2 className='animate-spin' size={20} />
+								) : (
+									<PlusCircle size={20} />
+								)
+							}
+							disabled={isLoadingMeta}
 						>
-							{tUI("buildList.createNew")}
+							{isLoadingMeta
+								? tUI("common.loading")
+								: tUI("buildList.createNew")}
 						</Button>
 					) : (
 						<NavLink
 							to='/auth'
-							className='text-md font-bold text-primary-500 hover:underline flex items-center'
+							className='text-md font-bold text-primary-500 hover:underline flex items-center bg-primary-500/10 px-4 py-2 rounded-lg'
 						>
 							{tUI("buildList.loginToCreate")}
 						</NavLink>
-					)}
-				</div>
-
-				<div className='flex flex-col lg:flex-row items-start gap-4'>
-					<div
-						className={`w-full transition-[flex] duration-300 ease-in-out ${
-							showDesktopFilter ? "lg:flex-[3]" : "lg:flex-[1]"
-						}`}
-					>
-						<div className='bg-surface-bg rounded-lg border border-border p-2 sm:p-4 shadow-sm min-h-[500px] relative overflow-hidden'>
-							{renderContent()}
-						</div>
-					</div>
-
-					<AnimatePresence initial={false}>
-						{showDesktopFilter && (
-							<motion.aside
-								key='desktop-filter'
-								initial={{ width: 0, opacity: 0, marginLeft: 0 }}
-								animate={{
-									width: "auto",
-									opacity: 1,
-									marginLeft: "1rem", // Điều chỉnh lại margin để cân đối với gap
-								}}
-								exit={{ width: 0, opacity: 0, marginLeft: 0 }}
-								transition={{ duration: 0.3, ease: "easeInOut" }}
-								className='hidden lg:block sticky top-24 h-fit overflow-hidden'
-							>
-								<div className='w-[280px] xl:w-[320px] p-4 rounded-lg border border-border bg-surface-bg space-y-4 shadow-sm'>
-									<label className='block text-sm font-medium text-text-secondary'>
-										{tUI("common.search")}
-									</label>
-									<InputField
-										value={searchInput}
-										onChange={e => setSearchInput(e.target.value)}
-										onKeyDown={e => e.key === "Enter" && handleSearch()}
-										placeholder={tUI("buildList.searchPlaceholder")}
-									/>
-									<Button onClick={handleSearch} className='w-full mt-2'>
-										<Search size={16} className='mr-2' />
-										{tUI("common.search")}
-									</Button>
-									<MultiSelectFilter
-										label={tUI("buildList.starLevel")}
-										options={starLevelOptions}
-										selectedValues={selectedStarLevels}
-										onChange={setSelectedStarLevels}
-									/>
-									<MultiSelectFilter
-										label={tUI("championList.region")}
-										options={regionOptions}
-										selectedValues={selectedRegions}
-										onChange={setSelectedRegions}
-									/>
-									<DropdownFilter
-										label={tUI("championList.sortBy")}
-										options={sortOptions}
-										selectedValue={sortBy}
-										onChange={setSortBy}
-									/>
-									<Button
-										variant='outline'
-										onClick={handleResetFilters}
-										className='w-full'
-									>
-										<RotateCw size={16} className='mr-2' />
-										{tUI("championList.resetFilter")}
-									</Button>
-								</div>
-							</motion.aside>
-						)}
-					</AnimatePresence>
-
-					<div className='lg:hidden w-full p-2 mb-4 rounded-lg border border-border bg-surface-bg shadow-sm order-first'>
-						<div className='flex items-center gap-2'>
-							<div className='flex-1 relative min-w-0'>
-								<InputField
-									value={searchInput}
-									onChange={e => setSearchInput(e.target.value)}
-									onKeyDown={e => e.key === "Enter" && handleSearch()}
-									placeholder={tUI("buildList.searchPlaceholder")}
-								/>
-							</div>
-							<Button onClick={handleSearch} className='px-3'>
-								<Search size={18} />
-							</Button>
-							<Button
-								variant='outline'
-								onClick={handleResetFilters}
-								className='px-3'
-							>
-								<RotateCw size={18} />
-							</Button>
-							<Button
-								variant='outline'
-								onClick={() => setIsFilterOpen(!isFilterOpen)}
-								className='px-3'
-							>
-								{isFilterOpen ? (
-									<ChevronUp size={18} />
-								) : (
-									<ChevronDown size={18} />
-								)}
-							</Button>
-						</div>
-						<AnimatePresence>
-							{isFilterOpen && (
-								<motion.div
-									initial={{ height: 0, opacity: 0 }}
-									animate={{ height: "auto", opacity: 1 }}
-									exit={{ height: 0, opacity: 0 }}
-									className='overflow-hidden'
-								>
-									<div className='pt-4 space-y-4 border-t border-border mt-3'>
-										<MultiSelectFilter
-											label={tUI("buildList.starLevel")}
-											options={starLevelOptions}
-											selectedValues={selectedStarLevels}
-											onChange={setSelectedStarLevels}
-										/>
-										<MultiSelectFilter
-											label={tUI("championList.region")}
-											options={regionOptions}
-											selectedValues={selectedRegions}
-											onChange={setSelectedRegions}
-										/>
-										<DropdownFilter
-											label={tUI("championList.sortBy")}
-											options={sortOptions}
-											selectedValue={sortBy}
-											onChange={setSortBy}
-										/>
-									</div>
-								</motion.div>
-							)}
-						</AnimatePresence>
-					</div>
-				</div>
-
-				{showCreateModal && (
-					<BuildCreation
-						onConfirm={handleCreateSuccess}
-						onClose={() => setShowCreateModal(false)}
-						championsList={championsList}
-						relicsList={relicsList}
-						powersList={powersList}
-						runesList={runesList}
+					)
+				}
+				// --- Quản lý Dữ liệu và Phân trang ---
+				data={builds}
+				loading={loading}
+				pagination={pagination}
+				currentPage={state.currentPage}
+				onPageChange={actions.setCurrentPage}
+				skeletonCount={6}
+				// --- Quản lý Tìm kiếm ---
+				searchValue={state.searchInput}
+				onSearchChange={actions.setSearchInput}
+				onSearchSubmit={actions.handleSearch}
+				searchPlaceholder={tUI("buildList.searchPlaceholder")}
+				onResetFilters={actions.handleResetFilters}
+				// --- Render Logic ---
+				renderSkeleton={() => <BuildSkeleton />}
+				renderItem={build => (
+					<BuildSummary
+						key={build._id || build.id}
+						build={build}
+						// Truyền Metadata (sẽ rỗng lúc đầu, có data khi user đã gọi lazy load, nhưng BuildSummary không bị lỗi vì dữ liệu build gốc đã có đủ text hiển thị cơ bản)
+						championsList={metadata.champions}
+						relicsList={metadata.relics}
+						powersList={metadata.powers}
+						runesList={metadata.runes}
+						// Props giao diện
+						showDesktopFilter={state.showDesktopFilter}
+						isFavoritePage={activeTab === "favorites"}
+						// Props logic tương tác
+						onBuildUpdate={refetch}
+						onBuildDelete={handleBuildDeleted}
+						onFavoriteToggle={handleFavoriteToggle}
+						initialIsFavorited={!!favoriteStatus[build.id]}
+						initialLikeCount={favoriteCounts[build.id] || build.like || 0}
 					/>
 				)}
-			</div>
-		</div>
+				renderFilters={() => (
+					<>
+						<MultiSelectFilter
+							label={tUI("buildList.starLevel")}
+							options={filterOptions.starLevels}
+							selectedValues={state.selectedStarLevels}
+							onChange={actions.setSelectedStarLevels}
+						/>
+						<MultiSelectFilter
+							label={tUI("championList.region")}
+							options={filterOptions.regions}
+							selectedValues={state.selectedRegions}
+							onChange={actions.setSelectedRegions}
+						/>
+						<DropdownFilter
+							label={tUI("championList.sortBy")}
+							options={filterOptions.sort}
+							selectedValue={state.sortBy}
+							onChange={actions.setSortBy}
+						/>
+					</>
+				)}
+			/>
+
+			{/* Modal Tạo Build - Hiển thị độc lập với Layout chung */}
+			{showCreateModal && !isLoadingMeta && (
+				<BuildCreation
+					onConfirm={handleCreateSuccess}
+					onClose={() => setShowCreateModal(false)}
+					championsList={metadata.champions}
+					relicsList={metadata.relics}
+					powersList={metadata.powers}
+					runesList={metadata.runes}
+				/>
+			)}
+		</>
 	);
 };
 

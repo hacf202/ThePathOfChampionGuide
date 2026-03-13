@@ -233,9 +233,22 @@ router.get("/", async (req, res) => {
 	}
 });
 
-// GET /api/builds/my-builds
 router.get("/my-builds", authenticateCognitoToken, async (req, res) => {
 	const creator = req.user["cognito:username"];
+
+	// 🟢 Nhận tham số từ Frontend
+	const {
+		page = 1,
+		limit = 12,
+		searchTerm = "",
+		regions = "",
+		stars = "",
+		sort = "createdAt-desc",
+	} = req.query;
+
+	const pageSize = parseInt(limit);
+	const currentPage = parseInt(page);
+
 	try {
 		const command = new QueryCommand({
 			TableName: BUILDS_TABLE,
@@ -244,10 +257,101 @@ router.get("/my-builds", authenticateCognitoToken, async (req, res) => {
 			ExpressionAttributeValues: marshall({ ":creator": creator }),
 		});
 		const { Items } = await client.send(command);
-		const items = Items
+		let items = Items
 			? Items.map(item => normalizeBuildFromDynamo(unmarshall(item)))
 			: [];
-		res.json({ items });
+
+		// 🟢 Lấy từ điển để hỗ trợ tìm kiếm Cổ vật / Kỹ năng giống hệt public builds
+		const { champMap, relicMap, powerMap } = await getSearchDictionaries();
+
+		// 🟢 1. Lọc theo từ khóa (Tên tướng, Mô tả, Cổ vật, Kỹ năng)
+		if (searchTerm) {
+			const searchKey = removeAccents(searchTerm.toLowerCase());
+			items = items.filter(b => {
+				const champNameVi = removeAccents((b.championName || "").toLowerCase());
+				const champNameEn = removeAccents(
+					(champMap[b.championName] || "").toLowerCase(),
+				);
+				if (champNameVi.includes(searchKey) || champNameEn.includes(searchKey))
+					return true;
+
+				const desc = removeAccents((b.description || "").toLowerCase());
+				if (desc.includes(searchKey)) return true;
+
+				if (Array.isArray(b.relicSetIds)) {
+					for (const rId of b.relicSetIds) {
+						const rInfo = relicMap[rId];
+						if (
+							rInfo &&
+							(removeAccents(rInfo.vi.toLowerCase()).includes(searchKey) ||
+								removeAccents(rInfo.en.toLowerCase()).includes(searchKey))
+						) {
+							return true;
+						}
+					}
+				}
+
+				if (Array.isArray(b.powerIds)) {
+					for (const pId of b.powerIds) {
+						const pInfo = powerMap[pId];
+						if (
+							pInfo &&
+							(removeAccents(pInfo.vi.toLowerCase()).includes(searchKey) ||
+								removeAccents(pInfo.en.toLowerCase()).includes(searchKey))
+						) {
+							return true;
+						}
+					}
+				}
+
+				return false;
+			});
+		}
+
+		// 🟢 2. Lọc theo vùng và sao
+		if (regions) {
+			const rList = regions.split(",");
+			items = items.filter(b => b.regions?.some(r => rList.includes(r)));
+		}
+
+		if (stars) {
+			const sList = stars.split(",");
+			items = items.filter(b => sList.includes(String(b.star)));
+		}
+
+		// 🟢 3. Sắp xếp
+		const [field, order] = sort.split("-");
+		items.sort((a, b) => {
+			let vA = a[field] ?? "";
+			let vB = b[field] ?? "";
+
+			if (field === "createdAt") {
+				return order === "asc"
+					? new Date(vA) - new Date(vB)
+					: new Date(vB) - new Date(vA);
+			}
+
+			if (typeof vA === "number" && typeof vB === "number") {
+				return order === "asc" ? vA - vB : vB - vA;
+			}
+
+			return order === "asc"
+				? String(vA).localeCompare(String(vB))
+				: String(vB).localeCompare(String(vA));
+		});
+
+		// 🟢 4. Phân trang
+		const totalItems = items.length;
+		const totalPages = Math.ceil(totalItems / pageSize);
+		const paginatedItems = items.slice(
+			(currentPage - 1) * pageSize,
+			currentPage * pageSize,
+		);
+
+		res.json({
+			items: paginatedItems,
+			pagination: { totalItems, totalPages, currentPage, pageSize },
+		});
 	} catch (error) {
 		console.error("Error getting user's builds:", error);
 		res.status(500).json({ error: "Could not retrieve your builds" });
