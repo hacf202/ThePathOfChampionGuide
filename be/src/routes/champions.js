@@ -185,6 +185,38 @@ router.get("/search", async (req, res) => {
 });
 
 /**
+ * @route   POST /api/champions/resolve
+ * @desc    Lấy thông tin chi tiết của một danh sách các tướng dựa trên ID (hoặc tên)
+ */
+router.post("/resolve", async (req, res) => {
+	try {
+		const { ids } = req.body;
+		if (!Array.isArray(ids) || ids.length === 0) {
+			return res.json([]); // Trả về mảng rỗng nếu không có id nào
+		}
+
+		// Tận dụng cache có sẵn để tìm kiếm siêu tốc độ mà không cần query DB nhiều lần
+		const allChampions = await getCachedChampions();
+
+		// Map qua danh sách ids được yêu cầu từ Frontend
+		const resolvedChampions = ids
+			.map(id => {
+				// Tìm khớp theo championID hoặc name (vì đôi khi requirement lưu theo tên)
+				const found = allChampions.find(
+					c => c.championID === id || c.name === id,
+				);
+				return found || null;
+			})
+			.filter(Boolean); // Lọc bỏ các kết quả null nếu không tìm thấy
+
+		res.json(resolvedChampions);
+	} catch (error) {
+		console.error("Lỗi khi resolve champions:", error);
+		res.status(500).json({ error: "Lỗi hệ thống khi resolve tướng." });
+	}
+});
+
+/**
  * @route   GET /api/champions/:championID
  * @desc    Lấy chi tiết một tướng
  */

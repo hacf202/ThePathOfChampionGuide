@@ -1,7 +1,7 @@
 // src/pages/admin/components/championEditorHelpers.jsx
 import React, { useState, useMemo } from "react";
-import Button from "../../common/button";
-import InputField from "../../common/inputField";
+import Button from "../common/button";
+import InputField from "../common/inputField";
 import {
 	Plus,
 	Link2,
@@ -10,7 +10,7 @@ import {
 	ChevronUp,
 	Sparkles,
 } from "lucide-react";
-import { useTranslation } from "../../../hooks/useTranslation";
+import { useTranslation } from "../../hooks/useTranslation";
 
 export const getUniqueId = item => {
 	return (

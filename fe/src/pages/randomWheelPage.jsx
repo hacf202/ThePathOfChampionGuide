@@ -40,11 +40,8 @@ function RandomizerPage() {
 					fetch(`${backendUrl}/api/champions${queryLimit}`),
 					fetch(`${backendUrl}/api/relics${queryLimit}`),
 					fetch(`${backendUrl}/api/items${queryLimit}`),
-					fetch(`${backendUrl}/api/generalPower${queryLimit}`).then(res =>
-						res.ok
-							? res
-							: fetch(`${backendUrl}/api/generalPowers${queryLimit}`),
-					),
+					// Đã sửa lỗi 404: Gọi đến API /api/powers và thêm query filter types=General Power
+					fetch(`${backendUrl}/api/powers${queryLimit}&types=General Power`),
 					fetch(`${backendUrl}/api/runes${queryLimit}`),
 				]);
 

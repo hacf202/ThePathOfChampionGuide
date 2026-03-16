@@ -14,6 +14,7 @@ import ItemDetail from "./components/item/itemDetail.jsx";
 import BuildDetail from "./components/build/buildDetail.jsx";
 import RuneDetail from "./components/rune/runeDetail.jsx";
 import GuideDetail from "./components/guide/guideDetail.jsx";
+import AdventureMapDetail from "./components/map/adventureMapDetail.jsx";
 
 // Trang chính
 import Home from "./pages/home.jsx";
@@ -23,7 +24,7 @@ import Powers from "./pages/powerList.jsx";
 import Items from "./pages/itemList.jsx";
 import Builds from "./pages/buildList.jsx";
 import Runes from "./pages/runeList.jsx";
-import Maps from "./pages/mapList.jsx";
+import Maps from "./pages/adventureMapList.jsx";
 import RandomizerPage from "./pages/randomWheelPage.jsx";
 import GuideListPage from "./pages/guideListPage.jsx";
 import TierListIndex from "./pages/tierList.jsx";
@@ -62,7 +63,6 @@ function MainContent() {
 		if (!location.pathname.startsWith("/admin")) {
 			window.scrollTo(0, 0);
 		}
-		window.scrollTo(0, 0);
 	}, [location.pathname]);
 
 	return (
@@ -96,6 +96,7 @@ function MainContent() {
 				<Route path='/guides' element={<GuideListPage />} />
 				<Route path='/guides/:slug' element={<GuideDetail />} />
 				<Route path='/maps' element={<Maps />} />
+				<Route path='/map/:adventureID' element={<AdventureMapDetail />} />
 				<Route path='/tierlist' element={<TierListIndex />} />
 				<Route path='/tierlist/champions' element={<TierListIndex />} />
 				<Route path='/tierlist/relics' element={<TierListIndex />} />

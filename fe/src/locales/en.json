@@ -94,18 +94,18 @@
 		}
 	},
 	"region": {
-		"thnhphbandle": "Bandle City",
+		"thanhphobandle": "Bandle City",
 		"bilgewater": "Bilgewater",
 		"demacia": "Demacia",
 		"freljord": "Freljord",
 		"ionia": "Ionia",
 		"noxus": "Noxus",
 		"piltoverzaun": "Piltover & Zaun",
-		"qunobngm": "Shadow Isles",
+		"quandaobongdem": "Shadow Isles",
 		"shurima": "Shurima",
 		"targon": "Targon",
 		"runeterra": "Runeterra",
-		"hoalinhlca": "Spirit Blossom"
+		"hoalinhlucdia": "Spirit Blossom"
 	},
 	"admin": {
 		"rune": {

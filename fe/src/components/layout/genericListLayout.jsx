@@ -123,11 +123,6 @@ const GenericListLayout = ({
 						</div>
 					</div>
 				</div>
-				<p className='text-xs text-text-secondary text-center mb-2'>AD</p>
-				<GoogleAd slot='5918916050' format='horizontal' />
-				{/* --- CUSTOM TABS (Nếu có, VD: Tab Community / My Builds) --- */}
-				{customTabs && <div className='mb-4'>{customTabs}</div>}
-
 				<div className='flex flex-col lg:flex-row items-start'>
 					{/* --- MAIN CONTENT (GRID DANH SÁCH) --- */}
 					<div
@@ -336,7 +331,10 @@ const GenericListLayout = ({
 							)}
 						</AnimatePresence>
 					</div>
-				</div>
+				</div>{" "}
+				<p className='mt-6 text-xs text-text-secondary text-center mb-2'>AD</p>
+				<GoogleAd slot='5918916050' format='horizontal' />
+				{customTabs && <div className='mb-4'>{customTabs}</div>}
 			</div>
 		</div>
 	);

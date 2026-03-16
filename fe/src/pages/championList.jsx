@@ -2,8 +2,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "../hooks/useTranslation";
-import { useChampionFilters } from "../hooks/useChampionFilters"; // Từ tái cấu trúc trước đó
-import { useChampionData } from "../hooks/useChampionData"; // Từ tái cấu trúc trước đó
+import { useChampionFilters } from "../hooks/useChampionFilters";
+import { useChampionData } from "../hooks/useChampionData";
 
 import GenericListLayout from "../components/layout/genericListLayout";
 import MultiSelectFilter from "../components/common/multiSelectFilter";
@@ -21,7 +21,7 @@ const ChampionSkeleton = () => (
 function ChampionList() {
 	const { tUI } = useTranslation();
 
-	// Khởi tạo Data và Logic Filter
+	// Khởi tạo Data và Logic Filter (Hook URL đã được xử lý ngầm bên trong useChampionFilters)
 	const { dynamicFilters } = useChampionData("", tUI);
 	const { state, actions, filterOptions, queryParams } = useChampionFilters(
 		tUI,
@@ -34,28 +34,30 @@ function ChampionList() {
 
 	if (error) {
 		return (
-			<div className='p-10 text-center text-red-500 font-bold'>{error}</div>
+			<div className='flex justify-center py-20 text-red-500'>
+				{error.message || tUI("common.errorLoadData")}
+			</div>
 		);
 	}
 
 	return (
 		<GenericListLayout
-			pageTitle={tUI("championList.title")}
-			pageDescription={tUI("metadata.defaultDescription")}
+			pageTitle={tUI("championList.pageTitle")}
+			pageDescription={tUI("championList.pageDescription")}
 			heading={tUI("championList.heading")}
-			// Quản lý Dữ liệu
+			// Truyền dữ liệu Data & Phân trang
 			data={champions}
 			loading={loading}
 			pagination={pagination}
 			currentPage={state.currentPage}
 			onPageChange={actions.setCurrentPage}
-			// Quản lý Tìm kiếm
-			searchValue={state.searchInput}
-			onSearchChange={actions.setSearchInput}
+			// Truyền Search
+			searchValue={state.searchTerm}
+			onSearchChange={actions.setSearchTerm}
 			onSearchSubmit={actions.handleSearch}
 			searchPlaceholder={tUI("championList.searchPlaceholder")}
 			onResetFilters={actions.handleResetFilters}
-			// Render Nội dung Động (Slot / Render Props)
+			// Render Nội dung Động
 			renderSkeleton={() => <ChampionSkeleton />}
 			renderItem={champion => (
 				<Link

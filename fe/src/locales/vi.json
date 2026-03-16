@@ -100,18 +100,18 @@
 		}
 	},
 	"region": {
-		"thnhphbandle": "Thành Phố Bandle",
+		"thanhphobandle": "Thành Phố Bandle",
 		"bilgewater": "Bilgewater",
 		"demacia": "Demacia",
 		"freljord": "Freljord",
 		"ionia": "Ionia",
 		"noxus": "Noxus",
 		"piltoverzaun": "Piltover & Zaun",
-		"qunobngm": "Quần Đảo Bóng Đêm",
+		"quandaobongdem": "Quần Đảo Bóng Đêm",
 		"shurima": "Shurima",
 		"targon": "Targon",
 		"runeterra": "Runeterra",
-		"hoalinhlca": "Hoa Linh Lục Địa"
+		"hoalinhlucdia": "Hoa Linh Lục Địa"
 	},
 	"admin": {
 		"rune": {

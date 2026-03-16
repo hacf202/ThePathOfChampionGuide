@@ -18,6 +18,8 @@ import buildsAdminRouter from "./src/routes/builds-admin.js";
 import guidesRouter from "./src/routes/guides.js";
 import constellationsRouter from "./src/routes/constellations.js";
 import bonusStarRoutes from "./src/routes/bonusStars.js";
+import bossesRouter from "./src/routes/bosses.js";
+import adventuresRouter from "./src/routes/adventures.js";
 import analyticsRouter from "./src/routes/analytics.js";
 import imagesRouter from "./src/routes/images.js";
 import commentRoutes from "./src/routes/comments.js";
@@ -96,6 +98,9 @@ app.use("/api/constellations", constellationsRouter);
 app.use("/api/bonusStars", bonusStarRoutes);
 app.use("/api/analytics", analyticsRouter);
 app.use("/api/images", imagesRouter);
+app.use("/api/bosses", bossesRouter);
+app.use("/api/adventures", adventuresRouter);
+
 // API để kiểm tra "sức khỏe" của server
 app.get("/api/checkheal", (req, res) => {
 	res.status(200).json({ status: "OK", message: "Server is healthy" });

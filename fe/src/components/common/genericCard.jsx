@@ -66,7 +66,10 @@ const GenericCard = ({
 		if (item.nodeType === "bonusStarGem") {
 			return tUI("constellation.typeGemstone");
 		}
-		return tUI("constellation.tabBonusStars");
+		if (item.nodeType === "bonusStar") {
+			return tUI("constellation.tabBonusStars");
+		}
+		return tUI("");
 	};
 
 	// 🟢 FIX HIỂN THỊ ĐỘ HIẾM

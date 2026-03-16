@@ -30,7 +30,7 @@ import {
 	ArrayInputComponent,
 	ConstellationConnections,
 	NodeEditor,
-} from "./components/championEditorHelpers";
+} from "./championEditorHelpers";
 
 const ChampionEditorForm = memo(
 	({

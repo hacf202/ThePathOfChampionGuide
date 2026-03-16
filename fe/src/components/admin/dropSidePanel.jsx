@@ -2,12 +2,25 @@
 import { memo, useMemo, useState } from "react";
 import Button from "../common/button";
 import InputField from "../common/inputField";
-import { Search, Package, Gem, Zap, Shield, Star, X, Info } from "lucide-react";
+import {
+	Search,
+	Package,
+	Gem,
+	Zap,
+	Shield,
+	Star,
+	X,
+	Info,
+	Users,
+	Skull,
+} from "lucide-react";
 import { removeAccents } from "../../utils/vietnameseUtils";
 import { useTranslation } from "../../hooks/useTranslation";
 
 const getUniqueId = item => {
 	return (
+		item.championID ||
+		item.bossID ||
 		item._id ||
 		item.id ||
 		item.bonusStarID ||
@@ -20,7 +33,8 @@ const getUniqueId = item => {
 
 const DropDragItem = memo(({ item, type, setTooltipData }) => {
 	const { tDynamic, tUI } = useTranslation();
-	const itemName = tDynamic(item, "name");
+	const itemName =
+		tDynamic(item, "name") || item.bossName || item.adventureName;
 	const itemDesc =
 		tDynamic(item, "descriptionRaw") ||
 		tDynamic(item, "description") ||
@@ -54,6 +68,12 @@ const DropDragItem = memo(({ item, type, setTooltipData }) => {
 		setTooltipData(null);
 	};
 
+	const imageUrl =
+		item.assetAbsolutePath ||
+		item.image ||
+		item.avatar ||
+		item.assets?.[0]?.avatar;
+
 	return (
 		<div
 			draggable
@@ -62,9 +82,9 @@ const DropDragItem = memo(({ item, type, setTooltipData }) => {
 			onMouseLeave={handleMouseLeave}
 			className='p-3 bg-surface-hover rounded-xl border border-border hover:bg-surface-hover-active hover:border-primary-500/50 transition-all duration-200 cursor-grab active:cursor-grabbing flex items-center gap-3 group shadow-sm hover:shadow-md'
 		>
-			{item.assetAbsolutePath || item.image ? (
+			{imageUrl ? (
 				<img
-					src={item.assetAbsolutePath || item.image}
+					src={imageUrl}
 					alt={itemName}
 					className='w-10 h-10 rounded-lg object-contain bg-white border border-border shrink-0 group-hover:scale-105 transition-transform'
 					onError={e => (e.target.style.display = "none")}
@@ -102,35 +122,39 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 	const [tooltipData, setTooltipData] = useState(null);
 
 	const tabs = [
+		{ id: "champion", label: "Tướng", icon: <Users size={16} /> },
+		{ id: "boss", label: "Boss", icon: <Skull size={16} /> },
 		{
 			id: "item",
-			label: tUI("admin.dropSidePanel.tabs.item"),
+			label: tUI("admin.dropSidePanel.tabs.item") || "Item",
 			icon: <Package size={16} />,
 		},
 		{
 			id: "relic",
-			label: tUI("admin.dropSidePanel.tabs.relic"),
+			label: tUI("admin.dropSidePanel.tabs.relic") || "Relic",
 			icon: <Shield size={16} />,
 		},
 		{
 			id: "power",
-			label: tUI("admin.dropSidePanel.tabs.power"),
+			label: tUI("admin.dropSidePanel.tabs.power") || "Power",
 			icon: <Zap size={16} />,
 		},
 		{
 			id: "bonusStar",
-			label: tUI("admin.dropSidePanel.tabs.bonusStar"),
+			label: tUI("admin.dropSidePanel.tabs.bonusStar") || "Node",
 			icon: <Star size={16} />,
 		},
 		{
 			id: "rune",
-			label: tUI("admin.dropSidePanel.tabs.rune"),
+			label: tUI("admin.dropSidePanel.tabs.rune") || "Rune",
 			icon: <Gem size={16} />,
 		},
 	];
 
 	const currentData = useMemo(() => {
 		const map = {
+			champion: cachedData.champions || [],
+			boss: cachedData.bosses || [],
 			item: cachedData.items || [],
 			relic: cachedData.relics || [],
 			power: cachedData.powers || [],
@@ -157,6 +181,10 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 			];
 		} else if (activeTab === "bonusStar") {
 			types = [...new Set(currentData.map(i => i.nodeType).filter(Boolean))];
+		} else if (activeTab === "champion") {
+			types = [
+				...new Set(currentData.flatMap(i => i.regions || []).filter(Boolean)),
+			];
 		}
 		return types.sort().map(t => ({ value: t, label: t }));
 	}, [currentData, activeTab]);
@@ -168,7 +196,9 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 			const term = removeAccents(searchInput).toLowerCase();
 			filtered = filtered.filter(
 				i =>
-					removeAccents(tDynamic(i, "name") || "")
+					removeAccents(
+						tDynamic(i, "name") || i.bossName || i.adventureName || "",
+					)
 						.toLowerCase()
 						.includes(term) ||
 					removeAccents(tDynamic(i, "description") || "")
@@ -193,6 +223,10 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 				);
 			} else if (activeTab === "bonusStar") {
 				filtered = filtered.filter(i => selectedTypes.includes(i.nodeType));
+			} else if (activeTab === "champion") {
+				filtered = filtered.filter(i =>
+					i.regions?.some(r => selectedTypes.includes(r)),
+				);
 			}
 		}
 
@@ -221,7 +255,7 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 					</h3>
 				</div>
 
-				<div className='flex border-b border-border overflow-x-auto no-scrollbar'>
+				<div className='flex border-b border-border overflow-x-auto custom-scrollbar pb-1'>
 					{tabs.map(tab => (
 						<button
 							key={tab.id}
@@ -229,15 +263,14 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 								setActiveTab(tab.id);
 								handleReset();
 							}}
-							className={`flex-1 flex items-center justify-center gap-1 py-3 px-2 text-sm font-medium   min-w-[80px]
-								${
-									activeTab === tab.id
-										? "text-primary-500 border-b-2 border-primary-500 bg-primary-500/5"
-										: "text-text-secondary hover:text-text-primary hover:bg-surface-hover"
-								}`}
+							className={`flex flex-col items-center justify-center gap-1 py-3 px-3 text-sm font-medium min-w-[70px] ${
+								activeTab === tab.id
+									? "text-primary-500 border-b-2 border-primary-500 bg-primary-500/5"
+									: "text-text-secondary hover:text-text-primary hover:bg-surface-hover"
+							}`}
 						>
 							{tab.icon}
-							<span className='hidden sm:inline'>{tab.label}</span>
+							<span className='text-[10px]'>{tab.label}</span>
 						</button>
 					))}
 				</div>
@@ -247,13 +280,13 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 						<InputField
 							value={searchInput}
 							onChange={e => setSearchInput(e.target.value)}
-							placeholder={tUI("common.searchPlaceholder")}
+							placeholder={tUI("common.searchPlaceholder") || "Tìm kiếm..."}
 							className='pr-8 bg-surface-hover/50 border-transparent focus:border-primary-500'
 						/>
 						{searchInput ? (
 							<button
 								onClick={() => setSearchInput("")}
-								className='absolute right-2 top-1/2 -translate-y-1/2 text-text-secondary hover:text-red-500   p-1'
+								className='absolute right-2 top-1/2 -translate-y-1/2 text-text-secondary hover:text-red-500 p-1'
 							>
 								<X size={16} />
 							</button>
@@ -268,7 +301,9 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 					{typeOptions.length > 0 && (
 						<div>
 							<label className='block text-[10px] font-black uppercase tracking-widest text-text-secondary mb-2'>
-								{tUI("common.type")}
+								{activeTab === "champion"
+									? "Vùng (Region)"
+									: tUI("common.type") || "Loại"}
 							</label>
 							<div className='flex flex-wrap gap-1.5'>
 								{typeOptions.map(opt => (
@@ -281,12 +316,11 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 													: [...prev, opt.value],
 											)
 										}
-										className={`px-2.5 py-1 text-[10px] font-bold rounded-lg transition-all border
-											${
-												selectedTypes.includes(opt.value)
-													? "bg-blue-600 border-blue-600 text-white shadow-md"
-													: "bg-surface-bg border-border text-text-secondary hover:border-primary-500/50 hover:bg-surface-hover"
-											}`}
+										className={`px-2.5 py-1 text-[10px] font-bold rounded-lg transition-all border ${
+											selectedTypes.includes(opt.value)
+												? "bg-blue-600 border-blue-600 text-white shadow-md"
+												: "bg-surface-bg border-border text-text-secondary hover:border-primary-500/50 hover:bg-surface-hover"
+										}`}
 									>
 										{opt.label}
 									</button>
@@ -298,7 +332,7 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 					{rarityOptions.length > 0 && (
 						<div>
 							<label className='block text-[10px] font-black uppercase tracking-widest text-text-secondary mb-2'>
-								{tUI("common.rarity")}
+								{tUI("common.rarity") || "Độ hiếm"}
 							</label>
 							<div className='flex flex-wrap gap-1.5'>
 								{rarityOptions.map(opt => (
@@ -311,31 +345,17 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 													: [...prev, opt.value],
 											)
 										}
-										className={`px-2.5 py-1 text-[10px] font-bold rounded-lg transition-all border
-											${
-												selectedRarities.includes(opt.value)
-													? "bg-purple-600 border-purple-600 text-white shadow-md"
-													: "bg-surface-bg border-border text-text-secondary hover:border-primary-500/50 hover:bg-surface-hover"
-											}`}
+										className={`px-2.5 py-1 text-[10px] font-bold rounded-lg transition-all border ${
+											selectedRarities.includes(opt.value)
+												? "bg-purple-600 border-purple-600 text-white shadow-md"
+												: "bg-surface-bg border-border text-text-secondary hover:border-primary-500/50 hover:bg-surface-hover"
+										}`}
 									>
 										{opt.label}
 									</button>
 								))}
 							</div>
 						</div>
-					)}
-
-					{(searchInput ||
-						selectedRarities.length > 0 ||
-						selectedTypes.length > 0) && (
-						<Button
-							variant='ghost'
-							size='sm'
-							onClick={handleReset}
-							className='w-full text-xs py-1.5 h-auto text-red-500 hover:text-red-600 hover:bg-red-500/10'
-						>
-							{tUI("admin.rune.resetFilter")}
-						</Button>
 					)}
 				</div>
 
@@ -354,10 +374,7 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 					) : (
 						<div className='flex flex-col items-center justify-center py-12 text-text-secondary opacity-60'>
 							<Package size={48} className='mb-4' />
-							<p className='text-sm font-medium'>
-								{tUI("admin.dropSidePanel.noData")}
-							</p>
-							<p className='text-xs'>{tUI("admin.dropSidePanel.checkApi")}</p>
+							<p className='text-sm font-medium'>Chưa có dữ liệu</p>
 						</div>
 					)}
 				</div>
@@ -366,18 +383,20 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 			{tooltipData && (
 				<div
 					className='fixed z-[99999] w-80 p-5 bg-white text-slate-800 border border-slate-200 rounded-2xl shadow-2xl pointer-events-none transform -translate-y-1/2 -translate-x-full animate-in fade-in slide-in-from-right-2 duration-200'
-					style={{
-						top: tooltipData.y,
-						left: tooltipData.x - 20,
-					}}
+					style={{ top: tooltipData.y, left: tooltipData.x - 20 }}
 				>
 					<div className='absolute top-1/2 -right-2 -translate-y-1/2 w-4 h-4 bg-white border-r border-t border-slate-200 rotate-45 rounded-sm'></div>
-
 					<div className='flex items-start gap-4 mb-4'>
-						{tooltipData.item.assetAbsolutePath || tooltipData.item.image ? (
+						{tooltipData.item.assetAbsolutePath ||
+						tooltipData.item.image ||
+						tooltipData.item.avatar ||
+						tooltipData.item.assets?.[0]?.avatar ? (
 							<img
 								src={
-									tooltipData.item.assetAbsolutePath || tooltipData.item.image
+									tooltipData.item.assetAbsolutePath ||
+									tooltipData.item.image ||
+									tooltipData.item.avatar ||
+									tooltipData.item.assets?.[0]?.avatar
 								}
 								className='w-14 h-14 rounded-xl object-contain bg-slate-50 border border-slate-200 p-1 shrink-0 shadow-sm'
 							/>
@@ -389,64 +408,34 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 							</div>
 						)}
 						<div className='flex-1 min-w-0'>
-							<p
-								className='font-bold text-base leading-tight truncate text-slate-800'
-								title={tDynamic(tooltipData.item, "name")}
-							>
-								{tDynamic(tooltipData.item, "name")}
+							<p className='font-bold text-base leading-tight truncate text-slate-800'>
+								{tDynamic(tooltipData.item, "name") ||
+									tooltipData.item.bossName ||
+									tooltipData.item.adventureName}
 							</p>
 							<p className='text-[10px] text-slate-500 font-mono mt-1 bg-slate-100 inline-block px-1.5 py-0.5 rounded'>
 								{getUniqueId(tooltipData.item) || "Unknown ID"}
 							</p>
 						</div>
 					</div>
-
 					<div className='text-sm text-slate-600 whitespace-pre-wrap leading-relaxed border-t border-slate-200 pt-3'>
-						{tooltipData.item.descriptionRaw || tooltipData.item.description ? (
+						{tooltipData.item.descriptionRaw ||
+						tooltipData.item.description ||
+						tooltipData.item.note ? (
 							<span
 								dangerouslySetInnerHTML={{
 									__html: (
 										tDynamic(tooltipData.item, "descriptionRaw") ||
 										tDynamic(tooltipData.item, "description") ||
+										tooltipData.item.note ||
 										""
 									).replace(/\\n/g, "<br/>"),
 								}}
 							/>
 						) : (
-							<span className='italic opacity-50'>
-								{tUI("admin.dropSidePanel.noDescription")}
-							</span>
+							<span className='italic opacity-50'>Không có mô tả chi tiết</span>
 						)}
 					</div>
-
-					{(tooltipData.item.cost !== undefined ||
-						tooltipData.item.rarity ||
-						tooltipData.item.type) && (
-						<div className='flex flex-wrap gap-2 mt-4 pt-3 border-t border-slate-200'>
-							{tooltipData.item.cost !== undefined && (
-								<span className='px-2.5 py-1 bg-blue-50 text-blue-600 border border-blue-100 text-xs font-bold rounded-md flex items-center gap-1'>
-									<Zap size={12} /> {tooltipData.item.cost}{" "}
-									{tUI("admin.dropSidePanel.mana")}
-								</span>
-							)}
-							{tooltipData.item.rarity && (
-								<span
-									className={`px-2.5 py-1 text-xs font-bold rounded-md border
-                        ${
-													tooltipData.item.rarity === "Epic"
-														? "bg-purple-50 text-purple-600 border-purple-100"
-														: tooltipData.item.rarity === "Rare"
-															? "bg-blue-50 text-blue-600 border-blue-100"
-															: tooltipData.item.rarity === "Common"
-																? "bg-slate-100 text-slate-600 border-slate-200"
-																: "bg-amber-50 text-amber-600 border-amber-100"
-												}`}
-								>
-									{tooltipData.item.rarity}
-								</span>
-							)}
-						</div>
-					)}
 				</div>
 			)}
 		</>

@@ -20,6 +20,8 @@ import {
 	BookMarked,
 	ChevronLeft,
 	ChevronRight,
+	Target,
+	Map,
 } from "lucide-react";
 import { useTranslation } from "../../hooks/useTranslation";
 
@@ -30,6 +32,8 @@ const RelicEditor = lazy(() => import("./relicEditor"));
 const ItemEditor = lazy(() => import("./itemEditor"));
 const RuneEditor = lazy(() => import("./runeEditor"));
 const BonusStarEditor = lazy(() => import("./bonusStarEditor"));
+const BossEditor = lazy(() => import("./bossEditor"));
+const AdventureMapEditor = lazy(() => import("./adventureMapEditor"));
 const BuildEditor = lazy(() => import("./buildEditor"));
 const GuideEditor = lazy(() => import("./guideEditor"));
 const AnalyticsDashboard = lazy(() => import("./analyticsDashboard"));
@@ -123,6 +127,18 @@ const AdminPanel = () => {
 			label: t("admin.nav.rune", "Quản lý Ngọc"),
 			icon: Gem,
 			path: "/admin/runes",
+		},
+		{
+			id: "boss",
+			label: t("admin.nav.boss", "Quản lý Boss"),
+			icon: Target,
+			path: "/admin/bosses",
+		},
+		{
+			id: "adventure",
+			label: t("admin.nav.adventure", "Quản lý Hành Trình"),
+			icon: Map,
+			path: "/admin/adventures",
 		},
 		{
 			id: "build",
@@ -302,6 +318,8 @@ const AdminPanel = () => {
 							<Route path='guides/*' element={<GuideEditor />} />
 							<Route path='analytics' element={<AnalyticsDashboard />} />
 							<Route path='images/*' element={<ImageManager />} />
+							<Route path='bosses/*' element={<BossEditor />} />
+							<Route path='adventures/*' element={<AdventureMapEditor />} />
 						</Routes>
 					</Suspense>
 				</main>
