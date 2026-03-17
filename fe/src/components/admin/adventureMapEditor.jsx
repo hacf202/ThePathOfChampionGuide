@@ -1,11 +1,11 @@
-// src/components/admin/adventureEditor.jsx
+// src/components/admin/adventureMapEditor.jsx
 import { useState, memo, useEffect, useCallback, useMemo } from "react";
 import { useNavigate, Link, Routes, Route, useParams } from "react-router-dom";
 import Button from "../common/button";
 import { removeAccents } from "../../utils/vietnameseUtils";
 import SidePanel from "../common/sidePanel";
-import DropDragSidePanel from "./dropSidePanel"; // Đảm bảo đúng đường dẫn
-import AdventureEditorForm from "./adventureMapEditorForm";
+import DropDragSidePanel from "./dropSidePanel";
+import AdventureMapEditorForm from "./adventureMapEditorForm"; // Sửa lại tên import đúng với file form
 import { Loader2 } from "lucide-react";
 
 const NEW_ADV_TEMPLATE = {
@@ -142,7 +142,7 @@ const AdvEditWrapper = ({
 				className={`transition-all duration-300 ${isDragPanelOpen ? "lg:w-3/4 xl:w-4/5" : "w-full"} bg-surface-bg rounded-lg`}
 			>
 				{selectedItem && (
-					<AdventureEditorForm
+					<AdventureMapEditorForm
 						item={selectedItem}
 						cachedData={cachedData}
 						onSave={onSave}

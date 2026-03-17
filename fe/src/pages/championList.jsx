@@ -32,6 +32,24 @@ function ChampionList() {
 		tUI,
 	);
 
+	// Hàm xử lý thay đổi input tìm kiếm an toàn
+	const handleSearchChange = eventOrString => {
+		if (eventOrString == null) {
+			// ĐÃ SỬA: Cập nhật đúng biến searchInput dùng cho real-time typing
+			actions.setSearchInput("");
+			return;
+		}
+
+		// Nếu là Event Object (có target.value), ta lấy value. Nếu không, ta lấy chính nó.
+		const value =
+			typeof eventOrString === "object" && eventOrString.target !== undefined
+				? eventOrString.target.value
+				: eventOrString;
+
+		// ĐÃ SỬA: Cập nhật đúng biến searchInput
+		actions.setSearchInput(value);
+	};
+
 	if (error) {
 		return (
 			<div className='flex justify-center py-20 text-red-500'>
@@ -52,8 +70,9 @@ function ChampionList() {
 			currentPage={state.currentPage}
 			onPageChange={actions.setCurrentPage}
 			// Truyền Search
-			searchValue={state.searchTerm}
-			onSearchChange={actions.setSearchTerm}
+			// ĐÃ SỬA: Trói giá trị ô input vào state.searchInput thay vì state.searchTerm
+			searchValue={state.searchInput || ""}
+			onSearchChange={handleSearchChange}
 			onSearchSubmit={actions.handleSearch}
 			searchPlaceholder={tUI("championList.searchPlaceholder")}
 			onResetFilters={actions.handleResetFilters}

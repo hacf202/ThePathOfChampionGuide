@@ -1,8 +1,24 @@
 // src/components/admin/adventureMapEditorForm.jsx
-import { useState, memo, useEffect } from "react";
+import { useState, memo, useEffect, useRef, useCallback } from "react";
 import Button from "../common/button";
 import InputField from "../common/inputField";
-import { Plus, Trash2 } from "lucide-react";
+import {
+	Plus,
+	Trash2,
+	Map as MapIcon,
+	Eye,
+	EyeOff,
+	Skull,
+	Swords,
+	ShieldQuestion,
+} from "lucide-react";
+
+// Import các components Helper
+import {
+	AdventureLine,
+	AdventureConnections,
+	AdventureNodeEditor,
+} from "./adventureEditorHelpers";
 
 // Helper component thao tác mảng String (dùng cho specialRules, bosses)
 const StringArrayInput = ({ label, items, onChange, placeholder }) => (
@@ -42,8 +58,13 @@ const StringArrayInput = ({ label, items, onChange, placeholder }) => (
 );
 
 const AdventureMapEditorForm = memo(
-	({ item, onSave, onCancel, onDelete, isSaving }) => {
+	({ item, cachedData, onSave, onCancel, onDelete, isSaving }) => {
 		const [formData, setFormData] = useState({});
+
+		// 🟢 Bổ sung các State và Refs cần thiết cho Map
+		const [isMapVisible, setIsMapVisible] = useState(true);
+		const [selectedNodeIndex, setSelectedNodeIndex] = useState(null);
+		const mapRef = useRef(null);
 
 		useEffect(() => {
 			if (item) {
@@ -71,6 +92,51 @@ const AdventureMapEditorForm = memo(
 			onSave(formData);
 		};
 
+		// 🟢 Hàm xử lý Click trên bản đồ để lấy toạ độ X, Y
+		const handleMapClick = useCallback(
+			e => {
+				if (selectedNodeIndex === null || !mapRef.current) return;
+				const rect = mapRef.current.getBoundingClientRect();
+				const x = parseFloat(
+					(((e.clientX - rect.left) / rect.width) * 100).toFixed(1),
+				);
+				const y = parseFloat(
+					(((e.clientY - rect.top) / rect.height) * 100).toFixed(1),
+				);
+
+				setFormData(prev => {
+					const nextNodes = [...(prev.nodes || [])];
+					if (nextNodes[selectedNodeIndex]) {
+						nextNodes[selectedNodeIndex] = {
+							...nextNodes[selectedNodeIndex],
+							position: { x, y },
+						};
+					}
+					return { ...prev, nodes: nextNodes };
+				});
+			},
+			[selectedNodeIndex],
+		);
+
+		// 🟢 Hàm xử lý thay đổi dữ liệu của Node
+		const handleNodeChange = useCallback((idx, field, val) => {
+			setFormData(prev => {
+				const nextNodes = [...(prev.nodes || [])];
+				if (nextNodes[idx]) {
+					nextNodes[idx] = { ...nextNodes[idx], [field]: val };
+				}
+				return { ...prev, nodes: nextNodes };
+			});
+		}, []);
+
+		// 🟢 Hàm render Icon cho Node trên map
+		const getNodeIcon = type => {
+			if (type === "Boss") return <Skull size={14} className='text-white' />;
+			if (type === "Encounter")
+				return <Swords size={14} className='text-white' />;
+			return <ShieldQuestion size={14} className='text-white' />;
+		};
+
 		return (
 			<form onSubmit={handleSubmit} className='space-y-6 pb-20'>
 				{/* THANH STICKY HEADER */}
@@ -78,7 +144,7 @@ const AdventureMapEditorForm = memo(
 					<h2 className='text-xl font-bold text-primary-500'>
 						{formData.isNew
 							? "Tạo Bản Đồ Mới"
-							: `Biên tập: ${formData.adventureName}`}
+							: `Biên tập: ${formData.adventureName || ""}`}
 					</h2>
 					<div className='flex gap-2'>
 						<Button
@@ -186,7 +252,34 @@ const AdventureMapEditorForm = memo(
 								name='background'
 								value={formData.background || ""}
 								onChange={handleChange}
+								placeholder='Nhập URL ảnh nền map...'
 							/>
+							{/* 🟢 KHU VỰC THÊM THUỘC TÍNH assetAbsolutePath (Kèm preview ảnh) */}
+							<div className='flex gap-4 items-end'>
+								<div className='flex-1'>
+									<InputField
+										label='Link Ảnh Đại Diện (Avatar Map)'
+										name='assetAbsolutePath'
+										value={formData.assetAbsolutePath || ""}
+										onChange={handleChange}
+										placeholder='Nhập URL ảnh đại diện cho map...'
+									/>
+								</div>
+								{formData.assetAbsolutePath && (
+									<div className='shrink-0 mb-1'>
+										<img
+											src={formData.assetAbsolutePath}
+											alt='Avatar Preview'
+											className='h-[42px] w-[42px] rounded-lg object-cover border border-border shadow-sm bg-black/40'
+											title='Ảnh xem trước'
+											onError={e => {
+												e.target.style.display = "none";
+											}}
+										/>
+									</div>
+								)}
+							</div>
+
 							<InputField
 								label='Kinh nghiệm (XP)'
 								name='championXP'
@@ -247,7 +340,7 @@ const AdventureMapEditorForm = memo(
 						</div>
 					</section>
 
-					{/* 3. DANH SÁCH BOSS CHÍNH (ĐÃ THIẾT KẾ LẠI RỘNG RÃI HƠN) */}
+					{/* 3. DANH SÁCH BOSS CHÍNH */}
 					<section className='bg-surface-hover/30 p-5 rounded-xl border border-border shadow-sm'>
 						<div className='flex justify-between items-center mb-6 border-b border-border pb-3'>
 							<h3 className='font-bold text-lg border-l-4 border-red-500 pl-3'>
@@ -268,7 +361,6 @@ const AdventureMapEditorForm = memo(
 							</Button>
 						</div>
 
-						{/* Hiển thị danh sách Boss dạng cột dọc (Mỗi Boss 1 dòng lớn) */}
 						<div className='flex flex-col gap-5'>
 							{(formData.Bosses || []).map((b, i) => (
 								<div
@@ -307,7 +399,7 @@ const AdventureMapEditorForm = memo(
 										/>
 									</div>
 
-									{/* Cột phải: Ghi chú (Textarea rộng) */}
+									{/* Cột phải: Ghi chú */}
 									<div className='w-full lg:w-3/4 flex flex-col'>
 										<label className='block font-semibold text-sm text-text-secondary mb-2'>
 											Chi tiết chiến thuật / Ghi chú (Hỗ trợ xuống dòng)
@@ -333,121 +425,163 @@ const AdventureMapEditorForm = memo(
 						</div>
 					</section>
 
-					{/* 4. CẤU TRÚC NODES MAP */}
-					<section className='bg-surface-hover/30 p-5 rounded-xl border border-border shadow-sm'>
-						<div className='flex justify-between items-center mb-6 border-b border-border pb-3'>
-							<h3 className='font-bold text-lg border-l-4 border-pink-500 pl-3'>
-								Sơ đồ Bản đồ (Map Nodes)
+					{/* 4. CẤU TRÚC ĐƯỜNG ĐI (NODES) */}
+					<section className='bg-surface-bg border border-border rounded-xl p-6 shadow-sm space-y-6'>
+						<div className='flex justify-between items-center border-l-4 border-red-500 pl-3'>
+							<h3 className='text-lg font-bold uppercase flex items-center gap-2'>
+								<MapIcon size={20} className='text-red-500' /> Thiết kế Cấu trúc
+								Đường đi (Nodes)
 							</h3>
-							<Button
-								type='button'
-								variant='outline'
-								size='sm'
-								onClick={() =>
-									setFormData(p => ({
-										...p,
-										nodes: [
-											...(p.nodes || []),
-											{
-												nodeID: `n${(p.nodes?.length || 0) + 1}`,
-												nodeType: "Encounter",
-												bosses: [],
-												nextNodes: [],
-												position: { x: 50, y: 50 },
-											},
-										],
-									}))
-								}
-							>
-								<Plus size={16} className='mr-1' /> Thêm Node
-							</Button>
-						</div>
-						<div className='grid grid-cols-1 xl:grid-cols-2 gap-5 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar'>
-							{(formData.nodes || []).map((node, i) => (
-								<div
-									key={i}
-									className='bg-surface-bg p-4 rounded-lg border border-border shadow-sm'
+							<div className='flex items-center gap-3'>
+								<Button
+									type='button'
+									size='sm'
+									variant='outline'
+									onClick={() => setIsMapVisible(!isMapVisible)}
+									iconLeft={
+										isMapVisible ? <EyeOff size={16} /> : <Eye size={16} />
+									}
 								>
-									<div className='flex justify-between items-center font-black text-pink-500 mb-4 border-b border-border/50 pb-2'>
-										Node: {node.nodeID}
-										<Button
-											type='button'
-											variant='ghost'
-											className='text-red-500 hover:bg-red-500/10'
-											onClick={() =>
-												setFormData(p => ({
-													...p,
-													nodes: p.nodes.filter((_, idx) => idx !== i),
-												}))
-											}
-										>
-											<Trash2 size={16} />
-										</Button>
-									</div>
-									<div className='grid grid-cols-2 gap-4 text-sm'>
-										<InputField
-											label='Node ID'
-											value={node.nodeID}
-											onChange={e => {
-												const arr = [...formData.nodes];
-												arr[i].nodeID = e.target.value;
-												setFormData(p => ({ ...p, nodes: arr }));
-											}}
+									{isMapVisible ? "Ẩn Bản đồ" : "Hiện Bản đồ"}
+								</Button>
+								<Button
+									type='button'
+									size='sm'
+									variant='primary'
+									iconLeft={<Plus size={16} />}
+									onClick={() => {
+										const newIndex = (formData.nodes || []).length + 1;
+										setFormData(p => ({
+											...p,
+											nodes: [
+												...(p.nodes || []),
+												{
+													nodeID: `n${newIndex}`,
+													nodeType: "Encounter",
+													bosses: [],
+													nextNodes: [],
+													position: { x: 50, y: 50 },
+												},
+											],
+										}));
+									}}
+								>
+									Thêm Điểm (Node)
+								</Button>
+							</div>
+						</div>
+
+						<div className='flex flex-col gap-8'>
+							{/* MAP AREA */}
+							{isMapVisible && (
+								<div className='space-y-4'>
+									<div
+										className='relative w-full aspect-[21/9] bg-slate-950 rounded-2xl overflow-hidden border-2 border-border shadow-lg cursor-crosshair flex items-center justify-center'
+										ref={mapRef}
+										onClick={handleMapClick}
+									>
+										<img
+											src={formData.background || "/images/placeholder-bg.jpg"}
+											className='absolute inset-0 w-full h-full object-contain opacity-60'
+											alt='Map Background'
 										/>
-										<InputField
-											label='Loại Node (Encounter/Boss)'
-											value={node.nodeType}
-											onChange={e => {
-												const arr = [...formData.nodes];
-												arr[i].nodeType = e.target.value;
-												setFormData(p => ({ ...p, nodes: arr }));
-											}}
-										/>
-										<div className='col-span-2 bg-surface-hover p-3 rounded-md'>
-											<StringArrayInput
-												label='Chứa Boss (Nhập ID)'
-												items={node.bosses || []}
-												onChange={newBosses => {
-													const arr = [...formData.nodes];
-													arr[i].bosses = newBosses;
-													setFormData(p => ({ ...p, nodes: arr }));
+										<svg className='absolute inset-0 w-full h-full pointer-events-none'>
+											<defs>
+												<marker
+													id='arrowhead-adv'
+													markerWidth='5'
+													markerHeight='5'
+													refX='4.8'
+													refY='2.5'
+													orient='auto'
+												>
+													<path
+														d='M0,0 L5,2.5 L0,5 Z'
+														fill='rgba(239, 68, 68, 0.8)'
+													/>
+												</marker>
+											</defs>
+											{(formData.nodes || []).map(node =>
+												(node.nextNodes || []).map(tID => {
+													const target = formData.nodes.find(
+														n => n.nodeID === tID,
+													);
+													return (
+														target && (
+															<AdventureLine
+																key={`${node.nodeID}-${tID}`}
+																x1={node.position?.x ?? 0}
+																y1={node.position?.y ?? 0}
+																x2={target.position?.x ?? 0}
+																y2={target.position?.y ?? 0}
+															/>
+														)
+													);
+												}),
+											)}
+										</svg>
+										{(formData.nodes || []).map((n, i) => (
+											<div
+												key={i}
+												className={`absolute w-7 h-7 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 flex items-center justify-center transition-all cursor-pointer ${selectedNodeIndex === i ? "bg-red-500 border-white scale-125 z-30 shadow-[0_0_15px_rgba(239,68,68,0.8)]" : "bg-black/60 border-white/60 z-20 hover:scale-110 hover:border-white"}`}
+												style={{
+													left: `${n.position?.x ?? 0}%`,
+													top: `${n.position?.y ?? 0}%`,
 												}}
-											/>
-										</div>
-										<div className='col-span-2 bg-surface-hover p-3 rounded-md'>
-											<StringArrayInput
-												label='Nối tới Node (Next Nodes)'
-												items={node.nextNodes || []}
-												onChange={n => {
-													const arr = [...formData.nodes];
-													arr[i].nextNodes = n;
-													setFormData(p => ({ ...p, nodes: arr }));
+												onClick={e => {
+													e.stopPropagation();
+													setSelectedNodeIndex(i);
 												}}
-											/>
-										</div>
-										<InputField
-											label='Tọa độ X (%)'
-											type='number'
-											value={node.position?.x || 0}
-											onChange={e => {
-												const arr = [...formData.nodes];
-												arr[i].position.x = Number(e.target.value);
-												setFormData(p => ({ ...p, nodes: arr }));
-											}}
-										/>
-										<InputField
-											label='Tọa độ Y (%)'
-											type='number'
-											value={node.position?.y || 0}
-											onChange={e => {
-												const arr = [...formData.nodes];
-												arr[i].position.y = Number(e.target.value);
-												setFormData(p => ({ ...p, nodes: arr }));
-											}}
-										/>
+											>
+												{getNodeIcon(n.nodeType)}
+												<span className='absolute -bottom-6 text-[10px] font-bold text-white bg-black/70 px-1.5 py-0.5 rounded shadow'>
+													{n.nodeID || ""}
+												</span>
+											</div>
+										))}
 									</div>
+									<p className='text-xs text-text-secondary text-center italic'>
+										Click chọn Node ở danh sách bên dưới, sau đó bấm lên bản đồ
+										để di chuyển vị trí.
+									</p>
 								</div>
-							))}
+							)}
+
+							{/* DANH SÁCH NODES VÀ KẾT NỐI */}
+							<div className='grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-4 items-start max-h-[600px] overflow-y-auto pr-3 custom-scrollbar'>
+								<div className='lg:col-span-2'>
+									<AdventureConnections
+										nodes={formData.nodes || []}
+										onChangeNodes={newNodes =>
+											setFormData(prev => ({ ...prev, nodes: newNodes }))
+										}
+									/>
+								</div>
+								{(formData.nodes || []).length === 0 ? (
+									<div className='lg:col-span-2 text-center py-10 text-text-secondary border border-dashed border-border rounded-xl bg-surface-hover/30'>
+										Chưa có Node nào trên bản đồ.
+									</div>
+								) : (
+									(formData.nodes || []).map((node, idx) => (
+										<AdventureNodeEditor
+											key={idx}
+											index={idx}
+											node={node}
+											isSelected={selectedNodeIndex === idx}
+											onSelect={setSelectedNodeIndex}
+											onChange={handleNodeChange}
+											onRemove={i => {
+												setFormData(prev => ({
+													...prev,
+													nodes: prev.nodes.filter((_, idx2) => idx2 !== i),
+												}));
+												if (selectedNodeIndex === i) setSelectedNodeIndex(null);
+											}}
+											cachedData={cachedData}
+										/>
+									))
+								)}
+							</div>
 						</div>
 					</section>
 
