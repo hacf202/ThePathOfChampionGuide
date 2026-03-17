@@ -18,13 +18,13 @@ import {
 	AdventureLine,
 	AdventureConnections,
 	AdventureNodeEditor,
-	DragDropArrayInput, // Thêm component kéo thả
-	getUniqueAdvId, // Thêm helper lấy ID
-	getAdvName, // Thêm helper lấy Tên
-	getAdvImage, // Thêm helper lấy Ảnh
+	DragDropArrayInput,
+	getUniqueAdvId,
+	getAdvName,
+	getAdvImage,
 } from "./adventureEditorHelpers";
 
-// Helper component thao tác mảng String (vẫn giữ lại để dùng cho Regions)
+// Helper component thao tác mảng String (dùng cho Regions)
 const StringArrayInput = ({ label, items, onChange, placeholder }) => (
 	<div className='space-y-2'>
 		<label className='block font-semibold text-sm text-text-secondary'>
@@ -198,11 +198,13 @@ const AdventureMapEditorForm = memo(
 								label='Độ khó (Difficulty)'
 								name='difficulty'
 								type='number'
+								step='0.5' // Hỗ trợ nhập số thập phân, ví dụ: 4.5, 5.5
 								value={formData.difficulty || 0}
 								onChange={e =>
 									setFormData(p => ({
 										...p,
-										difficulty: Number(e.target.value),
+										// Dùng parseFloat để phân tích cú pháp số thực
+										difficulty: parseFloat(e.target.value) || 0,
 									}))
 								}
 							/>
@@ -291,7 +293,7 @@ const AdventureMapEditorForm = memo(
 								onChange={e =>
 									setFormData(p => ({
 										...p,
-										championXP: Number(e.target.value),
+										championXP: parseInt(e.target.value, 10) || 0,
 									}))
 								}
 							/>
@@ -305,7 +307,6 @@ const AdventureMapEditorForm = memo(
 								Yêu cầu tham gia (Requirement)
 							</h3>
 							<div className='space-y-4'>
-								{/* 🟢 Áp dụng DragDropArray cho Champions */}
 								<DragDropArrayInput
 									label='Tướng bắt buộc (Champions)'
 									data={formData.requirement?.champions || []}
@@ -319,7 +320,6 @@ const AdventureMapEditorForm = memo(
 									placeholder='Kéo thả ID Tướng vào đây...'
 								/>
 								<div className='border-t border-border/50 pt-4'>
-									{/* Regions giữ nguyên vì thường là text thuần */}
 									<StringArrayInput
 										label='Vùng bắt buộc (Regions)'
 										items={formData.requirement?.regions || []}
@@ -337,7 +337,6 @@ const AdventureMapEditorForm = memo(
 							<h3 className='font-bold mb-4 text-lg border-l-4 border-purple-500 pl-3'>
 								Luật Đặc Biệt (Mutators/Powers)
 							</h3>
-							{/* 🟢 Áp dụng DragDropArray cho Powers */}
 							<DragDropArrayInput
 								label='Danh sách Power IDs (VD: P0612)'
 								data={formData.specialRules || []}
@@ -373,7 +372,6 @@ const AdventureMapEditorForm = memo(
 
 						<div className='flex flex-col gap-5'>
 							{(formData.Bosses || []).map((b, i) => {
-								// 🟢 Logic phân giải ID Boss thành Tên & Ảnh
 								const safeBossID = (b.bossID || "").trim();
 								const resolvedBoss =
 									(cachedData.bosses || []).find(
@@ -428,7 +426,6 @@ const AdventureMapEditorForm = memo(
 												</Button>
 											</div>
 
-											{/* 🟢 Hiển thị Avatar và Input Drag & Drop */}
 											<div className='flex flex-col gap-2'>
 												<label className='block font-semibold text-[10px] uppercase text-text-secondary tracking-widest'>
 													Mã Boss (ID)
