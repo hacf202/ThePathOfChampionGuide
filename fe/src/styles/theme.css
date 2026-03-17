@@ -1,0 +1,412 @@
+/* src/theme.css */
+
+/* =========================================
+ * 1. FONT IMPORTS & DEFINITIONS
+ * ========================================= */
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Space+Grotesk:wght@700&display=swap");
+
+:root {
+	/* --- Fonts --- */
+	--font-primary: "Space Grotesk", sans-serif;
+	--font-secondary: "Open Sans", sans-serif;
+
+	/* =========================================
+	  * 2. BASE PALETTE (Màu nền tảng)
+	  * ========================================= */
+
+	/* --- Trắng & Đen --- */
+	--color-white: #ffffff;
+	--color-black: #000000;
+
+	/* --- Grays (Xám) --- */
+	--color-gray-100: #f8fafc;
+	--color-gray-300: #e2e8f0;
+	--color-gray-400: #71829b;
+	--color-gray-500: #64748b;
+	--color-gray-700: #334155;
+	--color-gray-800: #1e293b;
+	--color-gray-900: #0f172a;
+
+	/* --- Màu chính (Primary - Xanh/Tím) --- */
+	--color-primary-100: #e0f2fe;
+	--color-primary-300: #38a7e7;
+	--color-primary-500: #3c91c2;
+	--color-primary-700: #2080b8;
+
+	/* --- Cảnh báo (Warning - Vàng) --- */
+	--color-warning-500: #eab308;
+	--color-warning-700: #ca8a04;
+	--color-warning-text: var(--color-white);
+
+	/* --- Thành công (Success - Xanh lá) --- */
+	--color-success-500: #22c55e;
+	--color-success-text: var(--color-success-500);
+
+	/* --- Báo động (Danger - Đỏ) --- */
+	--color-danger-100: #fee2e2;
+	--color-danger-500: #ef4444;
+	--color-danger-700: #b91c1c;
+	--color-danger-text-light: var(--color-white);
+	--color-danger-text-dark: var(--color-danger-700);
+
+	/* --- Icon đặc biệt --- */
+	--color-star: #f59e0b;
+
+	/* =========================================
+	  * 3. NỀN TRANG & BỀ MẶT CHUNG
+	  * ========================================= */
+	--color-page-bg: #f1f6fc;
+	--color-surface-bg: #ffffff;
+	--color-surface-hover-bg: #f8fafc;
+	--color-border: #e2e8f0;
+
+	/* =========================================
+	  * 4. VĂN BẢN CHUNG
+	  * ========================================= */
+	--color-text-primary: var(--color-gray-900);
+	--color-text-secondary: var(--color-gray-500);
+
+	/* =========================================
+	  * 5. LỚP PHỦ & HIỆU ỨNG KÍNH (GLASSMORPHISM)
+	  * ========================================= */
+	--color-bg-overlay: rgba(
+		15,
+		23,
+		42,
+		0.8
+	); /* Darker overlay for Magic effect */
+	--color-glass-bg: rgba(255, 255, 255, 0.3);
+	--color-glass-border: rgba(255, 255, 255, 0.5);
+	--color-glass-hover-bg: rgba(255, 255, 255, 0.5);
+	--color-glass-hover-border: rgba(255, 255, 255, 0.8);
+	--color-glass-dark-text: var(--color-gray-800);
+
+	/* =========================================
+	  * 6. BẢNG ĐIỀU KHIỂN KÍNH (PANEL GLASS)
+	  * ========================================= */
+	--color-panel-glass-bg: rgba(15, 23, 42, 0.7);
+	--color-panel-glass-border: rgba(51, 65, 85, 0.7);
+	--color-panel-text-light: var(--color-white);
+	--color-panel-text-dim: var(--color-gray-300);
+	--color-panel-text-dimmer: var(--color-gray-400);
+	--color-panel-item-bg: var(--color-gray-500);
+	--color-panel-item-hover-bg: var(--color-gray-400);
+	--color-panel-input-bg: var(--color-gray-800);
+	--color-panel-input-border: var(--color-gray-600);
+	--color-panel-checkbox-bg: var(--color-gray-700);
+	--color-panel-checkbox-border: var(--color-gray-500);
+
+	/* =========================================
+	  * 7. TRẠNG THÁI BÁO ĐỘNG (DANGER)
+	  * ========================================= */
+	--color-danger-bg-light: var(--color-danger-100);
+
+	/* =========================================
+	  * 8. NÚT BẤM (BUTTON VARIANTS)
+	  * ========================================= */
+	/* Primary */
+	--color-btn-primary-bg: var(--color-primary-500);
+	--color-btn-primary-text: var(--color-white);
+	--color-btn-primary-hover-bg: var(--color-primary-700);
+
+	/* Secondary */
+	--color-btn-secondary-bg: transparent;
+	--color-btn-secondary-text: var(--color-primary-500);
+	--color-btn-secondary-border: var(--color-primary-500);
+	--color-btn-secondary-hover-bg: var(--color-primary-100);
+	--color-btn-secondary-hover-text: var(--color-primary-700);
+
+	/* Danger */
+	--color-btn-danger-bg: var(--color-danger-500);
+	--color-btn-danger-text: var(--color-danger-text-light);
+	--color-btn-danger-hover-bg: var(--color-danger-700);
+
+	/* Warning */
+	--color-btn-warning-bg: var(--color-warning-500);
+	--color-btn-warning-text: var(--color-warning-text);
+	--color-btn-warning-hover-bg: var(--color-warning-700);
+
+	/* =========================================
+	  * 9. BIỂU MẪU (FORM INPUTS)
+	  * ========================================= */
+	--color-input-bg: var(--color-white);
+	--color-input-text: var(--color-gray-900);
+	--color-input-border: var(--color-gray-300);
+	--color-input-placeholder: var(--color-gray-500);
+	--color-input-focus-border: var(--color-primary-500);
+	--color-input-disabled-bg: var(--color-gray-100);
+	--color-input-disabled-text: var(--color-gray-500);
+	--color-input-error-border: var(--color-danger-500);
+	--color-input-error-text: var(--color-danger-text-dark);
+
+	/* =========================================
+	  * 10. DROPDOWN
+	  * ========================================= */
+	--color-dropdown-bg: #ffffff;
+	--color-dropdown-border: var(--color-gray-300);
+	--color-dropdown-item-text: var(--color-gray-900);
+	--color-dropdown-item-hover-bg: var(--color-gray-100);
+	--color-dropdown-item-selected-bg: var(--color-gray-100);
+
+	/* =========================================
+	  * 11. MODAL
+	  * ========================================= */
+	--color-modal-overlay-bg: rgba(0, 0, 0, 0.5);
+
+	/* =========================================
+	  * 12. HEADER & NAVBAR
+	  * ========================================= */
+	--color-header-bg: var(--color-primary-500);
+	--color-header-text: var(--color-white);
+	--color-header-border: var(--color-primary-700);
+	--color-nav-link-text: var(--color-primary-100);
+	--color-nav-link-hover: var(--color-white);
+	--color-nav-link-selected: var(--color-white);
+	--color-nav-hover-bg: var(--color-primary-700);
+	--color-nav-active-bg: var(--color-primary-700);
+
+	/* =========================================
+	  * 13. FOOTER
+	  * ========================================= */
+	--color-footer-bg: var(--color-gray-900);
+	--color-footer-text: var(--color-gray-100);
+	--color-footer-link: var(--color-gray-100);
+	--color-footer-link-hover: var(--color-primary-100);
+
+	/* =========================================
+	  * 14. ICONS
+	  * ========================================= */
+	--color-icon-star: var(--color-star);
+	--color-icon-power: #facc15;
+	--color-icon-gem: #ec4899;
+	--color-icon-random: #a855f7;
+	--color-text-link-admin: #000000;
+
+	/* =========================================
+	  * 15. MÀU ĐẶC THÙ THEO TRANG (Home.jsx)
+	  * ========================================= */
+	/* Section 1 */
+	--color-accent1-title: #fcd34d;
+	--color-accent1-subtitle: #fed7aa;
+	--color-accent1-cta-bg: #ef4444;
+	--color-accent1-cta-hover: #dc2626;
+	--color-accent1-badge-bg: #facc15;
+
+	/* Section 2 */
+	--color-accent2-title: #67e8f9;
+	--color-accent2-subtitle: #99f6e4;
+	--color-accent2-cta-bg: #10b981;
+	--color-accent2-cta-hover: #059669;
+
+	/* Section 3 */
+	--color-accent3-title: #c4b5fd;
+	--color-accent3-subtitle: #fbcfe8;
+	--color-accent3-cta-bg: #a855f7;
+	--color-accent3-cta-hover: #9333ea;
+
+	/* Roles */
+	--color-role-aggro: #ef4444;
+	--color-role-combo: #facc15;
+	--color-role-mill: #a855f7;
+	--color-role-control: #ec4899;
+	--color-role-midrange: #3b82f6;
+	--color-role-burn: #10b981;
+	--color-role-ftk-otk: #06b6d4;
+
+	/* =========================================
+	  * 16. BÓNG ĐỔ & HIỆU ỨNG
+	  * ========================================= */
+	--color-shadow-primary: rgba(55, 48, 163, 0.2);
+
+	/* =========================================
+	  * 19. BẢNG MÀU CHỦ ĐỀ ĐA DẠNG (BỔ SUNG)
+	  * ========================================= */
+
+	/* --- Theme 1: Inferno (Hỏa Ngục - Rực cháy) --- */
+	--color-inferno-500: #f97316;
+	--color-inferno-700: #c2410c;
+	--color-inferno-title: #fdba74;
+	--color-inferno-subtitle: #ffedd5;
+
+	/* --- Theme 2: Emerald (Lục Bảo - Thiên nhiên/Hồi phục) --- */
+	--color-emerald-500: #10b981;
+	--color-emerald-700: #047857;
+	--color-emerald-title: #6ee7b7;
+	--color-emerald-subtitle: #d1fae5;
+
+	/* --- Theme 3: Celestial (Thiên Không - Vũ trụ/Thần thánh) --- */
+	--color-celestial-500: #6366f1;
+	--color-celestial-700: #4338ca;
+	--color-celestial-title: #a5b4fc;
+	--color-celestial-subtitle: #e0e7ff;
+
+	/* --- Theme 4: Blood (Huyết Tộc - Ma mị/Nguy hiểm) --- */
+	--color-blood-500: #dc2626;
+	--color-blood-700: #991b1b;
+	--color-blood-title: #fca5a5;
+	--color-blood-subtitle: #fee2e2;
+
+	/* --- Theme 5: Shadow (Bóng Tối - Bí ẩn) --- */
+	--color-shadow-500: #4b5563;
+	--color-shadow-700: #1f2937;
+	--color-shadow-title: #d1d5db;
+	--color-shadow-subtitle: #f3f4f6;
+}
+
+/* =========================================
+  * 17. KEYFRAMES & ANIMATIONS (UPDATED)
+  * ========================================= */
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+@keyframes slideUp {
+	from {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+@keyframes slideDown {
+	from {
+		opacity: 0;
+		transform: translateY(-10px) scaleY(0.9);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0) scaleY(1);
+	}
+}
+@keyframes pulseFocus {
+	0%,
+	100% {
+		box-shadow: 0 0 0 0 rgba(60, 145, 194, 0.4);
+	}
+	50% {
+		box-shadow: 0 0 0 4px rgba(60, 145, 194, 0);
+	}
+}
+
+/* HIỆU ỨNG MỚI: Vòng tròn triệu hồi (Magic Circle) */
+@keyframes magicRingSpin {
+	0% {
+		transform: rotate(0deg) scale(0.8);
+		opacity: 0.3;
+	}
+	50% {
+		transform: rotate(180deg) scale(1.1);
+		opacity: 1;
+	}
+	100% {
+		transform: rotate(360deg) scale(0.8);
+		opacity: 0.3;
+	}
+}
+
+/* HIỆU ỨNG MỚI: Lỗi kỹ thuật số (Glitch) */
+@keyframes loadingGlitch {
+	0% {
+		clip-path: inset(50% 0 30% 0);
+		transform: translate(-5px, 5px);
+	}
+	2% {
+		clip-path: inset(10% 0 80% 0);
+		transform: translate(5px, -5px);
+	}
+	4% {
+		clip-path: inset(80% 0 10% 0);
+		transform: translate(-5px, 5px);
+	}
+	6% {
+		clip-path: inset(30% 0 50% 0);
+		transform: translate(5px, -5px);
+	}
+	8% {
+		clip-path: inset(10% 0 80% 0);
+		transform: translate(-5px, 5px);
+	}
+	10% {
+		clip-path: inset(80% 0 10% 0);
+		transform: translate(5px, -5px);
+	}
+	11% {
+		clip-path: inset(0 0 0 0);
+		transform: translate(0, 0);
+	}
+	100% {
+		clip-path: inset(0 0 0 0);
+		transform: translate(0, 0);
+	}
+}
+
+/* HIỆU ỨNG MỚI: Hiển thị nội dung (Content Reveal) */
+@keyframes contentReveal {
+	from {
+		opacity: 0;
+		transform: translateY(15px);
+		filter: blur(5px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+		filter: blur(0);
+	}
+}
+
+/* =========================================
+  * 18. ANIMATION UTILITY CLASSES (UPDATED)
+  * ========================================= */
+.animate-fadeIn {
+	animation: fadeIn 1s ease-out forwards;
+}
+.animate-slideUp {
+	animation: slideUp 0.8s ease-out forwards;
+}
+.animate-pulse-focus {
+	animation: pulseFocus 1.5s ease-in-out infinite;
+}
+
+/* New Magic Circle Loading Class */
+.loading-magic-circle {
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	border: 4px double var(--color-primary-300); /* Double ring effect */
+	border-top-color: transparent;
+	border-bottom-color: transparent;
+	animation: magicRingSpin 2s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+}
+
+/* New Glitch class */
+.animate-glitch {
+	animation: loadingGlitch 2s ease-in-out forwards;
+}
+
+/* New Content Reveal Class */
+.animate-reveal {
+	animation: contentReveal 0.6s ease-out forwards;
+}
+
+/* Full screen overlay loading */
+.loading-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: var(--color-bg-overlay);
+	backdrop-filter: blur(8px);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 9999;
+}

@@ -1,0 +1,13 @@
+[
+	{
+		"bossID": "B001",
+		"bossName": "Long Lực",
+		"power": "P0012",
+		"background": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/champions/ElderDragonT1.png",
+		"translations": {
+			"en": {
+				"bossName": "The Dragonsire"
+			}
+		}
+	}
+]

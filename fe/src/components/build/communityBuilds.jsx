@@ -1,0 +1,265 @@
+// src/components/build/communityBuilds.jsx
+import React, {
+	useEffect,
+	useState,
+	useContext,
+	useCallback,
+	useRef,
+} from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import BuildSummary from "./buildSummary";
+import { useBatchFavoriteData } from "../../hooks/useBatchFavoriteData";
+import { AuthContext } from "../../context/AuthContext.jsx";
+import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook i18n
+import Button from "../common/button.jsx";
+import { XCircle } from "lucide-react";
+
+const ITEMS_PER_PAGE = 12;
+
+const BuildSkeleton = () => (
+	<div className='rounded-lg border border-border bg-surface-bg p-4 space-y-4 animate-pulse'>
+		<div className='flex items-center gap-3'>
+			<div className='w-12 h-12 bg-gray-700/50 rounded-full' />
+			<div className='flex-1 space-y-2'>
+				<div className='h-4 w-3/4 bg-gray-700/50 rounded' />
+				<div className='h-3 w-1/2 bg-gray-700/50 rounded' />
+			</div>
+		</div>
+		<div className='h-24 w-full bg-gray-700/50 rounded-md' />
+		<div className='flex gap-2'>
+			<div className='h-8 w-8 bg-gray-700/50 rounded-full' />
+			<div className='h-8 w-8 bg-gray-700/50 rounded-full' />
+			<div className='h-8 w-8 bg-gray-700/50 rounded-full' />
+		</div>
+	</div>
+);
+
+const CommunityBuilds = ({
+	searchTerm,
+	selectedStarLevels,
+	selectedRegions,
+	sortBy,
+	currentPage,
+	setCurrentPage,
+	championsList,
+	relicsList,
+	powersList,
+	runesList,
+	refreshKey,
+	powerMap,
+	championNameToRegionsMap,
+	showDesktopFilter,
+	getCache,
+	setCache,
+	clearCache,
+}) => {
+	const { user, token } = useContext(AuthContext);
+	const { language, tUI } = useTranslation(); // 🟢 Khởi tạo ngôn ngữ và tUI
+	const [builds, setBuilds] = useState([]);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(null);
+	const [totalPages, setTotalPages] = useState(1);
+
+	const isInitialMount = useRef(true);
+	const containerRef = useRef(null);
+
+	const fetchBuilds = useCallback(
+		async (pageToFetch = 1, forceRefresh = false) => {
+			setLoading(true);
+			setError(null);
+
+			try {
+				const apiUrl = import.meta.env.VITE_API_URL;
+				const queryParams = new URLSearchParams({
+					page: pageToFetch,
+					limit: ITEMS_PER_PAGE,
+					searchTerm,
+					stars: selectedStarLevels,
+					regions: selectedRegions,
+					sort: sortBy,
+				});
+
+				const response = await fetch(
+					`${apiUrl}/api/builds?${queryParams.toString()}`,
+				);
+
+				if (!response.ok) throw new Error(tUI("common.errorLoadData"));
+
+				const data = await response.json();
+
+				setBuilds(data.items || []);
+				setTotalPages(data.pagination?.totalPages || 1);
+
+				setCache("community", {
+					items: data.items,
+					pagination: data.pagination,
+				});
+			} catch (err) {
+				setError(err.message);
+			} finally {
+				setLoading(false);
+			}
+		},
+		[searchTerm, selectedStarLevels, selectedRegions, sortBy, setCache, tUI],
+	);
+
+	useEffect(() => {
+		if (isInitialMount.current) {
+			const cached = getCache("community");
+			if (cached && refreshKey === 0) {
+				setBuilds(cached.items || []);
+				setTotalPages(cached.pagination?.totalPages || 1);
+				setLoading(false);
+			} else {
+				fetchBuilds(currentPage, true);
+			}
+			isInitialMount.current = false;
+		} else {
+			fetchBuilds(currentPage, refreshKey > 0);
+		}
+	}, [currentPage, fetchBuilds, refreshKey]);
+
+	const { favoriteStatus, favoriteCounts, toggleFavorite } =
+		useBatchFavoriteData(builds, token);
+
+	const onFavoriteToggle = (buildId, newStatus, newCount) => {
+		toggleFavorite(buildId, newStatus, newCount);
+		clearCache();
+	};
+
+	const handleBuildUpdated = updatedBuild => {
+		setBuilds(prev =>
+			prev.map(b => (b.id === updatedBuild.id ? updatedBuild : b)),
+		);
+		clearCache();
+	};
+
+	const handleBuildDeleted = deletedBuildId => {
+		setBuilds(prev => prev.filter(b => b.id !== deletedBuildId));
+		clearCache();
+		fetchBuilds(currentPage, true);
+	};
+
+	const goToNextPage = () => {
+		if (currentPage < totalPages) {
+			setCurrentPage(prev => prev + 1);
+			containerRef.current?.scrollIntoView({ behavior: "smooth" });
+		}
+	};
+
+	const goToPrevPage = () => {
+		if (currentPage > 1) {
+			setCurrentPage(prev => prev - 1);
+			containerRef.current?.scrollIntoView({ behavior: "smooth" });
+		}
+	};
+
+	if (error) {
+		return (
+			<div className='text-center py-10 text-danger-text-dark bg-danger-bg-light rounded-lg'>
+				<p>{error}</p>
+			</div>
+		);
+	}
+
+	return (
+		<div ref={containerRef} className='min-h-[400px]'>
+			<AnimatePresence mode='wait'>
+				{loading ? (
+					<motion.div
+						key='skeleton'
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						exit={{ opacity: 0 }}
+						className={`grid gap-4 ${
+							showDesktopFilter
+								? "grid-cols-1 md:grid-cols-2"
+								: "grid-cols-1 md:grid-cols-2 xl:grid-cols-3"
+						}`}
+					>
+						{[...Array(ITEMS_PER_PAGE)].map((_, i) => (
+							<BuildSkeleton key={i} />
+						))}
+					</motion.div>
+				) : builds.length > 0 ? (
+					<>
+						<motion.div
+							key='content'
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							exit={{ opacity: 0 }}
+							className={`grid gap-4 ${
+								showDesktopFilter
+									? "grid-cols-1 md:grid-cols-2"
+									: "grid-cols-1 md:grid-cols-2 xl:grid-cols-3"
+							}`}
+						>
+							{builds.map(build => (
+								<motion.div
+									key={build.id}
+									layout
+									initial={{ opacity: 0, scale: 0.9 }}
+									animate={{ opacity: 1, scale: 1 }}
+									transition={{ duration: 0.2 }}
+								>
+									<BuildSummary
+										build={build}
+										championsList={championsList}
+										relicsList={relicsList}
+										powersList={powersList}
+										runesList={runesList}
+										powerMap={powerMap}
+										championNameToRegionsMap={championNameToRegionsMap}
+										showDesktopFilter={showDesktopFilter}
+										onBuildUpdate={handleBuildUpdated}
+										onBuildDelete={handleBuildDeleted}
+										onFavoriteToggle={onFavoriteToggle}
+										initialIsFavorited={!!favoriteStatus[build.id]}
+										initialLikeCount={
+											favoriteCounts[build.id] || build.like || 0
+										}
+										isFavoritePage={false}
+									/>
+								</motion.div>
+							))}
+						</motion.div>
+
+						{totalPages > 1 && (
+							<div className='mt-10 flex justify-center items-center gap-4 border-t border-border pt-6'>
+								<Button
+									onClick={goToPrevPage}
+									disabled={currentPage === 1}
+									variant='outline'
+								>
+									{tUI("common.prevPage")}
+								</Button>
+								<span className='font-bold text-primary-500 bg-primary-100/10 px-4 py-1.5 rounded-full border border-primary-500/20'>
+									{currentPage} / {totalPages}
+								</span>
+								<Button
+									onClick={goToNextPage}
+									disabled={currentPage === totalPages}
+									variant='outline'
+								>
+									{tUI("common.nextPage")}
+								</Button>
+							</div>
+						)}
+					</>
+				) : (
+					<div className='text-center py-20 bg-surface-bg-alt rounded-lg border border-dashed border-border'>
+						<XCircle
+							size={48}
+							className='mx-auto mb-4 opacity-20 text-text-secondary'
+						/>
+						<p className='text-text-secondary italic'>
+							{tUI("buildList.notFound")}
+						</p>
+					</div>
+				)}
+			</AnimatePresence>
+		</div>
+	);
+};
+
+export default CommunityBuilds;
