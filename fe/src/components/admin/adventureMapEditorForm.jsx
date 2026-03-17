@@ -18,9 +18,13 @@ import {
 	AdventureLine,
 	AdventureConnections,
 	AdventureNodeEditor,
+	DragDropArrayInput, // Thêm component kéo thả
+	getUniqueAdvId, // Thêm helper lấy ID
+	getAdvName, // Thêm helper lấy Tên
+	getAdvImage, // Thêm helper lấy Ảnh
 } from "./adventureEditorHelpers";
 
-// Helper component thao tác mảng String (dùng cho specialRules, bosses)
+// Helper component thao tác mảng String (vẫn giữ lại để dùng cho Regions)
 const StringArrayInput = ({ label, items, onChange, placeholder }) => (
 	<div className='space-y-2'>
 		<label className='block font-semibold text-sm text-text-secondary'>
@@ -61,7 +65,7 @@ const AdventureMapEditorForm = memo(
 	({ item, cachedData, onSave, onCancel, onDelete, isSaving }) => {
 		const [formData, setFormData] = useState({});
 
-		// 🟢 Bổ sung các State và Refs cần thiết cho Map
+		// Bổ sung các State và Refs cần thiết cho Map
 		const [isMapVisible, setIsMapVisible] = useState(true);
 		const [selectedNodeIndex, setSelectedNodeIndex] = useState(null);
 		const mapRef = useRef(null);
@@ -92,7 +96,7 @@ const AdventureMapEditorForm = memo(
 			onSave(formData);
 		};
 
-		// 🟢 Hàm xử lý Click trên bản đồ để lấy toạ độ X, Y
+		// Hàm xử lý Click trên bản đồ để lấy toạ độ X, Y
 		const handleMapClick = useCallback(
 			e => {
 				if (selectedNodeIndex === null || !mapRef.current) return;
@@ -118,7 +122,7 @@ const AdventureMapEditorForm = memo(
 			[selectedNodeIndex],
 		);
 
-		// 🟢 Hàm xử lý thay đổi dữ liệu của Node
+		// Hàm xử lý thay đổi dữ liệu của Node
 		const handleNodeChange = useCallback((idx, field, val) => {
 			setFormData(prev => {
 				const nextNodes = [...(prev.nodes || [])];
@@ -129,7 +133,7 @@ const AdventureMapEditorForm = memo(
 			});
 		}, []);
 
-		// 🟢 Hàm render Icon cho Node trên map
+		// Hàm render Icon cho Node trên map
 		const getNodeIcon = type => {
 			if (type === "Boss") return <Skull size={14} className='text-white' />;
 			if (type === "Encounter")
@@ -254,7 +258,6 @@ const AdventureMapEditorForm = memo(
 								onChange={handleChange}
 								placeholder='Nhập URL ảnh nền map...'
 							/>
-							{/* 🟢 KHU VỰC THÊM THUỘC TÍNH assetAbsolutePath (Kèm preview ảnh) */}
 							<div className='flex gap-4 items-end'>
 								<div className='flex-1'>
 									<InputField
@@ -302,17 +305,21 @@ const AdventureMapEditorForm = memo(
 								Yêu cầu tham gia (Requirement)
 							</h3>
 							<div className='space-y-4'>
-								<StringArrayInput
+								{/* 🟢 Áp dụng DragDropArray cho Champions */}
+								<DragDropArrayInput
 									label='Tướng bắt buộc (Champions)'
-									items={formData.requirement?.champions || []}
+									data={formData.requirement?.champions || []}
 									onChange={arr =>
 										setFormData(p => ({
 											...p,
 											requirement: { ...p.requirement, champions: arr },
 										}))
 									}
+									cachedList={cachedData.champions || []}
+									placeholder='Kéo thả ID Tướng vào đây...'
 								/>
 								<div className='border-t border-border/50 pt-4'>
+									{/* Regions giữ nguyên vì thường là text thuần */}
 									<StringArrayInput
 										label='Vùng bắt buộc (Regions)'
 										items={formData.requirement?.regions || []}
@@ -330,12 +337,15 @@ const AdventureMapEditorForm = memo(
 							<h3 className='font-bold mb-4 text-lg border-l-4 border-purple-500 pl-3'>
 								Luật Đặc Biệt (Mutators/Powers)
 							</h3>
-							<StringArrayInput
+							{/* 🟢 Áp dụng DragDropArray cho Powers */}
+							<DragDropArrayInput
 								label='Danh sách Power IDs (VD: P0612)'
-								items={formData.specialRules || []}
+								data={formData.specialRules || []}
 								onChange={arr =>
 									setFormData(p => ({ ...p, specialRules: arr }))
 								}
+								cachedList={cachedData.powers || []}
+								placeholder='Kéo thả ID Power vào đây...'
 							/>
 						</div>
 					</section>
@@ -362,61 +372,119 @@ const AdventureMapEditorForm = memo(
 						</div>
 
 						<div className='flex flex-col gap-5'>
-							{(formData.Bosses || []).map((b, i) => (
-								<div
-									key={i}
-									className='bg-surface-bg p-5 rounded-lg border border-border shadow-md flex flex-col lg:flex-row gap-6 relative'
-								>
-									{/* Cột trái: ID Boss */}
-									<div className='w-full lg:w-1/4 flex flex-col gap-4 lg:border-r lg:border-border lg:pr-6'>
-										<div className='flex justify-between items-center'>
-											<span className='font-black text-red-500 text-lg'>
-												BOSS #{i + 1}
-											</span>
-											<Button
-												type='button'
-												variant='ghost'
-												className='text-red-500 hover:bg-red-500/10'
-												onClick={() =>
-													setFormData(p => ({
-														...p,
-														Bosses: p.Bosses.filter((_, idx) => idx !== i),
-													}))
-												}
-											>
-												<Trash2 size={18} />
-											</Button>
-										</div>
-										<InputField
-											label='Mã Boss (ID)'
-											placeholder='VD: B001'
-											value={b.bossID}
-											onChange={e => {
-												const arr = [...formData.Bosses];
-												arr[i].bossID = e.target.value;
-												setFormData(p => ({ ...p, Bosses: arr }));
-											}}
-										/>
-									</div>
+							{(formData.Bosses || []).map((b, i) => {
+								// 🟢 Logic phân giải ID Boss thành Tên & Ảnh
+								const safeBossID = (b.bossID || "").trim();
+								const resolvedBoss =
+									(cachedData.bosses || []).find(
+										cb => getUniqueAdvId(cb) === safeBossID,
+									) || {};
+								const isResolvedBoss = !!getUniqueAdvId(resolvedBoss);
+								const displayBossID = isResolvedBoss
+									? getAdvName(resolvedBoss)
+									: b.bossID || "";
+								const bossAvatar = getAdvImage(resolvedBoss);
 
-									{/* Cột phải: Ghi chú */}
-									<div className='w-full lg:w-3/4 flex flex-col'>
-										<label className='block font-semibold text-sm text-text-secondary mb-2'>
-											Chi tiết chiến thuật / Ghi chú (Hỗ trợ xuống dòng)
-										</label>
-										<textarea
-											className='w-full flex-1 min-h-[120px] bg-surface-hover border border-border rounded-lg p-4 text-sm text-text-primary focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none resize-y transition-colors placeholder:text-text-secondary/50'
-											placeholder='Nhập chi tiết hướng dẫn, cách đánh, lưu ý quan trọng khi gặp boss này...'
-											value={b.note || ""}
-											onChange={e => {
-												const arr = [...formData.Bosses];
-												arr[i].note = e.target.value;
-												setFormData(p => ({ ...p, Bosses: arr }));
-											}}
-										/>
+								return (
+									<div
+										key={i}
+										className='bg-surface-bg p-5 rounded-lg border border-border shadow-md flex flex-col lg:flex-row gap-6 relative'
+										onDrop={e => {
+											e.preventDefault();
+											try {
+												const dragged = JSON.parse(
+													e.dataTransfer.getData("text/plain"),
+												);
+												const identifier = dragged.id || dragged.name;
+												if (identifier) {
+													const arr = [...formData.Bosses];
+													arr[i].bossID = identifier.trim();
+													setFormData(p => ({ ...p, Bosses: arr }));
+												}
+											} catch (err) {
+												console.warn("Drag data không hợp lệ");
+											}
+										}}
+										onDragOver={e => e.preventDefault()}
+									>
+										{/* Cột trái: ID Boss */}
+										<div className='w-full lg:w-1/4 flex flex-col gap-4 lg:border-r lg:border-border lg:pr-6'>
+											<div className='flex justify-between items-center'>
+												<span className='font-black text-red-500 text-lg'>
+													BOSS #{i + 1}
+												</span>
+												<Button
+													type='button'
+													variant='ghost'
+													className='text-red-500 hover:bg-red-500/10'
+													onClick={() =>
+														setFormData(p => ({
+															...p,
+															Bosses: p.Bosses.filter((_, idx) => idx !== i),
+														}))
+													}
+												>
+													<Trash2 size={18} />
+												</Button>
+											</div>
+
+											{/* 🟢 Hiển thị Avatar và Input Drag & Drop */}
+											<div className='flex flex-col gap-2'>
+												<label className='block font-semibold text-[10px] uppercase text-text-secondary tracking-widest'>
+													Mã Boss (ID)
+												</label>
+												<div className='flex items-center gap-3 bg-surface-hover p-2 rounded-lg border border-border'>
+													<div className='w-10 h-10 rounded bg-white border flex items-center justify-center overflow-hidden shrink-0'>
+														{bossAvatar ? (
+															<img
+																src={bossAvatar}
+																className='w-full h-full object-contain'
+															/>
+														) : (
+															<span className='text-[10px] text-gray-500 font-bold'>
+																D&D
+															</span>
+														)}
+													</div>
+													<InputField
+														placeholder='Kéo thả Boss...'
+														value={displayBossID}
+														onChange={e => {
+															const arr = [...formData.Bosses];
+															arr[i].bossID = e.target.value;
+															setFormData(p => ({ ...p, Bosses: arr }));
+														}}
+														readOnly={isResolvedBoss}
+														className={`flex-1 ${isResolvedBoss ? "font-bold text-red-500" : ""}`}
+														title={
+															isResolvedBoss
+																? `ID thực tế được lưu trữ: ${b.bossID}`
+																: ""
+														}
+													/>
+												</div>
+											</div>
+										</div>
+
+										{/* Cột phải: Ghi chú */}
+										<div className='w-full lg:w-3/4 flex flex-col'>
+											<label className='block font-semibold text-sm text-text-secondary mb-2'>
+												Chi tiết chiến thuật / Ghi chú (Hỗ trợ xuống dòng)
+											</label>
+											<textarea
+												className='w-full flex-1 min-h-[120px] bg-surface-hover border border-border rounded-lg p-4 text-sm text-text-primary focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none resize-y transition-colors placeholder:text-text-secondary/50'
+												placeholder='Nhập chi tiết hướng dẫn, cách đánh, lưu ý quan trọng khi gặp boss này...'
+												value={b.note || ""}
+												onChange={e => {
+													const arr = [...formData.Bosses];
+													arr[i].note = e.target.value;
+													setFormData(p => ({ ...p, Bosses: arr }));
+												}}
+											/>
+										</div>
 									</div>
-								</div>
-							))}
+								);
+							})}
 							{(!formData.Bosses || formData.Bosses.length === 0) && (
 								<div className='text-center py-10 text-text-secondary bg-surface-bg rounded-lg border border-dashed border-border'>
 									Chưa có Boss nào. Hãy bấm "Thêm Boss" để bắt đầu.

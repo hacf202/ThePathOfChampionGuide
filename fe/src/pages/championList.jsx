@@ -1,5 +1,5 @@
 // src/pages/championList.jsx
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "../hooks/useTranslation";
 import { useChampionFilters } from "../hooks/useChampionFilters";
@@ -21,32 +21,39 @@ const ChampionSkeleton = () => (
 function ChampionList() {
 	const { tUI } = useTranslation();
 
-	// Khởi tạo Data và Logic Filter (Hook URL đã được xử lý ngầm bên trong useChampionFilters)
-	const { dynamicFilters } = useChampionData("", tUI);
+	// 1. State trung gian để phá vỡ vòng lặp phụ thuộc (Circular Dependency)
+	const [filtersData, setFiltersData] = useState(null);
+
+	// 2. Gọi Hook Filters (lần render đầu filtersData sẽ là null, không sao cả)
 	const { state, actions, filterOptions, queryParams } = useChampionFilters(
 		tUI,
-		dynamicFilters,
-	);
-	const { champions, loading, error, pagination } = useChampionData(
-		queryParams,
-		tUI,
+		filtersData,
 	);
 
-	// Hàm xử lý thay đổi input tìm kiếm an toàn
+	// 3. TỐI ƯU HIỆU SUẤT: Gọi Hook Data MỘT LẦN DUY NHẤT với queryParams thực tế
+	const { champions, loading, error, pagination, dynamicFilters } =
+		useChampionData(queryParams, tUI);
+
+	// 4. Khi API gọi xong và trả về dynamicFilters, ta đồng bộ ngược lại vào filtersData
+	// để giao diện cập nhật danh sách các dropdown.
+	useEffect(() => {
+		if (dynamicFilters && Object.keys(dynamicFilters).length > 0) {
+			setFiltersData(dynamicFilters);
+		}
+	}, [dynamicFilters]);
+
+	// Hàm xử lý thay đổi input tìm kiếm (Đã fix lỗi đóng băng kí tự)
 	const handleSearchChange = eventOrString => {
 		if (eventOrString == null) {
-			// ĐÃ SỬA: Cập nhật đúng biến searchInput dùng cho real-time typing
 			actions.setSearchInput("");
 			return;
 		}
 
-		// Nếu là Event Object (có target.value), ta lấy value. Nếu không, ta lấy chính nó.
 		const value =
 			typeof eventOrString === "object" && eventOrString.target !== undefined
 				? eventOrString.target.value
 				: eventOrString;
 
-		// ĐÃ SỬA: Cập nhật đúng biến searchInput
 		actions.setSearchInput(value);
 	};
 
@@ -70,7 +77,6 @@ function ChampionList() {
 			currentPage={state.currentPage}
 			onPageChange={actions.setCurrentPage}
 			// Truyền Search
-			// ĐÃ SỬA: Trói giá trị ô input vào state.searchInput thay vì state.searchTerm
 			searchValue={state.searchInput || ""}
 			onSearchChange={handleSearchChange}
 			onSearchSubmit={actions.handleSearch}

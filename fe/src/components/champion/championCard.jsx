@@ -2,6 +2,8 @@
 import { memo } from "react";
 // Giả sử bạn có tệp này để lấy icon của các vùng, hãy đảm bảo đường dẫn chính xác
 import iconRegions from "../../assets/data/iconRegions.json";
+import { removeAccents } from "../../utils/vietnameseUtils";
+
 import SafeImage from "../common/SafeImage";
 import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook Đa ngôn ngữ
 
@@ -51,7 +53,7 @@ function ChampionCard({ champion }) {
 						const regionIcon = iconRegions.find(r => r.name === regionName);
 
 						// Tạo key từ tên gốc (VD: "Piltover & Zaun" -> "piltoverzaun")
-						const regionKey = regionName
+						const regionKey = removeAccents(regionName)
 							.toLowerCase()
 							.replace(/[^a-z0-9]/g, "");
 						// Lấy tên đã dịch từ tUI, nếu không có thì fallback về tên gốc

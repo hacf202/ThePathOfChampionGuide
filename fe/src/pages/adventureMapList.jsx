@@ -113,7 +113,7 @@ export default function MapList() {
 					<div className='bg-surface-bg border border-border rounded-xl overflow-hidden shadow-sm hover:border-primary-500 transition-all h-full'>
 						<div className='relative w-full aspect-video bg-surface-hover'>
 							<img
-								src={item.background || "/fallback-image.svg"}
+								src={item.assetAbsolutePath || "/fallback-image.svg"}
 								alt={tDynamic(item, "adventureName")}
 								className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
 								onError={e => {

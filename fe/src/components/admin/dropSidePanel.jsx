@@ -72,7 +72,8 @@ const DropDragItem = memo(({ item, type, setTooltipData }) => {
 		item.assetAbsolutePath ||
 		item.image ||
 		item.avatar ||
-		item.assets?.[0]?.avatar;
+		item.assets?.[0]?.avatar ||
+		item.background;
 
 	return (
 		<div
@@ -390,13 +391,15 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 						{tooltipData.item.assetAbsolutePath ||
 						tooltipData.item.image ||
 						tooltipData.item.avatar ||
-						tooltipData.item.assets?.[0]?.avatar ? (
+						tooltipData.item.assets?.[0]?.avatar ||
+						tooltipData.item.background ? (
 							<img
 								src={
 									tooltipData.item.assetAbsolutePath ||
 									tooltipData.item.image ||
 									tooltipData.item.avatar ||
-									tooltipData.item.assets?.[0]?.avatar
+									tooltipData.item.assets?.[0]?.avatar ||
+									tooltipData.item.background
 								}
 								className='w-14 h-14 rounded-xl object-contain bg-slate-50 border border-slate-200 p-1 shrink-0 shadow-sm'
 							/>

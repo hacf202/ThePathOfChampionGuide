@@ -28,7 +28,7 @@ export const getAdvName = item => {
 	return item.name || item.bossName || item.adventureName || "Unknown";
 };
 
-// Helper lấy Ảnh chuẩn
+// 🟢 ĐÃ CẬP NHẬT: Helper lấy Ảnh chuẩn (Thêm item.background cho Boss)
 export const getAdvImage = item => {
 	if (!item) return null;
 	return (
@@ -36,6 +36,7 @@ export const getAdvImage = item => {
 		item.image ||
 		item.avatar ||
 		item.assets?.[0]?.avatar ||
+		item.background || // Thêm dòng này để lấy ảnh từ field background của Boss
 		null
 	);
 };
@@ -108,7 +109,7 @@ export const DragDropArrayInput = ({
 										<img
 											src={imageUrl}
 											alt='icon'
-											className='w-full h-full object-contain'
+											className='w-full h-full object-cover'
 										/>
 									) : (
 										<span className='text-[10px] text-gray-500'>D&D</span>
@@ -201,7 +202,7 @@ export const DragDropBossObjectInput = ({
 										<img
 											src={imageUrl}
 											alt='icon'
-											className='w-full h-full object-contain'
+											className='w-full h-full object-cover'
 										/>
 									) : (
 										<span className='text-[10px] text-gray-500 font-bold'>

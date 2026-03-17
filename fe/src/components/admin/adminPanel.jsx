@@ -136,7 +136,7 @@ const AdminPanel = () => {
 		},
 		{
 			id: "adventure",
-			label: t("admin.nav.adventure", "Quản lý Hành Trình"),
+			label: t("admin.nav.adventure", "Quản lý Phiêu Lưu"),
 			icon: Map,
 			path: "/admin/adventures",
 		},
