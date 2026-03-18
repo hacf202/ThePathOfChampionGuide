@@ -38,7 +38,8 @@
 		"stacks": "Stacks",
 		"reset": "Reset",
 		"stack": "Stack",
-		"views": "Views"
+		"views": "Views",
+		"resetFilter": "Reset Filter"
 	},
 	"relic": {
 		"rarity": {
@@ -108,6 +109,15 @@
 		"hoalinhlucdia": "Spirit Blossom"
 	},
 	"admin": {
+		"item": {
+			"allRarities": "All Rarity",
+			"rarity": "Rarity",
+			"addNew": "Add New",
+			"resetFilter": "Reset Filter",
+			"searchPlaceholder": "Search by name or description...",
+			"sortRarityAsc": "Rarity Low - High",
+			"sortRarityDesc": "Rarity High - Low"
+		},
 		"rune": {
 			"notFound": "No matching Runes found.",
 			"tryOtherFilter": "Please try with a different filter.",
@@ -120,7 +130,9 @@
 			"allRarities": "All Rarities",
 			"allTypes": "All Types",
 			"sortRarityAsc": "Rarity Low - High",
-			"sortRarityDesc": "Rarity High - Low"
+			"sortRarityDesc": "Rarity High - Low",
+			"region": "Region",
+			"allRegions": "All Regions"
 		},
 		"runeForm": {
 			"errorIdReq": "Please enter an ID!",

@@ -114,6 +114,15 @@
 		"hoalinhlucdia": "Hoa Linh Lục Địa"
 	},
 	"admin": {
+		"item": {
+			"allRarities": "Tất cả độ hiếm",
+			"rarity": "Độ hiếm",
+			"addNew": "Tạo vật phẩm mới",
+			"resetFilter": "Đặt lại bộ lọc",
+			"searchPlaceholder": "Tìm theo tên hoặc mô tả...",
+			"sortRarityAsc": "Độ hiếm Thấp - Cao",
+			"sortRarityDesc": "Độ hiếm Cao - Thấp"
+		},
 		"rune": {
 			"notFound": "Không tìm thấy Ngọc nào phù hợp.",
 			"tryOtherFilter": "Vui lòng thử lại với bộ lọc khác.",
@@ -126,7 +135,9 @@
 			"allRarities": "Tất cả Độ hiếm",
 			"allTypes": "Tất cả Loại",
 			"sortRarityAsc": "Độ hiếm Thấp - Cao",
-			"sortRarityDesc": "Độ hiếm Cao - Thấp"
+			"sortRarityDesc": "Độ hiếm Cao - Thấp",
+			"region": "Khu vực",
+			"allRegions": "Tất cả khu vực"
 		},
 		"runeForm": {
 			"errorIdReq": "Vui lòng nhập ID!",
