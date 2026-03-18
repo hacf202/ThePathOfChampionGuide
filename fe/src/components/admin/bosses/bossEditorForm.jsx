@@ -1,9 +1,11 @@
-// src/components/admin/bossEditorForm.jsx
 import { useState, memo, useEffect, useMemo } from "react";
-import Button from "../../common/button";
 import InputField from "../../common/inputField";
-import { Zap, PanelRightClose, PanelRightOpen, XCircle } from "lucide-react";
+import { Zap, XCircle } from "lucide-react";
 import { useTranslation } from "../../../hooks/useTranslation";
+
+// IMPORT CÁC COMPONENT CHUNG
+import EditorHeaderToolbar from "../common/editorHeaderToolbar";
+import ImagePreviewBox from "../common/imagePreviewBox";
 
 const BossEditorForm = memo(
 	({
@@ -17,7 +19,9 @@ const BossEditorForm = memo(
 		onToggleDragPanel,
 	}) => {
 		const [formData, setFormData] = useState({});
-		const { tDynamic } = useTranslation();
+		const [initialData, setInitialData] = useState({});
+		const [isDirty, setIsDirty] = useState(false);
+		const { tDynamic, tUI } = useTranslation();
 
 		useEffect(() => {
 			if (item) {
@@ -25,9 +29,29 @@ const BossEditorForm = memo(
 				if (!cloned.translations)
 					cloned.translations = { en: { bossName: "" } };
 				if (!cloned.translations.en) cloned.translations.en = { bossName: "" };
+
 				setFormData(cloned);
+				setInitialData(JSON.parse(JSON.stringify(cloned)));
+				setIsDirty(false);
 			}
 		}, [item]);
+
+		useEffect(() => {
+			setIsDirty(JSON.stringify(formData) !== JSON.stringify(initialData));
+		}, [formData, initialData]);
+
+		// Chặn trình duyệt khi có thay đổi chưa lưu
+		useEffect(() => {
+			const handleBeforeUnload = e => {
+				if (isDirty) {
+					e.preventDefault();
+					e.returnValue = "";
+				}
+			};
+			window.addEventListener("beforeunload", handleBeforeUnload);
+			return () =>
+				window.removeEventListener("beforeunload", handleBeforeUnload);
+		}, [isDirty]);
 
 		const handleChange = e => {
 			const { name, value } = e.target;
@@ -41,174 +65,185 @@ const BossEditorForm = memo(
 		const handleDropPower = e => {
 			e.preventDefault();
 			try {
-				const draggedData = JSON.parse(e.dataTransfer.getData("text/plain"));
-				// Chỉ nhận type là 'power' (Ngăn kéo thả nhầm Item/Boss vào đây)
-				if (draggedData.type === "power") {
-					const uniqueId = draggedData.id || draggedData.name;
-					if (uniqueId) {
-						setFormData(prev => ({ ...prev, power: uniqueId }));
-					}
+				let droppedData = e.dataTransfer.getData("text/plain");
+				let draggedObj = null;
+
+				// Bóc tách JSON nếu sidebar truyền JSON
+				try {
+					draggedObj = JSON.parse(droppedData);
+				} catch (err) {
+					// Text thuần
+				}
+
+				const uniqueId = draggedObj?.id || droppedData;
+				const type = draggedObj?.type || "power"; // Mặc định là power nếu drop từ nguồn khác
+
+				// Chỉ nhận type là 'power'
+				if (type === "power" && uniqueId) {
+					setFormData(prev => ({ ...prev, power: uniqueId }));
 				} else {
 					alert("Vui lòng chỉ kéo thả Sức mạnh (Power) vào ô này!");
 				}
-			} catch (err) {
-				console.warn("Dữ liệu kéo thả không hợp lệ");
+			} catch (error) {
+				console.error("Lỗi khi kéo thả:", error);
 			}
+		};
+
+		const handleTranslationChange = (e, lang) => {
+			const { name, value } = e.target;
+			setFormData(prev => ({
+				...prev,
+				translations: {
+					...prev.translations,
+					[lang]: {
+						...prev.translations[lang],
+						[name]: value,
+					},
+				},
+			}));
 		};
 
 		const handleSubmit = e => {
 			e.preventDefault();
+			if (!formData.bossID?.trim()) {
+				alert("Vui lòng nhập Boss ID!");
+				return;
+			}
 			onSave(formData);
 		};
 
-		// 🟢 Logic tra cứu Sức mạnh từ ID để hiển thị Tên & Icon
-		const selectedPower = useMemo(() => {
-			if (!formData.power || !cachedData?.powers) return null;
+		// Mapping Power Name để hiển thị thay vì chỉ hiện ID
+		const { isPowerResolved, resolvedPowerName, resolvedPowerIcon } =
+			useMemo(() => {
+				if (!formData.power)
+					return { isPowerResolved: false, resolvedPowerName: "" };
 
-			// console.log("ID đang tìm:", formData.power); // Bạn có thể bật log này để debug
+				const foundPower = (cachedData.powers || []).find(
+					p => p.powerCode === formData.power,
+				);
 
-			return cachedData.powers.find(
-				p =>
-					p.powerCode === formData.power ||
-					p.powerID === formData.power || // 🟢 Bổ sung thêm powerID
-					p.bossID === formData.power || // 🟢 Bổ sung thêm bossID (nếu power là boss)
-					p._id === formData.power ||
-					p.id === formData.power ||
-					p.name === formData.power,
-			);
-		}, [formData.power, cachedData?.powers]);
+				if (foundPower) {
+					return {
+						isPowerResolved: true,
+						resolvedPowerName: tDynamic(foundPower, "name"),
+						resolvedPowerIcon:
+							foundPower.assetAbsolutePath || foundPower.assetFullAbsolutePath,
+					};
+				}
 
-		// Kiểm tra xem có map thành công không
-		const isPowerResolved = !!selectedPower;
-
-		// Ưu tiên hiển thị Tên đa ngôn ngữ nếu tìm thấy, nếu không thì hiển thị ID gốc
-		const displayPowerName = isPowerResolved
-			? tDynamic(selectedPower, "name")
-			: formData.power || "";
-
-		// Lấy icon (Hỗ trợ nhiều chuẩn key khác nhau từ DB)
-		const powerIcon = selectedPower
-			? selectedPower.assetAbsolutePath ||
-				selectedPower.image ||
-				selectedPower.avatar ||
-				selectedPower.assets?.[0]?.avatar
-			: null;
+				return {
+					isPowerResolved: false,
+					resolvedPowerName: formData.power,
+				};
+			}, [formData.power, cachedData.powers, tDynamic]);
 
 		return (
-			<form onSubmit={handleSubmit} className='space-y-6'>
-				<div className='flex justify-between items-center border-b border-border p-4 sticky top-0 bg-surface-bg z-20'>
-					<h2 className='text-xl font-bold'>
-						{formData.isNew ? "Tạo Boss Mới" : `Biên tập: ${formData.bossName}`}
-					</h2>
-					<div className='flex items-center gap-3'>
-						{/* 🟢 Nút Ẩn/Hiện Panel kéo thả */}
-						{onToggleDragPanel && (
-							<Button
-								type='button'
-								variant='outline'
-								onClick={onToggleDragPanel}
-								title={
-									isDragPanelOpen ? "Ẩn thanh kéo thả" : "Hiện thanh kéo thả"
-								}
-								className='mr-2'
-							>
-								{isDragPanelOpen ? (
-									<PanelRightClose size={18} />
-								) : (
-									<PanelRightOpen size={18} />
-								)}
-							</Button>
-						)}
-						<Button
-							type='button'
-							variant='ghost'
-							onClick={onCancel}
-							disabled={isSaving}
-						>
-							Hủy
-						</Button>
-						{!formData.isNew && (
-							<Button
-								type='button'
-								variant='danger'
-								onClick={() => onDelete(formData.bossID)}
-								disabled={isSaving}
-							>
-								Xóa
-							</Button>
-						)}
-						<Button
-							type='submit'
-							variant='primary'
-							disabled={isSaving || !formData.bossID}
-						>
-							{isSaving ? "Đang lưu..." : "Lưu Thay Đổi"}
-						</Button>
-					</div>
-				</div>
+			<form onSubmit={handleSubmit} className='space-y-6 pb-24'>
+				{/* ÁP DỤNG TOOLBAR QUẢN LÝ CHUNG */}
+				<EditorHeaderToolbar
+					title={
+						formData.isNew
+							? "Tạo Boss mới"
+							: `Sửa Boss: ${formData.bossName || ""}`
+					}
+					isNew={formData.isNew}
+					isDirty={isDirty}
+					isSaving={isSaving}
+					onCancel={onCancel}
+					onDelete={() => onDelete(formData.bossID)}
+					itemName={formData.bossName}
+					disableSave={!formData.bossID}
+					isSidebarOpen={isDragPanelOpen}
+					onToggleSidebar={onToggleDragPanel} // Bật tính năng Toggle Sidebar kéo thả
+				/>
 
-				<div className='grid grid-cols-1 md:grid-cols-2 gap-6 p-6'>
-					<div className='space-y-4'>
-						<InputField
-							label='Boss ID'
-							name='bossID'
-							value={formData.bossID || ""}
-							onChange={handleChange}
-							required
-							disabled={!formData.isNew}
-						/>
-						<InputField
-							label='Tên Boss (VI)'
-							name='bossName'
-							value={formData.bossName || ""}
-							onChange={handleChange}
-							required
-						/>
-						<InputField
-							label='Tên Boss (EN)'
-							value={formData.translations?.en?.bossName || ""}
-							onChange={e =>
-								setFormData(p => ({
-									...p,
-									translations: { en: { bossName: e.target.value } },
-								}))
-							}
-						/>
+				<div className='grid grid-cols-1 lg:grid-cols-2 gap-6 p-6 mx-4 bg-surface-bg border border-border rounded-xl shadow-sm'>
+					{/* CỘT TRÁI */}
+					<div className='space-y-6'>
+						<div className='grid grid-cols-2 gap-4'>
+							<InputField
+								label='Mã Boss (ID)'
+								name='bossID'
+								value={formData.bossID || ""}
+								onChange={handleChange}
+								required
+								disabled={!formData.isNew}
+								placeholder='VD: B001'
+							/>
+						</div>
 
-						{/* 🟢 Khu vực Sức Mạnh Boss với Giao Diện Trực Quan */}
-						<div className='flex flex-col gap-2'>
-							<div className='flex items-center gap-2'>
-								<Zap size={16} className='text-primary-500' />
-								<label className='text-[10px] font-bold uppercase tracking-widest text-text-secondary'>
-									Mã Sức mạnh (Power ID)
-								</label>
+						{/* KHU VỰC NGÔN NGỮ */}
+						<div className='space-y-4'>
+							<div className='border border-border rounded-lg p-4 bg-surface-hover/20'>
+								<h3 className='font-bold text-text-primary mb-3 pb-2 border-b border-border'>
+									Tiếng Việt (Mặc định)
+								</h3>
+								<InputField
+									label='Tên Boss'
+									name='bossName'
+									value={formData.bossName || ""}
+									onChange={handleChange}
+									required
+									placeholder='Nhập tên Boss...'
+								/>
 							</div>
 
+							<div className='border border-border rounded-lg p-4 bg-surface-hover/20'>
+								<h3 className='font-bold text-blue-500 mb-3 pb-2 border-b border-border'>
+									Tiếng Anh (Tùy chọn)
+								</h3>
+								<InputField
+									label='Boss Name (EN)'
+									name='bossName'
+									value={formData.translations?.en?.bossName || ""}
+									onChange={e => handleTranslationChange(e, "en")}
+									placeholder='English Name...'
+								/>
+							</div>
+						</div>
+
+						{/* KHU VỰC KÉO THẢ SỨC MẠNH (POWER) */}
+						<div className='bg-yellow-500/5 dark:bg-yellow-900/10 border border-yellow-500/20 rounded-xl p-4'>
+							<label className='font-bold text-yellow-600 dark:text-yellow-500 mb-2 flex items-center gap-2'>
+								<Zap size={18} /> Sức mạnh của Boss (Kéo thả từ bên phải)
+							</label>
+
 							<div
-								className={`flex items-center gap-3 p-2 bg-surface-hover/30 rounded-xl border-2 border-dashed ${isPowerResolved ? "border-primary-500/50" : "border-border hover:border-primary-500"} transition-all`}
-								onDrop={handleDropPower}
 								onDragOver={handleDragOver}
+								onDrop={handleDropPower}
+								className={`flex items-center gap-3 p-3 rounded-xl border-2 transition-all ${
+									formData.power
+										? "border-yellow-500/50 bg-yellow-500/10"
+										: "border-dashed border-border bg-surface-hover/50 hover:bg-surface-hover"
+								}`}
 							>
-								{/* Khung Icon */}
-								<div className='w-10 h-10 rounded-lg bg-white border border-border flex items-center justify-center overflow-hidden shrink-0 shadow-sm'>
-									{powerIcon ? (
+								{/* Avatar Sức mạnh (Nếu có) */}
+								<div className='w-12 h-12 shrink-0 bg-surface-bg border border-border rounded-lg flex items-center justify-center overflow-hidden'>
+									{resolvedPowerIcon ? (
 										<img
-											src={powerIcon}
-											alt='icon'
-											className='w-full h-full object-contain p-0.5'
+											src={resolvedPowerIcon}
+											className='w-10 h-10 object-contain'
+											alt='power-icon'
 										/>
 									) : (
-										<span className='text-xs font-bold text-gray-400'>?</span>
+										<span className='text-[10px] font-bold text-gray-400'>
+											D&D
+										</span>
 									)}
 								</div>
 
-								{/* Ô Input hiển thị Tên thay vì ID */}
+								{/* Tên / Input Sức mạnh */}
 								<InputField
+									label=''
 									name='power'
-									value={displayPowerName}
-									onChange={handleChange} // Vẫn cho phép nhập tay nếu chưa map được
-									placeholder='Nhập ID hoặc kéo thả Power vào đây...'
-									className={`flex-1 font-mono text-sm ${isPowerResolved ? "font-bold text-primary-500 bg-surface-bg cursor-not-allowed" : ""}`}
+									value={resolvedPowerName}
+									onChange={e =>
+										setFormData(prev => ({ ...prev, power: e.target.value }))
+									}
+									placeholder='Kéo thả Power vào đây...'
+									className={`flex-1 m-0 ${
+										isPowerResolved ? "font-bold text-yellow-600" : ""
+									}`}
 									readOnly={isPowerResolved} // Khóa Input nếu đã map thành công tên
 									title={
 										isPowerResolved
@@ -234,25 +269,21 @@ const BossEditorForm = memo(
 						</div>
 					</div>
 
-					<div className='space-y-4 flex flex-col items-center'>
-						<p className='font-bold self-start'>Ảnh Background Boss</p>
-						{formData.background ? (
-							<img
-								src={formData.background}
-								alt='Bg'
-								className='w-full max-w-[250px] object-cover rounded-lg shadow-md border border-border'
-							/>
-						) : (
-							<div className='w-full max-w-[250px] aspect-video bg-surface-hover rounded-lg flex items-center justify-center text-gray-500 border border-dashed border-border'>
-								Chưa có ảnh
-							</div>
-						)}
+					{/* CỘT PHẢI (HÌNH ẢNH BACKGROUND) */}
+					<div className='space-y-4'>
+						<ImagePreviewBox
+							imageUrl={formData.background}
+							label='Ảnh Background Boss'
+							wrapperClassName='flex flex-col items-center bg-surface-hover/30 p-6 rounded-xl border border-dashed border-border'
+							imageClassName='w-full max-w-[250px] object-cover rounded-xl shadow-md border-4 border-white dark:border-gray-800'
+						/>
+
 						<InputField
 							label='URL Hình ảnh'
 							name='background'
 							value={formData.background || ""}
 							onChange={handleChange}
-							className='w-full'
+							placeholder='https://...'
 						/>
 					</div>
 				</div>

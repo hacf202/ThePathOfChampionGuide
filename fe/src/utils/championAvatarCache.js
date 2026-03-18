@@ -22,7 +22,8 @@ export const getChampionAvatar = async championName => {
 	loadPromise = (async () => {
 		const apiUrl = import.meta.env.VITE_API_URL;
 		try {
-			const res = await fetch(`${apiUrl}/api/champions`);
+			// SỬA TẠI ĐÂY: Thêm ?limit=-1 để lấy toàn bộ danh sách thay vì chỉ 20 tướng đầu tiên
+			const res = await fetch(`${apiUrl}/api/champions?limit=-1`);
 			if (!res.ok) throw new Error("API lỗi");
 
 			const data = await res.json();

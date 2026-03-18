@@ -1,47 +1,18 @@
 // src/hooks/useItemFilters.jsx
 import React, { useMemo, useCallback } from "react";
-import { usePersistentState } from "./usePersistentState";
-import { removeAccents } from "../utils/vietnameseUtils";
+import { useGenericFilters } from "./useGenericFilters";
 import RarityIcon from "../components/common/rarityIcon";
 
 export const useItemFilters = (tUI, t, dynamicFilters, knownItems) => {
-	const [searchInput, setSearchInput] = usePersistentState(
-		"itemsSearchInput",
-		"",
-	);
-	const [searchTerm, setSearchTerm] = usePersistentState("itemsSearchTerm", "");
-	const [selectedRarities, setSelectedRarities] = usePersistentState(
-		"itemsSelectedRarities",
-		[],
-	);
-	const [sortOrder, setSortOrder] = usePersistentState(
-		"itemsSortOrder",
-		"name-asc",
-	);
-	const [currentPage, setCurrentPage] = usePersistentState(
-		"itemsCurrentPage",
-		1,
-	);
+	// 1. GỌI HOOK CHUNG
+	const { state, actions, queryParams } = useGenericFilters({
+		prefix: "items",
+		initialCustomFilters: { rarities: [] },
+		defaultSort: "name-asc",
+		itemsPerPage: 24,
+	});
 
-	const handleSearch = useCallback(() => {
-		setSearchTerm(removeAccents(searchInput.trim()));
-		setCurrentPage(1);
-	}, [searchInput, setSearchTerm, setCurrentPage]);
-
-	const handleResetFilters = useCallback(() => {
-		setSearchInput("");
-		setSearchTerm("");
-		setSelectedRarities([]);
-		setSortOrder("name-asc");
-		setCurrentPage(1);
-	}, [
-		setSearchInput,
-		setSearchTerm,
-		setSelectedRarities,
-		setSortOrder,
-		setCurrentPage,
-	]);
-
+	// 2. LOGIC DỊCH NGÔN NGỮ
 	const getTranslatedRarity = useCallback(
 		(rawRarity, item) => {
 			if (!rawRarity) return "";
@@ -54,53 +25,39 @@ export const useItemFilters = (tUI, t, dynamicFilters, knownItems) => {
 		[tUI, t],
 	);
 
-	const filterOptions = useMemo(() => {
+	// 3. CẤU HÌNH GIAO DIỆN BỘ LỌC
+	const filterConfigs = useMemo(() => {
 		const uniqueRarities = Array.from(new Set(dynamicFilters.rarities || []));
 
-		return {
-			rarities: uniqueRarities.map(r => {
-				const sampleItem = knownItems.find(i => i.rarity === r);
-				return {
-					value: r,
-					label: getTranslatedRarity(r, sampleItem),
-					iconComponent: <RarityIcon rarity={r} />,
-				};
-			}),
-			sort: [
-				{ value: "name-asc", label: tUI("sort.nameAsc") },
-				{ value: "name-desc", label: tUI("sort.nameDesc") },
-			],
-		};
+		return [
+			{
+				key: "rarities",
+				label: tUI("common.rarity") || "Độ hiếm",
+				options: uniqueRarities.map(r => {
+					const sampleItem = knownItems.find(i => i.rarity === r);
+					return {
+						value: r,
+						label: getTranslatedRarity(r, sampleItem),
+						iconComponent: <RarityIcon rarity={r} />,
+					};
+				}),
+			},
+		];
 	}, [dynamicFilters, knownItems, tUI, getTranslatedRarity]);
 
-	const queryParams = useMemo(() => {
-		const params = new URLSearchParams();
-		params.append("page", currentPage);
-		params.append("limit", 24); // Cố định ITEMS_PER_PAGE
-		params.append("sort", sortOrder);
-		if (searchTerm) params.append("searchTerm", searchTerm);
-		if (selectedRarities.length > 0)
-			params.append("rarities", selectedRarities.join(","));
-		return params.toString();
-	}, [currentPage, searchTerm, selectedRarities, sortOrder]);
+	const sortOptions = useMemo(
+		() => [
+			{ value: "name-asc", label: tUI("sort.nameAsc") },
+			{ value: "name-desc", label: tUI("sort.nameDesc") },
+		],
+		[tUI],
+	);
 
 	return {
-		state: {
-			searchInput,
-			searchTerm,
-			selectedRarities,
-			sortOrder,
-			currentPage,
-		},
-		actions: {
-			setSearchInput,
-			setSelectedRarities,
-			setSortOrder,
-			setCurrentPage,
-			handleSearch,
-			handleResetFilters,
-		},
-		filterOptions,
+		state,
+		actions,
+		filterConfigs,
+		sortOptions,
 		queryParams,
 		getTranslatedRarity,
 	};

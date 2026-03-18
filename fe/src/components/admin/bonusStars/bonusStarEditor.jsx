@@ -38,10 +38,10 @@ const BonusStarListView = memo(
 		const { tUI } = useTranslation();
 
 		return (
-			<div className='flex flex-col lg:flex-row gap-6 '>
+			<div className='flex flex-col lg:flex-row gap-6'>
 				<div className='lg:w-4/5 bg-surface-bg rounded-lg p-4'>
 					{paginatedItems.length > 0 ? (
-						<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6 '>
+						<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6'>
 							{paginatedItems.map(item => (
 								<Link
 									key={item.bonusStarID}
@@ -49,7 +49,11 @@ const BonusStarListView = memo(
 									className='block hover:scale-105 transition-transform duration-200'
 								>
 									<GenericCard
-										item={{ ...item, assetAbsolutePath: item.image }}
+										item={{
+											...item,
+											name: item.name || "Chưa có tên", // Lớp phòng vệ tránh lỗi PropTypes
+											assetAbsolutePath: item.image,
+										}}
 										onClick={() => {}}
 									/>
 								</Link>
@@ -177,6 +181,7 @@ function BonusStarEditor() {
 	const fetchAllData = useCallback(async () => {
 		try {
 			setIsLoading(true);
+			setError(null); // Đặt lại lỗi trước khi fetch
 			const res = await fetch(`${API_BASE_URL}/api/bonusStars`);
 			if (!res.ok) throw new Error(tUI("admin.common.errorLoad"));
 			const data = await res.json();

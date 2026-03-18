@@ -33,7 +33,7 @@ const BonusStarEditorForm = memo(
 			}
 		}, [item]);
 
-		// Kiểm tra trạng thái dữ liệu đã bị thay đổi hay chưa
+		// Kiểm tra trạng thái dữ liệu đã bị thay đổi hay chưa (Deep comparison)
 		useEffect(() => {
 			setIsDirty(JSON.stringify(formData) !== JSON.stringify(initialData));
 		}, [formData, initialData]);
@@ -43,14 +43,15 @@ const BonusStarEditorForm = memo(
 			setFormData(prev => ({ ...prev, [name]: value }));
 		};
 
+		// Tối ưu hóa xử lý dịch thuật, bảo vệ bằng fallback object trống
 		const handleTranslationChange = (e, lang) => {
 			const { name, value } = e.target;
 			setFormData(prev => ({
 				...prev,
 				translations: {
-					...prev.translations,
+					...(prev.translations || {}),
 					[lang]: {
-						...prev.translations[lang],
+						...(prev.translations?.[lang] || {}),
 						[name]: value,
 					},
 				},

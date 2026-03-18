@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "../hooks/useTranslation";
 
 // --- Import Custom Hooks ---
-import { useRelicFilters } from "../hooks/useRelicFilter";
-import { useGenericData } from "../hooks/useGenericData"; // 🟢 Sử dụng Hook Data gộp
+import { useRelicFilters } from "../hooks/useRelicFilters"; // 🟢 Đảm bảo tên import trùng khớp
+import { useGenericData } from "../hooks/useGenericData";
 
 // --- Import UI Components ---
 import GenericListLayout from "../components/layout/genericListLayout";
@@ -35,12 +35,24 @@ function RelicList() {
 	});
 	const [tempKnownRelics, setTempKnownRelics] = useState([]);
 
-	// 1. Khởi tạo Hook Bộ lọc
-	const { state, actions, filterOptions, queryParams, getTranslatedRarity } =
-		useRelicFilters(tUI, t, tempDynamicFilters, tempKnownRelics);
+	// 1. Khởi tạo Hook Bộ lọc (Đã áp dụng cấu trúc Generic)
+	const {
+		state,
+		actions,
+		filterConfigs,
+		sortOptions,
+		queryParams,
+		getTranslatedRarity,
+	} = useRelicFilters(tUI, t, tempDynamicFilters, tempKnownRelics);
+
+	// 🟢 Map lại mảng filterConfigs thành Object để GenericListLayout dễ đọc
+	const optionsMap =
+		filterConfigs?.reduce((acc, config) => {
+			acc[config.key] = config.options;
+			return acc;
+		}, {}) || {};
 
 	// 2. Khởi tạo Hook Dữ liệu (Dùng chung)
-	// Gọi API /api/relics, và định danh thẻ bằng trường "relicCode"
 	const {
 		dataList: relics,
 		knownDict: knownRelics,
@@ -81,7 +93,7 @@ function RelicList() {
 			currentPage={state.currentPage}
 			onPageChange={actions.setCurrentPage}
 			skeletonCount={9}
-			// 🟢 Prop tuỳ chỉnh lưới cho Relic (Giống Power/Item)
+			// Prop tuỳ chỉnh lưới cho Relic
 			gridClassName={showDesktopFilter =>
 				`grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ${showDesktopFilter ? "xl:grid-cols-3" : "xl:grid-cols-4"}`
 			}
@@ -127,31 +139,35 @@ function RelicList() {
 			}}
 			renderFilters={() => (
 				<>
+					{/* 🟢 Lấy option từ optionsMap và selectedValue từ customFilters */}
 					<MultiSelectFilter
 						label={tUI("common.rarity")}
-						options={filterOptions.rarities}
-						selectedValues={state.selectedRarities}
-						onChange={actions.setSelectedRarities}
+						options={optionsMap.rarities || []}
+						selectedValues={state.customFilters?.rarities || []}
+						onChange={vals => actions.setFilterValue("rarities", vals)}
 					/>
-					{filterOptions.types.length > 0 && (
+
+					{optionsMap.types && optionsMap.types.length > 0 && (
 						<MultiSelectFilter
 							label={tUI("common.type")}
-							options={filterOptions.types}
-							selectedValues={state.selectedTypes}
-							onChange={actions.setSelectedTypes}
+							options={optionsMap.types}
+							selectedValues={state.customFilters?.types || []}
+							onChange={vals => actions.setFilterValue("types", vals)}
 						/>
 					)}
-					{filterOptions.stacks.length > 0 && (
+
+					{optionsMap.stacks && optionsMap.stacks.length > 0 && (
 						<MultiSelectFilter
 							label={tUI("common.stack")}
-							options={filterOptions.stacks}
-							selectedValues={state.selectedStacks}
-							onChange={actions.setSelectedStacks}
+							options={optionsMap.stacks}
+							selectedValues={state.customFilters?.stacks || []}
+							onChange={vals => actions.setFilterValue("stacks", vals)}
 						/>
 					)}
+
 					<DropdownFilter
 						label={tUI("championList.sortBy")}
-						options={filterOptions.sort}
+						options={sortOptions || []}
 						selectedValue={state.sortOrder}
 						onChange={actions.setSortOrder}
 					/>

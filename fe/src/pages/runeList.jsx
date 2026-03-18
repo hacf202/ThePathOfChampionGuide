@@ -3,11 +3,9 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "../hooks/useTranslation";
 
-// --- Import Custom Hooks ---
 import { useRuneFilters } from "../hooks/useRuneFilters";
-import { useGenericData } from "../hooks/useGenericData"; // 🟢 Dùng Hook Data gộp
+import { useGenericData } from "../hooks/useGenericData";
 
-// --- Import UI Components ---
 import GenericListLayout from "../components/layout/genericListLayout";
 import MultiSelectFilter from "../components/common/multiSelectFilter";
 import DropdownFilter from "../components/common/dropdownFilter";
@@ -32,10 +30,21 @@ function RuneList() {
 	});
 	const [tempKnownRunes, setTempKnownRunes] = useState([]);
 
-	const { state, actions, filterOptions, queryParams, getTranslatedRarity } =
-		useRuneFilters(tUI, t, tempDynamicFilters, tempKnownRunes);
+	const {
+		state,
+		actions,
+		filterConfigs,
+		sortOptions,
+		queryParams,
+		getTranslatedRarity,
+	} = useRuneFilters(tUI, t, tempDynamicFilters, tempKnownRunes);
 
-	// 🟢 Khởi tạo Hook Dữ liệu dùng chung
+	const optionsMap =
+		filterConfigs?.reduce((acc, config) => {
+			acc[config.key] = config.options;
+			return acc;
+		}, {}) || {};
+
 	const {
 		dataList: runes,
 		knownDict: knownRunes,
@@ -118,13 +127,13 @@ function RuneList() {
 				<>
 					<MultiSelectFilter
 						label={tUI("common.rarity")}
-						options={filterOptions.rarities}
-						selectedValues={state.selectedRarities}
-						onChange={actions.setSelectedRarities}
+						options={optionsMap.rarities || []}
+						selectedValues={state.customFilters?.rarities || []}
+						onChange={vals => actions.setFilterValue("rarities", vals)}
 					/>
 					<DropdownFilter
 						label={tUI("championList.sortBy")}
-						options={filterOptions.sort}
+						options={sortOptions || []}
 						selectedValue={state.sortOrder}
 						onChange={actions.setSortOrder}
 					/>

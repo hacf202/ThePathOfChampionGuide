@@ -3,16 +3,14 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "../hooks/useTranslation";
 
-// --- Import Custom Hooks ---
 import { useItemFilters } from "../hooks/useItemFilters";
-import { useGenericData } from "../hooks/useGenericData"; // 🟢 Dùng Hook Data gộp
+import { useGenericData } from "../hooks/useGenericData";
 
-// --- Import UI Components ---
 import GenericListLayout from "../components/layout/genericListLayout";
 import MultiSelectFilter from "../components/common/multiSelectFilter";
 import DropdownFilter from "../components/common/dropdownFilter";
 import RarityIcon from "../components/common/rarityIcon";
-import SafeImage from "@/components/common/SafeImage";
+import SafeImage from "../components/common/SafeImage";
 
 const ItemSkeleton = () => (
 	<div className='flex items-center gap-3 sm:gap-4 bg-surface-bg p-3 sm:p-4 rounded-lg border border-border animate-pulse'>
@@ -32,10 +30,22 @@ function ItemList() {
 	});
 	const [tempKnownItems, setTempKnownItems] = useState([]);
 
-	const { state, actions, filterOptions, queryParams, getTranslatedRarity } =
-		useItemFilters(tUI, t, tempDynamicFilters, tempKnownItems);
+	const {
+		state,
+		actions,
+		filterConfigs,
+		sortOptions,
+		queryParams,
+		getTranslatedRarity,
+	} = useItemFilters(tUI, t, tempDynamicFilters, tempKnownItems);
 
-	// 🟢 Khởi tạo Hook Dữ liệu dùng chung
+	// 🟢 Map filterConfigs về dạng Object để dễ sử dụng ở UI
+	const optionsMap =
+		filterConfigs?.reduce((acc, config) => {
+			acc[config.key] = config.options;
+			return acc;
+		}, {}) || {};
+
 	const {
 		dataList: items,
 		knownDict: knownItems,
@@ -118,13 +128,13 @@ function ItemList() {
 				<>
 					<MultiSelectFilter
 						label={tUI("common.rarity")}
-						options={filterOptions.rarities}
-						selectedValues={state.selectedRarities}
-						onChange={actions.setSelectedRarities}
+						options={optionsMap.rarities || []}
+						selectedValues={state.customFilters?.rarities || []}
+						onChange={vals => actions.setFilterValue("rarities", vals)}
 					/>
 					<DropdownFilter
 						label={tUI("championList.sortBy")}
-						options={filterOptions.sort}
+						options={sortOptions || []}
 						selectedValue={state.sortOrder}
 						onChange={actions.setSortOrder}
 					/>

@@ -1,4 +1,3 @@
-// src/pages/admin/runeEditor.jsx
 import { useState, memo, useEffect, useCallback, useMemo } from "react";
 import { useNavigate, Link, Routes, Route, useParams } from "react-router-dom";
 import GenericCard from "../../common/genericCard";
@@ -6,8 +5,11 @@ import Button from "../../common/button";
 import { removeAccents } from "../../../utils/vietnameseUtils";
 import SidePanel from "../../common/sidePanel";
 import RuneEditorForm from "./runeEditorForm";
-import { Loader2 } from "lucide-react";
-import { useTranslation } from "../../../hooks/useTranslation"; // IMPORT HOOK ĐA NGÔN NGỮ
+import { useTranslation } from "../../../hooks/useTranslation";
+
+// IMPORT CÁC COMPONENT CHUNG
+import AdminListLayout from "../common/adminListLayout";
+import { LoadingState, ErrorState } from "../common/stateDisplays";
 
 const NEW_RUNE_TEMPLATE = {
 	runeCode: "",
@@ -15,7 +17,7 @@ const NEW_RUNE_TEMPLATE = {
 	name: "",
 	region: "",
 	rarity: "",
-	type: [], // Mặc định là mảng để chuẩn hóa với DB
+	type: [],
 	assetAbsolutePath: "",
 	assetFullAbsolutePath: "",
 	description: "",
@@ -54,57 +56,29 @@ const RuneListView = memo(
 		const { tUI } = useTranslation();
 
 		return (
-			<div className='flex flex-col lg:flex-row gap-6'>
-				<div className='lg:w-4/5 bg-surface-bg rounded-lg p-4'>
-					{paginatedRunes.length > 0 ? (
-						<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6'>
-							{paginatedRunes.map(rune => (
-								<Link
-									key={rune.runeCode}
-									to={`./${rune.runeCode}`}
-									className='block hover:scale-105 transition-transform duration-200'
-								>
-									<GenericCard item={rune} onClick={() => {}} />
-								</Link>
-							))}
-						</div>
-					) : (
-						<div className='flex items-center justify-center h-full min-h-[300px] text-center text-text-secondary'>
-							<div>
-								<p className='font-semibold text-lg'>
-									{tUI("admin.rune.notFound")}
-								</p>
-								<p>{tUI("admin.rune.tryOtherFilter")}</p>
-							</div>
-						</div>
-					)}
-
-					{totalPages > 1 && (
-						<div className='mt-8 flex justify-center items-center gap-2 md:gap-4'>
-							<Button
-								onClick={() => onPageChange(currentPage - 1)}
-								disabled={currentPage === 1}
-								variant='outline'
-							>
-								{tUI("admin.common.prevPage")}
-							</Button>
-							<span className='text-lg font-medium text-text-primary'>
-								{currentPage} / {totalPages}
-							</span>
-							<Button
-								onClick={() => onPageChange(currentPage + 1)}
-								disabled={currentPage === totalPages}
-								variant='outline'
-							>
-								{tUI("admin.common.nextPage")}
-							</Button>
-						</div>
-					)}
+			<AdminListLayout
+				dataLength={paginatedRunes.length}
+				totalPages={totalPages}
+				currentPage={currentPage}
+				onPageChange={onPageChange}
+				sidePanelProps={sidePanelProps}
+				emptyMessageTitle={tUI("admin.rune.notFound") || "Không tìm thấy Ngọc"}
+				emptyMessageSub={
+					tUI("admin.rune.tryOtherFilter") || "Vui lòng thử bộ lọc khác"
+				}
+			>
+				<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6'>
+					{paginatedRunes.map(rune => (
+						<Link
+							key={rune.runeCode}
+							to={`./${rune.runeCode}`}
+							className='block hover:scale-105 transition-transform duration-200'
+						>
+							<GenericCard item={rune} onClick={() => {}} />
+						</Link>
+					))}
 				</div>
-				<div className='lg:w-1/5'>
-					<SidePanel {...sidePanelProps} />
-				</div>
-			</div>
+			</AdminListLayout>
 		);
 	},
 );
@@ -173,6 +147,7 @@ function RuneEditor() {
 	const [runes, setRunes] = useState([]);
 	const [searchInput, setSearchInput] = useState("");
 	const [searchTerm, setSearchTerm] = useState("");
+	const [selectedRegions, setSelectedRegions] = useState([]);
 	const [selectedRarities, setSelectedRarities] = useState([]);
 	const [selectedTypes, setSelectedTypes] = useState([]);
 	const [sortOrder, setSortOrder] = useState("name-asc");
@@ -188,12 +163,11 @@ function RuneEditor() {
 	const fetchAllData = useCallback(async () => {
 		try {
 			setIsLoading(true);
-			// SỬA NHANH Ở ĐÂY: Đổi limit=-1 thành limit=1000
 			const res = await fetch(`${API_BASE_URL}/api/runes?limit=1000`);
 			if (!res.ok) throw new Error(tUI("admin.common.errorLoad"));
 			const data = await res.json();
-			const items = Array.isArray(data) ? data : data.items || [];
-			setRunes(items);
+			const runeList = Array.isArray(data) ? data : data.items || [];
+			setRunes(runeList);
 		} catch (e) {
 			setError(tUI("admin.common.errorLoad"));
 		} finally {
@@ -210,13 +184,12 @@ function RuneEditor() {
 		try {
 			const token = localStorage.getItem("token");
 
-			// Dọn dẹp bản dịch rỗng trước khi lưu để tránh rác DB
 			const payload = { ...data };
 			if (
 				!payload.translations?.en?.name &&
 				!payload.translations?.en?.description &&
-				!payload.translations?.en?.region &&
-				!payload.translations?.en?.rarity
+				!payload.translations?.en?.rarity &&
+				!payload.translations?.en?.region
 			) {
 				delete payload.translations;
 			}
@@ -245,7 +218,7 @@ function RuneEditor() {
 	};
 
 	const handleDeleteRune = async id => {
-		if (!id || !window.confirm(tUI("admin.common.deleteConfirm"))) return;
+		if (!id) return;
 		setIsSaving(true);
 		try {
 			const token = localStorage.getItem("token");
@@ -266,27 +239,20 @@ function RuneEditor() {
 	};
 
 	const filterOptions = useMemo(() => {
+		const regions = [
+			...new Set(runes.map(r => r.region).filter(Boolean)),
+		].sort();
 		const rarities = [...new Set(runes.map(r => r.rarity).filter(Boolean))];
-		const typesList = [];
-		runes.forEach(r => {
-			if (Array.isArray(r.type)) {
-				r.type.forEach(t => {
-					if (t && !typesList.includes(t)) typesList.push(t);
-				});
-			} else if (typeof r.type === "string" && r.type) {
-				const parts = r.type.split(",").map(s => s.trim());
-				parts.forEach(p => {
-					if (p && !typesList.includes(p)) typesList.push(p);
-				});
-			}
-		});
-
-		// Sắp xếp độ hiếm theo trọng số
 		rarities.sort((a, b) => (RARITY_WEIGHT[a] || 0) - (RARITY_WEIGHT[b] || 0));
 
+		const types = [...new Set(runes.flatMap(r => r.type || []))]
+			.filter(Boolean)
+			.sort();
+
 		return {
+			regions: regions.map(r => ({ value: r, label: r })),
 			rarities: rarities.map(r => ({ value: r, label: r })),
-			types: typesList.sort().map(t => ({ value: t, label: t })),
+			types: types.map(t => ({ value: t, label: t })),
 			sort: [
 				{ value: "name-asc", label: tUI("admin.common.sortNameAsc") },
 				{ value: "name-desc", label: tUI("admin.common.sortNameDesc") },
@@ -312,19 +278,16 @@ function RuneEditor() {
 			});
 		}
 
+		if (selectedRegions.length) {
+			result = result.filter(r => selectedRegions.includes(r.region));
+		}
+
 		if (selectedRarities.length) {
 			result = result.filter(r => selectedRarities.includes(r.rarity));
 		}
 
 		if (selectedTypes.length) {
-			result = result.filter(r => {
-				if (!r.type) return false;
-				if (Array.isArray(r.type)) {
-					return r.type.some(t => selectedTypes.includes(t));
-				}
-				const p = r.type.split(",").map(s => s.trim());
-				return p.some(t => selectedTypes.includes(t));
-			});
+			result = result.filter(r => r.type?.some(t => selectedTypes.includes(t)));
 		}
 
 		const [field, dir] = sortOrder.split("-");
@@ -347,7 +310,15 @@ function RuneEditor() {
 		});
 
 		return result;
-	}, [runes, searchTerm, selectedRarities, selectedTypes, sortOrder, tDynamic]);
+	}, [
+		runes,
+		searchTerm,
+		selectedRegions,
+		selectedRarities,
+		selectedTypes,
+		sortOrder,
+		tDynamic,
+	]);
 
 	const sidePanelProps = {
 		searchPlaceholder: tUI("admin.rune.searchPlaceholder"),
@@ -367,12 +338,20 @@ function RuneEditor() {
 		onResetFilters: () => {
 			setSearchInput("");
 			setSearchTerm("");
+			setSelectedRegions([]);
 			setSelectedRarities([]);
 			setSelectedTypes([]);
 			setSortOrder("name-asc");
 			setCurrentPage(1);
 		},
 		multiFilterConfigs: [
+			{
+				label: tUI("admin.rune.region"),
+				options: filterOptions.regions,
+				selectedValues: selectedRegions,
+				onChange: setSelectedRegions,
+				placeholder: tUI("admin.rune.allRegions"),
+			},
 			{
 				label: tUI("admin.rune.rarity"),
 				options: filterOptions.rarities,
@@ -393,18 +372,8 @@ function RuneEditor() {
 		onSortChange: setSortOrder,
 	};
 
-	if (isLoading) {
-		return (
-			<div className='flex flex-col items-center justify-center min-h-[400px] text-text-secondary'>
-				<Loader2 className='animate-spin text-primary-500' size={48} />
-				<div className='text-lg mt-4'>{tUI("admin.common.loading")}</div>
-			</div>
-		);
-	}
-
-	if (error) {
-		return <div className='text-center p-10 text-red-500'>{error}</div>;
-	}
+	if (isLoading) return <LoadingState text={tUI("admin.common.loading")} />;
+	if (error) return <ErrorState message={error} />;
 
 	return (
 		<div className='font-secondary'>

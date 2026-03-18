@@ -6,8 +6,10 @@ import Button from "../../common/button";
 import { removeAccents } from "../../../utils/vietnameseUtils";
 import SidePanel from "../../common/sidePanel";
 import RelicEditorForm from "./relicEditorForm";
-import { Loader2 } from "lucide-react";
-import { useTranslation } from "../../../hooks/useTranslation"; // IMPORT HOOK ĐA NGÔN NGỮ
+import { useTranslation } from "../../../hooks/useTranslation";
+// IMPORT CÁC COMPONENT CHUNG
+import AdminListLayout from "../common/adminListLayout";
+import { LoadingState, ErrorState } from "../common/stateDisplays";
 
 const NEW_RELIC_TEMPLATE = {
 	relicCode: "",
@@ -41,7 +43,7 @@ const RARITY_WEIGHT = {
 	Legendary: 4,
 };
 
-// === LIST VIEW COMPONENT ===
+// === LIST VIEW COMPONENT === Đã áp dụng AdminListLayout
 const RelicListView = memo(
 	({
 		paginatedRelics,
@@ -53,57 +55,27 @@ const RelicListView = memo(
 		const { tUI } = useTranslation();
 
 		return (
-			<div className='flex flex-col lg:flex-row gap-6'>
-				<div className='lg:w-4/5 bg-surface-bg rounded-lg p-4'>
-					{paginatedRelics.length > 0 ? (
-						<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6'>
-							{paginatedRelics.map(relic => (
-								<Link
-									key={relic.relicCode}
-									to={`./${relic.relicCode}`}
-									className='block hover:scale-105 transition-transform duration-200'
-								>
-									<GenericCard item={relic} onClick={() => {}} />
-								</Link>
-							))}
-						</div>
-					) : (
-						<div className='flex items-center justify-center h-full min-h-[300px] text-center text-text-secondary'>
-							<div>
-								<p className='font-semibold text-lg'>
-									{tUI("admin.relic.notFound")}
-								</p>
-								<p>{tUI("admin.relic.tryOtherFilter")}</p>
-							</div>
-						</div>
-					)}
-
-					{totalPages > 1 && (
-						<div className='mt-8 flex justify-center items-center gap-2 md:gap-4'>
-							<Button
-								onClick={() => onPageChange(currentPage - 1)}
-								disabled={currentPage === 1}
-								variant='outline'
-							>
-								{tUI("admin.common.prevPage")}
-							</Button>
-							<span className='text-lg font-medium text-text-primary'>
-								{currentPage} / {totalPages}
-							</span>
-							<Button
-								onClick={() => onPageChange(currentPage + 1)}
-								disabled={currentPage === totalPages}
-								variant='outline'
-							>
-								{tUI("admin.common.nextPage")}
-							</Button>
-						</div>
-					)}
+			<AdminListLayout
+				dataLength={paginatedRelics.length}
+				totalPages={totalPages}
+				currentPage={currentPage}
+				onPageChange={onPageChange}
+				sidePanelProps={sidePanelProps}
+				emptyMessageTitle={tUI("admin.relic.notFound")}
+				emptyMessageSub={tUI("admin.relic.tryOtherFilter")}
+			>
+				<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6'>
+					{paginatedRelics.map(relic => (
+						<Link
+							key={relic.relicCode}
+							to={`./${relic.relicCode}`}
+							className='block hover:scale-105 transition-transform duration-200'
+						>
+							<GenericCard item={relic} onClick={() => {}} />
+						</Link>
+					))}
 				</div>
-				<div className='lg:w-1/5'>
-					<SidePanel {...sidePanelProps} />
-				</div>
-			</div>
+			</AdminListLayout>
 		);
 	},
 );
@@ -244,7 +216,7 @@ function RelicEditor() {
 	};
 
 	const handleDeleteRelic = async id => {
-		if (!id || !window.confirm(tUI("admin.common.deleteConfirm"))) return;
+		if (!id) return;
 		setIsSaving(true);
 		try {
 			const token = localStorage.getItem("token");
@@ -397,18 +369,9 @@ function RelicEditor() {
 		onSortChange: setSortOrder,
 	};
 
-	if (isLoading) {
-		return (
-			<div className='flex flex-col items-center justify-center min-h-[400px] text-text-secondary'>
-				<Loader2 className='animate-spin text-primary-500' size={48} />
-				<div className='text-lg mt-4'>{tUI("admin.common.loading")}</div>
-			</div>
-		);
-	}
-
-	if (error) {
-		return <div className='text-center p-10 text-red-500'>{error}</div>;
-	}
+	// SỬ DỤNG COMPONENT LoadingState VÀ ErrorState
+	if (isLoading) return <LoadingState text={tUI("admin.common.loading")} />;
+	if (error) return <ErrorState message={error} />;
 
 	return (
 		<div className='font-secondary'>

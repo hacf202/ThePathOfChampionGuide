@@ -2,12 +2,14 @@
 import { useState, memo, useEffect, useCallback, useMemo } from "react";
 import { useNavigate, Link, Routes, Route, useParams } from "react-router-dom";
 import GenericCard from "../../common/genericCard";
-import Button from "../../common/button";
-import { removeAccents } from "../../../utils/vietnameseUtils";
 import SidePanel from "../../common/sidePanel";
 import PowerEditorForm from "./powerEditorForm";
-import { Loader2 } from "lucide-react";
-import { useTranslation } from "../../../hooks/useTranslation"; // IMPORT HOOK
+import { removeAccents } from "../../../utils/vietnameseUtils";
+import { useTranslation } from "../../../hooks/useTranslation";
+
+// IMPORT CÁC COMPONENT CHUNG
+import AdminListLayout from "../common/adminListLayout";
+import { LoadingState, ErrorState } from "../common/stateDisplays";
 
 const NEW_POWER_TEMPLATE = {
 	powerCode: "",
@@ -40,7 +42,7 @@ const RARITY_WEIGHT = {
 	Legendary: 4,
 };
 
-// === LIST VIEW COMPONENT ===
+// === LIST VIEW COMPONENT === Đã áp dụng AdminListLayout
 const PowerListView = memo(
 	({
 		paginatedPowers,
@@ -52,57 +54,31 @@ const PowerListView = memo(
 		const { tUI } = useTranslation();
 
 		return (
-			<div className='flex flex-col lg:flex-row gap-6'>
-				<div className='lg:w-4/5 bg-surface-bg rounded-lg p-4'>
-					{paginatedPowers.length > 0 ? (
-						<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6'>
-							{paginatedPowers.map(power => (
-								<Link
-									key={power.powerCode}
-									to={`./${power.powerCode}`}
-									className='block hover:scale-105 transition-transform duration-200'
-								>
-									<GenericCard item={power} onClick={() => {}} />
-								</Link>
-							))}
-						</div>
-					) : (
-						<div className='flex items-center justify-center h-full min-h-[300px] text-center text-text-secondary'>
-							<div>
-								<p className='font-semibold text-lg'>
-									{tUI("admin.power.notFound")}
-								</p>
-								<p>{tUI("admin.power.tryOtherFilter")}</p>
-							</div>
-						</div>
-					)}
-
-					{totalPages > 1 && (
-						<div className='mt-8 flex justify-center items-center gap-2 md:gap-4'>
-							<Button
-								onClick={() => onPageChange(currentPage - 1)}
-								disabled={currentPage === 1}
-								variant='outline'
-							>
-								{tUI("admin.common.prevPage")}
-							</Button>
-							<span className='text-lg font-medium text-text-primary'>
-								{currentPage} / {totalPages}
-							</span>
-							<Button
-								onClick={() => onPageChange(currentPage + 1)}
-								disabled={currentPage === totalPages}
-								variant='outline'
-							>
-								{tUI("admin.common.nextPage")}
-							</Button>
-						</div>
-					)}
+			<AdminListLayout
+				dataLength={paginatedPowers.length}
+				totalPages={totalPages}
+				currentPage={currentPage}
+				onPageChange={onPageChange}
+				sidePanelProps={sidePanelProps}
+				emptyMessageTitle={
+					tUI("admin.power.notFound") || "Không tìm thấy Sức mạnh"
+				}
+				emptyMessageSub={
+					tUI("admin.power.tryOtherFilter") || "Vui lòng thử bộ lọc khác"
+				}
+			>
+				<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6'>
+					{paginatedPowers.map(power => (
+						<Link
+							key={power.powerCode}
+							to={`./${power.powerCode}`}
+							className='block hover:scale-105 transition-transform duration-200'
+						>
+							<GenericCard item={power} onClick={() => {}} />
+						</Link>
+					))}
 				</div>
-				<div className='lg:w-1/5'>
-					<SidePanel {...sidePanelProps} />
-				</div>
-			</div>
+			</AdminListLayout>
 		);
 	},
 );
@@ -186,11 +162,11 @@ function PowerEditor() {
 	const fetchAllData = useCallback(async () => {
 		try {
 			setIsLoading(true);
-			const res = await fetch(`${API_BASE_URL}/api/powers?limit=1000`); // Lấy toàn bộ dữ liệu
+			const res = await fetch(`${API_BASE_URL}/api/powers?limit=1000`);
 			if (!res.ok) throw new Error(tUI("admin.common.errorLoad"));
 			const data = await res.json();
-			const items = Array.isArray(data) ? data : data.items || [];
-			setPowers(items);
+			const powerList = Array.isArray(data) ? data : data.items || [];
+			setPowers(powerList);
 		} catch (e) {
 			setError(tUI("admin.common.errorLoad"));
 		} finally {
@@ -207,7 +183,6 @@ function PowerEditor() {
 		try {
 			const token = localStorage.getItem("token");
 
-			// Dọn dẹp object bản dịch rỗng
 			const payload = { ...data };
 			if (
 				!payload.translations?.en?.name &&
@@ -241,7 +216,7 @@ function PowerEditor() {
 	};
 
 	const handleDeletePower = async id => {
-		if (!id || !window.confirm(tUI("admin.common.deleteConfirm"))) return;
+		if (!id) return;
 		setIsSaving(true);
 		try {
 			const token = localStorage.getItem("token");
@@ -263,26 +238,15 @@ function PowerEditor() {
 
 	const filterOptions = useMemo(() => {
 		const rarities = [...new Set(powers.map(p => p.rarity).filter(Boolean))];
-		const typesList = [];
-		powers.forEach(p => {
-			if (Array.isArray(p.type)) {
-				p.type.forEach(t => {
-					if (t && !typesList.includes(t)) typesList.push(t);
-				});
-			} else if (typeof p.type === "string" && p.type) {
-				const parts = p.type.split(",").map(s => s.trim());
-				parts.forEach(pt => {
-					if (pt && !typesList.includes(pt)) typesList.push(pt);
-				});
-			}
-		});
-
-		// Sắp xếp độ hiếm theo trọng số
 		rarities.sort((a, b) => (RARITY_WEIGHT[a] || 0) - (RARITY_WEIGHT[b] || 0));
+
+		const types = [...new Set(powers.flatMap(p => p.type || []))]
+			.filter(Boolean)
+			.sort();
 
 		return {
 			rarities: rarities.map(r => ({ value: r, label: r })),
-			types: typesList.sort().map(t => ({ value: t, label: t })),
+			types: types.map(t => ({ value: t, label: t })),
 			sort: [
 				{ value: "name-asc", label: tUI("admin.common.sortNameAsc") },
 				{ value: "name-desc", label: tUI("admin.common.sortNameDesc") },
@@ -313,14 +277,7 @@ function PowerEditor() {
 		}
 
 		if (selectedTypes.length) {
-			result = result.filter(p => {
-				if (!p.type) return false;
-				if (Array.isArray(p.type)) {
-					return p.type.some(t => selectedTypes.includes(t));
-				}
-				const pt = p.type.split(",").map(s => s.trim());
-				return pt.some(t => selectedTypes.includes(t));
-			});
+			result = result.filter(p => p.type?.some(t => selectedTypes.includes(t)));
 		}
 
 		const [field, dir] = sortOrder.split("-");
@@ -396,18 +353,9 @@ function PowerEditor() {
 		onSortChange: setSortOrder,
 	};
 
-	if (isLoading) {
-		return (
-			<div className='flex flex-col items-center justify-center min-h-[400px] text-text-secondary'>
-				<Loader2 className='animate-spin text-primary-500' size={48} />
-				<div className='text-lg mt-4'>{tUI("admin.common.loading")}</div>
-			</div>
-		);
-	}
-
-	if (error) {
-		return <div className='text-center p-10 text-red-500'>{error}</div>;
-	}
+	// SỬ DỤNG COMPONENT LoadingState VÀ ErrorState
+	if (isLoading) return <LoadingState text={tUI("admin.common.loading")} />;
+	if (error) return <ErrorState message={error} />;
 
 	return (
 		<div className='font-secondary'>

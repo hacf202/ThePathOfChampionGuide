@@ -1,17 +1,18 @@
-// src/pages/admin/championEditor.jsx
+// src/components/admin/championEditor.jsx
 import { useState, memo, useEffect, useCallback, useMemo } from "react";
 import { useNavigate, Link, Routes, Route, useParams } from "react-router-dom";
 import ChampionCard from "../../champion/championCard.jsx";
-import Button from "../../common/button.jsx";
-import { removeAccents } from "../../../utils/vietnameseUtils.js";
+import Button from "../../common/button";
+import { removeAccents } from "../../../utils/vietnameseUtils";
 import iconRegions from "../../../assets/data/iconRegions.json";
 import ChampionEditorForm from "./championEditorForm";
-import SidePanel from "../../common/sidePanel.jsx";
-import DropDragSidePanel from "../components/dropSidePanel.jsx";
-import { Loader2 } from "lucide-react";
-import { useTranslation } from "../../../hooks/useTranslation.js";
+import DropDragSidePanel from "../common/dropSidePanel.jsx";
+import { useTranslation } from "../../../hooks/useTranslation";
 
-// 🟢 TEMPLATE ĐÃ ĐƯỢC CẬP NHẬT KHỚP 100% VỚI CẤU TRÚC JSON BACKEND
+// IMPORT CÁC COMPONENT CHUNG
+import AdminListLayout from "../common/adminListLayout.jsx";
+import { LoadingState, ErrorState } from "../common/stateDisplays";
+
 const NEW_CHAMPION_TEMPLATE = {
 	championID: "",
 	isNew: true,
@@ -20,14 +21,12 @@ const NEW_CHAMPION_TEMPLATE = {
 	maxStar: 6,
 	description: "",
 	regions: [],
-	tags: [], // Đổi từ tag -> tags
-	powerStarIds: [], // Đổi từ powerStars -> powerStarIds
-	adventurePowerIds: [], // Đổi từ adventurePowers -> adventurePowerIds
-	itemIds: [], // Đổi từ defaultItems -> itemIds
-	relicSets: [
-		[], // Khởi tạo mặc định 1 bộ rỗng thay vì 6 bộ
-	],
-	runeIds: [], // Đổi từ rune -> runeIds
+	tags: [],
+	powerStarIds: [],
+	adventurePowerIds: [],
+	itemIds: [],
+	relicSets: [[]],
+	runeIds: [],
 	startingDeck: [],
 	assets: [{ fullAbsolutePath: "", gameAbsolutePath: "", avatar: "" }],
 	videoLink: "",
@@ -43,7 +42,7 @@ const NEW_CHAMPION_TEMPLATE = {
 
 const ITEMS_PER_PAGE = 20;
 
-// Thành phần hiển thị danh sách tướng (Grid View)
+// Thành phần hiển thị danh sách tướng (Grid View) - ĐÃ ÁP DỤNG AdminListLayout
 const ChampionListView = memo(
 	({
 		paginatedChampions,
@@ -55,57 +54,27 @@ const ChampionListView = memo(
 		const { tUI } = useTranslation();
 
 		return (
-			<div className='flex flex-col lg:flex-row gap-6'>
-				<div className='lg:w-4/5 bg-surface-bg rounded-lg p-4'>
-					{paginatedChampions.length > 0 ? (
-						<div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6'>
-							{paginatedChampions.map(champion => (
-								<Link
-									key={champion.championID}
-									to={`./${champion.championID}`}
-									className='block hover:scale-105 transition-transform duration-200'
-								>
-									<ChampionCard champion={champion} />
-								</Link>
-							))}
-						</div>
-					) : (
-						<div className='flex items-center justify-center h-full min-h-[300px] text-center text-text-secondary'>
-							<div>
-								<p className='font-semibold text-lg'>
-									{tUI("common.notFound")}
-								</p>
-								<p>{tUI("admin.build.tryOtherFilter")}</p>
-							</div>
-						</div>
-					)}
-
-					{totalPages > 1 && (
-						<div className='mt-8 flex justify-center items-center gap-2 md:gap-4'>
-							<Button
-								onClick={() => onPageChange(currentPage - 1)}
-								disabled={currentPage === 1}
-								variant='outline'
-							>
-								{tUI("common.prevPage")}
-							</Button>
-							<span className='text-lg font-medium text-text-primary'>
-								{currentPage} / {totalPages}
-							</span>
-							<Button
-								onClick={() => onPageChange(currentPage + 1)}
-								disabled={currentPage === totalPages}
-								variant='outline'
-							>
-								{tUI("common.nextPage")}
-							</Button>
-						</div>
-					)}
+			<AdminListLayout
+				dataLength={paginatedChampions.length}
+				totalPages={totalPages}
+				currentPage={currentPage}
+				onPageChange={onPageChange}
+				sidePanelProps={sidePanelProps}
+				emptyMessageTitle={tUI("common.notFound")}
+				emptyMessageSub={tUI("admin.build.tryOtherFilter")}
+			>
+				<div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6'>
+					{paginatedChampions.map(champion => (
+						<Link
+							key={champion.championID}
+							to={`./${champion.championID}`}
+							className='block hover:scale-105 transition-transform duration-200'
+						>
+							<ChampionCard champion={champion} />
+						</Link>
+					))}
 				</div>
-				<div className='lg:w-1/5'>
-					<SidePanel {...sidePanelProps} />
-				</div>
-			</div>
+			</AdminListLayout>
 		);
 	},
 );
@@ -125,7 +94,6 @@ const ChampionEditWrapper = ({
 	const navigate = useNavigate();
 	const { tUI } = useTranslation();
 
-	// Lọc dữ liệu tướng được chọn hoặc dùng template mới
 	const selectedChampion = useMemo(() => {
 		if (id === "new") return { ...NEW_CHAMPION_TEMPLATE };
 		return Array.isArray(champions)
@@ -133,7 +101,6 @@ const ChampionEditWrapper = ({
 			: null;
 	}, [id, champions]);
 
-	// Lọc dữ liệu chòm sao tương ứng
 	const selectedConstellation = useMemo(() => {
 		return Array.isArray(constellations)
 			? constellations.find(c => c.constellationID === id)
@@ -182,7 +149,6 @@ const ChampionEditWrapper = ({
 				)}
 			</div>
 
-			{/* Thanh Sidebar Kéo Thả (Có thể ẩn/hiện) */}
 			{isDragPanelOpen && (
 				<div className='lg:w-1/4 xl:w-1/5 shrink-0 transition-all duration-300'>
 					<DropDragSidePanel cachedData={cachedData} onClose={handleBack} />
@@ -215,13 +181,11 @@ function ChampionEditor() {
 	const [isSaving, setIsSaving] = useState(false);
 	const [error, setError] = useState(null);
 
-	// State quản lý trạng thái ẩn/hiện thanh Drag&Drop
 	const [isDragPanelOpen, setIsDragPanelOpen] = useState(true);
 
 	const API_BASE_URL = import.meta.env.VITE_API_URL;
 	const navigate = useNavigate();
 
-	// Hàm tải toàn bộ dữ liệu từ các API cần thiết
 	const fetchAllData = useCallback(async () => {
 		try {
 			setIsLoading(true);
@@ -279,7 +243,6 @@ function ChampionEditor() {
 		fetchAllData();
 	}, [fetchAllData]);
 
-	// Xử lý lưu đồng bộ lên 2 bảng dữ liệu
 	const handleSaveChampion = async (champData, constData) => {
 		setIsSaving(true);
 		try {
@@ -289,7 +252,6 @@ function ChampionEditor() {
 				Authorization: `Bearer ${token}`,
 			};
 
-			// 1. Lưu Champion trước
 			const resChamp = await fetch(`${API_BASE_URL}/api/champions`, {
 				method: "PUT",
 				headers,
@@ -300,7 +262,6 @@ function ChampionEditor() {
 			if (!resChamp.ok)
 				throw new Error(champResult.error || tUI("admin.common.errorOccurred"));
 
-			// 2. Nếu lưu tướng thành công, mới lưu Constellation
 			if (constData && Object.keys(constData).length > 0) {
 				const resConst = await fetch(`${API_BASE_URL}/api/constellations`, {
 					method: "PUT",
@@ -325,9 +286,7 @@ function ChampionEditor() {
 		}
 	};
 
-	// Xử lý xóa đồng bộ trên 2 bảng dữ liệu
 	const handleDeleteChampion = async championID => {
-		if (!window.confirm(tUI("admin.common.deleteConfirm"))) return;
 		setIsSaving(true);
 		try {
 			const token = localStorage.getItem("token");
@@ -352,7 +311,6 @@ function ChampionEditor() {
 		}
 	};
 
-	// Cấu hình các bộ lọc dựa trên dữ liệu hiện có
 	const filterOptions = useMemo(() => {
 		const safeChampions = Array.isArray(champions) ? champions : [];
 
@@ -386,7 +344,6 @@ function ChampionEditor() {
 		};
 	}, [champions, tUI]);
 
-	// Logic lọc và sắp xếp danh sách hiển thị
 	const filteredChampions = useMemo(() => {
 		let result = Array.isArray(champions) ? [...champions] : [];
 		if (searchTerm) {
@@ -403,7 +360,6 @@ function ChampionEditor() {
 			result = result.filter(c => selectedCosts.includes(Number(c.cost)));
 		if (selectedMaxStars.length)
 			result = result.filter(c => selectedMaxStars.includes(Number(c.maxStar)));
-
 		if (selectedTags.length)
 			result = result.filter(c => c.tags?.some(t => selectedTags.includes(t)));
 
@@ -493,18 +449,9 @@ function ChampionEditor() {
 
 	const cachedData = { runes, relics, powers, items, bonusStars, regions: [] };
 
-	if (isLoading) {
-		return (
-			<div className='flex flex-col items-center justify-center min-h-[400px] text-text-secondary'>
-				<Loader2 className='animate-spin text-primary-500' size={48} />
-				<div className='text-lg mt-4'>{tUI("common.loading")}</div>
-			</div>
-		);
-	}
-
-	if (error) {
-		return <div className='text-center p-10 text-red-500'>{error}</div>;
-	}
+	// SỬ DỤNG COMPONENT LoadingState VÀ ErrorState
+	if (isLoading) return <LoadingState text={tUI("common.loading")} />;
+	if (error) return <ErrorState message={error} />;
 
 	return (
 		<div className='font-secondary'>

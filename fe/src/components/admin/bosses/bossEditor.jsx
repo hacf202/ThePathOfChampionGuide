@@ -6,7 +6,7 @@ import Button from "../../common/button";
 import { removeAccents } from "../../../utils/vietnameseUtils";
 import SidePanel from "../../common/sidePanel";
 import BossEditorForm from "./bossEditorForm";
-import DropDragSidePanel from "../components/dropSidePanel"; // 🟢 Import panel kéo thả
+import DropDragSidePanel from "../common/dropSidePanel";
 import { Loader2 } from "lucide-react";
 import { useTranslation } from "../../../hooks/useTranslation";
 
@@ -87,7 +87,6 @@ const BossListView = memo(
 	},
 );
 
-// 🟢 Cập nhật Wrapper để render DropDragSidePanel thay vì SidePanel thường
 const BossEditWrapper = ({
 	items,
 	onSave,
@@ -124,11 +123,11 @@ const BossEditWrapper = ({
 			<div
 				className={`transition-all duration-300 ${isDragPanelOpen ? "lg:w-3/4 xl:w-4/5" : "w-full"} bg-surface-bg rounded-lg`}
 			>
-				// Trong file bossEditor.jsx
+				{/* Đã sửa lỗi syntax comment tại đây */}
 				{selectedItem && (
 					<BossEditorForm
 						item={selectedItem}
-						cachedData={cachedData} // <--- DÒNG NÀY RẤT QUAN TRỌNG
+						cachedData={cachedData}
 						onSave={onSave}
 						onCancel={handleBack}
 						onDelete={onDelete}
@@ -139,7 +138,7 @@ const BossEditWrapper = ({
 				)}
 			</div>
 
-			{/* 🟢 Thanh Sidebar Kéo Thả */}
+			{/* Thanh Sidebar Kéo Thả */}
 			{isDragPanelOpen && (
 				<div className='lg:w-1/4 xl:w-1/5 shrink-0 transition-all duration-300'>
 					<DropDragSidePanel cachedData={cachedData} onClose={handleBack} />
@@ -151,13 +150,13 @@ const BossEditWrapper = ({
 
 function BossEditor() {
 	const [items, setItems] = useState([]);
-	const [powers, setPowers] = useState([]); // 🟢 State lưu danh sách sức mạnh để kéo thả
+	const [powers, setPowers] = useState([]);
 	const [searchInput, setSearchInput] = useState("");
 	const [searchTerm, setSearchTerm] = useState("");
 	const [currentPage, setCurrentPage] = useState(1);
 	const [isLoading, setIsLoading] = useState(true);
 	const [isSaving, setIsSaving] = useState(false);
-	const [isDragPanelOpen, setIsDragPanelOpen] = useState(true); // 🟢 State quản lý đóng/mở panel
+	const [isDragPanelOpen, setIsDragPanelOpen] = useState(true);
 
 	const API_BASE_URL = import.meta.env.VITE_API_URL;
 	const navigate = useNavigate();
@@ -166,7 +165,7 @@ function BossEditor() {
 	const fetchAllData = useCallback(async () => {
 		try {
 			setIsLoading(true);
-			// 🟢 Gọi song song API lấy danh sách Boss và danh sách Power
+
 			const [bossRes, powerRes] = await Promise.all([
 				fetch(`${API_BASE_URL}/api/bosses`),
 				fetch(`${API_BASE_URL}/api/powers?limit=1000`),
@@ -273,7 +272,6 @@ function BossEditor() {
 		},
 	};
 
-	// 🟢 Truyền dữ liệu cache vào DropDragSidePanel
 	const cachedData = { bosses: items, powers };
 
 	if (isLoading)

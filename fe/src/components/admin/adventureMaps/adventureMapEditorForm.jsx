@@ -13,7 +13,6 @@ import {
 	ShieldQuestion,
 } from "lucide-react";
 
-// Import các components Helper
 import {
 	AdventureLine,
 	AdventureConnections,
@@ -24,7 +23,6 @@ import {
 	getAdvImage,
 } from "./adventureEditorHelpers";
 
-// Helper component thao tác mảng String (dùng cho Regions)
 const StringArrayInput = ({ label, items, onChange, placeholder }) => (
 	<div className='space-y-2'>
 		<label className='block font-semibold text-sm text-text-secondary'>
@@ -65,7 +63,6 @@ const AdventureMapEditorForm = memo(
 	({ item, cachedData, onSave, onCancel, onDelete, isSaving }) => {
 		const [formData, setFormData] = useState({});
 
-		// Bổ sung các State và Refs cần thiết cho Map
 		const [isMapVisible, setIsMapVisible] = useState(true);
 		const [selectedNodeIndex, setSelectedNodeIndex] = useState(null);
 		const mapRef = useRef(null);
@@ -96,7 +93,6 @@ const AdventureMapEditorForm = memo(
 			onSave(formData);
 		};
 
-		// Hàm xử lý Click trên bản đồ để lấy toạ độ X, Y
 		const handleMapClick = useCallback(
 			e => {
 				if (selectedNodeIndex === null || !mapRef.current) return;
@@ -122,7 +118,6 @@ const AdventureMapEditorForm = memo(
 			[selectedNodeIndex],
 		);
 
-		// Hàm xử lý thay đổi dữ liệu của Node
 		const handleNodeChange = useCallback((idx, field, val) => {
 			setFormData(prev => {
 				const nextNodes = [...(prev.nodes || [])];
@@ -133,7 +128,6 @@ const AdventureMapEditorForm = memo(
 			});
 		}, []);
 
-		// Hàm render Icon cho Node trên map
 		const getNodeIcon = type => {
 			if (type === "Boss") return <Skull size={14} className='text-white' />;
 			if (type === "Encounter")
@@ -198,12 +192,11 @@ const AdventureMapEditorForm = memo(
 								label='Độ khó (Difficulty)'
 								name='difficulty'
 								type='number'
-								step='0.5' // Hỗ trợ nhập số thập phân, ví dụ: 4.5, 5.5
+								step='0.5'
 								value={formData.difficulty || 0}
 								onChange={e =>
 									setFormData(p => ({
 										...p,
-										// Dùng parseFloat để phân tích cú pháp số thực
 										difficulty: parseFloat(e.target.value) || 0,
 									}))
 								}
@@ -301,12 +294,12 @@ const AdventureMapEditorForm = memo(
 					</section>
 
 					{/* 2. YÊU CẦU & LUẬT ĐẶC BIỆT */}
-					<section className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
-						<div className='bg-surface-hover/30 p-5 rounded-xl border border-border shadow-sm'>
+					<section className='grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch'>
+						<div className='bg-surface-hover/30 p-5 rounded-xl border border-border shadow-sm flex flex-col h-full'>
 							<h3 className='font-bold mb-4 text-lg border-l-4 border-blue-500 pl-3'>
 								Yêu cầu tham gia (Requirement)
 							</h3>
-							<div className='space-y-4'>
+							<div className='space-y-4 flex-1'>
 								<DragDropArrayInput
 									label='Tướng bắt buộc (Champions)'
 									data={formData.requirement?.champions || []}
@@ -319,7 +312,7 @@ const AdventureMapEditorForm = memo(
 									cachedList={cachedData.champions || []}
 									placeholder='Kéo thả ID Tướng vào đây...'
 								/>
-								<div className='border-t border-border/50 pt-4'>
+								<div className='border-t border-border/50 pt-4 mt-4'>
 									<StringArrayInput
 										label='Vùng bắt buộc (Regions)'
 										items={formData.requirement?.regions || []}
@@ -333,19 +326,21 @@ const AdventureMapEditorForm = memo(
 								</div>
 							</div>
 						</div>
-						<div className='bg-surface-hover/30 p-5 rounded-xl border border-border shadow-sm'>
+						<div className='bg-surface-hover/30 p-5 rounded-xl border border-border shadow-sm flex flex-col h-full'>
 							<h3 className='font-bold mb-4 text-lg border-l-4 border-purple-500 pl-3'>
 								Luật Đặc Biệt (Mutators/Powers)
 							</h3>
-							<DragDropArrayInput
-								label='Danh sách Power IDs (VD: P0612)'
-								data={formData.specialRules || []}
-								onChange={arr =>
-									setFormData(p => ({ ...p, specialRules: arr }))
-								}
-								cachedList={cachedData.powers || []}
-								placeholder='Kéo thả ID Power vào đây...'
-							/>
+							<div className='flex-1'>
+								<DragDropArrayInput
+									label='Danh sách Power IDs (VD: P0612)'
+									data={formData.specialRules || []}
+									onChange={arr =>
+										setFormData(p => ({ ...p, specialRules: arr }))
+									}
+									cachedList={cachedData.powers || []}
+									placeholder='Kéo thả ID Power vào đây...'
+								/>
+							</div>
 						</div>
 					</section>
 
@@ -393,7 +388,8 @@ const AdventureMapEditorForm = memo(
 												const dragged = JSON.parse(
 													e.dataTransfer.getData("text/plain"),
 												);
-												const identifier = dragged.id || dragged.name;
+												const identifier =
+													getUniqueAdvId(dragged) || dragged.name;
 												if (identifier) {
 													const arr = [...formData.Bosses];
 													arr[i].bossID = identifier.trim();

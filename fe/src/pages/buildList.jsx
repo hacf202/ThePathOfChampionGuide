@@ -54,10 +54,14 @@ const Builds = () => {
 	const [tempDynamicFilters, setTempDynamicFilters] = useState({});
 
 	// --- 1. Khởi tạo Hook Quản lý Bộ lọc ---
-	const { state, actions, filterOptions, queryParams } = useBuildFilters(
-		tUI,
-		tempDynamicFilters,
-	);
+	const { state, actions, filterConfigs, sortOptions, queryParams } =
+		useBuildFilters(tUI, tempDynamicFilters);
+
+	const optionsMap =
+		filterConfigs?.reduce((acc, config) => {
+			acc[config.key] = config.options;
+			return acc;
+		}, {}) || {};
 
 	// --- 2. Khởi tạo Hook Data Fetching (Tự động đổi API theo Tab) ---
 	const { builds, loading, error, pagination, dynamicFilters, refetch } =
@@ -76,7 +80,6 @@ const Builds = () => {
 
 	const handleFavoriteToggle = async (buildId, newStatus, newCount) => {
 		await toggleFavorite(buildId, newStatus, newCount);
-		// Nếu đang ở tab Yêu thích và người dùng bỏ tim (unlike), ta cần gọi refetch để cập nhật lại danh sách ngay lập tức
 		if (activeTab === "favorites" && !newStatus) {
 			refetch();
 		}
@@ -127,63 +130,68 @@ const Builds = () => {
 				pageTitle={tUI("buildList.title")}
 				pageDescription={tUI("metadata.defaultDescription")}
 				heading={tUI("buildList.heading")}
-				// --- Điều hướng Tabs ---
-				customTabs={
-					<div className='flex flex-wrap gap-2 border border-border p-1 rounded-lg w-fit mb-2 md:mb-0 bg-surface-bg shadow-sm'>
-						<Button
-							variant={activeTab === "community" ? "primary" : "ghost"}
-							onClick={() => changeTab("community")}
-							iconLeft={<Globe size={18} />}
-						>
-							{tUI("buildList.community")}
-						</Button>
-						{user && (
-							<>
-								<Button
-									variant={activeTab === "my-builds" ? "primary" : "ghost"}
-									onClick={() => changeTab("my-builds")}
-									iconLeft={<Shield size={18} />}
-								>
-									{tUI("buildList.myBuilds")}
-								</Button>
-								<Button
-									variant={activeTab === "favorites" ? "primary" : "ghost"}
-									onClick={() => changeTab("favorites")}
-									iconLeft={<Heart size={18} />}
-								>
-									{tUI("buildList.favorites")}
-								</Button>
-							</>
+				// --- ĐƯA 3 NÚT TABS VÀ NÚT CREATE VÀO CHUNG MỘT KHỐI ---
+				customHeaderActions={
+					<div className='flex flex-wrap items-center gap-3 w-full sm:w-auto mt-2 sm:mt-0'>
+						{/* Cụm 3 nút điều hướng */}
+						<div className='flex items-center gap-1 border border-border p-1 rounded-xl bg-surface-bg shadow-sm'>
+							<Button
+								variant={activeTab === "community" ? "primary" : "ghost"}
+								onClick={() => changeTab("community")}
+								iconLeft={<Globe size={18} />}
+								className='px-3 sm:px-4'
+							>
+								{tUI("buildList.community")}
+							</Button>
+							{user && (
+								<>
+									<Button
+										variant={activeTab === "my-builds" ? "primary" : "ghost"}
+										onClick={() => changeTab("my-builds")}
+										iconLeft={<Shield size={18} />}
+										className='px-3 sm:px-4'
+									>
+										{tUI("buildList.myBuilds")}
+									</Button>
+									<Button
+										variant={activeTab === "favorites" ? "primary" : "ghost"}
+										onClick={() => changeTab("favorites")}
+										iconLeft={<Heart size={18} />}
+										className='px-3 sm:px-4'
+									>
+										{tUI("buildList.favorites")}
+									</Button>
+								</>
+							)}
+						</div>
+
+						{/* Nút Tạo Mới */}
+						{user ? (
+							<Button
+								variant='primary'
+								onClick={handleOpenCreateModal}
+								iconLeft={
+									isLoadingMeta ? (
+										<Loader2 className='animate-spin' size={20} />
+									) : (
+										<PlusCircle size={20} />
+									)
+								}
+								disabled={isLoadingMeta}
+							>
+								{isLoadingMeta
+									? tUI("common.loading")
+									: tUI("buildList.createNew")}
+							</Button>
+						) : (
+							<NavLink
+								to='/auth'
+								className='text-md font-bold text-primary-500 hover:underline flex items-center bg-primary-500/10 px-4 py-2 rounded-lg h-full'
+							>
+								{tUI("buildList.loginToCreate")}
+							</NavLink>
 						)}
 					</div>
-				}
-				// --- Nút Tạo Mới ---
-				customHeaderActions={
-					user ? (
-						<Button
-							variant='primary'
-							onClick={handleOpenCreateModal}
-							iconLeft={
-								isLoadingMeta ? (
-									<Loader2 className='animate-spin' size={20} />
-								) : (
-									<PlusCircle size={20} />
-								)
-							}
-							disabled={isLoadingMeta}
-						>
-							{isLoadingMeta
-								? tUI("common.loading")
-								: tUI("buildList.createNew")}
-						</Button>
-					) : (
-						<NavLink
-							to='/auth'
-							className='text-md font-bold text-primary-500 hover:underline flex items-center bg-primary-500/10 px-4 py-2 rounded-lg'
-						>
-							{tUI("buildList.loginToCreate")}
-						</NavLink>
-					)
 				}
 				// --- Quản lý Dữ liệu và Phân trang ---
 				data={builds}
@@ -204,15 +212,12 @@ const Builds = () => {
 					<BuildSummary
 						key={build._id || build.id}
 						build={build}
-						// Truyền Metadata (sẽ rỗng lúc đầu, có data khi user đã gọi lazy load, nhưng BuildSummary không bị lỗi vì dữ liệu build gốc đã có đủ text hiển thị cơ bản)
 						championsList={metadata.champions}
 						relicsList={metadata.relics}
 						powersList={metadata.powers}
 						runesList={metadata.runes}
-						// Props giao diện
 						showDesktopFilter={state.showDesktopFilter}
 						isFavoritePage={activeTab === "favorites"}
-						// Props logic tương tác
 						onBuildUpdate={refetch}
 						onBuildDelete={handleBuildDeleted}
 						onFavoriteToggle={handleFavoriteToggle}
@@ -224,27 +229,27 @@ const Builds = () => {
 					<>
 						<MultiSelectFilter
 							label={tUI("buildList.starLevel")}
-							options={filterOptions.starLevels}
-							selectedValues={state.selectedStarLevels}
-							onChange={actions.setSelectedStarLevels}
+							options={optionsMap.stars || []}
+							selectedValues={state.customFilters?.stars || []}
+							onChange={vals => actions.setFilterValue("stars", vals)}
 						/>
 						<MultiSelectFilter
 							label={tUI("championList.region")}
-							options={filterOptions.regions}
-							selectedValues={state.selectedRegions}
-							onChange={actions.setSelectedRegions}
+							options={optionsMap.regions || []}
+							selectedValues={state.customFilters?.regions || []}
+							onChange={vals => actions.setFilterValue("regions", vals)}
 						/>
 						<DropdownFilter
 							label={tUI("championList.sortBy")}
-							options={filterOptions.sort}
-							selectedValue={state.sortBy}
-							onChange={actions.setSortBy}
+							options={sortOptions || []}
+							selectedValue={state.sortOrder}
+							onChange={actions.setSortOrder}
 						/>
 					</>
 				)}
 			/>
 
-			{/* Modal Tạo Build - Hiển thị độc lập với Layout chung */}
+			{/* Modal Tạo Build */}
 			{showCreateModal && !isLoadingMeta && (
 				<BuildCreation
 					onConfirm={handleCreateSuccess}

@@ -4,8 +4,8 @@ import { useNavigate, Link, Routes, Route, useParams } from "react-router-dom";
 import Button from "../../common/button";
 import { removeAccents } from "../../../utils/vietnameseUtils";
 import SidePanel from "../../common/sidePanel";
-import DropDragSidePanel from "../components/dropSidePanel";
-import AdventureMapEditorForm from "./adventureMapEditorForm"; // Sửa lại tên import đúng với file form
+import DropDragSidePanel from "../common/dropSidePanel";
+import AdventureMapEditorForm from "./adventureMapEditorForm";
 import { Loader2 } from "lucide-react";
 
 const NEW_ADV_TEMPLATE = {
@@ -168,7 +168,7 @@ function AdventureMapEditor() {
 	const [powers, setPowers] = useState([]);
 	const [bosses, setBosses] = useState([]);
 	const [champions, setChampions] = useState([]);
-	const [itemsData, setItemsData] = useState([]); // Đã thêm để phục vụ drag-drop Rewards
+	const [itemsData, setItemsData] = useState([]);
 
 	const [searchInput, setSearchInput] = useState("");
 	const [searchTerm, setSearchTerm] = useState("");
@@ -297,7 +297,6 @@ function AdventureMapEditor() {
 		},
 	};
 
-	// 🟢 Truyền thêm itemsData vào cachedData để kéo thả phần thưởng
 	const cachedData = { powers, bosses, champions, items: itemsData };
 
 	if (isLoading)

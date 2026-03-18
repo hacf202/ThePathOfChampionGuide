@@ -14,7 +14,7 @@ import {
 	ShieldQuestion,
 } from "lucide-react";
 
-// Helper lấy ID chuẩn từ nhiều nguồn API khác nhau
+// Helper lấy ID chuẩn từ nhiều nguồn API khác nhau (Hỗ trợ powerCode cho Luật Đặc Biệt)
 export const getUniqueAdvId = item => {
 	if (!item) return "";
 	return (
@@ -28,7 +28,7 @@ export const getAdvName = item => {
 	return item.name || item.bossName || item.adventureName || "Unknown";
 };
 
-// 🟢 ĐÃ CẬP NHẬT: Helper lấy Ảnh chuẩn (Thêm item.background cho Boss)
+// Helper lấy Ảnh chuẩn
 export const getAdvImage = item => {
 	if (!item) return null;
 	return (
@@ -36,7 +36,7 @@ export const getAdvImage = item => {
 		item.image ||
 		item.avatar ||
 		item.assets?.[0]?.avatar ||
-		item.background || // Thêm dòng này để lấy ảnh từ field background của Boss
+		item.background ||
 		null
 	);
 };
@@ -55,12 +55,29 @@ export const DragDropArrayInput = ({
 		onChange(newData);
 	};
 
-	const handleDrop = (e, index) => {
+	// Xử lý khi thả thẳng vào một dòng input đã tồn tại (Ghi đè)
+	const handleDropOnItem = (e, index) => {
+		e.preventDefault();
+		e.stopPropagation(); // Ngăn sự kiện sủi bọt lên Container
+		try {
+			const dragged = JSON.parse(e.dataTransfer.getData("text/plain"));
+			const identifier = getUniqueAdvId(dragged) || dragged.name;
+			if (identifier) handleItemChange(index, identifier.trim());
+		} catch (err) {
+			console.warn("Drag data không hợp lệ");
+		}
+	};
+
+	// Xử lý khi thả vào khoảng trống của Container (Tự động thêm mới)
+	const handleDropOnContainer = e => {
 		e.preventDefault();
 		try {
 			const dragged = JSON.parse(e.dataTransfer.getData("text/plain"));
-			const identifier = dragged.id || dragged.name;
-			if (identifier) handleItemChange(index, identifier.trim());
+			const identifier = getUniqueAdvId(dragged) || dragged.name;
+			// Kiểm tra trùng lặp trước khi thêm
+			if (identifier && !data.includes(identifier.trim())) {
+				onChange([...data, identifier.trim()]);
+			}
 		} catch (err) {
 			console.warn("Drag data không hợp lệ");
 		}
@@ -82,15 +99,22 @@ export const DragDropArrayInput = ({
 					Thêm
 				</Button>
 			</div>
-			<div className='space-y-2'>
+
+			{/* Dropzone Container: Khu vực nhận diện thả thông minh */}
+			<div
+				className='space-y-2 min-h-[80px] p-3 rounded-xl border-2 border-dashed border-border/60 bg-surface-bg/30 hover:border-primary-500/50 hover:bg-surface-hover/30 transition-all'
+				onDrop={handleDropOnContainer}
+				onDragOver={e => e.preventDefault()}
+			>
 				{data.length === 0 ? (
-					<p className='text-center text-xs text-text-secondary py-3 bg-surface-hover/50 rounded-lg border border-dashed border-border'>
-						Chưa có dữ liệu
-					</p>
+					<div className='flex flex-col items-center justify-center h-full min-h-[50px] text-text-secondary opacity-70 pointer-events-none'>
+						<p className='text-xs font-medium'>
+							Kéo thả item vào khu vực này để tự động thêm mới
+						</p>
+					</div>
 				) : (
 					data.map((value, index) => {
 						const safeValue = (value || "").trim();
-						// Tìm kiếm item trong cachedList dựa trên ID
 						const item =
 							cachedList.find(i => getUniqueAdvId(i) === safeValue) || {};
 						const isResolved = !!getUniqueAdvId(item);
@@ -100,8 +124,8 @@ export const DragDropArrayInput = ({
 						return (
 							<div
 								key={index}
-								className='flex items-center gap-2 p-2 bg-surface-hover rounded-lg border border-border hover:border-primary-500 transition-all'
-								onDrop={e => handleDrop(e, index)}
+								className='flex items-center gap-2 p-2 bg-surface-hover rounded-lg border border-border hover:border-primary-500 transition-all shadow-sm'
+								onDrop={e => handleDropOnItem(e, index)}
 								onDragOver={e => e.preventDefault()}
 							>
 								<div className='w-8 h-8 rounded bg-white border flex items-center justify-center overflow-hidden shrink-0'>
@@ -139,22 +163,36 @@ export const DragDropArrayInput = ({
 	);
 };
 
-// Component kéo thả dành riêng cho Array Object của Boss (Bởi vì Boss có bossID và note)
+// Component kéo thả dành riêng cho Array Object của Boss (Hỗ trợ tự thêm mới)
 export const DragDropBossObjectInput = ({
 	label,
 	bosses = [],
 	onChange,
 	cachedBosses = [],
 }) => {
-	const handleDrop = (e, index) => {
+	const handleDropOnItem = (e, index) => {
 		e.preventDefault();
+		e.stopPropagation();
 		try {
 			const dragged = JSON.parse(e.dataTransfer.getData("text/plain"));
-			const identifier = dragged.id || dragged.name;
+			const identifier = getUniqueAdvId(dragged) || dragged.name;
 			if (identifier) {
 				const newBosses = [...bosses];
 				newBosses[index].bossID = identifier.trim();
 				onChange(newBosses);
+			}
+		} catch (err) {
+			console.warn("Drag data không hợp lệ");
+		}
+	};
+
+	const handleDropOnContainer = e => {
+		e.preventDefault();
+		try {
+			const dragged = JSON.parse(e.dataTransfer.getData("text/plain"));
+			const identifier = getUniqueAdvId(dragged) || dragged.name;
+			if (identifier && !bosses.some(b => b.bossID === identifier.trim())) {
+				onChange([...bosses, { bossID: identifier.trim(), note: "" }]);
 			}
 		} catch (err) {
 			console.warn("Drag data không hợp lệ");
@@ -177,24 +215,32 @@ export const DragDropBossObjectInput = ({
 					Thêm Boss
 				</Button>
 			</div>
-			<div className='space-y-3'>
+
+			<div
+				className='space-y-3 min-h-[100px] p-3 rounded-xl border-2 border-dashed border-border/60 bg-surface-bg/30 hover:border-primary-500/50 hover:bg-surface-hover/30 transition-all'
+				onDrop={handleDropOnContainer}
+				onDragOver={e => e.preventDefault()}
+			>
 				{bosses.length === 0 ? (
-					<p className='text-center text-xs text-text-secondary py-4 border border-dashed border-border rounded-lg'>
-						Chưa có Boss chính
-					</p>
+					<div className='flex flex-col items-center justify-center h-full min-h-[70px] text-text-secondary opacity-70 pointer-events-none'>
+						<p className='text-xs font-medium'>
+							Kéo thả ID Boss vào khu vực này để tự động tạo
+						</p>
+					</div>
 				) : (
 					bosses.map((b, i) => {
 						const safeValue = (b.bossID || "").trim();
-						const item = cachedBosses.find(cb => cb.bossID === safeValue) || {};
-						const isResolved = !!item.bossID;
+						const item =
+							cachedBosses.find(cb => getUniqueAdvId(cb) === safeValue) || {};
+						const isResolved = !!getUniqueAdvId(item);
 						const displayValue = isResolved ? getAdvName(item) : b.bossID || "";
 						const imageUrl = getAdvImage(item);
 
 						return (
 							<div
 								key={i}
-								className='flex gap-2 items-center bg-surface-hover/50 p-2 rounded-lg border border-border'
-								onDrop={e => handleDrop(e, i)}
+								className='flex gap-2 items-center bg-surface-hover/80 p-2 rounded-lg border border-border shadow-sm'
+								onDrop={e => handleDropOnItem(e, i)}
 								onDragOver={e => e.preventDefault()}
 							>
 								<div className='w-10 h-10 rounded bg-white border flex items-center justify-center overflow-hidden shrink-0'>

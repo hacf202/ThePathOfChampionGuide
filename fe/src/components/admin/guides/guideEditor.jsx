@@ -1,5 +1,4 @@
-// src/pages/admin/guideEditor.jsx
-import React from "react";
+import React, { memo } from "react";
 import { Routes, Route, useParams } from "react-router-dom";
 import GuideList from "./guideList";
 import GuideForm from "./guideEditorForm";
@@ -10,7 +9,7 @@ const GuideFormWrapper = () => {
 	return <GuideForm slug={slug} />;
 };
 
-const GuideEditor = () => {
+const GuideEditor = memo(() => {
 	return (
 		<Routes>
 			{/* Route danh sách: /admin/guides */}
@@ -23,6 +22,6 @@ const GuideEditor = () => {
 			<Route path=':slug' element={<GuideFormWrapper />} />
 		</Routes>
 	);
-};
+});
 
 export default GuideEditor;

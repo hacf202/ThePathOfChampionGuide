@@ -1,18 +1,20 @@
-// src/pages/admin/guideEditorForm.jsx
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../../../context/AuthContext";
-import { useTranslation } from "../../../hooks/useTranslation"; // 🟢
+import { useTranslation } from "../../../hooks/useTranslation";
 import BlockEditor from "./blockEditor";
 import PreviewBlock from "./previewBlock";
 import Button from "../../common/button";
-import Modal from "../../common/modal";
 import InputField from "../../common/inputField";
-import { ArrowLeft, Save, AlertTriangle, Eye, Edit3 } from "lucide-react";
+import { Eye, Edit3 } from "lucide-react";
+
+// IMPORT CÁC COMPONENT CHUNG
+import EditorHeaderToolbar from "../common/editorHeaderToolbar";
+import ImagePreviewBox from "../common/imagePreviewBox";
 
 const GuideForm = ({ slug }) => {
-	const { tUI, t, language } = useTranslation();
+	const { tUI } = useTranslation();
 	const navigate = useNavigate();
 	const { token } = useAuth();
 	const isEditMode = slug && slug !== "new";
@@ -28,9 +30,9 @@ const GuideForm = ({ slug }) => {
 		content: [],
 	});
 
+	const [initialData, setInitialData] = useState({});
 	const [isDirty, setIsDirty] = useState(false);
 	const [isPreview, setIsPreview] = useState(false);
-	const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
 	const [loading, setLoading] = useState(false);
 
 	const [referenceData, setReferenceData] = useState({
@@ -38,6 +40,12 @@ const GuideForm = ({ slug }) => {
 		relics: {},
 		powers: {},
 	});
+
+	// Dirty check
+	useEffect(() => {
+		const isChanged = JSON.stringify(formData) !== JSON.stringify(initialData);
+		setIsDirty(isChanged);
+	}, [formData, initialData]);
 
 	// Fetch Reference Data
 	useEffect(() => {
@@ -58,7 +66,7 @@ const GuideForm = ({ slug }) => {
 		};
 		fetchRefs();
 	}, []);
-	// Load Guide Data
+
 	// Load Guide Data
 	useEffect(() => {
 		if (isEditMode) {
@@ -71,7 +79,7 @@ const GuideForm = ({ slug }) => {
 						const g = res.data.data?.guide || res.data.data;
 
 						if (g) {
-							setFormData({
+							const loadedData = {
 								title: g.title || "",
 								title_en: g.translations?.en?.title || "",
 								slug: g.slug || "",
@@ -79,7 +87,6 @@ const GuideForm = ({ slug }) => {
 								author: g.author || "",
 								description: g.description || "",
 								description_en: g.translations?.en?.description || "",
-								// FIX TẠI ĐÂY: Quét qua mảng content, nếu block nào mất ID thì tự sinh ID mới
 								content: (Array.isArray(g.content) ? g.content : []).map(
 									(block, i) => ({
 										...block,
@@ -88,7 +95,10 @@ const GuideForm = ({ slug }) => {
 											: `block-recovered-${Date.now()}-${i}`,
 									}),
 								),
-							});
+							};
+							setFormData(loadedData);
+							setInitialData(JSON.parse(JSON.stringify(loadedData)));
+							setIsDirty(false);
 						}
 					}
 				} catch (err) {
@@ -96,7 +106,10 @@ const GuideForm = ({ slug }) => {
 				}
 			};
 			fetchGuide();
+		} else {
+			setInitialData(JSON.parse(JSON.stringify(formData)));
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [slug, isEditMode]);
 
 	const handleSave = async () => {
@@ -131,114 +144,119 @@ const GuideForm = ({ slug }) => {
 
 	const updateBlocks = newBlocks => {
 		setFormData(prev => ({ ...prev, content: newBlocks }));
-		setIsDirty(true);
+	};
+
+	const handleInputChange = e => {
+		const { name, value } = e.target;
+		setFormData(prev => ({ ...prev, [name]: value }));
 	};
 
 	return (
-		<div className='min-h-screen bg-page-bg'>
-			{/* Sticky Header */}
-			<div className='sticky top-0 z-50 bg-surface-bg border-b border-border px-6 py-4 flex items-center justify-between shadow-sm'>
-				<div className='flex items-center gap-4'>
-					<Button
-						variant='ghost'
-						onClick={() =>
-							isDirty ? setIsCancelModalOpen(true) : navigate("/admin/guides")
-						}
-					>
-						<ArrowLeft size={20} />
-					</Button>
-					<h2 className='text-xl font-bold uppercase tracking-tight'>
-						{isEditMode
-							? tUI("randomWheel.tabCustomize")
-							: tUI("common.addNew")}{" "}
-						{tUI("intro.guides")}
-					</h2>
-					{isDirty && (
-						<span className='text-amber-500 flex items-center gap-1 text-sm font-medium'>
-							<AlertTriangle size={14} /> {tUI("common.saving")}
-						</span>
-					)}
-				</div>
-
-				<div className='flex gap-3'>
+		<div className='min-h-screen pb-24'>
+			{/* ÁP DỤNG EDITOR TOOLBAR CHUNG */}
+			<EditorHeaderToolbar
+				title={
+					isEditMode
+						? `${tUI("randomWheel.tabCustomize") || "Sửa:"} ${formData.title}`
+						: tUI("common.addNew") || "Thêm mới Bài viết"
+				}
+				isNew={!isEditMode}
+				isDirty={isDirty}
+				isSaving={loading}
+				onCancel={() => navigate("/admin/guides")}
+				itemName={formData.title}
+				disableSave={!formData.title}
+				extraButtons={
 					<Button
 						variant='outline'
 						onClick={() => setIsPreview(!isPreview)}
 						iconLeft={isPreview ? <Edit3 size={18} /> : <Eye size={18} />}
+						className='mr-2'
 					>
-						{isPreview ? tUI("randomWheel.tabCustomize") : "Preview"}
+						{isPreview
+							? tUI("randomWheel.tabCustomize") || "Chỉnh sửa"
+							: "Xem trước"}
 					</Button>
-					<Button
-						variant='primary'
-						onClick={handleSave}
-						disabled={loading}
-						iconLeft={<Save size={18} />}
-					>
-						{loading ? tUI("common.saving") : tUI("common.save")}
-					</Button>
-				</div>
-			</div>
+				}
+			/>
 
-			<div className='max-w-[1600px] mx-auto p-6'>
+			{/* NỘI DUNG EDITOR */}
+			<div className='max-w-[1600px] mx-auto px-6'>
 				<div className='grid grid-cols-1 xl:grid-cols-2 gap-8'>
 					{/* EDITOR SIDE */}
 					{!isPreview && (
 						<div className='space-y-6'>
-							<div className='bg-surface-bg p-6 rounded-xl border border-border space-y-4 shadow-sm'>
-								<div className='grid grid-cols-2 gap-4'>
-									<InputField
-										label='Tiêu đề (VN)'
-										value={formData.title}
-										onChange={e => {
-											setFormData({ ...formData, title: e.target.value });
-											setIsDirty(true);
-										}}
-									/>
-									<InputField
-										label='Title (EN)'
-										value={formData.title_en}
-										onChange={e => {
-											setFormData({ ...formData, title_en: e.target.value });
-											setIsDirty(true);
-										}}
-									/>
-								</div>
-								<InputField
-									label='Slug'
-									value={formData.slug}
-									onChange={e =>
-										setFormData({ ...formData, slug: e.target.value })
-									}
-									disabled={isEditMode}
-								/>
-								<InputField
-									label='Thumbnail URL'
-									value={formData.thumbnail}
-									onChange={e => {
-										setFormData({ ...formData, thumbnail: e.target.value });
-										setIsDirty(true);
-									}}
-								/>
-								<div className='grid grid-cols-2 gap-4'>
-									<InputField
-										label='Author'
-										value={formData.author}
-										onChange={e =>
-											setFormData({ ...formData, author: e.target.value })
-										}
-									/>
-									<InputField
-										label='Description (Short)'
-										value={formData.description}
-										onChange={e =>
-											setFormData({ ...formData, description: e.target.value })
-										}
-									/>
+							{/* THÔNG TIN CƠ BẢN */}
+							<div className='bg-surface-bg p-6 rounded-xl border border-border shadow-sm'>
+								<div className='flex flex-col md:flex-row gap-6'>
+									<div className='flex-1 space-y-4'>
+										<div className='grid grid-cols-2 gap-4'>
+											<InputField
+												label='Tiêu đề (VN)'
+												name='title'
+												value={formData.title}
+												onChange={handleInputChange}
+												required
+											/>
+											<InputField
+												label='Title (EN)'
+												name='title_en'
+												value={formData.title_en}
+												onChange={handleInputChange}
+											/>
+										</div>
+										<InputField
+											label='Slug'
+											name='slug'
+											value={formData.slug}
+											onChange={handleInputChange}
+											disabled={isEditMode}
+										/>
+										<div className='grid grid-cols-2 gap-4'>
+											<InputField
+												label='Tác giả (Author)'
+												name='author'
+												value={formData.author}
+												onChange={handleInputChange}
+											/>
+											<InputField
+												label='URL Hình thu nhỏ (Thumbnail)'
+												name='thumbnail'
+												value={formData.thumbnail}
+												onChange={handleInputChange}
+											/>
+										</div>
+										<div className='grid grid-cols-2 gap-4'>
+											<InputField
+												label='Mô tả ngắn (VN)'
+												name='description'
+												value={formData.description}
+												onChange={handleInputChange}
+											/>
+											<InputField
+												label='Description (EN)'
+												name='description_en'
+												value={formData.description_en}
+												onChange={handleInputChange}
+											/>
+										</div>
+									</div>
+
+									{/* SỬ DỤNG KHUNG ẢNH CHUNG CHO THUMBNAIL */}
+									<div className='w-full md:w-1/3 shrink-0'>
+										<ImagePreviewBox
+											imageUrl={formData.thumbnail}
+											label='Ảnh Thu Nhỏ'
+											wrapperClassName='flex flex-col items-center justify-center p-4 bg-surface-hover/30 rounded-xl border border-dashed border-border h-full min-h-[150px]'
+											imageClassName='w-full h-auto max-h-[180px] object-cover rounded-xl shadow-md border-2 border-white dark:border-gray-800'
+										/>
+									</div>
 								</div>
 							</div>
 
+							{/* BLOCK EDITOR (KÉO THẢ NỘI DUNG) */}
 							<div className='bg-surface-bg rounded-xl border border-border shadow-sm'>
-								<div className='p-4 border-b border-border bg-surface-hover/30 font-bold uppercase text-sm tracking-widest'>
+								<div className='p-4 border-b border-border bg-surface-hover/30 font-bold uppercase text-sm tracking-widest text-text-primary'>
 									Nội dung bài viết (Blocks)
 								</div>
 								<div className='p-4'>
@@ -254,23 +272,25 @@ const GuideForm = ({ slug }) => {
 
 					{/* PREVIEW SIDE */}
 					<div
-						className={`${isPreview ? "col-span-2" : "hidden xl:block"} bg-white rounded-2xl border border-border shadow-2xl p-8 min-h-[800px] text-gray-900`}
+						className={`${isPreview ? "col-span-2" : "hidden xl:block"} bg-page-bg rounded-2xl border border-border shadow-xl p-8 min-h-[800px] text-text-primary`}
 					>
 						<div className='max-w-4xl mx-auto'>
 							<header className='mb-10 text-center'>
 								<h1 className='text-4xl font-black mb-4 leading-tight'>
-									{formData.title || "Tiêu đề bài viết"}
+									{formData.title || "Tiêu đề bài viết..."}
 								</h1>
-								<p className='text-gray-500 italic'>{formData.description}</p>
+								<p className='text-text-secondary italic'>
+									{formData.description || "Mô tả ngắn..."}
+								</p>
 							</header>
 							{formData.thumbnail && (
 								<img
 									src={formData.thumbnail}
-									className='w-full h-80 object-cover rounded-2xl mb-10 shadow-lg'
+									className='w-full h-80 object-cover rounded-2xl mb-10 shadow-lg border border-border'
 									alt='Thumb'
 								/>
 							)}
-							<div className='prose prose-lg max-w-none'>
+							<div className='prose prose-lg dark:prose-invert max-w-none'>
 								{formData.content.map((block, i) => (
 									<PreviewBlock
 										key={i}
@@ -284,23 +304,7 @@ const GuideForm = ({ slug }) => {
 				</div>
 			</div>
 
-			<Modal
-				isOpen={isCancelModalOpen}
-				onClose={() => setIsCancelModalOpen(false)}
-				title={tUI("common.deleteDataTitle")}
-			>
-				<div className='p-2 text-text-secondary'>
-					<p className='mb-6'>{tUI("tierList.confirmResetToSample")}</p>
-					<div className='flex justify-end gap-3'>
-						<Button variant='ghost' onClick={() => setIsCancelModalOpen(false)}>
-							{tUI("common.cancel")}
-						</Button>
-						<Button variant='danger' onClick={() => navigate("/admin/guides")}>
-							{tUI("common.back")}
-						</Button>
-					</div>
-				</div>
-			</Modal>
+			{/* Đã xóa Modal xác nhận Hủy vì EditorHeaderToolbar tự động đảm nhiệm */}
 		</div>
 	);
 };

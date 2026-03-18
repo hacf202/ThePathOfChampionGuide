@@ -1,16 +1,15 @@
-// src/components/build/buildCard.jsx
+// src/components/admin/builds/buildCard.jsx
 import { memo, useState, useEffect } from "react";
 import {
 	Star,
 	Eye,
 	ThumbsUp,
-	Calendar,
 	User,
 	ToggleLeft,
 	ToggleRight,
 } from "lucide-react";
 import { getChampionAvatar } from "../../../utils/championAvatarCache.js";
-import { useTranslation } from "../../../hooks/useTranslation"; // IMPORT HOOK
+import { useTranslation } from "../../../hooks/useTranslation";
 
 const BuildCard = ({ build, onClick }) => {
 	const { tUI } = useTranslation();
@@ -22,7 +21,6 @@ const BuildCard = ({ build, onClick }) => {
 		like = 0,
 		creatorName,
 		creator,
-		createdAt,
 		display,
 		relicSet = [],
 		powers = [],
@@ -51,9 +49,7 @@ const BuildCard = ({ build, onClick }) => {
 	return (
 		<div
 			onClick={onClick}
-			className='bg-[var(--color-background)] p-5 rounded-xl border border-[var(--color-border)] 
-                     hover:shadow-lg hover:border-[var(--color-primary)] 
-                     transition-all duration-200 cursor-pointer group relative'
+			className='bg-[var(--color-background)] p-5 rounded-xl border border-[var(--color-border)] hover:shadow-lg hover:border-[var(--color-primary)] transition-all duration-200 cursor-pointer group relative'
 		>
 			{/* AVATAR */}
 			<div className='absolute -top-6 -right-4 flex space-x-[-15px] opacity-80 group-hover:opacity-100 transition-opacity z-10'>

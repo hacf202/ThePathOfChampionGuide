@@ -1,5 +1,5 @@
-// ImageManager.jsx
-import React, { useState, useEffect, useRef } from "react";
+// src/components/admin/images/imageManager.jsx
+import React, { useState, useEffect, useRef, memo } from "react";
 import {
 	getR2Folders,
 	getImagesByFolder,
@@ -12,7 +12,10 @@ import {
 import PageTitle from "../../common/pageTitle";
 import Button from "../../common/button";
 
-const ImageManager = () => {
+// IMPORT COMPONENT CHUNG
+import { LoadingState } from "../common/stateDisplays";
+
+const ImageManager = memo(() => {
 	const [folders, setFolders] = useState([]);
 	const [currentFolder, setCurrentFolder] = useState("");
 	const [images, setImages] = useState([]);
@@ -41,10 +44,12 @@ const ImageManager = () => {
 
 	useEffect(() => {
 		loadFolders();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	useEffect(() => {
 		if (currentFolder) loadImages();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currentFolder]);
 
 	const loadImages = async () => {
@@ -150,6 +155,7 @@ const ImageManager = () => {
 						Thư mục
 						<div className='space-x-2'>
 							<button
+								type='button'
 								onClick={handleCreateFolder}
 								className='text-blue-400 hover:underline'
 							>
@@ -157,6 +163,7 @@ const ImageManager = () => {
 								+ Thêm
 							</button>
 							<button
+								type='button'
 								onClick={handleDeleteFolder}
 								className='text-red-400 hover:underline'
 							>
@@ -181,7 +188,7 @@ const ImageManager = () => {
 				{/* Upload Input */}
 				<div className='flex flex-col gap-2'>
 					<label className='text-xs font-semibold text-gray-400 uppercase tracking-wider'>
-						Tải ảnh vào {currentFolder}
+						Tải ảnh vào {currentFolder || "..."}
 					</label>
 					<input
 						id='main-upload-input'
@@ -213,54 +220,61 @@ const ImageManager = () => {
 
 			{/* Grid ảnh */}
 			{loading ? (
-				<div className='text-center py-20 opacity-50'>Đang tải dữ liệu...</div>
+				<div className='py-10'>
+					{/* ĐÃ ÁP DỤNG COMPONENT LOADING CHUNG */}
+					<LoadingState text='Đang tải dữ liệu ảnh...' />
+				</div>
 			) : (
 				<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5'>
 					{images.length === 0 ? (
-						<div className='col-span-full text-center py-10 text-gray-500 border border-dashed border-theme-border rounded-lg'>
+						<div className='col-span-full text-center py-10 text-gray-500 border border-dashed border-theme-border rounded-lg bg-theme-card/50'>
 							Thư mục này chưa có ảnh.
 						</div>
 					) : (
 						images.map(img => (
 							<div
 								key={img.key}
-								className='bg-theme-card border border-theme-border p-3 rounded-xl group relative'
+								className='bg-theme-card border border-theme-border p-3 rounded-xl group relative hover:border-blue-500/50 transition-colors'
 							>
-								<div className='w-full aspect-square bg-black/10 rounded-lg flex items-center justify-center overflow-hidden'>
+								<div className='w-full aspect-square bg-black/10 rounded-lg flex items-center justify-center overflow-hidden relative'>
 									<img
 										src={img.url}
-										alt=''
+										alt={img.key}
 										className='max-h-full max-w-full object-contain'
+										loading='lazy'
 									/>
 
-									<div className='absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center gap-2 transition-all'>
+									<div className='absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center gap-2 transition-opacity duration-200 backdrop-blur-sm'>
 										<button
+											type='button'
 											onClick={() => {
 												navigator.clipboard.writeText(img.url);
-												alert("Đã copy!");
+												alert("Đã copy URL!");
 											}}
-											className='bg-blue-600 text-white px-3 py-1 rounded text-[11px] w-20'
+											className='bg-blue-600 hover:bg-blue-500 text-white px-3 py-1.5 rounded text-[11px] w-20 font-medium transition-colors'
 										>
 											URL
 										</button>
 										<button
+											type='button'
 											onClick={() => {
 												setUpdatingKey(img.key);
 												updateFileInputRef.current.click();
 											}}
-											className='bg-green-600 text-white px-3 py-1 rounded text-[11px] w-20'
+											className='bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1.5 rounded text-[11px] w-20 font-medium transition-colors'
 										>
 											Sửa
 										</button>
 										<button
+											type='button'
 											onClick={() => handleDeleteImage(img.key)}
-											className='bg-red-600 text-white px-3 py-1 rounded text-[11px] w-20'
+											className='bg-red-600 hover:bg-red-500 text-white px-3 py-1.5 rounded text-[11px] w-20 font-medium transition-colors'
 										>
 											Xóa
 										</button>
 									</div>
 								</div>
-								<p className='mt-2 text-[10px] truncate text-gray-400'>
+								<p className='mt-3 text-[11px] truncate text-gray-400 font-mono text-center'>
 									{img.key.split("/").pop()}
 								</p>
 							</div>
@@ -270,6 +284,6 @@ const ImageManager = () => {
 			)}
 		</div>
 	);
-};
+});
 
 export default ImageManager;

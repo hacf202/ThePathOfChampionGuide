@@ -1,4 +1,3 @@
-// src/pages/admin/itemEditor.jsx
 import { useState, memo, useEffect, useCallback, useMemo } from "react";
 import { useNavigate, Link, Routes, Route, useParams } from "react-router-dom";
 import GenericCard from "../../common/genericCard";
@@ -6,8 +5,11 @@ import Button from "../../common/button";
 import { removeAccents } from "../../../utils/vietnameseUtils";
 import SidePanel from "../../common/sidePanel";
 import ItemEditorForm from "./itemEditorForm";
-import { Loader2 } from "lucide-react";
-import { useTranslation } from "../../../hooks/useTranslation"; // IMPORT HOOK
+import { useTranslation } from "../../../hooks/useTranslation";
+
+// IMPORT CÁC COMPONENT CHUNG (Đường dẫn chuẩn mới)
+import AdminListLayout from "../common/adminListLayout";
+import { LoadingState, ErrorState } from "../common/stateDisplays";
 
 const NEW_ITEM_TEMPLATE = {
 	itemCode: "",
@@ -52,57 +54,31 @@ const ItemListView = memo(
 		const { tUI } = useTranslation();
 
 		return (
-			<div className='flex flex-col lg:flex-row gap-6'>
-				<div className='lg:w-4/5 bg-surface-bg rounded-lg p-4'>
-					{paginatedItems.length > 0 ? (
-						<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6'>
-							{paginatedItems.map(item => (
-								<Link
-									key={item.itemCode}
-									to={`./${item.itemCode}`}
-									className='block hover:scale-105 transition-transform duration-200'
-								>
-									<GenericCard item={item} onClick={() => {}} />
-								</Link>
-							))}
-						</div>
-					) : (
-						<div className='flex items-center justify-center h-full min-h-[300px] text-center text-text-secondary'>
-							<div>
-								<p className='font-semibold text-lg'>
-									{tUI("admin.item.notFound")}
-								</p>
-								<p>{tUI("admin.item.tryOtherFilter")}</p>
-							</div>
-						</div>
-					)}
-
-					{totalPages > 1 && (
-						<div className='mt-8 flex justify-center items-center gap-2 md:gap-4'>
-							<Button
-								onClick={() => onPageChange(currentPage - 1)}
-								disabled={currentPage === 1}
-								variant='outline'
-							>
-								{tUI("admin.common.prevPage")}
-							</Button>
-							<span className='text-lg font-medium text-text-primary'>
-								{currentPage} / {totalPages}
-							</span>
-							<Button
-								onClick={() => onPageChange(currentPage + 1)}
-								disabled={currentPage === totalPages}
-								variant='outline'
-							>
-								{tUI("admin.common.nextPage")}
-							</Button>
-						</div>
-					)}
+			<AdminListLayout
+				dataLength={paginatedItems.length}
+				totalPages={totalPages}
+				currentPage={currentPage}
+				onPageChange={onPageChange}
+				sidePanelProps={sidePanelProps}
+				emptyMessageTitle={
+					tUI("admin.item.notFound") || "Không tìm thấy Vật phẩm"
+				}
+				emptyMessageSub={
+					tUI("admin.item.tryOtherFilter") || "Vui lòng thử bộ lọc khác"
+				}
+			>
+				<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6'>
+					{paginatedItems.map(item => (
+						<Link
+							key={item.itemCode}
+							to={`./${item.itemCode}`}
+							className='block hover:scale-105 transition-transform duration-200'
+						>
+							<GenericCard item={item} onClick={() => {}} />
+						</Link>
+					))}
 				</div>
-				<div className='lg:w-1/5'>
-					<SidePanel {...sidePanelProps} />
-				</div>
-			</div>
+			</AdminListLayout>
 		);
 	},
 );
@@ -185,7 +161,6 @@ function ItemEditor() {
 	const fetchAllData = useCallback(async () => {
 		try {
 			setIsLoading(true);
-			// Sử dụng limit=1000 để lấy trọn bộ dữ liệu vật phẩm
 			const res = await fetch(`${API_BASE_URL}/api/items?limit=1000`);
 			if (!res.ok) throw new Error(tUI("admin.common.errorLoad"));
 			const data = await res.json();
@@ -207,7 +182,6 @@ function ItemEditor() {
 		try {
 			const token = localStorage.getItem("token");
 
-			// Dọn dẹp bản dịch rỗng
 			const payload = { ...data };
 			if (
 				!payload.translations?.en?.name &&
@@ -241,7 +215,7 @@ function ItemEditor() {
 	};
 
 	const handleDeleteItem = async id => {
-		if (!id || !window.confirm(tUI("admin.common.deleteConfirm"))) return;
+		if (!id) return;
 		setIsSaving(true);
 		try {
 			const token = localStorage.getItem("token");
@@ -263,8 +237,6 @@ function ItemEditor() {
 
 	const filterOptions = useMemo(() => {
 		const rarities = [...new Set(items.map(i => i.rarity).filter(Boolean))];
-
-		// Sắp xếp độ hiếm
 		rarities.sort((a, b) => (RARITY_WEIGHT[a] || 0) - (RARITY_WEIGHT[b] || 0));
 
 		return {
@@ -272,8 +244,14 @@ function ItemEditor() {
 			sort: [
 				{ value: "name-asc", label: tUI("admin.common.sortNameAsc") },
 				{ value: "name-desc", label: tUI("admin.common.sortNameDesc") },
-				{ value: "rarity-asc", label: tUI("admin.item.sortRarityAsc") },
-				{ value: "rarity-desc", label: tUI("admin.item.sortRarityDesc") },
+				{
+					value: "rarity-asc",
+					label: tUI("admin.item.sortRarityAsc") || "Độ hiếm tăng dần",
+				},
+				{
+					value: "rarity-desc",
+					label: tUI("admin.item.sortRarityDesc") || "Độ hiếm giảm dần",
+				},
 			],
 		};
 	}, [items, tUI]);
@@ -321,9 +299,10 @@ function ItemEditor() {
 	}, [items, searchTerm, selectedRarities, sortOrder, tDynamic]);
 
 	const sidePanelProps = {
-		searchPlaceholder: tUI("admin.item.searchPlaceholder"),
-		addLabel: tUI("admin.item.addNew"),
-		resetLabel: tUI("admin.item.resetFilter"),
+		searchPlaceholder:
+			tUI("admin.item.searchPlaceholder") || "Tìm tên, mô tả...",
+		addLabel: tUI("admin.item.addNew") || "Thêm Vật phẩm mới",
+		resetLabel: tUI("admin.item.resetFilter") || "Đặt lại bộ lọc",
 		searchInput,
 		onSearchInputChange: e => setSearchInput(e.target.value),
 		onSearch: () => {
@@ -344,11 +323,11 @@ function ItemEditor() {
 		},
 		multiFilterConfigs: [
 			{
-				label: tUI("admin.item.rarity"),
+				label: tUI("admin.item.rarity") || "Độ hiếm",
 				options: filterOptions.rarities,
 				selectedValues: selectedRarities,
 				onChange: setSelectedRarities,
-				placeholder: tUI("admin.item.allRarities"),
+				placeholder: tUI("admin.item.allRarities") || "Tất cả độ hiếm",
 			},
 		],
 		sortOptions: filterOptions.sort,
@@ -356,18 +335,8 @@ function ItemEditor() {
 		onSortChange: setSortOrder,
 	};
 
-	if (isLoading) {
-		return (
-			<div className='flex flex-col items-center justify-center min-h-[400px] text-text-secondary'>
-				<Loader2 className='animate-spin text-primary-500' size={48} />
-				<div className='text-lg mt-4'>{tUI("admin.common.loading")}</div>
-			</div>
-		);
-	}
-
-	if (error) {
-		return <div className='text-center p-10 text-red-500'>{error}</div>;
-	}
+	if (isLoading) return <LoadingState text={tUI("admin.common.loading")} />;
+	if (error) return <ErrorState message={error} />;
 
 	return (
 		<div className='font-secondary'>

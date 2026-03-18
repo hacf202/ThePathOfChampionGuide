@@ -1,7 +1,7 @@
-// src/components/build/BuildEditorForm.jsx
+// src/components/admin/builds/buildEditorForm.jsx
 import { useState, useEffect, memo } from "react";
-import Button from "../../common/button";
-import { useTranslation } from "../../../hooks/useTranslation"; // IMPORT HOOK
+import { useTranslation } from "../../../hooks/useTranslation";
+import EditorHeaderToolbar from "../common/editorHeaderToolbar";
 
 const ArrayInputComponent = ({ label, data = [], onChange }) => {
 	const { tUI } = useTranslation();
@@ -29,7 +29,7 @@ const ArrayInputComponent = ({ label, data = [], onChange }) => {
 				<button
 					onClick={handleAddItem}
 					type='button'
-					className='px-3 py-1 text-xs font-semibold text-white bg-[var(--color-primary)] rounded hover:bg-[var(--color-primary-hover)]  '
+					className='px-3 py-1 text-xs font-semibold text-white bg-[var(--color-primary)] rounded hover:bg-[var(--color-primary-hover)]'
 				>
 					+ {tUI("admin.common.add")}
 				</button>
@@ -45,12 +45,12 @@ const ArrayInputComponent = ({ label, data = [], onChange }) => {
 								type='text'
 								value={item}
 								onChange={e => handleItemChange(index, e.target.value)}
-								className='flex-1 p-2 bg-[var(--color-background)] border border-[var(--color-border)] rounded-md font-mono text-sm focus:outline-none focus:border-[var(--color-primary)]  '
+								className='flex-1 p-2 bg-[var(--color-background)] border border-[var(--color-border)] rounded-md font-mono text-sm focus:outline-none focus:border-[var(--color-primary)]'
 							/>
 							<button
 								type='button'
 								onClick={() => handleRemoveItem(index)}
-								className='p-2 text-red-500 hover:bg-red-500/10 rounded-md  '
+								className='p-2 text-red-500 hover:bg-red-500/10 rounded-md'
 								title={tUI("admin.common.delete")}
 							>
 								X
@@ -67,17 +67,17 @@ const ArrayInputComponent = ({ label, data = [], onChange }) => {
 	);
 };
 
-const BuildEditorForm = ({ item, onSave, isSaving, onDirtyChange }) => {
+const BuildEditorForm = ({ item, onSave, onDelete, onCancel, isSaving }) => {
 	const { tUI } = useTranslation();
 	const [formData, setFormData] = useState({});
 	const [initialData, setInitialData] = useState({});
+	const [isDirty, setIsDirty] = useState(false);
 
 	// Khởi tạo và đồng bộ object đa ngôn ngữ
 	useEffect(() => {
 		if (item) {
 			const clonedItem = JSON.parse(JSON.stringify(item));
 
-			// Đảm bảo object translations luôn tồn tại cho mô tả (description)
 			if (!clonedItem.translations) {
 				clonedItem.translations = { en: { description: "" } };
 			}
@@ -91,10 +91,8 @@ const BuildEditorForm = ({ item, onSave, isSaving, onDirtyChange }) => {
 	}, [item]);
 
 	useEffect(() => {
-		if (onDirtyChange) {
-			onDirtyChange(JSON.stringify(formData) !== JSON.stringify(initialData));
-		}
-	}, [formData, initialData, onDirtyChange]);
+		setIsDirty(JSON.stringify(formData) !== JSON.stringify(initialData));
+	}, [formData, initialData]);
 
 	const handleInputChange = e => {
 		const { name, value, type, checked } = e.target;
@@ -120,24 +118,29 @@ const BuildEditorForm = ({ item, onSave, isSaving, onDirtyChange }) => {
 
 	const handleSubmit = e => {
 		e.preventDefault();
-
 		const payload = { ...formData };
-		// Dọn dẹp object translations rỗng trước khi gửi lên API
 		if (!payload.translations?.en?.description) {
 			delete payload.translations;
 		}
-
 		onSave(payload);
 	};
 
 	return (
 		<form onSubmit={handleSubmit} className='space-y-6'>
-			<button id='btn-submit-build' type='submit' className='hidden' />
+			{/* ÁP DỤNG TOOLBAR QUẢN LÝ CHUNG */}
+			<EditorHeaderToolbar
+				title={`${tUI("admin.buildForm.editTitle")} ${formData.championName || ""}`}
+				isNew={false} // Chỉnh sửa Build từ Admin chỉ là Edit, không có Create
+				isDirty={isDirty}
+				isSaving={isSaving}
+				onCancel={onCancel}
+				onDelete={() => onDelete(formData.id)}
+				itemName={formData.championName}
+			/>
 
-			<div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
+			<div className='grid grid-cols-1 lg:grid-cols-2 gap-6 pb-24'>
 				{/* Cột trái */}
 				<div className='space-y-6'>
-					{/* Khối Thông tin cơ bản */}
 					<div className='p-5 border border-[var(--color-border)] rounded-xl bg-[var(--color-surface)] shadow-sm'>
 						<h3 className='text-lg font-bold text-[var(--color-primary)] mb-4 border-b border-[var(--color-border)] pb-2'>
 							{tUI("admin.buildForm.basicInfo")}
@@ -152,7 +155,7 @@ const BuildEditorForm = ({ item, onSave, isSaving, onDirtyChange }) => {
 									name='championName'
 									value={formData.championName || ""}
 									onChange={handleInputChange}
-									className='w-full p-2.5 mt-1 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg font-bold text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-primary)]  '
+									className='w-full p-2.5 mt-1 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg font-bold text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-primary)]'
 									required
 								/>
 							</div>
@@ -169,7 +172,7 @@ const BuildEditorForm = ({ item, onSave, isSaving, onDirtyChange }) => {
 											regions: e.target.value.split(",").map(r => r.trim()),
 										})
 									}
-									className='w-full p-2.5 mt-1 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-primary)]  '
+									className='w-full p-2.5 mt-1 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-primary)]'
 									placeholder='Demacia, Noxus...'
 								/>
 							</div>
@@ -184,7 +187,7 @@ const BuildEditorForm = ({ item, onSave, isSaving, onDirtyChange }) => {
 									onChange={handleInputChange}
 									min='0'
 									max='7'
-									className='w-full p-2.5 mt-1 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-primary)]  '
+									className='w-full p-2.5 mt-1 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-primary)]'
 								/>
 							</div>
 							<div>
@@ -195,7 +198,7 @@ const BuildEditorForm = ({ item, onSave, isSaving, onDirtyChange }) => {
 									name='description'
 									value={formData.description || ""}
 									onChange={handleInputChange}
-									className='w-full p-3 mt-1 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg min-h-[120px] text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-primary)]   resize-none'
+									className='w-full p-3 mt-1 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg min-h-[120px] text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-primary)] resize-none'
 								/>
 							</div>
 							<div>
@@ -206,7 +209,7 @@ const BuildEditorForm = ({ item, onSave, isSaving, onDirtyChange }) => {
 									name='description'
 									value={formData.translations?.en?.description || ""}
 									onChange={e => handleTranslationChange(e, "en")}
-									className='w-full p-3 mt-1 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg min-h-[120px] text-[var(--color-text-primary)] focus:outline-none focus:border-blue-500   resize-none'
+									className='w-full p-3 mt-1 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg min-h-[120px] text-[var(--color-text-primary)] focus:outline-none focus:border-blue-500 resize-none'
 									placeholder='English Description...'
 								/>
 							</div>
@@ -216,7 +219,6 @@ const BuildEditorForm = ({ item, onSave, isSaving, onDirtyChange }) => {
 
 				{/* Cột phải */}
 				<div className='space-y-6'>
-					{/* Khối Trang bị */}
 					<div className='p-5 border border-[var(--color-border)] rounded-xl bg-[var(--color-surface)] shadow-sm'>
 						<h3 className='text-lg font-bold text-amber-500 mb-4 border-b border-[var(--color-border)] pb-2'>
 							{tUI("admin.buildForm.equipment")}
@@ -240,7 +242,6 @@ const BuildEditorForm = ({ item, onSave, isSaving, onDirtyChange }) => {
 						</div>
 					</div>
 
-					{/* Khối Hiển thị và Tương tác */}
 					<div className='p-5 border border-[var(--color-border)] rounded-xl bg-[var(--color-surface)] shadow-sm grid grid-cols-2 gap-4'>
 						<div className='col-span-2'>
 							<h3 className='text-lg font-bold text-emerald-500 mb-3 border-b border-[var(--color-border)] pb-2'>
@@ -297,7 +298,7 @@ const BuildEditorForm = ({ item, onSave, isSaving, onDirtyChange }) => {
 										value={formData.like || 0}
 										onChange={handleInputChange}
 										min='0'
-										className='w-full p-2.5 mt-1 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-[var(--color-text-primary)] focus:outline-none focus:border-blue-500  '
+										className='w-full p-2.5 mt-1 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-[var(--color-text-primary)] focus:outline-none focus:border-blue-500'
 									/>
 								</div>
 								<div>
@@ -310,7 +311,7 @@ const BuildEditorForm = ({ item, onSave, isSaving, onDirtyChange }) => {
 										value={formData.views || 0}
 										onChange={handleInputChange}
 										min='0'
-										className='w-full p-2.5 mt-1 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-[var(--color-text-primary)] focus:outline-none focus:border-blue-500  '
+										className='w-full p-2.5 mt-1 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-[var(--color-text-primary)] focus:outline-none focus:border-blue-500'
 									/>
 								</div>
 							</div>
