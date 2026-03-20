@@ -38,10 +38,10 @@ export default function MapList() {
 		return {
 			difficulties: difficulties.map(d => ({
 				value: d.toString(),
-				label: `${d} Sao`,
+				label: `${d} ${tUI("mapList.star") || "Sao"}`,
 			})),
 		};
-	}, [adventures]);
+	}, [adventures, tUI]);
 
 	const filteredAdventures = useMemo(() => {
 		let result = [...adventures];
@@ -69,11 +69,11 @@ export default function MapList() {
 	// Hàm render các bộ lọc (truyền vào GenericListLayout)
 	const renderFilters = () => (
 		<MultiSelectFilter
-			label={tUI("mapList.difficulty", "Độ khó")}
+			label={tUI("mapList.difficulty") || "Độ khó"}
 			options={filterOptions.difficulties}
 			selectedValues={selectedDifficulty}
 			onChange={setSelectedDifficulty}
-			placeholder='Tất cả độ khó'
+			placeholder={tUI("mapList.allDifficulties") || "Tất cả độ khó"}
 		/>
 	);
 
@@ -84,9 +84,12 @@ export default function MapList() {
 
 	return (
 		<GenericListLayout
-			pageTitle={tUI("mapList.pageTitle", "Danh Sách Bản Đồ")}
-			pageDescription='Tổng hợp tất cả bản đồ (Adventures) và Boss trong trò chơi.'
-			heading={tUI("mapList.pageTitle", "Danh Sách Bản Đồ")}
+			pageTitle={tUI("mapList.pageTitle") || "Danh Sách Bản Đồ"}
+			pageDescription={
+				tUI("mapList.pageDescription") ||
+				"Tổng hợp tất cả bản đồ (Adventures) và Boss trong trò chơi."
+			}
+			heading={tUI("mapList.pageTitle") || "Danh Sách Bản Đồ"}
 			// Data
 			data={filteredAdventures}
 			loading={loading}
@@ -94,7 +97,9 @@ export default function MapList() {
 			searchValue={searchTerm}
 			onSearchChange={setSearchTerm}
 			onSearchSubmit={() => {}} // Có thể để trống nếu tìm kiếm realtime
-			searchPlaceholder={tUI("mapList.searchPlaceholder", "Tìm kiếm bản đồ...")}
+			searchPlaceholder={
+				tUI("mapList.searchPlaceholder") || "Tìm kiếm bản đồ..."
+			}
 			// Actions & Filters
 			onResetFilters={() => {
 				setSearchTerm("");
@@ -136,7 +141,7 @@ export default function MapList() {
 									XP: {item.championXP || 0}
 								</span>
 								<span className='text-xs text-text-secondary'>
-									{item.Bosses?.length || 0} Bosses
+									{item.Bosses?.length || 0} {tUI("mapList.bosses") || "Bosses"}
 								</span>
 							</div>
 						</div>

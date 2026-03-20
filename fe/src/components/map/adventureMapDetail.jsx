@@ -16,6 +16,7 @@ import {
 	ZoomOut,
 	RefreshCcw,
 	Info,
+	Flag,
 } from "lucide-react";
 
 // Hooks & API
@@ -29,8 +30,9 @@ import Button from "../common/button";
 import SafeImage from "../common/SafeImage";
 import GoogleAd from "../common/googleAd";
 
-// Import file icon
+// Import file data
 import iconData from "../../assets/data/icon.json";
+import nodeTypesData from "../../assets/data/nodeTypes.json";
 
 // =====================================================================
 // --- SUB-COMPONENT: MAP DETAIL SKELETON (NEW) ---
@@ -121,7 +123,6 @@ const AdventureNode = ({
 			? `${node.position.y}%`
 			: node.position?.y || "0%";
 
-	// Giữ kích thước icon ổn định khi zoom
 	const inverseScale = 1 / Math.pow(zoom, 0.75);
 
 	const handleInteraction = e => {
@@ -136,7 +137,6 @@ const AdventureNode = ({
 		if (active) onShowTooltip(null, null);
 	};
 
-	// TÌM ẢNH BOSS (Nếu Node là Boss và có ID Boss)
 	let bossImage = null;
 	if (node.nodeType === "Boss" && node.bosses && node.bosses.length > 0) {
 		const firstBossId = node.bosses[0];
@@ -168,17 +168,17 @@ const AdventureNode = ({
 				<div
 					className={`relative flex items-center justify-center transition-transform duration-300 ${active ? "scale-125" : "hover:scale-110"}`}
 				>
-					{/* Hiệu ứng Glow tỏa sáng phía sau (Đã tối ưu GPU cho Mobile) */}
 					<div
-						className={`absolute inset-0 rounded-full blur-xl transition-opacity duration-500 will-change-opacity ${active ? (node.nodeType === "Boss" ? "opacity-70 bg-red-500 animate-pulse" : "opacity-70 bg-yellow-400 animate-pulse") : "opacity-0"}`}
+						className={`absolute inset-0 rounded-full blur-xl transition-opacity duration-500 will-change-opacity ${active ? (node.nodeType === "Boss" ? "opacity-70 bg-red-500 animate-pulse" : node.nodeType === "Start" ? "opacity-70 bg-emerald-500 animate-pulse" : "opacity-70 bg-yellow-400 animate-pulse") : "opacity-0"}`}
 					/>
 
-					{/* Kích thước và viền */}
 					<div
 						className={`relative flex items-center justify-center w-[25px] h-[25px] sm:w-[40px] sm:h-[40px] rounded-full border-2 overflow-hidden shadow-lg ${
 							node.nodeType === "Boss"
 								? "bg-red-950 border-red-500 shadow-red-500/50"
-								: "bg-slate-800/90 border-yellow-500 shadow-yellow-500/50"
+								: node.nodeType === "Start"
+									? "bg-emerald-950 border-emerald-500 shadow-emerald-500/50"
+									: "bg-slate-800/90 border-yellow-500 shadow-yellow-500/50"
 						}`}
 					>
 						{node.nodeType === "Boss" ? (
@@ -191,6 +191,8 @@ const AdventureNode = ({
 							) : (
 								<Swords size={20} className='text-red-400 drop-shadow-md' />
 							)
+						) : node.nodeType === "Start" ? (
+							<Flag size={20} className='text-emerald-400 drop-shadow-md' />
 						) : (
 							<HelpCircle
 								size={20}
@@ -238,12 +240,15 @@ const AdventureLine = ({ x1, y1, x2, y2, zoom }) => {
 // =====================================================================
 const AdventureMapVisualizer = ({ nodes, background, resolvedBosses }) => {
 	const mapRef = useRef(null);
+	const { tUI, tDynamic } = useTranslation();
 	const [zoom, setZoom] = useState(1);
 	const [pan, setPan] = useState({ x: 0, y: 0 });
 	const [isDragging, setIsDragging] = useState(false);
 	const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
 	const [hoveredNode, setHoveredNode] = useState(null);
 	const [tooltipCoords, setTooltipCoords] = useState(null);
+
+	const [aspectRatio, setAspectRatio] = useState("16/9");
 
 	const [isMobile, setIsMobile] = useState(
 		typeof window !== "undefined" ? window.innerWidth < 640 : false,
@@ -346,7 +351,7 @@ const AdventureMapVisualizer = ({ nodes, background, resolvedBosses }) => {
 				top: `${tooltipCoords.y}px`,
 				transform: `translate(${tooltipTransformX}, -100%)`,
 				width: "max-content",
-				maxWidth: "280px",
+				maxWidth: "300px",
 			};
 			arrowStyle = { left: arrowLeft, transform: "translateX(-50%)" };
 		}
@@ -354,7 +359,8 @@ const AdventureMapVisualizer = ({ nodes, background, resolvedBosses }) => {
 
 	return (
 		<div
-			className={`relative w-full aspect-video md:aspect-[21/9] bg-surface-bg border border-border rounded-lg overflow-hidden shadow-2xl group select-none touch-none ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
+			className={`relative w-full bg-surface-bg border border-border rounded-lg overflow-hidden shadow-2xl group select-none touch-none ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
+			style={{ aspectRatio: aspectRatio }}
 			ref={mapRef}
 			onMouseDown={handleMouseDown}
 			onMouseMove={handleMouseMove}
@@ -371,21 +377,21 @@ const AdventureMapVisualizer = ({ nodes, background, resolvedBosses }) => {
 			>
 				<button
 					onClick={() => setZoom(z => Math.min(z + 0.5, 3))}
-					title='Phóng to'
+					title={tUI("common.zoomIn") || "Phóng to"}
 					className='p-1.5 sm:p-2 text-text-primary bg-surface-hover hover:bg-primary-500 hover:text-white rounded-lg transition-all duration-200 shadow-sm'
 				>
 					<ZoomIn size={isMobile ? 18 : 22} />
 				</button>
 				<button
 					onClick={handleReset}
-					title='Đặt lại'
+					title={tUI("common.reset") || "Đặt lại"}
 					className='p-1.5 sm:p-2 text-text-primary bg-surface-hover hover:bg-primary-500 hover:text-white rounded-lg transition-all duration-200 shadow-sm'
 				>
 					<RefreshCcw size={isMobile ? 16 : 20} />
 				</button>
 				<button
 					onClick={() => setZoom(z => Math.max(z - 0.5, 0.5))}
-					title='Thu nhỏ'
+					title={tUI("common.zoomOut") || "Thu nhỏ"}
 					className='p-1.5 sm:p-2 text-text-primary bg-surface-hover hover:bg-primary-500 hover:text-white rounded-lg transition-all duration-200 shadow-sm'
 				>
 					<ZoomOut size={isMobile ? 18 : 22} />
@@ -402,7 +408,13 @@ const AdventureMapVisualizer = ({ nodes, background, resolvedBosses }) => {
 					<img
 						src={background}
 						alt='Map Background'
-						className='absolute inset-0 w-full h-full object-cover opacity-30 pointer-events-none'
+						onLoad={e => {
+							const { naturalWidth, naturalHeight } = e.target;
+							if (naturalWidth && naturalHeight) {
+								setAspectRatio(`${naturalWidth}/${naturalHeight}`);
+							}
+						}}
+						className='absolute inset-0 w-full h-full object-fill opacity-30 pointer-events-none'
 						draggable={false}
 					/>
 				)}
@@ -466,41 +478,58 @@ const AdventureMapVisualizer = ({ nodes, background, resolvedBosses }) => {
 				tooltipCoords &&
 				!isDragging &&
 				createPortal(
-					<div
-						className='fixed bg-surface-bg border border-primary-500 rounded-lg shadow-2xl p-3 z-[9999] pointer-events-none'
-						style={tooltipStyle}
-					>
-						<h3 className='text-primary-500 font-bold text-sm uppercase mb-1 flex items-center justify-between'>
-							<span>{hoveredNode.nodeType}</span>
-							<span className='text-[10px] bg-primary-500/20 px-1.5 py-0.5 rounded ml-2'>
-								{hoveredNode.nodeID}
-							</span>
-						</h3>
+					(() => {
+						const nodeInfo =
+							nodeTypesData.find(t => t.nodeType === hoveredNode.nodeType) ||
+							{};
+						const nodeDescription =
+							tDynamic(nodeInfo, "description") ||
+							tUI("adventureMap.noNodeDescription") ||
+							"Không có mô tả chi tiết cho loại Node này.";
 
-						{hoveredNode.bosses && hoveredNode.bosses.length > 0 ? (
-							<div className='mt-2 space-y-1'>
-								<p className='text-text-secondary text-xs font-semibold'>
-									Thành phần:
+						return (
+							<div
+								className='fixed bg-surface-bg border border-primary-500 rounded-lg shadow-2xl p-3 z-[9999] pointer-events-none'
+								style={tooltipStyle}
+							>
+								<h3 className='text-primary-500 font-bold text-sm uppercase mb-1 flex items-center justify-between'>
+									<span>{hoveredNode.nodeType}</span>
+									<span className='text-[10px] bg-primary-500/20 px-1.5 py-0.5 rounded ml-2'>
+										{hoveredNode.nodeID}
+									</span>
+								</h3>
+
+								<p className='text-xs text-text-primary mb-2 opacity-90 italic border-b border-border/50 pb-2'>
+									{nodeDescription}
 								</p>
-								<ul className='text-sm font-bold text-text-primary list-disc pl-4 marker:text-yellow-500'>
-									{hoveredNode.bosses.map((b, i) => {
-										const bName =
-											resolvedBosses?.find(rb => rb.bossID === b)?.bossName ||
-											b;
-										return <li key={i}>{bName}</li>;
-									})}
-								</ul>
+
+								{hoveredNode.bosses && hoveredNode.bosses.length > 0 ? (
+									<div className='mt-2 space-y-1'>
+										<p className='text-text-secondary text-xs font-semibold'>
+											{tUI("adventureMap.components") || "Thành phần:"}
+										</p>
+										<ul className='text-sm font-bold text-text-primary list-disc pl-4 marker:text-yellow-500'>
+											{hoveredNode.bosses.map((b, i) => {
+												const bName =
+													resolvedBosses?.find(rb => rb.bossID === b)
+														?.bossName || b;
+												return <li key={i}>{bName}</li>;
+											})}
+										</ul>
+									</div>
+								) : (
+									<p className='text-text-secondary text-xs italic mt-1'>
+										{tUI("adventureMap.noEnemyInfo") ||
+											"Không có thông tin kẻ địch."}
+									</p>
+								)}
+								<div
+									className='absolute top-full border-8 border-transparent border-t-primary-500'
+									style={arrowStyle}
+								/>
 							</div>
-						) : (
-							<p className='text-text-secondary text-xs italic mt-1'>
-								Không có thông tin chi tiết.
-							</p>
-						)}
-						<div
-							className='absolute top-full border-8 border-transparent border-t-primary-500'
-							style={arrowStyle}
-						/>
-					</div>,
+						);
+					})(),
 					document.body,
 				)}
 		</div>
@@ -520,7 +549,7 @@ const RenderPowerCard = ({ power }) => {
 
 	return (
 		<Link to={`/power/${power.powerCode || power.id}`} className='block h-full'>
-			<div className='flex items-start gap-3 bg-surface-hover/50 rounded-lg h-full hover:border-primary-500 transition-colors'>
+			<div className='flex items-start gap-3 bg-surface-hover/50 rounded-lg h-full hover:border-primary-500 transition-colors p-2'>
 				<SafeImage
 					src={power.assetAbsolutePath || power.image || "/fallback-image.svg"}
 					alt={powerName}
@@ -586,9 +615,11 @@ function AdventureMapDetail() {
 		return (
 			<div className='flex flex-col items-center justify-center py-20 text-center'>
 				<ShieldAlert size={48} className='text-red-500 mb-4 opacity-50' />
-				<p className='text-xl text-text-primary mb-6'>{error}</p>
+				<p className='text-xl text-text-primary mb-6'>
+					{tUI("adventureMap.errorLoad") || error}
+				</p>
 				<Button onClick={() => navigate("/maps")} variant='primary'>
-					Quay lại danh sách
+					{tUI("common.backToList") || "Quay lại danh sách"}
 				</Button>
 			</div>
 		);
@@ -598,13 +629,15 @@ function AdventureMapDetail() {
 		<div className='animate-fadeIn font-secondary max-w-[1000px] mx-auto p-2 md:p-6 pb-20'>
 			<PageTitle
 				title={
-					adventure ? tDynamic(adventure, "adventureName") : "Chi tiết bản đồ"
+					adventure
+						? tDynamic(adventure, "adventureName")
+						: tUI("adventureMap.detailTitle") || "Chi tiết bản đồ"
 				}
-				description={`Hướng dẫn chi tiết bản đồ ${adventure?.adventureName || ""}`}
+				description={`${tUI("adventureMap.detailDesc") || "Hướng dẫn chi tiết bản đồ"} ${adventure?.adventureName || ""}`}
 			/>
 
 			<Button variant='outline' onClick={() => navigate(-1)} className='mb-4'>
-				<ChevronLeft size={18} /> Quay lại
+				<ChevronLeft size={18} /> {tUI("common.back") || "Quay lại"}
 			</Button>
 
 			<AnimatePresence mode='wait'>
@@ -616,7 +649,6 @@ function AdventureMapDetail() {
 						exit={{ opacity: 0 }}
 						className='w-full'
 					>
-						{/* Sử dụng Component Skeleton mới tạo */}
 						<MapDetailSkeleton />
 					</motion.div>
 				) : (
@@ -630,7 +662,11 @@ function AdventureMapDetail() {
 						<section className='relative rounded-2xl overflow-hidden border border-border shadow-md bg-surface-bg w-full'>
 							<div className='absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent z-10'></div>
 							<img
-								src={adventure.background || "/images/placeholder-bg.jpg"}
+								src={
+									adventure.assetAbsolutePath ||
+									adventure.background ||
+									"/images/placeholder-bg.jpg"
+								}
 								alt={tDynamic(adventure, "adventureName")}
 								className='w-full h-[250px] md:h-[350px] object-cover opacity-80'
 							/>
@@ -651,7 +687,7 @@ function AdventureMapDetail() {
 								</div>
 								<div className='bg-emerald-500/20 border border-emerald-500/50 text-white px-4 py-2 rounded-lg flex flex-col items-center'>
 									<span className='text-xs uppercase font-bold tracking-wider'>
-										Champion XP
+										{tUI("adventureMap.championXp") || "Champion XP"}
 									</span>
 									<span className='text-xl font-black'>
 										{adventure.championXP?.toLocaleString() || 0}
@@ -664,7 +700,8 @@ function AdventureMapDetail() {
 						{adventure.nodes && adventure.nodes.length > 0 && (
 							<section className='bg-surface-bg border border-border rounded-xl p-2 md:p-4 shadow-sm w-full'>
 								<h2 className='text-xl font-bold text-pink-500 font-primary uppercase flex items-center gap-2 border-b border-border pb-2'>
-									<MapIcon size={20} /> Bản Đồ Phiêu Lưu
+									<MapIcon size={20} />{" "}
+									{tUI("adventureMap.adventureMapTitle") || "Bản Đồ Phiêu Lưu"}
 								</h2>
 								<div className='mt-4'>
 									<AdventureMapVisualizer
@@ -680,7 +717,8 @@ function AdventureMapDetail() {
 						{resolvedRules.length > 0 && (
 							<section className='bg-surface-bg border border-border rounded-xl p-2 md:p-4 shadow-sm w-full'>
 								<h2 className='text-xl font-bold text-primary-500 font-primary uppercase mb-4 flex items-center gap-2 border-b border-border pb-2'>
-									<Swords size={20} /> Luật Chơi Đặc Biệt
+									<Swords size={20} />{" "}
+									{tUI("adventureMap.specialRules") || "Luật Chơi Đặc Biệt"}
 								</h2>
 								<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
 									{resolvedRules.map((power, idx) => (
@@ -694,46 +732,62 @@ function AdventureMapDetail() {
 						{resolvedBosses.length > 0 && (
 							<section className='bg-surface-bg border border-border rounded-xl p-2 md:p-4 shadow-sm w-full'>
 								<h2 className='text-xl font-bold text-red-500 font-primary uppercase mb-4 flex items-center gap-2 border-b border-border pb-2'>
-									<ShieldAlert size={20} /> Danh sách Boss
+									<ShieldAlert size={20} />{" "}
+									{tUI("adventureMap.bossList") || "Danh sách Boss"}
 								</h2>
-								<div className='grid grid-cols-1 gap-4'>
-									{resolvedBosses.map((boss, idx) => (
-										<div
-											key={idx}
-											className=' gap-4 bg-surface-hover/30 rounded-lg p-1 border border-border items-start'
-										>
-											<div className='flex-1 space-y-2'>
-												<div className='flex gap-2'>
-													<SafeImage
-														src={boss.background || "/fallback-image.svg"}
-														alt={tDynamic(boss, "bossName")}
-														className='w-10 h-10 object-cover rounded-lg shadow-sm border border-border bg-surface-bg shrink-0'
-													/>
+								<div className='grid grid-cols-1 gap-6'>
+									{resolvedBosses.map((boss, idx) => {
+										const bossPowers = boss.resolvedPowers
+											? boss.resolvedPowers
+											: boss.resolvedPower
+												? [boss.resolvedPower]
+												: [];
+
+										return (
+											<div
+												key={idx}
+												className='flex flex-col sm:flex-row gap-4 bg-surface-hover/30 rounded-lg p-3 md:p-4 border border-border items-start shadow-sm'
+											>
+												<SafeImage
+													src={boss.background || "/fallback-image.svg"}
+													alt={tDynamic(boss, "bossName")}
+													className='w-16 h-16 md:w-20 md:h-20 object-cover rounded-lg shadow-sm border border-border bg-surface-bg shrink-0'
+												/>
+												<div className='flex-1 space-y-3 w-full'>
 													<h3 className='text-lg font-bold text-text-primary'>
 														{tDynamic(boss, "bossName")}
 													</h3>
-												</div>
-												{boss.resolvedPower ? (
-													<div className='mt-2'>
-														<RenderPowerCard power={boss.resolvedPower} />
-													</div>
-												) : (
-													<p className='text-sm text-text-secondary italic'>
-														Không có sức mạnh đặc biệt.
-													</p>
-												)}
 
-												{boss.note && (
-													<div className='mt- p-2 rounded-md flex items-start gap-2.5'>
-														<div className='text-sm text-text-secondary leading-relaxed whitespace-pre-line'>
-															<span className='font-bold mt-1'>Lưu ý: </span>
-															{boss.note}
+													{bossPowers.length > 0 ? (
+														<div className='grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2'>
+															{bossPowers.map((p, pIdx) => (
+																<div key={pIdx} className='h-full'>
+																	<RenderPowerCard power={p} />
+																</div>
+															))}
 														</div>
-													</div>
-												)}
+													) : (
+														<p className='text-sm text-text-secondary italic'>
+															{tUI("adventureMap.noSpecialPower") ||
+																"Không có sức mạnh đặc biệt."}
+														</p>
+													)}
+
+													{boss.note && (
+														<div className='mt-3 p-3 bg-surface-bg rounded-md flex items-start gap-2.5 border border-border/50'>
+															<div className='text-sm text-text-secondary leading-relaxed whitespace-pre-line'>
+																<span className='font-bold text-primary-500 mt-1 uppercase text-xs tracking-wider'>
+																	{tUI("adventureMap.note") || "Lưu ý:"}
+																</span>
+																<br />
+																{boss.note}
+															</div>
+														</div>
+													)}
+												</div>
 											</div>
-										</div>
-									))}
+										);
+									})}
 								</div>
 							</section>
 						)}
@@ -743,14 +797,16 @@ function AdventureMapDetail() {
 							adventure.requirement?.regions?.length > 0) && (
 							<section className='bg-surface-bg border border-border rounded-xl p-2 md:p-4 shadow-sm w-full'>
 								<h2 className='text-xl font-bold text-primary-500 font-primary uppercase mb-4 flex items-center gap-2 border-b border-border pb-2'>
-									<Compass size={20} /> Tướng / Khu Vực Yêu Cầu
+									<Compass size={20} />{" "}
+									{tUI("adventureMap.requirementTitle") ||
+										"Tướng / Khu Vực Yêu Cầu"}
 								</h2>
 
 								<div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
 									{resolvedChampions.length > 0 && (
 										<div>
 											<h3 className='text-sm text-text-secondary mb-3 font-semibold'>
-												Tướng Yêu cầu
+												{tUI("adventureMap.champReq") || "Tướng Yêu Cầu:"}
 											</h3>
 											<div className='flex flex-wrap gap-3'>
 												{resolvedChampions.map((champ, i) => {
@@ -786,7 +842,7 @@ function AdventureMapDetail() {
 									{adventure.requirement?.regions?.length > 0 && (
 										<div>
 											<h3 className='text-sm text-text-secondary mb-3 font-semibold'>
-												Khu Vực Yêu Cầu:
+												{tUI("adventureMap.regionReq") || "Khu Vực Yêu Cầu:"}
 											</h3>
 											<div className='flex flex-wrap gap-3'>
 												{adventure.requirement.regions.map((reg, i) => (
@@ -819,7 +875,8 @@ function AdventureMapDetail() {
 						{adventure.rewards && adventure.rewards.length > 0 && (
 							<section className='w-full'>
 								<h2 className='text-xl font-bold text-yellow-500 font-primary uppercase mb-2 flex items-center gap-2'>
-									<Gift size={20} /> Mốc Thưởng
+									<Gift size={20} />{" "}
+									{tUI("adventureMap.rewardMilestone") || "Mốc Thưởng"}
 								</h2>
 
 								<div className='bg-surface-bg rounded-lg overflow-hidden border border-border shadow-sm'>
@@ -828,10 +885,11 @@ function AdventureMapDetail() {
 											<thead>
 												<tr className='bg-surface-hover/50 text-text-secondary text-xs sm:text-sm border-b border-border'>
 													<th className='py-3 px-3 sm:px-4 w-1/4 font-bold border-r border-border/50 uppercase tracking-wide'>
-														Phần thưởng
+														{tUI("adventureMap.reward") || "Phần thưởng"}
 													</th>
 													<th className='py-3 px-3 sm:px-4 font-bold uppercase tracking-wide'>
-														Danh sách Phẩn Thưởng
+														{tUI("adventureMap.rewardList") ||
+															"Danh sách Phần Thưởng"}
 													</th>
 												</tr>
 											</thead>
@@ -842,7 +900,8 @@ function AdventureMapDetail() {
 														className='hover:bg-surface-hover/40 transition-colors'
 													>
 														<td className='py-3 px-3 sm:px-4 align-middle border-r border-border/50 text-xs sm:text-sm font-semibold text-text-primary'>
-															Mốc thưởng {idx + 1}
+															{tUI("adventureMap.milestone") || "Mốc thưởng"}{" "}
+															{idx + 1}
 														</td>
 														<td className='py-3 px-3 sm:px-4 align-middle'>
 															<div className='flex flex-wrap gap-2 sm:gap-3'>

@@ -1,0 +1,110 @@
+[
+	{
+		"nodeType": "Start",
+		"description": "Điểm bắt đầu của cuộc phiêu lưu. Nơi người chơi bắt đầu hành trình và chuẩn bị đội hình trước khi tiến bước.",
+		"translations": {
+			"en": {
+				"description": "The starting point of the adventure. Where the player begins their journey and prepares their deck before venturing forth."
+			}
+		}
+	},
+	{
+		"nodeType": "Power",
+		"description": "Cung cấp các bùa lợi (Powers) vĩnh viễn cho người chơi để tăng cường sức mạnh đội hình trong suốt chuyến phiêu lưu.",
+		"translations": {
+			"en": {
+				"description": "Grants permanent buffs (Powers) to the player to strengthen their deck throughout the adventure."
+			}
+		}
+	},
+	{
+		"nodeType": "Boss",
+		"description": "Trận chiến với trùm cuối của khu vực hoặc màn chơi. Có độ khó cao nhất, bắt buộc phải vượt qua và mang lại phần thưởng lớn nhất.",
+		"translations": {
+			"en": {
+				"description": "Battle against the final boss of the region or adventure. It has the highest difficulty, is mandatory to pass, and yields the greatest rewards."
+			}
+		}
+	},
+	{
+		"nodeType": "Mini Boss",
+		"description": "Trận chiến với trùm phụ. Khó hơn các trận giao tranh thường, thử thách đội hình người chơi và thường thưởng bùa lợi (Power) khi chiến thắng.",
+		"translations": {
+			"en": {
+				"description": "Battle against a mid-boss. Harder than normal encounters, tests the player's deck, and usually rewards a Power upon victory."
+			}
+		}
+	},
+	{
+		"nodeType": "Healer",
+		"description": "Điểm dừng chân an toàn cho phép người chơi phục hồi lượng máu (Nexus) đã mất hoặc loại bỏ những lá bài yếu/không mong muốn khỏi bộ bài.",
+		"translations": {
+			"en": {
+				"description": "A safe haven allowing the player to restore lost Nexus health or remove weak/unwanted cards from their deck."
+			}
+		}
+	},
+	{
+		"nodeType": "Encounter",
+		"description": "Trận giao tranh với kẻ địch thông thường. Là nguồn chính để nhận kinh nghiệm, vàng và thẻ bài bổ sung.",
+		"translations": {
+			"en": {
+				"description": "A standard enemy encounter. The primary source for gaining experience, gold, and additional cards."
+			}
+		}
+	},
+	{
+		"nodeType": "Event Node",
+		"description": "Sự kiện cốt truyện ngẫu nhiên. Yêu cầu người chơi đưa ra các quyết định có tính đánh đổi (ví dụ: mất máu để lấy vật phẩm hiếm, hoặc bỏ qua để giữ an toàn).",
+		"translations": {
+			"en": {
+				"description": "A random story event. Requires the player to make trade-off decisions (e.g., sacrifice health for a rare item, or skip to stay safe)."
+			}
+		}
+	},
+	{
+		"nodeType": "Shop",
+		"description": "Cửa hàng giao dịch. Cho phép người chơi sử dụng Vàng (Gold) thu thập được để mua thẻ bài, vật phẩm nâng cấp hoặc bùa lợi.",
+		"translations": {
+			"en": {
+				"description": "A trading post. Allows the player to spend collected Gold to purchase cards, upgrade items, or Powers."
+			}
+		}
+	},
+	{
+		"nodeType": "Gold Chest",
+		"description": "Rương báu vật. Cung cấp ngay lập tức một lượng lớn Vàng, đôi khi đi kèm với các thẻ bài hoặc vật phẩm giá trị.",
+		"translations": {
+			"en": {
+				"description": "A treasure chest. Instantly provides a large amount of Gold, sometimes accompanied by valuable cards or items."
+			}
+		}
+	},
+	{
+		"nodeType": "Item Node",
+		"description": "Điểm nâng cấp trang bị. Cung cấp các vật phẩm (Items) để gắn trực tiếp, tăng cường chỉ số hoặc hiệu ứng cho các lá bài có sẵn.",
+		"translations": {
+			"en": {
+				"description": "An equipment upgrade node. Provides Items to attach directly to existing cards, enhancing their stats or effects."
+			}
+		}
+	},
+	{
+		"nodeType": "Spell Node",
+		"description": "Điểm tập trung vào bài phép. Cho phép người chơi bổ sung các lá bài phép thuật (Spells) mạnh mẽ vào bộ bài của mình.",
+		"translations": {
+			"en": {
+				"description": "A spell-focused node. Allows the player to add powerful Spell cards to their deck."
+			}
+		}
+	},
+	{
+		"nodeType": "Champion Node",
+		"description": "Điểm nâng cấp tướng. Cung cấp cơ hội chiêu mộ thêm Tướng (Champion) phụ hoặc thêm các trang bị cực mạnh cho Tướng đang có.",
+		"translations": {
+			"en": {
+				"description": "A champion upgrade node. Offers the chance to recruit an additional support Champion or add extremely powerful items to current Champions."
+			}
+		}
+	}
+]

@@ -11,6 +11,7 @@ import {
 	Skull,
 	Swords,
 	ShieldQuestion,
+	Zap, // Đã thêm icon Zap
 } from "lucide-react";
 
 import {
@@ -21,6 +22,7 @@ import {
 	getUniqueAdvId,
 	getAdvName,
 	getAdvImage,
+	NODE_TYPES_DATA, // Import hằng số data từ helper
 } from "./adventureEditorHelpers";
 
 const StringArrayInput = ({ label, items, onChange, placeholder }) => (
@@ -372,11 +374,19 @@ const AdventureMapEditorForm = memo(
 									(cachedData.bosses || []).find(
 										cb => getUniqueAdvId(cb) === safeBossID,
 									) || {};
+
 								const isResolvedBoss = !!getUniqueAdvId(resolvedBoss);
 								const displayBossID = isResolvedBoss
 									? getAdvName(resolvedBoss)
 									: b.bossID || "";
 								const bossAvatar = getAdvImage(resolvedBoss);
+
+								// Lấy mảng power từ Boss (Hỗ trợ tương thích ngược nếu power là string)
+								const bossPowers = Array.isArray(resolvedBoss.power)
+									? resolvedBoss.power
+									: resolvedBoss.power
+										? [resolvedBoss.power]
+										: [];
 
 								return (
 									<div
@@ -457,6 +467,64 @@ const AdventureMapEditorForm = memo(
 													/>
 												</div>
 											</div>
+
+											{/* KHU VỰC HIỂN THỊ SỨC MẠNH (POWERS) CỦA BOSS */}
+											{isResolvedBoss && (
+												<div className='flex flex-col gap-2 mt-1'>
+													<label className='block font-semibold text-[10px] uppercase text-text-secondary tracking-widest flex items-center gap-1.5'>
+														<Zap size={12} className='text-yellow-500' /> Sức
+														mạnh Boss
+													</label>
+													{bossPowers.length > 0 ? (
+														<div className='flex flex-wrap gap-2'>
+															{bossPowers.map((powerId, pIdx) => {
+																const powerObj = (cachedData.powers || []).find(
+																	p =>
+																		(p.powerCode || p.id || p._id) === powerId,
+																);
+																const pName = powerObj
+																	? powerObj.name ||
+																		powerObj.powerName ||
+																		powerId
+																	: powerId;
+																const pIcon = powerObj
+																	? powerObj.assetAbsolutePath ||
+																		powerObj.assetFullAbsolutePath
+																	: null;
+																return (
+																	<div
+																		key={pIdx}
+																		className='flex items-center gap-1.5 bg-yellow-500/10 border border-yellow-500/30 px-2 py-1.5 rounded-md shadow-sm'
+																		title={powerId}
+																	>
+																		{pIcon ? (
+																			<img
+																				src={pIcon}
+																				className='w-5 h-5 object-contain'
+																				alt='power'
+																			/>
+																		) : (
+																			<div className='w-5 h-5 bg-yellow-500/20 rounded flex items-center justify-center shrink-0'>
+																				<Zap
+																					size={12}
+																					className='text-yellow-600 dark:text-yellow-500'
+																				/>
+																			</div>
+																		)}
+																		<span className='text-xs font-semibold text-yellow-700 dark:text-yellow-500 truncate max-w-[120px]'>
+																			{pName}
+																		</span>
+																	</div>
+																);
+															})}
+														</div>
+													) : (
+														<span className='text-xs text-text-secondary italic px-1'>
+															Không có sức mạnh
+														</span>
+													)}
+												</div>
+											)}
 										</div>
 
 										{/* Cột phải: Ghi chú */}
@@ -581,29 +649,39 @@ const AdventureMapEditorForm = memo(
 												}),
 											)}
 										</svg>
-										{(formData.nodes || []).map((n, i) => (
-											<div
-												key={i}
-												className={`absolute w-7 h-7 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 flex items-center justify-center transition-all cursor-pointer ${selectedNodeIndex === i ? "bg-red-500 border-white scale-125 z-30 shadow-[0_0_15px_rgba(239,68,68,0.8)]" : "bg-black/60 border-white/60 z-20 hover:scale-110 hover:border-white"}`}
-												style={{
-													left: `${n.position?.x ?? 0}%`,
-													top: `${n.position?.y ?? 0}%`,
-												}}
-												onClick={e => {
-													e.stopPropagation();
-													setSelectedNodeIndex(i);
-												}}
-											>
-												{getNodeIcon(n.nodeType)}
-												<span className='absolute -bottom-6 text-[10px] font-bold text-white bg-black/70 px-1.5 py-0.5 rounded shadow'>
-													{n.nodeID || ""}
-												</span>
-											</div>
-										))}
+										{(formData.nodes || []).map((n, i) => {
+											// Tìm thông tin Node để hiển thị Title khi hover lên chấm tròn trên Map
+											const nodeInfo =
+												NODE_TYPES_DATA.find(
+													t => t.nodeType === (n.nodeType || "Encounter"),
+												) || {};
+
+											return (
+												<div
+													key={i}
+													title={`${n.nodeID} - ${n.nodeType}\n${nodeInfo.description || ""}`}
+													className={`absolute w-7 h-7 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 flex items-center justify-center transition-all cursor-pointer ${selectedNodeIndex === i ? "bg-red-500 border-white scale-125 z-30 shadow-[0_0_15px_rgba(239,68,68,0.8)]" : "bg-black/60 border-white/60 z-20 hover:scale-110 hover:border-white"}`}
+													style={{
+														left: `${n.position?.x ?? 0}%`,
+														top: `${n.position?.y ?? 0}%`,
+													}}
+													onClick={e => {
+														e.stopPropagation();
+														setSelectedNodeIndex(i);
+													}}
+												>
+													{getNodeIcon(n.nodeType)}
+													<span className='absolute -bottom-6 text-[10px] font-bold text-white bg-black/70 px-1.5 py-0.5 rounded shadow'>
+														{n.nodeID || ""}
+													</span>
+												</div>
+											);
+										})}
 									</div>
 									<p className='text-xs text-text-secondary text-center italic'>
 										Click chọn Node ở danh sách bên dưới, sau đó bấm lên bản đồ
-										để di chuyển vị trí.
+										để di chuyển vị trí. Hover lên chấm tròn trên Map để xem
+										thông tin Node.
 									</p>
 								</div>
 							)}

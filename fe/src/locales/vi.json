@@ -36,7 +36,41 @@
 		"type": "Loại",
 		"all": "Tất cả",
 		"stack": "Số lượng",
-		"views": "Lượt xem"
+		"views": "Lượt xem",
+		"backToList": "Quay lại danh sách",
+		"zoomIn": "Phóng to",
+		"zoomOut": "Thu nhỏ"
+	},
+	"mapList": {
+		"pageTitle": "Danh Sách Bản Đồ",
+		"pageDescription": "Tổng hợp tất cả bản đồ (Adventures) và Boss trong trò chơi.",
+		"searchPlaceholder": "Tìm kiếm bản đồ...",
+		"difficulty": "Độ khó",
+		"allDifficulties": "Tất cả độ khó",
+		"star": "Sao",
+		"bosses": "trùm"
+	},
+	"adventureMap": {
+		"detailTitle": "Chi tiết bản đồ",
+		"detailDesc": "Hướng dẫn chi tiết bản đồ",
+		"errorLoad": "Không thể tải thông tin bản đồ này.",
+		"championXp": "Kinh nghiệm Tướng (XP)",
+		"adventureMapTitle": "Bản Đồ Phiêu Lưu",
+		"specialRules": "Luật Chơi Đặc Biệt",
+		"bossList": "Danh sách Boss",
+		"requirementTitle": "Tướng / Khu Vực Yêu Cầu",
+		"champReq": "Tướng Yêu Cầu:",
+		"regionReq": "Khu Vực Yêu Cầu:",
+		"rewardMilestone": "Mốc Thưởng",
+		"reward": "Phần thưởng",
+		"rewardList": "Danh sách Phần Thưởng",
+		"milestone": "Mốc thưởng",
+		"components": "Thành phần:",
+		"note": "Lưu ý:",
+		"noSpecialPower": "Không có sức mạnh đặc biệt.",
+		"noDetailInfo": "Không có thông tin chi tiết.",
+		"noEnemyInfo": "Không có thông tin kẻ địch.",
+		"noNodeDescription": "Không có mô tả chi tiết cho loại Node này."
 	},
 	"rarity": {
 		"thuong": "Thường",
@@ -167,7 +201,9 @@
 			"allRarities": "Tất cả Độ hiếm",
 			"allTypes": "Tất cả Loại",
 			"sortRarityAsc": "Độ hiếm Thấp - Cao",
-			"sortRarityDesc": "Độ hiếm Cao - Thấp"
+			"sortRarityDesc": "Độ hiếm Cao - Thấp",
+			"sortIdAsc": "ID Thấp - Cao",
+			"sortIdDesc": "ID Cao - Thấp"
 		},
 		"powerForm": {
 			"errorIdReq": "Vui lòng nhập ID!",

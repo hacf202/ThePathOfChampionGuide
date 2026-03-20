@@ -12,7 +12,15 @@ import {
 	Skull,
 	Swords,
 	ShieldQuestion,
+	Info,
+	Flag, // Import thêm icon Flag cho Start Node
 } from "lucide-react";
+
+// Import dữ liệu chuẩn từ file JSON thay vì hardcode
+import nodeTypesData from "../../../assets/data/nodeTypes.json";
+
+// Export để các component khác (như adventureMapEditorForm) vẫn có thể dùng bình thường
+export const NODE_TYPES_DATA = nodeTypesData;
 
 // Helper lấy ID chuẩn từ nhiều nguồn API khác nhau (Hỗ trợ powerCode cho Luật Đặc Biệt)
 export const getUniqueAdvId = item => {
@@ -462,11 +470,18 @@ export const AdventureNodeEditor = ({
 	const [isOpen, setIsOpen] = useState(false);
 
 	const getIcon = type => {
+		if (type === "Start")
+			return <Flag size={16} className='text-emerald-500' />;
 		if (type === "Boss") return <Skull size={16} className='text-red-500' />;
 		if (type === "Encounter")
 			return <Swords size={16} className='text-yellow-500' />;
 		return <ShieldQuestion size={16} className='text-blue-500' />;
 	};
+
+	// Lấy thông tin chi tiết của node hiện tại để hiển thị tooltip
+	const nodeInfo =
+		NODE_TYPES_DATA.find(t => t.nodeType === (node.nodeType || "Encounter")) ||
+		{};
 
 	return (
 		<div
@@ -485,6 +500,15 @@ export const AdventureNodeEditor = ({
 					<div className='flex flex-col'>
 						<span className='font-bold text-sm flex items-center gap-2'>
 							{getIcon(node.nodeType)} {node.nodeType || "Unknown Node"}
+							<span
+								className='pointer-events-auto cursor-help ml-1'
+								title={nodeInfo.description || "Chưa có thông tin mô tả."}
+							>
+								<Info
+									size={14}
+									className='text-text-secondary hover:text-primary-500 transition-colors'
+								/>
+							</span>
 						</span>
 						<span className='text-[10px] text-text-secondary font-medium mt-0.5 truncate max-w-[150px]'>
 							Bosses: {node.bosses?.length ? node.bosses.join(", ") : "None"}
@@ -535,13 +559,18 @@ export const AdventureNodeEditor = ({
 							<select
 								value={node.nodeType || "Encounter"}
 								onChange={e => onChange(index, "nodeType", e.target.value)}
-								className='w-full p-2.5 rounded-lg border border-border bg-surface-bg text-sm outline-none'
+								className='w-full p-2.5 rounded-lg border border-border bg-surface-bg text-sm outline-none cursor-pointer'
 							>
-								<option value='Boss'>Boss</option>
-								<option value='Encounter'>Encounter</option>
-								<option value='Miniboss'>Miniboss</option>
-								<option value='Shop'>Shop</option>
-								<option value='Healer'>Healer</option>
+								{/* Map qua NODE_TYPES_DATA để hiển thị lựa chọn kèm tooltip */}
+								{NODE_TYPES_DATA.map(type => (
+									<option
+										key={type.nodeType}
+										value={type.nodeType}
+										title={type.description}
+									>
+										{type.nodeType}
+									</option>
+								))}
 							</select>
 						</div>
 					</div>

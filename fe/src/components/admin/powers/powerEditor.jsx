@@ -29,7 +29,7 @@ const NEW_POWER_TEMPLATE = {
 	},
 };
 
-const ITEMS_PER_PAGE = 20;
+const ITEMS_PER_PAGE = 21;
 
 const RARITY_WEIGHT = {
 	Thường: 1,
@@ -72,9 +72,15 @@ const PowerListView = memo(
 						<Link
 							key={power.powerCode}
 							to={`./${power.powerCode}`}
-							className='block hover:scale-105 transition-transform duration-200'
+							// Thêm 'relative group' để xử lý tooltip hover
+							className='block hover:scale-105 transition-transform duration-200 relative group'
 						>
 							<GenericCard item={power} onClick={() => {}} />
+
+							{/* Tooltip hiển thị ID khi hover */}
+							<div className='absolute top-2 right-2 bg-gray-900/80 backdrop-blur-sm text-white text-xs px-2 py-1 rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-10'>
+								ID: {power.powerCode}
+							</div>
 						</Link>
 					))}
 				</div>
@@ -115,9 +121,9 @@ const PowerEditWrapper = ({
 				<p className='text-xl mb-4'>
 					{tUI("admin.power.notFoundId")} {id}
 				</p>
-				<Button onClick={handleBack} variant='primary'>
-					{tUI("admin.common.backToList")}
-				</Button>
+				<button onClick={handleBack} className='btn-primary'>
+					{tUI("admin.common.backToList") || "Quay lại danh sách"}
+				</button>
 			</div>
 		);
 	}
@@ -248,6 +254,14 @@ function PowerEditor() {
 			rarities: rarities.map(r => ({ value: r, label: r })),
 			types: types.map(t => ({ value: t, label: t })),
 			sort: [
+				{
+					value: "id-asc",
+					label: tUI("admin.power.sortIdAsc") || "ID (Tăng dần)",
+				},
+				{
+					value: "id-desc",
+					label: tUI("admin.power.sortIdDesc") || "ID (Giảm dần)",
+				},
 				{ value: "name-asc", label: tUI("admin.common.sortNameAsc") },
 				{ value: "name-desc", label: tUI("admin.common.sortNameDesc") },
 				{ value: "rarity-asc", label: tUI("admin.power.sortRarityAsc") },
@@ -282,7 +296,14 @@ function PowerEditor() {
 
 		const [field, dir] = sortOrder.split("-");
 		result.sort((a, b) => {
-			if (field === "name") {
+			if (field === "id") {
+				const A = a.powerCode || "";
+				const B = b.powerCode || "";
+				// Sử dụng numeric: true để sắp xếp các số trong chuỗi ID một cách tự nhiên (vd: id2 đứng trước id10)
+				return dir === "asc"
+					? A.localeCompare(B, undefined, { numeric: true })
+					: B.localeCompare(A, undefined, { numeric: true });
+			} else if (field === "name") {
 				const A = tDynamic(a, "name") || "";
 				const B = tDynamic(b, "name") || "";
 				return dir === "asc" ? A.localeCompare(B) : B.localeCompare(A);

@@ -31,14 +31,24 @@ export const useMapDetailData = adventureID => {
 					try {
 						const bossDetail = await api.get(`/bosses/${b.bossID}`);
 						let resolvedPower = null;
+						let resolvedPowers = []; // Thêm biến lưu mảng sức mạnh
+
 						if (bossDetail.power) {
-							const pInfo = await api.resolve("powers", [bossDetail.power]);
-							resolvedPower = pInfo[0] || null;
+							// Kiểm tra để hỗ trợ cả định dạng cũ (string) và mới (array)
+							const powersToResolve = Array.isArray(bossDetail.power)
+								? bossDetail.power
+								: [bossDetail.power];
+
+							const pInfo = await api.resolve("powers", powersToResolve);
+
+							resolvedPowers = pInfo || [];
+							resolvedPower = pInfo[0] || null; // Giữ lại tương thích ngược
 						}
 						return {
 							...bossDetail,
 							note: b.note,
 							resolvedPower,
+							resolvedPowers, // Trả về thêm mảng resolvedPowers
 						};
 					} catch (e) {
 						console.warn(`Không thể tải Boss ${b.bossID}`);

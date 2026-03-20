@@ -39,7 +39,41 @@
 		"reset": "Reset",
 		"stack": "Stack",
 		"views": "Views",
-		"resetFilter": "Reset Filter"
+		"resetFilter": "Reset Filter",
+		"backToList": "Back to List",
+		"zoomIn": "Zoom In",
+		"zoomOut": "Zoom Out"
+	},
+	"mapList": {
+		"pageTitle": "Adventure Maps",
+		"pageDescription": "A complete collection of all adventures and bosses in the game.",
+		"searchPlaceholder": "Search maps...",
+		"difficulty": "Difficulty",
+		"allDifficulties": "All difficulties",
+		"star": "Star",
+		"bosses": "Bosses"
+	},
+	"adventureMap": {
+		"detailTitle": "Map Details",
+		"detailDesc": "Detailed guide for map",
+		"errorLoad": "Could not load this map's information.",
+		"championXp": "Champion XP",
+		"adventureMapTitle": "Adventure Map",
+		"specialRules": "Special Rules",
+		"bossList": "Boss List",
+		"requirementTitle": "Required Champions / Regions",
+		"champReq": "Required Champions:",
+		"regionReq": "Required Regions:",
+		"rewardMilestone": "Reward Milestones",
+		"reward": "Reward",
+		"rewardList": "Reward List",
+		"milestone": "Milestone",
+		"components": "Components:",
+		"note": "Note:",
+		"noSpecialPower": "No special powers.",
+		"noDetailInfo": "No detailed information.",
+		"noEnemyInfo": "No enemy information.",
+		"noNodeDescription": "No detailed description for this Node type."
 	},
 	"relic": {
 		"rarity": {
@@ -162,7 +196,9 @@
 			"allRarities": "All Rarities",
 			"allTypes": "All Types",
 			"sortRarityAsc": "Rarity Low - High",
-			"sortRarityDesc": "Rarity High - Low"
+			"sortRarityDesc": "Rarity High - Low",
+			"sortIdAsc": "ID Low - High",
+			"sortIdDesc": "ID High - Low"
 		},
 		"powerForm": {
 			"errorIdReq": "Please enter an ID!",

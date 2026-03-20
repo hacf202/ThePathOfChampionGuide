@@ -1,4 +1,4 @@
-import { useState, memo, useEffect, useMemo } from "react";
+import { useState, memo, useEffect } from "react";
 import InputField from "../../common/inputField";
 import { Zap, XCircle } from "lucide-react";
 import { useTranslation } from "../../../hooks/useTranslation";
@@ -21,7 +21,7 @@ const BossEditorForm = memo(
 		const [formData, setFormData] = useState({});
 		const [initialData, setInitialData] = useState({});
 		const [isDirty, setIsDirty] = useState(false);
-		const { tDynamic, tUI } = useTranslation();
+		const { tDynamic } = useTranslation();
 
 		useEffect(() => {
 			if (item) {
@@ -29,6 +29,11 @@ const BossEditorForm = memo(
 				if (!cloned.translations)
 					cloned.translations = { en: { bossName: "" } };
 				if (!cloned.translations.en) cloned.translations.en = { bossName: "" };
+
+				// Đảm bảo power luôn là một mảng để hỗ trợ tương thích ngược với dữ liệu cũ
+				if (!Array.isArray(cloned.power)) {
+					cloned.power = cloned.power ? [cloned.power] : [];
+				}
 
 				setFormData(cloned);
 				setInitialData(JSON.parse(JSON.stringify(cloned)));
@@ -80,13 +85,31 @@ const BossEditorForm = memo(
 
 				// Chỉ nhận type là 'power'
 				if (type === "power" && uniqueId) {
-					setFormData(prev => ({ ...prev, power: uniqueId }));
+					setFormData(prev => {
+						const currentPowers = Array.isArray(prev.power) ? prev.power : [];
+
+						// Kiểm tra xem sức mạnh đã tồn tại trong mảng chưa
+						if (currentPowers.includes(uniqueId)) {
+							alert("Sức mạnh này đã được thêm!");
+							return prev;
+						}
+
+						// Thêm sức mạnh mới vào mảng
+						return { ...prev, power: [...currentPowers, uniqueId] };
+					});
 				} else {
 					alert("Vui lòng chỉ kéo thả Sức mạnh (Power) vào ô này!");
 				}
 			} catch (error) {
 				console.error("Lỗi khi kéo thả:", error);
 			}
+		};
+
+		const handleRemovePower = powerIdToRemove => {
+			setFormData(prev => ({
+				...prev,
+				power: (prev.power || []).filter(pId => pId !== powerIdToRemove),
+			}));
 		};
 
 		const handleTranslationChange = (e, lang) => {
@@ -111,31 +134,6 @@ const BossEditorForm = memo(
 			}
 			onSave(formData);
 		};
-
-		// Mapping Power Name để hiển thị thay vì chỉ hiện ID
-		const { isPowerResolved, resolvedPowerName, resolvedPowerIcon } =
-			useMemo(() => {
-				if (!formData.power)
-					return { isPowerResolved: false, resolvedPowerName: "" };
-
-				const foundPower = (cachedData.powers || []).find(
-					p => p.powerCode === formData.power,
-				);
-
-				if (foundPower) {
-					return {
-						isPowerResolved: true,
-						resolvedPowerName: tDynamic(foundPower, "name"),
-						resolvedPowerIcon:
-							foundPower.assetAbsolutePath || foundPower.assetFullAbsolutePath,
-					};
-				}
-
-				return {
-					isPowerResolved: false,
-					resolvedPowerName: formData.power,
-				};
-			}, [formData.power, cachedData.powers, tDynamic]);
 
 		return (
 			<form onSubmit={handleSubmit} className='space-y-6 pb-24'>
@@ -202,68 +200,84 @@ const BossEditorForm = memo(
 							</div>
 						</div>
 
-						{/* KHU VỰC KÉO THẢ SỨC MẠNH (POWER) */}
+						{/* KHU VỰC KÉO THẢ SỨC MẠNH (POWER) - HỖ TRỢ NHIỀU POWER */}
 						<div className='bg-yellow-500/5 dark:bg-yellow-900/10 border border-yellow-500/20 rounded-xl p-4'>
-							<label className='font-bold text-yellow-600 dark:text-yellow-500 mb-2 flex items-center gap-2'>
-								<Zap size={18} /> Sức mạnh của Boss (Kéo thả từ bên phải)
+							<label className='font-bold text-yellow-600 dark:text-yellow-500 mb-3 flex items-center gap-2'>
+								<Zap size={18} /> Danh sách Sức mạnh (Kéo thả từ bên phải)
 							</label>
 
 							<div
 								onDragOver={handleDragOver}
 								onDrop={handleDropPower}
-								className={`flex items-center gap-3 p-3 rounded-xl border-2 transition-all ${
-									formData.power
-										? "border-yellow-500/50 bg-yellow-500/10"
+								className={`flex flex-col gap-3 p-4 rounded-xl border-2 transition-all min-h-[120px] justify-center items-center ${
+									formData.power && formData.power.length > 0
+										? "border-yellow-500/50 bg-yellow-500/5"
 										: "border-dashed border-border bg-surface-hover/50 hover:bg-surface-hover"
 								}`}
 							>
-								{/* Avatar Sức mạnh (Nếu có) */}
-								<div className='w-12 h-12 shrink-0 bg-surface-bg border border-border rounded-lg flex items-center justify-center overflow-hidden'>
-									{resolvedPowerIcon ? (
-										<img
-											src={resolvedPowerIcon}
-											className='w-10 h-10 object-contain'
-											alt='power-icon'
-										/>
-									) : (
-										<span className='text-[10px] font-bold text-gray-400'>
-											D&D
-										</span>
-									)}
-								</div>
+								{!formData.power || formData.power.length === 0 ? (
+									<p className='text-text-secondary font-medium text-sm'>
+										Kéo thả các Power vào khu vực này...
+									</p>
+								) : (
+									<div className='w-full grid grid-cols-1 gap-3'>
+										{formData.power.map((powerId, index) => {
+											// Tìm thông tin power dựa trên powerId
+											const foundPower = (cachedData.powers || []).find(
+												p => p.powerCode === powerId,
+											);
 
-								{/* Tên / Input Sức mạnh */}
-								<InputField
-									label=''
-									name='power'
-									value={resolvedPowerName}
-									onChange={e =>
-										setFormData(prev => ({ ...prev, power: e.target.value }))
-									}
-									placeholder='Kéo thả Power vào đây...'
-									className={`flex-1 m-0 ${
-										isPowerResolved ? "font-bold text-yellow-600" : ""
-									}`}
-									readOnly={isPowerResolved} // Khóa Input nếu đã map thành công tên
-									title={
-										isPowerResolved
-											? `ID đang lưu trong Database: ${formData.power}`
-											: ""
-									}
-								/>
+											const resolvedPowerName = foundPower
+												? tDynamic(foundPower, "name")
+												: powerId;
 
-								{/* Nút xóa Sức mạnh hiện tại */}
-								{formData.power && (
-									<button
-										type='button'
-										onClick={() =>
-											setFormData(prev => ({ ...prev, power: "" }))
-										}
-										className='text-text-secondary hover:text-red-500 hover:bg-red-500/10 p-1.5 rounded-md transition-colors shrink-0'
-										title='Xóa sức mạnh này'
-									>
-										<XCircle size={20} />
-									</button>
+											const resolvedPowerIcon =
+												foundPower?.assetAbsolutePath ||
+												foundPower?.assetFullAbsolutePath;
+
+											return (
+												<div
+													key={index}
+													className='flex items-center gap-3 p-2.5 bg-surface-bg border border-border rounded-lg shadow-sm'
+												>
+													{/* Avatar Sức mạnh */}
+													<div className='w-10 h-10 shrink-0 bg-surface-hover/50 border border-border rounded-md flex items-center justify-center overflow-hidden'>
+														{resolvedPowerIcon ? (
+															<img
+																src={resolvedPowerIcon}
+																className='w-8 h-8 object-contain'
+																alt='power-icon'
+															/>
+														) : (
+															<span className='text-[10px] font-bold text-gray-400'>
+																D&D
+															</span>
+														)}
+													</div>
+
+													{/* Tên Sức mạnh */}
+													<div className='flex-1 font-semibold text-text-primary truncate'>
+														{resolvedPowerName}
+														{!foundPower && (
+															<span className='text-xs text-red-500 ml-2 font-normal'>
+																(Chưa rõ ID)
+															</span>
+														)}
+													</div>
+
+													{/* Nút xóa */}
+													<button
+														type='button'
+														onClick={() => handleRemovePower(powerId)}
+														className='text-text-secondary hover:text-red-500 hover:bg-red-500/10 p-2 rounded-md transition-colors shrink-0'
+														title='Xóa sức mạnh này'
+													>
+														<XCircle size={18} />
+													</button>
+												</div>
+											);
+										})}
+									</div>
 								)}
 							</div>
 						</div>

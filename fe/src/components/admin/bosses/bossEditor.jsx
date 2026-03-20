@@ -14,7 +14,7 @@ const NEW_BOSS_TEMPLATE = {
 	bossID: "",
 	isNew: true,
 	bossName: "",
-	power: "",
+	power: [], // Đã thay đổi thành mảng để chứa nhiều power
 	background: "",
 	translations: { en: { bossName: "" } },
 };
