@@ -13,16 +13,13 @@ import {
 	Swords,
 	ShieldQuestion,
 	Info,
-	Flag, // Import thêm icon Flag cho Start Node
+	Flag,
 } from "lucide-react";
 
-// Import dữ liệu chuẩn từ file JSON thay vì hardcode
 import nodeTypesData from "../../../assets/data/nodeTypes.json";
 
-// Export để các component khác (như adventureMapEditorForm) vẫn có thể dùng bình thường
 export const NODE_TYPES_DATA = nodeTypesData;
 
-// Helper lấy ID chuẩn từ nhiều nguồn API khác nhau (Hỗ trợ powerCode cho Luật Đặc Biệt)
 export const getUniqueAdvId = item => {
 	if (!item) return "";
 	return (
@@ -30,13 +27,11 @@ export const getUniqueAdvId = item => {
 	);
 };
 
-// Helper lấy Tên chuẩn
 export const getAdvName = item => {
 	if (!item) return "";
 	return item.name || item.bossName || item.adventureName || "Unknown";
 };
 
-// Helper lấy Ảnh chuẩn
 export const getAdvImage = item => {
 	if (!item) return null;
 	return (
@@ -49,7 +44,6 @@ export const getAdvImage = item => {
 	);
 };
 
-// Component kéo thả cơ bản cho mảng chuỗi (VD: Champions, Powers, Nodes Bosses)
 export const DragDropArrayInput = ({
 	label,
 	data = [],
@@ -63,10 +57,9 @@ export const DragDropArrayInput = ({
 		onChange(newData);
 	};
 
-	// Xử lý khi thả thẳng vào một dòng input đã tồn tại (Ghi đè)
 	const handleDropOnItem = (e, index) => {
 		e.preventDefault();
-		e.stopPropagation(); // Ngăn sự kiện sủi bọt lên Container
+		e.stopPropagation();
 		try {
 			const dragged = JSON.parse(e.dataTransfer.getData("text/plain"));
 			const identifier = getUniqueAdvId(dragged) || dragged.name;
@@ -76,13 +69,11 @@ export const DragDropArrayInput = ({
 		}
 	};
 
-	// Xử lý khi thả vào khoảng trống của Container (Tự động thêm mới)
 	const handleDropOnContainer = e => {
 		e.preventDefault();
 		try {
 			const dragged = JSON.parse(e.dataTransfer.getData("text/plain"));
 			const identifier = getUniqueAdvId(dragged) || dragged.name;
-			// Kiểm tra trùng lặp trước khi thêm
 			if (identifier && !data.includes(identifier.trim())) {
 				onChange([...data, identifier.trim()]);
 			}
@@ -108,7 +99,6 @@ export const DragDropArrayInput = ({
 				</Button>
 			</div>
 
-			{/* Dropzone Container: Khu vực nhận diện thả thông minh */}
 			<div
 				className='space-y-2 min-h-[80px] p-3 rounded-xl border-2 border-dashed border-border/60 bg-surface-bg/30 hover:border-primary-500/50 hover:bg-surface-hover/30 transition-all'
 				onDrop={handleDropOnContainer}
@@ -171,7 +161,6 @@ export const DragDropArrayInput = ({
 	);
 };
 
-// Component kéo thả dành riêng cho Array Object của Boss (Hỗ trợ tự thêm mới)
 export const DragDropBossObjectInput = ({
 	label,
 	bosses = [],
@@ -304,22 +293,45 @@ export const DragDropBossObjectInput = ({
 	);
 };
 
-export const AdventureLine = ({ x1, y1, x2, y2 }) => {
-	const angle = Math.atan2(y2 - y1, x2 - x1);
-	const offset = window.innerWidth < 640 ? 1.5 : 3.0;
-	const finalX2 = x2 - offset * Math.cos(angle);
-	const finalY2 = y2 - offset * Math.sin(angle);
+// ĐÃ NÂNG CẤP: Thuật toán quy đổi pixel và aspect ratio
+export const AdventureLine = ({
+	x1,
+	y1,
+	x2,
+	y2,
+	mapSize = { width: 1000, height: 400 },
+}) => {
+	// Tránh chia cho 0 khi map chưa mount
+	if (!mapSize.width || !mapSize.height) return null;
+
+	// Quy đổi khoảng cách sang hệ quy chiếu pixel thực tế để tính góc chính xác tuyệt đối
+	const dx = (x2 - x1) * mapSize.width;
+	const dy = (y2 - y1) * mapSize.height;
+	const angle = Math.atan2(dy, dx);
+
+	// Bán kính của Node + padding để mũi tên chạm vừa khít vòng tròn (Hitbox)
+	const offsetPx = window.innerWidth < 640 ? 14 : 22;
+
+	// Quy đổi ngược lại lượng offset từ Pixel sang phần trăm (%)
+	const offsetX_pct = ((offsetPx * Math.cos(angle)) / mapSize.width) * 100;
+	const offsetY_pct = ((offsetPx * Math.sin(angle)) / mapSize.height) * 100;
+
+	// Thụt 2 đầu lại để không đâm xuyên tâm node
+	const startX_pct = x1 + offsetX_pct;
+	const startY_pct = y1 + offsetY_pct;
+	const finalX2_pct = x2 - offsetX_pct;
+	const finalY2_pct = y2 - offsetY_pct;
 
 	return (
 		<line
-			x1={`${x1}%`}
-			y1={`${y1}%`}
-			x2={`${finalX2}%`}
-			y2={`${finalY2}%`}
-			stroke='rgba(239, 68, 68, 0.8)'
+			x1={`${startX_pct}%`}
+			y1={`${startY_pct}%`}
+			x2={`${finalX2_pct}%`}
+			y2={`${finalY2_pct}%`}
+			stroke='rgba(239, 68, 68, 0.9)'
 			strokeWidth='2.5'
 			markerEnd='url(#arrowhead-adv)'
-			className='drop-shadow-[0_0_5px_rgba(239,68,68,0.5)]'
+			className='drop-shadow-[0_0_5px_rgba(239,68,68,0.5)] transition-all duration-300'
 		/>
 	);
 };
@@ -478,7 +490,6 @@ export const AdventureNodeEditor = ({
 		return <ShieldQuestion size={16} className='text-blue-500' />;
 	};
 
-	// Lấy thông tin chi tiết của node hiện tại để hiển thị tooltip
 	const nodeInfo =
 		NODE_TYPES_DATA.find(t => t.nodeType === (node.nodeType || "Encounter")) ||
 		{};
@@ -561,7 +572,6 @@ export const AdventureNodeEditor = ({
 								onChange={e => onChange(index, "nodeType", e.target.value)}
 								className='w-full p-2.5 rounded-lg border border-border bg-surface-bg text-sm outline-none cursor-pointer'
 							>
-								{/* Map qua NODE_TYPES_DATA để hiển thị lựa chọn kèm tooltip */}
 								{NODE_TYPES_DATA.map(type => (
 									<option
 										key={type.nodeType}

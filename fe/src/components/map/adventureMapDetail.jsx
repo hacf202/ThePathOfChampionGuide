@@ -19,27 +19,19 @@ import {
 	Flag,
 } from "lucide-react";
 
-// Hooks & API
 import { useTranslation } from "../../hooks/useTranslation";
 import { useMapDetailData } from "../../hooks/useMapDetailData";
 import { removeAccents } from "../../utils/vietnameseUtils";
-
-// Components
 import PageTitle from "../common/pageTitle";
 import Button from "../common/button";
 import SafeImage from "../common/SafeImage";
 import GoogleAd from "../common/googleAd";
 
-// Import file data
 import iconData from "../../assets/data/icon.json";
 import nodeTypesData from "../../assets/data/nodeTypes.json";
 
-// =====================================================================
-// --- SUB-COMPONENT: MAP DETAIL SKELETON (NEW) ---
-// =====================================================================
 const MapDetailSkeleton = () => (
 	<div className='flex flex-col space-y-8 animate-pulse w-full'>
-		{/* Header Skeleton */}
 		<div className='relative rounded-2xl overflow-hidden border border-border shadow-md bg-surface-bg w-full h-[250px] md:h-[350px]'>
 			<div className='absolute inset-0 bg-surface-hover/40'></div>
 			<div className='absolute bottom-0 left-0 w-full p-4 md:p-8 flex flex-col md:flex-row justify-between items-end gap-4'>
@@ -53,14 +45,10 @@ const MapDetailSkeleton = () => (
 				<div className='h-16 w-32 bg-slate-700/30 rounded-lg'></div>
 			</div>
 		</div>
-
-		{/* Map Visualizer Skeleton */}
 		<div className='bg-surface-bg border border-border rounded-xl p-2 md:p-4 shadow-sm w-full'>
 			<div className='h-6 w-48 bg-slate-700/30 rounded mb-4'></div>
 			<div className='w-full aspect-video md:aspect-[21/9] bg-surface-hover/50 rounded-lg border border-border/50'></div>
 		</div>
-
-		{/* Special Rules Skeleton */}
 		<div className='bg-surface-bg border border-border rounded-xl p-2 md:p-4 shadow-sm w-full'>
 			<div className='h-6 w-48 bg-slate-700/30 rounded mb-4'></div>
 			<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
@@ -79,31 +67,9 @@ const MapDetailSkeleton = () => (
 				))}
 			</div>
 		</div>
-
-		{/* Boss List Skeleton */}
-		<div className='bg-surface-bg border border-border rounded-xl p-2 md:p-4 shadow-sm w-full'>
-			<div className='h-6 w-48 bg-slate-700/30 rounded mb-4'></div>
-			<div className='grid grid-cols-1 gap-4'>
-				{[1, 2].map(i => (
-					<div
-						key={i}
-						className='flex gap-4 bg-surface-hover/20 p-4 rounded-lg border border-border items-start'
-					>
-						<div className='w-24 h-24 rounded-lg bg-slate-700/30 shrink-0'></div>
-						<div className='flex-1 space-y-3'>
-							<div className='h-6 w-1/3 bg-slate-700/40 rounded'></div>
-							<div className='h-16 w-full bg-slate-700/20 rounded-lg'></div>
-						</div>
-					</div>
-				))}
-			</div>
-		</div>
 	</div>
 );
 
-// =====================================================================
-// --- SUB-COMPONENT: ADVENTURE NODE ---
-// =====================================================================
 const AdventureNode = ({
 	node,
 	active,
@@ -171,15 +137,8 @@ const AdventureNode = ({
 					<div
 						className={`absolute inset-0 rounded-full blur-xl transition-opacity duration-500 will-change-opacity ${active ? (node.nodeType === "Boss" ? "opacity-70 bg-red-500 animate-pulse" : node.nodeType === "Start" ? "opacity-70 bg-emerald-500 animate-pulse" : "opacity-70 bg-yellow-400 animate-pulse") : "opacity-0"}`}
 					/>
-
 					<div
-						className={`relative flex items-center justify-center w-[25px] h-[25px] sm:w-[40px] sm:h-[40px] rounded-full border-2 overflow-hidden shadow-lg ${
-							node.nodeType === "Boss"
-								? "bg-red-950 border-red-500 shadow-red-500/50"
-								: node.nodeType === "Start"
-									? "bg-emerald-950 border-emerald-500 shadow-emerald-500/50"
-									: "bg-slate-800/90 border-yellow-500 shadow-yellow-500/50"
-						}`}
+						className={`relative flex items-center justify-center w-[25px] h-[25px] sm:w-[40px] sm:h-[40px] rounded-full border-2 overflow-hidden shadow-lg ${node.nodeType === "Boss" ? "bg-red-950 border-red-500 shadow-red-500/50" : node.nodeType === "Start" ? "bg-emerald-950 border-emerald-500 shadow-emerald-500/50" : "bg-slate-800/90 border-yellow-500 shadow-yellow-500/50"}`}
 					>
 						{node.nodeType === "Boss" ? (
 							bossImage ? (
@@ -206,38 +165,53 @@ const AdventureNode = ({
 	);
 };
 
-// =====================================================================
-// --- SUB-COMPONENT: ADVENTURE LINE ---
-// =====================================================================
-const AdventureLine = ({ x1, y1, x2, y2, zoom }) => {
-	const angle = Math.atan2(y2 - y1, x2 - x1);
+const AdventureLine = ({
+	x1,
+	y1,
+	x2,
+	y2,
+	zoom,
+	mapSize = { width: 1000, height: 400 },
+}) => {
+	if (!mapSize.width || !mapSize.height) return null;
+
+	// Tính toán góc nghiêng dựa trên hệ quy chiếu tỷ lệ chuẩn Pixel
+	const dx = (x2 - x1) * mapSize.width;
+	const dy = (y2 - y1) * mapSize.height;
+	const angle = Math.atan2(dy, dx);
+
 	const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
+	const inverseScale = 1 / Math.pow(zoom, 0.75); // Vì UI tự scale icon khi zoom, nên ta cần tính lại bán kính khi người dùng zoom
 
-	const baseOffset = isMobile ? 2.2 : 3.8;
-	const offset = baseOffset / Math.pow(zoom, 0.75);
+	// 28px là kích thước tương đương bán kính của node trên Desktop, 18px trên Mobile
+	const baseOffsetPx = isMobile ? 18 : 28;
+	const offsetPx = baseOffsetPx * inverseScale;
 
-	const finalX2 = x2 - offset * Math.cos(angle);
-	const finalY2 = y2 - offset * Math.sin(angle);
+	// Quy đổi lại độ dài offset sang % để SVG render chuẩn trên giao diện Responsive
+	const offsetX_pct = ((offsetPx * Math.cos(angle)) / mapSize.width) * 100;
+	const offsetY_pct = ((offsetPx * Math.sin(angle)) / mapSize.height) * 100;
 
-	const strokeW = isMobile ? "1" : "1.5";
+	const startX_pct = x1 + offsetX_pct;
+	const startY_pct = y1 + offsetY_pct;
+	const finalX2_pct = x2 - offsetX_pct;
+	const finalY2_pct = y2 - offsetY_pct;
+
+	const strokeW = isMobile ? "1.5" : "2";
 
 	return (
 		<line
-			x1={`${x1}%`}
-			y1={`${y1}%`}
-			x2={`${finalX2}%`}
-			y2={`${finalY2}%`}
-			stroke='rgba(234, 179, 8, 0.4)'
+			x1={`${startX_pct}%`}
+			y1={`${startY_pct}%`}
+			x2={`${finalX2_pct}%`}
+			y2={`${finalY2_pct}%`}
+			stroke='rgba(234, 179, 8, 0.8)'
 			strokeWidth={strokeW}
-			strokeDasharray='8,4'
+			strokeDasharray='6,4'
 			markerEnd='url(#arrowhead)'
 		/>
 	);
 };
 
-// =====================================================================
-// --- SUB-COMPONENT: MAP VISUALIZER ---
-// =====================================================================
 const AdventureMapVisualizer = ({ nodes, background, resolvedBosses }) => {
 	const mapRef = useRef(null);
 	const { tUI, tDynamic } = useTranslation();
@@ -249,6 +223,7 @@ const AdventureMapVisualizer = ({ nodes, background, resolvedBosses }) => {
 	const [tooltipCoords, setTooltipCoords] = useState(null);
 
 	const [aspectRatio, setAspectRatio] = useState("16/9");
+	const [mapSize, setMapSize] = useState({ width: 1000, height: 400 });
 
 	const [isMobile, setIsMobile] = useState(
 		typeof window !== "undefined" ? window.innerWidth < 640 : false,
@@ -258,6 +233,21 @@ const AdventureMapVisualizer = ({ nodes, background, resolvedBosses }) => {
 		const handleResize = () => setIsMobile(window.innerWidth < 640);
 		window.addEventListener("resize", handleResize);
 		return () => window.removeEventListener("resize", handleResize);
+	}, []);
+
+	// Dùng ResizeObserver theo dõi kích thước thật của container để pass xuống thẻ <AdventureLine />
+	useEffect(() => {
+		if (!mapRef.current) return;
+		const observer = new ResizeObserver(entries => {
+			for (let entry of entries) {
+				setMapSize({
+					width: entry.contentRect.width,
+					height: entry.contentRect.height,
+				});
+			}
+		});
+		observer.observe(mapRef.current);
+		return () => observer.disconnect();
 	}, []);
 
 	if (!nodes || nodes.length === 0) return null;
@@ -281,14 +271,11 @@ const AdventureMapVisualizer = ({ nodes, background, resolvedBosses }) => {
 		setDragStart({ x: e.clientX - pan.x, y: e.clientY - pan.y });
 		setHoveredNode(null);
 	};
-
 	const handleMouseMove = e => {
 		if (!isDragging) return;
 		setPan({ x: e.clientX - dragStart.x, y: e.clientY - dragStart.y });
 	};
-
 	const handleMouseUpOrLeave = () => setIsDragging(false);
-
 	const handleReset = () => {
 		setZoom(1);
 		setPan({ x: 0, y: 0 });
@@ -323,7 +310,6 @@ const AdventureMapVisualizer = ({ nodes, background, resolvedBosses }) => {
 				mobileMargin + 10,
 				Math.min(tooltipCoords.x - mobileMargin, mobileWidth - 10),
 			);
-
 			tooltipStyle = {
 				left: `${mobileMargin}px`,
 				top: `${tooltipCoords.y}px`,
@@ -334,7 +320,6 @@ const AdventureMapVisualizer = ({ nodes, background, resolvedBosses }) => {
 		} else {
 			const isNearRight = tooltipCoords.x > screenW - 160;
 			const isNearLeft = tooltipCoords.x < 160;
-
 			const tooltipTransformX = isNearRight
 				? "calc(-100% + 30px)"
 				: isNearLeft
@@ -345,7 +330,6 @@ const AdventureMapVisualizer = ({ nodes, background, resolvedBosses }) => {
 				: isNearLeft
 					? "30px"
 					: "50%";
-
 			tooltipStyle = {
 				left: `${tooltipCoords.x}px`,
 				top: `${tooltipCoords.y}px`,
@@ -421,22 +405,16 @@ const AdventureMapVisualizer = ({ nodes, background, resolvedBosses }) => {
 
 				<svg className='absolute inset-0 w-full h-full pointer-events-none'>
 					<defs>
+						{/* Marker mũi tên sắc nét */}
 						<marker
 							id='arrowhead'
-							markerWidth={isMobile ? "5" : "8"}
-							markerHeight={isMobile ? "4" : "7"}
-							refX={isMobile ? "4.5" : "7.5"}
-							refY={isMobile ? "2" : "3.5"}
+							markerWidth='8'
+							markerHeight='8'
+							refX='7'
+							refY='4'
 							orient='auto'
 						>
-							<path
-								d={
-									isMobile
-										? "M0,0 L5,2 L0,4 L1.5,2 Z"
-										: "M0,0 L8,3.5 L0,7 L2,3.5 Z"
-								}
-								fill='rgba(234, 179, 8, 0.6)'
-							/>
+							<path d='M0,0 L8,4 L0,8 L2,4 Z' fill='rgba(234, 179, 8, 0.8)' />
 						</marker>
 					</defs>
 					{nodes.map(node =>
@@ -451,6 +429,7 @@ const AdventureMapVisualizer = ({ nodes, background, resolvedBosses }) => {
 									x2={targetNode.position?.x}
 									y2={targetNode.position?.y}
 									zoom={zoom}
+									mapSize={mapSize}
 								/>
 							);
 						}),
@@ -486,7 +465,6 @@ const AdventureMapVisualizer = ({ nodes, background, resolvedBosses }) => {
 							tDynamic(nodeInfo, "description") ||
 							tUI("adventureMap.noNodeDescription") ||
 							"Không có mô tả chi tiết cho loại Node này.";
-
 						return (
 							<div
 								className='fixed bg-surface-bg border border-primary-500 rounded-lg shadow-2xl p-3 z-[9999] pointer-events-none'
@@ -498,11 +476,9 @@ const AdventureMapVisualizer = ({ nodes, background, resolvedBosses }) => {
 										{hoveredNode.nodeID}
 									</span>
 								</h3>
-
 								<p className='text-xs text-text-primary mb-2 opacity-90 italic border-b border-border/50 pb-2'>
 									{nodeDescription}
 								</p>
-
 								{hoveredNode.bosses && hoveredNode.bosses.length > 0 ? (
 									<div className='mt-2 space-y-1'>
 										<p className='text-text-secondary text-xs font-semibold'>
@@ -536,9 +512,6 @@ const AdventureMapVisualizer = ({ nodes, background, resolvedBosses }) => {
 	);
 };
 
-// =====================================================================
-// --- SUB-COMPONENT: RENDER POWER CARD ---
-// =====================================================================
 const RenderPowerCard = ({ power }) => {
 	const { tDynamic } = useTranslation();
 	if (!power) return null;
@@ -571,9 +544,6 @@ const RenderPowerCard = ({ power }) => {
 	);
 };
 
-// =====================================================================
-// --- MAIN COMPONENT: MAP DETAIL ---
-// =====================================================================
 function AdventureMapDetail() {
 	const { adventureID } = useParams();
 	const navigate = useNavigate();
@@ -595,7 +565,6 @@ function AdventureMapDetail() {
 		}
 		return "/fallback-image.svg";
 	};
-
 	const getRewardIcon = rewardName => {
 		if (Array.isArray(iconData)) {
 			const found = iconData.find(item => item.name === rewardName);
@@ -603,7 +572,6 @@ function AdventureMapDetail() {
 		}
 		return "/fallback-image.svg";
 	};
-
 	const getTranslatedRegion = regionName => {
 		const regionKey = removeAccents(regionName)
 			.toLowerCase()
@@ -635,7 +603,6 @@ function AdventureMapDetail() {
 				}
 				description={`${tUI("adventureMap.detailDesc") || "Hướng dẫn chi tiết bản đồ"} ${adventure?.adventureName || ""}`}
 			/>
-
 			<Button variant='outline' onClick={() => navigate(-1)} className='mb-4'>
 				<ChevronLeft size={18} /> {tUI("common.back") || "Quay lại"}
 			</Button>
@@ -658,7 +625,6 @@ function AdventureMapDetail() {
 						animate={{ opacity: 1, y: 0 }}
 						className='flex flex-col space-y-8 w-full'
 					>
-						{/* 1. KHU VỰC HEADER */}
 						<section className='relative rounded-2xl overflow-hidden border border-border shadow-md bg-surface-bg w-full'>
 							<div className='absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent z-10'></div>
 							<img
@@ -696,7 +662,6 @@ function AdventureMapDetail() {
 							</div>
 						</section>
 
-						{/* 2. BẢN ĐỒ NODES */}
 						{adventure.nodes && adventure.nodes.length > 0 && (
 							<section className='bg-surface-bg border border-border rounded-xl p-2 md:p-4 shadow-sm w-full'>
 								<h2 className='text-xl font-bold text-pink-500 font-primary uppercase flex items-center gap-2 border-b border-border pb-2'>
@@ -713,7 +678,6 @@ function AdventureMapDetail() {
 							</section>
 						)}
 
-						{/* 4. SỨC MẠNH ĐẶC BIỆT */}
 						{resolvedRules.length > 0 && (
 							<section className='bg-surface-bg border border-border rounded-xl p-2 md:p-4 shadow-sm w-full'>
 								<h2 className='text-xl font-bold text-primary-500 font-primary uppercase mb-4 flex items-center gap-2 border-b border-border pb-2'>
@@ -728,7 +692,6 @@ function AdventureMapDetail() {
 							</section>
 						)}
 
-						{/* 5. DANH SÁCH BOSS */}
 						{resolvedBosses.length > 0 && (
 							<section className='bg-surface-bg border border-border rounded-xl p-2 md:p-4 shadow-sm w-full'>
 								<h2 className='text-xl font-bold text-red-500 font-primary uppercase mb-4 flex items-center gap-2 border-b border-border pb-2'>
@@ -742,7 +705,6 @@ function AdventureMapDetail() {
 											: boss.resolvedPower
 												? [boss.resolvedPower]
 												: [];
-
 										return (
 											<div
 												key={idx}
@@ -757,7 +719,6 @@ function AdventureMapDetail() {
 													<h3 className='text-lg font-bold text-text-primary'>
 														{tDynamic(boss, "bossName")}
 													</h3>
-
 													{bossPowers.length > 0 ? (
 														<div className='grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2'>
 															{bossPowers.map((p, pIdx) => (
@@ -772,12 +733,11 @@ function AdventureMapDetail() {
 																"Không có sức mạnh đặc biệt."}
 														</p>
 													)}
-
 													{boss.note && (
 														<div className='mt-3 p-3 bg-surface-bg rounded-md flex items-start gap-2.5 border border-border/50'>
 															<div className='text-sm text-text-secondary leading-relaxed whitespace-pre-line'>
 																<span className='font-bold text-primary-500 mt-1 uppercase text-xs tracking-wider'>
-																	{tUI("adventureMap.note") || "Lưu ý:"}
+																	{tUI("adventureMap.note") || "Lưu ý:"}{" "}
 																</span>
 																<br />
 																{boss.note}
@@ -792,7 +752,6 @@ function AdventureMapDetail() {
 							</section>
 						)}
 
-						{/* 3. YÊU CẦU */}
 						{(resolvedChampions.length > 0 ||
 							adventure.requirement?.regions?.length > 0) && (
 							<section className='bg-surface-bg border border-border rounded-xl p-2 md:p-4 shadow-sm w-full'>
@@ -801,7 +760,6 @@ function AdventureMapDetail() {
 									{tUI("adventureMap.requirementTitle") ||
 										"Tướng / Khu Vực Yêu Cầu"}
 								</h2>
-
 								<div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
 									{resolvedChampions.length > 0 && (
 										<div>
@@ -838,7 +796,6 @@ function AdventureMapDetail() {
 											</div>
 										</div>
 									)}
-
 									{adventure.requirement?.regions?.length > 0 && (
 										<div>
 											<h3 className='text-sm text-text-secondary mb-3 font-semibold'>
@@ -871,14 +828,12 @@ function AdventureMapDetail() {
 							</section>
 						)}
 
-						{/* 6. PHẦN THƯỞNG */}
 						{adventure.rewards && adventure.rewards.length > 0 && (
 							<section className='w-full'>
 								<h2 className='text-xl font-bold text-yellow-500 font-primary uppercase mb-2 flex items-center gap-2'>
 									<Gift size={20} />{" "}
 									{tUI("adventureMap.rewardMilestone") || "Mốc Thưởng"}
 								</h2>
-
 								<div className='bg-surface-bg rounded-lg overflow-hidden border border-border shadow-sm'>
 									<div className='overflow-x-auto'>
 										<table className='w-full text-left border-collapse min-w-[600px]'>

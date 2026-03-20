@@ -11,7 +11,9 @@ import {
 	Skull,
 	Swords,
 	ShieldQuestion,
-	Zap, // Đã thêm icon Zap
+	Zap,
+	CircleDot,
+	Image as ImageIcon,
 } from "lucide-react";
 
 import {
@@ -22,7 +24,7 @@ import {
 	getUniqueAdvId,
 	getAdvName,
 	getAdvImage,
-	NODE_TYPES_DATA, // Import hằng số data từ helper
+	NODE_TYPES_DATA,
 } from "./adventureEditorHelpers";
 
 const StringArrayInput = ({ label, items, onChange, placeholder }) => (
@@ -66,8 +68,26 @@ const AdventureMapEditorForm = memo(
 		const [formData, setFormData] = useState({});
 
 		const [isMapVisible, setIsMapVisible] = useState(true);
+		const [nodeDisplayMode, setNodeDisplayMode] = useState("icon");
+		const [mapAspectRatio, setMapAspectRatio] = useState("21/9");
+		const [mapSize, setMapSize] = useState({ width: 1000, height: 400 }); // Thêm biến lưu size pixel
 		const [selectedNodeIndex, setSelectedNodeIndex] = useState(null);
 		const mapRef = useRef(null);
+
+		// Dùng ResizeObserver theo dõi kích thước thật của container
+		useEffect(() => {
+			if (!isMapVisible || !mapRef.current) return;
+			const observer = new ResizeObserver(entries => {
+				for (let entry of entries) {
+					setMapSize({
+						width: entry.contentRect.width,
+						height: entry.contentRect.height,
+					});
+				}
+			});
+			observer.observe(mapRef.current);
+			return () => observer.disconnect();
+		}, [isMapVisible]);
 
 		useEffect(() => {
 			if (item) {
@@ -139,7 +159,6 @@ const AdventureMapEditorForm = memo(
 
 		return (
 			<form onSubmit={handleSubmit} className='space-y-6 pb-20'>
-				{/* THANH STICKY HEADER */}
 				<div className='flex justify-between items-center border-b border-border p-4 sticky top-0 bg-surface-bg z-30 shadow-sm'>
 					<h2 className='text-xl font-bold text-primary-500'>
 						{formData.isNew
@@ -176,7 +195,7 @@ const AdventureMapEditorForm = memo(
 				</div>
 
 				<div className='p-6 space-y-8 max-w-[1400px] mx-auto'>
-					{/* 1. THÔNG TIN CƠ BẢN */}
+					{/* ... Phần thông tin cơ bản giữ nguyên ... */}
 					<section className='bg-surface-hover/30 p-5 rounded-xl border border-border space-y-4 shadow-sm'>
 						<h3 className='font-bold text-lg border-l-4 border-primary-500 pl-3'>
 							Thông tin cơ bản
@@ -271,15 +290,11 @@ const AdventureMapEditorForm = memo(
 											src={formData.assetAbsolutePath}
 											alt='Avatar Preview'
 											className='h-[42px] w-[42px] rounded-lg object-cover border border-border shadow-sm bg-black/40'
-											title='Ảnh xem trước'
-											onError={e => {
-												e.target.style.display = "none";
-											}}
+											onError={e => (e.target.style.display = "none")}
 										/>
 									</div>
 								)}
 							</div>
-
 							<InputField
 								label='Kinh nghiệm (XP)'
 								name='championXP'
@@ -295,7 +310,7 @@ const AdventureMapEditorForm = memo(
 						</div>
 					</section>
 
-					{/* 2. YÊU CẦU & LUẬT ĐẶC BIỆT */}
+					{/* ... Phần Requirement & Special Rules giữ nguyên ... */}
 					<section className='grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch'>
 						<div className='bg-surface-hover/30 p-5 rounded-xl border border-border shadow-sm flex flex-col h-full'>
 							<h3 className='font-bold mb-4 text-lg border-l-4 border-blue-500 pl-3'>
@@ -346,7 +361,7 @@ const AdventureMapEditorForm = memo(
 						</div>
 					</section>
 
-					{/* 3. DANH SÁCH BOSS CHÍNH */}
+					{/* ... Phần Boss giữ nguyên ... */}
 					<section className='bg-surface-hover/30 p-5 rounded-xl border border-border shadow-sm'>
 						<div className='flex justify-between items-center mb-6 border-b border-border pb-3'>
 							<h3 className='font-bold text-lg border-l-4 border-red-500 pl-3'>
@@ -374,14 +389,11 @@ const AdventureMapEditorForm = memo(
 									(cachedData.bosses || []).find(
 										cb => getUniqueAdvId(cb) === safeBossID,
 									) || {};
-
 								const isResolvedBoss = !!getUniqueAdvId(resolvedBoss);
 								const displayBossID = isResolvedBoss
 									? getAdvName(resolvedBoss)
 									: b.bossID || "";
 								const bossAvatar = getAdvImage(resolvedBoss);
-
-								// Lấy mảng power từ Boss (Hỗ trợ tương thích ngược nếu power là string)
 								const bossPowers = Array.isArray(resolvedBoss.power)
 									? resolvedBoss.power
 									: resolvedBoss.power
@@ -411,7 +423,6 @@ const AdventureMapEditorForm = memo(
 										}}
 										onDragOver={e => e.preventDefault()}
 									>
-										{/* Cột trái: ID Boss */}
 										<div className='w-full lg:w-1/4 flex flex-col gap-4 lg:border-r lg:border-border lg:pr-6'>
 											<div className='flex justify-between items-center'>
 												<span className='font-black text-red-500 text-lg'>
@@ -468,7 +479,6 @@ const AdventureMapEditorForm = memo(
 												</div>
 											</div>
 
-											{/* KHU VỰC HIỂN THỊ SỨC MẠNH (POWERS) CỦA BOSS */}
 											{isResolvedBoss && (
 												<div className='flex flex-col gap-2 mt-1'>
 													<label className='block font-semibold text-[10px] uppercase text-text-secondary tracking-widest flex items-center gap-1.5'>
@@ -526,8 +536,6 @@ const AdventureMapEditorForm = memo(
 												</div>
 											)}
 										</div>
-
-										{/* Cột phải: Ghi chú */}
 										<div className='w-full lg:w-3/4 flex flex-col'>
 											<label className='block font-semibold text-sm text-text-secondary mb-2'>
 												Chi tiết chiến thuật / Ghi chú (Hỗ trợ xuống dòng)
@@ -562,6 +570,26 @@ const AdventureMapEditorForm = memo(
 								Đường đi (Nodes)
 							</h3>
 							<div className='flex items-center gap-3'>
+								<Button
+									type='button'
+									size='sm'
+									variant='outline'
+									onClick={() =>
+										setNodeDisplayMode(prev =>
+											prev === "icon" ? "dot" : "icon",
+										)
+									}
+									iconLeft={
+										nodeDisplayMode === "icon" ? (
+											<CircleDot size={16} />
+										) : (
+											<ImageIcon size={16} />
+										)
+									}
+								>
+									{nodeDisplayMode === "icon" ? "Chế độ Chấm" : "Chế độ Icon"}
+								</Button>
+
 								<Button
 									type='button'
 									size='sm'
@@ -605,28 +633,36 @@ const AdventureMapEditorForm = memo(
 							{isMapVisible && (
 								<div className='space-y-4'>
 									<div
-										className='relative w-full aspect-[21/9] bg-slate-950 rounded-2xl overflow-hidden border-2 border-border shadow-lg cursor-crosshair flex items-center justify-center'
+										className='relative w-full bg-slate-950 rounded-2xl overflow-hidden border-2 border-border shadow-lg cursor-crosshair flex items-center justify-center'
+										style={{ aspectRatio: mapAspectRatio }}
 										ref={mapRef}
 										onClick={handleMapClick}
 									>
 										<img
 											src={formData.background || "/images/placeholder-bg.jpg"}
-											className='absolute inset-0 w-full h-full object-contain opacity-60'
+											className='absolute inset-0 w-full h-full object-fill opacity-60'
 											alt='Map Background'
+											onLoad={e => {
+												const { naturalWidth, naturalHeight } = e.target;
+												if (naturalWidth && naturalHeight) {
+													setMapAspectRatio(`${naturalWidth}/${naturalHeight}`);
+												}
+											}}
 										/>
 										<svg className='absolute inset-0 w-full h-full pointer-events-none'>
 											<defs>
+												{/* Marker mũi tên đã được điều chỉnh sắc nét hơn */}
 												<marker
 													id='arrowhead-adv'
-													markerWidth='5'
-													markerHeight='5'
-													refX='4.8'
-													refY='2.5'
-													orient='auto'
+													markerWidth='6'
+													markerHeight='6'
+													refX='5.5'
+													refY='3'
+													orient='auto-start-reverse'
 												>
 													<path
-														d='M0,0 L5,2.5 L0,5 Z'
-														fill='rgba(239, 68, 68, 0.8)'
+														d='M0,0 L6,3 L0,6 L1.5,3 Z'
+														fill='rgba(239, 68, 68, 0.9)'
 													/>
 												</marker>
 											</defs>
@@ -643,6 +679,7 @@ const AdventureMapEditorForm = memo(
 																y1={node.position?.y ?? 0}
 																x2={target.position?.x ?? 0}
 																y2={target.position?.y ?? 0}
+																mapSize={mapSize}
 															/>
 														)
 													);
@@ -650,17 +687,42 @@ const AdventureMapEditorForm = memo(
 											)}
 										</svg>
 										{(formData.nodes || []).map((n, i) => {
-											// Tìm thông tin Node để hiển thị Title khi hover lên chấm tròn trên Map
 											const nodeInfo =
 												NODE_TYPES_DATA.find(
 													t => t.nodeType === (n.nodeType || "Encounter"),
 												) || {};
 
+											if (nodeDisplayMode === "dot") {
+												return (
+													<div
+														key={i}
+														title={`${n.nodeID} - ${n.nodeType}\n${nodeInfo.description || ""}`}
+														className={`absolute w-3 h-3 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white transition-all cursor-pointer ${
+															selectedNodeIndex === i
+																? "bg-red-500 scale-150 z-30 shadow-[0_0_10px_rgba(239,68,68,1)]"
+																: "bg-blue-500 z-20 hover:scale-125 hover:bg-red-400"
+														}`}
+														style={{
+															left: `${n.position?.x ?? 0}%`,
+															top: `${n.position?.y ?? 0}%`,
+														}}
+														onClick={e => {
+															e.stopPropagation();
+															setSelectedNodeIndex(i);
+														}}
+													/>
+												);
+											}
+
 											return (
 												<div
 													key={i}
 													title={`${n.nodeID} - ${n.nodeType}\n${nodeInfo.description || ""}`}
-													className={`absolute w-7 h-7 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 flex items-center justify-center transition-all cursor-pointer ${selectedNodeIndex === i ? "bg-red-500 border-white scale-125 z-30 shadow-[0_0_15px_rgba(239,68,68,0.8)]" : "bg-black/60 border-white/60 z-20 hover:scale-110 hover:border-white"}`}
+													className={`absolute w-7 h-7 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 flex items-center justify-center transition-all cursor-pointer ${
+														selectedNodeIndex === i
+															? "bg-red-500 border-white scale-125 z-30 shadow-[0_0_15px_rgba(239,68,68,0.8)]"
+															: "bg-black/60 border-white/60 z-20 hover:scale-110 hover:border-white"
+													}`}
 													style={{
 														left: `${n.position?.x ?? 0}%`,
 														top: `${n.position?.y ?? 0}%`,
