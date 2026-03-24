@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { Analytics } from "@vercel/analytics/react";
+import { useTranslation } from "./hooks/useTranslation";
 // Context xác thực
 import { AuthProvider } from "./context/AuthContext.jsx";
 
@@ -134,12 +135,24 @@ function AppLayout() {
 
 // --- Component App ---
 function App() {
+	// Lấy cờ trạng thái loading ngôn ngữ
+	const { isLangLoading } = useTranslation();
+
+	// Hiển thị màn hình chờ nếu ngôn ngữ đang được tải
+	if (isLangLoading) {
+		return (
+			<div className='flex h-screen w-full items-center justify-center bg-background'>
+				<div className='animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary'></div>
+				<span className='ml-3 text-text-secondary'>Đang tải ngôn ngữ...</span>
+			</div>
+		);
+	}
+
 	return (
 		<HelmetProvider>
 			<AuthProvider>
 				<BrowserRouter>
 					<AppLayout />
-					<Analytics />
 				</BrowserRouter>
 			</AuthProvider>
 		</HelmetProvider>
