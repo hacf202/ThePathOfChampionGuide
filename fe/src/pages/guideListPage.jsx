@@ -4,7 +4,7 @@ import axios from "axios";
 import { Calendar, Eye, ArrowRight } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/common/button";
-import { useTranslation } from "../hooks/useTranslation"; // 🟢 Hook Đa ngôn ngữ
+import { useTranslation } from "../hooks/useTranslation";
 import PageTitle from "../components/common/pageTitle";
 
 const GuideList = () => {
@@ -12,8 +12,7 @@ const GuideList = () => {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 	const navigate = useNavigate();
-	const { tUI, t } = useTranslation(); // 🟢 Khởi tạo Hook
-
+	const { tUI, t } = useTranslation();
 	const fetchGuides = async () => {
 		setLoading(true);
 		setError(null);
@@ -61,7 +60,7 @@ const GuideList = () => {
 
 			<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
 				{guides.map(guide => {
-					const guideTitle = t(guide, "title"); // 🟢 Tự động dịch tiêu đề động
+					const guideTitle = t(guide, "title");
 
 					return (
 						<div

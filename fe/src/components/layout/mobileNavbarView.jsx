@@ -76,7 +76,7 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 	}, []);
 
 	const dropdownLinkClass =
-		"flex items-center gap-2 px-4 py-2 text-sm hover:bg-dropdown-item-hover-bg  ";
+		"flex items-center gap-2 px-4 py-2 text-sm hover:bg-black/10 ";
 
 	return (
 		<>
@@ -90,7 +90,7 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 				<div className='flex items-center gap-2'>
 					<button
 						onClick={() => setIsSidebarOpen(true)}
-						className='p-2 rounded-lg hover:bg-nav-hover-bg transition-all'
+						className='p-2 rounded-lg hover:bg-black/10 transition-all'
 					>
 						<Menu className='w-6 h-6' />
 					</button>
@@ -105,7 +105,7 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 				} xl:hidden overflow-y-auto`}
 			>
 				<div className='flex flex-col h-full'>
-					<div className='flex items-center justify-between p-4 border-b border-gray-700'>
+					<div className='flex items-center justify-between p-3 border-b border-gray-700'>
 						<div className='flex items-center gap-2'>
 							<img src={Logo} alt='Logo' className='h-8 w-auto rounded' />
 							<span className='font-primary text-xl text-header-text'>
@@ -114,7 +114,7 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 						</div>
 						<button
 							onClick={closeSidebar}
-							className='p-1 rounded-lg hover:bg-gray-700  '
+							className='p-1 rounded-lg hover:bg-black/10  '
 						>
 							<X className='w-6 h-6 text-white' />
 						</button>
@@ -123,7 +123,7 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 					<nav className='flex-1 p-4 space-y-1 text-header-text'>
 						<NavLink
 							to='/champions'
-							className='flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-nav-hover-bg transition-all'
+							className='flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-black/10 transition-all'
 							onClick={closeSidebar}
 						>
 							<Swords className='w-5 h-5' /> {tUI("nav.champions")}
@@ -133,7 +133,7 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 						<div>
 							<button
 								onClick={() => setIsItemsDropdownOpen(!isItemsDropdownOpen)}
-								className='w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-nav-hover-bg transition-all'
+								className='w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-black/10 transition-all'
 							>
 								<div className='flex items-center gap-3'>
 									<Package className='w-5 h-5' /> {tUI("nav.itemsTitle")}
@@ -199,7 +199,7 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 						<div>
 							<button
 								onClick={() => setIsToolsDropdownOpen(!isToolsDropdownOpen)}
-								className='w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-nav-hover-bg transition-all'
+								className='w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-black/10 transition-all'
 							>
 								<div className='flex items-center gap-3'>
 									<Wrench className='w-5 h-5' /> {tUI("nav.toolsTitle")}
@@ -267,7 +267,7 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 						<div>
 							<button
 								onClick={() => setIsLangDropdownOpen(!isLangDropdownOpen)}
-								className='w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-nav-hover-bg transition-all'
+								className='w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-black/10 transition-all'
 							>
 								<div className='flex items-center gap-3'>
 									<Globe className='w-5 h-5' /> {tUI("nav.language")}
@@ -295,7 +295,7 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 											handleLanguageChange("vi");
 											closeSidebar();
 										}}
-										className={`w-full text-left flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-700   ${language === "vi" ? "font-bold  text-nav-link-text" : ""}`}
+										className={`w-full text-left flex items-center gap-2 px-4 py-2 text-sm hover:bg-black/10  ${language === "vi" ? "font-bold  text-nav-link-text" : ""}`}
 									>
 										Tiếng Việt
 									</button>
@@ -304,7 +304,7 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 											handleLanguageChange("en");
 											closeSidebar();
 										}}
-										className={`w-full text-left flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-700   ${language === "en" ? "font-bold  text-nav-link-text" : ""}`}
+										className={`w-full text-left flex items-center gap-2 px-4 py-2 text-sm hover:bg-black/10   ${language === "en" ? "font-bold  text-nav-link-text" : ""}`}
 									>
 										English
 									</button>
@@ -321,7 +321,7 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 								</div>
 								<NavLink
 									to='/profile'
-									className='flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-nav-hover-bg text-sm'
+									className='flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-black/10 text-sm'
 									onClick={closeSidebar}
 								>
 									<Settings className='w-4 h-4' /> {tUI("nav.profile")}
@@ -329,7 +329,7 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 								{isAdmin && (
 									<NavLink
 										to='/admin'
-										className='flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-nav-hover-bg text-sm font-semibold'
+										className='flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-black/10 text-sm font-semibold'
 										onClick={closeSidebar}
 									>
 										<Shield className='w-4 h-4' /> {tUI("nav.admin")}
@@ -340,7 +340,7 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 										setIsLogoutModalOpen(true);
 										setIsSidebarOpen(false);
 									}}
-									className='w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-red-900/30 text-sm'
+									className='w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-black/10 text-sm'
 								>
 									<LogOut className='w-4 h-4' /> {tUI("nav.logout")}
 								</button>

@@ -2,20 +2,13 @@
 import { useContext, useCallback } from "react";
 import { LanguageContext } from "../context/LanguageContext";
 
-// Import các file từ điển tĩnh
-import viDict from "../locales/vi.json";
-import enDict from "../locales/en.json";
-
-const dictionaries = {
-	vi: viDict,
-	en: enDict,
-};
-
 export const useTranslation = () => {
-	const { language, toggleLanguage } = useContext(LanguageContext);
+	// Lấy thêm dictionaries và isLangLoading từ Context
+	const { language, toggleLanguage, dictionaries, isLangLoading } =
+		useContext(LanguageContext);
 
 	/**
-	 * Hàm dịch thuật tự động cho DỮ LIỆU ĐỘNG từ Database
+	 * Hàm dịch thuật tự động cho DỮ LIỆU ĐỘNG từ Database (Giữ nguyên logic cũ)
 	 */
 	const tDynamic = useCallback(
 		(item, field = "name") => {
@@ -40,6 +33,9 @@ export const useTranslation = () => {
 	 */
 	const tUI = useCallback(
 		key => {
+			// BẢO VỆ: Nếu tệp JSON chưa tải xong, trả tạm về key rỗng hoặc chính key đó để tránh lỗi văng app
+			if (!dictionaries[language]) return "";
+
 			const keys = key.split(".");
 			let result = dictionaries[language];
 
@@ -47,7 +43,12 @@ export const useTranslation = () => {
 				if (result && result[k] !== undefined) {
 					result = result[k];
 				} else {
+					// Fallback về tiếng Việt
 					let fallbackResult = dictionaries["vi"];
+
+					// Nếu tiếng Việt chưa sẵn sàng (rất hiếm khi xảy ra), trả về chuỗi key gốc
+					if (!fallbackResult) return key;
+
 					for (const fallbackKey of keys) {
 						if (fallbackResult && fallbackResult[fallbackKey] !== undefined) {
 							fallbackResult = fallbackResult[fallbackKey];
@@ -61,9 +62,16 @@ export const useTranslation = () => {
 
 			return result;
 		},
-		[language],
+		[language, dictionaries], // Thêm dictionaries vào dependency array
 	);
 
-	// 🟢 TRẢ VỀ THÊM `t: tDynamic` ĐỂ ĐẢM BẢO TƯƠNG THÍCH NGƯỢC VỚI CÁC FILE CŨ
-	return { language, toggleLanguage, tDynamic, tUI, t: tDynamic };
+	// Trả về thêm cờ isLangLoading để giao diện bên ngoài có thể hiển thị hiệu ứng xoay (spinner)
+	return {
+		language,
+		toggleLanguage,
+		tDynamic,
+		tUI,
+		t: tDynamic,
+		isLangLoading,
+	};
 };

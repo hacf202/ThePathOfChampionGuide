@@ -64,7 +64,7 @@ function ChampionList() {
 
 	return (
 		<GenericListLayout
-			pageTitle={tUI("championList.pageTitle")}
+			pageTitle={tUI("championList.title")}
 			pageDescription={tUI("championList.pageDescription")}
 			heading={tUI("championList.heading")}
 			data={champions}
