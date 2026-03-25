@@ -8,6 +8,7 @@ import DropDragSidePanel from "../common/dropSidePanel";
 import AdventureMapEditorForm from "./adventureMapEditorForm";
 import { Loader2 } from "lucide-react";
 
+// Đã thêm ghi chú cấu trúc ngầm định của Bosses để đồng bộ dữ liệu
 const NEW_ADV_TEMPLATE = {
 	adventureID: "",
 	isNew: true,
@@ -18,7 +19,7 @@ const NEW_ADV_TEMPLATE = {
 	difficulty: 1,
 	championXP: 0,
 	specialRules: [],
-	Bosses: [],
+	Bosses: [], // Cấu trúc khi thêm mới: { bossID: "", note: "", mapBonusPower: [] }
 	nodes: [],
 	requirement: { champions: [], regions: [] },
 	rewards: [],

@@ -39,7 +39,9 @@
 		"views": "Lượt xem",
 		"backToList": "Quay lại danh sách",
 		"zoomIn": "Phóng to",
-		"zoomOut": "Thu nhỏ"
+		"zoomOut": "Thu nhỏ",
+		"showMap": "Hiển thị bản đồ phiêu lưu",
+		"hideMap": "Ẩn bản đồ phiêu lưu"
 	},
 	"mapList": {
 		"pageTitle": "Danh Sách Bản Đồ",

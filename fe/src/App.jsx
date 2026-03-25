@@ -138,12 +138,30 @@ function App() {
 	// Lấy cờ trạng thái loading ngôn ngữ
 	const { isLangLoading } = useTranslation();
 
-	// Hiển thị màn hình chờ nếu ngôn ngữ đang được tải
+	// Hiển thị màn hình chờ (Skeleton Loading) nếu ngôn ngữ đang được tải
 	if (isLangLoading) {
 		return (
-			<div className='flex h-screen w-full items-center justify-center bg-background'>
-				<div className='animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary'></div>
-				<span className='ml-3 text-text-secondary'>Đang tải ngôn ngữ...</span>
+			<div className='fixed inset-0 z-50 bg-[#0f172a] p-4 flex flex-col'>
+				{/* Skeleton Navbar */}
+				<div className='h-16 w-full bg-white/5 rounded-2xl animate-pulse mb-8'></div>
+
+				{/* Skeleton Body (Giả lập cấu trúc trang) */}
+				<div className='flex-grow flex flex-col items-center justify-center w-full max-w-5xl mx-auto gap-6'>
+					{/* Giả lập Badge/Icon */}
+					<div className='h-8 w-32 bg-white/5 rounded-full animate-pulse mb-4'></div>
+
+					{/* Giả lập Heading lớn */}
+					<div className='h-16 md:h-24 w-3/4 bg-white/5 rounded-3xl animate-pulse'></div>
+
+					{/* Giả lập Đoạn mô tả */}
+					<div className='h-6 md:h-8 w-1/2 bg-white/5 rounded-full animate-pulse mb-8'></div>
+
+					{/* Giả lập 2 Nút bấm */}
+					<div className='flex flex-col sm:flex-row gap-6'>
+						<div className='h-14 w-48 bg-white/5 rounded-full animate-pulse'></div>
+						<div className='h-14 w-48 bg-white/5 rounded-full animate-pulse'></div>
+					</div>
+				</div>
 			</div>
 		);
 	}

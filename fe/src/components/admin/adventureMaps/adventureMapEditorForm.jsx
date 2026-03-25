@@ -9,11 +9,17 @@ import {
 	Eye,
 	EyeOff,
 	Skull,
-	Swords,
 	ShieldQuestion,
 	Zap,
 	CircleDot,
 	Image as ImageIcon,
+	Flag,
+	HandMetal,
+	AlertCircle,
+	ShoppingBag,
+	Package,
+	HelpCircle,
+	Diamond,
 } from "lucide-react";
 
 import {
@@ -70,11 +76,10 @@ const AdventureMapEditorForm = memo(
 		const [isMapVisible, setIsMapVisible] = useState(true);
 		const [nodeDisplayMode, setNodeDisplayMode] = useState("icon");
 		const [mapAspectRatio, setMapAspectRatio] = useState("21/9");
-		const [mapSize, setMapSize] = useState({ width: 1000, height: 400 }); // Thêm biến lưu size pixel
+		const [mapSize, setMapSize] = useState({ width: 1000, height: 400 });
 		const [selectedNodeIndex, setSelectedNodeIndex] = useState(null);
 		const mapRef = useRef(null);
 
-		// Dùng ResizeObserver theo dõi kích thước thật của container
 		useEffect(() => {
 			if (!isMapVisible || !mapRef.current) return;
 			const observer = new ResizeObserver(entries => {
@@ -101,6 +106,13 @@ const AdventureMapEditorForm = memo(
 				if (!cloned.rewards) cloned.rewards = [];
 				if (!cloned.requirement)
 					cloned.requirement = { champions: [], regions: [] };
+
+				// Đảm bảo các Boss cũ nếu chưa có mapBonusPower sẽ được khởi tạo
+				cloned.Bosses = cloned.Bosses.map(b => ({
+					...b,
+					mapBonusPower: b.mapBonusPower || [],
+				}));
+
 				setFormData(cloned);
 			}
 		}, [item]);
@@ -150,10 +162,35 @@ const AdventureMapEditorForm = memo(
 			});
 		}, []);
 
+		// MAP ICON DÀNH RIÊNG CHO BẢN ĐỒ (CÓ THỂ SỬ DỤNG MÀU SẮC ĐỂ DỄ NHÌN HƠN THAY VÌ TEXT-WHITE)
 		const getNodeIcon = type => {
-			if (type === "Boss") return <Skull size={14} className='text-white' />;
-			if (type === "Encounter")
-				return <Swords size={14} className='text-white' />;
+			const t = (type || "").toLowerCase();
+			if (t.includes("start"))
+				return <Flag size={14} className='text-emerald-400' />;
+			if (t.includes("mini"))
+				return <Skull size={10} className='text-orange-400' />;
+			if (t.includes("boss"))
+				return <Skull size={16} className='text-red-500' />;
+			if (t.includes("power"))
+				return <HandMetal size={14} className='text-yellow-400' />;
+			if (t.includes("heal"))
+				return <Plus size={14} className='text-green-400' />;
+			if (t.includes("encounter"))
+				return <AlertCircle size={14} className='text-red-400' />;
+			if (t.includes("shop"))
+				return <ShoppingBag size={14} className='text-yellow-500' />;
+			if (
+				t.includes("gold") ||
+				t.includes("chest") ||
+				t.includes("item") ||
+				t.includes("spell")
+			)
+				return <Package size={14} className='text-blue-400' />;
+			if (t.includes("event"))
+				return <HelpCircle size={14} className='text-purple-400' />;
+			if (t.includes("champion"))
+				return <Diamond size={14} className='text-cyan-400' />;
+
 			return <ShieldQuestion size={14} className='text-white' />;
 		};
 
@@ -195,7 +232,6 @@ const AdventureMapEditorForm = memo(
 				</div>
 
 				<div className='p-6 space-y-8 max-w-[1400px] mx-auto'>
-					{/* ... Phần thông tin cơ bản giữ nguyên ... */}
 					<section className='bg-surface-hover/30 p-5 rounded-xl border border-border space-y-4 shadow-sm'>
 						<h3 className='font-bold text-lg border-l-4 border-primary-500 pl-3'>
 							Thông tin cơ bản
@@ -310,7 +346,6 @@ const AdventureMapEditorForm = memo(
 						</div>
 					</section>
 
-					{/* ... Phần Requirement & Special Rules giữ nguyên ... */}
 					<section className='grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch'>
 						<div className='bg-surface-hover/30 p-5 rounded-xl border border-border shadow-sm flex flex-col h-full'>
 							<h3 className='font-bold mb-4 text-lg border-l-4 border-blue-500 pl-3'>
@@ -361,7 +396,7 @@ const AdventureMapEditorForm = memo(
 						</div>
 					</section>
 
-					{/* ... Phần Boss giữ nguyên ... */}
+					{/* --- KHU VỰC DANH SÁCH BOSS CÓ KÈM BONUS POWER --- */}
 					<section className='bg-surface-hover/30 p-5 rounded-xl border border-border shadow-sm'>
 						<div className='flex justify-between items-center mb-6 border-b border-border pb-3'>
 							<h3 className='font-bold text-lg border-l-4 border-red-500 pl-3'>
@@ -374,7 +409,10 @@ const AdventureMapEditorForm = memo(
 								onClick={() =>
 									setFormData(p => ({
 										...p,
-										Bosses: [...(p.Bosses || []), { bossID: "", note: "" }],
+										Bosses: [
+											...(p.Bosses || []),
+											{ bossID: "", note: "", mapBonusPower: [] },
+										],
 									}))
 								}
 							>
@@ -404,26 +442,29 @@ const AdventureMapEditorForm = memo(
 									<div
 										key={i}
 										className='bg-surface-bg p-5 rounded-lg border border-border shadow-md flex flex-col lg:flex-row gap-6 relative'
-										onDrop={e => {
-											e.preventDefault();
-											try {
-												const dragged = JSON.parse(
-													e.dataTransfer.getData("text/plain"),
-												);
-												const identifier =
-													getUniqueAdvId(dragged) || dragged.name;
-												if (identifier) {
-													const arr = [...formData.Bosses];
-													arr[i].bossID = identifier.trim();
-													setFormData(p => ({ ...p, Bosses: arr }));
-												}
-											} catch (err) {
-												console.warn("Drag data không hợp lệ");
-											}
-										}}
-										onDragOver={e => e.preventDefault()}
 									>
-										<div className='w-full lg:w-1/4 flex flex-col gap-4 lg:border-r lg:border-border lg:pr-6'>
+										<div
+											className='w-full lg:w-1/4 flex flex-col gap-4 lg:border-r lg:border-border lg:pr-6 p-2 -m-2 rounded-lg border-2 border-transparent hover:border-dashed hover:border-red-500/30 transition-all'
+											onDrop={e => {
+												e.preventDefault();
+												e.stopPropagation();
+												try {
+													const dragged = JSON.parse(
+														e.dataTransfer.getData("text/plain"),
+													);
+													const identifier =
+														getUniqueAdvId(dragged) || dragged.name;
+													if (identifier) {
+														const arr = [...formData.Bosses];
+														arr[i].bossID = identifier.trim();
+														setFormData(p => ({ ...p, Bosses: arr }));
+													}
+												} catch (err) {
+													console.warn("Drag data không hợp lệ");
+												}
+											}}
+											onDragOver={e => e.preventDefault()}
+										>
 											<div className='flex justify-between items-center'>
 												<span className='font-black text-red-500 text-lg'>
 													BOSS #{i + 1}
@@ -445,9 +486,9 @@ const AdventureMapEditorForm = memo(
 
 											<div className='flex flex-col gap-2'>
 												<label className='block font-semibold text-[10px] uppercase text-text-secondary tracking-widest'>
-													Mã Boss (ID)
+													Mã Boss (Kéo thả vào khu vực này)
 												</label>
-												<div className='flex items-center gap-3 bg-surface-hover p-2 rounded-lg border border-border'>
+												<div className='flex items-center gap-3 bg-surface-hover p-2 rounded-lg border border-border pointer-events-none'>
 													<div className='w-10 h-10 rounded bg-white border flex items-center justify-center overflow-hidden shrink-0'>
 														{bossAvatar ? (
 															<img
@@ -461,7 +502,7 @@ const AdventureMapEditorForm = memo(
 														)}
 													</div>
 													<InputField
-														placeholder='Kéo thả Boss...'
+														placeholder='ID Boss...'
 														value={displayBossID}
 														onChange={e => {
 															const arr = [...formData.Bosses];
@@ -469,7 +510,7 @@ const AdventureMapEditorForm = memo(
 															setFormData(p => ({ ...p, Bosses: arr }));
 														}}
 														readOnly={isResolvedBoss}
-														className={`flex-1 ${isResolvedBoss ? "font-bold text-red-500" : ""}`}
+														className={`flex-1 pointer-events-auto ${isResolvedBoss ? "font-bold text-red-500" : ""}`}
 														title={
 															isResolvedBoss
 																? `ID thực tế được lưu trữ: ${b.bossID}`
@@ -483,7 +524,7 @@ const AdventureMapEditorForm = memo(
 												<div className='flex flex-col gap-2 mt-1'>
 													<label className='block font-semibold text-[10px] uppercase text-text-secondary tracking-widest flex items-center gap-1.5'>
 														<Zap size={12} className='text-yellow-500' /> Sức
-														mạnh Boss
+														mạnh gốc của Boss
 													</label>
 													{bossPowers.length > 0 ? (
 														<div className='flex flex-wrap gap-2'>
@@ -536,20 +577,37 @@ const AdventureMapEditorForm = memo(
 												</div>
 											)}
 										</div>
-										<div className='w-full lg:w-3/4 flex flex-col'>
-											<label className='block font-semibold text-sm text-text-secondary mb-2'>
-												Chi tiết chiến thuật / Ghi chú (Hỗ trợ xuống dòng)
-											</label>
-											<textarea
-												className='w-full flex-1 min-h-[120px] bg-surface-hover border border-border rounded-lg p-4 text-sm text-text-primary focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none resize-y transition-colors placeholder:text-text-secondary/50'
-												placeholder='Nhập chi tiết hướng dẫn, cách đánh, lưu ý quan trọng khi gặp boss này...'
-												value={b.note || ""}
-												onChange={e => {
-													const arr = [...formData.Bosses];
-													arr[i].note = e.target.value;
-													setFormData(p => ({ ...p, Bosses: arr }));
-												}}
-											/>
+
+										<div className='w-full lg:w-3/4 flex flex-col gap-4'>
+											<div className='flex flex-col flex-1'>
+												<label className='block font-semibold text-sm text-text-secondary mb-2'>
+													Chi tiết chiến thuật / Ghi chú (Hỗ trợ xuống dòng)
+												</label>
+												<textarea
+													className='w-full flex-1 min-h-[120px] bg-surface-hover border border-border rounded-lg p-4 text-sm text-text-primary focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none resize-y transition-colors placeholder:text-text-secondary/50'
+													placeholder='Nhập chi tiết hướng dẫn, cách đánh, lưu ý quan trọng khi gặp boss này...'
+													value={b.note || ""}
+													onChange={e => {
+														const arr = [...formData.Bosses];
+														arr[i].note = e.target.value;
+														setFormData(p => ({ ...p, Bosses: arr }));
+													}}
+												/>
+											</div>
+
+											<div className='bg-yellow-500/5 p-4 rounded-xl border border-yellow-500/30 border-dashed mt-2'>
+												<DragDropArrayInput
+													label={`Bonus Power (Sức mạnh bổ sung riêng cho Boss này)`}
+													data={b.mapBonusPower || []}
+													onChange={arr => {
+														const newBosses = [...formData.Bosses];
+														newBosses[i].mapBonusPower = arr;
+														setFormData(p => ({ ...p, Bosses: newBosses }));
+													}}
+													cachedList={cachedData.powers || []}
+													placeholder='Kéo thả ID Power vào đây...'
+												/>
+											</div>
 										</div>
 									</div>
 								);
@@ -562,7 +620,6 @@ const AdventureMapEditorForm = memo(
 						</div>
 					</section>
 
-					{/* 4. CẤU TRÚC ĐƯỜNG ĐI (NODES) */}
 					<section className='bg-surface-bg border border-border rounded-xl p-6 shadow-sm space-y-6'>
 						<div className='flex justify-between items-center border-l-4 border-red-500 pl-3'>
 							<h3 className='text-lg font-bold uppercase flex items-center gap-2'>
@@ -629,7 +686,6 @@ const AdventureMapEditorForm = memo(
 						</div>
 
 						<div className='flex flex-col gap-8'>
-							{/* MAP AREA */}
 							{isMapVisible && (
 								<div className='space-y-4'>
 									<div
@@ -651,7 +707,6 @@ const AdventureMapEditorForm = memo(
 										/>
 										<svg className='absolute inset-0 w-full h-full pointer-events-none'>
 											<defs>
-												{/* Marker mũi tên đã được điều chỉnh sắc nét hơn */}
 												<marker
 													id='arrowhead-adv'
 													markerWidth='6'
@@ -721,7 +776,7 @@ const AdventureMapEditorForm = memo(
 													className={`absolute w-7 h-7 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 flex items-center justify-center transition-all cursor-pointer ${
 														selectedNodeIndex === i
 															? "bg-red-500 border-white scale-125 z-30 shadow-[0_0_15px_rgba(239,68,68,0.8)]"
-															: "bg-black/60 border-white/60 z-20 hover:scale-110 hover:border-white"
+															: "bg-black/80 border-white/60 z-20 hover:scale-110 hover:border-white"
 													}`}
 													style={{
 														left: `${n.position?.x ?? 0}%`,
@@ -748,7 +803,6 @@ const AdventureMapEditorForm = memo(
 								</div>
 							)}
 
-							{/* DANH SÁCH NODES VÀ KẾT NỐI */}
 							<div className='grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-4 items-start max-h-[600px] overflow-y-auto pr-3 custom-scrollbar'>
 								<div className='lg:col-span-2'>
 									<AdventureConnections
@@ -786,7 +840,6 @@ const AdventureMapEditorForm = memo(
 						</div>
 					</section>
 
-					{/* 5. REWARDS (PHẦN THƯỞNG) */}
 					<section className='bg-surface-hover/30 p-5 rounded-xl border border-border shadow-sm'>
 						<div className='flex justify-between items-center mb-6 border-b border-border pb-3'>
 							<h3 className='font-bold text-lg border-l-4 border-yellow-500 pl-3'>

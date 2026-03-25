@@ -87,6 +87,7 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 		const dataToSave = { ...data };
 		delete dataToSave.isNew;
 
+		// marshall với removeUndefinedValues sẽ tự động dọn dẹp và lưu các cấu trúc lồng nhau (nested array) như mapBonusPower mà không cần định nghĩa Schema
 		const command = new PutItemCommand({
 			TableName: ADVENTURE_TABLE,
 			Item: marshall(dataToSave, { removeUndefinedValues: true }),

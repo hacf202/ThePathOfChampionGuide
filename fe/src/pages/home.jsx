@@ -53,13 +53,23 @@ const Home = () => {
 		return () => window.removeEventListener("scroll", handleScroll);
 	}, []);
 
+	// Màn hình Skeleton Loading đồng bộ với App.jsx
 	if (isLoading) {
 		return (
-			<div className='fixed inset-0 z-50 bg-[#121c31] flex flex-col items-center justify-center'>
-				<div className='loading-magic-circle mb-8'></div>
-				<h2 className='text-white font-primary text-2xl animate-pulse tracking-widest uppercase'>
-					{tUI("home.loading")}
-				</h2>
+			<div className='fixed inset-0 z-50 bg-[#0f172a] p-4 flex flex-col'>
+				{/* Skeleton Navbar */}
+				<div className='h-16 w-full bg-white/5 rounded-2xl animate-pulse mb-8'></div>
+
+				{/* Skeleton Hero Section */}
+				<div className='flex-grow flex flex-col items-center justify-center w-full max-w-5xl mx-auto gap-6'>
+					<div className='h-8 w-32 bg-white/5 rounded-full animate-pulse mb-4'></div>
+					<div className='h-16 md:h-24 w-3/4 bg-white/5 rounded-3xl animate-pulse'></div>
+					<div className='h-6 md:h-8 w-1/2 bg-white/5 rounded-full animate-pulse mb-8'></div>
+					<div className='flex flex-col sm:flex-row gap-6'>
+						<div className='h-14 w-48 bg-white/5 rounded-full animate-pulse'></div>
+						<div className='h-14 w-48 bg-white/5 rounded-full animate-pulse'></div>
+					</div>
+				</div>
 			</div>
 		);
 	}

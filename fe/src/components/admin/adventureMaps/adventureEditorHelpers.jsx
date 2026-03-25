@@ -14,6 +14,12 @@ import {
 	ShieldQuestion,
 	Info,
 	Flag,
+	HandMetal,
+	AlertCircle,
+	ShoppingBag,
+	Package,
+	HelpCircle,
+	Diamond,
 } from "lucide-react";
 
 import nodeTypesData from "../../../assets/data/nodeTypes.json";
@@ -71,6 +77,7 @@ export const DragDropArrayInput = ({
 
 	const handleDropOnContainer = e => {
 		e.preventDefault();
+		e.stopPropagation();
 		try {
 			const dragged = JSON.parse(e.dataTransfer.getData("text/plain"));
 			const identifier = getUniqueAdvId(dragged) || dragged.name;
@@ -185,6 +192,7 @@ export const DragDropBossObjectInput = ({
 
 	const handleDropOnContainer = e => {
 		e.preventDefault();
+		e.stopPropagation();
 		try {
 			const dragged = JSON.parse(e.dataTransfer.getData("text/plain"));
 			const identifier = getUniqueAdvId(dragged) || dragged.name;
@@ -293,7 +301,6 @@ export const DragDropBossObjectInput = ({
 	);
 };
 
-// ĐÃ NÂNG CẤP: Thuật toán quy đổi pixel và aspect ratio
 export const AdventureLine = ({
 	x1,
 	y1,
@@ -301,22 +308,17 @@ export const AdventureLine = ({
 	y2,
 	mapSize = { width: 1000, height: 400 },
 }) => {
-	// Tránh chia cho 0 khi map chưa mount
 	if (!mapSize.width || !mapSize.height) return null;
 
-	// Quy đổi khoảng cách sang hệ quy chiếu pixel thực tế để tính góc chính xác tuyệt đối
 	const dx = (x2 - x1) * mapSize.width;
 	const dy = (y2 - y1) * mapSize.height;
 	const angle = Math.atan2(dy, dx);
 
-	// Bán kính của Node + padding để mũi tên chạm vừa khít vòng tròn (Hitbox)
 	const offsetPx = window.innerWidth < 640 ? 14 : 22;
 
-	// Quy đổi ngược lại lượng offset từ Pixel sang phần trăm (%)
 	const offsetX_pct = ((offsetPx * Math.cos(angle)) / mapSize.width) * 100;
 	const offsetY_pct = ((offsetPx * Math.sin(angle)) / mapSize.height) * 100;
 
-	// Thụt 2 đầu lại để không đâm xuyên tâm node
 	const startX_pct = x1 + offsetX_pct;
 	const startY_pct = y1 + offsetY_pct;
 	const finalX2_pct = x2 - offsetX_pct;
@@ -481,12 +483,33 @@ export const AdventureNodeEditor = ({
 }) => {
 	const [isOpen, setIsOpen] = useState(false);
 
+	// MAP ICON MỚI DÀNH CHO HEADER BÊN CỘT TRÁI
 	const getIcon = type => {
-		if (type === "Start")
+		const t = (type || "").toLowerCase();
+		if (t.includes("start"))
 			return <Flag size={16} className='text-emerald-500' />;
-		if (type === "Boss") return <Skull size={16} className='text-red-500' />;
-		if (type === "Encounter")
-			return <Swords size={16} className='text-yellow-500' />;
+		if (t.includes("mini"))
+			return <Skull size={12} className='text-orange-500' />;
+		if (t.includes("boss")) return <Skull size={18} className='text-red-500' />;
+		if (t.includes("power"))
+			return <HandMetal size={16} className='text-yellow-500' />;
+		if (t.includes("heal"))
+			return <Plus size={16} className='text-green-500' />;
+		if (t.includes("encounter"))
+			return <AlertCircle size={16} className='text-red-400' />;
+		if (t.includes("shop"))
+			return <ShoppingBag size={16} className='text-yellow-600' />;
+		if (
+			t.includes("gold") ||
+			t.includes("chest") ||
+			t.includes("item") ||
+			t.includes("spell")
+		)
+			return <Package size={16} className='text-blue-400' />;
+		if (t.includes("event") || t.includes("?"))
+			return <HelpCircle size={16} className='text-purple-500' />;
+		if (t.includes("champion"))
+			return <Diamond size={16} className='text-cyan-500' />;
 		return <ShieldQuestion size={16} className='text-blue-500' />;
 	};
 

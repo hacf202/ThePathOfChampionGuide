@@ -42,7 +42,9 @@
 		"resetFilter": "Reset Filter",
 		"backToList": "Back to List",
 		"zoomIn": "Zoom In",
-		"zoomOut": "Zoom Out"
+		"zoomOut": "Zoom Out",
+		"showMap": "Show map",
+		"hideMap": "Hide map"
 	},
 	"mapList": {
 		"pageTitle": "Adventure Maps",

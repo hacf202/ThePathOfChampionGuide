@@ -17,6 +17,16 @@ import {
 	RefreshCcw,
 	Info,
 	Flag,
+	Skull,
+	Plus,
+	HandMetal,
+	AlertCircle,
+	ShoppingBag,
+	Package,
+	Diamond,
+	Zap,
+	Eye,
+	EyeOff,
 } from "lucide-react";
 
 import { useTranslation } from "../../hooks/useTranslation";
@@ -70,6 +80,78 @@ const MapDetailSkeleton = () => (
 	</div>
 );
 
+const getMapIcon = type => {
+	const t = (type || "").toLowerCase();
+	if (t.includes("start"))
+		return <Flag size={20} className='text-emerald-400 drop-shadow-md' />;
+	if (t.includes("mini"))
+		return <Skull size={16} className='text-orange-400 drop-shadow-md' />;
+	if (t.includes("boss"))
+		return <Skull size={20} className='text-red-500 drop-shadow-md' />;
+	if (t.includes("power"))
+		return <HandMetal size={20} className='text-yellow-400 drop-shadow-md' />;
+	if (t.includes("heal"))
+		return <Plus size={20} className='text-green-400 drop-shadow-md' />;
+	if (t.includes("encounter"))
+		return <AlertCircle size={20} className='text-red-400 drop-shadow-md' />;
+	if (t.includes("shop"))
+		return <ShoppingBag size={20} className='text-yellow-500 drop-shadow-md' />;
+	if (
+		t.includes("gold") ||
+		t.includes("chest") ||
+		t.includes("item") ||
+		t.includes("spell")
+	)
+		return <Package size={20} className='text-blue-400 drop-shadow-md' />;
+	if (t.includes("event") || t.includes("?"))
+		return <HelpCircle size={20} className='text-purple-400 drop-shadow-md' />;
+	if (t.includes("champion"))
+		return <Diamond size={20} className='text-cyan-400 drop-shadow-md' />;
+	return <ShieldQuestion size={20} className='text-white drop-shadow-md' />;
+};
+
+const getBgColor = type => {
+	const t = (type || "").toLowerCase();
+	if (t.includes("start"))
+		return "bg-emerald-950 border-emerald-500 shadow-emerald-500/50";
+	if (t.includes("boss") || t.includes("mini") || t.includes("encounter"))
+		return "bg-red-950 border-red-500 shadow-red-500/50";
+	if (t.includes("heal"))
+		return "bg-green-950 border-green-500 shadow-green-500/50";
+	if (t.includes("shop") || t.includes("power"))
+		return "bg-yellow-950 border-yellow-500 shadow-yellow-500/50";
+	if (
+		t.includes("gold") ||
+		t.includes("chest") ||
+		t.includes("item") ||
+		t.includes("spell")
+	)
+		return "bg-blue-950 border-blue-500 shadow-blue-500/50";
+	if (t.includes("event") || t.includes("?"))
+		return "bg-purple-950 border-purple-500 shadow-purple-500/50";
+	if (t.includes("champion"))
+		return "bg-cyan-950 border-cyan-500 shadow-cyan-500/50";
+	return "bg-slate-800/90 border-slate-500 shadow-slate-500/50";
+};
+
+const getGlowColor = type => {
+	const t = (type || "").toLowerCase();
+	if (t.includes("start")) return "opacity-70 bg-emerald-500 animate-pulse";
+	if (t.includes("boss") || t.includes("mini") || t.includes("encounter"))
+		return "opacity-70 bg-red-500 animate-pulse";
+	if (t.includes("shop") || t.includes("power"))
+		return "opacity-70 bg-yellow-400 animate-pulse";
+	if (t.includes("heal")) return "opacity-70 bg-green-500 animate-pulse";
+	if (
+		t.includes("gold") ||
+		t.includes("chest") ||
+		t.includes("item") ||
+		t.includes("spell")
+	)
+		return "opacity-70 bg-blue-500 animate-pulse";
+	return "opacity-50 bg-slate-500";
+};
+
 const AdventureNode = ({
 	node,
 	active,
@@ -104,9 +186,16 @@ const AdventureNode = ({
 	};
 
 	let bossImage = null;
-	if (node.nodeType === "Boss" && node.bosses && node.bosses.length > 0) {
-		const firstBossId = node.bosses[0];
-		const bossData = resolvedBosses?.find(b => b.bossID === firstBossId);
+	const nodeTypeLower = (node.nodeType || "").toLowerCase();
+	const isCombatNode =
+		nodeTypeLower.includes("boss") ||
+		nodeTypeLower.includes("mini") ||
+		nodeTypeLower.includes("encounter");
+
+	// CẬP NHẬT: Chỉ lấy ảnh nếu có ĐÚNG 1 Boss. Nếu nhiều hơn 1 Boss, bossImage sẽ giữ nguyên là null và tự động fallback về getMapIcon
+	if (isCombatNode && node.bosses && node.bosses.length === 1) {
+		const singleBossId = node.bosses[0];
+		const bossData = resolvedBosses?.find(b => b.bossID === singleBossId);
 		if (bossData && bossData.background) {
 			bossImage = bossData.background;
 		}
@@ -135,28 +224,19 @@ const AdventureNode = ({
 					className={`relative flex items-center justify-center transition-transform duration-300 ${active ? "scale-125" : "hover:scale-110"}`}
 				>
 					<div
-						className={`absolute inset-0 rounded-full blur-xl transition-opacity duration-500 will-change-opacity ${active ? (node.nodeType === "Boss" ? "opacity-70 bg-red-500 animate-pulse" : node.nodeType === "Start" ? "opacity-70 bg-emerald-500 animate-pulse" : "opacity-70 bg-yellow-400 animate-pulse") : "opacity-0"}`}
+						className={`absolute inset-0 rounded-full blur-xl transition-opacity duration-500 will-change-opacity ${active ? getGlowColor(node.nodeType) : "opacity-0"}`}
 					/>
 					<div
-						className={`relative flex items-center justify-center w-[25px] h-[25px] sm:w-[40px] sm:h-[40px] rounded-full border-2 overflow-hidden shadow-lg ${node.nodeType === "Boss" ? "bg-red-950 border-red-500 shadow-red-500/50" : node.nodeType === "Start" ? "bg-emerald-950 border-emerald-500 shadow-emerald-500/50" : "bg-slate-800/90 border-yellow-500 shadow-yellow-500/50"}`}
+						className={`relative flex items-center justify-center w-[25px] h-[25px] sm:w-[40px] sm:h-[40px] rounded-full border-2 overflow-hidden shadow-lg ${getBgColor(node.nodeType)}`}
 					>
-						{node.nodeType === "Boss" ? (
-							bossImage ? (
-								<SafeImage
-									src={bossImage}
-									alt='Boss Node'
-									className='w-full h-full object-cover opacity-90 transition-opacity pointer-events-none'
-								/>
-							) : (
-								<Swords size={20} className='text-red-400 drop-shadow-md' />
-							)
-						) : node.nodeType === "Start" ? (
-							<Flag size={20} className='text-emerald-400 drop-shadow-md' />
-						) : (
-							<HelpCircle
-								size={20}
-								className='text-yellow-400 drop-shadow-md'
+						{isCombatNode && bossImage ? (
+							<SafeImage
+								src={bossImage}
+								alt='Boss Node'
+								className='w-full h-full object-cover opacity-90 transition-opacity pointer-events-none'
 							/>
+						) : (
+							getMapIcon(node.nodeType)
 						)}
 					</div>
 				</div>
@@ -175,19 +255,16 @@ const AdventureLine = ({
 }) => {
 	if (!mapSize.width || !mapSize.height) return null;
 
-	// Tính toán góc nghiêng dựa trên hệ quy chiếu tỷ lệ chuẩn Pixel
 	const dx = (x2 - x1) * mapSize.width;
 	const dy = (y2 - y1) * mapSize.height;
 	const angle = Math.atan2(dy, dx);
 
 	const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
-	const inverseScale = 1 / Math.pow(zoom, 0.75); // Vì UI tự scale icon khi zoom, nên ta cần tính lại bán kính khi người dùng zoom
+	const inverseScale = 1 / Math.pow(zoom, 0.75);
 
-	// 28px là kích thước tương đương bán kính của node trên Desktop, 18px trên Mobile
 	const baseOffsetPx = isMobile ? 18 : 28;
 	const offsetPx = baseOffsetPx * inverseScale;
 
-	// Quy đổi lại độ dài offset sang % để SVG render chuẩn trên giao diện Responsive
 	const offsetX_pct = ((offsetPx * Math.cos(angle)) / mapSize.width) * 100;
 	const offsetY_pct = ((offsetPx * Math.sin(angle)) / mapSize.height) * 100;
 
@@ -235,7 +312,6 @@ const AdventureMapVisualizer = ({ nodes, background, resolvedBosses }) => {
 		return () => window.removeEventListener("resize", handleResize);
 	}, []);
 
-	// Dùng ResizeObserver theo dõi kích thước thật của container để pass xuống thẻ <AdventureLine />
 	useEffect(() => {
 		if (!mapRef.current) return;
 		const observer = new ResizeObserver(entries => {
@@ -405,7 +481,6 @@ const AdventureMapVisualizer = ({ nodes, background, resolvedBosses }) => {
 
 				<svg className='absolute inset-0 w-full h-full pointer-events-none'>
 					<defs>
-						{/* Marker mũi tên sắc nét */}
 						<marker
 							id='arrowhead'
 							markerWidth='8'
@@ -512,21 +587,52 @@ const AdventureMapVisualizer = ({ nodes, background, resolvedBosses }) => {
 	);
 };
 
-const RenderPowerCard = ({ power }) => {
+const ResolvedPowerCard = ({ powerOrId }) => {
 	const { tDynamic } = useTranslation();
-	if (!power) return null;
+	const [power, setPower] = useState(
+		typeof powerOrId === "object" ? powerOrId : null,
+	);
 
-	const powerName = tDynamic(power, "name");
+	useEffect(() => {
+		if (typeof powerOrId === "string") {
+			const fetchPower = async () => {
+				try {
+					const API_URL =
+						import.meta.env.VITE_API_URL || "http://localhost:5000";
+					const res = await fetch(`${API_URL}/api/powers/${powerOrId}`);
+					const data = await res.json();
+					if (data && !data.error) setPower(data);
+				} catch (e) {
+					console.error("Error fetching power:", e);
+				}
+			};
+			fetchPower();
+		} else {
+			setPower(powerOrId);
+		}
+	}, [powerOrId]);
+
+	if (!power) {
+		return (
+			<div className='h-[68px] bg-surface-hover/50 rounded-lg animate-pulse border border-border/50'></div>
+		);
+	}
+
+	const powerName =
+		tDynamic(power, "name") || power.name || power.powerCode || powerOrId;
 	const powerDesc =
-		tDynamic(power, "description") || tDynamic(power, "descriptionRaw");
+		tDynamic(power, "description") || tDynamic(power, "descriptionRaw") || "";
 
 	return (
-		<Link to={`/power/${power.powerCode || power.id}`} className='block h-full'>
-			<div className='flex items-start gap-3 bg-surface-hover/50 rounded-lg h-full hover:border-primary-500 transition-colors p-2'>
+		<Link
+			to={`/power/${power.powerCode || power.id || powerOrId}`}
+			className='block h-full'
+		>
+			<div className='flex items-start gap-3 bg-surface-hover/50 rounded-lg h-full hover:border-primary-500 transition-colors p-2 shadow-sm border border-border/50'>
 				<SafeImage
 					src={power.assetAbsolutePath || power.image || "/fallback-image.svg"}
 					alt={powerName}
-					className='w-10 h-10 rounded-md object-cover bg-surface-bg shrink-0 '
+					className='w-10 h-10 rounded-md object-cover bg-surface-bg shrink-0'
 				/>
 				<div>
 					<h4 className='font-bold text-text-primary text-sm md:text-base'>
@@ -534,7 +640,7 @@ const RenderPowerCard = ({ power }) => {
 					</h4>
 					{powerDesc && (
 						<p
-							className='text-sm  text-text-secondary mt-1 line-clamp-3'
+							className='text-xs md:text-sm text-text-secondary mt-1 line-clamp-3'
 							dangerouslySetInnerHTML={{ __html: powerDesc }}
 						/>
 					)}
@@ -548,6 +654,9 @@ function AdventureMapDetail() {
 	const { adventureID } = useParams();
 	const navigate = useNavigate();
 	const { tUI, tDynamic } = useTranslation();
+
+	// Thêm State để điều khiển ẩn hiện bản đồ
+	const [isMapVisible, setIsMapVisible] = useState(true);
 
 	const {
 		adventure,
@@ -664,17 +773,45 @@ function AdventureMapDetail() {
 
 						{adventure.nodes && adventure.nodes.length > 0 && (
 							<section className='bg-surface-bg border border-border rounded-xl p-2 md:p-4 shadow-sm w-full'>
-								<h2 className='text-xl font-bold text-pink-500 font-primary uppercase flex items-center gap-2 border-b border-border pb-2'>
-									<MapIcon size={20} />{" "}
-									{tUI("adventureMap.adventureMapTitle") || "Bản Đồ Phiêu Lưu"}
-								</h2>
-								<div className='mt-4'>
-									<AdventureMapVisualizer
-										nodes={adventure.nodes}
-										background={adventure.background}
-										resolvedBosses={resolvedBosses}
-									/>
+								<div className='flex justify-between items-center border-b border-border pb-2'>
+									<h2 className='text-xl font-bold text-pink-500 font-primary uppercase flex items-center gap-2'>
+										<MapIcon size={20} />{" "}
+										{tUI("adventureMap.adventureMapTitle") ||
+											"Bản Đồ Phiêu Lưu"}
+									</h2>
+									<Button
+										type='button'
+										size='sm'
+										variant='outline'
+										onClick={() => setIsMapVisible(!isMapVisible)}
+										iconLeft={
+											isMapVisible ? <EyeOff size={16} /> : <Eye size={16} />
+										}
+									>
+										{isMapVisible
+											? tUI("common.hideMap") || "Ẩn bản đồ"
+											: tUI("common.showMap") || "Hiện bản đồ"}
+									</Button>
 								</div>
+
+								<AnimatePresence>
+									{isMapVisible && (
+										<motion.div
+											initial={{ height: 0, opacity: 0 }}
+											animate={{ height: "auto", opacity: 1 }}
+											exit={{ height: 0, opacity: 0 }}
+											className='overflow-hidden'
+										>
+											<div className='mt-4'>
+												<AdventureMapVisualizer
+													nodes={adventure.nodes}
+													background={adventure.background}
+													resolvedBosses={resolvedBosses}
+												/>
+											</div>
+										</motion.div>
+									)}
+								</AnimatePresence>
 							</section>
 						)}
 
@@ -686,7 +823,7 @@ function AdventureMapDetail() {
 								</h2>
 								<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
 									{resolvedRules.map((power, idx) => (
-										<RenderPowerCard key={idx} power={power} />
+										<ResolvedPowerCard key={idx} powerOrId={power} />
 									))}
 								</div>
 							</section>
@@ -700,11 +837,20 @@ function AdventureMapDetail() {
 								</h2>
 								<div className='grid grid-cols-1 gap-6'>
 									{resolvedBosses.map((boss, idx) => {
+										const originalBossData =
+											adventure.Bosses?.find(b => b.bossID === boss.bossID) ||
+											{};
+										const mapBonusPower = originalBossData.mapBonusPower || [];
+										const note = originalBossData.note || boss.note;
+
 										const bossPowers = boss.resolvedPowers
 											? boss.resolvedPowers
 											: boss.resolvedPower
 												? [boss.resolvedPower]
 												: [];
+
+										const combinedPowers = [...bossPowers, ...mapBonusPower];
+
 										return (
 											<div
 												key={idx}
@@ -719,11 +865,12 @@ function AdventureMapDetail() {
 													<h3 className='text-lg font-bold text-text-primary'>
 														{tDynamic(boss, "bossName")}
 													</h3>
-													{bossPowers.length > 0 ? (
+
+													{combinedPowers.length > 0 ? (
 														<div className='grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2'>
-															{bossPowers.map((p, pIdx) => (
+															{combinedPowers.map((p, pIdx) => (
 																<div key={pIdx} className='h-full'>
-																	<RenderPowerCard power={p} />
+																	<ResolvedPowerCard powerOrId={p} />
 																</div>
 															))}
 														</div>
@@ -733,14 +880,15 @@ function AdventureMapDetail() {
 																"Không có sức mạnh đặc biệt."}
 														</p>
 													)}
-													{boss.note && (
+
+													{note && (
 														<div className='mt-3 p-3 bg-surface-bg rounded-md flex items-start gap-2.5 border border-border/50'>
 															<div className='text-sm text-text-secondary leading-relaxed whitespace-pre-line'>
 																<span className='font-bold text-primary-500 mt-1 uppercase text-xs tracking-wider'>
 																	{tUI("adventureMap.note") || "Lưu ý:"}{" "}
 																</span>
 																<br />
-																{boss.note}
+																{note}
 															</div>
 														</div>
 													)}
