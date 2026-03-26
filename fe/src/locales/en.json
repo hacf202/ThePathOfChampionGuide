@@ -44,7 +44,9 @@
 		"zoomIn": "Zoom In",
 		"zoomOut": "Zoom Out",
 		"showMap": "Show map",
-		"hideMap": "Hide map"
+		"hideMap": "Hide map",
+		"hide": "Hide",
+		"show": "Show"
 	},
 	"mapList": {
 		"pageTitle": "Adventure Maps",
@@ -74,7 +76,7 @@
 		"note": "Note:",
 		"noSpecialPower": "No special powers.",
 		"noDetailInfo": "No detailed information.",
-		"noEnemyInfo": "No enemy information.",
+		"noEnemyInfo": "No information.",
 		"noNodeDescription": "No detailed description for this Node type."
 	},
 	"relic": {

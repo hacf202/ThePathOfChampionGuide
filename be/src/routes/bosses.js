@@ -52,6 +52,53 @@ router.get("/:bossID", async (req, res) => {
 	}
 });
 
+// [Thêm mới] API Resolve nhiều Boss cùng lúc để tránh N+1 Query trên Frontend
+router.post("/resolve", async (req, res) => {
+	const { ids } = req.body;
+
+	if (!ids || !Array.isArray(ids)) {
+		return res
+			.status(400)
+			.json({ error: "Tham số 'ids' phải là một mảng (array)." });
+	}
+
+	try {
+		// Loại bỏ các ID trùng lặp
+		const uniqueIds = [...new Set(ids)];
+		if (uniqueIds.length === 0) return res.json([]);
+
+		// Tối ưu 1: Kiểm tra xem có sẵn toàn bộ Boss trong cache tổng không (Cực nhanh)
+		const allBosses = bossCache.get("all_bosses_list");
+		if (allBosses) {
+			const resolvedFromCache = allBosses.filter(b =>
+				uniqueIds.includes(b.bossID),
+			);
+			// Nếu cache có chứa đầy đủ tất cả các Boss đang cần tìm
+			if (resolvedFromCache.length === uniqueIds.length) {
+				return res.json(resolvedFromCache);
+			}
+		}
+
+		// Tối ưu 2: Nếu Cache thiếu, fetch song song các ID từ DynamoDB
+		const fetchPromises = uniqueIds.map(async bossID => {
+			const command = new GetItemCommand({
+				TableName: BOSS_TABLE,
+				Key: marshall({ bossID }),
+			});
+			const { Item } = await client.send(command);
+			return Item ? unmarshall(Item) : null;
+		});
+
+		// Chờ tất cả truy vấn hoàn thành và lọc bỏ các giá trị null (không tìm thấy)
+		const results = (await Promise.all(fetchPromises)).filter(Boolean);
+
+		res.json(results);
+	} catch (error) {
+		console.error("Lỗi POST /bosses/resolve:", error);
+		res.status(500).json({ error: "Lỗi hệ thống khi resolve danh sách Boss." });
+	}
+});
+
 router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 	const data = req.body;
 	const { bossID, isNew, bossName } = data;

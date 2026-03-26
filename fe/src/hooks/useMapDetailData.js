@@ -22,57 +22,88 @@ export const useMapDetailData = adventureID => {
 				if (!isMounted) return;
 				setAdventure(advData);
 
-				// 2. Fetch Sức mạnh đặc biệt (Special Rules)
+				// 2. Fetch Sức mạnh đặc biệt (Special Rules của Map)
 				const rulesPromises = api.resolve("powers", advData.specialRules || []);
 
-				// 3. Fetch Thông tin các Boss (bao gồm cả sức mạnh của Boss)
-				const bossPromises = (advData.Bosses || []).map(async b => {
-					if (!b.bossID) return null;
-					try {
-						const bossDetail = await api.get(`/bosses/${b.bossID}`);
-						let resolvedPower = null;
-						let resolvedPowers = []; // Thêm biến lưu mảng sức mạnh
-
-						if (bossDetail.power) {
-							// Kiểm tra để hỗ trợ cả định dạng cũ (string) và mới (array)
-							const powersToResolve = Array.isArray(bossDetail.power)
-								? bossDetail.power
-								: [bossDetail.power];
-
-							const pInfo = await api.resolve("powers", powersToResolve);
-
-							resolvedPowers = pInfo || [];
-							resolvedPower = pInfo[0] || null; // Giữ lại tương thích ngược
-						}
-						return {
-							...bossDetail,
-							note: b.note,
-							resolvedPower,
-							resolvedPowers, // Trả về thêm mảng resolvedPowers
-						};
-					} catch (e) {
-						console.warn(`Không thể tải Boss ${b.bossID}`);
-						return null;
-					}
-				});
-
-				// 4. Fetch Thông tin Tướng yêu cầu (Dùng api.resolve để lấy Name, Avatar)
+				// 3. Fetch Thông tin Tướng yêu cầu
 				const reqChampionsPromises = api.resolve(
 					"champions",
 					advData.requirement?.champions || [],
 				);
 
-				// Chờ toàn bộ data chạy xong song song
-				const [rulesData, bossesData, champsData] = await Promise.all([
+				// 4. XỬ LÝ BOSS (TỐI ƯU HÓA BATCHING - KHÔNG BỊ N+1)
+				const bossList = advData.Bosses || [];
+				const bossIds = bossList.map(b => b.bossID).filter(Boolean);
+				let finalBossesData = [];
+
+				if (bossIds.length > 0) {
+					// 4.1. Lấy toàn bộ Boss trong 1 Request duy nhất
+					// LƯU Ý: Yêu cầu api.resolve("bosses", [...]) gọi đúng tới POST /api/bosses/resolve mà ta vừa tạo ở Backend
+					const bossesDetail = (await api.resolve("bosses", bossIds)) || [];
+
+					// 4.2. Gom toàn bộ Power ID của TẤT CẢ các Boss lại thành 1 mảng
+					const allBossPowerIds = [];
+					bossesDetail.forEach(boss => {
+						if (boss.power) {
+							const pIds = Array.isArray(boss.power)
+								? boss.power
+								: [boss.power];
+							allBossPowerIds.push(...pIds);
+						}
+					});
+
+					// 4.3. Lấy toàn bộ Sức mạnh của các Boss trong 1 Request duy nhất
+					const uniquePowerIds = [...new Set(allBossPowerIds)];
+					const resolvedAllBossPowers =
+						uniquePowerIds.length > 0
+							? await api.resolve("powers", uniquePowerIds)
+							: [];
+
+					// 4.4. Lắp ráp dữ liệu lại (Merge Note và Resolved Powers vào từng Boss)
+					finalBossesData = bossesDetail.map(bossDetail => {
+						// Lấy lại cái note từ dữ liệu advData gốc
+						const originalBossInfo =
+							bossList.find(b => b.bossID === bossDetail.bossID) || {};
+
+						let resolvedPowers = [];
+						let resolvedPower = null;
+
+						if (bossDetail.power) {
+							const pIds = Array.isArray(bossDetail.power)
+								? bossDetail.power
+								: [bossDetail.power];
+
+							// Tìm power tương ứng từ mảng data vừa fetch
+							resolvedPowers = pIds
+								.map(id => {
+									return resolvedAllBossPowers.find(
+										p => p.powerCode === id || p.id === id || p._id === id,
+									);
+								})
+								.filter(Boolean);
+
+							resolvedPower = resolvedPowers[0] || null; // Giữ tương thích ngược
+						}
+
+						return {
+							...bossDetail,
+							note: originalBossInfo.note,
+							resolvedPower,
+							resolvedPowers,
+						};
+					});
+				}
+
+				// Chờ Data của Rules và Champions (Bosses đã được await tuần tự ở trên vì cần chaining ID)
+				const [rulesData, champsData] = await Promise.all([
 					rulesPromises,
-					Promise.all(bossPromises),
 					reqChampionsPromises,
 				]);
 
 				if (isMounted) {
 					setResolvedRules(rulesData);
-					setResolvedBosses(bossesData.filter(Boolean));
-					setResolvedChampions(champsData); // Lưu danh sách tướng đã resolve
+					setResolvedBosses(finalBossesData);
+					setResolvedChampions(champsData);
 				}
 			} catch (err) {
 				console.error(err);

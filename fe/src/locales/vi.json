@@ -41,7 +41,9 @@
 		"zoomIn": "Phóng to",
 		"zoomOut": "Thu nhỏ",
 		"showMap": "Hiển thị bản đồ phiêu lưu",
-		"hideMap": "Ẩn bản đồ phiêu lưu"
+		"hideMap": "Ẩn bản đồ phiêu lưu",
+		"hide": "Ẩn",
+		"show": "Hiện"
 	},
 	"mapList": {
 		"pageTitle": "Danh Sách Bản Đồ",
@@ -67,11 +69,11 @@
 		"reward": "Phần thưởng",
 		"rewardList": "Danh sách Phần Thưởng",
 		"milestone": "Mốc thưởng",
-		"components": "Thành phần:",
+		"components": "Có Thể Xuất Hiện:",
 		"note": "Lưu ý:",
 		"noSpecialPower": "Không có sức mạnh đặc biệt.",
 		"noDetailInfo": "Không có thông tin chi tiết.",
-		"noEnemyInfo": "Không có thông tin kẻ địch.",
+		"noEnemyInfo": "Không có thông tin",
 		"noNodeDescription": "Không có mô tả chi tiết cho loại Node này."
 	},
 	"rarity": {

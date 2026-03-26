@@ -122,5 +122,17 @@
 	{
 		"name": "Đá Quý",
 		"image": "https://wiki.leagueoflegends.com/en-us/images/thumb/PoC_Gemstone_icon.png/20px-PoC_Gemstone_icon.png?e6e65"
+	},
+	{
+		"name": "Xu Vinh Danh",
+		"image": "https://images.pocguide.top/icon/gloryIcon.webp"
+	},
+	{
+		"name": "Mảnh Sao Băng",
+		"image": "https://images.pocguide.top/icon/novaShardIcon.webp"
+	},
+	{
+		"name": "Thùng Đá Quý Lớn",
+		"image": "https://images.pocguide.top/icon/majorGemstoneVesselIcon.webp"
 	}
 ]
