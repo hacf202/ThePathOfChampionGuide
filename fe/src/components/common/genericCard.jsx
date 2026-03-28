@@ -21,6 +21,8 @@ const GenericCard = ({
 	item,
 	onClick,
 	placeholderImage = "/images/placeholder.png",
+	displayId,
+	customTooltip,
 }) => {
 	// Khởi tạo Hook đa ngôn ngữ với các hàm tUI và tDynamic
 	const { tUI, tDynamic } = useTranslation();
@@ -132,7 +134,7 @@ const GenericCard = ({
 			</div>
 
 			{/* --- Tooltip sử dụng Portal --- */}
-			{isOpen && description && (
+			{isOpen && (customTooltip || description || displayId) && (
 				<FloatingPortal>
 					<div
 						ref={refs.setFloating}
@@ -140,7 +142,22 @@ const GenericCard = ({
 						{...getFloatingProps()}
 						className='z-[9999] w-72 p-3 bg-gray-900 text-white text-sm rounded-lg shadow-xl border border-gray-700 pointer-events-none'
 					>
-						<p className='whitespace-pre-wrap leading-relaxed'>{description}</p>
+						{customTooltip ? (
+							customTooltip
+						) : (
+							<div className='flex flex-col gap-1'>
+								{displayId && (
+									<div className='font-bold text-primary-400'>
+										[ID: {displayId}]
+									</div>
+								)}
+								{description && (
+									<p className='whitespace-pre-wrap leading-relaxed'>
+										{description}
+									</p>
+								)}
+							</div>
+						)}
 
 						<FloatingArrow
 							ref={arrowRef}
@@ -169,6 +186,8 @@ GenericCard.propTypes = {
 	}).isRequired,
 	onClick: PropTypes.func,
 	placeholderImage: PropTypes.string,
+	displayId: PropTypes.string,
+	customTooltip: PropTypes.node,
 };
 
 export default memo(GenericCard);

@@ -803,7 +803,7 @@ const AdventureMapEditorForm = memo(
 								</div>
 							)}
 
-							<div className='grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-4 items-start max-h-[600px] overflow-y-auto pr-3 custom-scrollbar'>
+							<div className='grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-4 max-h-[600px] overflow-y-auto pr-3 custom-scrollbar'>
 								<div className='lg:col-span-2'>
 									<AdventureConnections
 										nodes={formData.nodes || []}

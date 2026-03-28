@@ -695,7 +695,51 @@
 		"recItems": "Vật phẩm khuyên dùng",
 		"recRunes": "Ngọc bổ trợ khuyên dùng",
 		"errorLoad": "Không thể tải thông tin tướng.",
-		"metaDesc": "POC GUIDE cho"
+		"metaDesc": "POC GUIDE cho",
+		"ratings": {
+			"infoBtn": "Tìm hiểu thêm về các chỉ số",
+			"infoModalTitle": "Ý Nghĩa 6 Tiêu Chí Đánh Giá",
+			"title": "Đánh giá phong cách chơi",
+			"damage": "Sát thương",
+			"defense": "An toàn & Phòng ngự",
+			"speed": "Tốc độ",
+			"consistency": "Ổn định",
+			"synergy": "Combo",
+			"independence": "Tính Độc lập",
+			"playstyleNote": "Ghi chú lối chơi",
+			"criteriaDesc": {
+				"damage": {
+					"title": "1. Sát thương (Damage / Offense)",
+					"meaning": "Khả năng gây sát thương dứt điểm lên Nhà Chính (Burst/OTK) và khả năng hạ gục các đơn vị địch lớn.",
+					"radar": "Điểm cao (như Illaoi, Jinx) mũi nhọn sẽ đâm thẳng lên trên, thể hiện sức công phá khủng khiếp."
+				},
+				"defense": {
+					"title": "2. An toàn & Phòng ngự (Safety / Defense)",
+					"meaning": "Khả năng sinh tồn qua nhiều trận đấu (Hồi máu, Làm choáng, Đóng băng, Khống chế bàn cờ).",
+					"radar": "Điểm cao (như Yasuo, Morgana, Gwen) cho thấy đây là một vị tướng \"sống dai\", ít rủi ro khi đối đầu Boss khó."
+				},
+				"speed": {
+					"title": "3. Tốc độ & Nhịp độ (Speed / Tempo)",
+					"meaning": "Tốc độ triển khai đội hình (Mana thấp) và tốc độ hoàn thành ván đấu (Hoạt ảnh nhanh, thao tác dứt khoát).",
+					"radar": "Nhấn mạnh vào khả năng đánh phủ đầu (Aggro) ngay từ Lượt 1 hoặc 2."
+				},
+				"consistency": {
+					"title": "4. Vận hành & Ổn định (Deck Flow / Consistency)",
+					"meaning": "Mức độ mượt mà của bộ bài khởi điểm. Tướng có khả năng tự rút bài, không bị kẹt mana và không phụ thuộc vào may rủi (RNG).",
+					"radar": "Điểm cao chứng tỏ bộ bài được thiết kế rất chặt chẽ, ít khi rơi vào tình trạng \"tay chết\" (brick hand)."
+				},
+				"synergy": {
+					"title": "5. Tiềm năng Combo (Combo / Synergy)",
+					"meaning": "Khả năng tạo ra các chuỗi hiệu ứng liên hoàn giữa Tướng, Quyền Năng Sao và Cổ Vật.",
+					"radar": "Các tướng như Nilah, Master Yi hay Ekko sẽ có mũi nhọn này vươn xa, thể hiện lối chơi hoa mỹ và đột biến."
+				},
+				"independence": {
+					"title": "6. Tính Độc lập (Independence)",
+					"meaning": "Khả năng bộ bài tự chiến thắng mà không cần rút được lá bài Tướng chính ra sân.",
+					"radar": "Điểm cao (như Norra) nghĩa là bộ bài tự vận hành rất tốt. Điểm thấp (như Evelynn, Ornn) cảnh báo người chơi rằng nếu tướng bị diệt hoặc không bốc được, tỷ lệ thua là rất cao."
+				}
+			}
+		}
 	},
 	"constellation": {
 		"typeNormal": "Thường",

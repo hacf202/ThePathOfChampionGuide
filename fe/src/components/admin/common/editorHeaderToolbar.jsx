@@ -44,7 +44,7 @@ const EditorHeaderToolbar = memo(
 						</h2>
 						{isDirty && (
 							<span className='text-xs text-yellow-500 font-medium'>
-								{tUI("admin.common.unsavedChanges") || "● Có thay đổi chưa lưu"}
+								{tUI("admin.common.unsavedChanges")}
 							</span>
 						)}
 					</div>
@@ -75,7 +75,7 @@ const EditorHeaderToolbar = memo(
 							onClick={handleCancelClick}
 							disabled={isSaving}
 						>
-							{tUI("admin.common.cancel") || "Hủy"}
+							{tUI("admin.common.cancel")}
 						</Button>
 
 						{/* NÚT XÓA (Chỉ hiện khi đang sửa, không phải tạo mới) */}
@@ -86,7 +86,7 @@ const EditorHeaderToolbar = memo(
 								onClick={() => setIsDeleteModalOpen(true)}
 								disabled={isSaving}
 							>
-								{tUI("admin.common.delete") || "Xóa"}
+								{tUI("admin.common.delete")}
 							</Button>
 						)}
 
@@ -97,10 +97,10 @@ const EditorHeaderToolbar = memo(
 							disabled={isSaving || disableSave}
 						>
 							{isSaving
-								? tUI("admin.common.saving") || "Đang lưu..."
+								? tUI("admin.common.saving")
 								: isNew
-									? tUI("admin.common.create") || "Tạo mới"
-									: tUI("admin.common.saveChanges") || "Lưu & Đồng bộ"}
+									? tUI("admin.common.create")
+									: tUI("admin.common.saveChanges")}
 						</Button>
 					</div>
 				</div>
@@ -109,22 +109,21 @@ const EditorHeaderToolbar = memo(
 				<Modal
 					isOpen={isCancelModalOpen}
 					onClose={() => setIsCancelModalOpen(false)}
-					title={tUI("admin.common.cancelConfirmTitle") || "Xác nhận Hủy"}
+					title={tUI("admin.common.cancelConfirmTitle")}
 				>
 					<div className='p-4 text-text-secondary'>
 						<p className='mb-6'>
-							{tUI("admin.common.cancelConfirmText") ||
-								"Bạn có thay đổi chưa lưu."}
+							{tUI("admin.common.cancelConfirmText")}
 						</p>
 						<div className='flex justify-end gap-3'>
 							<Button
 								onClick={() => setIsCancelModalOpen(false)}
 								variant='ghost'
 							>
-								{tUI("admin.common.stay") || "Ở lại"}
+								{tUI("admin.common.stay")}
 							</Button>
 							<Button onClick={confirmCancel} variant='danger'>
-								{tUI("admin.common.leave") || "Rời đi"}
+								{tUI("admin.common.leave")}
 							</Button>
 						</div>
 					</div>
@@ -135,7 +134,7 @@ const EditorHeaderToolbar = memo(
 					<Modal
 						isOpen={isDeleteModalOpen}
 						onClose={() => setIsDeleteModalOpen(false)}
-						title={tUI("admin.common.deleteConfirmTitle") || "Xác nhận Xóa"}
+						title={tUI("admin.common.deleteConfirmTitle")}
 					>
 						<div className='p-4 text-text-secondary'>
 							<p className='mb-6'>
@@ -147,7 +146,7 @@ const EditorHeaderToolbar = memo(
 									onClick={() => setIsDeleteModalOpen(false)}
 									variant='ghost'
 								>
-									{tUI("admin.common.cancel") || "Hủy"}
+									{tUI("admin.common.cancel")}
 								</Button>
 								<Button
 									onClick={() => {
@@ -156,7 +155,7 @@ const EditorHeaderToolbar = memo(
 									}}
 									variant='danger'
 								>
-									{tUI("admin.common.delete") || "Xác nhận Xóa"}
+									{tUI("admin.common.delete")}
 								</Button>
 							</div>
 						</div>

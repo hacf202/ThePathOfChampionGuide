@@ -179,14 +179,14 @@ export const ArrayInputComponent = ({
 						onClick={handleAddItem}
 						iconLeft={<Plus size={16} />}
 					>
-						{tUI("common.addNew") || "Thêm"}
+						{tUI("common.addNew")}
 					</Button>
 				</div>
 			</div>
 			<div className='space-y-2'>
 				{data.length === 0 ? (
 					<p className='text-center text-sm text-text-secondary py-4 bg-surface-hover/50 rounded-lg border border-dashed border-border'>
-						{tUI("admin.dropSidePanel.noData") || "Chưa có dữ liệu"}
+						{tUI("admin.dropSidePanel.noData")}
 					</p>
 				) : (
 					data.map((value, index) => {

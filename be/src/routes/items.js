@@ -81,7 +81,7 @@ router.get("/", async (req, res) => {
 	try {
 		const {
 			page = 1,
-			limit = 21,
+			limit = 24,
 			searchTerm = "",
 			rarities = "",
 			sort = "name-asc",

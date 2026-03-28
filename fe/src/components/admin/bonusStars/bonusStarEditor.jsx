@@ -49,6 +49,7 @@ const BonusStarListView = memo(
 									className='block hover:scale-105 transition-transform duration-200'
 								>
 									<GenericCard
+										displayId={item.bonusStarID}
 										item={{
 											...item,
 											name: item.name || "Chưa có tên", // Lớp phòng vệ tránh lỗi PropTypes
@@ -264,6 +265,8 @@ function BonusStarEditor() {
 		return {
 			types: types.map(t => ({ value: t, label: t })),
 			sort: [
+				{ value: "id-asc", label: tUI("admin.common.sortIdAsc") || "ID (Tăng dần)" },
+				{ value: "id-desc", label: tUI("admin.common.sortIdDesc") || "ID (Giảm dần)" },
 				{ value: "name-asc", label: tUI("admin.common.sortNameAsc") },
 				{ value: "name-desc", label: tUI("admin.common.sortNameDesc") },
 			],
@@ -298,9 +301,16 @@ function BonusStarEditor() {
 
 		const [field, dir] = sortOrder.split("-");
 		result.sort((a, b) => {
-			const A = tDynamic(a, "name") || "";
+			if (field === "id") {
+				const A = String(a.bonusStarID || "");
+				const B = String(b.bonusStarID || "");
+				return dir === "asc" ? A.localeCompare(B) : B.localeCompare(A);
+			}
+			else {
+				const A = tDynamic(a, "name") || "";
 			const B = tDynamic(b, "name") || "";
 			return dir === "asc" ? A.localeCompare(B) : B.localeCompare(A);
+			}
 		});
 		return result;
 	}, [items, searchTerm, selectedTypes, sortOrder, tDynamic]);

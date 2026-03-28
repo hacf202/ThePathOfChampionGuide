@@ -110,7 +110,7 @@ router.get("/comments/latest", async (req, res) => {
 
 		let rootComments = [];
 		let lastEvaluatedKey = exclusiveStartKey;
-		const ROOT_LIMIT = 10;
+		const ROOT_LIMIT = 24;
 
 		while (rootComments.length < ROOT_LIMIT) {
 			const command = new QueryCommand({

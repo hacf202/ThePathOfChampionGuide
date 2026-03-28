@@ -62,9 +62,9 @@ const RuneListView = memo(
 				currentPage={currentPage}
 				onPageChange={onPageChange}
 				sidePanelProps={sidePanelProps}
-				emptyMessageTitle={tUI("admin.rune.notFound") || "Không tìm thấy Ngọc"}
+				emptyMessageTitle={tUI("admin.rune.notFound")}
 				emptyMessageSub={
-					tUI("admin.rune.tryOtherFilter") || "Vui lòng thử bộ lọc khác"
+					tUI("admin.rune.tryOtherFilter")
 				}
 			>
 				<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6'>
@@ -74,7 +74,7 @@ const RuneListView = memo(
 							to={`./${rune.runeCode}`}
 							className='block hover:scale-105 transition-transform duration-200'
 						>
-							<GenericCard item={rune} onClick={() => {}} />
+							<GenericCard displayId={rune.runeCode} item={rune} onClick={() => {}} />
 						</Link>
 					))}
 				</div>
@@ -254,6 +254,8 @@ function RuneEditor() {
 			rarities: rarities.map(r => ({ value: r, label: r })),
 			types: types.map(t => ({ value: t, label: t })),
 			sort: [
+				{ value: "id-asc", label: tUI("admin.common.sortIdAsc") || "ID (Tăng dần)" },
+				{ value: "id-desc", label: tUI("admin.common.sortIdDesc") || "ID (Giảm dần)" },
 				{ value: "name-asc", label: tUI("admin.common.sortNameAsc") },
 				{ value: "name-desc", label: tUI("admin.common.sortNameDesc") },
 				{ value: "rarity-asc", label: tUI("admin.rune.sortRarityAsc") },
@@ -292,7 +294,11 @@ function RuneEditor() {
 
 		const [field, dir] = sortOrder.split("-");
 		result.sort((a, b) => {
-			if (field === "name") {
+			if (field === "id") {
+				const A = String(a.runeCode || "");
+				const B = String(b.runeCode || "");
+				return dir === "asc" ? A.localeCompare(B) : B.localeCompare(A);
+			} else if (field === "name") {
 				const A = tDynamic(a, "name") || "";
 				const B = tDynamic(b, "name") || "";
 				return dir === "asc" ? A.localeCompare(B) : B.localeCompare(A);

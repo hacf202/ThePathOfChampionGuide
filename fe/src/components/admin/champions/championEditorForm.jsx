@@ -65,6 +65,15 @@ const ChampionEditorForm = memo(
 			translations: {
 				en: { name: "", description: "", regions: [], tags: [] },
 			},
+			ratings: {
+				damage: 5,
+				defense: 5,
+				speed: 5,
+				consistency: 5,
+				synergy: 5,
+				independence: 5,
+				playstyleNote: "",
+			},
 		});
 
 		const [constData, setConstData] = useState({ nodes: [] });
@@ -102,6 +111,15 @@ const ChampionEditorForm = memo(
 						: [{ fullAbsolutePath: "", gameAbsolutePath: "", avatar: "" }],
 					translations: champion.translations || {
 						en: { name: "", description: "", regions: [], tags: [] },
+					},
+					ratings: champion.ratings || {
+						damage: 5,
+						defense: 5,
+						speed: 5,
+						consistency: 5,
+						synergy: 5,
+						independence: 5,
+						playstyleNote: "",
 					},
 				};
 
@@ -448,7 +466,7 @@ const ChampionEditorForm = memo(
 						</div>
 
 						<div
-							className={`grid grid-cols-1 ${isMapVisible ? "xl:grid-cols-2" : ""} gap-8 items-start`}
+							className={`grid grid-cols-1 ${isMapVisible ? "xl:grid-cols-2" : ""} gap-8`}
 						>
 							{isMapVisible && (
 								<div className='space-y-4 sticky top-24'>
@@ -754,6 +772,71 @@ const ChampionEditorForm = memo(
 								onChange={d => setFormData({ ...formData, runeIds: d })}
 								cachedData={dataLookup.runes}
 							/>
+						</div>
+
+						{/* BLOCK 6: ĐÁNH GIÁ CHỈ SỐ & LỐI CHƠI (HEXAGON RATINGS) */}
+						<div className='flex flex-col gap-4 bg-surface-hover/30 p-4 rounded-xl border border-border py-6 mt-4'>
+							<h4 className='text-sm font-bold text-primary-500 uppercase flex items-center gap-2 mb-2'>
+								<Box size={18} /> Đánh giá phong cách chơi (1-10)
+							</h4>
+							<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+								{["damage", "defense", "speed", "consistency", "synergy", "independence"].map((criteria) => (
+									<div key={criteria} className='flex flex-col gap-1'>
+										<label className='text-sm font-semibold text-text-secondary capitalize'>
+											{tUI(`championDetail.ratings.${criteria}`)} ({formData.ratings?.[criteria] || 5}/10)
+										</label>
+										<input
+											type='range'
+											min='1'
+											max='10'
+											step='1'
+											value={formData.ratings?.[criteria] || 5}
+											onChange={(e) => setFormData(prev => ({
+												...prev,
+												ratings: { ...prev.ratings, [criteria]: Number(e.target.value) }
+											}))}
+											className='w-full accent-primary-500'
+										/>
+									</div>
+								))}
+							</div>
+							<div className='grid grid-cols-1 md:grid-cols-2 gap-6 mt-4'>
+								<div className="flex flex-col gap-2">
+									<label className="text-sm font-semibold">Ghi chú lối chơi (Tiếng Việt)</label>
+									<textarea
+										rows={3}
+										value={formData.ratings?.playstyleNote || ""}
+										onChange={(e) => setFormData(prev => ({
+											...prev,
+											ratings: { ...prev.ratings, playstyleNote: e.target.value }
+										}))}
+										className="w-full bg-surface-bg border border-border p-3 rounded-lg text-text-primary focus:border-primary-500 outline-none resize-y"
+										placeholder="Lưu ý về cách dùng bài, combo, điểm nổi bật..."
+									/>
+								</div>
+								<div className="flex flex-col gap-2">
+									<label className="text-sm font-semibold">Ghi chú lối chơi (English)</label>
+									<textarea
+										rows={3}
+										value={formData.translations?.en?.ratings?.playstyleNote || ""}
+										onChange={(e) => setFormData(prev => ({
+											...prev,
+											translations: {
+												...prev.translations,
+												en: {
+													...prev.translations?.en,
+													ratings: {
+														...(prev.translations?.en?.ratings || {}),
+														playstyleNote: e.target.value
+													}
+												}
+											}
+										}))}
+										className="w-full bg-surface-bg border border-border p-3 rounded-lg text-text-primary focus:border-primary-500 outline-none resize-y"
+										placeholder="English translation for notes..."
+									/>
+								</div>
+							</div>
 						</div>
 					</section>
 				</div>

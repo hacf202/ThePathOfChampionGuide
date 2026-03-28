@@ -336,6 +336,8 @@ function ChampionEditor() {
 			maxStars: maxStars.map(s => ({ value: s, label: `${s} Star` })),
 			tags: tags.map(t => ({ value: t, label: t })),
 			sort: [
+				{ value: "id-asc", label: tUI("admin.common.sortIdAsc") || "ID (Tăng dần)" },
+				{ value: "id-desc", label: tUI("admin.common.sortIdDesc") || "ID (Giảm dần)" },
 				{ value: "name-asc", label: tUI("sort.nameAsc") },
 				{ value: "name-desc", label: tUI("sort.nameDesc") },
 				{ value: "cost-asc", label: tUI("sort.costAsc") },
@@ -365,9 +367,15 @@ function ChampionEditor() {
 
 		const [field, dir] = sortOrder.split("-");
 		result.sort((a, b) => {
-			const A = field === "name" ? tDynamic(a, "name") || "" : a[field] || "";
-			const B = field === "name" ? tDynamic(b, "name") || "" : b[field] || "";
-			return dir === "asc" ? (A > B ? 1 : -1) : A < B ? 1 : -1;
+			if (field === "id") {
+				const A = String(a.championID || "");
+				const B = String(b.championID || "");
+				return dir === "asc" ? A.localeCompare(B) : B.localeCompare(A);
+			} else {
+				const A = field === "name" ? tDynamic(a, "name") || "" : a[field] || "";
+				const B = field === "name" ? tDynamic(b, "name") || "" : b[field] || "";
+				return dir === "asc" ? (A > B ? 1 : -1) : A < B ? 1 : -1;
+			}
 		});
 		return result;
 	}, [

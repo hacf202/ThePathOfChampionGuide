@@ -4,6 +4,7 @@ import { Gift, Eye, EyeOff } from "lucide-react";
 import Button from "../common/button";
 import SafeImage from "../common/SafeImage";
 import { useTranslation } from "../../hooks/useTranslation";
+import { removeAccents } from "../../utils/vietnameseUtils";
 import iconData from "../../assets/data/icon.json";
 
 const RewardSection = ({ rewards }) => {
@@ -56,6 +57,46 @@ const RewardSection = ({ rewards }) => {
 			}
 		}
 
+		// --- LOGIC ĐA NGÔN NGỮ (I18N) ---
+		let translatedRegion = "";
+		if (detectedRegion) {
+			const regionKey = removeAccents(detectedRegion)
+				.toLowerCase()
+				.replace(/[^a-z0-9]/g, "");
+			translatedRegion = tUI(`region.${regionKey}`) || detectedRegion;
+		}
+
+		const REWARD_MAP = {
+			"hòm thần tích đồng": "bronzeReliquary",
+			"hòm thần tích bạc": "silverReliquary",
+			"hòm thần tích vàng": "goldReliquary",
+			"kho báu đồng": "bronzeVault",
+			"kho báu bạc": "silverVault",
+			"kho báu vàng": "goldVault",
+			"kho báu bạch kim": "platinumVault",
+			"kho báu kim cương": "diamondVault",
+			"thùng tinh tú bạc": "silverStarVessel",
+			"thùng tinh tú vàng": "goldStarVessel",
+			"thùng tinh tú bạch kim": "platinumStarVessel",
+			"điểm huyền thoại": "legendLevel",
+			"mảnh ghép bí ẩn": "mysteriousFragment",
+			"bụi tinh tú": "stardust",
+			"pha lê sao băng": "novaCrystal",
+			"pha lê tinh tú": "starCrystal",
+			"đá quý": "gemstone",
+			"xu vinh danh": "honorCoin",
+			"mảnh sao băng": "novaShard",
+			"thùng đá quý lớn": "greaterGemstoneVessel",
+		};
+
+		const lowerBase = baseName.toLowerCase();
+		const baseKey = REWARD_MAP[lowerBase];
+		const translatedBase = baseKey ? tUI(`reward.${baseKey}`) : baseName;
+
+		const translatedName = translatedRegion
+			? `${translatedRegion} ${translatedBase}`
+			: translatedBase;
+
 		const mainIcon =
 			getRawIcon(baseName) !== "/fallback-image.svg"
 				? getRawIcon(baseName)
@@ -67,6 +108,7 @@ const RewardSection = ({ rewards }) => {
 			mainIcon,
 			overlayIcon,
 			originalName: itemName,
+			translatedName,
 		};
 	};
 
@@ -150,7 +192,7 @@ const RewardSection = ({ rewards }) => {
 																	</div>
 
 																	<span className='text-xs sm:text-sm font-semibold text-text-primary whitespace-nowrap'>
-																		{item.name}
+																		{parsedReward.translatedName}
 																	</span>
 																	<span className='text-[10px] sm:text-xs font-bold text-text-primary px-1.5 sm:px-2 py-0.5 rounded-full'>
 																		x{item.count?.toLocaleString() || 1}

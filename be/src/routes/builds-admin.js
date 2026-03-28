@@ -112,7 +112,7 @@ router.get("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 	try {
 		const {
 			page = 1,
-			limit = 20,
+			limit = 24,
 			searchTerm = "",
 			championNames = "",
 			creators = "",

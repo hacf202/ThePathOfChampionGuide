@@ -69,7 +69,9 @@ function MainContent() {
 	return (
 		<main
 			className={`flex-grow ${
-				!isFullWidth ? "container mx-auto sm:px-4 py-2 sm:py-8" : ""
+				isAdmin
+					? 'overflow-hidden flex flex-col'
+					: !isFullWidth ? "container mx-auto sm:px-4 py-2 sm:py-8" : ""
 			}`}
 		>
 			<Routes>
@@ -124,7 +126,10 @@ function AppLayout() {
 	const isAdminRoute = location.pathname.startsWith("/admin");
 
 	return (
-		<div className='flex flex-col min-h-screen'>
+		<div className={isAdminRoute
+			? 'flex flex-col h-screen overflow-hidden'
+			: 'flex flex-col min-h-screen'
+		}>
 			<Navbar />
 			<AnnouncementPopup />
 			<MainContent />

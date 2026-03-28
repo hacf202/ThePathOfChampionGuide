@@ -49,7 +49,7 @@ router.get("/", async (req, res) => {
 	try {
 		const {
 			page = 1,
-			limit = 20,
+			limit = 24,
 			searchTerm = "",
 			regions = "",
 			costs = "",

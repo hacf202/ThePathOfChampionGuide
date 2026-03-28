@@ -21,7 +21,7 @@ const PrivateRoute = () => {
 	// PrivateRoute.jsx
 	if (isLoading) {
 		return (
-			<div className='flex items-center justify-center min-h-screen'>
+			<div className='flex items-center justify-center h-full'>
 				<div className='text-lg'>Đang xác thực quyền truy cập...</div>
 			</div>
 		);

@@ -71,7 +71,7 @@ const RelicListView = memo(
 							to={`./${relic.relicCode}`}
 							className='block hover:scale-105 transition-transform duration-200'
 						>
-							<GenericCard item={relic} onClick={() => {}} />
+							<GenericCard displayId={relic.relicCode} item={relic} onClick={() => {}} />
 						</Link>
 					))}
 				</div>
@@ -251,6 +251,8 @@ function RelicEditor() {
 			types: types.sort().map(t => ({ value: t, label: t })),
 			stacks: stacks.sort().map(s => ({ value: s, label: s })),
 			sort: [
+				{ value: "id-asc", label: tUI("admin.common.sortIdAsc") || "ID (Tăng dần)" },
+				{ value: "id-desc", label: tUI("admin.common.sortIdDesc") || "ID (Giảm dần)" },
 				{ value: "name-asc", label: tUI("admin.common.sortNameAsc") },
 				{ value: "name-desc", label: tUI("admin.common.sortNameDesc") },
 				{ value: "rarity-asc", label: tUI("admin.relic.sortRarityAsc") },
@@ -289,7 +291,11 @@ function RelicEditor() {
 
 		const [field, dir] = sortOrder.split("-");
 		result.sort((a, b) => {
-			if (field === "name") {
+			if (field === "id") {
+				const A = String(a.relicCode || "");
+				const B = String(b.relicCode || "");
+				return dir === "asc" ? A.localeCompare(B) : B.localeCompare(A);
+			} else if (field === "name") {
 				const A = tDynamic(a, "name") || "";
 				const B = tDynamic(b, "name") || "";
 				return dir === "asc" ? A.localeCompare(B) : B.localeCompare(A);

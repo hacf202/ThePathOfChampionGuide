@@ -152,13 +152,13 @@ const GuideForm = ({ slug }) => {
 	};
 
 	return (
-		<div className='min-h-screen pb-24'>
+		<div className='h-full pb-24'>
 			{/* ÁP DỤNG EDITOR TOOLBAR CHUNG */}
 			<EditorHeaderToolbar
 				title={
 					isEditMode
-						? `${tUI("randomWheel.tabCustomize") || "Sửa:"} ${formData.title}`
-						: tUI("common.addNew") || "Thêm mới Bài viết"
+						? `${tUI("randomWheel.tabCustomize")} ${formData.title}`
+						: tUI("common.addNew")
 				}
 				isNew={!isEditMode}
 				isDirty={isDirty}
@@ -174,7 +174,7 @@ const GuideForm = ({ slug }) => {
 						className='mr-2'
 					>
 						{isPreview
-							? tUI("randomWheel.tabCustomize") || "Chỉnh sửa"
+							? tUI("randomWheel.tabCustomize")
 							: "Xem trước"}
 					</Button>
 				}

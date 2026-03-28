@@ -158,7 +158,7 @@ const RuneEditorForm = memo(
 		const handleSubmit = e => {
 			e.preventDefault();
 			if (!formData.runeCode?.trim()) {
-				alert(tUI("admin.runeForm.errorIdReq") || "Vui lòng nhập Rune Code!");
+				alert(tUI("admin.runeForm.errorIdReq"));
 				return;
 			}
 			const dataToSave = {
@@ -174,8 +174,8 @@ const RuneEditorForm = memo(
 				<EditorHeaderToolbar
 					title={
 						formData.isNew
-							? tUI("admin.runeForm.createTitle") || "Tạo Ngọc mới"
-							: `${tUI("admin.runeForm.editTitle") || "Biên tập:"} ${formData.name}`
+							? tUI("admin.runeForm.createTitle")
+							: `${tUI("admin.runeForm.editTitle")} ${formData.name}`
 					}
 					isNew={formData.isNew}
 					isDirty={isDirty}
@@ -192,7 +192,7 @@ const RuneEditorForm = memo(
 					<div className='space-y-5'>
 						<div className='grid grid-cols-2 gap-4'>
 							<InputField
-								label={tUI("admin.runeForm.idLabel") || "Mã Ngọc (ID)"}
+								label={tUI("admin.runeForm.idLabel")}
 								name='runeCode'
 								value={formData.runeCode || ""}
 								onChange={handleInputChange}
@@ -202,7 +202,7 @@ const RuneEditorForm = memo(
 							/>
 							<div className='pt-1'>
 								<ArrayInputComponent
-									label={tUI("admin.runeForm.typeLabel") || "Loại Ngọc (Type)"}
+									label={tUI("admin.runeForm.typeLabel")}
 									data={formData.type || []}
 									onChange={newArr =>
 										setFormData(prev => ({ ...prev, type: newArr }))
@@ -219,7 +219,7 @@ const RuneEditorForm = memo(
 							</h3>
 							<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
 								<InputField
-									label={`${tUI("admin.runeForm.nameLabel") || "Tên Ngọc"} (VI)`}
+									label={`${tUI("admin.runeForm.nameLabel")} (VI)`}
 									name='name'
 									value={formData.name || ""}
 									onChange={handleInputChange}
@@ -227,14 +227,14 @@ const RuneEditorForm = memo(
 									placeholder='Nhập tên ngọc...'
 								/>
 								<InputField
-									label={`${tUI("admin.runeForm.regionLabel") || "Khu vực"} (VI)`}
+									label={`${tUI("admin.runeForm.regionLabel")} (VI)`}
 									name='region'
 									value={formData.region || ""}
 									onChange={handleInputChange}
 									placeholder='VD: Ionia, Noxus...'
 								/>
 								<InputField
-									label={`${tUI("admin.runeForm.rarityLabel") || "Độ hiếm"} (VI)`}
+									label={`${tUI("admin.runeForm.rarityLabel")} (VI)`}
 									name='rarity'
 									value={formData.rarity || ""}
 									onChange={handleInputChange}
@@ -243,7 +243,7 @@ const RuneEditorForm = memo(
 							</div>
 							<div className='flex flex-col gap-1'>
 								<label className='text-sm font-semibold text-text-primary'>
-									{tUI("admin.runeForm.descLabel") || "Mô tả"} (VI)
+									{tUI("admin.runeForm.descLabel")} (VI)
 								</label>
 								<textarea
 									name='description'
@@ -262,21 +262,21 @@ const RuneEditorForm = memo(
 							</h3>
 							<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
 								<InputField
-									label={`${tUI("admin.runeForm.nameLabel") || "Tên Ngọc"} (EN)`}
+									label={`${tUI("admin.runeForm.nameLabel")} (EN)`}
 									name='name'
 									value={formData.translations?.en?.name || ""}
 									onChange={e => handleTranslationChange(e, "en")}
 									placeholder='English Name...'
 								/>
 								<InputField
-									label={`${tUI("admin.runeForm.regionLabel") || "Khu vực"} (EN)`}
+									label={`${tUI("admin.runeForm.regionLabel")} (EN)`}
 									name='region'
 									value={formData.translations?.en?.region || ""}
 									onChange={e => handleTranslationChange(e, "en")}
 									placeholder='English Region...'
 								/>
 								<InputField
-									label={`${tUI("admin.runeForm.rarityLabel") || "Độ hiếm"} (EN)`}
+									label={`${tUI("admin.runeForm.rarityLabel")} (EN)`}
 									name='rarity'
 									value={formData.translations?.en?.rarity || ""}
 									onChange={e => handleTranslationChange(e, "en")}
@@ -285,7 +285,7 @@ const RuneEditorForm = memo(
 							</div>
 							<div className='flex flex-col gap-1'>
 								<label className='text-sm font-semibold text-text-primary'>
-									{tUI("admin.runeForm.descLabel") || "Mô tả"} (EN)
+									{tUI("admin.runeForm.descLabel")} (EN)
 								</label>
 								<textarea
 									name='description'
@@ -304,13 +304,13 @@ const RuneEditorForm = memo(
 							imageUrl={
 								formData.assetAbsolutePath || formData.assetFullAbsolutePath
 							}
-							label={tUI("admin.runeForm.previewImage") || "Hình ảnh Xem trước"}
+							label={tUI("admin.runeForm.previewImage")}
 							wrapperClassName='flex flex-col items-center bg-surface-hover/30 p-6 rounded-xl border border-dashed border-border'
 							imageClassName='w-44 h-44 object-contain rounded-xl shadow-xl border-4 border-white dark:border-gray-800'
 						/>
 
 						<InputField
-							label={tUI("admin.runeForm.imageUrlLabel") || "URL Ảnh tương đối"}
+							label={tUI("admin.runeForm.imageUrlLabel")}
 							name='assetAbsolutePath'
 							value={formData.assetAbsolutePath || ""}
 							onChange={handleInputChange}
@@ -318,7 +318,7 @@ const RuneEditorForm = memo(
 						/>
 						<InputField
 							label={
-								tUI("admin.runeForm.imageFullUrlLabel") || "URL Ảnh tuyệt đối"
+								tUI("admin.runeForm.imageFullUrlLabel")
 							}
 							name='assetFullAbsolutePath'
 							value={formData.assetFullAbsolutePath || ""}

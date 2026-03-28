@@ -589,7 +589,7 @@ const BlockItem = ({ block, index, onUpdate, onDelete, referenceData }) => {
 					{...provided.draggableProps}
 					className='mb-4 bg-surface-bg border border-border rounded-xl shadow-sm overflow-hidden group hover:border-primary-500/50 transition-colors'
 				>
-					<div className='flex items-start'>
+					<div className='flex'>
 						<div
 							{...provided.dragHandleProps}
 							className='p-4 text-text-tertiary hover:text-primary-500 cursor-grab active:cursor-grabbing transition-colors'

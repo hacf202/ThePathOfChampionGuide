@@ -34,6 +34,11 @@ function ChampionCard({ champion }) {
 				{champion.cost}
 			</div>
 
+			{/* Hiển thị ID khi Hover */}
+			<div className='absolute top-4 right-4 bg-black/80 px-2 py-1 text-xs text-primary-400 font-bold rounded opacity-0 group-hover:opacity-100 transition-opacity z-20 pointer-events-none'>
+				[ID: {champion.championID}]
+			</div>
+
 			{/* Lớp phủ gradient để làm nổi bật văn bản */}
 			<div className='absolute bottom-0 left-0 right-0 h-2/5 bg-gradient-to-t from-black/80 via-black/50 to-transparent' />
 

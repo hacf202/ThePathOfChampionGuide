@@ -30,7 +30,9 @@
 	/* --- Màu chính (Primary - Xanh/Tím) --- */
 	--color-primary-100: #e0f2fe;
 	--color-primary-300: #38a7e7;
+	--color-primary-400: #2e9dd4;
 	--color-primary-500: #3c91c2;
+	--color-primary-600: #2989bc;
 	--color-primary-700: #2080b8;
 
 	/* --- Cảnh báo (Warning - Vàng) --- */
@@ -59,6 +61,7 @@
 	--color-surface-bg: #ffffff;
 	--color-surface-hover-bg: #f8fafc;
 	--color-border: #e2e8f0;
+	--color-border-hover: #94a3b8;
 
 	/* =========================================
 	  * 4. VĂN BẢN CHUNG

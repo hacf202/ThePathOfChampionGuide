@@ -303,7 +303,7 @@ export default function ConstellationMap({ constellationInfo }) {
 			>
 				<img
 					src={constellationInfo.backgroundImage}
-					className='absolute inset-0 w-full h-full object-cover opacity-30 pointer-events-none'
+					className='absolute inset-0 w-full h-full object-cover opacity-50 pointer-events-none'
 					alt='Constellation Background'
 					draggable='false'
 				/>

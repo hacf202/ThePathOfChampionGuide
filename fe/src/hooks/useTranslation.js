@@ -33,7 +33,7 @@ export const useTranslation = () => {
 	 */
 	const tUI = useCallback(
 		key => {
-			// BẢO VỆ: Nếu tệp JSON chưa tải xong, trả tạm về key rỗng hoặc chính key đó để tránh lỗi văng app
+			// BẢO VỆ: Nếu tệp JSON chưa tải xong, trả tạm về key rỗng
 			if (!dictionaries[language]) return "";
 
 			const keys = key.split(".");
@@ -43,20 +43,7 @@ export const useTranslation = () => {
 				if (result && result[k] !== undefined) {
 					result = result[k];
 				} else {
-					// Fallback về tiếng Việt
-					let fallbackResult = dictionaries["vi"];
-
-					// Nếu tiếng Việt chưa sẵn sàng (rất hiếm khi xảy ra), trả về chuỗi key gốc
-					if (!fallbackResult) return key;
-
-					for (const fallbackKey of keys) {
-						if (fallbackResult && fallbackResult[fallbackKey] !== undefined) {
-							fallbackResult = fallbackResult[fallbackKey];
-						} else {
-							return key;
-						}
-					}
-					return fallbackResult;
+					return key; // Trả về nguyên gốc key nếu không tìm thấy, không fallback.
 				}
 			}
 

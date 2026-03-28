@@ -38,7 +38,7 @@ const AdminListLayout = ({
 							disabled={currentPage === 1}
 							variant='outline'
 						>
-							{tUI("admin.common.prevPage") || "Trang trước"}
+							{tUI("admin.common.prevPage")}
 						</Button>
 						<span className='text-lg font-medium text-text-primary'>
 							{currentPage} / {totalPages}
@@ -48,7 +48,7 @@ const AdminListLayout = ({
 							disabled={currentPage === totalPages}
 							variant='outline'
 						>
-							{tUI("admin.common.nextPage") || "Trang sau"}
+							{tUI("admin.common.nextPage")}
 						</Button>
 					</div>
 				)}

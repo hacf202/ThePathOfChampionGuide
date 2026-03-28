@@ -45,20 +45,20 @@ const ImageManager = lazy(() => import("./images/imageManager"));
 const DashboardHome = ({ navItems }) => {
 	const navigate = useNavigate();
 	const { tUI } = useTranslation();
-	const t = (key, fallback) => (tUI(key) === key ? fallback : tUI(key));
+	
 
 	return (
 		<>
 			<h1 className='text-4xl font-bold text-text-primary font-primary mb-2'>
-				{t("admin.dashboard.welcome", "Chào mừng, Admin!")}
+				{tUI("admin.dashboard.welcome")}
 			</h1>
 			<p className='text-lg text-text-secondary mb-8'>
-				{t("admin.dashboard.overview", "Tổng quan nhanh về hệ thống.")}
+				{tUI("admin.dashboard.overview")}
 			</p>
 
 			<div>
 				<h3 className='text-xl font-semibold text-text-primary mb-6 font-primary'>
-					{t("admin.dashboard.selectManage", "Chọn mục để quản lý")}
+					{tUI("admin.dashboard.selectManage")}
 				</h3>
 				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
 					{navItems.slice(1).map(item => (
@@ -84,85 +84,85 @@ const AdminPanel = () => {
 	const { tUI } = useTranslation();
 
 	// Hàm helper để giữ văn bản dự phòng nếu JSON chưa được cập nhật
-	const t = (key, fallback) => (tUI(key) === key ? fallback : tUI(key));
+	
 
 	const navItems = [
 		{
 			id: "dashboard",
-			label: t("admin.nav.dashboard", "Tổng quan"),
+			label: tUI("admin.nav.dashboard"),
 			icon: LayoutDashboard,
 			path: "/admin",
 			end: true,
 		},
 		{
 			id: "champion",
-			label: t("admin.nav.champion", "Quản lý Tướng"),
+			label: tUI("admin.nav.champion"),
 			icon: BookOpen,
 			path: "/admin/champions",
 		},
 		{
 			id: "power",
-			label: t("admin.nav.power", "Quản lý Sức Mạnh"),
+			label: tUI("admin.nav.power"),
 			icon: Sparkles,
 			path: "/admin/powers",
 		},
 		{
 			id: "bonusStar",
-			label: t("admin.nav.bonusStar", "Quản lý Tăng Thưởng"),
+			label: tUI("admin.nav.bonusStar"),
 			icon: Gem,
 			path: "/admin/bonusStars",
 		},
 		{
 			id: "relic",
-			label: t("admin.nav.relic", "Quản lý Cổ Vật"),
+			label: tUI("admin.nav.relic"),
 			icon: ShieldCheck,
 			path: "/admin/relics",
 		},
 		{
 			id: "item",
-			label: t("admin.nav.item", "Quản lý Vật Phẩm"),
+			label: tUI("admin.nav.item"),
 			icon: Package,
 			path: "/admin/items",
 		},
 		{
 			id: "rune",
-			label: t("admin.nav.rune", "Quản lý Ngọc"),
+			label: tUI("admin.nav.rune"),
 			icon: Gem,
 			path: "/admin/runes",
 		},
 		{
 			id: "boss",
-			label: t("admin.nav.boss", "Quản lý Boss"),
+			label: tUI("admin.nav.boss"),
 			icon: Target,
 			path: "/admin/bosses",
 		},
 		{
 			id: "adventure",
-			label: t("admin.nav.adventure", "Quản lý Phiêu Lưu"),
+			label: tUI("admin.nav.adventure"),
 			icon: Map,
 			path: "/admin/adventures",
 		},
 		{
 			id: "build",
-			label: t("admin.nav.build", "Quản lý Bộ Cổ Vật"),
+			label: tUI("admin.nav.build"),
 			icon: Library,
 			path: "/admin/builds",
 		},
 		{
 			id: "guide",
-			label: t("admin.nav.guide", "Quản lý Hướng Dẫn"),
+			label: tUI("admin.nav.guide"),
 			icon: BookMarked,
 			path: "/admin/guides",
 		},
 		{
 			id: "analytics",
-			label: t("admin.nav.analytics", "Phân tích hệ thống"),
+			label: tUI("admin.nav.analytics"),
 			icon: LayoutDashboard,
 			path: "/admin/analytics",
 		},
 		{
 			id: "images",
-			label: t("admin.nav.images", "Quản lý Ảnh"),
+			label: tUI("admin.nav.images"),
 			icon: LayoutDashboard,
 			path: "/admin/images",
 		},
@@ -177,7 +177,7 @@ const AdminPanel = () => {
 		);
 
 	return (
-		<div className='flex h-screen bg-page-bg font-secondary'>
+		<div className='flex h-full bg-page-bg font-secondary'>
 			{/* Overlay cho Mobile */}
 			{isSidebarOpen && (
 				<div
@@ -210,7 +210,7 @@ const AdminPanel = () => {
 								isCollapsed ? "xl:hidden opacity-0" : "opacity-100"
 							}`}
 						>
-							{t("admin.sidebar.title", "Admin")}
+							{tUI("admin.sidebar.title")}
 						</span>
 					</div>
 
@@ -275,7 +275,7 @@ const AdminPanel = () => {
 							isCollapsed ? "xl:opacity-0" : "xl:opacity-100"
 						}`}
 					>
-						{t("admin.sidebar.footer", "© 2025 Path of champions")}
+						{tUI("admin.sidebar.footer")}
 					</p>
 				</div>
 			</aside>
@@ -294,7 +294,7 @@ const AdminPanel = () => {
 					<div className='flex-1 flex justify-center xl:justify-start'>
 						<h1 className='text-2xl font-bold text-text-primary font-primary hidden sm:block'>
 							{currentNavItem?.label ||
-								t("admin.topbar.defaultTitle", "Admin Panel")}
+								tUI("admin.topbar.defaultTitle")}
 						</h1>
 					</div>
 				</header>

@@ -80,7 +80,7 @@ const ItemEditorForm = memo(
 		const handleSubmit = e => {
 			e.preventDefault();
 			if (!formData.itemCode?.trim()) {
-				alert(tUI("admin.itemForm.errorIdReq") || "Vui lòng nhập Item Code!");
+				alert(tUI("admin.itemForm.errorIdReq"));
 				return;
 			}
 			onSave(formData);
@@ -92,8 +92,8 @@ const ItemEditorForm = memo(
 				<EditorHeaderToolbar
 					title={
 						formData.isNew
-							? tUI("admin.itemForm.createTitle") || "Tạo Vật phẩm mới"
-							: `${tUI("admin.itemForm.editTitle") || "Sửa:"} ${formData.name}`
+							? tUI("admin.itemForm.createTitle")
+							: `${tUI("admin.itemForm.editTitle")} ${formData.name}`
 					}
 					isNew={formData.isNew}
 					isDirty={isDirty}
@@ -110,7 +110,7 @@ const ItemEditorForm = memo(
 					<div className='space-y-5'>
 						<div className='grid grid-cols-2 gap-4'>
 							<InputField
-								label={tUI("admin.itemForm.idLabel") || "Mã Vật phẩm (ID)"}
+								label={tUI("admin.itemForm.idLabel")}
 								name='itemCode'
 								value={formData.itemCode || ""}
 								onChange={handleInputChange}
@@ -120,8 +120,7 @@ const ItemEditorForm = memo(
 							/>
 							<InputField
 								label={
-									tUI("admin.itemForm.rarityRefLabel") ||
-									"Hệ tham chiếu độ hiếm"
+									tUI("admin.itemForm.rarityRefLabel")
 								}
 								name='rarityRef'
 								value={formData.rarityRef || ""}
@@ -137,7 +136,7 @@ const ItemEditorForm = memo(
 							</h3>
 							<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
 								<InputField
-									label={`${tUI("admin.itemForm.nameLabel") || "Tên vật phẩm"} (VI)`}
+									label={`${tUI("admin.itemForm.nameLabel")} (VI)`}
 									name='name'
 									value={formData.name || ""}
 									onChange={handleInputChange}
@@ -145,7 +144,7 @@ const ItemEditorForm = memo(
 									placeholder='Nhập tên vật phẩm...'
 								/>
 								<InputField
-									label={`${tUI("admin.itemForm.rarityLabel") || "Độ hiếm"} (VI)`}
+									label={`${tUI("admin.itemForm.rarityLabel")} (VI)`}
 									name='rarity'
 									value={formData.rarity || ""}
 									onChange={handleInputChange}
@@ -154,7 +153,7 @@ const ItemEditorForm = memo(
 							</div>
 							<div className='flex flex-col gap-1'>
 								<label className='text-sm font-semibold text-text-primary'>
-									{tUI("admin.itemForm.descLabel") || "Mô tả"} (VI)
+									{tUI("admin.itemForm.descLabel")} (VI)
 								</label>
 								<textarea
 									name='description'
@@ -173,14 +172,14 @@ const ItemEditorForm = memo(
 							</h3>
 							<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
 								<InputField
-									label={`${tUI("admin.itemForm.nameLabel") || "Tên vật phẩm"} (EN)`}
+									label={`${tUI("admin.itemForm.nameLabel")} (EN)`}
 									name='name'
 									value={formData.translations?.en?.name || ""}
 									onChange={e => handleTranslationChange(e, "en")}
 									placeholder='English Name...'
 								/>
 								<InputField
-									label={`${tUI("admin.itemForm.rarityLabel") || "Độ hiếm"} (EN)`}
+									label={`${tUI("admin.itemForm.rarityLabel")} (EN)`}
 									name='rarity'
 									value={formData.translations?.en?.rarity || ""}
 									onChange={e => handleTranslationChange(e, "en")}
@@ -189,7 +188,7 @@ const ItemEditorForm = memo(
 							</div>
 							<div className='flex flex-col gap-1'>
 								<label className='text-sm font-semibold text-text-primary'>
-									{tUI("admin.itemForm.descLabel") || "Mô tả"} (EN)
+									{tUI("admin.itemForm.descLabel")} (EN)
 								</label>
 								<textarea
 									name='description'
@@ -208,15 +207,14 @@ const ItemEditorForm = memo(
 							imageUrl={
 								formData.assetAbsolutePath || formData.assetFullAbsolutePath
 							}
-							label={tUI("admin.itemForm.previewImage") || "Hình ảnh Xem trước"}
+							label={tUI("admin.itemForm.previewImage")}
 							wrapperClassName='flex flex-col items-center bg-surface-hover/30 p-6 rounded-xl border border-dashed border-border'
 							imageClassName='w-44 h-44 object-contain rounded-xl shadow-xl border-4 border-white dark:border-gray-800'
 						/>
 
 						<InputField
 							label={
-								tUI("admin.itemForm.imageUrlLabel") ||
-								"URL Ảnh tương đối (Game Data)"
+								tUI("admin.itemForm.imageUrlLabel")
 							}
 							name='assetAbsolutePath'
 							value={formData.assetAbsolutePath || ""}
@@ -225,8 +223,7 @@ const ItemEditorForm = memo(
 						/>
 						<InputField
 							label={
-								tUI("admin.itemForm.imageFullUrlLabel") ||
-								"URL Ảnh tuyệt đối (External)"
+								tUI("admin.itemForm.imageFullUrlLabel")
 							}
 							name='assetFullAbsolutePath'
 							value={formData.assetFullAbsolutePath || ""}

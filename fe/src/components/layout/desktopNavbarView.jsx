@@ -174,6 +174,13 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 										>
 											<Map className='w-5 h-5' /> {tUI("nav.maps")}
 										</NavLink>
+										<NavLink
+											to='/builds'
+											className={dropdownLinkClass}
+											onClick={handleNavClick}
+										>
+											<ScrollText className='w-5 h-5' /> {tUI("nav.builds")}
+										</NavLink>
 									</div>
 								</div>
 							)}
@@ -206,13 +213,6 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 							{isToolsDropdownOpen && (
 								<div className='absolute z-50 left-0 top-full pt-1'>
 									<div className='w-48 bg-dropdown-bg border border-dropdown-border rounded-lg shadow-xl py-2'>
-										<NavLink
-											to='/builds'
-											className={dropdownLinkClass}
-											onClick={handleNavClick}
-										>
-											<ScrollText className='w-5 h-5' /> {tUI("nav.builds")}
-										</NavLink>
 										<NavLink
 											to='/tierlist'
 											className={dropdownLinkClass}

@@ -185,7 +185,7 @@ router.post("/users/batch", async (req, res) => {
  */
 router.get("/users", async (req, res) => {
 	try {
-		const { searchTerm = "", page = 1, limit = 20 } = req.query;
+		const { searchTerm = "", page = 1, limit = 24 } = req.query;
 		const pageSize = parseInt(limit);
 
 		// AWS Cognito không hỗ trợ search mạnh như DynamoDB, nên ta lấy danh sách (có giới hạn)

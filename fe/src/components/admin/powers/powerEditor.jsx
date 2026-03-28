@@ -61,10 +61,10 @@ const PowerListView = memo(
 				onPageChange={onPageChange}
 				sidePanelProps={sidePanelProps}
 				emptyMessageTitle={
-					tUI("admin.power.notFound") || "Không tìm thấy Sức mạnh"
+					tUI("admin.power.notFound")
 				}
 				emptyMessageSub={
-					tUI("admin.power.tryOtherFilter") || "Vui lòng thử bộ lọc khác"
+					tUI("admin.power.tryOtherFilter")
 				}
 			>
 				<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6'>
@@ -75,7 +75,7 @@ const PowerListView = memo(
 							// Thêm 'relative group' để xử lý tooltip hover
 							className='block hover:scale-105 transition-transform duration-200 relative group'
 						>
-							<GenericCard item={power} onClick={() => {}} />
+							<GenericCard displayId={power.powerCode} item={power} onClick={() => {}} />
 
 							{/* Tooltip hiển thị ID khi hover */}
 							<div className='absolute top-2 right-2 bg-gray-900/80 backdrop-blur-sm text-white text-xs px-2 py-1 rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-10'>
@@ -122,7 +122,7 @@ const PowerEditWrapper = ({
 					{tUI("admin.power.notFoundId")} {id}
 				</p>
 				<button onClick={handleBack} className='btn-primary'>
-					{tUI("admin.common.backToList") || "Quay lại danh sách"}
+					{tUI("admin.common.backToList")}
 				</button>
 			</div>
 		);
@@ -256,11 +256,11 @@ function PowerEditor() {
 			sort: [
 				{
 					value: "id-asc",
-					label: tUI("admin.power.sortIdAsc") || "ID (Tăng dần)",
+					label: tUI("admin.power.sortIdAsc"),
 				},
 				{
 					value: "id-desc",
-					label: tUI("admin.power.sortIdDesc") || "ID (Giảm dần)",
+					label: tUI("admin.power.sortIdDesc"),
 				},
 				{ value: "name-asc", label: tUI("admin.common.sortNameAsc") },
 				{ value: "name-desc", label: tUI("admin.common.sortNameDesc") },

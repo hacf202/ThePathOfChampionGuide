@@ -99,7 +99,7 @@ router.get("/", async (req, res) => {
 	try {
 		const {
 			page = 1,
-			limit = 12,
+			limit = 24,
 			searchTerm = "",
 			championNames = "",
 			regions = "",
@@ -239,7 +239,7 @@ router.get("/my-builds", authenticateCognitoToken, async (req, res) => {
 	// 🟢 Nhận tham số từ Frontend
 	const {
 		page = 1,
-		limit = 12,
+		limit = 24,
 		searchTerm = "",
 		regions = "",
 		stars = "",

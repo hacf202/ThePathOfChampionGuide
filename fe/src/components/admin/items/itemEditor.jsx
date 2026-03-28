@@ -61,10 +61,10 @@ const ItemListView = memo(
 				onPageChange={onPageChange}
 				sidePanelProps={sidePanelProps}
 				emptyMessageTitle={
-					tUI("admin.item.notFound") || "Không tìm thấy Vật phẩm"
+					tUI("admin.item.notFound")
 				}
 				emptyMessageSub={
-					tUI("admin.item.tryOtherFilter") || "Vui lòng thử bộ lọc khác"
+					tUI("admin.item.tryOtherFilter")
 				}
 			>
 				<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6'>
@@ -74,7 +74,7 @@ const ItemListView = memo(
 							to={`./${item.itemCode}`}
 							className='block hover:scale-105 transition-transform duration-200'
 						>
-							<GenericCard item={item} onClick={() => {}} />
+							<GenericCard displayId={item.itemCode} item={item} onClick={() => {}} />
 						</Link>
 					))}
 				</div>
@@ -242,15 +242,17 @@ function ItemEditor() {
 		return {
 			rarities: rarities.map(r => ({ value: r, label: r })),
 			sort: [
+				{ value: "id-asc", label: tUI("admin.common.sortIdAsc") || "ID (Tăng dần)" },
+				{ value: "id-desc", label: tUI("admin.common.sortIdDesc") || "ID (Giảm dần)" },
 				{ value: "name-asc", label: tUI("admin.common.sortNameAsc") },
 				{ value: "name-desc", label: tUI("admin.common.sortNameDesc") },
 				{
 					value: "rarity-asc",
-					label: tUI("admin.item.sortRarityAsc") || "Độ hiếm tăng dần",
+					label: tUI("admin.item.sortRarityAsc"),
 				},
 				{
 					value: "rarity-desc",
-					label: tUI("admin.item.sortRarityDesc") || "Độ hiếm giảm dần",
+					label: tUI("admin.item.sortRarityDesc"),
 				},
 			],
 		};
@@ -278,7 +280,11 @@ function ItemEditor() {
 
 		const [field, dir] = sortOrder.split("-");
 		result.sort((a, b) => {
-			if (field === "name") {
+			if (field === "id") {
+				const A = String(a.itemCode || "");
+				const B = String(b.itemCode || "");
+				return dir === "asc" ? A.localeCompare(B) : B.localeCompare(A);
+			} else if (field === "name") {
 				const A = tDynamic(a, "name") || "";
 				const B = tDynamic(b, "name") || "";
 				return dir === "asc" ? A.localeCompare(B) : B.localeCompare(A);
@@ -300,9 +306,9 @@ function ItemEditor() {
 
 	const sidePanelProps = {
 		searchPlaceholder:
-			tUI("admin.item.searchPlaceholder") || "Tìm tên, mô tả...",
-		addLabel: tUI("admin.item.addNew") || "Thêm Vật phẩm mới",
-		resetLabel: tUI("admin.item.resetFilter") || "Đặt lại bộ lọc",
+			tUI("admin.item.searchPlaceholder"),
+		addLabel: tUI("admin.item.addNew"),
+		resetLabel: tUI("admin.item.resetFilter"),
 		searchInput,
 		onSearchInputChange: e => setSearchInput(e.target.value),
 		onSearch: () => {
@@ -323,11 +329,11 @@ function ItemEditor() {
 		},
 		multiFilterConfigs: [
 			{
-				label: tUI("admin.item.rarity") || "Độ hiếm",
+				label: tUI("admin.item.rarity"),
 				options: filterOptions.rarities,
 				selectedValues: selectedRarities,
 				onChange: setSelectedRarities,
-				placeholder: tUI("admin.item.allRarities") || "Tất cả độ hiếm",
+				placeholder: tUI("admin.item.allRarities"),
 			},
 		],
 		sortOptions: filterOptions.sort,

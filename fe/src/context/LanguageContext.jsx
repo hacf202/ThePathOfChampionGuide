@@ -34,19 +34,12 @@ export const LanguageProvider = ({ children }) => {
 					dictCache[lang] = module.default || module;
 				}
 
-				// 2. Vì hệ thống dùng 'vi' làm fallback, nên nếu đang load 'en' mà chưa có 'vi',
-				// ta phải tải luôn 'vi' ngầm ở background.
-				if (lang !== "vi" && !dictCache["vi"]) {
-					const viModule = await import(`../locales/vi.json`);
-					dictCache["vi"] = viModule.default || viModule;
-				}
-
-				// 3. Cập nhật State để UI render lại
+				// 2. Cập nhật State để UI render lại
 				if (isMounted) {
-					setDictionaries({
-						vi: dictCache["vi"],
+					setDictionaries(prev => ({
+						...prev,
 						[lang]: dictCache[lang],
-					});
+					}));
 				}
 			} catch (error) {
 				console.error(`Lỗi tải tệp ngôn ngữ: ${lang}`, error);

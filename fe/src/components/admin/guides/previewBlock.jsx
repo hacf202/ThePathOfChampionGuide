@@ -102,7 +102,7 @@ const PreviewBlock = ({ block, referenceData }) => {
 					</div>
 				);
 			return (
-				<div className='my-6 p-4 rounded-xl border border-border bg-surface-bg shadow-sm flex items-start gap-4'>
+				<div className='my-6 p-4 rounded-xl border border-border bg-surface-bg shadow-sm flex gap-4'>
 					<img
 						src={champ.assets?.[0]?.avatar || champ.avatar || "/fallback.png"}
 						alt={champ.name}

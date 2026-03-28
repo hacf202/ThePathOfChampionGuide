@@ -10,6 +10,41 @@ import DropDragSidePanel from "../common/dropSidePanel";
 import { Loader2 } from "lucide-react";
 import { useTranslation } from "../../../hooks/useTranslation";
 
+const CustomBossTooltip = ({ bossID, powers, cachedData, tUI }) => {
+	return (
+		<div className='flex flex-col gap-2'>
+			<div className='font-bold text-primary-400'>[ID: {bossID}]</div>
+			{!powers || powers.length === 0 ? (
+				<div className='italic text-gray-400'>{tUI("admin.boss.noPowers")}</div>
+			) : (
+				powers.map((pCode, idx) => {
+					const powerItem = cachedData?.powers?.find(
+						p => p.powerCode === pCode,
+					);
+					const name = powerItem
+						? powerItem.translations?.vi?.name || powerItem.name
+						: pCode;
+					const icon =
+						powerItem?.assetAbsolutePath || "/images/placeholder.png";
+
+					return (
+						<div key={idx} className='flex items-center gap-3'>
+							<img
+								src={icon}
+								alt='icon'
+								className='w-8 h-8 rounded border border-gray-600 bg-gray-800 object-cover shrink-0'
+							/>
+							<span className='text-sm text-gray-200 line-clamp-2'>
+								{name}
+							</span>
+						</div>
+					);
+				})
+			)}
+		</div>
+	);
+};
+
 const NEW_BOSS_TEMPLATE = {
 	bossID: "",
 	isNew: true,
@@ -28,7 +63,9 @@ const BossListView = memo(
 		currentPage,
 		onPageChange,
 		sidePanelProps,
+		cachedData,
 	}) => {
+		const { tUI } = useTranslation();
 		return (
 			<div className='flex flex-col lg:flex-row gap-6'>
 				<div className='lg:w-4/5 bg-surface-bg rounded-lg p-4'>
@@ -41,12 +78,21 @@ const BossListView = memo(
 									className='block hover:scale-105 transition-transform duration-200'
 								>
 									<GenericCard
+										displayId={item.bossID}
 										item={{
 											...item,
 											name: item.bossName,
 											assetAbsolutePath: item.background,
 										}}
 										onClick={() => {}}
+										customTooltip={
+											<CustomBossTooltip
+												bossID={item.bossID}
+												powers={item.power}
+												cachedData={cachedData}
+												tUI={tUI}
+											/>
+										}
 									/>
 								</Link>
 							))}
@@ -153,6 +199,7 @@ function BossEditor() {
 	const [powers, setPowers] = useState([]);
 	const [searchInput, setSearchInput] = useState("");
 	const [searchTerm, setSearchTerm] = useState("");
+	const [sortOrder, setSortOrder] = useState("id-asc");
 	const [currentPage, setCurrentPage] = useState(1);
 	const [isLoading, setIsLoading] = useState(true);
 	const [isSaving, setIsSaving] = useState(false);
@@ -160,7 +207,7 @@ function BossEditor() {
 
 	const API_BASE_URL = import.meta.env.VITE_API_URL;
 	const navigate = useNavigate();
-	const { tDynamic } = useTranslation();
+	const { tDynamic, tUI } = useTranslation();
 
 	const fetchAllData = useCallback(async () => {
 		try {
@@ -241,8 +288,19 @@ function BossEditor() {
 				return nameVi.includes(term) || nameEn.includes(term);
 			});
 		}
+
+		const [field, dir] = sortOrder.split("-");
+		result.sort((a, b) => {
+			if (field === "id") {
+				const A = String(a.bossID || "");
+				const B = String(b.bossID || "");
+				return dir === "asc" ? A.localeCompare(B) : B.localeCompare(A);
+			}
+			return 0;
+		});
+
 		return result;
-	}, [items, searchTerm]);
+	}, [items, searchTerm, sortOrder]);
 
 	const sidePanelProps = {
 		searchPlaceholder: "Tìm kiếm Boss...",
@@ -268,8 +326,15 @@ function BossEditor() {
 		onResetFilters: () => {
 			setSearchInput("");
 			setSearchTerm("");
+			setSortOrder("id-asc");
 			setCurrentPage(1);
 		},
+		sortOptions: [
+			{ value: "id-asc", label: tUI("admin.common.sortIdAsc") },
+			{ value: "id-desc", label: tUI("admin.common.sortIdDesc") },
+		],
+		sortSelectedValue: sortOrder,
+		onSortChange: setSortOrder,
 	};
 
 	const cachedData = { bosses: items, powers };
@@ -296,6 +361,7 @@ function BossEditor() {
 							currentPage={currentPage}
 							onPageChange={setCurrentPage}
 							sidePanelProps={sidePanelProps}
+							cachedData={cachedData}
 						/>
 					}
 				/>

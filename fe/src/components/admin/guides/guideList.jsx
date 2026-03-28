@@ -39,7 +39,7 @@ const GuideList = () => {
 			}
 		} catch (err) {
 			console.error("Error loading guide list:", err);
-			setError(tUI("common.errorLoadData") || "Lỗi tải dữ liệu");
+			setError(tUI("common.errorLoadData"));
 		} finally {
 			setLoading(false);
 		}
@@ -53,7 +53,7 @@ const GuideList = () => {
 	const handleDelete = async slug => {
 		if (
 			!window.confirm(
-				(tUI("common.deleteConfirmPrefix") || "Xác nhận xóa ") + slug + "?",
+				(tUI("common.deleteConfirmPrefix")) + slug + "?",
 			)
 		)
 			return;
@@ -79,9 +79,9 @@ const GuideList = () => {
 	}, [guides, searchTerm, t]);
 
 	const sidePanelProps = {
-		searchPlaceholder: tUI("common.searchPlaceholder") || "Tìm tên bài viết...",
-		addLabel: tUI("common.addNew") || "Thêm bài viết mới",
-		resetLabel: tUI("common.resetFilter") || "Xóa bộ lọc",
+		searchPlaceholder: tUI("common.searchPlaceholder"),
+		addLabel: tUI("common.addNew"),
+		resetLabel: tUI("common.resetFilter"),
 		searchInput,
 		onSearchInputChange: e => setSearchInput(e.target.value),
 		onSearch: () => {
@@ -114,7 +114,7 @@ const GuideList = () => {
 		<div className='font-secondary'>
 			<div className='mb-6 px-4'>
 				<h1 className='text-2xl font-bold text-text-primary uppercase'>
-					{tUI("guideList.heading") || "Quản lý Bài viết"} (Admin)
+					{tUI("guideList.heading")} (Admin)
 				</h1>
 			</div>
 
@@ -132,13 +132,13 @@ const GuideList = () => {
 						<thead className='bg-surface-hover/50 text-text-secondary text-sm uppercase'>
 							<tr>
 								<th className='px-6 py-4 font-semibold'>
-									{tUI("constellation.colName") || "Tiêu đề"}
+									{tUI("constellation.colName")}
 								</th>
 								<th className='px-6 py-4 font-semibold'>
-									{tUI("guideDetail.authorLabel") || "Tác giả"}
+									{tUI("guideDetail.authorLabel")}
 								</th>
 								<th className='px-6 py-4 font-semibold hidden md:table-cell'>
-									{tUI("common.views") || "Lượt xem"}
+									{tUI("common.views")}
 								</th>
 								<th className='px-6 py-4 font-semibold text-right'>Thao tác</th>
 							</tr>

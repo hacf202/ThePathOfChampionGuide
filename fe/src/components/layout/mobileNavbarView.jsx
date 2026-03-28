@@ -82,26 +82,30 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 		<>
 			{/* Mobile Header */}
 			<header className='bg-header-bg text-header-text p-2 shadow-xl sticky top-0 z-50 xl:hidden flex items-center justify-between'>
-				<NavLink to='/' className='flex items-center gap-2'>
+				<NavLink to='/' className='flex items-center gap-2' onClick={closeSidebar}>
 					<img src={Logo} alt='Logo' className='h-8 w-auto rounded' />
 					<span className='font-primary text-xl'>POC GUIDE</span>
 				</NavLink>
 
 				<div className='flex items-center gap-2'>
 					<button
-						onClick={() => setIsSidebarOpen(true)}
+						onClick={() => setIsSidebarOpen(prev => !prev)}
 						className='p-2 rounded-lg hover:bg-black/10 transition-all'
+						aria-label={isSidebarOpen ? 'Close menu' : 'Open menu'}
 					>
-						<Menu className='w-6 h-6' />
+						{isSidebarOpen
+							? <X className='w-6 h-6' />
+							: <Menu className='w-6 h-6' />
+						}
 					</button>
 				</div>
 			</header>
 
-			{/* Sidebar */}
+			{/* Sidebar - mở từ bên PHẢI để nhất quán với nút hamburger */}
 			<div
 				ref={sidebarRef}
-				className={`fixed inset-y-0 left-0 z-50 w-64 bg-header-bg shadow-2xl transform transition-transform duration-300 ease-in-out ${
-					isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+				className={`fixed inset-y-0 right-0 z-50 w-72 bg-header-bg shadow-2xl transform transition-transform duration-300 ease-in-out ${
+					isSidebarOpen ? "translate-x-0" : "translate-x-full"
 				} xl:hidden overflow-y-auto`}
 			>
 				<div className='flex flex-col h-full'>
@@ -112,12 +116,6 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 								POC GUIDE
 							</span>
 						</div>
-						<button
-							onClick={closeSidebar}
-							className='p-1 rounded-lg hover:bg-black/10  '
-						>
-							<X className='w-6 h-6 text-white' />
-						</button>
 					</div>
 
 					<nav className='flex-1 p-4 space-y-1 text-header-text'>
@@ -191,6 +189,13 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 									>
 										<Map className='w-4 h-4' /> {tUI("nav.maps")}
 									</NavLink>
+									<NavLink
+										to='/builds'
+										className={dropdownLinkClass}
+										onClick={closeSidebar}
+									>
+										<ScrollText className='w-4 h-4' /> {tUI("nav.builds")}
+									</NavLink>
 								</div>
 							)}
 						</div>
@@ -223,13 +228,6 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 							{isToolsDropdownOpen && (
 								<div className='ml-6 mt-1 space-y-1 border-l-2 border-gray-600 pl-3'>
 									<NavLink
-										to='/builds'
-										className={dropdownLinkClass}
-										onClick={closeSidebar}
-									>
-										<ScrollText className='w-4 h-4' /> {tUI("nav.builds")}
-									</NavLink>
-									<NavLink
 										to='/tierlist'
 										className={dropdownLinkClass}
 										onClick={closeSidebar}
@@ -242,7 +240,7 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 										className={dropdownLinkClass}
 										onClick={closeSidebar}
 									>
-										<LoaderPinwheel className='w-4 h-4 ' />{" "}
+										<LoaderPinwheel className='w-4 h-4' />{" "}
 										{tUI("nav.randomizer")}
 									</NavLink>
 									<NavLink

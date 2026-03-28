@@ -103,27 +103,27 @@ function BuildEditor() {
 		() => [
 			{
 				value: "createdAt-desc",
-				label: tUI("admin.build.sort.newest") || "Mới nhất",
+				label: tUI("admin.build.sort.newest"),
 			},
 			{
 				value: "createdAt-asc",
-				label: tUI("admin.build.sort.oldest") || "Cũ nhất",
+				label: tUI("admin.build.sort.oldest"),
 			},
 			{
 				value: "likes-desc",
-				label: tUI("admin.build.sort.likesDesc") || "Nhiều Like",
+				label: tUI("admin.build.sort.likesDesc"),
 			},
 			{
 				value: "likes-asc",
-				label: tUI("admin.build.sort.likesAsc") || "Ít Like",
+				label: tUI("admin.build.sort.likesAsc"),
 			},
 			{
 				value: "views-desc",
-				label: tUI("admin.build.sort.viewsDesc") || "Nhiều View",
+				label: tUI("admin.build.sort.viewsDesc"),
 			},
 			{
 				value: "views-asc",
-				label: tUI("admin.build.sort.viewsAsc") || "Ít View",
+				label: tUI("admin.build.sort.viewsAsc"),
 			},
 		],
 		[tUI],
@@ -131,12 +131,12 @@ function BuildEditor() {
 
 	const STAR_LEVEL_OPTIONS = useMemo(
 		() => [
-			{ value: "1", label: `1 ${tUI("admin.build.star") || "Sao"}` },
-			{ value: "2", label: `2 ${tUI("admin.build.star") || "Sao"}` },
-			{ value: "3", label: `3 ${tUI("admin.build.star") || "Sao"}` },
-			{ value: "4", label: `4 ${tUI("admin.build.star") || "Sao"}` },
-			{ value: "5", label: `5 ${tUI("admin.build.star") || "Sao"}` },
-			{ value: "6", label: `6 ${tUI("admin.build.star") || "Sao"}` },
+			{ value: "1", label: `1 ${tUI("admin.build.star")}` },
+			{ value: "2", label: `2 ${tUI("admin.build.star")}` },
+			{ value: "3", label: `3 ${tUI("admin.build.star")}` },
+			{ value: "4", label: `4 ${tUI("admin.build.star")}` },
+			{ value: "5", label: `5 ${tUI("admin.build.star")}` },
+			{ value: "6", label: `6 ${tUI("admin.build.star")}` },
 		],
 		[tUI],
 	);

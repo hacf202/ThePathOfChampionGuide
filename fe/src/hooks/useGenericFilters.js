@@ -11,7 +11,7 @@ export const useGenericFilters = ({
 	prefix,
 	initialCustomFilters = {},
 	defaultSort = "name-asc",
-	itemsPerPage = 20,
+	itemsPerPage = 24,
 }) => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const isFirstRender = useRef(true);

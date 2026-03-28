@@ -127,27 +127,27 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 		{ id: "boss", label: "Boss", icon: <Skull size={16} /> },
 		{
 			id: "item",
-			label: tUI("admin.dropSidePanel.tabs.item") || "Item",
+			label: tUI("admin.dropSidePanel.tabs.item"),
 			icon: <Package size={16} />,
 		},
 		{
 			id: "relic",
-			label: tUI("admin.dropSidePanel.tabs.relic") || "Relic",
+			label: tUI("admin.dropSidePanel.tabs.relic"),
 			icon: <Shield size={16} />,
 		},
 		{
 			id: "power",
-			label: tUI("admin.dropSidePanel.tabs.power") || "Power",
+			label: tUI("admin.dropSidePanel.tabs.power"),
 			icon: <Zap size={16} />,
 		},
 		{
 			id: "bonusStar",
-			label: tUI("admin.dropSidePanel.tabs.bonusStar") || "Node",
+			label: tUI("admin.dropSidePanel.tabs.bonusStar"),
 			icon: <Star size={16} />,
 		},
 		{
 			id: "rune",
-			label: tUI("admin.dropSidePanel.tabs.rune") || "Rune",
+			label: tUI("admin.dropSidePanel.tabs.rune"),
 			icon: <Gem size={16} />,
 		},
 	];
@@ -281,7 +281,7 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 						<InputField
 							value={searchInput}
 							onChange={e => setSearchInput(e.target.value)}
-							placeholder={tUI("common.searchPlaceholder") || "Tìm kiếm..."}
+							placeholder={tUI("common.searchPlaceholder")}
 							className='pr-8 bg-surface-hover/50 border-transparent focus:border-primary-500'
 						/>
 						{searchInput ? (
@@ -304,7 +304,7 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 							<label className='block text-[10px] font-black uppercase tracking-widest text-text-secondary mb-2'>
 								{activeTab === "champion"
 									? "Vùng (Region)"
-									: tUI("common.type") || "Loại"}
+									: tUI("common.type")}
 							</label>
 							<div className='flex flex-wrap gap-1.5'>
 								{typeOptions.map(opt => (
@@ -333,7 +333,7 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 					{rarityOptions.length > 0 && (
 						<div>
 							<label className='block text-[10px] font-black uppercase tracking-widest text-text-secondary mb-2'>
-								{tUI("common.rarity") || "Độ hiếm"}
+								{tUI("common.rarity")}
 							</label>
 							<div className='flex flex-wrap gap-1.5'>
 								{rarityOptions.map(opt => (

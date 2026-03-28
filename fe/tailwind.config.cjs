@@ -30,8 +30,14 @@ module.exports = {
 				"shadow-500": "var(--color-shadow-500)",
 				"shadow-title": "var(--color-shadow-title)",
 
-				// Màu chính & Trạng thái
+				// Màu chính (đầy đủ dải)
+				"primary-100": "var(--color-primary-100)",
+				"primary-300": "var(--color-primary-300)",
+				"primary-400": "var(--color-primary-400)",
 				"primary-500": "var(--color-primary-500)",
+				"primary-600": "var(--color-primary-600)",
+				"primary-700": "var(--color-primary-700)",
+				// Trạng thái
 				"danger-500": "var(--color-danger-500)",
 				warning: "var(--color-warning-text)",
 				success: "var(--color-success-text)",
@@ -41,6 +47,7 @@ module.exports = {
 				"surface-bg": "var(--color-surface-bg)",
 				"surface-hover": "var(--color-surface-hover-bg)",
 				border: "var(--color-border)",
+				"border-hover": "var(--color-border-hover)",
 
 				// Văn bản
 				"text-primary": "var(--color-text-primary)",
@@ -106,14 +113,20 @@ module.exports = {
 				"dropdown-item-selected-bg": "var(--color-dropdown-item-selected-bg)",
 				"modal-overlay-bg": "var(--color-modal-overlay-bg)",
 
-				// Header & Footer
+				// Header & Navbar
 				"header-bg": "var(--color-header-bg)",
 				"header-text": "var(--color-header-text)",
 				"header-border": "var(--color-header-border)",
+				"nav-link-text": "var(--color-nav-link-text)",
+				"nav-hover-bg": "var(--color-nav-hover-bg)",
+				// Footer
 				"footer-bg": "var(--color-footer-bg)",
 				"footer-text": "var(--color-footer-text)",
 				"footer-link": "var(--color-footer-link)",
+				"footer-link-hover": "var(--color-footer-link-hover)",
 
+				// Admin link
+				"text-link-admin": "var(--color-text-link-admin)",
 				// Icons & Roles
 				"icon-star": "var(--color-icon-star)",
 				"role-aggro": "var(--color-role-aggro)",
@@ -140,8 +153,8 @@ module.exports = {
 					to: { opacity: "1", transform: "translateY(0) scaleY(1)" },
 				},
 				pulseFocus: {
-					"0%, 100%": { boxShadow: "0 0 0 0 rgba(139, 92, 246, 0.4)" },
-					"50%": { boxShadow: "0 0 0 4px rgba(139, 92, 246, 0)" },
+					"0%, 100%": { boxShadow: "0 0 0 0 rgba(60, 145, 194, 0.4)" },
+					"50%": { boxShadow: "0 0 0 4px rgba(60, 145, 194, 0)" },
 				},
 				spin: {
 					from: { transform: "rotate(0deg)" },

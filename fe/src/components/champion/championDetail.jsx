@@ -17,6 +17,7 @@ import { useTranslation } from "../../hooks/useTranslation";
 // Import các component chòm sao đã được tách
 import ConstellationMap from "../champion/constellationMap";
 import ConstellationTable from "../champion/constellationTable";
+import ChampionPlaystyleChart from "../champion/championPlaystyleChart";
 
 // --- THÀNH PHẦN SKELETON ---
 const ChampionDetailSkeleton = () => (
@@ -400,6 +401,8 @@ function ChampionDetail() {
 										</button>
 									</div>
 								</div>
+
+								<ChampionPlaystyleChart champion={champion} />
 
 								{constellationInfo.nodes.length > 0 && (
 									<>
