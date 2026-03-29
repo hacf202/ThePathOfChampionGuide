@@ -15,7 +15,10 @@ const ImagePreviewBox = memo(
 						className={imageClassName}
 						alt='Preview'
 						onError={e => {
-							e.target.src = "https://via.placeholder.com/150?text=No+Image";
+							if (!e.target.dataset.error) {
+								e.target.dataset.error = "true";
+								e.target.src = "https://via.placeholder.com/150?text=No+Image";
+							}
 						}}
 					/>
 				) : (

@@ -22,6 +22,7 @@ import {
 	ChevronRight,
 	Target,
 	Map,
+	CreditCard,
 } from "lucide-react";
 import { useTranslation } from "../../hooks/useTranslation";
 
@@ -40,6 +41,7 @@ const BuildEditor = lazy(() => import("./builds/buildEditor"));
 const GuideEditor = lazy(() => import("./guides/guideEditor"));
 const AnalyticsDashboard = lazy(() => import("./analytics/analyticsDashboard"));
 const ImageManager = lazy(() => import("./images/imageManager"));
+const CardEditor = lazy(() => import("./cards/cardEditor"));
 
 // Component DashboardHome
 const DashboardHome = ({ navItems }) => {
@@ -165,6 +167,12 @@ const AdminPanel = () => {
 			label: tUI("admin.nav.images"),
 			icon: LayoutDashboard,
 			path: "/admin/images",
+		},
+		{
+			id: "cards",
+			label: tUI("admin.nav.cards"),
+			icon: CreditCard,
+			path: "/admin/cards",
 		},
 	];
 
@@ -322,6 +330,7 @@ const AdminPanel = () => {
 							<Route path='images/*' element={<ImageManager />} />
 							<Route path='bosses/*' element={<BossEditor />} />
 							<Route path='adventures/*' element={<AdventureMapEditor />} />
+							<Route path='cards/*' element={<CardEditor />} />
 						</Routes>
 					</Suspense>
 				</main>

@@ -332,8 +332,10 @@ const GenericListLayout = ({
 						</AnimatePresence>
 					</div>
 				</div>{" "}
-				<p className='mt-6 text-xs text-text-secondary text-center mb-2'>AD</p>
-				<GoogleAd slot='5918916050' format='horizontal' />
+				<p className='mt-6 text-xs text-text-secondary text-center mb-2 uppercase tracking-widest'>
+					AD
+				</p>
+				<GoogleAd slot='2943049680' format='horizontal' />
 				{customTabs && <div className='mb-4'>{customTabs}</div>}
 			</div>
 		</div>

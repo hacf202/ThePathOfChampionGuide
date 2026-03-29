@@ -89,6 +89,7 @@ export const api = {
 };
 
 export const getR2Folders = async () => api.get("/images/folders");
+export const getBucketStats = async () => api.get("/images/stats");
 export const createR2Folder = async folderName =>
 	api.post("/images/folders", { folderName });
 export const deleteR2Folder = async folderName =>

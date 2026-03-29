@@ -15,6 +15,8 @@ import {
 	Eye,
 	EyeOff,
 	XCircle,
+	Users,
+	RefreshCcw,
 } from "lucide-react";
 import { useTranslation } from "../../../hooks/useTranslation";
 
@@ -22,6 +24,7 @@ import { useTranslation } from "../../../hooks/useTranslation";
 import EditorHeaderToolbar from "../common/editorHeaderToolbar";
 import ImagePreviewBox from "../common/imagePreviewBox";
 import DragDropArrayInput from "../common/dragDropArrayInput";
+import DragDropDeckInput from "../common/DragDropDeckInput";
 
 // Import các component hỗ trợ (Giữ nguyên component gốc cho Nodes/Map)
 import {
@@ -42,6 +45,7 @@ const ChampionEditorForm = memo(
 		onCancel,
 		onDelete,
 		isSaving,
+		isDetailLoading,
 		isDragPanelOpen,
 		onToggleDragPanel,
 	}) => {
@@ -74,6 +78,7 @@ const ChampionEditorForm = memo(
 				independence: 5,
 				playstyleNote: "",
 			},
+			startingDeck: { baseCards: [], referenceCards: [] },
 		});
 
 		const [constData, setConstData] = useState({ nodes: [] });
@@ -122,6 +127,21 @@ const ChampionEditorForm = memo(
 						playstyleNote: "",
 					},
 				};
+
+				// Chuẩn hóa bộ bài khởi đầu (Đảm bảo luôn là object có cardCode và itemCodes)
+				if (processedData.startingDeck) {
+					const normalizeCards = cards =>
+						(cards || []).map(c =>
+							typeof c === "string" ? { cardCode: c, itemCodes: [] } : c,
+						);
+
+					processedData.startingDeck = {
+						baseCards: normalizeCards(processedData.startingDeck.baseCards),
+						referenceCards: normalizeCards(
+							processedData.startingDeck.referenceCards,
+						),
+					};
+				}
 
 				if (typeof processedData.description === "string") {
 					processedData.description = processedData.description
@@ -246,6 +266,7 @@ const ChampionEditorForm = memo(
 				relics: buildLookup(cachedData.relics),
 				items: buildLookup(cachedData.items),
 				runes: buildLookup(cachedData.runes),
+				cards: buildLookup(cachedData.cards),
 			}),
 			[cachedData],
 		);
@@ -405,6 +426,57 @@ const ChampionEditorForm = memo(
 								data={formData.itemIds || []}
 								onChange={d => setFormData({ ...formData, itemIds: d })}
 								cachedData={dataLookup.items}
+							/>
+						</div>
+					</section>
+
+					{/* BLOCK 3B: BỘ BÀI KHỞI ĐẦU (STARTING DECK) */}
+					<section className='bg-surface-bg border border-border rounded-xl p-6 shadow-sm space-y-8'>
+						<div className='flex items-center gap-3 border-l-4 border-blue-400 pl-4 py-1'>
+							<Swords size={28} className='text-blue-400' />
+							<div>
+								<h3 className='text-xl font-bold uppercase text-text-primary tracking-tight'>
+									BỘ BÀI KHỞI ĐẦU (Starting Deck)
+								</h3>
+								<p className='text-xs text-text-secondary font-medium'>
+									Kéo thả Lá bài vào danh sách, sau đó kéo Vật phẩm vào từng lá bài
+								</p>
+							</div>
+						</div>
+
+						{/* Base Cards */}
+						<DragDropDeckInput
+							label='Lá bài chính (Base Cards)'
+							data={formData.startingDeck?.baseCards || []}
+							onChange={d =>
+								setFormData({
+									...formData,
+									startingDeck: {
+										...(formData.startingDeck || { baseCards: [], referenceCards: [] }),
+										baseCards: d,
+									},
+								})
+							}
+							cachedData={dataLookup}
+							placeholder='Kéo Lá bài từ Sidebar vào đây để thêm vào bộ bài chính...'
+						/>
+
+						{/* Reference Cards */}
+						<div className='pt-6 border-t border-border/50'>
+							<DragDropDeckInput
+								label='Lá bài tham chiếu (Reference Cards)'
+								data={formData.startingDeck?.referenceCards || []}
+								onChange={d =>
+									setFormData({
+										...formData,
+										startingDeck: {
+											...(formData.startingDeck || { baseCards: [], referenceCards: [] }),
+											referenceCards: d,
+										},
+									})
+								}
+								cachedData={dataLookup}
+								placeholder='Kéo Lá bài từ Sidebar vào đây để thêm vào các lá bài liên quan...'
 							/>
 						</div>
 					</section>
@@ -776,64 +848,137 @@ const ChampionEditorForm = memo(
 
 						{/* BLOCK 6: ĐÁNH GIÁ CHỈ SỐ & LỐI CHƠI (HEXAGON RATINGS) */}
 						<div className='flex flex-col gap-4 bg-surface-hover/30 p-4 rounded-xl border border-border py-6 mt-4'>
-							<h4 className='text-sm font-bold text-primary-500 uppercase flex items-center gap-2 mb-2'>
-								<Box size={18} /> Đánh giá phong cách chơi (1-10)
-							</h4>
+							<div className='flex flex-col md:flex-row md:items-center justify-between gap-4 mb-2'>
+								<h4 className='text-sm font-bold text-primary-500 uppercase flex items-center gap-2'>
+									<Box size={18} /> Đánh giá phong cách chơi (1-10)
+								</h4>
+								<div className='flex items-center gap-3'>
+									{isDetailLoading && (
+										<span className='text-xs italic text-text-secondary animate-pulse'>
+											Đang tải dữ liệu cộng đồng...
+										</span>
+									)}
+									{champion.communityRatings ? (
+										<button
+											type='button'
+											onClick={() => {
+												if (window.confirm("Bạn có muốn đồng bộ tất cả chỉ số với điểm trung bình của cộng đồng không?")) {
+													setFormData(prev => ({
+														...prev,
+														ratings: {
+															...prev.ratings,
+															damage: champion.communityRatings.damage,
+															defense: champion.communityRatings.defense,
+															speed: champion.communityRatings.speed,
+															consistency: champion.communityRatings.consistency,
+															synergy: champion.communityRatings.synergy,
+															independence: champion.communityRatings.independence,
+														}
+													}));
+												}
+											}}
+											className='text-xs font-bold text-white bg-primary-500 hover:bg-primary-600 px-3 py-1.5 rounded-lg flex items-center gap-2 shadow-sm transition-all'
+										>
+											<RefreshCcw size={14} /> Đồng bộ với Cộng đồng
+										</button>
+									) : (
+										!isDetailLoading && (
+											<span className='text-[10px] text-text-secondary bg-surface-bg border px-2 py-1 rounded italic'>
+												Chưa có đánh giá cộng đồng
+											</span>
+										)
+									)}
+								</div>
+							</div>
+
 							<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-								{["damage", "defense", "speed", "consistency", "synergy", "independence"].map((criteria) => (
+								{[
+									"damage",
+									"defense",
+									"speed",
+									"consistency",
+									"synergy",
+									"independence",
+								].map(criteria => (
 									<div key={criteria} className='flex flex-col gap-1'>
-										<label className='text-sm font-semibold text-text-secondary capitalize'>
-											{tUI(`championDetail.ratings.${criteria}`)} ({formData.ratings?.[criteria] || 5}/10)
-										</label>
+										<div className='flex justify-between items-center'>
+											<label className='text-sm font-semibold text-text-secondary capitalize'>
+												{tUI(`championDetail.ratings.${criteria}`)} (
+												{formData.ratings?.[criteria] || 5}/10)
+											</label>
+											{champion.communityRatings?.[criteria] !== undefined && (
+												<span className='text-[10px] font-bold text-primary-400 bg-primary-500/10 px-1.5 py-0.5 rounded flex items-center gap-1'>
+													<Users size={10} /> {champion.communityRatings[criteria]}
+												</span>
+											)}
+										</div>
 										<input
 											type='range'
 											min='1'
 											max='10'
-											step='1'
+											step='0.1'
 											value={formData.ratings?.[criteria] || 5}
-											onChange={(e) => setFormData(prev => ({
-												...prev,
-												ratings: { ...prev.ratings, [criteria]: Number(e.target.value) }
-											}))}
+											onChange={e =>
+												setFormData(prev => ({
+													...prev,
+													ratings: {
+														...prev.ratings,
+														[criteria]: Number(e.target.value),
+													},
+												}))
+											}
 											className='w-full accent-primary-500'
 										/>
 									</div>
 								))}
 							</div>
 							<div className='grid grid-cols-1 md:grid-cols-2 gap-6 mt-4'>
-								<div className="flex flex-col gap-2">
-									<label className="text-sm font-semibold">Ghi chú lối chơi (Tiếng Việt)</label>
+								<div className='flex flex-col gap-2'>
+									<label className='text-sm font-semibold'>
+										Ghi chú lối chơi (Tiếng Việt)
+									</label>
 									<textarea
 										rows={3}
 										value={formData.ratings?.playstyleNote || ""}
-										onChange={(e) => setFormData(prev => ({
-											...prev,
-											ratings: { ...prev.ratings, playstyleNote: e.target.value }
-										}))}
-										className="w-full bg-surface-bg border border-border p-3 rounded-lg text-text-primary focus:border-primary-500 outline-none resize-y"
-										placeholder="Lưu ý về cách dùng bài, combo, điểm nổi bật..."
+										onChange={e =>
+											setFormData(prev => ({
+												...prev,
+												ratings: {
+													...prev.ratings,
+													playstyleNote: e.target.value,
+												},
+											}))
+										}
+										className='w-full bg-surface-bg border border-border p-3 rounded-lg text-text-primary focus:border-primary-500 outline-none resize-y'
+										placeholder='Lưu ý về cách dùng bài, combo, điểm nổi bật...'
 									/>
 								</div>
-								<div className="flex flex-col gap-2">
-									<label className="text-sm font-semibold">Ghi chú lối chơi (English)</label>
+								<div className='flex flex-col gap-2'>
+									<label className='text-sm font-semibold'>
+										Ghi chú lối chơi (English)
+									</label>
 									<textarea
 										rows={3}
-										value={formData.translations?.en?.ratings?.playstyleNote || ""}
-										onChange={(e) => setFormData(prev => ({
-											...prev,
-											translations: {
-												...prev.translations,
-												en: {
-													...prev.translations?.en,
-													ratings: {
-														...(prev.translations?.en?.ratings || {}),
-														playstyleNote: e.target.value
-													}
-												}
-											}
-										}))}
-										className="w-full bg-surface-bg border border-border p-3 rounded-lg text-text-primary focus:border-primary-500 outline-none resize-y"
-										placeholder="English translation for notes..."
+										value={
+											formData.translations?.en?.ratings?.playstyleNote || ""
+										}
+										onChange={e =>
+											setFormData(prev => ({
+												...prev,
+												translations: {
+													...prev.translations,
+													en: {
+														...prev.translations?.en,
+														ratings: {
+															...(prev.translations?.en?.ratings || {}),
+															playstyleNote: e.target.value,
+														},
+													},
+												},
+											}))
+										}
+										className='w-full bg-surface-bg border border-border p-3 rounded-lg text-text-primary focus:border-primary-500 outline-none resize-y'
+										placeholder='English translation for notes...'
 									/>
 								</div>
 							</div>

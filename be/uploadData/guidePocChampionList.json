@@ -39,7 +39,24 @@
 			["R0020", "R0020", "R0007"],
 			["R0061", "R0020", "R0007"]
 		],
-		"startingDeck": [],
+		"startingDeck": {
+			"baseCards": [
+				{
+					"cardCode": "06RU009",
+					"itemCodes": ["I0121", "I0047"]
+				},
+				{
+					"cardCode": "06RU0231",
+					"itemCodes": ["I0122", "I0017"]
+				}
+			],
+			"referenceCards": [
+				{
+					"cardCode": "06RU009T1",
+					"itemCodes": []
+				}
+			]
+		},
 		"assets": [
 			{
 				"fullAbsolutePath": "https://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01FR038T2-full.png",

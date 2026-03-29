@@ -92,7 +92,7 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 	return (
 		<>
 			<header className='bg-header-bg text-header-text p-2 shadow-xl sticky top-0 z-50 font-secondary hidden xl:block'>
-				<div className='container mx-auto flex justify-between items-center'>
+				<div className='max-w-[1500px] mx-auto px-4 flex justify-between items-center'>
 					<NavLink
 						to='/'
 						className='flex items-center group'
@@ -106,7 +106,7 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 						<span className='ml-2 font-primary text-3xl'>POC GUIDE</span>
 					</NavLink>
 
-					<nav className='flex items-center gap-1'>
+					<nav className='flex items-center gap-4'>
 						<NavLink to='/champions' className={navLinkClass}>
 							<Swords className='w-6 h-6' /> {tUI("nav.champions")}
 						</NavLink>

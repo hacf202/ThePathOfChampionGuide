@@ -200,7 +200,10 @@ function AdventureMapDetail() {
 
 						{/* FOOTER AD */}
 						<div className='mt-8 flex justify-center'>
-							<GoogleAd slot='1234567890' format='horizontal' />
+						<div className='my-10 border-t border-border pt-8'>
+							<p className='text-xs text-text-secondary text-center mb-2 uppercase tracking-widest'>AD</p>
+							<GoogleAd slot='2943049680' format='horizontal' />
+						</div>
 						</div>
 					</motion.div>
 				)}

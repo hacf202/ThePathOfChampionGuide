@@ -79,7 +79,6 @@ const ChampionListView = memo(
 	},
 );
 
-// Thành phần bao bọc logic chỉnh sửa (Edit/New)
 const ChampionEditWrapper = ({
 	champions,
 	constellations,
@@ -93,13 +92,41 @@ const ChampionEditWrapper = ({
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const { tUI } = useTranslation();
+	const [fullChampionData, setFullChampionData] = useState(null);
+	const [isDetailLoading, setIsDetailLoading] = useState(false);
+	const API_BASE_URL = import.meta.env.VITE_API_URL;
+
+	// Fetch chi tiết khi id thay đổi (để lấy communityRatings)
+	useEffect(() => {
+		if (id && id !== "new") {
+			const fetchDetail = async () => {
+				try {
+					setIsDetailLoading(true);
+					const res = await fetch(`${API_BASE_URL}/api/champions/${id}`);
+					if (res.ok) {
+						const data = await res.json();
+						setFullChampionData(data);
+					}
+				} catch (err) {
+					console.error("Lỗi khi tải chi tiết tướng cho Admin:", err);
+				} finally {
+					setIsDetailLoading(false);
+				}
+			};
+			fetchDetail();
+		} else {
+			setFullChampionData(null);
+		}
+	}, [id, API_BASE_URL]);
 
 	const selectedChampion = useMemo(() => {
 		if (id === "new") return { ...NEW_CHAMPION_TEMPLATE };
+		// Ưu tiên dùng fullChampionData nếu đã tải xong, nếu chưa thì dùng tạm từ danh sách cached
+		if (fullChampionData && fullChampionData.championID === id) return fullChampionData;
 		return Array.isArray(champions)
 			? champions.find(c => c.championID === id)
 			: null;
-	}, [id, champions]);
+	}, [id, champions, fullChampionData]);
 
 	const selectedConstellation = useMemo(() => {
 		return Array.isArray(constellations)
@@ -143,6 +170,7 @@ const ChampionEditWrapper = ({
 						onCancel={handleBack}
 						onDelete={onDelete}
 						isSaving={isSaving}
+						isDetailLoading={isDetailLoading}
 						isDragPanelOpen={isDragPanelOpen}
 						onToggleDragPanel={() => setIsDragPanelOpen(!isDragPanelOpen)}
 					/>
@@ -167,6 +195,7 @@ function ChampionEditor() {
 	const [relics, setRelics] = useState([]);
 	const [powers, setPowers] = useState([]);
 	const [items, setItems] = useState([]);
+	const [cards, setCards] = useState([]);
 
 	const [searchInput, setSearchInput] = useState("");
 	const [searchTerm, setSearchTerm] = useState("");
@@ -197,6 +226,7 @@ function ChampionEditor() {
 				relicRes,
 				powerRes,
 				itemRes,
+				cardRes,
 			] = await Promise.all([
 				fetch(`${API_BASE_URL}/api/champions?limit=1000`),
 				fetch(`${API_BASE_URL}/api/constellations`),
@@ -205,6 +235,7 @@ function ChampionEditor() {
 				fetch(`${API_BASE_URL}/api/relics?limit=1000`),
 				fetch(`${API_BASE_URL}/api/powers?limit=1000`),
 				fetch(`${API_BASE_URL}/api/items?limit=1000`),
+				fetch(`${API_BASE_URL}/api/cards?limit=1000`),
 			]);
 
 			const [
@@ -215,6 +246,7 @@ function ChampionEditor() {
 				relicData,
 				powerData,
 				itemData,
+				cardData,
 			] = await Promise.all([
 				champRes.json(),
 				constRes.json(),
@@ -223,6 +255,7 @@ function ChampionEditor() {
 				relicRes.json(),
 				powerRes.json(),
 				itemRes.json(),
+				cardRes.json(),
 			]);
 
 			setChampions(champData.items || []);
@@ -232,6 +265,7 @@ function ChampionEditor() {
 			setRelics(relicData.items || []);
 			setPowers(powerData.items || []);
 			setItems(itemData.items || []);
+			setCards(cardData.items || []);
 		} catch (e) {
 			setError(tUI("admin.common.errorLoad"));
 		} finally {
@@ -455,7 +489,7 @@ function ChampionEditor() {
 		onSortChange: setSortOrder,
 	};
 
-	const cachedData = { runes, relics, powers, items, bonusStars, regions: [] };
+	const cachedData = { runes, relics, powers, items, cards, bonusStars, regions: [] };
 
 	// SỬ DỤNG COMPONENT LoadingState VÀ ErrorState
 	if (isLoading) return <LoadingState text={tUI("common.loading")} />;

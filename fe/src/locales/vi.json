@@ -43,7 +43,8 @@
 		"showMap": "Hiển thị bản đồ phiêu lưu",
 		"hideMap": "Ẩn bản đồ phiêu lưu",
 		"hide": "Ẩn",
-		"show": "Hiện"
+		"show": "Hiện",
+		"cards": " lá"
 	},
 	"mapList": {
 		"pageTitle": "Danh Sách Bản Đồ",
@@ -381,11 +382,15 @@
 			"rune": "Quản lý Ngọc",
 			"build": "Quản lý Bộ Cổ Vật",
 			"guide": "Quản lý Hướng Dẫn",
-			"analytics": "Phân tích hệ thống"
+			"analytics": "Phân tích hệ thống",
+			"boss": "Quản lý Boss",
+			"adventure": "Quản lý Bản Đồ",
+			"images": "Quản lý Ảnh",
+			"cards": "Quản lý Lá Bài"
 		},
 		"sidebar": {
 			"title": "Admin",
-			"footer": "© 2025 Path of champions"
+			"footer": "Evin LOR"
 		},
 		"topbar": {
 			"defaultTitle": "Admin Panel"
@@ -419,6 +424,26 @@
 			"slowLoadWarning": "Cảnh báo tải chậm (>3s)",
 			"systemSuperFast": "Hệ thống đang tải cực nhanh!",
 			"total": "Tổng"
+		},
+		"card": {
+			"notFound": "Không tìm thấy Lá Bài nào phù hợp.",
+			"tryOtherFilter": "Vui lòng thử lại với bộ lọc khác.",
+			"notFoundId": "Không tìm thấy Lá Bài có mã:",
+			"searchPlaceholder": "Tìm theo tên hoặc mã lá bài...",
+			"addNew": "Thêm Lá Bài Mới",
+			"resetFilter": "Đặt lại bộ lọc"
+		},
+		"cardForm": {
+			"errorCardCodeReq": "Vui lòng nhập mã lá bài!",
+			"errorCardNameReq": "Vui lòng nhập tên lá bài!",
+			"createTitle": "Thêm Lá Bài Mới",
+			"editTitle": "Chỉnh sửa Lá Bài:",
+			"identitySection": "Thông tin Lá Bài",
+			"cardCodeLabel": "Mã Lá Bài (VD: 06RU009)",
+			"cardNameLabel": "Tên Lá Bài",
+			"previewImage": "Xem trước Ảnh Lá Bài",
+			"imageUrlLabel": "URL Ảnh Lá Bài",
+			"deleteConfirmText": "Bạn có chắc muốn xóa lá bài"
 		}
 	},
 	"tierList": {
@@ -694,49 +719,68 @@
 		"recPowers": "Sức mạnh khuyên dùng",
 		"recItems": "Vật phẩm khuyên dùng",
 		"recRunes": "Ngọc bổ trợ khuyên dùng",
+		"startingDeck": "Bộ Bài Khởi Đầu",
+		"baseCards": "Các lá bài chính",
+		"referenceCards": "Các lá bài liên quan",
+		"noItems": "(Không có vật phẩm)",
 		"errorLoad": "Không thể tải thông tin tướng.",
 		"metaDesc": "POC GUIDE cho",
 		"ratings": {
 			"infoBtn": "Tìm hiểu thêm về các chỉ số",
+			"infoBtnShort": "Ý Nghĩa",
 			"infoModalTitle": "Ý Nghĩa 6 Tiêu Chí Đánh Giá",
 			"title": "Đánh giá phong cách chơi",
+			"chartTitle": "Biểu đồ Chỉ số",
+			"meaningLabel": "Ý nghĩa:",
+			"radarLabel": "Vùng ảnh hưởng",
 			"damage": "Sát thương",
-			"defense": "An toàn & Phòng ngự",
+			"defense": "Phòng ngự",
 			"speed": "Tốc độ",
 			"consistency": "Ổn định",
-			"synergy": "Combo",
-			"independence": "Tính Độc lập",
+			"synergy": "Phối hợp",
+			"independence": "Độc lập",
 			"playstyleNote": "Ghi chú lối chơi",
+			"viewCommunityRatings": "Xem Đánh Giá Cộng Đồng",
+			"rateNow": "Đánh Giá Tướng",
+			"averageFrom": "Dựa trên {{count}} lượt đánh giá",
+			"noRatingsYet": "Chưa có lượt đánh giá nào. Hãy là người đầu tiên!",
+			"ratingModalTitle": "Đánh giá phong cách chơi",
+			"ratingModalDesc": "Điểm số từ 1 đến 10 cho từng tiêu chí.",
+			"submitBtn": "Lưu Đánh Giá",
+			"commentLabel": "Ghi chú thêm (không bắt buộc)",
+			"commentPlaceholder": "Điểm mạnh, điểm yếu hoặc mẹo chơi...",
+			"ratingSuccess": "Đã lưu đánh giá của bạn!",
+			"guestWarning": "Bạn cần đăng nhập để đánh giá tướng này.",
 			"criteriaDesc": {
 				"damage": {
 					"title": "1. Sát thương (Damage / Offense)",
-					"meaning": "Khả năng gây sát thương dứt điểm lên Nhà Chính (Burst/OTK) và khả năng hạ gục các đơn vị địch lớn.",
-					"radar": "Điểm cao (như Illaoi, Jinx) mũi nhọn sẽ đâm thẳng lên trên, thể hiện sức công phá khủng khiếp."
+					"meaning": "Khả năng gây lượng sát thương lên bài quân hoặc nhà chính đối thủ",
+					"radar": "Điểm sát thương cao từ bài quân như Aatrox, Pyke, Ambessa hoặc khả năng gây sát thương phép và kỹ năng lớn như Swain, Vex"
 				},
 				"defense": {
 					"title": "2. An toàn & Phòng ngự (Safety / Defense)",
-					"meaning": "Khả năng sinh tồn qua nhiều trận đấu (Hồi máu, Làm choáng, Đóng băng, Khống chế bàn cờ).",
-					"radar": "Điểm cao (như Yasuo, Morgana, Gwen) cho thấy đây là một vị tướng \"sống dai\", ít rủi ro khi đối đầu Boss khó."
+					"meaning": "Khả năng sinh tồn qua nhiều vòng đấu, nhiều trận đấu (Hồi máu, Hút máu, Làm choáng, Đóng băng, Khống chế bàn cờ).",
+					"radar": "Điểm cao như Yasuo, Morgana, Ashe cho thấy đây là một vị tướng \"sống dai\", ít rủi ro khi đối đầu Boss khó."
 				},
 				"speed": {
 					"title": "3. Tốc độ & Nhịp độ (Speed / Tempo)",
-					"meaning": "Tốc độ triển khai đội hình (Mana thấp) và tốc độ hoàn thành ván đấu (Hoạt ảnh nhanh, thao tác dứt khoát).",
-					"radar": "Nhấn mạnh vào khả năng đánh phủ đầu (Aggro) ngay từ Lượt 1 hoặc 2."
+					"meaning": "Tốc độ triển khai đội hình nhanh và tốc độ hoàn thành ván đấu nhanh gọn.",
+					"radar": "Nhấn mạnh vào khả năng đánh phủ đầu ngay từ Lượt 1 hoặc 2 ví dụ như Nidalee, Swain, Lillia."
 				},
 				"consistency": {
 					"title": "4. Vận hành & Ổn định (Deck Flow / Consistency)",
 					"meaning": "Mức độ mượt mà của bộ bài khởi điểm. Tướng có khả năng tự rút bài, không bị kẹt mana và không phụ thuộc vào may rủi (RNG).",
-					"radar": "Điểm cao chứng tỏ bộ bài được thiết kế rất chặt chẽ, ít khi rơi vào tình trạng \"tay chết\" (brick hand)."
+					"radar": "Điểm cao chứng tỏ bộ bài được thiết kế rất chặt chẽ, ít khi rơi vào tình trạng \"tay chết\" (brick hand) như Jhin, Ambessa."
 				},
 				"synergy": {
 					"title": "5. Tiềm năng Combo (Combo / Synergy)",
-					"meaning": "Khả năng tạo ra các chuỗi hiệu ứng liên hoàn giữa Tướng, Quyền Năng Sao và Cổ Vật.",
-					"radar": "Các tướng như Nilah, Master Yi hay Ekko sẽ có mũi nhọn này vươn xa, thể hiện lối chơi hoa mỹ và đột biến."
+					"meaning": "Khả năng tạo ra các chuỗi hiệu ứng liên hoàn giữa Tướng, Chòm Sao và Cổ Vật.",
+					"radar": "Các tướng như Ekko, Aksan, thể hiện lối chơi hoa mỹ và có khả năng tạo ra các combo mạnh mẽ."
 				},
 				"independence": {
 					"title": "6. Tính Độc lập (Independence)",
 					"meaning": "Khả năng bộ bài tự chiến thắng mà không cần rút được lá bài Tướng chính ra sân.",
-					"radar": "Điểm cao (như Norra) nghĩa là bộ bài tự vận hành rất tốt. Điểm thấp (như Evelynn, Ornn) cảnh báo người chơi rằng nếu tướng bị diệt hoặc không bốc được, tỷ lệ thua là rất cao."
+					"radar": "Điểm cao Swain, Aurelion Sol, Kai'sa nghĩa là bộ bài tự vận hành rất tốt. Điểm thấp Vayne, Lillia, Gwen cảnh báo người chơi rằng nếu tướng bị diệt hoặc không bốc được, tỷ lệ thua là rất cao."
 				}
 			}
 		}
@@ -761,7 +805,6 @@
 		"loading": "ĐANG KHỞI TẠO POC GUIDE...",
 		"pageTitle": "POC GUIDE - Con Đường Anh Hùng",
 		"pageDesc": "Wiki & Hướng Dẫn Path of Champions chuyên nghiệp nhất",
-		"heroBadge": "Cẩm Nang Tối Thượng",
 		"heroTitle1": "CON ĐƯỜNG",
 		"heroTitle2": "ANH HÙNG",
 		"heroDesc": "Khám phá sức mạnh tối thượng, tối ưu hóa lối chơi và chinh phục mọi thử thách trong Con Đường Anh Hùng.",

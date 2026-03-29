@@ -32,7 +32,7 @@ export const useTranslation = () => {
 	 * Hàm dịch thuật cho VĂN BẢN TĨNH trên giao diện (UI)
 	 */
 	const tUI = useCallback(
-		key => {
+		(key, options = {}) => {
 			// BẢO VỆ: Nếu tệp JSON chưa tải xong, trả tạm về key rỗng
 			if (!dictionaries[language]) return "";
 
@@ -45,6 +45,19 @@ export const useTranslation = () => {
 				} else {
 					return key; // Trả về nguyên gốc key nếu không tìm thấy, không fallback.
 				}
+			}
+
+			// NẾU KẾT QUẢ LÀ CHUỖI VÀ CÓ OPTIONS -> XỬ LÝ INTERPOLATION (THAY THẾ BIẾN)
+			if (typeof result === "string" && Object.keys(options).length > 0) {
+				let interpolated = result;
+				Object.keys(options).forEach(optKey => {
+					const value = options[optKey];
+					interpolated = interpolated.replace(
+						new RegExp(`{{${optKey}}}`, "g"),
+						value,
+					);
+				});
+				return interpolated;
 			}
 
 			return result;

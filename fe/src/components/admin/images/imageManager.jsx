@@ -48,6 +48,10 @@ const ImageManager = memo(() => {
 	const [selectedFiles, setSelectedFiles] = useState([]);
 	const [isDragging, setIsDragging] = useState(false);
 
+	// Bucket Stats
+	const [bucketStats, setBucketStats] = useState({ totalSize: 0, totalFiles: 0 });
+	const [statsLoading, setStatsLoading] = useState(false);
+
 	// View & Search state
 	const [searchTerm, setSearchTerm] = useState("");
 	const [viewMode, setViewMode] = useState("grid"); // "grid" | "list"
@@ -73,8 +77,22 @@ const ImageManager = memo(() => {
 		}
 	};
 
+	const loadBucketStats = async () => {
+		setStatsLoading(true);
+		try {
+			const { getBucketStats } = await import("../../../context/services/apiHelper");
+			const data = await getBucketStats();
+			setBucketStats(data || { totalSize: 0, totalFiles: 0 });
+		} catch (err) {
+			console.error("Lỗi tải thông tin bucket", err);
+		} finally {
+			setStatsLoading(false);
+		}
+	};
+
 	useEffect(() => {
 		loadFolders();
+		loadBucketStats();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -105,6 +123,10 @@ const ImageManager = memo(() => {
 			img.key.toLowerCase().includes(searchTerm.toLowerCase())
 		);
 	}, [images, searchTerm]);
+
+	const currentFolderSize = useMemo(() => {
+		return images.reduce((acc, img) => acc + (img.size || 0), 0);
+	}, [images]);
 
 	// ---- Folder Actions ----
 	const handleCreateFolder = async () => {
@@ -176,6 +198,7 @@ const ImageManager = memo(() => {
 			if (fileInputRef.current) fileInputRef.current.value = "";
 			// alert("Upload thành công!");
 			loadImages();
+			loadBucketStats();
 		} catch (err) {
 			alert("Lỗi: " + err.message);
 		} finally {
@@ -188,6 +211,7 @@ const ImageManager = memo(() => {
 		try {
 			await deleteImageR2(key);
 			setImages((prev) => prev.filter((img) => img.key !== key));
+			loadBucketStats();
 		} catch (err) {
 			alert("Lỗi xóa ảnh");
 		}
@@ -212,7 +236,6 @@ const ImageManager = memo(() => {
 
 	const copyUrl = (url) => {
 		navigator.clipboard.writeText(url);
-		alert("Đã copy URL!");
 	};
 
 	// ---- Image Grid Zoom Classes ----
@@ -277,13 +300,52 @@ const ImageManager = memo(() => {
 							))}
 						</select>
 						{currentFolder && (
-							<div className="text-xs text-gray-500 flex justify-between mt-2 px-1">
-								<span>Tổng số ảnh:</span>
-								<span className="font-semibold text-theme-text">
-									{images.length}
-								</span>
+							<div className="space-y-1.5 mt-2 px-1">
+								<div className="text-[10px] text-gray-500 flex justify-between uppercase">
+									<span>Trong thư mục:</span>
+									<span className="font-semibold text-theme-text">
+										{images.length} ảnh
+									</span>
+								</div>
+								<div className="text-[10px] text-gray-500 flex justify-between uppercase">
+									<span>Dung lượng:</span>
+									<span className="font-semibold text-theme-text">
+										{formatBytes(currentFolderSize)}
+									</span>
+								</div>
 							</div>
 						)}
+					</div>
+
+					{/* BUCKET STORAGE STATS CARD */}
+					<div className="bg-theme-card border border-theme-border rounded-xl p-4 shadow-sm space-y-3">
+						<span className="text-xs font-bold text-gray-400 uppercase tracking-wider flex items-center gap-2">
+							<UploadCloud size={14} /> Hệ Thống Bucket
+						</span>
+						<div className="space-y-2">
+							<div className="w-full bg-theme-bg/50 h-1.5 rounded-full overflow-hidden">
+								<div
+									className="bg-blue-500 h-full rounded-full transition-all duration-500"
+									style={{
+										width: `${Math.min(100, (bucketStats.totalSize / (1024 * 1024 * 1024)) * 100)}%`,
+									}}
+								></div>
+							</div>
+							<div className="flex flex-col gap-1">
+								<div className="flex justify-between text-[11px]">
+									<span className="text-gray-500">Tổng lưu trữ:</span>
+									<span className="font-bold text-theme-text">
+										{formatBytes(bucketStats.totalSize)}
+									</span>
+								</div>
+								<div className="flex justify-between text-[11px]">
+									<span className="text-gray-500">Số lượng tệp:</span>
+									<span className="font-bold text-theme-text">
+										{bucketStats.totalFiles.toLocaleString()}
+									</span>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 
@@ -531,12 +593,17 @@ const ImageManager = memo(() => {
 									</button>
 								</div>
 							</div>
-							<p
-								className="mt-3 text-[11px] truncate text-gray-500 font-mono text-center hover:text-gray-300 cursor-default px-1"
-								title={img.key.split("/").pop()}
-							>
-								{img.key.split("/").pop()}
-							</p>
+							<div className="mt-3 flex flex-col items-center">
+								<p
+									className="text-[11px] truncate text-gray-400 font-medium px-1 w-full text-center"
+									title={img.key.split("/").pop()}
+								>
+									{img.key.split("/").pop()}
+								</p>
+								<span className="text-[9px] text-gray-500 mt-0.5">
+									{formatBytes(img.size)}
+								</span>
+							</div>
 						</div>
 					))}
 				</div>
@@ -548,7 +615,7 @@ const ImageManager = memo(() => {
 							<thead className="bg-theme-bg text-gray-400 border-b border-theme-border text-xs uppercase">
 								<tr>
 									<th className="px-5 py-3 font-semibold">Hình Ảnh</th>
-									<th className="px-5 py-3 font-semibold w-full">Tên File</th>
+									<th className="px-5 py-3 font-semibold">Dung Lượng</th>
 									<th className="px-5 py-3 font-semibold text-right">
 										Hành Động
 									</th>
@@ -579,6 +646,11 @@ const ImageManager = memo(() => {
 													{img.url}
 												</span>
 											</div>
+										</td>
+										<td className="px-5 py-2">
+											<span className="text-xs text-gray-500">
+												{formatBytes(img.size)}
+											</span>
 										</td>
 										<td className="px-5 py-2 text-right space-x-2">
 											<button

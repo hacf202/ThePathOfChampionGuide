@@ -13,6 +13,7 @@ import {
 	Info,
 	Users,
 	Skull,
+	CreditCard,
 } from "lucide-react";
 import { removeAccents } from "../../../utils/vietnameseUtils";
 import { useTranslation } from "../../../hooks/useTranslation";
@@ -27,18 +28,19 @@ const getUniqueId = item => {
 		item.powerCode ||
 		item.relicCode ||
 		item.itemCode ||
-		item.runeCode
+		item.runeCode ||
+		item.cardCode
 	);
 };
 
 const DropDragItem = memo(({ item, type, setTooltipData }) => {
 	const { tDynamic, tUI } = useTranslation();
 	const itemName =
-		tDynamic(item, "name") || item.bossName || item.adventureName;
+		tDynamic(item, "name") || item.cardName || item.bossName || item.adventureName;
 	const itemDesc =
 		tDynamic(item, "descriptionRaw") ||
 		tDynamic(item, "description") ||
-		tUI("admin.dropSidePanel.noDescription");
+		(type === "card" ? item.cardCode : tUI("admin.dropSidePanel.noDescription"));
 
 	const handleDragStart = e => {
 		const uniqueId = getUniqueId(item);
@@ -70,6 +72,7 @@ const DropDragItem = memo(({ item, type, setTooltipData }) => {
 
 	const imageUrl =
 		item.assetAbsolutePath ||
+		item.gameAbsolutePath ||
 		item.image ||
 		item.avatar ||
 		item.assets?.[0]?.avatar ||
@@ -150,6 +153,7 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 			label: tUI("admin.dropSidePanel.tabs.rune"),
 			icon: <Gem size={16} />,
 		},
+		{ id: "card", label: "Lá Bài", icon: <CreditCard size={16} /> },
 	];
 
 	const currentData = useMemo(() => {
@@ -161,6 +165,7 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 			power: cachedData.powers || [],
 			rune: cachedData.runes || [],
 			bonusStar: cachedData.bonusStars || [],
+			card: cachedData.cards || [],
 		};
 		return map[activeTab] || [];
 	}, [cachedData, activeTab]);
@@ -389,6 +394,7 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 					<div className='absolute top-1/2 -right-2 -translate-y-1/2 w-4 h-4 bg-white border-r border-t border-slate-200 rotate-45 rounded-sm'></div>
 					<div className='flex items-start gap-4 mb-4'>
 						{tooltipData.item.assetAbsolutePath ||
+						tooltipData.item.gameAbsolutePath ||
 						tooltipData.item.image ||
 						tooltipData.item.avatar ||
 						tooltipData.item.assets?.[0]?.avatar ||
@@ -396,12 +402,13 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 							<img
 								src={
 									tooltipData.item.assetAbsolutePath ||
+									tooltipData.item.gameAbsolutePath ||
 									tooltipData.item.image ||
 									tooltipData.item.avatar ||
 									tooltipData.item.assets?.[0]?.avatar ||
 									tooltipData.item.background
 								}
-								className='w-14 h-14 rounded-xl object-contain bg-slate-50 border border-slate-200 p-1 shrink-0 shadow-sm'
+								className='w-14 h-20 rounded-xl object-contain bg-slate-50 border border-slate-200 p-1 shrink-0 shadow-sm'
 							/>
 						) : (
 							<div className='w-14 h-14 bg-slate-100 rounded-xl border border-slate-200 flex items-center justify-center shrink-0 shadow-sm'>
@@ -413,6 +420,7 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 						<div className='flex-1 min-w-0'>
 							<p className='font-bold text-base leading-tight truncate text-slate-800'>
 								{tDynamic(tooltipData.item, "name") ||
+									tooltipData.item.cardName ||
 									tooltipData.item.bossName ||
 									tooltipData.item.adventureName}
 							</p>

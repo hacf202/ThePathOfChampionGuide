@@ -170,6 +170,7 @@ function AdventureMapEditor() {
 	const [bosses, setBosses] = useState([]);
 	const [champions, setChampions] = useState([]);
 	const [itemsData, setItemsData] = useState([]);
+	const [cards, setCards] = useState([]);
 
 	const [searchInput, setSearchInput] = useState("");
 	const [searchTerm, setSearchTerm] = useState("");
@@ -184,21 +185,23 @@ function AdventureMapEditor() {
 	const fetchAllData = useCallback(async () => {
 		try {
 			setIsLoading(true);
-			const [advRes, powerRes, bossRes, champRes, itemRes] = await Promise.all([
+			const [advRes, powerRes, bossRes, champRes, itemRes, cardRes] = await Promise.all([
 				fetch(`${API_BASE_URL}/api/adventures`),
 				fetch(`${API_BASE_URL}/api/powers?limit=1000`),
 				fetch(`${API_BASE_URL}/api/bosses`),
 				fetch(`${API_BASE_URL}/api/champions?limit=1000`),
 				fetch(`${API_BASE_URL}/api/items?limit=1000`),
+				fetch(`${API_BASE_URL}/api/cards?limit=1000`),
 			]);
 
-			const [advData, powerData, bossData, champData, itemJson] =
+			const [advData, powerData, bossData, champData, itemJson, cardData] =
 				await Promise.all([
 					advRes.json(),
 					powerRes.json(),
 					bossRes.json(),
 					champRes.json(),
 					itemRes.json(),
+					cardRes.json(),
 				]);
 
 			setItems(advData.items || []);
@@ -206,6 +209,8 @@ function AdventureMapEditor() {
 			setBosses(bossData.items || []);
 			setChampions(champData.items || []);
 			setItemsData(itemJson.items || []);
+			setCards(cardData.items || []);
+			setCards(cardData.items || []);
 		} catch (e) {
 			console.error(e);
 		} finally {
@@ -298,7 +303,7 @@ function AdventureMapEditor() {
 		},
 	};
 
-	const cachedData = { powers, bosses, champions, items: itemsData };
+	const cachedData = { powers, bosses, champions, items: itemsData, cards };
 
 	if (isLoading)
 		return (

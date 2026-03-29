@@ -17,7 +17,20 @@ const VongQuayNgauNhien = ({ title, items, onRemoveWinner }) => {
 	const [currentSize, setCurrentSize] = useState(300);
 	const [hasSpun, setHasSpun] = useState(false);
 
-	const colors = ["#3B82F6", "#10B981", "#F59E0B", "#EF4444"];
+	const colors = [
+		"#3b82f6", // Bright Blue
+		"#8b5cf6", // Violet
+		"#ec4899", // Pink
+		"#ef4444", // Red
+		"#f97316", // Orange
+		"#f59e0b", // Amber
+		"#10b981", // Emerald
+		"#06b6d4", // Cyan
+		"#6366f1", // Indigo
+		"#d946ef", // Fuchsia
+		"#14b8a6", // Teal
+		"#f43f5e", // Rose
+	];
 
 	// Idle animation
 	useEffect(() => {
@@ -98,8 +111,8 @@ const VongQuayNgauNhien = ({ title, items, onRemoveWinner }) => {
 				context.closePath();
 				context.fillStyle = colors[index % colors.length];
 				context.fill();
-				context.strokeStyle = "#334155";
-				context.lineWidth = 1;
+				context.strokeStyle = "#cbd5e1"; // Light Slate border
+				context.lineWidth = 1.5;
 				context.stroke();
 
 				context.save();

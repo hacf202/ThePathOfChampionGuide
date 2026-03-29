@@ -259,4 +259,46 @@ router.delete(
 	},
 );
 
+/**
+ * @route   GET /api/images/stats
+ * @desc    Lấy tổng dung lượng và số lượng file trong bucket
+ */
+router.get(
+	"/stats",
+	authenticateCognitoToken,
+	requireAdmin,
+	async (req, res) => {
+		try {
+			let totalSize = 0;
+			let totalFiles = 0;
+			let isTruncated = true;
+			let continuationToken;
+
+			while (isTruncated) {
+				const command = new ListObjectsV2Command({
+					Bucket: process.env.R2_BUCKET_NAME,
+					ContinuationToken: continuationToken,
+				});
+
+				const data = await s3Client.send(command);
+				(data.Contents || []).forEach(item => {
+					// Bỏ qua các folder placeholder (.keep hoặc kết thúc bằng /)
+					if (!item.Key.endsWith("/") && !item.Key.endsWith(".keep")) {
+						totalSize += item.Size;
+						totalFiles += 1;
+					}
+				});
+
+				isTruncated = data.IsTruncated;
+				continuationToken = data.NextContinuationToken;
+			}
+
+			res.json({ totalSize, totalFiles });
+		} catch (error) {
+			console.error("Lỗi lấy thống kê R2:", error);
+			res.status(500).json({ error: "Lỗi tính toán dung lượng bucket" });
+		}
+	},
+);
+
 export default router;

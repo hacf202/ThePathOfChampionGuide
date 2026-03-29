@@ -7,6 +7,7 @@ import TierListChampions from "../components/tierMaker/champions";
 import TierListRelics from "../components/tierMaker/relics";
 import { Swords, Sparkles, Loader2 } from "lucide-react";
 import { useTranslation } from "../hooks/useTranslation"; // 🟢 Import Hook Đa ngôn ngữ
+import GoogleAd from "../components/common/googleAd";
 
 // --- THÀNH PHẦN SKELETON CHO HEADER ---
 const TierListHeaderSkeleton = () => (
@@ -96,6 +97,8 @@ function TierListIndex() {
 									</button>
 								</div>
 							</div>
+
+							<GoogleAd slot='2943049680' format='horizontal' />
 
 							{/* Nội dung hiển thị dựa trên URL Path */}
 							<div className='min-h-[600px]'>

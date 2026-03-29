@@ -43,6 +43,7 @@ import AboutUs from "./components/about/aboutUs.jsx";
 import TermsOfUse from "./components/about/termsOfUse.jsx";
 import Introduction from "./components/about/introduction.jsx";
 import AnnouncementPopup from "./components/common/AnnouncementPopup";
+import GoogleAd from "./components/common/googleAd";
 
 // Luồng admin
 import AdminPanel from "./components/admin/adminPanel.jsx";
@@ -126,13 +127,61 @@ function AppLayout() {
 	const isAdminRoute = location.pathname.startsWith("/admin");
 
 	return (
-		<div className={isAdminRoute
-			? 'flex flex-col h-screen overflow-hidden'
-			: 'flex flex-col min-h-screen'
-		}>
+		<div
+			className={
+				isAdminRoute
+					? "flex flex-col h-screen overflow-hidden"
+					: "flex flex-col min-h-screen"
+			}
+		>
 			<Navbar />
 			<AnnouncementPopup />
-			<MainContent />
+
+			{isAdminRoute ||
+			location.pathname === "/" ||
+			location.pathname === "/home" ||
+			location.pathname === "/randomizer" ||
+			location.pathname === "/introduction" ? (
+				<MainContent />
+			) : (
+				<div className='flex justify-center relative w-full'>
+					{/* SKYBANNER LEFT (Outer Margin) */}
+					<aside className='hidden 3xl:flex sticky top-24 h-fit w-[200px] px-2 flex-col items-center shrink-0'>
+						<p className='text-[10px] text-text-tertiary text-center mb-2 uppercase tracking-widest leading-none'>
+							AD Recommendation
+						</p>
+						<GoogleAd
+							slot='3637079051'
+							format='autorelaxed'
+							width='200px'
+							height='800px'
+							minHeight='800px'
+							responsive='false'
+						/>
+					</aside>
+
+					{/* MAIN CONTENT AREA for sub-pages */}
+					<div className='flex-1 min-w-0 max-w-[1500px]'>
+						<MainContent />
+					</div>
+
+					{/* SKYBANNER RIGHT (Outer Margin) */}
+					<aside className='hidden 3xl:flex sticky top-24 h-fit w-[200px] px-2 flex-col items-center shrink-0'>
+						<p className='text-[10px] text-text-tertiary text-center mb-2 uppercase tracking-widest leading-none'>
+							AD Recommendation
+						</p>
+						<GoogleAd
+							slot='3637079051'
+							format='autorelaxed'
+							width='200px'
+							height='800px'
+							minHeight='800px'
+							responsive='false'
+						/>
+					</aside>
+				</div>
+			)}
+
 			{!isAdminRoute && <Footer />}
 		</div>
 	);

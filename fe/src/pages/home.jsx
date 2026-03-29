@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import PageTitle from "../components/common/pageTitle";
+import GoogleAd from "../components/common/googleAd";
 import { useTranslation } from "../hooks/useTranslation";
 import {
 	Swords,
@@ -19,13 +20,13 @@ import {
 } from "lucide-react";
 
 const BACKGROUND_IMAGES = [
-	"https://images.pocguide.top/backgrounds/Nunu-Willum.webp",
-	"https://dd.b.pvp.net/6_3_0/set2/vi_vn/img/cards/02NX007T2-full.png",
-	"https://dd.b.pvp.net/6_3_0/set3/vi_vn/img/cards/03MT087T1-full.png",
-	"https://wiki.leagueoflegends.com/en-us/images/06SI012T1-full.png?0bfd7",
-	"https://dd.b.pvp.net/6_8_0/tpoc/vi_vn/img/cards/98SB031T2-full.png",
-	"https://wiki.leagueoflegends.com/en-us/images/06SH009-full.png?ff10a",
-	"https://dd.b.pvp.net/6_3_0/tpoc/vi_vn/img/cards/98RU004T1-full.png",
+	"https://images.pocguide.top/backgrounds/BG1.webp",
+	"https://images.pocguide.top/backgrounds/BG5.webp",
+	"https://images.pocguide.top/backgrounds/BG4.webp",
+	"https://images.pocguide.top/backgrounds/BG2.webp",
+	"https://images.pocguide.top/backgrounds/BG3.webp",
+	"https://images.pocguide.top/backgrounds/BG6.webp",
+	"https://images.pocguide.top/backgrounds/BG7.webp",
 ];
 
 const Home = () => {
@@ -94,12 +95,6 @@ const Home = () => {
 				<div className='absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-[#0f172a]' />
 
 				<div className='relative z-10 text-center px-4 max-w-5xl'>
-					<div className='inline-flex items-center gap-2 px-4 py-2 bg-yellow-500/20 border border-yellow-500/50 rounded-full mb-6 animate-fadeIn'>
-						<Crown className='w-5 h-5 text-yellow-500' />
-						<span className='text-yellow-500 font-bold tracking-widest text-xs md:text-sm uppercase'>
-							{tUI("home.heroBadge")}
-						</span>
-					</div>
 					<h1 className='text-6xl md:text-9xl font-bold mb-6 tracking-tighter drop-shadow-2xl italic uppercase leading-none'>
 						{tUI("home.heroTitle1")} <br />{" "}
 						<span className='text-primary-400'>{tUI("home.heroTitle2")}</span>
@@ -134,6 +129,11 @@ const Home = () => {
 					<ArrowDown className='w-6 h-6' />
 				</div>
 			</section>
+
+			{/* AD PLACEMENT 1: AFTER HERO */}
+			<div className='max-w-7xl mx-auto px-6'>
+				<GoogleAd slot='2943049680' format='horizontal' />
+			</div>
 
 			{/* SECTION 2: BENTO GRID */}
 			<section className='py-10 px-6 max-w-7xl mx-auto'>
@@ -381,6 +381,11 @@ const Home = () => {
 					</div>
 				</div>
 			</section>
+
+			{/* AD PLACEMENT 2: BEFORE FOOTER CTA */}
+			<div className='max-w-7xl mx-auto px-6 mb-10'>
+				<GoogleAd slot='2943049680' format='horizontal' />
+			</div>
 
 			{/* FOOTER CTA */}
 			<section className='py-24 text-center border-t border-white/5'>

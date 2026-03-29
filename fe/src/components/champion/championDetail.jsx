@@ -1,9 +1,9 @@
 // src/pages/championDetail.jsx
-import { memo, useMemo, useState, useEffect } from "react";
+import { memo, useMemo, useState, useEffect, useCallback } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import iconRegions from "../../assets/data/iconRegions.json";
-import { ChevronLeft, Star, XCircle } from "lucide-react";
+import { ChevronLeft, Star, XCircle, Swords } from "lucide-react";
 import LatestComments from "../comment/latestComments";
 import Button from "../common/button";
 import PageTitle from "../common/pageTitle";
@@ -18,6 +18,7 @@ import { useTranslation } from "../../hooks/useTranslation";
 import ConstellationMap from "../champion/constellationMap";
 import ConstellationTable from "../champion/constellationTable";
 import ChampionPlaystyleChart from "../champion/championPlaystyleChart";
+import CardHoverTooltip from "../champion/CardHoverTooltip";
 
 // --- THÀNH PHẦN SKELETON ---
 const ChampionDetailSkeleton = () => (
@@ -57,11 +58,11 @@ const RenderItem = ({ item }) => {
 		tDynamic(item, "description") || tDynamic(item, "descriptionRaw");
 
 	const content = (
-		<div className='flex items-start gap-1 bg-surface-hover rounded-md h-full hover:border-primary-500   p-2'>
+		<div className='flex items-start gap-1 bg-surface-hover rounded-md h-full hover:border-primary-500 p-2'>
 			<SafeImage
 				src={item.assetAbsolutePath || item.image || "/fallback-image.svg"}
 				alt={itemName}
-				className='w-16 h-16 rounded-md shrink-0 object-cover'
+				className='w-20 h-20 sm:w-24 sm:h-24 rounded-md shrink-0 object-cover'
 			/>
 			<div>
 				<h3 className='font-semibold text-text-primary text-lg'>{itemName}</h3>
@@ -83,6 +84,68 @@ const RenderItem = ({ item }) => {
 	);
 };
 
+// --- RENDER CARD NAME CELL (WITH TOOLTIP PORTAL) ---
+const CardNameCell = memo(({ card, items, cardCode, isReference = false }) => {
+	const { tDynamic } = useTranslation();
+	const [hoverPos, setHoverPos] = useState(null);
+
+	const cardName = card ? tDynamic(card, "cardName") : cardCode;
+	const cardImg = card?.gameAbsolutePath || "/fallback-card.png";
+
+	return (
+		<div
+			className='flex items-center gap-3 cursor-help w-max'
+			onMouseEnter={e => {
+				if (window.innerWidth < 640) return; // Skip hover on mobile
+				const rect = e.currentTarget.getBoundingClientRect();
+				setHoverPos({
+					x: rect.right,
+					y: rect.top,
+				});
+			}}
+			onMouseLeave={() => setHoverPos(null)}
+			onClick={e => {
+				if (window.innerWidth >= 640) return; // Desktop uses hover
+				if (hoverPos) {
+					setHoverPos(null);
+				} else {
+					const rect = e.currentTarget.getBoundingClientRect();
+					setHoverPos({
+						x: rect.right,
+						y: rect.top,
+					});
+				}
+			}}
+		>
+			{/* Small Thumbnail */}
+			<div className='w-11 h-16 rounded border border-white/10 overflow-hidden bg-black/20 shrink-0 shadow-sm'>
+				<SafeImage src={cardImg} className='w-full h-full object-cover' />
+			</div>
+
+			<span
+				className={`text-sm sm:text-base font-bold pb-0.5 transition-all border-b border-dashed ${
+					isReference
+						? "text-purple-500 border-purple-500/30 hover:text-purple-400"
+						: "text-primary-500 border-primary-500/30 hover:text-primary-400"
+				}`}
+			>
+				{cardName}
+			</span>
+
+			{/* Tooltip via Portal */}
+			{hoverPos && (
+				<CardHoverTooltip
+					card={card}
+					items={items}
+					cardCode={cardCode}
+					position={hoverPos}
+					onClose={() => setHoverPos(null)}
+				/>
+			)}
+		</div>
+	);
+});
+
 // --- MAIN COMPONENT ---
 function ChampionDetail() {
 	const { championID } = useParams();
@@ -98,79 +161,97 @@ function ChampionDetail() {
 	const [resolvedItems, setResolvedItems] = useState([]);
 	const [resolvedRelics, setResolvedRelics] = useState([]);
 	const [resolvedRunes, setResolvedRunes] = useState([]);
+	const [resolvedStartingCards, setResolvedStartingCards] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 
 	const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
 
-	useEffect(() => {
-		let isMounted = true;
+	const initData = useCallback(async () => {
+		try {
+			setLoading(true);
 
-		const initData = async () => {
-			try {
-				setLoading(true);
+			// 1. Fetch dữ liệu Tướng, Chòm sao, Bonus Star song song (Xử lý lỗi riêng rẽ)
+			const champPromise = api.get(`/champions/${championID}`);
+			const constPromise = api
+				.get(`/constellations/${championID}`)
+				.catch(() => null);
+			const bonusPromise = api.get(`/bonusStars`).catch(() => ({ items: [] }));
 
-				// 1. Fetch dữ liệu Tướng, Chòm sao, Bonus Star song song (Xử lý lỗi riêng rẽ)
-				const champPromise = api.get(`/champions/${championID}`);
-				const constPromise = api
-					.get(`/constellations/${championID}`)
-					.catch(() => null);
-				const bonusPromise = api
-					.get(`/bonusStars`)
-					.catch(() => ({ items: [] }));
+			const [champData, constData, bonusData] = await Promise.all([
+				champPromise,
+				constPromise,
+				bonusPromise,
+			]);
 
-				const [champData, constData, bonusData] = await Promise.all([
-					champPromise,
-					constPromise,
-					bonusPromise,
-				]);
+			setChampion(champData);
+			setConstellationData(constData);
+			setFetchedBonusStars(bonusData.items || []);
 
-				if (!isMounted) return;
-				setChampion(champData);
-				setConstellationData(constData);
-				setFetchedBonusStars(bonusData.items || []);
+			// 2. Thu thập ID để Resolve (Chuẩn mới)
+			const constellationPowerIds = constData
+				? constData.nodes.map(n => n.powerCode).filter(Boolean)
+				: champData.powerStarIds || [];
 
-				// 2. Thu thập ID để Resolve (Chuẩn mới)
-				const constellationPowerIds = constData
-					? constData.nodes.map(n => n.powerCode).filter(Boolean)
-					: champData.powerStarIds || [];
+			const allPowerIds = [
+				...new Set([
+					...(champData.adventurePowerIds || []),
+					...constellationPowerIds,
+				]),
+			];
 
-				const allPowerIds = [
-					...new Set([
-						...(champData.adventurePowerIds || []),
-						...constellationPowerIds,
-					]),
-				];
+			// Mảng đa chiều relicSets. Làm phẳng (.flat()) để query
+			const allRelicIds = (champData.relicSets || []).flat();
 
-				// Mảng đa chiều relicSets. Làm phẳng (.flat()) để query
-				const allRelicIds = (champData.relicSets || []).flat();
+			// Collect all card codes and item codes from startingDeck
+			const allCardCodes = [
+				...new Set([
+					...(champData.startingDeck?.baseCards || []).map(c => c.cardCode),
+					...(champData.startingDeck?.referenceCards || []).map(
+						c => c.cardCode,
+					),
+				]),
+			].filter(Boolean);
 
-				// 3. Resolve Batch bằng API Helper (Chuẩn ID-based)
-				const [pDetails, iDetails, rDetails, ruDetails] = await Promise.all([
+			const deckItemCodes = [
+				...(champData.startingDeck?.baseCards || []).flatMap(
+					c => c.itemCodes || [],
+				),
+				...(champData.startingDeck?.referenceCards || []).flatMap(
+					c => c.itemCodes || [],
+				),
+			];
+			const allItemCodes = [
+				...new Set([...(champData.itemIds || []), ...deckItemCodes]),
+			].filter(Boolean);
+
+			// 3. Resolve Batch bằng API Helper (Chuẩn ID-based)
+			const [pDetails, iDetails, rDetails, ruDetails, cardDetails] =
+				await Promise.all([
 					api.resolve("powers", allPowerIds),
-					api.resolve("items", champData.itemIds || []),
+					api.resolve("items", allItemCodes),
 					api.resolve("relics", allRelicIds),
 					api.resolve("runes", champData.runeIds || []),
+					allCardCodes.length > 0
+						? api.resolve("cards", allCardCodes)
+						: Promise.resolve([]),
 				]);
 
-				if (isMounted) {
-					setResolvedPowers(pDetails);
-					setResolvedItems(iDetails);
-					setResolvedRelics(rDetails);
-					setResolvedRunes(ruDetails);
-				}
-			} catch (err) {
-				if (isMounted) setError(err.message || tUI("championDetail.errorLoad"));
-			} finally {
-				if (isMounted) setTimeout(() => setLoading(false), 800);
-			}
-		};
-
-		initData();
-		return () => {
-			isMounted = false;
-		};
+			setResolvedPowers(pDetails);
+			setResolvedItems(iDetails);
+			setResolvedRelics(rDetails);
+			setResolvedRunes(ruDetails);
+			setResolvedStartingCards(Array.isArray(cardDetails) ? cardDetails : []);
+		} catch (err) {
+			setError(err.message || tUI("championDetail.errorLoad"));
+		} finally {
+			setTimeout(() => setLoading(false), 800);
+		}
 	}, [championID, tUI]);
+
+	useEffect(() => {
+		initData();
+	}, [initData]);
 
 	// Xử lý dữ liệu hiển thị Đa ngôn ngữ cho Chòm sao
 	const constellationInfo = useMemo(() => {
@@ -340,7 +421,7 @@ function ChampionDetail() {
 								<ChevronLeft size={18} /> {tUI("championDetail.back")}
 							</Button>
 
-							<div className='relative mx-auto max-w-[1200px] sm:p-6 rounded-lg bg-surface-bg border border-border shadow-md mb-2 md:mb-6'>
+							<div className='relative mx-auto max-w-[1500px] sm:p-6 rounded-lg bg-surface-bg border border-border shadow-md mb-2 md:mb-6'>
 								<div className='flex flex-col md:flex-row border border-border gap-4 rounded-md bg-surface-hover sm:p-4'>
 									<SafeImage
 										className='h-auto max-h-[300px] object-contain rounded-lg'
@@ -402,7 +483,10 @@ function ChampionDetail() {
 									</div>
 								</div>
 
-								<ChampionPlaystyleChart champion={champion} />
+								<ChampionPlaystyleChart
+									champion={champion}
+									onRefresh={initData}
+								/>
 
 								{constellationInfo.nodes.length > 0 && (
 									<>
@@ -435,6 +519,211 @@ function ChampionDetail() {
 										className='rounded-lg'
 									></iframe>
 								</div>
+
+								{/* STARTING DECK SECTION */}
+								{(champion.startingDeck?.baseCards?.length > 0 ||
+									champion.startingDeck?.referenceCards?.length > 0) && (
+									<>
+										<h2 className=' px-2 sm:px-0 text-lg sm:text-3xl font-semibold mt-2 md:mt-10 font-primary text-primary-500 border-b border-border flex items-center gap-3'>
+											{tUI("championDetail.startingDeck")}
+										</h2>
+
+										<div className='mt-2 space-y-4'>
+											{/* Base Cards Table */}
+											{champion.startingDeck?.baseCards?.length > 0 && (
+												<div className='bg-surface-bg border border-border rounded-xl overflow-hidden shadow-sm'>
+													<div className='p-2 bg-primary-500/5 border-b border-border flex items-center justify-between'>
+														<h3 className='text-sm sm:text-lg font-bold text-text-primary flex items-center gap-2 uppercase'>
+															{tUI("championDetail.baseCards")}
+														</h3>
+														<span className='text-[10px] font-bold text-text-secondary bg-surface-hover px-2 py-1 rounded-md border border-border uppercase'>
+															{champion.startingDeck.baseCards.length}{" "}
+															{tUI("common.cards")}
+														</span>
+													</div>
+													<div className='overflow-x-auto'>
+														<table className='w-full text-left border-collapse'>
+															<thead>
+																<tr className='bg-surface-hover/50 text-[10px] sm:text-xs font-black uppercase text-text-tertiary tracking-widest border-b border-border'>
+																	<th className='px-2 py-2 sm:px-4 w-8 text-center'>
+																		#
+																	</th>
+																	<th className='px-2 py-2 sm:px-4'>
+																		{tUI("admin.cardForm.cardNameLabel")}
+																	</th>
+																	<th className='px-2 py-2 sm:px-4'>
+																		{tUI("admin.dropSidePanel.tabs.item")}
+																	</th>
+																</tr>
+															</thead>
+															<tbody className='divide-y divide-border/50'>
+																{champion.startingDeck.baseCards.map(
+																	(cardData, idx) => {
+																		const cardInfo = resolvedStartingCards.find(
+																			c => c.cardCode === cardData.cardCode,
+																		);
+																		const cardItems = (cardData.itemCodes || [])
+																			.map(code =>
+																				resolvedItems.find(
+																					i => i.itemCode === code,
+																				),
+																			)
+																			.filter(Boolean);
+
+																		return (
+																			<tr
+																				key={idx}
+																				className='group hover:bg-surface-hover/30 transition-colors'
+																			>
+																				<td className='px-2 py-2 sm:px-4 sm:py-2 text-center text-xs font-bold text-text-tertiary'>
+																					{idx + 1}
+																				</td>
+																				<td className='px-2 py-2 sm:px-4 sm:py-2'>
+																					<CardNameCell
+																						card={cardInfo}
+																						items={cardItems}
+																						cardCode={cardData.cardCode}
+																					/>
+																				</td>
+																				<td className='px-2 py-2 sm:px-4 sm:py-2'>
+																					<div className='flex flex-wrap gap-2'>
+																						{cardItems.length > 0 ? (
+																							cardItems.map((item, i) => (
+																								<Link
+																									key={i}
+																									to={`/item/${item.itemCode}`}
+																									className='flex items-center gap-1.5 px-2 py-1 rounded-lg bg-surface-hover/50 hover:bg-surface-hover hover:scale-105 transition-all'
+																									title={tDynamic(item, "name")}
+																								>
+																									<SafeImage
+																										src={
+																											item.assetAbsolutePath ||
+																											item.image ||
+																											"/fallback-image.svg"
+																										}
+																										className='w-10 h-10 sm:w-12 sm:h-12 object-contain'
+																									/>
+																									<span className='text-[10px] sm:text-xs font-bold text-text-secondary hidden sm:inline'>
+																										{tDynamic(item, "name")}
+																									</span>
+																								</Link>
+																							))
+																						) : (
+																							<span className='text-[10px] text-text-tertiary italic'>
+																								{tUI("championDetail.noItems")}
+																							</span>
+																						)}
+																					</div>
+																				</td>
+																			</tr>
+																		);
+																	},
+																)}
+															</tbody>
+														</table>
+													</div>
+												</div>
+											)}
+
+											{/* Reference Cards Table */}
+											{champion.startingDeck?.referenceCards?.length > 0 && (
+												<div className='bg-surface-bg border border-border rounded-xl overflow-hidden shadow-sm'>
+													<div className='p-4 bg-purple-500/5 border-b border-border flex items-center justify-between'>
+														<h3 className='text-sm sm:text-lg font-bold text-text-primary flex items-center gap-2 uppercase'>
+															{tUI("championDetail.referenceCards")}
+														</h3>
+														<span className='text-[10px] font-bold text-text-secondary bg-surface-hover px-2 py-1 rounded-md border border-border uppercase'>
+															{champion.startingDeck.referenceCards.length}{" "}
+															{tUI("common.cards")}
+														</span>
+													</div>
+													<div className='overflow-x-auto'>
+														<table className='w-full text-left border-collapse'>
+															<thead>
+																<tr className='bg-surface-hover/50 text-[10px] sm:text-xs font-black uppercase text-text-tertiary tracking-widest border-b border-border'>
+																	<th className='px-2 py-2 sm:px-4 w-8 text-center'>
+																		#
+																	</th>
+																	<th className='px-2 py-2 sm:px-4'>
+																		{tUI("admin.cardForm.cardNameLabel")}
+																	</th>
+																	<th className='px-2 py-2 sm:px-4'>
+																		{tUI("admin.dropSidePanel.tabs.item")}
+																	</th>
+																</tr>
+															</thead>
+															<tbody className='divide-y divide-border/50'>
+																{champion.startingDeck.referenceCards.map(
+																	(cardData, idx) => {
+																		const cardInfo = resolvedStartingCards.find(
+																			c => c.cardCode === cardData.cardCode,
+																		);
+																		const cardItems = (cardData.itemCodes || [])
+																			.map(code =>
+																				resolvedItems.find(
+																					i => i.itemCode === code,
+																				),
+																			)
+																			.filter(Boolean);
+
+																		return (
+																			<tr
+																				key={idx}
+																				className='group hover:bg-surface-hover/30 transition-colors'
+																			>
+																				<td className='px-2 py-2 sm:px-4 sm:py-2 text-center text-xs font-bold text-text-tertiary'>
+																					{idx + 1}
+																				</td>
+																				<td className='px-2 py-2 sm:px-4 sm:py-2'>
+																					<CardNameCell
+																						card={cardInfo}
+																						items={cardItems}
+																						cardCode={cardData.cardCode}
+																						isReference={true}
+																					/>
+																				</td>
+																				<td className='px-2 py-2 sm:px-4 sm:py-2'>
+																					<div className='flex flex-wrap gap-2'>
+																						{cardItems.length > 0 ? (
+																							cardItems.map((item, i) => (
+																								<Link
+																									key={i}
+																									to={`/item/${item.itemCode}`}
+																									className='flex items-center gap-1.5 px-2 py-1 rounded-lg bg-surface-hover/50 hover:bg-surface-hover hover:scale-105 transition-all'
+																									title={tDynamic(item, "name")}
+																								>
+																									<SafeImage
+																										src={
+																											item.assetAbsolutePath ||
+																											item.image ||
+																											"/fallback-image.svg"
+																										}
+																										className='w-10 h-10 sm:w-12 sm:h-12 object-contain'
+																									/>
+																									<span className='text-[10px] sm:text-xs font-bold text-text-secondary hidden sm:inline'>
+																										{tDynamic(item, "name")}
+																									</span>
+																								</Link>
+																							))
+																						) : (
+																							<span className='text-[10px] text-text-tertiary italic'>
+																								{tUI("championDetail.noItems")}
+																							</span>
+																						)}
+																					</div>
+																				</td>
+																			</tr>
+																		);
+																	},
+																)}
+															</tbody>
+														</table>
+													</div>
+												</div>
+											)}
+										</div>
+									</>
+								)}
 
 								{relicSetsToRender.length > 0 && (
 									<>
@@ -498,12 +787,19 @@ function ChampionDetail() {
 									<p className='text-xs text-text-secondary text-center mb-2'>
 										AD
 									</p>
-									<GoogleAd slot='1955949888' format='horizontal' />
+									<GoogleAd slot='2943049680' format='horizontal' />
 								</div>
-								<div className='mt-8'>
-									<LatestComments championID={championID} />
+									<div className='mt-8'>
+										<LatestComments championID={championID} />
+									</div>
 								</div>
-							</div>
+
+								<div className='my-10 border-t border-border pt-8'>
+									<p className='text-xs text-text-secondary text-center mb-2 uppercase tracking-widest'>
+										AD
+									</p>
+									<GoogleAd slot='2943049680' format='horizontal' />
+								</div>
 						</motion.div>
 					)}
 				</AnimatePresence>

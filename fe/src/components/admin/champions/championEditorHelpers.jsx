@@ -20,7 +20,8 @@ export const getUniqueId = item => {
 		item.powerCode ||
 		item.relicCode ||
 		item.itemCode ||
-		item.runeCode
+		item.runeCode ||
+		item.cardCode
 	);
 };
 

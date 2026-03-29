@@ -186,6 +186,9 @@ module.exports = {
 				shimmer: "shimmer 1.5s infinite linear",
 				"ripple-pulse": "ripplePulse 2s infinite",
 			},
+			screens: {
+				"3xl": "1900px",
+			},
 		},
 	},
 	plugins: [

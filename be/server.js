@@ -23,6 +23,8 @@ import adventuresRouter from "./src/routes/adventures.js";
 import analyticsRouter from "./src/routes/analytics.js";
 import imagesRouter from "./src/routes/images.js";
 import commentRoutes from "./src/routes/comments.js";
+import cardsRouter from "./src/routes/cards.js";
+import ratingsRouter from "./src/routes/ratings.js";
 
 dotenv.config(); //đọc .env tải biến môi trường
 
@@ -100,6 +102,8 @@ app.use("/api/analytics", analyticsRouter);
 app.use("/api/images", imagesRouter);
 app.use("/api/bosses", bossesRouter);
 app.use("/api/adventures", adventuresRouter);
+app.use("/api/cards", cardsRouter);
+app.use("/api/ratings", ratingsRouter);
 
 // API để kiểm tra "sức khỏe" của server
 app.get("/api/checkheal", (req, res) => {

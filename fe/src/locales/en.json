@@ -46,7 +46,8 @@
 		"showMap": "Show map",
 		"hideMap": "Hide map",
 		"hide": "Hide",
-		"show": "Show"
+		"show": "Show",
+		"cards": " cards"
 	},
 	"mapList": {
 		"pageTitle": "Adventure Maps",
@@ -88,17 +89,17 @@
 		},
 		"types": {
 			"chung": "General",
-			"trấn": "Signature",
-			"tiêu thụ": "Consumables"
+			"tráº¥n": "Signature",
+			"tiÃªu thá»¥": "Consumables"
 		}
 	},
 	"power": {
 		"rarity": {
-			"thường": "Common",
-			"hiếm": "Rare",
-			"sử thi": "Epic",
-			"huyền thoại": "Legendary",
-			"đặc biệt": "Special"
+			"thÆ°á»ng": "Common",
+			"hiáº¿m": "Rare",
+			"sá»­ thi": "Epic",
+			"huyá»n thoáº¡i": "Legendary",
+			"Ä‘áº·c biá»‡t": "Special"
 		},
 		"types": {
 			"arcanepower": "Arcane Power",
@@ -118,18 +119,18 @@
 	},
 	"item": {
 		"rarity": {
-			"thường": "Common",
-			"hiếm": "Rare",
-			"sử thi": "Epic",
-			"đặc biệt": "Special"
+			"thÆ°á»ng": "Common",
+			"hiáº¿m": "Rare",
+			"sá»­ thi": "Epic",
+			"Ä‘áº·c biá»‡t": "Special"
 		}
 	},
 	"rune": {
 		"rarity": {
-			"thường": "Common",
-			"hiếm": "Rare",
-			"sử thi": "Epic",
-			"huyền thoại": "Legendary"
+			"thÆ°á»ng": "Common",
+			"hiáº¿m": "Rare",
+			"sá»­ thi": "Epic",
+			"huyá»n thoáº¡i": "Legendary"
 		}
 	},
 	"region": {
@@ -284,7 +285,7 @@
 			"sortNameAsc": "Name A-Z",
 			"sortNameDesc": "Name Z-A",
 			"loading": "Loading data...",
-			"unsavedChanges": "● Unsaved changes",
+			"unsavedChanges": "â— Unsaved changes",
 			"cancel": "Cancel",
 			"delete": "Delete",
 			"saving": "Saving...",
@@ -376,11 +377,15 @@
 			"rune": "Runes",
 			"build": "Builds",
 			"guide": "Guides",
-			"analytics": "Analytics"
+			"analytics": "Analytics",
+			"boss": "Bosses",
+			"adventure": "Adventures",
+			"images": "Images",
+			"cards": "Cards"
 		},
 		"sidebar": {
 			"title": "Admin",
-			"footer": "© 2025 Path of Champions"
+			"footer": "Evin LOR"
 		},
 		"topbar": {
 			"defaultTitle": "Admin Panel"
@@ -389,7 +394,7 @@
 			"loading": "Aggregating real-time data...",
 			"error": "Error: Cannot connect to analytics service.",
 			"title": "Analytics System",
-			"lastUpdated": "Last 30 days data • Last updated:",
+			"lastUpdated": "Last 30 days data â€¢ Last updated:",
 			"uniqueVisitors": "Unique Visitors",
 			"users": "Users",
 			"sessions": "Sessions",
@@ -414,6 +419,26 @@
 			"slowLoadWarning": "Slow Load Warning (>3s)",
 			"systemSuperFast": "System is loading incredibly fast!",
 			"total": "Total"
+		},
+		"card": {
+			"notFound": "No matching Cards found.",
+			"tryOtherFilter": "Please try with a different filter.",
+			"notFoundId": "No Card found with code:",
+			"searchPlaceholder": "Search by name or card code...",
+			"addNew": "Add New Card",
+			"resetFilter": "Reset filters"
+		},
+		"cardForm": {
+			"errorCardCodeReq": "Please enter a Card Code!",
+			"errorCardNameReq": "Please enter a Card Name!",
+			"createTitle": "Add New Card",
+			"editTitle": "Edit Card:",
+			"identitySection": "Card Identity",
+			"cardCodeLabel": "Card Code (e.g. 06RU009)",
+			"cardNameLabel": "Card Name",
+			"previewImage": "Card Image Preview",
+			"imageUrlLabel": "Card Image URL",
+			"deleteConfirmText": "Are you sure you want to delete card"
 		}
 	},
 	"tierList": {
@@ -576,7 +601,7 @@
 		"noMoreComments": "No more comments"
 	},
 	"metadata": {
-		"defaultDescription": "Professional Path of Champions Guide (Legends of Runeterra) – Updated Tier Lists, Builds, and Latest Relics."
+		"defaultDescription": "Professional Path of Champions Guide (Legends of Runeterra) â€“ Updated Tier Lists, Builds, and Latest Relics."
 	},
 	"buildSummary": {
 		"me": "Me",
@@ -684,12 +709,20 @@
 		"recPowers": "Recommended Powers",
 		"recItems": "Recommended Items",
 		"recRunes": "Recommended Runes",
+		"startingDeck": "Starting Deck",
+		"baseCards": "Main Cards",
+		"referenceCards": "Related Cards",
+		"noItems": "(No items)",
 		"errorLoad": "Cannot load champion information.",
 		"metaDesc": "POC GUIDE for",
 		"ratings": {
 			"infoBtn": "Learn more about these stats",
+			"infoBtnShort": "Info",
 			"infoModalTitle": "Understanding the 6 Playstyle Metrics",
 			"title": "Playstyle Rating",
+			"chartTitle": "Attribute Chart",
+			"meaningLabel": "Meaning:",
+			"radarLabel": "Impact Area",
 			"damage": "Offense",
 			"defense": "Defense",
 			"speed": "Tempo",
@@ -697,36 +730,47 @@
 			"synergy": "Synergy",
 			"independence": "Independence",
 			"playstyleNote": "Playstyle Note",
+			"viewCommunityRatings": "View Community Ratings",
+			"rateNow": "Rate Champion",
+			"averageFrom": "Based on {{count}} ratings",
+			"noRatingsYet": "No ratings yet. Be the first to rate!",
+			"ratingModalTitle": "Playstyle Evaluation",
+			"ratingModalDesc": "Rate each category from 1 to 10.",
+			"submitBtn": "Save Rating",
+			"commentLabel": "Additional Notes (Optional)",
+			"commentPlaceholder": "Strengths, weaknesses, or gameplay tips...",
+			"ratingSuccess": "Your rating has been saved!",
+			"guestWarning": "You must be logged in to rate this champion.",
 			"criteriaDesc": {
 				"damage": {
 					"title": "1. Offense (Damage)",
-					"meaning": "Ability to deal lethal burst damage to the Nexus (OTK) and take down large enemy units.",
-					"radar": "High scores (like Illaoi, Jinx) show massive destructive power."
+					"meaning": "Ability to deal damage to enemy units or the Nexus.",
+					"radar": "High damage potential from units like Aatrox, Pyke, Ambessa, or heavy spell and skill damage like Swain, Vex."
 				},
 				"defense": {
 					"title": "2. Defense (Safety)",
-					"meaning": "Survivability across encounters (Healing, Stuns, Frostbites, Board Control).",
-					"radar": "High scores (like Yasuo, Morgana, Gwen) indicate a resilient champion with low risk against tough Bosses."
+					"meaning": "Survivability across multiple rounds and encounters (Healing, Lifesteal, Stuns, Frostbites, Board Control).",
+					"radar": "High scores (like Yasuo, Morgana, Ashe) indicate a resilient champion with low risk against tough Bosses."
 				},
 				"speed": {
 					"title": "3. Speed (Tempo)",
-					"meaning": "Speed of board development (Low mana cost) and match completion (Fast animations, decisive actions).",
-					"radar": "Emphasizes the ability to overwhelm the enemy aggro-style from Turn 1 or 2."
+					"meaning": "Fast board development and quick match completion.",
+					"radar": "Emphasizes the ability to overwhelm the enemy from Turn 1 or 2, such as Nidalee, Swain, Lillia."
 				},
 				"consistency": {
 					"title": "4. Consistency (Deck Flow)",
 					"meaning": "The fluidity of the starting deck. Ability to draw cards, avoid mana bricks, and rely less on RNG.",
-					"radar": "High scores prove a tightly designed deck that rarely suffers from 'brick hands'."
+					"radar": "High scores prove a tightly designed deck that rarely suffers from 'brick hands', like Jhin or Ambessa."
 				},
 				"synergy": {
 					"title": "5. Synergy (Combo)",
-					"meaning": "Ability to create chain effects between the Champion, Star Powers, and Relics.",
-					"radar": "Champions like Nilah, Master Yi, or Ekko excel here, showcasing a flashy and highly explosive playstyle."
+					"meaning": "Ability to create chain effects between the Champion, Constellations, and Relics.",
+					"radar": "Champions like Ekko or Akshan showcase a flashy playstyle with powerful combo potential."
 				},
 				"independence": {
 					"title": "6. Independence",
-					"meaning": "The deck's capability to win without needing the main Champion card on the board.",
-					"radar": "High scores (like Norra) mean the deck functions well on its own. Low scores (like Evelynn, Ornn) warn that relying solely on the champion is risky."
+					"meaning": "The deck's capability to win without needing to draw or play the main Champion card.",
+					"radar": "High scores (Swain, Aurelion Sol, Kai'sa) mean the deck functions well on its own. Low scores (Vayne, Lillia, Gwen) warn that if the champion is removed or not drawn, the loss rate is very high."
 				}
 			}
 		}
@@ -751,7 +795,6 @@
 		"loading": "INITIALIZING POC GUIDE...",
 		"pageTitle": "POC GUIDE - The Path of Champions",
 		"pageDesc": "The most professional Path of Champions Wiki & Guide",
-		"heroBadge": "The Ultimate Guide",
 		"heroTitle1": "PATH OF",
 		"heroTitle2": "CHAMPIONS",
 		"heroDesc": "Discover ultimate power, optimize your gameplay, and conquer all challenges in The Path of Champions.",
@@ -795,7 +838,7 @@
 		"emailLabel": "Email",
 		"passwordLabel": "Password",
 		"passwordPlaceholder": "Enter password",
-		"passwordRegisterPlaceholder": "Password (≥8 characters)",
+		"passwordRegisterPlaceholder": "Password (â‰¥8 characters)",
 		"forgotPassword": "Forgot password?",
 		"forgotPasswordTitle": "Forgot Password",
 		"sendOtp": "Send OTP",
@@ -822,7 +865,7 @@
 			"emailInvalid": "Invalid email",
 			"otpReq": "Please enter OTP code",
 			"newPassReq": "Please enter new password",
-			"passMin": "Password must be ≥ 8 characters",
+			"passMin": "Password must be â‰¥ 8 characters",
 			"passLower": "Must contain 1 lowercase letter",
 			"passNum": "Must contain 1 number",
 			"passFormatFull": "New password must be at least 8 characters, including letters and numbers",
@@ -863,14 +906,14 @@
 	},
 	"about": {
 		"titlePrefix": "About ",
-		"subtitle": "The complete guide for <strong>Path of Champions</strong> – from the developer of this website",
+		"subtitle": "The complete guide for <strong>Path of Champions</strong> â€“ from the developer of this website",
 		"intro1": "<strong>Guide POC</strong> is an independent, fan-made website created to help <i>Legends of Runeterra</i> players conquer the <strong>Path of Champions</strong> mode with reliable and easy-to-use resources. We are <u>not affiliated with Riot Games</u> or any of its subsidiaries.",
-		"intro2": "This platform was built <strong>by players, for players</strong> — born out of a pure passion for PoC's unique roguelike mechanics and its surrounding community.",
+		"intro2": "This platform was built <strong>by players, for players</strong> â€” born out of a pure passion for PoC's unique roguelike mechanics and its surrounding community.",
 		"whoWeAreTitle": "Who we are",
 		"whoWeAre1": "<strong>Guide POC</strong> is an independent project built by a small team (actually, just me :v) of passionate gamers in Vietnam.",
-		"whoWeAre2": "I started playing and experiencing the <strong>Path of Champions</strong> mode from day one when it first launched. From a rookie, I began my passion — exploring different champions, maps, discovering new tactics, and I wanted to share it with the community.",
-		"whoWeAre3": "We documented everything: <em>which playstyles work best, which relics synergize strongly with which champions, which powers to pick at every crossroad, and which champions can overcome the hardest challenges.</em> — refining them together after every update.",
-		"whoWeAre4": "Around <strong>April 2025</strong>, I realized the knowledge accumulated over thousands of runs could help many players — especially those struggling with the increasing difficulty. That was when <strong>Guide POC</strong> was officially born.",
+		"whoWeAre2": "I started playing and experiencing the <strong>Path of Champions</strong> mode from day one when it first launched. From a rookie, I began my passion â€” exploring different champions, maps, discovering new tactics, and I wanted to share it with the community.",
+		"whoWeAre3": "We documented everything: <em>which playstyles work best, which relics synergize strongly with which champions, which powers to pick at every crossroad, and which champions can overcome the hardest challenges.</em> â€” refining them together after every update.",
+		"whoWeAre4": "Around <strong>April 2025</strong>, I realized the knowledge accumulated over thousands of runs could help many players â€” especially those struggling with the increasing difficulty. That was when <strong>Guide POC</strong> was officially born.",
 		"whoWeAre5": "The website is <strong>founded and maintained by me</strong>, along with <strong>frequent contributions</strong> from players sharing the same spirit of curiosity and cooperation.",
 		"whatWeDoTitle": "What we do",
 		"whatWeDoIntro": "<strong>Guide POC</strong> focuses on:",
@@ -881,23 +924,23 @@
 		"whatWeDoOutro": "Our goal is to provide content that is <strong>clear, fluff-free, constantly updated</strong>, and easily accessible for both newcomers and veterans looking to improve their skills or share knowledge.",
 		"whyWeDoItTitle": "Why we do it",
 		"whyWeDoIt1": "Because we <strong>love</strong> this game mode and I wanted a place to share my passion.",
-		"whyWeDoIt2": "This website was born to <strong>share passion</strong> — from me to everyone, and from the community to each other.",
-		"whyWeDoIt3": "Thank you for visiting. If you find the content helpful, please share it with your friends — and if you want to <strong>contribute builds or feedback</strong>, we would love to hear from you.",
+		"whyWeDoIt2": "This website was born to <strong>share passion</strong> â€” from me to everyone, and from the community to each other.",
+		"whyWeDoIt3": "Thank you for visiting. If you find the content helpful, please share it with your friends â€” and if you want to <strong>contribute builds or feedback</strong>, we would love to hear from you.",
 		"whyGuidePocTitle": "Why 'Guide POC'?",
 		"whyGuidePoc1": "We chose the name <strong>\"Guide POC\"</strong> simply because it is a dedicated guide website for this mode, short and easy to remember.",
-		"whyGuidePoc2": "<strong>“POC”</strong> stands for <i>Path of Champions</i> — the mode that brought us together, where every decision can change the entire journey.",
-		"whyGuidePoc3": "<strong>“Guide”</strong> represents our mission: providing a <strong>reliable roadmap</strong> for players. Whether you're a new adventurer or a veteran maxing out all champions, we want you to have a <em>smooth journey</em>.",
+		"whyGuidePoc2": "<strong>â€œPOCâ€</strong> stands for <i>Path of Champions</i> â€” the mode that brought us together, where every decision can change the entire journey.",
+		"whyGuidePoc3": "<strong>â€œGuideâ€</strong> represents our mission: providing a <strong>reliable roadmap</strong> for players. Whether you're a new adventurer or a veteran maxing out all champions, we want you to have a <em>smooth journey</em>.",
 		"whyGuidePoc4": "Thank you for accompanying us on the <strong>Path of Champions</strong>!"
 	},
 	"intro": {
 		"pageTitle": "Introduction to Guide POC",
 		"welcome": "Welcome to ",
-		"subtitle": "<strong>Path of Champions is a unique roguelike mode</strong> in <i>Legends of Runeterra</i> – where every run is a new journey, and every decision can alter the entire battle.",
+		"subtitle": "<strong>Path of Champions is a unique roguelike mode</strong> in <i>Legends of Runeterra</i> â€“ where every run is a new journey, and every decision can alter the entire battle.",
 		"card1Title": "Random Paths",
-		"card1Desc": "Every map is procedurally generated – no two runs are identical.",
+		"card1Desc": "Every map is procedurally generated â€“ no two runs are identical.",
 		"card2Title": "Relics & Powers",
 		"card2Desc": "Collect Relics and Powers to turn ordinary champions into monsters.",
-		"card3Title": "7 Stars – Ultimate Challenge",
+		"card3Title": "7 Stars â€“ Ultimate Challenge",
 		"card3Desc": "Defeat all bosses and crossroads to reach 7 stars for each champion.",
 		"featuredChampions": "Featured Champions",
 		"noData": "No champion data available.",
@@ -913,7 +956,7 @@
 		"section1P2": "We are <strong>not affiliated with, endorsed by, or sponsored by</strong> <strong>Riot Games</strong>, <strong>Riot Forge</strong>, or any of their subsidiaries.",
 		"section1P3": "All names, images, characters, game mechanics, and intellectual property within <i>Path of Champions</i> legally belong to <strong>Riot Games</strong>.",
 		"section2Title": "2. Content Usage",
-		"section2P1": "All original content on <strong>Guide POC</strong> — including build guides, farming routes, relic analysis, and illustrations — is created by the community <strong>solely for the purpose of sharing information and assisting players</strong>.",
+		"section2P1": "All original content on <strong>Guide POC</strong> â€” including build guides, farming routes, relic analysis, and illustrations â€” is created by the community <strong>solely for the purpose of sharing information and assisting players</strong>.",
 		"section2Li1": "You are <strong>free to read, share, or link</strong> to our content for <strong>personal or non-commercial</strong> purposes.",
 		"section2Li2": "<strong>Please do not copy, re-upload, or redistribute</strong> our content <strong>without proper credit</strong>.",
 		"section2Li3": "If reusing (translations, videos, articles), <strong>full credit is mandatory</strong> along with a <strong>link back to the original page</strong>.",
@@ -925,7 +968,7 @@
 		"section4P1": "By using <strong>Guide POC</strong>, you agree to:",
 		"section4Li1": "Use the content for <strong>legal and respectful purposes</strong>.",
 		"section4Li2": "<strong>Not intentionally sabotage, attack, or abuse</strong> website resources (including spam, bots, DDoS).",
-		"section4Li3": "Accept that all content is provided <strong>\"as is\"</strong> — <strong>without warranty</strong> regarding accuracy, completeness, or availability.",
+		"section4Li3": "Accept that all content is provided <strong>\"as is\"</strong> â€” <strong>without warranty</strong> regarding accuracy, completeness, or availability.",
 		"section5Title": "5. External Links",
 		"section5P1": "The website may contain links to <strong>third-party websites, videos, or resources</strong> (YouTube, Discord, wikis, etc.).",
 		"section5P2": "We are <strong>not responsible</strong> for the content, accuracy, or privacy policies of those sites.",
