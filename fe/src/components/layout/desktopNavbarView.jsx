@@ -22,6 +22,7 @@ import {
 	Wrench,
 	Sparkles,
 	LoaderPinwheel,
+	Gift,
 	BookMarked,
 	Map,
 	BarChartHorizontalBig,
@@ -228,6 +229,14 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 										>
 											<LoaderPinwheel className='w-5 h-5' />{" "}
 											{tUI("nav.randomizer")}
+										</NavLink>
+										<NavLink
+											to='/simulator/vaults'
+											className={dropdownLinkClass}
+											onClick={handleNavClick}
+										>
+											<Gift className='w-5 h-5' />{" "}
+											{tUI("nav.vaultSimulator")}
 										</NavLink>
 										<NavLink
 											to='/introduction'

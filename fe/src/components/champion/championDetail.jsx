@@ -162,6 +162,8 @@ function ChampionDetail() {
 	const [resolvedRelics, setResolvedRelics] = useState([]);
 	const [resolvedRunes, setResolvedRunes] = useState([]);
 	const [resolvedStartingCards, setResolvedStartingCards] = useState([]);
+	const [allRatings, setAllRatings] = useState([]);
+	const [myRating, setMyRating] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 
@@ -171,81 +173,26 @@ function ChampionDetail() {
 		try {
 			setLoading(true);
 
-			// 1. Fetch dữ liệu Tướng, Chòm sao, Bonus Star song song (Xử lý lỗi riêng rẽ)
-			const champPromise = api.get(`/champions/${championID}`);
-			const constPromise = api
-				.get(`/constellations/${championID}`)
-				.catch(() => null);
-			const bonusPromise = api.get(`/bonusStars`).catch(() => ({ items: [] }));
-
-			const [champData, constData, bonusData] = await Promise.all([
-				champPromise,
-				constPromise,
-				bonusPromise,
-			]);
+			// 1. Fetch Dữ liệu Tướng "Full" (Bao gồm Constellation, Resolved Data, Ratings)
+			const response = await api.get(`/champions/${championID}/full`);
+			
+			const { champion: champData, constellation: constData, resolvedData, allRatings: ar, personalRating: pr } = response;
 
 			setChampion(champData);
 			setConstellationData(constData);
-			setFetchedBonusStars(bonusData.items || []);
+			setFetchedBonusStars(resolvedData.bonusStars || []);
+			setResolvedPowers(resolvedData.powers || []);
+			setResolvedItems(resolvedData.items || []);
+			setResolvedRelics(resolvedData.relics || []);
+			setResolvedRunes(resolvedData.runes || []);
+			setResolvedStartingCards(resolvedData.cards || []);
+			setAllRatings(ar || []);
+			setMyRating(pr || null);
 
-			// 2. Thu thập ID để Resolve (Chuẩn mới)
-			const constellationPowerIds = constData
-				? constData.nodes.map(n => n.powerCode).filter(Boolean)
-				: champData.powerStarIds || [];
-
-			const allPowerIds = [
-				...new Set([
-					...(champData.adventurePowerIds || []),
-					...constellationPowerIds,
-				]),
-			];
-
-			// Mảng đa chiều relicSets. Làm phẳng (.flat()) để query
-			const allRelicIds = (champData.relicSets || []).flat();
-
-			// Collect all card codes and item codes from startingDeck
-			const allCardCodes = [
-				...new Set([
-					...(champData.startingDeck?.baseCards || []).map(c => c.cardCode),
-					...(champData.startingDeck?.referenceCards || []).map(
-						c => c.cardCode,
-					),
-				]),
-			].filter(Boolean);
-
-			const deckItemCodes = [
-				...(champData.startingDeck?.baseCards || []).flatMap(
-					c => c.itemCodes || [],
-				),
-				...(champData.startingDeck?.referenceCards || []).flatMap(
-					c => c.itemCodes || [],
-				),
-			];
-			const allItemCodes = [
-				...new Set([...(champData.itemIds || []), ...deckItemCodes]),
-			].filter(Boolean);
-
-			// 3. Resolve Batch bằng API Helper (Chuẩn ID-based)
-			const [pDetails, iDetails, rDetails, ruDetails, cardDetails] =
-				await Promise.all([
-					api.resolve("powers", allPowerIds),
-					api.resolve("items", allItemCodes),
-					api.resolve("relics", allRelicIds),
-					api.resolve("runes", champData.runeIds || []),
-					allCardCodes.length > 0
-						? api.resolve("cards", allCardCodes)
-						: Promise.resolve([]),
-				]);
-
-			setResolvedPowers(pDetails);
-			setResolvedItems(iDetails);
-			setResolvedRelics(rDetails);
-			setResolvedRunes(ruDetails);
-			setResolvedStartingCards(Array.isArray(cardDetails) ? cardDetails : []);
 		} catch (err) {
 			setError(err.message || tUI("championDetail.errorLoad"));
 		} finally {
-			setTimeout(() => setLoading(false), 800);
+			setTimeout(() => setLoading(false), 500);
 		}
 	}, [championID, tUI]);
 
@@ -464,9 +411,7 @@ function ChampionDetail() {
 												.split(/\n/)
 												.map((line, i) => (
 													<p key={i} className={i > 0 ? "mt-3" : ""}>
-														{line || (
-															<span className='text-transparent'>empty</span>
-														)}
+														{line || "\u00A0"}
 													</p>
 												))}
 										</div>
@@ -486,6 +431,8 @@ function ChampionDetail() {
 								<ChampionPlaystyleChart
 									champion={champion}
 									onRefresh={initData}
+									initialAllRatings={allRatings}
+									initialMyRating={myRating}
 								/>
 
 								{constellationInfo.nodes.length > 0 && (
@@ -784,8 +731,8 @@ function ChampionDetail() {
 									</>
 								)}
 								<div className='my-10 border-y border-border py-4 bg-surface-bg-alt/50 rounded-lg'>
-									<p className='text-xs text-text-secondary text-center mb-2'>
-										AD
+									<p className='text-xs text-text-secondary text-center mb-2 uppercase tracking-widest'>
+										{tUI("common.ad")}
 									</p>
 									<GoogleAd slot='2943049680' format='horizontal' />
 								</div>
@@ -796,7 +743,7 @@ function ChampionDetail() {
 
 								<div className='my-10 border-t border-border pt-8'>
 									<p className='text-xs text-text-secondary text-center mb-2 uppercase tracking-widest'>
-										AD
+										{tUI("common.ad")}
 									</p>
 									<GoogleAd slot='2943049680' format='horizontal' />
 								</div>

@@ -6,6 +6,7 @@ import {
 	DeleteItemCommand,
 	GetItemCommand,
 	QueryCommand,
+	BatchGetItemCommand
 } from "@aws-sdk/client-dynamodb";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
 import client from "../config/db.js";
@@ -13,6 +14,7 @@ import NodeCache from "node-cache";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { requireAdmin } from "../middleware/requireAdmin.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
+import { verifier } from "../config/cognito.js"; // For manual token verification if optional
 
 const router = express.Router();
 const CHAMPIONS_TABLE = "guidePocChampionList";
@@ -39,6 +41,42 @@ async function getCachedChampions() {
 		championCache.set(CACHE_KEY, cachedData);
 	}
 	return cachedData;
+}
+
+/**
+ * Helper để fetch hàng loạt dữ liệu từ một bảng dựa trên list IDs (Tối ưu dùng BatchGet)
+ */
+async function fetchBatch(tableName, keyName, ids) {
+	if (!ids || ids.length === 0) return [];
+	try {
+		const distinctIds = [...new Set(ids.filter(Boolean).map(id => String(id).trim()))];
+		if (distinctIds.length === 0) return [];
+
+		const results = [];
+		// BatchGetItem giới hạn 100 items mỗi call
+		for (let i = 0; i < distinctIds.length; i += 100) {
+			const chunk = distinctIds.slice(i, i + 100);
+			const keys = chunk.map(id => marshall({ [keyName]: id }));
+
+			const command = {
+				RequestItems: {
+					[tableName]: {
+						Keys: keys
+					}
+				}
+			};
+
+			const response = await client.send(new BatchGetItemCommand(command));
+			if (response.Responses && response.Responses[tableName]) {
+				results.push(...response.Responses[tableName].map(item => unmarshall(item)));
+			}
+		}
+		
+		return results;
+	} catch (e) {
+		console.error(`FetchBatch Error [${tableName}] with BatchGet:`, e);
+		return [];
+	}
 }
 
 /**
@@ -213,6 +251,125 @@ router.post("/resolve", async (req, res) => {
 	} catch (error) {
 		console.error("Lỗi khi resolve champions:", error);
 		res.status(500).json({ error: "Lỗi hệ thống khi resolve tướng." });
+	}
+});
+
+/**
+ * @route   GET /api/champions/:championID/full
+ * @desc    Tối ưu hóa: Lấy toàn bộ dữ liệu cần thiết cho trang chi tiết tướng trong 1 nốt nhạc
+ */
+router.get("/:championID/full", async (req, res) => {
+	const { championID } = req.params;
+	if (!championID) return res.status(400).json({ error: "championID là bắt buộc." });
+
+	try {
+		// 1. Fetch dữ liệu cơ bản (Tướng + Chòm sao) song song
+		const [champRes, constRes] = await Promise.all([
+			client.send(new GetItemCommand({ TableName: CHAMPIONS_TABLE, Key: marshall({ championID }) })),
+			client.send(new GetItemCommand({ TableName: "guidePocChampionConstellation", Key: marshall({ constellationID: championID }) }))
+		]);
+
+		if (!champRes.Item) return res.status(404).json({ error: "Không tìm thấy tướng." });
+
+		const champion = unmarshall(champRes.Item);
+		const constellation = constRes.Item ? unmarshall(constRes.Item) : null;
+
+		// 2. Thu thập tất cả ID cần resolve
+		const powerIds = new Set([
+			...(champion.adventurePowerIds || []),
+			...(champion.powerStarIds || []),
+			...(constellation?.nodes?.map(n => n.powerCode).filter(Boolean) || [])
+		]);
+		const relicIds = new Set((champion.relicSets || []).flat());
+		const itemIds = new Set([
+			...(champion.itemIds || []),
+			...(champion.startingDeck?.baseCards?.flatMap(c => c.itemCodes || []) || []),
+			...(champion.startingDeck?.referenceCards?.flatMap(c => c.itemCodes || []) || [])
+		]);
+		const runeIds = new Set(champion.runeIds || []);
+		const cardIds = new Set([
+			...(champion.startingDeck?.baseCards?.map(c => c.cardCode) || []),
+			...(champion.startingDeck?.referenceCards?.map(c => c.cardCode) || [])
+		]);
+		const bonusStarIds = new Set(constellation?.nodes?.map(n => n.bonusStarID).filter(Boolean) || []);
+
+		// 3. Fetch tất cả dữ liệu liên quan song song
+		const [powers, relics, items, runes, cards, bonusStars, allRatings] = await Promise.all([
+			fetchBatch("guidePocPowers", "powerCode", Array.from(powerIds)),
+			fetchBatch("guidePocRelics", "relicCode", Array.from(relicIds)),
+			fetchBatch("guidePocItems", "itemCode", Array.from(itemIds)),
+			fetchBatch("guidePocRunes", "runeCode", Array.from(runeIds)),
+			fetchBatch("guidePocCardList", "cardCode", Array.from(cardIds)),
+			fetchBatch("guidePocBonusStar", "bonusStarID", Array.from(bonusStarIds)),
+			client.send(new QueryCommand({
+				TableName: "guidePocPlayStyleRating",
+				KeyConditionExpression: "championID = :cid",
+				ExpressionAttributeValues: marshall({ ":cid": championID }),
+			}))
+		]);
+
+		// 4. Xử lý Ratings (Cộng đồng + Cá nhân)
+		const ratingsList = allRatings.Items ? allRatings.Items.map(r => unmarshall(r)) : [];
+		let personalRating = null;
+		
+		// Check token nếu có để lấy rating cá nhân
+		const authHeader = req.headers.authorization;
+		if (authHeader && authHeader.startsWith("Bearer ")) {
+			const token = authHeader.split(" ")[1];
+			try {
+				const payload = await verifier.verify(token);
+				personalRating = ratingsList.find(r => r.userID === payload.sub || r.sub === payload.sub);
+			} catch (e) {
+				// Token invalid, bỏ qua personal rating
+			}
+		}
+
+		if (ratingsList.length > 0) {
+			const sum = { damage: 0, defense: 0, speed: 0, consistency: 0, synergy: 0, independence: 0 };
+			ratingsList.forEach(r => {
+				Object.keys(sum).forEach(k => sum[k] += r.ratings[k] || 0);
+			});
+			const count = ratingsList.length;
+			const adminRatings = champion.ratings || { damage: 5, defense: 5, speed: 5, consistency: 5, synergy: 5, independence: 5 };
+			
+			champion.communityRatings = {
+				damage: parseFloat(((adminRatings.damage + sum.damage) / (count + 1)).toFixed(1)),
+				defense: parseFloat(((adminRatings.defense + sum.defense) / (count + 1)).toFixed(1)),
+				speed: parseFloat(((adminRatings.speed + sum.speed) / (count + 1)).toFixed(1)),
+				consistency: parseFloat(((adminRatings.consistency + sum.consistency) / (count + 1)).toFixed(1)),
+				synergy: parseFloat(((adminRatings.synergy + sum.synergy) / (count + 1)).toFixed(1)),
+				independence: parseFloat(((adminRatings.independence + sum.independence) / (count + 1)).toFixed(1)),
+				count: count + 1,
+				communityOnlyAvg: {
+					damage: parseFloat((sum.damage / count).toFixed(1)),
+					defense: parseFloat((sum.defense / count).toFixed(1)),
+					speed: parseFloat((sum.speed / count).toFixed(1)),
+					consistency: parseFloat((sum.consistency / count).toFixed(1)),
+					synergy: parseFloat((sum.synergy / count).toFixed(1)),
+					independence: parseFloat((sum.independence / count).toFixed(1)),
+					userCount: count
+				}
+			};
+		}
+
+		res.json({
+			champion,
+			constellation,
+			resolvedData: {
+				powers,
+				relics,
+				items,
+				runes,
+				cards,
+				bonusStars
+			},
+			allRatings: ratingsList,
+			personalRating
+		});
+
+	} catch (error) {
+		console.error("Lỗi Full Champion Resolve:", error);
+		res.status(500).json({ error: "Lỗi hệ thống khi tổng hợp dữ liệu." });
 	}
 });
 

@@ -234,7 +234,7 @@ const GenericListLayout = ({
 								animate={{
 									width: "auto",
 									opacity: 1,
-									marginLeft: "2rem",
+									marginLeft: "1.5rem",
 									transitionEnd: { overflow: "visible" },
 								}}
 								exit={{
@@ -246,7 +246,7 @@ const GenericListLayout = ({
 								transition={{ duration: 0.3, ease: "easeInOut" }}
 								className='hidden lg:block sticky top-24 h-fit z-40'
 							>
-								<div className='w-[280px] xl:w-[320px] p-4 rounded-lg border border-border bg-surface-bg space-y-4 shadow-sm relative'>
+								<div className='w-[224px] xl:w-[256px] p-4 rounded-lg border border-border bg-surface-bg space-y-4 shadow-sm relative'>
 									<label className='block text-sm font-medium text-text-secondary'>
 										{tUI("common.search")}
 									</label>

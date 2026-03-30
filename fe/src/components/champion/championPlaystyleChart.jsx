@@ -50,18 +50,24 @@ const CustomTooltip = ({ active, payload }) => {
 const ChampionPlaystyleChart = ({ 
 	champion, 
 	onRefresh, 
-	isAdminPreview = false // Prop mới để vẽ biểu đồ theo điểm Admin (không gộp cộng đồng)
+	isAdminPreview = false, // Prop mới để vẽ biểu đồ theo điểm Admin (không gộp cộng đồng)
+	initialAllRatings = [],
+	initialMyRating = null
 }) => {
 	const { tUI, tDynamic } = useTranslation();
 	const { user, token } = useAuth();
 	const [showInfo, setShowInfo] = useState(false);
 	const [showRatingModal, setShowRatingModal] = useState(false);
 	const [showAllRatingsModal, setShowAllRatingsModal] = useState(false);
-	const [allRatings, setAllRatings] = useState([]);
-	const [myRating, setMyRating] = useState(null);
+	const [allRatings, setAllRatings] = useState(initialAllRatings);
+	const [myRating, setMyRating] = useState(initialMyRating);
 	const [isLoadingRatings, setIsLoadingRatings] = useState(false);
 	const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 	const containerRef = useRef(null);
+
+	// Sync state khi prop thay đổi (do cha fetch lại)
+	useEffect(() => setAllRatings(initialAllRatings), [initialAllRatings]);
+	useEffect(() => setMyRating(initialMyRating), [initialMyRating]);
 
 	useEffect(() => {
 		if (!containerRef.current) return;
@@ -111,8 +117,11 @@ const ChampionPlaystyleChart = ({
 	}, [champion?.championID, user, token]);
 
 	useEffect(() => {
-		fetchRatings();
-	}, [fetchRatings]);
+		// Chỉ fetch nếu chưa có dữ liệu ban đầu
+		if (initialAllRatings.length === 0 && !initialMyRating) {
+			fetchRatings();
+		}
+	}, [fetchRatings, initialAllRatings.length, initialMyRating]);
 
 	useEffect(() => {
 		if (showInfo) {

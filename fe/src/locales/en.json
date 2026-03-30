@@ -47,7 +47,8 @@
 		"hideMap": "Hide map",
 		"hide": "Hide",
 		"show": "Show",
-		"cards": " cards"
+		"cards": " cards",
+		"ad": "Advertisement"
 	},
 	"mapList": {
 		"pageTitle": "Adventure Maps",
@@ -80,6 +81,13 @@
 		"noEnemyInfo": "No information.",
 		"noNodeDescription": "No detailed description for this Node type."
 	},
+	"rarity": {
+		"thuong": "Common",
+		"hiem": "Rare",
+		"suthi": "Epic",
+		"huyenthoai": "Legendary",
+		"dacbiet": "Special"
+	},
 	"relic": {
 		"rarity": {
 			"common": "Common",
@@ -89,17 +97,17 @@
 		},
 		"types": {
 			"chung": "General",
-			"tráº¥n": "Signature",
-			"tiÃªu thá»¥": "Consumables"
+			"trấn": "Signature",
+			"tiêu thụ": "Consumables"
 		}
 	},
 	"power": {
 		"rarity": {
-			"thÆ°á»ng": "Common",
-			"hiáº¿m": "Rare",
-			"sá»­ thi": "Epic",
+			"thưá»ng": "Common",
+			"hiếm": "Rare",
+			"sử thi": "Epic",
 			"huyá»n thoáº¡i": "Legendary",
-			"Ä‘áº·c biá»‡t": "Special"
+			"đặc biệt": "Special"
 		},
 		"types": {
 			"arcanepower": "Arcane Power",
@@ -119,17 +127,17 @@
 	},
 	"item": {
 		"rarity": {
-			"thÆ°á»ng": "Common",
-			"hiáº¿m": "Rare",
-			"sá»­ thi": "Epic",
-			"Ä‘áº·c biá»‡t": "Special"
+			"thưá»ng": "Common",
+			"hiếm": "Rare",
+			"sử thi": "Epic",
+			"đặc biệt": "Special"
 		}
 	},
 	"rune": {
 		"rarity": {
-			"thÆ°á»ng": "Common",
-			"hiáº¿m": "Rare",
-			"sá»­ thi": "Epic",
+			"thưá»ng": "Common",
+			"hiếm": "Rare",
+			"sử thi": "Epic",
 			"huyá»n thoáº¡i": "Legendary"
 		}
 	},
@@ -601,7 +609,7 @@
 		"noMoreComments": "No more comments"
 	},
 	"metadata": {
-		"defaultDescription": "Professional Path of Champions Guide (Legends of Runeterra) â€“ Updated Tier Lists, Builds, and Latest Relics."
+		"defaultDescription": "Professional Path of Champions Guide (Legends of Runeterra) – Updated Tier Lists, Builds, and Latest Relics."
 	},
 	"buildSummary": {
 		"me": "Me",
@@ -824,9 +832,11 @@
 		"pocGuidesDesc": "From basic to advanced: How to farm champion fragments, optimize relics, and upgrade star powers.",
 		"learnToPlay": "LEARN HOW TO PLAY",
 		"footerCTA1": "Start",
-		"footerCTA2": "Your Journey",
-		"footerCTA3": "today?",
-		"btnExploreNow": "EXPLORE NOW"
+		"footerCTA2": "Your",
+		"footerCTA3": "Adventure",
+		"btnExploreNow": "EXPLORE NOW",
+		"vaultSimulatorTitle": "Vault Simulator",
+		"vaultSimulatorDesc": "Test your luck with the Cosmic Vault opening simulator. See the drop rates for the rarest champion fragments and relics!"
 	},
 	"auth": {
 		"loginRegisterTitle": "Login / Register",
@@ -838,7 +848,7 @@
 		"emailLabel": "Email",
 		"passwordLabel": "Password",
 		"passwordPlaceholder": "Enter password",
-		"passwordRegisterPlaceholder": "Password (â‰¥8 characters)",
+		"passwordRegisterPlaceholder": "Password (≥8 characters)",
 		"forgotPassword": "Forgot password?",
 		"forgotPasswordTitle": "Forgot Password",
 		"sendOtp": "Send OTP",
@@ -865,7 +875,7 @@
 			"emailInvalid": "Invalid email",
 			"otpReq": "Please enter OTP code",
 			"newPassReq": "Please enter new password",
-			"passMin": "Password must be â‰¥ 8 characters",
+			"passMin": "Password must be ≥ 8 characters",
 			"passLower": "Must contain 1 lowercase letter",
 			"passNum": "Must contain 1 number",
 			"passFormatFull": "New password must be at least 8 characters, including letters and numbers",
@@ -906,14 +916,14 @@
 	},
 	"about": {
 		"titlePrefix": "About ",
-		"subtitle": "The complete guide for <strong>Path of Champions</strong> â€“ from the developer of this website",
+		"subtitle": "The complete guide for <strong>Path of Champions</strong> – from the developer of this website",
 		"intro1": "<strong>Guide POC</strong> is an independent, fan-made website created to help <i>Legends of Runeterra</i> players conquer the <strong>Path of Champions</strong> mode with reliable and easy-to-use resources. We are <u>not affiliated with Riot Games</u> or any of its subsidiaries.",
-		"intro2": "This platform was built <strong>by players, for players</strong> â€” born out of a pure passion for PoC's unique roguelike mechanics and its surrounding community.",
+		"intro2": "This platform was built <strong>by players, for players</strong> — born out of a pure passion for PoC's unique roguelike mechanics and its surrounding community.",
 		"whoWeAreTitle": "Who we are",
 		"whoWeAre1": "<strong>Guide POC</strong> is an independent project built by a small team (actually, just me :v) of passionate gamers in Vietnam.",
-		"whoWeAre2": "I started playing and experiencing the <strong>Path of Champions</strong> mode from day one when it first launched. From a rookie, I began my passion â€” exploring different champions, maps, discovering new tactics, and I wanted to share it with the community.",
-		"whoWeAre3": "We documented everything: <em>which playstyles work best, which relics synergize strongly with which champions, which powers to pick at every crossroad, and which champions can overcome the hardest challenges.</em> â€” refining them together after every update.",
-		"whoWeAre4": "Around <strong>April 2025</strong>, I realized the knowledge accumulated over thousands of runs could help many players â€” especially those struggling with the increasing difficulty. That was when <strong>Guide POC</strong> was officially born.",
+		"whoWeAre2": "I started playing and experiencing the <strong>Path of Champions</strong> mode from day one when it first launched. From a rookie, I began my passion — exploring different champions, maps, discovering new tactics, and I wanted to share it with the community.",
+		"whoWeAre3": "We documented everything: <em>which playstyles work best, which relics synergize strongly with which champions, which powers to pick at every crossroad, and which champions can overcome the hardest challenges.</em> — refining them together after every update.",
+		"whoWeAre4": "Around <strong>April 2025</strong>, I realized the knowledge accumulated over thousands of runs could help many players — especially those struggling with the increasing difficulty. That was when <strong>Guide POC</strong> was officially born.",
 		"whoWeAre5": "The website is <strong>founded and maintained by me</strong>, along with <strong>frequent contributions</strong> from players sharing the same spirit of curiosity and cooperation.",
 		"whatWeDoTitle": "What we do",
 		"whatWeDoIntro": "<strong>Guide POC</strong> focuses on:",
@@ -924,23 +934,23 @@
 		"whatWeDoOutro": "Our goal is to provide content that is <strong>clear, fluff-free, constantly updated</strong>, and easily accessible for both newcomers and veterans looking to improve their skills or share knowledge.",
 		"whyWeDoItTitle": "Why we do it",
 		"whyWeDoIt1": "Because we <strong>love</strong> this game mode and I wanted a place to share my passion.",
-		"whyWeDoIt2": "This website was born to <strong>share passion</strong> â€” from me to everyone, and from the community to each other.",
-		"whyWeDoIt3": "Thank you for visiting. If you find the content helpful, please share it with your friends â€” and if you want to <strong>contribute builds or feedback</strong>, we would love to hear from you.",
+		"whyWeDoIt2": "This website was born to <strong>share passion</strong> — from me to everyone, and from the community to each other.",
+		"whyWeDoIt3": "Thank you for visiting. If you find the content helpful, please share it with your friends — and if you want to <strong>contribute builds or feedback</strong>, we would love to hear from you.",
 		"whyGuidePocTitle": "Why 'Guide POC'?",
 		"whyGuidePoc1": "We chose the name <strong>\"Guide POC\"</strong> simply because it is a dedicated guide website for this mode, short and easy to remember.",
-		"whyGuidePoc2": "<strong>â€œPOCâ€</strong> stands for <i>Path of Champions</i> â€” the mode that brought us together, where every decision can change the entire journey.",
-		"whyGuidePoc3": "<strong>â€œGuideâ€</strong> represents our mission: providing a <strong>reliable roadmap</strong> for players. Whether you're a new adventurer or a veteran maxing out all champions, we want you to have a <em>smooth journey</em>.",
+		"whyGuidePoc2": "<strong>“POCâ€</strong> stands for <i>Path of Champions</i> — the mode that brought us together, where every decision can change the entire journey.",
+		"whyGuidePoc3": "<strong>“Guideâ€</strong> represents our mission: providing a <strong>reliable roadmap</strong> for players. Whether you're a new adventurer or a veteran maxing out all champions, we want you to have a <em>smooth journey</em>.",
 		"whyGuidePoc4": "Thank you for accompanying us on the <strong>Path of Champions</strong>!"
 	},
 	"intro": {
 		"pageTitle": "Introduction to Guide POC",
 		"welcome": "Welcome to ",
-		"subtitle": "<strong>Path of Champions is a unique roguelike mode</strong> in <i>Legends of Runeterra</i> â€“ where every run is a new journey, and every decision can alter the entire battle.",
+		"subtitle": "<strong>Path of Champions is a unique roguelike mode</strong> in <i>Legends of Runeterra</i> – where every run is a new journey, and every decision can alter the entire battle.",
 		"card1Title": "Random Paths",
-		"card1Desc": "Every map is procedurally generated â€“ no two runs are identical.",
+		"card1Desc": "Every map is procedurally generated – no two runs are identical.",
 		"card2Title": "Relics & Powers",
 		"card2Desc": "Collect Relics and Powers to turn ordinary champions into monsters.",
-		"card3Title": "7 Stars â€“ Ultimate Challenge",
+		"card3Title": "7 Stars – Ultimate Challenge",
 		"card3Desc": "Defeat all bosses and crossroads to reach 7 stars for each champion.",
 		"featuredChampions": "Featured Champions",
 		"noData": "No champion data available.",
@@ -956,7 +966,7 @@
 		"section1P2": "We are <strong>not affiliated with, endorsed by, or sponsored by</strong> <strong>Riot Games</strong>, <strong>Riot Forge</strong>, or any of their subsidiaries.",
 		"section1P3": "All names, images, characters, game mechanics, and intellectual property within <i>Path of Champions</i> legally belong to <strong>Riot Games</strong>.",
 		"section2Title": "2. Content Usage",
-		"section2P1": "All original content on <strong>Guide POC</strong> â€” including build guides, farming routes, relic analysis, and illustrations â€” is created by the community <strong>solely for the purpose of sharing information and assisting players</strong>.",
+		"section2P1": "All original content on <strong>Guide POC</strong> — including build guides, farming routes, relic analysis, and illustrations — is created by the community <strong>solely for the purpose of sharing information and assisting players</strong>.",
 		"section2Li1": "You are <strong>free to read, share, or link</strong> to our content for <strong>personal or non-commercial</strong> purposes.",
 		"section2Li2": "<strong>Please do not copy, re-upload, or redistribute</strong> our content <strong>without proper credit</strong>.",
 		"section2Li3": "If reusing (translations, videos, articles), <strong>full credit is mandatory</strong> along with a <strong>link back to the original page</strong>.",
@@ -968,7 +978,7 @@
 		"section4P1": "By using <strong>Guide POC</strong>, you agree to:",
 		"section4Li1": "Use the content for <strong>legal and respectful purposes</strong>.",
 		"section4Li2": "<strong>Not intentionally sabotage, attack, or abuse</strong> website resources (including spam, bots, DDoS).",
-		"section4Li3": "Accept that all content is provided <strong>\"as is\"</strong> â€” <strong>without warranty</strong> regarding accuracy, completeness, or availability.",
+		"section4Li3": "Accept that all content is provided <strong>\"as is\"</strong> — <strong>without warranty</strong> regarding accuracy, completeness, or availability.",
 		"section5Title": "5. External Links",
 		"section5P1": "The website may contain links to <strong>third-party websites, videos, or resources</strong> (YouTube, Discord, wikis, etc.).",
 		"section5P2": "We are <strong>not responsible</strong> for the content, accuracy, or privacy policies of those sites.",
@@ -990,6 +1000,7 @@
 		"toolsTitle": "Tools",
 		"randomizer": "Randomizer",
 		"about": "About",
+		"vaultSimulator": "Vault Simulator",
 		"guides": "Guides",
 		"language": "Language",
 		"profile": "Profile",
@@ -1013,5 +1024,49 @@
 		"introduction": "Introduction",
 		"terms": "Terms of Use",
 		"followUs": "Follow Us"
+	},
+	"vaultSimulator": {
+		"vaultLabel": "Vault",
+		"vaultNameFormat": "{{tier}} {{vault}}",
+		"titleMain": "Cosmic",
+		"titleSub": "Vaults",
+		"description": "Simulate accurate drop rates based on community data. Choose a vault tier to start testing your luck!",
+		"clickToOpen": "Click to Open",
+		"opening": "Opening {{vault}}...",
+		"openAgain": "Open Again",
+		"chooseOther": "Choose Other Vault",
+		"probInfo": "PROBABILITY RATES",
+		"typesOfVaults": "TYPES OF COSMIC VAULTS",
+		"tier": {
+			"bronze": "Bronze",
+			"silver": "Silver",
+			"gold": "Gold",
+			"platinum": "Platinum",
+			"diamond": "Diamond"
+		},
+		"probBronzeSilverTitle": "BRONZE & SILVER VAULTS",
+		"probBronzeSilverDesc": "Champion Fragments for early game progression.\n• Bronze Vault: 95% to drop 5, 5% to drop 10 fragments.\n• Silver Vault: 90% to drop 10, 10% to drop 15 fragments.",
+		"probGoldPlatinumTitle": "GOLD & PLATINUM VAULTS",
+		"probGoldPlatinumDesc": "Relics start dropping here.\n• Gold Vault: 90% for 20, 10% for 30 (20+10) Frags. 30% chance for Common Relic (Always included with 30 Frags).\n• Platinum Vault: 60% for 40, 30% for 40 (20+20), 10% for 50 (30+20) Frags. 30% chance for Rare Relic (Always included with 50 Frags).",
+		"probDiamondTitle": "DIAMOND VAULT",
+		"probDiamondDesc": "The ultimate rewards.\n• Champ Frags: 75% for 80 (40+40), 20% for 120 (40+40+40), 5% for 240 (80+80+80) frags.\n• Wild Frags: 85% for 20, 14% for 50, 1% for 100 frags.\n• Relic Slot: 65% Cosmic Blessing, 35% Rare Relic.\n• Bonus: 20% Star Crystal (x10), 5% Gemstone (x150).",
+		"sourceTitle": "HOW TO OBTAIN",
+		"sources": {
+			"bronze": "• Winning 2-star or lower adventures\n• Completing Champion Campaigns\n• Daily Quest Victory!\n• Purchasing in the Emporium for Shards",
+			"silver": "• Winning adventures maps\n• Completing Quests\n• Weekly Quest \"Call of the Adventure\"\n• Legend Level 7 Reward",
+			"gold": "• Winning adventures maps\n• Completing Quests\n• Legend Level Rewards\n• Weekly Quest \"Portal Warrior\"\n• Purchasing in the Emporium for Shards",
+			"platinum": "• Completing The Path Chapter V and VI\n• Monthly Glory Store (max 5 vaults)\n• Legend Level Rewards",
+			"diamond": "• Completing Achievement Quests\n• Completing Event Quests\n• Legend Level Rewards"
+		},
+		"loot": {
+			"champFrags": "Champion Fragments",
+			"wildFrags": "Wild Fragments",
+			"stardust": "Stardust",
+			"cosmicBlessing": "Greater Cosmic Blessing",
+			"starCrystal": "Star Crystal",
+			"gemstone": "Gemstone",
+			"relic": "Relic",
+			"simulator": "Simulator"
+		}
 	}
 }

@@ -1,15 +1,15 @@
 // src/middleware/requireAdmin.js
-import { authenticateCognitoToken } from "./authenticate.js";
 
-export const requireAdmin = async (req, res, next) => {
-	// Gọi middleware xác thực token trước
-	authenticateCognitoToken(req, res, () => {
-		const groups = req.user["cognito:groups"] || [];
-		if (!groups.includes("admin")) {
-			return res
-				.status(403)
-				.json({ error: "Truy cập bị từ chối: Yêu cầu quyền admin" });
-		}
-		next();
-	});
+export const requireAdmin = (req, res, next) => {
+	if (!req.user) {
+		return res.status(401).json({ error: "Token verification required" });
+	}
+
+	const groups = req.user["cognito:groups"] || [];
+	if (!groups.includes("admin")) {
+		return res
+			.status(403)
+			.json({ error: "Truy cập bị từ chối: Yêu cầu quyền admin" });
+	}
+	next();
 };

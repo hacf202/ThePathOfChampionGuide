@@ -29,6 +29,7 @@ import Maps from "./pages/adventureMapList.jsx";
 import RandomizerPage from "./pages/randomWheelPage.jsx";
 import GuideListPage from "./pages/guideListPage.jsx";
 import TierListIndex from "./pages/tierList.jsx";
+import VaultSimulator from "./pages/vaultSimulator.jsx";
 
 // Đăng nhập / Đăng ký
 import AuthContainer from "./components/auth/authContainer.jsx";
@@ -58,7 +59,7 @@ function MainContent() {
 
 	const isAdmin = location.pathname.startsWith("/admin");
 	// Danh sách các trang full-width
-	const fullWidthPaths = ["/", "/randomizer", "/home", "/introduction"];
+	const fullWidthPaths = ["/", "/randomizer", "/home", "/introduction", "/simulator/vaults"];
 	const isFullWidth = isAdmin || fullWidthPaths.includes(location.pathname);
 
 	useEffect(() => {
@@ -80,6 +81,7 @@ function MainContent() {
 				<Route path='/' element={<Home />} />
 				<Route path='/home' element={<Home />} />
 				<Route path='/randomizer' element={<RandomizerPage />} />
+				<Route path='/simulator/vaults' element={<VaultSimulator />} />
 
 				{/* Các trang khác - có container */}
 
@@ -141,7 +143,8 @@ function AppLayout() {
 			location.pathname === "/" ||
 			location.pathname === "/home" ||
 			location.pathname === "/randomizer" ||
-			location.pathname === "/introduction" ? (
+			location.pathname === "/introduction" ||
+			location.pathname === "/simulator/vaults" ? (
 				<MainContent />
 			) : (
 				<div className='flex justify-center relative w-full'>

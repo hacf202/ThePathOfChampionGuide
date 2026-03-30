@@ -44,7 +44,8 @@
 		"hideMap": "Ẩn bản đồ phiêu lưu",
 		"hide": "Ẩn",
 		"show": "Hiện",
-		"cards": " lá"
+		"cards": " lá",
+		"ad": "Quảng cáo"
 	},
 	"mapList": {
 		"pageTitle": "Danh Sách Bản Đồ",
@@ -807,7 +808,7 @@
 		"pageDesc": "Wiki & Hướng Dẫn Path of Champions chuyên nghiệp nhất",
 		"heroTitle1": "CON ĐƯỜNG",
 		"heroTitle2": "ANH HÙNG",
-		"heroDesc": "Khám phá sức mạnh tối thượng, tối ưu hóa lối chơi và chinh phục mọi thử thách trong Con Đường Anh Hùng.",
+		"heroDesc": "Khám phá sức mạnh tướng, tối ưu hóa lối chơi và chinh phục mọi thử thách trong Con Đường Anh Hùng.",
 		"btnExplore": "KHÁM PHÁ NGAY",
 		"btnNewChampion": "Tướng mới",
 		"scrollDown": "Cuộn xuống",
@@ -835,8 +836,10 @@
 		"learnToPlay": "HỌC CÁCH CHƠI",
 		"footerCTA1": "Bắt đầu",
 		"footerCTA2": "Cuộc Phiêu Lưu",
-		"footerCTA3": "của bạn?",
-		"btnExploreNow": "KHÁM PHÁ NGAY"
+		"footerCTA3": "Của Bạn",
+		"btnExploreNow": "KHÁM PHÁ NGAY",
+		"vaultSimulatorTitle": "Giả Lập Rương",
+		"vaultSimulatorDesc": "Thử vận may với trình giả lập mở rương Cosmic Vault. Xem tỷ lệ rơi các mảnh tướng và cổ vật hiếm nhất!"
 	},
 	"auth": {
 		"loginRegisterTitle": "Đăng nhập / đăng ký",
@@ -1000,6 +1003,7 @@
 		"toolsTitle": "Công cụ",
 		"randomizer": "Vòng quay",
 		"about": "Giới thiệu",
+		"vaultSimulator": "Giả lập mở rương",
 		"guides": "Hướng Dẫn",
 		"language": "Ngôn ngữ",
 		"profile": "Thông tin",
@@ -1023,5 +1027,49 @@
 		"introduction": "Giới Thiệu",
 		"terms": "Điều Khoản Sử Dụng",
 		"followUs": "Theo dõi chúng tôi"
+	},
+	"vaultSimulator": {
+		"vaultLabel": "Kho báu",
+		"vaultNameFormat": "{{vault}} {{tier}}",
+		"titleMain": "RƯƠNG",
+		"titleSub": "KHO BÁU",
+		"description": "Mô phỏng lại tỷ lệ mở rương. Chọn một cấp độ rương để bắt đầu thử vận may của bạn!",
+		"clickToOpen": "Click để mở",
+		"opening": "Đang mở {{vault}}...",
+		"openAgain": "Mở lại",
+		"chooseOther": "Chọn rương khác",
+		"probInfo": "THÔNG TIN TỶ LỆ",
+		"typesOfVaults": "CÁC LOẠI KHO BÁU VŨ TRỤ",
+		"tier": {
+			"bronze": "Đồng",
+			"silver": "Bạc",
+			"gold": "Vàng",
+			"platinum": "Bạch Kim",
+			"diamond": "Kim Cương"
+		},
+		"probBronzeSilverTitle": "KHO BÁU ĐỒNG & BẠC",
+		"probBronzeSilverDesc": "Mảnh Tướng dành cho các tướng giai đoạn đầu.\n• Rương Đồng: 95% rơi 5, 5% rơi 10 Mảnh.\n• Rương Bạc: 90% rơi 10, 10% rơi 15 Mảnh.",
+		"probGoldPlatinumTitle": "KHO BÁU VÀNG & BẠCH KIM",
+		"probGoldPlatinumDesc": "Bắt đầu xuất hiện Cổ Vật.\n• Rương Vàng: 90% rơi 20, 10% rơi 30 (20+10) Mảnh Tướng. Tỉ lệ 30% kèm Cổ Vật Thường (Luôn đi kèm khi ra 30 Mảnh).\n• Rương Bạch Kim: 60% rơi 40, 30% rơi 40 (20+20), 10% rơi 50 (30+20) Mảnh Tướng. Tỉ lệ 30% kèm Cổ Vật Hiếm (Luôn đi kèm khi ra 50 Mảnh).",
+		"probDiamondTitle": "KHO BÁU KIM CƯƠNG",
+		"probDiamondDesc": "Phần thưởng cao cấp nhất.\n• Mảnh Tướng: 75% rơi 80 (40+40), 20% rơi 120 (40+40+40), 5% rơi 240 (80+80+80) cái.\n• Mảnh Vạn Năng: 85% rơi 20, 14% rơi 50, 1% rơi 100 cái.\n• Cổ Vật: 65% , 35% Cổ Vật Hiếm.\n• Bonus: 20% Pha lê tinh tú (x10), 5% Đá Quý (x150).",
+		"sourceTitle": "CÁCH NHẬN RƯƠNG",
+		"sources": {
+			"bronze": "• Thắng các bản đồ phiêu lưu 2 sao trở xuống\n• Hoàn thành Chiến dịchPhước Lành Vũ Trụ Tướng\n• Phần thưởng Nhiệm vụ hàng ngày\n• Mua trong Emporium bằng Mảnh Runeterra",
+			"silver": "• Thắng các bản đồ phiêu lưu\n• Hoàn thành các Nhiệm vụ\n• Nhiệm vụ hàng tuần \"Tiếng gọi Phiêu lưu\"\n• Phần thưởng Cấp độ Truyền thuyết 7",
+			"gold": "• Thắng các bản đồ phiêu lưu\n• Hoàn thành các Nhiệm vụ\n• Phần thưởng Cấp độ Truyền thuyết\n• Nhiệm vụ hàng tuần \"Chiến binh Cổng dịch chuyển\"\n• Mua trong Emporium bằng Mảnh Runeterra",
+			"platinum": "• Hoàn thành Chương V và VI của Con Đường Anh Hùng\n• Mua hàng tháng trong Glory Store (tối đa 5 rương)\n• Phần thưởng Cấp độ Truyền thuyết",
+			"diamond": "• Hoàn thành Nhiệm vụ Thành tựu\n• Hoàn thành Nhiệm vụ Sự kiện\n• Phần thưởng Cấp độ Truyền thuyết"
+		},
+		"loot": {
+			"champFrags": "Mảnh Tướng",
+			"wildFrags": "Mảnh Vạn Năng",
+			"stardust": "Bụi Tinh Tú",
+			"cosmicBlessing": "Siêu Phước Lành Vũ Trụ",
+			"starCrystal": "Pha lê tinh tú",
+			"gemstone": "Đá Quý",
+			"relic": "Cổ Vật",
+			"simulator": "Giả Lập"
+		}
 	}
 }

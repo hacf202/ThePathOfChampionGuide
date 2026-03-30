@@ -130,11 +130,6 @@ const Home = () => {
 				</div>
 			</section>
 
-			{/* AD PLACEMENT 1: AFTER HERO */}
-			<div className='max-w-7xl mx-auto px-6'>
-				<GoogleAd slot='2943049680' format='horizontal' />
-			</div>
-
 			{/* SECTION 2: BENTO GRID */}
 			<section className='py-10 px-6 max-w-7xl mx-auto'>
 				<div className='flex flex-col md:flex-row justify-between items-end mb-12 gap-6'>
@@ -281,45 +276,47 @@ const Home = () => {
 			</section>
 
 			{/* SECTION 4: MONTHLY CHALLENGE */}
-			<section className='relative py-2 md:py-4 px-6 overflow-hidden'>
+			<section className='relative py-6 md:py-12 overflow-hidden'>
 				<div className='absolute top-0 right-0 w-[500px] h-[500px] bg-primary-900/20 blur-[120px] -z-10' />
 				<div className='absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-900/20 blur-[120px] -z-10' />
 
-				<div className='max-w-7xl mx-auto bg-white/5 border border-white/10 rounded-[40px] p-8 md:p-16 backdrop-blur-xl relative'>
-					<div className='grid grid-cols-1 lg:grid-cols-2 gap-12 items-center'>
-						<div className='order-2 lg:order-1'>
-							<div className='flex items-center gap-3 text-primary-400 mb-6 font-bold tracking-widest uppercase'>
-								<Trophy className='w-6 h-6' />
-								<span>{tUI("home.monthlyEvent")}</span>
-							</div>
-							<h2 className='text-4xl md:text-7xl font-bold uppercase mb-8 leading-tight'>
-								{tUI("home.monthlyTitle1")} <br />
-								<span className='text-primary-500'>
-									{tUI("home.monthlyTitle2")}
-								</span>
-							</h2>
-							<p className='text-xl text-gray-400 mb-10 leading-relaxed font-secondary'>
-								{tUI("home.monthlyDesc")}
-							</p>
-							<NavLink
-								to='/guides/thu-thach-thang'
-								className='inline-flex items-center gap-4 px-10 py-5 bg-white text-black font-bold rounded-2xl text-xl hover:bg-primary-400 hover:text-white transition-all'
-							>
-								{tUI("home.btnViewGuides")}{" "}
-								<ArrowDown className='w-6 h-6 -rotate-90' />
-							</NavLink>
-						</div>
-						<div className='order-1 lg:order-2 relative'>
-							<img
-								src={BACKGROUND_IMAGES[2]}
-								alt={tUI("home.monthlyChallengeAlt")}
-								className='rounded-3xl shadow-2xl border border-white/20 scale-105 rotate-3 hover:rotate-0 transition-transform duration-500'
-							/>
-							<div className='absolute -bottom-6 -left-6 bg-primary-600 p-6 rounded-2xl hidden md:block animate-bounce shadow-xl'>
-								<p className='font-bold text-2xl'>70/70</p>
-								<p className='text-xs uppercase'>
-									{tUI("home.challengeStages")}
+				<div className='max-w-7xl mx-auto px-6'>
+					<div className='bg-white/5 border border-white/10 rounded-[40px] p-8 md:p-16 backdrop-blur-xl relative'>
+						<div className='grid grid-cols-1 lg:grid-cols-2 gap-12 items-center'>
+							<div className='order-2 lg:order-1'>
+								<div className='flex items-center gap-3 text-primary-400 mb-6 font-bold tracking-widest uppercase'>
+									<Trophy className='w-6 h-6' />
+									<span>{tUI("home.monthlyEvent")}</span>
+								</div>
+								<h2 className='text-4xl md:text-7xl font-bold uppercase mb-8 leading-tight'>
+									{tUI("home.monthlyTitle1")} <br />
+									<span className='text-primary-500'>
+										{tUI("home.monthlyTitle2")}
+									</span>
+								</h2>
+								<p className='text-xl text-gray-400 mb-10 leading-relaxed font-secondary'>
+									{tUI("home.monthlyDesc")}
 								</p>
+								<NavLink
+									to='/guides/thu-thach-thang'
+									className='inline-flex items-center gap-4 px-10 py-5 bg-white text-black font-bold rounded-2xl text-xl hover:bg-primary-400 hover:text-white transition-all'
+								>
+									{tUI("home.btnViewGuides")}{" "}
+									<ArrowDown className='w-6 h-6 -rotate-90' />
+								</NavLink>
+							</div>
+							<div className='order-1 lg:order-2 relative'>
+								<img
+									src={BACKGROUND_IMAGES[2]}
+									alt={tUI("home.monthlyChallengeAlt")}
+									className='rounded-3xl shadow-2xl border border-white/20 scale-105 rotate-3 hover:rotate-0 transition-transform duration-500'
+								/>
+								<div className='absolute -bottom-6 -left-6 bg-primary-600 p-6 rounded-2xl hidden md:block animate-bounce shadow-xl'>
+									<p className='font-bold text-2xl'>70/70</p>
+									<p className='text-xs uppercase'>
+										{tUI("home.challengeStages")}
+									</p>
+								</div>
 							</div>
 						</div>
 					</div>

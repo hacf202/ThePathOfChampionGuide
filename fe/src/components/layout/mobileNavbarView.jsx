@@ -24,6 +24,7 @@ import {
 	LoaderPinwheel,
 	Menu,
 	X,
+	Gift,
 	BookMarked,
 	Map,
 	BarChartHorizontalBig,
@@ -242,6 +243,13 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 									>
 										<LoaderPinwheel className='w-4 h-4' />{" "}
 										{tUI("nav.randomizer")}
+									</NavLink>
+									<NavLink
+										to='/simulator/vaults'
+										className={dropdownLinkClass}
+										onClick={closeSidebar}
+									>
+										<Gift className='w-4 h-4' /> {tUI("nav.vaultSimulator")}
 									</NavLink>
 									<NavLink
 										to='/introduction'

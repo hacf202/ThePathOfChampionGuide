@@ -1,8 +1,11 @@
 // server.js
 import express from "express"; //tạo server HTTP, các route GET, PUT, POST, DELETE,..
 import cors from "cors"; //cho phép front end gọi api của backend
-import morgan from "morgan"; //in ra console mỗi khi api được gọi (phương thức, đường dẫn, trạng thái, thời gian phản hồi)
-import dotenv from "dotenv"; //giúp tải biến môi trường
+import morgan from "morgan";
+import dotenv from "dotenv";
+import helmet from "helmet";
+import rateLimit from "express-rate-limit";
+import { errorHandler } from "./src/middleware/errorMiddleware.js";
 
 // Import các router từ thư mục src/routes
 import authRouter from "./src/routes/auth.js";
@@ -49,6 +52,7 @@ if (missingEnvVars.length > 0) {
 const app = express(); //khởi tạo backend
 
 // --- Middleware ---
+app.use(helmet()); // Bảo vệ các HTTP header
 app.use(morgan("dev")); // Ghi log request ra console
 /*
 GET, PUT, POST, DELETE: Phương thức gọi (Method).
@@ -64,12 +68,14 @@ GET, PUT, POST, DELETE: Phương thức gọi (Method).
 */
 
 // Cấu hình CORS
-const allowedOrigins = [
-	process.env.FRONTEND_URL,
-	"http://localhost:5173",
-	"https://guidepoc.vercel.app",
-	"https://www.pocguide.top",
-]; //Mảng này chứa tất cả các tên miền (domain) được phép gọi API của bạn.
+const allowedOrigins = process.env.CORS_ALLOWED_ORIGINS
+	? process.env.CORS_ALLOWED_ORIGINS.split(",")
+	: [
+			process.env.FRONTEND_URL,
+			"http://localhost:5173",
+			"https://guidepoc.vercel.app",
+			"https://www.pocguide.top",
+		].filter(Boolean);
 app.use(
 	cors({
 		origin: function (origin, callback) {
@@ -81,6 +87,16 @@ app.use(
 		},
 	}),
 );
+
+// Rate limiting for auth routes
+const authLimiter = rateLimit({
+	windowMs: 15 * 60 * 1000, // 15 minutes
+	max: 20, // Limit each IP to 20 requests per windowMs
+	message: { error: "Too many requests from this IP, please try again after 15 minutes" },
+	standardHeaders: true,
+	legacyHeaders: false,
+});
+app.use("/api/auth", authLimiter);
 
 app.use(express.json({ limit: "5mb" }));
 
@@ -116,6 +132,9 @@ app.get("/api/checkheal", (req, res) => {
 app.use((req, res) => {
 	res.status(404).json({ error: "Route not found" });
 });
+
+// Middleware xử lý lỗi tập trung
+app.use(errorHandler);
 
 // --- Khởi động Server ---
 
