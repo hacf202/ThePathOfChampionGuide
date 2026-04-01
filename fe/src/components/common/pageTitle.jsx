@@ -28,16 +28,33 @@ export default function PageTitle({
 	// 🟢 Xác định locale chuẩn SEO
 	const currentLocale = locale || (language === "vi" ? "vi_VN" : "en_US");
 
-	const jsonLd = {
+	// 🟢 Tạo Schema Breadcrumbs cho Google
+	const pathnames = location.pathname.split("/").filter((x) => x);
+	const breadcrumbList = {
 		"@context": "https://schema.org",
-		"@type": "WebSite",
-		name: siteName,
-		url: baseUrl,
-		description: metaDescription,
+		"@type": "BreadcrumbList",
+		itemListElement: [
+			{
+				"@type": "ListItem",
+				position: 1,
+				name: "Home",
+				item: baseUrl,
+			},
+			...pathnames.map((name, index) => {
+				const routeTo = `${baseUrl}/${pathnames.slice(0, index + 1).join("/")}`;
+				const isLast = index === pathnames.length - 1;
+				return {
+					"@type": "ListItem",
+					position: index + 2,
+					name: name.charAt(0).toUpperCase() + name.slice(1).replace(/-/g, " "),
+					item: routeTo,
+				};
+			}),
+		],
 	};
 
 	return (
-		<Helmet>
+		<Helmet htmlAttributes={{ lang: language }}>
 			<title>{fullTitle}</title>
 			<meta name='description' content={metaDescription} />
 			{noIndex && <meta name='robots' content='noindex, nofollow' />}
@@ -64,6 +81,7 @@ export default function PageTitle({
 			<meta name='twitter:image' content={ogImage} />
 
 			<script type='application/ld+json'>{JSON.stringify(jsonLd)}</script>
+			<script type='application/ld+json'>{JSON.stringify(breadcrumbList)}</script>
 		</Helmet>
 	);
 }
