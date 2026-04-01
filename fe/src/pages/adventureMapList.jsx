@@ -1,86 +1,47 @@
-// src/pages/mapList.jsx
-import React, { useState, useEffect, useMemo } from "react";
+// src/pages/adventureMapList.jsx
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import GenericListLayout from "../components/layout/genericListLayout";
-import MultiSelectFilter from "../components/common/multiSelectFilter"; // Đảm bảo đã import component filter
+import MultiSelectFilter from "../components/common/multiSelectFilter";
+import DropdownFilter from "../components/common/dropdownFilter";
 import { useTranslation } from "../hooks/useTranslation";
-import { removeAccents } from "../utils/vietnameseUtils";
+import { useMapFilters } from "../hooks/useMapFilters";
+import { useGenericData } from "../hooks/useGenericData";
+
+const MapSkeleton = () => (
+	<div className='w-full h-48 bg-surface-hover animate-pulse rounded-xl border border-border'></div>
+);
 
 export default function MapList() {
 	const { tUI, tDynamic } = useTranslation();
-	const [adventures, setAdventures] = useState([]);
-	const [loading, setLoading] = useState(true);
 
-	const API_BASE_URL = import.meta.env.VITE_API_URL;
+	const [filtersData, setFiltersData] = useState(null);
+
+	const { state, actions, filterConfigs, sortOptions, queryParams } =
+		useMapFilters(tUI, filtersData);
+
+	const optionsMap =
+		filterConfigs?.reduce((acc, config) => {
+			acc[config.key] = config.options;
+			return acc;
+		}, {}) || {};
+
+	const { dataList: adventures, loading, error, pagination, dynamicFilters } =
+		useGenericData("adventures", queryParams, tUI, "adventureID");
 
 	useEffect(() => {
-		const fetchMaps = async () => {
-			try {
-				const res = await fetch(`${API_BASE_URL}/api/adventures`);
-				const data = await res.json();
-				setAdventures(data.items || []);
-			} catch (error) {
-				console.error("Lỗi fetch adventures:", error);
-			} finally {
-				setLoading(false);
-			}
-		};
-		fetchMaps();
-	}, [API_BASE_URL]);
-
-	const [searchTerm, setSearchTerm] = useState("");
-	const [selectedDifficulty, setSelectedDifficulty] = useState([]);
-
-	const filterOptions = useMemo(() => {
-		const difficulties = [...new Set(adventures.map(a => a.difficulty))]
-			.filter(Boolean)
-			.sort((a, b) => a - b);
-		return {
-			difficulties: difficulties.map(d => ({
-				value: d.toString(),
-				label: `${d} ${tUI("mapList.star") || "Sao"}`,
-			})),
-		};
-	}, [adventures, tUI]);
-
-	const filteredAdventures = useMemo(() => {
-		let result = [...adventures];
-
-		if (searchTerm) {
-			const term = removeAccents(searchTerm.toLowerCase());
-			result = result.filter(item => {
-				const nameVi = removeAccents((item.adventureName || "").toLowerCase());
-				const nameEn = removeAccents(
-					(item.translations?.en?.adventureName || "").toLowerCase(),
-				);
-				return nameVi.includes(term) || nameEn.includes(term);
-			});
+		if (dynamicFilters && Object.keys(dynamicFilters).length > 0) {
+			setFiltersData(dynamicFilters);
 		}
+	}, [dynamicFilters]);
 
-		if (selectedDifficulty.length > 0) {
-			result = result.filter(item =>
-				selectedDifficulty.includes(item.difficulty?.toString()),
-			);
-		}
-
-		return result;
-	}, [adventures, searchTerm, selectedDifficulty]);
-
-	// Hàm render các bộ lọc (truyền vào GenericListLayout)
-	const renderFilters = () => (
-		<MultiSelectFilter
-			label={tUI("mapList.difficulty") || "Độ khó"}
-			options={filterOptions.difficulties}
-			selectedValues={selectedDifficulty}
-			onChange={setSelectedDifficulty}
-			placeholder={tUI("mapList.allDifficulties") || "Tất cả độ khó"}
-		/>
-	);
-
-	// Hàm render Skeleton khi đang tải (truyền vào GenericListLayout)
-	const renderSkeleton = () => (
-		<div className='w-full h-48 bg-surface-hover animate-pulse rounded-xl border border-border'></div>
-	);
+	if (error) {
+		return (
+			<div className='flex justify-center py-20 text-red-500'>
+				{error.message || tUI("common.errorLoadData")}
+			</div>
+		);
+	}
 
 	return (
 		<GenericListLayout
@@ -90,25 +51,17 @@ export default function MapList() {
 				"Tổng hợp tất cả bản đồ (Adventures) và Boss trong trò chơi."
 			}
 			heading={tUI("mapList.pageTitle") || "Danh Sách Bản Đồ"}
-			// Data
-			data={filteredAdventures}
+			data={adventures}
 			loading={loading}
-			// Search
-			searchValue={searchTerm}
-			onSearchChange={setSearchTerm}
-			onSearchSubmit={() => {}} // Có thể để trống nếu tìm kiếm realtime
-			searchPlaceholder={
-				tUI("mapList.searchPlaceholder") || "Tìm kiếm bản đồ..."
-			}
-			// Actions & Filters
-			onResetFilters={() => {
-				setSearchTerm("");
-				setSelectedDifficulty([]);
-			}}
-			renderFilters={renderFilters} // Truyền function render filters
-			renderSkeleton={renderSkeleton} // Truyền function render skeleton
-			skeletonCount={8}
-			// Render Item
+			pagination={pagination}
+			currentPage={state.currentPage}
+			onPageChange={actions.setCurrentPage}
+			searchValue={state.searchInput || ""}
+			onSearchChange={actions.setSearchInput}
+			onSearchSubmit={actions.handleSearch}
+			searchPlaceholder={tUI("mapList.searchPlaceholder") || "Tìm kiếm bản đồ..."}
+			onResetFilters={actions.handleResetFilters}
+			renderSkeleton={() => <MapSkeleton />}
 			renderItem={item => (
 				<Link
 					key={item.adventureID}
@@ -147,6 +100,23 @@ export default function MapList() {
 						</div>
 					</div>
 				</Link>
+			)}
+			renderFilters={() => (
+				<>
+					<MultiSelectFilter
+						label={tUI("mapList.difficulty") || "Độ khó"}
+						options={optionsMap.difficulty || []}
+						selectedValues={state.customFilters?.difficulty || []}
+						onChange={vals => actions.setFilterValue("difficulty", vals)}
+						placeholder={tUI("mapList.allDifficulties") || "Tất cả độ khó"}
+					/>
+					<DropdownFilter
+						label={tUI("championList.sortBy")}
+						options={sortOptions || []}
+						selectedValue={state.sortOrder}
+						onChange={actions.setSortOrder}
+					/>
+				</>
 			)}
 		/>
 	);

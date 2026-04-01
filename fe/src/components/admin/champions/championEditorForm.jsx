@@ -25,6 +25,7 @@ import EditorHeaderToolbar from "../common/editorHeaderToolbar";
 import ImagePreviewBox from "../common/imagePreviewBox";
 import DragDropArrayInput from "../common/dragDropArrayInput";
 import DragDropDeckInput from "../common/DragDropDeckInput";
+import MarkupEditor from "../MarkupEditor"; // 🟢 Import MarkupEditor
 
 // Import các component hỗ trợ (Giữ nguyên component gốc cho Nodes/Map)
 import {
@@ -180,11 +181,18 @@ const ChampionEditorForm = memo(
 			setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
 
 		const handleTranslationChange = useCallback((field, value) => {
+			updateTranslationFields("en", { [field]: value });
+		}, []);
+
+		const updateTranslationFields = useCallback((lang, fields) => {
 			setFormData(prev => ({
 				...prev,
 				translations: {
 					...prev.translations,
-					en: { ...(prev.translations?.en || {}), [field]: value },
+					[lang]: {
+						...(prev.translations?.[lang] || {}),
+						...fields,
+					},
 				},
 			}));
 		}, []);
@@ -308,14 +316,14 @@ const ChampionEditorForm = memo(
 								/>
 								<div className='grid grid-cols-2 gap-4'>
 									<InputField
-										label='Tên tướng (Tiếng Việt)'
+										label='Tên tướng'
 										name='name'
 										value={formData.name || ""}
 										onChange={handleInputChange}
 										required
 									/>
 									<InputField
-										label='Tên tướng (English Name)'
+										label='English Name'
 										value={formData.translations?.en?.name || ""}
 										onChange={e =>
 											handleTranslationChange("name", e.target.value)
@@ -379,26 +387,32 @@ const ChampionEditorForm = memo(
 							<div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
 								<div className='flex flex-col gap-2'>
 									<label className='block font-semibold text-text-primary text-sm'>
-										Mô tả hướng dẫn chơi chi tiết (Tiếng Việt)
+										Mô tả hướng dẫn chơi chi tiết
 									</label>
-									<textarea
-										name='description'
+									<MarkupEditor
 										value={formData.description || ""}
-										onChange={handleInputChange}
-										className='w-full p-4 rounded-lg border border-border bg-surface-hover/30 text-text-primary text-sm min-h-[200px] outline-none focus:border-primary-500'
+										onChange={({ markup, raw }) =>
+											setFormData(prev => ({
+												...prev,
+												description: markup,
+												descriptionRaw: raw,
+											}))
+										}
 										placeholder='Nhập mô tả, chiến thuật, cách combo...'
 									/>
 								</div>
 								<div className='flex flex-col gap-2'>
 									<label className='block font-semibold text-text-primary text-sm'>
-										Mô tả hướng dẫn chơi chi tiết (English)
+										Mô tả hướng dẫn chơi chi tiết
 									</label>
-									<textarea
+									<MarkupEditor
 										value={formData.translations?.en?.description || ""}
-										onChange={e =>
-											handleTranslationChange("description", e.target.value)
+										onChange={({ markup, raw }) =>
+											updateTranslationFields("en", {
+												description: markup,
+												descriptionRaw: raw,
+											})
 										}
-										className='w-full p-4 rounded-lg border border-border bg-surface-hover/30 text-text-primary text-sm min-h-[200px] outline-none focus:border-primary-500'
 										placeholder='Enter description, strategy, combos...'
 									/>
 								</div>
@@ -555,34 +569,19 @@ const ChampionEditorForm = memo(
 											className='w-full h-full object-cover opacity-50'
 										/>
 										<svg className='absolute inset-0 w-full h-full pointer-events-none'>
-											<defs>
-												<marker
-													id='arrowhead'
-													markerWidth='5'
-													markerHeight='5'
-													refX='4.8'
-													refY='2.5'
-													orient='auto'
-												>
-													<path
-														d='M0,0 L5,2.5 L0,5 Z'
-														fill='rgba(234, 179, 8, 0.6)'
-													/>
-												</marker>
-												<marker
-													id='arrowhead-recommended'
-													markerWidth='5'
-													markerHeight='5'
-													refX='4.8'
-													refY='2.5'
-													orient='auto'
-												>
-													<path
-														d='M0,0 L5,2.5 L0,5 Z'
-														fill='rgba(234, 179, 8, 1)'
-													/>
-												</marker>
-											</defs>
+											<marker
+												id='arrowhead'
+												markerWidth='5'
+												markerHeight='5'
+												refX='4.8'
+												refY='2.5'
+												orient='auto'
+											>
+												<path
+													d='M0,0 L5,2.5 L0,5 Z'
+													fill='rgba(234, 179, 8, 0.6)'
+												/>
+											</marker>
 											{constData.nodes.map(node =>
 												node.nextNodes?.map(tID => {
 													const target = constData.nodes.find(
@@ -596,9 +595,6 @@ const ChampionEditorForm = memo(
 																y1={node.position?.y ?? 0}
 																x2={target.position?.x ?? 0}
 																y2={target.position?.y ?? 0}
-																isRecommended={
-																	node.isRecommended && target.isRecommended
-																}
 															/>
 														)
 													);
@@ -761,24 +757,24 @@ const ChampionEditorForm = memo(
 						<div className='space-y-6'>
 							<div className='grid grid-cols-1 md:grid-cols-2 gap-8 border-b border-border pb-6'>
 								<ArrayInputComponent
-									label='Vùng (Region - Tiếng Việt)'
+									label='Vùng (Region)'
 									data={formData.regions || []}
 									onChange={d => setFormData({ ...formData, regions: d })}
 								/>
 								<ArrayInputComponent
-									label='Vùng (Region - English)'
+									label='Vùng (Region)'
 									data={formData.translations?.en?.regions || []}
 									onChange={d => handleTranslationChange("regions", d)}
 								/>
 							</div>
-							<div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
+							<div className='grid grid-cols-1 md:grid-cols-2 gap-8 border-b border-border pb-6'>
 								<ArrayInputComponent
-									label='Thẻ (Tags - Tiếng Việt)'
+									label='Thẻ (Tags)'
 									data={formData.tags || []}
 									onChange={d => setFormData({ ...formData, tags: d })}
 								/>
 								<ArrayInputComponent
-									label='Thẻ (Tags - English)'
+									label='Thẻ (Tags)'
 									data={formData.translations?.en?.tags || []}
 									onChange={d => handleTranslationChange("tags", d)}
 								/>
@@ -935,7 +931,7 @@ const ChampionEditorForm = memo(
 							<div className='grid grid-cols-1 md:grid-cols-2 gap-6 mt-4'>
 								<div className='flex flex-col gap-2'>
 									<label className='text-sm font-semibold'>
-										Ghi chú lối chơi (Tiếng Việt)
+										Ghi chú lối chơi
 									</label>
 									<textarea
 										rows={3}
@@ -955,7 +951,7 @@ const ChampionEditorForm = memo(
 								</div>
 								<div className='flex flex-col gap-2'>
 									<label className='text-sm font-semibold'>
-										Ghi chú lối chơi (English)
+										Ghi chú lối chơi
 									</label>
 									<textarea
 										rows={3}

@@ -41,7 +41,7 @@ async function getCachedCards() {
 
 /**
  * @route   GET /api/cards
- * @desc    Lấy danh sách lá bài với tìm kiếm và phân trang
+ * @desc    Lấy danh sách lá bài với tìm kiếm và phân trang (Tối ưu hóa query)
  */
 router.get("/", async (req, res) => {
 	try {
@@ -49,24 +49,70 @@ router.get("/", async (req, res) => {
 			page = 1,
 			limit = 24,
 			searchTerm = "",
+			rarities = "", // Common, Rare, etc.
+			regions = "",  // Noxus, Ionia, etc.
+			types = "",    // Unit, Spell, Landmark, Equipment
+			costs = "",    // 0, 1, 2, ...
 			sort = "cardName-asc",
 		} = req.query;
 
 		const pageSize = parseInt(limit);
 		const currentPage = parseInt(page);
 
+		// --- Default: Scan all and cache-filter ---
 		const allCards = await getCachedCards();
-
 		let filtered = [...allCards];
 
-		if (searchTerm) {
-			const searchKey = removeAccents(searchTerm.toLowerCase());
+		// 1. Lọc theo Rarity
+		if (rarities) {
+			const rarityList = rarities.split(",").map(r => r.trim().toLowerCase());
 			filtered = filtered.filter(c => {
-				const nameVi = removeAccents((c.cardName || "").toLowerCase());
-				const nameEn = removeAccents(
-					(c.translations?.en?.cardName || "").toLowerCase(),
-				);
-				return nameVi.includes(searchKey) || nameEn.includes(searchKey);
+				const cardRarity = (c.rarity || "None").toLowerCase();
+				return rarityList.includes(cardRarity);
+			});
+		}
+
+		// 2. Lọc theo Regions
+		if (regions) {
+			const regionList = regions.split(",").map(r => r.trim().toLowerCase());
+			filtered = filtered.filter(c => {
+				const cardRegions = (c.regions || []).map(r => r.toLowerCase());
+				return regionList.some(r => cardRegions.includes(r));
+			});
+		}
+
+		// 3. Lọc theo Types
+		if (types) {
+			const typeList = types.split(",").map(t => t.trim().toLowerCase());
+			filtered = filtered.filter(c => {
+				const typeVi = (c.type || "").toLowerCase();
+				const typeEn = (c.translations?.en?.type || "").toLowerCase();
+				return typeList.includes(typeVi) || typeList.includes(typeEn);
+			});
+		}
+
+		// 4. Lọc theo Costs
+		if (costs) {
+			const costList = costs.split(",").map(c => parseInt(c.trim()));
+			filtered = filtered.filter(c => costList.includes(c.cost || 0));
+		}
+
+		// 5. Tìm kiếm (Bilingual & Multi-field)
+		if (searchTerm) {
+			const searchWords = removeAccents(searchTerm.toLowerCase()).split(/\s+/).filter(Boolean);
+			filtered = filtered.filter(c => {
+				// Các trường dữ liệu để tìm kiếm
+				const textSources = [
+					c.cardName,
+					c.description,
+					c.descriptionRaw,
+					c.translations?.en?.cardName,
+					c.translations?.en?.description,
+					c.translations?.en?.descriptionRaw
+				].filter(Boolean).map(text => removeAccents(text.toLowerCase()));
+
+				// Kiểm tra: Mọi từ trong keyword phải xuất hiện ở ÍT NHẤT 1 trường dữ liệu
+				return searchWords.every(word => textSources.some(source => source.includes(word)));
 			});
 		}
 
@@ -81,24 +127,13 @@ router.get("/", async (req, res) => {
 		});
 
 		const totalItems = filtered.length;
-		let paginatedItems;
-
-		if (pageSize < 0) {
-			paginatedItems = filtered;
-		} else {
-			paginatedItems = filtered.slice(
-				(currentPage - 1) * pageSize,
-				currentPage * pageSize,
-			);
-		}
-
-		const totalPages = pageSize > 0 ? Math.ceil(totalItems / pageSize) : 1;
+		const paginatedItems = pageSize < 0 ? filtered : filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
 		res.json({
 			items: paginatedItems,
 			pagination: {
 				totalItems,
-				totalPages,
+				totalPages: pageSize > 0 ? Math.ceil(totalItems / pageSize) : 1,
 				currentPage,
 				pageSize: pageSize < 0 ? totalItems : pageSize,
 			},

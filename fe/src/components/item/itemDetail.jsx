@@ -6,7 +6,9 @@ import { Loader2, ChevronLeft, XCircle } from "lucide-react";
 import PageTitle from "../common/pageTitle";
 import Button from "../common/button";
 import SafeImage from "../common/SafeImage";
+import MarkupRenderer from "../common/MarkupRenderer"; // 🟢 Import MarkupRenderer
 import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook Đa ngôn ngữ
+import { getRarityKey } from "../../utils/i18nHelpers"; // 🟢 Import i18n Helper
 
 // --- THÀNH PHẦN SKELETON LOADING ---
 const ItemDetailSkeleton = () => (
@@ -87,7 +89,7 @@ function ItemDetail() {
 		? tDynamic(item, "descriptionRaw") || tDynamic(item, "description")
 		: "";
 	const itemRarity = item?.rarity
-		? tDynamic(item, "rarity") || tUI(item.rarity) || item.rarity
+		? tDynamic(item, "rarity") || tUI(`item.rarity.${getRarityKey(item.rarity)}`) || item.rarity
 		: "";
 
 	const compatibleChampions = useMemo(() => {
@@ -171,12 +173,9 @@ function ItemDetail() {
 									</div>
 									{itemDesc && (
 										<div className='flex-1 mt-4'>
-											<div
-												className='text-base sm:text-xl rounded-lg p-4 h-full min-h-[120px] leading-relaxed bg-surface-bg border text-text-secondary overflow-y-auto'
-												dangerouslySetInnerHTML={{
-													__html: itemDesc,
-												}}
-											/>
+											<div className='text-base sm:text-xl rounded-lg p-4 h-full min-h-[120px] leading-relaxed bg-surface-bg border text-text-secondary overflow-y-auto'>
+												<MarkupRenderer text={itemDesc} />
+											</div>
 										</div>
 									)}
 								</div>

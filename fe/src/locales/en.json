@@ -32,9 +32,10 @@
 		"selectOption": "Select an option...",
 		"errorTitle": "Error",
 		"all": "All",
-		"commonRarity": "Common",
 		"rarity": "Rarity",
 		"type": "Type",
+		"region": "Region",
+		"cost": "Cost",
 		"stacks": "Stacks",
 		"reset": "Reset",
 		"stack": "Stack",
@@ -49,6 +50,24 @@
 		"show": "Show",
 		"cards": " cards",
 		"ad": "Advertisement"
+	},
+	"cardList": {
+		"title": "Card Gallery",
+		"heading": "Explore Cards",
+		"metaDesc": "Full library of cards in Path of Champions (Legends of Runeterra). Search and view stats and effects.",
+		"searchLabel": "Search cards",
+		"placeholder": "Exact card name...",
+		"notFound": "No cards found.",
+		"loadMore": "Load more cards",
+		"noMore": "All cards displayed"
+	},
+	"cardDetail": {
+		"title": "Card Details",
+		"metaDesc": "Detailed information about the card",
+		"notFoundPrefix": "Card not found with code:",
+		"errorLoad": "Error loading card information.",
+		"back": "Back to gallery",
+		"imageAlt": "Card image {{name}}"
 	},
 	"mapList": {
 		"pageTitle": "Adventure Maps",
@@ -82,11 +101,16 @@
 		"noNodeDescription": "No detailed description for this Node type."
 	},
 	"rarity": {
+		"common": "Common",
+		"rare": "Rare",
+		"epic": "Epic",
+		"champion": "Champion",
+		"none": "None",
 		"thuong": "Common",
 		"hiem": "Rare",
 		"suthi": "Epic",
-		"huyenthoai": "Legendary",
-		"dacbiet": "Special"
+		"legendary": "Legendary",
+		"special": "Special"
 	},
 	"relic": {
 		"rarity": {
@@ -96,18 +120,18 @@
 			"legendary": "Legendary"
 		},
 		"types": {
-			"chung": "General",
-			"trấn": "Signature",
-			"tiêu thụ": "Consumables"
+			"general": "General",
+			"signature": "Signature",
+			"consumable": "Consumables"
 		}
 	},
 	"power": {
 		"rarity": {
-			"thưá»ng": "Common",
-			"hiếm": "Rare",
-			"sử thi": "Epic",
-			"huyá»n thoáº¡i": "Legendary",
-			"đặc biệt": "Special"
+			"common": "Common",
+			"rare": "Rare",
+			"epic": "Epic",
+			"legendary": "Legendary",
+			"special": "Special"
 		},
 		"types": {
 			"arcanepower": "Arcane Power",
@@ -127,18 +151,18 @@
 	},
 	"item": {
 		"rarity": {
-			"thưá»ng": "Common",
-			"hiếm": "Rare",
-			"sử thi": "Epic",
-			"đặc biệt": "Special"
+			"common": "Common",
+			"rare": "Rare",
+			"epic": "Epic",
+			"special": "Special"
 		}
 	},
 	"rune": {
 		"rarity": {
-			"thưá»ng": "Common",
-			"hiếm": "Rare",
-			"sử thi": "Epic",
-			"huyá»n thoáº¡i": "Legendary"
+			"common": "Common",
+			"rare": "Rare",
+			"epic": "Epic",
+			"legendary": "Legendary"
 		}
 	},
 	"region": {
@@ -390,6 +414,9 @@
 			"adventure": "Adventures",
 			"images": "Images",
 			"cards": "Cards"
+		},
+		"userNav": {
+			"cards": "Card Gallery"
 		},
 		"sidebar": {
 			"title": "Admin",
@@ -711,6 +738,7 @@
 		"back": "Back",
 		"showLess": "Show less",
 		"showMore": "Show more",
+		"suggestedTitle": "Other Champions",
 		"constellation": "Constellation",
 		"video": "Showcase Video",
 		"relicSets": "Relic Sets",

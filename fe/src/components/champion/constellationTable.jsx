@@ -4,6 +4,7 @@ import { Star } from "lucide-react";
 import { Link } from "react-router-dom"; // 🟢 Import Link để chuyển hướng
 import { RenderRequirements } from "./requirementIcon";
 import { useTranslation } from "../../hooks/useTranslation";
+import MarkupRenderer from "../common/MarkupRenderer";
 
 const StarRating = ({ count }) => {
 	return (
@@ -156,12 +157,7 @@ export default function ConstellationTable({ starPowersList, bonusStarsList }) {
 
 									{/* Cột 5: Sức mạnh (Mô tả) */}
 									<td className='py-1 px-2 sm:px-4 align-middle text-xs sm:text-[13px] text-text-primary leading-relaxed'>
-										<div
-											dangerouslySetInnerHTML={{
-												__html:
-													tDynamic(node, "description") || node.description,
-											}}
-										/>
+										<MarkupRenderer text={tDynamic(node, "description") || node.description} />
 									</td>
 								</tr>
 							);

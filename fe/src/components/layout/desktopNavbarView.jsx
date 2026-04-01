@@ -182,6 +182,13 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 										>
 											<ScrollText className='w-5 h-5' /> {tUI("nav.builds")}
 										</NavLink>
+										<NavLink
+											to='/cards'
+											className={dropdownLinkClass}
+											onClick={handleNavClick}
+										>
+											<BookOpen className='w-5 h-5' /> {tUI("cardList.title")}
+										</NavLink>
 									</div>
 								</div>
 							)}

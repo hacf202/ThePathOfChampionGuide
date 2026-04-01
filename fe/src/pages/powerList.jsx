@@ -107,6 +107,8 @@ function PowerList() {
 							src={power.assetAbsolutePath}
 							alt={powerName}
 							className='w-12 h-12 sm:w-16 sm:h-16 shrink-0 object-cover rounded-md group transition-all'
+							width={128}
+							height={128}
 						/>
 						<div className='flex-grow overflow-hidden'>
 							<h3 className='font-bold text-lg text-text-primary group-hover:text-primary-500 truncate'>

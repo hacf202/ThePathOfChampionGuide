@@ -33,7 +33,9 @@
 		"errorTitle": "Lỗi",
 		"reset": "Đặt lại",
 		"rarity": "Độ hiếm",
-		"type": "Loại",
+		"type": "Loại bài",
+		"region": "Khu vực",
+		"cost": "Tiêu hao",
 		"all": "Tất cả",
 		"stack": "Số lượng",
 		"views": "Lượt xem",
@@ -46,6 +48,24 @@
 		"show": "Hiện",
 		"cards": " lá",
 		"ad": "Quảng cáo"
+	},
+	"cardList": {
+		"title": "Thư Viện Lá Bài",
+		"heading": "Khám Phá Lá Bài",
+		"metaDesc": "Thư viện đầy đủ các lá bài trong Path of Champions (Legends of Runeterra). Tìm kiếm và xem chi tiết chỉ số, hiệu ứng.",
+		"searchLabel": "Tìm kiếm lá bài",
+		"placeholder": "Nhập tên lá bài chính xác...",
+		"notFound": "Không tìm thấy lá bài nào.",
+		"loadMore": "Tải thêm thẻ bài",
+		"noMore": "Đã hiển thị tất cả thẻ bài"
+	},
+	"cardDetail": {
+		"title": "Chi tiết lá bài",
+		"metaDesc": "Thông tin chi tiết về lá bài",
+		"notFoundPrefix": "Không tìm thấy lá bài mã:",
+		"errorLoad": "Lỗi tải thông tin lá bài.",
+		"back": "Quay lại danh sách",
+		"imageAlt": "Ảnh lá bài {{name}}"
 	},
 	"mapList": {
 		"pageTitle": "Danh Sách Bản Đồ",
@@ -79,11 +99,16 @@
 		"noNodeDescription": "Không có mô tả chi tiết cho loại Node này."
 	},
 	"rarity": {
+		"common": "Thường",
+		"rare": "Hiếm",
+		"epic": "Sử Thi",
+		"champion": "Anh Hùng",
+		"none": "Không có",
 		"thuong": "Thường",
 		"hiem": "Hiếm",
 		"suthi": "Sử Thi",
-		"huyenthoai": "Huyền Thoại",
-		"dacbiet": "Đặc Biệt"
+		"legendary": "Huyền Thoại",
+		"special": "Đặc Biệt"
 	},
 	"relic": {
 		"rarity": {
@@ -93,18 +118,18 @@
 			"legendary": "Huyền Thoại"
 		},
 		"types": {
-			"chung": "Chung",
-			"trấn": "Trấn",
-			"tiêu thụ": "Tiêu Thụ"
+			"general": "Chung",
+			"signature": "Trấn",
+			"consumable": "Tiêu Thụ"
 		}
 	},
 	"power": {
 		"rarity": {
-			"thường": "Thường",
-			"hiếm": "Hiếm",
-			"sử thi": "Sử Thi",
-			"huyền thoại": "Huyền Thoại",
-			"đặc biệt": "Đặc Biệt"
+			"common": "Thường",
+			"rare": "Hiếm",
+			"epic": "Sử Thi",
+			"legendary": "Huyền Thoại",
+			"special": "Đặc Biệt"
 		},
 		"types": {
 			"arcanepower": "Arcane Power",
@@ -124,19 +149,19 @@
 	},
 	"item": {
 		"rarity": {
-			"thường": "Thường",
-			"hiếm": "Hiếm",
-			"sử thi": "Sử Thi",
-			"huyền thoại": "Huyền Thoại",
-			"đặc biệt": "Đặc Biệt"
+			"common": "Thường",
+			"rare": "Hiếm",
+			"epic": "Sử Thi",
+			"legendary": "Huyền Thoại",
+			"special": "Đặc Biệt"
 		}
 	},
 	"rune": {
 		"rarity": {
-			"thường": "Thường",
-			"hiếm": "Hiếm",
-			"sử thi": "Sử Thi",
-			"huyền thoại": "Huyền Thoại"
+			"common": "Thường",
+			"rare": "Hiếm",
+			"epic": "Sử Thi",
+			"legendary": "Huyền Thoại"
 		}
 	},
 	"region": {
@@ -388,6 +413,9 @@
 			"adventure": "Quản lý Bản Đồ",
 			"images": "Quản lý Ảnh",
 			"cards": "Quản lý Lá Bài"
+		},
+		"userNav": {
+			"cards": "Thư Viện Lá Bài"
 		},
 		"sidebar": {
 			"title": "Admin",
@@ -714,6 +742,7 @@
 		"back": "Quay lại",
 		"showLess": "Thu gọn",
 		"showMore": "Hiển thị toàn bộ",
+		"suggestedTitle": "Các Tướng Khác",
 		"constellation": "Chòm sao",
 		"video": "Video giới thiệu",
 		"relicSets": "Bộ cổ vật",
@@ -862,7 +891,7 @@
 		"newPassLabel": "Mật khẩu mới",
 		"newPassPlaceholder": "Nhập mật khẩu mới",
 		"confirmNewPassLabel": "Xác nhận mật khẩu",
-		"passHint": "Mật khẩu chỉ cần tối thiểu 8 ký tự, bao gồm chữ thường và số.",
+		"common": "Mật khẩu chỉ cần tối thiểu 8 ký tự, bao gồm chữ thường và số.",
 		"resetPassword": "Đặt lại mật khẩu",
 		"resendCode": "Gửi lại mã",
 		"resendBtn": "Gửi Lại OTP",
@@ -879,7 +908,7 @@
 			"otpReq": "Vui lòng nhập mã OTP",
 			"newPassReq": "Vui lòng nhập mật khẩu mới",
 			"passMin": "Mật khẩu phải ≥ 8 ký tự",
-			"passLower": "Phải có 1 chữ thường",
+			"common": "Phải có 1 chữ thường",
 			"passNum": "Phải có 1 số",
 			"passFormatFull": "Mật khẩu mới phải có ít nhất 8 ký tự, bao gồm chữ và số",
 			"passConfirmReq": "Vui lòng xác nhận mật khẩu",
@@ -927,7 +956,7 @@
 		"whoWeAre2": "Tôi bắt đầu chơi và trải nghiệm chế độ <strong>Con Đường Anh Hùng</strong> từ ngày nó mới bắt đầu , khi chế độ <i>Path of Champions</i> vừa ra mắt. Tôi từ tân binh bắt đầu niềm đam mê của mình — khám phá trải nghiệm nhiều tướng, nhiều bản đồ, tìm ra nhiều chiến thuật mới và tôi muốn chia sẻ nó đến với cộng đồng.",
 		"whoWeAre3": "Chúng tôi ghi chép lại mọi thứ: <em>lối chơi nào tốt, cổ vật nào mạnh phù hợp ra sao với tướng, sức mạnh nào nên chọn ở mỗi ngã rẽ, tướng nào có thể vượt qua những thử thách khó khăn.</em> — và cùng nhau hoàn thiện qua mỗi bản cập nhật.",
 		"whoWeAre4": "Đến khoảng <strong>tháng 4 2025</strong>, tôi nhận ra rằng những kiến thức tích lũy qua hàng ngàn lượt chơi có thể giúp rất nhiều người chơi — đặc biệt là những ai đang bối rối trước độ khó tăng dần của con đường anh hùng. Đó là lúc <strong>Guide POC</strong> chính thức ra đời.",
-		"whoWeAre5": "Trang web được <strong>tôi sáng lập</strong> duy trì và quản lý, cùng với <strong>đóng góp thường xuyên</strong> từ những người chơi có cùng tinh thần tò mò, kiên trì và hợp tác.",
+		"common": "Trang web được <strong>tôi sáng lập</strong> duy trì và quản lý, cùng với <strong>đóng góp thường xuyên</strong> từ những người chơi có cùng tinh thần tò mò, kiên trì và hợp tác.",
 		"whatWeDoTitle": "Chúng tôi làm gì",
 		"whatWeDoIntro": "<strong>Guide POC</strong> tập trung vào:",
 		"whatWeDoLi1": "Đề xuất <strong>bộ cổ vật</strong> tối ưu cho từng tướng",
@@ -952,7 +981,7 @@
 		"card1Title": "Đường đi ngẫu nhiên",
 		"card1Desc": "Mỗi bản đồ được tạo ngẫu nhiên – không có 2 lượt chơi giống nhau.",
 		"card2Title": "Cổ vật & Sức mạnh",
-		"card2Desc": "Thu thập Relic và Power để biến tướng thường thành quái vật.",
+		"common": "Thu thập Relic và Power để biến tướng thường thành quái vật.",
 		"card3Title": "7 Sao – Thử thách tối thượng",
 		"card3Desc": "Hoàn thành mọi boss, mọi ngã rẽ để đạt 7 sao cho mỗi tướng.",
 		"featuredChampions": "Nhân vật nổi bật",

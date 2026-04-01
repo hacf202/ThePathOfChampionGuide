@@ -5,19 +5,38 @@ const SafeImage = ({
 	src,
 	alt = "Image",
 	className = "",
-	crossOrigin = undefined, // Mặc định là undefined để không kích hoạt kiểm tra CORS
+	crossOrigin = undefined,
 	fallback = "/fallback-image.svg",
 	loading = "lazy",
+	width, // Thêm prop width
+	height, // Thêm prop height
 }) => {
-	const [imgSrc, setImgSrc] = useState(src || fallback);
+	const getOptimizedSrc = (originalSrc) => {
+		if (!originalSrc || typeof originalSrc !== "string") return originalSrc;
+		
+		// Nếu là link proxy của mình, ta có thể thêm tham số resize
+		if (originalSrc.includes("/proxy-image")) {
+			try {
+				const url = new URL(originalSrc, window.location.origin);
+				if (width) url.searchParams.set("w", width);
+				if (height) url.searchParams.set("h", height);
+				return url.pathname + url.search;
+			} catch (e) {
+				return originalSrc;
+			}
+		}
+		return originalSrc;
+	};
+
+	const optimizedSrc = getOptimizedSrc(src);
+	const [imgSrc, setImgSrc] = useState(optimizedSrc || fallback);
 	const [hasError, setHasError] = useState(false);
 
 	useEffect(() => {
-		if (src) {
-			setImgSrc(src);
-			setHasError(false);
-		}
-	}, [src]);
+		const newSrc = getOptimizedSrc(src);
+		setImgSrc(newSrc || fallback);
+		setHasError(false);
+	}, [src, width, height]);
 
 	const handleError = () => {
 		if (!hasError && imgSrc !== fallback) {
@@ -33,7 +52,7 @@ const SafeImage = ({
 			className={className}
 			onError={handleError}
 			loading={loading}
-			crossOrigin={crossOrigin} // Chỉ có giá trị khi ta truyền vào từ TierListMaker
+			crossOrigin={crossOrigin}
 		/>
 	);
 };

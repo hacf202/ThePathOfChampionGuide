@@ -22,6 +22,8 @@ import Button from "../../common/button";
 import { useTranslation } from "../../../hooks/useTranslation";
 
 // --- Helper: StrictModeDroppable để tránh lỗi React 18 ---
+import MarkupEditor from "../MarkupEditor";
+
 const StrictModeDroppable = ({ children, ...props }) => {
 	const [enabled, setEnabled] = useState(false);
 	useEffect(() => {
@@ -74,21 +76,23 @@ const BlockItem = ({ block, index, onUpdate, onDelete, referenceData }) => {
 
 			case "paragraph":
 				return (
-					<div className='grid grid-cols-1 gap-3'>
-						<textarea
-							className='w-full p-3 text-sm border border-border rounded bg-surface-bg text-text-primary focus:ring-2 focus:ring-primary-500 outline-none'
-							placeholder='Nội dung (VN) - Hỗ trợ thẻ HTML cơ bản như <b>, <i>, <br>...'
-							value={block.text || ""}
-							onChange={e => handleChange("text", e.target.value)}
-							rows={4}
-						/>
-						<textarea
-							className='w-full p-3 text-sm border border-border rounded bg-surface-hover/30 text-text-primary focus:ring-2 focus:ring-primary-500 outline-none'
-							placeholder='Content (EN)...'
-							value={block.text_en || ""}
-							onChange={e => handleChange("text_en", e.target.value)}
-							rows={4}
-						/>
+					<div className='grid grid-cols-1 gap-6'>
+						<div className="flex flex-col gap-1">
+							<span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Tiếng Việt (VI)</span>
+							<MarkupEditor
+								value={block.text || ""}
+								onChange={({ markup, raw }) => onUpdate({ ...block, text: markup, textRaw: raw })}
+								placeholder='Nội dung (VN)...'
+							/>
+						</div>
+						<div className="flex flex-col gap-1">
+							<span className="text-[10px] font-bold text-blue-400 uppercase tracking-widest pl-1">Tiếng Anh (EN)</span>
+							<MarkupEditor
+								value={block.text_en || ""}
+								onChange={({ markup, raw }) => onUpdate({ ...block, text_en: markup, text_enRaw: raw })}
+								placeholder='Content (EN)...'
+							/>
+						</div>
 					</div>
 				);
 
@@ -178,12 +182,10 @@ const BlockItem = ({ block, index, onUpdate, onDelete, referenceData }) => {
 			case "quote":
 				return (
 					<div className='space-y-3 bg-surface-hover/10 p-3 rounded border border-border border-l-4 border-l-gray-400'>
-						<textarea
-							className='w-full p-3 text-sm border border-border rounded bg-surface-bg text-text-primary focus:ring-2 focus:ring-gray-500 outline-none font-serif italic'
-							placeholder='Nội dung trích dẫn...'
+						<MarkupEditor
 							value={block.text || ""}
-							onChange={e => handleChange("text", e.target.value)}
-							rows={3}
+							onChange={({ markup, raw }) => onUpdate({ ...block, text: markup, textRaw: raw })}
+							placeholder='Nội dung trích dẫn...'
 						/>
 						<input
 							className='w-full p-2.5 text-sm border border-border rounded bg-surface-bg text-text-primary focus:ring-2 focus:ring-gray-500 outline-none'
@@ -203,12 +205,10 @@ const BlockItem = ({ block, index, onUpdate, onDelete, referenceData }) => {
 							value={block.title || ""}
 							onChange={e => handleChange("title", e.target.value)}
 						/>
-						<textarea
-							className='w-full p-3 text-sm border border-border rounded bg-surface-bg text-text-primary focus:ring-2 focus:ring-blue-500 outline-none'
-							placeholder='Nội dung tổng kết...'
+						<MarkupEditor
 							value={block.text || ""}
-							onChange={e => handleChange("text", e.target.value)}
-							rows={4}
+							onChange={({ markup, raw }) => onUpdate({ ...block, text: markup, textRaw: raw })}
+							placeholder='Nội dung tổng kết...'
 						/>
 					</div>
 				);
@@ -463,16 +463,14 @@ const BlockItem = ({ block, index, onUpdate, onDelete, referenceData }) => {
 										}}
 									/>
 								</div>
-								<textarea
-									className='w-full p-2 text-sm border border-border rounded outline-none focus:border-purple-500 mb-2'
-									placeholder='Mô tả chi tiết...'
-									rows={2}
+								<MarkupEditor
 									value={tItem.desc || ""}
-									onChange={e => {
+									onChange={({ markup, raw }) => {
 										const newItems = [...block.items];
-										newItems[i].desc = e.target.value;
+										newItems[i] = { ...newItems[i], desc: markup, descRaw: raw };
 										handleChange("items", newItems);
 									}}
+									placeholder='Mô tả chi tiết...'
 								/>
 
 								<div className='space-y-1'>

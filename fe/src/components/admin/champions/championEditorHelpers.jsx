@@ -12,6 +12,8 @@ import {
 } from "lucide-react";
 import { useTranslation } from "../../../hooks/useTranslation";
 
+import MarkupEditor from "../MarkupEditor";
+
 export const getUniqueId = item => {
 	return (
 		item._id ||
@@ -647,15 +649,15 @@ export const NodeEditor = ({
 					</div>
 
 					<div className='flex flex-col gap-1'>
-						<label className='text-[10px] font-bold uppercase text-text-secondary'>
-							Mô tả kỹ năng node
-						</label>
-						<textarea
+						<MarkupEditor
 							value={displayDescription}
-							onChange={e => onChange(index, "description", e.target.value)}
-							rows={3}
-							className='w-full p-3 border border-border rounded-lg bg-surface-bg text-xs outline-none resize-none'
-							placeholder='Mô tả tự điền...'
+							onChange={({ markup, raw }) =>
+								onMultiChange(index, {
+									description: markup,
+									descriptionRaw: raw,
+								})
+							}
+							placeholder='Mô tả kỹ năng (Hệ thống sẽ lấy mặc định từ Sức mạnh nếu trống)...'
 						/>
 					</div>
 

@@ -13,10 +13,11 @@ import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
 
+import { getProxyImage } from "../utils/proxyImage.js";
+
 const router = express.Router();
 const RELICS_TABLE = "guidePocRelics";
 
-const imageCache = new Map();
 const relicCache = new NodeCache({ stdTTL: 120 });
 
 /**
@@ -38,49 +39,25 @@ async function getCachedRelics() {
 
 /**
  * @route   GET /api/relics/proxy-image
- * @desc    Proxy hình ảnh từ Riot để tránh lỗi CORS và Referer
+ * @desc    Proxy hình ảnh từ Riot để tránh lỗi CORS và Referer (Kèm Disk Caching & Resizing)
  */
 router.get("/proxy-image", async (req, res) => {
-	const imageUrl = req.query.url;
+	const { url: imageUrl, w, h } = req.query;
 
 	if (!imageUrl) {
 		return res.status(400).json({ error: "URL là bắt buộc." });
 	}
 
 	try {
-		if (imageCache.has(imageUrl)) {
-			const cached = imageCache.get(imageUrl);
-			res.set("Content-Type", cached.contentType);
-			res.set("Cache-Control", "public, max-age=86400");
-			return res.send(cached.data);
-		}
-
-		const response = await axios({
-			url: imageUrl,
-			method: "GET",
-			responseType: "arraybuffer",
-			headers: {
-				"User-Agent":
-					"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-			},
-			timeout: 10000,
+		const { data, contentType } = await getProxyImage(imageUrl, {
+			width: w,
+			height: h,
 		});
 
-		const contentType = response.headers["content-type"];
-		const buffer = Buffer.from(response.data, "binary");
-
-		if (imageCache.size < 500) {
-			imageCache.set(imageUrl, {
-				data: buffer,
-				contentType: contentType,
-			});
-		}
-
 		res.set("Content-Type", contentType);
-		res.set("Cache-Control", "public, max-age=86400");
-		res.send(buffer);
+		res.set("Cache-Control", "public, max-age=31536000, immutable"); // Cache vĩnh viễn cho trình duyệt
+		res.send(data);
 	} catch (error) {
-		console.error(`Proxy lỗi cho ${imageUrl}:`, error.message);
 		res.status(404).json({ error: "Không thể tải ảnh." });
 	}
 });

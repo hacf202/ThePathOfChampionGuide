@@ -2,6 +2,7 @@
 import React, { useMemo, useCallback } from "react";
 import { useGenericFilters } from "./useGenericFilters";
 import RarityIcon from "../components/common/rarityIcon";
+import { getRarityKey } from "../utils/i18nHelpers";
 
 export const useRuneFilters = (tUI, t, dynamicFilters, knownRunes) => {
 	const { state, actions, queryParams } = useGenericFilters({
@@ -18,7 +19,8 @@ export const useRuneFilters = (tUI, t, dynamicFilters, knownRunes) => {
 				const dynTrans = t(item, "rarity");
 				if (dynTrans) return dynTrans;
 			}
-			return tUI(`rune.rarity.${rawRarity.toLowerCase()}`) || rawRarity;
+			const key = getRarityKey(rawRarity);
+			return tUI(`rune.rarity.${key}`) || rawRarity;
 		},
 		[tUI, t],
 	);

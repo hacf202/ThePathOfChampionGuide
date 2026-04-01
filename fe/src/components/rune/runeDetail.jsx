@@ -6,7 +6,9 @@ import { Loader2, ChevronLeft, XCircle } from "lucide-react";
 import PageTitle from "../common/pageTitle";
 import Button from "../common/button";
 import SafeImage from "../common/SafeImage";
+import MarkupRenderer from "../common/MarkupRenderer"; // 🟢 Import MarkupRenderer
 import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook i18n
+import { getRarityKey } from "../../utils/i18nHelpers"; // 🟢 Import i18n Helper
 
 // --- THÀNH PHẦN SKELETON LOADING ---
 const RuneDetailSkeleton = () => (
@@ -87,7 +89,7 @@ function RuneDetail() {
 		? tDynamic(rune, "description") || tDynamic(rune, "descriptionRaw")
 		: "";
 	const runeRarity = rune?.rarity
-		? tDynamic(rune, "rarity") || tUI(rune.rarity) || rune.rarity
+		? tDynamic(rune, "rarity") || tUI(`rune.rarity.${getRarityKey(rune.rarity)}`) || rune.rarity
 		: "";
 
 	const compatibleChampions = useMemo(() => {
@@ -169,12 +171,9 @@ function RuneDetail() {
 									</div>
 									{runeDesc && (
 										<div className='flex-1 mt-4'>
-											<div
-												className='text-base sm:text-xl rounded-lg p-4 h-full min-h-[120px] leading-relaxed bg-surface-bg border text-text-secondary overflow-y-auto'
-												dangerouslySetInnerHTML={{
-													__html: runeDesc,
-												}}
-											/>
+											<div className='text-base sm:text-xl rounded-lg p-4 h-full min-h-[120px] leading-relaxed bg-surface-bg border text-text-secondary overflow-y-auto'>
+												<MarkupRenderer text={runeDesc} />
+											</div>
 										</div>
 									)}
 								</div>

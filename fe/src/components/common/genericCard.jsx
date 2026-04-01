@@ -53,11 +53,15 @@ const GenericCard = ({
 		focus,
 	]);
 
-	// Xác định nguồn ảnh: Ưu tiên đường dẫn tuyệt đối, sau đó là image field, cuối cùng là placeholder
-	const imageSrc = item.assetAbsolutePath || item.image || placeholderImage;
+	// Xác định nguồn ảnh: Ưu tiên đường dẫn tuyệt đối, sau đó là gameAbsolutePath (LoR) hoặc image field, cuối cùng là placeholder
+	const imageSrc =
+		item.assetAbsolutePath ||
+		item.gameAbsolutePath ||
+		item.image ||
+		placeholderImage;
 
 	// Sử dụng tDynamic để dịch Tên & Mô tả từ dữ liệu động (Database)
-	const itemName = tDynamic(item, "name");
+	const itemName = tDynamic(item, "cardName") || tDynamic(item, "name");
 	const description =
 		tDynamic(item, "descriptionRaw") || tDynamic(item, "description");
 

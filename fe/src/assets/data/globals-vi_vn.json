@@ -1,0 +1,1025 @@
+{
+  "vocabTerms": [
+    {
+      "description": "Khi triệu hồi bài quân này, nó sẽ được kích hoạt hiệu ứng Liên Minh nếu cùng thuộc 1 khu vực với lá bài ở trên cùng của bộ bài.",
+      "name": "Liên Minh",
+      "nameRef": "Allegiance"
+    },
+    {
+      "description": "Tự động trang bị vật phẩm này trên tay hoặc sử dụng khi được triệu hồi, hãy tạo ra vật phẩm này trước nếu cần thiết.",
+      "name": "Tự Động Trang Bị",
+      "nameRef": "AutoEquip"
+    },
+    {
+      "description": "Chọn Vũ Khí Nguyệt Thạch tiếp theo cho Aphelios.",
+      "name": "Chuyển Đổi",
+      "nameRef": "Phase"
+    },
+    {
+      "description": "Tạo 1 Mảnh Kiếm ngẫu nhiên còn thiếu để khôi phục lưỡi kiếm. Khi đã sử dụng cả 3 mảnh, tạo ra Lưỡi Kiếm Lưu Đày.",
+      "name": "Tái Tạo",
+      "nameRef": "Reforge"
+    },
+    {
+      "description": "Bí mật biến đổi thành bài quân khác trước khi xuất trận. Những lá bài này sẽ không lộ thân phận thực sự trước đối thủ cho tới khi rời bàn hoặc thăng cấp.",
+      "name": "Ngụy Trang",
+      "nameRef": "Disguise"
+    },
+    {
+      "description": "Ngay lập tức rút 1 lá của mỗi lá bài Thể Thăng Hoa. Cho tới hết trận đấu, các đồng minh Thể Thăng Hoa cấp 2 trở thành cấp 3.",
+      "name": "Khôi Phục Đĩa Mặt Trời",
+      "nameRef": "SunDiscRestore"
+    },
+    {
+      "description": "Tạo một Cầu Tuyết ngẫu nhiên trong 2 – 6 lá bài trên cùng của bộ bài.",
+      "name": "Tạo Cầu Tuyết",
+      "nameRef": "Snowshape"
+    },
+    {
+      "description": "Kích hoạt hiệu ứng khi bài quân ra đòn tấn công",
+      "name": "Ra Đòn Tấn Công",
+      "nameRef": "AttackStrike"
+    },
+    {
+      "description": "Với mỗi lần Triệu Gọi:\nTriệu hồi 1 Xúc Tu 1|1, hoặc nếu đã có sẵn, ban +1|+1 cho Xúc Tu đồng minh mạnh nhất.",
+      "name": "Triệu Gọi",
+      "nameRef": "Spawn"
+    },
+    {
+      "description": "Tính theo Sức Mạnh cao nhất, nếu bằng nhau sẽ xét lần lượt theo Máu cao nhất, sau đó đến Tiêu Hao cao nhất.",
+      "name": "Mạnh Nhất",
+      "nameRef": "Strongest"
+    },
+    {
+      "description": "Hủy diệt X lá bài không phải Anh hùng ở dưới cùng bộ bài của bạn.",
+      "name": "Quăng",
+      "nameRef": "Toss"
+    },
+    {
+      "description": "Phát động tấn công với số lượng Lưỡi Kiếm chỉ định.",
+      "name": "Vũ Kiếm",
+      "nameRef": "BladeDance"
+    },
+    {
+      "description": "Chứng Kiến được kích hoạt nếu điều cần chứng kiến ở trên tay hoặc trên bàn đấu.",
+      "name": "Chứng Kiến",
+      "nameRef": "Behold"
+    },
+    {
+      "description": "Tiêu diệt X lá bài trên đầu bộ bài của kẻ địch, kích hoạt các bài bẫy trong đó.",
+      "name": "Khiếp Hãi",
+      "nameRef": "Terrify"
+    },
+    {
+      "description": "Bạn nhìn thấy bao nhiêu nhánh trong cuộc phiêu lưu của mình",
+      "name": "Tầm Nhìn",
+      "nameRef": "Vision"
+    },
+    {
+      "description": "Đây là số Năng Lượng bạn cầu tiêu thụ để sử dụng lá bài này.",
+      "name": "Tiêu hao",
+      "nameRef": "Cost"
+    },
+    {
+      "description": "Nhận hiệu ứng này khi vòng đấu kết thúc.",
+      "name": "Kết Thúc Vòng Đấu",
+      "nameRef": "RoundEnd"
+    },
+    {
+      "description": "Bài quân có 8+ sức mạnh hoặc máu",
+      "name": "Khổng Lồ",
+      "nameRef": "Titanic"
+    },
+    {
+      "description": "Loại bỏ hoàn toàn khỏi trận đấu. Không thể kích hoạt hiệu ứng Trăng trối và hồi sinh.",
+      "name": "Hủy Diệt",
+      "nameRef": "Obliterate"
+    },
+    {
+      "description": "Hủy Diệt 1 bài quân và thu về tạo phẩm của lá đó để lưu trữ 1 bản sao y hệt trong 1 địa danh trong 1 vòng.",
+      "name": "Ru Ngủ",
+      "nameRef": "Sleep"
+    },
+    {
+      "description": "Tráo 1 lá bài vào bộ bài của bạn và giảm 1 tiêu hao của nó",
+      "name": "Thổi Bay",
+      "nameRef": "Updraft"
+    },
+    {
+      "description": "Đây là lượng sát thương bài quân có thể chống chịu. Nếu chạm mức 0, bài quân sẽ hy sinh.",
+      "name": "Máu",
+      "nameRef": "Health"
+    },
+    {
+      "description": "Chọn 1 trong 2 tùy chọn ngẫu nhiên từ một danh sách trang bị giảm dần và trang bị cho đồng minh này. Nếu đồng minh không xuất trận từ bài trên tay, trang bị 1 trang bị ngẫu nhiên thay vì được chọn.",
+      "name": "Ứng Biến",
+      "nameRef": "Improvise"
+    },
+    {
+      "description": "Đây là lượng sát thương bài quân gây ra khi ra đòn.",
+      "name": "Sức mạnh",
+      "nameRef": "Power"
+    },
+    {
+      "description": "1 lá bài sẽ kích hoạt Nhịp khi Bắt Đầu Vòng Đấu nếu bạn đã sử dụng 2+ bài phép hoặc kỹ năng trong vòng trước.",
+      "name": "Nhịp",
+      "nameRef": "Flow"
+    },
+    {
+      "description": "Nhận hiệu ứng khi bài quân này tấn công.",
+      "name": "Tấn Công",
+      "nameRef": "Attack"
+    },
+    {
+      "description": "Một bài quân được cường hóa khi Sức mạnh hoặc Máu của bài quân đó được tăng thêm hoặc khi nhận thêm một đặc điểm mới.",
+      "name": "Đã Cường Hóa",
+      "nameRef": "Buffed"
+    },
+    {
+      "description": "Những lá bài được lấy từ đối thủ hoặc đã có bản sao chính xác của chúng.",
+      "name": "Bị Cướp",
+      "nameRef": "Stolen"
+    },
+    {
+      "description": "Tăng các đặc điểm có lợi có thể cộng dồn của đồng minh hoặc các đặc điểm có hại có thể cộng dồn của kẻ địch.",
+      "name": "Cường Hóa",
+      "nameRef": "Boost"
+    },
+    {
+      "description": "Anh hùng này được tính là một trong các khu vực của bộ bài của bạn. Trong khi xây dựng bộ bài, bạn có thể thêm các lá bài chỉ định vào bộ bài bất kể khu vực. Ngoài ra, Khởi Nguồn có thể sẽ có một hiệu ứng bắt đầu có hiệu lực ở Đầu Trận.",
+      "name": "Khởi Nguồn",
+      "nameRef": "Origin"
+    },
+    {
+      "description": "Nhận hiệu ứng này khi 1 bài quân cố gắng gây sát thương sử dụng chỉ số Sức Mạnh bằng cách ra đòn trong giao tranh hoặc thông qua bài phép. Bài quân với 0 Sức Mạnh không thể ra đòn.",
+      "name": "Ra Đòn",
+      "nameRef": "Strike"
+    },
+    {
+      "description": "Với mỗi mục tiêu là đồng minh, triệu hồi 1 bài quân Cảm Tử 1|1. Sao chép bài phép nhu động lên họ.",
+      "name": "Nhu Động",
+      "nameRef": "Animate"
+    },
+    {
+      "description": "Kích hoạt hiệu ứng khi bài quân tấn công Nhà chính của đối thủ.",
+      "name": "Tấn Công Nhà Chính",
+      "nameRef": "NexusStrike"
+    },
+    {
+      "description": "1 bài quân sẽ được nhận Cường Hóa khi chỉ số Sức Mạnh của nó không thấp hơn con số được đặt ra.",
+      "name": "Cường Hóa",
+      "nameRef": "Empowered"
+    },
+    {
+      "description": "Kích hoạt khi đồng minh đã ra đòn gây 5+ sát thương ít nhất 4 lần trong trận đấu.",
+      "name": "Danh Vọng",
+      "nameRef": "Reputation"
+    },
+    {
+      "description": "Trang bị 1 Vật Phẩm cho 1 bài quân để ban các hiệu ứng cường hóa. Nếu bài quân rời bàn đấu, Vật Phẩm sẽ được thu về tay. Bạn có thể sử dụng mỗi vật phẩm tối đa 1 lần mỗi vòng đấu.",
+      "name": "Trang Bị",
+      "nameRef": "Equip"
+    },
+    {
+      "description": "Khi ngươi dùng bài phép này, tạo trên tay một bản sao Phù Du của lá bài đó với 1 tiêu hao hoặc hơn.",
+      "name": "Tái Thi Triển",
+      "nameRef": "Recast"
+    },
+    {
+      "description": "Nhận hiệu ứng khi vòng đấu bắt đầu.",
+      "name": "Bắt Đầu Vòng Đấu",
+      "nameRef": "RoundStart"
+    },
+    {
+      "description": "1 hiệu ứng giống như bài phép và đối thủ có thể đáp trả. Nguyên tố đấy!",
+      "name": "Kỹ Năng Nguyên Tố",
+      "nameRef": "ElementalSkill"
+    },
+    {
+      "description": "Khi trận đấu bắt đầu, nhận 1 Sức Mạnh có hiệu ứng này.",
+      "name": "Sức Mạnh",
+      "nameRef": "PathPower"
+    },
+    {
+      "description": "Những đối thủ trên Con Đường Anh Hùng",
+      "name": "Địch Thủ",
+      "nameRef": "Foe"
+    },
+    {
+      "description": "Ban +1|+1 cho 1 đồng minh. Nếu đồng minh đó đã có trang bị, ban +1|+1 cho vật phẩm được trang bị thay vì cho đồng minh.",
+      "name": "Tôi Luyện",
+      "nameRef": "Forge"
+    },
+    {
+      "description": "Nhận hiệu ứng này khi đánh bài quân xuống từ trên tay.",
+      "name": "Xuất Trận",
+      "nameRef": "Play"
+    },
+    {
+      "description": "Trên bàn, trên tay, trong bộ bài, trong các lá bài đã loại bỏ, và thậm chí là lá bài sẽ được tạo/triệu hồi sau đó.",
+      "name": "Ở Mọi Nơi",
+      "nameRef": "Everywhere"
+    },
+    {
+      "description": "Tạo 1 Địa Danh Đếm Ngược có thể đếm ngược nhiều lần",
+      "name": "Đẩy Nhanh",
+      "nameRef": "Advance"
+    },
+    {
+      "description": "Bắt Đầu Vòng Đấu: Ta đếm ngược từ 1. Khi đếm đến 0, kích hoạt hiệu ứng Đếm Ngược, sau đó tiêu diệt ta.",
+      "name": "Đếm Ngược",
+      "nameRef": "Countdown"
+    },
+    {
+      "description": "Nhận lượt tấn công nếu chưa có. Bạn có thể tấn công trong vòng này.",
+      "name": "Tiến Công",
+      "nameRef": "Rally"
+    },
+    {
+      "description": "Khi bạn tiêu diệt 1 bài quân bằng sát thương, hiệu ứng tiêu diệt, hoặc sử dụng 1 đồng minh ra đòn lên kẻ địch đó. (Những hành động tự vẫn sẽ không được tính, ví dụ như Cảm Tử.)",
+      "name": "Thủ Tiêu",
+      "nameRef": "Slay"
+    },
+    {
+      "description": "Giảm 1 tiêu hao cho Người Đưa Bão trên tay ngươi.",
+      "name": "Cuồng Phong Tích Tụ",
+      "nameRef": "GatherStorm"
+    },
+    {
+      "description": "Xóa bỏ mọi đặc điểm, kỹ năng và hiệu ứng đang hiệu lực. Không ảnh hưởng đến sát thương hoặc nhóm phụ.",
+      "name": "Câm Lặng",
+      "nameRef": "Silence",
+      "icon": "https://images.pocguide.top/icon/100px-Keyword_Silence_HD.webp"
+    },
+    {
+      "description": "Lá bài này sẽ được giảm tiêu hao khi ngươi Gom Bão.",
+      "name": "Người Đưa Bão",
+      "nameRef": "StormTarget"
+    },
+    {
+      "description": "Tạo trên tay 1 trong 3 lá bài được lựa chọn ngẫu nhiên.",
+      "name": "Hình Thành",
+      "nameRef": "Manifest"
+    },
+    {
+      "description": "Có thể ẩn mình nếu không có đồng minh Tập Kích đang ẩn mình nào khác. Đồng minh ẩn mình có 2 tiêu hao 2|2. Bạn có thể dùng tiêu hao Tập Kích của đồng minh ẩn mình để biến đổi đồng minh đó thành bản nguyên trạng.",
+      "name": "Tập Kích",
+      "nameRef": "Ambush"
+    },
+    {
+      "description": "Biến đổi đồng minh Đã Trang Bị với Trang Bị Darkin vào thể bài quân Darkin của chúng. Nếu là Anh Hùng, Thăng Cấp cho lá đó.",
+      "name": "Đồng Hóa",
+      "nameRef": "Assimilate"
+    },
+    {
+      "description": "Mang đến cơ hội gây gấp đôi sát thương.",
+      "name": "Chí Mạng",
+      "nameRef": "CriticalStrike"
+    },
+    {
+      "description": "Chọn 1 trong số 3 lá bài trong bộ bài. Đặt lá bài đó lên trên cùng và đặt những lá bài khác vào bộ bài của bạn.",
+      "name": "Tiên Đoán",
+      "nameRef": "Predict"
+    },
+    {
+      "description": "Trộm một bài quân của đối thủ nếu còn chỗ trống. Khi Kết Thúc Vòng Đấu, trả nó lại nếu họ còn chỗ. Nếu không thì trả nó lại trên tay đối thủ.",
+      "name": "Mê Hoặc",
+      "nameRef": "Charm"
+    }
+  ],
+  "keywords": [
+    {
+      "description": "Nếu tiêu diệt mục tiêu, sát thương vượt trội sẽ chuyển thành sát thương lên Nhà chính của đối thủ.",
+      "name": "Áp Đảo",
+      "nameRef": "SpellOverwhelm"
+    },
+    {
+      "description": "Có thể được sử dụng bất cứ khi nào tới lượt bạn. Ngay lập tức có hiệu lực và cho phép bạn tiếp tục sử dụng các lá bài khác.",
+      "name": "Siêu Tốc",
+      "nameRef": "Burst"
+    },
+    {
+      "description": "Bắt Đầu Vòng Đấu: Ta đếm ngược từ 1. Khi đếm đến 0, kích hoạt hiệu ứng Đếm Ngược, sau đó tiêu diệt ta.",
+      "name": "Đếm Ngược",
+      "nameRef": "Countdown"
+    },
+    {
+      "description": "Nhận hiệu ứng này khi đánh bài quân xuống từ trên tay.",
+      "name": "Xuất Trận",
+      "nameRef": "PlaySkillMark"
+    },
+    {
+      "description": "Địa Danh sẽ chiếm 1 vị trí trên bàn đấu, tuy nhiên không thể tấn công, chặn đòn hay nhận sát thương.",
+      "name": "Địa Danh",
+      "nameRef": "LandmarkVisualOnly"
+    },
+    {
+      "description": "Bài quân bị giam cầm tạm thời bị xóa bỏ khỏi trò chơi và chỉ có thể quay trở lại khi bài quân Bắt Giữ rời khỏi bàn đấu.",
+      "name": "Bắt Giữ",
+      "nameRef": "Capture"
+    },
+    {
+      "description": "Nhận hiệu ứng khi bài quân này tấn công.",
+      "name": "Tấn Công",
+      "nameRef": "AttackSkillMark"
+    },
+    {
+      "description": "Có thể kích hoạt 1 lần mỗi vòng. Khi được kích hoạt, xuất trận kỹ năng của Hồi hiện tại với tốc độ Chậm, sau đó biến đổi ta sang Hồi tiếp theo.",
+      "name": "Câu Chuyện: Chậm",
+      "nameRef": "Story:Slow"
+    },
+    {
+      "description": "",
+      "name": "Shurima",
+      "nameRef": "Shurima"
+    },
+    {
+      "description": "Gắn ta lên 1 đồng minh để trao cho đồng minh đó chỉ số và đặc điểm của ta khi có ta quấn quýt cùng. Khi đồng minh đó rời bàn đấu, Thu Ta Về.",
+      "name": "Quấn Quýt",
+      "nameRef": "Attach",
+      "icon": "https://images.pocguide.top/icon/100px-Keyword_Attach_HD.webp"
+    },
+    {
+      "description": "Có thể kích hoạt 1 lần mỗi vòng. Khi được kích hoạt, xuất trận kỹ năng của Hồi hiện tại với tốc độ Tập Trung, sau đó biến đổi ta sang Hồi tiếp theo.",
+      "name": "Câu Chuyện: Tập Trung",
+      "nameRef": "Story:Focus"
+    },
+    {
+      "description": "",
+      "name": "Noxus",
+      "nameRef": "Noxus"
+    },
+    {
+      "description": "Lá bài Phù du sẽ bị loại bỏ khỏi tay khi kết thúc vòng đấu.",
+      "name": "Phù Du",
+      "nameRef": "Fleeting",
+      "icon": "https://images.pocguide.top/icon/100px-Keyword_Fleeting_HD.webp"
+    },
+    {
+      "description": "1 hiệu ứng giống như bài phép và đối thủ có thể đáp trả. Nguyên tố đấy!",
+      "name": "Kỹ Năng Nguyên Tố",
+      "nameRef": "ElementalSkill"
+    },
+    {
+      "description": "Missing Translation",
+      "name": "Missing Translation",
+      "nameRef": "ClobberNoEmptySlotRequirement"
+    },
+    {
+      "description": "Rút 1 lá bài không phải anh hùng ở dưới cùng bộ bài của đối thủ.",
+      "name": "Đánh Cắp",
+      "nameRef": "Nab"
+    },
+    {
+      "description": "Có thể được sử dụng ngoài giao tranh hoặc khi không có bài phép hoặc kỹ năng nào đang chờ thi triển. Ngay lập tức có hiệu lực và cho phép bạn tiếp tục sử dụng các lá bài khác.",
+      "name": "Tập Trung",
+      "nameRef": "Focus"
+    },
+    {
+      "description": "Người chơi sẽ được Khai Sáng khi có số ngọc năng lượng tối đa (10).",
+      "name": "Khai Sáng",
+      "nameRef": "Enlightened"
+    },
+    {
+      "description": "Chọn 1 trong 3 lá bài Thượng Giới để tạo trên tay.",
+      "name": "Hiệu Triệu",
+      "nameRef": "Invoke"
+    },
+    {
+      "description": "1 lá bài sẽ kích hoạt Nhịp khi Bắt Đầu Vòng Đấu nếu bạn đã sử dụng 2+ bài phép hoặc kỹ năng trong vòng trước.",
+      "name": "Nhịp",
+      "nameRef": "Flow"
+    },
+    {
+      "description": "Gắn vào 1 lá bài khác trong bộ bài. Khi lá bài đó được rút lên, kích hoạt hiệu ứng.",
+      "name": "Ân Huệ",
+      "nameRef": "Boon"
+    },
+    {
+      "description": "Gắn vào 1 lá bài khác trong bộ bài. Khi lá bài đó được rút lên, kích hoạt hiệu ứng.",
+      "name": "Bài Bẫy",
+      "nameRef": "Autoplay"
+    },
+    {
+      "description": "Hồi máu cho Nhà Chính bằng với lượng sát thương gây ra",
+      "name": "Hấp Thụ",
+      "nameRef": "Drain"
+    },
+    {
+      "description": "Kỹ năng sẽ kích hoạt khi bài quân bị tiêu diệt.",
+      "name": "Trăng Trối",
+      "nameRef": "LastBreath"
+    },
+    {
+      "description": "",
+      "name": "Demacia",
+      "nameRef": "Demacia"
+    },
+    {
+      "description": "Thăng cấp 1 anh hùng trên bàn ở mọi nơi khi đáp ứng đủ điều kiện. Một vài anh hùng phải đặt trên bàn mới thấy được tình trạng tiến trình.",
+      "name": "Thăng Cấp",
+      "nameRef": "LevelUp"
+    },
+    {
+      "description": "",
+      "name": "Thành Phố Bandle",
+      "nameRef": "BandleCity"
+    },
+    {
+      "description": "Có thể được sử dụng bất cứ khi nào tới lượt bạn. Có hiệu lực sau khi đối thủ của bạn đã có cơ hội đáp trả.",
+      "name": "Nhanh",
+      "nameRef": "Fast"
+    },
+    {
+      "description": "",
+      "name": "Bilgewater",
+      "nameRef": "Bilgewater"
+    },
+    {
+      "description": "",
+      "name": "Runeterra",
+      "nameRef": "Runeterra"
+    },
+    {
+      "description": "Gọi bài quân trở về trên tay và xóa bỏ tất cả hiệu ứng tác động lên bài quân này.",
+      "name": "Thu Về",
+      "nameRef": "Recall"
+    },
+    {
+      "description": "Tính theo Sức Mạnh thấp nhất, nếu bằng nhau sẽ xét lần lượt theo Máu thấp nhất, sau đó đến Tiêu Hao thấp nhất",
+      "name": "Yếu Nhất",
+      "nameRef": "Weakest"
+    },
+    {
+      "description": "Sử dụng bài quân hỗ trợ để tấn công sẽ cường hóa 1 bài quân ở vị trí bên phải của bài quân hỗ trợ.",
+      "name": "Hỗ Trợ",
+      "nameRef": "Support"
+    },
+    {
+      "description": "Có thể được sử dụng ngoài giao tranh hoặc khi không có bài phép hoặc kỹ năng nào đang chờ thi triển. Có hiệu lực sau khi đối thủ của bạn đã có cơ hội đáp trả.",
+      "name": "Chậm",
+      "nameRef": "Slow"
+    },
+    {
+      "description": "Kỹ năng sẽ kích hoạt khi 1 bài phép được thi triển.",
+      "name": "Truyền Thức",
+      "nameRef": "Imbue"
+    },
+    {
+      "description": "",
+      "name": "Targon",
+      "nameRef": "MtTargon"
+    },
+    {
+      "description": "",
+      "name": "Quần Đảo Bóng Đêm",
+      "nameRef": "ShadowIsles"
+    },
+    {
+      "description": "Missing Translation",
+      "name": "Missing Translation",
+      "nameRef": "AuraVisualFakeKeyword"
+    },
+    {
+      "description": "Trang bị cho 1 bài quân để ban các hiệu ứng cường hóa. Nếu bài quân rời bàn đấu, trang bị sẽ được thu về tay. Bạn có thể sử dụng mỗi trang bị tối đa 1 lần mỗi vòng đấu.",
+      "name": "Trang Bị",
+      "nameRef": "Equipment"
+    },
+    {
+      "description": "",
+      "name": "Ionia",
+      "nameRef": "Ionia"
+    },
+    {
+      "description": "Kích hoạt nếu như đây KHÔNG PHẢI là lá bài đầu tiên người chơi sử dụng trong vòng đấu.",
+      "name": "Chạng Vạng",
+      "nameRef": "Nightfall"
+    },
+    {
+      "description": "",
+      "name": "Piltover & Zaun",
+      "nameRef": "PiltoverZaun"
+    },
+    {
+      "description": "",
+      "name": "Freljord",
+      "nameRef": "Freljord"
+    },
+    {
+      "description": "Khi ta được triệu hồi, hồi lại 1 năng lượng bài phép.",
+      "name": "Hồi Lực",
+      "nameRef": "Attune",
+      "icon": "https://images.pocguide.top/icon/100px-Keyword_Attune_HD.webp"
+    },
+    {
+      "description": "Kích hoạt nếu như đây là lá bài ĐẦU TIÊN người chơi sử dụng trong vòng đấu.",
+      "name": "Hừng Đông",
+      "nameRef": "Daybreak"
+    },
+    {
+      "description": "Missing Translation",
+      "name": "Missing Translation",
+      "nameRef": "SilenceIndividualKeyword"
+    },
+    {
+      "description": "1 hiệu ứng giống như bài phép và đối thủ có thể đáp trả.",
+      "name": "Kỹ Năng",
+      "nameRef": "Skill"
+    },
+    {
+      "description": "Lá bài sẽ kích hoạt hiệu ứng Cưỡng Đoạt nếu được sử dụng sau khi người chơi đã gây sát thương lên Nhà Chính của đối thủ trong vòng này.",
+      "name": "Cưỡng Đoạt",
+      "nameRef": "Plunder"
+    },
+    {
+      "description": "Khi tấn công sẽ ra đòn 2 lần, lần đầu trước khi kẻ địch chặn đòn và lần thứ hai cùng thời điểm với kẻ địch chặn đòn.",
+      "name": "Song Kích",
+      "nameRef": "DoubleStrike",
+      "icon": "https://images.pocguide.top/icon/100px-Keyword_DoubleStrike_HD.webp"
+    },
+    {
+      "description": "Đối thủ có thể thách đấu và bắt buộc bài quân này phải chặn đòn.",
+      "name": "Kích Động",
+      "nameRef": "Vulnerable",
+      "icon": "https://images.pocguide.top/icon/100px-Keyword_Vulnerable_HD.webp"
+    },
+    {
+      "description": "Chỉ có thể bị chặn đòn bởi 1 bài quân Huyền ảo.",
+      "name": "Huyền Ảo",
+      "nameRef": "Elusive",
+      "icon": "https://images.pocguide.top/icon/100px-Keyword_Elusive_HD.webp"
+    },
+    {
+      "description": "Loại bỏ 1 bài quân ra khỏi giao tranh. Bài quân đó không thể tấn công hay đỡ đòn cho đến khi kết thúc vòng đấu.",
+      "name": "Làm Choáng",
+      "nameRef": "Stun",
+      "icon": "https://images.pocguide.top/icon/100px-Keyword_Stunned_HD.webp"
+    },
+    {
+      "description": "Đặt hiệu ứng bất lợi khi còn trên tay. Sử dụng nhiều lời nguyền lên 1 bài quân cùng lúc sẽ tăng tiêu hao và hiệu ứng của chúng. Không thể bị chọn làm mục tiêu khi trên tay.",
+      "name": "Nguyền Rủa",
+      "nameRef": "Curse",
+      "icon": "https://images.pocguide.top/icon/100px-Keyword_Curse_HD.webp"
+    },
+    {
+      "description": "Vào lần đầu 1 lá bài đồng minh chọn ta làm mục tiêu trong mỗi vòng đấu, ban cho ta +1|+1.",
+      "name": "Định Mệnh",
+      "nameRef": "Fated",
+      "icon": "https://images.pocguide.top/icon/100px-Keyword_Fated_HD.webp"
+    },
+    {
+      "description": "Có thể chặn bài quân Huyền Ảo",
+      "name": "Tinh Mắt",
+      "nameRef": "Sharpsight",
+      "icon": "https://images.pocguide.top/icon/100px-Keyword_Sharpsight_HD.webp"
+    },
+    {
+      "description": "Ban cho ta +1|+1 khi ta tiêu diệt 1 bài quân.",
+      "name": "Cuồng Nộ",
+      "nameRef": "Fury",
+      "icon": "https://images.pocguide.top/icon/100px-Keyword_Fury_HD.webp"
+    },
+    {
+      "description": "Hóa giải sát thương kế tiếp nhận vào. Có hiệu lực trong 1 vòng đấu.",
+      "name": "Lá Chắn",
+      "nameRef": "Barrier",
+      "icon": "https://images.pocguide.top/icon/100px-Keyword_Barrier_HD.webp"
+    },
+    {
+      "description": "Không thể tấn công hoặc chặn đòn.",
+      "name": "Bất Động",
+      "nameRef": "Immobile"
+    },
+    {
+      "description": "Sau khi ta hy sinh, khi đồng minh tấn công trong thời gian còn lại của trận đấu, thực hiện ước nguyện và trao +1|+0 cho bài quân tấn công đầu tiên của ngươi trong vòng đấu đó",
+      "name": "Ước Nguyện",
+      "nameRef": "Hallowed",
+      "icon": "https://images.pocguide.top/icon/100px-Keyword_Hallowed_HD.webp"
+    },
+    {
+      "description": "Ta được nhận +2|+2 khi ngươi đã có các Bài Quân với 6+ đặc điểm có lợi độc nhất khác trên bàn đấu trong trận này.",
+      "name": "Tiến Hóa",
+      "nameRef": "Evolve",
+      "icon": "https://images.pocguide.top/icon/100px-Keyword_Evolve_HD.webp"
+    },
+    {
+      "description": "Biến chỉ số Sức Mạnh của 1 bài quân thành 0 trong vòng này. Chỉ số này có thể được thay đổi sau đó.",
+      "name": "Đóng Băng",
+      "nameRef": "Frostbite",
+      "icon": "https://images.pocguide.top/icon/100px-Keyword_Frostbite_HD.webp"
+    },
+    {
+      "description": "Sát thương vượt trội ta gây lên kẻ chặn đòn sẽ chuyển thành sát thương lên Nhà Chính của đối thủ.",
+      "name": "Áp Đảo",
+      "nameRef": "Overwhelm",
+      "icon": "https://images.pocguide.top/icon/100px-Keyword_Overwhelm_HD.webp"
+    },
+    {
+      "description": "Ra đòn trước kẻ địch chặn đòn khi tấn công.",
+      "name": "Đột Kích",
+      "nameRef": "QuickStrike",
+      "icon": "https://images.pocguide.top/icon/100px-Keyword_QuickAttack_HD.webp"
+    },
+    {
+      "description": "Bài quân này được +1|+1. Đặc điểm này có thể cộng dồn.",
+      "name": "Linh Hồn",
+      "nameRef": "Spirit",
+      "icon": "https://images.pocguide.top/icon/100px-Keyword_Spirit_HD.webp"
+    },
+    {
+      "description": "Giảm 1 sát thương từ tất cả các nguồn gây sát thương.",
+      "name": "Kiên Cường",
+      "nameRef": "Tough",
+      "icon": "https://images.pocguide.top/icon/100px-Keyword_Tough_HD.webp"
+    },
+    {
+      "description": "Hồi đầy máu khi kết thúc mỗi vòng đấu.",
+      "name": "Hồi Phục",
+      "nameRef": "Regeneration",
+      "icon": "https://images.pocguide.top/icon/100px-Keyword_Regeneration_HD.webp"
+    },
+    {
+      "description": "Xóa bỏ toàn bộ nội dung và đặc điểm của 1 bài quân.",
+      "name": "Câm Lặng",
+      "nameRef": "Silenced",
+      "icon": "https://images.pocguide.top/icon/100px-Keyword_Silence_HD.webp"
+    },
+    {
+      "description": "Vô hiệu hóa bài phép hoặc Kỹ Năng tiếp theo của kẻ địch gây ảnh hưởng tới ta.",
+      "name": "Khiên Phép",
+      "nameRef": "SpellShield",
+      "icon": "https://images.pocguide.top/icon/100px-Keyword_Spellshield_HD.webp"
+    },
+    {
+      "description": "Hồi máu cho Nhà Chính bằng với lượng sát thương bài quân này gây ra.",
+      "name": "Hút Máu",
+      "nameRef": "Lifesteal",
+      "icon": "https://images.pocguide.top/icon/100px-Keyword_Lifesteal_HD.webp"
+    },
+    {
+      "description": "Bài quân này bị -1|-1. Đặc điểm này có thể cộng dồn.",
+      "name": "Buồn Bã",
+      "nameRef": "Gloom",
+      "icon": "https://images.pocguide.top/icon/100px-Keyword_Gloom_HD.webp"
+    },
+    {
+      "description": "Khi sử dụng 1 lá bài đồng minh được tạo ra, ban cho ta +1|+0.",
+      "name": "Nâng Cấp",
+      "nameRef": "Augment",
+      "icon": "https://images.pocguide.top/icon/100px-Keyword_Augment_HD.webp"
+    },
+    {
+      "description": "Nếu ra đòn trong khi đang tấn công, bài quân này sẽ gây 1 sát thương lên Nhà Chính của đối thủ. Đặc điểm này có thể cộng dồn.",
+      "name": "Khí Lực",
+      "nameRef": "Impact",
+      "icon": "https://images.pocguide.top/icon/100px-Keyword_Impact_HD.webp"
+    },
+    {
+      "description": "Mỗi vòng đấu, nếu lần tấn công đầu tiên chỉ bao gồm bài quân Trinh Sát, nhận lượt tấn công.",
+      "name": "Trinh Sát",
+      "nameRef": "Scout",
+      "icon": "https://images.pocguide.top/icon/100px-Keyword_Scout_HD.webp"
+    },
+    {
+      "description": "Bài quân này sẽ hy sinh khi ra đòn tấn công hoặc khi kết thúc vòng đấu.",
+      "name": "Cảm Tử",
+      "nameRef": "Ephemeral",
+      "icon": "https://images.pocguide.top/icon/100px-Keyword_Ephemeral_HD.webp"
+    },
+    {
+      "description": "Nếu ngươi tấn công khi ta đang ở trên cùng của bộ bài, ta sẽ Rình Rập và ban +1|+0 cho đồng minh Kẻ Rình Rập Ở Mọi Nơi. Kích hoạt tối đa 1 lần mỗi vòng đấu.",
+      "name": "Rình Rập",
+      "nameRef": "Lurker",
+      "icon": "https://images.pocguide.top/icon/100px-Keyword_Lurk_HD.webp"
+    },
+    {
+      "description": "Ta ra đòn bằng chỉ số Máu thay vì Sức Mạnh.",
+      "name": "Đáng Gờm",
+      "nameRef": "Formidable",
+      "icon": "https://images.pocguide.top/icon/100px-Keyword_Formidable_HD.webp"
+    },
+    {
+      "description": "Lần tiếp theo bài quân này hy sinh, loại bỏ Bất Diệt và hồi sinh bài quân đó bị Choáng với 1 Máu.",
+      "name": "Bất Diệt",
+      "nameRef": "Deathless",
+      "icon": "https://images.pocguide.top/icon/100px-Keyword_Deathless_HD.webp"
+    },
+    {
+      "description": "Chỉ có thể bị chặn đòn bởi bài quân có 3+ Máu.",
+      "name": "Ngạo Mạn",
+      "nameRef": "Brash",
+      "icon": "https://images.pocguide.top/icon/100px-Keyword_Brash_HD.webp"
+    },
+    {
+      "description": "Có thể lựa chọn kẻ địch chặn đòn khi tấn công.",
+      "name": "Thách Đấu",
+      "nameRef": "Challenger",
+      "icon": "https://images.pocguide.top/icon/100px-Keyword_Challenger_HD.webp"
+    },
+    {
+      "description": "Chỉ có thể bị chặn đòn bởi bài quân 3+ Sức Mạnh.",
+      "name": "Đáng Sợ",
+      "nameRef": "Fearsome",
+      "icon": "https://images.pocguide.top/icon/100px-Keyword_Fearsome_HD.webp"
+    },
+    {
+      "description": "",
+      "name": "Không Thể Chặn Đòn",
+      "nameRef": "CantBlock",
+      "icon": "https://images.pocguide.top/icon/100px-Keyword_Cant_Block_HD.webp"
+    },
+    {
+      "description": "",
+      "name": "Sâu Thẳm",
+      "nameRef": "Deep",
+      "icon": "https://images.pocguide.top/icon/100px-Keyword_Deep_HD.webp"
+    }
+  ],
+  "regions": [
+    {
+      "abbreviation": "NX",
+      "iconAbsolutePath": "http://dd.b.pvp.net/7_3_0/core/vi_vn/img/regions/icon-noxus.png",
+      "name": "Noxus",
+      "nameRef": "Noxus"
+    },
+    {
+      "abbreviation": "ELD",
+      "iconAbsolutePath": "http://dd.b.pvp.net/7_3_0/core/vi_vn/img/regions/icon-elderdragon.png",
+      "name": "Rồng Ngàn Tuổi",
+      "nameRef": "ElderDragon"
+    },
+    {
+      "abbreviation": "RYZE",
+      "iconAbsolutePath": "http://dd.b.pvp.net/7_3_0/core/vi_vn/img/regions/icon-ryze.png",
+      "name": "Ryze",
+      "nameRef": "Ryze"
+    },
+    {
+      "abbreviation": "Jhin",
+      "iconAbsolutePath": "http://dd.b.pvp.net/7_3_0/core/vi_vn/img/regions/icon-jhin.png",
+      "name": "Jhin",
+      "nameRef": "Jhin"
+    },
+    {
+      "abbreviation": "Varus",
+      "iconAbsolutePath": "http://dd.b.pvp.net/7_3_0/core/vi_vn/img/regions/icon-varus.png",
+      "name": "Varus",
+      "nameRef": "Varus"
+    },
+    {
+      "abbreviation": "Aatrox",
+      "iconAbsolutePath": "http://dd.b.pvp.net/7_3_0/core/vi_vn/img/regions/icon-aatrox.png",
+      "name": "Aatrox",
+      "nameRef": "Aatrox"
+    },
+    {
+      "abbreviation": "Neeko",
+      "iconAbsolutePath": "http://dd.b.pvp.net/7_3_0/core/vi_vn/img/regions/icon-neeko.png",
+      "name": "Neeko",
+      "nameRef": "Neeko"
+    },
+    {
+      "abbreviation": "Jax",
+      "iconAbsolutePath": "http://dd.b.pvp.net/7_3_0/core/vi_vn/img/regions/icon-jax.png",
+      "name": "Jax",
+      "nameRef": "Jax"
+    },
+    {
+      "abbreviation": "Kayn",
+      "iconAbsolutePath": "http://dd.b.pvp.net/7_3_0/core/vi_vn/img/regions/icon-kayn.png",
+      "name": "Kayn",
+      "nameRef": "Kayn"
+    },
+    {
+      "abbreviation": "POROKING",
+      "iconAbsolutePath": "http://dd.b.pvp.net/7_3_0/core/vi_vn/img/regions/icon-poroking.png",
+      "name": "Vua Poro",
+      "nameRef": "PoroKing"
+    },
+    {
+      "abbreviation": "Evelynn",
+      "iconAbsolutePath": "http://dd.b.pvp.net/7_3_0/core/vi_vn/img/regions/icon-evelynn.png",
+      "name": "Evelynn",
+      "nameRef": "Evelynn"
+    },
+    {
+      "abbreviation": "Bard",
+      "iconAbsolutePath": "http://dd.b.pvp.net/7_3_0/core/vi_vn/img/regions/icon-bard.png",
+      "name": "Bard",
+      "nameRef": "Bard"
+    },
+    {
+      "abbreviation": "DE",
+      "iconAbsolutePath": "http://dd.b.pvp.net/7_3_0/core/vi_vn/img/regions/icon-demacia.png",
+      "name": "Demacia",
+      "nameRef": "Demacia"
+    },
+    {
+      "abbreviation": "RU",
+      "iconAbsolutePath": "http://dd.b.pvp.net/7_3_0/core/vi_vn/img/regions/icon-runeterra.png",
+      "name": "Runeterra",
+      "nameRef": "Runeterra"
+    },
+    {
+      "abbreviation": "FR",
+      "iconAbsolutePath": "http://dd.b.pvp.net/7_3_0/core/vi_vn/img/regions/icon-freljord.png",
+      "name": "Freljord",
+      "nameRef": "Freljord"
+    },
+    {
+      "abbreviation": "SI",
+      "iconAbsolutePath": "http://dd.b.pvp.net/7_3_0/core/vi_vn/img/regions/icon-shadowisles.png",
+      "name": "Quần Đảo Bóng Đêm",
+      "nameRef": "ShadowIsles"
+    },
+    {
+      "abbreviation": "MT",
+      "iconAbsolutePath": "http://dd.b.pvp.net/7_3_0/core/vi_vn/img/regions/icon-targon.png",
+      "name": "Targon",
+      "nameRef": "Targon"
+    },
+    {
+      "abbreviation": "IO",
+      "iconAbsolutePath": "http://dd.b.pvp.net/7_3_0/core/vi_vn/img/regions/icon-ionia.png",
+      "name": "Ionia",
+      "nameRef": "Ionia"
+    },
+    {
+      "abbreviation": "SH",
+      "iconAbsolutePath": "http://dd.b.pvp.net/7_3_0/core/vi_vn/img/regions/icon-shurima.png",
+      "name": "Shurima",
+      "nameRef": "Shurima"
+    },
+    {
+      "abbreviation": "BW",
+      "iconAbsolutePath": "http://dd.b.pvp.net/7_3_0/core/vi_vn/img/regions/icon-bilgewater.png",
+      "name": "Bilgewater",
+      "nameRef": "Bilgewater"
+    },
+    {
+      "abbreviation": "PZ",
+      "iconAbsolutePath": "http://dd.b.pvp.net/7_3_0/core/vi_vn/img/regions/icon-piltoverzaun.png",
+      "name": "Piltover & Zaun",
+      "nameRef": "PiltoverZaun"
+    },
+    {
+      "abbreviation": "BC",
+      "iconAbsolutePath": "http://dd.b.pvp.net/7_3_0/core/vi_vn/img/regions/icon-bandlecity.png",
+      "name": "Thành Phố Bandle",
+      "nameRef": "BandleCity"
+    },
+    {
+      "abbreviation": "SP",
+      "iconAbsolutePath": "http://dd.b.pvp.net/7_3_0/core/vi_vn/img/regions/icon-spiritblossom.png",
+      "name": "Hoa Linh Lục Địa",
+      "nameRef": "SpiritBlossom"
+    }
+  ],
+  "spellSpeeds": [
+    {
+      "name": "Chậm",
+      "nameRef": "Slow"
+    },
+    {
+      "name": "Siêu Tốc",
+      "nameRef": "Burst"
+    },
+    {
+      "name": "Nhanh",
+      "nameRef": "Fast"
+    }
+  ],
+  "rarities": [
+    {
+      "name": "THƯỜNG",
+      "nameRef": "Common"
+    },
+    {
+      "name": "HIẾM",
+      "nameRef": "Rare"
+    },
+    {
+      "name": "SỬ THI",
+      "nameRef": "Epic"
+    },
+    {
+      "name": "Anh Hùng",
+      "nameRef": "Champion"
+    },
+    {
+      "name": "Không có",
+      "nameRef": "None"
+    }
+  ],
+  "sets": [
+    {
+      "iconAbsolutePath": "http://dd.b.pvp.net/7_3_0/core/vi_vn/img/sets/set3_crispmip.png",
+      "name": "Núi Thiêng Vẫy Gọi",
+      "nameRef": "Set3"
+    },
+    {
+      "iconAbsolutePath": "http://dd.b.pvp.net/7_3_0/core/vi_vn/img/sets/set5_crispmip.png",
+      "name": "Bên Kia Bandlewood",
+      "nameRef": "Set5"
+    },
+    {
+      "iconAbsolutePath": "http://dd.b.pvp.net/7_3_0/core/vi_vn/img/sets/set1_crispmip.png",
+      "name": "Cơ Bản",
+      "nameRef": "Set1"
+    },
+    {
+      "iconAbsolutePath": "http://dd.b.pvp.net/7_3_0/core/vi_vn/img/sets/set2_crispmip.png",
+      "name": "Thủy Triều Dâng",
+      "nameRef": "Set2"
+    },
+    {
+      "iconAbsolutePath": "http://dd.b.pvp.net/7_3_0/core/vi_vn/img/sets/set6ab_crispmip.png",
+      "name": "Lữ Khách Thế Gian",
+      "nameRef": "Set6"
+    },
+    {
+      "iconAbsolutePath": "http://dd.b.pvp.net/7_3_0/core/vi_vn/img/sets/set4_crispmip.png",
+      "name": "Đế Quốc Thăng Hoa",
+      "nameRef": "Set4"
+    },
+    {
+      "iconAbsolutePath": "http://dd.b.pvp.net/7_3_0/core/vi_vn/img/sets/set9_crispmip.png",
+      "name": "Con Đường Nguyện Ước",
+      "nameRef": "Set9"
+    },
+    {
+      "iconAbsolutePath": "http://dd.b.pvp.net/7_3_0/core/vi_vn/img/sets/set7_crispmip.png",
+      "name": "Navori Vinh Quang",
+      "nameRef": "Set7"
+    },
+    {
+      "iconAbsolutePath": "http://dd.b.pvp.net/7_3_0/core/vi_vn/img/sets/set8_crispmip.png",
+      "name": "Chuyến Du Hành Định Mệnh",
+      "nameRef": "Set8"
+    },
+    {
+      "iconAbsolutePath": "http://dd.b.pvp.net/7_3_0/core/vi_vn/img/sets/set7b_crispmip.png",
+      "name": "Trái Tim Thợ Săn",
+      "nameRef": "Set7b"
+    },
+    {
+      "iconAbsolutePath": "http://dd.b.pvp.net/7_3_0/core/vi_vn/img/sets/setevent_crispmip.png",
+      "name": "Sự Kiện",
+      "nameRef": "SetEvent"
+    },
+    {
+      "iconAbsolutePath": "http://dd.b.pvp.net/7_3_0/core/vi_vn/img/sets/set6cde_crispmip.png",
+      "name": "Trường Ca Darkin",
+      "nameRef": "Set6cde"
+    }
+  ],
+  "formats": [
+    {
+      "iconAbsolutePath": "http://dd.b.pvp.net/7_3_0/core/vi_vn/img/formats/queue_select_standard_toggle_active.png",
+      "name": "Tiêu Chuẩn",
+      "nameRef": "client_Formats_Standard_name"
+    },
+    {
+      "iconAbsolutePath": null,
+      "name": "Nhất Đơn",
+      "nameRef": "client_Deckbuilder_RulesFilters_Singleton"
+    },
+    {
+      "iconAbsolutePath": "http://dd.b.pvp.net/7_3_0/core/vi_vn/img/formats/queue_select_eternal_toggle_active.png",
+      "name": "Vô Hạn",
+      "nameRef": "client_Formats_Eternal_name"
+    },
+    {
+      "iconAbsolutePath": null,
+      "name": "Chỉ Lá Bài Thường",
+      "nameRef": "client_Formats_CommonsOnly_name"
+    },
+    {
+      "iconAbsolutePath": null,
+      "name": "Những Lá Bài Tiêu Hao Năng Lượng Chẵn",
+      "nameRef": "client_Formats_EvenCostCards_name"
+    }
+  ],
+  "adventureRarities": [
+    {
+      "name": "THƯỜNG",
+      "nameRef": "Common"
+    },
+    {
+      "name": "HIẾM",
+      "nameRef": "Rare"
+    },
+    {
+      "name": "SỬ THI",
+      "nameRef": "Epic"
+    },
+    {
+      "name": "HUYỀN THOẠI",
+      "nameRef": "Legendary"
+    },
+    {
+      "name": "ĐẶC BIỆT",
+      "nameRef": "Special"
+    }
+  ]
+}

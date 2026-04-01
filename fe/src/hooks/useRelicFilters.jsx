@@ -1,6 +1,7 @@
 import { useMemo, useCallback } from "react";
 import { useGenericFilters } from "./useGenericFilters"; // Import hook chung
 import RarityIcon from "../components/common/rarityIcon";
+import { getRarityKey, getTypeKey } from "../utils/i18nHelpers";
 
 export const useRelicFilters = (tUI, t, dynamicFilters, knownRelics) => {
 	// 1. GỌI HOOK CHUNG
@@ -18,7 +19,8 @@ export const useRelicFilters = (tUI, t, dynamicFilters, knownRelics) => {
 				const dynTrans = t(item, "rarity");
 				if (dynTrans) return dynTrans;
 			}
-			return tUI(`relic.rarity.${rawRarity.toLowerCase()}`) || rawRarity;
+			const key = getRarityKey(rawRarity);
+			return tUI(`relic.rarity.${key}`) || rawRarity;
 		},
 		[tUI, t],
 	);
@@ -49,10 +51,13 @@ export const useRelicFilters = (tUI, t, dynamicFilters, knownRelics) => {
 			{
 				key: "types",
 				label: tUI("admin.filters.typeLabel") || "Loại",
-				options: Array.from(new Set(rawTypes)).map(t_val => ({
-					value: t_val,
-					label: tUI(`relic.types.${t_val.toLowerCase()}`) || t_val,
-				})),
+				options: Array.from(new Set(rawTypes)).map(t_val => {
+					const key = getTypeKey(t_val);
+					return {
+						value: t_val,
+						label: tUI(`relic.types.${key}`) || t_val,
+					};
+				}),
 			},
 			{
 				key: "stacks",

@@ -4,6 +4,11 @@ import React from "react";
 const RarityIcon = ({ rarity, size = 16 }) => {
 	const normalizedRarity = (rarity || "").toUpperCase();
 
+	// 🟢 KHÔNG HIỂN THỊ ICON CHO ĐỘ HIẾM NONE
+	if (normalizedRarity === "NONE" || normalizedRarity === "KHÔNG CÓ") {
+		return null;
+	}
+
 	// 🟢 XỬ LÝ RIÊNG: Bắt trường hợp Đặc biệt / Special và trả về thẻ div Gradient
 	if (normalizedRarity === "ĐẶC BIỆT" || normalizedRarity === "SPECIAL") {
 		return (
@@ -44,6 +49,14 @@ const RarityIcon = ({ rarity, size = 16 }) => {
 			color: "fill-yellow-500",
 		},
 		LEGENDARY: {
+			shape: "M 8 1 L 15 5 L 12 15 L 4 15 L 1 5 Z",
+			color: "fill-yellow-500",
+		},
+		"ANH HÙNG": {
+			shape: "M 8 1 L 15 5 L 12 15 L 4 15 L 1 5 Z",
+			color: "fill-yellow-500",
+		},
+		CHAMPION: {
 			shape: "M 8 1 L 15 5 L 12 15 L 4 15 L 1 5 Z",
 			color: "fill-yellow-500",
 		},

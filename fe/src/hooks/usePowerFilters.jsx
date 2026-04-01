@@ -2,6 +2,7 @@
 import React, { useMemo, useCallback } from "react";
 import { useGenericFilters } from "./useGenericFilters";
 import RarityIcon from "../components/common/rarityIcon";
+import { getRarityKey, getTypeKey } from "../utils/i18nHelpers";
 
 export const usePowerFilters = (tUI, t, dynamicFilters, knownPowers) => {
 	const { state, actions, queryParams } = useGenericFilters({
@@ -18,7 +19,8 @@ export const usePowerFilters = (tUI, t, dynamicFilters, knownPowers) => {
 				const dynTrans = t(item, "rarity");
 				if (dynTrans) return dynTrans;
 			}
-			return tUI(`power.rarity.${rawRarity.toLowerCase()}`);
+			const key = getRarityKey(rawRarity);
+			return tUI(`power.rarity.${key}`) || rawRarity;
 		},
 		[tUI, t],
 	);
@@ -43,12 +45,13 @@ export const usePowerFilters = (tUI, t, dynamicFilters, knownPowers) => {
 			{
 				key: "types",
 				label: tUI("common.type") || "Loại",
-				options: uniqueTypes.map(type => ({
-					value: type,
-					label:
-						tUI(`power.types.${type.toLowerCase().replace(/\s+/g, "")}`) ||
-						type,
-				})),
+				options: uniqueTypes.map(type => {
+					const key = getTypeKey(type);
+					return {
+						value: type,
+						label: tUI(`power.types.${key.toLowerCase().replace(/\s+/g, "")}`) || type,
+					};
+				}),
 			},
 		];
 	}, [dynamicFilters, knownPowers, tUI, getTranslatedRarity]);

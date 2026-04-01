@@ -3,12 +3,13 @@ import { memo, useMemo, useState, useEffect, useCallback } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import iconRegions from "../../assets/data/iconRegions.json";
-import { ChevronLeft, Star, XCircle, Swords } from "lucide-react";
+import { ChevronLeft, Star, XCircle } from "lucide-react";
 import LatestComments from "../comment/latestComments";
 import Button from "../common/button";
 import PageTitle from "../common/pageTitle";
 import SafeImage from "../common/SafeImage";
 import GoogleAd from "../common/googleAd";
+import MarkupRenderer from "../common/MarkupRenderer";
 
 // Import API và i18n
 import { api } from "../../context/services/apiHelper";
@@ -67,10 +68,7 @@ const RenderItem = ({ item }) => {
 			<div>
 				<h3 className='font-semibold text-text-primary text-lg'>{itemName}</h3>
 				{itemDesc && (
-					<p
-						className='text-md text-text-secondary mt-1'
-						dangerouslySetInnerHTML={{ __html: itemDesc }}
-					/>
+					<MarkupRenderer text={itemDesc} className="text-md text-text-secondary mt-1" />
 				)}
 			</div>
 		</div>
@@ -164,6 +162,7 @@ function ChampionDetail() {
 	const [resolvedStartingCards, setResolvedStartingCards] = useState([]);
 	const [allRatings, setAllRatings] = useState([]);
 	const [myRating, setMyRating] = useState(null);
+	const [allChampions, setAllChampions] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 
@@ -174,11 +173,15 @@ function ChampionDetail() {
 			setLoading(true);
 
 			// 1. Fetch Dữ liệu Tướng "Full" (Bao gồm Constellation, Resolved Data, Ratings)
-			const response = await api.get(`/champions/${championID}/full`);
+			const [response, allChamps] = await Promise.all([
+				api.get(`/champions/${championID}/full`),
+				api.get("/champions?limit=-1")
+			]);
 			
 			const { champion: champData, constellation: constData, resolvedData, allRatings: ar, personalRating: pr } = response;
 
 			setChampion(champData);
+			setAllChampions(allChamps.items || []);
 			setConstellationData(constData);
 			setFetchedBonusStars(resolvedData.bonusStars || []);
 			setResolvedPowers(resolvedData.powers || []);
@@ -300,6 +303,27 @@ function ChampionDetail() {
 		[champion, resolvedRunes],
 	);
 
+	// Gợi ý tướng cùng khu vực hoặc ngẫu nhiên
+	const suggestedChampions = useMemo(() => {
+		if (!champion || allChampions.length === 0) return [];
+
+		const otherChampions = allChampions.filter(
+			c => c.championID !== champion.championID,
+		);
+
+		// Ưu tiên cùng khu vực
+		const sameRegion = otherChampions.filter(c =>
+			c.regions?.some(r => champion.regions?.includes(r)),
+		);
+
+		// Loại đã lấy từ list chính
+		const remaining = otherChampions.filter(c => !sameRegion.includes(c));
+
+		// Trộn và lấy 4 tướng
+		const combined = [...sameRegion, ...remaining];
+		return combined.slice(0, 4);
+	}, [champion, allChampions]);
+
 	// Xử lý Render Mảng đa chiều cho Bộ Cổ Vật (Relic Sets)
 	const relicSetsToRender = useMemo(() => {
 		if (!champion || !champion.relicSets) return [];
@@ -406,14 +430,7 @@ function ChampionDetail() {
 										<div
 											className={`mt-1 mx-1 p-2 border border-border rounded-lg bg-surface-bg ${!isDescriptionExpanded ? "overflow-y-auto h-48 sm:h-60" : "h-auto"}`}
 										>
-											{tDynamic(champion, "description")
-												?.replace(/\\n/g, "\n")
-												.split(/\n/)
-												.map((line, i) => (
-													<p key={i} className={i > 0 ? "mt-3" : ""}>
-														{line || "\u00A0"}
-													</p>
-												))}
+											<MarkupRenderer text={tDynamic(champion, "description")} />
 										</div>
 										<button
 											onClick={() =>
@@ -736,6 +753,47 @@ function ChampionDetail() {
 									</p>
 									<GoogleAd slot='2943049680' format='horizontal' />
 								</div>
+									{suggestedChampions.length > 0 && (
+										<div className='mt-12 mb-8'>
+											<h2 className='p-1 text-lg sm:text-2xl font-semibold mb-4 font-primary text-primary-500 border-b border-border uppercase flex items-center gap-2'>
+												{tUI("championDetail.suggestedTitle")}
+											</h2>
+											<div className='grid grid-cols-2 md:grid-cols-4 gap-4'>
+												{suggestedChampions.map(suggested => (
+													<Link
+														key={suggested.championID}
+														to={`/champion/${suggested.championID}`}
+														className='group relative bg-surface-bg border border-border rounded-xl overflow-hidden hover:border-primary-500 transition-all hover:shadow-lg hover:shadow-primary-500/10'
+													>
+														<div className='aspect-[3/4] relative overflow-hidden'>
+															<SafeImage
+																src={
+																	suggested.assets?.[0]?.avatar ||
+																	suggested.gameAbsolutePath
+																}
+																className='w-full h-full object-cover group-hover:scale-110 transition-transform duration-500'
+															/>
+															<div className='absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60' />
+														</div>
+														<div className='absolute bottom-0 left-0 right-0 p-3'>
+															<div className='flex justify-between items-end'>
+																<h3 className='font-bold text-white text-xs sm:text-sm drop-shadow-md truncate pr-2'>
+																	{tDynamic(suggested, "name")}
+																</h3>
+																<div className='flex items-center gap-0.5 text-yellow-500 shrink-0'>
+																	<span className='text-[10px] font-bold'>
+																		{suggested.maxStar}
+																	</span>
+																	<Star size={10} className='fill-current' />
+																</div>
+															</div>
+														</div>
+													</Link>
+												))}
+											</div>
+										</div>
+									)}
+
 									<div className='mt-8'>
 										<LatestComments championID={championID} />
 									</div>

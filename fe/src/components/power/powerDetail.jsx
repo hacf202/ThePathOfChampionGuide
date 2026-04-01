@@ -6,7 +6,9 @@ import { Loader2, ChevronLeft, XCircle } from "lucide-react";
 import PageTitle from "../common/pageTitle";
 import Button from "../common/button";
 import SafeImage from "../common/SafeImage";
+import MarkupRenderer from "../common/MarkupRenderer"; // 🟢 Import MarkupRenderer
 import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook i18n
+import { getRarityKey } from "../../utils/i18nHelpers"; // 🟢 Import i18n Helper
 
 // --- THÀNH PHẦN SKELETON LOADING ---
 const PowerDetailSkeleton = () => (
@@ -87,7 +89,7 @@ function PowerDetail() {
 		? tDynamic(power, "description") || tDynamic(power, "descriptionRaw")
 		: "";
 	const powerRarity = power?.rarity
-		? tDynamic(power, "rarity") || tUI(power.rarity) || power.rarity
+		? tDynamic(power, "rarity") || tUI(`power.rarity.${getRarityKey(power.rarity)}`) || power.rarity
 		: "";
 
 	const compatibleChampions = useMemo(() => {
@@ -169,12 +171,9 @@ function PowerDetail() {
 									</div>
 									{powerDesc && (
 										<div className='flex-1 mt-4'>
-											<div
-												className='text-base sm:text-xl rounded-lg p-4 h-full min-h-[120px] leading-relaxed bg-surface-bg border text-text-secondary overflow-y-auto'
-												dangerouslySetInnerHTML={{
-													__html: powerDesc,
-												}}
-											/>
+											<div className='text-base sm:text-xl rounded-lg p-4 h-full min-h-[120px] leading-relaxed bg-surface-bg border text-text-secondary overflow-y-auto'>
+												<MarkupRenderer text={powerDesc} />
+											</div>
 										</div>
 									)}
 								</div>

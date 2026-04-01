@@ -60,6 +60,10 @@ ThePathOfChampionGuide/
   - Phải hỗ trợ đa ngôn ngữ 100% để đội ngũ quốc tế cũng có thể dùng chung.
   - Các trang danh sách dữ liệu phải có tính đồng nhất phân trang (Pagination), như áp dụng luật **24-item limit**.
 
-### 2. Module: Localization (i18n)
-- **Nguyên tắc**: Đảm bảo tất cả từ vựng trong tiếng Anh và tiếng Việt được nạp linh hoạt.
-- **Thành phần tham gia**: `fe/src/locales/vi.json`, `fe/src/locales/en.json`, và các trình phân tích kiểm tra dịch thuật (VD: `analyze_locales.cjs`).
+### 3. Module: Card Explorer (Lá bài)
+- **Mục tiêu**: Cung cấp thư viện toàn bộ lá bài trong Legends of Runeterra với khả năng tìm kiếm và lọc mạnh mẽ.
+- **Tính năng cốt lõi**:
+  - **Dữ liệu chuẩn hóa**: Tự động chuyển đổi markup của game sang icon riêng của web thông qua `MarkupRenderer`.
+  - **Tìm kiếm Song ngữ**: Tìm kiếm thông minh trên cả tiếng Việt và tiếng Anh đồng thời (Name, Description, Raw).
+  - **Bộ lọc Đa năng**: Lọc theo Khu vực, Độ hiếm, Loại bài và Tiêu hao.
+  - **Admin**: Trình quản lý bài (`CardEditor`) hỗ trợ biên tập nội dung markup và bản dịch chi tiết cho cả hai ngôn ngữ.

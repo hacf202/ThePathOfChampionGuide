@@ -14,9 +14,22 @@ const NEW_CARD_TEMPLATE = {
 	cardCode: "",
 	isNew: true,
 	cardName: "",
+	cost: 0,
+	rarity: "None",
+	regions: [],
+	type: "Unit",
+	description: "",
+	descriptionRaw: "",
 	gameAbsolutePath: "",
 	translations: {
-		en: { cardName: "" },
+		en: {
+			cardName: "",
+			description: "",
+			descriptionRaw: "",
+			gameAbsolutePath: "",
+			regions: [],
+			type: "Unit"
+		},
 	},
 };
 

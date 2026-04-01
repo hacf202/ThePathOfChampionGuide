@@ -110,7 +110,19 @@ export const useGenericFilters = ({
 		setSearchParams,
 	]);
 
-	// 4. CÁC HÀM XỬ LÝ (ACTIONS)
+	// 4. DEBOUNCE CHO CÁC BỘ LỌC TÙY CHỈNH (Checkbox, MultiSelect...)
+	// Giúp giảm tải Server khi người dùng tick nhanh nhiều ô liên tục
+	const [debouncedCustomFilters, setDebouncedCustomFilters] = useState(customFilters);
+
+	useEffect(() => {
+		const handler = setTimeout(() => {
+			setDebouncedCustomFilters(customFilters);
+		}, 400); // Đợi 400ms sau khi người dùng dừng tương tác
+
+		return () => clearTimeout(handler);
+	}, [customFilters]);
+
+	// 5. CÁC HÀM XỬ LÝ (ACTIONS)
 	const handleSearch = useCallback(() => {
 		setSearchTerm(removeAccents(searchInput.trim()));
 		setCurrentPage(1);
@@ -122,6 +134,7 @@ export const useGenericFilters = ({
 		setSortOrder(defaultSort);
 		setCurrentPage(1);
 		setCustomFilters(initialCustomFilters);
+		setDebouncedCustomFilters(initialCustomFilters);
 	}, [
 		setSearchInput,
 		setSearchTerm,
@@ -140,7 +153,7 @@ export const useGenericFilters = ({
 		[setCustomFilters, setCurrentPage],
 	);
 
-	// 5. SINH QUERY PARAMS CHO BACKEND API
+	// 6. SINH QUERY PARAMS CHO BACKEND API
 	const queryParams = useMemo(() => {
 		const params = new URLSearchParams();
 		params.append("page", currentPage);
@@ -149,7 +162,8 @@ export const useGenericFilters = ({
 
 		if (searchTerm) params.append("searchTerm", searchTerm);
 
-		Object.entries(customFilters).forEach(([key, values]) => {
+		// Sử dụng giá trị đã được Debounce để gửi lên Backend
+		Object.entries(debouncedCustomFilters).forEach(([key, values]) => {
 			if (Array.isArray(values) && values.length > 0) {
 				params.append(key, values.join(","));
 			} else if (typeof values === "string" && values !== "") {
@@ -158,7 +172,7 @@ export const useGenericFilters = ({
 		});
 
 		return params.toString();
-	}, [currentPage, itemsPerPage, sortOrder, searchTerm, customFilters]);
+	}, [currentPage, itemsPerPage, sortOrder, searchTerm, debouncedCustomFilters]);
 
 	return {
 		state: {

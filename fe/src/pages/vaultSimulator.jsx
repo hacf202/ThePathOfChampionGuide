@@ -12,6 +12,7 @@ import {
 import PageTitle from "../components/common/pageTitle";
 import { useTranslation } from "../hooks/useTranslation";
 import axios from "axios";
+import { getRarityKey, getTypeKey, getRegionKey } from "../utils/i18nHelpers";
 
 // --- Assets chuẩn từ icon.json ---
 const ASSETS = {
@@ -181,11 +182,11 @@ const VaultSimulator = () => {
 				// Lọc Cổ vật: Chấp nhận cả 'general' hoặc 'chung'
 				const filteredRelics = Array.isArray(rawRelics)
 					? rawRelics.filter(r => {
-							const type = String(r.type || "").toLowerCase();
-							const rarity = r.rarity;
+							const typeKey = getTypeKey(r.type);
+							const rarityKey = getRarityKey(r.rarity);
 							return (
-								(type === "general" || type === "chung") &&
-								(rarity === "Thường" || rarity === "Hiếm")
+								typeKey === "general" &&
+								(rarityKey === "common" || rarityKey === "rare")
 							);
 						})
 					: [];
@@ -197,7 +198,7 @@ const VaultSimulator = () => {
 								? c.regions
 								: [c.region || ""];
 							const isSpiritBlossom = regions.some(
-								r => String(r || "").toLowerCase() === "hoa linh lục địa",
+								r => getRegionKey(r) === "spiritblossom",
 							);
 							return (
 								!isSpiritBlossom &&
@@ -278,14 +279,14 @@ const VaultSimulator = () => {
 					const randomRelic =
 						rarityPool[Math.floor(Math.random() * rarityPool.length)];
 					if (randomRelic) {
+						const key = getRarityKey(randomRelic.rarity);
 						results.push({
 							id: `relic_${randomRelic.relicCode}`,
 							name: randomRelic.name,
 							type: tUI("vaultSimulator.loot.relic"),
-							rarityKey: `relic.rarity.${randomRelic.rarity === "Hiếm" ? "rare" : "common"}`,
+							rarityKey: `relic.rarity.${key}`,
 							icon: randomRelic.assetAbsolutePath,
-							color:
-								drop.rarity === "Thường" ? "text-green-600" : "text-blue-600",
+							color: key === "common" ? "text-green-600" : "text-blue-600",
 						});
 					}
 				}

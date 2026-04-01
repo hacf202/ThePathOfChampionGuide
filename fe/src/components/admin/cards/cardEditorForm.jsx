@@ -1,9 +1,9 @@
-// fe/src/components/admin/cards/cardEditorForm.jsx
 import { useState, memo, useEffect } from "react";
 import InputField from "../../common/inputField";
 import { useTranslation } from "../../../hooks/useTranslation";
 import EditorHeaderToolbar from "../common/editorHeaderToolbar";
 import ImagePreviewBox from "../common/imagePreviewBox";
+import MarkupEditor from "../MarkupEditor";
 
 const CardEditorForm = memo(({ card, onSave, onCancel, onDelete, isSaving }) => {
 	const [formData, setFormData] = useState({});
@@ -15,10 +15,10 @@ const CardEditorForm = memo(({ card, onSave, onCancel, onDelete, isSaving }) => 
 		if (card) {
 			const deepCloned = JSON.parse(JSON.stringify(card));
 			if (!deepCloned.translations) {
-				deepCloned.translations = { en: { cardName: "" } };
+				deepCloned.translations = { en: {} };
 			}
 			if (!deepCloned.translations.en) {
-				deepCloned.translations.en = { cardName: "" };
+				deepCloned.translations.en = {};
 			}
 			setFormData(deepCloned);
 			setInitialData(JSON.parse(JSON.stringify(deepCloned)));
@@ -30,28 +30,34 @@ const CardEditorForm = memo(({ card, onSave, onCancel, onDelete, isSaving }) => 
 		setIsDirty(JSON.stringify(formData) !== JSON.stringify(initialData));
 	}, [formData, initialData]);
 
-	useEffect(() => {
-		const handleBeforeUnload = e => {
-			if (isDirty) {
-				e.preventDefault();
-				e.returnValue = "";
-			}
-		};
-		window.addEventListener("beforeunload", handleBeforeUnload);
-		return () => window.removeEventListener("beforeunload", handleBeforeUnload);
-	}, [isDirty]);
-
 	const handleInputChange = e => {
-		const { name, value } = e.target;
-		setFormData(prev => ({ ...prev, [name]: value }));
+		const { name, value, type } = e.target;
+        const val = type === 'number' ? parseInt(value) || 0 : value;
+		setFormData(prev => ({ ...prev, [name]: val }));
 	};
 
-	const handleTranslationChange = (field, value) => {
+    const handleRegionsChange = (lang, value) => {
+        const regionsArray = value.split(",").map(r => r.trim()).filter(Boolean);
+        if (lang === 'vi') {
+            setFormData(prev => ({ ...prev, regions: regionsArray }));
+        } else {
+            setFormData(prev => ({
+                ...prev,
+                translations: {
+                    ...prev.translations,
+                    en: { ...(prev.translations?.en || {}), regions: regionsArray }
+                }
+            }));
+        }
+    };
+
+	const handleTranslationChange = (field, value, type) => {
+        const val = type === 'number' ? parseInt(value) || 0 : value;
 		setFormData(prev => ({
 			...prev,
 			translations: {
 				...prev.translations,
-				en: { ...(prev.translations?.en || {}), [field]: value },
+				en: { ...(prev.translations?.en || {}), [field]: val },
 			},
 		}));
 	};
@@ -86,59 +92,181 @@ const CardEditorForm = memo(({ card, onSave, onCancel, onDelete, isSaving }) => 
 				disableSave={!formData.cardCode}
 			/>
 
-			<div className='grid grid-cols-1 lg:grid-cols-2 gap-6 p-6 bg-surface-bg border border-border rounded-xl mx-4'>
-				{/* CỘT TRÁI */}
-				<div className='space-y-5'>
-					<div className='border border-border rounded-lg p-4 bg-page-bg space-y-4 shadow-sm'>
-						<h3 className='text-md font-bold text-text-primary border-b border-border pb-2'>
-							{tUI("admin.cardForm.identitySection")}
+			<div className='grid grid-cols-1 xl:grid-cols-2 gap-8 p-6 bg-surface-bg border border-border rounded-xl mx-4'>
+				{/* PHẦN 1: THÔNG TIN CƠ BẢN & CHỈ SỐ (VI) */}
+				<div className='space-y-6'>
+					<div className='border border-border rounded-xl p-5 bg-page-bg space-y-5 shadow-sm'>
+						<h3 className='text-lg font-bold text-primary-500 border-b border-border pb-3 flex items-center gap-2'>
+							<span className="w-1.5 h-1.5 bg-primary-500 rounded-full" />
+							{tUI("admin.cardForm.identitySection")} (VI)
 						</h3>
-						<InputField
-							label={tUI("admin.cardForm.cardCodeLabel")}
-							name='cardCode'
-							value={formData.cardCode || ""}
-							onChange={handleInputChange}
-							required
-							disabled={!formData.isNew}
-							placeholder='VD: 06RU009'
-						/>
-						<div className='grid grid-cols-1 gap-4'>
-							<InputField
-								label={`${tUI("admin.cardForm.cardNameLabel")} (VI)`}
-								name='cardName'
-								value={formData.cardName || ""}
-								onChange={handleInputChange}
-								required
-								placeholder='Tên lá bài tiếng Việt...'
-							/>
-							<InputField
-								label={`${tUI("admin.cardForm.cardNameLabel")} (EN)`}
-								value={formData.translations?.en?.cardName || ""}
-								onChange={e =>
-									handleTranslationChange("cardName", e.target.value)
-								}
-								placeholder='English card name...'
-							/>
-						</div>
+                        
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    						<InputField
+    							label={tUI("admin.cardForm.cardCodeLabel")}
+    							name='cardCode'
+    							value={formData.cardCode || ""}
+    							onChange={handleInputChange}
+    							required
+    							disabled={!formData.isNew}
+    							placeholder='VD: 06RU009'
+    						/>
+    						<InputField
+    							label={tUI("admin.cardForm.cardNameLabel")}
+    							name='cardName'
+    							value={formData.cardName || ""}
+    							onChange={handleInputChange}
+    							required
+    							placeholder='Tên lá bài...'
+    						/>
+                        </div>
+
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                            <InputField
+                                label="Cost"
+                                name="cost"
+                                type="number"
+                                value={formData.cost ?? 0}
+                                onChange={handleInputChange}
+                            />
+                            <div className="space-y-1.5">
+                                <label className="block text-sm font-medium text-text-secondary">Rarity</label>
+                                <select 
+                                    name="rarity" 
+                                    value={formData.rarity || "None"} 
+                                    onChange={handleInputChange}
+                                    className="w-full bg-surface-hover border border-border rounded-lg px-3 py-2 text-sm text-text-primary"
+                                >
+                                    <option value="None">None</option>
+                                    <option value="Common">Common</option>
+                                    <option value="Rare">Rare</option>
+                                    <option value="Epic">Epic</option>
+                                    <option value="Champion">Champion</option>
+                                </select>
+                            </div>
+                            <div className="space-y-1.5">
+                                <label className="block text-sm font-medium text-text-secondary">Type</label>
+                                <select 
+                                    name="type" 
+                                    value={formData.type || "Unit"} 
+                                    onChange={handleInputChange}
+                                    className="w-full bg-surface-hover border border-border rounded-lg px-3 py-2 text-sm text-text-primary"
+                                >
+                                    <option value="Unit">Unit / Bài quân</option>
+                                    <option value="Spell">Spell / Bài phép</option>
+                                    <option value="Landmark">Landmark / Địa danh</option>
+                                    <option value="Equipment">Equipment / Trang bị</option>
+                                </select>
+                            </div>
+                            <InputField
+                                label="Regions (Comma split)"
+                                value={(formData.regions || []).join(", ")}
+                                onChange={(e) => handleRegionsChange('vi', e.target.value)}
+                                placeholder="Noxus, Ionia..."
+                            />
+                        </div>
+
+                        <div className="space-y-4 pt-2">
+                            <div className="space-y-2">
+                                <MarkupEditor
+                                    value={formData.description || ""}
+                                    onChange={({ markup, raw }) => {
+                                        setFormData(prev => ({ 
+                                            ...prev, 
+                                            description: markup,
+                                            descriptionRaw: raw
+                                        }));
+                                    }}
+                                    placeholder="Nhập mô tả lá bài..."
+                                />
+                            </div>
+                        </div>
+
+                        <div className="space-y-4 pt-4 border-t border-border/50">
+                            <InputField
+                                label={tUI("admin.cardForm.imageUrlLabel")}
+                                name='gameAbsolutePath'
+                                value={formData.gameAbsolutePath || ""}
+                                onChange={handleInputChange}
+                                placeholder='https://dd.b.pvp.net/...'
+                            />
+                            <ImagePreviewBox
+                                imageUrl={formData.gameAbsolutePath}
+                                label={tUI("admin.cardForm.previewImage")}
+                                wrapperClassName='flex flex-col items-center bg-gray-900/40 p-4 rounded-xl border border-dashed border-border'
+                                imageClassName='w-40 h-auto max-h-56 object-contain rounded-lg shadow-2xl border-2 border-white/10'
+                            />
+                        </div>
 					</div>
 				</div>
 
-				{/* CỘT PHẢI */}
-				<div className='space-y-5'>
-					<ImagePreviewBox
-						imageUrl={formData.gameAbsolutePath}
-						label={tUI("admin.cardForm.previewImage")}
-						wrapperClassName='flex flex-col items-center bg-surface-hover/30 p-6 rounded-xl border border-dashed border-border'
-						imageClassName='w-44 h-auto max-h-64 object-contain rounded-xl shadow-xl border-4 border-white dark:border-gray-800'
-					/>
+				{/* PHẦN 2: DỊCH THUẬT TIẾNG ANH (EN) */}
+				<div className='space-y-6'>
+					<div className='border border-border rounded-xl p-5 bg-surface-hover/20 space-y-5 shadow-sm'>
+                        <h3 className='text-lg font-bold text-blue-400 border-b border-border pb-3 flex items-center gap-2'>
+							<span className="w-1.5 h-1.5 bg-blue-400 rounded-full" />
+							English Translations (EN)
+						</h3>
 
-					<InputField
-						label={tUI("admin.cardForm.imageUrlLabel")}
-						name='gameAbsolutePath'
-						value={formData.gameAbsolutePath || ""}
-						onChange={handleInputChange}
-						placeholder='https://dd.b.pvp.net/...'
-					/>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <InputField
+                                label="English Name"
+                                value={formData.translations?.en?.cardName || ""}
+                                onChange={e => handleTranslationChange("cardName", e.target.value)}
+                                placeholder='English title...'
+                            />
+                            <InputField
+                                label="English Type"
+                                value={formData.translations?.en?.type || ""}
+                                onChange={e => handleTranslationChange("type", e.target.value)}
+                                placeholder='Unit, Spell...'
+                            />
+                        </div>
+
+                        <InputField
+                            label="English Regions (Comma split)"
+                            value={(formData.translations?.en?.regions || []).join(", ")}
+                            onChange={(e) => handleRegionsChange('en', e.target.value)}
+                            placeholder="Noxus, Ionia..."
+                        />
+
+                        <div className="space-y-4 pt-2">
+                            <div className="space-y-2">
+                                <MarkupEditor
+                                    value={formData.translations?.en?.description || ""}
+                                    onChange={({ markup, raw }) => {
+                                        setFormData(prev => ({
+                                            ...prev,
+                                            translations: {
+                                                ...prev.translations,
+                                                en: { 
+                                                    ...(prev.translations?.en || {}), 
+                                                    description: markup,
+                                                    descriptionRaw: raw
+                                                }
+                                            }
+                                        }));
+                                    }}
+                                    placeholder="Enter English description..."
+                                />
+                            </div>
+                        </div>
+
+                        <div className="space-y-4 pt-4 border-t border-border/50">
+                            <InputField
+                                label="English Image URL"
+                                value={formData.translations?.en?.gameAbsolutePath || ""}
+                                onChange={e => handleTranslationChange("gameAbsolutePath", e.target.value)}
+                                placeholder='https://dd.b.pvp.net/...'
+                            />
+                            <ImagePreviewBox
+                                imageUrl={formData.translations?.en?.gameAbsolutePath}
+                                label="English Preview"
+                                wrapperClassName='flex flex-col items-center bg-gray-900/40 p-4 rounded-xl border border-dashed border-border'
+                                imageClassName='w-40 h-auto max-h-56 object-contain rounded-lg shadow-2xl border-2 border-white/10'
+                            />
+                        </div>
+					</div>
 				</div>
 			</div>
 		</form>

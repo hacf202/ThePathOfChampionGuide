@@ -30,6 +30,8 @@ import RandomizerPage from "./pages/randomWheelPage.jsx";
 import GuideListPage from "./pages/guideListPage.jsx";
 import TierListIndex from "./pages/tierList.jsx";
 import VaultSimulator from "./pages/vaultSimulator.jsx";
+import CardList from "./pages/cardList.jsx";
+import CardDetail from "./pages/cardDetail.jsx";
 
 // Đăng nhập / Đăng ký
 import AuthContainer from "./components/auth/authContainer.jsx";
@@ -103,6 +105,8 @@ function MainContent() {
 				<Route path='/guides/:slug' element={<GuideDetail />} />
 				<Route path='/maps' element={<Maps />} />
 				<Route path='/map/:adventureID' element={<AdventureMapDetail />} />
+				<Route path='/cards' element={<CardList />} />
+				<Route path='/card/:cardCode' element={<CardDetail />} />
 				<Route path='/tierlist' element={<TierListIndex />} />
 				<Route path='/tierlist/champions' element={<TierListIndex />} />
 				<Route path='/tierlist/relics' element={<TierListIndex />} />

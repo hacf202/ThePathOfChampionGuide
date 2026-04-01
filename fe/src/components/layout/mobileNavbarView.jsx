@@ -197,6 +197,13 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 									>
 										<ScrollText className='w-4 h-4' /> {tUI("nav.builds")}
 									</NavLink>
+									<NavLink
+										to='/cards'
+										className={dropdownLinkClass}
+										onClick={closeSidebar}
+									>
+										<BookOpen className='w-4 h-4' /> {tUI("cardList.title")}
+									</NavLink>
 								</div>
 							)}
 						</div>

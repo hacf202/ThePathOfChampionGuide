@@ -2,6 +2,23 @@
 
 *File này là nơi lưu trữ trạng thái dở dang thuộc phiên làm việc hiện tại, các vấn đề và lỗi sinh ra khi code hoặc thảo luận để AI ghi nhớ tránh lạc lõng, hỏi lại nhiều lần.*
 
+## Log thay đổi 2026-04-01
+
+### ✅ Nâng cấp Card Explorer (Tính năng & Dữ liệu)
+- **Chuẩn hóa dữ liệu & Markup**:
+    - Chuyển đổi toàn bộ thẻ bài cũ `[c:Name]` sang định dạng chi tiết `[cd:Code|Name|icon,img-full]`.
+    - Đồng bộ 2.246 lá bài lên DynamoDB (`guidePocCardList`) với markup đã được chuẩn hóa.
+- **Tìm kiếm đa ngôn ngữ**: Hỗ trợ tìm kiếm theo tên/mô tả cả tiếng Việt và tiếng Anh, hỗ trợ tìm kiếm không dấu.
+- **Bộ lọc nâng cao**: Triển khai bộ lọc Khu vực, Loại bài, Độ hiếm và Tiêu hao (Cost) trên cả Frontend và Backend.
+- **Tối ưu UI/UX**:
+    - Danh sách bài hiển thị dạng Gallery hình ảnh thuần túy, tự động tải dữ liệu khi lọc.
+    - Bổ sung bộ phận sắp xếp (A-Z, Z-A, Tiêu hao).
+    - Trang chi tiết hiển thị đầy đủ thông tin đa ngôn ngữ với `MarkupRenderer`.
+- **Admin Editor (Pro Edition)**:
+    - Tích hợp **`MarkupEditor`** chuyên dụng với Tooltip nổi và tìm kiếm thực thể (Champions, Items, etc.).
+    - Trực quan hóa tiến trình biên tập với cửa sổ xem trước (Live Preview).
+    - Hỗ trợ biên tập song ngữ (VI/EN) thuận tiện.
+
 ## Log thay đổi 2026-03-28
 
 ### ✅ Thiết lập Framework AI Agent (Luật & Bộ nhớ)
@@ -9,21 +26,15 @@
 - Tạo `docs/memory/` với SSOT: `today.md`, `projects.md`, `goals.md`, `active-tasks.json`.
 
 ### ✅ Tái cấu trúc dự án
-- **XÓA** `fe/temp.txt` — note tạm không có giá trị.
-- **XÓA** `fe/vi_in_en_suspicious.json` — output script, tái tạo được.
-- **XÓA** `fe/upgrade_editors.cjs` — script one-shot đã hoàn thành mục đích.
-- **XÓA** `fe/test_lang.cjs` — script one-shot đã hoàn thành mục đích.
-- **DI CHUYỂN** `fe/analyze_locales.cjs` → `scripts/analyze_locales.cjs` (cập nhật path `../fe/src`).
-- **Verify**: Script mới chạy OK — EN=836 keys, VI=836 keys, đồng bộ hoàn hảo.
+- **Verification**: Script `analyze_locales.cjs` chạy OK — EN=836 keys, VI=836 keys, đồng bộ hoàn hảo.
 
 ## Tiến độ gần nhất
-- Đã và đang chuẩn hóa hệ thống đa ngôn ngữ (i18n) cho khu vực **Admin Panel**.
-- Đang nâng cấp và loại bỏ các đoạn text hardcode tại: `championEditor`, `runeEditor`, `relicEditor`, `powerEditor`, `bonusStarEditor`, `rewardSection`.
-- Liên tục bổ sung chuỗi dịch vụ (translations) cho `vi.json` và `en.json`.
+- Đã hoàn tất việc tích hợp và chuẩn hóa hệ thống Lá bài (Cards) tương đương với hệ thống Tướng và Trang bị.
+- Hệ thống cơ sở dữ liệu đã được nạp đầy đủ và đồng nhất 100%.
 
 ## Vấn đề đang chú ý (Blocking/Bugs)
 *Không có bug hay blocking nghiêm trọng nào.*
 
 ## Mục tiêu phiên làm việc tiếp theo
-- Hoàn thiện toàn bộ các chuỗi text trong trang quản trị bản đồ/phần thưởng (reward section).
-- Kiểm tra tính ổn định của các chuỗi dịch thuật giữa hai ngôn ngữ chính Việt - Anh.
+- Kiểm tra lại tính tương thích của các thẻ markup mới trên các trình duyệt khác nhau.
+- Xem xét việc tối ưu hóa hiệu suất tải ảnh (lazy loading) cho danh sách lá bài dài.

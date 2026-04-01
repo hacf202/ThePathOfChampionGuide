@@ -6,6 +6,7 @@ import { useTranslation } from "../../../hooks/useTranslation"; // IMPORT HOOK �
 // IMPORT CÁC COMPONENT CHUNG
 import EditorHeaderToolbar from "../common/editorHeaderToolbar";
 import ImagePreviewBox from "../common/imagePreviewBox";
+import MarkupEditor from "../MarkupEditor"; // 🟢 Import MarkupEditor
 
 const RelicEditorForm = memo(
 	({ relic, onSave, onCancel, onDelete, isSaving }) => {
@@ -22,7 +23,7 @@ const RelicEditorForm = memo(
 				// Đảm bảo object translations luôn tồn tại
 				if (!deepCloned.translations) {
 					deepCloned.translations = {
-						en: { name: "", rarity: "", description: "" },
+						en: { name: "", rarity: "", description: "", descriptionRaw: "" },
 					};
 				}
 				if (!deepCloned.translations.en) {
@@ -30,6 +31,7 @@ const RelicEditorForm = memo(
 						name: "",
 						rarity: "",
 						description: "",
+						descriptionRaw: "",
 					};
 				}
 
@@ -69,13 +71,17 @@ const RelicEditorForm = memo(
 
 		const handleTranslationChange = (e, lang) => {
 			const { name, value } = e.target;
+			updateTranslationFields(lang, { [name]: value });
+		};
+
+		const updateTranslationFields = (lang, fields) => {
 			setFormData(prev => ({
 				...prev,
 				translations: {
 					...prev.translations,
 					[lang]: {
-						...prev.translations[lang],
-						[name]: value,
+						...(prev.translations?.[lang] || {}),
+						...fields,
 					},
 				},
 			}));
@@ -92,7 +98,6 @@ const RelicEditorForm = memo(
 
 		return (
 			<form onSubmit={handleSubmit} className='space-y-8'>
-				{/* ĐÃ ÁP DỤNG COMPONENT Toolbar Gộp Logic Modal */}
 				<EditorHeaderToolbar
 					title={
 						formData.isNew
@@ -160,7 +165,7 @@ const RelicEditorForm = memo(
 
 							<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
 								<InputField
-									label={`${tUI("admin.relicForm.nameLabel")} (VI)`}
+									label={tUI("admin.relicForm.nameLabel")}
 									name='name'
 									value={formData.name || ""}
 									onChange={handleInputChange}
@@ -168,23 +173,27 @@ const RelicEditorForm = memo(
 									placeholder='Nhập tên Cổ vật...'
 								/>
 								<InputField
-									label={`${tUI("admin.relicForm.rarityLabel")} (VI)`}
+									label={tUI("admin.relicForm.rarityLabel")}
 									name='rarity'
 									value={formData.rarity || ""}
 									onChange={handleInputChange}
 									placeholder='Hiếm, Sử Thi...'
 								/>
 							</div>
-							<div className='flex flex-col gap-1'>
+							<div className='flex flex-col gap-2'>
 								<label className='text-sm font-semibold text-text-primary'>
-									{tUI("admin.relicForm.descLabel")} (VI)
+									{tUI("admin.relicForm.descLabel")}
 								</label>
-								<textarea
-									name='description'
+								<MarkupEditor
 									value={formData.description || ""}
-									onChange={handleInputChange}
-									className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary min-h-[100px] outline-none focus:ring-2 focus:ring-primary-500 transition resize-none'
-									placeholder='Nội dung mô tả...'
+									onChange={({ markup, raw }) =>
+										setFormData(prev => ({
+											...prev,
+											description: markup,
+											descriptionRaw: raw,
+										}))
+									}
+									placeholder='Nhập mô tả, chiến thuật, cách combo...'
 								/>
 							</div>
 						</div>
@@ -197,30 +206,33 @@ const RelicEditorForm = memo(
 
 							<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
 								<InputField
-									label={`${tUI("admin.relicForm.nameLabel")} (EN)`}
+									label={tUI("admin.relicForm.nameLabel")}
 									name='name'
 									value={formData.translations?.en?.name || ""}
 									onChange={e => handleTranslationChange(e, "en")}
 									placeholder='English Name...'
 								/>
 								<InputField
-									label={`${tUI("admin.relicForm.rarityLabel")} (EN)`}
+									label={tUI("admin.relicForm.rarityLabel")}
 									name='rarity'
 									value={formData.translations?.en?.rarity || ""}
 									onChange={e => handleTranslationChange(e, "en")}
 									placeholder='English Rarity...'
 								/>
 							</div>
-							<div className='flex flex-col gap-1'>
+							<div className='flex flex-col gap-2'>
 								<label className='text-sm font-semibold text-text-primary'>
-									{tUI("admin.relicForm.descLabel")} (EN)
+									{tUI("admin.relicForm.descLabel")}
 								</label>
-								<textarea
-									name='description'
+								<MarkupEditor
 									value={formData.translations?.en?.description || ""}
-									onChange={e => handleTranslationChange(e, "en")}
-									className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary min-h-[100px] outline-none focus:ring-2 focus:ring-blue-500 transition resize-none'
-									placeholder='English Description...'
+									onChange={({ markup, raw }) =>
+										updateTranslationFields("en", {
+											description: markup,
+											descriptionRaw: raw,
+										})
+									}
+									placeholder='Enter description, strategy, combos...'
 								/>
 							</div>
 						</div>
@@ -228,7 +240,6 @@ const RelicEditorForm = memo(
 
 					{/* CỘT PHẢI */}
 					<div className='space-y-5'>
-						{/* ĐÃ ÁP DỤNG COMPONENT ImagePreviewBox */}
 						<ImagePreviewBox
 							imageUrl={
 								formData.assetAbsolutePath || formData.assetFullAbsolutePath
