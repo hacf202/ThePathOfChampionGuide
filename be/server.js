@@ -1,8 +1,10 @@
 // server.js
 import express from "express"; //tạo server HTTP, các route GET, PUT, POST, DELETE,..
+import dotenv from "dotenv";
+dotenv.config(); // Đọc .env ngay lập tức trước khi import bất kỳ thứ gì khác
+
 import cors from "cors"; //cho phép front end gọi api của backend
 import morgan from "morgan";
-import dotenv from "dotenv";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import { errorHandler } from "./src/middleware/errorMiddleware.js";

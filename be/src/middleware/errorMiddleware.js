@@ -12,6 +12,22 @@ export const errorHandler = (err, req, res, next) => {
 		method: req.method,
 	});
 
+	// --- Unmask CORS on Error ---
+	const origin = req.headers.origin;
+	const allowedOrigins = [
+		"https://www.pocguide.top",
+		"https://pocguide.top",
+		"https://guidepoc.vercel.app",
+		"http://localhost:5173"
+	];
+
+	if (origin && allowedOrigins.includes(origin)) {
+		res.setHeader("Access-Control-Allow-Origin", origin);
+		res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+		res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+		res.setHeader("Access-Control-Allow-Credentials", "true");
+	}
+
 	// Check if it's a Zod validation error
 	if (err.name === "ZodError") {
 		const issues = err.issues || err.errors || [];
@@ -26,5 +42,7 @@ export const errorHandler = (err, req, res, next) => {
 
 	res.status(statusCode).json({
 		error: message,
+		// Tạm thời bật stack trace hoặc thông tin chi tiết hơn để debug Vercel
+		debug: process.env.NODE_ENV === "production" ? message : err.stack,
 	});
 };
