@@ -53,6 +53,14 @@ export default function PageTitle({
 		],
 	};
 
+	const jsonLd = {
+		"@context": "https://schema.org",
+		"@type": "WebSite",
+		name: siteName,
+		url: baseUrl,
+		description: metaDescription,
+	};
+
 	return (
 		<Helmet htmlAttributes={{ lang: language }}>
 			<title>{fullTitle}</title>
