@@ -1,15 +1,22 @@
-// be/src/utils/proxyImage.js
+import os from "os";
 import axios from "axios";
 import sharp from "sharp";
 import fs from "fs";
 import path from "path";
 import crypto from "crypto";
 
-const CACHE_DIR = path.join(process.cwd(), "cache", "proxy-images");
+// Trên Vercel, chỉ có thư mục /tmp là có quyền ghi
+const CACHE_DIR = process.env.VERCEL
+	? path.join(os.tmpdir(), "proxy-images")
+	: path.join(process.cwd(), "cache", "proxy-images");
 
 // Đảm bảo thư mục cache tồn tại
 if (!fs.existsSync(CACHE_DIR)) {
-	fs.mkdirSync(CACHE_DIR, { recursive: true });
+	try {
+		fs.mkdirSync(CACHE_DIR, { recursive: true });
+	} catch (e) {
+		console.warn("Could not create cache directory:", e.message);
+	}
 }
 
 /**
