@@ -75,16 +75,24 @@ const allowedOrigins = process.env.CORS_ALLOWED_ORIGINS
 			"http://localhost:5173",
 			"https://guidepoc.vercel.app",
 			"https://www.pocguide.top",
+			"https://pocguide.top",
 		].filter(Boolean);
+
 app.use(
 	cors({
 		origin: function (origin, callback) {
+			// Cho phép các yêu cầu không có origin (như từ Postman hoặc mobile app)
+			// hoặc các origin có trong danh sách allowedOrigins
 			if (!origin || allowedOrigins.indexOf(origin) !== -1) {
 				callback(null, true);
 			} else {
+				console.error(`CORS Blocked for origin: ${origin}`);
 				callback(new Error("Không được phép bởi CORS"));
 			}
 		},
+		methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+		allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+		credentials: true,
 	}),
 );
 
