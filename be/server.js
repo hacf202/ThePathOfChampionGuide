@@ -28,8 +28,6 @@ import commentRoutes from "./src/routes/comments.js";
 import cardsRouter from "./src/routes/cards.js";
 import ratingsRouter from "./src/routes/ratings.js";
 
-dotenv.config(); //đọc .env tải biến môi trường
-
 // Kiểm tra các biến môi trường cần thiết
 const requiredEnvVars = [
 	"AWS_REGION", //khu vực
