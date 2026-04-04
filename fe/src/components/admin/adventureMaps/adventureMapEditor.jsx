@@ -6,6 +6,7 @@ import { removeAccents } from "../../../utils/vietnameseUtils";
 import SidePanel from "../../common/sidePanel";
 import DropDragSidePanel from "../common/dropSidePanel";
 import AdventureMapEditorForm from "./adventureMapEditorForm";
+import AdminListLayout from "../common/adminListLayout";
 import { Loader2 } from "lucide-react";
 
 // Đã thêm ghi chú cấu trúc ngầm định của Bosses để đồng bộ dữ liệu
@@ -37,67 +38,40 @@ const AdvListView = memo(
 		sidePanelProps,
 	}) => {
 		return (
-			<div className='flex flex-col lg:flex-row gap-6'>
-				<div className='lg:w-4/5 bg-surface-bg rounded-lg p-4'>
-					{paginatedItems.length > 0 ? (
-						<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6'>
-							{paginatedItems.map(item => (
-								<Link
-									key={item.adventureID}
-									to={`./${item.adventureID}`}
-									className='block hover:scale-[1.02] transition-transform duration-200'
-								>
-									<div className='border border-border rounded-lg p-4 bg-surface-hover shadow-sm h-full flex flex-col'>
-										<div className='relative w-full h-32 mb-3 bg-slate-900 rounded-md overflow-hidden'>
-											<img
-												src={item.assetAbsolutePath || item.background}
-												alt={item.adventureName}
-												className='w-full h-full object-contain'
-											/>
-										</div>
-										<h3 className='font-bold text-lg text-primary-500'>
-											{item.adventureName}
-										</h3>
-										<p className='text-sm text-text-secondary'>
-											{item.typeAdventure} | Sao: {item.difficulty}
-										</p>
-									</div>
-								</Link>
-							))}
-						</div>
-					) : (
-						<div className='flex items-center justify-center h-full min-h-[300px] text-center text-text-secondary'>
-							<p className='font-semibold text-lg'>
-								Không tìm thấy Adventure nào.
-							</p>
-						</div>
-					)}
-					{totalPages > 1 && (
-						<div className='mt-8 flex justify-center items-center gap-4'>
-							<Button
-								onClick={() => onPageChange(currentPage - 1)}
-								disabled={currentPage === 1}
-								variant='outline'
-							>
-								Trước
-							</Button>
-							<span className='text-lg font-medium'>
-								{currentPage} / {totalPages}
-							</span>
-							<Button
-								onClick={() => onPageChange(currentPage + 1)}
-								disabled={currentPage === totalPages}
-								variant='outline'
-							>
-								Sau
-							</Button>
-						</div>
-					)}
+			<AdminListLayout
+				dataLength={paginatedItems.length}
+				totalPages={totalPages}
+				currentPage={currentPage}
+				onPageChange={onPageChange}
+				sidePanelProps={sidePanelProps}
+				emptyMessageTitle="Không tìm thấy Adventure nào."
+			>
+				<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6'>
+					{paginatedItems.map((item) => (
+						<Link
+							key={item.adventureID}
+							to={`./${item.adventureID}`}
+							className='block hover:scale-[1.02] transition-transform duration-200'
+						>
+							<div className='border border-border rounded-lg p-4 bg-surface-hover shadow-sm h-full flex flex-col'>
+								<div className='relative w-full h-32 mb-3 bg-slate-900 rounded-md overflow-hidden'>
+									<img
+										src={item.assetAbsolutePath || item.background}
+										alt={item.adventureName}
+										className='w-full h-full object-contain'
+									/>
+								</div>
+								<h3 className='font-bold text-lg text-primary-500'>
+									{item.adventureName}
+								</h3>
+								<p className='text-sm text-text-secondary'>
+									{item.typeAdventure} | Sao: {item.difficulty}
+								</p>
+							</div>
+						</Link>
+					))}
 				</div>
-				<div className='lg:w-1/5'>
-					<SidePanel {...sidePanelProps} />
-				</div>
-			</div>
+			</AdminListLayout>
 		);
 	},
 );

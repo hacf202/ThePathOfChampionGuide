@@ -11,9 +11,9 @@ export const parseMarkup = text => {
 	 * 1. [type:value|label|options] (loại thẻ đặc biệt)
 	 * 2. <(b|i|br)/> (thẻ HTML rỗng/mở)
 	 * 3. </(b|i)> (thẻ HTML đóng)
-	 * 4. \n (xuống dòng)
+	 * 4. \n hoặc literal \n (xuống dòng)
 	 */
-	const regex = /\[([a-z]+):([^\]|]+)(?:\|([^|\]]*))?(?:\|([^\]]*))?\]|<(b|i|br)\/?>|<\/(b|i)>|(\n)/gi;
+	const regex = /\[([a-z]+):([^\]|]+)(?:\|([^|\]]*))?(?:\|([^\]]*))?\]|<(b|i|br)\/?>|<\/(b|i)>|(\\n|\n)/gi;
 	const segments = [];
 	let lastIndex = 0;
 	let match;
@@ -50,7 +50,7 @@ export const parseMarkup = text => {
 				tag: match[6].toLowerCase(),
 			});
 		} else if (match[7]) {
-			// Xuống dòng thực sự (\n)
+			// Xuống dòng thực sự (\n) hoặc ký tự \n
 			segments.push({
 				type: "html_open",
 				tag: "br",

@@ -6,6 +6,7 @@ import Button from "../../common/button";
 import { removeAccents } from "../../../utils/vietnameseUtils";
 import SidePanel from "../../common/sidePanel";
 import BonusStarEditorForm from "./bonusStarEditorForm";
+import AdminListLayout from "../common/adminListLayout";
 import { Loader2 } from "lucide-react";
 import { useTranslation } from "../../../hooks/useTranslation";
 
@@ -38,65 +39,39 @@ const BonusStarListView = memo(
 		const { tUI } = useTranslation();
 
 		return (
-			<div className='flex flex-col lg:flex-row gap-6'>
-				<div className='lg:w-4/5 bg-surface-bg rounded-lg p-4'>
-					{paginatedItems.length > 0 ? (
-						<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6'>
-							{paginatedItems.map(item => (
-								<Link
-									key={item.bonusStarID}
-									to={`./${item.bonusStarID}`}
-									className='block hover:scale-105 transition-transform duration-200'
-								>
-									<GenericCard
-										displayId={item.bonusStarID}
-										item={{
-											...item,
-											name: item.name || "Chưa có tên", // Lớp phòng vệ tránh lỗi PropTypes
-											assetAbsolutePath: item.image,
-										}}
-										onClick={() => {}}
-									/>
-								</Link>
-							))}
-						</div>
-					) : (
-						<div className='flex items-center justify-center h-full min-h-[300px] text-center text-text-secondary'>
-							<div>
-								<p className='font-semibold text-lg'>
-									{tUI("admin.bonusStar.notFound")}
-								</p>
-								<p>{tUI("admin.bonusStar.tryOtherFilter")}</p>
-							</div>
-						</div>
-					)}
-
-					{totalPages > 1 && (
-						<div className='mt-8 flex justify-center items-center gap-2 md:gap-4'>
-							<Button
-								onClick={() => onPageChange(currentPage - 1)}
-								disabled={currentPage === 1}
-								variant='outline'
-							>
-								{tUI("admin.common.prevPage")}
-							</Button>
-							<span className='text-lg font-medium text-text-primary'>
-								{currentPage} / {totalPages}
-							</span>
-							<Button
-								onClick={() => onPageChange(currentPage + 1)}
-								disabled={currentPage === totalPages}
-								variant='outline'
-							>
-								{tUI("admin.common.nextPage")}
-							</Button>
-						</div>
-					)}
+			<AdminListLayout
+				dataLength={paginatedItems.length}
+				totalPages={totalPages}
+				currentPage={currentPage}
+				onPageChange={onPageChange}
+				sidePanelProps={sidePanelProps}
+				emptyMessageTitle={
+					tUI("admin.bonusStar.notFound")
+				}
+				emptyMessageSub={
+					tUI("admin.bonusStar.tryOtherFilter")
+				}
+			>
+				<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6'>
+					{paginatedItems.map((item) => (
+						<Link
+							key={item.bonusStarID}
+							to={`./${item.bonusStarID}`}
+							className='block hover:scale-105 transition-transform duration-200'
+						>
+							<GenericCard
+								displayId={item.bonusStarID}
+								item={{
+									...item,
+									name: item.name || "Chưa có tên", // Lớp phòng vệ tránh lỗi PropTypes
+									assetAbsolutePath: item.image,
+								}}
+								onClick={() => {}}
+							/>
+						</Link>
+					))}
 				</div>
-				<div className='lg:w-1/5'>
-					<SidePanel {...sidePanelProps} />
-				</div>
-			</div>
+			</AdminListLayout>
 		);
 	},
 );
