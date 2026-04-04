@@ -1,5 +1,6 @@
 // fe/src/components/champion/CommunityRatingsList.jsx
 import React from "react";
+import { createPortal } from "react-dom";
 import { X, Users, Star, MessageCircle, Calendar } from "lucide-react";
 import { useTranslation } from "../../hooks/useTranslation";
 
@@ -17,7 +18,7 @@ const CommunityRatingsList = ({ isOpen, onClose, ratings }) => {
 		"independence",
 	];
 
-	return (
+	return createPortal(
 		<div className='fixed inset-0 z-[110] flex items-center justify-center p-4 bg-gray-900/70 backdrop-blur-sm animate-fadeIn'>
 			<div className='absolute inset-0' onClick={onClose}></div>
 			<div className='bg-surface-bg border border-border rounded-2xl shadow-2xl w-full max-w-2xl flex flex-col relative z-20 overflow-hidden animate-slideUp'>
@@ -79,7 +80,8 @@ const CommunityRatingsList = ({ isOpen, onClose, ratings }) => {
 					)}
 				</div>
 			</div>
-		</div>
+		</div>,
+		document.body
 	);
 };
 

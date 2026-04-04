@@ -29,6 +29,7 @@ const CardList = () => {
 	const [error, setError] = useState(null);
 	const [page, setPage] = useState(1);
 	const [pagination, setPagination] = useState(null);
+	const [dynamicFilters, setDynamicFilters] = useState(null); // Lưu trữ bộ lọc từ API
 	
 	// State quản lý tìm kiếm và hiệu ứng
 	const [searchTerm, setSearchTerm] = useState("");
@@ -37,6 +38,11 @@ const CardList = () => {
 	const [selectedTypes, setSelectedTypes] = useState([]);
 	const [selectedCosts, setSelectedCosts] = useState([]);
 	const [sort, setSort] = useState("cardName-asc");
+
+	// --- CƠ CHẾ LAYEROED LOADING & SYNC ---
+	const [fullCards, setFullCards] = useState(null); // Toàn bộ dữ liệu ngầm
+	const [isSyncing, setIsSyncing] = useState(false);
+	const [preloadedPages, setPreloadedPages] = useState({}); // Cache các trang riêng lẻ
 
 	/**
 	 * Hàm fetch dữ liệu lá bài (Page-based)
@@ -48,40 +54,160 @@ const CardList = () => {
 				setCards([]);
 			}
 
+			// NẾU CÓ DỮ LIỆU ĐẦY ĐỦ -> LỌC TẠI TRÌNH DUYỆT (CLIENT-SIDE)
+			if (fullCards) {
+				const filtered = applyClientSideFilters(fullCards);
+				const totalItems = filtered.length;
+				const pageSize = 24;
+				const pagData = {
+					totalItems,
+					totalPages: Math.ceil(totalItems / pageSize),
+					currentPage: targetPage,
+					pageSize
+				};
+				const slicedItems = filtered.slice((targetPage - 1) * pageSize, targetPage * pageSize);
+
+				setCards(slicedItems);
+				setPagination(pagData);
+				setPage(targetPage);
+				setLoading(false);
+				return;
+			}
+
+			// NẾU CHƯA CÓ DỮ LIỆU ĐẦY ĐỦ -> GỌI API (SERVER-SIDE)
 			const API_URL = `${import.meta.env.VITE_API_URL}/api/cards`;
 			const params = {
 				page: targetPage,
 				limit: 24,
-				searchTerm: searchTerm,
+				searchTerm,
 				rarities: selectedRarities.join(","),
 				regions: selectedRegions.join(","),
 				types: selectedTypes.join(","),
 				costs: selectedCosts.join(","),
-				sort: sort,
+				sort
 			};
 
 			const response = await axios.get(API_URL, { params });
-			const { items, pagination: pagData } = response.data;
+			const { items, pagination: pagData, availableFilters } = response.data;
 
-			// Replace items for standard pagination
+			// Lưu bộ lọc động
+			if (availableFilters) {
+				setDynamicFilters(availableFilters);
+			}
+
 			setCards(items || []);
 			setPagination(pagData);
 			setPage(targetPage);
 			setError(null);
+
+			// SAU KHI TẢI XONG TRANG HIỆN TẠI -> TẢI TRƯỚC TRANG TIẾP THEO (PREFETCH)
+			if (pagData.currentPage < pagData.totalPages) {
+				preloadNextPage(pagData.currentPage + 1);
+			}
 		} catch (err) {
 			console.error("Error fetching cards:", err);
 			setError(tUI("common.errorLoadData"));
 		} finally {
 			setLoading(false);
 		}
-	}, [tUI, searchTerm, selectedRarities, selectedRegions, selectedTypes, selectedCosts, sort]);
+	}, [tUI, searchTerm, selectedRarities, selectedRegions, selectedTypes, selectedCosts, sort, fullCards]);
+
+	/**
+	 * Helper: Lọc dữ liệu tại trình duyệt
+	 */
+	const applyClientSideFilters = (allData) => {
+		let filtered = [...allData];
+		
+		if (searchTerm) {
+			const s = searchTerm.toLowerCase();
+			filtered = filtered.filter(c => 
+				c.cardName?.toLowerCase().includes(s) || 
+				c.cardCode?.toLowerCase().includes(s)
+			);
+		}
+		if (selectedRarities.length > 0) {
+			filtered = filtered.filter(c => selectedRarities.includes(c.rarity));
+		}
+		if (selectedRegions.length > 0) {
+			filtered = filtered.filter(c => c.regions?.some(r => selectedRegions.includes(r)));
+		}
+		if (selectedTypes.length > 0) {
+			filtered = filtered.filter(c => selectedTypes.includes(c.type));
+		}
+		if (selectedCosts.length > 0) {
+			filtered = filtered.filter(c => selectedCosts.includes(String(c.cost)));
+		}
+
+		// Sắp xếp
+		const [field, order] = sort.split("-");
+		filtered.sort((a, b) => {
+			let vA = a[field] ?? "";
+			let vB = b[field] ?? "";
+			if (typeof vA === "string") return order === "asc" ? vA.localeCompare(vB) : vB.localeCompare(vA);
+			return order === "asc" ? vA - vB : vB - vA;
+		});
+
+		return filtered;
+	};
+
+	/**
+	 * Logic Tải trước (Prefetch)
+	 */
+	const preloadNextPage = async (nextPage) => {
+		if (preloadedPages[nextPage] || fullCards) return;
+		try {
+			const params = {
+				page: nextPage,
+				limit: 24,
+				searchTerm,
+				rarities: selectedRarities.join(","),
+				regions: selectedRegions.join(","),
+				types: selectedTypes.join(","),
+				costs: selectedCosts.join(","),
+				sort
+			};
+			const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/cards`, { params });
+			setPreloadedPages(prev => ({ ...prev, [nextPage]: res.data.items }));
+		} catch (e) {
+			console.warn("Prefetch failed", e);
+		}
+	};
+
+	/**
+	 * Logic Đồng bộ toàn bộ dữ liệu (Full Sync)
+	 */
+	useEffect(() => {
+		const syncAll = async () => {
+			if (fullCards || isSyncing) return;
+			try {
+				setIsSyncing(true);
+				const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/cards`, { params: { limit: -1 } });
+				setFullCards(res.data.items || []);
+			} catch (e) {
+				console.error("Full Sync Error", e);
+			} finally {
+				setIsSyncing(false);
+			}
+		};
+
+		// Trì hoãn việc đồng bộ 2 giây để ưu tiên trang 1, 2 tải trước
+		const timer = setTimeout(syncAll, 2000);
+		return () => clearTimeout(timer);
+	}, []);
 
 	/**
 	 * hook tự động fetch khi bộ lọc hoặc trang thay đổi
 	 */
+	/**
+	 * hook tự động fetch khi bộ lọc hoặc trang thay đổi
+	 */
 	useEffect(() => {
-		fetchCards(page, false);
-	}, [page, selectedRarities, selectedRegions, selectedTypes, selectedCosts, sort]);
+		// Chỉ tự động fetch khi thay đổi bộ lọc (quay về trang 1)
+		// Các trang sau sẽ do Infinite Scroll hoặc nút bấm điều khiển
+		if (page === 1) {
+			fetchCards(1, true);
+		}
+	}, [selectedRarities, selectedRegions, selectedTypes, selectedCosts, sort]);
 
     /**
      * Tìm kiếm thủ công cho text input (để tránh spam API khi gõ)
@@ -111,7 +237,9 @@ const CardList = () => {
 			loading={loading}
 			pagination={pagination}
 			currentPage={page}
-			onPageChange={(newPage) => setPage(newPage)}
+			onPageChange={(newPage) => fetchCards(newPage, false)}
+			isInfiniteScroll={false} // QUAY LẠI CHẾ ĐỘ PHÂN TRANG THEO YÊU CẦU
+			hasNextPage={pagination?.currentPage < pagination?.totalPages}
 			
 			// Search
 			searchValue={searchTerm}
@@ -151,51 +279,40 @@ const CardList = () => {
 
 					<MultiSelectFilter
 						label={tUI("common.rarity")}
-						options={[
-							{ label: tUI("rarity.common"), value: "Common" },
-							{ label: tUI("rarity.rare"), value: "Rare" },
-							{ label: tUI("rarity.epic"), value: "Epic" },
-							{ label: tUI("rarity.champion"), value: "Champion" },
-							{ label: tUI("rarity.none"), value: "None" },
-						]}
+						options={dynamicFilters?.rarities?.map(r => ({
+							label: tUI(`rarity.${r.toLowerCase()}`) || r,
+							value: r
+						})) || []}
 						selectedValues={selectedRarities}
 						onChange={(vals) => { setSelectedRarities(vals); setPage(1); }}
 					/>
 
 					<MultiSelectFilter
 						label={tUI("common.region") || "Khu vực"}
-						options={[
-							{ label: "Demacia", value: "Demacia" },
-							{ label: "Noxus", value: "Noxus" },
-							{ label: "Ionia", value: "Ionia" },
-							{ label: "Freljord", value: "Freljord" },
-							{ label: "Shadow Isles", value: "ShadowIsles" },
-							{ label: "Bilgewater", value: "Bilgewater" },
-							{ label: "Shurima", value: "Shurima" },
-							{ label: "Targon", value: "Targon" },
-							{ label: "Piltover & Zaun", value: "PiltoverZaun" },
-							{ label: "Bandle City", value: "BandleCity" },
-							{ label: "Runeterra", value: "Runeterra" },
-						]}
+						options={dynamicFilters?.regions?.map(r => ({
+							label: tUI(`region.${r.replace(/[\s&]+/g, '')}`) || r,
+							value: r
+						})) || []}
 						selectedValues={selectedRegions}
 						onChange={(vals) => { setSelectedRegions(vals); setPage(1); }}
 					/>
 
 					<MultiSelectFilter
 						label={tUI("common.type") || "Loại bài"}
-						options={[
-							{ label: "Unit", value: "Unit" },
-							{ label: "Spell", value: "Spell" },
-							{ label: "Landmark", value: "Landmark" },
-							{ label: "Equipment", value: "Equipment" },
-						]}
+						options={dynamicFilters?.types?.map(t => ({
+							label: tUI(`cardType.${t}`) || t,
+							value: t
+						})) || []}
 						selectedValues={selectedTypes}
 						onChange={(vals) => { setSelectedTypes(vals); setPage(1); }}
 					/>
 
 					<MultiSelectFilter
 						label={tUI("common.cost") || "Tiêu hao"}
-						options={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(n => ({ label: n.toString(), value: n.toString() }))}
+						options={dynamicFilters?.costs?.map(n => ({ 
+							label: n.toString(), 
+							value: n.toString() 
+						})) || []}
 						selectedValues={selectedCosts}
 						onChange={(vals) => { setSelectedCosts(vals); setPage(1); }}
 					/>

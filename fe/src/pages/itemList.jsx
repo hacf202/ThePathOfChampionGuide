@@ -11,6 +11,7 @@ import MultiSelectFilter from "../components/common/multiSelectFilter";
 import DropdownFilter from "../components/common/dropdownFilter";
 import RarityIcon from "../components/common/rarityIcon";
 import SafeImage from "../components/common/SafeImage";
+import MarkupRenderer from "../components/common/MarkupRenderer";
 
 const ItemSkeleton = () => (
 	<div className='flex items-center gap-3 sm:gap-4 bg-surface-bg p-3 sm:p-4 rounded-lg border border-border animate-pulse'>
@@ -118,7 +119,7 @@ function ItemList() {
 							</div>
 						</div>
 						<div className='absolute left-1/2 -translate-x-1/2 bottom-full mb-3 w-72 p-4 bg-gray-900/95 backdrop-blur-sm text-white text-xs rounded-xl shadow-2xl opacity-0 group-hover:opacity-100 transition-all duration-300 invisible group-hover:visible pointer-events-none z-50 border border-white/10'>
-							<p className='whitespace-pre-wrap leading-relaxed'>{itemDesc}</p>
+							<MarkupRenderer text={itemDesc} />
 							<div className='absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-x-8 border-x-transparent border-t-8 border-t-gray-900/95'></div>
 						</div>
 					</Link>

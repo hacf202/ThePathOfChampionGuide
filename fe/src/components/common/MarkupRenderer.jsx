@@ -70,7 +70,8 @@ const MarkupRenderer = memo(({ text, className = "" }) => {
 					c: `/champion/${data?.id || tagValue}`,
 					r: `/relic/${data?.id || tagValue}`,
 					p: `/power/${data?.id || tagValue}`,
-					i: `/item/${data?.id || tagValue}`
+					i: `/item/${data?.id || tagValue}`,
+					cd: `/card/${data?.id || tagValue}`
 				}[tagType];
 
 				return renderWithTooltip(tagLabel, colorClasses[tagType] || "", noLink ? null : linkPath);

@@ -7,15 +7,16 @@ import {
 	GetItemCommand,
 } from "@aws-sdk/client-dynamodb";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
+import cacheManager from "../utils/cacheManager.js";
 import client from "../config/db.js";
-import NodeCache from "node-cache";
+import { scanAll } from "../utils/dynamoUtils.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { requireAdmin } from "../middleware/requireAdmin.js";
 
 const router = express.Router();
 const ADVENTURE_TABLE = "guidePocAdventureMap";
 
-const advCache = new NodeCache({ stdTTL: 120, checkperiod: 60 });
+const advCache = cacheManager.getOrCreateCache("adventures", { stdTTL: 1800, checkperiod: 60 });
 
 router.get("/", async (req, res) => {
 	try {
@@ -35,9 +36,8 @@ router.get("/", async (req, res) => {
 		let allAdventures = advCache.get(CACHE_KEY);
 
 		if (!allAdventures) {
-			const command = new ScanCommand({ TableName: ADVENTURE_TABLE });
-			const { Items } = await client.send(command);
-			allAdventures = Items ? Items.map(item => unmarshall(item)) : [];
+			const rawItems = await scanAll(client, { TableName: ADVENTURE_TABLE });
+			allAdventures = rawItems.map(item => unmarshall(item));
 			// Sắp xếp mặc định theo độ khó
 			allAdventures.sort((a, b) => (a.difficulty || 0) - (b.difficulty || 0));
 			advCache.set(CACHE_KEY, allAdventures);

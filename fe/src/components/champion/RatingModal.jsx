@@ -1,5 +1,6 @@
 // fe/src/components/champion/RatingModal.jsx
 import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { X, Star, Save, Loader2, MessageSquare } from "lucide-react";
 import { useTranslation } from "../../hooks/useTranslation";
 
@@ -58,7 +59,7 @@ const RatingModal = ({ isOpen, onClose, championID, initialData, onSubmit }) => 
 		}
 	};
 
-	return (
+	return createPortal(
 		<div className='fixed inset-0 z-[110] flex items-center justify-center p-4 bg-gray-900/70 backdrop-blur-sm animate-fadeIn'>
 			<div className='absolute inset-0' onClick={onClose}></div>
 			<div className='bg-surface-bg border border-border rounded-2xl shadow-2xl w-full max-w-lg flex flex-col relative z-20 overflow-hidden animate-slideUp'>
@@ -130,7 +131,8 @@ const RatingModal = ({ isOpen, onClose, championID, initialData, onSubmit }) => 
 					</button>
 				</form>
 			</div>
-		</div>
+		</div>,
+		document.body
 	);
 };
 

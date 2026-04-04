@@ -86,7 +86,7 @@ function ItemDetail() {
 	// 🟢 Xử lý Tên, Mô tả và Độ hiếm đa ngôn ngữ của Vật phẩm bằng tDynamic
 	const itemName = item ? tDynamic(item, "name") : "";
 	const itemDesc = item
-		? tDynamic(item, "descriptionRaw") || tDynamic(item, "description")
+		? tDynamic(item, "description") || tDynamic(item, "descriptionRaw")
 		: "";
 	const itemRarity = item?.rarity
 		? tDynamic(item, "rarity") || tUI(`item.rarity.${getRarityKey(item.rarity)}`) || item.rarity

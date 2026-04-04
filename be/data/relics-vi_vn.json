@@ -1,0 +1,1342 @@
+[
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0153.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0153-full.png",
+    "description": "<link=keyword.SpellShield><sprite name=SpellShield><style=Keyword>Khiên Phép</style></link>, <link=keyword.Challenger><sprite name=Challenger><style=Keyword>Thách Đấu</style></link><br>Mỗi vòng, lần đầu tiên sát thương được hồi phục từ ta khi ngươi không có lượt tấn công, <link=vocab.Rally><style=Vocab>Tiến Công</style></link>.",
+    "descriptionRaw": "Khiên Phép, Thách ĐấuMỗi vòng, lần đầu tiên sát thương được hồi phục từ ta khi ngươi không có lượt tấn công, Tiến Công.",
+    "name": "Quyền Trượng Thượng Giới",
+    "relicCode": "R0153",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0003.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0003-full.png",
+    "description": "+2|+1",
+    "descriptionRaw": "+2|+1",
+    "name": "Búa Chiến Caulfield",
+    "relicCode": "R0003",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0104.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0104-full.png",
+    "description": "<link=vocab.PathPower><style=Vocab>Sức Mạnh</style></link>: Bắt Đầu Trận Đấu: <link=keyword.Drain><style=Keyword>Hấp Thụ</style></link> 5 máu từ Nhà Chính của đối thủ.<br><link=vocab.Play><style=Vocab>Xuất Trận</style></link>: Nếu ta là Swain, hồi đầy năng lượng bài phép.\r\n\r\n",
+    "descriptionRaw": "Sức Mạnh: Bắt Đầu Trận Đấu: Hấp Thụ 5 máu từ Nhà Chính của đối thủ.Xuất Trận: Nếu ta là Swain, hồi đầy năng lượng bài phép.\r\n\r\n",
+    "name": "Đội Quân Quạ Của Swain",
+    "relicCode": "R0104",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0016.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0016-full.png",
+    "description": "Khi ta được triệu hồi, gây 1 sát thương lên tất cả kẻ địch.",
+    "descriptionRaw": "Khi ta được triệu hồi, gây 1 sát thương lên tất cả kẻ địch.",
+    "name": "Rìu Mãng Xà",
+    "relicCode": "R0016",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0130.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0130-full.png",
+    "description": "<link=vocab.PathPower><style=Vocab>Sức Mạnh</style></link>: Khi ngươi thăng cấp cho 1 anh hùng đồng minh, triệu hồi <link=card.self><style=AssociatedCard>Lux</style></link>. Nếu ngươi đã có <link=card.self><style=AssociatedCard>Lux</style></link>, triệu hồi Garen. Nếu ngươi có cả hai nhưng chưa có Galio, triệu hồi Galio.",
+    "descriptionRaw": "Sức Mạnh: Khi ngươi thăng cấp cho 1 anh hùng đồng minh, triệu hồi Lux. Nếu ngươi đã có Lux, triệu hồi Garen. Nếu ngươi có cả hai nhưng chưa có Galio, triệu hồi Galio.",
+    "name": "Hộ Vệ Của Demacia",
+    "relicCode": "R0130",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0113.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0113-full.png",
+    "description": "<link=vocab.PathPower><style=Vocab>Sức Mạnh</style></link>: Khi bạn sử dụng hoặc thăng cấp một anh hùng, hồi lại năng lượng bài phép của bạn.",
+    "descriptionRaw": "Sức Mạnh: Khi bạn sử dụng hoặc thăng cấp một anh hùng, hồi lại năng lượng bài phép của bạn.",
+    "name": "Sách Ẩn",
+    "relicCode": "R0113",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0126.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0126-full.png",
+    "description": "<link=vocab.PathPower><style=Vocab>Sức mạnh</style></link>: Khi sử dụng 1 bài quân có 6+ tiêu hao cơ bản, gây 2 sát thương lên tất cả đối thủ và Nhà Chính của chúng.",
+    "descriptionRaw": "Sức mạnh: Khi sử dụng 1 bài quân có 6+ tiêu hao cơ bản, gây 2 sát thương lên tất cả đối thủ và Nhà Chính của chúng.",
+    "name": "Móng Vuốt Vĩ Đại",
+    "relicCode": "R0126",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0014.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0014-full.png",
+    "description": "<link=vocab.RoundStart><style=Vocab>Bắt Đầu Vòng Đấu</style></link>: Rút 1 lá bài và trao <link=keyword.Fleeting><sprite name=Fleeting><style=Keyword>Phù Du</style></link> cho lá bài đó.",
+    "descriptionRaw": "Bắt Đầu Vòng Đấu: Rút 1 lá bài và trao Phù Du cho lá bài đó.",
+    "name": "Xẻng Của Kẻ Đào Mộ",
+    "relicCode": "R0014",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0062.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0062-full.png",
+    "description": "<link=vocab.Play><style=Vocab>Xuất Trận</style></link>: Rút lá bài có tiêu hao cao nhất và thấp hơn tiêu hao cơ bản của ta, ban cho lá đó 1 vật phẩm Sử Thi và giảm tiêu hao của lá đó về 0.",
+    "descriptionRaw": "Xuất Trận: Rút lá bài có tiêu hao cao nhất và thấp hơn tiêu hao cơ bản của ta, ban cho lá đó 1 vật phẩm Sử Thi và giảm tiêu hao của lá đó về 0.",
+    "name": "Tìm Thấy Thần Tài",
+    "relicCode": "R0062",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0058.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0058-full.png",
+    "description": "<link=keyword.Fated><sprite name=Fated><style=Keyword>Định Mệnh</style></link>, <link=keyword.Augment><sprite name=Augment><style=Keyword>Nâng Cấp</style></link><br><link=vocab.Empowered><style=Vocab>Cường Hóa</style></link> 10: <link=keyword.Overwhelm><sprite name=Overwhelm><style=Keyword>Áp Đảo</style></link>, <link=keyword.Regeneration><sprite name=Regeneration><style=Keyword>Hồi Phục</style></link> và <link=keyword.Challenger><sprite name=Challenger><style=Keyword>Thách Đấu</style></link>.",
+    "descriptionRaw": "Định Mệnh, Nâng CấpCường Hóa 10: Áp Đảo, Hồi Phục và Thách Đấu.",
+    "name": "Lựa Chọn Của Tinh Tú",
+    "relicCode": "R0058",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0082.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0082-full.png",
+    "description": "<link=vocab.PathPower><style=Vocab>Sức mạnh</style></link>: Bắt Đầu Trận Đấu: Nếu ta đang ở trong bộ bài hoặc trên tay và <link=vocab.Titanic><style=Vocab>Khổng Lồ</style></link>, +1 cho Năng Lượng Khởi Điểm. Ngươi có thể tìm thấy Anh Hùng Cấp 2 khi <link=keyword.Invoke><style=Keyword>Hiệu Triệu</style></link> hoặc <link=vocab.Manifest><style=Vocab>Hình Thành</style></link>.",
+    "descriptionRaw": "Sức mạnh: Bắt Đầu Trận Đấu: Nếu ta đang ở trong bộ bài hoặc trên tay và Khổng Lồ, +1 cho Năng Lượng Khởi Điểm. Ngươi có thể tìm thấy Anh Hùng Cấp 2 khi Hiệu Triệu hoặc Hình Thành.",
+    "name": "Găng Tinh Vân Sư",
+    "relicCode": "R0082",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0035.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0035-full.png",
+    "description": "+1|+1 và khi ngươi chiến thắng 1 ải mà không phải nhận sát thương Nhà Chính, nhận 1 Lượt Đổi.",
+    "descriptionRaw": "+1|+1 và khi ngươi chiến thắng 1 ải mà không phải nhận sát thương Nhà Chính, nhận 1 Lượt Đổi.",
+    "name": "Canh Bạc Của Thần Bài",
+    "relicCode": "R0035",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0101.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0101-full.png",
+    "description": "+1|+1.<br><color=#FAD65A>Nhiệm vụ:</color> Giành chiến thắng trong 1 chuyến phiêu lưu.<br><color=#FAD65A>Phần thưởng:</color> Nhận x5 lượng XP Anh Hùng thông thường",
+    "descriptionRaw": "+1|+1.Nhiệm vụ: Giành chiến thắng trong 1 chuyến phiêu lưu.Phần thưởng: Nhận x5 lượng XP Anh Hùng thông thường",
+    "name": "Phước Lành Vũ Trụ (Tiêu Thụ)",
+    "relicCode": "R0101",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0102.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0102-full.png",
+    "description": "+1|+1.<br><color=#FAD65A>Nhiệm vụ:</color> Giành chiến thắng trong 1 chuyến phiêu lưu.<br><color=#FAD65A>Phần thưởng:</color> Nhận x10 lượng XP Anh Hùng thông thường ",
+    "descriptionRaw": "+1|+1.Nhiệm vụ: Giành chiến thắng trong 1 chuyến phiêu lưu.Phần thưởng: Nhận x10 lượng XP Anh Hùng thông thường ",
+    "name": "Siêu Phước Lành Vũ Trụ (Tiêu Thụ)",
+    "relicCode": "R0102",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0080.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0080-full.png",
+    "description": "<link=vocab.PathPower><style=Vocab>Sức Mạnh:</style></link> Đồng minh nhận <link=keyword.Overwhelm><sprite name=Overwhelm><style=Keyword>Áp Đảo</style></link>, và nếu có nhóm phụ, nhận thêm +1|+1.",
+    "descriptionRaw": "Sức Mạnh: Đồng minh nhận Áp Đảo, và nếu có nhóm phụ, nhận thêm +1|+1.",
+    "name": "Quái Thú Bên Trong",
+    "relicCode": "R0080",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0017.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0017-full.png",
+    "description": "Tất cả bài phép và kỹ năng đồng minh gây thêm 1 sát thương.",
+    "descriptionRaw": "Tất cả bài phép và kỹ năng đồng minh gây thêm 1 sát thương.",
+    "name": "Bão Tố Luden",
+    "relicCode": "R0017",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0081.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0081-full.png",
+    "description": "<link=keyword.Support><style=Keyword>Hỗ Trợ</style></link>: Biến đổi đồng minh được hỗ trợ thành 1 tùy tùng ngẫu nhiên có 3+ tiêu hao.",
+    "descriptionRaw": "Hỗ Trợ: Biến đổi đồng minh được hỗ trợ thành 1 tùy tùng ngẫu nhiên có 3+ tiêu hao.",
+    "name": "Máy Biến Hình",
+    "relicCode": "R0081",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0098.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0098-full.png",
+    "description": "<link=vocab.PathPower><style=Vocab>Sức Mạnh</style></link>: Nếu ta là Lux, +1 Năng Lượng Khởi Điểm.<br>Bắt Đầu Trận Đấu: Rút 1 tùy tùng 2- tiêu hao và trao cho lá đó Vòng Tay Targon.",
+    "descriptionRaw": "Sức Mạnh: Nếu ta là Lux, +1 Năng Lượng Khởi Điểm.Bắt Đầu Trận Đấu: Rút 1 tùy tùng 2- tiêu hao và trao cho lá đó Vòng Tay Targon.",
+    "name": "Gậy Bức Xạ Nhiệt Của Lux",
+    "relicCode": "R0098",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0010.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0010-full.png",
+    "description": "Nhận được thêm 50% vàng trong khi phiêu lưu.",
+    "descriptionRaw": "Nhận được thêm 50% vàng trong khi phiêu lưu.",
+    "name": "Trái Tim Vàng",
+    "relicCode": "R0010",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0084.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0084-full.png",
+    "description": "+1|+1.<br><color=#FAD65A>Nhiệm vụ:</color> Giành chiến thắng trong 1 chuyến phiêu lưu.<br><color=#FAD65A>Phần thưởng:</color> Nhận x5 lượng XP Anh Hùng thông thường",
+    "descriptionRaw": "+1|+1.Nhiệm vụ: Giành chiến thắng trong 1 chuyến phiêu lưu.Phần thưởng: Nhận x5 lượng XP Anh Hùng thông thường",
+    "name": "Ngọc Trai Vũ Trụ (Tiêu Thụ)",
+    "relicCode": "R0084",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0144.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0144-full.png",
+    "description": "<link=vocab.PathPower><style=Vocab>Sức Mạnh</style></link>: Bắt Đầu Trận Đấu: Tráo 3 lá <link=card.self><style=AssociatedCard>Tibbers</style></link> vào bộ bài của ngươi.<br><link=card.self><style=AssociatedCard>Tibbers</style></link> của ngươi giảm 2 tiêu hao và có +5|+5.",
+    "descriptionRaw": "Sức Mạnh: Bắt Đầu Trận Đấu: Tráo 3 lá Tibbers vào bộ bài của ngươi.Tibbers của ngươi giảm 2 tiêu hao và có +5|+5.",
+    "name": "Gấu Hỗ Trợ Tinh Thần",
+    "relicCode": "R0144",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0090.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0090-full.png",
+    "description": "<link=vocab.Play><style=Vocab>Xuất Trận</style></link>: Gây 3 sát thương lên tất cả các đơn vị khác.",
+    "descriptionRaw": "Xuất Trận: Gây 3 sát thương lên tất cả các đơn vị khác.",
+    "name": "Thu Thập Cái Ác",
+    "relicCode": "R0090",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0132.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0132-full.png",
+    "description": "<link=keyword.Challenger><sprite name=Challenger><style=Keyword>Thách Đấu</style></link><br><link=vocab.PathPower><style=Vocab>Sức Mạnh</style></link>: Khi ngươi xuất trận 1 anh hùng, triệu hồi 1 lá <link=card.self><style=AssociatedCard>Tư Dinh Chiến Tướng</style></link> hoặc <link=vocab.Advance><style=Vocab>Đẩy Nhanh</style></link> lá bài đó lên 2 vòng.",
+    "descriptionRaw": "Thách ĐấuSức Mạnh: Khi ngươi xuất trận 1 anh hùng, triệu hồi 1 lá Tư Dinh Chiến Tướng hoặc Đẩy Nhanh lá bài đó lên 2 vòng.",
+    "name": "Thợ Săn Kẻ Vô Lại",
+    "relicCode": "R0132",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0021.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0021-full.png",
+    "description": "Khi ta được triệu hồi, tạo trên tay 2 lá <link=card.self><style=AssociatedCard>Bắn Cảnh Cáo</style></link>.",
+    "descriptionRaw": "Khi ta được triệu hồi, tạo trên tay 2 lá Bắn Cảnh Cáo.",
+    "name": "Pháo Mũi Tàu Dreadway",
+    "relicCode": "R0021",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0033.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0033-full.png",
+    "description": "Nhà Chính của ngươi có <link=keyword.Tough><sprite name=Tough><style=Keyword>Kiên Cường</style></link>.",
+    "descriptionRaw": "Nhà Chính của ngươi có Kiên Cường.",
+    "name": "Khiên Trụ",
+    "relicCode": "R0033",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0143.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0143-full.png",
+    "description": "<link=keyword.Tough><sprite name=Tough><style=Keyword>Kiên Cường</style></link><br><link=vocab.Play><style=Vocab>Xuất Trận</style></link>: <link=keyword.Frostbite><sprite name=Frostbite><style=Keyword>Đóng Băng</style></link> kẻ địch <link=vocab.Strongest><style=Vocab>mạnh nhất</style></link>. Nếu ta là <link=card.self><style=AssociatedCard>Anivia</style></link>, thì <link=keyword.Frostbite><sprite name=Frostbite><style=Keyword>Đóng Băng</style></link> TẤT CẢ kẻ địch.<br>",
+    "descriptionRaw": "Kiên CườngXuất Trận: Đóng Băng kẻ địch mạnh nhất. Nếu ta là Anivia, thì Đóng Băng TẤT CẢ kẻ địch.",
+    "name": "Hơi Thở Băng Giá",
+    "relicCode": "R0143",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0002.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0002-full.png",
+    "description": "<link=keyword.Overwhelm><sprite name=Overwhelm><style=Keyword>Áp Đảo</style></link>",
+    "descriptionRaw": "Áp Đảo",
+    "name": "Máy Nghiền Vua Troll",
+    "relicCode": "R0002",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0114.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0114-full.png",
+    "description": "<link=vocab.PathPower><style=Vocab>Sức Mạnh</style></link>: Khi triệu hồi 1 đồng minh, ban <link=keyword.SpellShield><sprite name=SpellShield><style=Keyword>Khiên Phép</style></link> cho đồng minh đó.",
+    "descriptionRaw": "Sức Mạnh: Khi triệu hồi 1 đồng minh, ban Khiên Phép cho đồng minh đó.",
+    "name": "Khiên Đen",
+    "relicCode": "R0114",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0049.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0049-full.png",
+    "description": "<link=keyword.Evolve><sprite name=Evolve><style=Keyword>Tiến Hóa</style></link><br>Khi bài quân BẤT KỲ hy sinh, ban cho ta đặc điểm của bài quân đó.",
+    "descriptionRaw": "Tiến HóaKhi bài quân BẤT KỲ hy sinh, ban cho ta đặc điểm của bài quân đó.",
+    "name": "Mai Giáp Hóa Hư Không",
+    "relicCode": "R0049",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0024.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0024-full.png",
+    "description": "<link=vocab.Attack><style=Vocab>Tấn Công</style></link>: Ban cho ta +1|+1.",
+    "descriptionRaw": "Tấn Công: Ban cho ta +1|+1.",
+    "name": "Cuồng Đao Guinsoo",
+    "relicCode": "R0024",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0142.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0142-full.png",
+    "description": "<link=keyword.Overwhelm><sprite name=Overwhelm><style=Keyword>Áp Đảo</style></link><br>Bắt Đầu Trận Đấu: Nếu ta là một bài quân Hoa Linh Lục Địa, đặt tiêu hao của ta thành 10.<br>",
+    "descriptionRaw": "Áp ĐảoBắt Đầu Trận Đấu: Nếu ta là một bài quân Hoa Linh Lục Địa, đặt tiêu hao của ta thành 10.",
+    "name": "Găng Tay Linh Hồn",
+    "relicCode": "R0142",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0079.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0079-full.png",
+    "description": "<link=vocab.PathPower><style=Vocab>Sức Mạnh:</style></link> Các đồng minh 1- tiêu hao nhận <link=keyword.Overwhelm><sprite name=Overwhelm><style=Keyword>Áp Đảo</style></link>, <link=keyword.Quick Strike><sprite name=QuickStrike><style=Keyword>Đột Kích</style></link> và <link=keyword.Fury><sprite name=Fury><style=Keyword>Cuồng Nộ</style></link>.",
+    "descriptionRaw": "Sức Mạnh: Các đồng minh 1- tiêu hao nhận Áp Đảo, Đột Kích và Cuồng Nộ.",
+    "name": "Linh Hồn Buhru",
+    "relicCode": "R0079",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0000.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0000-full.png",
+    "description": "<link=keyword.Challenger><sprite name=Challenger><style=Keyword>Thách Đấu</style></link>",
+    "descriptionRaw": "Thách Đấu",
+    "name": "Lưỡi Kiếm Của Đại Kiếm Sư",
+    "relicCode": "R0000",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0004.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0004-full.png",
+    "description": "+1|+2",
+    "descriptionRaw": "+1|+2",
+    "name": "Nắm Đấm Của Jaurim",
+    "relicCode": "R0004",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0099.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0099-full.png",
+    "description": "<link=vocab.PathPower><style=Vocab>Sức Mạnh</style></link>: Bài phép và <link=keyword.Elemental Skill><sprite name=ElementalSkill><style=Keyword>Kỹ Năng</style></link> nguyên tố của ngươi gây thêm 2 sát thương.",
+    "descriptionRaw": "Sức Mạnh: Bài phép và Kỹ Năng nguyên tố của ngươi gây thêm 2 sát thương.",
+    "name": "Biểu Tượng Valhir",
+    "relicCode": "R0099",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0128.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0128-full.png",
+    "description": "<link=keyword.Deep><sprite name=Deep><style=Keyword>Sâu Thẳm</style></link> và ta là Quái Vật Biển.<br>Khi ta được triệu hồi, nếu ngươi không phải là <link=keyword.Deep><sprite name=Deep><style=Keyword>Sâu Thẳm</style></link>, <link=vocab.Toss><style=Vocab>Quăng</style></link> bằng với tiêu hao của ta.",
+    "descriptionRaw": "Sâu Thẳm và ta là Quái Vật Biển.Khi ta được triệu hồi, nếu ngươi không phải là Sâu Thẳm, Quăng bằng với tiêu hao của ta.",
+    "name": "Kho Báu Dưới Biển Sâu",
+    "relicCode": "R0128",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0026.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0026-full.png",
+    "description": "+0|+3 và <link=keyword.Sharpsight><sprite name=BlockElusive><style=Keyword>Tinh Mắt</style></link>.",
+    "descriptionRaw": "+0|+3 và Tinh Mắt.",
+    "name": "Ngọc Sáng Chói",
+    "relicCode": "R0026",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0148.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0148-full.png",
+    "description": "Ban +1|+1<br>Nếu ta là Thể Thăng Hoa, ta được giảm 1 tiêu hao.<br><link=vocab.Play><style=Vocab>Xuất Trận</style></link>: Đẩy lá <link=card.self><style=AssociatedCard>Đĩa Mặt Trời Bị Chôn Vùi</style></link> lên 3 vòng.",
+    "descriptionRaw": "Ban +1|+1Nếu ta là Thể Thăng Hoa, ta được giảm 1 tiêu hao.Xuất Trận: Đẩy lá Đĩa Mặt Trời Bị Chôn Vùi lên 3 vòng.",
+    "name": "Quyền Trượng Azir",
+    "relicCode": "R0148",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0011.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0011-full.png",
+    "description": "Khi ta thăng cấp, tạo trên tay 1 bản sao bài phép anh hùng của ta. Lá bài đó có 0 tiêu hao trong vòng này.",
+    "descriptionRaw": "Khi ta thăng cấp, tạo trên tay 1 bản sao bài phép anh hùng của ta. Lá bài đó có 0 tiêu hao trong vòng này.",
+    "name": "Huy Hiệu Của Kẻ Lừa Đảo",
+    "relicCode": "R0011",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0092.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0092-full.png",
+    "description": "+2|+0<br><link=keyword.Support><style=Keyword>Hỗ Trợ</style></link>: Nếu đồng minh được ta hỗ trợ là tùy tùng, ban <link=keyword.Ephemeral><sprite name=Ephemeral><style=Keyword>Cảm Tử</style></link> cho nó và triệu hồi bản sao y hệt của đồng minh đó ở vị trí tấn công.",
+    "descriptionRaw": "+2|+0Hỗ Trợ: Nếu đồng minh được ta hỗ trợ là tùy tùng, ban Cảm Tử cho nó và triệu hồi bản sao y hệt của đồng minh đó ở vị trí tấn công.",
+    "name": "Kéo Cắt Ma Quái",
+    "relicCode": "R0092",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0123.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0123-full.png",
+    "description": "<link=vocab.PathPower><style=Vocab>Sức Mạnh</style></link>: Bắt Đầu Trận Đấu: Ban một bài phép ngẫu nhiên từ bộ bài với một vật phẩm với “Giảm 1 tiêu hao và rút 1 lá bài”. Tạo 4 bản sao của nó trong bộ bài.",
+    "descriptionRaw": "Sức Mạnh: Bắt Đầu Trận Đấu: Ban một bài phép ngẫu nhiên từ bộ bài với một vật phẩm với “Giảm 1 tiêu hao và rút 1 lá bài”. Tạo 4 bản sao của nó trong bộ bài.",
+    "name": "Hào Quang Rực Rỡ",
+    "relicCode": "R0123",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0120.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0120-full.png",
+    "description": "<link=keyword.Overwhelm><sprite name=Overwhelm><style=Keyword>Áp Đảo</style></link><br><link=vocab.Attack><style=Vocab>Tấn công</style></link>: Gây 2 sát thương lên Nhà Chính của đối thủ. Nếu đã tấn công trong vòng này, gây 2 sát thương lên tất cả kẻ địch.",
+    "descriptionRaw": "Áp ĐảoTấn công: Gây 2 sát thương lên Nhà Chính của đối thủ. Nếu đã tấn công trong vòng này, gây 2 sát thương lên tất cả kẻ địch.",
+    "name": "Đao Xích Long Khuyển",
+    "relicCode": "R0120",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0022.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0022-full.png",
+    "description": "Bắt đầu chuyến phiêu lưu với +5 Hồi Phục",
+    "descriptionRaw": "Bắt đầu chuyến phiêu lưu với +5 Hồi Phục",
+    "name": "Quyền Trượng Tinh Nữ",
+    "relicCode": "R0022",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0045.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0045-full.png",
+    "description": "<link=keyword.Support><style=Keyword>Hỗ Trợ</style></link>: Hy sinh đồng minh được ta hỗ trợ và ban cho ta đặc điểm và chỉ số của đồng minh đó.",
+    "descriptionRaw": "Hỗ Trợ: Hy sinh đồng minh được ta hỗ trợ và ban cho ta đặc điểm và chỉ số của đồng minh đó.",
+    "name": "Mảnh Sao Biến Đổi",
+    "relicCode": "R0045",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0038.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0038-full.png",
+    "description": "-1|-0<br><link=vocab.Play><style=Vocab>Xuất Trận</style></link>: Ta <link=vocab.Strike><style=Vocab>ra đòn</style></link> lên Nhà Chính của đối thủ.",
+    "descriptionRaw": "-1|-0Xuất Trận: Ta ra đòn lên Nhà Chính của đối thủ.",
+    "name": "Nhà Thông Thái Phá Thành",
+    "relicCode": "R0038",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0131.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0131-full.png",
+    "description": "+10 Máu Nhà Chính.<br><link=vocab.PathPower><style=Vocab>Sức mạnh</style></link>: Nếu ta <link=card.self><style=AssociatedCard>Tryndamere</style></link>, khi ngươi ban chỉ số cho 1 bài quân trong bộ bài, ban cho bài quân đó 2 lần.<br>",
+    "descriptionRaw": "+10 Máu Nhà Chính.Sức mạnh: Nếu ta Tryndamere, khi ngươi ban chỉ số cho 1 bài quân trong bộ bài, ban cho bài quân đó 2 lần.",
+    "name": "Mũ Giáp Chiến Tướng",
+    "relicCode": "R0131",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0141.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0141-full.png",
+    "description": "<link=vocab.PathPower><style=Vocab>Sức Mạnh</style></link>: Đồng minh <link=keyword.Ephemeral><sprite name=Ephemeral><style=Keyword>Cảm Tử</style></link> ở vị trí tấn công không thể nhận sát thương hoặc bị tiêu diệt.",
+    "descriptionRaw": "Sức Mạnh: Đồng minh Cảm Tử ở vị trí tấn công không thể nhận sát thương hoặc bị tiêu diệt.",
+    "name": "Cây Cung Sát Thủ",
+    "relicCode": "R0141",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0050.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0050-full.png",
+    "description": "<link=keyword.Scout><sprite name=Scout><style=Keyword>Trinh Sát</style></link><br><link=vocab.RoundEnd><style=Vocab>Kết Thúc Vòng Đấu</style></link>: Tráo ta vào bộ bài của ngươi.",
+    "descriptionRaw": "Trinh SátKết Thúc Vòng Đấu: Tráo ta vào bộ bài của ngươi.",
+    "name": "Cung Phong Linh",
+    "relicCode": "R0050",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0111.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0111-full.png",
+    "description": "<link=vocab.PathPower><style=Vocab>Sức Mạnh</style></link>: Bài phép và kỹ năng đồng minh gây thêm 1 sát thương.",
+    "descriptionRaw": "Sức Mạnh: Bài phép và kỹ năng đồng minh gây thêm 1 sát thương.",
+    "name": "Đại Bác",
+    "relicCode": "R0111",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0100.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0100-full.png",
+    "description": "<link=vocab.PathPower><style=Vocab>Sức Mạnh</style></link>: Khi 1 đồng minh 1- tiêu hao tấn công, <link=keyword.AttackSkillMark><sprite name=SkillMark><style=Keyword></style></link> gây 1 sát thương lên Nhà Chính của đối thủ.",
+    "descriptionRaw": "Sức Mạnh: Khi 1 đồng minh 1- tiêu hao tấn công,  gây 1 sát thương lên Nhà Chính của đối thủ.",
+    "name": "Choáng Váng & Kinh Ngạc",
+    "relicCode": "R0100",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0005.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0005-full.png",
+    "description": "<link=keyword.Quick Strike><sprite name=QuickStrike><style=Keyword>Đột Kích</style></link>",
+    "descriptionRaw": "Đột Kích",
+    "name": "Phong Thần Kiếm",
+    "relicCode": "R0005",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0127.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0127-full.png",
+    "description": "<link=vocab.PathPower><style=Vocab>Sức Mạnh</style></link>: Khi ngươi xuất trận 1 anh hùng, anh hùng đó <link=vocab.Strike><style=Vocab>Ra Đòn</style></link> lên kẻ địch <link=keyword.Weakest><style=Keyword>yếu nhất</style></link>. Nếu đó là <link=card.self><style=AssociatedCard>Nasus</style></link>, nó cũng <link=vocab.Strike><style=Vocab>Ra Đòn</style></link> lên kẻ địch <link=vocab.Strongest><style=Vocab>mạnh nhất</style></link>.",
+    "descriptionRaw": "Sức Mạnh: Khi ngươi xuất trận 1 anh hùng, anh hùng đó Ra Đòn lên kẻ địch yếu nhất. Nếu đó là Nasus, nó cũng Ra Đòn lên kẻ địch mạnh nhất.",
+    "name": "Cán Cân Phán Quyết",
+    "relicCode": "R0127",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0107.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0107-full.png",
+    "description": "<link=vocab.PathPower><style=Vocab>Sức Mạnh:</style></link> Bắt Đầu Trận Đấu: Gài 6 lá <link=card.self><style=AssociatedCard>Bẫy Bom Mù</style></link> lên 8 lá bài ở trên cùng trong bộ bài của đối thủ. Khi 1 lá Bài Bẫy biến mất, gài nó trở lại lên 8 lá bài ở trên cùng trong bộ bài của đối thủ.",
+    "descriptionRaw": "Sức Mạnh: Bắt Đầu Trận Đấu: Gài 6 lá Bẫy Bom Mù lên 8 lá bài ở trên cùng trong bộ bài của đối thủ. Khi 1 lá Bài Bẫy biến mất, gài nó trở lại lên 8 lá bài ở trên cùng trong bộ bài của đối thủ.",
+    "name": "Súng Máy Công Nghệ",
+    "relicCode": "R0107",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0043.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0043-full.png",
+    "description": "Các anh hùng đồng minh được nhận +1|+1 và giảm 2 tiêu hao.",
+    "descriptionRaw": "Các anh hùng đồng minh được nhận +1|+1 và giảm 2 tiêu hao.",
+    "name": "Ngọc Tinh Tú",
+    "relicCode": "R0043",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0052.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0052-full.png",
+    "description": "Khi ta được triệu hồi, ban vật phẩm Sử Thi cho 3 lá bài ngẫu nhiên trong bộ bài.",
+    "descriptionRaw": "Khi ta được triệu hồi, ban vật phẩm Sử Thi cho 3 lá bài ngẫu nhiên trong bộ bài.",
+    "name": "Băng Cầu",
+    "relicCode": "R0052",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0051.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0051-full.png",
+    "description": "Khi ta được triệu hồi, ban cho ta +1|+1 và 1 đặc điểm ngẫu nhiên với mỗi 30 lá đã bắt đầu trong bộ bài.",
+    "descriptionRaw": "Khi ta được triệu hồi, ban cho ta +1|+1 và 1 đặc điểm ngẫu nhiên với mỗi 30 lá đã bắt đầu trong bộ bài.",
+    "name": "Xẻng Vàng Ròng",
+    "relicCode": "R0051",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0027.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0027-full.png",
+    "description": "Ta nhận +1|+1 với mỗi 200 vàng ngươi sở hữu.",
+    "descriptionRaw": "Ta nhận +1|+1 với mỗi 200 vàng ngươi sở hữu.",
+    "name": "Danh Tiếng Của Thợ Săn Tiền Thưởng",
+    "relicCode": "R0027",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0075.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0075-full.png",
+    "description": "<link=keyword.Support><style=Keyword>Hỗ Trợ</style></link>: Tạo trên tay 1 bản sao 1|1 có 1 tiêu hao của đồng minh được hỗ trợ.",
+    "descriptionRaw": "Hỗ Trợ: Tạo trên tay 1 bản sao 1|1 có 1 tiêu hao của đồng minh được hỗ trợ.",
+    "name": "Ngưng Tụ",
+    "relicCode": "R0075",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0013.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0013-full.png",
+    "description": "<link=vocab.RoundStart><style=Vocab>Bắt Đầu Vòng Đấu</style></link>: Hồi lại năng lượng bài phép.",
+    "descriptionRaw": "Bắt Đầu Vòng Đấu: Hồi lại năng lượng bài phép.",
+    "name": "Quyền Trượng Thiên Thần",
+    "relicCode": "R0013",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0065.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0065-full.png",
+    "description": "<link=keyword.Plunder><style=Keyword>Cưỡng Đoạt</style></link>: Ta được giảm 2 tiêu hao.<br>Ta nhận +1|+1 với mỗi vòng đấu ngươi đã gây sát thương lên Nhà Chính của đối thủ.",
+    "descriptionRaw": "Cưỡng Đoạt: Ta được giảm 2 tiêu hao.Ta nhận +1|+1 với mỗi vòng đấu ngươi đã gây sát thương lên Nhà Chính của đối thủ.",
+    "name": "Thuốc Nổ Nén Chặt",
+    "relicCode": "R0065",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0028.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0028-full.png",
+    "description": "Bắt Đầu Trận Đấu: Tạo 2 bản sao của ta trong bộ bài.",
+    "descriptionRaw": "Bắt Đầu Trận Đấu: Tạo 2 bản sao của ta trong bộ bài.",
+    "name": "Chuỗi Kiềng Của Hóa Hình Sư",
+    "relicCode": "R0028",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0136.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0136-full.png",
+    "description": "<link=keyword.SpellShield><sprite name=SpellShield><style=Keyword>Khiên Phép</style></link><br>Khi ta gây sát thương, cài lượng bài <link=card.self><style=AssociatedCard>Nấm Độc</style></link> bằng với lượng sát thương đó lên bộ bài của đối thủ.",
+    "descriptionRaw": "Khiên PhépKhi ta gây sát thương, cài lượng bài Nấm Độc bằng với lượng sát thương đó lên bộ bài của đối thủ.",
+    "name": "Cây Sáo Tinh Ranh",
+    "relicCode": "R0136",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0040.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0040-full.png",
+    "description": "Khi ta được triệu hồi, ta <link=vocab.Strike><style=Vocab>Ra Đòn</style></link> lên kẻ địch <link=keyword.Weakest><style=Keyword>Yếu Nhất</style></link>.",
+    "descriptionRaw": "Khi ta được triệu hồi, ta Ra Đòn lên kẻ địch Yếu Nhất.",
+    "name": "Gươm Truy Tung",
+    "relicCode": "R0040",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0044.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0044-full.png",
+    "description": "Bắt Đầu Phiêu Lưu: Thêm 2 bản sao của 1 lá Anh Hùng ngẫu nhiên vào bộ bài. Gắn lên lá bài đó 1 vật phẩm Sử Thi ngẫu nhiên.",
+    "descriptionRaw": "Bắt Đầu Phiêu Lưu: Thêm 2 bản sao của 1 lá Anh Hùng ngẫu nhiên vào bộ bài. Gắn lên lá bài đó 1 vật phẩm Sử Thi ngẫu nhiên.",
+    "name": "Phụ Kiện Vệ Binh",
+    "relicCode": "R0044",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0140.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0140-full.png",
+    "description": "<link=vocab.PathPower><style=Vocab>Sức Mạnh</style></link>: Đồng minh <link=keyword.Ephemeral><sprite name=Ephemeral><style=Keyword>Cảm Tử</style></link> có <link=keyword.Overwhelm><sprite name=Overwhelm><style=Keyword>Áp Đảo</style></link>.<br><link=vocab.Play><style=Vocab>Xuất Trận</style></link>: Nếu ta là một bài quân Hoa Linh Lục Địa, triệu hồi 2 lá <link=card.self><style=AssociatedCard>Lửa Hồ Ly</style></link>.",
+    "descriptionRaw": "Sức Mạnh: Đồng minh Cảm Tử có Áp Đảo.Xuất Trận: Nếu ta là một bài quân Hoa Linh Lục Địa, triệu hồi 2 lá Lửa Hồ Ly.",
+    "name": "Linh Hồn Hỗ Trợ",
+    "relicCode": "R0140",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0012.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0012-full.png",
+    "description": "<link=keyword.Plunder><style=Keyword>Cưỡng Đoạt</style></link>: Ta được giảm 2 tiêu hao.",
+    "descriptionRaw": "Cưỡng Đoạt: Ta được giảm 2 tiêu hao.",
+    "name": "Kho Tàng Hiểm Họa",
+    "relicCode": "R0012",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0097.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0097-full.png",
+    "description": "<link=keyword.Spirit><sprite name=Spirit><style=Keyword>Linh Hồn</style></link>\r\n<link=vocab.Attack><style=Vocab>Tấn Công</style></link>: <link=vocab.Boost><style=Vocab>Cường Hóa</style></link> tất cả bài quân.",
+    "descriptionRaw": "Linh Hồn\r\nTấn Công: Cường Hóa tất cả bài quân.",
+    "name": "Rìu Tăng Sĩ Khí",
+    "relicCode": "R0097",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0029.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0029-full.png",
+    "description": "+1|+1 và khi ta tiêu diệt 1 kẻ địch, ngươi nhận được 50 vàng. (Tối đa 2 kẻ địch mỗi ải)",
+    "descriptionRaw": "+1|+1 và khi ta tiêu diệt 1 kẻ địch, ngươi nhận được 50 vàng. (Tối đa 2 kẻ địch mỗi ải)",
+    "name": "Nhà Sưu Tầm",
+    "relicCode": "R0029",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0091.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0091-full.png",
+    "description": "+0|+2<br><link=vocab.PathPower><style=Vocab>Sức Mạnh</style></link>: Khi ngươi triệu hồi 1 đồng minh, ban +0|+1 và <link=keyword.Formidable><sprite name=Formidable><style=Keyword>Đáng Gờm</style></link> cho đồng minh đó.",
+    "descriptionRaw": "+0|+2Sức Mạnh: Khi ngươi triệu hồi 1 đồng minh, ban +0|+1 và Đáng Gờm cho đồng minh đó.",
+    "name": "Sức Mạnh Khỉ Đá",
+    "relicCode": "R0091",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0103.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0103-full.png",
+    "description": "<link=vocab.PathPower><style=Vocab>Sức Mạnh</style></link>: Nếu ta là <link=card.self><style=AssociatedCard>Yasuo</style></link>, +1 Năng Lượng Khởi Điểm. Khi ngươi <link=keyword.Recall><style=Keyword>Thu Về</style></link> một kẻ địch, tăng tiêu hao của lá đó thêm 2.<br>",
+    "descriptionRaw": "Sức Mạnh: Nếu ta là Yasuo, +1 Năng Lượng Khởi Điểm. Khi ngươi Thu Về một kẻ địch, tăng tiêu hao của lá đó thêm 2.",
+    "name": "Phong Kiếm của Yasuo",
+    "relicCode": "R0103",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0054.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0054-full.png",
+    "description": "<link=vocab.RoundEnd><style=Vocab>Kết Thúc Vòng Đấu</style></link>: Ban cho ta <link=keyword.Impact><sprite name=Impact><style=Keyword>Khí Lực</style></link> 2 lần nếu ta ở trên tay (tối đa 10 <link=keyword.Impact><sprite name=Impact><style=Keyword>Khí Lực</style></link>).",
+    "descriptionRaw": "Kết Thúc Vòng Đấu: Ban cho ta Khí Lực 2 lần nếu ta ở trên tay (tối đa 10 Khí Lực).",
+    "name": "Lồng Đèn Wriggle",
+    "relicCode": "R0054",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0053.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0053-full.png",
+    "description": "+1|+1 và triệu hồi 1 yêu linh ngẫu nhiên khi ta tiêu diệt 1 bài quân.",
+    "descriptionRaw": "+1|+1 và triệu hồi 1 yêu linh ngẫu nhiên khi ta tiêu diệt 1 bài quân.",
+    "name": "Dấu Ấn Yêu Nữ",
+    "relicCode": "R0053",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0018.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0018-full.png",
+    "description": "Khi ta được triệu hồi, <link=keyword.Stun><sprite name=Stunned><style=Keyword>Làm Choáng</style></link> kẻ địch <link=vocab.Strongest><style=Vocab>Mạnh Nhất</style></link>.",
+    "descriptionRaw": "Khi ta được triệu hồi, Làm Choáng kẻ địch Mạnh Nhất.",
+    "name": "Băng Trượng Vĩnh Cửu",
+    "relicCode": "R0018",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0109.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0109-full.png",
+    "description": "Bắt Đầu Trận Đấu: Nếu ta đang ở trong bộ bài hoặc trên tay, triệu hồi 1 lá <link=card.self><style=AssociatedCard>Tháp Bão Tố</style></link> với <link=vocab.Countdown><style=Vocab>Đếm Ngược</style></link> Từ 4: Triệu hồi ta.",
+    "descriptionRaw": "Bắt Đầu Trận Đấu: Nếu ta đang ở trong bộ bài hoặc trên tay, triệu hồi 1 lá Tháp Bão Tố với Đếm Ngược Từ 4: Triệu hồi ta.",
+    "name": "Hàn Băng Mộ",
+    "relicCode": "R0109",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0151.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0151-full.png",
+    "description": "Ban +1|+1, <link=keyword.Regeneration><sprite name=Regeneration><style=Keyword>Hồi Phục</style></link><br>Ta được giảm 1 tiêu hao với mỗi Poro đồng minh trên bàn.<br>",
+    "descriptionRaw": "Ban +1|+1, Hồi PhụcTa được giảm 1 tiêu hao với mỗi Poro đồng minh trên bàn.",
+    "name": "Món Ăn Hoàng Gia",
+    "relicCode": "R0151",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0030.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0030-full.png",
+    "description": "+0|+1 và <link=keyword.Tough><sprite name=Tough><style=Keyword>Kiên Cường</style></link>",
+    "descriptionRaw": "+0|+1 và Kiên Cường",
+    "name": "Vảy Tê Tê",
+    "relicCode": "R0030",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0154.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0154-full.png",
+    "description": "<link=vocab.Play><style=Vocab>Xuất Trận</style></link>: Tráo 3 lá <link=card.self><style=AssociatedCard>Cầu Tuyết</style></link> vào bộ bài của ngươi.<br><link=vocab.Attack><style=Vocab>Tấn Công</style></link>: Ban +1|+1 cho ta và tất cả những lá <link=card.self><style=AssociatedCard>Cầu Tuyết</style></link> trong bộ bài của ngươi.",
+    "descriptionRaw": "Xuất Trận: Tráo 3 lá Cầu Tuyết vào bộ bài của ngươi.Tấn Công: Ban +1|+1 cho ta và tất cả những lá Cầu Tuyết trong bộ bài của ngươi.",
+    "name": "Hướng Dẫn Phát Hiện Yeti",
+    "relicCode": "R0154",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0112.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0112-full.png",
+    "description": "<link=vocab.Play><style=Vocab>Xuất Trận</style></link>, <link=vocab.Attack><style=Vocab>Tấn Công</style></link> và <link=vocab.RoundStart><style=Vocab>Bắt Đầu Vòng Đấu</style></link>: <link=vocab.Forge><style=Vocab>Tôi Luyện</style></link> ta.",
+    "descriptionRaw": "Xuất Trận, Tấn Công và Bắt Đầu Vòng Đấu: Tôi Luyện ta.",
+    "name": "Chỉ Số Thích Nghi",
+    "relicCode": "R0112",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0061.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0061-full.png",
+    "description": "Bắt Đầu Trận Đấu: Tạo 7 bản sao của ta trong bộ bài. Giảm 1 tiêu hao cho Bài Phép Anh Hùng.",
+    "descriptionRaw": "Bắt Đầu Trận Đấu: Tạo 7 bản sao của ta trong bộ bài. Giảm 1 tiêu hao cho Bài Phép Anh Hùng.",
+    "name": "Linh Hồn Vang Vọng",
+    "relicCode": "R0061",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0083.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0083-full.png",
+    "description": "+1|+1.<br><color=#FAD65A>Nhiệm vụ:</color> Giành chiến thắng trong 1 chuyến phiêu lưu.<br><color=#FAD65A>Phần thưởng:</color> Nhận x10 lượng XP Anh Hùng thông thường",
+    "descriptionRaw": "+1|+1.Nhiệm vụ: Giành chiến thắng trong 1 chuyến phiêu lưu.Phần thưởng: Nhận x10 lượng XP Anh Hùng thông thường",
+    "name": "Ngọc Trai Vũ Trụ Tuyệt Đỉnh (Tiêu Thụ)",
+    "relicCode": "R0083",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0147.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0147-full.png",
+    "description": "Ban +0|+3 <br><link=vocab.PathPower><style=Vocab>Sức Mạnh</style></link>: Khi ngươi xuất trận hoặc biến đổi 1 Darkin, bài quân đó <link=vocab.Strike><style=Vocab>Ra Đòn</style></link> lên kẻ địch <link=keyword.Weakest><style=Keyword>yếu nhất</style></link>.",
+    "descriptionRaw": "Ban +0|+3 Sức Mạnh: Khi ngươi xuất trận hoặc biến đổi 1 Darkin, bài quân đó Ra Đòn lên kẻ địch yếu nhất.",
+    "name": "Quỷ Kiếm Darkin",
+    "relicCode": "R0147",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0006.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0006-full.png",
+    "description": "<link=keyword.Regeneration><sprite name=Regeneration><style=Keyword>Hồi Phục</style></link>",
+    "descriptionRaw": "Hồi Phục",
+    "name": "Giáp Máu Warmog",
+    "relicCode": "R0006",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0015.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0015-full.png",
+    "description": "<link=vocab.Play><style=Vocab>Xuất Trận</style></link>: Hồi đầy năng lượng bài phép.",
+    "descriptionRaw": "Xuất Trận: Hồi đầy năng lượng bài phép.",
+    "name": "Bí Chương Thất Truyền",
+    "relicCode": "R0015",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0039.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0039-full.png",
+    "description": "Khi ta được triệu hồi, trao <link=keyword.Vulnerable><sprite name=Vulnerable><style=Keyword>Kích Động</style></link> cho kẻ địch trong vòng này.",
+    "descriptionRaw": "Khi ta được triệu hồi, trao Kích Động cho kẻ địch trong vòng này.",
+    "name": "Chùy Chân Băng",
+    "relicCode": "R0039",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0019.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0019-full.png",
+    "description": "Nếu ta nhận sát thương và sống sót, ban cho ta +2|+2.",
+    "descriptionRaw": "Nếu ta nhận sát thương và sống sót, ban cho ta +2|+2.",
+    "name": "Thắt Lưng Cuồng Binh",
+    "relicCode": "R0019",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0036.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0036-full.png",
+    "description": "Khi ta được triệu hồi, bỏ toàn bộ bài trên tay và tạo trên tay số lá <link=card.self><style=AssociatedCard>Bằng Chíu</style></link> tương ứng.",
+    "descriptionRaw": "Khi ta được triệu hồi, bỏ toàn bộ bài trên tay và tạo trên tay số lá Bằng Chíu tương ứng.",
+    "name": "Hỏa Lực Của Khẩu Pháo Nổi Loạn",
+    "relicCode": "R0036",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0149.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0149-full.png",
+    "description": "Nếu ta là Rồng, ta có +4|+0 và <link=keyword.Overwhelm><sprite name=Overwhelm><style=Keyword>Áp Đảo</style></link>. Nếu không, ta có +2|+0 và <link=keyword.Fury><sprite name=Fury><style=Keyword>Cuồng Nộ</style></link>.<br>",
+    "descriptionRaw": "Nếu ta là Rồng, ta có +4|+0 và Áp Đảo. Nếu không, ta có +2|+0 và Cuồng Nộ.",
+    "name": "Ngọc Rồng",
+    "relicCode": "R0149",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0086.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0086-full.png",
+    "description": "<link=vocab.PathPower><style=Vocab>Sức Mạnh</style></link>: Khi nhận lượt tấn công, tạo trên tay 1 bài phép ngẫu nhiên có tiêu hao 2 từ khu vực của bạn. Lá bài đó có 0 tiêu hao và <link=keyword.Fleeting><sprite name=Fleeting><style=Keyword>Phù Du</style></link>.",
+    "descriptionRaw": "Sức Mạnh: Khi nhận lượt tấn công, tạo trên tay 1 bài phép ngẫu nhiên có tiêu hao 2 từ khu vực của bạn. Lá bài đó có 0 tiêu hao và Phù Du.",
+    "name": "Hòa Khí Ma Pháp",
+    "relicCode": "R0086",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0138.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0138-full.png",
+    "description": "Khi ta được triệu hồi hoặc khi <link=vocab.RoundStart><style=Vocab>Bắt Đầu Vòng Đấu</style></link>: Ta trộm đến 3 Máu từ một bài quân ngẫu nhiên của đối thủ. Nó không thể có ít hơn 1 máu.",
+    "descriptionRaw": "Khi ta được triệu hồi hoặc khi Bắt Đầu Vòng Đấu: Ta trộm đến 3 Máu từ một bài quân ngẫu nhiên của đối thủ. Nó không thể có ít hơn 1 máu.",
+    "name": "Nỗi Buồn Xuyên Thấu",
+    "relicCode": "R0138",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0137.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0137-full.png",
+    "description": "<link=vocab.PathPower><style=Vocab>Sức Mạnh</style></link>: <link=keyword.Skill><sprite name=SkillMark><style=Keyword>Kỹ Năng</style></link> của ngươi gây thêm 1 sát thương trên mỗi kẻ địch bị <link=keyword.Stun><sprite name=Stunned><style=Keyword>Làm Choáng</style></link>.",
+    "descriptionRaw": "Sức Mạnh: Kỹ Năng của ngươi gây thêm 1 sát thương trên mỗi kẻ địch bị Làm Choáng.",
+    "name": "Lời Thì Thầm",
+    "relicCode": "R0137",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0135.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0135-full.png",
+    "description": "+2|+0 và <link=keyword.Overwhelm><sprite name=Overwhelm><style=Keyword>Áp Đảo</style></link>.<br>Khi ta tiêu diệt 1 kẻ địch trong giao tranh, tạo trên tay 2 lá <link=card.self><style=AssociatedCard>Xu</style></link>.<br><br>",
+    "descriptionRaw": "+2|+0 và Áp Đảo.Khi ta tiêu diệt 1 kẻ địch trong giao tranh, tạo trên tay 2 lá Xu.",
+    "name": "Túi Tiền Anh Hùng",
+    "relicCode": "R0135",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0139.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0139-full.png",
+    "description": "<link=keyword.SpellShield><sprite name=SpellShield><style=Keyword>Khiên Phép</style></link> <link=keyword.Tough><sprite name=Tough><style=Keyword>Kiên Cường</style></link>\r\n<link=vocab.Attack><style=Vocab>Tấn Công</style></link>: Nếu ta là Thresh, triệu hồi một bản sao <link=keyword.Ephemeral><sprite name=Ephemeral><style=Keyword>Cảm Tử</style></link> ở vị trí tấn công của anh hùng với Sức Mạnh ít hơn từ bộ bài của ngươi.",
+    "descriptionRaw": "Khiên Phép Kiên Cường\r\nTấn Công: Nếu ta là Thresh, triệu hồi một bản sao Cảm Tử ở vị trí tấn công của anh hùng với Sức Mạnh ít hơn từ bộ bài của ngươi.",
+    "name": "Đèn Lồng Linh Hồn",
+    "relicCode": "R0139",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0020.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0020-full.png",
+    "description": "<link=vocab.RoundStart><style=Vocab>Bắt Đầu Vòng Đấu</style></link>: Tạo trên tay 1 bản sao <link=keyword.Fleeting><sprite name=Fleeting><style=Keyword>Phù Du</style></link> của ta.",
+    "descriptionRaw": "Bắt Đầu Vòng Đấu: Tạo trên tay 1 bản sao Phù Du của ta.",
+    "name": "Kế Đối Phó Của Đại Tướng",
+    "relicCode": "R0020",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0059.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0059-full.png",
+    "description": "+1|+0<br>Khi ta tấn công, ta không thể nhận sát thương hoặc bị tiêu diệt.",
+    "descriptionRaw": "+1|+0Khi ta tấn công, ta không thể nhận sát thương hoặc bị tiêu diệt.",
+    "name": "Dấu Vết Tử Thần",
+    "relicCode": "R0059",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0094.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0094-full.png",
+    "description": "<link=vocab.PathPower><style=Vocab>Sức Mạnh</style></link>: Khởi Đầu Trận Đấu: Nếu ta <link=card.self><style=AssociatedCard>Norra</style></link>, +1 năng lượng khởi điểm.<br>Khi triệu hồi 1 đồng minh được tạo ra, ban <link=keyword.Impact><sprite name=Impact><style=Keyword>Khí Lực</style></link> cho đồng minh đó.",
+    "descriptionRaw": "Sức Mạnh: Khởi Đầu Trận Đấu: Nếu ta Norra, +1 năng lượng khởi điểm.Khi triệu hồi 1 đồng minh được tạo ra, ban Khí Lực cho đồng minh đó.",
+    "name": "Cổng Gia Tốc Của Norra",
+    "relicCode": "R0094",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0146.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0146-full.png",
+    "description": "Ban +2|+0 và <link=keyword.Challenger><sprite name=Challenger><style=Keyword>Thách Đấu</style></link>.\r\n<link=vocab.Play><style=Vocab>Xuất Trận</style></link>: Sử dụng <link=card.self><style=AssociatedCard>Bắt Giữ</style></link> lên kẻ địch <link=vocab.Strongest><style=Vocab>mạnh nhất</style></link>.",
+    "descriptionRaw": "Ban +2|+0 và Thách Đấu.\r\nXuất Trận: Sử dụng Bắt Giữ lên kẻ địch mạnh nhất.",
+    "name": "Đại Tướng Noxus",
+    "relicCode": "R0146",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0069.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0069-full.png",
+    "description": "<color=#FAD65A>Nhiệm Vụ:</color> Chiến Thắng 1 Cuộc Phiêu Lưu 3+ Sao<br><color=#FAD65A>Phần Thưởng:</color> Nâng cấp 1 Ô Vật Phẩm Cổ Vật Hiếm của anh hùng này lên Sử Thi!",
+    "descriptionRaw": "Nhiệm Vụ: Chiến Thắng 1 Cuộc Phiêu Lưu 3+ SaoPhần Thưởng: Nâng cấp 1 Ô Vật Phẩm Cổ Vật Hiếm của anh hùng này lên Sử Thi!",
+    "name": "Tôi Luyện Linh Hồn (Tiêu Thụ)",
+    "relicCode": "R0069",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0106.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0106-full.png",
+    "description": "+2|+0 và <link=keyword.Challenger><sprite name=Challenger><style=Keyword>Thách Đấu</style></link>.<br><link=vocab.PathPower><style=Vocab>Sức Mạnh</style></link>: Bắt Đầu Trận Đấu: Tráo 2 lá <link=card.self><style=AssociatedCard>Tử Thần Đáy Sâu</style></link> vào bộ bài của ngươi và ban 1 vật phẩm sử thi ngẫu nhiên cho <link=card.self><style=AssociatedCard>Tử Thần Đáy Sâu</style></link>.",
+    "descriptionRaw": "+2|+0 và Thách Đấu.Sức Mạnh: Bắt Đầu Trận Đấu: Tráo 2 lá Tử Thần Đáy Sâu vào bộ bài của ngươi và ban 1 vật phẩm sử thi ngẫu nhiên cho Tử Thần Đáy Sâu.",
+    "name": "Móc Lao Chí Tử",
+    "relicCode": "R0106",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0001.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0001-full.png",
+    "description": "Khi ta thăng cấp, <link=vocab.Rally><style=Vocab>Tiến Công</style></link>.",
+    "descriptionRaw": "Khi ta thăng cấp, Tiến Công.",
+    "name": "Di Sản Crownguard",
+    "relicCode": "R0001",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0118.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0118-full.png",
+    "description": "<link=vocab.PathPower><style=Vocab>Sức Mạnh</style></link>: Nhà Chính của ngươi có <link=keyword.Tough><sprite name=Tough><style=Keyword>Kiên Cường</style></link>. <br>Ta là Công Nghệ.<br>",
+    "descriptionRaw": "Sức Mạnh: Nhà Chính của ngươi có Kiên Cường. Ta là Công Nghệ.",
+    "name": "Chi Tiêu Phòng Thủ",
+    "relicCode": "R0118",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0008.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0008-full.png",
+    "description": "Bắt đầu chuyến phiêu lưu với +2 lượt Đổi Lại",
+    "descriptionRaw": "Bắt đầu chuyến phiêu lưu với +2 lượt Đổi Lại",
+    "name": "Bản Mẫu Động Cơ Z",
+    "relicCode": "R0008",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0150.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0150-full.png",
+    "description": "<link=keyword.Spirit><sprite name=Spirit><style=Keyword>Linh Hồn</style></link>, <link=keyword.Impact><sprite name=Impact><style=Keyword>Khí Lực</style></link>, <link=keyword.Evolve><sprite name=Evolve><style=Keyword>Tiến Hóa</style></link>.<br><link=vocab.PathPower><style=Vocab>Sức Mạnh</style></link>: Đồng minh <link=keyword.Fearsome><sprite name=Fearsome><style=Keyword>Đáng Sợ</style></link> chỉ có thể bị chặn đòn bởi bài quân có 5 Sức Mạnh hoặc nhiều hơn.",
+    "descriptionRaw": "Linh Hồn, Khí Lực, Tiến Hóa.Sức Mạnh: Đồng minh Đáng Sợ chỉ có thể bị chặn đòn bởi bài quân có 5 Sức Mạnh hoặc nhiều hơn.",
+    "name": "Vòng Tay Nữ Hoàng",
+    "relicCode": "R0150",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0034.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0034-full.png",
+    "description": "<link=keyword.Plunder><style=Keyword>Cưỡng Đoạt</style></link>: Sử dụng <link=card.self><style=AssociatedCard>Mưa Đại Bác</style></link> với số lần bằng với tiêu hao của ta.",
+    "descriptionRaw": "Cưỡng Đoạt: Sử dụng Mưa Đại Bác với số lần bằng với tiêu hao của ta.",
+    "name": "Năng Lượng Thủy Triều",
+    "relicCode": "R0034",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0037.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0037-full.png",
+    "description": "Khi ta được triệu hồi, tạo trên tay 1 lá <link=card.self><style=AssociatedCard>Trí Dũng Song Toàn</style></link>. Lá bài đó có 3 tiêu hao.",
+    "descriptionRaw": "Khi ta được triệu hồi, tạo trên tay 1 lá Trí Dũng Song Toàn. Lá bài đó có 3 tiêu hao.",
+    "name": "Anh Hùng Ca",
+    "relicCode": "R0037",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0116.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0116-full.png",
+    "description": "+200 Vàng Khởi Điểm.<br><link=vocab.PathPower><style=Vocab>Sức Mạnh</style></link>: Đồng minh nhận +1|+1 với mỗi 12 lá bài vượt quá lá thứ 18 trong bộ bài của ngươi khi bắt đầu trận đấu.",
+    "descriptionRaw": "+200 Vàng Khởi Điểm.Sức Mạnh: Đồng minh nhận +1|+1 với mỗi 12 lá bài vượt quá lá thứ 18 trong bộ bài của ngươi khi bắt đầu trận đấu.",
+    "name": "Bộ Bài Đầy Ắp",
+    "relicCode": "R0116",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0048.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0048-full.png",
+    "description": "Khi ngươi sử dụng 1 bài phép, nếu ngươi có 6+ ngọc năng lượng, sao chép hiệu ứng bài phép đó lên cùng mục tiêu.",
+    "descriptionRaw": "Khi ngươi sử dụng 1 bài phép, nếu ngươi có 6+ ngọc năng lượng, sao chép hiệu ứng bài phép đó lên cùng mục tiêu.",
+    "name": "Máy Sao Chép Hóa Kỹ",
+    "relicCode": "R0048",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0117.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0117-full.png",
+    "description": "<link=vocab.PathPower><style=Vocab>Sức Mạnh:</style></link> Bắt Đầu Trận Đấu: Tạo trên tay 1 lá <link=card.self><style=AssociatedCard>Evelynn</style></link>. Khi ngươi triệu hồi một Yêu Linh, nó sẽ mất <link=keyword.Immobile><sprite name=Immobile><sprite name=Reckless><style=Keyword>Bất Động</style></link>.",
+    "descriptionRaw": "Sức Mạnh: Bắt Đầu Trận Đấu: Tạo trên tay 1 lá Evelynn. Khi ngươi triệu hồi một Yêu Linh, nó sẽ mất Bất Động.",
+    "name": "Tiếng Gọi Của Tiên Cá",
+    "relicCode": "R0117",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0046.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0046-full.png",
+    "description": "<link=vocab.RoundStart><style=Vocab>Bắt Đầu Vòng Đấu</style></link>: Tạo trên tay 1 lá <link=card.self><style=AssociatedCard>Sao Chổi Rơi</style></link> <link=keyword.Fleeting><sprite name=Fleeting><style=Keyword>Phù Du</style></link>.",
+    "descriptionRaw": "Bắt Đầu Vòng Đấu: Tạo trên tay 1 lá Sao Chổi Rơi Phù Du.",
+    "name": "Thiên Thạch Bí Ẩn",
+    "relicCode": "R0046",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0085.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0085-full.png",
+    "description": "<link=vocab.PathPower><style=Vocab>Sức Mạnh</style></link>: Khi 1 đồng minh nhận chỉ số từ 1 bài phép, chỉ số nhận được tăng gấp 2 lần.",
+    "descriptionRaw": "Sức Mạnh: Khi 1 đồng minh nhận chỉ số từ 1 bài phép, chỉ số nhận được tăng gấp 2 lần.",
+    "name": "Bí Kỹ",
+    "relicCode": "R0085",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0119.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0119-full.png",
+    "description": "Khi ngươi <link=keyword.Recall><style=Keyword>Thu về</style></link> một bài quân, ban cho ta +1|+0.<br><link=vocab.PathPower><style=Vocab>Sức Mạnh</style></link>: Bắt Đầu Trận Đấu: Tạo trên tay một lá <link=card.self><style=AssociatedCard>Trở Về Nhà</style></link> và ban cho nó Đồng Hồ Không Chờ Đợi.<br>",
+    "descriptionRaw": "Khi ngươi Thu về một bài quân, ban cho ta +1|+0.Sức Mạnh: Bắt Đầu Trận Đấu: Tạo trên tay một lá Trở Về Nhà và ban cho nó Đồng Hồ Không Chờ Đợi.",
+    "name": "Kẻ Cắp Tinh Hoa",
+    "relicCode": "R0119",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0041.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0041-full.png",
+    "description": "<link=keyword.Support><style=Keyword>Hỗ Trợ</style></link>: Ban <link=keyword.Elusive><sprite name=Elusive><style=Keyword>Huyền Ảo</style></link> cho 1 đồng minh được ta hỗ trợ.",
+    "descriptionRaw": "Hỗ Trợ: Ban Huyền Ảo cho 1 đồng minh được ta hỗ trợ.",
+    "name": "Chiếc Lá Nương Bóng Greenglade",
+    "relicCode": "R0041",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0025.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0025-full.png",
+    "description": "Đồng minh nhận <link=keyword.Overwhelm><sprite name=Overwhelm><style=Keyword>Áp Đảo</style></link>.",
+    "descriptionRaw": "Đồng minh nhận Áp Đảo.",
+    "name": "Vương Miện Của Vua Troll",
+    "relicCode": "R0025",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0047.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0047-full.png",
+    "description": "+1|+1.<br><color=#FAD65A>Nhiệm vụ:</color> Giành chiến thắng trong 1 chuyến phiêu lưu ở độ khó 1 Sao hoặc thấp hơn.<br><color=#FAD65A>Phần thưởng:</color> Nhận x10 lượng XP Anh Hùng thông thường",
+    "descriptionRaw": "+1|+1.Nhiệm vụ: Giành chiến thắng trong 1 chuyến phiêu lưu ở độ khó 1 Sao hoặc thấp hơn.Phần thưởng: Nhận x10 lượng XP Anh Hùng thông thường",
+    "name": "Tìm Kiếm Sự Thông Thái",
+    "relicCode": "R0047",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0089.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0089-full.png",
+    "description": "<link=keyword.Challenger><sprite name=Challenger><style=Keyword>Thách Đấu</style></link>, <link=keyword.Tough><sprite name=Tough><style=Keyword>Kiên Cường</style></link>, và <link=keyword.Overwhelm><sprite name=Overwhelm><style=Keyword>Áp Đảo</style></link>",
+    "descriptionRaw": "Thách Đấu, Kiên Cường, và Áp Đảo",
+    "name": "Trang Bị Hoàn Chỉnh",
+    "relicCode": "R0089",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0133.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0133-full.png",
+    "description": "<link=vocab.PathPower><style=Vocab>Sức mạnh</style></link>: Đồng minh với <link=keyword.Daybreak><style=Keyword>Hừng Đông</style></link> có <link=keyword.Tough><sprite name=Tough><style=Keyword>Kiên Cường</style></link>. Khi một đồng minh kích hoạt <link=keyword.Daybreak><style=Keyword>Hừng Đông</style></link>, ban cho các đồng minh +0|+1.",
+    "descriptionRaw": "Sức mạnh: Đồng minh với Hừng Đông có Kiên Cường. Khi một đồng minh kích hoạt Hừng Đông, ban cho các đồng minh +0|+1.",
+    "name": "Khiên Mặt Trời",
+    "relicCode": "R0133",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0125.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0125-full.png",
+    "description": "<link=vocab.PathPower><style=Vocab>Sức mạnh</style></link>: <link=vocab.RoundStart><style=Vocab>Bắt Đầu Vòng Đấu</style></link>: Tạo trên tay 1 lá <link=card.self><style=AssociatedCard>Nâng Cấp Lõi Công Nghệ</style></link>. Lá <link=card.self><style=AssociatedCard>Nâng Cấp Lõi Công Nghệ</style></link> có Đồng Hồ Ngưng Đọng và thể nâng cấp bất kỳ đồng minh nào.<br>",
+    "descriptionRaw": "Sức mạnh: Bắt Đầu Vòng Đấu: Tạo trên tay 1 lá Nâng Cấp Lõi Công Nghệ. Lá Nâng Cấp Lõi Công Nghệ có Đồng Hồ Ngưng Đọng và thể nâng cấp bất kỳ đồng minh nào.",
+    "name": "Lõi Công Nghệ Hoàn Hảo",
+    "relicCode": "R0125",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0064.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0064-full.png",
+    "description": "<link=vocab.Play><style=Vocab>Xuất Trận</style></link>: Tráo 5 anh hùng cấp 2 vào bộ bài và tăng gấp đôi chỉ số của họ, rồi rút 1 trong các lá đó.",
+    "descriptionRaw": "Xuất Trận: Tráo 5 anh hùng cấp 2 vào bộ bài và tăng gấp đôi chỉ số của họ, rồi rút 1 trong các lá đó.",
+    "name": "Lời Thề Hộ Vệ",
+    "relicCode": "R0064",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0066.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0066-full.png",
+    "description": "Khi ta được triệu hồi, tạo 2 bài quân 7+ tiêu hao ngẫu nhiên thuộc khu vực đồng minh và giảm tiêu hao của chúng đi một lượng bằng tiêu hao cơ bản của ta.",
+    "descriptionRaw": "Khi ta được triệu hồi, tạo 2 bài quân 7+ tiêu hao ngẫu nhiên thuộc khu vực đồng minh và giảm tiêu hao của chúng đi một lượng bằng tiêu hao cơ bản của ta.",
+    "name": "Bằng Hữu Dịch Chuyển",
+    "relicCode": "R0066",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0009.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0009-full.png",
+    "description": "<link=keyword.SpellShield><sprite name=SpellShield><style=Keyword>Khiên Phép</style></link>",
+    "descriptionRaw": "Khiên Phép",
+    "name": "Dây Chuyền Chữ Thập",
+    "relicCode": "R0009",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0096.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0096-full.png",
+    "description": "<link=keyword.Spirit><sprite name=Spirit><style=Keyword>Linh Hồn</style></link> <link=keyword.Impact><sprite name=Impact><style=Keyword>Khí Lực</style></link>",
+    "descriptionRaw": "Linh Hồn Khí Lực",
+    "name": "Giấc Mơ Của Yordle",
+    "relicCode": "R0096",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0124.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0124-full.png",
+    "description": "<link=vocab.PathPower><style=Vocab>Sức Mạnh</style></link>: Nếu ta là <link=card.self><style=AssociatedCard>Kayle</style></link>, +1 Năng Lượng Khởi Điểm.<br>Ta được +1|+0 với mỗi trận giao tranh ngươi đã thắng trong cuộc phiêu lưu này.<br>",
+    "descriptionRaw": "Sức Mạnh: Nếu ta là Kayle, +1 Năng Lượng Khởi Điểm.Ta được +1|+0 với mỗi trận giao tranh ngươi đã thắng trong cuộc phiêu lưu này.",
+    "name": "Kiếm Tinh Hỏa",
+    "relicCode": "R0124",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0121.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0121-full.png",
+    "description": "<link=vocab.PathPower><style=Vocab>Sức Mạnh:</style></link> Khi ngươi sử dụng 1 lá bài 3+ tiêu hao, gây <link=vocab.Terrify><style=Vocab>Khiếp Hãi</style></link> 1. Khi bộ bài của kẻ địch có ít hơn 15 lá bài, các đồng minh được +2|+2 và <link=keyword.Overwhelm><sprite name=Overwhelm><style=Keyword>Áp Đảo</style></link>.",
+    "descriptionRaw": "Sức Mạnh: Khi ngươi sử dụng 1 lá bài 3+ tiêu hao, gây Khiếp Hãi 1. Khi bộ bài của kẻ địch có ít hơn 15 lá bài, các đồng minh được +2|+2 và Áp Đảo.",
+    "name": "Bù Nhìn Vô Hại",
+    "relicCode": "R0121",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0122.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0122-full.png",
+    "description": "<link=vocab.PathPower><style=Vocab>Sức Mạnh</style></link>: Khi ngươi sử dụng 1 đồng minh với 2+ Máu, gây 1 sát thương lên đồng minh đó và ban cho đồng minh đó <link=keyword.Overwhelm><sprite name=Overwhelm><style=Keyword>Áp Đảo</style></link> và <link=keyword.Impact><sprite name=Impact><style=Keyword>Khí Lực</style></link>.",
+    "descriptionRaw": "Sức Mạnh: Khi ngươi sử dụng 1 đồng minh với 2+ Máu, gây 1 sát thương lên đồng minh đó và ban cho đồng minh đó Áp Đảo và Khí Lực.",
+    "name": "Thí Nghiệm Tàn Nhẫn",
+    "relicCode": "R0122",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0108.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0108-full.png",
+    "description": "3 <link=keyword.Impact><sprite name=Impact><style=Keyword>Khí Lực</style></link><br><link=vocab.Play><style=Vocab>Xuất Trận</style></link>: Nếu ta có 10+ Sức Mạnh, ban cho ta <link=keyword.Barrier><sprite name=Barrier><style=Keyword>Lá Chắn</style></link> và phát động tấn công, <link=keyword.Challenger><sprite name=Challenger><style=Keyword>Thách Đấu</style></link> kẻ địch <link=vocab.Strongest><style=Vocab>mạnh nhất</style></link>.",
+    "descriptionRaw": "3 Khí LựcXuất Trận: Nếu ta có 10+ Sức Mạnh, ban cho ta Lá Chắn và phát động tấn công, Thách Đấu kẻ địch mạnh nhất.",
+    "name": "Tả Xung Hữu Đột ",
+    "relicCode": "R0108",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0105.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0105-full.png",
+    "description": "+1|+2.<br>Khi ta thăng cấp, hồi lại 3 năng lượng. Nếu ta là <link=card.self><style=AssociatedCard>Jayce</style></link>, hồi lại 6 năng lượng thay vì 3.<br>",
+    "descriptionRaw": "+1|+2.Khi ta thăng cấp, hồi lại 3 năng lượng. Nếu ta là Jayce, hồi lại 6 năng lượng thay vì 3.",
+    "name": "Pin Hextech Của Jayce",
+    "relicCode": "R0105",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0145.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0145-full.png",
+    "description": "Nếu ta là một bài quân Hoa Linh Lục Địa, ta được giảm 1 tiêu hao mỗi vòng đấu ngươi đã chọn 1 đồng minh làm mục tiêu.",
+    "descriptionRaw": "Nếu ta là một bài quân Hoa Linh Lục Địa, ta được giảm 1 tiêu hao mỗi vòng đấu ngươi đã chọn 1 đồng minh làm mục tiêu.",
+    "name": "Lưỡi Dao Cổ Xưa",
+    "relicCode": "R0145",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0023.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0023-full.png",
+    "description": "Đồng minh nhận <link=keyword.Challenger><sprite name=Challenger><style=Keyword>Thách Đấu</style></link>.",
+    "descriptionRaw": "Đồng minh nhận Thách Đấu.",
+    "name": "Giá Đỡ Gươm Laurent",
+    "relicCode": "R0023",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0031.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0031-full.png",
+    "description": "Khi ta thăng cấp, <link=keyword.Stun><sprite name=Stunned><style=Keyword>Làm Choáng</style></link> tất cả kẻ địch.",
+    "descriptionRaw": "Khi ta thăng cấp, Làm Choáng tất cả kẻ địch.",
+    "name": "Lưỡi Kiếm Cuồng Nộ",
+    "relicCode": "R0031",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0095.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0095-full.png",
+    "description": "<link=vocab.Play><style=Vocab>Xuất Trận</style></link>: Ban <link=keyword.Gloom><sprite name=Gloom><style=Keyword>Buồn Bã</style></link> cho tất cả kẻ địch.",
+    "descriptionRaw": "Xuất Trận: Ban Buồn Bã cho tất cả kẻ địch.",
+    "name": "Tuyệt Vọng Tột Cùng",
+    "relicCode": "R0095",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0060.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0060-full.png",
+    "description": "Ta được giảm 1 tiêu hao với mỗi đồng minh trên bàn.<br><link=vocab.Play><style=Vocab>Xuất Trận</style></link>: Gây 3 sát thương lên tất cả đồng minh khác.",
+    "descriptionRaw": "Ta được giảm 1 tiêu hao với mỗi đồng minh trên bàn.Xuất Trận: Gây 3 sát thương lên tất cả đồng minh khác.",
+    "name": "Đệ Tử Bóng Đêm",
+    "relicCode": "R0060",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0134.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0134-full.png",
+    "description": "Ban +1|+1<br><link=vocab.PathPower><style=Vocab>Sức Mạnh</style></link>: Bắt Đầu Trận Đấu: với mỗi 7 lá bài đã có trong bộ bài, tạo 1 lá bài <link=card.self><style=AssociatedCard>Lá Bài Bí Ẩn</style></link> 1 tiêu hao trong bộ bài của ngươi.",
+    "descriptionRaw": "Ban +1|+1Sức Mạnh: Bắt Đầu Trận Đấu: với mỗi 7 lá bài đã có trong bộ bài, tạo 1 lá bài Lá Bài Bí Ẩn 1 tiêu hao trong bộ bài của ngươi.",
+    "name": "Bộ Bài Định Mệnh",
+    "relicCode": "R0134",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0007.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0007-full.png",
+    "description": "Bắt đầu chuyến phiêu lưu với +1 lượt Hồi Sinh<br><link=keyword.Last Breath><sprite name=LastBreath><style=Keyword>Trăng Trối</style></link>: Nếu đây là lần đầu tiên ta bị <link=vocab.Slay><style=Vocab>Thủ Tiêu</style></link> trong trận đấu, hồi sinh ta với 1 Máu.",
+    "descriptionRaw": "Bắt đầu chuyến phiêu lưu với +1 lượt Hồi SinhTrăng Trối: Nếu đây là lần đầu tiên ta bị Thủ Tiêu trong trận đấu, hồi sinh ta với 1 Máu.",
+    "name": "Thiên Thần Hộ Mệnh",
+    "relicCode": "R0007",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0115.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0115-full.png",
+    "description": "+3 Lượt Đổi<br>+10% tìm thấy sức mạnh và trang bị Sử Thi.",
+    "descriptionRaw": "+3 Lượt Đổi+10% tìm thấy sức mạnh và trang bị Sử Thi.",
+    "name": "Gian Lận",
+    "relicCode": "R0115",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0032.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0032-full.png",
+    "description": "+1|+0 và <link=keyword.Fearsome><sprite name=Fearsome><style=Keyword>Đáng Sợ</style></link>",
+    "descriptionRaw": "+1|+0 và Đáng Sợ",
+    "name": "Ngọn Giáo Linh Hồn",
+    "relicCode": "R0032",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common"
+  }
+]

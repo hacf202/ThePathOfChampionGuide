@@ -5,6 +5,7 @@ import React, {
 	useCallback,
 	useRef,
 } from "react";
+import { createPortal } from "react-dom";
 import {
 	Radar,
 	RadarChart,
@@ -306,7 +307,7 @@ const ChampionPlaystyleChart = ({
 				</div>
 
 				{/* Cột phải: Đánh giá cộng đồng */}
-				<div className='xl:w-7/12 p-3 md:p-6 flex flex-col bg-surface-bg border-l border-border/10'>
+				<div className='xl:w-7/12 p-3 md:p-6 flex flex-col border-l border-border/10'>
 					<header className='flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6 pb-4 border-b border-border/50'>
 						<div>
 							<h3 className='text-xl md:text-2xl font-primary text-text-primary font-bold flex items-center gap-3 uppercase'>
@@ -378,7 +379,7 @@ const ChampionPlaystyleChart = ({
 			</div>
 
 			{/* Giao diện Popup Modal Chú Thích */}
-			{showInfo && (
+			{showInfo && createPortal(
 				<div className='fixed inset-0 z-[100] flex items-center justify-center p-4 bg-gray-900/60 backdrop-blur-sm animate-fadeIn'>
 					<div
 						className='absolute inset-0'
@@ -432,7 +433,8 @@ const ChampionPlaystyleChart = ({
 							))}
 						</div>
 					</div>
-				</div>
+				</div>,
+				document.body
 			)}
 
 			{/* Modal Đánh giá */}

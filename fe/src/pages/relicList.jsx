@@ -13,6 +13,7 @@ import MultiSelectFilter from "../components/common/multiSelectFilter";
 import DropdownFilter from "../components/common/dropdownFilter";
 import RarityIcon from "../components/common/rarityIcon";
 import SafeImage from "@/components/common/SafeImage";
+import MarkupRenderer from "../components/common/MarkupRenderer";
 
 const RelicSkeleton = () => (
 	<div className='flex items-center gap-3 sm:gap-4 bg-surface-bg p-3 sm:p-4 rounded-lg border border-border animate-pulse'>
@@ -107,7 +108,7 @@ function RelicList() {
 			renderSkeleton={() => <RelicSkeleton />}
 			renderItem={relic => {
 				const relicName = t(relic, "name");
-				const relicDesc = t(relic, "descriptionRaw") || t(relic, "description");
+				const relicDesc = t(relic, "description") || t(relic, "descriptionRaw");
 				const relicRarityTranslated = getTranslatedRarity(relic.rarity, relic);
 
 				return (
@@ -133,7 +134,7 @@ function RelicList() {
 						</div>
 						{/* Tooltip hiển thị mô tả */}
 						<div className='absolute left-1/2 -translate-x-1/2 bottom-full mb-3 w-72 p-4 bg-gray-900/95 backdrop-blur-sm text-white text-xs rounded-xl shadow-2xl opacity-0 group-hover:opacity-100 transition-all duration-300 invisible group-hover:visible pointer-events-none z-50 border border-white/10'>
-							<p className='whitespace-pre-wrap leading-relaxed'>{relicDesc}</p>
+							<MarkupRenderer text={relicDesc} />
 							<div className='absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-x-8 border-x-transparent border-t-8 border-t-gray-900/95'></div>
 						</div>
 					</Link>

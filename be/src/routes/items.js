@@ -7,16 +7,17 @@ import {
 	GetItemCommand,
 } from "@aws-sdk/client-dynamodb";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
-import NodeCache from "node-cache";
+import cacheManager from "../utils/cacheManager.js";
 import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
+import { scanAll } from "../utils/dynamoUtils.js";
 
 const router = express.Router();
 const ITEMS_TABLE = "guidePocItems";
 
-// Khởi tạo cache 120 giây (2 phút)
-const itemCache = new NodeCache({ stdTTL: 120 });
+// Khởi tạo cache 1800 giây (30 phút)
+const itemCache = cacheManager.getOrCreateCache("items", { stdTTL: 86400, checkperiod: 60 });
 
 /**
  * Hàm lấy toàn bộ Items từ DB hoặc RAM.
@@ -26,9 +27,8 @@ async function getCachedItems() {
 	let cachedData = itemCache.get(CACHE_KEY);
 
 	if (!cachedData) {
-		const command = new ScanCommand({ TableName: ITEMS_TABLE });
-		const { Items } = await client.send(command);
-		cachedData = Items ? Items.map(item => unmarshall(item)) : [];
+		const rawItems = await scanAll(client, { TableName: ITEMS_TABLE });
+		cachedData = rawItems.map(item => unmarshall(item));
 
 		// Sắp xếp mặc định A-Z
 		cachedData.sort((a, b) => (a.name || "").localeCompare(b.name || ""));

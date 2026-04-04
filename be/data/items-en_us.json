@@ -1,0 +1,1792 @@
+[
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0070.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0070-full.png",
+    "description": "<link=keyword.SpellShield><sprite name=SpellShield><style=Keyword>SpellShield</style></link>",
+    "descriptionRaw": "SpellShield",
+    "name": "Warding Charm",
+    "itemCode": "I0070",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0108.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0108-full.png",
+    "description": "<link=keyword.Burst><sprite name=Burst><style=Keyword>Burst</style></link>",
+    "descriptionRaw": "Burst",
+    "name": "Stopwatch",
+    "itemCode": "I0108",
+    "rarity": "Missing Translation",
+    "rarityRef": "Special"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0018.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0018-full.png",
+    "description": "When I'm summoned, <link=vocab.Advance><style=Vocab>advance</style></link> me 1.",
+    "descriptionRaw": "When I'm summoned, advance me 1.",
+    "name": "Stopwatch",
+    "itemCode": "I0018",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0185.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0185-full.png",
+    "description": "<link=keyword.Elemental Skill><sprite name=ElementalSkill><style=Keyword>Play</style></link>: Deal 1 to all enemies and the enemy Nexus.<br>",
+    "descriptionRaw": "Play: Deal 1 to all enemies and the enemy Nexus.",
+    "name": "Frost Spikes",
+    "itemCode": "I0185",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0207.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0207-full.png",
+    "description": "<link=keyword.SpellOverwhelm><sprite name=Overwhelm><style=Keyword>Overwhelm</style></link> and 50% chance to <link=vocab.CriticalStrike><style=Vocab>Critical Strike</style></link>",
+    "descriptionRaw": "Overwhelm and 50% chance to Critical Strike",
+    "name": "Jeweled Gauntlets",
+    "itemCode": "I0207",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0068.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0068-full.png",
+    "description": "When I'm summoned, I <link=keyword.Capture><sprite name=Capture><style=Keyword>Capture</style></link> the <link=vocab.Strongest><style=Vocab>strongest</style></link> enemy.",
+    "descriptionRaw": "When I'm summoned, I Capture the strongest enemy.",
+    "name": "Iceborn Gauntlet",
+    "itemCode": "I0068",
+    "rarity": "EPIC",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0062.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0062-full.png",
+    "description": "Heal your Nexus equal to my cost.",
+    "descriptionRaw": "Heal your Nexus equal to my cost.",
+    "name": "Health Potion",
+    "itemCode": "I0062",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0163.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0163-full.png",
+    "description": "<link=vocab.Play><style=Vocab>Play</style></link>: Summon a random Dragon of my base cost or less.",
+    "descriptionRaw": "Play: Summon a random Dragon of my base cost or less.",
+    "name": "Dragon Egg",
+    "itemCode": "I0163",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0079.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0079-full.png",
+    "description": "-2 cost",
+    "descriptionRaw": "-2 cost",
+    "name": "Nomad's Medallion",
+    "itemCode": "I0079",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0006.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0006-full.png",
+    "description": "Game Start: Draw me if I'm not in your hand.",
+    "descriptionRaw": "Game Start: Draw me if I'm not in your hand.",
+    "name": "Farsight Alteration",
+    "itemCode": "I0006",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0123.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0123-full.png",
+    "description": "<link=keyword.Deathless><sprite name=Deathless><style=Keyword>Deathless</style></link>",
+    "descriptionRaw": "Deathless",
+    "name": "Immortal",
+    "itemCode": "I0123",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0126.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0126-full.png",
+    "description": "<link=keyword.Fated><sprite name=Fated><style=Keyword>Fated</style></link> and becomes Fae",
+    "descriptionRaw": "Fated and becomes Fae",
+    "name": "Fae's Favor",
+    "itemCode": "I0126",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0187.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0187-full.png",
+    "description": "<link=vocab.GatherStorm><style=Vocab>Gather Storm</style></link>",
+    "descriptionRaw": "Gather Storm",
+    "name": "Storm Channeler",
+    "itemCode": "I0187",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0162.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0162-full.png",
+    "description": "+5|+5",
+    "descriptionRaw": "+5|+5",
+    "name": "Titanic Maul",
+    "itemCode": "I0162",
+    "rarity": "EPIC",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0160.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0160-full.png",
+    "description": "Double damage, but cost 1 more",
+    "descriptionRaw": "Double damage, but cost 1 more",
+    "name": "Faulty Blasting Sigil",
+    "itemCode": "I0160",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0186.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0186-full.png",
+    "description": "<link=keyword.Fast><sprite name=Fast><style=Keyword>Fast</style></link>",
+    "descriptionRaw": "Fast",
+    "name": "Busted Stopwatch",
+    "itemCode": "I0186",
+    "rarity": "Missing Translation",
+    "rarityRef": "Special"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0034.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0034-full.png",
+    "description": "<link=vocab.Attack><style=Vocab>Attack</style></link>: Plant 5 <link=card.self><style=AssociatedCard>Poison Puffcaps</style></link> in the enemy deck.",
+    "descriptionRaw": "Attack: Plant 5 Poison Puffcaps in the enemy deck.",
+    "name": "Special Delivery",
+    "itemCode": "I0034",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0136.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0136-full.png",
+    "description": "Allies have +1|+1",
+    "descriptionRaw": "Allies have +1|+1",
+    "name": "Heroes' Reward",
+    "itemCode": "I0136",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0115.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0115-full.png",
+    "description": "-2 cost and <link=keyword.Fleeting><sprite name=Fleeting><style=Keyword>Fleeting</style></link>",
+    "descriptionRaw": "-2 cost and Fleeting",
+    "name": "Ante Up",
+    "itemCode": "I0115",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0121.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0121-full.png",
+    "description": "Manifest a <link=vocab.Titanic><style=Vocab>Titanic</style></link> unit and summon 2 <link=card.self><style=AssociatedCard>Sigils of the Storm</style></link>.",
+    "descriptionRaw": "Manifest a Titanic unit and summon 2 Sigils of the Storm.",
+    "name": "Stormcalling",
+    "itemCode": "I0121",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0118.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0118-full.png",
+    "description": "Costs 1 less for each card you've drawn this round.",
+    "descriptionRaw": "Costs 1 less for each card you've drawn this round.",
+    "name": "Power Riff",
+    "itemCode": "I0118",
+    "rarity": "EPIC",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0113.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0113-full.png",
+    "description": "+1|+0 and <link=keyword.Brash><sprite name=Brash><style=Keyword>Brash</style></link>",
+    "descriptionRaw": "+1|+0 and Brash",
+    "name": "Coralcrush Gauntlets",
+    "itemCode": "I0113",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0116.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0116-full.png",
+    "description": "Deal 3 to the enemy Nexus.",
+    "descriptionRaw": "Deal 3 to the enemy Nexus.",
+    "name": "Pyromantic Wake",
+    "itemCode": "I0116",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0124.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0124-full.png",
+    "description": "When you play a card, give me +1|+1 this round.",
+    "descriptionRaw": "When you play a card, give me +1|+1 this round.",
+    "name": "Excavator's Charge",
+    "itemCode": "I0124",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0122.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0122-full.png",
+    "description": "When I'm summoned, grow me to 8|8.",
+    "descriptionRaw": "When I'm summoned, grow me to 8|8.",
+    "name": "Titanify",
+    "itemCode": "I0122",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0120.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0120-full.png",
+    "description": "Draw a unit.",
+    "descriptionRaw": "Draw a unit.",
+    "name": "Heroes Call",
+    "itemCode": "I0120",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0119.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0119-full.png",
+    "description": "Create a Slipstream in hand.",
+    "descriptionRaw": "Create a Slipstream in hand.",
+    "name": "Urumi",
+    "itemCode": "I0119",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0125.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0125-full.png",
+    "description": "When I'm summoned, draw a spell.",
+    "descriptionRaw": "When I'm summoned, draw a spell.",
+    "name": "Arcane Knowledge",
+    "itemCode": "I0125",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0112.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0112-full.png",
+    "description": "<link=keyword.Augment><sprite name=Augment><style=Keyword>Augment</style></link> and becomes Tech",
+    "descriptionRaw": "Augment and becomes Tech",
+    "name": "Tech Evolution",
+    "itemCode": "I0112",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0087.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0087-full.png",
+    "description": "Grant your <link=vocab.Strongest><style=Vocab>strongest</style></link> ally a random Epic item this game.",
+    "descriptionRaw": "Grant your strongest ally a random Epic item this game.",
+    "name": "Hextech Fabricator III",
+    "itemCode": "I0087",
+    "rarity": "EPIC",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0035.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0035-full.png",
+    "description": "+1|+1, <link=keyword.Lurker><sprite name=Lurker><style=Keyword>Lurk</style></link>, and I am a Lurker.",
+    "descriptionRaw": "+1|+1, Lurk, and I am a Lurker.",
+    "name": "Mariner's Ruse",
+    "itemCode": "I0035",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0138.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0138-full.png",
+    "description": "Game Start: Summon one of me from deck.",
+    "descriptionRaw": "Game Start: Summon one of me from deck.",
+    "name": "Home Turf",
+    "itemCode": "I0138",
+    "rarity": "EPIC",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0064.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0064-full.png",
+    "description": "Shuffle 2 copies of me into your deck. They cost 1.",
+    "descriptionRaw": "Shuffle 2 copies of me into your deck. They cost 1.",
+    "name": "Grifter's Deck",
+    "itemCode": "I0064",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0088.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0088-full.png",
+    "description": "+1 damage",
+    "descriptionRaw": "+1 damage",
+    "name": "Charging Sigil I",
+    "itemCode": "I0088",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0095.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0095-full.png",
+    "description": "Game Start: Plant a <link=card.self><style=AssociatedCard>Mysterious Portal</style></link> on me.",
+    "descriptionRaw": "Game Start: Plant a Mysterious Portal on me.",
+    "name": "Norra's Tea",
+    "itemCode": "I0095",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0047.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0047-full.png",
+    "description": "<link=keyword.Quick Strike><sprite name=QuickStrike><style=Keyword>Quick Attack</style></link>",
+    "descriptionRaw": "Quick Attack",
+    "name": "Speed Wraps",
+    "itemCode": "I0047",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0142.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0142-full.png",
+    "description": "While in hand, I have a random keyword that changes each round. When I'm summoned, grant me this keyword.",
+    "descriptionRaw": "While in hand, I have a random keyword that changes each round. When I'm summoned, grant me this keyword.",
+    "name": "Voidling Shell",
+    "itemCode": "I0142",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0154.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0154-full.png",
+    "description": "<link=vocab.Play><style=Vocab>Play</style></link>: Play two random Dragon Boons on me.",
+    "descriptionRaw": "Play: Play two random Dragon Boons on me.",
+    "name": "Flame-Wreathed Soul",
+    "itemCode": "I0154",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0111.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0111-full.png",
+    "description": "Strike: Draw 1",
+    "descriptionRaw": "Strike: Draw 1",
+    "name": "Entrancing Lure",
+    "itemCode": "I0111",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0132.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0132-full.png",
+    "description": "The opponent discards a random card.",
+    "descriptionRaw": "The opponent discards a random card.",
+    "name": "Brain Worm",
+    "itemCode": "I0132",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0045.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0045-full.png",
+    "description": "+3|+1",
+    "descriptionRaw": "+3|+1",
+    "name": "Colossal Hammer",
+    "itemCode": "I0045",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0106.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0106-full.png",
+    "description": "<link=keyword.Scout><sprite name=Scout><style=Keyword>Scout</style></link>",
+    "descriptionRaw": "Scout",
+    "name": "Phantom Dancer",
+    "itemCode": "I0106",
+    "rarity": "EPIC",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0184.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0184-full.png",
+    "description": "<link=vocab.Play><style=Vocab>Play</style></link>: Create in hand a random Elemental spell.<br>",
+    "descriptionRaw": "Play: Create in hand a random Elemental spell.",
+    "name": "Elemental Studies",
+    "itemCode": "I0184",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0011.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0011-full.png",
+    "description": "Reduce my cost by the cost of your most expensive ally champion.",
+    "descriptionRaw": "Reduce my cost by the cost of your most expensive ally champion.",
+    "name": "Hextech Protobelt-01",
+    "itemCode": "I0011",
+    "rarity": "EPIC",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0090.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0090-full.png",
+    "description": "+4 damage",
+    "descriptionRaw": "+4 damage",
+    "name": "Charging Sigil III",
+    "itemCode": "I0090",
+    "rarity": "EPIC",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0167.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0167-full.png",
+    "description": "+7|+7, but +3 cost",
+    "descriptionRaw": "+7|+7, but +3 cost",
+    "name": "Resplendent Plate Armor ",
+    "itemCode": "I0167",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0014.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0014-full.png",
+    "description": "When I'm summoned, double my Power and Health.",
+    "descriptionRaw": "When I'm summoned, double my Power and Health.",
+    "name": "Black Cleaver",
+    "itemCode": "I0014",
+    "rarity": "EPIC",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0093.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0093-full.png",
+    "description": "Summon a random champion of my cost.",
+    "descriptionRaw": "Summon a random champion of my cost.",
+    "name": "Summoner's Stone",
+    "itemCode": "I0093",
+    "rarity": "EPIC",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0082.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0082-full.png",
+    "description": "<link=vocab.RoundStart><style=Vocab>Round Start</style></link>: Get an extra mana gem this round.",
+    "descriptionRaw": "Round Start: Get an extra mana gem this round.",
+    "name": "Crystal Carrier",
+    "itemCode": "I0082",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0205.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0205-full.png",
+    "description": "When I'm summoned, grant other allies that share a subtype with me +2|+2.",
+    "descriptionRaw": "When I'm summoned, grant other allies that share a subtype with me +2|+2.",
+    "name": "Golden Spatula",
+    "itemCode": "I0205",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0038.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0038-full.png",
+    "description": "+0|+2",
+    "descriptionRaw": "+0|+2",
+    "name": "Giant's Belt",
+    "itemCode": "I0038",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0037.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0037-full.png",
+    "description": "+1|+1",
+    "descriptionRaw": "+1|+1",
+    "name": "Studded Leather",
+    "itemCode": "I0037",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0080.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0080-full.png",
+    "description": "<link=vocab.RoundEnd><style=Vocab>Round End</style></link>: Deal 1 to me and grant me +2|+0.",
+    "descriptionRaw": "Round End: Deal 1 to me and grant me +2|+0.",
+    "name": "Bloodletter's Veil",
+    "itemCode": "I0080",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0109.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0109-full.png",
+    "description": "Create a random card from the Emperor's Deck in hand.",
+    "descriptionRaw": "Create a random card from the Emperor's Deck in hand.",
+    "name": "Emperor's Favor",
+    "itemCode": "I0109",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0133.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0133-full.png",
+    "description": "+4|+0 and <link=keyword.Reckless><sprite name=Reckless><style=Keyword>Can't Block</style></link>.",
+    "descriptionRaw": "+4|+0 and Can't Block.",
+    "name": "Consuming Wrath",
+    "itemCode": "I0133",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0076.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0076-full.png",
+    "description": "<link=keyword.Tough><sprite name=Tough><style=Keyword>Tough</style></link>",
+    "descriptionRaw": "Tough",
+    "name": "Chain Vest",
+    "itemCode": "I0076",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0171.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0171-full.png",
+    "description": "<link=vocab.Play><style=Vocab>Play</style></link>: Summon an exact copy of me.",
+    "descriptionRaw": "Play: Summon an exact copy of me.",
+    "name": "True Reflection",
+    "itemCode": "I0171",
+    "rarity": "EPIC",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0015.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0015-full.png",
+    "description": "When I'm summoned, create a <link=keyword.Fleeting><sprite name=Fleeting><style=Keyword>Fleeting</style></link> copy of me in hand.",
+    "descriptionRaw": "When I'm summoned, create a Fleeting copy of me in hand.",
+    "name": "Spirit Stone",
+    "itemCode": "I0015",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0042.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0042-full.png",
+    "description": "+1|+3",
+    "descriptionRaw": "+1|+3",
+    "name": "Savage Shield",
+    "itemCode": "I0042",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0009.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0009-full.png",
+    "description": "<link=vocab.Attack><style=Vocab>Attack</style></link>: <link=keyword.Nab><style=Keyword>Nab</style></link> 1.",
+    "descriptionRaw": "Attack: Nab 1.",
+    "name": "Thieves' Tools",
+    "itemCode": "I0009",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0056.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0056-full.png",
+    "description": "-3 cost",
+    "descriptionRaw": "-3 cost",
+    "name": "Chalice of Harmony",
+    "itemCode": "I0056",
+    "rarity": "EPIC",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0144.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0144-full.png",
+    "description": "<link=keyword.Spirit><sprite name=Spirit><style=Keyword>Spirit</style></link>",
+    "descriptionRaw": "Spirit",
+    "name": "Bright Staff",
+    "itemCode": "I0144",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0067.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0067-full.png",
+    "description": "When you play a spell, grant me +1|+1.",
+    "descriptionRaw": "When you play a spell, grant me +1|+1.",
+    "name": "Focusing Crystal",
+    "itemCode": "I0067",
+    "rarity": "EPIC",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0033.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0033-full.png",
+    "description": "When I'm summoned, summon a copy of me.",
+    "descriptionRaw": "When I'm summoned, summon a copy of me.",
+    "name": "Zz'Rot Portal",
+    "itemCode": "I0033",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0096.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0096-full.png",
+    "description": "<link=vocab.Attack><style=Vocab>Attack:</style></link> Grant my bearer +1|+1.",
+    "descriptionRaw": "Attack: Grant my bearer +1|+1.",
+    "name": "Sheen",
+    "itemCode": "I0096",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0052.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0052-full.png",
+    "description": "50% chance to create a copy of me in hand that costs 0 this round.",
+    "descriptionRaw": "50% chance to create a copy of me in hand that costs 0 this round.",
+    "name": "Doubling Dice",
+    "itemCode": "I0052",
+    "rarity": "EPIC",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0196.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0196-full.png",
+    "description": "Grant targeted allies an Epic item.",
+    "descriptionRaw": "Grant targeted allies an Epic item.",
+    "name": "Divine Armaments",
+    "itemCode": "I0196",
+    "rarity": "EPIC",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0110.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0110-full.png",
+    "description": "I cost 1 and my base stats are 1|1. I am a Poro.",
+    "descriptionRaw": "I cost 1 and my base stats are 1|1. I am a Poro.",
+    "name": "Poro Fluft",
+    "itemCode": "I0110",
+    "rarity": "EPIC",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0071.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0071-full.png",
+    "description": "<link=keyword.Support><style=Keyword>Support</style></link>: Grant my supported ally +1|+1.",
+    "descriptionRaw": "Support: Grant my supported ally +1|+1.",
+    "name": "Targon's Brace",
+    "itemCode": "I0071",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0091.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0091-full.png",
+    "description": "+2 damage",
+    "descriptionRaw": "+2 damage",
+    "name": "Charging Sigil II",
+    "itemCode": "I0091",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0027.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0027-full.png",
+    "description": "When I'm summoned or destroyed, heal your Nexus equal to my cost.",
+    "descriptionRaw": "When I'm summoned or destroyed, heal your Nexus equal to my cost.",
+    "name": "Crystalline Bracer",
+    "itemCode": "I0027",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0039.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0039-full.png",
+    "description": "<link=keyword.Overwhelm><sprite name=Overwhelm><style=Keyword>Overwhelm</style></link>",
+    "descriptionRaw": "Overwhelm",
+    "name": "Greatclub",
+    "itemCode": "I0039",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0209.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0209-full.png",
+    "description": "I have all subtypes",
+    "descriptionRaw": "I have all subtypes",
+    "name": "Golden Pan",
+    "itemCode": "I0209",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0013.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0013-full.png",
+    "description": "<link=keyword.Elusive><sprite name=Elusive><style=Keyword>Elusive</style></link>",
+    "descriptionRaw": "Elusive",
+    "name": "Ninja Tabi",
+    "itemCode": "I0013",
+    "rarity": "EPIC",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0036.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0036-full.png",
+    "description": "<link=keyword.Last Breath><sprite name=LastBreath><style=Keyword>Last Breath</style></link>: <link=vocab.Rally><style=Vocab>Rally</style></link>",
+    "descriptionRaw": "Last Breath: Rally",
+    "name": "Rally Banner",
+    "itemCode": "I0036",
+    "rarity": "EPIC",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0021.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0021-full.png",
+    "description": "When I'm summoned, I <link=keyword.Capture><sprite name=Capture><style=Keyword>Capture</style></link> the <link=vocab.Strongest><style=Vocab>strongest</style></link> enemy.",
+    "descriptionRaw": "When I'm summoned, I Capture the strongest enemy.",
+    "name": "Trapped Treasure",
+    "itemCode": "I0021",
+    "rarity": "EPIC",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0072.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0072-full.png",
+    "description": "<link=keyword.Support><style=Keyword>Support</style></link>: Give my supported ally +1|+1 and my keywords this round.",
+    "descriptionRaw": "Support: Give my supported ally +1|+1 and my keywords this round.",
+    "name": "Bonded Bucklers",
+    "itemCode": "I0072",
+    "rarity": "EPIC",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0130.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0130-full.png",
+    "description": "<link=keyword.Double Strike><sprite name=DoubleStrike><style=Keyword>Double Attack</style></link>",
+    "descriptionRaw": "Double Attack",
+    "name": "Heavy Hands",
+    "itemCode": "I0130",
+    "rarity": "EPIC",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0084.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0084-full.png",
+    "description": "Give allies +1|+1 this round.",
+    "descriptionRaw": "Give allies +1|+1 this round.",
+    "name": "Battle Banner",
+    "itemCode": "I0084",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0065.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0065-full.png",
+    "description": "<link=vocab.Predict><style=Vocab>Predict</style></link>",
+    "descriptionRaw": "Predict",
+    "name": "Oracle's Lens",
+    "itemCode": "I0065",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0074.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0074-full.png",
+    "description": "When I'm summoned, heal your Nexus equal to my cost.",
+    "descriptionRaw": "When I'm summoned, heal your Nexus equal to my cost.",
+    "name": "Vampiric Scepter",
+    "itemCode": "I0074",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0179.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0179-full.png",
+    "description": "+2|+1.<br>Play: Deal 2 to each Nexus.",
+    "descriptionRaw": "+2|+1.Play: Deal 2 to each Nexus.",
+    "name": "Evil Phage",
+    "itemCode": "I0179",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0097.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0097-full.png",
+    "description": "<link=keyword.Challenger><sprite name=Challenger><style=Keyword>Challenger</style></link>",
+    "descriptionRaw": "Challenger",
+    "name": "Bilgewater Cutlass",
+    "itemCode": "I0097",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0183.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0183-full.png",
+    "description": "When I damage an enemy, mark it.",
+    "descriptionRaw": "When I damage an enemy, mark it.",
+    "name": "Kindred's Mark",
+    "itemCode": "I0183",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0000.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0000-full.png",
+    "description": "Grant the top ally in your deck +3|+3.",
+    "descriptionRaw": "Grant the top ally in your deck +3|+3.",
+    "name": "Ardent Censer",
+    "itemCode": "I0000",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0146.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0146-full.png",
+    "description": "<link=keyword.Hallowed><sprite name=Hallowed><style=Keyword>Hallowed</style></link>",
+    "descriptionRaw": "Hallowed",
+    "name": "Miraculous Melody",
+    "itemCode": "I0146",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0086.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0086-full.png",
+    "description": "Grant your <link=vocab.Strongest><style=Vocab>strongest</style></link> ally a random Rare item this game.",
+    "descriptionRaw": "Grant your strongest ally a random Rare item this game.",
+    "name": "Hextech Fabricator II",
+    "itemCode": "I0086",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0012.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0012-full.png",
+    "description": "<link=vocab.Play><style=Vocab>Play</style></link>: Summon an exact <link=keyword.Ephemeral><sprite name=Ephemeral><style=Keyword>Ephemeral</style></link> copy of me.",
+    "descriptionRaw": "Play: Summon an exact Ephemeral copy of me.",
+    "name": "Shadow Totem",
+    "itemCode": "I0012",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0054.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0054-full.png",
+    "description": "I cost 0. Deal damage to your Nexus equal to my original cost.",
+    "descriptionRaw": "I cost 0. Deal damage to your Nexus equal to my original cost.",
+    "name": "Bloodprice Prism",
+    "itemCode": "I0054",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0002.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0002-full.png",
+    "description": "<link=keyword.Fleeting><sprite name=Fleeting><style=Keyword>Fleeting</style></link>",
+    "descriptionRaw": "Fleeting",
+    "name": "Cursed Stone",
+    "itemCode": "I0002",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0001.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0001-full.png",
+    "description": "Can't block",
+    "descriptionRaw": "Can't block",
+    "name": "Rusty Armor",
+    "itemCode": "I0001",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0005.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0005-full.png",
+    "description": "-1|-0",
+    "descriptionRaw": "-1|-0",
+    "name": "Rusty Sword",
+    "itemCode": "I0005",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0003.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0003-full.png",
+    "description": "<link=keyword.Ephemeral><sprite name=Ephemeral><style=Keyword>Ephemeral</style></link>",
+    "descriptionRaw": "Ephemeral",
+    "name": "Cursed Cloak",
+    "itemCode": "I0003",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0004.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0004-full.png",
+    "description": "+1 cost",
+    "descriptionRaw": "+1 cost",
+    "name": "Expired Mana Potion",
+    "itemCode": "I0004",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0174.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0174-full.png",
+    "description": "Refill your spell mana.",
+    "descriptionRaw": "Refill your spell mana.",
+    "name": "Spark of Brilliance",
+    "itemCode": "I0174",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0089.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0089-full.png",
+    "description": "Grant the top ally in your deck +6|+6.",
+    "descriptionRaw": "Grant the top ally in your deck +6|+6.",
+    "name": "Titanic Censer",
+    "itemCode": "I0089",
+    "rarity": "EPIC",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0169.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0169-full.png",
+    "description": "+5|+0",
+    "descriptionRaw": "+5|+0",
+    "name": "Titan's Pickaxe",
+    "itemCode": "I0169",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0140.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0140-full.png",
+    "description": "When I'm summoned, plant 6 <link=card.self><style=AssociatedCard>Chimes</style></link> on random cards in your deck.",
+    "descriptionRaw": "When I'm summoned, plant 6 Chimes on random cards in your deck.",
+    "name": "Wanderer's Blessing",
+    "itemCode": "I0140",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0049.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0049-full.png",
+    "description": "When you play a spell, reduce my cost by 1.",
+    "descriptionRaw": "When you play a spell, reduce my cost by 1.",
+    "name": "Mage's Handbook",
+    "itemCode": "I0049",
+    "rarity": "EPIC",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0060.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0060-full.png",
+    "description": "Summon a follower with my cost from your regions.",
+    "descriptionRaw": "Summon a follower with my cost from your regions.",
+    "name": "Summoning Beacon",
+    "itemCode": "I0060",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0078.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0078-full.png",
+    "description": "When I'm summoned, draw 1.",
+    "descriptionRaw": "When I'm summoned, draw 1.",
+    "name": "Philosopher's Stone",
+    "itemCode": "I0078",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0044.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0044-full.png",
+    "description": "+3|+3",
+    "descriptionRaw": "+3|+3",
+    "name": "Titan's Axe",
+    "itemCode": "I0044",
+    "rarity": "EPIC",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0019.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0019-full.png",
+    "description": "+1|+1, <link=keyword.Fury><sprite name=Fury><style=Keyword>Fury</style></link>, and I am a Dragon.",
+    "descriptionRaw": "+1|+1, Fury, and I am a Dragon.",
+    "name": "Dragon Tooth",
+    "itemCode": "I0019",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0007.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0007-full.png",
+    "description": "<link=keyword.Challenger><sprite name=Challenger><style=Keyword>Challenger</style></link>",
+    "descriptionRaw": "Challenger",
+    "name": "Skirmisher's Sabre",
+    "itemCode": "I0007",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0206.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0206-full.png",
+    "description": "+3|+3, <link=keyword.Overwhelm><sprite name=Overwhelm><style=Keyword>Overwhelm</style></link>, <link=keyword.Quick Strike><sprite name=QuickStrike><style=Keyword>QuickAttack</style></link>, <link=keyword.Challenger><sprite name=Challenger><style=Keyword>Challenger</style></link>",
+    "descriptionRaw": "+3|+3, Overwhelm, QuickAttack, Challenger",
+    "name": "Infinity Force",
+    "itemCode": "I0206",
+    "rarity": "EPIC",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0201.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0201-full.png",
+    "description": "+1|+1, <link=keyword.Fearsome><sprite name=Fearsome><style=Keyword>Fearsome</style></link> and I'm a Spider.",
+    "descriptionRaw": "+1|+1, Fearsome and I'm a Spider.",
+    "name": "Spider Fang",
+    "itemCode": "I0201",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0147.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0147-full.png",
+    "description": "<link=keyword.Last Breath><sprite name=LastBreath><style=Keyword>Last Breath</style></link>: Summon a random 1 cost unit from your regions.",
+    "descriptionRaw": "Last Breath: Summon a random 1 cost unit from your regions.",
+    "name": "Bounty Board",
+    "itemCode": "I0147",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0026.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0026-full.png",
+    "description": "I have <link=vocab.Countdown><style=Vocab>Countdown</style></link> 3: Deal damage to enemy Nexus equal to twice my cost.",
+    "descriptionRaw": "I have Countdown 3: Deal damage to enemy Nexus equal to twice my cost.",
+    "name": "Alchemist's Incendiary",
+    "itemCode": "I0026",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0061.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0061-full.png",
+    "description": "<link=keyword.Plunder><style=Keyword>Plunder</style></link>: I cost 3 less.",
+    "descriptionRaw": "Plunder: I cost 3 less.",
+    "name": "Forbidden Idol",
+    "itemCode": "I0061",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0092.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0092-full.png",
+    "description": "Summon a <link=card.self><style=AssociatedCard>Mighty Poro</style></link>.",
+    "descriptionRaw": "Summon a Mighty Poro.",
+    "name": "Mighty Moustache",
+    "itemCode": "I0092",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0048.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0048-full.png",
+    "description": "+3|+3, but cost 1 more",
+    "descriptionRaw": "+3|+3, but cost 1 more",
+    "name": "Radiant Plate Armor",
+    "itemCode": "I0048",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0024.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0024-full.png",
+    "description": "When I'm summoned, draw 1.",
+    "descriptionRaw": "When I'm summoned, draw 1.",
+    "name": "Elixir of Skill",
+    "itemCode": "I0024",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0075.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0075-full.png",
+    "description": "-1 cost",
+    "descriptionRaw": "-1 cost",
+    "name": "Ancient Coin",
+    "itemCode": "I0075",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0073.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0073-full.png",
+    "description": "+2|+2 and when I'm summoned, the <link=vocab.Strongest><style=Vocab>strongest</style></link> enemy and I <link=vocab.Strike><style=Vocab>strike</style></link> each other.",
+    "descriptionRaw": "+2|+2 and when I'm summoned, the strongest enemy and I strike each other.",
+    "name": "Reckoner Mark",
+    "itemCode": "I0073",
+    "rarity": "EPIC",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0050.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0050-full.png",
+    "description": "<link=keyword.Scout><sprite name=Scout><style=Keyword>Scout</style></link>",
+    "descriptionRaw": "Scout",
+    "name": "Hunter's Machete",
+    "itemCode": "I0050",
+    "rarity": "EPIC",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0195.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0195-full.png",
+    "description": "Give targeted allies <link=keyword.Barrier><sprite name=Barrier><style=Keyword>Barrier</style></link> this round.",
+    "descriptionRaw": "Give targeted allies Barrier this round.",
+    "name": "Stout Shield",
+    "itemCode": "I0195",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0017.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0017-full.png",
+    "description": "<link=keyword.Fearsome><sprite name=Fearsome><style=Keyword>Fearsome</style></link>",
+    "descriptionRaw": "Fearsome",
+    "name": "Serrated Dirk",
+    "itemCode": "I0017",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0164.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0164-full.png",
+    "description": "+2|+2",
+    "descriptionRaw": "+2|+2",
+    "name": "Dragon Leather",
+    "itemCode": "I0164",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0094.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0094-full.png",
+    "description": "Get an empty mana gem.",
+    "descriptionRaw": "Get an empty mana gem.",
+    "name": "Sapphire Crystal",
+    "itemCode": "I0094",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0041.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0041-full.png",
+    "description": "+2|+0",
+    "descriptionRaw": "+2|+0",
+    "name": "Pickaxe",
+    "itemCode": "I0041",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0173.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0173-full.png",
+    "description": "I can't take damage or die.",
+    "descriptionRaw": "I can't take damage or die.",
+    "name": "Zhonya's Blessing",
+    "itemCode": "I0173",
+    "rarity": "EPIC",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0058.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0058-full.png",
+    "description": "Draw 1.",
+    "descriptionRaw": "Draw 1.",
+    "name": "Elixir of Skill",
+    "itemCode": "I0058",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0081.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0081-full.png",
+    "description": "Round End: Reduce my cost by 1.",
+    "descriptionRaw": "Round End: Reduce my cost by 1.",
+    "name": "Double Time Watch",
+    "itemCode": "I0081",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0198.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0198-full.png",
+    "description": "For each allied target, summon a 1|1 Ephemeral unit. Copy me onto them.",
+    "descriptionRaw": "For each allied target, summon a 1|1 Ephemeral unit. Copy me onto them.",
+    "name": "Free Spirit",
+    "itemCode": "I0198",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0168.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0168-full.png",
+    "description": "+3|+3",
+    "descriptionRaw": "+3|+3",
+    "name": "Gigaphage",
+    "itemCode": "I0168",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0172.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0172-full.png",
+    "description": "Deal 8 to a random enemy or the enemy Nexus if there is none.",
+    "descriptionRaw": "Deal 8 to a random enemy or the enemy Nexus if there is none.",
+    "name": "Unstable Formula",
+    "itemCode": "I0172",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0197.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0197-full.png",
+    "description": "+2|+2<br>If I'm a champion, I'm Ascended.",
+    "descriptionRaw": "+2|+2If I'm a champion, I'm Ascended.",
+    "name": "Ascendant's Token",
+    "itemCode": "I0197",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0016.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0016-full.png",
+    "description": "When I'm summoned, plant 4 <link=card.self><style=AssociatedCard>Flashbomb Traps</style></link> in the top 8 cards of the enemy deck.",
+    "descriptionRaw": "When I'm summoned, plant 4 Flashbomb Traps in the top 8 cards of the enemy deck.",
+    "name": "Flashbomb Satchel",
+    "itemCode": "I0016",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0104.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0104-full.png",
+    "description": "<link=keyword.Quick Strike><sprite name=QuickStrike><style=Keyword>Quick Attack</style></link>",
+    "descriptionRaw": "Quick Attack",
+    "name": "Zeal",
+    "itemCode": "I0104",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0077.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0077-full.png",
+    "description": "When I'm summoned, refill your mana equal to my cost.",
+    "descriptionRaw": "When I'm summoned, refill your mana equal to my cost.",
+    "name": "Mana Deposit",
+    "itemCode": "I0077",
+    "rarity": "EPIC",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0166.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0166-full.png",
+    "description": "+0|+5",
+    "descriptionRaw": "+0|+5",
+    "name": "Titan's Belt",
+    "itemCode": "I0166",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0069.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0069-full.png",
+    "description": "<link=vocab.Play><style=Vocab>Play</style></link>: I start a free attack.",
+    "descriptionRaw": "Play: I start a free attack.",
+    "name": "Quickstrike Blade",
+    "itemCode": "I0069",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0066.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0066-full.png",
+    "description": "Summon a random 1 cost Poro.",
+    "descriptionRaw": "Summon a random 1 cost Poro.",
+    "name": "Poro Snax",
+    "itemCode": "I0066",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0175.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0175-full.png",
+    "description": "<link=vocab.Attack><style=Vocab>Attack</style></link>: Summon an attacking <style=Variable>CardRef</style>.",
+    "descriptionRaw": "Attack: Summon an attacking CardRef.",
+    "name": "Specter's Saddle",
+    "itemCode": "I0175",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0211.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0211-full.png",
+    "description": "+2|+0, <link=keyword.Overwhelm><sprite name=Overwhelm><style=Keyword>Overwhelm</style></link>.<br>When I'm summoned, there is a 50% chance to double this buff.",
+    "descriptionRaw": "+2|+0, Overwhelm.When I'm summoned, there is a 50% chance to double this buff.",
+    "name": "Infinity Edge",
+    "itemCode": "I0211",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0194.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0194-full.png",
+    "description": "Grant targeted allies +2|+2.",
+    "descriptionRaw": "Grant targeted allies +2|+2.",
+    "name": "Solid Spear",
+    "itemCode": "I0194",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0158.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0158-full.png",
+    "description": "Round Start: Grant me +1|+1 if I'm in play or in hand.",
+    "descriptionRaw": "Round Start: Grant me +1|+1 if I'm in play or in hand.",
+    "name": "Progressive Growth",
+    "itemCode": "I0158",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0028.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0028-full.png",
+    "description": "When I'm summoned or destroyed, summon a follower with my cost from your regions.",
+    "descriptionRaw": "When I'm summoned or destroyed, summon a follower with my cost from your regions.",
+    "name": "Eye of the Watchers",
+    "itemCode": "I0028",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0208.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0208-full.png",
+    "description": "Game Start: Grant me 2 random Epic items.",
+    "descriptionRaw": "Game Start: Grant me 2 random Epic items.",
+    "name": "Thief's Gloves",
+    "itemCode": "I0208",
+    "rarity": "EPIC",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0137.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0137-full.png",
+    "description": "<link=vocab.RoundStart><style=Vocab>Round Start</style></link>: Refill your spell mana.",
+    "descriptionRaw": "Round Start: Refill your spell mana.",
+    "name": "Sorcerer's Tower",
+    "itemCode": "I0137",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0188.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0188-full.png",
+    "description": "+0|+1.<br>I don't take damage from allied spells or <link=keyword.Skill><sprite name=SkillMark><style=Keyword>Skills</style></link>.<br>",
+    "descriptionRaw": "+0|+1.I don't take damage from allied spells or Skills.",
+    "name": "Frost Armor",
+    "itemCode": "I0188",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0181.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0181-full.png",
+    "description": "Create 2 <link=card.self><style=AssociatedCard>Coins</style></link> in hand.",
+    "descriptionRaw": "Create 2 Coins in hand.",
+    "name": "Cashback",
+    "itemCode": "I0181",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0157.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0157-full.png",
+    "description": "<link=keyword.Elemental Skill><sprite name=ElementalSkill><style=Keyword>Play</style></link>: Deal 2 to all enemies and the enemy Nexus.",
+    "descriptionRaw": "Play: Deal 2 to all enemies and the enemy Nexus.",
+    "name": "Iceborn",
+    "itemCode": "I0157",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0085.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0085-full.png",
+    "description": "Grant the top ally in your deck +1|+1.",
+    "descriptionRaw": "Grant the top ally in your deck +1|+1.",
+    "name": "Hand Censer",
+    "itemCode": "I0085",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0010.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0010-full.png",
+    "description": "<link=keyword.Deep><sprite name=Deep><style=Keyword>Deep</style></link> and I am a Sea Monster.",
+    "descriptionRaw": "Deep and I am a Sea Monster.",
+    "name": "Diving Helmet",
+    "itemCode": "I0010",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0008.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0008-full.png",
+    "description": "When I'm summoned, give me <link=keyword.Barrier><sprite name=Barrier><style=Keyword>Barrier</style></link>.",
+    "descriptionRaw": "When I'm summoned, give me Barrier.",
+    "name": "Locket of the Iron Solari",
+    "itemCode": "I0008",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0053.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0053-full.png",
+    "description": "Draw a champion.",
+    "descriptionRaw": "Draw a champion.",
+    "name": "Hero's Horn",
+    "itemCode": "I0053",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0107.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0107-full.png",
+    "description": "When you play a spell, grant my bearer +1|+1.",
+    "descriptionRaw": "When you play a spell, grant my bearer +1|+1.",
+    "name": "Essence Reaver",
+    "itemCode": "I0107",
+    "rarity": "EPIC",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0170.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0170-full.png",
+    "description": "-4 Cost, but <link=keyword.Ephemeral><sprite name=Ephemeral><style=Keyword>Ephemeral</style></link>",
+    "descriptionRaw": "-4 Cost, but Ephemeral",
+    "name": "Pale Imitation",
+    "itemCode": "I0170",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0083.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0083-full.png",
+    "description": "Grant your <link=vocab.Strongest><style=Vocab>strongest</style></link> ally a random Common item this game.",
+    "descriptionRaw": "Grant your strongest ally a random Common item this game.",
+    "name": "Hextech Fabricator I",
+    "itemCode": "I0083",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0105.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0105-full.png",
+    "description": "<link=keyword.Regeneration><sprite name=Regeneration><style=Keyword>Regeneration</style></link>",
+    "descriptionRaw": "Regeneration",
+    "name": "Rejuvenation Bead",
+    "itemCode": "I0105",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0200.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0200-full.png",
+    "description": "When I'm summoned, reduce the cost of the most expensive unit in your hand by 2.",
+    "descriptionRaw": "When I'm summoned, reduce the cost of the most expensive unit in your hand by 2.",
+    "name": "Herald's Favor",
+    "itemCode": "I0200",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0031.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0031-full.png",
+    "description": "<link=vocab.RoundStart><style=Vocab>Round Start</style></link>: Get an extra mana gem this round.",
+    "descriptionRaw": "Round Start: Get an extra mana gem this round.",
+    "name": "Equinox Crystal",
+    "itemCode": "I0031",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0040.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0040-full.png",
+    "description": "+2|+2",
+    "descriptionRaw": "+2|+2",
+    "name": "Phage",
+    "itemCode": "I0040",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0046.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0046-full.png",
+    "description": "<link=keyword.Regeneration><sprite name=Regeneration><style=Keyword>Regeneration</style></link>",
+    "descriptionRaw": "Regeneration",
+    "name": "Hearty Rations",
+    "itemCode": "I0046",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0212.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0212-full.png",
+    "description": "<link=keyword.SpellShield><sprite name=SpellShield><style=Keyword>SpellShield</style></link>, <link=keyword.Regeneration><sprite name=Regeneration><style=Keyword>Regeneration</style></link>",
+    "descriptionRaw": "SpellShield, Regeneration",
+    "name": "Dragon's Claw",
+    "itemCode": "I0212",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0043.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0043-full.png",
+    "description": "+3|+3, but <link=keyword.Ephemeral><sprite name=Ephemeral><style=Keyword>Ephemeral</style></link>",
+    "descriptionRaw": "+3|+3, but Ephemeral",
+    "name": "Cursed Symbol",
+    "itemCode": "I0043",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0025.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0025-full.png",
+    "description": "When I'm destroyed, create a copy of me in hand.",
+    "descriptionRaw": "When I'm destroyed, create a copy of me in hand.",
+    "name": "Eye of the Aspect",
+    "itemCode": "I0025",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0131.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0131-full.png",
+    "description": "<link=vocab.Rally><style=Vocab>Rally</style></link>",
+    "descriptionRaw": "Rally",
+    "name": "Rallying Standard",
+    "itemCode": "I0131",
+    "rarity": "EPIC",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0063.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0063-full.png",
+    "description": "<link=vocab.Manifest><style=Vocab>Manifest</style></link> a card from my regions.",
+    "descriptionRaw": "Manifest a card from my regions.",
+    "name": "Yordle Portal",
+    "itemCode": "I0063",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0032.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0032-full.png",
+    "description": "When I'm summoned, summon a random 1 cost Poro.",
+    "descriptionRaw": "When I'm summoned, summon a random 1 cost Poro.",
+    "name": "Poro Snax",
+    "itemCode": "I0032",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0176.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0176-full.png",
+    "description": "<link=keyword.Daybreak><style=Keyword>Daybreak</style></link>: Give me +3|+3 this round.",
+    "descriptionRaw": "Daybreak: Give me +3|+3 this round.",
+    "name": "Solari Sunspear",
+    "itemCode": "I0176",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0210.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0210-full.png",
+    "description": "<link=vocab.Strike><style=Vocab>Strike</style></link>: Refill your spell mana.",
+    "descriptionRaw": "Strike: Refill your spell mana.",
+    "name": "Blue Buff",
+    "itemCode": "I0210",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0059.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0059-full.png",
+    "description": "<link=keyword.Invoke><style=Keyword>Invoke</style></link>",
+    "descriptionRaw": "Invoke",
+    "name": "Standard Starchart",
+    "itemCode": "I0059",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0143.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0143-full.png",
+    "description": "Applies <link=keyword.Gloom><sprite name=Gloom><style=Keyword>Gloom</style></link> instead of dealing damage to units.",
+    "descriptionRaw": "Applies Gloom instead of dealing damage to units.",
+    "name": "Morellonomicon",
+    "itemCode": "I0143",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0151.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0151-full.png",
+    "description": "<link=vocab.Play><style=Vocab>Play</style></link>: I <link=vocab.Strike><style=Vocab>strike</style></link> the enemy Nexus.",
+    "descriptionRaw": "Play: I strike the enemy Nexus.",
+    "name": "Corrupted Gatebreaker",
+    "itemCode": "I0151",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0161.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0161-full.png",
+    "description": "Double damage",
+    "descriptionRaw": "Double damage",
+    "name": "Blasting Sigil",
+    "itemCode": "I0161",
+    "rarity": "EPIC",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0051.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0051-full.png",
+    "description": "Copy me onto the same targets.",
+    "descriptionRaw": "Copy me onto the same targets.",
+    "name": "Elixir of Sorcery",
+    "itemCode": "I0051",
+    "rarity": "EPIC",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0057.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0057-full.png",
+    "description": "-2 cost",
+    "descriptionRaw": "-2 cost",
+    "name": "Tear of the Goddess",
+    "itemCode": "I0057",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0159.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0159-full.png",
+    "description": "+2|+2, but cost 1 more",
+    "descriptionRaw": "+2|+2, but cost 1 more",
+    "name": "Little Titan",
+    "itemCode": "I0159",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0180.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0180-full.png",
+    "description": "<link=vocab.Terrify><style=Vocab>Terrify</style></link> 1",
+    "descriptionRaw": "Terrify 1",
+    "name": "Evil Eye",
+    "itemCode": "I0180",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0203.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0203-full.png",
+    "description": "+1|+1 and I'm a Poro.\r\n",
+    "descriptionRaw": "+1|+1 and I'm a Poro.\r\n",
+    "name": "Porify",
+    "itemCode": "I0203",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0030.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0030-full.png",
+    "description": "When I'm summoned or destroyed, grant your <link=vocab.Strongest><style=Vocab>strongest</style></link> ally +1|+1.",
+    "descriptionRaw": "When I'm summoned or destroyed, grant your strongest ally +1|+1.",
+    "name": "Symbol of Strength",
+    "itemCode": "I0030",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0129.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0129-full.png",
+    "description": "<link=keyword.Attune><sprite name=Attune><style=Keyword>Attune</style></link>.\r\nWhen I'm summoned, create a <link=card.self><style=AssociatedCard>Prank</style></link> in hand.",
+    "descriptionRaw": "Attune.\r\nWhen I'm summoned, create a Prank in hand.",
+    "name": "Mischievous Spirit",
+    "itemCode": "I0129",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0055.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0055-full.png",
+    "description": "-1 cost",
+    "descriptionRaw": "-1 cost",
+    "name": "Mana Potion",
+    "itemCode": "I0055",
+    "rarity": "COMMON",
+    "rarityRef": "Common"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0135.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0135-full.png",
+    "description": "When I'm summoned and <link=vocab.RoundStart><style=Vocab>Round Start</style></link>: Summon an <link=card.self><style=AssociatedCard>Encroaching Mist</style></link>.",
+    "descriptionRaw": "When I'm summoned and Round Start: Summon an Encroaching Mist.",
+    "name": "The Mist",
+    "itemCode": "I0135",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0134.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0134-full.png",
+    "description": "Summon a <link=card.self><style=AssociatedCard>Preservarium</style></link>.",
+    "descriptionRaw": "Summon a Preservarium.",
+    "name": "Chronomancy",
+    "itemCode": "I0134",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0029.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0029-full.png",
+    "description": "Enemies have <nobr>-1|-0.</nobr>",
+    "descriptionRaw": "Enemies have -1|-0.",
+    "name": "Haunting Trophy",
+    "itemCode": "I0029",
+    "rarity": "RARE",
+    "rarityRef": "Rare"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0193.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/en_us/img/items/I0193-full.png",
+    "description": "-1 Cost and draw 1.",
+    "descriptionRaw": "-1 Cost and draw 1.",
+    "name": "Mark of Medarda",
+    "itemCode": "I0193",
+    "rarity": "EPIC",
+    "rarityRef": "Epic"
+  }
+]

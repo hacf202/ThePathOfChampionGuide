@@ -7,17 +7,18 @@ import {
 	UpdateItemCommand,
 } from "@aws-sdk/client-dynamodb";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
-import NodeCache from "node-cache";
+import cacheManager from "../utils/cacheManager.js";
 
 import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { requireAdmin } from "../middleware/requireAdmin.js";
+import { scanAll } from "../utils/dynamoUtils.js";
 
 const router = express.Router();
 const GUIDES_TABLE = "guidePocGuideList";
 
 // Khởi tạo Cache: TTL 10 phút
-const cache = new NodeCache({ stdTTL: 600 });
+const cache = cacheManager.getOrCreateCache("guides", { stdTTL: 600, checkperiod: 60 });
 const CACHE_KEY_LIST = "all_guides";
 
 // Hàm tạo key cache cho chi tiết
@@ -46,11 +47,8 @@ router.get("/", async (req, res) => {
 		}
 
 		// 2. Gọi DynamoDB
-		const command = new ScanCommand({ TableName: GUIDES_TABLE });
-		const { Items } = await client.send(command);
-
-		// Unmarshall dữ liệu từ định dạng DynamoDB sang JSON thường
-		const guides = Items.map(item => unmarshall(item));
+		const rawItems = await scanAll(client, { TableName: GUIDES_TABLE });
+		const guides = rawItems.map(item => unmarshall(item));
 
 		const responseData = {
 			success: true,

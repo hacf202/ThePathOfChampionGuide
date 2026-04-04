@@ -4,6 +4,7 @@ import Button from "../../common/button";
 import InputField from "../../common/inputField";
 import Modal from "../../common/modal";
 import { useTranslation } from "../../../hooks/useTranslation";
+import MarkupEditor from "../MarkupEditor";
 
 const BonusStarEditorForm = memo(
 	({ item, onSave, onCancel, onDelete, isSaving }) => {
@@ -161,15 +162,19 @@ const BonusStarEditorForm = memo(
 									required
 									placeholder='Nhập tên...'
 								/>
-								<div className='flex flex-col gap-1'>
+								<div className='flex flex-col gap-2'>
 									<label className='text-sm font-semibold text-text-primary'>
 										{tUI("admin.bonusStarForm.descLabel")} (VI)
 									</label>
-									<textarea
-										name='description'
+									<MarkupEditor
 										value={formData.description || ""}
-										onChange={handleInputChange}
-										className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary min-h-[100px] outline-none focus:ring-2 focus:ring-primary-500 transition resize-none'
+										onChange={({ markup, raw }) => {
+											setFormData(prev => ({
+												...prev,
+												description: markup,
+												descriptionRaw: raw,
+											}));
+										}}
 										placeholder='Nhập nội dung mô tả kỹ năng...'
 									/>
 								</div>
@@ -183,15 +188,18 @@ const BonusStarEditorForm = memo(
 									onChange={e => handleTranslationChange(e, "en")}
 									placeholder='English Name...'
 								/>
-								<div className='flex flex-col gap-1'>
+								<div className='flex flex-col gap-2'>
 									<label className='text-sm font-semibold text-text-primary'>
 										{tUI("admin.bonusStarForm.descLabel")} (EN)
 									</label>
-									<textarea
-										name='description'
+									<MarkupEditor
 										value={formData.translations?.en?.description || ""}
-										onChange={e => handleTranslationChange(e, "en")}
-										className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary min-h-[100px] outline-none focus:ring-2 focus:ring-blue-500 transition resize-none'
+										onChange={({ markup, raw }) =>
+											handleTranslationChange(
+												{ target: { name: "description", value: markup } },
+												"en",
+											)
+										}
 										placeholder='English Description...'
 									/>
 								</div>

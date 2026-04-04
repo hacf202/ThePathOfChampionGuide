@@ -15,7 +15,8 @@ import {
 } from "@floating-ui/react";
 import RarityIcon from "./rarityIcon";
 import { useTranslation } from "../../hooks/useTranslation";
-import { removeAccents } from "../../utils/vietnameseUtils"; // 🟢 Import hàm chuẩn hóa chuỗi
+import { removeAccents } from "../../utils/vietnameseUtils";
+import MarkupRenderer from "./MarkupRenderer";
 
 const GenericCard = ({
 	item,
@@ -156,9 +157,9 @@ const GenericCard = ({
 									</div>
 								)}
 								{description && (
-									<p className='whitespace-pre-wrap leading-relaxed'>
-										{description}
-									</p>
+									<div className='whitespace-pre-wrap leading-relaxed mt-1'>
+										<MarkupRenderer text={description} />
+									</div>
 								)}
 							</div>
 						)}

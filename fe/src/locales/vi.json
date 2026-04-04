@@ -49,6 +49,13 @@
 		"cards": " lá",
 		"ad": "Quảng cáo"
 	},
+	"cardType": {
+		"Unit": "Bài quân",
+		"Spell": "Kỹ năng",
+		"Landmark": "Địa danh",
+		"Equipment": "Trang bị",
+		"Other": "Khác"
+	},
 	"cardList": {
 		"title": "Thư Viện Lá Bài",
 		"heading": "Khám Phá Lá Bài",
@@ -165,20 +172,25 @@
 		}
 	},
 	"region": {
-		"thanhphobandle": "Thành Phố Bandle",
+		"bandleCity": "Thành Phố Bandle",
 		"bilgewater": "Bilgewater",
 		"demacia": "Demacia",
 		"freljord": "Freljord",
 		"ionia": "Ionia",
 		"noxus": "Noxus",
-		"piltoverzaun": "Piltover & Zaun",
-		"quandaobongdem": "Quần Đảo Bóng Đêm",
+		"piltoverZaun": "Piltover & Zaun",
+		"shadowIsles": "Quần Đảo Bóng Đêm",
 		"shurima": "Shurima",
 		"targon": "Targon",
 		"runeterra": "Runeterra",
-		"hoalinhlucdia": "Hoa Linh Lục Địa"
+		"spiritBlossom": "Hoa Linh Lục Địa",
+		"thanhphobandle": "Thành Phố Bandle",
+		"quandaobongdem": "Quần Đảo Bóng Đêm",
+		"hoalinhlucdia": "Hoa Linh Lục Địa",
+		"piltoverzaun": "Piltover & Zaun"
 	},
 	"admin": {
+		"sidebar":{"title": "Thanh điều hướng"},
 		"item": {
 			"allRarities": "Tất cả độ hiếm",
 			"rarity": "Độ hiếm",
@@ -412,21 +424,17 @@
 			"boss": "Quản lý Boss",
 			"adventure": "Quản lý Bản Đồ",
 			"images": "Quản lý Ảnh",
-			"cards": "Quản lý Lá Bài"
+			"cards": "Quản lý Lá Bài",
+			"cache": "Quản lý Cache"
+		},
+		"cache": {
+			"title": "Quản lý Cache Backend",
+			"subtitle": "Theo dõi và dọn dẹp các bản ghi được lưu tạm để cập nhật dữ liệu mới nhất.",
+			"clearAll": "Xóa toàn bộ Cache",
+			"clearSuccess": "Xóa toàn bộ cache thành công!",
+			"warning": "Lưu ý: Xóa cache sẽ buộc Server phải truy vấn lại Database, điều này có thể làm chậm các yêu cầu đầu tiên."
 		},
 		"userNav": {
-			"cards": "Thư Viện Lá Bài"
-		},
-		"sidebar": {
-			"title": "Admin",
-			"footer": "Evin LOR"
-		},
-		"topbar": {
-			"defaultTitle": "Admin Panel"
-		},
-		"analytics": {
-			"loading": "Đang tổng hợp dữ liệu thời gian thực...",
-			"error": "Lỗi: Không thể kết nối dịch vụ phân tích.",
 			"title": "Hệ thống Phân tích",
 			"lastUpdated": "Dữ liệu 30 ngày qua • Cập nhật lần cuối:",
 			"uniqueVisitors": "Khách Duy Nhất",

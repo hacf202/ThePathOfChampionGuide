@@ -7,18 +7,18 @@ import {
 	GetItemCommand,
 } from "@aws-sdk/client-dynamodb";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
-import NodeCache from "node-cache";
-import axios from "axios";
+import cacheManager from "../utils/cacheManager.js";
 import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
+import { scanAll } from "../utils/dynamoUtils.js";
 
 import { getProxyImage } from "../utils/proxyImage.js";
 
 const router = express.Router();
 const RELICS_TABLE = "guidePocRelics";
 
-const relicCache = new NodeCache({ stdTTL: 120 });
+const relicCache = cacheManager.getOrCreateCache("relics", { stdTTL: 86400, checkperiod: 60 });
 
 /**
  * Lấy toàn bộ dữ liệu Relics từ DB hoặc Cache
@@ -28,9 +28,8 @@ async function getCachedRelics() {
 	let cachedData = relicCache.get(CACHE_KEY);
 
 	if (!cachedData) {
-		const command = new ScanCommand({ TableName: RELICS_TABLE });
-		const { Items } = await client.send(command);
-		cachedData = Items ? Items.map(item => unmarshall(item)) : [];
+		const rawItems = await scanAll(client, { TableName: RELICS_TABLE });
+		cachedData = rawItems.map(item => unmarshall(item));
 		cachedData.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
 		relicCache.set(CACHE_KEY, cachedData);
 	}

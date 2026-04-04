@@ -392,85 +392,89 @@ function ChampionDetail() {
 								<ChevronLeft size={18} /> {tUI("championDetail.back")}
 							</Button>
 
-							<div className='relative mx-auto max-w-[1500px] sm:p-6 rounded-lg bg-surface-bg border border-border shadow-md mb-2 md:mb-6'>
-								<div className='flex flex-col md:flex-row border border-border gap-4 rounded-md bg-surface-hover sm:p-4'>
-									<SafeImage
-										className='h-auto max-h-[300px] object-contain rounded-lg'
-										src={champion.assets?.[0]?.avatar}
-										alt={tDynamic(champion, "name")}
-									/>
-									<div className='flex-1'>
-										<div className='flex flex-col sm:flex-row sm:justify-between p-1 gap-2'>
-											<h1 className='text-2xl sm:text-4xl font-bold font-primary'>
-												{tDynamic(champion, "name")}
-											</h1>
-											<div className='flex flex-wrap gap-2 items-center'>
-												<div className='flex items-center gap-1 px-2.5 py-1.5 bg-yellow-500/20 border border-yellow-500 rounded-full'>
-													<span className='text-sm font-bold text-yellow-900'>
-														{champion.maxStar}
-													</span>
-													<Star
-														size={16}
-														className='text-yellow-600 fill-current'
-													/>
-												</div>
-												{champion.regions?.map((r, i) => (
-													<img
-														key={i}
-														src={
-															iconRegions.find(item => item.name === r)
-																?.iconAbsolutePath || "/fallback-image.svg"
-														}
-														alt={r}
-														className='w-10 h-10'
-													/>
-												))}
-											</div>
-										</div>
-										<div
-											className={`mt-1 mx-1 p-2 border border-border rounded-lg bg-surface-bg ${!isDescriptionExpanded ? "overflow-y-auto h-48 sm:h-60" : "h-auto"}`}
-										>
-											<MarkupRenderer text={tDynamic(champion, "description")} />
-										</div>
-										<button
-											onClick={() =>
-												setIsDescriptionExpanded(!isDescriptionExpanded)
-											}
-											className='text-primary-500 text-sm font-bold mt-2 ml-2 hover:underline'
-										>
-											{isDescriptionExpanded
-												? tUI("championDetail.showLess")
-												: tUI("championDetail.showMore")}
-										</button>
-									</div>
-								</div>
-
-								<ChampionPlaystyleChart
-									champion={champion}
-									onRefresh={initData}
-									initialAllRatings={allRatings}
-									initialMyRating={myRating}
+							{/* HEADER SECTION (Avatar + Name + Description) */}
+							<div className='flex flex-col md:flex-row border border-border gap-4 rounded-xl bg-surface-bg sm:p-6 shadow-sm overflow-hidden'>
+								<SafeImage
+									className='h-auto max-h-[300px] object-contain rounded-lg'
+									src={champion.assets?.[0]?.avatar}
+									alt={tDynamic(champion, "name")}
 								/>
+								<div className='flex-1'>
+									<div className='flex flex-col sm:flex-row sm:justify-between p-1 gap-2'>
+										<h1 className='text-2xl sm:text-4xl font-bold font-primary'>
+											{tDynamic(champion, "name")}
+										</h1>
+										<div className='flex flex-wrap gap-2 items-center'>
+											<div className='flex items-center gap-1 px-2.5 py-1.5 bg-yellow-500/20 border border-yellow-500 rounded-full'>
+												<span className='text-sm font-bold text-yellow-900'>
+													{champion.maxStar}
+												</span>
+												<Star
+													size={16}
+													className='text-yellow-600 fill-current'
+												/>
+											</div>
+											{champion.regions?.map((r, i) => (
+												<img
+													key={i}
+													src={
+														iconRegions.find(item => item.name === r)
+															?.iconAbsolutePath || "/fallback-image.svg"
+													}
+													alt={r}
+													className='w-10 h-10'
+												/>
+											))}
+										</div>
+									</div>
+									<div
+										className={`mt-1 mx-1 p-2 border border-border rounded-lg bg-surface-bg-alt/30 ${!isDescriptionExpanded ? "overflow-y-auto h-48 sm:h-60" : "h-auto"}`}
+									>
+										<MarkupRenderer text={tDynamic(champion, "description")} />
+									</div>
+									<button
+										onClick={() =>
+											setIsDescriptionExpanded(!isDescriptionExpanded)
+										}
+										className='text-primary-500 text-sm font-bold mt-2 ml-2 hover:underline'
+									>
+										{isDescriptionExpanded
+											? tUI("championDetail.showLess")
+											: tUI("championDetail.showMore")}
+									</button>
+								</div>
+							</div>
 
-								{constellationInfo.nodes.length > 0 && (
-									<>
-										<h2 className='p-1 text-lg sm:text-3xl font-semibold my-1 uppercase font-primary mt-2 md:mt-6 text-primary-500 border-b border-border'>
-											{tUI("championDetail.constellation")}
-										</h2>
+							{/* COMMUNITY EVALUATION SECTION (Radar Chart) */}
+							<ChampionPlaystyleChart
+								champion={champion}
+								onRefresh={initData}
+								initialAllRatings={allRatings}
+								initialMyRating={myRating}
+							/>
 
-										<ConstellationMap constellationInfo={constellationInfo} />
+							{/* CONSTELLATION SECTION */}
+							{constellationInfo.nodes.length > 0 && (
+								<div className="bg-surface-bg border border-border rounded-xl p-4 sm:p-6 shadow-sm mt-6">
+									<h2 className='p-1 text-lg sm:text-3xl font-semibold my-1 uppercase font-primary text-primary-500 border-b border-border'>
+										{tUI("championDetail.constellation")}
+									</h2>
 
-										<ConstellationTable
-											starPowersList={starPowersList}
-											bonusStarsList={bonusStarsList}
-										/>
-									</>
-								)}
+									<ConstellationMap constellationInfo={constellationInfo} />
 
-								<h2 className='p-1 text-lg sm:text-3xl font-semibold mt-2 md:mt-6 font-primary text-primary-500 border-b border-border'>
+									<ConstellationTable
+										starPowersList={starPowersList}
+										bonusStarsList={bonusStarsList}
+									/>
+								</div>
+							)}
+
+							{/* VIDEO SECTION */}
+							<div className="bg-surface-bg border border-border rounded-xl p-4 sm:p-6 shadow-sm mt-6">
+								<h2 className='p-1 text-lg sm:text-3xl font-semibold mb-3 font-primary text-primary-500 border-b border-border'>
 									{tUI("championDetail.video")}
 								</h2>
-								<div className='aspect-video bg-surface-hover rounded-lg mb-1 border border-border'>
+								<div className='aspect-video bg-surface-hover rounded-lg border border-border overflow-hidden'>
 									<iframe
 										width='100%'
 										height='100%'
@@ -483,328 +487,338 @@ function ChampionDetail() {
 										className='rounded-lg'
 									></iframe>
 								</div>
+							</div>
 
-								{/* STARTING DECK SECTION */}
-								{(champion.startingDeck?.baseCards?.length > 0 ||
-									champion.startingDeck?.referenceCards?.length > 0) && (
-									<>
-										<h2 className=' px-2 sm:px-0 text-lg sm:text-3xl font-semibold mt-2 md:mt-10 font-primary text-primary-500 border-b border-border flex items-center gap-3'>
-											{tUI("championDetail.startingDeck")}
-										</h2>
+							{/* STARTING DECK SECTION */}
+							{(champion.startingDeck?.baseCards?.length > 0 ||
+								champion.startingDeck?.referenceCards?.length > 0) && (
+								<div className="bg-surface-bg border border-border rounded-xl p-4 sm:p-6 shadow-sm mt-6">
+									<h2 className='p-1 text-lg sm:text-3xl font-semibold mb-3 font-primary text-primary-500 border-b border-border flex items-center gap-3'>
+										{tUI("championDetail.startingDeck")}
+									</h2>
 
-										<div className='mt-2 space-y-4'>
-											{/* Base Cards Table */}
-											{champion.startingDeck?.baseCards?.length > 0 && (
-												<div className='bg-surface-bg border border-border rounded-xl overflow-hidden shadow-sm'>
-													<div className='p-2 bg-primary-500/5 border-b border-border flex items-center justify-between'>
-														<h3 className='text-sm sm:text-lg font-bold text-text-primary flex items-center gap-2 uppercase'>
-															{tUI("championDetail.baseCards")}
-														</h3>
-														<span className='text-[10px] font-bold text-text-secondary bg-surface-hover px-2 py-1 rounded-md border border-border uppercase'>
-															{champion.startingDeck.baseCards.length}{" "}
-															{tUI("common.cards")}
-														</span>
-													</div>
-													<div className='overflow-x-auto'>
-														<table className='w-full text-left border-collapse'>
-															<thead>
-																<tr className='bg-surface-hover/50 text-[10px] sm:text-xs font-black uppercase text-text-tertiary tracking-widest border-b border-border'>
-																	<th className='px-2 py-2 sm:px-4 w-8 text-center'>
-																		#
-																	</th>
-																	<th className='px-2 py-2 sm:px-4'>
-																		{tUI("admin.cardForm.cardNameLabel")}
-																	</th>
-																	<th className='px-2 py-2 sm:px-4'>
-																		{tUI("admin.dropSidePanel.tabs.item")}
-																	</th>
-																</tr>
-															</thead>
-															<tbody className='divide-y divide-border/50'>
-																{champion.startingDeck.baseCards.map(
-																	(cardData, idx) => {
-																		const cardInfo = resolvedStartingCards.find(
-																			c => c.cardCode === cardData.cardCode,
-																		);
-																		const cardItems = (cardData.itemCodes || [])
-																			.map(code =>
-																				resolvedItems.find(
-																					i => i.itemCode === code,
-																				),
-																			)
-																			.filter(Boolean);
-
-																		return (
-																			<tr
-																				key={idx}
-																				className='group hover:bg-surface-hover/30 transition-colors'
-																			>
-																				<td className='px-2 py-2 sm:px-4 sm:py-2 text-center text-xs font-bold text-text-tertiary'>
-																					{idx + 1}
-																				</td>
-																				<td className='px-2 py-2 sm:px-4 sm:py-2'>
-																					<CardNameCell
-																						card={cardInfo}
-																						items={cardItems}
-																						cardCode={cardData.cardCode}
-																					/>
-																				</td>
-																				<td className='px-2 py-2 sm:px-4 sm:py-2'>
-																					<div className='flex flex-wrap gap-2'>
-																						{cardItems.length > 0 ? (
-																							cardItems.map((item, i) => (
-																								<Link
-																									key={i}
-																									to={`/item/${item.itemCode}`}
-																									className='flex items-center gap-1.5 px-2 py-1 rounded-lg bg-surface-hover/50 hover:bg-surface-hover hover:scale-105 transition-all'
-																									title={tDynamic(item, "name")}
-																								>
-																									<SafeImage
-																										src={
-																											item.assetAbsolutePath ||
-																											item.image ||
-																											"/fallback-image.svg"
-																										}
-																										className='w-10 h-10 sm:w-12 sm:h-12 object-contain'
-																									/>
-																									<span className='text-[10px] sm:text-xs font-bold text-text-secondary hidden sm:inline'>
-																										{tDynamic(item, "name")}
-																									</span>
-																								</Link>
-																							))
-																						) : (
-																							<span className='text-[10px] text-text-tertiary italic'>
-																								{tUI("championDetail.noItems")}
-																							</span>
-																						)}
-																					</div>
-																				</td>
-																			</tr>
-																		);
-																	},
-																)}
-															</tbody>
-														</table>
-													</div>
+									<div className='mt-2 space-y-4'>
+										{/* Base Cards Table */}
+										{champion.startingDeck?.baseCards?.length > 0 && (
+											<div className='bg-surface-bg border border-border rounded-xl overflow-hidden shadow-sm'>
+												<div className='p-2 bg-primary-500/5 border-b border-border flex items-center justify-between'>
+													<h3 className='text-sm sm:text-lg font-bold text-text-primary flex items-center gap-2 uppercase'>
+														{tUI("championDetail.baseCards")}
+													</h3>
+													<span className='text-[10px] font-bold text-text-secondary bg-surface-hover px-2 py-1 rounded-md border border-border uppercase'>
+														{champion.startingDeck.baseCards.length}{" "}
+														{tUI("common.cards")}
+													</span>
 												</div>
-											)}
+												<div className='overflow-x-auto'>
+													<table className='w-full text-left border-collapse'>
+														<thead>
+															<tr className='bg-surface-hover/50 text-[10px] sm:text-xs font-black uppercase text-text-tertiary tracking-widest border-b border-border'>
+																<th className='px-2 py-2 sm:px-4 w-8 text-center'>
+																	#
+																</th>
+																<th className='px-2 py-2 sm:px-4'>
+																	{tUI("admin.cardForm.cardNameLabel")}
+																</th>
+																<th className='px-2 py-2 sm:px-4'>
+																	{tUI("admin.dropSidePanel.tabs.item")}
+																</th>
+															</tr>
+														</thead>
+														<tbody className='divide-y divide-border/50'>
+															{champion.startingDeck.baseCards.map(
+																(cardData, idx) => {
+																	const cardInfo = resolvedStartingCards.find(
+																		c => c.cardCode === cardData.cardCode,
+																	);
+																	const cardItems = (cardData.itemCodes || [])
+																		.map(code =>
+																			resolvedItems.find(
+																				i => i.itemCode === code,
+																			),
+																		)
+																		.filter(Boolean);
 
-											{/* Reference Cards Table */}
-											{champion.startingDeck?.referenceCards?.length > 0 && (
-												<div className='bg-surface-bg border border-border rounded-xl overflow-hidden shadow-sm'>
-													<div className='p-4 bg-purple-500/5 border-b border-border flex items-center justify-between'>
-														<h3 className='text-sm sm:text-lg font-bold text-text-primary flex items-center gap-2 uppercase'>
-															{tUI("championDetail.referenceCards")}
-														</h3>
-														<span className='text-[10px] font-bold text-text-secondary bg-surface-hover px-2 py-1 rounded-md border border-border uppercase'>
-															{champion.startingDeck.referenceCards.length}{" "}
-															{tUI("common.cards")}
-														</span>
-													</div>
-													<div className='overflow-x-auto'>
-														<table className='w-full text-left border-collapse'>
-															<thead>
-																<tr className='bg-surface-hover/50 text-[10px] sm:text-xs font-black uppercase text-text-tertiary tracking-widest border-b border-border'>
-																	<th className='px-2 py-2 sm:px-4 w-8 text-center'>
-																		#
-																	</th>
-																	<th className='px-2 py-2 sm:px-4'>
-																		{tUI("admin.cardForm.cardNameLabel")}
-																	</th>
-																	<th className='px-2 py-2 sm:px-4'>
-																		{tUI("admin.dropSidePanel.tabs.item")}
-																	</th>
-																</tr>
-															</thead>
-															<tbody className='divide-y divide-border/50'>
-																{champion.startingDeck.referenceCards.map(
-																	(cardData, idx) => {
-																		const cardInfo = resolvedStartingCards.find(
-																			c => c.cardCode === cardData.cardCode,
-																		);
-																		const cardItems = (cardData.itemCodes || [])
-																			.map(code =>
-																				resolvedItems.find(
-																					i => i.itemCode === code,
-																				),
-																			)
-																			.filter(Boolean);
-
-																		return (
-																			<tr
-																				key={idx}
-																				className='group hover:bg-surface-hover/30 transition-colors'
-																			>
-																				<td className='px-2 py-2 sm:px-4 sm:py-2 text-center text-xs font-bold text-text-tertiary'>
-																					{idx + 1}
-																				</td>
-																				<td className='px-2 py-2 sm:px-4 sm:py-2'>
-																					<CardNameCell
-																						card={cardInfo}
-																						items={cardItems}
-																						cardCode={cardData.cardCode}
-																						isReference={true}
-																					/>
-																				</td>
-																				<td className='px-2 py-2 sm:px-4 sm:py-2'>
-																					<div className='flex flex-wrap gap-2'>
-																						{cardItems.length > 0 ? (
-																							cardItems.map((item, i) => (
-																								<Link
-																									key={i}
-																									to={`/item/${item.itemCode}`}
-																									className='flex items-center gap-1.5 px-2 py-1 rounded-lg bg-surface-hover/50 hover:bg-surface-hover hover:scale-105 transition-all'
-																									title={tDynamic(item, "name")}
-																								>
-																									<SafeImage
-																										src={
-																											item.assetAbsolutePath ||
-																											item.image ||
-																											"/fallback-image.svg"
-																										}
-																										className='w-10 h-10 sm:w-12 sm:h-12 object-contain'
-																									/>
-																									<span className='text-[10px] sm:text-xs font-bold text-text-secondary hidden sm:inline'>
-																										{tDynamic(item, "name")}
-																									</span>
-																								</Link>
-																							))
-																						) : (
-																							<span className='text-[10px] text-text-tertiary italic'>
-																								{tUI("championDetail.noItems")}
-																							</span>
-																						)}
-																					</div>
-																				</td>
-																			</tr>
-																		);
-																	},
-																)}
-															</tbody>
-														</table>
-													</div>
+																	return (
+																		<tr
+																			key={idx}
+																			className='group hover:bg-surface-hover/30 transition-colors'
+																		>
+																			<td className='px-2 py-2 sm:px-4 sm:py-2 text-center text-xs font-bold text-text-tertiary'>
+																				{idx + 1}
+																			</td>
+																			<td className='px-2 py-2 sm:px-4 sm:py-2'>
+																				<CardNameCell
+																					card={cardInfo}
+																					items={cardItems}
+																					cardCode={cardData.cardCode}
+																				/>
+																			</td>
+																			<td className='px-2 py-2 sm:px-4 sm:py-2'>
+																				<div className='flex flex-wrap gap-2'>
+																					{cardItems.length > 0 ? (
+																						cardItems.map((item, i) => (
+																							<Link
+																								key={i}
+																								to={`/item/${item.itemCode}`}
+																								className='flex items-center gap-1.5 px-2 py-1 rounded-lg bg-surface-hover/50 hover:bg-surface-hover hover:scale-105 transition-all'
+																								title={tDynamic(item, "name")}
+																							>
+																								<SafeImage
+																									src={
+																										item.assetAbsolutePath ||
+																										item.image ||
+																										"/fallback-image.svg"
+																									}
+																									className='w-10 h-10 sm:w-12 sm:h-12 object-contain'
+																								/>
+																								<span className='text-[10px] sm:text-xs font-bold text-text-secondary hidden sm:inline'>
+																									{tDynamic(item, "name")}
+																								</span>
+																							</Link>
+																						))
+																					) : (
+																						<span className='text-[10px] text-text-tertiary italic'>
+																							{tUI("championDetail.noItems")}
+																						</span>
+																					)}
+																				</div>
+																			</td>
+																		</tr>
+																	);
+																},
+															)}
+														</tbody>
+													</table>
 												</div>
-											)}
-										</div>
-									</>
-								)}
+											</div>
+										)}
 
-								{relicSetsToRender.length > 0 && (
-									<>
-										<h2 className='p-1 text-lg sm:text-3xl font-semibold mt-2 md:mt-6 font-primary text-primary-500 border-b border-border'>
-											{tUI("championDetail.relicSets")}
-										</h2>
-										<div className='grid gap-4 bg-surface-hover p-1 rounded-md mt-2'>
-											{relicSetsToRender.map((set, idx) => (
-												<div
-													key={idx}
-													className='bg-surface-bg border border-border rounded-lg grid grid-cols-1 md:grid-cols-3'
-												>
-													{set.relics.map((r, i) => (
-														<RenderItem key={i} item={r} />
-													))}
+										{/* Reference Cards Table */}
+										{champion.startingDeck?.referenceCards?.length > 0 && (
+											<div className='bg-surface-bg border border-border rounded-xl overflow-hidden shadow-sm'>
+												<div className='p-4 bg-purple-500/5 border-b border-border flex items-center justify-between'>
+													<h3 className='text-sm sm:text-lg font-bold text-text-primary flex items-center gap-2 uppercase'>
+														{tUI("championDetail.referenceCards")}
+													</h3>
+													<span className='text-[10px] font-bold text-text-secondary bg-surface-hover px-2 py-1 rounded-md border border-border uppercase'>
+														{champion.startingDeck.referenceCards.length}{" "}
+														{tUI("common.cards")}
+													</span>
 												</div>
-											))}
-										</div>
-									</>
-								)}
+												<div className='overflow-x-auto'>
+													<table className='w-full text-left border-collapse'>
+														<thead>
+															<tr className='bg-surface-hover/50 text-[10px] sm:text-xs font-black uppercase text-text-tertiary tracking-widest border-b border-border'>
+																<th className='px-2 py-2 sm:px-4 w-8 text-center'>
+																	#
+																</th>
+																<th className='px-2 py-2 sm:px-4'>
+																	{tUI("admin.cardForm.cardNameLabel")}
+																</th>
+																<th className='px-2 py-2 sm:px-4'>
+																	{tUI("admin.dropSidePanel.tabs.item")}
+																</th>
+															</tr>
+														</thead>
+														<tbody className='divide-y divide-border/50'>
+															{champion.startingDeck.referenceCards.map(
+																(cardData, idx) => {
+																	const cardInfo = resolvedStartingCards.find(
+																		c => c.cardCode === cardData.cardCode,
+																	);
+																	const cardItems = (cardData.itemCodes || [])
+																		.map(code =>
+																			resolvedItems.find(
+																				i => i.itemCode === code,
+																			),
+																		)
+																		.filter(Boolean);
 
+																	return (
+																		<tr
+																			key={idx}
+																			className='group hover:bg-surface-hover/30 transition-colors'
+																		>
+																			<td className='px-2 py-2 sm:px-4 sm:py-2 text-center text-xs font-bold text-text-tertiary'>
+																				{idx + 1}
+																			</td>
+																			<td className='px-2 py-2 sm:px-4 sm:py-2'>
+																				<CardNameCell
+																					card={cardInfo}
+																					items={cardItems}
+																					cardCode={cardData.cardCode}
+																					isReference={true}
+																				/>
+																			</td>
+																			<td className='px-2 py-2 sm:px-4 sm:py-2'>
+																				<div className='flex flex-wrap gap-2'>
+																					{cardItems.length > 0 ? (
+																						cardItems.map((item, i) => (
+																							<Link
+																								key={i}
+																								to={`/item/${item.itemCode}`}
+																								className='flex items-center gap-1.5 px-2 py-1 rounded-lg bg-surface-hover/50 hover:bg-surface-hover hover:scale-105 transition-all'
+																								title={tDynamic(item, "name")}
+																							>
+																								<SafeImage
+																									src={
+																										item.assetAbsolutePath ||
+																										item.image ||
+																										"/fallback-image.svg"
+																									}
+																									className='w-10 h-10 sm:w-12 sm:h-12 object-contain'
+																								/>
+																								<span className='text-[10px] sm:text-xs font-bold text-text-secondary hidden sm:inline'>
+																									{tDynamic(item, "name")}
+																								</span>
+																							</Link>
+																						))
+																					) : (
+																						<span className='text-[10px] text-text-tertiary italic'>
+																							{tUI("championDetail.noItems")}
+																						</span>
+																					)}
+																				</div>
+																			</td>
+																		</tr>
+																	);
+																},
+															)}
+														</tbody>
+													</table>
+												</div>
+											</div>
+										)}
+									</div>
+								</div>
+							)}
+
+							{/* RELIC SETS SECTION */}
+							{relicSetsToRender.length > 0 && (
+								<div className="bg-surface-bg border border-border rounded-xl p-4 sm:p-6 shadow-sm mt-6">
+									<h2 className='p-1 text-lg sm:text-3xl font-semibold mb-3 font-primary text-primary-500 border-b border-border'>
+										{tUI("championDetail.relicSets")}
+									</h2>
+									<div className='grid gap-4 bg-surface-hover/50 p-2 rounded-lg'>
+										{relicSetsToRender.map((set, idx) => (
+											<div
+												key={idx}
+												className='bg-surface-bg border border-border rounded-lg grid grid-cols-1 md:grid-cols-3'
+											>
+												{set.relics.map((r, i) => (
+													<RenderItem key={i} item={r} />
+												))}
+											</div>
+										))}
+									</div>
+								</div>
+							)}
+
+							{/* RECOMMENDATIONS (Powers, Items, Runes) */}
+							<div className="space-y-6 mt-6">
 								{adventurePowersFull.length > 0 && (
-									<>
-										<h2 className='p-1 text-lg sm:text-3xl font-semibold mt-2 md:mt-6 mb-1 font-primary text-primary-500 border-b border-border'>
+									<div className="bg-surface-bg border border-border rounded-xl p-4 sm:p-6 shadow-sm">
+										<h2 className='p-1 text-lg sm:text-3xl font-semibold mb-3 font-primary text-primary-500 border-b border-border'>
 											{tUI("championDetail.recPowers")}
 										</h2>
-										<div className='grid grid-cols-1 md:grid-cols-2 gap-4 bg-surface-hover p-2 rounded-md border border-border'>
+										<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
 											{adventurePowersFull.map((power, index) => (
 												<RenderItem key={index} item={power} />
 											))}
 										</div>
-									</>
+									</div>
 								)}
 
 								{defaultItemsFull.length > 0 && (
-									<>
-										<h2 className='p-1 text-lg sm:text-3xl font-semibold mt-2 md:mt-6 mb-1 font-primary text-primary-500 border-b border-border'>
+									<div className="bg-surface-bg border border-border rounded-xl p-4 sm:p-6 shadow-sm">
+										<h2 className='p-1 text-lg sm:text-3xl font-semibold mb-3 font-primary text-primary-500 border-b border-border'>
 											{tUI("championDetail.recItems")}
 										</h2>
-										<div className='grid grid-cols-1 md:grid-cols-2 gap-4 bg-surface-hover p-2 rounded-md border border-border'>
+										<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
 											{defaultItemsFull.map((item, index) => (
 												<RenderItem key={index} item={item} />
 											))}
 										</div>
-									</>
+									</div>
 								)}
 
 								{runesFull.length > 0 && (
-									<>
-										<h2 className='p-1 text-lg sm:text-3xl font-semibold mt-2 md:mt-6 mb-1 font-primary text-primary-500 border-b border-border'>
+									<div className="bg-surface-bg border border-border rounded-xl p-4 sm:p-6 shadow-sm">
+										<h2 className='p-1 text-lg sm:text-3xl font-semibold mb-3 font-primary text-primary-500 border-b border-border'>
 											{tUI("championDetail.recRunes")}
 										</h2>
-										<div className='grid grid-cols-1 md:grid-cols-2 gap-4 bg-surface-hover p-2 rounded-md border border-border'>
+										<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
 											{runesFull.map((runeItem, index) => (
 												<RenderItem key={index} item={runeItem} />
 											))}
 										</div>
-									</>
+									</div>
 								)}
-								<div className='my-10 border-y border-border py-4 bg-surface-bg-alt/50 rounded-lg'>
-									<p className='text-xs text-text-secondary text-center mb-2 uppercase tracking-widest'>
-										{tUI("common.ad")}
-									</p>
-									<GoogleAd slot='2943049680' format='horizontal' />
-								</div>
-									{suggestedChampions.length > 0 && (
-										<div className='mt-12 mb-8'>
-											<h2 className='p-1 text-lg sm:text-2xl font-semibold mb-4 font-primary text-primary-500 border-b border-border uppercase flex items-center gap-2'>
-												{tUI("championDetail.suggestedTitle")}
-											</h2>
-											<div className='grid grid-cols-2 md:grid-cols-4 gap-4'>
-												{suggestedChampions.map(suggested => (
-													<Link
-														key={suggested.championID}
-														to={`/champion/${suggested.championID}`}
-														className='group relative bg-surface-bg border border-border rounded-xl overflow-hidden hover:border-primary-500 transition-all hover:shadow-lg hover:shadow-primary-500/10'
-													>
-														<div className='aspect-[3/4] relative overflow-hidden'>
-															<SafeImage
-																src={
-																	suggested.assets?.[0]?.avatar ||
-																	suggested.gameAbsolutePath
-																}
-																className='w-full h-full object-cover group-hover:scale-110 transition-transform duration-500'
-															/>
-															<div className='absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60' />
-														</div>
-														<div className='absolute bottom-0 left-0 right-0 p-3'>
-															<div className='flex justify-between items-end'>
-																<h3 className='font-bold text-white text-xs sm:text-sm drop-shadow-md truncate pr-2'>
-																	{tDynamic(suggested, "name")}
-																</h3>
-																<div className='flex items-center gap-0.5 text-yellow-500 shrink-0'>
-																	<span className='text-[10px] font-bold'>
-																		{suggested.maxStar}
-																	</span>
-																	<Star size={10} className='fill-current' />
-																</div>
-															</div>
-														</div>
-													</Link>
-												))}
-											</div>
-										</div>
-									)}
+							</div>
 
-									<div className='mt-8'>
-										<LatestComments championID={championID} />
+							{/* AD SECTION 1 */}
+							<div className='my-8 border-y border-border py-6 bg-surface-bg/50 rounded-xl'>
+								<p className='text-xs text-text-secondary text-center mb-3 uppercase tracking-widest'>
+									{tUI("common.ad")}
+								</p>
+								<GoogleAd slot='2943049680' format='horizontal' />
+							</div>
+
+							{/* SUGGESTED CHAMPIONS */}
+							{suggestedChampions.length > 0 && (
+								<div className='mt-12 mb-8 bg-surface-bg border border-border rounded-xl p-4 sm:p-6 shadow-sm'>
+									<h2 className='p-1 text-lg sm:text-2xl font-semibold mb-6 font-primary text-primary-500 border-b border-border uppercase flex items-center gap-2'>
+										{tUI("championDetail.suggestedTitle")}
+									</h2>
+									<div className='grid grid-cols-2 lg:grid-cols-4 gap-4'>
+										{suggestedChampions.map(suggested => (
+											<Link
+												key={suggested.championID}
+												to={`/champion/${suggested.championID}`}
+												className='group relative bg-surface-bg border border-border rounded-xl overflow-hidden hover:border-primary-500 transition-all hover:shadow-lg hover:shadow-primary-500/10'
+											>
+												<div className='aspect-[3/4] relative overflow-hidden'>
+													<SafeImage
+														src={
+															suggested.assets?.[0]?.avatar ||
+															suggested.gameAbsolutePath
+														}
+														className='w-full h-full object-cover group-hover:scale-110 transition-transform duration-500'
+													/>
+													<div className='absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60' />
+												</div>
+												<div className='absolute bottom-0 left-0 right-0 p-3'>
+													<div className='flex justify-between items-end'>
+														<h3 className='font-bold text-white text-xs sm:text-sm drop-shadow-md truncate pr-2'>
+															{tDynamic(suggested, "name")}
+														</h3>
+														<div className='flex items-center gap-0.5 text-yellow-500 shrink-0'>
+															<span className='text-[10px] font-bold'>
+																{suggested.maxStar}
+															</span>
+															<Star size={10} className='fill-current' />
+														</div>
+													</div>
+												</div>
+											</Link>
+										))}
 									</div>
 								</div>
+							)}
 
-								<div className='my-10 border-t border-border pt-8'>
-									<p className='text-xs text-text-secondary text-center mb-2 uppercase tracking-widest'>
-										{tUI("common.ad")}
-									</p>
-									<GoogleAd slot='2943049680' format='horizontal' />
-								</div>
+							{/* COMMENTS SECTION */}
+							<div className='mt-8 bg-surface-bg border border-border rounded-xl p-4 sm:p-6 shadow-sm'>
+								<LatestComments championID={championID} />
+							</div>
+
+							{/* AD SECTION 2 */}
+							<div className='my-8 border-t border-border pt-8'>
+								<p className='text-xs text-text-secondary text-center mb-3 uppercase tracking-widest'>
+									{tUI("common.ad")}
+								</p>
+								<GoogleAd slot='2943049680' format='horizontal' />
+							</div>
 						</motion.div>
 					)}
 				</AnimatePresence>

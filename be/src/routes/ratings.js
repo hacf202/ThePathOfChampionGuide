@@ -9,7 +9,9 @@ import {
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
 import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
-import { championCache } from "./champions.js";
+import cacheManager from "../utils/cacheManager.js";
+
+const championCache = cacheManager.getOrCreateCache("champions");
 
 const router = express.Router();
 const RATINGS_TABLE = "guidePocPlayStyleRating";

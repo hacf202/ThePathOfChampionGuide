@@ -7,16 +7,17 @@ import {
 	GetItemCommand,
 } from "@aws-sdk/client-dynamodb";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
-import NodeCache from "node-cache";
+import cacheManager from "../utils/cacheManager.js";
 import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
+import { scanAll } from "../utils/dynamoUtils.js";
 
 const router = express.Router();
 const POWERS_TABLE = "guidePocPowers";
 
-// Cache 5 phút (300s) để tối ưu hiệu suất vì dữ liệu Sức mạnh lớn
-const powerCache = new NodeCache({ stdTTL: 300, checkperiod: 60 });
+// Cache 30 phút (1800s) để tối ưu hiệu suất vì dữ liệu Sức mạnh lớn
+const powerCache = cacheManager.getOrCreateCache("powers", { stdTTL: 86400, checkperiod: 60 });
 
 /**
  * Hàm hỗ trợ lấy toàn bộ dữ liệu từ RAM hoặc Database
@@ -26,9 +27,8 @@ async function getCachedPowers() {
 	let cachedData = powerCache.get(CACHE_KEY);
 
 	if (!cachedData) {
-		const command = new ScanCommand({ TableName: POWERS_TABLE });
-		const { Items } = await client.send(command);
-		cachedData = Items ? Items.map(item => unmarshall(item)) : [];
+		const rawItems = await scanAll(client, { TableName: POWERS_TABLE });
+		cachedData = rawItems.map(item => unmarshall(item));
 
 		// Sắp xếp mặc định theo tên A-Z
 		cachedData.sort((a, b) => (a.name || "").localeCompare(b.name || ""));

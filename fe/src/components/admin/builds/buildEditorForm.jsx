@@ -1,7 +1,7 @@
-// src/components/admin/builds/buildEditorForm.jsx
 import { useState, useEffect, memo } from "react";
 import { useTranslation } from "../../../hooks/useTranslation";
 import EditorHeaderToolbar from "../common/editorHeaderToolbar";
+import MarkupEditor from "../MarkupEditor";
 
 const ArrayInputComponent = ({ label, data = [], onChange }) => {
 	const { tUI } = useTranslation();
@@ -191,25 +191,32 @@ const BuildEditorForm = ({ item, onSave, onDelete, onCancel, isSaving }) => {
 								/>
 							</div>
 							<div>
-								<label className='font-semibold text-[var(--color-text-secondary)]'>
+								<label className='font-semibold text-[var(--color-text-secondary)] mb-1 block'>
 									{tUI("admin.buildForm.descLabel")} (VI)
 								</label>
-								<textarea
-									name='description'
+								<MarkupEditor
 									value={formData.description || ""}
-									onChange={handleInputChange}
-									className='w-full p-3 mt-1 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg min-h-[120px] text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-primary)] resize-none'
+									onChange={({ markup, raw }) => {
+										setFormData(prev => ({
+											...prev,
+											description: markup,
+											descriptionRaw: raw,
+										}));
+									}}
 								/>
 							</div>
 							<div>
-								<label className='font-semibold text-[var(--color-text-secondary)]'>
+								<label className='font-semibold text-[var(--color-text-secondary)] mb-1 block'>
 									{tUI("admin.buildForm.descLabel")} (EN)
 								</label>
-								<textarea
-									name='description'
+								<MarkupEditor
 									value={formData.translations?.en?.description || ""}
-									onChange={e => handleTranslationChange(e, "en")}
-									className='w-full p-3 mt-1 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg min-h-[120px] text-[var(--color-text-primary)] focus:outline-none focus:border-blue-500 resize-none'
+									onChange={({ markup, raw }) =>
+										handleTranslationChange(
+											{ target: { name: "description", value: markup } },
+											"en",
+										)
+									}
 									placeholder='English Description...'
 								/>
 							</div>

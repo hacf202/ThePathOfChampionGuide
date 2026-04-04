@@ -7,16 +7,17 @@ import {
 	GetItemCommand,
 } from "@aws-sdk/client-dynamodb";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
-import NodeCache from "node-cache";
+import cacheManager from "../utils/cacheManager.js";
 import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
+import { scanAll } from "../utils/dynamoUtils.js";
 
 const router = express.Router();
 const RUNES_TABLE = "guidePocRunes";
 
-// Khởi tạo cache 120 giây (2 phút)
-const runeCache = new NodeCache({ stdTTL: 120 });
+// Khởi tạo cache 1800 giây (30 phút)
+const runeCache = cacheManager.getOrCreateCache("runes", { stdTTL: 86400, checkperiod: 60 });
 
 /**
  * Lấy toàn bộ Runes từ Database hoặc RAM
@@ -26,9 +27,8 @@ async function getCachedRunes() {
 	let cachedData = runeCache.get(CACHE_KEY);
 
 	if (!cachedData) {
-		const command = new ScanCommand({ TableName: RUNES_TABLE });
-		const { Items } = await client.send(command);
-		cachedData = Items ? Items.map(item => unmarshall(item)) : [];
+		const rawItems = await scanAll(client, { TableName: RUNES_TABLE });
+		cachedData = rawItems.map(item => unmarshall(item));
 
 		// Sắp xếp mặc định theo tên A-Z
 		cachedData.sort((a, b) => (a.name || "").localeCompare(b.name || ""));

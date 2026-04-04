@@ -1,0 +1,2548 @@
+[
+  {
+    "translations": {
+      "en": {
+        "name": "Hymn of Valor",
+        "descriptionRaw": "When I'm summoned, create a Redoubled Valor in hand. It costs 3.",
+        "rarity": "Rare",
+        "description": "When I'm summoned, create a [cd:01DE044|Redoubled Valor|icon,img-full] in hand. It costs 3."
+      }
+    },
+    "relicCode": "R0037",
+    "rarity": "Hiếm",
+    "stack": "3",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0037-full.png",
+    "descriptionRaw": "Khi ta được triệu hồi, tạo trên tay 1 lá Trí Dũng Song Toàn. Lá bài đó có 3 tiêu hao.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0037.png",
+    "name": "Anh Hùng Ca",
+    "type": "Chung",
+    "description": "Khi ta được triệu hồi, tạo trên tay 1 lá [cd:01DE044|Trí Dũng Song Toàn|icon,img-full]. Lá bài đó có 3 tiêu hao."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Z-Drive Prototype",
+        "descriptionRaw": "Start adventures with +2 Rerolls",
+        "rarity": "Common",
+        "description": "Start adventures with +2 [k:Reroll|Reroll]s"
+      }
+    },
+    "relicCode": "R0008",
+    "rarity": "Thường",
+    "stack": "3",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0008-full.png",
+    "descriptionRaw": "Bắt đầu chuyến phiêu lưu với +2 lượt Đổi Lại",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0008.png",
+    "name": "Bản Mẫu Động Cơ Z",
+    "type": "Chung",
+    "description": "Bắt đầu chuyến phiêu lưu với +2 lượt Đổi Lại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Luden's Tempest",
+        "descriptionRaw": "All of your spells and skills deal 1 extra damage.",
+        "rarity": "Rare",
+        "description": "All of your spells and skills deal 1 extra damage."
+      }
+    },
+    "relicCode": "R0017",
+    "rarity": "Hiếm",
+    "stack": "3",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0017-full.png",
+    "descriptionRaw": "Tất cả bài phép và kỹ năng đồng minh gây thêm 1 sát thương.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0017.png",
+    "name": "Bão Tố Luden",
+    "type": "Chung",
+    "description": "Tất cả bài phép và kỹ năng đồng minh gây thêm 1 sát thương."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Guardian's Orb",
+        "descriptionRaw": "When I'm summoned, grant Epic items to 3 random cards in your deck.",
+        "rarity": "Rare",
+        "description": "When I'm summoned, grant Epic items to 3 random cards in your deck."
+      }
+    },
+    "relicCode": "R0052",
+    "rarity": "Hiếm",
+    "stack": "3",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0052-full.png",
+    "descriptionRaw": "Khi ta được triệu hồi, ban vật phẩm Sử Thi cho 3 lá bài ngẫu nhiên trong bộ bài.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0052.png",
+    "name": "Băng Cầu",
+    "type": "Chung",
+    "description": "Khi ta được triệu hồi, ban vật phẩm Sử Thi cho 3 lá bài ngẫu nhiên trong bộ bài."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Portal Pals",
+        "descriptionRaw": "When I'm summoned, create 2 random 7+ cost units from your regions and reduce their cost by my base cost.",
+        "rarity": "Epic",
+        "description": "When I'm summoned, create 2 random 7+ cost units from your regions and reduce their cost by my base cost."
+      }
+    },
+    "relicCode": "R0066",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0066-full.png",
+    "descriptionRaw": "Khi ta được triệu hồi, tạo 2 bài quân 7+ tiêu hao ngẫu nhiên thuộc khu vực đồng minh và giảm tiêu hao của chúng đi một lượng bằng tiêu hao cơ bản của ta.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0066.png",
+    "name": "Bằng Hữu Dịch Chuyển",
+    "type": "Chung",
+    "description": "Khi ta được triệu hồi, tạo 2 bài quân 7+ tiêu hao ngẫu nhiên thuộc khu vực đồng minh và giảm tiêu hao của chúng đi một lượng bằng tiêu hao cơ bản của ta."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Everfrost",
+        "descriptionRaw": "When I'm summoned, Stun the strongest enemy.",
+        "rarity": "Common",
+        "description": "When I'm summoned, [k:Stun|Stun] the strongest enemy."
+      }
+    },
+    "relicCode": "R0018",
+    "rarity": "Thường",
+    "stack": "3",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0018-full.png",
+    "descriptionRaw": "Khi ta được triệu hồi, Làm Choáng kẻ địch Mạnh Nhất.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0018.png",
+    "name": "Băng Trượng Vĩnh Cửu",
+    "type": "Chung",
+    "description": "Khi ta được triệu hồi, [k:Stun|Làm Choáng] kẻ địch Mạnh Nhất."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Lost Chapter",
+        "descriptionRaw": "Play: Refill your spell mana.",
+        "rarity": "Common",
+        "description": "[k:Play|Play]: Refill your spell mana."
+      }
+    },
+    "relicCode": "R0015",
+    "rarity": "Thường",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0015-full.png",
+    "descriptionRaw": "Xuất Trận: Hồi đầy năng lượng bài phép.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0015.png",
+    "name": "Bí Chương Thất Truyền",
+    "type": "Chung",
+    "description": "[k:Play|Xuất Trận]: Hồi đầy năng lượng bài phép."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Secret Technique",
+        "descriptionRaw": "Power: When an ally gains stats from a spell, it gains twice that many instead.",
+        "rarity": "Epic",
+        "description": "[k:Power|Power]: When an ally gains stats from a spell, it gains twice that many instead."
+      }
+    },
+    "relicCode": "R0085",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0085-full.png",
+    "descriptionRaw": "Sức Mạnh: Khi 1 đồng minh nhận chỉ số từ 1 bài phép, chỉ số nhận được tăng gấp 2 lần.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0085.png",
+    "name": "Bí Kỹ",
+    "type": "Chung",
+    "description": "[k:Power|Sức Mạnh]: Khi 1 đồng minh nhận chỉ số từ 1 bài phép, chỉ số nhận được tăng gấp 2 lần."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Icon of Valhir",
+        "descriptionRaw": "Power: Your elemental spells and Skills deal 2 extra damage.",
+        "rarity": "Epic",
+        "description": "[k:Power|Power]: Your elemental spells and Skills deal 2 extra damage."
+      }
+    },
+    "relicCode": "R0099",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0099-full.png",
+    "descriptionRaw": "Sức Mạnh: Bài phép và Kỹ Năng nguyên tố của ngươi gây thêm 2 sát thương.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0099.png",
+    "name": "Biểu Tượng Valhir",
+    "type": "Trấn",
+    "description": "[k:Power|Sức Mạnh]: Bài phép và Kỹ Năng nguyên tố của ngươi gây thêm 2 sát thương."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Stacked Deck",
+        "descriptionRaw": "+200 Starting Gold.Power: Allies have +1|+1 for every 12 cards in your deck past 18 at game start.",
+        "rarity": "Epic",
+        "description": "+200 Starting Gold.[k:Power|Power]: Allies have +1|+1 for every 12 cards in your deck past 18 at game start."
+      }
+    },
+    "relicCode": "R0116",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0116-full.png",
+    "descriptionRaw": "+200 Vàng Khởi Điểm.Sức Mạnh: Đồng minh nhận +1|+1 với mỗi 12 lá bài vượt quá lá thứ 18 trong bộ bài của ngươi khi bắt đầu trận đấu.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0116.png",
+    "name": "Bộ Bài Đầy Ắp",
+    "type": "Chung",
+    "description": "+200 Vàng Khởi Điểm.[k:Power|Sức Mạnh]: Đồng minh nhận +1|+1 với mỗi 12 lá bài vượt quá lá thứ 18 trong bộ bài của ngươi khi bắt đầu trận đấu."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Deck of Destiny",
+        "descriptionRaw": "+1|+1Power: Game Start: Create a 1 cost Wild Card in your deck for every 7 cards in your deck.",
+        "rarity": "Epic",
+        "description": "+1|+1[k:Power|Power]: Game Start: Create a 1 cost [cd:98BW003|Wild Card|icon,img-full] in your deck for every 7 cards in your deck."
+      }
+    },
+    "relicCode": "R0134",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0134-full.png",
+    "descriptionRaw": "+1|+1Sức Mạnh: Bắt Đầu Trận Đấu: với mỗi 7 lá bài đã có trong bộ bài, tạo 1 lá bài Lá Bài Bí Ẩn 1 tiêu hao trong bộ bài của ngươi.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0134.png",
+    "name": "Bộ Bài Định Mệnh",
+    "type": "Trấn",
+    "description": "+1|+1[k:Power|Sức Mạnh]: Bắt Đầu Trận Đấu: với mỗi 7 lá bài đã có trong bộ bài, tạo 1 lá bài [cd:98BW003|Lá Bài Bí Ẩn|icon,img-full] 1 tiêu hao trong bộ bài của ngươi."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Harmless Scarecrow",
+        "descriptionRaw": "Power: When you play a card that costs 3+ mana, Terrify 1. While the enemy deck has 15 or fewer cards, allies have +2|+2 and Overwhelm.",
+        "rarity": "Epic",
+        "description": "Power: When you play a card that costs 3+ mana, Terrify 1. While the enemy deck has 15 or fewer cards, allies have +2|+2 and [k:Overwhelm|Overwhelm]."
+      }
+    },
+    "relicCode": "R0121",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0121-full.png",
+    "descriptionRaw": "Sức Mạnh: Khi ngươi sử dụng 1 lá bài 3+ tiêu hao, gây Khiếp Hãi 1. Khi bộ bài của kẻ địch có ít hơn 15 lá bài, các đồng minh được +2|+2 và Áp Đảo.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0121.png",
+    "name": "Bù Nhìn Vô Hại",
+    "type": "Trấn",
+    "description": "[k:Power|Sức Mạnh]: Khi ngươi sử dụng 1 lá bài 3+ tiêu hao, gây Khiếp Hãi 1. Khi bộ bài của kẻ địch có ít hơn 15 lá bài, các đồng minh được +2|+2 và [k:Overwhelm|Áp Đảo]."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Caulfield's Warhammer",
+        "descriptionRaw": "+2|+1",
+        "rarity": "Rare",
+        "description": "+2|+1"
+      }
+    },
+    "relicCode": "R0003",
+    "rarity": "Hiếm",
+    "stack": "3",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0003-full.png",
+    "descriptionRaw": "+2|+1",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0003.png",
+    "name": "Búa Chiến Caulfield",
+    "type": "Chung",
+    "description": "+2|+1"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Scales of Judgment",
+        "rarity": "Epic",
+        "descriptionRaw": "Power: When you play a champion, it strikes the weakest enemy. If it's Nasus, it also strikes the strongest enemy.",
+        "description": "[k:Power|Power]: When you play a champion, it strikes the weakest enemy. If it's Nasus, it also strikes the strongest enemy."
+      }
+    },
+    "relicCode": "R0127",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0127-full.png",
+    "descriptionRaw": "Sức Mạnh: Khi ngươi xuất trận 1 anh hùng, anh hùng đó Ra Đòn lên kẻ địch yếu nhất. Nếu đó là Nasus, nó cũng Ra Đòn lên kẻ địch mạnh nhất.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0127.png",
+    "name": "Cán Cân Phán Quyết",
+    "type": "Trấn",
+    "description": "[k:Power|Sức Mạnh]: Khi ngươi xuất trận 1 anh hùng, anh hùng đó [k:Strike|Ra Đòn] lên kẻ địch yếu nhất. Nếu đó là Nasus, nó cũng [k:Strike|Ra Đòn] lên kẻ địch mạnh nhất."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "The Card Master's Gambit",
+        "descriptionRaw": "+1|+1 and when you win an encounter without taking any Nexus damage, earn 1 Reroll",
+        "rarity": "Rare",
+        "description": "+1|+1 and when you win an encounter without taking any Nexus damage, earn 1 [k:Reroll|Reroll]"
+      }
+    },
+    "relicCode": "R0035",
+    "rarity": "Hiếm",
+    "stack": "3",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0035-full.png",
+    "descriptionRaw": "+1|+1 và khi ngươi chiến thắng 1 ải mà không phải nhận sát thương Nhà Chính, nhận 1 Lượt Đổi.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0035.png",
+    "name": "Canh Bạc Của Thần Bài",
+    "type": "Chung",
+    "description": "+1|+1 và khi ngươi chiến thắng 1 ải mà không phải nhận sát thương Nhà Chính, nhận 1 [k:Reroll|Lượt Đổi]."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "The Taker's Bow",
+        "descriptionRaw": "Power: Attacking Ephemeral allies can't take damage or die.",
+        "rarity": "Epic",
+        "description": "Power: Attacking [k:Ephemeral|Ephemeral] allies can't take damage or die."
+      }
+    },
+    "relicCode": "R0141",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0141-full.png",
+    "descriptionRaw": "Sức Mạnh: Đồng minh Cảm Tử ở vị trí tấn công không thể nhận sát thương hoặc bị tiêu diệt.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0141.png",
+    "name": "Cây Cung Sát Thủ",
+    "type": "Trấn",
+    "description": "[k:Power|Sức Mạnh]: Đồng minh [k:Ephemeral|Cảm Tử] ở vị trí tấn công không thể nhận sát thương hoặc bị tiêu diệt."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Mischiefmaker's Flute",
+        "descriptionRaw": "SpellshieldWhen I deal damage, plant that many Poison Puffcaps in the enemy deck.",
+        "rarity": "Epic",
+        "description": "SpellshieldWhen I deal damage, plant that many [cd:01PZ022|Poison Puffcap|icon,img-full]s in the enemy deck."
+      }
+    },
+    "relicCode": "R0136",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0136-full.png",
+    "descriptionRaw": "Khiên PhépKhi ta gây sát thương, cài lượng bài Nấm Độc bằng với lượng sát thương đó lên bộ bài của đối thủ.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0136.png",
+    "name": "Cây Sáo Tinh Ranh",
+    "type": "Trấn",
+    "description": "[k:SpellShield|Khiên Phép]Khi ta gây sát thương, cài lượng bài [cd:01PZ022|Nấm Độc|icon,img-full] bằng với lượng sát thương đó lên bộ bài của đối thủ."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Living Weapon",
+        "descriptionRaw": "Play, Attack, and Round Start: Forge me.",
+        "rarity": "Epic",
+        "description": "Play, Attack, and [k:RoundStart|Round Start]: Forge me."
+      }
+    },
+    "relicCode": "R0112",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0112-full.png",
+    "descriptionRaw": "Xuất Trận, Tấn Công và Bắt Đầu Vòng Đấu: Tôi Luyện ta.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0112.png",
+    "name": "Chỉ Số Thích Nghi",
+    "type": "Chung",
+    "description": "Xuất Trận, Tấn Công và [k:RoundStart|Bắt Đầu Vòng Đấu]: Tôi Luyện ta."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Defense Spending",
+        "descriptionRaw": "Power: Your Nexus has Tough. I am Tech.",
+        "rarity": "Epic",
+        "description": "Power: Your Nexus has [k:Tough|Tough]. I am Tech."
+      }
+    },
+    "relicCode": "R0118",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0118-full.png",
+    "descriptionRaw": "Sức Mạnh: Nhà Chính của ngươi có Kiên Cường. Ta là Công Nghệ.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0118.png",
+    "name": "Chi Tiêu Phòng Thủ",
+    "type": "Trấn",
+    "description": "Sức Mạnh: Nhà Chính của ngươi có [k:Tough|Kiên Cường]. Ta là Công Nghệ."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Greenglade Shadeleaf",
+        "descriptionRaw": "Support: Grant my supported ally Elusive.",
+        "rarity": "Rare",
+        "description": "Support: Grant my supported ally [k:Elusive|Elusive]."
+      }
+    },
+    "relicCode": "R0041",
+    "rarity": "Hiếm",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0041-full.png",
+    "descriptionRaw": "Hỗ Trợ: Ban Huyền Ảo cho 1 đồng minh được ta hỗ trợ.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0041.png",
+    "name": "Chiếc Lá Nương Bóng Greenglade",
+    "type": "Chung",
+    "description": "Hỗ Trợ: Ban [k:Elusive|Huyền Ảo] cho 1 đồng minh được ta hỗ trợ."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Shock & Awe",
+        "descriptionRaw": "Power: When an ally that costs 1 or less attacks,  deal 1 to the enemy Nexus.",
+        "rarity": "Epic",
+        "description": "[k:Power|Power]: When an ally that costs 1 or less attacks,  deal 1 to the enemy Nexus."
+      }
+    },
+    "relicCode": "R0100",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0100-full.png",
+    "descriptionRaw": "Sức Mạnh: Khi 1 đồng minh 1- tiêu hao tấn công,  gây 1 sát thương lên Nhà Chính của đối thủ.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0100.png",
+    "name": "Choáng Váng & Kinh Ngạc",
+    "type": "Trấn",
+    "description": "[k:Power|Sức Mạnh]: Khi 1 đồng minh 1- tiêu hao tấn công,  gây 1 sát thương lên Nhà Chính của đối thủ."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "The Chameleon's Necklace",
+        "descriptionRaw": "Game Start: Create 2 copies of me in your deck.",
+        "rarity": "Common",
+        "description": "Game Start: Create 2 copies of me in your deck."
+      }
+    },
+    "relicCode": "R0028",
+    "rarity": "Thường",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0028-full.png",
+    "descriptionRaw": "Bắt Đầu Trận Đấu: Tạo 2 bản sao của ta trong bộ bài.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0028.png",
+    "name": "Chuỗi Kiềng Của Hóa Hình Sư",
+    "type": "Chung",
+    "description": "Bắt Đầu Trận Đấu: Tạo 2 bản sao của ta trong bộ bài."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "True Ice Flail",
+        "descriptionRaw": "When I'm summoned, give enemies Vulnerable this round.",
+        "rarity": "Common",
+        "description": "When I'm summoned, give enemies Vulnerable this round."
+      }
+    },
+    "relicCode": "R0039",
+    "rarity": "Thường",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0039-full.png",
+    "descriptionRaw": "Khi ta được triệu hồi, trao Kích Động cho kẻ địch trong vòng này.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0039.png",
+    "name": "Chùy Chân Băng",
+    "type": "Chung",
+    "description": "Khi ta được triệu hồi, trao Kích Động cho kẻ địch trong vòng này."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Norra's Portal Accelerator",
+        "descriptionRaw": "Power: Game Start: If I'm Norra, +1 starting mana.When you summon a created ally, grant it Impact.",
+        "rarity": "Epic",
+        "description": "Power: Game Start: If I'm Norra, +1 starting mana.When you summon a created ally, grant it [k:Impact|Impact]."
+      }
+    },
+    "relicCode": "R0094",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0094-full.png",
+    "descriptionRaw": "Sức Mạnh: Khởi Đầu Trận Đấu: Nếu ta Norra, +1 năng lượng khởi điểm.Khi triệu hồi 1 đồng minh được tạo ra, ban Khí Lực cho đồng minh đó.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0094.png",
+    "name": "Cổng Gia Tốc Của Norra",
+    "type": "Trấn",
+    "description": "[k:Power|Sức Mạnh]: Khởi Đầu Trận Đấu: Nếu ta Norra, +1 năng lượng khởi điểm.Khi triệu hồi 1 đồng minh được tạo ra, ban [k:Impact|Khí Lực] cho đồng minh đó."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Galeforce",
+        "descriptionRaw": "ScoutRound End: Shuffle me into your deck.",
+        "rarity": "Rare",
+        "description": "Scout[k:RoundEnd|Round End]: Shuffle me into your deck."
+      }
+    },
+    "relicCode": "R0050",
+    "rarity": "Hiếm",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0050-full.png",
+    "descriptionRaw": "Trinh SátKết Thúc Vòng Đấu: Tráo ta vào bộ bài của ngươi.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0050.png",
+    "name": "Cung Phong Linh",
+    "type": "Chung",
+    "description": "Trinh Sát[k:RoundEnd|Kết Thúc Vòng Đấu]: Tráo ta vào bộ bài của ngươi."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Guinsoo's Rageblade",
+        "descriptionRaw": "Attack: Grant me +1|+1.",
+        "rarity": "Common",
+        "description": "[k:Attack|Attack]: Grant me +1|+1."
+      }
+    },
+    "relicCode": "R0024",
+    "rarity": "Thường",
+    "stack": "3",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0024-full.png",
+    "descriptionRaw": "Tấn Công: Ban cho ta +1|+1.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0024.png",
+    "name": "Cuồng Đao Guinsoo",
+    "type": "Chung",
+    "description": "[k:Attack|Tấn Công]: Ban cho ta +1|+1."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "The Bounty Hunter's Renown",
+        "descriptionRaw": "I have +1|+1 for every 200 gold you have.",
+        "rarity": "Rare",
+        "description": "I have +1|+1 for every 200 gold you have."
+      }
+    },
+    "relicCode": "R0027",
+    "rarity": "Hiếm",
+    "stack": "3",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0027-full.png",
+    "descriptionRaw": "Ta nhận +1|+1 với mỗi 200 vàng ngươi sở hữu.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0027.png",
+    "name": "Danh Tiếng Của Thợ Săn Tiền Thưởng",
+    "type": "Chung",
+    "description": "Ta nhận +1|+1 với mỗi 200 vàng ngươi sở hữu."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Succubus's Brand",
+        "descriptionRaw": "+1|+1 and when I kill a unit, summon a random husk.",
+        "rarity": "Rare",
+        "description": "+1|+1 and when I kill a unit, summon a random husk."
+      }
+    },
+    "relicCode": "R0053",
+    "rarity": "Hiếm",
+    "stack": "3",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0053-full.png",
+    "descriptionRaw": "+1|+1 và triệu hồi 1 yêu linh ngẫu nhiên khi ta tiêu diệt 1 bài quân.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0053.png",
+    "name": "Dấu Ấn Yêu Nữ",
+    "type": "Chung",
+    "description": "+1|+1 và triệu hồi 1 yêu linh ngẫu nhiên khi ta tiêu diệt 1 bài quân."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Death's Foil",
+        "descriptionRaw": "+1|+0While I'm attacking, I can't take damage or die.",
+        "rarity": "Epic",
+        "description": "+1|+0While I'm attacking, I can't take damage or die."
+      }
+    },
+    "relicCode": "R0059",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0059-full.png",
+    "descriptionRaw": "+1|+0Khi ta tấn công, ta không thể nhận sát thương hoặc bị tiêu diệt.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0059.png",
+    "name": "Dấu Vết Tử Thần",
+    "type": "Chung",
+    "description": "+1|+0Khi ta tấn công, ta không thể nhận sát thương hoặc bị tiêu diệt."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Banshee's Veil",
+        "descriptionRaw": "SpellShield",
+        "rarity": "Common",
+        "description": "[k:SpellShield|SpellShield]"
+      }
+    },
+    "relicCode": "R0009",
+    "rarity": "Thường",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0009-full.png",
+    "descriptionRaw": "Khiên Phép",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0009.png",
+    "name": "Dây Chuyền Chữ Thập",
+    "type": "Chung",
+    "description": "[k:SpellShield|Khiên Phép]"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Crownguard Inheritance",
+        "descriptionRaw": "When I level up, Rally.",
+        "rarity": "Rare",
+        "description": "When I level up, [k:Rally|Rally]."
+      }
+    },
+    "relicCode": "R0001",
+    "rarity": "Hiếm",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0001-full.png",
+    "descriptionRaw": "Khi ta thăng cấp, Tiến Công.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0001.png",
+    "name": "Di Sản Crownguard",
+    "type": "Chung",
+    "description": "Khi ta thăng cấp, [k:Rally|Tiến Công]."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Big Guns",
+        "descriptionRaw": "Power: Your spells and skills deal 1 extra damage.",
+        "rarity": "Epic",
+        "description": "[k:Power|Power]: Your spells and skills deal 1 extra damage."
+      }
+    },
+    "relicCode": "R0111",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0111-full.png",
+    "descriptionRaw": "Sức Mạnh: Bài phép và kỹ năng đồng minh gây thêm 1 sát thương.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0111.png",
+    "name": "Đại Bác",
+    "type": "Chung",
+    "description": "[k:Power|Sức Mạnh]: Bài phép và kỹ năng đồng minh gây thêm 1 sát thương."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "The Hand of Noxus",
+        "descriptionRaw": "+2|+0 and Challenger.\r\nPlay: Play Apprehend on the strongest enemy.",
+        "rarity": "Epic",
+        "description": "+2|+0 and [k:Challenger|Challenger].\r\n[k:Play|Play]: [k:Play|Play] [cd:03NX018|Apprehend|icon,img-full] on the strongest enemy."
+      }
+    },
+    "relicCode": "R0146",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/relics/R0146-full.png",
+    "descriptionRaw": "Ban +2|+0 và Thách Đấu.\r\nXuất Trận: Sử dụng Bắt Giữ lên kẻ địch mạnh nhất.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/relics/R0146.png",
+    "name": "Đại Tướng Noxus",
+    "type": "Trấn",
+    "description": "Ban +2|+0 và [k:Challenger|Thách Đấu].\r\n[k:Play|Xuất Trận]: Sử dụng [cd:03NX018|Bắt Giữ|icon,img-full] lên kẻ địch mạnh nhất."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Twin Drakehounds",
+        "descriptionRaw": "OverwhelmAttack: Deal 2 to the enemy Nexus. If I've already attacked this round, deal 2 to all enemies as well.",
+        "rarity": "Epic",
+        "description": "[k:Overwhelm|Overwhelm][k:Attack|Attack]: Deal 2 to the enemy Nexus. If I've already attacked this round, deal 2 to all enemies as well."
+      }
+    },
+    "relicCode": "R0120",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0120-full.png",
+    "descriptionRaw": "Áp ĐảoTấn công: Gây 2 sát thương lên Nhà Chính của đối thủ. Nếu đã tấn công trong vòng này, gây 2 sát thương lên tất cả kẻ địch.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0120.png",
+    "name": "Đao Xích Long Khuyển",
+    "type": "Trấn",
+    "description": "[k:Overwhelm|Áp Đảo]Tấn công: Gây 2 sát thương lên Nhà Chính của đối thủ. Nếu đã tấn công trong vòng này, gây 2 sát thương lên tất cả kẻ địch."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Soul Lantern",
+        "descriptionRaw": "Tough SpellShield\r\nAttack: If I'm Thresh, summon an attacking Ephemeral copy of a champion in your deck with less Power.",
+        "rarity": "Epic",
+        "description": "Tough [k:SpellShield|SpellShield]\r\nAttack: If I'm Thresh, summon an attacking [k:Ephemeral|Ephemeral] copy of a champion in your deck with less [k:Power|Power]."
+      }
+    },
+    "relicCode": "R0139",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0139-full.png",
+    "descriptionRaw": "Khiên Phép Kiên Cường\r\nTấn Công: Nếu ta là Thresh, triệu hồi một bản sao Cảm Tử ở vị trí tấn công của anh hùng với Sức Mạnh ít hơn từ bộ bài của ngươi.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0139.png",
+    "name": "Đèn Lồng Linh Hồn",
+    "type": "Trấn",
+    "description": "Khiên Phép [k:Tough|Kiên Cường]\r\n[k:Attack|Tấn Công]: Nếu ta là Thresh, triệu hồi một bản sao Cảm Tử ở vị trí tấn công của anh hùng với [k:Power|Sức Mạnh] ít hơn từ bộ bài của ngươi."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Disciple of Shadows",
+        "descriptionRaw": "I cost 1 less for each ally in play.Play: Deal 3 to all other allies.",
+        "rarity": "Epic",
+        "description": "I cost 1 less for each ally in play.[k:Play|Play]: Deal 3 to all other allies."
+      }
+    },
+    "relicCode": "R0060",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0060-full.png",
+    "descriptionRaw": "Ta được giảm 1 tiêu hao với mỗi đồng minh trên bàn.Xuất Trận: Gây 3 sát thương lên tất cả đồng minh khác.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0060.png",
+    "name": "Đệ Tử Bóng Đêm",
+    "type": "Chung",
+    "description": "Ta được giảm 1 tiêu hao với mỗi đồng minh trên bàn.[k:Play|Xuất Trận]: Gây 3 sát thương lên tất cả đồng minh khác."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Swain's Raven Army",
+        "descriptionRaw": "Power: Game Start: Drain 5 from the enemy Nexus.Play: If I'm Swain, refill your spell mana.\r\n\r\n",
+        "rarity": "Epic",
+        "description": "Power: Game Start: [k:Drain|Drain] 5 from the enemy Nexus.[k:Play|Play]: If I'm Swain, refill your spell mana.\r\n\r\n"
+      }
+    },
+    "relicCode": "R0104",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0104-full.png",
+    "descriptionRaw": "Sức Mạnh: Bắt Đầu Trận Đấu: Hấp Thụ 5 máu từ Nhà Chính của đối thủ.Xuất Trận: Nếu ta là Swain, hồi đầy năng lượng bài phép.\r\n\r\n",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0104.png",
+    "name": "Đội Quân Quạ Của Swain",
+    "type": "Trấn",
+    "description": "Sức Mạnh: Bắt Đầu Trận Đấu: Hấp Thụ 5 máu từ Nhà Chính của đối thủ.[k:Play|Xuất Trận]: Nếu ta là Swain, hồi đầy năng lượng bài phép.\r\n\r\n"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Spirit Glove",
+        "descriptionRaw": "OverwhelmGame Start: If I'm a Spirit Blossom unit, set my cost to 10.",
+        "rarity": "Epic",
+        "description": "[k:Overwhelm|Overwhelm]Game Start: If I'm a [k:Spirit|Spirit] Blossom unit, set my cost to 10."
+      }
+    },
+    "relicCode": "R0142",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0142-full.png",
+    "descriptionRaw": "Áp ĐảoBắt Đầu Trận Đấu: Nếu ta là một bài quân Hoa Linh Lục Địa, đặt tiêu hao của ta thành 10.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0142.png",
+    "name": "Găng Tay Linh Hồn",
+    "type": "Trấn",
+    "description": "[k:Overwhelm|Áp Đảo]Bắt Đầu Trận Đấu: Nếu ta là một bài quân Hoa Linh Lục Địa, đặt tiêu hao của ta thành 10."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Starforged Gauntlets",
+        "descriptionRaw": "Power: Game Start: If I'm in deck or hand and Titanic, +1 Starting Mana. You can find Level 2 Champions when you Invoke or Manifest.",
+        "rarity": "Epic",
+        "description": "Power: Game Start: If I'm in deck or hand and Titanic, +1 Starting Mana. You can find Level 2 Champions when you Invoke or [k:Manifest|Manifest]."
+      }
+    },
+    "relicCode": "R0082",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0082-full.png",
+    "descriptionRaw": "Sức mạnh: Bắt Đầu Trận Đấu: Nếu ta đang ở trong bộ bài hoặc trên tay và Khổng Lồ, +1 cho Năng Lượng Khởi Điểm. Ngươi có thể tìm thấy Anh Hùng Cấp 2 khi Hiệu Triệu hoặc Hình Thành.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0082.png",
+    "name": "Găng Tinh Vân Sư",
+    "type": "Trấn",
+    "description": "Sức mạnh: Bắt Đầu Trận Đấu: Nếu ta đang ở trong bộ bài hoặc trên tay và Khổng Lồ, +1 cho Năng Lượng Khởi Điểm. Ngươi có thể tìm thấy Anh Hùng Cấp 2 khi Hiệu Triệu hoặc [k:Manifest|Hình Thành]."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Emotional Support Bear",
+        "descriptionRaw": "Power: Game Start: Shuffle 3 Tibbers into your deck.Your Tibbers cost 2 less and have +5|+5.",
+        "rarity": "Epic",
+        "description": "[k:Power|Power]: Game Start: Shuffle 3 Tibbers into your deck.Your Tibbers cost 2 less and have +5|+5."
+      }
+    },
+    "relicCode": "R0144",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_10_0/adventure/vi_vn/img/relics/R0144-full.png",
+    "descriptionRaw": "Sức Mạnh: Bắt Đầu Trận Đấu: Tráo 3 lá Tibbers vào bộ bài của ngươi.Tibbers của ngươi giảm 2 tiêu hao và có +5|+5.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_10_0/adventure/vi_vn/img/relics/R0144.png",
+    "name": "Gấu Hỗ Trợ Tinh Thần",
+    "type": "Trấn",
+    "description": "[k:Power|Sức Mạnh]: Bắt Đầu Trận Đấu: Tráo 3 lá Tibbers vào bộ bài của ngươi.Tibbers của ngươi giảm 2 tiêu hao và có +5|+5."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Lux's Incandescent Baton",
+        "descriptionRaw": "Power: If I'm Lux, +1 starting mana.Game Start: Draw a follower that costs 2 or less and grant it Targon's Brace.",
+        "rarity": "Epic",
+        "description": "[k:Power|Power]: If I'm Lux, +1 starting mana.Game Start: Draw a follower that costs 2 or less and grant it Targon's Brace."
+      }
+    },
+    "relicCode": "R0098",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0098-full.png",
+    "descriptionRaw": "Sức Mạnh: Nếu ta là Lux, +1 Năng Lượng Khởi Điểm.Bắt Đầu Trận Đấu: Rút 1 tùy tùng 2- tiêu hao và trao cho lá đó Vòng Tay Targon.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0098.png",
+    "name": "Gậy Bức Xạ Nhiệt Của Lux",
+    "type": "Trấn",
+    "description": "[k:Power|Sức Mạnh]: Nếu ta là Lux, +1 Năng Lượng Khởi Điểm.Bắt Đầu Trận Đấu: Rút 1 tùy tùng 2- tiêu hao và trao cho lá đó Vòng Tay Targon."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Laurent Bladerack",
+        "descriptionRaw": "Allies have Challenger.",
+        "rarity": "Rare",
+        "description": "Allies have [k:Challenger|Challenger]."
+      }
+    },
+    "relicCode": "R0023",
+    "rarity": "Hiếm",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0023-full.png",
+    "descriptionRaw": "Đồng minh nhận Thách Đấu.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0023.png",
+    "name": "Giá Đỡ Gươm Laurent",
+    "type": "Chung",
+    "description": "Đồng minh nhận [k:Challenger|Thách Đấu]."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Loaded Dice",
+        "descriptionRaw": "+3 Rerolls+10% to find Epic powers and items.",
+        "rarity": "Epic",
+        "description": "+3 [k:Reroll|Reroll]s+10% to find Epic powers and items."
+      }
+    },
+    "relicCode": "R0115",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0115-full.png",
+    "descriptionRaw": "+3 Lượt Đổi+10% tìm thấy sức mạnh và trang bị Sử Thi.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0115.png",
+    "name": "Gian Lận",
+    "type": "Chung",
+    "description": "+3 [k:Reroll|Lượt Đổi]+10% tìm thấy sức mạnh và trang bị Sử Thi."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Warmog's Armor",
+        "descriptionRaw": "Regeneration",
+        "rarity": "Common",
+        "description": "[k:Regeneration|Regeneration]"
+      }
+    },
+    "relicCode": "R0006",
+    "rarity": "Thường",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0006-full.png",
+    "descriptionRaw": "Hồi Phục",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0006.png",
+    "name": "Giáp Máu Warmog",
+    "type": "Chung",
+    "description": "[k:Regeneration|Hồi Phục]"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Dreams Of Yordles",
+        "descriptionRaw": "Spirit Impact",
+        "rarity": "Common",
+        "description": "[k:Spirit|Spirit] [k:Impact|Impact]"
+      }
+    },
+    "relicCode": "R0096",
+    "rarity": "Thường",
+    "stack": "3",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0096-full.png",
+    "descriptionRaw": "Linh Hồn Khí Lực",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0096.png",
+    "name": "Giấc Mơ Của Yordle",
+    "type": "Chung",
+    "description": "[k:Spirit|Linh Hồn] [k:Impact|Khí Lực]"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Stalker's Blade",
+        "descriptionRaw": "When I'm summoned, I strike the weakest enemy.",
+        "rarity": "Rare",
+        "description": "When I'm summoned, I strike the weakest enemy."
+      }
+    },
+    "relicCode": "R0040",
+    "rarity": "Hiếm",
+    "stack": "3",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0040-full.png",
+    "descriptionRaw": "Khi ta được triệu hồi, ta Ra Đòn lên kẻ địch Yếu Nhất.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0040.png",
+    "name": "Gươm Truy Tung",
+    "type": "Chung",
+    "description": "Khi ta được triệu hồi, ta [k:Strike|Ra Đòn] lên kẻ địch Yếu Nhất."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Frozen Tomb",
+        "descriptionRaw": "Game Start: If I'm in deck or hand, summon a Stormcarved Spire with Countdown 4: Summon me.",
+        "rarity": "Epic",
+        "description": "Game Start: If I'm in deck or hand, summon a Stormcarved Spire with [k:Countdown|Countdown] 4: [k:Summon|Summon] me."
+      }
+    },
+    "relicCode": "R0109",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0109-full.png",
+    "descriptionRaw": "Bắt Đầu Trận Đấu: Nếu ta đang ở trong bộ bài hoặc trên tay, triệu hồi 1 lá Tháp Bão Tố với Đếm Ngược Từ 4: Triệu hồi ta.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0109.png",
+    "name": "Hàn Băng Mộ",
+    "type": "Chung",
+    "description": "Bắt Đầu Trận Đấu: Nếu ta đang ở trong bộ bài hoặc trên tay, triệu hồi 1 lá Tháp Bão Tố với [k:Countdown|Đếm Ngược] Từ 4: Triệu hồi ta."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Searing Brilliance",
+        "descriptionRaw": "Power: Game Start: Grant a random spell from your deck an item with \"-1 cost and draw 1\". Create 4 copies of it in your deck.",
+        "rarity": "Epic",
+        "description": "[k:Power|Power]: Game Start: Grant a random spell from your deck an item with \"-1 cost and draw 1\". Create 4 copies of it in your deck."
+      }
+    },
+    "relicCode": "R0123",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0123-full.png",
+    "descriptionRaw": "Sức Mạnh: Bắt Đầu Trận Đấu: Ban một bài phép ngẫu nhiên từ bộ bài với một vật phẩm với “Giảm 1 tiêu hao và rút 1 lá bài”. Tạo 4 bản sao của nó trong bộ bài.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0123.png",
+    "name": "Hào Quang Rực Rỡ",
+    "type": "Trấn",
+    "description": "[k:Power|Sức Mạnh]: Bắt Đầu Trận Đấu: Ban một bài phép ngẫu nhiên từ bộ bài với một vật phẩm với “Giảm 1 tiêu hao và rút 1 lá bài”. Tạo 4 bản sao của nó trong bộ bài."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Spellweaver's Symphony",
+        "descriptionRaw": "Power: When you gain the attack token, create a random spell that costs 2 from your regions in hand. It costs 0 and is Fleeting.",
+        "rarity": "Epic",
+        "description": "[k:Power|Power]: When you gain the attack token, create a random spell that costs 2 from your regions in hand. It costs 0 and is Fleeting."
+      }
+    },
+    "relicCode": "R0086",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0086-full.png",
+    "descriptionRaw": "Sức Mạnh: Khi nhận lượt tấn công, tạo trên tay 1 bài phép ngẫu nhiên có tiêu hao 2 từ khu vực của bạn. Lá bài đó có 0 tiêu hao và Phù Du.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0086.png",
+    "name": "Hòa Khí Ma Pháp",
+    "type": "Chung",
+    "description": "[k:Power|Sức Mạnh]: Khi nhận lượt tấn công, tạo trên tay 1 bài phép ngẫu nhiên có tiêu hao 2 từ khu vực của bạn. Lá bài đó có 0 tiêu hao và Phù Du."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "The Loose Cannon's Payload",
+        "descriptionRaw": "When I'm summoned, discard your hand then create that many Pow-Pows in hand.",
+        "rarity": "Rare",
+        "description": "When I'm summoned, discard your hand then create that many Pow-Pows in hand."
+      }
+    },
+    "relicCode": "R0036",
+    "rarity": "Hiếm",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0036-full.png",
+    "descriptionRaw": "Khi ta được triệu hồi, bỏ toàn bộ bài trên tay và tạo trên tay số lá Bằng Chíu tương ứng.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0036.png",
+    "name": "Hỏa Lực Của Khẩu Pháo Nổi Loạn",
+    "type": "Chung",
+    "description": "Khi ta được triệu hồi, bỏ toàn bộ bài trên tay và tạo trên tay số lá Bằng Chíu tương ứng."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Protectors of Demacia",
+        "descriptionRaw": "Power: When you level up an allied champion, summon Lux. If you already have Lux, summon Garen instead. If you have both and not Galio, summon Galio.",
+        "rarity": "Epic",
+        "description": "[k:Power|Power]: When you level up an allied champion, summon Lux. If you already have Lux, summon Garen instead. If you have both and not Galio, summon Galio."
+      }
+    },
+    "relicCode": "R0130",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0130-full.png",
+    "descriptionRaw": "Sức Mạnh: Khi ngươi thăng cấp cho 1 anh hùng đồng minh, triệu hồi Lux. Nếu ngươi đã có Lux, triệu hồi Garen. Nếu ngươi có cả hai nhưng chưa có Galio, triệu hồi Galio.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0130.png",
+    "name": "Hộ Vệ Của Demacia",
+    "type": "Trấn",
+    "description": "[k:Power|Sức Mạnh]: Khi ngươi thăng cấp cho 1 anh hùng đồng minh, triệu hồi Lux. Nếu ngươi đã có Lux, triệu hồi Garen. Nếu ngươi có cả hai nhưng chưa có Galio, triệu hồi Galio."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Frost Breath",
+        "descriptionRaw": "ToughPlay: Frostbite the strongest enemy. If I'm Anivia, Frostbite ALL enemies instead.",
+        "rarity": "Epic",
+        "description": "ToughPlay: [k:Frostbite|Frostbite] the strongest enemy. If I'm Anivia, [k:Frostbite|Frostbite] ALL enemies instead."
+      }
+    },
+    "relicCode": "R0143",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_10_0/adventure/vi_vn/img/relics/R0143-full.png",
+    "descriptionRaw": "Kiên CườngXuất Trận: Đóng Băng kẻ địch mạnh nhất. Nếu ta là Anivia, thì Đóng Băng TẤT CẢ kẻ địch.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_10_0/adventure/vi_vn/img/relics/R0143.png",
+    "name": "Hơi Thở Băng Giá",
+    "type": "Trấn",
+    "description": "[k:Tough|Kiên Cường]Xuất Trận: [k:Frostbite|Đóng Băng] kẻ địch mạnh nhất. Nếu ta là Anivia, thì [k:Frostbite|Đóng Băng] TẤT CẢ kẻ địch."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "The Deceiver's Crest",
+        "descriptionRaw": "When I level up, create a copy of my champion spell in hand. It costs 0 this round.",
+        "rarity": "Rare",
+        "description": "When I level up, create a copy of my champion spell in hand. It costs 0 this round."
+      }
+    },
+    "relicCode": "R0011",
+    "rarity": "Hiếm",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0011-full.png",
+    "descriptionRaw": "Khi ta thăng cấp, tạo trên tay 1 bản sao bài phép anh hùng của ta. Lá bài đó có 0 tiêu hao trong vòng này.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0011.png",
+    "name": "Huy Hiệu Của Kẻ Lừa Đảo",
+    "type": "Chung",
+    "description": "Khi ta thăng cấp, tạo trên tay 1 bản sao bài phép anh hùng của ta. Lá bài đó có 0 tiêu hao trong vòng này."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Yeti Spotting Guide",
+        "descriptionRaw": "Play: Shuffle 3 Snowballs into your deck.Attack: Grant +1|+1 to me and to all Snowballs in your deck.",
+        "rarity": "Epic",
+        "description": "Play: Shuffle 3 Snowballs into your deck.[k:Attack|Attack]: Grant +1|+1 to me and to all [cd:98FR025|Snowball|icon,img-full]s in your deck."
+      }
+    },
+    "relicCode": "R0154",
+    "rarity": "Sử Thi",
+    "stack": 1,
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0154-full.png",
+    "descriptionRaw": "Xuất Trận: Tráo 3 lá Cầu Tuyết vào bộ bài của ngươi.Tấn Công: Ban +1|+1 cho ta và tất cả những lá Cầu Tuyết trong bộ bài của ngươi.",
+    "name": "Hướng Dẫn Phát Hiện Yeti",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0154.png",
+    "type": "Trấn",
+    "description": "[k:Play|Xuất Trận]: Tráo 3 lá Cầu Tuyết vào bộ bài của ngươi.[k:Attack|Tấn Công]: Ban +1|+1 cho ta và tất cả những lá [cd:98FR025|Cầu Tuyết|icon,img-full] trong bộ bài của ngươi."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Essence Theft",
+        "descriptionRaw": "When you Recall another unit, grant me +1|+0.Power: Game Start: Create a Homecoming in hand and grant it Double Time Watch.",
+        "rarity": "Epic",
+        "description": "When you [k:Recall|Recall] another unit, grant me +1|+0.[k:Power|Power]: Game Start: Create a [cd:03IO005|Homecoming|icon,img-full] in hand and grant it Double Time Watch."
+      }
+    },
+    "relicCode": "R0119",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0119-full.png",
+    "descriptionRaw": "Khi ngươi Thu về một bài quân, ban cho ta +1|+0.Sức Mạnh: Bắt Đầu Trận Đấu: Tạo trên tay một lá Trở Về Nhà và ban cho nó Đồng Hồ Không Chờ Đợi.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0119.png",
+    "name": "Kẻ Cắp Tinh Hoa",
+    "type": "Trấn",
+    "description": "Khi ngươi Thu về một bài quân, ban cho ta +1|+0.[k:Power|Sức Mạnh]: Bắt Đầu Trận Đấu: Tạo trên tay một lá [cd:03IO005|Trở Về Nhà|icon,img-full] và ban cho nó Đồng Hồ Không Chờ Đợi."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Spectral Scissors",
+        "descriptionRaw": "+2|+0Support: If my supported ally is a follower, grant it Ephemeral and summon an exact copy of it attacking.",
+        "rarity": "Epic",
+        "description": "+2|+0Support: If my supported ally is a follower, grant it [k:Ephemeral|Ephemeral] and summon an exact copy of it attacking."
+      }
+    },
+    "relicCode": "R0092",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0092-full.png",
+    "descriptionRaw": "+2|+0Hỗ Trợ: Nếu đồng minh được ta hỗ trợ là tùy tùng, ban Cảm Tử cho nó và triệu hồi bản sao y hệt của đồng minh đó ở vị trí tấn công.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0092.png",
+    "name": "Kéo Cắt Ma Quái",
+    "type": "Chung",
+    "description": "+2|+0Hỗ Trợ: Nếu đồng minh được ta hỗ trợ là tùy tùng, ban [k:Ephemeral|Cảm Tử] cho nó và triệu hồi bản sao y hệt của đồng minh đó ở vị trí tấn công."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "The Grand General's Counterplan",
+        "descriptionRaw": "Round Start: Create a Fleeting copy of me in hand.",
+        "rarity": "Rare",
+        "description": "[k:RoundStart|Round Start]: Create a Fleeting copy of me in hand."
+      }
+    },
+    "relicCode": "R0020",
+    "rarity": "Hiếm",
+    "stack": "3",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0020-full.png",
+    "descriptionRaw": "Bắt Đầu Vòng Đấu: Tạo trên tay 1 bản sao Phù Du của ta.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0020.png",
+    "name": "Kế Đối Phó Của Đại Tướng",
+    "type": "Chung",
+    "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Tạo trên tay 1 bản sao Phù Du của ta."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Black Shield",
+        "descriptionRaw": "Power: When you summon an ally, grant it SpellShield.",
+        "rarity": "Epic",
+        "description": "Power: When you summon an ally, grant it [k:SpellShield|SpellShield]."
+      }
+    },
+    "relicCode": "R0114",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0114-full.png",
+    "descriptionRaw": "Sức Mạnh: Khi triệu hồi 1 đồng minh, ban Khiên Phép cho đồng minh đó.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0114.png",
+    "name": "Khiên Đen",
+    "type": "Chung",
+    "description": "Sức Mạnh: Khi triệu hồi 1 đồng minh, ban [k:SpellShield|Khiên Phép] cho đồng minh đó."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Shield of Daybreak",
+        "descriptionRaw": "Power: Allies with Daybreak have Tough. When an ally activates Daybreak, grant allies +0|+1.",
+        "rarity": "Epic",
+        "description": "Power: Allies with Daybreak have [k:Tough|Tough]. When an ally activates Daybreak, grant allies +0|+1."
+      }
+    },
+    "relicCode": "R0133",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0133-full.png",
+    "descriptionRaw": "Sức mạnh: Đồng minh với Hừng Đông có Kiên Cường. Khi một đồng minh kích hoạt Hừng Đông, ban cho các đồng minh +0|+1.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0133.png",
+    "name": "Khiên Mặt Trời",
+    "type": "Trấn",
+    "description": "Sức mạnh: Đồng minh với Hừng Đông có [k:Tough|Kiên Cường]. Khi một đồng minh kích hoạt Hừng Đông, ban cho các đồng minh +0|+1."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Turret Plating",
+        "descriptionRaw": "Your Nexus has Tough.",
+        "rarity": "Rare",
+        "description": "Your Nexus has [k:Tough|Tough]."
+      }
+    },
+    "relicCode": "R0033",
+    "rarity": "Hiếm",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0033-full.png",
+    "descriptionRaw": "Nhà Chính của ngươi có Kiên Cường.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0033.png",
+    "name": "Khiên Trụ",
+    "type": "Chung",
+    "description": "Nhà Chính của ngươi có [k:Tough|Kiên Cường]."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Treasures of the Deep",
+        "descriptionRaw": "Deep and I am a Sea Monster.When I'm summoned, if you aren't Deep, Toss equal to my cost.",
+        "rarity": "Epic",
+        "description": "Deep and I am a Sea Monster.When I'm summoned, if you aren't Deep, Toss equal to my cost."
+      }
+    },
+    "relicCode": "R0128",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0128-full.png",
+    "descriptionRaw": "Sâu Thẳm và ta là Quái Vật Biển.Khi ta được triệu hồi, nếu ngươi không phải là Sâu Thẳm, Quăng bằng với tiêu hao của ta.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0128.png",
+    "name": "Kho Báu Dưới Biển Sâu",
+    "type": "Trấn",
+    "description": "Sâu Thẳm và ta là Quái Vật Biển.Khi ta được triệu hồi, nếu ngươi không phải là Sâu Thẳm, Quăng bằng với tiêu hao của ta."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "The Scourge's Stash",
+        "descriptionRaw": "Plunder: I cost 2 less.",
+        "rarity": "Rare",
+        "description": "[k:Plunder|Plunder]: I cost 2 less."
+      }
+    },
+    "relicCode": "R0012",
+    "rarity": "Hiếm",
+    "stack": "3",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0012-full.png",
+    "descriptionRaw": "Cưỡng Đoạt: Ta được giảm 2 tiêu hao.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0012.png",
+    "name": "Kho Tàng Hiểm Họa",
+    "type": "Chung",
+    "description": "[k:Plunder|Cưỡng Đoạt]: Ta được giảm 2 tiêu hao."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Starfire Spellblade",
+        "descriptionRaw": "Power: If I'm Kayle, +1 Starting Mana.I have +1|+0 for each encounter you've won this adventure.",
+        "rarity": "Epic",
+        "description": "[k:Power|Power]: If I'm Kayle, +1 Starting Mana.I have +1|+0 for each encounter you've won this adventure."
+      }
+    },
+    "relicCode": "R0124",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0124-full.png",
+    "descriptionRaw": "Sức Mạnh: Nếu ta là Kayle, +1 Năng Lượng Khởi Điểm.Ta được +1|+0 với mỗi trận giao tranh ngươi đã thắng trong cuộc phiêu lưu này.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0124.png",
+    "name": "Kiếm Tinh Hỏa",
+    "type": "Trấn",
+    "description": "[k:Power|Sức Mạnh]: Nếu ta là Kayle, +1 Năng Lượng Khởi Điểm.Ta được +1|+0 với mỗi trận giao tranh ngươi đã thắng trong cuộc phiêu lưu này."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Spirit of the Buhru",
+        "descriptionRaw": "Power: Allies that cost 1 or less have Overwhelm, Quick Attack, and Fury.",
+        "rarity": "Epic",
+        "description": "Power: Allies that cost 1 or less have Overwhelm, [k:QuickStrike|Quick Attack], and Fury."
+      }
+    },
+    "relicCode": "R0079",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0079-full.png",
+    "descriptionRaw": "Sức Mạnh: Các đồng minh 1- tiêu hao nhận Áp Đảo, Đột Kích và Cuồng Nộ.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0079.png",
+    "name": "Linh Hồn Buhru",
+    "type": "Chung",
+    "description": "Sức Mạnh: Các đồng minh 1- tiêu hao nhận Áp Đảo, [k:QuickStrike|Đột Kích] và Cuồng Nộ."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Attendant Spirits",
+        "descriptionRaw": "Power: Ephemeral allies have Overwhelm.Play: If I'm a Spirit Blossom unit, Summon 2 Fox-Fires.",
+        "rarity": "Epic",
+        "description": "Power: Ephemeral allies have [k:Overwhelm|Overwhelm].Play: If I'm a Spirit Blossom unit, [k:Summon|Summon] 2 [cd:98SB007|Fox-Fire|icon,img-full]s."
+      }
+    },
+    "relicCode": "R0140",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0140-full.png",
+    "descriptionRaw": "Sức Mạnh: Đồng minh Cảm Tử có Áp Đảo.Xuất Trận: Nếu ta là một bài quân Hoa Linh Lục Địa, triệu hồi 2 lá Lửa Hồ Ly.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0140.png",
+    "name": "Linh Hồn Hỗ Trợ",
+    "type": "Trấn",
+    "description": "Sức Mạnh: Đồng minh Cảm Tử có Áp Đảo.[k:Play|Xuất Trận]: Nếu ta là một bài quân Hoa Linh Lục Địa, triệu hồi 2 lá [cd:98SB007|Lửa Hồ Ly|icon,img-full]."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Echoing Spirit",
+        "descriptionRaw": "Game Start: Create 7 copies of me in deck. Champion Spells cost 1 less.",
+        "rarity": "Epic",
+        "description": "Game Start: Create 7 copies of me in deck. [k:Champion|Champion] Spells cost 1 less."
+      }
+    },
+    "relicCode": "R0061",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0061-full.png",
+    "descriptionRaw": "Bắt Đầu Trận Đấu: Tạo 7 bản sao của ta trong bộ bài. Giảm 1 tiêu hao cho Bài Phép Anh Hùng.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0061.png",
+    "name": "Linh Hồn Vang Vọng",
+    "type": "Chung",
+    "description": "Bắt Đầu Trận Đấu: Tạo 7 bản sao của ta trong bộ bài. Giảm 1 tiêu hao cho Bài Phép [k:Champion|Anh Hùng]."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Perfect Hex Core",
+        "descriptionRaw": "Power: Round Start: Create a Hex Core Upgrade in hand. Your Hex Core Upgrades have Stopwatch and can upgrade any ally.",
+        "rarity": "Epic",
+        "description": "Power: [k:RoundStart|Round Start]: Create a [cd:03PZ003T11|Hex Core Upgrade|icon,img-full] in hand. Your [cd:03PZ003T11|Hex Core Upgrade|icon,img-full]s have Stopwatch and can upgrade any ally."
+      }
+    },
+    "relicCode": "R0125",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0125-full.png",
+    "descriptionRaw": "Sức mạnh: Bắt Đầu Vòng Đấu: Tạo trên tay 1 lá Nâng Cấp Lõi Công Nghệ. Lá Nâng Cấp Lõi Công Nghệ có Đồng Hồ Ngưng Đọng và thể nâng cấp bất kỳ đồng minh nào.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0125.png",
+    "name": "Lõi Công Nghệ Hoàn Hảo",
+    "type": "Trấn",
+    "description": "Sức mạnh: [k:RoundStart|Bắt Đầu Vòng Đấu]: Tạo trên tay 1 lá [k:Augment|Nâng Cấp] Lõi Công Nghệ. Lá [k:Augment|Nâng Cấp] Lõi Công Nghệ có Đồng Hồ Ngưng Đọng và thể nâng cấp bất kỳ đồng minh nào."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Wriggle's Lantern",
+        "descriptionRaw": "Round End: Grant me Impact twice if I'm in hand (max Impact 10).",
+        "rarity": "Rare",
+        "description": "[k:RoundEnd|Round End]: Grant me [k:Impact|Impact] twice if I'm in hand (max [k:Impact|Impact] 10)."
+      }
+    },
+    "relicCode": "R0054",
+    "rarity": "Hiếm",
+    "stack": "3",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0054-full.png",
+    "descriptionRaw": "Kết Thúc Vòng Đấu: Ban cho ta Khí Lực 2 lần nếu ta ở trên tay (tối đa 10 Khí Lực).",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0054.png",
+    "name": "Lồng Đèn Wriggle",
+    "type": "Chung",
+    "description": "[k:RoundEnd|Kết Thúc Vòng Đấu]: Ban cho ta [k:Impact|Khí Lực] 2 lần nếu ta ở trên tay (tối đa 10 [k:Impact|Khí Lực])."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Oath of the Guardians",
+        "descriptionRaw": "Play: Shuffle 5 level 2 champions into your deck and double their stats, then draw one of them.",
+        "rarity": "Epic",
+        "description": "[k:Play|Play]: Shuffle 5 level 2 champions into your deck and double their stats, then draw one of them."
+      }
+    },
+    "relicCode": "R0064",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0064-full.png",
+    "descriptionRaw": "Xuất Trận: Tráo 5 anh hùng cấp 2 vào bộ bài và tăng gấp đôi chỉ số của họ, rồi rút 1 trong các lá đó.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0064.png",
+    "name": "Lời Thề Hộ Vệ",
+    "type": "Chung",
+    "description": "[k:Play|Xuất Trận]: Tráo 5 anh hùng cấp 2 vào bộ bài và tăng gấp đôi chỉ số của họ, rồi rút 1 trong các lá đó."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Whisper",
+        "descriptionRaw": "Power: Your Skills deal 1 extra damage per Stunned enemy.",
+        "rarity": "Epic",
+        "description": "[k:Power|Power]: Your Skills deal 1 extra damage per [k:Stun|Stun]ned enemy."
+      }
+    },
+    "relicCode": "R0137",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0137-full.png",
+    "descriptionRaw": "Sức Mạnh: Kỹ Năng của ngươi gây thêm 1 sát thương trên mỗi kẻ địch bị Làm Choáng.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0137.png",
+    "name": "Lời Thì Thầm",
+    "type": "Trấn",
+    "description": "Sức Mạnh: Kỹ Năng của ngươi gây thêm 1 sát thương trên mỗi kẻ địch bị [k:Stun|Làm Choáng]."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Chosen by the Stars",
+        "descriptionRaw": "Fated, AugmentEmpowered 10: Overwhelm, Regeneration, and Challenger.",
+        "rarity": "Epic",
+        "description": "Fated, AugmentEmpowered 10: Overwhelm, [k:Regeneration|Regeneration], and [k:Challenger|Challenger]."
+      }
+    },
+    "relicCode": "R0058",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0058-full.png",
+    "descriptionRaw": "Định Mệnh, Nâng CấpCường Hóa 10: Áp Đảo, Hồi Phục và Thách Đấu.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0058.png",
+    "name": "Lựa Chọn Của Tinh Tú",
+    "type": "Chung",
+    "description": "Định Mệnh, Nâng CấpCường Hóa 10: Áp Đảo, Hồi Phục và [k:Challenger|Thách Đấu]."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Timehonored Blade",
+        "descriptionRaw": "If I'm a Spirit Blossom unit, I cost 1 less for each different round you targeted an ally.",
+        "rarity": "Epic",
+        "description": "If I'm a [k:Spirit|Spirit] Blossom unit, I cost 1 less for each different round you targeted an ally."
+      }
+    },
+    "relicCode": "R0145",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0145-full.png",
+    "descriptionRaw": "Nếu ta là một bài quân Hoa Linh Lục Địa, ta được giảm 1 tiêu hao mỗi vòng đấu ngươi đã chọn 1 đồng minh làm mục tiêu.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0145.png",
+    "name": "Lưỡi Dao Cổ Xưa",
+    "type": "Trấn",
+    "description": "Nếu ta là một bài quân Hoa Linh Lục Địa, ta được giảm 1 tiêu hao mỗi vòng đấu ngươi đã chọn 1 đồng minh làm mục tiêu."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "The Grand Duelist's Blade",
+        "descriptionRaw": "Challenger",
+        "rarity": "Common",
+        "description": "[k:Challenger|Challenger]"
+      }
+    },
+    "relicCode": "R0000",
+    "rarity": "Thường",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0000-full.png",
+    "descriptionRaw": "Thách Đấu",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0000.png",
+    "name": "Lưỡi Kiếm Của Đại Kiếm Sư",
+    "type": "Chung",
+    "description": "[k:Challenger|Thách Đấu]"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Tempest Blade",
+        "descriptionRaw": "When I level up, Stun all enemies.",
+        "rarity": "Rare",
+        "description": "When I level up, [k:Stun|Stun] all enemies."
+      }
+    },
+    "relicCode": "R0031",
+    "rarity": "Hiếm",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0031-full.png",
+    "descriptionRaw": "Khi ta thăng cấp, Làm Choáng tất cả kẻ địch.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0031.png",
+    "name": "Lưỡi Kiếm Cuồng Nộ",
+    "type": "Chung",
+    "description": "Khi ta thăng cấp, [k:Stun|Làm Choáng] tất cả kẻ địch."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Voidborne Carapace",
+        "descriptionRaw": "EvolveWhen ANY unit dies, grant me its keywords.",
+        "rarity": "Rare",
+        "description": "[k:Evolve|Evolve]When ANY unit dies, grant me its keywords."
+      }
+    },
+    "relicCode": "R0049",
+    "rarity": "Hiếm",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0049-full.png",
+    "descriptionRaw": "Tiến HóaKhi bài quân BẤT KỲ hy sinh, ban cho ta đặc điểm của bài quân đó.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0049.png",
+    "name": "Mai Giáp Hóa Hư Không",
+    "type": "Chung",
+    "description": "[k:Evolve|Tiến Hóa]Khi bài quân BẤT KỲ hy sinh, ban cho ta đặc điểm của bài quân đó."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Corrupted Star Fragment",
+        "descriptionRaw": "Support: Kill my supported ally and grant me its keywords and stats.",
+        "rarity": "Rare",
+        "description": "[k:Support|Support]: Kill my supported ally and grant me its keywords and stats."
+      }
+    },
+    "relicCode": "R0045",
+    "rarity": "Hiếm",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0045-full.png",
+    "descriptionRaw": "Hỗ Trợ: Hy sinh đồng minh được ta hỗ trợ và ban cho ta đặc điểm và chỉ số của đồng minh đó.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0045.png",
+    "name": "Mảnh Sao Biến Đổi",
+    "type": "Chung",
+    "description": "[k:Support|Hỗ Trợ]: Hy sinh đồng minh được ta hỗ trợ và ban cho ta đặc điểm và chỉ số của đồng minh đó."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Transmogulator",
+        "descriptionRaw": "Support: Transform my supported ally into a random follower that costs 3 more.",
+        "rarity": "Rare",
+        "description": "[k:Support|Support]: Transform my supported ally into a random follower that costs 3 more."
+      }
+    },
+    "relicCode": "R0081",
+    "rarity": "Hiếm",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0081-full.png",
+    "descriptionRaw": "Hỗ Trợ: Biến đổi đồng minh được hỗ trợ thành 1 tùy tùng ngẫu nhiên có 3+ tiêu hao.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0081.png",
+    "name": "Máy Biến Hình",
+    "type": "Chung",
+    "description": "[k:Support|Hỗ Trợ]: Biến đổi đồng minh được hỗ trợ thành 1 tùy tùng ngẫu nhiên có 3+ tiêu hao."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "The Troll King's Crusher",
+        "descriptionRaw": "Overwhelm",
+        "rarity": "Common",
+        "description": "[k:Overwhelm|Overwhelm]"
+      }
+    },
+    "relicCode": "R0002",
+    "rarity": "Thường",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0002-full.png",
+    "descriptionRaw": "Áp Đảo",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0002.png",
+    "name": "Máy Nghiền Vua Troll",
+    "type": "Chung",
+    "description": "[k:Overwhelm|Áp Đảo]"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Chemtech Duplicator",
+        "descriptionRaw": "When you play a spell, if you have 6+ mana gems, copy it with the same targets.",
+        "rarity": "Rare",
+        "description": "When you play a spell, if you have 6+ mana gems, copy it with the same targets."
+      }
+    },
+    "relicCode": "R0048",
+    "rarity": "Hiếm",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0048-full.png",
+    "descriptionRaw": "Khi ngươi sử dụng 1 bài phép, nếu ngươi có 6+ ngọc năng lượng, sao chép hiệu ứng bài phép đó lên cùng mục tiêu.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0048.png",
+    "name": "Máy Sao Chép Hóa Kỹ",
+    "type": "Chung",
+    "description": "Khi ngươi sử dụng 1 bài phép, nếu ngươi có 6+ ngọc năng lượng, sao chép hiệu ứng bài phép đó lên cùng mục tiêu."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Deadly Harpoon",
+        "descriptionRaw": "+2|+0 and Challenger.Power: Game Start: Shuffle two Deaths From Below into your deck and grant Deaths From Below a random epic item.",
+        "rarity": "Epic",
+        "description": "+2|+0 and [k:Challenger|Challenger].[k:Power|Power]: Game Start: Shuffle two Deaths From Below into your deck and grant Deaths From Below a random epic item."
+      }
+    },
+    "relicCode": "R0106",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0106-full.png",
+    "descriptionRaw": "+2|+0 và Thách Đấu.Sức Mạnh: Bắt Đầu Trận Đấu: Tráo 2 lá Tử Thần Đáy Sâu vào bộ bài của ngươi và ban 1 vật phẩm sử thi ngẫu nhiên cho Tử Thần Đáy Sâu.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0106.png",
+    "name": "Móc Lao Chí Tử",
+    "type": "Trấn",
+    "description": "+2|+0 và [k:Challenger|Thách Đấu].[k:Power|Sức Mạnh]: Bắt Đầu Trận Đấu: Tráo 2 lá [cd:04BW005T3|Tử Thần Đáy Sâu|icon,img-full] vào bộ bài của ngươi và ban 1 vật phẩm sử thi ngẫu nhiên cho [cd:04BW005T3|Tử Thần Đáy Sâu|icon,img-full]."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Royal Nibbles",
+        "descriptionRaw": "+1|+1, RegenerationI cost 1 less for each Poro ally in play.",
+        "rarity": "Epic",
+        "description": "+1|+1, [k:Regeneration|Regeneration]I cost 1 less for each Poro ally in play."
+      }
+    },
+    "relicCode": "R0151",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_12_0/adventure/vi_vn/img/relics/R0151-full.png",
+    "descriptionRaw": "Ban +1|+1, Hồi PhụcTa được giảm 1 tiêu hao với mỗi Poro đồng minh trên bàn.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_12_0/adventure/vi_vn/img/relics/R0151.png",
+    "name": "Món Ăn Hoàng Gia",
+    "type": "Trấn",
+    "description": "Ban +1|+1, [k:Regeneration|Hồi Phục]Ta được giảm 1 tiêu hao với mỗi Poro đồng minh trên bàn."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Great Talons",
+        "descriptionRaw": "Power: When you play a 6+ base cost unit, deal 2 to all enemies and the enemy Nexus.",
+        "rarity": "Epic",
+        "description": "[k:Power|Power]: When you play a 6+ base cost unit, deal 2 to all enemies and the enemy Nexus."
+      }
+    },
+    "relicCode": "R0126",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0126-full.png",
+    "descriptionRaw": "Sức mạnh: Khi sử dụng 1 bài quân có 6+ tiêu hao cơ bản, gây 2 sát thương lên tất cả đối thủ và Nhà Chính của chúng.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0126.png",
+    "name": "Móng Vuốt Vĩ Đại",
+    "type": "Trấn",
+    "description": "Sức mạnh: Khi sử dụng 1 bài quân có 6+ tiêu hao cơ bản, gây 2 sát thương lên tất cả đối thủ và Nhà Chính của chúng."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Warlord's Helmet",
+        "descriptionRaw": "+10 Nexus Health.Power: If I'm Tryndamere, when you grant stats to a unit in your deck, grant twice as much.",
+        "rarity": "Epic",
+        "description": "+10 [k:NexusHealth|Nexus Health].[k:Power|Power]: If I'm [cd:01FR039|Tryndamere|icon,img-full], when you grant stats to a unit in your deck, grant twice as much."
+      }
+    },
+    "relicCode": "R0131",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0131-full.png",
+    "descriptionRaw": "+10 Máu Nhà Chính.Sức mạnh: Nếu ta Tryndamere, khi ngươi ban chỉ số cho 1 bài quân trong bộ bài, ban cho bài quân đó 2 lần.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0131.png",
+    "name": "Mũ Giáp Chiến Tướng",
+    "type": "Trấn",
+    "description": "+10 [k:NexusHealth|Máu Nhà Chính].Sức mạnh: Nếu ta [cd:01FR039|Tryndamere|icon,img-full], khi ngươi ban chỉ số cho 1 bài quân trong bộ bài, ban cho bài quân đó 2 lần."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Jaurim's Fist",
+        "descriptionRaw": "+1|+2",
+        "rarity": "Rare",
+        "description": "+1|+2"
+      }
+    },
+    "relicCode": "R0004",
+    "rarity": "Hiếm",
+    "stack": "3",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0004-full.png",
+    "descriptionRaw": "+1|+2",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0004.png",
+    "name": "Nắm Đấm Của Jaurim",
+    "type": "Chung",
+    "description": "+1|+2"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Riptide Battery",
+        "descriptionRaw": "Plunder: Play Cannon Barrage a number of times equal to my cost.",
+        "rarity": "Rare",
+        "description": "[k:Plunder|Plunder]: [k:Play|Play] [cd:02BW028T1|Cannon Barrage|icon,img-full] a number of times equal to my cost."
+      }
+    },
+    "relicCode": "R0034",
+    "rarity": "Hiếm",
+    "stack": "3",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0034-full.png",
+    "descriptionRaw": "Cưỡng Đoạt: Sử dụng Mưa Đại Bác với số lần bằng với tiêu hao của ta.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0034.png",
+    "name": "Năng Lượng Thủy Triều",
+    "type": "Chung",
+    "description": "[k:Plunder|Cưỡng Đoạt]: Sử dụng [cd:02BW028T1|Mưa Đại Bác|icon,img-full] với số lần bằng với tiêu hao của ta."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Draconic Runes",
+        "descriptionRaw": "If I'm a Dragon, I have +4|+0 and Overwhelm. Otherwise, I have +2|+0 and Fury.",
+        "rarity": "Epic",
+        "description": "If I'm a Dragon, I have +4|+0 and [k:Overwhelm|Overwhelm]. Otherwise, I have +2|+0 and Fury."
+      }
+    },
+    "relicCode": "R0149",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/relics/R0149-full.png",
+    "descriptionRaw": "Nếu ta là Rồng, ban cho ta +4|+0 và Áp Đảo. Nếu không, ban cho ta +2|+0 và Cuồng Nộ.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/relics/R0149.png",
+    "name": "Ngọc Rồng",
+    "type": "Trấn",
+    "description": "Nếu ta là Rồng, ban cho ta +4|+0 và [k:Overwhelm|Áp Đảo]. Nếu không, ban cho ta +2|+0 và Cuồng Nộ."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Luminous Orb",
+        "descriptionRaw": "+0|+3 and Sharpsight.",
+        "rarity": "Rare",
+        "description": "+0|+3 and [cd:03DE014|Sharpsight|icon,img-full]."
+      }
+    },
+    "relicCode": "R0026",
+    "rarity": "Hiếm",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0026-full.png",
+    "descriptionRaw": "+0|+3 và Tinh Mắt.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0026.png",
+    "name": "Ngọc Sáng Chói",
+    "type": "Chung",
+    "description": "+0|+3 và [cd:03DE014|Tinh Mắt|icon,img-full]."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star Gem",
+        "descriptionRaw": "Allied champions have +1|+1 and cost 2 less.",
+        "rarity": "Rare",
+        "description": "Allied champions have +1|+1 and cost 2 less."
+      }
+    },
+    "relicCode": "R0043",
+    "rarity": "Hiếm",
+    "stack": "3",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0043-full.png",
+    "descriptionRaw": "Các anh hùng đồng minh được nhận +1|+1 và giảm 2 tiêu hao.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0043.png",
+    "name": "Ngọc Tinh Tú",
+    "type": "Chung",
+    "description": "Các anh hùng đồng minh được nhận +1|+1 và giảm 2 tiêu hao."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Cosmic Pearl (Consumable)",
+        "descriptionRaw": "+1|+1.Quest: Win an adventure.Reward: Gain 5x the normal Champion XP",
+        "rarity": "Common",
+        "description": "+1|+1.Quest: Win an adventure.Reward: Gain 5x the normal [k:Champion|Champion] [k:XP|XP]"
+      }
+    },
+    "relicCode": "R0084",
+    "rarity": "Thường",
+    "stack": "N",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0084-full.png",
+    "descriptionRaw": "+1|+1.Nhiệm vụ: Giành chiến thắng trong 1 chuyến phiêu lưu.Phần thưởng: Nhận x5 lượng XP Anh Hùng thông thường",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0084.png",
+    "name": "Ngọc Trai Vũ Trụ (Tiêu Thụ)",
+    "type": "Tiêu Thụ",
+    "description": "+1|+1.Nhiệm vụ: Giành chiến thắng trong 1 chuyến phiêu lưu.Phần thưởng: Nhận x5 lượng XP [k:Champion|Anh Hùng] thông thường"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Greater Cosmic Pearl (Consumable)",
+        "descriptionRaw": "+1|+1.Quest: Win an adventure.Reward: Gain 10x the normal Champion XP",
+        "rarity": "Common",
+        "description": "+1|+1.Quest: Win an adventure.Reward: Gain 10x the normal [k:Champion|Champion] [k:XP|XP]"
+      }
+    },
+    "relicCode": "R0083",
+    "rarity": "Thường",
+    "stack": "N",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0083-full.png",
+    "descriptionRaw": "+1|+1.Nhiệm vụ: Giành chiến thắng trong 1 chuyến phiêu lưu.Phần thưởng: Nhận x10 lượng XP Anh Hùng thông thường",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0083.png",
+    "name": "Ngọc Trai Vũ Trụ Tuyệt Đỉnh (Tiêu Thụ)",
+    "type": "Tiêu Thụ",
+    "description": "+1|+1.Nhiệm vụ: Giành chiến thắng trong 1 chuyến phiêu lưu.Phần thưởng: Nhận x10 lượng XP [k:Champion|Anh Hùng] thông thường"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Soul Spear",
+        "descriptionRaw": "+1|+0 and Fearsome",
+        "rarity": "Common",
+        "description": "+1|+0 and [k:Fearsome|Fearsome]"
+      }
+    },
+    "relicCode": "R0032",
+    "rarity": "Thường",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0032-full.png",
+    "descriptionRaw": "+1|+0 và Đáng Sợ",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0032.png",
+    "name": "Ngọn Giáo Linh Hồn",
+    "type": "Chung",
+    "description": "+1|+0 và [k:Fearsome|Đáng Sợ]"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Condenser",
+        "descriptionRaw": "Support: Create a 1 cost 1|1 copy of my supported ally in hand.",
+        "rarity": "Rare",
+        "description": "[k:Support|Support]: Create a 1 cost 1|1 copy of my supported ally in hand."
+      }
+    },
+    "relicCode": "R0075",
+    "rarity": "Hiếm",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0075-full.png",
+    "descriptionRaw": "Hỗ Trợ: Tạo trên tay 1 bản sao 1|1 có 1 tiêu hao của đồng minh được hỗ trợ.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0075.png",
+    "name": "Ngưng Tụ",
+    "type": "Chung",
+    "description": "[k:Support|Hỗ Trợ]: Tạo trên tay 1 bản sao 1|1 có 1 tiêu hao của đồng minh được hỗ trợ."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "The Collector",
+        "descriptionRaw": "+1|+1 and when I kill an enemy, you earn 50 gold. (Max 2 kills per encounter)",
+        "rarity": "Rare",
+        "description": "+1|+1 and when I kill an enemy, you earn 50 gold. (Max 2 kills per encounter)"
+      }
+    },
+    "relicCode": "R0029",
+    "rarity": "Hiếm",
+    "stack": "3",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0029-full.png",
+    "descriptionRaw": "+1|+1 và khi ta tiêu diệt 1 kẻ địch, ngươi nhận được 50 vàng. (Tối đa 2 kẻ địch mỗi ải)",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0029.png",
+    "name": "Nhà Sưu Tầm",
+    "type": "Chung",
+    "description": "+1|+1 và khi ta tiêu diệt 1 kẻ địch, ngươi nhận được 50 vàng. (Tối đa 2 kẻ địch mỗi ải)"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "The Curator's Gatebreaker",
+        "descriptionRaw": "-1|-0Play: I strike the enemy Nexus.",
+        "rarity": "Rare",
+        "description": "-1|-0[k:Play|Play]: I strike the enemy Nexus."
+      }
+    },
+    "relicCode": "R0038",
+    "rarity": "Hiếm",
+    "stack": "3",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0038-full.png",
+    "descriptionRaw": "-1|-0Xuất Trận: Ta ra đòn lên Nhà Chính của đối thủ.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0038.png",
+    "name": "Nhà Thông Thái Phá Thành",
+    "type": "Chung",
+    "description": "-1|-0[k:Play|Xuất Trận]: Ta ra đòn lên Nhà Chính của đối thủ."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Siphoned Sorrow",
+        "descriptionRaw": "When I'm summoned or Round Start: I steal up to 3 Health from a random enemy unit. It can't drop below 1 health.",
+        "rarity": "Epic",
+        "description": "When I'm summoned or [k:RoundStart|Round Start]: I steal up to 3 [k:Health|Health] from a random enemy unit. It can't drop below 1 health."
+      }
+    },
+    "relicCode": "R0138",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0138-full.png",
+    "descriptionRaw": "Khi ta được triệu hồi hoặc khi Bắt Đầu Vòng Đấu: Ta trộm đến 3 Máu từ một bài quân ngẫu nhiên của đối thủ. Nó không thể có ít hơn 1 máu.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0138.png",
+    "name": "Nỗi Buồn Xuyên Thấu",
+    "type": "Trấn",
+    "description": "Khi ta được triệu hồi hoặc khi [k:RoundStart|Bắt Đầu Vòng Đấu]: Ta trộm đến 3 [k:Health|Máu] từ một bài quân ngẫu nhiên của đối thủ. Nó không thể có ít hơn 1 máu."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Dreadway Chase Gun",
+        "descriptionRaw": "When I'm summoned, create 2 Warning Shots in hand.",
+        "rarity": "Rare",
+        "description": "When I'm summoned, create 2 [cd:02BW020|Warning Shot|icon,img-full]s in hand."
+      }
+    },
+    "relicCode": "R0021",
+    "rarity": "Hiếm",
+    "stack": "3",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0021-full.png",
+    "descriptionRaw": "Khi ta được triệu hồi, tạo trên tay 2 lá Bắn Cảnh Cáo.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0021.png",
+    "name": "Pháo Mũi Tàu Dreadway",
+    "type": "Chung",
+    "description": "Khi ta được triệu hồi, tạo trên tay 2 lá [cd:02BW020|Bắn Cảnh Cáo|icon,img-full]."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Yasuo's Windblade",
+        "descriptionRaw": "Power: If I'm Yasuo, +1 starting mana. When you Recall an enemy, increase its cost by 2.",
+        "rarity": "Epic",
+        "description": "Power: If I'm Yasuo, +1 starting mana. When you [k:Recall|Recall] an enemy, increase its cost by 2."
+      }
+    },
+    "relicCode": "R0103",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0103-full.png",
+    "descriptionRaw": "Sức Mạnh: Nếu ta là Yasuo, +1 Năng Lượng Khởi Điểm. Khi ngươi Thu Về một kẻ địch, tăng tiêu hao của lá đó thêm 2.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0103.png",
+    "name": "Phong Kiếm của Yasuo",
+    "type": "Trấn",
+    "description": "[k:Power|Sức Mạnh]: Nếu ta là Yasuo, +1 Năng Lượng Khởi Điểm. Khi ngươi [k:Recall|Thu Về] một kẻ địch, tăng tiêu hao của lá đó thêm 2."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Stormrazor",
+        "descriptionRaw": "Quick Attack",
+        "rarity": "Common",
+        "description": "[k:QuickStrike|Quick Attack]"
+      }
+    },
+    "relicCode": "R0005",
+    "rarity": "Thường",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0005-full.png",
+    "descriptionRaw": "Đột Kích",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0005.png",
+    "name": "Phong Thần Kiếm",
+    "type": "Chung",
+    "description": "[k:QuickStrike|Đột Kích]"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Guardian's Trinket",
+        "descriptionRaw": "Adventure Start: Add 2 copies of a random Champion to your deck. Attach a random Epic item to it.",
+        "rarity": "Rare",
+        "description": "Adventure Start: Add 2 copies of a random [k:Champion|Champion] to your deck. Attach a random Epic item to it."
+      }
+    },
+    "relicCode": "R0044",
+    "rarity": "Hiếm",
+    "stack": "3",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0044-full.png",
+    "descriptionRaw": "Bắt Đầu Phiêu Lưu: Thêm 2 bản sao của 1 lá Anh Hùng ngẫu nhiên vào bộ bài. Gắn lên lá bài đó 1 vật phẩm Sử Thi ngẫu nhiên.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0044.png",
+    "name": "Phụ Kiện Vệ Binh",
+    "type": "Chung",
+    "description": "Bắt Đầu Phiêu Lưu: Thêm 2 bản sao của 1 lá [k:Champion|Anh Hùng] ngẫu nhiên vào bộ bài. Gắn lên lá bài đó 1 vật phẩm Sử Thi ngẫu nhiên."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Cosmic Blessing (Consumable)",
+        "descriptionRaw": "+1|+1.Quest: Win an adventure.Reward: Gain 5x the normal Champion XP",
+        "rarity": "Common",
+        "description": "+1|+1.Quest: Win an adventure.Reward: Gain 5x the normal [k:Champion|Champion] [k:XP|XP]"
+      }
+    },
+    "relicCode": "R0101",
+    "rarity": "Thường",
+    "stack": "N",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0101-full.png",
+    "descriptionRaw": "+1|+1.Nhiệm vụ: Giành chiến thắng trong 1 chuyến phiêu lưu.Phần thưởng: Nhận x5 lượng XP Anh Hùng thông thường",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0101.png",
+    "name": "Phước Lành Vũ Trụ (Tiêu Thụ)",
+    "type": "Tiêu Thụ",
+    "description": "+1|+1.Nhiệm vụ: Giành chiến thắng trong 1 chuyến phiêu lưu.Phần thưởng: Nhận x5 lượng XP [k:Champion|Anh Hùng] thông thường"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Jayce's Hextech Battery",
+        "descriptionRaw": "+1|+2.When I level up, refill 3 mana. If I'm Jayce, refill 6 mana instead.",
+        "rarity": "Epic",
+        "description": "+1|+2.When I level up, refill 3 mana. If I'm Jayce, refill 6 mana instead."
+      }
+    },
+    "relicCode": "R0105",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0105-full.png",
+    "descriptionRaw": "+1|+2.Khi ta thăng cấp, hồi lại 3 năng lượng. Nếu ta là Jayce, hồi lại 6 năng lượng thay vì 3.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0105.png",
+    "name": "Pin Hextech Của Jayce",
+    "type": "Trấn",
+    "description": "+1|+2.Khi ta thăng cấp, hồi lại 3 năng lượng. Nếu ta là Jayce, hồi lại 6 năng lượng thay vì 3."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "The Beast Within",
+        "descriptionRaw": "Power: Allies have Overwhelm, and if they have a subtype, +1|+1.",
+        "rarity": "Epic",
+        "description": "Power: Allies have [k:Overwhelm|Overwhelm], and if they have a subtype, +1|+1."
+      }
+    },
+    "relicCode": "R0080",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0080-full.png",
+    "descriptionRaw": "Sức Mạnh: Đồng minh nhận Áp Đảo, và nếu có nhóm phụ, nhận thêm +1|+1.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0080.png",
+    "name": "Quái Thú Bên Trong",
+    "type": "Chung",
+    "description": "[k:Power|Sức Mạnh]: Đồng minh nhận [k:Overwhelm|Áp Đảo], và nếu có nhóm phụ, nhận thêm +1|+1."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "The Darkin Blade",
+        "descriptionRaw": "+0|+3 Power: When you play or transform a Darkin, it strikes the weakest enemy.",
+        "rarity": "Epic",
+        "description": "+0|+3 [k:Power|Power]: When you play or transform a Darkin, it strikes the weakest enemy."
+      }
+    },
+    "relicCode": "R0147",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_10_0/adventure/vi_vn/img/relics/R0147-full.png",
+    "descriptionRaw": "Ban +0|+3 Sức Mạnh: Khi ngươi xuất trận hoặc biến đổi 1 Darkin, bài quân đó Ra Đòn lên kẻ địch yếu nhất.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_10_0/adventure/vi_vn/img/relics/R0147.png",
+    "name": "Quỷ Kiếm Darkin",
+    "type": "Trấn",
+    "description": "Ban +0|+3 [k:Power|Sức Mạnh]: Khi ngươi xuất trận hoặc biến đổi 1 Darkin, bài quân đó [k:Strike|Ra Đòn] lên kẻ địch yếu nhất."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Azir's Staff of Office",
+        "descriptionRaw": "+1|+1If I'm an Ascended, I cost 1 less.Play: Advance your Buried Sun Disc 3 rounds.\t\t\t\t",
+        "rarity": "Epic",
+        "description": "+1|+1If I'm an Ascended, I cost 1 less.[k:Play|Play]: Advance your [cd:04SH062|Buried Sun Disc|icon,img-full] 3 rounds.\t\t\t\t"
+      }
+    },
+    "relicCode": "R0148",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_12_0/adventure/vi_vn/img/relics/R0148-full.png",
+    "descriptionRaw": "Ban +1|+1Nếu ta là Thể Thăng Hoa, ta được giảm 1 tiêu hao.Xuất Trận: Đẩy lá Đĩa Mặt Trời Bị Chôn Vùi lên 3 vòng.\t\t\t\t",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_12_0/adventure/vi_vn/img/relics/R0148.png",
+    "name": "Quyền Trượng Azir",
+    "type": "Trấn",
+    "description": "Ban +1|+1Nếu ta là Thể Thăng Hoa, ta được giảm 1 tiêu hao.[k:Play|Xuất Trận]: Đẩy lá [cd:04SH062|Đĩa Mặt Trời Bị Chôn Vùi|icon,img-full] lên 3 vòng.\t\t\t\t"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Archangel's Staff",
+        "descriptionRaw": "Round Start: Refill your spell mana.",
+        "rarity": "Rare",
+        "description": "[k:RoundStart|Round Start]: Refill your spell mana."
+      }
+    },
+    "relicCode": "R0013",
+    "rarity": "Hiếm",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0013-full.png",
+    "descriptionRaw": "Bắt Đầu Vòng Đấu: Hồi lại năng lượng bài phép.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0013.png",
+    "name": "Quyền Trượng Thiên Thần",
+    "type": "Chung",
+    "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Hồi lại năng lượng bài phép."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Staff",
+        "descriptionRaw": "Spellshield, ChallengerEach round, the first time damage is healed from me while you don't have the attack token, Rally.",
+        "rarity": "Epic",
+        "description": "Spellshield, [k:Challenger|Challenger]Each round, the first time damage is healed from me while you don't have the attack token, [k:Rally|Rally]."
+      }
+    },
+    "relicCode": "R0153",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_2_0/adventure/vi_vn/img/relics/R0153-full.png",
+    "descriptionRaw": "Khiên Phép, Thách ĐấuMỗi vòng, lần đầu tiên sát thương được hồi phục từ ta khi ngươi không có lượt tấn công, Tiến Công.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_2_0/adventure/vi_vn/img/relics/R0153.png",
+    "name": "Quyền Trượng Thượng Giới",
+    "type": "Trấn",
+    "description": "[k:SpellShield|Khiên Phép], [k:Challenger|Thách Đấu]Mỗi vòng, lần đầu tiên sát thương được hồi phục từ ta khi ngươi không có lượt tấn công, [k:Rally|Tiến Công]."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "The Starchild's Staff",
+        "descriptionRaw": "Start adventures with +5 Regen",
+        "rarity": "Common",
+        "description": "Start adventures with +5 Regen"
+      }
+    },
+    "relicCode": "R0022",
+    "rarity": "Thường",
+    "stack": "3",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0022-full.png",
+    "descriptionRaw": "Bắt đầu chuyến phiêu lưu với +5 Hồi Phục",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0022.png",
+    "name": "Quyền Trượng Tinh Nữ",
+    "type": "Chung",
+    "description": "Bắt đầu chuyến phiêu lưu với +5 [k:Regeneration|Hồi Phục]"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Ravenous Hydra",
+        "descriptionRaw": "When I'm summoned, deal 1 to all enemies.",
+        "rarity": "Common",
+        "description": "When I'm summoned, deal 1 to all enemies."
+      }
+    },
+    "relicCode": "R0016",
+    "rarity": "Thường",
+    "stack": "3",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0016-full.png",
+    "descriptionRaw": "Khi ta được triệu hồi, gây 1 sát thương lên tất cả kẻ địch.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0016.png",
+    "name": "Rìu Mãng Xà",
+    "type": "Chung",
+    "description": "Khi ta được triệu hồi, gây 1 sát thương lên tất cả kẻ địch."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Fear-Cleaving Axe",
+        "descriptionRaw": "Spirit\r\nAttack: Boost all units.",
+        "rarity": "Epic",
+        "description": "Spirit\r\n[k:Attack|Attack]: Boost all units."
+      }
+    },
+    "relicCode": "R0097",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0097-full.png",
+    "descriptionRaw": "Linh Hồn\r\nTấn Công: Cường Hóa tất cả bài quân.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0097.png",
+    "name": "Rìu Tăng Sĩ Khí",
+    "type": "Chung",
+    "description": "Linh Hồn\r\nTấn Công: [k:Empowered|Cường Hóa] tất cả bài quân."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Hidden Tome",
+        "descriptionRaw": "Power: When you play or level up a champion, refill your spell mana.",
+        "rarity": "Epic",
+        "description": "[k:Power|Power]: When you play or level up a champion, refill your spell mana."
+      }
+    },
+    "relicCode": "R0113",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0113-full.png",
+    "descriptionRaw": "Sức Mạnh: Khi bạn sử dụng hoặc thăng cấp một anh hùng, hồi lại năng lượng bài phép của bạn.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0113.png",
+    "name": "Sách Ẩn",
+    "type": "Chung",
+    "description": "[k:Power|Sức Mạnh]: Khi bạn sử dụng hoặc thăng cấp một anh hùng, hồi lại năng lượng bài phép của bạn."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Greater Cosmic Blessing (Consumable)",
+        "descriptionRaw": "+1|+1.Quest: Win an adventure.Reward: Gain 10x the normal Champion XP ",
+        "rarity": "Common",
+        "description": "+1|+1.Quest: Win an adventure.Reward: Gain 10x the normal [k:Champion|Champion] [k:XP|XP] "
+      }
+    },
+    "relicCode": "R0102",
+    "rarity": "Thường",
+    "stack": "N",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0102-full.png",
+    "descriptionRaw": "+1|+1.Nhiệm vụ: Giành chiến thắng trong 1 chuyến phiêu lưu.Phần thưởng: Nhận x10 lượng XP Anh Hùng thông thường ",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0102.png",
+    "name": "Siêu Phước Lành Vũ Trụ (Tiêu Thụ)",
+    "type": "Tiêu Thụ",
+    "description": "+1|+1.Nhiệm vụ: Giành chiến thắng trong 1 chuyến phiêu lưu.Phần thưởng: Nhận x10 lượng XP [k:Champion|Anh Hùng] thông thường "
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Hextech Rifle",
+        "descriptionRaw": "Power: Game Start: Plant 6 Flashbomb Traps in the top 8 cards of the enemy deck. When a trap misses, replant it in the top 8 cards of the enemy deck.",
+        "rarity": "Epic",
+        "description": "[k:Power|Power]: Game Start: Plant 6 [cd:05PZ008|Flashbomb Trap|icon,img-full]s in the top 8 cards of the enemy deck. When a trap misses, replant it in the top 8 cards of the enemy deck."
+      }
+    },
+    "relicCode": "R0107",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0107-full.png",
+    "descriptionRaw": "Sức Mạnh: Bắt Đầu Trận Đấu: Gài 6 lá Bẫy Bom Mù lên 8 lá bài ở trên cùng trong bộ bài của đối thủ. Khi 1 lá Bài Bẫy biến mất, gài nó trở lại lên 8 lá bài ở trên cùng trong bộ bài của đối thủ.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0107.png",
+    "name": "Súng Máy Công Nghệ",
+    "type": "Trấn",
+    "description": "[k:Power|Sức Mạnh]: Bắt Đầu Trận Đấu: Gài 6 lá [cd:05PZ008|Bẫy Bom Mù|icon,img-full] lên 8 lá bài ở trên cùng trong bộ bài của đối thủ. Khi 1 lá Bài Bẫy biến mất, gài nó trở lại lên 8 lá bài ở trên cùng trong bộ bài của đối thủ."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Strength of Stone",
+        "descriptionRaw": "+0|+2Power: When you summon an ally, grant it +0|+1 and Formidable",
+        "rarity": "Epic",
+        "description": "+0|+2[k:Power|Power]: When you summon an ally, grant it +0|+1 and Formidable"
+      }
+    },
+    "relicCode": "R0091",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0091-full.png",
+    "descriptionRaw": "+0|+2Sức Mạnh: Khi ngươi triệu hồi 1 đồng minh, ban +0|+1 và Đáng Gờm cho đồng minh đó.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0091.png",
+    "name": "Sức Mạnh Khỉ Đá",
+    "type": "Chung",
+    "description": "+0|+2[k:Power|Sức Mạnh]: Khi ngươi triệu hồi 1 đồng minh, ban +0|+1 và Đáng Gờm cho đồng minh đó."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Cease and Desist ",
+        "descriptionRaw": "3 ImpactPlay: If I have 10+ Power, give me Barrier and start a free attack Challenging the strongest enemy.",
+        "rarity": "Epic",
+        "description": "3 ImpactPlay: If I have 10+ Power, give me [k:Barrier|Barrier] and start a free attack Challenging the strongest enemy."
+      }
+    },
+    "relicCode": "R0108",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0108-full.png",
+    "descriptionRaw": "3 Khí LựcXuất Trận: Nếu ta có 10+ Sức Mạnh, ban cho ta Lá Chắn và phát động tấn công, Thách Đấu kẻ địch mạnh nhất.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0108.png",
+    "name": "Tả Xung Hữu Đột ",
+    "type": "Trấn",
+    "description": "3 Khí LựcXuất Trận: Nếu ta có 10+ Sức Mạnh, ban cho ta Lá Chắn và phát động tấn công, [k:Challenger|Thách Đấu] kẻ địch mạnh nhất."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "The Berserker's Buckle",
+        "descriptionRaw": "When I survive damage, grant me +2|+2.",
+        "rarity": "Rare",
+        "description": "When I survive damage, grant me +2|+2."
+      }
+    },
+    "relicCode": "R0019",
+    "rarity": "Hiếm",
+    "stack": "3",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0019-full.png",
+    "descriptionRaw": "Nếu ta nhận sát thương và sống sót, ban cho ta +2|+2.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0019.png",
+    "name": "Thắt Lưng Cuồng Binh",
+    "type": "Chung",
+    "description": "Nếu ta nhận sát thương và sống sót, ban cho ta +2|+2."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Cruel Experiments",
+        "descriptionRaw": "Power: When you play an ally with 2+ Health, deal 1 to it and grant it Overwhelm and Impact.",
+        "rarity": "Epic",
+        "description": "Power: When you play an ally with 2+ Health, deal 1 to it and grant it [k:Overwhelm|Overwhelm] and [k:Impact|Impact]."
+      }
+    },
+    "relicCode": "R0122",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0122-full.png",
+    "descriptionRaw": "Sức Mạnh: Khi ngươi sử dụng 1 đồng minh với 2+ Máu, gây 1 sát thương lên đồng minh đó và ban cho đồng minh đó Áp Đảo và Khí Lực.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0122.png",
+    "name": "Thí Nghiệm Tàn Nhẫn",
+    "type": "Trấn",
+    "description": "[k:Power|Sức Mạnh]: Khi ngươi sử dụng 1 đồng minh với 2+ Máu, gây 1 sát thương lên đồng minh đó và ban cho đồng minh đó Áp Đảo và [k:Impact|Khí Lực]."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Arcane Comet",
+        "descriptionRaw": "Round Start: Create a Fleeting Falling Comet in hand.",
+        "rarity": "Rare",
+        "description": "[k:RoundStart|Round Start]: Create a Fleeting [cd:03MT043|Falling Comet|icon,img-full] in hand."
+      }
+    },
+    "relicCode": "R0046",
+    "rarity": "Hiếm",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0046-full.png",
+    "descriptionRaw": "Bắt Đầu Vòng Đấu: Tạo trên tay 1 lá Sao Chổi Rơi Phù Du.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0046.png",
+    "name": "Thiên Thạch Bí Ẩn",
+    "type": "Chung",
+    "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Tạo trên tay 1 lá [cd:03MT043|Sao Chổi Rơi|icon,img-full] Phù Du."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Guardian Angel",
+        "descriptionRaw": "Start adventures with +1 ReviveLast Breath: If it's the first time I've been slain this game, revive me with 1 Health.",
+        "rarity": "Rare",
+        "description": "Start adventures with +1 Revive[k:LastBreath|Last Breath]: If it's the first time I've been slain this game, revive me with 1 [k:Health|Health]."
+      }
+    },
+    "relicCode": "R0007",
+    "rarity": "Hiếm",
+    "stack": "3",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0007-full.png",
+    "descriptionRaw": "Bắt đầu chuyến phiêu lưu với +1 lượt Hồi SinhTrăng Trối: Nếu đây là lần đầu tiên ta bị Thủ Tiêu trong trận đấu, hồi sinh ta với 1 Máu.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0007.png",
+    "name": "Thiên Thần Hộ Mệnh",
+    "type": "Chung",
+    "description": "Bắt đầu chuyến phiêu lưu với +1 lượt Hồi Sinh[k:LastBreath|Trăng Trối]: Nếu đây là lần đầu tiên ta bị Thủ Tiêu trong trận đấu, hồi sinh ta với 1 [k:Health|Máu]."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Scoundrel Hunter",
+        "descriptionRaw": "ChallengerPower: When you play a champion, summon a Warlord's Palace or advance it 2 rounds.",
+        "rarity": "Epic",
+        "description": "[k:Challenger|Challenger][k:Power|Power]: When you play a champion, summon a [cd:04SH130T1|Warlord's Palace|icon,img-full] or advance it 2 rounds."
+      }
+    },
+    "relicCode": "R0132",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0132-full.png",
+    "descriptionRaw": "Thách ĐấuSức Mạnh: Khi ngươi xuất trận 1 anh hùng, triệu hồi 1 lá Tư Dinh Chiến Tướng hoặc Đẩy Nhanh lá bài đó lên 2 vòng.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0132.png",
+    "name": "Thợ Săn Kẻ Vô Lại",
+    "type": "Trấn",
+    "description": "[k:Challenger|Thách Đấu][k:Power|Sức Mạnh]: Khi ngươi xuất trận 1 anh hùng, triệu hồi 1 lá Tư Dinh Chiến Tướng hoặc Đẩy [k:Fast|Nhanh] lá bài đó lên 2 vòng."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Wicked Harvest",
+        "descriptionRaw": "Play: Deal 3 to all other units.",
+        "rarity": "Rare",
+        "description": "[k:Play|Play]: Deal 3 to all other units."
+      }
+    },
+    "relicCode": "R0090",
+    "rarity": "Hiếm",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0090-full.png",
+    "descriptionRaw": "Xuất Trận: Gây 3 sát thương lên tất cả các đơn vị khác.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0090.png",
+    "name": "Thu Thập Cái Ác",
+    "type": "Chung",
+    "description": "[k:Play|Xuất Trận]: Gây 3 sát thương lên tất cả các đơn vị khác."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Packed Powder",
+        "descriptionRaw": "Plunder: I cost 2 less.I have +1|+1 for each different round you've damaged the enemy Nexus.",
+        "rarity": "Epic",
+        "description": "[k:Plunder|Plunder]: I cost 2 less.I have +1|+1 for each different round you've damaged the enemy Nexus."
+      }
+    },
+    "relicCode": "R0065",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0065-full.png",
+    "descriptionRaw": "Cưỡng Đoạt: Ta được giảm 2 tiêu hao.Ta nhận +1|+1 với mỗi vòng đấu ngươi đã gây sát thương lên Nhà Chính của đối thủ.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0065.png",
+    "name": "Thuốc Nổ Nén Chặt",
+    "type": "Chung",
+    "description": "[k:Plunder|Cưỡng Đoạt]: Ta được giảm 2 tiêu hao.Ta nhận +1|+1 với mỗi vòng đấu ngươi đã gây sát thương lên Nhà Chính của đối thủ."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Siren's Call",
+        "descriptionRaw": "Power: Game Start: Create an Evelynn in hand. When you summon a Husk, it loses Immobile.",
+        "rarity": "Epic",
+        "description": "[k:Power|Power]: Game Start: Create an Evelynn in hand. When you summon a Husk, it loses Immobile."
+      }
+    },
+    "relicCode": "R0117",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0117-full.png",
+    "descriptionRaw": "Sức Mạnh: Bắt Đầu Trận Đấu: Tạo trên tay 1 lá Evelynn. Khi ngươi triệu hồi một Yêu Linh, nó sẽ mất Bất Động.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0117.png",
+    "name": "Tiếng Gọi Của Tiên Cá",
+    "type": "Trấn",
+    "description": "[k:Power|Sức Mạnh]: Bắt Đầu Trận Đấu: Tạo trên tay 1 lá Evelynn. Khi ngươi triệu hồi một Yêu Linh, nó sẽ mất Bất Động."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Quest for Wisdom",
+        "descriptionRaw": "+1|+1.Quest: Win an adventure of 1-Star difficulty or lower.Reward: Gain 10x the normal Champion XP",
+        "rarity": "Common",
+        "description": "+1|+1.Quest: Win an adventure of 1-Star difficulty or lower.Reward: Gain 10x the normal [k:Champion|Champion] [k:XP|XP]"
+      }
+    },
+    "relicCode": "R0047",
+    "rarity": "Thường",
+    "stack": "N",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0047-full.png",
+    "descriptionRaw": "+1|+1.Nhiệm vụ: Giành chiến thắng trong 1 chuyến phiêu lưu ở độ khó 1 Sao hoặc thấp hơn.Phần thưởng: Nhận x10 lượng XP Anh Hùng thông thường",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0047.png",
+    "name": "Tìm Kiếm Sự Thông Thái",
+    "type": "Tiêu Thụ",
+    "description": "+1|+1.Nhiệm vụ: Giành chiến thắng trong 1 chuyến phiêu lưu ở độ khó 1 Sao hoặc thấp hơn.Phần thưởng: Nhận x10 lượng XP [k:Champion|Anh Hùng] thông thường"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Found Fortune",
+        "descriptionRaw": "Play: Draw the highest cost card that costs less than my base cost, grant it an Epic item, and reduce its cost to 0.",
+        "rarity": "Epic",
+        "description": "[k:Play|Play]: Draw the highest cost card that costs less than my base cost, grant it an Epic item, and reduce its cost to 0."
+      }
+    },
+    "relicCode": "R0062",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0062-full.png",
+    "descriptionRaw": "Xuất Trận: Rút lá bài có tiêu hao cao nhất và thấp hơn tiêu hao cơ bản của ta, ban cho lá đó 1 vật phẩm Sử Thi và giảm tiêu hao của lá đó về 0.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0062.png",
+    "name": "Tìm Thấy Thần Tài",
+    "type": "Chung",
+    "description": "[k:Play|Xuất Trận]: Rút lá bài có tiêu hao cao nhất và thấp hơn tiêu hao cơ bản của ta, ban cho lá đó 1 vật phẩm Sử Thi và giảm tiêu hao của lá đó về 0."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Spirit Forge (Consumable)",
+        "descriptionRaw": "Quest: Win a 3+ Star AdventureReward: Upgrade a Rare Relic Slot on this champion to Epic!",
+        "rarity": "Rare",
+        "description": "Quest: Win a 3+ Star AdventureReward: Upgrade a Rare Relic Slot on this champion to Epic!"
+      }
+    },
+    "relicCode": "R0069",
+    "rarity": "Hiếm",
+    "stack": "N",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0069-full.png",
+    "descriptionRaw": "Nhiệm Vụ: Chiến Thắng 1 Cuộc Phiêu Lưu 3+ SaoPhần Thưởng: Nâng cấp 1 Ô Vật Phẩm Cổ Vật Hiếm của anh hùng này lên Sử Thi!",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0069.png",
+    "name": "Tôi Luyện Linh Hồn (Tiêu Thụ)",
+    "type": "Tiêu Thụ",
+    "description": "Nhiệm Vụ: Chiến Thắng 1 Cuộc Phiêu Lưu 3+ SaoPhần Thưởng: Nâng cấp 1 Ô Vật Phẩm Cổ Vật Hiếm của anh hùng này lên Sử Thi!"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Heart of Gold",
+        "descriptionRaw": "You earn 50% additional gold during adventures.",
+        "rarity": "Rare",
+        "description": "You earn 50% additional gold during adventures."
+      }
+    },
+    "relicCode": "R0010",
+    "rarity": "Hiếm",
+    "stack": "3",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0010-full.png",
+    "descriptionRaw": "Nhận được thêm 50% vàng trong khi phiêu lưu.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0010.png",
+    "name": "Trái Tim Vàng",
+    "type": "Chung",
+    "description": "Nhận được thêm 50% vàng trong khi phiêu lưu."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Full Build",
+        "descriptionRaw": "Challenger, Tough, and Overwhelm",
+        "rarity": "Epic",
+        "description": "[k:Challenger|Challenger], Tough, and [k:Overwhelm|Overwhelm]"
+      }
+    },
+    "relicCode": "R0089",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0089-full.png",
+    "descriptionRaw": "Thách Đấu, Kiên Cường, và Áp Đảo",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0089.png",
+    "name": "Trang Bị Hoàn Chỉnh",
+    "type": "Chung",
+    "description": "Thách Đấu, [k:Tough|Kiên Cường], và [k:Overwhelm|Áp Đảo]"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Champion's Purse",
+        "descriptionRaw": "+2|+0 and Overwhelm.When I kill an enemy in combat, create 2 Coins in hand.",
+        "rarity": "Epic",
+        "description": "+2|+0 and [k:Overwhelm|Overwhelm].When I kill an enemy in combat, create 2 Coins in hand."
+      }
+    },
+    "relicCode": "R0135",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0135-full.png",
+    "descriptionRaw": "+2|+0 và Áp Đảo.Khi ta tiêu diệt 1 kẻ địch trong giao tranh, tạo trên tay 2 lá Xu.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0135.png",
+    "name": "Túi Tiền Anh Hùng",
+    "type": "Trấn",
+    "description": "+2|+0 và [k:Overwhelm|Áp Đảo].Khi ta tiêu diệt 1 kẻ địch trong giao tranh, tạo trên tay 2 lá Xu."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Utmost Despair",
+        "descriptionRaw": "Play: Grant enemies Gloom.",
+        "rarity": "Rare",
+        "description": "[k:Play|Play]: Grant enemies Gloom."
+      }
+    },
+    "relicCode": "R0095",
+    "rarity": "Hiếm",
+    "stack": "3",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0095-full.png",
+    "descriptionRaw": "Xuất Trận: Ban Buồn Bã cho tất cả kẻ địch.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0095.png",
+    "name": "Tuyệt Vọng Tột Cùng",
+    "type": "Chung",
+    "description": "[k:Play|Xuất Trận]: Ban Buồn Bã cho tất cả kẻ địch."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Armordillo Shell",
+        "descriptionRaw": "+0|+1 and Tough",
+        "rarity": "Common",
+        "description": "+0|+1 and [k:Tough|Tough]"
+      }
+    },
+    "relicCode": "R0030",
+    "rarity": "Thường",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0030-full.png",
+    "descriptionRaw": "+0|+1 và Kiên Cường",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0030.png",
+    "name": "Vảy Tê Tê",
+    "type": "Chung",
+    "description": "+0|+1 và [k:Tough|Kiên Cường]"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Queen's Embrace",
+        "descriptionRaw": "Spirit, Impact, Evolve.Power: Fearsome allies can only be blocked by units with 5+ Power.",
+        "rarity": "Epic",
+        "description": "Spirit, Impact, Evolve.Power: [k:Fearsome|Fearsome] allies can only be blocked by units with 5+ [k:Power|Power]."
+      }
+    },
+    "relicCode": "R0150",
+    "rarity": "Sử Thi",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/relics/R0150-full.png",
+    "descriptionRaw": "Linh Hồn, Khí Lực, Tiến Hóa.Sức Mạnh: Đồng minh Đáng Sợ chỉ có thể bị chặn đòn bởi bài quân có 5 Sức Mạnh hoặc nhiều hơn.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/relics/R0150.png",
+    "name": "Vòng Tay Nữ Hoàng",
+    "type": "Trấn",
+    "description": "[k:Spirit|Linh Hồn], Khí Lực, [k:Evolve|Tiến Hóa].[k:Power|Sức Mạnh]: Đồng minh Đáng Sợ chỉ có thể bị chặn đòn bởi bài quân có 5 [k:Power|Sức Mạnh] hoặc nhiều hơn."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Troll King's Crown",
+        "descriptionRaw": "Allies have Overwhelm.",
+        "rarity": "Rare",
+        "description": "Allies have [k:Overwhelm|Overwhelm]."
+      }
+    },
+    "relicCode": "R0025",
+    "rarity": "Hiếm",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0025-full.png",
+    "descriptionRaw": "Đồng minh nhận Áp Đảo.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0025.png",
+    "name": "Vương Miện Của Vua Troll",
+    "type": "Chung",
+    "description": "Đồng minh nhận [k:Overwhelm|Áp Đảo]."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "The Gravedigger's Spade",
+        "descriptionRaw": "Round Start: Draw 1 and give it Fleeting.",
+        "rarity": "Rare",
+        "description": "[k:RoundStart|Round Start]: Draw 1 and give it Fleeting."
+      }
+    },
+    "relicCode": "R0014",
+    "rarity": "Hiếm",
+    "stack": "3",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0014-full.png",
+    "descriptionRaw": "Bắt Đầu Vòng Đấu: Rút 1 lá bài và trao Phù Du cho lá bài đó.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0014.png",
+    "name": "Xẻng Của Kẻ Đào Mộ",
+    "type": "Chung",
+    "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Rút 1 lá bài và trao Phù Du cho lá bài đó."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Golden Spatula",
+        "descriptionRaw": "When I'm summoned, grant me +1|+1 and a random keyword for every 30 cards that started in your deck.",
+        "rarity": "Rare",
+        "description": "When I'm summoned, grant me +1|+1 and a random keyword for every 30 cards that started in your deck."
+      }
+    },
+    "relicCode": "R0051",
+    "rarity": "Hiếm",
+    "stack": "3",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0051-full.png",
+    "descriptionRaw": "Khi ta được triệu hồi, ban cho ta +1|+1 và 1 đặc điểm ngẫu nhiên với mỗi 30 lá đã bắt đầu trong bộ bài.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/relics/R0051.png",
+    "name": "Xẻng Vàng Ròng",
+    "type": "Chung",
+    "description": "Khi ta được triệu hồi, ban cho ta +1|+1 và 1 đặc điểm ngẫu nhiên với mỗi 30 lá đã bắt đầu trong bộ bài."
+  }
+]

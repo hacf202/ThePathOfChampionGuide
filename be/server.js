@@ -2,6 +2,7 @@ import "./src/config/env.js"; // MUST BE FIRST
 import express from "express"; //tạo server HTTP, các route GET, PUT, POST, DELETE,..
 import cors from "cors"; //cho phép front end gọi api của backend
 import morgan from "morgan";
+import compression from "compression";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import { errorHandler } from "./src/middleware/errorMiddleware.js";
@@ -27,6 +28,7 @@ import imagesRouter from "./src/routes/images.js";
 import commentRoutes from "./src/routes/comments.js";
 import cardsRouter from "./src/routes/cards.js";
 import ratingsRouter from "./src/routes/ratings.js";
+import adminCacheRouter from "./src/routes/adminCache.js";
 
 // Kiểm tra các biến môi trường cần thiết
 const requiredEnvVars = [
@@ -50,6 +52,7 @@ const app = express(); //khởi tạo backend
 
 // --- Middleware ---
 app.use(helmet()); // Bảo vệ các HTTP header
+app.use(compression()); // Nén dữ liệu truyền tải (Gzip)
 app.use(morgan("dev")); // Ghi log request ra console
 /*
 GET, PUT, POST, DELETE: Phương thức gọi (Method).
@@ -125,6 +128,7 @@ app.use("/api/bosses", bossesRouter);
 app.use("/api/adventures", adventuresRouter);
 app.use("/api/cards", cardsRouter);
 app.use("/api/ratings", ratingsRouter);
+app.use("/api/admin/cache", adminCacheRouter);
 
 // API để kiểm tra "sức khỏe" của server
 app.get("/api/checkheal", (req, res) => {

@@ -51,6 +51,13 @@
 		"cards": " cards",
 		"ad": "Advertisement"
 	},
+	"cardType": {
+		"Unit": "Unit",
+		"Spell": "Spell",
+		"Landmark": "Landmark",
+		"Equipment": "Equipment",
+		"Other": "Other"
+	},
 	"cardList": {
 		"title": "Card Gallery",
 		"heading": "Explore Cards",
@@ -166,20 +173,27 @@
 		}
 	},
 	"region": {
-		"thanhphobandle": "Bandle City",
+		"bandleCity": "Bandle City",
 		"bilgewater": "Bilgewater",
 		"demacia": "Demacia",
 		"freljord": "Freljord",
 		"ionia": "Ionia",
 		"noxus": "Noxus",
-		"piltoverzaun": "Piltover & Zaun",
-		"quandaobongdem": "Shadow Isles",
+		"piltoverZaun": "Piltover & Zaun",
+		"shadowIsles": "Shadow Isles",
 		"shurima": "Shurima",
 		"targon": "Targon",
 		"runeterra": "Runeterra",
-		"hoalinhlucdia": "Spirit Blossom"
+		"spiritBlossom": "Spirit Blossom",
+		"thanhphobandle": "Bandle City",
+		"quandaobongdem": "Shadow Isles",
+		"hoalinhlucdia": "Spirit Blossom",
+		"piltoverzaun": "Piltover & Zaun"
 	},
 	"admin": {
+		"sidebar": {
+			"title": "Navigation"
+		},
 		"item": {
 			"allRarities": "All Rarity",
 			"rarity": "Rarity",
@@ -346,11 +360,6 @@
 			"noDescription": "No detailed description available.",
 			"mana": "Mana"
 		},
-		"dashboard": {
-			"welcome": "Welcome, Admin!",
-			"overview": "Quick system overview.",
-			"selectManage": "Select an item to manage"
-		},
 		"build": {
 			"title": "Builds Management",
 			"searchPlaceholder": "Search by champion, creator...",
@@ -399,6 +408,11 @@
 			"creator": "Creator",
 			"createdAt": "Created At"
 		},
+		"dashboard": {
+			"welcome": "Welcome, Admin!",
+			"overview": "Quick system overview.",
+			"selectManage": "Select section to manage"
+		},
 		"nav": {
 			"dashboard": "Dashboard",
 			"champion": "Champions",
@@ -413,23 +427,19 @@
 			"boss": "Bosses",
 			"adventure": "Adventures",
 			"images": "Images",
-			"cards": "Cards"
+			"cards": "Cards",
+			"cache": "Cache Manager"
+		},
+		"cache": {
+			"title": "Backend Cache Manager",
+			"subtitle": "Monitor and cleanup temporary records to ensure the freshest data.",
+			"clearAll": "Clear All Caches",
+			"clearSuccess": "All caches cleared successfully!",
+			"warning": "Note: Clearing cache will force the server to re-query the database, which may slow down initial requests."
 		},
 		"userNav": {
-			"cards": "Card Gallery"
-		},
-		"sidebar": {
-			"title": "Admin",
-			"footer": "Evin LOR"
-		},
-		"topbar": {
-			"defaultTitle": "Admin Panel"
-		},
-		"analytics": {
-			"loading": "Aggregating real-time data...",
-			"error": "Error: Cannot connect to analytics service.",
 			"title": "Analytics System",
-			"lastUpdated": "Last 30 days data â€¢ Last updated:",
+			"lastUpdated": "Last 30 days data • Last updated:",
 			"uniqueVisitors": "Unique Visitors",
 			"users": "Users",
 			"sessions": "Sessions",
@@ -469,9 +479,9 @@
 			"createTitle": "Add New Card",
 			"editTitle": "Edit Card:",
 			"identitySection": "Card Identity",
-			"cardCodeLabel": "Card Code (e.g. 06RU009)",
+			"cardCodeLabel": "Card Code (EX: 06RU009)",
 			"cardNameLabel": "Card Name",
-			"previewImage": "Card Image Preview",
+			"previewImage": "Preview Card Image",
 			"imageUrlLabel": "Card Image URL",
 			"deleteConfirmText": "Are you sure you want to delete card"
 		}

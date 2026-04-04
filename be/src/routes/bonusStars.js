@@ -7,16 +7,17 @@ import {
 	GetItemCommand,
 } from "@aws-sdk/client-dynamodb";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
+import cacheManager from "../utils/cacheManager.js";
 import client from "../config/db.js";
-import NodeCache from "node-cache";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { requireAdmin } from "../middleware/requireAdmin.js";
+import { scanAll } from "../utils/dynamoUtils.js";
 
 const router = express.Router();
 const BONUS_STAR_TABLE = "guidePocBonusStar";
 
-// Cache dữ liệu trong 2 phút để giảm tải cho DynamoDB
-const bonusCache = new NodeCache({ stdTTL: 120, checkperiod: 60 });
+// Cache dữ liệu trong 30 phút để giảm tải cho DynamoDB
+const bonusCache = cacheManager.getOrCreateCache("bonusStars", { stdTTL: 1800, checkperiod: 60 });
 
 /**
  * @route   GET /api/bonusStars
@@ -28,9 +29,8 @@ router.get("/", async (req, res) => {
 		const cached = bonusCache.get(CACHE_KEY);
 		if (cached) return res.json({ items: cached });
 
-		const command = new ScanCommand({ TableName: BONUS_STAR_TABLE });
-		const { Items } = await client.send(command);
-		const data = Items ? Items.map(item => unmarshall(item)) : [];
+		const rawItems = await scanAll(client, { TableName: BONUS_STAR_TABLE });
+		const data = rawItems.map(item => unmarshall(item));
 
 		// Sắp xếp theo tên A-Z
 		data.sort((a, b) => (a.name || "").localeCompare(b.name || ""));

@@ -8,17 +8,18 @@ import {
 	QueryCommand,
 } from "@aws-sdk/client-dynamodb";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
-import NodeCache from "node-cache";
+import cacheManager from "../utils/cacheManager.js";
 import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { requireAdmin } from "../middleware/requireAdmin.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
+import { scanAll } from "../utils/dynamoUtils.js";
 
 const router = express.Router();
 const CARDS_TABLE = "guidePocCardList";
 
-// Cache 120 giây
-const cardCache = new NodeCache({ stdTTL: 120, checkperiod: 60 });
+// Cache 30 phút (1800s) vì dữ liệu Card rất lớn và ít thay đổi
+const cardCache = cacheManager.getOrCreateCache("cards", { stdTTL: 86400, checkperiod: 60 });
 
 /**
  * Lấy toàn bộ cards từ DB hoặc cache, sắp xếp A-Z theo cardName
@@ -28,9 +29,8 @@ async function getCachedCards() {
 	let cachedData = cardCache.get(CACHE_KEY);
 
 	if (!cachedData) {
-		const command = new ScanCommand({ TableName: CARDS_TABLE });
-		const { Items } = await client.send(command);
-		cachedData = Items ? Items.map(item => unmarshall(item)) : [];
+		const rawItems = await scanAll(client, { TableName: CARDS_TABLE });
+		cachedData = rawItems.map(item => unmarshall(item));
 		cachedData.sort((a, b) =>
 			(a.cardName || "").localeCompare(b.cardName || ""),
 		);
@@ -127,7 +127,32 @@ router.get("/", async (req, res) => {
 		});
 
 		const totalItems = filtered.length;
-		const paginatedItems = pageSize < 0 ? filtered : filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+		const paginatedItemsRaw = pageSize < 0 ? filtered : filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+
+		// Tinh gọn dữ liệu (Projection) cho danh sách để giảm dung lượng gói tin
+		const paginatedItems = paginatedItemsRaw.map(c => ({
+			cardCode: c.cardCode,
+			cardName: c.cardName,
+			cost: c.cost,
+			rarity: c.rarity,
+			regions: c.regions,
+			type: c.type,
+			gameAbsolutePath: c.gameAbsolutePath,
+			translations: c.translations ? {
+				en: {
+					cardName: c.translations.en?.cardName,
+					gameAbsolutePath: c.translations.en?.gameAbsolutePath
+				}
+			} : undefined
+		}));
+
+		// --- Trích xuất bộ lọc động từ toàn bộ dữ liệu ---
+		const availableFilters = {
+			rarities: [...new Set(allCards.map(c => c.rarity || "None"))].sort(),
+			regions: [...new Set(allCards.flatMap(c => c.regions || []))].sort(),
+			types: [...new Set(allCards.map(c => c.translations?.en?.type || c.type || "Other"))].sort(),
+			costs: [...new Set(allCards.map(c => Number(c.cost || 0)))].sort((a, b) => a - b),
+		};
 
 		res.json({
 			items: paginatedItems,
@@ -137,6 +162,7 @@ router.get("/", async (req, res) => {
 				currentPage,
 				pageSize: pageSize < 0 ? totalItems : pageSize,
 			},
+			availableFilters, // Gửi bộ lọc động về cho FE
 		});
 	} catch (error) {
 		console.error("Lỗi lấy danh sách cards:", error);

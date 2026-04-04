@@ -7,15 +7,16 @@ import {
 	GetItemCommand,
 } from "@aws-sdk/client-dynamodb";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
+import cacheManager from "../utils/cacheManager.js";
 import client from "../config/db.js";
-import NodeCache from "node-cache";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { requireAdmin } from "../middleware/requireAdmin.js";
+import { scanAll } from "../utils/dynamoUtils.js";
 
 const router = express.Router();
 const BOSS_TABLE = "guidePocBosses";
 
-const bossCache = new NodeCache({ stdTTL: 120, checkperiod: 60 });
+const bossCache = cacheManager.getOrCreateCache("bosses", { stdTTL: 1800, checkperiod: 60 });
 
 router.get("/", async (req, res) => {
 	const CACHE_KEY = "all_bosses_list";
@@ -23,9 +24,8 @@ router.get("/", async (req, res) => {
 		const cached = bossCache.get(CACHE_KEY);
 		if (cached) return res.json({ items: cached });
 
-		const command = new ScanCommand({ TableName: BOSS_TABLE });
-		const { Items } = await client.send(command);
-		const data = Items ? Items.map(item => unmarshall(item)) : [];
+		const rawItems = await scanAll(client, { TableName: BOSS_TABLE });
+		const data = rawItems.map(item => unmarshall(item));
 
 		data.sort((a, b) => (a.bossName || "").localeCompare(b.bossName || ""));
 

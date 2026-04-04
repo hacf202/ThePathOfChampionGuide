@@ -23,6 +23,7 @@ import {
 	Target,
 	Map,
 	CreditCard,
+	Settings2,
 } from "lucide-react";
 import { useTranslation } from "../../hooks/useTranslation";
 
@@ -42,6 +43,7 @@ const GuideEditor = lazy(() => import("./guides/guideEditor"));
 const AnalyticsDashboard = lazy(() => import("./analytics/analyticsDashboard"));
 const ImageManager = lazy(() => import("./images/imageManager"));
 const CardEditor = lazy(() => import("./cards/cardEditor"));
+const CacheManager = lazy(() => import("./cache/cacheManager"));
 
 // Component DashboardHome
 const DashboardHome = ({ navItems }) => {
@@ -173,6 +175,12 @@ const AdminPanel = () => {
 			label: tUI("admin.nav.cards"),
 			icon: CreditCard,
 			path: "/admin/cards",
+		},
+		{
+			id: "cache",
+			label: tUI("admin.nav.cache") || "Quản lý Cache",
+			icon: Settings2,
+			path: "/admin/cache",
 		},
 	];
 
@@ -331,6 +339,7 @@ const AdminPanel = () => {
 							<Route path='bosses/*' element={<BossEditor />} />
 							<Route path='adventures/*' element={<AdventureMapEditor />} />
 							<Route path='cards/*' element={<CardEditor />} />
+							<Route path='cache' element={<CacheManager />} />
 						</Routes>
 					</Suspense>
 				</main>

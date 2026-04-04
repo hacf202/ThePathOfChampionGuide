@@ -1,6 +1,7 @@
 import { useState, memo, useEffect } from "react";
 import InputField from "../../common/inputField";
 import { useTranslation } from "../../../hooks/useTranslation";
+import MarkupEditor from "../MarkupEditor";
 
 // IMPORT CÁC COMPONENT CHUNG (Đường dẫn chuẩn mới)
 import EditorHeaderToolbar from "../common/editorHeaderToolbar";
@@ -151,15 +152,19 @@ const ItemEditorForm = memo(
 									placeholder='Thường, Hiếm...'
 								/>
 							</div>
-							<div className='flex flex-col gap-1'>
+							<div className='flex flex-col gap-2'>
 								<label className='text-sm font-semibold text-text-primary'>
 									{tUI("admin.itemForm.descLabel")} (VI)
 								</label>
-								<textarea
-									name='description'
+								<MarkupEditor
 									value={formData.description || ""}
-									onChange={handleInputChange}
-									className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary min-h-[100px] outline-none focus:ring-2 focus:ring-primary-500 transition resize-none'
+									onChange={({ markup, raw }) =>
+										setFormData(prev => ({
+											...prev,
+											description: markup,
+											descriptionRaw: raw,
+										}))
+									}
 									placeholder='Nội dung mô tả...'
 								/>
 							</div>
@@ -186,15 +191,18 @@ const ItemEditorForm = memo(
 									placeholder='English Rarity...'
 								/>
 							</div>
-							<div className='flex flex-col gap-1'>
+							<div className='flex flex-col gap-2'>
 								<label className='text-sm font-semibold text-text-primary'>
 									{tUI("admin.itemForm.descLabel")} (EN)
 								</label>
-								<textarea
-									name='description'
+								<MarkupEditor
 									value={formData.translations?.en?.description || ""}
-									onChange={e => handleTranslationChange(e, "en")}
-									className='w-full p-4 rounded-lg border border-border bg-surface-bg text-text-primary min-h-[100px] outline-none focus:ring-2 focus:ring-blue-500 transition resize-none'
+									onChange={({ markup, raw }) =>
+										handleTranslationChange(
+											{ target: { name: "description", value: markup } },
+											"en",
+										)
+									}
 									placeholder='English Description...'
 								/>
 							</div>

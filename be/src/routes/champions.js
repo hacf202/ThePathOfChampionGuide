@@ -9,18 +9,18 @@ import {
 	BatchGetItemCommand
 } from "@aws-sdk/client-dynamodb";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
+import cacheManager from "../utils/cacheManager.js";
 import client from "../config/db.js";
-import NodeCache from "node-cache";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { requireAdmin } from "../middleware/requireAdmin.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
+import { scanAll } from "../utils/dynamoUtils.js";
 import { verifier } from "../config/cognito.js"; // For manual token verification if optional
 
 const router = express.Router();
 const CHAMPIONS_TABLE = "guidePocChampionList";
 
-// Khởi tạo cache: stdTTL = 120 giây (2 phút)
-export const championCache = new NodeCache({ stdTTL: 120, checkperiod: 60 });
+const championCache = cacheManager.getOrCreateCache("champions", { stdTTL: 1800, checkperiod: 60 });
 
 /**
  * Hàm lấy toàn bộ dữ liệu từ DB và lưu vào Cache.
@@ -31,9 +31,8 @@ async function getCachedChampions() {
 	let cachedData = championCache.get(CACHE_KEY);
 
 	if (!cachedData) {
-		const command = new ScanCommand({ TableName: CHAMPIONS_TABLE });
-		const { Items } = await client.send(command);
-		cachedData = Items ? Items.map(item => unmarshall(item)) : [];
+		const rawItems = await scanAll(client, { TableName: CHAMPIONS_TABLE });
+		cachedData = rawItems.map(item => unmarshall(item));
 
 		// Sắp xếp mặc định theo tên A-Z
 		cachedData.sort((a, b) => (a.name || "").localeCompare(b.name || ""));

@@ -7,35 +7,33 @@ import {
 	ScanCommand,
 } from "@aws-sdk/client-dynamodb";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
+import cacheManager from "../utils/cacheManager.js";
 import client from "../config/db.js";
-import NodeCache from "node-cache";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { requireAdmin } from "../middleware/requireAdmin.js";
+import { scanAll } from "../utils/dynamoUtils.js";
 
 const router = express.Router();
 const CONSTELLATIONS_TABLE = "guidePocChampionConstellation";
-
-// Cache 2 phút, check hết hạn mỗi phút
-const constCache = new NodeCache({ stdTTL: 120, checkperiod: 60 });
+const constellationCache = cacheManager.getOrCreateCache("constellations", { stdTTL: 1800, checkperiod: 60 });
 
 /**
  * Hàm lấy danh sách Chòm sao có sử dụng Cache
  */
 async function getCachedConstellations() {
 	const CACHE_KEY = "all_constellations_list";
-	let cachedData = constCache.get(CACHE_KEY);
+	let cachedData = constellationCache.get(CACHE_KEY);
 
 	if (!cachedData) {
-		const command = new ScanCommand({ TableName: CONSTELLATIONS_TABLE });
-		const { Items } = await client.send(command);
-		cachedData = Items ? Items.map(item => unmarshall(item)) : [];
+		const rawItems = await scanAll(client, { TableName: CONSTELLATIONS_TABLE });
+		cachedData = rawItems.map(item => unmarshall(item));
 
 		// Sắp xếp mặc định theo tên A-Z
 		cachedData.sort((a, b) =>
 			(a.championName || "").localeCompare(b.championName || ""),
 		);
 
-		constCache.set(CACHE_KEY, cachedData);
+		constellationCache.set(CACHE_KEY, cachedData);
 	}
 	return cachedData;
 }
@@ -69,7 +67,7 @@ router.get("/:constellationID", async (req, res) => {
 
 	try {
 		// 1. Kiểm tra Cache
-		const cachedData = constCache.get(CACHE_KEY);
+		const cachedData = constellationCache.get(CACHE_KEY);
 		if (cachedData) return res.json(cachedData);
 
 		// 2. Query DynamoDB
@@ -87,7 +85,7 @@ router.get("/:constellationID", async (req, res) => {
 		const data = unmarshall(Item);
 
 		// 3. Set Cache
-		constCache.set(CACHE_KEY, data);
+		constellationCache.set(CACHE_KEY, data);
 
 		res.json(data);
 	} catch (error) {
@@ -138,8 +136,8 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 		await client.send(command);
 
 		// Xóa cache để dữ liệu mới được hiển thị ngay
-		constCache.del(`const_detail_${data.constellationID}`);
-		constCache.del("all_constellations_list");
+		constellationCache.del(`const_detail_${data.constellationID}`);
+		constellationCache.del("all_constellations_list");
 
 		res.json({ message: "Cập nhật chòm sao thành công.", data });
 	} catch (error) {
@@ -180,8 +178,8 @@ router.delete(
 			);
 
 			// Xóa Cache
-			constCache.del(`const_detail_${constellationID}`);
-			constCache.del("all_constellations_list");
+			constellationCache.del(`const_detail_${constellationID}`);
+			constellationCache.del("all_constellations_list");
 
 			res.json({ message: "Xóa chòm sao thành công." });
 		} catch (error) {

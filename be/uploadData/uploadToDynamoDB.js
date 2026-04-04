@@ -6,9 +6,13 @@ import {
 import fs from "fs";
 import path from "path";
 import dotenv from "dotenv";
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // 1. Cấu hình môi trường
-dotenv.config();
+dotenv.config({ path: path.join(__dirname, "../.env") });
 
 // Khởi tạo Client với cấu hình retry mặc định của SDK
 const client = new DynamoDBClient({
@@ -157,10 +161,30 @@ async function runUploader(tableName, filePath) {
 }
 
 // --- THỰC THI ---
-// Bạn có thể dễ dàng thay đổi thông số ở đây
-const CONFIG = {
-	TABLE: "guidePocPowers", // Tên bảng DynamoDB của bạn
-	FILE: "./guidePocPowers.json",
-};
+const CONFIGS = [
+	{ table: "guidePocPowers", file: path.join(__dirname, "./PowersData.json") },
+	{ table: "guidePocItems", file: path.join(__dirname, "./ItemsData.json") },
+	{ table: "guidePocRelics", file: path.join(__dirname, "./RelicsData.json") },
+	{ table: "guidePocRunes", file: path.join(__dirname, "./RunesData.json") },
+	{ table: "guidePocChampionList", file: path.join(__dirname, "./guidePocChampionList.json") },
+	{ table: "guidePocBonusStar", file: path.join(__dirname, "./guidePocBonusStar.json") },
+];
 
-runUploader(CONFIG.TABLE, CONFIG.FILE);
+async function main() {
+	for (const config of CONFIGS) {
+		try {
+			await runUploader(config.table, config.file);
+			console.log(`\n✅ Finished uploading ${config.table}.`);
+			if (config !== CONFIGS[CONFIGS.length - 1]) {
+				console.log(`\nWaiting 2 seconds before next table...\n`);
+				await sleep(2000);
+			}
+		} catch (error) {
+			console.error(`❌ Failed to upload ${config.table}:`, error.message);
+			// Continue with other tables even if one fails
+		}
+	}
+	console.log("\n🏁 All specified uploads completed.");
+}
+
+main();

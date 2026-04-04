@@ -9,12 +9,12 @@ import {
 	Hash,
 	Info,
 } from "lucide-react";
-import PageTitle from "../components/common/pageTitle.jsx";
-import Button from "../components/common/button.jsx";
-import SafeImage from "../components/common/SafeImage.jsx";
-import MarkupRenderer from "../components/common/MarkupRenderer.jsx";
-import RarityIcon from "../components/common/rarityIcon.jsx";
-import { useTranslation } from "../hooks/useTranslation.js";
+import PageTitle from "../../components/common/pageTitle.jsx";
+import Button from "../../components/common/button.jsx";
+import SafeImage from "../../components/common/SafeImage.jsx";
+import MarkupRenderer from "../../components/common/MarkupRenderer.jsx";
+import RarityIcon from "../../components/common/rarityIcon.jsx";
+import { useTranslation } from "../../hooks/useTranslation.js";
 
 /**
  * Skeleton Loading for Card Detail

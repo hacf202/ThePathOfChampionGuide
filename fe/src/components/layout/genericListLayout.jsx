@@ -1,5 +1,5 @@
 // src/components/layout/GenericListLayout.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
 	Search,
@@ -27,6 +27,8 @@ const GenericListLayout = ({
 	pagination,
 	currentPage,
 	onPageChange,
+	isInfiniteScroll = false, // Chế độ cuộn vô hạn
+	hasNextPage = false, // Kiểm tra còn trang tiếp theo không
 
 	// --- Search ---
 	searchValue,
@@ -85,7 +87,33 @@ const GenericListLayout = ({
 
 		window.addEventListener("keydown", handleKeyDown);
 		return () => window.removeEventListener("keydown", handleKeyDown);
-	}, [currentPage, pagination?.totalPages, loading, onPageChange]);
+	}, [currentPage, pagination?.totalPages, loading, onPageChange, isInfiniteScroll]);
+
+	// --- LOGIC INFINITE SCROLL (Intersection Observer) ---
+	const observerTarget = useRef(null);
+
+	useEffect(() => {
+		if (!isInfiniteScroll || !hasNextPage || loading) return;
+
+		const observer = new IntersectionObserver(
+			entries => {
+				if (entries[0].isIntersecting) {
+					onPageChange(currentPage + 1);
+				}
+			},
+			{ threshold: 0.1 },
+		);
+
+		if (observerTarget.current) {
+			observer.observe(observerTarget.current);
+		}
+
+		return () => {
+			if (observerTarget.current) {
+				observer.unobserve(observerTarget.current);
+			}
+		};
+	}, [isInfiniteScroll, hasNextPage, loading, currentPage, onPageChange]);
 
 	const handleMobileSearch = () => {
 		onSearchSubmit();
@@ -130,7 +158,7 @@ const GenericListLayout = ({
 					>
 						<div className='bg-surface-bg rounded-lg border border-border p-2 sm:p-4 shadow-sm min-h-[500px] relative overflow-visible'>
 							<AnimatePresence mode='wait'>
-								{loading ? (
+								{loading && data.length === 0 ? (
 									<motion.div
 										key='skeleton'
 										initial={{ opacity: 0 }}
@@ -168,9 +196,26 @@ const GenericListLayout = ({
 														</motion.div>
 													))}
 												</div>
+												
+												{/* --- TRIGGER TẢI THÊM (Sử dụng cho Infinite Scroll) --- */}
+												{isInfiniteScroll && hasNextPage && (
+													<div 
+														ref={observerTarget} 
+														className="h-20 flex items-center justify-center mt-4"
+													>
+														{loading ? (
+															<div className="flex items-center gap-2 text-primary-500 animate-pulse">
+																<RotateCw size={20} className="animate-spin" />
+																<span>{tUI("common.loadingMore") || "Đang tải thêm..."}</span>
+															</div>
+														) : (
+															<div className="h-1 w-1 opacity-0" />
+														)}
+													</div>
+												)}
 
-												{/* --- PHÂN TRANG --- */}
-												{pagination && pagination.totalPages > 1 && (
+												{/* --- PHÂN TRANG (Chỉ hiện nếu KHÔNG phải Infinite Scroll) --- */}
+												{!isInfiniteScroll && pagination && pagination.totalPages > 1 && (
 													<div className='mt-8 flex justify-center items-center gap-4 border-t border-border pt-4'>
 														<Button
 															onClick={() => {

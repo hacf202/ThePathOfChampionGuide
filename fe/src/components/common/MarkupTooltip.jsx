@@ -61,6 +61,8 @@ const MarkupTooltip = ({ title, description, icon, fullImage, options = [], rari
 		return config[key] || config.unknown;
 	}, [rarity]);
 
+	const isCard = ["cd", "card"].includes(type?.toLowerCase());
+	
 	const typeLabel = useMemo(() => {
 		const types = {
 			k: "TỪ KHÓA",
@@ -80,11 +82,7 @@ const MarkupTooltip = ({ title, description, icon, fullImage, options = [], rari
 	}, [type]);
 
 	const handleReferenceClick = (e) => {
-		// On Desktop (non-touch), secondary click navigates
-		const isTouch = window.matchMedia("(pointer: coarse)").matches;
-		if (!isTouch && href) {
-			navigate(href);
-		}
+		// Just let floating-ui handle opening/closing
 	};
 
 	return (
@@ -94,7 +92,7 @@ const MarkupTooltip = ({ title, description, icon, fullImage, options = [], rari
 				{...getReferenceProps({
 					onClick: handleReferenceClick
 				})}
-				className='inline-flex items-baseline pointer-events-auto'
+				className={`inline-flex items-baseline pointer-events-auto cursor-help`}
 			>
 				{children}
 			</span>
@@ -109,7 +107,7 @@ const MarkupTooltip = ({ title, description, icon, fullImage, options = [], rari
 					{...getFloatingProps()}
 					className='pointer-events-auto cursor-default'
 				>
-					<div className={`bg-slate-950/90 backdrop-blur-xl text-white rounded-xl shadow-2xl border-2 ${theme.border} ${theme.glow} overflow-hidden max-w-[320px] min-w-[220px] animate-in fade-in zoom-in-95 duration-200`}>
+					<div className={`bg-slate-950/90 backdrop-blur-xl text-white rounded-xl shadow-2xl border-2 ${theme.border} ${theme.glow} overflow-hidden ${isCard ? 'w-[280px] sm:w-[320px]' : 'max-w-[320px] min-w-[220px]'} animate-in fade-in zoom-in-95 duration-200`}>
 						
 						{/* Top Badge: Type | Rarity */}
 						<div className={`px-3 py-1.5 flex justify-between items-center bg-white/5 border-b ${theme.border}`}>
@@ -122,30 +120,36 @@ const MarkupTooltip = ({ title, description, icon, fullImage, options = [], rari
 						</div>
 
 						{/* Images */}
-						{showFullImg && fullImage && (
-							<div className="w-full px-4 py-4 flex justify-center bg-white/5 border-b border-white/5 overflow-hidden">
+						{(showFullImg || isCard) && fullImage && (
+							<div 
+								className={`w-full ${isCard ? 'px-2 py-4' : 'px-4 py-4'} flex justify-center bg-white/5 border-b border-white/5 overflow-hidden`}
+							>
 								<img 
 									src={fullImage} 
 									alt={title} 
-									className="w-auto h-20 sm:h-28 object-contain drop-shadow-2xl" 
+									className={`w-auto ${isCard ? 'h-40 sm:h-48' : 'h-20 sm:h-28'} object-contain drop-shadow-2xl transition-transform duration-300`} 
 								/>
 							</div>
 						)}
 						{showIconImg && icon && !showFullImg && (
-							<div className="w-full p-6 flex justify-center bg-white/5 border-b border-white/5">
-								<img src={icon} alt={title} className="w-20 h-20 object-contain drop-shadow-lg" />
+							<div 
+								className={`w-full p-6 flex justify-center bg-white/5 border-b border-white/5`}
+							>
+								<img src={icon} alt={title} className={`w-20 h-20 object-contain drop-shadow-lg`} />
 							</div>
 						)}
 
 						<div className="p-4">
 							{/* Title with Icon */}
-							<div className='flex items-center gap-3 mb-3'>
+							<div 
+								className={`flex items-center gap-3 mb-3`}
+							>
 								{icon && !showIconImg && !showFullImg && (
-									<div className={`w-8 h-8 rounded-lg bg-white/5 border ${theme.border} flex items-center justify-center p-1.5`}>
+									<div className={`w-8 h-8 rounded-lg bg-white/5 border ${theme.border} flex items-center justify-center p-1.5 transition-colors`}>
 										<img src={icon} alt="" className="w-full h-full object-contain" />
 									</div>
 								)}
-								<div className={`font-bold text-lg sm:text-xl tracking-tight leading-tight ${theme.color}`}>
+								<div className={`font-bold text-lg sm:text-xl tracking-tight leading-tight ${theme.color} transition-all`}>
 									{title}
 								</div>
 							</div>

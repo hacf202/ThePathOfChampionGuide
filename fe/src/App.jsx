@@ -31,7 +31,7 @@ import GuideListPage from "./pages/guideListPage.jsx";
 import TierListIndex from "./pages/tierList.jsx";
 import VaultSimulator from "./pages/vaultSimulator.jsx";
 import CardList from "./pages/cardList.jsx";
-import CardDetail from "./pages/cardDetail.jsx";
+import CardDetail from "./pages/card/cardDetail.jsx";
 
 // Đăng nhập / Đăng ký
 import AuthContainer from "./components/auth/authContainer.jsx";
@@ -194,10 +194,17 @@ function AppLayout() {
 	);
 }
 
+import { initEntities } from "./utils/entityLookup";
+
 // --- Component App ---
 function App() {
 	// Lấy cờ trạng thái loading ngôn ngữ
 	const { isLangLoading } = useTranslation();
+
+	// Khởi tạo dữ liệu thực thể (như danh sách Cards) cho Tooltip
+	useEffect(() => {
+		initEntities();
+	}, []);
 
 	// Hiển thị màn hình chờ (Skeleton Loading) nếu ngôn ngữ đang được tải
 	if (isLangLoading) {
