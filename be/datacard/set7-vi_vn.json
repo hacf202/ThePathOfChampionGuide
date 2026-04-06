@@ -1,0 +1,3714 @@
+[
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07PZ009.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07PZ009-full.png"
+      }
+    ],
+    "regions": [
+      "Piltover & Zaun"
+    ],
+    "regionRefs": [
+      "PiltoverZaun"
+    ],
+    "attack": 2,
+    "cost": 4,
+    "health": 2,
+    "description": "<link=vocab.Play><style=Vocab>Xuất Trận</style></link>: <link=vocab.Predict><style=Vocab>Tiên Đoán</style></link>, sau đó rút 1 lá bài và giảm 1 tiêu hao của lá bài đó.",
+    "descriptionRaw": "Xuất Trận: Tiên Đoán, sau đó rút 1 lá bài và giảm 1 tiêu hao của lá bài đó.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "\"Món này chỉ cần tinh chỉnh một chút nữa thôi. Lắp thêm bánh răng và một cánh tay mới nữa là sẵn sàng hoạt động trở lại rồi. Thời gian là món quà mà mọi người đáng nhận được nhiều hơn.\" - Ekko",
+    "artistName": "Kudos Productions",
+    "name": "Đồng Hồ Cải Tiến",
+    "cardCode": "07PZ009",
+    "keywords": [
+      "Huyền Ảo"
+    ],
+    "keywordRefs": [
+      "Elusive"
+    ],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài quân",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [
+      "05PZ008"
+    ],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07PZ017.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07PZ017-full.png"
+      }
+    ],
+    "regions": [
+      "Piltover & Zaun"
+    ],
+    "regionRefs": [
+      "PiltoverZaun"
+    ],
+    "attack": 1,
+    "cost": 2,
+    "health": 3,
+    "description": "Khi ngươi sử dụng 1 bài phép, gài ngẫu nhiên 1 lá <link=card.trap><style=AssociatedCard>Bẫy Bom Mù</style></link> lên 8 lá bài ở trên cùng trong bộ bài của đối thủ.",
+    "descriptionRaw": "Khi ngươi sử dụng 1 bài phép, gài ngẫu nhiên 1 lá Bẫy Bom Mù lên 8 lá bài ở trên cùng trong bộ bài của đối thủ.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "\"... Ngươi có biết mấy bé cưng này hơn nấm ở điểm gì không? Đó chính là ngươi có thể quyết định thời điểm chúng phát nổ! ĐÁNG đồng tiền bát gạo chứ?\"",
+    "artistName": "Kudos Productions",
+    "name": "Kẻ Bán Bom Dạo",
+    "cardCode": "07PZ017",
+    "keywords": [
+      "Truyền Thức"
+    ],
+    "keywordRefs": [
+      "Imbue"
+    ],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài quân",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07NX009.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07NX009-full.png"
+      }
+    ],
+    "regions": [
+      "Noxus"
+    ],
+    "regionRefs": [
+      "Noxus"
+    ],
+    "attack": 0,
+    "cost": 1,
+    "health": 0,
+    "description": "Gây 1 sát thương lên Nhà Chính của đối thủ. Lần tiếp theo đồng minh <link=vocab.Strike><style=Vocab>Ra Đòn</style></link> lên Nhà Chính của đối thủ trong vòng này, tạo trên tay 1 lá <link=card.selfRef><style=AssociatedCard>Phát Bắn Điệu Nghệ</style></link>.",
+    "descriptionRaw": "Gây 1 sát thương lên Nhà Chính của đối thủ. Lần tiếp theo đồng minh Ra Đòn lên Nhà Chính của đối thủ trong vòng này, tạo trên tay 1 lá Phát Bắn Điệu Nghệ.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "\"Chẳng ai có thể bắt kịp ta ngay cả khi tất cả những gì ta có chỉ là sỏi đá và gậy gộc. Còn khi ta có đầy đủ trang bị ư? Tốt nhất là đừng có dại.\" - Samira",
+    "artistName": "Kudos Productions",
+    "name": "Phát Bắn Điệu Nghệ",
+    "cardCode": "07NX009",
+    "keywords": [
+      "Tập Trung"
+    ],
+    "keywordRefs": [
+      "Focus"
+    ],
+    "spellSpeed": "Siêu Tốc",
+    "spellSpeedRef": "Burst",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài phép",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07NX008.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07NX008-full.png"
+      }
+    ],
+    "regions": [
+      "Noxus"
+    ],
+    "regionRefs": [
+      "Noxus"
+    ],
+    "attack": 1,
+    "cost": 1,
+    "health": 2,
+    "description": "<link=keyword.Plunder><style=Keyword>Cưỡng Đoạt</style></link>: Ban cho ta +2|+0.",
+    "descriptionRaw": "Cưỡng Đoạt: Ban cho ta +2|+0.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "“Phí của tôi không hề rẻ và tôi không phải là tuýp người bạ ai cùng làm. Nếu may mắn thuê được tôi, bạn sẽ nhận được tài nghệ, sự điềm tĩnh cùng lưỡi kiếm không bao thất bại. Và quan trọng nhất là phong cách. Làm gì có ai không thích giết chóc mà lại thật thanh tao chứ?\"",
+    "artistName": "Kudos Productions",
+    "name": "Lưỡi Dao Thanh Lịch",
+    "cardCode": "07NX008",
+    "keywords": [
+      "Đáng Sợ",
+      "Cưỡng Đoạt"
+    ],
+    "keywordRefs": [
+      "Fearsome",
+      "Plunder"
+    ],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài quân",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn",
+      "Chỉ Lá Bài Thường"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name",
+      "client_Formats_CommonsOnly_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07NX014.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07NX014-full.png"
+      }
+    ],
+    "regions": [
+      "Noxus"
+    ],
+    "regionRefs": [
+      "Noxus"
+    ],
+    "attack": 0,
+    "cost": 2,
+    "health": 0,
+    "description": "<link=keyword.Plunder><style=Keyword>Cưỡng Đoạt</style></link>: Giảm 1 tiêu hao của ta.\r\nGây 1 sát thương lên 1 đối tượng bất kỳ và <link=keyword.Stun><sprite name=Stunned><style=Keyword>Làm Choáng</style></link> 1 kẻ địch.\r\n",
+    "descriptionRaw": "Cưỡng Đoạt: Giảm 1 tiêu hao của ta.\r\nGây 1 sát thương lên 1 đối tượng bất kỳ và Làm Choáng 1 kẻ địch.\r\n",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "“Gì chứ? Ta chỉ đang vươn vai thôi mà. Đừng có nói là việc đó cũng khiến ngươi toi mạng đấy nhé.” - Lưỡi Dao Thanh Lịch",
+    "artistName": "Kudos Productions",
+    "name": "Múa Xoay",
+    "cardCode": "07NX014",
+    "keywords": [
+      "Chậm",
+      "Cưỡng Đoạt"
+    ],
+    "keywordRefs": [
+      "Slow",
+      "Plunder"
+    ],
+    "spellSpeed": "Chậm",
+    "spellSpeedRef": "Slow",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài phép",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [
+      "07NX007T2",
+      "07NX007T1",
+      "07NX007T8"
+    ],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07NX007.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07NX007-full.png"
+      }
+    ],
+    "regions": [
+      "Noxus"
+    ],
+    "regionRefs": [
+      "Noxus"
+    ],
+    "attack": 2,
+    "cost": 2,
+    "health": 2,
+    "description": "Khi ta được triệu hồi hoặc <link=vocab.Strike><style=Vocab>Ra Đòn</style></link>: Tạo trên tay 1 lá <link=card.create><style=AssociatedCard>Ứng Biến</style></link> nếu ngươi chưa có lá nào.",
+    "descriptionRaw": "Khi ta được triệu hồi hoặc Ra Đòn: Tạo trên tay 1 lá Ứng Biến nếu ngươi chưa có lá nào.",
+    "levelupDescription": "Ta đã thấy ngươi sử dụng 6+ lá bài. Đếm lại khi ngươi khởi đầu vòng đấu với lượt tấn công.<style=Variable></style>",
+    "levelupDescriptionRaw": "Ta đã thấy ngươi sử dụng 6+ lá bài. Đếm lại khi ngươi khởi đầu vòng đấu với lượt tấn công.",
+    "flavorText": "\"Ta luôn săn lùng những kẻ đeo trên mình khoản nợ không thể trả. Những kẻ to gan dám trốn nợ sẽ khiến bản thân hắn trở thành mục tiêu xấu số của ta.\"",
+    "artistName": "Kudos Productions",
+    "name": "Samira",
+    "cardCode": "07NX007",
+    "keywords": [
+      "Đột Kích"
+    ],
+    "keywordRefs": [
+      "QuickStrike"
+    ],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "Anh Hùng",
+    "rarityRef": "Champion",
+    "subtypes": [],
+    "supertype": "Anh hùng",
+    "type": "Bài quân",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn",
+      "Chỉ Lá Bài Thường"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name",
+      "client_Formats_CommonsOnly_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [
+      "07NX007"
+    ],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07NX007T8.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07NX007T8-full.png"
+      }
+    ],
+    "regions": [
+      "Noxus"
+    ],
+    "regionRefs": [
+      "Noxus"
+    ],
+    "attack": 0,
+    "cost": 1,
+    "health": 0,
+    "description": "Gây 1 sát thương lên Nhà Chính của đối thủ hoặc trao <link=keyword.Challenger><sprite name=Challenger><style=Keyword>Thách Đấu</style></link> cho 1 đồng minh trong vòng này.\r\n",
+    "descriptionRaw": "Gây 1 sát thương lên Nhà Chính của đối thủ hoặc trao Thách Đấu cho 1 đồng minh trong vòng này.\r\n",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "“Nếu đến quá gần, ngươi sẽ được nếm mùi kiếm. Còn nếu lùi quá xa, ngươi sẽ được nếm kẹo chì.” - Samira",
+    "artistName": "Kudos Productions",
+    "name": "Ứng Biến",
+    "cardCode": "07NX007T8",
+    "keywords": [
+      "Siêu Tốc"
+    ],
+    "keywordRefs": [
+      "Burst"
+    ],
+    "spellSpeed": "Siêu Tốc",
+    "spellSpeedRef": "Burst",
+    "rarity": "Không có",
+    "rarityRef": "None",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài phép",
+    "collectible": false,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [
+      "07NX007T8",
+      "07NX007"
+    ],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07NX007T6.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07NX007T6-full.png"
+      }
+    ],
+    "regions": [
+      "Noxus"
+    ],
+    "regionRefs": [
+      "Noxus"
+    ],
+    "attack": 0,
+    "cost": 1,
+    "health": 0,
+    "description": "Gây 1 sát thương lên Nhà Chính của đối thủ.",
+    "descriptionRaw": "Gây 1 sát thương lên Nhà Chính của đối thủ.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "“Nếu đến quá gần, ngươi sẽ được nếm mùi kiếm. Còn nếu lùi quá xa, ngươi sẽ được nếm kẹo chì.” - Samira",
+    "artistName": "Kudos Productions",
+    "name": "Ứng Biến",
+    "cardCode": "07NX007T6",
+    "keywords": [
+      "Siêu Tốc"
+    ],
+    "keywordRefs": [
+      "Burst"
+    ],
+    "spellSpeed": "Siêu Tốc",
+    "spellSpeedRef": "Burst",
+    "rarity": "Không có",
+    "rarityRef": "None",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài phép",
+    "collectible": false,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [
+      "07NX007T8",
+      "07NX007"
+    ],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07NX007T5.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07NX007T5-full.png"
+      }
+    ],
+    "regions": [
+      "Noxus"
+    ],
+    "regionRefs": [
+      "Noxus"
+    ],
+    "attack": 0,
+    "cost": 1,
+    "health": 0,
+    "description": "Trao <link=keyword.Challenger><sprite name=Challenger><style=Keyword>Thách Đấu</style></link> cho 1 đồng minh trong vòng này.",
+    "descriptionRaw": "Trao Thách Đấu cho 1 đồng minh trong vòng này.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "“Nếu đến quá gần, ngươi sẽ được nếm mùi kiếm. Còn nếu lùi quá xa, ngươi sẽ được nếm kẹo chì.” - Samira",
+    "artistName": "Kudos Productions",
+    "name": "Ứng Biến",
+    "cardCode": "07NX007T5",
+    "keywords": [
+      "Siêu Tốc"
+    ],
+    "keywordRefs": [
+      "Burst"
+    ],
+    "spellSpeed": "Siêu Tốc",
+    "spellSpeedRef": "Burst",
+    "rarity": "Không có",
+    "rarityRef": "None",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài phép",
+    "collectible": false,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [
+      "07NX007"
+    ],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07NX007T2.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07NX007T2-full.png"
+      }
+    ],
+    "regions": [
+      "Noxus"
+    ],
+    "regionRefs": [
+      "Noxus"
+    ],
+    "attack": 0,
+    "cost": 1,
+    "health": 0,
+    "description": "Trao +2|+0 cho 1 đồng minh trong vòng này.\r\n<link=keyword.Plunder><style=Keyword>Cưỡng Đoạt</style></link>: Trao +2|+2 cho đồng minh đó thay vì +2|+0.\r\nTạo 1 lá <link=card.level1><style=AssociatedCard>Samira</style></link> trong bộ bài.",
+    "descriptionRaw": "Trao +2|+0 cho 1 đồng minh trong vòng này.\r\nCưỡng Đoạt: Trao +2|+2 cho đồng minh đó thay vì +2|+0.\r\nTạo 1 lá Samira trong bộ bài.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": " \"Chỉ cần vài câu nói nhẹ như lông hồng mà Indari đã có thể giúp chúng ta dễ dàng vào được đây. Hy vọng sẽ có đủ thời gian để làm loạn lúc chúng ta rời đi.\" - Samira",
+    "artistName": "Kudos Productions",
+    "name": "Samira Bung Sức",
+    "cardCode": "07NX007T2",
+    "keywords": [
+      "Siêu Tốc",
+      "Cưỡng Đoạt"
+    ],
+    "keywordRefs": [
+      "Burst",
+      "Plunder"
+    ],
+    "spellSpeed": "Siêu Tốc",
+    "spellSpeedRef": "Burst",
+    "rarity": "Không có",
+    "rarityRef": "None",
+    "subtypes": [],
+    "supertype": "Anh hùng",
+    "type": "Bài phép",
+    "collectible": false,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [
+      "07NX007T2",
+      "07NX007",
+      "07NX007T8"
+    ],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07NX007T1.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07NX007T1-full.png"
+      }
+    ],
+    "regions": [
+      "Noxus"
+    ],
+    "regionRefs": [
+      "Noxus"
+    ],
+    "attack": 3,
+    "cost": 2,
+    "health": 3,
+    "description": "Khi ta được triệu hồi hoặc <link=vocab.Strike><style=Vocab>Ra Đòn</style></link>: Tạo trên tay 1 lá <link=card.create><style=AssociatedCard>Ứng Biến</style></link> 0 tiêu hao.\r\nKhi ngươi sử dụng 6+ lá bài, <link=vocab.Rally><style=Vocab>Tiến Công</style></link>. <style=Variable></style>",
+    "descriptionRaw": "Khi ta được triệu hồi hoặc Ra Đòn: Tạo trên tay 1 lá Ứng Biến 0 tiêu hao.\r\nKhi ngươi sử dụng 6+ lá bài, Tiến Công. ",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "\"Cảm giác như đây không phải là một kẻ trốn nợ thông thường. Indari gọi đây là 'rắc rối'. Còn ta coi nó là hương vị cuộc sống.\"",
+    "artistName": "Kudos Productions",
+    "name": "Samira",
+    "cardCode": "07NX007T1",
+    "keywords": [
+      "Đột Kích"
+    ],
+    "keywordRefs": [
+      "QuickStrike"
+    ],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "Không có",
+    "rarityRef": "None",
+    "subtypes": [],
+    "supertype": "Anh hùng",
+    "type": "Bài quân",
+    "collectible": false,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07NX006.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07NX006-full.png"
+      }
+    ],
+    "regions": [
+      "Noxus"
+    ],
+    "regionRefs": [
+      "Noxus"
+    ],
+    "attack": 1,
+    "cost": 3,
+    "health": 4,
+    "description": "<link=keyword.Plunder><style=Keyword>Cưỡng Đoạt</style></link>: Ban cho ta +3|+0.",
+    "descriptionRaw": "Cưỡng Đoạt: Ban cho ta +3|+0.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": " \"Nghe này, thường thì ta sẽ đưa ra một vài luật lệ đại loại như 'không chạm vào tóc và mặt', nhưng có nghĩa lý gì chứ? Ngươi chắc chắn sẽ chẳng động vào một cọng tóc của ta đâu.\"",
+    "artistName": "Kudos Productions",
+    "name": "Công Tử Bảnh Bao",
+    "cardCode": "07NX006",
+    "keywords": [
+      "Cưỡng Đoạt",
+      "Áp Đảo"
+    ],
+    "keywordRefs": [
+      "Plunder",
+      "Overwhelm"
+    ],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài quân",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn",
+      "Chỉ Lá Bài Thường"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name",
+      "client_Formats_CommonsOnly_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07NX015.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07NX015-full.png"
+      }
+    ],
+    "regions": [
+      "Noxus"
+    ],
+    "regionRefs": [
+      "Noxus"
+    ],
+    "attack": 3,
+    "cost": 3,
+    "health": 3,
+    "description": "<link=keyword.Plunder><style=Keyword>Cưỡng Đoạt</style></link>: Ban +1|+0 cho tất cả đồng minh.",
+    "descriptionRaw": "Cưỡng Đoạt: Ban +1|+0 cho tất cả đồng minh.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "\"Ồ, Dame. Cô gái đó thực sự có tài năng trong việc gây ấn tượng đấy. Một số người có thể khó chấp nhận phong cách màu mè đó, nhưng khi cô ấy thoải mái phô diễn tài năng của mình, tất cả sẽ đều phải ngả mũ thán phục.\" - Lưỡi Dao Thanh Lịch",
+    "artistName": "Kudos Productions",
+    "name": "Dame Kẻ Tước Đoạt",
+    "cardCode": "07NX015",
+    "keywords": [
+      "Cưỡng Đoạt"
+    ],
+    "keywordRefs": [
+      "Plunder"
+    ],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài quân",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn",
+      "Chỉ Lá Bài Thường"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name",
+      "client_Formats_CommonsOnly_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07NX003.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07NX003-full.png"
+      }
+    ],
+    "regions": [
+      "Noxus"
+    ],
+    "regionRefs": [
+      "Noxus"
+    ],
+    "attack": 0,
+    "cost": 1,
+    "health": 0,
+    "description": "Trao +2|+0 cho 1 đồng minh trong vòng này.\r\n<link=keyword.Plunder><style=Keyword>Cưỡng Đoạt</style></link>: Trao +2|+2 cho đồng minh đó thay vì +2|+0.",
+    "descriptionRaw": "Trao +2|+0 cho 1 đồng minh trong vòng này.\r\nCưỡng Đoạt: Trao +2|+2 cho đồng minh đó thay vì +2|+0.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": " \"Chỉ cần vài câu nói nhẹ như lông hồng mà Indari đã có thể giúp chúng ta dễ dàng vào được đây. Hy vọng sẽ có đủ thời gian để làm loạn lúc chúng ta rời đi.\" - Samira",
+    "artistName": "Kudos Productions",
+    "name": "Bung Sức",
+    "cardCode": "07NX003",
+    "keywords": [
+      "Siêu Tốc",
+      "Cưỡng Đoạt"
+    ],
+    "keywordRefs": [
+      "Burst",
+      "Plunder"
+    ],
+    "spellSpeed": "Siêu Tốc",
+    "spellSpeedRef": "Burst",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài phép",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn",
+      "Chỉ Lá Bài Thường"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name",
+      "client_Formats_CommonsOnly_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07NX004.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07NX004-full.png"
+      }
+    ],
+    "regions": [
+      "Noxus"
+    ],
+    "regionRefs": [
+      "Noxus"
+    ],
+    "attack": 5,
+    "cost": 5,
+    "health": 3,
+    "description": "Khi ta được triệu hồi, kích hoạt tất cả hiệu ứng <link=keyword.Plunder><style=Keyword>Cưỡng Đoạt</style></link> của đồng minh.",
+    "descriptionRaw": "Khi ta được triệu hồi, kích hoạt tất cả hiệu ứng Cưỡng Đoạt của đồng minh.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "\"Việc mở cửa hàng ở một vài nơi có vẻ khá khó khăn, nhưng đống hàng ngon nghẻ của tôi và Lani thì đắt như tôm tươi. Tuy những người mua hàng này trước mặt ta chẳng biểu hiện điều gì, nhưng rất nhiều người trong số họ về đêm lại trở mặt thành kẻ lòng dạ đen tối. Suy cho cùng thù biết được ai muốn giết ai cũng là cách không tệ để hiểu rõ nơi này.\" - Miel",
+    "artistName": "Kudos Productions",
+    "name": "Tay Thợ Khéo Léo",
+    "cardCode": "07NX004",
+    "keywords": [
+      "Thách Đấu"
+    ],
+    "keywordRefs": [
+      "Challenger"
+    ],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài quân",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07NX001.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07NX001-full.png"
+      }
+    ],
+    "regions": [
+      "Noxus"
+    ],
+    "regionRefs": [
+      "Noxus"
+    ],
+    "attack": 3,
+    "cost": 2,
+    "health": 1,
+    "description": "<link=vocab.Play><style=Vocab>Xuất Trận</style></link>: Gây 1 sát thương lên Nhà Chính của đối thủ hoặc kích hoạt hiệu hứng <link=keyword.Plunder><style=Keyword>Cưỡng Đoạt</style></link> của 1 đồng minh.",
+    "descriptionRaw": "Xuất Trận: Gây 1 sát thương lên Nhà Chính của đối thủ hoặc kích hoạt hiệu hứng Cưỡng Đoạt của 1 đồng minh.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "\"Muốn kinh doanh được vũ khí thì phải nắm rõ được mọi thông tin. Ý tưởng, thử nghiệm, tái thiết lập, chỉnh sửa: tất cả đều cần có thông tin. Chẳng đỉnh sao khi những cuộc thực địa nhỏ tạo được ra vài mẫu thử hoàn hảo hoặc vài miệng núi lửa nho nhỏ chứ!\" - Lani",
+    "artistName": "Kudos Productions",
+    "name": "Pháo Binh Dũng Cảm",
+    "cardCode": "07NX001",
+    "keywords": [],
+    "keywordRefs": [],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài quân",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07NX001T1.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07NX001T1-full.png"
+      }
+    ],
+    "regions": [
+      "Noxus"
+    ],
+    "regionRefs": [
+      "Noxus"
+    ],
+    "attack": 3,
+    "cost": 2,
+    "health": 1,
+    "description": "<link=vocab.Play><style=Vocab>Xuất Trận</style></link>: Kích hoạt hiệu hứng <link=keyword.Plunder><style=Keyword>Cưỡng Đoạt</style></link> của 1 đồng minh.",
+    "descriptionRaw": "Xuất Trận: Kích hoạt hiệu hứng Cưỡng Đoạt của 1 đồng minh.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "\"Muốn kinh doanh được vũ khí thì phải nắm rõ được mọi thông tin. Ý tưởng, thử nghiệm, tái thiết lập, chỉnh sửa: tất cả đều cần có thông tin. Chẳng đỉnh sao khi những cuộc thực địa nhỏ tạo được ra vài mẫu thử hoàn hảo hoặc vài miệng núi lửa nho nhỏ chứ!\" - Lani ",
+    "artistName": "Kudos Productions",
+    "name": "Pháo Binh Dũng Cảm",
+    "cardCode": "07NX001T1",
+    "keywords": [],
+    "keywordRefs": [],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "Không có",
+    "rarityRef": "None",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài quân",
+    "collectible": false,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07NX001T2.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07NX001T2-full.png"
+      }
+    ],
+    "regions": [
+      "Noxus"
+    ],
+    "regionRefs": [
+      "Noxus"
+    ],
+    "attack": 3,
+    "cost": 2,
+    "health": 1,
+    "description": "<link=vocab.Play><style=Vocab>Xuất Trận</style></link>: Gây 1 sát thương lên Nhà Chính của đối thủ.",
+    "descriptionRaw": "Xuất Trận: Gây 1 sát thương lên Nhà Chính của đối thủ.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "\"Muốn kinh doanh được vũ khí thì phải nắm rõ được mọi thông tin. Ý tưởng, thử nghiệm, tái thiết lập, chỉnh sửa: tất cả đều cần có thông tin. Chẳng đỉnh sao khi những cuộc thực địa nhỏ tạo được ra vài mẫu thử hoàn hảo hoặc vài miệng núi lửa nho nhỏ chứ!\" - Lani",
+    "artistName": "Kudos Productions",
+    "name": "Pháo Binh Dũng Cảm",
+    "cardCode": "07NX001T2",
+    "keywords": [],
+    "keywordRefs": [],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "Không có",
+    "rarityRef": "None",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài quân",
+    "collectible": false,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [
+      "07IO011T5"
+    ],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07IO020.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07IO020-full.png"
+      }
+    ],
+    "regions": [
+      "Ionia"
+    ],
+    "regionRefs": [
+      "Ionia"
+    ],
+    "attack": 0,
+    "cost": 2,
+    "health": 0,
+    "description": "<link=keyword.Recall><style=Keyword>Thu Về</style></link> 1 đồng minh và tạo trên tay 1 lá <link=card.create><style=AssociatedCard>Xu</style></link>, hoặc sử dụng 5 năng lượng để <link=keyword.Recall><style=Keyword>Thu Về</style></link> 1 kẻ địch và tạo trên tay 1 lá <link=card.create><style=AssociatedCard>Xu</style></link>.",
+    "descriptionRaw": "Thu Về 1 đồng minh và tạo trên tay 1 lá Xu, hoặc sử dụng 5 năng lượng để Thu Về 1 kẻ địch và tạo trên tay 1 lá Xu.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "\"Ta sẽ chỉ tham gia với hai điều kiện. Hoặc là đối thủ của ngươi quá tận hưởng việc hủy diệt ngươi. Hoặc ngươi mới là người được hưởng niềm vui đó và ta cũng muốn có phần!\" - Đấu Sĩ Hạng Chuyên",
+    "artistName": "Kudos Productions",
+    "name": "Đổi Người!",
+    "cardCode": "07IO020",
+    "keywords": [
+      "Nhanh"
+    ],
+    "keywordRefs": [
+      "Fast"
+    ],
+    "spellSpeed": "Nhanh",
+    "spellSpeedRef": "Fast",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài phép",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07IO014.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07IO014-full.png"
+      }
+    ],
+    "regions": [
+      "Ionia"
+    ],
+    "regionRefs": [
+      "Ionia"
+    ],
+    "attack": 3,
+    "cost": 5,
+    "health": 3,
+    "description": "<link=vocab.Play><style=Vocab>Xuất Trận</style></link>: Triệu hồi 1 bản sao <link=keyword.Ephemeral><sprite name=Ephemeral><style=Keyword>Cảm Tử</style></link> y hệt của 1 bài quân được xuất trận tiếp theo trong vòng này.",
+    "descriptionRaw": "Xuất Trận: Triệu hồi 1 bản sao Cảm Tử y hệt của 1 bài quân được xuất trận tiếp theo trong vòng này.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "Bingwen Nhiều Lời trước đây từng là một chiến binh nổi tiếng bởi tốc độ và thế đánh của mình. Từ sau khi nghỉ hưu, anh chuyển sang làm người huấn luyện, tận dụng nhãn quang tinh tường cùng bàn tay rắn chắc để tìm kiếm những viên ngọc thô trong đám đông.",
+    "artistName": "Kudos Productions",
+    "name": "Thầy Bingwen Nhiều Lời",
+    "cardCode": "07IO014",
+    "keywords": [
+      "Huyền Ảo"
+    ],
+    "keywordRefs": [
+      "Elusive"
+    ],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài quân",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [
+      "07IO023T1"
+    ],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07IO023.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07IO023-full.png"
+      }
+    ],
+    "regions": [
+      "Ionia"
+    ],
+    "regionRefs": [
+      "Ionia"
+    ],
+    "attack": 6,
+    "cost": 8,
+    "health": 6,
+    "description": "<link=keyword.PlaySkillMark><sprite name=SkillMark><style=Keyword>Xuất Trận</style></link>: <link=keyword.Recall><style=Keyword>Thu Về</style></link> kẻ địch <link=vocab.Strongest><style=Vocab>mạnh nhất</style></link>. Nếu ngươi đã sử dụng 16+ năng lượng trong vòng này, <link=keyword.Recall><style=Keyword>Thu Về</style></link> tất cả kẻ địch. <style=Variable></style>",
+    "descriptionRaw": "Xuất Trận: Thu Về kẻ địch mạnh nhất. Nếu ngươi đã sử dụng 16+ năng lượng trong vòng này, Thu Về tất cả kẻ địch. ",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "\"Cô gái à, đừng có tháo mặt nạ ra. Và đừng có hỏi nữa trừ khi cô muốn thành ra như thứ này.\"",
+    "artistName": "Kudos Productions",
+    "name": "Ông Già Lão Luyện",
+    "cardCode": "07IO023",
+    "keywords": [
+      "Song Kích"
+    ],
+    "keywordRefs": [
+      "DoubleStrike"
+    ],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài quân",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [
+      "07IO011T1",
+      "07IO011T4",
+      "07IO011T2",
+      "07IO011T5"
+    ],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07IO011.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07IO011-full.png"
+      }
+    ],
+    "regions": [
+      "Ionia"
+    ],
+    "regionRefs": [
+      "Ionia"
+    ],
+    "attack": 4,
+    "cost": 5,
+    "health": 5,
+    "description": "Lần đầu ta còn dưới 1 Máu khi đang tấn công, trao cho ta <link=keyword.Barrier><sprite name=Barrier><style=Keyword>Lá Chắn</style></link>.",
+    "descriptionRaw": "Lần đầu ta còn dưới 1 Máu khi đang tấn công, trao cho ta Lá Chắn.",
+    "levelupDescription": "Ngươi đã sử dụng 40+ năng lượng.<style=Variable></style>",
+    "levelupDescriptionRaw": "Ngươi đã sử dụng 40+ năng lượng.",
+    "flavorText": "Sett tận hưởng khoảnh khắc nội tâm hiếm hoi của bản thân giữa tiếng hò reo từ đám đông chen lấn trong đấu trường của riêng mình. Anh nhớ về tất cả những mục đích chiến đấu cùng điều có thể sẽ ngáng đường anh. Dẫu vậy, có một điều mà anh luôn biết chắc chắn: Cảm giác làm Đại Ca thật là khoái!",
+    "artistName": "Envar Studio",
+    "name": "Sett",
+    "cardCode": "07IO011",
+    "keywords": [
+      "Thách Đấu"
+    ],
+    "keywordRefs": [
+      "Challenger"
+    ],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "Anh Hùng",
+    "rarityRef": "Champion",
+    "subtypes": [],
+    "supertype": "Anh hùng",
+    "type": "Bài quân",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn",
+      "Chỉ Lá Bài Thường"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name",
+      "client_Formats_CommonsOnly_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [
+      "07IO011T2",
+      "07IO011",
+      "07IO011T4"
+    ],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07IO011T1.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07IO011T1-full.png"
+      }
+    ],
+    "regions": [
+      "Ionia"
+    ],
+    "regionRefs": [
+      "Ionia"
+    ],
+    "attack": 5,
+    "cost": 5,
+    "health": 6,
+    "description": "Khi ta tấn công, ta không thể nhận sát thương hoặc bị tiêu diệt.\r\nMỗi vòng đấu, tạo trên tay 1 lá <link=card.create><style=AssociatedCard>Hủy Diệt Đấu Trường</style></link> khi đã sử dụng 12+ năng lượng. <style=Variable></style>",
+    "descriptionRaw": "Khi ta tấn công, ta không thể nhận sát thương hoặc bị tiêu diệt.\r\nMỗi vòng đấu, tạo trên tay 1 lá Hủy Diệt Đấu Trường khi đã sử dụng 12+ năng lượng. ",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "“Vấn đề với việc làm ông trùm đó là ngươi sẽ trở nên mềm yếu. Những vết thương sẽ dần được chữa lành và cuối cùng ngươi sẽ trở thành người mà ngươi từng thề không đội trời chung. Vậy nên ta thấy biết ơn tình trạng hỗn loạn này. Cuối cùng cũng có kẻ đánh thức được con thú trong ta!”",
+    "artistName": "Envar Studio",
+    "name": "Sett",
+    "cardCode": "07IO011T1",
+    "keywords": [
+      "Thách Đấu"
+    ],
+    "keywordRefs": [
+      "Challenger"
+    ],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "Không có",
+    "rarityRef": "None",
+    "subtypes": [],
+    "supertype": "Anh hùng",
+    "type": "Bài quân",
+    "collectible": false,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07IO011T5.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07IO011T5-full.png"
+      }
+    ],
+    "regions": [
+      "Ionia"
+    ],
+    "regionRefs": [
+      "Ionia"
+    ],
+    "attack": 0,
+    "cost": 1,
+    "health": 0,
+    "description": "<link=card.selfRef><style=AssociatedCard>Xu</style></link> cộng dồn.\r\nHồi lại <style=Variable>1</style> năng lượng.",
+    "descriptionRaw": "Xu cộng dồn.\r\nHồi lại 1 năng lượng.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "\"Nói gì được nữa bây giờ? Ta là một gã hào phóng chính hiệu.\" - Sett",
+    "artistName": "Kudos Productions",
+    "name": "Xu",
+    "cardCode": "07IO011T5",
+    "keywords": [
+      "Siêu Tốc"
+    ],
+    "keywordRefs": [
+      "Burst"
+    ],
+    "spellSpeed": "Siêu Tốc",
+    "spellSpeedRef": "Burst",
+    "rarity": "Không có",
+    "rarityRef": "None",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài phép",
+    "collectible": false,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [
+      "07IO011"
+    ],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07IO011T4.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07IO011T4-full.png"
+      }
+    ],
+    "regions": [
+      "Ionia"
+    ],
+    "regionRefs": [
+      "Ionia"
+    ],
+    "attack": 0,
+    "cost": 0,
+    "health": 0,
+    "description": "<link=vocab.Obliterate><style=Vocab>Hủy Diệt</style></link> 1 kẻ địch. Gây 1 sát thương lên tất cả kẻ địch khác và Nhà Chính của đối thủ.",
+    "descriptionRaw": "Hủy Diệt 1 kẻ địch. Gây 1 sát thương lên tất cả kẻ địch khác và Nhà Chính của đối thủ.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "\"Chỉ cần một khắc ngay trước khi ta đập nát xương sống của ngươi ra thành trăm mảnh, ta sẽ khiến ngươi trở nên bất tử.\" - Sett",
+    "artistName": "Kudos Productions",
+    "name": "Hủy Diệt Đấu Trường",
+    "cardCode": "07IO011T4",
+    "keywords": [
+      "Chậm",
+      "Phù Du"
+    ],
+    "keywordRefs": [
+      "Slow",
+      "Fleeting"
+    ],
+    "spellSpeed": "Chậm",
+    "spellSpeedRef": "Slow",
+    "rarity": "Không có",
+    "rarityRef": "None",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài phép",
+    "collectible": false,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [
+      "07IO011T1",
+      "07IO011",
+      "07IO011T5"
+    ],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07IO011T2.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07IO011T2-full.png"
+      }
+    ],
+    "regions": [
+      "Ionia"
+    ],
+    "regionRefs": [
+      "Ionia"
+    ],
+    "attack": 0,
+    "cost": 4,
+    "health": 0,
+    "description": "<link=keyword.Stun><sprite name=Stunned><style=Keyword>Làm Choáng</style></link> 2 kẻ địch và tạo trên tay 1 lá <link=card.create><style=AssociatedCard>Xu</style></link>.\r\nTạo 1 lá <link=card.level1><style=AssociatedCard>Sett</style></link> trong bộ bài.",
+    "descriptionRaw": "Làm Choáng 2 kẻ địch và tạo trên tay 1 lá Xu.\r\nTạo 1 lá Sett trong bộ bài.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "“Sao? Hắn nói cứ thẳng mặt mà đánh--nhưng có nói là mặt ai đâu!” - Sett",
+    "artistName": "Kudos Productions",
+    "name": "Song Thú Chưởng Của Sett",
+    "cardCode": "07IO011T2",
+    "keywords": [
+      "Chậm"
+    ],
+    "keywordRefs": [
+      "Slow"
+    ],
+    "spellSpeed": "Chậm",
+    "spellSpeedRef": "Slow",
+    "rarity": "Không có",
+    "rarityRef": "None",
+    "subtypes": [],
+    "supertype": "Anh hùng",
+    "type": "Bài phép",
+    "collectible": false,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [
+      "07IO011T5"
+    ],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07IO009.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07IO009-full.png"
+      }
+    ],
+    "regions": [
+      "Ionia"
+    ],
+    "regionRefs": [
+      "Ionia"
+    ],
+    "attack": 1,
+    "cost": 2,
+    "health": 2,
+    "description": "<link=vocab.NexusStrike><style=Vocab>Tấn Công Nhà Chính</style></link>: Tạo trên tay 1 lá <link=card.create><style=AssociatedCard>Xu</style></link>.",
+    "descriptionRaw": "Tấn Công Nhà Chính: Tạo trên tay 1 lá Xu.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "Giữa những tham vọng và mưu mô ích kỷ, Lise có một phẩm chất mà Sett rất coi trọng: đáng tin cậy. Cô ta không bao giờ trễ nải, không bao giờ sai sót và chưa bao giờ làm Sett phải hoài nghi. Điều này giúp Lise nhận được sự ủng hộ từ hắn và là một lời cảnh báo với những kẻ muốn khuấy động rắc rối: Đánh cược với Nhà Cái thì chỉ có thua thôi.",
+    "artistName": "Kudos Productions",
+    "name": "Kế Toán Tận Tụy",
+    "cardCode": "07IO009",
+    "keywords": [
+      "Huyền Ảo"
+    ],
+    "keywordRefs": [
+      "Elusive"
+    ],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài quân",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [
+      "07IO011T5"
+    ],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07IO019.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07IO019-full.png"
+      }
+    ],
+    "regions": [
+      "Ionia"
+    ],
+    "regionRefs": [
+      "Ionia"
+    ],
+    "attack": 3,
+    "cost": 4,
+    "health": 4,
+    "description": "<link=vocab.Play><style=Vocab>Xuất Trận</style></link>: Hồi 3 máu cho 1 đồng minh hoặc Nhà Chính và tạo trên tay 1 lá <link=card.create><style=AssociatedCard>Xu</style></link>.",
+    "descriptionRaw": "Xuất Trận: Hồi 3 máu cho 1 đồng minh hoặc Nhà Chính và tạo trên tay 1 lá Xu.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "\"Vòng đầu mới chỉ là màn chào hỏi, giờ vòng hai mới là vận động nóng người. Vấn đề xuất hiện khi tới vòng ba và bốn trở đi bởi lúc đó người ta bắt đầu không kiểm soát được lời nói nữa, bạn sẽ không tin những gì tôi nghe được đâu!\"",
+    "artistName": "Kudos Productions",
+    "name": "Chuyên Gia Pha Chế",
+    "cardCode": "07IO019",
+    "keywords": [],
+    "keywordRefs": [],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài quân",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn",
+      "Chỉ Lá Bài Thường"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name",
+      "client_Formats_CommonsOnly_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [
+      "07IO011T5"
+    ],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07IO017.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07IO017-full.png"
+      }
+    ],
+    "regions": [
+      "Ionia"
+    ],
+    "regionRefs": [
+      "Ionia"
+    ],
+    "attack": 0,
+    "cost": 5,
+    "health": 0,
+    "description": "Rút 2 lá bài và tạo trên tay 2 lá <link=card.create><style=AssociatedCard>Xu</style></link>.",
+    "descriptionRaw": "Rút 2 lá bài và tạo trên tay 2 lá Xu.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": " \"Họ cho chúng ta tiền tươi thóc thật, còn chúng ta cho họ tỷ lệ cược. Hê... vậy mà có một số người vẫn cứ thắc mắc tại sao nhà cái luôn thắng.\"",
+    "artistName": "Kudos Productions",
+    "name": "Đặt Cược Đi",
+    "cardCode": "07IO017",
+    "keywords": [
+      "Siêu Tốc"
+    ],
+    "keywordRefs": [
+      "Burst"
+    ],
+    "spellSpeed": "Siêu Tốc",
+    "spellSpeedRef": "Burst",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài phép",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn",
+      "Chỉ Lá Bài Thường"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name",
+      "client_Formats_CommonsOnly_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07IO023T1.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07IO023T1-full.png"
+      }
+    ],
+    "regions": [
+      "Ionia"
+    ],
+    "regionRefs": [
+      "Ionia"
+    ],
+    "attack": 0,
+    "cost": 0,
+    "health": 0,
+    "description": "<link=keyword.Recall><style=Keyword>Thu Về</style></link> kẻ địch <link=vocab.Strongest><style=Vocab>mạnh nhất</style></link>. Nếu ngươi đã sử dụng 16+ năng lượng trong vòng này, <link=keyword.Recall><style=Keyword>Thu Về</style></link> tất cả kẻ địch.",
+    "descriptionRaw": "Thu Về kẻ địch mạnh nhất. Nếu ngươi đã sử dụng 16+ năng lượng trong vòng này, Thu Về tất cả kẻ địch.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "\"Bài học này là thứ ngươi cần, nhưng đừng nhầm tưởng rằng ngươi sẽ thích nó.\" - Ông Già Lão Luyện",
+    "artistName": "Kudos Productions",
+    "name": "Không Biết Lượng Sức",
+    "cardCode": "07IO023T1",
+    "keywords": [
+      "Kỹ Năng"
+    ],
+    "keywordRefs": [
+      "Skill"
+    ],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "Không có",
+    "rarityRef": "None",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Kỹ năng",
+    "collectible": false,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [
+      "07IO011T5"
+    ],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07IO013.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07IO013-full.png"
+      }
+    ],
+    "regions": [
+      "Ionia"
+    ],
+    "regionRefs": [
+      "Ionia"
+    ],
+    "attack": 3,
+    "cost": 3,
+    "health": 3,
+    "description": "Khi ta được triệu hồi, tạo trên tay 1 lá <link=card.create><style=AssociatedCard>Xu</style></link>.",
+    "descriptionRaw": "Khi ta được triệu hồi, tạo trên tay 1 lá Xu.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "\"Có kẻ tham gia vì tiền, có kẻ chiến đấu vì máu nhưng có những kẻ lại chỉ mê thích tiếng reo hò của đám đông. Còn ta ư? Chẳng đời nào ta lại chọn một thứ. Ta muốn tất cả và ta sẽ có tất cả chính tại nơi đây.\"",
+    "artistName": "Kudos Productions",
+    "name": "Đấu Sĩ Hạng Chuyên",
+    "cardCode": "07IO013",
+    "keywords": [],
+    "keywordRefs": [],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài quân",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn",
+      "Chỉ Lá Bài Thường"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name",
+      "client_Formats_CommonsOnly_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [
+      "07IO011T5"
+    ],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07IO020T1.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07IO020T1-full.png"
+      }
+    ],
+    "regions": [
+      "Ionia"
+    ],
+    "regionRefs": [
+      "Ionia"
+    ],
+    "attack": 0,
+    "cost": 2,
+    "health": 0,
+    "description": "<link=keyword.Recall><style=Keyword>Thu Về</style></link> 1 đồng minh và tạo trên tay 1 lá <link=card.create><style=AssociatedCard>Xu</style></link>.",
+    "descriptionRaw": "Thu Về 1 đồng minh và tạo trên tay 1 lá Xu.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "\"Ta sẽ chỉ tham gia với hai điều kiện. Hoặc là đối thủ của ngươi quá tận hưởng việc hủy diệt ngươi. Hoặc ngươi mới là người được hưởng niềm vui đó và ta cũng muốn có phần!\" - Đấu Sĩ Hạng Chuyên",
+    "artistName": "Kudos Productions",
+    "name": "Đổi Người!",
+    "cardCode": "07IO020T1",
+    "keywords": [
+      "Nhanh"
+    ],
+    "keywordRefs": [
+      "Fast"
+    ],
+    "spellSpeed": "Nhanh",
+    "spellSpeedRef": "Fast",
+    "rarity": "Không có",
+    "rarityRef": "None",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài phép",
+    "collectible": false,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [
+      "07IO011T5"
+    ],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07IO020T2.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07IO020T2-full.png"
+      }
+    ],
+    "regions": [
+      "Ionia"
+    ],
+    "regionRefs": [
+      "Ionia"
+    ],
+    "attack": 0,
+    "cost": 5,
+    "health": 0,
+    "description": "<link=keyword.Recall><style=Keyword>Thu Về</style></link> 1 kẻ địch và tạo trên tay 1 lá <link=card.create><style=AssociatedCard>Xu</style></link>.",
+    "descriptionRaw": "Thu Về 1 kẻ địch và tạo trên tay 1 lá Xu.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "\"Ta sẽ chỉ tham gia với hai điều kiện. Hoặc là đối thủ của ngươi quá tận hưởng việc hủy diệt ngươi. Hoặc ngươi mới là người được hưởng niềm vui đó và ta cũng muốn có phần!\" - Đấu Sĩ Hạng Chuyên",
+    "artistName": "Kudos Productions",
+    "name": "Đổi Người!",
+    "cardCode": "07IO020T2",
+    "keywords": [
+      "Nhanh"
+    ],
+    "keywordRefs": [
+      "Fast"
+    ],
+    "spellSpeed": "Nhanh",
+    "spellSpeedRef": "Fast",
+    "rarity": "Không có",
+    "rarityRef": "None",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài phép",
+    "collectible": false,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07IO012.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07IO012-full.png"
+      }
+    ],
+    "regions": [
+      "Ionia"
+    ],
+    "regionRefs": [
+      "Ionia"
+    ],
+    "attack": 3,
+    "cost": 3,
+    "health": 3,
+    "description": "Khi ta được triệu hồi, tạo trên tay 1 lá <link=card.selfRef><style=AssociatedCard>Bảo An Trận Chiến</style></link> <link=keyword.Fleeting><sprite name=Fleeting><style=Keyword>Phù Du</style></link> và ban +1|+1 cho <link=card.selfRef><style=AssociatedCard>Bảo An Trận Chiến</style></link>.\r\n<link=vocab.Empowered><style=Vocab>Cường Hóa</style></link> 5: <link=keyword.Quick Strike><sprite name=QuickStrike><style=Keyword>Đột Kích</style></link>.",
+    "descriptionRaw": "Khi ta được triệu hồi, tạo trên tay 1 lá Bảo An Trận Chiến Phù Du và ban +1|+1 cho Bảo An Trận Chiến.\r\nCường Hóa 5: Đột Kích.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "“Nếu chúng nghĩ bây ngu xuẩn, mặc xác chúng. Hãy cứ để lũ xấu xa đó tưởng rằng bọn chúng là những kẻ làm chủ cuộc chơi. Bởi sẽ thật tuyệt khi được thấy những ánh nhìn thất thần vào cái lúc chúng nhận ra đã đánh giá bọn bây quá sai rồi.” - Sett",
+    "artistName": "Kudos Productions",
+    "name": "Bảo An Trận Chiến",
+    "cardCode": "07IO012",
+    "keywords": [],
+    "keywordRefs": [],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài quân",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [
+      "07IO011T5"
+    ],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07IO007.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07IO007-full.png"
+      }
+    ],
+    "regions": [
+      "Ionia"
+    ],
+    "regionRefs": [
+      "Ionia"
+    ],
+    "attack": 0,
+    "cost": 4,
+    "health": 0,
+    "description": "<link=keyword.Stun><sprite name=Stunned><style=Keyword>Làm Choáng</style></link> 2 kẻ địch và tạo trên tay 1 lá <link=card.create><style=AssociatedCard>Xu</style></link>.",
+    "descriptionRaw": "Làm Choáng 2 kẻ địch và tạo trên tay 1 lá Xu.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "“Sao? Hắn nói cứ thẳng mặt mà đánh--nhưng có nói là mặt ai đâu!” - Sett",
+    "artistName": "Kudos Productions",
+    "name": "Song Thú Chưởng",
+    "cardCode": "07IO007",
+    "keywords": [
+      "Chậm"
+    ],
+    "keywordRefs": [
+      "Slow"
+    ],
+    "spellSpeed": "Chậm",
+    "spellSpeedRef": "Slow",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài phép",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn",
+      "Chỉ Lá Bài Thường"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name",
+      "client_Formats_CommonsOnly_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BW018.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BW018-full.png"
+      }
+    ],
+    "regions": [
+      "Bilgewater"
+    ],
+    "regionRefs": [
+      "Bilgewater"
+    ],
+    "attack": 1,
+    "cost": 2,
+    "health": 3,
+    "description": "Khi ngươi hồi năng lượng, ban cho ta +1|+0 với mỗi năng lượng đã hồi.",
+    "descriptionRaw": "Khi ngươi hồi năng lượng, ban cho ta +1|+0 với mỗi năng lượng đã hồi.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "\"Xem này, Jack yêu quý! Ta tìm thấy một thứ sẽ làm mày thấy thú vị đó?\"",
+    "artistName": "Envar Studio",
+    "name": "Babs Già Loạn Trí",
+    "cardCode": "07BW018",
+    "keywords": [],
+    "keywordRefs": [],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài quân",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn",
+      "Chỉ Lá Bài Thường"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name",
+      "client_Formats_CommonsOnly_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BW021.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BW021-full.png"
+      }
+    ],
+    "regions": [
+      "Bilgewater"
+    ],
+    "regionRefs": [
+      "Bilgewater"
+    ],
+    "attack": 3,
+    "cost": 3,
+    "health": 2,
+    "description": "<link=keyword.Plunder><style=Keyword>Cưỡng Đoạt</style></link>: Triệu hồi 1 tùy tùng 1 tiêu hao ngẫu nhiên và ban cho nó <link=keyword.Brash><sprite name=Brash><style=Keyword>Ngạo Mạn</style></link>.",
+    "descriptionRaw": "Cưỡng Đoạt: Triệu hồi 1 tùy tùng 1 tiêu hao ngẫu nhiên và ban cho nó Ngạo Mạn.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "“Nếu là ngươi thì ta sẽ tránh xa cô ta. Cô ta có một thói quen điên rồ là thích kéo người khác vào rắc rối của mình.” - Samira",
+    "artistName": "Kudos Productions",
+    "name": "Cướp Biển Táo Tợn",
+    "cardCode": "07BW021",
+    "keywords": [
+      "Cưỡng Đoạt",
+      "Ngạo Mạn"
+    ],
+    "keywordRefs": [
+      "Plunder",
+      "Brash"
+    ],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài quân",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn",
+      "Chỉ Lá Bài Thường"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name",
+      "client_Formats_CommonsOnly_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [
+      "07BW002T1",
+      "07BW002T2",
+      "07IO011T5"
+    ],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BW002.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BW002-full.png"
+      }
+    ],
+    "regions": [
+      "Bilgewater"
+    ],
+    "regionRefs": [
+      "Bilgewater"
+    ],
+    "attack": 4,
+    "cost": 4,
+    "health": 5,
+    "description": "<link=vocab.Strike><style=Vocab>Ra Đòn</style></link>: Tạo trên tay 1 lá <link=card.create><style=AssociatedCard>Xu</style></link>.",
+    "descriptionRaw": "Ra Đòn: Tạo trên tay 1 lá Xu.",
+    "levelupDescription": "Ngươi đã sử dụng 12+ năng lượng trong 1 vòng đấu.<style=Variable></style>",
+    "levelupDescriptionRaw": "Ngươi đã sử dụng 12+ năng lượng trong 1 vòng đấu.",
+    "flavorText": "\"Ngươi phải thật dũng cảm hoặc ngu ngốc thì mới dám chống lại ta, nhưng dù thế nào thì kết cục cũng vậy cả thôi. Lời khuyên này: lo mà giữ lấy mạng nhé.\"",
+    "artistName": "Envar Studio",
+    "name": "Jack",
+    "cardCode": "07BW002",
+    "keywords": [
+      "Ngạo Mạn"
+    ],
+    "keywordRefs": [
+      "Brash"
+    ],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "Anh Hùng",
+    "rarityRef": "Champion",
+    "subtypes": [],
+    "supertype": "Anh hùng",
+    "type": "Bài quân",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn",
+      "Chỉ Lá Bài Thường"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name",
+      "client_Formats_CommonsOnly_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [
+      "07BW002",
+      "07BW002T1",
+      "07IO011T5"
+    ],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BW002T2.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BW002T2-full.png"
+      }
+    ],
+    "regions": [
+      "Bilgewater"
+    ],
+    "regionRefs": [
+      "Bilgewater"
+    ],
+    "attack": 5,
+    "cost": 4,
+    "health": 6,
+    "description": "<link=vocab.Strike><style=Vocab>Ra Đòn</style></link>: Tạo trên tay 2 lá <link=card.create><style=AssociatedCard>Xu</style></link>.\r\nKhi ngươi hồi năng lượng, ban cho ta +1|+0 với mỗi năng lượng đã hồi.",
+    "descriptionRaw": "Ra Đòn: Tạo trên tay 2 lá Xu.\r\nKhi ngươi hồi năng lượng, ban cho ta +1|+0 với mỗi năng lượng đã hồi.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "“Jack cũng không tệ lắm. Thực ra thì một số người được hắn tôn trọng còn thấy hắn khá cuốn hút, khá tử tế. Nhưng một khi mũi hắn ngửi thấy mùi máu thì, chà... Chắc không có kẻ nào còn sống nguy hiểm hơn hắn đâu.” - Bull",
+    "artistName": "Envar Studio",
+    "name": "Jack",
+    "cardCode": "07BW002T2",
+    "keywords": [
+      "Áp Đảo",
+      "Ngạo Mạn"
+    ],
+    "keywordRefs": [
+      "Overwhelm",
+      "Brash"
+    ],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "Không có",
+    "rarityRef": "None",
+    "subtypes": [],
+    "supertype": "Anh hùng",
+    "type": "Bài quân",
+    "collectible": false,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [
+      "07BW002",
+      "07BW002T2",
+      "07IO011T5"
+    ],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BW002T1.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BW002T1-full.png"
+      }
+    ],
+    "regions": [
+      "Bilgewater"
+    ],
+    "regionRefs": [
+      "Bilgewater"
+    ],
+    "attack": 0,
+    "cost": 3,
+    "health": 0,
+    "description": "Gây 2 sát thương lên 1 bài quân. Nếu sát thương này tiêu diệt kẻ địch, tạo trên tay 2 lá <link=card.create><style=AssociatedCard>Xu</style></link>.\r\nTạo 1 lá <link=card.level1><style=AssociatedCard>Jack</style></link> trong bộ bài.",
+    "descriptionRaw": "Gây 2 sát thương lên 1 bài quân. Nếu sát thương này tiêu diệt kẻ địch, tạo trên tay 2 lá Xu.\r\nTạo 1 lá Jack trong bộ bài.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "“Không vào hang hùm làm sao bắt được cọp--và những hàm răng này được sinh ra để mạo hiểm.” - Jack",
+    "artistName": "Kudos Productions",
+    "name": "Hành Trình Mạo Hiểm Của Jack",
+    "cardCode": "07BW002T1",
+    "keywords": [
+      "Chậm"
+    ],
+    "keywordRefs": [
+      "Slow"
+    ],
+    "spellSpeed": "Chậm",
+    "spellSpeedRef": "Slow",
+    "rarity": "Không có",
+    "rarityRef": "None",
+    "subtypes": [],
+    "supertype": "Anh hùng",
+    "type": "Bài phép",
+    "collectible": false,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [
+      "07BW040T1",
+      "07BW040T2"
+    ],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BW040.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BW040-full.png"
+      }
+    ],
+    "regions": [
+      "Bilgewater"
+    ],
+    "regionRefs": [
+      "Bilgewater"
+    ],
+    "attack": 2,
+    "cost": 2,
+    "health": 1,
+    "description": "Khi ta được triệu hồi, tạo trên tay 1 lá <link=card.create><style=AssociatedCard>Mako</style></link> <link=keyword.Fleeting><sprite name=Fleeting><style=Keyword>Phù Du</style></link>.",
+    "descriptionRaw": "Khi ta được triệu hồi, tạo trên tay 1 lá Mako Phù Du.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "“Chặt đây một chút, chém kia một chút, thế mới vui. Trên biển thì đổ máu chút cũng chả sao. Không phải máu của ta là được.” - Nukkle",
+    "artistName": "Envar Studio",
+    "name": "Nukkle",
+    "cardCode": "07BW040",
+    "keywords": [
+      "Huyền Ảo"
+    ],
+    "keywordRefs": [
+      "Elusive"
+    ],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài quân",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [
+      "07BW040T2"
+    ],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BW040T1.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BW040T1-full.png"
+      }
+    ],
+    "regions": [
+      "Bilgewater"
+    ],
+    "regionRefs": [
+      "Bilgewater"
+    ],
+    "attack": 4,
+    "cost": 4,
+    "health": 4,
+    "description": "Khi ta được triệu hồi, tạo trên tay 1 lá <link=card.create><style=AssociatedCard>Bull</style></link> <link=keyword.Fleeting><sprite name=Fleeting><style=Keyword>Phù Du</style></link>.",
+    "descriptionRaw": "Khi ta được triệu hồi, tạo trên tay 1 lá Bull Phù Du.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "“Ngươi chỉ là một con cá con. Bơi tiếp đi.”",
+    "artistName": "Envar Studio",
+    "name": "Mako",
+    "cardCode": "07BW040T1",
+    "keywords": [
+      "Áp Đảo"
+    ],
+    "keywordRefs": [
+      "Overwhelm"
+    ],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "Không có",
+    "rarityRef": "None",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài quân",
+    "collectible": false,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BW040T2.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BW040T2-full.png"
+      }
+    ],
+    "regions": [
+      "Bilgewater"
+    ],
+    "regionRefs": [
+      "Bilgewater"
+    ],
+    "attack": 6,
+    "cost": 6,
+    "health": 6,
+    "description": "Khi ta được triệu hồi, <link=vocab.Rally><style=Vocab>Tiến Công</style></link>.",
+    "descriptionRaw": "Khi ta được triệu hồi, Tiến Công.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "Cơ thể chằng chịt những vết sẹo và hình xăm là minh chứng cho quá khứ oai hùng của hắn, Bull giờ đang đóng vai trò người hướng dẫn và bạn tập chiến đấu của Jack. Hắn đã cất giữ những chiến ý cuối cùng, chờ đợi một đối thủ xứng tầm xuất hiện.",
+    "artistName": "Envar Studio",
+    "name": "Bull",
+    "cardCode": "07BW040T2",
+    "keywords": [
+      "Ngạo Mạn"
+    ],
+    "keywordRefs": [
+      "Brash"
+    ],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "Không có",
+    "rarityRef": "None",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài quân",
+    "collectible": false,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [
+      "07IO011T5"
+    ],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BW003.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BW003-full.png"
+      }
+    ],
+    "regions": [
+      "Bilgewater"
+    ],
+    "regionRefs": [
+      "Bilgewater"
+    ],
+    "attack": 2,
+    "cost": 1,
+    "health": 1,
+    "description": "<link=keyword.Last Breath><sprite name=LastBreath><style=Keyword>Trăng Trối</style></link>: Tạo trên tay 1 lá <link=card.create><style=AssociatedCard>Xu</style></link>.\r\n",
+    "descriptionRaw": "Trăng Trối: Tạo trên tay 1 lá Xu.\r\n",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "\"Ê, quay lại đây, tên khốn! Đó là tiền mua khoai tây của ta!\" - Angel",
+    "artistName": "Caravan Studio",
+    "name": "Quái Móc Túi",
+    "cardCode": "07BW003",
+    "keywords": [
+      "Trăng Trối"
+    ],
+    "keywordRefs": [
+      "LastBreath"
+    ],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài quân",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn",
+      "Chỉ Lá Bài Thường"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name",
+      "client_Formats_CommonsOnly_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [
+      "07BW008"
+    ],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BW014.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BW014-full.png"
+      }
+    ],
+    "regions": [
+      "Bilgewater"
+    ],
+    "regionRefs": [
+      "Bilgewater"
+    ],
+    "attack": 4,
+    "cost": 3,
+    "health": 1,
+    "description": "Khi ta được triệu hồi, tạo trên tay 1 lá <link=card.create><style=AssociatedCard>Trao Đổi Chiêu Thức</style></link> <link=keyword.Fleeting><sprite name=Fleeting><style=Keyword>Phù Du</style></link>.",
+    "descriptionRaw": "Khi ta được triệu hồi, tạo trên tay 1 lá Trao Đổi Chiêu Thức Phù Du.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "“Hay lắm, Jackie! Cứ tiếp tục thể hiện sự cuốn hút của Bilgewater đi, chuyện còn lại cứ để ta. Chà, lại làm ta nhớ đến thời hoàng kim, khi mọi người thường gọi ta là 'Pablo-Đẹp-Như-Tranh'... Gì cơ, không tin à? Họ có gọi như thế đấy! Chắc mấy cú đấm vào đầu đã khiến trí nhớ của ngươi gặp vấn đề rồi.” - Pablo Ngũ Quyền",
+    "artistName": "Envar Studio",
+    "name": "Pablo Ngũ Quyền",
+    "cardCode": "07BW014",
+    "keywords": [
+      "Hồi Lực"
+    ],
+    "keywordRefs": [
+      "Attune"
+    ],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài quân",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn",
+      "Chỉ Lá Bài Thường"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name",
+      "client_Formats_CommonsOnly_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BW013.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BW013-full.png"
+      }
+    ],
+    "regions": [
+      "Bilgewater"
+    ],
+    "regionRefs": [
+      "Bilgewater"
+    ],
+    "attack": 6,
+    "cost": 5,
+    "health": 5,
+    "description": "",
+    "descriptionRaw": "",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "\"Ngươi chỉ có thế thôi à? Dễ thương đó. Giờ tới lượt ta.\"",
+    "artistName": "Kudos Productions",
+    "name": "Angel",
+    "cardCode": "07BW013",
+    "keywords": [
+      "Ngạo Mạn"
+    ],
+    "keywordRefs": [
+      "Brash"
+    ],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài quân",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn",
+      "Chỉ Lá Bài Thường"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name",
+      "client_Formats_CommonsOnly_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [
+      "07IO011T5"
+    ],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BW006.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BW006-full.png"
+      }
+    ],
+    "regions": [
+      "Bilgewater"
+    ],
+    "regionRefs": [
+      "Bilgewater"
+    ],
+    "attack": 0,
+    "cost": 3,
+    "health": 0,
+    "description": "Gây 2 sát thương lên 1 bài quân. Nếu sát thương này tiêu diệt kẻ địch, tạo trên tay 2 lá <link=card.create><style=AssociatedCard>Xu</style></link>.",
+    "descriptionRaw": "Gây 2 sát thương lên 1 bài quân. Nếu sát thương này tiêu diệt kẻ địch, tạo trên tay 2 lá Xu.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "“Không vào hang hùm làm sao bắt được cọp--và những hàm răng này được sinh ra để mạo hiểm.” - Jack",
+    "artistName": "Kudos Productions",
+    "name": "Hành Trình Mạo Hiểm",
+    "cardCode": "07BW006",
+    "keywords": [
+      "Chậm"
+    ],
+    "keywordRefs": [
+      "Slow"
+    ],
+    "spellSpeed": "Chậm",
+    "spellSpeedRef": "Slow",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài phép",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BW026.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BW026-full.png"
+      }
+    ],
+    "regions": [
+      "Bilgewater"
+    ],
+    "regionRefs": [
+      "Bilgewater"
+    ],
+    "attack": 0,
+    "cost": 4,
+    "health": 0,
+    "description": "<link=keyword.Plunder><style=Keyword>Cưỡng Đoạt</style></link>: Ta có 2 tiêu hao.\r\nRút 2 lá bài khi <link=vocab.RoundStart><style=Vocab>Bắt Đầu Vòng Đấu</style></link> tiếp theo và trao <link=keyword.Fleeting><sprite name=Fleeting><style=Keyword>Phù Du</style></link> cho chúng.",
+    "descriptionRaw": "Cưỡng Đoạt: Ta có 2 tiêu hao.\r\nRút 2 lá bài khi Bắt Đầu Vòng Đấu tiếp theo và trao Phù Du cho chúng.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "Đến lúc ngươi nghe thấy tiếng lạch cạch thì đã quá muộn để chạy trốn rồi.",
+    "artistName": "Kudos Productions",
+    "name": "Xiềng Xích Gai Góc",
+    "cardCode": "07BW026",
+    "keywords": [
+      "Siêu Tốc",
+      "Cưỡng Đoạt"
+    ],
+    "keywordRefs": [
+      "Burst",
+      "Plunder"
+    ],
+    "spellSpeed": "Siêu Tốc",
+    "spellSpeedRef": "Burst",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài phép",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BW027.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BW027-full.png"
+      }
+    ],
+    "regions": [
+      "Bilgewater"
+    ],
+    "regionRefs": [
+      "Bilgewater"
+    ],
+    "attack": 2,
+    "cost": 2,
+    "health": 1,
+    "description": "<link=keyword.Plunder><style=Keyword>Cưỡng Đoạt</style></link>: Hồi lại 1 năng lượng bài phép và tạo trên tay 1 bài phép 1 tiêu hao ngẫu nhiên thuộc khu vực đang sử dụng.",
+    "descriptionRaw": "Cưỡng Đoạt: Hồi lại 1 năng lượng bài phép và tạo trên tay 1 bài phép 1 tiêu hao ngẫu nhiên thuộc khu vực đang sử dụng.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "Xuất thân của Đức Cha Cuồng Nộ thực sự rất bí ẩn, và kể cả khi mọi người hỏi về nó, chẳng có ai nghe được câu trả lời tử tế... bởi lẽ dẫu ông có trả lời thì cũng bị át đi bởi tiếng ồn ã từ sự hủy diệt của mình.",
+    "artistName": "Kudos Productions",
+    "name": "Đức Cha Cuồng Nộ",
+    "cardCode": "07BW027",
+    "keywords": [
+      "Cưỡng Đoạt",
+      "Huyền Ảo"
+    ],
+    "keywordRefs": [
+      "Plunder",
+      "Elusive"
+    ],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài quân",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BW008.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BW008-full.png"
+      }
+    ],
+    "regions": [
+      "Bilgewater"
+    ],
+    "regionRefs": [
+      "Bilgewater"
+    ],
+    "attack": 0,
+    "cost": 1,
+    "health": 0,
+    "description": "1 đồng minh và 1 kẻ địch <link=vocab.Strike><style=Vocab>ra đòn</style></link> đánh lẫn nhau. Máu của chúng không thể giảm xuống dưới 1 từ cú <link=vocab.Strike><style=Vocab>ra đòn</style></link> này.",
+    "descriptionRaw": "1 đồng minh và 1 kẻ địch ra đòn đánh lẫn nhau. Máu của chúng không thể giảm xuống dưới 1 từ cú ra đòn này.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "Đôi khi chúng ta trao đổi xu và dầu đèn, và đôi khi lại trao đổi nắm đấm và răng. Đời là vậy, nhưng mà một cuộc trao đổi cân bằng ư? Nghe hấp dẫn đó!",
+    "artistName": "Kudos Productions",
+    "name": "Trao Đổi Chiêu Thức",
+    "cardCode": "07BW008",
+    "keywords": [
+      "Nhanh"
+    ],
+    "keywordRefs": [
+      "Fast"
+    ],
+    "spellSpeed": "Nhanh",
+    "spellSpeedRef": "Fast",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài phép",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn",
+      "Chỉ Lá Bài Thường"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name",
+      "client_Formats_CommonsOnly_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [
+      "07IO011T5"
+    ],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BW041.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BW041-full.png"
+      }
+    ],
+    "regions": [
+      "Bilgewater"
+    ],
+    "regionRefs": [
+      "Bilgewater"
+    ],
+    "attack": 0,
+    "cost": 2,
+    "health": 0,
+    "description": "<link=vocab.Strike><style=Vocab>Ra Đòn</style></link>: Tạo trên tay 1 lá <link=card.create><style=AssociatedCard>Xu</style></link>.",
+    "descriptionRaw": "Ra Đòn: Tạo trên tay 1 lá Xu.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "“Hừm, găng tay này đúng là có hơi khác lạ, ta đồng ý. Nhưng cứ thử xem, ngươi sẽ thích ngay đó.” - Bull",
+    "artistName": "Kudos Productions",
+    "name": "Nắm Đấm Đáng Sợ",
+    "cardCode": "07BW041",
+    "keywords": [
+      "Trang Bị",
+      "Ngạo Mạn"
+    ],
+    "keywordRefs": [
+      "Equipment",
+      "Brash"
+    ],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Trang Bị",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [
+      "07BW008"
+    ],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BW004.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BW004-full.png"
+      }
+    ],
+    "regions": [
+      "Bilgewater"
+    ],
+    "regionRefs": [
+      "Bilgewater"
+    ],
+    "attack": 7,
+    "cost": 7,
+    "health": 5,
+    "description": "Khi ngươi triệu hồi 1 đồng minh, tạo trên tay 1 lá <link=card.create><style=AssociatedCard>Trao Đổi Chiêu Thức</style></link> <link=keyword.Fleeting><sprite name=Fleeting><style=Keyword>Phù Du</style></link>.\r\nKhi 1 đồng minh nhận sát thương và sống sót, ban <link=keyword.Brash><sprite name=Brash><style=Keyword>Ngạo Mạn</style></link> cho đồng minh đó.",
+    "descriptionRaw": "Khi ngươi triệu hồi 1 đồng minh, tạo trên tay 1 lá Trao Đổi Chiêu Thức Phù Du.\r\nKhi 1 đồng minh nhận sát thương và sống sót, ban Ngạo Mạn cho đồng minh đó.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "Thuyền riêng của Jack đã chở hắn cùng đồng bọn đi khắp các vùng nước trên Runeterra, từ Bilgewater cho tới Ionia. Không ai biết bằng cách nào mà nó đi dưới mặt nước mà không chìm, nhưng người ta nói rằng dưới mặt nước mới là nơi nguy hiểm nhất...",
+    "artistName": "Envar Studio",
+    "name": "Chiến Hạm Hoàng Đế",
+    "cardCode": "07BW004",
+    "keywords": [
+      "Hồi Lực",
+      "Ngạo Mạn"
+    ],
+    "keywordRefs": [
+      "Attune",
+      "Brash"
+    ],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài quân",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BW025.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BW025-full.png"
+      }
+    ],
+    "regions": [
+      "Bilgewater"
+    ],
+    "regionRefs": [
+      "Bilgewater"
+    ],
+    "attack": 1,
+    "cost": 4,
+    "health": 5,
+    "description": "Khi ngươi kích hoạt <link=keyword.Plunder><style=Keyword>Cưỡng Đoạt</style></link>, rút 1 lá bài và trao cho nó <link=keyword.Fleeting><sprite name=Fleeting><style=Keyword>Phù Du</style></link>.",
+    "descriptionRaw": "Khi ngươi kích hoạt Cưỡng Đoạt, rút 1 lá bài và trao cho nó Phù Du.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "“Phóng hỏa trên biển có rất nhiều lợi thế. Nước sẽ khiến cho lửa không thể lan rộng, và lửa thì chẳng bao giờ đòi chia phần cả.”",
+    "artistName": "Kudos Productions",
+    "name": "Hỏa Cuồng Nhân",
+    "cardCode": "07BW025",
+    "keywords": [
+      "Huyền Ảo"
+    ],
+    "keywordRefs": [
+      "Elusive"
+    ],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài quân",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [
+      "07FR008T1"
+    ],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07FR008.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07FR008-full.png"
+      }
+    ],
+    "regions": [
+      "Freljord"
+    ],
+    "regionRefs": [
+      "Freljord"
+    ],
+    "attack": 2,
+    "cost": 2,
+    "health": 3,
+    "description": "Sử dụng 6 năng lượng để ta xuất trận dưới dạng <link=card.summon><style=AssociatedCard>Lang Mẫu Hàn Băng</style></link>.",
+    "descriptionRaw": "Sử dụng 6 năng lượng để ta xuất trận dưới dạng Lang Mẫu Hàn Băng.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "Rất nhiều hiểm nguy luôn rình rập tại Freljord, đặc biệt là với những kẻ chưa biết tới sự thật lạnh giá tại nơi đây.",
+    "artistName": "Caravan Studio",
+    "name": "Cún Hàn Băng",
+    "cardCode": "07FR008",
+    "keywords": [],
+    "keywordRefs": [],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài quân",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn",
+      "Chỉ Lá Bài Thường"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name",
+      "client_Formats_CommonsOnly_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [
+      "07FR008T1"
+    ],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07FR008T2.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07FR008T2-full.png"
+      }
+    ],
+    "regions": [
+      "Freljord"
+    ],
+    "regionRefs": [
+      "Freljord"
+    ],
+    "attack": 2,
+    "cost": 2,
+    "health": 3,
+    "description": "",
+    "descriptionRaw": "",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "Rất nhiều hiểm nguy luôn rình rập tại Freljord, đặc biệt là với những kẻ chưa biết tới sự thật lạnh giá tại nơi đây. ",
+    "artistName": "Caravan Studio",
+    "name": "Cún Hàn Băng",
+    "cardCode": "07FR008T2",
+    "keywords": [],
+    "keywordRefs": [],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "Không có",
+    "rarityRef": "None",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài quân",
+    "collectible": false,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [
+      "07FR008"
+    ],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07FR008T1.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07FR008T1-full.png"
+      }
+    ],
+    "regions": [
+      "Freljord"
+    ],
+    "regionRefs": [
+      "Freljord"
+    ],
+    "attack": 7,
+    "cost": 6,
+    "health": 5,
+    "description": "",
+    "descriptionRaw": "",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "Thật may cho một số người tại Freljord khi hộ vệ cho rằng họ cần tự mình học cách sinh tồn, chứ không phải bị lấy ra làm tấm gương.",
+    "artistName": "Caravan Studio",
+    "name": "Lang Mẫu Hàn Băng",
+    "cardCode": "07FR008T1",
+    "keywords": [
+      "Áp Đảo"
+    ],
+    "keywordRefs": [
+      "Overwhelm"
+    ],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "Không có",
+    "rarityRef": "None",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài quân",
+    "collectible": false,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07FR005.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07FR005-full.png"
+      }
+    ],
+    "regions": [
+      "Freljord"
+    ],
+    "regionRefs": [
+      "Freljord"
+    ],
+    "attack": 3,
+    "cost": 3,
+    "health": 4,
+    "description": "Ta không nhận sát thương từ bài phép hoặc kỹ năng của đồng minh.",
+    "descriptionRaw": "Ta không nhận sát thương từ bài phép hoặc kỹ năng của đồng minh.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "“Một khi tuyết đã lở, nó sẽ không thể dừng lại.” - Lissandra",
+    "artistName": "Xavier Leroux",
+    "name": "Tùy Tùng Hộ Vệ",
+    "cardCode": "07FR005",
+    "keywords": [],
+    "keywordRefs": [],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài quân",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07SI002.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07SI002-full.png"
+      }
+    ],
+    "regions": [
+      "Quần Đảo Bóng Đêm"
+    ],
+    "regionRefs": [
+      "ShadowIsles"
+    ],
+    "attack": 0,
+    "cost": 2,
+    "health": 0,
+    "description": "Tiêu diệt 1 tùy tùng có 3- Sức Mạnh hoặc sử dụng 4 năng lượng để tiêu diệt 1 anh hùng có 3- Sức Mạnh.\r\n",
+    "descriptionRaw": "Tiêu diệt 1 tùy tùng có 3- Sức Mạnh hoặc sử dụng 4 năng lượng để tiêu diệt 1 anh hùng có 3- Sức Mạnh.\r\n",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "Chỉ là lời thầm thì văng vẳng trong gió, tuy thanh âm không hoàn chỉnh nhưng vẫn có thể cảm nhận được rõ những lần giao tranh mạng đổi mạng.",
+    "artistName": "Kudos Productions",
+    "name": "Thu Thập Linh Hồn",
+    "cardCode": "07SI002",
+    "keywords": [
+      "Chậm"
+    ],
+    "keywordRefs": [
+      "Slow"
+    ],
+    "spellSpeed": "Chậm",
+    "spellSpeedRef": "Slow",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài phép",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07SI002T2.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07SI002T2-full.png"
+      }
+    ],
+    "regions": [
+      "Quần Đảo Bóng Đêm"
+    ],
+    "regionRefs": [
+      "ShadowIsles"
+    ],
+    "attack": 0,
+    "cost": 4,
+    "health": 0,
+    "description": "Tiêu diệt 1 anh hùng có 3- Sức Mạnh.",
+    "descriptionRaw": "Tiêu diệt 1 anh hùng có 3- Sức Mạnh.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "Chỉ là lời thầm thì văng vẳng trong gió, tuy thanh âm không hoàn chỉnh nhưng vẫn có thể cảm nhận được rõ những lần giao tranh mạng đổi mạng.",
+    "artistName": "Kudos Productions",
+    "name": "Thu Thập Linh Hồn",
+    "cardCode": "07SI002T2",
+    "keywords": [
+      "Chậm"
+    ],
+    "keywordRefs": [
+      "Slow"
+    ],
+    "spellSpeed": "Chậm",
+    "spellSpeedRef": "Slow",
+    "rarity": "Không có",
+    "rarityRef": "None",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài phép",
+    "collectible": false,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07SI002T1.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07SI002T1-full.png"
+      }
+    ],
+    "regions": [
+      "Quần Đảo Bóng Đêm"
+    ],
+    "regionRefs": [
+      "ShadowIsles"
+    ],
+    "attack": 0,
+    "cost": 2,
+    "health": 0,
+    "description": "Tiêu diệt 1 tùy tùng có 3- Sức mạnh.",
+    "descriptionRaw": "Tiêu diệt 1 tùy tùng có 3- Sức mạnh.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "Chỉ là lời thầm thì văng vẳng trong gió, tuy thanh âm không hoàn chỉnh nhưng vẫn có thể cảm nhận được rõ những lần giao tranh mạng đổi mạng.",
+    "artistName": "Kudos Productions",
+    "name": "Thu Thập Linh Hồn",
+    "cardCode": "07SI002T1",
+    "keywords": [
+      "Chậm"
+    ],
+    "keywordRefs": [
+      "Slow"
+    ],
+    "spellSpeed": "Chậm",
+    "spellSpeedRef": "Slow",
+    "rarity": "Không có",
+    "rarityRef": "None",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài phép",
+    "collectible": false,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07SI001.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07SI001-full.png"
+      }
+    ],
+    "regions": [
+      "Quần Đảo Bóng Đêm"
+    ],
+    "regionRefs": [
+      "ShadowIsles"
+    ],
+    "attack": 0,
+    "cost": 6,
+    "health": 0,
+    "description": "Tiêu diệt TẤT CẢ bài quân có 3- Sức mạnh.",
+    "descriptionRaw": "Tiêu diệt TẤT CẢ bài quân có 3- Sức mạnh.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "Bất cứ ai coi thường ta sẽ biết thế nào là tan biến vĩnh hằng.",
+    "artistName": "Kudos Productions",
+    "name": "Tiệt Trừ",
+    "cardCode": "07SI001",
+    "keywords": [
+      "Chậm"
+    ],
+    "keywordRefs": [
+      "Slow"
+    ],
+    "spellSpeed": "Chậm",
+    "spellSpeedRef": "Slow",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài phép",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BC005.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BC005-full.png"
+      }
+    ],
+    "regions": [
+      "Thành Phố Bandle"
+    ],
+    "regionRefs": [
+      "BandleCity"
+    ],
+    "attack": 1,
+    "cost": 2,
+    "health": 3,
+    "description": "",
+    "descriptionRaw": "",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "\"Chà, mới mẻ đấy.\" - Tinh Linh Lốc Xoáy",
+    "artistName": "Bubble Cat",
+    "name": "Mộc Linh Lốc Xoáy",
+    "cardCode": "07BC005",
+    "keywords": [
+      "Đột Kích",
+      "Nâng Cấp"
+    ],
+    "keywordRefs": [
+      "QuickStrike",
+      "Augment"
+    ],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common",
+    "subtypes": [
+      "TINH LINH"
+    ],
+    "supertype": "",
+    "type": "Bài quân",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn",
+      "Chỉ Lá Bài Thường"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name",
+      "client_Formats_CommonsOnly_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [
+      "07BC009T1"
+    ],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BC009.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BC009-full.png"
+      }
+    ],
+    "regions": [
+      "Thành Phố Bandle"
+    ],
+    "regionRefs": [
+      "BandleCity"
+    ],
+    "attack": 0,
+    "cost": 1,
+    "health": 0,
+    "description": "Gây 1 sát thương lên 1 bài quân. Tạo trên tay 1 lá <link=card.create><style=AssociatedCard>Bánh Nướng Hiểm Nguy</style></link>.",
+    "descriptionRaw": "Gây 1 sát thương lên 1 bài quân. Tạo trên tay 1 lá Bánh Nướng Hiểm Nguy.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "Chuẩn bị tinh thần đi.",
+    "artistName": "Kudos Productions",
+    "name": "Quăng Bánh",
+    "cardCode": "07BC009",
+    "keywords": [
+      "Nhanh"
+    ],
+    "keywordRefs": [
+      "Fast"
+    ],
+    "spellSpeed": "Nhanh",
+    "spellSpeedRef": "Fast",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài phép",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn",
+      "Chỉ Lá Bài Thường"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name",
+      "client_Formats_CommonsOnly_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BC009T1.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07BC009T1-full.png"
+      }
+    ],
+    "regions": [
+      "Thành Phố Bandle"
+    ],
+    "regionRefs": [
+      "BandleCity"
+    ],
+    "attack": 0,
+    "cost": 2,
+    "health": 0,
+    "description": "Gây 1 sát thương lên 1 đối tượng bất kỳ. ",
+    "descriptionRaw": "Gây 1 sát thương lên 1 đối tượng bất kỳ. ",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "Nếm thử mà coi, ngon lắm đó.",
+    "artistName": "Kudos Productions",
+    "name": "Bánh Nướng Hiểm Nguy",
+    "cardCode": "07BC009T1",
+    "keywords": [
+      "Chậm"
+    ],
+    "keywordRefs": [
+      "Slow"
+    ],
+    "spellSpeed": "Chậm",
+    "spellSpeedRef": "Slow",
+    "rarity": "Không có",
+    "rarityRef": "None",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài phép",
+    "collectible": false,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07MT003.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07MT003-full.png"
+      }
+    ],
+    "regions": [
+      "Targon"
+    ],
+    "regionRefs": [
+      "Targon"
+    ],
+    "attack": 1,
+    "cost": 2,
+    "health": 4,
+    "description": "<link=vocab.RoundStart><style=Vocab>Bắt Đầu Vòng Đấu</style></link>: Hồi 1 máu cho ta và Nhà Chính của ngươi.",
+    "descriptionRaw": "Bắt Đầu Vòng Đấu: Hồi 1 máu cho ta và Nhà Chính của ngươi.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "Ánh nhìn rạng rỡ tựa như vết nứt của cực quang đã mang đến sự thanh lặng, xoa dịu vết thương và chữa lành những thứ tưởng như đã vỡ nát.",
+    "artistName": "Bubble Cat",
+    "name": "Linh Thú Vũ Trụ",
+    "cardCode": "07MT003",
+    "keywords": [],
+    "keywordRefs": [],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài quân",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07MT001.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07MT001-full.png"
+      }
+    ],
+    "regions": [
+      "Targon"
+    ],
+    "regionRefs": [
+      "Targon"
+    ],
+    "attack": 0,
+    "cost": 2,
+    "health": 0,
+    "description": "Gây 4 sát thương lên 1 kẻ địch đã tấn công trong vòng này hoặc đang <link=keyword.Stun><sprite name=Stunned><style=Keyword>Bị Choáng</style></link>.",
+    "descriptionRaw": "Gây 4 sát thương lên 1 kẻ địch đã tấn công trong vòng này hoặc đang Bị Choáng.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "Những vì sao soi xét và đánh giá hành động của chúng ta. Người ngay thẳng sẽ được bỏ qua, nhưng những kẻ xấu xa phải chịu phán xét.",
+    "artistName": "Kudos Productions",
+    "name": "Sao Rơi",
+    "cardCode": "07MT001",
+    "keywords": [
+      "Chậm"
+    ],
+    "keywordRefs": [
+      "Slow"
+    ],
+    "spellSpeed": "Chậm",
+    "spellSpeedRef": "Slow",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài phép",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn",
+      "Chỉ Lá Bài Thường"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name",
+      "client_Formats_CommonsOnly_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07DE002.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07DE002-full.png"
+      }
+    ],
+    "regions": [
+      "Demacia"
+    ],
+    "regionRefs": [
+      "Demacia"
+    ],
+    "attack": 0,
+    "cost": 4,
+    "health": 0,
+    "description": "1 đồng minh có 4+ Sức Mạnh <link=keyword.Capture><sprite name=Capture><style=Keyword>Bắt Giữ</style></link> 1 bài quân hoặc 1 đồng minh <link=keyword.Capture><sprite name=Capture><style=Keyword>Bắt Giữ</style></link> 1 địa danh.",
+    "descriptionRaw": "1 đồng minh có 4+ Sức Mạnh Bắt Giữ 1 bài quân hoặc 1 đồng minh Bắt Giữ 1 địa danh.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "“Đứng yên và im lặng. Phản kháng là không khôn ngoan đâu.” - Thanh Tra Tầm Pháp",
+    "artistName": "Kudos Productions",
+    "name": "Lệnh Khám Xét",
+    "cardCode": "07DE002",
+    "keywords": [
+      "Nhanh"
+    ],
+    "keywordRefs": [
+      "Fast"
+    ],
+    "spellSpeed": "Nhanh",
+    "spellSpeedRef": "Fast",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài phép",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07DE005.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07DE005-full.png"
+      }
+    ],
+    "regions": [
+      "Demacia"
+    ],
+    "regionRefs": [
+      "Demacia"
+    ],
+    "attack": 0,
+    "cost": 2,
+    "health": 0,
+    "description": "Trao +2|+2 cho 1 đồng minh trong vòng này.",
+    "descriptionRaw": "Trao +2|+2 cho 1 đồng minh trong vòng này.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "“Hãy đứng vững! Dẫu khó khăn đến mấy cũng không được gục ngã!” - Tiên Phong Bất Khuất",
+    "artistName": "Kudos Productions",
+    "name": "Hãy Vững Vàng!",
+    "cardCode": "07DE005",
+    "keywords": [
+      "Siêu Tốc"
+    ],
+    "keywordRefs": [
+      "Burst"
+    ],
+    "spellSpeed": "Siêu Tốc",
+    "spellSpeedRef": "Burst",
+    "rarity": "THƯỜNG",
+    "rarityRef": "Common",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài phép",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn",
+      "Chỉ Lá Bài Thường"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name",
+      "client_Formats_CommonsOnly_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07DE002T1.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07DE002T1-full.png"
+      }
+    ],
+    "regions": [
+      "Demacia"
+    ],
+    "regionRefs": [
+      "Demacia"
+    ],
+    "attack": 0,
+    "cost": 4,
+    "health": 0,
+    "description": "1 đồng minh <link=keyword.Capture><sprite name=Capture><style=Keyword>Bắt Giữ</style></link> 1 Địa Danh.",
+    "descriptionRaw": "1 đồng minh Bắt Giữ 1 Địa Danh.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "“Đứng yên và im lặng. Phản kháng là không khôn ngoan đâu.” - Thanh Tra Tầm Pháp",
+    "artistName": "Kudos Productions",
+    "name": "Lệnh Khám Xét",
+    "cardCode": "07DE002T1",
+    "keywords": [
+      "Nhanh"
+    ],
+    "keywordRefs": [
+      "Fast"
+    ],
+    "spellSpeed": "Nhanh",
+    "spellSpeedRef": "Fast",
+    "rarity": "Không có",
+    "rarityRef": "None",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài phép",
+    "collectible": false,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07DE002T2.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07DE002T2-full.png"
+      }
+    ],
+    "regions": [
+      "Demacia"
+    ],
+    "regionRefs": [
+      "Demacia"
+    ],
+    "attack": 0,
+    "cost": 4,
+    "health": 0,
+    "description": "1 đồng minh có 4+ Sức Mạnh <link=keyword.Capture><sprite name=Capture><style=Keyword>Bắt Giữ</style></link> 1 bài quân.",
+    "descriptionRaw": "1 đồng minh có 4+ Sức Mạnh Bắt Giữ 1 bài quân.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "“Đứng yên và im lặng. Phản kháng là không khôn ngoan đâu.” - Thanh Tra Tầm Pháp",
+    "artistName": "Kudos Productions",
+    "name": "Lệnh Khám Xét",
+    "cardCode": "07DE002T2",
+    "keywords": [
+      "Nhanh"
+    ],
+    "keywordRefs": [
+      "Fast"
+    ],
+    "spellSpeed": "Nhanh",
+    "spellSpeedRef": "Fast",
+    "rarity": "Không có",
+    "rarityRef": "None",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài phép",
+    "collectible": false,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07SH023.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07SH023-full.png"
+      }
+    ],
+    "regions": [
+      "Shurima"
+    ],
+    "regionRefs": [
+      "Shurima"
+    ],
+    "attack": 0,
+    "cost": 7,
+    "health": 7,
+    "description": "Ta nhận +1|+0 với mỗi đồng minh <link=keyword.Ephemeral><sprite name=Ephemeral><style=Keyword>Cảm Tử</style></link> ngươi đã triệu hồi trong trận đấu. <style=Variable></style>",
+    "descriptionRaw": "Ta nhận +1|+0 với mỗi đồng minh Cảm Tử ngươi đã triệu hồi trong trận đấu. ",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "\"Dù có lẽ cậu chẳng bằng hạt cát dưới chân kẻ thù, nhưng ta hiểu cậu. Ta thấy sự hiện diện của cậu trong cồn cát. Hãy cho ta mượn sức mạnh của cậu và chúng ta sẽ cùng nhau hạ gục kẻ thù chung!\"",
+    "artistName": "Kudos Productions",
+    "name": "Đại Tướng Sa Mạc Hết Thời",
+    "cardCode": "07SH023",
+    "keywords": [
+      "Áp Đảo"
+    ],
+    "keywordRefs": [
+      "Overwhelm"
+    ],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "HIẾM",
+    "rarityRef": "Rare",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài quân",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  },
+  {
+    "associatedCards": [],
+    "associatedCardRefs": [],
+    "assets": [
+      {
+        "gameAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07SH018.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/4_3_0/set7/vi_vn/img/cards/07SH018-full.png"
+      }
+    ],
+    "regions": [
+      "Shurima"
+    ],
+    "regionRefs": [
+      "Shurima"
+    ],
+    "attack": 2,
+    "cost": 3,
+    "health": 4,
+    "description": "Khi ta được triệu hồi, tạo 2 anh hùng cấp 2 ngẫu nhiên không có trên tay, bộ bài hoặc bàn đấu ở dưới cùng của bộ bài.",
+    "descriptionRaw": "Khi ta được triệu hồi, tạo 2 anh hùng cấp 2 ngẫu nhiên không có trên tay, bộ bài hoặc bàn đấu ở dưới cùng của bộ bài.",
+    "levelupDescription": "",
+    "levelupDescriptionRaw": "",
+    "flavorText": "Ông không thực sự hiểu những gì đã trông thấy, tai họa nào sẽ xảy ra hay khi nào nó sẽ tới, nhưng ông hiểu rõ về thế giới và con người. Họ chưa và có lẽ sẽ chẳng bao giờ sẵn sàng.",
+    "artistName": "Envar Studio",
+    "name": "Người Nắm Giữ Bí Mật",
+    "cardCode": "07SH018",
+    "keywords": [],
+    "keywordRefs": [],
+    "spellSpeed": "",
+    "spellSpeedRef": "",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic",
+    "subtypes": [],
+    "supertype": "",
+    "type": "Bài quân",
+    "collectible": true,
+    "set": "Set7",
+    "formats": [
+      "Vô Hạn",
+      "Tiêu Chuẩn"
+    ],
+    "formatRefs": [
+      "client_Formats_Eternal_name",
+      "client_Formats_Standard_name"
+    ]
+  }
+]

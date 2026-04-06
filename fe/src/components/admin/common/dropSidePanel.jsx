@@ -2,6 +2,7 @@
 import { memo, useMemo, useState } from "react";
 import Button from "../../common/button";
 import InputField from "../../common/inputField";
+import SafeImage from "../../common/SafeImage";
 import {
 	Search,
 	Package,
@@ -33,7 +34,7 @@ const getUniqueId = item => {
 	);
 };
 
-const DropDragItem = memo(({ item, type, setTooltipData }) => {
+const DropDragItem = memo(({ item, type, setTooltipData, showImages = true }) => {
 	const { tDynamic, tUI } = useTranslation();
 	const itemName =
 		tDynamic(item, "name") || item.cardName || item.bossName || item.adventureName;
@@ -78,6 +79,21 @@ const DropDragItem = memo(({ item, type, setTooltipData }) => {
 		item.assets?.[0]?.avatar ||
 		item.background;
 
+	// Component icon dự phòng dựa trên loại
+	const renderPlaceholder = () => {
+		const icons = {
+			champion: <Users size={20} />,
+			boss: <Skull size={20} />,
+			item: <Package size={20} />,
+			relic: <Shield size={20} />,
+			power: <Zap size={20} />,
+			bonusStar: <Star size={20} />,
+			rune: <Gem size={20} />,
+			card: <CreditCard size={20} />,
+		};
+		return icons[type] || <Package size={20} />;
+	};
+
 	return (
 		<div
 			draggable
@@ -86,18 +102,17 @@ const DropDragItem = memo(({ item, type, setTooltipData }) => {
 			onMouseLeave={handleMouseLeave}
 			className='p-3 bg-surface-hover rounded-xl border border-border hover:bg-surface-hover-active hover:border-primary-500/50 transition-all duration-200 cursor-grab active:cursor-grabbing flex items-center gap-3 group shadow-sm hover:shadow-md'
 		>
-			{imageUrl ? (
-				<img
+			{showImages && imageUrl ? (
+				<SafeImage
 					src={imageUrl}
 					alt={itemName}
 					className='w-10 h-10 rounded-lg object-contain bg-white border border-border shrink-0 group-hover:scale-105 transition-transform'
-					onError={e => (e.target.style.display = "none")}
+					width={40}
+					height={40}
 				/>
 			) : (
-				<div className='w-10 h-10 bg-input-bg rounded-lg border border-border flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform'>
-					<span className='text-xs font-bold text-text-secondary'>
-						{type.charAt(0).toUpperCase()}
-					</span>
+				<div className='w-10 h-10 bg-input-bg rounded-lg border border-border flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform text-text-tertiary'>
+					{renderPlaceholder()}
 				</div>
 			)}
 
@@ -200,20 +215,34 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 
 		if (searchInput) {
 			const term = removeAccents(searchInput).toLowerCase();
-			filtered = filtered.filter(
-				i =>
-					removeAccents(
-						tDynamic(i, "name") || i.bossName || i.adventureName || "",
-					)
-						.toLowerCase()
-						.includes(term) ||
-					removeAccents(tDynamic(i, "description") || "")
-						.toLowerCase()
-						.includes(term) ||
-					removeAccents(tDynamic(i, "descriptionRaw") || "")
-						.toLowerCase()
-						.includes(term),
-			);
+			filtered = filtered.filter(i => {
+				const searchableFields = [
+					tDynamic(i, "name"),
+					i.name,
+					i.cardName,
+					i.bossName,
+					i.adventureName,
+					i.translations?.en?.name,
+					i.translations?.en?.cardName,
+					tDynamic(i, "description"),
+					tDynamic(i, "descriptionRaw"),
+					i.description,
+					i.descriptionRaw,
+					i.translations?.en?.description,
+					i.translations?.en?.descriptionRaw,
+					// Thêm mã ID để có thể tìm chính xác theo ID (vật phẩm, card, power)
+					i.cardCode,
+					i.powerCode,
+					i.relicCode,
+					i.itemCode,
+					i.championID,
+					i.bossID
+				];
+
+				return searchableFields.some(field => 
+					field && removeAccents(String(field).toLowerCase()).includes(term)
+				);
+			});
 		}
 
 		if (selectedRarities.length > 0) {
@@ -368,14 +397,25 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 				<div className='flex-1 overflow-y-auto p-4 custom-scrollbar bg-surface-hover/30'>
 					{filteredItems.length > 0 ? (
 						<div className='space-y-3'>
-							{filteredItems.map((item, idx) => (
+							{filteredItems.slice(0, 100).map((item, idx) => (
 								<DropDragItem
 									key={getUniqueId(item) || `${activeTab}-${idx}`}
 									item={item}
 									type={activeTab}
 									setTooltipData={setTooltipData}
+									showImages={searchInput.length >= 2 || filteredItems.length < 20}
 								/>
 							))}
+							{filteredItems.length > 100 && (
+								<div className='py-4 text-center border-t border-border/50'>
+									<p className='text-[10px] font-black text-text-tertiary uppercase tracking-widest'>
+										Và {filteredItems.length - 100} kết quả khác...
+									</p>
+									<p className='text-[9px] text-text-secondary mt-1'>
+										Vui lòng tìm kiếm để thu hẹp kết quả
+									</p>
+								</div>
+							)}
 						</div>
 					) : (
 						<div className='flex flex-col items-center justify-center py-12 text-text-secondary opacity-60'>
@@ -399,7 +439,7 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 						tooltipData.item.avatar ||
 						tooltipData.item.assets?.[0]?.avatar ||
 						tooltipData.item.background ? (
-							<img
+							<SafeImage
 								src={
 									tooltipData.item.assetAbsolutePath ||
 									tooltipData.item.gameAbsolutePath ||
@@ -408,6 +448,7 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 									tooltipData.item.assets?.[0]?.avatar ||
 									tooltipData.item.background
 								}
+								alt={tDynamic(tooltipData.item, "name")}
 								className='w-14 h-20 rounded-xl object-contain bg-slate-50 border border-slate-200 p-1 shrink-0 shadow-sm'
 							/>
 						) : (

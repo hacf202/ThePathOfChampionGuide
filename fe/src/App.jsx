@@ -16,6 +16,7 @@ import BuildDetail from "./components/build/buildDetail.jsx";
 import RuneDetail from "./components/rune/runeDetail.jsx";
 import GuideDetail from "./components/guide/guideDetail.jsx";
 import AdventureMapDetail from "./components/map/adventureMapDetail.jsx";
+import CardDetail from "./components/card/cardDetail.jsx";
 
 // Trang chính
 import Home from "./pages/home.jsx";
@@ -31,7 +32,7 @@ import GuideListPage from "./pages/guideListPage.jsx";
 import TierListIndex from "./pages/tierList.jsx";
 import VaultSimulator from "./pages/vaultSimulator.jsx";
 import CardList from "./pages/cardList.jsx";
-import CardDetail from "./pages/card/cardDetail.jsx";
+
 
 // Đăng nhập / Đăng ký
 import AuthContainer from "./components/auth/authContainer.jsx";

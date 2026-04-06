@@ -57,6 +57,8 @@ ThePathOfChampionGuide/
 - **Mục tiêu**: Nơi thao tác chỉnh sửa dữ liệu của Tướng (Champions), Lõi (Runes), Cổ vật (Relics), Phần thưởng và Quái (Rewards/Boss).
 - **Trạng thái cốt lõi**:
   - Giao diện phải cực kỳ trực quan, tránh lỗi vặt khi người quản trị nhập dữ liệu.
+  - **Hiệu năng**: Áp dụng giới hạn render 100-item và smart loading cho SidePanel để xử lý danh sách bài quân cực lớn.
+  - **Tự động hóa**: Trình biên tập hỗ trợ quét Markup tự động để đồng bộ dữ liệu tham chiếu.
   - Phải hỗ trợ đa ngôn ngữ 100% để đội ngũ quốc tế cũng có thể dùng chung.
   - Các trang danh sách dữ liệu phải có tính đồng nhất phân trang (Pagination), như áp dụng luật **24-item limit**.
 

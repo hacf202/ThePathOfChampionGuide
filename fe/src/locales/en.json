@@ -74,7 +74,14 @@
 		"notFoundPrefix": "Card not found with code:",
 		"errorLoad": "Error loading card information.",
 		"back": "Back to gallery",
-		"imageAlt": "Card image {{name}}"
+		"imageAlt": "Card image {{name}}",
+		"description": "Description",
+		"cost": "Cost",
+		"regions": "Regions",
+		"cardCode": "Card Code",
+		"associatedCards": "Related Cards",
+		"viewCountCards": "Right-click · view {{count}} related cards",
+		"seeDetail": "VIEW DETAILS"
 	},
 	"mapList": {
 		"pageTitle": "Adventure Maps",
@@ -116,6 +123,7 @@
 		"thuong": "Common",
 		"hiem": "Rare",
 		"suthi": "Epic",
+		"huyenthoai": "Legendary",
 		"legendary": "Legendary",
 		"special": "Special"
 	},
@@ -344,7 +352,9 @@
 			"deleteConfirmTitle": "Confirm Permanent Delete",
 			"cannotUndo": "? This action cannot be undone.",
 			"search": "Search",
-			"all": "All"
+			"all": "All",
+			"sortIdAsc": "ID Ascending",
+			"sortIdDesc": "ID Descending"
 		},
 		"dropSidePanel": {
 			"tabs": {
@@ -843,7 +853,6 @@
 		"pageDesc": "The most professional Path of Champions Wiki & Guide",
 		"heroTitle1": "PATH OF",
 		"heroTitle2": "CHAMPIONS",
-		"heroDesc": "Discover ultimate power, optimize your gameplay, and conquer all challenges in The Path of Champions.",
 		"btnExplore": "EXPLORE NOW",
 		"btnNewChampion": "NEW CHAMPIONS",
 		"scrollDown": "Scroll down",
@@ -1030,11 +1039,12 @@
 		"champions": "Champions",
 		"tierList": "Tier List",
 		"itemsTitle": "Game Database",
-		"items": "Items",
-		"relics": "Relics",
-		"powers": "Powers",
-		"runes": "Runes",
-		"maps": "Maps",
+		"items": "Item List",
+		"relics": "Relic List",
+		"powers": "Power List",
+		"runes": "Rune List",
+		"maps": "Map List",
+		"cards": "Card List",
 		"toolsTitle": "Tools",
 		"randomizer": "Randomizer",
 		"about": "About",

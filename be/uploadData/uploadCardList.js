@@ -132,7 +132,7 @@ async function runUploader(tableName, filePath) {
 
 const CONFIG = {
 	TABLE: "guidePocCardList",
-	FILE: "../datacard/cardList.json",
+	FILE: "./cardList.json",
 };
 
 runUploader(CONFIG.TABLE, CONFIG.FILE);

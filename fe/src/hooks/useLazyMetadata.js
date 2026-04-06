@@ -16,7 +16,7 @@ export const useLazyMetadata = tUI => {
 		setIsLoadingMeta(true);
 		try {
 			const apiUrl = import.meta.env.VITE_API_URL;
-			const fetchOptions = "?page=1&limit=1000"; // Tạm giữ limit này, nhưng chỉ gọi khi cần thiết
+			const fetchOptions = "?page=1&limit=-1"; // Tạm giữ limit này, nhưng chỉ gọi khi cần thiết
 			const [champRes, relicRes, powerRes, runeRes] = await Promise.all([
 				fetch(`${apiUrl}/api/champions${fetchOptions}`),
 				fetch(`${apiUrl}/api/relics${fetchOptions}`),

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom"; // 🟢 Import Link để chuyển hư�
 import { RenderRequirements } from "./requirementIcon";
 import { useTranslation } from "../../hooks/useTranslation";
 import MarkupRenderer from "../common/MarkupRenderer";
+import { motion } from "framer-motion";
 
 const StarRating = ({ count }) => {
 	return (
@@ -35,29 +36,37 @@ export default function ConstellationTable({ starPowersList, bonusStarsList }) {
 		activeConstellationTab === "starPowers" ? starPowersList : bonusStarsList;
 
 	return (
-		<div className='mt-8 bg-surface-bg rounded-lg overflow-hidden border border-border shadow-sm'>
-			{/* TABS */}
-			<div className='flex gap-1 border-b border-border px-2 sm:px-4 pt-2 sm:pt-4 bg-surface-hover/30'>
-				<button
-					onClick={() => setActiveConstellationTab("starPowers")}
-					className={`px-3 sm:px-4 py-2 font-semibold text-[13px] sm:text-sm border-b-2 ${
-						activeConstellationTab === "starPowers"
-							? "border-primary-500 text-primary-500 bg-surface-bg"
-							: "border-transparent text-text-secondary hover:text-text-primary"
-					}`}
-				>
-					{tUI("constellation.tabStarPowers")}
-				</button>
-				<button
-					onClick={() => setActiveConstellationTab("bonusStars")}
-					className={`px-3 sm:px-4 py-2 font-semibold text-[13px] sm:text-sm border-b-2 ${
-						activeConstellationTab === "bonusStars"
-							? "border-primary-500 text-primary-500 bg-surface-bg"
-							: "border-transparent text-text-secondary hover:text-text-primary"
-					}`}
-				>
-					{tUI("constellation.tabBonusStars")}
-				</button>
+		<div className='bg-surface-bg rounded-xl overflow-hidden border border-border shadow-sm'>
+			{/* TABS SELECTOR */}
+			<div className='flex bg-surface-hover/30 p-2 sm:p-4 border-b border-border justify-center sm:justify-start overflow-x-auto'>
+				<div className="flex bg-surface-hover/50 p-1 rounded-lg shrink-0">
+					{[
+						{ id: "starPowers", label: tUI("constellation.tabStarPowers"), count: starPowersList.length, color: "text-primary-500", bg: "bg-primary-500/10" },
+						{ id: "bonusStars", label: tUI("constellation.tabBonusStars"), count: bonusStarsList.length, color: "text-purple-500", bg: "bg-purple-500/10" }
+					].map((tab) => (
+						<button
+							key={tab.id}
+							onClick={() => setActiveConstellationTab(tab.id)}
+							className={`relative px-4 py-2 rounded-md text-xs font-black tracking-wider uppercase transition-all flex items-center gap-2 ${
+								activeConstellationTab === tab.id 
+									? `${tab.color} z-10` 
+									: "text-text-tertiary hover:text-text-secondary"
+							}`}
+						>
+							{activeConstellationTab === tab.id && (
+								<motion.div
+									layoutId="activeConstellationSubTab"
+									className={`absolute inset-0 ${tab.bg} border border-border rounded-md -z-10`}
+									transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+								/>
+							)}
+							{tab.label}
+							<span className={`text-[10px] px-1.5 rounded-full ${activeConstellationTab === tab.id ? `${tab.bg} border border-border` : "bg-black/20 text-text-tertiary"}`}>
+								{tab.count}
+							</span>
+						</button>
+					))}
+				</div>
 			</div>
 
 			{/* TABLE */}

@@ -161,7 +161,7 @@ function RelicEditor() {
 		try {
 			setIsLoading(true);
 			// Sử dụng limit lớn để đảm bảo lấy đủ toàn bộ dữ liệu Cổ vật
-			const res = await fetch(`${API_BASE_URL}/api/relics?limit=1000`);
+			const res = await fetch(`${API_BASE_URL}/api/relics?limit=-1`);
 			if (!res.ok) throw new Error(tUI("admin.common.errorLoad"));
 			const data = await res.json();
 			const items = Array.isArray(data) ? data : data.items || [];

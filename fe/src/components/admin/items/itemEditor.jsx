@@ -161,7 +161,7 @@ function ItemEditor() {
 	const fetchAllData = useCallback(async () => {
 		try {
 			setIsLoading(true);
-			const res = await fetch(`${API_BASE_URL}/api/items?limit=1000`);
+			const res = await fetch(`${API_BASE_URL}/api/items?limit=-1`);
 			if (!res.ok) throw new Error(tUI("admin.common.errorLoad"));
 			const data = await res.json();
 			const itemList = Array.isArray(data) ? data : data.items || [];

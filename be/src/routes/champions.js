@@ -351,6 +351,17 @@ router.get("/:championID/full", async (req, res) => {
 			};
 		}
 
+		// 5. Tìm tướng gợi ý (Cùng khu vực hoặc ngẫu nhiên)
+		const allChampions = await getCachedChampions();
+		const otherChampions = allChampions.filter(c => c.championID !== championID);
+		
+		// Ưu tiên cùng khu vực
+		const sameRegion = otherChampions.filter(c => 
+			c.regions?.some(r => champion.regions?.includes(r))
+		);
+		const remaining = otherChampions.filter(c => !sameRegion.includes(c));
+		const suggestedChampions = [...sameRegion, ...remaining].slice(0, 4);
+
 		res.json({
 			champion,
 			constellation,
@@ -362,6 +373,7 @@ router.get("/:championID/full", async (req, res) => {
 				cards,
 				bonusStars
 			},
+			suggestedChampions,
 			allRatings: ratingsList,
 			personalRating
 		});

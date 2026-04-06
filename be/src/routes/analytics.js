@@ -1,6 +1,7 @@
 import express from "express";
 import client from "../config/db.js";
 import { PutCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
+import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { requireAdmin } from "../middleware/requireAdmin.js";
 import { v4 as uuidv4 } from "uuid";
 
@@ -91,7 +92,7 @@ router.post("/log", async (req, res) => {
 /**
  * 2. API Lấy thống kê chuyên sâu (Admin Only)
  */
-router.get("/stats", requireAdmin, async (req, res) => {
+router.get("/stats", authenticateCognitoToken, requireAdmin, async (req, res) => {
 	try {
 		// Timestamp là giá trị tuyệt đối, không bị ảnh hưởng bởi múi giờ nên logic lọc này vẫn chính xác hoàn toàn
 		const now = Date.now();

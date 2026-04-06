@@ -62,6 +62,7 @@ const MarkupTooltip = ({ title, description, icon, fullImage, options = [], rari
 	}, [rarity]);
 
 	const isCard = ["cd", "card"].includes(type?.toLowerCase());
+	const isChampion = ["c", "champion"].includes(type?.toLowerCase());
 	
 	const typeLabel = useMemo(() => {
 		const types = {
@@ -154,10 +155,12 @@ const MarkupTooltip = ({ title, description, icon, fullImage, options = [], rari
 								</div>
 							</div>
 							
-							{/* Description */}
-							<div className='text-slate-200 leading-relaxed text-[13px] sm:text-[14px] whitespace-pre-wrap break-words font-medium'>
-								{description || "Không có mô tả chi tiết."}
-							</div>
+							{/* Description - Hiden for Champions as requested */}
+							{!isChampion && (
+								<div className='text-slate-200 leading-relaxed text-[13px] sm:text-[14px] whitespace-pre-wrap break-words font-medium'>
+									{description || "Không có mô tả chi tiết."}
+								</div>
+							)}
 
 							{/* Footer Actions */}
 							<div className="mt-4 pt-3 border-t border-white/5 flex flex-col gap-2">

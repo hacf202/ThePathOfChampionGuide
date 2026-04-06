@@ -54,6 +54,7 @@ router.get("/", async (req, res) => {
 			types = "",    // Unit, Spell, Landmark, Equipment
 			costs = "",    // 0, 1, 2, ...
 			sort = "cardName-asc",
+			onlyBase = "false", // Nếu true, chỉ trả về lá bài gốc (không có hậu tố T)
 		} = req.query;
 
 		const pageSize = parseInt(limit);
@@ -62,6 +63,11 @@ router.get("/", async (req, res) => {
 		// --- Default: Scan all and cache-filter ---
 		const allCards = await getCachedCards();
 		let filtered = [...allCards];
+
+		// 0. Lọc chỉ lấy lá bài gốc (không có hậu tố T sau phần số)
+		if (onlyBase === "true") {
+			filtered = filtered.filter(c => !/[A-Z]\d+T\d+$/.test(c.cardCode || ""));
+		}
 
 		// 1. Lọc theo Rarity
 		if (rarities) {
@@ -137,10 +143,15 @@ router.get("/", async (req, res) => {
 			rarity: c.rarity,
 			regions: c.regions,
 			type: c.type,
+			description: c.description,
+			descriptionRaw: c.descriptionRaw,
 			gameAbsolutePath: c.gameAbsolutePath,
+			associatedCardRefs: c.associatedCardRefs || [],
 			translations: c.translations ? {
 				en: {
 					cardName: c.translations.en?.cardName,
+					description: c.translations.en?.description,
+					descriptionRaw: c.translations.en?.descriptionRaw,
 					gameAbsolutePath: c.translations.en?.gameAbsolutePath
 				}
 			} : undefined
@@ -251,6 +262,17 @@ router.get("/:cardCode", async (req, res) => {
 		}
 
 		const cardData = unmarshall(Item);
+
+		// Resolve associatedCardRefs thành objects đầy đủ
+		if (cardData.associatedCardRefs?.length > 0) {
+			const allCards = await getCachedCards();
+			cardData.associatedCards = cardData.associatedCardRefs
+				.map(code => allCards.find(c => c.cardCode === code))
+				.filter(Boolean);
+		} else {
+			cardData.associatedCards = [];
+		}
+
 		cardCache.set(CACHE_KEY, cardData);
 
 		res.json(cardData);

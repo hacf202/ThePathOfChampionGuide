@@ -1,6 +1,7 @@
 import { useState, memo } from "react";
 import { XCircle, Trash2, Plus, GripVertical } from "lucide-react";
 import { useTranslation } from "../../../hooks/useTranslation";
+import SafeImage from "../../common/SafeImage";
 
 const DragDropDeckInput = memo(
 	({
@@ -13,6 +14,7 @@ const DragDropDeckInput = memo(
 		const { tDynamic } = useTranslation();
 		const [isDragOverMain, setIsDragOverMain] = useState(false);
 		const [dragOverIdx, setDragOverIdx] = useState(null);
+		const [tooltipData, setTooltipData] = useState(null);
 
 		const handleDragOverMain = e => {
 			e.preventDefault();
@@ -26,6 +28,7 @@ const DragDropDeckInput = memo(
 		const handleDropMain = e => {
 			e.preventDefault();
 			setIsDragOverMain(false);
+			setTooltipData(null);
 
 			const rawData = e.dataTransfer.getData("text/plain");
 			if (!rawData) return;
@@ -44,6 +47,7 @@ const DragDropDeckInput = memo(
 		const handleDropOnCard = (e, index) => {
 			e.preventDefault();
 			setDragOverIdx(null);
+			setTooltipData(null);
 
 			const rawData = e.dataTransfer.getData("text/plain");
 			if (!rawData) return;
@@ -66,6 +70,7 @@ const DragDropDeckInput = memo(
 
 		const handleRemoveCard = index => {
 			onChange(data.filter((_, i) => i !== index));
+			setTooltipData(null);
 		};
 
 		const handleRemoveItemFromCard = (cardIdx, itemIdx) => {
@@ -74,10 +79,25 @@ const DragDropDeckInput = memo(
 				(_, i) => i !== itemIdx,
 			);
 			onChange(newData);
+			setTooltipData(null);
+		};
+
+		const handleMouseEnter = (e, item, type) => {
+			const rect = e.currentTarget.getBoundingClientRect();
+			setTooltipData({
+				item,
+				type,
+				x: rect.right + 10,
+				y: rect.top + rect.height / 2,
+			});
+		};
+
+		const handleMouseLeave = () => {
+			setTooltipData(null);
 		};
 
 		return (
-			<div className='flex flex-col gap-3'>
+			<div className='flex flex-col gap-3 relative'>
 				<label className='font-bold text-text-primary text-sm uppercase tracking-wider'>
 					{label}
 				</label>
@@ -115,18 +135,20 @@ const DragDropDeckInput = memo(
 										${dragOverIdx === idx ? "border-primary-500 ring-4 ring-primary-500/10" : "border-border"}`}
 									>
 										{/* Card Info */}
-										<div className='flex items-center gap-3 flex-1 min-w-0 w-full'>
+										<div 
+											className='flex items-center gap-3 flex-1 min-w-0 w-full cursor-help'
+											onMouseEnter={(e) => handleMouseEnter(e, cardInfo, 'card')}
+											onMouseLeave={handleMouseLeave}
+										>
 											<GripVertical className='text-text-tertiary shrink-0 cursor-grab active:cursor-grabbing' size={18} />
 											<div className='w-12 h-16 rounded-lg bg-black/20 border border-border overflow-hidden shrink-0'>
-												{cardImg ? (
-													<img
-														src={cardImg}
-														alt={cardName}
-														className='w-full h-full object-cover'
-													/>
-												) : (
-													<div className='w-full h-full flex items-center justify-center text-xs text-text-secondary'>?</div>
-												)}
+												<SafeImage
+													src={cardImg}
+													alt={cardName}
+													className='w-full h-full object-cover'
+													width={48}
+													height={64}
+												/>
 											</div>
 											<div className='min-w-0'>
 												<p className='font-bold text-text-primary text-sm truncate uppercase'>
@@ -148,15 +170,17 @@ const DragDropDeckInput = memo(
 												return (
 													<div
 														key={`${itemCode}-${itemIdx}`}
-														className='group relative flex items-center gap-1.5 px-2 py-1 bg-surface-hover border border-border rounded-lg hover:border-red-500/30 transition-colors'
-														title={itemName}
+														className='group relative flex items-center gap-1.5 px-2 py-1 bg-surface-hover border border-border rounded-lg hover:border-red-500/30 transition-colors cursor-help'
+														onMouseEnter={(e) => handleMouseEnter(e, itemInfo, 'item')}
+														onMouseLeave={handleMouseLeave}
 													>
 														<div className='w-6 h-6 rounded bg-white/10 overflow-hidden shrink-0 border border-border/50'>
-															{itemImg ? (
-																<img src={itemImg} className='w-full h-full object-contain' />
-															) : (
-																<div className='w-full h-full flex items-center justify-center text-[10px]'>?</div>
-															)}
+															<SafeImage 
+																src={itemImg} 
+																className='w-full h-full object-contain'
+																width={24}
+																height={24}
+															/>
 														</div>
 														<span className='text-[10px] font-bold text-text-secondary max-w-[100px] truncate'>
 															{itemName}
@@ -197,6 +221,36 @@ const DragDropDeckInput = memo(
 						</div>
 					)}
 				</div>
+
+				{/* Tooltip Hover Preview */}
+				{tooltipData && (
+					<div
+						className='fixed z-[99999] p-2 bg-slate-900/90 backdrop-blur-md border border-white/20 rounded-2xl shadow-2xl pointer-events-none transform -translate-y-1/2 animate-in fade-in zoom-in-95 duration-200 overflow-hidden'
+						style={{ top: tooltipData.y, left: tooltipData.x }}
+					>
+						<div className='relative'>
+							<SafeImage
+								src={
+									tooltipData.item.gameAbsolutePath ||
+									tooltipData.item.assetAbsolutePath ||
+									tooltipData.item.image ||
+									tooltipData.item.avatar ||
+									tooltipData.item.assets?.[0]?.avatar
+								}
+								alt='Preview'
+								className={`${tooltipData.type === 'card' ? 'w-48 sm:w-64 h-auto' : 'w-24 h-24'} object-contain drop-shadow-2xl`}
+							/>
+							<div className='absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent'>
+								<p className='text-xs font-bold text-white truncate'>
+									{tDynamic(tooltipData.item, "name") || tooltipData.item.cardName}
+								</p>
+								<p className='text-[10px] text-white/60 font-mono italic opacity-70'>
+									{tooltipData.item.cardCode || tooltipData.item.itemCode || ""}
+								</p>
+							</div>
+						</div>
+					</div>
+				)}
 			</div>
 		);
 	},

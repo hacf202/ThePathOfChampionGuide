@@ -408,7 +408,7 @@ function TierListChampions({ initialChampions }) {
 				let rawData;
 				if (initialChampions?.length > 0) rawData = initialChampions;
 				else {
-					const res = await fetch(`${apiUrl}/api/champions?limit=1000`);
+					const res = await fetch(`${apiUrl}/api/champions?limit=-1`);
 					const data = await res.json();
 					rawData = data.items || data || [];
 				}

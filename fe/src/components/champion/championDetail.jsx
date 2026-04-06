@@ -14,12 +14,15 @@ import MarkupRenderer from "../common/MarkupRenderer";
 // Import API và i18n
 import { api } from "../../context/services/apiHelper";
 import { useTranslation } from "../../hooks/useTranslation";
+import { useMarkupResolution } from "../../hooks/useMarkupResolution";
+import { initEntities } from "../../utils/entityLookup";
 
 // Import các component chòm sao đã được tách
 import ConstellationMap from "../champion/constellationMap";
 import ConstellationTable from "../champion/constellationTable";
 import ChampionPlaystyleChart from "../champion/championPlaystyleChart";
 import CardHoverTooltip from "../champion/CardHoverTooltip";
+import CardCarouselModal from "../card/CardCarouselModal.jsx";
 
 // --- THÀNH PHẦN SKELETON ---
 const ChampionDetailSkeleton = () => (
@@ -83,7 +86,7 @@ const RenderItem = ({ item }) => {
 };
 
 // --- RENDER CARD NAME CELL (WITH TOOLTIP PORTAL) ---
-const CardNameCell = memo(({ card, items, cardCode, isReference = false }) => {
+const CardNameCell = memo(({ card, items, cardCode, isReference = false, onOpenCarousel }) => {
 	const { tDynamic } = useTranslation();
 	const [hoverPos, setHoverPos] = useState(null);
 
@@ -92,7 +95,7 @@ const CardNameCell = memo(({ card, items, cardCode, isReference = false }) => {
 
 	return (
 		<div
-			className='flex items-center gap-3 cursor-help w-max'
+			className='flex items-center gap-3 cursor-zoom-in w-max'
 			onMouseEnter={e => {
 				if (window.innerWidth < 640) return; // Skip hover on mobile
 				const rect = e.currentTarget.getBoundingClientRect();
@@ -103,7 +106,12 @@ const CardNameCell = memo(({ card, items, cardCode, isReference = false }) => {
 			}}
 			onMouseLeave={() => setHoverPos(null)}
 			onClick={e => {
-				if (window.innerWidth >= 640) return; // Desktop uses hover
+				if (window.innerWidth < 640) {
+					// On mobile: Open Carousel!
+					if (onOpenCarousel) onOpenCarousel(card, cardCode);
+					return;
+				}
+				// Desktop: Toggle tooltip or nothing
 				if (hoverPos) {
 					setHoverPos(null);
 				} else {
@@ -114,21 +122,26 @@ const CardNameCell = memo(({ card, items, cardCode, isReference = false }) => {
 					});
 				}
 			}}
+			onContextMenu={e => {
+				e.preventDefault();
+				if (onOpenCarousel) onOpenCarousel(card, cardCode);
+			}}
 		>
 			{/* Small Thumbnail */}
 			<div className='w-11 h-16 rounded border border-white/10 overflow-hidden bg-black/20 shrink-0 shadow-sm'>
 				<SafeImage src={cardImg} className='w-full h-full object-cover' />
 			</div>
 
-			<span
-				className={`text-sm sm:text-base font-bold pb-0.5 transition-all border-b border-dashed ${
+			<Link 
+				to={`/card/${cardCode}`}
+				className={`text-sm sm:text-base font-bold pb-0.5 transition-all border-b border-dashed hover:underline ${
 					isReference
 						? "text-purple-500 border-purple-500/30 hover:text-purple-400"
 						: "text-primary-500 border-primary-500/30 hover:text-primary-400"
 				}`}
 			>
 				{cardName}
-			</span>
+			</Link>
 
 			{/* Tooltip via Portal */}
 			{hoverPos && (
@@ -150,7 +163,9 @@ function ChampionDetail() {
 	const navigate = useNavigate();
 
 	// 🟢 Sửa lại: Dùng tDynamic và tUI
-	const { tDynamic, tUI } = useTranslation();
+	const { language, tDynamic, tUI } = useTranslation();
+	const { resolveEntities } = useMarkupResolution();
+	const apiUrl = import.meta.env.VITE_API_URL;
 
 	const [champion, setChampion] = useState(null);
 	const [constellationData, setConstellationData] = useState(null);
@@ -167,21 +182,57 @@ function ChampionDetail() {
 	const [error, setError] = useState(null);
 
 	const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+	const [activeDeckTab, setActiveDeckTab] = useState("base");
+
+	// --- Card Carousel Modal state ---
+	const [carouselOpen, setCarouselOpen] = useState(false);
+	const [carouselCards, setCarouselCards] = useState([]);
+	const [carouselInitialIndex, setCarouselInitialIndex] = useState(0);
+
+	const handleOpenCarousel = useCallback(async (card, cardCode) => {
+		// Neu card da co associatedCards thi dung luon
+		if (card?.associatedCards?.length > 0) {
+			setCarouselCards([card, ...card.associatedCards]);
+			setCarouselInitialIndex(0);
+			setCarouselOpen(true);
+			return;
+		}
+
+		// Neu chua co, hoac muon fast-fetch thi tai chi tiet
+		try {
+			const res = await fetch(`${apiUrl}/api/cards/${cardCode}`);
+			if (res.ok) {
+				const fullCard = await res.json();
+				setCarouselCards([fullCard, ...(fullCard.associatedCards || [])]);
+			} else {
+				setCarouselCards(card ? [card] : []);
+			}
+		} catch (err) {
+			console.error("Error pre-fetching card for carousel:", err);
+			setCarouselCards(card ? [card] : []);
+		}
+		setCarouselInitialIndex(0);
+		setCarouselOpen(true);
+	}, [apiUrl]);
 
 	const initData = useCallback(async () => {
 		try {
 			setLoading(true);
 
-			// 1. Fetch Dữ liệu Tướng "Full" (Bao gồm Constellation, Resolved Data, Ratings)
-			const [response, allChamps] = await Promise.all([
-				api.get(`/champions/${championID}/full`),
-				api.get("/champions?limit=-1")
-			]);
+			// 1. Fetch Dữ liệu Tướng "Full" (Bao gồm Constellation, Resolved Data, Suggestions, Ratings)
+			const response = await api.get(`/champions/${championID}/full`);
 			
-			const { champion: champData, constellation: constData, resolvedData, allRatings: ar, personalRating: pr } = response;
+			const { 
+				champion: champData, 
+				constellation: constData, 
+				resolvedData, 
+				suggestedChampions,
+				allRatings: ar, 
+				personalRating: pr 
+			} = response;
 
 			setChampion(champData);
-			setAllChampions(allChamps.items || []);
+			setAllChampions(suggestedChampions || []); // Dùng danh sách gợi ý từ backend
 			setConstellationData(constData);
 			setFetchedBonusStars(resolvedData.bonusStars || []);
 			setResolvedPowers(resolvedData.powers || []);
@@ -192,12 +243,21 @@ function ChampionDetail() {
 			setAllRatings(ar || []);
 			setMyRating(pr || null);
 
+			// 2. Nạp cards vào hệ thống Lookup để Tooltip trong Markup hoạt động
+			if (resolvedData.cards) {
+				initEntities(resolvedData.cards);
+			}
+
+			// Resolve entities mentioned in description
+			const desc = tDynamic(champData, "description") || "";
+			if (desc) resolveEntities(desc);
+
 		} catch (err) {
 			setError(err.message || tUI("championDetail.errorLoad"));
 		} finally {
 			setTimeout(() => setLoading(false), 500);
 		}
-	}, [championID, tUI]);
+	}, [championID, tUI, tDynamic, resolveEntities]);
 
 	useEffect(() => {
 		initData();
@@ -455,17 +515,19 @@ function ChampionDetail() {
 
 							{/* CONSTELLATION SECTION */}
 							{constellationInfo.nodes.length > 0 && (
-								<div className="bg-surface-bg border border-border rounded-xl p-4 sm:p-6 shadow-sm mt-6">
-									<h2 className='p-1 text-lg sm:text-3xl font-semibold my-1 uppercase font-primary text-primary-500 border-b border-border'>
+								<div className="bg-surface-bg border border-border rounded-xl p-4 sm:p-6 shadow-sm mt-6 overflow-hidden">
+									<h2 className='p-1 text-lg sm:text-3xl font-semibold font-primary text-primary-500 flex items-center gap-3 border-b border-border mb-6'>
 										{tUI("championDetail.constellation")}
 									</h2>
 
 									<ConstellationMap constellationInfo={constellationInfo} />
 
-									<ConstellationTable
-										starPowersList={starPowersList}
-										bonusStarsList={bonusStarsList}
-									/>
+									<div className="mt-8">
+										<ConstellationTable
+											starPowersList={starPowersList}
+											bonusStarsList={bonusStarsList}
+										/>
+									</div>
 								</div>
 							)}
 
@@ -492,204 +554,184 @@ function ChampionDetail() {
 							{/* STARTING DECK SECTION */}
 							{(champion.startingDeck?.baseCards?.length > 0 ||
 								champion.startingDeck?.referenceCards?.length > 0) && (
-								<div className="bg-surface-bg border border-border rounded-xl p-4 sm:p-6 shadow-sm mt-6">
-									<h2 className='p-1 text-lg sm:text-3xl font-semibold mb-3 font-primary text-primary-500 border-b border-border flex items-center gap-3'>
-										{tUI("championDetail.startingDeck")}
-									</h2>
+								<div className="bg-surface-bg border border-border rounded-xl p-4 sm:p-6 shadow-sm mt-6 overflow-hidden">
+									<div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-border mb-6 gap-4">
+										<h2 className='p-1 text-lg sm:text-3xl font-semibold font-primary text-primary-500 flex items-center gap-3'>
+											{tUI("championDetail.startingDeck")}
+										</h2>
 
-									<div className='mt-2 space-y-4'>
-										{/* Base Cards Table */}
-										{champion.startingDeck?.baseCards?.length > 0 && (
-											<div className='bg-surface-bg border border-border rounded-xl overflow-hidden shadow-sm'>
-												<div className='p-2 bg-primary-500/5 border-b border-border flex items-center justify-between'>
-													<h3 className='text-sm sm:text-lg font-bold text-text-primary flex items-center gap-2 uppercase'>
-														{tUI("championDetail.baseCards")}
-													</h3>
-													<span className='text-[10px] font-bold text-text-secondary bg-surface-hover px-2 py-1 rounded-md border border-border uppercase'>
-														{champion.startingDeck.baseCards.length}{" "}
-														{tUI("common.cards")}
-													</span>
-												</div>
-												<div className='overflow-x-auto'>
-													<table className='w-full text-left border-collapse'>
-														<thead>
-															<tr className='bg-surface-hover/50 text-[10px] sm:text-xs font-black uppercase text-text-tertiary tracking-widest border-b border-border'>
-																<th className='px-2 py-2 sm:px-4 w-8 text-center'>
-																	#
-																</th>
-																<th className='px-2 py-2 sm:px-4'>
-																	{tUI("admin.cardForm.cardNameLabel")}
-																</th>
-																<th className='px-2 py-2 sm:px-4'>
-																	{tUI("admin.dropSidePanel.tabs.item")}
-																</th>
-															</tr>
-														</thead>
-														<tbody className='divide-y divide-border/50'>
-															{champion.startingDeck.baseCards.map(
-																(cardData, idx) => {
-																	const cardInfo = resolvedStartingCards.find(
-																		c => c.cardCode === cardData.cardCode,
-																	);
+										{/* TABS SELECTOR - Only show if both exist */}
+										{champion.startingDeck?.baseCards?.length > 0 &&
+											champion.startingDeck?.referenceCards?.length > 0 && (
+											<div className="flex bg-surface-hover/50 p-1 rounded-lg self-start sm:self-auto">
+												{[
+													{ id: "base", label: tUI("championDetail.baseCards"), count: champion.startingDeck.baseCards.length, color: "text-primary-500", bg: "bg-primary-500/10" },
+													{ id: "ref", label: tUI("championDetail.referenceCards"), count: champion.startingDeck.referenceCards.length, color: "text-purple-500", bg: "bg-purple-500/10" }
+												].map((tab) => (
+													<button
+														key={tab.id}
+														onClick={() => setActiveDeckTab(tab.id)}
+														className={`relative px-3 py-1.5 rounded-md text-xs font-black tracking-wider uppercase transition-all flex items-center gap-2 ${
+															activeDeckTab === tab.id 
+																? `${tab.color} z-10` 
+																: "text-text-tertiary hover:text-text-secondary"
+														}`}
+													>
+														{activeDeckTab === tab.id && (
+															<motion.div
+																layoutId="activeDeckTab"
+																className={`absolute inset-0 ${tab.bg} border border-border rounded-md -z-10`}
+																transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+															/>
+														)}
+														{tab.label}
+														<span className={`text-[10px] px-1.5 rounded-full ${activeDeckTab === tab.id ? `${tab.bg} border border-border` : "bg-black/20"}`}>
+															{tab.count}
+														</span>
+													</button>
+												))}
+											</div>
+										)}
+									</div>
+
+									<div className='mt-2'>
+										<AnimatePresence mode='wait'>
+											{/* --- BASE CARDS TABLE --- */}
+											{(activeDeckTab === "base" || !champion.startingDeck?.referenceCards?.length) && (
+												<motion.div 
+													key="base-deck"
+													initial={{ opacity: 0, x: -10 }}
+													animate={{ opacity: 1, x: 0 }}
+													exit={{ opacity: 0, x: 10 }}
+													transition={{ duration: 0.2 }}
+													className='bg-surface-bg border border-border rounded-xl overflow-hidden shadow-sm'
+												>
+													{!champion.startingDeck?.referenceCards?.length && (
+														<div className='p-2 bg-primary-500/5 border-b border-border flex items-center justify-between'>
+															<h3 className='text-sm sm:text-lg font-bold text-text-primary flex items-center gap-2 uppercase'>
+																{tUI("championDetail.baseCards")}
+															</h3>
+															<span className='text-[10px] font-bold text-text-secondary bg-surface-hover px-2 py-1 rounded-md border border-border uppercase'>
+																{champion.startingDeck.baseCards.length}{" "}
+																{tUI("common.cards")}
+															</span>
+														</div>
+													)}
+													<div className='overflow-x-auto'>
+														<table className='w-full text-left border-collapse'>
+															<thead>
+																<tr className='bg-surface-hover/50 text-[10px] sm:text-xs font-black uppercase text-text-tertiary tracking-widest border-b border-border'>
+																	<th className='px-2 py-2 sm:px-4 w-8 text-center'>#</th>
+																	<th className='px-2 py-2 sm:px-4'>{tUI("admin.cardForm.cardNameLabel")}</th>
+																	<th className='px-2 py-2 sm:px-4'>{tUI("admin.dropSidePanel.tabs.item")}</th>
+																</tr>
+															</thead>
+															<tbody className='divide-y divide-border/50'>
+																{champion.startingDeck.baseCards.map((cardData, idx) => {
+																	const cardInfo = resolvedStartingCards.find(c => c.cardCode === cardData.cardCode);
 																	const cardItems = (cardData.itemCodes || [])
-																		.map(code =>
-																			resolvedItems.find(
-																				i => i.itemCode === code,
-																			),
-																		)
+																		.map(code => resolvedItems.find(i => i.itemCode === code))
 																		.filter(Boolean);
 
 																	return (
-																		<tr
-																			key={idx}
-																			className='group hover:bg-surface-hover/30 transition-colors'
-																		>
-																			<td className='px-2 py-2 sm:px-4 sm:py-2 text-center text-xs font-bold text-text-tertiary'>
-																				{idx + 1}
-																			</td>
+																		<tr key={idx} className='group hover:bg-surface-hover/30 transition-colors'>
+																			<td className='px-2 py-2 sm:px-4 sm:py-2 text-center text-xs font-bold text-text-tertiary'>{idx + 1}</td>
 																			<td className='px-2 py-2 sm:px-4 sm:py-2'>
-																				<CardNameCell
-																					card={cardInfo}
-																					items={cardItems}
-																					cardCode={cardData.cardCode}
+																				<CardNameCell 
+																					card={cardInfo} 
+																					items={cardItems} 
+																					cardCode={cardData.cardCode} 
+																					onOpenCarousel={handleOpenCarousel}
 																				/>
 																			</td>
 																			<td className='px-2 py-2 sm:px-4 sm:py-2'>
 																				<div className='flex flex-wrap gap-2'>
 																					{cardItems.length > 0 ? (
 																						cardItems.map((item, i) => (
-																							<Link
-																								key={i}
-																								to={`/item/${item.itemCode}`}
-																								className='flex items-center gap-1.5 px-2 py-1 rounded-lg bg-surface-hover/50 hover:bg-surface-hover hover:scale-105 transition-all'
-																								title={tDynamic(item, "name")}
-																							>
-																								<SafeImage
-																									src={
-																										item.assetAbsolutePath ||
-																										item.image ||
-																										"/fallback-image.svg"
-																									}
-																									className='w-10 h-10 sm:w-12 sm:h-12 object-contain'
-																								/>
-																								<span className='text-[10px] sm:text-xs font-bold text-text-secondary hidden sm:inline'>
+																							<Link key={i} to={`/item/${item.itemCode}`} className='flex items-center gap-1.5 px-2 py-1 rounded-lg bg-surface-hover/50 hover:bg-surface-hover hover:scale-105 transition-all' title={tDynamic(item, "name")}>
+																								<SafeImage src={item.assetAbsolutePath || item.image || "/fallback-image.svg"} className='w-10 h-10 sm:w-12 sm:h-12 object-contain' />
+																								<span className='text-[10px] sm:text-xs font-bold text-text-secondary hidden lg:inline'>
 																									{tDynamic(item, "name")}
 																								</span>
 																							</Link>
 																						))
 																					) : (
-																						<span className='text-[10px] text-text-tertiary italic'>
-																							{tUI("championDetail.noItems")}
-																						</span>
+																						<span className='text-[10px] text-text-tertiary italic'>{tUI("championDetail.noItems")}</span>
 																					)}
 																				</div>
 																			</td>
 																		</tr>
 																	);
-																},
-															)}
-														</tbody>
-													</table>
-												</div>
-											</div>
-										)}
+																})}
+															</tbody>
+														</table>
+													</div>
+												</motion.div>
+											)}
 
-										{/* Reference Cards Table */}
-										{champion.startingDeck?.referenceCards?.length > 0 && (
-											<div className='bg-surface-bg border border-border rounded-xl overflow-hidden shadow-sm'>
-												<div className='p-4 bg-purple-500/5 border-b border-border flex items-center justify-between'>
-													<h3 className='text-sm sm:text-lg font-bold text-text-primary flex items-center gap-2 uppercase'>
-														{tUI("championDetail.referenceCards")}
-													</h3>
-													<span className='text-[10px] font-bold text-text-secondary bg-surface-hover px-2 py-1 rounded-md border border-border uppercase'>
-														{champion.startingDeck.referenceCards.length}{" "}
-														{tUI("common.cards")}
-													</span>
-												</div>
-												<div className='overflow-x-auto'>
-													<table className='w-full text-left border-collapse'>
-														<thead>
-															<tr className='bg-surface-hover/50 text-[10px] sm:text-xs font-black uppercase text-text-tertiary tracking-widest border-b border-border'>
-																<th className='px-2 py-2 sm:px-4 w-8 text-center'>
-																	#
-																</th>
-																<th className='px-2 py-2 sm:px-4'>
-																	{tUI("admin.cardForm.cardNameLabel")}
-																</th>
-																<th className='px-2 py-2 sm:px-4'>
-																	{tUI("admin.dropSidePanel.tabs.item")}
-																</th>
-															</tr>
-														</thead>
-														<tbody className='divide-y divide-border/50'>
-															{champion.startingDeck.referenceCards.map(
-																(cardData, idx) => {
-																	const cardInfo = resolvedStartingCards.find(
-																		c => c.cardCode === cardData.cardCode,
-																	);
+											{/* --- REFERENCE CARDS TABLE --- */}
+											{(activeDeckTab === "ref" && champion.startingDeck?.referenceCards?.length > 0) && (
+												<motion.div 
+													key="ref-deck"
+													initial={{ opacity: 0, x: 10 }}
+													animate={{ opacity: 1, x: 0 }}
+													exit={{ opacity: 0, x: -10 }}
+													transition={{ duration: 0.2 }}
+													className='bg-surface-bg border border-border rounded-xl overflow-hidden shadow-sm'
+												>
+													<div className='overflow-x-auto'>
+														<table className='w-full text-left border-collapse'>
+															<thead>
+																<tr className='bg-surface-hover/50 text-[10px] sm:text-xs font-black uppercase text-text-tertiary tracking-widest border-b border-border'>
+																	<th className='px-2 py-2 sm:px-4 w-8 text-center'>#</th>
+																	<th className='px-2 py-2 sm:px-4'>{tUI("admin.cardForm.cardNameLabel")}</th>
+																	<th className='px-2 py-2 sm:px-4'>{tUI("admin.dropSidePanel.tabs.item")}</th>
+																</tr>
+															</thead>
+															<tbody className='divide-y divide-border/50'>
+																{champion.startingDeck.referenceCards.map((cardData, idx) => {
+																	const cardInfo = resolvedStartingCards.find(c => c.cardCode === cardData.cardCode);
 																	const cardItems = (cardData.itemCodes || [])
-																		.map(code =>
-																			resolvedItems.find(
-																				i => i.itemCode === code,
-																			),
-																		)
+																		.map(code => resolvedItems.find(i => i.itemCode === code))
 																		.filter(Boolean);
 
 																	return (
-																		<tr
-																			key={idx}
-																			className='group hover:bg-surface-hover/30 transition-colors'
-																		>
-																			<td className='px-2 py-2 sm:px-4 sm:py-2 text-center text-xs font-bold text-text-tertiary'>
-																				{idx + 1}
-																			</td>
+																		<tr key={idx} className='group hover:bg-surface-hover/30 transition-colors'>
+																			<td className='px-2 py-2 sm:px-4 sm:py-2 text-center text-xs font-bold text-text-tertiary'>{idx + 1}</td>
 																			<td className='px-2 py-2 sm:px-4 sm:py-2'>
-																				<CardNameCell
-																					card={cardInfo}
-																					items={cardItems}
-																					cardCode={cardData.cardCode}
-																					isReference={true}
+																				<CardNameCell 
+																					card={cardInfo} 
+																					items={cardItems} 
+																					cardCode={cardData.cardCode} 
+																					isReference={true} 
+																					onOpenCarousel={handleOpenCarousel}
 																				/>
 																			</td>
 																			<td className='px-2 py-2 sm:px-4 sm:py-2'>
 																				<div className='flex flex-wrap gap-2'>
 																					{cardItems.length > 0 ? (
 																						cardItems.map((item, i) => (
-																							<Link
-																								key={i}
-																								to={`/item/${item.itemCode}`}
-																								className='flex items-center gap-1.5 px-2 py-1 rounded-lg bg-surface-hover/50 hover:bg-surface-hover hover:scale-105 transition-all'
-																								title={tDynamic(item, "name")}
-																							>
-																								<SafeImage
-																									src={
-																										item.assetAbsolutePath ||
-																										item.image ||
-																										"/fallback-image.svg"
-																									}
-																									className='w-10 h-10 sm:w-12 sm:h-12 object-contain'
-																								/>
-																								<span className='text-[10px] sm:text-xs font-bold text-text-secondary hidden sm:inline'>
+																							<Link key={i} to={`/item/${item.itemCode}`} className='flex items-center gap-1.5 px-2 py-1 rounded-lg bg-surface-hover/50 hover:bg-surface-hover hover:scale-105 transition-all' title={tDynamic(item, "name")}>
+																								<SafeImage src={item.assetAbsolutePath || item.image || "/fallback-image.svg"} className='w-10 h-10 sm:w-12 sm:h-12 object-contain' />
+																								<span className='text-[10px] sm:text-xs font-bold text-text-secondary hidden lg:inline'>
 																									{tDynamic(item, "name")}
 																								</span>
 																							</Link>
 																						))
 																					) : (
-																						<span className='text-[10px] text-text-tertiary italic'>
-																							{tUI("championDetail.noItems")}
-																						</span>
+																						<span className='text-[10px] text-text-tertiary italic'>{tUI("championDetail.noItems")}</span>
 																					)}
 																				</div>
 																			</td>
 																		</tr>
 																	);
-																},
-															)}
-														</tbody>
-													</table>
-												</div>
-											</div>
-										)}
+																})}
+															</tbody>
+														</table>
+													</div>
+												</motion.div>
+											)}
+										</AnimatePresence>
 									</div>
 								</div>
 							)}
@@ -823,6 +865,15 @@ function ChampionDetail() {
 					)}
 				</AnimatePresence>
 			</div>
+
+			{/* Card Carousel Modal — Render via Portal */}
+			{carouselOpen && carouselCards.length > 0 && (
+				<CardCarouselModal
+					cards={carouselCards}
+					initialIndex={carouselInitialIndex}
+					onClose={() => setCarouselOpen(false)}
+				/>
+			)}
 		</div>
 	);
 }

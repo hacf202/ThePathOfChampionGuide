@@ -120,13 +120,6 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 					</div>
 
 					<nav className='flex-1 p-4 space-y-1 text-header-text'>
-						<NavLink
-							to='/champions'
-							className='flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-black/10 transition-all'
-							onClick={closeSidebar}
-						>
-							<Swords className='w-5 h-5' /> {tUI("nav.champions")}
-						</NavLink>
 
 						{/* Menu Vật Phẩm */}
 						<div>
@@ -155,6 +148,13 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 							</button>
 							{isItemsDropdownOpen && (
 								<div className='ml-6 mt-1 space-y-1 border-l-2 border-gray-600 pl-3'>
+									<NavLink
+										to='/champions'
+										className={dropdownLinkClass}
+										onClick={closeSidebar}
+									>
+										<Swords className='w-4 h-4' /> {tUI("nav.champions")}
+									</NavLink>
 									<NavLink
 										to='/items'
 										className={dropdownLinkClass}

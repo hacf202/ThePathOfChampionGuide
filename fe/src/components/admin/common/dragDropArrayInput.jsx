@@ -1,5 +1,6 @@
 import { useState, memo } from "react";
 import { XCircle } from "lucide-react";
+import SafeImage from "../../common/SafeImage";
 
 const DragDropArrayInput = memo(
 	({
@@ -96,10 +97,12 @@ const DragDropArrayInput = memo(
 
 									{/* Icon Ảnh (Nếu có) */}
 									{imgUrl ? (
-										<img
+										<SafeImage
 											src={imgUrl}
 											alt={displayName}
 											className='w-8 h-8 rounded-md object-contain bg-black/20 border border-border'
+											width={32}
+											height={32}
 										/>
 									) : (
 										<div className='w-8 h-8 rounded-md bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-xs text-gray-400'>

@@ -168,7 +168,7 @@ function PowerEditor() {
 	const fetchAllData = useCallback(async () => {
 		try {
 			setIsLoading(true);
-			const res = await fetch(`${API_BASE_URL}/api/powers?limit=1000`);
+			const res = await fetch(`${API_BASE_URL}/api/powers?limit=-1`);
 			if (!res.ok) throw new Error(tUI("admin.common.errorLoad"));
 			const data = await res.json();
 			const powerList = Array.isArray(data) ? data : data.items || [];

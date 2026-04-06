@@ -190,7 +190,7 @@ function BossEditor() {
 
 			const [bossRes, powerRes] = await Promise.all([
 				fetch(`${API_BASE_URL}/api/bosses`),
-				fetch(`${API_BASE_URL}/api/powers?limit=1000`),
+				fetch(`${API_BASE_URL}/api/powers?limit=-1`),
 			]);
 
 			const bossData = await bossRes.json();

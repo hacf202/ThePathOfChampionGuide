@@ -13,6 +13,7 @@ import {
 import { useTranslation } from "../../../hooks/useTranslation";
 
 import MarkupEditor from "../MarkupEditor";
+import SafeImage from "../../common/SafeImage";
 
 export const getUniqueId = item => {
 	return (
@@ -210,10 +211,12 @@ export const ArrayInputComponent = ({
 							>
 								<div className='w-10 h-10 rounded bg-white border flex items-center justify-center overflow-hidden shrink-0'>
 									{item.assetAbsolutePath || item.image ? (
-										<img
+										<SafeImage
 											src={item.assetAbsolutePath || item.image}
 											alt='icon'
 											className='w-full h-full object-contain'
+											width={40}
+											height={40}
 										/>
 									) : (
 										<span className='text-xs text-gray-500'>?</span>
@@ -618,7 +621,12 @@ export const NodeEditor = ({
 					>
 						<div className='w-10 h-10 rounded bg-white border flex items-center justify-center overflow-hidden shrink-0'>
 							{nodeAsset ? (
-								<img src={nodeAsset} className='w-full h-full object-contain' />
+								<SafeImage 
+									src={nodeAsset} 
+									className='w-full h-full object-contain'
+									width={40}
+									height={40}
+								/>
 							) : (
 								<span className='text-[10px] font-bold text-gray-400'>D&D</span>
 							)}

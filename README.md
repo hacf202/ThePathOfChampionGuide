@@ -16,7 +16,12 @@ Dự án cung cấp cho cộng đồng người chơi một nơi để tra cứu
 ### 👤 Dành cho Người dùng (Client)
 
 - **📚 Bách khoa toàn thư đa dữ liệu:** Tra cứu chi tiết toàn bộ dữ liệu game: Champions, Items, Powers, Relics, Runes, Constellations, Adventure Maps, Bosses.
-- **📊 Radar Chart Đánh giá Tướng:** Biểu đồ lục giác trực quan thể hiện 6 chỉ số phong cách chơi của từng tướng (Sát thương, Phòng ngự, Tốc độ, Ổn định, Combo, Tính Độc lập), kèm ghi chú chiến thuật từ tác giả.
+- **Trạng thái cốt lõi**:
+  - Giao diện phải cực kỳ trực quan, tránh lỗi vặt khi người quản trị nhập dữ liệu.
+  - **Hiệu năng**: Áp dụng giới hạn render 100-item và smart loading cho SidePanel để xử lý danh sách bài quân cực lớn.
+  - **Tự động hóa**: Trình biên tập hỗ trợ quét Markup tự động để đồng bộ dữ liệu tham chiếu.
+  - Phải hỗ trợ đa ngôn ngữ 100% để đội ngũ quốc tế cũng có thể dùng chung.
+  - Các trang danh sách dữ liệu phải có tính đồng nhất phân trang (Pagination), như áp dụng luật **24-item limit**.
 - **🛠️ Hệ thống Build Cộng đồng:** Cho phép người chơi tạo, chia sẻ và bình chọn (yêu thích) các lối chơi/combo tối ưu cho từng vị tướng.
 - **📖 Hướng dẫn chuyên sâu (Guides):** Đọc các bài viết hướng dẫn chiến thuật, cách đi map từ cộng đồng.
 - **💬 Hệ thống bình luận:** Bình luận trực tiếp trên từng bản build và bài hướng dẫn.
@@ -28,6 +33,8 @@ Dự án cung cấp cho cộng đồng người chơi một nơi để tra cứu
 
 - **📊 Dashboard Thống kê:** Theo dõi lượng người dùng, số lượng build, lượt xem và tương tác.
 - **📝 Quản lý Nội dung (Full CRUD):** Giao diện trực quan để thêm, sửa, xóa dữ liệu game của tất cả các thực thể (Champions, Powers, Relics, Items, Runes, Builds, Guides, Bosses, Constellations, Adventure Maps...).
+- **⚙️ Tự động hóa Dữ liệu (Editor):** Hệ thống **Auto-Scan** mô tả bài để tự động điền thẻ bài tham chiếu, giảm 80% thao tác nhập liệu thủ công.
+- **⚡ Tối ưu hóa Hiệu năng (Admin):** Cơ chế lọc thông minh và Lazy-loading hình ảnh trên sidebar giúp xử lý mượt mà danh sách > 2.300 lá bài.
 - **🎨 Đánh giá chỉ số tướng:** Nhập điểm đánh giá (1-10) cho 6 tiêu chí và ghi chú chiến thuật song ngữ trực tiếp từ Admin Panel.
 - **🖼️ Quản lý Hình ảnh:** Tải ảnh lên Cloudflare R2, quản lý thư viện ảnh tích hợp.
 - **🛡️ Phân quyền:** Bảo vệ các route nhạy cảm, chỉ có tài khoản Admin mới được phép can thiệp nội dung.

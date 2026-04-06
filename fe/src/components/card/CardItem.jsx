@@ -11,8 +11,8 @@ const CardItem = ({ card }) => {
 	const { language } = useTranslation();
 
 	// Logic lấy tên dựa trên ngôn ngữ (để làm alt text)
-	const cardName = language === "en" && card.translations?.en?.cardName 
-		? card.translations.en.cardName 
+	const cardName = language === "en" && card.translations?.en?.cardName
+		? card.translations.en.cardName
 		: card.cardName;
 
 	// Logic lấy URL hình ảnh

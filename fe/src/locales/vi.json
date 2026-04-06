@@ -72,7 +72,14 @@
 		"notFoundPrefix": "Không tìm thấy lá bài mã:",
 		"errorLoad": "Lỗi tải thông tin lá bài.",
 		"back": "Quay lại danh sách",
-		"imageAlt": "Ảnh lá bài {{name}}"
+		"imageAlt": "Ảnh lá bài {{name}}",
+		"description": "Mô tả",
+		"cost": "Tiêu hao",
+		"regions": "Khu vực",
+		"cardCode": "Mã lá bài",
+		"associatedCards": "Lá bài liên quan",
+		"viewCountCards": "Chuột phải · xem {{count}} lá bài",
+		"seeDetail": "XEM CHI TIẾT"
 	},
 	"mapList": {
 		"pageTitle": "Danh Sách Bản Đồ",
@@ -114,6 +121,7 @@
 		"thuong": "Thường",
 		"hiem": "Hiếm",
 		"suthi": "Sử Thi",
+		"huyenthoai": "Huyền Thoại",
 		"legendary": "Huyền Thoại",
 		"special": "Đặc Biệt"
 	},
@@ -341,7 +349,9 @@
 			"deleteConfirmTitle": "Xác nhận Xóa Vĩnh Viễn",
 			"cannotUndo": "? Hành động này không thể hoàn tác.",
 			"search": "Tìm Kiếm",
-			"all": "Tất cả"
+			"all": "Tất cả",
+			"sortIdAsc": "ID Tăng Dần",
+			"sortIdDesc": "ID Giảm Dần"
 		},
 		"build": {
 			"title": "Quản lý Bộ Cổ Vật (Builds)",
@@ -845,7 +855,6 @@
 		"pageDesc": "Wiki & Hướng Dẫn Path of Champions chuyên nghiệp nhất",
 		"heroTitle1": "CON ĐƯỜNG",
 		"heroTitle2": "ANH HÙNG",
-		"heroDesc": "Khám phá sức mạnh tướng, tối ưu hóa lối chơi và chinh phục mọi thử thách trong Con Đường Anh Hùng.",
 		"btnExplore": "KHÁM PHÁ NGAY",
 		"btnNewChampion": "Tướng mới",
 		"scrollDown": "Cuộn xuống",
@@ -854,7 +863,7 @@
 		"resourceDesc": "Mọi thứ bạn cần để trở thành cao thủ Runeterra",
 		"viewAllChamps": "XEM TẤT CẢ TƯỚNG",
 		"champListDesc": "Chi tiết sức mạnh, lối chơi và mẹo nâng cấp cho từng anh hùng.",
-		"relicVault": "Kho Cổ Vật",
+		"relicVault": "Bộ Cổ Vật",
 		"relicVaultDesc": "Kết hợp cổ vật tối ưu nhất cho từng vị tướng.",
 		"monthlyEvent": "Sự kiện hàng tháng",
 		"monthlyTitle1": "Vượt Qua",
@@ -1037,6 +1046,7 @@
 		"powers": "Sức mạnh",
 		"runes": "Ngọc",
 		"maps": "Bản Đồ",
+		"cards": "Lá bài",
 		"toolsTitle": "Công cụ",
 		"randomizer": "Vòng quay",
 		"about": "Giới thiệu",

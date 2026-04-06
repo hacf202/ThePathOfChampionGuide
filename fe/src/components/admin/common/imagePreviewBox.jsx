@@ -1,4 +1,5 @@
 import { memo } from "react";
+import SafeImage from "../../common/SafeImage";
 
 const ImagePreviewBox = memo(
 	({
@@ -10,16 +11,12 @@ const ImagePreviewBox = memo(
 		return (
 			<div className={wrapperClassName}>
 				{imageUrl ? (
-					<img
+					<SafeImage
 						src={imageUrl}
 						className={imageClassName}
-						alt='Preview'
-						onError={e => {
-							if (!e.target.dataset.error) {
-								e.target.dataset.error = "true";
-								e.target.src = "https://via.placeholder.com/150?text=No+Image";
-							}
-						}}
+						alt={label}
+						width={176}
+						height={176}
 					/>
 				) : (
 					<div className='w-32 h-32 md:w-44 md:h-44 bg-gray-200 dark:bg-gray-700 rounded-xl flex items-center justify-center text-4xl md:text-5xl text-gray-400'>

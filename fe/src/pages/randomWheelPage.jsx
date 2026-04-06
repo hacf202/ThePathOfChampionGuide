@@ -33,7 +33,7 @@ function RandomizerPage() {
 	const fetchData = useCallback(async () => {
 		setIsLoading(true);
 		try {
-			const queryLimit = "?page=1&limit=1000";
+			const queryLimit = "?page=1&limit=-1";
 
 			const [championsRes, relicsRes, itemsRes, powersRes, runesRes] =
 				await Promise.all([

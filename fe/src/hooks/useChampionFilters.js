@@ -38,13 +38,22 @@ export const useChampionFilters = (tUI, dynamicFilters) => {
 				key: "regions",
 				label: tUI("common.region") || "Khu vực",
 				options: (dynamicFilters.regions || []).map(r => {
-					const regionKey = removeAccents(r)
+					// 1. Tìm trong iconRegions.json để lấy tên tiếng Việt chuẩn
+					const iconRegion = iconRegions.find(i => 
+						i.name === r || // Khớp tên tiếng Việt
+						i.nameRef === r || // Khớp mã English CamelCase
+						i.nameRef === r.replace(/[\s&]+/g, '') // Khớp mã English không dấu/khoảng cách
+					);
+					const targetName = iconRegion ? iconRegion.name : r;
+					// 2. Slugify tên tiếng Việt để ra key (ví dụ: 'Quần Đảo Bóng Đêm' -> 'quandaobongdem')
+					const regionKey = removeAccents(targetName)
 						.toLowerCase()
 						.replace(/[^a-z0-9]/g, "");
+
 					return {
 						value: r,
 						label: tUI(`region.${regionKey}`) || r,
-						iconUrl: iconRegions.find(i => i.name === r)?.iconAbsolutePath,
+						iconUrl: iconRegions.find(i => i.name === r || i.nameRef === r)?.iconAbsolutePath,
 					};
 				}),
 			},

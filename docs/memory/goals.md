@@ -5,9 +5,9 @@
 ## Kế hoạch hiện tại (Current Phase)
 1. **Lọc sạch chuỗi text cứng**: Hoàn tất 100% nguyên tắc đa ngôn ngữ (i18n) cho khu vực Quản trị thay vì hardcode.
 2. **Kinh nghiệm người dùng chuẩn mực**: 
-   - Đảm bảo logic phân trang (Pagination) 24-item đều đặn.
-   - Hỗ trợ sắp xếp dữ liệu bảng (ID-based sorting), hover hiện ID dạng tooltip tự động.
-   - Thêm UX/UI thuận lợi cho người tạo nội dung game.
+   - **Hiệu suất**: Triển khai cơ chế SidePanel giới hạn 100-item và smart loading cho danh sách bài quân cực lớn.
+   - **Tự động hóa**: Hoàn thiện tính năng **Auto-Scan** mô tả bài để tự động điền thẻ bài tham chiếu trong Admin.
+   - **Đồng bộ UI**: Áp dụng Capsule Tab system và Hover Tooltip cho trang chi tiết.
 
 ## Kế hoạch tương lai (Future Milestones)
 1. Cấu trúc lại trang giao diện Client / Người chơi nếu cần thiết.

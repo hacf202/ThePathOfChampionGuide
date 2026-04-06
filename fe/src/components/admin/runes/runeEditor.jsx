@@ -163,7 +163,7 @@ function RuneEditor() {
 	const fetchAllData = useCallback(async () => {
 		try {
 			setIsLoading(true);
-			const res = await fetch(`${API_BASE_URL}/api/runes?limit=1000`);
+			const res = await fetch(`${API_BASE_URL}/api/runes?limit=-1`);
 			if (!res.ok) throw new Error(tUI("admin.common.errorLoad"));
 			const data = await res.json();
 			const runeList = Array.isArray(data) ? data : data.items || [];

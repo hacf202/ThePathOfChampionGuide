@@ -27,7 +27,7 @@ const NEW_CHAMPION_TEMPLATE = {
 	itemIds: [],
 	relicSets: [[]],
 	runeIds: [],
-	startingDeck: [],
+	startingDeck: { baseCards: [], referenceCards: [] },
 	assets: [{ fullAbsolutePath: "", gameAbsolutePath: "", avatar: "" }],
 	videoLink: "",
 	translations: {
@@ -228,14 +228,14 @@ function ChampionEditor() {
 				itemRes,
 				cardRes,
 			] = await Promise.all([
-				fetch(`${API_BASE_URL}/api/champions?limit=1000`),
+				fetch(`${API_BASE_URL}/api/champions?limit=-1`),
 				fetch(`${API_BASE_URL}/api/constellations`),
 				fetch(`${API_BASE_URL}/api/bonusStars`),
-				fetch(`${API_BASE_URL}/api/runes?limit=1000`),
-				fetch(`${API_BASE_URL}/api/relics?limit=1000`),
-				fetch(`${API_BASE_URL}/api/powers?limit=1000`),
-				fetch(`${API_BASE_URL}/api/items?limit=1000`),
-				fetch(`${API_BASE_URL}/api/cards?limit=1000`),
+				fetch(`${API_BASE_URL}/api/runes?limit=-1`),
+				fetch(`${API_BASE_URL}/api/relics?limit=-1`),
+				fetch(`${API_BASE_URL}/api/powers?limit=-1`),
+				fetch(`${API_BASE_URL}/api/items?limit=-1`),
+				fetch(`${API_BASE_URL}/api/cards?limit=-1`),
 			]);
 
 			const [

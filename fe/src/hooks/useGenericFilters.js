@@ -12,6 +12,7 @@ export const useGenericFilters = ({
 	initialCustomFilters = {},
 	defaultSort = "name-asc",
 	itemsPerPage = 24,
+	extraParams = {}, // Params cố định luôn được gửi vào API (ví dụ: { onlyBase: "true" })
 }) => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const isFirstRender = useRef(true);
@@ -171,8 +172,15 @@ export const useGenericFilters = ({
 			}
 		});
 
+		// Thêm extraParams cố định
+		Object.entries(extraParams).forEach(([key, value]) => {
+			if (value !== undefined && value !== null && value !== "") {
+				params.append(key, value);
+			}
+		});
+
 		return params.toString();
-	}, [currentPage, itemsPerPage, sortOrder, searchTerm, debouncedCustomFilters]);
+	}, [currentPage, itemsPerPage, sortOrder, searchTerm, debouncedCustomFilters, extraParams]);
 
 	return {
 		state: {

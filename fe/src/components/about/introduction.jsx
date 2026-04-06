@@ -20,7 +20,7 @@ function Introduction() {
 
 				const backendUrl = import.meta.env.VITE_API_URL;
 				const response = await fetch(
-					`${backendUrl}/api/champions?page=1&limit=1000`,
+					`${backendUrl}/api/champions?page=1&limit=-1`,
 				);
 				if (!response.ok) throw new Error(tUI("common.errorLoadData"));
 

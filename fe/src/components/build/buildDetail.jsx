@@ -101,7 +101,7 @@ const BuildDetail = () => {
 		const fetchStaticData = async () => {
 			setLoadingData(true);
 			try {
-				const query = "?page=1&limit=1000";
+				const query = "?page=1&limit=-1";
 				const [champRes, relicRes, runeRes, powerRes] = await Promise.all([
 					fetch(`${apiUrl}/api/champions${query}`),
 					fetch(`${apiUrl}/api/relics${query}`),

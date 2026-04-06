@@ -35,21 +35,21 @@ const dataStore = {
 };
 
 /**
- * Khởi tạo dữ liệu động (như Cards từ API)
+ * Khởi tạo dữ liệu động hoặc nạp thêm card vào cache (Ví dụ: từ kết quả resolve của page)
  */
-export const initEntities = async () => {
-	try {
-		const API_BASE_URL = import.meta.env.VITE_API_URL;
-		const res = await fetch(`${API_BASE_URL}/api/cards?limit=-1`);
-		if (res.ok) {
-			const data = await res.json();
-			const cardList = Array.isArray(data) ? data : data.items || [];
-			dataStore.en.cards = cardList;
-			dataStore.vi.cards = cardList;
-		}
-	} catch (error) {
-		console.warn("Failed to fetch cards for lookup:", error);
+export const initEntities = async (initialCards = []) => {
+	if (initialCards && initialCards.length > 0) {
+		const merge = (existing, incoming) => {
+			const map = new Map(existing.map(c => [c.cardCode, c]));
+			incoming.forEach(c => map.set(c.cardCode, c));
+			return Array.from(map.values());
+		};
+
+		dataStore.en.cards = merge(dataStore.en.cards, initialCards);
+		dataStore.vi.cards = merge(dataStore.vi.cards, initialCards);
 	}
+	
+	// Không còn fetch toàn bộ 2300+ cards ở đây nữa để tối ưu tốc độ
 };
 
 const normalize = str => (str || "").normalize("NFC").toLowerCase().replace(/\s+/g, " ").trim();

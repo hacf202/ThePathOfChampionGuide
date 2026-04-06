@@ -81,7 +81,7 @@ const GuideList = () => {
 	const sidePanelProps = {
 		searchPlaceholder: tUI("common.searchPlaceholder"),
 		addLabel: tUI("common.addNew"),
-		resetLabel: tUI("common.resetFilter"),
+		resetLabel: tUI("admin.item.resetFilter"),
 		searchInput,
 		onSearchInputChange: e => setSearchInput(e.target.value),
 		onSearch: () => {

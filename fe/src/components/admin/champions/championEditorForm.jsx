@@ -26,6 +26,7 @@ import ImagePreviewBox from "../common/imagePreviewBox";
 import DragDropArrayInput from "../common/dragDropArrayInput";
 import DragDropDeckInput from "../common/DragDropDeckInput";
 import MarkupEditor from "../MarkupEditor"; // 🟢 Import MarkupEditor
+import SafeImage from "../../common/SafeImage";
 
 // Import các component hỗ trợ (Giữ nguyên component gốc cho Nodes/Map)
 import {
@@ -177,6 +178,29 @@ const ChampionEditorForm = memo(
 			setIsDirty(JSON.stringify(formData) !== JSON.stringify(initialData));
 		}, [formData, initialData]);
 
+		const buildLookup = useCallback(arr => {
+			const lookup = {};
+			(arr || []).forEach(item => {
+				const uid = getUniqueId(item);
+				if (uid) lookup[uid] = item;
+				if (item.name) lookup[item.name] = item;
+				if (item.cardName) lookup[item.cardName] = item;
+			});
+			return lookup;
+		}, []);
+
+		const dataLookup = useMemo(
+			() => ({
+				powers: buildLookup(cachedData.powers),
+				relics: buildLookup(cachedData.relics),
+				items: buildLookup(cachedData.items),
+				runes: buildLookup(cachedData.runes),
+				cards: buildLookup(cachedData.cards),
+			}),
+			[cachedData, buildLookup],
+		);
+
+
 		const handleInputChange = e =>
 			setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
 
@@ -249,6 +273,11 @@ const ChampionEditorForm = memo(
 				cleanData.translations.en.description =
 					cleanData.translations.en.description.replace(/\n/g, "\\n");
 
+			// Thống nhất 1 loại Tag: Xóa tags trong translations nếu có
+			if (cleanData.translations?.en?.tags) {
+				delete cleanData.translations.en.tags;
+			}
+
 			const finalConstData = {
 				...constData,
 				constellationID: cleanData.championID.trim(),
@@ -257,27 +286,6 @@ const ChampionEditorForm = memo(
 
 			onSave(cleanData, finalConstData);
 		};
-
-		const buildLookup = arr => {
-			const lookup = {};
-			(arr || []).forEach(item => {
-				const uid = getUniqueId(item);
-				if (uid) lookup[uid] = item;
-				if (item.name) lookup[item.name] = item;
-			});
-			return lookup;
-		};
-
-		const dataLookup = useMemo(
-			() => ({
-				powers: buildLookup(cachedData.powers),
-				relics: buildLookup(cachedData.relics),
-				items: buildLookup(cachedData.items),
-				runes: buildLookup(cachedData.runes),
-				cards: buildLookup(cachedData.cards),
-			}),
-			[cachedData],
-		);
 
 		return (
 			<form onSubmit={handleSubmit} className='flex flex-col gap-6 pb-24'>
@@ -707,9 +715,11 @@ const ChampionEditorForm = memo(
 														}}
 													/>
 													{asset[field] && (
-														<img
+														<SafeImage
 															src={asset[field]}
 															className='h-20 w-auto rounded-lg object-contain bg-black/40 border shadow-inner'
+															alt={field}
+															width={200}
 														/>
 													)}
 												</div>
@@ -773,11 +783,9 @@ const ChampionEditorForm = memo(
 									data={formData.tags || []}
 									onChange={d => setFormData({ ...formData, tags: d })}
 								/>
-								<ArrayInputComponent
-									label='Thẻ (Tags)'
-									data={formData.translations?.en?.tags || []}
-									onChange={d => handleTranslationChange("tags", d)}
-								/>
+								<div className='hidden md:block opacity-30 pointer-events-none'>
+									{/* English tags removed - using common tags */}
+								</div>
 							</div>
 						</div>
 

@@ -2,6 +2,66 @@
 
 *File này là nơi lưu trữ trạng thái dở dang thuộc phiên làm việc hiện tại, các vấn đề và lỗi sinh ra khi code hoặc thảo luận để AI ghi nhớ tránh lạc lõng, hỏi lại nhiều lần.*
 
+
+## Log thay đổi 2026-04-06 (Home Page Overhaul)
+
+### ✅ Đại tu Giao diện và Hệ thống Thiết kế (Modernization)
+- **Light Theme Toàn diện**: Chuyển đổi từ giao diện tối sang Light Theme sang trọng với tông màu `slate-50`, tối ưu hóa độ tương phản và tính thẩm mỹ cao cấp.
+- **Bento Grid Database**: Thiết lập cấu trúc lưới 16 ô (4x4) đối xứng hoàn hảo cho phần Cơ sở dữ liệu. Tích hợp hiệu ứng **Aura Glow** và quầng sáng động theo chủ đề màu sắc.
+- **Hero Moodboard**: Nâng cấp tiêu đề Cinematic với viền 8 hướng và các ô gạch tương tác có hiệu ứng khôi phục màu sắc/phóng lớn khi hover.
+- **Công cụ mới**: Tích hợp **Giả lập mở rương (Vault Simulator)** vào danh sách công cụ nhanh.
+
+### ✅ Tối ưu hóa Hiệu năng và Di động (UX/UI)
+- **Fluid Mobile Design**: Tự động scale cỡ chữ và khoảng đệm trên mobile để loại bỏ hoàn toàn lỗi tràn khung và cuộn ngang.
+- **Italic Clipping Fix**: Xử lý lỗi cắt chữ cho các tiêu đề in nghiêng trong `GenericListLayout` bằng cách bổ sung padding kỹ thuật.
+- **Admin Consistency**: Đồng bộ hóa khoảng cách và phong cách thiết kế cho Dashboard Analytics và các trang quản trị.
+
+### ✅ Backend & Security
+- **Analytics Security Fix**: Khắc phục lỗi `401 Unauthorized` trên Dashboard bằng cách bổ sung middleware xác thực JWT đúng quy trình trước khi kiểm tra quyền Admin.
+- **API Stability**: Đảm bảo các route quản trị luôn được bảo vệ bởi chuỗi `authenticateCognitoToken` và `requireAdmin`.
+
+### ✅ Nội dung và Đa ngôn ngữ (i18n)
+- **Legendary Support**: Cập nhật phím dịch cho bậc độ hiếm "Huyền Thoại" giúp hỗ trợ các nội dung game mới nhất.
+- **Sorting Logic**: Bổ sung các tùy chọn sắp xếp theo ID (Tăng/Giảm) vào hệ thống ngôn ngữ chung.
+
+## Log thay đổi 2026-04-05
+
+### ✅ Tối ưu hoá Hiệu suất Admin (Sidebar)
+- **Giải quyết vấn đề Render**: Giới hạn hiển thị tối đa 100 kết quả trong SidePanel để tránh quá tải DOM khi xử lý > 2.300 lá bài.
+- **Cơ chế Smart Image Loading**: Tự động chuyển đổi giữa hiển thị Icon và Hình ảnh đầy đủ dựa trên số lượng kết quả hoặc thao tác tìm kiếm của người dùng. Giúp danh sách đạt độ mượt 60fps.
+
+### ✅ Tự động hóa Dữ liệu bài tham chiếu (Champion Editor)
+- **Logic Auto-Scan**: Tích hợp trình quét mô tả (VN/EN) tự động nhận diện thẻ Markup `[cd:...]` để thêm lá bài vào danh sách bài tham chiếu khi người dùng nạp bài vào bộ bài khởi đầu.
+- **Đồng bộ hóa Backend**: Cập nhật API `/api/cards` trả về đầy đủ các trường mô tả cần thiết cho việc quét dữ liệu ở Frontend.
+- **Indexing Thông minh**: Hỗ trợ tra cứu theo cả CardCode và CardName, đảm bảo tính nhất quán của dữ liệu tham chiếu.
+
+### ✅ Nâng cấp UX/UI Đồng bộ (Champion Detail)
+- **Capsule Tab System**: Triển khai thiết kế Tab hiện đại với hiệu ứng trượt (Framer Motion) và badge số lượng cho các phần:
+    - **Bộ bài khởi đầu**: Chuyển đổi giữa Bài chính và Bài tham chiếu.
+    - **Chi tiết Sức mạnh**: Chuyển đổi giữa Sức mạnh sao và Chòm sao bổ trợ (trong bảng chi tiết).
+- **Tooltip & Preview**: Thêm tooltip xem trước hình ảnh khi hover vào các lá bài trong bộ bài khởi đầu.
+- **Bản đồ Chòm sao**: Giữ nguyên hiển thị trực quan cố định để duy trì tính thẩm mỹ của trang.
+
+### ✅ Sửa lỗi & Cải thiện
+- Giải quyết triệt để lỗi `ReferenceError` khi khởi tạo dữ liệu trong Champion Editor Form.
+- Khắc phục các lỗi cú pháp JSX phát sinh trong quá trình tái cấu trúc giao diện.
+
+## Log thay đổi 2026-04-04
+
+### ✅ Chuyển đổi và Flatten Cấu trúc dữ liệu
+- Chuyển đổi toàn bộ Data nguồn (CSV) của Items, Powers, Relics, Runes sang JSON.
+- Đệ quy Unmarshal gỡ bỏ các lớp cấu trúc thừa (như "S", "M", "L") do DynamoDB sinh ra để hệ thống FE dễ sử dụng.
+
+### ✅ Chuẩn hoá Card Reference Markup và Render Backend
+- Tự động hóa thay thế các tag `[c:Name]` lỗi thời thành `[cd:CardCode|CardName|icon,img-full]` trên cả dữ liệu tiếng Anh và tiếng Việt.
+- Khắc phục lỗi `ReferenceError: constCache` trên Backend Route `/api/constellations`.
+- Cải thiện RegExp ở hàm `parseMarkup` để chuyển đổi chính xác tự động cả ký tự string `\n` và ký tự xuống dòng gốc thành thẻ `<br/>` giúp văn bản xuống dòng chính xác khi render.
+
+### ✅ Tối ưu hoá Giao diện Quản trị Mobile-first (Admin Panel)
+- Cấu trúc lại **AdminListLayout** với kiến trúc Mobile-First, thêm nút Accordion (gập mở) trên Mobile để dễ dàng tiếp cận thanh Bộ Lọc (SidePanel) mà không cần cuộn dọc.
+- Tái cấu trúc các trang **BossEditor**, **BonusStarEditor**, và **AdventureMapEditor**, cắt bỏ lưới cứng tĩnh và ép chạy chung trên khối lượng lưới (Grid) chuẩn của `AdminListLayout`.
+- Đảm bảo hiển thị hoàn hảo ở chế độ Portrait trên màn hình cảm ứng di động. Đã triển khai và đẩy mã nguồn lên GitHub.
+
 ## Log thay đổi 2026-04-01
 
 ### ✅ Nâng cấp Card Explorer (Tính năng & Dữ liệu)
@@ -47,12 +107,15 @@
 - **Verification**: Script `analyze_locales.cjs` chạy OK — EN=836 keys, VI=836 keys, đồng bộ hoàn hảo.
 
 ## Tiến độ gần nhất
-- Đã hoàn tất việc tích hợp và chuẩn hóa hệ thống Lá bài (Cards) tương đương với hệ thống Tướng và Trang bị.
-- Hệ thống cơ sở dữ liệu đã được nạp đầy đủ và đồng nhất 100%.
+- Đã hoàn tất đại tu Giao diện Trang chủ và Hệ thống DB Bento Grid đạt tiêu chuẩn thẩm mỹ cao cấp.
+- Đã sửa các lỗi bảo mật cơ bản và lỗi hiển thị (clipping, overflow) trên mọi thiết bị.
+- Hệ thống i18n và Data (Rarities, Items) đã được cập nhật đồng nhất.
 
 ## Vấn đề đang chú ý (Blocking/Bugs)
 *Không có bug hay blocking nghiêm trọng nào.*
 
 ## Mục tiêu phiên làm việc tiếp theo
-- Kiểm tra lại tính tương thích của các thẻ markup mới trên các trình duyệt khác nhau.
-- Xem xét việc tối ưu hóa hiệu suất tải ảnh (lazy loading) cho danh sách lá bài dài.
+- Đồng bộ hóa thiết kế Light Theme cho toàn bộ các trang chi tiết tướng (Champion Detail).
+- Tích hợp hệ thống Filter nâng cao cho trang Thư viện Lá bài (Card Library).
+- Kiểm tra lại toàn bộ các trang quản trị Admin để đảm bảo không còn lỗi 401 do thiếu middleware.
+- Tối ưu hóa biểu diễn dữ liệu Radar Chart trong Champion Detail theo phong cách mới.

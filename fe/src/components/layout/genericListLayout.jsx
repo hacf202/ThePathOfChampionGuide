@@ -127,7 +127,7 @@ const GenericListLayout = ({
 			<div className='font-secondary'>
 				{/* --- HEADER --- */}
 				<div className='flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-2 md:mb-6'>
-					<h1 className='text-3xl font-bold text-text-primary font-primary animate-glitch uppercase italic'>
+					<h1 className='text-3xl font-bold text-text-primary font-primary animate-glitch uppercase italic pr-4 pt-1'>
 						{heading}
 					</h1>
 

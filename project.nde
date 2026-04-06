@@ -1,0 +1,138 @@
+# The Path of Champion Guide - Full System Map
+# Sơ đồ tư duy kiến trúc toàn bộ dự án (Backend, Frontend, Scripts)
+
+META
+  name ThePathOfChampionGuide
+  version 1.1.0
+  author dev
+  desc Hệ thống tra cứu và quản lý dữ liệu game The Path of Champions (LoR)
+
+# ─── BACKEND (SERVER) ──────────────────────────────────
+
+NODE Backend
+  DESC Server Express.js xử lý API và quản lý dữ liệu DynamoDB/Cognito
+  FILE be/server.js
+  DEPS express cors morgan helmet aws-sdk compression
+
+  NODE Middleware
+    DESC Các bộ lọc trung gian xử lý request
+    FILE be/src/middleware/
+    FUNC authenticate
+      DESC Xác thực Token từ AWS Cognito
+      FILE be/src/middleware/authenticate.js
+    FUNC requireAdmin
+      DESC Kiểm tra quyền Admin (adminGroup)
+      FILE be/src/middleware/requireAdmin.js
+    FUNC rateLimit
+      DESC Giới hạn tần suất gọi API (auth route)
+      FILE be/server.js
+
+  NODE Routes
+    DESC Các đầu cuối API chính
+    FILE be/src/routes/
+    
+    NODE ChampionsRouter
+      DESC Quản lý dữ liệu tướng và chi tiết tướng
+      FILE be/src/routes/champions.js
+      FUNC getChampions
+        DESC Lấy danh sách tướng (có lọc và phân trang)
+        READS guidePocChampionList
+      FUNC getFullDetail
+        DESC Lấy toàn bộ dữ liệu liên quan (star, relic, item...)
+        FILE be/src/routes/champions.js:L260
+    
+    NODE AuthRouter
+      DESC Xử lý đăng nhập và đăng ký qua Cognito
+      FILE be/src/routes/auth.js
+    
+    NODE BuildsRouter
+      DESC Quản lý build và yêu thích (Community/Pro)
+      FILE be/src/routes/builds.js be/src/routes/favorites.js
+    
+    NODE GameDataRouter
+      DESC Tra cứu Powers, Relics, Items, Runes, Cards
+      FILE be/src/routes/powers.js be/src/routes/relics.js be/src/routes/items.js
+
+  NODE Database
+    DESC Hệ thống lưu trữ dữ liệu
+    VAR DynamoDB
+      DESC NoSQL database chứa list tướng, build, rating
+      TAG aws cloud
+    VAR LocalData
+      DESC File JSON tĩnh cho Powers/Relics (đa ngôn ngữ)
+      FILE be/data/
+
+# ─── FRONTEND (WEB) ───────────────────────────────────
+
+NODE Frontend
+  DESC Ứng dụng React (Vite) Single Page Application
+  FILE fe/src/App.jsx
+  DEPS react react-router-dom tailwindcss react-helmet-async
+
+  NODE AppRouter
+    DESC Cấu trúc điều hướng chính của ứng dụng
+    FILE fe/src/App.jsx
+    NODE Pages
+      DESC Các trang chức năng chính
+      FILE fe/src/pages/
+      TAG view ui
+      NODE Home
+        DESC Trang chủ giới thiệu
+      NODE ChampionList
+        DESC Danh sách tướng với bộ lọc nâng cao
+      NODE ChampionDetail
+        DESC Chi tiết tướng, deck, constellation, build gợi ý
+      NODE AdminPanel
+        DESC Giao diện quản trị viên (CRUD dữ liệu)
+        FILE fe/src/components/admin/
+
+  NODE StateManagement
+    DESC Quản lý trạng thái ứng dụng
+    NODE AuthContext
+      DESC Quản lý session và thông tin người dùng
+      FILE fe/src/context/AuthContext.jsx
+    NODE TranslationHook
+      DESC Xử lý đa ngôn ngữ (VI/EN)
+      FILE fe/src/hooks/useTranslation.js
+
+  NODE Utils
+    DESC Các hàm tiện ích phía client
+    FUNC markupParser
+      DESC Chuyển đổi mã màu [cd:...] sang HTML/Tooltip
+      FILE fe/src/utils/markupParser.js
+    FUNC entityLookup
+      DESC Tra cứu nhanh thông tin card/relic để hiển thị
+      FILE fe/src/utils/entityLookup.js
+
+# ─── TOOLS & SCRIPTS ──────────────────────────────────
+
+NODE Scripts
+  DESC Các công cụ tự động hóa và phân tích dữ liệu
+  NODE LocaleAnalyzer
+    DESC Phân tích và thống kê độ phủ của các ngôn ngữ
+    FILE scripts/analyze_locales.cjs
+
+# ─── QUY TRÌNH LÀM VIỆC (AI WORKFLOW) ─────────────────
+
+NODE AI_Workflow
+  DESC Quy trình chuẩn cho AI khi thực hiện task
+  FUNC Research
+    DESC Nghiên cứu code và project.nde
+  FUNC Planning
+    DESC Tạo implementation_plan.md chi tiết
+  FUNC Execute
+    DESC Thực thi sau khi được User Approve
+  FUNC UpdateNDE
+    DESC Cập nhật lại project.nde nếu có thay đổi quan hệ cấu trúc
+    WARN Bắt buộc thực hiện trước khi báo cáo hoàn thành
+
+# ─── SYSTEM LINKS ─────────────────────────────────────
+
+LINK Frontend Backend call-api-rest
+LINK Backend.Routes.ChampionsRouter Database.DynamoDB query
+LINK Backend.Routes.GameDataRouter Database.LocalData read-json
+LINK Frontend.AppRouter.Pages.AdminPanel Backend.Middleware.requireAdmin protect
+LINK Frontend.StateManagement.AuthContext Backend.Routes.AuthRouter verify-session
+LINK Frontend.Utils.markupParser Frontend.Utils.entityLookup data-enrichment
+LINK AI_Workflow.Research project.nde read
+LINK AI_Workflow.UpdateNDE project.nde write
