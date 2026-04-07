@@ -12,6 +12,7 @@ import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { requireAdmin } from "../middleware/requireAdmin.js";
 import { scanAll } from "../utils/dynamoUtils.js";
+import { createAuditLog } from "../utils/auditLogger.js";
 
 const router = express.Router();
 const BONUS_STAR_TABLE = "guidePocBonusStar";
@@ -89,6 +90,17 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 
 		await client.send(command);
 
+		// Ghi log thay đổi
+		await createAuditLog({
+			action: isNew ? "CREATE" : "UPDATE",
+			entityType: "bonusStar",
+			entityId: bonusStarID,
+			entityName: dataToSave.name,
+			oldData: Item ? unmarshall(Item) : null,
+			newData: dataToSave,
+			user: req.user
+		});
+
 		// Bước 4: Làm mới Cache để UI cập nhật ngay lập tức
 		bonusCache.flushAll();
 
@@ -115,11 +127,30 @@ router.delete(
 	async (req, res) => {
 		const { bonusStarID } = req.params;
 		try {
-			const command = new DeleteItemCommand({
+			// Lấy dữ liệu cũ để ghi log
+			const getItemCmd = new GetItemCommand({
+				TableName: BONUS_STAR_TABLE,
+				Key: marshall({ bonusStarID: bonusStarID.trim() }),
+			});
+			const { Item } = await client.send(getItemCmd);
+			const oldData = Item ? unmarshall(Item) : null;
+
+			const deleteCmd = new DeleteItemCommand({
 				TableName: BONUS_STAR_TABLE,
 				Key: marshall({ bonusStarID }),
 			});
-			await client.send(command);
+			await client.send(deleteCmd);
+
+			// Ghi log thay đổi
+			await createAuditLog({
+				action: "DELETE",
+				entityType: "bonusStar",
+				entityId: bonusStarID,
+				entityName: oldData?.name || bonusStarID,
+				oldData: oldData,
+				newData: null,
+				user: req.user
+			});
 
 			bonusCache.flushAll();
 

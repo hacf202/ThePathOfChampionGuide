@@ -61,28 +61,33 @@ const RenderItem = ({ item }) => {
 	const itemDesc =
 		tDynamic(item, "description") || tDynamic(item, "descriptionRaw");
 
+	const navigate = useNavigate();
+	const handleItemClick = (e) => {
+		// Nếu click vào thẻ <a> hoặc nút bấm bên trong (markup link), không làm gì cả
+		if (e.target.closest("a, button")) return;
+		if (linkPath) navigate(linkPath);
+	};
+
 	const content = (
-		<div className='flex items-start gap-1 bg-surface-hover rounded-md h-full hover:border-primary-500 p-2'>
+		<div 
+			onClick={handleItemClick}
+			className={`flex items-start gap-1 bg-surface-hover rounded-md h-full p-2 transition-all ${linkPath ? 'cursor-pointer hover:border-primary-500 border border-transparent active:scale-[0.98]' : ''}`}
+		>
 			<SafeImage
 				src={item.assetAbsolutePath || item.image || "/fallback-image.svg"}
 				alt={itemName}
 				className='w-20 h-20 sm:w-24 sm:h-24 rounded-md shrink-0 object-cover'
 			/>
-			<div>
-				<h3 className='font-semibold text-text-primary text-lg'>{itemName}</h3>
+			<div className="min-w-0">
+				<h3 className='font-semibold text-text-primary text-lg truncate'>{itemName}</h3>
 				{itemDesc && (
 					<MarkupRenderer text={itemDesc} className="text-md text-text-secondary mt-1" />
 				)}
 			</div>
 		</div>
 	);
-	return linkPath ? (
-		<Link to={linkPath} className='block h-full'>
-			{content}
-		</Link>
-	) : (
-		content
-	);
+
+	return content;
 };
 
 // --- RENDER CARD NAME CELL (WITH TOOLTIP PORTAL) ---
@@ -248,9 +253,16 @@ function ChampionDetail() {
 				initEntities(resolvedData.cards);
 			}
 
-			// Resolve entities mentioned in description
-			const desc = tDynamic(champData, "description") || "";
-			if (desc) resolveEntities(desc);
+			// 3. Gom tất cả mô tả để resolve markup cùng lúc
+			const allTexts = [
+				tDynamic(champData, "description"),
+				...(resolvedData.powers || []).map(p => tDynamic(p, "description") || tDynamic(p, "descriptionRaw")),
+				...(resolvedData.relics || []).map(r => tDynamic(r, "description") || tDynamic(r, "descriptionRaw")),
+				...(resolvedData.items || []).map(i => tDynamic(i, "description") || tDynamic(i, "descriptionRaw")),
+				...(resolvedData.runes || []).map(r => tDynamic(r, "description") || tDynamic(r, "descriptionRaw"))
+			].filter(Boolean).join(" ");
+
+			if (allTexts) resolveEntities(allTexts);
 
 		} catch (err) {
 			setError(err.message || tUI("championDetail.errorLoad"));

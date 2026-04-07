@@ -32,8 +32,12 @@ export const useMarkupResolution = () => {
             const promises = [];
 
             // 1. Resolve Cards
-            if (groups.cd || groups.card) {
-                const cardIds = Array.from(new Set([...(groups.cd || []), ...(groups.card || [])]));
+            if (groups.cd || groups.card || groups.item) {
+                const cardIds = Array.from(new Set([
+                    ...(groups.cd || []), 
+                    ...(groups.card || []),
+                    ...(groups.item || [])
+                ]));
                 promises.push(
                     axios.post(`${API_BASE}/api/cards/resolve`, { ids: cardIds })
                         .then(res => {
@@ -48,8 +52,18 @@ export const useMarkupResolution = () => {
                 promises.push(
                     axios.post(`${API_BASE}/api/powers/resolve`, { ids: powerIds })
                         .then(res => {
-                            // powers are usually already in bundle, but we can inject them if needed
-                            // initEntities(res.data, "power"); // Need to update entityLookup to support this
+                            if (res.data) initEntities(res.data, "powers");
+                        })
+                );
+            }
+
+            // 3. Resolve Items
+            if (groups.i) {
+                const itemIds = Array.from(groups.i);
+                promises.push(
+                    axios.post(`${API_BASE}/api/items/resolve`, { ids: itemIds })
+                        .then(res => {
+                            if (res.data) initEntities(res.data, "items");
                         })
                 );
             }

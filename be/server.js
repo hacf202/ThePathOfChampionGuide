@@ -23,12 +23,12 @@ import constellationsRouter from "./src/routes/constellations.js";
 import bonusStarRoutes from "./src/routes/bonusStars.js";
 import bossesRouter from "./src/routes/bosses.js";
 import adventuresRouter from "./src/routes/adventures.js";
-import analyticsRouter from "./src/routes/analytics.js";
 import imagesRouter from "./src/routes/images.js";
 import commentRoutes from "./src/routes/comments.js";
 import cardsRouter from "./src/routes/cards.js";
 import ratingsRouter from "./src/routes/ratings.js";
 import adminCacheRouter from "./src/routes/adminCache.js";
+import auditLogsRouter from "./src/routes/auditLogs.js";
 
 // Kiểm tra các biến môi trường cần thiết
 const requiredEnvVars = [
@@ -122,13 +122,13 @@ app.use("/api/admin/builds", buildsAdminRouter);
 app.use("/api/guides", guidesRouter);
 app.use("/api/constellations", constellationsRouter);
 app.use("/api/bonusStars", bonusStarRoutes);
-app.use("/api/analytics", analyticsRouter);
 app.use("/api/images", imagesRouter);
 app.use("/api/bosses", bossesRouter);
 app.use("/api/adventures", adventuresRouter);
 app.use("/api/cards", cardsRouter);
 app.use("/api/ratings", ratingsRouter);
 app.use("/api/admin/cache", adminCacheRouter);
+app.use("/api/admin/audit-logs", auditLogsRouter);
 
 // API để kiểm tra "sức khỏe" của server
 app.get("/api/checkheal", (req, res) => {

@@ -1,6 +1,15 @@
 // src/App.jsx
-import { useEffect } from "react";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { useEffect, useMemo } from "react";
+import { 
+	createBrowserRouter, 
+	RouterProvider, 
+	Routes, 
+	Route, 
+	useLocation, 
+	Outlet,
+	Navigate,
+	useNavigate
+} from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { Analytics } from "@vercel/analytics/react";
 import { useTranslation } from "./hooks/useTranslation";
@@ -32,6 +41,7 @@ import GuideListPage from "./pages/guideListPage.jsx";
 import TierListIndex from "./pages/tierList.jsx";
 import VaultSimulator from "./pages/vaultSimulator.jsx";
 import CardList from "./pages/cardList.jsx";
+import ChampionRatingPage from "./pages/championRatingPage.jsx";
 
 
 // Đăng nhập / Đăng ký
@@ -54,15 +64,16 @@ import AdminPanel from "./components/admin/adminPanel.jsx";
 import PrivateRoute from "./components/admin/privateRoute.jsx";
 
 import usePageTracking from "./hooks/usePageTracking";
+import { initEntities } from "./utils/entityLookup";
 
-// --- Component chứa Routes ---
-function MainContent() {
+// --- Component chứa Logic Main Content ---
+function MainContentContainer() {
 	usePageTracking();
 	const location = useLocation();
 
 	const isAdmin = location.pathname.startsWith("/admin");
 	// Danh sách các trang full-width
-	const fullWidthPaths = ["/", "/randomizer", "/home", "/introduction", "/simulator/vaults"];
+	const fullWidthPaths = ["/", "/randomizer", "/home", "/introduction", "/simulator/vaults", "/tools/ratings"];
 	const isFullWidth = isAdmin || fullWidthPaths.includes(location.pathname);
 
 	useEffect(() => {
@@ -79,56 +90,12 @@ function MainContent() {
 					: !isFullWidth ? "container mx-auto sm:px-4 py-2 sm:py-8" : ""
 			}`}
 		>
-			<Routes>
-				{/* Trang chủ & Randomizer - full width */}
-				<Route path='/' element={<Home />} />
-				<Route path='/home' element={<Home />} />
-				<Route path='/randomizer' element={<RandomizerPage />} />
-				<Route path='/simulator/vaults' element={<VaultSimulator />} />
-
-				{/* Các trang khác - có container */}
-
-				<Route path='/profile' element={<Profile />} />
-				<Route path='/champions' element={<Champions />} />
-				<Route path='/champion/:championID' element={<ChampionDetail />} />
-				<Route path='/relics' element={<Relics />} />
-				<Route path='/relic/:relicCode' element={<RelicDetail />} />
-				<Route path='/powers' element={<Powers />} />
-				<Route path='/power/:powerCode' element={<PowerDetail />} />
-				<Route path='/items' element={<Items />} />
-				<Route path='/item/:itemCode' element={<ItemDetail />} />
-				<Route path='/builds' element={<Builds />} />
-				<Route path='/builds/:tab' element={<Builds />} />
-				<Route path='/builds/detail/:buildId' element={<BuildDetail />} />
-				<Route path='/runes' element={<Runes />} />
-				<Route path='/rune/:runeCode' element={<RuneDetail />} />
-				<Route path='/guides' element={<GuideListPage />} />
-				<Route path='/guides/:slug' element={<GuideDetail />} />
-				<Route path='/maps' element={<Maps />} />
-				<Route path='/map/:adventureID' element={<AdventureMapDetail />} />
-				<Route path='/cards' element={<CardList />} />
-				<Route path='/card/:cardCode' element={<CardDetail />} />
-				<Route path='/tierlist' element={<TierListIndex />} />
-				<Route path='/tierlist/champions' element={<TierListIndex />} />
-				<Route path='/tierlist/relics' element={<TierListIndex />} />
-				<Route
-					path='/auth'
-					element={<AuthContainer onClose={() => window.history.back()} />}
-				/>
-				<Route path='/about-us' element={<AboutUs />} />
-				<Route path='/terms-of-use' element={<TermsOfUse />} />
-				<Route path='/introduction' element={<Introduction />} />
-
-				{/* Admin Routes - vẫn dùng container */}
-				<Route element={<PrivateRoute />}>
-					<Route path='/admin/*' element={<AdminPanel />} />
-				</Route>
-			</Routes>
+			<Outlet />
 		</main>
 	);
 }
 
-// --- Component Layout ---
+// --- Component Layout chính của Router ---
 function AppLayout() {
 	const location = useLocation();
 	const isAdminRoute = location.pathname.startsWith("/admin");
@@ -150,7 +117,7 @@ function AppLayout() {
 			location.pathname === "/randomizer" ||
 			location.pathname === "/introduction" ||
 			location.pathname === "/simulator/vaults" ? (
-				<MainContent />
+				<MainContentContainer />
 			) : (
 				<div className='flex justify-center relative w-full'>
 					{/* SKYBANNER LEFT (Outer Margin) */}
@@ -170,7 +137,7 @@ function AppLayout() {
 
 					{/* MAIN CONTENT AREA for sub-pages */}
 					<div className='flex-1 min-w-0 max-w-[1500px]'>
-						<MainContent />
+						<MainContentContainer />
 					</div>
 
 					{/* SKYBANNER RIGHT (Outer Margin) */}
@@ -191,41 +158,79 @@ function AppLayout() {
 			)}
 
 			{!isAdminRoute && <Footer />}
+			<Analytics />
 		</div>
 	);
 }
 
-import { initEntities } from "./utils/entityLookup";
+// --- Định nghĩa Cấu trúc Route Objects cho Data Router ---
+const router = createBrowserRouter([
+	{
+		path: "/",
+		element: <AppLayout />,
+		children: [
+			{ index: true, element: <Home /> },
+			{ path: "home", element: <Home /> },
+			{ path: "randomizer", element: <RandomizerPage /> },
+			{ path: "simulator/vaults", element: <VaultSimulator /> },
+			{ path: "tools/ratings", element: <ChampionRatingPage /> },
+			{ path: "profile", element: <Profile /> },
+			{ path: "champions", element: <Champions /> },
+			{ path: "champion/:championID", element: <ChampionDetail /> },
+			{ path: "relics", element: <Relics /> },
+			{ path: "relic/:relicCode", element: <RelicDetail /> },
+			{ path: "powers", element: <Powers /> },
+			{ path: "power/:powerCode", element: <PowerDetail /> },
+			{ path: "items", element: <Items /> },
+			{ path: "item/:itemCode", element: <ItemDetail /> },
+			{ path: "builds", element: <Builds /> },
+			{ path: "builds/:tab", element: <Builds /> },
+			{ path: "builds/detail/:buildId", element: <BuildDetail /> },
+			{ path: "runes", element: <Runes /> },
+			{ path: "rune/:runeCode", element: <RuneDetail /> },
+			{ path: "guides", element: <GuideListPage /> },
+			{ path: "guides/:slug", element: <GuideDetail /> },
+			{ path: "maps", element: <Maps /> },
+			{ path: "map/:adventureID", element: <AdventureMapDetail /> },
+			{ path: "cards", element: <CardList /> },
+			{ path: "card/:cardCode", element: <CardDetail /> },
+			{ path: "tierlist", element: <TierListIndex /> },
+			{ path: "tierlist/champions", element: <TierListIndex /> },
+			{ path: "tierlist/relics", element: <TierListIndex /> },
+			{ 
+				path: "auth", 
+				element: <AuthContainer onClose={() => window.history.back()} /> 
+			},
+			{ path: "about-us", element: <AboutUs /> },
+			{ path: "terms-of-use", element: <TermsOfUse /> },
+			{ path: "introduction", element: <Introduction /> },
+			// Admin Routes Protected
+			{
+				element: <PrivateRoute />,
+				children: [
+					{ path: "admin/*", element: <AdminPanel /> }
+				]
+			}
+		]
+	}
+]);
 
-// --- Component App ---
+// --- Component App Gốc ---
 function App() {
-	// Lấy cờ trạng thái loading ngôn ngữ
 	const { isLangLoading } = useTranslation();
 
-	// Khởi tạo dữ liệu thực thể (như danh sách Cards) cho Tooltip
 	useEffect(() => {
 		initEntities();
 	}, []);
 
-	// Hiển thị màn hình chờ (Skeleton Loading) nếu ngôn ngữ đang được tải
 	if (isLangLoading) {
 		return (
 			<div className='fixed inset-0 z-50 bg-[#0f172a] p-4 flex flex-col'>
-				{/* Skeleton Navbar */}
 				<div className='h-16 w-full bg-white/5 rounded-2xl animate-pulse mb-8'></div>
-
-				{/* Skeleton Body (Giả lập cấu trúc trang) */}
 				<div className='flex-grow flex flex-col items-center justify-center w-full max-w-5xl mx-auto gap-6'>
-					{/* Giả lập Badge/Icon */}
 					<div className='h-8 w-32 bg-white/5 rounded-full animate-pulse mb-4'></div>
-
-					{/* Giả lập Heading lớn */}
 					<div className='h-16 md:h-24 w-3/4 bg-white/5 rounded-3xl animate-pulse'></div>
-
-					{/* Giả lập Đoạn mô tả */}
 					<div className='h-6 md:h-8 w-1/2 bg-white/5 rounded-full animate-pulse mb-8'></div>
-
-					{/* Giả lập 2 Nút bấm */}
 					<div className='flex flex-col sm:flex-row gap-6'>
 						<div className='h-14 w-48 bg-white/5 rounded-full animate-pulse'></div>
 						<div className='h-14 w-48 bg-white/5 rounded-full animate-pulse'></div>
@@ -238,9 +243,7 @@ function App() {
 	return (
 		<HelmetProvider>
 			<AuthProvider>
-				<BrowserRouter>
-					<AppLayout />
-				</BrowserRouter>
+				<RouterProvider router={router} />
 			</AuthProvider>
 		</HelmetProvider>
 	);

@@ -29,6 +29,7 @@ import {
 	Map,
 	BarChartHorizontalBig,
 	Globe,
+	Star,
 } from "lucide-react";
 
 function MobileSidebar({ language, handleLanguageChange, tUI }) {
@@ -202,7 +203,7 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 										className={dropdownLinkClass}
 										onClick={closeSidebar}
 									>
-										<BookOpen className='w-4 h-4' /> {tUI("cardList.title")}
+										<BookOpen className='w-4 h-4' /> {tUI("nav.cards")}
 									</NavLink>
 								</div>
 							)}
@@ -257,6 +258,14 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 										onClick={closeSidebar}
 									>
 										<Gift className='w-4 h-4' /> {tUI("nav.vaultSimulator")}
+									</NavLink>
+									<NavLink
+										to='/tools/ratings'
+										className={dropdownLinkClass}
+										onClick={closeSidebar}
+									>
+										<Star className='w-4 h-4' />{" "}
+										{tUI("nav.championRatings")}
 									</NavLink>
 									<NavLink
 										to='/introduction'

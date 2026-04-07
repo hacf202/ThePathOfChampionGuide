@@ -63,6 +63,7 @@ const MarkupRenderer = memo(({ text, className = "" }) => {
 					r: "text-purple-500 hover:text-purple-400",
 					p: "text-blue-500 hover:text-blue-400",
 					i: "text-emerald-500 hover:text-emerald-400",
+					item: "text-emerald-500 hover:text-emerald-400",
 					cd: "text-orange-500 hover:text-orange-400"
 				};
 				
@@ -71,6 +72,7 @@ const MarkupRenderer = memo(({ text, className = "" }) => {
 					r: `/relic/${data?.id || tagValue}`,
 					p: `/power/${data?.id || tagValue}`,
 					i: `/item/${data?.id || tagValue}`,
+					item: `/item/${data?.id || tagValue}`,
 					cd: `/card/${data?.id || tagValue}`
 				}[tagType];
 

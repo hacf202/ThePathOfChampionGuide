@@ -24,6 +24,7 @@ import {
 	Map,
 	CreditCard,
 	Settings2,
+	History,
 } from "lucide-react";
 import { useTranslation } from "../../hooks/useTranslation";
 
@@ -40,8 +41,8 @@ const AdventureMapEditor = lazy(
 );
 const BuildEditor = lazy(() => import("./builds/buildEditor"));
 const GuideEditor = lazy(() => import("./guides/guideEditor"));
-const AnalyticsDashboard = lazy(() => import("./analytics/analyticsDashboard"));
 const ImageManager = lazy(() => import("./images/imageManager"));
+const AuditLogList = lazy(() => import("./auditLogs/AuditLogList"));
 const CardEditor = lazy(() => import("./cards/cardEditor"));
 const CacheManager = lazy(() => import("./cache/cacheManager"));
 
@@ -159,16 +160,16 @@ const AdminPanel = () => {
 			path: "/admin/guides",
 		},
 		{
-			id: "analytics",
-			label: tUI("admin.nav.analytics"),
-			icon: LayoutDashboard,
-			path: "/admin/analytics",
-		},
-		{
 			id: "images",
 			label: tUI("admin.nav.images"),
 			icon: LayoutDashboard,
 			path: "/admin/images",
+		},
+		{
+			id: "audit-logs",
+			label: tUI("admin.nav.auditLog"),
+			icon: History,
+			path: "/admin/audit-logs",
 		},
 		{
 			id: "cards",
@@ -192,6 +193,13 @@ const AdminPanel = () => {
 				(item.path === "/admin" && location.pathname === "/admin"),
 		);
 
+	// [FIX] Nhận diện chế độ Editor: Nếu đường dẫn có id cụ thể (dài hơn /admin/champions)
+	const isEditorMode = 
+		location.pathname.split("/").length > 3 && 
+		!location.pathname.includes("images") && // Loại trừ ImageManager
+		!location.pathname.includes("cache") && // Loại trừ CacheManager
+		!location.pathname.includes("audit-logs"); // Loại trừ AuditLogs
+
 	return (
 		<div className='flex h-full bg-page-bg font-secondary'>
 			{/* Overlay cho Mobile */}
@@ -202,14 +210,14 @@ const AdminPanel = () => {
 				/>
 			)}
 
-			{/* Sidebar */}
+			{/* Sidebar - Tự động ẩn hoàn toàn khi ở chế độ Editor Mode */}
 			<aside
 				className={`fixed inset-y-0 left-0 z-40 bg-surface-bg border-r border-border flex flex-col shadow-lg
         transition-all duration-300 ease-in-out
         ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}
         /* Logic responsive: Mobile full width khi mở, Desktop width tùy chỉnh */
         xl:relative xl:translate-x-0 xl:shadow-sm
-        ${isCollapsed ? "xl:w-20" : "xl:w-64"} 
+        ${isEditorMode ? "xl:w-0 xl:overflow-hidden xl:border-none" : (isCollapsed ? "xl:w-20" : "xl:w-64")} 
         w-64`}
 			>
 				{/* Sidebar Header */}
@@ -298,22 +306,24 @@ const AdminPanel = () => {
 
 			{/* Main Content */}
 			<div className='flex-1 flex flex-col overflow-hidden'>
-				{/* Topbar */}
-				<header className='flex items-center justify-between h-16 bg-surface-bg border-b border-border px-6 flex-shrink-0 sticky top-0 z-20'>
-					<button
-						onClick={() => setIsSidebarOpen(true)}
-						className='p-2 rounded-lg text-text-secondary hover:bg-surface-hover hover:text-text-primary xl:hidden'
-					>
-						<Menu size={20} />
-					</button>
+				{/* Topbar - Ẩn khi ở chế độ Editor Mode để có nhiều không gian hơn */}
+				{!isEditorMode && (
+					<header className='flex items-center justify-between h-16 bg-surface-bg border-b border-border px-6 flex-shrink-0 sticky top-0 z-20'>
+						<button
+							onClick={() => setIsSidebarOpen(true)}
+							className='p-2 rounded-lg text-text-secondary hover:bg-surface-hover hover:text-text-primary xl:hidden'
+						>
+							<Menu size={20} />
+						</button>
 
-					<div className='flex-1 flex justify-center xl:justify-start'>
-						<h1 className='text-2xl font-bold text-text-primary font-primary hidden sm:block'>
-							{currentNavItem?.label ||
-								tUI("admin.topbar.defaultTitle")}
-						</h1>
-					</div>
-				</header>
+						<div className='flex-1 flex justify-center xl:justify-start'>
+							<h1 className='text-2xl font-bold text-text-primary font-primary hidden sm:block'>
+								{currentNavItem?.label ||
+									tUI("admin.topbar.defaultTitle")}
+							</h1>
+						</div>
+					</header>
+				)}
 
 				{/* Scrollable Content */}
 				<main className='flex-1 overflow-auto px-4 pb-4 lg:px-6 lg:pb-6'>
@@ -334,8 +344,8 @@ const AdminPanel = () => {
 							<Route path='builds/*' element={<BuildEditor />} />
 							<Route path='bonusStars/*' element={<BonusStarEditor />} />
 							<Route path='guides/*' element={<GuideEditor />} />
-							<Route path='analytics' element={<AnalyticsDashboard />} />
 							<Route path='images/*' element={<ImageManager />} />
+							<Route path='audit-logs' element={<AuditLogList />} />
 							<Route path='bosses/*' element={<BossEditor />} />
 							<Route path='adventures/*' element={<AdventureMapEditor />} />
 							<Route path='cards/*' element={<CardEditor />} />

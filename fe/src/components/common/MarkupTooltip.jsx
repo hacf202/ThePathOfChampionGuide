@@ -166,7 +166,11 @@ const MarkupTooltip = ({ title, description, icon, fullImage, options = [], rari
 							<div className="mt-4 pt-3 border-t border-white/5 flex flex-col gap-2">
 								{href && (
 									<button 
-										onClick={() => navigate(href)}
+										type="button"
+										onClick={(e) => {
+											e.stopPropagation();
+											navigate(href);
+										}}
 										className={`w-full py-2 px-4 rounded-lg bg-white/10 hover:bg-white/20 border ${theme.border} text-[11px] font-bold tracking-widest uppercase transition-all active:scale-95 text-center`}
 									>
 										Xem chi tiết

@@ -1,4 +1,3 @@
-// src/pages/Home.jsx
 import React, { useState, useEffect, useRef } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -19,6 +18,7 @@ import {
 	Map,
 	GalleryHorizontal,
 	Archive,
+	Star
 } from "lucide-react";
 
 const BACKGROUND_IMAGES = [
@@ -29,7 +29,9 @@ const BACKGROUND_IMAGES = [
 	"https://images.pocguide.top/backgrounds/BG3.webp", // Deck (Workshop)
 	"https://images.pocguide.top/backgrounds/BG6.webp", 
 	"https://images.pocguide.top/backgrounds/BG7.webp",
-	"https://images.pocguide.top/backgrounds/BG8.webp","https://images.pocguide.top/backgrounds/BG9.webp"
+	"https://images.pocguide.top/backgrounds/BG8.webp",
+	"https://images.pocguide.top/backgrounds/BG9.webp",
+	"https://images.pocguide.top/backgrounds/BG10.webp"
 ];
 
 const Home = () => {
@@ -47,7 +49,8 @@ const Home = () => {
 		{ to: "/runes", icon: Gem, label: tUI("nav.runes"), img: BACKGROUND_IMAGES[6], top: "5%", left: "80%", size: "w-20 h-20 lg:w-40 lg:h-40" },
 		{ to: "/maps", icon: Map, label: tUI("nav.maps"), img: BACKGROUND_IMAGES[2], top: "65%", left: "75%", size: "w-18 h-18 lg:w-36 lg:h-36" },
 		{ to: "/randomizer", icon: Dices, label: tUI("nav.randomizer"), img: BACKGROUND_IMAGES[8], top: "50%", left: "2%", size: "w-20 h-20 lg:w-36 lg:h-36" },
-		{ to: "/cards", icon: GalleryHorizontal, label: tUI("nav.cards"), img: BACKGROUND_IMAGES[7], top: "5%", left: "54%", size: "w-24 h-24 lg:w-40 lg:h-40" },
+		{ to: "/cards", icon: GalleryHorizontal, label: tUI("nav.cards"), img: BACKGROUND_IMAGES[7], top: "2%", left: "64%", size: "w-24 h-24 lg:w-40 lg:h-40" },
+		{ to: "/tools/ratings", icon: Star, label: tUI("nav.championRatings"), img: BACKGROUND_IMAGES[9], top: "7%", left: "49%", size: "w-20 h-20 lg:w-60 lg:h-60" },
 	];
 
 	useEffect(() => {
@@ -326,9 +329,10 @@ const Home = () => {
 			</section>
 			{/* SECTION 5: QUICK TOOLS */}
 			<section className='py-10 px-1 md:px-6 max-w-7xl mx-auto'>
-				<div className='grid grid-cols-1 md:grid-cols-2 gap-10'>
+				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10'>
 					{[
 						{ to: "/randomizer", label: tUI("home.luckyWheel"), desc: tUI("home.luckyWheelDesc"), icon: Dices, color1: "primary-100", btn: tUI("home.tryNow"), iconColor: "primary-600" },
+						{ to: "/tools/ratings", label: tUI("nav.championRatings"), desc: tUI("ratings.subtitle"), icon: Star, color1: "orange-100", btn: tUI("home.viewAllChamps"), iconColor: "orange-600" },
 						{ to: "/tierlist", label: tUI("home.tierListTitle"), desc: tUI("home.tierListDesc"), icon: Trophy, color1: "purple-100", btn: tUI("home.viewTierList"), iconColor: "purple-600" },
 						{ to: "/guides", label: tUI("home.pocGuidesTitle"), desc: tUI("home.pocGuidesDesc"), icon: BookOpen, color1: "emerald-100", btn: tUI("home.learnToPlay"), iconColor: "emerald-600" },
 						{ to: "/vault-simulator", label: tUI("nav.vaultSimulator"), desc: tUI("vaultSimulator.description"), icon: Archive, color1: "amber-100", btn: tUI("home.tryNow"), iconColor: "amber-600" },

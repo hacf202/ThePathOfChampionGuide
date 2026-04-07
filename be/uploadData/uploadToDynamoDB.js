@@ -168,6 +168,7 @@ const CONFIGS = [
 	{ table: "guidePocRunes", file: path.join(__dirname, "./RunesData.json") },
 	{ table: "guidePocChampionList", file: path.join(__dirname, "./guidePocChampionList.json") },
 	{ table: "guidePocBonusStar", file: path.join(__dirname, "./guidePocBonusStar.json") },
+	{ table: "guidePocChampionConstellation", file: path.join(__dirname, "./guidePocChampionConstellation.json") },
 ];
 
 async function main() {

@@ -12,6 +12,7 @@ import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { requireAdmin } from "../middleware/requireAdmin.js";
 import { scanAll } from "../utils/dynamoUtils.js";
+import { createAuditLog } from "../utils/auditLogger.js";
 
 const router = express.Router();
 const BOSS_TABLE = "guidePocBosses";
@@ -133,6 +134,18 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 		});
 
 		await client.send(command);
+
+		// Ghi log thay đổi
+		await createAuditLog({
+			action: isNew ? "CREATE" : "UPDATE",
+			entityType: "boss",
+			entityId: bossID,
+			entityName: dataToSave.bossName,
+			oldData: Item ? unmarshall(Item) : null,
+			newData: dataToSave,
+			user: req.user
+		});
+
 		bossCache.flushAll();
 
 		res.json({
@@ -152,14 +165,35 @@ router.delete(
 	async (req, res) => {
 		const { bossID } = req.params;
 		try {
-			const command = new DeleteItemCommand({
+			// Lấy dữ liệu cũ để ghi log
+			const getItemCmd = new GetItemCommand({
 				TableName: BOSS_TABLE,
 				Key: marshall({ bossID }),
 			});
-			await client.send(command);
+			const { Item } = await client.send(getItemCmd);
+			const oldData = Item ? unmarshall(Item) : null;
+
+			const deleteCmd = new DeleteItemCommand({
+				TableName: BOSS_TABLE,
+				Key: marshall({ bossID }),
+			});
+			await client.send(deleteCmd);
+
+			// Ghi log thay đổi
+			await createAuditLog({
+				action: "DELETE",
+				entityType: "boss",
+				entityId: bossID,
+				entityName: oldData?.bossName || bossID,
+				oldData: oldData,
+				newData: null,
+				user: req.user
+			});
+
 			bossCache.flushAll();
 			res.json({ message: "Đã xóa Boss thành công." });
 		} catch (error) {
+			console.error("Lỗi xóa Boss:", error);
 			res.status(500).json({ error: "Lỗi hệ thống khi thực hiện xóa." });
 		}
 	},

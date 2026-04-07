@@ -12,6 +12,7 @@ import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
 import { scanAll } from "../utils/dynamoUtils.js";
+import { createAuditLog } from "../utils/auditLogger.js";
 
 const router = express.Router();
 const RUNES_TABLE = "guidePocRunes";
@@ -211,6 +212,17 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 				Item: marshall(dataToSave, { removeUndefinedValues: true }),
 			}),
 		);
+		
+		// Ghi log thay đổi
+		await createAuditLog({
+			action: isNew ? "CREATE" : "UPDATE",
+			entityType: "rune",
+			entityId: runeCode,
+			entityName: dataToSave.name,
+			oldData: Item ? unmarshall(Item) : null,
+			newData: dataToSave,
+			user: req.user
+		});
 
 		runeCache.del("all_runes_data");
 		runeCache.del(`rune_detail_${runeCode}`);
@@ -232,12 +244,30 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 router.delete("/:runeCode", authenticateCognitoToken, async (req, res) => {
 	const { runeCode } = req.params;
 	try {
+		const getItemCmd = new GetItemCommand({
+			TableName: RUNES_TABLE,
+			Key: marshall({ runeCode }),
+		});
+		const { Item } = await client.send(getItemCmd);
+		const oldData = Item ? unmarshall(Item) : null;
+
 		await client.send(
 			new DeleteItemCommand({
 				TableName: RUNES_TABLE,
 				Key: marshall({ runeCode }),
 			}),
 		);
+
+		// Ghi log thay đổi
+		await createAuditLog({
+			action: "DELETE",
+			entityType: "rune",
+			entityId: runeCode,
+			entityName: oldData?.name || runeCode,
+			oldData: oldData,
+			newData: null,
+			user: req.user
+		});
 		runeCache.del("all_runes_data");
 		runeCache.del(`rune_detail_${runeCode}`);
 		res.status(200).json({ message: "Đã xóa ngọc thành công." });

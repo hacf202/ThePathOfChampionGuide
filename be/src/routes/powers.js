@@ -12,6 +12,7 @@ import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
 import { scanAll } from "../utils/dynamoUtils.js";
+import { createAuditLog } from "../utils/auditLogger.js";
 
 const router = express.Router();
 const POWERS_TABLE = "guidePocPowers";
@@ -196,6 +197,17 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 			}),
 		);
 
+		// Ghi log thay đổi
+		await createAuditLog({
+			action: isNew ? "CREATE" : "UPDATE",
+			entityType: "power",
+			entityId: powerCode,
+			entityName: dataToSave.name,
+			oldData: Item ? unmarshall(Item) : null,
+			newData: dataToSave,
+			user: req.user
+		});
+
 		powerCache.del("all_powers_data");
 		powerCache.del(`power_detail_${powerCode}`);
 
@@ -216,12 +228,31 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 router.delete("/:powerCode", authenticateCognitoToken, async (req, res) => {
 	const { powerCode } = req.params;
 	try {
+		// Lấy dữ liệu cũ để ghi log
+		const getCmd = new GetItemCommand({
+			TableName: POWERS_TABLE,
+			Key: marshall({ powerCode }),
+		});
+		const { Item } = await client.send(getCmd);
+		const oldData = Item ? unmarshall(Item) : null;
+
 		await client.send(
 			new DeleteItemCommand({
 				TableName: POWERS_TABLE,
-				Key: marshall({ powerCode: powerCode }),
+				Key: marshall({ powerCode }),
 			}),
 		);
+
+		// Ghi log thay đổi
+		await createAuditLog({
+			action: "DELETE",
+			entityType: "power",
+			entityId: powerCode,
+			entityName: oldData?.name || powerCode,
+			oldData: oldData,
+			newData: null,
+			user: req.user
+		});
 
 		powerCache.del("all_powers_data");
 		powerCache.del(`power_detail_${powerCode}`);

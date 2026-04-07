@@ -37,19 +37,19 @@ const dataStore = {
 /**
  * Khởi tạo dữ liệu động hoặc nạp thêm card vào cache (Ví dụ: từ kết quả resolve của page)
  */
-export const initEntities = async (initialCards = []) => {
-	if (initialCards && initialCards.length > 0) {
-		const merge = (existing, incoming) => {
-			const map = new Map(existing.map(c => [c.cardCode, c]));
-			incoming.forEach(c => map.set(c.cardCode, c));
+export const initEntities = async (incomingData = [], type = "cards") => {
+	if (incomingData && incomingData.length > 0) {
+		const merge = (existing, incoming, idField) => {
+			const map = new Map(existing.map(c => [c[idField], c]));
+			incoming.forEach(c => map.set(c[idField], c));
 			return Array.from(map.values());
 		};
 
-		dataStore.en.cards = merge(dataStore.en.cards, initialCards);
-		dataStore.vi.cards = merge(dataStore.vi.cards, initialCards);
+		const idField = type === "cards" ? "cardCode" : type === "items" ? "itemCode" : "powerCode";
+		
+		dataStore.en[type] = merge(dataStore.en[type] || [], incomingData, idField);
+		dataStore.vi[type] = merge(dataStore.vi[type] || [], incomingData, idField);
 	}
-	
-	// Không còn fetch toàn bộ 2300+ cards ở đây nữa để tối ưu tốc độ
 };
 
 const normalize = str => (str || "").normalize("NFC").toLowerCase().replace(/\s+/g, " ").trim();

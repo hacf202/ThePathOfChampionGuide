@@ -328,6 +328,8 @@
 			"nextPage": "Trang sau",
 			"backToList": "Quay lại danh sách",
 			"errorLoad": "Không thể tải dữ liệu",
+			"selectedItems": "Đã chọn {{count}} mục",
+			"noData": "Không có dữ liệu",
 			"errorOccurred": "Đã có lỗi xảy ra",
 			"saveSuccess": "Lưu dữ liệu thành công",
 			"deleteConfirm": "Bạn có chắc chắn muốn xóa?",
@@ -430,7 +432,7 @@
 			"rune": "Quản lý Ngọc",
 			"build": "Quản lý Bộ Cổ Vật",
 			"guide": "Quản lý Hướng Dẫn",
-			"analytics": "Phân tích hệ thống",
+			"auditLog": "Nhật ký thay đổi",
 			"boss": "Quản lý Boss",
 			"adventure": "Quản lý Bản Đồ",
 			"images": "Quản lý Ảnh",
@@ -491,6 +493,43 @@
 			"previewImage": "Xem trước Ảnh Lá Bài",
 			"imageUrlLabel": "URL Ảnh Lá Bài",
 			"deleteConfirmText": "Bạn có chắc muốn xóa lá bài"
+		},
+		"auditLog": {
+			"title": "Nhật ký thay đổi",
+			"subtitle": "Theo dõi các thay đổi dữ liệu trên hệ thống.",
+			"filterByType": "Lọc theo loại",
+			"filterByAction": "Lọc theo hành động",
+			"filterByUser": "Lọc theo người dùng",
+			"table": {
+				"timestamp": "Thời gian",
+				"user": "Người thực hiện",
+				"action": "Hành động",
+				"entity": "Đối tượng",
+				"details": "Chi tiết"
+			},
+			"actions": {
+				"CREATE": "Thêm mới",
+				"UPDATE": "Cập nhật",
+				"DELETE": "Xóa"
+			},
+			"entities": {
+				"champion": "Tướng",
+				"power": "Sức mạnh",
+				"relic": "Cổ vật",
+				"item": "Vật phẩm",
+				"rune": "Ngọc",
+				"boss": "Boss",
+				"adventure": "Bản đồ",
+				"bonusStar": "Tăng thưởng",
+				"guide": "Hướng dẫn",
+				"card": "Lá bài"
+			},
+			"modal": {
+				"title": "Chi tiết thay đổi",
+				"oldData": "Dữ liệu cũ",
+				"newData": "Dữ liệu mới",
+				"noData": "Không có dữ liệu"
+			}
 		}
 	},
 	"tierList": {
@@ -1051,6 +1090,7 @@
 		"randomizer": "Vòng quay",
 		"about": "Giới thiệu",
 		"vaultSimulator": "Giả lập mở rương",
+		"championRatings": "Đánh giá Tướng",
 		"guides": "Hướng Dẫn",
 		"language": "Ngôn ngữ",
 		"profile": "Thông tin",
@@ -1058,8 +1098,40 @@
 		"logout": "Đăng xuất",
 		"login": "Đăng nhập",
 		"confirmLogoutTitle": "Xác nhận Đăng xuất",
-		"confirmLogoutDesc": "Bạn có chắc chắn muốn kết thúc phiên làm việc này không?",
-		"cancel": "Hủy"
+		"confirmLogoutDesc": "Bạn có chắc chắn muốn kết thúc phiên làm việc này không?"
+	},
+	"rating": {
+		"damage": "Sát thương",
+		"defense": "Phòng thủ",
+		"speed": "Tốc độ",
+		"consistency": "Ổn định",
+		"synergy": "Kết hợp",
+		"independence": "Độc lập"
+	},
+	"ratings": {	
+		"subtitle": "Nơi để bạn đánh giá tướng",
+		"searchPlaceholder": "Tìm tướng, người dùng hoặc nội dung...",
+		"refresh": "Làm mới",
+		"loadMore": "Xem thêm đánh giá",
+		"noResults": "Không tìm thấy đánh giá nào",
+		"allChampions": "Tất cả tướng",
+		"minScore": "Điểm từ",
+		"sortBy": "Sắp xếp",
+		"sort": {
+			"newest": "Mới nhất",
+			"highest": "Điểm cao nhất",
+			"lowest": "Điểm thấp nhất"
+		},
+		"ranking": {
+			"title": "Bảng xếp hạng",
+			"avgScore": "Điểm trung bình",
+			"reviewCount": "đánh giá",
+			"noData": "Chưa có đủ dữ liệu"
+		},
+		"noResultsSubtitle": "Thử thay đổi bộ lọc của bạn xem sao.",
+		"addReview": "Gửi Đánh Giá",
+		"selectChampion": "Chọn tướng muốn đánh giá",
+		"starLegend": "Thang điểm 10"
 	},
 	"footer": {
 		"desc1": " là kho tài nguyên độc lập do cộng đồng người chơi chia sẻ.",

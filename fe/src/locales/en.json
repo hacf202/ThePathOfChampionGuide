@@ -331,6 +331,8 @@
 			"nextPage": "Next",
 			"backToList": "Back to list",
 			"errorLoad": "Could not load data",
+			"selectedItems": "Selected {{count}} items",
+			"noData": "No data available",
 			"errorOccurred": "An error occurred",
 			"saveSuccess": "Data saved successfully",
 			"deleteConfirm": "Are you sure you want to delete?",
@@ -433,7 +435,7 @@
 			"rune": "Runes",
 			"build": "Builds",
 			"guide": "Guides",
-			"analytics": "Analytics",
+			"auditLog": "Changelog",
 			"boss": "Bosses",
 			"adventure": "Adventures",
 			"images": "Images",
@@ -494,6 +496,43 @@
 			"previewImage": "Preview Card Image",
 			"imageUrlLabel": "Card Image URL",
 			"deleteConfirmText": "Are you sure you want to delete card"
+		},
+		"auditLog": {
+			"title": "Changelog",
+			"subtitle": "Track system data changes.",
+			"filterByType": "Filter by type",
+			"filterByAction": "Filter by action",
+			"filterByUser": "Filter by user",
+			"table": {
+				"timestamp": "Time",
+				"user": "User",
+				"action": "Action",
+				"entity": "Entity",
+				"details": "Details"
+			},
+			"actions": {
+				"CREATE": "Create",
+				"UPDATE": "Update",
+				"DELETE": "Delete"
+			},
+			"entities": {
+				"champion": "Champion",
+				"power": "Power",
+				"relic": "Relic",
+				"item": "Item",
+				"rune": "Rune",
+				"boss": "Boss",
+				"adventure": "Adventure",
+				"bonusStar": "Bonus Star",
+				"guide": "Guide",
+				"card": "Card"
+			},
+			"modal": {
+				"title": "Change Details",
+				"oldData": "Old Data",
+				"newData": "New Data",
+				"noData": "No data"
+			}
 		}
 	},
 	"tierList": {
@@ -985,8 +1024,8 @@
 		"whyWeDoIt3": "Thank you for visiting. If you find the content helpful, please share it with your friends — and if you want to <strong>contribute builds or feedback</strong>, we would love to hear from you.",
 		"whyGuidePocTitle": "Why 'Guide POC'?",
 		"whyGuidePoc1": "We chose the name <strong>\"Guide POC\"</strong> simply because it is a dedicated guide website for this mode, short and easy to remember.",
-		"whyGuidePoc2": "<strong>“POCâ€</strong> stands for <i>Path of Champions</i> — the mode that brought us together, where every decision can change the entire journey.",
-		"whyGuidePoc3": "<strong>“Guideâ€</strong> represents our mission: providing a <strong>reliable roadmap</strong> for players. Whether you're a new adventurer or a veteran maxing out all champions, we want you to have a <em>smooth journey</em>.",
+		"whyGuidePoc2": "<strong>“POCâ€ </strong> stands for <i>Path of Champions</i> — the mode that brought us together, where every decision can change the entire journey.",
+		"whyGuidePoc3": "<strong>“Guideâ€ </strong> represents our mission: providing a <strong>reliable roadmap</strong> for players. Whether you're a new adventurer or a veteran maxing out all champions, we want you to have a <em>smooth journey</em>.",
 		"whyGuidePoc4": "Thank you for accompanying us on the <strong>Path of Champions</strong>!"
 	},
 	"intro": {
@@ -1035,8 +1074,8 @@
 		"lastUpdated": "Last updated:"
 	},
 	"nav": {
-		"builds": "Builds",
-		"champions": "Champions",
+		"builds": "Build List",
+		"champions": "Champion List",
 		"tierList": "Tier List",
 		"itemsTitle": "Game Database",
 		"items": "Item List",
@@ -1049,6 +1088,7 @@
 		"randomizer": "Randomizer",
 		"about": "About",
 		"vaultSimulator": "Vault Simulator",
+		"championRatings": "Champion Ratings",
 		"guides": "Guides",
 		"language": "Language",
 		"profile": "Profile",
@@ -1058,6 +1098,39 @@
 		"confirmLogoutTitle": "Confirm Logout",
 		"confirmLogoutDesc": "Are you sure you want to log out?",
 		"cancel": "Cancel"
+	},
+	"rating": {
+		"damage": "Damage",
+		"defense": "Defense",
+		"speed": "Speed",
+		"consistency": "Consistency",
+		"synergy": "Synergy",
+		"independence": "Indep."
+	},
+	"ratings": {
+		"subtitle": "A place for you to rate champions",
+		"searchPlaceholder": "Search by champion, user, or content...",
+		"refresh": "Refresh",
+		"loadMore": "Load more ratings",
+		"noResults": "No ratings found",
+		"allChampions": "All Champions",
+		"minScore": "Min Score",
+		"sortBy": "Sort by",
+		"sort": {
+			"newest": "Newest",
+			"highest": "Highest Score",
+			"lowest": "Lowest Score"
+		},
+		"ranking": {
+			"title": "Top Champions",
+			"avgScore": "Avg Rating",
+			"reviewCount": "ratings",
+			"noData": "Not enough data"
+		},
+		"noResultsSubtitle": "Try changing your filters.",
+		"addReview": "Add Rating",
+		"selectChampion": "Select a champion to rate",
+		"starLegend": "10-point scale"
 	},
 	"footer": {
 		"desc1": " is an independent resource hub shared by the player community.",

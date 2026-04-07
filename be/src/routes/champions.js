@@ -16,6 +16,7 @@ import { requireAdmin } from "../middleware/requireAdmin.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
 import { scanAll } from "../utils/dynamoUtils.js";
 import { verifier } from "../config/cognito.js"; // For manual token verification if optional
+import { createAuditLog } from "../utils/auditLogger.js";
 
 const router = express.Router();
 const CHAMPIONS_TABLE = "guidePocChampionList";
@@ -555,6 +556,17 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 
 		await client.send(command);
 		
+		// Ghi log thay đổi
+		await createAuditLog({
+			action: isNew ? "CREATE" : "UPDATE",
+			entityType: "champion",
+			entityId: championID,
+			entityName: cleanData.name,
+			oldData: Item ? unmarshall(Item) : null,
+			newData: cleanData,
+			user: req.user
+		});
+		
 		// Xóa cache danh sách và cache chi tiết của tướng này
 		championCache.del("all_champions_list");
 		championCache.del(`champion_detail_${championID}`);
@@ -612,12 +624,19 @@ router.delete(
 			});
 
 			await client.send(deleteCmd);
-			
-			// Xóa cache danh sách và cache chi tiết của tướng vừa xóa
-			championCache.del("all_champions_list");
-			championCache.del(`champion_detail_${id}`);
 
 			const deletedChampion = unmarshall(Item);
+
+			// Ghi log thay đổi
+			await createAuditLog({
+				action: "DELETE",
+				entityType: "champion",
+				entityId: id,
+				entityName: deletedChampion.name,
+				oldData: deletedChampion,
+				newData: null,
+				user: req.user
+			});
 			res.status(200).json({
 				message: `Tướng "${deletedChampion.name}" (ID: ${id}) đã được xóa thành công.`,
 			});

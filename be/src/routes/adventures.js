@@ -12,6 +12,7 @@ import client from "../config/db.js";
 import { scanAll } from "../utils/dynamoUtils.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { requireAdmin } from "../middleware/requireAdmin.js";
+import { createAuditLog } from "../utils/auditLogger.js";
 
 const router = express.Router();
 const ADVENTURE_TABLE = "guidePocAdventureMap";
@@ -167,6 +168,18 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 		});
 
 		await client.send(command);
+
+		// Ghi log thay đổi
+		await createAuditLog({
+			action: isNew ? "CREATE" : "UPDATE",
+			entityType: "adventure",
+			entityId: adventureID,
+			entityName: dataToSave.adventureName,
+			oldData: Item ? unmarshall(Item) : null,
+			newData: dataToSave,
+			user: req.user
+		});
+
 		advCache.flushAll();
 
 		res.json({
@@ -188,11 +201,31 @@ router.delete(
 	async (req, res) => {
 		const { adventureID } = req.params;
 		try {
-			const command = new DeleteItemCommand({
+			// Lấy dữ liệu cũ để ghi log
+			const getItemCmd = new GetItemCommand({
 				TableName: ADVENTURE_TABLE,
 				Key: marshall({ adventureID }),
 			});
-			await client.send(command);
+			const { Item } = await client.send(getItemCmd);
+			const oldData = Item ? unmarshall(Item) : null;
+
+			const deleteCmd = new DeleteItemCommand({
+				TableName: ADVENTURE_TABLE,
+				Key: marshall({ adventureID }),
+			});
+			await client.send(deleteCmd);
+
+			// Ghi log thay đổi
+			await createAuditLog({
+				action: "DELETE",
+				entityType: "adventure",
+				entityId: adventureID,
+				entityName: oldData?.adventureName || adventureID,
+				oldData: oldData,
+				newData: null,
+				user: req.user
+			});
+
 			advCache.flushAll();
 			res.json({ message: "Đã xóa Adventure thành công." });
 		} catch (error) {

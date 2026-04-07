@@ -27,6 +27,7 @@ import {
 	Map,
 	BarChartHorizontalBig,
 	Globe,
+	Star,
 } from "lucide-react";
 
 function DesktopNavbar({ language, handleLanguageChange, tUI }) {
@@ -192,7 +193,7 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 												className={dropdownLinkClass}
 												onClick={handleNavClick}
 											>
-												<BookOpen className='w-5 h-5' /> {tUI("cardList.title")}
+												<BookOpen className='w-5 h-5' /> {tUI("nav.cards")}
 											</NavLink>
 										</div>
 									</div>
@@ -249,6 +250,14 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 											>
 												<Gift className='w-5 h-5' />{" "}
 												{tUI("nav.vaultSimulator")}
+											</NavLink>
+											<NavLink
+												to='/tools/ratings'
+												className={dropdownLinkClass}
+												onClick={handleNavClick}
+											>
+												<Star className='w-5 h-5' />{" "}
+												{tUI("nav.championRatings")}
 											</NavLink>
 											<NavLink
 												to='/introduction'

@@ -17,6 +17,7 @@ import {
 	DragOverlay,
 	defaultDropAnimationSideEffects,
 } from "@dnd-kit/core";
+import { createPortal } from "react-dom";
 import {
 	arrayMove,
 	SortableContext,
@@ -123,6 +124,7 @@ const SortableTierRow = ({
 				<div
 					{...attributes}
 					{...listeners}
+					data-tier-handle='true'
 					className='w-6 sm:w-8 flex items-center justify-center cursor-grab active:cursor-grabbing hover:bg-white/5 text-text-secondary opacity-0 group-hover:opacity-100 transition-opacity'
 				>
 					<GripVertical size={20} />
@@ -329,6 +331,7 @@ function TierListChampions({ initialChampions }) {
 					"C055",
 					"C044",
 					"C026",
+					"C031",
 				],
 				"tier-a+": [
 					"C076",
@@ -536,7 +539,8 @@ function TierListChampions({ initialChampions }) {
 			e.target.closest("button") ||
 			e.target.tagName === "INPUT" ||
 			e.target.closest("[data-id]") ||
-			e.target.closest(".color-picker")
+			e.target.closest(".color-picker") ||
+			e.target.closest("[data-tier-handle]")
 		)
 			return;
 		const rect = boardRef.current.getBoundingClientRect();
@@ -677,93 +681,93 @@ function TierListChampions({ initialChampions }) {
 		: null;
 
 	return (
-		<div className='animate-fadeIn'>
-			<PageTitle
-				title={tUI("tierList.pageTitle")}
-				description={tUI("metadata.defaultDescription")}
-			/>
-			<div className='max-w-[1200px] mx-auto p-0 font-secondary text-text-primary select-none'>
-				<AnimatePresence mode='wait'>
-					{loading ? (
-						<motion.div
-							key='skeleton'
-							initial={{ opacity: 0 }}
-							animate={{ opacity: 1 }}
-							exit={{ opacity: 0 }}
-						>
-							<ChampionTierSkeleton />
-						</motion.div>
-					) : (
-						<motion.div
-							key='content'
-							initial={{ opacity: 0, y: 10 }}
-							animate={{ opacity: 1, y: 0 }}
-							transition={{ duration: 0.3 }}
-						>
-							<div className='flex flex-col sm:flex-row justify-between items-center gap-4 mb-6 px-2'>
-								<h1 className='text-xl sm:text-2xl font-bold uppercase'>
-									{tUI("home.tierListTitle")}
-								</h1>
-								<div className='flex flex-wrap justify-center sm:justify-end gap-2 w-full sm:w-auto'>
-									<Button
-										onClick={() =>
-											setTiers([
-												...tiers,
-												{
-													id: `t-${Date.now()}`,
-													name: "NEW",
-													description: tUI("common.description"),
-													color: "#555555",
-													items: [],
-												},
-											])
-										}
-										variant='outline'
-										className='text-xs flex-1 sm:flex-none'
-									>
-										<Plus size={14} className='mr-1' /> {tUI("tierList.addRow")}
-									</Button>
-									<Button
-										id='dl-btn'
-										onClick={downloadImage}
-										className='text-xs bg-primary-600 flex-1 sm:flex-none'
-									>
-										<Download size={14} className='mr-1' />{" "}
-										{tUI("tierList.downloadImage")}
-									</Button>
-									<div className='flex gap-2'>
+		<DndContext
+			sensors={sensors}
+			collisionDetection={rectIntersection}
+			onDragStart={e => {
+				setActiveId(e.active.id);
+				setActiveType(e.active.data.current?.type || "item");
+			}}
+			onDragOver={handleDragOver}
+			onDragEnd={handleDragEnd}
+		>
+			<div className='animate-fadeIn pb-20'>
+				<PageTitle
+					title={tUI("tierList.pageTitle")}
+					description={tUI("metadata.defaultDescription")}
+				/>
+				<div className='max-w-[1200px] mx-auto p-0 font-secondary text-text-primary select-none'>
+					<AnimatePresence mode='wait'>
+						{loading ? (
+							<motion.div
+								key='skeleton'
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								exit={{ opacity: 0 }}
+							>
+								<ChampionTierSkeleton />
+							</motion.div>
+						) : (
+							<motion.div
+								key='content'
+								initial={{ opacity: 0, y: 10 }}
+								animate={{ opacity: 1, y: 0 }}
+								transition={{ duration: 0.3 }}
+							>
+								<div className='flex flex-col sm:flex-row justify-between items-center gap-4 mb-6 px-2'>
+									<h1 className='text-xl sm:text-2xl font-bold uppercase'>
+										{tUI("home.tierListTitle")}
+									</h1>
+									<div className='flex flex-wrap justify-center sm:justify-end gap-2 w-full sm:w-auto'>
 										<Button
-											onClick={handleResetToSample}
+											onClick={() =>
+												setTiers([
+													...tiers,
+													{
+														id: `t-${Date.now()}`,
+														name: "NEW",
+														description: tUI("common.description"),
+														color: "#555555",
+														items: [],
+													},
+												])
+											}
 											variant='outline'
-											className='p-2 border-primary-500 text-primary-500 hover:bg-primary-500/10'
+											className='text-xs flex-1 sm:flex-none'
 										>
-											<Sparkles size={16} />
+											<Plus size={14} className='mr-1' /> {tUI("tierList.addRow")}
 										</Button>
 										<Button
-											onClick={() => {
-												if (window.confirm(tUI("tierList.confirmClearAll"))) {
-													setTiers(getDefaultTiers());
-													setUnranked([...allChampionsRaw]);
-												}
-											}}
-											variant='danger'
-											className='p-2'
+											id='dl-btn'
+											onClick={downloadImage}
+											className='text-xs bg-primary-600 flex-1 sm:flex-none'
 										>
-											<Trash2 size={16} />
+											<Download size={14} className='mr-1' />{" "}
+											{tUI("tierList.downloadImage")}
 										</Button>
+										<div className='flex gap-2'>
+											<Button
+												onClick={handleResetToSample}
+												variant='outline'
+												className='p-2 border-primary-500 text-primary-500 hover:bg-primary-500/10'
+											>
+												<Sparkles size={16} />
+											</Button>
+											<Button
+												onClick={() => {
+													if (window.confirm(tUI("tierList.confirmClearAll"))) {
+														setTiers(getDefaultTiers());
+														setUnranked([...allChampionsRaw]);
+													}
+												}}
+												variant='danger'
+												className='p-2'
+											>
+												<Trash2 size={16} />
+											</Button>
+										</div>
 									</div>
 								</div>
-							</div>
-							<DndContext
-								sensors={sensors}
-								collisionDetection={rectIntersection}
-								onDragStart={e => {
-									setActiveId(e.active.id);
-									setActiveType(e.active.data.current?.type || "item");
-								}}
-								onDragOver={handleDragOver}
-								onDragEnd={handleDragEnd}
-							>
 								<div
 									ref={boardRef}
 									onMouseDown={onMouseDown}
@@ -853,8 +857,7 @@ function TierListChampions({ initialChampions }) {
 									<div className='mt-8 p-4 bg-surface-bg border border-border rounded-lg shadow-sm'>
 										<div className='flex flex-col sm:flex-row justify-between items-center mb-4 gap-4'>
 											<h2 className='text-xs font-bold text-text-secondary uppercase tracking-widest'>
-												{tUI("tierList.warehouseChamps")} (
-												{filteredUnranked.length})
+												{tUI("tierList.warehouseChamps")} ({filteredUnranked.length})
 											</h2>
 											<div className='flex gap-2 w-full sm:w-auto'>
 												<Button
@@ -876,8 +879,7 @@ function TierListChampions({ initialChampions }) {
 													disabled={selectedIds.length === 0}
 												>
 													<Square size={14} className='mr-1' />{" "}
-													{tUI("randomWheel.deselectAll")} ({selectedIds.length}
-													)
+													{tUI("randomWheel.deselectAll")} ({selectedIds.length})
 												</Button>
 											</div>
 										</div>
@@ -907,8 +909,7 @@ function TierListChampions({ initialChampions }) {
 												placeholder={tUI("championList.maxStars")}
 											/>
 											<Button variant='outline' onClick={handleResetFilters}>
-												<RotateCw size={14} className='mr-2' />{" "}
-												{tUI("common.reset")}
+												<RotateCw size={14} className='mr-2' /> {tUI("common.reset")}
 											</Button>
 										</div>
 										<DroppableZone
@@ -945,52 +946,54 @@ function TierListChampions({ initialChampions }) {
 										</DroppableZone>
 									</div>
 								</div>
-								<DragOverlay
-									dropAnimation={{
-										sideEffects: defaultDropAnimationSideEffects({
-											styles: { active: { opacity: "0.4" } },
-										}),
-									}}
-								>
-									{activeId ? (
-										activeType === "tier" ? (
-											<div className='flex min-h-[100px] w-full bg-surface-bg border-2 border-primary-500 rounded-lg overflow-hidden'>
-												<div
-													style={{
-														backgroundColor: tiers.find(t => t.id === activeId)
-															?.color,
-													}}
-													className='w-36 flex items-center justify-center font-bold text-3xl text-black uppercase'
-												>
-													{tiers.find(t => t.id === activeId)?.name}
-												</div>
-												<div className='flex-1 p-4 bg-black/40 text-text-secondary italic flex items-center'>
-													{tUI("tierList.movingRow")}
-												</div>
-											</div>
-										) : (
-											<div className='relative'>
-												<SortableItem
-													id={activeId}
-													avatar={activeItem?.avatar}
-													isOverlay
-												/>
-												{selectedIds.length > 1 &&
-													selectedIds.includes(activeId) && (
-														<div className='absolute -top-2 -right-2 bg-primary-600 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center shadow-lg border-2 border-white'>
-															{selectedIds.length}
-														</div>
-													)}
-											</div>
-										)
-									) : null}
-								</DragOverlay>
-							</DndContext>
-						</motion.div>
-					)}
-				</AnimatePresence>
+							</motion.div>
+						)}
+					</AnimatePresence>
+				</div>
 			</div>
-		</div>
+			{activeId && createPortal(
+				<DragOverlay
+					dropAnimation={{
+						sideEffects: defaultDropAnimationSideEffects({
+							styles: { active: { opacity: "0.4" } },
+						}),
+					}}
+					zIndex={10000}
+				>
+					{activeType === "tier" ? (
+						<div className='flex min-h-[60px] sm:min-h-[100px] w-[300px] sm:w-[600px] bg-surface-bg border-2 border-primary-500 rounded-lg overflow-hidden shadow-2xl opacity-90'>
+							{/* Placeholder bù đắp khoảng trống của Grip handle */}
+							<div className='w-6 sm:w-8 shrink-0 bg-black/20' />
+							<div
+								style={{
+									backgroundColor: tiers.find(t => t.id === activeId)?.color,
+								}}
+								className='w-20 sm:w-36 flex items-center justify-center font-bold text-sm sm:text-3xl text-black uppercase shrink-0'
+							>
+								{tiers.find(t => t.id === activeId)?.name}
+							</div>
+							<div className='flex-1 p-4 bg-black/40 text-text-secondary italic flex items-center text-xs sm:text-base'>
+								{tUI("tierList.movingRow")}
+							</div>
+						</div>
+					) : (
+						<div className='relative'>
+							<SortableItem
+								id={activeId}
+								avatar={activeItem?.avatar}
+								isOverlay
+							/>
+							{selectedIds.length > 1 && selectedIds.includes(activeId) && (
+								<div className='absolute -top-2 -right-2 bg-primary-600 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center shadow-lg border-2 border-white'>
+									{selectedIds.length}
+								</div>
+							)}
+						</div>
+					)}
+				</DragOverlay>,
+				document.body
+			)}
+		</DndContext>
 	);
 }
 

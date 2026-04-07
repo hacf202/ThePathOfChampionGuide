@@ -12,6 +12,7 @@ import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
 import { scanAll } from "../utils/dynamoUtils.js";
+import { createAuditLog } from "../utils/auditLogger.js";
 
 const router = express.Router();
 const ITEMS_TABLE = "guidePocItems";
@@ -204,6 +205,17 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 				Item: marshall(dataToSave, { removeUndefinedValues: true }),
 			}),
 		);
+		
+		// Ghi log thay đổi
+		await createAuditLog({
+			action: isNew ? "CREATE" : "UPDATE",
+			entityType: "item",
+			entityId: itemCode,
+			entityName: dataToSave.name,
+			oldData: Item ? unmarshall(Item) : null,
+			newData: dataToSave,
+			user: req.user
+		});
 
 		itemCache.del("all_items_data");
 		itemCache.del(`item_detail_${itemCode}`);
@@ -225,12 +237,30 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 router.delete("/:itemCode", authenticateCognitoToken, async (req, res) => {
 	const { itemCode } = req.params;
 	try {
+		const getItemCmd = new GetItemCommand({
+			TableName: ITEMS_TABLE,
+			Key: marshall({ itemCode }),
+		});
+		const { Item } = await client.send(getItemCmd);
+		const oldData = Item ? unmarshall(Item) : null;
+
 		await client.send(
 			new DeleteItemCommand({
 				TableName: ITEMS_TABLE,
 				Key: marshall({ itemCode }),
 			}),
 		);
+
+		// Ghi log thay đổi
+		await createAuditLog({
+			action: "DELETE",
+			entityType: "item",
+			entityId: itemCode,
+			entityName: oldData?.name || itemCode,
+			oldData: oldData,
+			newData: null,
+			user: req.user
+		});
 		itemCache.del("all_items_data");
 		itemCache.del(`item_detail_${itemCode}`);
 		res.status(200).json({ message: "Đã xóa vật phẩm thành công." });

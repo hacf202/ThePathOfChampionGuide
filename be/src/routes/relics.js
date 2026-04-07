@@ -12,6 +12,7 @@ import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
 import { scanAll } from "../utils/dynamoUtils.js";
+import { createAuditLog } from "../utils/auditLogger.js";
 
 import { getProxyImage } from "../utils/proxyImage.js";
 
@@ -252,6 +253,17 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 				Item: marshall(dataToSave),
 			}),
 		);
+		
+		// Ghi log thay đổi
+		await createAuditLog({
+			action: isNew ? "CREATE" : "UPDATE",
+			entityType: "relic",
+			entityId: relicCode,
+			entityName: dataToSave.name,
+			oldData: Item ? unmarshall(Item) : null,
+			newData: dataToSave,
+			user: req.user
+		});
 
 		relicCache.del("all_relics_data");
 		relicCache.del(`relic_detail_${relicCode}`);
@@ -273,12 +285,30 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 router.delete("/:relicCode", authenticateCognitoToken, async (req, res) => {
 	const { relicCode } = req.params;
 	try {
+		const getItemCmd = new GetItemCommand({
+			TableName: RELICS_TABLE,
+			Key: marshall({ relicCode }),
+		});
+		const { Item } = await client.send(getItemCmd);
+		const oldData = Item ? unmarshall(Item) : null;
+
 		await client.send(
 			new DeleteItemCommand({
 				TableName: RELICS_TABLE,
 				Key: marshall({ relicCode }),
 			}),
 		);
+
+		// Ghi log thay đổi
+		await createAuditLog({
+			action: "DELETE",
+			entityType: "relic",
+			entityId: relicCode,
+			entityName: oldData?.name || relicCode,
+			oldData: oldData,
+			newData: null,
+			user: req.user
+		});
 		relicCache.del("all_relics_data");
 		relicCache.del(`relic_detail_${relicCode}`);
 		res.status(200).json({ message: "Đã xóa cổ vật thành công." });

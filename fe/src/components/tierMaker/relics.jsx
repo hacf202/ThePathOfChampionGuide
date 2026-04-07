@@ -17,6 +17,7 @@ import {
 	DragOverlay,
 	defaultDropAnimationSideEffects,
 } from "@dnd-kit/core";
+import { createPortal } from "react-dom";
 import {
 	arrayMove,
 	SortableContext,
@@ -128,6 +129,7 @@ const SortableTierRow = ({
 				<div
 					{...attributes}
 					{...listeners}
+					data-tier-handle='true'
 					className='w-6 sm:w-8 flex items-center justify-center cursor-grab active:cursor-grabbing hover:bg-white/5 text-text-secondary opacity-0 group-hover:opacity-100 transition-opacity'
 				>
 					<GripVertical size={20} />
@@ -401,7 +403,7 @@ function TierListRelics() {
 						avatar: r.assetAbsolutePath
 							? `${apiUrl}/api/relics/proxy-image?url=${encodeURIComponent(r.assetAbsolutePath)}`
 							: "/fallback-relic.png",
-						rarity: normalizeRarity(r.rarity), // ĐÃ SỬA: Chuẩn hóa độ hiếm
+						rarity: normalizeRarity(r.rarity),
 						type: r.type || "Chung",
 						descriptionRaw: r.descriptionRaw || "",
 						translations: r.translations,
@@ -504,7 +506,8 @@ function TierListRelics() {
 			e.target.closest("button") ||
 			e.target.tagName === "INPUT" ||
 			e.target.closest("[data-id]") ||
-			e.target.closest(".color-picker")
+			e.target.closest(".color-picker") ||
+			e.target.closest("[data-tier-handle]")
 		)
 			return;
 		const rect = boardRef.current.getBoundingClientRect();
@@ -616,111 +619,111 @@ function TierListRelics() {
 		: null;
 
 	return (
-		<div className='animate-fadeIn'>
-			<PageTitle
-				title={tUI("tierList.relicPageTitle")}
-				description={tUI("metadata.defaultDescription")}
-			/>
-			<div className='max-w-[1200px] mx-auto p-0 font-secondary text-text-primary select-none'>
-				<AnimatePresence mode='wait'>
-					{loading ? (
-						<motion.div
-							key='skeleton'
-							initial={{ opacity: 0 }}
-							animate={{ opacity: 1 }}
-							exit={{ opacity: 0 }}
-						>
-							<RelicTierSkeleton />
-						</motion.div>
-					) : (
-						<motion.div
-							key='content'
-							initial={{ opacity: 0, y: 10 }}
-							animate={{ opacity: 1, y: 0 }}
-							transition={{ duration: 0.3 }}
-						>
-							<div className='flex flex-col sm:flex-row justify-between items-center gap-4 mb-6 px-2'>
-								<h1 className='text-xl sm:text-2xl font-bold uppercase'>
-									{tUI("home.tierListTitle")} (Cổ vật)
-								</h1>
-								<div className='flex flex-wrap justify-center sm:justify-end gap-2 w-full sm:w-auto'>
-									<Button
-										onClick={() =>
-											setTiers([
-												...tiers,
-												{
-													id: `t-${Date.now()}`,
-													name: "NEW",
-													description: tUI("common.description"),
-													color: "#555555",
-													items: [],
-												},
-											])
-										}
-										variant='outline'
-										className='text-xs flex-1 sm:flex-none'
-									>
-										<Plus size={14} className='mr-1' /> {tUI("tierList.addRow")}
-									</Button>
-									<Button
-										onClick={async () => {
-											setIsExporting(true);
-											setShowColorPicker(null);
-											await new Promise(r => setTimeout(r, 400));
-											try {
-												const canvas = await html2canvas(tierListRef.current, {
-													useCORS: true,
-													backgroundColor: "#121212",
-													scale: 2,
-												});
-												const link = document.createElement("a");
-												link.download = `tierlist-relics-${Date.now()}.png`;
-												link.href = canvas.toDataURL("image/png", 1.0);
-												link.click();
-											} catch (e) {
-												console.error(e);
-											} finally {
-												setIsExporting(false);
-											}
-										}}
-										className='text-xs bg-primary-600 flex-1 sm:flex-none'
-									>
-										<Download size={14} className='mr-1' />{" "}
-										{tUI("tierList.downloadImage")}
-									</Button>
-									<div className='flex gap-2'>
+		<DndContext
+			sensors={sensors}
+			collisionDetection={rectIntersection}
+			onDragStart={e => {
+				setActiveId(e.active.id);
+				setActiveType(e.active.data.current?.type || "item");
+			}}
+			onDragOver={handleDragOver}
+			onDragEnd={handleDragEnd}
+		>
+			<div className='animate-fadeIn pb-20'>
+				<PageTitle
+					title={tUI("tierList.relicPageTitle")}
+					description={tUI("metadata.defaultDescription")}
+				/>
+				<div className='max-w-[1200px] mx-auto p-0 font-secondary text-text-primary select-none'>
+					<AnimatePresence mode='wait'>
+						{loading ? (
+							<motion.div
+								key='skeleton'
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								exit={{ opacity: 0 }}
+							>
+								<RelicTierSkeleton />
+							</motion.div>
+						) : (
+							<motion.div
+								key='content'
+								initial={{ opacity: 0, y: 10 }}
+								animate={{ opacity: 1, y: 0 }}
+								transition={{ duration: 0.3 }}
+							>
+								<div className='flex flex-col sm:flex-row justify-between items-center gap-4 mb-6 px-2'>
+									<h1 className='text-xl sm:text-2xl font-bold uppercase'>
+										{tUI("home.tierListTitle")} (Cổ vật)
+									</h1>
+									<div className='flex flex-wrap justify-center sm:justify-end gap-2 w-full sm:w-auto'>
 										<Button
-											onClick={handleResetToSample}
+											onClick={() =>
+												setTiers([
+													...tiers,
+													{
+														id: `t-${Date.now()}`,
+														name: "NEW",
+														description: tUI("common.description"),
+														color: "#555555",
+														items: [],
+													},
+												])
+											}
 											variant='outline'
-											className='p-2 border-primary-500 text-primary-500 hover:bg-primary-500/10'
+											className='text-xs flex-1 sm:flex-none'
 										>
-											<Sparkles size={16} />
+											<Plus size={14} className='mr-1' /> {tUI("tierList.addRow")}
 										</Button>
 										<Button
-											onClick={() => {
-												if (window.confirm(tUI("tierList.confirmClearAll"))) {
-													setTiers(getDefaultTiers());
-													setUnranked(sortItemsByName(allRelicsRaw));
+											onClick={async () => {
+												setIsExporting(true);
+												setShowColorPicker(null);
+												await new Promise(r => setTimeout(r, 400));
+												try {
+													const canvas = await html2canvas(tierListRef.current, {
+														useCORS: true,
+														backgroundColor: "#121212",
+														scale: 2,
+													});
+													const link = document.createElement("a");
+													link.download = `tierlist-relics-${Date.now()}.png`;
+													link.href = canvas.toDataURL("image/png", 1.0);
+													link.click();
+												} catch (e) {
+													console.error(e);
+												} finally {
+													setIsExporting(false);
 												}
 											}}
-											variant='danger'
-											className='p-2'
+											className='text-xs bg-primary-600 flex-1 sm:flex-none'
 										>
-											<Trash2 size={16} />
+											<Download size={14} className='mr-1' />{" "}
+											{tUI("tierList.downloadImage")}
 										</Button>
+										<div className='flex gap-2'>
+											<Button
+												onClick={handleResetToSample}
+												variant='outline'
+												className='p-2 border-primary-500 text-primary-500 hover:bg-primary-500/10'
+											>
+												<Sparkles size={16} />
+											</Button>
+											<Button
+												onClick={() => {
+													if (window.confirm(tUI("tierList.confirmClearAll"))) {
+														setTiers(getDefaultTiers());
+														setUnranked(sortItemsByName(allRelicsRaw));
+													}
+												}}
+												variant='danger'
+												className='p-2'
+											>
+												<Trash2 size={16} />
+											</Button>
+										</div>
 									</div>
 								</div>
-							</div>
-							<DndContext
-								sensors={sensors}
-								collisionDetection={rectIntersection}
-								onDragStart={e => {
-									setActiveId(e.active.id);
-									setActiveType(e.active.data.current?.type || "item");
-								}}
-								onDragOver={handleDragOver}
-								onDragEnd={handleDragEnd}
-							>
 								<div
 									ref={boardRef}
 									onMouseDown={onMouseDown}
@@ -807,19 +810,19 @@ function TierListRelics() {
 											))}
 										</SortableContext>
 									</div>
-									<div className='p-4 bg-surface-bg border border-border rounded-lg shadow-sm'>
+									<div className='mt-8 p-4 bg-surface-bg border border-border rounded-lg shadow-sm mb-12'>
 										<div className='flex flex-col sm:flex-row justify-between items-center mb-4 gap-4'>
 											<h2 className='text-xs font-bold text-text-secondary uppercase tracking-widest'>
-												{tUI("tierList.warehouseRelics")} ({unranked.length})
+												CỔ VẬT CHƯA PHÂN LOẠI ({filteredUnranked.length})
 											</h2>
 											<div className='flex gap-2 w-full sm:w-auto'>
 												<Button
 													variant='outline'
 													size='sm'
 													onClick={() =>
-														setSelectedIds(filteredUnranked.map(c => c.id))
+														setSelectedIds(filteredUnranked.map(r => r.id))
 													}
-													className='text-[10px] h-8 flex-1 sm:flex-none'
+													className='text-[10px] flex-1 sm:flex-none'
 												>
 													<CheckSquare size={14} className='mr-1' />{" "}
 													{tUI("randomWheel.selectAll")}
@@ -828,141 +831,128 @@ function TierListRelics() {
 													variant='outline'
 													size='sm'
 													onClick={() => setSelectedIds([])}
-													className='text-[10px] h-8 flex-1 sm:flex-none'
+													className='text-[10px] flex-1 sm:flex-none'
 													disabled={selectedIds.length === 0}
 												>
 													<Square size={14} className='mr-1' />{" "}
-													{tUI("randomWheel.deselectAll")} ({selectedIds.length}
-													)
+													{tUI("randomWheel.deselectAll")} ({selectedIds.length})
 												</Button>
 											</div>
 										</div>
-										<div className='grid grid-cols-2 lg:grid-cols-5 gap-3 mb-6 relative z-10'>
+										<div className='grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6 relative z-10'>
 											<InputField
 												value={searchInput}
 												onChange={e => setSearchInput(e.target.value)}
 												onKeyDown={e => e.key === "Enter" && handleSearch()}
-												placeholder={tUI("relicList.placeholder")}
+												placeholder={tUI("championList.searchPlaceholder")}
 											/>
 											<MultiSelectFilter
 												options={filterOptions.rarities}
 												selectedValues={selectedRarities}
 												onChange={setSelectedRarities}
-												placeholder={tUI("common.rarity")}
+												placeholder={tUI("relicList.rarity")}
 											/>
 											<MultiSelectFilter
 												options={filterOptions.types}
 												selectedValues={selectedTypes}
 												onChange={setSelectedTypes}
-												placeholder={tUI("common.type")}
+												placeholder={tUI("relicList.type")}
 											/>
 											<Button variant='outline' onClick={handleResetFilters}>
-												<RotateCw size={14} className='mr-2' />{" "}
-												{tUI("common.reset")}
+												<RotateCw size={14} className='mr-2' /> {tUI("common.reset")}
 											</Button>
 										</div>
-										<div className='relative min-h-[400px] flex flex-col gap-10 bg-black/10 rounded-xl p-4 border border-white/5 overflow-hidden'>
-											{Object.entries(warehouseGroups).map(
-												([rarity, items]) => (
-													<div key={rarity} className='flex flex-col gap-3'>
-														<div className='flex items-center gap-2'>
-															<div className='h-[2px] w-6 bg-primary-500'></div>
-															<span className='text-[11px] font-bold tracking-widest text-text-primary uppercase opacity-80'>
-																{rarity} ({items.length})
-															</span>
-														</div>
-														<SortableContext
-															items={items.map(i => i.id)}
-															strategy={rectSortingStrategy}
+
+										<div className='space-y-6'>
+											{Object.entries(warehouseGroups).map(([rarity, items]) =>
+												items.length > 0 ? (
+													<div key={rarity}>
+														<h3 className='text-[10px] font-bold text-text-tertiary uppercase mb-2 ml-1 opacity-60'>
+															{rarity}
+														</h3>
+														<DroppableZone
+															id={`unranked-${rarity}`}
+															className='min-h-[100px] border-2 border-dashed border-white/5 rounded-xl p-3 bg-black/10 flex flex-wrap gap-2 content-start'
 														>
-															<DroppableZone
-																id={`unranked-${rarity}`}
-																className='flex flex-wrap gap-2.5 min-h-[60px] relative pointer-events-none'
-															>
-																{items.map(item => (
-																	<div
-																		key={item.id}
-																		data-id={item.id}
-																		className={`rounded-md transition-all pointer-events-auto cursor-pointer ${selectedIds.includes(item.id) ? "ring-2 ring-primary-500 ring-offset-2 ring-offset-surface-bg scale-90" : ""}`}
-																		onClick={e => {
-																			e.stopPropagation();
-																			setSelectedIds(prev =>
-																				e.ctrlKey || e.metaKey || e.shiftKey
-																					? prev.includes(item.id)
-																						? prev.filter(x => x !== item.id)
-																						: [...prev, item.id]
-																					: prev.includes(item.id)
-																						? []
-																						: [item.id],
-																			);
-																		}}
-																	>
-																		<SortableItem
-																			id={item.id}
-																			avatar={item.avatar}
-																			title={tDynamic(item, "name")}
-																		/>
-																	</div>
-																))}
-															</DroppableZone>
-														</SortableContext>
+															{items.map(item => (
+																<div
+																	key={item.id}
+																	data-id={item.id}
+																	className={`rounded-md transition-all cursor-pointer ${selectedIds.includes(item.id) ? "ring-2 ring-primary-500 ring-offset-2 ring-offset-surface-bg scale-90" : ""}`}
+																	onClick={e => {
+																		e.stopPropagation();
+																		setSelectedIds(prev =>
+																			e.ctrlKey || e.metaKey || e.shiftKey
+																				? prev.includes(item.id)
+																					? prev.filter(x => x !== item.id)
+																					: [...prev, item.id]
+																				: prev.includes(item.id)
+																					? []
+																					: [item.id],
+																		);
+																	}}
+																>
+																	<SortableItem
+																		id={item.id}
+																		avatar={item.avatar}
+																		title={tDynamic(item, "name")}
+																	/>
+																</div>
+															))}
+														</DroppableZone>
 													</div>
-												),
+												) : null,
 											)}
 										</div>
 									</div>
 								</div>
-								<DragOverlay
-									dropAnimation={{
-										sideEffects: defaultDropAnimationSideEffects({
-											styles: { active: { opacity: "0.4" } },
-										}),
-									}}
-								>
-									{activeId ? (
-										activeType === "tier" ? (
-											<div className='flex min-h-[100px] w-full bg-surface-bg border-2 border-primary-500 rounded-lg overflow-hidden'>
-												<div
-													style={{
-														backgroundColor: tiers.find(t => t.id === activeId)
-															?.color,
-													}}
-													className='w-36 flex items-center justify-center font-bold text-3xl text-black uppercase'
-												>
-													{tiers.find(t => t.id === activeId)?.name}
-												</div>
-												<div className='flex-1 p-4 bg-black/40 text-text-secondary italic flex items-center'>
-													{tUI("tierList.movingRow")}
-												</div>
-											</div>
-										) : (
-											<div className='relative'>
-												<SortableItem
-													id={activeId}
-													avatar={
-														activeId
-															? allRelicsRaw.find(i => i.id === activeId)
-																	?.avatar
-															: null
-													}
-													isOverlay
-												/>
-												{selectedIds.length > 1 &&
-													selectedIds.includes(activeId) && (
-														<div className='absolute -top-2 -right-2 bg-primary-600 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center shadow-lg border-2 border-white'>
-															{selectedIds.length}
-														</div>
-													)}
-											</div>
-										)
-									) : null}
-								</DragOverlay>
-							</DndContext>
-						</motion.div>
-					)}
-				</AnimatePresence>
+							</motion.div>
+						)}
+					</AnimatePresence>
+				</div>
 			</div>
-		</div>
+			{activeId && createPortal(
+				<DragOverlay
+					dropAnimation={{
+						sideEffects: defaultDropAnimationSideEffects({
+							styles: { active: { opacity: "0.4" } },
+						}),
+					}}
+					zIndex={10000}
+				>
+					{activeType === "tier" ? (
+						<div className='flex min-h-[60px] sm:min-h-[100px] w-[300px] sm:w-[600px] bg-surface-bg border-2 border-primary-500 rounded-lg overflow-hidden shadow-2xl opacity-90'>
+							<div className='w-6 sm:w-8 shrink-0 bg-black/20' />
+							<div
+								style={{
+									backgroundColor: tiers.find(t => t.id === activeId)?.color,
+								}}
+								className='w-20 sm:w-36 flex items-center justify-center font-bold text-sm sm:text-3xl text-black uppercase shrink-0'
+							>
+								{tiers.find(t => t.id === activeId)?.name}
+							</div>
+							<div className='flex-1 p-4 bg-black/40 text-text-secondary italic flex items-center text-xs sm:text-base'>
+								{tUI("tierList.movingRow")}
+							</div>
+						</div>
+					) : (
+						<div className='relative'>
+							<SortableItem
+								id={activeId}
+								avatar={activeItem?.avatar}
+								isOverlay
+							/>
+							{selectedIds.length > 1 && selectedIds.includes(activeId) && (
+								<div className='absolute -top-2 -right-2 bg-primary-600 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center shadow-lg border-2 border-white'>
+									{selectedIds.length}
+								</div>
+							)}
+						</div>
+					)}
+				</DragOverlay>,
+				document.body
+			)}
+		</DndContext>
 	);
 }
 

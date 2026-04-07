@@ -1,8 +1,9 @@
-import { useState, memo } from "react";
+import { useState, memo, useEffect } from "react";
 import Button from "../../common/button";
 import Modal from "../../common/modal";
-import { PanelRightClose, PanelRightOpen } from "lucide-react";
+import { PanelRightClose, PanelRightOpen, AlertTriangle } from "lucide-react";
 import { useTranslation } from "../../../hooks/useTranslation";
+import useUnsavedChanges from "../../../hooks/useUnsavedChanges";
 
 const EditorHeaderToolbar = memo(
 	({
@@ -18,20 +19,13 @@ const EditorHeaderToolbar = memo(
 		onToggleSidebar = null, // Nếu truyền hàm này vào, nút đóng/mở sidebar mới xuất hiện
 	}) => {
 		const { tUI } = useTranslation();
-		const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
 		const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-		const handleCancelClick = () => {
-			if (isDirty) {
-				setIsCancelModalOpen(true);
-			} else {
-				onCancel();
-			}
-		};
+		// Tích hợp Navigation Blocker
+		const blocker = useUnsavedChanges(isDirty && !isSaving);
 
-		const confirmCancel = () => {
-			setIsCancelModalOpen(false);
-			onCancel();
+		const handleCancelClick = () => {
+			onCancel(); //useBlocker sẽ tự động chặn và hiện Modal nếu isDirty
 		};
 
 		return (
@@ -105,24 +99,37 @@ const EditorHeaderToolbar = memo(
 					</div>
 				</div>
 
-				{/* MODAL XÁC NHẬN HỦY */}
+				{/* MODAL XÁC NHẬN THAY ĐỔI CHƯA LƯU (Dùng chung cho mọi hành động rời trang) */}
 				<Modal
-					isOpen={isCancelModalOpen}
-					onClose={() => setIsCancelModalOpen(false)}
+					isOpen={blocker.state === "blocked"}
+					onClose={() => blocker.reset()}
 					title={tUI("admin.common.cancelConfirmTitle")}
 				>
-					<div className='p-4 text-text-secondary'>
-						<p className='mb-6'>
-							{tUI("admin.common.cancelConfirmText")}
-						</p>
+					<div className='p-2 text-text-secondary'>
+						<div className="flex items-start gap-4 mb-6 bg-yellow-500/10 p-4 rounded-xl border border-yellow-500/20">
+							<AlertTriangle className="text-yellow-500 shrink-0" size={24} />
+							<div>
+								<h4 className="font-bold text-text-primary mb-1">
+									{tUI("admin.common.unsavedChanges")}
+								</h4>
+								<p className="text-sm leading-relaxed">
+									{tUI("admin.common.cancelConfirmText")}
+								</p>
+							</div>
+						</div>
+
 						<div className='flex justify-end gap-3'>
 							<Button
-								onClick={() => setIsCancelModalOpen(false)}
+								onClick={() => blocker.reset()}
 								variant='ghost'
 							>
 								{tUI("admin.common.stay")}
 							</Button>
-							<Button onClick={confirmCancel} variant='danger'>
+							<Button 
+								onClick={() => blocker.proceed()} 
+								variant='danger'
+								className="shadow-lg shadow-red-500/20"
+							>
 								{tUI("admin.common.leave")}
 							</Button>
 						</div>

@@ -141,6 +141,7 @@ const MarkupEditor = ({ value, onChange, placeholder = "Nhập nội dung..." })
 		{ id: "c", label: "Tướng", type: "search" },
 		{ id: "r", label: "Cổ vật", type: "search" },
 		{ id: "p", label: "Sức mạnh", type: "search" },
+		{ id: "i", label: "Vật phẩm", type: "search" },
 		{ id: "cd", label: "Lá bài", type: "search" },
 		{ id: "cap", label: "Cấp sao", type: "direct" },
 		{ id: "v", label: "Chỉ số", type: "submenu", items: [
