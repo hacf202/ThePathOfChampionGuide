@@ -101,6 +101,15 @@ function AppLayout() {
 	const location = useLocation();
 	const isAdminRoute = location.pathname.startsWith("/admin");
 
+	// Danh sách các trang không cần bọc container phụ (đã có layout riêng hoặc là full-width)
+	const isSpecialRoute = 
+		isAdminRoute ||
+		location.pathname === "/" ||
+		location.pathname === "/home" ||
+		location.pathname === "/randomizer" ||
+		location.pathname === "/introduction" ||
+		location.pathname === "/simulator/vaults";
+
 	return (
 		<div
 			className={
@@ -112,49 +121,14 @@ function AppLayout() {
 			<Navbar />
 			<AnnouncementPopup />
 
-			{isAdminRoute ||
-			location.pathname === "/" ||
-			location.pathname === "/home" ||
-			location.pathname === "/randomizer" ||
-			location.pathname === "/introduction" ||
-			location.pathname === "/simulator/vaults" ? (
+			{isSpecialRoute ? (
 				<MainContentContainer />
 			) : (
 				<div className='flex justify-center relative w-full'>
-					{/* SKYBANNER LEFT (Outer Margin) */}
-					<aside className='hidden 3xl:flex sticky top-24 h-fit w-[200px] px-2 flex-col items-center shrink-0'>
-						<p className='text-[10px] text-text-tertiary text-center mb-2 uppercase tracking-widest leading-none'>
-							AD Recommendation
-						</p>
-						<GoogleAd
-							slot='3637079051'
-							format='autorelaxed'
-							width='200px'
-							height='800px'
-							minHeight='800px'
-							responsive='false'
-						/>
-					</aside>
-
-					{/* MAIN CONTENT AREA for sub-pages */}
+					{/* MAIN CONTENT AREA for sub-pages - Center without side ads */}
 					<div className='flex-1 min-w-0 max-w-[1500px]'>
 						<MainContentContainer />
 					</div>
-
-					{/* SKYBANNER RIGHT (Outer Margin) */}
-					<aside className='hidden 3xl:flex sticky top-24 h-fit w-[200px] px-2 flex-col items-center shrink-0'>
-						<p className='text-[10px] text-text-tertiary text-center mb-2 uppercase tracking-widest leading-none'>
-							AD Recommendation
-						</p>
-						<GoogleAd
-							slot='3637079051'
-							format='autorelaxed'
-							width='200px'
-							height='800px'
-							minHeight='800px'
-							responsive='false'
-						/>
-					</aside>
 				</div>
 			)}
 
