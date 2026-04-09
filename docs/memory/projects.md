@@ -59,6 +59,7 @@ ThePathOfChampionGuide/
   - Giao diện phải cực kỳ trực quan, tránh lỗi vặt khi người quản trị nhập dữ liệu.
   - **Hiệu năng**: Áp dụng giới hạn render 100-item và smart loading cho SidePanel để xử lý danh sách bài quân cực lớn.
   - **Tự động hóa**: Trình biên tập hỗ trợ quét Markup tự động để đồng bộ dữ liệu tham chiếu.
+  - **Sticky Sidebar**: Tích hợp `DropDragSidePanel` dính (sticky) giúp tối ưu hóa thao tác kéo thả trên các form dài.
   - Phải hỗ trợ đa ngôn ngữ 100% để đội ngũ quốc tế cũng có thể dùng chung.
   - Các trang danh sách dữ liệu phải có tính đồng nhất phân trang (Pagination), như áp dụng luật **24-item limit**.
 
@@ -82,3 +83,10 @@ ThePathOfChampionGuide/
 - **Tính năng cốt lõi**:
   - **Tracking**: Ghi lại User ID, Loại thực thể (Champion, Item,...), Hành động (Create, Update, Delete) và thời điểm.
   - **Admin View**: Danh sách lọc nhanh trên bảng quản trị để xem lịch sử thay đổi theo thời gian thực.
++
++### 6. Module: Theme System (Hệ thống Giao diện)
++- **Mục tiêu**: Cung cấp trải nghiệm thị giác đa dạng và chuyên nghiệp cho người dùng.
++- **Tính năng cốt lõi**:
++  - **3 Chế độ (Triple-Mode)**: Solid Light (Sáng), Solid Dark (Tối), và Artwork Mode (Ảnh nền tùy chỉnh với hiệu ứng kính mờ).
++  - **Đồng bộ Semantic**: Toàn bộ hệ thống UI (Header, Footer, Modals, Inputs) sử dụng biến màu semantic để tự động thay đổi theo theme.
++  - **Cá nhân hóa**: Cho phép người dùng lưu trữ cấu hình giao diện yêu thích qua `localStorage`.

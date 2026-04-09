@@ -3,7 +3,7 @@
 
 META
   name ThePathOfChampionGuide
-  version 1.2.0
+  version 1.3.0
   author dev
   desc Hệ thống tra cứu và quản lý dữ liệu game The Path of Champions (LoR)
 
@@ -92,6 +92,16 @@ NODE Frontend
       DESC Xử lý đa ngôn ngữ (VI/EN)
     FUNC useUnsavedChanges
       DESC Cảnh báo khi thoát trang mà chưa lưu dữ liệu
+  
+  NODE StateManagement
+    DESC Quản lý trạng thái ứng dụng toàn cục
+    FILE fe/src/context/
+    NODE AuthContext
+      DESC Quản lý đăng nhập, session và token
+      FILE fe/src/context/AuthContext.jsx
+    NODE ThemeContext
+      DESC Quản lý giao diện (Triple-Mode: Light, Dark, Artwork)
+      FILE fe/src/context/ThemeContext.jsx
 
   NODE Utils
     DESC Các hàm tiện ích phía client
@@ -124,6 +134,8 @@ LINK Backend.Routes.ChampionsRouter Database.DynamoDB query
 LINK Backend.Routes.GameDataRouter Database.LocalData read-json
 LINK Frontend.AppRouter.Pages.AdminPanel Backend.Middleware.requireAdmin protect
 LINK Frontend.StateManagement.AuthContext Backend.Routes.AuthRouter verify-session
+LINK Frontend.StateManagement.ThemeContext Frontend.AppRouter.Pages.Home visual-sync
+LINK Frontend.StateManagement.ThemeContext Frontend.AppRouter.Pages.AdminPanel ui-consistency
 LINK Frontend.Utils.markupParser Frontend.Utils.entityLookup data-enrichment
 LINK AI_Workflow.Research project.nde read
 LINK AI_Workflow.UpdateNDE project.nde write

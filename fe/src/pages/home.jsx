@@ -116,8 +116,8 @@ const Home = () => {
 							initial={{ opacity: 0, scale: 0.8 }}
 							animate={{ opacity: 1, scale: 1 }}
 							transition={{ duration: 1 }}
-							className='text-7xl md:text-[14rem] font-black text-text-primary uppercase leading-none tracking-tighter italic md:pr-12 mb-8'
-							style={{ filter: 'drop-shadow(0 20px 30px rgba(122, 122, 122, 0.6))' }}
+							className='text-7xl md:text-[14rem] font-black text-white uppercase leading-none tracking-tighter italic md:pr-12 mb-8'
+							style={{ filter: 'drop-shadow(0 20px 30px rgba(0, 0, 0, 1))' }}
 						>
 							<span>{tUI("home.heroTitle1")}</span> 
 							<br />

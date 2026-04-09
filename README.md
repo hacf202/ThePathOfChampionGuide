@@ -27,7 +27,8 @@ Dự án cung cấp cho cộng đồng người chơi một nơi để tra cứu
 - **💬 Hệ thống bình luận:** Bình luận trực tiếp trên từng bản build và bài hướng dẫn.
 - **🎲 Tiện ích:** Vòng quay ngẫu nhiên (Random Champion Wheel), Bản đồ Adventure Maps, Tier List.
 - **🌐 Song ngữ Việt - Anh:** Toàn bộ giao diện có thể chuyển đổi ngôn ngữ linh hoạt.
-- **🔐 Xác thực an toàn:** Đăng ký, đăng nhập và xác minh OTP qua AWS Cognito.
+- **🔐 Xác thực an toàn**: Đăng ký, đăng nhập và xác minh OTP qua AWS Cognito.
+- **🎨 Cá nhân hóa Giao diện**: Hệ thống Theme 3 chế độ (**Solid Light**, **Solid Dark**, và **Artwork Mode**) giúp tùy biến trải nghiệm thị giác theo sở thích cá nhân.
 
 ### 🛡️ Dành cho Quản trị viên (Admin CMS)
 
@@ -36,11 +37,11 @@ Dự án cung cấp cho cộng đồng người chơi một nơi để tra cứu
 - **Champion Ratings**: Hệ thống đánh giá tướng chuyên sâu từ cộng đồng với 10 thang điểm và phân tích radar.
 - **Bento Grid Database**: Tra cứu Items, Relics, Powers, Runes với giao diện hiện đại.
 xóa dữ liệu game của tất cả các thực thể (Champions, Powers, Relics, Items, Runes, Builds, Guides, Bosses, Constellations, Adventure Maps...).
-- **⚙️ Tự động hóa Dữ liệu (Editor):** Hệ thống **Auto-Scan** mô tả bài để tự động điền thẻ bài tham chiếu, giảm 80% thao tác nhập liệu thủ công.
-- **⚡ Tối ưu hóa Hiệu năng (Admin):** Cơ chế lọc thông minh và Lazy-loading hình ảnh trên sidebar giúp xử lý mượt mà danh sách > 2.300 lá bài.
-- **🎨 Đánh giá chỉ số tướng:** Nhập điểm đánh giá (1-10) cho 6 tiêu chí và ghi chú chiến thuật song ngữ trực tiếp từ Admin Panel.
-- **🖼️ Quản lý Hình ảnh:** Tải ảnh lên Cloudflare R2, quản lý thư viện ảnh tích hợp.
-- **🛡️ Phân quyền:** Bảo vệ các route nhạy cảm, chỉ có tài khoản Admin mới được phép can thiệp nội dung.
+- **⚙️ Tự động hóa Dữ liệu (Editor)**: Hệ thống **Auto-Scan** mô tả bài để tự động điền thẻ bài tham chiếu, giảm 80% thao tác nhập liệu thủ công.
+- **📌 Sticky Resource Panel**: Thanh công cụ kéo thả tài nguyên luôn dính (sticky) ở sidebar, tối ưu hóa quy trình nhập liệu cho các form dài.
+- **⚡ Tối ưu hóa Hiệu năng (Admin)**: Cơ chế lọc thông minh và Lazy-loading hình ảnh trên sidebar giúp xử lý mượt mà danh sách > 2.300 lá bài.
+- **🎨 Đồng bộ UI/UX**: Toàn bộ hệ thống quản trị được đồng bộ theo Theme chung của ứng dụng, đảm bảo tính thẩm mỹ cao.
+- **🛡️ Phân quyền**: Bảo vệ các route nhạy cảm, chỉ có tài khoản Admin mới được phép can thiệp nội dung.
 
 ---
 

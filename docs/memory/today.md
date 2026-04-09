@@ -3,6 +3,30 @@
 *File này là nơi lưu trữ trạng thái dở dang thuộc phiên làm việc hiện tại, các vấn đề và lỗi sinh ra khi code hoặc thảo luận để AI ghi nhớ tránh lạc lõng, hỏi lại nhiều lần.*
 
 
+## Log thay đổi 2026-04-09 (Triple-Theme & Admin UX)
+
+### ✅ Hệ thống Theme 3 Chế độ (Triple-Theme UI)
+- **Kiến trúc ThemeContext**: Triển khai hệ thống quản lý trạng thái theme toàn cục hỗ trợ 3 chế độ: `Solid Light`, `Solid Dark`, và `Artwork Mode` (chế độ ảnh nền tùy chỉnh).
+- **Đồng bộ hóa Giao diện**:
+    - **Navbars**: Đồng bộ `DesktopNavbar` và `MobileNavbar` theo tông màu theme, xử lý độ trong suốt (glassmorphism) chuyên nghiệp.
+    - **Modals & Tooltips**: Chuẩn hóa màu nền, viền và chữ cho `RatingModal`, `SelectChampionModal` và các hệ thống Tooltip.
+    - **Inputs & Buttons**: Thống nhất sử dụng các biến semantic (`--color-input-bg`, `--color-btn-secondary-bg`, ...) trên toàn bộ ứng dụng.
+- **Tính năng Cá nhân hóa**: Cập nhật menu `Personalization` với giao diện chọn theme dạng thẻ (Cards) trực quan và hiện đại.
+
+### ✅ Nâng cấp Đột phá Giao diện Quản trị (Admin UX)
+- **Sticky Resource Panel**: Biến thanh "Kéo thả Tài nguyên" (`DropDragSidePanel`) thành thanh công cụ dính (sticky) ở cả 3 editor: **Champion**, **Boss**, và **Adventure Map**. Đảm bảo thanh luôn hiện diện khi cuộn các form dài nghìn pixel.
+- **MarkupEditor Synchronization**: Đồng bộ hóa màu nền và màu chữ của trình soạn thảo Markup theo theme, chuyển từ màu xám/trắng cứng sang màu semantic, đảm bảo tính thẩm mỹ cao trong `Solid Dark` và `Artwork Mode`.
+- **Header Toolbar Sticky**: Cố định thanh công cụ (Lưu/Hủy/Ẩn sidebar) ở đầu trang editor để tăng hiệu suất làm việc.
+
+### ✅ Bảo mật và Backend
+- **Analytics Dashboard Auth Fix**: Giải quyết triệt để lỗi 401 Unauthorized bằng cách đồng bộ middleware xác thực JWT và kiểm tra quyền admin cho các route thống kê.
+- **Entity Data Sync**: Hoàn tất trích xuất và chuẩn hóa dữ liệu mô tả cho Relics, Powers, Items từ các tệp localization vào master data.
+
+### ✅ Cải thiện UI/UX Homepage
+- **Cinematic Heading**: Thêm hiệu ứng Đổ bóng (drop-shadow) đa hướng cho tiêu đề chính để tăng độ sâu và tính chuyên nghiệp trên các nền ảnh động.
+- **Optimization**: Tối ưu hóa layout `Bento Grid` để không bị tràn khung trên màn hình 2K/4K.
+
+
 ## Log thay đổi 2026-04-07/08 (Rating System & Home Integration)
 
 ### ✅ Đại tu Hệ thống Đánh giá Tướng (Champion Ratings)
