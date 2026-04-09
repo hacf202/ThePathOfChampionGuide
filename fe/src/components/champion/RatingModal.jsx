@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { X, Star, Save, Loader2, MessageSquare } from "lucide-react";
 import { useTranslation } from "../../hooks/useTranslation";
+import Button from "../common/button";
 
 const RatingModal = ({ isOpen, onClose, championID, initialData, onSubmit }) => {
 	const { tUI } = useTranslation();
@@ -60,7 +61,7 @@ const RatingModal = ({ isOpen, onClose, championID, initialData, onSubmit }) => 
 	};
 
 	return createPortal(
-		<div className='fixed inset-0 z-[110] flex items-center justify-center p-4 bg-gray-900/70 backdrop-blur-sm animate-fadeIn'>
+		<div className='fixed inset-0 z-[110] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-fadeIn'>
 			<div className='absolute inset-0' onClick={onClose}></div>
 			<div className='bg-surface-bg border border-border rounded-2xl shadow-2xl w-full max-w-lg flex flex-col relative z-20 overflow-hidden animate-slideUp'>
 				<div className='flex items-center justify-between p-5 border-b border-border bg-surface-hover'>
@@ -86,7 +87,7 @@ const RatingModal = ({ isOpen, onClose, championID, initialData, onSubmit }) => 
 										<span className='w-2 h-2 rounded-full bg-primary-500'></span>
 										{stat.label}
 									</label>
-									<span className='text-lg font-black text-primary-500 bg-primary-100/50 px-3 py-0.5 rounded-full min-w-[45px] text-center'>
+									<span className='text-lg font-black text-primary-500 bg-primary-500/10 px-3 py-0.5 rounded-full min-w-[45px] text-center'>
 										{ratings[stat.key]}
 									</span>
 								</div>
@@ -121,14 +122,15 @@ const RatingModal = ({ isOpen, onClose, championID, initialData, onSubmit }) => 
 						/>
 					</div>
 
-					<button
+					<Button
 						type='submit'
+						variant='primary'
 						disabled={isSubmitting}
-						className='w-full bg-primary-500 hover:bg-primary-600 text-white font-bold py-4 rounded-xl shadow-lg shadow-primary-500/20 flex items-center justify-center gap-2 transition-all active:scale-[0.98] disabled:opacity-70'
+						className='w-full py-4 h-14 rounded-xl shadow-lg'
+						iconLeft={isSubmitting ? <Loader2 className='animate-spin' /> : <Save size={20} />}
 					>
-						{isSubmitting ? <Loader2 className='animate-spin' /> : <Save size={20} />}
 						{tUI("championDetail.ratings.submitBtn")}
-					</button>
+					</Button>
 				</form>
 			</div>
 		</div>,

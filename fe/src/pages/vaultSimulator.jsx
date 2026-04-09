@@ -10,6 +10,7 @@ import {
 	Info,
 } from "lucide-react";
 import PageTitle from "../components/common/pageTitle";
+import Button from "../components/common/button"; // Bổ sung Button
 import { useTranslation } from "../hooks/useTranslation";
 import axios from "axios";
 import { getRarityKey, getTypeKey, getRegionKey } from "../utils/i18nHelpers";
@@ -56,7 +57,7 @@ const VAULT_CONFIG = {
 		nameKey: "vaultSimulator.tier.silver",
 		sourceKey: "vaultSimulator.sources.silver",
 		color: "text-[#475569]",
-		bg: "bg-slate-100",
+		bg: "bg-slate-100/20",
 		border: "border-slate-300",
 		glow: "from-slate-400/30",
 		drops: [
@@ -356,7 +357,7 @@ const VaultSimulator = () => {
 	};
 
 	return (
-		<div className='min-h-screen bg-white text-gray-900 selection:bg-primary-500 overflow-x-hidden font-primary relative'>
+		<div className='min-h-screen bg-page-bg text-text-primary selection:bg-primary-500 overflow-x-hidden font-primary relative'>
 			<PageTitle
 				title={
 					tUI("vaultSimulator.titleMain") +
@@ -379,14 +380,14 @@ const VaultSimulator = () => {
 				{/* Header */}
 				<header className='mb-12 sm:mb-20 text-center'>
 					<h1 className='text-4xl md:text-7xl font-black mb-6 sm:mb-8 leading-tight tracking-tighter uppercase max-w-4xl mx-auto'>
-						<span className='text-gray-900'>
+						<span className='text-text-primary'>
 							{tUI("vaultSimulator.titleMain")}{" "}
 						</span>
 						<span className='text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-primary-400'>
 							{tUI("vaultSimulator.titleSub")}
 						</span>
 					</h1>
-					<p className='text-gray-500 text-xl max-w-2xl mx-auto font-secondary leading-relaxed'>
+					<p className='text-text-secondary text-xl max-w-2xl mx-auto font-secondary leading-relaxed'>
 						{tUI("vaultSimulator.description")}
 					</p>
 				</header>
@@ -405,8 +406,8 @@ const VaultSimulator = () => {
 								onClick={() => setSelectedVault(key)}
 								className={`group relative flex flex-col items-center p-6 sm:p-8 rounded-3xl transition-all duration-500 overflow-hidden ${
 									selectedVault === key
-										? `bg-white ring-4 ring-primary-500/20 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.15)] scale-105`
-										: `${config.bg} backdrop-blur-sm border border-white/60 shadow-lg hover:shadow-2xl`
+										? `bg-surface-bg ring-4 ring-primary-500/20 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.15)] scale-105 border-primary-500/30 border`
+										: `${config.bg} backdrop-blur-sm border border-border shadow-lg hover:shadow-2xl`
 								}`}
 							>
 								{/* Vault Glow Effect */}
@@ -500,7 +501,7 @@ const VaultSimulator = () => {
 									className='flex flex-col items-center group w-full lg:w-auto'
 								>
 									<div
-										className={`relative w-full sm:w-48 h-40 sm:h-48 flex items-center justify-center rounded-3xl bg-white border border-gray-100 p-4 sm:p-6 mb-4 sm:mb-6 shadow-2xl group-hover:shadow-primary-500/10 group-hover:-translate-y-2 transition-all duration-500 overflow-hidden`}
+										className={`relative w-full sm:w-48 h-40 sm:h-48 flex items-center justify-center rounded-3xl bg-surface-bg border border-border p-4 sm:p-6 mb-4 sm:mb-6 shadow-2xl group-hover:shadow-primary-500/10 group-hover:-translate-y-2 transition-all duration-500 overflow-hidden`}
 									>
 										<img
 											src={item.icon}
@@ -514,12 +515,12 @@ const VaultSimulator = () => {
 										)}
 									</div>
 									<h4
-										className={`text-base sm:text-xl font-black uppercase italic text-center max-w-[160px] sm:max-w-[200px] leading-tight mb-2 ${item.color || "text-gray-900"} drop-shadow-sm`}
+										className={`text-base sm:text-xl font-black uppercase italic text-center max-w-[160px] sm:max-w-[200px] leading-tight mb-2 ${item.color || "text-text-primary"} drop-shadow-sm`}
 									>
 										{item.name}
 									</h4>
 									{(item.rarityKey || item.type) && (
-										<span className='px-3 sm:px-4 py-1 rounded-full bg-gray-50 text-[9px] sm:text-[10px] uppercase tracking-widest font-black border border-gray-100 text-gray-500 shadow-sm'>
+										<span className='px-3 sm:px-4 py-1 rounded-full bg-input-bg text-[9px] sm:text-[10px] uppercase tracking-widest font-black border border-border text-text-secondary shadow-sm'>
 											{tUI(item.rarityKey) || item.type}
 										</span>
 									)}
@@ -528,22 +529,26 @@ const VaultSimulator = () => {
 						</div>
 
 						<div className='flex flex-col sm:flex-row gap-6'>
-							<button
+							<Button
+								variant="primary"
 								onClick={() => handleOpen(selectedVault)}
-								className='flex items-center gap-3 px-12 py-5 bg-primary-600 hover:bg-primary-800 text-white rounded-[1.5rem] font-bold text-xl transition-all hover:scale-105 active:scale-95 shadow-xl shadow-primary-600/20'
+								className='px-12 py-5 text-xl'
+								rounded="3xl"
+								leftIcon={<RotateCcw className='w-6 h-6' />}
 							>
-								<RotateCcw className='w-6 h-6' />{" "}
 								{tUI("vaultSimulator.openAgain")}
-							</button>
-							<button
+							</Button>
+							<Button
+								variant="secondary"
 								onClick={() => {
 									setLoot(null);
 									setSelectedVault(null);
 								}}
-								className='flex items-center gap-3 px-12 py-5 bg-white hover:bg-gray-50 text-gray-700 border border-gray-200 rounded-[1.5rem] font-bold text-xl transition-all hover:scale-105 active:scale-95 shadow-md'
+								className='px-12 py-5 text-xl'
+								rounded="3xl"
 							>
 								{tUI("vaultSimulator.chooseOther")}
-							</button>
+							</Button>
 						</div>
 					</div>
 				)}
@@ -554,7 +559,7 @@ const VaultSimulator = () => {
 						initial={{ opacity: 0, y: 30 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ delay: 0.8 }}
-						className='mt-6 sm:mt-24 p-2 sm:p-4 bg-white border border-gray-100 rounded-3xl shadow-sm relative overflow-hidden'
+						className='mt-6 sm:mt-24 p-2 sm:p-4 bg-surface-bg border border-border rounded-3xl shadow-sm relative overflow-hidden'
 					>
 						<div className='absolute -top-24 -right-24 w-64 h-64 bg-primary-500/[0.03] blur-[100px]' />
 
@@ -568,54 +573,54 @@ const VaultSimulator = () => {
 						</div>
 
 						<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-10 text-sm'>
-							<div className='space-y-2s bg-gray-50/50 p-2 sm:p-4 rounded-2xl border border-gray-100 hover:border-primary-500/20 transition-all duration-300 shadow-sm'>
+							<div className='space-y-2s bg-input-bg/40 p-2 sm:p-4 rounded-2xl border border-border hover:border-primary-500/20 transition-all duration-300 shadow-sm'>
 								<h3 className='text-xl sm:text-2xl font-black text-[#cd7f32] uppercase italic underline underline-offset-[12px] decoration-2 decoration-[#cd7f32]/50'>
 									{tUI("vaultSimulator.probBronzeSilverTitle")}
 								</h3>
-								<p className='text-gray-600 leading-relaxed font-secondary text-base whitespace-pre-line pt-1'>
+								<p className='text-text-secondary leading-relaxed font-secondary text-base whitespace-pre-line pt-1'>
 									{tUI("vaultSimulator.probBronzeSilverDesc")}
 								</p>
-								<div className='pt-4 border-t border-gray-200'>
+								<div className='pt-4 border-t border-border'>
 									<h4 className='text-xs font-bold text-primary-600 uppercase tracking-widest mb-3'>
 										{tUI("vaultSimulator.sourceTitle")}
 									</h4>
-									<p className='text-gray-500 text-xs leading-relaxed whitespace-pre-line bg-white rounded-xl'>
+									<p className='text-text-secondary text-xs leading-relaxed whitespace-pre-line bg-surface-bg rounded-xl'>
 										{tUI("vaultSimulator.sources.bronze") +
 											"\n\n" +
 											tUI("vaultSimulator.sources.silver")}
 									</p>
 								</div>
 							</div>
-							<div className='space-y-6 bg-gray-50/50 p-2 sm:p-4 rounded-2xl border border-gray-100 hover:border-primary-500/20 transition-all duration-300 shadow-sm'>
+							<div className='space-y-6 bg-input-bg/40 p-2 sm:p-4 rounded-2xl border border-border hover:border-primary-500/20 transition-all duration-300 shadow-sm'>
 								<h3 className='text-xl sm:text-2xl font-black text-[#ffd700] uppercase italic underline underline-offset-[12px] decoration-2 decoration-[#ffd700]/50'>
 									{tUI("vaultSimulator.probGoldPlatinumTitle")}
 								</h3>
-								<p className='text-gray-600 leading-relaxed font-secondary text-base whitespace-pre-line pt-2'>
+								<p className='text-text-secondary leading-relaxed font-secondary text-base whitespace-pre-line pt-2'>
 									{tUI("vaultSimulator.probGoldPlatinumDesc")}
 								</p>
-								<div className='pt-4 border-t border-gray-200'>
+								<div className='pt-4 border-t border-border'>
 									<h4 className='text-xs font-bold text-primary-600 uppercase tracking-widest mb-3'>
 										{tUI("vaultSimulator.sourceTitle")}
 									</h4>
-									<p className='text-gray-500 text-xs leading-relaxed whitespace-pre-line bg-white rounded-xl '>
+									<p className='text-text-secondary text-xs leading-relaxed whitespace-pre-line bg-surface-bg rounded-xl '>
 										{tUI("vaultSimulator.sources.gold") +
 											"\n\n" +
 											tUI("vaultSimulator.sources.platinum")}
 									</p>
 								</div>
 							</div>
-							<div className='space-y-6 bg-gray-50/50 p-2 sm:p-4 rounded-2xl border border-gray-100 hover:border-primary-500/20 transition-all duration-300 shadow-sm'>
+							<div className='space-y-6 bg-input-bg/40 p-2 sm:p-4 rounded-2xl border border-border hover:border-primary-500/20 transition-all duration-300 shadow-sm'>
 								<h3 className='text-xl sm:text-2xl font-black text-[#4eb9d1] uppercase italic underline underline-offset-[12px] decoration-2 decoration-[#b9f2ff]/50'>
 									{tUI("vaultSimulator.probDiamondTitle")}
 								</h3>
-								<p className='text-gray-600 leading-relaxed font-secondary text-base whitespace-pre-line pt-2'>
+								<p className='text-text-secondary leading-relaxed font-secondary text-base whitespace-pre-line pt-2'>
 									{tUI("vaultSimulator.probDiamondDesc")}
 								</p>
-								<div className='pt-4 border-t border-gray-200'>
+								<div className='pt-4 border-t border-border'>
 									<h4 className='text-xs font-bold text-primary-600 uppercase tracking-widest mb-3'>
 										{tUI("vaultSimulator.sourceTitle")}
 									</h4>
-									<p className='text-gray-500 text-xs leading-relaxed whitespace-pre-line bg-white rounded-xl '>
+									<p className='text-text-secondary text-xs leading-relaxed whitespace-pre-line bg-surface-bg rounded-xl '>
 										{tUI("vaultSimulator.sources.diamond")}
 									</p>
 								</div>

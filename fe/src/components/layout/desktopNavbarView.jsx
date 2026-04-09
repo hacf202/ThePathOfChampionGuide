@@ -2,6 +2,8 @@
 import React, { useContext, useState, useRef, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext.jsx";
+import { useTheme } from "../../context/ThemeContext.jsx";
+import ThemeSettings from "../common/ThemeSettings.jsx";
 
 import Modal from "../common/modal.jsx";
 import Button from "../common/button.jsx";
@@ -28,10 +30,14 @@ import {
 	BarChartHorizontalBig,
 	Globe,
 	Star,
+	Sun,
+	Moon,
+	Palette,
 } from "lucide-react";
 
 function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 	const { user, logout, isAdmin } = useContext(AuthContext);
+	const { theme, toggleTheme } = useTheme();
 	const navigate = useNavigate();
 
 	const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -39,6 +45,7 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 	const [isToolsDropdownOpen, setIsToolsDropdownOpen] = useState(false);
 	const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false);
 	const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+	const [isThemeSettingsOpen, setIsThemeSettingsOpen] = useState(false);
 
 	const profileMenuRef = useRef(null);
 	const itemsDropdownRef = useRef(null);
@@ -138,7 +145,7 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 
 								{isItemsDropdownOpen && (
 									<div className='absolute z-50 left-0 top-full pt-1'>
-										<div className='w-48 bg-dropdown-bg border border-dropdown-border rounded-lg shadow-xl py-2'>
+										<div className='w-48 bg-modal-bg border border-dropdown-border rounded-lg shadow-xl py-2'>
 											<NavLink
 												to='/champions'
 												className={dropdownLinkClass}
@@ -226,7 +233,7 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 								</button>
 								{isToolsDropdownOpen && (
 									<div className='absolute z-50 left-0 top-full pt-1'>
-										<div className='w-48 bg-dropdown-bg border border-dropdown-border rounded-lg shadow-xl py-2'>
+										<div className='w-48 bg-modal-bg border border-dropdown-border rounded-lg shadow-xl py-2'>
 											<NavLink
 												to='/tierlist'
 												className={dropdownLinkClass}
@@ -278,9 +285,18 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 								)}
 							</div>
 						</nav>
+						
 					</div>
 
 					<div className='flex items-center gap-2'>
+						<button 
+							onClick={() => setIsThemeSettingsOpen(true)}
+							className="p-2.5 rounded-lg hover:bg-nav-hover-bg transition-all"
+							title="Theme personalization"
+						>
+							<Palette className="w-5 h-5" />
+						</button>
+
 						<div
 							className='relative'
 							ref={langDropdownRef}
@@ -365,7 +381,7 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 											{isAdmin && (
 												<NavLink
 													to='/admin'
-													className={`${dropdownLinkClass} font-semibold text-text-link-admin`}
+													className={`${dropdownLinkClass} font-semibold`}
 													onClick={handleNavClick}
 												>
 													<Shield className='w-4 h-4' />
@@ -416,6 +432,11 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 					</div>
 				</div>
 			</Modal>
+
+			<ThemeSettings 
+				isOpen={isThemeSettingsOpen} 
+				onClose={() => setIsThemeSettingsOpen(false)} 
+			/>
 		</>
 	);
 }

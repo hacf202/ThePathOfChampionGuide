@@ -15,6 +15,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { useTranslation } from "./hooks/useTranslation";
 // Context xác thực
 import { AuthProvider } from "./context/AuthContext.jsx";
+import { ThemeProvider } from "./context/ThemeContext.jsx";
 
 // Trang chi tiết
 import ChampionDetail from "./components/champion/championDetail.jsx";
@@ -243,7 +244,9 @@ function App() {
 	return (
 		<HelmetProvider>
 			<AuthProvider>
-				<RouterProvider router={router} />
+				<ThemeProvider>
+					<RouterProvider router={router} />
+				</ThemeProvider>
 			</AuthProvider>
 		</HelmetProvider>
 	);

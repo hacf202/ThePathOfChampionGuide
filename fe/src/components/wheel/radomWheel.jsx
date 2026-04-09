@@ -250,11 +250,11 @@ const VongQuayNgauNhien = ({ title, items, onRemoveWinner }) => {
 	if (!items || items.length === 0) {
 		return (
 			<div className='flex flex-col items-center justify-center text-center p-8'>
-				<h2 className='text-3xl font-bold text-gray-100 mb-3 tracking-wide'>
+				<h2 className='text-3xl font-bold text-text-primary mb-3 tracking-wide'>
 					{title}
 				</h2>
-				<div className='relative flex items-center justify-center bg-slate-700/50 border-2 border-dashed border-slate-500 rounded-full w-80 h-80'>
-					<p className='text-slate-400 text-lg max-w-[200px]'>
+				<div className='relative flex items-center justify-center bg-input-bg border-2 border-dashed border-border rounded-full w-80 h-80'>
+					<p className='text-text-secondary text-lg max-w-[200px]'>
 						{tUI("randomWheel.noItems")}
 					</p>
 				</div>
@@ -264,7 +264,7 @@ const VongQuayNgauNhien = ({ title, items, onRemoveWinner }) => {
 
 	return (
 		<div className='w-full h-full flex flex-col items-center justify-center'>
-			<h2 className='text-3xl font-bold text-gray-100 mb-3 tracking-wide text-center'>
+			<h2 className='text-3xl font-bold text-text-primary mb-3 tracking-wide text-center'>
 				{title}
 			</h2>
 			<div
@@ -283,7 +283,7 @@ const VongQuayNgauNhien = ({ title, items, onRemoveWinner }) => {
 				<button
 					onClick={spinWheel}
 					disabled={isSpinning}
-					className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-28 h-28 sm:w-40 sm:h-40 rounded-full bg-slate-900 text-blue-400 border-4 border-blue-400 text-2xl sm:text-3xl font-extrabold cursor-pointer z-10 transition-all duration-200 hover:scale-110 hover:shadow-2xl hover:shadow-blue-500/50 focus:outline-none focus:ring-4 focus:ring-blue-300 flex justify-center items-center disabled:opacity-50 disabled:cursor-not-allowed'
+					className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-28 h-28 sm:w-40 sm:h-40 rounded-full bg-surface-bg text-primary-500 border-4 border-primary-500 text-2xl sm:text-3xl font-extrabold cursor-pointer z-10 transition-all duration-200 hover:scale-110 hover:shadow-2xl hover:shadow-primary-500/50 focus:outline-none focus:ring-4 focus:ring-primary-300 flex justify-center items-center disabled:opacity-50 disabled:cursor-not-allowed'
 				>
 					{isSpinning ? "..." : "SPIN"}
 				</button>

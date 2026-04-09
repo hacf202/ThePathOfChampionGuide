@@ -27,27 +27,26 @@ const Button = ({
 	const baseStyles =
 		"inline-flex items-center justify-center px-4 py-2 rounded-md font-semibold text-sm transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-surface-bg disabled:opacity-50 disabled:cursor-not-allowed";
 
-	const getVariantStyles = variant => {
+	const getVariantStyles = (variant) => {
 		switch (variant) {
 			case "primary":
-				return "bg-btn-primary-bg text-btn-primary-text hover:bg-btn-primary-hover-bg focus:ring-primary-500";
+				return "bg-btn-primary-bg text-btn-primary-text border border-btn-primary-border hover:bg-btn-primary-hover-bg focus:ring-primary-500 shadow-sm shadow-primary-500/10";
 
-			// 'secondary' và 'outline' giờ là một
 			case "secondary":
 			case "outline":
 				return "bg-btn-secondary-bg text-btn-secondary-text border border-btn-secondary-border hover:bg-btn-secondary-hover-bg hover:text-btn-secondary-hover-text focus:ring-primary-500";
 
 			case "danger":
-				return "bg-btn-danger-bg text-btn-danger-text hover:bg-btn-danger-hover-bg focus:ring-danger-500";
+				return "bg-btn-danger-bg text-btn-danger-text border border-btn-danger-border hover:bg-btn-danger-hover-bg focus:ring-danger-500 shadow-sm shadow-danger-500/10";
 
 			case "warning":
-				return "bg-btn-warning-bg text-btn-warning-text hover:bg-btn-warning-hover-bg focus:ring-warning-500";
+				return "bg-btn-warning-bg text-btn-warning-text border border-btn-warning-border hover:bg-btn-warning-hover-bg focus:ring-warning-500 shadow-sm shadow-warning-500/10";
 
 			case "ghost":
-				return "bg-btn-ghost-bg text-btn-ghost-text hover:bg-btn-ghost-hover-bg focus:ring-primary-500";
+				return "bg-btn-ghost-bg text-btn-ghost-text border border-transparent hover:bg-btn-ghost-hover-bg hover:border-btn-secondary-border/30 focus:ring-primary-500";
 
 			default:
-				return "bg-btn-primary-bg text-btn-primary-text hover:bg-btn-primary-hover-bg focus:ring-primary-500";
+				return "bg-btn-primary-bg text-btn-primary-text border border-btn-primary-border hover:bg-btn-primary-hover-bg focus:ring-primary-500";
 		}
 	};
 

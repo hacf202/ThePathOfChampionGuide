@@ -29,7 +29,7 @@ const Modal = ({ isOpen, onClose, title, children, maxWidth = "max-w-md" }) => {
 			role='dialog'
 		>
 			<div
-				className={`bg-surface-bg text-text-primary rounded-lg shadow-xl w-full ${maxWidth} 
+				className={`bg-modal-bg text-text-primary rounded-lg shadow-xl w-full ${maxWidth} 
                 relative border border-border max-h-[95vh] flex flex-col
                 animate-scale-up`}
 				onClick={e => e.stopPropagation()}

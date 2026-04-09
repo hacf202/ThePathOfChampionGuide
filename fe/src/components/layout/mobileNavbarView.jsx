@@ -2,6 +2,8 @@
 import React, { useContext, useState, useRef, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext.jsx";
+import { useTheme } from "../../context/ThemeContext.jsx";
+import ThemeSettings from "../common/ThemeSettings.jsx";
 
 import Modal from "../common/modal.jsx";
 import Button from "../common/button.jsx";
@@ -30,10 +32,14 @@ import {
 	BarChartHorizontalBig,
 	Globe,
 	Star,
+	Sun,
+	Moon,
+	Palette,
 } from "lucide-react";
 
 function MobileSidebar({ language, handleLanguageChange, tUI }) {
 	const { user, logout, isAdmin } = useContext(AuthContext);
+	const { theme, toggleTheme } = useTheme();
 	const navigate = useNavigate();
 
 	const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -42,6 +48,7 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 	const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false);
 	const [isHeaderLangOpen, setIsHeaderLangOpen] = useState(false);
 	const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+	const [isThemeSettingsOpen, setIsThemeSettingsOpen] = useState(false);
 
 	const sidebarRef = useRef(null);
 	const headerLangRef = useRef(null);
@@ -334,6 +341,17 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 							)}
 						</div>
 
+						{/* Menu Giao Diện - Repositioned near Language */}
+						<button 
+							onClick={() => {
+								setIsThemeSettingsOpen(true);
+								setIsSidebarOpen(false);
+							}}
+							className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-black/10 text-sm transition-all text-header-text"
+						>
+							<Palette className="w-5 h-5" /> {tUI("nav.customTheme") || "Cá nhân hóa giao diện"}
+						</button>
+
 						<div className='my-3 border-t border-gray-700'></div>
 						{user ? (
 							<>
@@ -410,6 +428,11 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 					</div>
 				</div>
 			</Modal>
+
+			<ThemeSettings 
+				isOpen={isThemeSettingsOpen} 
+				onClose={() => setIsThemeSettingsOpen(false)} 
+			/>
 		</>
 	);
 }

@@ -65,7 +65,7 @@ function DropdownFilter({
 				/>
 			</button>
 			{isOpen && (
-				<div className='absolute z-10 w-full mt-1 bg-dropdown-bg border border-dropdown-border rounded-md shadow-lg max-h-60 overflow-y-auto animate-slide-down'>
+				<div className='absolute z-10 w-full mt-1 bg-modal-bg border border-dropdown-border rounded-md shadow-lg max-h-60 overflow-y-auto animate-slide-down'>
 					{options.map((option, index) => {
 						const isSelected = selectedValue === option.value;
 						return (

@@ -32,7 +32,10 @@ Dự án cung cấp cho cộng đồng người chơi một nơi để tra cứu
 ### 🛡️ Dành cho Quản trị viên (Admin CMS)
 
 - **📊 Dashboard Thống kê:** Theo dõi lượng người dùng, số lượng build, lượt xem và tương tác.
-- **📝 Quản lý Nội dung (Full CRUD):** Giao diện trực quan để thêm, sửa, xóa dữ liệu game của tất cả các thực thể (Champions, Powers, Relics, Items, Runes, Builds, Guides, Bosses, Constellations, Adventure Maps...).
+- **📝 Quản lý Nội dung (Full CRUD):** Giao diện trực quan để thêm, sửa,
+- **Champion Ratings**: Hệ thống đánh giá tướng chuyên sâu từ cộng đồng với 10 thang điểm và phân tích radar.
+- **Bento Grid Database**: Tra cứu Items, Relics, Powers, Runes với giao diện hiện đại.
+xóa dữ liệu game của tất cả các thực thể (Champions, Powers, Relics, Items, Runes, Builds, Guides, Bosses, Constellations, Adventure Maps...).
 - **⚙️ Tự động hóa Dữ liệu (Editor):** Hệ thống **Auto-Scan** mô tả bài để tự động điền thẻ bài tham chiếu, giảm 80% thao tác nhập liệu thủ công.
 - **⚡ Tối ưu hóa Hiệu năng (Admin):** Cơ chế lọc thông minh và Lazy-loading hình ảnh trên sidebar giúp xử lý mượt mà danh sách > 2.300 lá bài.
 - **🎨 Đánh giá chỉ số tướng:** Nhập điểm đánh giá (1-10) cho 6 tiêu chí và ghi chú chiến thuật song ngữ trực tiếp từ Admin Panel.

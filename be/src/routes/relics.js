@@ -164,32 +164,30 @@ router.get("/", async (req, res) => {
 				: vB.toString().localeCompare(vA.toString());
 		});
 
-		if (pageSize === -1) {
-			return res.json({
-				items: filtered,
-				pagination: {
-					totalItems: filtered.length,
-					totalPages: 1,
-					currentPage: 1,
-					pageSize: filtered.length,
-				},
-				availableFilters,
-			});
-		}
-
 		const totalItems = filtered.length;
-		const totalPages = Math.ceil(totalItems / pageSize);
-		const paginatedItems = filtered.slice(
-			(currentPage - 1) * pageSize,
-			currentPage * pageSize,
-		);
+		
+		let paginatedItems;
+		let totalPages;
+		
+		if (pageSize > 0) {
+			totalPages = Math.ceil(totalItems / pageSize);
+			paginatedItems = filtered.slice(
+				(currentPage - 1) * pageSize,
+				currentPage * pageSize,
+			);
+		} else {
+			// Nếu limit <= 0 (như limit=-1), lấy toàn bộ
+			totalPages = 1;
+			paginatedItems = filtered;
+		}
 
 		res.json({
 			items: paginatedItems,
-			pagination: { totalItems, totalPages, currentPage, pageSize },
+			pagination: { totalItems, totalPages, currentPage, pageSize: pageSize > 0 ? pageSize : totalItems },
 			availableFilters,
 		});
 	} catch (error) {
+		console.error("Lỗi API Relics:", error);
 		res.status(500).json({ error: "Không thể lấy danh sách cổ vật." });
 	}
 });

@@ -69,3 +69,16 @@ ThePathOfChampionGuide/
   - **Tìm kiếm Song ngữ**: Tìm kiếm thông minh trên cả tiếng Việt và tiếng Anh đồng thời (Name, Description, Raw).
   - **Bộ lọc Đa năng**: Lọc theo Khu vực, Độ hiếm, Loại bài và Tiêu hao.
   - **Admin**: Trình quản lý bài (`CardEditor`) hỗ trợ biên tập nội dung markup và bản dịch chi tiết cho cả hai ngôn ngữ.
+### 4. Module: Champion Ratings (Đánh giá Tướng)
+- **Mục tiêu**: Nơi cộng đồng chấm điểm và nhận xét về lối chơi, sức mạnh của các vị tướng dựa trên 6 tiêu chí cốt lõi.
+- **Tính năng cốt lõi**:
+  - **Hệ thống Rating**: Tính toán điểm trung bình từ Damage, Defense, Speed, Consistency, Synergy, và Independence.
+  - **Visualization**: Sử dụng thanh trạng thái màu sắc và biểu đồ 10 điểm để trực quan hóa sức mạnh tướng.
+  - **Ranking**: Tự động tính toán bảng xếp hạng dựa trên điểm số trung bình và số lượng lượt đánh giá.
+  - **Dynamic Scaling**: Hỗ trợ các hệ điểm đặc thù (ví dụ hệ 4 điểm cho C041).
+
+### 5. Module: Audit Logs (Nhật ký Hệ thống)
+- **Mục tiêu**: Ghi lại mọi thao tác quan trọng trên hệ thống Admin để phục vụ việc kiểm tra và khôi phục khi cần thiết.
+- **Tính năng cốt lõi**:
+  - **Tracking**: Ghi lại User ID, Loại thực thể (Champion, Item,...), Hành động (Create, Update, Delete) và thời điểm.
+  - **Admin View**: Danh sách lọc nhanh trên bảng quản trị để xem lịch sử thay đổi theo thời gian thực.

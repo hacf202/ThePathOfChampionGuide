@@ -96,7 +96,7 @@ router.get("/", async (req, res) => {
 			rarities: [...new Set(allPowers.map(p => p.rarity))]
 				.filter(Boolean)
 				.sort(),
-			types: [...new Set(allPowers.flatMap(p => p.type || []))]
+			types: [...new Set(allPowers.flatMap(p => Array.isArray(p.type) ? p.type : (p.type ? [p.type] : [])))]
 				.filter(Boolean)
 				.sort(),
 		};
@@ -105,10 +105,10 @@ router.get("/", async (req, res) => {
 		if (searchTerm) {
 			const searchKey = removeAccents(searchTerm.toLowerCase());
 			filtered = filtered.filter(p => {
-				const nameVn = removeAccents(p.name);
-				const descVn = removeAccents(p.description);
-				const nameEn = removeAccents(p.translations?.en?.name);
-				const descEn = removeAccents(p.translations?.en?.description);
+				const nameVn = removeAccents(p.name || "");
+				const descVn = removeAccents(p.description || "");
+				const nameEn = removeAccents(p.translations?.en?.name || "");
+				const descEn = removeAccents(p.translations?.en?.description || "");
 
 				return (
 					nameVn.includes(searchKey) ||
@@ -124,7 +124,10 @@ router.get("/", async (req, res) => {
 		}
 		if (types) {
 			const tList = types.split(",");
-			filtered = filtered.filter(p => p.type?.some(t => tList.includes(t)));
+			filtered = filtered.filter(p => {
+				const pTypes = Array.isArray(p.type) ? p.type : (p.type ? [p.type] : []);
+				return pTypes.some(t => tList.includes(t));
+			});
 		}
 
 		const [field, order] = sort.split("-");
@@ -137,18 +140,29 @@ router.get("/", async (req, res) => {
 		});
 
 		const totalItems = filtered.length;
-		const totalPages = Math.ceil(totalItems / pageSize);
-		const paginatedItems = filtered.slice(
-			(currentPage - 1) * pageSize,
-			currentPage * pageSize,
-		);
+		
+		let paginatedItems;
+		let totalPages;
+		
+		if (pageSize > 0) {
+			totalPages = Math.ceil(totalItems / pageSize);
+			paginatedItems = filtered.slice(
+				(currentPage - 1) * pageSize,
+				currentPage * pageSize,
+			);
+		} else {
+			// Nếu limit <= 0 (như limit=-1), lấy toàn bộ
+			totalPages = 1;
+			paginatedItems = filtered;
+		}
 
 		res.json({
 			items: paginatedItems,
-			pagination: { totalItems, totalPages, currentPage, pageSize },
+			pagination: { totalItems, totalPages, currentPage, pageSize: pageSize > 0 ? pageSize : totalItems },
 			availableFilters,
 		});
 	} catch (error) {
+		console.error("Lỗi API Powers:", error);
 		res.status(500).json({ error: "Không thể lấy danh sách sức mạnh." });
 	}
 });

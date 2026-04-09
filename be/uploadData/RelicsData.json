@@ -2544,5 +2544,233 @@
     "name": "Xẻng Vàng Ròng",
     "type": "Chung",
     "description": "Khi ta được triệu hồi, ban cho ta +1|+1 và 1 đặc điểm ngẫu nhiên với mỗi 30 lá đã bắt đầu trong bộ bài."
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Rhythms of Despair",
+        "descriptionRaw": "Power: Allies in hand have \"Nightfall: Grant the weakest enemy 2 Gloom.\"",
+        "rarity": "EPIC",
+        "description": "[k:PathPower|Power]: Allies in hand have [k:Nightfall|\"Nightfall]: Grant the weakest enemy 2 [k:Gloom|Gloom].\""
+      }
+    },
+    "relicCode": "R0175",
+    "rarity": "SỬ THI",
+    "descriptionRaw": "Sức Mạnh: Đồng minh trên tay có “Chạng Vạng: Ban cho kẻ địch yếu nhất 2 Buồn Bã”.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0175.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0175-full.png",
+    "name": "Nhịp Điệu Tuyệt Vọng",
+    "description": "[k:PathPower|Sức Mạnh]: Đồng minh trên tay có “[k:Nightfall|Chạng Vạng]: Ban cho kẻ địch yếu nhất 2 [k:Gloom|Buồn Bã]”.",
+    "stack": "3",
+    "type": "Chung"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Renewing Power",
+        "descriptionRaw": "Power: Each round, the first time you play a 6+ cost spell, refill mana equal to its cost.",
+        "rarity": "EPIC",
+        "description": "[k:PathPower|Power]: Each round, the first time you play a 6+ cost spell, refill mana equal to its cost."
+      }
+    },
+    "relicCode": "R0161",
+    "rarity": "SỬ THI",
+    "descriptionRaw": "Sức Mạnh: Mỗi vòng, lần đầu ngươi sử dụng 1 bài phép với 6 tiêu hao hoặc nhiều hơn, hồi lại năng lượng tương đương với tiêu hao của bài phép đó.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0161.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0161-full.png",
+    "name": "Sức Mạnh Đổi Mới",
+    "description": "[k:PathPower|Sức Mạnh]: Mỗi vòng, lần đầu ngươi sử dụng 1 bài phép với 6 tiêu hao hoặc nhiều hơn, hồi lại năng lượng tương đương với tiêu hao của bài phép đó.",
+    "stack": "3",
+    "type": "Chung"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Ranger's Command",
+        "descriptionRaw": "+1|+0 and Quick Attack.Power: Round Start: If you have the attack token, grant a random ally Scout.",
+        "rarity": "EPIC",
+        "description": "+1|+0 and [k:Quick Strike|Quick Attack].\n[k:PathPower|Power]: [k:RoundStart|Round Start]: If you have the attack token, grant a random ally [k:Scout|Scout]."
+      }
+    },
+    "relicCode": "R0164",
+    "rarity": "SỬ THI",
+    "descriptionRaw": "Ban +1|+0 và Đột Kích.Sức Mạnh: Bắt Đầu Vòng Đấu: Nếu ngươi có lượt tấn công, ban Trinh Sát cho một đồng minh ngẫu nhiên.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0164.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0164-full.png",
+    "name": "Mệnh Lệnh Biệt Kích",
+    "description": "Ban +1|+0 và [k:Quick Strike|Đột Kích].\n[k:PathPower|Sức Mạnh]: [k:RoundStart|Bắt Đầu Vòng Đấu]: Nếu ngươi có lượt tấn công, ban [k:Scout|Trinh Sát] cho một đồng minh ngẫu nhiên.",
+    "stack": "3",
+    "type": "Chung"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Makeshift Mayhem",
+        "descriptionRaw": "Play: Create 3 random cards in hand. They cost 1 and are Fleeting.",
+        "rarity": "RARE",
+        "description": "[k:Play|Play]: Create 3 random cards in hand. They cost 1 and are [k:Fleeting|Fleeting]."
+      }
+    },
+    "relicCode": "R0162",
+    "rarity": "HIẾM",
+    "descriptionRaw": "Xuất Trận: Tạo trên tay 3 lá bài ngẫu nhiên. Chúng là Phù Du và có 1 tiêu hao.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0162.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0162-full.png",
+    "name": "Hỗn Loạn Tạm Thời",
+    "description": "[k:Play|Xuất Trận]: Tạo trên tay 3 lá bài ngẫu nhiên. Chúng là [k:Fleeting|Phù Du] và có 1 tiêu hao.",
+    "stack": "3",
+    "type": "Chung"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "The Equalizer",
+        "descriptionRaw": "Play: Shrink the strongest enemy to my stats.",
+        "rarity": "RARE",
+        "description": "[k:Play|Play]: Shrink the [k:Strongest|strongest] enemy to my stats.\n"
+      }
+    },
+    "relicCode": "R0178",
+    "rarity": "HIẾM",
+    "descriptionRaw": "Xuất Trận: Thu nhỏ kẻ địch mạnh nhất và biến nó thành chỉ số của ta.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0178.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0178-full.png",
+    "name": "Mưa Tên Lửa",
+    "description": "[k:Play|Xuất Trận]: Thu nhỏ kẻ địch [k:Strongest|mạnh nhất] và biến nó thành chỉ số của ta.\n",
+    "stack": "3",
+    "type": "Chung"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Whirling Blade",
+        "descriptionRaw": "When I'm summoned or Attack: Deal 1 to all enemies.",
+        "rarity": "EPIC",
+        "description": "When I'm summoned or [k:Attack|Attack]: Deal 1 to all enemies."
+      }
+    },
+    "relicCode": "R0160",
+    "rarity": "SỬ THI",
+    "descriptionRaw": "Khi ta được triệu hồi hoặc Tấn Công: Gây 1 sát thương lên tất cả kẻ địch.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0160.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0160-full.png",
+    "name": "Lưỡi Kiếm Lốc Xoáy",
+    "description": "Khi ta được triệu hồi hoặc [k:Attack|Tấn Công]: Gây 1 sát thương lên tất cả kẻ địch.",
+    "stack": "3",
+    "type": "Chung"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Blood Brand",
+        "descriptionRaw": "When you play another ally, deal 1 to it and grant me +1|+1.",
+        "rarity": "RARE",
+        "description": "When you play another ally, deal 1 to it and grant me +1|+1."
+      }
+    },
+    "relicCode": "R0169",
+    "rarity": "HIẾM",
+    "descriptionRaw": "Khi ngươi sử dụng 1 đồng minh khác, gây 1 sát thương lên đồng minh đó và ban cho ta +1|+1.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0169.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0169-full.png",
+    "name": "Dấu Án Máu",
+    "description": "Khi ngươi sử dụng 1 đồng minh khác, gây 1 sát thương lên đồng minh đó và ban cho ta +1|+1.",
+    "stack": "3",
+    "type": "Chung"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Price of Retribution",
+        "descriptionRaw": "+2|+0 and Deathless.Power: When an ally dies, deal 1 to the enemy Nexus.",
+        "rarity": "EPIC",
+        "description": "+2|+0 and [k:Deathless|Deathless].\n[k:PathPower|Power]: When an ally dies, deal 1 to the enemy Nexus."
+      }
+    },
+    "relicCode": "R0166",
+    "rarity": "SỬ THI",
+    "descriptionRaw": "Ban +2|+0 và Bất Diệt.Sức Mạnh: Khi 1 đồng minh hy sinh, gây 1 sát thương lên Nhà Chính của đối thủ.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0166.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0166-full.png",
+    "name": "Cái Giá Của Sự Báo Thù",
+    "description": "Ban +2|+0 và [k:Deathless|Bất Diệt].\n[k:PathPower|Sức Mạnh]: Khi 1 đồng minh hy sinh, gây 1 sát thương lên Nhà Chính của đối thủ.",
+    "stack": "3",
+    "type": "Chung"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Innervating Locket",
+        "descriptionRaw": "Power: When you play a Stance Swap, heal your Nexus 2 and refill 1 spell mana.",
+        "rarity": "EPIC",
+        "description": "[k:PathPower|Power]: When you play a [cd:05FR010|Stance Swap|icon,img-full], heal your Nexus 2 and refill 1 spell mana."
+      }
+    },
+    "relicCode": "R0155",
+    "rarity": "SỬ THI",
+    "descriptionRaw": "Sức Mạnh: Khi ngươi triệu hồi một lá Đổi Thế Võ, hồi 2 máu cho Nhà Chính của ngươi và hồi 1 năng lượng bài phép.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0155.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0155-full.png",
+    "name": "Dây Chuyền Tự Lực",
+    "description": "[k:PathPower|Sức Mạnh]: Khi ngươi triệu hồi một lá [cd:05FR010|Đổi Thế Võ|icon,img-full], hồi 2 máu cho Nhà Chính của ngươi và hồi 1 năng lượng bài phép.",
+    "stack": "3",
+    "type": "Chung"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Fate's Hand",
+        "descriptionRaw": "Game Start: Add 10 random cards to your deck. Grant each a Common item, a Rare item, and an Epic item.",
+        "rarity": "RARE",
+        "description": "Game Start: Add 10 random cards to your deck. Grant each a Common item, a Rare item, and an Epic item."
+      }
+    },
+    "relicCode": "R0177",
+    "rarity": "HIẾM",
+    "descriptionRaw": "Bắt Đầu Trận Đấu: Thêm 10 lá bài ngẫu nhiên vào bộ bài của ngươi. Mỗi lá bài nhận một vật phẩm Thường, một vật phẩm Hiếm và một vật phẩm Sử Thi.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0177.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0177-full.png",
+    "name": "Lá Bài May Rủi",
+    "description": "Bắt Đầu Trận Đấu: Thêm 10 lá bài ngẫu nhiên vào bộ bài của ngươi. Mỗi lá bài nhận một vật phẩm Thường, một vật phẩm Hiếm và một vật phẩm Sử Thi.",
+    "stack": "3",
+    "type": "Chung"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Pack-A-Punch",
+        "descriptionRaw": "Allies have Impact.",
+        "rarity": "RARE",
+        "description": "Allies have [k:Impact|Impact]."
+      }
+    },
+    "relicCode": "R0170",
+    "rarity": "HIẾM",
+    "descriptionRaw": "Đồng minh có Khí Lực.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0170.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0170-full.png",
+    "name": "Đầy Sức Mạnh",
+    "description": "Đồng minh có [k:Impact|Khí Lực].",
+    "stack": "3",
+    "type": "Chung"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Sentinel's Plate",
+        "descriptionRaw": "Barrier\r\nWhen I survive damage, grant me +3|+3 and a random keyword.",
+        "rarity": "EPIC",
+        "description": "[k:Barrier|Barrier]\r\nWhen I survive damage, grant me +3|+3 and a random keyword."
+      }
+    },
+    "relicCode": "R0159",
+    "rarity": "SỬ THI",
+    "descriptionRaw": "Lá Chắn\r\nNếu ta nhận sát thương và sống sót, ban cho ta +3|+3 và một đặc điểm ngẫu nhiên.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0159.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0159-full.png",
+    "name": "Binh Đoàn Vệ Binh",
+    "description": "[k:Barrier|Lá Chắn]\r\nNếu ta nhận sát thương và sống sót, ban cho ta +3|+3 và một đặc điểm ngẫu nhiên.",
+    "stack": "3",
+    "type": "Chung"
   }
 ]

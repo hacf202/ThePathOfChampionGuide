@@ -261,8 +261,8 @@ function RandomizerPage() {
 
 	if (isLoading) {
 		return (
-			<div className='bg-slate-600 min-h-screen flex items-center justify-center'>
-				<Loader2 className='animate-spin text-white' size={64} />
+			<div className='bg-page-bg min-h-screen flex items-center justify-center'>
+				<Loader2 className='animate-spin text-primary-500' size={64} />
 			</div>
 		);
 	}
@@ -273,7 +273,7 @@ function RandomizerPage() {
 				title={tUI("randomWheel.pageTitle")}
 				description={tUI("randomWheel.pageDesc")}
 			/>
-			<div className='bg-gradient-to-br from-slate-600 to-gray-100 min-h-screen flex relative overflow-hidden'>
+			<div className='bg-page-bg min-h-screen flex relative overflow-hidden'>
 				{isPanelOpen && (
 					<div
 						onClick={() => setIsPanelOpen(false)}
@@ -303,7 +303,7 @@ function RandomizerPage() {
 				{!isPanelOpen && (
 					<button
 						onClick={() => setIsPanelOpen(true)}
-						className='fixed top-1/2 right-0 -translate-y-1/2 bg-slate-800 text-white p-3 rounded-l-lg shadow-lg z-40 hover:bg-slate-700 transition-all'
+						className='fixed top-1/2 right-0 -translate-y-1/2 bg-surface-bg text-text-primary p-3 rounded-l-lg shadow-lg z-40 hover:bg-surface-hover border border-border border-r-0 transition-all'
 					>
 						<svg
 							xmlns='http://www.w3.org/2000/svg'

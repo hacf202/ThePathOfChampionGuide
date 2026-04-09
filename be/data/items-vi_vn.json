@@ -1,7 +1,7 @@
 [
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0070.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0070-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0070.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0070-full.png",
     "description": "<link=keyword.SpellShield><sprite name=SpellShield><style=Keyword>Khiên Phép</style></link>",
     "descriptionRaw": "Khiên Phép",
     "name": "Bùa Canh Giữ",
@@ -10,8 +10,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0108.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0108-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0108.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0108-full.png",
     "description": "<link=keyword.Burst><sprite name=Burst><style=Keyword>Siêu Tốc</style></link>",
     "descriptionRaw": "Siêu Tốc",
     "name": "Đồng Hồ Ngưng Đọng",
@@ -20,8 +20,8 @@
     "rarityRef": "Special"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0018.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0018-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0018.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0018-full.png",
     "description": "Khi ta được triệu hồi, <link=vocab.Advance><style=Vocab>Đẩy Nhanh</style></link> ta lên 1 vòng.",
     "descriptionRaw": "Khi ta được triệu hồi, Đẩy Nhanh ta lên 1 vòng.",
     "name": "Đồng Hồ Ngưng Đọng",
@@ -30,8 +30,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0185.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0185-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0185.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0185-full.png",
     "description": "<link=keyword.Elemental Skill><sprite name=ElementalSkill><style=Keyword>Xuất Trận</style></link>: Gây 1 sát thương lên tất cả kẻ địch và Nhà Chính của đối thủ.<br>",
     "descriptionRaw": "Xuất Trận: Gây 1 sát thương lên tất cả kẻ địch và Nhà Chính của đối thủ.",
     "name": "Gai Băng",
@@ -40,8 +40,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0207.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0207-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0207.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0207-full.png",
     "description": "<link=keyword.SpellOverwhelm><sprite name=Overwhelm><style=Keyword>Áp Đảo</style></link> và 50% tỷ lệ <link=vocab.CriticalStrike><style=Vocab>Chí Mạng</style></link>",
     "descriptionRaw": "Áp Đảo và 50% tỷ lệ Chí Mạng",
     "name": "Găng Bảo Thạch",
@@ -50,8 +50,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0068.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0068-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0068.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0068-full.png",
     "description": "Khi ta được triệu hồi, ta sẽ <link=keyword.Capture><sprite name=Capture><style=Keyword>Bắt Giữ</style></link> kẻ địch <link=vocab.Strongest><style=Vocab>mạnh nhất</style></link>.",
     "descriptionRaw": "Khi ta được triệu hồi, ta sẽ Bắt Giữ kẻ địch mạnh nhất.",
     "name": "Găng Tay Băng Giá",
@@ -60,8 +60,8 @@
     "rarityRef": "Epic"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0062.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0062-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0062.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0062-full.png",
     "description": "Hồi máu cho Nhà Chính bằng với tiêu hao của ta.",
     "descriptionRaw": "Hồi máu cho Nhà Chính bằng với tiêu hao của ta.",
     "name": "Bình Máu",
@@ -70,8 +70,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0163.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0163-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0163.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0163-full.png",
     "description": "<link=vocab.Play><style=Vocab>Xuất Trận</style></link>: Triệu hồi 1 Rồng ngẫu nhiên có tiêu hao cơ bản của ta hoặc ít hơn.",
     "descriptionRaw": "Xuất Trận: Triệu hồi 1 Rồng ngẫu nhiên có tiêu hao cơ bản của ta hoặc ít hơn.",
     "name": "Trứng Rồng",
@@ -80,8 +80,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0079.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0079-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0079.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0079-full.png",
     "description": "Giảm 2 tiêu hao",
     "descriptionRaw": "Giảm 2 tiêu hao",
     "name": "Mề Đay Nomad",
@@ -90,8 +90,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0006.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0006-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0006.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0006-full.png",
     "description": "Bắt Đầu Trận Đấu: Rút ta lên nếu chưa có ta trên tay.",
     "descriptionRaw": "Bắt Đầu Trận Đấu: Rút ta lên nếu chưa có ta trên tay.",
     "name": "Thấu Kính Viễn Thị",
@@ -100,8 +100,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0123.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0123-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0123.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0123-full.png",
     "description": "<link=keyword.Deathless><sprite name=Deathless><style=Keyword>Bất Diệt</style></link>",
     "descriptionRaw": "Bất Diệt",
     "name": "Bất Tử",
@@ -110,8 +110,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0126.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0126-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0126.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0126-full.png",
     "description": "<link=keyword.Fated><sprite name=Fated><style=Keyword>Định Mệnh</style></link> và trở thành Tinh Linh",
     "descriptionRaw": "Định Mệnh và trở thành Tinh Linh",
     "name": "Đặc Ân Tinh Linh",
@@ -120,8 +120,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0187.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0187-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0187.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0187-full.png",
     "description": "<link=vocab.GatherStorm><style=Vocab>Gom Bão</style></link>",
     "descriptionRaw": "Gom Bão",
     "name": "Người Vận Bão",
@@ -130,8 +130,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0162.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0162-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0162.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0162-full.png",
     "description": "+5|+5",
     "descriptionRaw": "+5|+5",
     "name": "Búa Khổng Lồ",
@@ -140,8 +140,8 @@
     "rarityRef": "Epic"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0160.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0160-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0160.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0160-full.png",
     "description": "Gấp đôi sát thương, nhưng thêm 1 tiêu hao",
     "descriptionRaw": "Gấp đôi sát thương, nhưng thêm 1 tiêu hao",
     "name": "Ấn Nổ Lỗi",
@@ -150,8 +150,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0186.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0186-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0186.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0186-full.png",
     "description": "<link=keyword.Fast><sprite name=Fast><style=Keyword>Nhanh</style></link>",
     "descriptionRaw": "Nhanh",
     "name": "Đồng Hồ Vụn Vỡ",
@@ -160,8 +160,8 @@
     "rarityRef": "Special"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0034.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0034-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0034.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0034-full.png",
     "description": "<link=vocab.Attack><style=Vocab>Tấn Công</style></link>: Gài 5 lá <link=card.self><style=AssociatedCard>Nấm Độc</style></link> vào bộ bài của đối thủ.",
     "descriptionRaw": "Tấn Công: Gài 5 lá Nấm Độc vào bộ bài của đối thủ.",
     "name": "Rải Nấm",
@@ -170,8 +170,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0136.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0136-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0136.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0136-full.png",
     "description": "Đồng minh nhận +1|+1",
     "descriptionRaw": "Đồng minh nhận +1|+1",
     "name": "Phần Thưởng Dành Cho Anh Hùng",
@@ -180,8 +180,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0115.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0115-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0115.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0115-full.png",
     "description": "Giảm 2 tiêu hao và <link=keyword.Fleeting><sprite name=Fleeting><style=Keyword>Phù Du</style></link>",
     "descriptionRaw": "Giảm 2 tiêu hao và Phù Du",
     "name": "Tăng Tiền Cược",
@@ -190,8 +190,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0121.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0121-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0121.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0121-full.png",
     "description": "Hình Thành 1 bài quân <link=vocab.Titanic><style=Vocab>Khổng Lồ</style></link> và triệu hồi 2 <link=card.self><style=AssociatedCard>Biểu Tượng Bão Tố</style></link>.",
     "descriptionRaw": "Hình Thành 1 bài quân Khổng Lồ và triệu hồi 2 Biểu Tượng Bão Tố.",
     "name": "Triệu Hồi Bão Tố",
@@ -200,8 +200,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0118.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0118-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0118.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0118-full.png",
     "description": "Giảm 1 tiêu hao với mỗi lá bài ngươi đã rút trong vòng này.",
     "descriptionRaw": "Giảm 1 tiêu hao với mỗi lá bài ngươi đã rút trong vòng này.",
     "name": "Hợp Âm Sức Mạnh",
@@ -210,8 +210,8 @@
     "rarityRef": "Epic"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0113.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0113-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0113.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0113-full.png",
     "description": "+1|+0 và <link=keyword.Brash><sprite name=Brash><style=Keyword>Ngạo Mạn</style></link>",
     "descriptionRaw": "+1|+0 và Ngạo Mạn",
     "name": "Găng Tay San Hô",
@@ -220,8 +220,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0116.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0116-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0116.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0116-full.png",
     "description": "Gây 3 sát thương lên Nhà Chính của đối thủ.",
     "descriptionRaw": "Gây 3 sát thương lên Nhà Chính của đối thủ.",
     "name": "Thức Tỉnh Hỏa Thuật",
@@ -230,8 +230,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0124.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0124-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0124.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0124-full.png",
     "description": "Khi ngươi sử dụng 1 lá bài, trao cho ta +1|+1 trong vòng này.",
     "descriptionRaw": "Khi ngươi sử dụng 1 lá bài, trao cho ta +1|+1 trong vòng này.",
     "name": "Năng Lượng Máy Xúc",
@@ -240,8 +240,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0122.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0122-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0122.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0122-full.png",
     "description": "Khi ta được triệu hồi, biến ta thành 8|8.",
     "descriptionRaw": "Khi ta được triệu hồi, biến ta thành 8|8.",
     "name": "Hóa Khổng Lồ",
@@ -250,8 +250,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0120.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0120-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0120.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0120-full.png",
     "description": "Rút 1 bài quân.",
     "descriptionRaw": "Rút 1 bài quân.",
     "name": "Hiệu Triệu Anh Hùng",
@@ -260,8 +260,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0119.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0119-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0119.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0119-full.png",
     "description": "Tạo trên tay 1 lá Lướt Trên Mặt Nước.",
     "descriptionRaw": "Tạo trên tay 1 lá Lướt Trên Mặt Nước.",
     "name": "Gươm Roi",
@@ -270,8 +270,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0125.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0125-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0125.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0125-full.png",
     "description": "Khi ta được triệu hồi, rút 1 bài phép.",
     "descriptionRaw": "Khi ta được triệu hồi, rút 1 bài phép.",
     "name": "Kiến Thức Thần Bí",
@@ -280,8 +280,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0112.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0112-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0112.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0112-full.png",
     "description": "<link=keyword.Augment><sprite name=Augment><style=Keyword>Nâng Cấp</style></link> và trở thành Công Nghệ",
     "descriptionRaw": "Nâng Cấp và trở thành Công Nghệ",
     "name": "Tiến Hóa Công Nghệ",
@@ -290,8 +290,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0087.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0087-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0087.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0087-full.png",
     "description": "Ban 1 vật phẩm Sử Thi cho đồng minh <link=vocab.Strongest><style=Vocab>mạnh nhất</style></link> trong trận đấu này.",
     "descriptionRaw": "Ban 1 vật phẩm Sử Thi cho đồng minh mạnh nhất trong trận đấu này.",
     "name": "Chế Phẩm Hextech III",
@@ -300,8 +300,8 @@
     "rarityRef": "Epic"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0035.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0035-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0035.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0035-full.png",
     "description": "+1|+1, <link=keyword.Lurker><sprite name=Lurker><style=Keyword>Rình Rập</style></link> và ta là Kẻ Rình Rập.",
     "descriptionRaw": "+1|+1, Rình Rập và ta là Kẻ Rình Rập.",
     "name": "Thủy Thủ Mưu Mô",
@@ -310,8 +310,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0138.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0138-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0138.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0138-full.png",
     "description": "Bắt Đầu Trận Đấu: Triệu hồi 1 bản thể của ta từ bộ bài.",
     "descriptionRaw": "Bắt Đầu Trận Đấu: Triệu hồi 1 bản thể của ta từ bộ bài.",
     "name": "Sân Nhà",
@@ -320,8 +320,8 @@
     "rarityRef": "Epic"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0064.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0064-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0064.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0064-full.png",
     "description": "Tráo 2 bản sao của ta vào bộ bài. Các bản sao có 1 tiêu hao.",
     "descriptionRaw": "Tráo 2 bản sao của ta vào bộ bài. Các bản sao có 1 tiêu hao.",
     "name": "Bộ Bài Gian Xảo",
@@ -330,8 +330,18 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0088.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0088-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0193.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0193-full.png",
+    "description": "Giảm 1 tiêu hao và rút 1 lá bài.",
+    "descriptionRaw": "Giảm 1 tiêu hao và rút 1 lá bài.",
+    "name": "Dấu Ấn Của Medarda",
+    "itemCode": "I0193",
+    "rarity": "SỬ THI",
+    "rarityRef": "Epic"
+  },
+  {
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0088.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0088-full.png",
     "description": "+1 sát thương",
     "descriptionRaw": "+1 sát thương",
     "name": "Phong Ấn Tích Tụ I",
@@ -340,8 +350,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0095.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0095-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0095.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0095-full.png",
     "description": "Bắt Đầu Trận Đấu: Gài 1 lá <link=card.self><style=AssociatedCard>Cổng Dịch Chuyển Kỳ Bí</style></link> lên ta.",
     "descriptionRaw": "Bắt Đầu Trận Đấu: Gài 1 lá Cổng Dịch Chuyển Kỳ Bí lên ta.",
     "name": "Trà Của Norra",
@@ -350,8 +360,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0047.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0047-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0047.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0047-full.png",
     "description": "<link=keyword.Quick Strike><sprite name=QuickStrike><style=Keyword>Đột Kích</style></link>",
     "descriptionRaw": "Đột Kích",
     "name": "Băng Quấn Tốc Độ",
@@ -360,8 +370,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0142.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0142-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0142.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0142-full.png",
     "description": "Khi ở trên tay, ta có một đặc điểm ngẫu nhiên thay đổi mỗi vòng đấu. Khi ta được triệu hồi, ban cho ta đặc điểm đó.",
     "descriptionRaw": "Khi ở trên tay, ta có một đặc điểm ngẫu nhiên thay đổi mỗi vòng đấu. Khi ta được triệu hồi, ban cho ta đặc điểm đó.",
     "name": "Vỏ Bọc Hư Không",
@@ -370,8 +380,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0154.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0154-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0154.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0154-full.png",
     "description": "<link=vocab.Play><style=Vocab>Xuất Trận</style></link>: Sử dụng 2 Ân Huệ Rồng ngẫu nhiên lên ta.",
     "descriptionRaw": "Xuất Trận: Sử dụng 2 Ân Huệ Rồng ngẫu nhiên lên ta.",
     "name": "Linh Hồn Bốc Lửa",
@@ -380,8 +390,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0111.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0111-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0111.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0111-full.png",
     "description": "Ra Đòn: Rút 1 lá bài",
     "descriptionRaw": "Ra Đòn: Rút 1 lá bài",
     "name": "Mồi Nhử Hấp Dẫn",
@@ -390,8 +400,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0132.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0132-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0132.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0132-full.png",
     "description": "Đối thủ bỏ 1 lá bài ngẫu nhiên.",
     "descriptionRaw": "Đối thủ bỏ 1 lá bài ngẫu nhiên.",
     "name": "Sâu Não",
@@ -400,8 +410,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0045.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0045-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0045.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0045-full.png",
     "description": "+3|+1",
     "descriptionRaw": "+3|+1",
     "name": "Búa Vệ Thần",
@@ -410,8 +420,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0106.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0106-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0106.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0106-full.png",
     "description": "<link=keyword.Scout><sprite name=Scout><style=Keyword>Trinh Sát</style></link>",
     "descriptionRaw": "Trinh Sát",
     "name": "Ma Vũ Song Kiếm",
@@ -420,8 +430,8 @@
     "rarityRef": "Epic"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0184.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0184-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0184.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0184-full.png",
     "description": "<link=vocab.Play><style=Vocab>Xuất Trận</style></link>: Tạo trên tay 1 bài phép Nguyên Tố ngẫu nhiên.<br>",
     "descriptionRaw": "Xuất Trận: Tạo trên tay 1 bài phép Nguyên Tố ngẫu nhiên.",
     "name": "Nghiên Cứu Nguyên Tố",
@@ -430,8 +440,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0011.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0011-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0011.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0011-full.png",
     "description": "Giảm tiêu hao của ta bằng với tiêu hao của anh hùng đồng minh có tiêu hao cao nhất.",
     "descriptionRaw": "Giảm tiêu hao của ta bằng với tiêu hao của anh hùng đồng minh có tiêu hao cao nhất.",
     "name": "Đai Lưng Hextech-01",
@@ -440,8 +450,8 @@
     "rarityRef": "Epic"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0090.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0090-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0090.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0090-full.png",
     "description": "+4 sát thương",
     "descriptionRaw": "+4 sát thương",
     "name": "Phong Ấn Tích Tụ III",
@@ -450,8 +460,8 @@
     "rarityRef": "Epic"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0167.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0167-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0167.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0167-full.png",
     "description": "+7|+7, nhưng +3 tiêu hao",
     "descriptionRaw": "+7|+7, nhưng +3 tiêu hao",
     "name": "Hoàng Kim Giáp ",
@@ -460,8 +470,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0014.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0014-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0014.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0014-full.png",
     "description": "Khi ta được triệu hồi, nhân đôi Sức Mạnh và Máu của ta.",
     "descriptionRaw": "Khi ta được triệu hồi, nhân đôi Sức Mạnh và Máu của ta.",
     "name": "Rìu Đen",
@@ -470,8 +480,8 @@
     "rarityRef": "Epic"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0093.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0093-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0093.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0093-full.png",
     "description": "Triệu hồi 1 anh hùng ngẫu nhiên có tiêu hao bằng ta.",
     "descriptionRaw": "Triệu hồi 1 anh hùng ngẫu nhiên có tiêu hao bằng ta.",
     "name": "Đá Triệu Hồi Sư",
@@ -480,8 +490,8 @@
     "rarityRef": "Epic"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0082.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0082-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0082.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0082-full.png",
     "description": "<link=vocab.RoundStart><style=Vocab>Bắt Đầu Vòng Đấu</style></link>: Nhận thêm 1 ngọc năng lượng trong vòng này.",
     "descriptionRaw": "Bắt Đầu Vòng Đấu: Nhận thêm 1 ngọc năng lượng trong vòng này.",
     "name": "Túi Tinh Thể",
@@ -490,8 +500,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0205.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0205-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0205.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0205-full.png",
     "description": "Khi ta được triệu hồi, ban +2|+2 cho các đồng minh khác có cùng nhóm bài phụ với ta.",
     "descriptionRaw": "Khi ta được triệu hồi, ban +2|+2 cho các đồng minh khác có cùng nhóm bài phụ với ta.",
     "name": "Xẻng Vàng Ròng",
@@ -500,8 +510,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0038.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0038-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0038.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0038-full.png",
     "description": "+0|+2",
     "descriptionRaw": "+0|+2",
     "name": "Đai Khổng Lồ",
@@ -510,8 +520,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0037.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0037-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0037.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0037-full.png",
     "description": "+1|+1",
     "descriptionRaw": "+1|+1",
     "name": "Áo Da Tán Đinh",
@@ -520,8 +530,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0080.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0080-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0080.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0080-full.png",
     "description": "<link=vocab.RoundEnd><style=Vocab>Kết Thúc Vòng Đấu</style></link>: Gây 1 sát thương lên ta và ban cho ta +2|+0.",
     "descriptionRaw": "Kết Thúc Vòng Đấu: Gây 1 sát thương lên ta và ban cho ta +2|+0.",
     "name": "Quyền Trượng Huyết Tự",
@@ -530,8 +540,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0109.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0109-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0109.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0109-full.png",
     "description": "Tạo trên tay 1 lá ngẫu nhiên từ Bộ Bài Đế Vương.",
     "descriptionRaw": "Tạo trên tay 1 lá ngẫu nhiên từ Bộ Bài Đế Vương.",
     "name": "Đặc Ân Đế Vương",
@@ -540,8 +550,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0133.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0133-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0133.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0133-full.png",
     "description": "+4|+0 và <link=keyword.Reckless><sprite name=Reckless><style=Keyword>Không Thể Chặn Đòn</style></link>",
     "descriptionRaw": "+4|+0 và Không Thể Chặn Đòn",
     "name": "Giận Phát Cuồng",
@@ -550,8 +560,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0076.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0076-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0076.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0076-full.png",
     "description": "<link=keyword.Tough><sprite name=Tough><style=Keyword>Kiên Cường</style></link>",
     "descriptionRaw": "Kiên Cường",
     "name": "Giáp Lưới",
@@ -560,8 +570,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0171.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0171-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0171.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0171-full.png",
     "description": "<link=vocab.Play><style=Vocab>Xuất Trận</style></link>: Triệu hồi 1 bản sao y hệt của ta.",
     "descriptionRaw": "Xuất Trận: Triệu hồi 1 bản sao y hệt của ta.",
     "name": "Phản Chiếu Đích Thực",
@@ -570,8 +580,8 @@
     "rarityRef": "Epic"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0015.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0015-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0015.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0015-full.png",
     "description": "Khi ta được triệu hồi, tạo trên tay 1 bản sao <link=keyword.Fleeting><sprite name=Fleeting><style=Keyword>Phù Du</style></link> của ta.",
     "descriptionRaw": "Khi ta được triệu hồi, tạo trên tay 1 bản sao Phù Du của ta.",
     "name": "Đá Tâm Linh",
@@ -580,8 +590,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0042.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0042-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0042.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0042-full.png",
     "description": "+1|+3",
     "descriptionRaw": "+1|+3",
     "name": "Khiên Hoang Dại",
@@ -590,8 +600,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0009.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0009-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0009.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0009-full.png",
     "description": "<link=vocab.Attack><style=Vocab>Tấn Công</style></link>: <link=keyword.Nab><style=Keyword>Đánh Cắp</style></link> 1 lá bài.",
     "descriptionRaw": "Tấn Công: Đánh Cắp 1 lá bài.",
     "name": "Công Cụ Đánh Cắp",
@@ -600,8 +610,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0056.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0056-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0056.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0056-full.png",
     "description": "Giảm 3 tiêu hao",
     "descriptionRaw": "Giảm 3 tiêu hao",
     "name": "Cốc Hài Hòa",
@@ -610,8 +620,8 @@
     "rarityRef": "Epic"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0144.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0144-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0144.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0144-full.png",
     "description": "<link=keyword.Spirit><sprite name=Spirit><style=Keyword>Linh Hồn</style></link>",
     "descriptionRaw": "Linh Hồn",
     "name": "Trượng Rạng Ngời",
@@ -620,8 +630,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0067.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0067-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0067.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0067-full.png",
     "description": "Khi ngươi sử dụng 1 bài phép, ban cho ta +1|+1.",
     "descriptionRaw": "Khi ngươi sử dụng 1 bài phép, ban cho ta +1|+1.",
     "name": "Tinh Thể Tiêu Điểm",
@@ -630,8 +640,8 @@
     "rarityRef": "Epic"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0033.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0033-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0033.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0033-full.png",
     "description": "Khi ta được triệu hồi, triệu hồi 1 bản sao của ta.",
     "descriptionRaw": "Khi ta được triệu hồi, triệu hồi 1 bản sao của ta.",
     "name": "Cổng Zz'Rot",
@@ -640,8 +650,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0096.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0096-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0096.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0096-full.png",
     "description": "<link=vocab.Attack><style=Vocab>Tấn Công:</style></link> Ban +1|+1 cho người mang ta.",
     "descriptionRaw": "Tấn Công: Ban +1|+1 cho người mang ta.",
     "name": "Thủy Kiếm",
@@ -650,8 +660,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0052.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0052-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0052.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0052-full.png",
     "description": "50% cơ hội tạo trên tay 1 bản sao 0 tiêu hao của ta trong vòng này.",
     "descriptionRaw": "50% cơ hội tạo trên tay 1 bản sao 0 tiêu hao của ta trong vòng này.",
     "name": "Xúc Xắc Nhân Đôi",
@@ -660,8 +670,8 @@
     "rarityRef": "Epic"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0196.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0196-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0196.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0196-full.png",
     "description": "Ban 1 vật phẩm Sử Thi cho những đồng minh bị chọn làm mục tiêu.",
     "descriptionRaw": "Ban 1 vật phẩm Sử Thi cho những đồng minh bị chọn làm mục tiêu.",
     "name": "Khí Tài Thần Linh",
@@ -670,8 +680,8 @@
     "rarityRef": "Epic"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0110.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0110-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0110.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0110-full.png",
     "description": "Ta có 1 tiêu hao và chỉ số cơ bản của ta là 1|1. Ta là Poro.",
     "descriptionRaw": "Ta có 1 tiêu hao và chỉ số cơ bản của ta là 1|1. Ta là Poro.",
     "name": "Poro Bông Mềm",
@@ -680,8 +690,8 @@
     "rarityRef": "Epic"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0071.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0071-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0071.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0071-full.png",
     "description": "<link=keyword.Support><style=Keyword>Hỗ Trợ</style></link>: Ban +1|+1 cho đồng minh được ta hỗ trợ.",
     "descriptionRaw": "Hỗ Trợ: Ban +1|+1 cho đồng minh được ta hỗ trợ.",
     "name": "Vòng Tay Targon",
@@ -690,8 +700,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0091.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0091-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0091.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0091-full.png",
     "description": "+2 sát thương",
     "descriptionRaw": "+2 sát thương",
     "name": "Phong Ấn Tích Tụ II",
@@ -700,8 +710,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0027.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0027-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0027.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0027-full.png",
     "description": "Khi ta được triệu hồi hoặc bị phá huỷ, hồi máu cho Nhà Chính bằng với tiêu hao của ta.",
     "descriptionRaw": "Khi ta được triệu hồi hoặc bị phá huỷ, hồi máu cho Nhà Chính bằng với tiêu hao của ta.",
     "name": "Vòng Tay Pha Lê",
@@ -710,8 +720,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0039.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0039-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0039.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0039-full.png",
     "description": "<link=keyword.Overwhelm><sprite name=Overwhelm><style=Keyword>Áp Đảo</style></link>",
     "descriptionRaw": "Áp Đảo",
     "name": "Đại Trượng",
@@ -720,8 +730,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0209.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0209-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0209.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0209-full.png",
     "description": "Ta có tất cả các nhóm bài phụ",
     "descriptionRaw": "Ta có tất cả các nhóm bài phụ",
     "name": "Chảo Vàng Ròng",
@@ -730,8 +740,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0013.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0013-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0013.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0013-full.png",
     "description": "<link=keyword.Elusive><sprite name=Elusive><style=Keyword>Huyền Ảo</style></link>",
     "descriptionRaw": "Huyền Ảo",
     "name": "Giày Ninja",
@@ -740,8 +750,8 @@
     "rarityRef": "Epic"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0036.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0036-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0036.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0036-full.png",
     "description": "<link=keyword.Last Breath><sprite name=LastBreath><style=Keyword>Trăng Trối</style></link>: <link=vocab.Rally><style=Vocab>Tiến Công</style></link>",
     "descriptionRaw": "Trăng Trối: Tiến Công",
     "name": "Cờ Lệnh Tiến Công",
@@ -750,8 +760,8 @@
     "rarityRef": "Epic"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0021.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0021-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0021.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0021-full.png",
     "description": "Khi ta được triệu hồi, ta sẽ <link=keyword.Capture><sprite name=Capture><style=Keyword>Bắt Giữ</style></link> kẻ địch <link=vocab.Strongest><style=Vocab>Mạnh Nhất</style></link>.",
     "descriptionRaw": "Khi ta được triệu hồi, ta sẽ Bắt Giữ kẻ địch Mạnh Nhất.",
     "name": "Kho Báu Sa Lưới",
@@ -760,8 +770,8 @@
     "rarityRef": "Epic"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0072.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0072-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0072.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0072-full.png",
     "description": "<link=keyword.Support><style=Keyword>Hỗ Trợ</style></link>: Trao +1|+1 và đặc điểm của ta cho đồng minh được ta hỗ trợ trong vòng này.",
     "descriptionRaw": "Hỗ Trợ: Trao +1|+1 và đặc điểm của ta cho đồng minh được ta hỗ trợ trong vòng này.",
     "name": "Khiên Gắn Kết",
@@ -770,8 +780,8 @@
     "rarityRef": "Epic"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0130.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0130-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0130.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0130-full.png",
     "description": "<link=keyword.Double Strike><sprite name=DoubleStrike><style=Keyword>Song Kích</style></link>",
     "descriptionRaw": "Song Kích",
     "name": "Nắm Đấm Hạng Nặng",
@@ -780,8 +790,8 @@
     "rarityRef": "Epic"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0084.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0084-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0084.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0084-full.png",
     "description": "Trao +1|+1 cho đồng minh trong vòng này.",
     "descriptionRaw": "Trao +1|+1 cho đồng minh trong vòng này.",
     "name": "Cờ Hiệu Giao Tranh",
@@ -790,8 +800,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0065.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0065-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0065.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0065-full.png",
     "description": "<link=vocab.Predict><style=Vocab>Tiên Đoán</style></link>",
     "descriptionRaw": "Tiên Đoán",
     "name": "Máy Quét Oracle",
@@ -800,8 +810,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0074.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0074-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0074.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0074-full.png",
     "description": "Khi ta được triệu hồi, hồi máu cho Nhà Chính bằng với tiêu hao của ta.",
     "descriptionRaw": "Khi ta được triệu hồi, hồi máu cho Nhà Chính bằng với tiêu hao của ta.",
     "name": "Huyết Trượng",
@@ -810,8 +820,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0179.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0179-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0179.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0179-full.png",
     "description": "+2|+1.<br>Xuất Trận: Gây 2 sát thương lên mỗi Nhà Chính.",
     "descriptionRaw": "+2|+1.Xuất Trận: Gây 2 sát thương lên mỗi Nhà Chính.",
     "name": "Búa Gỗ Tà Ác",
@@ -820,8 +830,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0097.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0097-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0097.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0097-full.png",
     "description": "<link=keyword.Challenger><sprite name=Challenger><style=Keyword>Thách Đấu</style></link>",
     "descriptionRaw": "Thách Đấu",
     "name": "Đoản Kiếm Bilgewater",
@@ -830,8 +840,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0183.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0183-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0183.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0183-full.png",
     "description": "Khi ta gây sát thương lên 1 kẻ địch, đánh dấu nó.",
     "descriptionRaw": "Khi ta gây sát thương lên 1 kẻ địch, đánh dấu nó.",
     "name": "Dấu Ấn Của Kindred",
@@ -840,8 +850,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0000.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0000-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0000.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0000-full.png",
     "description": "Ban +3|+3 cho đồng minh gần nhất trong bộ bài.",
     "descriptionRaw": "Ban +3|+3 cho đồng minh gần nhất trong bộ bài.",
     "name": "Lư Hương Sôi Sục",
@@ -850,8 +860,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0146.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0146-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0146.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0146-full.png",
     "description": "<link=keyword.Hallowed><sprite name=Hallowed><style=Keyword>Ước Nguyện</style></link>",
     "descriptionRaw": "Ước Nguyện",
     "name": "Giai Điệu Diệu Kỳ",
@@ -860,8 +870,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0086.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0086-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0086.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0086-full.png",
     "description": "Ban 1 vật phẩm Hiếm cho đồng minh <link=vocab.Strongest><style=Vocab>mạnh nhất</style></link> trong trận đấu này.",
     "descriptionRaw": "Ban 1 vật phẩm Hiếm cho đồng minh mạnh nhất trong trận đấu này.",
     "name": "Chế Phẩm Hextech II",
@@ -870,8 +880,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0012.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0012-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0012.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0012-full.png",
     "description": "<link=vocab.Play><style=Vocab>Xuất Trận</style></link>: Triệu hồi 1 bản sao <link=keyword.Ephemeral><sprite name=Ephemeral><style=Keyword>Cảm Tử</style></link> y hệt của ta.",
     "descriptionRaw": "Xuất Trận: Triệu hồi 1 bản sao Cảm Tử y hệt của ta.",
     "name": "Vật Tổ Bóng Đêm",
@@ -880,8 +890,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0054.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0054-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0054.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0054-full.png",
     "description": "Ta có 0 tiêu hao. Gây sát thương lên Nhà Chính của ngươi bằng với tiêu hao gốc của ta.",
     "descriptionRaw": "Ta có 0 tiêu hao. Gây sát thương lên Nhà Chính của ngươi bằng với tiêu hao gốc của ta.",
     "name": "Lăng Kính Huyết Giá",
@@ -890,8 +900,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0002.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0002-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0002.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0002-full.png",
     "description": "<link=keyword.Fleeting><sprite name=Fleeting><style=Keyword>Phù Du</style></link>",
     "descriptionRaw": "Phù Du",
     "name": "Hòn Đá Bị Nguyền",
@@ -900,8 +910,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0001.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0001-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0001.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0001-full.png",
     "description": "Không thể chặn đòn",
     "descriptionRaw": "Không thể chặn đòn",
     "name": "Giáp Han Gỉ",
@@ -910,8 +920,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0005.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0005-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0005.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0005-full.png",
     "description": "-1|-0",
     "descriptionRaw": "-1|-0",
     "name": "Kiếm Han Gỉ",
@@ -920,8 +930,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0003.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0003-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0003.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0003-full.png",
     "description": "<link=keyword.Ephemeral><sprite name=Ephemeral><style=Keyword>Cảm Tử</style></link>",
     "descriptionRaw": "Cảm Tử",
     "name": "Áo Choàng Bị Nguyền",
@@ -930,8 +940,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0004.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0004-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0004.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0004-full.png",
     "description": "+1 tiêu hao",
     "descriptionRaw": "+1 tiêu hao",
     "name": "Bình Năng Lượng Hết Hạn",
@@ -940,8 +950,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0174.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0174-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0174.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0174-full.png",
     "description": "Hồi đầy Năng lượng bài phép.",
     "descriptionRaw": "Hồi đầy Năng lượng bài phép.",
     "name": "Tia Chớp Sáng Chói",
@@ -950,8 +960,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0089.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0089-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0089.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0089-full.png",
     "description": "Ban +6|+6 cho đồng minh gần nhất trong bộ bài.",
     "descriptionRaw": "Ban +6|+6 cho đồng minh gần nhất trong bộ bài.",
     "name": "Lư Hương Khổng Lồ",
@@ -960,8 +970,8 @@
     "rarityRef": "Epic"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0169.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0169-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0169.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0169-full.png",
     "description": "+5|+0",
     "descriptionRaw": "+5|+0",
     "name": "Cuốc Chim Của Người Khổng Lồ",
@@ -970,8 +980,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0140.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0140-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0140.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0140-full.png",
     "description": "Khi ta được triệu hồi, gài 6 lá <link=card.self><style=AssociatedCard>Chuông</style></link> lên các lá bài ngẫu nhiên trong bộ bài.",
     "descriptionRaw": "Khi ta được triệu hồi, gài 6 lá Chuông lên các lá bài ngẫu nhiên trong bộ bài.",
     "name": "Phước Họa Lãng Khách",
@@ -980,8 +990,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0049.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0049-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0049.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0049-full.png",
     "description": "Khi ngươi sử dụng 1 bài phép, giảm 1 tiêu hao của ta.",
     "descriptionRaw": "Khi ngươi sử dụng 1 bài phép, giảm 1 tiêu hao của ta.",
     "name": "Bí Kíp Pháp Sư",
@@ -990,8 +1000,8 @@
     "rarityRef": "Epic"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0060.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0060-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0060.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0060-full.png",
     "description": "Triệu hồi 1 tùy tùng bằng tiêu hao của ta từ khu vực đồng minh.",
     "descriptionRaw": "Triệu hồi 1 tùy tùng bằng tiêu hao của ta từ khu vực đồng minh.",
     "name": "Hải Đăng Triệu Hồi",
@@ -1000,8 +1010,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0078.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0078-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0078.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0078-full.png",
     "description": "Khi ta được triệu hồi, rút 1 lá bài.",
     "descriptionRaw": "Khi ta được triệu hồi, rút 1 lá bài.",
     "name": "Đá Hiền Triết",
@@ -1010,8 +1020,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0044.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0044-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0044.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0044-full.png",
     "description": "+3|+3",
     "descriptionRaw": "+3|+3",
     "name": "Rìu Nhanh Nhẹn",
@@ -1020,8 +1030,8 @@
     "rarityRef": "Epic"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0019.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0019-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0019.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0019-full.png",
     "description": "+1|+1, <link=keyword.Fury><sprite name=Fury><style=Keyword>Cuồng Nộ</style></link> và ta là Rồng.",
     "descriptionRaw": "+1|+1, Cuồng Nộ và ta là Rồng.",
     "name": "Long Nha",
@@ -1030,8 +1040,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0007.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0007-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0007.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0007-full.png",
     "description": "<link=keyword.Challenger><sprite name=Challenger><style=Keyword>Thách Đấu</style></link>",
     "descriptionRaw": "Thách Đấu",
     "name": "Đao Đụng Độ",
@@ -1040,8 +1050,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0206.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0206-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0206.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0206-full.png",
     "description": "Ban +3|+3, <link=keyword.Overwhelm><sprite name=Overwhelm><style=Keyword>Áp Đảo</style></link>, <link=keyword.Quick Strike><sprite name=QuickStrike><style=Keyword>Đột Kích</style></link>, <link=keyword.Challenger><sprite name=Challenger><style=Keyword>Thách Đấu</style></link>",
     "descriptionRaw": "Ban +3|+3, Áp Đảo, Đột Kích, Thách Đấu",
     "name": "Tam Luyện Kiếm",
@@ -1050,8 +1060,8 @@
     "rarityRef": "Epic"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0201.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0201-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0201.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0201-full.png",
     "description": "Ban +1|+1, <link=keyword.Fearsome><sprite name=Fearsome><style=Keyword>Đáng Sợ</style></link> và ta là Nhện.",
     "descriptionRaw": "Ban +1|+1, Đáng Sợ và ta là Nhện.",
     "name": "Nanh Nhện",
@@ -1060,8 +1070,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0147.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0147-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0147.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0147-full.png",
     "description": "<link=keyword.Last Breath><sprite name=LastBreath><style=Keyword>Trăng Trối</style></link>: Triệu hồi 1 bài quân 1 tiêu hao ngẫu nhiên từ khu vực của bạn.",
     "descriptionRaw": "Trăng Trối: Triệu hồi 1 bài quân 1 tiêu hao ngẫu nhiên từ khu vực của bạn.",
     "name": "Bảng Truy Nã",
@@ -1070,8 +1080,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0026.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0026-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0026.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0026-full.png",
     "description": "Ta có <link=vocab.Countdown><style=Vocab>Đếm Ngược Từ</style></link> 3: Gây sát thương lên Nhà Chính của đối thủ bằng với 2 lần tiêu hao của ta.",
     "descriptionRaw": "Ta có Đếm Ngược Từ 3: Gây sát thương lên Nhà Chính của đối thủ bằng với 2 lần tiêu hao của ta.",
     "name": "Nhà Giả Kim Hỏa Công",
@@ -1080,8 +1090,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0061.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0061-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0061.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0061-full.png",
     "description": "<link=keyword.Plunder><style=Keyword>Cưỡng Đoạt</style></link>: Ta được giảm 3 tiêu hao.",
     "descriptionRaw": "Cưỡng Đoạt: Ta được giảm 3 tiêu hao.",
     "name": "Dị Vật Tai Ương",
@@ -1090,8 +1100,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0092.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0092-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0092.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0092-full.png",
     "description": "Triệu hồi 1 lá <link=card.self><style=AssociatedCard>Poro Hùng Dũng</style></link>.",
     "descriptionRaw": "Triệu hồi 1 lá Poro Hùng Dũng.",
     "name": "Râu Kẽm Hùng Dũng",
@@ -1100,8 +1110,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0048.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0048-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0048.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0048-full.png",
     "description": "+3|+3, nhưng tăng thêm 1 tiêu hao",
     "descriptionRaw": "+3|+3, nhưng tăng thêm 1 tiêu hao",
     "name": "Giáp Tấm Thậm Minh",
@@ -1110,8 +1120,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0024.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0024-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0024.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0024-full.png",
     "description": "Khi ta được triệu hồi, rút 1 lá bài.",
     "descriptionRaw": "Khi ta được triệu hồi, rút 1 lá bài.",
     "name": "Dược Phẩm Kỹ Năng",
@@ -1120,8 +1130,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0075.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0075-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0075.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0075-full.png",
     "description": "Giảm 1 tiêu hao",
     "descriptionRaw": "Giảm 1 tiêu hao",
     "name": "Đồng Xu Cổ Đại",
@@ -1130,8 +1140,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0073.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0073-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0073.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0073-full.png",
     "description": "+2|+2 và khi ta được triệu hồi, kẻ địch <link=vocab.Strongest><style=Vocab>mạnh nhất</style></link> và ta sẽ <link=vocab.Strike><style=Vocab>ra đòn</style></link> đánh lẫn nhau.",
     "descriptionRaw": "+2|+2 và khi ta được triệu hồi, kẻ địch mạnh nhất và ta sẽ ra đòn đánh lẫn nhau.",
     "name": "Dấu Ấn Đấu Sĩ",
@@ -1140,8 +1150,8 @@
     "rarityRef": "Epic"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0050.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0050-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0050.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0050-full.png",
     "description": "<link=keyword.Scout><sprite name=Scout><style=Keyword>Trinh Sát</style></link>",
     "descriptionRaw": "Trinh Sát",
     "name": "Rựa Thợ Săn",
@@ -1150,8 +1160,8 @@
     "rarityRef": "Epic"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0195.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0195-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0195.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0195-full.png",
     "description": "Trao <link=keyword.Barrier><sprite name=Barrier><style=Keyword>Lá Chắn</style></link> cho những đồng minh bị chọn làm mục tiêu trong vòng này.",
     "descriptionRaw": "Trao Lá Chắn cho những đồng minh bị chọn làm mục tiêu trong vòng này.",
     "name": "Khiên Chắc Chắn",
@@ -1160,8 +1170,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0017.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0017-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0017.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0017-full.png",
     "description": "<link=keyword.Fearsome><sprite name=Fearsome><style=Keyword>Đáng Sợ</style></link>",
     "descriptionRaw": "Đáng Sợ",
     "name": "Dao Hung Tàn",
@@ -1170,8 +1180,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0164.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0164-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0164.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0164-full.png",
     "description": "+2|+2",
     "descriptionRaw": "+2|+2",
     "name": "Da Rồng",
@@ -1180,8 +1190,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0094.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0094-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0094.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0094-full.png",
     "description": "Nhận 1 ngọc năng lượng rỗng.",
     "descriptionRaw": "Nhận 1 ngọc năng lượng rỗng.",
     "name": "Lam Ngọc",
@@ -1190,8 +1200,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0041.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0041-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0041.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0041-full.png",
     "description": "+2|+0",
     "descriptionRaw": "+2|+0",
     "name": "Cuốc Chim",
@@ -1200,8 +1210,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0173.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0173-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0173.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0173-full.png",
     "description": "Ta không thể nhận sát thương hay bị tiêu diệt.",
     "descriptionRaw": "Ta không thể nhận sát thương hay bị tiêu diệt.",
     "name": "Phước Lành Của Zhonya",
@@ -1210,8 +1220,8 @@
     "rarityRef": "Epic"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0058.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0058-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0058.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0058-full.png",
     "description": "Rút 1 lá bài.",
     "descriptionRaw": "Rút 1 lá bài.",
     "name": "Dược Phẩm Kỹ Năng",
@@ -1220,8 +1230,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0081.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0081-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0081.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0081-full.png",
     "description": "Kết Thúc Vòng Đấu: Giảm 1 tiêu hao của ta.",
     "descriptionRaw": "Kết Thúc Vòng Đấu: Giảm 1 tiêu hao của ta.",
     "name": "Đồng Hồ Không Chờ Đợi",
@@ -1230,8 +1240,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0198.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0198-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0198.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0198-full.png",
     "description": "Với mỗi mục tiêu là đồng minh, triệu hồi 1 bài quân Cảm Tử 1|1. Sao chép ta lên bài quân đó.",
     "descriptionRaw": "Với mỗi mục tiêu là đồng minh, triệu hồi 1 bài quân Cảm Tử 1|1. Sao chép ta lên bài quân đó.",
     "name": "Linh Hồn Tự Do",
@@ -1240,8 +1250,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0168.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0168-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0168.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0168-full.png",
     "description": "+3|+3",
     "descriptionRaw": "+3|+3",
     "name": "Ký Sinh Khổng Lồ",
@@ -1250,8 +1260,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0172.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0172-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0172.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0172-full.png",
     "description": "Gây 8 sát thương cho kẻ địch ngẫu nhiên hoặc Nhà Chính của đối thủ nếu không có kẻ địch nào.",
     "descriptionRaw": "Gây 8 sát thương cho kẻ địch ngẫu nhiên hoặc Nhà Chính của đối thủ nếu không có kẻ địch nào.",
     "name": "Công Thức Bất Định",
@@ -1260,8 +1270,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0197.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0197-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0197.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0197-full.png",
     "description": "Ban +2|+2<br>Nếu ta là 1 anh hùng, ta là Thể Thăng Hoa.",
     "descriptionRaw": "Ban +2|+2Nếu ta là 1 anh hùng, ta là Thể Thăng Hoa.",
     "name": "Kỷ Vật Thăng Hoa",
@@ -1270,8 +1280,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0016.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0016-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0016.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0016-full.png",
     "description": "Khi ta được triệu hồi, gài 4 lá <link=card.self><style=AssociatedCard>Bẫy Bom Mù</style></link> vào 8 lá bài ở trên cùng trong bộ bài của đối thủ.",
     "descriptionRaw": "Khi ta được triệu hồi, gài 4 lá Bẫy Bom Mù vào 8 lá bài ở trên cùng trong bộ bài của đối thủ.",
     "name": "Gói Bom Mù",
@@ -1280,8 +1290,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0104.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0104-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0104.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0104-full.png",
     "description": "<link=keyword.Quick Strike><sprite name=QuickStrike><style=Keyword>Đột Kích</style></link>",
     "descriptionRaw": "Đột Kích",
     "name": "Song Kiếm",
@@ -1290,8 +1300,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0077.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0077-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0077.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0077-full.png",
     "description": "Khi ta được triệu hồi, hồi lại năng lượng bằng với tiêu hao của ta.",
     "descriptionRaw": "Khi ta được triệu hồi, hồi lại năng lượng bằng với tiêu hao của ta.",
     "name": "Mỏ Năng Lượng",
@@ -1300,8 +1310,8 @@
     "rarityRef": "Epic"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0166.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0166-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0166.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0166-full.png",
     "description": "+0|+5",
     "descriptionRaw": "+0|+5",
     "name": "Đai Người Khổng Lồ",
@@ -1310,8 +1320,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0069.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0069-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0069.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0069-full.png",
     "description": "<link=vocab.Play><style=Vocab>Xuất Trận</style></link>: Ta phát động tấn công.",
     "descriptionRaw": "Xuất Trận: Ta phát động tấn công.",
     "name": "Lưỡi Kiếm Đột Kích",
@@ -1320,8 +1330,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0066.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0066-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0066.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0066-full.png",
     "description": "Triệu hồi 1 Poro 1 tiêu hao ngẫu nhiên.",
     "descriptionRaw": "Triệu hồi 1 Poro 1 tiêu hao ngẫu nhiên.",
     "name": "Bánh Quy Poro",
@@ -1330,8 +1340,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0175.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0175-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0175.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0175-full.png",
     "description": "<link=vocab.Attack><style=Vocab>Tấn Công</style></link>: Triệu hồi 1 lá <style=Variable>CardRef</style> ở vị trí tấn công.",
     "descriptionRaw": "Tấn Công: Triệu hồi 1 lá CardRef ở vị trí tấn công.",
     "name": "Yên Ngựa Ma Quái",
@@ -1340,8 +1350,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0211.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0211-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0211.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0211-full.png",
     "description": "Ban +2|+0, <link=keyword.Overwhelm><sprite name=Overwhelm><style=Keyword>Áp Đảo</style></link>.<br>Khi ta được triệu hồi, có 50% cơ hội để gấp đôi bùa lợi này.",
     "descriptionRaw": "Ban +2|+0, Áp Đảo.Khi ta được triệu hồi, có 50% cơ hội để gấp đôi bùa lợi này.",
     "name": "Vô Cực Kiếm",
@@ -1350,8 +1360,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0194.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0194-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0194.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0194-full.png",
     "description": "Ban +2|+2 cho các đồng minh bị chọn làm mục tiêu.",
     "descriptionRaw": "Ban +2|+2 cho các đồng minh bị chọn làm mục tiêu.",
     "name": "Ngọn Giáo Cứng Rắn",
@@ -1360,8 +1370,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0158.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0158-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0158.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0158-full.png",
     "description": "Bắt Đầu Vòng Đấu: Ban cho ta +1|+1 nếu ta đã xuất trận hoặc trên tay.",
     "descriptionRaw": "Bắt Đầu Vòng Đấu: Ban cho ta +1|+1 nếu ta đã xuất trận hoặc trên tay.",
     "name": "Tăng Trưởng Tiến Bộ",
@@ -1370,8 +1380,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0028.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0028-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0028.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0028-full.png",
     "description": "Khi ta được triệu hồi hoặc bị phá huỷ, triệu hồi 1 tùy tùng bằng tiêu hao của ta từ khu vực đồng minh.",
     "descriptionRaw": "Khi ta được triệu hồi hoặc bị phá huỷ, triệu hồi 1 tùy tùng bằng tiêu hao của ta từ khu vực đồng minh.",
     "name": "Mắt Ác Thần",
@@ -1380,8 +1390,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0208.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0208-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0208.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0208-full.png",
     "description": "Bắt Đầu Trận Đấu: Ban cho ta 2 vật phẩm Sử Thi ngẫu nhiên.",
     "descriptionRaw": "Bắt Đầu Trận Đấu: Ban cho ta 2 vật phẩm Sử Thi ngẫu nhiên.",
     "name": "Găng Đạo Tặc",
@@ -1390,8 +1400,8 @@
     "rarityRef": "Epic"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0137.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0137-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0137.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0137-full.png",
     "description": "<link=vocab.RoundStart><style=Vocab>Bắt Đầu Vòng Đấu</style></link>: Hồi đầy năng lượng bài phép.",
     "descriptionRaw": "Bắt Đầu Vòng Đấu: Hồi đầy năng lượng bài phép.",
     "name": "Tháp Canh Pháp Sư",
@@ -1400,8 +1410,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0188.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0188-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0188.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0188-full.png",
     "description": "Ban +0|+1.<br>Ta không nhận sát thương từ bài phép hoặc <link=keyword.Skill><sprite name=SkillMark><style=Keyword>Kỹ Năng</style></link> của đồng minh.<br>",
     "descriptionRaw": "Ban +0|+1.Ta không nhận sát thương từ bài phép hoặc Kỹ Năng của đồng minh.",
     "name": "Giáp Băng",
@@ -1410,8 +1420,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0181.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0181-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0181.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0181-full.png",
     "description": "Tạo trên tay 2 lá <link=card.self><style=AssociatedCard>Xu</style></link>.",
     "descriptionRaw": "Tạo trên tay 2 lá Xu.",
     "name": "Hoàn Trả",
@@ -1420,8 +1430,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0157.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0157-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0157.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0157-full.png",
     "description": "<link=keyword.Elemental Skill><sprite name=ElementalSkill><style=Keyword>Xuất Trận</style></link>: Gây 2 sát thương lên tất cả đối thủ và Nhà Chính của đối thủ.",
     "descriptionRaw": "Xuất Trận: Gây 2 sát thương lên tất cả đối thủ và Nhà Chính của đối thủ.",
     "name": "Băng Tộc",
@@ -1430,8 +1440,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0085.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0085-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0085.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0085-full.png",
     "description": "Ban +1|+1 cho đồng minh gần nhất trong bộ bài.",
     "descriptionRaw": "Ban +1|+1 cho đồng minh gần nhất trong bộ bài.",
     "name": "Lư Hương Cầm Tay",
@@ -1440,8 +1450,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0010.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0010-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0010.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0010-full.png",
     "description": "<link=keyword.Deep><sprite name=Deep><style=Keyword>Sâu Thẳm</style></link> và ta là Quái Vật Biển.",
     "descriptionRaw": "Sâu Thẳm và ta là Quái Vật Biển.",
     "name": "Mũ Lặn",
@@ -1450,8 +1460,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0008.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0008-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0008.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0008-full.png",
     "description": "Khi ta được triệu hồi, trao cho ta <link=keyword.Barrier><sprite name=Barrier><style=Keyword>Lá Chắn</style></link>.",
     "descriptionRaw": "Khi ta được triệu hồi, trao cho ta Lá Chắn.",
     "name": "Dây Chuyền Sắt Solari",
@@ -1460,8 +1470,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0053.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0053-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0053.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0053-full.png",
     "description": "Rút 1 Anh hùng.",
     "descriptionRaw": "Rút 1 Anh hùng.",
     "name": "Tù Và Anh Hùng",
@@ -1470,8 +1480,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0107.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0107-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0107.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0107-full.png",
     "description": "Khi ngươi sử dụng 1 bài phép, ban +1|+1 cho người mang ta.",
     "descriptionRaw": "Khi ngươi sử dụng 1 bài phép, ban +1|+1 cho người mang ta.",
     "name": "Lưỡi Hái Linh Hồn",
@@ -1480,8 +1490,8 @@
     "rarityRef": "Epic"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0170.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0170-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0170.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0170-full.png",
     "description": "-4 tiêu hao, nhưng <link=keyword.Ephemeral><sprite name=Ephemeral><style=Keyword>Cảm Tử</style></link>",
     "descriptionRaw": "-4 tiêu hao, nhưng Cảm Tử",
     "name": "Mô Phỏng Mờ Nhạt",
@@ -1490,8 +1500,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0083.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0083-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0083.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0083-full.png",
     "description": "Ban 1 vật phẩm Thường cho đồng minh <link=vocab.Strongest><style=Vocab>mạnh nhất</style></link> trong trận đấu này.",
     "descriptionRaw": "Ban 1 vật phẩm Thường cho đồng minh mạnh nhất trong trận đấu này.",
     "name": "Chế Phẩm Hextech I",
@@ -1500,8 +1510,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0105.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0105-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0105.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0105-full.png",
     "description": "<link=keyword.Regeneration><sprite name=Regeneration><style=Keyword>Hồi Phục</style></link>",
     "descriptionRaw": "Hồi Phục",
     "name": "Ngọc Lục Bảo",
@@ -1510,8 +1520,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0200.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0200-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0200.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0200-full.png",
     "description": "Khi ta được triệu hồi, giảm 2 tiêu hao của bài quân có tiêu hao cao nhất trên tay.",
     "descriptionRaw": "Khi ta được triệu hồi, giảm 2 tiêu hao của bài quân có tiêu hao cao nhất trên tay.",
     "name": "Ân Huệ Của Sứ Giả",
@@ -1520,8 +1530,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0031.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0031-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0031.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0031-full.png",
     "description": "<link=vocab.RoundStart><style=Vocab>Bắt Đầu Vòng Đấu</style></link>: Nhận thêm 1 ngọc năng lượng trong vòng này.",
     "descriptionRaw": "Bắt Đầu Vòng Đấu: Nhận thêm 1 ngọc năng lượng trong vòng này.",
     "name": "Tinh Thể Phân Cực",
@@ -1530,8 +1540,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0040.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0040-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0040.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0040-full.png",
     "description": "+2|+2",
     "descriptionRaw": "+2|+2",
     "name": "Búa Gỗ",
@@ -1540,8 +1550,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0046.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0046-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0046.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0046-full.png",
     "description": "<link=keyword.Regeneration><sprite name=Regeneration><style=Keyword>Hồi Phục</style></link>",
     "descriptionRaw": "Hồi Phục",
     "name": "Khẩu Phần Thịnh Soạn",
@@ -1550,8 +1560,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0212.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0212-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0212.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0212-full.png",
     "description": "<link=keyword.SpellShield><sprite name=SpellShield><style=Keyword>Khiên Phép</style></link>, <link=keyword.Regeneration><sprite name=Regeneration><style=Keyword>Hồi Phục</style></link>.",
     "descriptionRaw": "Khiên Phép, Hồi Phục.",
     "name": "Vuốt Rồng",
@@ -1560,8 +1570,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0043.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0043-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0043.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0043-full.png",
     "description": "+3|+3, nhưng <link=keyword.Ephemeral><sprite name=Ephemeral><style=Keyword>Cảm Tử</style></link>",
     "descriptionRaw": "+3|+3, nhưng Cảm Tử",
     "name": "Biểu Tượng Bị Nguyền",
@@ -1570,8 +1580,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0025.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0025-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0025.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0025-full.png",
     "description": "Khi ta bị phá huỷ, tạo trên tay 1 bản sao của ta.",
     "descriptionRaw": "Khi ta bị phá huỷ, tạo trên tay 1 bản sao của ta.",
     "name": "Mắt Thượng Nhân",
@@ -1580,8 +1590,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0131.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0131-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0131.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0131-full.png",
     "description": "<link=vocab.Rally><style=Vocab>Tiến Công</style></link>",
     "descriptionRaw": "Tiến Công",
     "name": "Tiến Công Chuẩn Mực",
@@ -1590,8 +1600,8 @@
     "rarityRef": "Epic"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0063.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0063-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0063.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0063-full.png",
     "description": "<link=vocab.Manifest><style=Vocab>Hình Thành</style></link> 1 lá bài từ khu vực của ta.",
     "descriptionRaw": "Hình Thành 1 lá bài từ khu vực của ta.",
     "name": "Cổng Yordle",
@@ -1600,8 +1610,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0032.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0032-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0032.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0032-full.png",
     "description": "Khi ta được triệu hồi, triệu hồi 1 Poro 1 tiêu hao ngẫu nhiên.",
     "descriptionRaw": "Khi ta được triệu hồi, triệu hồi 1 Poro 1 tiêu hao ngẫu nhiên.",
     "name": "Bánh Quy Poro",
@@ -1610,8 +1620,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0176.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0176-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0176.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0176-full.png",
     "description": "<link=keyword.Daybreak><style=Keyword>Hừng Đông</style></link>: Trao cho ta +3|+3 trong vòng đấu này.",
     "descriptionRaw": "Hừng Đông: Trao cho ta +3|+3 trong vòng đấu này.",
     "name": "Mũi Giáo Mặt Trời Solari",
@@ -1620,8 +1630,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0210.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0210-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0210.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0210-full.png",
     "description": "<link=vocab.Strike><style=Vocab>Ra Đòn</style></link>: Hồi đầy năng lượng bài phép.",
     "descriptionRaw": "Ra Đòn: Hồi đầy năng lượng bài phép.",
     "name": "Bùa Xanh",
@@ -1630,8 +1640,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0059.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0059-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0059.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0059-full.png",
     "description": "<link=keyword.Invoke><style=Keyword>Hiệu Triệu</style></link>",
     "descriptionRaw": "Hiệu Triệu",
     "name": "Bản Đồ Sao Tiêu Chuẩn",
@@ -1640,8 +1650,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0143.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0143-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0143.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0143-full.png",
     "description": "Gây <link=keyword.Gloom><sprite name=Gloom><style=Keyword>Buồn Bã</style></link> thay vì gây sát thương lên bài quân.",
     "descriptionRaw": "Gây Buồn Bã thay vì gây sát thương lên bài quân.",
     "name": "Quỷ Thư Morello",
@@ -1650,8 +1660,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0151.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0151-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0151.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0151-full.png",
     "description": "<link=vocab.Play><style=Vocab>Xuất Trận</style></link>: Ta <link=vocab.Strike><style=Vocab>ra đòn</style></link> lên Nhà Chính của đối thủ.",
     "descriptionRaw": "Xuất Trận: Ta ra đòn lên Nhà Chính của đối thủ.",
     "name": "Người Phá Thành Sa Ngã",
@@ -1660,8 +1670,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0161.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0161-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0161.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0161-full.png",
     "description": "Gấp đôi sát thương",
     "descriptionRaw": "Gấp đôi sát thương",
     "name": "Ấn Nổ",
@@ -1670,8 +1680,8 @@
     "rarityRef": "Epic"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0051.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0051-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0051.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0051-full.png",
     "description": "Sao chép ta lên cùng mục tiêu chỉ định.",
     "descriptionRaw": "Sao chép ta lên cùng mục tiêu chỉ định.",
     "name": "Dược Phẩm Pháp Thuật",
@@ -1680,8 +1690,8 @@
     "rarityRef": "Epic"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0057.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0057-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0057.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0057-full.png",
     "description": "Giảm 2 tiêu hao",
     "descriptionRaw": "Giảm 2 tiêu hao",
     "name": "Nước Mắt Nữ Thần",
@@ -1690,8 +1700,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0159.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0159-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0159.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0159-full.png",
     "description": "+2|+2, nhưng thêm 1 tiêu hao",
     "descriptionRaw": "+2|+2, nhưng thêm 1 tiêu hao",
     "name": "Người Khổng Lồ Nhỏ",
@@ -1700,8 +1710,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0180.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0180-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0180.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0180-full.png",
     "description": "<link=vocab.Terrify><style=Vocab>Khiếp Hãi</style></link> 1",
     "descriptionRaw": "Khiếp Hãi 1",
     "name": "Mắt Quỷ",
@@ -1710,8 +1720,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0203.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0203-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0203.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0203-full.png",
     "description": "Ban +1|+1 và ta là Poro.\r\n",
     "descriptionRaw": "Ban +1|+1 và ta là Poro.\r\n",
     "name": "Biến Thành Poro",
@@ -1720,8 +1730,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0030.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0030-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0030.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0030-full.png",
     "description": "Khi ta được triệu hồi hoặc bị tiêu diệt, ban +1|+1 cho đồng minh <link=vocab.Strongest><style=Vocab>mạnh nhất</style></link>.",
     "descriptionRaw": "Khi ta được triệu hồi hoặc bị tiêu diệt, ban +1|+1 cho đồng minh mạnh nhất.",
     "name": "Biểu Tượng Sức Mạnh",
@@ -1730,8 +1740,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0129.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0129-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0129.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0129-full.png",
     "description": "<link=keyword.Attune><sprite name=Attune><style=Keyword>Hồi Lực</style></link>.\r\nKhi ta được triệu hồi, tạo trên tay 1 lá <link=card.self><style=AssociatedCard>Chơi Khăm</style></link>.",
     "descriptionRaw": "Hồi Lực.\r\nKhi ta được triệu hồi, tạo trên tay 1 lá Chơi Khăm.",
     "name": "Linh Hồn Tinh Quái",
@@ -1740,8 +1750,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0055.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0055-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0055.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0055-full.png",
     "description": "Giảm 1 tiêu hao",
     "descriptionRaw": "Giảm 1 tiêu hao",
     "name": "Bình Năng Lượng",
@@ -1750,8 +1760,8 @@
     "rarityRef": "Common"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0135.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0135-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0135.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0135-full.png",
     "description": "Khi ta được triệu hồi và <link=vocab.RoundStart><style=Vocab>Bắt Đầu Vòng Đấu</style></link>: Triệu hồi 1 lá <link=card.self><style=AssociatedCard>Màn Sương Xâm Chiếm</style></link>.",
     "descriptionRaw": "Khi ta được triệu hồi và Bắt Đầu Vòng Đấu: Triệu hồi 1 lá Màn Sương Xâm Chiếm.",
     "name": "Màn Sương",
@@ -1760,8 +1770,8 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0134.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0134-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0134.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0134-full.png",
     "description": "Triệu hồi 1 lá <link=card.self><style=AssociatedCard>Vườn Thời Gian</style></link>.",
     "descriptionRaw": "Triệu hồi 1 lá Vườn Thời Gian.",
     "name": "Bá Chủ Thời Gian",
@@ -1770,23 +1780,13 @@
     "rarityRef": "Rare"
   },
   {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0029.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0029-full.png",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0029.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/items/I0029-full.png",
     "description": "Kẻ địch nhận <nobr>-1|-0.</nobr>",
     "descriptionRaw": "Kẻ địch nhận -1|-0.",
     "name": "Cúp Ma Ám",
     "itemCode": "I0029",
     "rarity": "HIẾM",
     "rarityRef": "Rare"
-  },
-  {
-    "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0193.png",
-    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/items/I0193-full.png",
-    "description": "Giảm 1 tiêu hao và rút 1 lá bài.",
-    "descriptionRaw": "Giảm 1 tiêu hao và rút 1 lá bài.",
-    "name": "Dấu Ấn Của Medarda",
-    "itemCode": "I0193",
-    "rarity": "SỬ THI",
-    "rarityRef": "Epic"
   }
 ]

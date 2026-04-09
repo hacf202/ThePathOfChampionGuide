@@ -140,9 +140,9 @@ const BossEditWrapper = ({
 	}
 
 	return (
-		<div className='flex flex-col lg:flex-row gap-6 relative transition-all duration-300'>
+		<div className='flex flex-col lg:flex-row items-stretch gap-6 relative transition-all duration-300'>
 			<div
-				className={`transition-all duration-300 ${isDragPanelOpen ? "lg:w-3/4 xl:w-4/5" : "w-full"} bg-surface-bg rounded-lg`}
+				className={`transition-all duration-300 ${isDragPanelOpen ? "lg:w-3/4 xl:w-4/5" : "w-full"} bg-surface-bg rounded-lg h-fit`}
 			>
 				{/* Đã sửa lỗi syntax comment tại đây */}
 				{selectedItem && (
@@ -161,7 +161,7 @@ const BossEditWrapper = ({
 
 			{/* Thanh Sidebar Kéo Thả */}
 			{isDragPanelOpen && (
-				<div className='lg:w-1/4 xl:w-1/5 shrink-0 transition-all duration-300'>
+				<div className='lg:w-1/4 xl:w-1/5 shrink-0 transition-all duration-300 relative self-stretch'>
 					<DropDragSidePanel cachedData={cachedData} onClose={handleBack} />
 				</div>
 			)}

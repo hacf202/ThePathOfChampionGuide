@@ -3,7 +3,7 @@
 
 META
   name ThePathOfChampionGuide
-  version 1.1.0
+  version 1.2.0
   author dev
   desc Hệ thống tra cứu và quản lý dữ liệu game The Path of Champions (LoR)
 
@@ -23,9 +23,6 @@ NODE Backend
     FUNC requireAdmin
       DESC Kiểm tra quyền Admin (adminGroup)
       FILE be/src/middleware/requireAdmin.js
-    FUNC rateLimit
-      DESC Giới hạn tần suất gọi API (auth route)
-      FILE be/server.js
 
   NODE Routes
     DESC Các đầu cuối API chính
@@ -34,40 +31,41 @@ NODE Backend
     NODE ChampionsRouter
       DESC Quản lý dữ liệu tướng và chi tiết tướng
       FILE be/src/routes/champions.js
-      FUNC getChampions
-        DESC Lấy danh sách tướng (có lọc và phân trang)
-        READS guidePocChampionList
-      FUNC getFullDetail
-        DESC Lấy toàn bộ dữ liệu liên quan (star, relic, item...)
-        FILE be/src/routes/champions.js:L260
+    
+    NODE RatingsRouter
+      DESC Quản lý đánh giá và bảng xếp hạng tướng
+      FILE be/src/routes/ratings.js
+      FUNC getRankings
+        DESC Tính toán top tướng từ DynamoDB (ScanCommand)
+    
+    NODE AuditLogsRouter
+      DESC Ghi lại lịch sử thao tác của Admin
+      FILE be/src/routes/auditLogs.js
+      FUNC logAction
+        DESC Lưu vết Create/Update/Delete vào DB
     
     NODE AuthRouter
       DESC Xử lý đăng nhập và đăng ký qua Cognito
       FILE be/src/routes/auth.js
-    
-    NODE BuildsRouter
-      DESC Quản lý build và yêu thích (Community/Pro)
-      FILE be/src/routes/builds.js be/src/routes/favorites.js
-    
-    NODE GameDataRouter
-      DESC Tra cứu Powers, Relics, Items, Runes, Cards
-      FILE be/src/routes/powers.js be/src/routes/relics.js be/src/routes/items.js
 
   NODE Database
     DESC Hệ thống lưu trữ dữ liệu
     VAR DynamoDB
-      DESC NoSQL database chứa list tướng, build, rating
+      DESC NoSQL database chứa list tướng, build, rating, audit_logs
       TAG aws cloud
     VAR LocalData
       DESC File JSON tĩnh cho Powers/Relics (đa ngôn ngữ)
       FILE be/data/
+    NODE Schema
+      DESC Tài liệu hóa cấu trúc dữ liệu toàn hệ thống
+      FILE docs/schema.md
 
 # ─── FRONTEND (WEB) ───────────────────────────────────
 
 NODE Frontend
   DESC Ứng dụng React (Vite) Single Page Application
   FILE fe/src/App.jsx
-  DEPS react react-router-dom tailwindcss react-helmet-async
+  DEPS react react-router-dom tailwindcss framer-motion
 
   NODE AppRouter
     DESC Cấu trúc điều hướng chính của ứng dụng
@@ -75,56 +73,49 @@ NODE Frontend
     NODE Pages
       DESC Các trang chức năng chính
       FILE fe/src/pages/
-      TAG view ui
       NODE Home
-        DESC Trang chủ giới thiệu
-      NODE ChampionList
-        DESC Danh sách tướng với bộ lọc nâng cao
-      NODE ChampionDetail
-        DESC Chi tiết tướng, deck, constellation, build gợi ý
+        DESC Trang chủ với Hero Moodboard và Quick Tools
+      NODE ChampionRatingPage
+        DESC Giao diện đánh giá tướng (Hệ 10 điểm, Radar)
+        FILE fe/src/pages/championRatingPage.jsx
       NODE AdminPanel
         DESC Giao diện quản trị viên (CRUD dữ liệu)
         FILE fe/src/components/admin/
+        NODE AuditLogList
+          DESC Xem lịch sử thay đổi hệ thống
+          FILE fe/src/components/admin/auditLogs/AuditLogList.jsx
 
-  NODE StateManagement
-    DESC Quản lý trạng thái ứng dụng
-    NODE AuthContext
-      DESC Quản lý session và thông tin người dùng
-      FILE fe/src/context/AuthContext.jsx
-    NODE TranslationHook
+  NODE GlobalHooks
+    DESC Các logic tái sử dụng
+    FILE fe/src/hooks/
+    FUNC useTranslation
       DESC Xử lý đa ngôn ngữ (VI/EN)
-      FILE fe/src/hooks/useTranslation.js
+    FUNC useUnsavedChanges
+      DESC Cảnh báo khi thoát trang mà chưa lưu dữ liệu
 
   NODE Utils
     DESC Các hàm tiện ích phía client
     FUNC markupParser
       DESC Chuyển đổi mã màu [cd:...] sang HTML/Tooltip
-      FILE fe/src/utils/markupParser.js
     FUNC entityLookup
       DESC Tra cứu nhanh thông tin card/relic để hiển thị
-      FILE fe/src/utils/entityLookup.js
 
 # ─── TOOLS & SCRIPTS ──────────────────────────────────
 
 NODE Scripts
-  DESC Các công cụ tự động hóa và phân tích dữ liệu
-  NODE LocaleAnalyzer
-    DESC Phân tích và thống kê độ phủ của các ngôn ngữ
-    FILE scripts/analyze_locales.cjs
+  DESC Các công cụ bảo trì
+  NODE DB_Scripts
+    DESC Seeding và di chuyển dữ liệu
+    FILE be/scripts/
 
-# ─── QUY TRÌNH LÀM VIỆC (AI WORKFLOW) ─────────────────
+# ─── SYSTEM LINKS ─────────────────────────────────────
 
-NODE AI_Workflow
-  DESC Quy trình chuẩn cho AI khi thực hiện task
-  FUNC Research
-    DESC Nghiên cứu code và project.nde
-  FUNC Planning
-    DESC Tạo implementation_plan.md chi tiết
-  FUNC Execute
-    DESC Thực thi sau khi được User Approve
-  FUNC UpdateNDE
-    DESC Cập nhật lại project.nde nếu có thay đổi quan hệ cấu trúc
-    WARN Bắt buộc thực hiện trước khi báo cáo hoàn thành
+LINK Frontend Backend call-api-rest
+LINK Backend.Routes.RatingsRouter Database.DynamoDB read-write
+LINK Backend.Routes.AuditLogsRouter Database.DynamoDB write-logs
+LINK Frontend.AppRouter.Pages.ChampionRatingPage Backend.Routes.RatingsRouter data-flow
+LINK Frontend.GlobalHooks.useUnsavedChanges Frontend.AppRouter.Pages.AdminPanel protection
+ARN Bắt buộc thực hiện trước khi báo cáo hoàn thành
 
 # ─── SYSTEM LINKS ─────────────────────────────────────
 
@@ -136,3 +127,4 @@ LINK Frontend.StateManagement.AuthContext Backend.Routes.AuthRouter verify-sessi
 LINK Frontend.Utils.markupParser Frontend.Utils.entityLookup data-enrichment
 LINK AI_Workflow.Research project.nde read
 LINK AI_Workflow.UpdateNDE project.nde write
+LINK AI_Workflow.Documentation docs/schema.md update-schema

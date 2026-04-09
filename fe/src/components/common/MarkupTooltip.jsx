@@ -11,16 +11,30 @@ import {
 	useClick,
 	useDismiss,
 	useInteractions,
+	FloatingPortal,
 } from "@floating-ui/react";
 import { getRarityKey } from "../../utils/i18nHelpers";
 
 /**
  * MarkupTooltip - Premium version with Rarity support and Glassmorphism
  */
-const MarkupTooltip = ({ title, description, icon, fullImage, options = [], rarity, type, href, children }) => {
+const MarkupTooltip = ({ 
+	title, 
+	description, 
+	text, // Prop alias for description
+	icon, 
+	fullImage, 
+	options = [], 
+	rarity, 
+	type, 
+	href, 
+	compact = false, // New prop for smaller styling
+	children 
+}) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const navigate = useNavigate();
 
+	const displayDescription = description || text;
 	const showFullImg = options.includes("img-full");
 	const showIconImg = options.includes("img-icon");
 
@@ -99,16 +113,20 @@ const MarkupTooltip = ({ title, description, icon, fullImage, options = [], rari
 			</span>
 
 			{isOpen && (
-				<div
-					ref={refs.setFloating}
-					style={{
-						...floatingStyles,
-						zIndex: 9999,
-					}}
-					{...getFloatingProps()}
-					className='pointer-events-auto cursor-default'
-				>
-					<div className={`bg-slate-950/90 backdrop-blur-xl text-white rounded-xl shadow-2xl border-2 ${theme.border} ${theme.glow} overflow-hidden ${isCard ? 'w-[280px] sm:w-[320px]' : 'max-w-[320px] min-w-[220px]'} animate-in fade-in zoom-in-95 duration-200`}>
+				<FloatingPortal>
+					<div
+						ref={refs.setFloating}
+						style={{
+							...floatingStyles,
+							zIndex: 9999,
+						}}
+						{...getFloatingProps()}
+						className='pointer-events-auto cursor-default'
+					>
+						<div className={`bg-slate-950/90 backdrop-blur-xl text-white rounded-xl shadow-2xl border-2 ${theme.border} ${theme.glow} overflow-hidden 
+							${isCard ? 'w-[280px] sm:w-[320px]' : compact ? 'max-w-[260px] min-w-[180px]' : 'max-w-[320px] min-w-[220px]'} 
+							animate-in fade-in zoom-in-95 duration-200`}
+						>
 						
 						{/* Top Badge: Type | Rarity */}
 						<div className={`px-3 py-1.5 flex justify-between items-center bg-white/5 border-b ${theme.border}`}>
@@ -140,25 +158,25 @@ const MarkupTooltip = ({ title, description, icon, fullImage, options = [], rari
 							</div>
 						)}
 
-						<div className="p-4">
+						<div className={compact ? "p-3" : "p-4"}>
 							{/* Title with Icon */}
 							<div 
-								className={`flex items-center gap-3 mb-3`}
+								className={`flex items-center gap-3 ${compact ? 'mb-1.5' : 'mb-3'}`}
 							>
 								{icon && !showIconImg && !showFullImg && (
-									<div className={`w-8 h-8 rounded-lg bg-white/5 border ${theme.border} flex items-center justify-center p-1.5 transition-colors`}>
+									<div className={`${compact ? 'w-6 h-6 p-1' : 'w-8 h-8 p-1.5'} rounded-lg bg-white/5 border ${theme.border} flex items-center justify-center transition-colors`}>
 										<img src={icon} alt="" className="w-full h-full object-contain" />
 									</div>
 								)}
-								<div className={`font-bold text-lg sm:text-xl tracking-tight leading-tight ${theme.color} transition-all`}>
+								<div className={`font-bold ${compact ? 'text-sm sm:text-base' : 'text-lg sm:text-xl'} tracking-tight leading-tight ${theme.color} transition-all`}>
 									{title}
 								</div>
 							</div>
 							
 							{/* Description - Hiden for Champions as requested */}
 							{!isChampion && (
-								<div className='text-slate-200 leading-relaxed text-[13px] sm:text-[14px] whitespace-pre-wrap break-words font-medium'>
-									{description || "Không có mô tả chi tiết."}
+								<div className={`text-slate-200 leading-relaxed ${compact ? 'text-[12px]' : 'text-[13px] sm:text-[14px]'} whitespace-pre-wrap break-words font-medium opacity-90`}>
+									{displayDescription || "Không có mô tả chi tiết."}
 								</div>
 							)}
 
@@ -184,6 +202,7 @@ const MarkupTooltip = ({ title, description, icon, fullImage, options = [], rari
 						</div>
 					</div>
 				</div>
+				</FloatingPortal>
 			)}
 		</>
 	);

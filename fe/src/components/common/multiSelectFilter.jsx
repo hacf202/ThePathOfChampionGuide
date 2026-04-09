@@ -79,9 +79,9 @@ const MultiSelectFilter = ({
 			<button
 				type='button'
 				onClick={() => setIsOpen(!isOpen)}
-				className={`w-full flex justify-between items-center px-3 py-2 bg-input-bg border rounded-lg text-left 
+				className={`w-full flex justify-between items-center px-3 py-2 bg-input-bg border rounded-md text-left 
                 text-text-primary min-h-[42px] transition-all duration-200
-                ${isOpen ? "border-primary-500 ring-2 ring-primary-500/20 shadow-sm" : "border-border hover:border-border-hover"}`}
+                ${isOpen ? "border-primary-500 ring-2 ring-primary-500/20 shadow-sm" : "border-input-border hover:border-border-hover"}`}
 			>
 				<div className='flex-grow overflow-hidden mr-2'>{displayContent}</div>
 				<ChevronDown
@@ -94,7 +94,7 @@ const MultiSelectFilter = ({
 
 			{/* Dropdown Menu */}
 			{isOpen && (
-				<div className='absolute z-[99] w-full mt-1.5 bg-surface-bg border border-border rounded-lg shadow-xl max-h-64 overflow-y-auto animate-slide-down custom-scrollbar'>
+				<div className='absolute z-[99] w-full mt-1.5 bg-modal-bg border border-border rounded-lg shadow-xl max-h-64 overflow-y-auto animate-slide-down custom-scrollbar'>
 					{options.length > 0 ? (
 						<div className='py-1'>
 							{options.map(option => {
@@ -106,7 +106,7 @@ const MultiSelectFilter = ({
 										className={`flex items-center justify-between px-3 py-2.5 mx-1 my-0.5 rounded-md cursor-pointer   ${
 											isSelected
 												? "bg-primary-500/10 text-primary-500"
-												: "text-text-primary hover:bg-surface-hover"
+												: "text-text-primary hover:bg-dropdown-item-hover-bg"
 										}`}
 									>
 										{renderOptionContent(option)}

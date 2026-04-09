@@ -157,7 +157,7 @@ const MarkupEditor = ({ value, onChange, placeholder = "Nhập nội dung..." })
 		<div className="flex flex-col gap-6 w-full">
 			{/* Row 1: Markup Input */}
 			<div className="flex flex-col gap-1.5">
-				<label className="text-[11px] uppercase font-bold text-gray-400 ml-1 tracking-widest">
+				<label className="text-[11px] uppercase font-bold text-text-secondary ml-1 tracking-widest">
 					Ô mô tả (Markup)
 				</label>
 				<div className="relative w-full">
@@ -174,7 +174,7 @@ const MarkupEditor = ({ value, onChange, placeholder = "Nhập nội dung..." })
 						onMouseUp={handleSelect}
 						onKeyUp={handleSelect}
 						placeholder={placeholder}
-						className="w-full min-h-[180px] p-4 bg-white border border-gray-300 rounded-xl text-gray-900 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition-all resize-y font-sans leading-relaxed shadow-sm"
+						className="w-full min-h-[180px] p-4 bg-input-bg border border-input-border rounded-xl text-input-text focus:border-input-focus-border focus:ring-1 focus:ring-primary-500 outline-none transition-all resize-y font-sans leading-relaxed shadow-inner"
 					/>
 
 					{/* Floating Toolbar */}
@@ -288,22 +288,22 @@ const MarkupEditor = ({ value, onChange, placeholder = "Nhập nội dung..." })
 
 			{/* Row 2: Previews */}
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-				<div className="p-4 bg-white border border-gray-200 rounded-xl shadow-sm">
-					<div className="text-[10px] uppercase font-bold text-gray-400 mb-2 tracking-widest flex items-center gap-2">
+				<div className="p-4 bg-surface-bg border border-border rounded-xl shadow-sm">
+					<div className="text-[10px] uppercase font-bold text-text-secondary mb-2 tracking-widest flex items-center gap-2">
 						<span className="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_5px_rgba(34,197,94,0.5)]" />
 						Ô preview
 					</div>
-					<div className="text-gray-800 text-sm leading-relaxed min-h-[50px] whitespace-pre-wrap">
+					<div className="text-text-primary text-sm leading-relaxed min-h-[50px] whitespace-pre-wrap">
 						<MarkupRenderer text={value} />
 					</div>
 				</div>
 
-				<div className="p-4 bg-gray-50/50 border border-gray-200 rounded-xl shadow-sm">
-					<div className="text-[10px] uppercase font-bold text-gray-400 mb-2 tracking-widest flex items-center gap-2">
+				<div className="p-4 bg-surface-hover-bg border border-border rounded-xl shadow-sm">
+					<div className="text-[10px] uppercase font-bold text-text-secondary mb-2 tracking-widest flex items-center gap-2">
 						<span className="w-1.5 h-1.5 rounded-full bg-primary-500" />
 						Ô mô tả thô
 					</div>
-					<div className="text-gray-500 text-[11px] leading-relaxed min-h-[50px] font-mono break-all whitespace-pre-wrap">
+					<div className="text-text-secondary text-[11px] leading-relaxed min-h-[50px] font-mono break-all whitespace-pre-wrap">
 						{stripMarkup(value)}
 					</div>
 				</div>

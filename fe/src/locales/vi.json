@@ -1098,7 +1098,9 @@
 		"logout": "Đăng xuất",
 		"login": "Đăng nhập",
 		"confirmLogoutTitle": "Xác nhận Đăng xuất",
-		"confirmLogoutDesc": "Bạn có chắc chắn muốn kết thúc phiên làm việc này không?"
+		"confirmLogoutDesc": "Bạn có chắc chắn muốn kết thúc phiên làm việc này không?",
+		"customTheme": "Cá nhân hóa",
+		"newChampion": "Tướng mới"
 	},
 	"rating": {
 		"damage": "Sát thương",

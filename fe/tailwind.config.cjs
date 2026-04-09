@@ -1,9 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+	darkMode: 'class',
 	content: ["./src/**/*.{js,jsx,ts,tsx}"],
 	theme: {
 		extend: {
-			// 1. FONT (Giữ nguyên)
+			// 1. FONT
 			fontFamily: {
 				primary: ["var(--font-primary)", "sans-serif"],
 				secondary: ["var(--font-secondary)", "sans-serif"],
@@ -11,25 +12,6 @@ module.exports = {
 
 			// 2. MÀU SẮC
 			colors: {
-				// Theme đa dạng (Inferno, Emerald, Celestial, Blood, Shadow)
-				"inferno-500": "var(--color-inferno-500)",
-				"inferno-title": "var(--color-inferno-title)",
-				"inferno-subtitle": "var(--color-inferno-subtitle)",
-
-				"emerald-500": "var(--color-emerald-500)",
-				"emerald-title": "var(--color-emerald-title)",
-				"emerald-subtitle": "var(--color-emerald-subtitle)",
-
-				"celestial-500": "var(--color-celestial-500)",
-				"celestial-title": "var(--color-celestial-title)",
-				"celestial-subtitle": "var(--color-celestial-subtitle)",
-
-				"blood-500": "var(--color-blood-500)",
-				"blood-title": "var(--color-blood-title)",
-
-				"shadow-500": "var(--color-shadow-500)",
-				"shadow-title": "var(--color-shadow-title)",
-
 				// Màu chính (đầy đủ dải)
 				"primary-100": "var(--color-primary-100)",
 				"primary-300": "var(--color-primary-300)",
@@ -40,7 +22,6 @@ module.exports = {
 				// Trạng thái
 				"danger-500": "var(--color-danger-500)",
 				warning: "var(--color-warning-text)",
-				success: "var(--color-success-text)",
 
 				// Nền & Bề mặt
 				"page-bg": "var(--color-page-bg)",
@@ -54,12 +35,10 @@ module.exports = {
 				"text-secondary": "var(--color-text-secondary)",
 
 				// Glassmorphism
-				"page-overlay": "var(--color-bg-overlay)",
 				"glass-bg": "var(--color-glass-bg)",
 				"glass-border": "var(--color-glass-border)",
 				"glass-hover-bg": "var(--color-glass-hover-bg)",
 				"glass-hover-border": "var(--color-glass-hover-border)",
-				"glass-text": "var(--color-glass-dark-text)",
 
 				// Panel Glass
 				"panel-glass-bg": "var(--color-panel-glass-bg)",
@@ -111,6 +90,7 @@ module.exports = {
 				"dropdown-item-text": "var(--color-dropdown-item-text)",
 				"dropdown-item-hover-bg": "var(--color-dropdown-item-hover-bg)",
 				"dropdown-item-selected-bg": "var(--color-dropdown-item-selected-bg)",
+				"modal-bg": "var(--color-modal-bg)",
 				"modal-overlay-bg": "var(--color-modal-overlay-bg)",
 
 				// Header & Navbar
@@ -127,20 +107,12 @@ module.exports = {
 
 				// Admin link
 				"text-link-admin": "var(--color-text-link-admin)",
-				// Icons & Roles
+				// Icons
 				"icon-star": "var(--color-icon-star)",
-				"role-aggro": "var(--color-role-aggro)",
-				"role-combo": "var(--color-role-combo)",
-				"role-mill": "var(--color-role-mill)",
-				"role-control": "var(--color-role-control)",
-				"role-midrange": "var(--color-role-midrange)",
-				"role-burn": "var(--color-role-burn)",
-				"role-ftk-otk": "var(--color-role-ftk-otk)",
 			},
 
-			// 3. HIỆU ỨNG (Shadow, Fill)
+			// 3. HIỆU ỨNG
 			boxShadow: {
-				"primary-md": "0 8px 24px var(--color-shadow-primary)",
 			},
 			fill: {
 				"danger-500": "var(--color-danger-500)",
@@ -148,43 +120,20 @@ module.exports = {
 
 			// 4. KEYFRAMES
 			keyframes: {
-				slideDown: {
-					from: { opacity: "0", transform: "translateY(-10px) scaleY(0.9)" },
-					to: { opacity: "1", transform: "translateY(0) scaleY(1)" },
-				},
 				pulseFocus: {
 					"0%, 100%": { boxShadow: "0 0 0 0 rgba(60, 145, 194, 0.4)" },
 					"50%": { boxShadow: "0 0 0 4px rgba(60, 145, 194, 0)" },
-				},
-				spin: {
-					from: { transform: "rotate(0deg)" },
-					to: { transform: "rotate(360deg)" },
 				},
 				scaleUp: {
 					from: { opacity: "0", transform: "scale(0.95)" },
 					to: { opacity: "1", transform: "scale(1)" },
 				},
-				// Keyframes Loading mới bổ sung
-				shimmer: {
-					"0%": { backgroundPosition: "-200% 0" },
-					"100%": { backgroundPosition: "200% 0" },
-				},
-				ripplePulse: {
-					"0%": { boxShadow: "0 0 0 0 rgba(60, 145, 194, 0.4)" },
-					"70%": { boxShadow: "0 0 0 20px rgba(60, 145, 194, 0)" },
-					"100%": { boxShadow: "0 0 0 0 rgba(60, 145, 194, 0)" },
-				},
 			},
 
 			// 5. ANIMATION CLASSES
 			animation: {
-				"slide-down": "slideDown 0.3s ease-out forwards",
 				"pulse-focus": "pulseFocus 1.5s ease-in-out infinite",
 				"scale-up": "scaleUp 0.2s ease-out forwards",
-				"spin-slow": "spin 3s linear infinite",
-				// Animation Loading tiện ích mới bổ sung
-				shimmer: "shimmer 1.5s infinite linear",
-				"ripple-pulse": "ripplePulse 2s infinite",
 			},
 			screens: {
 				"3xl": "1900px",

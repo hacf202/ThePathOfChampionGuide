@@ -12,9 +12,76 @@ import {
 	User, 
 	Tag, 
 	Activity,
-	X
+	X,
+	Plus,
+	Minus,
+	RefreshCw
 } from "lucide-react";
 import axios from "axios";
+
+const JsonDiffViewer = ({ data, otherData, side = "new" }) => {
+	const { tUI } = useTranslation();
+	
+	if (!data) {
+		return (
+			<div className="h-full flex flex-col items-center justify-center text-slate-300 italic opacity-50">
+				<Activity className="w-12 h-12 mb-2" />
+				{tUI("admin.auditLog.modal.noData")}
+			</div>
+		);
+	}
+
+	const keys = Object.keys(data);
+	// Sắp xếp key để hiển thị nhất quán
+	keys.sort();
+
+	return (
+		<div className="space-y-1">
+			{keys.map(key => {
+				const val = data[key];
+				const otherVal = otherData ? otherData[key] : undefined;
+				
+				let isChanged = false;
+				let isAdded = false;
+				let isRemoved = false;
+
+				if (otherData) {
+					if (!(key in otherData)) {
+						if (side === "new") isAdded = true;
+						else isRemoved = true;
+					} else if (JSON.stringify(val) !== JSON.stringify(otherVal)) {
+						isChanged = true;
+					}
+				} else {
+					// Nếu không có otherData (CREATE/DELETE), highlight toàn bộ theo hướng
+					if (side === "new") isAdded = true;
+					else isRemoved = true;
+				}
+
+				const highlightClass = isAdded ? "bg-emerald-100/50 text-emerald-900 border-emerald-200" :
+									isRemoved ? "bg-rose-100/50 text-rose-900 border-rose-200" :
+									isChanged ? (side === "new" ? "bg-emerald-50 text-emerald-900 border-emerald-100" : "bg-rose-50 text-rose-900 border-rose-100") :
+									"text-slate-600 border-transparent";
+
+				return (
+					<div key={key} className={`group flex flex-col p-2 rounded-xl border transition-all ${highlightClass}`}>
+						<div className="flex items-center justify-between gap-2">
+							<span className="font-black text-[11px] uppercase tracking-tight opacity-70 shrink-0">{key}</span>
+							<div className="flex items-center gap-1.5 overflow-hidden">
+								{isAdded && <Plus className="w-3 h-3 text-emerald-500 shrink-0" />}
+								{isRemoved && <Minus className="w-3 h-3 text-rose-500 shrink-0" />}
+								{isChanged && <RefreshCw className="w-3 h-3 text-amber-500 shrink-0" />}
+							</div>
+						</div>
+						<div className="text-[13px] font-mono break-all mt-1 pr-2">
+							{typeof val === 'object' ? JSON.stringify(val, null, 2) : String(val)}
+						</div>
+					</div>
+				);
+			})}
+		</div>
+	);
+};
 
 const AuditLogList = () => {
 	const { tUI, language } = useTranslation();
@@ -281,16 +348,7 @@ const AuditLogList = () => {
 									</h3>
 								</div>
 								<div className="bg-slate-50 rounded-[32px] p-6 border-2 border-slate-100 font-mono text-[13px] overflow-auto min-h-[400px] shadow-inner">
-									{selectedLog.oldData ? (
-										<pre className="text-slate-600 leading-relaxed">
-											{JSON.stringify(selectedLog.oldData, null, 2)}
-										</pre>
-									) : (
-										<div className="h-full flex flex-col items-center justify-center text-slate-300 italic opacity-50">
-											<Activity className="w-12 h-12 mb-2" />
-											{tUI("admin.auditLog.modal.noData")}
-										</div>
-									)}
+									<JsonDiffViewer data={selectedLog.oldData} otherData={selectedLog.newData} side="old" />
 								</div>
 							</div>
 
@@ -303,16 +361,7 @@ const AuditLogList = () => {
 									</h3>
 								</div>
 								<div className="bg-slate-50 rounded-[32px] p-6 border-2 border-slate-100 font-mono text-[13px] overflow-auto min-h-[400px] shadow-inner">
-									{selectedLog.newData ? (
-										<pre className="text-slate-600 leading-relaxed">
-											{JSON.stringify(selectedLog.newData, null, 2)}
-										</pre>
-									) : (
-										<div className="h-full flex flex-col items-center justify-center text-slate-300 italic opacity-50">
-											<Activity className="w-12 h-12 mb-2" />
-											{tUI("admin.auditLog.modal.noData")}
-										</div>
-									)}
+									<JsonDiffViewer data={selectedLog.newData} otherData={selectedLog.oldData} side="new" />
 								</div>
 							</div>
 						</div>

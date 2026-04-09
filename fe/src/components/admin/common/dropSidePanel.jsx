@@ -283,7 +283,7 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 
 	return (
 		<>
-			<div className='sticky top-0 h-screen bg-surface-bg border-l border-border flex flex-col'>
+			<div className='sticky top-4 h-fit max-h-[calc(100vh-120px)] bg-surface-bg border border-border rounded-2xl flex flex-col shadow-xl z-40'>
 				<div className='p-4 border-b border-border'>
 					<h3 className='text-lg font-semibold text-text-primary'>
 						Kéo thả Tài nguyên

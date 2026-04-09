@@ -214,17 +214,26 @@ router.get("/", async (req, res) => {
 				: String(vB).localeCompare(String(vA));
 		});
 
-		// 6. PHÂN TRANG
 		const totalItems = filtered.length;
-		const totalPages = Math.ceil(totalItems / pageSize);
-		const paginatedItems = filtered.slice(
-			(currentPage - 1) * pageSize,
-			currentPage * pageSize,
-		);
+		
+		let paginatedItems;
+		let totalPages;
+		
+		if (pageSize > 0) {
+			totalPages = Math.ceil(totalItems / pageSize);
+			paginatedItems = filtered.slice(
+				(currentPage - 1) * pageSize,
+				currentPage * pageSize,
+			);
+		} else {
+			// Nếu limit <= 0 (như limit=-1), lấy toàn bộ
+			totalPages = 1;
+			paginatedItems = filtered;
+		}
 
 		res.json({
 			items: paginatedItems,
-			pagination: { totalItems, totalPages, currentPage, pageSize },
+			pagination: { totalItems, totalPages, currentPage, pageSize: pageSize > 0 ? pageSize : totalItems },
 			availableFilters,
 		});
 	} catch (error) {
@@ -340,17 +349,26 @@ router.get("/my-builds", authenticateCognitoToken, async (req, res) => {
 				: String(vB).localeCompare(String(vA));
 		});
 
-		// 🟢 4. Phân trang
 		const totalItems = items.length;
-		const totalPages = Math.ceil(totalItems / pageSize);
-		const paginatedItems = items.slice(
-			(currentPage - 1) * pageSize,
-			currentPage * pageSize,
-		);
+		
+		let paginatedItems;
+		let totalPages;
+		
+		if (pageSize > 0) {
+			totalPages = Math.ceil(totalItems / pageSize);
+			paginatedItems = items.slice(
+				(currentPage - 1) * pageSize,
+				currentPage * pageSize,
+			);
+		} else {
+			// Nếu limit <= 0 (như limit=-1), lấy toàn bộ
+			totalPages = 1;
+			paginatedItems = items;
+		}
 
 		res.json({
 			items: paginatedItems,
-			pagination: { totalItems, totalPages, currentPage, pageSize },
+			pagination: { totalItems, totalPages, currentPage, pageSize: pageSize > 0 ? pageSize : totalItems },
 		});
 	} catch (error) {
 		console.error("Error getting user's builds:", error);

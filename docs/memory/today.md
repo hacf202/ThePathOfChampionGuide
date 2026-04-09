@@ -3,6 +3,33 @@
 *File này là nơi lưu trữ trạng thái dở dang thuộc phiên làm việc hiện tại, các vấn đề và lỗi sinh ra khi code hoặc thảo luận để AI ghi nhớ tránh lạc lõng, hỏi lại nhiều lần.*
 
 
+## Log thay đổi 2026-04-07/08 (Rating System & Home Integration)
+
+### ✅ Đại tu Hệ thống Đánh giá Tướng (Champion Ratings)
+- **Chuẩn hóa Thuật ngữ**: Chuyển đổi toàn bộ từ "Review" sang "Rating" (Đánh giá) trong toàn bộ mã nguồn, cấu trúc API và tệp đa ngôn ngữ để mang tính chuyên môn cao hơn.
+- **Nâng cấp Giao diện Đánh giá**:
+    - Thay thế chấm điểm sao bằng **hệ điểm 10** trực quan với các thanh trạng thái màu sắc.
+    - Thiết kế lại trang `ChampionRatingPage` với layout trắng tinh tế, tối giản và hiện đại.
+    - Bổ sung **Hộp thoại Hướng dẫn**: Giải thích chi tiết 6 tiêu chí đánh giá (Sát thương, Phòng ngự, Tốc độ, Ổn định, Combo, Độc lập) kèm theo ví dụ phân tích thực tế (Radar analysis).
+    - **Logic đặc biệt cho C041**: Tự động quy đổi hệ điểm 10 sang hệ điểm 4 cho vị tướng đặc thù này nhằm đảm bảo tính chính xác về mặt gameplay.
+- **Lỗi 404 & Routing**: Di chuyển route từ `/tools/reviews` sang `/tools/ratings` và xử lý triệt để lỗi 404 sau khi đổi tên tệp.
+
+### ✅ Tích hợp Trang chủ (Bento & Moodboard)
+- **Moodboard Tiles**: Thêm ô gạch "Champion Ratings" vào khu vực Hero (kéo thả) với biểu tượng `Star` và hình ảnh nền động.
+- **Quick Tools Expansion**: 
+    - Thêm thẻ công cụ Đánh giá vào phần Quick Tools với mô tả và màu sắc riêng biệt.
+    - Tối ưu hóa lưới (Grid) công cụ từ 2 cột lên **3 cột** trên màn hình lớn để chứa đủ 5 công cụ mà vẫn đảm bảo thẩm mỹ.
+- **Media Asset**: Bổ sung hình ảnh nền `BG10` mới cho hệ thống.
+
+### ✅ Quản trị & Hệ thống (Admin & Backend)
+- **Hệ thống Nhật ký (Audit Logs)**: Triển khai tính năng theo dõi lịch sử thao tác của Admin (`AuditLogList`), giúp kiểm soát các thay đổi dữ liệu trên hệ thống.
+- **Backend Fixes**: Khắc phục lỗi `ReferenceError: ScanCommand is not defined` trong route ratings, khôi phục tính năng Bảng xếp hạng.
+- **Cleanup**: Dọn dẹp thư mục `be/uploadData`, loại bỏ các script cũ không còn sử dụng để làm gọn dự án.
+
+### ✅ Cải thiện UI/UX chung
+- **EntityDetailLayout**: Triển khai layout chung cho các trang chi tiết thực thể.
+- **useUnsavedChanges**: Hook cảnh báo người dùng khi thoát trang biên tập mà chưa lưu dữ liệu.
+
 ## Log thay đổi 2026-04-06 (Home Page Overhaul)
 
 ### ✅ Đại tu Giao diện và Hệ thống Thiết kế (Modernization)

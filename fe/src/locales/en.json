@@ -1097,7 +1097,9 @@
 		"login": "Login",
 		"confirmLogoutTitle": "Confirm Logout",
 		"confirmLogoutDesc": "Are you sure you want to log out?",
-		"cancel": "Cancel"
+		"cancel": "Cancel",		
+		"customTheme": "Custom Theme",
+		"newChampion": "New Champion"
 	},
 	"rating": {
 		"damage": "Damage",
@@ -1105,7 +1107,7 @@
 		"speed": "Speed",
 		"consistency": "Consistency",
 		"synergy": "Synergy",
-		"independence": "Indep."
+		"independence": "Independence"
 	},
 	"ratings": {
 		"subtitle": "A place for you to rate champions",

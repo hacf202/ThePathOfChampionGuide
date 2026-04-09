@@ -31,7 +31,9 @@ const BACKGROUND_IMAGES = [
 	"https://images.pocguide.top/backgrounds/BG7.webp",
 	"https://images.pocguide.top/backgrounds/BG8.webp",
 	"https://images.pocguide.top/backgrounds/BG9.webp",
-	"https://images.pocguide.top/backgrounds/BG10.webp"
+	"https://images.pocguide.top/backgrounds/BG10.webp",
+	"https://dd.b.pvp.net/7_3_0/set5/vi_vn/img/cards/05FR013T4-full.png",
+	"https://dd.b.pvp.net/7_3_0/set5/vi_vn/img/cards/05FR013-full.png"
 ];
 
 const Home = () => {
@@ -44,13 +46,13 @@ const Home = () => {
 		{ to: "/champions", icon: Swords, label: tUI("nav.champions"), img: BACKGROUND_IMAGES[1], top: "15%", left: "10%", size: "w-28 h-28 lg:w-56 lg:h-56" },
 		{ to: "/builds", icon: Crown, label: tUI("nav.builds"), img: BACKGROUND_IMAGES[3], top: "30%", left: "85%", size: "w-20 h-20 lg:w-44 lg:h-44" },
 		{ to: "/items", icon: Package, label: tUI("nav.items"), img: BACKGROUND_IMAGES[4], top: "64%", left: "20%", size: "w-24 h-24 lg:w-48 lg:h-48" },
-		{ to: "/relics", icon: Sparkles, label: tUI("nav.relics"), img: BACKGROUND_IMAGES[0], top: "1%", left: "33%", size: "w-20 h-20 lg:w-40 lg:h-40" },
+		{ to: "/relics", icon: Sparkles, label: tUI("nav.relics"), img: BACKGROUND_IMAGES[8], top: "1%", left: "33%", size: "w-20 h-20 lg:w-40 lg:h-40" },
 		{ to: "/powers", icon: Zap, label: tUI("nav.powers"), img: BACKGROUND_IMAGES[5], top: "70%", left: "45%", size: "w-24 h-24 lg:w-48 lg:h-48" },
 		{ to: "/runes", icon: Gem, label: tUI("nav.runes"), img: BACKGROUND_IMAGES[6], top: "5%", left: "80%", size: "w-20 h-20 lg:w-40 lg:h-40" },
 		{ to: "/maps", icon: Map, label: tUI("nav.maps"), img: BACKGROUND_IMAGES[2], top: "65%", left: "75%", size: "w-18 h-18 lg:w-36 lg:h-36" },
-		{ to: "/randomizer", icon: Dices, label: tUI("nav.randomizer"), img: BACKGROUND_IMAGES[8], top: "50%", left: "2%", size: "w-20 h-20 lg:w-36 lg:h-36" },
+		{ to: "/tools/ratings", icon: Dices, label: tUI("nav.championRatings"), img: BACKGROUND_IMAGES[9], top: "50%", left: "2%", size: "w-20 h-20 lg:w-36 lg:h-36" },
 		{ to: "/cards", icon: GalleryHorizontal, label: tUI("nav.cards"), img: BACKGROUND_IMAGES[7], top: "2%", left: "64%", size: "w-24 h-24 lg:w-40 lg:h-40" },
-		{ to: "/tools/ratings", icon: Star, label: tUI("nav.championRatings"), img: BACKGROUND_IMAGES[9], top: "7%", left: "49%", size: "w-20 h-20 lg:w-60 lg:h-60" },
+		{ to: "/champion/C084", icon: Star, label: tUI("nav.newChampion"), img: BACKGROUND_IMAGES[10], top: "0%", left: "49%", size: "w-20 h-20 lg:w-48 lg:h-48" },
 	];
 
 	useEffect(() => {
@@ -71,17 +73,17 @@ const Home = () => {
 
 	if (isLoading) {
 		return (
-			<div className='fixed inset-0 z-50 bg-slate-50 p-4 flex flex-col'>
+			<div className='fixed inset-0 z-50 bg-page-bg p-4 flex flex-col'>
 				{/* Skeleton Navbar */}
-				<div className='h-16 w-full bg-slate-200 rounded-2xl animate-pulse mb-8'></div>
+				<div className='h-16 w-full bg-border rounded-2xl animate-pulse mb-8'></div>
 				{/* Skeleton Hero Section */}
 				<div className='flex-grow flex flex-col items-center justify-center w-full max-w-5xl mx-auto gap-6'>
-					<div className='h-8 w-32 bg-slate-200 rounded-full animate-pulse mb-4'></div>
-					<div className='h-16 md:h-24 w-3/4 bg-slate-200 rounded-3xl animate-pulse'></div>
-					<div className='h-6 md:h-8 w-1/2 bg-slate-200 rounded-full animate-pulse mb-8'></div>
+					<div className='h-8 w-32 bg-border rounded-full animate-pulse mb-4'></div>
+					<div className='h-16 md:h-24 w-3/4 bg-border rounded-3xl animate-pulse'></div>
+					<div className='h-6 md:h-8 w-1/2 bg-border rounded-full animate-pulse mb-8'></div>
 					<div className='flex flex-col sm:flex-row gap-6'>
-						<div className='h-14 w-48 bg-slate-200 rounded-full animate-pulse'></div>
-						<div className='h-14 w-48 bg-slate-200 rounded-full animate-pulse'></div>
+						<div className='h-14 w-48 bg-border rounded-full animate-pulse'></div>
+						<div className='h-14 w-48 bg-border rounded-full animate-pulse'></div>
 					</div>
 				</div>
 			</div>
@@ -89,7 +91,7 @@ const Home = () => {
 	}
 
 	return (
-		<div className='bg-slate-50 text-slate-900 font-primary selection:bg-primary-500 selection:text-white'>
+		<div className='bg-page-bg text-text-primary font-primary selection:bg-primary-500 selection:text-white'>
 			<PageTitle
 				title={tUI("home.pageTitle")}
 				description={tUI("home.pageDesc")}
@@ -97,10 +99,10 @@ const Home = () => {
 			/>
 
 			{/* --- HERO MOODBOARD --- */}
-			<section className='relative w-full h-[calc(100vh-56px)] bg-white overflow-hidden flex items-center justify-center'>
-				<div className='absolute inset-0 z-0 select-none overflow-hidden bg-white'>
+			<section className='relative w-full h-[calc(100vh-56px)] bg-surface-bg/0 overflow-hidden flex items-center justify-center'>
+				<div className='absolute inset-0 z-0 select-none overflow-hidden bg-surface-bg/20'>
 					<img
-						src={BACKGROUND_IMAGES[0]}
+						src={BACKGROUND_IMAGES[11]}
 						alt='Hero'
 						className='w-full h-full object-cover grayscale-[0.2] opacity-90 blur-[3px] scale-110 transition-all duration-[2s]'
 					/>
@@ -114,10 +116,8 @@ const Home = () => {
 							initial={{ opacity: 0, scale: 0.8 }}
 							animate={{ opacity: 1, scale: 1 }}
 							transition={{ duration: 1 }}
-							className='text-7xl md:text-[14rem] font-black text-slate-950 uppercase leading-none tracking-tighter italic md:pr-12 mb-8'
-							style={{ 
-								filter: "drop-shadow(-2px -2px 0 #fff) drop-shadow(2px -2px 0 #fff) drop-shadow(-2px 2px 0 #fff) drop-shadow(2px 2px 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(2px 0 0 #fff) drop-shadow(0 -2px 0 #fff) drop-shadow(0 2px 0 #fff)" 
-							}}
+							className='text-7xl md:text-[14rem] font-black text-text-primary uppercase leading-none tracking-tighter italic md:pr-12 mb-8'
+							style={{ filter: 'drop-shadow(0 20px 30px rgba(122, 122, 122, 0.6))' }}
 						>
 							<span>{tUI("home.heroTitle1")}</span> 
 							<br />
@@ -143,14 +143,14 @@ const Home = () => {
 						>
 							<div 
 								onClick={() => !isDragging.current && navigate(tile.to)}
-								className={`${tile.size} rounded-none border-2 border-white shadow-2xl overflow-hidden bg-white group-hover:border-primary-500 group-hover:scale-110 transition-all duration-500 select-none`}
+								className={`${tile.size} rounded-none border-2 border-white shadow-2xl overflow-hidden bg-surface-bg group-hover:border-primary-500 group-hover:scale-110 transition-all duration-500 select-none`}
 							>
 								<img src={tile.img} alt={tile.label} className='w-full h-full object-cover grayscale-[0.7] group-hover:grayscale-0 transition-all duration-700 pointer-events-none' />
 								<div className='absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all'>
 									<tile.icon className='w-1/4 h-1/4 text-primary-600' />
 								</div>
 							</div>
-							<span className='mt-2 text-[9px] lg:text-[11px] font-black tracking-[0.3em] uppercase text-slate-800 bg-white/80 backdrop-blur-md px-3 py-1 shadow-sm select-none pointer-events-none'>
+							<span className='mt-2 text-[9px] lg:text-[11px] font-black tracking-[0.3em] uppercase text-text-primary bg-surface-bg/80 backdrop-blur-md px-3 py-1 shadow-sm select-none pointer-events-none'>
 								{tile.label}
 							</span>
 						</motion.div>
@@ -162,13 +162,13 @@ const Home = () => {
 			<section className='py-10 px-1 md:px-6 max-w-7xl mx-auto'>
 				<div className='flex flex-col md:flex-row justify-between items-end mb-16 gap-6'>
 					<div>
-						<h2 className='text-5xl md:text-7xl font-bold uppercase mb-4 tracking-tighter text-slate-900'>
+						<h2 className='text-5xl md:text-7xl font-bold uppercase mb-4 tracking-tighter text-text-primary'>
 							{tUI("home.resourceTitle1")}{" "}
 							<span className='text-primary-600'>
 								{tUI("home.resourceTitle2")}
 							</span>
 						</h2>
-						<p className='text-slate-600 text-xl font-secondary'>
+						<p className='text-text-secondary text-xl font-secondary'>
 							{tUI("home.resourceDesc")}
 						</p>
 					</div>
@@ -183,7 +183,7 @@ const Home = () => {
 				<div className='grid grid-cols-1 md:grid-cols-4 gap-8'>
 					<NavLink
 						to='/champions'
-						className='md:col-span-2 group relative min-h-[500px] rounded-[40px] overflow-hidden border border-slate-200 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] transition-all hover:-translate-y-2'
+						className='md:col-span-2 group relative min-h-[500px] rounded-[40px] overflow-hidden border border-border shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] transition-all hover:-translate-y-2'
 					>
 						<div
 							className='absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-1000'
@@ -205,7 +205,7 @@ const Home = () => {
 
 					<NavLink
 						to='/builds'
-						className='md:col-span-2 group relative min-h-[500px] rounded-[40px] overflow-hidden border border-slate-200 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] transition-all hover:-translate-y-2'
+						className='md:col-span-2 group relative min-h-[500px] rounded-[40px] overflow-hidden border border-border shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] transition-all hover:-translate-y-2'
 					>
 						<div
 							className='absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-1000'
@@ -231,10 +231,10 @@ const Home = () => {
 			<section className='py-10 px-1 md:px-6 max-w-7xl mx-auto'>
 				<div className='flex flex-col md:flex-row justify-between items-end mb-16 gap-6'>
 					<div>
-						<h2 className='text-5xl md:text-7xl font-bold uppercase mb-4 tracking-tighter text-slate-900'>
+						<h2 className='text-5xl md:text-7xl font-bold uppercase mb-4 tracking-tighter text-text-primary'>
 							{tUI("home.databaseTitle")}
 						</h2>
-						<p className='text-slate-600 text-xl font-secondary max-w-2xl'>
+						<p className='text-text-secondary text-xl font-secondary max-w-2xl'>
 							{tUI("home.databaseDesc")}
 						</p>
 					</div>
@@ -253,14 +253,14 @@ const Home = () => {
 						<NavLink
 							key={idx}
 							to={item.to}
-							className={`group relative ${item.span} rounded-[40px] overflow-hidden border border-slate-200 transition-all hover:shadow-[0_45px_70px_-20px_rgba(0,0,0,0.3)] hover:-translate-y-2 active:scale-95 hover:border-primary-500/50 shadow-[0_15px_35px_-8px_rgba(0,0,0,0.15)] isolate`}
+							className={`group relative ${item.span} rounded-[40px] overflow-hidden border border-border transition-all hover:shadow-[0_45px_70px_-20px_rgba(0,0,0,0.3)] hover:-translate-y-2 active:scale-95 hover:border-primary-500/50 shadow-[0_15px_35px_-8px_rgba(0,0,0,0.15)] isolate`}
 						>
 							{/* Background Image with Cinematic Overlay */}
 							<div 
 								className='absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-110'
 								style={{ backgroundImage: `url(${item.img})` }}
 							/>
-							<div className='absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent' />
+							<div className='absolute inset-0 bg-gradient-to-t from-gray-950/90 via-gray-950/40 to-transparent' />
 							
 							{/* Content Layout */}
 							<div className='absolute inset-0 p-8 md:p-5 md:p-10 flex flex-col justify-end h-full w-full'>
@@ -283,28 +283,28 @@ const Home = () => {
 			{/* SECTION 4: MONTHLY CHALLENGE */}
 			<section className='relative py-10 overflow-hidden'>
 				<div className='absolute top-0 right-0 w-[600px] h-[600px] bg-primary-200/20 blur-[150px] -z-10' />
-				<div className='absolute bottom-0 left-0 w-[600px] h-[600px] bg-purple-200/20 blur-[150px] -z-10' />
+				<div className='absolute bottom-0 left-0 w-[600px] h-[600px] bg-primary-100/10 blur-[150px] -z-10' />
 
 				<div className='max-w-7xl mx-auto px-1 md:px-6'>
-					<div className='bg-white border border-slate-200 rounded-[60px] p-5 md:p-10 lg:p-20 backdrop-blur-2xl relative shadow-2xl shadow-slate-200/70'>
+					<div className='bg-surface-bg border border-border rounded-[60px] p-5 md:p-10 lg:p-20 backdrop-blur-2xl relative shadow-2xl shadow-border/50'>
 						<div className='grid grid-cols-1 lg:grid-cols-2 gap-20 items-center'>
 							<div className='order-2 lg:order-1'>
 								<div className='flex items-center gap-4 text-primary-600 mb-8 font-bold tracking-[0.3em] uppercase text-sm'>
 									<Trophy className='w-8 h-8' />
 									<span>{tUI("home.monthlyEvent")}</span>
 								</div>
-								<h2 className='text-5xl md:text-8xl font-bold uppercase mb-10 leading-[0.9] tracking-tighter text-slate-900'>
+								<h2 className='text-5xl md:text-8xl font-bold uppercase mb-10 leading-[0.9] tracking-tighter text-text-primary'>
 									{tUI("home.monthlyTitle1")} <br />
 									<span className='text-primary-600'>
 										{tUI("home.monthlyTitle2")}
 									</span>
 								</h2>
-								<p className='text-2xl text-slate-600 mb-12 leading-relaxed font-secondary opacity-90'>
+								<p className='text-2xl text-text-secondary mb-12 leading-relaxed font-secondary opacity-90'>
 									{tUI("home.monthlyDesc")}
 								</p>
 								<NavLink
 									to='/guides/thu-thach-thang'
-									className='inline-flex items-center gap-6 px-12 py-6 bg-slate-900 text-white font-bold rounded-2xl text-2xl hover:bg-primary-600 transition-all shadow-xl active:scale-95'
+									className='inline-flex items-center gap-6 px-12 py-6 bg-gray-900 text-white font-bold rounded-2xl text-2xl hover:bg-primary-600 transition-all shadow-xl active:scale-95'
 								>
 									{tUI("home.btnViewGuides")}{" "}
 									<ChevronRight className='w-8 h-8' />
@@ -314,7 +314,7 @@ const Home = () => {
 								<img
 									src={BACKGROUND_IMAGES[2]}
 									alt={tUI("home.monthlyChallengeAlt")}
-									className='rounded-[40px] shadow-2xl border border-slate-200 scale-105 rotate-2 group-hover:rotate-0 transition-all duration-700'
+									className='rounded-[40px] shadow-2xl border border-border scale-105 rotate-2 group-hover:rotate-0 transition-all duration-700'
 								/>
 								<div className='absolute -bottom-8 -left-8 bg-primary-600 p-8 rounded-3xl hidden md:block animate-pulse shadow-2xl'>
 									<p className='font-bold text-4xl mb-1 text-white'>70/70</p>
@@ -337,17 +337,17 @@ const Home = () => {
 						{ to: "/guides", label: tUI("home.pocGuidesTitle"), desc: tUI("home.pocGuidesDesc"), icon: BookOpen, color1: "emerald-100", btn: tUI("home.learnToPlay"), iconColor: "emerald-600" },
 						{ to: "/vault-simulator", label: tUI("nav.vaultSimulator"), desc: tUI("vaultSimulator.description"), icon: Archive, color1: "amber-100", btn: tUI("home.tryNow"), iconColor: "amber-600" },
 					].map((tool, idx) => (
-						<div key={idx} className={`bg-gradient-to-br from-${tool.color1} to-white p-5 md:p-10 rounded-[40px] border border-slate-200 shadow-xl shadow-slate-200/50 transition-all hover:scale-105`}>
+						<div key={idx} className={`bg-gradient-to-br from-${tool.color1} to-surface-bg p-5 md:p-10 rounded-[40px] border border-border shadow-xl shadow-border/30 transition-all hover:scale-105`}>
 							<tool.icon className={`w-16 h-16 text-${tool.iconColor} mb-8`} />
-							<h3 className='text-3xl font-bold mb-6 uppercase tracking-tighter text-slate-800'>
+							<h3 className='text-3xl font-bold mb-6 uppercase tracking-tighter text-text-primary'>
 								{tool.label}
 							</h3>
-							<p className='text-slate-600 mb-10 text-lg font-secondary leading-relaxed line-clamp-2'>
+							<p className='text-text-secondary mb-10 text-lg font-secondary leading-relaxed line-clamp-2'>
 								{tool.desc}
 							</p>
 							<NavLink
 								to={tool.to}
-								className='text-slate-900 font-bold flex items-center gap-3 group underline underline-offset-8 hover:text-primary-600'
+								className='text-text-primary font-bold flex items-center gap-3 group underline underline-offset-8 hover:text-primary-600'
 							>
 								{tool.btn}{" "}
 								<ChevronRight className='group-hover:translate-x-2 transition-transform w-6 h-6' />
@@ -359,15 +359,15 @@ const Home = () => {
 
 			{/* AD PLACEMENT */}
 			<div className='max-w-7xl mx-auto px-1 md:px-6 mb-10'>
-				<div className='bg-white border border-slate-200 rounded-3xl p-4 shadow-md shadow-slate-200/50'>
+				<div className='bg-surface-bg border border-border rounded-3xl p-4 shadow-sm'>
 					<GoogleAd slot='2943049680' format='horizontal' />
 				</div>
 			</div>
 
 			{/* FOOTER CTA */}
-			<section className='py-10 text-center border-t border-slate-200 relative overflow-hidden'>
+			<section className='py-10 text-center border-t border-border relative overflow-hidden'>
 				<div className='absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-primary-100/50 blur-[120px] -z-10 rounded-full' />
-				<h2 className='text-6xl md:text-[8rem] font-bold uppercase mb-16 tracking-tighter italic leading-none text-slate-900'>
+				<h2 className='text-6xl md:text-[8rem] font-bold uppercase mb-16 tracking-tighter italic leading-none text-text-primary'>
 					{tUI("home.footerCTA1")}{" "}
 					<span className='text-primary-600'>{tUI("home.footerCTA2")}</span> <br />
 					{tUI("home.footerCTA3")}
@@ -378,7 +378,7 @@ const Home = () => {
 				>
 					{tUI("home.btnExploreNow")} <ChevronRight className='w-10 h-10' />
 				</NavLink>
-				<p className='mt-24 text-slate-400 uppercase tracking-[1em] text-xs font-secondary'>
+				<p className='mt-24 text-text-secondary opacity-50 uppercase tracking-[1em] text-xs font-secondary'>
 					POC GUIDE - LEGEND OF RUNETERRA - 2026
 				</p>
 			</section>
