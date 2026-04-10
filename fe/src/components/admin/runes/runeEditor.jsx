@@ -245,7 +245,7 @@ function RuneEditor() {
 		const rarities = [...new Set(runes.map(r => r.rarity).filter(Boolean))];
 		rarities.sort((a, b) => (RARITY_WEIGHT[a] || 0) - (RARITY_WEIGHT[b] || 0));
 
-		const types = [...new Set(runes.flatMap(r => r.type || []))]
+		const types = [...new Set(runes.flatMap(r => Array.isArray(r.type) ? r.type : (r.type ? [r.type] : [])))]
 			.filter(Boolean)
 			.sort();
 
@@ -289,7 +289,10 @@ function RuneEditor() {
 		}
 
 		if (selectedTypes.length) {
-			result = result.filter(r => r.type?.some(t => selectedTypes.includes(t)));
+			result = result.filter(r => {
+				const rTypes = Array.isArray(r.type) ? r.type : (r.type ? [r.type] : []);
+				return rTypes.some(t => selectedTypes.includes(t));
+			});
 		}
 
 		const [field, dir] = sortOrder.split("-");

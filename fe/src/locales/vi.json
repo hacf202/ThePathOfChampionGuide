@@ -510,7 +510,8 @@
 			"actions": {
 				"CREATE": "Thêm mới",
 				"UPDATE": "Cập nhật",
-				"DELETE": "Xóa"
+				"DELETE": "Xóa",
+				"ROLLBACK": "Hoàn tác"
 			},
 			"entities": {
 				"champion": "Tướng",
@@ -528,7 +529,9 @@
 				"title": "Chi tiết thay đổi",
 				"oldData": "Dữ liệu cũ",
 				"newData": "Dữ liệu mới",
-				"noData": "Không có dữ liệu"
+				"noData": "Không có dữ liệu",
+				"rollback": "Hoàn tác",
+				"rollbackConfirm": "Bạn có chắc chắn muốn hoàn tác thay đổi này? Hành động này sẽ ghi đè dữ liệu hiện tại."
 			}
 		}
 	},

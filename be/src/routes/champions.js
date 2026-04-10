@@ -204,16 +204,13 @@ router.get("/search", async (req, res) => {
 	const searchName = name.trim();
 
 	try {
-		const command = new QueryCommand({
-			TableName: CHAMPIONS_TABLE,
-			IndexName: "name-index",
-			KeyConditionExpression: "#name = :name",
-			ExpressionAttributeNames: { "#name": "name" },
-			ExpressionAttributeValues: marshall({ ":name": searchName }),
-		});
+		const allChampions = await getCachedChampions();
+		const searchTerm = searchName.toLowerCase();
 
-		const { Items } = await client.send(command);
-		const champions = Items ? Items.map(item => unmarshall(item)) : [];
+		const champions = allChampions.filter(c => 
+			(c.name && c.name.toLowerCase() === searchTerm) ||
+			(c.translations?.en?.name && c.translations.en.name.toLowerCase() === searchTerm)
+		);
 
 		res.json({ items: champions });
 	} catch (error) {

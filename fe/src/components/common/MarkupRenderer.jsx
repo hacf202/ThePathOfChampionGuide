@@ -1,16 +1,22 @@
-import { memo, useMemo } from "react";
+import { memo, useMemo, useEffect } from "react";
 import { parseMarkup } from "../../utils/markupParser";
 import { getRarityKey } from "../../utils/i18nHelpers";
 import { getEntityData } from "../../utils/entityLookup"; // 🟢 Import bộ tra cứu mới
 import MarkupTooltip from "./MarkupTooltip"; 
 import { useTranslation } from "../../hooks/useTranslation"; 
+import { useMarkupResolution } from "../../hooks/useMarkupResolution"; 
 
 /**
  * MarkupRenderer - Component hiển thị văn bản đánh dấu nâng cao
  */
 const MarkupRenderer = memo(({ text, className = "" }) => {
 	const { language } = useTranslation(); 
+	const { resolveEntities } = useMarkupResolution();
 	const segments = useMemo(() => parseMarkup(text), [text]);
+
+	useEffect(() => {
+		if (text) resolveEntities(text);
+	}, [text, resolveEntities]);
 
 	if (!segments || segments.length === 0) return null;
 

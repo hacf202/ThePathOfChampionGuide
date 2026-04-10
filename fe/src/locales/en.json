@@ -513,7 +513,8 @@
 			"actions": {
 				"CREATE": "Create",
 				"UPDATE": "Update",
-				"DELETE": "Delete"
+				"DELETE": "Delete",
+				"ROLLBACK": "Rollback"
 			},
 			"entities": {
 				"champion": "Champion",
@@ -531,7 +532,9 @@
 				"title": "Change Details",
 				"oldData": "Old Data",
 				"newData": "New Data",
-				"noData": "No data"
+				"noData": "No data",
+				"rollback": "Rollback",
+				"rollbackConfirm": "Are you sure you want to rollback this change? This will overwrite the current data."
 			}
 		}
 	},

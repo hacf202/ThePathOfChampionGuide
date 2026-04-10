@@ -72000,5 +72000,140 @@
         },
         "type": "Bài quân",
         "associatedCardRefs": []
+    },
+    {
+        "cardCode": "98FR028",
+        "cardName": "Đổi Thế Võ Đã Thành Thạo",
+        "cost": 3,
+        "description": "Ban 1 Thế Võ Thành Thạo cho 1 đồng minh.",
+        "descriptionRaw": "Ban 1 Thế Võ Thành Thạo cho 1 đồng minh.",
+        "gameAbsolutePath": "http://dd.b.pvp.net/7_4_0/tpoc/vi_vn/img/cards/98FR028.png",
+        "rarity": "Common",
+        "regions": [
+            "Freljord"
+        ],
+        "translations": {
+            "en": {
+                "cardName": "Mastered Stance Swap",
+                "description": "Grant a Mastered Stance to an ally.",
+                "descriptionRaw": "Grant a Mastered Stance to an ally.",
+                "gameAbsolutePath": "http://dd.b.pvp.net/7_4_0/tpoc/en_us/img/cards/98FR028.png",
+                "regions": [
+                    "Freljord"
+                ],
+                "type": "Spell"
+            }
+        },
+        "type": "Bài phép",
+        "associatedCardRefs": [
+            "98FR028T4",
+            "98FR028T1",
+            "98FR028T3",
+            "98FR028T2"
+        ]
+    },
+    {
+        "cardCode": "98FR028T2",
+        "cardName": "Thế Võ Cừu Đã Thành Thạo",
+        "cost": 3,
+        "description": "[k:Forge|Tôi Luyện] một đồng minh. Gây 1 sát thương lên tất cả kẻ địch và Nhà Chính của đối thủ.",
+        "descriptionRaw": "Tôi Luyện một đồng minh. Gây 1 sát thương lên tất cả kẻ địch và Nhà Chính của đối thủ.",
+        "gameAbsolutePath": "http://dd.b.pvp.net/7_4_0/tpoc/vi_vn/img/cards/98FR028T2.png",
+        "rarity": "Common",
+        "regions": [
+            "Freljord"
+        ],
+        "translations": {
+            "en": {
+                "cardName": "Mastered Ram Stance",
+                "description": "[k:Forge|Forge] an ally. Deal 1 to all enemies and the enemy Nexus.",
+                "descriptionRaw": "Forge an ally. Deal 1 to all enemies and the enemy Nexus.",
+                "gameAbsolutePath": "http://dd.b.pvp.net/7_4_0/tpoc/en_us/img/cards/98FR028T2.png",
+                "regions": [
+                    "Freljord"
+                ],
+                "type": "Spell"
+            }
+        },
+        "type": "Bài phép",
+        "associatedCardRefs": []
+    },
+    {
+        "cardCode": "98FR028T4",
+        "cardName": "Thế Võ Gấu Đã Thành Thạo",
+        "cost": 3,
+        "description": "Ban cho một đồng minh +2|+2 và [k:Stun|Làm Choáng] kẻ địch mạnh nhất.",
+        "descriptionRaw": "Ban cho một đồng minh +2|+2 và Làm Choáng kẻ địch mạnh nhất.",
+        "gameAbsolutePath": "http://dd.b.pvp.net/7_4_0/tpoc/vi_vn/img/cards/98FR028T4.png",
+        "rarity": "Common",
+        "regions": [
+            "Freljord"
+        ],
+        "translations": {
+            "en": {
+                "cardName": "Mastered Bear Stance",
+                "description": "Grant an ally +2|+2 and [k:Stun|Stun] the strongest enemy.",
+                "descriptionRaw": "Grant an ally +2|+2 and Stun the strongest enemy.",
+                "gameAbsolutePath": "http://dd.b.pvp.net/7_4_0/tpoc/en_us/img/cards/98FR028T4.png",
+                "regions": [
+                    "Freljord"
+                ],
+                "type": "Spell"
+            }
+        },
+        "type": "Bài phép",
+        "associatedCardRefs": []
+    },
+    {
+        "cardCode": "98FR028T1",
+        "cardName": "Thế Võ Móng Sắc Đã Thành Thạo",
+        "cost": 3,
+        "description": "Ban cho một đồng minh +2|+1 và [k:Overwhelm|Áp Đảo]. Cho họ [k:Challenger|Thách Đấu] trong vòng này.",
+        "descriptionRaw": "Ban cho một đồng minh +2|+1 và Áp Đảo. Cho họ Thách Đấu trong vòng này.",
+        "gameAbsolutePath": "http://dd.b.pvp.net/7_4_0/tpoc/vi_vn/img/cards/98FR028T1.png",
+        "rarity": "Common",
+        "regions": [
+            "Freljord"
+        ],
+        "translations": {
+            "en": {
+                "cardName": "Mastered Wildclaw Stance",
+                "description": "Grant an ally +2|+1 and [k:Overwhelm|Overwhelm]. Give it [k:Challenger|Challenger] this round.",
+                "descriptionRaw": "Grant an ally +2|+1 and Overwhelm. Give it Challenger this round.",
+                "gameAbsolutePath": "http://dd.b.pvp.net/7_4_0/tpoc/en_us/img/cards/98FR028T1.png",
+                "regions": [
+                    "Freljord"
+                ],
+                "type": "Spell"
+            }
+        },
+        "type": "Bài phép",
+        "associatedCardRefs": []
+    },
+    {
+        "cardCode": "98FR028T3",
+        "cardName": "Thế Võ Lợn Rừng Đã Thành Thạo ",
+        "cost": 3,
+        "description": "Ban cho một đồng minh +1|+2 và [k:Regeneration|Hồi Phục]. Trao cho họ [k:Barrier|Lá Chắn] trong vòng này.",
+        "descriptionRaw": "Ban cho một đồng minh +1|+2 và Hồi Phục. Trao cho họ Lá Chắn trong vòng này.",
+        "gameAbsolutePath": "http://dd.b.pvp.net/7_4_0/tpoc/vi_vn/img/cards/98FR028T3.png",
+        "rarity": "Common",
+        "regions": [
+            "Freljord"
+        ],
+        "translations": {
+            "en": {
+                "cardName": "Mastered Boar Stance ",
+                "description": "Grant an ally +1|+2 and [k:Regeneration|Regeneration]. Give it [k:Barrier|Barrier] this round.",
+                "descriptionRaw": "Grant an ally +1|+2 and Regeneration. Give it Barrier this round.",
+                "gameAbsolutePath": "http://dd.b.pvp.net/7_4_0/tpoc/en_us/img/cards/98FR028T3.png",
+                "regions": [
+                    "Freljord"
+                ],
+                "type": "Spell"
+            }
+        },
+        "type": "Bài phép",
+        "associatedCardRefs": []
     }
 ]

@@ -89,8 +89,16 @@ export const getEntityData = (value, type, lang = "vi") => {
 
 		case "c": 
 		case "champion": {
-			const found = db.cards.find(c => normalize(c.name) === searchKey || normalize(c.cardCode) === searchKey) ||
-			              db.champions.find(c => normalize(c.championID) === searchKey || normalize(c.name) === searchKey);
+			const found = db.cards.find(c => 
+				normalize(c.name) === searchKey || 
+				normalize(c.cardCode) === searchKey || 
+				normalize(c.translations?.en?.cardName) === searchKey
+			) ||
+			db.champions.find(c => 
+				normalize(c.championID) === searchKey || 
+				normalize(c.name) === searchKey || 
+				normalize(c.translations?.en?.name) === searchKey
+			);
 			if (found) {
 				const trans = cur === "en" ? found.translations?.en : null;
 				return {
@@ -107,7 +115,11 @@ export const getEntityData = (value, type, lang = "vi") => {
 
 		case "r": 
 		case "relic": {
-			const found = db.relics.find(r => normalize(r.relicCode) === searchKey || normalize(r.name) === searchKey);
+			const found = db.relics.find(r => 
+				normalize(r.relicCode) === searchKey || 
+				normalize(r.name) === searchKey || 
+				normalize(r.translations?.en?.name) === searchKey
+			);
 			if (found) {
 				const trans = cur === "en" ? found.translations?.en : null;
 				return {
@@ -125,7 +137,11 @@ export const getEntityData = (value, type, lang = "vi") => {
 
 		case "p": 
 		case "power": {
-			const found = db.powers.find(p => normalize(p.powerCode) === searchKey || normalize(p.name) === searchKey);
+			const found = db.powers.find(p => 
+				normalize(p.powerCode) === searchKey || 
+				normalize(p.name) === searchKey || 
+				normalize(p.translations?.en?.name) === searchKey
+			);
 			if (found) {
 				const trans = cur === "en" ? found.translations?.en : null;
 				return {
@@ -142,7 +158,11 @@ export const getEntityData = (value, type, lang = "vi") => {
 		}
 		
 		case "i": { // Item
-			const foundItem = db.items.find(i => normalize(i.itemCode) === searchKey || normalize(i.name) === searchKey);
+			const foundItem = db.items.find(i => 
+				normalize(i.itemCode) === searchKey || 
+				normalize(i.name) === searchKey || 
+				normalize(i.translations?.en?.name) === searchKey
+			);
 			if (foundItem) return {
 				id: foundItem.itemCode,
 				name: foundItem.name,
@@ -155,12 +175,18 @@ export const getEntityData = (value, type, lang = "vi") => {
 
 		case "cd": 
 		case "card": { // 🆕 Card Markup
-			const found = db.cards.find(c => normalize(c.cardCode) === searchKey || normalize(c.cardName) === searchKey);
+			const found = db.cards.find(c => 
+				normalize(c.cardCode) === searchKey || 
+				normalize(c.cardName) === searchKey || 
+				normalize(c.translations?.en?.cardName) === searchKey
+			);
 			if (found) {
 				const trans = cur === "en" ? found.translations?.en : null;
 				return {
 					id: found.cardCode,
 					name: trans?.cardName || found.cardName,
+					description: trans?.description || found.description,
+					descriptionRaw: trans?.descriptionRaw || found.descriptionRaw,
 					icon: found.gameAbsolutePath,
 					fullImage: found.gameAbsolutePath,
 					type: "card"
@@ -181,12 +207,36 @@ export const getAllEntities = (type, lang = "vi") => {
 	const db = dataStore[cur];
 
 	switch (type) {
-		case "c": return db.champions.map(c => ({ id: c.championID, name: (cur === "en" ? c.translations?.en?.name : null) || c.name }));
-		case "r": return db.relics.map(r => ({ id: r.relicCode, name: (cur === "en" ? r.translations?.en?.name : null) || r.name }));
-		case "p": return db.powers.map(p => ({ id: p.powerCode, name: (cur === "en" ? p.translations?.en?.name : null) || p.name }));
-		case "i": return db.items.map(i => ({ id: i.itemCode, name: i.name }));
-		case "k": return [...db.keywords, ...db.vocabTerms].map(k => ({ id: k.nameRef, name: k.name }));
-		case "cd": return db.cards.map(c => ({ id: c.cardCode, name: (cur === "en" ? c.translations?.en?.cardName : null) || c.cardName })); // 🆕
+		case "c": return db.champions.map(c => ({ 
+			id: c.championID, 
+			name: (cur === "en" ? c.translations?.en?.name : null) || c.name, 
+			nameEn: c.translations?.en?.name || "" 
+		}));
+		case "r": return db.relics.map(r => ({ 
+			id: r.relicCode, 
+			name: (cur === "en" ? r.translations?.en?.name : null) || r.name, 
+			nameEn: r.translations?.en?.name || "" 
+		}));
+		case "p": return db.powers.map(p => ({ 
+			id: p.powerCode, 
+			name: (cur === "en" ? p.translations?.en?.name : null) || p.name, 
+			nameEn: p.translations?.en?.name || "" 
+		}));
+		case "i": return db.items.map(i => ({ 
+			id: i.itemCode, 
+			name: (cur === "en" ? i.translations?.en?.name : null) || i.name, 
+			nameEn: i.translations?.en?.name || "" 
+		}));
+		case "k": return [...db.keywords, ...db.vocabTerms].map(k => ({ 
+			id: k.nameRef, 
+			name: k.name, 
+			nameEn: k.nameRef || "" 
+		}));
+		case "cd": return db.cards.map(c => ({ 
+			id: c.cardCode, 
+			name: (cur === "en" ? c.translations?.en?.cardName : null) || c.cardName, 
+			nameEn: c.translations?.en?.cardName || "" 
+		})); // 🆕
 		default: return [];
 	}
 };

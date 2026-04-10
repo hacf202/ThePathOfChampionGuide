@@ -246,7 +246,7 @@ function PowerEditor() {
 		const rarities = [...new Set(powers.map(p => p.rarity).filter(Boolean))];
 		rarities.sort((a, b) => (RARITY_WEIGHT[a] || 0) - (RARITY_WEIGHT[b] || 0));
 
-		const types = [...new Set(powers.flatMap(p => p.type || []))]
+		const types = [...new Set(powers.flatMap(p => Array.isArray(p.type) ? p.type : (p.type ? [p.type] : [])))]
 			.filter(Boolean)
 			.sort();
 
@@ -291,7 +291,10 @@ function PowerEditor() {
 		}
 
 		if (selectedTypes.length) {
-			result = result.filter(p => p.type?.some(t => selectedTypes.includes(t)));
+			result = result.filter(p => {
+				const pTypes = Array.isArray(p.type) ? p.type : (p.type ? [p.type] : []);
+				return pTypes.some(t => selectedTypes.includes(t));
+			});
 		}
 
 		const [field, dir] = sortOrder.split("-");

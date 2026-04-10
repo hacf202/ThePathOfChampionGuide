@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect, useMemo } from "react";
+import axios from "axios";
 import {
 	useFloating,
 	autoUpdate,
@@ -25,7 +26,22 @@ const MarkupEditor = ({ value, onChange, placeholder = "Nhập nội dung..." })
 	const [searchQuery, setSearchQuery] = useState("");
 
 	useEffect(() => {
-		initEntities();
+		const loadData = async () => {
+			try {
+				// Khởi tạo các thực thể tĩnh (Champions, Relics, ...)
+				initEntities();
+				
+				// Tải thêm danh sách bài (Cards) từ API vì chúng không được bundle sẵn
+				const apiUrl = import.meta.env.VITE_API_URL;
+				const res = await axios.get(`${apiUrl}/api/cards`, { params: { limit: -1 } });
+				if (res.data && res.data.items) {
+					initEntities(res.data.items, "cards");
+				}
+			} catch (error) {
+				console.error("Lỗi khi tải dữ liệu cho MarkupEditor:", error);
+			}
+		};
+		loadData();
 	}, []);
 
 	const { refs, floatingStyles, context } = useFloating({
@@ -129,6 +145,7 @@ const MarkupEditor = ({ value, onChange, placeholder = "Nhập nội dung..." })
 		const all = getAllEntities(searchType);
 		return all.filter(e => 
 			e.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+			(e.nameEn && e.nameEn.toLowerCase().includes(searchQuery.toLowerCase())) ||
 			e.id?.toLowerCase().includes(searchQuery.toLowerCase())
 		).slice(0, 5); // Chỉ lấy 5 kết quả đầu tiên
 	}, [searchType, searchQuery, activeMenu]);

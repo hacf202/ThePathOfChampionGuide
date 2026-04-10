@@ -283,31 +283,34 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 
 	return (
 		<>
-			<div className='sticky top-4 h-fit max-h-[calc(100vh-120px)] bg-surface-bg border border-border rounded-2xl flex flex-col shadow-xl z-40'>
-				<div className='p-4 border-b border-border'>
-					<h3 className='text-lg font-semibold text-text-primary'>
-						Kéo thả Tài nguyên
-					</h3>
-				</div>
-
-				<div className='flex border-b border-border overflow-x-auto custom-scrollbar pb-1'>
-					{tabs.map(tab => (
-						<button
-							key={tab.id}
-							onClick={() => {
-								setActiveTab(tab.id);
-								handleReset();
-							}}
-							className={`flex flex-col items-center justify-center gap-1 py-3 px-3 text-sm font-medium min-w-[70px] ${
-								activeTab === tab.id
-									? "text-primary-500 border-b-2 border-primary-500 bg-primary-500/5"
-									: "text-text-secondary hover:text-text-primary hover:bg-surface-hover"
-							}`}
-						>
-							{tab.icon}
-							<span className='text-[10px]'>{tab.label}</span>
-						</button>
-					))}
+			<div className='sticky top-4 h-fit max-h-[calc(100vh-120px)] bg-surface-bg border border-border rounded-2xl flex flex-col shadow-xl z-40 overflow-hidden'>
+				<div className='p-4 border-b border-border bg-surface-bg flex-shrink-0'>
+					<div className='flex items-center justify-between mb-4'>
+						<h3 className='text-base font-bold text-text-primary flex items-center gap-2'>
+							<Package size={18} className='text-primary-500' />
+							Kéo thả Tài nguyên
+						</h3>
+					</div>
+					
+					<div className='flex gap-1 overflow-x-auto custom-scrollbar pb-2 -mx-2 px-2'>
+						{tabs.map(tab => (
+							<button
+								key={tab.id}
+								onClick={() => {
+									setActiveTab(tab.id);
+									handleReset();
+								}}
+								className={`flex flex-col items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-bold transition-all min-w-[80px] shrink-0 border ${
+									activeTab === tab.id
+										? "bg-primary-500 border-primary-500 text-white shadow-lg shadow-primary-500/20"
+										: "bg-surface-hover/50 text-text-secondary hover:bg-surface-hover hover:text-text-primary border-transparent"
+								}`}
+							>
+								{tab.icon}
+								<span className='text-[10px] uppercase tracking-tighter'>{tab.label}</span>
+							</button>
+						))}
+					</div>
 				</div>
 
 				<div className='p-4 space-y-4 border-b border-border bg-surface-bg shadow-sm z-10'>

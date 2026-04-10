@@ -193,15 +193,13 @@ router.get("/search", async (req, res) => {
 	}
 
 	try {
-		const command = new QueryCommand({
-			TableName: CARDS_TABLE,
-			IndexName: "name-index",
-			KeyConditionExpression: "cardName = :cardName",
-			ExpressionAttributeValues: marshall({ ":cardName": name.trim() }),
-		});
-
-		const { Items } = await client.send(command);
-		const cards = Items ? Items.map(item => unmarshall(item)) : [];
+		const allCards = await getCachedCards();
+		const searchTerm = name.trim().toLowerCase();
+		
+		const cards = allCards.filter(c => 
+			(c.cardName && c.cardName.toLowerCase() === searchTerm) ||
+			(c.translations?.en?.cardName && c.translations.en.cardName.toLowerCase() === searchTerm)
+		);
 
 		res.json({ items: cards });
 	} catch (error) {

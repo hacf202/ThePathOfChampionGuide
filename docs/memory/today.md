@@ -3,6 +3,23 @@
 *File này là nơi lưu trữ trạng thái dở dang thuộc phiên làm việc hiện tại, các vấn đề và lỗi sinh ra khi code hoặc thảo luận để AI ghi nhớ tránh lạc lõng, hỏi lại nhiều lần.*
 
 
+## Log thay đổi 2026-04-10 (Audit Rollback & UI Refinement)
+
+### ✅ Tính năng Hoàn tác Dữ liệu (Audit Log Rollback)
+- **Cơ chế Restoration**: Triển khai endpoint `POST /api/admin/audit-logs/rollback/:logId` cho phép khôi phục thực thể về trạng thái trước đó (`oldData`).
+- **Xử lý sự cố Schema**: 
+    - Chuyển từ `GetItem` sang `Scan` + `Filter` để truy xuất log ID, giải quyết lỗi `ValidationException` do cấu trúc Partition Key/Sort Key phức tạp.
+    - Chuẩn hóa `ENTITY_TABLE_MAP` cho toàn bộ các thực thể: Champions, Powers, Cards, Items, Relics, Runes, Bonus Stars, Bosses, Adventures, Guides.
+- **Quản lý Cache**: Tích hợp `cacheManager.flushCache` tự động làm mới bộ nhớ đệm sau khi hoàn tác, đảm bảo tính nhất quán dữ liệu tức thì trên UI.
+
+### ✅ Nâng cấp Giao diện Quản trị (Admin UX)
+- **Custom Scrollbar System**: Định nghĩa hệ thống thanh cuộn mỏng (`custom-scrollbar`) trong `index.css`, thay thế thanh cuộn mặc định của trình duyệt tại các khu vực chật hẹp.
+- **Resource SidePanel Header**: Tái cấu trúc header của `DropDragSidePanel`, gộp Tiêu đề và Category Tabs thành một khối vững chắc, ngăn chặn việc chồng chéo và mất nhãn lựa chọn.
+
+### ✅ Sửa lỗi Hiển thị và Theme
+- **Radar Chart Grid Fix**: Khôi phục các vòng phân vùng chỉ số (PolarGrid) trên biểu đồ tướng bằng cách bổ sung biến CSS `--color-border-hover` bị thiếu trong `theme.css`.
+- **Localization Sync**: Cập nhật các phím dịch cho hành động `ROLLBACK` và các thông báo xác nhận trong `vi.json` và `en.json`.
+
 ## Log thay đổi 2026-04-09 (Triple-Theme & Admin UX)
 
 ### ✅ Hệ thống Theme 3 Chế độ (Triple-Theme UI)

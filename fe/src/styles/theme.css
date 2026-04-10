@@ -42,6 +42,7 @@
 	--color-surface-bg: #ffffff;
 	--color-surface-hover-bg: #f8fafc;
 	--color-border: #e2e8f0;
+	--color-border-hover: #cbd5e1;
 	--color-text-primary: var(--color-gray-900);
 	--color-text-secondary: var(--color-gray-500);
 
@@ -118,6 +119,7 @@
 	--color-surface-bg: #1e293b;
 	--color-surface-hover-bg: #334155;
 	--color-border: #334155;
+	--color-border-hover: #475569;
 	--color-text-primary: #f8fafc;
 	--color-text-secondary: #94a3b8;
 

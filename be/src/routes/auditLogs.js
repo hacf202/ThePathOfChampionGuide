@@ -3,11 +3,16 @@ import express from "express";
 import {
 	ScanCommand,
 	QueryCommand,
+	GetItemCommand,
+	PutItemCommand,
+	DeleteItemCommand,
 } from "@aws-sdk/client-dynamodb";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
 import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { requireAdmin } from "../middleware/requireAdmin.js";
+import cacheManager from "../utils/cacheManager.js";
+import { createAuditLog } from "../utils/auditLogger.js";
 
 const router = express.Router();
 const AUDIT_LOG_TABLE = "guidePocAuditLogs";
@@ -147,6 +152,102 @@ router.get("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 	} catch (error) {
 		console.error("Lỗi khi lấy Audit Logs:", error);
 		res.status(500).json({ error: "Lỗi hệ thống khi truy vấn nhật ký." });
+	}
+});
+
+const ENTITY_TABLE_MAP = {
+	champion: { table: "guidePocChampionList", key: "championID" },
+	power: { table: "guidePocPowers", key: "powerCode" },
+	relic: { table: "guidePocRelics", key: "relicCode" },
+	item: { table: "guidePocItems", key: "itemCode" },
+	rune: { table: "guidePocRunes", key: "runeCode" },
+	boss: { table: "guidePocBosses", key: "bossID" },
+	adventure: { table: "guidePocAdventureMap", key: "adventureID" },
+	bonusStar: { table: "guidePocBonusStar", key: "bonusStarID" },
+	guide: { table: "guidePocGuideList", key: "slug" },
+	card: { table: "guidePocCardList", key: "cardCode" },
+};
+
+const ENTITY_CACHE_MAP = {
+	champion: "champions",
+	power: "powers",
+	relic: "relics",
+	item: "items",
+	rune: "runes",
+	boss: "bosses",
+	adventure: "adventures",
+	guide: "guides",
+	bonusStar: "bonusStars",
+	card: "cards",
+};
+
+/**
+ * @route   POST /api/admin/audit-logs/rollback/:logId
+ * @desc    Hoàn tác một thay đổi dữ liệu
+ */
+router.post("/rollback/:logId", authenticateCognitoToken, requireAdmin, async (req, res) => {
+	const { logId } = req.params;
+
+	try {
+		// 1. Lấy thông tin log
+		// Sử dụng Scan + Filter thay vì GetItem vì cấu trúc Primary Key của bảng log có thể phức tạp (composite key)
+		const scanLogCmd = new ScanCommand({
+			TableName: AUDIT_LOG_TABLE,
+			FilterExpression: "logId = :logId",
+			ExpressionAttributeValues: marshall({ ":logId": logId })
+		});
+		const { Items } = await client.send(scanLogCmd);
+		if (!Items || Items.length === 0) return res.status(404).json({ error: "Không tìm thấy nhật ký này." });
+
+		const log = unmarshall(Items[0]);
+		const { entityType, entityId, action, oldData: oldDataRaw, newData: newDataRaw } = log;
+		
+		const tableInfo = ENTITY_TABLE_MAP[entityType];
+		if (!tableInfo) return res.status(400).json({ error: `Thực thể '${entityType}' không hỗ trợ hoàn tác.` });
+
+		const oldData = oldDataRaw ? JSON.parse(oldDataRaw) : null;
+		const newData = newDataRaw ? JSON.parse(newDataRaw) : null;
+
+		// 2. Thực hiện khôi phục
+		if (action === "CREATE") {
+			// Rollback CREATE -> DELETE
+			const deleteCmd = new DeleteItemCommand({
+				TableName: tableInfo.table,
+				Key: marshall({ [tableInfo.key]: entityId })
+			});
+			await client.send(deleteCmd);
+		} else if (action === "UPDATE" || action === "DELETE") {
+			// Rollback UPDATE/DELETE -> Restore oldData
+			if (!oldData) return res.status(400).json({ error: "Không có dữ liệu cũ để khôi phục." });
+			
+			const restoreCmd = new PutItemCommand({
+				TableName: tableInfo.table,
+				Item: marshall(oldData, { removeUndefinedValues: true })
+			});
+			await client.send(restoreCmd);
+		}
+
+		// 3. Ghi log hoàn tác
+		await createAuditLog({
+			action: "ROLLBACK",
+			entityType,
+			entityId,
+			entityName: log.entityName || entityId,
+			oldData: newData, // Dữ liệu trước khi rollback (chính là dữ liệu hiện tại)
+			newData: oldData, // Dữ liệu sau khi rollback
+			user: req.user
+		});
+
+		// 4. Xóa cache
+		const cacheName = ENTITY_CACHE_MAP[entityType];
+		if (cacheName) {
+			cacheManager.flushCache(cacheName);
+		}
+
+		res.json({ message: "Hoàn tác thành công.", entityType, entityId });
+	} catch (error) {
+		console.error("Lỗi khi thực hiện Rollback:", error);
+		res.status(500).json({ error: "Lỗi hệ thống khi hoàn tác dữ liệu." });
 	}
 });
 

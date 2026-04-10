@@ -128,7 +128,29 @@ const AuditLogList = () => {
 			case "CREATE": return "text-emerald-600 bg-emerald-50 border border-emerald-100";
 			case "UPDATE": return "text-amber-600 bg-amber-50 border border-amber-100";
 			case "DELETE": return "text-rose-600 bg-rose-50 border border-rose-100";
+			case "ROLLBACK": return "text-blue-600 bg-blue-50 border border-blue-100";
 			default: return "text-slate-400 bg-slate-50 border border-slate-100";
+		}
+	};
+
+	const [isRollingBack, setIsRollingBack] = useState(false);
+
+	const handleRollback = async (logId) => {
+		if (!window.confirm(tUI("admin.auditLog.modal.rollbackConfirm"))) return;
+
+		setIsRollingBack(true);
+		try {
+			const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/admin/audit-logs/rollback/${logId}`, {}, {
+				headers: { Authorization: `Bearer ${token}` }
+			});
+			alert(res.data.message || "Hoàn tác thành công!");
+			setSelectedLog(null);
+			fetchLogs(); // Refresh list to show the ROLLBACK log
+		} catch (err) {
+			console.error("Rollback error:", err);
+			alert(err.response?.data?.error || "Lỗi khi hoàn tác dữ liệu.");
+		} finally {
+			setIsRollingBack(false);
 		}
 	};
 
@@ -179,6 +201,7 @@ const AuditLogList = () => {
 						<option value="CREATE">{tUI("admin.auditLog.actions.CREATE")}</option>
 						<option value="UPDATE">{tUI("admin.auditLog.actions.UPDATE")}</option>
 						<option value="DELETE">{tUI("admin.auditLog.actions.DELETE")}</option>
+						<option value="ROLLBACK">{tUI("admin.auditLog.actions.ROLLBACK") || "ROLLBACK"}</option>
 					</select>
 
 					<button 
@@ -367,13 +390,28 @@ const AuditLogList = () => {
 						</div>
 
 						{/* Modal Footer */}
-						<div className="p-6 border-t border-slate-100 text-center bg-slate-50/30">
+						<div className="p-6 border-t border-slate-100 flex items-center justify-center gap-4 bg-slate-50/30">
 							<button 
 								onClick={() => setSelectedLog(null)}
-								className="px-10 py-4 bg-slate-900 hover:bg-primary-600 text-white rounded-2xl transition-all font-black uppercase tracking-widest text-sm shadow-xl active:scale-95"
+								className="px-10 py-4 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-2xl transition-all font-black uppercase tracking-widest text-sm shadow-sm active:scale-95"
 							>
 								{tUI("common.close")}
 							</button>
+
+							{selectedLog.action !== "ROLLBACK" && (
+								<button 
+									onClick={() => handleRollback(selectedLog.logId)}
+									disabled={isRollingBack}
+									className="px-10 py-4 bg-rose-600 hover:bg-rose-700 text-white rounded-2xl transition-all font-black uppercase tracking-widest text-sm shadow-xl active:scale-95 flex items-center gap-2 disabled:opacity-50"
+								>
+									{isRollingBack ? (
+										<RefreshCw className="w-5 h-5 animate-spin" />
+									) : (
+										<RefreshCw className="w-5 h-5" />
+									)}
+									{tUI("admin.auditLog.modal.rollback") || "Rollback"}
+								</button>
+							)}
 						</div>
 					</div>
 				</div>
