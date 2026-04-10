@@ -30,7 +30,7 @@ export default defineConfig({
 			output: {
 				manualChunks(id) {
 					if (id.includes("node_modules")) {
-						// Ưu tiên các thư viện UI rời rạc để tránh bị gộp vào vendor-react quá sớm
+						// 1. UI Libraries (Leaf/Standalone components)
 						if (
 							id.includes("lucide-react") ||
 							id.includes("framer-motion") ||
@@ -42,7 +42,8 @@ export default defineConfig({
 							return "vendor-ui";
 						}
 
-						// React Core và các thư viện nội bộ thiết yếu
+						// 2. Framework & Core (Highly interconnected logic)
+						// Grouping React and AWS Amplify together as they are tightly coupled via UI-React wrappers
 						if (
 							id.includes("/react/") ||
 							id.includes("/react-dom/") ||
@@ -52,25 +53,22 @@ export default defineConfig({
 							id.includes("/use-sync-external-store/") ||
 							id.includes("/react-is/") ||
 							id.includes("/prop-types/") ||
-							id.includes("/object-assign/")
+							id.includes("/object-assign/") ||
+							id.includes("aws-amplify") ||
+							id.includes("@aws-amplify") ||
+							id.includes("amazon-cognito-identity-js") ||
+							id.includes("@aws-sdk")
 						) {
-							return "vendor-react";
+							return "vendor-framework";
 						}
 
+						// 3. Charts (Specialized leaf dependencies)
 						if (id.includes("recharts") || id.includes("recharts-scale") || id.includes("d3-")) {
 							return "vendor-charts";
 						}
 
-						if (
-							id.includes("@aws-sdk") ||
-							id.includes("amazon-cognito-identity-js") ||
-							id.includes("aws-amplify") ||
-							id.includes("@aws-amplify")
-						) {
-							return "vendor-aws";
-						}
-
-						return "vendor-utils";
+						// 4. Default: Let Vite handle orphans automatically.
+						// DO NOT return a catch-all "vendor-utils" as it creates massive circular dependency loops.
 					}
 				},
 			},
