@@ -974,7 +974,15 @@
 			"accountExists": "Username or email already exists.",
 			"accountExistsUnconfirmed": "Account exists but is unconfirmed. A new OTP has been sent to your email.",
 			"general": "An error occurred",
-			"resendFailed": "Failed to resend code"
+			"resendFailed": "Failed to resend code",
+			"notConfirmed": "Account not confirmed. Please verify with OTP.",
+			"userNotFound": "User does not exist.",
+			"passwordResetRequired": "Password reset required before login.",
+			"tooManyRequests": "Too many attempts, please try again later.",
+			"codeMismatch": "Invalid verification code.",
+			"expiredCode": "Verification code has expired.",
+			"invalidParameter": "Invalid parameter.",
+			"internalError": "System error, please try again later."
 		},
 		"success": {
 			"passReset": "Password reset successful!",

@@ -1,16 +1,16 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useTheme } from "../../context/ThemeContext";
-import { Moon, Sun, Palette, Image as ImageIcon, Check, MousePointer2 } from "lucide-react";
+import { Moon, Sun, Palette, Image as ImageIcon, Check, MousePointer2, Upload, AlertCircle } from "lucide-react";
 import Modal from "./modal";
 import Button from "./button";
 
 const BACKGROUND_PRESETS = [
-    { name: "Ionia", url: "https://images.pocguide.top/backgrounds/BG1.webp" },
-    { name: "Zaun", url: "https://images.pocguide.top/backgrounds/BG5.webp" },
-    { name: "Demacia", url: "https://images.pocguide.top/backgrounds/BG4.webp" },
-    { name: "Shadow Isles", url: "https://images.pocguide.top/backgrounds/BG2.webp" },
-    { name: "Archive", url: "https://images.pocguide.top/backgrounds/BG3.webp" },
-    { name: "Spirit", url: "https://images.pocguide.top/backgrounds/BG6.webp" },
+    { name: "JoeJiJi", url: "https://images.pocguide.top/backgrounds/BG1.webp" },
+    { name: "OngToNgheRen", url: "https://images.pocguide.top/backgrounds/BG5.webp" },
+    { name: "RongLon", url: "https://images.pocguide.top/backgrounds/BG4.webp" },
+    { name: "SimpLord", url: "https://images.pocguide.top/backgrounds/BG2.webp" },
+    { name: "OngKeNe", url: "https://images.pocguide.top/backgrounds/BG3.webp" },
+    { name: "SupperGauGau", url: "https://images.pocguide.top/backgrounds/BG6.webp" },
 ];
 
 const ThemeSettings = ({ isOpen, onClose }) => {
@@ -26,13 +26,44 @@ const ThemeSettings = ({ isOpen, onClose }) => {
         selectArtworkMode 
     } = useTheme();
 
+    const fileInputRef = useRef(null);
+
     // Mode detection
     const isArtwork = bgImage !== null;
     const currentMode = isArtwork ? "artwork" : theme;
 
+    const handleFileUpload = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        // Check size (optional but recommended for LocalStorage)
+        if (file.size > 5 * 1024 * 1024) {
+             alert("Ảnh quá lớn! Vui lòng chọn ảnh < 5MB để đảm bảo hiệu năng.");
+             return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const dataUrl = event.target.result;
+            if (!isArtwork) {
+                selectArtworkMode();
+            }
+            setBgImage(dataUrl);
+        };
+        reader.readAsDataURL(file);
+    };
+
     return (
         <Modal isOpen={isOpen} onClose={onClose} title="Cá nhân hóa giao diện" maxWidth="max-w-xl">
             <div className="space-y-8 p-1">
+                <input 
+                    type="file" 
+                    ref={fileInputRef} 
+                    onChange={handleFileUpload} 
+                    accept="image/*" 
+                    className="hidden" 
+                />
+                
                 {/* 1. Main Theme Selection */}
                 <section>
                     <h3 className="text-xs font-black uppercase tracking-[0.2em] text-text-secondary mb-4 flex items-center gap-2 opacity-60">
@@ -139,6 +170,16 @@ const ThemeSettings = ({ isOpen, onClose }) => {
                     </div>
 
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                        {/* Custom Upload Button */}
+                        <button
+                            onClick={() => fileInputRef.current.click()}
+                            className="relative aspect-video rounded-2xl overflow-hidden border-2 border-dashed border-primary-500/40 hover:border-primary-500 bg-primary-500/5 transition-all flex flex-col items-center justify-center gap-2 group"
+                        >
+                            <Upload className="w-6 h-6 text-primary-600 group-hover:scale-110 transition-transform" />
+                            <span className="text-[9px] font-black text-text-primary uppercase tracking-widest text-center px-2">
+                                Tải ảnh từ máy
+                            </span>
+                        </button>
                         {BACKGROUND_PRESETS.map((preset) => (
                             <button
                                 key={preset.name}

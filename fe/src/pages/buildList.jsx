@@ -185,7 +185,7 @@ const Builds = () => {
 							</Button>
 						) : (
 							<NavLink
-								to='/auth'
+								to='/auth?mode=login'
 								className='text-md font-bold text-primary-300 hover:text-primary-400 flex items-center bg-primary-500/20 px-4 py-2 rounded-lg h-full border border-border transition-colors'
 							>
 								{tUI("buildList.loginToCreate")}

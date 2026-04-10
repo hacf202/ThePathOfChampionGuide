@@ -506,7 +506,7 @@ const BuildDetail = () => {
 							variant='primary'
 							onClick={() => {
 								setShowLoginModal(false);
-								navigate("/auth");
+								navigate("/auth?mode=login");
 							}}
 						>
 							{tUI("common.login")}

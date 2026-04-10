@@ -1,6 +1,4 @@
-// src/pages/auth/AuthContainer.jsx
-import React, { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import Login from "./login.jsx";
 import Register from "./register.jsx";
 import { ChevronLeft } from "lucide-react";
@@ -10,17 +8,21 @@ import { useTranslation } from "../../hooks/useTranslation";
 
 const AuthContainer = () => {
 	const { tUI } = useTranslation();
-	const [isLoginView, setIsLoginView] = useState(true);
+	const [searchParams, setSearchParams] = useSearchParams();
 	const navigate = useNavigate();
 	const location = useLocation();
+
+	// Đồng bộ trạng thái view với URL: ?mode=login hoặc ?mode=register
+	const mode = searchParams.get("mode") || "login";
+	const isLoginView = mode === "login";
 
 	const showBackButton = location.key !== "default";
 
 	const handleLoginSuccess = () => navigate("/builds");
-	const handleRegisterSuccess = () => setIsLoginView(true);
+	const handleRegisterSuccess = () => setSearchParams({ mode: "login" });
 
-	const switchToRegister = () => setIsLoginView(false);
-	const switchToLogin = () => setIsLoginView(true);
+	const switchToRegister = () => setSearchParams({ mode: "register" });
+	const switchToLogin = () => setSearchParams({ mode: "login" });
 
 	const handleBack = () => {
 		if (showBackButton) {

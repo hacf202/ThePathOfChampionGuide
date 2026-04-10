@@ -28,16 +28,16 @@ export async function cognitoApiRequest(target, body) {
 
 	if (!response.ok) {
 		const errorText = await response.text();
+		console.error(`AWS Cognito Error (${target}):`, errorText);
+
+		let errorMessage = `Lỗi Cognito ${response.status}`;
 		try {
 			const errorJson = JSON.parse(errorText);
-			throw new Error(
-				errorJson.message ||
-					errorJson.__type ||
-					`Lỗi Cognito ${response.status}`,
-			);
-		} catch {
-			throw new Error(`Lỗi Cognito: ${errorText}`);
+			errorMessage = errorJson.message || errorJson.__type || errorMessage;
+		} catch (e) {
+			errorMessage = errorText || errorMessage;
 		}
+		throw new Error(errorMessage);
 	}
 	return response.json();
 }

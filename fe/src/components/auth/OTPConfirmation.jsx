@@ -1,10 +1,4 @@
-// src/pages/auth/OTPConfirmation.jsx
-import React, { useState, useContext } from "react";
-import { AuthContext } from "../../context/AuthContext.jsx";
-import InputField from "../common/inputField";
-import Button from "../common/button";
-import { Loader2 } from "lucide-react";
-import { useTranslation } from "../../hooks/useTranslation";
+import { mapAuthError } from "../../utils/authErrors";
 
 const OTPConfirmation = ({
 	username,
@@ -53,7 +47,7 @@ const OTPConfirmation = ({
 					if (onSuccess) onSuccess();
 				},
 				err => {
-					setError(err || tUI("auth.error.general"));
+					setError(mapAuthError(err, tUI));
 					setIsLoading(false);
 				},
 			);
@@ -67,7 +61,7 @@ const OTPConfirmation = ({
 					if (onSuccess) onSuccess();
 				},
 				err => {
-					setError(err || tUI("auth.error.general"));
+					setError(mapAuthError(err, tUI));
 					setIsLoading(false);
 				},
 			);
@@ -85,7 +79,7 @@ const OTPConfirmation = ({
 				setIsLoading(false);
 			},
 			err => {
-				setError(err || tUI("auth.error.resendFailed"));
+				setError(mapAuthError(err, tUI));
 				setIsLoading(false);
 			},
 		);

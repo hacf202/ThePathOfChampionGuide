@@ -400,7 +400,7 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 							</div>
 						) : (
 							<NavLink
-								to='/auth'
+								to='/auth?mode=login'
 								onClick={handleNavClick}
 								className='flex items-center gap-2 py-2 px-4 rounded-lg bg-btn-primary-bg text-btn-primary-text hover:bg-btn-primary-hover-bg transition-all hover:scale-105'
 							>

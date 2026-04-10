@@ -7,6 +7,8 @@ import Button from "../common/button";
 import { Loader2, Eye, EyeOff } from "lucide-react";
 import { useTranslation } from "../../hooks/useTranslation";
 
+import { mapAuthError } from "../../utils/authErrors";
+
 const Register = ({ onClose, onSwitchToLogin }) => {
 	const { tUI } = useTranslation();
 	const { signUp, resendConfirmationCode } = useContext(AuthContext);
@@ -73,6 +75,7 @@ const Register = ({ onClose, onSwitchToLogin }) => {
 					errMessage.includes("UsernameExistsException");
 
 				if (isExistError) {
+					// Nếu tài khoản tồn tại nhưng chưa xác minh, thử gửi lại mã
 					await resendConfirmationCode(
 						username.trim(),
 						msg => {
@@ -81,15 +84,16 @@ const Register = ({ onClose, onSwitchToLogin }) => {
 							setIsLoading(false);
 						},
 						err => {
+							// Nếu gửi lại mã thất bại (VD: bị block do gửi quá nhiều), hiển thị lỗi đó thay vì chỉ báo "đã tồn tại"
 							setErrors({
 								...errors,
-								username: tUI("auth.error.accountExists"),
+								username: mapAuthError(err, tUI),
 							});
 							setIsLoading(false);
 						},
 					);
 				} else {
-					setErrors({ ...errors, username: errMessage });
+					setErrors({ ...errors, username: mapAuthError(errMessage, tUI) });
 					setIsLoading(false);
 				}
 			},

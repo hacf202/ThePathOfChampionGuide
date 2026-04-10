@@ -100,7 +100,7 @@ const CommentForm = ({
 				<div className='flex items-center gap-3 text-text-secondary text-sm'>
 					<User size={18} /> <span>{tUI("comments.loginToComment")}</span>
 				</div>
-				<Button size='sm' onClick={() => navigate("/auth")}>
+				<Button size='sm' onClick={() => navigate("/auth?mode=login")}>
 					{tUI("common.login")}
 				</Button>
 			</div>

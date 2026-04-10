@@ -7,6 +7,8 @@ import { Loader2, Eye, EyeOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "../../hooks/useTranslation";
 
+import { mapAuthError } from "../../utils/authErrors";
+
 const Login = ({ onSwitchToRegister, onSuccess }) => {
 	const { tUI } = useTranslation();
 	const { login, forgotPassword, confirmPasswordReset } =
@@ -90,10 +92,10 @@ const Login = ({ onSwitchToRegister, onSuccess }) => {
 				onSuccess(msg);
 				navigate("/", { replace: true });
 			},
-			() => {
+			err => {
 				setLoginErrors({
 					username: "",
-					password: tUI("auth.error.invalidCredentials"),
+					password: mapAuthError(err, tUI),
 				});
 				setIsLoading(false);
 			},
@@ -112,7 +114,7 @@ const Login = ({ onSwitchToRegister, onSuccess }) => {
 				setIsLoading(false);
 			},
 			err => {
-				setForgotErrors({ ...forgotErrors, email: err });
+				setForgotErrors({ ...forgotErrors, email: mapAuthError(err, tUI) });
 				setIsLoading(false);
 			},
 		);
@@ -138,7 +140,7 @@ const Login = ({ onSwitchToRegister, onSuccess }) => {
 				setIsLoading(false);
 			},
 			err => {
-				setForgotErrors({ ...forgotErrors, otp: err });
+				setForgotErrors({ ...forgotErrors, otp: mapAuthError(err, tUI) });
 				setIsLoading(false);
 			},
 		);

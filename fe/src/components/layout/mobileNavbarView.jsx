@@ -387,7 +387,7 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 							</>
 						) : (
 							<NavLink
-								to='/auth'
+								to='/auth?mode=login'
 								className='flex items-center gap-3 px-3 py-2 rounded-lg bg-btn-primary-bg text-btn-primary-text hover:bg-btn-primary-hover-bg'
 								onClick={closeSidebar}
 							>
