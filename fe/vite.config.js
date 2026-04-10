@@ -62,12 +62,9 @@ export default defineConfig({
 							return "vendor-framework";
 						}
 
-						// 3. Charts (Specialized leaf dependencies)
-						if (id.includes("recharts") || id.includes("recharts-scale") || id.includes("d3-")) {
-							return "vendor-charts";
-						}
-
-						// 4. Default: Let Vite handle orphans automatically.
+						// 3. Default: Let Vite handle orphans automatically (including recharts/d3).
+						// Do NOT add a chart chunk — recharts depends on React,
+						// and splitting it causes "forwardRef of undefined" at runtime.
 						// DO NOT return a catch-all "vendor-utils" as it creates massive circular dependency loops.
 					}
 				},
