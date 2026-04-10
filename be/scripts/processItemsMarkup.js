@@ -17,7 +17,8 @@ const configs = [
     'RunesData.json',
     'guidePocChampionList.json',
     'guidePocBonusStar.json'
-  ] }
+  ] },
+  { dir: path.join(__dirname, '../datacard'), files: ['cardList.json'] }
 ];
 
 const { viMap, enMap, viKeywords, enKeywords } = loadMappings();

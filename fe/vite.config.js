@@ -21,4 +21,31 @@ export default defineConfig({
 			"@": path.resolve(__dirname, "./src"),
 		},
 	},
+	build: {
+		outDir: "dist",
+		emptyOutDir: true,
+		sourcemap: false,
+		chunkSizeWarningLimit: 1000,
+		rollupOptions: {
+			output: {
+				manualChunks(id) {
+					if (id.includes("node_modules")) {
+						if (id.includes("react") || id.includes("react-dom") || id.includes("react-router-dom")) {
+							return "vendor-react";
+						}
+						if (id.includes("lucide-react") || id.includes("framer-motion")) {
+							return "vendor-ui";
+						}
+						if (id.includes("recharts") || id.includes("recharts-scale") || id.includes("d3-")) {
+							return "vendor-charts";
+						}
+						if (id.includes("@aws-sdk") || id.includes("amazon-cognito-identity-js") || id.includes("aws-amplify")) {
+							return "vendor-aws";
+						}
+						return "vendor-utils";
+					}
+				},
+			},
+		},
+	},
 });

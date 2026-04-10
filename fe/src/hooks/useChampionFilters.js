@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import { usePersistentState } from "./usePersistentState";
 import { useGenericFilters } from "./useGenericFilters";
 import { removeAccents } from "../utils/vietnameseUtils";
-import iconRegions from "../assets/data/iconRegions.json";
+import iconRegions from "../assets/data/icon.json";
 
 export const useChampionFilters = (tUI, dynamicFilters) => {
 	// 1. Gọi Hook dùng chung (Tự động lo liệu việc đồng bộ URL)
@@ -38,7 +38,7 @@ export const useChampionFilters = (tUI, dynamicFilters) => {
 				key: "regions",
 				label: tUI("common.region") || "Khu vực",
 				options: (dynamicFilters.regions || []).map(r => {
-					// 1. Tìm trong iconRegions.json để lấy tên tiếng Việt chuẩn
+					// 1. Tìm trong icon.json để lấy tên tiếng Việt chuẩn
 					const iconRegion = iconRegions.find(i => 
 						i.name === r || // Khớp tên tiếng Việt
 						i.nameRef === r || // Khớp mã English CamelCase
@@ -53,7 +53,7 @@ export const useChampionFilters = (tUI, dynamicFilters) => {
 					return {
 						value: r,
 						label: tUI(`region.${regionKey}`) || r,
-						iconUrl: iconRegions.find(i => i.name === r || i.nameRef === r)?.iconAbsolutePath,
+						iconUrl: iconRegions.find(i => i.name === r || i.nameRef === r)?.image,
 					};
 				}),
 			},

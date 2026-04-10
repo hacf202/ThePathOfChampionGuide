@@ -3,6 +3,32 @@
 *File này là nơi lưu trữ trạng thái dở dang thuộc phiên làm việc hiện tại, các vấn đề và lỗi sinh ra khi code hoặc thảo luận để AI ghi nhớ tránh lạc lõng, hỏi lại nhiều lần.*
 
 
+## Log thay đổi 2026-04-11 (Refactoring & Data Standardizing)
+
+### ✅ Tái cấu trúc và Chuẩn hóa Dữ liệu (Legacy Cleanup)
+- **Centralized Data Storage**: Loại bỏ hàng loạt tệp JSON tĩnh cũ trong `fe/src/assets/data/poc/` (Relics, Powers, Items, Runes, ChampionList) để chuyển sang hệ thống quản lý dữ liệu động/database.
+- **Backend Script Refactoring**: 
+    - Tổ chức lại thư mục `be/scripts`, chuẩn hóa các script quản trị: `confirmUser.js`, `downloadData.js`, `mergeCards.js`, `standardizeCards.js`, `uploadCards.js`.
+    - Bổ sung script hỗ trợ Set 7 (`mergeSet7.js`) và dữ liệu thô mới nhất.
+- **Cache Cleanup**: Xóa bỏ hàng trăm tệp ảnh đệm (`proxy-images`) không còn sử dụng để giải phóng dung lượng bộ nhớ.
+- **Region System**: Loại bỏ `iconRegions.json`, tích hợp dữ liệu vùng (Region) trực tiếp vào hệ thống lookup thực thể.
+
+### ✅ Nâng cấp Hệ thống Markup và Editor (Advanced Markup)
+- **Markup Workflow**: Cải tiến `MarkupRenderer`, `MarkupTooltip` và `useMarkupResolution` để xử lý tra cứu thực thể thông minh hơn, hỗ trợ đa ngôn ngữ và các hiệu ứng tooltip mượt mà.
+- **Advanced Card Editor**: 
+    - Nâng cấp `CardEditor` và `CardEditorForm` với hệ thống lọc đa tiêu chí (Region, Rarity, Type, Cost).
+    - Tích hợp sâu `MarkupEditor` vào quy trình biên tập lá bài, hỗ trợ preview thời gian thực và tự động nhận diện thực thể.
+- **Entity Lookup**: Hoàn thiện `entityLookup.js` để hỗ trợ tra cứu chéo giữa các loại dữ liệu khác nhau (Cards, Champions, Relics).
+
+### ✅ Hoàn thiện UI/UX và Localization
+- **Champion Detail Integration**: Cập nhật `championDetail` và `championCard` để tương thích với cấu trúc dữ liệu mới và hệ thống theme 3 chế độ.
+- **Localization Sync**: Đồng bộ hóa toàn bộ phím dịch trong `vi.json` và `en.json` cho các tính năng lọc mới và các thông báo hệ thống liên quan đến markup.
+- **Vite Config**: Tối ưu hóa cấu hình build và server development trong `vite.config.js`.
+
+### ✅ Backend & API Refinement
+- **Routes Optimization**: Tinh chỉnh các route `cards.js`, `champions.js` và `ratings.js` để hỗ trợ các tham số truy vấn nâng cao cho bộ lọc ở Frontend.
+- **Rating Utils**: Bổ sung `ratingUtils.js` để xử lý logic tính toán điểm số và quy đổi hệ điểm tập trung.
+
 ## Log thay đổi 2026-04-10 (Audit Rollback & UI Refinement)
 
 ### ✅ Tính năng Hoàn tác Dữ liệu (Audit Log Rollback)

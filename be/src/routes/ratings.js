@@ -11,6 +11,8 @@ import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
 import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import cacheManager from "../utils/cacheManager.js";
+import { syncChampionCommunityRatings } from "../utils/ratingUtils.js";
+import { getCachedChampions } from "./champions.js";
 
 const championCache = cacheManager.getOrCreateCache("champions");
 
@@ -54,44 +56,33 @@ router.get("/", async (req, res) => {
  */
 router.get("/ranking/top", async (req, res) => {
 	try {
-		// Ở quy mô nhỏ, ta Scan và Aggregate. Ở quy mô lớn nên dùng một bảng thống kê riêng.
-		const command = new ScanCommand({
-			TableName: RATINGS_TABLE,
-			ProjectionExpression: "championID, championName, championImage, ratings",
-		});
-
-		const { Items } = await client.send(command);
-		const allRatings = Items ? Items.map(item => unmarshall(item)) : [];
-
-		const champStats = {};
-
-		allRatings.forEach(r => {
-			if (!champStats[r.championID]) {
-				champStats[r.championID] = {
-					championID: r.championID,
-					championName: r.championName,
-					championImage: r.championImage,
-					totalScore: 0,
-					count: 0
-				};
-			}
-
-			const avg = Object.values(r.ratings).reduce((a, b) => a + b, 0) / 6;
-			champStats[r.championID].totalScore += avg;
-			champStats[r.championID].count += 1;
-		});
-
-		const result = Object.values(champStats)
-			.map(s => ({
-				...s,
-				avgScore: parseFloat((s.totalScore / s.count).toFixed(2))
+		// Tối ưu hóa: Lấy từ danh sách tướng đã có sẵn điểm trung bình (Cached/Denormalized)
+		const allChampions = await getCachedChampions();
+		
+		const result = allChampions
+			.filter(c => c.communityRatings && c.communityRatings.count > 0)
+			.map(c => ({
+				championID: c.championID,
+				championName: c.name,
+				championImage: c.assets?.[0]?.avatar || "",
+				avgScore: c.communityRatings.damage, // Hoặc tính trung bình các chỉ số
+				ratings: c.communityRatings, 
+				// Tính điểm trung bình tổng quát (Dựa trên 6 chỉ số)
+				overallScore: parseFloat((
+					(c.communityRatings.damage + 
+					 c.communityRatings.defense + 
+					 c.communityRatings.speed + 
+					 c.communityRatings.consistency + 
+					 c.communityRatings.synergy + 
+					 c.communityRatings.independence) / 6
+				).toFixed(2))
 			}))
-			.sort((a, b) => b.avgScore - a.avgScore)
+			.sort((a, b) => b.overallScore - a.overallScore)
 			.slice(0, 10); // Lấy Top 10
 
 		res.json(result);
 	} catch (error) {
-		console.error("Lỗi khi tính toán bảng xếp hạng:", error);
+		console.error("Lỗi khi lấy bảng xếp hạng tối ưu:", error);
 		res.status(500).json({ error: "Không thể tải bảng xếp hạng." });
 	}
 });
@@ -203,9 +194,8 @@ router.post("/:championID", authenticateCognitoToken, async (req, res) => {
 
 		await client.send(command);
 		
-		// Xóa cache của tướng này để cập nhật lại điểm trung bình mới
-		const CACHE_KEY = `champion_detail_${championID}`;
-		championCache.del(CACHE_KEY);
+		// 3. ĐỒNG BỘ: Tính toán lại và cập nhật điểm trung bình vào ChampionList (Denormalization)
+		await syncChampionCommunityRatings(championID);
 
 		res.json({ message: "Đánh giá của bạn đã được lưu.", rating: ratingData });
 	} catch (error) {

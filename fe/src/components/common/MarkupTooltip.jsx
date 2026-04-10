@@ -16,19 +16,20 @@ import {
 import { getRarityKey } from "../../utils/i18nHelpers";
 
 /**
- * MarkupTooltip - Premium version with Rarity support and Glassmorphism
+ * MarkupTooltip - Phiên bản cao cấp dành cho Administrator và Người dùng
+ * Hỗ trợ Glassmorphism và màu sắc theo độ hiếm
  */
 const MarkupTooltip = ({ 
 	title, 
 	description, 
-	text, // Prop alias for description
+	text, 
 	icon, 
 	fullImage, 
 	options = [], 
 	rarity, 
 	type, 
 	href, 
-	compact = false, // New prop for smaller styling
+	compact = false,
 	children 
 }) => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -37,6 +38,7 @@ const MarkupTooltip = ({
 	const displayDescription = description || text;
 	const showFullImg = options.includes("img-full");
 	const showIconImg = options.includes("img-icon");
+    const isSpecialType = ["c", "champion", "card", "cd"].includes(type?.toLowerCase());
 
 	const { refs, floatingStyles, context } = useFloating({
 		open: isOpen,
@@ -53,7 +55,7 @@ const MarkupTooltip = ({
 	const hover = useHover(context, { 
 		delay: 150,
 		move: false,
-		enabled: true // Always enabled, but mobile "hover" usually triggers on tap
+		enabled: true 
 	});
 	const click = useClick(context);
 	const dismiss = useDismiss(context);
@@ -61,53 +63,33 @@ const MarkupTooltip = ({
 
 	const { getReferenceProps, getFloatingProps } = useInteractions([hover, click, dismiss, role]);
 
-	// Rarity Styling
 	const theme = useMemo(() => {
 		const key = getRarityKey(rarity);
 		const config = {
-			common: { color: "text-slate-300", border: "border-slate-500/50", glow: "shadow-slate-500/10", label: "THÔNG THƯỜNG" },
-			rare: { color: "text-blue-400", border: "border-blue-500/50", glow: "shadow-blue-500/20", label: "HIẾM" },
-			epic: { color: "text-purple-400", border: "border-purple-500/50", glow: "shadow-purple-500/20", label: "SỨ THI" },
-			legendary: { color: "text-yellow-400", border: "border-yellow-500/50", glow: "shadow-yellow-500/20", label: "HUYỀN THOẠI" },
-			special: { color: "text-pink-400", border: "border-pink-500/50", glow: "shadow-pink-500/20", label: "ĐẶC BIỆT" },
-			unknown: { color: "text-gray-400", border: "border-gray-500/30", glow: "shadow-gray-500/10", label: "" }
+			common: { color: "text-slate-300", border: "border-slate-500/50", glow: "shadow-slate-500/10", label: "THÔNG THƯỜNG", bg: "from-slate-900/40" },
+			rare: { color: "text-blue-400", border: "border-blue-500/50", glow: "shadow-blue-500/20", label: "HIẾM", bg: "from-blue-900/40" },
+			epic: { color: "text-purple-400", border: "border-purple-500/50", glow: "shadow-purple-500/20", label: "SỨ THI", bg: "from-purple-900/40" },
+			legendary: { color: "text-yellow-400", border: "border-yellow-500/50", glow: "shadow-yellow-500/20", label: "HUYỀN THOẠI", bg: "from-yellow-900/40" },
+			special: { color: "text-pink-400", border: "border-pink-500/50", glow: "shadow-pink-500/20", label: "ĐẶC BIỆT", bg: "from-pink-900/40" },
+			unknown: { color: "text-slate-400", border: "border-slate-500/30", glow: "shadow-slate-500/10", label: "CƠ BẢN", bg: "from-slate-900/40" }
 		};
 		return config[key] || config.unknown;
 	}, [rarity]);
 
-	const isCard = ["cd", "card"].includes(type?.toLowerCase());
-	const isChampion = ["c", "champion"].includes(type?.toLowerCase());
-	
 	const typeLabel = useMemo(() => {
 		const types = {
-			k: "TỪ KHÓA",
-			c: "TƯỚNG",
-			r: "CỔ VẬT",
-			p: "SỨC MẠNH",
-			i: "VẬT PHẨM",
-			cd: "BÀI QUÂN",
-			keyword: "TỪ KHÓA",
-			champion: "TƯỚNG",
-			relic: "CỔ VẬT",
-			power: "SỨC MẠNH",
-			item: "VẬT PHẨM",
-			card: "BÀI QUÂN"
+			k: "TỪ KHÓA", c: "TƯỚNG", r: "CỔ VẬT", p: "SỨC MẠNH", i: "VẬT PHẨM", cd: "THẺ BÀI", cap: "CẤP SAO",
+			keyword: "TỪ KHÓA", champion: "TƯỚNG", relic: "CỔ VẬT", power: "SỨC MẠNH", item: "VẬT PHẨM", card: "THẺ BÀI", star: "CẤP SAO"
 		};
 		return types[type?.toLowerCase()] || "THÔNG TIN";
 	}, [type]);
-
-	const handleReferenceClick = (e) => {
-		// Just let floating-ui handle opening/closing
-	};
 
 	return (
 		<>
 			<span
 				ref={refs.setReference}
-				{...getReferenceProps({
-					onClick: handleReferenceClick
-				})}
-				className={`inline-flex items-baseline pointer-events-auto cursor-help`}
+				{...getReferenceProps()}
+				className="inline-flex items-baseline"
 			>
 				{children}
 			</span>
@@ -116,92 +98,56 @@ const MarkupTooltip = ({
 				<FloatingPortal>
 					<div
 						ref={refs.setFloating}
-						style={{
-							...floatingStyles,
-							zIndex: 9999,
-						}}
+						style={{ ...floatingStyles, zIndex: 9999 }}
 						{...getFloatingProps()}
-						className='pointer-events-auto cursor-default'
+						className='pointer-events-auto'
 					>
-						<div className={`bg-slate-950/90 backdrop-blur-xl text-white rounded-xl shadow-2xl border-2 ${theme.border} ${theme.glow} overflow-hidden 
-							${isCard ? 'w-[280px] sm:w-[320px]' : compact ? 'max-w-[260px] min-w-[180px]' : 'max-w-[320px] min-w-[220px]'} 
+						<div className={`bg-slate-950/95 backdrop-blur-xl text-white rounded-xl shadow-2xl border-2 ${theme.border} ${theme.glow} overflow-hidden 
+							${isSpecialType ? 'w-[280px] sm:w-[320px]' : compact ? 'max-w-[260px]' : 'max-w-[320px] min-w-[200px]'} 
 							animate-in fade-in zoom-in-95 duration-200`}
 						>
-						
-						{/* Top Badge: Type | Rarity */}
-						<div className={`px-3 py-1.5 flex justify-between items-center bg-white/5 border-b ${theme.border}`}>
-							<span className="text-[9px] font-black tracking-[0.2em] text-white/50 uppercase">
-								{typeLabel}
-							</span>
-							<span className={`text-[9px] font-black tracking-[0.1em] ${theme.color} uppercase`}>
-								{theme.label}
-							</span>
-						</div>
+                            {/* Header với Background Gradient */}
+                            <div className={`px-3 py-1.5 flex justify-between items-center bg-gradient-to-r ${theme.bg} to-transparent border-b ${theme.border}`}>
+                                <span className="text-[9px] font-black tracking-[0.2em] text-white/50">{typeLabel}</span>
+                                <span className={`text-[9px] font-black tracking-[0.1em] ${theme.color}`}>{theme.label}</span>
+                            </div>
 
-						{/* Images */}
-						{(showFullImg || isCard) && fullImage && (
-							<div 
-								className={`w-full ${isCard ? 'px-2 py-4' : 'px-4 py-4'} flex justify-center bg-white/5 border-b border-white/5 overflow-hidden`}
-							>
-								<img 
-									src={fullImage} 
-									alt={title} 
-									className={`w-auto ${isCard ? 'h-40 sm:h-48' : 'h-20 sm:h-28'} object-contain drop-shadow-2xl transition-transform duration-300`} 
-								/>
-							</div>
-						)}
-						{showIconImg && icon && !showFullImg && (
-							<div 
-								className={`w-full p-6 flex justify-center bg-white/5 border-b border-white/5`}
-							>
-								<img src={icon} alt={title} className={`w-20 h-20 object-contain drop-shadow-lg`} />
-							</div>
-						)}
+                            {/* Ảnh hiển thị (Nếu có) */}
+                            {(showFullImg || isSpecialType) && fullImage && (
+                                <div className="w-full h-32 sm:h-40 bg-black/40 flex justify-center items-center p-2">
+                                    <img src={fullImage} alt="" className="h-full w-auto object-contain drop-shadow-xl" />
+                                </div>
+                            )}
 
-						<div className={compact ? "p-3" : "p-4"}>
-							{/* Title with Icon */}
-							<div 
-								className={`flex items-center gap-3 ${compact ? 'mb-1.5' : 'mb-3'}`}
-							>
-								{icon && !showIconImg && !showFullImg && (
-									<div className={`${compact ? 'w-6 h-6 p-1' : 'w-8 h-8 p-1.5'} rounded-lg bg-white/5 border ${theme.border} flex items-center justify-center transition-colors`}>
-										<img src={icon} alt="" className="w-full h-full object-contain" />
-									</div>
-								)}
-								<div className={`font-bold ${compact ? 'text-sm sm:text-base' : 'text-lg sm:text-xl'} tracking-tight leading-tight ${theme.color} transition-all`}>
-									{title}
-								</div>
-							</div>
-							
-							{/* Description - Hiden for Champions as requested */}
-							{!isChampion && (
-								<div className={`text-slate-200 leading-relaxed ${compact ? 'text-[12px]' : 'text-[13px] sm:text-[14px]'} whitespace-pre-wrap break-words font-medium opacity-90`}>
-									{displayDescription || "Không có mô tả chi tiết."}
-								</div>
-							)}
+                            <div className="p-4">
+                                <div className="flex items-center gap-3 mb-3">
+                                    {icon && !showFullImg && (
+                                        <div className={`w-10 h-10 p-1.5 rounded-lg bg-white/5 border ${theme.border} flex-shrink-0`}>
+                                            <img src={icon} alt="" className="w-full h-full object-contain" />
+                                        </div>
+                                    )}
+                                    <div className={`font-black text-lg leading-tight ${theme.color} tracking-tight`}>
+                                        {title}
+                                    </div>
+                                </div>
 
-							{/* Footer Actions */}
-							<div className="mt-4 pt-3 border-t border-white/5 flex flex-col gap-2">
-								{href && (
-									<button 
-										type="button"
-										onClick={(e) => {
-											e.stopPropagation();
-											navigate(href);
-										}}
-										className={`w-full py-2 px-4 rounded-lg bg-white/10 hover:bg-white/20 border ${theme.border} text-[11px] font-bold tracking-widest uppercase transition-all active:scale-95 text-center`}
-									>
-										Xem chi tiết
-									</button>
-								)}
-								<div className="flex justify-between items-center opacity-30 px-1">
-									<span className="text-[9px] italic">The Path of Champions</span>
-									<span className="text-[9px]">POC GUIDE</span>
-								</div>
-							</div>
+                                <div className="text-slate-200 text-[13px] leading-relaxed whitespace-pre-wrap font-medium">
+                                    {displayDescription || "Không có mô tả chi tiết."}
+                                </div>
+
+                                {href && (
+                                    <div className="mt-4 pt-3 border-t border-white/10">
+                                        <button 
+                                            onClick={() => navigate(href)}
+                                            className={`w-full py-2 rounded-lg bg-white/5 hover:bg-white/10 border ${theme.border} text-[10px] font-black tracking-widest uppercase transition-all`}
+                                        >
+                                            Xem chi tiết
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
 						</div>
 					</div>
-				</div>
 				</FloatingPortal>
 			)}
 		</>

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import Button from "./button";
-import Logo from "/ahriicon.png";
+import Logo from "/favicon.ico";
 
 // Đổi key để tránh xung đột với cache cũ của user
 const ANNOUNCEMENT_KEY = "pocguide_daily_ad_announcement";

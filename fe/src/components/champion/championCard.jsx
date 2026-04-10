@@ -1,7 +1,7 @@
 // src/components/champion/championCard.jsx
 import { memo } from "react";
 // Giả sử bạn có tệp này để lấy icon của các vùng, hãy đảm bảo đường dẫn chính xác
-import iconRegions from "../../assets/data/iconRegions.json";
+import iconRegions from "../../assets/data/icon.json";
 import { removeAccents } from "../../utils/vietnameseUtils";
 
 import SafeImage from "../common/SafeImage";
@@ -66,7 +66,7 @@ function ChampionCard({ champion }) {
 							>
 								{regionIcon && (
 									<SafeImage
-										src={regionIcon.iconAbsolutePath}
+										src={regionIcon.image}
 										alt={translatedRegion}
 										className='w-6 h-6 md:w-8 md:h-8 flex-shrink-0'
 									/>

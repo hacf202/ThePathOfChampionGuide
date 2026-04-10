@@ -1,6 +1,6 @@
 // src/components/Footer.jsx
 import React, { memo } from "react";
-import LogoBlack from "/ahriicon.png";
+import LogoBlack from "/favicon.ico";
 import { Youtube, Facebook } from "lucide-react";
 import { useTranslation } from "../../hooks/useTranslation";
 

@@ -20,6 +20,18 @@ const CardEditorForm = memo(({ card, onSave, onCancel, onDelete, isSaving }) => 
 			if (!deepCloned.translations.en) {
 				deepCloned.translations.en = {};
 			}
+
+            // Chuyển mảng thành string để dễ nhập (có thể gõ dấu cách thoải mái)
+            if (Array.isArray(deepCloned.regions)) {
+                deepCloned.regions = deepCloned.regions.join(", ");
+            }
+            if (Array.isArray(deepCloned.associatedCardRefs)) {
+                deepCloned.associatedCardRefs = deepCloned.associatedCardRefs.join(", ");
+            }
+            if (deepCloned.translations?.en && Array.isArray(deepCloned.translations.en.regions)) {
+                deepCloned.translations.en.regions = deepCloned.translations.en.regions.join(", ");
+            }
+
 			setFormData(deepCloned);
 			setInitialData(JSON.parse(JSON.stringify(deepCloned)));
 			setIsDirty(false);
@@ -32,23 +44,41 @@ const CardEditorForm = memo(({ card, onSave, onCancel, onDelete, isSaving }) => 
 
 	const handleInputChange = e => {
 		const { name, value, type } = e.target;
-        const val = type === 'number' ? parseInt(value) || 0 : value;
+        
+        let val = value;
+        if (type === 'number') val = parseInt(value) || 0;
+        
+        // Đặc biệt cho Type: Root luôn là viết thường
+        if (name === 'type') {
+            const lowerType = value.toLowerCase();
+            const upperType = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+            
+            setFormData(prev => ({ 
+                ...prev, 
+                type: lowerType,
+                translations: {
+                    ...prev.translations,
+                    en: { ...(prev.translations?.en || {}), type: upperType }
+                }
+            }));
+            return;
+        }
+
 		setFormData(prev => ({ ...prev, [name]: val }));
 	};
 
-    const handleRegionsChange = (lang, value) => {
-        const regionsArray = value.split(",").map(r => r.trim()).filter(Boolean);
-        if (lang === 'vi') {
-            setFormData(prev => ({ ...prev, regions: regionsArray }));
-        } else {
-            setFormData(prev => ({
-                ...prev,
-                translations: {
-                    ...prev.translations,
-                    en: { ...(prev.translations?.en || {}), regions: regionsArray }
-                }
-            }));
-        }
+    const handleArrayChange = (name, value) => {
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const handleTranslationRegionsChange = (value) => {
+        setFormData(prev => ({
+            ...prev,
+            translations: {
+                ...prev.translations,
+                en: { ...(prev.translations?.en || {}), regions: value }
+            }
+        }));
     };
 
 	const handleTranslationChange = (field, value, type) => {
@@ -72,7 +102,21 @@ const CardEditorForm = memo(({ card, onSave, onCancel, onDelete, isSaving }) => 
 			alert(tUI("admin.cardForm.errorCardNameReq"));
 			return;
 		}
-		onSave(formData);
+
+        // Chuyển ngược lại từ string sang mảng trước khi lưu
+        const finalData = JSON.parse(JSON.stringify(formData));
+        
+        if (typeof finalData.regions === 'string') {
+            finalData.regions = finalData.regions.split(",").map(r => r.trim()).filter(Boolean);
+        }
+        if (typeof finalData.associatedCardRefs === 'string') {
+            finalData.associatedCardRefs = finalData.associatedCardRefs.split(",").map(r => r.trim()).filter(Boolean);
+        }
+        if (finalData.translations?.en && typeof finalData.translations.en.regions === 'string') {
+            finalData.translations.en.regions = finalData.translations.en.regions.split(",").map(r => r.trim()).filter(Boolean);
+        }
+
+		onSave(finalData);
 	};
 
 	return (
@@ -135,7 +179,7 @@ const CardEditorForm = memo(({ card, onSave, onCancel, onDelete, isSaving }) => 
                                     name="rarity" 
                                     value={formData.rarity || "None"} 
                                     onChange={handleInputChange}
-                                    className="w-full bg-surface-hover border border-border rounded-lg px-3 py-2 text-sm text-text-primary"
+                                    className="w-full bg-surface-hover border border-border rounded-lg px-3 py-2 text-sm text-text-primary focus:ring-2 focus:ring-primary-500/20 outline-none transition-all"
                                 >
                                     <option value="None">None</option>
                                     <option value="Common">Common</option>
@@ -148,26 +192,29 @@ const CardEditorForm = memo(({ card, onSave, onCancel, onDelete, isSaving }) => 
                                 <label className="block text-sm font-medium text-text-secondary">Type</label>
                                 <select 
                                     name="type" 
-                                    value={formData.type || "Unit"} 
+                                    value={(formData.type || "unit").toLowerCase()} 
                                     onChange={handleInputChange}
-                                    className="w-full bg-surface-hover border border-border rounded-lg px-3 py-2 text-sm text-text-primary"
+                                    className="w-full bg-surface-hover border border-border rounded-lg px-3 py-2 text-sm text-text-primary focus:ring-2 focus:ring-primary-500/20 outline-none transition-all"
                                 >
-                                    <option value="Unit">Unit / Bài quân</option>
-                                    <option value="Spell">Spell / Bài phép</option>
-                                    <option value="Landmark">Landmark / Địa danh</option>
-                                    <option value="Equipment">Equipment / Trang bị</option>
+                                    <option value="unit">Unit / Bài quân</option>
+                                    <option value="spell">Spell / Kỹ năng (Phép)</option>
+                                    <option value="landmark">Landmark / Địa danh</option>
+                                    <option value="equipment">Equipment / Trang bị</option>
+                                    <option value="ability">Ability / Kỹ năng tướng</option>
+                                    <option value="trap">Trap / Bẫy</option>
                                 </select>
                             </div>
                             <InputField
-                                label="Regions (Comma split)"
-                                value={(formData.regions || []).join(", ")}
-                                onChange={(e) => handleRegionsChange('vi', e.target.value)}
+                                label="Regions (VI)"
+                                value={formData.regions || ""}
+                                onChange={(e) => handleArrayChange('regions', e.target.value)}
                                 placeholder="Noxus, Ionia..."
                             />
                         </div>
 
                         <div className="space-y-4 pt-2">
                             <div className="space-y-2">
+                                <label className="block text-sm font-bold text-text-secondary uppercase tracking-wider">Mô tả lá bài</label>
                                 <MarkupEditor
                                     value={formData.description || ""}
                                     onChange={({ markup, raw }) => {
@@ -180,6 +227,15 @@ const CardEditorForm = memo(({ card, onSave, onCancel, onDelete, isSaving }) => 
                                     placeholder="Nhập mô tả lá bài..."
                                 />
                             </div>
+                        </div>
+
+                        <div className="pt-2">
+                             <InputField
+                                label="Mã thẻ bài liên quan (associatedCardRefs - phân tách bằng dấu phẩy)"
+                                value={formData.associatedCardRefs || ""}
+                                onChange={(e) => handleArrayChange('associatedCardRefs', e.target.value)}
+                                placeholder="01NX001, 01NX002..."
+                            />
                         </div>
 
                         <div className="space-y-4 pt-4 border-t border-border/50">
@@ -216,7 +272,7 @@ const CardEditorForm = memo(({ card, onSave, onCancel, onDelete, isSaving }) => 
                                 placeholder='English title...'
                             />
                             <InputField
-                                label="English Type"
+                                label="English Type (Unit, Spell, ...)"
                                 value={formData.translations?.en?.type || ""}
                                 onChange={e => handleTranslationChange("type", e.target.value)}
                                 placeholder='Unit, Spell...'
@@ -225,13 +281,14 @@ const CardEditorForm = memo(({ card, onSave, onCancel, onDelete, isSaving }) => 
 
                         <InputField
                             label="English Regions (Comma split)"
-                            value={(formData.translations?.en?.regions || []).join(", ")}
-                            onChange={(e) => handleRegionsChange('en', e.target.value)}
+                            value={formData.translations?.en?.regions || ""}
+                            onChange={(e) => handleTranslationRegionsChange(e.target.value)}
                             placeholder="Noxus, Ionia..."
                         />
 
                         <div className="space-y-4 pt-2">
                             <div className="space-y-2">
+                                <label className="block text-sm font-bold text-blue-400/80 uppercase tracking-wider">English Description</label>
                                 <MarkupEditor
                                     value={formData.translations?.en?.description || ""}
                                     onChange={({ markup, raw }) => {

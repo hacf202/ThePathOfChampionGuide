@@ -49,7 +49,7 @@ import PageTitle from "../../components/common/pageTitle";
 import Button from "../../components/common/button";
 import InputField from "../../components/common/inputField";
 import MultiSelectFilter from "../../components/common/multiSelectFilter";
-import iconRegions from "../../assets/data/iconRegions.json";
+import iconRegions from "../../assets/data/icon.json";
 import { removeAccents } from "../../utils/vietnameseUtils";
 import {
 	SortableItem,
@@ -477,7 +477,7 @@ function TierListChampions({ initialChampions }) {
 					value: name,
 					label: name,
 					iconUrl:
-						iconRegions.find(r => r.name === name)?.iconAbsolutePath ??
+						iconRegions.find(r => r.name === name)?.image ??
 						"/fallback-image.svg",
 				})),
 			costs: [...new Set(allChampionsRaw.map(c => c.cost))]

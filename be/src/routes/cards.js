@@ -152,7 +152,9 @@ router.get("/", async (req, res) => {
 					cardName: c.translations.en?.cardName,
 					description: c.translations.en?.description,
 					descriptionRaw: c.translations.en?.descriptionRaw,
-					gameAbsolutePath: c.translations.en?.gameAbsolutePath
+					gameAbsolutePath: c.translations.en?.gameAbsolutePath,
+					type: c.translations.en?.type,
+					regions: c.translations.en?.regions
 				}
 			} : undefined
 		}));
@@ -161,7 +163,7 @@ router.get("/", async (req, res) => {
 		const availableFilters = {
 			rarities: [...new Set(allCards.map(c => c.rarity || "None"))].sort(),
 			regions: [...new Set(allCards.flatMap(c => c.regions || []))].sort(),
-			types: [...new Set(allCards.map(c => c.translations?.en?.type || c.type || "Other"))].sort(),
+			types: [...new Set(allCards.map(c => (c.translations?.en?.type || c.type || "other").toLowerCase()))].sort(),
 			costs: [...new Set(allCards.map(c => Number(c.cost || 0)))].sort((a, b) => a - b),
 		};
 

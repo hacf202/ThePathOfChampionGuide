@@ -7,7 +7,7 @@ import ThemeSettings from "../common/ThemeSettings.jsx";
 
 import Modal from "../common/modal.jsx";
 import Button from "../common/button.jsx";
-import Logo from "/ahriicon.png";
+import Logo from "/favicon.ico";
 
 import {
 	User,

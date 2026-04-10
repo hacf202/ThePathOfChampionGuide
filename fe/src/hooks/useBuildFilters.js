@@ -1,7 +1,7 @@
 // src/hooks/useBuildFilters.js
 import { useMemo } from "react";
 import { useGenericFilters } from "./useGenericFilters";
-import iconRegionsData from "../assets/data/iconRegions.json";
+import iconRegionsData from "../assets/data/icon.json";
 
 export const useBuildFilters = (tUI, dynamicFilters = {}) => {
 	const { state, actions, queryParams } = useGenericFilters({
@@ -33,7 +33,7 @@ export const useBuildFilters = (tUI, dynamicFilters = {}) => {
 					value: name,
 					label: name,
 					iconUrl:
-						iconRegionsData.find(r => r.name === name)?.iconAbsolutePath ??
+						iconRegionsData.find(r => r.name === name)?.image ??
 						"/fallback-image.svg",
 				})),
 			},

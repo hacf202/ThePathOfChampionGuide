@@ -212,7 +212,7 @@ const ChampionRatingPage = () => {
 						<div className="flex items-center gap-3">
 							<Link to={`/champion/${review.championID}`} className="relative shrink-0">
 								<img 
-									src={review.championImage || "/ahriicon.png"} 
+									src={review.championImage || "/favicon.ico"} 
 									alt={review.championName}
 									className="w-14 h-14 rounded-xl object-cover border border-border shadow-sm group-hover:scale-105 transition-transform"
 								/>
@@ -571,7 +571,7 @@ const ChampionRatingPage = () => {
 											>
 												<div className="relative mb-2">
 													<img 
-														src={champ.assets?.[0]?.avatar || "/ahriicon.png"} 
+														src={champ.assets?.[0]?.avatar || "/favicon.ico"} 
 														className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover border-2 border-transparent group-hover:border-primary-500 shadow-sm transition-all"
 														alt={champ.name}
 													/>

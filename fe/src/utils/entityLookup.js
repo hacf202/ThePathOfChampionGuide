@@ -1,55 +1,157 @@
-import champions from "../assets/data/poc/guidePocChampionList.json";
-import relics from "../assets/data/poc/guidePocRelics.json";
-import powers from "../assets/data/poc/guidePocPowers.json";
-import items from "../assets/data/poc/guidePocItems.json";
-import runes from "../assets/data/poc/guidePocRunes.json";
+import axios from "axios";
 import globalsEn from "../assets/data/globals-en_us.json";
 import globalsVi from "../assets/data/globals-vi_vn.json";
 
 /**
  * entityLookup - Bộ não tra cứu toàn bộ dữ liệu Wiki LoR
- * Hỗ trợ: Keywords, Champions, Relics, Powers, Items, Runes.
+ * Cơ chế: Nạp động từ Backend và lưu vào Cache RAM.
  */
 
 const dataStore = {
 	en: {
 		keywords: globalsEn.keywords || [],
 		vocabTerms: globalsEn.vocabTerms || [],
-		champions,
-		relics,
-		powers,
-		items,
-		runes,
-		cards: [], // 🆕
+		champions: [],
+		relics: [],
+		powers: [],
+		items: [],
+		runes: [],
+		cards: [],
 	},
 	vi: {
 		keywords: globalsVi.keywords || [],
 		vocabTerms: globalsVi.vocabTerms || [],
-		champions,
-		relics,
-		powers,
-		items,
-		runes,
-		cards: [], // 🆕
+		champions: [],
+		relics: [],
+		powers: [],
+		items: [],
+		runes: [],
+		cards: [],
 	},
+};
+const investigatedIds = new Set(); // Chứa chuỗi dạng "type:id" hoặc "type:name" đã được tra cứu (kể cả thất bại)
+let preloadPromise = null;
+
+export const checkCache = (id, type, lang = "vi") => {
+    // 1. Kiểm tra trong Negative Cache (đã tra cứu rồi bài trừ lặp lại)
+    if (investigatedIds.has(`${type}:${id}`)) return true;
+
+    const cur = lang === "en" ? "en" : "vi";
+    const db = dataStore[cur];
+    const typeMap = {
+        c: "champions", champion: "champions",
+        r: "relics", relic: "relics",
+        p: "powers", power: "powers",
+        i: "items", item: "items",
+        rune: "runes",
+        cd: "cards", card: "cards"
+    };
+    
+    const storeType = typeMap[type] || type;
+    if (!db[storeType]) return false;
+
+    const idFieldMap = {
+        champions: "championID",
+        relics: "relicCode",
+        powers: "powerCode",
+        items: "itemCode",
+        runes: "runeCode",
+        cards: "cardCode"
+    };
+    const idField = idFieldMap[storeType];
+    
+    const found = db[storeType].some(item => 
+        (idField && item[idField] === id) || 
+        item.championID === id || item.name === id
+    );
+
+    // Nếu tìm thấy, đánh dấu luôn để lần sau check âm tính nhanh hơn
+    if (found) investigatedIds.add(`${type}:${id}`);
+    
+    return found;
 };
 
 /**
- * Khởi tạo dữ liệu động hoặc nạp thêm card vào cache (Ví dụ: từ kết quả resolve của page)
+ * Đánh dấu các ID đã được tra cứu nhưng không tìm thấy (Negative Cache)
+ */
+export const markInvestigated = (id, type) => {
+    investigatedIds.add(`${type}:${id}`);
+};
+
+/**
+ * Nạp dữ liệu mới vào cache
  */
 export const initEntities = async (incomingData = [], type = "cards") => {
-	if (incomingData && incomingData.length > 0) {
-		const merge = (existing, incoming, idField) => {
-			const map = new Map(existing.map(c => [c[idField], c]));
-			incoming.forEach(c => map.set(c[idField], c));
-			return Array.from(map.values());
-		};
+	if (!incomingData || incomingData.length === 0) return;
 
-		const idField = type === "cards" ? "cardCode" : type === "items" ? "itemCode" : "powerCode";
-		
-		dataStore.en[type] = merge(dataStore.en[type] || [], incomingData, idField);
-		dataStore.vi[type] = merge(dataStore.vi[type] || [], incomingData, idField);
-	}
+    const typeMap = {
+        c: "champions", champion: "champions",
+        r: "relics", relic: "relics",
+        p: "powers", power: "powers",
+        i: "items", item: "items",
+        rune: "runes",
+        cd: "cards", card: "cards"
+    };
+    const storeType = typeMap[type] || type;
+
+    const idFieldMap = {
+        champions: "championID",
+        relics: "relicCode",
+        powers: "powerCode",
+        items: "itemCode",
+        runes: "runeCode",
+        cards: "cardCode"
+    };
+    const idField = idFieldMap[storeType] || "id";
+
+    const merge = (existing, incoming, idKey) => {
+        const map = new Map(existing.map(c => [c[idKey], c]));
+        incoming.forEach(c => map.set(c[idKey], c));
+        return Array.from(map.values());
+    };
+
+    // Đánh dấu tất cả dữ liệu nạp vào là đã investigated (thành công)
+    incomingData.forEach(item => {
+        const id = item[idField] || item.championID || item.name;
+        if (id) investigatedIds.add(`${type}:${id}`);
+    });
+
+    // Card data usually contains both languages or we treat them as same
+    dataStore.en[storeType] = merge(dataStore.en[storeType] || [], incomingData, idField);
+    dataStore.vi[storeType] = merge(dataStore.vi[storeType] || [], incomingData, idField);
+};
+
+/**
+ * Nạp toàn bộ dữ liệu cần thiết - Đảm bảo Singleton (Chỉ chạy 1 lần duy nhất)
+ */
+export const preloadAllEntities = () => {
+    if (preloadPromise) return preloadPromise;
+
+    preloadPromise = (async () => {
+        try {
+            const apiUrl = import.meta.env.VITE_API_URL;
+            // Gọi song song 4 API cốt lõi
+            const [cardsRes, champRes, relicRes, powerRes] = await Promise.all([
+                axios.get(`${apiUrl}/api/cards`, { params: { limit: -1 } }),
+                axios.get(`${apiUrl}/api/champions`, { params: { limit: -1 } }),
+                axios.get(`${apiUrl}/api/relics`, { params: { limit: -1 } }),
+                axios.get(`${apiUrl}/api/powers`, { params: { limit: -1 } })
+            ]);
+
+            if (cardsRes.data?.items) initEntities(cardsRes.data.items, "cards");
+            if (champRes.data?.items) initEntities(champRes.data.items, "champions");
+            if (relicRes.data?.items) initEntities(relicRes.data.items, "relics");
+            if (powerRes.data?.items) initEntities(powerRes.data.items, "powers");
+
+            return true;
+        } catch (error) {
+            console.error("Entity Preload Error:", error);
+            preloadPromise = null; // Cho phép thử lại nếu lỗi
+            return false;
+        }
+    })();
+
+    return preloadPromise;
 };
 
 const normalize = str => (str || "").normalize("NFC").toLowerCase().replace(/\s+/g, " ").trim();
@@ -165,8 +267,8 @@ export const getEntityData = (value, type, lang = "vi") => {
 			);
 			if (foundItem) return {
 				id: foundItem.itemCode,
-				name: foundItem.name,
-				description: foundItem.description,
+				name: (cur === "en" ? foundItem.translations?.en?.name : null) || foundItem.name,
+				description: (cur === "en" ? foundItem.translations?.en?.description : null) || foundItem.description,
 				icon: foundItem.assetAbsolutePath,
 				type: "item"
 			};
@@ -174,7 +276,7 @@ export const getEntityData = (value, type, lang = "vi") => {
 		}
 
 		case "cd": 
-		case "card": { // 🆕 Card Markup
+		case "card": { // Card Markup
 			const found = db.cards.find(c => 
 				normalize(c.cardCode) === searchKey || 
 				normalize(c.cardName) === searchKey || 
@@ -236,7 +338,7 @@ export const getAllEntities = (type, lang = "vi") => {
 			id: c.cardCode, 
 			name: (cur === "en" ? c.translations?.en?.cardName : null) || c.cardName, 
 			nameEn: c.translations?.en?.cardName || "" 
-		})); // 🆕
+		}));
 		default: return [];
 	}
 };

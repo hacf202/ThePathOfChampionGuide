@@ -17,10 +17,11 @@ const NEW_CARD_TEMPLATE = {
 	cost: 0,
 	rarity: "None",
 	regions: [],
-	type: "Unit",
+	type: "unit",
 	description: "",
 	descriptionRaw: "",
 	gameAbsolutePath: "",
+    associatedCardRefs: [],
 	translations: {
 		en: {
 			cardName: "",
@@ -33,7 +34,7 @@ const NEW_CARD_TEMPLATE = {
 	},
 };
 
-const CARDS_PER_PAGE = 20;
+const CARDS_PER_PAGE = 30;
 
 // === LIST VIEW ===
 const CardListView = memo(
@@ -50,34 +51,43 @@ const CardListView = memo(
 				emptyMessageTitle={tUI("admin.card.notFound")}
 				emptyMessageSub={tUI("admin.card.tryOtherFilter")}
 			>
-				<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6'>
+				<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4'>
 					{paginatedItems.map(card => (
 						<Link
 							key={card.cardCode}
 							to={`./${card.cardCode}`}
 							className='block hover:scale-105 transition-transform duration-200'
 						>
-							<div className='bg-surface-bg border border-border rounded-xl overflow-hidden hover:border-primary-500 transition-all shadow-sm'>
-								{card.gameAbsolutePath ? (
-									<img
-										src={card.gameAbsolutePath}
-										alt={card.cardName}
-										className='w-full h-32 object-contain bg-black/20 p-1'
-										onError={e => {
-											e.target.src = "/fallback-image.svg";
-										}}
-									/>
-								) : (
-									<div className='w-full h-32 bg-surface-hover flex items-center justify-center text-text-secondary'>
-										No Image
+							<div className='bg-surface-bg border border-border rounded-xl overflow-hidden hover:border-primary-500 transition-all shadow-sm h-full flex flex-col'>
+								<div className="relative aspect-[2/3] bg-black/5 overflow-hidden">
+									{card.gameAbsolutePath ? (
+										<img
+											src={card.gameAbsolutePath}
+											alt={card.cardName}
+											className='w-full h-full object-contain p-1'
+											loading="lazy"
+											onError={e => {
+												e.target.src = "/fallback-image.svg";
+											}}
+										/>
+									) : (
+										<div className='w-full h-full flex items-center justify-center text-[10px] text-text-secondary uppercase font-black opacity-30'>
+											No Image
+										</div>
+									)}
+									<div className="absolute top-1 left-1 bg-black/60 backdrop-blur-md text-[9px] text-white px-1.5 py-0.5 rounded-md font-mono border border-white/10">
+										{card.cost}
 									</div>
-								)}
-								<div className='p-2'>
-									<p className='text-xs font-bold text-primary-500 truncate'>
+								</div>
+								<div className='p-2 flex-grow'>
+									<p className='text-[10px] font-black text-primary-500 uppercase tracking-tighter truncate'>
 										{card.cardCode}
 									</p>
-									<p className='text-sm font-semibold text-text-primary truncate'>
-										{card.cardName || tDynamic(card, "cardName")}
+									<p className='text-xs font-bold text-text-primary truncate'>
+										{card.cardName}
+									</p>
+									<p className='text-[9px] text-text-secondary font-medium uppercase'>
+										{card.type}
 									</p>
 								</div>
 							</div>
@@ -130,8 +140,10 @@ const CardEditWrapper = ({ cards, onSave, onDelete, isSaving, sidePanelProps }) 
 					/>
 				)}
 			</div>
-			<div className='lg:w-1/5'>
-				<SidePanel {...sidePanelProps} />
+			<div className='lg:w-1/5 shrink-0'>
+				<div className="sticky top-20">
+					<SidePanel {...sidePanelProps} />
+				</div>
 			</div>
 		</div>
 	);
@@ -142,6 +154,12 @@ function CardEditor() {
 	const [cards, setCards] = useState([]);
 	const [searchInput, setSearchInput] = useState("");
 	const [searchTerm, setSearchTerm] = useState("");
+	
+	const [selectedRegions, setSelectedRegions] = useState([]);
+	const [selectedRarities, setSelectedRarities] = useState([]);
+	const [selectedTypes, setSelectedTypes] = useState([]);
+	const [selectedCosts, setSelectedCosts] = useState([]);
+	
 	const [sortOrder, setSortOrder] = useState("cardName-asc");
 	const [currentPage, setCurrentPage] = useState(1);
 	const [isLoading, setIsLoading] = useState(true);
@@ -198,6 +216,7 @@ function CardEditor() {
 
 	const handleDeleteCard = async id => {
 		if (!id) return;
+		if (!window.confirm("Bạn có chắc chắn muốn xóa lá bài này?")) return;
 		setIsSaving(true);
 		try {
 			const token = localStorage.getItem("token");
@@ -217,20 +236,29 @@ function CardEditor() {
 		}
 	};
 
-	const filterOptions = useMemo(() => ({
-		sort: [
-			{ value: "cardName-asc", label: tUI("admin.common.sortNameAsc") },
-			{ value: "cardName-desc", label: tUI("admin.common.sortNameDesc") },
-			{
-				value: "cardCode-asc",
-				label: tUI("admin.common.sortIdAsc") || "Mã lá bài A-Z",
-			},
-			{
-				value: "cardCode-desc",
-				label: tUI("admin.common.sortIdDesc") || "Mã lá bài Z-A",
-			},
-		],
-	}), [tUI]);
+	const filterOptions = useMemo(() => {
+		const safeCards = Array.isArray(cards) ? cards : [];
+		
+		const regions = [...new Set(safeCards.flatMap(c => c.regions || []))].sort().map(r => ({ value: r, label: r }));
+		const rarities = [...new Set(safeCards.map(c => c.rarity || "None"))].sort().map(r => ({ value: r, label: r }));
+		const types = [...new Set(safeCards.map(c => c.type || "unit"))].sort().map(t => ({ value: t, label: t }));
+		const costs = [...new Set(safeCards.map(c => Number(c.cost || 0)))].sort((a, b) => a - b).map(c => ({ value: c, label: `${c} Mana` }));
+
+		return {
+			regions,
+			rarities,
+			types,
+			costs,
+			sort: [
+				{ value: "cardName-asc", label: tUI("admin.common.sortNameAsc") },
+				{ value: "cardName-desc", label: tUI("admin.common.sortNameDesc") },
+				{ value: "cardCode-asc", label: "Mã lá bài A-Z" },
+				{ value: "cardCode-desc", label: "Mã lá bài Z-A" },
+				{ value: "cost-asc", label: "Mana (Tăng dần)" },
+				{ value: "cost-desc", label: "Mana (Giảm dần)" },
+			],
+		};
+	}, [cards, tUI]);
 
 	const filteredCards = useMemo(() => {
 		let result = [...cards];
@@ -238,28 +266,28 @@ function CardEditor() {
 		if (searchTerm) {
 			const term = removeAccents(searchTerm.toLowerCase());
 			result = result.filter(c => {
-				const nameMatch = removeAccents(
-					(c.cardName || "").toLowerCase(),
-				).includes(term);
-				const enMatch = removeAccents(
-					(c.translations?.en?.cardName || "").toLowerCase(),
-				).includes(term);
-				const codeMatch = (c.cardCode || "")
-					.toLowerCase()
-					.includes(term);
+				const nameMatch = removeAccents((c.cardName || "").toLowerCase()).includes(term);
+				const enMatch = removeAccents((c.translations?.en?.cardName || "").toLowerCase()).includes(term);
+				const codeMatch = (c.cardCode || "").toLowerCase().includes(term);
 				return nameMatch || enMatch || codeMatch;
 			});
 		}
+		
+		if (selectedRegions.length) result = result.filter(c => c.regions?.some(r => selectedRegions.includes(r)));
+		if (selectedRarities.length) result = result.filter(c => selectedRarities.includes(c.rarity));
+		if (selectedTypes.length) result = result.filter(c => selectedTypes.includes(c.type));
+		if (selectedCosts.length) result = result.filter(c => selectedCosts.includes(Number(c.cost || 0)));
 
 		const [field, dir] = sortOrder.split("-");
 		result.sort((a, b) => {
-			const A = String(a[field] || "");
-			const B = String(b[field] || "");
-			return dir === "asc" ? A.localeCompare(B) : B.localeCompare(A);
+			const A = a[field] ?? "";
+			const B = b[field] ?? "";
+			if (typeof A === 'string') return dir === "asc" ? A.localeCompare(B) : B.localeCompare(A);
+			return dir === "asc" ? A - B : B - A;
 		});
 
 		return result;
-	}, [cards, searchTerm, sortOrder]);
+	}, [cards, searchTerm, sortOrder, selectedRegions, selectedRarities, selectedTypes, selectedCosts]);
 
 	const sidePanelProps = {
 		searchPlaceholder: tUI("admin.card.searchPlaceholder"),
@@ -279,10 +307,19 @@ function CardEditor() {
 		onResetFilters: () => {
 			setSearchInput("");
 			setSearchTerm("");
+			setSelectedRegions([]);
+			setSelectedRarities([]);
+			setSelectedTypes([]);
+			setSelectedCosts([]);
 			setSortOrder("cardName-asc");
 			setCurrentPage(1);
 		},
-		multiFilterConfigs: [],
+		multiFilterConfigs: [
+			{ label: "Khu vực", options: filterOptions.regions, selectedValues: selectedRegions, onChange: setSelectedRegions },
+			{ label: "Độ hiếm", options: filterOptions.rarities, selectedValues: selectedRarities, onChange: setSelectedRarities },
+			{ label: "Loại bài", options: filterOptions.types, selectedValues: selectedTypes, onChange: setSelectedTypes },
+			{ label: "Mana", options: filterOptions.costs, selectedValues: selectedCosts, onChange: setSelectedCosts },
+		],
 		sortOptions: filterOptions.sort,
 		sortSelectedValue: sortOrder,
 		onSortChange: setSortOrder,

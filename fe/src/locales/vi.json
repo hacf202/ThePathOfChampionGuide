@@ -50,11 +50,13 @@
 		"ad": "Quảng cáo"
 	},
 	"cardType": {
-		"Unit": "Bài quân",
-		"Spell": "Kỹ năng",
-		"Landmark": "Địa danh",
-		"Equipment": "Trang bị",
-		"Other": "Khác"
+		"unit": "Bài quân",
+		"spell": "Bài Phép",
+		"landmark": "Địa danh",
+		"equipment": "Trang bị",
+		"ability": "Kỹ năng",
+		"trap": "Bẫy",
+		"other": "Khác"
 	},
 	"cardList": {
 		"title": "Thư Viện Lá Bài",

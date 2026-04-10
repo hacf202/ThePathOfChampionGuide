@@ -4,7 +4,7 @@ import { useNavigate, Link, Routes, Route, useParams } from "react-router-dom";
 import ChampionCard from "../../champion/championCard.jsx";
 import Button from "../../common/button";
 import { removeAccents } from "../../../utils/vietnameseUtils";
-import iconRegions from "../../../assets/data/iconRegions.json";
+import iconRegions from "../../../assets/data/icon.json";
 import ChampionEditorForm from "./championEditorForm";
 import DropDragSidePanel from "../common/dropSidePanel.jsx";
 import { useTranslation } from "../../../hooks/useTranslation";
@@ -354,7 +354,7 @@ function ChampionEditor() {
 			.map(r => ({
 				value: r,
 				label: r,
-				iconUrl: iconRegions.find(i => i.name === r)?.iconAbsolutePath || "",
+				iconUrl: iconRegions.find(i => i.name === r)?.image || "",
 			}));
 
 		const costs = [...new Set(safeChampions.map(c => Number(c.cost)))]

@@ -52,11 +52,14 @@
 		"ad": "Advertisement"
 	},
 	"cardType": {
-		"Unit": "Unit",
-		"Spell": "Spell",
-		"Landmark": "Landmark",
-		"Equipment": "Equipment",
-		"Other": "Other"
+		"unit": "Unit",
+		"spell": "Spell",
+		"landmark": "Landmark",
+		"equipment": "Equipment",
+		"ability": "Ability",
+		"trap": "Trap",
+		"other": "Other"
+
 	},
 	"cardList": {
 		"title": "Card Gallery",
@@ -341,7 +344,7 @@
 			"sortNameAsc": "Name A-Z",
 			"sortNameDesc": "Name Z-A",
 			"loading": "Loading data...",
-			"unsavedChanges": "â— Unsaved changes",
+			"unsavedChanges": "Unsaved changes",
 			"cancel": "Cancel",
 			"delete": "Delete",
 			"saving": "Saving...",

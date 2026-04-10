@@ -23,7 +23,7 @@ import PageTitle from "../common/pageTitle.jsx";
 import SafeImage from "../common/SafeImage.jsx";
 
 import { useFavoriteStatus } from "../../hooks/useFavoriteStatus";
-import regionsData from "../../assets/data/iconRegions.json";
+import regionsData from "../../assets/data/icon.json";
 
 // --- THÀNH PHẦN SKELETON ---
 const BuildDetailSkeleton = () => (
@@ -186,7 +186,7 @@ const BuildDetail = () => {
 		return championInfo.regions
 			.map(rName => {
 				const region = regionsData.find(r => r.name === rName);
-				return region ? { name: rName, icon: region.iconAbsolutePath } : null;
+				return region ? { name: rName, icon: region.image } : null;
 			})
 			.filter(Boolean);
 	}, [championInfo]);

@@ -2,7 +2,7 @@
 import { memo, useMemo, useState, useEffect, useCallback } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import iconRegions from "../../assets/data/iconRegions.json";
+import iconRegions from "../../assets/data/icon.json";
 import { ChevronLeft, Star, XCircle } from "lucide-react";
 import LatestComments from "../comment/latestComments";
 import Button from "../common/button";
@@ -491,7 +491,7 @@ function ChampionDetail() {
 													key={i}
 													src={
 														iconRegions.find(item => item.name === r)
-															?.iconAbsolutePath || "/fallback-image.svg"
+															?.image || "/fallback-image.svg"
 													}
 													alt={r}
 													className='w-10 h-10'

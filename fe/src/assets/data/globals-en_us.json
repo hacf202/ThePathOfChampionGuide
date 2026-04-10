@@ -1021,5 +1021,13 @@
       "name": "SPECIAL",
       "nameRef": "Special"
     }
-  ]
+  ],
+  "cardType": {
+    "unit": "Unit",
+    "spell": "Spell",
+    "landmark": "Landmark",
+    "equipment": "Equipment",
+    "ability": "Ability",
+    "trap": "Trap"
+  }
 }

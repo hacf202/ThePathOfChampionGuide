@@ -1021,5 +1021,13 @@
       "name": "ĐẶC BIỆT",
       "nameRef": "Special"
     }
-  ]
+  ],
+  "cardType": {
+    "unit": "Bài quân",
+    "spell": "Bài phép",
+    "landmark": "Địa danh",
+    "equipment": "Vật phẩm",
+    "ability": "Kỹ năng",
+    "trap": "Bài bẫy"
+  }
 }

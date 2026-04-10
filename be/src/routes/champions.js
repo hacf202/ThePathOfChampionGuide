@@ -27,7 +27,7 @@ const championCache = cacheManager.getOrCreateCache("champions", { stdTTL: 1800,
  * Hàm lấy toàn bộ dữ liệu từ DB và lưu vào Cache.
  * Sắp xếp mặc định A-Z.
  */
-async function getCachedChampions() {
+export async function getCachedChampions() {
 	const CACHE_KEY = "all_champions_list";
 	let cachedData = championCache.get(CACHE_KEY);
 
