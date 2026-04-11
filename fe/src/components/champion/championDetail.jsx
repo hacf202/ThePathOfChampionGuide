@@ -92,11 +92,15 @@ const RenderItem = ({ item }) => {
 
 // --- RENDER CARD NAME CELL (WITH TOOLTIP PORTAL) ---
 const CardNameCell = memo(({ card, items, cardCode, isReference = false, onOpenCarousel }) => {
-	const { tDynamic } = useTranslation();
+	const { tDynamic, language } = useTranslation();
 	const [hoverPos, setHoverPos] = useState(null);
 
 	const cardName = card ? tDynamic(card, "cardName") : cardCode;
-	const cardImg = card?.gameAbsolutePath || "/fallback-card.png";
+	const isEN = language === "en";
+	const cardImg = isEN
+		? (card?.translations?.en?.gameAbsolutePath || card?.gameAbsolutePath || "/fallback-card.png")
+		: (card?.gameAbsolutePath || "/fallback-card.png");
+
 
 	return (
 		<div

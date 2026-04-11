@@ -14,6 +14,13 @@ import {
 	FloatingPortal,
 } from "@floating-ui/react";
 import { getRarityKey } from "../../utils/i18nHelpers";
+import { useTranslation } from "../../hooks/useTranslation";
+
+// Strip markup tags to plain text to avoid circular dep with MarkupRenderer
+const stripMarkup = (text) => {
+	if (!text) return "";
+	return text.replace(/\[([^:]+):([^|\]]+)(?:\|([^|\]]+))?(?:\|[^\]]*)?\]/g, (_, type, value, label) => label || value);
+};
 
 /**
  * MarkupTooltip - Phiên bản cao cấp dành cho Administrator và Người dùng
@@ -34,6 +41,8 @@ const MarkupTooltip = ({
 }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const navigate = useNavigate();
+	const { language } = useTranslation();
+	const isEN = language === "en";
 
 	const displayDescription = description || text;
 	const showFullImg = options.includes("img-full");
@@ -66,23 +75,30 @@ const MarkupTooltip = ({
 	const theme = useMemo(() => {
 		const key = getRarityKey(rarity);
 		const config = {
-			common: { color: "text-slate-300", border: "border-slate-500/50", glow: "shadow-slate-500/10", label: "THÔNG THƯỜNG", bg: "from-slate-900/40" },
-			rare: { color: "text-blue-400", border: "border-blue-500/50", glow: "shadow-blue-500/20", label: "HIẾM", bg: "from-blue-900/40" },
-			epic: { color: "text-purple-400", border: "border-purple-500/50", glow: "shadow-purple-500/20", label: "SỨ THI", bg: "from-purple-900/40" },
-			legendary: { color: "text-yellow-400", border: "border-yellow-500/50", glow: "shadow-yellow-500/20", label: "HUYỀN THOẠI", bg: "from-yellow-900/40" },
-			special: { color: "text-pink-400", border: "border-pink-500/50", glow: "shadow-pink-500/20", label: "ĐẶC BIỆT", bg: "from-pink-900/40" },
-			unknown: { color: "text-slate-400", border: "border-slate-500/30", glow: "shadow-slate-500/10", label: "CƠ BẢN", bg: "from-slate-900/40" }
+			common:    { color: "text-slate-300", border: "border-slate-500/50", glow: "shadow-slate-500/10", label: isEN ? "COMMON"    : "THÔNG THƯỜNG", bg: "from-slate-900/40" },
+			rare:      { color: "text-blue-400",  border: "border-blue-500/50",  glow: "shadow-blue-500/20",  label: isEN ? "RARE"      : "HIẾM",         bg: "from-blue-900/40" },
+			epic:      { color: "text-purple-400",border: "border-purple-500/50",glow: "shadow-purple-500/20",label: isEN ? "EPIC"      : "SỨ THI",       bg: "from-purple-900/40" },
+			legendary: { color: "text-yellow-400",border: "border-yellow-500/50",glow: "shadow-yellow-500/20",label: isEN ? "LEGENDARY" : "HUYỀN THOẠI", bg: "from-yellow-900/40" },
+			special:   { color: "text-pink-400",  border: "border-pink-500/50",  glow: "shadow-pink-500/20",  label: isEN ? "SPECIAL"   : "ĐẶC BIỆT",    bg: "from-pink-900/40" },
+			unknown:   { color: "text-slate-400", border: "border-slate-500/30", glow: "shadow-slate-500/10", label: isEN ? "BASIC"     : "CƠ BẢN",       bg: "from-slate-900/40" }
 		};
 		return config[key] || config.unknown;
-	}, [rarity]);
+	}, [rarity, isEN]);
 
 	const typeLabel = useMemo(() => {
+		if (isEN) {
+			const types = {
+				k: "KEYWORD", c: "CHAMPION", r: "RELIC", p: "POWER", i: "ITEM", cd: "CARD", cap: "STAR LEVEL",
+				keyword: "KEYWORD", champion: "CHAMPION", relic: "RELIC", power: "POWER", item: "ITEM", card: "CARD", star: "STAR LEVEL"
+			};
+			return types[type?.toLowerCase()] || "INFO";
+		}
 		const types = {
 			k: "TỪ KHÓA", c: "TƯỚNG", r: "CỔ VẬT", p: "SỨC MẠNH", i: "VẬT PHẨM", cd: "THẺ BÀI", cap: "CẤP SAO",
 			keyword: "TỪ KHÓA", champion: "TƯỚNG", relic: "CỔ VẬT", power: "SỨC MẠNH", item: "VẬT PHẨM", card: "THẺ BÀI", star: "CẤP SAO"
 		};
 		return types[type?.toLowerCase()] || "THÔNG TIN";
-	}, [type]);
+	}, [type, isEN]);
 
 	return (
 		<>
@@ -132,7 +148,10 @@ const MarkupTooltip = ({
                                 </div>
 
                                 <div className="text-slate-200 text-[13px] leading-relaxed whitespace-pre-wrap font-medium">
-                                    {displayDescription || "Không có mô tả chi tiết."}
+                                    {displayDescription
+                                        ? stripMarkup(displayDescription)
+                                        : <span className="opacity-60 italic">{isEN ? "No description available." : "Không có mô tả chi tiết."}</span>
+                                    }
                                 </div>
 
                                 {href && (
@@ -141,7 +160,7 @@ const MarkupTooltip = ({
                                             onClick={() => navigate(href)}
                                             className={`w-full py-2 rounded-lg bg-white/5 hover:bg-white/10 border ${theme.border} text-[10px] font-black tracking-widest uppercase transition-all`}
                                         >
-                                            Xem chi tiết
+                                            {isEN ? "View Details" : "Xem chi tiết"}
                                         </button>
                                     </div>
                                 )}

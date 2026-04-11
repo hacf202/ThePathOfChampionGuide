@@ -6,12 +6,17 @@ import { Link } from "react-router-dom";
 
 const CardHoverTooltip = memo(
 	({ card, items, cardCode, position, onClose }) => {
-		const { tDynamic } = useTranslation();
+		const { tDynamic, language } = useTranslation();
 		if (!card && !cardCode) return null;
 		if (!position) return null;
 
+		const isEN = language === "en";
 		const cardName = card ? tDynamic(card, "cardName") : cardCode;
-		const cardImg = card?.gameAbsolutePath || "/fallback-card.png";
+
+		// Dùng ảnh EN nếu có khi đang ở ngôn ngữ EN
+		const cardImg = isEN
+			? (card?.translations?.en?.gameAbsolutePath || card?.gameAbsolutePath || "/fallback-card.png")
+			: (card?.gameAbsolutePath || "/fallback-card.png");
 
 		// Mobile detection
 		const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
@@ -33,7 +38,7 @@ const CardHoverTooltip = memo(
 							? {
 									left: Math.min(position.x + 10, window.innerWidth - 300),
 									top: Math.max(10, position.y - 100),
-								}
+							  }
 							: {}
 					}
 				>
@@ -46,39 +51,39 @@ const CardHoverTooltip = memo(
 							<SafeImage
 								src={cardImg}
 								alt={cardName}
-								className='w-full h-full object-cover rounded-2xl '
+								className='w-full h-full object-cover rounded-2xl'
 							/>
-
-							{/* Floating Items */}
-							{items && items.length > 0 && (
-								<div className='absolute right-[-15px] sm:right-[-20px] top-1/2 -translate-y-1/2 flex flex-col gap-0 z-10'>
-									{items.map((item, idx) => {
-										const itemName = tDynamic(item, "name") || "Item";
-										const itemImg =
-											item.assetAbsolutePath ||
-											item.image ||
-											"/fallback-image.svg";
-
-										return (
-											<Link
-												key={idx}
-												to={`/item/${item.itemCode}`}
-												className='relative pointer-events-auto block transition-transform hover:scale-110 active:scale-95'
-												title={itemName}
-											>
-												<div className='w-11 h-11 sm:w-16 sm:h-16 flex items-center justify-center rounded-full overflow-hidden'>
-													<SafeImage
-														src={itemImg}
-														alt={itemName}
-														className='w-full h-full object-contain scale-110'
-													/>
-												</div>
-											</Link>
-										);
-									})}
-								</div>
-							)}
 						</div>
+
+						{/* Floating Items */}
+						{items && items.length > 0 && (
+							<div className='absolute right-[-15px] sm:right-[-20px] top-1/2 -translate-y-1/2 flex flex-col gap-0 z-10'>
+								{items.map((item, idx) => {
+									const itemName = tDynamic(item, "name") || "Item";
+									const itemImg =
+										item.assetAbsolutePath ||
+										item.image ||
+										"/fallback-image.svg";
+
+									return (
+										<Link
+											key={idx}
+											to={`/item/${item.itemCode}`}
+											className='relative pointer-events-auto block transition-transform hover:scale-110 active:scale-95'
+											title={itemName}
+										>
+											<div className='w-11 h-11 sm:w-16 sm:h-16 flex items-center justify-center rounded-full overflow-hidden'>
+												<SafeImage
+													src={itemImg}
+													alt={itemName}
+													className='w-full h-full object-contain scale-110'
+												/>
+											</div>
+										</Link>
+									);
+								})}
+							</div>
+						)}
 					</div>
 				</div>
 			</>

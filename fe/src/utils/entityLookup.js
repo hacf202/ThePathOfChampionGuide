@@ -163,18 +163,24 @@ export const getEntityData = (value, type, lang = "vi") => {
 	const searchKey = normalize(value);
 	const cur = lang === "en" ? "en" : "vi";
 	const db = dataStore[cur];
-	
-	const allSources = [
-		...(globalsVi.keywords || []),
-		...(globalsVi.vocabTerms || []),
-		...(globalsEn.keywords || []),
-		...(globalsEn.vocabTerms || [])
-	];
+
+	// Ưu tiên nguồn đúng ngôn ngữ trước, fallback sang ngôn ngữ còn lại
+	const primarySources = cur === "en"
+		? [...(globalsEn.keywords || []), ...(globalsEn.vocabTerms || [])]
+		: [...(globalsVi.keywords || []), ...(globalsVi.vocabTerms || [])];
+	const fallbackSources = cur === "en"
+		? [...(globalsVi.keywords || []), ...(globalsVi.vocabTerms || [])]
+		: [...(globalsEn.keywords || []), ...(globalsEn.vocabTerms || [])];
+	const allSources = [...primarySources, ...fallbackSources];
 
 	switch (type) {
 		case "k": 
 		case "keyword": {
-			const found = allSources.find(item => 
+			// Tìm trong primary (đúng ngôn ngữ) trước
+			const found = primarySources.find(item => 
+				normalize(item.name) === searchKey || 
+				normalize(item.nameRef) === searchKey
+			) || fallbackSources.find(item => 
 				normalize(item.name) === searchKey || 
 				normalize(item.nameRef) === searchKey
 			);
