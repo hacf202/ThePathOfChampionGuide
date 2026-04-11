@@ -4,6 +4,7 @@ import { Calendar, Eye, ArrowRight, BookOpen, Search, PenTool, X } from "lucide-
 import { Link } from "react-router-dom";
 import { useTranslation } from "../hooks/useTranslation";
 import PageTitle from "../components/common/pageTitle";
+import { removeAccents } from "../utils/vietnameseUtils";
 
 // ── Guide Card ────────────────────────────────────────────────
 const GuideCard = ({ guide }) => {
@@ -72,6 +73,7 @@ const GuideCard = ({ guide }) => {
 	);
 };
 
+
 // ── Main Page ─────────────────────────────────────────────────
 const GuideList = () => {
 	const [guides, setGuides] = useState([]);
@@ -99,11 +101,11 @@ const GuideList = () => {
 
 	const filtered = useMemo(() => {
 		if (!search.trim()) return guides;
-		const q = search.toLowerCase();
+		const q = removeAccents(search);
 		return guides.filter(g =>
-			(g.title || "").toLowerCase().includes(q) ||
-			(g.description || "").toLowerCase().includes(q) ||
-			(g.author || "").toLowerCase().includes(q),
+			removeAccents(g.title || "").includes(q) ||
+			removeAccents(g.description || "").includes(q) ||
+			removeAccents(g.author || "").includes(q),
 		);
 	}, [guides, search]);
 

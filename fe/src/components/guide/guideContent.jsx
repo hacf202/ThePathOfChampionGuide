@@ -168,11 +168,11 @@ const ContentBlock = ({ block, referenceData }) => {
 
 		case "conclusion":
 			return (
-				<div className='mt-12 p-6 rounded-xl border text-center bg-surface-hover/30 border-primary-300'>
-					<h3 className='text-xl font-bold mb-3 text-primary-600 dark:text-primary-400 uppercase tracking-wide'>
+				<div className='mt-12 p-6 rounded-xl border text-center bg-surface-hover/20 border-primary-500/30 backdrop-blur-sm shadow-inner'>
+					<h3 className='text-xl font-bold mb-3 text-primary-500 uppercase tracking-widest'>
 						{block.title}
 					</h3>
-					<p className='text-lg text-text-primary leading-relaxed font-secondary'>
+					<p className='text-lg text-text-primary leading-relaxed font-secondary italic'>
 						<MarkupRenderer text={block.text} />
 					</p>
 				</div>
@@ -238,20 +238,20 @@ const ContentBlock = ({ block, referenceData }) => {
 		case "power": {
 			const power = referenceData?.powers?.[block.id];
 			if (!power) return (
-				<div className='text-red-500 italic text-sm my-2'>
+				<div className='text-danger-500 italic text-sm my-2'>
 					[Không tìm thấy Sức mạnh: {block.id}]
 				</div>
 			);
 			return (
-				<div className='my-4 p-3 rounded-lg border border-yellow-200/50 bg-yellow-50/10 dark:bg-yellow-900/10 flex items-center gap-3'>
-					<div className='w-12 h-12 rounded-full bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center border border-yellow-300/50 shrink-0'>
-						<span className='text-yellow-600 font-bold text-xs'>SỨC</span>
+				<div className='my-4 p-3 rounded-lg border border-yellow-500/20 bg-yellow-500/5 flex items-center gap-3'>
+					<div className='w-12 h-12 rounded-full bg-yellow-500/10 flex items-center justify-center border border-yellow-500/20 shrink-0'>
+						<span className='text-yellow-500 font-bold text-xs'>SỨC</span>
 					</div>
 					<div>
-						<h4 className='font-bold text-yellow-800 dark:text-yellow-400'>
+						<h4 className='font-bold text-yellow-500'>
 							{tDynamic(power, "name")}
 						</h4>
-						<p className='text-sm text-yellow-700/80 dark:text-yellow-500/80'>
+						<p className='text-sm text-yellow-500/80'>
 							<MarkupRenderer text={tDynamic(power, "description")} />
 						</p>
 					</div>

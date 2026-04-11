@@ -87,12 +87,15 @@ const RewardSection = ({ rewards }) => {
 			"xu vinh danh": "honorCoin",
 			"mảnh sao băng": "novaShard",
 			"thùng đá quý lớn": "greaterGemstoneVessel",
+			"mảnh vạn năng": "wildFrags",
+			"mảnh tướng": "champFrags",
 		};
 
 		const lowerBase = baseName.toLowerCase();
 		const baseKey = REWARD_MAP[lowerBase];
 		const translatedBase = baseKey ? tUI(`reward.${baseKey}`) : baseName;
 
+		// Xử lý ghép tên (Region + Tên Vật Phẩm)
 		const translatedName = translatedRegion
 			? `${translatedRegion} ${translatedBase}`
 			: translatedBase;

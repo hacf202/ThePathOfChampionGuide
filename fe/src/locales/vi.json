@@ -115,6 +115,30 @@
 		"noEnemyInfo": "Không có thông tin",
 		"noNodeDescription": "Không có mô tả chi tiết cho loại Node này."
 	},
+	"reward": {
+		"bronzeReliquary": "Hòm Thần Tích Đồng",
+		"silverReliquary": "Hòm Thần Tích Bạc",
+		"goldReliquary": "Hòm Thần Tích Vàng",
+		"bronzeVault": "Kho Báu Đồng",
+		"silverVault": "Kho Báu Bạc",
+		"goldVault": "Kho Báu Vàng",
+		"platinumVault": "Kho Báu Bạch Kim",
+		"diamondVault": "Kho Báu Kim Cương",
+		"silverStarVessel": "Thùng Tinh Tú Bạc",
+		"goldStarVessel": "Thùng Tinh Tú Vàng",
+		"platinumStarVessel": "Thùng Tinh Tú Bạch Kim",
+		"legendLevel": "Điểm Huyền Thoại",
+		"mysteriousFragment": "Mảnh Ghép Bí Ẩn",
+		"stardust": "Bụi Tinh Tú",
+		"novaCrystal": "Pha Lê Sao Băng",
+		"starCrystal": "Pha Lê Tinh Tú",
+		"gemstone": "Đá Quý",
+		"honorCoin": "Xu Vinh Danh",
+		"novaShard": "Mảnh Sao Băng",
+		"greaterGemstoneVessel": "Thùng Đá Quý Lớn",
+		"wildFrags": "Mảnh Vạn Năng",
+		"champFrags": "Mảnh Tướng"
+	},
 	"rarity": {
 		"common": "Thường",
 		"rare": "Hiếm",
@@ -1180,7 +1204,8 @@
 			"silver": "Bạc",
 			"gold": "Vàng",
 			"platinum": "Bạch Kim",
-			"diamond": "Kim Cương"
+			"diamond": "Kim Cương",
+			"spirit_blossom": "Hoa Linh"
 		},
 		"probBronzeSilverTitle": "KHO BÁU ĐỒNG & BẠC",
 		"probBronzeSilverDesc": "Mảnh Tướng dành cho các tướng giai đoạn đầu.\n• Rương Đồng: 95% rơi 5, 5% rơi 10 Mảnh.\n• Rương Bạc: 90% rơi 10, 10% rơi 15 Mảnh.",
@@ -1188,13 +1213,16 @@
 		"probGoldPlatinumDesc": "Bắt đầu xuất hiện Cổ Vật.\n• Rương Vàng: 90% rơi 20, 10% rơi 30 (20+10) Mảnh Tướng. Tỉ lệ 30% kèm Cổ Vật Thường (Luôn đi kèm khi ra 30 Mảnh).\n• Rương Bạch Kim: 60% rơi 40, 30% rơi 40 (20+20), 10% rơi 50 (30+20) Mảnh Tướng. Tỉ lệ 30% kèm Cổ Vật Hiếm (Luôn đi kèm khi ra 50 Mảnh).",
 		"probDiamondTitle": "KHO BÁU KIM CƯƠNG",
 		"probDiamondDesc": "Phần thưởng cao cấp nhất.\n• Mảnh Tướng: 75% rơi 80 (40+40), 20% rơi 120 (40+40+40), 5% rơi 240 (80+80+80) cái.\n• Mảnh Vạn Năng: 85% rơi 20, 14% rơi 50, 1% rơi 100 cái.\n• Cổ Vật: 65% , 35% Cổ Vật Hiếm.\n• Bonus: 20% Pha lê tinh tú (x10), 5% Đá Quý (x150).",
+		"probSpiritBlossomTitle": "RƯƠNG HOA LINH LỤC ĐỊA",
+		"probSpiritBlossomDesc": "Nguồn cung cấp Ngọc (Rune) chính.\n• Ngọc: 81.28% Thường, 17.12% Hiếm, 1.6% Huyền Thoại.\n• Mảnh Ngọc: Luôn nhận được x4 Mảnh Ngọc.",
 		"sourceTitle": "CÁCH NHẬN RƯƠNG",
 		"sources": {
 			"bronze": "• Thắng các bản đồ phiêu lưu 2 sao trở xuống\n• Hoàn thành Chiến dịchPhước Lành Vũ Trụ Tướng\n• Phần thưởng Nhiệm vụ hàng ngày\n• Mua trong Emporium bằng Mảnh Runeterra",
 			"silver": "• Thắng các bản đồ phiêu lưu\n• Hoàn thành các Nhiệm vụ\n• Nhiệm vụ hàng tuần \"Tiếng gọi Phiêu lưu\"\n• Phần thưởng Cấp độ Truyền thuyết 7",
 			"gold": "• Thắng các bản đồ phiêu lưu\n• Hoàn thành các Nhiệm vụ\n• Phần thưởng Cấp độ Truyền thuyết\n• Nhiệm vụ hàng tuần \"Chiến binh Cổng dịch chuyển\"\n• Mua trong Emporium bằng Mảnh Runeterra",
 			"platinum": "• Hoàn thành Chương V và VI của Con Đường Anh Hùng\n• Mua hàng tháng trong Glory Store (tối đa 5 rương)\n• Phần thưởng Cấp độ Truyền thuyết",
-			"diamond": "• Hoàn thành Nhiệm vụ Thành tựu\n• Hoàn thành Nhiệm vụ Sự kiện\n• Phần thưởng Cấp độ Truyền thuyết"
+			"diamond": "• Hoàn thành Nhiệm vụ Thành tựu\n• Hoàn thành Nhiệm vụ Sự kiện\n• Phần thưởng Cấp độ Truyền thuyết",
+			"spirit_blossom": "• Hoàn thành các thử thách đặc biệt trong hành trình\n• Nhận từ các Node sự kiện Hoa Linh Lục Địa"
 		},
 		"loot": {
 			"champFrags": "Mảnh Tướng",
@@ -1204,6 +1232,8 @@
 			"starCrystal": "Pha lê tinh tú",
 			"gemstone": "Đá Quý",
 			"relic": "Cổ Vật",
+			"rune": "Ngọc",
+			"runeShards": "Mảnh Ngọc",
 			"simulator": "Giả Lập"
 		}
 	}

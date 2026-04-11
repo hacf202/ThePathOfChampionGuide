@@ -105,3 +105,60 @@
 - Tự động phát hiện và đẩy các dấu cách ở đầu/cuối vùng chọn ra ngoài thẻ Markup (hoặc thẻ HTML).
 - Tránh tình trạng nhãn của thẻ chứa dấu cách thừa hoặc văn bản bị dính liền vào thẻ sau khi render.
 - Áp dụng cho cả việc chèn thực thể (Items, Champions...) và các công cụ định dạng (Bold, Italic).
+---
+
+## 9. Guide Components — Đồng bộ hóa hệ màu (Theme Synchronization)
+
+**Files:** `fe/src/components/guide/guideDetail.jsx`, `fe/src/components/guide/guideContent.jsx`
+
+### Vấn đề
+- Các trang hướng dẫn (`GuideDetail`) sử dụng các class màu trắng/xám cứng (`bg-white`, `bg-gray-50`), không đồng bộ với hệ thống theme (Dark/Light/Artwork) của ứng dụng.
+
+### Sửa
+- Thay thế các class `bg-white`, `bg-gray-50`, `bg-slate-50` bằng các biến semantic như `bg-surface-bg`, `bg-page-bg`.
+- Cập nhật màu chữ từ `text-gray-900/500` sang `text-text-primary/secondary`.
+- Sử dụng hiệu ứng kính (`backdrop-blur-sm`) và màu nền hover (`bg-surface-hover/20`) cho bảng mục lục, giúp giao diện trông hiện đại và chuyên nghiệp hơn trên mọi loại nền.
+- Đồng bộ lại các border và badge trang trí để sử dụng dải màu `primary-500` chuẩn của ứng dụng.
+---
+
+## 10. Guide List — Tìm kiếm không dấu (Accent-insensitive Search)
+
+**File:** `fe/src/pages/guideListPage.jsx`
+
+### Cải tiến
+- Cho phép người dùng tìm kiếm bài viết bằng tiếng Việt không dấu (ví dụ: gõ "bua go" vẫn ra "Búa Gỗ").
+- Sử dụng tiện ích `removeAccents` để chuẩn hóa cả từ khóa tìm kiếm và các trường dữ liệu (tiêu đề, mô tả, tác giả) trước khi so sánh.
+- Giúp tăng tốc độ tìm kiếm và cải thiện trải nghiệm người dùng trên thiết bị di động hoặc khi gõ nhanh.
+---
+
+## 11. Vault Simulator — Giả lập rương Hoa Linh Lục Địa
+
+**File:** `fe/src/pages/vaultSimulator.jsx`, `fe/src/locales/vi.json`, `fe/src/locales/en.json`
+
+### Tính năng mới
+- Thêm loại rương **Hoa Linh Lục Địa** vào danh sách giả lập.
+- **Vật phẩm rơi**: Hỗ trợ logic rơi mới cho Ngọc (Runes) và Mảnh Ngọc (Rune Shards).
+    - Mảnh Ngọc: Luôn rơi x4 (100%).
+    - Ngọc: Tỷ lệ quay thưởng Thường (81.28%), Hiếm (17.12%), Huyền Thoại (1.6%).
+- **Dữ liệu**: Tích hợp API để lấy danh sách Ngọc thực tế từ cơ sở dữ liệu.
+- **Giao diện**: Cập nhật hiệu ứng màu hồng và bảng tra cứu tỷ lệ mở rương chi tiết.
+---
+
+## 12. Adventure Map — Mốc Thưởng Đa ngôn ngữ (Reward Milestones)
+
+**Files:** `fe/src/locales/vi.json`, `fe/src/locales/en.json`, `fe/src/components/map/rewardSection.jsx`, `fe/src/components/map/adventureMapDetail.jsx`
+
+### Vấn đề
+- Phần "Mốc Thưởng" (Reward Milestones) trong chi tiết bản đồ hiển thị tên vật phẩm cứng bằng tiếng Việt từ dữ liệu backend.
+- Các tiêu đề cột và nhãn mốc (ví dụ: "Mốc thưởng 1") hardcode tiếng Việt.
+- Thiếu định nghĩa dịch thuật cho các loại rương và vật phẩm đặc trưng của PoC (Cosmic Vaults, Reliquaries, Stardust...).
+
+### Sửa
+- **Locales**: Bổ sung object `reward` vào cả 2 ngôn ngữ, định nghĩa dịch thuật cho toàn bộ các vật phẩm PoC (Bronze/Silver/Gold/Platinum/Diamond Vault, Reliquary, Nova Crystal, Gemstone, Wild Fragments, Champ Fragments...).
+- **rewardSection.jsx**:
+    - Xây dựng `REWARD_MAP` để ánh xạ tên vật phẩm tiếng Việt sang translation keys.
+    - Cập nhật logic `parseRewardItem` để dịch tên vật phẩm và khu vực (Region) một cách linh hoạt.
+    - Chuyển đổi toàn bộ headers và labels sang sử dụng `tUI`.
+- **adventureMapDetail.jsx**:
+    - Việt hóa/Anh hóa các fallbacks cho Champion XP và nút ẩn/hiện bản đồ (sử dụng `common.hide` và `common.show`).
+

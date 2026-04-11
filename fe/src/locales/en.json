@@ -117,6 +117,30 @@
 		"noEnemyInfo": "No information.",
 		"noNodeDescription": "No detailed description for this Node type."
 	},
+	"reward": {
+		"bronzeReliquary": "Bronze Reliquary",
+		"silverReliquary": "Silver Reliquary",
+		"goldReliquary": "Gold Reliquary",
+		"bronzeVault": "Bronze Vault",
+		"silverVault": "Silver Vault",
+		"goldVault": "Gold Vault",
+		"platinumVault": "Platinum Vault",
+		"diamondVault": "Diamond Vault",
+		"silverStarVessel": "Silver Star Vessel",
+		"goldStarVessel": "Gold Star Vessel",
+		"platinumStarVessel": "Platinum Star Vessel",
+		"legendLevel": "Legend Level",
+		"mysteriousFragment": "Mysterious Fragment",
+		"stardust": "Stardust",
+		"novaCrystal": "Nova Crystal",
+		"starCrystal": "Star Crystal",
+		"gemstone": "Gemstone",
+		"honorCoin": "Honor Coin",
+		"novaShard": "Nova Shard",
+		"greaterGemstoneVessel": "Greater Gemstone Vessel",
+		"wildFrags": "Wild Fragments",
+		"champFrags": "Champion Fragments"
+	},
 	"rarity": {
 		"common": "Common",
 		"rare": "Rare",
@@ -1179,7 +1203,8 @@
 			"silver": "Silver",
 			"gold": "Gold",
 			"platinum": "Platinum",
-			"diamond": "Diamond"
+			"diamond": "Diamond",
+			"spirit_blossom": "Spirit Blossom"
 		},
 		"probBronzeSilverTitle": "BRONZE & SILVER VAULTS",
 		"probBronzeSilverDesc": "Champion Fragments for early game progression.\n• Bronze Vault: 95% to drop 5, 5% to drop 10 fragments.\n• Silver Vault: 90% to drop 10, 10% to drop 15 fragments.",
@@ -1187,13 +1212,16 @@
 		"probGoldPlatinumDesc": "Relics start dropping here.\n• Gold Vault: 90% for 20, 10% for 30 (20+10) Frags. 30% chance for Common Relic (Always included with 30 Frags).\n• Platinum Vault: 60% for 40, 30% for 40 (20+20), 10% for 50 (30+20) Frags. 30% chance for Rare Relic (Always included with 50 Frags).",
 		"probDiamondTitle": "DIAMOND VAULT",
 		"probDiamondDesc": "The ultimate rewards.\n• Champ Frags: 75% for 80 (40+40), 20% for 120 (40+40+40), 5% for 240 (80+80+80) frags.\n• Wild Frags: 85% for 20, 14% for 50, 1% for 100 frags.\n• Relic Slot: 65% Cosmic Blessing, 35% Rare Relic.\n• Bonus: 20% Star Crystal (x10), 5% Gemstone (x150).",
+		"probSpiritBlossomTitle": "SPIRIT BLOSSOM VAULT",
+		"probSpiritBlossomDesc": "Main source for Runes.\n• Rune: 81.28% Common, 17.12% Rare, 1.6% Legendary.\n• Rune Shards: Always guaranteed x4 shards.",
 		"sourceTitle": "HOW TO OBTAIN",
 		"sources": {
 			"bronze": "• Winning 2-star or lower adventures\n• Completing Champion Campaigns\n• Daily Quest Victory!\n• Purchasing in the Emporium for Shards",
 			"silver": "• Winning adventures maps\n• Completing Quests\n• Weekly Quest \"Call of the Adventure\"\n• Legend Level 7 Reward",
 			"gold": "• Winning adventures maps\n• Completing Quests\n• Legend Level Rewards\n• Weekly Quest \"Portal Warrior\"\n• Purchasing in the Emporium for Shards",
 			"platinum": "• Completing The Path Chapter V and VI\n• Monthly Glory Store (max 5 vaults)\n• Legend Level Rewards",
-			"diamond": "• Completing Achievement Quests\n• Completing Event Quests\n• Legend Level Rewards"
+			"diamond": "• Completing Achievement Quests\n• Completing Event Quests\n• Legend Level Rewards",
+			"spirit_blossom": "• Completing special challenges in the path\n• Obtaining from Spirit Blossom event nodes"
 		},
 		"loot": {
 			"champFrags": "Champion Fragments",
@@ -1203,6 +1231,8 @@
 			"starCrystal": "Star Crystal",
 			"gemstone": "Gemstone",
 			"relic": "Relic",
+			"rune": "Rune",
+			"runeShards": "Rune Shards",
 			"simulator": "Simulator"
 		}
 	}

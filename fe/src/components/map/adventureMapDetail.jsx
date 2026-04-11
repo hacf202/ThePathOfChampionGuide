@@ -144,8 +144,8 @@ function AdventureMapDetail() {
 										}
 									>
 										{isMapVisible
-											? tUI("common.hideMap") || "Ẩn"
-											: tUI("common.showMap") || "Hiện"}
+											? tUI("common.hide") || "Ẩn"
+											: tUI("common.show") || "Hiện"}
 									</Button>
 								</div>
 

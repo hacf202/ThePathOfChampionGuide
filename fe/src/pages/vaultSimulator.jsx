@@ -30,6 +30,8 @@ const ASSETS = {
 		"https://images.pocguide.top/icon/Greater_Cosmic_Blessing.webp",
 	starCrystal: "https://images.pocguide.top/icon/Star_Crystal.webp",
 	gemstone: "https://images.pocguide.top/icon/Gemstone.webp",
+	spirit_blossom: "https://images.pocguide.top/icon/PoC_Spirit_Blossom_Runic_Vessel.webp",
+	rune_shards: "https://images.pocguide.top/icon/20px-PoC_Rune_Shard_icon.webp",
 };
 
 // --- Config Tỷ lệ (Drop Rates) ---
@@ -157,28 +159,54 @@ const VAULT_CONFIG = {
 			},
 		],
 	},
+	spirit_blossom: {
+		id: "spirit_blossom",
+		nameKey: "vaultSimulator.tier.spirit_blossom",
+		sourceKey: "vaultSimulator.sources.spirit_blossom",
+		color: "text-pink-500",
+		bg: "bg-pink-500/10",
+		border: "border-pink-500/30",
+		glow: "from-pink-500/30",
+		drops: [
+			{
+				type: "rune_shards",
+				amount: 4,
+			},
+			{
+				type: "rune",
+				rolls: [
+					{ chance: 81.28, rarity: "Thường" },
+					{ chance: 17.12, rarity: "Hiếm" },
+					{ chance: 1.6, rarity: "Huyền Thoại" },
+				],
+			},
+		],
+	},
 };
 
 const VaultSimulator = () => {
-	const { tUI } = useTranslation();
+	const { t, tUI } = useTranslation();
 	const [selectedVault, setSelectedVault] = useState(null);
 	const [isOpening, setIsOpening] = useState(false);
 	const [loot, setLoot] = useState(null);
 	const [allRelics, setAllRelics] = useState([]);
 	const [allChampions, setAllChampions] = useState([]);
+	const [allRunes, setAllRunes] = useState([]);
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
 				const API_BASE = import.meta.env.VITE_API_URL || "";
-				const [relicsRes, champsRes] = await Promise.all([
+				const [relicsRes, champsRes, runesRes] = await Promise.all([
 					axios.get(`${API_BASE}/api/relics?limit=-1`),
 					axios.get(`${API_BASE}/api/champions?limit=-1`),
+					axios.get(`${API_BASE}/api/runes?limit=-1`),
 				]);
 				const rawRelics = relicsRes.data?.items || relicsRes.data || [];
 				const rawChamps = champsRes.data?.items || champsRes.data || [];
+				const rawRunes = runesRes.data?.items || runesRes.data || [];
 
-				console.log("Raw API Data:", { rawChamps, rawRelics });
+				console.log("Raw API Data:", { rawChamps, rawRelics, rawRunes });
 
 				// Lọc Cổ vật: Chấp nhận cả 'general' hoặc 'chung'
 				const filteredRelics = Array.isArray(rawRelics)
@@ -213,6 +241,7 @@ const VaultSimulator = () => {
 					`Simulator Filtered: ${filteredChamps.length} Champions, ${filteredRelics.length} Relics`,
 				);
 
+				setAllRunes(rawRunes);
 				setAllRelics(filteredRelics);
 				setAllChampions(
 					filteredChamps.length > 0
@@ -253,8 +282,8 @@ const VaultSimulator = () => {
 						allChampions[Math.floor(Math.random() * allChampions.length)];
 					results.push({
 						id: `champ_frag_${Math.random()}_${rIdx}`,
-						// Chỉ hiển thị tên tướng để chuyên nghiệp hơn (ví dụ: ASHE)
-						name: randomChamp?.name || "???",
+						// Dùng t() để đa ngôn ngữ tên tướng
+						name: t(randomChamp, "name") || randomChamp?.name || "???",
 						amount: amount,
 						// Sử dụng ảnh chân dung tướng làm icon chính
 						icon: randomChamp?.assets?.[0]?.avatar || ASSETS.champFrag,
@@ -283,7 +312,7 @@ const VaultSimulator = () => {
 						const key = getRarityKey(randomRelic.rarity);
 						results.push({
 							id: `relic_${randomRelic.relicCode}`,
-							name: randomRelic.name,
+							name: t(randomRelic, "name") || randomRelic.name,
 							type: tUI("vaultSimulator.loot.relic"),
 							rarityKey: `relic.rarity.${key}`,
 							icon: randomRelic.assetAbsolutePath,
@@ -310,7 +339,7 @@ const VaultSimulator = () => {
 					if (randomRelic) {
 						results.push({
 							id: `relic_${randomRelic.relicCode}`,
-							name: randomRelic.name,
+							name: t(randomRelic, "name") || randomRelic.name,
 							type: tUI("vaultSimulator.loot.relic"),
 							rarityKey: "relic.rarity.rare",
 							icon: randomRelic.assetAbsolutePath,
@@ -335,6 +364,35 @@ const VaultSimulator = () => {
 						amount: roll.amount,
 						icon: ASSETS.gemstone,
 						color: "text-purple-600",
+					});
+				}
+			} else if (drop.type === "rune_shards") {
+				results.push({
+					id: `rune_shards_${Math.random()}`,
+					name: tUI("vaultSimulator.loot.runeShards"),
+					amount: drop.amount,
+					icon: ASSETS.rune_shards,
+					color: "text-pink-600",
+				});
+			} else if (drop.type === "rune") {
+				const roll = weightedRoll(drop.rolls);
+				const rarityPool = allRunes.filter(r => r.rarity === roll.rarity);
+				const randomRune =
+					rarityPool[Math.floor(Math.random() * rarityPool.length)];
+				if (randomRune) {
+					const key = getRarityKey(randomRune.rarity);
+					results.push({
+						id: `rune_${randomRune.runeCode}`,
+						name: t(randomRune, "name") || randomRune.name,
+						type: tUI("vaultSimulator.loot.rune"),
+						rarityKey: `rune.rarity.${key}`,
+						icon: randomRune.assetAbsolutePath || randomRune.imageUrl,
+						color:
+							key === "common"
+								? "text-green-600"
+								: key === "rare"
+									? "text-blue-600"
+									: "text-orange-600",
 					});
 				}
 			}
@@ -532,9 +590,8 @@ const VaultSimulator = () => {
 							<Button
 								variant="primary"
 								onClick={() => handleOpen(selectedVault)}
-								className='px-12 py-5 text-xl'
-								rounded="3xl"
-								leftIcon={<RotateCcw className='w-6 h-6' />}
+								className='px-12 py-5 text-xl rounded-3xl'
+								iconLeft={<RotateCcw className='w-6 h-6' />}
 							>
 								{tUI("vaultSimulator.openAgain")}
 							</Button>
@@ -544,8 +601,7 @@ const VaultSimulator = () => {
 									setLoot(null);
 									setSelectedVault(null);
 								}}
-								className='px-12 py-5 text-xl'
-								rounded="3xl"
+								className='px-12 py-5 text-xl rounded-3xl'
 							>
 								{tUI("vaultSimulator.chooseOther")}
 							</Button>
@@ -622,6 +678,22 @@ const VaultSimulator = () => {
 									</h4>
 									<p className='text-text-secondary text-xs leading-relaxed whitespace-pre-line bg-surface-bg rounded-xl '>
 										{tUI("vaultSimulator.sources.diamond")}
+									</p>
+								</div>
+							</div>
+							<div className='space-y-6 bg-input-bg/40 p-2 sm:p-4 rounded-2xl border border-border hover:border-primary-500/20 transition-all duration-300 shadow-sm'>
+								<h3 className='text-xl sm:text-2xl font-black text-pink-500 uppercase italic underline underline-offset-[12px] decoration-2 decoration-pink-500/50'>
+									{tUI("vaultSimulator.probSpiritBlossomTitle")}
+								</h3>
+								<p className='text-text-secondary leading-relaxed font-secondary text-base whitespace-pre-line pt-2'>
+									{tUI("vaultSimulator.probSpiritBlossomDesc")}
+								</p>
+								<div className='pt-4 border-t border-border'>
+									<h4 className='text-xs font-bold text-primary-600 uppercase tracking-widest mb-3'>
+										{tUI("vaultSimulator.sourceTitle")}
+									</h4>
+									<p className='text-text-secondary text-xs leading-relaxed whitespace-pre-line bg-surface-bg rounded-xl '>
+										{tUI("vaultSimulator.sources.spirit_blossom")}
 									</p>
 								</div>
 							</div>
