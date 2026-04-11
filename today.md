@@ -55,6 +55,7 @@
 ### Sửa
 - Lấy thêm `language` từ `useTranslation`.
 - Khi `isEN`: ưu tiên `card.translations.en.gameAbsolutePath` cho ảnh thumbnail.
+
 ---
 
 ## 5. Markup Tooltip — Hỗ trợ hiển thị Vật phẩm (Items)
@@ -69,6 +70,7 @@
 - **useMarkupResolution.js**: Cập nhật logic quét để tự động nạp dữ liệu các vât phẩm/cổ vật nằm trong `tagOptions` của thẻ.
 - **MarkupRenderer.jsx**: Phân giải các mã vật phẩm từ `tagOptions` và truyền vào Tooltip.
 - **MarkupTooltip.jsx**: Bổ sung prop `items` và triển khai giao diện hiển thị icon vật phẩm lơ lửng bên phải ảnh chính, đồng nhất với `CardHoverTooltip`.
+
 ---
 
 ## 6. Markup Editor — Sửa lỗi tìm kiếm Vật phẩm & Cổ ngữ
@@ -82,6 +84,7 @@
 ### Sửa
 - Cập nhật `preloadAllEntities`: Gọi thêm API `/api/items` và `/api/runes` song song với các thực thể khác.
 - Cập nhật `getAllEntities`: Bổ sung xử lý loại thực thể `rune` để hỗ trợ tìm kiếm đầy đủ.
+
 ---
 
 ## 7. Markup Editor — Tăng tính linh hoạt khi tìm kiếm
@@ -91,3 +94,14 @@
 ### Cải tiến
 - Tự động cắt bỏ các khoảng trắng thừa ở đầu hoặc cuối chuỗi tìm kiếm (`.trim()`).
 - Giúp việc tìm kiếm "Búa Gỗ " hoặc " Búa Gỗ" vẫn trả về kết quả chính xác, cải thiện trải nghiệm người dùng khi thao tác nhanh.
+
+---
+
+## 8. Markup Editor — Xử lý khoảng trắng thông minh khi tạo thẻ
+
+**File:** `fe/src/components/admin/MarkupEditor.jsx`
+
+### Cải tiến
+- Tự động phát hiện và đẩy các dấu cách ở đầu/cuối vùng chọn ra ngoài thẻ Markup (hoặc thẻ HTML).
+- Tránh tình trạng nhãn của thẻ chứa dấu cách thừa hoặc văn bản bị dính liền vào thẻ sau khi render.
+- Áp dụng cho cả việc chèn thực thể (Items, Champions...) và các công cụ định dạng (Bold, Italic).

@@ -60,35 +60,46 @@ const MarkupEditor = ({ value, onChange, placeholder = "Nhập nội dung..." })
 	};
 
 	const insertMarkup = (type, id = null, options = []) => {
-		const label = selection.text;
+		const rawText = selection.text;
+		const leadingSpace = rawText.match(/^\s*/)[0];
+		const trailingSpace = rawText.match(/\s*$/)[0];
+		const label = rawText.trim();
+
 		const optStr = options.length > 0 ? `|${options.join(",")}` : "";
 		
-		let tag = "";
+		let tagContent = "";
         const [mainType, subValue] = type.split(":");
 
 		if (id) {
-			tag = `[${mainType}:${id}|${label}${optStr}]`;
+			tagContent = `[${mainType}:${id}|${label}${optStr}]`;
 		} else if (subValue) {
-            tag = `[${mainType}:${subValue}|${label}${optStr}]`;
+            tagContent = `[${mainType}:${subValue}|${label}${optStr}]`;
         } else {
-			tag = options.length > 0 ? `[${type}:${label}|${label}${optStr}]` : `[${type}:${label}]`;
+			tagContent = options.length > 0 ? `[${type}:${label}|${label}${optStr}]` : `[${type}:${label}]`;
 		}
 
-		const newValue = value.substring(0, selection.start) + tag + value.substring(selection.end);
+		const fullInsertion = `${leadingSpace}${tagContent}${trailingSpace}`;
+		const newValue = value.substring(0, selection.start) + fullInsertion + value.substring(selection.end);
+		
 		onChange({ markup: newValue, raw: stripMarkup(newValue) });
 		setShowToolbar(false);
 		
 		setTimeout(() => {
 			if (textareaRef.current) {
 				textareaRef.current.focus();
-				const newPos = selection.start + tag.length;
+				const newPos = selection.start + fullInsertion.length;
 				textareaRef.current.setSelectionRange(newPos, newPos);
 			}
 		}, 0);
 	};
 
     const wrapWithTag = (open, close) => {
-        const tag = `${open}${selection.text}${close}`;
+        const rawText = selection.text;
+        const leadingSpace = rawText.match(/^\s*/)[0];
+        const trailingSpace = rawText.match(/\s*$/)[0];
+        const text = rawText.trim();
+
+        const tag = `${leadingSpace}${open}${text}${close}${trailingSpace}`;
         const newValue = value.substring(0, selection.start) + tag + value.substring(selection.end);
         onChange({ markup: newValue, raw: stripMarkup(newValue) });
         setShowToolbar(false);
