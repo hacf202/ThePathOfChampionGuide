@@ -26,11 +26,28 @@ export const useMarkupResolution = () => {
             const type = tag.tagType;
             const id = tag.tagValue;
             
-            // Nếu đã có trong cache rồi thì bỏ qua không nạp lại
-            if (checkCache(id, type, language)) return acc;
+            const addId = (idVal, typeVal) => {
+                if (!idVal || checkCache(idVal, typeVal, language)) return;
+                if (!acc[typeVal]) acc[typeVal] = new Set();
+                acc[typeVal].add(idVal);
+            };
 
-            if (!acc[type]) acc[type] = new Set();
-            acc[type].add(id);
+            // Add the primary ID
+            addId(id, type);
+
+            // Also check tagOptions for potential item/relic codes if it's a card/champion
+            if (["cd", "card", "c", "champion"].includes(type) && tag.tagOptions) {
+                tag.tagOptions.forEach(opt => {
+                    // We assume options that look like item codes (e.g. starting with numbers or card/item patterns) should be checked
+                    // For safety, we can just try to resolve any non-reserved strings as items
+                    const reserved = ["icon", "no-icon", "no-link", "only-icon", "img-full", "img-icon"];
+                    if (!reserved.includes(opt.toLowerCase())) {
+                        addId(opt, "i"); // Try as item
+                        addId(opt, "r"); // Try as relic (some decks might have them)
+                    }
+                });
+            }
+
             return acc;
         }, {});
 

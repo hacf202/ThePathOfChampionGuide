@@ -41,6 +41,14 @@ const MarkupRenderer = memo(({ text, className = "" }) => {
 				rarity={data?.rarity}
 				type={data?.type || tagType}
 				href={href}
+                items={tagOptions.reduce((acc, opt) => {
+                    const reserved = ["icon", "no-icon", "no-link", "only-icon", "img-full", "img-icon"];
+                    if (reserved.includes(opt.toLowerCase())) return acc;
+                    
+                    const resolvedItem = getEntityData(opt, "i", language) || getEntityData(opt, "r", language);
+                    if (resolvedItem) acc.push({ ...resolvedItem, itemCode: resolvedItem.id });
+                    return acc;
+                }, [])}
 			>
 				<span className={`inline-flex items-baseline font-bold cursor-help transition-all duration-200 border-b border-white/0 hover:border-current ${customColorClass}`}>
 					{showIcon && data?.icon && (

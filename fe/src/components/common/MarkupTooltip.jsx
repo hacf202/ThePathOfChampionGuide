@@ -15,6 +15,8 @@ import {
 } from "@floating-ui/react";
 import { getRarityKey } from "../../utils/i18nHelpers";
 import { useTranslation } from "../../hooks/useTranslation";
+import { Link } from "react-router-dom";
+import SafeImage from "../common/SafeImage";
 
 // Strip markup tags to plain text to avoid circular dep with MarkupRenderer
 const stripMarkup = (text) => {
@@ -36,6 +38,7 @@ const MarkupTooltip = ({
 	rarity, 
 	type, 
 	href, 
+    items = [],
 	compact = false,
 	children 
 }) => {
@@ -165,6 +168,33 @@ const MarkupTooltip = ({
                                     </div>
                                 )}
                             </div>
+
+                            {/* Floating Items (Tái sử dụng style từ CardHoverTooltip) */}
+                            {items && items.length > 0 && (
+                                <div className='absolute right-[-18px] sm:right-[-22px] top-1/2 -translate-y-1/2 flex flex-col gap-0 z-10'>
+                                    {items.map((item, idx) => {
+                                        const itemName = tDynamic(item, "name") || "Item";
+                                        const itemImg = item.assetAbsolutePath || item.image || "/fallback-image.svg";
+
+                                        return (
+                                            <Link
+                                                key={idx}
+                                                to={`/item/${item.itemCode}`}
+                                                className='relative pointer-events-auto block transition-transform hover:scale-110 active:scale-95'
+                                                title={itemName}
+                                            >
+                                                <div className='w-11 h-11 sm:w-16 sm:h-16 flex items-center justify-center rounded-full overflow-hidden'>
+                                                    <SafeImage
+                                                        src={itemImg}
+                                                        alt={itemName}
+                                                        className='w-full h-full object-contain scale-110'
+                                                    />
+                                                </div>
+                                            </Link>
+                                        );
+                                    })}
+                                </div>
+                            )}
 						</div>
 					</div>
 				</FloatingPortal>
