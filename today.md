@@ -69,3 +69,16 @@
 - **useMarkupResolution.js**: Cập nhật logic quét để tự động nạp dữ liệu các vât phẩm/cổ vật nằm trong `tagOptions` của thẻ.
 - **MarkupRenderer.jsx**: Phân giải các mã vật phẩm từ `tagOptions` và truyền vào Tooltip.
 - **MarkupTooltip.jsx**: Bổ sung prop `items` và triển khai giao diện hiển thị icon vật phẩm lơ lửng bên phải ảnh chính, đồng nhất với `CardHoverTooltip`.
+---
+
+## 6. Markup Editor — Sửa lỗi tìm kiếm Vật phẩm & Cổ ngữ
+
+**File:** `fe/src/utils/entityLookup.js`
+
+### Vấn đề
+- Không thể tìm thấy vật phẩm (ví dụ: "Búa Gỗ") khi tìm kiếm trong trình soạn thảo Markup.
+- Nguyên nhân do hàm `preloadAllEntities` bỏ sót việc tải dữ liệu Vật phẩm (`items`) và Cổ ngữ (`runes`) từ máy chủ.
+
+### Sửa
+- Cập nhật `preloadAllEntities`: Gọi thêm API `/api/items` và `/api/runes` song song với các thực thể khác.
+- Cập nhật `getAllEntities`: Bổ sung xử lý loại thực thể `rune` để hỗ trợ tìm kiếm đầy đủ.
