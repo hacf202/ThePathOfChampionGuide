@@ -130,18 +130,22 @@ export const preloadAllEntities = () => {
     preloadPromise = (async () => {
         try {
             const apiUrl = import.meta.env.VITE_API_URL;
-            // Gọi song song 4 API cốt lõi
-            const [cardsRes, champRes, relicRes, powerRes] = await Promise.all([
+            // Gọi song song các API cốt lõi
+            const [cardsRes, champRes, relicRes, powerRes, itemRes, runeRes] = await Promise.all([
                 axios.get(`${apiUrl}/api/cards`, { params: { limit: -1 } }),
                 axios.get(`${apiUrl}/api/champions`, { params: { limit: -1 } }),
                 axios.get(`${apiUrl}/api/relics`, { params: { limit: -1 } }),
-                axios.get(`${apiUrl}/api/powers`, { params: { limit: -1 } })
+                axios.get(`${apiUrl}/api/powers`, { params: { limit: -1 } }),
+                axios.get(`${apiUrl}/api/items`, { params: { limit: -1 } }),
+                axios.get(`${apiUrl}/api/runes`, { params: { limit: -1 } })
             ]);
 
             if (cardsRes.data?.items) initEntities(cardsRes.data.items, "cards");
             if (champRes.data?.items) initEntities(champRes.data.items, "champions");
             if (relicRes.data?.items) initEntities(relicRes.data.items, "relics");
             if (powerRes.data?.items) initEntities(powerRes.data.items, "powers");
+            if (itemRes.data?.items) initEntities(itemRes.data.items, "items");
+            if (runeRes.data?.items) initEntities(runeRes.data.items, "runes");
 
             return true;
         } catch (error) {
@@ -339,6 +343,11 @@ export const getAllEntities = (type, lang = "vi") => {
 			id: k.nameRef, 
 			name: k.name, 
 			nameEn: k.nameRef || "" 
+		}));
+		case "rune": return db.runes.map(r => ({ 
+			id: r.runeCode, 
+			name: (cur === "en" ? r.translations?.en?.name : null) || r.name, 
+			nameEn: r.translations?.en?.name || "" 
 		}));
 		case "cd": return db.cards.map(c => ({ 
 			id: c.cardCode, 
