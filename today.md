@@ -82,3 +82,12 @@
 ### Sửa
 - Cập nhật `preloadAllEntities`: Gọi thêm API `/api/items` và `/api/runes` song song với các thực thể khác.
 - Cập nhật `getAllEntities`: Bổ sung xử lý loại thực thể `rune` để hỗ trợ tìm kiếm đầy đủ.
+---
+
+## 7. Markup Editor — Tăng tính linh hoạt khi tìm kiếm
+
+**File:** `fe/src/components/admin/MarkupEditor.jsx`
+
+### Cải tiến
+- Tự động cắt bỏ các khoảng trắng thừa ở đầu hoặc cuối chuỗi tìm kiếm (`.trim()`).
+- Giúp việc tìm kiếm "Búa Gỗ " hoặc " Búa Gỗ" vẫn trả về kết quả chính xác, cải thiện trải nghiệm người dùng khi thao tác nhanh.

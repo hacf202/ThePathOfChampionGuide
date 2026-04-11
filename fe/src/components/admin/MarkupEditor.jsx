@@ -121,10 +121,13 @@ const MarkupEditor = ({ value, onChange, placeholder = "Nhập nội dung..." })
 	const filteredEntities = useMemo(() => {
 		if (!searchType || activeMenu !== "search") return [];
 		const all = getAllEntities(searchType);
+		const q = searchQuery.trim().toLowerCase();
+		if (!q) return all.slice(0, 5); // Show first 5 if query is just spaces
+
 		return all.filter(e => 
-			e.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-			(e.nameEn && e.nameEn.toLowerCase().includes(searchQuery.toLowerCase())) ||
-			e.id?.toLowerCase().includes(searchQuery.toLowerCase())
+			e.name.toLowerCase().includes(q) || 
+			(e.nameEn && e.nameEn.toLowerCase().includes(q)) ||
+			e.id?.toLowerCase().includes(q)
 		).slice(0, 5);
 	}, [searchType, searchQuery, activeMenu]);
 
