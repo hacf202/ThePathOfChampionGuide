@@ -55,3 +55,17 @@
 ### Sửa
 - Lấy thêm `language` từ `useTranslation`.
 - Khi `isEN`: ưu tiên `card.translations.en.gameAbsolutePath` cho ảnh thumbnail.
+---
+
+## 5. Markup Tooltip — Hỗ trợ hiển thị Vật phẩm (Items)
+
+**Files:** `fe/src/hooks/useMarkupResolution.js`, `fe/src/components/common/MarkupRenderer.jsx`, `fe/src/components/common/MarkupTooltip.jsx`
+
+### Vấn đề
+- Khi nhắc đến thẻ bài trong văn bản (Markup), Tooltip không hiển thị các vật phẩm đính kèm (Items/Relics) giống như trong giao diện Deck.
+- Các vật phẩm trong tùy chọn của thẻ (e.g. `[card:code|label|item1]`) không được tự động tải dữ liệu về cache.
+
+### Sửa
+- **useMarkupResolution.js**: Cập nhật logic quét để tự động nạp dữ liệu các vât phẩm/cổ vật nằm trong `tagOptions` của thẻ.
+- **MarkupRenderer.jsx**: Phân giải các mã vật phẩm từ `tagOptions` và truyền vào Tooltip.
+- **MarkupTooltip.jsx**: Bổ sung prop `items` và triển khai giao diện hiển thị icon vật phẩm lơ lửng bên phải ảnh chính, đồng nhất với `CardHoverTooltip`.
