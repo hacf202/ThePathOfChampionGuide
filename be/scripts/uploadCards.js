@@ -9,7 +9,16 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const TABLE_NAME = "guidePocCardList";
-const CARD_LIST_PATH = path.resolve(__dirname, "../uploadData/cardList.json");
+
+// Tự động tìm backup mới nhất
+const uploadDataDir = path.resolve(__dirname, "../uploadData");
+const latestBackup = fs.readdirSync(uploadDataDir)
+	.filter(n => n.startsWith("backup_"))
+	.sort()
+	.at(-1);
+if (!latestBackup) throw new Error("Không tìm thấy thư mục backup. Chạy backupAllTables.js trước.");
+const CARD_LIST_PATH = path.resolve(uploadDataDir, latestBackup, "cardList.json");
+console.log(`📁 Dùng backup: ${latestBackup}`);
 
 async function uploadCards() {
     try {

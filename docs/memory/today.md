@@ -3,6 +3,114 @@
 *File này là nơi lưu trữ trạng thái dở dang thuộc phiên làm việc hiện tại, các vấn đề và lỗi sinh ra khi code hoặc thảo luận để AI ghi nhớ tránh lạc lõng, hỏi lại nhiều lần.*
 
 
+## Log thay đổi 2026-04-11 (Backend Cleanup & Data Management — Session 3)
+
+### ✅ Hệ thống Backup DynamoDB toàn diện
+
+**Files mới (chưa commit):**
+- `be/scripts/backupAllTables.js` ✨ NEW
+- `be/scripts/mergeCardSet.js` ✨ NEW
+- `docs/memory/database-schema.md` ✨ NEW
+- `be/uploadData/backup_2026-04-11T02-59-08/` ✨ NEW (14 file JSON + `_manifest.json`)
+
+**Files đã sửa:**
+- `be/uploadData/uploadToDynamoDB.js`
+- `be/scripts/uploadCards.js`
+
+**Files đã xóa:**
+- `be/scripts/confirmUser.js`
+- `be/scripts/createAuditLogTable.js`
+- `be/scripts/createReviewIndex.js`
+- `be/scripts/downloadData.js`
+- `be/scripts/mergeCards.js`
+- `be/scripts/mergeSet7.js`
+- `be/scripts/processItemsMarkup.js`
+- `be/scripts/standardizeCards.js`
+- `be/uploadData/Builds.json`
+- `be/uploadData/cardList.json`
+- `be/uploadData/ItemsData.json`
+- `be/uploadData/PowersData.json`
+- `be/uploadData/RelicsData.json`
+- `be/uploadData/RunesData.json`
+- `be/uploadData/guidePocBonusStar.json`
+- `be/uploadData/guidePocChampionConstellation.json`
+- `be/uploadData/guidePocChampionList.json`
+
+#### `backupAllTables.js` — Script backup mới
+- Scan toàn bộ 14 bảng DynamoDB với phân trang tự động
+- Lưu vào thư mục `uploadData/backup_<timestamp>/` có timestamp ISO
+- Tạo `_manifest.json` ghi ngày backup, số bản ghi, thời gian chạy
+- Hỗ trợ CLI: `--table <tên>` (backup 1 bảng) và `--out <dir>` (chỉ định thư mục)
+- Sắp xếp theo primary key để diff dễ đọc hơn
+- **Kết quả chạy đầu tiên**: 14/14 bảng ✅, 4.437 bản ghi, 17.1 giây
+
+#### `mergeCardSet.js` — Script hợp nhất (thay thế mergeSet7.js + processItemsMarkup.js)
+- Kết hợp 2 script cũ thành 1 script generic với CLI rõ ràng
+- `--set N`: merge set card mới từ `data/setN-vi_vn.json` + `data/setN-en_us.json`
+- `--markup`: chạy markup engine trên toàn bộ dữ liệu thực thể
+- Markup engine định nghĩa 1 lần, dùng chung cho cả 2 tác vụ
+
+#### `uploadToDynamoDB.js` — Cập nhật path
+- Thêm `getLatestBackupDir()` tự động tìm thư mục backup mới nhất
+- Mở rộng CONFIGS từ 7 → 11 bảng (thêm cardList, bosses, adventureMap, guideList)
+- Xóa hardcoded path trỏ vào file đã bị xóa
+
+#### `uploadCards.js` — Cập nhật path
+- Thay path cứng `uploadData/cardList.json` → tự động tìm `backup_*/cardList.json`
+
+#### `database-schema.md` — Tài liệu schema DynamoDB
+- Ghi chép schema đầy đủ 14 bảng: partition key, sort key, GSI indexes
+- Ý nghĩa từng thuộc tính và kiểu dữ liệu
+- Sơ đồ quan hệ giữa các bảng
+- Quy ước mã hóa prefix (C/P/R/I) và markup tag
+
+---
+
+## Log thay đổi 2026-04-11 (Guide Editor Modernization — Session 2)
+
+### ✅ Tái cấu trúc toàn diện Admin Guide Editor
+
+**Files thay đổi chưa commit:**
+- `fe/src/components/admin/guides/blockEditor.jsx`
+- `fe/src/components/admin/guides/guideEditorForm.jsx`
+- `fe/src/components/admin/guides/previewBlock.jsx`
+- `fe/src/components/guide/guideContent.jsx`
+- `fe/src/pages/guideListPage.jsx`
+- `fe/src/locales/vi.json`
+
+#### `guideEditorForm.jsx` — Layout & Preview
+- Chuyển sang **layout 2 cột song song**: Editor (trái) + Live Preview (phải, sticky)
+- **Mục lục (TOC)** tự sinh từ `section` block, hiển thị bên trong preview — sau tiêu đề, trước nội dung
+- Loại bỏ hoàn toàn trường nhập tiếng Anh
+- **Bug fix critical**: Bọc trong `<form onSubmit>` → nút Save (type=submit) trước đó không làm gì
+
+#### `blockEditor.jsx` — MarkupEditor toàn diện
+- `list` items: `<input>` → `<MarkupEditor>`
+- `table` cells: `<textarea>` → `<MarkupEditor>` + thiết kế lại hoàn toàn dùng **flex layout** với `min-width: 280px/cột` + `overflow-x-auto`
+- `tier_list` sub-items: `<input>` → `<MarkupEditor>`
+- **Bug fix**: "Thêm Cột" / "Xóa Cột" gọi `handleChange` 2 lần → stale state → mất 1 thay đổi. Fix bằng 1 lần `onUpdate({ ...block, headers, rows })`
+- Khôi phục block **Hình ảnh**
+
+#### `previewBlock.jsx`
+- Thay toàn bộ `dangerouslySetInnerHTML` bằng `<MarkupRenderer>`
+- Section block có `id={removeAccents(title)}` cho TOC anchor
+
+#### `guideContent.jsx` — Đồng bộ với previewBlock
+- Rewrite hoàn toàn: thay `renderHtml` → `<MarkupRenderer>` ở mọi nơi
+- Fix `image` block: hỗ trợ `block.url` (mới) với fallback `block.src` (cũ)
+- Thêm các block type thiếu: `youtube`, `quote`, `tier_list`
+- Design tokens thay màu hard-coded; backward compat cho `champion/relic/power/sublist/link`
+
+#### `guideListPage.jsx`
+- Rewrite toàn bộ: design tokens, tìm kiếm realtime, card `<Link>` toàn phần, author badge, loading spinner
+
+#### `vi.json`
+- `admin.nav.guide`: `"Quản lý Hướng Dẫn"` → `"Quản lý Bài Viết"`
+- `nav.guides`: `"Hướng Dẫn"` → `"Bài Viết"`
+- `common.resetFilter`: thêm `"Đặt lại bộ lọc"` (en.json đã có sẵn)
+
+---
+
 ## Log thay đổi 2026-04-11 (Refactoring & Data Standardizing)
 
 ### ✅ Tái cấu trúc và Chuẩn hóa Dữ liệu (Legacy Cleanup)

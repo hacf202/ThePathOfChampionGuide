@@ -2,23 +2,22 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "../../../hooks/useTranslation";
 import { removeAccents } from "../../../utils/vietnameseUtils";
-
-const renderHtml = text => <span dangerouslySetInnerHTML={{ __html: text }} />;
+import MarkupRenderer from "../../common/MarkupRenderer";
 
 const PreviewBlock = ({ block, referenceData }) => {
-	const { t, tDynamic } = useTranslation();
+	const { tDynamic } = useTranslation();
 	if (!block) return null;
 
 	switch (block.type) {
 		case "section":
 			return (
 				<section
-					className='mb-8 mt-6 border-l-4 border-primary-500 pl-6 bg-surface-hover/10 py-4 rounded-r-xl'
+					className='mb-6 mt-5 border-l-4 border-primary-500 pl-5 bg-surface-hover/10 py-3 rounded-r-xl'
 					id={removeAccents(block.title || "")}
 				>
 					{block.title && (
-						<h2 className='text-2xl font-bold mb-4 pb-2 border-b border-border text-text-primary tracking-tight'>
-							{t(block, "title")}
+						<h2 className='text-2xl font-bold mb-3 pb-2 border-b border-border text-text-primary tracking-tight'>
+							{block.title}
 						</h2>
 					)}
 					{block.content?.map((sub, i) => (
@@ -30,22 +29,22 @@ const PreviewBlock = ({ block, referenceData }) => {
 		case "paragraph":
 			return (
 				<p className='leading-relaxed mb-4 text-lg text-text-secondary font-secondary'>
-					{renderHtml(t(block, "text"))}
+					<MarkupRenderer text={block.text} />
 				</p>
 			);
 
 		case "image":
 			return (
-				<figure className='my-8 flex flex-col items-center bg-surface-bg p-4 rounded-2xl border border-border shadow-sm'>
+				<figure className='my-6 flex flex-col items-center bg-surface-bg p-4 rounded-2xl border border-border shadow-sm'>
 					<img
 						src={block.url}
-						alt={t(block, "caption") || "Preview Image"}
+						alt={block.caption || "Hình ảnh"}
 						className='rounded-xl shadow-md max-w-full h-auto object-contain max-h-[500px]'
 						loading='lazy'
 					/>
 					{block.caption && (
-						<figcaption className='mt-4 text-sm font-medium italic text-text-tertiary border-l-2 border-primary-500 pl-3'>
-							{t(block, "caption")}
+						<figcaption className='mt-3 text-sm font-medium italic text-text-tertiary border-l-2 border-primary-500 pl-3'>
+							{block.caption}
 						</figcaption>
 					)}
 				</figure>
@@ -53,7 +52,7 @@ const PreviewBlock = ({ block, referenceData }) => {
 
 		case "youtube":
 			return (
-				<div className='my-8 bg-surface-bg p-4 rounded-2xl border border-border shadow-sm'>
+				<div className='my-6 bg-surface-bg p-4 rounded-2xl border border-border shadow-sm'>
 					<div className='aspect-video rounded-xl overflow-hidden shadow-md bg-black'>
 						<iframe
 							className='w-full h-full'
@@ -76,17 +75,19 @@ const PreviewBlock = ({ block, referenceData }) => {
 				<ul className='list-disc pl-6 mb-4 space-y-2 text-lg text-text-secondary'>
 					{block.items &&
 						block.items.map((item, index) => (
-							<li key={index}>{renderHtml(item)}</li>
+							<li key={index}>
+								<MarkupRenderer text={item} />
+							</li>
 						))}
 				</ul>
 			);
 
 		case "quote":
 			return (
-				<blockquote className='border-l-4 border-gray-400 bg-gray-50 dark:bg-gray-800/30 p-4 my-6 rounded-r-lg italic text-lg text-text-secondary'>
-					{renderHtml(block.text)}
+				<blockquote className='border-l-4 border-gray-400 bg-gray-50 dark:bg-gray-800/30 p-4 my-5 rounded-r-lg italic text-lg text-text-secondary'>
+					<MarkupRenderer text={block.text} />
 					{block.author && (
-						<footer className='mt-2 font-bold text-gray-600 dark:text-gray-400'>
+						<footer className='mt-2 font-bold text-gray-600 dark:text-gray-400 not-italic'>
 							— {block.author}
 						</footer>
 					)}
@@ -97,12 +98,12 @@ const PreviewBlock = ({ block, referenceData }) => {
 			const champ = referenceData?.champions?.[block.id];
 			if (!champ)
 				return (
-					<div className='text-red-500 italic'>
+					<div className='text-red-500 italic text-sm'>
 						[Không tìm thấy Tướng với ID: {block.id}]
 					</div>
 				);
 			return (
-				<div className='my-6 p-4 rounded-xl border border-border bg-surface-bg shadow-sm flex gap-4'>
+				<div className='my-5 p-4 rounded-xl border border-border bg-surface-bg shadow-sm flex gap-4'>
 					<img
 						src={champ.assets?.[0]?.avatar || champ.avatar || "/fallback.png"}
 						alt={champ.name}
@@ -119,7 +120,7 @@ const PreviewBlock = ({ block, referenceData }) => {
 								</Link>
 							</h3>
 							<span className='px-2 py-0.5 bg-blue-100 text-blue-800 text-xs font-bold rounded'>
-								Cost: {champ.cost}
+								Chi phí: {champ.cost}
 							</span>
 						</div>
 						<div className='flex flex-wrap gap-2 my-2'>
@@ -143,7 +144,7 @@ const PreviewBlock = ({ block, referenceData }) => {
 			const relic = referenceData?.relics?.[block.id];
 			if (!relic)
 				return (
-					<div className='text-red-500 italic'>
+					<div className='text-red-500 italic text-sm'>
 						[Không tìm thấy Cổ vật với ID: {block.id}]
 					</div>
 				);
@@ -172,14 +173,14 @@ const PreviewBlock = ({ block, referenceData }) => {
 								relic.rarity === "Epic" || relic.rarity === "Sử Thi"
 									? "text-purple-500"
 									: relic.rarity === "Rare" || relic.rarity === "Hiếm"
-										? "text-blue-500"
-										: "text-gray-500"
+									? "text-blue-500"
+									: "text-gray-500"
 							}`}
 						>
 							{tDynamic(relic, "rarity")}
 						</p>
 						<p className='text-sm text-text-secondary mt-1'>
-							{renderHtml(tDynamic(relic, "description"))}
+							<MarkupRenderer text={tDynamic(relic, "description")} />
 						</p>
 					</div>
 				</div>
@@ -189,21 +190,21 @@ const PreviewBlock = ({ block, referenceData }) => {
 			const power = referenceData?.powers?.[block.id];
 			if (!power)
 				return (
-					<div className='text-red-500 italic'>
+					<div className='text-red-500 italic text-sm'>
 						[Không tìm thấy Sức mạnh với ID: {block.id}]
 					</div>
 				);
 			return (
 				<div className='my-4 p-3 rounded-lg border border-yellow-200 bg-yellow-50 dark:bg-yellow-900/10 flex items-center gap-3'>
-					<div className='w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center border border-yellow-300'>
-						<span className='text-yellow-600 font-bold'>Pow</span>
+					<div className='w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center border border-yellow-300 shrink-0'>
+						<span className='text-yellow-600 font-bold text-xs'>SỨC</span>
 					</div>
 					<div>
 						<h4 className='font-bold text-yellow-800 dark:text-yellow-400'>
 							{tDynamic(power, "name")}
 						</h4>
 						<p className='text-sm text-yellow-700/80 dark:text-yellow-500/80'>
-							{renderHtml(tDynamic(power, "description"))}
+							<MarkupRenderer text={tDynamic(power, "description")} />
 						</p>
 					</div>
 				</div>
@@ -211,7 +212,7 @@ const PreviewBlock = ({ block, referenceData }) => {
 
 		case "table":
 			return (
-				<div className='overflow-x-auto my-6 shadow-sm rounded-lg border border-border'>
+				<div className='overflow-x-auto my-5 shadow-sm rounded-lg border border-border'>
 					<table className='min-w-full text-left border-collapse bg-surface-bg'>
 						<thead className='bg-surface-hover/50 text-text-primary border-b border-border'>
 							<tr>
@@ -227,7 +228,7 @@ const PreviewBlock = ({ block, referenceData }) => {
 								<tr key={rIdx} className='hover:bg-surface-hover/20'>
 									{row.map((cell, cIdx) => (
 										<td key={cIdx} className='px-4 py-3 text-text-secondary'>
-											{renderHtml(cell)}
+											<MarkupRenderer text={cell} />
 										</td>
 									))}
 								</tr>
@@ -239,7 +240,7 @@ const PreviewBlock = ({ block, referenceData }) => {
 
 		case "tier_list":
 			return (
-				<div className='grid grid-cols-1 md:grid-cols-2 gap-6 my-8'>
+				<div className='grid grid-cols-1 md:grid-cols-2 gap-5 my-6'>
 					{block.items?.map((item, index) => (
 						<div
 							key={index}
@@ -253,13 +254,15 @@ const PreviewBlock = ({ block, referenceData }) => {
 							<div className='p-4 flex-1'>
 								{item.desc && (
 									<p className='text-sm text-text-secondary mb-3'>
-										{renderHtml(item.desc)}
+										<MarkupRenderer text={item.desc} />
 									</p>
 								)}
 								{item.list && item.list.length > 0 && (
 									<ul className='list-disc pl-5 space-y-1 text-sm text-text-secondary'>
 										{item.list.map((listItem, i) => (
-											<li key={i}>{renderHtml(listItem)}</li>
+											<li key={i}>
+												<MarkupRenderer text={listItem} />
+											</li>
 										))}
 									</ul>
 								)}
@@ -278,12 +281,12 @@ const PreviewBlock = ({ block, referenceData }) => {
 
 		case "conclusion":
 			return (
-				<div className='mt-12 p-6 rounded-xl border text-center bg-surface-hover/30 border-primary-300'>
+				<div className='mt-10 p-6 rounded-xl border text-center bg-surface-hover/30 border-primary-300'>
 					<h3 className='text-xl font-bold mb-3 text-primary-600 dark:text-primary-400 uppercase tracking-wide'>
 						{block.title}
 					</h3>
 					<p className='text-lg text-text-primary leading-relaxed font-secondary'>
-						{renderHtml(block.text)}
+						<MarkupRenderer text={block.text} />
 					</p>
 				</div>
 			);

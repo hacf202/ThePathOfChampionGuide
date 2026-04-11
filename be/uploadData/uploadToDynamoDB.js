@@ -160,15 +160,42 @@ async function runUploader(tableName, filePath) {
 	}
 }
 
+// ── Tự động tìm thư mục backup mới nhất ────────────────────────────────────
+function getLatestBackupDir() {
+	const uploadDataDir = __dirname;
+	const entries = fs.readdirSync(uploadDataDir, { withFileTypes: true });
+	const backupDirs = entries
+		.filter(e => e.isDirectory() && e.name.startsWith("backup_"))
+		.map(e => e.name)
+		.sort() // ISO timestamp sort → cuối cùng là mới nhất
+		.reverse();
+
+	if (backupDirs.length === 0) {
+		throw new Error(
+			"Không tìm thấy thư mục backup nào. Hãy chạy backupAllTables.js trước.",
+		);
+	}
+
+	const latest = backupDirs[0];
+	console.log(`📁 Sử dụng backup: ${latest}`);
+	return path.join(uploadDataDir, latest);
+}
+
 // --- THỰC THI ---
+const BACKUP_DIR = getLatestBackupDir();
+
 const CONFIGS = [
-	{ table: "guidePocPowers", file: path.join(__dirname, "./PowersData.json") },
-	{ table: "guidePocItems", file: path.join(__dirname, "./ItemsData.json") },
-	{ table: "guidePocRelics", file: path.join(__dirname, "./RelicsData.json") },
-	{ table: "guidePocRunes", file: path.join(__dirname, "./RunesData.json") },
-	{ table: "guidePocChampionList", file: path.join(__dirname, "./guidePocChampionList.json") },
-	{ table: "guidePocBonusStar", file: path.join(__dirname, "./guidePocBonusStar.json") },
-	{ table: "guidePocChampionConstellation", file: path.join(__dirname, "./guidePocChampionConstellation.json") },
+	{ table: "guidePocPowers",                file: path.join(BACKUP_DIR, "PowersData.json") },
+	{ table: "guidePocItems",                 file: path.join(BACKUP_DIR, "ItemsData.json") },
+	{ table: "guidePocRelics",                file: path.join(BACKUP_DIR, "RelicsData.json") },
+	{ table: "guidePocRunes",                 file: path.join(BACKUP_DIR, "RunesData.json") },
+	{ table: "guidePocChampionList",          file: path.join(BACKUP_DIR, "guidePocChampionList.json") },
+	{ table: "guidePocBonusStar",             file: path.join(BACKUP_DIR, "guidePocBonusStar.json") },
+	{ table: "guidePocChampionConstellation", file: path.join(BACKUP_DIR, "guidePocChampionConstellation.json") },
+	{ table: "guidePocCardList",              file: path.join(BACKUP_DIR, "cardList.json") },
+	{ table: "guidePocBosses",                file: path.join(BACKUP_DIR, "guidePocBosses.json") },
+	{ table: "guidePocAdventureMap",          file: path.join(BACKUP_DIR, "guidePocAdventureMap.json") },
+	{ table: "guidePocGuideList",             file: path.join(BACKUP_DIR, "guidePocGuideList.json") },
 ];
 
 async function main() {
@@ -189,3 +216,4 @@ async function main() {
 }
 
 main();
+

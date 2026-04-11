@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../../../context/AuthContext";
@@ -7,11 +7,13 @@ import BlockEditor from "./blockEditor";
 import PreviewBlock from "./previewBlock";
 import Button from "../../common/button";
 import InputField from "../../common/inputField";
-import { Eye, Edit3 } from "lucide-react";
+import { BookOpen, List } from "lucide-react";
+import { removeAccents } from "../../../utils/vietnameseUtils";
 
 // IMPORT CÁC COMPONENT CHUNG
 import EditorHeaderToolbar from "../common/editorHeaderToolbar";
 import ImagePreviewBox from "../common/imagePreviewBox";
+
 
 const GuideForm = ({ slug }) => {
 	const { tUI } = useTranslation();
@@ -21,18 +23,15 @@ const GuideForm = ({ slug }) => {
 
 	const [formData, setFormData] = useState({
 		title: "",
-		title_en: "",
 		slug: "",
 		thumbnail: "",
 		author: "",
 		description: "",
-		description_en: "",
 		content: [],
 	});
 
 	const [initialData, setInitialData] = useState({});
 	const [isDirty, setIsDirty] = useState(false);
-	const [isPreview, setIsPreview] = useState(false);
 	const [loading, setLoading] = useState(false);
 
 	const [referenceData, setReferenceData] = useState({
@@ -41,13 +40,19 @@ const GuideForm = ({ slug }) => {
 		powers: {},
 	});
 
+	// Lấy danh sách section để hiển thị mục lục
+	const sections = useMemo(
+		() => formData.content.filter(b => b.type === "section"),
+		[formData.content],
+	);
+
 	// Dirty check
 	useEffect(() => {
 		const isChanged = JSON.stringify(formData) !== JSON.stringify(initialData);
 		setIsDirty(isChanged);
 	}, [formData, initialData]);
 
-	// Fetch Reference Data
+	// Fetch Reference Data (giữ lại để PreviewBlock backward-compat)
 	useEffect(() => {
 		const fetchRefs = async () => {
 			const baseUrl = import.meta.env.VITE_API_URL;
@@ -77,16 +82,13 @@ const GuideForm = ({ slug }) => {
 					);
 					if (res.data.success) {
 						const g = res.data.data?.guide || res.data.data;
-
 						if (g) {
 							const loadedData = {
 								title: g.title || "",
-								title_en: g.translations?.en?.title || "",
 								slug: g.slug || "",
 								thumbnail: g.thumbnail || "",
 								author: g.author || "",
 								description: g.description || "",
-								description_en: g.translations?.en?.description || "",
 								content: (Array.isArray(g.content) ? g.content : []).map(
 									(block, i) => ({
 										...block,
@@ -115,19 +117,9 @@ const GuideForm = ({ slug }) => {
 	const handleSave = async () => {
 		setLoading(true);
 		try {
-			const payload = {
-				...formData,
-				translations: {
-					en: {
-						title: formData.title_en,
-						description: formData.description_en,
-					},
-				},
-			};
-
+			const payload = { ...formData };
 			const config = { headers: { Authorization: `Bearer ${token}` } };
 			const baseUrl = `${import.meta.env.VITE_API_URL}/api/guides`;
-
 			if (isEditMode) {
 				await axios.put(`${baseUrl}/${slug}`, payload, config);
 			} else {
@@ -152,8 +144,13 @@ const GuideForm = ({ slug }) => {
 	};
 
 	return (
-		<div className='h-full pb-24'>
-			{/* ÁP DỤNG EDITOR TOOLBAR CHUNG */}
+		<form
+			className='h-full pb-20'
+			onSubmit={e => {
+				e.preventDefault();
+				handleSave();
+			}}
+		>
 			<EditorHeaderToolbar
 				title={
 					isEditMode
@@ -166,146 +163,172 @@ const GuideForm = ({ slug }) => {
 				onCancel={() => navigate("/admin/guides")}
 				itemName={formData.title}
 				disableSave={!formData.title}
-				extraButtons={
-					<Button
-						variant='outline'
-						onClick={() => setIsPreview(!isPreview)}
-						iconLeft={isPreview ? <Edit3 size={18} /> : <Eye size={18} />}
-						className='mr-2'
-					>
-						{isPreview
-							? tUI("randomWheel.tabCustomize")
-							: "Xem trước"}
-					</Button>
-				}
 			/>
 
-			{/* NỘI DUNG EDITOR */}
-			<div className='max-w-[1600px] mx-auto px-6'>
-				<div className='grid grid-cols-1 xl:grid-cols-2 gap-8'>
-					{/* EDITOR SIDE */}
-					{!isPreview && (
-						<div className='space-y-6'>
-							{/* THÔNG TIN CƠ BẢN */}
-							<div className='bg-surface-bg p-6 rounded-xl border border-border shadow-sm'>
-								<div className='flex flex-col md:flex-row gap-6'>
-									<div className='flex-1 space-y-4'>
-										<div className='grid grid-cols-2 gap-4'>
-											<InputField
-												label='Tiêu đề (VN)'
-												name='title'
-												value={formData.title}
-												onChange={handleInputChange}
-												required
-											/>
-											<InputField
-												label='Title (EN)'
-												name='title_en'
-												value={formData.title_en}
-												onChange={handleInputChange}
-											/>
-										</div>
-										<InputField
-											label='Slug'
-											name='slug'
-											value={formData.slug}
-											onChange={handleInputChange}
-											disabled={isEditMode}
-										/>
-										<div className='grid grid-cols-2 gap-4'>
-											<InputField
-												label='Tác giả (Author)'
-												name='author'
-												value={formData.author}
-												onChange={handleInputChange}
-											/>
-											<InputField
-												label='URL Hình thu nhỏ (Thumbnail)'
-												name='thumbnail'
-												value={formData.thumbnail}
-												onChange={handleInputChange}
-											/>
-										</div>
-										<div className='grid grid-cols-2 gap-4'>
-											<InputField
-												label='Mô tả ngắn (VN)'
-												name='description'
-												value={formData.description}
-												onChange={handleInputChange}
-											/>
-											<InputField
-												label='Description (EN)'
-												name='description_en'
-												value={formData.description_en}
-												onChange={handleInputChange}
-											/>
-										</div>
-									</div>
+			{/* LAYOUT: Editor (trái) + Preview (phải) */}
+			<div className='px-3 pt-3 grid grid-cols-1 xl:grid-cols-[1fr,400px] 2xl:grid-cols-[1fr,460px] gap-3 items-start'>
 
-									{/* SỬ DỤNG KHUNG ẢNH CHUNG CHO THUMBNAIL */}
-									<div className='w-full md:w-1/3 shrink-0'>
-										<ImagePreviewBox
-											imageUrl={formData.thumbnail}
-											label='Ảnh Thu Nhỏ'
-											wrapperClassName='flex flex-col items-center justify-center p-4 bg-surface-hover/30 rounded-xl border border-dashed border-border h-full min-h-[150px]'
-											imageClassName='w-full h-auto max-h-[180px] object-cover rounded-xl shadow-md border-2 border-white dark:border-gray-800'
-										/>
-									</div>
-								</div>
-							</div>
-
-							{/* BLOCK EDITOR (KÉO THẢ NỘI DUNG) */}
-							<div className='bg-surface-bg rounded-xl border border-border shadow-sm'>
-								<div className='p-4 border-b border-border bg-surface-hover/30 font-bold uppercase text-sm tracking-widest text-text-primary'>
-									Nội dung bài viết (Blocks)
-								</div>
-								<div className='p-4'>
-									<BlockEditor
-										blocks={formData.content}
-										setBlocks={updateBlocks}
-										referenceData={referenceData}
+				{/* ============ CỘT TRÁI: EDITOR ============ */}
+				<div className='space-y-3 min-w-0'>
+					{/* THÔNG TIN CƠ BẢN */}
+					<div className='bg-surface-bg p-3 rounded-xl border border-border shadow-sm'>
+						<div className='flex flex-col md:flex-row gap-3'>
+							<div className='flex-1 space-y-2.5'>
+								<div className='grid grid-cols-2 gap-2.5'>
+									<InputField
+										label='Tiêu đề bài viết'
+										name='title'
+										value={formData.title}
+										onChange={handleInputChange}
+										required
+									/>
+									<InputField
+										label='Slug (URL)'
+										name='slug'
+										value={formData.slug}
+										onChange={handleInputChange}
+										disabled={isEditMode}
 									/>
 								</div>
+								<div className='grid grid-cols-2 gap-2.5'>
+									<InputField
+										label='Tác giả'
+										name='author'
+										value={formData.author}
+										onChange={handleInputChange}
+									/>
+									<InputField
+										label='URL Hình thu nhỏ'
+										name='thumbnail'
+										value={formData.thumbnail}
+										onChange={handleInputChange}
+									/>
+								</div>
+								<InputField
+									label='Mô tả ngắn'
+									name='description'
+									value={formData.description}
+									onChange={handleInputChange}
+								/>
+							</div>
+							{/* THUMBNAIL */}
+							<div className='w-full md:w-40 shrink-0'>
+								<ImagePreviewBox
+									imageUrl={formData.thumbnail}
+									label='Ảnh Thu Nhỏ'
+									wrapperClassName='flex flex-col items-center justify-center p-2 bg-surface-hover/30 rounded-xl border border-dashed border-border h-full min-h-[120px]'
+									imageClassName='w-full h-auto max-h-[130px] object-cover rounded-lg shadow-md border-2 border-white dark:border-gray-800'
+								/>
 							</div>
 						</div>
-					)}
+					</div>
 
-					{/* PREVIEW SIDE */}
-					<div
-						className={`${isPreview ? "col-span-2" : "hidden xl:block"} bg-page-bg rounded-2xl border border-border shadow-xl p-8 min-h-[800px] text-text-primary`}
-					>
-						<div className='max-w-4xl mx-auto'>
-							<header className='mb-10 text-center'>
-								<h1 className='text-4xl font-black mb-4 leading-tight'>
-									{formData.title || "Tiêu đề bài viết..."}
+					{/* BLOCK EDITOR */}
+					<div className='bg-surface-bg rounded-xl border border-border shadow-sm'>
+						<div className='px-4 py-2 border-b border-border bg-surface-hover/30 font-bold uppercase text-[10px] tracking-widest text-text-primary'>
+							Nội dung bài viết
+						</div>
+						<div className='p-2.5'>
+							<BlockEditor
+								blocks={formData.content}
+								setBlocks={updateBlocks}
+								referenceData={referenceData}
+							/>
+						</div>
+					</div>
+				</div>
+
+				{/* ============ CỘT PHẢI: PREVIEW TRỰC TIẾP ============ */}
+				<div className='xl:sticky xl:top-4 space-y-3 min-w-0'>
+
+					{/* PREVIEW BÀI VIẾT */}
+					<div className='bg-page-bg rounded-xl border border-border shadow-sm overflow-hidden'>
+						{/* Header preview */}
+						<div className='px-3 py-2 border-b border-border bg-surface-hover/40 flex items-center gap-2'>
+							<BookOpen size={13} className='text-emerald-500' />
+							<span className='text-[10px] font-black uppercase tracking-widest text-text-secondary'>
+								Xem trước
+							</span>
+							<span className='ml-auto text-[9px] text-text-tertiary italic'>
+								Cập nhật theo thời gian thực
+							</span>
+						</div>
+
+						{/* Nội dung preview */}
+						<div className='p-4 max-h-[calc(100dvh-240px)] overflow-y-auto custom-scrollbar'>
+							{/* Tiêu đề + mô tả */}
+							<div className='mb-5 pb-4 border-b border-border'>
+								<h1 className='text-xl font-black leading-tight text-text-primary mb-1.5'>
+									{formData.title || (
+										<span className='text-text-tertiary italic font-normal text-base'>
+											Tiêu đề bài viết...
+										</span>
+									)}
 								</h1>
-								<p className='text-text-secondary italic'>
-									{formData.description || "Mô tả ngắn..."}
-								</p>
-							</header>
+								{formData.description && (
+									<p className='text-xs text-text-secondary italic'>
+										{formData.description}
+									</p>
+								)}
+								{formData.author && (
+									<p className='text-[10px] text-text-tertiary mt-1'>
+										✍️ {formData.author}
+									</p>
+								)}
+							</div>
+
+							{/* Ảnh thumbnail */}
 							{formData.thumbnail && (
 								<img
 									src={formData.thumbnail}
-									className='w-full h-80 object-cover rounded-2xl mb-10 shadow-lg border border-border'
-									alt='Thumb'
+									className='w-full h-36 object-cover rounded-xl mb-4 shadow border border-border'
+									alt='Thumbnail'
 								/>
 							)}
-							<div className='prose prose-lg dark:prose-invert max-w-none'>
-								{formData.content.map((block, i) => (
-									<PreviewBlock
-										key={i}
-										block={block}
-										referenceData={referenceData}
-									/>
-								))}
-							</div>
+
+							{/* Mục lục - nằm sau tiêu đề, trước nội dung */}
+							{sections.length > 0 && (
+								<div className='mb-5 p-3 bg-surface-hover/30 rounded-xl border border-border'>
+									<div className='flex items-center gap-2 mb-2'>
+										<List size={12} className='text-primary-500' />
+										<span className='text-[10px] font-black uppercase tracking-widest text-text-secondary'>Mục lục</span>
+									</div>
+									<nav className='space-y-0.5'>
+										{sections.map((sec, i) => (
+											<a
+												key={i}
+												href={`#${removeAccents(sec.title || "")}`}
+												className='flex items-center gap-2 px-2 py-1 rounded text-[11px] text-text-secondary hover:bg-surface-hover hover:text-text-primary transition-colors group'
+											>
+												<span className='w-4 h-4 rounded text-[9px] font-black bg-primary-500/10 text-primary-500 flex items-center justify-center shrink-0'>{i + 1}</span>
+												<span className='truncate'>{sec.title || "(Chưa có tiêu đề)"}</span>
+											</a>
+										))}
+									</nav>
+								</div>
+							)}
+
+							{/* Blocks */}
+							{formData.content.length === 0 ? (
+								<div className='text-center py-8 text-text-tertiary text-sm italic'>
+									Chưa có nội dung. Thêm block ở cột bên trái.
+								</div>
+							) : (
+								<div className='text-sm'>
+									{formData.content.map((block, i) => (
+										<PreviewBlock
+											key={i}
+											block={block}
+											referenceData={referenceData}
+										/>
+									))}
+								</div>
+							)}
 						</div>
 					</div>
 				</div>
 			</div>
-
-			{/* Đã xóa Modal xác nhận Hủy vì EditorHeaderToolbar tự động đảm nhiệm */}
-		</div>
+		</form>
 	);
 };
 
