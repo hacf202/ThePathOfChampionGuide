@@ -11549,15 +11549,15 @@
     "translations": {
       "en": {
         "name": "Hired Muscle",
-        "description": "When you play a Coin with 5+ stacks, summon CardRef. If you already have a CardRef, create a CardRef in hand instead. ",
-        "descriptionRaw": "When you play a Coin with 5+ stacks, summon CardRef. If you already have a CardRef, create a CardRef in hand instead. ",
+        "description": "When you play a [cd:07IO011T5|Coin |icon] with 5+ stacks, summon [cd:07IO011|Sett|icon]. If you already have a [cd:07IO011|Sett|icon], create a [cd:07IO011T4|Show Stopper|icon] in hand instead. ",
+        "descriptionRaw": "When you play a Coin  with 5+ stacks, summon Sett. If you already have a Sett, create a Show Stopper in hand instead. ",
         "rarity": "Legendary"
       }
     },
     "rarity": "Huyền Thoại",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0697-full.png",
-    "descriptionRaw": "Khi ngươi sử dụng 1 lá Xu với 5+ điểm cộng dồn, triệu hồi CardRef. Nếu ngươi đã có 1 lá CardRef, tạo trên tay 1 lá CardRef thay thế.",
-    "description": "Khi ngươi sử dụng 1 lá Xu với 5+ điểm cộng dồn, triệu hồi CardRef. Nếu ngươi đã có 1 lá CardRef, tạo trên tay 1 lá CardRef thay thế.",
+    "descriptionRaw": "Khi ngươi sử dụng 1 lá Xu  với 5+ điểm cộng dồn, triệu hồi Sett. Nếu ngươi đã có 1 lá Sett, tạo trên tay 1 lá Hủy Diệt Đấu Trường thay thế.",
+    "description": "Khi ngươi sử dụng 1 lá [cd:07IO011T5|Xu |icon] với 5+ điểm cộng dồn, triệu hồi [cd:07IO011|Sett|icon]. Nếu ngươi đã có 1 lá [cd:07IO011|Sett|icon], tạo trên tay 1 lá [cd:07IO011T4|Hủy Diệt Đấu Trường|icon] thay thế.",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0697.png",
     "name": "Lính Đánh Thuê",
     "type": [

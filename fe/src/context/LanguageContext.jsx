@@ -1,3 +1,4 @@
+// @refresh reset
 // src/context/LanguageContext.jsx
 import React, { createContext, useState, useEffect } from "react";
 
@@ -33,7 +34,6 @@ export const LanguageProvider = ({ children }) => {
 					const module = await import(`../locales/${lang}.json`);
 					dictCache[lang] = module.default || module;
 				}
-
 				// 2. Cập nhật State để UI render lại
 				if (isMounted) {
 					setDictionaries(prev => ({

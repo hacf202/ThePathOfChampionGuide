@@ -1,197 +1,147 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-	Trophy,
-	ChevronRight,
-	RotateCcw,
-	Sparkles,
-	Zap,
-	Gift,
-	Info,
-} from "lucide-react";
-import PageTitle from "../components/common/pageTitle";
-import Button from "../components/common/button"; // Bổ sung Button
 import { useTranslation } from "../hooks/useTranslation";
-import axios from "axios";
 import { getRarityKey, getTypeKey, getRegionKey } from "../utils/i18nHelpers";
+import { ASSETS, VAULT_CONFIG } from "../components/simulator/vaultConfig";
+import VaultProbabilityInfo from "../components/simulator/VaultProbabilityInfo";
+import { X, History, Trash2, LayoutGrid, RotateCcw, Sparkles, Trophy, ChevronRight, Zap, Gift, Info } from "lucide-react";
+import PageTitle from "../components/common/pageTitle";
+import Button from "../components/common/button";
+import axios from "axios";
 
-// --- Assets chuẩn từ icon.json ---
-const ASSETS = {
-	bronze: "https://images.pocguide.top/icon/Bronze_Vault.webp",
-	silver: "https://images.pocguide.top/icon/Silver_Vault.webp",
-	gold: "https://images.pocguide.top/icon/Gold_Vault.webp",
-	platinum: "https://images.pocguide.top/icon/Platinum_Vault.webp",
-	diamond: "https://images.pocguide.top/icon/Diamond_Vault.webp",
-	champFrag: "https://images.pocguide.top/icon/Wild_Fragment.webp",
-	wildFrag: "https://images.pocguide.top/icon/Wild_Fragment.webp",
-	stardust:
-		"https://wpocimg.s3.ap-southeast-2.amazonaws.com/icons/Stardust_icon.png",
-	cosmicBlessing:
-		"https://images.pocguide.top/icon/Greater_Cosmic_Blessing.webp",
-	starCrystal: "https://images.pocguide.top/icon/Star_Crystal.webp",
-	gemstone: "https://images.pocguide.top/icon/Gemstone.webp",
-	spirit_blossom: "https://images.pocguide.top/icon/PoC_Spirit_Blossom_Runic_Vessel.webp",
-	rune_shards: "https://images.pocguide.top/icon/20px-PoC_Rune_Shard_icon.webp",
-};
+const REGIONS = [
+	{ id: "noxus", name: "Noxus", image: ASSETS.noxus },
+	{ id: "demacia", name: "Demacia", image: ASSETS.demacia },
+	{ id: "ionia", name: "Ionia", image: ASSETS.ionia },
+	{ id: "freljord", name: "Freljord", image: ASSETS.freljord },
+	{ id: "bilgewater", name: "Bilgewater", image: ASSETS.bilgewater },
+	{ id: "shadow_isles", name: "Shadow Isles", image: ASSETS.shadow_isles },
+	{ id: "shurima", name: "Shurima", image: ASSETS.shurima },
+	{ id: "targon", name: "Targon", image: ASSETS.targon },
+	{ id: "bandle_city", name: "Bandle City", image: ASSETS.bandle_city },
+	{ id: "piltover_zaun", name: "Piltover & Zaun", image: ASSETS.piltover_zaun },
+	{ id: "runeterra", name: "Runeterra", image: ASSETS.runeterra },
+];
 
-// --- Config Tỷ lệ (Drop Rates) ---
-const VAULT_CONFIG = {
-	bronze: {
-		id: "bronze",
-		nameKey: "vaultSimulator.tier.bronze",
-		sourceKey: "vaultSimulator.sources.bronze",
-		color: "text-[#b87333]",
-		bg: "bg-[#b87333]/15",
-		border: "border-[#b87333]/30",
-		glow: "from-[#b87333]/30",
-		drops: [
-			{
-				type: "champion_fragments",
-				rolls: [
-					{ chance: 95, items: [5] },
-					{ chance: 5, items: [10] },
-				],
-			},
-		],
-	},
-	silver: {
-		id: "silver",
-		nameKey: "vaultSimulator.tier.silver",
-		sourceKey: "vaultSimulator.sources.silver",
-		color: "text-[#475569]",
-		bg: "bg-slate-100/20",
-		border: "border-slate-300",
-		glow: "from-slate-400/30",
-		drops: [
-			{
-				type: "champion_fragments",
-				rolls: [
-					{ chance: 90, items: [10] },
-					{ chance: 10, items: [15] },
-				],
-			},
-		],
-	},
-	gold: {
-		id: "gold",
-		nameKey: "vaultSimulator.tier.gold",
-		sourceKey: "vaultSimulator.sources.gold",
-		color: "text-[#d4af37]",
-		bg: "bg-[#d4af37]/15",
-		border: "border-[#d4af37]/30",
-		glow: "from-[#d4af37]/30",
-		drops: [
-			{
-				type: "champion_fragments",
-				rolls: [
-					{ chance: 90, items: [20], relicChance: 22.22 },
-					{ chance: 10, items: [20, 10], relicChance: 100 },
-				],
-			},
-			{
-				type: "relic",
-				rarity: "Thường",
-			},
-		],
-	},
-	platinum: {
-		id: "platinum",
-		nameKey: "vaultSimulator.tier.platinum",
-		sourceKey: "vaultSimulator.sources.platinum",
-		color: "text-[#0d9488]",
-		bg: "bg-[#0d9488]/15",
-		border: "border-[#0d9488]/30",
-		glow: "from-[#0d9488]/30",
-		drops: [
-			{
-				type: "champion_fragments",
-				rolls: [
-					{ chance: 60, items: [40], relicChance: 22.22 },
-					{ chance: 30, items: [20, 20], relicChance: 22.22 },
-					{ chance: 10, items: [30, 20], relicChance: 100 },
-				],
-			},
-			{
-				type: "relic",
-				rarity: "Hiếm",
-			},
-		],
-	},
-	diamond: {
-		id: "diamond",
-		nameKey: "vaultSimulator.tier.diamond",
-		sourceKey: "vaultSimulator.sources.diamond",
-		color: "text-[#7c3aed]",
-		bg: "bg-[#7c3aed]/15",
-		border: "border-[#7c3aed]/30",
-		glow: "from-[#7c3aed]/30",
-		drops: [
-			{
-				type: "champion_fragments",
-				rolls: [
-					{ chance: 75, items: [40, 40] },
-					{ chance: 20, items: [40, 40, 40] },
-					{ chance: 5, items: [80, 80, 80] },
-				],
-			},
-			{
-				type: "wild_fragments",
-				rolls: [
-					{ chance: 85, items: [20] },
-					{ chance: 14, items: [50] },
-					{ chance: 1, items: [100] },
-				],
-			},
-			{
-				type: "relic_slot",
-				options: [
-					{ chance: 65, type: "cosmic_bless" },
-					{ chance: 35, type: "rare_relic" },
-				],
-			},
-			{
-				type: "bonus",
-				options: [
-					{ chance: 20, type: "star_crystal", amount: 10 },
-					{ chance: 5, type: "gemstone", amount: 150 },
-					{ chance: 75, type: "none" },
-				],
-			},
-		],
-	},
-	spirit_blossom: {
-		id: "spirit_blossom",
-		nameKey: "vaultSimulator.tier.spirit_blossom",
-		sourceKey: "vaultSimulator.sources.spirit_blossom",
-		color: "text-pink-500",
-		bg: "bg-pink-500/10",
-		border: "border-pink-500/30",
-		glow: "from-pink-500/30",
-		drops: [
-			{
-				type: "rune_shards",
-				amount: 4,
-			},
-			{
-				type: "rune",
-				rolls: [
-					{ chance: 81.28, rarity: "Thường" },
-					{ chance: 17.12, rarity: "Hiếm" },
-					{ chance: 1.6, rarity: "Huyền Thoại" },
-				],
-			},
-		],
-	},
+const SPIRIT_BLOSSOM_REGION = {
+	id: "spirit_blossom",
+	name: "Hoa Linh Lục Địa",
+	image: ASSETS.spirit_blossom,
 };
 
 const VaultSimulator = () => {
 	const { t, tUI } = useTranslation();
+
+	const VAULT_GROUPS = [
+		{
+			id: "cosmic",
+			titleKey: "vaultSimulator.groupCosmic",
+			vaults: ["bronze", "silver", "gold", "platinum", "diamond"],
+		},
+		{
+			id: "spirit",
+			titleKey: "vaultSimulator.groupSpirit",
+			vaults: ["spirit_blossom_chest", "superior_spirit_blossom_chest"],
+		},
+		{
+			id: "vessel",
+			titleKey: "vaultSimulator.groupVessel",
+			vaults: ["silver_star_vessel", "gold_star_vessel", "nova_crystal_vessel"],
+		},
+		{
+			id: "runic",
+			titleKey: "vaultSimulator.groupRunic",
+			vaults: ["runic_vessel"],
+		},
+	];
+
+	const LootItem = ({ item, isSmall = false }) => {
+		const getDisplayName = () => {
+			if (item.refType === "champion") {
+				const champ = allChampions.find(c => c.championID === item.refId);
+				if (champ) return `${tUI("vaultSimulator.loot.champFrag")} ${t(champ, "name") || champ.name}`;
+			} else if (item.refType === "relic") {
+				const rel = allRelics.find(r => r.relicCode === item.refId);
+				if (rel) return t(rel, "name") || rel.name;
+			} else if (item.refType === "rune") {
+				const rune = allRunes.find(r => r.runeCode === item.refId);
+				if (rune) return t(rune, "name") || rune.name;
+			} else if (item.nameKey) {
+				return tUI(item.nameKey);
+			}
+			return item.name;
+		};
+
+		const getDisplayType = () => {
+			if (item.refType === "relic" || item.refType === "static_relic") return tUI("vaultSimulator.loot.relic");
+			if (item.refType === "rune") return tUI("vaultSimulator.loot.rune");
+			return item.type;
+		};
+
+		const displayName = getDisplayName();
+		const displayType = getDisplayType();
+
+		return (
+			<div className='flex flex-col items-center group w-full' title={displayName}>
+				<div
+					className={`relative ${isSmall ? "w-20 h-20 sm:w-28 sm:h-28 rounded-2xl p-2" : "w-full sm:w-48 h-40 sm:h-48 rounded-3xl p-4 sm:p-6"} flex items-center justify-center bg-surface-bg border border-border mb-2 sm:mb-4 shadow-xl group-hover:shadow-primary-500/10 group-hover:-translate-y-1 transition-all duration-500 overflow-hidden`}
+				>
+					<img
+						src={item.icon}
+						alt={displayName}
+						className={`w-full h-full object-contain relative z-10 filter group-hover:rotate-6 transition-transform duration-700 ${item.isChamp ? "rounded-xl border-2 border-primary-500/20" : ""}`}
+					/>
+					{item.region && (
+						<div className={`${isSmall ? "w-6 h-6 p-0.5" : "w-8 h-8 sm:w-12 sm:h-12 p-1"} absolute bottom-1 right-1 sm:bottom-2 sm:right-2 bg-surface-bg/80 backdrop-blur-sm rounded-lg border border-border shadow-lg z-20 group-hover:scale-110 transition-transform`}>
+							<img
+								src={item.region.image}
+								alt={item.region.name}
+								className='w-full h-full object-contain'
+								title={item.region.name}
+							/>
+						</div>
+					)}
+					{item.amount && (
+						<div className={`${isSmall ? "text-[10px] sm:text-xs px-1.5 py-0.5" : "text-sm sm:text-xl px-2 sm:px-4 py-0.5 sm:py-1"} absolute bottom-1 left-1 sm:bottom-4 sm:left-4 bg-primary-600 font-black text-white rounded-lg shadow-xl border border-white/20 transform group-hover:scale-110 transition-transform z-20`}>
+							x{item.amount}
+						</div>
+					)}
+				</div>
+				{!isSmall && (
+					<h4
+						className={`text-sm sm:text-xl font-black uppercase italic text-center max-w-[160px] sm:max-w-[200px] leading-tight mb-1 ${item.color || "text-text-primary"} drop-shadow-sm`}
+					>
+						{displayName}
+					</h4>
+				)}
+				{!isSmall && (item.rarityKey || displayType) && (
+					<span className='px-2 sm:px-4 py-0.5 sm:py-1 rounded-full bg-input-bg text-[8px] sm:text-[10px] uppercase tracking-widest font-black border border-border text-text-secondary shadow-sm'>
+						{tUI(item.rarityKey) || displayType}
+					</span>
+				)}
+			</div>
+		);
+	};
+
 	const [selectedVault, setSelectedVault] = useState(null);
 	const [isOpening, setIsOpening] = useState(false);
 	const [loot, setLoot] = useState(null);
 	const [allRelics, setAllRelics] = useState([]);
 	const [allChampions, setAllChampions] = useState([]);
+	const [spiritBlossomChampions, setSpiritBlossomChampions] = useState([]);
 	const [allRunes, setAllRunes] = useState([]);
+	const [selectedRegion, setSelectedRegion] = useState(null);
+	const [openAmount, setOpenAmount] = useState(1);
+	const [history, setHistory] = useState(() => {
+		const saved = localStorage.getItem("vault_sim_history");
+		return saved ? JSON.parse(saved) : {};
+	});
+	const [showConfigModal, setShowConfigModal] = useState(false);
+	const [showProbModal, setShowProbModal] = useState(false);
+
+	useEffect(() => {
+		localStorage.setItem("vault_sim_history", JSON.stringify(history));
+	}, [history]);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -220,22 +170,26 @@ const VaultSimulator = () => {
 						})
 					: [];
 
-				// Lọc Tướng: Không lấy vùng "Hoa Linh Lục Địa" và championID "C666"
-				const filteredChamps = Array.isArray(rawChamps)
-					? rawChamps.filter(c => {
-							const regions = Array.isArray(c.regions)
-								? c.regions
-								: [c.region || ""];
-							const isSpiritBlossom = regions.some(
-								r => getRegionKey(r) === "spiritblossom",
-							);
-							return (
-								!isSpiritBlossom &&
-								c.championID !== "C666" &&
-								c.championID !== "C043"
-							);
-						})
-					: [];
+				// Lọc Tướng
+				const filteredChamps = [];
+				const sbChamps = [];
+
+				if (Array.isArray(rawChamps)) {
+					rawChamps.forEach(c => {
+						const regions = Array.isArray(c.regions)
+							? c.regions
+							: [c.region || ""];
+						const isSpiritBlossom = regions.some(
+							r => getRegionKey(r) === "spiritblossom",
+						);
+
+						if (isSpiritBlossom) {
+							sbChamps.push(c);
+						} else if (c.championID !== "C666" && c.championID !== "C043") {
+							filteredChamps.push(c);
+						}
+					});
+				}
 
 				console.log(
 					`Simulator Filtered: ${filteredChamps.length} Champions, ${filteredRelics.length} Relics`,
@@ -247,6 +201,11 @@ const VaultSimulator = () => {
 					filteredChamps.length > 0
 						? filteredChamps
 						: [{ name: "Champion", championID: "NONE" }],
+				);
+				setSpiritBlossomChampions(
+					sbChamps.length > 0
+						? sbChamps
+						: [{ name: "Spirit Blossom Champion", championID: "NONE" }],
 				);
 			} catch (err) {
 				console.error("Lỗi fetch data simulator:", err);
@@ -265,153 +224,343 @@ const VaultSimulator = () => {
 		return options[0];
 	};
 
-	const generateLoot = vaultType => {
+	const generateLoot = (vaultType, regionOverride = null) => {
 		const config = VAULT_CONFIG[vaultType];
 		const results = [];
 
-		let fragmentRelicChance = 0;
+		const isSBVault =
+			vaultType === "spirit_blossom_chest" ||
+			vaultType === "superior_spirit_blossom_chest";
 
-		config.drops.forEach(drop => {
-			if (drop.type === "champion_fragments") {
-				const roll = weightedRoll(drop.rolls);
-				fragmentRelicChance = roll.relicChance || 0; // Lưu tỉ lệ rớt cổ vật từ roll tướng (Gold/Platinum)
+		// Helper lấy region ngẫu nhiên (trừ SB)
+		const getRandomStandardRegion = () => {
+			return REGIONS[Math.floor(Math.random() * REGIONS.length)];
+		};
 
-				roll.items.forEach((amount, rIdx) => {
-					// Chọn tướng ngẫu nhiên từ pool đã lọc
-					const randomChamp =
-						allChampions[Math.floor(Math.random() * allChampions.length)];
-					results.push({
-						id: `champ_frag_${Math.random()}_${rIdx}`,
-						// Dùng t() để đa ngôn ngữ tên tướng
-						name: t(randomChamp, "name") || randomChamp?.name || "???",
-						amount: amount,
-						// Sử dụng ảnh chân dung tướng làm icon chính
-						icon: randomChamp?.assets?.[0]?.avatar || ASSETS.champFrag,
-						isChamp: true,
-						color: "text-blue-600",
-					});
-				});
-			} else if (drop.type === "wild_fragments") {
-				const roll = weightedRoll(drop.rolls);
-				roll.items.forEach(amount => {
-					results.push({
-						id: `wild_frag_${Math.random()}`,
-						name: tUI("vaultSimulator.loot.wildFrags"),
-						amount: amount,
-						icon: ASSETS.wildFrag,
-						color: "text-orange-600",
-					});
-				});
-			} else if (drop.type === "relic") {
-				// Tỉ lệ rớt cổ vật ở Gold/Platinum phụ thuộc vào roll fragments
-				if (Math.random() * 100 < fragmentRelicChance) {
-					const rarityPool = allRelics.filter(r => r.rarity === drop.rarity);
-					const randomRelic =
-						rarityPool[Math.floor(Math.random() * rarityPool.length)];
-					if (randomRelic) {
-						const key = getRarityKey(randomRelic.rarity);
-						results.push({
-							id: `relic_${randomRelic.relicCode}`,
-							name: t(randomRelic, "name") || randomRelic.name,
-							type: tUI("vaultSimulator.loot.relic"),
-							rarityKey: `relic.rarity.${key}`,
-							icon: randomRelic.assetAbsolutePath,
-							color: key === "common" ? "text-green-600" : "text-blue-600",
-						});
-					}
-				}
-			} else if (drop.type === "relic_slot") {
-				// Slot rớt 100% của Diamond
-				const roll = weightedRoll(drop.options);
-				if (roll.type === "cosmic_bless") {
-					results.push({
-						id: "cosmic_bless",
-						name: tUI("vaultSimulator.loot.cosmicBlessing"),
-						type: tUI("vaultSimulator.loot.relic"),
-						rarityKey: "relic.rarity.common",
-						icon: ASSETS.cosmicBlessing,
-						color: "text-blue-600",
-					});
-				} else {
-					const rarityPool = allRelics.filter(r => r.rarity === "Hiếm");
-					const randomRelic =
-						rarityPool[Math.floor(Math.random() * rarityPool.length)];
-					if (randomRelic) {
-						results.push({
-							id: `relic_${randomRelic.relicCode}`,
-							name: t(randomRelic, "name") || randomRelic.name,
-							type: tUI("vaultSimulator.loot.relic"),
-							rarityKey: "relic.rarity.rare",
-							icon: randomRelic.assetAbsolutePath,
-							color: "text-blue-600",
-						});
-					}
-				}
-			} else if (drop.type === "bonus") {
-				const roll = weightedRoll(drop.options);
-				if (roll.type === "star_crystal") {
-					results.push({
-						id: "star_crystal",
-						name: tUI("vaultSimulator.loot.starCrystal"),
-						amount: roll.amount,
-						icon: ASSETS.starCrystal,
-						color: "text-orange-500",
-					});
-				} else if (roll.type === "gemstone") {
-					results.push({
-						id: "gemstone",
-						name: tUI("vaultSimulator.loot.gemstone"),
-						amount: roll.amount,
-						icon: ASSETS.gemstone,
-						color: "text-purple-600",
-					});
-				}
-			} else if (drop.type === "rune_shards") {
+		// Helper xác định region cho tài nguyên
+		const getResourceRegion = () => {
+			if (isSBVault) return SPIRIT_BLOSSOM_REGION;
+			if (regionOverride) return regionOverride;
+			return getRandomStandardRegion();
+		};
+
+		const processOption = (roll, idx = 0) => {
+			if (roll.type === "champion_fragments") {
+				const pool = isSBVault ? spiritBlossomChampions : allChampions;
+
+				const randomChamp = pool[Math.floor(Math.random() * pool.length)];
 				results.push({
-					id: `rune_shards_${Math.random()}`,
-					name: tUI("vaultSimulator.loot.runeShards"),
-					amount: drop.amount,
+					id: `champ_frag_${randomChamp?.championID}`,
+					refId: randomChamp?.championID,
+					refType: "champion",
+					name: t(randomChamp, "name") || randomChamp?.name || "???",
+					amount: roll.amount,
+					icon: randomChamp?.assets?.[0]?.avatar || ASSETS.champ_frag,
+					isChamp: true,
+					color: "text-blue-600",
+				});
+			} else if (roll.type === "wild_fragments") {
+				results.push({
+					id: "wild_frag",
+					nameKey: "vaultSimulator.loot.wild_frags",
+					name: tUI("vaultSimulator.loot.wild_frags"),
+					amount: roll.amount,
+					icon: ASSETS.wild_frag,
+					color: "text-orange-600",
+				});
+			} else if (roll.type === "star_crystal") {
+				const region = getResourceRegion();
+				results.push({
+					id: "star_crystal",
+					nameKey: "vaultSimulator.loot.star_crystal",
+					name: tUI("vaultSimulator.loot.star_crystal"),
+					amount: roll.amount,
+					icon: ASSETS.star_crystal,
+					region: region,
+					color: "text-orange-500",
+				});
+			} else if (roll.type === "nova_shard") {
+				const region = getResourceRegion();
+				results.push({
+					id: "nova_shard",
+					nameKey: "vaultSimulator.loot.nova_shard",
+					name: tUI("vaultSimulator.loot.nova_shard"),
+					amount: roll.amount,
+					icon: ASSETS.nova_shard,
+					region: region,
+					color: "text-blue-400",
+				});
+			} else if (roll.type === "nova_crystal") {
+				const region = getResourceRegion();
+				results.push({
+					id: "nova_crystal",
+					nameKey: "vaultSimulator.loot.nova_crystal",
+					name: tUI("vaultSimulator.loot.nova_crystal"),
+					amount: roll.amount,
+					icon: ASSETS.nova_crystal,
+					region: region,
+					color: "text-blue-600",
+				});
+			} else if (roll.type === "stardust") {
+				results.push({
+					id: "stardust",
+					nameKey: "vaultSimulator.loot.stardust",
+					name: tUI("vaultSimulator.loot.stardust"),
+					amount: roll.amount,
+					icon: ASSETS.stardust,
+					color: "text-purple-400",
+				});
+			} else if (roll.type === "gemstone") {
+				const region = getResourceRegion();
+				results.push({
+					id: "gemstone",
+					nameKey: "vaultSimulator.loot.gemstone",
+					name: tUI("vaultSimulator.loot.gemstone"),
+					amount: roll.amount,
+					icon: ASSETS.gemstone,
+					region: region,
+					color: "text-purple-600",
+				});
+			} else if (roll.type === "rune_shards") {
+				results.push({
+					id: "rune_shards",
+					nameKey: "vaultSimulator.loot.rune_shards",
+					name: tUI("vaultSimulator.loot.rune_shards"),
+					amount: roll.amount,
 					icon: ASSETS.rune_shards,
 					color: "text-pink-600",
 				});
-			} else if (drop.type === "rune") {
-				const roll = weightedRoll(drop.rolls);
-				const rarityPool = allRunes.filter(r => r.rarity === roll.rarity);
+			} else if (roll.type === "legendary_rune") {
+				const rarityPool = allRunes.filter(r => r.rarity === "Huyền Thoại");
 				const randomRune =
 					rarityPool[Math.floor(Math.random() * rarityPool.length)];
 				if (randomRune) {
-					const key = getRarityKey(randomRune.rarity);
 					results.push({
 						id: `rune_${randomRune.runeCode}`,
+						refId: randomRune.runeCode,
+						refType: "rune",
 						name: t(randomRune, "name") || randomRune.name,
 						type: tUI("vaultSimulator.loot.rune"),
-						rarityKey: `rune.rarity.${key}`,
-						icon: randomRune.assetAbsolutePath || randomRune.imageUrl,
-						color:
-							key === "common"
-								? "text-green-600"
-								: key === "rare"
-									? "text-blue-600"
-									: "text-orange-600",
+						rarityKey: `rune.rarity.legendary`,
+						icon: randomRune.assetAbsolutePath || randomRune.imageUrl || ASSETS.legendary_rune,
+						color: "text-orange-600",
 					});
 				}
 			}
-		});
+		};
+
+		if (config.bundles) {
+			// Logic cho rương Hoa Linh mới
+			config.bundles.forEach((bundle, bIdx) => {
+				const roll = weightedRoll(bundle.options);
+				processOption(roll, bIdx);
+			});
+
+			// Bonus bundle
+			if (config.bonusBundle) {
+				const bonusRoll = weightedRoll(config.bonusBundle.options);
+				if (bonusRoll.type !== "none") {
+					processOption(bonusRoll, 99);
+				}
+			}
+		} else {
+			// Logic cũ cho các rương tiêu chuẩn
+			let fragmentRelicChance = 0;
+			config.drops.forEach(drop => {
+				if (drop.type === "champion_fragments") {
+					const roll = weightedRoll(drop.rolls);
+					fragmentRelicChance = roll.relicChance || 0;
+
+					roll.items.forEach((amount, rIdx) => {
+						const randomChamp =
+							allChampions[Math.floor(Math.random() * allChampions.length)];
+						results.push({
+							id: `champ_frag_${Math.random()}_${rIdx}`,
+							name: t(randomChamp, "name") || randomChamp?.name || "???",
+							amount: amount,
+							icon: randomChamp?.assets?.[0]?.avatar || ASSETS.champ_frag,
+							isChamp: true,
+							color: "text-blue-600",
+						});
+					});
+				} else if (drop.type === "wild_fragments") {
+					const roll = weightedRoll(drop.rolls);
+					roll.items.forEach(amount => {
+						results.push({
+							id: "wild_frag",
+							nameKey: "vaultSimulator.loot.wild_frags",
+							name: tUI("vaultSimulator.loot.wild_frags"),
+							amount: amount,
+							icon: ASSETS.wild_frag,
+							color: "text-orange-600",
+						});
+					});
+				} else if (drop.type === "relic") {
+					if (Math.random() * 100 < fragmentRelicChance) {
+						const rarityPool = allRelics.filter(r => r.rarity === drop.rarity);
+						const randomRelic =
+							rarityPool[Math.floor(Math.random() * rarityPool.length)];
+						if (randomRelic) {
+							const key = getRarityKey(randomRelic.rarity);
+							results.push({
+								id: `relic_${randomRelic.relicCode}`,
+								refId: randomRelic.relicCode,
+								refType: "relic",
+								name: t(randomRelic, "name") || randomRelic.name,
+								type: tUI("vaultSimulator.loot.relic"),
+								rarityKey: `relic.rarity.${key}`,
+								icon: randomRelic.assetAbsolutePath,
+								color: key === "common" ? "text-green-600" : "text-blue-600",
+							});
+						}
+					}
+				} else if (drop.type === "relic_slot") {
+					const roll = weightedRoll(drop.options);
+					if (roll.type === "cosmic_bless") {
+						results.push({
+							id: "cosmic_blessing",
+							nameKey: "vaultSimulator.loot.cosmic_blessing",
+							refType: "static_relic",
+							name: tUI("vaultSimulator.loot.cosmic_blessing"),
+							type: tUI("vaultSimulator.loot.relic"),
+							rarityKey: "relic.rarity.common",
+							icon: ASSETS.cosmic_blessing,
+							color: "text-blue-600",
+						});
+					} else {
+						const rarityPool = allRelics.filter(r => r.rarity === "Hiếm");
+						const randomRelic =
+							rarityPool[Math.floor(Math.random() * rarityPool.length)];
+						if (randomRelic) {
+							results.push({
+								id: `relic_${randomRelic.relicCode}`,
+								refId: randomRelic.relicCode,
+								refType: "relic",
+								name: t(randomRelic, "name") || randomRelic.name,
+								type: tUI("vaultSimulator.loot.relic"),
+								rarityKey: "relic.rarity.rare",
+								icon: randomRelic.assetAbsolutePath,
+								color: "text-blue-600",
+							});
+						}
+					}
+				} else if (drop.type === "bonus") {
+					const roll = weightedRoll(drop.options);
+					if (roll.type === "star_crystal") {
+						const region = getResourceRegion();
+						results.push({
+							id: `star_crystal_${region?.id}`,
+							nameKey: "vaultSimulator.loot.star_crystal",
+							name: tUI("vaultSimulator.loot.star_crystal"),
+							amount: roll.amount,
+							icon: ASSETS.star_crystal,
+							region: region,
+							color: "text-orange-500",
+						});
+					} else if (roll.type === "gemstone") {
+						const region = getResourceRegion();
+						results.push({
+							id: `gemstone_${region?.id}`,
+							nameKey: "vaultSimulator.loot.gemstone",
+							name: tUI("vaultSimulator.loot.gemstone"),
+							amount: roll.amount,
+							icon: ASSETS.gemstone,
+							region: region,
+							color: "text-purple-600",
+						});
+					}
+				} else if (drop.type === "rune_shards") {
+					results.push({
+						id: "rune_shards",
+						nameKey: "vaultSimulator.loot.rune_shards",
+						name: tUI("vaultSimulator.loot.rune_shards"),
+						amount: drop.amount,
+						icon: ASSETS.rune_shards,
+						color: "text-pink-600",
+					});
+				} else if (drop.type === "rune") {
+					const roll = weightedRoll(drop.rolls);
+					const rarityPool = allRunes.filter(r => r.rarity === roll.rarity);
+					const randomRune =
+						rarityPool[Math.floor(Math.random() * rarityPool.length)];
+					if (randomRune) {
+						const key = getRarityKey(randomRune.rarity);
+						results.push({
+							id: `rune_${randomRune.runeCode}`,
+							refId: randomRune.runeCode,
+							refType: "rune",
+							name: t(randomRune, "name") || randomRune.name,
+							type: tUI("vaultSimulator.loot.rune"),
+							rarityKey: `rune.rarity.${key}`,
+							icon: randomRune.assetAbsolutePath || randomRune.imageUrl || ASSETS.legendary_rune,
+							color:
+								key === "common"
+									? "text-green-600"
+									: key === "rare"
+										? "text-blue-600"
+										: "text-orange-600",
+						});
+					}
+				}
+			});
+		}
 
 		return results;
 	};
 
-	const handleOpen = async vaultType => {
-		setSelectedVault(vaultType);
+	const handleOpen = async (vaultType, amount = 1) => {
+		setShowConfigModal(false);
 		setIsOpening(true);
 		setLoot(null);
 
 		// Animation delay
 		setTimeout(() => {
-			const finalLoot = generateLoot(vaultType);
-			setLoot(finalLoot);
+			const batchLoot = [];
+			const newHistory = { ...history };
+
+			for (let i = 0; i < amount; i++) {
+				const singleLoot = generateLoot(vaultType, selectedRegion);
+				
+				singleLoot.forEach(item => {
+					// Thêm vào batch hiện tại
+					batchLoot.push(item);
+
+					// Cập nhật lịch sử tích lũy (dùng id + region để group không bị lỗi khi đổi ngôn ngữ)
+					const historyKey = `${item.id}_${item.region?.id || "no_region"}`;
+					if (newHistory[historyKey]) {
+						newHistory[historyKey].amount += (item.amount || 1);
+					} else {
+						newHistory[historyKey] = { 
+							...item, 
+							amount: item.amount || 1
+						};
+					}
+				});
+			}
+
+			// Gộp các item giống nhau trong batchLoot
+			const aggregatedBatch = [];
+			const batchMap = {};
+			
+			batchLoot.forEach(item => {
+				const key = `${item.id}_${item.region?.id || "no_region"}`;
+				if (batchMap[key]) {
+					batchMap[key].amount += (item.amount || 1);
+				} else {
+					batchMap[key] = { ...item, amount: item.amount || 1, batchKey: key };
+					aggregatedBatch.push(batchMap[key]);
+				}
+			});
+
+			setLoot(aggregatedBatch);
+			setHistory(newHistory);
 			setIsOpening(false);
-		}, 1800);
+		}, 1500);
+	};
+
+	const clearHistory = () => {
+		setHistory({});
+		localStorage.removeItem("vault_sim_history");
 	};
 
 	return (
@@ -436,8 +585,9 @@ const VaultSimulator = () => {
 
 			<div className='max-w-7xl mx-auto py-4 sm:py-6 px-2 sm:px-4 lg:px-8 relative z-10'>
 				{/* Header */}
-				<header className='mb-12 sm:mb-20 text-center'>
-					<h1 className='text-4xl md:text-7xl font-black mb-6 sm:mb-8 leading-tight tracking-tighter uppercase max-w-4xl mx-auto'>
+				<header className='mb-6 sm:mb-10 text-center relative'>
+
+					<h1 className='text-4xl md:text-7xl font-black mb-3 sm:mb-4 leading-tight tracking-tighter uppercase max-w-4xl mx-auto'>
 						<span className='text-text-primary'>
 							{tUI("vaultSimulator.titleMain")}{" "}
 						</span>
@@ -450,58 +600,254 @@ const VaultSimulator = () => {
 					</p>
 				</header>
 
-				{/* Selection Grid */}
-				{!loot && !isOpening && (
-					<div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-8 mb-24'>
-						{Object.entries(VAULT_CONFIG).map(([key, config], idx) => (
-							<motion.button
-								key={key}
-								initial={{ opacity: 0, y: 30 }}
-								animate={{ opacity: 1, y: 0 }}
-								transition={{ delay: idx * 0.1 }}
-								whileHover={{ y: -10 }}
-								whileTap={{ scale: 0.95 }}
-								onClick={() => setSelectedVault(key)}
-								className={`group relative flex flex-col items-center p-6 sm:p-8 rounded-3xl transition-all duration-500 overflow-hidden ${
-									selectedVault === key
-										? `bg-surface-bg ring-4 ring-primary-500/20 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.15)] scale-105 border-primary-500/30 border`
-										: `${config.bg} backdrop-blur-sm border border-border shadow-lg hover:shadow-2xl`
-								}`}
-							>
-								{/* Vault Glow Effect */}
-								{selectedVault === key && (
-									<div
-										className={`absolute inset-0 bg-gradient-to-b ${config.glow} animate-pulse`}
-									/>
-								)}
+				{/* Main Content Area: Grid or Results */}
+				{!isOpening && !loot && (
+					<>
+						{/* Selection Grid */}
+						<div className='space-y-10 sm:space-y-16 mb-16'>
+							{VAULT_GROUPS.map((group, groupIdx) => (
+								<section key={group.id} className='space-y-4 sm:space-y-6'>
+									{/* Group Header */}
+									<div className='flex items-center gap-4 sm:gap-6'>
+										<div className='flex-none text-text-primary'>
+											<h2 className='text-2xl sm:text-4xl font-black italic uppercase tracking-tighter flex items-center gap-3 sm:gap-4'>
+												<LayoutGrid className='w-6 h-6 sm:w-8 sm:h-8 text-primary-500' />
+												{tUI(group.titleKey)}
+											</h2>
+										</div>
+										<div className='h-[2px] flex-1 bg-gradient-to-r from-border via-border/50 to-transparent' />
+									</div>
 
-								<div className='relative w-24 h-24 sm:w-32 sm:h-32 mb-4 sm:mb-6 transition-all shrink-0'>
-									<img
-										src={ASSETS[key]}
-										alt={key}
-										className='w-full h-full object-contain filter group-hover:scale-110 transition-transform duration-500'
-									/>
-								</div>
-								<span
-									className={`text-lg sm:text-xl font-black uppercase italic tracking-wider ${config.color} group-hover:scale-110 transition-transform leading-none text-center`}
-								>
-									{tUI("vaultSimulator.vaultLabel")} {tUI(config.nameKey)}
-								</span>
-								{selectedVault === key && (
-									<span
-										className='mt-6 px-5 py-2 bg-primary-600 text-white rounded-xl text-[10px] sm:text-xs font-bold uppercase tracking-widest animate-bounce shadow-lg cursor-pointer block z-10 shrink-0'
-										onClick={e => {
-											e.stopPropagation(); // Ngăn chặn sự kiện click lan lên thẻ cha
-											handleOpen(key);
-										}}
+									{/* Group Grid */}
+									<div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6'>
+										{group.vaults.map((key, idx) => {
+											const config = VAULT_CONFIG[key];
+											if (!config) return null;
+											return (
+												<motion.div
+													key={key}
+													initial={{ opacity: 0, y: 30 }}
+													animate={{ opacity: 1, y: 0 }}
+													transition={{ delay: (groupIdx * 0.2) + (idx * 0.1) }}
+													whileHover={{ y: -10, scale: 1.02 }}
+													whileTap={{ scale: 0.95 }}
+													onClick={() => {
+														setSelectedVault(key);
+														setSelectedRegion(null);
+														setOpenAmount(1);
+														setShowConfigModal(true);
+													}}
+													className={`group cursor-pointer relative flex flex-col items-center p-4 sm:p-6 rounded-3xl transition-all duration-500 overflow-hidden ${config.bg} backdrop-blur-sm border border-border shadow-md hover:shadow-xl`}
+												>
+													{/* Specific Info Button */}
+													<div 
+														onClick={(e) => {
+															e.stopPropagation();
+															setSelectedVault(key);
+															setShowProbModal(true);
+														}}
+														className='absolute top-3 right-3 sm:top-4 sm:right-4 p-2 z-10 text-primary-600 bg-surface-bg/30 backdrop-blur-sm rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-surface-bg hover:scale-110 shadow-sm border border-transparent hover:border-border'
+														title={tUI("vaultSimulator.probInfo")}
+													>
+														<Info className='w-5 h-5 sm:w-6 sm:h-6' />
+													</div>
+													
+													<div className='relative w-24 h-24 sm:w-36 sm:h-36 mb-3 sm:mb-4 transition-transform group-hover:scale-110 duration-500 shrink-0'>
+														<img
+															src={ASSETS[key]}
+															alt={key}
+															className='w-full h-full object-contain filter group-hover:drop-shadow-[0_20px_20px_rgba(0,0,0,0.15)] transition-all'
+														/>
+													</div>
+													<span
+														className={`text-lg sm:text-2xl font-black uppercase italic tracking-wider ${config.color} group-hover:scale-110 transition-transform leading-tight text-center`}
+													>
+														{tUI(config.nameKey)}
+													</span>
+												</motion.div>
+											);
+										})}
+									</div>
+								</section>
+							))}
+						</div>
+
+						{/* History Section */}
+						{Object.keys(history).length > 0 && (
+							<section className='mb-32 animate-in fade-in slide-in-from-bottom-5 duration-700'>
+								<div className='flex flex-col sm:flex-row items-center justify-between gap-6 mb-12 sm:mb-16'>
+									<div className='flex items-center gap-6'>
+										<div className='p-4 bg-primary-500/10 rounded-3xl shadow-lg border border-primary-500/20'>
+											<History className='w-8 h-8 sm:w-10 sm:h-10 text-primary-500' />
+										</div>
+										<div>
+											<h2 className='text-3xl sm:text-5xl font-black italic uppercase tracking-tighter text-text-primary'>
+												{tUI("vaultSimulator.historyTitle")}
+											</h2>
+											<p className='text-text-secondary text-sm sm:text-lg font-bold uppercase tracking-widest mt-1'>
+												{tUI("vaultSimulator.totalGains")}
+											</p>
+										</div>
+									</div>
+									<Button
+										variant='secondary'
+										onClick={clearHistory}
+										className='px-8 py-4 rounded-2xl font-black text-sm sm:text-base border-red-500/20 hover:bg-red-500/5 hover:text-red-500 transition-all duration-300'
+										iconLeft={<Trash2 className='w-5 h-5' />}
 									>
-										{tUI("vaultSimulator.clickToOpen")}
-									</span>
-								)}
-							</motion.button>
-						))}
-					</div>
+										{tUI("vaultSimulator.clearHistory")}
+									</Button>
+								</div>
+
+								<div className='bg-surface-bg/50 backdrop-blur-md rounded-[40px] border border-border p-8 sm:p-12 shadow-2xl relative overflow-hidden'>
+									<div className='absolute inset-0 bg-gradient-to-br from-primary-500/5 via-transparent to-blue-500/5 opacity-50' />
+									<div className='grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-6 sm:gap-10 relative z-10'>
+										{Object.values(history).map((item, idx) => (
+											<LootItem key={`${item.id}-${idx}`} item={item} isSmall />
+										))}
+									</div>
+								</div>
+							</section>
+						)}
+					</>
 				)}
+
+				{/* Selection Modal */}
+				<AnimatePresence>
+					{showConfigModal && (
+						<div 
+							onClick={() => setShowConfigModal(false)}
+							className='fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-4 bg-black/30 overflow-y-auto custom-scrollbar'
+						>
+							<motion.div
+								onClick={(e) => e.stopPropagation()}
+								initial={{ opacity: 0, scale: 0.9, y: 20 }}
+								animate={{ opacity: 1, scale: 1, y: 0 }}
+								exit={{ opacity: 0, scale: 0.9, y: 20 }}
+								className='relative w-full max-w-xl bg-[var(--color-modal-bg)] rounded-2xl sm:rounded-3xl border border-border shadow-xl p-2 sm:p-4 my-auto overflow-hidden'
+							>
+								{/* Decor */}
+								<div className='absolute -top-24 -right-24 w-64 h-64 bg-primary-500/10 blur-[80px] rounded-full' />
+								
+								{/* Close */}
+								<button 
+									onClick={() => setShowConfigModal(false)}
+									className='absolute top-2 right-2 sm:top-4 sm:right-4 p-2 rounded-xl hover:bg-input-bg text-text-secondary hover:text-text-primary transition-all duration-300 z-20'
+								>
+									<X className='w-5 h-5 sm:w-6 sm:h-6' />
+								</button>
+
+								<div className='flex flex-col items-center text-center relative z-10'>
+									<div className='w-16 h-16 sm:w-24 sm:h-24 mb-2 animate-float'>
+										<img
+											src={ASSETS[selectedVault]}
+											alt=''
+											className='w-full h-full object-contain filter drop-shadow-[0_10px_20px_rgba(0,0,0,0.2)]'
+										/>
+									</div>
+									<h2 className={`text-xl sm:text-2xl font-black uppercase italic tracking-tighter mb-3 sm:mb-4 ${VAULT_CONFIG[selectedVault]?.color}`}>
+										{tUI(VAULT_CONFIG[selectedVault]?.nameKey)}
+									</h2>
+
+									{/* Config Grid */}
+									<div className='w-full space-y-3 sm:space-y-4 text-left'>
+										{/* Quantity */}
+										<div className='space-y-2'>
+											<label className='text-[10px] sm:text-xs font-black text-text-secondary uppercase tracking-[0.2em] flex items-center gap-3'>
+												<span className='w-2 h-2 bg-primary-500 rounded-full' />
+												{tUI("vaultSimulator.openAmount")}
+											</label>
+											<div className='flex flex-wrap gap-2 mb-2'>
+												{[1, 10, 50, 100].map(amt => (
+													<button
+														key={amt}
+														onClick={() => setOpenAmount(amt)}
+														className={`flex-1 min-w-[50px] py-2 sm:py-3 rounded-xl font-black text-sm sm:text-base transition-all duration-300 border-2 ${
+															openAmount === amt 
+																? "bg-primary-500 border-primary-500 text-white shadow-lg shadow-primary-500/20 scale-105"
+																: "bg-input-bg border-border text-text-secondary hover:border-primary-500/50 hover:bg-surface-bg"
+														}`}
+													>
+														{amt}
+													</button>
+												))}
+											</div>
+											{/* Input tùy chỉnh */}
+											<div className='relative'>
+												<input
+													type='number'
+													min='1'
+													max='500'
+													value={openAmount}
+													onChange={(e) => {
+														const val = parseInt(e.target.value);
+														setOpenAmount(isNaN(val) ? 1 : Math.max(1, Math.min(500, val)));
+													}}
+													className='w-full bg-input-bg border-2 border-border focus:border-primary-500 rounded-xl py-3 px-4 font-black text-base text-text-primary outline-none transition-all'
+													placeholder={tUI("vaultSimulator.enterAmount")}
+												/>
+												<div className='absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none'>
+													<LayoutGrid className='w-5 h-5 text-text-secondary' />
+												</div>
+											</div>
+										</div>
+
+										{/* Region Selection (only for Star Vessels) */}
+										{["silver_star_vessel", "gold_star_vessel", "nova_crystal_vessel"].includes(selectedVault) && (
+											<div className='space-y-2'>
+												<label className='text-[10px] sm:text-xs font-black text-text-secondary uppercase tracking-[0.2em] flex items-center gap-3'>
+													<span className='w-2 h-2 bg-primary-500 rounded-full' />
+													{tUI("vaultSimulator.selectRegion")}
+												</label>
+												<div className='flex flex-wrap gap-2 p-2 bg-input-bg/50 rounded-2xl border border-border'>
+													<button
+														onClick={() => setSelectedRegion(null)}
+														className={`p-1 rounded-lg border-2 transition-all duration-300 ${
+															selectedRegion === null
+																? "bg-primary-500/20 border-primary-500 scale-105 shadow-lg shadow-primary-500/10"
+																: "bg-surface-bg border-border hover:border-primary-500/50"
+														}`}
+													>
+														<div className='w-8 h-8 flex items-center justify-center text-xs font-black text-primary-500'>
+															?
+														</div>
+													</button>
+													{REGIONS.map(r => (
+														<button
+															key={r.id}
+															onClick={() => setSelectedRegion(r)}
+															className={`p-1 rounded-lg border-2 transition-all duration-300 ${
+																selectedRegion?.id === r.id
+																	? "bg-primary-500/20 border-primary-500 scale-105 shadow-lg shadow-primary-500/10"
+																	: "bg-surface-bg border-border hover:border-primary-500/50"
+															}`}
+															title={r.name}
+														>
+															<img
+																src={r.image}
+																alt={r.name}
+																className='w-8 h-8 object-contain'
+															/>
+														</button>
+													))}
+												</div>
+											</div>
+										)}
+									</div>
+
+									<Button
+										variant='primary'
+										onClick={() => handleOpen(selectedVault, openAmount)}
+										className='w-full mt-6 py-4 text-lg rounded-2xl font-black italic uppercase tracking-widest shadow-[0_10px_20px_-5px_rgba(var(--primary-500-rgb),0.3)] hover:scale-[1.02] transform transition-all duration-300'
+										iconRight={<Sparkles className='w-5 h-5' />}
+									>
+										{tUI("vaultSimulator.startSim")}
+									</Button>
+								</div>
+							</motion.div>
+						</div>
+					)}
+				</AnimatePresence>
 
 				{/* Opening Animation */}
 				{isOpening && (
@@ -532,174 +878,108 @@ const VaultSimulator = () => {
 							className='text-3xl font-black mt-12 uppercase italic tracking-widest animate-pulse text-primary-600'
 						>
 							{tUI("vaultSimulator.opening", {
-								vault:
-									tUI("vaultSimulator.vaultLabel") +
-									" " +
-									tUI(VAULT_CONFIG[selectedVault].nameKey),
+								vault: tUI(VAULT_CONFIG[selectedVault]?.nameKey),
 							})}
 						</motion.h2>
 					</div>
 				)}
 
-				{/* Loot Results */}
-				{loot && (
-					<div className='flex flex-col items-center w-full'>
-						<div className='grid grid-cols-2 sm:grid-cols-3 lg:flex lg:flex-wrap justify-center gap-4 sm:gap-10 mb-20 w-full'>
-							{loot.map((item, idx) => (
-								<motion.div
-									key={item.id || `loot-${idx}`}
-									initial={{ opacity: 0, scale: 0.8, y: 50 }}
-									animate={{ opacity: 1, scale: 1, y: 0 }}
-									transition={{
-										delay: idx * 0.15 + 0.3,
-										type: "spring",
-										stiffness: 100,
-										damping: 15,
-									}}
-									className='flex flex-col items-center group w-full lg:w-auto'
-								>
-									<div
-										className={`relative w-full sm:w-48 h-40 sm:h-48 flex items-center justify-center rounded-3xl bg-surface-bg border border-border p-4 sm:p-6 mb-4 sm:mb-6 shadow-2xl group-hover:shadow-primary-500/10 group-hover:-translate-y-2 transition-all duration-500 overflow-hidden`}
-									>
-										<img
-											src={item.icon}
-											alt={item.name}
-											className={`w-full h-full object-contain relative z-10 filter group-hover:rotate-6 transition-transform duration-700 ${item.isChamp ? "rounded-2xl border-2 sm:border-4 border-primary-500/20" : ""}`}
-										/>
-										{item.amount && (
-											<div className='absolute bottom-3 right-3 sm:bottom-4 sm:right-4 bg-primary-600 px-3 sm:px-4 py-1 rounded-lg sm:rounded-xl font-black text-xl sm:text-2xl text-white shadow-xl border border-white/20 transform group-hover:scale-110 transition-transform z-20'>
-												x{item.amount}
-											</div>
-										)}
+				<AnimatePresence>
+					{loot && !isOpening && (
+						<motion.div
+							initial={{ opacity: 0, y: 50 }}
+							animate={{ opacity: 1, y: 0 }}
+							exit={{ opacity: 0, y: 50 }}
+							className='w-full min-h-[60vh] flex flex-col mb-32'
+						>
+							{/* Results Header */}
+							<div className='mb-12 flex flex-col sm:flex-row items-center justify-between gap-8'>
+								<div className='flex items-center gap-6'>
+									<div className='p-5 bg-primary-600 shadow-[0_0_30px_rgba(var(--primary-600-rgb),0.3)] rounded-[2rem]'>
+										<Sparkles className='w-10 h-10 text-white animate-pulse' />
 									</div>
-									<h4
-										className={`text-base sm:text-xl font-black uppercase italic text-center max-w-[160px] sm:max-w-[200px] leading-tight mb-2 ${item.color || "text-text-primary"} drop-shadow-sm`}
-									>
-										{item.name}
-									</h4>
-									{(item.rarityKey || item.type) && (
-										<span className='px-3 sm:px-4 py-1 rounded-full bg-input-bg text-[9px] sm:text-[10px] uppercase tracking-widest font-black border border-border text-text-secondary shadow-sm'>
-											{tUI(item.rarityKey) || item.type}
-										</span>
-									)}
-								</motion.div>
-							))}
-						</div>
+									<div className='text-left'>
+										<h3 className='text-4xl sm:text-6xl font-black italic uppercase tracking-tighter text-text-primary leading-none'>
+											{tUI("vaultSimulator.lootResults")}
+										</h3>
+										<p className='text-text-secondary text-lg sm:text-xl font-bold uppercase tracking-[0.2em] mt-3'>
+											{openAmount}x {tUI(VAULT_CONFIG[selectedVault]?.nameKey)}
+										</p>
+									</div>
+								</div>
+							</div>
 
-						<div className='flex flex-col sm:flex-row gap-6'>
-							<Button
-								variant="primary"
-								onClick={() => handleOpen(selectedVault)}
-								className='px-12 py-5 text-xl rounded-3xl'
-								iconLeft={<RotateCcw className='w-6 h-6' />}
+							{/* Loot Grid */}
+							<div className='bg-surface-bg/40 backdrop-blur-md rounded-[3rem] border border-border p-8 sm:p-16 shadow-2xl relative overflow-hidden'>
+								<div className='absolute inset-0 bg-gradient-to-br from-primary-500/5 via-transparent to-blue-500/5' />
+								<div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 sm:gap-16 relative z-10 justify-items-center'>
+									{loot.map((item, idx) => (
+										<motion.div
+											key={`${item.id}-${idx}`}
+											initial={{ opacity: 0, scale: 0.8, y: 30 }}
+											animate={{ opacity: 1, scale: 1, y: 0 }}
+											transition={{
+												delay: Math.min(idx * 0.05, 1.5),
+												type: "spring",
+												stiffness: 100,
+												damping: 15,
+											}}
+											className='w-full'
+										>
+											<LootItem item={item} />
+										</motion.div>
+									))}
+								</div>
+							</div>
+
+							{/* Actions (Below Display) */}
+							<div className='mt-12 flex flex-wrap justify-center gap-6'>
+								<Button
+									variant='primary'
+									onClick={() => handleOpen(selectedVault, openAmount)}
+									className='px-12 py-5 rounded-[2rem] text-xl font-black italic shadow-xl hover:scale-[1.02]'
+									iconLeft={<RotateCcw className='w-6 h-6' />}
+								>
+									{tUI("vaultSimulator.openAgain")}
+								</Button>
+								<Button
+									variant='secondary'
+									onClick={() => setLoot(null)}
+									className='px-12 py-5 rounded-[2rem] text-xl font-black italic border-2'
+									iconLeft={<ChevronRight className='w-6 h-6 rotate-180' />}
+								>
+									{tUI("vaultSimulator.back")}
+								</Button>
+							</div>
+						</motion.div>
+					)}
+				</AnimatePresence>
+
+				{/* Probability Modal */}
+				<AnimatePresence>
+					{showProbModal && (
+						<div 
+							onClick={() => setShowProbModal(false)}
+							className='fixed inset-0 z-[120] flex items-center justify-center p-2 sm:p-4 bg-black/30 overflow-y-auto custom-scrollbar'
+						>
+							<motion.div
+								onClick={(e) => e.stopPropagation()}
+								initial={{ opacity: 0, scale: 0.95, y: 10 }}
+								animate={{ opacity: 1, scale: 1, y: 0 }}
+								exit={{ opacity: 0, scale: 0.95, y: 10 }}
+								className='relative w-full max-w-3xl bg-[var(--color-modal-bg)] rounded-2xl border border-border shadow-xl p-2 sm:p-4 my-auto flex flex-col max-h-[90vh]'
 							>
-								{tUI("vaultSimulator.openAgain")}
-							</Button>
-							<Button
-								variant="secondary"
-								onClick={() => {
-									setLoot(null);
-									setSelectedVault(null);
-								}}
-								className='px-12 py-5 text-xl rounded-3xl'
-							>
-								{tUI("vaultSimulator.chooseOther")}
-							</Button>
+								<div className='overflow-y-auto max-h-[80vh] custom-scrollbar'>
+									<VaultProbabilityInfo 
+										vaultKey={selectedVault} 
+										onClose={() => setShowProbModal(false)}
+									/>
+								</div>
+							</motion.div>
 						</div>
-					</div>
-				)}
+					)}
+				</AnimatePresence>
 
-				{/* Probability Info Section */}
-				{!isOpening && !loot && (
-					<motion.div
-						initial={{ opacity: 0, y: 30 }}
-						animate={{ opacity: 1, y: 0 }}
-						transition={{ delay: 0.8 }}
-						className='mt-6 sm:mt-24 p-2 sm:p-4 bg-surface-bg border border-border rounded-3xl shadow-sm relative overflow-hidden'
-					>
-						<div className='absolute -top-24 -right-24 w-64 h-64 bg-primary-500/[0.03] blur-[100px]' />
-
-						<div className='flex items-center gap-2 sm:gap-5 mb-2 sm:mb-6'>
-							<div className='p-3 sm:p-4 bg-primary-500/10 text-primary-600 rounded-2xl sm:rounded-3xl border border-primary-500/10'>
-								<Info className='w-6 h-6 sm:w-7 sm:h-7' />
-							</div>
-							<h2 className='text-3xl sm:text-4xl font-black uppercase italic tracking-tight'>
-								{tUI("vaultSimulator.probInfo")}
-							</h2>
-						</div>
-
-						<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-10 text-sm'>
-							<div className='space-y-2s bg-input-bg/40 p-2 sm:p-4 rounded-2xl border border-border hover:border-primary-500/20 transition-all duration-300 shadow-sm'>
-								<h3 className='text-xl sm:text-2xl font-black text-[#cd7f32] uppercase italic underline underline-offset-[12px] decoration-2 decoration-[#cd7f32]/50'>
-									{tUI("vaultSimulator.probBronzeSilverTitle")}
-								</h3>
-								<p className='text-text-secondary leading-relaxed font-secondary text-base whitespace-pre-line pt-1'>
-									{tUI("vaultSimulator.probBronzeSilverDesc")}
-								</p>
-								<div className='pt-4 border-t border-border'>
-									<h4 className='text-xs font-bold text-primary-600 uppercase tracking-widest mb-3'>
-										{tUI("vaultSimulator.sourceTitle")}
-									</h4>
-									<p className='text-text-secondary text-xs leading-relaxed whitespace-pre-line bg-surface-bg rounded-xl'>
-										{tUI("vaultSimulator.sources.bronze") +
-											"\n\n" +
-											tUI("vaultSimulator.sources.silver")}
-									</p>
-								</div>
-							</div>
-							<div className='space-y-6 bg-input-bg/40 p-2 sm:p-4 rounded-2xl border border-border hover:border-primary-500/20 transition-all duration-300 shadow-sm'>
-								<h3 className='text-xl sm:text-2xl font-black text-[#ffd700] uppercase italic underline underline-offset-[12px] decoration-2 decoration-[#ffd700]/50'>
-									{tUI("vaultSimulator.probGoldPlatinumTitle")}
-								</h3>
-								<p className='text-text-secondary leading-relaxed font-secondary text-base whitespace-pre-line pt-2'>
-									{tUI("vaultSimulator.probGoldPlatinumDesc")}
-								</p>
-								<div className='pt-4 border-t border-border'>
-									<h4 className='text-xs font-bold text-primary-600 uppercase tracking-widest mb-3'>
-										{tUI("vaultSimulator.sourceTitle")}
-									</h4>
-									<p className='text-text-secondary text-xs leading-relaxed whitespace-pre-line bg-surface-bg rounded-xl '>
-										{tUI("vaultSimulator.sources.gold") +
-											"\n\n" +
-											tUI("vaultSimulator.sources.platinum")}
-									</p>
-								</div>
-							</div>
-							<div className='space-y-6 bg-input-bg/40 p-2 sm:p-4 rounded-2xl border border-border hover:border-primary-500/20 transition-all duration-300 shadow-sm'>
-								<h3 className='text-xl sm:text-2xl font-black text-[#4eb9d1] uppercase italic underline underline-offset-[12px] decoration-2 decoration-[#b9f2ff]/50'>
-									{tUI("vaultSimulator.probDiamondTitle")}
-								</h3>
-								<p className='text-text-secondary leading-relaxed font-secondary text-base whitespace-pre-line pt-2'>
-									{tUI("vaultSimulator.probDiamondDesc")}
-								</p>
-								<div className='pt-4 border-t border-border'>
-									<h4 className='text-xs font-bold text-primary-600 uppercase tracking-widest mb-3'>
-										{tUI("vaultSimulator.sourceTitle")}
-									</h4>
-									<p className='text-text-secondary text-xs leading-relaxed whitespace-pre-line bg-surface-bg rounded-xl '>
-										{tUI("vaultSimulator.sources.diamond")}
-									</p>
-								</div>
-							</div>
-							<div className='space-y-6 bg-input-bg/40 p-2 sm:p-4 rounded-2xl border border-border hover:border-primary-500/20 transition-all duration-300 shadow-sm'>
-								<h3 className='text-xl sm:text-2xl font-black text-pink-500 uppercase italic underline underline-offset-[12px] decoration-2 decoration-pink-500/50'>
-									{tUI("vaultSimulator.probSpiritBlossomTitle")}
-								</h3>
-								<p className='text-text-secondary leading-relaxed font-secondary text-base whitespace-pre-line pt-2'>
-									{tUI("vaultSimulator.probSpiritBlossomDesc")}
-								</p>
-								<div className='pt-4 border-t border-border'>
-									<h4 className='text-xs font-bold text-primary-600 uppercase tracking-widest mb-3'>
-										{tUI("vaultSimulator.sourceTitle")}
-									</h4>
-									<p className='text-text-secondary text-xs leading-relaxed whitespace-pre-line bg-surface-bg rounded-xl '>
-										{tUI("vaultSimulator.sources.spirit_blossom")}
-									</p>
-								</div>
-							</div>
-						</div>
-					</motion.div>
-				)}
 			</div>
 		</div>
 	);

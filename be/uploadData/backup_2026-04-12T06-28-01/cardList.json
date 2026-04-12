@@ -68642,7 +68642,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98BC001.png",
     "cost": 2,
     "regions": [
-      "Bandle City"
+      "Thành Phố Bandle"
     ],
     "translations": {
       "en": {
@@ -69347,7 +69347,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98NE001.png",
     "cost": 1,
     "regions": [
-      "Neutral"
+      "Trung Lập"
     ],
     "translations": {
       "en": {
@@ -70383,7 +70383,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB001.png",
     "cost": 1,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -70409,7 +70409,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB002.png",
     "cost": 2,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -70437,7 +70437,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB003.png",
     "cost": 1,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -70463,7 +70463,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB004.png",
     "cost": 4,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -70489,7 +70489,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB006.png",
     "cost": 3,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -70517,7 +70517,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB007.png",
     "cost": 1,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -70543,7 +70543,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB008.png",
     "cost": 5,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -70569,7 +70569,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB009.png",
     "cost": 3,
     "regions": [
-      "Spirit Blossom",
+      "Hoa Linh Lục Địa",
       "Ionia"
     ],
     "translations": {
@@ -70597,7 +70597,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB010.png",
     "cost": 1,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -70623,7 +70623,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB010T1.png",
     "cost": 3,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -70649,7 +70649,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB010T2.png",
     "cost": 1,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -70675,7 +70675,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB011.png",
     "cost": 2,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -70703,7 +70703,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB012.png",
     "cost": 3,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -70731,7 +70731,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB012T1.png",
     "cost": 3,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -70759,7 +70759,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB012T2.png",
     "cost": 8,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -70787,7 +70787,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB013.png",
     "cost": 4,
     "regions": [
-      "Spirit Blossom",
+      "Hoa Linh Lục Địa",
       "Runeterra"
     ],
     "translations": {
@@ -70818,7 +70818,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB013T1.png",
     "cost": 3,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -70847,7 +70847,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB013T2.png",
     "cost": 4,
     "regions": [
-      "Spirit Blossom",
+      "Hoa Linh Lục Địa",
       "Runeterra"
     ],
     "translations": {
@@ -70878,7 +70878,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB014.png",
     "cost": 3,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -70904,7 +70904,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB015.png",
     "cost": 8,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -70930,7 +70930,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB016.png",
     "cost": 3,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -70956,7 +70956,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB017.png",
     "cost": 2,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -70982,7 +70982,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB018.png",
     "cost": 5,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -71008,7 +71008,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB019.png",
     "cost": 2,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -71034,7 +71034,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB019T1.png",
     "cost": 2,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -71060,7 +71060,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB019T2.png",
     "cost": 4,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -71086,7 +71086,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB020.png",
     "cost": 4,
     "regions": [
-      "Spirit Blossom",
+      "Hoa Linh Lục Địa",
       "Ionia"
     ],
     "translations": {
@@ -71118,7 +71118,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB020T1.png",
     "cost": 2,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -71147,7 +71147,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB020T2.png",
     "cost": 4,
     "regions": [
-      "Spirit Blossom",
+      "Hoa Linh Lục Địa",
       "Ionia"
     ],
     "translations": {
@@ -71179,7 +71179,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB020T3.png",
     "cost": 2,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -71208,7 +71208,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB020T4.png",
     "cost": 4,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -71237,7 +71237,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB021.png",
     "cost": 3,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -71265,7 +71265,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB024.png",
     "cost": 1,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -71291,7 +71291,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB025.png",
     "cost": 2,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -71319,7 +71319,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB025T2.png",
     "cost": 2,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -71345,7 +71345,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB026.png",
     "cost": 3,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -71371,7 +71371,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB027.png",
     "cost": 3,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -71397,7 +71397,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB030.png",
     "cost": 8,
     "regions": [
-      "Spirit Blossom",
+      "Hoa Linh Lục Địa",
       "Ionia"
     ],
     "translations": {
@@ -71429,7 +71429,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB030T1.png",
     "cost": 3,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -71458,7 +71458,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB030T2.png",
     "cost": 8,
     "regions": [
-      "Spirit Blossom",
+      "Hoa Linh Lục Địa",
       "Ionia"
     ],
     "translations": {
@@ -71490,7 +71490,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB030T3.png",
     "cost": 1,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -71516,8 +71516,8 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB031.png",
     "cost": 3,
     "regions": [
-      "Spirit Blossom",
-      "Bandle City"
+      "Hoa Linh Lục Địa",
+      "Thành Phố Bandle"
     ],
     "translations": {
       "en": {
@@ -71548,7 +71548,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB031T1.png",
     "cost": 3,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -71578,8 +71578,8 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB031T2.png",
     "cost": 3,
     "regions": [
-      "Spirit Blossom",
-      "Bandle City"
+      "Hoa Linh Lục Địa",
+      "Thành Phố Bandle"
     ],
     "translations": {
       "en": {
@@ -71610,7 +71610,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB032.png",
     "cost": 3,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -71636,7 +71636,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB033.png",
     "cost": 3,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -71662,7 +71662,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB035.png",
     "cost": 7,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -71688,7 +71688,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB036.png",
     "cost": 3,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -71714,7 +71714,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB037.png",
     "cost": 15,
     "regions": [
-      "Spirit Blossom",
+      "Hoa Linh Lục Địa",
       "Ionia"
     ],
     "translations": {
@@ -71745,7 +71745,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB037T1.png",
     "cost": 15,
     "regions": [
-      "Spirit Blossom",
+      "Hoa Linh Lục Địa",
       "Ionia"
     ],
     "translations": {
@@ -71776,7 +71776,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB037T2.png",
     "cost": 5,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -71805,7 +71805,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB038.png",
     "cost": 2,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -71831,7 +71831,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB039.png",
     "cost": 5,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -71857,7 +71857,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB040.png",
     "cost": 1,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -71883,7 +71883,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB040T1.png",
     "cost": 4,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -71909,7 +71909,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB040T2.png",
     "cost": 1,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -71935,8 +71935,8 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB041.png",
     "cost": 6,
     "regions": [
-      "Spirit Blossom",
-      "Shadow Isles"
+      "Hoa Linh Lục Địa",
+      "Quần Đảo Bóng Đêm"
     ],
     "translations": {
       "en": {
@@ -71963,7 +71963,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB042.png",
     "cost": 2,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -71989,7 +71989,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB043.png",
     "cost": 5,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -72015,8 +72015,8 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB044.png",
     "cost": 4,
     "regions": [
-      "Spirit Blossom",
-      "Shadow Isles"
+      "Hoa Linh Lục Địa",
+      "Quần Đảo Bóng Đêm"
     ],
     "translations": {
       "en": {
@@ -72048,8 +72048,8 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB044T1.png",
     "cost": 4,
     "regions": [
-      "Spirit Blossom",
-      "Shadow Isles"
+      "Hoa Linh Lục Địa",
+      "Quần Đảo Bóng Đêm"
     ],
     "translations": {
       "en": {
@@ -72080,7 +72080,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB044T2.png",
     "cost": 4,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -72109,7 +72109,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB044T3.png",
     "cost": 1,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -72138,7 +72138,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB044T4.png",
     "cost": 1,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -72167,7 +72167,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB045.png",
     "cost": 1,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -72193,7 +72193,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB046.png",
     "cost": 5,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -72219,7 +72219,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB047.png",
     "cost": 7,
     "regions": [
-      "Spirit Blossom"
+      "Hoa Linh Lục Địa"
     ],
     "translations": {
       "en": {
@@ -72328,7 +72328,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SI002.png",
     "cost": 2,
     "regions": [
-      "Shadow Isles"
+      "Quần Đảo Bóng Đêm"
     ],
     "translations": {
       "en": {
@@ -72354,7 +72354,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SI002T1.png",
     "cost": 2,
     "regions": [
-      "Shadow Isles"
+      "Quần Đảo Bóng Đêm"
     ],
     "translations": {
       "en": {
@@ -72380,7 +72380,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SI002T2.png",
     "cost": 2,
     "regions": [
-      "Shadow Isles"
+      "Quần Đảo Bóng Đêm"
     ],
     "translations": {
       "en": {
@@ -72406,7 +72406,7 @@
     "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SI003.png",
     "cost": 8,
     "regions": [
-      "Shadow Isles"
+      "Quần Đảo Bóng Đêm"
     ],
     "translations": {
       "en": {

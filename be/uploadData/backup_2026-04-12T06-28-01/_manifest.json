@@ -1,5 +1,5 @@
 {
-  "backupDate": "2026-04-11T02:59:25.702Z",
+  "backupDate": "2026-04-12T06:28:20.339Z",
   "region": "us-east-1",
   "tables": [
     {
@@ -64,15 +64,15 @@
     },
     {
       "table": "guidePocPlayStyleRating",
-      "count": 9,
+      "count": 11,
       "success": true
     },
     {
       "table": "guidePocAuditLogs",
-      "count": 42,
+      "count": 61,
       "success": true
     }
   ],
-  "totalItems": 4437,
-  "durationSeconds": "17.1"
+  "totalItems": 4458,
+  "durationSeconds": "18.4"
 }

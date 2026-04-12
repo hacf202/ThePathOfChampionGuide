@@ -508,7 +508,6 @@
         "R0045"
       ]
     ],
-    "communityRatings": null,
     "regions": [
       "Hoa Linh Lục Địa",
       "Ionia"
@@ -542,7 +541,7 @@
       "P0724",
       "P0377",
       "P0067",
-      "P0172",
+      "P0727",
       "P09000"
     ],
     "translations": {
@@ -553,9 +552,17 @@
           "SpiritBlossom",
           "Ionia"
         ],
-        "tags": [],
         "descriptionRaw": "-Ahri Chiêu Hồn nổi bậc với lối chơi đánh xoay quanh bài quân cảm tử là Lửa Hồ Ly.\\n-Nhờ việc triệu hồi được rất nhiều Lửa Hồ Ly thông qua việc sử dụng bài phép 1 tiêu hao trở lên với chỉ số phụ thuộc vào tiêu hao bài phép bạn sử dụng.\\n-Ahri Chiêu Hồn có khả năng đánh nhanh thắng nhanh khi kết hợp cũng các cổ vật tăng chỉ số và ban áp đảo như Quái Thú Bên Trong, Sức Mạnh Khỉ Đá, Linh Hồn Buhru, Bộ Bài Đầy Ấp.\\n-Ahri Chiêu Hồn còn có cả Ngọc bổ trợ đầy mạnh mẽ hỗ trợ cho lối chơi này là Giáp Linh Hồn."
       }
+    },
+    "ratings": {
+      "damage": 8,
+      "synergy": 7.5,
+      "defense": 8.5,
+      "playstyleNote": "",
+      "independence": 9,
+      "consistency": 8,
+      "speed": 7
     },
     "runeIds": [
       "P0857",
@@ -575,7 +582,82 @@
       "P0083"
     ],
     "description": "-Ahri Chiêu Hồn nổi bậc với lối chơi đánh xoay quanh bài quân cảm tử là Lửa Hồ Ly.\\n-Nhờ việc triệu hồi được rất nhiều Lửa Hồ Ly thông qua việc sử dụng bài phép 1 tiêu hao trở lên với chỉ số phụ thuộc vào tiêu hao bài phép bạn sử dụng.\\n-Ahri Chiêu Hồn có khả năng đánh nhanh thắng nhanh khi kết hợp cũng các cổ vật tăng chỉ số và ban áp đảo như Quái Thú Bên Trong, Sức Mạnh Khỉ Đá, [k:Spirit|Linh Hồn] Buhru, Bộ Bài Đầy Ấp.\\n-Ahri Chiêu Hồn còn có cả Ngọc bổ trợ đầy mạnh mẽ hỗ trợ cho lối chơi này là Giáp [k:Spirit|Linh Hồn].",
-    "startingDeck": [],
+    "startingDeck": {
+      "referenceCards": [
+        {
+          "itemCodes": [],
+          "cardCode": "98SB007"
+        },
+        {
+          "itemCodes": [
+            "I0065"
+          ],
+          "cardCode": "98SB010"
+        },
+        {
+          "itemCodes": [
+            "I0125"
+          ],
+          "cardCode": "98SB011"
+        }
+      ],
+      "baseCards": [
+        {
+          "itemCodes": [
+            "I0085"
+          ],
+          "cardCode": "98SB010"
+        },
+        {
+          "itemCodes": [
+            "I0037"
+          ],
+          "cardCode": "01IO042"
+        },
+        {
+          "itemCodes": [
+            "I0071"
+          ],
+          "cardCode": "08IO023"
+        },
+        {
+          "itemCodes": [
+            "I0076"
+          ],
+          "cardCode": "98SB011"
+        },
+        {
+          "itemCodes": [
+            "I0088"
+          ],
+          "cardCode": "98SB019"
+        },
+        {
+          "itemCodes": [
+            "I0042",
+            "I0129"
+          ],
+          "cardCode": "98SB009"
+        },
+        {
+          "itemCodes": [
+            "I0120"
+          ],
+          "cardCode": "98SB012"
+        },
+        {
+          "itemCodes": [],
+          "cardCode": "98SB020"
+        },
+        {
+          "itemCodes": [
+            "I0058",
+            "I0064"
+          ],
+          "cardCode": "98SB008"
+        }
+      ]
+    },
     "tags": []
   },
   {
@@ -1372,7 +1454,6 @@
         "R0113"
       ]
     ],
-    "communityRatings": null,
     "regions": [
       "Shurima"
     ],
@@ -1414,9 +1495,17 @@
         "regions": [
           "Shurima"
         ],
-        "tags": [],
         "descriptionRaw": "-Akshan là tướng có lối chơi đặc biệt với sự kết hợp giữa bài quân và địa danh.\\n-Khi địa danh đếm ngược bài quân được tăng sức mạnh và khi hoàn tất đếm ngược địa danh thì kích hoạt 2 thay vì 1 lần.\\n-Akshan có khả năng ra đòn nhanh nhờ bài phép anh hùng để đẩy nhanh địa danh, giảm tiêu hao, dàn quân, rút bài nhờ tư dinh chiến tướng.\\n-Khả năng ra đòn siêu tốc nếu nâng đủ mốc giúp Ashan công hoặc thủ đều khá toàn diện.\\n-Akshan có thể kết hợp với các cổ vật, sức mạnh chọn mục tiêu như Lõi Công Nghệ Hoàn Hảo, Đặc Ân Người Thợ để đẩy nhanh tốc độ lên cấp của Akshan."
       }
+    },
+    "ratings": {
+      "damage": 9,
+      "synergy": 10,
+      "defense": 9.5,
+      "playstyleNote": "",
+      "independence": 7,
+      "consistency": 9,
+      "speed": 8
     },
     "runeIds": [],
     "adventurePowerIds": [
@@ -1431,7 +1520,84 @@
       "P0062"
     ],
     "description": "-[cd:04SH130|Akshan|icon,img-full] là tướng có lối chơi đặc biệt với sự kết hợp giữa bài quân và địa danh.\\n-Khi địa danh đếm ngược bài quân được tăng sức mạnh và khi hoàn tất đếm ngược địa danh thì kích hoạt 2 thay vì 1 lần.\\n-[cd:04SH130|Akshan|icon,img-full] có khả năng ra đòn nhanh nhờ bài phép anh hùng để đẩy nhanh địa danh, giảm tiêu hao, dàn quân, rút bài nhờ tư dinh chiến tướng.\\n-Khả năng ra đòn siêu tốc nếu nâng đủ mốc giúp Ashan công hoặc thủ đều khá toàn diện.\\n-[cd:04SH130|Akshan|icon,img-full] có thể kết hợp với các cổ vật, sức mạnh chọn mục tiêu như Lõi Công Nghệ Hoàn Hảo, Đặc Ân Người Thợ để đẩy nhanh tốc độ lên cấp của [cd:04SH130|Akshan|icon,img-full].",
-    "startingDeck": [],
+    "startingDeck": {
+      "referenceCards": [
+        {
+          "itemCodes": [],
+          "cardCode": "04SH130T1"
+        },
+        {
+          "itemCodes": [],
+          "cardCode": "06FR012T1"
+        },
+        {
+          "itemCodes": [],
+          "cardCode": "04SH130T6"
+        },
+        {
+          "itemCodes": [
+            "I0108"
+          ],
+          "cardCode": "04SH131"
+        }
+      ],
+      "baseCards": [
+        {
+          "itemCodes": [
+            "I0038",
+            "I0124"
+          ],
+          "cardCode": "04SH054"
+        },
+        {
+          "itemCodes": [],
+          "cardCode": "04SH130"
+        },
+        {
+          "itemCodes": [
+            "I0055"
+          ],
+          "cardCode": "04SH109"
+        },
+        {
+          "itemCodes": [
+            "I0065"
+          ],
+          "cardCode": "04SH138"
+        },
+        {
+          "itemCodes": [
+            "I0070"
+          ],
+          "cardCode": "08SH012"
+        },
+        {
+          "itemCodes": [
+            "I0116"
+          ],
+          "cardCode": "04SH131"
+        },
+        {
+          "itemCodes": [
+            "I0126"
+          ],
+          "cardCode": "04SH128"
+        },
+        {
+          "itemCodes": [
+            "I0017"
+          ],
+          "cardCode": "04SH125"
+        },
+        {
+          "itemCodes": [
+            "I0007",
+            "I0042"
+          ],
+          "cardCode": "04SH129"
+        }
+      ]
+    },
     "tags": []
   },
   {
@@ -1571,7 +1737,6 @@
         "R0089"
       ]
     ],
-    "communityRatings": null,
     "regions": [
       "Noxus"
     ],
@@ -1600,7 +1765,7 @@
     ],
     "powerStarIds": [
       "P0435",
-      "P0843",
+      "P0436",
       "P0438",
       "P0386",
       "P0067",
@@ -1613,9 +1778,17 @@
         "regions": [
           "Noxus"
         ],
-        "tags": [],
         "descriptionRaw": "-Ambessa sở hữu sức mạnh vượt trội với khả năng tăng tiến sức mạnh nhanh chóng cho các bài quân cùng loại.\\n-Sở hữu sức mạnh Huấn Luyện Đội Hình cho phép bài quân cùng tên nhận thêm máu và sức mạnh mỗi lần tấn công. Tấn công với càng nhiều bài quân cùng tên bài quân đó càng mạnh.\\n-Sức mạnh phù hợp cho Ambessa là các sức mạnh triệu hồi 2 bài quân khi bắt đầu trận, Chậm Mà Chắc, Pháp Thuật, Thống Trị,...\\n- Cổ vật Kéo Cắt Ma Quái, Bộ Bài Đầy Ấp kết hợp cực tốt với khả năng tăng tiến sức mạnh của Ambessa."
       }
+    },
+    "ratings": {
+      "damage": 5,
+      "synergy": 5,
+      "defense": 5,
+      "playstyleNote": "",
+      "independence": 5,
+      "consistency": 5,
+      "speed": 5
     },
     "runeIds": [],
     "adventurePowerIds": [
@@ -1630,7 +1803,78 @@
       "P0112"
     ],
     "description": "-Ambessa sở hữu sức mạnh vượt trội với khả năng tăng tiến sức mạnh nhanh chóng cho các bài quân cùng loại.\\n-Sở hữu sức mạnh Huấn Luyện Đội Hình cho phép bài quân cùng tên nhận thêm máu và sức mạnh mỗi lần tấn công. Tấn công với càng nhiều bài quân cùng tên bài quân đó càng mạnh.\\n-Sức mạnh phù hợp cho Ambessa là các sức mạnh triệu hồi 2 bài quân khi bắt đầu trận, [k:Slow|Chậm] Mà Chắc, Pháp Thuật, Thống Trị,...\\n- Cổ vật Kéo Cắt Ma Quái, Bộ Bài Đầy Ấp kết hợp cực tốt với khả năng tăng tiến sức mạnh của [cd:98NX003|Ambessa|icon,img-full].",
-    "startingDeck": [],
+    "startingDeck": {
+      "referenceCards": [
+        {
+          "itemCodes": [
+            "I0055"
+          ],
+          "cardCode": "98NX007"
+        },
+        {
+          "itemCodes": [
+            "I0012"
+          ],
+          "cardCode": "01NX024"
+        }
+      ],
+      "baseCards": [
+        {
+          "itemCodes": [
+            "I0065"
+          ],
+          "cardCode": "98NX005"
+        },
+        {
+          "itemCodes": [
+            "I0017"
+          ],
+          "cardCode": "03NX003"
+        },
+        {
+          "itemCodes": [
+            "I0078",
+            "I0038"
+          ],
+          "cardCode": "01NX037"
+        },
+        {
+          "itemCodes": [
+            "I0008",
+            "I0069"
+          ],
+          "cardCode": "98NX008"
+        },
+        {
+          "itemCodes": [
+            "I0047"
+          ],
+          "cardCode": "01NX017"
+        },
+        {
+          "itemCodes": [
+            "I0039"
+          ],
+          "cardCode": "01NX021"
+        },
+        {
+          "itemCodes": [],
+          "cardCode": "98NX003"
+        },
+        {
+          "itemCodes": [
+            "I0057"
+          ],
+          "cardCode": "98NX004"
+        },
+        {
+          "itemCodes": [
+            "I0007"
+          ],
+          "cardCode": "01NX024"
+        }
+      ]
+    },
     "tags": []
   },
   {
@@ -3915,26 +4159,13 @@
         "R0080",
         "R0023",
         "R0034"
+      ],
+      [
+        "R0134",
+        "R0034",
+        "R0108"
       ]
     ],
-    "communityRatings": {
-      "damage": 7.5,
-      "synergy": 7.5,
-      "defense": 7,
-      "count": 2,
-      "communityOnlyAvg": {
-        "damage": 10,
-        "synergy": 10,
-        "userCount": 1,
-        "defense": 9,
-        "independence": 7,
-        "consistency": 7,
-        "speed": 8
-      },
-      "independence": 6,
-      "consistency": 6,
-      "speed": 6.5
-    },
     "regions": [
       "Runeterra"
     ],
@@ -3976,9 +4207,17 @@
         "regions": [
           "Runeterra"
         ],
-        "tags": [],
         "descriptionRaw": "-Jhin mang một lối chơi cân bằng bằng đến hoàn hảo khi có đủ mọi thứ mà người chơi cần từ bài quân mạnh mẽ, bài phép gây sát thương, hiệu ứng khống chế, hồi phuc.\\n-Các lá bài nổi bật như: Hải tặc thiện xạ, Hậu đài viên, Phát bắn thần bí, Yone truy phong. Thật sự đối với tôi đây là bộ bài hoàn hảo nhất không có là nào lá yếu hay thừa thải cả, các lá bài đều nằm ở mức ổn cho đến tốt.\\n-Lối chơi chủ đạo của Jhin là gây sát thương rỉa bằng bài phép và kỹ năng cùng khả năng phòng thủ vượt trội với lượng choáng dồi dào khi bạn có 2 lá choáng bằng kỹ năng và khi sử dụng kỹ năng sẽ tạo ra thêm lá choáng.\\n-Các sức mạnh nên chọn khi phiêu lưu: Xả phép hành loạt, Hồi kết bùng nổ, Luồng gió nguyên tố, Hỏa cuồng. Các sức mạnh phụ trợ cho việc cấu máu đối phương nhanh chóng.\\n\\n"
       }
+    },
+    "ratings": {
+      "damage": 5,
+      "synergy": 5,
+      "defense": 5,
+      "playstyleNote": "",
+      "independence": 5,
+      "consistency": 5,
+      "speed": 5
     },
     "runeIds": [],
     "adventurePowerIds": [
@@ -3993,7 +4232,10 @@
       "P0444"
     ],
     "description": "-Jhin mang một lối chơi cân bằng bằng đến hoàn hảo khi có đủ mọi thứ mà người chơi cần từ bài quân mạnh mẽ, bài phép gây sát thương, hiệu ứng khống chế, hồi phuc.\\n-Các lá bài nổi bật như: Hải tặc thiện xạ, Hậu đài viên, Phát bắn thần bí, Yone truy phong. Thật sự đối với tôi đây là bộ bài hoàn hảo nhất không có là nào lá yếu hay thừa thải cả, các lá bài đều nằm ở mức ổn cho đến tốt.\\n-Lối chơi chủ đạo của Jhin là gây sát thương rỉa bằng bài phép và kỹ năng cùng khả năng phòng thủ vượt trội với lượng choáng dồi dào khi bạn có 2 lá choáng bằng kỹ năng và khi sử dụng kỹ năng sẽ tạo ra thêm lá choáng.\\n-Các sức mạnh nên chọn khi phiêu lưu: Xả phép hành loạt, Hồi kết bùng nổ, Luồng gió nguyên tố, Hỏa cuồng. Các sức mạnh phụ trợ cho việc cấu máu đối phương nhanh chóng.\\n\\n",
-    "startingDeck": [],
+    "startingDeck": {
+      "referenceCards": [],
+      "baseCards": []
+    },
     "tags": []
   },
   {
@@ -6081,7 +6323,8 @@
       "I0014",
       "I0044",
       "I0067",
-      "I0118"
+      "I0118",
+      "I0015"
     ],
     "championID": "C063",
     "descriptionRaw": "-Ahri có lối chơi xoay quanh việc thu về, thông thường thì khi bạn thu về chỉ số và đặc điểm sẽ mất, nhưng với sức mạnh Lời Thì Thầm Từ Kiếp Trước cho phép Ahri giữ lại các chỉ số, đặc điểm được ban vĩnh viễn và còn được giảm tiêu hao.\n-Khi bạn triệu hồi hoặc thu về thì sẽ được ban linh hồn, qua đó gia tăng chỉ số một cách nhanh chóng.\n-Ahri kết hợp tốt với các cổ vật, vật phẩm giảm tiêu hao hoặc kích hoạt hiệu ứng triệu hồi / xuất trận.",
@@ -6113,13 +6356,13 @@
       }
     },
     "ratings": {
-      "damage": 5,
-      "synergy": 5,
-      "defense": 5,
+      "damage": 10,
+      "synergy": 10,
+      "defense": 8.1,
       "playstyleNote": "",
-      "independence": 5,
-      "consistency": 5,
-      "speed": 5
+      "independence": 7,
+      "consistency": 9,
+      "speed": 8.5
     },
     "runeIds": [],
     "adventurePowerIds": [
@@ -6131,12 +6374,75 @@
       "P0451",
       "P0090",
       "P0067",
-      "P0069"
+      "P0069",
+      "P0084"
     ],
     "description": "-Ahri có lối chơi xoay quanh việc thu về, thông thường thì khi bạn thu về chỉ số và đặc điểm sẽ mất, nhưng với sức mạnh [p:P0531|Lời Thì Thầm Từ Kiếp Trước|icon] cho phép Ahri giữ lại các chỉ số, đặc điểm được ban vĩnh viễn và còn được giảm tiêu hao.\\n-Khi bạn triệu hồi hoặc thu về thì sẽ được ban linh hồn, qua đó gia tăng chỉ số một cách nhanh chóng.\\n-Ahri kết hợp tốt với các cổ vật, vật phẩm giảm tiêu hao hoặc kích hoạt hiệu ứng triệu hồi / xuất trận.",
     "startingDeck": {
-      "referenceCards": [],
-      "baseCards": []
+      "referenceCards": [
+        {
+          "itemCodes": [
+            "I0008"
+          ],
+          "cardCode": "06IO004"
+        }
+      ],
+      "baseCards": [
+        {
+          "itemCodes": [
+            "I0055"
+          ],
+          "cardCode": "05IO023"
+        },
+        {
+          "itemCodes": [
+            "I0113"
+          ],
+          "cardCode": "01IO042"
+        },
+        {
+          "itemCodes": [
+            "I0034"
+          ],
+          "cardCode": "04IO015"
+        },
+        {
+          "itemCodes": [],
+          "cardCode": "05IO004"
+        },
+        {
+          "itemCodes": [
+            "I0013",
+            "I0144"
+          ],
+          "cardCode": "09IO053"
+        },
+        {
+          "itemCodes": [
+            "I0065"
+          ],
+          "cardCode": "09IO056"
+        },
+        {
+          "itemCodes": [
+            "I0041"
+          ],
+          "cardCode": "06IO004"
+        },
+        {
+          "itemCodes": [
+            "I0007",
+            "I0040"
+          ],
+          "cardCode": "05IO003"
+        },
+        {
+          "itemCodes": [
+            "I0092"
+          ],
+          "cardCode": "03IO005"
+        }
+      ]
     },
     "tags": []
   },
@@ -7336,7 +7642,7 @@
       "I0040"
     ],
     "championID": "C076",
-    "descriptionRaw": "-Quỷ Kiếm Darkin, lối chơi kiểm soát bằng cách sử dụng các trang bị Darkin. \n-Sức mạnh của Aatrox nằm phần lớn ở sức mạnh Xiềng Xích Địa Ngục giúp giảm tiêu hao bài trên tay khi đồng minh mang trang bị ra đòn, nghĩa là bạn ra đòn bằng bài quân mang trang bị càng nhiều thì những lá bài trên tay bàng càng dễ sử dụng, khi mở khóa mốc sao Trang Bị Tận Răng thì bài quân có thêm +2|+2 làm cho các bài quân của bạn trở nên cứng cáp và trao đổi hiệu quả hơn nhiều.\n-Vì là 1 tướng cần set up nên Aatrox rất tốn năng lượng nên bạn có thể nâng hoặc lấy các sức mạnh, vật phẩm liên qua đến giảm năng lượng để dễ triển khai hơn, với sức mạnh thì tốt nhất là Pháp Thuật cho bạn năng lượng bài phép để lắp trang bị hoặc những sức mạnh triệu hồi quân khi bắt đầu trận đấu để thay vì việc bỏ năng lượng ra để triệu hồi quân sau đó lắp trang bị thì giờ bạn chỉ cần lắp trang bị lên bài quân có sẵn trên bàn (tin tôi đi nó sẽ hiệu giúp bạn triển khai hiệu quả hơn rất nhiều :D)\n-Có 1 mẹo giúp bạn có 2 Aatrox là bạn hãy lắp trang bị Darkin cho một tùy tùng khác sau đó dùng Chiến binh tận thế thì bạn sẽ có được 2 Aatrox. Cách làm sẽ là lắp 1 trang bị bất kì vào Aatrox để tháo trang bị Darkin của hắn ra -> lắp trang bị Quỷ Kiếm Darkin vào tùy tùng khác -> dùng Chiến binh tận thế. \n6sao",
+    "descriptionRaw": "-Quỷ Kiếm Darkin, lối chơi kiểm soát bằng cách sử dụng các trang bị Darkin. \n-Sức mạnh của Aatrox nằm phần lớn ở sức mạnh Xiềng Xích Địa Ngục giúp giảm tiêu hao bài trên tay khi đồng minh mang trang bị ra đòn, nghĩa là bạn ra đòn bằng bài quân mang trang bị càng nhiều thì những lá bài trên tay bàng càng dễ sử dụng, khi mở khóa mốc sao Trang Bị Tận Răng thì bài quân có thêm +2|+2 làm cho các bài quân của bạn trở nên cứng cáp và trao đổi hiệu quả hơn nhiều.\n-Vì là 1 tướng cần set up nên Aatrox  rất tốn năng lượng nên bạn có thể nâng hoặc lấy các sức mạnh, vật phẩm liên qua đến giảm năng lượng để dễ triển khai hơn, với sức mạnh thì tốt nhất là Pháp Thuật cho bạn năng lượng bài phép để lắp trang bị hoặc những sức mạnh triệu hồi quân khi bắt đầu trận đấu để thay vì việc bỏ năng lượng ra để triệu hồi quân sau đó lắp trang bị thì giờ bạn chỉ cần lắp trang bị lên bài quân có sẵn trên bàn (tin tôi đi nó sẽ hiệu giúp bạn triển khai hiệu quả hơn rất nhiều :D)\n-Có 1 mẹo giúp bạn có 2 Aatrox  là bạn hãy lắp trang bị Darkin cho một tùy tùng khác sau đó dùng Chiến binh tận thế thì bạn sẽ có được 2 Aatrox. Cách làm sẽ là lắp 1 trang bị bất kì vào Aatrox để tháo trang bị Darkin của hắn ra -> lắp trang bị Quỷ Kiếm Darkin vào tùy tùng khác -> dùng Chiến binh tận thế. ",
     "name": "Aatrox",
     "assets": [
       {
@@ -7357,11 +7663,11 @@
     "translations": {
       "en": {
         "name": "Aatrox",
-        "description": "-Quỷ Kiếm Darkin, lối chơi kiểm soát bằng cách sử dụng các trang bị Darkin.\\n-Sức mạnh của [cd:06RU026|Aatrox|icon,img-full] nằm phần lớn ở sức mạnh Xiềng Xích Địa Ngục giúp giảm tiêu hao bài trên tay khi đồng minh mang trang bị ra đòn, nghĩa là bạn ra đòn bằng bài quân mang trang bị càng nhiều thì những lá bài trên tay bàng càng dễ sử dụng, khi mở khóa mốc sao Trang Bị Tận Răng thì bài quân có thêm +2|+2 làm cho các bài quân của bạn trở nên cứng cáp và trao đổi hiệu quả hơn nhiều.\\n-Vì là 1 tướng cần set up nên [cd:06RU026|Aatrox|icon,img-full] rất tốn năng lượng nên bạn có thể nâng hoặc lấy các sức mạnh, vật phẩm liên qua đến giảm năng lượng để dễ triển khai hơn, với sức mạnh thì tốt nhất là Pháp Thuật cho bạn năng lượng bài phép để lắp trang bị hoặc những sức mạnh triệu hồi quân khi bắt đầu trận đấu để thay vì việc bỏ năng lượng ra để triệu hồi quân sau đó lắp trang bị thì giờ bạn chỉ cần lắp trang bị lên bài quân có sẵn trên bàn (tin tôi đi nó sẽ hiệu giúp bạn triển khai hiệu quả hơn rất nhiều :D)\\n-Có 1 mẹo giúp bạn có 2 [cd:06RU026|Aatrox|icon,img-full] là bạn hãy lắp trang bị Darkin cho một tùy tùng khác sau đó dùng Chiến binh tận thế thì bạn sẽ có được 2 [cd:06RU026|Aatrox|icon,img-full]. Cách làm sẽ là lắp 1 trang bị bất kì vào [cd:06RU026|Aatrox|icon,img-full] để tháo trang bị Darkin của hắn ra -> lắp trang bị Quỷ Kiếm Darkin vào tùy tùng khác -> dùng Chiến binh tận thế. ",
+        "description": "-[cd:06RU026T1|Quỷ Kiếm Darkin|icon,img-full], lối chơi kiểm soát bằng cách sử dụng các trang bị Darkin. \\n-Sức mạnh của [c:C076|Aatrox |icon,img-full]nằm phần lớn ở sức mạnh [p:P0158|Xiềng Xích Địa Ngục|icon] giúp giảm tiêu hao bài trên tay khi đồng minh mang trang bị ra đòn, nghĩa là bạn ra đòn bằng bài quân mang trang bị càng nhiều thì những lá bài trên tay bàng càng dễ sử dụng, khi mở khóa mốc sao [p:P0389|Trang Bị Tận Răng|icon] thì bài quân có thêm +2|+2 làm cho các bài quân của bạn trở nên cứng cáp và trao đổi hiệu quả hơn nhiều.\\n-Vì là 1 tướng cần set up nên [cd:06RU026|Aatrox |icon] rất tốn năng lượng nên bạn có thể nâng hoặc lấy các sức mạnh, vật phẩm liên qua đến giảm năng lượng để dễ triển khai hơn, với sức mạnh thì tốt nhất là [p:P0111|Pháp Thuật|icon] cho bạn năng lượng bài phép để lắp trang bị hoặc những sức mạnh triệu hồi quân khi bắt đầu trận đấu để thay vì việc bỏ năng lượng ra để triệu hồi quân sau đó lắp trang bị thì giờ bạn chỉ cần lắp trang bị lên bài quân có sẵn trên bàn (tin tôi đi nó sẽ hiệu giúp bạn triển khai hiệu quả hơn rất nhiều :D)\\n-Có 1 mẹo giúp bạn có 2 [cd:06RU026|Aatrox |icon] là bạn hãy lắp trang bị Darkin cho một tùy tùng khác sau đó dùng [cd:06RU026T7|Chiến binh tận thế|icon] thì bạn sẽ có được 2 [cd:06RU026|Aatrox|icon]. Cách làm sẽ là lắp 1 trang bị bất kì vào [cd:06RU026|Aatrox|icon] để tháo trang bị Darkin của hắn ra -> lắp trang bị [cd:06RU026T1|Quỷ Kiếm Darkin|icon,img-full] vào tùy tùng khác -> dùng [cd:06RU026T7|Chiến binh tận thế|icon]. ",
         "regions": [
           "Runeterra"
         ],
-        "descriptionRaw": "-Quỷ Kiếm Darkin, lối chơi kiểm soát bằng cách sử dụng các trang bị Darkin.\\n-Sức mạnh của Aatrox nằm phần lớn ở sức mạnh Xiềng Xích Địa Ngục giúp giảm tiêu hao bài trên tay khi đồng minh mang trang bị ra đòn, nghĩa là bạn ra đòn bằng bài quân mang trang bị càng nhiều thì những lá bài trên tay bàng càng dễ sử dụng, khi mở khóa mốc sao Trang Bị Tận Răng thì bài quân có thêm +2|+2 làm cho các bài quân của bạn trở nên cứng cáp và trao đổi hiệu quả hơn nhiều.\\n-Vì là 1 tướng cần set up nên Aatrox rất tốn năng lượng nên bạn có thể nâng hoặc lấy các sức mạnh, vật phẩm liên qua đến giảm năng lượng để dễ triển khai hơn, với sức mạnh thì tốt nhất là Pháp Thuật cho bạn năng lượng bài phép để lắp trang bị hoặc những sức mạnh triệu hồi quân khi bắt đầu trận đấu để thay vì việc bỏ năng lượng ra để triệu hồi quân sau đó lắp trang bị thì giờ bạn chỉ cần lắp trang bị lên bài quân có sẵn trên bàn (tin tôi đi nó sẽ hiệu giúp bạn triển khai hiệu quả hơn rất nhiều :D)\\n-Có 1 mẹo giúp bạn có 2 Aatrox là bạn hãy lắp trang bị Darkin cho một tùy tùng khác sau đó dùng Chiến binh tận thế thì bạn sẽ có được 2 Aatrox. Cách làm sẽ là lắp 1 trang bị bất kì vào Aatrox để tháo trang bị Darkin của hắn ra -> lắp trang bị Quỷ Kiếm Darkin vào tùy tùng khác -> dùng Chiến binh tận thế. "
+        "descriptionRaw": "-Quỷ Kiếm Darkin, lối chơi kiểm soát bằng cách sử dụng các trang bị Darkin. \n-Sức mạnh của Aatrox nằm phần lớn ở sức mạnh Xiềng Xích Địa Ngục giúp giảm tiêu hao bài trên tay khi đồng minh mang trang bị ra đòn, nghĩa là bạn ra đòn bằng bài quân mang trang bị càng nhiều thì những lá bài trên tay bàng càng dễ sử dụng, khi mở khóa mốc sao Trang Bị Tận Răng thì bài quân có thêm +2|+2 làm cho các bài quân của bạn trở nên cứng cáp và trao đổi hiệu quả hơn nhiều.\n-Vì là 1 tướng cần set up nên Aatrox  rất tốn năng lượng nên bạn có thể nâng hoặc lấy các sức mạnh, vật phẩm liên qua đến giảm năng lượng để dễ triển khai hơn, với sức mạnh thì tốt nhất là Pháp Thuật cho bạn năng lượng bài phép để lắp trang bị hoặc những sức mạnh triệu hồi quân khi bắt đầu trận đấu để thay vì việc bỏ năng lượng ra để triệu hồi quân sau đó lắp trang bị thì giờ bạn chỉ cần lắp trang bị lên bài quân có sẵn trên bàn (tin tôi đi nó sẽ hiệu giúp bạn triển khai hiệu quả hơn rất nhiều :D)\n-Có 1 mẹo giúp bạn có 2 Aatrox  là bạn hãy lắp trang bị Darkin cho một tùy tùng khác sau đó dùng Chiến binh tận thế thì bạn sẽ có được 2 Aatrox. Cách làm sẽ là lắp 1 trang bị bất kì vào Aatrox để tháo trang bị Darkin của hắn ra -> lắp trang bị Quỷ Kiếm Darkin vào tùy tùng khác -> dùng Chiến binh tận thế. "
       }
     },
     "ratings": {
@@ -7385,10 +7691,108 @@
       "P0389",
       "P0053"
     ],
-    "description": "-[cd:06RU026T1|Quỷ Kiếm Darkin|icon,img-full], lối chơi kiểm soát bằng cách sử dụng các trang bị Darkin. \\n-Sức mạnh của [c:C076|Aatrox |icon,img-full]nằm phần lớn ở sức mạnh [p:P0158|Xiềng Xích Địa Ngục|icon,img-full] giúp giảm tiêu hao bài trên tay khi đồng minh mang trang bị ra đòn, nghĩa là bạn ra đòn bằng bài quân mang trang bị càng nhiều thì những lá bài trên tay bàng càng dễ sử dụng, khi mở khóa mốc sao Trang Bị Tận Răng thì bài quân có thêm +2|+2 làm cho các bài quân của bạn trở nên cứng cáp và trao đổi hiệu quả hơn nhiều.\\n-Vì là 1 tướng cần set up nên Aatrox rất tốn năng lượng nên bạn có thể nâng hoặc lấy các sức mạnh, vật phẩm liên qua đến giảm năng lượng để dễ triển khai hơn, với sức mạnh thì tốt nhất là Pháp Thuật cho bạn năng lượng bài phép để lắp trang bị hoặc những sức mạnh triệu hồi quân khi bắt đầu trận đấu để thay vì việc bỏ năng lượng ra để triệu hồi quân sau đó lắp trang bị thì giờ bạn chỉ cần lắp trang bị lên bài quân có sẵn trên bàn (tin tôi đi nó sẽ hiệu giúp bạn triển khai hiệu quả hơn rất nhiều :D)\\n-Có 1 mẹo giúp bạn có 2 Aatrox là bạn hãy lắp trang bị Darkin cho một tùy tùng khác sau đó dùng Chiến binh tận thế thì bạn sẽ có được 2 Aatrox. Cách làm sẽ là lắp 1 trang bị bất kì vào Aatrox để tháo trang bị Darkin của hắn ra -> lắp trang bị [cd:06RU026T1|Quỷ Kiếm Darkin|icon,img-full] vào tùy tùng khác -> dùng Chiến binh tận thế. \\n[cap:6sao]",
+    "description": "-[cd:06RU026T1|Quỷ Kiếm Darkin|icon,img-full], lối chơi kiểm soát bằng cách sử dụng các trang bị Darkin. \\n-Sức mạnh của [c:C076|Aatrox |icon,img-full]nằm phần lớn ở sức mạnh [p:P0158|Xiềng Xích Địa Ngục|icon] giúp giảm tiêu hao bài trên tay khi đồng minh mang trang bị ra đòn, nghĩa là bạn ra đòn bằng bài quân mang trang bị càng nhiều thì những lá bài trên tay bàng càng dễ sử dụng, khi mở khóa mốc sao [p:P0389|Trang Bị Tận Răng|icon] thì bài quân có thêm +2|+2 làm cho các bài quân của bạn trở nên cứng cáp và trao đổi hiệu quả hơn nhiều.\\n-Vì là 1 tướng cần set up nên [cd:06RU026|Aatrox |icon] rất tốn năng lượng nên bạn có thể nâng hoặc lấy các sức mạnh, vật phẩm liên qua đến giảm năng lượng để dễ triển khai hơn, với sức mạnh thì tốt nhất là [p:P0111|Pháp Thuật|icon] cho bạn năng lượng bài phép để lắp trang bị hoặc những sức mạnh triệu hồi quân khi bắt đầu trận đấu để thay vì việc bỏ năng lượng ra để triệu hồi quân sau đó lắp trang bị thì giờ bạn chỉ cần lắp trang bị lên bài quân có sẵn trên bàn (tin tôi đi nó sẽ hiệu giúp bạn triển khai hiệu quả hơn rất nhiều :D)\\n-Có 1 mẹo giúp bạn có 2 [cd:06RU026|Aatrox |icon] là bạn hãy lắp trang bị Darkin cho một tùy tùng khác sau đó dùng [cd:06RU026T7|Chiến binh tận thế|icon] thì bạn sẽ có được 2 [cd:06RU026|Aatrox|icon]. Cách làm sẽ là lắp 1 trang bị bất kì vào [cd:06RU026|Aatrox|icon] để tháo trang bị Darkin của hắn ra -> lắp trang bị [cd:06RU026T1|Quỷ Kiếm Darkin|icon,img-full] vào tùy tùng khác -> dùng [cd:06RU026T7|Chiến binh tận thế|icon]. ",
     "startingDeck": {
-      "referenceCards": [],
+      "referenceCards": [
+        {
+          "itemCodes": [
+            "I0056",
+            "I0056"
+          ],
+          "cardCode": "06RU026T7"
+        },
+        {
+          "itemCodes": [],
+          "cardCode": "06SI007"
+        },
+        {
+          "itemCodes": [],
+          "cardCode": "06BC029"
+        },
+        {
+          "itemCodes": [],
+          "cardCode": "06MT006"
+        },
+        {
+          "itemCodes": [],
+          "cardCode": "06FR018"
+        },
+        {
+          "itemCodes": [],
+          "cardCode": "06NX020"
+        },
+        {
+          "itemCodes": [],
+          "cardCode": "06BW014"
+        },
+        {
+          "itemCodes": [],
+          "cardCode": "06SH004"
+        },
+        {
+          "itemCodes": [],
+          "cardCode": "06DE011"
+        },
+        {
+          "itemCodes": [],
+          "cardCode": "06IO023"
+        },
+        {
+          "itemCodes": [],
+          "cardCode": "06PZ008"
+        }
+      ],
       "baseCards": [
+        {
+          "itemCodes": [
+            "I0076"
+          ],
+          "cardCode": "06SH005"
+        },
+        {
+          "itemCodes": [
+            "I0038"
+          ],
+          "cardCode": "06DE029"
+        },
+        {
+          "itemCodes": [
+            "I0040"
+          ],
+          "cardCode": "06BC029"
+        },
+        {
+          "itemCodes": [
+            "I0037"
+          ],
+          "cardCode": "06DE011"
+        },
+        {
+          "itemCodes": [
+            "I0041"
+          ],
+          "cardCode": "06SI006"
+        },
+        {
+          "itemCodes": [
+            "I0053",
+            "I0066"
+          ],
+          "cardCode": "06PZ037"
+        },
+        {
+          "itemCodes": [
+            "I0000",
+            "I0055"
+          ],
+          "cardCode": "06NX034"
+        },
+        {
+          "itemCodes": [
+            "I0037"
+          ],
+          "cardCode": "06BC028"
+        },
         {
           "itemCodes": [],
           "cardCode": "06RU026"
@@ -8271,7 +8675,24 @@
     "relicSets": [
       []
     ],
-    "communityRatings": null,
+    "communityRatings": {
+      "damage": 7.5,
+      "synergy": 5,
+      "defense": 5,
+      "count": 2,
+      "communityOnlyAvg": {
+        "damage": 10,
+        "synergy": 5,
+        "userCount": 1,
+        "defense": 5,
+        "independence": 10,
+        "consistency": 10,
+        "speed": 5
+      },
+      "independence": 7.5,
+      "consistency": 7.5,
+      "speed": 5
+    },
     "regions": [
       "Thành Phố Bandle",
       "Ionia"

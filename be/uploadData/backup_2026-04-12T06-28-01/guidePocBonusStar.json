@@ -183,14 +183,14 @@
     "translations": {
       "en": {
         "name": "Star of Discovery",
-        "description": "Equipment you acquire in adventures have Phage.",
+        "description": "[k:Equipment |Equipment |no-icon] you acquire in adventures have [i:I0040|Phage|icon].",
         "descriptionRaw": "Equipment you acquire in adventures have Phage."
       }
     },
     "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
     "nodeType": "bonusStar",
     "descriptionRaw": "Trang Bị bạn thu thập trong chuyến phiêu lưu có Búa Gỗ.",
-    "description": "Trang Bị bạn thu thập trong chuyến phiêu lưu có Búa Gỗ.",
+    "description": "[k:Trang Bị|Trang Bị|no-icon] bạn thu thập trong chuyến phiêu lưu có [i:I0040|Búa Gỗ|icon].",
     "bonusStarID": "C0013",
     "name": "Ngôi Sao Khám Phá"
   },

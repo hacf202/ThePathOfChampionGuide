@@ -257,14 +257,14 @@ const ImageManager = memo(() => {
 	};
 
 	return (
-		<div className="p-4 md:p-6 space-y-4 bg-theme-bg h-full text-theme-text font-sans">
+		<div className="p-4 md:p-6 space-y-4 bg-page-bg h-full text-text-primary font-sans">
 			<PageTitle title="Quản Lý Ảnh Cloudflare R2" />
 
 			{/* TOOLBAR & CONTROLS */}
 			<div className="flex flex-col lg:flex-row gap-6">
 				{/* L Cột: Folder Select & Stats */}
 				<div className="w-full lg:w-1/4 space-y-4">
-					<div className="bg-theme-card border border-theme-border rounded-xl p-4 shadow-sm flex flex-col gap-3">
+					<div className="bg-surface-bg border border-border rounded-xl p-4 shadow-sm flex flex-col gap-3">
 						<div className="flex items-center justify-between">
 							<span className="text-xs font-bold text-gray-400 uppercase tracking-wider flex items-center gap-2">
 								<ImageIcon size={14} /> Thư Mục
@@ -291,10 +291,10 @@ const ImageManager = memo(() => {
 						<select
 							value={currentFolder}
 							onChange={(e) => setCurrentFolder(e.target.value)}
-							className="w-full bg-theme-bg border border-theme-border text-theme-text p-2.5 rounded-lg focus:ring-2 focus:ring-blue-500/50 outline-none transition-all"
+							className="w-full bg-page-bg border border-border text-text-primary p-2.5 rounded-lg focus:ring-2 focus:ring-blue-500/50 outline-none transition-all"
 						>
 							{folders.map((f) => (
-								<option key={f} value={f}>
+								<option key={f} value={f} style={{ backgroundColor: 'var(--color-dropdown-bg)', color: 'var(--color-dropdown-item-text)' }}>
 									{f}
 								</option>
 							))}
@@ -303,13 +303,13 @@ const ImageManager = memo(() => {
 							<div className="space-y-1.5 mt-2 px-1">
 								<div className="text-[10px] text-gray-500 flex justify-between uppercase">
 									<span>Trong thư mục:</span>
-									<span className="font-semibold text-theme-text">
+									<span className="font-semibold text-text-primary">
 										{images.length} ảnh
 									</span>
 								</div>
 								<div className="text-[10px] text-gray-500 flex justify-between uppercase">
 									<span>Dung lượng:</span>
-									<span className="font-semibold text-theme-text">
+									<span className="font-semibold text-text-primary">
 										{formatBytes(currentFolderSize)}
 									</span>
 								</div>
@@ -318,12 +318,12 @@ const ImageManager = memo(() => {
 					</div>
 
 					{/* BUCKET STORAGE STATS CARD */}
-					<div className="bg-theme-card border border-theme-border rounded-xl p-4 shadow-sm space-y-3">
+					<div className="bg-surface-bg border border-border rounded-xl p-4 shadow-sm space-y-3">
 						<span className="text-xs font-bold text-gray-400 uppercase tracking-wider flex items-center gap-2">
 							<UploadCloud size={14} /> Hệ Thống Bucket
 						</span>
 						<div className="space-y-2">
-							<div className="w-full bg-theme-bg/50 h-1.5 rounded-full overflow-hidden">
+							<div className="w-full bg-page-bg/50 h-1.5 rounded-full overflow-hidden">
 								<div
 									className="bg-blue-500 h-full rounded-full transition-all duration-500"
 									style={{
@@ -334,13 +334,13 @@ const ImageManager = memo(() => {
 							<div className="flex flex-col gap-1">
 								<div className="flex justify-between text-[11px]">
 									<span className="text-gray-500">Tổng lưu trữ:</span>
-									<span className="font-bold text-theme-text">
+									<span className="font-bold text-text-primary">
 										{formatBytes(bucketStats.totalSize)}
 									</span>
 								</div>
 								<div className="flex justify-between text-[11px]">
 									<span className="text-gray-500">Số lượng tệp:</span>
-									<span className="font-bold text-theme-text">
+									<span className="font-bold text-text-primary">
 										{bucketStats.totalFiles.toLocaleString()}
 									</span>
 								</div>
@@ -352,11 +352,11 @@ const ImageManager = memo(() => {
 				{/* R Cột: Dropzone & Upload */}
 				<div className="w-full lg:w-3/4">
 					<div
-						className={`relative w-full h-32 md:h-40 rounded-xl border-2 border-dashed flex flex-col items-center justify-center p-4 text-center transition-all bg-theme-card/30
+						className={`relative w-full h-32 md:h-40 rounded-xl border-2 border-dashed flex flex-col items-center justify-center p-4 text-center transition-all bg-surface-bg/30
                  ${
 										isDragging
 											? "border-blue-500 bg-blue-500/5"
-											: "border-theme-border hover:border-gray-500 hover:bg-theme-card/50"
+											: "border-border hover:border-gray-500 hover:bg-surface-bg/50"
 									}
                  ${selectedFiles.length > 0 ? "pt-2" : ""}`}
 						onDragOver={onDragOver}
@@ -374,7 +374,7 @@ const ImageManager = memo(() => {
 
 						{selectedFiles.length === 0 ? (
 							<>
-								<h3 className="text-sm font-semibold text-theme-text mb-1 relative z-10">
+								<h3 className="text-sm font-semibold text-text-primary mb-1 relative z-10">
 									Kéo thả ảnh vào đây để tải lên thư mục{" "}
 									<span className="text-blue-500">{currentFolder}</span>
 								</h3>
@@ -393,7 +393,7 @@ const ImageManager = memo(() => {
 						) : (
 							<div className="w-full h-full flex flex-col">
 								<div className="flex justify-between items-center mb-3">
-									<h4 className="text-sm font-medium text-theme-text flex items-center gap-2">
+									<h4 className="text-sm font-medium text-text-primary flex items-center gap-2">
 										<CheckCircle size={16} className="text-emerald-500" />
 										Đã chọn {selectedFiles.length} file
 									</h4>
@@ -420,9 +420,9 @@ const ImageManager = memo(() => {
 									{selectedFiles.map((f, i) => (
 										<div
 											key={i}
-											className="flex items-center justify-between p-2 rounded bg-theme-bg border border-theme-border"
+											className="flex items-center justify-between p-2 rounded bg-page-bg border border-border"
 										>
-											<div className="truncate text-xs flex-1 mr-2 text-theme-text">
+											<div className="truncate text-xs flex-1 mr-2 text-text-primary">
 												{f.name}
 												<span className="text-gray-500 ml-2">
 													({formatBytes(f.size)})
@@ -454,10 +454,10 @@ const ImageManager = memo(() => {
 				</div>
 			</div>
 
-			<hr className="border-t border-theme-border/50" />
+			<hr className="border-t border-border/50" />
 
 			{/* LIST CONTROLS (Search, Zoom & Layout Toggle) */}
-			<div className="flex flex-col md:flex-row justify-between items-center gap-4 bg-theme-card p-3 rounded-xl border border-theme-border shadow-sm">
+			<div className="flex flex-col md:flex-row justify-between items-center gap-4 bg-surface-bg p-3 rounded-xl border border-border shadow-sm">
 				<div className="relative w-full md:w-80">
 					<Search
 						className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
@@ -468,14 +468,14 @@ const ImageManager = memo(() => {
 						placeholder="Tìm kiếm ảnh theo tên..."
 						value={searchTerm}
 						onChange={(e) => setSearchTerm(e.target.value)}
-						className="w-full pl-9 pr-4 py-2 bg-theme-bg border border-theme-border rounded-lg text-theme-text focus:ring-2 focus:ring-blue-500/50 outline-none text-sm transition-all"
+						className="w-full pl-9 pr-4 py-2 bg-page-bg border border-border rounded-lg text-text-primary focus:ring-2 focus:ring-blue-500/50 outline-none text-sm transition-all"
 					/>
 				</div>
 
 				<div className="flex items-center gap-4 w-full md:w-auto">
 					{/* Zoom Controls (Only show in Grid View) */}
 					{viewMode === "grid" && (
-						<div className="flex items-center gap-2 px-3 py-1.5 bg-theme-bg border border-theme-border rounded-lg flex-1 md:flex-none justify-center">
+						<div className="flex items-center gap-2 px-3 py-1.5 bg-page-bg border border-border rounded-lg flex-1 md:flex-none justify-center">
 							<button
 								onClick={() => setZoomLevel((z) => Math.max(1, z - 1))}
 								className="text-gray-400 hover:text-blue-500 transition-colors"
@@ -504,13 +504,13 @@ const ImageManager = memo(() => {
 					)}
 
 					{/* View Mode Toggle */}
-					<div className="flex items-center bg-theme-bg border border-theme-border p-1 rounded-lg">
+					<div className="flex items-center bg-page-bg border border-border p-1 rounded-lg">
 						<button
 							onClick={() => setViewMode("grid")}
 							className={`p-1.5 rounded-md transition-all ${
 								viewMode === "grid"
-									? "bg-theme-card text-blue-500 shadow-sm"
-									: "text-gray-500 hover:text-theme-text"
+									? "bg-surface-bg text-blue-500 shadow-sm"
+									: "text-gray-500 hover:text-text-primary"
 							}`}
 							title="Chế độ phân lưới"
 						>
@@ -520,8 +520,8 @@ const ImageManager = memo(() => {
 							onClick={() => setViewMode("list")}
 							className={`p-1.5 rounded-md transition-all ${
 								viewMode === "list"
-									? "bg-theme-card text-blue-500 shadow-sm"
-									: "text-gray-500 hover:text-theme-text"
+									? "bg-surface-bg text-blue-500 shadow-sm"
+									: "text-gray-500 hover:text-text-primary"
 							}`}
 							title="Chế độ danh sách"
 						>
@@ -560,9 +560,9 @@ const ImageManager = memo(() => {
 					{filteredImages.map((img) => (
 						<div
 							key={img.key}
-							className="bg-theme-card border border-theme-border p-2 rounded-xl group relative hover:border-blue-500/50 hover:shadow-lg transition-all"
+							className="bg-surface-bg border border-border p-2 rounded-xl group relative hover:border-blue-500/50 hover:shadow-lg transition-all"
 						>
-							<div className="w-full aspect-square bg-theme-bg rounded-lg flex items-center justify-center overflow-hidden relative">
+							<div className="w-full aspect-square bg-page-bg rounded-lg flex items-center justify-center overflow-hidden relative">
 								<img
 									src={img.url}
 									alt={img.key}
@@ -609,10 +609,10 @@ const ImageManager = memo(() => {
 				</div>
 			) : (
 				/* ---- LIST VIEW ---- */
-				<div className="bg-theme-card border border-theme-border rounded-xl overflow-hidden shadow-sm">
+				<div className="bg-surface-bg border border-border rounded-xl overflow-hidden shadow-sm">
 					<div className="overflow-x-auto">
 						<table className="w-full text-left text-sm whitespace-nowrap">
-							<thead className="bg-theme-bg text-gray-400 border-b border-theme-border text-xs uppercase">
+							<thead className="bg-page-bg text-gray-400 border-b border-border text-xs uppercase">
 								<tr>
 									<th className="px-5 py-3 font-semibold">Hình Ảnh</th>
 									<th className="px-5 py-3 font-semibold">Dung Lượng</th>
@@ -625,10 +625,10 @@ const ImageManager = memo(() => {
 								{filteredImages.map((img) => (
 									<tr
 										key={img.key}
-										className="hover:bg-theme-bg/50 transition-colors"
+										className="hover:bg-page-bg/50 transition-colors"
 									>
 										<td className="px-5 py-2">
-											<div className="w-12 h-12 rounded-lg bg-theme-bg border border-theme-border p-1 flex items-center justify-center">
+											<div className="w-12 h-12 rounded-lg bg-page-bg border border-border p-1 flex items-center justify-center">
 												<img
 													src={img.url}
 													alt={img.key}
@@ -639,7 +639,7 @@ const ImageManager = memo(() => {
 										</td>
 										<td className="px-5 py-2">
 											<div className="flex flex-col">
-												<span className="font-medium text-theme-text truncate max-w-[200px] md:max-w-md">
+												<span className="font-medium text-text-primary truncate max-w-[200px] md:max-w-md">
 													{img.key.split("/").pop()}
 												</span>
 												<span className="text-[10px] text-gray-500 font-mono truncate max-w-[200px] md:max-w-md">

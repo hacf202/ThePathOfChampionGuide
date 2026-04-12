@@ -19,6 +19,25 @@
     "userSub": "c4882458-b0c1-7094-b62d-4a098bc96e83"
   },
   {
+    "championName": "Ambessa",
+    "reviewType": "CHAMPION_REVIEW",
+    "ratings": {
+      "damage": 7,
+      "synergy": 3,
+      "independence": 8,
+      "defense": 5,
+      "consistency": 4,
+      "speed": 4
+    },
+    "updatedAt": "2026-04-11T04:25:06.315Z",
+    "createdAt": "2026-04-11T04:25:06.315Z",
+    "championID": "C017",
+    "comment": "",
+    "username": "zanibulo",
+    "championImage": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Ambessa.png",
+    "userSub": "348804a8-3021-708f-3f7b-cf19389967d9"
+  },
+  {
     "championName": "Yasuo",
     "reviewType": "CHAMPION_REVIEW",
     "ratings": {
@@ -169,5 +188,24 @@
     "username": "tpn01042003",
     "championImage": "https://wpocpicture.s3.us-east-1.amazonaws.com/avt/Jinx.png",
     "userSub": "c4882458-b0c1-7094-b62d-4a098bc96e83"
+  },
+  {
+    "championName": "Maika",
+    "reviewType": "CHAMPION_REVIEW",
+    "ratings": {
+      "damage": 10,
+      "synergy": 5,
+      "independence": 10,
+      "defense": 5,
+      "consistency": 10,
+      "speed": 5
+    },
+    "updatedAt": "2026-04-11T04:27:53.320Z",
+    "createdAt": "2026-04-11T04:27:53.320Z",
+    "championID": "C666",
+    "comment": "",
+    "username": "zanibulo",
+    "championImage": "https://images.pocguide.top/easteregg/maika.webp",
+    "userSub": "348804a8-3021-708f-3f7b-cf19389967d9"
   }
 ]
