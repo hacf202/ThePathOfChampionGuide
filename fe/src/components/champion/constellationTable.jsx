@@ -38,8 +38,8 @@ export default function ConstellationTable({ starPowersList, bonusStarsList }) {
 	return (
 		<div className='bg-surface-bg rounded-xl overflow-hidden border border-border shadow-sm'>
 			{/* TABS SELECTOR */}
-			<div className='flex bg-surface-hover/30 p-2 sm:p-4 border-b border-border justify-center sm:justify-start overflow-x-auto'>
-				<div className="flex bg-surface-hover/50 p-1 rounded-lg shrink-0">
+			<div className='flex bg-surface-hover/30 p-2 sm:p-4 border-b border-border overflow-x-auto'>
+				<div className="flex bg-surface-hover/50 p-1 rounded-lg shrink-0 w-max max-w-full">
 					{[
 						{ id: "starPowers", label: tUI("constellation.tabStarPowers"), count: starPowersList.length, color: "text-primary-500", bg: "bg-primary-500/10" },
 						{ id: "bonusStars", label: tUI("constellation.tabBonusStars"), count: bonusStarsList.length, color: "text-purple-500", bg: "bg-purple-500/10" }
@@ -47,7 +47,7 @@ export default function ConstellationTable({ starPowersList, bonusStarsList }) {
 						<button
 							key={tab.id}
 							onClick={() => setActiveConstellationTab(tab.id)}
-							className={`relative px-4 py-2 rounded-md text-xs font-black tracking-wider uppercase transition-all flex items-center gap-2 ${
+							className={`relative whitespace-nowrap px-4 py-2 rounded-md text-xs font-black tracking-wider uppercase transition-all flex items-center gap-2 ${
 								activeConstellationTab === tab.id 
 									? `${tab.color} z-10` 
 									: "text-text-tertiary hover:text-text-secondary"

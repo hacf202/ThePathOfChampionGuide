@@ -226,7 +226,9 @@
 		"trunglap": "Trung Lập"
 	},
 	"admin": {
-		"sidebar":{"title": "Thanh điều hướng"},
+		"sidebar": {
+			"title": "Thanh điều hướng"
+		},
 		"item": {
 			"allRarities": "Tất cả độ hiếm",
 			"rarity": "Độ hiếm",
@@ -1149,7 +1151,7 @@
 		"synergy": "Kết hợp",
 		"independence": "Độc lập"
 	},
-	"ratings": {	
+	"ratings": {
 		"subtitle": "Nơi để bạn đánh giá tướng",
 		"searchPlaceholder": "Tìm tướng, người dùng hoặc nội dung...",
 		"refresh": "Làm mới",
@@ -1274,6 +1276,55 @@
 			"nova_shard": "Mảnh Sao Băng",
 			"nova_crystal": "Pha Lê Sao Băng",
 			"simulator": "Giả Lập"
+		}
+	},
+	"championLevelRewards": {
+		"title": "Phần thưởng cấp độ tướng",
+		"level": "Cấp độ",
+		"expNeeded": "EXP Yêu cầu",
+		"totalExp": "Tổng EXP",
+		"reward": "Phần thưởng",
+		"deck": "Bộ bài",
+		"health": "Máu",
+		"regen": "Hồi phục",
+		"gold": "Vàng",
+		"others": "Khác",
+		"levels": {},
+		"rewards": {
+			"firstRelicUnlocked": "Mở khóa Ô Cổ Vật đầu tiên.",
+			"firstRelicRare": "Ô Cổ Vật đầu tiên nâng cấp lên Hiếm.",
+			"secondRelicUnlocked": "Mở khóa Ô Cổ Vật thứ 2.",
+			"secondRelicRare": "Ô Cổ Vật thứ 2 nâng cấp lên Hiếm.",
+			"thirdRelicUnlocked": "Mở khóa Ô Cổ Vật thứ 3.",
+			"thirdRelicRare": "Ô Cổ Vật thứ 3 nâng cấp lên Hiếm.",
+			"supportCommonItem": "Tướng hỗ trợ có Cổ Vật Thường ngẫu nhiên.",
+			"supportRareItem": "Tướng hỗ trợ có Cổ Vật Hiếm ngẫu nhiên.",
+			"supportEpicItem": "Tướng hỗ trợ có Cổ Vật Sử Thi ngẫu nhiên.",
+			"supportCardsCommon": "Bài hỗ trợ có Vật Phẩm Thường.",
+			"supportCardsRare": "Bài hỗ trợ có Vật Phẩm Hiếm.",
+			"findRare5": "+5% tỉ lệ tìm thấy Vật Phẩm và Sức Mạnh Hiếm.",
+			"findRare10": "+10% tỉ lệ tìm thấy Vật Phẩm và Sức Mạnh Hiếm.",
+			"findRare15": "+15% tỉ lệ tìm thấy Vật Phẩm và Sức Mạnh Hiếm.",
+			"findRare20": "+20% tỉ lệ tìm thấy Vật Phẩm và Sức Mạnh Hiếm.",
+			"findRare25": "+25% tỉ lệ tìm thấy Vật Phẩm và Sức Mạnh Hiếm.",
+			"findRare30": "+30% tỉ lệ tìm thấy Vật Phẩm và Sức Mạnh Hiếm.",
+			"findEpic2_5": "+2.5% tỉ lệ tìm thấy Vật Phẩm và Sức Mạnh Sử Thi.",
+			"findEpic5": "+5% tỉ lệ tìm thấy Vật Phẩm và Sức Mạnh Sử Thi.",
+			"findEpic7_5": "+7.5% tỉ lệ tìm thấy Vật Phẩm và Sức Mạnh Sử Thi.",
+			"findEpic10": "+10% tỉ lệ tìm thấy Vật Phẩm và Sức Mạnh Sử Thi.",
+			"findEpic12_5": "+12.5% tỉ lệ tìm thấy Vật Phẩm và Sức Mạnh Sử Thi.",
+			"findLegendary1": "1% tỉ lệ tìm thấy Sức Mạnh Huyền Thoại.",
+			"findLegendary2": "2% tỉ lệ tìm thấy Sức Mạnh Huyền Thoại.",
+			"findLegendary3": "3% tỉ lệ tìm thấy Sức Mạnh Huyền Thoại.",
+			"findLegendary4": "4% tỉ lệ tìm thấy Sức Mạnh Huyền Thoại.",
+			"findLegendary5": "5% tỉ lệ tìm thấy Sức Mạnh Huyền Thoại.",
+			"reviveToken": "Bắt đầu mỗi Phiêu Lưu với 1 Vé Hồi Sinh.",
+			"firstCombatCommon": "Phần thưởng trận chiến đầu tiên đi kèm Vật Phẩm Thường.",
+			"firstCombatRare": "Phần thưởng trận chiến đầu tiên đi kèm Vật Phẩm Hiếm.",
+			"reroll": "+1 Lần Đổi Lại",
+			"newPower": "Sức Mạnh Mới: Heroes' Welcome",
+			"deckUpgrade": "nhận được",
+			"viewLevelBtn": "Xem Chi Tiết Cấp Độ"
 		}
 	}
 }

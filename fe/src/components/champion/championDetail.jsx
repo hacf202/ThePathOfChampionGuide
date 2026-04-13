@@ -23,6 +23,7 @@ import ConstellationTable from "../champion/constellationTable";
 import ChampionPlaystyleChart from "../champion/championPlaystyleChart";
 import CardHoverTooltip from "../champion/CardHoverTooltip";
 import CardCarouselModal from "../card/CardCarouselModal.jsx";
+import ChampionLevelSection from "./ChampionLevel.jsx";
 
 // --- THÀNH PHẦN SKELETON ---
 const ChampionDetailSkeleton = () => (
@@ -379,6 +380,48 @@ function ChampionDetail() {
 		[champion, resolvedRunes],
 	);
 
+	const deckUpgrades = useMemo(() => {
+		if (!champion?.startingDeck) return [];
+		const upgrades = [];
+		const LEGACY_LEVELS = [2, 3, 6, 9, 12, 15, 18, 21, 24, 27];
+		let counter = 0;
+
+		// Gom cả baseCards và referenceCards để quét nâng cấp
+		const allCards = [
+			...(champion.startingDeck.baseCards || []),
+			...(champion.startingDeck.referenceCards || [])
+		];
+
+		allCards.forEach(cd => {
+			const cardEntry = typeof cd === "string" ? { cardCode: cd, itemCodes: [] } : cd;
+			
+			if (cardEntry.itemCodes && cardEntry.itemCodes.length > 0) {
+				cardEntry.itemCodes.forEach(item => {
+					const itemCode = typeof item === "string" ? item : item.itemCode;
+					// Fix logic: Chỉ fallback về LEGACY_LEVELS nếu unlockLevel hoàn toàn không tồn tại (undefined)
+					const unlockLevel = typeof item === "string" 
+						? (LEGACY_LEVELS[counter] || 2) 
+						: (item.unlockLevel !== undefined ? item.unlockLevel : (LEGACY_LEVELS[counter] || 2));
+					
+					counter++;
+
+					const resolvedCard = resolvedStartingCards.find(c => c.cardCode === cardEntry.cardCode);
+					const resolvedItem = resolvedItems.find(i => i.itemCode === itemCode);
+					
+					if (resolvedCard && resolvedItem) {
+						upgrades.push({
+							card: resolvedCard,
+							item: resolvedItem,
+							cardCode: cardEntry.cardCode,
+							unlockLevel: Number(unlockLevel)
+						});
+					}
+				});
+			}
+		});
+		return upgrades;
+	}, [champion, resolvedStartingCards, resolvedItems]);
+
 	// Gợi ý tướng cùng khu vực hoặc ngẫu nhiên
 	const suggestedChampions = useMemo(() => {
 		if (!champion || allChampions.length === 0) return [];
@@ -482,7 +525,7 @@ function ChampionDetail() {
 										</h1>
 										<div className='flex flex-wrap gap-2 items-center'>
 											<div className='flex items-center gap-1 px-2.5 py-1.5 bg-yellow-500/20 border border-yellow-500 rounded-full'>
-												<span className='text-sm font-bold text-yellow-900'>
+												<span className='text-sm font-bold'>
 													{champion.maxStar}
 												</span>
 												<Star
@@ -572,9 +615,11 @@ function ChampionDetail() {
 								champion.startingDeck?.referenceCards?.length > 0) && (
 								<div className="bg-surface-bg border border-border rounded-xl p-4 sm:p-6 shadow-sm mt-6 overflow-hidden">
 									<div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-border mb-6 gap-4">
-										<h2 className='p-1 text-lg sm:text-3xl font-semibold font-primary text-primary-500 flex items-center gap-3'>
-											{tUI("championDetail.startingDeck")}
-										</h2>
+										<div className="flex items-center gap-4">
+											<h2 className='p-1 text-lg sm:text-3xl font-semibold font-primary text-primary-500 flex items-center gap-3'>
+												{tUI("championDetail.startingDeck")}
+											</h2>
+										</div>
 
 										{/* TABS SELECTOR - Only show if both exist */}
 										{champion.startingDeck?.baseCards?.length > 0 &&
@@ -587,7 +632,7 @@ function ChampionDetail() {
 													<button
 														key={tab.id}
 														onClick={() => setActiveDeckTab(tab.id)}
-														className={`relative px-3 py-1.5 rounded-md text-xs font-black tracking-wider uppercase transition-all flex items-center gap-2 ${
+														className={`relative whitespace-nowrap px-3 py-1.5 rounded-md text-xs font-black tracking-wider uppercase transition-all flex items-center gap-2 ${
 															activeDeckTab === tab.id 
 																? `${tab.color} z-10` 
 																: "text-text-tertiary hover:text-text-secondary"
@@ -646,7 +691,14 @@ function ChampionDetail() {
 																{champion.startingDeck.baseCards.map((cardData, idx) => {
 																	const cardInfo = resolvedStartingCards.find(c => c.cardCode === cardData.cardCode);
 																	const cardItems = (cardData.itemCodes || [])
-																		.map(code => resolvedItems.find(i => i.itemCode === code))
+																		.map(codeObj => {
+																			const codeStr = typeof codeObj === "string" ? codeObj : codeObj.itemCode;
+																			const itemMatch = resolvedItems.find(i => i.itemCode === codeStr);
+																			if(itemMatch && typeof codeObj === "object" && codeObj.unlockLevel > 0) {
+																				return { ...itemMatch, unlockLevel: codeObj.unlockLevel };
+																			}
+																			return itemMatch;
+																		})
 																		.filter(Boolean);
 
 																	return (
@@ -664,8 +716,13 @@ function ChampionDetail() {
 																				<div className='flex flex-wrap gap-2'>
 																					{cardItems.length > 0 ? (
 																						cardItems.map((item, i) => (
-																							<Link key={i} to={`/item/${item.itemCode}`} className='flex items-center gap-1.5 px-2 py-1 rounded-lg bg-surface-hover/50 hover:bg-surface-hover hover:scale-105 transition-all' title={tDynamic(item, "name")}>
+																							<Link key={i} to={`/item/${item.itemCode}`} className='relative flex items-center gap-1.5 px-2 py-1 rounded-lg bg-surface-hover/50 hover:bg-surface-hover hover:scale-105 transition-all' title={tDynamic(item, "name")}>
 																								<SafeImage src={item.assetAbsolutePath || item.image || "/fallback-image.svg"} className='w-10 h-10 sm:w-12 sm:h-12 object-contain' />
+																								{item.unlockLevel > 0 && (
+																									<span className="absolute -top-1 -right-1 bg-yellow-500 text-black rounded-full w-4 h-4 flex items-center justify-center text-[8px] font-bold shadow-md">
+																										{item.unlockLevel}
+																									</span>
+																								)}
 																								<span className='text-[10px] sm:text-xs font-bold text-text-secondary hidden lg:inline'>
 																									{tDynamic(item, "name")}
 																								</span>
@@ -708,7 +765,14 @@ function ChampionDetail() {
 																{champion.startingDeck.referenceCards.map((cardData, idx) => {
 																	const cardInfo = resolvedStartingCards.find(c => c.cardCode === cardData.cardCode);
 																	const cardItems = (cardData.itemCodes || [])
-																		.map(code => resolvedItems.find(i => i.itemCode === code))
+																		.map(codeObj => {
+																			const codeStr = typeof codeObj === "string" ? codeObj : codeObj.itemCode;
+																			const itemMatch = resolvedItems.find(i => i.itemCode === codeStr);
+																			if(itemMatch && typeof codeObj === "object" && codeObj.unlockLevel > 0) {
+																				return { ...itemMatch, unlockLevel: codeObj.unlockLevel };
+																			}
+																			return itemMatch;
+																		})
 																		.filter(Boolean);
 
 																	return (
@@ -727,8 +791,13 @@ function ChampionDetail() {
 																				<div className='flex flex-wrap gap-2'>
 																					{cardItems.length > 0 ? (
 																						cardItems.map((item, i) => (
-																							<Link key={i} to={`/item/${item.itemCode}`} className='flex items-center gap-1.5 px-2 py-1 rounded-lg bg-surface-hover/50 hover:bg-surface-hover hover:scale-105 transition-all' title={tDynamic(item, "name")}>
+																							<Link key={i} to={`/item/${item.itemCode}`} className='relative flex items-center gap-1.5 px-2 py-1 rounded-lg bg-surface-hover/50 hover:bg-surface-hover hover:scale-105 transition-all' title={tDynamic(item, "name")}>
 																								<SafeImage src={item.assetAbsolutePath || item.image || "/fallback-image.svg"} className='w-10 h-10 sm:w-12 sm:h-12 object-contain' />
+																								{item.unlockLevel > 0 && (
+																									<span className="absolute -top-1 -right-1 bg-yellow-500 text-black rounded-full w-4 h-4 flex items-center justify-center text-[8px] font-bold shadow-md">
+																										{item.unlockLevel}
+																									</span>
+																								)}
 																								<span className='text-[10px] sm:text-xs font-bold text-text-secondary hidden lg:inline'>
 																									{tDynamic(item, "name")}
 																								</span>
@@ -750,6 +819,15 @@ function ChampionDetail() {
 										</AnimatePresence>
 									</div>
 								</div>
+							)}
+
+							{/* LEVEL SECTION NHÚNG TRỰC TIẾP DƯỚI BOOLEAN STARTING DECK */}
+							{(champion.startingDeck?.baseCards?.length > 0 || champion.startingDeck?.referenceCards?.length > 0) && deckUpgrades.length > 0 && (
+								<ChampionLevelSection
+									deckUpgrades={deckUpgrades}
+									resolvedPowers={resolvedPowers}
+									onOpenCarousel={handleOpenCarousel}
+								/>
 							)}
 
 							{/* RELIC SETS SECTION */}

@@ -271,22 +271,38 @@ router.get("/:championID/full", async (req, res) => {
 		const champion = unmarshall(champRes.Item);
 		const constellation = constRes.Item ? unmarshall(constRes.Item) : null;
 
-		// 2. Thu thập tất cả ID cần resolve
+		// 2. Thu thập tất cả ID cần resolve (Hỗ trợ cả định dạng String cũ và Object mới)
 		const powerIds = new Set([
-			...(champion.adventurePowerIds || []),
+			"P01114",
+			...(champion.adventurePowerIds || champion.adventurePowers || []),
 			...(champion.powerStarIds || []),
 			...(constellation?.nodes?.map(n => n.powerCode).filter(Boolean) || [])
 		]);
 		const relicIds = new Set((champion.relicSets || []).flat());
+		
+		const extractItemCodes = (cards) => {
+			if (!Array.isArray(cards)) return [];
+			return cards.flatMap(c => {
+				const itemCodes = (typeof c === "object" && c !== null) ? (c.itemCodes || []) : [];
+				return itemCodes.map(i => typeof i === "string" ? i : i.itemCode);
+			});
+		};
+
 		const itemIds = new Set([
-			...(champion.itemIds || []),
-			...(champion.startingDeck?.baseCards?.flatMap(c => c.itemCodes || []) || []),
-			...(champion.startingDeck?.referenceCards?.flatMap(c => c.itemCodes || []) || [])
+			...(champion.itemIds || champion.defaultItems || []),
+			...extractItemCodes(champion.startingDeck?.baseCards),
+			...extractItemCodes(champion.startingDeck?.referenceCards)
 		]);
-		const runeIds = new Set(champion.runeIds || []);
+
+		const extractCardCodes = (cards) => {
+			if (!Array.isArray(cards)) return [];
+			return cards.map(c => typeof c === "string" ? c : c.cardCode).filter(Boolean);
+		};
+
+		const runeIds = new Set(champion.runeIds || champion.rune || []);
 		const cardIds = new Set([
-			...(champion.startingDeck?.baseCards?.map(c => c.cardCode) || []),
-			...(champion.startingDeck?.referenceCards?.map(c => c.cardCode) || [])
+			...extractCardCodes(champion.startingDeck?.baseCards),
+			...extractCardCodes(champion.startingDeck?.referenceCards)
 		]);
 		const bonusStarIds = new Set(constellation?.nodes?.map(n => n.bonusStarID).filter(Boolean) || []);
 

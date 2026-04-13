@@ -132,16 +132,33 @@ const ChampionEditorForm = memo(
 
 				// Chuẩn hóa bộ bài khởi đầu (Đảm bảo luôn là object có cardCode và itemCodes)
 				if (processedData.startingDeck) {
-					const normalizeCards = cards =>
-						(cards || []).map(c =>
-							typeof c === "string" ? { cardCode: c, itemCodes: [] } : c,
-						);
+					const LEGACY_LEVELS = [2, 3, 6, 9, 12, 15, 18, 21, 24, 27];
+					let itemCounter = 0;
+
+					const normalizeCards = (cards, isBase) =>
+						(cards || []).map(c => {
+							if (typeof c === "string") return { cardCode: c, itemCodes: [] };
+							
+							const normalizedItemCodes = (c.itemCodes || []).map(item => {
+								if (typeof item === "string") {
+									if (isBase) {
+										const assignedLevel = LEGACY_LEVELS[itemCounter] || 2;
+										itemCounter++;
+										return { itemCode: item, unlockLevel: assignedLevel };
+									}
+									return { itemCode: item, unlockLevel: 0 };
+								}
+								// If it's already an object, just increase counter to maintain offset if mixed
+								if (isBase) itemCounter++;
+								return item;
+							});
+
+							return { ...c, itemCodes: normalizedItemCodes };
+						});
 
 					processedData.startingDeck = {
-						baseCards: normalizeCards(processedData.startingDeck.baseCards),
-						referenceCards: normalizeCards(
-							processedData.startingDeck.referenceCards,
-						),
+						baseCards: normalizeCards(processedData.startingDeck.baseCards, true),
+						referenceCards: normalizeCards(processedData.startingDeck.referenceCards, false),
 					};
 				}
 
@@ -481,6 +498,7 @@ const ChampionEditorForm = memo(
 							}
 							cachedData={dataLookup}
 							placeholder='Kéo Lá bài từ Sidebar vào đây để thêm vào bộ bài chính...'
+							isReference={false}
 						/>
 
 						{/* Reference Cards */}
@@ -499,6 +517,7 @@ const ChampionEditorForm = memo(
 								}
 								cachedData={dataLookup}
 								placeholder='Kéo Lá bài từ Sidebar vào đây để thêm vào các lá bài liên quan...'
+								isReference={true}
 							/>
 						</div>
 					</section>

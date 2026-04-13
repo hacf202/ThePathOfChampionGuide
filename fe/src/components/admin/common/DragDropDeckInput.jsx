@@ -36,6 +36,7 @@ const SortableCardRow = memo(({
 	handleMouseLeave, 
 	handleRemoveCard, 
 	handleRemoveItemFromCard,
+	handleChangeItemLevel,
 	cachedData,
 	tDynamic
 }) => {
@@ -107,7 +108,9 @@ const SortableCardRow = memo(({
 
 			{/* Items Container */}
 			<div className='flex flex-wrap gap-1.5 items-center justify-start md:justify-end flex-grow w-full'>
-				{(cardEntry.itemCodes || []).map((itemCode, itemIdx) => {
+				{(cardEntry.itemCodes || []).map((item, itemIdx) => {
+					const itemCode = typeof item === "string" ? item : item.itemCode;
+					const itemLevel = typeof item === "string" ? 2 : (item.unlockLevel || 0);
 					const itemInfo = cachedData.items?.[itemCode] || {};
 					const itemName = tDynamic(itemInfo, "name") || itemCode;
 					const itemImg = itemInfo.assetAbsolutePath || itemInfo.image || "";
@@ -115,21 +118,41 @@ const SortableCardRow = memo(({
 					return (
 						<div
 							key={`${itemCode}-${itemIdx}`}
-							className='group/item relative flex items-center gap-1 px-1.5 py-0.5 bg-surface-hover border border-border rounded-lg hover:border-red-500/30 transition-colors cursor-help'
-							onMouseEnter={(e) => handleMouseEnter(e, itemInfo, 'item')}
-							onMouseLeave={handleMouseLeave}
+							className='group/item relative flex items-center gap-1.5 px-1.5 py-0.5 bg-surface-hover border border-border rounded-lg hover:border-red-500/30 transition-colors'
 						>
-							<div className='w-5 h-5 rounded bg-white/10 overflow-hidden shrink-0 border border-border/50'>
+							<div 
+								className='w-6 h-6 rounded bg-white/10 overflow-hidden shrink-0 border border-border/50 cursor-help'
+								onMouseEnter={(e) => handleMouseEnter(e, itemInfo, 'item')}
+								onMouseLeave={handleMouseLeave}
+							>
 								<SafeImage 
 									src={itemImg} 
 									className='w-full h-full object-contain'
-									width={20}
-									height={20}
+									width={24}
+									height={24}
 								/>
 							</div>
-							<span className='text-[9px] font-bold text-text-secondary max-w-[80px] truncate'>
-								{itemName}
-							</span>
+							<div className='flex flex-col min-w-0 flex-1'>
+								<span 
+									className='text-[9px] font-bold text-text-secondary w-full max-w-[80px] truncate leading-tight cursor-help relative top-[1px]'
+									onMouseEnter={(e) => handleMouseEnter(e, itemInfo, 'item')}
+									onMouseLeave={handleMouseLeave}
+								>
+									{itemName}
+								</span>
+								<select 
+									value={itemLevel}
+									onChange={(e) => handleChangeItemLevel(idx, itemIdx, e.target.value)}
+									onClick={(e) => e.stopPropagation()}
+									className='text-[9px] font-bold text-primary-400 bg-surface-bg border border-border/70 rounded outline-none pl-1 pr-4 py-[1px] min-h-0 h-auto cursor-pointer focus:border-primary-500 hover:bg-black/40 mt-0.5 appearance-none'
+									style={{ backgroundImage: 'url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2210%22%20height%3D%2210%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%238b5cf6%22%20stroke-width%3D%223%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E")', backgroundRepeat: 'no-repeat', backgroundPosition: 'right 2px center', backgroundSize: '8px' }}
+								>
+									<option value={0} className="bg-surface-bg text-text-primary text-[11px]">Mặc định</option>
+									{[2, 3, 6, 9, 12, 15, 18, 21, 24, 27].map(lvl => (
+										<option key={lvl} value={lvl} className="bg-surface-bg text-text-primary text-[11px]">Lv {lvl}</option>
+									))}
+								</select>
+							</div>
 							<button
 								type='button'
 								onClick={() => handleRemoveItemFromCard(idx, itemIdx)}
@@ -167,6 +190,7 @@ const DragDropDeckInput = memo(
 		onChange, // (newData) => void
 		cachedData = {}, // { powers: {}, relics: {}, items: {}, cards: {} }
 		placeholder = "Kéo lá bài từ danh sách vào đây...",
+		isReference = false,
 	}) => {
 		const { tDynamic, tUI } = useTranslation();
 		const [isDragOverMain, setIsDragOverMain] = useState(false);
@@ -216,7 +240,8 @@ const DragDropDeckInput = memo(
 				if (parsed.type === "item" && parsed.id) {
 					const newData = [...data];
 					const currentItemCodes = newData[index].itemCodes || [];
-					newData[index].itemCodes = [...currentItemCodes, parsed.id];
+					const newUnlockLevel = isReference ? 0 : 2;
+					newData[index].itemCodes = [...currentItemCodes, { itemCode: parsed.id, unlockLevel: newUnlockLevel }];
 					onChange(newData);
 				}
 			} catch (err) {
@@ -247,6 +272,17 @@ const DragDropDeckInput = memo(
 			);
 			onChange(newData);
 			setTooltipData(null);
+		};
+
+		const handleChangeItemLevel = (cardIdx, itemIdx, newLevel) => {
+			const newData = [...data];
+			const currentItem = newData[cardIdx].itemCodes[itemIdx];
+			if (typeof currentItem === "string") {
+				newData[cardIdx].itemCodes[itemIdx] = { itemCode: currentItem, unlockLevel: Number(newLevel) };
+			} else {
+				newData[cardIdx].itemCodes[itemIdx] = { ...currentItem, unlockLevel: Number(newLevel) };
+			}
+			onChange(newData);
 		};
 
 		const handleMouseEnter = (e, item, type) => {
@@ -309,6 +345,7 @@ const DragDropDeckInput = memo(
 												handleMouseLeave={handleMouseLeave}
 												handleRemoveCard={handleRemoveCard}
 												handleRemoveItemFromCard={handleRemoveItemFromCard}
+												handleChangeItemLevel={handleChangeItemLevel}
 												cachedData={cachedData}
 												tDynamic={tDynamic}
 											/>

@@ -59,7 +59,6 @@
 		"ability": "Ability",
 		"trap": "Trap",
 		"other": "Other"
-
 	},
 	"cardList": {
 		"title": "Card Gallery",
@@ -1136,7 +1135,7 @@
 		"login": "Login",
 		"confirmLogoutTitle": "Confirm Logout",
 		"confirmLogoutDesc": "Are you sure you want to log out?",
-		"cancel": "Cancel",		
+		"cancel": "Cancel",
 		"customTheme": "Custom Theme",
 		"newChampion": "New Champion"
 	},
@@ -1273,6 +1272,55 @@
 			"nova_shard": "Nova Shard",
 			"nova_crystal": "Nova Crystal",
 			"simulator": "Simulator"
+		}
+	},
+	"championLevelRewards": {
+		"title": "Champion Level Rewards",
+		"level": "Level",
+		"expNeeded": "EXP Needed",
+		"totalExp": "Total EXP",
+		"reward": "Reward",
+		"deck": "Deck",
+		"health": "Health",
+		"regen": "Regen",
+		"gold": "Gold",
+		"others": "Others",
+		"levels": {},
+		"rewards": {
+			"firstRelicUnlocked": "First Relic slot unlocked.",
+			"firstRelicRare": "First Relic slot upgraded to Rare.",
+			"secondRelicUnlocked": "Second Relic slot unlocked.",
+			"secondRelicRare": "Second Relic slot upgraded to Rare.",
+			"thirdRelicUnlocked": "Third Relic slot unlocked.",
+			"thirdRelicRare": "Third Relic slot upgraded to Rare.",
+			"supportCommonItem": "Support champions have a random Common Item.",
+			"supportRareItem": "Support champions have a random Rare Item.",
+			"supportEpicItem": "Support champs have a random Epic Item.",
+			"supportCardsCommon": "Support cards have Common Items.",
+			"supportCardsRare": "Support cards have Rare Items.",
+			"findRare5": "+5% to find Rare Items and Powers.",
+			"findRare10": "+10% to find Rare Items and Powers.",
+			"findRare15": "+15% to find Rare Items and Powers.",
+			"findRare20": "+20% to find Rare Items and Powers.",
+			"findRare25": "+25% to find Rare Items and Powers.",
+			"findRare30": "+30% to find Rare Items and Powers.",
+			"findEpic2_5": "+2.5% to find Epic Items and Powers.",
+			"findEpic5": "+5% to find Epic Items and Powers.",
+			"findEpic7_5": "+7.5% to find Epic Items and Powers.",
+			"findEpic10": "+10% to find Epic Items and Powers.",
+			"findEpic12_5": "+12.5% to find Epic Items and Powers.",
+			"findLegendary1": "1% to find Legendary Powers.",
+			"findLegendary2": "2% to find Legendary Powers.",
+			"findLegendary3": "3% to find Legendary Powers.",
+			"findLegendary4": "4% to find Legendary Powers.",
+			"findLegendary5": "5% to find Legendary Powers.",
+			"reviveToken": "Begin every Adventure with 1 Revive Token.",
+			"firstCombatCommon": "First combat reward includes Common Items.",
+			"firstCombatRare": "First combat reward includes Rare Items.",
+			"reroll": "+1 Reroll",
+			"newPower": "New Power: Heroes' Welcome",
+			"deckUpgrade": "starts with",
+			"viewLevelBtn": "View Level Rewards"
 		}
 	}
 }
