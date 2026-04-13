@@ -1326,5 +1326,12 @@
 			"deckUpgrade": "nhận được",
 			"viewLevelBtn": "Xem Chi Tiết Cấp Độ"
 		}
+	},
+	"errorPage": {
+		"title": "Ôi hỏng! Đã có lỗi xảy ra",
+		"desc404": "Trang bạn đang tìm kiếm đã mất tích như Teemo đang tàng hình vậy.",
+		"descGeneric": "Hệ thống đang gặp một chút trục trặc kỹ thuật. Vui lòng thử lại sau.",
+		"backToHome": "Quay về Trang Chủ",
+		"errorCode": "Mã lỗi: {{code}}"
 	}
 }

@@ -1,0 +1,4557 @@
+[
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Bounty",
+        "description": "+10 [k:NexusHealth|Nexus Health], +4 Regen.",
+        "descriptionRaw": "+10 Nexus Health, +4 Regen."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "+10 Máu Nhà Chính, +4 Hồi Phục.",
+    "description": "+10 [k:NexusHealth|Máu Nhà Chính], +4 [k:Regeneration|Hồi Phục].",
+    "bonusStarID": "C0001",
+    "name": "Ngôi Sao Tiền Thưởng"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Support [k:Champion|Champion]s have The Berserker's Buckle.",
+        "descriptionRaw": "Support Champions have The Berserker's Buckle."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ có Thắt Lưng Cuồng Binh.",
+    "description": "Các anh hùng hỗ trợ có Thắt Lưng Cuồng Binh.",
+    "bonusStarID": "C0002",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "Gem and [cd:03MT043|Falling Comet|icon,img-full] have Stopwatch.",
+        "descriptionRaw": "Gem and Falling Comet have Stopwatch."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Ngọc Thạch và Sao Chổi Rơi có Đồng Hồ Ngưng Động.",
+    "description": "Ngọc Thạch và [cd:03MT043|Sao Chổi Rơi|icon,img-full] có Đồng Hồ Ngưng Động.",
+    "bonusStarID": "C0003",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "[k:Follower|Follower]s you acquire in adventures have Hearty Rations.",
+        "descriptionRaw": "Followers you acquire in adventures have Hearty Rations."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Tùy tùng bạn thu thập trong chuyến phiêu lưu có Khẩu Phần Thịnh Soạn.",
+    "description": "Tùy tùng bạn thu thập trong chuyến phiêu lưu có Khẩu Phần Thịnh Soạn.",
+    "bonusStarID": "C0004",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:98MT009|Astral Diffusion|icon,img-full] has Ardent Censer.",
+        "descriptionRaw": "Astral Diffusion has Ardent Censer."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Tinh Tú Khuếch Tán có Lư Hương Sôi Sục.",
+    "description": "[cd:98MT009|Tinh Tú Khuếch Tán|icon,img-full] có Lư Hương Sôi Sục.",
+    "bonusStarID": "C0005",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Legends",
+        "description": "[k:Support|Support] cards have an additional item.",
+        "descriptionRaw": "Support cards have an additional item."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "Các lá bài hỗ trợ có thêm 1 trang bị.",
+    "description": "Các lá bài hỗ trợ có thêm 1 trang bị.",
+    "bonusStarID": "C0006",
+    "name": "Huyền Thoại Tinh Tú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Fortune",
+        "description": "+5% to find Epic items and powers. \n+1% to find Legendary powers.",
+        "descriptionRaw": "+5% to find Epic items and powers. \n+1% to find Legendary powers."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+5% tỉ lệ xuất hiện vật phẩm và sức mạnh Sử Thi.\n+1% tỉ lệ xuất hiện sức mạnh Huyền Thoại.",
+    "description": "+5% tỉ lệ xuất hiện vật phẩm và sức mạnh Sử Thi.\n+1% tỉ lệ xuất hiện sức mạnh Huyền Thoại.",
+    "bonusStarID": "C0007",
+    "name": "Tài Lộc Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+4 hồi phục cho các anh hùng Targon.",
+        "descriptionRaw": "+4 hồi phục cho các anh hùng Targon."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+4 Regen for Targonian Champions.",
+    "description": "+4 Regen for Targonian Champions.",
+    "bonusStarID": "C0008",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Insight",
+        "description": "+100% XP for Targonian [k:Champion|Champion]s.",
+        "descriptionRaw": "+100% XP for Targonian Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+100% XP cho các anh hùng Targon.",
+    "description": "+100% XP cho các anh hùng Targon.",
+    "bonusStarID": "C0009",
+    "name": "Thấu Thị Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Bounty",
+        "description": "+8 Regen.",
+        "descriptionRaw": "+8 Regen."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "+8 Hồi Phục.",
+    "description": "+8 [k:Regeneration|Hồi Phục].",
+    "bonusStarID": "C0010",
+    "name": "Ngôi Sao Tiền Thưởng"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Your support champions have Iceborn Gauntlet.",
+        "descriptionRaw": "Your support champions have Iceborn Gauntlet."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ của bạn có Găng Tay Băng Giá.",
+    "description": "Các anh hùng hỗ trợ của bạn có Găng Tay Băng Giá.",
+    "bonusStarID": "C0011",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:06RU026T7|World Ender|icon,img-full] has Chalice of Harmony and Chalice of Harmony.",
+        "descriptionRaw": "World Ender has Chalice of Harmony and Chalice of Harmony."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Chiến Binh Tận Thế có Cốc Hài Hòa và Cốc Hài Hòa.",
+    "description": "[cd:06RU026T6|Chiến Binh Tận Thế|icon,img-full] có Cốc Hài Hòa và Cốc Hài Hòa.",
+    "bonusStarID": "C0012",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "[k:Equipment |Equipment |no-icon] you acquire in adventures have [i:I0040|Phage|icon].",
+        "descriptionRaw": "Equipment you acquire in adventures have Phage."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Trang Bị bạn thu thập trong chuyến phiêu lưu có Búa Gỗ.",
+    "description": "[k:Trang Bị|Trang Bị|no-icon] bạn thu thập trong chuyến phiêu lưu có [i:I0040|Búa Gỗ|icon].",
+    "bonusStarID": "C0013",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "Each Darkin [k:Follower|Follower] has an item.",
+        "descriptionRaw": "Each Darkin Follower has an item."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Mỗi Tùy Tùng Darkin có 1 trang bị.",
+    "description": "Mỗi [k:Follower|Tùy Tùng] Darkin có 1 trang bị.",
+    "bonusStarID": "C0014",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+4 Regen for Runeterran champions.",
+        "descriptionRaw": "+4 Regen for Runeterran champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+4 hồi phục cho các anh hùng Runeterra.",
+    "description": "+4 hồi phục cho các anh hùng Runeterra.",
+    "bonusStarID": "C0015",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Insight",
+        "description": "+100% XP for Runeterran [k:Champion|Champion]s.",
+        "descriptionRaw": "+100% XP for Runeterran Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+100% XP cho các anh hùng Runeterra.",
+    "description": "+100% XP cho các anh hùng Runeterra.",
+    "bonusStarID": "C0016",
+    "name": "Thấu Thị Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Bounty",
+        "description": "+2 [k:Reroll|Reroll]s.",
+        "descriptionRaw": "+2 Rerolls."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "+2 Lượt Đổi.",
+    "description": "+2 [k:Reroll|Lượt Đổi].",
+    "bonusStarID": "C0017",
+    "name": "Ngôi Sao Tiền Thưởng"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Your support champions have Stalker's Blade.",
+        "descriptionRaw": "Your support champions have Stalker's Blade."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ của bạn có Gươm Truy Tung.",
+    "description": "Các anh hùng hỗ trợ của bạn có Gươm Truy Tung.",
+    "bonusStarID": "C0018",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "The Maker has Locket of the Iron Solari.",
+        "descriptionRaw": "The Maker has Locket of the Iron Solari."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Nghệ Nhân có Dây Chuyền Sắt Solari.",
+    "description": "Nghệ Nhân có Dây Chuyền Sắt Solari.",
+    "bonusStarID": "C0019",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "Spells you acquire in adventures have Mana Potion.",
+        "descriptionRaw": "Spells you acquire in adventures have Mana Potion."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Bài phép bạn thu thập trong phiêu lưu có Bình Năng Lượng.",
+    "description": "Bài phép bạn thu thập trong phiêu lưu có Bình Năng Lượng.",
+    "bonusStarID": "C0020",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:04IO015|Dancing Droplet|icon,img-full] has Flashbomb Satchel.",
+        "descriptionRaw": "Dancing Droplet has Flashbomb Satchel."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Quái Nước Nhảy Múa có Gói Bom Mù.",
+    "description": "[cd:04IO015|Quái Nước Nhảy Múa|icon,img-full] có Gói Bom Mù.",
+    "bonusStarID": "C0021",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+1 Reroll for Ionian [k:Champion|Champion]s.",
+        "descriptionRaw": "+1 Reroll for Ionian Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+1 Lượt Đổi Cho Các Anh Hùng Ionia",
+    "description": "+1 [k:Reroll|Lượt Đổi] Cho Các [k:Champion|Anh Hùng] Ionia",
+    "bonusStarID": "C0022",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Insight",
+        "description": "+100% XP for Ionian [k:Champion|Champion]s.",
+        "descriptionRaw": "+100% XP for Ionian Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+100% XP cho các anh hùng Ionia.",
+    "description": "+100% XP cho các anh hùng Ionia.",
+    "bonusStarID": "C0023",
+    "name": "Thấu Thị Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Bounty",
+        "description": "+1 Revive.",
+        "descriptionRaw": "+1 Revive."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "+1 Hồi Sinh.",
+    "description": "+1 Hồi Sinh.",
+    "bonusStarID": "C0024",
+    "name": "Ngôi Sao Tiền Thưởng"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Bounty",
+        "description": "+5 [k:NexusHealth|Nexus Health] for [k:Spirit|Spirit] Blossom champions.",
+        "descriptionRaw": "+5 Nexus Health for Spirit Blossom champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "+5 Máu Nhà Chính cho các anh hùng Hoa Linh Lục Địa.",
+    "description": "+5 [k:NexusHealth|Máu Nhà Chính] cho các anh hùng Hoa Linh Lục Địa.",
+    "bonusStarID": "C0025",
+    "name": "Ngôi Sao Tiền Thưởng"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Bounty",
+        "description": "+1 Reroll for [k:Spirit|Spirit] Blossom champions.",
+        "descriptionRaw": "+1 Reroll for Spirit Blossom champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "+1 Lượt Đổi cho các anh hùng Hoa Linh Lục Địa.",
+    "description": "+1 [k:Reroll|Lượt Đổi] cho các anh hùng Hoa Linh Lục Địa.",
+    "bonusStarID": "C0026",
+    "name": "Ngôi Sao Tiền Thưởng"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "5+ cost spells you acquire in adventure have Unstable [cd:06PZ046|Formula|icon,img-full].",
+        "descriptionRaw": "5+ cost spells you acquire in adventure have Unstable Formula."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Bài phép có 5 tiêu hao hoặc hơn ngươi thu thập trong chuyến phiêu lưu có Công Thức Bất Định.",
+    "description": "Bài phép có 5 tiêu hao hoặc hơn ngươi thu thập trong chuyến phiêu lưu có [cd:06PZ046|Công Thức|icon,img-full] Bất Định.",
+    "bonusStarID": "C0027",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Món Quà Từ Cõi Xa: Ahri",
+        "description": "Your other [k:Spirit|Spirit] Blossom champions have a 10% chance to create a [cd:98SB010|Petals of Fate|icon,img-full] at game start.",
+        "descriptionRaw": "Your other Spirit Blossom champions have a 10% chance to create a Petals of Fate at game start."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Những anh hùng Hoa Linh Lục Địa khác của bạn có 10% cơ hội tạo ra một lá Cánh Hoa Số Phận khi bắt đầu trận đấu.",
+    "description": "Những anh hùng Hoa Linh Lục Địa khác của bạn có 10% cơ hội tạo ra một lá [cd:98SB010|Cánh Hoa Số Phận|icon,img-full] khi bắt đầu trận đấu.",
+    "bonusStarID": "C0028",
+    "name": "Món Quà Từ Cõi Xa: Ahri"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Món Quà Từ Cõi Xa: Ahri II",
+        "description": "Your other [k:Spirit|Spirit] Blossom champions have a 20% chance to create a [cd:98SB010|Petals of Fate|icon,img-full] at game start.",
+        "descriptionRaw": "Your other Spirit Blossom champions have a 20% chance to create a Petals of Fate at game start."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "Những anh hùng hoa Linh Lục Địa khác của bạn có 20% cơ hội tạo ra một lá Cánh Hoa Số Phận khi bắt đầu trận đấu.",
+    "description": "Những anh hùng hoa Linh Lục Địa khác của bạn có 20% cơ hội tạo ra một lá [cd:98SB010|Cánh Hoa Số Phận|icon,img-full] khi bắt đầu trận đấu.",
+    "bonusStarID": "C0029",
+    "name": "Món Quà Từ Cõi Xa: Ahri II"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Your support champions have [cd:09BC018|Shadow|icon,img-full] Totem.",
+        "descriptionRaw": "Your support champions have Shadow Totem."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ của bạn có Vật Tổ Bóng Đêm.",
+    "description": "Các anh hùng hỗ trợ của bạn có Vật Tổ Bóng Đêm.",
+    "bonusStarID": "C0030",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:98SB010|Petals of Fate|icon,img-full] has Oracle's Lens.",
+        "descriptionRaw": "Petals of Fate has Oracle's Lens."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Cánh Hoa Số Phận có Máy Quét Oracle",
+    "description": "[cd:98SB010|Cánh Hoa Số Phận|icon,img-full] có Máy Quét Oracle",
+    "bonusStarID": "C0031",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "[k:Follower|Follower]s you acquire in adventures that cost 3 or more have Philosopher's Stone.",
+        "descriptionRaw": "Followers you acquire in adventures that cost 3 or more have Philosopher's Stone."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Tùy tùng bạn thu thập trong chuyến phiêu lưu với 3+ tiêu hao có Đá Hiền Triết.",
+    "description": "Tùy tùng bạn thu thập trong chuyến phiêu lưu với 3+ tiêu hao có Đá Hiền Triết.",
+    "bonusStarID": "C0032",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:98SB011|Essence Thief|icon,img-full] has Arcane Knowledge.",
+        "descriptionRaw": "Essence Thief has Arcane Knowledge."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Hút Hồn có Kiến Thức Thần Bí.",
+    "description": "[cd:98SB011|Hút Hồn|icon,img-full] có Kiến Thức Thần Bí.",
+    "bonusStarID": "C0033",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+1 Reroll for [k:Spirit|Spirit] Blossom and Ionia champions.",
+        "descriptionRaw": "+1 Reroll for Spirit Blossom and Ionia champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+1 Lượt Đổi cho các anh hùng Hoa Linh Lục Địa và Ionia.",
+    "description": "+1 [k:Reroll|Lượt Đổi] cho các anh hùng Hoa Linh Lục Địa và Ionia.",
+    "bonusStarID": "C0034",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Insight",
+        "description": "+200% XP for Spirit Blossom [k:Champion|Champion]s.",
+        "descriptionRaw": "+200% XP for Spirit Blossom Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "+200% XP cho các anh hùng Hoa Linh Lục Địa.",
+    "description": "+200% XP cho các anh hùng Hoa Linh Lục Địa.",
+    "bonusStarID": "C0035",
+    "name": "Thấu Thị Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Insight",
+        "description": "+100% XP for Shuriman [k:Champion|Champion]s.",
+        "descriptionRaw": "+100% XP for Shuriman Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+100% XP cho các anh hùng Shurima.",
+    "description": "+100% XP cho các anh hùng Shurima.",
+    "bonusStarID": "C0036",
+    "name": "Thấu Thị Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "1 Revive for Shuriman champions.",
+        "descriptionRaw": "1 Revive for Shuriman champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+1 Hồi Sinh cho các anh hùng Shurima.",
+    "description": "+1 Hồi Sinh cho các anh hùng Shurima.",
+    "bonusStarID": "C0037",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "Landmarks you acquire in adventures have Symbol of Strength and Mana Potion.",
+        "descriptionRaw": "Landmarks you acquire in adventures have Symbol of Strength and Mana Potion."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Địa Danh bạn thu thập trong chuyến phiêu lưu có Biểu Tượng Sức Mạnh và Bình Năng Lượng.",
+    "description": "Địa Danh bạn thu thập trong chuyến phiêu lưu có Biểu Tượng [k:Power|Sức Mạnh] và Bình Năng Lượng.",
+    "bonusStarID": "C0038",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "Units you acquire in adventures have Fae's Favor.",
+        "descriptionRaw": "Units you acquire in adventures have Fae's Favor."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Bài quân bạn thu thập trong chuyến phiêu lưu có Đặc Ân Tinh Linh.",
+    "description": "Bài quân bạn thu thập trong chuyến phiêu lưu có Đặc Ân Tinh Linh.",
+    "bonusStarID": "C0039",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:04SH131|Grappling Hook|icon,img-full] has Stopwatch.",
+        "descriptionRaw": "Grappling Hook has Stopwatch."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Bắn Dây Móc có Đồng Hồ Ngưng Đọng.",
+    "description": "[cd:04SH131|Bắn Dây Móc|icon,img-full] có Đồng Hồ Ngưng Đọng.",
+    "bonusStarID": "C0040",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Your support champions have Excavator's Charge.",
+        "descriptionRaw": "Your support champions have Excavator's Charge."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ của bạn có Năng Lượng Máy Xúc.",
+    "description": "Các anh hùng hỗ trợ của bạn có Năng Lượng Máy Xúc.",
+    "bonusStarID": "C0041",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Bounty",
+        "description": "+10 [k:NexusHealth|Nexus Health], +100 [k:Gold|Gold].",
+        "descriptionRaw": "+10 Nexus Health, +100 Gold."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "+10 Máu Nhà Chính, +100 Vàng.",
+    "description": "+10 [k:NexusHealth|Máu Nhà Chính], +100 [k:Gold|Vàng].",
+    "bonusStarID": "C0042",
+    "name": "Ngôi Sao Tiền Thưởng"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Your support champions have Hunter's Machete.",
+        "descriptionRaw": "Your support champions have Hunter's Machete."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ của bạn có Rựa Thợ Săn.",
+    "description": "Các anh hùng hỗ trợ của bạn có Rựa Thợ Săn.",
+    "bonusStarID": "C0043",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:01NX024|Kato The Arm|icon,img-full] has [cd:09BC018|Shadow|icon,img-full] Totem.",
+        "descriptionRaw": "Kato The Arm has Shadow Totem."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Kato Tay To có Vật Tổ Bóng Đêm.",
+    "description": "[cd:01NX024|Kato Tay To|icon,img-full] có Vật Tổ Bóng Đêm.",
+    "bonusStarID": "C0044",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:98NX007|Conscription|icon,img-full] has Mana Potion.",
+        "descriptionRaw": "Conscription has Mana Potion."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Quân Dịch có Bình Năng Lượng.",
+    "description": "[cd:98NX007|Quân Dịch|icon,img-full] có Bình Năng Lượng.",
+    "bonusStarID": "C0045",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "[k:Follower|Follower]s you acquire in adventures have Greatclub.",
+        "descriptionRaw": "Followers you acquire in adventures have Greatclub."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Tùy tùng bạn thu thập trong chuyến phiêu lưu có Đại Trượng.",
+    "description": "Tùy tùng bạn thu thập trong chuyến phiêu lưu có Đại Trượng.",
+    "bonusStarID": "C0046",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Insight",
+        "description": "+100% XP for Noxian [k:Champion|Champion]s.",
+        "descriptionRaw": "+100% XP for Noxian Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+100% XP cho các anh hùng Noxus.",
+    "description": "+100% XP cho các anh hùng Noxus.",
+    "bonusStarID": "C0047",
+    "name": "Thấu Thị Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+5 [k:NexusHealth|Nexus Health] for Noxian [k:Champion|Champion]s.",
+        "descriptionRaw": "+5 Nexus Health for Noxian Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+5 Máu Nhà Chính cho các Anh Hùng của Noxus.",
+    "description": "+5 [k:NexusHealth|Máu Nhà Chính] cho các [k:Champion|Anh Hùng] của Noxus.",
+    "bonusStarID": "C0048",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Your support champions have Frost Armor.",
+        "descriptionRaw": "Your support champions have Frost Armor."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ của bạn có Giáp Băng.",
+    "description": "Các anh hùng hỗ trợ của bạn có Giáp Băng.",
+    "bonusStarID": "C0049",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:05FR005|Bone Scryer|icon,img-full] has Bloodletter's Veil.",
+        "descriptionRaw": "Bone Scryer has Bloodletter's Veil."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Tiên Tri Chết Chóc có Quyền Trượng Huyết Tự.",
+    "description": "[cd:05FR005|Tiên Tri Chết Chóc|icon,img-full] có Quyền Trượng Huyết Tự.",
+    "bonusStarID": "C0050",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "[k:Follower|Follower]s you acquire in adventures with 6+ cost have Iceborn.",
+        "descriptionRaw": "Followers you acquire in adventures with 6+ cost have Iceborn."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Tùy tùng có 6 tiêu hao hoặc nhiều hơn ngươi thu thập trong chuyến phiêu lưu có Băng Tộc.",
+    "description": "Tùy tùng có 6 tiêu hao hoặc nhiều hơn ngươi thu thập trong chuyến phiêu lưu có Băng Tộc.",
+    "bonusStarID": "C0051",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+4 Regen for Freljordian champions.",
+        "descriptionRaw": "+4 Regen for Freljordian champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+4 Hồi Phục cho các anh hùng Freljord.",
+    "description": "+4 [k:Regeneration|Hồi Phục] cho các anh hùng Freljord.",
+    "bonusStarID": "C0052",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Insight",
+        "description": "+100% XP for Freljordian [k:Champion|Champion]s.",
+        "descriptionRaw": "+100% XP for Freljordian Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+100% XP cho các anh hùng Freljord.",
+    "description": "+100% XP cho các anh hùng Freljord.",
+    "bonusStarID": "C0053",
+    "name": "Thấu Thị Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+1 Reroll for Noxian [k:Champion|Champion]s.",
+        "descriptionRaw": "+1 Reroll for Noxian Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+1 Lượt Đổi cho các anh hùng Noxus.",
+    "description": "+1 [k:Reroll|Lượt Đổi] cho các anh hùng Noxus.",
+    "bonusStarID": "C0054",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:02NX008|Death's Hand|icon,img-full] has Charging Sigil II.",
+        "descriptionRaw": "Death's Hand has Charging Sigil II."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Bàn Tay Tử Thần có Phong Ấn Tích Tụ II.",
+    "description": "[cd:02NX008|Bàn Tay Tử Thần|icon,img-full] có Phong Ấn Tích Tụ II.",
+    "bonusStarID": "C0055",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "Spells you acquire in adventures have Hextech Fabricator I.",
+        "descriptionRaw": "Spells you acquire in adventures have Hextech Fabricator I."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Bài phép bạn thu thập trong chuyến phiêu lưu có Chế Phẩm Hextech I.",
+    "description": "Bài phép bạn thu thập trong chuyến phiêu lưu có Chế Phẩm Hextech I.",
+    "bonusStarID": "C0056",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "The Prefect has Ancient Coin.",
+        "descriptionRaw": "The Prefect has Ancient Coin."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Lớp Trưởng có Đồng Xu Cổ Đại.",
+    "description": "Lớp Trưởng có Đồng Xu Cổ Đại.",
+    "bonusStarID": "C0057",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Your support champions have Luden's Tempest.",
+        "descriptionRaw": "Your support champions have Luden's Tempest."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ của bạn có Bão Tố Luden.",
+    "description": "Các anh hùng hỗ trợ của bạn có Bão Tố Luden.",
+    "bonusStarID": "C0058",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Bounty",
+        "description": "+1 [k:Reroll|Reroll], +100 [k:Gold|Gold].",
+        "descriptionRaw": "+1 Reroll, +100 Gold."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "+1 Lượt Đổi, +100 Vàng.",
+    "description": "+1 [k:Reroll|Lượt Đổi], +100 [k:Gold|Vàng].",
+    "bonusStarID": "C0059",
+    "name": "Ngôi Sao Tiền Thưởng"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+1 Reroll for Freljordian [k:Champion|Champion]s.",
+        "descriptionRaw": "+1 Reroll for Freljordian Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+1 Lượt Đổi cho các anh hùng Freljord.",
+    "description": "+1 [k:Reroll|Lượt Đổi] cho các anh hùng Freljord.",
+    "bonusStarID": "C0060",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:01FR001|Flash Freeze|icon,img-full] has Mana Potion.",
+        "descriptionRaw": "Flash Freeze has Mana Potion."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Đóng Băng Siêu Tốc có Bình Năng Lượng",
+    "description": "[k:Frostbite|Đóng Băng] [k:Burst|Siêu Tốc] có Bình Năng Lượng",
+    "bonusStarID": "C0061",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "Freljordian followers you acquire in adventures have Giant's Belt.",
+        "descriptionRaw": "Freljordian followers you acquire in adventures have Giant's Belt."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các tùy tùng Freljord bạn thu thập trong chuyến phiêu lưu có Đai Khổng Lồ.",
+    "description": "Các tùy tùng Freljord bạn thu thập trong chuyến phiêu lưu có Đai Khổng Lồ.",
+    "bonusStarID": "C0062",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:01FR028|Enraged Yeti|icon,img-full] has Philosopher's Stone and Greatclub.",
+        "descriptionRaw": "Enraged Yeti has Philosopher's Stone and Greatclub."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Yeti Dữ Tợn có Đá Hiền Triết và Đại Trượng.",
+    "description": "[cd:01FR028|Yeti Dữ Tợn|icon,img-full] có Đá Hiền Triết và Đại Trượng.",
+    "bonusStarID": "C0063",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+5 [k:NexusHealth|Nexus Health] for Bandle City and Targon [k:Champion|Champion]s.",
+        "descriptionRaw": "+5 Nexus Health for Bandle City and Targon Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+5 Máu Nhà Chính cho các annh hùng Thành Phố Bandle và Targon.",
+    "description": "+5 [k:NexusHealth|Máu Nhà Chính] cho các annh hùng Thành Phố Bandle và Targon.",
+    "bonusStarID": "C0064",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Bounty",
+        "description": "+10 [k:NexusHealth|Nexus Health], +1 [k:Reroll|Reroll].",
+        "descriptionRaw": "+10 Nexus Health, +1 Reroll."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "+10 Máu Nhà Chính, +1 Lượt Đổi.",
+    "description": "+10 [k:NexusHealth|Máu Nhà Chính], +1 [k:Reroll|Lượt Đổi].",
+    "bonusStarID": "C0065",
+    "name": "Ngôi Sao Tiền Thưởng"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Your support champions have Ascendant's Token.",
+        "descriptionRaw": "Your support champions have Ascendant's Token."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ của bạn có Kỷ Vật Thăng Hoa.",
+    "description": "Các anh hùng hỗ trợ của bạn có Kỷ Vật Thăng Hoa.",
+    "bonusStarID": "C0066",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:04SH109|Quicksand|icon,img-full] has Emperor's Favor.",
+        "descriptionRaw": "Quicksand has Emperor's Favor."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Cát Lún có Đặc Ân Đế Vương.",
+    "description": "[cd:04SH109|Cát Lún|icon,img-full] có Đặc Ân Đế Vương.",
+    "bonusStarID": "C0067",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "Spells you acquire in adventure that cost 3+ have Battle Banner",
+        "descriptionRaw": "Spells you acquire in adventure that cost 3+ have Battle Banner"
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Bài phép ngươi thu thập trong chuyến phiêu lưu với 3+ tiêu hao có Cờ Hiệu Giao Tranh.",
+    "description": "Bài phép ngươi thu thập trong chuyến phiêu lưu với 3+ tiêu hao có Cờ Hiệu Giao Tranh.",
+    "bonusStarID": "C0068",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:04SH003T1|Sand Soldier|icon,img-full] has Studded Leather.",
+        "descriptionRaw": "Sand Soldier has Studded Leather."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Chiến Binh Cát có Áo Da Tán Đinh.",
+    "description": "[cd:04SH003T1|Chiến Binh Cát|icon,img-full] có Áo Da Tán Đinh.",
+    "bonusStarID": "C0069",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+5 [k:NexusHealth|Nexus Health] for Shuriman champions.",
+        "descriptionRaw": "+5 Nexus Health for Shuriman champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+5 Máu Nhà Chính cho các Anh Hùng của Shurima.",
+    "description": "+5 [k:NexusHealth|Máu Nhà Chính] cho các [k:Champion|Anh Hùng] của Shurima.",
+    "bonusStarID": "C0070",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Your support champions have The Sheriff of Piltover.",
+        "descriptionRaw": "Your support champions have The Sheriff of Piltover."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ của bạn có Cảnh Sát Trưởng Piltover.",
+    "description": "Các anh hùng hỗ trợ của bạn có Cảnh Sát Trưởng Piltover.",
+    "bonusStarID": "C0071",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "House Whump has [cd:09BC018|Shadow|icon,img-full] Totem.",
+        "descriptionRaw": "House Whump has Shadow Totem."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Chồn Rác Thuần Hóa có Vật Tổ Bóng Đêm.",
+    "description": "[cd:01PZ053|Chồn Rác|icon,img-full] Thuần Hóa có Vật Tổ Bóng Đêm.",
+    "bonusStarID": "C0072",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "[k:Follower|Follower]s you acquire in adventures have Flashbomb Satchel.",
+        "descriptionRaw": "Followers you acquire in adventures have Flashbomb Satchel."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Tùy tùng bạn thu thập trong chuyến phiêu lưu có Gói Bom Mù.",
+    "description": "Tùy tùng bạn thu thập trong chuyến phiêu lưu có Gói Bom Mù.",
+    "bonusStarID": "C0073",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:05PZ010|Advanced Intel|icon,img-full] has Tear of the Goddess.",
+        "descriptionRaw": "Advanced Intel has Tear of the Goddess."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Tin Tiền Báo có Nước Mắt Nữ Thần.",
+    "description": "[cd:05PZ010|Tin Tiền Báo|icon,img-full] có Nước Mắt Nữ Thần.",
+    "bonusStarID": "C0074",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+1 Lượt Đổi cho các anh hùng Piltover & Zaun.",
+        "descriptionRaw": "+1 Lượt Đổi cho các anh hùng Piltover & Zaun."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+1 Lượt Đổi cho các anh hùng Piltover & Zaun.",
+    "description": "+1 [k:Reroll|Lượt Đổi] cho các anh hùng Piltover & Zaun.",
+    "bonusStarID": "C0075",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Insight",
+        "description": "+100% XP for Piltover & Zaun [k:Champion|Champion]s.",
+        "descriptionRaw": "+100% XP for Piltover & Zaun Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+100% XP cho các anh hùng Piltover & Zaun.",
+    "description": "+100% XP cho các anh hùng Piltover & Zaun.",
+    "bonusStarID": "C0076",
+    "name": "Thấu Thị Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Support [k:Champion|Champion]s have Pickaxe, Colossal Hammer, or Titan's Axe based on their cost.",
+        "descriptionRaw": "Support Champions have Pickaxe, Colossal Hammer, or Titan's Axe based on their cost."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ có Cuốc Chim, Búa Vệ Thần hoặc Rìu Nhanh Nhẹn tùy theo tiêu hao của chúng.",
+    "description": "Các anh hùng hỗ trợ có Cuốc Chim, Búa Vệ Thần hoặc Rìu [k:Fast|Nhanh] Nhẹn tùy theo tiêu hao của chúng.",
+    "bonusStarID": "C0077",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "Noxian followers you acquire in adventures have Pickaxe.",
+        "descriptionRaw": "Noxian followers you acquire in adventures have Pickaxe."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các tùy tùng Noxus bạn thu thập trong chuyến phiêu lưu có Cuốc Chim.",
+    "description": "Các tùy tùng Noxus bạn thu thập trong chuyến phiêu lưu có Cuốc Chim.",
+    "bonusStarID": "C0078",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:01NX037|Legion Grenadier|icon,img-full] has Ancient Coin.",
+        "descriptionRaw": "Legion Grenadier has Ancient Coin."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Quân Đoàn Bộc Phá có Đồng Xu Cổ Đại.",
+    "description": "[cd:01NX037|Quân Đoàn Bộc Phá|icon,img-full] có Đồng Xu Cổ Đại.",
+    "bonusStarID": "C0079",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:03PZ013|Iterative Improvement|icon,img-full] has Oracle's Lens.",
+        "descriptionRaw": "Iterative Improvement has Oracle's Lens."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Cải Tiến Liên Tục có Máy Quét Oracle.",
+    "description": "[cd:03PZ013|Cải Tiến Liên Tục|icon,img-full] có Máy Quét Oracle.",
+    "bonusStarID": "C0080",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "Spells you acquire in adventures have Hand Censer.",
+        "descriptionRaw": "Spells you acquire in adventures have Hand Censer."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Bài phép bạn thu thập trong chuyến phiêu lưu có Lư Hương Cầm Tay.",
+    "description": "Bài phép bạn thu thập trong chuyến phiêu lưu có Lư Hương Cầm Tay.",
+    "bonusStarID": "C0081",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:04PZ003|Timewinder|icon,img-full] has Charging Sigil II.",
+        "descriptionRaw": "Timewinder has Charging Sigil II."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Dây Cót Thời Gian có Phong Ấn Tích Tụ II.",
+    "description": "[cd:04PZ003|Dây Cót Thời Gian|icon,img-full] có Phong Ấn Tích Tụ II.",
+    "bonusStarID": "C0082",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Your support champions have Guardian's Orb.",
+        "descriptionRaw": "Your support champions have Guardian's Orb."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ của bạn có Băng Cầu.",
+    "description": "Các anh hùng hỗ trợ của bạn có Băng Cầu.",
+    "bonusStarID": "C0083",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Your support champions have Spider Fang.",
+        "descriptionRaw": "Your support champions have Spider Fang."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ của bạn có Nanh Nhện",
+    "description": "Các anh hùng hỗ trợ của bạn có Nanh Nhện",
+    "bonusStarID": "C0084",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:01SI050|Brood Awakening|icon,img-full] has Unstable [cd:06PZ046|Formula|icon,img-full].",
+        "descriptionRaw": "Brood Awakening has Unstable Formula."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Bầy Đàn Thức Tỉnh có Công Thức Bất Định.",
+    "description": "[cd:01SI050|Bầy Đàn Thức Tỉnh|icon,img-full] có [cd:06PZ046|Công Thức|icon,img-full] Bất Định.",
+    "bonusStarID": "C0085",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "[k:Follower|Follower]s you acquire in adventures that cost 3 or more have Spider Fang.",
+        "descriptionRaw": "Followers you acquire in adventures that cost 3 or more have Spider Fang."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Tùy Tùng bạn thu thập trong chuyến phiêu lưu với 3+ tiêu hao có Nanh Nhện.",
+    "description": "[k:Follower|Tùy Tùng] bạn thu thập trong chuyến phiêu lưu với 3+ tiêu hao có Nanh Nhện.",
+    "bonusStarID": "C0086",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "Spells you acquire in adventure have Evil Eye",
+        "descriptionRaw": "Spells you acquire in adventure have Evil Eye"
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Bài phép bạn thu thập trong chuyến phiêu lưu có Mắt Quỷ.",
+    "description": "Bài phép bạn thu thập trong chuyến phiêu lưu có Mắt Quỷ.",
+    "bonusStarID": "C0087",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+50 Starting Gold for Shadow Isles [k:Champion|Champion]s.",
+        "descriptionRaw": "+50 Starting Gold for Shadow Isles Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+50 vàng khởi điểm cho các anh hùng Quần Đảo Bóng Đêm.",
+    "description": "+50 vàng khởi điểm cho các anh hùng Quần Đảo Bóng Đêm.",
+    "bonusStarID": "C0088",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Fortune",
+        "description": "+100% XP for Shadow Isles [k:Champion|Champion]s.",
+        "descriptionRaw": "+100% XP for Shadow Isles Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+100% XP cho các anh hùng Quần Đảo Bóng Đêm.",
+    "description": "+100% XP cho các anh hùng Quần Đảo Bóng Đêm.",
+    "bonusStarID": "C0089",
+    "name": "Tài Lộc Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Bounty",
+        "description": "+200 [k:Gold|Gold].",
+        "descriptionRaw": "+200 Gold."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "+200 Vàng.",
+    "description": "+200 [k:Gold|Vàng].",
+    "bonusStarID": "C0090",
+    "name": "Ngôi Sao Tiền Thưởng"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Your support champions have Bonded Bucklers.",
+        "descriptionRaw": "Your support champions have Bonded Bucklers."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ của bạn có Khiên Gắn Kết.",
+    "description": "Các anh hùng hỗ trợ của bạn có Khiên Gắn Kết.",
+    "bonusStarID": "C0091",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "Last Caress has Chalice of Harmony.",
+        "descriptionRaw": "Last Caress has Chalice of Harmony."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Hắc Ám Bùng Nổ có Cốc Hài Hòa.",
+    "description": "Hắc Ám Bùng Nổ có Cốc Hài Hòa.",
+    "bonusStarID": "C0092",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "Hate Spike has Charging Sigil II.",
+        "descriptionRaw": "Hate Spike has Charging Sigil II."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Gai Căm Hận có Phong Ấn Tích Tụ II.",
+    "description": "Gai Căm Hận có Phong Ấn Tích Tụ II.",
+    "bonusStarID": "C0093",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+50 Starting Gold for Runeterran [k:Champion|Champion]s.",
+        "descriptionRaw": "+50 Starting Gold for Runeterran Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+50 Vàng Khởi Điểm cho các anh hùng Runeterra.",
+    "description": "+50 [k:Gold|Vàng] Khởi Điểm cho các anh hùng Runeterra.",
+    "bonusStarID": "C0094",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Bounty",
+        "description": "+50 Gold for [k:Spirit|Spirit] Blossom champions.",
+        "descriptionRaw": "+50 Gold for Spirit Blossom champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "+50 Vàng cho các anh hùng Hoa Linh Lục Địa.",
+    "description": "+50 [k:Gold|Vàng] cho các anh hùng Hoa Linh Lục Địa.",
+    "bonusStarID": "C0095",
+    "name": "Ngôi Sao Tiền Thưởng"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "[k:Follower|Follower]s you acquire in adventures have Bounty Board.",
+        "descriptionRaw": "Followers you acquire in adventures have Bounty Board."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Tùy tùng ngươi thu thập trong chuyến phiêu lưu có Bảng Truy Nã.",
+    "description": "Tùy tùng ngươi thu thập trong chuyến phiêu lưu có Bảng Truy Nã.",
+    "bonusStarID": "C0096",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Món Quà Từ Cõi Xa: Evelynn",
+        "description": "Your other [k:Spirit|Spirit] Blossom champions have a 10% chance to create a 3 cost [cd:98SB015|Beckoning Gaze|icon,img-full] at game start.",
+        "descriptionRaw": "Your other Spirit Blossom champions have a 10% chance to create a 3 cost Beckoning Gaze at game start."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Những anh hùng Hoa Linh Lục Địa khác của bạn có 10% cơ hội tạo ra một lá Cái Nhìn Phán Quyết 3 tiêu hao khi bắt đầu trận đấu.",
+    "description": "Những anh hùng Hoa Linh Lục Địa khác của bạn có 10% cơ hội tạo ra một lá [cd:98SB015|Cái Nhìn Phán Quyết|icon,img-full] 3 tiêu hao khi bắt đầu trận đấu.",
+    "bonusStarID": "C0097",
+    "name": "Món Quà Từ Cõi Xa: Evelynn"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Món Quà Từ Cõi Xa: Evelynn II",
+        "description": "Your other [k:Spirit|Spirit] Blossom champions have a 20% chance to create a 3 cost [cd:98SB015|Beckoning Gaze|icon,img-full] at game start.",
+        "descriptionRaw": "Your other Spirit Blossom champions have a 20% chance to create a 3 cost Beckoning Gaze at game start."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "Những anh hùng Hoa Linh Lục Địa khác của bạn có 20% cơ hội tạo ra một lá Cái Nhìn Phán Quyết 3 tiêu hao khi bắt đầu trận đấu.",
+    "description": "Những anh hùng Hoa Linh Lục Địa khác của bạn có 20% cơ hội tạo ra một lá [cd:98SB015|Cái Nhìn Phán Quyết|icon,img-full] 3 tiêu hao khi bắt đầu trận đấu.",
+    "bonusStarID": "C0098",
+    "name": "Món Quà Từ Cõi Xa: Evelynn II"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Your support champions have Spectral Scissors.",
+        "descriptionRaw": "Your support champions have Spectral Scissors."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ của bạn có Kéo Cắt ma Quái.",
+    "description": "Các anh hùng hỗ trợ của bạn có Kéo Cắt ma Quái.",
+    "bonusStarID": "C0099",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:98SB015|Beckoning Gaze|icon,img-full] has Mage's Handbook.",
+        "descriptionRaw": "Beckoning Gaze has Mage's Handbook."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Cái Nhìn Phán Quyết có Bí Kíp Pháp Sư.",
+    "description": "[cd:98SB015|Cái Nhìn Phán Quyết|icon,img-full] có Bí Kíp Pháp Sư.",
+    "bonusStarID": "C0100",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "Spells you acquire in adventure have [cd:01FR016|Poro Snax|icon,img-full].",
+        "descriptionRaw": "Spells you acquire in adventure have Poro Snax."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Bài phép bạn thu thập trong chuyến phiêu lưu có Bánh Quy Poro",
+    "description": "Bài phép bạn thu thập trong chuyến phiêu lưu có [cd:01FR016|Bánh Quy Poro|icon,img-full]",
+    "bonusStarID": "C0101",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:98SB018|Bewitch|icon,img-full] has Grifter's Deck.",
+        "descriptionRaw": "Bewitch has Grifter's Deck."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Bỏ Bùa có Bài Bài Gian Xảo.",
+    "description": "[cd:98SB018|Bỏ Bùa|icon,img-full] có Bài Bài Gian Xảo.",
+    "bonusStarID": "C0102",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+10 [k:NexusHealth|Nexus Health] for [k:Spirit|Spirit] Blossom and Runeterran champions.",
+        "descriptionRaw": "+10 Nexus Health for Spirit Blossom and Runeterran champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+10 Máu Nhà Chính cho những anh hùng Hoa Linh Lục Địa và Runeterra.",
+    "description": "+10 [k:NexusHealth|Máu Nhà Chính] cho những anh hùng Hoa Linh Lục Địa và Runeterra.",
+    "bonusStarID": "C0103",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Your support champions have Corrupted Gatebreaker.",
+        "descriptionRaw": "Your support champions have Corrupted Gatebreaker."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ của bạn có Người Phá Thành Sa Ngã.",
+    "description": "Các anh hùng hỗ trợ của bạn có Người Phá Thành Sa Ngã.",
+    "bonusStarID": "C0104",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:98DE001|Baleful Seeker|icon,img-full] has Corrupted Gatebreaker.",
+        "descriptionRaw": "Baleful Seeker has Corrupted Gatebreaker."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Người Kém May Mắn có Người Phá Thành Sa Ngã.",
+    "description": "[cd:98DE001|Người Kém May Mắn|icon,img-full] có Người Phá Thành Sa Ngã.",
+    "bonusStarID": "C0105",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "[k:Follower|Follower]s you acquire in adventures have Dreams Of Yordles.",
+        "descriptionRaw": "Followers you acquire in adventures have Dreams Of Yordles."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Tùy tùng bạn thu thập trong chuyến phiêu lưu có Giấc Mơ Của Yordle.",
+    "description": "Tùy tùng bạn thu thập trong chuyến phiêu lưu có Giấc Mơ Của Yordle.",
+    "bonusStarID": "C0106",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:98SH001T1|Forgotten Terror|icon,img-full] has Immortal.",
+        "descriptionRaw": "Forgotten Terror has Immortal."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Nỗi Sợ Hãi Bị Lãng Quên có Bất Tử.",
+    "description": "[cd:98SH001T1|Nỗi Sợ Hãi Bị Lãng Quên|icon,img-full] có Bất Tử.",
+    "bonusStarID": "C0107",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Your support champions have Heavy Hands.",
+        "descriptionRaw": "Your support champions have Heavy Hands."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ của bạn có Nắm Đấm Hạng Nặng.",
+    "description": "Các anh hùng hỗ trợ của bạn có Nắm Đấm Hạng Nặng.",
+    "bonusStarID": "C0108",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:02SI009|Sapling Toss|icon,img-full] has Hextech Fabricator II.",
+        "descriptionRaw": "Sapling Toss has Hextech Fabricator II."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Ném Chồi Non có Chế Phẩm Hextech II.",
+    "description": "[cd:02SI009|Ném Chồi Non|icon,img-full] có Chế Phẩm Hextech II.",
+    "bonusStarID": "C0109",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "[k:Follower|Follower]s you acquire in adventures have Miraculous Melody.",
+        "descriptionRaw": "Followers you acquire in adventures have Miraculous Melody."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Tùy tùng bạn thu thập trong chuyến phiêu lưu có Giai Điệu Diệu Kỳ.",
+    "description": "Tùy tùng bạn thu thập trong chuyến phiêu lưu có Giai Điệu Diệu Kỳ.",
+    "bonusStarID": "C0110",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": " Ghastly Band has Skirmisher's Sabre.",
+        "descriptionRaw": " Ghastly Band has Skirmisher's Sabre."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Ban Nhạc Nhàm Chán có Đao Đụng Độ.",
+    "description": "Ban Nhạc Nhàm Chán có Đao Đụng Độ.",
+    "bonusStarID": "C0111",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Your support champions have Tech Evolution.",
+        "descriptionRaw": "Your support champions have Tech Evolution."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ của bạn có Tiến Hóa Công Nghệ.",
+    "description": "Các anh hùng hỗ trợ của bạn có [k:Evolve|Tiến Hóa] Công Nghệ.",
+    "bonusStarID": "C0112",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:06PZ034|Hexbliterator|icon,img-full] has Charging Sigil III.",
+        "descriptionRaw": "Hexbliterator has Charging Sigil III."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Cỗ Máy Hủy Diệt có Phong Ấn Tích Tụ III.",
+    "description": "[cd:06PZ034|Cỗ Máy Hủy Diệt|icon,img-full] có Phong Ấn Tích Tụ III.",
+    "bonusStarID": "C0113",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "[k:Follower|Follower]s that cost 3 or more have Tech Evolution.",
+        "descriptionRaw": "Followers that cost 3 or more have Tech Evolution."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Tùy tùng bạn thu thập trong chuyến phiêu lưu với 3+ tiêu hao có Tiến Hóa Công Nghệ.",
+    "description": "Tùy tùng bạn thu thập trong chuyến phiêu lưu với 3+ tiêu hao có [k:Evolve|Tiến Hóa] Công Nghệ.",
+    "bonusStarID": "C0114",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:05BC049|Conchologist|icon,img-full] has Tech Evolution.",
+        "descriptionRaw": "Conchologist has Tech Evolution."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Nhà Nghiêng Cứu Động Vật Thân Mềm có Tiến Hóa Công Nghệ.",
+    "description": "Nhà Nghiêng Cứu Động Vật Thân Mềm có [k:Evolve|Tiến Hóa] Công Nghệ.",
+    "bonusStarID": "C0115",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+25 Starting Gold for Bandle City and Piltover & Zaun [k:Champion|Champion]s.",
+        "descriptionRaw": "+25 Starting Gold for Bandle City and Piltover & Zaun Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+25 Vàng Khởi Đầu cho các anh hùng Thành Phố Bandle và Piltover & Zaun.",
+    "description": "+25 [k:Gold|Vàng] Khởi Đầu cho các anh hùng Thành Phố Bandle và Piltover & Zaun.",
+    "bonusStarID": "C0116",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Insight",
+        "description": "+75% XP for [k:Champion|Champion]s from my regions.",
+        "descriptionRaw": "+75% XP for Champions from my regions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+75% XP cho các anh hùng thuộc các khu vực của ta.",
+    "description": "+75% XP cho các anh hùng thuộc các khu vực của ta.",
+    "bonusStarID": "C0117",
+    "name": "Thấu Thị Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Bounty",
+        "description": "+1 [k:Reroll|Reroll], +4 Regen.",
+        "descriptionRaw": "+1 Reroll, +4 Regen."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "+1 Lượt Đổi, +4 Hồi Phục.",
+    "description": "+1 Lượt Đổi, +4 [k:Regeneration|Hồi Phục].",
+    "bonusStarID": "C0118",
+    "name": "Ngôi Sao Tiền Thưởng"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:05PZ023|Forge Worker|icon,img-full] has Phage.",
+        "descriptionRaw": "Forge Worker has Phage."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Thợ Rèn có Búa Gỗ.",
+    "description": "[cd:05PZ023|Thợ Rèn|icon,img-full] có Búa Gỗ.",
+    "bonusStarID": "C0119",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "Spells you acquire in adventures that cost 6 or more have Elixir of Sorcery.",
+        "descriptionRaw": "Spells you acquire in adventures that cost 6 or more have Elixir of Sorcery."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Bài phép ngươi thu thập trong chuyến phiêu lưu với 6+ tiêu hao có Dược Phẩm Pháp Thuật.",
+    "description": "Bài phép ngươi thu thập trong chuyến phiêu lưu với 6+ tiêu hao có Dược Phẩm Pháp Thuật.",
+    "bonusStarID": "C0120",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:05PZ024|Ferros Financier|icon,img-full] has Crystal Carrier.",
+        "descriptionRaw": "Ferros Financier has Crystal Carrier."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Nhà Tài Trợ Ferros có Túi Tinh Thể.",
+    "description": "[cd:05PZ024|Nhà Tài Trợ Ferros|icon,img-full] có Túi Tinh Thể.",
+    "bonusStarID": "C0121",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+4 Regen for Piltover & Zaun [k:Champion|Champion]s.",
+        "descriptionRaw": "+4 Regen for Piltover & Zaun Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+4 Hồi Phục cho các anh hùng Piltover & Zaun.",
+    "description": "+4 [k:Regeneration|Hồi Phục] cho các anh hùng Piltover & Zaun.",
+    "bonusStarID": "C0122",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "Second Skin has Hand Censer.",
+        "descriptionRaw": "Second Skin has Hand Censer."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Vỏ Bọc Cộng Sinh có Lư Hương Cầm Tay.",
+    "description": "Vỏ Bọc Cộng Sinh có Lư Hương Cầm Tay.",
+    "bonusStarID": "C0123",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Your support champions have Vampiric Scepter.",
+        "descriptionRaw": "Your support champions have Vampiric Scepter."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ của bạn có Huyết Trượng.",
+    "description": "Các anh hùng hỗ trợ của bạn có Huyết Trượng.",
+    "bonusStarID": "C0124",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "The Stagehand has [cd:09BC018|Shadow|icon,img-full] Totem.",
+        "descriptionRaw": "The Stagehand has Shadow Totem."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Hậu Đài Viên có Vật Tổ Bóng Đêm.",
+    "description": "Hậu Đài Viên có Vật Tổ Bóng Đêm.",
+    "bonusStarID": "C0125",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "Spells you acquire in adventures have Oracle's Lens.",
+        "descriptionRaw": "Spells you acquire in adventures have Oracle's Lens."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Bài phép bạn thu thập trong chuyến phiêu lưu có Máy Quét Oracle.",
+    "description": "Bài phép bạn thu thập trong chuyến phiêu lưu có Máy Quét Oracle.",
+    "bonusStarID": "C0126",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:01PZ052|Mystic Shot|icon,img-full] has Charging Sigil II.",
+        "descriptionRaw": "Mystic Shot has Charging Sigil II."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Phát Bắn Thần Bí có Phong Ấn Tích Tụ II.",
+    "description": "[cd:01PZ052|Phát Bắn Thần Bí|icon,img-full] có Phong Ấn Tích Tụ II.",
+    "bonusStarID": "C0127",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Your support champions have [k:Focus|Focus]ing Crystal.",
+        "descriptionRaw": "Your support champions have Focusing Crystal."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ của bạn có Tinh Thể Tiêu Điểm",
+    "description": "Các anh hùng hỗ trợ của bạn có Tinh Thể Tiêu Điểm",
+    "bonusStarID": "C0128",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "Pow-Pow has Charging Sigil II.",
+        "descriptionRaw": "Pow-Pow has Charging Sigil II."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Bằng Chíu có Phong Ấn Tích Tụ II.",
+    "description": "Bằng Chíu có Phong Ấn Tích Tụ II.",
+    "bonusStarID": "C0129",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "Damaging spells you acquire in adventures have Charging Sigil II.",
+        "descriptionRaw": "Damaging spells you acquire in adventures have Charging Sigil II."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Bài phép gây sát thương bạn thu thập trong chuyến phiêu lưu có Phong Ấn Tích Tụ II.",
+    "description": "Bài phép gây sát thương bạn thu thập trong chuyến phiêu lưu có Phong Ấn Tích Tụ II.",
+    "bonusStarID": "C0130",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+50 Starting Gold for Piltover & Zaun [k:Champion|Champion]s.",
+        "descriptionRaw": "+50 Starting Gold for Piltover & Zaun Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+50 Vàng khởi điểm cho các anh hùng Piltover & Zaun.",
+    "description": "+50 [k:Gold|Vàng] khởi điểm cho các anh hùng Piltover & Zaun.",
+    "bonusStarID": "C0131",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "Belvethi Elder has Speed Wraps.",
+        "descriptionRaw": "Belvethi Elder has Speed Wraps."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Cổ Nhân Belveth có Băng Quấn Tốc Độ.",
+    "description": "Cổ Nhân Belveth có Băng Quấn Tốc Độ.",
+    "bonusStarID": "C0132",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "[k:Follower|Follower]s you acquire in adventures have Bright Staff.",
+        "descriptionRaw": "Followers you acquire in adventures have Bright Staff."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Tùy tùng bạn thu thập trong chuyến phiêu lưu có Trượng Rạng Ngời.",
+    "description": "Tùy tùng bạn thu thập trong chuyến phiêu lưu có Trượng Rạng Ngời.",
+    "bonusStarID": "C0133",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+1 Reroll for Shuriman [k:Champion|Champion]s.",
+        "descriptionRaw": "+1 Reroll for Shuriman Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+1 Lượt Đổi cho các anh hùng Shurima.",
+    "description": "+1 [k:Reroll|Lượt Đổi] cho các anh hùng Shurima.",
+    "bonusStarID": "C0134",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "Gem has Hextech Fabricator II.",
+        "descriptionRaw": "Gem has Hextech Fabricator II."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Ngọc Thạch có Chế Phẩm Hextech II.",
+    "description": "[cd:03MT092T1|Ngọc Thạch|icon,img-full] có Chế Phẩm Hextech II.",
+    "bonusStarID": "C0135",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:03MT036|Blessing of Targon|icon,img-full] has Mana Potion.",
+        "descriptionRaw": "Blessing of Targon has Mana Potion."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Targon Ban Phước có Bình Năng Lượng.",
+    "description": "[cd:03MT036|Targon Ban Phước|icon,img-full] có Bình Năng Lượng.",
+    "bonusStarID": "C0136",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+1 Reroll for Targonian [k:Champion|Champion]s.",
+        "descriptionRaw": "+1 Reroll for Targonian Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+1 Lượt Đổi cho các anh hùng Targon.",
+    "description": "+1 [k:Reroll|Lượt Đổi] cho các anh hùng Targon.",
+    "bonusStarID": "C0137",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Bounty",
+        "description": "+2 Regen for [k:Spirit|Spirit] Blossom champions.",
+        "descriptionRaw": "+2 Regen for Spirit Blossom champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "+2 Hồi Phục cho các anh hùng Hoa Linh Lục Địa.",
+    "description": "+2 [k:Regeneration|Hồi Phục] cho các anh hùng Hoa Linh Lục Địa.",
+    "bonusStarID": "C0138",
+    "name": "Ngôi Sao Tiền Thưởng"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "Damaging spells you acquire in adventures have Blasting Sigil.",
+        "descriptionRaw": "Damaging spells you acquire in adventures have Blasting Sigil."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Bài phép gây sát thương bạn thu thập trong chuyến phiêu lưu có Ấn Nổ.",
+    "description": "Bài phép gây sát thương bạn thu thập trong chuyến phiêu lưu có Ấn Nổ.",
+    "bonusStarID": "C0139",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Món Quà Từ Cõi Xa: Kindred",
+        "description": "Your other [k:Spirit|Spirit] Blossom champions have a 10% chance to create a [cd:98SB021|Unleashed Frenzy|icon,img-full] at game start.",
+        "descriptionRaw": "Your other Spirit Blossom champions have a 10% chance to create a Unleashed Frenzy at game start."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Những anh hùng Hoa Linh Lục Địa khác của ngươi có 10% cơ hội tạo ra một lá Cơn Điên Bùng Nổ khi bắt đầu trận đấu.",
+    "description": "Những anh hùng Hoa Linh Lục Địa khác của ngươi có 10% cơ hội tạo ra một lá [cd:98SB021|Cơn Điên Bùng Nổ|icon,img-full] khi bắt đầu trận đấu.",
+    "bonusStarID": "C0140",
+    "name": "Món Quà Từ Cõi Xa: Kindred"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Món Quà Từ Cõi Xa: Kindred II",
+        "description": "Your other [k:Spirit|Spirit] Blossom champions have a 20% chance to create a [cd:98SB021|Unleashed Frenzy|icon,img-full] at game start.",
+        "descriptionRaw": "Your other Spirit Blossom champions have a 20% chance to create a Unleashed Frenzy at game start."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "Những anh hùng Hoa Linh Lục Địa khác của ngươi có 20% cơ hội tạo ra một lá Cơn Điên Bùng Nổ khi bắt đầu trận đấu.",
+    "description": "Những anh hùng Hoa Linh Lục Địa khác của ngươi có 20% cơ hội tạo ra một lá [cd:98SB021|Cơn Điên Bùng Nổ|icon,img-full] khi bắt đầu trận đấu.",
+    "bonusStarID": "C0141",
+    "name": "Món Quà Từ Cõi Xa: Kindred II"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Your support champions have Ravenous Hydra.",
+        "descriptionRaw": "Your support champions have Ravenous Hydra."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ của bạn có Rìu Mãng Xà.",
+    "description": "Các anh hùng hỗ trợ của bạn có Rìu [cd:03MT034|Mãng Xà|icon,img-full].",
+    "bonusStarID": "C0142",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:98SB040|Dance of Arrows|icon,img-full] has Blasting Sigil.",
+        "descriptionRaw": "Dance of Arrows has Blasting Sigil."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Vũ Điệu Xạ Tiễn có Ấn Nổ.",
+    "description": "[cd:98SB040|Vũ Điệu Xạ Tiễn|icon,img-full] có Ấn Nổ.",
+    "bonusStarID": "C0143",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "[k:Follower|Follower]s you acquire in adventures have [cd:04SI005|Kindred|icon,img-full]'s Mark.",
+        "descriptionRaw": "Followers you acquire in adventures have Kindred's Mark."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Tùy tùng bạn thu thập trong chuyến phiêu lưu có Dấu Ấn Của Kindred.",
+    "description": "Tùy tùng bạn thu thập trong chuyến phiêu lưu có Dấu Ấn Của [cd:04SI005|Kindred|icon,img-full].",
+    "bonusStarID": "C0144",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:98SB041|The Beast|icon,img-full] has Phage.",
+        "descriptionRaw": "The Beast has Phage."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Quái Thú có Búa Gỗ.",
+    "description": "[cd:98SB041|Quái Thú|icon,img-full] có Búa Gỗ.",
+    "bonusStarID": "C0145",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+10 [k:NexusHealth|Nexus Health] for [k:Spirit|Spirit] Blossom and [cd:09BC018|Shadow|icon,img-full] Isles champions.",
+        "descriptionRaw": "+10 Nexus Health for Spirit Blossom and Shadow Isles champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+10 Máu Nhà Chính cho những anh hùng Hoa Linh Lục Địa và Quần Đảo Bóng Đêm.",
+    "description": "+10 [k:NexusHealth|Máu Nhà Chính] cho những anh hùng Hoa Linh Lục Địa và Quần Đảo Bóng Đêm.",
+    "bonusStarID": "C0146",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Your support champions have Solari Sunspear.",
+        "descriptionRaw": "Your support champions have Solari Sunspear."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ của bạn có Mũi Giáo Mặt Trời Solari.",
+    "description": "Các anh hùng hỗ trợ của bạn có Mũi Giáo Mặt Trời Solari.",
+    "bonusStarID": "C0147",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "Iula has Locket of the Iron Solari.",
+        "descriptionRaw": "Iula has Locket of the Iron Solari."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Iula có Dây Chuyền Sắt Solari.",
+    "description": "Iula có Dây Chuyền Sắt Solari.",
+    "bonusStarID": "C0148",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "[k:Follower|Follower]s you acquire in adventures have Solari Sunspear.",
+        "descriptionRaw": "Followers you acquire in adventures have Solari Sunspear."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Tùy tùng bạn thu thập trong chuyến phiêu lưu có Mũi Giáo Mặt Trời Solari.",
+    "description": "Tùy tùng bạn thu thập trong chuyến phiêu lưu có Mũi Giáo Mặt Trời Solari.",
+    "bonusStarID": "C0149",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:03MT027|Zenith Blade|icon,img-full] has Battle Banner.",
+        "descriptionRaw": "Zenith Blade has Battle Banner."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Thiên Đỉnh Kiếm có Cờ Hiệu Giao Tranh.",
+    "description": "[cd:03MT027|Thiên Đỉnh Kiếm|icon,img-full] có Cờ Hiệu Giao Tranh.",
+    "bonusStarID": "C0150",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:09DE045|Dreamlight Alina|icon,img-full] has Double Time Watch.",
+        "descriptionRaw": "Dreamlight Alina has Double Time Watch."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Alina Ánh Sáng Ảo Mộng có Đồng Hồ Không Chờ Đợi.",
+    "description": "[cd:09DE045|Alina Ánh Sáng Ảo Mộng|icon,img-full] có Đồng Hồ Không Chờ Đợi.",
+    "bonusStarID": "C0151",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "[k:Follower|Follower]s you acquire that cost 4 or more have Pickaxe.",
+        "descriptionRaw": "Followers you acquire that cost 4 or more have Pickaxe."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Tùy tùng bạn thu thập trong chuyến phiêu lưu với 4+ tiêu hao có Cuốc Chim.",
+    "description": "Tùy tùng bạn thu thập trong chuyến phiêu lưu với 4+ tiêu hao có Cuốc Chim.",
+    "bonusStarID": "C0152",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:09IO052T3|Dream-Laden Bough|icon,img-full] has Stopwatch.",
+        "descriptionRaw": "Dream-Laden Bough has Stopwatch."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Quyền Trượng Mộng Mị có Đồng Hồ Ngưng Đọng.",
+    "description": "[cd:09IO052T3|Quyền Trượng Mộng Mị|icon,img-full] có Đồng Hồ Ngưng Đọng.",
+    "bonusStarID": "C0153",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+50 Starting Gold for Ionian [k:Champion|Champion]s.",
+        "descriptionRaw": "+50 Starting Gold for Ionian Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+50 Vàng Khởi Điểm cho các anh hùng Ionia.",
+    "description": "+50 [k:Gold|Vàng] Khởi Điểm cho các anh hùng Ionia.",
+    "bonusStarID": "C0154",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:01DE042T3|Final Spark|icon,img-full] has Stopwatch",
+        "descriptionRaw": "Final Spark has Stopwatch"
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Cầu Vồng Tối Thượng có Đồng Hồ Ngưng Đọng.",
+    "description": "[cd:01DE042T3|Cầu Vồng Tối Thượng|icon,img-full] có Đồng Hồ Ngưng Đọng.",
+    "bonusStarID": "C0155",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "Spells you acquire in adventures that cost 3 or more have Mighty Moustache.",
+        "descriptionRaw": "Spells you acquire in adventures that cost 3 or more have Mighty Moustache."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Bài phép ngươi thu thập trong chuyến phiêu lưu với 6+ tiêu hao có Râu Kẽm Hùng Dũng.",
+    "description": "Bài phép ngươi thu thập trong chuyến phiêu lưu với 6+ tiêu hao có Râu Kẽm Hùng Dũng.",
+    "bonusStarID": "C0156",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:01DE033|Remembrance|icon,img-full] has Hero's Horn",
+        "descriptionRaw": "Remembrance has Hero's Horn"
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Tưởng Niệm có Tù Và Anh Hùng.",
+    "description": "Tưởng Niệm có Tù Và [k:Champion|Anh Hùng].",
+    "bonusStarID": "C0157",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "Demacian champions have +4 Regen.",
+        "descriptionRaw": "Demacian champions have +4 Regen."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+4 Hồi Phục cho các anh hùng Demacia.",
+    "description": "+4 [k:Regeneration|Hồi Phục] cho các anh hùng Demacia.",
+    "bonusStarID": "C0158",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Insight",
+        "description": "+100% XP for Demacian [k:Champion|Champion]s.",
+        "descriptionRaw": "+100% XP for Demacian Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+100 XP cho các anh hùng Demacia.",
+    "description": "+100 XP cho các anh hùng Demacia.",
+    "bonusStarID": "C0159",
+    "name": "Thấu Thị Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:09DE046|Smoldering Smirk|icon,img-full] has Stopwatch.",
+        "descriptionRaw": "Smoldering Smirk has Stopwatch."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Nụ Cười Ẩn Chứa có Đồng Hồ Ngưng Đọng.",
+    "description": "[cd:09DE046|Nụ Cười Ẩn Chứa|icon,img-full] có Đồng Hồ Ngưng Đọng.",
+    "bonusStarID": "C0160",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "[k:Follower|Follower]s you acquire with base cost 2 or less have Bright Staff.",
+        "descriptionRaw": "Followers you acquire with base cost 2 or less have Bright Staff."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Tùy tùng bạn thu thập trong chuyến phiêu lưu với 2- tiêu hao gốc có Trượng Rạng Ngời.",
+    "description": "Tùy tùng bạn thu thập trong chuyến phiêu lưu với 2- tiêu hao gốc có Trượng Rạng Ngời.",
+    "bonusStarID": "C0161",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "Prismatic [k:Barrier|Barrier] has Mana Potion.",
+        "descriptionRaw": "Prismatic Barrier has Mana Potion."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Lăng Kính Phòng Hộ có Bình Năng Lượng.",
+    "description": "[cd:01DE032|Lăng Kính Phòng Hộ|icon,img-full] có Bình Năng Lượng.",
+    "bonusStarID": "C0162",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Your support champions have Dreams Of Yordles.",
+        "descriptionRaw": "Your support champions have Dreams Of Yordles."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hùng hỗ trợ của bạn có Giấc Mơ Của Yordle.",
+    "description": "Các anh hùng hùng hỗ trợ của bạn có Giấc Mơ Của Yordle.",
+    "bonusStarID": "C0163",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Món Quà Từ Cõi Xa: Master Yi",
+        "description": "Your other [k:Spirit|Spirit] Blossom champions have a 10% chance to create a [cd:98SB025T2|Grief's Lesson|icon,img-full] at game start.",
+        "descriptionRaw": "Your other Spirit Blossom champions have a 10% chance to create a Grief's Lesson at game start."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Những anh hùng Hoa Linh Lục Địa khác của ngươi có 10% cơ hội tạo ra một lá Bài Học Đau Thương 1 tiêu hao khi bắt đầu trận đấu.",
+    "description": "Những anh hùng Hoa Linh Lục Địa khác của ngươi có 10% cơ hội tạo ra một lá [cd:98SB025T2|Bài Học Đau Thương|icon,img-full] 1 tiêu hao khi bắt đầu trận đấu.",
+    "bonusStarID": "C0164",
+    "name": "Món Quà Từ Cõi Xa: Master Yi"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Món Quà Từ Cõi Xa: Master Yi II",
+        "description": "Your other [k:Spirit|Spirit] Blossom champions have a 20% chance to create a [cd:98SB025T2|Grief's Lesson|icon,img-full] at game start.",
+        "descriptionRaw": "Your other Spirit Blossom champions have a 20% chance to create a Grief's Lesson at game start."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "Những anh hùng Hoa Linh Lục Địa khác của ngươi có 20% cơ hội tạo ra một lá Bài Học Đau Thương 1 tiêu hao khi bắt đầu trận đấu.",
+    "description": "Những anh hùng Hoa Linh Lục Địa khác của ngươi có 20% cơ hội tạo ra một lá [cd:98SB025T2|Bài Học Đau Thương|icon,img-full] 1 tiêu hao khi bắt đầu trận đấu.",
+    "bonusStarID": "C0165",
+    "name": "Món Quà Từ Cõi Xa: Master Yi II"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Your support champions have Chosen by the Stars.",
+        "descriptionRaw": "Your support champions have Chosen by the Stars."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ của bạn có Lựa Chọn Của Tinh Tú.",
+    "description": "Các anh hùng hỗ trợ của bạn có Lựa Chọn Của Tinh Tú.",
+    "bonusStarID": "C0166",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "Ghost has Farsight Alteration.",
+        "descriptionRaw": "Ghost has Farsight Alteration."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Ảo Ma có Thấu Kính Viễn Thị",
+    "description": "Ảo Ma có Thấu Kính Viễn Thị",
+    "bonusStarID": "C0167",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "Spells you find in adventures that target allies have Stout Shield.",
+        "descriptionRaw": "Spells you find in adventures that target allies have Stout Shield."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Bài phép ngươi tìm thấy trong cuộc phiêu lưu chọn đồng minh làm mục tiêu có Khiên Chắc Chắn.",
+    "description": "Bài phép ngươi tìm thấy trong cuộc phiêu lưu chọn đồng minh làm mục tiêu có Khiên Chắc Chắn.",
+    "bonusStarID": "C0168",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:98SB030T3|Blademaster's Phantom|icon,img-full] has Skirmisher's Sabre.",
+        "descriptionRaw": "Blademaster's Phantom has Skirmisher's Sabre."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Bóng Ma Của Kiếm Sĩ có Đao Đụng Độ.",
+    "description": "[cd:98SB030T3|Bóng Ma Của Kiếm Sĩ|icon,img-full] có Đao Đụng Độ.",
+    "bonusStarID": "C0169",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+100 Gold for [k:Spirit|Spirit] Blossom and Ionian champions.",
+        "descriptionRaw": "+100 Gold for Spirit Blossom and Ionian champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+100 Vàng cho các anh hùng Hoa Linh Lục Địa và Ionia.",
+    "description": "+100 [k:Gold|Vàng] cho các anh hùng Hoa Linh Lục Địa và Ionia.",
+    "bonusStarID": "C0170",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:98PZ006T2|Radiant Volley|icon,img-full] has Hand Censer.",
+        "descriptionRaw": "Radiant Volley has Hand Censer."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Chùm Sáng Hội Tụ có Lư Hương Cầm Tay.",
+    "description": "[cd:98PZ006T2|Chùm Sáng Hội Tụ|icon,img-full] có Lư Hương Cầm Tay.",
+    "bonusStarID": "C0171",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "Your 2+ cost spells you acquire in adventures have Mana Potion, Tear of the Goddess, or Chalice of Harmony based on their cost.",
+        "descriptionRaw": "Your 2+ cost spells you acquire in adventures have Mana Potion, Tear of the Goddess, or Chalice of Harmony based on their cost."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Bài phép với nhiều hơn 2 tiêu hao ngươi thu thập trong chuyến phiêu lưu có Bình Năng Lượng, Nước Mắt Nữ Thần hoặc Cốc Hài Hòa tùy theo tiêu hao của nó.",
+    "description": "Bài phép với nhiều hơn 2 tiêu hao ngươi thu thập trong chuyến phiêu lưu có Bình Năng Lượng, Nước Mắt Nữ Thần hoặc Cốc Hài Hòa tùy theo tiêu hao của nó.",
+    "bonusStarID": "C0172",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:98PZ008|Solar Snare|icon,img-full] has Charging Sigil I.",
+        "descriptionRaw": "Solar Snare has Charging Sigil I."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Phi Luân Dương Viêm có Phong Ấn Tích Tụ I.",
+    "description": "[cd:98PZ008|Phi Luân Dương Viêm|icon,img-full] có Phong Ấn Tích Tụ I.",
+    "bonusStarID": "C0173",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+1 Reroll for Noxian and Piltover & Zaun [k:Champion|Champion]s.",
+        "descriptionRaw": "+1 Reroll for Noxian and Piltover & Zaun Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+1 Lượt Đổi cho các anh hùng của Noxus và Piltover & Zaun.",
+    "description": "+1 [k:Reroll|Lượt Đổi] cho các anh hùng của Noxus và Piltover & Zaun.",
+    "bonusStarID": "C0174",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:02BW045|Make it Rain|icon,img-full] has Charging Sigil II.",
+        "descriptionRaw": "Make it Rain has Charging Sigil II."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Mưa Đạn có Phong Ấn Tích Tụ II.",
+    "description": "[cd:02BW045|Mưa Đạn|icon,img-full] có Phong Ấn Tích Tụ II.",
+    "bonusStarID": "C0175",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "[k:Follower|Follower]s you acquire that cost 2 or less have Studded Leather.",
+        "descriptionRaw": "Followers you acquire that cost 2 or less have Studded Leather."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Tùy tùng bạn thu thập trong chuyến phiêu lưu với 2- tiêu hao có Áo Da Tán Đinh.",
+    "description": "Tùy tùng bạn thu thập trong chuyến phiêu lưu với 2- tiêu hao có Áo Da Tán Đinh.",
+    "bonusStarID": "C0176",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:02BW034T1|Powder Monkey|icon,img-full] has Skirmisher's Sabre.",
+        "descriptionRaw": "Powder Monkey has Skirmisher's Sabre."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Khỉ Đuôi Nổ có Đao Đụng Độ.",
+    "description": "[cd:02BW034T1|Khỉ Đuôi Nổ|icon,img-full] có Đao Đụng Độ.",
+    "bonusStarID": "C0177",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+1 Reroll for Bilgewater [k:Champion|Champion]s.",
+        "descriptionRaw": "+1 Reroll for Bilgewater Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+1 Lượt Đổi cho các anh hùng Bilgewater.",
+    "description": "+1 [k:Reroll|Lượt Đổi] cho các anh hùng Bilgewater.",
+    "bonusStarID": "C0178",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+100% XP for Bilgewater [k:Champion|Champion]s.",
+        "descriptionRaw": "+100% XP for Bilgewater Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+100% XP cho các anh hùng Bilgewater.",
+    "description": "+100% XP cho các anh hùng Bilgewater.",
+    "bonusStarID": "C0179",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:08MT005|Mihira, Aspect Ascendant|icon,img-full] has Double Time Watch.",
+        "descriptionRaw": "Mihira, Aspect Ascendant has Double Time Watch."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Mihira, Thượng Nhân Thăng Hoa có Đồng Hồ Không Chờ Đợi.",
+    "description": "[cd:08MT005|Mihira, Thượng Nhân Thăng Hoa|icon,img-full] có Đồng Hồ Không Chờ Đợi.",
+    "bonusStarID": "C0180",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:03MT016|Startled Stomper|icon,img-full] has Bonded Bucklers.",
+        "descriptionRaw": "Startled Stomper has Bonded Bucklers."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Voi Hú Hồn có Khiên Gắn Kết.",
+    "description": "[cd:03MT016|Voi Hú Hồn|icon,img-full] có Khiên Gắn Kết.",
+    "bonusStarID": "C0181",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+5 Starting [k:NexusHealth|Nexus Health] for Demacian and Targonian [k:Champion|Champion]s.",
+        "descriptionRaw": "+5 Starting Nexus Health for Demacian and Targonian Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+5 Máu Nhà Chính khởi điểm cho các anh hùng Demacia và Targon.",
+    "description": "+5 [k:NexusHealth|Máu Nhà Chính] khởi điểm cho các anh hùng Demacia và Targon.",
+    "bonusStarID": "C0182",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Your support champions have Immortal.",
+        "descriptionRaw": "Your support champions have Immortal."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ của bạn có Bất Tử.",
+    "description": "Các anh hùng hỗ trợ của bạn có Bất Tử.",
+    "bonusStarID": "C0183",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "Siphoning [k:Strike|Strike] has Stopwatch.",
+        "descriptionRaw": "Siphoning Strike has Stopwatch."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Quyền Trượng Linh Hồn có Đồng Hồ Ngưng Đọng.",
+    "description": "Quyền Trượng [k:Spirit|Linh Hồn] có Đồng Hồ Ngưng Đọng.",
+    "bonusStarID": "C0184",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "Shuriman followers you acquire in adventures have Giant's Belt.",
+        "descriptionRaw": "Shuriman followers you acquire in adventures have Giant's Belt."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Tùy tùng Shurima bạn thu thập trong chuyến phiêu lưu có Đai Khổng Lồ.",
+    "description": "Tùy tùng Shurima bạn thu thập trong chuyến phiêu lưu có Đai Khổng Lồ.",
+    "bonusStarID": "C0185",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:04SH004|Weight of Judgment|icon,img-full] has Charging Sigil II.",
+        "descriptionRaw": "Weight of Judgment has Charging Sigil II."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Phán Quyết Khó Khăn có Phong Ấn Tích Tụ II.",
+    "description": "[cd:04SH004|Phán Quyết Khó Khăn|icon,img-full] có Phong Ấn Tích Tụ II.",
+    "bonusStarID": "C0186",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+4 Regen for Shuriman champions.",
+        "descriptionRaw": "+4 Regen for Shuriman champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+4 Hồi Phục cho các anh hùng Shurima.",
+    "description": "+4 [k:Regeneration|Hồi Phục] cho các anh hùng Shurima.",
+    "bonusStarID": "C0187",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Your support champions have Diving Helmet.",
+        "descriptionRaw": "Your support champions have Diving Helmet."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ của bạn có Mũ Lặn.",
+    "description": "Các anh hùng hỗ trợ của bạn có Mũ Lặn.",
+    "bonusStarID": "C0188",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:06BW034|Heavy Metal|icon,img-full] has Charging Sigil II.",
+        "descriptionRaw": "Heavy Metal has Charging Sigil II."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Mỏ Neo Siêu Nặng có Phong Ấn Tích Tụ II.",
+    "description": "[cd:06BW034|Mỏ Neo Siêu Nặng|icon,img-full] có Phong Ấn Tích Tụ II.",
+    "bonusStarID": "C0189",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "Sea Monster followers you acquire in adventures have Greatclub. on-Sea Monster followers you find in adventures that cost 4 or greater have Diving Helmet.",
+        "descriptionRaw": "Sea Monster followers you acquire in adventures have Greatclub. on-Sea Monster followers you find in adventures that cost 4 or greater have Diving Helmet."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Tùy tùng Quái Vật Biển có được trong chuyến phiêu lưu có Đại Trượng. Tùy tùng không phải Quái Vật Biển có được trong chuyến phiêu lưu với 4+ tiêu hao có Mũ Lặn.",
+    "description": "Tùy tùng Quái Vật Biển có được trong chuyến phiêu lưu có Đại Trượng. Tùy tùng không phải Quái Vật Biển có được trong chuyến phiêu lưu với 4+ tiêu hao có Mũ Lặn.",
+    "bonusStarID": "C0190",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "Riptide has [k:Summon|Summon]ing Beacon.",
+        "descriptionRaw": "Riptide has Summoning Beacon."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Thủy Triều Dữ Dội có Hải Đăng Triệu Hồi.",
+    "description": "Thủy Triều Dữ Dội có Hải Đăng [k:Summon|Triệu Hồi].",
+    "bonusStarID": "C0191",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+10 [k:NexusHealth|Nexus Health] for Bilgewater [k:Champion|Champion]s.",
+        "descriptionRaw": "+10 Nexus Health for Bilgewater Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+10 Máu Nhà Chính cho các anh hùng của Bilgewater.",
+    "description": "+10 [k:NexusHealth|Máu Nhà Chính] cho các anh hùng của Bilgewater.",
+    "bonusStarID": "C0192",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Your support champions have Dragon Tooth.",
+        "descriptionRaw": "Your support champions have Dragon Tooth."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ của bạn có Long Nha.",
+    "description": "Các anh hùng hỗ trợ của bạn có Long Nha.",
+    "bonusStarID": "C0193",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:07NX033|Bonehide Tri-tail|icon,img-full] has Skirmisher's Sabre.",
+        "descriptionRaw": "Bonehide Tri-tail has Skirmisher's Sabre."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Chiến Miêu Tam Vĩ có Đao Đụng Độ.",
+    "description": "[cd:07NX033|Chiến Miêu Tam Vĩ|icon,img-full] có Đao Đụng Độ.",
+    "bonusStarID": "C0194",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "Bird, Cat, Dog, Elnuk, Fae, Reptile, and Spider followers you acquire in adventures have Studded Leather.",
+        "descriptionRaw": "Bird, Cat, Dog, Elnuk, Fae, Reptile, and Spider followers you acquire in adventures have Studded Leather."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các tùy tùng Điểu, Mèo, Chó, Tinh Linh, Bò Sát và Nhện bạn thu thập trong chuyến phiêu lưu có Áo Da Tán Đinh.",
+    "description": "Các tùy tùng Điểu, Mèo, Chó, Tinh Linh, Bò Sát và Nhện bạn thu thập trong chuyến phiêu lưu có Áo Da Tán Đinh.",
+    "bonusStarID": "C0195",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:05BC213|Wallop|icon,img-full] has Charging Sigil II.",
+        "descriptionRaw": "Wallop has Charging Sigil II."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Giáng Mạnh có Phong Ấn Tích Tụ II.",
+    "description": "[cd:05BC213|Giáng Mạnh|icon,img-full] có Phong Ấn Tích Tụ II.",
+    "bonusStarID": "C0196",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+1 Reroll for Runeterran [k:Champion|Champion]s.",
+        "descriptionRaw": "+1 Reroll for Runeterran Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+1 Lượt Đổi cho các anh hùng Runeterra.",
+    "description": "+1 [k:Reroll|Lượt Đổi] cho các anh hùng Runeterra.",
+    "bonusStarID": "C0197",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Insight",
+        "description": "+10% [k:XP|XP] for ALL champions.",
+        "descriptionRaw": "+10% XP for ALL champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+10% XP cho TẤT CẢ anh hùng.",
+    "description": "+10% XP cho TẤT CẢ anh hùng.",
+    "bonusStarID": "C0198",
+    "name": "Thấu Thị Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Your support champions have Portal Pals.",
+        "descriptionRaw": "Your support champions have Portal Pals."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ của bạn có Bằng Hữu Dịch Chuyển.",
+    "description": "Các anh hùng hỗ trợ của bạn có Bằng Hữu Dịch Chuyển.",
+    "bonusStarID": "C0199",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:05BC120|Yordle Captain|icon,img-full] has Vampiric Scepter.",
+        "descriptionRaw": "Yordle Captain has Vampiric Scepter."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Yordle Đội Trưởng có Huyết Trượng.",
+    "description": "[cd:05BC120|Yordle Đội Trưởng|icon,img-full] có Huyết Trượng.",
+    "bonusStarID": "C0200",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "[k:Follower|Follower]s you acquire in adventures that cost 4 or more have Ancient Coin.",
+        "descriptionRaw": "Followers you acquire in adventures that cost 4 or more have Ancient Coin."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Tùy tùng bạn thu thập trong chuyến phiêu lưu với 4+ tiêu hao có Đồng Xu Cổ Đại.",
+    "description": "Tùy tùng bạn thu thập trong chuyến phiêu lưu với 4+ tiêu hao có Đồng Xu Cổ Đại.",
+    "bonusStarID": "C0201",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "Cosmic Binding has Charging Sigil II.",
+        "descriptionRaw": "Cosmic Binding has Charging Sigil II."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Mắt Xích Không Gian có Phong Ấn Tích Tụ II.",
+    "description": "Mắt Xích Không Gian có Phong Ấn Tích Tụ II.",
+    "bonusStarID": "C0202",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+1 Reroll for Bandle City [k:Champion|Champion]s.",
+        "descriptionRaw": "+1 Reroll for Bandle City Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+1 Lượt Đổi cho các anh hùng Thành Phố Bandle",
+    "description": "+1 [k:Reroll|Lượt Đổi] cho các anh hùng Thành Phố Bandle",
+    "bonusStarID": "C0203",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Insight",
+        "description": "+100% XP for Bandle City [k:Champion|Champion]s.",
+        "descriptionRaw": "+100% XP for Bandle City Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+100% XP cho các anh hùng Thành Phố Bandle.",
+    "description": "+100% XP cho các anh hùng Thành Phố Bandle.",
+    "bonusStarID": "C0204",
+    "name": "Thấu Thị Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "[k:Support|Support] champions have Mariner's Ruse.",
+        "descriptionRaw": "Support champions have Mariner's Ruse."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ có Thủy Thủ Mưu Mô.",
+    "description": "Các anh hùng hỗ trợ có Thủy Thủ Mưu Mô.",
+    "bonusStarID": "C0205",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:04SH065|Xerxa'Reth, The Undertitan|icon,img-full] has Quickstrike Blade.",
+        "descriptionRaw": "Xerxa'Reth, The Undertitan has Quickstrike Blade."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Xerxa'Reth, Kẻ Khổng Lồ Đáy Sâu có Lưỡi Kiếm Đột Kích.",
+    "description": "Xerxa'Reth, Kẻ Khổng Lồ Đáy Sâu có Lưỡi Kiếm [k:QuickStrike|Đột Kích].",
+    "bonusStarID": "C0206",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "[k:Follower|Follower]s that you acquire in adventures that cost 4 or more have Mariner's Ruse.",
+        "descriptionRaw": "Followers that you acquire in adventures that cost 4 or more have Mariner's Ruse."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Tùy tùng bạn thu thập trong chuyến phiêu lưu với 4+ tiêu hao có Thủy Thủ Mưu Mô.",
+    "description": "Tùy tùng bạn thu thập trong chuyến phiêu lưu với 4+ tiêu hao có Thủy Thủ Mưu Mô.",
+    "bonusStarID": "C0207",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:04BW003|Snapjaw Swarm|icon,img-full] has Locket of the Iron Solari.",
+        "descriptionRaw": "Snapjaw Swarm has Locket of the Iron Solari."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Bầy Cá Răng Nhọn có Dây Chuyền Sắt Solari.",
+    "description": "[cd:04BW003|Bầy Cá Răng Nhọn|icon,img-full] có Dây Chuyền Sắt Solari.",
+    "bonusStarID": "C0208",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Your support champions have Flame-Wreathed Soul.",
+        "descriptionRaw": "Your support champions have Flame-Wreathed Soul."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ của bạn có Linh hồn Bốc Lửa.",
+    "description": "Các anh hùng hỗ trợ của bạn có Linh hồn Bốc Lửa.",
+    "bonusStarID": "C0209",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": " [cd:03DE013|Stalking Broodmother|icon,img-full] has Dragon Egg.",
+        "descriptionRaw": " Stalking Broodmother has Dragon Egg."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Long Mẫu Rình Rập có Trứng Rồng.",
+    "description": "Long Mẫu [k:Lurker|Rình Rập] có Trứng Rồng.",
+    "bonusStarID": "C0210",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "[k:Follower|Follower]s you acquire in adventures that cost 6 or more have Progressive Growth.",
+        "descriptionRaw": "Followers you acquire in adventures that cost 6 or more have Progressive Growth."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Tùy tùng bạn thu thập được trong chuyến phiêu lưu với 6+ tiêu hao có Tăng Trưởng Tiến Bộ.",
+    "description": "Tùy tùng bạn thu thập được trong chuyến phiêu lưu với 6+ tiêu hao có Tăng Trưởng Tiến Bộ.",
+    "bonusStarID": "C0211",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:04DE016|Kadregrin the Ruined|icon,img-full] has Iceborn.",
+        "descriptionRaw": "Kadregrin the Ruined has Iceborn."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Kadregin Đại Suy Vong có Băng Tộc.",
+    "description": "Kadregin [cd:01SI015|Đại Suy Vong|icon,img-full] có Băng Tộc.",
+    "bonusStarID": "C0212",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Your support champions have Lost Chapter.",
+        "descriptionRaw": "Your support champions have Lost Chapter."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ của bạn có Bí Chương Thất Truyền.",
+    "description": "Các anh hùng hỗ trợ của bạn có Bí Chương Thất Truyền.",
+    "bonusStarID": "C0213",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "Stylish Shot has Charging Sigil II.",
+        "descriptionRaw": "Stylish Shot has Charging Sigil II."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Phát Bắn Điệu Nghệ có Phong Ấn Tích Tụ II.",
+    "description": "Phát Bắn Điệu Nghệ có Phong Ấn Tích Tụ II.",
+    "bonusStarID": "C0214",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "Spells with 4+ cost you acquire in adventures have Forbidden Idol.",
+        "descriptionRaw": "Spells with 4+ cost you acquire in adventures have Forbidden Idol."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Bài Phép với 4+ tiêu hao bạn thu thập trong chuyến phiêu lưu có Dị Vật Tai Ương.",
+    "description": "Bài Phép với 4+ tiêu hao bạn thu thập trong chuyến phiêu lưu có Dị Vật [cd:03MT037|Tai Ương|icon,img-full].",
+    "bonusStarID": "C0215",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "Flair has Ardent Censer.",
+        "descriptionRaw": "Flair has Ardent Censer."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Ứng Biến có Lư Hương Sôi Sục.",
+    "description": "Ứng Biến có Lư Hương Sôi Sục.",
+    "bonusStarID": "C0216",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+50 Starting Gold for Noxian [k:Champion|Champion]s.",
+        "descriptionRaw": "+50 Starting Gold for Noxian Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+50 Vàng khởi điểm cho các anh hùng Noxus.",
+    "description": "+50 [k:Gold|Vàng] khởi điểm cho các anh hùng Noxus.",
+    "bonusStarID": "C0217",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Fortune",
+        "description": "+5% chance to find Epic items for Noxian [k:Champion|Champion]s.",
+        "descriptionRaw": "+5% chance to find Epic items for Noxian Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+5% tỉ lệ xuất hiện trang bị Sử Thi cho các anh hùng Noxus.",
+    "description": "+5% tỉ lệ xuất hiện trang bị Sử Thi cho các anh hùng Noxus.",
+    "bonusStarID": "C0218",
+    "name": "Tài Lộc Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:01IO016|Zephyr Sage|icon,img-full] has Dragon Egg.",
+        "descriptionRaw": "Zephyr Sage has Dragon Egg."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Phong Kiếm Hiền Nhân có Trứng Rồng.",
+    "description": "[cd:01IO016|Phong Kiếm Hiền Nhân|icon,img-full] có Trứng Rồng.",
+    "bonusStarID": "C0219",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "Spells you acquire in adventures that cost 4 or more have Cashback.",
+        "descriptionRaw": "Spells you acquire in adventures that cost 4 or more have Cashback."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Bài phép ngươi thu thập trong chuyến phiêu lưu với 4+ tiêu hao có Hoàn Trả.",
+    "description": "Bài phép ngươi thu thập trong chuyến phiêu lưu với 4+ tiêu hao có Hoàn Trả.",
+    "bonusStarID": "C0220",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "Coin has Stopwatch.",
+        "descriptionRaw": "Coin has Stopwatch."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Xu có Đồng Hồ Ngưng Đọng.",
+    "description": "Xu có Đồng Hồ Ngưng Đọng.",
+    "bonusStarID": "C0221",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+4 Regen for Ionian champions.",
+        "descriptionRaw": "+4 Regen for Ionian champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+4 Hồi Phục cho các anh hùng Ionia.",
+    "description": "+4 [k:Regeneration|Hồi Phục] cho các anh hùng Ionia.",
+    "bonusStarID": "C0222",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "Strafing [k:Strike|Strike] has Tear of the Goddess.",
+        "descriptionRaw": "Strafing Strike has Tear of the Goddess."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Oanh Tạc Chiến có Nước Mắt Nữ Thần.",
+    "description": "[cd:03DE002|Oanh Tạc Chiến|icon,img-full] có Nước Mắt Nữ Thần.",
+    "bonusStarID": "C0223",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "Dragon followers you acquire in adventures have Nomad's Medallion.",
+        "descriptionRaw": "Dragon followers you acquire in adventures have Nomad's Medallion."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Tùy tùng Rồng ngươi thu thập trong chuyến phiêu lưu có Mề Đay Nomad.",
+    "description": "Tùy tùng Rồng ngươi thu thập trong chuyến phiêu lưu có Mề Đay Nomad.",
+    "bonusStarID": "C0224",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:03DE001|Confront|icon,img-full] has Solid Spear.",
+        "descriptionRaw": "Confront has Solid Spear."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Đối Đầu có Ngọn Giáo Cứng Rắn.",
+    "description": "[cd:03DE001|Đối Đầu|icon,img-full] có Ngọn Giáo Cứng Rắn.",
+    "bonusStarID": "C0225",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:08NX003|Enraged Firespitter|icon,img-full] has Nomad's Medallion.",
+        "descriptionRaw": "Enraged Firespitter has Nomad's Medallion."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Rồng Phun Lửa Giận Dữ có Mề Đay Nomad.",
+    "description": "[cd:08NX003|Rồng Phun Lửa Giận Dữ|icon,img-full] có Mề Đay Nomad.",
+    "bonusStarID": "C0226",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "Spells you acquire in adventures have Pyromantic Wake.",
+        "descriptionRaw": "Spells you acquire in adventures have Pyromantic Wake."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Bài phép bạn thu thập trong chuyến phiêu lưu có Thức Tỉnh Hỏa Thuật.",
+    "description": "Bài phép bạn thu thập trong chuyến phiêu lưu có Thức Tỉnh Hỏa Thuật.",
+    "bonusStarID": "C0227",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "Pirouette has [cd:05BC200|Yordle Portal|icon,img-full].",
+        "descriptionRaw": "Pirouette has Yordle Portal."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Múa Xoay có Cổng Yordle.",
+    "description": "Múa Xoay có [cd:05BC200|Cổng Yordle|icon,img-full].",
+    "bonusStarID": "C0228",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:04SH090|Grumpy Rockbear|icon,img-full] has Phage.",
+        "descriptionRaw": "Grumpy Rockbear has Phage."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Gấu Đá Cục Cằn có Búa Gỗ.",
+    "description": "[cd:04SH090|Gấu Đá Cục Cằn|icon,img-full] có Búa Gỗ.",
+    "bonusStarID": "C0229",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "Landmarks you acquire in adventures have Mana Potion.",
+        "descriptionRaw": "Landmarks you acquire in adventures have Mana Potion."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Địa Danh bạn thu thập trong chuyến phiêu lưu có Bình Năng Lượng.",
+    "description": "Địa Danh bạn thu thập trong chuyến phiêu lưu có Bình Năng Lượng.",
+    "bonusStarID": "C0230",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:04SH093|Shaped Stone|icon,img-full] has Elixir of Sorcery.",
+        "descriptionRaw": "Shaped Stone has Elixir of Sorcery."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Đá Tôi Luyện có Dược Phẩm Pháp Thuật",
+    "description": "[cd:04SH093|Đá Tôi Luyện|icon,img-full] có Dược Phẩm Pháp Thuật",
+    "bonusStarID": "C0231",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Bounty",
+        "description": "+20 [k:NexusHealth|Nexus Health].",
+        "descriptionRaw": "+20 Nexus Health."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "+20 Máu Nhà Chính.",
+    "description": "+20 [k:NexusHealth|Máu Nhà Chính].",
+    "bonusStarID": "C0232",
+    "name": "Ngôi Sao Tiền Thưởng"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Your support champions have Horrific Visage.",
+        "descriptionRaw": "Your support champions have Horrific Visage."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ của bạn có Diện Mạo Kinh Hoàng.",
+    "description": "Các anh hùng hỗ trợ của bạn có Diện Mạo Kinh Hoàng.",
+    "bonusStarID": "C0233",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:05BC209|Stress Defense|icon,img-full] has Mage's Handbook.",
+        "descriptionRaw": "Stress Defense has Mage's Handbook."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Phản Xạ Dưới Áp Lực có Bí Kíp Pháp Sư.",
+    "description": "[cd:05BC209|Phản Xạ Dưới Áp Lực|icon,img-full] có Bí Kíp Pháp Sư.",
+    "bonusStarID": "C0234",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "[k:Follower|Follower]s you acquire in adventures have Special Delivery.",
+        "descriptionRaw": "Followers you acquire in adventures have Special Delivery."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Tùy tùng bạn thu thập trong chuyến phiêu lưu có Rải Nấm.",
+    "description": "Tùy tùng bạn thu thập trong chuyến phiêu lưu có Rải Nấm.",
+    "bonusStarID": "C0235",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "3+ cost spells you acquire in adventure have Evil Eye.",
+        "descriptionRaw": "3+ cost spells you acquire in adventure have Evil Eye."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Bài phép có 3 tiêu hao hoặc hơn ngươi thu thập trong chuyến phiêu lưu có Mắt Quỷ.",
+    "description": "Bài phép có 3 tiêu hao hoặc hơn ngươi thu thập trong chuyến phiêu lưu có Mắt Quỷ.",
+    "bonusStarID": "C0236",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:05BC100|Puffcap Pup|icon,img-full] has Special Delivery.",
+        "descriptionRaw": "Puffcap Pup has Special Delivery."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Cún Nấm Độc có Rải Nấm.",
+    "description": "[cd:05BC100|Cún Nấm Độc|icon,img-full] có Rải Nấm.",
+    "bonusStarID": "C0237",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Món Quà Từ Cõi Xa: Teemo",
+        "description": "Your other [k:Spirit|Spirit] Blossom champions have a 10% chance to create a [cd:98SB003|Yoink!|icon,img-full] at game start.",
+        "descriptionRaw": "Your other Spirit Blossom champions have a 10% chance to create a Yoink! at game start."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Những anh hùng Hoa Linh Lục Địa khác của bạn có 10% cơ hội tạo ra một lá Trong Chớp Mắt! khi bắt đầu trận đấu.",
+    "description": "Những anh hùng Hoa Linh Lục Địa khác của bạn có 10% cơ hội tạo ra một lá [cd:98SB003|Trong Chớp Mắt!|icon,img-full] khi bắt đầu trận đấu.",
+    "bonusStarID": "C0238",
+    "name": "Món Quà Từ Cõi Xa: Teemo"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Món Quà Từ Cõi Xa: Teemo II",
+        "description": "Your other [k:Spirit|Spirit] Blossom champions have a 20% chance to create a [cd:98SB003|Yoink!|icon,img-full] at game start.",
+        "descriptionRaw": "Your other Spirit Blossom champions have a 20% chance to create a Yoink! at game start."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "Những anh hùng Hoa Linh Lục Địa khác của bạn có 20% cơ hội tạo ra một lá Trong Chớp Mắt! khi bắt đầu trận đấu.",
+    "description": "Những anh hùng Hoa Linh Lục Địa khác của bạn có 20% cơ hội tạo ra một lá [cd:98SB003|Trong Chớp Mắt!|icon,img-full] khi bắt đầu trận đấu.",
+    "bonusStarID": "C0239",
+    "name": "Món Quà Từ Cõi Xa: Teemo II"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+10 [k:NexusHealth|Nexus Health] for [k:Spirit|Spirit] Blossom and Bandle City champions.",
+        "descriptionRaw": "+10 Nexus Health for Spirit Blossom and Bandle City champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+10 Máu Nhà Chính cho anh hùng Hoa Linh Lục Địa và Thành Phố Bandle.",
+    "description": "+10 [k:NexusHealth|Máu Nhà Chính] cho anh hùng Hoa Linh Lục Địa và Thành Phố Bandle.",
+    "bonusStarID": "C0240",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:01SI026|Warden's Prey|icon,img-full] has [cd:09BC018|Shadow|icon,img-full] Totem.",
+        "descriptionRaw": "Warden's Prey has Shadow Totem."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Con Mồi Của Cai Ngục có Vật Tổ Bóng Đêm.",
+    "description": "[cd:01SI026|Con Mồi Của Cai Ngục|icon,img-full] có Vật Tổ Bóng Đêm.",
+    "bonusStarID": "C0241",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:01SI040|Vile Feast|icon,img-full] has Heroes Call",
+        "descriptionRaw": "Vile Feast has Heroes Call"
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Bữa Tiệc Ghê Tởm có Hiệu Triệu Anh Hùng.",
+    "description": "Bữa Tiệc Ghê Tởm có Hiệu Triệu [k:Champion|Anh Hùng].",
+    "bonusStarID": "C0242",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+4 Regen for Shadow Isles [k:Champion|Champion]s.",
+        "descriptionRaw": "+4 Regen for Shadow Isles Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+4 Hồi Phục cho các anh hùng Quần Đảo Bóng Đêm.",
+    "description": "+4 [k:Regeneration|Hồi Phục] cho các anh hùng Quần Đảo Bóng Đêm.",
+    "bonusStarID": "C0243",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:01FR004|Elixir of Iron|icon,img-full] has Elixir of Sorcery.",
+        "descriptionRaw": "Elixir of Iron has Elixir of Sorcery."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Dược Phẩm Cứng Cáp có Dược Phẩm Pháp Thuật.",
+    "description": "[cd:01FR004|Dược Phẩm Cứng Cáp|icon,img-full] có Dược Phẩm Pháp Thuật.",
+    "bonusStarID": "C0244",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:01FR041|Avarosan Hearthguard|icon,img-full] has [cd:09BC018|Shadow|icon,img-full] Totem.",
+        "descriptionRaw": "Avarosan Hearthguard has Shadow Totem."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Hỏa Binh Avarosa có Vật Tổ Bóng Đêm.",
+    "description": "[cd:01FR041|Hỏa Binh Avarosa|icon,img-full] có Vật Tổ Bóng Đêm.",
+    "bonusStarID": "C0245",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Bounty",
+        "description": "+20 [k:NexusHealth|Nexus Health]. +4 [cd:01NX039|Vision|icon,img-full].",
+        "descriptionRaw": "+20 Nexus Health. +4 Vision."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "+20 Máu Nhà Chính. +4 Tầm Nhìn.",
+    "description": "+20 [k:NexusHealth|Máu Nhà Chính]. +4 [cd:01NX039|Tầm Nhìn|icon,img-full].",
+    "bonusStarID": "C0246",
+    "name": "Ngôi Sao Tiền Thưởng"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Your support champions have [cd:06IO028|Entrancing Lure|icon,img-full].",
+        "descriptionRaw": "Your support champions have Entrancing Lure."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ của bạn có Mồi Nhử Hấp Dẫn.",
+    "description": "Các anh hùng hỗ trợ của bạn có [cd:06IO028|Mồi Nhử Hấp Dẫn|icon,img-full].",
+    "bonusStarID": "C0247",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:02BW016|Slotbot|icon,img-full] has Tech Evolution.",
+        "descriptionRaw": "Slotbot has Tech Evolution."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Robot Quay Thưởng có Tiến Hóa Công Nghệ.",
+    "description": "Robot Quay Thưởng có [k:Evolve|Tiến Hóa] Công Nghệ.",
+    "bonusStarID": "C0248",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "6+ cost cards you acquire in adventures have [k:Power|Power] Riff.",
+        "descriptionRaw": "6+ cost cards you acquire in adventures have Power Riff."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các lá bài 6+ tiêu hao bạn thu thập trong chuyến phiêu lưu có Hợp Âm Sức Mạnh.",
+    "description": "Các lá bài 6+ tiêu hao bạn thu thập trong chuyến phiêu lưu có Hợp Âm [k:Power|Sức Mạnh].",
+    "bonusStarID": "C0249",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:04BW016|Ruined Rex|icon,img-full] has Luden's Tempest.",
+        "descriptionRaw": "Ruined Rex has Luden's Tempest."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Cá Sấu Đại Suy Vong có Bão Tố Luden.",
+    "description": "[cd:04BW016|Cá Sấu Đại Suy Vong|icon,img-full] có Bão Tố Luden.",
+    "bonusStarID": "C0250",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+50 Starting Gold for Bilgewater [k:Champion|Champion]s.",
+        "descriptionRaw": "+50 Starting Gold for Bilgewater Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+50 Vàng Khởi Điểm cho các anh hùng Bilgewater.",
+    "description": "+50 [k:Gold|Vàng] Khởi Điểm cho các anh hùng Bilgewater.",
+    "bonusStarID": "C0251",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "Fish Fight has [k:Summon|Summon]ing Beacon.",
+        "descriptionRaw": "Fish Fight has Summoning Beacon."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Cá Chiến có Hải Đăng Triệu Hồi.",
+    "description": "Cá Chiến có Hải Đăng [k:Summon|Triệu Hồi].",
+    "bonusStarID": "C0252",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[k:Follower|Follower]s you acquire in adventures have Speed Wraps.",
+        "descriptionRaw": "Followers you acquire in adventures have Speed Wraps."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Tùy tùng bạn thu thập trong chuyến phiêu lưu có Băng Quấn Tốc Độ.",
+    "description": "Tùy tùng bạn thu thập trong chuyến phiêu lưu có Băng Quấn Tốc Độ.",
+    "bonusStarID": "C0253",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:06DE021T3|Tumble|icon,img-full] has Tear of the Goddess.",
+        "descriptionRaw": "Tumble has Tear of the Goddess."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Nhào Lộn có Nước Mắt Nữ Thần.",
+    "description": "[cd:06DE021T3|Nhào Lộn|icon,img-full] có Nước Mắt Nữ Thần.",
+    "bonusStarID": "C0254",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+50 Starting Gold for Demacian [k:Champion|Champion]s.",
+        "descriptionRaw": "+50 Starting Gold for Demacian Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+50 Vàng Khởi Điểm cho các anh hùng Demacia.",
+    "description": "+50 [k:Gold|Vàng] Khởi Điểm cho các anh hùng Demacia.",
+    "bonusStarID": "C0255",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Your support champions have Utmost [cd:04SI029|Despair|icon,img-full].",
+        "descriptionRaw": "Your support champions have Utmost Despair."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ của bạn có Tuyệt Vọng Tột Cùng.",
+    "description": "Các anh hùng hỗ trợ của bạn có [cd:04SI029|Tuyệt Vọng|icon,img-full] Tột Cùng.",
+    "bonusStarID": "C0256",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "Pie Toss has Charging Sigil I and Perilous Pastry has Charging Sigil III.",
+        "descriptionRaw": "Pie Toss has Charging Sigil I and Perilous Pastry has Charging Sigil III."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Quăng Bánh có Phong Ấn Tích Tụ I và Bánh Nướng Hiểm Nguy có Phong Ấn Tích Tụ III.",
+    "description": "Quăng Bánh có Phong Ấn Tích Tụ I và Bánh Nướng Hiểm Nguy có Phong Ấn Tích Tụ III.",
+    "bonusStarID": "C0257",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "Damaging spells you acquire in adventures have Charging Sigil III.",
+        "descriptionRaw": "Damaging spells you acquire in adventures have Charging Sigil III."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Bài phép gây sát thương bạn thu thập trong chuyến phiêu lưu có Phong Ấn Tích Tụ III.",
+    "description": "Bài phép gây sát thương bạn thu thập trong chuyến phiêu lưu có Phong Ấn Tích Tụ III.",
+    "bonusStarID": "C0258",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:09BC012|The Family Reunion|icon,img-full] has Home Turf.",
+        "descriptionRaw": "The Family Reunion has Home Turf."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Gia Đình Sum Họp có Sân Nhà.",
+    "description": "[cd:09BC012|Gia Đình Sum Họp|icon,img-full] có Sân Nhà.",
+    "bonusStarID": "C0259",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+5 Starting [k:NexusHealth|Nexus Health] for Shadow Isles and Bandle City [k:Champion|Champion]s.",
+        "descriptionRaw": "+5 Starting Nexus Health for Shadow Isles and Bandle City Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+5 Máu Nhà Chính cho các anh hùng Quần Đảo Bóng Đêm và Thành Phố Bandle.",
+    "description": "+5 [k:NexusHealth|Máu Nhà Chính] cho các anh hùng Quần Đảo Bóng Đêm và Thành Phố Bandle.",
+    "bonusStarID": "C0260",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "[k:Support|Support] champions have Wriggle's Lantern.",
+        "descriptionRaw": "Support champions have Wriggle's Lantern."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ của bạn có Lồng Đèn Wriggle.",
+    "description": "Các anh hùng hỗ trợ của bạn có Lồng Đèn Wriggle.",
+    "bonusStarID": "C0261",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:02PZ006|Gotcha!|icon,img-full] has Charging Sigil II.",
+        "descriptionRaw": "Gotcha! has Charging Sigil II."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Chạy Đâu Cho Thoát! có Phong Ấn Tích Tụ II.",
+    "description": "[cd:02PZ006|Chạy Đâu Cho Thoát!|icon,img-full] có Phong Ấn Tích Tụ II.",
+    "bonusStarID": "C0262",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:01PZ010|Mushroom Cloud|icon,img-full] has Mana Potion.",
+        "descriptionRaw": "Mushroom Cloud has Mana Potion."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Mây Nấm Độc có Bình Năng Lượng.",
+    "description": "[cd:01PZ010|Mây Nấm Độc|icon,img-full] có Bình Năng Lượng.",
+    "bonusStarID": "C0263",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+5 [k:NexusHealth|Nexus Health] for Piltover & Zaun [k:Champion|Champion]s.",
+        "descriptionRaw": "+5 Nexus Health for Piltover & Zaun Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+5 Máu Nhà Chính cho các anh hùng Piltover & Zaun.",
+    "description": "+5 [k:NexusHealth|Máu Nhà Chính] cho các anh hùng Piltover & Zaun.",
+    "bonusStarID": "C0264",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "[cd:09BC018|Shadow|icon,img-full] Isles followers you acquire in adventures have Pickaxe.",
+        "descriptionRaw": "Shadow Isles followers you acquire in adventures have Pickaxe."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các tùy tùng Quần Đảo Bóng Đêm bạn thu thập trong chuyến phiêu lưu có Cuốc Chim.",
+    "description": "Các tùy tùng Quần Đảo Bóng Đêm bạn thu thập trong chuyến phiêu lưu có Cuốc Chim.",
+    "bonusStarID": "C0265",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:06SI039|Shape of Fear|icon,img-full] has Stopwatch.",
+        "descriptionRaw": "Shape of Fear has Stopwatch."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Hình Thù Của Sợ Hãi có Đồng Hồ Ngưng Đọng.",
+    "description": "[cd:06SI039|Hình Thù Của Sợ Hãi|icon,img-full] có Đồng Hồ Ngưng Đọng.",
+    "bonusStarID": "C0266",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:04SI045|Encroaching Mist|icon,img-full] has Skirmisher's Sabre.",
+        "descriptionRaw": "Encroaching Mist has Skirmisher's Sabre."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Màn Sương Xâm Chiếm có Đao Đụng Độ.",
+    "description": "[cd:04SI045|Màn Sương Xâm Chiếm|icon,img-full] có Đao Đụng Độ.",
+    "bonusStarID": "C0267",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:05PZ025|Forge Chief|icon,img-full] has Bounty Board.",
+        "descriptionRaw": "Forge Chief has Bounty Board."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Thợ Rèn Trưởng có Bảng Truy Nã.",
+    "description": "[cd:05PZ025|Thợ Rèn Trưởng|icon,img-full] có Bảng Truy Nã.",
+    "bonusStarID": "C0268",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "[k:Follower|Follower]s you acquire in adventures have Tech Evolution.",
+        "descriptionRaw": "Followers you acquire in adventures have Tech Evolution."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Tùy tùng bạn thu thập trong chuyến phiêu lưu có Tiến Hóa Công Nghệ.",
+    "description": "Tùy tùng bạn thu thập trong chuyến phiêu lưu có [k:Evolve|Tiến Hóa] Công Nghệ.",
+    "bonusStarID": "C0269",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Bounty",
+        "description": "[cd:03PZ003T11|Hex Core Upgrade|icon,img-full] has Hand Censer.",
+        "descriptionRaw": "Hex Core Upgrade has Hand Censer."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Nâng Cấp Lõi Công Nghệ có Lư Hương Cầm Tay.",
+    "description": "[k:Augment|Nâng Cấp] Lõi Công Nghệ có Lư Hương Cầm Tay.",
+    "bonusStarID": "C0270",
+    "name": "Ngôi Sao Tiền Thưởng"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:08FR002|Valhir's Prophet|icon,img-full] has [cd:09BC018|Shadow|icon,img-full] Totem.",
+        "descriptionRaw": "Valhir's Prophet has Shadow Totem."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Tiên Tri Của Vahir có Vật Tổ Bóng Đêm.",
+    "description": "[cd:08FR002|Tiên Tri Của Vahir|icon,img-full] có Vật Tổ Bóng Đêm.",
+    "bonusStarID": "C0271",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "[k:Follower|Follower]s you acquire in adventures with 6+ cost have Hearty Rations and [cd:01DE013|Chain Vest|icon,img-full].",
+        "descriptionRaw": "Followers you acquire in adventures with 6+ cost have Hearty Rations and Chain Vest."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Tùy tùng bạn thu thập trong chuyến phiêu lưu với 6+ tiêu hao có Khẩu Phần Thịnh Soạn và Giáp Lưới.",
+    "description": "Tùy tùng bạn thu thập trong chuyến phiêu lưu với 6+ tiêu hao có Khẩu Phần Thịnh Soạn và [cd:01DE013|Giáp Lưới|icon,img-full].",
+    "bonusStarID": "C0272",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:01FR021|Tarkaz the Tribeless|icon,img-full] has Hearty Rations.",
+        "descriptionRaw": "Tarkaz the Tribeless has Hearty Rations."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Tarkaz Vô Tộc có Khẩu Phần Thịnh Soạn.",
+    "description": "[cd:01FR021|Tarkaz Vô Tộc|icon,img-full] có Khẩu Phần Thịnh Soạn.",
+    "bonusStarID": "C0273",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+10 [k:NexusHealth|Nexus Health] for Freljordian [k:Champion|Champion]s.",
+        "descriptionRaw": "+10 Nexus Health for Freljordian Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+10 Máu Nhà Chính cho các anh hùng Freljord.",
+    "description": "+10 [k:NexusHealth|Máu Nhà Chính] cho các anh hùng Freljord.",
+    "bonusStarID": "C0274",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Fortune",
+        "description": "+5% chance to find Epic Powers for Freljordian [k:Champion|Champion]s.",
+        "descriptionRaw": "+5% chance to find Epic Powers for Freljordian Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+5% tỉ lệ xuất hiện sức mạnh Sử Thi cho các anh hùng Freljord.",
+    "description": "+5% tỉ lệ xuất hiện sức mạnh Sử Thi cho các anh hùng Freljord.",
+    "bonusStarID": "C0275",
+    "name": "Tài Lộc Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Your support champions have Porify.",
+        "descriptionRaw": "Your support champions have Porify."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ của bạn có Biến Thành Poro.",
+    "description": "Các anh hùng hỗ trợ của bạn có Biến Thành Poro.",
+    "bonusStarID": "C0276",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "Poro Nip has Battle Banner.",
+        "descriptionRaw": "Poro Nip has Battle Banner."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Một Chút Poro có Cờ Hiệu Giao Tranh.",
+    "description": "Một Chút Poro có Cờ Hiệu Giao Tranh.",
+    "bonusStarID": "C0277",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "Spells you acquire in adventure that cost 3 or more have [cd:01FR016|Poro Snax|icon,img-full].",
+        "descriptionRaw": "Spells you acquire in adventure that cost 3 or more have Poro Snax."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Bài phép ngươi thu thập trong chuyến phiêu lưu với 3+ tiêu hao có Bánh Quy Poro.",
+    "description": "Bài phép ngươi thu thập trong chuyến phiêu lưu với 3+ tiêu hao có [cd:01FR016|Bánh Quy Poro|icon,img-full].",
+    "bonusStarID": "C0278",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:09FR010|Ultrasoft Poro|icon,img-full] has Flame-Wreathed Soul.",
+        "descriptionRaw": "Ultrasoft Poro has Flame-Wreathed Soul."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Poro Siêu Mềm có Linh Hồn Bốc Lửa.",
+    "description": "Poro Siêu Mềm có [k:Spirit|Linh Hồn] Bốc Lửa.",
+    "bonusStarID": "C0279",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:98PZ001T4|Blood Hunt|icon,img-full] has Mana Potion.",
+        "descriptionRaw": "Blood Hunt has Mana Potion."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Mùi Máu có Bình Năng Lượng.",
+    "description": "Mùi [k:Health|Máu] có Bình Năng Lượng.",
+    "bonusStarID": "C0280",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:06PZ009|Caustic Riff|icon,img-full] has Elixir of Sorcery.",
+        "descriptionRaw": "Caustic Riff has Elixir of Sorcery."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Đoạn Nhạc Cay Độc có Dược Phẩm Pháp Thuật.",
+    "description": "[cd:06PZ009|Đoạn Nhạc Cay Độc|icon,img-full] có Dược Phẩm Pháp Thuật.",
+    "bonusStarID": "C0281",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Your support champions have [r:R0018|Everfrost|icon,img-full].",
+        "descriptionRaw": "Your support champions have Everfrost."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ của bạn có Băng Trượng Vĩnh Cửu.",
+    "description": "Các anh hùng hỗ trợ của bạn có Băng [r:R0018|Trượng Vĩnh Cửu|icon,img-full].",
+    "bonusStarID": "C0282",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:01IO002|Will of Ionia|icon,img-full] has Mage's Handbook.",
+        "descriptionRaw": "Will of Ionia has Mage's Handbook."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Ý Chí Ionia có Bí Kíp Pháp Sư.",
+    "description": "[cd:01IO002|Ý Chí Ionia|icon,img-full] có Bí Kíp Pháp Sư.",
+    "bonusStarID": "C0283",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "Spells you acquire in adventures have Mana Potion.",
+        "descriptionRaw": "Spells you acquire in adventures have Mana Potion."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Bài phép bạn thu thập trong chuyến phiêu lưu có Bình Năng Lượng.",
+    "description": "Bài phép bạn thu thập trong chuyến phiêu lưu có Bình Năng Lượng.",
+    "bonusStarID": "C0284",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:01IO008|Fae Bladetwirler|icon,img-full] has Warding Charm.",
+        "descriptionRaw": "Fae Bladetwirler has Warding Charm."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Tinh Linh Lốc Xoáy có Bùa Canh Giữ.",
+    "description": "[cd:01IO008|Tinh Linh Lốc Xoáy|icon,img-full] có Bùa Canh Giữ.",
+    "bonusStarID": "C0285",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+10 [k:NexusHealth|Nexus Health] for Ionian [k:Champion|Champion]s.",
+        "descriptionRaw": "+10 Nexus Health for Ionian Champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+10 Máu Nhà Chính cho các anh hùng Ionia.",
+    "description": "+10 [k:NexusHealth|Máu Nhà Chính] cho các anh hùng Ionia.",
+    "bonusStarID": "C0286",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "Spells you find in adventures that cost 3 or more have Storm Channeler.",
+        "descriptionRaw": "Spells you find in adventures that cost 3 or more have Storm Channeler."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Bài phép 3+ tiêu hao ngươi thu thập trong chuyến phiêu lưu có Người Vận Bão.",
+    "description": "Bài phép 3+ tiêu hao ngươi thu thập trong chuyến phiêu lưu có Người Vận Bão.",
+    "bonusStarID": "C0287",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Món Quà Từ Cõi Xa: Yasuo",
+        "description": "Your other [k:Spirit|Spirit] Blossom champions have a 10% chance to create a [cd:98SB032|Unleash the Storm|icon,img-full] at game start.",
+        "descriptionRaw": "Your other Spirit Blossom champions have a 10% chance to create a Unleash the Storm at game start."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Những anh hùng Hoa Linh Lục Địa khác của ngươi có 10% cơ hội tạo ra một lá Cơn Bão Thịnh Nộ khi bắt đầu trận đấu.",
+    "description": "Những anh hùng Hoa Linh Lục Địa khác của ngươi có 10% cơ hội tạo ra một lá [cd:98SB032|Cơn Bão Thịnh Nộ|icon,img-full] khi bắt đầu trận đấu.",
+    "bonusStarID": "C0288",
+    "name": "Món Quà Từ Cõi Xa: Yasuo"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Món Quà Từ Cõi Xa: Yasuo II",
+        "description": "Your other [k:Spirit|Spirit] Blossom champions have a 20% chance to create a [cd:98SB032|Unleash the Storm|icon,img-full] at game start.",
+        "descriptionRaw": "Your other Spirit Blossom champions have a 20% chance to create a Unleash the Storm at game start."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "Những anh hùng Hoa Linh Lục Địa khác của ngươi có 20% cơ hội tạo ra một lá Cơn Bão Thịnh Nộ khi bắt đầu trận đấu.",
+    "description": "Những anh hùng Hoa Linh Lục Địa khác của ngươi có 20% cơ hội tạo ra một lá [cd:98SB032|Cơn Bão Thịnh Nộ|icon,img-full] khi bắt đầu trận đấu.",
+    "bonusStarID": "C0289",
+    "name": "Món Quà Từ Cõi Xa: Yasuo II"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Your support champions have Ancient Coin.",
+        "descriptionRaw": "Your support champions have Ancient Coin."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ của bạn có Đồng Xu Cổ Đại.",
+    "description": "Các anh hùng hỗ trợ của bạn có Đồng Xu Cổ Đại.",
+    "bonusStarID": "C0290",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:98SB033|Shades of Battles Past|icon,img-full] has Savage Shield.",
+        "descriptionRaw": "Shades of Battles Past has Savage Shield."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Bóng Ma Chiến Trận có Khiên Hoang Dại.",
+    "description": "[cd:98SB033|Bóng Ma Chiến Trận|icon,img-full] có Khiên Hoang Dại.",
+    "bonusStarID": "C0291",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "Commune With [k:Spirit|Spirit]s has Storm Channeler.",
+        "descriptionRaw": "Commune With Spirits has Storm Channeler."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Nói Chuyện Với Linh Hồn có Người Vận Bão.",
+    "description": "Nói Chuyện Với [k:Spirit|Linh Hồn] có Người Vận Bão.",
+    "bonusStarID": "C0292",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+10 [k:NexusHealth|Nexus Health] for [k:Spirit|Spirit] Blossom and Ionian champions.",
+        "descriptionRaw": "+10 Nexus Health for Spirit Blossom and Ionian champions."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png",
+    "nodeType": "bonusStarGem",
+    "descriptionRaw": "+10 Máu Nhà Chính cho các anh hùng Hoa Linh Lục Địa và Ionia.",
+    "description": "+10 [k:NexusHealth|Máu Nhà Chính] cho các anh hùng Hoa Linh Lục Địa và Ionia.",
+    "bonusStarID": "C0293",
+    "name": "Tiền Thưởng Thượng Giới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:05BC145T2|Tiny Shield|icon,img-full], [cd:05BC145T1|Tiny Spear|icon,img-full] and Gem have Hextech Fabricator I.",
+        "descriptionRaw": "Tiny Shield, Tiny Spear and Gem have Hextech Fabricator I."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Khiên Tí Hon, Ngọn Giáo Tí Hon và Ngọc Thạch có Chế Phẩm Hextech I.",
+    "description": "Khiên Tí Hon, [cd:05BC145T1|Ngọn Giáo Tí Hon|icon,img-full] và [cd:03MT092T1|Ngọc Thạch|icon,img-full] có Chế Phẩm Hextech I.",
+    "bonusStarID": "C0294",
+    "name": "Ngôi Sao Chúc Phúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "[k:Follower|Follower]s you acquire in adventures have Warmog's Armor.",
+        "descriptionRaw": "Followers you acquire in adventures have Warmog's Armor."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Tùy tùng bạn thu thập trong chuyến phiêu lưu có Giáp Máu Warmog.",
+    "description": "Tùy tùng bạn thu thập trong chuyến phiêu lưu có Giáp [k:Health|Máu] Warmog.",
+    "bonusStarID": "C0295",
+    "name": "Ngôi Sao Khám Phá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "1 cost Poros have an additional item.",
+        "descriptionRaw": "1 cost Poros have an additional item."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các lá Poro 1 tiêu hao có thêm 1 trang bị.",
+    "description": "Các lá Poro 1 tiêu hao có thêm 1 trang bị.",
+    "bonusStarID": "C0296",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "nodeType": "bonusStarGem",
+    "description": "+5 Máu Nhà Chính cho các annh hùng Thành Phố Bandle và Targon.",
+    "bonusStarID": "C0297",
+    "name": "Tiền Thưởng Thượng Giới",
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Support [k:Champion|Champion]s have Studded Leather, Phage, or Titan's Axe based on their cost.",
+        "descriptionRaw": "Support Champions have Studded Leather, Phage, or Titan's Axe based on their cost."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Các anh hùng hỗ trợ có Áo Da Tán Đinh, Búa Gỗ hoặc Rìu Nhanh Nhẹn tuy theo tiêu hao của chúng.",
+    "description": "Các anh hùng hỗ trợ có Áo Da Tán Đinh, Búa Gỗ hoặc Rìu [k:Fast|Nhanh] Nhẹn tuy theo tiêu hao của chúng.",
+    "bonusStarID": "C0298",
+    "name": "Ngôi Sao Huyền Thoại"
+  },
+  {
+    "nodeType": "bonusStar",
+    "description": "Các anh hùng hỗ trợ của bạn có Trang Bị Hoàn Chỉnh",
+    "translations": {
+      "en": {
+        "name": "Star of Legends",
+        "description": "Your support champions have Full Build."
+      }
+    },
+    "bonusStarID": "C0299",
+    "name": "Ngôi Sao Huyền Thoại",
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png"
+  },
+  {
+    "nodeType": "bonusStar",
+    "description": "Bão Tuyết có Máy Quét Oracle.",
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "Blizzard has Oracle's Lens."
+      }
+    },
+    "bonusStarID": "C0300",
+    "name": "Ngôi Sao Chúc Phúc",
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png"
+  },
+  {
+    "nodeType": "bonusStar",
+    "description": "Bài phép bạn thu thập trong chuyến phiêu lưu có Lư Hương Sôi Sục.",
+    "translations": {
+      "en": {
+        "name": "Star of Discovery",
+        "description": "Spells you acquire in adevntures have Ardent Censer."
+      }
+    },
+    "bonusStarID": "C0301",
+    "name": "Ngôi Sao Khám Phá",
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png"
+  },
+  {
+    "nodeType": "bonusStar",
+    "description": "Pháo Tuyết có Phong Ấn Tích Tụ I.",
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "Snowball Barrage has Charging Sigil I.\n"
+      }
+    },
+    "bonusStarID": "C0302",
+    "name": "Ngôi Sao Kỳ Thú",
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png"
+  },
+  {
+    "nodeType": "bonusStarGem",
+    "description": "+100 Vàng cho các anh hùng Freljord.",
+    "translations": {
+      "en": {
+        "name": "Celestial Bounty",
+        "description": "+100 Gold for Freljordian Champions."
+      }
+    },
+    "bonusStarID": "C0303",
+    "name": "Tiền Thưởng Thượng Giới",
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/celestialStarIcon.png"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Wonder",
+        "description": "[cd:05FR017|Inner Beast|icon,img-full] has [i:I0055|Mana Potion|icon,img-full]."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Quái Thú Tiềm Ẩn có Bình Năng Lượng.",
+    "description": "[cd:05FR017|Quái Thú Tiềm Ẩn|icon,img-full] có [i:I0055|Bình Năng Lượng|icon,img-full].",
+    "bonusStarID": "C0304",
+    "name": "Ngôi Sao Kỳ Thú"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Star of Blessings",
+        "description": "[cd:01FR001|Flash Freeze|icon,img-full] has [i:I0058|Elixir of Skill|icon,img-full]."
+      }
+    },
+    "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/starIcon.png",
+    "nodeType": "bonusStar",
+    "descriptionRaw": "Đóng Băng Siêu Tốc có Dược Phẩm Kỹ Năng.",
+    "description": "[cd:01FR001|Đóng Băng Siêu Tốc|icon,img-full] có [i:I0058|Dược Phẩm Kỹ Năng|icon,img-full].",
+    "bonusStarID": "C0305",
+    "name": "Ngôi Sao Chúc Phúc"
+  }
+]

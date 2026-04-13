@@ -1,0 +1,78 @@
+{
+  "backupDate": "2026-04-12T07:07:36.200Z",
+  "region": "us-east-1",
+  "tables": [
+    {
+      "table": "guidePocChampionList",
+      "count": 85,
+      "success": true
+    },
+    {
+      "table": "guidePocChampionConstellation",
+      "count": 85,
+      "success": true
+    },
+    {
+      "table": "guidePocPowers",
+      "count": 811,
+      "success": true
+    },
+    {
+      "table": "guidePocRelics",
+      "count": 146,
+      "success": true
+    },
+    {
+      "table": "guidePocItems",
+      "count": 179,
+      "success": true
+    },
+    {
+      "table": "guidePocRunes",
+      "count": 32,
+      "success": true
+    },
+    {
+      "table": "guidePocBonusStar",
+      "count": 305,
+      "success": true
+    },
+    {
+      "table": "guidePocCardList",
+      "count": 2650,
+      "success": true
+    },
+    {
+      "table": "guidePocBosses",
+      "count": 51,
+      "success": true
+    },
+    {
+      "table": "guidePocAdventureMap",
+      "count": 1,
+      "success": true
+    },
+    {
+      "table": "guidePocGuideList",
+      "count": 3,
+      "success": true
+    },
+    {
+      "table": "guidePocFavoriteBuilds",
+      "count": 38,
+      "success": true
+    },
+    {
+      "table": "guidePocPlayStyleRating",
+      "count": 11,
+      "success": true
+    },
+    {
+      "table": "guidePocAuditLogs",
+      "count": 61,
+      "success": true
+    }
+  ],
+  "totalItems": 4458,
+  "durationSeconds": "17.5"
+}

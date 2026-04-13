@@ -1,0 +1,3045 @@
+[
+  {
+    "translations": {
+      "en": {
+        "name": "Ardent Censer",
+        "description": "Grant the top ally in your deck +3|+3.",
+        "descriptionRaw": "Grant the top ally in your deck +3|+3.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0000-full.png",
+    "descriptionRaw": "Ban +3|+3 cho đồng minh gần nhất trong bộ bài.",
+    "description": "Ban +3|+3 cho đồng minh gần nhất trong bộ bài.",
+    "itemCode": "I0000",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0000.png",
+    "name": "Lư Hương Sôi Sục"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Rusty Armor",
+        "description": "Can't block",
+        "descriptionRaw": "Can't block",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0001-full.png",
+    "descriptionRaw": "Không thể chặn đòn",
+    "description": "Không thể chặn đòn",
+    "itemCode": "I0001",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0001.png",
+    "name": "Giáp Han Gỉ"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Cursed Stone",
+        "description": "Fleeting",
+        "descriptionRaw": "Fleeting",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0002-full.png",
+    "descriptionRaw": "Phù Du",
+    "description": "Phù Du",
+    "itemCode": "I0002",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0002.png",
+    "name": "Hòn Đá Bị Nguyền"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Cursed Cloak",
+        "description": "[k:Ephemeral|Ephemeral]",
+        "descriptionRaw": "Ephemeral",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0003-full.png",
+    "descriptionRaw": "Cảm Tử",
+    "description": "[k:Ephemeral|Cảm Tử]",
+    "itemCode": "I0003",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0003.png",
+    "name": "Áo Choàng Bị Nguyền"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Expired Mana Potion",
+        "description": "+1 cost",
+        "descriptionRaw": "+1 cost",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0004-full.png",
+    "descriptionRaw": "+1 tiêu hao",
+    "description": "+1 tiêu hao",
+    "itemCode": "I0004",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0004.png",
+    "name": "Bình Năng Lượng Hết Hạn"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Rusty Sword",
+        "description": "-1|-0",
+        "descriptionRaw": "-1|-0",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0005-full.png",
+    "descriptionRaw": "-1|-0",
+    "description": "-1|-0",
+    "itemCode": "I0005",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0005.png",
+    "name": "Kiếm Han Gỉ"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Farsight Alteration",
+        "description": "Game Start: Draw me if I'm not in your hand.",
+        "descriptionRaw": "Game Start: Draw me if I'm not in your hand.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0006-full.png",
+    "descriptionRaw": "Bắt Đầu Trận Đấu: Rút ta lên nếu chưa có ta trên tay.",
+    "description": "Bắt Đầu Trận Đấu: Rút ta lên nếu chưa có ta trên tay.",
+    "itemCode": "I0006",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0006.png",
+    "name": "Thấu Kính Viễn Thị"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Skirmisher's Sabre",
+        "description": "[k:Challenger|Challenger]",
+        "descriptionRaw": "Challenger",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0007-full.png",
+    "descriptionRaw": "Thách Đấu",
+    "description": "[k:Challenger|Thách Đấu]",
+    "itemCode": "I0007",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0007.png",
+    "name": "Đao Đụng Độ"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Locket of the Iron Solari",
+        "description": "When I'm summoned, give me [k:Barrier|Barrier].",
+        "descriptionRaw": "When I'm summoned, give me Barrier.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0008-full.png",
+    "descriptionRaw": "Khi ta được triệu hồi, trao cho ta Lá Chắn.",
+    "description": "Khi ta được triệu hồi, trao cho ta [k:Barrier|Lá Chắn].",
+    "itemCode": "I0008",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0008.png",
+    "name": "Dây Chuyền Sắt Solari"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Thieves' Tools",
+        "description": "[k:Attack|Attack]: Nab 1.",
+        "descriptionRaw": "Attack: Nab 1.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0009-full.png",
+    "descriptionRaw": "Tấn Công: Đánh Cắp 1 lá bài.",
+    "description": "[k:Attack|Tấn Công]: Đánh Cắp 1 lá bài.",
+    "itemCode": "I0009",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0009.png",
+    "name": "Công Cụ Đánh Cắp"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Diving Helmet",
+        "description": "Deep and I am a Sea Monster.",
+        "descriptionRaw": "Deep and I am a Sea Monster.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0010-full.png",
+    "descriptionRaw": "Sâu Thẳm và ta là Quái Vật Biển.",
+    "description": "Sâu Thẳm và ta là Quái Vật Biển.",
+    "itemCode": "I0010",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0010.png",
+    "name": "Mũ Lặn"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Hextech Protobelt-01",
+        "description": "Reduce my cost by the cost of your most expensive ally champion.",
+        "descriptionRaw": "Reduce my cost by the cost of your most expensive ally champion.",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử Thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0011-full.png",
+    "descriptionRaw": "Giảm tiêu hao của ta bằng với tiêu hao của anh hùng đồng minh có tiêu hao cao nhất.",
+    "description": "Giảm tiêu hao của ta bằng với tiêu hao của anh hùng đồng minh có tiêu hao cao nhất.",
+    "itemCode": "I0011",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0011.png",
+    "name": "Đai Lưng Hextech-01"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Shadow Totem",
+        "description": "Play: Summon an exact [k:Ephemeral|Ephemeral] copy of me.",
+        "descriptionRaw": "Play: Summon an exact Ephemeral copy of me.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0012-full.png",
+    "descriptionRaw": "Xuất Trận: Triệu hồi 1 bản sao Cảm Tử y hệt của ta.",
+    "description": "[k:Play|Xuất Trận]: Triệu hồi 1 bản sao [k:Ephemeral|Cảm Tử] y hệt của ta.",
+    "itemCode": "I0012",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0012.png",
+    "name": "Vật Tổ Bóng Đêm"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Ninja Tabi",
+        "description": "[k:Elusive|Elusive]",
+        "descriptionRaw": "Elusive",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử Thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0013-full.png",
+    "descriptionRaw": "Huyền Ảo",
+    "description": "[k:Elusive|Huyền Ảo]",
+    "itemCode": "I0013",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0013.png",
+    "name": "Giày Ninja"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Black Cleaver",
+        "description": "When I'm summoned, double my Power and [k:Health|Health].",
+        "descriptionRaw": "When I'm summoned, double my Power and Health.",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử Thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0014-full.png",
+    "descriptionRaw": "Khi ta được triệu hồi, nhân đôi Sức Mạnh và Máu của ta.",
+    "description": "Khi ta được triệu hồi, nhân đôi [k:Power|Sức Mạnh] và [k:Health|Máu] của ta.",
+    "itemCode": "I0014",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0014.png",
+    "name": "Rìu Đen"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Spirit Stone",
+        "description": "When I'm summoned, create a Fleeting copy of me in hand.",
+        "descriptionRaw": "When I'm summoned, create a Fleeting copy of me in hand.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0015-full.png",
+    "descriptionRaw": "Khi ta được triệu hồi, tạo trên tay 1 bản sao Phù Du của ta.",
+    "description": "Khi ta được triệu hồi, tạo trên tay 1 bản sao Phù Du của ta.",
+    "itemCode": "I0015",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0015.png",
+    "name": "Đá Tâm Linh"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Flashbomb Satchel",
+        "description": "When I'm summoned, plant 4 [cd:05PZ008|Flashbomb Trap|icon,img-full]s in the top 8 cards of the enemy deck.",
+        "descriptionRaw": "When I'm summoned, plant 4 Flashbomb Traps in the top 8 cards of the enemy deck.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0016-full.png",
+    "descriptionRaw": "Khi ta được triệu hồi, gài 4 lá Bẫy Bom Mù vào 8 lá bài ở trên cùng trong bộ bài của đối thủ.",
+    "description": "Khi ta được triệu hồi, gài 4 lá [cd:05PZ008|Bẫy Bom Mù|icon,img-full] vào 8 lá bài ở trên cùng trong bộ bài của đối thủ.",
+    "itemCode": "I0016",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0016.png",
+    "name": "Gói Bom Mù"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Serrated Dirk",
+        "description": "[k:Fearsome|Fearsome]",
+        "descriptionRaw": "Fearsome",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0017-full.png",
+    "descriptionRaw": "Đáng Sợ",
+    "description": "[k:Fearsome|Đáng Sợ]",
+    "itemCode": "I0017",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0017.png",
+    "name": "Dao Hung Tàn"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Stopwatch",
+        "description": "When I'm summoned, advance me 1.",
+        "descriptionRaw": "When I'm summoned, advance me 1.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0018-full.png",
+    "descriptionRaw": "Khi ta được triệu hồi, Đẩy Nhanh ta lên 1 vòng.",
+    "description": "Khi ta được triệu hồi, Đẩy [k:Fast|Nhanh] ta lên 1 vòng.",
+    "itemCode": "I0018",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0018.png",
+    "name": "Đồng Hồ Ngưng Đọng"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Dragon Tooth",
+        "description": "+1|+1, Fury, and I am a Dragon.",
+        "descriptionRaw": "+1|+1, Fury, and I am a Dragon.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0019-full.png",
+    "descriptionRaw": "+1|+1, Cuồng Nộ và ta là Rồng.",
+    "description": "+1|+1, Cuồng Nộ và ta là Rồng.",
+    "itemCode": "I0019",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0019.png",
+    "name": "Long Nha"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Trapped Treasure",
+        "description": "When I'm summoned, I Capture the strongest enemy.",
+        "descriptionRaw": "When I'm summoned, I Capture the strongest enemy.",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử Thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0021-full.png",
+    "descriptionRaw": "Khi ta được triệu hồi, ta sẽ Bắt Giữ kẻ địch Mạnh Nhất.",
+    "description": "Khi ta được triệu hồi, ta sẽ [cd:03NX018|Bắt Giữ|icon,img-full] kẻ địch Mạnh Nhất.",
+    "itemCode": "I0021",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0021.png",
+    "name": "Kho Báu Sa Lưới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Elixir of Skill",
+        "description": "When I'm summoned, draw 1.",
+        "descriptionRaw": "When I'm summoned, draw 1.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0024-full.png",
+    "descriptionRaw": "Khi ta được triệu hồi, rút 1 lá bài.",
+    "description": "Khi ta được triệu hồi, rút 1 lá bài.",
+    "itemCode": "I0024",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0024.png",
+    "name": "Dược Phẩm Kỹ Năng"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Eye of the Aspect",
+        "description": "When I'm destroyed, create a copy of me in hand.",
+        "descriptionRaw": "When I'm destroyed, create a copy of me in hand.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0025-full.png",
+    "descriptionRaw": "Khi ta bị phá huỷ, tạo trên tay 1 bản sao của ta.",
+    "description": "Khi ta bị phá huỷ, tạo trên tay 1 bản sao của ta.",
+    "itemCode": "I0025",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0025.png",
+    "name": "Mắt Thượng Nhân"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Alchemist's Incendiary",
+        "description": "I have [k:Countdown|Countdown] 3: Deal damage to enemy Nexus equal to twice my cost.",
+        "descriptionRaw": "I have Countdown 3: Deal damage to enemy Nexus equal to twice my cost.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0026-full.png",
+    "descriptionRaw": "Ta có Đếm Ngược Từ 3: Gây sát thương lên Nhà Chính của đối thủ bằng với 2 lần tiêu hao của ta.",
+    "description": "Ta có [k:Countdown|Đếm Ngược] Từ 3: Gây sát thương lên Nhà Chính của đối thủ bằng với 2 lần tiêu hao của ta.",
+    "itemCode": "I0026",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0026.png",
+    "name": "Nhà Giả Kim Hỏa Công"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Crystalline Bracer",
+        "description": "When I'm summoned or destroyed, heal your Nexus equal to my cost.",
+        "descriptionRaw": "When I'm summoned or destroyed, heal your Nexus equal to my cost.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0027-full.png",
+    "descriptionRaw": "Khi ta được triệu hồi hoặc bị phá huỷ, hồi máu cho Nhà Chính bằng với tiêu hao của ta.",
+    "description": "Khi ta được triệu hồi hoặc bị phá huỷ, hồi máu cho Nhà Chính bằng với tiêu hao của ta.",
+    "itemCode": "I0027",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0027.png",
+    "name": "Vòng Tay Pha Lê"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Eye of the Watchers",
+        "description": "When I'm summoned or destroyed, summon a follower with my cost from your regions.",
+        "descriptionRaw": "When I'm summoned or destroyed, summon a follower with my cost from your regions.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0028-full.png",
+    "descriptionRaw": "Khi ta được triệu hồi hoặc bị phá huỷ, triệu hồi 1 tùy tùng bằng tiêu hao của ta từ khu vực đồng minh.",
+    "description": "Khi ta được triệu hồi hoặc bị phá huỷ, triệu hồi 1 tùy tùng bằng tiêu hao của ta từ khu vực đồng minh.",
+    "itemCode": "I0028",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0028.png",
+    "name": "Mắt Ác Thần"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Haunting Trophy",
+        "description": "Enemies have -1|-0.",
+        "descriptionRaw": "Enemies have -1|-0.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0029-full.png",
+    "descriptionRaw": "Kẻ địch nhận -1|-0.",
+    "description": "Kẻ địch nhận -1|-0.",
+    "itemCode": "I0029",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0029.png",
+    "name": "Cúp Ma Ám"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Symbol of Strength",
+        "description": "When I'm summoned or destroyed, grant your strongest ally +1|+1.",
+        "descriptionRaw": "When I'm summoned or destroyed, grant your strongest ally +1|+1.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0030-full.png",
+    "descriptionRaw": "Khi ta được triệu hồi hoặc bị tiêu diệt, ban +1|+1 cho đồng minh mạnh nhất.",
+    "description": "Khi ta được triệu hồi hoặc bị tiêu diệt, ban +1|+1 cho đồng minh mạnh nhất.",
+    "itemCode": "I0030",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0030.png",
+    "name": "Biểu Tượng Sức Mạnh"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Equinox Crystal",
+        "description": "[k:RoundStart|Round Start]: Get an extra mana gem this round.",
+        "descriptionRaw": "Round Start: Get an extra mana gem this round.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0031-full.png",
+    "descriptionRaw": "Bắt Đầu Vòng Đấu: Nhận thêm 1 ngọc năng lượng trong vòng này.",
+    "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Nhận thêm 1 ngọc năng lượng trong vòng này.",
+    "itemCode": "I0031",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0031.png",
+    "name": "Tinh Thể Phân Cực"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Poro Snax",
+        "description": "When I'm summoned, summon a random 1 cost Poro.",
+        "descriptionRaw": "When I'm summoned, summon a random 1 cost Poro.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0032-full.png",
+    "descriptionRaw": "Khi ta được triệu hồi, triệu hồi 1 Poro 1 tiêu hao ngẫu nhiên.",
+    "description": "Khi ta được triệu hồi, triệu hồi 1 Poro 1 tiêu hao ngẫu nhiên.",
+    "itemCode": "I0032",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0032.png",
+    "name": "Bánh Quy Poro"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Zz'Rot Portal",
+        "description": "When I'm summoned, summon a copy of me.",
+        "descriptionRaw": "When I'm summoned, summon a copy of me.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0033-full.png",
+    "descriptionRaw": "Khi ta được triệu hồi, triệu hồi 1 bản sao của ta.",
+    "description": "Khi ta được triệu hồi, triệu hồi 1 bản sao của ta.",
+    "itemCode": "I0033",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0033.png",
+    "name": "Cổng Zz'Rot"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Special Delivery",
+        "description": "[k:Attack|Attack]: Plant 5 [cd:01PZ022|Poison Puffcap|icon,img-full]s in the enemy deck.",
+        "descriptionRaw": "Attack: Plant 5 Poison Puffcaps in the enemy deck.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0034-full.png",
+    "descriptionRaw": "Tấn Công: Gài 5 lá Nấm Độc vào bộ bài của đối thủ.",
+    "description": "[k:Attack|Tấn Công]: Gài 5 lá [cd:01PZ022|Nấm Độc|icon,img-full] vào bộ bài của đối thủ.",
+    "itemCode": "I0034",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0034.png",
+    "name": "Rải Nấm"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Mariner's Ruse",
+        "description": "+1|+1, [k:Lurker|Lurk], and I am a [k:Lurker|Lurk]er.",
+        "descriptionRaw": "+1|+1, Lurk, and I am a Lurker.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0035-full.png",
+    "descriptionRaw": "+1|+1, Rình Rập và ta là Kẻ Rình Rập.",
+    "description": "+1|+1, [k:Lurker|Rình Rập] và ta là Kẻ [k:Lurker|Rình Rập].",
+    "itemCode": "I0035",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0035.png",
+    "name": "Thủy Thủ Mưu Mô"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Rally Banner",
+        "description": "[k:LastBreath|Last Breath]: [k:Rally|Rally]",
+        "descriptionRaw": "Last Breath: Rally",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử Thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0036-full.png",
+    "descriptionRaw": "Trăng Trối: Tiến Công",
+    "description": "[k:LastBreath|Trăng Trối]: [k:Rally|Tiến Công]",
+    "itemCode": "I0036",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0036.png",
+    "name": "Cờ Lệnh Tiến Công"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Studded Leather",
+        "description": "+1|+1",
+        "descriptionRaw": "+1|+1",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0037-full.png",
+    "descriptionRaw": "+1|+1",
+    "description": "+1|+1",
+    "itemCode": "I0037",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0037.png",
+    "name": "Áo Da Tán Đinh"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Giant's Belt",
+        "description": "+0|+2",
+        "descriptionRaw": "+0|+2",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0038-full.png",
+    "descriptionRaw": "+0|+2",
+    "description": "+0|+2",
+    "itemCode": "I0038",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0038.png",
+    "name": "Đai Khổng Lồ"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Greatclub",
+        "description": "[k:Overwhelm|Overwhelm]",
+        "descriptionRaw": "Overwhelm",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0039-full.png",
+    "descriptionRaw": "Áp Đảo",
+    "description": "[k:Overwhelm|Áp Đảo]",
+    "itemCode": "I0039",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0039.png",
+    "name": "Đại Trượng"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Phage",
+        "description": "+2|+2",
+        "descriptionRaw": "+2|+2",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0040-full.png",
+    "descriptionRaw": "+2|+2",
+    "description": "+2|+2",
+    "itemCode": "I0040",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0040.png",
+    "name": "Búa Gỗ"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Pickaxe",
+        "description": "+2|+0",
+        "descriptionRaw": "+2|+0",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0041-full.png",
+    "descriptionRaw": "+2|+0",
+    "description": "+2|+0",
+    "itemCode": "I0041",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0041.png",
+    "name": "Cuốc Chim"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Savage Shield",
+        "description": "+1|+3",
+        "descriptionRaw": "+1|+3",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0042-full.png",
+    "descriptionRaw": "+1|+3",
+    "description": "+1|+3",
+    "itemCode": "I0042",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0042.png",
+    "name": "Khiên Hoang Dại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Cursed Symbol",
+        "description": "+3|+3, but [k:Ephemeral|Ephemeral]",
+        "descriptionRaw": "+3|+3, but Ephemeral",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0043-full.png",
+    "descriptionRaw": "+3|+3, nhưng Cảm Tử",
+    "description": "+3|+3, nhưng [k:Ephemeral|Cảm Tử]",
+    "itemCode": "I0043",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0043.png",
+    "name": "Biểu Tượng Bị Nguyền"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Titan's Axe",
+        "description": "+3|+3",
+        "descriptionRaw": "+3|+3",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử Thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0044-full.png",
+    "descriptionRaw": "+3|+3",
+    "description": "+3|+3",
+    "itemCode": "I0044",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0044.png",
+    "name": "Rìu Nhanh Nhẹn"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Colossal Hammer",
+        "description": "+3|+1",
+        "descriptionRaw": "+3|+1",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0045-full.png",
+    "descriptionRaw": "+3|+1",
+    "description": "+3|+1",
+    "itemCode": "I0045",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0045.png",
+    "name": "Búa Vệ Thần"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Hearty Rations",
+        "description": "[k:Regeneration|Regeneration]",
+        "descriptionRaw": "Regeneration",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0046-full.png",
+    "descriptionRaw": "Hồi Phục",
+    "description": "[k:Regeneration|Hồi Phục]",
+    "itemCode": "I0046",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0046.png",
+    "name": "Khẩu Phần Thịnh Soạn"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Speed Wraps",
+        "description": "[k:QuickStrike|Quick Attack]",
+        "descriptionRaw": "Quick Attack",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0047-full.png",
+    "descriptionRaw": "Đột Kích",
+    "description": "[k:QuickStrike|Đột Kích]",
+    "itemCode": "I0047",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0047.png",
+    "name": "Băng Quấn Tốc Độ"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Radiant Plate Armor",
+        "description": "+3|+3, but cost 1 more",
+        "descriptionRaw": "+3|+3, but cost 1 more",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0048-full.png",
+    "descriptionRaw": "+3|+3, nhưng tăng thêm 1 tiêu hao",
+    "description": "+3|+3, nhưng tăng thêm 1 tiêu hao",
+    "itemCode": "I0048",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0048.png",
+    "name": "Giáp Tấm Thậm Minh"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Mage's Handbook",
+        "description": "When you play a spell, reduce my cost by 1.",
+        "descriptionRaw": "When you play a spell, reduce my cost by 1.",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử Thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0049-full.png",
+    "descriptionRaw": "Khi ngươi sử dụng 1 bài phép, giảm 1 tiêu hao của ta.",
+    "description": "Khi ngươi sử dụng 1 bài phép, giảm 1 tiêu hao của ta.",
+    "itemCode": "I0049",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0049.png",
+    "name": "Bí Kíp Pháp Sư"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Hunter's Machete",
+        "description": "[k:Scout|Scout]",
+        "descriptionRaw": "Scout",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử Thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0050-full.png",
+    "descriptionRaw": "Trinh Sát",
+    "description": "[k:Scout|Trinh Sát]",
+    "itemCode": "I0050",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0050.png",
+    "name": "Rựa Thợ Săn"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Elixir of Sorcery",
+        "description": "Copy me onto the same targets.",
+        "descriptionRaw": "Copy me onto the same targets.",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử Thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0051-full.png",
+    "descriptionRaw": "Sao chép ta lên cùng mục tiêu chỉ định.",
+    "description": "Sao chép ta lên cùng mục tiêu chỉ định.",
+    "itemCode": "I0051",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0051.png",
+    "name": "Dược Phẩm Pháp Thuật"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Doubling Dice",
+        "description": "50% chance to create a copy of me in hand that costs 0 this round.",
+        "descriptionRaw": "50% chance to create a copy of me in hand that costs 0 this round.",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử Thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0052-full.png",
+    "descriptionRaw": "50% cơ hội tạo trên tay 1 bản sao 0 tiêu hao của ta trong vòng này.",
+    "description": "50% cơ hội tạo trên tay 1 bản sao 0 tiêu hao của ta trong vòng này.",
+    "itemCode": "I0052",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0052.png",
+    "name": "Xúc Xắc Nhân Đôi"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Hero's Horn",
+        "description": "Draw a champion.",
+        "descriptionRaw": "Draw a champion.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0053-full.png",
+    "descriptionRaw": "Rút 1 Anh hùng.",
+    "description": "Rút 1 Anh hùng.",
+    "itemCode": "I0053",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0053.png",
+    "name": "Tù Và Anh Hùng"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Bloodprice Prism",
+        "description": "I cost 0. Deal damage to your Nexus equal to my original cost.",
+        "descriptionRaw": "I cost 0. Deal damage to your Nexus equal to my original cost.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0054-full.png",
+    "descriptionRaw": "Ta có 0 tiêu hao. Gây sát thương lên Nhà Chính của ngươi bằng với tiêu hao gốc của ta.",
+    "description": "Ta có 0 tiêu hao. Gây sát thương lên Nhà Chính của ngươi bằng với tiêu hao gốc của ta.",
+    "itemCode": "I0054",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0054.png",
+    "name": "Lăng Kính Huyết Giá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Mana Potion",
+        "description": "-1 cost",
+        "descriptionRaw": "-1 cost",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0055-full.png",
+    "descriptionRaw": "Giảm 1 tiêu hao",
+    "description": "Giảm 1 tiêu hao",
+    "itemCode": "I0055",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0055.png",
+    "name": "Bình Năng Lượng"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Chalice of Harmony",
+        "description": "-3 cost",
+        "descriptionRaw": "-3 cost",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử Thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0056-full.png",
+    "descriptionRaw": "Giảm 3 tiêu hao",
+    "description": "Giảm 3 tiêu hao",
+    "itemCode": "I0056",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0056.png",
+    "name": "Cốc Hài Hòa"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Tear of the Goddess",
+        "description": "-2 cost",
+        "descriptionRaw": "-2 cost",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0057-full.png",
+    "descriptionRaw": "Giảm 2 tiêu hao",
+    "description": "Giảm 2 tiêu hao",
+    "itemCode": "I0057",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0057.png",
+    "name": "Nước Mắt Nữ Thần"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Elixir of Skill",
+        "description": "Draw 1.",
+        "descriptionRaw": "Draw 1.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0058-full.png",
+    "descriptionRaw": "Rút 1 lá bài.",
+    "description": "Rút 1 lá bài.",
+    "itemCode": "I0058",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0058.png",
+    "name": "Dược Phẩm Kỹ Năng"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Standard Starchart",
+        "description": "Invoke",
+        "descriptionRaw": "Invoke",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0059-full.png",
+    "descriptionRaw": "Hiệu Triệu",
+    "description": "Hiệu Triệu",
+    "itemCode": "I0059",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0059.png",
+    "name": "Bản Đồ Sao Tiêu Chuẩn"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Summoning Beacon",
+        "description": "[k:Summon|Summon] a follower with my cost from your regions.",
+        "descriptionRaw": "Summon a follower with my cost from your regions.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0060-full.png",
+    "descriptionRaw": "Triệu hồi 1 tùy tùng bằng tiêu hao của ta từ khu vực đồng minh.",
+    "description": "Triệu hồi 1 tùy tùng bằng tiêu hao của ta từ khu vực đồng minh.",
+    "itemCode": "I0060",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0060.png",
+    "name": "Hải Đăng Triệu Hồi"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Forbidden Idol",
+        "description": "[k:Plunder|Plunder]: I cost 3 less.",
+        "descriptionRaw": "Plunder: I cost 3 less.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0061-full.png",
+    "descriptionRaw": "Cưỡng Đoạt: Ta được giảm 3 tiêu hao.",
+    "description": "[k:Plunder|Cưỡng Đoạt]: Ta được giảm 3 tiêu hao.",
+    "itemCode": "I0061",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0061.png",
+    "name": "Dị Vật Tai Ương"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Health Potion",
+        "description": "Heal your Nexus equal to my cost.",
+        "descriptionRaw": "Heal your Nexus equal to my cost.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0062-full.png",
+    "descriptionRaw": "Hồi máu cho Nhà Chính bằng với tiêu hao của ta.",
+    "description": "Hồi máu cho Nhà Chính bằng với tiêu hao của ta.",
+    "itemCode": "I0062",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0062.png",
+    "name": "Bình Máu"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Yordle Portal",
+        "description": "[k:Manifest|Manifest] a card from my regions.",
+        "descriptionRaw": "Manifest a card from my regions.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0063-full.png",
+    "descriptionRaw": "Hình Thành 1 lá bài từ khu vực của ta.",
+    "description": "[k:Manifest|Hình Thành] 1 lá bài từ khu vực của ta.",
+    "itemCode": "I0063",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0063.png",
+    "name": "Cổng Yordle"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Grifter's Deck",
+        "description": "Shuffle 2 copies of me into your deck. They cost 1.",
+        "descriptionRaw": "Shuffle 2 copies of me into your deck. They cost 1.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0064-full.png",
+    "descriptionRaw": "Tráo 2 bản sao của ta vào bộ bài. Các bản sao có 1 tiêu hao.",
+    "description": "Tráo 2 bản sao của ta vào bộ bài. Các bản sao có 1 tiêu hao.",
+    "itemCode": "I0064",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0064.png",
+    "name": "Bộ Bài Gian Xảo"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Oracle's Lens",
+        "description": "[k:Predict|Predict]",
+        "descriptionRaw": "Predict",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0065-full.png",
+    "descriptionRaw": "Tiên Đoán",
+    "description": "[k:Predict|Tiên Đoán]",
+    "itemCode": "I0065",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0065.png",
+    "name": "Máy Quét Oracle"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Poro Snax",
+        "description": "[k:Summon|Summon] a random 1 cost Poro.",
+        "descriptionRaw": "Summon a random 1 cost Poro.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0066-full.png",
+    "descriptionRaw": "Triệu hồi 1 Poro 1 tiêu hao ngẫu nhiên.",
+    "description": "Triệu hồi 1 Poro 1 tiêu hao ngẫu nhiên.",
+    "itemCode": "I0066",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0066.png",
+    "name": "Bánh Quy Poro"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Focusing Crystal",
+        "description": "When you play a spell, grant me +1|+1.",
+        "descriptionRaw": "When you play a spell, grant me +1|+1.",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử Thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0067-full.png",
+    "descriptionRaw": "Khi ngươi sử dụng 1 bài phép, ban cho ta +1|+1.",
+    "description": "Khi ngươi sử dụng 1 bài phép, ban cho ta +1|+1.",
+    "itemCode": "I0067",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0067.png",
+    "name": "Tinh Thể Tiêu Điểm"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Iceborn Gauntlet",
+        "description": "When I'm summoned, I Capture the strongest enemy.",
+        "descriptionRaw": "When I'm summoned, I Capture the strongest enemy.",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử Thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0068-full.png",
+    "descriptionRaw": "Khi ta được triệu hồi, ta sẽ Bắt Giữ kẻ địch mạnh nhất.",
+    "description": "Khi ta được triệu hồi, ta sẽ [cd:03NX018|Bắt Giữ|icon,img-full] kẻ địch mạnh nhất.",
+    "itemCode": "I0068",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0068.png",
+    "name": "Găng Tay Băng Giá"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Quickstrike Blade",
+        "description": "[k:Play|Play]: I start a free attack.",
+        "descriptionRaw": "Play: I start a free attack.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0069-full.png",
+    "descriptionRaw": "Xuất Trận: Ta phát động tấn công.",
+    "description": "[k:Play|Xuất Trận]: Ta phát động tấn công.",
+    "itemCode": "I0069",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0069.png",
+    "name": "Lưỡi Kiếm Đột Kích"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Warding Charm",
+        "description": "[k:SpellShield|SpellShield]",
+        "descriptionRaw": "SpellShield",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0070-full.png",
+    "descriptionRaw": "Khiên Phép",
+    "description": "[k:SpellShield|Khiên Phép]",
+    "itemCode": "I0070",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0070.png",
+    "name": "Bùa Canh Giữ"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Targon's Brace",
+        "description": "[k:Support|Support]: Grant my supported ally +1|+1.",
+        "descriptionRaw": "Support: Grant my supported ally +1|+1.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0071-full.png",
+    "descriptionRaw": "Hỗ Trợ: Ban +1|+1 cho đồng minh được ta hỗ trợ.",
+    "description": "[k:Support|Hỗ Trợ]: Ban +1|+1 cho đồng minh được ta hỗ trợ.",
+    "itemCode": "I0071",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0071.png",
+    "name": "Vòng Tay Targon"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Bonded Bucklers",
+        "description": "[k:Support|Support]: Give my supported ally +1|+1 and my keywords this round.",
+        "descriptionRaw": "Support: Give my supported ally +1|+1 and my keywords this round.",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử Thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0072-full.png",
+    "descriptionRaw": "Hỗ Trợ: Trao +1|+1 và đặc điểm của ta cho đồng minh được ta hỗ trợ trong vòng này.",
+    "description": "[k:Support|Hỗ Trợ]: Trao +1|+1 và đặc điểm của ta cho đồng minh được ta hỗ trợ trong vòng này.",
+    "itemCode": "I0072",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0072.png",
+    "name": "Khiên Gắn Kết"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Reckoner Mark",
+        "description": "+2|+2 and when I'm summoned, the strongest enemy and I strike each other.",
+        "descriptionRaw": "+2|+2 and when I'm summoned, the strongest enemy and I strike each other.",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử Thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0073-full.png",
+    "descriptionRaw": "+2|+2 và khi ta được triệu hồi, kẻ địch mạnh nhất và ta sẽ ra đòn đánh lẫn nhau.",
+    "description": "+2|+2 và khi ta được triệu hồi, kẻ địch mạnh nhất và ta sẽ ra đòn đánh lẫn nhau.",
+    "itemCode": "I0073",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0073.png",
+    "name": "Dấu Ấn Đấu Sĩ"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Vampiric Scepter",
+        "description": "When I'm summoned, heal your Nexus equal to my cost.",
+        "descriptionRaw": "When I'm summoned, heal your Nexus equal to my cost.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0074-full.png",
+    "descriptionRaw": "Khi ta được triệu hồi, hồi máu cho Nhà Chính bằng với tiêu hao của ta.",
+    "description": "Khi ta được triệu hồi, hồi máu cho Nhà Chính bằng với tiêu hao của ta.",
+    "itemCode": "I0074",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0074.png",
+    "name": "Huyết Trượng"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Ancient Coin",
+        "description": "-1 cost",
+        "descriptionRaw": "-1 cost",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0075-full.png",
+    "descriptionRaw": "Giảm 1 tiêu hao",
+    "description": "Giảm 1 tiêu hao",
+    "itemCode": "I0075",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0075.png",
+    "name": "Đồng Xu Cổ Đại"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Chain Vest",
+        "description": "[k:Tough|Tough]",
+        "descriptionRaw": "Tough",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0076-full.png",
+    "descriptionRaw": "Kiên Cường",
+    "description": "[k:Tough|Kiên Cường]",
+    "itemCode": "I0076",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0076.png",
+    "name": "Giáp Lưới"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Mana Deposit",
+        "description": "When I'm summoned, refill your mana equal to my cost.",
+        "descriptionRaw": "When I'm summoned, refill your mana equal to my cost.",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử Thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0077-full.png",
+    "descriptionRaw": "Khi ta được triệu hồi, hồi lại năng lượng bằng với tiêu hao của ta.",
+    "description": "Khi ta được triệu hồi, hồi lại năng lượng bằng với tiêu hao của ta.",
+    "itemCode": "I0077",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0077.png",
+    "name": "Mỏ Năng Lượng"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Philosopher's Stone",
+        "description": "When I'm summoned, draw 1.",
+        "descriptionRaw": "When I'm summoned, draw 1.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0078-full.png",
+    "descriptionRaw": "Khi ta được triệu hồi, rút 1 lá bài.",
+    "description": "Khi ta được triệu hồi, rút 1 lá bài.",
+    "itemCode": "I0078",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0078.png",
+    "name": "Đá Hiền Triết"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Nomad's Medallion",
+        "description": "-2 cost",
+        "descriptionRaw": "-2 cost",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0079-full.png",
+    "descriptionRaw": "Giảm 2 tiêu hao",
+    "description": "Giảm 2 tiêu hao",
+    "itemCode": "I0079",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0079.png",
+    "name": "Mề Đay Nomad"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Bloodletter's Veil",
+        "description": "[k:RoundEnd|Round End]: Deal 1 to me and grant me +2|+0.",
+        "descriptionRaw": "Round End: Deal 1 to me and grant me +2|+0.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0080-full.png",
+    "descriptionRaw": "Kết Thúc Vòng Đấu: Gây 1 sát thương lên ta và ban cho ta +2|+0.",
+    "description": "[k:RoundEnd|Kết Thúc Vòng Đấu]: Gây 1 sát thương lên ta và ban cho ta +2|+0.",
+    "itemCode": "I0080",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0080.png",
+    "name": "Quyền Trượng Huyết Tự"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Double Time Watch",
+        "description": "[k:RoundEnd|Round End]: Reduce my cost by 1.",
+        "descriptionRaw": "Round End: Reduce my cost by 1.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0081-full.png",
+    "descriptionRaw": "Kết Thúc Vòng Đấu: Giảm 1 tiêu hao của ta.",
+    "description": "[k:RoundEnd|Kết Thúc Vòng Đấu]: Giảm 1 tiêu hao của ta.",
+    "itemCode": "I0081",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0081.png",
+    "name": "Đồng Hồ Không Chờ Đợi"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Crystal Carrier",
+        "description": "[k:RoundStart|Round Start]: Get an extra mana gem this round.",
+        "descriptionRaw": "Round Start: Get an extra mana gem this round.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0082-full.png",
+    "descriptionRaw": "Bắt Đầu Vòng Đấu: Nhận thêm 1 ngọc năng lượng trong vòng này.",
+    "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Nhận thêm 1 ngọc năng lượng trong vòng này.",
+    "itemCode": "I0082",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0082.png",
+    "name": "Túi Tinh Thể"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Hextech Fabricator I",
+        "description": "Grant your strongest ally a random Common item this game.",
+        "descriptionRaw": "Grant your strongest ally a random Common item this game.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0083-full.png",
+    "descriptionRaw": "Ban 1 vật phẩm Thường cho đồng minh mạnh nhất trong trận đấu này.",
+    "description": "Ban 1 vật phẩm Thường cho đồng minh mạnh nhất trong trận đấu này.",
+    "itemCode": "I0083",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0083.png",
+    "name": "Chế Phẩm Hextech I"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Battle Banner",
+        "description": "Give allies +1|+1 this round.",
+        "descriptionRaw": "Give allies +1|+1 this round.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0084-full.png",
+    "descriptionRaw": "Trao +1|+1 cho đồng minh trong vòng này.",
+    "description": "Trao +1|+1 cho đồng minh trong vòng này.",
+    "itemCode": "I0084",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0084.png",
+    "name": "Cờ Hiệu Giao Tranh"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Hand Censer",
+        "description": "Grant the top ally in your deck +1|+1.",
+        "descriptionRaw": "Grant the top ally in your deck +1|+1.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0085-full.png",
+    "descriptionRaw": "Ban +1|+1 cho đồng minh gần nhất trong bộ bài.",
+    "description": "Ban +1|+1 cho đồng minh gần nhất trong bộ bài.",
+    "itemCode": "I0085",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0085.png",
+    "name": "Lư Hương Cầm Tay"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Hextech Fabricator II",
+        "description": "Grant your strongest ally a random Rare item this game.",
+        "descriptionRaw": "Grant your strongest ally a random Rare item this game.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0086-full.png",
+    "descriptionRaw": "Ban 1 vật phẩm Hiếm cho đồng minh mạnh nhất trong trận đấu này.",
+    "description": "Ban 1 vật phẩm Hiếm cho đồng minh mạnh nhất trong trận đấu này.",
+    "itemCode": "I0086",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0086.png",
+    "name": "Chế Phẩm Hextech II"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Hextech Fabricator III",
+        "description": "Grant your strongest ally a random Epic item this game.",
+        "descriptionRaw": "Grant your strongest ally a random Epic item this game.",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử Thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0087-full.png",
+    "descriptionRaw": "Ban 1 vật phẩm Sử Thi cho đồng minh mạnh nhất trong trận đấu này.",
+    "description": "Ban 1 vật phẩm Sử Thi cho đồng minh mạnh nhất trong trận đấu này.",
+    "itemCode": "I0087",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0087.png",
+    "name": "Chế Phẩm Hextech III"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Charging Sigil I",
+        "description": "+1 damage",
+        "descriptionRaw": "+1 damage",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0088-full.png",
+    "descriptionRaw": "+1 sát thương",
+    "description": "+1 sát thương",
+    "itemCode": "I0088",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0088.png",
+    "name": "Phong Ấn Tích Tụ I"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Titanic Censer",
+        "description": "Grant the top ally in your deck +6|+6.",
+        "descriptionRaw": "Grant the top ally in your deck +6|+6.",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử Thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0089-full.png",
+    "descriptionRaw": "Ban +6|+6 cho đồng minh gần nhất trong bộ bài.",
+    "description": "Ban +6|+6 cho đồng minh gần nhất trong bộ bài.",
+    "itemCode": "I0089",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0089.png",
+    "name": "Lư Hương Khổng Lồ"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Charging Sigil III",
+        "description": "+4 damage",
+        "descriptionRaw": "+4 damage",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử Thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0090-full.png",
+    "descriptionRaw": "+4 sát thương",
+    "description": "+4 sát thương",
+    "itemCode": "I0090",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0090.png",
+    "name": "Phong Ấn Tích Tụ III"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Charging Sigil II",
+        "description": "+2 damage",
+        "descriptionRaw": "+2 damage",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0091-full.png",
+    "descriptionRaw": "+2 sát thương",
+    "description": "+2 sát thương",
+    "itemCode": "I0091",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0091.png",
+    "name": "Phong Ấn Tích Tụ II"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Mighty Moustache",
+        "description": "[k:Summon|Summon] a [cd:01FR053|Mighty Poro|icon,img-full].",
+        "descriptionRaw": "Summon a Mighty Poro.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0092-full.png",
+    "descriptionRaw": "Triệu hồi 1 lá Poro Hùng Dũng.",
+    "description": "Triệu hồi 1 lá [cd:01FR053|Poro Hùng Dũng|icon,img-full].",
+    "itemCode": "I0092",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0092.png",
+    "name": "Râu Kẽm Hùng Dũng"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Summoner's Stone",
+        "description": "[k:Summon|Summon] a random champion of my cost.",
+        "descriptionRaw": "Summon a random champion of my cost.",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử Thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0093-full.png",
+    "descriptionRaw": "Triệu hồi 1 anh hùng ngẫu nhiên có tiêu hao bằng ta.",
+    "description": "Triệu hồi 1 anh hùng ngẫu nhiên có tiêu hao bằng ta.",
+    "itemCode": "I0093",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0093.png",
+    "name": "Đá Triệu Hồi Sư"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Sapphire Crystal",
+        "description": "Get an empty mana gem.",
+        "descriptionRaw": "Get an empty mana gem.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0094-full.png",
+    "descriptionRaw": "Nhận 1 ngọc năng lượng rỗng.",
+    "description": "Nhận 1 ngọc năng lượng rỗng.",
+    "itemCode": "I0094",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0094.png",
+    "name": "Lam Ngọc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Norra's Tea",
+        "description": "Game Start: Plant a [cd:06BC015T3|Mysterious Portal|icon,img-full] on me.",
+        "descriptionRaw": "Game Start: Plant a Mysterious Portal on me.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0095-full.png",
+    "descriptionRaw": "Bắt Đầu Trận Đấu: Gài 1 lá Cổng Dịch Chuyển Kỳ Bí lên ta.",
+    "description": "Bắt Đầu Trận Đấu: Gài 1 lá [cd:06BC015T3|Cổng Dịch Chuyển Kỳ Bí|icon,img-full] lên ta.",
+    "itemCode": "I0095",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0095.png",
+    "name": "Trà Của Norra"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Sheen",
+        "description": "[k:Attack|Attack]: Grant my bearer +1|+1.",
+        "descriptionRaw": "Attack: Grant my bearer +1|+1.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0096-full.png",
+    "descriptionRaw": "Tấn Công: Ban +1|+1 cho người mang ta.",
+    "description": "[k:Attack|Tấn Công]: Ban +1|+1 cho người mang ta.",
+    "itemCode": "I0096",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0096.png",
+    "name": "Thủy Kiếm"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Bilgewater Cutlass",
+        "description": "[k:Challenger|Challenger]",
+        "descriptionRaw": "Challenger",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0097-full.png",
+    "descriptionRaw": "Thách Đấu",
+    "description": "[k:Challenger|Thách Đấu]",
+    "itemCode": "I0097",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0097.png",
+    "name": "Đoản Kiếm Bilgewater"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Zeal",
+        "description": "[k:QuickStrike|Quick Attack]",
+        "descriptionRaw": "Quick Attack",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0104-full.png",
+    "descriptionRaw": "Đột Kích",
+    "description": "[k:QuickStrike|Đột Kích]",
+    "itemCode": "I0104",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0104.png",
+    "name": "Song Kiếm"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Rejuvenation Bead",
+        "description": "[k:Regeneration|Regeneration]",
+        "descriptionRaw": "Regeneration",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0105-full.png",
+    "descriptionRaw": "Hồi Phục",
+    "description": "[k:Regeneration|Hồi Phục]",
+    "itemCode": "I0105",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0105.png",
+    "name": "Ngọc Lục Bảo"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Phantom Dancer",
+        "description": "[k:Scout|Scout]",
+        "descriptionRaw": "Scout",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử Thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0106-full.png",
+    "descriptionRaw": "Trinh Sát",
+    "description": "[k:Scout|Trinh Sát]",
+    "itemCode": "I0106",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0106.png",
+    "name": "Ma Vũ Song Kiếm"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Essence Reaver",
+        "description": "When you play a spell, grant my bearer +1|+1.",
+        "descriptionRaw": "When you play a spell, grant my bearer +1|+1.",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử Thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0107-full.png",
+    "descriptionRaw": "Khi ngươi sử dụng 1 bài phép, ban +1|+1 cho người mang ta.",
+    "description": "Khi ngươi sử dụng 1 bài phép, ban +1|+1 cho người mang ta.",
+    "itemCode": "I0107",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0107.png",
+    "name": "Lưỡi Hái Linh Hồn"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Stopwatch",
+        "description": "[k:Burst|Burst]",
+        "descriptionRaw": "Burst",
+        "rarity": "Special"
+      }
+    },
+    "rarity": "Đặc Biệt",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0108-full.png",
+    "descriptionRaw": "Siêu Tốc",
+    "description": "[k:Burst|Siêu Tốc]",
+    "itemCode": "I0108",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0108.png",
+    "name": "Đồng Hồ Ngưng Đọng"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Emperor's Favor",
+        "description": "Create a random card from the Emperor's Deck in hand.",
+        "descriptionRaw": "Create a random card from the Emperor's Deck in hand.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0109-full.png",
+    "descriptionRaw": "Tạo trên tay 1 lá ngẫu nhiên từ Bộ Bài Đế Vương.",
+    "description": "Tạo trên tay 1 lá ngẫu nhiên từ Bộ Bài Đế Vương.",
+    "itemCode": "I0109",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0109.png",
+    "name": "Đặc Ân Đế Vương"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Poro Fluft",
+        "description": "I cost 1 and my base stats are 1|1. I am a Poro.",
+        "descriptionRaw": "I cost 1 and my base stats are 1|1. I am a Poro.",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử Thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0110-full.png",
+    "descriptionRaw": "Ta có 1 tiêu hao và chỉ số cơ bản của ta là 1|1. Ta là Poro.",
+    "description": "Ta có 1 tiêu hao và chỉ số cơ bản của ta là 1|1. Ta là Poro.",
+    "itemCode": "I0110",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0110.png",
+    "name": "Poro Bông Mềm"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Entrancing Lure",
+        "description": "[k:Strike|Strike]: Draw 1",
+        "descriptionRaw": "Strike: Draw 1",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0111-full.png",
+    "descriptionRaw": "Ra Đòn: Rút 1 lá bài",
+    "description": "[k:Strike|Ra Đòn]: Rút 1 lá bài",
+    "itemCode": "I0111",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0111.png",
+    "name": "Mồi Nhử Hấp Dẫn"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Tech Evolution",
+        "description": "[k:Augment|Augment] and becomes Tech",
+        "descriptionRaw": "Augment and becomes Tech",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0112-full.png",
+    "descriptionRaw": "Nâng Cấp và trở thành Công Nghệ",
+    "description": "[k:Augment|Nâng Cấp] và trở thành Công Nghệ",
+    "itemCode": "I0112",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0112.png",
+    "name": "Tiến Hóa Công Nghệ"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Coralcrush Gauntlets",
+        "description": "+1|+0 and [k:Brash|Brash]",
+        "descriptionRaw": "+1|+0 and Brash",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0113-full.png",
+    "descriptionRaw": "+1|+0 và Ngạo Mạn",
+    "description": "+1|+0 và [k:Brash|Ngạo Mạn]",
+    "itemCode": "I0113",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0113.png",
+    "name": "Găng Tay San Hô"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Ante Up",
+        "description": "-2 cost and Fleeting",
+        "descriptionRaw": "-2 cost and Fleeting",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0115-full.png",
+    "descriptionRaw": "Giảm 2 tiêu hao và Phù Du",
+    "description": "Giảm 2 tiêu hao và Phù Du",
+    "itemCode": "I0115",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0115.png",
+    "name": "Tăng Tiền Cược"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Pyromantic Wake",
+        "description": "Deal 3 to the enemy Nexus.",
+        "descriptionRaw": "Deal 3 to the enemy Nexus.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0116-full.png",
+    "descriptionRaw": "Gây 3 sát thương lên Nhà Chính của đối thủ.",
+    "description": "Gây 3 sát thương lên Nhà Chính của đối thủ.",
+    "itemCode": "I0116",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0116.png",
+    "name": "Thức Tỉnh Hỏa Thuật"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Power Riff",
+        "description": "[k:Cost|Cost]s 1 less for each card you've drawn this round.",
+        "descriptionRaw": "Costs 1 less for each card you've drawn this round.",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử Thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0118-full.png",
+    "descriptionRaw": "Giảm 1 tiêu hao với mỗi lá bài ngươi đã rút trong vòng này.",
+    "description": "Giảm 1 tiêu hao với mỗi lá bài ngươi đã rút trong vòng này.",
+    "itemCode": "I0118",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0118.png",
+    "name": "Hợp Âm Sức Mạnh"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Urumi",
+        "description": "Create a [cd:08BW008T3|Slipstream|icon,img-full] in hand.",
+        "descriptionRaw": "Create a Slipstream in hand.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0119-full.png",
+    "descriptionRaw": "Tạo trên tay 1 lá Lướt Trên Mặt Nước.",
+    "description": "Tạo trên tay 1 lá [cd:08BW008T3|Lướt Trên Mặt Nước|icon,img-full].",
+    "itemCode": "I0119",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0119.png",
+    "name": "Gươm Roi"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Heroes Call",
+        "description": "Draw a unit.",
+        "descriptionRaw": "Draw a unit.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0120-full.png",
+    "descriptionRaw": "Rút 1 bài quân.",
+    "description": "Rút 1 bài quân.",
+    "itemCode": "I0120",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0120.png",
+    "name": "Hiệu Triệu Anh Hùng"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Stormcalling",
+        "description": "[k:Manifest|Manifest] a Titanic unit and summon 2 Sigils of the Storm.",
+        "descriptionRaw": "Manifest a Titanic unit and summon 2 Sigils of the Storm.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0121-full.png",
+    "descriptionRaw": "Hình Thành 1 bài quân Khổng Lồ và triệu hồi 2 Biểu Tượng Bão Tố.",
+    "description": "[k:Manifest|Hình Thành] 1 bài quân Khổng Lồ và triệu hồi 2 [cd:08FR002T1|Biểu Tượng Bão Tố|icon,img-full].",
+    "itemCode": "I0121",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0121.png",
+    "name": "Triệu Hồi Bão Tố"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Titanify",
+        "description": "When I'm summoned, grow me to 8|8.",
+        "descriptionRaw": "When I'm summoned, grow me to 8|8.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0122-full.png",
+    "descriptionRaw": "Khi ta được triệu hồi, biến ta thành 8|8.",
+    "description": "Khi ta được triệu hồi, biến ta thành 8|8.",
+    "itemCode": "I0122",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0122.png",
+    "name": "Hóa Khổng Lồ"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Immortal",
+        "description": "[k:Deathless|Deathless]",
+        "descriptionRaw": "Deathless",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0123-full.png",
+    "descriptionRaw": "Bất Diệt",
+    "description": "[k:Deathless|Bất Diệt]",
+    "itemCode": "I0123",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0123.png",
+    "name": "Bất Tử"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Excavator's Charge",
+        "description": "When you play a card, give me +1|+1 this round.",
+        "descriptionRaw": "When you play a card, give me +1|+1 this round.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0124-full.png",
+    "descriptionRaw": "Khi ngươi sử dụng 1 lá bài, trao cho ta +1|+1 trong vòng này.",
+    "description": "Khi ngươi sử dụng 1 lá bài, trao cho ta +1|+1 trong vòng này.",
+    "itemCode": "I0124",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0124.png",
+    "name": "Năng Lượng Máy Xúc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Arcane Knowledge",
+        "description": "When I'm summoned, draw a spell.",
+        "descriptionRaw": "When I'm summoned, draw a spell.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0125-full.png",
+    "descriptionRaw": "Khi ta được triệu hồi, rút 1 bài phép.",
+    "description": "Khi ta được triệu hồi, rút 1 bài phép.",
+    "itemCode": "I0125",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0125.png",
+    "name": "Kiến Thức Thần Bí"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Fae's Favor",
+        "description": "[k:Fated|Fated] and becomes Fae",
+        "descriptionRaw": "Fated and becomes Fae",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0126-full.png",
+    "descriptionRaw": "Định Mệnh và trở thành Tinh Linh",
+    "description": "[k:Fated|Định Mệnh] và trở thành Tinh Linh",
+    "itemCode": "I0126",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0126.png",
+    "name": "Đặc Ân Tinh Linh"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Mischievous Spirit",
+        "description": "Attune.\r\nWhen I'm summoned, create a Prank in hand.",
+        "descriptionRaw": "Attune.\r\nWhen I'm summoned, create a Prank in hand.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0129-full.png",
+    "descriptionRaw": "Hồi Lực.\r\nKhi ta được triệu hồi, tạo trên tay 1 lá Chơi Khăm.",
+    "description": "Hồi Lực.\r\nKhi ta được triệu hồi, tạo trên tay 1 lá [cd:05BC195|Chơi Khăm|icon,img-full].",
+    "itemCode": "I0129",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0129.png",
+    "name": "Linh Hồn Tinh Quái"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Heavy Hands",
+        "description": "Double [k:Attack|Attack]",
+        "descriptionRaw": "Double Attack",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử Thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0130-full.png",
+    "descriptionRaw": "Song Kích",
+    "description": "Song Kích",
+    "itemCode": "I0130",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0130.png",
+    "name": "Nắm Đấm Hạng Nặng"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Rallying Standard",
+        "description": "[k:Rally|Rally]",
+        "descriptionRaw": "Rally",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử Thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0131-full.png",
+    "descriptionRaw": "Tiến Công",
+    "description": "[k:Rally|Tiến Công]",
+    "itemCode": "I0131",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0131.png",
+    "name": "Tiến Công Chuẩn Mực"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Brain Worm",
+        "description": "The opponent discards a random card.",
+        "descriptionRaw": "The opponent discards a random card.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0132-full.png",
+    "descriptionRaw": "Đối thủ bỏ 1 lá bài ngẫu nhiên.",
+    "description": "Đối thủ bỏ 1 lá bài ngẫu nhiên.",
+    "itemCode": "I0132",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0132.png",
+    "name": "Sâu Não"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Consuming Wrath",
+        "description": "+4|+0 and Can't Block.",
+        "descriptionRaw": "+4|+0 and Can't Block.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0133-full.png",
+    "descriptionRaw": "+4|+0 và Không Thể Chặn Đòn",
+    "description": "+4|+0 và Không Thể Chặn Đòn",
+    "itemCode": "I0133",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0133.png",
+    "name": "Giận Phát Cuồng"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Chronomancy",
+        "description": "[k:Summon|Summon] a [cd:04SH013|Preservarium|icon,img-full].",
+        "descriptionRaw": "Summon a Preservarium.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0134-full.png",
+    "descriptionRaw": "Triệu hồi 1 lá Vườn Thời Gian.",
+    "description": "Triệu hồi 1 lá [cd:04SH013|Vườn Thời Gian|icon,img-full].",
+    "itemCode": "I0134",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0134.png",
+    "name": "Bá Chủ Thời Gian"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "The Mist",
+        "description": "When I'm summoned and [k:RoundStart|Round Start]: [k:Summon|Summon] an [cd:04SI045|Encroaching Mist|icon,img-full].",
+        "descriptionRaw": "When I'm summoned and Round Start: Summon an Encroaching Mist.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0135-full.png",
+    "descriptionRaw": "Khi ta được triệu hồi và Bắt Đầu Vòng Đấu: Triệu hồi 1 lá Màn Sương Xâm Chiếm.",
+    "description": "Khi ta được triệu hồi và [k:RoundStart|Bắt Đầu Vòng Đấu]: Triệu hồi 1 lá [cd:04SI045|Màn Sương Xâm Chiếm|icon,img-full].",
+    "itemCode": "I0135",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0135.png",
+    "name": "Màn Sương"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Heroes' Reward",
+        "description": "Allies have +1|+1",
+        "descriptionRaw": "Allies have +1|+1",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0136-full.png",
+    "descriptionRaw": "Đồng minh nhận +1|+1",
+    "description": "Đồng minh nhận +1|+1",
+    "itemCode": "I0136",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0136.png",
+    "name": "Phần Thưởng Dành Cho Anh Hùng"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Sorcerer's Tower",
+        "description": "[k:RoundStart|Round Start]: Refill your spell mana.",
+        "descriptionRaw": "Round Start: Refill your spell mana.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0137-full.png",
+    "descriptionRaw": "Bắt Đầu Vòng Đấu: Hồi đầy năng lượng bài phép.",
+    "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Hồi đầy năng lượng bài phép.",
+    "itemCode": "I0137",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0137.png",
+    "name": "Tháp Canh Pháp Sư"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Home Turf",
+        "description": "Game Start: [k:Summon|Summon] one of me from deck.",
+        "descriptionRaw": "Game Start: Summon one of me from deck.",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử Thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0138-full.png",
+    "descriptionRaw": "Bắt Đầu Trận Đấu: Triệu hồi 1 bản thể của ta từ bộ bài.",
+    "description": "Bắt Đầu Trận Đấu: Triệu hồi 1 bản thể của ta từ bộ bài.",
+    "itemCode": "I0138",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0138.png",
+    "name": "Sân Nhà"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Wanderer's Blessing",
+        "description": "When I'm summoned, plant 6 Chimes on random cards in your deck.",
+        "descriptionRaw": "When I'm summoned, plant 6 Chimes on random cards in your deck.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0140-full.png",
+    "descriptionRaw": "Khi ta được triệu hồi, gài 6 lá Chuông lên các lá bài ngẫu nhiên trong bộ bài.",
+    "description": "Khi ta được triệu hồi, gài 6 lá Chuông lên các lá bài ngẫu nhiên trong bộ bài.",
+    "itemCode": "I0140",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0140.png",
+    "name": "Phước Họa Lãng Khách"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Voidling Shell",
+        "description": "While in hand, I have a random keyword that changes each round. When I'm summoned, grant me this keyword.",
+        "descriptionRaw": "While in hand, I have a random keyword that changes each round. When I'm summoned, grant me this keyword.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0142-full.png",
+    "descriptionRaw": "Khi ở trên tay, ta có một đặc điểm ngẫu nhiên thay đổi mỗi vòng đấu. Khi ta được triệu hồi, ban cho ta đặc điểm đó.",
+    "description": "Khi ở trên tay, ta có một đặc điểm ngẫu nhiên thay đổi mỗi vòng đấu. Khi ta được triệu hồi, ban cho ta đặc điểm đó.",
+    "itemCode": "I0142",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0142.png",
+    "name": "Vỏ Bọc Hư Không"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Morellonomicon",
+        "description": "Applies Gloom instead of dealing damage to units.",
+        "descriptionRaw": "Applies Gloom instead of dealing damage to units.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0143-full.png",
+    "descriptionRaw": "Gây Buồn Bã thay vì gây sát thương lên bài quân.",
+    "description": "Gây Buồn Bã thay vì gây sát thương lên bài quân.",
+    "itemCode": "I0143",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0143.png",
+    "name": "Quỷ Thư Morello"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Bright Staff",
+        "description": "[k:Spirit|Spirit]",
+        "descriptionRaw": "Spirit",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0144-full.png",
+    "descriptionRaw": "Linh Hồn",
+    "description": "[k:Spirit|Linh Hồn]",
+    "itemCode": "I0144",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0144.png",
+    "name": "Trượng Rạng Ngời"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Miraculous Melody",
+        "description": "Hallowed",
+        "descriptionRaw": "Hallowed",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0146-full.png",
+    "descriptionRaw": "Ước Nguyện",
+    "description": "Ước Nguyện",
+    "itemCode": "I0146",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0146.png",
+    "name": "Giai Điệu Diệu Kỳ"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Bounty Board",
+        "description": "[k:LastBreath|Last Breath]: [k:Summon|Summon] a random 1 cost unit from your regions.",
+        "descriptionRaw": "Last Breath: Summon a random 1 cost unit from your regions.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0147-full.png",
+    "descriptionRaw": "Trăng Trối: Triệu hồi 1 bài quân 1 tiêu hao ngẫu nhiên từ khu vực của bạn.",
+    "description": "[k:LastBreath|Trăng Trối]: Triệu hồi 1 bài quân 1 tiêu hao ngẫu nhiên từ khu vực của bạn.",
+    "itemCode": "I0147",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0147.png",
+    "name": "Bảng Truy Nã"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Corrupted Gatebreaker",
+        "description": "[k:Play|Play]: I strike the enemy Nexus.",
+        "descriptionRaw": "Play: I strike the enemy Nexus.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0151-full.png",
+    "descriptionRaw": "Xuất Trận: Ta ra đòn lên Nhà Chính của đối thủ.",
+    "description": "[k:Play|Xuất Trận]: Ta ra đòn lên Nhà Chính của đối thủ.",
+    "itemCode": "I0151",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0151.png",
+    "name": "Người Phá Thành Sa Ngã"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Flame-Wreathed Soul",
+        "description": "[k:Play|Play]: [k:Play|Play] two random Dragon Boons on me.",
+        "descriptionRaw": "Play: Play two random Dragon Boons on me.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0154-full.png",
+    "descriptionRaw": "Xuất Trận: Sử dụng 2 Ân Huệ Rồng ngẫu nhiên lên ta.",
+    "description": "[k:Play|Xuất Trận]: Sử dụng 2 Ân Huệ Rồng ngẫu nhiên lên ta.",
+    "itemCode": "I0154",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0154.png",
+    "name": "Linh Hồn Bốc Lửa"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Iceborn",
+        "description": "[k:Play|Play]: Deal 2 to all enemies and the enemy Nexus.",
+        "descriptionRaw": "Play: Deal 2 to all enemies and the enemy Nexus.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0157-full.png",
+    "descriptionRaw": "Xuất Trận: Gây 2 sát thương lên tất cả đối thủ và Nhà Chính của đối thủ.",
+    "description": "[k:Play|Xuất Trận]: Gây 2 sát thương lên tất cả đối thủ và Nhà Chính của đối thủ.",
+    "itemCode": "I0157",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0157.png",
+    "name": "Băng Tộc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Progressive Growth",
+        "description": "[k:RoundStart|Round Start]: Grant me +1|+1 if I'm in play or in hand.",
+        "descriptionRaw": "Round Start: Grant me +1|+1 if I'm in play or in hand.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0158-full.png",
+    "descriptionRaw": "Bắt Đầu Vòng Đấu: Ban cho ta +1|+1 nếu ta đã xuất trận hoặc trên tay.",
+    "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Ban cho ta +1|+1 nếu ta đã xuất trận hoặc trên tay.",
+    "itemCode": "I0158",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0158.png",
+    "name": "Tăng Trưởng Tiến Bộ"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Little Titan",
+        "description": "+2|+2, but cost 1 more",
+        "descriptionRaw": "+2|+2, but cost 1 more",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0159-full.png",
+    "descriptionRaw": "+2|+2, nhưng thêm 1 tiêu hao",
+    "description": "+2|+2, nhưng thêm 1 tiêu hao",
+    "itemCode": "I0159",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0159.png",
+    "name": "Người Khổng Lồ Nhỏ"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Faulty Blasting Sigil",
+        "description": "Double damage, but cost 1 more",
+        "descriptionRaw": "Double damage, but cost 1 more",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0160-full.png",
+    "descriptionRaw": "Gấp đôi sát thương, nhưng thêm 1 tiêu hao",
+    "description": "Gấp đôi sát thương, nhưng thêm 1 tiêu hao",
+    "itemCode": "I0160",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0160.png",
+    "name": "Ấn Nổ Lỗi"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Blasting Sigil",
+        "description": "Double damage",
+        "descriptionRaw": "Double damage",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử Thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0161-full.png",
+    "descriptionRaw": "Gấp đôi sát thương",
+    "description": "Gấp đôi sát thương",
+    "itemCode": "I0161",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0161.png",
+    "name": "Ấn Nổ"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Titanic Maul",
+        "description": "+5|+5",
+        "descriptionRaw": "+5|+5",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử Thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0162-full.png",
+    "descriptionRaw": "+5|+5",
+    "description": "+5|+5",
+    "itemCode": "I0162",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0162.png",
+    "name": "Búa Khổng Lồ"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Dragon Egg",
+        "description": "Play: [k:Summon|Summon] a random Dragon of my base cost or less.",
+        "descriptionRaw": "Play: Summon a random Dragon of my base cost or less.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0163-full.png",
+    "descriptionRaw": "Xuất Trận: Triệu hồi 1 Rồng ngẫu nhiên có tiêu hao cơ bản của ta hoặc ít hơn.",
+    "description": "[k:Play|Xuất Trận]: Triệu hồi 1 Rồng ngẫu nhiên có tiêu hao cơ bản của ta hoặc ít hơn.",
+    "itemCode": "I0163",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0163.png",
+    "name": "Trứng Rồng"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Dragon Leather",
+        "description": "+2|+2",
+        "descriptionRaw": "+2|+2",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0164-full.png",
+    "descriptionRaw": "+2|+2",
+    "description": "+2|+2",
+    "itemCode": "I0164",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0164.png",
+    "name": "Da Rồng"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Titan's Belt",
+        "description": "+0|+5",
+        "descriptionRaw": "+0|+5",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0166-full.png",
+    "descriptionRaw": "+0|+5",
+    "description": "+0|+5",
+    "itemCode": "I0166",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0166.png",
+    "name": "Đai Người Khổng Lồ"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Resplendent Plate Armor ",
+        "description": "+7|+7, but +3 cost",
+        "descriptionRaw": "+7|+7, but +3 cost",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0167-full.png",
+    "descriptionRaw": "+7|+7, nhưng +3 tiêu hao",
+    "description": "+7|+7, nhưng +3 tiêu hao",
+    "itemCode": "I0167",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0167.png",
+    "name": "Hoàng Kim Giáp "
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Gigaphage",
+        "description": "+3|+3",
+        "descriptionRaw": "+3|+3",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0168-full.png",
+    "descriptionRaw": "+3|+3",
+    "description": "+3|+3",
+    "itemCode": "I0168",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0168.png",
+    "name": "Ký Sinh Khổng Lồ"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Titan's Pickaxe",
+        "description": "+5|+0",
+        "descriptionRaw": "+5|+0",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0169-full.png",
+    "descriptionRaw": "+5|+0",
+    "description": "+5|+0",
+    "itemCode": "I0169",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0169.png",
+    "name": "Cuốc Chim Của Người Khổng Lồ"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Pale Imitation",
+        "description": "-4 Cost, but [k:Ephemeral|Ephemeral]",
+        "descriptionRaw": "-4 Cost, but Ephemeral",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0170-full.png",
+    "descriptionRaw": "-4 tiêu hao, nhưng Cảm Tử",
+    "description": "-4 tiêu hao, nhưng [k:Ephemeral|Cảm Tử]",
+    "itemCode": "I0170",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0170.png",
+    "name": "Mô Phỏng Mờ Nhạt"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "True Reflection",
+        "description": "Play: [k:Summon|Summon] an exact copy of me.",
+        "descriptionRaw": "Play: Summon an exact copy of me.",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử Thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0171-full.png",
+    "descriptionRaw": "Xuất Trận: Triệu hồi 1 bản sao y hệt của ta.",
+    "description": "[k:Play|Xuất Trận]: Triệu hồi 1 bản sao y hệt của ta.",
+    "itemCode": "I0171",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0171.png",
+    "name": "Phản Chiếu Đích Thực"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Unstable Formula",
+        "description": "Deal 8 to a random enemy or the enemy Nexus if there is none.",
+        "descriptionRaw": "Deal 8 to a random enemy or the enemy Nexus if there is none.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0172-full.png",
+    "descriptionRaw": "Gây 8 sát thương cho kẻ địch ngẫu nhiên hoặc Nhà Chính của đối thủ nếu không có kẻ địch nào.",
+    "description": "Gây 8 sát thương cho kẻ địch ngẫu nhiên hoặc Nhà Chính của đối thủ nếu không có kẻ địch nào.",
+    "itemCode": "I0172",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0172.png",
+    "name": "Công Thức Bất Định"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Zhonya's Blessing",
+        "description": "I can't take damage or die.",
+        "descriptionRaw": "I can't take damage or die.",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử Thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0173-full.png",
+    "descriptionRaw": "Ta không thể nhận sát thương hay bị tiêu diệt.",
+    "description": "Ta không thể nhận sát thương hay bị tiêu diệt.",
+    "itemCode": "I0173",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0173.png",
+    "name": "Phước Lành Của Zhonya"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Spark of Brilliance",
+        "description": "Refill your spell mana.",
+        "descriptionRaw": "Refill your spell mana.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0174-full.png",
+    "descriptionRaw": "Hồi đầy Năng lượng bài phép.",
+    "description": "Hồi đầy Năng lượng bài phép.",
+    "itemCode": "I0174",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0174.png",
+    "name": "Tia Chớp Sáng Chói"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Specter's Saddle",
+        "description": "Attack: [k:Summon|Summon] an attacking CardRef.",
+        "descriptionRaw": "Attack: Summon an attacking CardRef.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0175-full.png",
+    "descriptionRaw": "Tấn Công: Triệu hồi 1 lá CardRef ở vị trí tấn công.",
+    "description": "[k:Attack|Tấn Công]: Triệu hồi 1 lá CardRef ở vị trí tấn công.",
+    "itemCode": "I0175",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0175.png",
+    "name": "Yên Ngựa Ma Quái"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Solari Sunspear",
+        "description": "Daybreak: Give me +3|+3 this round.",
+        "descriptionRaw": "Daybreak: Give me +3|+3 this round.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0176-full.png",
+    "descriptionRaw": "Hừng Đông: Trao cho ta +3|+3 trong vòng đấu này.",
+    "description": "Hừng Đông: Trao cho ta +3|+3 trong vòng đấu này.",
+    "itemCode": "I0176",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0176.png",
+    "name": "Mũi Giáo Mặt Trời Solari"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Evil Phage",
+        "description": "+2|+1.[k:Play|Play]: Deal 2 to each Nexus.",
+        "descriptionRaw": "+2|+1.Play: Deal 2 to each Nexus.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0179-full.png",
+    "descriptionRaw": "+2|+1.Xuất Trận: Gây 2 sát thương lên mỗi Nhà Chính.",
+    "description": "+2|+1.[k:Play|Xuất Trận]: Gây 2 sát thương lên mỗi Nhà Chính.",
+    "itemCode": "I0179",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0179.png",
+    "name": "Búa Gỗ Tà Ác"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Evil Eye",
+        "description": "Terrify 1",
+        "descriptionRaw": "Terrify 1",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0180-full.png",
+    "descriptionRaw": "Khiếp Hãi 1",
+    "description": "Khiếp Hãi 1",
+    "itemCode": "I0180",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0180.png",
+    "name": "Mắt Quỷ"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Cashback",
+        "description": "Create 2 Coins in hand.",
+        "descriptionRaw": "Create 2 Coins in hand.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0181-full.png",
+    "descriptionRaw": "Tạo trên tay 2 lá Xu.",
+    "description": "Tạo trên tay 2 lá Xu.",
+    "itemCode": "I0181",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0181.png",
+    "name": "Hoàn Trả"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Kindred's Mark",
+        "description": "When I damage an enemy, mark it.",
+        "descriptionRaw": "When I damage an enemy, mark it.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0183-full.png",
+    "descriptionRaw": "Khi ta gây sát thương lên 1 kẻ địch, đánh dấu nó.",
+    "description": "Khi ta gây sát thương lên 1 kẻ địch, đánh dấu nó.",
+    "itemCode": "I0183",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0183.png",
+    "name": "Dấu Ấn Của Kindred"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Elemental Studies",
+        "description": "[k:Play|Play]: Create in hand a random Elemental spell.",
+        "descriptionRaw": "Play: Create in hand a random Elemental spell.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0184-full.png",
+    "descriptionRaw": "Xuất Trận: Tạo trên tay 1 bài phép Nguyên Tố ngẫu nhiên.",
+    "description": "[k:Play|Xuất Trận]: Tạo trên tay 1 bài phép Nguyên Tố ngẫu nhiên.",
+    "itemCode": "I0184",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0184.png",
+    "name": "Nghiên Cứu Nguyên Tố"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Frost Spikes",
+        "description": "[k:Play|Play]: Deal 1 to all enemies and the enemy Nexus.",
+        "descriptionRaw": "Play: Deal 1 to all enemies and the enemy Nexus.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0185-full.png",
+    "descriptionRaw": "Xuất Trận: Gây 1 sát thương lên tất cả kẻ địch và Nhà Chính của đối thủ.",
+    "description": "[k:Play|Xuất Trận]: Gây 1 sát thương lên tất cả kẻ địch và Nhà Chính của đối thủ.",
+    "itemCode": "I0185",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0185.png",
+    "name": "Gai Băng"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Busted Stopwatch",
+        "description": "[k:Fast|Fast]",
+        "descriptionRaw": "Fast",
+        "rarity": "Special"
+      }
+    },
+    "rarity": "Đặc Biệt",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0186-full.png",
+    "descriptionRaw": "Nhanh",
+    "description": "[k:Fast|Nhanh]",
+    "itemCode": "I0186",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0186.png",
+    "name": "Đồng Hồ Vụn Vỡ"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Storm Channeler",
+        "description": "Gather Storm",
+        "descriptionRaw": "Gather Storm",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0187-full.png",
+    "descriptionRaw": "Gom Bão",
+    "description": "Gom Bão",
+    "itemCode": "I0187",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0187.png",
+    "name": "Người Vận Bão"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Frost Armor",
+        "description": "+0|+1.I don't take damage from allied spells or Skills.",
+        "descriptionRaw": "+0|+1.I don't take damage from allied spells or Skills.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0188-full.png",
+    "descriptionRaw": "Ban +0|+1.Ta không nhận sát thương từ bài phép hoặc Kỹ Năng của đồng minh.",
+    "description": "Ban +0|+1.Ta không nhận sát thương từ bài phép hoặc Kỹ Năng của đồng minh.",
+    "itemCode": "I0188",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0188.png",
+    "name": "Giáp Băng"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Mark of Medarda",
+        "description": "-1 [k:Cost|Cost] and draw 1.",
+        "descriptionRaw": "-1 Cost and draw 1.",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử Thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0193-full.png",
+    "descriptionRaw": "Giảm 1 tiêu hao và rút 1 lá bài.",
+    "description": "Giảm 1 tiêu hao và rút 1 lá bài.",
+    "itemCode": "I0193",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0193.png",
+    "name": "Dấu Ấn Của Medarda"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Solid Spear",
+        "description": "Grant targeted allies +2|+2.",
+        "descriptionRaw": "Grant targeted allies +2|+2.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0194-full.png",
+    "descriptionRaw": "Ban +2|+2 cho các đồng minh bị chọn làm mục tiêu.",
+    "description": "Ban +2|+2 cho các đồng minh bị chọn làm mục tiêu.",
+    "itemCode": "I0194",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0194.png",
+    "name": "Ngọn Giáo Cứng Rắn"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Stout Shield",
+        "description": "Give targeted allies [k:Barrier|Barrier] this round.",
+        "descriptionRaw": "Give targeted allies Barrier this round.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0195-full.png",
+    "descriptionRaw": "Trao Lá Chắn cho những đồng minh bị chọn làm mục tiêu trong vòng này.",
+    "description": "Trao [k:Barrier|Lá Chắn] cho những đồng minh bị chọn làm mục tiêu trong vòng này.",
+    "itemCode": "I0195",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0195.png",
+    "name": "Khiên Chắc Chắn"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Divine Armaments",
+        "description": "Grant targeted allies an Epic item.",
+        "descriptionRaw": "Grant targeted allies an Epic item.",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử Thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0196-full.png",
+    "descriptionRaw": "Ban 1 vật phẩm Sử Thi cho những đồng minh bị chọn làm mục tiêu.",
+    "description": "Ban 1 vật phẩm Sử Thi cho những đồng minh bị chọn làm mục tiêu.",
+    "itemCode": "I0196",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0196.png",
+    "name": "Khí Tài Thần Linh"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Ascendant's Token",
+        "description": "+2|+2If I'm a champion, I'm Ascended.",
+        "descriptionRaw": "+2|+2If I'm a champion, I'm Ascended.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_12_0/adventure/vi_vn/img/items/I0197-full.png",
+    "descriptionRaw": "Ban +2|+2Nếu ta là 1 anh hùng, ta là Thể Thăng Hoa.",
+    "description": "Ban +2|+2Nếu ta là 1 anh hùng, ta là Thể Thăng Hoa.",
+    "itemCode": "I0197",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_12_0/adventure/vi_vn/img/items/I0197.png",
+    "name": "Kỷ Vật Thăng Hoa"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Free Spirit",
+        "description": "For each allied target, summon a 1|1 [k:Ephemeral|Ephemeral] unit. Copy me onto them.",
+        "descriptionRaw": "For each allied target, summon a 1|1 Ephemeral unit. Copy me onto them.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0198-full.png",
+    "descriptionRaw": "Với mỗi mục tiêu là đồng minh, triệu hồi 1 bài quân Cảm Tử 1|1. Sao chép ta lên bài quân đó.",
+    "description": "Với mỗi mục tiêu là đồng minh, triệu hồi 1 bài quân [k:Ephemeral|Cảm Tử] 1|1. Sao chép ta lên bài quân đó.",
+    "itemCode": "I0198",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0198.png",
+    "name": "Linh Hồn Tự Do"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Herald's Favor",
+        "description": "When I'm summoned, reduce the cost of the most expensive unit in your hand by 2.",
+        "descriptionRaw": "When I'm summoned, reduce the cost of the most expensive unit in your hand by 2.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0200-full.png",
+    "descriptionRaw": "Khi ta được triệu hồi, giảm 2 tiêu hao của bài quân có tiêu hao cao nhất trên tay.",
+    "description": "Khi ta được triệu hồi, giảm 2 tiêu hao của bài quân có tiêu hao cao nhất trên tay.",
+    "itemCode": "I0200",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0200.png",
+    "name": "Ân Huệ Của Sứ Giả"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Spider Fang",
+        "description": "+1|+1, [k:Fearsome|Fearsome] and I'm a Spider.",
+        "descriptionRaw": "+1|+1, Fearsome and I'm a Spider.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0201-full.png",
+    "descriptionRaw": "Ban +1|+1, Đáng Sợ và ta là Nhện.",
+    "description": "Ban +1|+1, [k:Fearsome|Đáng Sợ] và ta là Nhện.",
+    "itemCode": "I0201",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0201.png",
+    "name": "Nanh Nhện"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Porify",
+        "description": "+1|+1 and I'm a Poro.\r\n",
+        "descriptionRaw": "+1|+1 and I'm a Poro.\r\n",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_12_0/adventure/vi_vn/img/items/I0203-full.png",
+    "descriptionRaw": "Ban +1|+1 và ta là Poro.\r\n",
+    "description": "Ban +1|+1 và ta là Poro.\r\n",
+    "itemCode": "I0203",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_12_0/adventure/vi_vn/img/items/I0203.png",
+    "name": "Biến Thành Poro"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Golden Spatula",
+        "description": "When I'm summoned, grant other allies that share a subtype with me +2|+2.",
+        "descriptionRaw": "When I'm summoned, grant other allies that share a subtype with me +2|+2.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0205-full.png",
+    "descriptionRaw": "Khi ta được triệu hồi, ban +2|+2 cho các đồng minh khác có cùng nhóm bài phụ với ta.",
+    "description": "Khi ta được triệu hồi, ban +2|+2 cho các đồng minh khác có cùng nhóm bài phụ với ta.",
+    "itemCode": "I0205",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0205.png",
+    "name": "Xẻng Vàng Ròng"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Infinity Force",
+        "description": "+3|+3, Overwhelm, QuickAttack, [k:Challenger|Challenger]",
+        "descriptionRaw": "+3|+3, Overwhelm, QuickAttack, Challenger",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử Thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0206-full.png",
+    "descriptionRaw": "Ban +3|+3, Áp Đảo, Đột Kích, Thách Đấu",
+    "description": "Ban +3|+3, Áp Đảo, Đột Kích, [k:Challenger|Thách Đấu]",
+    "itemCode": "I0206",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0206.png",
+    "name": "Tam Luyện Kiếm"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Jeweled Gauntlets",
+        "description": "[k:Overwhelm|Overwhelm] and 50% chance to Critical [k:Strike|Strike]",
+        "descriptionRaw": "Overwhelm and 50% chance to Critical Strike",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0207-full.png",
+    "descriptionRaw": "Áp Đảo và 50% tỷ lệ Chí Mạng",
+    "description": "[k:Overwhelm|Áp Đảo] và 50% tỷ lệ Chí Mạng",
+    "itemCode": "I0207",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0207.png",
+    "name": "Găng Bảo Thạch"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Thief's Gloves",
+        "description": "Game Start: Grant me 2 random Epic items.",
+        "descriptionRaw": "Game Start: Grant me 2 random Epic items.",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử Thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0208-full.png",
+    "descriptionRaw": "Bắt Đầu Trận Đấu: Ban cho ta 2 vật phẩm Sử Thi ngẫu nhiên.",
+    "description": "Bắt Đầu Trận Đấu: Ban cho ta 2 vật phẩm Sử Thi ngẫu nhiên.",
+    "itemCode": "I0208",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0208.png",
+    "name": "Găng Đạo Tặc"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Golden Pan",
+        "description": "I have all subtypes",
+        "descriptionRaw": "I have all subtypes",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0209-full.png",
+    "descriptionRaw": "Ta có tất cả các nhóm bài phụ",
+    "description": "Ta có tất cả các nhóm bài phụ",
+    "itemCode": "I0209",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0209.png",
+    "name": "Chảo Vàng Ròng"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Blue Buff",
+        "description": "[k:Strike|Strike]: Refill your spell mana.",
+        "descriptionRaw": "Strike: Refill your spell mana.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0210-full.png",
+    "descriptionRaw": "Ra Đòn: Hồi đầy năng lượng bài phép.",
+    "description": "[k:Strike|Ra Đòn]: Hồi đầy năng lượng bài phép.",
+    "itemCode": "I0210",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0210.png",
+    "name": "Bùa Xanh"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Infinity Edge",
+        "description": "+2|+0, [k:Overwhelm|Overwhelm].When I'm summoned, there is a 50% chance to double this buff.",
+        "descriptionRaw": "+2|+0, Overwhelm.When I'm summoned, there is a 50% chance to double this buff.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0211-full.png",
+    "descriptionRaw": "Ban +2|+0, Áp Đảo.Khi ta được triệu hồi, có 50% cơ hội để gấp đôi bùa lợi này.",
+    "description": "Ban +2|+0, [k:Overwhelm|Áp Đảo].Khi ta được triệu hồi, có 50% cơ hội để gấp đôi bùa lợi này.",
+    "itemCode": "I0211",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0211.png",
+    "name": "Vô Cực Kiếm"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Dragon's Claw",
+        "description": "SpellShield, [k:Regeneration|Regeneration]",
+        "descriptionRaw": "SpellShield, Regeneration",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0212-full.png",
+    "descriptionRaw": "Khiên Phép, Hồi Phục.",
+    "description": "[k:SpellShield|Khiên Phép], [k:Regeneration|Hồi Phục].",
+    "itemCode": "I0212",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0212.png",
+    "name": "Vuốt Rồng"
+  }
+]

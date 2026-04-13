@@ -43,6 +43,7 @@ import TierListIndex from "./pages/tierList.jsx";
 import VaultSimulator from "./pages/vaultSimulator.jsx";
 import CardList from "./pages/cardList.jsx";
 import ChampionRatingPage from "./pages/championRatingPage.jsx";
+import ErrorPage from "./pages/ErrorPage.jsx";
 
 
 // Đăng nhập / Đăng ký
@@ -143,6 +144,7 @@ const router = createBrowserRouter([
 	{
 		path: "/",
 		element: <AppLayout />,
+		errorElement: <ErrorPage />,
 		children: [
 			{ index: true, element: <Home /> },
 			{ path: "home", element: <Home /> },

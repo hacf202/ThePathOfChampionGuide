@@ -1322,5 +1322,12 @@
 			"deckUpgrade": "starts with",
 			"viewLevelBtn": "View Level Rewards"
 		}
+	},
+	"errorPage": {
+		"title": "Oops! Something went wrong",
+		"desc404": "The page you're looking for is missing, like Teemo in Stealth mode.",
+		"descGeneric": "The system is experiencing some technical difficulties. Please try again later.",
+		"backToHome": "Back to Home",
+		"errorCode": "Error code: {{code}}"
 	}
 }
