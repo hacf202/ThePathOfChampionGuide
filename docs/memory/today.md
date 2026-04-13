@@ -3,6 +3,19 @@
 *File này là nơi lưu trữ trạng thái dở dang thuộc phiên làm việc hiện tại, các vấn đề và lỗi sinh ra khi code hoặc thảo luận để AI ghi nhớ tránh lạc lõng, hỏi lại nhiều lần.*
 
 
+## Log thay đổi 2026-04-13 (Card Investigation & Lookup) *(Uncommitted)*
+
+### ✅ Điều tra và tra cứu dữ liệu thẻ bài
+- **Tra cứu CardCode**: Đã thực hiện tìm kiếm lá bài có mã tương tự `99MT003` trong bản sao lưu dữ liệu `cardList.json`.
+- **Kết quả**: Xác nhận mã `99MT003` không tồn tại trong hệ thống. Đã liệt kê các lá bài thay thế khả thi thuộc khu vực Targon (MT) có số đuôi `003`:
+    - `03MT003`: **Hang Rồng (Dragon's Clutch)** - Bài phép hỗ trợ Rồng.
+    - `04MT003`: **Nguyên Tố Đất (Earth Elemental)** - Bài quân (Set 4).
+    - `05MT003`: **Pantheon** - Tướng (Set 5).
+    - `07MT003`: **Linh Thú Vũ Trụ (Cosmic Youngling)** - Bài quân (Set 7).
+    - `08MT003`: **Morgana** - Tướng (Set 8).
+
+---
+
 ## Log thay đổi 2026-04-12 (Vault Simulator UI/UX Finalization) *(Uncommitted)*
 
 **Files Mới / Thay đổi:**

@@ -132,7 +132,7 @@ const ChampionEditorForm = memo(
 
 				// Chuẩn hóa bộ bài khởi đầu (Đảm bảo luôn là object có cardCode và itemCodes)
 				if (processedData.startingDeck) {
-					const LEGACY_LEVELS = [2, 3, 6, 9, 12, 15, 18, 21, 24, 27];
+					const LEGACY_LEVELS = [2, 3, 4, 6, 9, 12, 15, 18, 21, 24, 27];
 					let itemCounter = 0;
 
 					const normalizeCards = (cards, isBase) =>

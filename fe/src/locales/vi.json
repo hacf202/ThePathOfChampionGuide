@@ -238,6 +238,23 @@
 			"sortRarityAsc": "Độ hiếm Thấp - Cao",
 			"sortRarityDesc": "Độ hiếm Cao - Thấp"
 		},
+		"itemForm": {
+			"errorIdReq": "Vui lòng nhập ID vật phẩm!",
+			"createTitle": "Tạo vật phẩm mới",
+			"editTitle": "Chỉnh sửa:",
+			"idLabel": "Mã vật phẩm (Cố định)",
+			"nameLabel": "Tên vật phẩm",
+			"rarityLabel": "Độ hiếm",
+			"descLabel": "Mô tả",
+			"previewImage": "Xem trước ảnh",
+			"imageUrlLabel": "Đường dẫn ảnh (URL)",
+			"imageFullUrlLabel": "Đường dẫn ảnh lớn (URL Full)",
+			"langVI": "Tiếng Việt (Mặc định)",
+			"langEN": "Tiếng Anh (Tùy chọn)",
+			"placeholderName": "Nhập tên vật phẩm...",
+			"placeholderRarity": "Thường, Hiếm, Sử Thi...",
+			"placeholderDesc": "Nội dung mô tả chi tiết..."
+		},
 		"rune": {
 			"notFound": "Không tìm thấy Ngọc nào phù hợp.",
 			"tryOtherFilter": "Vui lòng thử lại với bộ lọc khác.",

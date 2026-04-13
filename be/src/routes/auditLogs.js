@@ -166,6 +166,7 @@ const ENTITY_TABLE_MAP = {
 	bonusStar: { table: "guidePocBonusStar", key: "bonusStarID" },
 	guide: { table: "guidePocGuideList", key: "slug" },
 	card: { table: "guidePocCardList", key: "cardCode" },
+	build: { table: "Builds", key: "id" },
 };
 
 const ENTITY_CACHE_MAP = {
@@ -179,6 +180,7 @@ const ENTITY_CACHE_MAP = {
 	guide: "guides",
 	bonusStar: "bonusStars",
 	card: "cards",
+	build: "builds",
 };
 
 /**

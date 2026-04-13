@@ -23,6 +23,7 @@ import {
 	invalidatePublicBuildsCache,
 } from "../utils/buildCache.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
+import { createAuditLog } from "../utils/auditLogger.js";
 
 const router = express.Router();
 const BUILDS_TABLE = "Builds";
@@ -487,6 +488,16 @@ router.post("/", authenticateCognitoToken, async (req, res) => {
 
 		if (displayValue === "true") invalidatePublicBuildsCache();
 
+		await createAuditLog({
+			action: "CREATE",
+			entityType: "build",
+			entityId: build.id,
+			entityName: `Build ${build.championName} by ${build.creator} (User)`,
+			oldData: null,
+			newData: normalizeBuildFromDynamo(build),
+			user: req.user
+		});
+
 		res.status(201).json({
 			message: "Build created successfully",
 			build: normalizeBuildFromDynamo(build),
@@ -580,6 +591,16 @@ router.put("/:id", authenticateCognitoToken, async (req, res) => {
 			invalidatePublicBuildsCache();
 		}
 
+		await createAuditLog({
+			action: "UPDATE",
+			entityType: "build",
+			entityId: id,
+			entityName: `Build ${updatedBuild.championName} by ${updatedBuild.creator} (User)`,
+			oldData: oldBuild,
+			newData: updatedBuild,
+			user: req.user
+		});
+
 		res.json({ message: "Build updated successfully", build: updatedBuild });
 	} catch (error) {
 		console.error("Error updating build:", error);
@@ -610,6 +631,16 @@ router.delete("/:id", authenticateCognitoToken, async (req, res) => {
 		await client.send(
 			new DeleteItemCommand({ TableName: BUILDS_TABLE, Key: marshall({ id }) }),
 		);
+
+		await createAuditLog({
+			action: "DELETE",
+			entityType: "build",
+			entityId: id,
+			entityName: `Build ${build.championName} by ${build.creator} (User)`,
+			oldData: build,
+			newData: null,
+			user: req.user
+		});
 		res.json({ message: "Build deleted successfully" });
 	} catch (error) {
 		console.error("Error deleting build:", error);

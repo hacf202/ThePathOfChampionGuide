@@ -16,6 +16,7 @@ import { requireAdmin } from "../middleware/requireAdmin.js";
 import { normalizeBuildFromDynamo } from "../utils/dynamodb.js";
 import { invalidatePublicBuildsCache } from "../utils/buildCache.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
+import { createAuditLog } from "../utils/auditLogger.js";
 
 const router = express.Router();
 const BUILDS_TABLE = "Builds";
@@ -285,6 +286,16 @@ router.post("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 				Item: marshall(newBuild, { removeUndefinedValues: true }),
 			}),
 		);
+		
+		await createAuditLog({
+			action: "CREATE",
+			entityType: "build",
+			entityId: id,
+			entityName: `Build ${newBuild.championName} by ${newBuild.creator}`,
+			oldData: null,
+			newData: newBuild,
+			user: req.user
+		});
 
 		adminBuildCache.del("admin_all_builds");
 		if (newBuild.display) invalidatePublicBuildsCache();
@@ -365,6 +376,16 @@ router.put("/:id", authenticateCognitoToken, requireAdmin, async (req, res) => {
 		const { Attributes } = await client.send(command);
 		const updatedBuild = normalizeBuildFromDynamo(unmarshall(Attributes));
 
+		await createAuditLog({
+			action: "UPDATE",
+			entityType: "build",
+			entityId: id,
+			entityName: `Build ${updatedBuild.championName} by ${updatedBuild.creator}`,
+			oldData: oldBuild,
+			newData: updatedBuild,
+			user: req.user
+		});
+
 		adminBuildCache.del("admin_all_builds");
 		if (oldDisplay || updatedBuild.display === true)
 			invalidatePublicBuildsCache();
@@ -400,6 +421,16 @@ router.delete(
 					Key: marshall({ id }),
 				}),
 			);
+
+			await createAuditLog({
+				action: "DELETE",
+				entityType: "build",
+				entityId: id,
+				entityName: `Build ${build.championName} by ${build.creator}`,
+				oldData: build,
+				newData: null,
+				user: req.user
+			});
 
 			adminBuildCache.del("admin_all_builds");
 			if (wasPublic) invalidatePublicBuildsCache();

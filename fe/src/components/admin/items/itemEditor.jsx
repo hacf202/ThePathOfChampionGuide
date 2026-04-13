@@ -16,7 +16,6 @@ const NEW_ITEM_TEMPLATE = {
 	isNew: true,
 	name: "",
 	rarity: "",
-	rarityRef: "",
 	assetAbsolutePath: "",
 	assetFullAbsolutePath: "",
 	description: "",

@@ -119,8 +119,8 @@ async function main() {
 	const tableArg = args.find((_, i) => args[i - 1] === "--table");
 	const outArg = args.find((_, i) => args[i - 1] === "--out");
 
-	// Xác định thư mục output
-	const timestamp = new Date().toISOString().replace(/[:.]/g, "-").slice(0, 19);
+	// Xác định thư mục output (Sử dụng giờ VN GMT+7)
+	const timestamp = new Date(Date.now() + 7 * 60 * 60 * 1000).toISOString().replace(/[:.]/g, "-").slice(0, 19);
 	const defaultOutDir = path.join(__dirname, `../uploadData/backup_${timestamp}`);
 	const outputDir = outArg ? path.resolve(outArg) : defaultOutDir;
 

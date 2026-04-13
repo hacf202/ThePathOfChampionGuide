@@ -238,6 +238,23 @@
 			"sortRarityAsc": "Rarity Low - High",
 			"sortRarityDesc": "Rarity High - Low"
 		},
+		"itemForm": {
+			"errorIdReq": "Please enter an Item ID!",
+			"createTitle": "Create New Item",
+			"editTitle": "Edit:",
+			"idLabel": "Item Code (Fixed)",
+			"nameLabel": "Item Name",
+			"rarityLabel": "Rarity",
+			"descLabel": "Description",
+			"previewImage": "Image Preview",
+			"imageUrlLabel": "Image URL (Asset Path)",
+			"imageFullUrlLabel": "Full Image URL",
+			"langVI": "Vietnamese (Default)",
+			"langEN": "English (Optional)",
+			"placeholderName": "Enter item name...",
+			"placeholderRarity": "Common, Rare, Epic...",
+			"placeholderDesc": "Enter detailed description..."
+		},
 		"rune": {
 			"notFound": "No matching Runes found.",
 			"tryOtherFilter": "Please try with a different filter.",

@@ -13,6 +13,7 @@ import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { requireAdmin } from "../middleware/requireAdmin.js";
 import { scanAll } from "../utils/dynamoUtils.js";
+import { createAuditLog } from "../utils/auditLogger.js";
 
 const router = express.Router();
 const GUIDES_TABLE = "guidePocGuideList";
@@ -168,6 +169,18 @@ router.post("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 		};
 
 		await client.send(new PutItemCommand(params));
+
+		// Ghi log thay đổi
+		await createAuditLog({
+			action: "CREATE",
+			entityType: "guide",
+			entityId: preparedData.slug,
+			entityName: preparedData.title,
+			oldData: null,
+			newData: preparedData,
+			user: req.user
+		});
+
 		cache.del(CACHE_KEY_LIST);
 
 		res.status(201).json({
@@ -239,6 +252,17 @@ router.put(
 
 			await client.send(new PutItemCommand(putParams));
 
+			// Ghi log thay đổi
+			await createAuditLog({
+				action: "UPDATE",
+				entityType: "guide",
+				entityId: slug,
+				entityName: finalData.title,
+				oldData: oldItem,
+				newData: finalData,
+				user: req.user
+			});
+
 			cache.del(CACHE_KEY_LIST);
 			cache.del(getDetailCacheKey(slug));
 
@@ -272,7 +296,21 @@ router.delete(
 				Key: marshall({ slug: slug }),
 			};
 
+			const { Item } = await client.send(new GetItemCommand(params));
+			const oldData = Item ? unmarshall(Item) : null;
+
 			await client.send(new DeleteItemCommand(params));
+
+			// Ghi log thay đổi
+			await createAuditLog({
+				action: "DELETE",
+				entityType: "guide",
+				entityId: slug,
+				entityName: oldData?.title || slug,
+				oldData: oldData,
+				newData: null,
+				user: req.user
+			});
 
 			cache.del(CACHE_KEY_LIST);
 			cache.del(getDetailCacheKey(slug));

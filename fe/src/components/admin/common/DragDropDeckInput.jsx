@@ -111,9 +111,11 @@ const SortableCardRow = memo(({
 				{(cardEntry.itemCodes || []).map((item, itemIdx) => {
 					const itemCode = typeof item === "string" ? item : item.itemCode;
 					const itemLevel = typeof item === "string" ? 2 : (item.unlockLevel || 0);
-					const itemInfo = cachedData.items?.[itemCode] || {};
+					
+					// Lookup in items FIRST, then relics
+					const itemInfo = (cachedData.items?.[itemCode] || cachedData.relics?.[itemCode]) || {};
 					const itemName = tDynamic(itemInfo, "name") || itemCode;
-					const itemImg = itemInfo.assetAbsolutePath || itemInfo.image || "";
+					const itemImg = itemInfo.assetAbsolutePath || itemInfo.image || itemInfo.avatar || "";
 
 					return (
 						<div
@@ -237,7 +239,8 @@ const DragDropDeckInput = memo(
 				// Phân biệt: Nếu là reorder dnd-kit thì bỏ qua vì dnd-kit handle riêng qua onDragEnd
 				if (parsed.type === "card-reorder") return;
 
-				if (parsed.type === "item" && parsed.id) {
+				const acceptedTypes = ["item", "relic"];
+				if (acceptedTypes.includes(parsed.type) && parsed.id) {
 					const newData = [...data];
 					const currentItemCodes = newData[index].itemCodes || [];
 					const newUnlockLevel = isReference ? 0 : 2;

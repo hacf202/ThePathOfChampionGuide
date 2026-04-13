@@ -109,7 +109,7 @@ const ItemEditorForm = memo(
 				<div className='grid grid-cols-1 lg:grid-cols-2 gap-6 p-6 bg-surface-bg border border-border rounded-xl mx-4'>
 					{/* CỘT TRÁI */}
 					<div className='space-y-5'>
-						<div className='grid grid-cols-2 gap-4'>
+						<div className='grid grid-cols-1 gap-4'>
 							<InputField
 								label={tUI("admin.itemForm.idLabel")}
 								name='itemCode'
@@ -119,21 +119,12 @@ const ItemEditorForm = memo(
 								disabled={!formData.isNew}
 								placeholder='VD: I001'
 							/>
-							<InputField
-								label={
-									tUI("admin.itemForm.rarityRefLabel")
-								}
-								name='rarityRef'
-								value={formData.rarityRef || ""}
-								onChange={handleInputChange}
-								placeholder='VD: Common'
-							/>
 						</div>
 
 						{/* Khu vực ngôn ngữ Tiếng Việt */}
 						<div className='border border-border rounded-lg p-4 bg-page-bg space-y-4 shadow-sm'>
 							<h3 className='text-md font-bold text-text-primary border-b border-border pb-2'>
-								Ngôn ngữ: Tiếng Việt (Mặc định)
+								{tUI("admin.itemForm.langVI")}
 							</h3>
 							<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
 								<InputField
@@ -142,14 +133,14 @@ const ItemEditorForm = memo(
 									value={formData.name || ""}
 									onChange={handleInputChange}
 									required
-									placeholder='Nhập tên vật phẩm...'
+									placeholder={tUI("admin.itemForm.placeholderName")}
 								/>
 								<InputField
 									label={`${tUI("admin.itemForm.rarityLabel")} (VI)`}
 									name='rarity'
 									value={formData.rarity || ""}
 									onChange={handleInputChange}
-									placeholder='Thường, Hiếm...'
+									placeholder={tUI("admin.itemForm.placeholderRarity")}
 								/>
 							</div>
 							<div className='flex flex-col gap-2'>
@@ -165,7 +156,7 @@ const ItemEditorForm = memo(
 											descriptionRaw: raw,
 										}))
 									}
-									placeholder='Nội dung mô tả...'
+									placeholder={tUI("admin.itemForm.placeholderDesc")}
 								/>
 							</div>
 						</div>
@@ -173,7 +164,7 @@ const ItemEditorForm = memo(
 						{/* Khu vực ngôn ngữ Tiếng Anh */}
 						<div className='border border-border rounded-lg p-4 bg-page-bg space-y-4 shadow-sm'>
 							<h3 className='text-md font-bold text-blue-500 border-b border-border pb-2'>
-								Ngôn ngữ: Tiếng Anh (Tùy chọn)
+								{tUI("admin.itemForm.langEN")}
 							</h3>
 							<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
 								<InputField
@@ -181,14 +172,14 @@ const ItemEditorForm = memo(
 									name='name'
 									value={formData.translations?.en?.name || ""}
 									onChange={e => handleTranslationChange(e, "en")}
-									placeholder='English Name...'
+									placeholder={tUI("admin.itemForm.placeholderName")}
 								/>
 								<InputField
 									label={`${tUI("admin.itemForm.rarityLabel")} (EN)`}
 									name='rarity'
 									value={formData.translations?.en?.rarity || ""}
 									onChange={e => handleTranslationChange(e, "en")}
-									placeholder='English Rarity...'
+									placeholder={tUI("admin.itemForm.placeholderRarity")}
 								/>
 							</div>
 							<div className='flex flex-col gap-2'>
@@ -203,7 +194,7 @@ const ItemEditorForm = memo(
 											"en",
 										)
 									}
-									placeholder='English Description...'
+									placeholder={tUI("admin.itemForm.placeholderDesc")}
 								/>
 							</div>
 						</div>

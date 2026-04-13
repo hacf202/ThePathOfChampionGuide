@@ -14,6 +14,7 @@ import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { requireAdmin } from "../middleware/requireAdmin.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
 import { scanAll } from "../utils/dynamoUtils.js";
+import { createAuditLog } from "../utils/auditLogger.js";
 
 const router = express.Router();
 const CARDS_TABLE = "guidePocCardList";
@@ -329,6 +330,16 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 			}),
 		);
 
+		await createAuditLog({
+			action: isNew ? "CREATE" : "UPDATE",
+			entityType: "card",
+			entityId: cardCode,
+			entityName: cleanData.cardName,
+			oldData: Item ? unmarshall(Item) : null,
+			newData: cleanData,
+			user: req.user
+		});
+
 		// Xóa cache
 		cardCache.del("all_cards_data");
 		cardCache.del(`card_detail_${cardCode}`);
@@ -382,6 +393,18 @@ router.delete(
 			cardCache.del(`card_detail_${id}`);
 
 			const deletedCard = unmarshall(Item);
+
+			// Ghi log thay đổi
+			await createAuditLog({
+				action: "DELETE",
+				entityType: "card",
+				entityId: id,
+				entityName: deletedCard.cardName,
+				oldData: deletedCard,
+				newData: null,
+				user: req.user
+			});
+
 			res.status(200).json({
 				message: `Lá bài "${deletedCard.cardName}" (${id}) đã được xóa.`,
 			});
