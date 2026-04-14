@@ -17,7 +17,7 @@ import { createAuditLog } from "../utils/auditLogger.js";
 const router = express.Router();
 const ADVENTURE_TABLE = "guidePocAdventureMap";
 
-const advCache = cacheManager.getOrCreateCache("adventures", { stdTTL: 1800, checkperiod: 60 });
+const advCache = cacheManager.getOrCreateCache("adventures", { stdTTL: 86400, checkperiod: 60 });
 
 router.get("/", async (req, res) => {
 	try {

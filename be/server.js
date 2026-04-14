@@ -29,6 +29,7 @@ import cardsRouter from "./src/routes/cards.js";
 import ratingsRouter from "./src/routes/ratings.js";
 import adminCacheRouter from "./src/routes/adminCache.js";
 import auditLogsRouter from "./src/routes/auditLogs.js";
+import searchRouter from "./src/routes/search.js";
 
 // Kiểm tra các biến môi trường cần thiết
 const requiredEnvVars = [
@@ -129,6 +130,7 @@ app.use("/api/cards", cardsRouter);
 app.use("/api/ratings", ratingsRouter);
 app.use("/api/admin/cache", adminCacheRouter);
 app.use("/api/admin/audit-logs", auditLogsRouter);
+app.use("/api/search", searchRouter);
 
 // API để kiểm tra "sức khỏe" của server
 app.get("/api/checkheal", (req, res) => {

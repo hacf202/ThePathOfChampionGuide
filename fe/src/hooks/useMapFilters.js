@@ -8,7 +8,7 @@ export const useMapFilters = (tUI, dynamicFilters) => {
 		prefix: "maps",
 		initialCustomFilters: { difficulty: [] },
 		defaultSort: "difficulty-asc",
-		itemsPerPage: 24,
+		itemsPerPage: 20,
 	});
 
 	const [isFilterOpen, setIsFilterOpen] = usePersistentState(

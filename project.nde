@@ -3,7 +3,7 @@
 
 META
   name ThePathOfChampionGuide
-  version 1.3.0
+  version 1.3.1
   author dev
   desc Hệ thống tra cứu và quản lý dữ liệu game The Path of Champions (LoR)
 
@@ -25,8 +25,12 @@ NODE Backend
       FILE be/src/middleware/requireAdmin.js
 
   NODE Routes
-    DESC Các đầu cuối API chính
+    DESC Các đầu cuối API chính (21 modules)
     FILE be/src/routes/
+    
+    NODE AuthRouter
+      DESC Xử lý đăng nhập và đăng ký qua Cognito
+      FILE be/src/routes/auth.js
     
     NODE ChampionsRouter
       DESC Quản lý dữ liệu tướng và chi tiết tướng
@@ -37,28 +41,72 @@ NODE Backend
       FILE be/src/routes/ratings.js
       FUNC getRankings
         DESC Tính toán top tướng từ DynamoDB (ScanCommand)
+
+    NODE CardsRouter
+      DESC Tra cứu thư viện thẻ bài game
+      FILE be/src/routes/cards.js
+
+    NODE GuidesRouter
+      DESC Quản lý bài viết và hướng dẫn chuyên sâu
+      FILE be/src/routes/guides.js
+
+    NODE BuildsRouter
+      DESC Quản lý bộ cổ vật (Builds) của cộng đồng
+      FILE be/src/routes/builds.js
     
     NODE AuditLogsRouter
-      DESC Ghi lại lịch sử thao tác của Admin
+      DESC Ghi lại lịch sử thao tác của Admin và Rollback
       FILE be/src/routes/auditLogs.js
       FUNC logAction
         DESC Lưu vết Create/Update/Delete vào DB
-    
-    NODE AuthRouter
-      DESC Xử lý đăng nhập và đăng ký qua Cognito
-      FILE be/src/routes/auth.js
+
+    NODE GameData
+      DESC Các router dữ liệu thực thể core
+      NODE PowersRouter
+        FILE be/src/routes/powers.js
+      NODE RelicsRouter
+        FILE be/src/routes/relics.js
+      NODE ItemsRouter
+        FILE be/src/routes/items.js
+      NODE RunesRouter
+        FILE be/src/routes/runes.js
+
+    NODE AdminSupport
+      DESC Các tính năng hỗ trợ quản trị
+      NODE BuildsAdminRouter
+        FILE be/src/routes/builds-admin.js
+      NODE AdminCacheRouter
+        FILE be/src/routes/adminCache.js
+      NODE ImagesRouter
+        FILE be/src/routes/images.js
+
+    NODE Gameplay
+      NODE BossesRouter
+        FILE be/src/routes/bosses.js
+      NODE AdventuresRouter
+        FILE be/src/routes/adventures.js
+      NODE ConstellationsRouter
+        FILE be/src/routes/constellations.js
+      NODE BonusStarsRouter
+        FILE be/src/routes/bonusStars.js
+
+    NODE UserSocial
+      NODE UsersRouter
+        FILE be/src/routes/users.js
+      NODE CommentsRouter
+        FILE be/src/routes/comments.js
+      NODE FavoritesRouter
+        FILE be/src/routes/favorites.js
 
   NODE Database
     DESC Hệ thống lưu trữ dữ liệu
     VAR DynamoDB
-      DESC NoSQL database chứa list tướng, build, rating, audit_logs
+      DESC NoSQL database chứa list tướng, build, rating, audit_logs (14 bảng)
+      FILE docs/memory/database-schema.md
       TAG aws cloud
     VAR LocalData
-      DESC File JSON tĩnh cho Powers/Relics (đa ngôn ngữ)
+      DESC File JSON tĩnh cho Powers/Relics (từng có, nay dùng DB)
       FILE be/data/
-    NODE Schema
-      DESC Tài liệu hóa cấu trúc dữ liệu toàn hệ thống
-      FILE docs/schema.md
 
 # ─── FRONTEND (WEB) ───────────────────────────────────
 
@@ -70,26 +118,55 @@ NODE Frontend
   NODE AppRouter
     DESC Cấu trúc điều hướng chính của ứng dụng
     FILE fe/src/App.jsx
+    
     NODE Pages
       DESC Các trang chức năng chính
       FILE fe/src/pages/
       NODE Home
         DESC Trang chủ với Hero Moodboard và Quick Tools
+        FILE fe/src/pages/home.jsx
+      NODE ChampionList
+        DESC Danh sách tướng hỗ trợ lọc Region
+        FILE fe/src/pages/championList.jsx
+      NODE CardList
+        DESC Thư viện 2.300+ thẻ bài game
+        FILE fe/src/pages/cardList.jsx
+      NODE GuideList
+        DESC Danh sách bài hướng dẫn cộng đồng
+        FILE fe/src/pages/guideListPage.jsx
+      NODE BuildList
+        DESC Danh sách các lối chơi tối ưu
+        FILE fe/src/pages/buildList.jsx
+      NODE VaultSimulator
+        DESC Giả lập mở rương (Platinum, Diamond, Spirit Blossom)
+        FILE fe/src/pages/vaultSimulator.jsx
       NODE ChampionRatingPage
         DESC Giao diện đánh giá tướng (Hệ 10 điểm, Radar)
         FILE fe/src/pages/championRatingPage.jsx
+      NODE RandomWheel
+        DESC Vòng quay tướng ngẫu nhiên
+        FILE fe/src/pages/randomWheelPage.jsx
+
+    NODE Components
+      DESC Các domain UI components chuyên biệt
+      FILE fe/src/components/
       NODE AdminPanel
         DESC Giao diện quản trị viên (CRUD dữ liệu)
         FILE fe/src/components/admin/
         NODE AuditLogList
           DESC Xem lịch sử thay đổi hệ thống
           FILE fe/src/components/admin/auditLogs/AuditLogList.jsx
+      NODE ChampionDetail
+        DESC Chi tiết tướng, bộ bài, sức mạnh
+        FILE fe/src/components/champion/championDetail.jsx
 
   NODE GlobalHooks
     DESC Các logic tái sử dụng
     FILE fe/src/hooks/
     FUNC useTranslation
-      DESC Xử lý đa ngôn ngữ (VI/EN)
+      DESC Xử lý đa ngôn ngữ (VI/EN) qua locales/*.json
+    FUNC useMarkupResolution
+      DESC Tự động nạp dữ liệu từ markup tags
     FUNC useUnsavedChanges
       DESC Cảnh báo khi thoát trang mà chưa lưu dữ liệu
   
@@ -97,26 +174,29 @@ NODE Frontend
     DESC Quản lý trạng thái ứng dụng toàn cục
     FILE fe/src/context/
     NODE AuthContext
-      DESC Quản lý đăng nhập, session và token
+      DESC Quản lý đăng nhập, session và token (Cognito)
       FILE fe/src/context/AuthContext.jsx
     NODE ThemeContext
-      DESC Quản lý giao diện (Triple-Mode: Light, Dark, Artwork)
+      DESC Quản lý 3 chế độ: Light, Dark, Artwork
       FILE fe/src/context/ThemeContext.jsx
 
   NODE Utils
     DESC Các hàm tiện ích phía client
+    FILE fe/src/utils/
     FUNC markupParser
       DESC Chuyển đổi mã màu [cd:...] sang HTML/Tooltip
     FUNC entityLookup
-      DESC Tra cứu nhanh thông tin card/relic để hiển thị
+      DESC Tra cứu nhanh thông tin card/relic/power từ cache
+      FILE fe/src/utils/entityLookup.js
 
 # ─── TOOLS & SCRIPTS ──────────────────────────────────
 
 NODE Scripts
-  DESC Các công cụ bảo trì
+  DESC Các công cụ bảo trì và migration
   NODE DB_Scripts
-    DESC Seeding và di chuyển dữ liệu
-    FILE be/scripts/
+    DESC Seeding và Backup DynamoDB
+    FILE be/scripts/backupAllTables.js
+    FILE be/scripts/mergeCardSet.js
 
 # ─── SYSTEM LINKS ─────────────────────────────────────
 
@@ -124,19 +204,10 @@ LINK Frontend Backend call-api-rest
 LINK Backend.Routes.RatingsRouter Database.DynamoDB read-write
 LINK Backend.Routes.AuditLogsRouter Database.DynamoDB write-logs
 LINK Frontend.AppRouter.Pages.ChampionRatingPage Backend.Routes.RatingsRouter data-flow
-LINK Frontend.GlobalHooks.useUnsavedChanges Frontend.AppRouter.Pages.AdminPanel protection
-ARN Bắt buộc thực hiện trước khi báo cáo hoàn thành
-
-# ─── SYSTEM LINKS ─────────────────────────────────────
-
-LINK Frontend Backend call-api-rest
-LINK Backend.Routes.ChampionsRouter Database.DynamoDB query
-LINK Backend.Routes.GameDataRouter Database.LocalData read-json
+LINK Frontend.AppRouter.Pages.Home Frontend.AppRouter.Pages.VaultSimulator internal-link
 LINK Frontend.AppRouter.Pages.AdminPanel Backend.Middleware.requireAdmin protect
 LINK Frontend.StateManagement.AuthContext Backend.Routes.AuthRouter verify-session
-LINK Frontend.StateManagement.ThemeContext Frontend.AppRouter.Pages.Home visual-sync
-LINK Frontend.StateManagement.ThemeContext Frontend.AppRouter.Pages.AdminPanel ui-consistency
-LINK Frontend.Utils.markupParser Frontend.Utils.entityLookup data-enrichment
+LINK Backend.Routes.CardsRouter Database.DynamoDB query-cards
 LINK AI_Workflow.Research project.nde read
 LINK AI_Workflow.UpdateNDE project.nde write
-LINK AI_Workflow.Documentation docs/schema.md update-schema
+LINK AI_Workflow.Documentation docs/memory/database-schema.md update-schema

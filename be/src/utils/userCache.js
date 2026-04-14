@@ -1,9 +1,11 @@
 // be/src/utils/userCache.js
+// Dùng chung cacheManager để có thể quản lý qua /api/admin/cache
 import { AdminGetUserCommand } from "@aws-sdk/client-cognito-identity-provider";
 import { cognitoClient } from "../config/cognito.js";
-import NodeCache from "node-cache";
+import cacheManager from "./cacheManager.js";
 
-const userCache = new NodeCache({ stdTTL: 600 });
+// Dùng chung cache "users" với users.js (TTL 1 giờ)
+const userCache = cacheManager.getOrCreateCache("users", { stdTTL: 3600, checkperiod: 120 });
 const COGNITO_USER_POOL_ID = process.env.COGNITO_USER_POOL_ID;
 
 export async function getUserNames(usernames) {
@@ -20,7 +22,6 @@ export async function getUserNames(usernames) {
 	});
 
 	if (namesToFetch.length > 0) {
-		// TỐI ƯU: Fetch song song thay vì dùng Filter string gây lỗi 256 ký tự
 		const promises = namesToFetch.map(async uname => {
 			try {
 				const command = new AdminGetUserCommand({
@@ -28,8 +29,7 @@ export async function getUserNames(usernames) {
 					Username: uname,
 				});
 				const { UserAttributes } = await cognitoClient.send(command);
-				const name =
-					UserAttributes.find(a => a.Name === "name")?.Value || uname;
+				const name = UserAttributes.find(a => a.Name === "name")?.Value || uname;
 				userCache.set(uname, { name });
 				return { uname, name };
 			} catch {

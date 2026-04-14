@@ -277,7 +277,7 @@ const ChampionEditorForm = memo(
 		const handleSubmit = e => {
 			e.preventDefault();
 			if (!formData.championID?.trim())
-				return alert("Vui lòng nhập Champion ID!");
+				return alert(tUI("admin.championForm.errorIdReq") || "Vui lòng nhập Champion ID!");
 
 			const cleanData = { ...formData };
 			cleanData.powerStarIds = constData.nodes
@@ -310,8 +310,8 @@ const ChampionEditorForm = memo(
 				<EditorHeaderToolbar
 					title={
 						formData.isNew
-							? "Tạo Tướng Mới"
-							: `Biên tập: ${formData.name || ""}`
+							? tUI("admin.championForm.createTitle")
+							: `${tUI("admin.championForm.editTitle")} ${formData.name || ""}`
 					}
 					isNew={formData.isNew}
 					isDirty={isDirty}
@@ -327,12 +327,12 @@ const ChampionEditorForm = memo(
 					{/* BLOCK 1: THÔNG TIN CƠ BẢN */}
 					<section className='bg-surface-bg border border-border rounded-xl p-6 shadow-sm space-y-6'>
 						<h3 className='text-lg font-bold border-l-4 border-primary-500 pl-3 uppercase flex items-center gap-2'>
-							<Info size={20} className='text-primary-500' /> Thông tin cơ bản
+							<Info size={20} className='text-primary-500' /> {tUI("admin.championForm.basicInfo")}
 						</h3>
 						<div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
 							<div className='md:col-span-2 space-y-5'>
 								<InputField
-									label='Champion ID (Khóa chính)'
+									label={tUI("admin.championForm.idLabel")}
 									name='championID'
 									value={formData.championID || ""}
 									onChange={handleInputChange}
@@ -341,7 +341,7 @@ const ChampionEditorForm = memo(
 								/>
 								<div className='grid grid-cols-2 gap-4'>
 									<InputField
-										label='Tên tướng'
+										label={tUI("admin.championForm.nameLabel")}
 										name='name'
 										value={formData.name || ""}
 										onChange={handleInputChange}
@@ -357,7 +357,7 @@ const ChampionEditorForm = memo(
 								</div>
 								<div className='grid grid-cols-2 gap-4'>
 									<InputField
-										label='Năng lượng (Mana)'
+										label={tUI("admin.championForm.manaLabel")}
 										name='cost'
 										type='number'
 										value={formData.cost ?? 0}
@@ -369,7 +369,7 @@ const ChampionEditorForm = memo(
 										}
 									/>
 									<InputField
-										label='Sao tối đa'
+										label={tUI("admin.championForm.maxStarLabel")}
 										name='maxStar'
 										type='number'
 										value={formData.maxStar ?? 3}
@@ -386,7 +386,7 @@ const ChampionEditorForm = memo(
 							{/* ĐÃ ÁP DỤNG COMPONENT ImagePreviewBox */}
 							<ImagePreviewBox
 								imageUrl={formData.assets?.[0]?.avatar}
-								label='Ảnh Đại Diện'
+								label={tUI("admin.championForm.avatarLabel")}
 								imageClassName='w-32 h-32 object-contain rounded-xl border-4 border-primary-500/20 shadow-xl'
 							/>
 						</div>
@@ -395,12 +395,12 @@ const ChampionEditorForm = memo(
 					{/* BLOCK 2: Mô tả & VIDEO */}
 					<section className='bg-surface-bg border border-border rounded-xl p-6 shadow-sm space-y-6'>
 						<h3 className='text-lg font-bold border-l-4 border-red-500 pl-3 uppercase flex items-center gap-2'>
-							<Youtube size={20} className='text-red-500' /> Hướng dẫn & Video
+							<Youtube size={20} className='text-red-500' /> {tUI("admin.championForm.guideSection")}
 						</h3>
 						<div className='space-y-6'>
 							<div className='space-y-2'>
 								<label className='block font-semibold text-text-primary text-sm'>
-									YouTube Video Link (Embed URL)
+									{tUI("admin.championForm.videoLabel")}
 								</label>
 								<InputField
 									name='videoLink'
@@ -412,7 +412,7 @@ const ChampionEditorForm = memo(
 							<div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
 								<div className='flex flex-col gap-2'>
 									<label className='block font-semibold text-text-primary text-sm'>
-										Mô tả hướng dẫn chơi chi tiết
+										{tUI("admin.championForm.descLabel")} (VI)
 									</label>
 									<MarkupEditor
 										value={formData.description || ""}
@@ -423,12 +423,12 @@ const ChampionEditorForm = memo(
 												descriptionRaw: raw,
 											}))
 										}
-										placeholder='Nhập mô tả, chiến thuật, cách combo...'
+										placeholder={tUI("admin.championForm.descPlaceholder")}
 									/>
 								</div>
 								<div className='flex flex-col gap-2'>
 									<label className='block font-semibold text-text-primary text-sm'>
-										Mô tả hướng dẫn chơi chi tiết
+										{tUI("admin.championForm.descLabel")} (EN)
 									</label>
 									<MarkupEditor
 										value={formData.translations?.en?.description || ""}
@@ -448,12 +448,12 @@ const ChampionEditorForm = memo(
 					{/* BLOCK 3: SỨC MẠNH PHIÊU LƯU & TRANG BỊ */}
 					<section className='bg-surface-bg border border-border rounded-xl p-6 shadow-sm space-y-6'>
 						<h3 className='text-lg font-bold border-l-4 border-blue-500 pl-3 uppercase flex items-center gap-2'>
-							<Swords size={20} className='text-blue-500' /> Khởi đầu & Sức mạnh
+							<Swords size={20} className='text-blue-500' /> {tUI("admin.championForm.startPowerLabel")}
 						</h3>
 						<div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
 							{/* ĐÃ ÁP DỤNG COMPONENT DragDropArrayInput */}
 							<DragDropArrayInput
-								label='Sức mạnh Phiêu lưu'
+								label={tUI("admin.championForm.adventurePowerLabel")}
 								data={formData.adventurePowerIds || []}
 								onChange={d =>
 									setFormData({ ...formData, adventurePowerIds: d })
@@ -461,7 +461,7 @@ const ChampionEditorForm = memo(
 								cachedData={dataLookup.powers}
 							/>
 							<DragDropArrayInput
-								label='Vật phẩm mặc định (Deck)'
+								label={tUI("admin.championForm.deckItemLabel")}
 								data={formData.itemIds || []}
 								onChange={d => setFormData({ ...formData, itemIds: d })}
 								cachedData={dataLookup.items}
@@ -475,17 +475,17 @@ const ChampionEditorForm = memo(
 							<Swords size={28} className='text-blue-400' />
 							<div>
 								<h3 className='text-xl font-bold uppercase text-text-primary tracking-tight'>
-									BỘ BÀI KHỞI ĐẦU (Starting Deck)
+									{tUI("admin.championForm.deckTitle")}
 								</h3>
 								<p className='text-xs text-text-secondary font-medium'>
-									Kéo thả Lá bài vào danh sách, sau đó kéo Vật phẩm vào từng lá bài
+									{tUI("admin.championForm.deckSub")}
 								</p>
 							</div>
 						</div>
 
 						{/* Base Cards */}
 						<DragDropDeckInput
-							label='Lá bài chính (Base Cards)'
+							label={tUI("admin.championForm.baseCardsLabel")}
 							data={formData.startingDeck?.baseCards || []}
 							onChange={d =>
 								setFormData({
@@ -497,14 +497,14 @@ const ChampionEditorForm = memo(
 								})
 							}
 							cachedData={dataLookup}
-							placeholder='Kéo Lá bài từ Sidebar vào đây để thêm vào bộ bài chính...'
+							placeholder={tUI("admin.championForm.deckPlaceholder")}
 							isReference={false}
 						/>
 
 						{/* Reference Cards */}
 						<div className='pt-6 border-t border-border/50'>
 							<DragDropDeckInput
-								label='Lá bài tham chiếu (Reference Cards)'
+								label={tUI("admin.championForm.referenceCardsLabel")}
 								data={formData.startingDeck?.referenceCards || []}
 								onChange={d =>
 									setFormData({
@@ -516,7 +516,7 @@ const ChampionEditorForm = memo(
 									})
 								}
 								cachedData={dataLookup}
-								placeholder='Kéo Lá bài từ Sidebar vào đây để thêm vào các lá bài liên quan...'
+								placeholder={tUI("admin.championForm.deckPlaceholder")}
 								isReference={true}
 							/>
 						</div>
@@ -526,7 +526,7 @@ const ChampionEditorForm = memo(
 					<section className='bg-surface-bg border border-border rounded-xl p-6 shadow-sm space-y-6'>
 						<div className='flex justify-between items-center border-l-4 border-pink-500 pl-3'>
 							<h3 className='text-lg font-bold uppercase flex items-center gap-2'>
-								<MapIcon size={20} className='text-pink-500' /> Bản đồ Chòm sao
+								<MapIcon size={20} className='text-pink-500' /> {tUI("admin.championForm.constellationTitle")}
 							</h3>
 							<div className='flex items-center gap-3'>
 								<Button
@@ -538,7 +538,7 @@ const ChampionEditorForm = memo(
 										isMapVisible ? <EyeOff size={16} /> : <Eye size={16} />
 									}
 								>
-									{isMapVisible ? "Ẩn Bản đồ" : "Hiện Bản đồ"}
+									{isMapVisible ? tUI("admin.championForm.hideMap") : tUI("admin.championForm.showMap")}
 								</Button>
 								<Button
 									type='button'
@@ -573,7 +573,7 @@ const ChampionEditorForm = memo(
 										});
 									}}
 								>
-									Thêm Node
+									{tUI("admin.championForm.addNode")}
 								</Button>
 							</div>
 						</div>
@@ -649,7 +649,7 @@ const ChampionEditorForm = memo(
 										))}
 									</div>
 									<InputField
-										label='URL Ảnh nền bản đồ'
+										label={tUI("admin.championForm.mapBgLabel")}
 										value={constData.backgroundImage || ""}
 										onChange={e =>
 											setConstData({
@@ -677,7 +677,7 @@ const ChampionEditorForm = memo(
 									<div
 										className={`text-center py-10 text-text-secondary border border-dashed border-border rounded-xl bg-surface-hover/30 ${!isMapVisible ? "lg:col-span-2" : ""}`}
 									>
-										Chưa có Node nào. Bấm "Thêm Node" để bắt đầu.
+										{tUI("admin.championForm.emptyNodes")}
 									</div>
 								) : (
 									(constData.nodes || []).map((node, idx) => (
@@ -707,13 +707,12 @@ const ChampionEditorForm = memo(
 					{/* BLOCK 5: TÀI SẢN (ASSETS) & RELICS KHUYÊN DÙNG */}
 					<section className='bg-surface-bg border border-border rounded-xl p-6 shadow-sm space-y-8'>
 						<h3 className='text-lg font-bold border-l-4 border-emerald-500 pl-3 uppercase flex items-center gap-2'>
-							<Box size={20} className='text-emerald-500' /> Quản lý Assets &
-							Gợi ý lên đồ
+							<Box size={20} className='text-emerald-500' /> {tUI("admin.championForm.assetSection")}
 						</h3>
 
 						<div className='grid grid-cols-1 gap-4 bg-surface-hover/30 p-4 rounded-xl border border-border'>
 							<h4 className='text-sm font-bold flex items-center gap-2 mb-2'>
-								<Link2 size={16} /> Liên kết hình ảnh (Assets)
+								<Link2 size={16} /> {tUI("admin.championForm.assetLabel")}
 							</h4>
 							{(formData.assets || []).map((asset, index) => (
 								<div
@@ -778,7 +777,7 @@ const ChampionEditorForm = memo(
 								}
 								className='w-max mt-2'
 							>
-								+ Thêm Asset
+								+ {tUI("admin.championForm.addAsset")}
 							</Button>
 						</div>
 
@@ -786,19 +785,19 @@ const ChampionEditorForm = memo(
 						<div className='space-y-6'>
 							<div className='grid grid-cols-1 md:grid-cols-2 gap-8 border-b border-border pb-6'>
 								<ArrayInputComponent
-									label='Vùng (Region)'
+									label={tUI("admin.championForm.regionLabel") + " (VI)"}
 									data={formData.regions || []}
 									onChange={d => setFormData({ ...formData, regions: d })}
 								/>
 								<ArrayInputComponent
-									label='Vùng (Region)'
+									label={tUI("admin.championForm.regionLabel") + " (EN)"}
 									data={formData.translations?.en?.regions || []}
 									onChange={d => handleTranslationChange("regions", d)}
 								/>
 							</div>
 							<div className='grid grid-cols-1 md:grid-cols-2 gap-8 border-b border-border pb-6'>
 								<ArrayInputComponent
-									label='Thẻ (Tags)'
+									label={tUI("admin.championForm.tagLabel") + " (VI)"}
 									data={formData.tags || []}
 									onChange={d => setFormData({ ...formData, tags: d })}
 								/>
@@ -826,12 +825,12 @@ const ChampionEditorForm = memo(
 											}}
 											className='absolute top-2 right-2 text-xs text-red-500 hover:bg-red-500/10 p-1 rounded font-bold'
 										>
-											Xóa bộ này
+											{tUI("admin.championForm.deleteSet")}
 										</button>
 
 										{/* ĐÃ ÁP DỤNG COMPONENT DragDropArrayInput */}
 										<DragDropArrayInput
-											label={`Cổ vật gợi ý Set ${idx + 1}`}
+											label={tUI("admin.championForm.relicSuggest", { idx: idx + 1 })}
 											data={set || []}
 											onChange={d => {
 												const newSets = [...(formData.relicSets || [])];
@@ -856,13 +855,13 @@ const ChampionEditorForm = memo(
 								className='w-max mt-2 border-dashed border-primary-500 text-primary-500 hover:bg-primary-500/10'
 								iconLeft={<Plus size={16} />}
 							>
-								+ Thêm bộ Cổ vật mới
+								{tUI("admin.championForm.addRelicSet")}
 							</Button>
 						</div>
 
 						<div className='w-full md:w-1/3'>
 							<DragDropArrayInput
-								label='Ngọc gợi ý (Runes)'
+								label={tUI("admin.championForm.runeSuggest")}
 								data={formData.runeIds || []}
 								onChange={d => setFormData({ ...formData, runeIds: d })}
 								cachedData={dataLookup.runes}
@@ -873,19 +872,19 @@ const ChampionEditorForm = memo(
 						<div className='flex flex-col gap-4 bg-surface-hover/30 p-4 rounded-xl border border-border py-6 mt-4'>
 							<div className='flex flex-col md:flex-row md:items-center justify-between gap-4 mb-2'>
 								<h4 className='text-sm font-bold text-primary-500 uppercase flex items-center gap-2'>
-									<Box size={18} /> Đánh giá phong cách chơi (1-10)
+									<Box size={18} /> {tUI("admin.championForm.ratingTitle")}
 								</h4>
 								<div className='flex items-center gap-3'>
 									{isDetailLoading && (
 										<span className='text-xs italic text-text-secondary animate-pulse'>
-											Đang tải dữ liệu cộng đồng...
+											{tUI("admin.championForm.loadingCommunity")}
 										</span>
 									)}
 									{champion.communityRatings ? (
 										<button
 											type='button'
 											onClick={() => {
-												if (window.confirm("Bạn có muốn đồng bộ tất cả chỉ số với điểm trung bình của cộng đồng không?")) {
+												if (window.confirm(tUI("admin.championForm.syncConfirm") || "Do you want to sync?")) {
 													setFormData(prev => ({
 														...prev,
 														ratings: {
@@ -902,12 +901,12 @@ const ChampionEditorForm = memo(
 											}}
 											className='text-xs font-bold text-white bg-primary-500 hover:bg-primary-600 px-3 py-1.5 rounded-lg flex items-center gap-2 shadow-sm transition-all'
 										>
-											<RefreshCcw size={14} /> Đồng bộ với Cộng đồng
+											<RefreshCcw size={14} /> {tUI("admin.championForm.syncCommunity")}
 										</button>
 									) : (
 										!isDetailLoading && (
 											<span className='text-[10px] text-text-secondary bg-surface-bg border px-2 py-1 rounded italic'>
-												Chưa có đánh giá cộng đồng
+												{tUI("admin.championForm.noCommunityRating")}
 											</span>
 										)
 									)}
@@ -958,7 +957,7 @@ const ChampionEditorForm = memo(
 							<div className='grid grid-cols-1 md:grid-cols-2 gap-6 mt-4'>
 								<div className='flex flex-col gap-2'>
 									<label className='text-sm font-semibold'>
-										Ghi chú lối chơi
+										{tUI("admin.championForm.playstyleNote")} (VI)
 									</label>
 									<textarea
 										rows={3}
@@ -973,12 +972,12 @@ const ChampionEditorForm = memo(
 											}))
 										}
 										className='w-full bg-surface-bg border border-border p-3 rounded-lg text-text-primary focus:border-primary-500 outline-none resize-y'
-										placeholder='Lưu ý về cách dùng bài, combo, điểm nổi bật...'
+										placeholder={tUI("admin.championForm.playstylePlaceholder")}
 									/>
 								</div>
 								<div className='flex flex-col gap-2'>
 									<label className='text-sm font-semibold'>
-										Ghi chú lối chơi
+										{tUI("admin.championForm.playstyleNote")} (EN)
 									</label>
 									<textarea
 										rows={3}

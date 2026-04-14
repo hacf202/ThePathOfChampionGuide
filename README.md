@@ -80,10 +80,10 @@ Dự án được xây dựng theo kiến trúc hiện đại, **tách biệt ho
 ThePathOfChampionGuide/
 ├── be/                         # Backend Node.js
 │   ├── src/
-│   │   ├── config/             # Cấu hình AWS (Cognito, DynamoDB, R2)
-│   │   ├── middleware/         # Middleware xác thực (auth) & phân quyền (admin)
-│   │   ├── routes/             # 18 API route modules (champions, builds, auth, users...)
-│   │   └── utils/              # Caching, xử lý chuỗi tiếng Việt, utilities dùng chung
+│   ├── config/             # Cấu hình AWS (Cognito, DynamoDB, R2)
+│   ├── middleware/         # Middleware xác thực (auth) & phân quyền (admin)
+│   ├── routes/             # 21 API route modules (champions, builds, auth, cards...)
+│   └── utils/              # Caching, xử lý chuỗi tiếng Việt, utilities dùng chung
 │   ├── uploadData/             # Scripts migrate/seed dữ liệu ban đầu lên DynamoDB
 │   ├── server.js               # Entry point Express server
 │   ├── vercel.json             # Cấu hình deploy Serverless Vercel cho API
@@ -199,9 +199,13 @@ npm run dev
 | `GET` | `/api/runes` | Danh sách ngọc bổ trợ |
 | `GET` | `/api/guides` | Danh sách bài hướng dẫn |
 | `GET` | `/api/adventures` | Danh sách adventure maps |
+| `GET` | `/api/cards` | Thư viện 2.300+ thẻ bài game |
+| `GET` | `/api/ratings` | Bảng xếp hạng và đánh giá tướng |
+| `GET` | `/api/constellations` | Dữ liệu chòm sao tướng |
 | `POST` | `/api/auth/login` | Đăng nhập |
 | `POST` | `/api/auth/register` | Đăng ký |
 | `GET` | `/api/analytics` | Thống kê hệ thống (Admin) |
+| `GET` | `/api/admin/audit-logs` | Nhật ký thao tác & Rollback (Admin) |
 
 ---
 

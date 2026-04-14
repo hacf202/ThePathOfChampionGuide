@@ -23,7 +23,7 @@ const runeCache = cacheManager.getOrCreateCache("runes", { stdTTL: 86400, checkp
 /**
  * Lấy toàn bộ Runes từ Database hoặc RAM
  */
-async function getCachedRunes() {
+export async function getCachedRunes() {
 	const CACHE_KEY = "all_runes_data";
 	let cachedData = runeCache.get(CACHE_KEY);
 

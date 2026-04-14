@@ -9,7 +9,7 @@ export const useRuneFilters = (tUI, t, dynamicFilters, knownRunes) => {
 		prefix: "runes",
 		initialCustomFilters: { rarities: [] },
 		defaultSort: "name-asc",
-		itemsPerPage: 24,
+		itemsPerPage: 20,
 	});
 
 	const getTranslatedRarity = useCallback(

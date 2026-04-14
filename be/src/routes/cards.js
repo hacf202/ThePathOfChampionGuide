@@ -25,7 +25,7 @@ const cardCache = cacheManager.getOrCreateCache("cards", { stdTTL: 86400, checkp
 /**
  * Lấy toàn bộ cards từ DB hoặc cache, sắp xếp A-Z theo cardName
  */
-async function getCachedCards() {
+export async function getCachedCards() {
 	const CACHE_KEY = "all_cards_data";
 	let cachedData = cardCache.get(CACHE_KEY);
 

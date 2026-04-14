@@ -33,8 +33,8 @@ const AdminListLayout = ({
 						<Filter size={16} className='mr-2' />
 					)}
 					{isMobilePanelOpen
-						? tUI("common.close") || "Đóng"
-						: tUI("common.filter") || "Bộ Lọc / Tìm kiếm"}
+						? tUI("common.close")
+						: tUI("common.filter")}
 				</Button>
 				{sidePanelProps?.onAddNew && (
 					<Button
@@ -76,7 +76,7 @@ const AdminListLayout = ({
 							<p className='font-semibold text-lg'>
 								{emptyMessageTitle || tUI("common.notFound")}
 							</p>
-							<p>{emptyMessageSub || "Vui lòng thử bộ lọc khác"}</p>
+							<p>{emptyMessageSub || tUI("admin.rune.tryOtherFilter")}</p>
 						</div>
 					</div>
 				)}

@@ -179,7 +179,7 @@ const AdminPanel = () => {
 		},
 		{
 			id: "cache",
-			label: tUI("admin.nav.cache") || "Quản lý Cache",
+			label: tUI("admin.nav.cache"),
 			icon: Settings2,
 			path: "/admin/cache",
 		},
@@ -308,7 +308,7 @@ const AdminPanel = () => {
 			<div className='flex-1 flex flex-col overflow-hidden'>
 				{/* Topbar - Ẩn khi ở chế độ Editor Mode để có nhiều không gian hơn */}
 				{!isEditorMode && (
-					<header className='flex items-center justify-between h-16 bg-surface-bg border-b border-border px-6 flex-shrink-0 sticky top-0 z-20'>
+					<header className='flex items-center justify-between h-10 md:h-16 bg-surface-bg border-b border-border px-6 flex-shrink-0 sticky top-0 z-20'>
 						<button
 							onClick={() => setIsSidebarOpen(true)}
 							className='p-2 rounded-lg text-text-secondary hover:bg-surface-hover hover:text-text-primary xl:hidden'

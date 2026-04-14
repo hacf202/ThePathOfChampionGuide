@@ -9,7 +9,7 @@ export const usePowerFilters = (tUI, t, dynamicFilters, knownPowers) => {
 		prefix: "powers",
 		initialCustomFilters: { rarities: [], types: [] },
 		defaultSort: "name-asc",
-		itemsPerPage: 24,
+		itemsPerPage: 20,
 	});
 
 	const getTranslatedRarity = useCallback(

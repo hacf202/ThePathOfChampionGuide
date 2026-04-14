@@ -9,6 +9,7 @@ import CardEditorForm from "./cardEditorForm";
 import { useTranslation } from "../../../hooks/useTranslation";
 import AdminListLayout from "../common/adminListLayout";
 import { LoadingState, ErrorState } from "../common/stateDisplays";
+import { invalidateEntityCache } from "../../../utils/entityLookup";
 
 const NEW_CARD_TEMPLATE = {
 	cardCode: "",
@@ -204,6 +205,9 @@ function CardEditor() {
 			const result = await res.json();
 			if (!res.ok) throw new Error(result.error || tUI("admin.common.saveSuccess"));
 
+			// Invalidate entity cache frontend để MarkupEditor thấy lá bài mới ngay lập tức
+			invalidateEntityCache("cards");
+
 			await fetchAllData();
 			navigate("/admin/cards");
 			alert(result.message || tUI("admin.common.saveSuccess"));
@@ -225,6 +229,9 @@ function CardEditor() {
 				headers: { Authorization: `Bearer ${token}` },
 			});
 			if (!res.ok) throw new Error(tUI("admin.common.deleteFailed"));
+
+			// Invalidate entity cache frontend
+			invalidateEntityCache("cards");
 
 			await fetchAllData();
 			navigate("/admin/cards");

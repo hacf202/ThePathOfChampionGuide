@@ -10,6 +10,7 @@ import { useTranslation } from "../../../hooks/useTranslation";
 // IMPORT CÁC COMPONENT CHUNG
 import AdminListLayout from "../common/adminListLayout";
 import { LoadingState, ErrorState } from "../common/stateDisplays";
+import { invalidateEntityCache } from "../../../utils/entityLookup";
 
 const NEW_RELIC_TEMPLATE = {
 	relicCode: "",
@@ -205,6 +206,8 @@ function RelicEditor() {
 			if (!res.ok)
 				throw new Error(result.error || tUI("admin.common.saveFailed"));
 
+			invalidateEntityCache("relics");
+
 			await fetchAllData();
 			navigate("/admin/relics");
 			alert(result.message || tUI("admin.common.saveSuccess"));
@@ -225,6 +228,8 @@ function RelicEditor() {
 				headers: { Authorization: `Bearer ${token}` },
 			});
 			if (!res.ok) throw new Error(tUI("admin.common.deleteFailed"));
+
+			invalidateEntityCache("relics");
 
 			await fetchAllData();
 			navigate("/admin/relics");

@@ -8,7 +8,7 @@ export const useBuildFilters = (tUI, dynamicFilters = {}) => {
 		prefix: "builds",
 		initialCustomFilters: { stars: [], regions: [] },
 		defaultSort: "createdAt-desc",
-		itemsPerPage: 24,
+		itemsPerPage: 20,
 	});
 
 	const sortOptions = useMemo(

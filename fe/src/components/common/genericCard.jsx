@@ -121,15 +121,14 @@ const GenericCard = ({
 						<h3 className='font-bold text-lg text-text-primary font-primary truncate'>
 							{itemName}
 						</h3>
-						<div className='flex items-center gap-2 text-sm text-text-secondary mt-1'>
+						<div className='flex items-center flex-wrap gap-x-2 gap-y-0.5 text-sm text-text-secondary mt-1 min-w-0'>
 							{item.rarity ? (
 								<>
 									<RarityIcon rarity={item.rarity} />
-									{/* 🟢 Gọi hàm dịch độ hiếm */}
-									<span>{getTranslatedRarity(item.rarity)}</span>
+									<span className='truncate'>{getTranslatedRarity(item.rarity)}</span>
 								</>
 							) : (
-								<span className='italic text-xs text-text-tertiary'>
+								<span className='italic text-xs text-text-tertiary truncate'>
 									{renderNodeTypeLabel()}
 								</span>
 							)}

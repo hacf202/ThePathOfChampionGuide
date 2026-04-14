@@ -49,7 +49,11 @@
 		"hide": "Hide",
 		"show": "Show",
 		"cards": " cards",
-		"ad": "Advertisement"
+		"ad": "Advertisement",
+		"filter": "Filter",
+		"close": "Close",
+		"addNew": "Add New",
+		"notFound": "No results found"
 	},
 	"cardType": {
 		"unit": "Unit",
@@ -227,7 +231,72 @@
 	},
 	"admin": {
 		"sidebar": {
-			"title": "Navigation"
+			"title": "Navigation",
+			"footer": "Poc Guide 2026"
+		},
+		"champion": {
+			"notFound": "No matching Champions found.",
+			"tryOtherFilter": "Please try with a different filter.",
+			"notFoundId": "No Champion found with ID:",
+			"searchPlaceholder": "Search by champion name...",
+			"addNew": "Add New Champion",
+			"resetFilter": "Reset Filter"
+		},
+		"championForm": {
+			"createTitle": "Create New Champion",
+			"editTitle": "Edit:",
+			"basicInfo": "Basic Information",
+			"idLabel": "Champion ID (Primary Key)",
+			"nameLabel": "Champion Name",
+			"manaLabel": "Cost (Mana)",
+			"maxStarLabel": "Max Stars",
+			"avatarLabel": "Avatar Image",
+			"guideSection": "Guide & Videos",
+			"videoLabel": "YouTube Video Link (Embed URL)",
+			"descLabel": "Detailed Playstyle Description",
+			"descPlaceholder": "Enter description, strategy, combos...",
+			"startPowerLabel": "Starting & Powers",
+			"adventurePowerLabel": "Adventure Powers",
+			"deckItemLabel": "Default Deck Items",
+			"deckTitle": "STARTING DECK",
+			"deckSub": "Drag and drop cards into the list, then drag items onto each card",
+			"baseCardsLabel": "Base Cards",
+			"referenceCardsLabel": "Reference Cards",
+			"deckPlaceholder": "Drag cards from sidebar here...",
+			"constellationTitle": "Constellation Map",
+			"hideMap": "Hide Map",
+			"showMap": "Show Map",
+			"addNode": "Add Node",
+			"mapBgLabel": "Map Background Image URL",
+			"emptyNodes": "No nodes yet. Click \"Add Node\" to start.",
+			"assetSection": "Assets Management & Build Suggestions",
+			"assetLabel": "Image Assets",
+			"addAsset": "Add Asset",
+			"regionLabel": "Region",
+			"tagLabel": "Tag",
+			"relicSuggest": "Recommended Relics Set {{idx}}",
+			"deleteSet": "Delete this set",
+			"addRelicSet": "Add new Relic set",
+			"runeSuggest": "Recommended Runes",
+			"ratingTitle": "Playstyle Ratings (1-10)",
+			"syncCommunity": "Sync with Community",
+			"noCommunityRating": "No community ratings yet",
+			"loadingCommunity": "Loading community data...",
+			"playstyleNote": "Playstyle Notes",
+			"playstylePlaceholder": "Note on how to play, combos, highlights...",
+			"syncConfirm": "Do you want to sync all ratings with community averages?"
+		},
+		"boss": {
+			"notFound": "No matching Bosses found.",
+			"tryOtherFilter": "Please try with a different filter.",
+			"addNew": "Add New Boss",
+			"searchPlaceholder": "Search by Boss name..."
+		},
+		"adventure": {
+			"notFound": "No matching Adventures found.",
+			"tryOtherFilter": "Please try with a different filter.",
+			"addNew": "Add New Adventure",
+			"searchPlaceholder": "Search by Adventure name..."
 		},
 		"item": {
 			"allRarities": "All Rarity",
@@ -400,7 +469,13 @@
 			"search": "Search",
 			"all": "All",
 			"sortIdAsc": "ID Ascending",
-			"sortIdDesc": "ID Descending"
+			"sortIdDesc": "ID Descending",
+			"add": "Add",
+			"remove": "Remove",
+			"addItem": "Add New",
+			"emptyList": "No items found. Click \"Add\" to create one.",
+			"langVI": "Language: Vietnamese (Default)",
+			"langEN": "Language: English (Optional)"
 		},
 		"dropSidePanel": {
 			"tabs": {
@@ -491,7 +566,21 @@
 			"subtitle": "Monitor and cleanup temporary records to ensure the freshest data.",
 			"clearAll": "Clear All Caches",
 			"clearSuccess": "All caches cleared successfully!",
-			"warning": "Note: Clearing cache will force the server to re-query the database, which may slow down initial requests."
+			"warning": "Note: Clearing cache will force the server to re-query the database, which may slow down initial requests.",
+			"totalModules": "Total Modules",
+			"totalRecords": "Total Records",
+			"confirm": "Confirm clear?",
+			"confirmBtn": "Confirm",
+			"cancelBtn": "Cancel",
+			"moduleName": "Module Name",
+			"cachedKeys": "Records",
+			"hits": "Hits",
+			"misses": "Misses",
+			"actions": "Actions",
+			"statsLoading": "Loading cache data...",
+			"statsEmpty": "No registered caches found.",
+			"purgeSuccess": "Cache \"{{name}}\" cleared successfully!",
+			"purgeError": "Error clearing cache {{name}}"
 		},
 		"userNav": {
 			"title": "Analytics System",
@@ -1346,5 +1435,21 @@
 		"descGeneric": "The system is experiencing some technical difficulties. Please try again later.",
 		"backToHome": "Back to Home",
 		"errorCode": "Error code: {{code}}"
+	},
+	"globalSearch": {
+		"placeholder": "Search Champions, Relics, Guides...",
+		"hint": "Ctrl+K",
+		"noResults": "No results found for \"{{query}}\".",
+		"searching": "Searching...",
+		"categoryChampion": "Champions",
+		"categoryRelic": "Relics",
+		"categoryPower": "Powers",
+		"categoryItem": "Items",
+		"categoryRune": "Runes",
+		"categoryCard": "Cards",
+		"categoryGuide": "Guides",
+		"pressEnterHint": "to navigate",
+		"pressEscHint": "to close",
+		"ariaLabel": "Search the entire website"
 	}
 }

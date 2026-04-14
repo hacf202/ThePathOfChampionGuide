@@ -10,6 +10,7 @@ import { useTranslation } from "../../../hooks/useTranslation";
 // IMPORT CÁC COMPONENT CHUNG
 import AdminListLayout from "../common/adminListLayout";
 import { LoadingState, ErrorState } from "../common/stateDisplays";
+import { invalidateEntityCache } from "../../../utils/entityLookup";
 
 const NEW_RUNE_TEMPLATE = {
 	runeCode: "",
@@ -207,6 +208,8 @@ function RuneEditor() {
 			if (!res.ok)
 				throw new Error(result.error || tUI("admin.common.saveFailed"));
 
+			invalidateEntityCache("runes");
+
 			await fetchAllData();
 			navigate("/admin/runes");
 			alert(result.message || tUI("admin.common.saveSuccess"));
@@ -227,6 +230,8 @@ function RuneEditor() {
 				headers: { Authorization: `Bearer ${token}` },
 			});
 			if (!res.ok) throw new Error(tUI("admin.common.deleteFailed"));
+
+			invalidateEntityCache("runes");
 
 			await fetchAllData();
 			navigate("/admin/runes");

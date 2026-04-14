@@ -17,7 +17,7 @@ import { createAuditLog } from "../utils/auditLogger.js";
 const router = express.Router();
 const BOSS_TABLE = "guidePocBosses";
 
-const bossCache = cacheManager.getOrCreateCache("bosses", { stdTTL: 1800, checkperiod: 60 });
+const bossCache = cacheManager.getOrCreateCache("bosses", { stdTTL: 86400, checkperiod: 60 });
 
 router.get("/", async (req, res) => {
 	const CACHE_KEY = "all_bosses_list";

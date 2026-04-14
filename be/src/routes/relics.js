@@ -24,7 +24,7 @@ const relicCache = cacheManager.getOrCreateCache("relics", { stdTTL: 86400, chec
 /**
  * Lấy toàn bộ dữ liệu Relics từ DB hoặc Cache
  */
-async function getCachedRelics() {
+export async function getCachedRelics() {
 	const CACHE_KEY = "all_relics_data";
 	let cachedData = relicCache.get(CACHE_KEY);
 

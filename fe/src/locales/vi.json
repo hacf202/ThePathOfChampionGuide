@@ -48,7 +48,11 @@
 		"hide": "Ẩn",
 		"show": "Hiện",
 		"cards": " lá",
-		"ad": "Quảng cáo"
+		"ad": "Quảng cáo",
+		"filter": "Bộ lọc",
+		"close": "Đóng",
+		"addNew": "Thêm mới",
+		"notFound": "Không tìm thấy kết quả"
 	},
 	"cardType": {
 		"unit": "Bài quân",
@@ -227,7 +231,72 @@
 	},
 	"admin": {
 		"sidebar": {
-			"title": "Thanh điều hướng"
+			"title": "Thanh điều hướng",
+			"footer": "Poc Guide 2026"
+		},
+		"champion": {
+			"notFound": "Không tìm thấy Tướng nào phù hợp.",
+			"tryOtherFilter": "Vui lòng thử lại với bộ lọc khác.",
+			"notFoundId": "Không tìm thấy Tướng có mã:",
+			"searchPlaceholder": "Tìm theo tên tướng...",
+			"addNew": "Thêm Tướng Mới",
+			"resetFilter": "Đặt lại bộ lọc"
+		},
+		"championForm": {
+			"createTitle": "Tạo Tướng Mới",
+			"editTitle": "Biên tập:",
+			"basicInfo": "Thông tin cơ bản",
+			"idLabel": "Champion ID (Khóa chính)",
+			"nameLabel": "Tên tướng",
+			"manaLabel": "Năng lượng (Mana)",
+			"maxStarLabel": "Sao tối đa",
+			"avatarLabel": "Ảnh Đại Diện",
+			"guideSection": "Hướng dẫn & Video",
+			"videoLabel": "YouTube Video Link (Embed URL)",
+			"descLabel": "Mô tả hướng dẫn chơi chi tiết",
+			"descPlaceholder": "Nhập mô tả, chiến thuật, cách combo...",
+			"startPowerLabel": "Khởi đầu & Sức mạnh",
+			"adventurePowerLabel": "Sức mạnh Phiêu lưu",
+			"deckItemLabel": "Vật phẩm mặc định (Deck)",
+			"deckTitle": "BỘ BÀI KHỞI ĐẦU (Starting Deck)",
+			"deckSub": "Kéo thả Lá bài vào danh sách, sau đó kéo Vật phẩm vào từng lá bài",
+			"baseCardsLabel": "Lá bài chính (Base Cards)",
+			"referenceCardsLabel": "Lá bài tham chiếu (Reference Cards)",
+			"deckPlaceholder": "Kéo Lá bài từ Sidebar vào đây...",
+			"constellationTitle": "Bản đồ Chòm sao",
+			"hideMap": "Ẩn Bản đồ",
+			"showMap": "Hiện Bản đồ",
+			"addNode": "Thêm Node",
+			"mapBgLabel": "URL Ảnh nền bản đồ",
+			"emptyNodes": "Chưa có Node nào. Bấm \"Thêm Node\" để bắt đầu.",
+			"assetSection": "Quản lý Assets & Gợi ý lên đồ",
+			"assetLabel": "Liên kết hình ảnh (Assets)",
+			"addAsset": "Thêm Asset",
+			"regionLabel": "Vùng (Region)",
+			"tagLabel": "Nhãn (Tag)",
+			"relicSuggest": "Cổ vật gợi ý Set {{idx}}",
+			"deleteSet": "Xóa bộ này",
+			"addRelicSet": "Thêm bộ Cổ vật mới",
+			"runeSuggest": "Ngọc gợi ý (Runes)",
+			"ratingTitle": "Đánh giá phong cách chơi (1-10)",
+			"syncCommunity": "Đồng bộ với Cộng đồng",
+			"noCommunityRating": "Chưa có đánh giá cộng đồng",
+			"loadingCommunity": "Đang tải dữ liệu cộng đồng...",
+			"playstyleNote": "Ghi chú lối chơi",
+			"playstylePlaceholder": "Lưu ý về cách dùng bài, combo, điểm nổi bật...",
+			"syncConfirm": "Bạn có muốn đồng bộ tất cả chỉ số với điểm trung bình của cộng đồng không?"
+		},
+		"boss": {
+			"notFound": "Không tìm thấy Boss nào phù hợp.",
+			"tryOtherFilter": "Vui lòng thử lại với bộ lọc khác.",
+			"addNew": "Thêm Boss Mới",
+			"searchPlaceholder": "Tìm theo tên Boss..."
+		},
+		"adventure": {
+			"notFound": "Không tìm thấy Bản đồ nào phù hợp.",
+			"tryOtherFilter": "Vui lòng thử lại với bộ lọc khác.",
+			"addNew": "Thêm Bản đồ Mới",
+			"searchPlaceholder": "Tìm theo tên Bản đồ..."
 		},
 		"item": {
 			"allRarities": "Tất cả độ hiếm",
@@ -400,7 +469,13 @@
 			"search": "Tìm Kiếm",
 			"all": "Tất cả",
 			"sortIdAsc": "ID Tăng Dần",
-			"sortIdDesc": "ID Giảm Dần"
+			"sortIdDesc": "ID Giảm Dần",
+			"add": "Thêm",
+			"remove": "Xóa",
+			"addItem": "Thêm mới",
+			"emptyList": "Không có mục nào. Nhấn \"Thêm\" để tạo mới.",
+			"langVI": "Ngôn ngữ: Tiếng Việt (Mặc định)",
+			"langEN": "Ngôn ngữ: Tiếng Anh (Tùy chọn)"
 		},
 		"build": {
 			"title": "Quản lý Bộ Cổ Vật (Builds)",
@@ -491,7 +566,21 @@
 			"subtitle": "Theo dõi và dọn dẹp các bản ghi được lưu tạm để cập nhật dữ liệu mới nhất.",
 			"clearAll": "Xóa toàn bộ Cache",
 			"clearSuccess": "Xóa toàn bộ cache thành công!",
-			"warning": "Lưu ý: Xóa cache sẽ buộc Server phải truy vấn lại Database, điều này có thể làm chậm các yêu cầu đầu tiên."
+			"warning": "Lưu ý: Xóa cache sẽ buộc Server phải truy vấn lại Database, điều này có thể làm chậm các yêu cầu đầu tiên.",
+			"totalModules": "Tổng số module",
+			"totalRecords": "Tổng bản ghi",
+			"confirm": "Xác nhận xóa?",
+			"confirmBtn": "Xác nhận",
+			"cancelBtn": "Hủy",
+			"moduleName": "Tên Module",
+			"cachedKeys": "Bản ghi",
+			"hits": "Lượt trúng",
+			"misses": "Lượt hụt",
+			"actions": "Thao tác",
+			"statsLoading": "Đang tải dữ liệu...",
+			"statsEmpty": "Không có cache nào được đăng ký.",
+			"purgeSuccess": "Đã làm sạch cache \"{{name}}\" thành công!",
+			"purgeError": "Lỗi khi xóa cache {{name}}"
 		},
 		"userNav": {
 			"title": "Hệ thống Phân tích",
@@ -1350,5 +1439,21 @@
 		"descGeneric": "Hệ thống đang gặp một chút trục trặc kỹ thuật. Vui lòng thử lại sau.",
 		"backToHome": "Quay về Trang Chủ",
 		"errorCode": "Mã lỗi: {{code}}"
+	},
+	"globalSearch": {
+		"placeholder": "Tìm kiếm Tướng, Cổ Vật, Bài Viết...",
+		"hint": "Ctrl+K",
+		"noResults": "Không tìm thấy kết quả nào cho \"{{query}}\".",
+		"searching": "Đang tìm kiếm...",
+		"categoryChampion": "Tướng",
+		"categoryRelic": "Cổ Vật",
+		"categoryPower": "Sức Mạnh",
+		"categoryItem": "Vật Phẩm",
+		"categoryRune": "Ngọc",
+		"categoryCard": "Lá Bài",
+		"categoryGuide": "Bài Viết",
+		"pressEnterHint": "để đi đến",
+		"pressEscHint": "để đóng",
+		"ariaLabel": "Tìm kiếm toàn bộ trang web"
 	}
 }

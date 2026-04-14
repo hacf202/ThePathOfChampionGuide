@@ -11,7 +11,7 @@ export const useChampionFilters = (tUI, dynamicFilters) => {
 		prefix: "champions",
 		initialCustomFilters: { regions: [], costs: [], maxStars: [], tags: [] },
 		defaultSort: "name-asc",
-		itemsPerPage: 24,
+		itemsPerPage: 20,
 	});
 
 	// Các State thuần tuý phục vụ đóng/mở giao diện trên Mobile

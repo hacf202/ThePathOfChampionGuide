@@ -6,6 +6,7 @@ import SidePanel from "../../common/sidePanel";
 import PowerEditorForm from "./powerEditorForm";
 import { removeAccents } from "../../../utils/vietnameseUtils";
 import { useTranslation } from "../../../hooks/useTranslation";
+import { invalidateEntityCache } from "../../../utils/entityLookup";
 
 // IMPORT CÁC COMPONENT CHUNG
 import AdminListLayout from "../common/adminListLayout";
@@ -211,6 +212,8 @@ function PowerEditor() {
 			if (!res.ok)
 				throw new Error(result.error || tUI("admin.common.saveFailed"));
 
+			invalidateEntityCache("powers");
+
 			await fetchAllData();
 			navigate("/admin/powers");
 			alert(result.message || tUI("admin.common.saveSuccess"));
@@ -231,6 +234,8 @@ function PowerEditor() {
 				headers: { Authorization: `Bearer ${token}` },
 			});
 			if (!res.ok) throw new Error(tUI("admin.common.deleteFailed"));
+
+			invalidateEntityCache("powers");
 
 			await fetchAllData();
 			navigate("/admin/powers");

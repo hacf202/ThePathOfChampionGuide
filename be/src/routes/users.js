@@ -8,14 +8,14 @@ import {
 } from "@aws-sdk/client-cognito-identity-provider";
 import { cognitoClient } from "../config/cognito.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
-import NodeCache from "node-cache";
+import cacheManager from "../utils/cacheManager.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
 
 const router = express.Router();
 const COGNITO_USER_POOL_ID = process.env.COGNITO_USER_POOL_ID;
 
-// Sử dụng NodeCache thay cho Map thủ công: TTL 10 phút, kiểm tra mỗi 1 phút
-const userCache = new NodeCache({ stdTTL: 600, checkperiod: 60 });
+// Cache public user info — TTL 1 giờ, flush được qua /api/admin/cache
+const userCache = cacheManager.getOrCreateCache("users", { stdTTL: 3600, checkperiod: 120 });
 
 /**
  * 1. GET /api/user/me - Lấy thông tin bản thân (Realtime)

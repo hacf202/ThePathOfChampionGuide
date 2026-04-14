@@ -10,7 +10,7 @@ export const useItemFilters = (tUI, t, dynamicFilters, knownItems) => {
 		prefix: "items",
 		initialCustomFilters: { rarities: [] },
 		defaultSort: "name-asc",
-		itemsPerPage: 24,
+		itemsPerPage: 20,
 	});
 
 	// 2. LOGIC DỊCH NGÔN NGỮ

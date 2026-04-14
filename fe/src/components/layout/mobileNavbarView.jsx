@@ -4,10 +4,12 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext.jsx";
 import { useTheme } from "../../context/ThemeContext.jsx";
 import ThemeSettings from "../common/ThemeSettings.jsx";
+import GlobalSearch from "../common/GlobalSearch.jsx";
 
 import Modal from "../common/modal.jsx";
 import Button from "../common/button.jsx";
 import Logo from "/favicon.ico";
+import { motion, AnimatePresence } from "framer-motion";
 
 import {
 	User,
@@ -35,6 +37,7 @@ import {
 	Sun,
 	Moon,
 	Palette,
+	Search,
 } from "lucide-react";
 
 function MobileSidebar({ language, handleLanguageChange, tUI }) {
@@ -49,6 +52,7 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 	const [isHeaderLangOpen, setIsHeaderLangOpen] = useState(false);
 	const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 	const [isThemeSettingsOpen, setIsThemeSettingsOpen] = useState(false);
+	const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
 
 	const sidebarRef = useRef(null);
 	const headerLangRef = useRef(null);
@@ -90,22 +94,66 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 	return (
 		<>
 			{/* Mobile Header */}
-			<header className='bg-header-bg text-header-text p-2 shadow-xl sticky top-0 z-50 xl:hidden flex items-center justify-between'>
-				<NavLink to='/' className='flex items-center gap-2' onClick={closeSidebar}>
-					<img src={Logo} alt='Logo' className='h-8 w-auto rounded' />
-					<span className='font-primary text-xl'>POC GUIDE</span>
-				</NavLink>
+			<header className='bg-header-bg text-header-text p-2 shadow-xl sticky top-0 z-50 xl:hidden flex items-center justify-between h-14 overflow-visible'>
+				{/* Logo Section */}
+				<div className="flex items-center gap-2 flex-shrink-0">
+					<NavLink to='/' className='flex items-center gap-2' onClick={closeSidebar}>
+						<img src={Logo} alt='Logo' className='h-8 w-auto rounded' />
+						<span className='font-primary text-xl whitespace-nowrap'>
+							POC GUIDE
+						</span>
+					</NavLink>
+				</div>
 
-				<div className='flex items-center gap-2'>
+				{/* Search & Menu Section */}
+				<div className="flex-1 flex items-center justify-end gap-1 ml-2 min-w-0">
+					<motion.div 
+						className="relative h-10 flex items-center justify-end"
+						animate={{ 
+							width: isMobileSearchOpen ? "150px" : "40px"
+						}}
+						transition={{ type: "spring", damping: 25, stiffness: 200 }}
+					>
+						<AnimatePresence mode="wait">
+							{!isMobileSearchOpen ? (
+								<motion.button
+									key="search-icon"
+									initial={{ opacity: 0, scale: 0.8 }}
+									animate={{ opacity: 1, scale: 1 }}
+									exit={{ opacity: 0, scale: 0.8 }}
+									onClick={() => setIsMobileSearchOpen(true)}
+									className='p-2 rounded-lg hover:bg-black/10 transition-all text-header-text flex-shrink-0'
+									aria-label="Tìm kiếm"
+								>
+									<Search className='w-5 h-5' />
+								</motion.button>
+							) : (
+								<motion.div 
+									key="search-input"
+									initial={{ opacity: 0, x: 20 }}
+									animate={{ opacity: 1, x: 0 }}
+									exit={{ opacity: 0, x: 20 }}
+									className="w-full"
+								>
+									<GlobalSearch 
+										compact={true} 
+										showClose={true} 
+										onClose={() => setIsMobileSearchOpen(false)} 
+									/>
+								</motion.div>
+							)}
+						</AnimatePresence>
+					</motion.div>
+				</div>
+
+				<div className="flex items-center gap-1 flex-shrink-0">
+					{/* Menu Hamburger */}
 					<button
 						onClick={() => setIsSidebarOpen(prev => !prev)}
-						className='p-2 rounded-lg hover:bg-black/10 transition-all'
+						className='p-2 rounded-lg hover:bg-black/10 transition-all text-header-text flex-shrink-0'
 						aria-label={isSidebarOpen ? 'Close menu' : 'Open menu'}
 					>
-						{isSidebarOpen
-							? <X className='w-6 h-6' />
-							: <Menu className='w-6 h-6' />
-						}
+						{isSidebarOpen ? <X className='w-6 h-6' /> : <Menu className='w-6 h-6' />}
 					</button>
 				</div>
 			</header>

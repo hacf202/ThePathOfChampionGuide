@@ -18,8 +18,8 @@ import { createAuditLog } from "../utils/auditLogger.js";
 const router = express.Router();
 const GUIDES_TABLE = "guidePocGuideList";
 
-// Khởi tạo Cache: TTL 10 phút
-const cache = cacheManager.getOrCreateCache("guides", { stdTTL: 600, checkperiod: 60 });
+// Cache: TTL 24 giờ — guide rất ít thay đổi. Admin tạo/sửa/xóa sẽ invalidate cache ngay.
+const cache = cacheManager.getOrCreateCache("guides", { stdTTL: 86400, checkperiod: 120 });
 const CACHE_KEY_LIST = "all_guides";
 
 // Hàm tạo key cache cho chi tiết

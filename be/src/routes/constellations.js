@@ -15,7 +15,7 @@ import { scanAll } from "../utils/dynamoUtils.js";
 
 const router = express.Router();
 const CONSTELLATIONS_TABLE = "guidePocChampionConstellation";
-const constellationCache = cacheManager.getOrCreateCache("constellations", { stdTTL: 1800, checkperiod: 60 });
+const constellationCache = cacheManager.getOrCreateCache("constellations", { stdTTL: 86400, checkperiod: 60 });
 
 /**
  * Hàm lấy danh sách Chòm sao có sử dụng Cache

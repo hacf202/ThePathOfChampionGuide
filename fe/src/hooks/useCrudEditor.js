@@ -17,7 +17,7 @@ export const useCrudEditor = ({
 	idField,
 	newItemTemplate,
 	routePath,
-	itemsPerPage = 24,
+	itemsPerPage = 20,
 	customFilterLogic = null,
 }) => {
 	const { token } = useAuth();

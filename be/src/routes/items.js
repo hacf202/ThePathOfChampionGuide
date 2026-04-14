@@ -23,7 +23,7 @@ const itemCache = cacheManager.getOrCreateCache("items", { stdTTL: 86400, checkp
 /**
  * Hàm lấy toàn bộ Items từ DB hoặc RAM.
  */
-async function getCachedItems() {
+export async function getCachedItems() {
 	const CACHE_KEY = "all_items_data";
 	let cachedData = itemCache.get(CACHE_KEY);
 

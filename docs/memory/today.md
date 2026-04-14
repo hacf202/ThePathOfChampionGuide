@@ -3,7 +3,59 @@
 *File này là nơi lưu trữ trạng thái dở dang thuộc phiên làm việc hiện tại, các vấn đề và lỗi sinh ra khi code hoặc thảo luận để AI ghi nhớ tránh lạc lõng, hỏi lại nhiều lần.*
 
 
-## Log thay đổi 2026-04-13 (Card Investigation & Lookup) *(Uncommitted)*
+## Log thay đổi 2026-04-14 (Mobile Search UX & Pagination Refactoring)
+
+### ✅ Tối ưu Tìm kiếm Mobile & Hệ thống Phân trang
+- **Đại tu Tìm kiếm Mobile (Inline Expansion)**:
+    - **Tệp chỉnh sửa**: `mobileNavbarView.jsx`, `GlobalSearch.jsx`.
+    - **Vị trí & Chuyển động**: Nút tìm kiếm đặt bên phải cạnh nút Menu. Khi nhấn, ô tìm kiếm mở rộng sang trái (~150px) nhưng **không che khuất** tên website ("POC GUIDE").
+    - **Animation mượt mà**: Sử dụng `AnimatePresence` để tạo hiệu ứng `fade/slide/scale` khi đóng và mở, loại bỏ hiện tượng giật khung hình.
+    - **Tự động đóng (Auto-Hide)**: Thanh tìm kiếm tự động thu nhỏ về dạng icon khi người dùng click ra ngoài vùng tìm kiếm.
+- **Chuẩn hóa Phân trang (20 items/trang)**:
+    - **Thay đổi quy mô**: Chuyển đổi toàn bộ hệ thống từ 24 đối tượng/trang sang **20 đối tượng/trang** để tối ưu lưới hiển thị (chia hết cho 2, 4, 5).
+    - **Hooks cập nhật**: `useGenericFilters`, `useChampionFilters`, `useCardFilters`, `useItemFilters`, `useRuneFilters`, `usePowerFilters`, `useMapFilters`, `useBuildFilters`.
+    - **Admin Panel**: Cập nhật `useCrudEditor.js` để đồng bộ phân trang trong trang quản trị.
+    - **UI Loading**: Tăng `skeletonCount` từ 8 lên 12 trong `GenericListLayout.jsx` để cải thiện trải nghiệm chờ tải dữ liệu.
+
+---
+
+## Log thay đổi 2026-04-14 (Global Search Feature)
+
+### ✅ Tính năng Tìm kiếm Toàn cục (Global Search / Command Palette)
+- **Tạo mới** `fe/src/components/common/GlobalSearch.jsx`
+    - Giao diện Command Palette kiểu Spotlight/VS Code, mở bằng icon 🔍 hoặc phím tắt `Ctrl+K`.
+    - Tìm kiếm client-side tức thì từ cache `entityLookup.dataStore` — không call API thêm, không có latency.
+    - Hỗ trợ 6 loại thực thể: Tướng, Cổ Vật, Sức Mạnh, Vật Phẩm, Ngọc, Lá Bài.
+    - Bài viết (Guides) tìm qua API `/api/guides?search=` riêng, có debounce 300ms.
+    - Điều hướng bàn phím: `↑/↓` chọn, `Enter` đi, `Esc` đóng.
+    - Tìm kiếm không dấu dùng `removeAccents`.
+    - Đầy đủ i18n (VI/EN).
+- **Cập nhật** `desktopNavbarView.jsx`:
+    - Thêm nút 🔍 kèm hint `Ctrl+K` vào thanh icon bên phải.
+    - Lắng nghe `Ctrl+K` toàn cục để toggle search.
+- **Cập nhật** `mobileNavbarView.jsx`:
+    - Thêm nút 🔍 vào header mobile (bên cạnh nút hamburger).
+- **Cập nhật** `vi.json` & `en.json`:
+    - Bổ sung object `globalSearch` với 10+ keys i18n đầy đủ.
+
+---
+
+## Log thay đổi 2026-04-14 (Audit Logging & Admin UX Integration)
+
+### ✅ Hệ thống Audit Logging & Tối ưu Giao diện Admin
+- **Audit Logging toàn diện**:
+    - Hoàn tất việc chèn logic `createAuditLog` vào các route: **Lá bài (Cards)**, **Bài viết (Guides)**, và **Bộ cổ vật (Builds)**.
+    - Hỗ trợ ghi lại cả thao tác của Admin và người dùng (đối với Build) để đảm bảo tính minh bạch dữ liệu.
+    - Cập nhật hệ thống **Hoàn tác (Rollback)** trong `auditLogs.js`: Đã ánh xạ thực thể `Build` vào bảng DynamoDB và cơ chế xóa cache tương ứng.
+- **Tối ưu Item Editor**:
+    - Loại bỏ trường `rarityRef` dư thừa giúp form gọn gàng hơn.
+    - Tích hợp đa ngôn ngữ (i18n) hoàn chỉnh cho toàn bộ nhãn, gợi ý và tiêu đề trong Form chỉnh sửa vật phẩm.
+- **Quản lý phiên bản**:
+    - Đã thực hiện `git add`, `git commit` và `git push` toàn bộ các thay đổi trong phiên làm việc lên kho lưu trữ từ xa.
+
+---
+
+## Log thay đổi 2026-04-13 (Card Investigation & Lookup)
 
 ### ✅ Điều tra và tra cứu dữ liệu thẻ bài
 - **Tra cứu CardCode**: Đã thực hiện tìm kiếm lá bài có mã tương tự `99MT003` trong bản sao lưu dữ liệu `cardList.json`.

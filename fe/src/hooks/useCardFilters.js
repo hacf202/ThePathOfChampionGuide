@@ -10,7 +10,7 @@ export const useCardFilters = (tUI, dynamicFilters) => {
 		prefix: "cards",
 		initialCustomFilters: { rarities: [], regions: [], types: [], costs: [] },
 		defaultSort: "cardName-asc",
-		itemsPerPage: 24,
+		itemsPerPage: 20,
 		extraParams: { onlyBase: "true" }, // Chỉ hiển thị lá bài gốc (không phải token)
 	});
 

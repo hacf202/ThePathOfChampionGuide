@@ -18,7 +18,7 @@ const router = express.Router();
 const BONUS_STAR_TABLE = "guidePocBonusStar";
 
 // Cache dữ liệu trong 30 phút để giảm tải cho DynamoDB
-const bonusCache = cacheManager.getOrCreateCache("bonusStars", { stdTTL: 1800, checkperiod: 60 });
+const bonusCache = cacheManager.getOrCreateCache("bonusStars", { stdTTL: 86400, checkperiod: 60 });
 
 /**
  * @route   GET /api/bonusStars

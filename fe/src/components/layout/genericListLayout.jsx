@@ -41,7 +41,7 @@ const GenericListLayout = ({
 	renderFilters, // Hàm trả về các component filter (MultiSelect, Dropdown)
 	renderItem, // Hàm trả về component thẻ item (ChampionCard, RelicCard...)
 	renderSkeleton, // Hàm trả về skeleton loading
-	skeletonCount = 8,
+	skeletonCount = 12,
 	customHeaderActions = null, // Nút bấm tùy chỉnh ở góc trên cùng (VD: Tạo Build)
 	customTabs = null, // Các tab chuyển đổi (VD: Community / My Builds)
 
@@ -49,7 +49,7 @@ const GenericListLayout = ({
 	gridClassName, // Chuỗi class hoặc Hàm nhận vào showDesktopFilter trả về chuỗi class
 }) => {
 	const { tUI } = useTranslation();
-	const [showDesktopFilter, setShowDesktopFilter] = useState(true);
+	const [showDesktopFilter, setShowDesktopFilter] = useState(false);
 	const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
 
 	// Tính toán Class cho Lưới (Grid) dựa trên việc Sidebar đang mở hay đóng

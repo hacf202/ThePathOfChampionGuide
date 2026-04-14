@@ -12,6 +12,7 @@ import { useTranslation } from "../../../hooks/useTranslation";
 // IMPORT CÁC COMPONENT CHUNG
 import AdminListLayout from "../common/adminListLayout.jsx";
 import { LoadingState, ErrorState } from "../common/stateDisplays";
+import { invalidateEntityCache } from "../../../utils/entityLookup";
 
 const NEW_CHAMPION_TEMPLATE = {
 	championID: "",
@@ -311,6 +312,8 @@ function ChampionEditor() {
 				}
 			}
 
+			invalidateEntityCache("champions");
+
 			await fetchAllData();
 			navigate("/admin/champions");
 			alert(tUI("admin.common.saveSuccess"));
@@ -335,6 +338,8 @@ function ChampionEditor() {
 					headers: { Authorization: `Bearer ${token}` },
 				}),
 			]);
+
+			invalidateEntityCache("champions");
 
 			await fetchAllData();
 			navigate("/admin/champions");

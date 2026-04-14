@@ -23,7 +23,7 @@ const powerCache = cacheManager.getOrCreateCache("powers", { stdTTL: 86400, chec
 /**
  * Hàm hỗ trợ lấy toàn bộ dữ liệu từ RAM hoặc Database
  */
-async function getCachedPowers() {
+export async function getCachedPowers() {
 	const CACHE_KEY = "all_powers_data";
 	let cachedData = powerCache.get(CACHE_KEY);
 

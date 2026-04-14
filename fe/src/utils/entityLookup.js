@@ -158,6 +158,31 @@ export const preloadAllEntities = () => {
     return preloadPromise;
 };
 
+/**
+ * Reset toàn bộ entity cache (client-side).
+ * Gọi sau khi admin tạo/sửa/xóa bất kỳ entity nào để Markup
+ * lấy dữ liệu mới trong lần preload tiếp theo.
+ * @param {string} [type] - Nếu truyền vào ('cards','champions',...), chỉ xóa type đó.
+ *                          Nếu không truyền, xóa toàn bộ cache.
+ */
+export const invalidateEntityCache = (type = null) => {
+    if (type) {
+        const storeType = { c:"champions",r:"relics",p:"powers",i:"items",rune:"runes",cd:"cards",cards:"cards",champions:"champions" }[type] || type;
+        dataStore.vi[storeType] = [];
+        dataStore.en[storeType] = [];
+        console.log(`[EntityCache] Invalidated: ${storeType}`);
+    } else {
+        // Xóa toàn bộ
+        ["champions","relics","powers","items","runes","cards"].forEach(t => {
+            dataStore.vi[t] = [];
+            dataStore.en[t] = [];
+        });
+        console.log("[EntityCache] Full cache invalidated");
+    }
+    // Reset singleton để lần preload tiếp theo sẽ fetch lại từ server
+    preloadPromise = null;
+};
+
 const normalize = str => (str || "").normalize("NFC").toLowerCase().replace(/\s+/g, " ").trim();
 
 /**

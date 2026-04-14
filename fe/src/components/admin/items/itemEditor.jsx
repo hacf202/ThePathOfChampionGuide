@@ -10,6 +10,7 @@ import { useTranslation } from "../../../hooks/useTranslation";
 // IMPORT CÁC COMPONENT CHUNG (Đường dẫn chuẩn mới)
 import AdminListLayout from "../common/adminListLayout";
 import { LoadingState, ErrorState } from "../common/stateDisplays";
+import { invalidateEntityCache } from "../../../utils/entityLookup";
 
 const NEW_ITEM_TEMPLATE = {
 	itemCode: "",
@@ -203,6 +204,8 @@ function ItemEditor() {
 			if (!res.ok)
 				throw new Error(result.error || tUI("admin.common.saveFailed"));
 
+			invalidateEntityCache("items");
+
 			await fetchAllData();
 			navigate("/admin/items");
 			alert(result.message || tUI("admin.common.saveSuccess"));
@@ -223,6 +226,8 @@ function ItemEditor() {
 				headers: { Authorization: `Bearer ${token}` },
 			});
 			if (!res.ok) throw new Error(tUI("admin.common.deleteFailed"));
+
+			invalidateEntityCache("items");
 
 			await fetchAllData();
 			navigate("/admin/items");

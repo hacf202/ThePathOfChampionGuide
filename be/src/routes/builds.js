@@ -6,11 +6,9 @@ import {
 	DeleteItemCommand,
 	GetItemCommand,
 	QueryCommand,
-	ScanCommand, // Đã bổ sung ScanCommand để tải từ điển
 } from "@aws-sdk/client-dynamodb";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
 import { v4 as uuidv4 } from "uuid";
-import NodeCache from "node-cache"; // Thư viện cache
 
 import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
@@ -25,71 +23,41 @@ import {
 import { removeAccents } from "../utils/vietnameseUtils.js";
 import { createAuditLog } from "../utils/auditLogger.js";
 
+// Tận dụng cache đã có sẵn thay vì scan lại DB
+import { getCachedChampions } from "./champions.js";
+import { getCachedRelics }   from "./relics.js";
+import { getCachedPowers }   from "./powers.js";
+
 const router = express.Router();
 const BUILDS_TABLE = "Builds";
 
-// --- KHỞI TẠO CACHE TỪ ĐIỂN TÌM KIẾM (5 Phút) ---
-const dictionaryCache = new NodeCache({ stdTTL: 300 });
-
 /**
- * Lấy danh sách tướng, cổ vật, sức mạnh để tạo từ điển đối chiếu (hỗ trợ tìm bằng Tiếng Anh)
+ * Lấy danh sách tướng, cổ vật, sức mạnh từ cache đã có (không scan lại DB)
  */
 async function getSearchDictionaries() {
-	const CACHE_KEY = "builds_search_dicts";
-	let dicts = dictionaryCache.get(CACHE_KEY);
-	if (dicts) return dicts;
+	const [champs, relics, powers] = await Promise.all([
+		getCachedChampions(),
+		getCachedRelics(),
+		getCachedPowers(),
+	]);
 
-	dicts = { champMap: {}, relicMap: {}, powerMap: {} };
+	const champMap = {};
+	champs.forEach(c => {
+		if (c.name) champMap[c.name] = c.translations?.en?.name || "";
+	});
 
-	try {
-		// Fetch Champions
-		const champsRes = await client.send(
-			new ScanCommand({ TableName: "guidePocChampionList" }),
-		);
-		const champs = champsRes.Items
-			? champsRes.Items.map(item => unmarshall(item))
-			: [];
-		champs.forEach(c => {
-			if (c.name) dicts.champMap[c.name] = c.translations?.en?.name || "";
-		});
+	const relicMap = {};
+	relics.forEach(r => {
+		const id = r.relicCode || r.itemCode;
+		if (id) relicMap[id] = { vi: r.name || "", en: r.translations?.en?.name || "" };
+	});
 
-		// Fetch Relics
-		const relicsRes = await client.send(
-			new ScanCommand({ TableName: "guidePocRelics" }),
-		);
-		const relics = relicsRes.Items
-			? relicsRes.Items.map(item => unmarshall(item))
-			: [];
-		relics.forEach(r => {
-			const id = r.relicCode || r.itemCode;
-			if (id)
-				dicts.relicMap[id] = {
-					vi: r.name || "",
-					en: r.translations?.en?.name || "",
-				};
-		});
+	const powerMap = {};
+	powers.forEach(p => {
+		if (p.powerCode) powerMap[p.powerCode] = { vi: p.name || "", en: p.translations?.en?.name || "" };
+	});
 
-		// Fetch Powers
-		const powersRes = await client.send(
-			new ScanCommand({ TableName: "guidePocPowers" }),
-		);
-		const powers = powersRes.Items
-			? powersRes.Items.map(item => unmarshall(item))
-			: [];
-		powers.forEach(p => {
-			if (p.powerCode)
-				dicts.powerMap[p.powerCode] = {
-					vi: p.name || "",
-					en: p.translations?.en?.name || "",
-				};
-		});
-
-		dictionaryCache.set(CACHE_KEY, dicts);
-	} catch (error) {
-		console.error("Lỗi khi tải từ điển tìm kiếm:", error);
-	}
-
-	return dicts;
+	return { champMap, relicMap, powerMap };
 }
 
 /**

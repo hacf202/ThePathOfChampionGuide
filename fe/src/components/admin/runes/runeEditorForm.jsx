@@ -16,8 +16,9 @@ const ArrayInputComponent = ({
 	label,
 	data = [],
 	onChange,
-	placeholder = "Nhập giá trị...",
+	placeholder = "",
 }) => {
+	const { tUI } = useTranslation();
 	const handleItemChange = (index, newValue) => {
 		const newData = [...data];
 		newData[index] = newValue;
@@ -43,7 +44,7 @@ const ArrayInputComponent = ({
 					onClick={handleAddItem}
 					iconLeft={<Plus size={16} />}
 				>
-					Thêm
+					{tUI("admin.common.add")}
 				</Button>
 			</div>
 
@@ -65,7 +66,7 @@ const ArrayInputComponent = ({
 								type='button'
 								onClick={() => handleRemoveItem(index)}
 								className='p-2 text-red-500 hover:bg-red-500/10 rounded-md font-bold'
-								title='Xóa'
+								title={tUI("admin.common.remove")}
 							>
 								X
 							</button>
@@ -73,7 +74,7 @@ const ArrayInputComponent = ({
 					))
 				) : (
 					<p className='text-sm italic text-text-tertiary bg-surface-bg p-3 rounded-md border border-dashed border-border'>
-						Không có mục nào. Nhấn "Thêm" để tạo mới.
+						{tUI("admin.common.emptyList")}
 					</p>
 				)}
 			</div>
@@ -216,7 +217,7 @@ const RuneEditorForm = memo(
 						{/* Khu vực ngôn ngữ Tiếng Việt */}
 						<div className='border border-border rounded-lg p-4 bg-page-bg space-y-4 shadow-sm'>
 							<h3 className='text-md font-bold text-text-primary border-b border-border pb-2'>
-								Ngôn ngữ: Tiếng Việt (Mặc định)
+								{tUI("admin.common.langVI")}
 							</h3>
 							<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
 								<InputField
@@ -225,7 +226,7 @@ const RuneEditorForm = memo(
 									value={formData.name || ""}
 									onChange={handleInputChange}
 									required
-									placeholder='Nhập tên ngọc...'
+									placeholder={tUI("admin.itemForm.placeholderName")}
 								/>
 								<InputField
 									label={`${tUI("admin.runeForm.regionLabel")} (VI)`}
@@ -263,7 +264,7 @@ const RuneEditorForm = memo(
 						{/* Khu vực ngôn ngữ Tiếng Anh */}
 						<div className='border border-border rounded-lg p-4 bg-page-bg space-y-4 shadow-sm'>
 							<h3 className='text-md font-bold text-blue-500 border-b border-border pb-2'>
-								Ngôn ngữ: Tiếng Anh (Tùy chọn)
+								{tUI("admin.common.langEN")}
 							</h3>
 							<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
 								<InputField

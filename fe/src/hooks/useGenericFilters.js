@@ -11,7 +11,7 @@ export const useGenericFilters = ({
 	prefix,
 	initialCustomFilters = {},
 	defaultSort = "name-asc",
-	itemsPerPage = 24,
+	itemsPerPage = 20,
 	extraParams = {}, // Params cố định luôn được gửi vào API (ví dụ: { onlyBase: "true" })
 }) => {
 	const [searchParams, setSearchParams] = useSearchParams();
