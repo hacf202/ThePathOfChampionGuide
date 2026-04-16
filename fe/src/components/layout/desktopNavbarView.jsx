@@ -34,6 +34,7 @@ import {
 	Sun,
 	Moon,
 	Palette,
+	Book,
 } from "lucide-react";
 
 function DesktopNavbar({ language, handleLanguageChange, tUI }) {
@@ -203,6 +204,13 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 												onClick={handleNavClick}
 											>
 												<BookOpen className='w-5 h-5' /> {tUI("nav.cards")}
+											</NavLink>
+											<NavLink
+												to='/resources'
+												className={dropdownLinkClass}
+												onClick={handleNavClick}
+											>
+												<Book className='w-5 h-5' /> {tUI("nav.resources")}
 											</NavLink>
 										</div>
 									</div>

@@ -38,6 +38,7 @@ import {
 	Moon,
 	Palette,
 	Search,
+	Book,
 } from "lucide-react";
 
 function MobileSidebar({ language, handleLanguageChange, tUI }) {
@@ -259,6 +260,13 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 										onClick={closeSidebar}
 									>
 										<BookOpen className='w-4 h-4' /> {tUI("nav.cards")}
+									</NavLink>
+									<NavLink
+										to='/resources'
+										className={dropdownLinkClass}
+										onClick={closeSidebar}
+									>
+										<Book className='w-4 h-4' /> {tUI("nav.resources")}
 									</NavLink>
 								</div>
 							)}

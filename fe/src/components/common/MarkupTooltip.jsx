@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
+import { stripMarkup } from "../../utils/markupUtils";
 import {
 	useFloating,
 	autoUpdate,
@@ -18,11 +19,6 @@ import { useTranslation } from "../../hooks/useTranslation";
 import { Link } from "react-router-dom";
 import SafeImage from "../common/SafeImage";
 
-// Strip markup tags to plain text to avoid circular dep with MarkupRenderer
-const stripMarkup = (text) => {
-	if (!text) return "";
-	return text.replace(/\[([^:]+):([^|\]]+)(?:\|([^|\]]+))?(?:\|[^\]]*)?\]/g, (_, type, value, label) => label || value);
-};
 
 /**
  * MarkupTooltip - Phiên bản cao cấp dành cho Administrator và Người dùng
@@ -150,12 +146,11 @@ const MarkupTooltip = ({
                                     </div>
                                 </div>
 
-                                <div className="text-slate-200 text-[13px] leading-relaxed whitespace-pre-wrap font-medium">
-                                    {displayDescription
-                                        ? stripMarkup(displayDescription)
-                                        : <span className="opacity-60 italic">{isEN ? "No description available." : "Không có mô tả chi tiết."}</span>
-                                    }
-                                </div>
+                                {displayDescription && (
+                                    <div className="text-slate-200 text-[13px] leading-relaxed whitespace-pre-wrap font-medium">
+                                        {stripMarkup(displayDescription)}
+                                    </div>
+                                )}
 
                                 {href && (
                                     <div className="mt-4 pt-3 border-t border-white/10">

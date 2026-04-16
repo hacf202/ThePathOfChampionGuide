@@ -52,6 +52,7 @@ const Home = () => {
 		{ to: "/maps", icon: Map, label: tUI("nav.maps"), img: BACKGROUND_IMAGES[2], top: "65%", left: "75%", size: "w-18 h-18 lg:w-36 lg:h-36" },
 		{ to: "/tools/ratings", icon: Dices, label: tUI("nav.championRatings"), img: BACKGROUND_IMAGES[9], top: "50%", left: "2%", size: "w-20 h-20 lg:w-36 lg:h-36" },
 		{ to: "/cards", icon: GalleryHorizontal, label: tUI("nav.cards"), img: BACKGROUND_IMAGES[7], top: "2%", left: "64%", size: "w-24 h-24 lg:w-40 lg:h-40" },
+		{ to: "/resources", icon: Archive, label: tUI("nav.resources"), img: BACKGROUND_IMAGES[6], top: "40%", left: "25%", size: "w-20 h-20 lg:w-44 lg:h-44" },
 		{ to: "/champion/C084", icon: Star, label: tUI("nav.newChampion"), img: BACKGROUND_IMAGES[10], top: "0%", left: "49%", size: "w-20 h-20 lg:w-48 lg:h-48" },
 	];
 
@@ -247,8 +248,9 @@ const Home = () => {
 						{ to: "/powers", label: tUI("nav.powers"), icon: Zap, color: "yellow", img: BACKGROUND_IMAGES[1], span: "md:col-span-2 md:row-span-1" },
 						{ to: "/cards", label: tUI("cardList.title"), icon: GalleryHorizontal, color: "indigo", img: BACKGROUND_IMAGES[2], span: "md:col-span-2 md:row-span-2" },
 						{ to: "/runes", label: tUI("nav.runes"), icon: Gem, color: "pink", img: BACKGROUND_IMAGES[6], span: "md:col-span-1 md:row-span-1" },
+						{ to: "/resources", label: tUI("nav.resources"), icon: Archive, color: "amber", img: BACKGROUND_IMAGES[8], span: "md:col-span-1 md:row-span-1" },
 						{ to: "/maps", label: tUI("nav.maps"), icon: Map, color: "green", img: BACKGROUND_IMAGES[5], span: "md:col-span-1 md:row-span-1" },
-						{ to: "/introduction", label: tUI("nav.about"), icon: BookOpen, color: "blue", img: BACKGROUND_IMAGES[3], span: "md:col-span-2 md:row-span-1" },
+						{ to: "/introduction", label: tUI("nav.about"), icon: BookOpen, color: "blue", img: BACKGROUND_IMAGES[3], span: "md:col-span-1 md:row-span-1" },
 					].map((item, idx) => (
 						<NavLink
 							key={idx}
@@ -334,6 +336,7 @@ const Home = () => {
 						{ to: "/randomizer", label: tUI("home.luckyWheel"), desc: tUI("home.luckyWheelDesc"), icon: Dices, color1: "primary-100", btn: tUI("home.tryNow"), iconColor: "primary-600" },
 						{ to: "/tools/ratings", label: tUI("nav.championRatings"), desc: tUI("ratings.subtitle"), icon: Star, color1: "orange-100", btn: tUI("home.viewAllChamps"), iconColor: "orange-600" },
 						{ to: "/tierlist", label: tUI("home.tierListTitle"), desc: tUI("home.tierListDesc"), icon: Trophy, color1: "purple-100", btn: tUI("home.viewTierList"), iconColor: "purple-600" },
+						{ to: "/resources", label: tUI("home.lootTitle"), desc: tUI("home.lootDesc"), icon: Archive, color1: "amber-100", btn: tUI("home.tryNow"), iconColor: "amber-600" },
 						{ to: "/guides", label: tUI("home.pocGuidesTitle"), desc: tUI("home.pocGuidesDesc"), icon: BookOpen, color1: "emerald-100", btn: tUI("home.learnToPlay"), iconColor: "emerald-600" },
 						{ to: "/vault-simulator", label: tUI("nav.vaultSimulator"), desc: tUI("vaultSimulator.description"), icon: Archive, color1: "amber-100", btn: tUI("home.tryNow"), iconColor: "amber-600" },
 					].map((tool, idx) => (

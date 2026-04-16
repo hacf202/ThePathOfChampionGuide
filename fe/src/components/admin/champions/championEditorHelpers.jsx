@@ -424,7 +424,7 @@ export const RequirementsInput = ({ requirements = [], onChange }) => {
 					>
 						<option value='Fragment'>Mảnh tướng</option>
 						<option value='Crystal'>Tinh thể</option>
-						<option value='Nova Crystal'>Tinh thể Nova</option>
+						<option value='Nova Crystal'>Pha Lê Sao Băng</option>
 						<option value='Gemstone'>Đá quý</option>
 					</select>
 					<input

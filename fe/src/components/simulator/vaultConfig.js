@@ -16,7 +16,7 @@ export const ASSETS = {
 	runic_vessel: "https://images.pocguide.top/icon/PoC_Spirit_Blossom_Runic_Vessel.webp",
 	spirit_blossom_chest: "https://images.pocguide.top/icon/PoC_Spirit_Blossom_Runic_Vessel.webp",
 	superior_spirit_blossom_chest: "https://images.pocguide.top/icon/Superior_Spirit_Blossom_Chest.webp",
-	nova_shard: "https://images.pocguide.top/icon/Nova_Shard_icon.webp",
+	nova_shard: "https://images.pocguide.top/icon/novaShardIcon.webp",
 	nova_crystal: "https://images.pocguide.top/icon/Nova_Crystal_icon.webp",
 	rune_shards: "https://images.pocguide.top/icon/20px-PoC_Rune_Shard_icon.webp",
 	silver_star_vessel: "https://images.pocguide.top/icon/Silver_Star_Vessel_Poc.webp",

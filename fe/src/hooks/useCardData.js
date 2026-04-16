@@ -118,7 +118,7 @@ export const useCardData = (queryParams, state, tUI) => {
 			if (fullCards) {
 				const filtered = applyClientSideFilters(fullCards, state.searchTerm, state.customFilters, state.sortOrder);
 				const totalItems = filtered.length;
-				const pageSize = 24;
+				const pageSize = 20;
 				const pagData = {
 					totalItems,
 					totalPages: Math.ceil(totalItems / pageSize),

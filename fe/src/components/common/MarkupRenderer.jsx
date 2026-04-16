@@ -30,11 +30,11 @@ const MarkupRenderer = memo(({ text, className = "" }) => {
 		const onlyIcon = tagOptions.includes("only-icon");
 		const noLink = tagOptions.includes("no-link");
 
-		const renderWithTooltip = (content, customColorClass = "", href = null) => (
+		const renderWithTooltip = (content, customColorClass = "", href = null, customDesc = undefined) => (
 			<MarkupTooltip
 				key={index}
 				title={data?.name || tagLabel}
-				description={data?.description}
+				description={customDesc !== undefined ? customDesc : data?.description}
 				icon={data?.icon}
 				fullImage={data?.fullImage}
 				options={tagOptions}
@@ -74,7 +74,7 @@ const MarkupRenderer = memo(({ text, className = "" }) => {
 
 			case "c": 
 			case "champion":
-				return renderWithTooltip(tagLabel, "text-primary-500 hover:text-primary-400", noLink ? null : `/champion/${data?.id || tagValue}`);
+				return renderWithTooltip(tagLabel, "text-primary-500 hover:text-primary-400", noLink ? null : `/champion/${data?.id || tagValue}`, null);
 
 			case "r": 
 			case "relic":
@@ -91,6 +91,10 @@ const MarkupRenderer = memo(({ text, className = "" }) => {
 			case "cd": 
 			case "card":
 				return renderWithTooltip(tagLabel, "text-orange-500 hover:text-orange-400", noLink ? null : `/card/${data?.id || tagValue}`);
+
+			case "res":
+			case "resource":
+				return renderWithTooltip(tagLabel, "text-amber-500 hover:text-amber-400 shadow-sm", noLink ? null : `/resource/${data?.id || tagValue}`);
 
 			case "v": 
 			case "stat": { 

@@ -40,13 +40,17 @@ const GenericListLayout = ({
 	onResetFilters,
 	renderFilters, // Hàm trả về các component filter (MultiSelect, Dropdown)
 	renderItem, // Hàm trả về component thẻ item (ChampionCard, RelicCard...)
-	renderSkeleton, // Hàm trả về skeleton loading
+	renderSkeleton = () => (
+		<div className='bg-surface-hover/20 animate-pulse rounded-lg h-64 border border-border/40' />
+	), // Hàm mặc định trả về skeleton loading 
 	skeletonCount = 12,
 	customHeaderActions = null, // Nút bấm tùy chỉnh ở góc trên cùng (VD: Tạo Build)
 	customTabs = null, // Các tab chuyển đổi (VD: Community / My Builds)
 
 	// --- Layout Customization ---
 	gridClassName, // Chuỗi class hoặc Hàm nhận vào showDesktopFilter trả về chuỗi class
+	itemClassName, // Hàm nhận vào item trả về chuỗi class (VD: 'col-span-full')
+	showFilterToggle = true, // Ẩn/Hiện nút chuyển đổi bộ lọc
 }) => {
 	const { tUI } = useTranslation();
 	const [showDesktopFilter, setShowDesktopFilter] = useState(false);
@@ -132,29 +136,47 @@ const GenericListLayout = ({
 					</h1>
 
 					<div className='flex items-center gap-2 md:gap-4'>
+						{!showFilterToggle && onSearchChange && (
+							<div className="hidden lg:flex items-center w-64 xl:w-80">
+								<InputField
+									value={searchValue}
+									onChange={e => onSearchChange(e.target.value)}
+									onKeyDown={e => e.key === "Enter" && onSearchSubmit()}
+									placeholder={searchPlaceholder || tUI("common.search")}
+									prefix={<Search size={18} className="text-text-secondary" />}
+								/>
+							</div>
+						)}
 						{customHeaderActions}
-						<div className='hidden lg:flex items-center'>
-							<Button
-								variant='outline'
-								onClick={() => setShowDesktopFilter(!showDesktopFilter)}
-								className='flex items-center gap-2'
-							>
-								{showDesktopFilter ? (
-									<ChevronRight size={18} />
-								) : (
-									<ChevronLeft size={18} />
-								)}
-								{showDesktopFilter
-									? tUI("championList.hideFilter")
-									: tUI("championList.showFilter")}
-							</Button>
-						</div>
+						{showFilterToggle && (
+							<div className='hidden lg:flex items-center relative group'>
+								<Button
+									variant='outline'
+									onClick={() => setShowDesktopFilter(!showDesktopFilter)}
+									className='flex items-center gap-2'
+								>
+									{showDesktopFilter ? (
+										<ChevronRight size={18} />
+									) : (
+										<ChevronLeft size={18} />
+									)}
+									{showDesktopFilter
+										? tUI("championList.hideFilter")
+										: tUI("championList.showFilter")}
+								</Button>
+								
+								{/* Chú thích phím tắt Tab khi hover */}
+								<div className="absolute top-full right-0 mt-2 px-3 py-1 bg-black/80 backdrop-blur-md text-white border border-white/10 text-[10px] uppercase font-black tracking-widest rounded-md opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-[60] translate-y-1 group-hover:translate-y-0 whitespace-nowrap">
+									{tUI("globalSearch.filterTooltip")}
+								</div>
+							</div>
+						)}
 					</div>
 				</div>
 				<div className='flex flex-col lg:flex-row items-start'>
 					{/* --- MAIN CONTENT (GRID DANH SÁCH) --- */}
 					<div
-						className={`w-full transition-[flex] duration-300 ease-in-out ${showDesktopFilter ? "lg:flex-[3] xl:lg:flex-[4]" : "lg:flex-[1]"}`}
+						className={`w-full transition-[flex] duration-300 ease-in-out ${(showFilterToggle && showDesktopFilter) ? "lg:flex-[3] xl:lg:flex-[4]" : "lg:flex-[1]"}`}
 					>
 						<div className='bg-surface-bg rounded-lg border border-border p-2 sm:p-4 shadow-sm min-h-[500px] relative overflow-visible'>
 							<AnimatePresence mode='wait'>
@@ -191,6 +213,7 @@ const GenericListLayout = ({
 																item.id || item._id || item.powerCode || index
 															}
 															layout
+															className={typeof itemClassName === 'function' ? itemClassName(item) : (itemClassName || '')}
 														>
 															{renderItem(item)}
 														</motion.div>
@@ -267,7 +290,7 @@ const GenericListLayout = ({
 
 					{/* --- BỘ LỌC DESKTOP --- */}
 					<AnimatePresence initial={false}>
-						{showDesktopFilter && (
+						{(showFilterToggle && showDesktopFilter) && (
 							<motion.aside
 								key='desktop-filter'
 								initial={{
@@ -325,57 +348,61 @@ const GenericListLayout = ({
 					</AnimatePresence>
 
 					{/* --- BỘ LỌC MOBILE --- */}
-					<div className='lg:hidden w-full p-2 mb-4 rounded-lg border border-border bg-surface-bg shadow-sm order-first relative z-40'>
-						<div className='flex items-center gap-2'>
-							<div className='flex-1 relative min-w-0'>
-								<InputField
-									value={searchValue}
-									onChange={e => onSearchChange(e.target.value)}
-									onKeyDown={e => e.key === "Enter" && handleMobileSearch()}
-									placeholder={searchPlaceholder || tUI("common.search")}
-								/>
-							</div>
-							<Button onClick={handleMobileSearch} className='px-3'>
-								<Search size={18} />
-							</Button>
-							<Button
-								variant='outline'
-								onClick={() => setIsMobileFilterOpen(!isMobileFilterOpen)}
-								className='px-3'
-							>
-								{isMobileFilterOpen ? (
-									<ChevronUp size={18} />
-								) : (
-									<ChevronDown size={18} />
+					{(searchValue !== undefined || onSearchChange) && (
+						<div className='lg:hidden w-full p-2 mb-4 rounded-lg border border-border bg-surface-bg shadow-sm order-first relative z-40'>
+							<div className='flex items-center gap-2'>
+								<div className='flex-1 relative min-w-0'>
+									<InputField
+										value={searchValue}
+										onChange={e => onSearchChange(e.target.value)}
+										onKeyDown={e => e.key === "Enter" && handleMobileSearch()}
+										placeholder={searchPlaceholder || tUI("common.search")}
+									/>
+								</div>
+								<Button onClick={handleMobileSearch} className='px-3'>
+									<Search size={18} />
+								</Button>
+								{showFilterToggle && (
+									<Button
+										variant='outline'
+										onClick={() => setIsMobileFilterOpen(!isMobileFilterOpen)}
+										className='px-3'
+									>
+										{isMobileFilterOpen ? (
+											<ChevronUp size={18} />
+										) : (
+											<ChevronDown size={18} />
+										)}
+									</Button>
 								)}
-							</Button>
+							</div>
+							<AnimatePresence>
+								{isMobileFilterOpen && (
+									<motion.div
+										initial={{ height: 0, opacity: 0, overflow: "hidden" }}
+										animate={{
+											height: "auto",
+											opacity: 1,
+											transitionEnd: { overflow: "visible" },
+										}}
+										exit={{ height: 0, opacity: 0, overflow: "hidden" }}
+									>
+										<div className='pt-4 space-y-4 border-t border-border mt-3'>
+											{renderFilters()}
+											<Button
+												variant='outline'
+												onClick={onResetFilters}
+												className='w-full mt-4'
+											>
+												<RotateCw size={16} className='mr-2' />{" "}
+												{tUI("championList.resetFilter")}
+											</Button>
+										</div>
+									</motion.div>
+								)}
+							</AnimatePresence>
 						</div>
-						<AnimatePresence>
-							{isMobileFilterOpen && (
-								<motion.div
-									initial={{ height: 0, opacity: 0, overflow: "hidden" }}
-									animate={{
-										height: "auto",
-										opacity: 1,
-										transitionEnd: { overflow: "visible" },
-									}}
-									exit={{ height: 0, opacity: 0, overflow: "hidden" }}
-								>
-									<div className='pt-4 space-y-4 border-t border-border mt-3'>
-										{renderFilters()}
-										<Button
-											variant='outline'
-											onClick={onResetFilters}
-											className='w-full mt-4'
-										>
-											<RotateCw size={16} className='mr-2' />{" "}
-											{tUI("championList.resetFilter")}
-										</Button>
-									</div>
-								</motion.div>
-							)}
-						</AnimatePresence>
-					</div>
+					)}
 				</div>{" "}
 				<p className='mt-6 text-xs text-text-secondary text-center mb-2 uppercase tracking-widest'>
 					AD

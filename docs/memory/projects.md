@@ -62,6 +62,15 @@ ThePathOfChampionGuide/
   - **Sticky Sidebar**: Tích hợp `DropDragSidePanel` dính (sticky) giúp tối ưu hóa thao tác kéo thả trên các form dài.
   - Phải hỗ trợ đa ngôn ngữ 100% để đội ngũ quốc tế cũng có thể dùng chung.
   - Các trang danh sách dữ liệu phải có tính đồng nhất phân trang (Pagination), như áp dụng luật **24-item limit**.
+- **Trung tâm dữ liệu (Centralized Data Source)**: Sử dụng Backend API làm nguồn dữ liệu duy nhất (Single Source of Truth), loại bỏ các file JSON tĩnh dư thừa ở Frontend.
+
+### 2. Module: Resources & Treasures (Tài nguyên & Rương)
+- **Mục tiêu**: Cung cấp thư viện tra cứu toàn bộ các loại rương, rương đá quý và vật phẩm tiêu hao trong PoC.
+- **Tính năng cốt lõi**:
+  - **Dữ liệu chuyên sâu**: Hiển thị tỷ lệ rơi (Drop rates), nội dung rương theo từng bậc (Tier-based content) và nguồn gốc (Sources).
+  - **Tích hợp Markup**: Liên kết chéo tự động với các thực thể khác thông qua hệ thống thẻ `[res:id|label]`.
+  - **UX Chuyên dụng**: Sử dụng icon `Book` trong điều hướng, hỗ trợ bộ lọc nhanh và hiển thị bảng dữ liệu tối ưu cho di động (cuộn ngang, compact fonts).
+  - **Vị trí chiến lược**: Xuất hiện đồng bộ trên trang chủ (Hero, Database Grid) và trang cá nhân hóa để tăng tính khám phá.
 
 ### 3. Module: Card Explorer (Lá bài)
 - **Mục tiêu**: Cung cấp thư viện toàn bộ lá bài trong Legends of Runeterra với khả năng tìm kiếm và lọc mạnh mẽ.

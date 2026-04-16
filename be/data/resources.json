@@ -1,0 +1,1202 @@
+[
+  {
+    "id": "stardust",
+    "category": "Tài Nguyên",
+    "category_en": "Currency",
+    "name": "Bụi Tinh Tú",
+    "name_en": "Stardust",
+    "icon": "https://images.pocguide.top/icon/200px-PoC_Stardust.webp",
+    "description": "[res:stardust|Bụi Tinh Tú] là đơn vị tiền tệ nhận được khi bạn sở hữu các vật phẩm dư thừa. Nó được dùng để mua các Cổ vật đặc biệt hoặc tài nguyên trong Cửa Hiệu.",
+    "description_en": "[res:stardust|Stardust] is a currency obtained when you acquire duplicate items. It is used to purchase special Relics or resources in the Emporium.",
+    "sections": [
+      {
+        "sectionName": "SỬ DỤNG ĐỂ MUA VẬT PHẨM TRONG CỬA HIỆU",
+        "sectionName_en": "STARDUST USAGE",
+        "type": "stardust_usage",
+        "data": [
+          {
+            "item": "Cổ vật Thường",
+            "item_en": "Common Relics",
+            "cost": 300
+          },
+          {
+            "item": "Cổ vật Hiếm",
+            "item_en": "Rare Relics",
+            "cost": 500
+          },
+          {
+            "item": "Tôi Luyện Linh Hồn",
+            "item_en": "Spirit Forge",
+            "cost": 100
+          },
+          {
+            "item": "Phước Lành Vũ Trụ",
+            "item_en": "Cosmic Blessing",
+            "cost": 300
+          },
+          {
+            "item": "[res:reliquary|Hòm Thần Tích Vàng]",
+            "item_en": "[res:reliquary|Gold Reliquary]",
+            "cost": 3000
+          },
+          {
+            "item": "[res:gemstone_vessel|Thùng Đá Quý Nhỏ]",
+            "item_en": "[res:gemstone_vessel|Minor Gemstone Vessel]",
+            "cost": 1500
+          },
+          {
+            "item": "[res:gemstone_vessel|Thùng Đá Quý Lớn Khu Vực]",
+            "item_en": "[res:gemstone_vessel|Major Gemstone Vessel]",
+            "cost": 15000
+          },
+          {
+            "item": "[res:runic_vessel|Thùng Ngọc Hoa Linh Lục Địa]",
+            "item_en": "[res:runic_vessel|First Bloom Runic Vessel]",
+            "cost": 8000
+          }
+        ]
+      },
+      {
+        "sectionName": "NGUỒN THU THẬP",
+        "sectionName_en": "GETTING STARDUST",
+        "type": "list",
+        "data": [
+          "[res:fragment|Mảnh Tướng] dư thừa: 10 [res:stardust|Bụi] mỗi mảnh.",
+          "Mở các loại [res:star_vessel|Thùng Tinh Tú].",
+          "Bản sao Cổ Vật dư thừa: Thường (50), Hiếm (100), Sử Thi (300).",
+          "Đánh bại [c:C043|Aurelion Sol] lần đầu: 1000 [res:stardust|Bụi].",
+          "Thưởng 4 lần hoàn thành đầu tiên của Lissandra: 1000 [res:stardust|Bụi] mỗi lần.",
+          "Thưởng lần hoàn thành thứ 2 và 4 của phiêu lưu [c:C026|Yasuo]: 1000 [res:stardust|Bụi].",
+          "Thưởng lần hoàn thành thứ 2 và 4 của phiêu lưu [c:C047|Swain]: 1000 [res:stardust|Bụi].",
+          "Phần thưởng từ Battle Pass (số lượng thay đổi).",
+          "Mua trong [res:emporium|Cửa Hiệu] (5 Tinh Hoa / 1 [res:stardust|Bụi Tinh Tú]).",
+          "Mua bằng [res:glory|Xu Vinh Danh] trong Cửa Hàng Vinh Danh (10 [res:glory|Xu Vinh Danh] / 500 [res:stardust|Bụi Tinh Tú])."
+        ],
+        "data_en": [
+          "Extra copies of [res:fragment|Champion fragments]: 10 per fragment.",
+          "Opening [res:star_vessel|Star Vessels].",
+          "Additional copies of relics: Common (50), Rare (100), Epic (300).",
+          "Beating [c:C043|Aurelion Sol] at the end of The Star Forger (1st time): 1000.",
+          "From the first 4 completion rewards of The Frost Witch adventure: 1000 each.",
+          "The 2nd & 4th completion rewards of The Unforgiven adventure: 1000.",
+          "The 2nd & 4th completion rewards of The Noxian Grand General adventure: 1000.",
+          "Battle Pass rewards (varying amounts).",
+          "Purchasing in the Emporium (5 Shards / 1 [res:stardust|Stardust]).",
+          "Purchasing with [res:glory|Glory] in the Emporium (10 [res:glory|Glory] / 500 [res:stardust|Stardust])."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fragment",
+    "category": "Tài Nguyên",
+    "category_en": "Currency",
+    "name": "Mảnh Tướng",
+    "name_en": "Champion Fragments",
+    "icon": "https://images.pocguide.top/icon/Wild_Fragment.webp",
+    "description": "[res:fragment|Mảnh Tướng] là vật phẩm riêng biệt cho từng tướng, trong khi [res:fragment|Mảnh Ghép Bí Ẩn] có thể dùng chung cho hầu hết các tướng.",
+    "description_en": "[res:fragment|Champion Fragments] are unique to each playable champion, while [res:fragment|Wild Fragments] can be used in place of or in conjunction with Champion Fragments.",
+    "sections": [
+      {
+        "sectionName": "[res:fragment|MẢNH TƯỚNG]",
+        "sectionName_en": "CHAMPION FRAGMENTS",
+        "type": "text",
+        "data": "[res:fragment|Mảnh Tướng] là vật phẩm riêng biệt cho từng tướng có thể chơi được trong Con Đường Anh Hùng. Để mở khóa một tướng hoặc nâng cấp cấp độ sao của tướng đó, bạn phải sử dụng các mảnh của chính tướng đó. Nếu bạn nhận được [res:fragment|Mảnh Tướng] cho các tướng không thể sử dụng thêm mảnh được nữa (đã đạt giới hạn), chúng sẽ được chuyển đổi thành [res:stardust|Bụi Tinh Tú].",
+        "data_en": "[res:fragment|Champion Fragments] are unique to each playable champion in The Path of Champions. To unlock a champion or to upgrade it's star level, fragments of said champion must be used. If you obtain [res:fragment|Champion Fragments] for champions that cannot use any more Fragments, they will be converted to [res:stardust|Stardust]."
+      },
+      {
+        "sectionName": "NGUỒN THU THẬP [res:fragment|MẢNH TƯỚNG]",
+        "sectionName_en": "OBTAINING CHAMPION FRAGMENTS",
+        "type": "fragment_sources",
+        "data": [
+          {
+            "category": "Nguồn chung",
+            "category_en": "General Sources",
+            "sources": [
+              "Tìm thấy trong [res:vault|Rương Vũ Trụ].",
+              "Hoàn thành các Nhiệm vụ hàng tuần.",
+              "Nâng cấp Cấp Huyền Thoại.",
+              "Hoàn thành các chuyến Phiêu lưu.",
+              "Mua từ Cửa Hiệu.",
+              "Hoàn thành Nhiệm vụ Chương - Mảnh tướng [c:C079|Jinx], [c:C065|Lux] và [c:C026|Yasuo] là một phần của phần thưởng này."
+            ],
+            "sources_en": [
+              "Found in [res:vault|Cosmic Vaults].",
+              "Completing Weekly Quests.",
+              "Raising your Path of Champions Legend Level.",
+              "Completing Adventures.",
+              "Purchasing them from the Emporium.",
+              "Completing Chapter Quests - [c:C079|Jinx], [c:C065|Lux] and [c:C026|Yasuo] fragments are part of the rewards."
+            ]
+          },
+          {
+            "category": "Thưởng trực tiếp từ Phiêu lưu",
+            "category_en": "Direct Adventure Rewards",
+            "sources": [
+              "Phần thưởng lần 1 của 'Kẻ Bất Dung Thứ': 40 mảnh [c:C026|Yasuo].",
+              "Phần thưởng lần 1 của 'Nguyên Soái Noxus': 40 mảnh [c:C047|Swain].",
+              "Phần thưởng lần 1 của 'Hắc Diệt Đế Vương': 40 mảnh [c:viego|Viego].",
+              "Phần thưởng lần 1 của 'Nỗi Sợ Viễn Cổ': 40 mảnh [c:C028|Fiddlesticks]."
+            ],
+            "sources_en": [
+              "The Unforgiven's 1st reward: 40 [c:C026|Yasuo Fragments].",
+              "The Noxian Grand General's 1st reward: 40 [c:C047|Swain Fragments].",
+              "The Ruined King's 1st reward: 40 [c:C062|Viego Fragments].",
+              "The Ancient Fear's 1st reward: 40 [c:C028|Fiddlesticks Fragments]."
+            ]
+          }
+        ]
+      },
+      {
+        "sectionName": "[res:fragment|MẢNH GHÉP BÍ ẨN]",
+        "sectionName_en": "WILD FRAGMENTS",
+        "type": "text",
+        "data": "[res:fragment|Mảnh Ghép Bí Ẩn] có thể được sử dụng thay thế hoặc kết hợp với [res:fragment|Mảnh Tướng] để mở khóa tướng hoặc nâng cấp cấp độ sao. Không giống như [res:fragment|Mảnh Tướng], chúng có thể được sử dụng cho bất kỳ tướng nào, ngoại trừ [c:C043|Aurelion Sol].\n\nGiới hạn lưu trữ: Bạn có thể lưu trữ tối đa 500 [res:fragment|Mảnh Ghép Bí Ẩn] cùng lúc. Nếu vượt quá giới hạn, phần mảnh dư thừa vẫn được giữ lại [res:fragment|Mảnh Ghép Bí Ẩn] dư thừa KHÔNG chuyển đổi thành [res:stardust|Bụi Tinh Tú].",
+        "data_en": "[res:fragment|Wild Fragments] can be used in place of or in conjunction with [res:fragment|Champion Fragments] to unlock a champion or to upgrade it's star level. Unlike Champion Fragments, they can be used on any champion, with the exception of [c:C043|Aurelion Sol].\n\nStorage Limit: Up to 500 can be stored at a time. If the limit is exceed with any overflow, the overflown fragments are kept, but more [res:fragment|Wild Fragments] won't be obtained until the stored fragments go under 500. Excess Wild Fragments does not convert to [res:stardust|Stardust]."
+      },
+      {
+        "sectionName": "NGUỒN THU THẬP [res:fragment|MẢNH GHÉP BÍ ẨN]",
+        "sectionName_en": "OBTAINING WILD FRAGMENTS",
+        "type": "list",
+        "data": [
+          "Nhiệm vụ hàng ngày.",
+          "Nâng cấp Cấp Huyền Thoại.",
+          "Phần thưởng Phiêu lưu.",
+          "Mua từ Cửa Hàng Vinh Danh bằng [res:glory|Xu Vinh Danh].",
+          "Mua từ Cửa Hàng bằng Xu.",
+          "Nhận từ [res:vault|Kho Báu Kim Cương]."
+        ],
+        "data_en": [
+          "Daily Quests.",
+          "Raising your Legend Level.",
+          "Adventure Rewards.",
+          "Purchasing from the emporium for [res:glory|Glory].",
+          "Purchasing from the Emporium for Coins.",
+          "From [res:vault|Diamond Vaults]."
+        ]
+      },
+      {
+        "sectionName": "SỬ DỤNG MẢNH - ANH HÙNG TIÊU CHUẨN",
+        "sectionName_en": "USING FRAGMENTS - STANDARD CHAMPIONS",
+        "type": "fragment_star_upgrade",
+        "data": [
+          {
+            "action": "Mở khóa tướng",
+            "action_en": "Unlock champions",
+            "fragments": 30
+          },
+          {
+            "action": "Cấp độ 1 Sao",
+            "action_en": "1st Star",
+            "fragments": 10
+          },
+          {
+            "action": "Cấp độ 2 Sao",
+            "action_en": "2nd Star",
+            "fragments": 20
+          },
+          {
+            "action": "Cấp độ 3 Sao",
+            "action_en": "3rd Star",
+            "fragments": 40
+          },
+          {
+            "action": "Cấp độ 4 Sao",
+            "action_en": "4th Star",
+            "fragments": 60,
+            "crystals": 10
+          },
+          {
+            "action": "Cấp độ 5 Sao",
+            "action_en": "5th Star",
+            "fragments": 80,
+            "crystals": 40
+          },
+          {
+            "action": "Cấp độ 6 Sao",
+            "action_en": "6th Star",
+            "fragments": 100,
+            "nova_crystal": 1
+          }
+        ]
+      },
+      {
+        "sectionName": "NÂNG CẤP CHÒM SAO - TIÊU CHUẨN",
+        "sectionName_en": "CONSTELLATION UPGRADES - STANDARD",
+        "type": "fragment_constellation",
+        "data": [
+          {
+            "name": "Ngôi Sao Chúc Phúc",
+            "name_en": "Star of Blessing",
+            "cost": 40
+          },
+          {
+            "name": "Ngôi Sao Tiền Thưởng",
+            "name_en": "Star of Bounty",
+            "cost": 40
+          },
+          {
+            "name": "Ngôi Sao Khám Phá",
+            "name_en": "Star of Discovery",
+            "cost": 40
+          },
+          {
+            "name": "Ngôi Sao Huyền Thoại",
+            "name_en": "Star of Legends",
+            "cost": 40
+          },
+          {
+            "name": "Ngôi Sao Kỳ Thú",
+            "name_en": "Star of Wonder",
+            "cost": 40
+          }
+        ]
+      },
+      {
+        "sectionName": "SỬ DỤNG MẢNH - ANH HÙNG HOA LINH LỤC ĐỊA",
+        "sectionName_en": "USING FRAGMENTS - SPIRIT BLOSSOM CHAMPIONS",
+        "type": "fragment_au_upgrade",
+        "data": [
+          {
+            "action": "Cấp độ 1 Sao",
+            "action_en": "1st Star",
+            "fragments": 10
+          },
+          {
+            "action": "Cấp độ 2 Sao",
+            "action_en": "2nd Star",
+            "fragments": 60
+          },
+          {
+            "action": "Cấp độ 3 Sao",
+            "action_en": "3rd Star",
+            "fragments": 80
+          }
+        ],
+        "note": "Sau cấp 3 sao, không tốn thêm mảnh để nâng cấp sao cho tướng Hoa Linh Lục Địa.",
+        "note_en": "No more fragments for star levels after 3 stars."
+      },
+      {
+        "sectionName": "NÂNG CẤP CHÒM SAO - ANH HÙNG HOA LINH LỤC ĐỊA",
+        "sectionName_en": "CONSTELLATION UPGRADES - SPIRIT BLOSSOM CHAMPIONS",
+        "type": "fragment_au_constellation",
+        "data": [
+          {
+            "name": "Ngôi Sao Chúc Phúc ",
+            "name_en": "Star of Blessing",
+            "cost": 100
+          },
+          {
+            "name": "3 Ngôi Sao Tiền Thưởng",
+            "name_en": "Three Stars of Bounty",
+            "cost": 100
+          },
+          {
+            "name": "Ngôi Sao Huyền Thoại",
+            "name_en": "Star of Legends",
+            "cost": 100
+          },
+          {
+            "name": "Ngôi Sao Kỳ Thú",
+            "name_en": "Star of Wonder",
+            "cost": 100
+          },
+          {
+            "name": "Thấu Thị Thượng Giới",
+            "name_en": "Celestial insight",
+            "cost": 100
+          },
+          {
+            "name": "Ngôi Sao Khám Phá",
+            "name_en": "Star of Discovery",
+            "cost": 0,
+            "effect": "Không dùng mảnh tướng để nâng cấp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "star_crystal",
+    "category": "Tài Nguyên",
+    "category_en": "Currency",
+    "name": "Pha Lê Tinh Tú",
+    "name_en": "Star Crystals",
+    "icon": "https://images.pocguide.top/icon/Star_Crystal.webp",
+    "description": "Vật phẩm dùng để nâng cấp các mốc 4 sao và 5 sao trong Chòm sao của tướng.",
+    "description_en": "Used to upgrade 4-star and 5-star nodes in a champion's Constellation.",
+    "sections": [
+      {
+        "sectionName": "CÁCH THU THẬP",
+        "sectionName_en": "ACQUIRING [res:star_crystal|STAR CRYSTALS]",
+        "type": "list",
+        "data": [
+          "Tìm thấy trong các loại [res:star_vessel|Thùng Tinh Tú].",
+          "Hoàn thành các chuyến phiêu lưu thế giới.",
+          "Nâng cấp Cấp Huyền Thoại.",
+          "Phần thưởng từ Battle Pass (số lượng thay đổi)."
+        ],
+        "data_en": [
+          "Found in [res:star_vessel|Star Vessels].",
+          "Completing World Adventures.",
+          "Raising your Legend Level.",
+          "Battle Pass rewards (varying amounts)."
+        ]
+      },
+      {
+        "sectionName": "SỬ DỤNG - ANH HÙNG TIÊU CHUẨN",
+        "sectionName_en": "USAGE - STANDARD CHAMPIONS",
+        "type": "star_crystal_usage",
+        "hasFragments": true,
+        "data": [
+          {
+            "action": "Nâng cấp 4 Sao",
+            "action_en": "4th Star",
+            "amount": 10,
+            "fragments": 60
+          },
+          {
+            "action": "Nâng cấp 5 Sao",
+            "action_en": "5th Star",
+            "amount": 40,
+            "fragments": 80
+          }
+        ]
+      },
+      {
+        "sectionName": "SỬ DỤNG - ANH HÙNG HOA LINH LỤC ĐỊA",
+        "sectionName_en": "USAGE - SPIRIT BLOSSOM CHAMPIONS",
+        "type": "star_crystal_usage",
+        "hasFragments": false,
+        "data": [
+          {
+            "action": "Nâng cấp 4 Sao",
+            "action_en": "4th Star",
+            "amount": 10
+          },
+          {
+            "action": "Sao Ngọc",
+            "action_en": "Rune Star",
+            "amount": 20
+          },
+          {
+            "action": "Sao Khám Phá",
+            "action_en": "Star of Discovery",
+            "amount": 20
+          },
+          {
+            "action": "Nâng cấp 5 Sao",
+            "action_en": "5th Star",
+            "amount": 50
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nova_crystal",
+    "category": "Tài Nguyên",
+    "category_en": "Currency",
+    "name": "Pha Lê Sao Băng",
+    "name_en": "Nova Crystals",
+    "icon": "https://images.pocguide.top/icon/Nova_Crystal_LoR_Icon.webp",
+    "description": "Loại Pha Lê đặc biệt quý hiếm có khu vực, dùng để mở khóa sức mạnh tối thượng 6 sao. Có thể được tạo thành bằng cách ghép 100 [res:nova_shard|Mảnh Sao Băng] cùng khu vực.",
+    "description_en": "Rare crystals with assigned regions, used to unlock ultimate 6-star power. Can be created by combining 100 [res:nova_shard|Nova Shards] of the same region.",
+    "sections": [
+      {
+        "sectionName": "CƠ CHẾ GHÉP [res:nova_shard|MẢNH SAO BĂNG]",
+        "sectionName_en": "[res:nova_shard|Nova Shard] Mechanics",
+        "type": "text",
+        "data": "[res:nova_shard|Mảnh Sao Băng] là thành phần cơ bản của [res:nova_crystal|Pha Lê Sao Băng]. Khi bạn tích lũy đủ 100 mảnh thuộc cùng một khu vực, chúng sẽ tự động kết hợp lại thành 1 [res:nova_crystal|Pha Lê Sao Băng] hoàn chỉnh của khu vực đó.",
+        "data_en": "[res:nova_shard|Nova Shards] are the building blocks of [res:nova_crystal|Nova Crystals]. Accumulating 100 shards of the same region (e.g., 100 Demacia shards) will automatically combine them into 1 complete [res:nova_crystal|Nova Crystal] for that region."
+      },
+      {
+        "sectionName": "CÁCH THU THẬP [res:nova_shard|MẢNH SAO BĂNG]",
+        "sectionName_en": "ACQUIRING [res:nova_shard|NOVA SHARDS]",
+        "type": "list",
+        "data": [
+          "Tìm thấy trong các [res:star_vessel|Thùng Tinh Tú].",
+          "Hoàn thành các chuyến phiêu lưu thế giới.",
+          "Nâng cấp Cấp Huyền Thoại."
+        ],
+        "data_en": [
+          "Found in [res:star_vessel|Star Vessels].",
+          "Completing World Adventures.",
+          "Raising your Legend Level."
+        ]
+      },
+      {
+        "sectionName": "CÁCH THU THẬP [res:nova_crystal|PHA LÊ SAO BĂNG]",
+        "sectionName_en": "ACQUIRING [res:nova_crystal|NOVA CRYSTALS]",
+        "type": "list",
+        "data": [
+          "Ghép từ 100 [res:nova_shard|Mảnh Sao Băng] cùng khu vực.",
+          "Tìm thấy trong các [res:star_vessel|Thùng tinh tú]."
+        ],
+        "data_en": [
+          "Combining 100 [res:nova_shard|Nova Shards] of the same region.",
+          "Found in [res:star_vessel|Nova Crystal Vessels]."
+        ]
+      },
+      {
+        "sectionName": "SỬ DỤNG - ANH HÙNG TIÊU CHUẨN",
+        "sectionName_en": "USAGE - STANDARD CHAMPIONS",
+        "type": "nova_crystal_usage",
+        "hasFragments": true,
+        "data": [
+          {
+            "action": "Nâng cấp 6 Sao",
+            "action_en": "6th Star",
+            "amount": 1,
+            "fragments": 100
+          }
+        ]
+      },
+      {
+        "sectionName": "SỬ DỤNG - ANH HÙNG HOA LINH LỤC ĐỊA",
+        "sectionName_en": "USAGE - SPIRIT BLOSSOM CHAMPIONS",
+        "type": "nova_crystal_usage",
+        "hasFragments": false,
+        "data": [
+          {
+            "action": "Nâng cấp 6 Sao",
+            "action_en": "6th Star",
+            "amount": 1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nova_shard",
+    "category": "Tài Nguyên",
+    "category_en": "Currency",
+    "name": "Mảnh Sao Băng",
+    "name_en": "Nova Shards",
+    "icon": "https://images.pocguide.top/icon/Nova_Shard_icon.webp",
+    "description": "Thành phần cơ bản dùng để ghép thành [res:nova_crystal|Pha Lê Sao Băng]. Thu thập 100 mảnh cùng một khu vực sẽ tự động kết hợp thành 1 [res:nova_crystal|Pha Lê Sao Băng] khu vực đó.",
+    "description_en": "The building blocks for [res:nova_crystal|Nova Crystals]. Accumulating 100 shards of the same region will automatically combine them into 1 complete [res:nova_crystal|Nova Crystal] for that region.",
+    "sections": [
+      {
+        "sectionName": "CÁCH THU THẬP",
+        "sectionName_en": "ACQUIRING [res:nova_shard|NOVA SHARDS]",
+        "type": "list",
+        "data": [
+          "Tìm thấy trong các [res:star_vessel|Thùng Tinh Tú].",
+          "Hoàn thành các chuyến phiêu lưu thế giới.",
+          "Nâng cấp Cấp Huyền Thoại."
+        ],
+        "data_en": [
+          "Found in [res:star_vessel|Star Vessels].",
+          "Completing World Adventures.",
+          "Raising your Legend Level."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "vault",
+    "category": "Rương Tài Nguyên",
+    "category_en": "Treasure",
+    "name": "Rương Kho Báu",
+    "name_en": "Vaults",
+    "icon": "https://images.pocguide.top/icon/80px-PoC_Diamond_Vault.webp",
+    "description": "Nguồn chính để thu thập [res:fragment|Mảnh tướng]. Rương cấp cao có cơ chế bảo hiểm giúp bạn nhanh chóng nâng sao cho các tướng chưa đạt tối đa.",
+    "description_en": "The main method of acquiring [res:fragment|Champion Fragments]. Higher tier vaults have duplicate protection to help you upgrade champions faster.",
+    "sections": [
+      {
+        "sectionName": "CÁCH THU THẬP",
+        "sectionName_en": "ACQUIRING [res:vault|VAULTS]",
+        "type": "list",
+        "data": [
+          "Nhiệm vụ hàng ngày: Thưởng [res:vault|Rương Đồng].",
+          "Nhiệm vụ hàng tuần: Thưởng [res:vault|Rương Bạc] (thắng 1/3 Phiêu lưu hàng tuần).",
+          "Nhiệm vụ Con Đường: Thưởng [res:vault|Rương Vàng] và [res:vault|Rương Bạch Kim].",
+          "Hoàn thành Phiêu lưu: Hầu hết các phiêu lưu đều thưởng [res:vault|Rương Vũ Trụ].",
+          "Cửa hàng Vinh Danh: Mua tối đa 5 [res:vault|Rương Bạch Kim] mỗi tháng (20 [res:glory|Xu Vinh Danh]/rương).",
+          "Cấp Huyền Thoại: Thưởng [res:vault|Rương Vàng] (mốc 14, 17, 23, 25, 28 và các mốc từ 30-50 kết thúc bằng 1, 2, 4, 5, 7, 8) và [res:vault|Rương Bạch Kim] (mốc 19, 30 và mốc 30-50 kết thúc bằng 3, 6, 9).",
+          "Battle Pass: Có cả rương miễn phí và độc quyền bản Premium."
+        ],
+        "data_en": [
+          "Daily quests: Reward [res:vault|Bronze Vaults].",
+          "Weekly quests: Reward a [res:vault|Silver Vault] (winning 1/3 Weekly Adventures).",
+          "The Path quests: Reward [res:vault|Gold] and [res:vault|Platinum Vaults].",
+          "Completing Adventures: Almost every adventure rewards a type of [res:vault|Cosmic Vault].",
+          "Glory Store: Up to 5 [res:vault|Platinum Vaults] each month (50 [res:glory|Glory] each).",
+          "Legend Level: Rewards [res:vault|Gold Vaults] (levels 14, 17, 23, 25, 28, and suffix 1, 2, 4, 5, 7, 8) and [res:vault|Platinum Vaults] (levels 19, 30, and suffix 3, 6, 9).",
+          "Battle Pass: Earned via milestones (Premium version has exclusive rewards)."
+        ]
+      },
+      {
+        "sectionName": "BẢO HIỂM TRÙNG LẶP",
+        "sectionName_en": "DUPLICATE PROTECTION",
+        "type": "text",
+        "data": "Cơ chế này áp dụng cho [res:vault|Rương Vàng], [res:vault|Bạch Kim] và [res:vault|Kim Cương]. Nó đảm bảo [res:fragment|mảnh tướng] nhận được luôn dành cho các tướng chưa đạt tối đa sao. Rương sẽ ưu tiên tướng cần đủ số mảnh đó để nâng cấp, tránh việc chuyển đổi thành [res:stardust|Bụi Tinh Tú]. Tuy nhiên, Cổ vật trùng lặp vẫn sẽ bị chuyển thành [res:stardust|Bụi].",
+        "data_en": "Duplicate Protection applies to [res:vault|Gold, Platinum, and Diamond Vaults]. It guarantees [res:fragment|fragments] are for champions not yet fully upgraded. It prioritizes champions needing at least the rewarded amount, avoiding [res:stardust|Stardust] conversion. Relics are not protected and still convert to [res:stardust|Stardust]."
+      },
+      {
+        "sectionName": "PHÂN LOẠI VÀ TỶ LỆ RƠI",
+        "sectionName_en": "TYPES OF VAULTS",
+        "type": "vault_tiers",
+        "data": [
+          {
+            "tier": "Kho Báu Đồng",
+            "tier_en": "Bronze",
+            "tier_id": "bronze",
+            "champ_frags": "95%: 5 Mảnh\n5%: 10 Mảnh",
+            "champ_frags_en": "95%: 5 Fragments\n5%: 10 Fragments",
+            "wild_frags": "—",
+            "relic": "—",
+            "bonus": "—",
+            "source": "Nhiệm vụ ngày, [res:champion_campaign|Chiến Dịch Tướng], Mua bằng [res:stardust|Bụi Tinh Tú] trong Cửa Hiệu",
+            "source_en": "Daily Quests, Champion Campaigns, Emporium"
+          },
+          {
+            "tier": "Kho Báu Bạc",
+            "tier_en": "Silver",
+            "tier_id": "silver",
+            "champ_frags": "90%: 10 Mảnh\n10%: 15 Mảnh",
+            "champ_frags_en": "90%: 10 Fragments\n10%: 15 Fragments",
+            "wild_frags": "—",
+            "relic": "—",
+            "bonus": "—",
+            "source": "Thưởng Phiêu lưu, Nhiệm vụ hàng tuần, Cấp Huyền Thoại 7",
+            "source_en": "Adventure Rewards, Weekly Quests, Legend Level 7"
+          },
+          {
+            "tier": "Kho Báu Vàng",
+            "tier_en": "Gold",
+            "tier_id": "gold",
+            "champ_frags": "90%: 20 Mảnh\n10%: 30 Mảnh",
+            "champ_frags_en": "90%: 20 Fragments\n10%: 30 Fragments",
+            "wild_frags": "—",
+            "relic": "30%: Cổ vật Thường ngẫu nhiên (Luôn có nếu nhận 30 mảnh)",
+            "relic_en": "30%: Random Common Relic (Always if 30 fragments)",
+            "bonus": "—",
+            "source": "Phiêu lưu, Nhiệm vụ, Cấp Huyền Thoại, Cửa Hiệu",
+            "source_en": "Adventures, Quests, Legend Level, Emporium"
+          },
+          {
+            "tier": "Kho Báu Bạch Kim",
+            "tier_en": "Platinum",
+            "tier_id": "platinum",
+            "champ_frags": "60%: 40 Mảnh\n30%: 20+20 Mảnh\n10%: 30+20 Mảnh",
+            "champ_frags_en": "60%: 40 Frags\n30%: 20+20 Frags\n10%: 30+20 Frags",
+            "wild_frags": "—",
+            "relic": "30%: Cổ vật Hiếm ngẫu nhiên (Luôn có nếu nhận 50 mảnh)",
+            "relic_en": "30%: Random Rare Relic (Always if 50 fragments)",
+            "bonus": "—",
+            "source": "Nhiệm vụ Chương V/VI, Cửa Hàng Vinh Danh, Cấp Huyền Thoại",
+            "source_en": "Chapter V/VI Quests, Glory Store, Legend Level"
+          },
+          {
+            "tier": "Kho Báu Kim Cương",
+            "tier_en": "Diamond",
+            "tier_id": "diamond",
+            "champ_frags": "75%: 40+40 Mảnh\n20%: 40+40+40\n5%: 80+80+80",
+            "champ_frags_en": "75%: 40+40 Frags\n20%: 40+40+40\n5%: 80+80+80",
+            "wild_frags": "85%: 20 Mảnh\n14%: 50 Mảnh\n1%: 100 Mảnh",
+            "wild_frags_en": "85%: 20 Wild Frags\n14%: 50 Wild Frags\n1%: 100 Wild Frags",
+            "relic": "65%: Siêu Phước Lành Vũ Trụ\n35%: Cổ vật Hiếm ngẫu nhiên",
+            "relic_en": "65%: Greater Cosmic Blessing\n35%: Random Rare Relic",
+            "bonus": "20%: 10 Pha Lê Tinh Tú\n5%: 150 Đá Quý",
+            "bonus_en": "20%: 10 Star Crystals\n5%: 150 Gemstones",
+            "source": "Nhiệm vụ Thành tựu, Nhiệm vụ Sự kiện, mốc Cấp Huyền Thoại cao",
+            "source_en": "Achievement/Event Quests, High Legend Levels"
+          }
+        ],
+        "note": "Rương Vàng, Bạch Kim và Kim Cương có Bảo hiểm trùng lặp. Các mảnh và vật phẩm sự kiện (Hoa Linh Lục Địa) không xuất hiện trong rương này.",
+        "note_en": "Gold, Platinum, and Diamond Vaults have Duplicate Protection. Spirit Blossom items cannot appear in these Vaults."
+      }
+    ]
+  },
+  {
+    "id": "star_vessel",
+    "category": "Rương Tài Nguyên",
+    "category_en": "Treasure",
+    "name": "Thùng Tinh Tú",
+    "name_en": "Star Vessels",
+    "icon": "https://images.pocguide.top/icon/120px-PoC_Nova_Crystal_Vessel.webp",
+    "description": "Nguồn cung cấp [res:star_crystal|Pha Lê Tinh Tú], [res:nova_shard|Mảnh Sao Băng] và [res:nova_crystal|Pha Lê Sao Băng] chính, giúp nâng cấp tướng lên 4, 5 và 6 sao.",
+    "description_en": "A type of reward that can grant [res:star_crystal|Star Crystals], [res:nova_shard|Nova Shards] and [res:nova_crystal|Nova Crystals], used to upgrade champions to 4, 5 and 6 stars.",
+    "sections": [
+      {
+        "sectionName": "CÁCH THU THẬP",
+        "sectionName_en": "ACQUIRING [res:star_vessel|STAR VESSELS]",
+        "type": "list",
+        "data": [
+          "Thử thách hàng tháng.",
+          "Sự kiện.",
+          "Phần thưởng Cấp Huyền Thoại.",
+          "Cửa hàng."
+        ],
+        "data_en": [
+          "Monthly Challenges.",
+          "Events.",
+          "Legend Level Rewards.",
+          "Store/Emporium."
+        ]
+      },
+      {
+        "sectionName": "BIẾN THỂ KHU VỰC",
+        "sectionName_en": "REGION OF A [res:star_vessel|STAR VESSEL]",
+        "type": "text",
+        "data": "Mỗi [res:star_vessel|Thùng Tinh Tú] đều có biến thể cho từng khu vực cụ thể (cộng với một loại 'Không khu vực'). Khu vực của thùng sẽ quyết định khu vực của [res:star_crystal|Pha Lê Tinh Tú], [res:nova_shard|Mảnh Sao Băng] và [res:nova_crystal|Pha Lê Sao Băng] nhận được. Thùng 'Không khu vực' sẽ cung cấp tài nguyên của một khu vực ngẫu nhiên.",
+        "data_en": "Each [res:star_vessel|Star Vessel] has a variant for each region (plus one 'Regionless'). The region of the vessel affects its rewards, granting [res:star_crystal|Star Crystals] and Nova items of that same region. 'Regionless' vessels grant resources of a random region."
+      },
+      {
+        "sectionName": "PHÂN LOẠI VÀ TỶ LỆ RƠI",
+        "sectionName_en": "TYPES OF STAR VESSELS",
+        "type": "vessel_tiers",
+        "data": [
+          {
+            "tier": "Thùng Tinh Tú Bạc",
+            "tier_en": "Silver",
+            "tier_id": "silver_star",
+            "star_crystals": "85%: 5 [res:star_crystal|Pha Lê Tinh Tú]\n14%: 10 [res:star_crystal|Pha Lê Tinh Tú]\n1%: 25 [res:star_crystal|Pha Lê Tinh Tú]",
+            "star_crystals_en": "85%: 5 [res:star_crystal|Star Crystal]\n14%: 10 [res:star_crystal|Star Crystal]\n1%: 25 [res:star_crystal|Star Crystal]",
+            "stardust": "80%: 75 [res:stardust|Bụi Tinh Tú]\n15%: 250 [res:stardust|Bụi Tinh Tú]",
+            "stardust_en": "80%: 75 [res:stardust|Stardust]\n15%: 250 [res:stardust|Stardust]",
+            "nova": "5%: 20 [res:nova_shard|Mảnh Sao Băng] (Thay thế cho Bụi Tinh Tú)",
+            "nova_en": "5%: 20 [res:nova_shard|Nova Shard] (Replaces Stardust)",
+            "gemstones": "—",
+            "source": "Mua tối đa 6 thùng mỗi tháng trong Cửa Hàng Vinh Danh (30 Xu Vinh Danh/thùng), Thưởng Phiêu lưu",
+            "source_en": "Glory Store (up to 6/month, 30 Glory each), Adventure Rewards"
+          },
+          {
+            "tier": "Thùng Tinh Tú Vàng",
+            "tier_en": "Gold",
+            "tier_id": "gold_star",
+            "star_crystals": "85%: 10 [res:star_crystal|Pha Lê Tinh Tú]\n14%: 20 [res:star_crystal|Pha Lê Tinh Tú]\n1%: 40 [res:star_crystal|Pha Lê Tinh Tú]",
+            "star_crystals_en": "85%: 10 [res:star_crystal|Star Crystal]\n14%: 20 [res:star_crystal|Star Crystal]\n1%: 40 [res:star_crystal|Star Crystal]",
+            "stardust": "80%: 150 [res:stardust|Bụi Tinh Tú]\n20%: 500 [res:stardust|Bụi Tinh Tú]",
+            "stardust_en": "80%: 150 [res:stardust|Stardust]\n20%: 500 [res:stardust|Stardust]",
+            "nova": "85%: 20 [res:nova_shard|Mảnh Sao Băng]\n14%: 50 [res:nova_shard|Mảnh Sao Băng]\n1%: 1 [res:nova_crystal|Pha Lê Sao Băng]",
+            "nova_en": "85%: 20 [res:nova_shard|Nova Shard]\n14%: 50 [res:nova_shard|Nova Shard]\n1%: 1 [res:nova_crystal|Nova Crystal]",
+            "gemstones": "—",
+            "source": "Cửa Hàng Vinh Danh (200 Xu Vinh Danh), Phiêu lưu, Thành tựu, Cấp Huyền Thoại, Sự kiện",
+            "source_en": "Glory Store (200 Glory), Adventures, Achievements, Legend Level, Events"
+          },
+          {
+            "tier": "Thùng Ngọc Tân Tinh",
+            "tier_en": "Nova Crystal Vessel",
+            "tier_id": "nova_crystal",
+            "star_crystals": "65%: 20 [res:star_crystal|Pha Lê Tinh Tú]\n25%: 30 [res:star_crystal|Pha Lê Tinh Tú]\n10%: 40 [res:star_crystal|Pha Lê Tinh Tú]",
+            "star_crystals_en": "65%: 20 [res:star_crystal|Star Crystal]\n25%: 30 [res:star_crystal|Star Crystal]\n10%: 40 [res:star_crystal|Star Crystal]",
+            "stardust": "100%: 500 [res:stardust|Bụi Tinh Tú]",
+            "stardust_en": "100%: 500 [res:stardust|Stardust]",
+            "nova": "100%: 1 [res:nova_crystal|Pha Lê Sao Băng]",
+            "nova_en": "100%: 1 [res:nova_crystal|Nova Crystal]",
+            "gemstones": "14%: 30 [res:gemstone|Đá Quý]\n1%: 250 [res:gemstone|Đá Quý]",
+            "gemstones_en": "14%: 30 [res:gemstone|Gemstone]\n1%: 250 [res:gemstone|Gemstone]",
+            "source": "Cấp Huyền Thoại 80, Đánh bại Lissandra, Nhiệm vụ Đối Mặt Với Nỗi Sợ",
+            "source_en": "Legend Level 80, Defeat Lissandra, Face Your Fears Quest"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "gemstone_vessel",
+    "category": "Rương Tài Nguyên",
+    "category_en": "Treasure",
+    "name": "Thùng Đá Quý",
+    "name_en": "Gemstone Vessels",
+    "icon": "https://images.pocguide.top/icon/80px-PoC_Major_Gemstone_Vessel.webp",
+    "description": "Nguồn cung cấp Đá Quý chính dùng để mở khóa các nâng cấp các Ngôi Sao Tăng Thưởng cho tướng.",
+    "description_en": "The main source of Gemstones used to unlock Celestial upgrades in a Champion's Constellation.",
+    "sections": [
+      {
+        "sectionName": "CÁCH THU THẬP",
+        "sectionName_en": "ACQUIRING GEMSTONE VESSELS",
+        "type": "list",
+        "data": [
+          "Phần thưởng mốc Cấp Huyền Thoại .",
+          "Mua trong Cửa Hiệu.",
+          "Phần thưởng từ Battle Pass bản Premium."
+        ],
+        "data_en": [
+          "Progressing in Legend Level.",
+          "Buying in the Emporium.",
+          "Earned via the Premium Battle Pass."
+        ]
+      },
+      {
+        "sectionName": "BIẾN THỂ KHU VỰC",
+        "sectionName_en": "REGION OF A GEMSTONE VESSEL",
+        "type": "text",
+        "data": "Tương tự như Thùng Sao, Thùng Đá Quý có thể mang nhãn khu vực hoặc 'Không khu vực'. Nếu có khu vực, toàn bộ Đá Quý bên trong sẽ thuộc về khu vực đó. Thùng 'Không khu vực' sẽ cung cấp Đá Quý của một khu vực ngẫu nhiên.",
+        "data_en": "Gemstone vessels can be marked with a region (plus a 'Regionless' one). If it has a region, all Gemstones inside will be of that same region. The 'Regionless' vessel grants Gemstones of a random region."
+      },
+      {
+        "sectionName": "PHÂN LOẠI VÀ TỶ LỆ RƠI",
+        "sectionName_en": "TYPES OF GEMSTONE VESSELS",
+        "type": "gemstone_vessel_tiers",
+        "data": [
+          {
+            "tier": "Thùng Đá Quý Nhỏ",
+            "tier_en": "Minor",
+            "tier_id": "minor_gemstone",
+            "gemstones": "85%: 20 Đá Quý\n14%: 50 Đá Quý\n1%: 100 Đá Quý",
+            "gemstones_en": "85%: 20 Gemstones\n14%: 50 Gemstones\n1%: 100 Gemstones",
+            "source": "Mua tối đa 6 thùng mỗi tháng trong Cửa Hàng Vinh Danh (40 Xu Vinh Danh/thùng), Mua mỗi 24 giờ trong Cửa Hiệu (1500 [res:stardust|Bụi Tinh Tú])",
+            "source_en": "Glory Store (up to 6/month, 40 Glory each), Emporium (1500 [res:stardust|Stardust], every 24h)"
+          },
+          {
+            "tier": "Thùng Đá Quý Lớn",
+            "tier_en": "Major",
+            "tier_id": "major_gemstone",
+            "gemstones": "65%: 200 Đá Quý\n24%: 300 Đá Quý\n10%: 400 Đá Quý\n1%: 800 Đá Quý",
+            "gemstones_en": "65%: 200 Gemstones\n24%: 300 Gemstones\n10%: 400 Gemstones\n1%: 800 Gemstones",
+            "source": "Phần thưởng mốc Cấp Huyền Thoại 74, Cửa Hiệu (15000 [res:stardust|Bụi Tinh Tú]), Battle Pass, Gói Bundle đặc biệt",
+            "source_en": "Legend Level 74 Reward, Emporium (15000 [res:stardust|Stardust]), Battle Pass, Store Bundles"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "spirit_blossom_chest",
+    "category": "Rương Tài Nguyên",
+    "category_en": "Treasure",
+    "name": "Rương Hoa Linh Lục Địa",
+    "name_en": "Spirit Blossom Chests",
+    "icon": "https://images.pocguide.top/icon/Spirit_Blossom_Chest.webp",
+    "description": "Loại rương cung cấp đa dạng tài nguyên gồm Mảnh tướng, Pha Lê Tinh Tú, Pha Lê Sao Băng, Ngọc độc nhất của khu vực Hoa Linh Lục Địa. Phần thưởng được chia thành các Gói.",
+    "description_en": "A type of reward that grants Fragments, Star Crystals, Nova items, and Rune Shards from the Spirit Blossom region. Rewards are divided into Bundles.",
+    "sections": [
+      {
+        "sectionName": "CÁCH THU THẬP",
+        "sectionName_en": "ACQUIRING SPIRIT BLOSSOM CHESTS",
+        "type": "list",
+        "data": [
+          "Mua trong Cửa hàng Cửa Hàng Vinh Danh.",
+          "Sự kiện và Cửa Hiệu.",
+          "Phần thưởng từ Sự Kiện Hoa Linh Lục Địa."
+        ],
+        "data_en": [
+          "Glory Store.",
+          "Events and Store.",
+          "Earned in the Spirit Blossom Campaign."
+        ]
+      },
+      {
+        "sectionName": "CƠ CHẾ GÓI PHẦN THƯỞNG",
+        "sectionName_en": "REWARD BUNDLES MECHANIC",
+        "type": "text",
+        "data": "Rương Hoa Linh Lục Địa chia phần thưởng thành các Gói. Người chơi sẽ nhận được duy nhất một phần thưởng từ mỗi gói có trong loại rương đó.",
+        "data_en": "Spirit Blossom Chests divide their rewards in Reward Bundles. Players get a single reward from EACH Reward Bundle included in that container."
+      },
+      {
+        "sectionName": "PHÂN LOẠI VÀ TỶ LỆ RƠI",
+        "sectionName_en": "TYPES OF SPIRIT BLOSSOM CHESTS",
+        "type": "spirit_blossom_tiers",
+        "data": [
+          {
+            "tier": "Rương Hoa Linh Lục Địa",
+            "tier_en": "Chest",
+            "tier_id": "spirit_blossom_chest",
+            "bundle": "BUNDLE 1",
+            "bundle_en": "BUNDLE 1",
+            "champ_frags_total": "81%",
+            "champ_frags": "57%: 20 [res:fragment|Mảnh tướng]\n15%: 25 [res:fragment|Mảnh tướng]\n4.5%: 30 [res:fragment|Mảnh tướng]\n3%: 40 [res:fragment|Mảnh tướng]\n1.5%: 50 [res:fragment|Mảnh tướng]",
+            "champ_frags_en": "57%: 20 [res:fragment|Fragments]\n15%: 25 [res:fragment|Fragments]\n4.5%: 30 [res:fragment|Fragments]\n3%: 40 [res:fragment|Fragments]\n1.5%: 50 [res:fragment|Fragments]",
+            "star_crystals_total": "17.15%",
+            "star_crystals": "9%: 1 Pha Lê Tinh Tú\n5.1%: 2 Pha Lê Tinh Tú\n3.05%: 5 Pha Lê Tinh Tú",
+            "star_crystals_en": "9%: 1\n5.1%: 2\n3.05%: 5",
+            "nova_total": "1.55%",
+            "nova": "1%: 5 Mảnh Sao Băng\n0.5%: 10 Mảnh Sao Băng\n0.05%: 1 Pha Lê Sao Băng",
+            "nova_en": "1%: 5\n0.5%: 10\n0.05%: 1",
+            "runes": "0.3%: Ngọc Huyền Thoại",
+            "runes_en": "0.3%:\nLegendary Rune",
+            "bonus": "20%: Không\n56%: [res:runic_vessel|2 Mảnh Ngọc]\n11%: 1 [res:star_crystal|Pha Lê Tinh Tú]\n5%: 2 [res:star_crystal|Pha Lê Tinh Tú]\n4.5%: 5 [res:gemstone|Đá Quý]\n2%: 10 [res:gemstone|Đá Quý]\n1%: 5 [res:nova_shard|Mảnh Sao Băng]\n0.5%: 10 [res:nova_shard|Mảnh Sao Băng]",
+            "bonus_en": "20%: No Bonus\n56%: [res:runic_vessel|2 Rune Shards]\n11%: 1 [res:star_crystal|Star Crystal]\n5%: 2 [res:star_crystal|Star Crystals]\n4.5%: 5 [res:gemstone|Gemstones]\n2%: 10 [res:gemstone|Gemstones]\n1%: 5 [res:nova_shard|Nova Shards]\n0.5%: 10 [res:nova_shard|Nova Shards]"
+          },
+          {
+            "tier": "Rương Hoa Linh Lục Địa Cao Cấp",
+            "tier_en": "Superior Chest",
+            "tier_id": "superior_spirit_blossom_chest",
+            "bundle": "BUNDLE 1",
+            "bundle_en": "BUNDLE 1",
+            "champ_frags_total": "79.5%",
+            "champ_frags": "54%: 25 [res:fragment|Mảnh tướng]\n15%: 30 [res:fragment|Mảnh tướng]\n6%: 40 [res:fragment|Mảnh tướng]\n3%: 50 [res:fragment|Mảnh tướng]\n1.5%: 65 [res:fragment|Mảnh tướng]",
+            "champ_frags_en": "54%: 25 [res:fragment|Fragments]\n15%: 30 [res:fragment|Fragments]\n6%: 40 [res:fragment|Fragments]\n3%: 50 [res:fragment|Fragments]\n1.5%: 65 [res:fragment|Fragments]",
+            "star_crystals_total": "18.05%",
+            "star_crystals": "10%: 1 Pha Lê Tinh Tú\n5%: 3 Pha Lê Tinh Tú\n3.05%: 6 Pha Lê Tinh Tú",
+            "star_crystals_en": "10%: 1\n5%: 3\n3.05%: 6",
+            "nova_total": "1.55%",
+            "nova": "1%: 6 Mảnh Sao Băng\n0.5%: 10 Mảnh Sao Băng\n0.05%: 1 Pha Lê Sao Băng",
+            "nova_en": "1%: 6\n0.5%: 10\n0.05%: 1",
+            "runes": "0.9%: Ngọc Huyền Thoại",
+            "runes_en": "0.9%:\nLegendary Rune",
+            "bonus": "20%: Không\n56%: [res:runic_vessel|10 Mảnh Ngọc]\n11%: 1 [res:star_crystal|Pha Lê Tinh Tú]\n5%: 2 [res:star_crystal|Pha Lê Tinh Tú]\n4.5%: 25 [res:gemstone|Đá Quý]\n2%: 50 [res:gemstone|Đá Quý]\n1%: 10 [res:nova_shard|Mảnh Sao Băng]\n0.5%: 20 [res:nova_shard|Mảnh Sao Băng]",
+            "bonus_en": "20%: NO BONUS\n56%: [res:runic_vessel|10 Rune Shards]\n11%: 1 [res:star_crystal|Star Crystal]\n5%: 2 [res:star_crystal|Star Crystals]\n4.5%: 25 [res:gemstone|Gemstones]\n2%: 50 [res:gemstone|Gemstones]\n1%: 10 [res:nova_shard|Mảnh Sao Băng]\n0.5%: 20 [res:nova_shard|Mảnh Sao Băng]"
+          },
+          {
+            "tier": "",
+            "tier_en": "",
+            "tier_id": "superior_spirit_blossom_chest",
+            "bundle": "BUNDLE 2",
+            "bundle_en": "BUNDLE 2",
+            "champ_frags_total": "80.4%",
+            "champ_frags": "54%: 25 Mảnh\n15%: 30 Mảnh\n6%: 40 Mảnh\n3.6%: 50 Mảnh\n1.8%: 65 Mảnh",
+            "champ_frags_en": "54%: 25\n15%: 30\n6%: 40\n3.6%: 50\n1.8%: 65",
+            "star_crystals_total": "18.05%",
+            "star_crystals": "10%: 1 Pha Lê Tinh Tú\n5%: 3 Pha Lê Tinh Tú\n3.05%: 6 Pha Lê Tinh Tú",
+            "star_crystals_en": "10%: 1\n5%: 3\n3.05%: 6",
+            "nova_total": "1.55%",
+            "nova": "1%: 6 Mảnh Sao Băng\n0.5%: 10 Mảnh Sao Băng\n0.05%: 1 Pha Lê Sao Băng",
+            "nova_en": "1%: 6\n0.5%: 10\n0.05%: 1",
+            "runes": "Không",
+            "runes_en": "None",
+            "bonus": "Không",
+            "bonus_en": "None"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "runic_vessel",
+    "category": "Rương Tài Nguyên",
+    "category_en": "Treasure",
+    "name": "Thùng Ngọc",
+    "name_en": "Runic Vessels",
+    "icon": "https://images.pocguide.top/icon/PoC_Spirit_Blossom_Runic_Vessel.webp",
+    "description": "Loại rương cung cấp Ngọc và [res:runic_vessel|Mảnh Ngọc] cho tướng Hoa Linh Lục Địa. Ra mắt lần đầu trong sự kiện Hoa Linh Lục Địa.",
+    "description_en": "A type of reward that gives a Rune from its region, as well as some [res:runic_vessel|Rune Shards]. Introduced in V6.8.",
+    "sections": [
+      {
+        "sectionName": "CÁCH THU THẬP",
+        "sectionName_en": "ACQUIRING RUNIC VESSELS",
+        "type": "list",
+        "data": [
+          "Mua trong [res:glory|Cửa Hàng Vinh Danh].",
+          "Phần thưởng sự kiện đặc biệt."
+        ],
+        "data_en": [
+          "Buying in the [res:glory|Glory Store].",
+          "Special Event Rewards."
+        ]
+      },
+      {
+        "sectionName": "PHÂN LOẠI VÀ TỶ LỆ RƠI",
+        "sectionName_en": "TYPES OF RUNIC VESSELS",
+        "type": "runic_vessel_tiers",
+        "data": [
+          {
+            "tier": "Rương Hoa Linh Lục Địa",
+            "tier_en": "Spirit Blossom",
+            "tier_id": "spirit_blossom_runic",
+            "region": "Hoa Linh Lục Địa",
+            "region_en": "Spirit Blossom",
+            "runes": "81.28%: Ngọc Thường\n17.12%: Ngọc Hiếm\n1.6%: Ngọc Huyền Thoại",
+            "runes_en": "81.28%: Common Rune\n17.12%: Rare Rune\n1.6%: Legendary Rune",
+            "rune_shards": "4",
+            "source": "Cửa hàng Vinh Danh",
+            "source_en": "Glory Store"
+          },
+          {
+            "tier": "First Bloom",
+            "tier_en": "First Bloom",
+            "tier_id": "spirit_blossom_runic",
+            "region": "Hoa Linh Lục Địa",
+            "region_en": "Spirit Blossom",
+            "runes": "81.37%: Ngọc Thường\n17.13%: Ngọc Hiếm\n0.5%: Irresistible Charms\n0.5%: Spiritual Awakening\n0.5%: Thieves in the Night",
+            "runes_en": "81.37%: Common Rune\n17.13%: Rare Rune\n0.5%: Irresistible Charms\n0.5%: Spiritual Awakening\n0.5%: Thieves in the Night",
+            "rune_shards": "4",
+            "source": "Hiện không khả dụng",
+            "source_en": "Unavailable"
+          },
+          {
+            "tier": "Afterglow",
+            "tier_en": "Afterglow",
+            "tier_id": "spirit_blossom_runic",
+            "region": "Hoa Linh Lục Địa",
+            "region_en": "Spirit Blossom",
+            "runes": "81.37%: Ngọc Thường\n17.13%: Ngọc Hiếm\n0.5%: Complete the Cycle\n0.5%: Secrets of the Spirits\n0.5%: Windborne Remains",
+            "runes_en": "81.37%: Common Rune\n17.13%: Rare Rune\n0.5%: Complete the Cycle\n0.5%: Secrets of the Spirits\n0.5%: Windborne Remains",
+            "rune_shards": "4",
+            "source": "Hiện không khả dụng",
+            "source_en": "Unavailable"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "reliquary",
+    "category": "Rương Tài Nguyên",
+    "category_en": "Treasure",
+    "name": "Hòm Thần Tích",
+    "name_en": "Reliquaries",
+    "icon": "https://images.pocguide.top/icon/PoC_Gold_Reliquary.webp",
+    "description": "Vật phẩm chứa các Cổ vật dùng để trang bị cho tướng, giúp gia tăng sức mạnh đáng kể trong các cuộc phiêu lưu.",
+    "description_en": "Chests containing Relics that can be equipped to champions to enhance their power in adventures.",
+    "sections": [
+      {
+        "sectionName": "CÁCH THU THẬP",
+        "sectionName_en": "ACQUIRING RELIQUARIES",
+        "type": "list",
+        "data": [
+          "Hoàn thành Nhiệm vụ hàng tuần: Thưởng [res:reliquary|Hòm Thần Tích Đồng].",
+          "Hoàn thành các Nhiệm vụ của Con Đường Anh Hùng: Thưởng nhiều [res:reliquary|Hòm Thần Tích Bạc].",
+          "Thưởng khi hoàn thành Phiêu lưu: Đặc biệt mốc 5 phiêu lưu Lissandra thưởng [res:reliquary|Hòm Thần Tích Vàng].",
+          "Hoàn thành 2/3 Phiêu lưu hàng tuần: Thưởng 1 [res:reliquary|Hòm Thần Tích Bạc] và 1 [res:reliquary|Hòm Thần Tích Đồng].",
+          "Mua trong [res:glory|Cửa hàng Vinh Danh]: Tối đa 5 [res:reliquary|Hòm Thần Tích Bạc] mỗi tháng (10 [res:glory|Xu Vinh Danh]/rương).",
+          "Phần thưởng Cấp Huyền Thoại: Mốc 12, 22, 26 ([res:reliquary|Hòm Thần Tích Bạc]) và 40, 50 ([res:reliquary|Hòm Thần Tích Vàng]).",
+          "Phần thưởng từ Battle Pass (Bản Premium thường có các Cổ vật độc quyền)."
+        ],
+        "data_en": [
+          "Weekly Quests reward a [res:reliquary|Bronze Reliquary].",
+          "The Path Quests reward many [res:reliquary|Silver Reliquaries].",
+          "Completing Adventures (e.g., 5th reward in The Frost Witch grants a [res:reliquary|Gold Reliquary]).",
+          "Winning 2/3 Weekly Adventures grants 1 [res:reliquary|Silver] and 1 [res:reliquary|Bronze Reliquary].",
+          "Glory Store: Up to 5 [res:reliquary|Silver Reliquaries] each month (10 [res:glory|Glory] each).",
+          "Legend Level Rewards: Levels 12, 22, 26 ([res:reliquary|Silver]) and 40, 50 ([res:reliquary|Gold]).",
+          "Battle Pass rewards (Premium version often has exclusive relics)."
+        ]
+      },
+      {
+        "sectionName": "BẢO HIỂM TRÙNG LẶP",
+        "sectionName_en": "DUPLICATE PROTECTION",
+        "type": "text",
+        "data": "Cơ chế Bảo hiểm trùng lặp áp dụng cho [res:reliquary|Hòm Thần Tích Vàng]. Nó đảm bảo bạn sẽ luôn nhận được Cổ vật chưa sở hữu. Nếu bạn đã có tất cả Cổ vật bậc Sử Thi, phần thưởng sẽ được thay thế bằng 1 [k:spirit_forge|Tôi Luyện Linh Hồn] và 50 [res:gemstone|Đá Quý] của Targon.",
+        "data_en": "Duplicate Protection applies to [res:reliquary|Gold Reliquaries] and [res:vault|Cosmic Vaults]. It guarantees rewards never include Relics already owned. If all Epic-rarity Relics are owned, the rewards include a [k:spirit_forge|Spirit Forge] and 50 [res:gemstone|Targon Gemstones] instead."
+      },
+      {
+        "sectionName": "PHÂN LOẠI VÀ TỶ LỆ RƠI",
+        "sectionName_en": "TYPES OF RELIQUARY",
+        "type": "reliquary_tiers",
+        "data": [
+          {
+            "tier": "Đồng",
+            "tier_en": "Bronze",
+            "tier_id": "bronze",
+            "content": "90%: Cổ vật Thường\n10%: Cổ vật Hiếm",
+            "content_en": "90%: Common Relic\n10%: Rare Relic",
+            "forge": false,
+            "dup": false,
+            "source": "Thưởng Phiêu lưu, Nhiệm vụ hàng tuần",
+            "source_en": "Adventure Rewards, Weekly Quests"
+          },
+          {
+            "tier": "Bạc",
+            "tier_en": "Silver",
+            "tier_id": "silver",
+            "content": "100%: Cổ vật Hiếm",
+            "content_en": "100%: Rare Relic",
+            "forge": false,
+            "dup": false,
+            "source": "Thưởng Phiêu lưu, Cấp Huyền Thoại, Cửa Hàng Vinh Danh",
+            "source_en": "Adventure Rewards, Legend Level, Glory Store"
+          },
+          {
+            "tier": "Vàng",
+            "tier_en": "Gold",
+            "tier_id": "gold",
+            "content": "100%: Cổ vật Sử Thi\nNếu đã có đủ: 1 [k:spirit_forge|Tôi Luyện Linh Hồn] + 50 [res:gemstone|Đá Quý]",
+            "content_en": "100%: Epic Relic\nIf Owned All: 1 [k:spirit_forge|Spirit Forge] + 50 [res:gemstone|Gemstones]",
+            "forge": true,
+            "dup": true,
+            "source": "Cửa Hiệu, Phiêu lưu Lissandra, [k:legend_level|Cấp Huyền Thoại]",
+            "source_en": "Emporium, The Frost Witch reward, [k:legend_level|Legend Level]"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "gemstone",
+    "category": "Tài Nguyên",
+    "category_en": "Currency",
+    "name": "Đá Quý",
+    "name_en": "Gemstones",
+    "icon": "https://images.pocguide.top/icon/Gemstone.webp",
+    "description": "[res:gemstone|Đá quý] có khu vực riêng, dùng để mở khóa các nâng cấp Ngôi Sao Tăng Thưởng trong Chòm sao của tướng.",
+    "description_en": "[res:gemstone|Gemstones] have a region, which indicates that they can only be used on champions of said region. Used to unlock 'Celestial' Constellation upgrades.",
+    "sections": [
+      {
+        "sectionName": "CÁCH THU THẬP",
+        "sectionName_en": "ACQUIRING GEMSTONES",
+        "type": "list",
+        "data": [
+          "Tìm thấy trong các [res:gemstone_vessel|Thùng Đá Quý].",
+          "Mua trong Cửa Hiệu.",
+          "Mua bằng [res:glory|Xu Vinh Danh] trong Cửa Hàng Vinh Danh.",
+          "Nâng cấp Cấp Huyền Thoại."
+        ],
+        "data_en": [
+          "Found in [res:gemstone_vessel|Gemstone Vessels].",
+          "Purchasing them in the Emporium.",
+          "Purchasing them with [res:glory|Glory].",
+          "Raising your Path of Champions Legend Level."
+        ]
+      },
+      {
+        "sectionName": "NÂNG CẤP THƯỢNG GIỚI",
+        "sectionName_en": "CELESTIAL UPGRADES",
+        "type": "gemstone_usage",
+        "data": [
+          {
+            "action": "Huyền Thoại Tinh Tú",
+            "action_en": "Celestial Legends",
+            "amount": "100 - 150"
+          },
+          {
+            "action": "Tài Lộc Thượng Giới",
+            "action_en": "Celestial Fortune",
+            "amount": "200 - 250"
+          },
+          {
+            "action": "Tiền Thưởng Thượng Giới",
+            "action_en": "Celestial Bounty",
+            "amount": "250 - 300"
+          },
+          {
+            "action": "Thấu Thị Thượng Giới",
+            "action_en": "Celestial Insight",
+            "amount": "350 - 400"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "glory",
+    "category": "Tài Nguyên",
+    "category_en": "Currency",
+    "name": "Xu Vinh Danh",
+    "name_en": "Glory",
+    "icon": "https://images.pocguide.top/icon/Glory_coin_icon.webp",
+    "description": "Tiền tệ danh giá nhận được qua Con Đường [res:glory|Vinh Danh]. Dùng để mua các báu vật cao cấp trong [res:glory|Cửa Hàng Vinh Danh].",
+    "description_en": "Prestigious currency acquired through the [res:glory|Glory Road] progression. Used to purchase high-end treasures in the Emporium.",
+    "sections": [
+      {
+        "sectionName": "MỤC ĐÍCH SỬ DỤNG",
+        "sectionName_en": "USAGE",
+        "type": "list",
+        "data": [
+          "Mua Cổ vật Trấn của tướng.",
+          "Mua [res:fragment|Mảnh Ghép Bí Ẩn].",
+          "Mua 10 Mảnh [c:C043|Aurelion Sol].",
+          "Mua [k:cosmic_blessing|Phước Lành Vũ Trụ].",
+          "Mua [res:stardust|Bụi Tinh Tú].",
+          "Mua nhiều loại Thùng chứa báu vật khác."
+        ],
+        "data_en": [
+          "Purchase Signature Relics.",
+          "Purchase [res:fragment|Wild Fragments].",
+          "Purchase 10 [c:C043|Aurelion Sol Fragments].",
+          "Purchase [k:cosmic_blessing|Cosmic Blessing].",
+          "Purchase [res:stardust|Stardust].",
+          "Purchase multiple treasure Containers."
+        ]
+      },
+      {
+        "sectionName": "CÁCH KIẾM XU VINH DANH",
+        "sectionName_en": "GETTING GLORY",
+        "type": "text",
+        "data": "Cách chính để thu thập [res:glory|Vinh Danh] là thăng tiến trên Con Đường [res:glory|Vinh Danh]. Để mở khóa Con Đường [res:glory|Vinh Danh], bạn cần hoàn thành một số nhiệm vụ nhất định trong Con Đường Anh Hùng. Mỗi bậc sẽ thưởng 60 [res:glory|Xu Vinh Danh], tối đa 15 bậc (Tổng cộng 900 [res:glory|Xu Vinh Danh]). Tiến trình này sẽ được làm mới mỗi tháng.",
+        "data_en": "The main way to acquire [res:glory|glory] is by progressing the [res:glory|Glory Road]. Certain Quests must be completed to unlock it. Each Tier grants 60 [res:glory|Glory], up to Tier 15, for a total of 900 [res:glory|Glory]. Progression resets each month."
+      },
+      {
+        "sectionName": "TIẾN TRÌNH CON ĐƯỜNG VINH DANH",
+        "sectionName_en": "GLORY ROAD PROGRESSION",
+        "type": "glory_road",
+        "data": [
+          {
+            "tier": 1,
+            "needed": 24,
+            "total": 24
+          },
+          {
+            "tier": 2,
+            "needed": 28,
+            "total": 52
+          },
+          {
+            "tier": 3,
+            "needed": 34,
+            "total": 86
+          },
+          {
+            "tier": 4,
+            "needed": 42,
+            "total": 128
+          },
+          {
+            "tier": 5,
+            "needed": 52,
+            "total": 180
+          },
+          {
+            "tier": 6,
+            "needed": 64,
+            "total": 244
+          },
+          {
+            "tier": 7,
+            "needed": 78,
+            "total": 322
+          },
+          {
+            "tier": 8,
+            "needed": 94,
+            "total": 416
+          },
+          {
+            "tier": 9,
+            "needed": 112,
+            "total": 528
+          },
+          {
+            "tier": 10,
+            "needed": 132,
+            "total": 660
+          },
+          {
+            "tier": 11,
+            "needed": 154,
+            "total": 814
+          },
+          {
+            "tier": 12,
+            "needed": 178,
+            "total": 992
+          },
+          {
+            "tier": 13,
+            "needed": 204,
+            "total": 1196
+          },
+          {
+            "tier": 14,
+            "needed": 232,
+            "total": 1428
+          },
+          {
+            "tier": 15,
+            "needed": 262,
+            "total": 1690
+          }
+        ],
+        "note": "Tổng XP Thử Thách tối đa có thể kiếm được mỗi tháng (Thử Thách Hàng Tháng + Ác Mộn hàng Tuần) là 1720 XP. Bạn cần hoàn thành hầu hết để đạt bậc tối đa.",
+        "note_en": "Max Challenge XP per month is 1720. You need to do almost all of them to reach Tier 15."
+      },
+      {
+        "sectionName": "CÁCH KIẾM XP THỬ THÁCH",
+        "sectionName_en": "GETTING CHALLENGE XP",
+        "type": "list",
+        "data": [
+          "Thử thách hàng tháng.",
+          "Ác mộng hàng tuần."
+        ],
+        "data_en": [
+          "Monthly Challenges.",
+          "Weekly Nightmares."
+        ]
+      }
+    ]
+  }
+]

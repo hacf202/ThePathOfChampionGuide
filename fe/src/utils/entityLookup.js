@@ -1,6 +1,7 @@
 import axios from "axios";
 import globalsEn from "../assets/data/globals-en_us.json";
 import globalsVi from "../assets/data/globals-vi_vn.json";
+import { initMarkupResources } from "./markupUtils.js";
 
 /**
  * entityLookup - Bộ não tra cứu toàn bộ dữ liệu Wiki LoR
@@ -17,6 +18,7 @@ const dataStore = {
 		items: [],
 		runes: [],
 		cards: [],
+		resources: [],
 	},
 	vi: {
 		keywords: globalsVi.keywords || [],
@@ -27,14 +29,34 @@ const dataStore = {
 		items: [],
 		runes: [],
 		cards: [],
+		resources: [],
 	},
 };
 const investigatedIds = new Set(); // Chứa chuỗi dạng "type:id" hoặc "type:name" đã được tra cứu (kể cả thất bại)
+const pendingIds = new Set();      // Chứa chuỗi dạng "type:id" đang trong quá trình fetch
 let preloadPromise = null;
 
-export const checkCache = (id, type, lang = "vi") => {
+export const isPending = (id, type) => {
+    return pendingIds.has(`${type}:${id}`);
+};
+
+export const markPending = (id, type) => {
+    pendingIds.add(`${type}:${id}`);
+};
+
+export const clearPending = (id, type) => {
+    pendingIds.delete(`${type}:${id}`);
+};
+
+/**
+ * Kiếm tra xem thực thể đã có trong cache hoặc đang được tải hay không.
+ */
+export const checkCache = (id, type, lang = "vi", includePending = true) => {
     // 1. Kiểm tra trong Negative Cache (đã tra cứu rồi bài trừ lặp lại)
     if (investigatedIds.has(`${type}:${id}`)) return true;
+
+    // 2. Kiểm tra xem có đang được tải hay không (nếu yêu cầu)
+    if (includePending && pendingIds.has(`${type}:${id}`)) return true;
 
     const cur = lang === "en" ? "en" : "vi";
     const db = dataStore[cur];
@@ -44,7 +66,8 @@ export const checkCache = (id, type, lang = "vi") => {
         p: "powers", power: "powers",
         i: "items", item: "items",
         rune: "runes",
-        cd: "cards", card: "cards"
+        cd: "cards", card: "cards",
+        res: "resources", resource: "resources"
     };
     
     const storeType = typeMap[type] || type;
@@ -56,13 +79,14 @@ export const checkCache = (id, type, lang = "vi") => {
         powers: "powerCode",
         items: "itemCode",
         runes: "runeCode",
-        cards: "cardCode"
+        cards: "cardCode",
+        resources: "id"
     };
     const idField = idFieldMap[storeType];
     
     const found = db[storeType].some(item => 
         (idField && item[idField] === id) || 
-        item.championID === id || item.name === id
+        item.championID === id || item.id === id || item.name === id
     );
 
     // Nếu tìm thấy, đánh dấu luôn để lần sau check âm tính nhanh hơn
@@ -90,7 +114,8 @@ export const initEntities = async (incomingData = [], type = "cards") => {
         p: "powers", power: "powers",
         i: "items", item: "items",
         rune: "runes",
-        cd: "cards", card: "cards"
+        cd: "cards", card: "cards",
+        res: "resources", resource: "resources"
     };
     const storeType = typeMap[type] || type;
 
@@ -100,7 +125,8 @@ export const initEntities = async (incomingData = [], type = "cards") => {
         powers: "powerCode",
         items: "itemCode",
         runes: "runeCode",
-        cards: "cardCode"
+        cards: "cardCode",
+        resources: "id"
     };
     const idField = idFieldMap[storeType] || "id";
 
@@ -112,13 +138,21 @@ export const initEntities = async (incomingData = [], type = "cards") => {
 
     // Đánh dấu tất cả dữ liệu nạp vào là đã investigated (thành công)
     incomingData.forEach(item => {
-        const id = item[idField] || item.championID || item.name;
-        if (id) investigatedIds.add(`${type}:${id}`);
+        const id = item[idField] || item.championID || item.id || item.name;
+        if (id) {
+            investigatedIds.add(`${type}:${id}`);
+            pendingIds.delete(`${type}:${id}`); // Giải phóng khỏi trạng thái đang tải
+        }
     });
 
-    // Card data usually contains both languages or we treat them as same
+    // Cập nhật cả 2 ngôn ngữ (thường dữ liệu backend trả về đã bao gồm multi-lang hoặc dùng chung)
     dataStore.en[storeType] = merge(dataStore.en[storeType] || [], incomingData, idField);
     dataStore.vi[storeType] = merge(dataStore.vi[storeType] || [], incomingData, idField);
+
+    // Nếu là tài nguyên, cập nhật luôn từ khóa cho markup
+    if (storeType === "resources") {
+        initMarkupResources(incomingData);
+    }
 };
 
 /**
@@ -131,13 +165,14 @@ export const preloadAllEntities = () => {
         try {
             const apiUrl = import.meta.env.VITE_API_URL;
             // Gọi song song các API cốt lõi
-            const [cardsRes, champRes, relicRes, powerRes, itemRes, runeRes] = await Promise.all([
+            const [cardsRes, champRes, relicRes, powerRes, itemRes, runeRes, resourceRes] = await Promise.all([
                 axios.get(`${apiUrl}/api/cards`, { params: { limit: -1 } }),
                 axios.get(`${apiUrl}/api/champions`, { params: { limit: -1 } }),
                 axios.get(`${apiUrl}/api/relics`, { params: { limit: -1 } }),
                 axios.get(`${apiUrl}/api/powers`, { params: { limit: -1 } }),
                 axios.get(`${apiUrl}/api/items`, { params: { limit: -1 } }),
-                axios.get(`${apiUrl}/api/runes`, { params: { limit: -1 } })
+                axios.get(`${apiUrl}/api/runes`, { params: { limit: -1 } }),
+                axios.get(`${apiUrl}/api/resources`)
             ]);
 
             if (cardsRes.data?.items) initEntities(cardsRes.data.items, "cards");
@@ -146,6 +181,7 @@ export const preloadAllEntities = () => {
             if (powerRes.data?.items) initEntities(powerRes.data.items, "powers");
             if (itemRes.data?.items) initEntities(itemRes.data.items, "items");
             if (runeRes.data?.items) initEntities(runeRes.data.items, "runes");
+            if (resourceRes.data)     initEntities(resourceRes.data, "resources");
 
             return true;
         } catch (error) {
@@ -160,20 +196,16 @@ export const preloadAllEntities = () => {
 
 /**
  * Reset toàn bộ entity cache (client-side).
- * Gọi sau khi admin tạo/sửa/xóa bất kỳ entity nào để Markup
- * lấy dữ liệu mới trong lần preload tiếp theo.
- * @param {string} [type] - Nếu truyền vào ('cards','champions',...), chỉ xóa type đó.
- *                          Nếu không truyền, xóa toàn bộ cache.
  */
 export const invalidateEntityCache = (type = null) => {
     if (type) {
-        const storeType = { c:"champions",r:"relics",p:"powers",i:"items",rune:"runes",cd:"cards",cards:"cards",champions:"champions" }[type] || type;
+        const storeType = { c:"champions",r:"relics",p:"powers",i:"items",rune:"runes",cd:"cards",cards:"cards",champions:"champions",res:"resources",resources:"resources" }[type] || type;
         dataStore.vi[storeType] = [];
         dataStore.en[storeType] = [];
         console.log(`[EntityCache] Invalidated: ${storeType}`);
     } else {
         // Xóa toàn bộ
-        ["champions","relics","powers","items","runes","cards"].forEach(t => {
+        ["champions","relics","powers","items","runes","cards","resources"].forEach(t => {
             dataStore.vi[t] = [];
             dataStore.en[t] = [];
         });
@@ -331,6 +363,26 @@ export const getEntityData = (value, type, lang = "vi") => {
 			}
 			break;
 		}
+
+		case "res":
+		case "resource": {
+			const found = db.resources.find(r => 
+				normalize(r.id) === searchKey || 
+				normalize(r.name) === searchKey || 
+				normalize(r.name_en) === searchKey
+			);
+			if (found) {
+				const isEn = cur === "en";
+				return {
+					id: found.id,
+					name: isEn ? found.name_en : found.name,
+					description: isEn ? found.description_en : found.description,
+					icon: found.icon,
+					type: "resource"
+				};
+			}
+			break;
+		}
 	}
 
 	return null;
@@ -378,6 +430,12 @@ export const getAllEntities = (type, lang = "vi") => {
 			id: c.cardCode, 
 			name: (cur === "en" ? c.translations?.en?.cardName : null) || c.cardName, 
 			nameEn: c.translations?.en?.cardName || "" 
+		}));
+		case "res":
+		case "resource": return db.resources.map(r => ({
+			id: r.id,
+			name: (cur === "en" ? r.name_en : r.name),
+			nameEn: r.name_en || ""
 		}));
 		default: return [];
 	}

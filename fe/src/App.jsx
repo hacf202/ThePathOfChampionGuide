@@ -27,6 +27,7 @@ import RuneDetail from "./components/rune/runeDetail.jsx";
 import GuideDetail from "./components/guide/guideDetail.jsx";
 import AdventureMapDetail from "./components/map/adventureMapDetail.jsx";
 import CardDetail from "./components/card/cardDetail.jsx";
+import ResourceDetailPage from "./components/resource/resourceDetailPage.jsx";
 
 // Trang chính
 import Home from "./pages/home.jsx";
@@ -43,6 +44,8 @@ import TierListIndex from "./pages/tierList.jsx";
 import VaultSimulator from "./pages/vaultSimulator.jsx";
 import CardList from "./pages/cardList.jsx";
 import ChampionRatingPage from "./pages/championRatingPage.jsx";
+import ResourceListPage from "./pages/resourceListPage.jsx";
+
 import ErrorPage from "./pages/ErrorPage.jsx";
 
 
@@ -171,6 +174,8 @@ const router = createBrowserRouter([
 			{ path: "map/:adventureID", element: <AdventureMapDetail /> },
 			{ path: "cards", element: <CardList /> },
 			{ path: "card/:cardCode", element: <CardDetail /> },
+			{ path: "resources", element: <ResourceListPage /> },
+			{ path: "resource/:resourceId", element: <ResourceDetailPage /> },
 			{ path: "tierlist", element: <TierListIndex /> },
 			{ path: "tierlist/champions", element: <TierListIndex /> },
 			{ path: "tierlist/relics", element: <TierListIndex /> },

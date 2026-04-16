@@ -146,6 +146,12 @@ NODE Frontend
       NODE RandomWheel
         DESC Vòng quay tướng ngẫu nhiên
         FILE fe/src/pages/randomWheelPage.jsx
+      NODE ResourceList
+        DESC Thư viện tài nguyên và báu vật trong game
+        FILE fe/src/pages/resourceListPage.jsx
+      NODE ResourceDetail
+        DESC Chi tiết một tài nguyên (Stardust, Mảnh ghép, Rương...)
+        FILE fe/src/pages/resourceDetailPage.jsx
 
     NODE Components
       DESC Các domain UI components chuyên biệt

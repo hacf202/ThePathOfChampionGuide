@@ -12,7 +12,7 @@ import {
 import { AnimatePresence, motion } from "framer-motion";
 import { getAllEntities, initEntities } from "../../utils/entityLookup";
 import MarkupRenderer from "../common/MarkupRenderer";
-import { stripMarkup } from "../../utils/markupStripper";
+import { stripMarkup } from "../../utils/markupUtils";
 import { Eye, Code, Type, Bold, Highlighter, Search, XCircle, ChevronDown, ChevronUp, Swords, Shield, Zap } from "lucide-react";
 
 /**

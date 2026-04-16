@@ -56,6 +56,7 @@ const CATEGORIES = [
 	{ key: "items",     labelKey: "globalSearch.categoryItem",     icon: Package,   route: (id) => `/item/${id}`,     color: "text-green-400",  bgColor: "bg-green-400/10",  borderColor: "border-green-400/20" },
 	{ key: "runes",     labelKey: "globalSearch.categoryRune",     icon: Gem,       route: (id) => `/rune/${id}`,     color: "text-cyan-400",   bgColor: "bg-cyan-400/10",   borderColor: "border-cyan-400/20" },
 	{ key: "cards",     labelKey: "globalSearch.categoryCard",     icon: BookOpen,  route: (id) => `/card/${id}`,     color: "text-orange-400", bgColor: "bg-orange-400/10", borderColor: "border-orange-400/20" },
+	{ key: "resources", labelKey: "globalSearch.categoryResource", icon: Gem,       route: (id) => `/resource/${id}`, color: "text-amber-400",  bgColor: "bg-amber-400/10",  borderColor: "border-amber-400/20" },
 ];
 
 const norm = (str) => removeAccents((str || "").toLowerCase().trim());

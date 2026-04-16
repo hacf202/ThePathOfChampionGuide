@@ -12,6 +12,7 @@
  *   items:     [{ id, nameVi, nameEn }],
  *   runes:     [{ id, nameVi, nameEn }],
  *   cards:     [{ id, nameVi, nameEn }],
+ *   resources: [{ id, nameVi, nameEn }],
  * }
  */
 
@@ -25,18 +26,19 @@ import { getCachedPowers }   from "./powers.js";
 import { getCachedItems }    from "./items.js";
 import { getCachedRunes }    from "./runes.js";
 import { getCachedCards }    from "./cards.js";
+import { getCachedResources } from "./resources.js";
 
 const router = express.Router();
 
-// Cache riêng cho search index — TTL 30 phút
+// Cache riêng cho search index — TTL 24h
 const searchIndexCache = cacheManager.getOrCreateCache("search_index", {
-	stdTTL: 86400, // 24 giờ — dữ liệu game rất ít thay đổi
+	stdTTL: 86400,
 	checkperiod: 120,
 });
 const CACHE_KEY = "global_search_index";
 
 /**
- * Trim dữ liệu champion — chỉ giữ id + tên
+ * Trim dữ liệu thực thể — chỉ giữ id + tên
  */
 function mapChampions(list) {
 	return list.map(c => ({
@@ -86,6 +88,14 @@ function mapCards(list) {
 	}));
 }
 
+function mapResources(list) {
+	return (list || []).map(r => ({
+		id:     r.id,
+		nameVi: r.name || "",
+		nameEn: r.name_en || "",
+	}));
+}
+
 /**
  * GET /api/search/index
  */
@@ -98,14 +108,15 @@ router.get("/index", async (req, res) => {
 			return res.json(cached);
 		}
 
-		// Lấy song song từ các cache hiện có (không query DB lại nếu đã cache)
-		const [champions, relics, powers, items, runes, cards] = await Promise.all([
+		// Lấy song song từ các cache hiện có
+		const [champions, relics, powers, items, runes, cards, resourceData] = await Promise.all([
 			getCachedChampions(),
 			getCachedRelics(),
 			getCachedPowers(),
 			getCachedItems(),
 			getCachedRunes(),
 			getCachedCards(),
+			getCachedResources(),
 		]);
 
 		const index = {
@@ -115,10 +126,12 @@ router.get("/index", async (req, res) => {
 			items:     mapItems(items),
 			runes:     mapRunes(runes),
 			cards:     mapCards(cards),
+			resources: mapResources(resourceData),
 			// Thống kê cho debug
 			_meta: {
-				total:     champions.length + relics.length + powers.length + items.length + runes.length + cards.length,
-				cachedAt:  new Date().toISOString(),
+				total: (champions?.length || 0) + (relics?.length || 0) + (powers?.length || 0) + 
+					   (items?.length || 0) + (runes?.length || 0) + (cards?.length || 0) + (resourceData?.length || 0),
+				cachedAt: new Date().toISOString(),
 			},
 		};
 
@@ -134,8 +147,7 @@ router.get("/index", async (req, res) => {
 });
 
 /**
- * POST /api/search/invalidate  (Admin only, tùy chọn)
- * Xóa search index cache khi data thay đổi
+ * POST /api/search/invalidate
  */
 router.post("/invalidate", (req, res) => {
 	searchIndexCache.del(CACHE_KEY);

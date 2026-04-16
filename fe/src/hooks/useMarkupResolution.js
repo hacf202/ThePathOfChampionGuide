@@ -2,10 +2,57 @@
 import { useState, useCallback } from "react";
 import axios from "axios";
 import { parseMarkup } from "../utils/markupParser";
-import { initEntities, checkCache, markInvestigated } from "../utils/entityLookup";
+import { initEntities, checkCache, markInvestigated, markPending, clearPending } from "../utils/entityLookup";
 import { useTranslation } from "./useTranslation";
 
 const API_BASE = import.meta.env.VITE_API_URL;
+
+/**
+ * GLOBAL REQUEST BATCHING SYSTEM
+ * Thu thập tất cả yêu cầu resolve từ các component đang mount cùng lúc
+ * và gửi duy nhất 1 yêu cầu gộp sau 50ms.
+ */
+let resolutionQueue = {
+    cd: new Set(),
+    c: new Set(),
+    p: new Set(),
+    r: new Set(),
+    i: new Set(),
+    rune: new Set()
+};
+let debounceTimer = null;
+
+const processQueue = async (language) => {
+    const categories = {
+        cd: { ids: Array.from(resolutionQueue.cd), endpoint: "cards", type: "cards", mark: "cd" },
+        c:  { ids: Array.from(resolutionQueue.c),  endpoint: "champions", type: "champions", mark: "c" },
+        p:  { ids: Array.from(resolutionQueue.p),  endpoint: "powers", type: "powers", mark: "p" },
+        r:  { ids: Array.from(resolutionQueue.r),  endpoint: "relics", type: "relics", mark: "r" },
+        i:  { ids: Array.from(resolutionQueue.i),  endpoint: "items", type: "items", mark: "i" },
+        rune: { ids: Array.from(resolutionQueue.rune), endpoint: "runes", type: "runes", mark: "rune" }
+    };
+
+    // Clear queue ngay lập tức để nhận đợt tiếp theo
+    resolutionQueue = { cd: new Set(), c: new Set(), p: new Set(), r: new Set(), i: new Set(), rune: new Set() };
+    debounceTimer = null;
+
+    const promises = Object.values(categories)
+        .filter(cat => cat.ids.length > 0)
+        .map(cat => {
+            return axios.post(`${API_BASE}/api/${cat.endpoint}/resolve`, { ids: cat.ids })
+                .then(res => {
+                    if (res.data) initEntities(res.data, cat.type);
+                    cat.ids.forEach(id => markInvestigated(id, cat.mark));
+                })
+                .catch(err => {
+                    console.error(`Failed to batch resolve ${cat.endpoint}:`, err);
+                    // Nếu lỗi, xóa khỏi pending để có thể thử lại
+                    cat.ids.forEach(id => clearPending(id, cat.mark));
+                });
+        });
+
+    await Promise.all(promises);
+};
 
 /**
  * Hook quét text để tìm các thực thể markup và nạp chúng vào entityLookup cache nếu chưa có.
@@ -21,123 +68,50 @@ export const useMarkupResolution = () => {
         const tags = segments.filter(s => s.type === "tag");
         if (tags.length === 0) return;
 
-        // Group IDs by type and filter out already cached ones
-        const groups = tags.reduce((acc, tag) => {
+        let hasNewIds = false;
+
+        const addIdToQueue = (idVal, typeVal) => {
+            if (!idVal) return;
+            
+            // Chuẩn hóa type
+            const typeMap = { card: "cd", champion: "c", power: "p", relic: "r", item: "i" };
+            const type = typeMap[typeVal] || typeVal;
+
+            if (checkCache(idVal, type, language, true)) return;
+
+            if (resolutionQueue[type]) {
+                resolutionQueue[type].add(idVal);
+                markPending(idVal, type);
+                hasNewIds = true;
+            }
+        };
+
+        tags.forEach(tag => {
             const type = tag.tagType;
             const id = tag.tagValue;
             
-            const addId = (idVal, typeVal) => {
-                if (!idVal || checkCache(idVal, typeVal, language)) return;
-                if (!acc[typeVal]) acc[typeVal] = new Set();
-                acc[typeVal].add(idVal);
-            };
+            // Thêm ID chính
+            addIdToQueue(id, type);
 
-            // Add the primary ID
-            addId(id, type);
-
-            // Also check tagOptions for potential item/relic codes if it's a card/champion
+            // Kiểm tra các item/relic trong options (nếu có)
             if (["cd", "card", "c", "champion"].includes(type) && tag.tagOptions) {
                 tag.tagOptions.forEach(opt => {
-                    // We assume options that look like item codes (e.g. starting with numbers or card/item patterns) should be checked
-                    // For safety, we can just try to resolve any non-reserved strings as items
                     const reserved = ["icon", "no-icon", "no-link", "only-icon", "img-full", "img-icon"];
                     if (!reserved.includes(opt.toLowerCase())) {
-                        addId(opt, "i"); // Try as item
-                        addId(opt, "r"); // Try as relic (some decks might have them)
+                        addIdToQueue(opt, "i");
+                        addIdToQueue(opt, "r");
                     }
                 });
             }
+        });
 
-            return acc;
-        }, {});
-
-        // Nếu tất cả đã có trong cache, không cần gọi API
-        if (Object.keys(groups).length === 0) return;
-
-        setResolving(true);
-        try {
-            const promises = [];
-
-            // 1. Resolve Cards
-            if (groups.cd || groups.card) {
-                const cardIds = Array.from(new Set([
-                    ...(groups.cd || []), 
-                    ...(groups.card || [])
-                ]));
-                promises.push(
-                    axios.post(`${API_BASE}/api/cards/resolve`, { ids: cardIds })
-                        .then(res => {
-                            if (res.data) initEntities(res.data, "cards");
-                            cardIds.forEach(id => markInvestigated(id, "cd"));
-                        })
-                );
-            }
-
-            // 2. Resolve Champions
-            if (groups.c || groups.champion) {
-                const champIds = Array.from(new Set([...(groups.c || []), ...(groups.champion || [])]));
-                promises.push(
-                    axios.post(`${API_BASE}/api/champions/resolve`, { ids: champIds })
-                        .then(res => {
-                            if (res.data) initEntities(res.data, "champions");
-                            champIds.forEach(id => markInvestigated(id, "c"));
-                        })
-                );
-            }
-
-            // 3. Resolve Powers
-            if (groups.p || groups.power) {
-                const powerIds = Array.from(new Set([...(groups.p || []), ...(groups.power || [])]));
-                promises.push(
-                    axios.post(`${API_BASE}/api/powers/resolve`, { ids: powerIds })
-                        .then(res => {
-                            if (res.data) initEntities(res.data, "powers");
-                            powerIds.forEach(id => markInvestigated(id, "p"));
-                        })
-                );
-            }
-
-            // 4. Resolve Relics
-            if (groups.r || groups.relic) {
-                const relicIds = Array.from(new Set([...(groups.r || []), ...(groups.relic || [])]));
-                promises.push(
-                    axios.post(`${API_BASE}/api/relics/resolve`, { ids: relicIds })
-                        .then(res => {
-                            if (res.data) initEntities(res.data, "relics");
-                            relicIds.forEach(id => markInvestigated(id, "r"));
-                        })
-                );
-            }
-
-            // 5. Resolve Items
-            if (groups.i) {
-                const itemIds = Array.from(groups.i);
-                promises.push(
-                    axios.post(`${API_BASE}/api/items/resolve`, { ids: itemIds })
-                        .then(res => {
-                            if (res.data) initEntities(res.data, "items");
-                            itemIds.forEach(id => markInvestigated(id, "i"));
-                        })
-                );
-            }
-
-            // 6. Resolve Runes
-            if (groups.rune) {
-                const runeIds = Array.from(groups.rune);
-                promises.push(
-                    axios.post(`${API_BASE}/api/runes/resolve`, { ids: runeIds })
-                        .then(res => {
-                            if (res.data) initEntities(res.data, "runes");
-                            runeIds.forEach(id => markInvestigated(id, "rune"));
-                        })
-                );
-            }
-            
-            await Promise.all(promises);
-        } catch (error) {
-            console.warn("Failed to resolve markup entities dynamics:", error);
-        } finally {
-            setResolving(false);
+        if (hasNewIds) {
+            setResolving(true);
+            if (debounceTimer) clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(async () => {
+                await processQueue(language);
+                setResolving(false);
+            }, 50); // Đợi 50ms để gom nhóm từ các component khác
         }
     }, [language]);
 

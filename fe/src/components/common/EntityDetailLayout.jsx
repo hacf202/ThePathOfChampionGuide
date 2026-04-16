@@ -47,7 +47,8 @@ function EntityDetailLayout({
 		compatibleTitle: "Compatible Champions",
 		noCompatible: "No compatible champions found",
 		errorTitle: "Error"
-	}
+	},
+	children
 }) {
 	if (error) {
 		return (
@@ -119,33 +120,38 @@ function EntityDetailLayout({
 								</div>
 							</div>
 
-							{/* Danh sách Tướng tương thích */}
-							<h2 className='text-xl sm:text-3xl font-semibold mt-8 mb-4 font-primary'>
-								{labels.compatibleTitle}
-							</h2>
+							{/* Danh sách Tướng tương thích (Chỉ hiện nếu có hoặc là trang Item/Relic cần thiết) */}
+							{compatibleChampions.length > 0 && (
+								<>
+									<h2 className='text-xl sm:text-3xl font-semibold mt-8 mb-4 font-primary'>
+										{labels.compatibleTitle}
+									</h2>
 
-							{compatibleChampions.length > 0 ? (
-								<div className='flex flex-wrap justify-center gap-2 sm:gap-3 rounded-md bg-surface-hover p-4 border border-border'>
-									{compatibleChampions.map(champ => (
-										<Link
-											key={champ.championID || champ.id}
-											to={`/champion/${encodeURIComponent(champ.championID || champ.id)}`}
-											className='group rounded-2xl p-2 transition-all hover:shadow-lg hover:scale-[1.03] bg-surface-bg border border-border text-center flex flex-col h-full w-full max-w-[136px]'
-										>
-											<SafeImage
-												className='w-full max-w-[120px] aspect-square mx-auto rounded-2xl object-cover border-2 border-border group-hover:border-primary-500'
-												src={champ.image}
-												alt={champ.name}
-											/>
-											<h3 className='text-xs sm:text-sm font-semibold mt-1.5 text-text-primary group-hover:text-primary-500 leading-tight'>
-												{champ.name}
-											</h3>
-										</Link>
-									))}
-								</div>
-							) : (
-								<div className='text-center p-8 rounded-md bg-surface-hover text-text-secondary border border-dashed border-border text-lg'>
-									<p>{labels.noCompatible}</p>
+									<div className='flex flex-wrap justify-center gap-2 sm:gap-3 rounded-md bg-surface-hover p-4 border border-border'>
+										{compatibleChampions.map(champ => (
+											<Link
+												key={champ.championID || champ.id}
+												to={`/champion/${encodeURIComponent(champ.championID || champ.id)}`}
+												className='group rounded-2xl p-2 transition-all hover:shadow-lg hover:scale-[1.03] bg-surface-bg border border-border text-center flex flex-col h-full w-full max-w-[136px]'
+											>
+												<SafeImage
+													className='w-full max-w-[120px] aspect-square mx-auto rounded-2xl object-cover border-2 border-border group-hover:border-primary-500'
+													src={champ.image}
+													alt={champ.name}
+												/>
+												<h3 className='text-xs sm:text-sm font-semibold mt-1.5 text-text-primary group-hover:text-primary-500 leading-tight'>
+													{champ.name}
+												</h3>
+											</Link>
+										))}
+									</div>
+								</>
+							)}
+
+							{/* NỘI DUNG TÙY CHỈNH THÊM (Children) */}
+							{children && (
+								<div className='mt-8'>
+									{children}
 								</div>
 							)}
 						</div>

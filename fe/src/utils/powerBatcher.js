@@ -5,7 +5,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 // Cache cục bộ giúp lưu trữ dữ liệu đã tải, không tải lại nếu đã có
 const powerCache = new Map();
 
-// Danh sách các ID đang chờ được gọi API
+// Danh sách các ID đang chờ được gọi APIva
 let pendingIds = new Set();
 
 // Lưu trữ các hàm resolve, reject của Promise để trả data về cho đúng component
