@@ -40,6 +40,19 @@ export const ThemeProvider = ({ children }) => {
     // If artwork is selected, we ALWAYS use dark mode styles
     const effectiveTheme = bgImage ? "dark" : theme;
 
+    // Helper for robust storage
+    const safeSetItem = (key, value) => {
+        try {
+            localStorage.setItem(key, value);
+        } catch (e) {
+            console.error(`Storage limit exceeded for ${key}:`, e);
+            // If it's a dataURL and it failed, we might want to clear it to avoid repeated errors
+            if (value && value.startsWith("data:") && e.name === "QuotaExceededError") {
+                 // Option: clear the large item or notify user
+            }
+        }
+    };
+
     // Apply Theme Class
     useEffect(() => {
         const root = window.document.documentElement;
@@ -51,7 +64,7 @@ export const ThemeProvider = ({ children }) => {
         }
         
         root.classList.add(targetTheme);
-        localStorage.setItem("theme-mode", theme);
+        safeSetItem("theme-mode", theme);
     }, [theme, effectiveTheme]);
 
     // Apply Dynamic Primary Color
@@ -71,30 +84,38 @@ export const ThemeProvider = ({ children }) => {
             root.style.setProperty(`--color-primary-${shade}`, value);
         });
 
-        localStorage.setItem("theme-primary-hue", primaryHue);
+        safeSetItem("theme-primary-hue", primaryHue.toString());
     }, [primaryHue]);
 
     // Apply Background Image logic
     useEffect(() => {
         const root = window.document.documentElement;
-        const body = window.document.body;
         if (bgImage) {
             root.style.setProperty("--page-bg-image", `url(${bgImage})`);
             root.classList.add("has-bg-image");
-            localStorage.setItem("theme-last-image", bgImage);
+            
+            // Optimization: If it's a dataURL, we avoid double saving to reduce QuotaExceeded risk
+            if (bgImage.startsWith("data:")) {
+                // For dataURLs, theme-bg-image is primary. we only update theme-last-image
+                // if it's NOT a dataURL or if we really have space. 
+                // Actually, let's just use safeSetItem for both but handle them carefully.
+                safeSetItem("theme-last-image", bgImage);
+            } else {
+                safeSetItem("theme-last-image", bgImage);
+            }
             setLastImage(bgImage);
         } else {
             root.style.removeProperty("--page-bg-image");
             root.classList.remove("has-bg-image");
         }
-        localStorage.setItem("theme-bg-image", bgImage || "");
+        safeSetItem("theme-bg-image", bgImage || "");
     }, [bgImage]);
 
     // Apply Background Opacity logic
     useEffect(() => {
         const root = window.document.documentElement;
         root.style.setProperty("--bg-overlay-opacity", bgOpacity);
-        localStorage.setItem("theme-bg-opacity", bgOpacity);
+        safeSetItem("theme-bg-opacity", bgOpacity.toString());
     }, [bgOpacity]);
 
     const selectArtworkMode = () => {

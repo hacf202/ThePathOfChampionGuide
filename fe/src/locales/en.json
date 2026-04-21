@@ -9,6 +9,7 @@
 		"nextPage": "Next",
 		"notFound": "No results found",
 		"close": "Close",
+		"clear": "Clear",
 		"selectPlaceholder": "Select one or more",
 		"selectedItems": "{{count}} items selected",
 		"searchPlaceholder": "Search...",
@@ -50,7 +51,9 @@
 		"show": "Show",
 		"cards": " cards",
 		"ad": "Advertisement",
-		"filter": "Filter"
+		"filter": "Filter",
+		"sortNameAsc": "Name A-Z",
+		"sortNameDesc": "Name Z-A"
 	},
 	"cardType": {
 		"unit": "Unit",
@@ -551,9 +554,10 @@
 			"rune": "Runes",
 			"build": "Builds",
 			"guide": "Guides",
-			"auditLog": "Changelog",
-			"boss": "Bosses",
-			"adventure": "Adventures",
+			"auditLog": "Audit Log",
+			"boss": "Manage Boss",
+			"bosses": "Boss List",
+			"adventure": "Manage Map",
 			"images": "Images",
 			"cards": "Cards",
 			"cache": "Cache Manager"
@@ -1243,7 +1247,28 @@
 		"confirmLogoutDesc": "Are you sure you want to log out?",
 		"cancel": "Cancel",
 		"customTheme": "Custom Theme",
-		"newChampion": "New Champion"
+		"newChampion": "New Champion",
+		"bosses": "Boss List"
+	},
+	"bossList": {
+		"pageTitle": "Boss List",
+		"pageDescription": "Look up information, powers, and encounter tips for Bosses in Path of Champions.",
+		"heading": "Boss List",
+		"searchPlaceholder": "Search Boss name...",
+		"notFound": "No Bosses found."
+	},
+	"bossDetail": {
+		"powers": "Powers",
+		"note": "Encounter Tips",
+		"appearsAt": "Appears at",
+		"onMap": "On map",
+		"bonusPowers": "Bonus powers",
+		"entityType": "Elite Boss Entity",
+		"difficulty": "Difficulty: {{count}} Stars",
+		"noMapsFound": "No maps found for this Boss.",
+		"noSpecialPower": "No special powers listed for this Boss.",
+		"pageTitle": "Boss Detail",
+		"pageDescriptionPrefix": "Detailed powers and encounter tips for Boss"
 	},
 	"rating": {
 		"damage": "Damage",
@@ -1441,7 +1466,11 @@
 		"hint": "Ctrl+K",
 		"noResults": "No results found for \"{{query}}\".",
 		"searching": "Searching...",
+		"recent": "Recent Searches",
+		"popular": "Popular Suggestions",
 		"categoryChampion": "Champions",
+		"categoryBoss": "Bosses",
+		"categoryAdventure": "Adventures",
 		"categoryRelic": "Relics",
 		"categoryPower": "Powers",
 		"categoryItem": "Items",

@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { useTheme } from "../../context/ThemeContext";
-import { Moon, Sun, Palette, Image as ImageIcon, Check, MousePointer2, Upload, AlertCircle } from "lucide-react";
+import { Moon, Sun, Palette, Image as ImageIcon, Check, MousePointer2, Upload, AlertCircle, Loader2 } from "lucide-react";
+import { compressImage } from "../../utils/imageUtils";
 import Modal from "./modal";
 import Button from "./button";
 
@@ -14,6 +15,7 @@ const BACKGROUND_PRESETS = [
 ];
 
 const ThemeSettings = ({ isOpen, onClose }) => {
+    const [isCompresing, setIsCompressing] = React.useState(false);
     const { 
         theme, 
         bgImage, 
@@ -32,25 +34,42 @@ const ThemeSettings = ({ isOpen, onClose }) => {
     const isArtwork = bgImage !== null;
     const currentMode = isArtwork ? "artwork" : theme;
 
-    const handleFileUpload = (e) => {
+    const handleFileUpload = async (e) => {
         const file = e.target.files[0];
         if (!file) return;
 
-        // Check size (optional but recommended for LocalStorage)
-        if (file.size > 5 * 1024 * 1024) {
-             alert("Ảnh quá lớn! Vui lòng chọn ảnh < 5MB để đảm bảo hiệu năng.");
+        // Preliminary size check (10MB limit for source)
+        if (file.size > 10 * 1024 * 1024) {
+             alert("Ảnh quá lớn! Vui lòng chọn ảnh < 10MB.");
              return;
         }
 
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            const dataUrl = event.target.result;
-            if (!isArtwork) {
-                selectArtworkMode();
-            }
-            setBgImage(dataUrl);
-        };
-        reader.readAsDataURL(file);
+        setIsCompressing(true);
+        try {
+            const reader = new FileReader();
+            reader.onload = async (event) => {
+                try {
+                    const dataUrl = event.target.result;
+                    
+                    // Compress to ~1.5MB max (1920x1080, 0.7 quality)
+                    const compressedUrl = await compressImage(dataUrl, 1920, 1080, 0.7);
+                    
+                    if (!isArtwork) {
+                        selectArtworkMode();
+                    }
+                    setBgImage(compressedUrl);
+                } catch (err) {
+                    console.error("Lỗi nén ảnh:", err);
+                    alert("Không thể xử lý ảnh này. Vui lòng thử ảnh khác.");
+                } finally {
+                    setIsCompressing(false);
+                }
+            };
+            reader.readAsDataURL(file);
+        } catch (err) {
+            console.error("Lỗi đọc file:", err);
+            setIsCompressing(false);
+        }
     };
 
     return (
@@ -172,12 +191,17 @@ const ThemeSettings = ({ isOpen, onClose }) => {
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                         {/* Custom Upload Button */}
                         <button
-                            onClick={() => fileInputRef.current.click()}
-                            className="relative aspect-video rounded-2xl overflow-hidden border-2 border-dashed border-primary-500/40 hover:border-primary-500 bg-primary-500/5 transition-all flex flex-col items-center justify-center gap-2 group"
+                            onClick={() => !isCompresing && fileInputRef.current.click()}
+                            disabled={isCompresing}
+                            className={`relative aspect-video rounded-2xl overflow-hidden border-2 border-dashed border-primary-500/40 hover:border-primary-500 bg-primary-500/5 transition-all flex flex-col items-center justify-center gap-2 group ${isCompresing ? "opacity-50 cursor-not-allowed" : ""}`}
                         >
-                            <Upload className="w-6 h-6 text-primary-600 group-hover:scale-110 transition-transform" />
+                            {isCompresing ? (
+                                <Loader2 className="w-6 h-6 text-primary-600 animate-spin" />
+                            ) : (
+                                <Upload className="w-6 h-6 text-primary-600 group-hover:scale-110 transition-transform" />
+                            )}
                             <span className="text-[9px] font-black text-text-primary uppercase tracking-widest text-center px-2">
-                                Tải ảnh từ máy
+                                {isCompresing ? "Đang xử lý..." : "Tải ảnh từ máy"}
                             </span>
                         </button>
                         {BACKGROUND_PRESETS.map((preset) => (

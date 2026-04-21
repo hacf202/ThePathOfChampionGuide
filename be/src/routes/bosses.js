@@ -1,202 +1,215 @@
 // be/src/routes/bosses.js
 import express from "express";
 import {
-	ScanCommand,
 	PutItemCommand,
 	DeleteItemCommand,
 	GetItemCommand,
 } from "@aws-sdk/client-dynamodb";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
-import cacheManager from "../utils/cacheManager.js";
 import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { requireAdmin } from "../middleware/requireAdmin.js";
 import { scanAll } from "../utils/dynamoUtils.js";
+import { removeAccents } from "../utils/vietnameseUtils.js";
 import { createAuditLog } from "../utils/auditLogger.js";
+import { AppError, asyncHandler } from "../middleware/errorMiddleware.js";
+
+// --- Import từ DataService (Giai đoạn 2) ---
+import {
+	getCachedBosses,
+	resolveBossPowers,
+	invalidateBossCache,
+} from "../services/dataService.js";
 
 const router = express.Router();
 const BOSS_TABLE = "guidePocBosses";
 
-const bossCache = cacheManager.getOrCreateCache("bosses", { stdTTL: 86400, checkperiod: 60 });
+/**
+ * @route   GET /api/bosses
+ * @desc    Danh sách Boss với tìm kiếm, sắp xếp, phân trang
+ */
+router.get("/", asyncHandler(async (req, res) => {
+	const {
+		page = 1,
+		limit = 20,
+		searchTerm = "",
+		sort = "bossName-asc",
+	} = req.query;
 
-router.get("/", async (req, res) => {
-	const CACHE_KEY = "all_bosses_list";
-	try {
-		const cached = bossCache.get(CACHE_KEY);
-		if (cached) return res.json({ items: cached });
+	const pageSize    = parseInt(limit);
+	const currentPage = parseInt(page);
 
-		const rawItems = await scanAll(client, { TableName: BOSS_TABLE });
-		const data = rawItems.map(item => unmarshall(item));
+	// Lấy từ DataService (RAM → DynamoDB)
+	let allBosses = await getCachedBosses();
 
-		data.sort((a, b) => (a.bossName || "").localeCompare(b.bossName || ""));
-
-		bossCache.set(CACHE_KEY, data);
-		res.json({ items: data });
-	} catch (error) {
-		console.error("Lỗi GET /bosses:", error);
-		res.status(500).json({ error: "Lỗi hệ thống khi tải danh sách Boss." });
+	// 1. Lọc theo searchTerm
+	let filtered = [...allBosses];
+	if (searchTerm.trim()) {
+		const searchKey = removeAccents(searchTerm.trim().toLowerCase());
+		filtered = filtered.filter(b => {
+			const nameVn  = removeAccents(b.bossName || "");
+			const nameEn  = removeAccents(b.translations?.en?.bossName || "");
+			const bossID  = (b.bossID || "").toLowerCase();
+			return nameVn.includes(searchKey) || nameEn.includes(searchKey) || bossID.includes(searchKey);
+		});
 	}
-});
 
-router.get("/:bossID", async (req, res) => {
+	// 2. Sắp xếp
+	const [field, order] = sort.split("-");
+	filtered.sort((a, b) => {
+		let vA = a[field] ?? "";
+		let vB = b[field] ?? "";
+		if (typeof vA === "string") return order === "asc" ? vA.localeCompare(vB) : vB.localeCompare(vA);
+		return order === "asc" ? vA - vB : vB - vA;
+	});
+
+	// 3. Phân trang
+	const totalItems = filtered.length;
+	const paginatedItems = pageSize < 0
+		? filtered
+		: filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+	const totalPages = pageSize > 0 ? Math.ceil(totalItems / pageSize) : 1;
+
+	// 4. Resolve Powers (gộp thông tin đầy đủ)
+	const resolvedItems = await resolveBossPowers(paginatedItems);
+
+	res.json({
+		items: resolvedItems,
+		pagination: {
+			totalItems,
+			totalPages,
+			currentPage,
+			pageSize: pageSize < 0 ? totalItems : pageSize,
+		},
+	});
+}));
+
+/**
+ * @route   GET /api/bosses/:bossID
+ * @desc    Chi tiết một Boss (kèm resolvedPowers)
+ */
+router.get("/:bossID", asyncHandler(async (req, res) => {
 	const { bossID } = req.params;
-	try {
-		const command = new GetItemCommand({
-			TableName: BOSS_TABLE,
-			Key: marshall({ bossID }),
-		});
-		const { Item } = await client.send(command);
-		if (!Item) return res.status(404).json({ error: "Không tìm thấy Boss." });
-		res.json(unmarshall(Item));
-	} catch (error) {
-		res.status(500).json({ error: "Lỗi hệ thống khi tải chi tiết Boss." });
-	}
-});
+	const command = new GetItemCommand({
+		TableName: BOSS_TABLE,
+		Key: marshall({ bossID }),
+	});
+	const { Item } = await client.send(command);
+	if (!Item) throw new AppError("Không tìm thấy Boss.", 404);
 
-// [Thêm mới] API Resolve nhiều Boss cùng lúc để tránh N+1 Query trên Frontend
-router.post("/resolve", async (req, res) => {
+	const bossData     = unmarshall(Item);
+	const resolvedBoss = await resolveBossPowers(bossData);
+	res.json(resolvedBoss);
+}));
+
+/**
+ * @route   POST /api/bosses/resolve
+ * @desc    Lấy nhiều Boss theo danh sách IDs (tránh N+1 Query)
+ */
+router.post("/resolve", asyncHandler(async (req, res) => {
 	const { ids } = req.body;
-
 	if (!ids || !Array.isArray(ids)) {
-		return res
-			.status(400)
-			.json({ error: "Tham số 'ids' phải là một mảng (array)." });
+		throw new AppError("Tham số 'ids' phải là một mảng (array).", 400);
 	}
 
-	try {
-		// Loại bỏ các ID trùng lặp
-		const uniqueIds = [...new Set(ids)];
-		if (uniqueIds.length === 0) return res.json([]);
+	const uniqueIds = [...new Set(ids)];
+	if (uniqueIds.length === 0) return res.json([]);
 
-		// Tối ưu 1: Kiểm tra xem có sẵn toàn bộ Boss trong cache tổng không (Cực nhanh)
-		const allBosses = bossCache.get("all_bosses_list");
-		if (allBosses) {
-			const resolvedFromCache = allBosses.filter(b =>
-				uniqueIds.includes(b.bossID),
-			);
-			// Nếu cache có chứa đầy đủ tất cả các Boss đang cần tìm
-			if (resolvedFromCache.length === uniqueIds.length) {
-				return res.json(resolvedFromCache);
-			}
-		}
+	// Tìm trong DataService cache trước (cực nhanh)
+	const allBosses = await getCachedBosses();
+	const resolvedFromCache = allBosses.filter(b => uniqueIds.includes(b.bossID));
 
-		// Tối ưu 2: Nếu Cache thiếu, fetch song song các ID từ DynamoDB
-		const fetchPromises = uniqueIds.map(async bossID => {
-			const command = new GetItemCommand({
-				TableName: BOSS_TABLE,
-				Key: marshall({ bossID }),
-			});
-			const { Item } = await client.send(command);
-			return Item ? unmarshall(Item) : null;
-		});
-
-		// Chờ tất cả truy vấn hoàn thành và lọc bỏ các giá trị null (không tìm thấy)
-		const results = (await Promise.all(fetchPromises)).filter(Boolean);
-
-		res.json(results);
-	} catch (error) {
-		console.error("Lỗi POST /bosses/resolve:", error);
-		res.status(500).json({ error: "Lỗi hệ thống khi resolve danh sách Boss." });
+	// Nếu cache có đủ, trả ngay
+	if (resolvedFromCache.length === uniqueIds.length) {
+		return res.json(resolvedFromCache);
 	}
-});
 
-router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
+	// Nếu thiếu, fetch song song từ DynamoDB
+	const fetchPromises = uniqueIds.map(async bossID => {
+		const cmd = new GetItemCommand({ TableName: BOSS_TABLE, Key: marshall({ bossID }) });
+		const { Item } = await client.send(cmd);
+		return Item ? unmarshall(Item) : null;
+	});
+	const results = (await Promise.all(fetchPromises)).filter(Boolean);
+	res.json(results);
+}));
+
+/**
+ * @route   PUT /api/bosses
+ * @desc    Tạo mới hoặc cập nhật Boss (Admin only)
+ */
+router.put("/", authenticateCognitoToken, requireAdmin, asyncHandler(async (req, res) => {
 	const data = req.body;
 	const { bossID, isNew, bossName } = data;
 
 	if (!bossID || !bossName) {
-		return res.status(400).json({ error: "bossID và bossName là bắt buộc." });
+		throw new AppError("bossID và bossName là bắt buộc.", 400);
 	}
 
-	try {
-		const checkCommand = new GetItemCommand({
-			TableName: BOSS_TABLE,
-			Key: marshall({ bossID: bossID.trim() }),
-		});
-		const { Item } = await client.send(checkCommand);
-		const exists = !!Item;
+	const checkCommand = new GetItemCommand({
+		TableName: BOSS_TABLE,
+		Key: marshall({ bossID: bossID.trim() }),
+	});
+	const { Item } = await client.send(checkCommand);
+	const exists = !!Item;
 
-		if (isNew && exists) {
-			return res.status(409).json({ error: `Mã Boss "${bossID}" đã tồn tại.` });
-		}
-		if (!isNew && !exists) {
-			return res
-				.status(404)
-				.json({ error: `Không tìm thấy Boss "${bossID}".` });
-		}
+	if (isNew && exists)  throw new AppError(`Mã Boss "${bossID}" đã tồn tại.`, 409);
+	if (!isNew && !exists) throw new AppError(`Không tìm thấy Boss "${bossID}".`, 404);
 
-		const dataToSave = { ...data };
-		delete dataToSave.isNew;
+	const dataToSave = { ...data };
+	delete dataToSave.isNew;
 
-		const command = new PutItemCommand({
-			TableName: BOSS_TABLE,
-			Item: marshall(dataToSave, { removeUndefinedValues: true }),
-		});
+	await client.send(new PutItemCommand({
+		TableName: BOSS_TABLE,
+		Item: marshall(dataToSave, { removeUndefinedValues: true }),
+	}));
 
-		await client.send(command);
+	await createAuditLog({
+		action: isNew ? "CREATE" : "UPDATE",
+		entityType: "boss",
+		entityId: bossID,
+		entityName: dataToSave.bossName,
+		oldData: Item ? unmarshall(Item) : null,
+		newData: dataToSave,
+		user: req.user,
+	});
 
-		// Ghi log thay đổi
-		await createAuditLog({
-			action: isNew ? "CREATE" : "UPDATE",
-			entityType: "boss",
-			entityId: bossID,
-			entityName: dataToSave.bossName,
-			oldData: Item ? unmarshall(Item) : null,
-			newData: dataToSave,
-			user: req.user
-		});
+	// Xóa cache qua DataService
+	invalidateBossCache();
 
-		bossCache.flushAll();
+	res.json({
+		message: isNew ? "Tạo Boss thành công." : "Cập nhật Boss thành công.",
+		data: dataToSave,
+	});
+}));
 
-		res.json({
-			message: isNew ? "Tạo Boss thành công." : "Cập nhật Boss thành công.",
-			data: dataToSave,
-		});
-	} catch (error) {
-		console.error("Lỗi khi lưu Boss:", error);
-		res.status(500).json({ error: "Lỗi hệ thống. Không thể lưu dữ liệu." });
-	}
-});
+/**
+ * @route   DELETE /api/bosses/:bossID
+ * @desc    Xóa Boss (Admin only)
+ */
+router.delete("/:bossID", authenticateCognitoToken, requireAdmin, asyncHandler(async (req, res) => {
+	const { bossID } = req.params;
 
-router.delete(
-	"/:bossID",
-	authenticateCognitoToken,
-	requireAdmin,
-	async (req, res) => {
-		const { bossID } = req.params;
-		try {
-			// Lấy dữ liệu cũ để ghi log
-			const getItemCmd = new GetItemCommand({
-				TableName: BOSS_TABLE,
-				Key: marshall({ bossID }),
-			});
-			const { Item } = await client.send(getItemCmd);
-			const oldData = Item ? unmarshall(Item) : null;
+	const getItemCmd = new GetItemCommand({ TableName: BOSS_TABLE, Key: marshall({ bossID }) });
+	const { Item } = await client.send(getItemCmd);
+	const oldData = Item ? unmarshall(Item) : null;
 
-			const deleteCmd = new DeleteItemCommand({
-				TableName: BOSS_TABLE,
-				Key: marshall({ bossID }),
-			});
-			await client.send(deleteCmd);
+	if (!Item) throw new AppError(`Không tìm thấy Boss "${bossID}" để xóa.`, 404);
 
-			// Ghi log thay đổi
-			await createAuditLog({
-				action: "DELETE",
-				entityType: "boss",
-				entityId: bossID,
-				entityName: oldData?.bossName || bossID,
-				oldData: oldData,
-				newData: null,
-				user: req.user
-			});
+	await client.send(new DeleteItemCommand({ TableName: BOSS_TABLE, Key: marshall({ bossID }) }));
 
-			bossCache.flushAll();
-			res.json({ message: "Đã xóa Boss thành công." });
-		} catch (error) {
-			console.error("Lỗi xóa Boss:", error);
-			res.status(500).json({ error: "Lỗi hệ thống khi thực hiện xóa." });
-		}
-	},
-);
+	await createAuditLog({
+		action: "DELETE",
+		entityType: "boss",
+		entityId: bossID,
+		entityName: oldData?.bossName || bossID,
+		oldData,
+		newData: null,
+		user: req.user,
+	});
+
+	invalidateBossCache();
+	res.json({ message: "Đã xóa Boss thành công." });
+}));
 
 export default router;

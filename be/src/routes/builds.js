@@ -23,10 +23,8 @@ import {
 import { removeAccents } from "../utils/vietnameseUtils.js";
 import { createAuditLog } from "../utils/auditLogger.js";
 
-// Tận dụng cache đã có sẵn thay vì scan lại DB
-import { getCachedChampions } from "./champions.js";
-import { getCachedRelics }   from "./relics.js";
-import { getCachedPowers }   from "./powers.js";
+// Tận dụng cache đã có sẵn thay vì scan lại DB - import từ DataService (không import chéo từ routes)
+import { getCachedChampions, getCachedRelics, getCachedPowers } from "../services/dataService.js";
 
 const router = express.Router();
 const BUILDS_TABLE = "Builds";

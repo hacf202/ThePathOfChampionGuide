@@ -1,7 +1,6 @@
 // be/src/routes/cards.js
 import express from "express";
 import {
-	ScanCommand,
 	PutItemCommand,
 	DeleteItemCommand,
 	GetItemCommand,
@@ -13,32 +12,15 @@ import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { requireAdmin } from "../middleware/requireAdmin.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
-import { scanAll } from "../utils/dynamoUtils.js";
 import { createAuditLog } from "../utils/auditLogger.js";
+import { getCachedCards, invalidateCardCache } from "../services/dataService.js";
 
 const router = express.Router();
 const CARDS_TABLE = "guidePocCardList";
-
-// Cache 30 phút (1800s) vì dữ liệu Card rất lớn và ít thay đổi
 const cardCache = cacheManager.getOrCreateCache("cards", { stdTTL: 86400, checkperiod: 60 });
 
-/**
- * Lấy toàn bộ cards từ DB hoặc cache, sắp xếp A-Z theo cardName
- */
-export async function getCachedCards() {
-	const CACHE_KEY = "all_cards_data";
-	let cachedData = cardCache.get(CACHE_KEY);
-
-	if (!cachedData) {
-		const rawItems = await scanAll(client, { TableName: CARDS_TABLE });
-		cachedData = rawItems.map(item => unmarshall(item));
-		cachedData.sort((a, b) =>
-			(a.cardName || "").localeCompare(b.cardName || ""),
-		);
-		cardCache.set(CACHE_KEY, cachedData);
-	}
-	return cachedData;
-}
+// getCachedCards() đã được chuyển vào dataService.js
+export { getCachedCards } from "../services/dataService.js";
 
 /**
  * @route   GET /api/cards
@@ -340,9 +322,7 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 			user: req.user
 		});
 
-		// Xóa cache
-		cardCache.del("all_cards_data");
-		cardCache.del(`card_detail_${cardCode}`);
+		invalidateCardCache(cardCode);
 
 		res.json({
 			message: isNew ? "Tạo lá bài mới thành công." : "Cập nhật lá bài thành công.",
@@ -389,8 +369,7 @@ router.delete(
 				}),
 			);
 
-			cardCache.del("all_cards_data");
-			cardCache.del(`card_detail_${id}`);
+			invalidateCardCache(id);
 
 			const deletedCard = unmarshall(Item);
 

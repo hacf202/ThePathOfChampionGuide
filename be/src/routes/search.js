@@ -19,13 +19,12 @@
 import express from "express";
 import cacheManager from "../utils/cacheManager.js";
 
-// Tận dụng các getCached* function đã có sẵn ở các route khác
-import { getCachedChampions } from "./champions.js";
-import { getCachedRelics }   from "./relics.js";
-import { getCachedPowers }   from "./powers.js";
-import { getCachedItems }    from "./items.js";
-import { getCachedRunes }    from "./runes.js";
-import { getCachedCards }    from "./cards.js";
+// Tận dụng DataService (tránh lấy vòng lặp)
+import { 
+	getCachedChampions, getCachedRelics, getCachedPowers, 
+	getCachedItems, getCachedRunes, getCachedCards,
+	getCachedBosses, getCachedAdventures
+} from "../services/dataService.js";
 import { getCachedResources } from "./resources.js";
 
 const router = express.Router();
@@ -40,6 +39,22 @@ const CACHE_KEY = "global_search_index";
 /**
  * Trim dữ liệu thực thể — chỉ giữ id + tên
  */
+function mapBosses(list) {
+	return (list || []).map(b => ({
+		id:     b.bossID,
+		nameVi: b.bossName || "",
+		nameEn: b.translations?.en?.bossName || b.translations?.en?.name || "",
+	}));
+}
+
+function mapAdventures(list) {
+	return (list || []).map(a => ({
+		id:     a.adventureID,
+		nameVi: a.adventureName || "",
+		nameEn: a.translations?.en?.adventureName || a.translations?.en?.name || "",
+	}));
+}
+
 function mapChampions(list) {
 	return list.map(c => ({
 		id:     c.championID,
@@ -109,7 +124,7 @@ router.get("/index", async (req, res) => {
 		}
 
 		// Lấy song song từ các cache hiện có
-		const [champions, relics, powers, items, runes, cards, resourceData] = await Promise.all([
+		const [champions, relics, powers, items, runes, cards, resourceData, bosses, adventures] = await Promise.all([
 			getCachedChampions(),
 			getCachedRelics(),
 			getCachedPowers(),
@@ -117,6 +132,8 @@ router.get("/index", async (req, res) => {
 			getCachedRunes(),
 			getCachedCards(),
 			getCachedResources(),
+			getCachedBosses(),
+			getCachedAdventures(),
 		]);
 
 		const index = {
@@ -127,10 +144,13 @@ router.get("/index", async (req, res) => {
 			runes:     mapRunes(runes),
 			cards:     mapCards(cards),
 			resources: mapResources(resourceData),
+			bosses:    mapBosses(bosses),
+			adventures: mapAdventures(adventures),
 			// Thống kê cho debug
 			_meta: {
 				total: (champions?.length || 0) + (relics?.length || 0) + (powers?.length || 0) + 
-					   (items?.length || 0) + (runes?.length || 0) + (cards?.length || 0) + (resourceData?.length || 0),
+					   (items?.length || 0) + (runes?.length || 0) + (cards?.length || 0) + 
+					   (resourceData?.length || 0) + (bosses?.length || 0) + (adventures?.length || 0),
 				cachedAt: new Date().toISOString(),
 			},
 		};

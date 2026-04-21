@@ -5,7 +5,7 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import {
 	Search, X, Swords, Sparkles, Zap, Package,
-	Gem, BookOpen, BookMarked, ChevronRight
+	Gem, BookOpen, BookMarked, ChevronRight, Skull, Compass
 } from "lucide-react";
 import { useTranslation } from "../../hooks/useTranslation";
 import { removeAccents } from "../../utils/vietnameseUtils";
@@ -50,7 +50,9 @@ const GUIDE_CATEGORY = {
 };
 
 const CATEGORIES = [
-	{ key: "champions", labelKey: "globalSearch.categoryChampion", icon: Swords,   route: (id) => `/champion/${id}`, color: "text-yellow-400", bgColor: "bg-yellow-400/10", borderColor: "border-yellow-400/20" },
+	{ key: "adventures",labelKey: "globalSearch.categoryAdventure",icon: Compass,   route: (id) => `/map/${id}`,      color: "text-emerald-400",bgColor: "bg-emerald-400/10",borderColor: "border-emerald-400/20" },
+	{ key: "champions", labelKey: "globalSearch.categoryChampion", icon: Swords,    route: (id) => `/champion/${id}`, color: "text-yellow-400", bgColor: "bg-yellow-400/10", borderColor: "border-yellow-400/20" },
+	{ key: "bosses",    labelKey: "globalSearch.categoryBoss",     icon: Skull,     route: (id) => `/boss/${id}`,     color: "text-red-500",    bgColor: "bg-red-500/10",    borderColor: "border-red-500/20" },
 	{ key: "relics",    labelKey: "globalSearch.categoryRelic",    icon: Sparkles,  route: (id) => `/relic/${id}`,    color: "text-purple-400", bgColor: "bg-purple-400/10", borderColor: "border-purple-400/20" },
 	{ key: "powers",    labelKey: "globalSearch.categoryPower",    icon: Zap,       route: (id) => `/power/${id}`,    color: "text-blue-400",   bgColor: "bg-blue-400/10",   borderColor: "border-blue-400/20" },
 	{ key: "items",     labelKey: "globalSearch.categoryItem",     icon: Package,   route: (id) => `/item/${id}`,     color: "text-green-400",  bgColor: "bg-green-400/10",  borderColor: "border-green-400/20" },
@@ -86,6 +88,15 @@ function GlobalSearch({ compact = false, showClose = false, onClose = null }) {
 	const [selectedIndex,   setSelectedIndex]   = useState(0);
 	const [isDataReady,     setIsDataReady]     = useState(!!_searchIndex);
 	const [isLoadingGuides, setIsLoadingGuides] = useState(false);
+
+	const [recentSearches, setRecentSearches] = useState(() => {
+		try {
+			const saved = localStorage.getItem("poc_recent_searches");
+			return saved ? JSON.parse(saved) : [];
+		} catch {
+			return [];
+		}
+	});
 
 	// ── Fetch search index nhẹ khi browser rảnh ──
 	useEffect(() => {
@@ -138,7 +149,6 @@ function GlobalSearch({ compact = false, showClose = false, onClose = null }) {
 	useEffect(() => {
 		if (query.length < 2) {
 			setResults([]);
-			setIsOpen(false);
 			clearTimeout(guideTimer.current);
 			return;
 		}
@@ -204,6 +214,13 @@ function GlobalSearch({ compact = false, showClose = false, onClose = null }) {
 	};
 
 	const handleSelect = useCallback((item) => {
+		const toSave = { id: item.id, name: item.name, categoryKey: item.category.key };
+		setRecentSearches(prev => {
+			const nw = [toSave, ...prev.filter(x => !(x.id === toSave.id && x.categoryKey === toSave.categoryKey))].slice(0, 5);
+			localStorage.setItem("poc_recent_searches", JSON.stringify(nw));
+			return nw;
+		});
+
 		navigate(item.category.route(item.id));
 		setIsOpen(false);
 		setQuery("");
@@ -222,7 +239,7 @@ function GlobalSearch({ compact = false, showClose = false, onClose = null }) {
 	const showEmpty  = query.length >= 2 && !hasResults && !isLoadingGuides;
 
 	return (
-		<div ref={containerRef} className="relative">
+		<div ref={containerRef} className={`relative ${compact ? "w-full max-w-[400px]" : "w-full min-w-[240px] max-w-[320px] lg:max-w-[400px]"}`}>
 			{/* ── Input ── */}
 			<div
 				className={`flex items-center gap-2 rounded-lg border transition-all duration-200
@@ -231,7 +248,7 @@ function GlobalSearch({ compact = false, showClose = false, onClose = null }) {
 					hover:border-[var(--color-primary-400,#a78bfa)]
 					focus-within:border-[var(--color-primary-400,#a78bfa)]
 					focus-within:shadow-[0_0_0_2px_rgba(167,139,250,0.15)]
-					${compact ? "w-full max-w-[400px] px-2 py-1" : "w-52 xl:w-64 px-3 py-1.5"}
+					w-full ${compact ? "px-2 py-1" : "px-3 py-1.5"}
 				`}
 			>
 				<Search className={`flex-shrink-0 text-[var(--color-text-secondary)] ${compact ? "w-3.5 h-3.5" : "w-4 h-4"}`} />
@@ -241,7 +258,7 @@ function GlobalSearch({ compact = false, showClose = false, onClose = null }) {
 					value={query}
 					onChange={e => setQuery(e.target.value)}
 					onKeyDown={handleKeyDown}
-					onFocus={() => query.length >= 2 && setIsOpen(true)}
+					onFocus={() => setIsOpen(true)}
 					placeholder={compact ? "Tìm kiếm..." : tUI("globalSearch.placeholder")}
 					className={`flex-1 bg-transparent text-[var(--color-text-primary)] placeholder-[var(--color-text-secondary)] outline-none min-w-0 ${compact ? "text-xs" : "text-sm"}`}
 					autoComplete="off"
@@ -280,11 +297,62 @@ function GlobalSearch({ compact = false, showClose = false, onClose = null }) {
 			{/* ── Dropdown ── */}
 			{isOpen && (
 				<div
-					className="absolute top-full mt-2 right-0 w-80 sm:w-96 max-w-[90vw]
+					className="absolute top-full mt-2 left-0 w-full
 						bg-[var(--color-modal-bg)] border border-[var(--color-border)]
 						rounded-xl shadow-2xl z-[9999] overflow-hidden"
 				>
 					<div ref={listRef} className="max-h-[70vh] overflow-y-auto custom-scrollbar">
+
+						{/* ── Gợi ý khi chưa gõ (History / Popular) ── */}
+						{query.length < 2 && (
+							<div className="py-2">
+								<div className="px-3 py-1 flex items-center justify-between text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-secondary)]">
+									<span>{recentSearches.length > 0 ? (tUI("globalSearch.recent") || "Tìm kiếm gần đây") : (tUI("globalSearch.popular") || "Gợi ý phổ biến")}</span>
+									{recentSearches.length > 0 && (
+										<button 
+											onClick={() => { setRecentSearches([]); localStorage.removeItem("poc_recent_searches"); }} 
+											className="hover:text-red-400 transition-colors"
+										>
+											{tUI("common.clear") || "Xóa"}
+										</button>
+									)}
+								</div>
+								
+								{recentSearches.length > 0 ? (
+									recentSearches.map(rs => {
+										// Tìm meta của category
+										const cat = CATEGORIES.find(c => c.key === rs.categoryKey) || GUIDE_CATEGORY;
+										const Icon = cat.icon;
+										return (
+											<button
+												key={`recent-${cat.key}-${rs.id}`}
+												onClick={() => handleSelect({ id: rs.id, category: cat, name: rs.name })}
+												className="w-full flex items-center gap-2.5 px-3 py-2 text-left transition-colors duration-100 text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text-primary)]"
+											>
+												<span className={`w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0 ${cat.bgColor} border ${cat.borderColor}`}>
+													<Icon className={`w-3 h-3 ${cat.color}`} />
+												</span>
+												<span className="text-sm font-medium truncate flex-1">{rs.name}</span>
+											</button>
+										);
+									})
+								) : (
+									<div className="px-3 py-2 pb-3">
+										<div className="flex flex-wrap gap-2">
+											{["Aurelion Sol", "Lissandra", "Swain", "Jinx", "Yasuo", "Noxus"].map(sug => (
+												<button 
+													key={sug}
+													onClick={() => { setQuery(sug); inputRef.current?.focus(); }}
+													className="px-2.5 py-1 text-xs rounded-lg bg-[var(--color-surface-hover)] hover:bg-[var(--color-primary-500)]/20 hover:text-[var(--color-primary-400)] text-[var(--color-text-secondary)] transition-colors border border-[var(--color-border)] hover:border-[var(--color-primary-500)]/40"
+												>
+													{sug}
+												</button>
+											))}
+										</div>
+									</div>
+								)}
+							</div>
+						)}
 
 						{/* Empty */}
 						{showEmpty && (
@@ -348,9 +416,9 @@ function GlobalSearch({ compact = false, showClose = false, onClose = null }) {
 						)}
 					</div>
 
-					{/* Footer hints */}
+					{/* Footer hints (Ẩn trên mobile vì không dùng phím cứng) */}
 					{hasResults && (
-						<div className="flex items-center gap-3 px-3 py-1.5 border-t border-[var(--color-border)] text-[10px] text-[var(--color-text-secondary)]">
+						<div className="hidden sm:flex items-center gap-3 px-3 py-1.5 border-t border-[var(--color-border)] text-[10px] text-[var(--color-text-secondary)]">
 							<span>
 								<kbd className="px-1 py-0.5 rounded bg-[var(--color-surface-bg)] border border-[var(--color-border)] font-mono text-[9px] mr-0.5">↑↓</kbd>
 								điều hướng

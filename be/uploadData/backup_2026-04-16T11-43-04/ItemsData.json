@@ -38,14 +38,14 @@
     "translations": {
       "en": {
         "name": "The Sheriff of Piltover",
-        "description": "When I'm summoned, create a The Sheriff of Piltover in hand.",
+        "description": "When I'm summoned, create a [cd:99PZ125|The Sheriff of Piltover|icon] in hand.",
         "rarity": "Epic"
       }
     },
     "rarity": "Sử Thi",
     "assetFullAbsolutePath": "https://images.pocguide.top/items/I00002.webp",
     "descriptionRaw": "Khi ta được triệu hồi, tạo trên tay 1 lá Cảnh Sát Trưởng Piltover.",
-    "description": "Khi ta được triệu hồi, tạo trên tay 1 lá Cảnh Sát Trưởng Piltover.",
+    "description": "Khi ta được triệu hồi, tạo trên tay 1 lá [cd:99PZ125|Cảnh Sát Trưởng Piltover|icon].",
     "itemCode": "I00002",
     "name": "Cảnh Sát Trưởng Piltover",
     "assetAbsolutePath": "https://images.pocguide.top/items/I00002.webp"

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import SafeImage from "../common/SafeImage";
+import MarkupRenderer from "../common/MarkupRenderer";
 import { useTranslation } from "../../hooks/useTranslation";
 import { getPowerBatched } from "../../utils/powerBatcher"; // Import Batcher
 
@@ -54,20 +55,20 @@ const ResolvedPowerCard = ({ powerOrId }) => {
 			to={`/power/${power.powerCode || power.id || powerOrId}`}
 			className='block h-full'
 		>
-			<div className='flex items-start gap-3 bg-surface-hover/50 rounded-lg h-full hover:border-primary-500 transition-colors p-2 shadow-sm border border-border/50'>
+			<div className='flex items-start gap-2 sm:gap-3 bg-surface-hover/50 rounded-lg h-full hover:border-primary-500 transition-colors p-1 sm:p-2 shadow-sm border border-border/50'>
 				<SafeImage
 					src={power.assetAbsolutePath || power.image || "/fallback-image.svg"}
 					alt={powerName}
-					className='w-10 h-10 rounded-md object-cover bg-surface-bg shrink-0'
+					className='w-8 h-8 sm:w-10 sm:h-10 rounded-md object-cover bg-surface-bg shrink-0'
 				/>
 				<div>
-					<h4 className='font-bold text-text-primary text-sm md:text-base'>
+					<h4 className='font-bold text-text-primary text-[13px] sm:text-base leading-tight'>
 						{powerName}
 					</h4>
 					{powerDesc && (
-						<p
-							className='text-xs md:text-sm text-text-secondary mt-1 line-clamp-3'
-							dangerouslySetInnerHTML={{ __html: powerDesc }}
+						<MarkupRenderer 
+							text={powerDesc}
+							className="text-xs md:text-sm text-text-secondary mt-1 line-clamp-3"
 						/>
 					)}
 				</div>

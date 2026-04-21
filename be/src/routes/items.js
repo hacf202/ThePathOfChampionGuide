@@ -1,7 +1,6 @@
 // be/src/routes/items.js
 import express from "express";
 import {
-	ScanCommand,
 	PutItemCommand,
 	DeleteItemCommand,
 	GetItemCommand,
@@ -11,33 +10,15 @@ import cacheManager from "../utils/cacheManager.js";
 import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
-import { scanAll } from "../utils/dynamoUtils.js";
 import { createAuditLog } from "../utils/auditLogger.js";
+import { getCachedItems, invalidateItemCache } from "../services/dataService.js";
 
 const router = express.Router();
 const ITEMS_TABLE = "guidePocItems";
-
-// Khởi tạo cache 1800 giây (30 phút)
 const itemCache = cacheManager.getOrCreateCache("items", { stdTTL: 86400, checkperiod: 60 });
 
-/**
- * Hàm lấy toàn bộ Items từ DB hoặc RAM.
- */
-export async function getCachedItems() {
-	const CACHE_KEY = "all_items_data";
-	let cachedData = itemCache.get(CACHE_KEY);
-
-	if (!cachedData) {
-		const rawItems = await scanAll(client, { TableName: ITEMS_TABLE });
-		cachedData = rawItems.map(item => unmarshall(item));
-
-		// Sắp xếp mặc định A-Z
-		cachedData.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
-
-		itemCache.set(CACHE_KEY, cachedData);
-	}
-	return cachedData;
-}
+// getCachedItems() đã được chuyển vào dataService.js
+export { getCachedItems } from "../services/dataService.js";
 
 /**
  * @route   GET /api/items/:itemCode
@@ -217,8 +198,7 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 			user: req.user
 		});
 
-		itemCache.del("all_items_data");
-		itemCache.del(`item_detail_${itemCode}`);
+		invalidateItemCache(itemCode);
 
 		res.status(200).json({
 			message: isNew ? "Tạo mới thành công" : "Cập nhật thành công",
@@ -261,8 +241,7 @@ router.delete("/:itemCode", authenticateCognitoToken, async (req, res) => {
 			newData: null,
 			user: req.user
 		});
-		itemCache.del("all_items_data");
-		itemCache.del(`item_detail_${itemCode}`);
+		invalidateItemCache(itemCode);
 		res.status(200).json({ message: "Đã xóa vật phẩm thành công." });
 	} catch (error) {
 		console.error("Lỗi khi xóa vật phẩm:", error);

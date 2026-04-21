@@ -1987,5 +1987,18 @@
     "timestamp": "2026-04-13T15:09:58.451Z",
     "userName": "Cào Cào Xé Gió",
     "newData": "{\"itemCode\":\"I00002\",\"name\":\"Cảnh Sát Trưởng Piltover\",\"rarity\":\"Sử Thi\",\"rarityRef\":\"\",\"assetAbsolutePath\":\"https://images.pocguide.top/items/I00002.webp\",\"assetFullAbsolutePath\":\"https://images.pocguide.top/items/I00002.webp\",\"description\":\"Khi ta được triệu hồi, tạo trên tay 1 lá Cảnh Sát Trưởng Piltover.\",\"translations\":{\"en\":{\"name\":\"The Sheriff of Piltover\",\"rarity\":\"Epic\",\"description\":\"When I'm summoned, create a The Sheriff of Piltover in hand.\"}},\"descriptionRaw\":\"Khi ta được triệu hồi, tạo trên tay 1 lá Cảnh Sát Trưởng Piltover.\"}"
+  },
+  {
+    "oldData": "{\"rarityRef\":\"\",\"translations\":{\"en\":{\"name\":\"The Sheriff of Piltover\",\"description\":\"When I'm summoned, create a The Sheriff of Piltover in hand.\",\"rarity\":\"Epic\"}},\"rarity\":\"Sử Thi\",\"assetFullAbsolutePath\":\"https://images.pocguide.top/items/I00002.webp\",\"descriptionRaw\":\"Khi ta được triệu hồi, tạo trên tay 1 lá Cảnh Sát Trưởng Piltover.\",\"description\":\"Khi ta được triệu hồi, tạo trên tay 1 lá Cảnh Sát Trưởng Piltover.\",\"itemCode\":\"I00002\",\"name\":\"Cảnh Sát Trưởng Piltover\",\"assetAbsolutePath\":\"https://images.pocguide.top/items/I00002.webp\"}",
+    "entityType": "item",
+    "logType": "LOG",
+    "action": "UPDATE",
+    "entityName": "Cảnh Sát Trưởng Piltover",
+    "logId": "d71621aa-4ddd-43f8-accb-479212333bf5",
+    "userId": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
+    "entityId": "I00002",
+    "timestamp": "2026-04-14T02:15:03.354Z",
+    "userName": "Cào Cào Xé Gió",
+    "newData": "{\"rarityRef\":\"\",\"translations\":{\"en\":{\"name\":\"The Sheriff of Piltover\",\"description\":\"When I'm summoned, create a [cd:99PZ125|The Sheriff of Piltover|icon] in hand.\",\"rarity\":\"Epic\"}},\"rarity\":\"Sử Thi\",\"assetFullAbsolutePath\":\"https://images.pocguide.top/items/I00002.webp\",\"descriptionRaw\":\"Khi ta được triệu hồi, tạo trên tay 1 lá Cảnh Sát Trưởng Piltover.\",\"description\":\"Khi ta được triệu hồi, tạo trên tay 1 lá [cd:99PZ125|Cảnh Sát Trưởng Piltover|icon].\",\"itemCode\":\"I00002\",\"name\":\"Cảnh Sát Trưởng Piltover\",\"assetAbsolutePath\":\"https://images.pocguide.top/items/I00002.webp\"}"
   }
 ]

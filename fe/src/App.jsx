@@ -45,6 +45,8 @@ import VaultSimulator from "./pages/vaultSimulator.jsx";
 import CardList from "./pages/cardList.jsx";
 import ChampionRatingPage from "./pages/championRatingPage.jsx";
 import ResourceListPage from "./pages/resourceListPage.jsx";
+import BossListPage from "./pages/BossListPage.jsx";
+import BossDetailPage from "./components/boss/BossDetailPage.jsx";
 
 import ErrorPage from "./pages/ErrorPage.jsx";
 
@@ -176,6 +178,8 @@ const router = createBrowserRouter([
 			{ path: "card/:cardCode", element: <CardDetail /> },
 			{ path: "resources", element: <ResourceListPage /> },
 			{ path: "resource/:resourceId", element: <ResourceDetailPage /> },
+			{ path: "bosses", element: <BossListPage /> },
+			{ path: "boss/:bossID", element: <BossDetailPage /> },
 			{ path: "tierlist", element: <TierListIndex /> },
 			{ path: "tierlist/champions", element: <TierListIndex /> },
 			{ path: "tierlist/relics", element: <TierListIndex /> },

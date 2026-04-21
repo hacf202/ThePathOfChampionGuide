@@ -12,7 +12,7 @@ import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import cacheManager from "../utils/cacheManager.js";
 import { syncChampionCommunityRatings } from "../utils/ratingUtils.js";
-import { getCachedChampions } from "./champions.js";
+import { getCachedChampions } from "../services/dataService.js";
 
 const championCache = cacheManager.getOrCreateCache("champions");
 

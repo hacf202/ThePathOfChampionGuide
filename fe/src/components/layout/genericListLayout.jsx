@@ -44,6 +44,7 @@ const GenericListLayout = ({
 		<div className='bg-surface-hover/20 animate-pulse rounded-lg h-64 border border-border/40' />
 	), // Hàm mặc định trả về skeleton loading 
 	skeletonCount = 12,
+	emptyMessage, // Thông báo khi không có dữ liệu
 	customHeaderActions = null, // Nút bấm tùy chỉnh ở góc trên cùng (VD: Tạo Build)
 	customTabs = null, // Các tab chuyển đổi (VD: Community / My Builds)
 
@@ -275,7 +276,7 @@ const GenericListLayout = ({
 													className='mx-auto mb-4 opacity-20'
 												/>
 												<p className='text-xl font-primary mb-4'>
-													{tUI("common.notFound")}
+													{emptyMessage || tUI("common.notFound")}
 												</p>
 												<Button variant='ghost' onClick={onResetFilters}>
 													{tUI("championList.resetFilter")}

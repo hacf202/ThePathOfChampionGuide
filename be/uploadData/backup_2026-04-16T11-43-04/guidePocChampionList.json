@@ -2754,6 +2754,24 @@
         "R0049"
       ]
     ],
+    "communityRatings": {
+      "damage": 7,
+      "synergy": 7.5,
+      "defense": 7,
+      "count": 2,
+      "communityOnlyAvg": {
+        "damage": 9,
+        "synergy": 10,
+        "userCount": 1,
+        "defense": 9,
+        "independence": 10,
+        "consistency": 10,
+        "speed": 10
+      },
+      "independence": 7.5,
+      "consistency": 7.5,
+      "speed": 7.5
+    },
     "regions": [
       "Quần Đảo Bóng Đêm"
     ],
@@ -3388,6 +3406,24 @@
         "R0089"
       ]
     ],
+    "communityRatings": {
+      "damage": 6,
+      "synergy": 4,
+      "defense": 5,
+      "count": 2,
+      "communityOnlyAvg": {
+        "damage": 7,
+        "synergy": 3,
+        "userCount": 1,
+        "defense": 5,
+        "independence": 8,
+        "consistency": 4,
+        "speed": 4
+      },
+      "independence": 6.5,
+      "consistency": 4.5,
+      "speed": 4.5
+    },
     "regions": [
       "Noxus"
     ],
@@ -5167,6 +5203,24 @@
         "R0031"
       ]
     ],
+    "communityRatings": {
+      "damage": 5.5,
+      "synergy": 4,
+      "defense": 7.5,
+      "count": 2,
+      "communityOnlyAvg": {
+        "damage": 6,
+        "synergy": 3,
+        "userCount": 1,
+        "defense": 10,
+        "independence": 7,
+        "consistency": 6,
+        "speed": 3
+      },
+      "independence": 6,
+      "consistency": 5.5,
+      "speed": 4
+    },
     "regions": [
       "Ionia"
     ],
@@ -8355,6 +8409,24 @@
         "R0108"
       ]
     ],
+    "communityRatings": {
+      "damage": 7.5,
+      "synergy": 7.5,
+      "defense": 7.5,
+      "count": 2,
+      "communityOnlyAvg": {
+        "damage": 10,
+        "synergy": 10,
+        "userCount": 1,
+        "defense": 10,
+        "independence": 7,
+        "consistency": 8,
+        "speed": 8
+      },
+      "independence": 6,
+      "consistency": 6.5,
+      "speed": 6.5
+    },
     "regions": [
       "Runeterra"
     ],
@@ -8777,6 +8849,24 @@
         "R0086"
       ]
     ],
+    "communityRatings": {
+      "damage": 7.5,
+      "synergy": 7.5,
+      "defense": 7.5,
+      "count": 2,
+      "communityOnlyAvg": {
+        "damage": 10,
+        "synergy": 10,
+        "userCount": 1,
+        "defense": 10,
+        "independence": 10,
+        "consistency": 8,
+        "speed": 8
+      },
+      "independence": 7.5,
+      "consistency": 6.5,
+      "speed": 6.5
+    },
     "regions": [
       "Targon"
     ],
@@ -9368,6 +9458,24 @@
         "R0001"
       ]
     ],
+    "communityRatings": {
+      "damage": 7.5,
+      "synergy": 5.5,
+      "defense": 6,
+      "count": 2,
+      "communityOnlyAvg": {
+        "damage": 10,
+        "synergy": 6,
+        "userCount": 1,
+        "defense": 7,
+        "independence": 7,
+        "consistency": 7,
+        "speed": 9
+      },
+      "independence": 6,
+      "consistency": 6,
+      "speed": 7
+    },
     "regions": [
       "Demacia"
     ],
@@ -9991,6 +10099,24 @@
         "R0111"
       ]
     ],
+    "communityRatings": {
+      "damage": 6.5,
+      "synergy": 5,
+      "defense": 4.5,
+      "count": 2,
+      "communityOnlyAvg": {
+        "damage": 8,
+        "synergy": 5,
+        "userCount": 1,
+        "defense": 4,
+        "independence": 3,
+        "consistency": 5,
+        "speed": 5
+      },
+      "independence": 4,
+      "consistency": 5,
+      "speed": 5
+    },
     "regions": [
       "Shurima"
     ],
@@ -12923,6 +13049,24 @@
         "R0037"
       ]
     ],
+    "communityRatings": {
+      "damage": 9,
+      "synergy": 7,
+      "defense": 7,
+      "count": 3,
+      "communityOnlyAvg": {
+        "damage": 8.5,
+        "synergy": 5.5,
+        "userCount": 2,
+        "defense": 6.5,
+        "independence": 8,
+        "consistency": 7.5,
+        "speed": 6
+      },
+      "independence": 7.7,
+      "consistency": 8,
+      "speed": 6.8
+    },
     "regions": [
       "Ionia"
     ],
@@ -15124,6 +15268,24 @@
         "R0096"
       ]
     ],
+    "communityRatings": {
+      "damage": 7.5,
+      "synergy": 5.5,
+      "defense": 4,
+      "count": 2,
+      "communityOnlyAvg": {
+        "damage": 10,
+        "synergy": 6,
+        "userCount": 1,
+        "defense": 3,
+        "independence": 8,
+        "consistency": 4,
+        "speed": 3
+      },
+      "independence": 6.5,
+      "consistency": 4.5,
+      "speed": 4
+    },
     "regions": [
       "Ionia"
     ],
@@ -16322,6 +16484,24 @@
         "R0036"
       ]
     ],
+    "communityRatings": {
+      "damage": 6,
+      "synergy": 4,
+      "defense": 6,
+      "count": 2,
+      "communityOnlyAvg": {
+        "damage": 7,
+        "synergy": 3,
+        "userCount": 1,
+        "defense": 7,
+        "independence": 9,
+        "consistency": 9,
+        "speed": 8
+      },
+      "independence": 7,
+      "consistency": 7,
+      "speed": 6.5
+    },
     "regions": [
       "Piltover & Zaun"
     ],

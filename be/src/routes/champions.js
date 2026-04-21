@@ -1,12 +1,10 @@
 // src/routes/champions.js
 import express from "express";
 import {
-	ScanCommand,
 	PutItemCommand,
 	DeleteItemCommand,
 	GetItemCommand,
 	QueryCommand,
-	BatchGetItemCommand
 } from "@aws-sdk/client-dynamodb";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
 import cacheManager from "../utils/cacheManager.js";
@@ -14,70 +12,20 @@ import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { requireAdmin } from "../middleware/requireAdmin.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
-import { scanAll } from "../utils/dynamoUtils.js";
-import { verifier } from "../config/cognito.js"; // For manual token verification if optional
+import { verifier } from "../config/cognito.js";
 import { createAuditLog } from "../utils/auditLogger.js";
+import {
+	getCachedChampions,
+	batchFetchByIds,
+	invalidateChampionCache,
+} from "../services/dataService.js";
 
 const router = express.Router();
 const CHAMPIONS_TABLE = "guidePocChampionList";
-
 const championCache = cacheManager.getOrCreateCache("champions", { stdTTL: 1800, checkperiod: 60 });
 
-/**
- * Hàm lấy toàn bộ dữ liệu từ DB và lưu vào Cache.
- * Sắp xếp mặc định A-Z.
- */
-export async function getCachedChampions() {
-	const CACHE_KEY = "all_champions_list";
-	let cachedData = championCache.get(CACHE_KEY);
-
-	if (!cachedData) {
-		const rawItems = await scanAll(client, { TableName: CHAMPIONS_TABLE });
-		cachedData = rawItems.map(item => unmarshall(item));
-
-		// Sắp xếp mặc định theo tên A-Z
-		cachedData.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
-
-		championCache.set(CACHE_KEY, cachedData);
-	}
-	return cachedData;
-}
-
-/**
- * Helper để fetch hàng loạt dữ liệu từ một bảng dựa trên list IDs (Tối ưu dùng BatchGet)
- */
-async function fetchBatch(tableName, keyName, ids) {
-	if (!ids || ids.length === 0) return [];
-	try {
-		const distinctIds = [...new Set(ids.filter(Boolean).map(id => String(id).trim()))];
-		if (distinctIds.length === 0) return [];
-
-		const results = [];
-		// BatchGetItem giới hạn 100 items mỗi call
-		for (let i = 0; i < distinctIds.length; i += 100) {
-			const chunk = distinctIds.slice(i, i + 100);
-			const keys = chunk.map(id => marshall({ [keyName]: id }));
-
-			const command = {
-				RequestItems: {
-					[tableName]: {
-						Keys: keys
-					}
-				}
-			};
-
-			const response = await client.send(new BatchGetItemCommand(command));
-			if (response.Responses && response.Responses[tableName]) {
-				results.push(...response.Responses[tableName].map(item => unmarshall(item)));
-			}
-		}
-		
-		return results;
-	} catch (e) {
-		console.error(`FetchBatch Error [${tableName}] with BatchGet:`, e);
-		return [];
-	}
-}
+// getCachedChampions() đã được chuyển vào dataService.js
+export { getCachedChampions } from "../services/dataService.js";
 
 /**
  * @route   GET /api/champions
@@ -306,14 +254,14 @@ router.get("/:championID/full", async (req, res) => {
 		]);
 		const bonusStarIds = new Set(constellation?.nodes?.map(n => n.bonusStarID).filter(Boolean) || []);
 
-		// 3. Fetch tất cả dữ liệu liên quan song song
+		// 3. Fetch tất cả dữ liệu liên quan song song (dùng batchFetchByIds từ DataService)
 		const [powers, relics, items, runes, cards, bonusStars, allRatings] = await Promise.all([
-			fetchBatch("guidePocPowers", "powerCode", Array.from(powerIds)),
-			fetchBatch("guidePocRelics", "relicCode", Array.from(relicIds)),
-			fetchBatch("guidePocItems", "itemCode", Array.from(itemIds)),
-			fetchBatch("guidePocRunes", "runeCode", Array.from(runeIds)),
-			fetchBatch("guidePocCardList", "cardCode", Array.from(cardIds)),
-			fetchBatch("guidePocBonusStar", "bonusStarID", Array.from(bonusStarIds)),
+			batchFetchByIds("guidePocPowers", "powerCode", Array.from(powerIds)),
+			batchFetchByIds("guidePocRelics", "relicCode", Array.from(relicIds)),
+			batchFetchByIds("guidePocItems", "itemCode", Array.from(itemIds)),
+			batchFetchByIds("guidePocRunes", "runeCode", Array.from(runeIds)),
+			batchFetchByIds("guidePocCardList", "cardCode", Array.from(cardIds)),
+			batchFetchByIds("guidePocBonusStar", "bonusStarID", Array.from(bonusStarIds)),
 			client.send(new QueryCommand({
 				TableName: "guidePocPlayStyleRating",
 				KeyConditionExpression: "championID = :cid",
@@ -580,9 +528,8 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 			user: req.user
 		});
 		
-		// Xóa cache danh sách và cache chi tiết của tướng này
-		championCache.del("all_champions_list");
-		championCache.del(`champion_detail_${championID}`);
+		// Xóa cache qua DataService
+		invalidateChampionCache(championID);
 
 		res.json({
 			message: isNew

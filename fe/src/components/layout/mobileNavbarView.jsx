@@ -248,6 +248,13 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 										<Map className='w-4 h-4' /> {tUI("nav.maps")}
 									</NavLink>
 									<NavLink
+										to='/bosses'
+										className={dropdownLinkClass}
+										onClick={closeSidebar}
+									>
+										<Swords className='w-4 h-4' /> {tUI("nav.bosses")}
+									</NavLink>
+									<NavLink
 										to='/builds'
 										className={dropdownLinkClass}
 										onClick={closeSidebar}

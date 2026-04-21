@@ -1,7 +1,6 @@
 // be/src/routes/relics.js
 import express from "express";
 import {
-	ScanCommand,
 	PutItemCommand,
 	DeleteItemCommand,
 	GetItemCommand,
@@ -11,31 +10,16 @@ import cacheManager from "../utils/cacheManager.js";
 import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
-import { scanAll } from "../utils/dynamoUtils.js";
 import { createAuditLog } from "../utils/auditLogger.js";
-
 import { getProxyImage } from "../utils/proxyImage.js";
+import { getCachedRelics, invalidateRelicCache } from "../services/dataService.js";
 
 const router = express.Router();
 const RELICS_TABLE = "guidePocRelics";
-
 const relicCache = cacheManager.getOrCreateCache("relics", { stdTTL: 86400, checkperiod: 60 });
 
-/**
- * Lấy toàn bộ dữ liệu Relics từ DB hoặc Cache
- */
-export async function getCachedRelics() {
-	const CACHE_KEY = "all_relics_data";
-	let cachedData = relicCache.get(CACHE_KEY);
-
-	if (!cachedData) {
-		const rawItems = await scanAll(client, { TableName: RELICS_TABLE });
-		cachedData = rawItems.map(item => unmarshall(item));
-		cachedData.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
-		relicCache.set(CACHE_KEY, cachedData);
-	}
-	return cachedData;
-}
+// getCachedRelics() đã được chuyển vào dataService.js
+export { getCachedRelics } from "../services/dataService.js";
 
 /**
  * @route   GET /api/relics/proxy-image
@@ -263,8 +247,7 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 			user: req.user
 		});
 
-		relicCache.del("all_relics_data");
-		relicCache.del(`relic_detail_${relicCode}`);
+		invalidateRelicCache(relicCode);
 
 		res.status(200).json({
 			message: isNew ? "Tạo mới thành công" : "Cập nhật thành công",
@@ -307,8 +290,7 @@ router.delete("/:relicCode", authenticateCognitoToken, async (req, res) => {
 			newData: null,
 			user: req.user
 		});
-		relicCache.del("all_relics_data");
-		relicCache.del(`relic_detail_${relicCode}`);
+		invalidateRelicCache(relicCode);
 		res.status(200).json({ message: "Đã xóa cổ vật thành công." });
 	} catch (error) {
 		console.error("Lỗi xóa Relics:", error);

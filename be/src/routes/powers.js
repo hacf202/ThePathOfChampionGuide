@@ -1,7 +1,6 @@
 // be/src/routes/powers.js
 import express from "express";
 import {
-	ScanCommand,
 	PutItemCommand,
 	DeleteItemCommand,
 	GetItemCommand,
@@ -11,33 +10,17 @@ import cacheManager from "../utils/cacheManager.js";
 import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
-import { scanAll } from "../utils/dynamoUtils.js";
 import { createAuditLog } from "../utils/auditLogger.js";
+import { CACHE_KEYS } from "../utils/cacheKeys.js";
+import { getCachedPowers, invalidatePowerCache } from "../services/dataService.js";
 
 const router = express.Router();
 const POWERS_TABLE = "guidePocPowers";
-
-// Cache 30 phút (1800s) để tối ưu hiệu suất vì dữ liệu Sức mạnh lớn
 const powerCache = cacheManager.getOrCreateCache("powers", { stdTTL: 86400, checkperiod: 60 });
 
-/**
- * Hàm hỗ trợ lấy toàn bộ dữ liệu từ RAM hoặc Database
- */
-export async function getCachedPowers() {
-	const CACHE_KEY = "all_powers_data";
-	let cachedData = powerCache.get(CACHE_KEY);
-
-	if (!cachedData) {
-		const rawItems = await scanAll(client, { TableName: POWERS_TABLE });
-		cachedData = rawItems.map(item => unmarshall(item));
-
-		// Sắp xếp mặc định theo tên A-Z
-		cachedData.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
-
-		powerCache.set(CACHE_KEY, cachedData);
-	}
-	return cachedData;
-}
+// getCachedPowers() đã được chuyển vào dataService.js
+// Re-export để giữ tương thích ngược (nếu có module khác import trực tiếp)
+export { getCachedPowers } from "../services/dataService.js";
 
 /**
  * @route   GET /api/powers/:powerCode
@@ -222,8 +205,7 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 			user: req.user
 		});
 
-		powerCache.del("all_powers_data");
-		powerCache.del(`power_detail_${powerCode}`);
+		invalidatePowerCache(powerCode);
 
 		res.status(200).json({
 			message: isNew ? "Tạo mới thành công" : "Cập nhật thành công",
@@ -268,8 +250,7 @@ router.delete("/:powerCode", authenticateCognitoToken, async (req, res) => {
 			user: req.user
 		});
 
-		powerCache.del("all_powers_data");
-		powerCache.del(`power_detail_${powerCode}`);
+		invalidatePowerCache(powerCode);
 
 		res.status(200).json({ message: "Đã xóa sức mạnh thành công" });
 	} catch (e) {

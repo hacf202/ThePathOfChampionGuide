@@ -192,6 +192,13 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 												<Map className='w-5 h-5' /> {tUI("nav.maps")}
 											</NavLink>
 											<NavLink
+												to='/bosses'
+												className={dropdownLinkClass}
+												onClick={handleNavClick}
+											>
+												<Swords className='w-5 h-5' /> {tUI("nav.bosses")}
+											</NavLink>
+											<NavLink
 												to='/builds'
 												className={dropdownLinkClass}
 												onClick={handleNavClick}
@@ -376,10 +383,10 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 							<div className='relative' ref={profileMenuRef}>
 								<button
 									onClick={() => setIsProfileOpen(!isProfileOpen)}
-									className='flex items-center gap-2 py-2 px-3 rounded-lg hover:bg-nav-hover-bg transition-all hover:scale-105'
+									className='flex items-center gap-2 py-2 px-2 lg:px-3 rounded-lg hover:bg-nav-hover-bg transition-all hover:scale-105'
 								>
-									<span className='text-sm font-medium'>{user.name}</span>
-									<User className='h-8 w-8' />
+									<span className='text-sm font-medium whitespace-nowrap truncate max-w-[100px] lg:max-w-[150px] xl:max-w-[200px] text-right'>{user.name}</span>
+									<User className='h-7 w-7 xl:h-8 xl:w-8 flex-shrink-0' />
 								</button>
 								{isProfileOpen && (
 									<div className='absolute z-50 right-0 top-full pt-1'>

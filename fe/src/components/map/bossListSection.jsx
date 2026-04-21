@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ShieldAlert, Eye, EyeOff } from "lucide-react";
 import Button from "../common/button";
 import SafeImage from "../common/SafeImage";
+import MarkupRenderer from "../common/MarkupRenderer";
 import ResolvedPowerCard from "./resolvedPowerCard";
 import { useTranslation } from "../../hooks/useTranslation";
 
@@ -90,10 +91,12 @@ const BossListSection = ({ resolvedBosses, adventure }) => {
 													<div className='text-sm text-text-secondary leading-relaxed whitespace-pre-line'>
 														<span className='font-bold text-primary-500 mt-1 uppercase text-xs tracking-wider'>
 															{tUI("adventureMap.note") || "Lưu ý:"}{" "}
-														</span>
-														<br />
-														{note}
-													</div>
+													</span>
+													<MarkupRenderer 
+														text={note}
+														className="text-sm text-text-secondary leading-relaxed inline"
+													/>
+												</div>
 												</div>
 											)}
 										</div>

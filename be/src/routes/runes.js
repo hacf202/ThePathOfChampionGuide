@@ -1,7 +1,6 @@
 // be/src/routes/runes.js
 import express from "express";
 import {
-	ScanCommand,
 	PutItemCommand,
 	DeleteItemCommand,
 	GetItemCommand,
@@ -11,33 +10,15 @@ import cacheManager from "../utils/cacheManager.js";
 import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
-import { scanAll } from "../utils/dynamoUtils.js";
 import { createAuditLog } from "../utils/auditLogger.js";
+import { getCachedRunes, invalidateRuneCache } from "../services/dataService.js";
 
 const router = express.Router();
 const RUNES_TABLE = "guidePocRunes";
-
-// Khởi tạo cache 1800 giây (30 phút)
 const runeCache = cacheManager.getOrCreateCache("runes", { stdTTL: 86400, checkperiod: 60 });
 
-/**
- * Lấy toàn bộ Runes từ Database hoặc RAM
- */
-export async function getCachedRunes() {
-	const CACHE_KEY = "all_runes_data";
-	let cachedData = runeCache.get(CACHE_KEY);
-
-	if (!cachedData) {
-		const rawItems = await scanAll(client, { TableName: RUNES_TABLE });
-		cachedData = rawItems.map(item => unmarshall(item));
-
-		// Sắp xếp mặc định theo tên A-Z
-		cachedData.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
-
-		runeCache.set(CACHE_KEY, cachedData);
-	}
-	return cachedData;
-}
+// getCachedRunes() đã được chuyển vào dataService.js
+export { getCachedRunes } from "../services/dataService.js";
 
 /**
  * @route   GET /api/runes/:runeCode
@@ -224,8 +205,7 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 			user: req.user
 		});
 
-		runeCache.del("all_runes_data");
-		runeCache.del(`rune_detail_${runeCode}`);
+		invalidateRuneCache(runeCode);
 
 		res.status(200).json({
 			message: isNew ? "Tạo mới thành công" : "Cập nhật thành công",
@@ -268,8 +248,7 @@ router.delete("/:runeCode", authenticateCognitoToken, async (req, res) => {
 			newData: null,
 			user: req.user
 		});
-		runeCache.del("all_runes_data");
-		runeCache.del(`rune_detail_${runeCode}`);
+		invalidateRuneCache(runeCode);
 		res.status(200).json({ message: "Đã xóa ngọc thành công." });
 	} catch (error) {
 		console.error("Lỗi khi xóa ngọc:", error);

@@ -9,6 +9,7 @@
 		"nextPage": "Trang sau",
 		"notFound": "Không tìm thấy kết quả",
 		"close": "Đóng",
+		"clear": "Xóa",
 		"selectPlaceholder": "Chọn một hoặc nhiều",
 		"selectedItems": "Đã chọn {{count}} mục",
 		"searchPlaceholder": "Tìm kiếm...",
@@ -49,7 +50,9 @@
 		"show": "Hiện",
 		"cards": " lá",
 		"ad": "Quảng cáo",
-		"filter": "Bộ lọc"
+		"filter": "Bộ lọc",
+		"sortNameAsc": "Tên A-Z",
+		"sortNameDesc": "Tên Z-A"
 	},
 	"cardType": {
 		"unit": "Bài quân",
@@ -553,6 +556,7 @@
 			"guide": "Quản lý Bài Viết",
 			"auditLog": "Nhật ký thay đổi",
 			"boss": "Quản lý Boss",
+			"bosses": "Danh sách Boss",
 			"adventure": "Quản lý Bản Đồ",
 			"images": "Quản lý Ảnh",
 			"cards": "Quản lý Lá Bài",
@@ -1247,7 +1251,28 @@
 		"confirmLogoutTitle": "Xác nhận Đăng xuất",
 		"confirmLogoutDesc": "Bạn có chắc chắn muốn kết thúc phiên làm việc này không?",
 		"customTheme": "Cá nhân hóa",
-		"newChampion": "Tướng mới"
+		"newChampion": "Tướng mới",
+		"bosses": "Danh sách Boss"
+	},
+	"bossList": {
+		"pageTitle": "Danh sách Boss",
+		"pageDescription": "Tra cứu thông tin, sức mạnh và mẹo đối đầu với các Boss trong Path of Champions.",
+		"heading": "Danh sách Boss",
+		"searchPlaceholder": "Tìm tên Boss...",
+		"notFound": "Không tìm thấy Boss nào."
+	},
+	"bossDetail": {
+		"powers": "Sức mạnh",
+		"note": "Mẹo đối đầu",
+		"appearsAt": "Xuất hiện tại",
+		"onMap": "Trên bản đồ",
+		"bonusPowers": "Sức mạnh bổ trợ",
+		"entityType": "Thực thể Boss Tinh Anh",
+		"difficulty": "Độ khó: {{count}} Sao",
+		"noMapsFound": "Chưa tìm thấy bản đồ nào của Boss này.",
+		"noSpecialPower": "Boss này không có sức mạnh đặc biệt được liệt kê.",
+		"pageTitle": "Chi tiết Boss",
+		"pageDescriptionPrefix": "Chi tiết sức mạnh và mẹo đối đầu với Boss"
 	},
 	"rating": {
 		"damage": "Sát thương",
@@ -1445,7 +1470,11 @@
 		"hint": "Ctrl+K",
 		"noResults": "Không tìm thấy kết quả nào cho \"{{query}}\".",
 		"searching": "Đang tìm kiếm...",
+		"recent": "Tìm kiếm gần đây",
+		"popular": "Gợi ý phổ biến",
 		"categoryChampion": "Tướng",
+		"categoryBoss": "Boss",
+		"categoryAdventure": "Bản Đồ",
 		"categoryRelic": "Cổ Vật",
 		"categoryPower": "Sức Mạnh",
 		"categoryItem": "Vật Phẩm",

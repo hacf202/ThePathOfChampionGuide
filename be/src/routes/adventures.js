@@ -1,23 +1,20 @@
 // be/src/routes/adventures.js
 import express from "express";
 import {
-	ScanCommand,
 	PutItemCommand,
 	DeleteItemCommand,
 	GetItemCommand,
 } from "@aws-sdk/client-dynamodb";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
-import cacheManager from "../utils/cacheManager.js";
 import client from "../config/db.js";
-import { scanAll } from "../utils/dynamoUtils.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { requireAdmin } from "../middleware/requireAdmin.js";
 import { createAuditLog } from "../utils/auditLogger.js";
+import { getCachedAdventures, invalidateAdventureCache } from "../services/dataService.js";
 
 const router = express.Router();
 const ADVENTURE_TABLE = "guidePocAdventureMap";
-
-const advCache = cacheManager.getOrCreateCache("adventures", { stdTTL: 86400, checkperiod: 60 });
+// cache hầu cần thiết được quản lý bởi DataService
 
 router.get("/", async (req, res) => {
 	try {
@@ -32,17 +29,8 @@ router.get("/", async (req, res) => {
 		const pageSize = parseInt(limit);
 		const currentPage = parseInt(page);
 
-		// 1. Lấy toàn bộ danh sách từ Cache (hoặc DB)
-		const CACHE_KEY = "all_adventures_list";
-		let allAdventures = advCache.get(CACHE_KEY);
-
-		if (!allAdventures) {
-			const rawItems = await scanAll(client, { TableName: ADVENTURE_TABLE });
-			allAdventures = rawItems.map(item => unmarshall(item));
-			// Sắp xếp mặc định theo độ khó
-			allAdventures.sort((a, b) => (a.difficulty || 0) - (b.difficulty || 0));
-			advCache.set(CACHE_KEY, allAdventures);
-		}
+		// Lấy từ DataService (RAM → DynamoDB)
+		let allAdventures = await getCachedAdventures();
 
 		// 2. Trích xuất bộ lọc động (Dynamic Filters)
 		const availableFilters = {
@@ -180,7 +168,7 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 			user: req.user
 		});
 
-		advCache.flushAll();
+		invalidateAdventureCache();
 
 		res.json({
 			message: isNew
@@ -226,7 +214,7 @@ router.delete(
 				user: req.user
 			});
 
-			advCache.flushAll();
+			invalidateAdventureCache();
 			res.json({ message: "Đã xóa Adventure thành công." });
 		} catch (error) {
 			res.status(500).json({ error: "Lỗi hệ thống khi thực hiện xóa." });
