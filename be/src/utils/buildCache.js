@@ -1,25 +1,27 @@
-// src/utils/buildCache.js
 import { QueryCommand } from "@aws-sdk/client-dynamodb";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
 import client from "../config/db.js";
 import { normalizeBuildFromDynamo } from "./dynamodb.js";
 import { getUserNames } from "./userCache.js";
+import cacheManager from "./cacheManager.js";
 
 const BUILDS_TABLE = "Builds";
-let cachedBuilds = null;
-let cacheExpiry = 0;
-const CACHE_TTL = 2 * 60 * 1000; // 2 phút
+// Sử dụng cacheManager để quản lý bộ nhớ đệm theo userId (TTL 1 giờ)
+const publicBuildsCache = cacheManager.getOrCreateCache("public_builds", { 
+	stdTTL: 3600, 
+	checkperiod: 600 
+});
 
 /**
- * Lấy danh sách build công khai (display: true)
- * Cache 2 phút, tự động làm mới
+ * Lấy danh sách build công khai (display: true) theo từng User
+ * Cache 1 giờ cho mỗi user/guest để tối ưu hiệu năng server
  */
-export const getPublicBuilds = async () => {
-	if (cachedBuilds && Date.now() < cacheExpiry) {
-		return cachedBuilds;
-	}
+export const getPublicBuilds = async (userId = "global") => {
+	const cached = publicBuildsCache.get(userId);
+	if (cached) return cached;
 
 	try {
+		console.log(`[BuildCache] Fetching fresh public builds for: ${userId}`);
 		const command = new QueryCommand({
 			TableName: BUILDS_TABLE,
 			IndexName: "display-index",
@@ -43,9 +45,9 @@ export const getPublicBuilds = async () => {
 			}));
 		}
 
-		cachedBuilds = { items };
-		cacheExpiry = Date.now() + CACHE_TTL;
-		return cachedBuilds;
+		const data = { items };
+		publicBuildsCache.set(userId, data);
+		return data;
 	} catch (error) {
 		console.error("Build cache error:", error);
 		return { items: [] };
@@ -53,10 +55,19 @@ export const getPublicBuilds = async () => {
 };
 
 /**
- * XÓA CACHE – GỌI SAU MỌI HÀNH ĐỘNG ADMIN
+ * XÓA CACHE CỦA MỘT NGƯỜI DÙNG CỤ THỂ
+ * Gọi khi người đó tạo/sửa/xóa build của chính họ
+ */
+export const invalidateUserBuildsCache = (userId) => {
+	if (!userId) return;
+	publicBuildsCache.del(userId);
+	console.log(`[BuildCache] Cache invalidated for user: ${userId}`);
+};
+
+/**
+ * XÓA TOÀN BỘ CACHE (Admin dùng hoặc khi có thay đổi lớn)
  */
 export const invalidatePublicBuildsCache = () => {
-	cachedBuilds = null;
-	cacheExpiry = 0;
-	console.log("Public builds cache invalidated");
+	publicBuildsCache.flushAll();
+	console.log("[BuildCache] Global public builds cache flushed");
 };

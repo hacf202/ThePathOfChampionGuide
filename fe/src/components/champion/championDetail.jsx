@@ -14,6 +14,8 @@ import MarkupRenderer from "../common/MarkupRenderer";
 // Import API và i18n
 import { api } from "../../context/services/apiHelper";
 import { useTranslation } from "../../hooks/useTranslation";
+import { useAuth } from "../../context/AuthContext";
+import { useBatchFavoriteData } from "../../hooks/useBatchFavoriteData";
 import { useMarkupResolution } from "../../hooks/useMarkupResolution";
 import { initEntities } from "../../utils/entityLookup";
 
@@ -23,7 +25,10 @@ import ConstellationTable from "../champion/constellationTable";
 import ChampionPlaystyleChart from "../champion/championPlaystyleChart";
 import CardHoverTooltip from "../champion/CardHoverTooltip";
 import CardCarouselModal from "../card/CardCarouselModal.jsx";
+import CardNameCell from "./CardNameCell";
 import ChampionLevelSection from "./ChampionLevel.jsx";
+import BuildSummary from "../build/buildSummary";
+import { useLazyMetadata } from "../../hooks/useLazyMetadata";
 
 // --- THÀNH PHẦN SKELETON ---
 const ChampionDetailSkeleton = () => (
@@ -91,81 +96,6 @@ const RenderItem = ({ item }) => {
 	return content;
 };
 
-// --- RENDER CARD NAME CELL (WITH TOOLTIP PORTAL) ---
-const CardNameCell = memo(({ card, items, cardCode, isReference = false, onOpenCarousel }) => {
-	const { tDynamic, language } = useTranslation();
-	const [hoverPos, setHoverPos] = useState(null);
-
-	const cardName = card ? tDynamic(card, "cardName") : cardCode;
-	const isEN = language === "en";
-	const cardImg = isEN
-		? (card?.translations?.en?.gameAbsolutePath || card?.gameAbsolutePath || "/fallback-card.png")
-		: (card?.gameAbsolutePath || "/fallback-card.png");
-
-
-	return (
-		<div
-			className='flex items-center gap-3 cursor-zoom-in w-max'
-			onMouseEnter={e => {
-				if (window.innerWidth < 640) return; // Skip hover on mobile
-				const rect = e.currentTarget.getBoundingClientRect();
-				setHoverPos({
-					x: rect.right,
-					y: rect.top,
-				});
-			}}
-			onMouseLeave={() => setHoverPos(null)}
-			onClick={e => {
-				if (window.innerWidth < 640) {
-					// On mobile: Open Carousel!
-					if (onOpenCarousel) onOpenCarousel(card, cardCode);
-					return;
-				}
-				// Desktop: Toggle tooltip or nothing
-				if (hoverPos) {
-					setHoverPos(null);
-				} else {
-					const rect = e.currentTarget.getBoundingClientRect();
-					setHoverPos({
-						x: rect.right,
-						y: rect.top,
-					});
-				}
-			}}
-			onContextMenu={e => {
-				e.preventDefault();
-				if (onOpenCarousel) onOpenCarousel(card, cardCode);
-			}}
-		>
-			{/* Small Thumbnail */}
-			<div className='w-11 h-16 rounded border border-white/10 overflow-hidden bg-black/20 shrink-0 shadow-sm'>
-				<SafeImage src={cardImg} className='w-full h-full object-cover' />
-			</div>
-
-			<Link 
-				to={`/card/${cardCode}`}
-				className={`text-sm sm:text-base font-bold pb-0.5 transition-all border-b border-dashed hover:underline ${
-					isReference
-						? "text-purple-500 border-purple-500/30 hover:text-purple-400"
-						: "text-primary-500 border-primary-500/30 hover:text-primary-400"
-				}`}
-			>
-				{cardName}
-			</Link>
-
-			{/* Tooltip via Portal */}
-			{hoverPos && (
-				<CardHoverTooltip
-					card={card}
-					items={items}
-					cardCode={cardCode}
-					position={hoverPos}
-					onClose={() => setHoverPos(null)}
-				/>
-			)}
-		</div>
-	);
-});
 
 // --- MAIN COMPONENT ---
 function ChampionDetail() {
@@ -174,6 +104,7 @@ function ChampionDetail() {
 
 	// 🟢 Sửa lại: Dùng tDynamic và tUI
 	const { language, tDynamic, tUI } = useTranslation();
+	const { token } = useAuth();
 	const { resolveEntities } = useMarkupResolution();
 	const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -193,6 +124,10 @@ function ChampionDetail() {
 
 	const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
 	const [activeDeckTab, setActiveDeckTab] = useState("base");
+	const [topBuilds, setTopBuilds] = useState([]);
+	const { favoriteStatus, favoriteCounts, toggleFavorite } = useBatchFavoriteData(topBuilds, token);
+	const [loadingBuilds, setLoadingBuilds] = useState(false);
+	const { metadata, fetchAllMetadata } = useLazyMetadata(tUI);
 
 	// --- Card Carousel Modal state ---
 	const [carouselOpen, setCarouselOpen] = useState(false);
@@ -224,6 +159,30 @@ function ChampionDetail() {
 		setCarouselInitialIndex(0);
 		setCarouselOpen(true);
 	}, [apiUrl]);
+
+	const fetchTopBuilds = useCallback(async () => {
+		try {
+			setLoadingBuilds(true);
+			const res = await fetch(`${apiUrl}/api/builds/top-by-champion/${championID}?limit=8`);
+			if (res.ok) {
+				const data = await res.json();
+				setTopBuilds(data);
+				if (data.length > 0) {
+					// Nếu có build, tải thêm metadata để render BuildSummary cho chuẩn
+					fetchAllMetadata();
+				}
+			}
+		} catch (err) {
+			console.error("Error fetching top builds:", err);
+		} finally {
+			setLoadingBuilds(false);
+		}
+	}, [championID, apiUrl, fetchAllMetadata]);
+
+	const handleFavoriteToggle = useCallback(async (buildId, newStatus, newCount) => {
+		await toggleFavorite(buildId, newStatus, newCount);
+	}, [toggleFavorite]);
+
 
 	const initData = useCallback(async () => {
 		try {
@@ -278,7 +237,8 @@ function ChampionDetail() {
 
 	useEffect(() => {
 		initData();
-	}, [initData]);
+		fetchTopBuilds();
+	}, [initData, fetchTopBuilds]);
 
 	// Xử lý dữ liệu hiển thị Đa ngôn ngữ cho Chòm sao
 	const constellationInfo = useMemo(() => {
@@ -828,6 +788,40 @@ function ChampionDetail() {
 									resolvedPowers={resolvedPowers}
 									onOpenCarousel={handleOpenCarousel}
 								/>
+							)}
+
+							{/* TOP COMMUNITY BUILDS */}
+							{topBuilds.length > 0 && (
+								<div className="bg-surface-bg border border-border rounded-xl p-4 sm:p-6 shadow-sm mt-6">
+									<div className="flex items-center justify-between border-b border-border mb-6 pb-2">
+										<h2 className='text-lg sm:text-3xl font-semibold font-primary text-primary-500'>
+											{tUI("championDetail.communityBuilds") || "Top Community Builds"}
+										</h2>
+										<Link 
+											to={`/builds/community?championIDs=${championID}`}
+											className="text-sm font-bold text-primary-500 hover:underline"
+										>
+											{tUI("common.viewAll") || "Xem tất cả"} →
+										</Link>
+									</div>
+									
+									<div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+										{topBuilds.map(build => (
+											<BuildSummary
+												key={build.id}
+												build={build}
+												championsList={metadata.champions}
+												relicsList={metadata.relics}
+												powersList={metadata.powers}
+												runesList={metadata.runes}
+												onBuildUpdate={fetchTopBuilds}
+												onFavoriteToggle={handleFavoriteToggle}
+												initialIsFavorited={!!favoriteStatus[build.id]}
+												initialLikeCount={favoriteCounts[build.id] || build.like || 0}
+											/>
+										))}
+									</div>
+								</div>
 							)}
 
 							{/* RELIC SETS SECTION */}

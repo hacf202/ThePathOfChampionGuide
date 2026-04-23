@@ -132,40 +132,71 @@ const Builds = () => {
 				heading={tUI("buildList.heading")}
 				// --- ĐƯA 3 NÚT TABS VÀ NÚT CREATE VÀO CHUNG MỘT KHỐI ---
 				customHeaderActions={
-					<div className='flex flex-wrap items-center gap-3 w-full sm:w-auto mt-2 sm:mt-0'>
-						{/* Cụm 3 nút điều hướng */}
-						<div className='flex items-center gap-1 border border-border p-1 rounded-xl bg-surface-bg shadow-sm'>
-							<Button
-								variant={activeTab === "community" ? "primary" : "ghost"}
-								onClick={() => changeTab("community")}
-								iconLeft={<Globe size={18} />}
-								className='px-3 sm:px-4'
-							>
-								{tUI("buildList.community")}
-							</Button>
-							{user && (
-								<>
-									<Button
-										variant={activeTab === "my-builds" ? "primary" : "ghost"}
-										onClick={() => changeTab("my-builds")}
-										iconLeft={<Shield size={18} />}
-										className='px-3 sm:px-4'
-									>
-										{tUI("buildList.myBuilds")}
-									</Button>
-									<Button
-										variant={activeTab === "favorites" ? "primary" : "ghost"}
-										onClick={() => changeTab("favorites")}
-										iconLeft={<Heart size={18} />}
-										className='px-3 sm:px-4'
-									>
-										{tUI("buildList.favorites")}
-									</Button>
-								</>
+					<div className='flex flex-col gap-2 w-full sm:flex-row sm:items-center sm:w-auto sm:mt-0 sm:px-0 px-2 mt-2'>
+						{/* Hai dòng: Hàng 1 = Tab + Tạo mới (sm+), Hàng 2 = Tạo mới (mobile) */}
+						<div className='flex items-center gap-2 flex-wrap'>
+							{/* Cụm 3 nút điều hướng */}
+							<div className='flex items-center gap-1 border border-border p-1 rounded-xl bg-surface-bg shadow-sm'>
+								<Button
+									variant={activeTab === "community" ? "primary" : "ghost"}
+									onClick={() => changeTab("community")}
+									iconLeft={<Globe size={18} />}
+									className='px-3 sm:px-4'
+								>
+									{tUI("buildList.community")}
+								</Button>
+								{user && (
+									<>
+										<Button
+											variant={activeTab === "my-builds" ? "primary" : "ghost"}
+											onClick={() => changeTab("my-builds")}
+											iconLeft={<Shield size={18} />}
+											className='px-3 sm:px-4'
+										>
+											{tUI("buildList.myBuilds")}
+										</Button>
+										<Button
+											variant={activeTab === "favorites" ? "primary" : "ghost"}
+											onClick={() => changeTab("favorites")}
+											iconLeft={<Heart size={18} />}
+											className='px-3 sm:px-4'
+										>
+											{tUI("buildList.favorites")}
+										</Button>
+									</>
+								)}
+							</div>
+
+							{/* Nút Tạo Mới - ẩn ở mobile, hiện ở sm+ */}
+							{user ? (
+								<Button
+									variant='primary'
+									onClick={handleOpenCreateModal}
+									iconLeft={
+										isLoadingMeta ? (
+											<Loader2 className='animate-spin' size={20} />
+										) : (
+											<PlusCircle size={20} />
+										)
+									}
+									disabled={isLoadingMeta}
+									className='hidden sm:flex'
+								>
+									{isLoadingMeta
+										? tUI("common.loading")
+										: tUI("buildList.createNew")}
+								</Button>
+							) : (
+								<NavLink
+									to='/auth?mode=login'
+									className='hidden sm:flex text-md font-bold text-primary-300 hover:text-primary-400 items-center bg-primary-500/20 px-4 py-2 rounded-lg h-full border border-border transition-colors'
+								>
+									{tUI("buildList.loginToCreate")}
+								</NavLink>
 							)}
 						</div>
 
-						{/* Nút Tạo Mới */}
+						{/* Hàng 2 chỉ hiện ở mobile: Nút Tạo Mới full-width */}
 						{user ? (
 							<Button
 								variant='primary'
@@ -178,15 +209,14 @@ const Builds = () => {
 									)
 								}
 								disabled={isLoadingMeta}
+								className='flex sm:hidden w-full justify-center'
 							>
-								{isLoadingMeta
-									? tUI("common.loading")
-									: tUI("buildList.createNew")}
+								{isLoadingMeta ? tUI("common.loading") : tUI("buildList.createNew")}
 							</Button>
 						) : (
 							<NavLink
 								to='/auth?mode=login'
-								className='text-md font-bold text-primary-300 hover:text-primary-400 flex items-center bg-primary-500/20 px-4 py-2 rounded-lg h-full border border-border transition-colors'
+								className='flex sm:hidden w-full justify-center text-md font-bold text-primary-300 hover:text-primary-400 items-center bg-primary-500/20 px-4 py-2 rounded-lg border border-border transition-colors'
 							>
 								{tUI("buildList.loginToCreate")}
 							</NavLink>
@@ -200,6 +230,11 @@ const Builds = () => {
 				currentPage={state.currentPage}
 				onPageChange={actions.setCurrentPage}
 				skeletonCount={6}
+				gridClassName={showDesktopFilter =>
+					showDesktopFilter
+						? "grid-cols-1 lg:grid-cols-2"
+						: "grid-cols-1 lg:grid-cols-2 xl:grid-cols-4"
+				}
 				// --- Quản lý Tìm kiếm ---
 				searchValue={state.searchInput}
 				onSearchChange={actions.setSearchInput}

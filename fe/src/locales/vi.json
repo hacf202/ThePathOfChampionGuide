@@ -52,7 +52,8 @@
 		"ad": "Quảng cáo",
 		"filter": "Bộ lọc",
 		"sortNameAsc": "Tên A-Z",
-		"sortNameDesc": "Tên Z-A"
+		"sortNameDesc": "Tên Z-A",
+		"viewAll": "Xem tất cả"
 	},
 	"cardType": {
 		"unit": "Bài quân",
@@ -936,6 +937,7 @@
 	},
 	"championDetail": {
 		"title": "Chi tiết tướng",
+		"communityBuilds": "Bộ cổ vật cộng đồng",
 		"back": "Quay lại",
 		"showLess": "Thu gọn",
 		"showMore": "Hiển thị toàn bộ",

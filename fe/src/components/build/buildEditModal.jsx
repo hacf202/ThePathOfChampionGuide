@@ -16,13 +16,13 @@ const BuildEditModal = ({
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	useEffect(() => {
-		if (!isOpen || !build?.championName) return;
+		if (!isOpen || !build?.championID) return;
 
 		const fetchMaxStar = async () => {
 			// Tìm nhanh trong list master
 			if (championsList.length > 0) {
 				const champion = championsList.find(
-					c => c.name === build.championName.trim(),
+					c => c.championID === build.championID,
 				);
 				if (champion) {
 					setMaxStar(champion.maxStar ?? 7);
@@ -33,11 +33,10 @@ const BuildEditModal = ({
 			try {
 				const apiUrl = import.meta.env.VITE_API_URL;
 				const res = await fetch(
-					`${apiUrl}/api/champions/search?name=${encodeURIComponent(build.championName.trim())}`,
+					`${apiUrl}/api/champions/${encodeURIComponent(build.championID)}`,
 				);
 				const data = await res.json();
-				const champion = data.items?.[0];
-				setMaxStar(champion?.maxStar ?? 7);
+				setMaxStar(data?.maxStar ?? 7);
 			} catch (err) {
 				console.error("Lỗi khi lấy thông tin tướng trong Edit Mode:", err);
 				setMaxStar(7);
@@ -46,7 +45,7 @@ const BuildEditModal = ({
 
 		fetchMaxStar();
 		setIsModalOpen(true);
-	}, [isOpen, build?.championName, championsList]);
+	}, [isOpen, build?.championID, championsList]);
 
 	const handleClose = () => {
 		setIsModalOpen(false);
@@ -74,24 +73,12 @@ const BuildEditModal = ({
 			runesList={runesList}
 			initialData={{
 				_id: build.id,
-				championName: build.championName,
+				championID: build.championID || "",
 				description: build.description || "",
 				star: build.star || 3,
 				display: build.display ?? true,
-				// Ánh xạ sang cấu trúc Ids mới để Modal nhận diện đúng slot
-				relicSetIds: [...(build.relicSetIds || []), null, null, null].slice(
-					0,
-					3,
-				),
-				powerIds: [
-					...(build.powerIds || []),
-					null,
-					null,
-					null,
-					null,
-					null,
-					null,
-				].slice(0, 6),
+				relicSetIds: [...(build.relicSetIds || []), null, null, null].slice(0, 3),
+				powerIds: [...(build.powerIds || []), null, null, null, null, null, null].slice(0, 6),
 				runeIds: [...(build.runeIds || []), null, null, null].slice(0, 3),
 			}}
 			onChampionChange={handleChampionChange}

@@ -13,6 +13,7 @@ import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { normalizeBuildFromDynamo } from "../utils/dynamodb.js";
 import { invalidatePublicBuildsCache } from "../utils/buildCache.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
+import { getUserNames } from "../utils/userCache.js";
 
 const router = express.Router();
 const BUILDS_TABLE = "Builds";
@@ -117,6 +118,15 @@ router.get("/favorites", authenticateCognitoToken, async (req, res) => {
 			(currentPage - 1) * pageSize,
 			currentPage * pageSize,
 		);
+
+		// F. Làm giàu tên hiển thị
+		if (paginatedItems.length > 0) {
+			const usernames = [...new Set(paginatedItems.map(i => i.creator))];
+			const userMap = await getUserNames(usernames);
+			paginatedItems.forEach(item => {
+				item.creatorName = userMap[item.creator] || item.creator;
+			});
+		}
 
 		res.json({
 			items: paginatedItems,

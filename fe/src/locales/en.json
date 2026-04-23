@@ -53,7 +53,8 @@
 		"ad": "Advertisement",
 		"filter": "Filter",
 		"sortNameAsc": "Name A-Z",
-		"sortNameDesc": "Name Z-A"
+		"sortNameDesc": "Name Z-A",
+		"viewAll": "View All"
 	},
 	"cardType": {
 		"unit": "Unit",
@@ -931,6 +932,7 @@
 	},
 	"championDetail": {
 		"title": "Champion Details",
+		"communityBuilds": "Community Builds",
 		"back": "Back",
 		"showLess": "Show less",
 		"showMore": "Show more",

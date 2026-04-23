@@ -31,6 +31,7 @@ const BuildSummary = ({
 	style,
 	onBuildUpdate,
 	onBuildDelete,
+	onFavoriteToggle,
 	initialIsFavorited = false,
 	initialLikeCount = 0,
 	isFavoritePage = false,
@@ -57,12 +58,15 @@ const BuildSummary = ({
 	const [buildToEdit, setBuildToEdit] = useState(null);
 
 	const displayCreator = useMemo(() => {
+		// 1. Nếu là của tôi, dùng tên trong Cognito
+		if (user && build.sub === user.sub) {
+			return user.name || tUI("buildSummary.me");
+		}
+		// 2. Nếu backend đã trả về tên hiển thị (creatorName), ưu tiên dùng
 		if (build.creatorName && build.creatorName !== build.creator) {
 			return build.creatorName;
 		}
-		if (user && build.sub === user.sub) {
-			return tUI("buildSummary.me"); // 🟢 Dịch chữ "Tôi"
-		}
+		// 3. Cuối cùng mới dùng username gốc
 		return build.creator;
 	}, [build.creatorName, build.creator, build.sub, user, tUI]);
 
@@ -148,8 +152,12 @@ const BuildSummary = ({
 					Authorization: `Bearer ${token}`,
 				},
 			});
-			if (!res.ok) throw new Error("Toggle failed");
 			const result = await res.json();
+			
+			// Thông báo cho component cha (để đồng bộ hóa batch data)
+			onFavoriteToggle?.(build.id, result.isFavorited, result.isFavorited ? previousCount + 1 : previousCount - 1); 
+			// Lưu ý: isFavorite và favoriteCount cục bộ đã được set ở trên rồi.
+			
 			if (isFavoritePage) {
 				onBuildUpdate?.({ ...build, isFavorited: result.isFavorited });
 			}
@@ -186,15 +194,15 @@ const BuildSummary = ({
 		val && typeof val === "object" ? val.S || "" : String(val || "");
 
 	const championData = useMemo(() => {
-		const name = normalizeName(build?.championName);
-		return championsList.find(c => c?.name === name);
-	}, [championsList, build?.championName]);
+		const id = normalizeName(build?.championID);
+		return championsList.find(c => c?.championID === id);
+	}, [championsList, build?.championID]);
 
 	const championImage =
 		championData?.assets?.[0]?.avatar || "/fallback-image.svg";
 	const championDisplayName = championData
-		? tDynamic(championData, "name") // 🟢 Đã sửa thành tDynamic
-		: normalizeName(build?.championName);
+		? tDynamic(championData, "name")
+		: normalizeName(build?.championID);
 
 	// 🟢 Ánh xạ ID sang Object thay vì Tên
 	const artifactItems = useMemo(
@@ -476,7 +484,7 @@ const BuildSummary = ({
 						{/* Stars Section */}
 						<div className='group relative flex items-center gap-1 cursor-default'>
 							<div className='p-1.5'>
-								<Star size={16} className='text-icon-star fill-icon-star' />
+								<Star size={16} className='text-yellow-400 fill-yellow-400' />
 							</div>
 							<span className='text-text-secondary font-bold text-sm sm:text-lg'>
 								{build.star}
@@ -523,11 +531,15 @@ const BuildSummary = ({
 				onConfirm={handleConfirmDelete}
 			/>
 
-			<BuildEditModal
+		<BuildEditModal
 				isOpen={!!buildToEdit}
 				onClose={() => setBuildToEdit(null)}
 				build={buildToEdit}
 				onConfirm={handleConfirmEdit}
+				championsList={championsList}
+				relicsList={relicsList}
+				powersList={powersList}
+				runesList={runesList}
 			/>
 		</>
 	);

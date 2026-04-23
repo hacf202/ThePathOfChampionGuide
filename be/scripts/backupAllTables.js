@@ -41,6 +41,8 @@ const ALL_TABLES = [
 	{ name: "guidePocFavoriteBuilds",         file: "guidePocFavoriteBuilds.json",         sortKey: null },
 	{ name: "guidePocPlayStyleRating",        file: "guidePocPlayStyleRating.json",        sortKey: "championID" },
 	{ name: "guidePocAuditLogs",              file: "guidePocAuditLogs.json",              sortKey: "timestamp" },
+	{ name: "Builds",                         file: "guidePocBuilds.json",                 sortKey: "id" },
+	{ name: "Comments",                       file: "guidePocComments.json",               sortKey: "id" },
 ];
 
 // ── Helpers ───────────────────────────────────────────────────────────────────

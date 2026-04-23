@@ -838,6 +838,7 @@ const ChampionEditorForm = memo(
 												setFormData({ ...formData, relicSets: newSets });
 											}}
 											cachedData={dataLookup.relics}
+											allowDuplicates={true}
 										/>
 									</div>
 								))}

@@ -99,3 +99,11 @@ ThePathOfChampionGuide/
 +  - **3 Chế độ (Triple-Mode)**: Solid Light (Sáng), Solid Dark (Tối), và Artwork Mode (Ảnh nền tùy chỉnh với hiệu ứng kính mờ).
 +  - **Đồng bộ Semantic**: Toàn bộ hệ thống UI (Header, Footer, Modals, Inputs) sử dụng biến màu semantic để tự động thay đổi theo theme.
 +  - **Cá nhân hóa**: Cho phép người dùng lưu trữ cấu hình giao diện yêu thích qua `localStorage`.
++
++### 7. Module: Build System & Personalized Caching
++- **Mục tiêu**: Nơi người dùng chia sẻ các bộ trang bị tối ưu cho tướng, hỗ trợ trải nghiệm thời gian thực với hiệu suất cao.
++- **Tính năng cốt lõi**:
++  - **Identity Sync**: Tự động liên kết và hiển thị tên thật (Cognito Name) của người tạo build trên toàn hệ thống thay vì username kỹ thuật.
++  - **Per-user Caching**: Áp dụng cơ chế cache 1 giờ cho danh sách build công khai nhưng hỗ trợ xóa cache cục bộ cho chính người tạo khi có thay đổi. Điều này giúp người dùng thấy kết quả ngay lập tức mà không làm ảnh hưởng đến tính ổn định của hệ thống cache chung.
++  - **Markup Enrichment**: Tự động giải mã các mô tả build chứa thẻ game (`[k:...]`, `[r:...]`) sang giao diện trực quan kèm tooltip.
++  - **Favorite Sync**: Hệ thống đồng bộ trạng thái yêu thích thời gian thực trên mọi danh sách hiển thị.

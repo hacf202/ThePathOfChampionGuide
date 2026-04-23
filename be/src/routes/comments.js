@@ -13,6 +13,7 @@ import { v4 as uuidv4 } from "uuid";
 import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { invalidatePublicBuildsCache } from "../utils/buildCache.js";
+import { getUserNames } from "../utils/userCache.js";
 
 const router = express.Router();
 const BUILDS_TABLE = "Builds";
@@ -32,7 +33,19 @@ router.get("/builds/:buildId/comments", async (req, res) => {
 			ScanIndexForward: true,
 		});
 		const { Items } = await client.send(command);
-		res.json(Items ? Items.map(unmarshall) : []);
+		let items = Items ? Items.map(unmarshall) : [];
+
+		// Làm giàu tên hiển thị
+		if (items.length > 0) {
+			const usernames = [...new Set(items.map(i => i.username))];
+			const userMap = await getUserNames(usernames);
+			items = items.map(item => ({
+				...item,
+				displayName: userMap[item.username] || item.username,
+			}));
+		}
+
+		res.json(items);
 	} catch (error) {
 		console.error("Error getting comments:", error);
 		res.status(500).json({ error: "Could not retrieve comments" });
@@ -73,7 +86,8 @@ router.post(
 				buildId: buildId,
 				content: content.trim(),
 				sub: req.user.sub, // Lưu thống nhất vào trường 'sub'
-				username: req.user["cognito:username"] || req.user.name || "Anonymous",
+				username: req.user["cognito:username"] || "Anonymous",
+				displayName: req.user.name || req.user["cognito:username"] || "Anonymous",
 				createdAt: new Date().toISOString(),
 				parentId,
 				replyToUsername,
@@ -185,6 +199,16 @@ router.get("/comments/latest", async (req, res) => {
 					if (Item) buildMap[id] = unmarshall(Item).championName;
 				}),
 			);
+		}
+
+		// Làm giàu tên hiển thị cho allCommentsToReturn
+		if (allCommentsToReturn.length > 0) {
+			const usernames = [...new Set(allCommentsToReturn.map(c => c.username))];
+			const userMap = await getUserNames(usernames);
+			allCommentsToReturn = allCommentsToReturn.map(item => ({
+				...item,
+				displayName: userMap[item.username] || item.username,
+			}));
 		}
 
 		res.json({

@@ -185,7 +185,7 @@ const BuildModal = ({
 	};
 
 	const [formData, setFormData] = useState({
-		championName: initialData?.championName || "",
+		championID: initialData?.championID || "",
 		relicSetIds: initialData?.relicSetIds || [null, null, null],
 		powerIds: initialData?.powerIds || [null, null, null, null, null, null],
 		runeIds: initialData?.runeIds || [null],
@@ -203,7 +203,7 @@ const BuildModal = ({
 		() =>
 			championsList
 				.map(c => ({
-					value: c.name,
+					value: c.championID,
 					label: tDynamic(c, "name"), // 🟢 Dùng tDynamic thay cho t
 					icon: c.assets?.[0]?.avatar,
 					regions: c.regions,
@@ -260,8 +260,8 @@ const BuildModal = ({
 
 	const validate = () => {
 		const newErrors = {};
-		if (!formData.championName) {
-			newErrors.championName = tUI("buildModal.errorSelectChampion");
+		if (!formData.championID) {
+			newErrors.championID = tUI("buildModal.errorSelectChampion");
 		}
 
 		const activeRelics = formData.relicSetIds.filter(Boolean);
@@ -347,28 +347,28 @@ const BuildModal = ({
 					</label>
 					<SearchableDropdown
 						options={championOptions}
-						selectedValue={formData.championName}
+						selectedValue={formData.championID}
 						onChange={v => {
 							const c = championOptions.find(x => x.value === v);
 							setFormData(p => ({
 								...p,
-								championName: v,
+								championID: v,
 								regions: c?.regions || [],
 							}));
-							if (errors.championName)
-								setErrors(prev => ({ ...prev, championName: null }));
+							if (errors.championID)
+								setErrors(prev => ({ ...prev, championID: null }));
 							onChampionChange?.(v);
 						}}
 						placeholder={tUI("buildModal.selectChampion")}
 						loading={loading}
 						disabled={isEditMode}
-						error={errors.championName}
+						error={errors.championID}
 					/>
 				</div>
 
 				<div
 					className={
-						!formData.championName ? "opacity-50 pointer-events-none" : ""
+						!formData.championID ? "opacity-50 pointer-events-none" : ""
 					}
 				>
 					{/* Cấp sao */}

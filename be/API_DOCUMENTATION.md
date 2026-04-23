@@ -48,6 +48,8 @@ Tài liệu này tổng hợp toàn bộ các API hiện có trong hệ thống 
 | `PATCH` | `/builds/:id/like` | Tăng lượt yêu thích cho bài build. |
 | `GET` | `/admin/builds` | Quản lý toàn bộ build trong hệ thống (Admin). |
 
+**Lưu ý:** Tất cả các endpoint trả về danh sách Build đều đã được **làm giàu dữ liệu** (`creatorName`) và áp dụng **Per-user Caching**.
+
 ---
 
 ## 4. Tương tác Cộng đồng (Comments & Ratings)
@@ -125,6 +127,20 @@ Tài liệu này tổng hợp toàn bộ các API hiện có trong hệ thống 
 | `PUT` | `/user/change-name` | Đổi tên hiển thị (Display Name). |
 | `POST` | `/analytics/log` | Ghi nhận lượt truy cập (Public). |
 | `GET` | `/analytics/stats` | Xem biểu đồ thống kê truy cập, thiết bị, trình duyệt (Admin). |
+
+---
+
+## 10. Cơ chế Caching & Làm giàu dữ liệu (Caching & Enrichment)
+*Hệ thống sử dụng cơ chế cache thông minh để tối ưu hiệu suất.*
+
+### Per-user Caching (Builds)
+- **TTL:** 1 giờ (3600s).
+- **Cơ chế:** Mỗi người dùng (dựa trên `sub` trong Token) có một bản cache riêng. Khách (Guest) dùng chung bản `global`.
+- **Invalidation:** Khi người dùng thực hiện `POST`, `PUT`, `DELETE` hoặc `LIKE` bài build, hệ thống sẽ xóa cache **của chính người dùng đó**. Điều này đảm bảo người dùng thấy kết quả ngay lập tức trong khi hệ thống vẫn duy trì cache ổn định cho người khác.
+
+### User Data Enrichment
+- Hệ thống tự động tra cứu Display Name từ Cognito cho các trường `creator` và `sub`.
+- Dữ liệu được cache tại Server (`userCache.js`) với TTL 1 giờ để tránh vượt giới hạn API của AWS Cognito.
 
 ---
 

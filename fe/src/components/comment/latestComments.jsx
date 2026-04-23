@@ -111,7 +111,7 @@ const CommentForm = ({
 		<form onSubmit={handleSubmit} className='relative'>
 			<div className='flex items-start gap-3 bg-input-bg border border-input-border rounded-xl p-3 transition-all'>
 				<div className='w-8 h-8 rounded-full bg-gradient-to-br from-primary-500 to-purple-600 flex items-center justify-center text-white font-bold shrink-0 text-sm'>
-					{user.name?.charAt(0).toUpperCase() || "U"}
+					{(user.name || user.username || "U").charAt(0).toUpperCase()}
 				</div>
 				<div className='flex-1 flex flex-col'>
 					<textarea
@@ -187,12 +187,12 @@ const CommentItem = ({ comment, onDeleted, onUpdated, onPosted }) => {
 		<div className='py-4'>
 			<div className='flex gap-3'>
 				<div className='w-8 h-8 rounded-full bg-surface-hover flex items-center justify-center text-text-primary font-bold shrink-0 border border-border'>
-					{comment.username?.charAt(0).toUpperCase()}
+					{(comment.displayName || comment.username || "U").charAt(0).toUpperCase()}
 				</div>
 				<div className='flex-1 min-w-0'>
 					<div className='flex items-center gap-2 mb-1 flex-wrap'>
 						<span className='font-bold text-text-primary text-sm'>
-							{comment.username}
+							{comment.displayName || comment.username}
 						</span>
 						<span className='text-[10px] text-text-secondary'>
 							{new Date(comment.createdAt).toLocaleString(
@@ -264,7 +264,7 @@ const CommentItem = ({ comment, onDeleted, onUpdated, onPosted }) => {
 					<CommentForm
 						buildId={comment.buildId}
 						parentId={comment.id}
-						replyToUsername={comment.username}
+						replyToUsername={comment.displayName || comment.username}
 						onCommentPosted={c => {
 							setIsReplying(false);
 							onPosted(c);

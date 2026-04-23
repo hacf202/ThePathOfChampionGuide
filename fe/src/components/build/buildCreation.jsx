@@ -12,18 +12,18 @@ const BuildCreation = ({
 }) => {
 	const [isOpen, setIsOpen] = useState(true);
 	const [maxStar, setMaxStar] = useState(7);
-	const [championName, setChampionName] = useState("");
+	const [championID, setChampionID] = useState("");
 
-	const handleChampionChange = async name => {
-		setChampionName(name);
-		if (!name || !name.trim()) {
+	const handleChampionChange = async id => {
+		setChampionID(id);
+		if (!id || !id.trim()) {
 			setMaxStar(7);
 			return;
 		}
 
 		// Ưu tiên tìm trong danh sách truyền xuống để tăng tốc độ
 		if (championsList.length > 0) {
-			const champion = championsList.find(c => c.name === name.trim());
+			const champion = championsList.find(c => c.championID === id.trim());
 			if (champion) {
 				setMaxStar(champion.maxStar ?? 7);
 				return;
@@ -34,10 +34,10 @@ const BuildCreation = ({
 		try {
 			const apiUrl = import.meta.env.VITE_API_URL;
 			const res = await fetch(
-				`${apiUrl}/api/champions/search?name=${encodeURIComponent(name.trim())}`,
+				`${apiUrl}/api/champions/${encodeURIComponent(id.trim())}`,
 			);
 			const data = await res.json();
-			const champion = data.items?.[0];
+			const champion = data;
 			setMaxStar(champion?.maxStar ?? 7);
 		} catch (err) {
 			console.error("Lỗi khi lấy thông tin sao tối đa của tướng:", err);

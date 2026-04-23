@@ -350,7 +350,8 @@ const GenericListLayout = ({
 
 					{/* --- BỘ LỌC MOBILE --- */}
 					{(searchValue !== undefined || onSearchChange) && (
-						<div className='lg:hidden w-full p-2 mb-4 rounded-lg border border-border bg-surface-bg shadow-sm order-first relative z-40'>
+						<div className='lg:hidden w-full px-2 order-first'>
+						<div className='p-2 mb-4 rounded-lg border border-border bg-surface-bg shadow-sm relative z-40'>
 							<div className='flex items-center gap-2'>
 								<div className='flex-1 relative min-w-0'>
 									<InputField
@@ -403,6 +404,7 @@ const GenericListLayout = ({
 								)}
 							</AnimatePresence>
 						</div>
+					</div>
 					)}
 				</div>{" "}
 				<p className='mt-6 text-xs text-text-secondary text-center mb-2 uppercase tracking-widest'>

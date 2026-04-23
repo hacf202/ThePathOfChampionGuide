@@ -104,6 +104,7 @@ const DragDropArrayInput = memo(
 		onChange, // Hàm callback: (newDataArray) => void
 		cachedData = {}, // Object dùng để lookup
 		placeholder = "Kéo thả mục từ danh sách vào đây...",
+		allowDuplicates = false,
 	}) => {
 		const [isDragOverNative, setIsDragOverNative] = useState(false);
 		const [activeId, setActiveId] = useState(null);
@@ -129,7 +130,7 @@ const DragDropArrayInput = memo(
 				} catch (err) {}
 			}
 
-			if (finalId && finalId.trim() !== "" && !data.includes(finalId)) {
+			if (finalId && finalId.trim() !== "" && (allowDuplicates || !data.includes(finalId))) {
 				onChange([...data, finalId]);
 			}
 		};

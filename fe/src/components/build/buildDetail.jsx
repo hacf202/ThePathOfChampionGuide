@@ -23,6 +23,8 @@ import PageTitle from "../common/pageTitle.jsx";
 import SafeImage from "../common/SafeImage.jsx";
 
 import { useFavoriteStatus } from "../../hooks/useFavoriteStatus";
+import { useMarkupResolution } from "../../hooks/useMarkupResolution";
+import MarkupRenderer from "../common/MarkupRenderer";
 import regionsData from "../../assets/data/icon.json";
 
 // --- THÀNH PHẦN SKELETON ---
@@ -73,18 +75,17 @@ const BuildDetail = () => {
 			return user.name || tUI("buildSummary.me");
 		}
 		return (
-			build.creator || build.creatorName || tUI("buildDetail.defaultPlayer")
+			build.creatorName || build.creator || tUI("buildDetail.defaultPlayer")
 		);
 	}, [build, user, tUI]);
 
-	const [likeCount, setLikeCount] = useState(0);
-	const [isLiked, setIsLiked] = useState(false);
-	const [isFavorite, setIsFavorite] = useState(false);
-
-	const { status: favoriteStatus } = useFavoriteStatus(
+	const { isFavorite, toggleFavorite } = useFavoriteStatus(
 		buildId ? [buildId] : [],
 		token,
 	);
+
+	const [likeCount, setLikeCount] = useState(0);
+	const [isLiked, setIsLiked] = useState(false);
 
 	const [showLoginModal, setShowLoginModal] = useState(false);
 	const [showEditModal, setShowEditModal] = useState(false);
@@ -141,6 +142,7 @@ const BuildDetail = () => {
 			const buildData = data.item || data;
 			setBuild(buildData);
 			setLikeCount(buildData.like || 0);
+			setIsLiked(sessionStorage.getItem(`liked_${buildId}`) === "true");
 		} catch (err) {
 			setError(err.message);
 		} finally {
@@ -155,26 +157,18 @@ const BuildDetail = () => {
 		fetchBuild();
 	}, [fetchBuild]);
 
-	useEffect(() => {
-		if (favoriteStatus && typeof favoriteStatus[buildId] !== "undefined") {
-			setIsFavorite(favoriteStatus[buildId]);
-		}
-	}, [favoriteStatus, buildId]);
+	const { resolveEntities } = useMarkupResolution();
 
-	useEffect(() => {
-		const liked = sessionStorage.getItem(`liked_${buildId}`);
-		if (liked) setIsLiked(true);
-	}, [buildId]);
 
-	// 🟢 Map theo ID thay vì Name
+	// 🟢 Map theo championID
 	const championInfo = useMemo(
-		() => champions.find(c => c.name === build?.championName),
+		() => champions.find(c => c.championID === build?.championID),
 		[build, champions],
 	);
 
 	const championDisplayName = championInfo
 		? tDynamic(championInfo, "name") // 🟢 Dùng tDynamic
-		: build?.championName || "";
+		: build?.championID || "";
 
 	const championImage = useMemo(
 		() => championInfo?.assets?.[0]?.avatar || "/fallback-image.svg",
@@ -214,6 +208,16 @@ const BuildDetail = () => {
 		[build, powers],
 	);
 
+	useEffect(() => {
+		if (build) {
+			const texts = [build.description];
+			relicSet.forEach(r => texts.push(tDynamic(r, "description")));
+			runeSet.forEach(r => texts.push(tDynamic(r, "description")));
+			powerSet.forEach(p => texts.push(tDynamic(p, "description")));
+			resolveEntities(texts.filter(Boolean).join(" "));
+		}
+	}, [build, relicSet, runeSet, powerSet, resolveEntities, tDynamic]);
+
 	const handleLike = async () => {
 		if (!user) {
 			setShowLoginModal(true);
@@ -240,20 +244,7 @@ const BuildDetail = () => {
 			setShowLoginModal(true);
 			return;
 		}
-		const prevState = isFavorite;
-		setIsFavorite(!prevState);
-		try {
-			const res = await fetch(`${apiUrl}/api/builds/${buildId}/favorite`, {
-				method: "PATCH",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${token}`,
-				},
-			});
-			if (!res.ok) throw new Error();
-		} catch (err) {
-			setIsFavorite(prevState);
-		}
+		await toggleFavorite();
 	};
 
 	const isOwner = useMemo(
@@ -284,10 +275,9 @@ const BuildDetail = () => {
 						{itemName}
 					</h3>
 					{itemDesc && (
-						<p
-							className='text-xs sm:text-sm text-text-secondary mt-1'
-							dangerouslySetInnerHTML={{ __html: itemDesc }}
-						/>
+						<div className='text-xs sm:text-sm text-text-secondary mt-1'>
+							<MarkupRenderer text={itemDesc} />
+						</div>
 					)}
 				</div>
 			</div>
@@ -377,7 +367,7 @@ const BuildDetail = () => {
 													<Star
 														key={i}
 														size={18}
-														className='text-icon-star'
+														className='text-yellow-400'
 														fill='currentColor'
 													/>
 												))}
@@ -477,9 +467,9 @@ const BuildDetail = () => {
 											{tUI("buildDetail.tacticalNotes")}
 										</h2>
 										<div className='bg-surface-hover p-4 rounded-md border-l-4 border-primary-500'>
-											<p className='text-text-primary whitespace-pre-wrap italic'>
-												"{build.description}"
-											</p>
+											<div className='text-text-primary whitespace-pre-wrap italic'>
+												<MarkupRenderer text={build.description} />
+											</div>
 										</div>
 									</div>
 								)}

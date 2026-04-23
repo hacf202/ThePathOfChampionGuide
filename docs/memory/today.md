@@ -1,6 +1,32 @@
-# 📝 Nhật ký và Công việc (Today)
 
-_File này là nơi lưu trữ trạng thái dở dang thuộc phiên làm việc hiện tại, các vấn đề và lỗi sinh ra khi code hoặc thảo luận để AI ghi nhớ tránh lạc lõng, hỏi lại nhiều lần._
+## Log thay đổi 2026-04-24 (Identity Sync, Markup Resolution & Per-user Caching)
+
+### ✅ Đồng bộ danh tính & Làm giàu dữ liệu (Identity Synchronization)
+- **Chuẩn hóa hiển thị**: Thống nhất ưu tiên hiển thị thuộc tính `name` (displayName) từ Cognito thay vì `creator` (username) trên toàn bộ hệ thống (Build Summary, Build Detail, Comments).
+- **Backend Enrichment**: Cập nhật các route `/api/builds`, `/api/favorites`, `/api/comments` để tự động tra cứu và gắn `creatorName` từ Cognito vào kết quả trả về.
+- **Cache tên người dùng**: Triển khai `userCache.js` (Server-side) để lưu trữ tạm thời ánh xạ Username -> DisplayName, giảm thiểu số lần gọi đến Cognito API (vốn bị giới hạn rate limit).
+
+### ✅ Nâng cấp Hệ thống Caching (Per-user Caching)
+- **Cấu trúc lại Build Cache**: Chuyển đổi từ cache toàn cục sang **Cache theo từng User ID** (`userId` / `"global"`).
+- **Cơ chế Invalidation thông minh**: 
+  - Khi người dùng tạo/sửa/xóa hoặc like build, hệ thống **chỉ xóa cache của chính người đó** (`invalidateUserBuildsCache`).
+  - Người tạo thấy thay đổi ngay lập tức, trong khi những người dùng khác và khách vãng lai tiếp tục dùng bản cache 1 giờ hiện tại của họ.
+- **Tối ưu DB Scan**: Giảm tải hàng nghìn lượt Scan DynamoDB bằng cách giữ cache ổn định trong 1 giờ cho đa số người dùng.
+
+### ✅ Cải thiện UI/UX & Markup
+- **Markup Resolution**: Tích hợp `useMarkupResolution` và `MarkupRenderer` vào trang chi tiết Build, hỗ trợ phân giải các thẻ game phức tạp (Keywords, Items, Relics) trong mô tả build.
+- **Đồng nhất tương tác thẻ bài**: 
+  - Tách `CardNameCell.jsx` thành component dùng chung.
+  - Đồng bộ tương tác (Tooltip hover, Link, Carousel) giữa mục "Bộ bài khởi đầu" và "Phần thưởng cấp độ tướng".
+  - Giữ nguyên phong cách thiết kế nguyên bản (Dashed border, color-coded by type).
+- **Đồng bộ trạng thái Favorite**: Sử dụng `useFavoriteStatus` để đảm bảo nút tim đồng bộ trạng thái ngay lập tức trên toàn ứng dụng khi người dùng tương tác.
+- **Fix lỗi Star Color**: Chuyển màu sao đánh giá sang màu vàng đồng nhất (`text-yellow-400`).
+
+### ✅ Sửa lỗi & Ổn định hệ thống
+- **Fix DynamoDB Boolean Bug**: Khắc phục lỗi trường `display` (công khai/riêng tư) bị lưu sai định dạng do cơ chế normalize của DynamoDB.
+- **Race Condition Fix**: Giải quyết lỗi truy cập `relicSet` trước khi khởi tạo trong `buildDetail.jsx`.
+
+---
 
 ## Log thay đổi 2026-04-16 (Resource Integration & Mobile Optimization)
 

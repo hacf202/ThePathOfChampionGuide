@@ -3,6 +3,7 @@ import { Star } from "lucide-react";
 import SafeImage from "../common/SafeImage";
 import { useTranslation } from "../../hooks/useTranslation";
 import { Link } from "react-router-dom";
+import CardNameCell from "./CardNameCell";
 
 const ICONS = {
 	firstRelic: "https://images.pocguide.top/icon/25px-PoC_Common_Relic_icon.webp",
@@ -74,7 +75,6 @@ function getLevelData(tUI, upgrades = []) {
 	];
 
 	return levelProps.map(item => {
-		// Tìm tất cả nâng cấp khớp với level hiện tại theo thuộc tính unlockLevel
 		const deckUpdates = upgrades.filter(u => u.unlockLevel === item.level);
 		
 		return { ...item, deckUpdates };
@@ -128,18 +128,11 @@ function ChampionLevel({ deckUpgrades, resolvedPowers, onOpenCarousel }) {
 												{/* Deck Upgrade Rendering */}
 												{lvl.deckUpdates && lvl.deckUpdates.length > 0 && lvl.deckUpdates.map((update, idx) => (
 													<div key={idx} className="flex items-center flex-wrap gap-2 p-2 rounded-lg bg-surface-hover/40">
-														<div 
-															className="flex items-center gap-2 cursor-zoom-in"
-															onClick={() => onOpenCarousel && onOpenCarousel(update.card, update.cardCode)}
-														>
-															<SafeImage 
-																src={language === "en" ? (update.card.translations?.en?.gameAbsolutePath || update.card.gameAbsolutePath) : update.card.gameAbsolutePath} 
-																className="h-10 w-auto rounded object-cover shadow-sm" 
-															/>
-															<span className="font-bold text-sm text-primary-400 border-b border-dashed border-primary-500/30">
-																{tDynamic(update.card, "cardName")}
-															</span>
-														</div>
+														<CardNameCell
+															card={update.card}
+															cardCode={update.cardCode}
+															onOpenCarousel={onOpenCarousel}
+														/>
 														<span className="text-text-secondary text-sm font-medium italic">
 															{tUI("championLevelRewards.rewards.deckUpgrade")}
 														</span>

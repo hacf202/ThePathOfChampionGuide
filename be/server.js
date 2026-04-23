@@ -92,7 +92,7 @@ app.use(
 				callback(new Error("Không được phép bởi CORS"));
 			}
 		},
-		methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+		methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
 		allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
 		credentials: true,
 	}),

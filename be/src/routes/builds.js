@@ -19,15 +19,61 @@ import {
 import {
 	getPublicBuilds,
 	invalidatePublicBuildsCache,
+	invalidateUserBuildsCache,
 } from "../utils/buildCache.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
 import { createAuditLog } from "../utils/auditLogger.js";
+import { getUserNames } from "../utils/userCache.js";
 
 // Tận dụng cache đã có sẵn thay vì scan lại DB - import từ DataService (không import chéo từ routes)
 import { getCachedChampions, getCachedRelics, getCachedPowers } from "../services/dataService.js";
 
 const router = express.Router();
 const BUILDS_TABLE = "Builds";
+
+// GET /api/builds/top-by-champion/:championID
+// Lấy danh sách build có views cao nhất của 1 tướng (sử dụng GSI)
+router.get("/top-by-champion/:championID", async (req, res) => {
+	const { championID } = req.params;
+	const limit = parseInt(req.query.limit) || 10;
+
+	try {
+		const command = new QueryCommand({
+			TableName: BUILDS_TABLE,
+			IndexName: "championID-index",
+			KeyConditionExpression: "championID = :championID",
+			// Chỉ lấy các build được phép hiển thị công khai
+			FilterExpression: "#display = :display",
+			ExpressionAttributeNames: { "#display": "display" },
+			ExpressionAttributeValues: marshall({
+				":championID": championID,
+				":display": "true",
+			}),
+			ScanIndexForward: false, // DESC (views cao nhất lên đầu)
+			Limit: limit,
+		});
+
+		const { Items } = await client.send(command);
+		let builds = Items
+			? Items.map(item => normalizeBuildFromDynamo(unmarshall(item)))
+			: [];
+
+		// Làm giàu tên hiển thị
+		if (builds.length > 0) {
+			const usernames = [...new Set(builds.map(i => i.creator))];
+			const userMap = await getUserNames(usernames);
+			builds = builds.map(item => ({
+				...item,
+				creatorName: userMap[item.creator] || item.creator,
+			}));
+		}
+
+		res.json(builds);
+	} catch (error) {
+		console.error("Error getting top builds by champion:", error);
+		res.status(500).json({ error: "Could not retrieve top builds" });
+	}
+});
 
 /**
  * Lấy danh sách tướng, cổ vật, sức mạnh từ cache đã có (không scan lại DB)
@@ -41,7 +87,7 @@ async function getSearchDictionaries() {
 
 	const champMap = {};
 	champs.forEach(c => {
-		if (c.name) champMap[c.name] = c.translations?.en?.name || "";
+		if (c.championID) champMap[c.championID] = { vi: c.name || "", en: c.translations?.en?.name || "" };
 	});
 
 	const relicMap = {};
@@ -68,7 +114,7 @@ router.get("/", async (req, res) => {
 			page = 1,
 			limit = 24,
 			searchTerm = "",
-			championNames = "",
+			championIDs = "",
 			regions = "",
 			stars = "",
 			sort = "createdAt-desc",
@@ -77,15 +123,26 @@ router.get("/", async (req, res) => {
 		const pageSize = parseInt(limit);
 		const currentPage = parseInt(page);
 
-		// 1. Lấy toàn bộ build công khai từ Cache
-		const { items: allBuilds } = await getPublicBuilds();
+		// 0. Xác định userId để dùng Cache riêng (nếu có thể)
+		let userId = "global";
+		const authHeader = req.headers.authorization;
+		if (authHeader && authHeader.startsWith("Bearer ")) {
+			const token = authHeader.split(" ")[1];
+			try {
+				const payload = JSON.parse(atob(token.split(".")[1]));
+				userId = payload.sub || "global";
+			} catch (e) {}
+		}
+
+		// 1. Lấy toàn bộ build công khai từ Cache theo User
+		const { items: allBuilds } = await getPublicBuilds(userId);
 
 		// 2. Lấy bộ từ điển tìm kiếm
 		const { champMap, relicMap, powerMap } = await getSearchDictionaries();
 
 		// 3. TRÍCH XUẤT BỘ LỌC ĐỘNG
 		const availableFilters = {
-			championNames: [...new Set(allBuilds.map(b => b.championName))].sort(),
+			championIDs: [...new Set(allBuilds.map(b => b.championID))].sort(),
 			regions: [...new Set(allBuilds.flatMap(b => b.regions || []))].sort(),
 		};
 
@@ -96,15 +153,16 @@ router.get("/", async (req, res) => {
 			const searchKey = removeAccents(searchTerm.toLowerCase());
 			filtered = filtered.filter(b => {
 				// A. Kiểm tra tên Tướng (Việt & Anh)
-				const champNameVi = removeAccents((b.championName || "").toLowerCase());
-				const champNameEn = removeAccents(
-					(champMap[b.championName] || "").toLowerCase(),
-				);
-				if (
-					champNameVi.includes(searchKey) ||
-					champNameEn.includes(searchKey)
-				) {
-					return true;
+				const cInfo = champMap[b.championID];
+				if (cInfo) {
+					const champNameVi = removeAccents(cInfo.vi.toLowerCase());
+					const champNameEn = removeAccents(cInfo.en.toLowerCase());
+					if (
+						champNameVi.includes(searchKey) ||
+						champNameEn.includes(searchKey)
+					) {
+						return true;
+					}
 				}
 
 				// B. Kiểm tra Mô tả của bài Build
@@ -145,9 +203,9 @@ router.get("/", async (req, res) => {
 			});
 		}
 
-		if (championNames) {
-			const cList = championNames.split(",");
-			filtered = filtered.filter(b => cList.includes(b.championName));
+		if (championIDs) {
+			const cList = championIDs.split(",");
+			filtered = filtered.filter(b => cList.includes(b.championID));
 		}
 
 		if (regions) {
@@ -165,6 +223,11 @@ router.get("/", async (req, res) => {
 		filtered.sort((a, b) => {
 			let vA = a[field] ?? "";
 			let vB = b[field] ?? "";
+			
+			if (field === "championName") {
+				vA = champMap[a.championID]?.vi || "";
+				vB = champMap[b.championID]?.vi || "";
+			}
 
 			if (field === "createdAt") {
 				return order === "asc"
@@ -244,12 +307,13 @@ router.get("/my-builds", authenticateCognitoToken, async (req, res) => {
 		if (searchTerm) {
 			const searchKey = removeAccents(searchTerm.toLowerCase());
 			items = items.filter(b => {
-				const champNameVi = removeAccents((b.championName || "").toLowerCase());
-				const champNameEn = removeAccents(
-					(champMap[b.championName] || "").toLowerCase(),
-				);
-				if (champNameVi.includes(searchKey) || champNameEn.includes(searchKey))
-					return true;
+				const cInfo = champMap[b.championID];
+				if (cInfo) {
+					const champNameVi = removeAccents(cInfo.vi.toLowerCase());
+					const champNameEn = removeAccents(cInfo.en.toLowerCase());
+					if (champNameVi.includes(searchKey) || champNameEn.includes(searchKey))
+						return true;
+				}
 
 				const desc = removeAccents((b.description || "").toLowerCase());
 				if (desc.includes(searchKey)) return true;
@@ -300,6 +364,11 @@ router.get("/my-builds", authenticateCognitoToken, async (req, res) => {
 		items.sort((a, b) => {
 			let vA = a[field] ?? "";
 			let vB = b[field] ?? "";
+			
+			if (field === "championName") {
+				vA = champMap[a.championID]?.vi || "";
+				vB = champMap[b.championID]?.vi || "";
+			}
 
 			if (field === "createdAt") {
 				return order === "asc"
@@ -331,6 +400,16 @@ router.get("/my-builds", authenticateCognitoToken, async (req, res) => {
 			// Nếu limit <= 0 (như limit=-1), lấy toàn bộ
 			totalPages = 1;
 			paginatedItems = items;
+		}
+
+		// Làm giàu tên hiển thị
+		if (paginatedItems.length > 0) {
+			const usernames = [...new Set(paginatedItems.map(i => i.creator))];
+			const userMap = await getUserNames(usernames);
+			paginatedItems = paginatedItems.map(item => ({
+				...item,
+				creatorName: userMap[item.creator] || item.creator,
+			}));
 		}
 
 		res.json({
@@ -387,12 +466,20 @@ router.get("/:id", async (req, res) => {
 				)
 				.catch(e => console.error("View increment error:", e));
 
+			// Làm giàu tên hiển thị cho chi tiết đơn lẻ
+			const userMap = await getUserNames([build.creator]);
+			build.creatorName = userMap[build.creator] || build.creator;
+
 			return res.json(build);
 		}
 
 		if (!userSub || build.sub !== userSub) {
 			return res.status(404).json({ error: "Build not found or not public" });
 		}
+
+		// Làm giàu tên hiển thị cho chi tiết đơn lẻ
+		const userMap = await getUserNames([build.creator]);
+		build.creatorName = userMap[build.creator] || build.creator;
 
 		res.json(build);
 	} catch (error) {
@@ -405,7 +492,7 @@ router.get("/:id", async (req, res) => {
 router.post("/", authenticateCognitoToken, async (req, res) => {
 	// Sử dụng đúng các tên mảng dựa trên ID như schema đã chốt
 	const {
-		championName,
+		championID,
 		description = "",
 		relicSetIds = [],
 		powerIds = [],
@@ -416,29 +503,27 @@ router.post("/", authenticateCognitoToken, async (req, res) => {
 	} = req.body;
 
 	if (
-		!championName ||
+		!championID ||
 		!Array.isArray(relicSetIds) ||
 		relicSetIds.length === 0
 	) {
 		return res
 			.status(400)
-			.json({ error: "Champion name and relicSetIds are required." });
+			.json({ error: "Champion ID and relicSetIds are required." });
 	}
-
-	const displayValue = display === true ? "true" : "false";
 
 	const build = prepareBuildForDynamo({
 		id: uuidv4(),
 		sub: req.user.sub,
 		creator: req.user["cognito:username"],
 		description,
-		championName,
+		championID,
 		relicSetIds,
 		powerIds,
 		runeIds,
 		like: 0,
 		star: Number(star),
-		display: displayValue,
+		display: display === true,
 		views: 0,
 		regions,
 		createdAt: new Date().toISOString(),
@@ -452,13 +537,13 @@ router.post("/", authenticateCognitoToken, async (req, res) => {
 			}),
 		);
 
-		if (displayValue === "true") invalidatePublicBuildsCache();
+		if (display === true) invalidateUserBuildsCache(req.user.sub);
 
 		await createAuditLog({
 			action: "CREATE",
 			entityType: "build",
 			entityId: build.id,
-			entityName: `Build ${build.championName} by ${build.creator} (User)`,
+			entityName: `Build ${build.championID} by ${build.creator} (User)`,
 			oldData: null,
 			newData: normalizeBuildFromDynamo(build),
 			user: req.user
@@ -554,14 +639,14 @@ router.put("/:id", authenticateCognitoToken, async (req, res) => {
 		const isNowPublic = updatedBuild.display === true;
 
 		if (wasPublic || isNowPublic) {
-			invalidatePublicBuildsCache();
+			invalidateUserBuildsCache(req.user.sub);
 		}
 
 		await createAuditLog({
 			action: "UPDATE",
 			entityType: "build",
 			entityId: id,
-			entityName: `Build ${updatedBuild.championName} by ${updatedBuild.creator} (User)`,
+			entityName: `Build ${updatedBuild.championID} by ${updatedBuild.creator} (User)`,
 			oldData: oldBuild,
 			newData: updatedBuild,
 			user: req.user
@@ -591,7 +676,7 @@ router.delete("/:id", authenticateCognitoToken, async (req, res) => {
 		}
 
 		if (build.display === true || build.display === "true") {
-			invalidatePublicBuildsCache();
+			invalidateUserBuildsCache(req.user.sub);
 		}
 
 		await client.send(
@@ -602,7 +687,7 @@ router.delete("/:id", authenticateCognitoToken, async (req, res) => {
 			action: "DELETE",
 			entityType: "build",
 			entityId: id,
-			entityName: `Build ${build.championName} by ${build.creator} (User)`,
+			entityName: `Build ${build.championID} by ${build.creator} (User)`,
 			oldData: build,
 			newData: null,
 			user: req.user
@@ -642,7 +727,16 @@ router.patch("/:id/like", async (req, res) => {
 		);
 
 		if (build.display === true || build.display === "true") {
-			invalidatePublicBuildsCache();
+			let userId = "global";
+			const authHeader = req.headers.authorization;
+			if (authHeader && authHeader.startsWith("Bearer ")) {
+				try {
+					const token = authHeader.split(" ")[1];
+					const payload = JSON.parse(atob(token.split(".")[1]));
+					userId = payload.sub || "global";
+				} catch (e) {}
+			}
+			invalidateUserBuildsCache(userId);
 		}
 
 		const newLikeCount = result.Attributes

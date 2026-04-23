@@ -6,7 +6,7 @@ import iconRegionsData from "../assets/data/icon.json";
 export const useBuildFilters = (tUI, dynamicFilters = {}) => {
 	const { state, actions, queryParams } = useGenericFilters({
 		prefix: "builds",
-		initialCustomFilters: { stars: [], regions: [] },
+		initialCustomFilters: { stars: [], regions: [], championIDs: [] },
 		defaultSort: "createdAt-desc",
 		itemsPerPage: 20,
 	});

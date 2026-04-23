@@ -174,7 +174,7 @@ const CommunityBuilds = ({
 						className={`grid gap-4 ${
 							showDesktopFilter
 								? "grid-cols-1 md:grid-cols-2"
-								: "grid-cols-1 md:grid-cols-2 xl:grid-cols-3"
+								: "grid-cols-1 lg:grid-cols-2 xl:grid-cols-4"
 						}`}
 					>
 						{[...Array(ITEMS_PER_PAGE)].map((_, i) => (
@@ -191,7 +191,7 @@ const CommunityBuilds = ({
 							className={`grid gap-4 ${
 								showDesktopFilter
 									? "grid-cols-1 md:grid-cols-2"
-									: "grid-cols-1 md:grid-cols-2 xl:grid-cols-3"
+									: "grid-cols-1 lg:grid-cols-2 xl:grid-cols-4"
 							}`}
 						>
 							{builds.map(build => (
