@@ -17,11 +17,16 @@ export const ASSETS = {
 	spirit_blossom_chest: "https://images.pocguide.top/icon/PoC_Spirit_Blossom_Runic_Vessel.webp",
 	superior_spirit_blossom_chest: "https://images.pocguide.top/icon/Superior_Spirit_Blossom_Chest.webp",
 	nova_shard: "https://images.pocguide.top/icon/novaShardIcon.webp",
-	nova_crystal: "https://images.pocguide.top/icon/Nova_Crystal_icon.webp",
+	nova_crystal: "https://images.pocguide.top/icon/Nova_Crystal_LoR_Icon.webp",
 	rune_shards: "https://images.pocguide.top/icon/20px-PoC_Rune_Shard_icon.webp",
 	silver_star_vessel: "https://images.pocguide.top/icon/Silver_Star_Vessel_Poc.webp",
 	gold_star_vessel: "https://images.pocguide.top/icon/Gold_Star_Vessel_Poc.webp",
 	nova_crystal_vessel: "https://images.pocguide.top/icon/Nova_Crystal_Vessel_Poc.webp",
+	minor_gemstone_vessel: "https://images.pocguide.top/icon/80px-PoC_Minor_Gemstone_Vessel.webp",
+	major_gemstone_vessel: "https://images.pocguide.top/icon/80px-PoC_Major_Gemstone_Vessel.webp",
+	reliquary_bronze: "https://images.pocguide.top/icon/PoC_Bronze_Reliquary.webp",
+	reliquary_silver: "https://images.pocguide.top/icon/PoC_Silver_Reliquary.webp",
+	reliquary_gold: "https://images.pocguide.top/icon/PoC_Gold_Reliquary.webp",
 	glory_coin: "https://images.pocguide.top/icon/Glory_coin_icon.webp",
 	noxus: "https://images.pocguide.top/icon/Noxus_LoR_Region.webp",
 	demacia: "https://images.pocguide.top/icon/Demacia_LoR_Region.webp",
@@ -301,8 +306,9 @@ export const VAULT_CONFIG = {
 			{
 				name: "Bundle 2",
 				options: [
-					{ chance: 85, type: "stardust", amount: 75 },
+					{ chance: 80, type: "stardust", amount: 75 },
 					{ chance: 15, type: "stardust", amount: 250 },
+					{ chance: 5, type: "none" },
 				],
 			},
 		],
@@ -375,8 +381,98 @@ export const VAULT_CONFIG = {
 			{
 				name: "Bundle 4",
 				options: [
-					{ chance: 99, type: "gemstone", amount: 30 },
+					{ chance: 14, type: "gemstone", amount: 30 },
 					{ chance: 1, type: "gemstone", amount: 250 },
+					{ chance: 85, type: "none" },
+				],
+			},
+		],
+	},
+	minor_gemstone_vessel: {
+		id: "minor_gemstone_vessel",
+		nameKey: "vaultSimulator.tier.minor_gemstone_vessel",
+		sourceKey: "vaultSimulator.sources.minor_gemstone_vessel",
+		color: "text-amber-500",
+		bg: "bg-amber-500/10",
+		border: "border-amber-500/30",
+		glow: "from-amber-500/30",
+		bundles: [
+			{
+				name: "Bundle 1",
+				options: [
+					{ chance: 85, type: "gemstone", amount: 20 },
+					{ chance: 14, type: "gemstone", amount: 50 },
+					{ chance: 1, type: "gemstone", amount: 100 },
+				],
+			},
+		],
+	},
+	major_gemstone_vessel: {
+		id: "major_gemstone_vessel",
+		nameKey: "vaultSimulator.tier.major_gemstone_vessel",
+		sourceKey: "vaultSimulator.sources.major_gemstone_vessel",
+		color: "text-orange-500",
+		bg: "bg-orange-500/10",
+		border: "border-orange-500/30",
+		glow: "from-orange-500/30",
+		bundles: [
+			{
+				name: "Bundle 1",
+				options: [
+					{ chance: 65, type: "gemstone", amount: 200 },
+					{ chance: 24, type: "gemstone", amount: 300 },
+					{ chance: 10, type: "gemstone", amount: 400 },
+					{ chance: 1, type: "gemstone", amount: 800 },
+				],
+			},
+		],
+	},
+	reliquary_bronze: {
+		id: "reliquary_bronze",
+		nameKey: "vaultSimulator.tier.reliquary_bronze",
+		sourceKey: "vaultSimulator.sources.reliquary_bronze",
+		color: "text-orange-300",
+		bg: "bg-orange-300/10",
+		border: "border-orange-300/30",
+		glow: "from-orange-300/30",
+		drops: [
+			{
+				type: "relic_slot",
+				options: [
+					{ chance: 90, type: "common_relic" },
+					{ chance: 10, type: "rare_relic" },
+				],
+			},
+		],
+	},
+	reliquary_silver: {
+		id: "reliquary_silver",
+		nameKey: "vaultSimulator.tier.reliquary_silver",
+		sourceKey: "vaultSimulator.sources.reliquary_silver",
+		color: "text-blue-300",
+		bg: "bg-blue-300/10",
+		border: "border-blue-300/30",
+		glow: "from-blue-300/30",
+		drops: [
+			{
+				type: "relic",
+				rarity: "Hiếm",
+			},
+		],
+	},
+	reliquary_gold: {
+		id: "reliquary_gold",
+		nameKey: "vaultSimulator.tier.reliquary_gold",
+		sourceKey: "vaultSimulator.sources.reliquary_gold",
+		color: "text-yellow-400",
+		bg: "bg-yellow-400/10",
+		border: "border-yellow-400/30",
+		glow: "from-yellow-400/30",
+		drops: [
+			{
+				type: "relic_slot",
+				options: [
+					{ chance: 100, type: "epic_relic" },
 				],
 			},
 		],

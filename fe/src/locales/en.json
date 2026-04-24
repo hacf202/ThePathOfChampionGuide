@@ -1303,6 +1303,8 @@
 		"groupSpirit": "SPIRIT BLOSSOM CHESTS",
 		"groupVessel": "STAR VESSELS",
 		"groupRunic": "RUNIC VESSELS",
+		"groupGemstone": "GEMSTONE VESSELS",
+		"groupReliquary": "RELIQUARIES",
 		"clickToOpen": "Click to Open",
 		"opening": "Opening {{vault}}...",
 		"openAgain": "Open Again",
@@ -1332,7 +1334,12 @@
 			"superior_spirit_blossom_chest": "Superior Spirit Blossom Chest",
 			"silver_star_vessel": "Silver Star Vessel",
 			"gold_star_vessel": "Gold Star Vessel",
-			"nova_crystal_vessel": "Nova Crystal Vessel"
+			"nova_crystal_vessel": "Nova Crystal Vessel",
+			"minor_gemstone_vessel": "Minor Gemstone Vessel",
+			"major_gemstone_vessel": "Major Gemstone Vessel",
+			"reliquary_bronze": "Bronze Reliquary",
+			"reliquary_silver": "Silver Reliquary",
+			"reliquary_gold": "Gold Reliquary"
 		},
 		"probBronzeTitle": "BRONZE VAULT",
 		"probBronzeDesc": "Standard sources for early-game Champion Fragments.\n• Drop 5 fragments: 95%\n• Upgrade to 10 fragments: 5%",
@@ -1351,7 +1358,12 @@
 		"probRunicVesselDesc": "A vessel containing Runes and shards specialized for the Spirit Blossom region.\n• Common Rune: 81.28%\n• Rare Rune: 17.12%\n• Legendary Rune: 1.6%\n• Always includes 4 Rune Shards.",
 		"probSilverStarVesselDesc": "Contains resources to support Star upgrades.\n• Star Crystals: 85% for 5, 14% for 10, 1% for 25.\n• Stardust: 85% for 75, 15% for 250.\n• Bonus (5%): 20 Nova Shards.",
 		"probGoldStarVesselDesc": "A premium vessel with 3 reward bundles.\n• Star Crystals: 85% for 10, 14% for 20, 1% for 40.\n• Stardust: 80% for 150, 20% for 500.\n• Nova Shards: 85% for 20, 14% for 50, 1% for 1 Nova Crystal.",
-		"probNovaCrystalVesselDesc": "The ultimate vessel containing a Nova Crystal.\n• Star Crystals: 65% for 20, 25% for 30, 10% for 40.\n• Stardust: 100% for 500.\n• Nova Crystal: 100% for 1.\n• Gemstones: 99% for 30, 1% for 250.",
+		"probNovaCrystalVesselDesc": "The ultimate vessel containing a Nova Crystal.\n• Star Crystals: 65% for 20, 25% for 30, 10% for 40.\n• Stardust: 100% for 500.\n• Nova Crystal: 100% for 1.\n• Gemstones: 14% for 30, 1% for 250.",
+		"probMinorGemstoneDesc": "Small container for Gemstones.\n• 20 Gemstones: 85%\n• 50 Gemstones: 14%\n• 100 Gemstones: 1%",
+		"probMajorGemstoneDesc": "Large regional container for Gemstones.\n• 200 Gemstones: 65%\n• 300 Gemstones: 24%\n• 400 Gemstones: 10%\n• 800 Gemstones: 1%",
+		"probBronzeReliquaryDesc": "Basic reliquary containing common and rare relics.\n• Common Relic: 90%\n• Rare Relic: 10%",
+		"probSilverReliquaryDesc": "Reliquary containing a guaranteed rare relic.\n• Rare Relic: 100%",
+		"probGoldReliquaryDesc": "High-end reliquary containing a guaranteed epic relic.\n• Epic Relic: 100%\n• Always includes: 1 Spirit Forge",
 		"sourceTitle": "HOW TO OBTAIN",
 		"sources": {
 			"bronze": "• Daily Quests (Victory!)\n• Some Champion Campaigns\n• Purchasing in the Emporium for Shards",
@@ -1364,7 +1376,12 @@
 			"superior_spirit_blossom_chest": "• High Event Milestone Rewards\n• Limited-time Shop Bundles",
 			"silver_star_vessel": "• Glory Store (30 Glory Coins)\n• Adventure Map Rewards",
 			"gold_star_vessel": "• Glory Store (200 Glory Coins)\n• Adventure Map Rewards\n• Achievement Quests\n• Legend Level Rewards",
-			"nova_crystal_vessel": "• Legend Level 80 Reward\n• Defeat Lissandra\n• High-tier Achievement Quests"
+			"nova_crystal_vessel": "• Legend Level 80 Reward\n• Defeat Lissandra\n• High-tier Achievement Quests",
+			"minor_gemstone_vessel": "• Glory Store (40 Glory Coins)\n• Emporium every 24h (1500 Stardust)",
+			"major_gemstone_vessel": "• Legend Level 74 Reward\n• Emporium (15000 Stardust)\n• Premium Battle Pass",
+			"reliquary_bronze": "• Weekly Quests\n• Adventure Rewards",
+			"reliquary_silver": "• Adventure Rewards\n• Legend Level\n• Glory Store",
+			"reliquary_gold": "• Defeat Lissandra with 5 Champions\n• Legend Level 40, 50"
 		},
 		"loot": {
 			"champ_frags": "Champion Fragments",
@@ -1378,6 +1395,7 @@
 			"rune_shards": "Rune Shards",
 			"nova_shard": "Nova Shard",
 			"nova_crystal": "Nova Crystal",
+			"spiritForge": "Spirit Forge",
 			"simulator": "Simulator"
 		}
 	},

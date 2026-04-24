@@ -10,6 +10,11 @@
 - **Full Backup**: Thực hiện sao lưu toàn bộ 14 bảng dữ liệu DynamoDB vào thư mục `be/uploadData/backup_2026-04-24T01-31-12/`.
 - **Relic Assets**: Tải xuống và lưu trữ cục bộ các asset hình ảnh của Relic để phục vụ hệ thống proxy.
 
+### ✅ Sửa lỗi Tương tác Tier Maker (UI/UX Bug Fixes)
+- **Sửa lỗi Sắp xếp (Reordering)**: Khắc phục triệt để lỗi không thể thay đổi vị trí các phần tử (Tướng/Cổ vật) trong cùng một hàng hoặc trong kho (Unranked).
+- **Kéo thả mượt mà**: Tối ưu hóa `handleDragOver` để các phần tử tự động dịch chuyển vị trí (shift) ngay khi đang kéo, tạo cảm giác tương tác tự nhiên.
+- **Hỗ trợ chọn nhiều (Multi-select)**: Cho phép di chuyển và sắp xếp lại một nhóm nhiều phần tử đã chọn cùng lúc mà vẫn giữ nguyên thứ tự tương đối của chúng.
+
 ### ✅ Tái cấu trúc Đa ngôn ngữ (Localization DRY Architecture)
 - **Kiến trúc tập trung**: Chuyển đổi toàn bộ định nghĩa về **Độ hiếm (Rarity)**, **Vùng đất (Region)**, **Loại thẻ (Card Type)** và **Thực thể (Entities)** sang mục `shared` dùng chung trong `vi.json` và `en.json`.
 - **Loại bỏ trùng lặp**: Xóa bỏ hàng trăm dòng code lặp lại trong các file ngôn ngữ bằng cách quy về một nguồn sự thật duy nhất (Single Source of Truth).

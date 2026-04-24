@@ -334,6 +334,7 @@ function TierListChampions({ initialChampions }) {
 					"C031",
 				],
 				"tier-a+": [
+					"C084",
 					"C076",
 					"C017",
 					"C015",
@@ -602,32 +603,69 @@ function TierListChampions({ initialChampions }) {
 	const handleDragOver = event => {
 		const { active, over } = event;
 		if (!over || activeType === "tier") return;
-		const aCol = findContainer(active.id);
-		const oCol =
-			over.id === "unranked" || unranked.some(i => i.id === over.id)
-				? "unranked"
-				: tiers.find(
-						t => t.id === over.id || t.items.some(i => i.id === over.id),
-					)?.id;
-		if (!aCol || !oCol || aCol === oCol) return;
-		const idsToMove = selectedIds.includes(active.id)
-			? selectedIds
-			: [active.id];
-		const moving = idsToMove
-			.map(id => allChampionsRaw.find(i => i.id === id))
-			.filter(Boolean);
-		setUnranked(p => {
-			const f = p.filter(i => !idsToMove.includes(i.id));
-			return oCol === "unranked" ? [...f, ...moving] : f;
-		});
-		setTiers(p =>
-			p.map(t => {
-				const f = t.items.filter(i => !idsToMove.includes(i.id));
-				return t.id === oCol
-					? { ...t, items: [...f, ...moving] }
-					: { ...t, items: f };
-			}),
-		);
+
+		const activeId = active.id;
+		const overId = over.id;
+
+		const aCol = findContainer(activeId);
+		const oCol = findContainer(overId);
+
+		if (!aCol || !oCol) return;
+
+		if (aCol !== oCol) {
+			const idsToMove = selectedIds.includes(activeId)
+				? selectedIds
+				: [activeId];
+			const moving = idsToMove
+				.map(id => allChampionsRaw.find(i => i.id === id))
+				.filter(Boolean);
+
+			setUnranked(prev => {
+				const filtered = prev.filter(i => !idsToMove.includes(i.id));
+				if (oCol === "unranked") {
+					const overIndex = filtered.findIndex(i => i.id === overId);
+					const insertIndex = overIndex >= 0 ? overIndex : filtered.length;
+					const result = [...filtered];
+					result.splice(insertIndex, 0, ...moving);
+					return result;
+				}
+				return filtered;
+			});
+
+			setTiers(prev =>
+				prev.map(t => {
+					const filtered = t.items.filter(i => !idsToMove.includes(i.id));
+					if (t.id === oCol) {
+						const overIndex = filtered.findIndex(i => i.id === overId);
+						const insertIndex = overIndex >= 0 ? overIndex : filtered.length;
+						const result = [...filtered];
+						result.splice(insertIndex, 0, ...moving);
+						return { ...t, items: result };
+					}
+					return { ...t, items: filtered };
+				}),
+			);
+		} else if (activeId !== overId) {
+			// Reorder within same container
+			if (aCol === "unranked") {
+				setUnranked(prev => {
+					const oldIndex = prev.findIndex(i => i.id === activeId);
+					const newIndex = prev.findIndex(i => i.id === overId);
+					return arrayMove(prev, oldIndex, newIndex);
+				});
+			} else {
+				setTiers(prev =>
+					prev.map(t => {
+						if (t.id === aCol) {
+							const oldIndex = t.items.findIndex(i => i.id === activeId);
+							const newIndex = t.items.findIndex(i => i.id === overId);
+							return { ...t, items: arrayMove(t.items, oldIndex, newIndex) };
+						}
+						return t;
+					}),
+				);
+			}
+		}
 	};
 
 	const handleDragEnd = event => {
@@ -636,6 +674,7 @@ function TierListChampions({ initialChampions }) {
 			setActiveId(null);
 			return;
 		}
+
 		if (activeType === "tier") {
 			if (active.id !== over.id)
 				setTiers(
@@ -645,7 +684,12 @@ function TierListChampions({ initialChampions }) {
 						tiers.findIndex(t => t.id === over.id),
 					),
 				);
+		} else {
+			// Xử lý kéo thả item (kết thúc)
+			// Nếu cần làm sạch hoặc finalize gì đó, làm ở đây.
+			// Hiện tại handleDragOver đã xử lý việc di chuyển state.
 		}
+
 		setActiveId(null);
 		setActiveType(null);
 		if (!selectedIds.includes(active.id)) setSelectedIds([]);

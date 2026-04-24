@@ -53,6 +53,16 @@ const VaultSimulator = () => {
 			titleKey: "vaultSimulator.groupRunic",
 			vaults: ["runic_vessel"],
 		},
+		{
+			id: "gemstone",
+			titleKey: "vaultSimulator.groupGemstone",
+			vaults: ["minor_gemstone_vessel", "major_gemstone_vessel"],
+		},
+		{
+			id: "reliquary",
+			titleKey: "vaultSimulator.groupReliquary",
+			vaults: ["reliquary_bronze", "reliquary_silver", "reliquary_gold"],
+		},
 	];
 
 	const LootItem = ({ item, isSmall = false }) => {
@@ -165,7 +175,7 @@ const VaultSimulator = () => {
 							const rarityKey = getRarityKey(r.rarity);
 							return (
 								typeKey === "general" &&
-								(rarityKey === "common" || rarityKey === "rare")
+								(rarityKey === "common" || rarityKey === "rare" || rarityKey === "epic")
 							);
 						})
 					: [];
@@ -376,6 +386,8 @@ const VaultSimulator = () => {
 							allChampions[Math.floor(Math.random() * allChampions.length)];
 						results.push({
 							id: `champ_frag_${Math.random()}_${rIdx}`,
+							refId: randomChamp?.championID,
+							refType: "champion",
 							name: t(randomChamp, "name") || randomChamp?.name || "???",
 							amount: amount,
 							icon: randomChamp?.assets?.[0]?.avatar || ASSETS.champ_frag,
@@ -396,8 +408,19 @@ const VaultSimulator = () => {
 						});
 					});
 				} else if (drop.type === "relic") {
-					if (Math.random() * 100 < fragmentRelicChance) {
-						const rarityPool = allRelics.filter(r => r.rarity === drop.rarity);
+					// Nếu là rương chuyên biệt (Hòm Thần Tích) thì tỉ lệ là 100% nếu không có fragmentRelicChance
+					const chance = fragmentRelicChance || 100;
+					if (Math.random() * 100 < chance) {
+						const rarityPool = allRelics.filter(r => {
+							const key = getRarityKey(r.rarity);
+							const targetKey = getRarityKey(drop.rarity);
+							return key === targetKey || r.rarity === drop.rarity;
+						});
+						
+						if (rarityPool.length === 0) {
+							console.warn(`Empty rarity pool for: ${drop.rarity}`);
+						}
+
 						const randomRelic =
 							rarityPool[Math.floor(Math.random() * rarityPool.length)];
 						if (randomRelic) {
@@ -409,8 +432,8 @@ const VaultSimulator = () => {
 								name: t(randomRelic, "name") || randomRelic.name,
 								type: tUI("vaultSimulator.loot.relic"),
 								rarityKey: `shared.rarity.${key}`,
-								icon: randomRelic.assetAbsolutePath,
-								color: key === "common" ? "text-green-600" : "text-blue-600",
+								icon: randomRelic.image || randomRelic.assetAbsolutePath,
+								color: key === "common" ? "text-green-600" : key === "rare" ? "text-blue-600" : "text-yellow-500",
 							});
 						}
 					}
@@ -428,19 +451,70 @@ const VaultSimulator = () => {
 							color: "text-blue-600",
 						});
 					} else {
-						const rarityPool = allRelics.filter(r => r.rarity === "Hiếm");
+						let rarityToFind = "Hiếm";
+						let color = "text-blue-600";
+						
+						if (roll.type === "common_relic") {
+							rarityToFind = "Thường";
+							color = "text-green-600";
+						} else if (roll.type === "epic_relic") {
+							rarityToFind = "Sử Thi";
+							color = "text-yellow-500";
+						}
+
+						const rarityPool = allRelics.filter(r => {
+							const key = getRarityKey(r.rarity);
+							const targetKey = getRarityKey(rarityToFind);
+							return r.rarity === rarityToFind || key === targetKey;
+						});
+
+						if (rarityPool.length === 0) {
+							console.warn(`Empty rarity pool for slot: ${rarityToFind}`);
+						}
+						
 						const randomRelic =
 							rarityPool[Math.floor(Math.random() * rarityPool.length)];
-						if (randomRelic) {
+						
+						// Cấu trúc mới cho Hòm Thần Tích Vàng: Luôn rơi 1 Cổ vật Sử Thi + 1 Tôi Luyện Linh Hồn
+						if (selectedVault === "reliquary_gold") {
+							// 1. Luôn thêm Tôi Luyện Linh Hồn (R0069)
+							results.push({
+								id: "relic_R0069",
+								refId: "R0069",
+								refType: "relic",
+								name: tUI("vaultSimulator.loot.spiritForge") || "Tôi Luyện Linh Hồn",
+								type: tUI("vaultSimulator.loot.relic"),
+								rarityKey: "shared.rarity.rare",
+								icon: "https://images.pocguide.top/relics/R0069.webp",
+								color: "text-blue-400",
+							});
+
+							// 2. Luôn thêm 1 Cổ vật Sử Thi ngẫu nhiên
+							if (randomRelic) {
+								const key = getRarityKey(randomRelic.rarity);
+								results.push({
+									id: `relic_${randomRelic.relicCode}`,
+									refId: randomRelic.relicCode,
+									refType: "relic",
+									name: t(randomRelic, "name") || randomRelic.name,
+									type: tUI("vaultSimulator.loot.relic"),
+									rarityKey: `shared.rarity.${key}`,
+									icon: randomRelic.image || randomRelic.assetAbsolutePath,
+									color: color,
+								});
+							}
+						} else if (randomRelic) {
+							// Các rương khác chỉ rơi 1 cổ vật
+							const key = getRarityKey(randomRelic.rarity);
 							results.push({
 								id: `relic_${randomRelic.relicCode}`,
 								refId: randomRelic.relicCode,
 								refType: "relic",
 								name: t(randomRelic, "name") || randomRelic.name,
 								type: tUI("vaultSimulator.loot.relic"),
-								rarityKey: "shared.rarity.rare",
-								icon: randomRelic.assetAbsolutePath,
-								color: "text-blue-600",
+								rarityKey: `shared.rarity.${key}`,
+								icon: randomRelic.image || randomRelic.assetAbsolutePath,
+								color: color,
 							});
 						}
 					}
@@ -793,7 +867,7 @@ const VaultSimulator = () => {
 										</div>
 
 										{/* Region Selection (only for Star Vessels) */}
-										{["silver_star_vessel", "gold_star_vessel", "nova_crystal_vessel"].includes(selectedVault) && (
+										{["silver_star_vessel", "gold_star_vessel", "nova_crystal_vessel", "minor_gemstone_vessel", "major_gemstone_vessel"].includes(selectedVault) && (
 											<div className='space-y-2'>
 												<label className='text-[10px] sm:text-xs font-black text-text-secondary uppercase tracking-[0.2em] flex items-center gap-3'>
 													<span className='w-2 h-2 bg-primary-500 rounded-full' />
@@ -960,14 +1034,14 @@ const VaultSimulator = () => {
 					{showProbModal && (
 						<div 
 							onClick={() => setShowProbModal(false)}
-							className='fixed inset-0 z-[120] flex items-center justify-center p-2 sm:p-4 bg-black/30 overflow-y-auto custom-scrollbar'
+							className='fixed inset-0 z-[200] flex items-center justify-center p-2 sm:p-4 bg-black/60 backdrop-blur-sm overflow-y-auto custom-scrollbar select-text'
 						>
 							<motion.div
 								onClick={(e) => e.stopPropagation()}
 								initial={{ opacity: 0, scale: 0.95, y: 10 }}
 								animate={{ opacity: 1, scale: 1, y: 0 }}
 								exit={{ opacity: 0, scale: 0.95, y: 10 }}
-								className='relative w-full max-w-3xl bg-[var(--color-modal-bg)] rounded-2xl border border-border shadow-xl p-2 sm:p-4 my-auto flex flex-col max-h-[90vh]'
+								className='relative w-full max-w-3xl bg-surface-bg rounded-2xl border border-border shadow-2xl p-2 sm:p-4 my-auto flex flex-col max-h-[90vh] pointer-events-auto select-text'
 							>
 								<div className='overflow-y-auto max-h-[80vh] custom-scrollbar'>
 									<VaultProbabilityInfo 

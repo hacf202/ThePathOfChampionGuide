@@ -869,7 +869,7 @@
 		"hideFilter": "Ẩn bộ lọc",
 		"showFilter": "Hiện bộ lọc",
 		"searchLabel": "Tìm kiếm tướng",
-		"searchPlaceholder": "Tên tướng...",
+		"searchPlaceholder": "Tên theo tên...",
 		"region": "Vùng",
 		"cost": "Tiêu hao",
 		"maxStars": "Sao tối đa",
@@ -1301,6 +1301,8 @@
 		"groupSpirit": "RƯƠNG HOA LINH",
 		"groupVessel": "THÙNG TINH TÚ",
 		"groupRunic": "THÙNG NGỌC",
+		"groupGemstone": "THÙNG ĐÁ QUÝ",
+		"groupReliquary": "HÒM THẦN TÍCH",
 		"clickToOpen": "Click để mở",
 		"opening": "Đang mở {{vault}}...",
 		"openAgain": "Mở lại",
@@ -1330,7 +1332,12 @@
 			"superior_spirit_blossom_chest": "Rương Hoa Linh Lục Địa Cao Cấp",
 			"silver_star_vessel": "Thùng Tinh Tú Bạc",
 			"gold_star_vessel": "Thùng Tinh Tú Vàng",
-			"nova_crystal_vessel": "Thùng Ngọc Tân Tinh"
+			"nova_crystal_vessel": "Thùng Ngọc Tân Tinh",
+			"minor_gemstone_vessel": "Thùng Đá Quý Nhỏ",
+			"major_gemstone_vessel": "Thùng Đá Quý Lớn",
+			"reliquary_bronze": "Hòm Thần Tích Đồng",
+			"reliquary_silver": "Hòm Thần Tích Bạc",
+			"reliquary_gold": "Hòm Thần Tích Vàng"
 		},
 		"probBronzeTitle": "KHO BÁU ĐỒNG",
 		"probBronzeDesc": "Nguồn cung cấp Mảnh Tướng cơ bản cho giai đoạn đầu.\n• 5 mảnh tướng: 95%\n• 10 mảnh tướng (Nâng cấp): 5%",
@@ -1349,7 +1356,12 @@
 		"probRunicVesselDesc": "Thùng chứa Ngọc đặc trưng của khu vực Hoa Linh Lục Địa.\n• Ngọc Thường (Common): 81.28%\n• Ngọc Hiếm (Rare): 17.12%\n• Ngọc Huyền Thoại (Legendary): 1.6%\n• Luôn đi kèm 4 Mảnh Ngọc (Rune Shards).",
 		"probSilverStarVesselDesc": "Thùng chứa tài nguyên hỗ trợ nâng cấp Tinh Tú.\n• Pha lê tinh tú: 85% rơi 5, 14% rơi 10, 1% rơi 25 cái.\n• Bụi sao: 85% rơi 75, 15% rơi 250 cái.\n• Bonus (5%): 20 Mảnh sao băng.",
 		"probGoldStarVesselDesc": "Thùng tài nguyên cao cấp với 3 đợt mở quà.\n• Pha lê tinh tú: 85% rơi 10, 14% rơi 20, 1% rơi 40 cái.\n• Bụi sao: 80% rơi 150, 20% rơi 500 cái.\n• Mảnh sao băng: 85% rơi 20, 14% rơi 50, 1% rơi 1 Đá sao băng.",
-		"probNovaCrystalVesselDesc": "Thùng tài nguyên tối thượng chứa Đá Sao Băng.\n• Pha lê tinh tú: 65% rơi 20, 25% rơi 30, 10% rơi 40 cái.\n• Bụi sao: 100% rơi 500 cái.\n• Đá sao băng: 100% rơi 1 cái.\n• Đá quý: 99% rơi 30, 1% rơi 250 cái.",
+		"probNovaCrystalVesselDesc": "Thùng tài nguyên tối thượng chứa Đá Sao Băng.\n• Pha lê tinh tú: 65% rơi 20, 25% rơi 30, 10% rơi 40 cái.\n• Bụi sao: 100% rơi 500 cái.\n• Đá sao băng: 100% rơi 1 cái.\n• Đá quý: 14% rơi 30, 1% rơi 250 cái.",
+		"probMinorGemstoneDesc": "Thùng chứa Đá Quý quy mô nhỏ.\n• 20 Đá Quý: 85%\n• 50 Đá Quý: 14%\n• 100 Đá Quý: 1%",
+		"probMajorGemstoneDesc": "Thùng chứa Đá Quý quy mô lớn khu vực.\n• 200 Đá Quý: 65%\n• 300 Đá Quý: 24%\n• 400 Đá Quý: 10%\n• 800 Đá Quý: 1%",
+		"probBronzeReliquaryDesc": "Hòm chứa các Cổ vật cơ bản.\n• Cổ vật Thường: 90%\n• Cổ vật Hiếm: 10%",
+		"probSilverReliquaryDesc": "Hòm chứa Cổ vật bậc Hiếm.\n• Cổ vật Hiếm: 100%",
+		"probGoldReliquaryDesc": "Hòm chứa Cổ vật bậc Sử Thi cực hiếm.\n• Cổ vật Sử Thi: 100%\n• Luôn đi kèm: 1 Tôi Luyện Linh Hồn",
 		"sourceTitle": "CÁCH NHẬN RƯƠNG",
 		"sources": {
 			"bronze": "• Nhiệm vụ hàng ngày (Daily Quests)\n• Một số Chiến dịch Tướng (Champion Campaigns)\n• Mua trong Cửa hàng (Emporium) bằng Mảnh Runeterra",
@@ -1362,7 +1374,12 @@
 			"superior_spirit_blossom_chest": "• Phần thưởng mốc Sự kiện cao cấp\n• Gói vật phẩm giới hạn trong Cửa hàng",
 			"silver_star_vessel": "• Cửa hàng Vinh Danh (30 Đồng tiến hóa)\n• Thưởng bản đồ phiêu lưu",
 			"gold_star_vessel": "• Cửa hàng Vinh Danh (200 Đồng tiến hóa)\n• Thưởng bản đồ phiêu lưu\n• Nhiệm vụ Thành tựu\n• Thưởng cấp độ Truyền thuyết",
-			"nova_crystal_vessel": "• Thưởng cấp độ Truyền thuyết 80\n• Thắng Lissandra\n• Nhiệm vụ Thành tựu cao cấp"
+			"nova_crystal_vessel": "• Thưởng cấp độ Truyền thuyết 80\n• Thắng Lissandra\n• Nhiệm vụ Thành tựu cao cấp",
+			"minor_gemstone_vessel": "• Cửa hàng Vinh Danh (40 Xu Vinh Danh)\n• Mua trong Cửa Hiệu mỗi 24h (1500 Bụi Tinh Tú)",
+			"major_gemstone_vessel": "• Thưởng cấp độ Truyền thuyết 74\n• Mua trong Cửa Hiệu (15000 Bụi Tinh Tú)\n• Battle Pass bản Premium",
+			"reliquary_bronze": "• Nhiệm vụ hàng tuần\n• Thưởng Phiêu lưu",
+			"reliquary_silver": "• Thưởng Phiêu lưu\n• Cấp Huyền Thoại\n• Cửa hàng Vinh Danh",
+			"reliquary_gold": "• Đánh bại Lissandra mốc 5 tướng\n• Thưởng cấp Huyền Thoại 40, 50"
 		},
 		"loot": {
 			"champ_frags": "Mảnh Tướng",
@@ -1376,6 +1393,7 @@
 			"rune_shards": "Mảnh Ngọc",
 			"nova_shard": "Mảnh Sao Băng",
 			"nova_crystal": "Pha Lê Sao Băng",
+			"spiritForge": "Tôi Luyện Linh Hồn",
 			"simulator": "Giả Lập"
 		}
 	},

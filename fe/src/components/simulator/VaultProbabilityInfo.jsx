@@ -32,7 +32,7 @@ const VaultProbabilityInfo = ({ isOpening, loot, vaultKey = null, onClose }) => 
 		});
 
 		return (
-			<div className='space-y-3'>
+			<div className='space-y-3 select-text'>
 				{intro.length > 0 && (
 					<p className='text-text-secondary leading-relaxed font-secondary text-sm sm:text-base'>
 						{intro.join('\n')}
@@ -40,7 +40,7 @@ const VaultProbabilityInfo = ({ isOpening, loot, vaultKey = null, onClose }) => 
 				)}
 				{tableRows.length > 0 && (
 					<div className='rounded-lg border border-border shadow-sm'>
-						<table className='w-full text-left border-collapse text-xs sm:text-sm table-fixed'>
+						<table className='w-full text-left border-collapse text-xs sm:text-sm table-fixed select-text'>
 							<tbody className='divide-y divide-border'>
 								{tableRows.map((row, i) => (
 									<tr key={i} className='transition-colors hover:bg-primary-500/5 group/row'>
@@ -85,12 +85,11 @@ const VaultProbabilityInfo = ({ isOpening, loot, vaultKey = null, onClose }) => 
 
 	return (
 		<motion.div
-			initial={{ opacity: 0, y: 30 }}
+			initial={{ opacity: 0, y: 10 }}
 			animate={{ opacity: 1, y: 0 }}
-			transition={{ delay: 0.8 }}
-			className='mt-0 sm:mt-2 sm:p-2 bg-surface-bg border border-border rounded-3xl shadow-sm relative overflow-hidden'
+			className='mt-0 sm:mt-2 sm:p-2 bg-surface-bg border border-border rounded-3xl shadow-sm relative overflow-hidden select-text pointer-events-auto'
 		>
-			<div className='absolute -top-24 -right-24 w-64 h-64 bg-primary-500/[0.03] blur-[100px]' />
+			<div className='absolute -top-24 -right-24 w-64 h-64 bg-primary-500/[0.03] blur-[100px] pointer-events-none' />
 
 			<div className='flex items-center justify-between gap-2 sm:gap-4 mb-4 sm:mb-6'>
 				<div className='flex items-center gap-2 sm:gap-4'>
@@ -111,7 +110,7 @@ const VaultProbabilityInfo = ({ isOpening, loot, vaultKey = null, onClose }) => 
 				)}
 			</div>
 
-			<div className={vaultKey ? 'w-full max-w-3xl mx-auto space-y-4' : 'grid grid-cols-1 lg:grid-cols-2 gap-4 text-sm'}>
+			<div className={(vaultKey ? 'w-full max-w-3xl mx-auto space-y-4' : 'grid grid-cols-1 lg:grid-cols-2 gap-4 text-sm') + ' select-text'}>
 				{show(["bronze"]) && (
 					<div className='space-y-3 bg-input-bg/20 p-4 sm:p-5 rounded-2xl border border-border hover:border-primary-500/30 transition-all duration-300 shadow-sm relative overflow-hidden group'>
 						<div className='absolute inset-0 bg-gradient-to-br from-[#cd7f32]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500' />
@@ -340,6 +339,116 @@ const VaultProbabilityInfo = ({ isOpening, loot, vaultKey = null, onClose }) => 
 							</h4>
 							<div className='bg-surface-bg/80 p-3 rounded-xl border border-border/50 shadow-inner'>
 								{renderSources(tUI("vaultSimulator.sources.nova_crystal_vessel"))}
+							</div>
+						</div>
+					</div>
+				)}
+
+				{/* Minor Gemstone Vessel */}
+				{show(["minor_gemstone_vessel"]) && (
+					<div className='space-y-3 bg-input-bg/20 p-4 sm:p-5 rounded-2xl border border-border hover:border-primary-500/30 transition-all duration-300 shadow-sm relative overflow-hidden group'>
+						<div className='absolute inset-0 bg-gradient-to-br from-amber-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none' />
+						<h3 className='text-lg sm:text-xl font-bold text-amber-500 uppercase italic underline underline-offset-[6px] decoration-2 decoration-amber-500/30 inline-block'>
+							{tUI("vaultSimulator.tier.minor_gemstone_vessel")}
+						</h3>
+						
+						{renderAsTable(tUI("vaultSimulator.probMinorGemstoneDesc"))}
+						
+						<div className='pt-3 border-t border-border/50'>
+							<h4 className='text-xs font-bold text-primary-600 uppercase tracking-wider mb-2 flex items-center gap-1.5'>
+								<span className='w-1.5 h-1.5 bg-primary-500 rounded-full' />
+								{tUI("vaultSimulator.sourceTitle")}
+							</h4>
+							<div className='bg-surface-bg/80 p-3 rounded-xl border border-border/50 shadow-inner'>
+								{renderSources(tUI("vaultSimulator.sources.minor_gemstone_vessel"))}
+							</div>
+						</div>
+					</div>
+				)}
+
+				{/* Major Gemstone Vessel */}
+				{show(["major_gemstone_vessel"]) && (
+					<div className='space-y-3 bg-input-bg/20 p-4 sm:p-5 rounded-2xl border border-border hover:border-primary-500/30 transition-all duration-300 shadow-sm relative overflow-hidden group'>
+						<div className='absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none' />
+						<h3 className='text-lg sm:text-xl font-bold text-orange-500 uppercase italic underline underline-offset-[6px] decoration-2 decoration-orange-500/30 inline-block'>
+							{tUI("vaultSimulator.tier.major_gemstone_vessel")}
+						</h3>
+						
+						{renderAsTable(tUI("vaultSimulator.probMajorGemstoneDesc"))}
+						
+						<div className='pt-3 border-t border-border/50'>
+							<h4 className='text-xs font-bold text-primary-600 uppercase tracking-wider mb-2 flex items-center gap-1.5'>
+								<span className='w-1.5 h-1.5 bg-primary-500 rounded-full' />
+								{tUI("vaultSimulator.sourceTitle")}
+							</h4>
+							<div className='bg-surface-bg/80 p-3 rounded-xl border border-border/50 shadow-inner'>
+								{renderSources(tUI("vaultSimulator.sources.major_gemstone_vessel"))}
+							</div>
+						</div>
+					</div>
+				)}
+
+				{/* Bronze Reliquary */}
+				{show(["reliquary_bronze"]) && (
+					<div className='space-y-3 bg-input-bg/20 p-4 sm:p-5 rounded-2xl border border-border hover:border-primary-500/30 transition-all duration-300 shadow-sm relative overflow-hidden group'>
+						<div className='absolute inset-0 bg-gradient-to-br from-orange-300/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none' />
+						<h3 className='text-lg sm:text-xl font-bold text-orange-300 uppercase italic underline underline-offset-[6px] decoration-2 decoration-orange-300/30 inline-block'>
+							{tUI("vaultSimulator.tier.reliquary_bronze")}
+						</h3>
+						
+						{renderAsTable(tUI("vaultSimulator.probBronzeReliquaryDesc"))}
+						
+						<div className='pt-3 border-t border-border/50'>
+							<h4 className='text-xs font-bold text-primary-600 uppercase tracking-wider mb-2 flex items-center gap-1.5'>
+								<span className='w-1.5 h-1.5 bg-primary-500 rounded-full' />
+								{tUI("vaultSimulator.sourceTitle")}
+							</h4>
+							<div className='bg-surface-bg/80 p-3 rounded-xl border border-border/50 shadow-inner'>
+								{renderSources(tUI("vaultSimulator.sources.reliquary_bronze"))}
+							</div>
+						</div>
+					</div>
+				)}
+
+				{/* Silver Reliquary */}
+				{show(["reliquary_silver"]) && (
+					<div className='space-y-3 bg-input-bg/20 p-4 sm:p-5 rounded-2xl border border-border hover:border-primary-500/30 transition-all duration-300 shadow-sm relative overflow-hidden group'>
+						<div className='absolute inset-0 bg-gradient-to-br from-blue-300/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none' />
+						<h3 className='text-lg sm:text-xl font-bold text-blue-300 uppercase italic underline underline-offset-[6px] decoration-2 decoration-blue-300/30 inline-block'>
+							{tUI("vaultSimulator.tier.reliquary_silver")}
+						</h3>
+						
+						{renderAsTable(tUI("vaultSimulator.probSilverReliquaryDesc"))}
+						
+						<div className='pt-3 border-t border-border/50'>
+							<h4 className='text-xs font-bold text-primary-600 uppercase tracking-wider mb-2 flex items-center gap-1.5'>
+								<span className='w-1.5 h-1.5 bg-primary-500 rounded-full' />
+								{tUI("vaultSimulator.sourceTitle")}
+							</h4>
+							<div className='bg-surface-bg/80 p-3 rounded-xl border border-border/50 shadow-inner'>
+								{renderSources(tUI("vaultSimulator.sources.reliquary_silver"))}
+							</div>
+						</div>
+					</div>
+				)}
+
+				{/* Gold Reliquary */}
+				{show(["reliquary_gold"]) && (
+					<div className='space-y-3 bg-input-bg/20 p-4 sm:p-5 rounded-2xl border border-border hover:border-primary-500/30 transition-all duration-300 shadow-sm relative overflow-hidden group'>
+						<div className='absolute inset-0 bg-gradient-to-br from-yellow-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none' />
+						<h3 className='text-lg sm:text-xl font-bold text-yellow-400 uppercase italic underline underline-offset-[6px] decoration-2 decoration-yellow-400/30 inline-block'>
+							{tUI("vaultSimulator.tier.reliquary_gold")}
+						</h3>
+						
+						{renderAsTable(tUI("vaultSimulator.probGoldReliquaryDesc"))}
+						
+						<div className='pt-3 border-t border-border/50'>
+							<h4 className='text-xs font-bold text-primary-600 uppercase tracking-wider mb-2 flex items-center gap-1.5'>
+								<span className='w-1.5 h-1.5 bg-primary-500 rounded-full' />
+								{tUI("vaultSimulator.sourceTitle")}
+							</h4>
+							<div className='bg-surface-bg/80 p-3 rounded-xl border border-border/50 shadow-inner'>
+								{renderSources(tUI("vaultSimulator.sources.reliquary_gold"))}
 							</div>
 						</div>
 					</div>
