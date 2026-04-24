@@ -41,7 +41,7 @@ const RequirementSection = ({ resolvedChampions, adventure }) => {
 		const regionKey = removeAccents(regionName)
 			.toLowerCase()
 			.replace(/[^a-z0-9]/g, "");
-		return tUI(`region.${regionKey}`) || regionName;
+		return tUI(`shared.region.${regionKey}`) || regionName;
 	};
 
 	return (

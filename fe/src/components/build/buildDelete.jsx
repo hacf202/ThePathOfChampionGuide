@@ -41,7 +41,7 @@ const BuildDelete = ({ build, isOpen, onClose, onConfirm }) => {
 			}
 		} catch (error) {
 			console.error("Lỗi khi xóa build:", error);
-			setMessage(tUI("common.errorLoadData"));
+			setMessage(tUI("common.error"));
 			setIsDeleting(false);
 		}
 	};

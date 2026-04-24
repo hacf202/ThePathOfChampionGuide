@@ -83,7 +83,7 @@ const CommunityBuilds = ({
 					`${apiUrl}/api/builds?${queryParams.toString()}`,
 				);
 
-				if (!response.ok) throw new Error(tUI("common.errorLoadData"));
+				if (!response.ok) throw new Error(tUI("common.error"));
 
 				const data = await response.json();
 
@@ -231,7 +231,7 @@ const CommunityBuilds = ({
 									disabled={currentPage === 1}
 									variant='outline'
 								>
-									{tUI("common.prevPage")}
+									{tUI("common.prev")}
 								</Button>
 								<span className='font-bold text-primary-500 bg-primary-100/10 px-4 py-1.5 rounded-full border border-primary-500/20'>
 									{currentPage} / {totalPages}
@@ -241,7 +241,7 @@ const CommunityBuilds = ({
 									disabled={currentPage === totalPages}
 									variant='outline'
 								>
-									{tUI("common.nextPage")}
+									{tUI("common.next")}
 								</Button>
 							</div>
 						)}

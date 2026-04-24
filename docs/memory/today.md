@@ -1,4 +1,25 @@
 
+## Log thay đổi 2026-04-24 (Relics Data Enhancement & Localization Refactor)
+
+### ✅ Nâng cấp dữ liệu Cổ Vật (Relics Data Enhancement)
+- **Tích hợp hình ảnh Proxy**: Bổ sung trường `image` vào `RelicsData.json`, sử dụng CDN `https://images.pocguide.top/relics/` để tối ưu hóa việc tải hình ảnh và tránh phụ thuộc trực tiếp vào asset của game.
+- **Đồng bộ Database**: Tải lên thành công bản cập nhật `RelicsData.json` (146 bản ghi) lên bảng `guidePocRelics` trên DynamoDB.
+- **Cập nhật UI**: Điều chỉnh `fe/src/components/tierMaker/relics.jsx` để ưu tiên sử dụng thuộc tính `image` mới, cải thiện tốc độ hiển thị và độ ổn định.
+
+### ✅ Hệ thống & Bảo trì (System & Maintenance)
+- **Full Backup**: Thực hiện sao lưu toàn bộ 14 bảng dữ liệu DynamoDB vào thư mục `be/uploadData/backup_2026-04-24T01-31-12/`.
+- **Relic Assets**: Tải xuống và lưu trữ cục bộ các asset hình ảnh của Relic để phục vụ hệ thống proxy.
+
+### ✅ Tái cấu trúc Đa ngôn ngữ (Localization DRY Architecture)
+- **Kiến trúc tập trung**: Chuyển đổi toàn bộ định nghĩa về **Độ hiếm (Rarity)**, **Vùng đất (Region)**, **Loại thẻ (Card Type)** và **Thực thể (Entities)** sang mục `shared` dùng chung trong `vi.json` và `en.json`.
+- **Loại bỏ trùng lặp**: Xóa bỏ hàng trăm dòng code lặp lại trong các file ngôn ngữ bằng cách quy về một nguồn sự thật duy nhất (Single Source of Truth).
+- **Slug-key Compatibility**: Bổ sung các key "không dấu/slug" (ví dụ: `thanhphobandle`, `quandaobongdem`) để duy trì tính tương thích với logic xử lý chuỗi hiện tại ở Frontend mà không làm hỏng giao diện.
+- **Chuẩn hóa Action & Error**:
+    - Gộp các hành động phổ biến (`Save`, `Cancel`, `Prev`, `Next`) vào root `common`.
+    - Thống nhất thông báo lỗi tải dữ liệu bằng `common.error`.
+- **Cập nhật Hệ thống Filter**: Đồng bộ hóa toàn bộ các hook lọc (`useGenericFilters`, `useChampionFilters`, `useCardFilters`, v.v.) để sử dụng cấu trúc key mới.
+- **Cập nhật UI Components**: Cập nhật hàng loạt component (`championCard`, `powerDetail`, `vaultSimulator`, `randomWheelPage`, v.v.) để trỏ đúng đường dẫn `shared.*`.
+
 ## Log thay đổi 2026-04-24 (Identity Sync, Markup Resolution & Per-user Caching)
 
 ### ✅ Đồng bộ danh tính & Làm giàu dữ liệu (Identity Synchronization)

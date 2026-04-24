@@ -63,7 +63,7 @@ const RewardSection = ({ rewards }) => {
 			const regionKey = removeAccents(detectedRegion)
 				.toLowerCase()
 				.replace(/[^a-z0-9]/g, "");
-			translatedRegion = tUI(`region.${regionKey}`) || detectedRegion;
+			translatedRegion = tUI(`shared.region.${regionKey}`) || detectedRegion;
 		}
 
 		const REWARD_MAP = {

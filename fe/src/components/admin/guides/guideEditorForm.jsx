@@ -128,7 +128,7 @@ const GuideForm = ({ slug }) => {
 			setIsDirty(false);
 			navigate("/admin/guides");
 		} catch (err) {
-			alert(tUI("common.errorLoadData"));
+			alert(tUI("common.error"));
 		} finally {
 			setLoading(false);
 		}

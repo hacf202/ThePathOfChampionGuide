@@ -31,7 +31,7 @@ export const useBuildData = (activeTab, queryParams, tUI, token) => {
 			}
 
 			const response = await fetch(`${backendUrl}${endpoint}`, { headers });
-			if (!response.ok) throw new Error(tUI("common.errorLoadData"));
+			if (!response.ok) throw new Error(tUI("common.error"));
 
 			const data = await response.json();
 			setBuilds(data.items || []);

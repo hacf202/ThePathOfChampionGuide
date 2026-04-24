@@ -23,7 +23,7 @@ export const useCardFilters = (tUI, dynamicFilters) => {
 				key: "rarities",
 				label: tUI("common.rarity") || "Độ hiếm",
 				options: (dynamicFilters.rarities || []).map(r => ({
-					label: tUI(`rarity.${r.toLowerCase()}`) || r,
+					label: tUI(`shared.rarity.${r.toLowerCase()}`) || r,
 					value: r
 				}))
 			},
@@ -45,7 +45,7 @@ export const useCardFilters = (tUI, dynamicFilters) => {
 
 					return {
 						value: r,
-						label: tUI(`region.${regionKey}`) || r,
+						label: tUI(`shared.region.${regionKey}`) || r,
 						iconUrl: iconRegion?.image
 					};
 				}),
@@ -54,7 +54,7 @@ export const useCardFilters = (tUI, dynamicFilters) => {
 				key: "types",
 				label: tUI("common.type") || "Loại bài",
 				options: (dynamicFilters.types || []).map(t => ({
-					label: tUI(`cardType.${t.toLowerCase()}`) || t,
+					label: tUI(`shared.cardType.${t.toLowerCase()}`) || t,
 					value: t
 				}))
 			},

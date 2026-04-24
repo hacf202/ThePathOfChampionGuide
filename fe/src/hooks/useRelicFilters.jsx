@@ -20,7 +20,7 @@ export const useRelicFilters = (tUI, t, dynamicFilters, knownRelics) => {
 				if (dynTrans) return dynTrans;
 			}
 			const key = getRarityKey(rawRarity);
-			return tUI(`relic.rarity.${key}`) || rawRarity;
+			return tUI(`shared.rarity.${key}`) || rawRarity;
 		},
 		[tUI, t],
 	);

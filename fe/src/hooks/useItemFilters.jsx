@@ -22,7 +22,7 @@ export const useItemFilters = (tUI, t, dynamicFilters, knownItems) => {
 				if (dynTrans) return dynTrans;
 			}
 			const key = getRarityKey(rawRarity);
-			return tUI(`item.rarity.${key}`) || rawRarity;
+			return tUI(`shared.rarity.${key}`) || rawRarity;
 		},
 		[tUI, t],
 	);

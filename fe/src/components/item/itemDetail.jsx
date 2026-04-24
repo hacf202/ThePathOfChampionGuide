@@ -47,7 +47,7 @@ function ItemDetail() {
 				setItem(foundItem);
 				setChampions(championsData.items || []);
 			} catch (err) {
-				setError(err.message || tUI("common.errorLoadData"));
+				setError(err.message || tUI("common.error"));
 			} finally {
 				setTimeout(() => setLoading(false), 800);
 			}
@@ -61,7 +61,7 @@ function ItemDetail() {
 		? tDynamic(item, "description") || tDynamic(item, "descriptionRaw")
 		: "";
 	const itemRarity = item?.rarity
-		? tDynamic(item, "rarity") || tUI(`item.rarity.${getRarityKey(item.rarity)}`) || item.rarity
+		? tDynamic(item, "rarity") || tUI(`shared.rarity.${getRarityKey(item.rarity)}`) || item.rarity
 		: "";
 
 	useEffect(() => {
@@ -101,7 +101,7 @@ function ItemDetail() {
 				back: tUI("common.back"),
 				compatibleTitle: tUI("itemDetail.compatibleChampions"),
 				noCompatible: tUI("itemDetail.noCompatibleChampions"),
-				errorTitle: tUI("common.errorTitle")
+				errorTitle: tUI("common.error")
 			}}
 		/>
 	);

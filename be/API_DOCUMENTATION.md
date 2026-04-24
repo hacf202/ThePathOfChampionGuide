@@ -90,6 +90,8 @@ Tài liệu này tổng hợp toàn bộ các API hiện có trong hệ thống 
     - `PUT /api/[type]`: Cập nhật/Tạo mới (Admin).
     - `DELETE /api/[type]/:code`: Xóa (Admin).
 
+**Ghi chú cho Relics:** Dữ liệu Cổ Vật hiện bao gồm trường `image` (URL CDN Proxy) để hỗ trợ hiển thị hiệu năng cao trên giao diện.
+
 ---
 
 ## 7. Nội dung Mở rộng (Adventures, Bosses, Constellations, Guides)

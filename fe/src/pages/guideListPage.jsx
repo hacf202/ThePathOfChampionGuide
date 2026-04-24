@@ -91,7 +91,7 @@ const GuideList = () => {
 				if (res.data.success) setGuides(res.data.data);
 			} catch (err) {
 				console.error("Lỗi tải guides:", err);
-				setError(err.message || tUI("common.errorLoadData"));
+				setError(err.message || tUI("common.error"));
 			} finally {
 				setLoading(false);
 			}

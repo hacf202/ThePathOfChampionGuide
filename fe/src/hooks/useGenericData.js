@@ -43,7 +43,7 @@ export const useGenericData = (
 				{ signal } // Gắn signal để có thể hủy request nếu có request mới
 			);
 
-			if (!response.ok) throw new Error(tUI("common.errorLoadData"));
+			if (!response.ok) throw new Error(tUI("common.error"));
 
 			const data = await response.json();
 			const fetchedItems = data.items || [];

@@ -67,7 +67,7 @@ const CardDetailModal = ({ card, isOpen, onClose }) => {
 							<div className="flex items-center gap-2 px-3 py-0.5 bg-white/5 rounded-full border border-white/10">
 								<RarityIcon rarity={card.rarity} size={12} />
 								<span className="text-[10px] font-bold text-text-secondary uppercase tracking-wider">
-									{tUI(`rarity.${(card.rarity || "none").toLowerCase()}`)}
+									{tUI(`shared.rarity.${(card.rarity || "none").toLowerCase()}`)}
 								</span>
 							</div>
 						</div>

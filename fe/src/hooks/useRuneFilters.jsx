@@ -20,7 +20,7 @@ export const useRuneFilters = (tUI, t, dynamicFilters, knownRunes) => {
 				if (dynTrans) return dynTrans;
 			}
 			const key = getRarityKey(rawRarity);
-			return tUI(`rune.rarity.${key}`) || rawRarity;
+			return tUI(`shared.rarity.${key}`) || rawRarity;
 		},
 		[tUI, t],
 	);

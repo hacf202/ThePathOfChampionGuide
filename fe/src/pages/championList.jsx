@@ -57,7 +57,7 @@ function ChampionList() {
 	if (error) {
 		return (
 			<div className='flex justify-center py-20 text-red-500'>
-				{error.message || tUI("common.errorLoadData")}
+				{error.message || tUI("common.error")}
 			</div>
 		);
 	}

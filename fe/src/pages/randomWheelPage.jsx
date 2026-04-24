@@ -67,17 +67,17 @@ function RandomizerPage() {
 			const initialData = {
 				champions: {
 					key: "champions",
-					title: tUI("randomWheel.champions"),
+					title: tUI("shared.entitiesPlural.champion"),
 					items: [...championsList].sort(sortByName),
 				},
 				maps: {
 					key: "maps",
-					title: tUI("randomWheel.maps"),
+					title: tUI("shared.entitiesPlural.adventure"),
 					items: [...mapsData].sort(sortByName),
 				},
 				relics: {
 					key: "relics",
-					title: tUI("randomWheel.relics"),
+					title: tUI("shared.entitiesPlural.relic"),
 					items: relicList
 						.filter(r => r.name)
 						.map(r => ({
@@ -88,7 +88,7 @@ function RandomizerPage() {
 				},
 				items: {
 					key: "items",
-					title: tUI("randomWheel.items"),
+					title: tUI("shared.entitiesPlural.item"),
 					items: itemList
 						.filter(i => i.name)
 						.map(i => ({
@@ -99,7 +99,7 @@ function RandomizerPage() {
 				},
 				powers: {
 					key: "powers",
-					title: tUI("randomWheel.powers"),
+					title: tUI("shared.entitiesPlural.power"),
 					items: powerList
 						.filter(p => p.name)
 						.map(p => ({
@@ -110,7 +110,7 @@ function RandomizerPage() {
 				},
 				runes: {
 					key: "runes",
-					title: tUI("randomWheel.runes"),
+					title: tUI("shared.entitiesPlural.rune"),
 					items: runeList
 						.filter(r => r.name)
 						.map(r => ({

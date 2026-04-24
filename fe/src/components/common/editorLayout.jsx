@@ -53,7 +53,7 @@ const EditorLayout = ({
 			<div className='flex items-center justify-center min-h-screen bg-main-bg text-red-500 p-4 text-center'>
 				<div className='max-w-md p-6 bg-surface-bg rounded-lg border border-red-500/20 shadow-xl'>
 					<h2 className='text-xl font-bold mb-2'>
-						{tUI("common.errorLoadData")}
+						{tUI("common.error")}
 					</h2>
 					<p>{error}</p>
 				</div>

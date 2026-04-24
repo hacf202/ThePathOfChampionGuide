@@ -47,7 +47,7 @@ function PowerDetail() {
 				setPower(foundPower);
 				setChampions(championsData.items || []);
 			} catch (err) {
-				setError(err.message || tUI("common.errorLoadData"));
+				setError(err.message || tUI("common.error"));
 			} finally {
 				setTimeout(() => setLoading(false), 800);
 			}
@@ -61,7 +61,7 @@ function PowerDetail() {
 		? tDynamic(power, "description") || tDynamic(power, "descriptionRaw")
 		: "";
 	const powerRarity = power?.rarity
-		? tDynamic(power, "rarity") || tUI(`power.rarity.${getRarityKey(power.rarity)}`) || power.rarity
+		? tDynamic(power, "rarity") || tUI(`shared.rarity.${getRarityKey(power.rarity)}`) || power.rarity
 		: "";
 
 	useEffect(() => {
@@ -99,7 +99,7 @@ function PowerDetail() {
 				back: tUI("common.back"),
 				compatibleTitle: tUI("powerDetail.compatibleChampions"),
 				noCompatible: tUI("powerDetail.noCompatibleChampions"),
-				errorTitle: tUI("common.errorTitle")
+				errorTitle: tUI("common.error")
 			}}
 		/>
 	);

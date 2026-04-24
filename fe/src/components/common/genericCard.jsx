@@ -93,7 +93,7 @@ const GenericCard = ({
 		const normalizedKey = removeAccents(rawRarity)
 			.toLowerCase()
 			.replace(/[^a-z0-9]/g, "");
-		return tUI(`rarity.${normalizedKey}`) || rawRarity;
+		return tUI(`shared.rarity.${normalizedKey}`) || rawRarity;
 	};
 
 	return (

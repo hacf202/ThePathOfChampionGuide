@@ -57,7 +57,7 @@ function ChampionCard({ champion }) {
 							.toLowerCase()
 							.replace(/[^a-z0-9]/g, "");
 						// Lấy tên đã dịch từ tUI, nếu không có thì fallback về tên gốc
-						const translatedRegion = tUI(`region.${regionKey}`) || regionName;
+						const translatedRegion = tUI(`shared.region.${regionKey}`) || regionName;
 
 						return (
 							<div

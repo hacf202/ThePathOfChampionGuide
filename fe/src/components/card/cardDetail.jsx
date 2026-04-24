@@ -76,7 +76,7 @@ const CardDetail = () => {
 				if (desc) resolveEntities(desc);
 			} catch (err) {
 				console.error("Error fetching card detail:", err);
-				setError(err.message || tUI("common.errorLoadData"));
+				setError(err.message || tUI("common.error"));
 			} finally {
 				setTimeout(() => setLoading(false), 300);
 			}
@@ -218,7 +218,7 @@ const CardDetail = () => {
 											<div className="flex items-center gap-2 px-3 py-1 bg-white/5 rounded-full border border-white/10">
 												<RarityIcon rarity={card.rarity} size={14} />
 												<span className="text-xs font-bold text-text-secondary uppercase tracking-wider">
-													{tUI(`rarity.${(card.rarity || "none").toLowerCase()}`)}
+													{tUI(`shared.rarity.${(card.rarity || "none").toLowerCase()}`)}
 												</span>
 											</div>
 										</div>

@@ -107,3 +107,11 @@ ThePathOfChampionGuide/
 +  - **Per-user Caching**: Áp dụng cơ chế cache 1 giờ cho danh sách build công khai nhưng hỗ trợ xóa cache cục bộ cho chính người tạo khi có thay đổi. Điều này giúp người dùng thấy kết quả ngay lập tức mà không làm ảnh hưởng đến tính ổn định của hệ thống cache chung.
 +  - **Markup Enrichment**: Tự động giải mã các mô tả build chứa thẻ game (`[k:...]`, `[r:...]`) sang giao diện trực quan kèm tooltip.
 +  - **Favorite Sync**: Hệ thống đồng bộ trạng thái yêu thích thời gian thực trên mọi danh sách hiển thị.
++
++### 8. Module: Localization (Đa ngôn ngữ & DRY Architecture)
++- **Mục tiêu**: Quản lý nội dung hiển thị đa ngôn ngữ một cách tối ưu, nhất quán và dễ bảo trì.
++- **Kiến trúc DRY (Don't Repeat Yourself)**:
++  - **Shared Metadata**: Gom nhóm các dữ liệu thực thể (Rarity, Region, CardType, Entities) vào một khu vực dùng chung (`shared`), loại bỏ việc lặp lại ở từng module riêng lẻ.
++  - **Action Standardization**: Chuẩn hóa các key cho hành động phổ biến (`Save`, `Cancel`, `Prev`, `Next`) và các chuỗi thông báo lỗi (`common.error`).
++  - **Slug Matching**: Hỗ trợ các alias key (slugified keys) để tương thích ngược với logic xử lý chuỗi ở Frontend, giúp việc dịch thuật mượt mà và không gây lỗi giao diện.
++  - **Hierarchical Structure**: Cấu trúc JSON phân cấp giúp việc tìm kiếm và quản lý hàng nghìn key dịch thuật trở nên khoa học hơn.

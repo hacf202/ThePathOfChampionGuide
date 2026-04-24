@@ -52,7 +52,7 @@ export const useChampionFilters = (tUI, dynamicFilters) => {
 
 					return {
 						value: r,
-						label: tUI(`region.${regionKey}`) || r,
+						label: tUI(`shared.region.${regionKey}`) || r,
 						iconUrl: iconRegions.find(i => i.name === r || i.nameRef === r)?.image,
 					};
 				}),

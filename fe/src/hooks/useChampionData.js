@@ -26,7 +26,7 @@ export const useChampionData = (queryParams, tUI) => {
 				`${backendUrl}/api/champions?${queryParams}`,
 			);
 
-			if (!response.ok) throw new Error(tUI("common.errorLoadData"));
+			if (!response.ok) throw new Error(tUI("common.error"));
 
 			const data = await response.json();
 

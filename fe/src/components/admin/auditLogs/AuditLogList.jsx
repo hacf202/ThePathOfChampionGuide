@@ -184,7 +184,7 @@ const AuditLogList = () => {
 							<option value="">{tUI("admin.auditLog.filterByType")}</option>
 							{entityTypes.map(type => (
 								<option key={type} value={type}>
-									{tUI(`admin.auditLog.entities.${type}`)}
+									{tUI(`shared.entities.${type}`)}
 								</option>
 							))}
 						</select>
@@ -281,7 +281,7 @@ const AuditLogList = () => {
 														{log.entityName || "---"}
 													</div>
 													<div className="text-[11px] text-text-secondary flex items-center gap-1 font-medium">
-														{tUI(`admin.auditLog.entities.${log.entityType}`)}
+														{tUI(`shared.entities.${log.entityType}`)}
 														<span className="text-border mx-1">/</span>
 														<code className="bg-surface-bg border border-border px-1.5 py-0.5 rounded text-[10px] font-mono text-text-secondary">
 															{log.entityId}

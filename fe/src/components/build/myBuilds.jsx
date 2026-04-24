@@ -67,7 +67,7 @@ const MyBuilds = ({
 			const response = await fetch(`${apiUrl}/api/builds/my-builds`, {
 				headers: { Authorization: `Bearer ${token}` },
 			});
-			if (!response.ok) throw new Error(tUI("common.errorLoadData"));
+			if (!response.ok) throw new Error(tUI("common.error"));
 			const data = await response.json();
 			setAllBuilds(data.items || []);
 		} catch (err) {
@@ -239,7 +239,7 @@ const MyBuilds = ({
 									disabled={currentPage === 1}
 									variant='outline'
 								>
-									{tUI("common.prevPage")}
+									{tUI("common.prev")}
 								</Button>
 								<span className='font-bold text-primary-500 bg-primary-100/10 px-4 py-1.5 rounded-full border border-primary-500/20'>
 									{currentPage} / {totalPages}
@@ -249,7 +249,7 @@ const MyBuilds = ({
 									disabled={currentPage === totalPages}
 									variant='outline'
 								>
-									{tUI("common.nextPage")}
+									{tUI("common.next")}
 								</Button>
 							</div>
 						)}

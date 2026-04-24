@@ -250,7 +250,7 @@ const GenericListLayout = ({
 															variant='outline'
 														>
 															<ChevronLeft size={16} className='mr-2' />
-															{tUI("common.prevPage")}
+															{tUI("common.prev")}
 														</Button>
 														<span className='font-bold text-primary-500 bg-primary-100/10 px-3 py-1 rounded-full'>
 															{currentPage} / {pagination.totalPages}
@@ -263,7 +263,7 @@ const GenericListLayout = ({
 															disabled={currentPage === pagination.totalPages}
 															variant='outline'
 														>
-															{tUI("common.nextPage")}
+															{tUI("common.next")}
 															<ChevronRight size={16} className='ml-2' />
 														</Button>
 													</div>

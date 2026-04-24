@@ -1,26 +1,84 @@
 {
+	"shared": {
+		"rarity": {
+			"common": "Common",
+			"thuong": "Common",
+			"rare": "Rare",
+			"hiem": "Rare",
+			"epic": "Epic",
+			"suthi": "Epic",
+			"legendary": "Legendary",
+			"huyenthoai": "Legendary",
+			"champion": "Champion",
+			"special": "Special",
+			"none": "None"
+		},
+		"region": {
+			"bandleCity": "Bandle City",
+			"thanhphobandle": "Bandle City",
+			"bilgewater": "Bilgewater",
+			"demacia": "Demacia",
+			"freljord": "Freljord",
+			"ionia": "Ionia",
+			"noxus": "Noxus",
+			"piltoverZaun": "Piltover & Zaun",
+			"piltoverzaun": "Piltover & Zaun",
+			"shadowIsles": "Shadow Isles",
+			"quandaobongdem": "Shadow Isles",
+			"shurima": "Shurima",
+			"targon": "Targon",
+			"runeterra": "Runeterra",
+			"spiritBlossom": "Spirit Blossom",
+			"hoalinhlucdia": "Spirit Blossom",
+			"neutral": "Neutral",
+			"trunglap": "Neutral"
+		},
+		"entities": {
+			"champion": "Champion",
+			"relic": "Relic",
+			"power": "Power",
+			"item": "Item",
+			"rune": "Rune",
+			"boss": "Boss",
+			"adventure": "Adventure",
+			"card": "Card",
+			"guide": "Guide",
+			"resource": "Resource",
+			"bonusStar": "Bonus Star"
+		},
+		"entitiesPlural": {
+			"champion": "Champions",
+			"relic": "Relics",
+			"power": "Powers",
+			"item": "Items",
+			"rune": "Runes",
+			"boss": "Bosses",
+			"adventure": "Adventures",
+			"card": "Cards",
+			"guide": "Guides",
+			"resource": "Resources"
+		},
+		"cardType": {
+			"unit": "Unit",
+			"spell": "Spell",
+			"landmark": "Landmark",
+			"equipment": "Equipment",
+			"ability": "Ability",
+			"trap": "Trap",
+			"other": "Other"
+		}
+	},
 	"common": {
 		"search": "Search",
 		"save": "Save",
 		"cancel": "Cancel",
 		"loading": "Loading data...",
-		"errorLoadData": "Data loading error",
-		"prevPage": "Previous",
-		"nextPage": "Next",
+		"error": "An error occurred",
+		"prev": "Previous",
+		"next": "Next",
 		"notFound": "No results found",
 		"close": "Close",
 		"clear": "Clear",
-		"selectPlaceholder": "Select one or more",
-		"selectedItems": "{{count}} items selected",
-		"searchPlaceholder": "Search...",
-		"addNew": "Add New",
-		"editTitle": "Edit Data",
-		"addTitle": "Add New Data",
-		"noItemTitle": "No item selected",
-		"noItemDesc": "Please select an item from the left list or click Add New.",
-		"deleteDataTitle": "Delete Data",
-		"deleteConfirmPrefix": "Are you sure you want to delete",
-		"deleteConfirmSuffix": "? This action cannot be undone.",
 		"ok": "OK",
 		"edit": "Edit",
 		"delete": "Delete",
@@ -30,40 +88,24 @@
 		"retry": "Retry",
 		"saving": "Saving...",
 		"deleting": "Deleting...",
-		"selectOption": "Select an option...",
-		"errorTitle": "Error",
 		"all": "All",
+		"reset": "Reset",
+		"filter": "Filter",
 		"rarity": "Rarity",
 		"type": "Type",
 		"region": "Region",
 		"cost": "Cost",
-		"stacks": "Stacks",
-		"reset": "Reset",
 		"stack": "Stack",
 		"views": "Views",
 		"resetFilter": "Reset Filter",
 		"backToList": "Back to List",
-		"zoomIn": "Zoom In",
-		"zoomOut": "Zoom Out",
-		"showMap": "Show map",
-		"hideMap": "Hide map",
-		"hide": "Hide",
-		"show": "Show",
-		"cards": " cards",
-		"ad": "Advertisement",
-		"filter": "Filter",
 		"sortNameAsc": "Name A-Z",
 		"sortNameDesc": "Name Z-A",
-		"viewAll": "View All"
-	},
-	"cardType": {
-		"unit": "Unit",
-		"spell": "Spell",
-		"landmark": "Landmark",
-		"equipment": "Equipment",
-		"ability": "Ability",
-		"trap": "Trap",
-		"other": "Other"
+		"viewAll": "View All",
+		"addNew": "Add New",
+		"selectOption": "Select Option",
+		"selectPlaceholder": "Select Option",
+		"description": "Description"
 	},
 	"cardList": {
 		"title": "Card Gallery",
@@ -121,6 +163,32 @@
 		"noEnemyInfo": "No information.",
 		"noNodeDescription": "No detailed description for this Node type."
 	},
+	"relic":{
+		"types":{
+			"general":"General",
+			"consumable": "Consumable",
+			"signature": "Signature"
+			
+		}
+	},
+	"power":{
+		"types":{
+			"arcanepower":"Arcane Power",
+			"championlevelpower": "Champion Level Power",
+			"debuffpower": "Debuff Power",
+			"defiancepower":"Defiance Power",
+			"encounterpower": "Encounter Power",
+			"foepower":"Foe Power",
+			"generalpower":"General Power",
+			"monthlychallengepower":"Monthly Challenge Power",
+			"relicpower": "Relic Power",
+			"removepower":"Remove Power",
+			"runepower":"Rune Power",
+			"spiritblossompower": "Spirit Blossom Power",
+			"teamfighttacticspower": "Teamfight Tactics Power",
+			"starpower": "Star Power"
+		}
+	},
 	"reward": {
 		"bronze_reliquary": "Bronze Reliquary",
 		"silver_reliquary": "Silver Reliquary",
@@ -144,91 +212,6 @@
 		"greater_gemstone_vessel": "Greater Gemstone Vessel",
 		"wild_frags": "Wild Fragments",
 		"champ_frags": "Champion Fragments"
-	},
-	"rarity": {
-		"common": "Common",
-		"rare": "Rare",
-		"epic": "Epic",
-		"champion": "Champion",
-		"none": "None",
-		"thuong": "Common",
-		"hiem": "Rare",
-		"suthi": "Epic",
-		"huyenthoai": "Legendary",
-		"legendary": "Legendary",
-		"special": "Special"
-	},
-	"relic": {
-		"rarity": {
-			"common": "Common",
-			"rare": "Rare",
-			"epic": "Epic",
-			"legendary": "Legendary"
-		},
-		"types": {
-			"general": "General",
-			"signature": "Signature",
-			"consumable": "Consumables"
-		}
-	},
-	"power": {
-		"rarity": {
-			"common": "Common",
-			"rare": "Rare",
-			"epic": "Epic",
-			"legendary": "Legendary",
-			"special": "Special"
-		},
-		"types": {
-			"arcanepower": "Arcane Power",
-			"debuffpower": "Debuff Power",
-			"encounterpower": "Encounter Power",
-			"foepower": "Foe Power",
-			"generalpower": "General Power",
-			"monthlychallengepower": "Monthly Challenge Power",
-			"removepower": "Remove Power",
-			"runepower": "Rune Power",
-			"spiritblossompower": "Spirit Blossom Power",
-			"starpower": "Star Power",
-			"teamfighttacticspower": "Teamfight Tactics Power",
-			"defiancepower": "Defiance Power",
-			"relicpower": "Relic Power"
-		}
-	},
-	"item": {
-		"rarity": {
-			"common": "Common",
-			"rare": "Rare",
-			"epic": "Epic",
-			"special": "Special"
-		}
-	},
-	"rune": {
-		"rarity": {
-			"common": "Common",
-			"rare": "Rare",
-			"epic": "Epic",
-			"legendary": "Legendary"
-		}
-	},
-	"region": {
-		"bandleCity": "Bandle City",
-		"bilgewater": "Bilgewater",
-		"demacia": "Demacia",
-		"freljord": "Freljord",
-		"ionia": "Ionia",
-		"noxus": "Noxus",
-		"piltoverZaun": "Piltover & Zaun",
-		"shadowIsles": "Shadow Isles",
-		"shurima": "Shurima",
-		"targon": "Targon",
-		"runeterra": "Runeterra",
-		"spiritBlossom": "Spirit Blossom",
-		"thanhphobandle": "Bandle City",
-		"quandaobongdem": "Shadow Isles",
-		"hoalinhlucdia": "Spirit Blossom",
-		"piltoverzaun": "Piltover & Zaun",
-		"trunglap": "Neutral"
 	},
 	"admin": {
 		"sidebar": {
@@ -633,13 +616,13 @@
 			"deleteConfirmText": "Are you sure you want to delete card"
 		},
 		"auditLog": {
-			"title": "Changelog",
-			"subtitle": "Track system data changes.",
+			"title": "Audit Logs",
+			"subtitle": "Track data changes on the system.",
 			"filterByType": "Filter by type",
 			"filterByAction": "Filter by action",
 			"filterByUser": "Filter by user",
 			"table": {
-				"timestamp": "Time",
+				"timestamp": "Timestamp",
 				"user": "User",
 				"action": "Action",
 				"entity": "Entity",
@@ -651,18 +634,7 @@
 				"DELETE": "Delete",
 				"ROLLBACK": "Rollback"
 			},
-			"entities": {
-				"champion": "Champion",
-				"power": "Power",
-				"relic": "Relic",
-				"item": "Item",
-				"rune": "Rune",
-				"boss": "Boss",
-				"adventure": "Adventure",
-				"bonusStar": "Bonus Star",
-				"guide": "Guide",
-				"card": "Card"
-			},
+			"entities": "shared.entities",
 			"modal": {
 				"title": "Change Details",
 				"oldData": "Old Data",
@@ -733,7 +705,9 @@
 		"placeholder": "Relic name...",
 		"notFound": "No matching relics found.",
 		"clearFilters": "Clear all filters",
-		"stackLabel": "Stacks {{count}}"
+		"stackLabel": "Stacks {{count}}",
+		"rarity": "Rarity",
+		"type": "Type"
 	},
 	"runeList": {
 		"title": "Runes List",
@@ -746,22 +720,22 @@
 	},
 	"randomWheel": {
 		"pageTitle": "Random Wheel",
-		"pageDesc": "Randomizer tool for Path of Champions",
+		"pageDesc": "Randomization tool for Path of Champions",
 		"panelTitle": "Control Panel",
-		"closePanel": "Close panel",
+		"closePanel": "Close control panel",
 		"tabSelect": "Select Wheel",
 		"tabCustomize": "Customize",
 		"addCustomLabel": "Add new values (one per line):",
 		"addCustomPlaceholder": "Enter custom values...",
-		"selectExistingLabel": "Select available values:",
+		"selectExistingLabel": "Select existing values:",
 		"selectAll": "Select all visible",
 		"deselectAll": "Deselect all visible",
-		"searchPlaceholder": "Search value...",
+		"searchPlaceholder": "Search values...",
 		"noItems": "Please select at least one item in the Customize section.",
 		"resultTitle": "Result!",
-		"resultText": "You spun:",
-		"keepBtn": "Keep it",
-		"removeBtn": "Remove it",
+		"resultText": "You rolled:",
+		"keepBtn": "Keep",
+		"removeBtn": "Remove",
 		"champions": "Champions",
 		"maps": "Maps",
 		"relics": "Relics",

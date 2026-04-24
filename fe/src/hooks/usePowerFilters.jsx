@@ -20,7 +20,7 @@ export const usePowerFilters = (tUI, t, dynamicFilters, knownPowers) => {
 				if (dynTrans) return dynTrans;
 			}
 			const key = getRarityKey(rawRarity);
-			return tUI(`power.rarity.${key}`) || rawRarity;
+			return tUI(`shared.rarity.${key}`) || rawRarity;
 		},
 		[tUI, t],
 	);

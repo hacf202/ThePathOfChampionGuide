@@ -47,7 +47,7 @@ function RelicDetail() {
 				setRelic(foundRelic);
 				setChampions(championsData.items || []);
 			} catch (err) {
-				setError(err.message || tUI("common.errorLoadData"));
+				setError(err.message || tUI("common.error"));
 			} finally {
 				setTimeout(() => setLoading(false), 800);
 			}
@@ -61,7 +61,7 @@ function RelicDetail() {
 		? tDynamic(relic, "description") || tDynamic(relic, "descriptionRaw")
 		: "";
 	const relicRarity = relic?.rarity
-		? tDynamic(relic, "rarity") || tUI(`relic.rarity.${getRarityKey(relic.rarity)}`) || relic.rarity
+		? tDynamic(relic, "rarity") || tUI(`shared.rarity.${getRarityKey(relic.rarity)}`) || relic.rarity
 		: "";
 
 	useEffect(() => {
@@ -99,7 +99,7 @@ function RelicDetail() {
 				back: tUI("common.back"),
 				compatibleTitle: tUI("relicDetail.compatibleChampions"),
 				noCompatible: tUI("relicDetail.noCompatibleChampions"),
-				errorTitle: tUI("common.errorTitle")
+				errorTitle: tUI("common.error")
 			}}
 		/>
 	);

@@ -39,7 +39,7 @@ const GuideList = () => {
 			}
 		} catch (err) {
 			console.error("Error loading guide list:", err);
-			setError(tUI("common.errorLoadData"));
+			setError(tUI("common.error"));
 		} finally {
 			setLoading(false);
 		}
@@ -65,7 +65,7 @@ const GuideList = () => {
 			});
 			setGuides(guides.filter(g => g.slug !== slug));
 		} catch (err) {
-			alert(tUI("common.errorLoadData"));
+			alert(tUI("common.error"));
 		} finally {
 			setLoading(false);
 		}

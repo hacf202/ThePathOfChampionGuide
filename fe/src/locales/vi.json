@@ -1,26 +1,84 @@
 {
+	"shared": {
+		"rarity": {
+			"common": "Thường",
+			"thuong": "Thường",
+			"rare": "Hiếm",
+			"hiem": "Hiếm",
+			"epic": "Sử Thi",
+			"suthi": "Sử Thi",
+			"legendary": "Huyền Thoại",
+			"huyenthoai": "Huyền Thoại",
+			"champion": "Anh Hùng",
+			"special": "Đặc Biệt",
+			"none": "Không có"
+		},
+		"region": {
+			"bandleCity": "Thành Phố Bandle",
+			"thanhphobandle": "Thành Phố Bandle",
+			"bilgewater": "Bilgewater",
+			"demacia": "Demacia",
+			"freljord": "Freljord",
+			"ionia": "Ionia",
+			"noxus": "Noxus",
+			"piltoverZaun": "Piltover & Zaun",
+			"piltoverzaun": "Piltover & Zaun",
+			"shadowIsles": "Quần Đảo Bóng Đêm",
+			"quandaobongdem": "Quần Đảo Bóng Đêm",
+			"shurima": "Shurima",
+			"targon": "Targon",
+			"runeterra": "Runeterra",
+			"spiritBlossom": "Hoa Linh Lục Địa",
+			"hoalinhlucdia": "Hoa Linh Lục Địa",
+			"neutral": "Trung Lập",
+			"trunglap": "Trung Lập"
+		},
+		"entities": {
+			"champion": "Tướng",
+			"relic": "Cổ vật",
+			"power": "Sức mạnh",
+			"item": "Vật phẩm",
+			"rune": "Ngọc",
+			"boss": "Boss",
+			"adventure": "Bản đồ",
+			"card": "Lá bài",
+			"guide": "Hướng dẫn",
+			"resource": "Tài nguyên",
+			"bonusStar": "Tăng thưởng"
+		},
+		"entitiesPlural": {
+			"champion": "Tướng",
+			"relic": "Cổ vật",
+			"power": "Sức mạnh",
+			"item": "Vật phẩm",
+			"rune": "Ngọc",
+			"boss": "Boss",
+			"adventure": "Bản đồ",
+			"card": "Lá bài",
+			"guide": "Hướng dẫn",
+			"resource": "Tài nguyên"
+		},
+		"cardType": {
+			"unit": "Bài quân",
+			"spell": "Bài Phép",
+			"landmark": "Địa danh",
+			"equipment": "Trang bị",
+			"ability": "Kỹ năng",
+			"trap": "Bẫy",
+			"other": "Khác"
+		}
+	},
 	"common": {
 		"search": "Tìm kiếm",
 		"save": "Lưu",
 		"cancel": "Hủy",
 		"loading": "Đang tải dữ liệu...",
-		"errorLoadData": "Lỗi tải dữ liệu",
-		"prevPage": "Trang trước",
-		"nextPage": "Trang sau",
+		"error": "Đã có lỗi xảy ra",
+		"prev": "Trang trước",
+		"next": "Trang sau",
 		"notFound": "Không tìm thấy kết quả",
 		"close": "Đóng",
 		"clear": "Xóa",
-		"selectPlaceholder": "Chọn một hoặc nhiều",
-		"selectedItems": "Đã chọn {{count}} mục",
-		"searchPlaceholder": "Tìm kiếm...",
-		"addNew": "Thêm mới",
-		"editTitle": "Chỉnh sửa dữ liệu",
-		"addTitle": "Thêm dữ liệu mới",
-		"noItemTitle": "Chưa chọn mục nào",
-		"noItemDesc": "Vui lòng chọn một mục từ danh sách bên trái hoặc nhấn Thêm mới.",
-		"deleteDataTitle": "Xóa dữ liệu",
-		"deleteConfirmPrefix": "Bạn muốn xóa",
-		"deleteConfirmSuffix": "? Hành động này không thể hoàn tác.",
 		"ok": "Đồng ý",
 		"edit": "Sửa",
 		"delete": "Xóa",
@@ -30,39 +88,24 @@
 		"retry": "Tải lại",
 		"saving": "Đang lưu...",
 		"deleting": "Đang xóa...",
-		"selectOption": "Chọn một tùy chọn...",
-		"errorTitle": "Lỗi",
+		"all": "Tất cả",
 		"reset": "Đặt lại",
+		"filter": "Bộ lọc",
 		"rarity": "Độ hiếm",
-		"type": "Loại bài",
+		"type": "Loại",
 		"region": "Khu vực",
 		"cost": "Tiêu hao",
-		"all": "Tất cả",
 		"stack": "Số lượng",
 		"views": "Lượt xem",
 		"resetFilter": "Đặt lại bộ lọc",
 		"backToList": "Quay lại danh sách",
-		"zoomIn": "Phóng to",
-		"zoomOut": "Thu nhỏ",
-		"showMap": "Hiển thị bản đồ phiêu lưu",
-		"hideMap": "Ẩn bản đồ phiêu lưu",
-		"hide": "Ẩn",
-		"show": "Hiện",
-		"cards": " lá",
-		"ad": "Quảng cáo",
-		"filter": "Bộ lọc",
 		"sortNameAsc": "Tên A-Z",
 		"sortNameDesc": "Tên Z-A",
-		"viewAll": "Xem tất cả"
-	},
-	"cardType": {
-		"unit": "Bài quân",
-		"spell": "Bài Phép",
-		"landmark": "Địa danh",
-		"equipment": "Trang bị",
-		"ability": "Kỹ năng",
-		"trap": "Bẫy",
-		"other": "Khác"
+		"viewAll": "Xem tất cả",
+		"addNew": "Thêm mới",
+		"selectOption": "Chọn tùy chọn",
+		"selectPlaceholder": "Chọn tùy chọn",
+		"description": "Mô tả"
 	},
 	"cardList": {
 		"title": "Thư Viện Lá Bài",
@@ -120,6 +163,32 @@
 		"noEnemyInfo": "Không có thông tin",
 		"noNodeDescription": "Không có mô tả chi tiết cho loại Node này."
 	},
+	"relic":{
+		"types":{
+			"general":"Chung",
+			"consumable": "Tiêu Thụ",
+			"signature": "Trấn"
+			
+		}
+	},
+	"power":{
+		"types":{
+			"arcanepower":"Sức Mạnh Arcane",
+			"championlevelpower": "Sức Mạnh Thưởng Cấp Độ",
+			"debuffpower": "Sức Mạnh Debuff",
+			"defiancepower":"Sức Mạnh Thách Thức",
+			"encounterpower": "Sức Mạnh Encounter",
+			"foepower":"Sức Mạnh Đối Thủ",
+			"generalpower":"Sức Mạnh Chung",
+			"monthlychallengepower":"Sức Mạnh Thử Thách Tháng",
+			"relicpower": "Sức Mạnh Cổ Vật",
+			"removepower":"Sức Mạnh Xóa Bỏ",
+			"runepower":"Sức Mạnh Ngọc",
+			"spiritblossompower": "Sức Mạnh Hoa Linh Lục Địa",
+			"teamfighttacticspower": "Sức Mạnh Đấu Trường Chân Lý",
+			"starpower": "Sức Mạnh Chòm Sao"
+		}
+	},
 	"reward": {
 		"bronze_reliquary": "Hòm Thần Tích Đồng",
 		"silver_reliquary": "Hòm Thần Tích Bạc",
@@ -143,92 +212,6 @@
 		"greater_gemstone_vessel": "Thùng Đá Quý Lớn",
 		"wild_frags": "Mảnh Ghép Bí Ẩn",
 		"champ_frags": "Mảnh Tướng"
-	},
-	"rarity": {
-		"common": "Thường",
-		"rare": "Hiếm",
-		"epic": "Sử Thi",
-		"champion": "Anh Hùng",
-		"none": "Không có",
-		"thuong": "Thường",
-		"hiem": "Hiếm",
-		"suthi": "Sử Thi",
-		"huyenthoai": "Huyền Thoại",
-		"legendary": "Huyền Thoại",
-		"special": "Đặc Biệt"
-	},
-	"relic": {
-		"rarity": {
-			"common": "Thường",
-			"rare": "Hiếm",
-			"epic": "Sử Thi",
-			"legendary": "Huyền Thoại"
-		},
-		"types": {
-			"general": "Chung",
-			"signature": "Trấn",
-			"consumable": "Tiêu Thụ"
-		}
-	},
-	"power": {
-		"rarity": {
-			"common": "Thường",
-			"rare": "Hiếm",
-			"epic": "Sử Thi",
-			"legendary": "Huyền Thoại",
-			"special": "Đặc Biệt"
-		},
-		"types": {
-			"arcanepower": "Arcane Power",
-			"debuffpower": "Debuff Power",
-			"encounterpower": "Encounter Power",
-			"foepower": "Foe Power",
-			"generalpower": "General Power",
-			"monthlychallengepower": "Monthly Challenge Power",
-			"removepower": "Remove Power",
-			"runepower": "Rune Power",
-			"spiritblossompower": "Spirit Blossom Power",
-			"starpower": "Star Power",
-			"teamfighttacticspower": "Teamfight Tactics Power",
-			"defiancepower": "Defiance Power",
-			"relicpower": "Relic Power"
-		}
-	},
-	"item": {
-		"rarity": {
-			"common": "Thường",
-			"rare": "Hiếm",
-			"epic": "Sử Thi",
-			"legendary": "Huyền Thoại",
-			"special": "Đặc Biệt"
-		}
-	},
-	"rune": {
-		"rarity": {
-			"common": "Thường",
-			"rare": "Hiếm",
-			"epic": "Sử Thi",
-			"legendary": "Huyền Thoại"
-		}
-	},
-	"region": {
-		"bandleCity": "Thành Phố Bandle",
-		"bilgewater": "Bilgewater",
-		"demacia": "Demacia",
-		"freljord": "Freljord",
-		"ionia": "Ionia",
-		"noxus": "Noxus",
-		"piltoverZaun": "Piltover & Zaun",
-		"shadowIsles": "Quần Đảo Bóng Đêm",
-		"shurima": "Shurima",
-		"targon": "Targon",
-		"runeterra": "Runeterra",
-		"spiritBlossom": "Hoa Linh Lục Địa",
-		"thanhphobandle": "Thành Phố Bandle",
-		"quandaobongdem": "Quần Đảo Bóng Đêm",
-		"hoalinhlucdia": "Hoa Linh Lục Địa",
-		"piltoverzaun": "Piltover & Zaun",
-		"trunglap": "Trung Lập"
 	},
 	"admin": {
 		"sidebar": {
@@ -651,18 +634,7 @@
 				"DELETE": "Xóa",
 				"ROLLBACK": "Hoàn tác"
 			},
-			"entities": {
-				"champion": "Tướng",
-				"power": "Sức mạnh",
-				"relic": "Cổ vật",
-				"item": "Vật phẩm",
-				"rune": "Ngọc",
-				"boss": "Boss",
-				"adventure": "Bản đồ",
-				"bonusStar": "Tăng thưởng",
-				"guide": "Hướng dẫn",
-				"card": "Lá bài"
-			},
+			"entities": "shared.entities",
 			"modal": {
 				"title": "Chi tiết thay đổi",
 				"oldData": "Dữ liệu cũ",
@@ -800,7 +772,9 @@
 		"placeholder": "Tên cổ vật...",
 		"notFound": "Không tìm thấy cổ vật phù hợp.",
 		"clearFilters": "Xóa tất cả bộ lọc",
-		"stackLabel": "Số lượng {{count}}"
+		"stackLabel": "Số lượng {{count}}",
+		"rarity": "Độ Hiếm",
+		"type": "Loại"
 	},
 	"runeList": {
 		"title": "Danh sách ngọc bổ trợ",
@@ -829,12 +803,6 @@
 		"resultText": "Bạn đã quay trúng:",
 		"keepBtn": "Giữ lại",
 		"removeBtn": "Loại bỏ",
-		"champions": "Tướng",
-		"maps": "Bản đồ",
-		"relics": "Cổ Vật",
-		"items": "Vật Phẩm",
-		"powers": "Sức Mạnh",
-		"runes": "Ngọc",
 		"errorLoad": "Không thể tải dữ liệu vòng quay từ máy chủ"
 	},
 	"metadata": {

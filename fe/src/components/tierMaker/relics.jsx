@@ -315,6 +315,7 @@ function TierListRelics() {
 					"R0065",
 					"R0150",
 					"R0153",
+					"R0166"
 				],
 				"tier-a": [
 					"R0066",
@@ -331,8 +332,11 @@ function TierListRelics() {
 					"R0091",
 					"R0062",
 					"R0085",
+					"R0159",
+					"R0161"
 				],
 				"tier-b": [
+					"R0160",
 					"R0134",
 					"R0127",
 					"R0141",
@@ -360,6 +364,8 @@ function TierListRelics() {
 					"R0089",
 					"R0135",
 					"R0154",
+					"R0155",
+					"R0164"
 				],
 				"tier-c": [
 					"R0118",
@@ -371,6 +377,7 @@ function TierListRelics() {
 					"R0126",
 					"R0149",
 					"R0132",
+					"R0175"
 				],
 			};
 			const usedIds = new Set();
@@ -400,9 +407,7 @@ function TierListRelics() {
 					(data.items || []).map((r, index) => ({
 						id: String(r.relicCode || r.relicID || r.id),
 						name: r.name,
-						avatar: r.assetAbsolutePath
-							? `${apiUrl}/api/relics/proxy-image?url=${encodeURIComponent(r.assetAbsolutePath)}`
-							: "/fallback-relic.png",
+						avatar: r.image || "/fallback-relic.png",
 						rarity: normalizeRarity(r.rarity),
 						type: r.type || "Chung",
 						descriptionRaw: r.descriptionRaw || "",

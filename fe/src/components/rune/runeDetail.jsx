@@ -47,7 +47,7 @@ function RuneDetail() {
 				setRune(foundRune);
 				setChampions(championsData.items || []);
 			} catch (err) {
-				setError(err.message || tUI("common.errorLoadData"));
+				setError(err.message || tUI("common.error"));
 			} finally {
 				setTimeout(() => setLoading(false), 800);
 			}
@@ -61,7 +61,7 @@ function RuneDetail() {
 		? tDynamic(rune, "description") || tDynamic(rune, "descriptionRaw")
 		: "";
 	const runeRarity = rune?.rarity
-		? tDynamic(rune, "rarity") || tUI(`rune.rarity.${getRarityKey(rune.rarity)}`) || rune.rarity
+		? tDynamic(rune, "rarity") || tUI(`shared.rarity.${getRarityKey(rune.rarity)}`) || rune.rarity
 		: "";
 
 	useEffect(() => {
@@ -99,7 +99,7 @@ function RuneDetail() {
 				back: tUI("common.back"),
 				compatibleTitle: tUI("runeDetail.compatibleChampions"),
 				noCompatible: tUI("runeDetail.noCompatibleChampions"),
-				errorTitle: tUI("common.errorTitle")
+				errorTitle: tUI("common.error")
 			}}
 		/>
 	);

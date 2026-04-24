@@ -341,7 +341,7 @@ const VaultSimulator = () => {
 						refType: "rune",
 						name: t(randomRune, "name") || randomRune.name,
 						type: tUI("vaultSimulator.loot.rune"),
-						rarityKey: `rune.rarity.legendary`,
+						rarityKey: `shared.rarity.legendary`,
 						icon: randomRune.assetAbsolutePath || randomRune.imageUrl || ASSETS.legendary_rune,
 						color: "text-orange-600",
 					});
@@ -408,7 +408,7 @@ const VaultSimulator = () => {
 								refType: "relic",
 								name: t(randomRelic, "name") || randomRelic.name,
 								type: tUI("vaultSimulator.loot.relic"),
-								rarityKey: `relic.rarity.${key}`,
+								rarityKey: `shared.rarity.${key}`,
 								icon: randomRelic.assetAbsolutePath,
 								color: key === "common" ? "text-green-600" : "text-blue-600",
 							});
@@ -423,7 +423,7 @@ const VaultSimulator = () => {
 							refType: "static_relic",
 							name: tUI("vaultSimulator.loot.cosmic_blessing"),
 							type: tUI("vaultSimulator.loot.relic"),
-							rarityKey: "relic.rarity.common",
+							rarityKey: "shared.rarity.common",
 							icon: ASSETS.cosmic_blessing,
 							color: "text-blue-600",
 						});
@@ -438,7 +438,7 @@ const VaultSimulator = () => {
 								refType: "relic",
 								name: t(randomRelic, "name") || randomRelic.name,
 								type: tUI("vaultSimulator.loot.relic"),
-								rarityKey: "relic.rarity.rare",
+								rarityKey: "shared.rarity.rare",
 								icon: randomRelic.assetAbsolutePath,
 								color: "text-blue-600",
 							});
@@ -491,7 +491,7 @@ const VaultSimulator = () => {
 							refType: "rune",
 							name: t(randomRune, "name") || randomRune.name,
 							type: tUI("vaultSimulator.loot.rune"),
-							rarityKey: `rune.rarity.${key}`,
+							rarityKey: `shared.rarity.${key}`,
 							icon: randomRune.assetAbsolutePath || randomRune.imageUrl || ASSETS.legendary_rune,
 							color:
 								key === "common"

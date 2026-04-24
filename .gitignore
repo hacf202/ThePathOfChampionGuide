@@ -28,3 +28,7 @@ dist-ssr
 .env.production
 .env.local
 .env.*.local.env
+
+# Backups and temporary data
+be/uploadData/backup_*
+be/cache/proxy-images/*

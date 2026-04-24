@@ -151,7 +151,7 @@ const Home = () => {
 									<tile.icon className='w-1/4 h-1/4 text-primary-600' />
 								</div>
 							</div>
-							<span className='mt-2 text-[9px] lg:text-[11px] font-black tracking-[0.3em] uppercase text-text-primary bg-surface-bg/80 backdrop-blur-md px-3 py-1 shadow-sm select-none pointer-events-none'>
+							<span className='mt-2 text-[9px] lg:text-[11px] tracking-[0.3em] uppercase text-white bg-surface-bg/80 backdrop-blur-md px-3 py-1 shadow-sm select-none pointer-events-none'>
 								{tile.label}
 							</span>
 						</motion.div>

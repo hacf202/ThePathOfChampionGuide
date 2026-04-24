@@ -22,7 +22,7 @@ function Introduction() {
 				const response = await fetch(
 					`${backendUrl}/api/champions?page=1&limit=-1`,
 				);
-				if (!response.ok) throw new Error(tUI("common.errorLoadData"));
+				if (!response.ok) throw new Error(tUI("common.error"));
 
 				const allData = await response.json();
 				const allChampions = allData.items || allData || [];

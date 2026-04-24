@@ -151,7 +151,7 @@ export const useCardData = (queryParams, state, tUI) => {
 			}
 		} catch (err) {
 			console.error("Error fetching cards:", err);
-			setError(tUI("common.errorLoadData"));
+			setError(tUI("common.error"));
 		} finally {
 			setLoading(false);
 		}
