@@ -2,6 +2,7 @@ import express from "express";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { requireAdmin } from "../middleware/requireAdmin.js";
 import cacheManager from "../utils/cacheManager.js";
+import kv from "../utils/redis.js";
 
 const router = express.Router();
 
@@ -70,6 +71,104 @@ router.get("/stats", authenticateCognitoToken, requireAdmin, async (req, res) =>
 		const stats = await cacheManager.getStats();
 		res.status(200).json(stats);
 	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+});
+
+/**
+ * @route   GET /api/admin/cache/redis-info
+ * @desc    Lấy thông tin chi tiết từ server Redis
+ * @access  Private (Admin only)
+ */
+router.get("/redis-info", authenticateCognitoToken, requireAdmin, async (req, res) => {
+	try {
+		if (!kv) {
+			return res.status(200).json({ 
+				connected: false, 
+				message: "Redis không được cấu hình hoặc đang sử dụng memory fallback" 
+			});
+		}
+
+		const info = await kv.info();
+		// Phân tích chuỗi info từ Redis thành object
+		const lines = info.split("\r\n");
+		const infoObj = {};
+		lines.forEach(line => {
+			if (line && !line.startsWith("#")) {
+				const parts = line.split(":");
+				if (parts.length === 2) {
+					infoObj[parts[0]] = parts[1];
+				}
+			}
+		});
+
+		res.status(200).json({
+			connected: true,
+			version: infoObj.redis_version,
+			uptime: infoObj.uptime_in_seconds,
+			memory: infoObj.used_memory_human,
+			clients: infoObj.connected_clients,
+			raw: infoObj
+		});
+	} catch (error) {
+		console.error("[AdminCache] Error fetching Redis info:", error);
+		res.status(500).json({ error: error.message });
+	}
+});
+
+/**
+ * @route   GET /api/admin/cache/redis-keys
+ * @desc    Quét danh sách các key trong Redis
+ * @access  Private (Admin only)
+ */
+router.get("/redis-keys", authenticateCognitoToken, requireAdmin, async (req, res) => {
+	try {
+		if (!kv) {
+			return res.status(200).json({ keys: [] });
+		}
+
+		const { pattern = "*" } = req.query;
+		
+		// Sử dụng SCAN thay vì KEYS để tránh treo server nếu data lớn
+		let cursor = "0";
+		const allKeys = new Set();
+		
+		// Giới hạn quét tối đa để tránh loop quá lâu trong 1 request
+		let iterations = 0;
+		do {
+			const [nextCursor, keys] = await kv.scan(cursor, "MATCH", pattern, "COUNT", 100);
+			cursor = nextCursor;
+			keys.forEach(k => allKeys.add(k));
+			iterations++;
+		} while (cursor !== "0" && iterations < 100);
+
+		res.status(200).json({ 
+			keys: Array.from(allKeys).sort(),
+			truncated: cursor !== "0"
+		});
+	} catch (error) {
+		console.error("[AdminCache] Error scanning Redis keys:", error);
+		res.status(500).json({ error: error.message });
+	}
+});
+
+/**
+ * @route   DELETE /api/admin/cache/redis-key/:key
+ * @desc    Xóa một key cụ thể khỏi Redis
+ * @access  Private (Admin only)
+ */
+router.delete("/redis-key/:key", authenticateCognitoToken, requireAdmin, async (req, res) => {
+	try {
+		if (!kv) {
+			return res.status(400).json({ error: "Redis không hoạt động" });
+		}
+
+		const { key } = req.params;
+		await kv.del(key);
+		
+		res.status(200).json({ message: `Key "${key}" đã được xóa khỏi Redis` });
+	} catch (error) {
+		console.error("[AdminCache] Error deleting Redis key:", error);
 		res.status(500).json({ error: error.message });
 	}
 });

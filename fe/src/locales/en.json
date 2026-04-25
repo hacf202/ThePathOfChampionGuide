@@ -459,7 +459,8 @@
 			"addItem": "Add New",
 			"emptyList": "No items found. Click \"Add\" to create one.",
 			"langVI": "Language: Vietnamese (Default)",
-			"langEN": "Language: English (Optional)"
+			"langEN": "Language: English (Optional)",
+			"refresh": "Refresh"
 		},
 		"dropSidePanel": {
 			"tabs": {
@@ -554,6 +555,8 @@
 			"warning": "Note: Clearing cache will force the server to re-query the database, which may slow down initial requests.",
 			"totalModules": "Total Modules",
 			"totalRecords": "Total Records",
+			"hitRate": "Hit Rate",
+			"totalRequests": "Total Requests",
 			"confirm": "Confirm clear?",
 			"confirmBtn": "Confirm",
 			"cancelBtn": "Cancel",
@@ -565,10 +568,30 @@
 			"statsLoading": "Loading cache data...",
 			"statsEmpty": "No registered caches found.",
 			"purgeSuccess": "Cache \"{{name}}\" cleared successfully!",
-			"purgeError": "Error clearing cache {{name}}"
+			"purgeError": "Error clearing cache {{name}}",
+			"tabs": {
+				"overview": "Overview",
+				"redis": "Redis Manager"
+			},
+			"redis": {
+				"infoTitle": "Redis Server Information",
+				"explorerTitle": "Key Explorer",
+				"connected": "Connected",
+				"disconnected": "Disconnected",
+				"version": "Version",
+				"uptime": "Uptime",
+				"memory": "Memory",
+				"clients": "Clients",
+				"searchPlaceholder": "Search keys (e.g., poc:* or champions:*)",
+				"deleteConfirm": "Are you sure you want to delete the key \"{{key}}\" from Redis? This action cannot be undone.",
+				"noKeys": "No matching keys found.",
+				"refreshKeys": "Refresh List",
+				"deleteSuccess": "Key deleted successfully"
+			}
 		},
 		"userNav": {
 			"title": "Analytics System",
+			"onlineUsers": "Online Now",
 			"lastUpdated": "Last 30 days data • Last updated:",
 			"uniqueVisitors": "Unique Visitors",
 			"users": "Users",

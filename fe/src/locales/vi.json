@@ -459,7 +459,8 @@
 			"addItem": "Thêm mới",
 			"emptyList": "Không có mục nào. Nhấn \"Thêm\" để tạo mới.",
 			"langVI": "Ngôn ngữ: Tiếng Việt (Mặc định)",
-			"langEN": "Ngôn ngữ: Tiếng Anh (Tùy chọn)"
+			"langEN": "Ngôn ngữ: Tiếng Anh (Tùy chọn)",
+			"refresh": "Làm mới"
 		},
 		"build": {
 			"title": "Quản lý Bộ Cổ Vật (Builds)",
@@ -554,6 +555,8 @@
 			"warning": "Lưu ý: Xóa cache sẽ buộc Server phải truy vấn lại Database, điều này có thể làm chậm các yêu cầu đầu tiên.",
 			"totalModules": "Tổng số module",
 			"totalRecords": "Tổng bản ghi",
+			"hitRate": "Tỷ lệ Hit",
+			"totalRequests": "Tổng yêu cầu",
 			"confirm": "Xác nhận xóa?",
 			"confirmBtn": "Xác nhận",
 			"cancelBtn": "Hủy",
@@ -565,10 +568,30 @@
 			"statsLoading": "Đang tải dữ liệu...",
 			"statsEmpty": "Không có cache nào được đăng ký.",
 			"purgeSuccess": "Đã làm sạch cache \"{{name}}\" thành công!",
-			"purgeError": "Lỗi khi xóa cache {{name}}"
+			"purgeError": "Lỗi khi xóa cache {{name}}",
+			"tabs": {
+				"overview": "Tổng quan",
+				"redis": "Trình quản lý Redis"
+			},
+			"redis": {
+				"infoTitle": "Thông tin Server Redis",
+				"explorerTitle": "Trình khám phá Key",
+				"connected": "Đã kết nối",
+				"disconnected": "Mất kết nối",
+				"version": "Phiên bản",
+				"uptime": "Thời gian chạy",
+				"memory": "Bộ nhớ",
+				"clients": "Khách",
+				"searchPlaceholder": "Tìm key (ví dụ: poc:* hoặc champions:*)",
+				"deleteConfirm": "Bạn có chắc chắn muốn xóa key \"{{key}}\" khỏi Redis không? Hành động này không thể hoàn tác.",
+				"noKeys": "Không tìm thấy key nào phù hợp.",
+				"refreshKeys": "Làm mới danh sách",
+				"deleteSuccess": "Đã xóa key thành công"
+			}
 		},
 		"userNav": {
 			"title": "Hệ thống Phân tích",
+			"onlineUsers": "Đang trực tuyến",
 			"lastUpdated": "Dữ liệu 30 ngày qua • Cập nhật lần cuối:",
 			"uniqueVisitors": "Khách Duy Nhất",
 			"users": "Người dùng",

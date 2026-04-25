@@ -25,6 +25,7 @@ import {
 	CreditCard,
 	Settings2,
 	History,
+	BarChart3,
 } from "lucide-react";
 import { useTranslation } from "../../hooks/useTranslation";
 
@@ -45,6 +46,7 @@ const ImageManager = lazy(() => import("./images/imageManager"));
 const AuditLogList = lazy(() => import("./auditLogs/AuditLogList"));
 const CardEditor = lazy(() => import("./cards/cardEditor"));
 const CacheManager = lazy(() => import("./cache/cacheManager"));
+const AnalyticsDashboard = lazy(() => import("./analytics/AnalyticsDashboard"));
 
 // Component DashboardHome
 const DashboardHome = ({ navItems }) => {
@@ -183,6 +185,12 @@ const AdminPanel = () => {
 			icon: Settings2,
 			path: "/admin/cache",
 		},
+		{
+			id: "analytics",
+			label: tUI("admin.userNav.title") || "Số liệu Web",
+			icon: BarChart3,
+			path: "/admin/analytics",
+		},
 	];
 
 	const currentNavItem = [...navItems]
@@ -198,6 +206,7 @@ const AdminPanel = () => {
 		location.pathname.split("/").length > 3 && 
 		!location.pathname.includes("images") && // Loại trừ ImageManager
 		!location.pathname.includes("cache") && // Loại trừ CacheManager
+		!location.pathname.includes("analytics") && // Loại trừ Analytics
 		!location.pathname.includes("audit-logs"); // Loại trừ AuditLogs
 
 	return (
@@ -350,6 +359,7 @@ const AdminPanel = () => {
 							<Route path='adventures/*' element={<AdventureMapEditor />} />
 							<Route path='cards/*' element={<CardEditor />} />
 							<Route path='cache' element={<CacheManager />} />
+							<Route path='analytics' element={<AnalyticsDashboard />} />
 						</Routes>
 					</Suspense>
 				</main>

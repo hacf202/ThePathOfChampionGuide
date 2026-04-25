@@ -30,6 +30,8 @@ import ratingsRouter from "./src/routes/ratings.js";
 import adminCacheRouter from "./src/routes/adminCache.js";
 import auditLogsRouter from "./src/routes/auditLogs.js";
 import searchRouter from "./src/routes/search.js";
+import analyticsRouter from "./src/routes/analytics.js";
+import { trackActivity } from "./src/middleware/trackActivity.js";
 import resourcesRouter from "./src/routes/resources.js";
 
 // Kiểm tra các biến môi trường cần thiết
@@ -109,6 +111,7 @@ const authLimiter = rateLimit({
 app.use("/api/auth", authLimiter);
 
 app.use(express.json({ limit: "5mb" }));
+app.use(trackActivity);
 
 app.use("/api/auth", authRouter);
 app.use("/api/champions", championsRouter);
@@ -133,6 +136,7 @@ app.use("/api/admin/cache", adminCacheRouter);
 app.use("/api/admin/audit-logs", auditLogsRouter);
 app.use("/api/search", searchRouter);
 app.use("/api/resources", resourcesRouter);
+app.use("/api/admin/analytics", analyticsRouter);
 
 // API để kiểm tra "sức khỏe" của server
 app.get("/api/checkheal", (req, res) => {
