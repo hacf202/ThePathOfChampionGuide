@@ -1,5 +1,6 @@
 // src/components/admin/adventureEditorHelpers.jsx
 import React, { useState, useMemo } from "react";
+import Swal from "sweetalert2";
 import Button from "../../common/button";
 import InputField from "../../common/inputField";
 import {
@@ -356,24 +357,34 @@ export const AdventureConnections = ({ nodes, onChangeNodes }) => {
 		const fromClean = fromNode.trim();
 		const toClean = toNode.trim();
 
-		if (!fromClean || !toClean)
-			return alert("Vui lòng nhập đầy đủ Node bắt đầu và đích.");
-		if (fromClean === toClean)
-			return alert("Node bắt đầu và đích không được trùng nhau.");
+		if (!fromClean || !toClean) {
+			Swal.fire({ icon: "warning", title: "Thiếu dữ liệu", text: "Vui lòng nhập đầy đủ Node bắt đầu và đích.", confirmButtonColor: "#3b82f6" });
+			return;
+		}
+		if (fromClean === toClean) {
+			Swal.fire({ icon: "warning", title: "Lỗi trùng lặp", text: "Node bắt đầu và đích không được trùng nhau.", confirmButtonColor: "#3b82f6" });
+			return;
+		}
 
 		const startNodeIndex = nodes.findIndex(n => n.nodeID === fromClean);
-		if (startNodeIndex === -1)
-			return alert(`Không tìm thấy Node bắt đầu: ${fromClean}`);
+		if (startNodeIndex === -1) {
+			Swal.fire({ icon: "error", title: "Không tìm thấy", text: `Không tìm thấy Node bắt đầu: ${fromClean}`, confirmButtonColor: "#3b82f6" });
+			return;
+		}
 
 		const targetNodeIndex = nodes.findIndex(n => n.nodeID === toClean);
-		if (targetNodeIndex === -1)
-			return alert(`Không tìm thấy Node đích: ${toClean}`);
+		if (targetNodeIndex === -1) {
+			Swal.fire({ icon: "error", title: "Không tìm thấy", text: `Không tìm thấy Node đích: ${toClean}`, confirmButtonColor: "#3b82f6" });
+			return;
+		}
 
 		const startNode = nodes[startNodeIndex];
 		const currentNextNodes = startNode.nextNodes || [];
 
-		if (currentNextNodes.includes(toClean))
-			return alert("Đường nối này đã tồn tại.");
+		if (currentNextNodes.includes(toClean)) {
+			Swal.fire({ icon: "info", title: "Đã tồn tại", text: "Đường nối này đã tồn tại.", confirmButtonColor: "#3b82f6" });
+			return;
+		}
 
 		const newNodes = [...nodes];
 		newNodes[startNodeIndex] = {

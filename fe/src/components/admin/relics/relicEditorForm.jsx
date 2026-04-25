@@ -1,5 +1,6 @@
 // src/pages/admin/relicEditorForm.jsx
 import { useState, memo, useEffect } from "react";
+import Swal from "sweetalert2";
 import InputField from "../../common/inputField";
 import { useTranslation } from "../../../hooks/useTranslation"; // IMPORT HOOK ĐA NGÔN NGỮ
 
@@ -90,7 +91,12 @@ const RelicEditorForm = memo(
 		const handleSubmit = e => {
 			e.preventDefault();
 			if (!formData.relicCode?.trim()) {
-				alert(tUI("admin.relicForm.errorIdReq"));
+				Swal.fire({
+					icon: "warning",
+					title: "Thiếu dữ liệu",
+					text: tUI("admin.relicForm.errorIdReq"),
+					confirmButtonColor: "#3b82f6",
+				});
 				return;
 			}
 			onSave(formData);

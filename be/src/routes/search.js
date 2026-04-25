@@ -117,7 +117,7 @@ function mapResources(list) {
 router.get("/index", async (req, res) => {
 	try {
 		// Trả cache ngay nếu có
-		const cached = searchIndexCache.get(CACHE_KEY);
+		const cached = await searchIndexCache.get(CACHE_KEY);
 		if (cached) {
 			res.set("X-Cache", "HIT");
 			return res.json(cached);
@@ -156,7 +156,7 @@ router.get("/index", async (req, res) => {
 		};
 
 		// Lưu vào cache search index riêng
-		searchIndexCache.set(CACHE_KEY, index);
+		await searchIndexCache.set(CACHE_KEY, index);
 
 		res.set("X-Cache", "MISS");
 		res.json(index);
@@ -169,8 +169,8 @@ router.get("/index", async (req, res) => {
 /**
  * POST /api/search/invalidate
  */
-router.post("/invalidate", (req, res) => {
-	searchIndexCache.del(CACHE_KEY);
+router.post("/invalidate", async (req, res) => {
+	await searchIndexCache.del(CACHE_KEY);
 	res.json({ message: "Search index cache cleared.", key: CACHE_KEY });
 });
 

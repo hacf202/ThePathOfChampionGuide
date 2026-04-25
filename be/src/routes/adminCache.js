@@ -37,7 +37,7 @@ router.delete("/clear-all", authenticateCognitoToken, requireAdmin, async (req, 
 router.delete("/clear/:name", authenticateCognitoToken, requireAdmin, async (req, res) => {
 	try {
 		const { name } = req.params;
-		const success = cacheManager.flushCache(name);
+		const success = await cacheManager.flushCache(name);
 		
 		if (success) {
 			res.status(200).json({
@@ -65,9 +65,9 @@ router.delete("/clear/:name", authenticateCognitoToken, requireAdmin, async (req
  * @desc    Lấy thông tin các cache đang hoạt động
  * @access  Private (Admin only)
  */
-router.get("/stats", authenticateCognitoToken, requireAdmin, (req, res) => {
+router.get("/stats", authenticateCognitoToken, requireAdmin, async (req, res) => {
 	try {
-		const stats = cacheManager.getStats();
+		const stats = await cacheManager.getStats();
 		res.status(200).json(stats);
 	} catch (error) {
 		res.status(500).json({ error: error.message });

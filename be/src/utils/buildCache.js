@@ -17,7 +17,7 @@ const publicBuildsCache = cacheManager.getOrCreateCache("public_builds", {
  * Cache 1 giờ cho mỗi user/guest để tối ưu hiệu năng server
  */
 export const getPublicBuilds = async (userId = "global") => {
-	const cached = publicBuildsCache.get(userId);
+	const cached = await publicBuildsCache.get(userId);
 	if (cached) return cached;
 
 	try {
@@ -46,7 +46,7 @@ export const getPublicBuilds = async (userId = "global") => {
 		}
 
 		const data = { items };
-		publicBuildsCache.set(userId, data);
+		await publicBuildsCache.set(userId, data);
 		return data;
 	} catch (error) {
 		console.error("Build cache error:", error);
@@ -58,16 +58,16 @@ export const getPublicBuilds = async (userId = "global") => {
  * XÓA CACHE CỦA MỘT NGƯỜI DÙNG CỤ THỂ
  * Gọi khi người đó tạo/sửa/xóa build của chính họ
  */
-export const invalidateUserBuildsCache = (userId) => {
+export const invalidateUserBuildsCache = async (userId) => {
 	if (!userId) return;
-	publicBuildsCache.del(userId);
+	await publicBuildsCache.del(userId);
 	console.log(`[BuildCache] Cache invalidated for user: ${userId}`);
 };
 
 /**
  * XÓA TOÀN BỘ CACHE (Admin dùng hoặc khi có thay đổi lớn)
  */
-export const invalidatePublicBuildsCache = () => {
-	publicBuildsCache.flushAll();
+export const invalidatePublicBuildsCache = async () => {
+	await publicBuildsCache.flushAll();
 	console.log("[BuildCache] Global public builds cache flushed");
 };

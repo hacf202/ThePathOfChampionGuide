@@ -27,7 +27,7 @@ const bonusCache = cacheManager.getOrCreateCache("bonusStars", { stdTTL: 86400, 
 router.get("/", async (req, res) => {
 	const CACHE_KEY = "all_bonus_stars_list";
 	try {
-		const cached = bonusCache.get(CACHE_KEY);
+		const cached = await bonusCache.get(CACHE_KEY);
 		if (cached) return res.json({ items: cached });
 
 		const rawItems = await scanAll(client, { TableName: BONUS_STAR_TABLE });
@@ -36,7 +36,7 @@ router.get("/", async (req, res) => {
 		// Sắp xếp theo tên A-Z
 		data.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
 
-		bonusCache.set(CACHE_KEY, data);
+		await bonusCache.set(CACHE_KEY, data);
 		res.json({ items: data });
 	} catch (error) {
 		console.error("Lỗi GET /bonusStars:", error);
@@ -102,7 +102,7 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 		});
 
 		// Bước 4: Làm mới Cache để UI cập nhật ngay lập tức
-		bonusCache.flushAll();
+		await bonusCache.flushAll();
 
 		res.json({
 			message: isNew
@@ -152,7 +152,7 @@ router.delete(
 				user: req.user
 			});
 
-			bonusCache.flushAll();
+			await bonusCache.flushAll();
 
 			res.json({ message: "Đã xóa Bonus Star thành công." });
 		} catch (error) {

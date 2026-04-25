@@ -9,6 +9,7 @@ import { Edit, Trash2, Eye } from "lucide-react";
 // IMPORT CÁC COMPONENT CHUNG
 import AdminListLayout from "../common/adminListLayout";
 import { LoadingState, ErrorState } from "../common/stateDisplays";
+import Swal from "sweetalert2";
 
 const ITEMS_PER_PAGE = 20;
 
@@ -28,7 +29,14 @@ const GuideList = () => {
 	const fetchGuides = async () => {
 		try {
 			setLoading(true);
-			const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/guides`);
+			const timestamp = Date.now();
+			const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/guides?t=${timestamp}`, {
+				headers: {
+					"Cache-Control": "no-cache",
+					Pragma: "no-cache",
+					Expires: "0",
+				},
+			});
 			if (res.data.success) {
 				const sorted = res.data.data.sort(
 					(a, b) =>
@@ -51,12 +59,22 @@ const GuideList = () => {
 	}, []);
 
 	const handleDelete = async slug => {
-		if (
-			!window.confirm(
-				(tUI("common.deleteConfirmPrefix")) + slug + "?",
-			)
-		)
-			return;
+		if (!slug) return;
+		
+		const result = await Swal.fire({
+			title: "Xác nhận xóa?",
+			text: `${tUI("common.deleteConfirmPrefix") || "Bạn muốn xóa bài viết: "}${slug}?`,
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#ef4444",
+			cancelButtonColor: "#6b7280",
+			confirmButtonText: "Vâng, xóa nó!",
+			cancelButtonText: "Hủy bỏ",
+			background: "#1f2937",
+			color: "#f3f4f6",
+		});
+
+		if (!result.isConfirmed) return;
 
 		try {
 			setLoading(true);
@@ -64,8 +82,23 @@ const GuideList = () => {
 				headers: { Authorization: `Bearer ${token}` },
 			});
 			setGuides(guides.filter(g => g.slug !== slug));
+			
+			Swal.fire({
+				icon: "success",
+				title: "Đã xóa!",
+				text: "Bài viết đã được gỡ bỏ.",
+				timer: 2000,
+				showConfirmButton: false,
+				toast: true,
+				position: "top-end",
+			});
 		} catch (err) {
-			alert(tUI("common.error"));
+			Swal.fire({
+				icon: "error",
+				title: "Lỗi",
+				text: tUI("common.error") || "Có lỗi xảy ra khi xóa bài viết.",
+				confirmButtonColor: "#3b82f6",
+			});
 		} finally {
 			setLoading(false);
 		}

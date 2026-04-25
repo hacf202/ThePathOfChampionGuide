@@ -1,5 +1,6 @@
 // src/pages/admin/powerEditorForm.jsx
 import { useState, memo, useEffect } from "react";
+import Swal from "sweetalert2";
 import Button from "../../common/button";
 import InputField from "../../common/inputField";
 import { Plus } from "lucide-react";
@@ -161,7 +162,12 @@ const PowerEditorForm = memo(
 		const handleSubmit = e => {
 			 e.preventDefault();
 			if (!formData.powerCode?.trim()) {
-				alert(tUI("admin.powerForm.errorIdReq"));
+				Swal.fire({
+					icon: "warning",
+					title: "Thiếu dữ liệu",
+					text: tUI("admin.powerForm.errorIdReq"),
+					confirmButtonColor: "#3b82f6",
+				});
 				return;
 			}
 			const dataToSave = {

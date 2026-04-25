@@ -43,8 +43,9 @@ const getCurrentDate = () => {
 router.get("/", async (req, res) => {
 	try {
 		// 1. Kiểm tra Cache
-		if (cache.has(CACHE_KEY_LIST)) {
-			return res.status(200).json(cache.get(CACHE_KEY_LIST));
+		const cached = await cache.get(CACHE_KEY_LIST);
+		if (cached) {
+			return res.status(200).json(cached);
 		}
 
 		// 2. Gọi DynamoDB
@@ -58,7 +59,7 @@ router.get("/", async (req, res) => {
 		};
 
 		// 3. Lưu Cache
-		cache.set(CACHE_KEY_LIST, responseData);
+		await cache.set(CACHE_KEY_LIST, responseData);
 
 		res.status(200).json(responseData);
 	} catch (error) {
@@ -79,10 +80,11 @@ router.get("/:slug", async (req, res) => {
 
 	try {
 		// 1. KIỂM TRA CACHE
-		if (cache.has(cacheKey)) {
+		const cached = await cache.get(cacheKey);
+		if (cached) {
 			return res.status(200).json({
 				success: true,
-				data: cache.get(cacheKey),
+				data: cached,
 			});
 		}
 
@@ -108,7 +110,7 @@ router.get("/:slug", async (req, res) => {
 		const guide = unmarshall(Attributes);
 
 		// 3. Lưu Cache
-		cache.set(cacheKey, guide);
+		await cache.set(cacheKey, guide);
 
 		res.status(200).json({
 			success: true,
@@ -181,7 +183,7 @@ router.post("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 			user: req.user
 		});
 
-		cache.del(CACHE_KEY_LIST);
+		await cache.del(CACHE_KEY_LIST);
 
 		res.status(201).json({
 			success: true,
@@ -263,8 +265,8 @@ router.put(
 				user: req.user
 			});
 
-			cache.del(CACHE_KEY_LIST);
-			cache.del(getDetailCacheKey(slug));
+			await cache.del(CACHE_KEY_LIST);
+			await cache.del(getDetailCacheKey(slug));
 
 			res.status(200).json({
 				success: true,
@@ -312,8 +314,8 @@ router.delete(
 				user: req.user
 			});
 
-			cache.del(CACHE_KEY_LIST);
-			cache.del(getDetailCacheKey(slug));
+			await cache.del(CACHE_KEY_LIST);
+			await cache.del(getDetailCacheKey(slug));
 
 			res.status(200).json({
 				success: true,

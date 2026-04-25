@@ -44,7 +44,7 @@ router.get("/user/me", authenticateCognitoToken, async (req, res) => {
 router.get("/users/:username", async (req, res) => {
 	const { username } = req.params;
 
-	const cachedData = userCache.get(username);
+	const cachedData = await userCache.get(username);
 	if (cachedData) return res.json(cachedData);
 
 	try {
@@ -60,7 +60,7 @@ router.get("/users/:username", async (req, res) => {
 			name: nameAttr ? nameAttr.Value : username,
 		};
 
-		userCache.set(username, publicProfile);
+		await userCache.set(username, publicProfile);
 		res.json(publicProfile);
 	} catch (error) {
 		if (error.name === "UserNotFoundException")
@@ -121,8 +121,8 @@ router.put("/user/change-name", authenticateCognitoToken, async (req, res) => {
 		await cognitoClient.send(command);
 
 		// Xóa cache theo cả username và sub để đồng bộ dữ liệu mới ngay lập tức
-		userCache.del(username);
-		userCache.del(sub);
+		await userCache.del(username);
+		await userCache.del(sub);
 
 		res.json({ message: "Cập nhật tên thành công" });
 	} catch (error) {
@@ -145,11 +145,11 @@ router.post("/users/batch", async (req, res) => {
 	const idsToFetch = [];
 
 	// 1. Kiểm tra RAM Cache để đạt tốc độ < 1ms
-	uniqueIds.forEach(id => {
-		const cached = userCache.get(id);
+	for (const id of uniqueIds) {
+		const cached = await userCache.get(id);
 		if (cached) result[id] = cached.name;
 		else idsToFetch.push(id);
-	});
+	}
 
 	// 2. Fetch song song các ID thiếu (Mỗi ID là 1 request độc lập, không dùng filter string)
 	if (idsToFetch.length > 0) {
@@ -162,7 +162,7 @@ router.post("/users/batch", async (req, res) => {
 					});
 					const { UserAttributes } = await cognitoClient.send(command);
 					const name = UserAttributes.find(a => a.Name === "name")?.Value || id;
-					userCache.set(id, { name });
+					await userCache.set(id, { name });
 					return { id, name };
 				} catch {
 					return { id, name: "Người chơi" };

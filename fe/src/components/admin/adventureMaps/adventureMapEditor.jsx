@@ -8,6 +8,7 @@ import DropDragSidePanel from "../common/dropSidePanel";
 import AdventureMapEditorForm from "./adventureMapEditorForm";
 import AdminListLayout from "../common/adminListLayout";
 import { Loader2 } from "lucide-react";
+import Swal from "sweetalert2";
 
 // Đã thêm ghi chú cấu trúc ngầm định của Bosses để đồng bộ dữ liệu
 const NEW_ADV_TEMPLATE = {
@@ -159,13 +160,15 @@ function AdventureMapEditor() {
 	const fetchAllData = useCallback(async () => {
 		try {
 			setIsLoading(true);
+			const timestamp = Date.now();
+			const fetchOptions = { cache: "no-store" };
 			const [advRes, powerRes, bossRes, champRes, itemRes, cardRes] = await Promise.all([
-				fetch(`${API_BASE_URL}/api/adventures`),
-				fetch(`${API_BASE_URL}/api/powers?limit=-1`),
-				fetch(`${API_BASE_URL}/api/bosses`),
-				fetch(`${API_BASE_URL}/api/champions?limit=-1`),
-				fetch(`${API_BASE_URL}/api/items?limit=-1`),
-				fetch(`${API_BASE_URL}/api/cards?limit=-1`),
+				fetch(`${API_BASE_URL}/api/adventures?t=${timestamp}`, fetchOptions),
+				fetch(`${API_BASE_URL}/api/powers?limit=-1&t=${timestamp}`, fetchOptions),
+				fetch(`${API_BASE_URL}/api/bosses?t=${timestamp}`, fetchOptions),
+				fetch(`${API_BASE_URL}/api/champions?limit=-1&t=${timestamp}`, fetchOptions),
+				fetch(`${API_BASE_URL}/api/items?limit=-1&t=${timestamp}`, fetchOptions),
+				fetch(`${API_BASE_URL}/api/cards?limit=-1&t=${timestamp}`, fetchOptions),
 			]);
 
 			const [advData, powerData, bossData, champData, itemJson, cardData] =
@@ -211,16 +214,46 @@ function AdventureMapEditor() {
 			if (!res.ok) throw new Error("Lưu thất bại.");
 			await fetchAllData();
 			navigate("/admin/adventures");
-			alert("Lưu thành công!");
+			
+			Swal.fire({
+				icon: "success",
+				title: "Đã lưu!",
+				text: "Bản đồ phiêu lưu đã được cập nhật thành công.",
+				timer: 2000,
+				showConfirmButton: false,
+				toast: true,
+				position: "top-end",
+			});
 		} catch (e) {
-			alert(e.message);
+			Swal.fire({
+				icon: "error",
+				title: "Lỗi",
+				text: e.message || "Không thể lưu dữ liệu.",
+				confirmButtonColor: "#3b82f6",
+			});
 		} finally {
 			setIsSaving(false);
 		}
 	};
 
 	const handleDeleteItem = async id => {
-		if (!id || !window.confirm("Xóa bản đồ này?")) return;
+		if (!id) return;
+		
+		const result = await Swal.fire({
+			title: "Xác nhận xóa?",
+			text: "Bạn sẽ không thể khôi phục lại bản đồ phiêu lưu này!",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#ef4444",
+			cancelButtonColor: "#6b7280",
+			confirmButtonText: "Vâng, xóa nó!",
+			cancelButtonText: "Hủy bỏ",
+			background: "#1f2937",
+			color: "#f3f4f6",
+		});
+
+		if (!result.isConfirmed) return;
+
 		setIsSaving(true);
 		try {
 			const token = localStorage.getItem("token");
@@ -230,9 +263,23 @@ function AdventureMapEditor() {
 			});
 			await fetchAllData();
 			navigate("/admin/adventures");
-			alert("Xóa thành công!");
+			
+			Swal.fire({
+				icon: "success",
+				title: "Đã xóa!",
+				text: "Bản đồ đã được loại bỏ.",
+				timer: 2000,
+				showConfirmButton: false,
+				toast: true,
+				position: "top-end",
+			});
 		} catch (e) {
-			alert(e.message);
+			Swal.fire({
+				icon: "error",
+				title: "Lỗi",
+				text: e.message || "Không thể xóa bản đồ.",
+				confirmButtonColor: "#3b82f6",
+			});
 		} finally {
 			setIsSaving(false);
 		}

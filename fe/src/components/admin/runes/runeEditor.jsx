@@ -11,6 +11,7 @@ import { useTranslation } from "../../../hooks/useTranslation";
 import AdminListLayout from "../common/adminListLayout";
 import { LoadingState, ErrorState } from "../common/stateDisplays";
 import { invalidateEntityCache } from "../../../utils/entityLookup";
+import Swal from "sweetalert2";
 
 const NEW_RUNE_TEMPLATE = {
 	runeCode: "",
@@ -164,7 +165,10 @@ function RuneEditor() {
 	const fetchAllData = useCallback(async () => {
 		try {
 			setIsLoading(true);
-			const res = await fetch(`${API_BASE_URL}/api/runes?limit=-1`);
+			const timestamp = Date.now();
+			const res = await fetch(`${API_BASE_URL}/api/runes?limit=-1&t=${timestamp}`, {
+				cache: "no-store"
+			});
 			if (!res.ok) throw new Error(tUI("admin.common.errorLoad"));
 			const data = await res.json();
 			const runeList = Array.isArray(data) ? data : data.items || [];
@@ -212,9 +216,23 @@ function RuneEditor() {
 
 			await fetchAllData();
 			navigate("/admin/runes");
-			alert(result.message || tUI("admin.common.saveSuccess"));
+			
+			Swal.fire({
+				icon: "success",
+				title: "Đã lưu!",
+				text: result.message || tUI("admin.common.saveSuccess"),
+				timer: 2000,
+				showConfirmButton: false,
+				toast: true,
+				position: "top-end",
+			});
 		} catch (e) {
-			alert(e.message || tUI("admin.common.errorOccurred"));
+			Swal.fire({
+				icon: "error",
+				title: "Lỗi",
+				text: e.message || tUI("admin.common.errorOccurred"),
+				confirmButtonColor: "#3b82f6",
+			});
 		} finally {
 			setIsSaving(false);
 		}
@@ -222,6 +240,22 @@ function RuneEditor() {
 
 	const handleDeleteRune = async id => {
 		if (!id) return;
+		
+		const result = await Swal.fire({
+			title: "Xác nhận xóa?",
+			text: "Bạn sẽ không thể khôi phục lại dữ liệu này!",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#ef4444",
+			cancelButtonColor: "#6b7280",
+			confirmButtonText: "Vâng, xóa nó!",
+			cancelButtonText: "Hủy bỏ",
+			background: "#1f2937",
+			color: "#f3f4f6",
+		});
+
+		if (!result.isConfirmed) return;
+
 		setIsSaving(true);
 		try {
 			const token = localStorage.getItem("token");
@@ -235,9 +269,23 @@ function RuneEditor() {
 
 			await fetchAllData();
 			navigate("/admin/runes");
-			alert(tUI("admin.common.deleteSuccess"));
+			
+			Swal.fire({
+				icon: "success",
+				title: "Đã xóa!",
+				text: tUI("admin.common.deleteSuccess"),
+				timer: 2000,
+				showConfirmButton: false,
+				toast: true,
+				position: "top-end",
+			});
 		} catch (e) {
-			alert(e.message || tUI("admin.common.deleteFailed"));
+			Swal.fire({
+				icon: "error",
+				title: "Lỗi",
+				text: e.message || tUI("admin.common.deleteFailed"),
+				confirmButtonColor: "#3b82f6",
+			});
 		} finally {
 			setIsSaving(false);
 		}

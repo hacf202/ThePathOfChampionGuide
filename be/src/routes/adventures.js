@@ -168,7 +168,7 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 			user: req.user
 		});
 
-		invalidateAdventureCache();
+		await invalidateAdventureCache();
 
 		res.json({
 			message: isNew
@@ -214,7 +214,7 @@ router.delete(
 				user: req.user
 			});
 
-			invalidateAdventureCache();
+			await invalidateAdventureCache();
 			res.json({ message: "Đã xóa Adventure thành công." });
 		} catch (error) {
 			res.status(500).json({ error: "Lỗi hệ thống khi thực hiện xóa." });

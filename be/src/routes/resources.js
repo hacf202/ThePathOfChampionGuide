@@ -17,7 +17,7 @@ const DATA_PATH = path.join(__dirname, "../../data/resources.json");
  */
 export async function getCachedResources() {
 	const CACHE_KEY = "all_resources_data";
-	let cachedData = resourceCache.get(CACHE_KEY);
+	let cachedData = await resourceCache.get(CACHE_KEY);
 
 	if (!cachedData) {
 		try {
@@ -25,7 +25,7 @@ export async function getCachedResources() {
 			cachedData = JSON.parse(rawData);
 			// Sắp xếp mặc định A-Z theo tên Vietnamese
 			cachedData.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
-			resourceCache.set(CACHE_KEY, cachedData);
+			await resourceCache.set(CACHE_KEY, cachedData);
 		} catch (error) {
 			console.error("Lỗi khi đọc file resources.json:", error);
 			return [];

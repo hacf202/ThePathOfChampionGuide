@@ -22,7 +22,7 @@ const constellationCache = cacheManager.getOrCreateCache("constellations", { std
  */
 async function getCachedConstellations() {
 	const CACHE_KEY = "all_constellations_list";
-	let cachedData = constellationCache.get(CACHE_KEY);
+	let cachedData = await constellationCache.get(CACHE_KEY);
 
 	if (!cachedData) {
 		const rawItems = await scanAll(client, { TableName: CONSTELLATIONS_TABLE });
@@ -33,7 +33,7 @@ async function getCachedConstellations() {
 			(a.championName || "").localeCompare(b.championName || ""),
 		);
 
-		constellationCache.set(CACHE_KEY, cachedData);
+		await constellationCache.set(CACHE_KEY, cachedData);
 	}
 	return cachedData;
 }
@@ -67,7 +67,7 @@ router.get("/:constellationID", async (req, res) => {
 
 	try {
 		// 1. Kiểm tra Cache
-		const cachedData = constellationCache.get(CACHE_KEY);
+		const cachedData = await constellationCache.get(CACHE_KEY);
 		if (cachedData) return res.json(cachedData);
 
 		// 2. Query DynamoDB
@@ -85,7 +85,7 @@ router.get("/:constellationID", async (req, res) => {
 		const data = unmarshall(Item);
 
 		// 3. Set Cache
-		constellationCache.set(CACHE_KEY, data);
+		await constellationCache.set(CACHE_KEY, data);
 
 		res.json(data);
 	} catch (error) {
@@ -136,8 +136,8 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 		await client.send(command);
 
 		// Xóa cache để dữ liệu mới được hiển thị ngay
-		constellationCache.del(`const_detail_${data.constellationID}`);
-		constellationCache.del("all_constellations_list");
+		await constellationCache.del(`const_detail_${data.constellationID}`);
+		await constellationCache.del("all_constellations_list");
 
 		res.json({ message: "Cập nhật chòm sao thành công.", data });
 	} catch (error) {
@@ -178,8 +178,8 @@ router.delete(
 			);
 
 			// Xóa Cache
-			constellationCache.del(`const_detail_${constellationID}`);
-			constellationCache.del("all_constellations_list");
+			await constellationCache.del(`const_detail_${constellationID}`);
+			await constellationCache.del("all_constellations_list");
 
 			res.json({ message: "Xóa chòm sao thành công." });
 		} catch (error) {

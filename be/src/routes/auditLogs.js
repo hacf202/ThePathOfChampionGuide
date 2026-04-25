@@ -243,7 +243,7 @@ router.post("/rollback/:logId", authenticateCognitoToken, requireAdmin, async (r
 		// 4. Xóa cache
 		const cacheName = ENTITY_CACHE_MAP[entityType];
 		if (cacheName) {
-			cacheManager.flushCache(cacheName);
+			await cacheManager.flushCache(cacheName);
 		}
 
 		res.json({ message: "Hoàn tác thành công.", entityType, entityId });

@@ -1,4 +1,5 @@
 import { useState, memo, useEffect } from "react";
+import Swal from "sweetalert2";
 import InputField from "../../common/inputField";
 import { useTranslation } from "../../../hooks/useTranslation";
 import EditorHeaderToolbar from "../common/editorHeaderToolbar";
@@ -95,11 +96,21 @@ const CardEditorForm = memo(({ card, onSave, onCancel, onDelete, isSaving }) => 
 	const handleSubmit = e => {
 		e.preventDefault();
 		if (!formData.cardCode?.trim()) {
-			alert(tUI("admin.cardForm.errorCardCodeReq"));
+			Swal.fire({
+				icon: "warning",
+				title: "Thiếu dữ liệu",
+				text: tUI("admin.cardForm.errorCardCodeReq"),
+				confirmButtonColor: "#3b82f6",
+			});
 			return;
 		}
 		if (!formData.cardName?.trim()) {
-			alert(tUI("admin.cardForm.errorCardNameReq"));
+			Swal.fire({
+				icon: "warning",
+				title: "Thiếu dữ liệu",
+				text: tUI("admin.cardForm.errorCardNameReq"),
+				confirmButtonColor: "#3b82f6",
+			});
 			return;
 		}
 

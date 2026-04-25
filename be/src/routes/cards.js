@@ -230,7 +230,7 @@ router.get("/:cardCode", async (req, res) => {
 	const CACHE_KEY = `card_detail_${cardCode}`;
 
 	try {
-		const cached = cardCache.get(CACHE_KEY);
+		const cached = await cardCache.get(CACHE_KEY);
 		if (cached) return res.json(cached);
 
 		const command = new GetItemCommand({
@@ -256,7 +256,7 @@ router.get("/:cardCode", async (req, res) => {
 			cardData.associatedCards = [];
 		}
 
-		cardCache.set(CACHE_KEY, cardData);
+		await cardCache.set(CACHE_KEY, cardData);
 
 		res.json(cardData);
 	} catch (error) {
@@ -322,7 +322,7 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 			user: req.user
 		});
 
-		invalidateCardCache(cardCode);
+		await invalidateCardCache(cardCode);
 
 		res.json({
 			message: isNew ? "Tạo lá bài mới thành công." : "Cập nhật lá bài thành công.",
@@ -369,7 +369,7 @@ router.delete(
 				}),
 			);
 
-			invalidateCardCache(id);
+			await invalidateCardCache(id);
 
 			const deletedCard = unmarshall(Item);
 

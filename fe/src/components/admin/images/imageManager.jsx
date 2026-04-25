@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, memo, useMemo } from "react";
+import Swal from "sweetalert2";
 import {
 	getR2Folders,
 	getImagesByFolder,
@@ -110,7 +111,12 @@ const ImageManager = memo(() => {
 			const data = await getImagesByFolder(currentFolder);
 			setImages(data.files || []);
 		} catch (err) {
-			alert("Lỗi tải ảnh");
+			Swal.fire({
+				icon: "error",
+				title: "Lỗi",
+				text: "Không thể tải danh sách ảnh.",
+				confirmButtonColor: "#3b82f6",
+			});
 		} finally {
 			setLoading(false);
 		}
@@ -130,34 +136,91 @@ const ImageManager = memo(() => {
 
 	// ---- Folder Actions ----
 	const handleCreateFolder = async () => {
-		const name = prompt("Nhập tên thư mục mới (không dấu, không khoảng cách):");
+		const { value: name } = await Swal.fire({
+			title: "Tạo thư mục mới",
+			input: "text",
+			inputLabel: "Tên thư mục",
+			inputPlaceholder: "Không dấu, không khoảng cách...",
+			showCancelButton: true,
+			confirmButtonColor: "#3b82f6",
+			cancelButtonColor: "#6b7280",
+			confirmButtonText: "Tạo ngay",
+			cancelButtonText: "Hủy",
+			background: "#1f2937",
+			color: "#f3f4f6",
+			inputValidator: (value) => {
+				if (!value) return "Bạn cần nhập tên thư mục!";
+				if (/\s/.test(value)) return "Tên thư mục không được chứa khoảng trắng!";
+			}
+		});
+
 		if (!name) return;
+
 		try {
 			await createR2Folder(name);
-			// alert("Đã tạo thư mục!");
+			
+			Swal.fire({
+				icon: "success",
+				title: "Đã tạo!",
+				text: `Thư mục "${name}" đã sẵn sàng.`,
+				timer: 2000,
+				showConfirmButton: false,
+				toast: true,
+				position: "top-end",
+			});
+			
 			await loadFolders(true);
 		} catch (err) {
-			alert(err.message);
+			Swal.fire({
+				icon: "error",
+				title: "Lỗi",
+				text: err.message || "Không thể tạo thư mục.",
+				confirmButtonColor: "#3b82f6",
+			});
 		}
 	};
 
 	const handleDeleteFolder = async () => {
 		if (!currentFolder) return;
-		if (
-			!window.confirm(
-				`CẢNH BÁO: Bạn sẽ xóa toàn bộ thư mục "${currentFolder}" và TẤT CẢ ảnh bên trong. Tiếp tục?`
-			)
-		)
-			return;
+		
+		const result = await Swal.fire({
+			title: "CẢNH BÁO NGUY HIỂM",
+			text: `Bạn sẽ xóa toàn bộ thư mục "${currentFolder}" và TẤT CẢ ảnh bên trong. Hành động này không thể hoàn tác!`,
+			icon: "error",
+			showCancelButton: true,
+			confirmButtonColor: "#ef4444",
+			cancelButtonColor: "#6b7280",
+			confirmButtonText: "Tôi chấp nhận rủi ro, hãy xóa!",
+			cancelButtonText: "Hủy bỏ",
+			background: "#1f2937",
+			color: "#f3f4f6",
+		});
+
+		if (!result.isConfirmed) return;
 
 		try {
 			setLoading(true);
 			await deleteR2Folder(currentFolder);
-			alert("Đã xóa thư mục!");
+			
+			Swal.fire({
+				icon: "success",
+				title: "Đã xóa!",
+				text: `Thư mục "${currentFolder}" đã được loại bỏ.`,
+				timer: 2000,
+				showConfirmButton: false,
+				toast: true,
+				position: "top-end",
+			});
+			
 			setCurrentFolder("");
 			await loadFolders();
 		} catch (err) {
-			alert("Lỗi khi xóa thư mục");
+			Swal.fire({
+				icon: "error",
+				title: "Lỗi",
+				text: "Không thể xóa thư mục. Vui lòng kiểm tra lại.",
+				confirmButtonColor: "#3b82f6",
+			});
 		} finally {
 			setLoading(false);
 		}
@@ -194,26 +257,68 @@ const ImageManager = memo(() => {
 		setUploading(true);
 		try {
 			await uploadMultipleImagesR2(selectedFiles, currentFolder);
+			Swal.fire({
+				icon: "success",
+				title: "Thành công!",
+				text: `Đã tải lên ${selectedFiles.length} ảnh.`,
+				timer: 2000,
+				showConfirmButton: false,
+				toast: true,
+				position: "top-end",
+			});
+			
 			setSelectedFiles([]);
 			if (fileInputRef.current) fileInputRef.current.value = "";
-			// alert("Upload thành công!");
 			loadImages();
 			loadBucketStats();
 		} catch (err) {
-			alert("Lỗi: " + err.message);
+			Swal.fire({
+				icon: "error",
+				title: "Lỗi tải lên",
+				text: err.message || "Đã có lỗi xảy ra.",
+				confirmButtonColor: "#3b82f6",
+			});
 		} finally {
 			setUploading(false);
 		}
 	};
 
 	const handleDeleteImage = async (key) => {
-		if (!window.confirm("Xóa ảnh này?")) return;
+		const result = await Swal.fire({
+			title: "Xóa ảnh?",
+			text: "Ảnh sẽ bị xóa vĩnh viễn khỏi Cloudflare R2.",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#ef4444",
+			cancelButtonColor: "#6b7280",
+			confirmButtonText: "Xóa ngay",
+			cancelButtonText: "Hủy",
+			background: "#1f2937",
+			color: "#f3f4f6",
+		});
+
+		if (!result.isConfirmed) return;
+
 		try {
 			await deleteImageR2(key);
 			setImages((prev) => prev.filter((img) => img.key !== key));
 			loadBucketStats();
+			
+			Swal.fire({
+				icon: "success",
+				title: "Đã xóa",
+				timer: 1500,
+				showConfirmButton: false,
+				toast: true,
+				position: "top-end",
+			});
 		} catch (err) {
-			alert("Lỗi xóa ảnh");
+			Swal.fire({
+				icon: "error",
+				title: "Lỗi",
+				text: "Không thể xóa ảnh.",
+				confirmButtonColor: "#3b82f6",
+			});
 		}
 	};
 
@@ -223,10 +328,25 @@ const ImageManager = memo(() => {
 		setUploading(true);
 		try {
 			await updateImageR2(file, updatingKey);
-			alert("Cập nhật thành công!");
+			
+			Swal.fire({
+				icon: "success",
+				title: "Đã cập nhật!",
+				text: "Ảnh đã được thay thế.",
+				timer: 2000,
+				showConfirmButton: false,
+				toast: true,
+				position: "top-end",
+			});
+			
 			loadImages();
 		} catch (err) {
-			alert("Lỗi cập nhật");
+			Swal.fire({
+				icon: "error",
+				title: "Lỗi",
+				text: "Không thể cập nhật ảnh.",
+				confirmButtonColor: "#3b82f6",
+			});
 		} finally {
 			setUploading(false);
 			setUpdatingKey(null);
@@ -236,6 +356,14 @@ const ImageManager = memo(() => {
 
 	const copyUrl = (url) => {
 		navigator.clipboard.writeText(url);
+		Swal.fire({
+			icon: "success",
+			title: "Đã chép Link!",
+			timer: 1000,
+			showConfirmButton: false,
+			toast: true,
+			position: "top-end",
+		});
 	};
 
 	// ---- Image Grid Zoom Classes ----

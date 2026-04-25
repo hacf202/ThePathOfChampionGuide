@@ -18,6 +18,7 @@ import {
 	RefreshCw
 } from "lucide-react";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const JsonDiffViewer = ({ data, otherData, side = "new" }) => {
 	const { tUI } = useTranslation();
@@ -136,19 +137,47 @@ const AuditLogList = () => {
 	const [isRollingBack, setIsRollingBack] = useState(false);
 
 	const handleRollback = async (logId) => {
-		if (!window.confirm(tUI("admin.auditLog.modal.rollbackConfirm"))) return;
+		const result = await Swal.fire({
+			title: "Xác nhận hoàn tác?",
+			text: tUI("admin.auditLog.modal.rollbackConfirm") || "Bạn có chắc chắn muốn khôi phục dữ liệu về trạng thái này?",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#ef4444",
+			cancelButtonColor: "#6b7280",
+			confirmButtonText: "Vâng, hoàn tác!",
+			cancelButtonText: "Hủy bỏ",
+			background: "#1f2937",
+			color: "#f3f4f6",
+		});
+
+		if (!result.isConfirmed) return;
 
 		setIsRollingBack(true);
 		try {
 			const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/admin/audit-logs/rollback/${logId}`, {}, {
 				headers: { Authorization: `Bearer ${token}` }
 			});
-			alert(res.data.message || "Hoàn tác thành công!");
+			
+			await Swal.fire({
+				icon: "success",
+				title: "Thành công!",
+				text: res.data.message || "Hoàn tác dữ liệu thành công.",
+				timer: 2000,
+				showConfirmButton: false,
+				toast: true,
+				position: "top-end",
+			});
+			
 			setSelectedLog(null);
 			fetchLogs(); // Refresh list to show the ROLLBACK log
 		} catch (err) {
 			console.error("Rollback error:", err);
-			alert(err.response?.data?.error || "Lỗi khi hoàn tác dữ liệu.");
+			Swal.fire({
+				icon: "error",
+				title: "Lỗi",
+				text: err.response?.data?.error || "Lỗi khi hoàn tác dữ liệu.",
+				confirmButtonColor: "#3b82f6",
+			});
 		} finally {
 			setIsRollingBack(false);
 		}

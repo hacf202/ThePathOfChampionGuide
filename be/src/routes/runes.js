@@ -33,7 +33,7 @@ router.get("/:runeCode", async (req, res) => {
 	const CACHE_KEY = `rune_detail_${id}`;
 
 	// 1. Kiểm tra Cache RAM trước
-	const cachedRune = runeCache.get(CACHE_KEY);
+	const cachedRune = await runeCache.get(CACHE_KEY);
 	if (cachedRune) return res.json(cachedRune);
 
 	try {
@@ -50,7 +50,7 @@ router.get("/:runeCode", async (req, res) => {
 		const runeData = unmarshall(Item);
 
 		// 3. Lưu vào Cache
-		runeCache.set(CACHE_KEY, runeData);
+		await runeCache.set(CACHE_KEY, runeData);
 
 		res.json(runeData);
 	} catch (error) {
@@ -205,7 +205,7 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 			user: req.user
 		});
 
-		invalidateRuneCache(runeCode);
+		await invalidateRuneCache(runeCode);
 
 		res.status(200).json({
 			message: isNew ? "Tạo mới thành công" : "Cập nhật thành công",
@@ -248,7 +248,7 @@ router.delete("/:runeCode", authenticateCognitoToken, async (req, res) => {
 			newData: null,
 			user: req.user
 		});
-		invalidateRuneCache(runeCode);
+		await invalidateRuneCache(runeCode);
 		res.status(200).json({ message: "Đã xóa ngọc thành công." });
 	} catch (error) {
 		console.error("Lỗi khi xóa ngọc:", error);

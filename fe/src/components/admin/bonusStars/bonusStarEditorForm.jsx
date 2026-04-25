@@ -2,17 +2,15 @@
 import { useState, memo, useEffect } from "react";
 import Button from "../../common/button";
 import InputField from "../../common/inputField";
-import Modal from "../../common/modal";
 import { useTranslation } from "../../../hooks/useTranslation";
 import MarkupEditor from "../MarkupEditor";
+import Swal from "sweetalert2";
 
 const BonusStarEditorForm = memo(
 	({ item, onSave, onCancel, onDelete, isSaving }) => {
 		const [formData, setFormData] = useState({});
 		const [initialData, setInitialData] = useState({});
 		const [isDirty, setIsDirty] = useState(false);
-		const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
-		const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
 		const { tUI } = useTranslation();
 
@@ -62,15 +60,52 @@ const BonusStarEditorForm = memo(
 		const handleSubmit = e => {
 			e.preventDefault();
 			if (!formData.bonusStarID?.trim()) {
-				alert(tUI("admin.bonusStarForm.errorIdReq"));
+				Swal.fire({
+					icon: "warning",
+					title: "Thiếu dữ liệu",
+					text: tUI("admin.bonusStarForm.errorIdReq"),
+					confirmButtonColor: "#3b82f6",
+				});
 				return;
 			}
 			onSave(formData);
 		};
 
-		const handleConfirmCancel = () => {
-			setIsCancelModalOpen(false);
+		const handleCancel = async () => {
+			if (isDirty) {
+				const result = await Swal.fire({
+					title: tUI("admin.common.cancelConfirmTitle"),
+					text: tUI("admin.common.cancelConfirmText"),
+					icon: "warning",
+					showCancelButton: true,
+					confirmButtonColor: "#ef4444",
+					cancelButtonColor: "#6b7280",
+					confirmButtonText: tUI("admin.common.leave"),
+					cancelButtonText: tUI("admin.common.stay"),
+					background: "#1f2937",
+					color: "#f3f4f6",
+				});
+				if (!result.isConfirmed) return;
+			}
 			onCancel();
+		};
+
+		const handleDelete = async () => {
+			const result = await Swal.fire({
+				title: tUI("admin.common.deleteConfirmTitle"),
+				text: `${tUI("admin.bonusStarForm.deleteConfirmText")} ${formData.name}. ${tUI("admin.common.cannotUndo")}`,
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#ef4444",
+				cancelButtonColor: "#6b7280",
+				confirmButtonText: tUI("admin.common.delete"),
+				cancelButtonText: tUI("admin.common.cancel"),
+				background: "#1f2937",
+				color: "#f3f4f6",
+			});
+			if (result.isConfirmed) {
+				onDelete(formData.bonusStarID);
+			}
 		};
 
 		return (
@@ -94,9 +129,7 @@ const BonusStarEditorForm = memo(
 							<Button
 								type='button'
 								variant='ghost'
-								onClick={() =>
-									isDirty ? setIsCancelModalOpen(true) : onCancel()
-								}
+								onClick={handleCancel}
 								disabled={isSaving}
 							>
 								{tUI("admin.common.cancel")}
@@ -105,7 +138,7 @@ const BonusStarEditorForm = memo(
 								<Button
 									type='button'
 									variant='danger'
-									onClick={() => setIsDeleteModalOpen(true)}
+									onClick={handleDelete}
 									disabled={isSaving}
 								>
 									{tUI("admin.common.delete")}
@@ -238,56 +271,7 @@ const BonusStarEditorForm = memo(
 					</div>
 				</form>
 
-				{/* Modal Xác nhận Hủy */}
-				<Modal
-					isOpen={isCancelModalOpen}
-					onClose={() => setIsCancelModalOpen(false)}
-					title={tUI("admin.common.cancelConfirmTitle")}
-				>
-					<div className='p-4 text-text-secondary'>
-						<p>{tUI("admin.common.cancelConfirmText")}</p>
-						<div className='flex justify-end gap-3 mt-6'>
-							<Button
-								onClick={() => setIsCancelModalOpen(false)}
-								variant='ghost'
-							>
-								{tUI("admin.common.stay")}
-							</Button>
-							<Button onClick={handleConfirmCancel} variant='danger'>
-								{tUI("admin.common.leave")}
-							</Button>
-						</div>
-					</div>
-				</Modal>
-
-				{/* Modal Xác nhận Xóa */}
-				<Modal
-					isOpen={isDeleteModalOpen}
-					onClose={() => setIsDeleteModalOpen(false)}
-					title={tUI("admin.common.deleteConfirmTitle")}
-				>
-					<div className='p-4 text-text-secondary'>
-						<p>
-							{tUI("admin.bonusStarForm.deleteConfirmText")}{" "}
-							<strong>{formData.name}</strong>
-							{tUI("admin.common.cannotUndo")}
-						</p>
-						<div className='flex justify-end gap-3 mt-6'>
-							<Button
-								onClick={() => setIsDeleteModalOpen(false)}
-								variant='ghost'
-							>
-								{tUI("admin.common.cancel")}
-							</Button>
-							<Button
-								onClick={() => onDelete(formData.bonusStarID)}
-								variant='danger'
-							>
-								{tUI("admin.common.delete")}
-							</Button>
-						</div>
-					</div>
-				</Modal>
+				</form>
 			</>
 		);
 	},

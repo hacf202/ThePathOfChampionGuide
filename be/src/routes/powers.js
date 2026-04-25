@@ -34,7 +34,7 @@ router.get("/:powerCode", async (req, res) => {
 	const id = powerCode.trim();
 	const CACHE_KEY = `power_detail_${id}`;
 
-	const cachedPower = powerCache.get(CACHE_KEY);
+	const cachedPower = await powerCache.get(CACHE_KEY);
 	if (cachedPower) return res.json(cachedPower);
 
 	try {
@@ -48,7 +48,7 @@ router.get("/:powerCode", async (req, res) => {
 			return res.status(404).json({ error: `Không tìm thấy sức mạnh: ${id}` });
 
 		const powerData = unmarshall(Item);
-		powerCache.set(CACHE_KEY, powerData);
+		await powerCache.set(CACHE_KEY, powerData);
 		res.json(powerData);
 	} catch (error) {
 		console.error(`Lỗi lấy chi tiết sức mạnh ${id}:`, error);

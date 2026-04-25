@@ -9,6 +9,7 @@ import Button from "../../common/button";
 import InputField from "../../common/inputField";
 import { BookOpen, List } from "lucide-react";
 import { removeAccents } from "../../../utils/vietnameseUtils";
+import Swal from "sweetalert2";
 
 // IMPORT CÁC COMPONENT CHUNG
 import EditorHeaderToolbar from "../common/editorHeaderToolbar";
@@ -127,8 +128,23 @@ const GuideForm = ({ slug }) => {
 			}
 			setIsDirty(false);
 			navigate("/admin/guides");
+			
+			Swal.fire({
+				icon: "success",
+				title: "Đã lưu!",
+				text: "Bài viết đã được cập nhật thành công.",
+				timer: 2000,
+				showConfirmButton: false,
+				toast: true,
+				position: "top-end",
+			});
 		} catch (err) {
-			alert(tUI("common.error"));
+			Swal.fire({
+				icon: "error",
+				title: "Lỗi",
+				text: tUI("common.error") || "Có lỗi xảy ra khi lưu bài viết.",
+				confirmButtonColor: "#3b82f6",
+			});
 		} finally {
 			setLoading(false);
 		}

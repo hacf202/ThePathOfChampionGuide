@@ -360,7 +360,7 @@ router.get("/:championID", async (req, res) => {
 	const CACHE_KEY = `champion_detail_${championID}`;
 
 	try {
-		const cachedChampion = championCache.get(CACHE_KEY);
+		const cachedChampion = await championCache.get(CACHE_KEY);
 		if (cachedChampion) {
 			return res.json(cachedChampion);
 		}
@@ -444,7 +444,7 @@ router.get("/:championID", async (req, res) => {
 			championData.communityRatings = null;
 		}
 
-		championCache.set(CACHE_KEY, championData);
+		await championCache.set(CACHE_KEY, championData);
 		res.json(championData);
 	} catch (error) {
 		console.error("Lỗi khi lấy chi tiết tướng:", error);
@@ -529,7 +529,7 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 		});
 		
 		// Xóa cache qua DataService
-		invalidateChampionCache(championID);
+		await invalidateChampionCache(championID);
 
 		res.json({
 			message: isNew

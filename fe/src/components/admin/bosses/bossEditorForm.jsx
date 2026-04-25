@@ -1,4 +1,5 @@
 import { useState, memo, useEffect } from "react";
+import Swal from "sweetalert2";
 import InputField from "../../common/inputField";
 import { Zap, XCircle } from "lucide-react";
 import { useTranslation } from "../../../hooks/useTranslation";
@@ -90,7 +91,15 @@ const BossEditorForm = memo(
 
 						// Kiểm tra xem sức mạnh đã tồn tại trong mảng chưa
 						if (currentPowers.includes(uniqueId)) {
-							alert("Sức mạnh này đã được thêm!");
+							Swal.fire({
+								icon: "info",
+								title: "Đã tồn tại",
+								text: "Sức mạnh này đã được thêm vào danh sách!",
+								timer: 1500,
+								showConfirmButton: false,
+								toast: true,
+								position: "top-end",
+							});
 							return prev;
 						}
 
@@ -98,7 +107,12 @@ const BossEditorForm = memo(
 						return { ...prev, power: [...currentPowers, uniqueId] };
 					});
 				} else {
-					alert("Vui lòng chỉ kéo thả Sức mạnh (Power) vào ô này!");
+					Swal.fire({
+						icon: "warning",
+						title: "Sai loại dữ liệu",
+						text: "Vui lòng chỉ kéo thả Sức mạnh (Power) vào ô này!",
+						confirmButtonColor: "#3b82f6",
+					});
 				}
 			} catch (error) {
 				console.error("Lỗi khi kéo thả:", error);
@@ -129,7 +143,12 @@ const BossEditorForm = memo(
 		const handleSubmit = e => {
 			e.preventDefault();
 			if (!formData.bossID?.trim()) {
-				alert("Vui lòng nhập Boss ID!");
+				Swal.fire({
+					icon: "warning",
+					title: "Thiếu dữ liệu",
+					text: "Vui lòng nhập Boss ID!",
+					confirmButtonColor: "#3b82f6",
+				});
 				return;
 			}
 			onSave(formData);

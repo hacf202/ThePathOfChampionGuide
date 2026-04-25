@@ -15,11 +15,11 @@ export async function getUserNames(usernames) {
 	const result = {};
 	const namesToFetch = [];
 
-	uniqueNames.forEach(name => {
-		const cached = userCache.get(name);
+	for (const name of uniqueNames) {
+		const cached = await userCache.get(name);
 		if (cached) result[name] = cached.name;
 		else namesToFetch.push(name);
-	});
+	}
 
 	if (namesToFetch.length > 0) {
 		const promises = namesToFetch.map(async uname => {
@@ -30,7 +30,7 @@ export async function getUserNames(usernames) {
 				});
 				const { UserAttributes } = await cognitoClient.send(command);
 				const name = UserAttributes.find(a => a.Name === "name")?.Value || uname;
-				userCache.set(uname, { name });
+				await userCache.set(uname, { name });
 				return { uname, name };
 			} catch {
 				return { uname, name: uname };

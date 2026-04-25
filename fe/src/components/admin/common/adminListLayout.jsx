@@ -69,41 +69,7 @@ const AdminListLayout = ({
 			{/* MAIN LIST LAYOUT */}
 			<div className='lg:w-4/5 bg-surface-bg rounded-lg p-3 sm:p-4 order-3 lg:order-none'>
 				{dataLength > 0 ? (
-					<>
-						{totalPages > 1 && (
-							<div className='mb-6 flex justify-between items-center bg-surface-hover/30 p-2 rounded-lg border border-border/50'>
-								<div className='text-xs sm:text-sm text-text-secondary'>
-									{tUI("common.showing")} <span className='font-bold text-primary-400'>{dataLength}</span> {tUI("common.items")}
-								</div>
-								<div className='flex items-center gap-2'>
-									<Button
-										onClick={() => onPageChange(currentPage - 1)}
-										disabled={currentPage === 1}
-										variant='outline'
-										size='sm'
-										className='h-8 w-8 !p-0 flex items-center justify-center'
-									>
-										<span className='sr-only'>{tUI("common.prev")}</span>
-										<svg className='w-4 h-4' fill='none' viewBox='0 0 24 24' stroke='currentColor'><path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M15 19l-7-7 7-7' /></svg>
-									</Button>
-									<span className='text-xs sm:text-sm font-medium min-w-[3rem] text-center'>
-										{currentPage} / {totalPages}
-									</span>
-									<Button
-										onClick={() => onPageChange(currentPage + 1)}
-										disabled={currentPage === totalPages}
-										variant='outline'
-										size='sm'
-										className='h-8 w-8 !p-0 flex items-center justify-center'
-									>
-										<span className='sr-only'>{tUI("common.next")}</span>
-										<svg className='w-4 h-4' fill='none' viewBox='0 0 24 24' stroke='currentColor'><path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M9 5l7 7-7 7' /></svg>
-									</Button>
-								</div>
-							</div>
-						)}
-						{children}
-					</>
+					children
 				) : (
 					<div className='flex items-center justify-center h-full min-h-[300px] text-center text-text-secondary'>
 						<div>

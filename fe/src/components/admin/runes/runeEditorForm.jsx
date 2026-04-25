@@ -1,4 +1,5 @@
 import { useState, memo, useEffect } from "react";
+import Swal from "sweetalert2";
 import Button from "../../common/button";
 import InputField from "../../common/inputField";
 import { Plus } from "lucide-react";
@@ -160,7 +161,12 @@ const RuneEditorForm = memo(
 		const handleSubmit = e => {
 			e.preventDefault();
 			if (!formData.runeCode?.trim()) {
-				alert(tUI("admin.runeForm.errorIdReq"));
+				Swal.fire({
+					icon: "warning",
+					title: "Thiếu dữ liệu",
+					text: tUI("admin.runeForm.errorIdReq"),
+					confirmButtonColor: "#3b82f6",
+				});
 				return;
 			}
 			const dataToSave = {

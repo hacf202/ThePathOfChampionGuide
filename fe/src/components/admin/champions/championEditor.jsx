@@ -13,6 +13,7 @@ import { useTranslation } from "../../../hooks/useTranslation";
 import AdminListLayout from "../common/adminListLayout.jsx";
 import { LoadingState, ErrorState } from "../common/stateDisplays";
 import { invalidateEntityCache } from "../../../utils/entityLookup";
+import Swal from "sweetalert2";
 
 const NEW_CHAMPION_TEMPLATE = {
 	championID: "",
@@ -220,6 +221,8 @@ function ChampionEditor() {
 	const fetchAllData = useCallback(async () => {
 		try {
 			setIsLoading(true);
+			const timestamp = Date.now();
+			const fetchOptions = { cache: "no-store" };
 			const [
 				champRes,
 				constRes,
@@ -230,14 +233,14 @@ function ChampionEditor() {
 				itemRes,
 				cardRes,
 			] = await Promise.all([
-				fetch(`${API_BASE_URL}/api/champions?limit=-1`),
-				fetch(`${API_BASE_URL}/api/constellations`),
-				fetch(`${API_BASE_URL}/api/bonusStars`),
-				fetch(`${API_BASE_URL}/api/runes?limit=-1`),
-				fetch(`${API_BASE_URL}/api/relics?limit=-1`),
-				fetch(`${API_BASE_URL}/api/powers?limit=-1`),
-				fetch(`${API_BASE_URL}/api/items?limit=-1`),
-				fetch(`${API_BASE_URL}/api/cards?limit=-1`),
+				fetch(`${API_BASE_URL}/api/champions?limit=-1&t=${timestamp}`, fetchOptions),
+				fetch(`${API_BASE_URL}/api/constellations?t=${timestamp}`, fetchOptions),
+				fetch(`${API_BASE_URL}/api/bonusStars?t=${timestamp}`, fetchOptions),
+				fetch(`${API_BASE_URL}/api/runes?limit=-1&t=${timestamp}`, fetchOptions),
+				fetch(`${API_BASE_URL}/api/relics?limit=-1&t=${timestamp}`, fetchOptions),
+				fetch(`${API_BASE_URL}/api/powers?limit=-1&t=${timestamp}`, fetchOptions),
+				fetch(`${API_BASE_URL}/api/items?limit=-1&t=${timestamp}`, fetchOptions),
+				fetch(`${API_BASE_URL}/api/cards?limit=-1&t=${timestamp}`, fetchOptions),
 			]);
 
 			const [
@@ -316,15 +319,46 @@ function ChampionEditor() {
 
 			await fetchAllData();
 			navigate("/admin/champions");
-			alert(tUI("admin.common.saveSuccess"));
+			
+			Swal.fire({
+				icon: "success",
+				title: "Đã lưu!",
+				text: tUI("admin.common.saveSuccess"),
+				timer: 2000,
+				showConfirmButton: false,
+				toast: true,
+				position: "top-end",
+			});
 		} catch (e) {
-			alert(e.message);
+			Swal.fire({
+				icon: "error",
+				title: "Lỗi",
+				text: e.message,
+				confirmButtonColor: "#3b82f6",
+			});
 		} finally {
 			setIsSaving(false);
 		}
 	};
 
 	const handleDeleteChampion = async championID => {
+		if (!championID) return;
+		
+		const result = await Swal.fire({
+			title: "Xác nhận xóa?",
+			text: "Tất cả dữ liệu liên quan đến tướng này (bao gồm cả Chòm sao) sẽ bị xóa vĩnh viễn!",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#ef4444",
+			cancelButtonColor: "#6b7280",
+			confirmButtonText: "Vâng, xóa nó!",
+			cancelButtonText: "Hủy bỏ",
+			background: "#1f2937",
+			color: "#f3f4f6",
+		});
+
+		if (!result.isConfirmed) return;
+
 		setIsSaving(true);
 		try {
 			const token = localStorage.getItem("token");
@@ -343,9 +377,23 @@ function ChampionEditor() {
 
 			await fetchAllData();
 			navigate("/admin/champions");
-			alert(tUI("admin.common.deleteSuccess"));
+			
+			Swal.fire({
+				icon: "success",
+				title: "Đã xóa!",
+				text: tUI("admin.common.deleteSuccess"),
+				timer: 2000,
+				showConfirmButton: false,
+				toast: true,
+				position: "top-end",
+			});
 		} catch (e) {
-			alert(e.message);
+			Swal.fire({
+				icon: "error",
+				title: "Lỗi",
+				text: e.message,
+				confirmButtonColor: "#3b82f6",
+			});
 		} finally {
 			setIsSaving(false);
 		}

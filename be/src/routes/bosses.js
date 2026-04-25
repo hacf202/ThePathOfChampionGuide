@@ -175,7 +175,7 @@ router.put("/", authenticateCognitoToken, requireAdmin, asyncHandler(async (req,
 	});
 
 	// Xóa cache qua DataService
-	invalidateBossCache();
+	await invalidateBossCache();
 
 	res.json({
 		message: isNew ? "Tạo Boss thành công." : "Cập nhật Boss thành công.",
@@ -208,7 +208,7 @@ router.delete("/:bossID", authenticateCognitoToken, requireAdmin, asyncHandler(a
 		user: req.user,
 	});
 
-	invalidateBossCache();
+	await invalidateBossCache();
 	res.json({ message: "Đã xóa Boss thành công." });
 }));
 

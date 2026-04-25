@@ -9,6 +9,7 @@ import { useTranslation } from "../../../hooks/useTranslation";
 // IMPORT CÁC COMPONENT CHUNG
 import AdminListLayout from "../common/adminListLayout";
 import { LoadingState, ErrorState } from "../common/stateDisplays";
+import Swal from "sweetalert2";
 
 const ITEMS_PER_PAGE = 12;
 
@@ -195,15 +196,44 @@ function BuildEditor() {
 
 			await fetchAllData();
 			navigate("/admin/builds");
-			alert(tUI("admin.common.saveSuccess"));
+			
+			Swal.fire({
+				icon: "success",
+				title: "Đã lưu!",
+				text: tUI("admin.common.saveSuccess"),
+				timer: 2000,
+				showConfirmButton: false,
+				toast: true,
+				position: "top-end",
+			});
 		} catch (e) {
-			alert(e.message || tUI("admin.common.errorOccurred"));
+			Swal.fire({
+				icon: "error",
+				title: "Lỗi",
+				text: e.message || tUI("admin.common.errorOccurred"),
+				confirmButtonColor: "#3b82f6",
+			});
 		} finally {
 			setIsSaving(false);
 		}
 	};
 
 	const handleDeleteItem = async id => {
+		const result = await Swal.fire({
+			title: "Xác nhận xóa?",
+			text: "Bản dựng này sẽ bị xóa vĩnh viễn!",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#ef4444",
+			cancelButtonColor: "#6b7280",
+			confirmButtonText: "Vâng, xóa nó!",
+			cancelButtonText: "Hủy bỏ",
+			background: "#1f2937",
+			color: "#f3f4f6",
+		});
+
+		if (!result.isConfirmed) return;
+
 		setIsSaving(true);
 		try {
 			const token = localStorage.getItem("token");
@@ -214,9 +244,23 @@ function BuildEditor() {
 			if (!res.ok) throw new Error(tUI("admin.common.deleteFailed"));
 			await fetchAllData();
 			navigate("/admin/builds");
-			alert(tUI("admin.common.deleteSuccess"));
+			
+			Swal.fire({
+				icon: "success",
+				title: "Đã xóa!",
+				text: tUI("admin.common.deleteSuccess"),
+				timer: 2000,
+				showConfirmButton: false,
+				toast: true,
+				position: "top-end",
+			});
 		} catch (e) {
-			alert(e.message || tUI("admin.common.deleteFailed"));
+			Swal.fire({
+				icon: "error",
+				title: "Lỗi",
+				text: e.message || tUI("admin.common.deleteFailed"),
+				confirmButtonColor: "#3b82f6",
+			});
 		} finally {
 			setIsSaving(false);
 		}

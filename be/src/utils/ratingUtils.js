@@ -97,8 +97,8 @@ export async function syncChampionCommunityRatings(championID) {
 		}));
 
 		// 5. Xóa cache
-		championCache.del("all_champions_list");
-		championCache.del(`champion_detail_${championID}`);
+		await championCache.del("all_champions_list");
+		await championCache.del(`champion_detail_${championID}`);
 		
 		console.log(`Successfully synced community ratings for ${championID}`);
 		return updatedChampion;

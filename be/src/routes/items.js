@@ -32,7 +32,7 @@ router.get("/:itemCode", async (req, res) => {
 	const id = itemCode.trim();
 	const CACHE_KEY = `item_detail_${id}`;
 
-	const cachedItem = itemCache.get(CACHE_KEY);
+	const cachedItem = await itemCache.get(CACHE_KEY);
 	if (cachedItem) return res.json(cachedItem);
 
 	try {
@@ -46,7 +46,7 @@ router.get("/:itemCode", async (req, res) => {
 			return res.status(404).json({ error: `Không tìm thấy vật phẩm: ${id}` });
 
 		const itemData = unmarshall(Item);
-		itemCache.set(CACHE_KEY, itemData);
+		await itemCache.set(CACHE_KEY, itemData);
 
 		res.json(itemData);
 	} catch (error) {
@@ -198,7 +198,7 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 			user: req.user
 		});
 
-		invalidateItemCache(itemCode);
+		await invalidateItemCache(itemCode);
 
 		res.status(200).json({
 			message: isNew ? "Tạo mới thành công" : "Cập nhật thành công",
@@ -241,7 +241,7 @@ router.delete("/:itemCode", authenticateCognitoToken, async (req, res) => {
 			newData: null,
 			user: req.user
 		});
-		invalidateItemCache(itemCode);
+		await invalidateItemCache(itemCode);
 		res.status(200).json({ message: "Đã xóa vật phẩm thành công." });
 	} catch (error) {
 		console.error("Lỗi khi xóa vật phẩm:", error);

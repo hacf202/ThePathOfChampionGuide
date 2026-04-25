@@ -69,11 +69,18 @@ export const useCrudEditor = ({
 		setIsLoading(true);
 		setError(null);
 		try {
-			const res = await fetch(`${backendUrl}/api/${endpoint}`);
+			const timestamp = Date.now();
+			// Thêm t={timestamp} để tránh cache trình duyệt và cache: 'no-store'
+			const res = await fetch(`${backendUrl}/api/${endpoint}?t=${timestamp}`, {
+				cache: "no-store"
+			});
 			if (!res.ok) throw new Error(`Lỗi kết nối: ${res.status}`);
 			const result = await res.json();
+			// Nếu backend trả về object có items (như phân trang), lấy items. Nếu trả về array thì dùng luôn.
+			const list = Array.isArray(result) ? result : (result.items || []);
+			
 			// Chuẩn hóa dữ liệu ảnh để tránh lỗi hiển thị
-			const formattedData = result.map(item => ({
+			const formattedData = list.map(item => ({
 				...item,
 			}));
 			setData(formattedData);

@@ -51,12 +51,12 @@ const TABLES = {
  * @private
  */
 async function loadAll(cache, cacheKey, tableName, sortField = "name") {
-	let data = cache.get(cacheKey);
+	let data = await cache.get(cacheKey);
 	if (!data) {
 		const rawItems = await scanAll(client, { TableName: tableName });
 		data = rawItems.map(item => unmarshall(item));
 		data.sort((a, b) => (a[sortField] || "").localeCompare(b[sortField] || ""));
-		cache.set(cacheKey, data);
+		await cache.set(cacheKey, data);
 	}
 	return data;
 }
@@ -143,49 +143,49 @@ export async function getCachedCards() {
 // ─────────────────────────────────────────────────────────────
 
 /** Xóa cache của Powers khi dữ liệu thay đổi */
-export function invalidatePowerCache(powerCode) {
-	powerCache.del(CACHE_KEYS.POWERS.ALL);
-	if (powerCode) powerCache.del(CACHE_KEYS.POWERS.DETAIL(powerCode));
+export async function invalidatePowerCache(powerCode) {
+	await powerCache.del(CACHE_KEYS.POWERS.ALL);
+	if (powerCode) await powerCache.del(CACHE_KEYS.POWERS.DETAIL(powerCode));
 }
 
 /** Xóa cache của Relics khi dữ liệu thay đổi */
-export function invalidateRelicCache(relicCode) {
-	relicCache.del(CACHE_KEYS.RELICS.ALL);
-	if (relicCode) relicCache.del(CACHE_KEYS.RELICS.DETAIL(relicCode));
+export async function invalidateRelicCache(relicCode) {
+	await relicCache.del(CACHE_KEYS.RELICS.ALL);
+	if (relicCode) await relicCache.del(CACHE_KEYS.RELICS.DETAIL(relicCode));
 }
 
 /** Xóa cache của Items khi dữ liệu thay đổi */
-export function invalidateItemCache(itemCode) {
-	itemCache.del(CACHE_KEYS.ITEMS.ALL);
-	if (itemCode) itemCache.del(CACHE_KEYS.ITEMS.DETAIL(itemCode));
+export async function invalidateItemCache(itemCode) {
+	await itemCache.del(CACHE_KEYS.ITEMS.ALL);
+	if (itemCode) await itemCache.del(CACHE_KEYS.ITEMS.DETAIL(itemCode));
 }
 
 /** Xóa cache của Runes khi dữ liệu thay đổi */
-export function invalidateRuneCache(runeCode) {
-	runeCache.del(CACHE_KEYS.RUNES.ALL);
-	if (runeCode) runeCache.del(CACHE_KEYS.RUNES.DETAIL(runeCode));
+export async function invalidateRuneCache(runeCode) {
+	await runeCache.del(CACHE_KEYS.RUNES.ALL);
+	if (runeCode) await runeCache.del(CACHE_KEYS.RUNES.DETAIL(runeCode));
 }
 
 /** Xóa cache của Champions khi dữ liệu thay đổi */
-export function invalidateChampionCache(championID) {
-	championCache.del(CACHE_KEYS.CHAMPIONS.ALL);
-	if (championID) championCache.del(CACHE_KEYS.CHAMPIONS.DETAIL(championID));
+export async function invalidateChampionCache(championID) {
+	await championCache.del(CACHE_KEYS.CHAMPIONS.ALL);
+	if (championID) await championCache.del(CACHE_KEYS.CHAMPIONS.DETAIL(championID));
 }
 
 /** Xóa toàn bộ cache của Bosses khi dữ liệu thay đổi */
-export function invalidateBossCache() {
-	bossCache.flushAll();
+export async function invalidateBossCache() {
+	await bossCache.flushAll();
 }
 
 /** Xóa cache của Adventures khi dữ liệu thay đổi */
-export function invalidateAdventureCache() {
-	adventureCache.flushAll();
+export async function invalidateAdventureCache() {
+	await adventureCache.flushAll();
 }
 
 /** Xóa cache của Cards khi dữ liệu thay đổi */
-export function invalidateCardCache(cardCode) {
-	cardCache.del(CACHE_KEYS.CARDS.ALL);
-	if (cardCode) cardCache.del(CACHE_KEYS.CARDS.DETAIL(cardCode));
+export async function invalidateCardCache(cardCode) {
+	await cardCache.del(CACHE_KEYS.CARDS.ALL);
+	if (cardCode) await cardCache.del(CACHE_KEYS.CARDS.DETAIL(cardCode));
 }
 
 // ─────────────────────────────────────────────────────────────

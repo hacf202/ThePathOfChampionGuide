@@ -58,7 +58,7 @@ router.get("/:relicCode", async (req, res) => {
 	const id = relicCode.trim();
 	const CACHE_KEY = `relic_detail_${id}`;
 
-	const cachedRelic = relicCache.get(CACHE_KEY);
+	const cachedRelic = await relicCache.get(CACHE_KEY);
 	if (cachedRelic) return res.json(cachedRelic);
 
 	try {
@@ -72,7 +72,7 @@ router.get("/:relicCode", async (req, res) => {
 			return res.status(404).json({ error: `Không tìm thấy cổ vật: ${id}` });
 
 		const relicData = unmarshall(Item);
-		relicCache.set(CACHE_KEY, relicData);
+		await relicCache.set(CACHE_KEY, relicData);
 		res.json(relicData);
 	} catch (error) {
 		console.error(`Lỗi khi lấy chi tiết cổ vật ${id}:`, error);
@@ -247,7 +247,7 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 			user: req.user
 		});
 
-		invalidateRelicCache(relicCode);
+		await invalidateRelicCache(relicCode);
 
 		res.status(200).json({
 			message: isNew ? "Tạo mới thành công" : "Cập nhật thành công",
@@ -290,7 +290,7 @@ router.delete("/:relicCode", authenticateCognitoToken, async (req, res) => {
 			newData: null,
 			user: req.user
 		});
-		invalidateRelicCache(relicCode);
+		await invalidateRelicCache(relicCode);
 		res.status(200).json({ message: "Đã xóa cổ vật thành công." });
 	} catch (error) {
 		console.error("Lỗi xóa Relics:", error);
