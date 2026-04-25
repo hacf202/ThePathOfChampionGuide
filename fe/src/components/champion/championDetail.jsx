@@ -1,5 +1,5 @@
 // src/pages/championDetail.jsx
-import { memo, useMemo, useState, useEffect, useCallback } from "react";
+import { memo, useMemo, useState, useEffect, useCallback, useRef } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import iconRegions from "../../assets/data/icon.json";
@@ -101,6 +101,7 @@ const RenderItem = ({ item }) => {
 function ChampionDetail() {
 	const { championID } = useParams();
 	const navigate = useNavigate();
+	const lastChampionIDRef = useRef(null);
 
 	// 🟢 Sửa lại: Dùng tDynamic và tUI
 	const { language, tDynamic, tUI } = useTranslation();
@@ -186,7 +187,9 @@ function ChampionDetail() {
 
 	const initData = useCallback(async () => {
 		try {
-			setLoading(true);
+			if (lastChampionIDRef.current !== championID) {
+				setLoading(true);
+			}
 
 			// 1. Fetch Dữ liệu Tướng "Full" (Bao gồm Constellation, Resolved Data, Suggestions, Ratings)
 			const response = await api.get(`/champions/${championID}/full`);
@@ -211,6 +214,7 @@ function ChampionDetail() {
 			setResolvedStartingCards(resolvedData.cards || []);
 			setAllRatings(ar || []);
 			setMyRating(pr || null);
+			lastChampionIDRef.current = championID;
 
 			// 2. Nạp cards vào hệ thống Lookup để Tooltip trong Markup hoạt động
 			if (resolvedData.cards) {
@@ -236,9 +240,20 @@ function ChampionDetail() {
 	}, [championID, tUI, tDynamic, resolveEntities]);
 
 	useEffect(() => {
+		// Reset states when switching champions
+		setChampion(null);
+		setConstellationData(null);
+		setTopBuilds([]);
+		setLoading(true);
+	}, [championID]);
+
+	useEffect(() => {
 		initData();
+	}, [initData]);
+
+	useEffect(() => {
 		fetchTopBuilds();
-	}, [initData, fetchTopBuilds]);
+	}, [fetchTopBuilds]);
 
 	// Xử lý dữ liệu hiển thị Đa ngôn ngữ cho Chòm sao
 	const constellationInfo = useMemo(() => {

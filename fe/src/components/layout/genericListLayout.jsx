@@ -181,7 +181,7 @@ const GenericListLayout = ({
 					>
 						<div className='bg-surface-bg rounded-lg border border-border p-2 sm:p-4 shadow-sm min-h-[500px] relative overflow-visible'>
 							<AnimatePresence mode='wait'>
-								{loading && data.length === 0 ? (
+								{loading && (!isInfiniteScroll || data.length === 0) ? (
 									<motion.div
 										key='skeleton'
 										initial={{ opacity: 0 }}

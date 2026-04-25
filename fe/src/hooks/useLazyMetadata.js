@@ -1,5 +1,5 @@
 // src/hooks/useLazyMetadata.js
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 
 export const useLazyMetadata = tUI => {
 	const [metadata, setMetadata] = useState({
@@ -10,9 +10,10 @@ export const useLazyMetadata = tUI => {
 	});
 	const [isLoadingMeta, setIsLoadingMeta] = useState(false);
 	const [isLoaded, setIsLoaded] = useState(false);
+	const isLoadedRef = useRef(false);
 
 	const fetchAllMetadata = useCallback(async () => {
-		if (isLoaded) return; // Nếu đã tải rồi thì không tải lại
+		if (isLoadedRef.current) return; // Nếu đã tải rồi thì không tải lại
 		setIsLoadingMeta(true);
 		try {
 			const apiUrl = import.meta.env.VITE_API_URL;
@@ -40,13 +41,14 @@ export const useLazyMetadata = tUI => {
 				powers: powerData.items || [],
 				runes: runeData.items || [],
 			});
+			isLoadedRef.current = true;
 			setIsLoaded(true);
 		} catch (err) {
 			console.error("Lỗi lazy load metadata:", err);
 		} finally {
 			setIsLoadingMeta(false);
 		}
-	}, [isLoaded]);
+	}, []);
 
 	return { metadata, isLoadingMeta, fetchAllMetadata };
 };
