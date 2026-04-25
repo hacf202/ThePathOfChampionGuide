@@ -1,46 +1,15 @@
-import os from "os";
 import axios from "axios";
 import sharp from "sharp";
-import fs from "fs";
-import path from "path";
-import crypto from "crypto";
-
-// Trên Vercel, chỉ có thư mục /tmp là có quyền ghi
-const CACHE_DIR = process.env.VERCEL
-	? path.join(os.tmpdir(), "proxy-images")
-	: path.join(process.cwd(), "cache", "proxy-images");
-
-// Đảm bảo thư mục cache tồn tại
-if (!fs.existsSync(CACHE_DIR)) {
-	try {
-		fs.mkdirSync(CACHE_DIR, { recursive: true });
-	} catch (e) {
-		console.warn("Could not create cache directory:", e.message);
-	}
-}
 
 /**
- * Xử lý proxy hình ảnh với Disk Caching và Sharp
+ * Xử lý proxy hình ảnh (Đã loại bỏ Disk Caching theo yêu cầu)
  * @param {string} imageUrl - URL gốc của ảnh
  * @param {object} options - { width, height, quality }
  * @returns {Promise<{data: Buffer, contentType: string}>}
  */
 export async function getProxyImage(imageUrl, { width, height, quality = 80 } = {}) {
-	// Tạo hash MD5 từ URL và các tùy chọn để làm tên file cache độc nhất
-	const hash = crypto.createHash("md5").update(`${imageUrl}_w${width || "orig"}_h${height || "orig"}_q${quality}`).digest("hex");
-	const cachePath = path.join(CACHE_DIR, `${hash}.webp`);
-
-	// 1. Kiểm tra nếu đã có trong Disk Cache
-	if (fs.existsSync(cachePath)) {
-		const cachedData = fs.readFileSync(cachePath);
-		return {
-			data: cachedData,
-			contentType: "image/webp",
-		};
-	}
-
-	// 2. Nếu chưa có, tải từ nguồn gốc
 	try {
+		// Tải ảnh từ nguồn gốc
 		const response = await axios({
 			url: imageUrl,
 			method: "GET",
@@ -53,7 +22,7 @@ export async function getProxyImage(imageUrl, { width, height, quality = 80 } = 
 
 		let transformer = sharp(response.data);
 
-		// Thao tác với Sharp
+		// Thao tác với Sharp (Resize nếu có yêu cầu)
 		if (width || height) {
 			transformer = transformer.resize(
 				width ? parseInt(width) : null,
@@ -62,13 +31,10 @@ export async function getProxyImage(imageUrl, { width, height, quality = 80 } = 
 			);
 		}
 
-		// Chuyển sang WebP để tối ưu dung lượng
+		// Chuyển sang WebP để tối ưu dung lượng và trả về buffer trực tiếp
 		const optimizedBuffer = await transformer
 			.webp({ quality })
 			.toBuffer();
-
-		// 3. Lưu vào Disk Cache
-		fs.writeFileSync(cachePath, optimizedBuffer);
 
 		return {
 			data: optimizedBuffer,
