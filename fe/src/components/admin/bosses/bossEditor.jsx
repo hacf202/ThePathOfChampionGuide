@@ -10,6 +10,7 @@ import DropDragSidePanel from "../common/dropSidePanel";
 import AdminListLayout from "../common/adminListLayout";
 import { Loader2 } from "lucide-react";
 import { useTranslation } from "../../../hooks/useTranslation";
+import Swal from "sweetalert2";
 
 const CustomBossTooltip = ({ bossID, powers, cachedData, tUI }) => {
 	return (
@@ -188,18 +189,26 @@ function BossEditor() {
 		try {
 			setIsLoading(true);
 
+			// Thêm timestamp để tránh cache và limit=-1 để lấy toàn bộ Boss
+			const timestamp = Date.now();
 			const [bossRes, powerRes] = await Promise.all([
-				fetch(`${API_BASE_URL}/api/bosses`),
-				fetch(`${API_BASE_URL}/api/powers?limit=-1`),
+				fetch(`${API_BASE_URL}/api/bosses?limit=-1&t=${timestamp}`, { cache: "no-store" }),
+				fetch(`${API_BASE_URL}/api/powers?limit=-1&t=${timestamp}`, { cache: "no-store" }),
 			]);
 
 			const bossData = await bossRes.json();
 			const powerData = await powerRes.json();
 
-			setItems(bossData.items || []);
-			setPowers(powerData.items || []);
+			setItems(bossData.items || (Array.isArray(bossData) ? bossData : []));
+			setPowers(powerData.items || (Array.isArray(powerData) ? powerData : []));
 		} catch (e) {
 			console.error("Lỗi khi tải dữ liệu:", e);
+			Swal.fire({
+				icon: "error",
+				title: "Lỗi tải dữ liệu",
+				text: "Không thể kết nối tới máy chủ. Vui lòng thử lại sau.",
+				confirmButtonColor: "#3b82f6",
+			});
 		} finally {
 			setIsLoading(false);
 		}
@@ -221,31 +230,84 @@ function BossEditor() {
 				},
 				body: JSON.stringify(data),
 			});
-			if (!res.ok) throw new Error("Lưu thất bại.");
+			if (!res.ok) {
+				const err = await res.json().catch(() => ({ message: "Lưu thất bại." }));
+				throw new Error(err.message || "Lưu thất bại.");
+			}
 			await fetchAllData();
 			navigate("/admin/bosses");
-			alert("Lưu thành công!");
+			
+			Swal.fire({
+				icon: "success",
+				title: "Đã lưu!",
+				text: "Thông tin Boss đã được cập nhật thành công.",
+				timer: 2000,
+				showConfirmButton: false,
+				toast: true,
+				position: "top-end",
+			});
 		} catch (e) {
-			alert(e.message);
+			Swal.fire({
+				icon: "error",
+				title: "Lỗi lưu dữ liệu",
+				text: e.message,
+				confirmButtonColor: "#3b82f6",
+			});
 		} finally {
 			setIsSaving(false);
 		}
 	};
 
 	const handleDeleteItem = async id => {
-		if (!id || !window.confirm("Bạn có chắc muốn xóa Boss này?")) return;
+		if (!id) return;
+		
+		const result = await Swal.fire({
+			title: "Xác nhận xóa?",
+			text: "Bạn sẽ không thể khôi phục lại dữ liệu Boss này!",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#ef4444",
+			cancelButtonColor: "#6b7280",
+			confirmButtonText: "Vâng, xóa nó!",
+			cancelButtonText: "Hủy bỏ",
+			background: "#1f2937",
+			color: "#f3f4f6",
+		});
+
+		if (!result.isConfirmed) return;
+
 		setIsSaving(true);
 		try {
 			const token = localStorage.getItem("token");
-			await fetch(`${API_BASE_URL}/api/bosses/${id}`, {
+			const res = await fetch(`${API_BASE_URL}/api/bosses/${id}`, {
 				method: "DELETE",
 				headers: { Authorization: `Bearer ${token}` },
 			});
+			
+			if (!res.ok) {
+				const err = await res.json().catch(() => ({ message: "Xóa thất bại." }));
+				throw new Error(err.message || "Xóa thất bại.");
+			}
+
 			await fetchAllData();
 			navigate("/admin/bosses");
-			alert("Xóa thành công!");
+			
+			Swal.fire({
+				icon: "success",
+				title: "Đã xóa!",
+				text: "Boss đã được loại bỏ khỏi danh sách.",
+				timer: 2000,
+				showConfirmButton: false,
+				toast: true,
+				position: "top-end",
+			});
 		} catch (e) {
-			alert(e.message);
+			Swal.fire({
+				icon: "error",
+				title: "Lỗi khi xóa",
+				text: e.message,
+				confirmButtonColor: "#3b82f6",
+			});
 		} finally {
 			setIsSaving(false);
 		}
@@ -309,7 +371,10 @@ function BossEditor() {
 			{ value: "id-desc", label: tUI("admin.common.sortIdDesc") },
 		],
 		sortSelectedValue: sortOrder,
-		onSortChange: setSortOrder,
+		onSortChange: val => {
+			setSortOrder(val);
+			setCurrentPage(1);
+		},
 	};
 
 	const cachedData = { bosses: items, powers };

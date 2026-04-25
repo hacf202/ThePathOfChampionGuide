@@ -186,8 +186,9 @@ const BossEditorForm = memo(
 								/>
 							</div>
 
-							<div className='border border-border rounded-lg p-4 bg-surface-hover/20'>
-								<h3 className='font-bold text-blue-500 mb-3 pb-2 border-b border-border'>
+							<div className='border border-border rounded-lg p-4 bg-surface-hover/20 transition-all hover:bg-surface-hover/30'>
+								<h3 className='font-bold text-blue-400 mb-3 pb-2 border-b border-border flex items-center gap-2'>
+									<span className='w-2 h-2 rounded-full bg-blue-400 animate-pulse'></span>
 									Tiếng Anh (Tùy chọn)
 								</h3>
 								<InputField
@@ -195,7 +196,7 @@ const BossEditorForm = memo(
 									name='bossName'
 									value={formData.translations?.en?.bossName || ""}
 									onChange={e => handleTranslationChange(e, "en")}
-									placeholder='English Name...'
+									placeholder='Nhập tên Boss bằng tiếng Anh...'
 								/>
 							</div>
 						</div>
