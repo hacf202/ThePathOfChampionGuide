@@ -270,8 +270,6 @@ const BonusStarEditorForm = memo(
 						</div>
 					</div>
 				</form>
-
-				</form>
 			</>
 		);
 	},
