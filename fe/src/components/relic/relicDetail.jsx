@@ -90,6 +90,7 @@ function RelicDetail() {
 			onBack={() => navigate(-1)}
 			pageTitle={relicName || tUI("relicDetail.title")}
 			pageDescription={`${tUI("relicDetail.metaDesc")} ${relicName}`}
+			pageKeywords={`${relicName}, relic, ${relicRarity}, LoR relic, PoC relic`}
 			imageSrc={relic?.assetAbsolutePath}
 			name={relicName}
 			rarity={relicRarity}

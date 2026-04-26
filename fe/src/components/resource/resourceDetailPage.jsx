@@ -63,6 +63,7 @@ const ResourceDetailPage = () => {
       imageSrc={resource.icon}
       name={isEn ? resource.name_en : resource.name}
       description={autoLinkResources(isEn ? resource.description_en : resource.description)}
+      pageKeywords={`${isEn ? resource.name_en : resource.name}, resource, LoR resource, PoC resource, ${isEn ? resource.category_en : resource.category}`}
       onBack={() => navigate("/resources")}
       labels={{
         back: tUI("common.back"),

@@ -6,12 +6,13 @@ import { useTranslation } from "../../hooks/useTranslation";
 export default function PageTitle({
 	title = "",
 	description = "",
+	keywords = "",
 	image = "",
 	noIndex = false,
 	locale,
 	type = "website",
 }) {
-	const { language, tUI } = useTranslation(); // 🟢 Sử dụng tUI
+	const { language, tUI } = useTranslation();
 	const location = useLocation();
 	const siteName = "POC GUIDE";
 	const baseUrl = window.location.origin;
@@ -19,10 +20,12 @@ export default function PageTitle({
 
 	const fullTitle = title ? `${title} | ${siteName}` : siteName;
 
-	// 🟢 Lấy mô tả mặc định từ từ điển
+	// 🟢 Lấy mô tả & từ khóa mặc định từ từ điển
 	const defaultDescription = tUI("metadata.defaultDescription");
+	const defaultKeywords = tUI("metadata.defaultKeywords");
 
 	const metaDescription = description || defaultDescription;
+	const metaKeywords = keywords ? `${keywords}, ${defaultKeywords}` : defaultKeywords;
 	const ogImage = image || `${baseUrl}/default-og-image.png`;
 
 	// 🟢 Xác định locale chuẩn SEO
@@ -65,6 +68,7 @@ export default function PageTitle({
 		<Helmet htmlAttributes={{ lang: language }}>
 			<title>{fullTitle}</title>
 			<meta name='description' content={metaDescription} />
+			<meta name='keywords' content={metaKeywords} />
 			{noIndex && <meta name='robots' content='noindex, nofollow' />}
 
 			<link rel='canonical' href={canonicalUrl} />

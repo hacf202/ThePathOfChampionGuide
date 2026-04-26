@@ -37,6 +37,7 @@ function EntityDetailLayout({
 	onBack,
 	pageTitle,
 	pageDescription,
+	pageKeywords,
 	imageSrc,
 	name,
 	rarity,
@@ -68,7 +69,7 @@ function EntityDetailLayout({
 
 	return (
 		<div className='animate-fadeIn'>
-			<PageTitle title={pageTitle} description={pageDescription} type='article' />
+			<PageTitle title={pageTitle} description={pageDescription} keywords={pageKeywords} type='article' />
 
 			<AnimatePresence mode='wait'>
 				{loading ? (

@@ -92,6 +92,7 @@ function ItemDetail() {
 			onBack={() => navigate(-1)}
 			pageTitle={itemName || tUI("itemDetail.title")}
 			pageDescription={`${tUI("itemDetail.metaDesc")} ${itemName}`}
+			pageKeywords={`${itemName}, item, ${itemRarity}, LoR item, PoC item`}
 			imageSrc={item?.assetAbsolutePath}
 			name={itemName}
 			rarity={itemRarity}

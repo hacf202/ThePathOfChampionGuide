@@ -123,6 +123,7 @@ function BossDetailPage() {
 			<PageTitle 
 				title={`${bossName} - ${tUI("bossDetail.pageTitle") || "Boss Detail"}`} 
 				description={`${tUI("bossDetail.pageDescriptionPrefix") || "Chi tiết sức mạnh và mẹo đối đầu với Boss"} ${bossName}`}
+				keywords={`${bossName}, boss, LoR boss, PoC boss, strategy ${bossName}, guide ${bossName}`}
 			/>
 
 			<div className='mb-4 flex items-center justify-between px-2 sm:px-0'>

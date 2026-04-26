@@ -64,6 +64,7 @@ function AdventureMapDetail() {
 						: tUI("adventureMap.detailTitle") || "Chi tiết bản đồ"
 				}
 				description={`${tUI("adventureMap.detailDesc") || "Hướng dẫn chi tiết bản đồ"} ${adventure?.adventureName || ""}`}
+				keywords={adventure ? `${tDynamic(adventure, "adventureName")}, adventure, LoR adventure, PoC map, ${adventure.difficulty} stars` : ""}
 			/>
 			<Button variant='outline' onClick={() => navigate(-1)} className='mb-4'>
 				<ChevronLeft size={18} /> {tUI("common.back") || "Quay lại"}

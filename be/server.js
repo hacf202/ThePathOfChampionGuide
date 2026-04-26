@@ -33,6 +33,7 @@ import searchRouter from "./src/routes/search.js";
 import analyticsRouter from "./src/routes/analytics.js";
 import { trackActivity } from "./src/middleware/trackActivity.js";
 import resourcesRouter from "./src/routes/resources.js";
+import sitemapRouter from "./src/routes/sitemap.js";
 
 // Kiểm tra các biến môi trường cần thiết
 const requiredEnvVars = [
@@ -137,6 +138,7 @@ app.use("/api/admin/audit-logs", auditLogsRouter);
 app.use("/api/search", searchRouter);
 app.use("/api/resources", resourcesRouter);
 app.use("/api/admin/analytics", analyticsRouter);
+app.use("/api/sitemap.xml", sitemapRouter);
 
 // API để kiểm tra "sức khỏe" của server
 app.get("/api/checkheal", (req, res) => {

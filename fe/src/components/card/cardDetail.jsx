@@ -127,6 +127,7 @@ const CardDetail = () => {
 			<PageTitle
 				title={cardName || tUI("cardDetail.title")}
 				description={`${tUI("cardDetail.metaDesc")} ${cardName}`}
+				keywords={`${cardName}, card, ${type}, LoR card, PoC card`}
 				type='article'
 			/>
 

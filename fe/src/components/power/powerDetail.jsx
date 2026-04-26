@@ -90,6 +90,7 @@ function PowerDetail() {
 			onBack={() => navigate(-1)}
 			pageTitle={powerName || tUI("powerDetail.title")}
 			pageDescription={`${tUI("powerDetail.metaDesc")} ${powerName}`}
+			pageKeywords={`${powerName}, power, ${powerRarity}, LoR power, PoC power`}
 			imageSrc={power?.assetAbsolutePath}
 			name={powerName}
 			rarity={powerRarity}

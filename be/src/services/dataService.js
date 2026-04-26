@@ -29,6 +29,8 @@ const championCache = cacheManager.getOrCreateCache("champions", { stdTTL: 1800,
 const bossCache     = cacheManager.getOrCreateCache("bosses",    { stdTTL: 86400, checkperiod: 60 });
 const adventureCache = cacheManager.getOrCreateCache("adventures", { stdTTL: 86400, checkperiod: 60 });
 const cardCache      = cacheManager.getOrCreateCache("cards",      { stdTTL: 86400, checkperiod: 60 });
+const guideCache     = cacheManager.getOrCreateCache("guides",     { stdTTL: 86400, checkperiod: 120 });
+const resourceCache  = cacheManager.getOrCreateCache("resources",  { stdTTL: 86400, checkperiod: 120 });
 
 // --- Table Names ---
 const TABLES = {
@@ -40,6 +42,8 @@ const TABLES = {
 	BOSSES:     "guidePocBosses",
 	ADVENTURES: "guidePocAdventureMap",
 	CARDS:      "guidePocCardList",
+	GUIDES:     "guidePocGuideList",
+	RESOURCES:  "guidePocResourceList",
 };
 
 // ─────────────────────────────────────────────────────────────
@@ -138,6 +142,16 @@ export async function getCachedCards() {
 	return loadAll(cardCache, CACHE_KEYS.CARDS.ALL, TABLES.CARDS, "cardName");
 }
 
+/** Lấy toàn bộ Guides (Hướng dẫn) từ RAM hoặc DynamoDB */
+export async function getCachedGuides() {
+	return loadAll(guideCache, "all_guides", TABLES.GUIDES, "title");
+}
+
+/** Lấy toàn bộ Resources (Tài nguyên) từ RAM hoặc DynamoDB */
+export async function getCachedResources() {
+	return loadAll(resourceCache, "all_resources", TABLES.RESOURCES, "name");
+}
+
 // ─────────────────────────────────────────────────────────────
 // CACHE INVALIDATION HELPERS
 // ─────────────────────────────────────────────────────────────
@@ -186,6 +200,18 @@ export async function invalidateAdventureCache() {
 export async function invalidateCardCache(cardCode) {
 	await cardCache.del(CACHE_KEYS.CARDS.ALL);
 	if (cardCode) await cardCache.del(CACHE_KEYS.CARDS.DETAIL(cardCode));
+}
+
+/** Xóa cache của Guides khi dữ liệu thay đổi */
+export async function invalidateGuideCache(slug) {
+	await guideCache.del("all_guides");
+	if (slug) await guideCache.del(`guide_${slug}`);
+}
+
+/** Xóa cache của Resources khi dữ liệu thay đổi */
+export async function invalidateResourceCache(resourceId) {
+	await resourceCache.del("all_resources");
+	if (resourceId) await resourceCache.del(`resource_${resourceId}`);
 }
 
 // ─────────────────────────────────────────────────────────────

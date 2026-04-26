@@ -130,6 +130,7 @@ const GuideDetail = () => {
 			<PageTitle
 				title={`${guide.title} | POC GUIDE`}
 				description={guide.title}
+				keywords={`${guide.title}, hướng dẫn LoR, PoC guide, cẩm nang Path of Champions`}
 				type='article'
 			/>
 

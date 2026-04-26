@@ -4,4 +4,4 @@ Disallow: /admin/
 Disallow: /profile
 Disallow: /auth
 
-Sitemap: https://www.pocguide.top/sitemap.xml
+Sitemap: https://www.pocguide.top/api/sitemap.xml

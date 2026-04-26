@@ -90,6 +90,7 @@ function RuneDetail() {
 			onBack={() => navigate(-1)}
 			pageTitle={runeName || tUI("runeDetail.title")}
 			pageDescription={`${tUI("runeDetail.metaDesc")} ${runeName}`}
+			pageKeywords={`${runeName}, rune, ${runeRarity}, LoR rune, PoC rune`}
 			imageSrc={rune?.assetAbsolutePath}
 			name={runeName}
 			rarity={runeRarity}

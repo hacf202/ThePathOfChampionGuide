@@ -457,6 +457,7 @@ function ChampionDetail() {
 					champion ? tDynamic(champion, "name") : tUI("championDetail.title")
 				}
 				description={`${tUI("championDetail.metaDesc")} ${tDynamic(champion, "name")}`}
+				keywords={champion ? `${tDynamic(champion, "name")}, build ${tDynamic(champion, "name")}, PoC ${tDynamic(champion, "name")}, ${champion.regions?.join(", ")}` : ""}
 				type='article'
 			/>
 			<div className='max-w-[1200px] mx-auto p-0 sm:p-6 text-text-primary font-secondary'>
