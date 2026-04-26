@@ -61,7 +61,7 @@ export const useBuildData = (activeTab, queryParams, tUI, token) => {
 		} catch (err) {
 			setError(err.message);
 		} finally {
-			setTimeout(() => setLoading(false), 500); // Tránh giật flash loading
+			setLoading(false);
 		}
 	}, [activeTab, queryParams, tUI, token]);
 

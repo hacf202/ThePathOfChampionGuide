@@ -48,7 +48,7 @@ export const useChampionData = (queryParams, tUI) => {
 		} catch (err) {
 			setError(err.message);
 		} finally {
-			setTimeout(() => setLoading(false), 800); // Giữ delay cho animation skeleton mượt mà
+			setLoading(false);
 		}
 	}, [queryParams, tUI]);
 
