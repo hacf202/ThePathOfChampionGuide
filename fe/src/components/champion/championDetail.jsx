@@ -8,7 +8,7 @@ import LatestComments from "../comment/latestComments";
 import Button from "../common/button";
 import PageTitle from "../common/pageTitle";
 import SafeImage from "../common/SafeImage";
-import GoogleAd from "../common/googleAd";
+
 import MarkupRenderer from "../common/MarkupRenderer";
 
 // Import API và i18n
@@ -490,7 +490,7 @@ function ChampionDetail() {
 							{/* HEADER SECTION (Avatar + Name + Description) */}
 							<div className='flex flex-col md:flex-row border border-border gap-4 rounded-xl bg-surface-bg sm:p-6 shadow-sm overflow-hidden'>
 								<SafeImage
-									className='h-auto max-h-[300px] object-contain rounded-lg'
+									className='h-[300px] w-full md:w-[300px] object-contain rounded-lg mt-4'
 									src={champion.assets?.[0]?.avatar}
 									alt={tDynamic(champion, "name")}
 								/>
@@ -550,7 +550,7 @@ function ChampionDetail() {
 
 							{/* CONSTELLATION SECTION */}
 							{constellationInfo.nodes.length > 0 && (
-								<div className="bg-surface-bg border border-border rounded-xl p-4 sm:p-6 shadow-sm mt-6 overflow-hidden">
+								<div className="bg-surface-bg border border-border rounded-xl p-1 sm:p-6 shadow-sm mt-6 overflow-hidden">
 									<h2 className='p-1 text-lg sm:text-3xl font-semibold font-primary text-primary-500 flex items-center gap-3 border-b border-border mb-6'>
 										{tUI("championDetail.constellation")}
 									</h2>
@@ -567,7 +567,7 @@ function ChampionDetail() {
 							)}
 
 							{/* VIDEO SECTION */}
-							<div className="bg-surface-bg border border-border rounded-xl p-4 sm:p-6 shadow-sm mt-6">
+							<div className="bg-surface-bg border border-border rounded-xl p-1 sm:p-6 shadow-sm mt-6">
 								<h2 className='p-1 text-lg sm:text-3xl font-semibold mb-3 font-primary text-primary-500 border-b border-border'>
 									{tUI("championDetail.video")}
 								</h2>
@@ -589,7 +589,7 @@ function ChampionDetail() {
 							{/* STARTING DECK SECTION */}
 							{(champion.startingDeck?.baseCards?.length > 0 ||
 								champion.startingDeck?.referenceCards?.length > 0) && (
-								<div className="bg-surface-bg border border-border rounded-xl p-4 sm:p-6 shadow-sm mt-6 overflow-hidden">
+								<div className="bg-surface-bg border border-border rounded-xl p-1 sm:p-6 shadow-sm mt-6 overflow-hidden">
 									<div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-border mb-6 gap-4">
 										<div className="flex items-center gap-4">
 											<h2 className='p-1 text-lg sm:text-3xl font-semibold font-primary text-primary-500 flex items-center gap-3'>
@@ -808,7 +808,7 @@ function ChampionDetail() {
 
 							{/* TOP COMMUNITY BUILDS */}
 							{topBuilds.length > 0 && (
-								<div className="bg-surface-bg border border-border rounded-xl p-4 sm:p-6 shadow-sm mt-6">
+								<div className="bg-surface-bg border border-border rounded-xl p-1 sm:p-6 shadow-sm mt-6">
 									<div className="flex items-center justify-between border-b border-border mb-6 pb-2">
 										<h2 className='text-lg sm:text-3xl font-semibold font-primary text-primary-500'>
 											{tUI("championDetail.communityBuilds") || "Top Community Builds"}
@@ -842,11 +842,11 @@ function ChampionDetail() {
 
 							{/* RELIC SETS SECTION */}
 							{relicSetsToRender.length > 0 && (
-								<div className="bg-surface-bg border border-border rounded-xl p-4 sm:p-6 shadow-sm mt-6">
+								<div className="bg-surface-bg border border-border rounded-xl p-1 sm:p-6 shadow-sm mt-6">
 									<h2 className='p-1 text-lg sm:text-3xl font-semibold mb-3 font-primary text-primary-500 border-b border-border'>
 										{tUI("championDetail.relicSets")}
 									</h2>
-									<div className='grid gap-4 bg-surface-hover/50 p-2 rounded-lg'>
+									<div className='grid gap-4 bg-surface-hover/50 rounded-lg'>
 										{relicSetsToRender.map((set, idx) => (
 											<div
 												key={idx}
@@ -864,7 +864,7 @@ function ChampionDetail() {
 							{/* RECOMMENDATIONS (Powers, Items, Runes) */}
 							<div className="space-y-6 mt-6">
 								{adventurePowersFull.length > 0 && (
-									<div className="bg-surface-bg border border-border rounded-xl p-4 sm:p-6 shadow-sm">
+									<div className="bg-surface-bg border border-border rounded-xl p-1 sm:p-6 shadow-sm">
 										<h2 className='p-1 text-lg sm:text-3xl font-semibold mb-3 font-primary text-primary-500 border-b border-border'>
 											{tUI("championDetail.recPowers")}
 										</h2>
@@ -877,7 +877,7 @@ function ChampionDetail() {
 								)}
 
 								{defaultItemsFull.length > 0 && (
-									<div className="bg-surface-bg border border-border rounded-xl p-4 sm:p-6 shadow-sm">
+									<div className="bg-surface-bg border border-border rounded-xl p-1 sm:p-6 shadow-sm">
 										<h2 className='p-1 text-lg sm:text-3xl font-semibold mb-3 font-primary text-primary-500 border-b border-border'>
 											{tUI("championDetail.recItems")}
 										</h2>
@@ -890,7 +890,7 @@ function ChampionDetail() {
 								)}
 
 								{runesFull.length > 0 && (
-									<div className="bg-surface-bg border border-border rounded-xl p-4 sm:p-6 shadow-sm">
+									<div className="bg-surface-bg border border-border rounded-xl p-1 sm:p-6 shadow-sm">
 										<h2 className='p-1 text-lg sm:text-3xl font-semibold mb-3 font-primary text-primary-500 border-b border-border'>
 											{tUI("championDetail.recRunes")}
 										</h2>
@@ -903,17 +903,11 @@ function ChampionDetail() {
 								)}
 							</div>
 
-							{/* AD SECTION 1 */}
-							<div className='my-8 border-y border-border py-6 bg-surface-bg/50 rounded-xl'>
-								<p className='text-xs text-text-secondary text-center mb-3 uppercase tracking-widest'>
-									{tUI("common.ad")}
-								</p>
-								<GoogleAd slot='2943049680' format='horizontal' />
-							</div>
+
 
 							{/* SUGGESTED CHAMPIONS */}
 							{suggestedChampions.length > 0 && (
-								<div className='mt-12 mb-8 bg-surface-bg border border-border rounded-xl p-4 sm:p-6 shadow-sm'>
+								<div className='mt-12 mb-8 bg-surface-bg border border-border rounded-xl p-1 sm:p-6 shadow-sm'>
 									<h2 className='p-1 text-lg sm:text-2xl font-semibold mb-6 font-primary text-primary-500 border-b border-border uppercase flex items-center gap-2'>
 										{tUI("championDetail.suggestedTitle")}
 									</h2>
@@ -954,17 +948,11 @@ function ChampionDetail() {
 							)}
 
 							{/* COMMENTS SECTION */}
-							<div className='mt-8 bg-surface-bg border border-border rounded-xl p-4 sm:p-6 shadow-sm'>
+							<div className='mt-8 bg-surface-bg border border-border rounded-xl p-1 sm:p-6 shadow-sm'>
 								<LatestComments championID={championID} />
 							</div>
 
-							{/* AD SECTION 2 */}
-							<div className='my-8 border-t border-border pt-8'>
-								<p className='text-xs text-text-secondary text-center mb-3 uppercase tracking-widest'>
-									{tUI("common.ad")}
-								</p>
-								<GoogleAd slot='2943049680' format='horizontal' />
-							</div>
+
 						</motion.div>
 					)}
 				</AnimatePresence>

@@ -90,7 +90,7 @@ function ChampionLevel({ deckUpgrades, resolvedPowers, onOpenCarousel }) {
 	);
 
 	return (
-		<div className="bg-surface-bg border border-border rounded-xl p-4 sm:p-6 shadow-sm mt-6 overflow-hidden w-full flex flex-col">
+		<div className="bg-surface-bg border border-border rounded-xl p-1 sm:p-6 shadow-sm mt-6 overflow-hidden w-full flex flex-col">
 			{/* Header */}
 			<div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-border mb-6 gap-4">
 				<div className="flex items-center gap-4">

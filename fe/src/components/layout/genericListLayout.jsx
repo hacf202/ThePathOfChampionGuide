@@ -14,7 +14,6 @@ import Button from "../common/button";
 import InputField from "../common/inputField";
 import PageTitle from "../common/pageTitle";
 import { useTranslation } from "../../hooks/useTranslation";
-import GoogleAd from "../common/googleAd";
 
 const GenericListLayout = ({
 	pageTitle,
@@ -351,7 +350,7 @@ const GenericListLayout = ({
 
 					{/* --- BỘ LỌC MOBILE --- */}
 					{(searchValue !== undefined || onSearchChange) && (
-						<div className='lg:hidden w-full px-2 order-first'>
+						<div className='lg:hidden w-full order-first'>
 						<div className='p-2 mb-4 rounded-lg border border-border bg-surface-bg shadow-sm relative z-40'>
 							<div className='flex items-center gap-2'>
 								<div className='flex-1 relative min-w-0'>
@@ -408,10 +407,7 @@ const GenericListLayout = ({
 					</div>
 					)}
 				</div>{" "}
-				<p className='mt-6 text-xs text-text-secondary text-center mb-2 uppercase tracking-widest'>
-					AD
-				</p>
-				<GoogleAd slot='2943049680' format='horizontal' />
+
 				{customTabs && <div className='mb-4'>{customTabs}</div>}
 			</div>
 		</div>

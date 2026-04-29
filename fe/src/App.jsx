@@ -64,7 +64,7 @@ import AboutUs from "./components/about/aboutUs.jsx";
 import TermsOfUse from "./components/about/termsOfUse.jsx";
 import Introduction from "./components/about/introduction.jsx";
 import AnnouncementPopup from "./components/common/AnnouncementPopup";
-import GoogleAd from "./components/common/googleAd";
+import AdModal from "./components/common/adModal";
 
 // Luồng admin
 import AdminPanel from "./components/admin/adminPanel.jsx";
@@ -94,7 +94,7 @@ function MainContentContainer() {
 			className={`flex-grow ${
 				isAdmin
 					? 'overflow-hidden flex flex-col'
-					: !isFullWidth ? "container mx-auto sm:px-4 py-2 sm:py-8" : ""
+					: !isFullWidth ? "container mx-auto sm:px-4 py-2 sm:py-8 min-h-[80vh]" : "min-h-screen"
 			}`}
 		>
 			<Outlet />
@@ -126,6 +126,7 @@ function AppLayout() {
 		>
 			<Navbar />
 			<AnnouncementPopup />
+			{!isAdminRoute && <AdModal />}
 
 			{isSpecialRoute ? (
 				<MainContentContainer />

@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import PageTitle from "../components/common/pageTitle";
-import GoogleAd from "../components/common/googleAd";
 import { useTranslation } from "../hooks/useTranslation";
 import {
 	Swords,
@@ -105,19 +104,21 @@ const Home = () => {
 					<img
 						src={BACKGROUND_IMAGES[11]}
 						alt='Hero'
-						className='w-full h-full object-cover grayscale-[0.2] opacity-90 blur-[3px] scale-110 transition-all duration-[2s]'
+						fetchPriority='high'
+						decoding='async'
+						className='w-full h-full object-cover grayscale-[0.2] opacity-90 blur-[3px] scale-110'
 					/>
 					<div className='absolute inset-0' />
 				</div>
 
 				<div className='relative w-full h-full max-w-[1920px] mx-auto z-20 p-4'>
 					{/* PROMINENT TITLE */}
-					<div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none z-10 w-full px-16'>
+					<div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none z-10 w-full px-2 md:px-16'>
 						<motion.h1 
 							initial={{ opacity: 0, scale: 0.8 }}
 							animate={{ opacity: 1, scale: 1 }}
 							transition={{ duration: 1 }}
-							className='text-7xl md:text-[14rem] font-black text-white uppercase leading-none tracking-tighter italic md:pr-12 mb-8'
+							className='text-6xl sm:text-7xl md:text-[10rem] lg:text-[14rem] font-black text-white uppercase leading-none tracking-tighter italic md:pr-12 mb-8'
 							style={{ filter: 'drop-shadow(0 20px 30px rgba(0, 0, 0, 1))' }}
 						>
 							<span>{tUI("home.heroTitle1")}</span> 
@@ -359,13 +360,6 @@ const Home = () => {
 					))}
 				</div>
 			</section>
-
-			{/* AD PLACEMENT */}
-			<div className='max-w-7xl mx-auto px-1 md:px-6 mb-10'>
-				<div className='bg-surface-bg border border-border rounded-3xl p-4 shadow-sm'>
-					<GoogleAd slot='2943049680' format='horizontal' />
-				</div>
-			</div>
 
 			{/* FOOTER CTA */}
 			<section className='py-10 text-center border-t border-border relative overflow-hidden'>

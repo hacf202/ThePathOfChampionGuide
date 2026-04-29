@@ -94,11 +94,11 @@ function EntityDetailLayout({
 							<ChevronLeft size={18} /> {labels.back}
 						</Button>
 
-						<div className='relative mx-auto max-w-[1200px] border border-border p-4 sm:p-6 rounded-lg bg-surface-bg shadow-sm'>
+						<div className='relative mx-auto max-w-[1200px] border border-border p-1 sm:p-6 rounded-lg bg-surface-bg shadow-sm'>
 							{/* Phần Thông Tin Chính */}
-							<div className='flex flex-col md:flex-row gap-4 rounded-md p-2 bg-surface-hover'>
+							<div className='flex flex-col md:flex-row gap-4 rounded-md bg-surface-hover'>
 								<SafeImage
-									className='h-auto max-h-[300px] object-contain rounded-lg bg-surface-bg/50 p-2'
+									className='h-[300px] w-full md:w-[300px] object-contain rounded-lg bg-surface-bg/50 p-2'
 									src={imageSrc || "/fallback-image.svg"}
 									alt={name}
 								/>
@@ -128,7 +128,7 @@ function EntityDetailLayout({
 										{labels.compatibleTitle}
 									</h2>
 
-									<div className='flex flex-wrap justify-center gap-2 sm:gap-3 rounded-md bg-surface-hover p-4 border border-border'>
+									<div className='flex flex-wrap justify-center gap-4 rounded-md bg-surface-hover p-1 border border-border'>
 										{compatibleChampions.map(champ => (
 											<Link
 												key={champ.championID || champ.id}

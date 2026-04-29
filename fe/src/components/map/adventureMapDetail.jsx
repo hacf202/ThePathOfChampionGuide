@@ -15,7 +15,6 @@ import { useTranslation } from "../../hooks/useTranslation";
 import { useMapDetailData } from "../../hooks/useMapDetailData";
 import PageTitle from "../common/pageTitle";
 import Button from "../common/button";
-import GoogleAd from "../common/googleAd";
 
 // Import các sub-components đã được tách
 import MapDetailSkeleton from "./mapDetailSkeleton";
@@ -199,13 +198,7 @@ function AdventureMapDetail() {
 
 						<RewardSection rewards={adventure.rewards} />
 
-						{/* FOOTER AD */}
-						<div className='mt-8 flex justify-center'>
-						<div className='my-10 border-t border-border pt-8'>
-							<p className='text-xs text-text-secondary text-center mb-2 uppercase tracking-widest'>AD</p>
-							<GoogleAd slot='2943049680' format='horizontal' />
-						</div>
-						</div>
+
 					</motion.div>
 				)}
 			</AnimatePresence>
