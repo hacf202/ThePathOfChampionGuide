@@ -64,6 +64,11 @@ function ItemDetail() {
 		? tDynamic(item, "rarity") || tUI(`shared.rarity.${getRarityKey(item.rarity)}`) || item.rarity
 		: "";
 
+	const itemReqs = item?.requirements
+		? tDynamic(item, "requirements") || item.requirements
+		: "";
+
+
 	useEffect(() => {
 		if (itemDesc) {
 			resolveEntities(itemDesc);
@@ -104,7 +109,18 @@ function ItemDetail() {
 				noCompatible: tUI("itemDetail.noCompatibleChampions"),
 				errorTitle: tUI("common.error")
 			}}
-		/>
+		>
+			{itemReqs && (
+				<div className='bg-surface-hover border border-border p-4 rounded-lg mt-8'>
+					<h3 className='text-xl sm:text-3xl font-semibold mb-4 font-primary text-primary-500'>
+						{tUI("itemDetail.requirements")}
+					</h3>
+					<p className='text-text-secondary text-base sm:text-lg'>
+						{itemReqs}
+					</p>
+				</div>
+			)}
+		</EntityDetailLayout>
 	);
 }
 

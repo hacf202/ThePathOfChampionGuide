@@ -163,27 +163,26 @@
 		"noEnemyInfo": "Không có thông tin",
 		"noNodeDescription": "Không có mô tả chi tiết cho loại Node này."
 	},
-	"relic":{
-		"types":{
-			"general":"Chung",
+	"relic": {
+		"types": {
+			"general": "Chung",
 			"consumable": "Tiêu Thụ",
 			"signature": "Trấn"
-			
 		}
 	},
-	"power":{
-		"types":{
-			"arcanepower":"Sức Mạnh Arcane",
+	"power": {
+		"types": {
+			"arcanepower": "Sức Mạnh Arcane",
 			"championlevelpower": "Sức Mạnh Thưởng Cấp Độ",
 			"debuffpower": "Sức Mạnh Debuff",
-			"defiancepower":"Sức Mạnh Thách Thức",
+			"defiancepower": "Sức Mạnh Thách Thức",
 			"encounterpower": "Sức Mạnh Encounter",
-			"foepower":"Sức Mạnh Đối Thủ",
-			"generalpower":"Sức Mạnh Chung",
-			"monthlychallengepower":"Sức Mạnh Thử Thách Tháng",
+			"foepower": "Sức Mạnh Đối Thủ",
+			"generalpower": "Sức Mạnh Chung",
+			"monthlychallengepower": "Sức Mạnh Thử Thách Tháng",
 			"relicpower": "Sức Mạnh Cổ Vật",
-			"removepower":"Sức Mạnh Xóa Bỏ",
-			"runepower":"Sức Mạnh Ngọc",
+			"removepower": "Sức Mạnh Xóa Bỏ",
+			"runepower": "Sức Mạnh Ngọc",
 			"spiritblossompower": "Sức Mạnh Hoa Linh Lục Địa",
 			"teamfighttacticspower": "Sức Mạnh Đấu Trường Chân Lý",
 			"starpower": "Sức Mạnh Chòm Sao"
@@ -708,7 +707,8 @@
 		"notFoundPrefix": "Không tìm thấy vật phẩm mã:",
 		"errorLoad": "Lỗi tải thông tin vật phẩm.",
 		"compatibleChampions": "Các tướng sử dụng vật phẩm",
-		"noCompatibleChampions": "Vật phẩm này hiện chưa được trang bị mặc định cho tướng nào."
+		"noCompatibleChampions": "Vật phẩm này hiện chưa được trang bị mặc định cho tướng nào.",
+		"requirements": "Điều kiện"
 	},
 	"powerDetail": {
 		"title": "Chi tiết sức mạnh",

@@ -163,27 +163,26 @@
 		"noEnemyInfo": "No information.",
 		"noNodeDescription": "No detailed description for this Node type."
 	},
-	"relic":{
-		"types":{
-			"general":"General",
+	"relic": {
+		"types": {
+			"general": "General",
 			"consumable": "Consumable",
 			"signature": "Signature"
-			
 		}
 	},
-	"power":{
-		"types":{
-			"arcanepower":"Arcane Power",
+	"power": {
+		"types": {
+			"arcanepower": "Arcane Power",
 			"championlevelpower": "Champion Level Power",
 			"debuffpower": "Debuff Power",
-			"defiancepower":"Defiance Power",
+			"defiancepower": "Defiance Power",
 			"encounterpower": "Encounter Power",
-			"foepower":"Foe Power",
-			"generalpower":"General Power",
-			"monthlychallengepower":"Monthly Challenge Power",
+			"foepower": "Foe Power",
+			"generalpower": "General Power",
+			"monthlychallengepower": "Monthly Challenge Power",
 			"relicpower": "Relic Power",
-			"removepower":"Remove Power",
-			"runepower":"Rune Power",
+			"removepower": "Remove Power",
+			"runepower": "Rune Power",
 			"spiritblossompower": "Spirit Blossom Power",
 			"teamfighttacticspower": "Teamfight Tactics Power",
 			"starpower": "Star Power"
@@ -773,7 +772,8 @@
 		"notFoundPrefix": "Item code not found:",
 		"errorLoad": "Error loading item information.",
 		"compatibleChampions": "Champions using this item",
-		"noCompatibleChampions": "This item is not currently equipped by default on any champion."
+		"noCompatibleChampions": "This item is not currently equipped by default on any champion.",
+		"requirements": "Requirements"
 	},
 	"powerDetail": {
 		"title": "Power Details",
