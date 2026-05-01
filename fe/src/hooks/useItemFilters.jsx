@@ -8,10 +8,11 @@ export const useItemFilters = (tUI, t, dynamicFilters, knownItems) => {
 	// 1. GỌI HOOK CHUNG
 	const { state, actions, queryParams } = useGenericFilters({
 		prefix: "items",
-		initialCustomFilters: { rarities: [] },
+		initialCustomFilters: { rarities: [], types: [] },
 		defaultSort: "name-asc",
 		itemsPerPage: 20,
 	});
+
 
 	// 2. LOGIC DỊCH NGÔN NGỮ
 	const getTranslatedRarity = useCallback(
@@ -30,6 +31,9 @@ export const useItemFilters = (tUI, t, dynamicFilters, knownItems) => {
 	// 3. CẤU HÌNH GIAO DIỆN BỘ LỌC
 	const filterConfigs = useMemo(() => {
 		const uniqueRarities = Array.from(new Set(dynamicFilters.rarities || []));
+		const uniqueTypes = Array.from(new Set(
+			(dynamicFilters.types || []).flat()
+		)).filter(Boolean).sort();
 
 		return [
 			{
@@ -44,8 +48,17 @@ export const useItemFilters = (tUI, t, dynamicFilters, knownItems) => {
 					};
 				}),
 			},
+			{
+				key: "types",
+				label: tUI("itemList.filterType") || "Loại vật phẩm",
+				options: uniqueTypes.map(tp => ({
+					value: tp,
+					label: tp,
+				})),
+			},
 		];
 	}, [dynamicFilters, knownItems, tUI, getTranslatedRarity]);
+
 
 	const sortOptions = useMemo(
 		() => [

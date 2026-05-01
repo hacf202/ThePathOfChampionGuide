@@ -112,7 +112,7 @@
     "rarity": "Sử Thi",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0005-full.png",
     "descriptionRaw": "+1 Năng Lượng Khởi Điểm.Khi ngươi rút 1 lá bài có gắn chuông, gài 2 Chuông lên bộ bài.",
-    "description": "+1 Năng Lượng Khởi Điểm.Khi ngươi rút 1 lá bài có gắn chuông, gài 2 Chuông lên bộ bài.",
+    "description": "+1 Năng Lượng Khởi Điểm.Khi ngươi rút 1 lá bài có gắn chuông, gài 2 [cd:06RU001T3|Chuông|icon,img-full] lên bộ bài.",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0005.png",
     "name": "Tinh Vũ Hiện Diện",
     "type": [
@@ -324,7 +324,7 @@
     "translations": {
       "en": {
         "name": "Beauty in Death",
-        "description": "For every 4th [k:Fast|Fast] spell, [k:Slow|Slow] spell, or Skill you play, create a Captive Audience in hand. ",
+        "description": "For every 4th [k:Fast|Fast] spell, [k:Slow|Slow] spell, or Skill you play, create a [cd:99RU001|Captive Audience|icon,img-full] in hand. ",
         "descriptionRaw": "For every 4th Fast spell, Slow spell, or Skill you play, create a Captive Audience in hand. ",
         "rarity": "Rare"
       }
@@ -332,7 +332,7 @@
     "rarity": "Hiếm",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0016-full.png",
     "descriptionRaw": "Mỗi lần ngươi sử dụng bài phép Nhanh, bài phép Chậm hoặc Kỹ Năng thứ tư, tạo trên tay 1 lá Cạm Bẫy Nghệ Thuật. ",
-    "description": "Mỗi lần ngươi sử dụng bài phép [k:Fast|Nhanh], bài phép [k:Slow|Chậm] hoặc Kỹ Năng thứ tư, tạo trên tay 1 lá Cạm Bẫy Nghệ Thuật. ",
+    "description": "Mỗi lần ngươi sử dụng bài phép [k:Fast|Nhanh], bài phép [k:Slow|Chậm] hoặc Kỹ Năng thứ tư, tạo trên tay 1 lá [cd:99RU001|Cạm Bẫy Nghệ Thuật|icon,img-full]. ",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0016.png",
     "name": "Nét Đẹp Chết Chóc",
     "type": [
@@ -384,7 +384,7 @@
     "translations": {
       "en": {
         "name": "Beauty in Death II",
-        "description": "For every 4th [k:Fast|Fast] spell, [k:Slow|Slow] spell, or Skill you play, create a 0 cost Captive Audience in hand. ",
+        "description": "For every 4th [k:Fast|Fast] spell, [k:Slow|Slow] spell, or Skill you play, create a 0 cost [cd:99RU001|Captive Audience|icon,img-full] in hand. ",
         "descriptionRaw": "For every 4th Fast spell, Slow spell, or Skill you play, create a 0 cost Captive Audience in hand. ",
         "rarity": "Epic"
       }
@@ -392,7 +392,7 @@
     "rarity": "Sử Thi",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0019-full.png",
     "descriptionRaw": "Mỗi lần ngươi sử dụng bài phép Nhanh, bài phép Chậm hoặc Kỹ Năng thứ tư, tạo trên tay 1 lá Cạm Bẫy Nghệ Thuật với 0 tiêu hao. ",
-    "description": "Mỗi lần ngươi sử dụng bài phép [k:Fast|Nhanh], bài phép [k:Slow|Chậm] hoặc Kỹ Năng thứ tư, tạo trên tay 1 lá Cạm Bẫy Nghệ Thuật với 0 tiêu hao. ",
+    "description": "Mỗi lần ngươi sử dụng bài phép [k:Fast|Nhanh], bài phép [k:Slow|Chậm] hoặc Kỹ Năng thứ tư, tạo trên tay 1 lá [cd:99RU001|Cạm Bẫy Nghệ Thuật|icon,img-full] với 0 tiêu hao. ",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0019.png",
     "name": "Nét Đẹp Chết Chóc II",
     "type": [
@@ -2924,7 +2924,7 @@
     "translations": {
       "en": {
         "name": "School Assembly",
-        "description": "Game Start: ALL players summon a  Manasoul Student.",
+        "description": "Game Start: ALL players summon a  [cd:06NX015|Manasoul Student|icon,img-full].",
         "descriptionRaw": "Game Start: ALL players summon a  Manasoul Student.",
         "rarity": "Common"
       }
@@ -2932,7 +2932,7 @@
     "rarity": "Thường",
     "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01045.webp",
     "descriptionRaw": "Bắt Đầu Trận Đấu: TẤT CẢ người chơi triệu hồi 1 lá Học Trò Hồn Thuật.",
-    "description": "Bắt Đầu Trận Đấu: TẤT CẢ người chơi triệu hồi 1 lá Học Trò Hồn Thuật.",
+    "description": "Bắt Đầu Trận Đấu: TẤT CẢ người chơi triệu hồi 1 lá [cd:06NX015|Học Trò Hồn Thuật|icon,img-full].",
     "name": "Tập Trung Toàn Trường",
     "assetAbsolutePath": "https://images.pocguide.top/powers/P01045.webp",
     "type": [
@@ -4608,7 +4608,7 @@
     "translations": {
       "en": {
         "name": "Snippets of Song",
-        "description": "[k:RoundStart|Round Start]: If you don't have the attack token, summon a Ghastly Band.",
+        "description": "[k:RoundStart|Round Start]: If you don't have the attack token, summon a [cd:06SI009|Ghastly Band|icon,img-full].",
         "descriptionRaw": "Round Start: If you don't have the attack token, summon a Ghastly Band.",
         "rarity": "Rare"
       }
@@ -4616,7 +4616,7 @@
     "rarity": "Hiếm",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0120-full.png",
     "descriptionRaw": "Bắt Đầu Vòng Đấu: Nếu ngươi không có lượt tấn công, triệu hồi 1 lá Ban Nhạc Nhàm Chán.",
-    "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Nếu ngươi không có lượt tấn công, triệu hồi 1 lá Ban Nhạc Nhàm Chán.",
+    "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Nếu ngươi không có lượt tấn công, triệu hồi 1 lá [cd:06SI009|Ban Nhạc Nhàm Chán|icon,img-full].",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0120.png",
     "name": "Bài Ca Cắt Xén",
     "type": [
@@ -4648,7 +4648,7 @@
     "translations": {
       "en": {
         "name": "Snippets of Song II",
-        "description": "[k:RoundStart|Round Start]: [k:Summon|Summon] a Ghastly Band.",
+        "description": "[k:RoundStart|Round Start]: [k:Summon|Summon] a [cd:06SI009|Ghastly Band|icon,img-full].",
         "descriptionRaw": "Round Start: Summon a Ghastly Band.",
         "rarity": "Epic"
       }
@@ -4656,7 +4656,7 @@
     "rarity": "Sử Thi",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0122-full.png",
     "descriptionRaw": "Bắt Đầu Vòng Đấu: Triệu hồi 1 lá Ban Nhạc Nhàm Chán.",
-    "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Triệu hồi 1 lá Ban Nhạc Nhàm Chán.",
+    "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Triệu hồi 1 lá [cd:06SI009|Ban Nhạc Nhàm Chán|icon,img-full].",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0122.png",
     "name": "Bài Ca Cắt Xén II",
     "type": [
@@ -5589,7 +5589,7 @@
     "translations": {
       "en": {
         "name": "Sleepin with the Fishes",
-        "description": "+1 Starting Mana.When you gain the attack token, create a Fleeting Prize Fight in hand.",
+        "description": "+1 Starting Mana.When you gain the attack token, create a Fleeting [cd:07BW008|Prize Fight|icon,img-full] in hand.",
         "descriptionRaw": "+1 Starting Mana.When you gain the attack token, create a Fleeting Prize Fight in hand.",
         "rarity": "Epic"
       }
@@ -5597,7 +5597,7 @@
     "rarity": "Sử Thi",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0169-full.png",
     "descriptionRaw": "+1 Năng Lượng Khởi Đầu.Khi nhận lượt tấn công, tạo trên tay 1 lá Trao Đổi Chiêu Thức Phù Du.",
-    "description": "+1 Năng Lượng Khởi Đầu.Khi nhận lượt tấn công, tạo trên tay 1 lá Trao Đổi Chiêu Thức Phù Du.",
+    "description": "+1 Năng Lượng Khởi Đầu.Khi nhận lượt tấn công, tạo trên tay 1 lá [cd:07BW008|Trao Đổi Chiêu Thức|icon,img-full] Phù Du.",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0169.png",
     "name": "Ngủ Với Lũ Cá",
     "type": [
@@ -6010,7 +6010,7 @@
     "translations": {
       "en": {
         "name": "Most Dangerous Game",
-        "description": "+1 Starting Mana.When you gain the attack token, create a Clever Camouflage in hand.",
+        "description": "+1 Starting Mana.When you gain the attack token, create a [cd:99SH003|Clever Camouflage|icon,img-full] in hand.",
         "descriptionRaw": "+1 Starting Mana.When you gain the attack token, create a Clever Camouflage in hand.",
         "rarity": "Epic"
       }
@@ -6018,7 +6018,7 @@
     "rarity": "Sử Thi",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0190-full.png",
     "descriptionRaw": "+1 Năng Lượng Khởi Điểm.Khi nhận lượt tấn công, tạo trên tay 1 lá Ngụy Trang Khôn Khéo.",
-    "description": "+1 Năng Lượng Khởi Điểm.Khi nhận lượt tấn công, tạo trên tay 1 lá Ngụy Trang Khôn Khéo.",
+    "description": "+1 Năng Lượng Khởi Điểm.Khi nhận lượt tấn công, tạo trên tay 1 lá [cd:99SH003|Ngụy Trang Khôn Khéo|icon,img-full].",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0190.png",
     "name": "Trận Đấu Nguy Hiểm Nhất",
     "type": [
@@ -6591,7 +6591,7 @@
     "translations": {
       "en": {
         "name": "Afterlife Forbidden",
-        "description": "When an ally dies for the first time, summon a Haunted Tomb.",
+        "description": "When an ally dies for the first time, summon a [cd:06SI033|Haunted Tomb|icon,img-full].",
         "descriptionRaw": "When an ally dies for the first time, summon a Haunted Tomb.",
         "rarity": "Common"
       }
@@ -6599,7 +6599,7 @@
     "rarity": "Thường",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0219-full.png",
     "descriptionRaw": "Khi 1 đồng minh hy sinh lần đầu tiên, triệu hồi 1 lá Hầm Mộ Ma Ám.",
-    "description": "Khi 1 đồng minh hy sinh lần đầu tiên, triệu hồi 1 lá [cd:04FR007|Hầm Mộ|icon,img-full] Ma Ám.",
+    "description": "Khi 1 đồng minh hy sinh lần đầu tiên, triệu hồi 1 lá [cd:06SI033|Hầm Mộ Ma Ám|icon,img-full].",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0219.png",
     "name": "Kiếp Sau Tai Ương",
     "type": [
@@ -8998,7 +8998,7 @@
     "translations": {
       "en": {
         "name": "Wield The abyss",
-        "description": "[k:RoundStart|Round Start]: Create a Second Skin in hand. When you target an ally with Second Skin, give it Kai'Sa's keywords this round.",
+        "description": "[k:RoundStart|Round Start]: Create a [cd:06SH009T3|Second Skin|icon,img-full] in hand. When you target an ally with [cd:06SH009T3|Second Skin|icon,img-full], give it [cd:06SH009|Kai'Sa|icon,img-full]'s keywords this round.",
         "descriptionRaw": "Round Start: Create a Second Skin in hand. When you target an ally with Second Skin, give it Kai'Sa's keywords this round.",
         "rarity": "Legendary"
       }
@@ -9006,7 +9006,7 @@
     "rarity": "Huyền Thoại",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0454-full.png",
     "descriptionRaw": "Bắt Đầu Vòng Đấu: Tạo trên tay 1 lá Vỏ Bọc Cộng Sinh. Khi chọn 1 đồng minh làm mục tiêu bằng Vỏ Bọc Cộng Sinh, trao cho lá đó các đặc điểm của Kai'Sa trong vòng này.",
-    "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Tạo trên tay 1 lá Vỏ Bọc Cộng Sinh. Khi chọn 1 đồng minh làm mục tiêu bằng Vỏ Bọc Cộng Sinh, trao cho lá đó các đặc điểm của Kai'Sa trong vòng này.",
+    "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Tạo trên tay 1 lá [cd:06SH009T3|Vỏ Bọc Cộng Sinh|icon,img-full]. Khi chọn 1 đồng minh làm mục tiêu bằng [cd:06SH009T3|Vỏ Bọc Cộng Sinh|icon,img-full], trao cho lá đó các đặc điểm của [cd:06SH009|Kai'Sa|icon,img-full] trong vòng này.",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0454.png",
     "name": "Vận Dụng Hư Không",
     "type": [
@@ -11569,7 +11569,7 @@
     "translations": {
       "en": {
         "name": "Hired Muscle",
-        "description": "When you play a [cd:07IO011T5|Coin |icon] with 5+ stacks, summon [cd:07IO011|Sett|icon]. If you already have a [cd:07IO011|Sett|icon], create a [cd:07IO011T4|Show Stopper|icon] in hand instead. ",
+        "description": "When you play a Coin  with 5+ stacks, summon Sett. If you already have a Sett, create a [cd:07IO011T4|Show Stopper|icon,img-full] in hand instead. ",
         "descriptionRaw": "When you play a Coin  with 5+ stacks, summon Sett. If you already have a Sett, create a Show Stopper in hand instead. ",
         "rarity": "Legendary"
       }
@@ -11577,7 +11577,7 @@
     "rarity": "Huyền Thoại",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0697-full.png",
     "descriptionRaw": "Khi ngươi sử dụng 1 lá Xu  với 5+ điểm cộng dồn, triệu hồi Sett. Nếu ngươi đã có 1 lá Sett, tạo trên tay 1 lá Hủy Diệt Đấu Trường thay thế.",
-    "description": "Khi ngươi sử dụng 1 lá [cd:07IO011T5|Xu |icon] với 5+ điểm cộng dồn, triệu hồi [cd:07IO011|Sett|icon]. Nếu ngươi đã có 1 lá [cd:07IO011|Sett|icon], tạo trên tay 1 lá [cd:07IO011T4|Hủy Diệt Đấu Trường|icon] thay thế.",
+    "description": "Khi ngươi sử dụng 1 lá Xu  với 5+ điểm cộng dồn, triệu hồi Sett. Nếu ngươi đã có 1 lá Sett, tạo trên tay 1 lá [cd:07IO011T4|Hủy Diệt Đấu Trường|icon,img-full] thay thế.",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0697.png",
     "name": "Lính Đánh Thuê",
     "type": [
@@ -13130,7 +13130,7 @@
     "translations": {
       "en": {
         "name": "Most Dangerous Game",
-        "description": "When you gain the attack token, create a Clever Camouflage in hand.",
+        "description": "When you gain the attack token, create a [cd:99SH003|Clever Camouflage|icon,img-full] in hand.",
         "descriptionRaw": "When you gain the attack token, create a Clever Camouflage in hand.",
         "rarity": "Common"
       }
@@ -13138,7 +13138,7 @@
     "rarity": "Thường",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0829-full.png",
     "descriptionRaw": "Khi ngươi nhận lượt tấn công, tạo trên tay 1 lá Ngụy Trang Khôn Khéo.",
-    "description": "Khi ngươi nhận lượt tấn công, tạo trên tay 1 lá Ngụy Trang Khôn Khéo.",
+    "description": "Khi ngươi nhận lượt tấn công, tạo trên tay 1 lá [cd:99SH003|Ngụy Trang Khôn Khéo|icon,img-full].",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0829.png",
     "name": "Trận Đấu Nguy Hiểm Nhất",
     "type": [
@@ -13790,7 +13790,7 @@
     "translations": {
       "en": {
         "name": "Emotional Support Bear",
-        "description": "Game Start: Shuffle 3 Tibbers into your deck.Your Tibbers cost 2 less and have +5|+5.",
+        "description": "Game Start: Shuffle 3 [cd:06NX012T1|Tibbers|icon,img-full] into your deck.Your [cd:06NX012T1|Tibbers|icon,img-full] cost 2 less and have +5|+5.",
         "descriptionRaw": "Game Start: Shuffle 3 Tibbers into your deck.Your Tibbers cost 2 less and have +5|+5.",
         "rarity": "Epic"
       }
@@ -13798,7 +13798,7 @@
     "rarity": "Sử Thi",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/6_10_0/adventure/vi_vn/img/powers/P0863-full.png",
     "descriptionRaw": "Bắt Đầu Trận Đấu: Tráo 3 lá Tibbers vào bộ bài của ngươi.Tibbers của ngươi giảm 2 tiêu hao và có +5|+5.",
-    "description": "Bắt Đầu Trận Đấu: Tráo 3 lá Tibbers vào bộ bài của ngươi.Tibbers của ngươi giảm 2 tiêu hao và có +5|+5.",
+    "description": "Bắt Đầu Trận Đấu: Tráo 3 lá [cd:06NX012T1|Tibbers|icon,img-full] vào bộ bài của ngươi.[cd:06NX012T1|Tibbers|icon,img-full] của ngươi giảm 2 tiêu hao và có +5|+5.",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_10_0/adventure/vi_vn/img/powers/P0863.png",
     "name": "Gấu Hỗ Trợ Tinh Thần",
     "type": [
@@ -14695,7 +14695,7 @@
     "translations": {
       "en": {
         "name": "Little Buddies",
-        "description": "When you summon an ally that costs 3 or less, grant 5+ cost allies [k:Everywhere|everywhere] +1|+1.",
+        "description": "When you summon an ally that costs 3 or less, grant 5+ cost allies everywhere +1|+1.",
         "descriptionRaw": "When you summon an ally that costs 3 or less, grant 5+ cost allies everywhere +1|+1.",
         "rarity": "Common"
       }
@@ -14703,7 +14703,7 @@
     "rarity": "Thường",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/powers/P0913-full.png",
     "descriptionRaw": "Khi ngươi triệu hồi đồng minh với tiêu hao bằng 3 hoặc ít hơn, ban +1|+1 cho các đồng minh với tiêu hao bằng 5 hoặc nhiều hơn ở mọi nơi.",
-    "description": "Khi ngươi triệu hồi đồng minh với tiêu hao bằng 3 hoặc ít hơn, ban +1|+1 cho các đồng minh với tiêu hao bằng 5 hoặc nhiều hơn [k:Everywhere|ở mọi nơi].",
+    "description": "Khi ngươi triệu hồi đồng minh với tiêu hao bằng 3 hoặc ít hơn, ban +1|+1 cho các đồng minh với tiêu hao bằng 5 hoặc nhiều hơn ở mọi nơi.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/powers/P0913.png",
     "name": "Những Người Bạn Nhỏ",
     "type": []
@@ -15213,7 +15213,7 @@
     "translations": {
       "en": {
         "name": "Stance Mastery II",
-        "description": "When you target an ally with [cd:05FR010|Stance Swap|icon,img-full] grant them +1|+1. Each round, the first time you play a [cd:05FR010|Stance Swap|icon,img-full] on an ally, it strikes the [k:Weakest|weakest] enemy.",
+        "description": "When you target an ally with [cd:05FR010|Stance Swap|icon,img-full] grant them +1|+1. Each round, the first time you play a [cd:05FR010|Stance Swap|icon,img-full] on an ally, it strikes the weakest enemy.",
         "descriptionRaw": "When you target an ally with Stance Swap grant them +1|+1. Each round, the first time you play a Stance Swap on an ally, it strikes the weakest enemy.",
         "rarity": "Epic"
       }
@@ -15221,7 +15221,7 @@
     "rarity": "Sử Thi",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/powers/P0950-full.png",
     "descriptionRaw": "Khi ngươi chọn một đồng minh với Đổi Thế Võ làm mục tiêu, cho họ +1|+1. Mỗi vòng, lần đầu tiên ngươi sử dụng một lá Đổi Thế Võ lên một đồng minh, đồng minh đó sẽ ra đòn lên kẻ địch yếu nhất.",
-    "description": "Khi ngươi chọn một đồng minh với [cd:05FR010|Đổi Thế Võ|icon,img-full] làm mục tiêu, cho họ +1|+1. Mỗi vòng, lần đầu tiên ngươi sử dụng một lá [cd:05FR010|Đổi Thế Võ|icon,img-full] lên một đồng minh, đồng minh đó sẽ ra đòn lên kẻ địch [k:Weakest|yếu nhất].",
+    "description": "Khi ngươi chọn một đồng minh với [cd:05FR010|Đổi Thế Võ|icon,img-full] làm mục tiêu, cho họ +1|+1. Mỗi vòng, lần đầu tiên ngươi sử dụng một lá [cd:05FR010|Đổi Thế Võ|icon,img-full] lên một đồng minh, đồng minh đó sẽ ra đòn lên kẻ địch yếu nhất.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/powers/P0950.png",
     "name": "Thông Thạo Thế Võ II",
     "type": [
@@ -15253,7 +15253,7 @@
     "translations": {
       "en": {
         "name": "Focused Mind",
-        "description": "+1 Starting Mana. Your Stance Swaps accelerate to [k:Focus|Focus]. \nWhen you gain the attack token, create a [cd:05FR010|Stance Swap|icon,img-full] in hand. ",
+        "description": "+1 Starting Mana. Your Stance Swaps accelerate to [k:Focus|Focus]. When you gain the attack token, create a [cd:05FR010|Stance Swap|icon,img-full] in hand. ",
         "descriptionRaw": "+1 Starting Mana. Your Stance Swaps accelerate to Focus. When you gain the attack token, create a Stance Swap in hand. ",
         "rarity": "Epic"
       }
@@ -15261,7 +15261,7 @@
     "rarity": "Sử Thi",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/powers/P0952-full.png",
     "descriptionRaw": "+1 Năng Lượng Khởi Điểm. Lá Đổi Thế Võ của ngươi tăng tốc lên Tập Trung. Khi ngươi nhận lượt tấn công, tạo trên tay 1 lá Đổi Thế Võ. ",
-    "description": "+1 Năng Lượng Khởi Điểm. Lá [cd:05FR010|Đổi Thế Võ|icon,img-full] của ngươi tăng tốc lên [k:Focus|Tập Trung]. \nKhi ngươi nhận lượt tấn công, tạo trên tay 1 lá [cd:05FR010|Đổi Thế Võ|icon,img-full]. ",
+    "description": "+1 Năng Lượng Khởi Điểm. Lá Đổi Thế Võ của ngươi tăng tốc lên [k:Focus|Tập Trung]. Khi ngươi nhận lượt tấn công, tạo trên tay 1 lá [cd:05FR010|Đổi Thế Võ|icon,img-full]. ",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/powers/P0952.png",
     "name": "Tập Trung Tâm Trí",
     "type": [
@@ -16046,7 +16046,7 @@
     "translations": {
       "en": {
         "name": "Udyr Star Power 6",
-        "description": "Your [cd:05FR010|Stance Swap|icon,img-full] are replaced with [cd:98FR028|Mastered Stance Swap|icon,img-full]. Your[cd:98FR028| Mastered Stance Swap|icon,img-full] accelerate to [k:Burst|Burst]",
+        "description": "Your Stance Swap are replaced with Mastered Stance Swap. Your Mastered Stance Swap accelerate to [k:Burst|Burst]",
         "descriptionRaw": "Your Stance Swap are replaced with Mastered Stance Swap. Your Mastered Stance Swap accelerate to Burst",
         "rarity": "Legendary"
       }
@@ -16054,7 +16054,7 @@
     "rarity": "Huyền Thoại",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/powers/P0995-full.png",
     "descriptionRaw": "Lá Đổi Thế Võ của ngươi sẽ được thay thế bằng Đổi Thế Võ Đã Thành Thạo. Lá Đổi Thế Võ Đã Thành Thạo của ngươi sẽ tăng tốc thành Siêu Tốc",
-    "description": "Lá [cd:05FR010|Đổi Thế Võ|icon,img-full] của ngươi sẽ được thay thế bằng [cd:98FR028|Đổi Thế Võ Đã Thành Thạo|icon,img-full]. Lá [cd:98FR028|Đổi Thế Võ Đã Thành Thạo|icon,img-full] của ngươi sẽ tăng tốc thành [k:Burst|Siêu Tốc]",
+    "description": "Lá Đổi Thế Võ của ngươi sẽ được thay thế bằng Đổi Thế Võ Đã Thành Thạo. Lá Đổi Thế Võ Đã Thành Thạo của ngươi sẽ tăng tốc thành [k:Burst|Siêu Tốc]",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/powers/P0995.png",
     "name": "Thông Thạo Thế Võ III",
     "type": [
@@ -16251,7 +16251,7 @@
     "translations": {
       "en": {
         "name": "Rhythms of Despair",
-        "description": "Allies in hand have [k:Nightfall|\"Nightfall]: Grant the weakest enemy 2 [k:Gloom|Gloom].\"",
+        "description": "Allies in hand have \"Nightfall: Grant the weakest enemy 2 Gloom.\"",
         "descriptionRaw": "Allies in hand have \"Nightfall: Grant the weakest enemy 2 Gloom.\"",
         "rarity": "Epic"
       }
@@ -16259,7 +16259,7 @@
     "rarity": "Sử Thi",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/powers/P1010-full.png",
     "descriptionRaw": "Đồng minh trên tay có “Chạng Vạng: Ban cho kẻ địch yếu nhất 2 Buồn Bã”.",
-    "description": "Đồng minh trên tay có “[k:Nightfall|Chạng Vạng]: Ban cho kẻ địch yếu nhất 2 [k:Gloom|Buồn Bã]”.",
+    "description": "Đồng minh trên tay có “Chạng Vạng: Ban cho kẻ địch yếu nhất 2 Buồn Bã”.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/powers/P1010.png",
     "name": "Nhịp Điệu Tuyệt Vọng",
     "type": [

@@ -66,6 +66,7 @@ router.get("/", async (req, res) => {
 			limit = 24,
 			searchTerm = "",
 			rarities = "",
+			types = "",
 			sort = "name-asc",
 		} = req.query;
 		const pageSize = parseInt(limit);
@@ -76,7 +77,11 @@ router.get("/", async (req, res) => {
 			rarities: [...new Set(allItems.map(i => i.rarity))]
 				.filter(Boolean)
 				.sort(),
+			types: [...new Set(allItems.flatMap(i => i.type || []))]
+				.filter(Boolean)
+				.sort(),
 		};
+
 
 		let filtered = [...allItems];
 		if (searchTerm) {
@@ -99,6 +104,14 @@ router.get("/", async (req, res) => {
 			const rList = rarities.split(",");
 			filtered = filtered.filter(i => rList.includes(i.rarity));
 		}
+		if (types) {
+			const tList = types.split(",");
+			filtered = filtered.filter(i => {
+				const itemTypes = Array.isArray(i.type) ? i.type : i.type ? [i.type] : [];
+				return tList.some(t => itemTypes.includes(t));
+			});
+		}
+
 
 		const [field, order] = sort.split("-");
 		filtered.sort((a, b) => {

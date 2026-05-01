@@ -288,18 +288,33 @@ async function runMarkupProcessing() {
 			const updated = data.map((item, i) => {
 				if (i % 200 === 0) process.stdout.write(`   ${i}/${data.length}...\r`);
 
+				// description markup
 				const rawVi = item.descriptionRaw || item.description;
 				if (rawVi) {
 					item.descriptionRaw = rawVi;
 					item.description = scanAndMarkup(rawVi, "vi", viMap, enMap);
 				}
 
+				// requirements markup
+				const rawReqVi = item.requirementsRaw || item.requirements;
+				if (rawReqVi) {
+					item.requirementsRaw = rawReqVi;
+					item.requirements = scanAndMarkup(rawReqVi, "vi", viMap, enMap);
+				}
+
 				if (item.translations?.en) {
 					const en = item.translations.en;
+					// description EN
 					const rawEn = en.descriptionRaw || en.description;
 					if (rawEn) {
 						en.descriptionRaw = rawEn;
 						en.description = scanAndMarkup(rawEn, "en", viMap, enMap);
+					}
+					// requirements EN
+					const rawReqEn = en.requirementsRaw || en.requirements;
+					if (rawReqEn) {
+						en.requirementsRaw = rawReqEn;
+						en.requirements = scanAndMarkup(rawReqEn, "en", viMap, enMap);
 					}
 				}
 				return item;

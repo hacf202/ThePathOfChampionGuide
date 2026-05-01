@@ -43,9 +43,10 @@ function ItemList() {
 	// 🟢 Map filterConfigs về dạng Object để dễ sử dụng ở UI
 	const optionsMap =
 		filterConfigs?.reduce((acc, config) => {
-			acc[config.key] = config.options;
+			acc[config.key] = config;
 			return acc;
 		}, {}) || {};
+
 
 	const {
 		dataList: items,
@@ -129,9 +130,15 @@ function ItemList() {
 				<>
 					<MultiSelectFilter
 						label={tUI("common.rarity")}
-						options={optionsMap.rarities || []}
+						options={optionsMap.rarities?.options || []}
 						selectedValues={state.customFilters?.rarities || []}
 						onChange={vals => actions.setFilterValue("rarities", vals)}
+					/>
+					<MultiSelectFilter
+						label={tUI("itemList.filterType") || "Loại vật phẩm"}
+						options={optionsMap.types?.options || []}
+						selectedValues={state.customFilters?.types || []}
+						onChange={vals => actions.setFilterValue("types", vals)}
 					/>
 					<DropdownFilter
 						label={tUI("championList.sortBy")}

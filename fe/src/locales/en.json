@@ -105,7 +105,8 @@
 		"addNew": "Add New",
 		"selectOption": "Select Option",
 		"selectPlaceholder": "Select Option",
-		"description": "Description"
+		"description": "Description",
+		"itemType": "Item Type"
 	},
 	"cardList": {
 		"title": "Card Gallery",
@@ -708,7 +709,8 @@
 		"searchLabel": "Search Items",
 		"placeholder": "Item name...",
 		"notFound": "No matching items found.",
-		"clearFilters": "Clear all filters"
+		"clearFilters": "Clear all filters",
+		"filterType": "Item Type"
 	},
 	"powerList": {
 		"title": "Powers List",
@@ -773,7 +775,8 @@
 		"errorLoad": "Error loading item information.",
 		"compatibleChampions": "Champions using this item",
 		"noCompatibleChampions": "This item is not currently equipped by default on any champion.",
-		"requirements": "Requirements"
+		"requirements": "Requirements",
+		"type": "Item Type"
 	},
 	"powerDetail": {
 		"title": "Power Details",

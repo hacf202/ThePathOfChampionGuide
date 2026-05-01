@@ -1,10 +1,11 @@
-// src/pages/itemDetail.jsx
 import { memo, useState, useEffect, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "../../hooks/useTranslation";
 import { getRarityKey } from "../../utils/i18nHelpers";
 import { useMarkupResolution } from "../../hooks/useMarkupResolution";
 import EntityDetailLayout from "../common/EntityDetailLayout";
+import MarkupRenderer from "../common/MarkupRenderer";
+
 
 function ItemDetail() {
 	const { itemCode } = useParams();
@@ -68,6 +69,10 @@ function ItemDetail() {
 		? tDynamic(item, "requirements") || item.requirements
 		: "";
 
+	const itemType = item
+		? tDynamic(item, "type") || item.type
+		: null;
+	const itemTypeArr = Array.isArray(itemType) ? itemType : itemType ? [itemType] : [];
 
 	useEffect(() => {
 		if (itemDesc) {
@@ -110,13 +115,30 @@ function ItemDetail() {
 				errorTitle: tUI("common.error")
 			}}
 		>
+			{/* Loại vật phẩm */}
+			{itemTypeArr.length > 0 && (
+				<div className='bg-surface-hover border border-border p-4 rounded-lg mt-4'>
+					<h3 className='text-lg sm:text-2xl font-semibold mb-3 font-primary text-primary-500'>
+						{tUI("itemDetail.type")}
+					</h3>
+					<div className='flex flex-wrap gap-2'>
+						{itemTypeArr.map((t, i) => (
+							<span key={i} className='px-3 py-1 rounded-full text-sm font-semibold bg-primary-500/15 text-primary-400 border border-primary-500/30'>
+								{t}
+							</span>
+						))}
+					</div>
+				</div>
+			)}
+
+			{/* Điều kiện trang bị */}
 			{itemReqs && (
-				<div className='bg-surface-hover border border-border p-4 rounded-lg mt-8'>
-					<h3 className='text-xl sm:text-3xl font-semibold mb-4 font-primary text-primary-500'>
+				<div className='bg-surface-hover border border-border p-4 rounded-lg mt-4'>
+					<h3 className='text-lg sm:text-2xl font-semibold mb-3 font-primary text-primary-500'>
 						{tUI("itemDetail.requirements")}
 					</h3>
 					<p className='text-text-secondary text-base sm:text-lg'>
-						{itemReqs}
+						<MarkupRenderer text={itemReqs} />
 					</p>
 				</div>
 			)}

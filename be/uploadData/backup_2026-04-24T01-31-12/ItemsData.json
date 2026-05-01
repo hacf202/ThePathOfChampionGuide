@@ -6,7 +6,11 @@
         "description": "Grant the top ally in your deck +3|+3.",
         "descriptionRaw": "Grant the top ally in your deck +3|+3.",
         "rarity": "Rare",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Hiếm",
@@ -16,7 +20,11 @@
     "itemCode": "I0000",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0000.png",
     "name": "Lư Hương Sôi Sục",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "rarityRef": "",
@@ -25,17 +33,26 @@
         "name": "Horrific Visage",
         "description": "[k:Play|Play|no-icon]: Plant 2 copies of me as [cd:98RU004T3|Nightmares|icon] in the enemy deck.",
         "rarity": "Common",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Special Items"
+        ],
+        "descriptionRaw": "[k:Play|Play|no-icon]: Plant 2 copies of me as [cd:98RU004T3|Nightmares|icon] in the enemy deck.",
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Thường",
     "assetFullAbsolutePath": "https://images.pocguide.top/items/I00001.webp",
     "descriptionRaw": "Xuất Trận: Tạo 2 bản sao của ta với Ác Mộng trong bộ bài của kẻ địch.",
-    "description": "[k:Xuất Trận|Xuất Trận|no-icon]: Tạo 2 bản sao của ta với [cd:98RU004T3|Ác Mộng|icon] trong bộ bài của kẻ địch.",
+    "description": "[k:Play|Xuất Trận]: Tạo 2 bản sao của ta với [cd:98RU004T3|Ác Mộng|icon,img-full] trong bộ bài của kẻ địch.",
     "itemCode": "I00001",
     "name": "Diện Mạo Kinh Hoàng",
     "assetAbsolutePath": "https://images.pocguide.top/items/I00001.webp",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Đặc Biệt"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "rarityRef": "",
@@ -44,17 +61,26 @@
         "name": "The Sheriff of Piltover",
         "description": "When I'm summoned, create a [cd:99PZ125|The Sheriff of Piltover|icon] in hand.",
         "rarity": "Epic",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Champion Items"
+        ],
+        "descriptionRaw": "When I'm summoned, create a [cd:99PZ125|The Sheriff of Piltover|icon] in hand.",
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Sử Thi",
     "assetFullAbsolutePath": "https://images.pocguide.top/items/I00002.webp",
     "descriptionRaw": "Khi ta được triệu hồi, tạo trên tay 1 lá Cảnh Sát Trưởng Piltover.",
-    "description": "Khi ta được triệu hồi, tạo trên tay 1 lá [cd:99PZ125|Cảnh Sát Trưởng Piltover|icon].",
+    "description": "Khi ta được triệu hồi, tạo trên tay 1 lá [cd:99PZ125|Cảnh Sát Trưởng Piltover|icon,img-full].",
     "itemCode": "I00002",
     "name": "Cảnh Sát Trưởng Piltover",
     "assetAbsolutePath": "https://images.pocguide.top/items/I00002.webp",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Anh Hùng"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -63,7 +89,11 @@
         "description": "Can't block",
         "descriptionRaw": "Can't block",
         "rarity": "Common",
-        "requirements": "Can't Block"
+        "requirements": "Can't Block",
+        "type": [
+          "Special Items"
+        ],
+        "requirementsRaw": "Can't Block"
       }
     },
     "rarity": "Thường",
@@ -73,7 +103,11 @@
     "itemCode": "I0001",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0001.png",
     "name": "Giáp Han Gỉ",
-    "requirements": "Can't Block"
+    "requirements": "Can't Block",
+    "type": [
+      "Vật Phẩm Đặc Biệt"
+    ],
+    "requirementsRaw": "Can't Block"
   },
   {
     "translations": {
@@ -82,7 +116,11 @@
         "description": "Fleeting",
         "descriptionRaw": "Fleeting",
         "rarity": "Rare",
-        "requirements": "Fleeting"
+        "requirements": "Fleeting",
+        "type": [
+          "Special Items"
+        ],
+        "requirementsRaw": "Fleeting"
       }
     },
     "rarity": "Hiếm",
@@ -92,7 +130,11 @@
     "itemCode": "I0002",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0002.png",
     "name": "Hòn Đá Bị Nguyền",
-    "requirements": "Fleeting"
+    "requirements": "Fleeting",
+    "type": [
+      "Vật Phẩm Đặc Biệt"
+    ],
+    "requirementsRaw": "Fleeting"
   },
   {
     "translations": {
@@ -101,7 +143,11 @@
         "description": "[k:Ephemeral|Ephemeral]",
         "descriptionRaw": "Ephemeral",
         "rarity": "Rare",
-        "requirements": "Ephemeral"
+        "requirements": "[k:Ephemeral|Ephemeral]",
+        "type": [
+          "Special Items"
+        ],
+        "requirementsRaw": "[k:Ephemeral|Ephemeral]"
       }
     },
     "rarity": "Hiếm",
@@ -111,7 +157,11 @@
     "itemCode": "I0003",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0003.png",
     "name": "Áo Choàng Bị Nguyền",
-    "requirements": "Cảm Tử"
+    "requirements": "[k:Ephemeral|Cảm Tử]",
+    "type": [
+      "Vật Phẩm Đặc Biệt"
+    ],
+    "requirementsRaw": "[k:Ephemeral|Cảm Tử]"
   },
   {
     "translations": {
@@ -120,7 +170,11 @@
         "description": "+1 cost",
         "descriptionRaw": "+1 cost",
         "rarity": "Common",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Special Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Thường",
@@ -130,7 +184,11 @@
     "itemCode": "I0004",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0004.png",
     "name": "Bình Năng Lượng Hết Hạn",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Đặc Biệt"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -139,7 +197,11 @@
         "description": "-1|-0",
         "descriptionRaw": "-1|-0",
         "rarity": "Common",
-        "requirements": "-1|-0"
+        "requirements": "-1|-0",
+        "type": [
+          "Special Items"
+        ],
+        "requirementsRaw": "-1|-0"
       }
     },
     "rarity": "Thường",
@@ -149,7 +211,11 @@
     "itemCode": "I0005",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0005.png",
     "name": "Kiếm Han Gỉ",
-    "requirements": "-1|-0"
+    "requirements": "-1|-0",
+    "type": [
+      "Vật Phẩm Đặc Biệt"
+    ],
+    "requirementsRaw": "-1|-0"
   },
   {
     "translations": {
@@ -158,7 +224,11 @@
         "description": "Game Start: Draw me if I'm not in your hand.",
         "descriptionRaw": "Game Start: Draw me if I'm not in your hand.",
         "rarity": "Rare",
-        "requirements": "Card must be 5 base cost or less."
+        "requirements": "Card must be 5 base cost or less.",
+        "type": [
+          "General Items"
+        ],
+        "requirementsRaw": "Card must be 5 base cost or less."
       }
     },
     "rarity": "Hiếm",
@@ -168,7 +238,11 @@
     "itemCode": "I0006",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0006.png",
     "name": "Thấu Kính Viễn Thị",
-    "requirements": "Bài phải có tiêu hao gốc từ 5 trở xuống."
+    "requirements": "Bài phải có tiêu hao gốc từ 5 trở xuống.",
+    "type": [
+      "Vật Phẩm Chung"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 5 trở xuống."
   },
   {
     "translations": {
@@ -177,7 +251,11 @@
         "description": "[k:Challenger|Challenger]",
         "descriptionRaw": "Challenger",
         "rarity": "Common",
-        "requirements": "Card cannot have any of the keywords: Challenger , Immobile ."
+        "requirements": "Card cannot have any of the keywords: [k:Challenger|Challenger] , [k:Immobile|Immobile] .",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card cannot have any of the keywords: [k:Challenger|Challenger] , Immobile ."
       }
     },
     "rarity": "Thường",
@@ -187,7 +265,11 @@
     "itemCode": "I0007",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0007.png",
     "name": "Đao Đụng Độ",
-    "requirements": "Bài không thể có các từ khoá: Thách Đấu , Bất Động ."
+    "requirements": "Bài không thể có các từ khoá: [k:Challenger|Thách Đấu] , Bất Động .",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài không thể có các từ khoá: [k:Challenger|Thách Đấu] , Bất Động ."
   },
   {
     "translations": {
@@ -196,7 +278,11 @@
         "description": "When I'm summoned, give me [k:Barrier|Barrier].",
         "descriptionRaw": "When I'm summoned, give me Barrier.",
         "rarity": "Common",
-        "requirements": "Card cannot have any of the keywords: Barrier , Ephemeral ."
+        "requirements": "Card cannot have any of the keywords: Barrier , [k:Ephemeral|Ephemeral] .",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card cannot have any of the keywords: Barrier , [k:Ephemeral|Ephemeral] ."
       }
     },
     "rarity": "Thường",
@@ -206,7 +292,11 @@
     "itemCode": "I0008",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0008.png",
     "name": "Dây Chuyền Sắt Solari",
-    "requirements": "Bài không thể có các từ khoá: Lá Chắn , Cảm Tử ."
+    "requirements": "Bài không thể có các từ khoá: [k:Barrier|Lá Chắn] , [k:Ephemeral|Cảm Tử] .",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài không thể có các từ khoá: [k:Barrier|Lá Chắn] , [k:Ephemeral|Cảm Tử] ."
   },
   {
     "translations": {
@@ -215,7 +305,11 @@
         "description": "[k:Attack|Attack]: Nab 1.",
         "descriptionRaw": "Attack: Nab 1.",
         "rarity": "Rare",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Hiếm",
@@ -225,7 +319,11 @@
     "itemCode": "I0009",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0009.png",
     "name": "Công Cụ Đánh Cắp",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -234,7 +332,11 @@
         "description": "Deep and I am a Sea Monster.",
         "descriptionRaw": "Deep and I am a Sea Monster.",
         "rarity": "Rare",
-        "requirements": "You must have other Deep units. Card cannot have any of the keywords: Deep ."
+        "requirements": "You must have other Deep units. Card cannot have any of the keywords: Deep .",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "You must have other Deep units. Card cannot have any of the keywords: Deep ."
       }
     },
     "rarity": "Hiếm",
@@ -244,7 +346,11 @@
     "itemCode": "I0010",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0010.png",
     "name": "Mũ Lặn",
-    "requirements": "Bạn phải có các bài Sâu Thẳm khác. Bài không thể có các từ khoá: Sâu Thẳm ."
+    "requirements": "Bạn phải có các bài Sâu Thẳm khác. Bài không thể có các từ khoá: Sâu Thẳm .",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bạn phải có các bài Sâu Thẳm khác. Bài không thể có các từ khoá: Sâu Thẳm ."
   },
   {
     "translations": {
@@ -253,7 +359,11 @@
         "description": "Reduce my cost by the cost of your most expensive ally champion.",
         "descriptionRaw": "Reduce my cost by the cost of your most expensive ally champion.",
         "rarity": "Epic",
-        "requirements": "Card must be 3+ base cost. Cannot be a Champion."
+        "requirements": "Card must be 3+ base cost. Cannot be a [k:Champion|Champion].",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 3+ base cost. Cannot be a [k:Champion|Champion]."
       }
     },
     "rarity": "Sử Thi",
@@ -263,7 +373,11 @@
     "itemCode": "I0011",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0011.png",
     "name": "Đai Lưng Hextech-01",
-    "requirements": "Bài phải có tiêu hao gốc từ 3 trở lên. Không thể là Anh Hùng."
+    "requirements": "Bài phải có tiêu hao gốc từ 3 trở lên. Không thể là [k:Champion|Anh Hùng].",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 3 trở lên. Không thể là [k:Champion|Anh Hùng]."
   },
   {
     "translations": {
@@ -272,7 +386,11 @@
         "description": "Play: Summon an exact [k:Ephemeral|Ephemeral] copy of me.",
         "descriptionRaw": "Play: Summon an exact Ephemeral copy of me.",
         "rarity": "Rare",
-        "requirements": "Card cannot have any of the keywords: Ephemeral ."
+        "requirements": "Card cannot have any of the keywords: [k:Ephemeral|Ephemeral] .",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card cannot have any of the keywords: [k:Ephemeral|Ephemeral] ."
       }
     },
     "rarity": "Hiếm",
@@ -282,7 +400,11 @@
     "itemCode": "I0012",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0012.png",
     "name": "Vật Tổ Bóng Đêm",
-    "requirements": "Bài không thể có các từ khoá: Cảm Tử ."
+    "requirements": "Bài không thể có các từ khoá: [k:Ephemeral|Cảm Tử] .",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài không thể có các từ khoá: [k:Ephemeral|Cảm Tử] ."
   },
   {
     "translations": {
@@ -291,7 +413,11 @@
         "description": "[k:Elusive|Elusive]",
         "descriptionRaw": "Elusive",
         "rarity": "Epic",
-        "requirements": "Card cannot have any of the keywords: Elusive , Immobile ."
+        "requirements": "Card cannot have any of the keywords: [k:Elusive|Elusive] , [k:Immobile|Immobile] .",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card cannot have any of the keywords: [k:Elusive|Elusive] , Immobile ."
       }
     },
     "rarity": "Sử Thi",
@@ -301,7 +427,11 @@
     "itemCode": "I0013",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0013.png",
     "name": "Giày Ninja",
-    "requirements": "Bài không thể có các từ khoá: Huyền Ảo , Bất Động ."
+    "requirements": "Bài không thể có các từ khoá: [k:Elusive|Huyền Ảo] , Bất Động .",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài không thể có các từ khoá: [k:Elusive|Huyền Ảo] , Bất Động ."
   },
   {
     "translations": {
@@ -310,7 +440,11 @@
         "description": "When I'm summoned, double my Power and [k:Health|Health].",
         "descriptionRaw": "When I'm summoned, double my Power and Health.",
         "rarity": "Epic",
-        "requirements": "Card must be 3+ base cost."
+        "requirements": "Card must be 3+ base cost.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 3+ base cost."
       }
     },
     "rarity": "Sử Thi",
@@ -320,7 +454,11 @@
     "itemCode": "I0014",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0014.png",
     "name": "Rìu Đen",
-    "requirements": "Bài phải có tiêu hao gốc từ 3 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 3 trở lên.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 3 trở lên."
   },
   {
     "translations": {
@@ -329,7 +467,11 @@
         "description": "When I'm summoned, create a Fleeting copy of me in hand.",
         "descriptionRaw": "When I'm summoned, create a Fleeting copy of me in hand.",
         "rarity": "Rare",
-        "requirements": "Card must be 1-3 base cost."
+        "requirements": "Card must be 1-3 base cost.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 1-3 base cost."
       }
     },
     "rarity": "Hiếm",
@@ -339,7 +481,11 @@
     "itemCode": "I0015",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0015.png",
     "name": "Đá Tâm Linh",
-    "requirements": "Bài phải có tiêu hao gốc từ 1 đến 3."
+    "requirements": "Bài phải có tiêu hao gốc từ 1 đến 3.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 1 đến 3."
   },
   {
     "translations": {
@@ -348,7 +494,11 @@
         "description": "When I'm summoned, plant 4 [cd:05PZ008|Flashbomb Trap|icon,img-full]s in the top 8 cards of the enemy deck.",
         "descriptionRaw": "When I'm summoned, plant 4 Flashbomb Traps in the top 8 cards of the enemy deck.",
         "rarity": "Rare",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Hiếm",
@@ -358,7 +508,11 @@
     "itemCode": "I0016",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0016.png",
     "name": "Gói Bom Mù",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -367,7 +521,11 @@
         "description": "[k:Fearsome|Fearsome]",
         "descriptionRaw": "Fearsome",
         "rarity": "Common",
-        "requirements": "Card must be 4 base cost or less. Cannot have any of the keywords: Fearsome , Immobile , Elusive ."
+        "requirements": "Card must be 4 base cost or less. Cannot have any of the keywords: [k:Fearsome|Fearsome] , Immobile , [k:Elusive|Elusive] .",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 4 base cost or less. Cannot have any of the keywords: [k:Fearsome|Fearsome] , Immobile , [k:Elusive|Elusive] ."
       }
     },
     "rarity": "Thường",
@@ -377,7 +535,11 @@
     "itemCode": "I0017",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0017.png",
     "name": "Dao Hung Tàn",
-    "requirements": "Bài phải có tiêu hao gốc từ 4 trở xuống. Bài không thể có các từ khoá: Đáng Sợ , Bất Động , Huyền Ảo ."
+    "requirements": "Bài phải có tiêu hao gốc từ 4 trở xuống. Bài không thể có các từ khoá: Đáng Sợ , Bất Động , [k:Elusive|Huyền Ảo] .",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 4 trở xuống. Bài không thể có các từ khoá: Đáng Sợ , Bất Động , [k:Elusive|Huyền Ảo] ."
   },
   {
     "translations": {
@@ -386,7 +548,12 @@
         "description": "When I'm summoned, advance me 1.",
         "descriptionRaw": "When I'm summoned, advance me 1.",
         "rarity": "Common",
-        "requirements": "Burst"
+        "requirements": "[k:Burst|Burst]",
+        "type": [
+          "Landmark Items",
+          "Special Items"
+        ],
+        "requirementsRaw": "[k:Burst|Burst]"
       }
     },
     "rarity": "Thường",
@@ -396,7 +563,12 @@
     "itemCode": "I0018",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0018.png",
     "name": "Đồng Hồ Ngưng Đọng",
-    "requirements": "Burst"
+    "requirements": "Burst",
+    "type": [
+      "Vật Phẩm Địa Danh",
+      "Vật Phẩm Đặc Biệt"
+    ],
+    "requirementsRaw": "Burst"
   },
   {
     "translations": {
@@ -405,7 +577,11 @@
         "description": "+1|+1, Fury, and I am a Dragon.",
         "descriptionRaw": "+1|+1, Fury, and I am a Dragon.",
         "rarity": "Rare",
-        "requirements": "Card cannot have any of the keywords: Fury , Ephemeral ."
+        "requirements": "Card cannot have any of the keywords: Fury , [k:Ephemeral|Ephemeral] .",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card cannot have any of the keywords: Fury , [k:Ephemeral|Ephemeral] ."
       }
     },
     "rarity": "Hiếm",
@@ -415,7 +591,11 @@
     "itemCode": "I0019",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0019.png",
     "name": "Long Nha",
-    "requirements": "Bài không thể có các từ khoá: Cuồng Nộ , Cảm Tử ."
+    "requirements": "Bài không thể có các từ khoá: Cuồng Nộ , [k:Ephemeral|Cảm Tử] .",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài không thể có các từ khoá: Cuồng Nộ , [k:Ephemeral|Cảm Tử] ."
   },
   {
     "translations": {
@@ -424,7 +604,11 @@
         "description": "When I'm summoned, I Capture the strongest enemy.",
         "descriptionRaw": "When I'm summoned, I Capture the strongest enemy.",
         "rarity": "Epic",
-        "requirements": "Card must have any of the keywords: Countdown ."
+        "requirements": "Card must have any of the keywords: [k:Countdown|Countdown] .",
+        "type": [
+          "Landmark Items"
+        ],
+        "requirementsRaw": "Card must have any of the keywords: [k:Countdown|Countdown] ."
       }
     },
     "rarity": "Sử Thi",
@@ -434,7 +618,11 @@
     "itemCode": "I0021",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0021.png",
     "name": "Kho Báu Sa Lưới",
-    "requirements": "Bài phải có một trong các từ khoá: Đếm Ngược ."
+    "requirements": "Bài phải có một trong các từ khoá: [k:Countdown|Đếm Ngược] .",
+    "type": [
+      "Vật Phẩm Địa Danh"
+    ],
+    "requirementsRaw": "Bài phải có một trong các từ khoá: [k:Countdown|Đếm Ngược] ."
   },
   {
     "translations": {
@@ -443,7 +631,12 @@
         "description": "When I'm summoned, draw 1.",
         "descriptionRaw": "When I'm summoned, draw 1.",
         "rarity": "Common",
-        "requirements": "Card must be 5 base cost or less."
+        "requirements": "Card must be 5 base cost or less.",
+        "type": [
+          "Landmark Items",
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be 5 base cost or less."
       }
     },
     "rarity": "Thường",
@@ -453,7 +646,12 @@
     "itemCode": "I0024",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0024.png",
     "name": "Dược Phẩm Kỹ Năng",
-    "requirements": "Bài phải có tiêu hao gốc từ 5 trở xuống."
+    "requirements": "Bài phải có tiêu hao gốc từ 5 trở xuống.",
+    "type": [
+      "Vật Phẩm Địa Danh",
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 5 trở xuống."
   },
   {
     "translations": {
@@ -462,7 +660,11 @@
         "description": "When I'm destroyed, create a copy of me in hand.",
         "descriptionRaw": "When I'm destroyed, create a copy of me in hand.",
         "rarity": "Common",
-        "requirements": "Card must have any of the keywords: Countdown ."
+        "requirements": "Card must have any of the keywords: [k:Countdown|Countdown] .",
+        "type": [
+          "Landmark Items"
+        ],
+        "requirementsRaw": "Card must have any of the keywords: [k:Countdown|Countdown] ."
       }
     },
     "rarity": "Thường",
@@ -472,7 +674,11 @@
     "itemCode": "I0025",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0025.png",
     "name": "Mắt Thượng Nhân",
-    "requirements": "Bài phải có một trong các từ khoá: Đếm Ngược ."
+    "requirements": "Bài phải có một trong các từ khoá: [k:Countdown|Đếm Ngược] .",
+    "type": [
+      "Vật Phẩm Địa Danh"
+    ],
+    "requirementsRaw": "Bài phải có một trong các từ khoá: [k:Countdown|Đếm Ngược] ."
   },
   {
     "translations": {
@@ -481,7 +687,11 @@
         "description": "I have [k:Countdown|Countdown] 3: Deal damage to enemy Nexus equal to twice my cost.",
         "descriptionRaw": "I have Countdown 3: Deal damage to enemy Nexus equal to twice my cost.",
         "rarity": "Rare",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Landmark Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Hiếm",
@@ -491,7 +701,11 @@
     "itemCode": "I0026",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0026.png",
     "name": "Nhà Giả Kim Hỏa Công",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Địa Danh"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -500,7 +714,11 @@
         "description": "When I'm summoned or destroyed, heal your Nexus equal to my cost.",
         "descriptionRaw": "When I'm summoned or destroyed, heal your Nexus equal to my cost.",
         "rarity": "Common",
-        "requirements": "Card must be 1+ base cost."
+        "requirements": "Card must be 1+ base cost.",
+        "type": [
+          "Landmark Items"
+        ],
+        "requirementsRaw": "Card must be 1+ base cost."
       }
     },
     "rarity": "Thường",
@@ -510,7 +728,11 @@
     "itemCode": "I0027",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0027.png",
     "name": "Vòng Tay Pha Lê",
-    "requirements": "Bài phải có tiêu hao gốc từ 1 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 1 trở lên.",
+    "type": [
+      "Vật Phẩm Địa Danh"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 1 trở lên."
   },
   {
     "translations": {
@@ -519,7 +741,11 @@
         "description": "When I'm summoned or destroyed, summon a follower with my cost from your regions.",
         "descriptionRaw": "When I'm summoned or destroyed, summon a follower with my cost from your regions.",
         "rarity": "Rare",
-        "requirements": "Card must be 1+ base cost. Cannot have any of the keywords: Countdown ."
+        "requirements": "Card must be 1+ base cost. Cannot have any of the keywords: [k:Countdown|Countdown] .",
+        "type": [
+          "Landmark Items"
+        ],
+        "requirementsRaw": "Card must be 1+ base cost. Cannot have any of the keywords: [k:Countdown|Countdown] ."
       }
     },
     "rarity": "Hiếm",
@@ -529,7 +755,11 @@
     "itemCode": "I0028",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0028.png",
     "name": "Mắt Ác Thần",
-    "requirements": "Bài phải có tiêu hao gốc từ 1 trở lên. Bài không thể có các từ khoá: Đếm Ngược ."
+    "requirements": "Bài phải có tiêu hao gốc từ 1 trở lên. Bài không thể có các từ khoá: [k:Countdown|Đếm Ngược] .",
+    "type": [
+      "Vật Phẩm Địa Danh"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 1 trở lên. Bài không thể có các từ khoá: [k:Countdown|Đếm Ngược] ."
   },
   {
     "translations": {
@@ -538,7 +768,11 @@
         "description": "Enemies have -1|-0.",
         "descriptionRaw": "Enemies have -1|-0.",
         "rarity": "Rare",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Landmark Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Hiếm",
@@ -548,7 +782,11 @@
     "itemCode": "I0029",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0029.png",
     "name": "Cúp Ma Ám",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Địa Danh"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -557,7 +795,11 @@
         "description": "When I'm summoned or destroyed, grant your strongest ally +1|+1.",
         "descriptionRaw": "When I'm summoned or destroyed, grant your strongest ally +1|+1.",
         "rarity": "Common",
-        "requirements": "Card must be 5 base cost or less."
+        "requirements": "Card must be 5 base cost or less.",
+        "type": [
+          "Landmark Items"
+        ],
+        "requirementsRaw": "Card must be 5 base cost or less."
       }
     },
     "rarity": "Thường",
@@ -567,7 +809,11 @@
     "itemCode": "I0030",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0030.png",
     "name": "Biểu Tượng Sức Mạnh",
-    "requirements": "Bài phải có tiêu hao gốc từ 5 trở xuống."
+    "requirements": "Bài phải có tiêu hao gốc từ 5 trở xuống.",
+    "type": [
+      "Vật Phẩm Địa Danh"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 5 trở xuống."
   },
   {
     "translations": {
@@ -576,7 +822,11 @@
         "description": "[k:RoundStart|Round Start]: Get an extra mana gem this round.",
         "descriptionRaw": "Round Start: Get an extra mana gem this round.",
         "rarity": "Rare",
-        "requirements": "Card must be 5 base cost or less."
+        "requirements": "Card must be 5 base cost or less.",
+        "type": [
+          "Landmark Items"
+        ],
+        "requirementsRaw": "Card must be 5 base cost or less."
       }
     },
     "rarity": "Hiếm",
@@ -586,7 +836,11 @@
     "itemCode": "I0031",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0031.png",
     "name": "Tinh Thể Phân Cực",
-    "requirements": "Bài phải có tiêu hao gốc từ 5 trở xuống."
+    "requirements": "Bài phải có tiêu hao gốc từ 5 trở xuống.",
+    "type": [
+      "Vật Phẩm Địa Danh"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 5 trở xuống."
   },
   {
     "translations": {
@@ -595,7 +849,12 @@
         "description": "When I'm summoned, summon a random 1 cost Poro.",
         "descriptionRaw": "When I'm summoned, summon a random 1 cost Poro.",
         "rarity": "Common",
-        "requirements": "Card must be 5 base cost or less."
+        "requirements": "Card must be 5 base cost or less.",
+        "type": [
+          "Landmark Items",
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be 5 base cost or less."
       }
     },
     "rarity": "Thường",
@@ -605,7 +864,12 @@
     "itemCode": "I0032",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0032.png",
     "name": "Bánh Quy Poro",
-    "requirements": "Bài phải có tiêu hao gốc từ 5 trở xuống."
+    "requirements": "Bài phải có tiêu hao gốc từ 5 trở xuống.",
+    "type": [
+      "Vật Phẩm Địa Danh",
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 5 trở xuống."
   },
   {
     "translations": {
@@ -614,7 +878,11 @@
         "description": "When I'm summoned, summon a copy of me.",
         "descriptionRaw": "When I'm summoned, summon a copy of me.",
         "rarity": "Rare",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Landmark Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Hiếm",
@@ -624,7 +892,11 @@
     "itemCode": "I0033",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0033.png",
     "name": "Cổng Zz'Rot",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Địa Danh"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -633,7 +905,11 @@
         "description": "[k:Attack|Attack]: Plant 5 [cd:01PZ022|Poison Puffcap|icon,img-full]s in the enemy deck.",
         "descriptionRaw": "Attack: Plant 5 Poison Puffcaps in the enemy deck.",
         "rarity": "Rare",
-        "requirements": "Card cannot have any of the keywords: Immobile ."
+        "requirements": "Card cannot have any of the keywords: [k:Immobile|Immobile] .",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card cannot have any of the keywords: Immobile ."
       }
     },
     "rarity": "Hiếm",
@@ -643,7 +919,11 @@
     "itemCode": "I0034",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0034.png",
     "name": "Rải Nấm",
-    "requirements": "Bài không thể có các từ khoá: Bất Động ."
+    "requirements": "Bài không thể có các từ khoá: Bất Động .",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài không thể có các từ khoá: Bất Động ."
   },
   {
     "translations": {
@@ -652,7 +932,11 @@
         "description": "+1|+1, [k:Lurker|Lurk], and I am a [k:Lurker|Lurk]er.",
         "descriptionRaw": "+1|+1, Lurk, and I am a Lurker.",
         "rarity": "Rare",
-        "requirements": "You must have other Lurk cards. Card cannot have any of the keywords: Lurk ."
+        "requirements": "You must have other [k:Lurker|Lurk] cards. Card cannot have any of the keywords: [k:Lurker|Lurk] .",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "You must have other [k:Lurker|Lurk] cards. Card cannot have any of the keywords: [k:Lurker|Lurk] ."
       }
     },
     "rarity": "Hiếm",
@@ -662,7 +946,11 @@
     "itemCode": "I0035",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0035.png",
     "name": "Thủy Thủ Mưu Mô",
-    "requirements": "Bạn phải có các bài Rình Rập khác. Bài không thể có các từ khoá: Rình Rập ."
+    "requirements": "Bạn phải có các bài [k:Lurker|Rình Rập] khác. Bài không thể có các từ khoá: [k:Lurker|Rình Rập] .",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bạn phải có các bài [k:Lurker|Rình Rập] khác. Bài không thể có các từ khoá: [k:Lurker|Rình Rập] ."
   },
   {
     "translations": {
@@ -671,7 +959,11 @@
         "description": "[k:LastBreath|Last Breath]: [k:Rally|Rally]",
         "descriptionRaw": "Last Breath: Rally",
         "rarity": "Epic",
-        "requirements": "Card must be 5 base cost or less. Cannot have any of the keywords: Ephemeral ."
+        "requirements": "Card must be 5 base cost or less. Cannot have any of the keywords: [k:Ephemeral|Ephemeral] .",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 5 base cost or less. Cannot have any of the keywords: [k:Ephemeral|Ephemeral] ."
       }
     },
     "rarity": "Sử Thi",
@@ -681,7 +973,11 @@
     "itemCode": "I0036",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0036.png",
     "name": "Cờ Lệnh Tiến Công",
-    "requirements": "Bài phải có tiêu hao gốc từ 5 trở xuống. Bài không thể có các từ khoá: Cảm Tử ."
+    "requirements": "Bài phải có tiêu hao gốc từ 5 trở xuống. Bài không thể có các từ khoá: [k:Ephemeral|Cảm Tử] .",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 5 trở xuống. Bài không thể có các từ khoá: [k:Ephemeral|Cảm Tử] ."
   },
   {
     "translations": {
@@ -690,7 +986,12 @@
         "description": "+1|+1",
         "descriptionRaw": "+1|+1",
         "rarity": "Common",
-        "requirements": "Card must be 2-5 base cost."
+        "requirements": "Card must be 2-5 base cost.",
+        "type": [
+          "Equipment Items",
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 2-5 base cost."
       }
     },
     "rarity": "Thường",
@@ -700,7 +1001,12 @@
     "itemCode": "I0037",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0037.png",
     "name": "Áo Da Tán Đinh",
-    "requirements": "Bài phải có tiêu hao gốc từ 2 đến 5."
+    "requirements": "Bài phải có tiêu hao gốc từ 2 đến 5.",
+    "type": [
+      "Vật Phẩm Trang Bị",
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 2 đến 5."
   },
   {
     "translations": {
@@ -709,7 +1015,11 @@
         "description": "+0|+2",
         "descriptionRaw": "+0|+2",
         "rarity": "Common",
-        "requirements": "Card must be 5 base cost or less."
+        "requirements": "Card must be 5 base cost or less.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 5 base cost or less."
       }
     },
     "rarity": "Thường",
@@ -719,7 +1029,11 @@
     "itemCode": "I0038",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0038.png",
     "name": "Đai Khổng Lồ",
-    "requirements": "Bài phải có tiêu hao gốc từ 5 trở xuống."
+    "requirements": "Bài phải có tiêu hao gốc từ 5 trở xuống.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 5 trở xuống."
   },
   {
     "translations": {
@@ -728,7 +1042,11 @@
         "description": "[k:Overwhelm|Overwhelm]",
         "descriptionRaw": "Overwhelm",
         "rarity": "Common",
-        "requirements": "Card cannot have any of the keywords: Overwhelm , Immobile ."
+        "requirements": "Card cannot have any of the keywords: [k:Overwhelm|Overwhelm] , [k:Immobile|Immobile] .",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card cannot have any of the keywords: [k:Overwhelm|Overwhelm] , Immobile ."
       }
     },
     "rarity": "Thường",
@@ -738,7 +1056,11 @@
     "itemCode": "I0039",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0039.png",
     "name": "Đại Trượng",
-    "requirements": "Bài không thể có các từ khoá: Áp Đảo , Bất Động ."
+    "requirements": "Bài không thể có các từ khoá: [k:Overwhelm|Áp Đảo] , Bất Động .",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài không thể có các từ khoá: [k:Overwhelm|Áp Đảo] , Bất Động ."
   },
   {
     "translations": {
@@ -747,7 +1069,12 @@
         "description": "+2|+2",
         "descriptionRaw": "+2|+2",
         "rarity": "Rare",
-        "requirements": "Card must be 3-5 base cost."
+        "requirements": "Card must be 3-5 base cost.",
+        "type": [
+          "Equipment Items",
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 3-5 base cost."
       }
     },
     "rarity": "Hiếm",
@@ -757,7 +1084,12 @@
     "itemCode": "I0040",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0040.png",
     "name": "Búa Gỗ",
-    "requirements": "Bài phải có tiêu hao gốc từ 3 đến 5."
+    "requirements": "Bài phải có tiêu hao gốc từ 3 đến 5.",
+    "type": [
+      "Vật Phẩm Trang Bị",
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 3 đến 5."
   },
   {
     "translations": {
@@ -766,7 +1098,11 @@
         "description": "+2|+0",
         "descriptionRaw": "+2|+0",
         "rarity": "Common",
-        "requirements": "Card must be 2-5 base cost. Cannot have any of the keywords: Formidable , Immobile ."
+        "requirements": "Card must be 2-5 base cost. Cannot have any of the keywords: [k:Formidable|Formidable] , [k:Immobile|Immobile] .",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 2-5 base cost. Cannot have any of the keywords: Formidable , Immobile ."
       }
     },
     "rarity": "Thường",
@@ -776,7 +1112,11 @@
     "itemCode": "I0041",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0041.png",
     "name": "Cuốc Chim",
-    "requirements": "Bài phải có tiêu hao gốc từ 2 đến 5. Bài không thể có các từ khoá: Đồ Sộ , Bất Động ."
+    "requirements": "Bài phải có tiêu hao gốc từ 2 đến 5. Bài không thể có các từ khoá: Đáng Gờm , Bất Động .",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 2 đến 5. Bài không thể có các từ khoá: Đáng Gờm , Bất Động ."
   },
   {
     "translations": {
@@ -785,7 +1125,11 @@
         "description": "+1|+3",
         "descriptionRaw": "+1|+3",
         "rarity": "Rare",
-        "requirements": "Card must be 3-5 base cost."
+        "requirements": "Card must be 3-5 base cost.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 3-5 base cost."
       }
     },
     "rarity": "Hiếm",
@@ -795,7 +1139,11 @@
     "itemCode": "I0042",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0042.png",
     "name": "Khiên Hoang Dại",
-    "requirements": "Bài phải có tiêu hao gốc từ 3 đến 5."
+    "requirements": "Bài phải có tiêu hao gốc từ 3 đến 5.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 3 đến 5."
   },
   {
     "translations": {
@@ -804,7 +1152,12 @@
         "description": "+3|+3, but [k:Ephemeral|Ephemeral]",
         "descriptionRaw": "+3|+3, but Ephemeral",
         "rarity": "Rare",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Special Items",
+          "Unit Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Hiếm",
@@ -814,7 +1167,12 @@
     "itemCode": "I0043",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0043.png",
     "name": "Biểu Tượng Bị Nguyền",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Đặc Biệt",
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -823,7 +1181,12 @@
         "description": "+3|+3",
         "descriptionRaw": "+3|+3",
         "rarity": "Epic",
-        "requirements": "Card must be 3+ base cost."
+        "requirements": "Card must be 3+ base cost.",
+        "type": [
+          "Equipment Items",
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 3+ base cost."
       }
     },
     "rarity": "Sử Thi",
@@ -833,7 +1196,12 @@
     "itemCode": "I0044",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0044.png",
     "name": "Rìu Nhanh Nhẹn",
-    "requirements": "Bài phải có tiêu hao gốc từ 3 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 3 trở lên.",
+    "type": [
+      "Vật Phẩm Trang Bị",
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 3 trở lên."
   },
   {
     "translations": {
@@ -842,7 +1210,11 @@
         "description": "+3|+1",
         "descriptionRaw": "+3|+1",
         "rarity": "Rare",
-        "requirements": "Card must be 3-5 base cost. Cannot have any of the keywords: Immobile , Formidable ."
+        "requirements": "Card must be 3-5 base cost. Cannot have any of the keywords: Immobile , [k:Formidable|Formidable] .",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 3-5 base cost. Cannot have any of the keywords: Immobile , Formidable ."
       }
     },
     "rarity": "Hiếm",
@@ -852,7 +1224,11 @@
     "itemCode": "I0045",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0045.png",
     "name": "Búa Vệ Thần",
-    "requirements": "Bài phải có tiêu hao gốc từ 3 đến 5. Bài không thể có các từ khoá: Bất Động , Đồ Sộ ."
+    "requirements": "Bài phải có tiêu hao gốc từ 3 đến 5. Bài không thể có các từ khoá: Bất Động , Đáng Gờm .",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 3 đến 5. Bài không thể có các từ khoá: Bất Động , Đáng Gờm ."
   },
   {
     "translations": {
@@ -861,7 +1237,11 @@
         "description": "[k:Regeneration|Regeneration]",
         "descriptionRaw": "Regeneration",
         "rarity": "Rare",
-        "requirements": "Card cannot have any of the keywords: Regeneration , Ephemeral ."
+        "requirements": "Card cannot have any of the keywords: [k:Regeneration|Regeneration] , [k:Ephemeral|Ephemeral] .",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card cannot have any of the keywords: [k:Regeneration|Regeneration] , [k:Ephemeral|Ephemeral] ."
       }
     },
     "rarity": "Hiếm",
@@ -871,7 +1251,11 @@
     "itemCode": "I0046",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0046.png",
     "name": "Khẩu Phần Thịnh Soạn",
-    "requirements": "Bài không thể có các từ khoá: Hồi Phục , Cảm Tử ."
+    "requirements": "Bài không thể có các từ khoá: [k:Regeneration|Hồi Phục] , [k:Ephemeral|Cảm Tử] .",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài không thể có các từ khoá: [k:Regeneration|Hồi Phục] , [k:Ephemeral|Cảm Tử] ."
   },
   {
     "translations": {
@@ -880,7 +1264,11 @@
         "description": "[k:QuickStrike|Quick Attack]",
         "descriptionRaw": "Quick Attack",
         "rarity": "Common",
-        "requirements": "Card cannot have any of the keywords: Quick Attack , Double Attack , Immobile , Ephemeral ."
+        "requirements": "Card cannot have any of the keywords: [k:QuickStrike|Quick Attack] , Double Attack , Immobile , [k:Ephemeral|Ephemeral] .",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card cannot have any of the keywords: [k:QuickStrike|Quick Attack] , Double Attack , Immobile , [k:Ephemeral|Ephemeral] ."
       }
     },
     "rarity": "Thường",
@@ -890,7 +1278,11 @@
     "itemCode": "I0047",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0047.png",
     "name": "Băng Quấn Tốc Độ",
-    "requirements": "Bài không thể có các từ khoá: Đột Kích , Đánh Hai Lần , Bất Động , Cảm Tử ."
+    "requirements": "Bài không thể có các từ khoá: [k:QuickStrike|Đột Kích] , Đánh Hai Lần , Bất Động , [k:Ephemeral|Cảm Tử] .",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài không thể có các từ khoá: [k:QuickStrike|Đột Kích] , Đánh Hai Lần , Bất Động , [k:Ephemeral|Cảm Tử] ."
   },
   {
     "translations": {
@@ -899,7 +1291,11 @@
         "description": "+3|+3, but cost 1 more",
         "descriptionRaw": "+3|+3, but cost 1 more",
         "rarity": "Rare",
-        "requirements": "Card must be 8 base cost or less."
+        "requirements": "Card must be 8 base cost or less.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 8 base cost or less."
       }
     },
     "rarity": "Hiếm",
@@ -909,7 +1305,11 @@
     "itemCode": "I0048",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0048.png",
     "name": "Giáp Tấm Thậm Minh",
-    "requirements": "Bài phải có tiêu hao gốc từ 8 trở xuống."
+    "requirements": "Bài phải có tiêu hao gốc từ 8 trở xuống.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 8 trở xuống."
   },
   {
     "translations": {
@@ -918,7 +1318,11 @@
         "description": "When you play a spell, reduce my cost by 1.",
         "descriptionRaw": "When you play a spell, reduce my cost by 1.",
         "rarity": "Epic",
-        "requirements": "Card must be 2+ base cost."
+        "requirements": "Card must be 2+ base cost.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be 2+ base cost."
       }
     },
     "rarity": "Sử Thi",
@@ -928,7 +1332,11 @@
     "itemCode": "I0049",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0049.png",
     "name": "Bí Kíp Pháp Sư",
-    "requirements": "Bài phải có tiêu hao gốc từ 2 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 2 trở lên.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 2 trở lên."
   },
   {
     "translations": {
@@ -937,7 +1345,11 @@
         "description": "[k:Scout|Scout]",
         "descriptionRaw": "Scout",
         "rarity": "Epic",
-        "requirements": "Card must be 3+ base cost. Cannot have any of the keywords: Scout , Ephemeral , Immobile ."
+        "requirements": "Card must be 3+ base cost. Cannot have any of the keywords: Scout , [k:Ephemeral|Ephemeral] , [k:Immobile|Immobile] .",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 3+ base cost. Cannot have any of the keywords: Scout , [k:Ephemeral|Ephemeral] , Immobile ."
       }
     },
     "rarity": "Sử Thi",
@@ -947,7 +1359,11 @@
     "itemCode": "I0050",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0050.png",
     "name": "Rựa Thợ Săn",
-    "requirements": "Bài phải có tiêu hao gốc từ 3 trở lên. Bài không thể có các từ khoá: Tiên Phong , Cảm Tử , Bất Động ."
+    "requirements": "Bài phải có tiêu hao gốc từ 3 trở lên. Bài không thể có các từ khoá: Tiên Phong , [k:Ephemeral|Cảm Tử] , Bất Động .",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 3 trở lên. Bài không thể có các từ khoá: Tiên Phong , [k:Ephemeral|Cảm Tử] , Bất Động ."
   },
   {
     "translations": {
@@ -956,7 +1372,11 @@
         "description": "Copy me onto the same targets.",
         "descriptionRaw": "Copy me onto the same targets.",
         "rarity": "Epic",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Sử Thi",
@@ -966,7 +1386,11 @@
     "itemCode": "I0051",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0051.png",
     "name": "Dược Phẩm Pháp Thuật",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -975,7 +1399,11 @@
         "description": "50% chance to create a copy of me in hand that costs 0 this round.",
         "descriptionRaw": "50% chance to create a copy of me in hand that costs 0 this round.",
         "rarity": "Epic",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Sử Thi",
@@ -985,7 +1413,11 @@
     "itemCode": "I0052",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0052.png",
     "name": "Xúc Xắc Nhân Đôi",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -994,7 +1426,11 @@
         "description": "Draw a champion.",
         "descriptionRaw": "Draw a champion.",
         "rarity": "Rare",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Hiếm",
@@ -1004,7 +1440,11 @@
     "itemCode": "I0053",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0053.png",
     "name": "Tù Và Anh Hùng",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -1013,7 +1453,12 @@
         "description": "I cost 0. Deal damage to your Nexus equal to my original cost.",
         "descriptionRaw": "I cost 0. Deal damage to your Nexus equal to my original cost.",
         "rarity": "Rare",
-        "requirements": "I cost 0. Deal damage to your Nexus equal to my original cost."
+        "requirements": "I cost 0. Deal damage to your Nexus equal to my original cost.",
+        "type": [
+          "Special Items",
+          "Spell Items"
+        ],
+        "requirementsRaw": "I cost 0. Deal damage to your Nexus equal to my original cost."
       }
     },
     "rarity": "Hiếm",
@@ -1023,7 +1468,12 @@
     "itemCode": "I0054",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0054.png",
     "name": "Lăng Kính Huyết Giá",
-    "requirements": "I cost 0. Deal damage to your Nexus equal to my original cost."
+    "requirements": "I cost 0. Deal damage to your Nexus equal to my original cost.",
+    "type": [
+      "Vật Phẩm Đặc Biệt",
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "I cost 0. Deal damage to your Nexus equal to my original cost."
   },
   {
     "translations": {
@@ -1032,7 +1482,13 @@
         "description": "-1 cost",
         "descriptionRaw": "-1 cost",
         "rarity": "Common",
-        "requirements": "Card must be 1+ base cost."
+        "requirements": "Card must be 1+ base cost.",
+        "type": [
+          "Equipment Items",
+          "Landmark Items",
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be 1+ base cost."
       }
     },
     "rarity": "Thường",
@@ -1042,7 +1498,13 @@
     "itemCode": "I0055",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0055.png",
     "name": "Bình Năng Lượng",
-    "requirements": "Bài phải có tiêu hao gốc từ 1 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 1 trở lên.",
+    "type": [
+      "Vật Phẩm Trang Bị",
+      "Vật Phẩm Địa Danh",
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 1 trở lên."
   },
   {
     "translations": {
@@ -1051,7 +1513,13 @@
         "description": "-3 cost",
         "descriptionRaw": "-3 cost",
         "rarity": "Epic",
-        "requirements": "Card must be 4+ base cost."
+        "requirements": "Card must be 4+ base cost.",
+        "type": [
+          "Equipment Items",
+          "Landmark Items",
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be 4+ base cost."
       }
     },
     "rarity": "Sử Thi",
@@ -1061,7 +1529,13 @@
     "itemCode": "I0056",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0056.png",
     "name": "Cốc Hài Hòa",
-    "requirements": "Bài phải có tiêu hao gốc từ 4 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 4 trở lên.",
+    "type": [
+      "Vật Phẩm Trang Bị",
+      "Vật Phẩm Địa Danh",
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 4 trở lên."
   },
   {
     "translations": {
@@ -1070,7 +1544,12 @@
         "description": "-2 cost",
         "descriptionRaw": "-2 cost",
         "rarity": "Rare",
-        "requirements": "Card must be 3+ base cost."
+        "requirements": "Card must be 3+ base cost.",
+        "type": [
+          "Landmark Items",
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be 3+ base cost."
       }
     },
     "rarity": "Hiếm",
@@ -1080,7 +1559,12 @@
     "itemCode": "I0057",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0057.png",
     "name": "Nước Mắt Nữ Thần",
-    "requirements": "Bài phải có tiêu hao gốc từ 3 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 3 trở lên.",
+    "type": [
+      "Vật Phẩm Địa Danh",
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 3 trở lên."
   },
   {
     "translations": {
@@ -1089,7 +1573,12 @@
         "description": "Draw 1.",
         "descriptionRaw": "Draw 1.",
         "rarity": "Common",
-        "requirements": "Card must be 5 base cost or less."
+        "requirements": "Card must be 5 base cost or less.",
+        "type": [
+          "Landmark Items",
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be 5 base cost or less."
       }
     },
     "rarity": "Thường",
@@ -1099,7 +1588,12 @@
     "itemCode": "I0058",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0058.png",
     "name": "Dược Phẩm Kỹ Năng",
-    "requirements": "Bài phải có tiêu hao gốc từ 5 trở xuống."
+    "requirements": "Bài phải có tiêu hao gốc từ 5 trở xuống.",
+    "type": [
+      "Vật Phẩm Địa Danh",
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 5 trở xuống."
   },
   {
     "translations": {
@@ -1108,7 +1602,11 @@
         "description": "Invoke",
         "descriptionRaw": "Invoke",
         "rarity": "Common",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Thường",
@@ -1118,7 +1616,11 @@
     "itemCode": "I0059",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0059.png",
     "name": "Bản Đồ Sao Tiêu Chuẩn",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -1127,7 +1629,11 @@
         "description": "[k:Summon|Summon] a follower with my cost from your regions.",
         "descriptionRaw": "Summon a follower with my cost from your regions.",
         "rarity": "Rare",
-        "requirements": "Card must be 1+ base cost."
+        "requirements": "Card must be 1+ base cost.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be 1+ base cost."
       }
     },
     "rarity": "Hiếm",
@@ -1137,7 +1643,11 @@
     "itemCode": "I0060",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0060.png",
     "name": "Hải Đăng Triệu Hồi",
-    "requirements": "Bài phải có tiêu hao gốc từ 1 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 1 trở lên.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 1 trở lên."
   },
   {
     "translations": {
@@ -1146,7 +1656,11 @@
         "description": "[k:Plunder|Plunder]: I cost 3 less.",
         "descriptionRaw": "Plunder: I cost 3 less.",
         "rarity": "Common",
-        "requirements": "Card must be 4+ base cost."
+        "requirements": "Card must be 4+ base cost.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be 4+ base cost."
       }
     },
     "rarity": "Thường",
@@ -1156,7 +1670,11 @@
     "itemCode": "I0061",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0061.png",
     "name": "Dị Vật Tai Ương",
-    "requirements": "Bài phải có tiêu hao gốc từ 4 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 4 trở lên.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 4 trở lên."
   },
   {
     "translations": {
@@ -1165,7 +1683,11 @@
         "description": "Heal your Nexus equal to my cost.",
         "descriptionRaw": "Heal your Nexus equal to my cost.",
         "rarity": "Common",
-        "requirements": "Card must be 2+ base cost."
+        "requirements": "Card must be 2+ base cost.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be 2+ base cost."
       }
     },
     "rarity": "Thường",
@@ -1175,7 +1697,11 @@
     "itemCode": "I0062",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0062.png",
     "name": "Bình Máu",
-    "requirements": "Bài phải có tiêu hao gốc từ 2 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 2 trở lên.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 2 trở lên."
   },
   {
     "translations": {
@@ -1184,7 +1710,11 @@
         "description": "[k:Manifest|Manifest] a card from my regions.",
         "descriptionRaw": "Manifest a card from my regions.",
         "rarity": "Common",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Thường",
@@ -1194,7 +1724,11 @@
     "itemCode": "I0063",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0063.png",
     "name": "Cổng Yordle",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -1203,7 +1737,11 @@
         "description": "Shuffle 2 copies of me into your deck. They cost 1.",
         "descriptionRaw": "Shuffle 2 copies of me into your deck. They cost 1.",
         "rarity": "Rare",
-        "requirements": "Card must be 1+ base cost."
+        "requirements": "Card must be 1+ base cost.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be 1+ base cost."
       }
     },
     "rarity": "Hiếm",
@@ -1213,7 +1751,11 @@
     "itemCode": "I0064",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0064.png",
     "name": "Bộ Bài Gian Xảo",
-    "requirements": "Bài phải có tiêu hao gốc từ 1 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 1 trở lên.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 1 trở lên."
   },
   {
     "translations": {
@@ -1222,7 +1764,11 @@
         "description": "[k:Predict|Predict]",
         "descriptionRaw": "Predict",
         "rarity": "Common",
-        "requirements": "Card must be 5 base cost or less."
+        "requirements": "Card must be 5 base cost or less.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be 5 base cost or less."
       }
     },
     "rarity": "Thường",
@@ -1232,7 +1778,11 @@
     "itemCode": "I0065",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0065.png",
     "name": "Máy Quét Oracle",
-    "requirements": "Bài phải có tiêu hao gốc từ 5 trở xuống."
+    "requirements": "Bài phải có tiêu hao gốc từ 5 trở xuống.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 5 trở xuống."
   },
   {
     "translations": {
@@ -1241,7 +1791,12 @@
         "description": "[k:Summon|Summon] a random 1 cost Poro.",
         "descriptionRaw": "Summon a random 1 cost Poro.",
         "rarity": "Common",
-        "requirements": "Card must be 5 base cost or less."
+        "requirements": "Card must be 5 base cost or less.",
+        "type": [
+          "Landmark Items",
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be 5 base cost or less."
       }
     },
     "rarity": "Thường",
@@ -1251,7 +1806,12 @@
     "itemCode": "I0066",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0066.png",
     "name": "Bánh Quy Poro",
-    "requirements": "Bài phải có tiêu hao gốc từ 5 trở xuống."
+    "requirements": "Bài phải có tiêu hao gốc từ 5 trở xuống.",
+    "type": [
+      "Vật Phẩm Địa Danh",
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 5 trở xuống."
   },
   {
     "translations": {
@@ -1260,7 +1820,11 @@
         "description": "When you play a spell, grant me +1|+1.",
         "descriptionRaw": "When you play a spell, grant me +1|+1.",
         "rarity": "Epic",
-        "requirements": "Card must be 5 base cost or less."
+        "requirements": "Card must be 5 base cost or less.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 5 base cost or less."
       }
     },
     "rarity": "Sử Thi",
@@ -1270,7 +1834,11 @@
     "itemCode": "I0067",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0067.png",
     "name": "Tinh Thể Tiêu Điểm",
-    "requirements": "Bài phải có tiêu hao gốc từ 5 trở xuống."
+    "requirements": "Bài phải có tiêu hao gốc từ 5 trở xuống.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 5 trở xuống."
   },
   {
     "translations": {
@@ -1279,7 +1847,11 @@
         "description": "When I'm summoned, I Capture the strongest enemy.",
         "descriptionRaw": "When I'm summoned, I Capture the strongest enemy.",
         "rarity": "Epic",
-        "requirements": "Card cannot have any of the keywords: Last Breath , Ephemeral ."
+        "requirements": "Card cannot have any of the keywords: [k:LastBreath|Last Breath] , [k:Ephemeral|Ephemeral] .",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card cannot have any of the keywords: [k:LastBreath|Last Breath] , [k:Ephemeral|Ephemeral] ."
       }
     },
     "rarity": "Sử Thi",
@@ -1289,7 +1861,11 @@
     "itemCode": "I0068",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0068.png",
     "name": "Găng Tay Băng Giá",
-    "requirements": "Bài không thể có các từ khoá: Trăng Trối , Cảm Tử ."
+    "requirements": "Bài không thể có các từ khoá: [k:LastBreath|Trăng Trối] , [k:Ephemeral|Cảm Tử] .",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài không thể có các từ khoá: [k:LastBreath|Trăng Trối] , [k:Ephemeral|Cảm Tử] ."
   },
   {
     "translations": {
@@ -1298,7 +1874,11 @@
         "description": "[k:Play|Play]: I start a free attack.",
         "descriptionRaw": "Play: I start a free attack.",
         "rarity": "Rare",
-        "requirements": "Card cannot have any of the keywords: Immobile ."
+        "requirements": "Card cannot have any of the keywords: [k:Immobile|Immobile] .",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card cannot have any of the keywords: Immobile ."
       }
     },
     "rarity": "Hiếm",
@@ -1308,7 +1888,11 @@
     "itemCode": "I0069",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0069.png",
     "name": "Lưỡi Kiếm Đột Kích",
-    "requirements": "Bài không thể có các từ khoá: Bất Động ."
+    "requirements": "Bài không thể có các từ khoá: Bất Động .",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài không thể có các từ khoá: Bất Động ."
   },
   {
     "translations": {
@@ -1317,7 +1901,11 @@
         "description": "[k:SpellShield|SpellShield]",
         "descriptionRaw": "SpellShield",
         "rarity": "Common",
-        "requirements": "Card cannot have any of the keywords: Spellshield ."
+        "requirements": "Card cannot have any of the keywords: [k:SpellShield|Spellshield] .",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card cannot have any of the keywords: Spellshield ."
       }
     },
     "rarity": "Thường",
@@ -1327,7 +1915,11 @@
     "itemCode": "I0070",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0070.png",
     "name": "Bùa Canh Giữ",
-    "requirements": "Bài không thể có các từ khoá: Khiên Phép ."
+    "requirements": "Bài không thể có các từ khoá: [k:SpellShield|Khiên Phép] .",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài không thể có các từ khoá: [k:SpellShield|Khiên Phép] ."
   },
   {
     "translations": {
@@ -1336,7 +1928,11 @@
         "description": "[k:Support|Support]: Grant my supported ally +1|+1.",
         "descriptionRaw": "Support: Grant my supported ally +1|+1.",
         "rarity": "Common",
-        "requirements": "Card must be 4 base cost or less. Cannot have any of the keywords: Immobile ."
+        "requirements": "Card must be 4 base cost or less. Cannot have any of the keywords: [k:Immobile|Immobile] .",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 4 base cost or less. Cannot have any of the keywords: Immobile ."
       }
     },
     "rarity": "Thường",
@@ -1346,7 +1942,11 @@
     "itemCode": "I0071",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0071.png",
     "name": "Vòng Tay Targon",
-    "requirements": "Bài phải có tiêu hao gốc từ 4 trở xuống. Bài không thể có các từ khoá: Bất Động ."
+    "requirements": "Bài phải có tiêu hao gốc từ 4 trở xuống. Bài không thể có các từ khoá: Bất Động .",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 4 trở xuống. Bài không thể có các từ khoá: Bất Động ."
   },
   {
     "translations": {
@@ -1355,7 +1955,11 @@
         "description": "[k:Support|Support]: Give my supported ally +1|+1 and my keywords this round.",
         "descriptionRaw": "Support: Give my supported ally +1|+1 and my keywords this round.",
         "rarity": "Epic",
-        "requirements": "Card must have any positive keyword."
+        "requirements": "Card must have any positive keyword.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must have any positive keyword."
       }
     },
     "rarity": "Sử Thi",
@@ -1365,7 +1969,11 @@
     "itemCode": "I0072",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0072.png",
     "name": "Khiên Gắn Kết",
-    "requirements": "Bài phải có từ khoá tích cực."
+    "requirements": "Bài phải có từ khoá tích cực.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có từ khoá tích cực."
   },
   {
     "translations": {
@@ -1374,7 +1982,11 @@
         "description": "+2|+2 and when I'm summoned, the strongest enemy and I strike each other.",
         "descriptionRaw": "+2|+2 and when I'm summoned, the strongest enemy and I strike each other.",
         "rarity": "Epic",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Sử Thi",
@@ -1384,7 +1996,11 @@
     "itemCode": "I0073",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0073.png",
     "name": "Dấu Ấn Đấu Sĩ",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -1393,7 +2009,11 @@
         "description": "When I'm summoned, heal your Nexus equal to my cost.",
         "descriptionRaw": "When I'm summoned, heal your Nexus equal to my cost.",
         "rarity": "Rare",
-        "requirements": "Card must be 2+ base cost."
+        "requirements": "Card must be 2+ base cost.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 2+ base cost."
       }
     },
     "rarity": "Hiếm",
@@ -1403,7 +2023,11 @@
     "itemCode": "I0074",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0074.png",
     "name": "Huyết Trượng",
-    "requirements": "Bài phải có tiêu hao gốc từ 2 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 2 trở lên.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 2 trở lên."
   },
   {
     "translations": {
@@ -1412,7 +2036,11 @@
         "description": "-1 cost",
         "descriptionRaw": "-1 cost",
         "rarity": "Common",
-        "requirements": "Card must be 3+ base cost."
+        "requirements": "Card must be 3+ base cost.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 3+ base cost."
       }
     },
     "rarity": "Thường",
@@ -1422,7 +2050,11 @@
     "itemCode": "I0075",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0075.png",
     "name": "Đồng Xu Cổ Đại",
-    "requirements": "Bài phải có tiêu hao gốc từ 3 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 3 trở lên.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 3 trở lên."
   },
   {
     "translations": {
@@ -1431,7 +2063,11 @@
         "description": "[k:Tough|Tough]",
         "descriptionRaw": "Tough",
         "rarity": "Common",
-        "requirements": "Card must be 5 base cost or less. Cannot have any of the keywords: Tough , Ephemeral ."
+        "requirements": "Card must be 5 base cost or less. Cannot have any of the keywords: Tough , [k:Ephemeral|Ephemeral] .",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 5 base cost or less. Cannot have any of the keywords: Tough , [k:Ephemeral|Ephemeral] ."
       }
     },
     "rarity": "Thường",
@@ -1441,7 +2077,11 @@
     "itemCode": "I0076",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0076.png",
     "name": "Giáp Lưới",
-    "requirements": "Bài phải có tiêu hao gốc từ 5 trở xuống. Bài không thể có các từ khoá: Cứng Cáp , Cảm Tử ."
+    "requirements": "Bài phải có tiêu hao gốc từ 5 trở xuống. Bài không thể có các từ khoá: Cứng Cáp , [k:Ephemeral|Cảm Tử] .",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 5 trở xuống. Bài không thể có các từ khoá: Cứng Cáp , [k:Ephemeral|Cảm Tử] ."
   },
   {
     "translations": {
@@ -1450,7 +2090,11 @@
         "description": "When I'm summoned, refill your mana equal to my cost.",
         "descriptionRaw": "When I'm summoned, refill your mana equal to my cost.",
         "rarity": "Epic",
-        "requirements": "Card must be 1+ base cost."
+        "requirements": "Card must be 1+ base cost.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 1+ base cost."
       }
     },
     "rarity": "Sử Thi",
@@ -1460,7 +2104,11 @@
     "itemCode": "I0077",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0077.png",
     "name": "Mỏ Năng Lượng",
-    "requirements": "Bài phải có tiêu hao gốc từ 1 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 1 trở lên.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 1 trở lên."
   },
   {
     "translations": {
@@ -1469,7 +2117,11 @@
         "description": "When I'm summoned, draw 1.",
         "descriptionRaw": "When I'm summoned, draw 1.",
         "rarity": "Common",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Thường",
@@ -1479,7 +2131,11 @@
     "itemCode": "I0078",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0078.png",
     "name": "Đá Hiền Triết",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -1488,7 +2144,11 @@
         "description": "-2 cost",
         "descriptionRaw": "-2 cost",
         "rarity": "Rare",
-        "requirements": "Card must be 5+ base cost."
+        "requirements": "Card must be 5+ base cost.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 5+ base cost."
       }
     },
     "rarity": "Hiếm",
@@ -1498,7 +2158,11 @@
     "itemCode": "I0079",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0079.png",
     "name": "Mề Đay Nomad",
-    "requirements": "Bài phải có tiêu hao gốc từ 5 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 5 trở lên.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 5 trở lên."
   },
   {
     "translations": {
@@ -1507,7 +2171,11 @@
         "description": "[k:RoundEnd|Round End]: Deal 1 to me and grant me +2|+0.",
         "descriptionRaw": "Round End: Deal 1 to me and grant me +2|+0.",
         "rarity": "Rare",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Special Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Hiếm",
@@ -1517,7 +2185,11 @@
     "itemCode": "I0080",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0080.png",
     "name": "Quyền Trượng Huyết Tự",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Đặc Biệt"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -1526,7 +2198,12 @@
         "description": "[k:RoundEnd|Round End]: Reduce my cost by 1.",
         "descriptionRaw": "Round End: Reduce my cost by 1.",
         "rarity": "Rare",
-        "requirements": "Card must be 5+ base cost."
+        "requirements": "Card must be 5+ base cost.",
+        "type": [
+          "Spell Items",
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 5+ base cost."
       }
     },
     "rarity": "Hiếm",
@@ -1536,7 +2213,12 @@
     "itemCode": "I0081",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0081.png",
     "name": "Đồng Hồ Không Chờ Đợi",
-    "requirements": "Bài phải có tiêu hao gốc từ 5 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 5 trở lên.",
+    "type": [
+      "Vật Phẩm Phép",
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 5 trở lên."
   },
   {
     "translations": {
@@ -1545,7 +2227,11 @@
         "description": "[k:RoundStart|Round Start]: Get an extra mana gem this round.",
         "descriptionRaw": "Round Start: Get an extra mana gem this round.",
         "rarity": "Rare",
-        "requirements": "Card must be 3 base cost or less. Cannot have any of the keywords: Ephemeral ."
+        "requirements": "Card must be 3 base cost or less. Cannot have any of the keywords: [k:Ephemeral|Ephemeral] .",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 3 base cost or less. Cannot have any of the keywords: [k:Ephemeral|Ephemeral] ."
       }
     },
     "rarity": "Hiếm",
@@ -1555,7 +2241,11 @@
     "itemCode": "I0082",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0082.png",
     "name": "Túi Tinh Thể",
-    "requirements": "Bài phải có tiêu hao gốc từ 3 trở xuống. Bài không thể có các từ khoá: Cảm Tử ."
+    "requirements": "Bài phải có tiêu hao gốc từ 3 trở xuống. Bài không thể có các từ khoá: [k:Ephemeral|Cảm Tử] .",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 3 trở xuống. Bài không thể có các từ khoá: [k:Ephemeral|Cảm Tử] ."
   },
   {
     "translations": {
@@ -1564,7 +2254,11 @@
         "description": "Grant your strongest ally a random Common item this game.",
         "descriptionRaw": "Grant your strongest ally a random Common item this game.",
         "rarity": "Common",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Thường",
@@ -1574,7 +2268,11 @@
     "itemCode": "I0083",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0083.png",
     "name": "Chế Phẩm Hextech I",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -1583,7 +2281,11 @@
         "description": "Give allies +1|+1 this round.",
         "descriptionRaw": "Give allies +1|+1 this round.",
         "rarity": "Common",
-        "requirements": "Card must be 4+ base cost."
+        "requirements": "Card must be 4+ base cost.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be 4+ base cost."
       }
     },
     "rarity": "Thường",
@@ -1593,7 +2295,11 @@
     "itemCode": "I0084",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0084.png",
     "name": "Cờ Hiệu Giao Tranh",
-    "requirements": "Bài phải có tiêu hao gốc từ 4 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 4 trở lên.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 4 trở lên."
   },
   {
     "translations": {
@@ -1602,7 +2308,11 @@
         "description": "Grant the top ally in your deck +1|+1.",
         "descriptionRaw": "Grant the top ally in your deck +1|+1.",
         "rarity": "Common",
-        "requirements": "Card must be 4 base cost or less."
+        "requirements": "Card must be 4 base cost or less.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be 4 base cost or less."
       }
     },
     "rarity": "Thường",
@@ -1612,7 +2322,11 @@
     "itemCode": "I0085",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0085.png",
     "name": "Lư Hương Cầm Tay",
-    "requirements": "Bài phải có tiêu hao gốc từ 4 trở xuống."
+    "requirements": "Bài phải có tiêu hao gốc từ 4 trở xuống.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 4 trở xuống."
   },
   {
     "translations": {
@@ -1621,7 +2335,11 @@
         "description": "Grant your strongest ally a random Rare item this game.",
         "descriptionRaw": "Grant your strongest ally a random Rare item this game.",
         "rarity": "Rare",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Hiếm",
@@ -1631,7 +2349,11 @@
     "itemCode": "I0086",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0086.png",
     "name": "Chế Phẩm Hextech II",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -1640,7 +2362,11 @@
         "description": "Grant your strongest ally a random Epic item this game.",
         "descriptionRaw": "Grant your strongest ally a random Epic item this game.",
         "rarity": "Epic",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Sử Thi",
@@ -1650,7 +2376,11 @@
     "itemCode": "I0087",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0087.png",
     "name": "Chế Phẩm Hextech III",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -1659,7 +2389,11 @@
         "description": "+1 damage",
         "descriptionRaw": "+1 damage",
         "rarity": "Common",
-        "requirements": "Card must be a damaging spell."
+        "requirements": "Card must be a damaging spell.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be a damaging spell."
       }
     },
     "rarity": "Thường",
@@ -1669,7 +2403,11 @@
     "itemCode": "I0088",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0088.png",
     "name": "Phong Ấn Tích Tụ I",
-    "requirements": "Bài phải là phép gây sát thương."
+    "requirements": "Bài phải là phép gây sát thương.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải là phép gây sát thương."
   },
   {
     "translations": {
@@ -1678,7 +2416,11 @@
         "description": "Grant the top ally in your deck +6|+6.",
         "descriptionRaw": "Grant the top ally in your deck +6|+6.",
         "rarity": "Epic",
-        "requirements": "Card must be 4+ base cost."
+        "requirements": "Card must be 4+ base cost.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be 4+ base cost."
       }
     },
     "rarity": "Sử Thi",
@@ -1688,7 +2430,11 @@
     "itemCode": "I0089",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0089.png",
     "name": "Lư Hương Khổng Lồ",
-    "requirements": "Bài phải có tiêu hao gốc từ 4 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 4 trở lên.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 4 trở lên."
   },
   {
     "translations": {
@@ -1697,7 +2443,11 @@
         "description": "+4 damage",
         "descriptionRaw": "+4 damage",
         "rarity": "Epic",
-        "requirements": "Card must be 3+ base cost. Must be a damaging spell."
+        "requirements": "Card must be 3+ base cost. Must be a damaging spell.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be 3+ base cost. Must be a damaging spell."
       }
     },
     "rarity": "Sử Thi",
@@ -1707,7 +2457,11 @@
     "itemCode": "I0090",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0090.png",
     "name": "Phong Ấn Tích Tụ III",
-    "requirements": "Bài phải có tiêu hao gốc từ 3 trở lên. Bài phải là phép gây sát thương."
+    "requirements": "Bài phải có tiêu hao gốc từ 3 trở lên. Bài phải là phép gây sát thương.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 3 trở lên. Bài phải là phép gây sát thương."
   },
   {
     "translations": {
@@ -1716,7 +2470,11 @@
         "description": "+2 damage",
         "descriptionRaw": "+2 damage",
         "rarity": "Rare",
-        "requirements": "Card must be 2+ base cost. Must be a damaging spell."
+        "requirements": "Card must be 2+ base cost. Must be a damaging spell.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be 2+ base cost. Must be a damaging spell."
       }
     },
     "rarity": "Hiếm",
@@ -1726,7 +2484,11 @@
     "itemCode": "I0091",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0091.png",
     "name": "Phong Ấn Tích Tụ II",
-    "requirements": "Bài phải có tiêu hao gốc từ 2 trở lên. Bài phải là phép gây sát thương."
+    "requirements": "Bài phải có tiêu hao gốc từ 2 trở lên. Bài phải là phép gây sát thương.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 2 trở lên. Bài phải là phép gây sát thương."
   },
   {
     "translations": {
@@ -1735,7 +2497,11 @@
         "description": "[k:Summon|Summon] a [cd:01FR053|Mighty Poro|icon,img-full].",
         "descriptionRaw": "Summon a Mighty Poro.",
         "rarity": "Common",
-        "requirements": "Card must be 4+ base cost."
+        "requirements": "Card must be 4+ base cost.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be 4+ base cost."
       }
     },
     "rarity": "Thường",
@@ -1745,7 +2511,11 @@
     "itemCode": "I0092",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0092.png",
     "name": "Râu Kẽm Hùng Dũng",
-    "requirements": "Bài phải có tiêu hao gốc từ 4 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 4 trở lên.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 4 trở lên."
   },
   {
     "translations": {
@@ -1754,7 +2524,11 @@
         "description": "[k:Summon|Summon] a random champion of my cost.",
         "descriptionRaw": "Summon a random champion of my cost.",
         "rarity": "Epic",
-        "requirements": "Card must be 1+ base cost."
+        "requirements": "Card must be 1+ base cost.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be 1+ base cost."
       }
     },
     "rarity": "Sử Thi",
@@ -1764,7 +2538,11 @@
     "itemCode": "I0093",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0093.png",
     "name": "Đá Triệu Hồi Sư",
-    "requirements": "Bài phải có tiêu hao gốc từ 1 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 1 trở lên.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 1 trở lên."
   },
   {
     "translations": {
@@ -1773,7 +2551,11 @@
         "description": "Get an empty mana gem.",
         "descriptionRaw": "Get an empty mana gem.",
         "rarity": "Rare",
-        "requirements": "Card must be 4+ base cost."
+        "requirements": "Card must be 4+ base cost.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be 4+ base cost."
       }
     },
     "rarity": "Hiếm",
@@ -1783,7 +2565,11 @@
     "itemCode": "I0094",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0094.png",
     "name": "Lam Ngọc",
-    "requirements": "Bài phải có tiêu hao gốc từ 4 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 4 trở lên.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 4 trở lên."
   },
   {
     "translations": {
@@ -1792,7 +2578,11 @@
         "description": "Game Start: Plant a [cd:06BC015T3|Mysterious Portal|icon,img-full] on me.",
         "descriptionRaw": "Game Start: Plant a Mysterious Portal on me.",
         "rarity": "Rare",
-        "requirements": "Card must be 6+ base cost if it's a Unit or Spell.  1"
+        "requirements": "Card must be 6+ base cost if it's a Unit or Spell.  1",
+        "type": [
+          "General Items"
+        ],
+        "requirementsRaw": "Card must be 6+ base cost if it's a Unit or Spell.  1"
       }
     },
     "rarity": "Hiếm",
@@ -1802,7 +2592,11 @@
     "itemCode": "I0095",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0095.png",
     "name": "Trà Của Norra",
-    "requirements": "Bài phải có tiêu hao gốc từ 6 trở lên nếu là Tùy tùng hoặc Phép. 1"
+    "requirements": "Bài phải có tiêu hao gốc từ 6 trở lên nếu là Tùy tùng hoặc Phép. 1",
+    "type": [
+      "Vật Phẩm Chung"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 6 trở lên nếu là Tùy tùng hoặc Phép. 1"
   },
   {
     "translations": {
@@ -1811,7 +2605,11 @@
         "description": "[k:Attack|Attack]: Grant my bearer +1|+1.",
         "descriptionRaw": "Attack: Grant my bearer +1|+1.",
         "rarity": "Rare",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Equipment Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Hiếm",
@@ -1821,7 +2619,11 @@
     "itemCode": "I0096",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0096.png",
     "name": "Thủy Kiếm",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Trang Bị"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -1830,7 +2632,11 @@
         "description": "[k:Challenger|Challenger]",
         "descriptionRaw": "Challenger",
         "rarity": "Common",
-        "requirements": "Card cannot have any of the keywords: Challenger ."
+        "requirements": "Card cannot have any of the keywords: [k:Challenger|Challenger] .",
+        "type": [
+          "Equipment Items"
+        ],
+        "requirementsRaw": "Card cannot have any of the keywords: [k:Challenger|Challenger] ."
       }
     },
     "rarity": "Thường",
@@ -1840,7 +2646,11 @@
     "itemCode": "I0097",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0097.png",
     "name": "Đoản Kiếm Bilgewater",
-    "requirements": "Bài không thể có các từ khoá: Thách Đấu ."
+    "requirements": "Bài không thể có các từ khoá: [k:Challenger|Thách Đấu] .",
+    "type": [
+      "Vật Phẩm Trang Bị"
+    ],
+    "requirementsRaw": "Bài không thể có các từ khoá: [k:Challenger|Thách Đấu] ."
   },
   {
     "translations": {
@@ -1849,7 +2659,11 @@
         "description": "[k:QuickStrike|Quick Attack]",
         "descriptionRaw": "Quick Attack",
         "rarity": "Common",
-        "requirements": "Card cannot have any of the keywords: Quick Attack , Double Attack ."
+        "requirements": "Card cannot have any of the keywords: [k:QuickStrike|Quick Attack] , Double [k:Attack|Attack] .",
+        "type": [
+          "Equipment Items"
+        ],
+        "requirementsRaw": "Card cannot have any of the keywords: [k:QuickStrike|Quick Attack] , Double [k:Attack|Attack] ."
       }
     },
     "rarity": "Thường",
@@ -1859,7 +2673,11 @@
     "itemCode": "I0104",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0104.png",
     "name": "Song Kiếm",
-    "requirements": "Bài không thể có các từ khoá: Đột Kích , Đánh Hai Lần ."
+    "requirements": "Bài không thể có các từ khoá: [k:QuickStrike|Đột Kích] , Đánh Hai Lần .",
+    "type": [
+      "Vật Phẩm Trang Bị"
+    ],
+    "requirementsRaw": "Bài không thể có các từ khoá: [k:QuickStrike|Đột Kích] , Đánh Hai Lần ."
   },
   {
     "translations": {
@@ -1868,7 +2686,11 @@
         "description": "[k:Regeneration|Regeneration]",
         "descriptionRaw": "Regeneration",
         "rarity": "Rare",
-        "requirements": "Card cannot have any of the keywords: Regeneration ."
+        "requirements": "Card cannot have any of the keywords: [k:Regeneration|Regeneration] .",
+        "type": [
+          "Equipment Items"
+        ],
+        "requirementsRaw": "Card cannot have any of the keywords: [k:Regeneration|Regeneration] ."
       }
     },
     "rarity": "Hiếm",
@@ -1878,7 +2700,11 @@
     "itemCode": "I0105",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0105.png",
     "name": "Ngọc Lục Bảo",
-    "requirements": "Bài không thể có các từ khoá: Hồi Phục ."
+    "requirements": "Bài không thể có các từ khoá: [k:Regeneration|Hồi Phục] .",
+    "type": [
+      "Vật Phẩm Trang Bị"
+    ],
+    "requirementsRaw": "Bài không thể có các từ khoá: [k:Regeneration|Hồi Phục] ."
   },
   {
     "translations": {
@@ -1887,7 +2713,11 @@
         "description": "[k:Scout|Scout]",
         "descriptionRaw": "Scout",
         "rarity": "Epic",
-        "requirements": "Card cannot have any of the keywords: Scout ."
+        "requirements": "Card cannot have any of the keywords: [k:Scout|Scout] .",
+        "type": [
+          "Equipment Items"
+        ],
+        "requirementsRaw": "Card cannot have any of the keywords: [k:Scout|Scout] ."
       }
     },
     "rarity": "Sử Thi",
@@ -1897,7 +2727,11 @@
     "itemCode": "I0106",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0106.png",
     "name": "Ma Vũ Song Kiếm",
-    "requirements": "Bài không thể có các từ khoá: Tiên Phong ."
+    "requirements": "Bài không thể có các từ khoá: [k:Scout|Tiên Phong] .",
+    "type": [
+      "Vật Phẩm Trang Bị"
+    ],
+    "requirementsRaw": "Bài không thể có các từ khoá: Tiên Phong ."
   },
   {
     "translations": {
@@ -1906,7 +2740,11 @@
         "description": "When you play a spell, grant my bearer +1|+1.",
         "descriptionRaw": "When you play a spell, grant my bearer +1|+1.",
         "rarity": "Epic",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Equipment Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Sử Thi",
@@ -1916,7 +2754,11 @@
     "itemCode": "I0107",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0107.png",
     "name": "Lưỡi Hái Linh Hồn",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Trang Bị"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -1925,7 +2767,12 @@
         "description": "[k:Burst|Burst]",
         "descriptionRaw": "Burst",
         "rarity": "Special",
-        "requirements": "Burst"
+        "requirements": "[k:Burst|Burst]",
+        "type": [
+          "Landmark Items",
+          "Special Items"
+        ],
+        "requirementsRaw": "[k:Burst|Burst]"
       }
     },
     "rarity": "Đặc Biệt",
@@ -1935,7 +2782,12 @@
     "itemCode": "I0108",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0108.png",
     "name": "Đồng Hồ Ngưng Đọng",
-    "requirements": "Burst"
+    "requirements": "Burst",
+    "type": [
+      "Vật Phẩm Địa Danh",
+      "Vật Phẩm Đặc Biệt"
+    ],
+    "requirementsRaw": "Burst"
   },
   {
     "translations": {
@@ -1944,7 +2796,11 @@
         "description": "Create a random card from the Emperor's Deck in hand.",
         "descriptionRaw": "Create a random card from the Emperor's Deck in hand.",
         "rarity": "Rare",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Hiếm",
@@ -1954,7 +2810,11 @@
     "itemCode": "I0109",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0109.png",
     "name": "Đặc Ân Đế Vương",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -1963,7 +2823,11 @@
         "description": "I cost 1 and my base stats are 1|1. I am a Poro.",
         "descriptionRaw": "I cost 1 and my base stats are 1|1. I am a Poro.",
         "rarity": "Epic",
-        "requirements": "Card must be 2+ base cost. Cannot be a Champion."
+        "requirements": "Card must be 2+ base cost. Cannot be a [k:Champion|Champion].",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 2+ base cost. Cannot be a [k:Champion|Champion]."
       }
     },
     "rarity": "Sử Thi",
@@ -1973,7 +2837,11 @@
     "itemCode": "I0110",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0110.png",
     "name": "Poro Bông Mềm",
-    "requirements": "Bài phải có tiêu hao gốc từ 2 trở lên. Không thể là Anh Hùng."
+    "requirements": "Bài phải có tiêu hao gốc từ 2 trở lên. Không thể là [k:Champion|Anh Hùng].",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 2 trở lên. Không thể là [k:Champion|Anh Hùng]."
   },
   {
     "translations": {
@@ -1982,7 +2850,11 @@
         "description": "[k:Strike|Strike]: Draw 1",
         "descriptionRaw": "Strike: Draw 1",
         "rarity": "Common",
-        "requirements": "Card cannot have any of the keywords: Immobile , Ephemeral ."
+        "requirements": "Card cannot have any of the keywords: Immobile , [k:Ephemeral|Ephemeral] .",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card cannot have any of the keywords: Immobile , [k:Ephemeral|Ephemeral] ."
       }
     },
     "rarity": "Thường",
@@ -1992,7 +2864,11 @@
     "itemCode": "I0111",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0111.png",
     "name": "Mồi Nhử Hấp Dẫn",
-    "requirements": "Bài không thể có các từ khoá: Bất Động , Cảm Tử ."
+    "requirements": "Bài không thể có các từ khoá: Bất Động , [k:Ephemeral|Cảm Tử] .",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài không thể có các từ khoá: Bất Động , [k:Ephemeral|Cảm Tử] ."
   },
   {
     "translations": {
@@ -2001,7 +2877,11 @@
         "description": "[k:Augment|Augment] and becomes Tech",
         "descriptionRaw": "Augment and becomes Tech",
         "rarity": "Common",
-        "requirements": "Card must be 5 base cost or less. Cannot have any of the keywords: Augment ."
+        "requirements": "Card must be 5 base cost or less. Cannot have any of the keywords: [k:Augment|Augment] .",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 5 base cost or less. Cannot have any of the keywords: [k:Augment|Augment] ."
       }
     },
     "rarity": "Thường",
@@ -2011,7 +2891,11 @@
     "itemCode": "I0112",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0112.png",
     "name": "Tiến Hóa Công Nghệ",
-    "requirements": "Bài phải có tiêu hao gốc từ 5 trở xuống. Bài không thể có các từ khoá: Cường Hóa ."
+    "requirements": "Bài phải có tiêu hao gốc từ 5 trở xuống. Bài không thể có các từ khoá: [k:Empowered|Cường Hóa] .",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 5 trở xuống. Bài không thể có các từ khoá: [k:Empowered|Cường Hóa] ."
   },
   {
     "translations": {
@@ -2020,7 +2904,11 @@
         "description": "+1|+0 and [k:Brash|Brash]",
         "descriptionRaw": "+1|+0 and Brash",
         "rarity": "Common",
-        "requirements": "Card must be 4 base cost or less. Cannot have any of the keywords: Brash ."
+        "requirements": "Card must be 4 base cost or less. Cannot have any of the keywords: [k:Brash|Brash] .",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 4 base cost or less. Cannot have any of the keywords: [k:Brash|Brash] ."
       }
     },
     "rarity": "Thường",
@@ -2030,7 +2918,11 @@
     "itemCode": "I0113",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0113.png",
     "name": "Găng Tay San Hô",
-    "requirements": "Bài phải có tiêu hao gốc từ 4 trở xuống. Bài không thể có các từ khoá: Hổ Báo ."
+    "requirements": "Bài phải có tiêu hao gốc từ 4 trở xuống. Bài không thể có các từ khoá: Hổ Báo .",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 4 trở xuống. Bài không thể có các từ khoá: Hổ Báo ."
   },
   {
     "translations": {
@@ -2039,7 +2931,11 @@
         "description": "-2 cost and Fleeting",
         "descriptionRaw": "-2 cost and Fleeting",
         "rarity": "Common",
-        "requirements": "Card must be 4+ base cost."
+        "requirements": "Card must be 4+ base cost.",
+        "type": [
+          "General Items"
+        ],
+        "requirementsRaw": "Card must be 4+ base cost."
       }
     },
     "rarity": "Thường",
@@ -2049,7 +2945,11 @@
     "itemCode": "I0115",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0115.png",
     "name": "Tăng Tiền Cược",
-    "requirements": "Bài phải có tiêu hao gốc từ 4 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 4 trở lên.",
+    "type": [
+      "Vật Phẩm Chung"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 4 trở lên."
   },
   {
     "translations": {
@@ -2058,7 +2958,11 @@
         "description": "Deal 3 to the enemy Nexus.",
         "descriptionRaw": "Deal 3 to the enemy Nexus.",
         "rarity": "Common",
-        "requirements": "Card must be 4 base cost or less."
+        "requirements": "Card must be 4 base cost or less.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be 4 base cost or less."
       }
     },
     "rarity": "Thường",
@@ -2068,7 +2972,11 @@
     "itemCode": "I0116",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0116.png",
     "name": "Thức Tỉnh Hỏa Thuật",
-    "requirements": "Bài phải có tiêu hao gốc từ 4 trở xuống."
+    "requirements": "Bài phải có tiêu hao gốc từ 4 trở xuống.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 4 trở xuống."
   },
   {
     "translations": {
@@ -2077,7 +2985,11 @@
         "description": "[k:Cost|Cost]s 1 less for each card you've drawn this round.",
         "descriptionRaw": "Costs 1 less for each card you've drawn this round.",
         "rarity": "Epic",
-        "requirements": "Card must be 2+ base cost."
+        "requirements": "Card must be 2+ base cost.",
+        "type": [
+          "General Items"
+        ],
+        "requirementsRaw": "Card must be 2+ base cost."
       }
     },
     "rarity": "Sử Thi",
@@ -2087,7 +2999,11 @@
     "itemCode": "I0118",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0118.png",
     "name": "Hợp Âm Sức Mạnh",
-    "requirements": "Bài phải có tiêu hao gốc từ 2 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 2 trở lên.",
+    "type": [
+      "Vật Phẩm Chung"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 2 trở lên."
   },
   {
     "translations": {
@@ -2096,7 +3012,11 @@
         "description": "Create a [cd:08BW008T3|Slipstream|icon,img-full] in hand.",
         "descriptionRaw": "Create a Slipstream in hand.",
         "rarity": "Common",
-        "requirements": "Card must be 2-5 base cost."
+        "requirements": "Card must be 2-5 base cost.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be 2-5 base cost."
       }
     },
     "rarity": "Thường",
@@ -2106,7 +3026,11 @@
     "itemCode": "I0119",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0119.png",
     "name": "Gươm Roi",
-    "requirements": "Bài phải có tiêu hao gốc từ 2 đến 5."
+    "requirements": "Bài phải có tiêu hao gốc từ 2 đến 5.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 2 đến 5."
   },
   {
     "translations": {
@@ -2115,7 +3039,11 @@
         "description": "Draw a unit.",
         "descriptionRaw": "Draw a unit.",
         "rarity": "Common",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Thường",
@@ -2125,7 +3053,11 @@
     "itemCode": "I0120",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0120.png",
     "name": "Hiệu Triệu Anh Hùng",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -2134,7 +3066,11 @@
         "description": "[k:Manifest|Manifest] a Titanic unit and summon 2 Sigils of the Storm.",
         "descriptionRaw": "Manifest a Titanic unit and summon 2 Sigils of the Storm.",
         "rarity": "Rare",
-        "requirements": "Card must be 5 base cost or less."
+        "requirements": "Card must be 5 base cost or less.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be 5 base cost or less."
       }
     },
     "rarity": "Hiếm",
@@ -2144,7 +3080,11 @@
     "itemCode": "I0121",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0121.png",
     "name": "Triệu Hồi Bão Tố",
-    "requirements": "Bài phải có tiêu hao gốc từ 5 trở xuống."
+    "requirements": "Bài phải có tiêu hao gốc từ 5 trở xuống.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 5 trở xuống."
   },
   {
     "translations": {
@@ -2153,7 +3093,11 @@
         "description": "When I'm summoned, grow me to 8|8.",
         "descriptionRaw": "When I'm summoned, grow me to 8|8.",
         "rarity": "Rare",
-        "requirements": "Card must be 5-7 base cost."
+        "requirements": "Card must be 5-7 base cost.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 5-7 base cost."
       }
     },
     "rarity": "Hiếm",
@@ -2163,7 +3107,11 @@
     "itemCode": "I0122",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0122.png",
     "name": "Hóa Khổng Lồ",
-    "requirements": "Bài phải có tiêu hao gốc từ 5 đến 7."
+    "requirements": "Bài phải có tiêu hao gốc từ 5 đến 7.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 5 đến 7."
   },
   {
     "translations": {
@@ -2172,7 +3120,11 @@
         "description": "[k:Deathless|Deathless]",
         "descriptionRaw": "Deathless",
         "rarity": "Rare",
-        "requirements": "Card cannot have any of the keywords: Deathless ."
+        "requirements": "Card cannot have any of the keywords: [k:Deathless|Deathless] .",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card cannot have any of the keywords: [k:Deathless|Deathless] ."
       }
     },
     "rarity": "Hiếm",
@@ -2182,7 +3134,11 @@
     "itemCode": "I0123",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0123.png",
     "name": "Bất Tử",
-    "requirements": "Bài không thể có các từ khoá: Bất Tử ."
+    "requirements": "Bài không thể có các từ khoá: [k:Deathless|Bất Tử] .",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài không thể có các từ khoá: Bất Tử ."
   },
   {
     "translations": {
@@ -2191,7 +3147,11 @@
         "description": "When you play a card, give me +1|+1 this round.",
         "descriptionRaw": "When you play a card, give me +1|+1 this round.",
         "rarity": "Rare",
-        "requirements": "Card must be 5 base cost or less."
+        "requirements": "Card must be 5 base cost or less.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 5 base cost or less."
       }
     },
     "rarity": "Hiếm",
@@ -2201,7 +3161,11 @@
     "itemCode": "I0124",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0124.png",
     "name": "Năng Lượng Máy Xúc",
-    "requirements": "Bài phải có tiêu hao gốc từ 5 trở xuống."
+    "requirements": "Bài phải có tiêu hao gốc từ 5 trở xuống.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 5 trở xuống."
   },
   {
     "translations": {
@@ -2210,7 +3174,11 @@
         "description": "When I'm summoned, draw a spell.",
         "descriptionRaw": "When I'm summoned, draw a spell.",
         "rarity": "Common",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Thường",
@@ -2220,7 +3188,11 @@
     "itemCode": "I0125",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0125.png",
     "name": "Kiến Thức Thần Bí",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -2229,7 +3201,11 @@
         "description": "[k:Fated|Fated] and becomes Fae",
         "descriptionRaw": "Fated and becomes Fae",
         "rarity": "Common",
-        "requirements": "Card must be 3 base cost or less. Cannot have any of the keywords: Fated , Immobile ."
+        "requirements": "Card must be 3 base cost or less. Cannot have any of the keywords: [k:Fated|Fated] , [k:Immobile|Immobile] .",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 3 base cost or less. Cannot have any of the keywords: [k:Fated|Fated] , Immobile ."
       }
     },
     "rarity": "Thường",
@@ -2239,7 +3215,11 @@
     "itemCode": "I0126",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0126.png",
     "name": "Đặc Ân Tinh Linh",
-    "requirements": "Bài phải có tiêu hao gốc từ 3 trở xuống. Bài không thể có các từ khoá: Định Mệnh , Bất Động ."
+    "requirements": "Bài phải có tiêu hao gốc từ 3 trở xuống. Bài không thể có các từ khoá: [k:Fated|Định Mệnh] , Bất Động .",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 3 trở xuống. Bài không thể có các từ khoá: [k:Fated|Định Mệnh] , Bất Động ."
   },
   {
     "translations": {
@@ -2248,7 +3228,11 @@
         "description": "Attune.\r\nWhen I'm summoned, create a Prank in hand.",
         "descriptionRaw": "Attune.\r\nWhen I'm summoned, create a Prank in hand.",
         "rarity": "Common",
-        "requirements": "Card must be 4 base cost or less. Cannot have any of the keywords: Attune ."
+        "requirements": "Card must be 4 base cost or less. Cannot have any of the keywords: [k:Attune|Attune] .",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 4 base cost or less. Cannot have any of the keywords: Attune ."
       }
     },
     "rarity": "Thường",
@@ -2258,7 +3242,11 @@
     "itemCode": "I0129",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0129.png",
     "name": "Linh Hồn Tinh Quái",
-    "requirements": "Bài phải có tiêu hao gốc từ 4 trở xuống. Bài không thể có các từ khoá: Hòa Âm ."
+    "requirements": "Bài phải có tiêu hao gốc từ 4 trở xuống. Bài không thể có các từ khoá: [k:Attune|Hòa Âm] .",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 4 trở xuống. Bài không thể có các từ khoá: Hòa Âm ."
   },
   {
     "translations": {
@@ -2267,7 +3255,11 @@
         "description": "Double [k:Attack|Attack]",
         "descriptionRaw": "Double Attack",
         "rarity": "Epic",
-        "requirements": "Card cannot have any of the keywords: Double Attack , Ephemeral , Immobile ."
+        "requirements": "Card cannot have any of the keywords: Double Attack , [k:Ephemeral|Ephemeral] , [k:Immobile|Immobile] .",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card cannot have any of the keywords: Double Attack , [k:Ephemeral|Ephemeral] , Immobile ."
       }
     },
     "rarity": "Sử Thi",
@@ -2277,7 +3269,11 @@
     "itemCode": "I0130",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0130.png",
     "name": "Nắm Đấm Hạng Nặng",
-    "requirements": "Bài không thể có các từ khoá: Đánh Hai Lần , Cảm Tử , Bất Động ."
+    "requirements": "Bài không thể có các từ khoá: Đánh Hai Lần , [k:Ephemeral|Cảm Tử] , Bất Động .",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài không thể có các từ khoá: Đánh Hai Lần , [k:Ephemeral|Cảm Tử] , Bất Động ."
   },
   {
     "translations": {
@@ -2286,7 +3282,11 @@
         "description": "[k:Rally|Rally]",
         "descriptionRaw": "Rally",
         "rarity": "Epic",
-        "requirements": "Card must be 6+ base cost."
+        "requirements": "Card must be 6+ base cost.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be 6+ base cost."
       }
     },
     "rarity": "Sử Thi",
@@ -2296,7 +3296,11 @@
     "itemCode": "I0131",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0131.png",
     "name": "Tiến Công Chuẩn Mực",
-    "requirements": "Bài phải có tiêu hao gốc từ 6 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 6 trở lên.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 6 trở lên."
   },
   {
     "translations": {
@@ -2305,7 +3309,11 @@
         "description": "The opponent discards a random card.",
         "descriptionRaw": "The opponent discards a random card.",
         "rarity": "Rare",
-        "requirements": "Card must be 2-4 base cost."
+        "requirements": "Card must be 2-4 base cost.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be 2-4 base cost."
       }
     },
     "rarity": "Hiếm",
@@ -2315,7 +3323,11 @@
     "itemCode": "I0132",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0132.png",
     "name": "Sâu Não",
-    "requirements": "Bài phải có tiêu hao gốc từ 2 đến 4."
+    "requirements": "Bài phải có tiêu hao gốc từ 2 đến 4.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 2 đến 4."
   },
   {
     "translations": {
@@ -2324,7 +3336,11 @@
         "description": "+4|+0 and Can't Block.",
         "descriptionRaw": "+4|+0 and Can't Block.",
         "rarity": "Common",
-        "requirements": "Card must be 2+ base cost. Cannot have any of the keywords: Immobile ."
+        "requirements": "Card must be 2+ base cost. Cannot have any of the keywords: [k:Immobile|Immobile] .",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 2+ base cost. Cannot have any of the keywords: Immobile ."
       }
     },
     "rarity": "Thường",
@@ -2334,7 +3350,11 @@
     "itemCode": "I0133",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0133.png",
     "name": "Giận Phát Cuồng",
-    "requirements": "Bài phải có tiêu hao gốc từ 2 trở lên. Bài không thể có các từ khoá: Bất Động ."
+    "requirements": "Bài phải có tiêu hao gốc từ 2 trở lên. Bài không thể có các từ khoá: Bất Động .",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 2 trở lên. Bài không thể có các từ khoá: Bất Động ."
   },
   {
     "translations": {
@@ -2343,7 +3363,11 @@
         "description": "[k:Summon|Summon] a [cd:04SH013|Preservarium|icon,img-full].",
         "descriptionRaw": "Summon a Preservarium.",
         "rarity": "Rare",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Hiếm",
@@ -2353,7 +3377,11 @@
     "itemCode": "I0134",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0134.png",
     "name": "Bá Chủ Thời Gian",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -2362,7 +3390,11 @@
         "description": "When I'm summoned and [k:RoundStart|Round Start]: [k:Summon|Summon] an [cd:04SI045|Encroaching Mist|icon,img-full].",
         "descriptionRaw": "When I'm summoned and Round Start: Summon an Encroaching Mist.",
         "rarity": "Rare",
-        "requirements": "Card must be 3+ base cost."
+        "requirements": "Card must be 3+ base cost.",
+        "type": [
+          "Landmark Items"
+        ],
+        "requirementsRaw": "Card must be 3+ base cost."
       }
     },
     "rarity": "Hiếm",
@@ -2372,7 +3404,11 @@
     "itemCode": "I0135",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0135.png",
     "name": "Màn Sương",
-    "requirements": "Bài phải có tiêu hao gốc từ 3 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 3 trở lên.",
+    "type": [
+      "Vật Phẩm Địa Danh"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 3 trở lên."
   },
   {
     "translations": {
@@ -2381,7 +3417,11 @@
         "description": "Allies have +1|+1",
         "descriptionRaw": "Allies have +1|+1",
         "rarity": "Common",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Landmark Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Thường",
@@ -2391,7 +3431,11 @@
     "itemCode": "I0136",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0136.png",
     "name": "Phần Thưởng Dành Cho Anh Hùng",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Địa Danh"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -2400,7 +3444,11 @@
         "description": "[k:RoundStart|Round Start]: Refill your spell mana.",
         "descriptionRaw": "Round Start: Refill your spell mana.",
         "rarity": "Common",
-        "requirements": "Card cannot have any of the keywords: Countdown ."
+        "requirements": "Card cannot have any of the keywords: [k:Countdown|Countdown] .",
+        "type": [
+          "Landmark Items"
+        ],
+        "requirementsRaw": "Card cannot have any of the keywords: [k:Countdown|Countdown] ."
       }
     },
     "rarity": "Thường",
@@ -2410,7 +3458,11 @@
     "itemCode": "I0137",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0137.png",
     "name": "Tháp Canh Pháp Sư",
-    "requirements": "Bài không thể có các từ khoá: Đếm Ngược ."
+    "requirements": "Bài không thể có các từ khoá: [k:Countdown|Đếm Ngược] .",
+    "type": [
+      "Vật Phẩm Địa Danh"
+    ],
+    "requirementsRaw": "Bài không thể có các từ khoá: [k:Countdown|Đếm Ngược] ."
   },
   {
     "translations": {
@@ -2419,7 +3471,11 @@
         "description": "Game Start: [k:Summon|Summon] one of me from deck.",
         "descriptionRaw": "Game Start: Summon one of me from deck.",
         "rarity": "Epic",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Landmark Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Sử Thi",
@@ -2429,7 +3485,11 @@
     "itemCode": "I0138",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0138.png",
     "name": "Sân Nhà",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Địa Danh"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -2438,17 +3498,29 @@
         "description": "When I'm summoned, plant 6 Chimes on random cards in your deck.",
         "descriptionRaw": "When I'm summoned, plant 6 Chimes on random cards in your deck.",
         "rarity": "Common",
-        "requirements": "Card must be 4 base cost or less."
+        "requirements": "Card must be 4 base cost or less.",
+        "type": [
+          "Landmark Items",
+          "Spell Items",
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 4 base cost or less."
       }
     },
     "rarity": "Thường",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0140-full.png",
     "descriptionRaw": "Khi ta được triệu hồi, gài 6 lá Chuông lên các lá bài ngẫu nhiên trong bộ bài.",
-    "description": "Khi ta được triệu hồi, gài 6 lá Chuông lên các lá bài ngẫu nhiên trong bộ bài.",
+    "description": "Khi ta được triệu hồi, gài 6 lá [cd:06RU001T3|Chuông|icon,img-full] lên các lá bài ngẫu nhiên trong bộ bài.",
     "itemCode": "I0140",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0140.png",
     "name": "Phước Họa Lãng Khách",
-    "requirements": "Bài phải có tiêu hao gốc từ 4 trở xuống."
+    "requirements": "Bài phải có tiêu hao gốc từ 4 trở xuống.",
+    "type": [
+      "Vật Phẩm Địa Danh",
+      "Vật Phẩm Phép",
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 4 trở xuống."
   },
   {
     "translations": {
@@ -2457,7 +3529,11 @@
         "description": "While in hand, I have a random keyword that changes each round. When I'm summoned, grant me this keyword.",
         "descriptionRaw": "While in hand, I have a random keyword that changes each round. When I'm summoned, grant me this keyword.",
         "rarity": "Common",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Thường",
@@ -2467,7 +3543,11 @@
     "itemCode": "I0142",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0142.png",
     "name": "Vỏ Bọc Hư Không",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -2476,7 +3556,11 @@
         "description": "Applies Gloom instead of dealing damage to units.",
         "descriptionRaw": "Applies Gloom instead of dealing damage to units.",
         "rarity": "Common",
-        "requirements": "Card must be a damaging spell."
+        "requirements": "Card must be a damaging spell.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be a damaging spell."
       }
     },
     "rarity": "Thường",
@@ -2486,7 +3570,11 @@
     "itemCode": "I0143",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0143.png",
     "name": "Quỷ Thư Morello",
-    "requirements": "Bài phải là phép gây sát thương."
+    "requirements": "Bài phải là phép gây sát thương.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải là phép gây sát thương."
   },
   {
     "translations": {
@@ -2495,7 +3583,11 @@
         "description": "[k:Spirit|Spirit]",
         "descriptionRaw": "Spirit",
         "rarity": "Common",
-        "requirements": "Card must be 5 base cost or less."
+        "requirements": "Card must be 5 base cost or less.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 5 base cost or less."
       }
     },
     "rarity": "Thường",
@@ -2505,7 +3597,11 @@
     "itemCode": "I0144",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0144.png",
     "name": "Trượng Rạng Ngời",
-    "requirements": "Bài phải có tiêu hao gốc từ 5 trở xuống."
+    "requirements": "Bài phải có tiêu hao gốc từ 5 trở xuống.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 5 trở xuống."
   },
   {
     "translations": {
@@ -2514,7 +3610,11 @@
         "description": "Hallowed",
         "descriptionRaw": "Hallowed",
         "rarity": "Common",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Thường",
@@ -2524,7 +3624,11 @@
     "itemCode": "I0146",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0146.png",
     "name": "Giai Điệu Diệu Kỳ",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -2533,7 +3637,11 @@
         "description": "[k:LastBreath|Last Breath]: [k:Summon|Summon] a random 1 cost unit from your regions.",
         "descriptionRaw": "Last Breath: Summon a random 1 cost unit from your regions.",
         "rarity": "Common",
-        "requirements": "Card must be 4 base cost or less."
+        "requirements": "Card must be 4 base cost or less.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 4 base cost or less."
       }
     },
     "rarity": "Thường",
@@ -2543,7 +3651,11 @@
     "itemCode": "I0147",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0147.png",
     "name": "Bảng Truy Nã",
-    "requirements": "Bài phải có tiêu hao gốc từ 4 trở xuống."
+    "requirements": "Bài phải có tiêu hao gốc từ 4 trở xuống.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 4 trở xuống."
   },
   {
     "translations": {
@@ -2552,7 +3664,11 @@
         "description": "[k:Play|Play]: I strike the enemy Nexus.",
         "descriptionRaw": "Play: I strike the enemy Nexus.",
         "rarity": "Rare",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Special Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Hiếm",
@@ -2562,7 +3678,11 @@
     "itemCode": "I0151",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0151.png",
     "name": "Người Phá Thành Sa Ngã",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Đặc Biệt"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -2571,7 +3691,11 @@
         "description": "[k:Play|Play]: [k:Play|Play] two random Dragon Boons on me.",
         "descriptionRaw": "Play: Play two random Dragon Boons on me.",
         "rarity": "Rare",
-        "requirements": "Card must be 4+ base cost."
+        "requirements": "Card must be 4+ base cost.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 4+ base cost."
       }
     },
     "rarity": "Hiếm",
@@ -2581,7 +3705,11 @@
     "itemCode": "I0154",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0154.png",
     "name": "Linh Hồn Bốc Lửa",
-    "requirements": "Bài phải có tiêu hao gốc từ 4 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 4 trở lên.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 4 trở lên."
   },
   {
     "translations": {
@@ -2590,7 +3718,11 @@
         "description": "[k:Play|Play]: Deal 2 to all enemies and the enemy Nexus.",
         "descriptionRaw": "Play: Deal 2 to all enemies and the enemy Nexus.",
         "rarity": "Rare",
-        "requirements": "Card must be 6+ base cost."
+        "requirements": "Card must be 6+ base cost.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 6+ base cost."
       }
     },
     "rarity": "Hiếm",
@@ -2600,7 +3732,11 @@
     "itemCode": "I0157",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0157.png",
     "name": "Băng Tộc",
-    "requirements": "Bài phải có tiêu hao gốc từ 6 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 6 trở lên.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 6 trở lên."
   },
   {
     "translations": {
@@ -2609,7 +3745,11 @@
         "description": "[k:RoundStart|Round Start]: Grant me +1|+1 if I'm in play or in hand.",
         "descriptionRaw": "Round Start: Grant me +1|+1 if I'm in play or in hand.",
         "rarity": "Common",
-        "requirements": "Card must be 6+ base cost."
+        "requirements": "Card must be 6+ base cost.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 6+ base cost."
       }
     },
     "rarity": "Thường",
@@ -2619,7 +3759,11 @@
     "itemCode": "I0158",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0158.png",
     "name": "Tăng Trưởng Tiến Bộ",
-    "requirements": "Bài phải có tiêu hao gốc từ 6 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 6 trở lên.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 6 trở lên."
   },
   {
     "translations": {
@@ -2628,7 +3772,11 @@
         "description": "+2|+2, but cost 1 more",
         "descriptionRaw": "+2|+2, but cost 1 more",
         "rarity": "Common",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Special Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Thường",
@@ -2638,7 +3786,11 @@
     "itemCode": "I0159",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0159.png",
     "name": "Người Khổng Lồ Nhỏ",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Đặc Biệt"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -2647,7 +3799,11 @@
         "description": "Double damage, but cost 1 more",
         "descriptionRaw": "Double damage, but cost 1 more",
         "rarity": "Rare",
-        "requirements": "Card must be 4 base cost or less. Must be a damaging spell."
+        "requirements": "Card must be 4 base cost or less. Must be a damaging spell.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be 4 base cost or less. Must be a damaging spell."
       }
     },
     "rarity": "Hiếm",
@@ -2657,7 +3813,11 @@
     "itemCode": "I0160",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0160.png",
     "name": "Ấn Nổ Lỗi",
-    "requirements": "Bài phải có tiêu hao gốc từ 4 trở xuống. Bài phải là phép gây sát thương."
+    "requirements": "Bài phải có tiêu hao gốc từ 4 trở xuống. Bài phải là phép gây sát thương.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 4 trở xuống. Bài phải là phép gây sát thương."
   },
   {
     "translations": {
@@ -2666,7 +3826,11 @@
         "description": "Double damage",
         "descriptionRaw": "Double damage",
         "rarity": "Epic",
-        "requirements": "Card must be 6+ base cost. Must be a damaging spell."
+        "requirements": "Card must be 6+ base cost. Must be a damaging spell.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be 6+ base cost. Must be a damaging spell."
       }
     },
     "rarity": "Sử Thi",
@@ -2676,7 +3840,11 @@
     "itemCode": "I0161",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0161.png",
     "name": "Ấn Nổ",
-    "requirements": "Bài phải có tiêu hao gốc từ 6 trở lên. Bài phải là phép gây sát thương."
+    "requirements": "Bài phải có tiêu hao gốc từ 6 trở lên. Bài phải là phép gây sát thương.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 6 trở lên. Bài phải là phép gây sát thương."
   },
   {
     "translations": {
@@ -2685,7 +3853,11 @@
         "description": "+5|+5",
         "descriptionRaw": "+5|+5",
         "rarity": "Epic",
-        "requirements": "Card must be 6+ base cost."
+        "requirements": "Card must be 6+ base cost.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 6+ base cost."
       }
     },
     "rarity": "Sử Thi",
@@ -2695,7 +3867,11 @@
     "itemCode": "I0162",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0162.png",
     "name": "Búa Khổng Lồ",
-    "requirements": "Bài phải có tiêu hao gốc từ 6 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 6 trở lên.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 6 trở lên."
   },
   {
     "translations": {
@@ -2704,7 +3880,11 @@
         "description": "Play: [k:Summon|Summon] a random Dragon of my base cost or less.",
         "descriptionRaw": "Play: Summon a random Dragon of my base cost or less.",
         "rarity": "Rare",
-        "requirements": "Card must be 6+ base cost."
+        "requirements": "Card must be 6+ base cost.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 6+ base cost."
       }
     },
     "rarity": "Hiếm",
@@ -2714,7 +3894,11 @@
     "itemCode": "I0163",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0163.png",
     "name": "Trứng Rồng",
-    "requirements": "Bài phải có tiêu hao gốc từ 6 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 6 trở lên.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 6 trở lên."
   },
   {
     "translations": {
@@ -2723,7 +3907,11 @@
         "description": "+2|+2",
         "descriptionRaw": "+2|+2",
         "rarity": "Common",
-        "requirements": "Card must be 6+ base cost."
+        "requirements": "Card must be 6+ base cost.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 6+ base cost."
       }
     },
     "rarity": "Thường",
@@ -2733,7 +3921,11 @@
     "itemCode": "I0164",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0164.png",
     "name": "Da Rồng",
-    "requirements": "Bài phải có tiêu hao gốc từ 6 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 6 trở lên.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 6 trở lên."
   },
   {
     "translations": {
@@ -2742,7 +3934,11 @@
         "description": "+0|+5",
         "descriptionRaw": "+0|+5",
         "rarity": "Common",
-        "requirements": "Card must be 6+ base cost."
+        "requirements": "Card must be 6+ base cost.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 6+ base cost."
       }
     },
     "rarity": "Thường",
@@ -2752,16 +3948,24 @@
     "itemCode": "I0166",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0166.png",
     "name": "Đai Người Khổng Lồ",
-    "requirements": "Bài phải có tiêu hao gốc từ 6 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 6 trở lên.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 6 trở lên."
   },
   {
     "translations": {
       "en": {
-        "name": "Resplendent Plate Armor ",
+        "name": "Resplendent Plate Armor",
         "description": "+7|+7, but +3 cost",
         "descriptionRaw": "+7|+7, but +3 cost",
         "rarity": "Common",
-        "requirements": "No specific requirements."
+        "requirements": "Card must be 3 base cost or less.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 3 base cost or less."
       }
     },
     "rarity": "Thường",
@@ -2771,7 +3975,11 @@
     "itemCode": "I0167",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0167.png",
     "name": "Hoàng Kim Giáp ",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Bài phải có tiêu hao gốc từ 3 trở xuống.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 3 trở xuống."
   },
   {
     "translations": {
@@ -2780,7 +3988,11 @@
         "description": "+3|+3",
         "descriptionRaw": "+3|+3",
         "rarity": "Rare",
-        "requirements": "Card must be 6+ base cost."
+        "requirements": "Card must be 6+ base cost.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 6+ base cost."
       }
     },
     "rarity": "Hiếm",
@@ -2790,7 +4002,11 @@
     "itemCode": "I0168",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0168.png",
     "name": "Ký Sinh Khổng Lồ",
-    "requirements": "Bài phải có tiêu hao gốc từ 6 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 6 trở lên.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 6 trở lên."
   },
   {
     "translations": {
@@ -2799,7 +4015,11 @@
         "description": "+5|+0",
         "descriptionRaw": "+5|+0",
         "rarity": "Common",
-        "requirements": "Card must be 6+ base cost."
+        "requirements": "Card must be 6+ base cost.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 6+ base cost."
       }
     },
     "rarity": "Thường",
@@ -2809,7 +4029,11 @@
     "itemCode": "I0169",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0169.png",
     "name": "Cuốc Chim Của Người Khổng Lồ",
-    "requirements": "Bài phải có tiêu hao gốc từ 6 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 6 trở lên.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 6 trở lên."
   },
   {
     "translations": {
@@ -2818,7 +4042,11 @@
         "description": "-4 Cost, but [k:Ephemeral|Ephemeral]",
         "descriptionRaw": "-4 Cost, but Ephemeral",
         "rarity": "Common",
-        "requirements": "Card must be 6+ base cost."
+        "requirements": "Card must be 6+ base cost.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 6+ base cost."
       }
     },
     "rarity": "Thường",
@@ -2828,7 +4056,11 @@
     "itemCode": "I0170",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0170.png",
     "name": "Mô Phỏng Mờ Nhạt",
-    "requirements": "Bài phải có tiêu hao gốc từ 6 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 6 trở lên.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 6 trở lên."
   },
   {
     "translations": {
@@ -2837,7 +4069,11 @@
         "description": "Play: [k:Summon|Summon] an exact copy of me.",
         "descriptionRaw": "Play: Summon an exact copy of me.",
         "rarity": "Epic",
-        "requirements": "Card must be 7+ base cost."
+        "requirements": "Card must be 7+ base cost.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 7+ base cost."
       }
     },
     "rarity": "Sử Thi",
@@ -2847,7 +4083,11 @@
     "itemCode": "I0171",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0171.png",
     "name": "Phản Chiếu Đích Thực",
-    "requirements": "Bài phải có tiêu hao gốc từ 7 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 7 trở lên.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 7 trở lên."
   },
   {
     "translations": {
@@ -2856,7 +4096,11 @@
         "description": "Deal 8 to a random enemy or the enemy Nexus if there is none.",
         "descriptionRaw": "Deal 8 to a random enemy or the enemy Nexus if there is none.",
         "rarity": "Common",
-        "requirements": "Card must be 6+ base cost."
+        "requirements": "Card must be 6+ base cost.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be 6+ base cost."
       }
     },
     "rarity": "Thường",
@@ -2866,7 +4110,11 @@
     "itemCode": "I0172",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0172.png",
     "name": "Công Thức Bất Định",
-    "requirements": "Bài phải có tiêu hao gốc từ 6 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 6 trở lên.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 6 trở lên."
   },
   {
     "translations": {
@@ -2875,7 +4123,11 @@
         "description": "I can't take damage or die.",
         "descriptionRaw": "I can't take damage or die.",
         "rarity": "Epic",
-        "requirements": "Card must be 8+ base cost."
+        "requirements": "Card must be 8+ base cost.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 8+ base cost."
       }
     },
     "rarity": "Sử Thi",
@@ -2885,7 +4137,11 @@
     "itemCode": "I0173",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0173.png",
     "name": "Phước Lành Của Zhonya",
-    "requirements": "Bài phải có tiêu hao gốc từ 8 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 8 trở lên.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 8 trở lên."
   },
   {
     "translations": {
@@ -2894,7 +4150,11 @@
         "description": "Refill your spell mana.",
         "descriptionRaw": "Refill your spell mana.",
         "rarity": "Common",
-        "requirements": "Card must be 6+ base cost."
+        "requirements": "Card must be 6+ base cost.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be 6+ base cost."
       }
     },
     "rarity": "Thường",
@@ -2904,7 +4164,11 @@
     "itemCode": "I0174",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0174.png",
     "name": "Tia Chớp Sáng Chói",
-    "requirements": "Bài phải có tiêu hao gốc từ 6 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 6 trở lên.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 6 trở lên."
   },
   {
     "translations": {
@@ -2913,7 +4177,11 @@
         "description": "Attack: [k:Summon|Summon] an attacking CardRef.",
         "descriptionRaw": "Attack: Summon an attacking CardRef.",
         "rarity": "Common",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Thường",
@@ -2923,7 +4191,11 @@
     "itemCode": "I0175",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0175.png",
     "name": "Yên Ngựa Ma Quái",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -2932,7 +4204,11 @@
         "description": "Daybreak: Give me +3|+3 this round.",
         "descriptionRaw": "Daybreak: Give me +3|+3 this round.",
         "rarity": "Common",
-        "requirements": "Card must be 4+ base cost. Cannot have any of the keywords: Daybreak , Ephemeral ."
+        "requirements": "Card must be 4+ base cost. Cannot have any of the keywords: Daybreak , [k:Ephemeral|Ephemeral] .",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 4+ base cost. Cannot have any of the keywords: Daybreak , [k:Ephemeral|Ephemeral] ."
       }
     },
     "rarity": "Thường",
@@ -2942,7 +4218,11 @@
     "itemCode": "I0176",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0176.png",
     "name": "Mũi Giáo Mặt Trời Solari",
-    "requirements": "Bài phải có tiêu hao gốc từ 4 trở lên. Bài không thể có các từ khoá: Bình Minh , Cảm Tử ."
+    "requirements": "Bài phải có tiêu hao gốc từ 4 trở lên. Bài không thể có các từ khoá: Bình Minh , [k:Ephemeral|Cảm Tử] .",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 4 trở lên. Bài không thể có các từ khoá: Bình Minh , [k:Ephemeral|Cảm Tử] ."
   },
   {
     "translations": {
@@ -2951,7 +4231,11 @@
         "description": "+2|+1.[k:Play|Play]: Deal 2 to each Nexus.",
         "descriptionRaw": "+2|+1.Play: Deal 2 to each Nexus.",
         "rarity": "Rare",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Hiếm",
@@ -2961,7 +4245,11 @@
     "itemCode": "I0179",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0179.png",
     "name": "Búa Gỗ Tà Ác",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -2970,7 +4258,11 @@
         "description": "Terrify 1",
         "descriptionRaw": "Terrify 1",
         "rarity": "Rare",
-        "requirements": "Terrify 1"
+        "requirements": "Terrify 1",
+        "type": [
+          "Special Items"
+        ],
+        "requirementsRaw": "Terrify 1"
       }
     },
     "rarity": "Hiếm",
@@ -2980,7 +4272,11 @@
     "itemCode": "I0180",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0180.png",
     "name": "Mắt Quỷ",
-    "requirements": "Terrify 1"
+    "requirements": "Terrify 1",
+    "type": [
+      "Vật Phẩm Đặc Biệt"
+    ],
+    "requirementsRaw": "Terrify 1"
   },
   {
     "translations": {
@@ -2989,7 +4285,11 @@
         "description": "Create 2 Coins in hand.",
         "descriptionRaw": "Create 2 Coins in hand.",
         "rarity": "Common",
-        "requirements": "Card must be 3+ base cost."
+        "requirements": "Card must be 3+ base cost.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be 3+ base cost."
       }
     },
     "rarity": "Thường",
@@ -2999,7 +4299,11 @@
     "itemCode": "I0181",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0181.png",
     "name": "Hoàn Trả",
-    "requirements": "Bài phải có tiêu hao gốc từ 3 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 3 trở lên.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 3 trở lên."
   },
   {
     "translations": {
@@ -3008,7 +4312,11 @@
         "description": "When I damage an enemy, mark it.",
         "descriptionRaw": "When I damage an enemy, mark it.",
         "rarity": "Rare",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Special Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Hiếm",
@@ -3018,7 +4326,11 @@
     "itemCode": "I0183",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0183.png",
     "name": "Dấu Ấn Của Kindred",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Đặc Biệt"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -3027,7 +4339,11 @@
         "description": "[k:Play|Play]: Create in hand a random Elemental spell.",
         "descriptionRaw": "Play: Create in hand a random Elemental spell.",
         "rarity": "Common",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Special Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Thường",
@@ -3037,7 +4353,11 @@
     "itemCode": "I0184",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0184.png",
     "name": "Nghiên Cứu Nguyên Tố",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Đặc Biệt"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -3046,7 +4366,12 @@
         "description": "[k:Play|Play]: Deal 1 to all enemies and the enemy Nexus.",
         "descriptionRaw": "Play: Deal 1 to all enemies and the enemy Nexus.",
         "rarity": "Common",
-        "requirements": "Card must be 2+ base cost."
+        "requirements": "Card must be 2+ base cost.",
+        "type": [
+          "Landmark Items",
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 2+ base cost."
       }
     },
     "rarity": "Thường",
@@ -3056,7 +4381,12 @@
     "itemCode": "I0185",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0185.png",
     "name": "Gai Băng",
-    "requirements": "Bài phải có tiêu hao gốc từ 2 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 2 trở lên.",
+    "type": [
+      "Vật Phẩm Địa Danh",
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 2 trở lên."
   },
   {
     "translations": {
@@ -3065,7 +4395,11 @@
         "description": "[k:Fast|Fast]",
         "descriptionRaw": "Fast",
         "rarity": "Special",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Đặc Biệt",
@@ -3075,7 +4409,11 @@
     "itemCode": "I0186",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0186.png",
     "name": "Đồng Hồ Vụn Vỡ",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -3084,7 +4422,11 @@
         "description": "Gather Storm",
         "descriptionRaw": "Gather Storm",
         "rarity": "Rare",
-        "requirements": "Gather Storm"
+        "requirements": "Gather Storm",
+        "type": [
+          "Special Items"
+        ],
+        "requirementsRaw": "Gather Storm"
       }
     },
     "rarity": "Hiếm",
@@ -3094,7 +4436,11 @@
     "itemCode": "I0187",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0187.png",
     "name": "Người Vận Bão",
-    "requirements": "Gather Storm"
+    "requirements": "Gather Storm",
+    "type": [
+      "Vật Phẩm Đặc Biệt"
+    ],
+    "requirementsRaw": "Gather Storm"
   },
   {
     "translations": {
@@ -3103,7 +4449,11 @@
         "description": "+0|+1.I don't take damage from allied spells or Skills.",
         "descriptionRaw": "+0|+1.I don't take damage from allied spells or Skills.",
         "rarity": "Common",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Special Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Thường",
@@ -3113,7 +4463,11 @@
     "itemCode": "I0188",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0188.png",
     "name": "Giáp Băng",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Đặc Biệt"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -3122,7 +4476,11 @@
         "description": "-1 [k:Cost|Cost] and draw 1.",
         "descriptionRaw": "-1 Cost and draw 1.",
         "rarity": "Epic",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Relic Item"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Sử Thi",
@@ -3132,7 +4490,11 @@
     "itemCode": "I0193",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0193.png",
     "name": "Dấu Ấn Của Medarda",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Cổ Vật"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -3141,7 +4503,11 @@
         "description": "Grant targeted allies +2|+2.",
         "descriptionRaw": "Grant targeted allies +2|+2.",
         "rarity": "Common",
-        "requirements": "Card must be 1+ base cost. Must be a targeting spell."
+        "requirements": "Card must be 1+ base cost. Must be a targeting spell.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be 1+ base cost. Must be a targeting spell."
       }
     },
     "rarity": "Thường",
@@ -3151,7 +4517,11 @@
     "itemCode": "I0194",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0194.png",
     "name": "Ngọn Giáo Cứng Rắn",
-    "requirements": "Bài phải có tiêu hao gốc từ 1 trở lên. Bài phải là phép chọn mục tiêu."
+    "requirements": "Bài phải có tiêu hao gốc từ 1 trở lên. Bài phải là phép chọn mục tiêu.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 1 trở lên. Bài phải là phép chọn mục tiêu."
   },
   {
     "translations": {
@@ -3160,7 +4530,11 @@
         "description": "Give targeted allies [k:Barrier|Barrier] this round.",
         "descriptionRaw": "Give targeted allies Barrier this round.",
         "rarity": "Rare",
-        "requirements": "Card must be a targeting spell."
+        "requirements": "Card must be a targeting spell.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be a targeting spell."
       }
     },
     "rarity": "Hiếm",
@@ -3170,7 +4544,11 @@
     "itemCode": "I0195",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0195.png",
     "name": "Khiên Chắc Chắn",
-    "requirements": "Bài phải là phép chọn mục tiêu."
+    "requirements": "Bài phải là phép chọn mục tiêu.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải là phép chọn mục tiêu."
   },
   {
     "translations": {
@@ -3179,7 +4557,11 @@
         "description": "Grant targeted allies an Epic item.",
         "descriptionRaw": "Grant targeted allies an Epic item.",
         "rarity": "Epic",
-        "requirements": "Card must be a targeting spell."
+        "requirements": "Card must be a targeting spell.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be a targeting spell."
       }
     },
     "rarity": "Sử Thi",
@@ -3189,7 +4571,11 @@
     "itemCode": "I0196",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0196.png",
     "name": "Khí Tài Thần Linh",
-    "requirements": "Bài phải là phép chọn mục tiêu."
+    "requirements": "Bài phải là phép chọn mục tiêu.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải là phép chọn mục tiêu."
   },
   {
     "translations": {
@@ -3198,7 +4584,11 @@
         "description": "+2|+2If I'm a champion, I'm Ascended.",
         "descriptionRaw": "+2|+2If I'm a champion, I'm Ascended.",
         "rarity": "Rare",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Special Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Hiếm",
@@ -3208,7 +4598,11 @@
     "itemCode": "I0197",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_12_0/adventure/vi_vn/img/items/I0197.png",
     "name": "Kỷ Vật Thăng Hoa",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Đặc Biệt"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -3217,7 +4611,11 @@
         "description": "For each allied target, summon a 1|1 [k:Ephemeral|Ephemeral] unit. Copy me onto them.",
         "descriptionRaw": "For each allied target, summon a 1|1 Ephemeral unit. Copy me onto them.",
         "rarity": "Rare",
-        "requirements": "Card must be a targeting spell."
+        "requirements": "Card must be a targeting spell.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be a targeting spell."
       }
     },
     "rarity": "Hiếm",
@@ -3227,7 +4625,11 @@
     "itemCode": "I0198",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0198.png",
     "name": "Linh Hồn Tự Do",
-    "requirements": "Bài phải là phép chọn mục tiêu."
+    "requirements": "Bài phải là phép chọn mục tiêu.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải là phép chọn mục tiêu."
   },
   {
     "translations": {
@@ -3236,7 +4638,11 @@
         "description": "When I'm summoned, reduce the cost of the most expensive unit in your hand by 2.",
         "descriptionRaw": "When I'm summoned, reduce the cost of the most expensive unit in your hand by 2.",
         "rarity": "Rare",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Special Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Hiếm",
@@ -3246,7 +4652,11 @@
     "itemCode": "I0200",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0200.png",
     "name": "Ân Huệ Của Sứ Giả",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Đặc Biệt"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -3255,7 +4665,11 @@
         "description": "+1|+1, [k:Fearsome|Fearsome] and I'm a Spider.",
         "descriptionRaw": "+1|+1, Fearsome and I'm a Spider.",
         "rarity": "Rare",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Hiếm",
@@ -3265,7 +4679,11 @@
     "itemCode": "I0201",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0201.png",
     "name": "Nanh Nhện",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -3274,7 +4692,11 @@
         "description": "+1|+1 and I'm a Poro.\r\n",
         "descriptionRaw": "+1|+1 and I'm a Poro.\r\n",
         "rarity": "Rare",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Special Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Hiếm",
@@ -3284,7 +4706,11 @@
     "itemCode": "I0203",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_12_0/adventure/vi_vn/img/items/I0203.png",
     "name": "Biến Thành Poro",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Đặc Biệt"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -3293,7 +4719,11 @@
         "description": "When I'm summoned, grant other allies that share a subtype with me +2|+2.",
         "descriptionRaw": "When I'm summoned, grant other allies that share a subtype with me +2|+2.",
         "rarity": "Rare",
-        "requirements": "Card must have a subtype."
+        "requirements": "Card must have a subtype.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must have a subtype."
       }
     },
     "rarity": "Hiếm",
@@ -3303,7 +4733,11 @@
     "itemCode": "I0205",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0205.png",
     "name": "Xẻng Vàng Ròng",
-    "requirements": "Card must have a subtype."
+    "requirements": "Card must have a subtype.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Card must have a subtype."
   },
   {
     "translations": {
@@ -3312,7 +4746,11 @@
         "description": "+3|+3, Overwhelm, QuickAttack, [k:Challenger|Challenger]",
         "descriptionRaw": "+3|+3, Overwhelm, QuickAttack, Challenger",
         "rarity": "Epic",
-        "requirements": "Card must be 6+ base cost."
+        "requirements": "Card must be 6+ base cost.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 6+ base cost."
       }
     },
     "rarity": "Sử Thi",
@@ -3322,7 +4760,11 @@
     "itemCode": "I0206",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0206.png",
     "name": "Tam Luyện Kiếm",
-    "requirements": "Bài phải có tiêu hao gốc từ 6 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 6 trở lên.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 6 trở lên."
   },
   {
     "translations": {
@@ -3331,7 +4773,11 @@
         "description": "[k:Overwhelm|Overwhelm] and 50% chance to Critical [k:Strike|Strike]",
         "descriptionRaw": "Overwhelm and 50% chance to Critical Strike",
         "rarity": "Rare",
-        "requirements": "Card must be a damaging spell."
+        "requirements": "Card must be a damaging spell.",
+        "type": [
+          "Spell Items"
+        ],
+        "requirementsRaw": "Card must be a damaging spell."
       }
     },
     "rarity": "Hiếm",
@@ -3341,7 +4787,11 @@
     "itemCode": "I0207",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0207.png",
     "name": "Găng Bảo Thạch",
-    "requirements": "Bài phải là phép gây sát thương."
+    "requirements": "Bài phải là phép gây sát thương.",
+    "type": [
+      "Vật Phẩm Phép"
+    ],
+    "requirementsRaw": "Bài phải là phép gây sát thương."
   },
   {
     "translations": {
@@ -3350,7 +4800,11 @@
         "description": "Game Start: Grant me 2 random Epic items.",
         "descriptionRaw": "Game Start: Grant me 2 random Epic items.",
         "rarity": "Epic",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "General Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Sử Thi",
@@ -3360,7 +4814,11 @@
     "itemCode": "I0208",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0208.png",
     "name": "Găng Đạo Tặc",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Chung"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -3369,7 +4827,11 @@
         "description": "I have all subtypes",
         "descriptionRaw": "I have all subtypes",
         "rarity": "Common",
-        "requirements": "Card must be 4 base cost or less."
+        "requirements": "Card must be 4 base cost or less.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 4 base cost or less."
       }
     },
     "rarity": "Thường",
@@ -3379,7 +4841,11 @@
     "itemCode": "I0209",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0209.png",
     "name": "Chảo Vàng Ròng",
-    "requirements": "Bài phải có tiêu hao gốc từ 4 trở xuống."
+    "requirements": "Bài phải có tiêu hao gốc từ 4 trở xuống.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 4 trở xuống."
   },
   {
     "translations": {
@@ -3388,7 +4854,11 @@
         "description": "[k:Strike|Strike]: Refill your spell mana.",
         "descriptionRaw": "Strike: Refill your spell mana.",
         "rarity": "Rare",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Hiếm",
@@ -3398,7 +4868,11 @@
     "itemCode": "I0210",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0210.png",
     "name": "Bùa Xanh",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   },
   {
     "translations": {
@@ -3407,7 +4881,11 @@
         "description": "+2|+0, [k:Overwhelm|Overwhelm].When I'm summoned, there is a 50% chance to double this buff.",
         "descriptionRaw": "+2|+0, Overwhelm.When I'm summoned, there is a 50% chance to double this buff.",
         "rarity": "Rare",
-        "requirements": "Card must be 3+ base cost."
+        "requirements": "Card must be 3+ base cost.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "Card must be 3+ base cost."
       }
     },
     "rarity": "Hiếm",
@@ -3417,7 +4895,11 @@
     "itemCode": "I0211",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0211.png",
     "name": "Vô Cực Kiếm",
-    "requirements": "Bài phải có tiêu hao gốc từ 3 trở lên."
+    "requirements": "Bài phải có tiêu hao gốc từ 3 trở lên.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Bài phải có tiêu hao gốc từ 3 trở lên."
   },
   {
     "translations": {
@@ -3426,7 +4908,11 @@
         "description": "SpellShield, [k:Regeneration|Regeneration]",
         "descriptionRaw": "SpellShield, Regeneration",
         "rarity": "Rare",
-        "requirements": "No specific requirements."
+        "requirements": "No specific requirements.",
+        "type": [
+          "Unit Items"
+        ],
+        "requirementsRaw": "No specific requirements."
       }
     },
     "rarity": "Hiếm",
@@ -3436,6 +4922,10 @@
     "itemCode": "I0212",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_11_0/adventure/vi_vn/img/items/I0212.png",
     "name": "Vuốt Rồng",
-    "requirements": "Không có yêu cầu trang bị cụ thể."
+    "requirements": "Không có yêu cầu trang bị cụ thể.",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "requirementsRaw": "Không có yêu cầu trang bị cụ thể."
   }
 ]

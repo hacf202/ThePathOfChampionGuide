@@ -105,7 +105,8 @@
 		"addNew": "Thêm mới",
 		"selectOption": "Chọn tùy chọn",
 		"selectPlaceholder": "Chọn tùy chọn",
-		"description": "Mô tả"
+		"description": "Mô tả",
+		"itemType": "Loai vat pham"
 	},
 	"cardList": {
 		"title": "Thư Viện Lá Bài",
@@ -708,7 +709,8 @@
 		"errorLoad": "Lỗi tải thông tin vật phẩm.",
 		"compatibleChampions": "Các tướng sử dụng vật phẩm",
 		"noCompatibleChampions": "Vật phẩm này hiện chưa được trang bị mặc định cho tướng nào.",
-		"requirements": "Điều kiện"
+		"requirements": "Điều kiện",
+		"type": "Loại Vật Phẩm"
 	},
 	"powerDetail": {
 		"title": "Chi tiết sức mạnh",
@@ -776,7 +778,8 @@
 		"searchLabel": "Tìm kiếm vật phẩm",
 		"placeholder": "Tên vật phẩm...",
 		"notFound": "Không tìm thấy vật phẩm phù hợp.",
-		"clearFilters": "Xóa tất cả bộ lọc"
+		"clearFilters": "Xóa tất cả bộ lọc",
+		"filterType": "Loại Vật Phẩm"
 	},
 	"powerList": {
 		"title": "Danh sách sức mạnh",
