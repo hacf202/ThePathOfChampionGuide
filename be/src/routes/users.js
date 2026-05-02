@@ -188,7 +188,7 @@ router.get("/users", async (req, res) => {
 		const { searchTerm = "", page = 1, limit = 24 } = req.query;
 		const pageSize = parseInt(limit);
 
-		// AWS Cognito không hỗ trợ search mạnh như DynamoDB, nên ta lấy danh sách (có giới hạn)
+		// AWS Cognito không hỗ trợ search mạnh như MongoDB, nên ta lấy danh sách (có giới hạn)
 		const command = new ListUsersCommand({
 			UserPoolId: COGNITO_USER_POOL_ID,
 			Limit: 60, // Lấy một cụm lớn để filter trên RAM

@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import NodeCache from "node-cache";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { requireAdmin } from "../middleware/requireAdmin.js";
-import { normalizeBuildFromDynamo } from "../utils/dynamodb.js";
+import { normalizeBuildFromDynamo } from "../utils/MongoDB.js";
 import { invalidatePublicBuildsCache } from "../utils/buildCache.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
 import { createAuditLog } from "../utils/auditLogger.js";

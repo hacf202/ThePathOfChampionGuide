@@ -77,6 +77,7 @@ function ChampionList() {
 			onSearchSubmit={actions.handleSearch}
 			searchPlaceholder={tUI("championList.searchPlaceholder")}
 			onResetFilters={actions.handleResetFilters}
+			isFiltered={!!state.searchTerm || Object.values(state.customFilters || {}).some(v => Array.isArray(v) ? v.length > 0 : !!v)}
 			renderSkeleton={() => <ChampionSkeleton />}
 			renderItem={champion => (
 				<Link

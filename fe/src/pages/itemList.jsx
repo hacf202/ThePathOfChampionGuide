@@ -94,6 +94,7 @@ function ItemList() {
 			onSearchSubmit={actions.handleSearch}
 			searchPlaceholder={tUI("itemList.placeholder")}
 			onResetFilters={actions.handleResetFilters}
+			isFiltered={!!state.searchTerm || Object.values(state.customFilters || {}).some(v => Array.isArray(v) ? v.length > 0 : !!v)}
 			renderSkeleton={() => <ItemSkeleton />}
 			renderItem={item => {
 				const itemName = t(item, "name");

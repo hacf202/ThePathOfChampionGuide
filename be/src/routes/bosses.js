@@ -32,7 +32,7 @@ router.get("/", asyncHandler(async (req, res) => {
 	const pageSize    = parseInt(limit);
 	const currentPage = parseInt(page);
 
-	// Lấy từ DataService (RAM → DynamoDB)
+	// Lấy từ DataService (RAM → MongoDB)
 	let allBosses = await getCachedBosses();
 
 	// 1. Lọc theo searchTerm
@@ -145,6 +145,7 @@ router.put("/", authenticateCognitoToken, requireAdmin, asyncHandler(async (req,
 
 	const dataToSave = { ...data };
 	delete dataToSave.isNew;
+	delete dataToSave._id;
 
 	await db.collection(BOSS_TABLE).replaceOne({ bossID }, dataToSave, { upsert: true });
 

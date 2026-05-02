@@ -213,6 +213,8 @@ router.put(
 				updateDate: todayStr,
 			};
 
+			delete finalData._id;
+
 			// 3. Ghi vào DB
 			await db.collection(GUIDES_TABLE).replaceOne(
 				{ slug: slug },

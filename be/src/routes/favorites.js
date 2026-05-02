@@ -2,7 +2,7 @@
 import express from "express";
 import { getDb } from "../config/mongo.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
-import { normalizeBuildFromDynamo } from "../utils/dynamodb.js";
+import { normalizeBuildFromDynamo } from "../utils/MongoDB.js";
 import { invalidatePublicBuildsCache } from "../utils/buildCache.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
 import { getUserNames } from "../utils/userCache.js";

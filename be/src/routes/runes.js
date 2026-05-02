@@ -31,7 +31,7 @@ router.get("/:runeCode", async (req, res) => {
 	if (cachedRune) return res.json(cachedRune);
 
 	try {
-		// 2. Truy vấn DynamoDB nếu Cache miss
+		// 2. Truy vấn MongoDB nếu Cache miss
 		const db = getDb();
 		const Item = await db.collection(RUNES_TABLE).findOne({ runeCode: id });
 		if (!Item)
@@ -173,6 +173,7 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 
 		const dataToSave = { ...runeData };
 		delete dataToSave.isNew;
+		delete dataToSave._id;
 
 		await db.collection(RUNES_TABLE).replaceOne(
 			{ runeCode: dataToSave.runeCode },

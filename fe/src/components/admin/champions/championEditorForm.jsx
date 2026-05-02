@@ -38,6 +38,7 @@ import {
 	ConstellationConnections,
 	NodeEditor,
 } from "./championEditorHelpers";
+import iconRegions from "../../../assets/data/icon.json";
 
 const ChampionEditorForm = memo(
 	({
@@ -214,6 +215,20 @@ const ChampionEditorForm = memo(
 				items: buildLookup(cachedData.items),
 				runes: buildLookup(cachedData.runes),
 				cards: buildLookup(cachedData.cards),
+				regions: iconRegions.reduce((acc, r) => {
+					acc[r.name] = r;
+					// Thêm mapping cho tên tiếng Anh nếu tên hiện tại là tiếng Việt
+					const enMapping = {
+						"Thành Phố Bandle": "Bandle City",
+						"Quần Đảo Bóng Đêm": "Shadow Isles",
+						"Hoa Linh Lục Địa": "Spirit Blossom",
+						"Trung Lập": "Neutral",
+					};
+					if (enMapping[r.name]) {
+						acc[enMapping[r.name]] = r;
+					}
+					return acc;
+				}, {}),
 			}),
 			[cachedData, buildLookup],
 		);
@@ -796,11 +811,13 @@ const ChampionEditorForm = memo(
 									label={tUI("admin.championForm.regionLabel") + " (VI)"}
 									data={formData.regions || []}
 									onChange={d => setFormData({ ...formData, regions: d })}
+									cachedData={dataLookup.regions}
 								/>
 								<ArrayInputComponent
 									label={tUI("admin.championForm.regionLabel") + " (EN)"}
 									data={formData.translations?.en?.regions || []}
 									onChange={d => handleTranslationChange("regions", d)}
+									cachedData={dataLookup.regions}
 								/>
 							</div>
 							<div className='grid grid-cols-1 md:grid-cols-2 gap-8 border-b border-border pb-6'>
@@ -873,7 +890,7 @@ const ChampionEditorForm = memo(
 								label={tUI("admin.championForm.runeSuggest")}
 								data={formData.runeIds || []}
 								onChange={d => setFormData({ ...formData, runeIds: d })}
-								cachedData={dataLookup.runes}
+								cachedData={{ ...dataLookup.powers, ...dataLookup.runes }}
 							/>
 						</div>
 

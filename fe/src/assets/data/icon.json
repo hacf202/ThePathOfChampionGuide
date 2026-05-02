@@ -8,6 +8,10 @@
 		"image": "https://images.pocguide.top/icon/Bandle_City_LoR_Region.webp"
 	},
 	{
+		"name": "BandleCity",
+		"image": "https://images.pocguide.top/icon/Bandle_City_LoR_Region.webp"
+	},
+	{
 		"name": "Bilgewater",
 		"image": "https://images.pocguide.top/icon/Bilgewater_LoR_Region.webp"
 	},
@@ -28,6 +32,10 @@
 		"image": "https://images.pocguide.top/icon/Piltover_Zaun_LoR_Region.webp"
 	},
 	{
+		"name": "PiltoverZaun",
+		"image": "https://images.pocguide.top/icon/Piltover_Zaun_LoR_Region.webp"
+	},
+	{
 		"name": "Runeterra",
 		"image": "https://images.pocguide.top/icon/Runeterra_LoR_Region.webp"
 	},
@@ -40,11 +48,18 @@
 		"image": "https://images.pocguide.top/icon/Shadow_Isles_LoR_Region.webp"
 	},
 	{
+		"name": "ShadowIsles",
+		"image": "https://images.pocguide.top/icon/Shadow_Isles_LoR_Region.webp"
+	},
+	{
 		"name": "Targon",
 		"image": "https://images.pocguide.top/icon/Targon_LoR_Region.webp"
 	},
 	{
 		"name": "Hoa Linh Lục Địa",
+		"image": "https://images.pocguide.top/icon/Spirit_Blossom_LoR_Region.webp"
+	},{
+		"name": "SpiritBlossom",
 		"image": "https://images.pocguide.top/icon/Spirit_Blossom_LoR_Region.webp"
 	},
 	{

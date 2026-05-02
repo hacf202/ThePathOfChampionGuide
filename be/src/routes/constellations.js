@@ -70,6 +70,7 @@ router.get("/:constellationID", async (req, res) => {
 		}
 
 		const data = Item;
+		delete data._id;
 
 		// 3. Set Cache
 		await constellationCache.set(CACHE_KEY, data);
@@ -114,6 +115,7 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 
 		// Xóa cờ isNew nếu có gửi từ frontend
 		delete data.isNew;
+		delete data._id;
 
 		const db = getDb();
 		await db.collection(CONSTELLATIONS_TABLE).replaceOne(
@@ -128,7 +130,7 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 
 		res.json({ message: "Cập nhật chòm sao thành công.", data });
 	} catch (error) {
-		console.error("DynamoDB PutItem Error:", error);
+		console.error("MongoDB PutItem Error:", error);
 		res.status(500).json({ error: "Lỗi lưu dữ liệu chòm sao vào hệ thống." });
 	}
 });

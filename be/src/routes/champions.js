@@ -209,6 +209,9 @@ router.get("/:championID/full", async (req, res) => {
 		]);
 
 		if (!champion) return res.status(404).json({ error: "Không tìm thấy tướng." });
+		
+		delete champion._id;
+		if (constellation) delete constellation._id;
 
 		// 2. Thu thập tất cả ID cần resolve (Hỗ trợ cả định dạng String cũ và Object mới)
 		const powerIds = new Set([
@@ -360,6 +363,7 @@ router.get("/:championID", async (req, res) => {
 		}
 
 		const championData = Item;
+		delete championData._id;
 
 		// Thêm phần tính toán điểm trung bình từ cộng đồng
 		try {
@@ -457,7 +461,7 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 		return res.status(400).json({ error: "maxStar phải là số từ 1-7." });
 	}
 
-	const { isNew, communityRatings, ...dataToSave } = rawData;
+	const { isNew, communityRatings, _id, ...dataToSave } = rawData;
 
 	const cleanData = {
 		...dataToSave,

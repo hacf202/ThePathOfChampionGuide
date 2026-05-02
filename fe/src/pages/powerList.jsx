@@ -93,6 +93,7 @@ function PowerList() {
 			onSearchSubmit={actions.handleSearch}
 			searchPlaceholder={tUI("powerList.placeholder")}
 			onResetFilters={actions.handleResetFilters}
+			isFiltered={!!state.searchTerm || Object.values(state.customFilters || {}).some(v => Array.isArray(v) ? v.length > 0 : !!v)}
 			renderSkeleton={() => <PowerSkeleton />}
 			renderItem={power => {
 				const powerName = t(power, "name");

@@ -9,7 +9,7 @@ import { createAuditLog } from "../utils/auditLogger.js";
 const router = express.Router();
 const BONUS_STAR_TABLE = "guidePocBonusStar";
 
-// Cache dữ liệu trong 30 phút để giảm tải cho DynamoDB
+// Cache dữ liệu trong 30 phút để giảm tải cho MongoDB
 const bonusCache = cacheManager.getOrCreateCache("bonusStars", { stdTTL: 86400, checkperiod: 60 });
 
 /**
@@ -71,6 +71,7 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 		// Bước 3: Chuẩn bị dữ liệu để lưu (Bảo toàn các object như translations)
 		const dataToSave = { ...data };
 		delete dataToSave.isNew;
+		delete dataToSave._id;
 
 		await db.collection(BONUS_STAR_TABLE).replaceOne(
 			{ bonusStarID: dataToSave.bonusStarID },

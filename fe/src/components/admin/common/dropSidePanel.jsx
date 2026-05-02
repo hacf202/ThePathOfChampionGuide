@@ -20,17 +20,18 @@ import { removeAccents } from "../../../utils/vietnameseUtils";
 import { useTranslation } from "../../../hooks/useTranslation";
 
 const getUniqueId = item => {
+	if (!item) return null;
 	return (
 		item.championID ||
 		item.bossID ||
-		item._id ||
-		item.id ||
-		item.bonusStarID ||
 		item.powerCode ||
 		item.relicCode ||
 		item.itemCode ||
 		item.runeCode ||
-		item.cardCode
+		item.cardCode ||
+		item.bonusStarID ||
+		item.id ||
+		item._id
 	);
 };
 

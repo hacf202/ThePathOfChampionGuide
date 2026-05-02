@@ -5,9 +5,9 @@ import { v4 as uuidv4 } from "uuid";
 
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import {
-	prepareBuildForDynamo,
-	normalizeBuildFromDynamo,
-} from "../utils/dynamodb.js";
+	normalizeDisplay,
+	prepareDisplayForSave,
+} from "../utils/dbHelpers.js";
 import {
 	getPublicBuilds,
 	invalidatePublicBuildsCache,
@@ -37,7 +37,7 @@ router.get("/top-by-champion/:championID", async (req, res) => {
 			.toArray();
 
 		let builds = Items
-			? Items.map(item => normalizeBuildFromDynamo(item))
+			? Items.map(item => normalizeDisplay(item))
 			: [];
 
 		// Làm giàu tên hiển thị
@@ -422,7 +422,7 @@ router.get("/:id", async (req, res) => {
 		if (!Item) return res.status(404).json({ error: "Build not found" });
 
 		const buildData = Item;
-		const build = normalizeBuildFromDynamo(buildData);
+		const build = normalizeDisplay(buildData);
 		const isPublic = buildData.display === true || buildData.display === "true";
 
 		if (isPublic) {
@@ -477,7 +477,7 @@ router.post("/", authenticateCognitoToken, async (req, res) => {
 			.json({ error: "Champion ID and relicSetIds are required." });
 	}
 
-	const build = prepareBuildForDynamo({
+	const build = {
 		id: uuidv4(),
 		sub: req.user.sub,
 		creator: req.user["cognito:username"],
@@ -488,11 +488,11 @@ router.post("/", authenticateCognitoToken, async (req, res) => {
 		runeIds,
 		like: 0,
 		star: Number(star),
-		display: display === true,
+		display: prepareDisplayForSave(display),
 		views: 0,
 		regions,
 		createdAt: new Date().toISOString(),
-	});
+	};
 
 	try {
 		const db = getDb();
@@ -506,13 +506,13 @@ router.post("/", authenticateCognitoToken, async (req, res) => {
 			entityId: build.id,
 			entityName: `Build ${build.championID} by ${build.creator} (User)`,
 			oldData: null,
-			newData: normalizeBuildFromDynamo(build),
+			newData: normalizeDisplay(build),
 			user: req.user
 		});
 
 		res.status(201).json({
 			message: "Build created successfully",
-			build: normalizeBuildFromDynamo(build),
+			build: normalizeDisplay(build),
 		});
 	} catch (error) {
 		console.error("Error creating build:", error);
@@ -561,7 +561,7 @@ router.put("/:id", authenticateCognitoToken, async (req, res) => {
 			{ $set: fieldsToUpdate },
 			{ returnDocument: 'after' }
 		);
-		const updatedBuild = normalizeBuildFromDynamo(updatedBuildData);
+		const updatedBuild = normalizeDisplay(updatedBuildData);
 
 		const wasPublic = oldBuild.display === true || oldBuild.display === "true";
 		const isNowPublic = updatedBuild.display === true;

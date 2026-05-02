@@ -234,6 +234,7 @@ router.get("/:cardCode", async (req, res) => {
 		}
 
 		const cardData = Item;
+		delete cardData._id;
 
 		// Resolve associatedCardRefs thành objects đầy đủ
 		if (cardData.associatedCardRefs?.length > 0) {
@@ -268,7 +269,7 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 	}
 
 	const cardCode = rawData.cardCode.trim();
-	const { isNew, ...dataToSave } = rawData;
+	const { isNew, _id, ...dataToSave } = rawData;
 
 	const cleanData = {
 		...dataToSave,

@@ -23,7 +23,7 @@ router.get("/", async (req, res) => {
 		const pageSize = parseInt(limit);
 		const currentPage = parseInt(page);
 
-		// Lấy từ DataService (RAM → DynamoDB)
+		// Lấy từ DataService (RAM → MongoDB)
 		let allAdventures = await getCachedAdventures();
 
 		// 2. Trích xuất bộ lọc động (Dynamic Filters)
@@ -136,6 +136,7 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 
 		const dataToSave = { ...data };
 		delete dataToSave.isNew;
+		delete dataToSave._id;
 
 		await db.collection(ADVENTURE_TABLE).replaceOne(
 			{ adventureID: dataToSave.adventureID },

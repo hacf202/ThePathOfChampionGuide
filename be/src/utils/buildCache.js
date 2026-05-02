@@ -1,5 +1,5 @@
 import { getDb } from "../config/mongo.js";
-import { normalizeBuildFromDynamo } from "./dynamodb.js";
+import { normalizeDisplay } from "./dbHelpers.js";
 import { getUserNames } from "./userCache.js";
 import cacheManager from "./cacheManager.js";
 
@@ -24,7 +24,7 @@ export const getPublicBuilds = async (userId = "global") => {
 		let Items = await db.collection(BUILDS_TABLE).find({ display: { $in: [true, "true"] } }).toArray();
 
 		let items = Items
-			? Items.map(item => normalizeBuildFromDynamo(item))
+			? Items.map(item => normalizeDisplay(item))
 			: [];
 
 		// Gắn tên người tạo

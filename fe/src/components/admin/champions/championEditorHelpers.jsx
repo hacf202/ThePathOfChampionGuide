@@ -17,15 +17,18 @@ import MarkupEditor from "../MarkupEditor";
 import SafeImage from "../../common/SafeImage";
 
 export const getUniqueId = item => {
+	if (!item) return null;
 	return (
-		item._id ||
-		item.id ||
-		item.bonusStarID ||
+		item.championID ||
+		item.bossID ||
 		item.powerCode ||
 		item.relicCode ||
 		item.itemCode ||
 		item.runeCode ||
-		item.cardCode
+		item.cardCode ||
+		item.bonusStarID ||
+		item.id ||
+		item._id
 	);
 };
 

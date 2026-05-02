@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 const AUDIT_LOG_TABLE = "guidePocAuditLogs";
 
 /**
- * Ghi nhật ký thay đổi dữ liệu vào DynamoDB
+ * Ghi nhật ký thay đổi dữ liệu vào MongoDB
  * 
  * @param {Object} params
  * @param {string} params.action - CREATE, UPDATE, DELETE

@@ -46,7 +46,7 @@ const TABLES = {
 // ─────────────────────────────────────────────────────────────
 
 /**
- * Nạp toàn bộ dữ liệu từ một bảng DynamoDB vào cache (Generic).
+ * Nạp toàn bộ dữ liệu từ một bảng MongoDB vào cache (Generic).
  * @private
  */
 async function loadAll(cache, cacheKey, tableName, sortField = "name") {
@@ -54,7 +54,10 @@ async function loadAll(cache, cacheKey, tableName, sortField = "name") {
 	if (!data) {
 		const db = getDb();
 		const rawItems = await db.collection(tableName).find({}).toArray();
-		data = rawItems;
+		data = rawItems.map(item => {
+			const { _id, ...rest } = item;
+			return rest;
+		});
 		data.sort((a, b) => (a[sortField] || "").localeCompare(b[sortField] || ""));
 		await cache.set(cacheKey, data);
 	}
@@ -62,10 +65,10 @@ async function loadAll(cache, cacheKey, tableName, sortField = "name") {
 }
 
 /**
- * Tải hàng loạt dữ liệu từ DynamoDB theo danh sách IDs (BatchGet).
+ * Tải hàng loạt dữ liệu từ MongoDB theo danh sách IDs (BatchGet).
  * Hỗ trợ paging (tối đa 100 items/lần theo giới hạn AWS).
  *
- * @param {string} tableName - Tên bảng DynamoDB
+ * @param {string} tableName - Tên bảng MongoDB
  * @param {string} keyName   - Tên khoá chính (partition key)
  * @param {string[]} ids     - Danh sách ID cần lấy
  * @returns {Promise<Object[]>}
@@ -79,7 +82,10 @@ export async function batchFetchByIds(tableName, keyName, ids) {
 		const db = getDb();
 		const results = await db.collection(tableName).find({ [keyName]: { $in: distinctIds } }).toArray();
 		
-		return results;
+		return results.map(item => {
+			const { _id, ...rest } = item;
+			return rest;
+		});
 	} catch (e) {
 		console.error(`[DataService] BatchFetch lỗi [${tableName}]:`, e);
 		return [];
@@ -90,52 +96,52 @@ export async function batchFetchByIds(tableName, keyName, ids) {
 // PUBLIC CACHE GETTERS
 // ─────────────────────────────────────────────────────────────
 
-/** Lấy toàn bộ Sức mạnh (Powers) từ RAM hoặc DynamoDB */
+/** Lấy toàn bộ Sức mạnh (Powers) từ RAM hoặc MongoDB */
 export async function getCachedPowers() {
 	return loadAll(powerCache, CACHE_KEYS.POWERS.ALL, TABLES.POWERS);
 }
 
-/** Lấy toàn bộ Cổ vật (Relics) từ RAM hoặc DynamoDB */
+/** Lấy toàn bộ Cổ vật (Relics) từ RAM hoặc MongoDB */
 export async function getCachedRelics() {
 	return loadAll(relicCache, CACHE_KEYS.RELICS.ALL, TABLES.RELICS);
 }
 
-/** Lấy toàn bộ Vật phẩm (Items) từ RAM hoặc DynamoDB */
+/** Lấy toàn bộ Vật phẩm (Items) từ RAM hoặc MongoDB */
 export async function getCachedItems() {
 	return loadAll(itemCache, CACHE_KEYS.ITEMS.ALL, TABLES.ITEMS);
 }
 
-/** Lấy toàn bộ Ngọc (Runes) từ RAM hoặc DynamoDB */
+/** Lấy toàn bộ Ngọc (Runes) từ RAM hoặc MongoDB */
 export async function getCachedRunes() {
 	return loadAll(runeCache, CACHE_KEYS.RUNES.ALL, TABLES.RUNES);
 }
 
-/** Lấy toàn bộ Tướng (Champions) từ RAM hoặc DynamoDB */
+/** Lấy toàn bộ Tướng (Champions) từ RAM hoặc MongoDB */
 export async function getCachedChampions() {
 	return loadAll(championCache, CACHE_KEYS.CHAMPIONS.ALL, TABLES.CHAMPIONS);
 }
 
-/** Lấy toàn bộ Boss từ RAM hoặc DynamoDB */
+/** Lấy toàn bộ Boss từ RAM hoặc MongoDB */
 export async function getCachedBosses() {
 	return loadAll(bossCache, CACHE_KEYS.BOSSES.ALL, TABLES.BOSSES, "bossName");
 }
 
-/** Lấy toàn bộ Adventures (Bản đồ) từ RAM hoặc DynamoDB */
+/** Lấy toàn bộ Adventures (Bản đồ) từ RAM hoặc MongoDB */
 export async function getCachedAdventures() {
 	return loadAll(adventureCache, CACHE_KEYS.ADVENTURES.ALL, TABLES.ADVENTURES, "difficulty");
 }
 
-/** Lấy toàn bộ Cards (Lá bài) từ RAM hoặc DynamoDB */
+/** Lấy toàn bộ Cards (Lá bài) từ RAM hoặc MongoDB */
 export async function getCachedCards() {
 	return loadAll(cardCache, CACHE_KEYS.CARDS.ALL, TABLES.CARDS, "cardName");
 }
 
-/** Lấy toàn bộ Guides (Hướng dẫn) từ RAM hoặc DynamoDB */
+/** Lấy toàn bộ Guides (Hướng dẫn) từ RAM hoặc MongoDB */
 export async function getCachedGuides() {
 	return loadAll(guideCache, "all_guides", TABLES.GUIDES, "title");
 }
 
-/** Lấy toàn bộ Resources (Tài nguyên) từ RAM hoặc DynamoDB */
+/** Lấy toàn bộ Resources (Tài nguyên) từ RAM hoặc MongoDB */
 export async function getCachedResources() {
 	return loadAll(resourceCache, "all_resources", TABLES.RESOURCES, "name");
 }

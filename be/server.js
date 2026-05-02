@@ -98,7 +98,7 @@ app.use(
 			}
 		},
 		methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-		allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With", "Cache-Control"],
+		allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With", "Cache-Control", "Pragma", "Expires", "If-Modified-Since"],
 		credentials: true,
 	}),
 );
@@ -115,6 +115,17 @@ app.use("/api/auth", authLimiter);
 
 app.use(express.json({ limit: "5mb" }));
 app.use(trackActivity);
+
+// Middleware đảm bảo luôn có kết nối MongoDB trước khi xử lý route (Tối ưu cho Serverless)
+app.use(async (req, res, next) => {
+	try {
+		await connectToMongoDB();
+		next();
+	} catch (err) {
+		console.error("Lỗi kết nối DB trong middleware:", err);
+		res.status(500).json({ error: "Lỗi kết nối cơ sở dữ liệu" });
+	}
+});
 
 app.use("/api/auth", authRouter);
 app.use("/api/champions", championsRouter);

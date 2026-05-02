@@ -104,7 +104,7 @@ const Home = () => {
 					<img
 						src={BACKGROUND_IMAGES[11]}
 						alt='Hero'
-						fetchPriority='high'
+						fetchpriority='high'
 						decoding='async'
 						className='w-full h-full object-cover grayscale-[0.2] opacity-90 blur-[3px] scale-110'
 					/>

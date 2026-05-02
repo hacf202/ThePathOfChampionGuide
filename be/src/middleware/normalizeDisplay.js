@@ -1,9 +1,8 @@
-// src/middleware/normalizeDisplay.js
-import { normalizeDisplayForSave } from "../utils/dynamodb.js";
+import { prepareDisplayForSave } from "../utils/dbHelpers.js";
 
 export const normalizeDisplayMiddleware = (req, res, next) => {
 	if (req.body.display !== undefined) {
-		req.body.display = normalizeDisplayForSave(req.body.display);
+		req.body.display = prepareDisplayForSave(req.body.display);
 	}
 	next();
 };

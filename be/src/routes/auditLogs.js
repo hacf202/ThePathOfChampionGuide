@@ -49,7 +49,7 @@ router.get("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 			if (endDate) query.timestamp.$lte = endDate;
 		}
 		
-		// Fallback logType (trong DynamoDB thì query theo LOG, MongoDB ta query tất cả nếu không có filter)
+		// Fallback logType (trong MongoDB thì query theo LOG, MongoDB ta query tất cả nếu không có filter)
 		if (!entityType && !action && !userId && !startDate && !endDate) {
 			// Query mặc định: Có thể lọc logType = "LOG" hoặc lấy hết
 		}
@@ -144,6 +144,8 @@ router.post("/rollback/:logId", authenticateCognitoToken, requireAdmin, async (r
 		} else if (action === "UPDATE" || action === "DELETE") {
 			// Rollback UPDATE/DELETE -> Restore oldData
 			if (!oldData) return res.status(400).json({ error: "Không có dữ liệu cũ để khôi phục." });
+			
+			delete oldData._id;
 			
 			await db.collection(tableInfo.table).replaceOne(
 				{ [tableInfo.key]: entityId },

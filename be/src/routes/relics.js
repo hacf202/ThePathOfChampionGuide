@@ -215,6 +215,7 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 
 		const dataToSave = { ...relicData };
 		delete dataToSave.isNew;
+		delete dataToSave._id;
 
 		await db.collection(RELICS_TABLE).replaceOne(
 			{ relicCode: dataToSave.relicCode },

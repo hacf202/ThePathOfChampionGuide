@@ -77,6 +77,9 @@
 		"prev": "Trang trước",
 		"next": "Trang sau",
 		"notFound": "Không tìm thấy kết quả",
+		"noResultsFound": "Không tìm thấy kết quả phù hợp",
+		"noResultsHint": "Vui lòng kiểm tra lại từ khóa hoặc thay đổi các bộ lọc đang chọn để tìm thấy kết quả phù hợp hơn.",
+		"noDataHint": "Hiện tại danh sách này chưa có dữ liệu hiển thị. Vui lòng quay lại sau.",
 		"close": "Đóng",
 		"clear": "Xóa",
 		"ok": "Đồng ý",
@@ -106,7 +109,8 @@
 		"selectOption": "Chọn tùy chọn",
 		"selectPlaceholder": "Chọn tùy chọn",
 		"description": "Mô tả",
-		"itemType": "Loai vat pham"
+		"itemType": "Loại vật phẩm",
+		"searchPlaceholder": "Tìm theo tên hoặc mô tả..."
 	},
 	"cardList": {
 		"title": "Thư Viện Lá Bài",

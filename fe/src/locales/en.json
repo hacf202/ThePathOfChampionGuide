@@ -77,6 +77,9 @@
 		"prev": "Previous",
 		"next": "Next",
 		"notFound": "No results found",
+		"noResultsFound": "No matching results found",
+		"noResultsHint": "Please check your keywords or change the selected filters to find more relevant results.",
+		"noDataHint": "Currently, this list has no data to display. Please check back later.",
 		"close": "Close",
 		"clear": "Clear",
 		"ok": "OK",
@@ -106,7 +109,8 @@
 		"selectOption": "Select Option",
 		"selectPlaceholder": "Select Option",
 		"description": "Description",
-		"itemType": "Item Type"
+		"itemType": "Item Type",
+		"searchPlaceholder": "Search by name or description..."
 	},
 	"cardList": {
 		"title": "Card Gallery",

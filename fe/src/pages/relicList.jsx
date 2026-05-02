@@ -104,6 +104,7 @@ function RelicList() {
 			onSearchSubmit={actions.handleSearch}
 			searchPlaceholder={tUI("relicList.placeholder")}
 			onResetFilters={actions.handleResetFilters}
+			isFiltered={!!state.searchTerm || Object.values(state.customFilters || {}).some(v => Array.isArray(v) ? v.length > 0 : !!v)}
 			// --- Render Props ---
 			renderSkeleton={() => <RelicSkeleton />}
 			renderItem={relic => {

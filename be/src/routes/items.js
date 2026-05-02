@@ -179,6 +179,7 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 
 		const dataToSave = { ...itemData };
 		delete dataToSave.isNew;
+		delete dataToSave._id;
 
 		await db.collection(ITEMS_TABLE).replaceOne(
 			{ itemCode: dataToSave.itemCode },

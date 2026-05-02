@@ -173,6 +173,7 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 
 		const dataToSave = { ...powerData };
 		delete dataToSave.isNew;
+		delete dataToSave._id;
 
 		await db.collection(POWERS_TABLE).replaceOne(
 			{ powerCode: dataToSave.powerCode },

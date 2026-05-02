@@ -51,6 +51,7 @@ const GenericListLayout = ({
 	gridClassName, // Chuỗi class hoặc Hàm nhận vào showDesktopFilter trả về chuỗi class
 	itemClassName, // Hàm nhận vào item trả về chuỗi class (VD: 'col-span-full')
 	showFilterToggle = true, // Ẩn/Hiện nút chuyển đổi bộ lọc
+	isFiltered = false, // Chỉ định nếu có bộ lọc đang kích hoạt (để hiển thị thông báo trống phù hợp)
 }) => {
 	const { tUI } = useTranslation();
 	const [showDesktopFilter, setShowDesktopFilter] = useState(false);
@@ -270,17 +271,42 @@ const GenericListLayout = ({
 												)}
 											</>
 										) : (
-											<div className='text-center py-20 text-text-secondary'>
-												<XCircle
-													size={48}
-													className='mx-auto mb-4 opacity-20'
-												/>
-												<p className='text-xl font-primary mb-4'>
-													{emptyMessage || tUI("common.notFound")}
+											<div className='text-center py-24 text-text-secondary animate-fadeIn'>
+												<div className="relative inline-block mb-6">
+													<XCircle
+														size={64}
+														className='mx-auto opacity-10'
+													/>
+													<motion.div 
+														initial={{ scale: 0 }}
+														animate={{ scale: 1 }}
+														className="absolute -right-2 -bottom-2 bg-primary-500/10 p-2 rounded-full"
+													>
+														<Search size={20} className="text-primary-500/40" />
+													</motion.div>
+												</div>
+												
+												<h3 className='text-2xl font-primary font-bold text-text-primary mb-2'>
+													{emptyMessage || (isFiltered ? tUI("common.noResultsFound") : tUI("common.notFound")) || "Không tìm thấy kết quả"}
+												</h3>
+												
+												<p className='text-sm opacity-60 max-w-md mx-auto mb-8 leading-relaxed'>
+													{isFiltered 
+														? (tUI("common.noResultsHint") || "Vui lòng kiểm tra lại từ khóa hoặc thay đổi các bộ lọc đang chọn để tìm thấy kết quả phù hợp hơn.")
+														: (tUI("common.noDataHint") || "Hiện tại danh sách này chưa có dữ liệu hiển thị. Vui lòng quay lại sau.")
+													}
 												</p>
-												<Button variant='ghost' onClick={onResetFilters}>
-													{tUI("championList.resetFilter")}
-												</Button>
+
+												{(isFiltered || onResetFilters) && (
+													<Button 
+														variant='outline' 
+														onClick={onResetFilters}
+														className="hover:bg-primary-500 hover:text-white transition-all duration-300 group"
+													>
+														<RotateCw size={16} className='mr-2 group-hover:rotate-180 transition-transform duration-500' />
+														{tUI("championList.resetFilter") || "Đặt lại bộ lọc"}
+													</Button>
+												)}
 											</div>
 										)}
 									</motion.div>
