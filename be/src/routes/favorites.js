@@ -2,7 +2,7 @@
 import express from "express";
 import { getDb } from "../config/mongo.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
-import { normalizeBuildFromDynamo } from "../utils/MongoDB.js";
+import { normalizeDisplay } from "../utils/dbHelpers.js";
 import { invalidatePublicBuildsCache } from "../utils/buildCache.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
 import { getUserNames } from "../utils/userCache.js";
@@ -49,7 +49,7 @@ router.get("/favorites", authenticateCognitoToken, async (req, res) => {
 				const Item = await db.collection(BUILDS_TABLE).findOne({ id: favData.id });
 				if (!Item) return null;
 
-				const build = normalizeBuildFromDynamo(Item);
+				const build = normalizeDisplay(Item);
 				// Gắn thêm ngày Favorite để sắp xếp
 				return { ...build, favAt: favData.createdAt };
 			}),
@@ -134,7 +134,7 @@ router.patch("/:id/favorite", authenticateCognitoToken, async (req, res) => {
 		const buildItem = await db.collection(BUILDS_TABLE).findOne({ id: buildId });
 		if (!buildItem) return res.status(404).json({ error: "Build not found" });
 
-		const build = normalizeBuildFromDynamo(buildItem);
+		const build = normalizeDisplay(buildItem);
 
 		// Kiểm tra trạng thái hiện tại
 		const Items = await db.collection(FAVORITES_TABLE).find({
