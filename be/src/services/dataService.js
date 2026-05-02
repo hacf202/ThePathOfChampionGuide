@@ -11,14 +11,9 @@
  *   import { getCachedPowers, getCachedChampions } from "../services/dataService.js";
  */
 
-import { unmarshall } from "@aws-sdk/util-dynamodb";
-import { BatchGetItemCommand } from "@aws-sdk/client-dynamodb";
-import { marshall } from "@aws-sdk/util-dynamodb";
-
 import cacheManager from "../utils/cacheManager.js";
 import { CACHE_KEYS } from "../utils/cacheKeys.js";
-import { scanAll } from "../utils/dynamoUtils.js";
-import client from "../config/db.js";
+import { getDb } from "../config/mongo.js";
 
 // --- Cache Instances ---
 const powerCache    = cacheManager.getOrCreateCache("powers",    { stdTTL: 86400, checkperiod: 60 });
@@ -57,8 +52,9 @@ const TABLES = {
 async function loadAll(cache, cacheKey, tableName, sortField = "name") {
 	let data = await cache.get(cacheKey);
 	if (!data) {
-		const rawItems = await scanAll(client, { TableName: tableName });
-		data = rawItems.map(item => unmarshall(item));
+		const db = getDb();
+		const rawItems = await db.collection(tableName).find({}).toArray();
+		data = rawItems;
 		data.sort((a, b) => (a[sortField] || "").localeCompare(b[sortField] || ""));
 		await cache.set(cacheKey, data);
 	}
@@ -80,17 +76,9 @@ export async function batchFetchByIds(tableName, keyName, ids) {
 		const distinctIds = [...new Set(ids.filter(Boolean).map(id => String(id).trim()))];
 		if (distinctIds.length === 0) return [];
 
-		const results = [];
-		for (let i = 0; i < distinctIds.length; i += 100) {
-			const chunk = distinctIds.slice(i, i + 100);
-			const keys = chunk.map(id => marshall({ [keyName]: id }));
-			const response = await client.send(new BatchGetItemCommand({
-				RequestItems: { [tableName]: { Keys: keys } }
-			}));
-			if (response.Responses?.[tableName]) {
-				results.push(...response.Responses[tableName].map(item => unmarshall(item)));
-			}
-		}
+		const db = getDb();
+		const results = await db.collection(tableName).find({ [keyName]: { $in: distinctIds } }).toArray();
+		
 		return results;
 	} catch (e) {
 		console.error(`[DataService] BatchFetch lỗi [${tableName}]:`, e);

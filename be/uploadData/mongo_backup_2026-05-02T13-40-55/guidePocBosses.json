@@ -669,5 +669,16 @@
     "power": [
       "P01087"
     ]
+  },
+  {
+    "bossID": "B052",
+    "background": "https://images.pocguide.top/backgrounds/200px-04PZ016-full.webp",
+    "bossName": "Khỉ Nổ Tung",
+    "translations": {
+      "en": {
+        "bossName": "Boom Baboon"
+      }
+    },
+    "power": []
   }
 ]

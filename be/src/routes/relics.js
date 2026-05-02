@@ -1,13 +1,7 @@
 // be/src/routes/relics.js
 import express from "express";
-import {
-	PutItemCommand,
-	DeleteItemCommand,
-	GetItemCommand,
-} from "@aws-sdk/client-dynamodb";
-import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
 import cacheManager from "../utils/cacheManager.js";
-import client from "../config/db.js";
+import { getDb } from "../config/mongo.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
 import { createAuditLog } from "../utils/auditLogger.js";
@@ -62,16 +56,12 @@ router.get("/:relicCode", async (req, res) => {
 	if (cachedRelic) return res.json(cachedRelic);
 
 	try {
-		const command = new GetItemCommand({
-			TableName: RELICS_TABLE,
-			Key: marshall({ relicCode: id }),
-		});
-
-		const { Item } = await client.send(command);
+		const db = getDb();
+		const Item = await db.collection(RELICS_TABLE).findOne({ relicCode: id });
 		if (!Item)
 			return res.status(404).json({ error: `Không tìm thấy cổ vật: ${id}` });
 
-		const relicData = unmarshall(Item);
+		const relicData = Item;
 		await relicCache.set(CACHE_KEY, relicData);
 		res.json(relicData);
 	} catch (error) {
@@ -207,11 +197,8 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 			.json({ error: "Mã cổ vật (relicCode) là bắt buộc." });
 
 	try {
-		const checkCommand = new GetItemCommand({
-			TableName: RELICS_TABLE,
-			Key: marshall({ relicCode: relicCode.trim() }),
-		});
-		const { Item } = await client.send(checkCommand);
+		const db = getDb();
+		const Item = await db.collection(RELICS_TABLE).findOne({ relicCode: relicCode.trim() });
 		const exists = !!Item;
 
 		if (isNew && exists) {
@@ -229,11 +216,10 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 		const dataToSave = { ...relicData };
 		delete dataToSave.isNew;
 
-		await client.send(
-			new PutItemCommand({
-				TableName: RELICS_TABLE,
-				Item: marshall(dataToSave),
-			}),
+		await db.collection(RELICS_TABLE).replaceOne(
+			{ relicCode: dataToSave.relicCode },
+			dataToSave,
+			{ upsert: true }
 		);
 		
 		// Ghi log thay đổi
@@ -242,7 +228,7 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 			entityType: "relic",
 			entityId: relicCode,
 			entityName: dataToSave.name,
-			oldData: Item ? unmarshall(Item) : null,
+			oldData: Item ? Item : null,
 			newData: dataToSave,
 			user: req.user
 		});
@@ -266,19 +252,11 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 router.delete("/:relicCode", authenticateCognitoToken, async (req, res) => {
 	const { relicCode } = req.params;
 	try {
-		const getItemCmd = new GetItemCommand({
-			TableName: RELICS_TABLE,
-			Key: marshall({ relicCode }),
-		});
-		const { Item } = await client.send(getItemCmd);
-		const oldData = Item ? unmarshall(Item) : null;
+		const db = getDb();
+		const Item = await db.collection(RELICS_TABLE).findOne({ relicCode });
+		const oldData = Item ? Item : null;
 
-		await client.send(
-			new DeleteItemCommand({
-				TableName: RELICS_TABLE,
-				Key: marshall({ relicCode }),
-			}),
-		);
+		await db.collection(RELICS_TABLE).deleteOne({ relicCode });
 
 		// Ghi log thay đổi
 		await createAuditLog({

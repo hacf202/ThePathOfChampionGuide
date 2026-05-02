@@ -1,13 +1,7 @@
 // be/src/routes/runes.js
 import express from "express";
-import {
-	PutItemCommand,
-	DeleteItemCommand,
-	GetItemCommand,
-} from "@aws-sdk/client-dynamodb";
-import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
 import cacheManager from "../utils/cacheManager.js";
-import client from "../config/db.js";
+import { getDb } from "../config/mongo.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
 import { createAuditLog } from "../utils/auditLogger.js";
@@ -38,16 +32,12 @@ router.get("/:runeCode", async (req, res) => {
 
 	try {
 		// 2. Truy vấn DynamoDB nếu Cache miss
-		const command = new GetItemCommand({
-			TableName: RUNES_TABLE,
-			Key: marshall({ runeCode: id }),
-		});
-
-		const { Item } = await client.send(command);
+		const db = getDb();
+		const Item = await db.collection(RUNES_TABLE).findOne({ runeCode: id });
 		if (!Item)
 			return res.status(404).json({ error: `Không tìm thấy ngọc: ${id}` });
 
-		const runeData = unmarshall(Item);
+		const runeData = Item;
 
 		// 3. Lưu vào Cache
 		await runeCache.set(CACHE_KEY, runeData);
@@ -165,11 +155,8 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 		return res.status(400).json({ error: "Mã ngọc (runeCode) là bắt buộc." });
 
 	try {
-		const checkCommand = new GetItemCommand({
-			TableName: RUNES_TABLE,
-			Key: marshall({ runeCode: runeCode.trim() }),
-		});
-		const { Item } = await client.send(checkCommand);
+		const db = getDb();
+		const Item = await db.collection(RUNES_TABLE).findOne({ runeCode: runeCode.trim() });
 		const exists = !!Item;
 
 		if (isNew && exists) {
@@ -187,11 +174,10 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 		const dataToSave = { ...runeData };
 		delete dataToSave.isNew;
 
-		await client.send(
-			new PutItemCommand({
-				TableName: RUNES_TABLE,
-				Item: marshall(dataToSave, { removeUndefinedValues: true }),
-			}),
+		await db.collection(RUNES_TABLE).replaceOne(
+			{ runeCode: dataToSave.runeCode },
+			dataToSave,
+			{ upsert: true }
 		);
 		
 		// Ghi log thay đổi
@@ -200,7 +186,7 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 			entityType: "rune",
 			entityId: runeCode,
 			entityName: dataToSave.name,
-			oldData: Item ? unmarshall(Item) : null,
+			oldData: Item ? Item : null,
 			newData: dataToSave,
 			user: req.user
 		});
@@ -224,19 +210,11 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 router.delete("/:runeCode", authenticateCognitoToken, async (req, res) => {
 	const { runeCode } = req.params;
 	try {
-		const getItemCmd = new GetItemCommand({
-			TableName: RUNES_TABLE,
-			Key: marshall({ runeCode }),
-		});
-		const { Item } = await client.send(getItemCmd);
-		const oldData = Item ? unmarshall(Item) : null;
+		const db = getDb();
+		const Item = await db.collection(RUNES_TABLE).findOne({ runeCode });
+		const oldData = Item ? Item : null;
 
-		await client.send(
-			new DeleteItemCommand({
-				TableName: RUNES_TABLE,
-				Key: marshall({ runeCode }),
-			}),
-		);
+		await db.collection(RUNES_TABLE).deleteOne({ runeCode });
 
 		// Ghi log thay đổi
 		await createAuditLog({

@@ -1,13 +1,7 @@
 // be/src/routes/powers.js
 import express from "express";
-import {
-	PutItemCommand,
-	DeleteItemCommand,
-	GetItemCommand,
-} from "@aws-sdk/client-dynamodb";
-import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
 import cacheManager from "../utils/cacheManager.js";
-import client from "../config/db.js";
+import { getDb } from "../config/mongo.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
 import { createAuditLog } from "../utils/auditLogger.js";
@@ -38,16 +32,12 @@ router.get("/:powerCode", async (req, res) => {
 	if (cachedPower) return res.json(cachedPower);
 
 	try {
-		const command = new GetItemCommand({
-			TableName: POWERS_TABLE,
-			Key: marshall({ powerCode: id }),
-		});
-
-		const { Item } = await client.send(command);
+		const db = getDb();
+		const Item = await db.collection(POWERS_TABLE).findOne({ powerCode: id });
 		if (!Item)
 			return res.status(404).json({ error: `Không tìm thấy sức mạnh: ${id}` });
 
-		const powerData = unmarshall(Item);
+		const powerData = Item;
 		await powerCache.set(CACHE_KEY, powerData);
 		res.json(powerData);
 	} catch (error) {
@@ -165,11 +155,8 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 	}
 
 	try {
-		const checkCommand = new GetItemCommand({
-			TableName: POWERS_TABLE,
-			Key: marshall({ powerCode: powerCode.trim() }),
-		});
-		const { Item } = await client.send(checkCommand);
+		const db = getDb();
+		const Item = await db.collection(POWERS_TABLE).findOne({ powerCode: powerCode.trim() });
 		const exists = !!Item;
 
 		if (isNew && exists) {
@@ -187,11 +174,10 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 		const dataToSave = { ...powerData };
 		delete dataToSave.isNew;
 
-		await client.send(
-			new PutItemCommand({
-				TableName: POWERS_TABLE,
-				Item: marshall(dataToSave),
-			}),
+		await db.collection(POWERS_TABLE).replaceOne(
+			{ powerCode: dataToSave.powerCode },
+			dataToSave,
+			{ upsert: true }
 		);
 
 		// Ghi log thay đổi
@@ -200,7 +186,7 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 			entityType: "power",
 			entityId: powerCode,
 			entityName: dataToSave.name,
-			oldData: Item ? unmarshall(Item) : null,
+			oldData: Item ? Item : null,
 			newData: dataToSave,
 			user: req.user
 		});
@@ -225,19 +211,11 @@ router.delete("/:powerCode", authenticateCognitoToken, async (req, res) => {
 	const { powerCode } = req.params;
 	try {
 		// Lấy dữ liệu cũ để ghi log
-		const getCmd = new GetItemCommand({
-			TableName: POWERS_TABLE,
-			Key: marshall({ powerCode }),
-		});
-		const { Item } = await client.send(getCmd);
-		const oldData = Item ? unmarshall(Item) : null;
+		const db = getDb();
+		const Item = await db.collection(POWERS_TABLE).findOne({ powerCode });
+		const oldData = Item ? Item : null;
 
-		await client.send(
-			new DeleteItemCommand({
-				TableName: POWERS_TABLE,
-				Key: marshall({ powerCode }),
-			}),
-		);
+		await db.collection(POWERS_TABLE).deleteOne({ powerCode });
 
 		// Ghi log thay đổi
 		await createAuditLog({

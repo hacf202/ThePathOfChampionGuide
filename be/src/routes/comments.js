@@ -1,16 +1,6 @@
 // src/routes/comments.js
 import express from "express";
-import {
-	PutItemCommand,
-	UpdateItemCommand,
-	DeleteItemCommand,
-	GetItemCommand,
-	QueryCommand,
-} from "@aws-sdk/client-dynamodb";
-import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
-import { v4 as uuidv4 } from "uuid";
-
-import client from "../config/db.js";
+import { getDb } from "../config/mongo.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { invalidatePublicBuildsCache } from "../utils/buildCache.js";
 import { getUserNames } from "../utils/userCache.js";
@@ -25,15 +15,11 @@ const COMMENTS_TABLE = "Comments";
 router.get("/builds/:buildId/comments", async (req, res) => {
 	const { buildId } = req.params;
 	try {
-		const command = new QueryCommand({
-			TableName: COMMENTS_TABLE,
-			IndexName: "buildId-index",
-			KeyConditionExpression: "buildId = :buildId",
-			ExpressionAttributeValues: marshall({ ":buildId": buildId }),
-			ScanIndexForward: true,
-		});
-		const { Items } = await client.send(command);
-		let items = Items ? Items.map(unmarshall) : [];
+		const db = getDb();
+		let items = await db.collection(COMMENTS_TABLE)
+			.find({ buildId })
+			.sort({ createdAt: 1 })
+			.toArray();
 
 		// Làm giàu tên hiển thị
 		if (items.length > 0) {
@@ -70,15 +56,11 @@ router.post(
 		if (!content) return res.status(400).json({ error: "Content required" });
 
 		try {
+			const db = getDb();
 			let build = null;
 			if (buildId !== "global") {
-				const { Item } = await client.send(
-					new GetItemCommand({
-						TableName: BUILDS_TABLE,
-						Key: marshall({ id: buildId }),
-					}),
-				);
-				if (Item) build = unmarshall(Item);
+				const Item = await db.collection(BUILDS_TABLE).findOne({ id: buildId });
+				if (Item) build = Item;
 			}
 
 			const comment = {
@@ -95,12 +77,7 @@ router.post(
 				type: "comment",
 			};
 
-			await client.send(
-				new PutItemCommand({
-					TableName: COMMENTS_TABLE,
-					Item: marshall(comment),
-				}),
-			);
+			await db.collection(COMMENTS_TABLE).insertOne(comment);
 
 			if (build && build.display === true) invalidatePublicBuildsCache();
 
@@ -122,29 +99,25 @@ router.get("/comments/latest", async (req, res) => {
 			? JSON.parse(decodeURIComponent(lastKey))
 			: undefined;
 
+		const db = getDb();
 		let rootComments = [];
 		let lastEvaluatedKey = exclusiveStartKey;
 		const ROOT_LIMIT = 24;
 
 		while (rootComments.length < ROOT_LIMIT) {
-			const command = new QueryCommand({
-				TableName: COMMENTS_TABLE,
-				IndexName: "createdAt-index",
-				KeyConditionExpression: "#t = :v",
-				ExpressionAttributeNames: { "#t": "type" },
-				ExpressionAttributeValues: marshall({ ":v": "comment" }),
-				ScanIndexForward: false,
-				Limit: 50,
-				ExclusiveStartKey: lastEvaluatedKey,
-			});
+			let query = db.collection(COMMENTS_TABLE).find({ type: "comment" }).sort({ createdAt: -1 }).limit(50);
+			if (lastEvaluatedKey) {
+				query = query.filter({ $and: [{ type: "comment" }, { createdAt: { $lt: lastEvaluatedKey.createdAt } }] });
+			}
 
-			const { Items, LastEvaluatedKey } = await client.send(command);
-			const batch = (Items || []).map(unmarshall);
+			const batch = await query.toArray();
+			if (batch.length === 0) break;
+
 			const roots = batch.filter(c => !c.parentId);
 			rootComments.push(...roots);
 
-			lastEvaluatedKey = LastEvaluatedKey;
-			if (!lastEvaluatedKey || rootComments.length >= ROOT_LIMIT) break;
+			lastEvaluatedKey = batch[batch.length - 1];
+			if (rootComments.length >= ROOT_LIMIT) break;
 		}
 
 		if (rootComments.length > ROOT_LIMIT)
@@ -155,14 +128,7 @@ router.get("/comments/latest", async (req, res) => {
 
 		if (buildIdsOfRoots.length > 0) {
 			const repliesPromises = buildIdsOfRoots.map(async bId => {
-				const cmd = new QueryCommand({
-					TableName: COMMENTS_TABLE,
-					IndexName: "buildId-index",
-					KeyConditionExpression: "buildId = :bId",
-					ExpressionAttributeValues: marshall({ ":bId": bId }),
-				});
-				const { Items } = await client.send(cmd);
-				return (Items || []).map(unmarshall);
+				return await db.collection(COMMENTS_TABLE).find({ buildId: bId }).toArray();
 			});
 
 			const results = await Promise.all(repliesPromises);
@@ -190,13 +156,8 @@ router.get("/comments/latest", async (req, res) => {
 		if (uniqueBuildIds.length > 0) {
 			await Promise.all(
 				uniqueBuildIds.map(async id => {
-					const { Item } = await client.send(
-						new GetItemCommand({
-							TableName: BUILDS_TABLE,
-							Key: marshall({ id }),
-						}),
-					);
-					if (Item) buildMap[id] = unmarshall(Item).championName;
+					const Item = await db.collection(BUILDS_TABLE).findOne({ id });
+					if (Item) buildMap[id] = Item.championName;
 				}),
 			);
 		}
@@ -243,27 +204,24 @@ router.put(
 			return res.status(400).json({ error: "Missing content or buildId" });
 
 		try {
-			const { Attributes } = await client.send(
-				new UpdateItemCommand({
-					TableName: COMMENTS_TABLE,
-					Key: marshall({ buildId, id: commentId }),
-					// Kiểm tra quyền: Hỗ trợ cả trường 'sub' cũ và mới
-					ConditionExpression:
-						"attribute_exists(id) AND (#s = :userSub OR user_sub = :userSub)",
-					UpdateExpression: "SET content = :c, isEdited = :e, updatedAt = :u",
-					ExpressionAttributeNames: { "#s": "sub" },
-					ExpressionAttributeValues: marshall({
-						":c": content.trim(),
-						":e": true,
-						":u": new Date().toISOString(),
-						":userSub": req.user.sub,
-					}),
-					ReturnValues: "ALL_NEW",
-				}),
+			const db = getDb();
+			// Kiểm tra comment có tồn tại và thuộc quyền
+			const existingComment = await db.collection(COMMENTS_TABLE).findOne({ id: commentId, buildId });
+			if (!existingComment) {
+				return res.status(403).json({ error: "Unauthorized or Comment not found" });
+			}
+			if (existingComment.sub !== req.user.sub && existingComment.user_sub !== req.user.sub) {
+				return res.status(403).json({ error: "Unauthorized or Comment not found" });
+			}
+
+			const updatedComment = await db.collection(COMMENTS_TABLE).findOneAndUpdate(
+				{ id: commentId, buildId },
+				{ $set: { content: content.trim(), isEdited: true, updatedAt: new Date().toISOString() } },
+				{ returnDocument: 'after' }
 			);
 
 			invalidatePublicBuildsCache();
-			res.json(unmarshall(Attributes));
+			res.json(updatedComment);
 		} catch (error) {
 			console.error("Update error:", error);
 			if (error.name === "ConditionalCheckFailedException") {
@@ -289,17 +247,13 @@ router.delete(
 		if (!buildId) return res.status(400).json({ error: "buildId is required" });
 
 		try {
-			await client.send(
-				new DeleteItemCommand({
-					TableName: COMMENTS_TABLE,
-					Key: marshall({ buildId, id: commentId }),
-					// Kiểm tra quyền: Hỗ trợ cả trường 'sub' cũ và mới
-					ConditionExpression:
-						"attribute_exists(id) AND (#s = :userSub OR user_sub = :userSub)",
-					ExpressionAttributeNames: { "#s": "sub" },
-					ExpressionAttributeValues: marshall({ ":userSub": req.user.sub }),
-				}),
-			);
+			const db = getDb();
+			const existingComment = await db.collection(COMMENTS_TABLE).findOne({ id: commentId, buildId });
+			if (!existingComment || (existingComment.sub !== req.user.sub && existingComment.user_sub !== req.user.sub)) {
+				return res.status(403).json({ error: "Unauthorized or Comment not found" });
+			}
+
+			await db.collection(COMMENTS_TABLE).deleteOne({ id: commentId, buildId });
 
 			invalidatePublicBuildsCache();
 			res.json({ message: "Deleted" });

@@ -1,4 +1,5 @@
 import "./src/config/env.js"; // MUST BE FIRST
+import { connectToMongoDB } from "./src/config/mongo.js";
 import express from "express"; //tạo server HTTP, các route GET, PUT, POST, DELETE,..
 import cors from "cors"; //cho phép front end gọi api của backend
 import morgan from "morgan";
@@ -34,6 +35,7 @@ import analyticsRouter from "./src/routes/analytics.js";
 import { trackActivity } from "./src/middleware/trackActivity.js";
 import resourcesRouter from "./src/routes/resources.js";
 import sitemapRouter from "./src/routes/sitemap.js";
+import dbStatsRouter from "./src/routes/dbStats.js";
 
 // Kiểm tra các biến môi trường cần thiết
 const requiredEnvVars = [
@@ -139,6 +141,7 @@ app.use("/api/search", searchRouter);
 app.use("/api/resources", resourcesRouter);
 app.use("/api/admin/analytics", analyticsRouter);
 app.use("/api/sitemap.xml", sitemapRouter);
+app.use("/api/admin/db-stats", dbStatsRouter);
 
 // API để kiểm tra "sức khỏe" của server
 app.get("/api/checkheal", (req, res) => {
@@ -163,11 +166,17 @@ export default app;
 
 // 2. Chạy server local (chỉ khi không ở trên Vercel)
 // Vercel tự động set biến môi trường 'VERCEL' = 1
-if (!process.env.VERCEL) {
-	const port = process.env.PORT; // Dùng port từ .env hoặc fallback 3001
-	app.listen(port, () => {
-		console.log(
-			`✅ Server đang chạy (chế độ local) trên http://localhost:${port}`,
-		);
-	});
-}
+
+// Khởi tạo kết nối MongoDB
+connectToMongoDB().then(() => {
+	if (!process.env.VERCEL) {
+		const port = process.env.PORT; // Dùng port từ .env hoặc fallback 3001
+		app.listen(port, () => {
+			console.log(
+				`✅ Server đang chạy (chế độ local) trên http://localhost:${port}`,
+			);
+		});
+	}
+}).catch(err => {
+	console.error("Lỗi khi kết nối MongoDB lúc khởi động:", err);
+});

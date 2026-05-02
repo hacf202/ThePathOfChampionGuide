@@ -26,6 +26,7 @@ import {
 	Settings2,
 	History,
 	BarChart3,
+	Database,
 } from "lucide-react";
 import { useTranslation } from "../../hooks/useTranslation";
 
@@ -47,6 +48,7 @@ const AuditLogList = lazy(() => import("./auditLogs/AuditLogList"));
 const CardEditor = lazy(() => import("./cards/cardEditor"));
 const CacheManager = lazy(() => import("./cache/cacheManager"));
 const AnalyticsDashboard = lazy(() => import("./analytics/AnalyticsDashboard"));
+const DbStatsManager = lazy(() => import("./dbStats/dbStatsManager"));
 
 // Component DashboardHome
 const DashboardHome = ({ navItems }) => {
@@ -191,6 +193,12 @@ const AdminPanel = () => {
 			icon: BarChart3,
 			path: "/admin/analytics",
 		},
+		{
+			id: "db-stats",
+			label: "Giới hạn CSDL",
+			icon: Database,
+			path: "/admin/db-stats",
+		},
 	];
 
 	const currentNavItem = [...navItems]
@@ -204,10 +212,11 @@ const AdminPanel = () => {
 	// [FIX] Nhận diện chế độ Editor: Nếu đường dẫn có id cụ thể (dài hơn /admin/champions)
 	const isEditorMode = 
 		location.pathname.split("/").length > 3 && 
-		!location.pathname.includes("images") && // Loại trừ ImageManager
-		!location.pathname.includes("cache") && // Loại trừ CacheManager
-		!location.pathname.includes("analytics") && // Loại trừ Analytics
-		!location.pathname.includes("audit-logs"); // Loại trừ AuditLogs
+		!location.pathname.includes("images") &&
+		!location.pathname.includes("cache") &&
+		!location.pathname.includes("analytics") &&
+		!location.pathname.includes("audit-logs") &&
+		!location.pathname.includes("db-stats");
 
 	return (
 		<div className='flex h-full bg-page-bg font-secondary'>
@@ -360,6 +369,7 @@ const AdminPanel = () => {
 							<Route path='cards/*' element={<CardEditor />} />
 							<Route path='cache' element={<CacheManager />} />
 							<Route path='analytics' element={<AnalyticsDashboard />} />
+							<Route path='db-stats' element={<DbStatsManager />} />
 						</Routes>
 					</Suspense>
 				</main>

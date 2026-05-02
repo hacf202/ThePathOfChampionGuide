@@ -1,6 +1,4 @@
-import { QueryCommand } from "@aws-sdk/client-dynamodb";
-import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
-import client from "../config/db.js";
+import { getDb } from "../config/mongo.js";
 import { normalizeBuildFromDynamo } from "./dynamodb.js";
 import { getUserNames } from "./userCache.js";
 import cacheManager from "./cacheManager.js";
@@ -22,17 +20,11 @@ export const getPublicBuilds = async (userId = "global") => {
 
 	try {
 		console.log(`[BuildCache] Fetching fresh public builds for: ${userId}`);
-		const command = new QueryCommand({
-			TableName: BUILDS_TABLE,
-			IndexName: "display-index",
-			KeyConditionExpression: "#display = :display",
-			ExpressionAttributeNames: { "#display": "display" },
-			ExpressionAttributeValues: marshall({ ":display": "true" }),
-		});
+		const db = getDb();
+		let Items = await db.collection(BUILDS_TABLE).find({ display: { $in: [true, "true"] } }).toArray();
 
-		const { Items } = await client.send(command);
 		let items = Items
-			? Items.map(item => normalizeBuildFromDynamo(unmarshall(item)))
+			? Items.map(item => normalizeBuildFromDynamo(item))
 			: [];
 
 		// Gắn tên người tạo

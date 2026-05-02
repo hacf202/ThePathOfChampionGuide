@@ -1,11 +1,5 @@
 // be/src/utils/ratingUtils.js
-import { 
-	QueryCommand, 
-	GetItemCommand, 
-	PutItemCommand 
-} from "@aws-sdk/client-dynamodb";
-import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
-import client from "../config/db.js";
+import { getDb } from "../config/mongo.js";
 import cacheManager from "./cacheManager.js";
 
 const championCache = cacheManager.getOrCreateCache("champions");
@@ -19,22 +13,12 @@ export async function syncChampionCommunityRatings(championID) {
 
 	try {
 		// 1. Lấy tất cả đánh giá của tướng này
-		const ratingCommand = new QueryCommand({
-			TableName: "guidePocPlayStyleRating",
-			KeyConditionExpression: "championID = :cid",
-			ExpressionAttributeValues: marshall({ ":cid": championID }),
-		});
-		const { Items: rItems } = await client.send(ratingCommand);
-		const allRatings = rItems ? rItems.map(r => unmarshall(r)) : [];
+		const db = getDb();
+		const allRatings = await db.collection("guidePocPlayStyleRating").find({ championID }).toArray();
 
 		// 2. Lấy thông tin tướng hiện tại
-		const champCommand = new GetItemCommand({
-			TableName: "guidePocChampionList",
-			Key: marshall({ championID }),
-		});
-		const { Item: cItem } = await client.send(champCommand);
-		if (!cItem) return;
-		const championData = unmarshall(cItem);
+		const championData = await db.collection("guidePocChampionList").findOne({ championID });
+		if (!championData) return;
 
 		// 3. Tính toán điểm trung bình
 		let communityRatings = null;
@@ -91,10 +75,11 @@ export async function syncChampionCommunityRatings(championID) {
 			communityRatings
 		};
 
-		await client.send(new PutItemCommand({
-			TableName: "guidePocChampionList",
-			Item: marshall(updatedChampion, { removeUndefinedValues: true })
-		}));
+		await db.collection("guidePocChampionList").replaceOne(
+			{ championID: updatedChampion.championID },
+			updatedChampion,
+			{ upsert: true }
+		);
 
 		// 5. Xóa cache
 		await championCache.del("all_champions_list");

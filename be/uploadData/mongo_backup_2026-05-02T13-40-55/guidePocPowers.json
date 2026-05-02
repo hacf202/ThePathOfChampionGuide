@@ -112,7 +112,7 @@
     "rarity": "Sử Thi",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0005-full.png",
     "descriptionRaw": "+1 Năng Lượng Khởi Điểm.Khi ngươi rút 1 lá bài có gắn chuông, gài 2 Chuông lên bộ bài.",
-    "description": "+1 Năng Lượng Khởi Điểm.Khi ngươi rút 1 lá bài có gắn chuông, gài 2 [cd:06RU001T3|Chuông|icon,img-full] lên bộ bài.",
+    "description": "+1 Năng Lượng Khởi Điểm.Khi ngươi rút 1 lá bài có gắn chuông, gài 2 Chuông lên bộ bài.",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0005.png",
     "name": "Tinh Vũ Hiện Diện",
     "type": [
@@ -324,7 +324,7 @@
     "translations": {
       "en": {
         "name": "Beauty in Death",
-        "description": "For every 4th [k:Fast|Fast] spell, [k:Slow|Slow] spell, or Skill you play, create a [cd:99RU001|Captive Audience|icon,img-full] in hand. ",
+        "description": "For every 4th [k:Fast|Fast] spell, [k:Slow|Slow] spell, or Skill you play, create a Captive Audience in hand. ",
         "descriptionRaw": "For every 4th Fast spell, Slow spell, or Skill you play, create a Captive Audience in hand. ",
         "rarity": "Rare"
       }
@@ -332,7 +332,7 @@
     "rarity": "Hiếm",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0016-full.png",
     "descriptionRaw": "Mỗi lần ngươi sử dụng bài phép Nhanh, bài phép Chậm hoặc Kỹ Năng thứ tư, tạo trên tay 1 lá Cạm Bẫy Nghệ Thuật. ",
-    "description": "Mỗi lần ngươi sử dụng bài phép [k:Fast|Nhanh], bài phép [k:Slow|Chậm] hoặc Kỹ Năng thứ tư, tạo trên tay 1 lá [cd:99RU001|Cạm Bẫy Nghệ Thuật|icon,img-full]. ",
+    "description": "Mỗi lần ngươi sử dụng bài phép [k:Fast|Nhanh], bài phép [k:Slow|Chậm] hoặc Kỹ Năng thứ tư, tạo trên tay 1 lá Cạm Bẫy Nghệ Thuật. ",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0016.png",
     "name": "Nét Đẹp Chết Chóc",
     "type": [
@@ -384,7 +384,7 @@
     "translations": {
       "en": {
         "name": "Beauty in Death II",
-        "description": "For every 4th [k:Fast|Fast] spell, [k:Slow|Slow] spell, or Skill you play, create a 0 cost [cd:99RU001|Captive Audience|icon,img-full] in hand. ",
+        "description": "For every 4th [k:Fast|Fast] spell, [k:Slow|Slow] spell, or Skill you play, create a 0 cost Captive Audience in hand. ",
         "descriptionRaw": "For every 4th Fast spell, Slow spell, or Skill you play, create a 0 cost Captive Audience in hand. ",
         "rarity": "Epic"
       }
@@ -392,7 +392,7 @@
     "rarity": "Sử Thi",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0019-full.png",
     "descriptionRaw": "Mỗi lần ngươi sử dụng bài phép Nhanh, bài phép Chậm hoặc Kỹ Năng thứ tư, tạo trên tay 1 lá Cạm Bẫy Nghệ Thuật với 0 tiêu hao. ",
-    "description": "Mỗi lần ngươi sử dụng bài phép [k:Fast|Nhanh], bài phép [k:Slow|Chậm] hoặc Kỹ Năng thứ tư, tạo trên tay 1 lá [cd:99RU001|Cạm Bẫy Nghệ Thuật|icon,img-full] với 0 tiêu hao. ",
+    "description": "Mỗi lần ngươi sử dụng bài phép [k:Fast|Nhanh], bài phép [k:Slow|Chậm] hoặc Kỹ Năng thứ tư, tạo trên tay 1 lá Cạm Bẫy Nghệ Thuật với 0 tiêu hao. ",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0019.png",
     "name": "Nét Đẹp Chết Chóc II",
     "type": [
@@ -1978,9 +1978,9 @@
     "powerCode": "P01002",
     "translations": {
       "en": {
-        "name": "Hung Thần Đại Dương",
-        "description": "Bắt Đầu Vòng Đấu: Hồi lại năng lượng bài phép của TẤT CẢ Người Chơi.",
-        "descriptionRaw": "Bắt Đầu Vòng Đấu: Hồi lại năng lượng bài phép của TẤT CẢ Người Chơi.",
+        "name": "Nautical Nuisance",
+        "description": "[k:Round Start|Round Start|no-icon]: Refill ALL players' spell mana.",
+        "descriptionRaw": "Round Start: Refill ALL players' spell mana.",
         "rarity": "Common"
       }
     },
@@ -1991,7 +1991,7 @@
     "name": "Hung Thần Đại Dương",
     "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01002.png",
     "type": [
-      "Monthly Challenge Power"
+      "Foe Power"
     ]
   },
   {
@@ -2300,9 +2300,9 @@
     "powerCode": "P01017",
     "translations": {
       "en": {
-        "name": "Tập Luyện Trong Rừng",
-        "description": "TẤT CẢ bài quân có \"Ra Đòn: Nhân đôi Sức Mạnh của ta.\"",
-        "descriptionRaw": "TẤT CẢ bài quân có \"Ra Đòn: Nhân đôi Sức Mạnh của ta.\"",
+        "name": "Forest Workout",
+        "description": "ALL units have \" [k:Strike|Strike|no-icon]: Double my Power\".",
+        "descriptionRaw": "ALL units have \" Strike: Double my Power\".",
         "rarity": "Common"
       }
     },
@@ -2313,16 +2313,16 @@
     "name": "Tập Luyện Trong Rừng",
     "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01017.png",
     "type": [
-      "Monthly Challenge Power"
+      "Foe Power"
     ]
   },
   {
     "powerCode": "P01018",
     "translations": {
       "en": {
-        "name": "Ảo Ảnh Ánh Sáng",
-        "description": "Bắt Đầu Trận Đấu: TẤT CẢ người chơi triệu hồi 1 lá Pháp Sư Phản Chiếu.",
-        "descriptionRaw": "Bắt Đầu Trận Đấu: TẤT CẢ người chơi triệu hồi 1 lá Pháp Sư Phản Chiếu.",
+        "name": "Trick of the Light",
+        "description": "Game Start: ALL players summon a  [cd:05BC151|Mirror Mag|icon]e.",
+        "descriptionRaw": "Game Start: ALL players summon a  Mirror Mage.",
         "rarity": "Common"
       }
     },
@@ -2333,7 +2333,7 @@
     "name": "Ảo Ảnh Ánh Sáng",
     "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01018.png",
     "type": [
-      "Monthly Challenge Power"
+      "Foe Power"
     ]
   },
   {
@@ -2433,7 +2433,6 @@
     "name": "Adoribus!",
     "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01022.png",
     "type": [
-      "Monthly Challenge Power",
       "Foe Power"
     ]
   },
@@ -2703,20 +2702,20 @@
     "powerCode": "P01035",
     "translations": {
       "en": {
-        "name": "Buốt Da Thấu Thịt",
-        "description": "Bắt Đầu Vòng Đấu: Đóng Băng bài quân Mạnh Nhất của người chơi.",
-        "descriptionRaw": "Bắt Đầu Vòng Đấu: Đóng Băng bài quân Mạnh Nhất của người chơi.",
+        "name": "Creeping Chill",
+        "description": "[k:Round Start|Round Start|no-icon]: [k:Frostbite|Frostbite|icon] the player's [k:Strongest|Strongest|no-icon] unit.",
+        "descriptionRaw": "Round Start: Frostbite the player's Strongest unit.",
         "rarity": "Rare"
       }
     },
     "rarity": "Hiếm",
     "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01035.png",
     "descriptionRaw": "Bắt Đầu Vòng Đấu: Đóng Băng bài quân Mạnh Nhất của người chơi.",
-    "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: [k:Frostbite|Đóng Băng] bài quân Mạnh Nhất của người chơi.",
+    "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: [k:Frostbite|Đóng Băng] bài quân [k:Mạnh Nhất|Mạnh Nhất|no-icon] của người chơi.",
     "name": "Buốt Da Thấu Thịt",
     "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01035.png",
     "type": [
-      "Monthly Challenge Power"
+      "Foe Power"
     ]
   },
   {
@@ -2924,7 +2923,7 @@
     "translations": {
       "en": {
         "name": "School Assembly",
-        "description": "Game Start: ALL players summon a  [cd:06NX015|Manasoul Student|icon,img-full].",
+        "description": "Game Start: ALL players summon a  Manasoul Student.",
         "descriptionRaw": "Game Start: ALL players summon a  Manasoul Student.",
         "rarity": "Common"
       }
@@ -2932,7 +2931,7 @@
     "rarity": "Thường",
     "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01045.webp",
     "descriptionRaw": "Bắt Đầu Trận Đấu: TẤT CẢ người chơi triệu hồi 1 lá Học Trò Hồn Thuật.",
-    "description": "Bắt Đầu Trận Đấu: TẤT CẢ người chơi triệu hồi 1 lá [cd:06NX015|Học Trò Hồn Thuật|icon,img-full].",
+    "description": "Bắt Đầu Trận Đấu: TẤT CẢ người chơi triệu hồi 1 lá Học Trò Hồn Thuật.",
     "name": "Tập Trung Toàn Trường",
     "assetAbsolutePath": "https://images.pocguide.top/powers/P01045.webp",
     "type": [
@@ -4443,6 +4442,106 @@
     ]
   },
   {
+    "powerCode": "P01115",
+    "translations": {
+      "en": {
+        "name": "Bar Fight",
+        "description": "When a unit is summoned, shuffle its stats.",
+        "rarity": "Common",
+        "descriptionRaw": "When a unit is summoned, shuffle its stats."
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01115.webp",
+    "descriptionRaw": "Khi 1 bài quân được triệu hồi, tráo đổi chỉ số của lá bài đó.",
+    "description": "Khi 1 bài quân được triệu hồi, tráo đổi chỉ số của lá bài đó.",
+    "name": "Quầy Bar Đại Chiến!",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01115.webp",
+    "type": [
+      "Foe Power"
+    ]
+  },
+  {
+    "powerCode": "P01116",
+    "translations": {
+      "en": {
+        "name": "Bump Goes The Whump",
+        "description": "When one of the player's unit dies, plant a [cd:01PZ022|Poison Puffcap|icon] in the player's deck.",
+        "rarity": "Common",
+        "descriptionRaw": "When one of the player's unit dies, plant a Poison Puffcap in the player's deck."
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01116.webp",
+    "descriptionRaw": "Khi 1 bài quân của người chơi hy sinh, gài 1 lá Nấm Độc lên bộ bài của người chơi.",
+    "description": "Khi 1 bài quân của người chơi hy sinh, gài 1 lá [cd:01PZ022|Nấm Độc|icon] lên bộ bài của người chơi.",
+    "name": "Chạm Trán Với Chồn Rác",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01116.webp",
+    "type": [
+      "Foe Power"
+    ]
+  },
+  {
+    "powerCode": "P01117",
+    "translations": {
+      "en": {
+        "name": "Poro Progress!",
+        "description": "Game Start: The Foe creates an [cd:99PZ118|Augmented Poro|icon] in hand.",
+        "rarity": "Common",
+        "descriptionRaw": "Game Start: The Foe creates an Augmented Poro in hand."
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01117.webp",
+    "descriptionRaw": "Bắt Đầu Trận Đấu: Địch Thủ tạo trên tay 1 lá Poro Cường Hóa.",
+    "description": "Bắt Đầu Trận Đấu: [k:Địch Thủ|Địch Thủ|no-icon] tạo trên tay 1 lá [cd:99PZ118|Poro Cường Hóa|icon].",
+    "name": "Poro Tân Tiến!",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01117.webp",
+    "type": [
+      "Foe Power"
+    ]
+  },
+  {
+    "powerCode": "P01118",
+    "translations": {
+      "en": {
+        "name": "No Matter the Cost",
+        "description": "The [k:Foe|Foe's|no-icon] spells cost 2 more and deal double damage.",
+        "rarity": "Common",
+        "descriptionRaw": "The Foe's spells cost 2 more and deal double damage."
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01118.webp",
+    "descriptionRaw": "Bài phép của Địch Thủ tăng 2 tiêu hao và gây gấp đôi sát thương.",
+    "description": "Bài phép của [k:Địch Thủ|Địch Thủ|no-icon] tăng 2 tiêu hao và gây gấp đôi sát thương.",
+    "name": "Không Màng Hậu Quả",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01118.webp",
+    "type": [
+      "Foe Power"
+    ]
+  },
+  {
+    "powerCode": "P01119",
+    "translations": {
+      "en": {
+        "name": "Bandle Scout",
+        "description": "Game Start: The [k:Foe|Foe|no-icon] summons [cd:03PZ020|Hexcore Foundry|icon].",
+        "rarity": "Common",
+        "descriptionRaw": "Game Start: The Foe summons Hexcore Foundry."
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01119.webp",
+    "descriptionRaw": "Bắt Đầu Trận Đấu: Địch Thủ triệu hồi 1 lá Xưởng Chế Lõi Công Nghệ.",
+    "description": "Bắt Đầu Trận Đấu: [k:Địch Thủ|Địch Thủ|no-icon] triệu hồi 1 lá [cd:03PZ020|Xưởng Chế Lõi Công Nghệ|icon].",
+    "name": "Đội Trinh Sát Bandle",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01119.webp",
+    "type": [
+      "Foe Power"
+    ]
+  },
+  {
     "powerCode": "P0112",
     "translations": {
       "en": {
@@ -4460,6 +4559,206 @@
     "name": "Thống Trị",
     "type": [
       "General Power"
+    ]
+  },
+  {
+    "powerCode": "P01120",
+    "translations": {
+      "en": {
+        "name": "Welcome to the Crew",
+        "description": "[k:Round Start|Round Start|no-icon]: Give the player's [k:strongest|strongest|no-icon] unit [k:Vulnerable|Vulnerable|icon] this round.",
+        "rarity": "Common",
+        "descriptionRaw": "Round Start: Give the player's strongest unit Vulnerable this round."
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01120.webp",
+    "descriptionRaw": "Bắt Đầu Vòng Đấu: Trao Kích Động cho bài quân Mạnh Nhất của Người Chơi trong vòng này.",
+    "description": "[k:Bắt Đầu Vòng Đấu|Bắt Đầu Vòng Đấu|no-icon]: Trao [k:Kích Động|Kích Động|icon] cho bài quân [k:Mạnh Nhất|Mạnh Nhất|no-icon] của Người Chơi trong vòng này.",
+    "name": "Chào Mừng Đến Với Tiểu Đội",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01120.webp",
+    "type": [
+      "Foe Power"
+    ]
+  },
+  {
+    "powerCode": "P01121",
+    "translations": {
+      "en": {
+        "name": "Ook Ook",
+        "description": "Game Start: Summon a [cd:02BW034|Monkey Idol|icon].",
+        "rarity": "Rare",
+        "descriptionRaw": "Game Start: Summon a Monkey Idol."
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01121.webp",
+    "descriptionRaw": "Bắt Đầu Trận Đấu: Triệu hồi 1 lá Tượng Thần Đầu Khỉ.",
+    "description": "Bắt Đầu Trận Đấu: Triệu hồi 1 lá [cd:02BW034|Tượng Thần Đầu Khỉ|icon].",
+    "name": "Kéc Kéc",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01121.webp",
+    "type": [
+      "Foe Power"
+    ]
+  },
+  {
+    "powerCode": "P01122",
+    "translations": {
+      "en": {
+        "name": "Sneaky, Sneaky!",
+        "description": "[k:Round Start|Round Start|no-icon]: Give each player's [k:strongest|strongest|no-icon] unit [k:Elusive|Elusive|icon] this round.",
+        "rarity": "Common",
+        "descriptionRaw": "Round Start: Give each player's strongest unit Elusive this round."
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01122.webp",
+    "descriptionRaw": "Bắt Đầu Vòng Đấu: Trao Huyền Ảo cho bài quân mạnh nhất của mỗi người chơi trong vòng này.",
+    "description": "[k:Bắt Đầu Vòng Đấu|Bắt Đầu Vòng Đấu|no-icon]: Trao [k:Huyền Ảo|Huyền Ảo|icon] cho bài quân [k:mạnh nhất|mạnh nhất|no-icon] của mỗi người chơi trong vòng này.",
+    "name": "Lén Lén Lút Lút!",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01122.webp",
+    "type": [
+      "Foe Power"
+    ]
+  },
+  {
+    "powerCode": "P01123",
+    "translations": {
+      "en": {
+        "name": "False Shuffle",
+        "description": "When the [k:Foe|Foe|no-icon] attacks, they draw 1 and give it [k:Fleeting|Fleeting|icon].",
+        "rarity": "Common",
+        "descriptionRaw": "When the Foe attacks, they draw 1 and give it Fleeting."
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01123.webp",
+    "descriptionRaw": "Khi Địch Thủ tấn công, chúng rút 1 lá bài và trao Phù Du cho lá bài đó.",
+    "description": "Khi [k:Địch Thủ|Địch Thủ|no-icon] tấn công, chúng rút 1 lá bài và trao [k:Phù Du|Phù Du|icon] cho lá bài đó.",
+    "name": "Tráo Bài Gian Lận",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01123.webp",
+    "type": [
+      "Foe Power"
+    ]
+  },
+  {
+    "powerCode": "P01124",
+    "translations": {
+      "en": {
+        "name": "Boarding Party",
+        "description": "When the Foe attacks with 6 units, deal 1 to the player's battling units and the player's Nexus.",
+        "rarity": "Common",
+        "descriptionRaw": "When the Foe attacks with 6 units, deal 1 to the player's battling units and the player's Nexus."
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01124.webp",
+    "descriptionRaw": "Khi Địch Thủ tấn công với 6 bài quân, gây 1 sát thương lên những bài quân đang chiến đấu và Nhà Chính của người chơi.",
+    "description": "Khi [k:Địch Thủ|Địch Thủ|no-icon] tấn công với 6 bài quân, gây 1 sát thương lên những bài quân đang chiến đấu và Nhà Chính của người chơi.",
+    "name": "Bữa Tiệc Chào Sân",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01124.webp",
+    "type": [
+      "Foe Power"
+    ]
+  },
+  {
+    "powerCode": "P01125",
+    "translations": {
+      "en": {
+        "name": "Reinforced Fluff",
+        "description": "When one of the [k:Foe|Foe's|no-icon] unit survives damage, grant it +1|+0.",
+        "rarity": "Common",
+        "descriptionRaw": "When one of the Foe's unit survives damage, grant it +1|+0."
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01125.webp",
+    "descriptionRaw": "Khi 1 bài quân của Địch Thủ nhận sát thương và sống sót, ban +1|+0 cho bài quân đó.",
+    "description": "Khi 1 bài quân của [k:Địch Thủ|Địch Thủ|no-icon] nhận sát thương và sống sót, ban +1|+0 cho bài quân đó.",
+    "name": "Đám Bông Cường Hóa",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01125.webp",
+    "type": [
+      "Foe Power"
+    ]
+  },
+  {
+    "powerCode": "P01126",
+    "translations": {
+      "en": {
+        "name": "Vision of Strength",
+        "description": "[k:Round Start|Round Start|no-icon]: Grant the top unit in the [k:Foe|Foe's|no-icon] deck +1|+0.",
+        "rarity": "Common",
+        "descriptionRaw": "Round Start: Grant the top unit in the Foe's deck +1|+0."
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01126.webp",
+    "descriptionRaw": "Bắt Đầu Vòng Đấu: Ban +1|+0 cho bài quân gần nhất trong bộ bài của Địch Thủ.",
+    "description": "[k:Bắt Đầu Vòng Đấu|Bắt Đầu Vòng Đấu|no-icon]: Ban +1|+0 cho bài quân gần nhất trong bộ bài của [k:Địch Thủ|Địch Thủ|no-icon].",
+    "name": "Tầm Nhìn Sức Mạnh",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01126.webp",
+    "type": [
+      "Foe Power"
+    ]
+  },
+  {
+    "powerCode": "P01127",
+    "translations": {
+      "en": {
+        "name": "Sharpened Talons",
+        "description": "Game Start: The [k:Foe|Foe|no-icon] summons a [cd:01DE029|Fleetfeather Tracker|icon].",
+        "rarity": "Common",
+        "descriptionRaw": "Game Start: The Foe summons a Fleetfeather Tracker."
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01127.webp",
+    "descriptionRaw": "Bắt Đầu Trận Đấu: Địch Thủ triệu hồi 1 lá Phi Ưng Truy Sát.",
+    "description": "Bắt Đầu Trận Đấu: [k:Địch Thủ|Địch Thủ|no-icon] triệu hồi 1 lá [cd:01DE029|Phi Ưng Truy Sát|icon].",
+    "name": "Móng Vuốt Sắc Bén",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01127.webp",
+    "type": [
+      "Foe Power"
+    ]
+  },
+  {
+    "powerCode": "P01128",
+    "translations": {
+      "en": {
+        "name": "Hunt Down",
+        "description": "[k:Round End|Round End|no-icon]: If the [k:Foe|Foe|no-icon] dealt damage to the player's Nexus this round, deal 1 to the player's [k:Weakest|Weakest|no-icon] unit.",
+        "rarity": "Common",
+        "descriptionRaw": "Round End: If the Foe dealt damage to the player's Nexus this round, deal 1 to the player's Weakest unit."
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01128.webp",
+    "descriptionRaw": "Kết Thúc Vòng Đấu: Nếu Địch Thủ đã gây sát thương lên Nhà Chính của Người Chơi trong vòng này, gây 1 sát thương lên bài quân yếu nhất của người chơi.",
+    "description": "[k:Kết Thúc Vòng Đấu|Kết Thúc Vòng Đấu|no-icon]: Nếu [k:Địch Thủ|Địch Thủ|no-icon] đã gây sát thương lên Nhà Chính của Người Chơi trong vòng này, gây 1 sát thương lên bài quân [k:yếu nhất|yếu nhất|no-icon] của người chơi.",
+    "name": "Truy Lùng",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01128.webp",
+    "type": [
+      "Foe Power"
+    ]
+  },
+  {
+    "powerCode": "P01129",
+    "translations": {
+      "en": {
+        "name": "Creeping Chill",
+        "description": "Round Start: If the Foe has the attack token, Frostbite the player's Weakest unit.",
+        "rarity": "Common",
+        "descriptionRaw": "Round Start: If the Foe has the attack token, Frostbite the player's Weakest unit."
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01129.webp",
+    "descriptionRaw": "Bắt Đầu Vòng Đấu: nếu Địch Thủ có lượt tấn công, Đóng Băng bài quân yếu nhất của Người Chơi.",
+    "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: nếu Địch Thủ có lượt tấn công, [k:Frostbite|Đóng Băng] bài quân [k:yếu nhất|yếu nhất|no-icon] của Người Chơi.",
+    "name": "Buốt Da Thấu Thịt",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01129.webp",
+    "type": [
+      "Foe Power"
     ]
   },
   {
@@ -4484,6 +4783,206 @@
     ]
   },
   {
+    "powerCode": "P01130",
+    "translations": {
+      "en": {
+        "name": "Inspiring Words",
+        "description": "Game Start: The [k:Foe|Foe|no-icon] summons a [cd:01DE031|Dawnspeakers|icon]",
+        "rarity": "Common",
+        "descriptionRaw": "Game Start: The Foe summons a Dawnspeakers"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01130.webp",
+    "descriptionRaw": "Bắt Đầu Trận Đấu: Địch Thủ triệu hồi 1 lá Diễn Giả Rạng Đông.",
+    "description": "Bắt Đầu Trận Đấu: [k:Địch Thủ|Địch Thủ|no-icon] triệu hồi 1 lá [cd:01DE031|Diễn Giả Rạng Đông|icon].",
+    "name": "Ngôn Từ Truyền Cảm Hứng",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01130.webp",
+    "type": [
+      "Foe Power"
+    ]
+  },
+  {
+    "powerCode": "P01131",
+    "translations": {
+      "en": {
+        "name": "Proving Grounds",
+        "description": "The [k:Foe|Foe's|no-icon] units have +0|+1.",
+        "rarity": "Common",
+        "descriptionRaw": "The Foe's units have +0|+1."
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01131.webp",
+    "descriptionRaw": "Bài quân của Địch Thủ có +0|+1.",
+    "description": "Bài quân của [k:Địch Thủ|Địch Thủ|no-icon] có +0|+1.",
+    "name": "Thao Trường",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01131.webp",
+    "type": [
+      "Foe Power"
+    ]
+  },
+  {
+    "powerCode": "P01132",
+    "translations": {
+      "en": {
+        "name": "Finest Demacian Steel",
+        "description": "When the [k:Foe|Foe|no-icon] summon an Elite, grant it +1|+0.",
+        "rarity": "Common",
+        "descriptionRaw": "When the Foe summon an Elite, grant it +1|+0."
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01132.webp",
+    "descriptionRaw": "Khi Địch Thủ triệu hồi 1 bài quân Tinh Nhuệ, ban +1|+0 cho bài quân đó.",
+    "description": "Khi [k:Địch Thủ|Địch Thủ|no-icon] triệu hồi 1 bài quân Tinh Nhuệ, ban +1|+0 cho bài quân đó.",
+    "name": "Thép Demacia Thượng Hạng",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01132.webp",
+    "type": [
+      "Foe Power"
+    ]
+  },
+  {
+    "powerCode": "P01133",
+    "translations": {
+      "en": {
+        "name": "Warm Hearth",
+        "description": "[k:Round End|Round End|no-icon]: The [k:Foe|Foe's|no-icon] units heal 1.",
+        "rarity": "Common",
+        "descriptionRaw": "Round End: The Foe's units heal 1."
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01133.webp",
+    "descriptionRaw": "Kết Thúc Vòng Đấu: Bài quân của Địch Thủ hồi 1 máu.",
+    "description": "[k:Kết Thúc Vòng Đấu|Kết Thúc Vòng Đấu|no-icon]: Bài quân của [k:Địch Thủ|Địch Thủ|no-icon] hồi 1 máu.",
+    "name": "Lò Sưởi Ấm Áp",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01133.webp",
+    "type": [
+      "Foe Power"
+    ]
+  },
+  {
+    "powerCode": "P01134",
+    "translations": {
+      "en": {
+        "name": "For Demacia!",
+        "description": "[k:Round Start|Round Start|no-icon]: If the [k:Foe|Foe|no-icon] has the attack token, grant the [k:Foe|Foe's|no-icon] units +1|+0",
+        "rarity": "Common",
+        "descriptionRaw": "Round Start: If the Foe has the attack token, grant the Foe's units +1|+0"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01134.webp",
+    "descriptionRaw": "Bắt Đầu Vòng Đấu: Nếu Địch Thủ có lượt tấn công, ban +1|+0 cho bài quân của Địch Thủ.",
+    "description": "[k:Bắt Đầu Vòng Đấu|Bắt Đầu Vòng Đấu|no-icon]: Nếu [k:Địch Thủ|Địch Thủ|no-icon] có lượt tấn công, ban +1|+0 cho bài quân của [k:Địch Thủ|Địch Thủ|no-icon].",
+    "name": "Vì Demacia!",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01134.webp",
+    "type": [
+      "Foe Power"
+    ]
+  },
+  {
+    "powerCode": "P01135",
+    "translations": {
+      "en": {
+        "name": "Support Group",
+        "description": "When one of the [k:Foe|Foe's|no-icon] unit is [k:Supported|Supported|no-icon], grant it +1|+0",
+        "rarity": "Common",
+        "descriptionRaw": "When one of the Foe's unit is Supported, grant it +1|+0"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01135.webp",
+    "descriptionRaw": "Khi 1 bài quân của Địch Thủ được Hỗ Trợ, ban +1|+0 cho bài quân đó.",
+    "description": "Khi 1 bài quân của [k:Địch Thủ|Địch Thủ|no-icon] được [k:Hỗ Trợ|Hỗ Trợ|no-icon], ban +1|+0 cho bài quân đó.",
+    "name": "Nhóm Hỗ Trợ",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01135.webp",
+    "type": [
+      "Foe Power"
+    ]
+  },
+  {
+    "powerCode": "P01136",
+    "translations": {
+      "en": {
+        "name": "Pop Goes the Puffcap",
+        "description": "[k:Round Start|Round Start|no-icon]: Plant a [cd:01PZ022|Poison Puffcap|icon] in the player's deck.",
+        "rarity": "Common",
+        "descriptionRaw": "Round Start: Plant a Poison Puffcap in the player's deck."
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01136.webp",
+    "descriptionRaw": "Bắt Đầu Vòng Đấu: Gài 1 Nấm Độc lên bộ bài của người chơi.",
+    "description": "[k:Bắt Đầu Vòng Đấu|Bắt Đầu Vòng Đấu|no-icon]: Gài 1 [cd:01PZ022|Nấm Độc|icon] lên bộ bài của người chơi.",
+    "name": "Nấm Độc Nổ Bốp",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01136.webp",
+    "type": [
+      "Foe Power"
+    ]
+  },
+  {
+    "powerCode": "P01137",
+    "translations": {
+      "en": {
+        "name": "Darkness Grows",
+        "description": "[k:Round Start|Round Start|no-icon]: Grant the [k:Foe|Foe's|no-icon] [cd:05SI029|Darkness|icon] [k:Everywhere|Everywhere|no-icon] 1 extra damage.",
+        "rarity": "Common",
+        "descriptionRaw": "Round Start: Grant the Foe's Darkness Everywhere 1 extra damage."
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01137.webp",
+    "descriptionRaw": "Bắt Đầu Vòng Đấu: Ban thêm 1 sát thương cho Bóng Tối của Địch Thủ ở mọi nơi.",
+    "description": "[k:Bắt Đầu Vòng Đấu|Bắt Đầu Vòng Đấu|no-icon]: Ban thêm 1 sát thương cho [cd:05SI029|Bóng Tối|icon] của [k:Địch Thủ|Địch Thủ|no-icon] [k:ở mọi nơi|ở mọi nơi|no-icon].",
+    "name": "Bóng Tối Lan Tràn",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01137.webp",
+    "type": [
+      "Foe Power"
+    ]
+  },
+  {
+    "powerCode": "P01138",
+    "translations": {
+      "en": {
+        "name": "Shelting Glade",
+        "description": "When either player summons a unit, give it [k:Barrier|Barrier|icon] this round.",
+        "rarity": "Common",
+        "descriptionRaw": "When either player summons a unit, give it Barrier this round."
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01138.webp",
+    "descriptionRaw": "Khi người chơi bất kỳ triệu hồi 1 bài quân, trao Lá Chắn cho bài quân đó.",
+    "description": "Khi người chơi bất kỳ triệu hồi 1 bài quân, trao [k:Lá Chắn|Lá Chắn|icon] cho bài quân đó.",
+    "name": "Trảng Rừng Trú Ẩn",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01138.webp",
+    "type": [
+      "Foe Power"
+    ]
+  },
+  {
+    "powerCode": "P01139",
+    "translations": {
+      "en": {
+        "name": "Lesson Time",
+        "description": "[k:Round Start|Round Start|no-icon]: If the Foe has a unit with [k:Quick Attack|Quick Attack|icon], their attacking units have +1|+0.",
+        "rarity": "Common",
+        "descriptionRaw": "Round Start: If the Foe has a unit with Quick Attack, their attacking units have +1|+0."
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01139.webp",
+    "descriptionRaw": "Nếu Địch Thủ tấn công một bài quân với Đột Kích, các bài quân ở vị trí tấn công của chúng có +1|+0.",
+    "description": "Nếu [k:Địch Thủ|Địch Thủ|no-icon] tấn công một bài quân với [k:Đột Kích|Đột Kích|icon], các bài quân ở vị trí tấn công của chúng có +1|+0.",
+    "name": "Đến Giờ Học",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01139.webp",
+    "type": [
+      "Foe Power"
+    ]
+  },
+  {
     "powerCode": "P0114",
     "translations": {
       "en": {
@@ -4501,6 +5000,106 @@
     "name": "Chậm Mà Chắc",
     "type": [
       "General Power"
+    ]
+  },
+  {
+    "powerCode": "P01140",
+    "translations": {
+      "en": {
+        "name": "Interrogate",
+        "description": "When the [k:Foe|Foe|no-icon] draws 1, it cost one less this round.",
+        "rarity": "Common",
+        "descriptionRaw": "When the Foe draws 1, it cost one less this round."
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01140.webp",
+    "descriptionRaw": "Khi Địch Thủ rút 1 lá bài, bài quân đó được giảm 1 tiêu hao trong vòng này.",
+    "description": "Khi [k:Địch Thủ|Địch Thủ|no-icon] rút 1 lá bài, bài quân đó được giảm 1 tiêu hao trong vòng này.",
+    "name": "Thẩm Vấn",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01140.webp",
+    "type": [
+      "Foe Power"
+    ]
+  },
+  {
+    "powerCode": "P01141",
+    "translations": {
+      "en": {
+        "name": "The Final Test",
+        "description": "Game Start: The Foe summons a [cd:03PZ001|The University of Piltover|icon].",
+        "rarity": "Thường",
+        "descriptionRaw": "Game Start: The Foe summons a The University of Piltover."
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01141.webp",
+    "descriptionRaw": "Bắt Đầu Trận Đấu: Địch Thủ triệu hồi Đại Học Piltover.",
+    "description": "Bắt Đầu Trận Đấu: Địch Thủ triệu hồi [cd:03PZ001|Đại Học Piltover|icon].",
+    "name": "Bài Kiểm Tra Cuối Cùng",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01141.webp",
+    "type": [
+      "Foe Power"
+    ]
+  },
+  {
+    "powerCode": "P01142",
+    "translations": {
+      "en": {
+        "name": "Working Overtime",
+        "description": "Game Start: The Foe summons a [cd:03PZ020|Hexcore Foundry|icon].",
+        "rarity": "Common",
+        "descriptionRaw": "Game Start: The Foe summons a Hexcore Foundry."
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01142.webp",
+    "descriptionRaw": "Bắt Đầu Trận Đấu: Địch Thủ triệu hồi một lá Xưởng Chế Lõi Công Nghệ.",
+    "description": "Bắt Đầu Trận Đấu: [k:Địch Thủ|Địch Thủ|no-icon] triệu hồi một lá [cd:03PZ020|Xưởng Chế Lõi Công Nghệ|icon].",
+    "name": "Làm Việc Ngoài Giờ",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01142.webp",
+    "type": [
+      "Foe Power"
+    ]
+  },
+  {
+    "powerCode": "P01143",
+    "translations": {
+      "en": {
+        "name": "Battle Hardened",
+        "description": "When one of the [k:Foe|Foe's|no-icon] units attacks, grant it +1|+1.",
+        "rarity": "Common",
+        "descriptionRaw": "When one of the Foe's units attacks, grant it +1|+1."
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01143.webp",
+    "descriptionRaw": "Khi 1 bài quân của Địch Thủ ra đòn, ban +1|+1 cho bài quân đó.",
+    "description": "Khi 1 bài quân của [k:Địch Thủ|Địch Thủ|no-icon] ra đòn, ban +1|+1 cho bài quân đó.",
+    "name": "Dày Dạn Trận Mạc",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01143.webp",
+    "type": [
+      "Foe Power"
+    ]
+  },
+  {
+    "powerCode": "P01144",
+    "translations": {
+      "en": {
+        "name": "Gentle Mugging",
+        "description": "[k:Round Start|Round Start|no-icon]: The Player draws 1, then grants [k:Fleeting|Fleeting|icon] to a random card they can afford.",
+        "rarity": "",
+        "descriptionRaw": "Round Start: The Player draws 1, then grants Fleeting to a random card they can afford."
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01144.webp",
+    "descriptionRaw": "Bắt Đầu Vòng Đấu: Người chơi rút một lá bài, và ban Phù Du cho một lá bài ngẫu nhiên trên tay mà họ có đủ tiêu hao để dùng.",
+    "description": "[k:Bắt Đầu Vòng Đấu|Bắt Đầu Vòng Đấu|no-icon]: Người chơi rút một lá bài, và ban [k:Phù Du|Phù Du|icon] cho một lá bài ngẫu nhiên trên tay mà họ có đủ tiêu hao để dùng.",
+    "name": "Vụ Cướp Nhẹ Nhàng",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01144.webp",
+    "type": [
+      "Foe Power"
     ]
   },
   {
@@ -4608,7 +5207,7 @@
     "translations": {
       "en": {
         "name": "Snippets of Song",
-        "description": "[k:RoundStart|Round Start]: If you don't have the attack token, summon a [cd:06SI009|Ghastly Band|icon,img-full].",
+        "description": "[k:RoundStart|Round Start]: If you don't have the attack token, summon a Ghastly Band.",
         "descriptionRaw": "Round Start: If you don't have the attack token, summon a Ghastly Band.",
         "rarity": "Rare"
       }
@@ -4616,7 +5215,7 @@
     "rarity": "Hiếm",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0120-full.png",
     "descriptionRaw": "Bắt Đầu Vòng Đấu: Nếu ngươi không có lượt tấn công, triệu hồi 1 lá Ban Nhạc Nhàm Chán.",
-    "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Nếu ngươi không có lượt tấn công, triệu hồi 1 lá [cd:06SI009|Ban Nhạc Nhàm Chán|icon,img-full].",
+    "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Nếu ngươi không có lượt tấn công, triệu hồi 1 lá Ban Nhạc Nhàm Chán.",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0120.png",
     "name": "Bài Ca Cắt Xén",
     "type": [
@@ -4648,7 +5247,7 @@
     "translations": {
       "en": {
         "name": "Snippets of Song II",
-        "description": "[k:RoundStart|Round Start]: [k:Summon|Summon] a [cd:06SI009|Ghastly Band|icon,img-full].",
+        "description": "[k:RoundStart|Round Start]: [k:Summon|Summon] a Ghastly Band.",
         "descriptionRaw": "Round Start: Summon a Ghastly Band.",
         "rarity": "Epic"
       }
@@ -4656,7 +5255,7 @@
     "rarity": "Sử Thi",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0122-full.png",
     "descriptionRaw": "Bắt Đầu Vòng Đấu: Triệu hồi 1 lá Ban Nhạc Nhàm Chán.",
-    "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Triệu hồi 1 lá [cd:06SI009|Ban Nhạc Nhàm Chán|icon,img-full].",
+    "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Triệu hồi 1 lá Ban Nhạc Nhàm Chán.",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0122.png",
     "name": "Bài Ca Cắt Xén II",
     "type": [
@@ -5589,7 +6188,7 @@
     "translations": {
       "en": {
         "name": "Sleepin with the Fishes",
-        "description": "+1 Starting Mana.When you gain the attack token, create a Fleeting [cd:07BW008|Prize Fight|icon,img-full] in hand.",
+        "description": "+1 Starting Mana.When you gain the attack token, create a Fleeting Prize Fight in hand.",
         "descriptionRaw": "+1 Starting Mana.When you gain the attack token, create a Fleeting Prize Fight in hand.",
         "rarity": "Epic"
       }
@@ -5597,7 +6196,7 @@
     "rarity": "Sử Thi",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0169-full.png",
     "descriptionRaw": "+1 Năng Lượng Khởi Đầu.Khi nhận lượt tấn công, tạo trên tay 1 lá Trao Đổi Chiêu Thức Phù Du.",
-    "description": "+1 Năng Lượng Khởi Đầu.Khi nhận lượt tấn công, tạo trên tay 1 lá [cd:07BW008|Trao Đổi Chiêu Thức|icon,img-full] Phù Du.",
+    "description": "+1 Năng Lượng Khởi Đầu.Khi nhận lượt tấn công, tạo trên tay 1 lá Trao Đổi Chiêu Thức Phù Du.",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0169.png",
     "name": "Ngủ Với Lũ Cá",
     "type": [
@@ -6010,7 +6609,7 @@
     "translations": {
       "en": {
         "name": "Most Dangerous Game",
-        "description": "+1 Starting Mana.When you gain the attack token, create a [cd:99SH003|Clever Camouflage|icon,img-full] in hand.",
+        "description": "+1 Starting Mana.When you gain the attack token, create a Clever Camouflage in hand.",
         "descriptionRaw": "+1 Starting Mana.When you gain the attack token, create a Clever Camouflage in hand.",
         "rarity": "Epic"
       }
@@ -6018,7 +6617,7 @@
     "rarity": "Sử Thi",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0190-full.png",
     "descriptionRaw": "+1 Năng Lượng Khởi Điểm.Khi nhận lượt tấn công, tạo trên tay 1 lá Ngụy Trang Khôn Khéo.",
-    "description": "+1 Năng Lượng Khởi Điểm.Khi nhận lượt tấn công, tạo trên tay 1 lá [cd:99SH003|Ngụy Trang Khôn Khéo|icon,img-full].",
+    "description": "+1 Năng Lượng Khởi Điểm.Khi nhận lượt tấn công, tạo trên tay 1 lá Ngụy Trang Khôn Khéo.",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0190.png",
     "name": "Trận Đấu Nguy Hiểm Nhất",
     "type": [
@@ -6591,7 +7190,7 @@
     "translations": {
       "en": {
         "name": "Afterlife Forbidden",
-        "description": "When an ally dies for the first time, summon a [cd:06SI033|Haunted Tomb|icon,img-full].",
+        "description": "When an ally dies for the first time, summon a Haunted Tomb.",
         "descriptionRaw": "When an ally dies for the first time, summon a Haunted Tomb.",
         "rarity": "Common"
       }
@@ -6599,7 +7198,7 @@
     "rarity": "Thường",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0219-full.png",
     "descriptionRaw": "Khi 1 đồng minh hy sinh lần đầu tiên, triệu hồi 1 lá Hầm Mộ Ma Ám.",
-    "description": "Khi 1 đồng minh hy sinh lần đầu tiên, triệu hồi 1 lá [cd:06SI033|Hầm Mộ Ma Ám|icon,img-full].",
+    "description": "Khi 1 đồng minh hy sinh lần đầu tiên, triệu hồi 1 lá [cd:04FR007|Hầm Mộ|icon,img-full] Ma Ám.",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0219.png",
     "name": "Kiếp Sau Tai Ương",
     "type": [
@@ -8998,7 +9597,7 @@
     "translations": {
       "en": {
         "name": "Wield The abyss",
-        "description": "[k:RoundStart|Round Start]: Create a [cd:06SH009T3|Second Skin|icon,img-full] in hand. When you target an ally with [cd:06SH009T3|Second Skin|icon,img-full], give it [cd:06SH009|Kai'Sa|icon,img-full]'s keywords this round.",
+        "description": "[k:RoundStart|Round Start]: Create a Second Skin in hand. When you target an ally with Second Skin, give it Kai'Sa's keywords this round.",
         "descriptionRaw": "Round Start: Create a Second Skin in hand. When you target an ally with Second Skin, give it Kai'Sa's keywords this round.",
         "rarity": "Legendary"
       }
@@ -9006,7 +9605,7 @@
     "rarity": "Huyền Thoại",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0454-full.png",
     "descriptionRaw": "Bắt Đầu Vòng Đấu: Tạo trên tay 1 lá Vỏ Bọc Cộng Sinh. Khi chọn 1 đồng minh làm mục tiêu bằng Vỏ Bọc Cộng Sinh, trao cho lá đó các đặc điểm của Kai'Sa trong vòng này.",
-    "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Tạo trên tay 1 lá [cd:06SH009T3|Vỏ Bọc Cộng Sinh|icon,img-full]. Khi chọn 1 đồng minh làm mục tiêu bằng [cd:06SH009T3|Vỏ Bọc Cộng Sinh|icon,img-full], trao cho lá đó các đặc điểm của [cd:06SH009|Kai'Sa|icon,img-full] trong vòng này.",
+    "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Tạo trên tay 1 lá Vỏ Bọc Cộng Sinh. Khi chọn 1 đồng minh làm mục tiêu bằng Vỏ Bọc Cộng Sinh, trao cho lá đó các đặc điểm của Kai'Sa trong vòng này.",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0454.png",
     "name": "Vận Dụng Hư Không",
     "type": [
@@ -11569,7 +12168,7 @@
     "translations": {
       "en": {
         "name": "Hired Muscle",
-        "description": "When you play a Coin  with 5+ stacks, summon Sett. If you already have a Sett, create a [cd:07IO011T4|Show Stopper|icon,img-full] in hand instead. ",
+        "description": "When you play a [cd:07IO011T5|Coin |icon] with 5+ stacks, summon [cd:07IO011|Sett|icon]. If you already have a [cd:07IO011|Sett|icon], create a [cd:07IO011T4|Show Stopper|icon] in hand instead. ",
         "descriptionRaw": "When you play a Coin  with 5+ stacks, summon Sett. If you already have a Sett, create a Show Stopper in hand instead. ",
         "rarity": "Legendary"
       }
@@ -11577,7 +12176,7 @@
     "rarity": "Huyền Thoại",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0697-full.png",
     "descriptionRaw": "Khi ngươi sử dụng 1 lá Xu  với 5+ điểm cộng dồn, triệu hồi Sett. Nếu ngươi đã có 1 lá Sett, tạo trên tay 1 lá Hủy Diệt Đấu Trường thay thế.",
-    "description": "Khi ngươi sử dụng 1 lá Xu  với 5+ điểm cộng dồn, triệu hồi Sett. Nếu ngươi đã có 1 lá Sett, tạo trên tay 1 lá [cd:07IO011T4|Hủy Diệt Đấu Trường|icon,img-full] thay thế.",
+    "description": "Khi ngươi sử dụng 1 lá [cd:07IO011T5|Xu |icon] với 5+ điểm cộng dồn, triệu hồi [cd:07IO011|Sett|icon]. Nếu ngươi đã có 1 lá [cd:07IO011|Sett|icon], tạo trên tay 1 lá [cd:07IO011T4|Hủy Diệt Đấu Trường|icon] thay thế.",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0697.png",
     "name": "Lính Đánh Thuê",
     "type": [
@@ -13130,7 +13729,7 @@
     "translations": {
       "en": {
         "name": "Most Dangerous Game",
-        "description": "When you gain the attack token, create a [cd:99SH003|Clever Camouflage|icon,img-full] in hand.",
+        "description": "When you gain the attack token, create a Clever Camouflage in hand.",
         "descriptionRaw": "When you gain the attack token, create a Clever Camouflage in hand.",
         "rarity": "Common"
       }
@@ -13138,7 +13737,7 @@
     "rarity": "Thường",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0829-full.png",
     "descriptionRaw": "Khi ngươi nhận lượt tấn công, tạo trên tay 1 lá Ngụy Trang Khôn Khéo.",
-    "description": "Khi ngươi nhận lượt tấn công, tạo trên tay 1 lá [cd:99SH003|Ngụy Trang Khôn Khéo|icon,img-full].",
+    "description": "Khi ngươi nhận lượt tấn công, tạo trên tay 1 lá Ngụy Trang Khôn Khéo.",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0829.png",
     "name": "Trận Đấu Nguy Hiểm Nhất",
     "type": [
@@ -13790,7 +14389,7 @@
     "translations": {
       "en": {
         "name": "Emotional Support Bear",
-        "description": "Game Start: Shuffle 3 [cd:06NX012T1|Tibbers|icon,img-full] into your deck.Your [cd:06NX012T1|Tibbers|icon,img-full] cost 2 less and have +5|+5.",
+        "description": "Game Start: Shuffle 3 Tibbers into your deck.Your Tibbers cost 2 less and have +5|+5.",
         "descriptionRaw": "Game Start: Shuffle 3 Tibbers into your deck.Your Tibbers cost 2 less and have +5|+5.",
         "rarity": "Epic"
       }
@@ -13798,7 +14397,7 @@
     "rarity": "Sử Thi",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/6_10_0/adventure/vi_vn/img/powers/P0863-full.png",
     "descriptionRaw": "Bắt Đầu Trận Đấu: Tráo 3 lá Tibbers vào bộ bài của ngươi.Tibbers của ngươi giảm 2 tiêu hao và có +5|+5.",
-    "description": "Bắt Đầu Trận Đấu: Tráo 3 lá [cd:06NX012T1|Tibbers|icon,img-full] vào bộ bài của ngươi.[cd:06NX012T1|Tibbers|icon,img-full] của ngươi giảm 2 tiêu hao và có +5|+5.",
+    "description": "Bắt Đầu Trận Đấu: Tráo 3 lá Tibbers vào bộ bài của ngươi.Tibbers của ngươi giảm 2 tiêu hao và có +5|+5.",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_10_0/adventure/vi_vn/img/powers/P0863.png",
     "name": "Gấu Hỗ Trợ Tinh Thần",
     "type": [
@@ -14695,7 +15294,7 @@
     "translations": {
       "en": {
         "name": "Little Buddies",
-        "description": "When you summon an ally that costs 3 or less, grant 5+ cost allies everywhere +1|+1.",
+        "description": "When you summon an ally that costs 3 or less, grant 5+ cost allies [k:Everywhere|everywhere] +1|+1.",
         "descriptionRaw": "When you summon an ally that costs 3 or less, grant 5+ cost allies everywhere +1|+1.",
         "rarity": "Common"
       }
@@ -14703,7 +15302,7 @@
     "rarity": "Thường",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/powers/P0913-full.png",
     "descriptionRaw": "Khi ngươi triệu hồi đồng minh với tiêu hao bằng 3 hoặc ít hơn, ban +1|+1 cho các đồng minh với tiêu hao bằng 5 hoặc nhiều hơn ở mọi nơi.",
-    "description": "Khi ngươi triệu hồi đồng minh với tiêu hao bằng 3 hoặc ít hơn, ban +1|+1 cho các đồng minh với tiêu hao bằng 5 hoặc nhiều hơn ở mọi nơi.",
+    "description": "Khi ngươi triệu hồi đồng minh với tiêu hao bằng 3 hoặc ít hơn, ban +1|+1 cho các đồng minh với tiêu hao bằng 5 hoặc nhiều hơn [k:Everywhere|ở mọi nơi].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/powers/P0913.png",
     "name": "Những Người Bạn Nhỏ",
     "type": []
@@ -15213,7 +15812,7 @@
     "translations": {
       "en": {
         "name": "Stance Mastery II",
-        "description": "When you target an ally with [cd:05FR010|Stance Swap|icon,img-full] grant them +1|+1. Each round, the first time you play a [cd:05FR010|Stance Swap|icon,img-full] on an ally, it strikes the weakest enemy.",
+        "description": "When you target an ally with [cd:05FR010|Stance Swap|icon,img-full] grant them +1|+1. Each round, the first time you play a [cd:05FR010|Stance Swap|icon,img-full] on an ally, it strikes the [k:Weakest|weakest] enemy.",
         "descriptionRaw": "When you target an ally with Stance Swap grant them +1|+1. Each round, the first time you play a Stance Swap on an ally, it strikes the weakest enemy.",
         "rarity": "Epic"
       }
@@ -15221,7 +15820,7 @@
     "rarity": "Sử Thi",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/powers/P0950-full.png",
     "descriptionRaw": "Khi ngươi chọn một đồng minh với Đổi Thế Võ làm mục tiêu, cho họ +1|+1. Mỗi vòng, lần đầu tiên ngươi sử dụng một lá Đổi Thế Võ lên một đồng minh, đồng minh đó sẽ ra đòn lên kẻ địch yếu nhất.",
-    "description": "Khi ngươi chọn một đồng minh với [cd:05FR010|Đổi Thế Võ|icon,img-full] làm mục tiêu, cho họ +1|+1. Mỗi vòng, lần đầu tiên ngươi sử dụng một lá [cd:05FR010|Đổi Thế Võ|icon,img-full] lên một đồng minh, đồng minh đó sẽ ra đòn lên kẻ địch yếu nhất.",
+    "description": "Khi ngươi chọn một đồng minh với [cd:05FR010|Đổi Thế Võ|icon,img-full] làm mục tiêu, cho họ +1|+1. Mỗi vòng, lần đầu tiên ngươi sử dụng một lá [cd:05FR010|Đổi Thế Võ|icon,img-full] lên một đồng minh, đồng minh đó sẽ ra đòn lên kẻ địch [k:Weakest|yếu nhất].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/powers/P0950.png",
     "name": "Thông Thạo Thế Võ II",
     "type": [
@@ -15253,7 +15852,7 @@
     "translations": {
       "en": {
         "name": "Focused Mind",
-        "description": "+1 Starting Mana. Your Stance Swaps accelerate to [k:Focus|Focus]. When you gain the attack token, create a [cd:05FR010|Stance Swap|icon,img-full] in hand. ",
+        "description": "+1 Starting Mana. Your Stance Swaps accelerate to [k:Focus|Focus]. \nWhen you gain the attack token, create a [cd:05FR010|Stance Swap|icon,img-full] in hand. ",
         "descriptionRaw": "+1 Starting Mana. Your Stance Swaps accelerate to Focus. When you gain the attack token, create a Stance Swap in hand. ",
         "rarity": "Epic"
       }
@@ -15261,7 +15860,7 @@
     "rarity": "Sử Thi",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/powers/P0952-full.png",
     "descriptionRaw": "+1 Năng Lượng Khởi Điểm. Lá Đổi Thế Võ của ngươi tăng tốc lên Tập Trung. Khi ngươi nhận lượt tấn công, tạo trên tay 1 lá Đổi Thế Võ. ",
-    "description": "+1 Năng Lượng Khởi Điểm. Lá Đổi Thế Võ của ngươi tăng tốc lên [k:Focus|Tập Trung]. Khi ngươi nhận lượt tấn công, tạo trên tay 1 lá [cd:05FR010|Đổi Thế Võ|icon,img-full]. ",
+    "description": "+1 Năng Lượng Khởi Điểm. Lá [cd:05FR010|Đổi Thế Võ|icon,img-full] của ngươi tăng tốc lên [k:Focus|Tập Trung]. \nKhi ngươi nhận lượt tấn công, tạo trên tay 1 lá [cd:05FR010|Đổi Thế Võ|icon,img-full]. ",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/powers/P0952.png",
     "name": "Tập Trung Tâm Trí",
     "type": [
@@ -16046,7 +16645,7 @@
     "translations": {
       "en": {
         "name": "Udyr Star Power 6",
-        "description": "Your Stance Swap are replaced with Mastered Stance Swap. Your Mastered Stance Swap accelerate to [k:Burst|Burst]",
+        "description": "Your [cd:05FR010|Stance Swap|icon,img-full] are replaced with [cd:98FR028|Mastered Stance Swap|icon,img-full]. Your[cd:98FR028| Mastered Stance Swap|icon,img-full] accelerate to [k:Burst|Burst]",
         "descriptionRaw": "Your Stance Swap are replaced with Mastered Stance Swap. Your Mastered Stance Swap accelerate to Burst",
         "rarity": "Legendary"
       }
@@ -16054,7 +16653,7 @@
     "rarity": "Huyền Thoại",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/powers/P0995-full.png",
     "descriptionRaw": "Lá Đổi Thế Võ của ngươi sẽ được thay thế bằng Đổi Thế Võ Đã Thành Thạo. Lá Đổi Thế Võ Đã Thành Thạo của ngươi sẽ tăng tốc thành Siêu Tốc",
-    "description": "Lá Đổi Thế Võ của ngươi sẽ được thay thế bằng Đổi Thế Võ Đã Thành Thạo. Lá Đổi Thế Võ Đã Thành Thạo của ngươi sẽ tăng tốc thành [k:Burst|Siêu Tốc]",
+    "description": "Lá [cd:05FR010|Đổi Thế Võ|icon,img-full] của ngươi sẽ được thay thế bằng [cd:98FR028|Đổi Thế Võ Đã Thành Thạo|icon,img-full]. Lá [cd:98FR028|Đổi Thế Võ Đã Thành Thạo|icon,img-full] của ngươi sẽ tăng tốc thành [k:Burst|Siêu Tốc]",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/powers/P0995.png",
     "name": "Thông Thạo Thế Võ III",
     "type": [
@@ -16251,7 +16850,7 @@
     "translations": {
       "en": {
         "name": "Rhythms of Despair",
-        "description": "Allies in hand have \"Nightfall: Grant the weakest enemy 2 Gloom.\"",
+        "description": "Allies in hand have [k:Nightfall|\"Nightfall]: Grant the weakest enemy 2 [k:Gloom|Gloom].\"",
         "descriptionRaw": "Allies in hand have \"Nightfall: Grant the weakest enemy 2 Gloom.\"",
         "rarity": "Epic"
       }
@@ -16259,7 +16858,7 @@
     "rarity": "Sử Thi",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/powers/P1010-full.png",
     "descriptionRaw": "Đồng minh trên tay có “Chạng Vạng: Ban cho kẻ địch yếu nhất 2 Buồn Bã”.",
-    "description": "Đồng minh trên tay có “Chạng Vạng: Ban cho kẻ địch yếu nhất 2 Buồn Bã”.",
+    "description": "Đồng minh trên tay có “[k:Nightfall|Chạng Vạng]: Ban cho kẻ địch yếu nhất 2 [k:Gloom|Buồn Bã]”.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/powers/P1010.png",
     "name": "Nhịp Điệu Tuyệt Vọng",
     "type": [

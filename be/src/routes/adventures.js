@@ -1,12 +1,6 @@
 // be/src/routes/adventures.js
 import express from "express";
-import {
-	PutItemCommand,
-	DeleteItemCommand,
-	GetItemCommand,
-} from "@aws-sdk/client-dynamodb";
-import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
-import client from "../config/db.js";
+import { getDb } from "../config/mongo.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { requireAdmin } from "../middleware/requireAdmin.js";
 import { createAuditLog } from "../utils/auditLogger.js";
@@ -104,14 +98,11 @@ router.get("/", async (req, res) => {
 router.get("/:adventureID", async (req, res) => {
 	const { adventureID } = req.params;
 	try {
-		const command = new GetItemCommand({
-			TableName: ADVENTURE_TABLE,
-			Key: marshall({ adventureID }),
-		});
-		const { Item } = await client.send(command);
+		const db = getDb();
+		const Item = await db.collection(ADVENTURE_TABLE).findOne({ adventureID });
 		if (!Item)
 			return res.status(404).json({ error: "Không tìm thấy Adventure." });
-		res.json(unmarshall(Item));
+		res.json(Item);
 	} catch (error) {
 		res.status(500).json({ error: "Lỗi hệ thống khi tải chi tiết Adventure." });
 	}
@@ -128,11 +119,8 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 	}
 
 	try {
-		const checkCommand = new GetItemCommand({
-			TableName: ADVENTURE_TABLE,
-			Key: marshall({ adventureID: adventureID.trim() }),
-		});
-		const { Item } = await client.send(checkCommand);
+		const db = getDb();
+		const Item = await db.collection(ADVENTURE_TABLE).findOne({ adventureID: adventureID.trim() });
 		const exists = !!Item;
 
 		if (isNew && exists) {
@@ -149,13 +137,11 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 		const dataToSave = { ...data };
 		delete dataToSave.isNew;
 
-		// marshall với removeUndefinedValues sẽ tự động dọn dẹp và lưu các cấu trúc lồng nhau (nested array) như mapBonusPower mà không cần định nghĩa Schema
-		const command = new PutItemCommand({
-			TableName: ADVENTURE_TABLE,
-			Item: marshall(dataToSave, { removeUndefinedValues: true }),
-		});
-
-		await client.send(command);
+		await db.collection(ADVENTURE_TABLE).replaceOne(
+			{ adventureID: dataToSave.adventureID },
+			dataToSave,
+			{ upsert: true }
+		);
 
 		// Ghi log thay đổi
 		await createAuditLog({
@@ -163,7 +149,7 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 			entityType: "adventure",
 			entityId: adventureID,
 			entityName: dataToSave.adventureName,
-			oldData: Item ? unmarshall(Item) : null,
+			oldData: Item ? Item : null,
 			newData: dataToSave,
 			user: req.user
 		});
@@ -190,18 +176,11 @@ router.delete(
 		const { adventureID } = req.params;
 		try {
 			// Lấy dữ liệu cũ để ghi log
-			const getItemCmd = new GetItemCommand({
-				TableName: ADVENTURE_TABLE,
-				Key: marshall({ adventureID }),
-			});
-			const { Item } = await client.send(getItemCmd);
-			const oldData = Item ? unmarshall(Item) : null;
+			const db = getDb();
+			const Item = await db.collection(ADVENTURE_TABLE).findOne({ adventureID });
+			const oldData = Item ? Item : null;
 
-			const deleteCmd = new DeleteItemCommand({
-				TableName: ADVENTURE_TABLE,
-				Key: marshall({ adventureID }),
-			});
-			await client.send(deleteCmd);
+			await db.collection(ADVENTURE_TABLE).deleteOne({ adventureID });
 
 			// Ghi log thay đổi
 			await createAuditLog({

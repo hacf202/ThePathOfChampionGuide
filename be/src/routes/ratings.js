@@ -1,14 +1,6 @@
 // be/src/routes/ratings.js
 import express from "express";
-import {
-	PutItemCommand,
-	GetItemCommand,
-	QueryCommand,
-	DeleteItemCommand,
-	ScanCommand,
-} from "@aws-sdk/client-dynamodb";
-import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
-import client from "../config/db.js";
+import { getDb } from "../config/mongo.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import cacheManager from "../utils/cacheManager.js";
 import { syncChampionCommunityRatings } from "../utils/ratingUtils.js";
@@ -27,22 +19,19 @@ router.get("/", async (req, res) => {
 	const { limit = 20, lastKey } = req.query;
 
 	try {
-		const command = new QueryCommand({
-			TableName: RATINGS_TABLE,
-			IndexName: "ReviewTypeCreatedAtIndex",
-			KeyConditionExpression: "reviewType = :rt",
-			ExpressionAttributeValues: marshall({ ":rt": "CHAMPION_REVIEW" }),
-			ScanIndexForward: false, // Lấy mới nhất trước
-			Limit: parseInt(limit),
-			ExclusiveStartKey: lastKey ? marshall(JSON.parse(lastKey)) : undefined,
-		});
+		const db = getDb();
+		let query = db.collection(RATINGS_TABLE).find({ reviewType: "CHAMPION_REVIEW" }).sort({ createdAt: -1 }).limit(parseInt(limit));
+		if (lastKey) {
+			const parsedLastKey = JSON.parse(lastKey);
+			query = query.filter({ $and: [{ reviewType: "CHAMPION_REVIEW" }, { createdAt: { $lt: parsedLastKey.createdAt } }] });
+		}
 
-		const { Items, LastEvaluatedKey } = await client.send(command);
-		const ratings = Items ? Items.map(item => unmarshall(item)) : [];
+		const ratings = await query.toArray();
+		const LastEvaluatedKey = ratings.length > 0 ? ratings[ratings.length - 1] : null;
 
 		res.json({
 			items: ratings,
-			lastKey: LastEvaluatedKey ? JSON.stringify(unmarshall(LastEvaluatedKey)) : null
+			lastKey: LastEvaluatedKey ? JSON.stringify(LastEvaluatedKey) : null
 		});
 	} catch (error) {
 		console.error("Lỗi khi lấy danh sách đánh giá tổng hợp:", error);
@@ -94,14 +83,8 @@ router.get("/ranking/top", async (req, res) => {
 router.get("/:championID", async (req, res) => {
 	const { championID } = req.params;
 	try {
-		const command = new QueryCommand({
-			TableName: RATINGS_TABLE,
-			KeyConditionExpression: "championID = :cid",
-			ExpressionAttributeValues: marshall({ ":cid": championID }),
-		});
-
-		const { Items } = await client.send(command);
-		const ratings = Items ? Items.map(item => unmarshall(item)) : [];
+		const db = getDb();
+		const ratings = await db.collection(RATINGS_TABLE).find({ championID }).toArray();
 
 		res.json(ratings);
 	} catch (error) {
@@ -119,17 +102,14 @@ router.get("/:championID/my", authenticateCognitoToken, async (req, res) => {
 	const userSub = req.user.sub;
 
 	try {
-		const command = new GetItemCommand({
-			TableName: RATINGS_TABLE,
-			Key: marshall({ championID, userSub }),
-		});
+		const db = getDb();
+		const Item = await db.collection(RATINGS_TABLE).findOne({ championID, userSub });
 
-		const { Item } = await client.send(command);
 		if (!Item) {
 			return res.json(null);
 		}
 
-		res.json(unmarshall(Item));
+		res.json(Item);
 	} catch (error) {
 		console.error("Lỗi khi lấy đánh giá cá nhân (Detailed):", error);
 		res.status(500).json({ error: "Lỗi hệ thống." });
@@ -166,13 +146,9 @@ router.post("/:championID", authenticateCognitoToken, async (req, res) => {
 	}
 
 	try {
-		// 1. Lấy thông tin tướng để nhúng vào đánh giá (De-normalization)
-		const champCommand = new GetItemCommand({
-			TableName: "guidePocChampionList",
-			Key: marshall({ championID }),
-		});
-		const { Item: champItem } = await client.send(champCommand);
-		const champion = champItem ? unmarshall(champItem) : null;
+		const db = getDb();
+		const champItem = await db.collection("guidePocChampionList").findOne({ championID });
+		const champion = champItem ? champItem : null;
 
 		const ratingData = {
 			championID,
@@ -187,12 +163,11 @@ router.post("/:championID", authenticateCognitoToken, async (req, res) => {
 			updatedAt: new Date().toISOString(),
 		};
 
-		const command = new PutItemCommand({
-			TableName: RATINGS_TABLE,
-			Item: marshall(ratingData, { removeUndefinedValues: true }),
-		});
-
-		await client.send(command);
+		await db.collection(RATINGS_TABLE).replaceOne(
+			{ championID: ratingData.championID, userSub: ratingData.userSub },
+			ratingData,
+			{ upsert: true }
+		);
 		
 		// 3. ĐỒNG BỘ: Tính toán lại và cập nhật điểm trung bình vào ChampionList (Denormalization)
 		await syncChampionCommunityRatings(championID);

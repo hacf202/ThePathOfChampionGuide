@@ -1,17 +1,9 @@
 // be/src/routes/bonusStars.js
 import express from "express";
-import {
-	ScanCommand,
-	PutItemCommand,
-	DeleteItemCommand,
-	GetItemCommand,
-} from "@aws-sdk/client-dynamodb";
-import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
+import { getDb } from "../config/mongo.js";
 import cacheManager from "../utils/cacheManager.js";
-import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { requireAdmin } from "../middleware/requireAdmin.js";
-import { scanAll } from "../utils/dynamoUtils.js";
 import { createAuditLog } from "../utils/auditLogger.js";
 
 const router = express.Router();
@@ -30,8 +22,8 @@ router.get("/", async (req, res) => {
 		const cached = await bonusCache.get(CACHE_KEY);
 		if (cached) return res.json({ items: cached });
 
-		const rawItems = await scanAll(client, { TableName: BONUS_STAR_TABLE });
-		const data = rawItems.map(item => unmarshall(item));
+		const db = getDb();
+		const data = await db.collection(BONUS_STAR_TABLE).find({}).toArray();
 
 		// Sắp xếp theo tên A-Z
 		data.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
@@ -59,11 +51,8 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 
 	try {
 		// Bước 1: Kiểm tra thực tế trong Database bằng GetItem
-		const checkCommand = new GetItemCommand({
-			TableName: BONUS_STAR_TABLE,
-			Key: marshall({ bonusStarID: bonusStarID.trim() }),
-		});
-		const { Item } = await client.send(checkCommand);
+		const db = getDb();
+		const Item = await db.collection(BONUS_STAR_TABLE).findOne({ bonusStarID: bonusStarID.trim() });
 		const exists = !!Item;
 
 		// Bước 2: Kiểm tra logic nghiệp vụ theo yêu cầu
@@ -83,12 +72,11 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 		const dataToSave = { ...data };
 		delete dataToSave.isNew;
 
-		const command = new PutItemCommand({
-			TableName: BONUS_STAR_TABLE,
-			Item: marshall(dataToSave, { removeUndefinedValues: true }),
-		});
-
-		await client.send(command);
+		await db.collection(BONUS_STAR_TABLE).replaceOne(
+			{ bonusStarID: dataToSave.bonusStarID },
+			dataToSave,
+			{ upsert: true }
+		);
 
 		// Ghi log thay đổi
 		await createAuditLog({
@@ -96,7 +84,7 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 			entityType: "bonusStar",
 			entityId: bonusStarID,
 			entityName: dataToSave.name,
-			oldData: Item ? unmarshall(Item) : null,
+			oldData: Item ? Item : null,
 			newData: dataToSave,
 			user: req.user
 		});
@@ -128,18 +116,11 @@ router.delete(
 		const { bonusStarID } = req.params;
 		try {
 			// Lấy dữ liệu cũ để ghi log
-			const getItemCmd = new GetItemCommand({
-				TableName: BONUS_STAR_TABLE,
-				Key: marshall({ bonusStarID: bonusStarID.trim() }),
-			});
-			const { Item } = await client.send(getItemCmd);
-			const oldData = Item ? unmarshall(Item) : null;
+			const db = getDb();
+			const Item = await db.collection(BONUS_STAR_TABLE).findOne({ bonusStarID: bonusStarID.trim() });
+			const oldData = Item ? Item : null;
 
-			const deleteCmd = new DeleteItemCommand({
-				TableName: BONUS_STAR_TABLE,
-				Key: marshall({ bonusStarID }),
-			});
-			await client.send(deleteCmd);
+			await db.collection(BONUS_STAR_TABLE).deleteOne({ bonusStarID });
 
 			// Ghi log thay đổi
 			await createAuditLog({

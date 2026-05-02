@@ -1,16 +1,8 @@
 // src/routes/builds-admin.js
 import express from "express";
-import {
-	GetItemCommand,
-	ScanCommand,
-	UpdateItemCommand,
-	DeleteItemCommand,
-	PutItemCommand,
-} from "@aws-sdk/client-dynamodb";
-import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
+import { getDb } from "../config/mongo.js";
 import { v4 as uuidv4 } from "uuid";
 import NodeCache from "node-cache";
-import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { requireAdmin } from "../middleware/requireAdmin.js";
 import { normalizeBuildFromDynamo } from "../utils/dynamodb.js";
@@ -37,22 +29,15 @@ async function getSearchDictionaries() {
 	dicts = { champMap: {}, relicMap: {}, powerMap: {} };
 
 	try {
-		const champsRes = await client.send(
-			new ScanCommand({ TableName: "guidePocChampionList" }),
-		);
-		const champs = champsRes.Items
-			? champsRes.Items.map(item => unmarshall(item))
-			: [];
+		const db = getDb();
+		const champsRes = await db.collection("guidePocChampionList").find({}).toArray();
+		const champs = champsRes || [];
 		champs.forEach(c => {
 			if (c.name) dicts.champMap[c.name] = c.translations?.en?.name || "";
 		});
 
-		const relicsRes = await client.send(
-			new ScanCommand({ TableName: "guidePocRelics" }),
-		);
-		const relics = relicsRes.Items
-			? relicsRes.Items.map(item => unmarshall(item))
-			: [];
+		const relicsRes = await db.collection("guidePocRelics").find({}).toArray();
+		const relics = relicsRes || [];
 		relics.forEach(r => {
 			const id = r.relicCode || r.itemCode;
 			if (id)
@@ -62,12 +47,8 @@ async function getSearchDictionaries() {
 				};
 		});
 
-		const powersRes = await client.send(
-			new ScanCommand({ TableName: "guidePocPowers" }),
-		);
-		const powers = powersRes.Items
-			? powersRes.Items.map(item => unmarshall(item))
-			: [];
+		const powersRes = await db.collection("guidePocPowers").find({}).toArray();
+		const powers = powersRes || [];
 		powers.forEach(p => {
 			if (p.powerCode)
 				dicts.powerMap[p.powerCode] = {
@@ -92,10 +73,10 @@ async function getAllBuildsAdmin() {
 	let cachedData = adminBuildCache.get(CACHE_KEY);
 
 	if (!cachedData) {
-		const command = new ScanCommand({ TableName: BUILDS_TABLE });
-		const { Items } = await client.send(command);
+		const db = getDb();
+		const Items = await db.collection(BUILDS_TABLE).find({}).toArray();
 		cachedData = Items
-			? Items.map(item => normalizeBuildFromDynamo(unmarshall(item)))
+			? Items.map(item => normalizeBuildFromDynamo(item))
 			: [];
 
 		// Sắp xếp mặc định
@@ -280,12 +261,8 @@ router.post("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 	};
 
 	try {
-		await client.send(
-			new PutItemCommand({
-				TableName: BUILDS_TABLE,
-				Item: marshall(newBuild, { removeUndefinedValues: true }),
-			}),
-		);
+		const db = getDb();
+		await db.collection(BUILDS_TABLE).insertOne(newBuild);
 		
 		await createAuditLog({
 			action: "CREATE",
@@ -318,17 +295,12 @@ router.put("/:id", authenticateCognitoToken, requireAdmin, async (req, res) => {
 	const updates = req.body;
 
 	try {
-		const { Item } = await client.send(
-			new GetItemCommand({ TableName: BUILDS_TABLE, Key: marshall({ id }) }),
-		);
+		const db = getDb();
+		const Item = await db.collection(BUILDS_TABLE).findOne({ id });
 		if (!Item) return res.status(404).json({ error: "Build không tồn tại." });
 
-		const oldBuild = unmarshall(Item);
+		const oldBuild = Item;
 		const oldDisplay = oldBuild.display === true || oldBuild.display === "true";
-
-		let updateExpression = "SET";
-		const expressionAttributeNames = {};
-		const expressionAttributeValues = {};
 
 		const allowedFields = [
 			"championName",
@@ -344,15 +316,11 @@ router.put("/:id", authenticateCognitoToken, requireAdmin, async (req, res) => {
 		];
 
 		let hasUpdates = false;
+		const fieldsToUpdate = {};
 		Object.entries(updates).forEach(([key, value]) => {
 			if (allowedFields.includes(key) && value !== undefined) {
 				hasUpdates = true;
-				const attrKey = `#${key}`;
-				const valKey = `:${key}`;
-				updateExpression += ` ${attrKey} = ${valKey},`;
-				expressionAttributeNames[attrKey] = key;
-				expressionAttributeValues[valKey] =
-					key === "display" ? value === true : value;
+				fieldsToUpdate[key] = key === "display" ? value === true : value;
 			}
 		});
 
@@ -361,20 +329,12 @@ router.put("/:id", authenticateCognitoToken, requireAdmin, async (req, res) => {
 				.status(400)
 				.json({ error: "Không có trường nào hợp lệ để cập nhật." });
 
-		updateExpression = updateExpression.slice(0, -1);
-		const command = new UpdateItemCommand({
-			TableName: BUILDS_TABLE,
-			Key: marshall({ id }),
-			UpdateExpression: updateExpression,
-			ExpressionAttributeNames: expressionAttributeNames,
-			ExpressionAttributeValues: marshall(expressionAttributeValues, {
-				removeUndefinedValues: true,
-			}),
-			ReturnValues: "ALL_NEW",
-		});
-
-		const { Attributes } = await client.send(command);
-		const updatedBuild = normalizeBuildFromDynamo(unmarshall(Attributes));
+		const updatedBuildData = await db.collection(BUILDS_TABLE).findOneAndUpdate(
+			{ id },
+			{ $set: fieldsToUpdate },
+			{ returnDocument: 'after' }
+		);
+		const updatedBuild = normalizeBuildFromDynamo(updatedBuildData);
 
 		await createAuditLog({
 			action: "UPDATE",
@@ -407,20 +367,14 @@ router.delete(
 	async (req, res) => {
 		const { id } = req.params;
 		try {
-			const { Item } = await client.send(
-				new GetItemCommand({ TableName: BUILDS_TABLE, Key: marshall({ id }) }),
-			);
+			const db = getDb();
+			const Item = await db.collection(BUILDS_TABLE).findOne({ id });
 			if (!Item) return res.status(404).json({ error: "Build không tồn tại." });
 
-			const build = unmarshall(Item);
+			const build = Item;
 			const wasPublic = build.display === true || build.display === "true";
 
-			await client.send(
-				new DeleteItemCommand({
-					TableName: BUILDS_TABLE,
-					Key: marshall({ id }),
-				}),
-			);
+			await db.collection(BUILDS_TABLE).deleteOne({ id });
 
 			await createAuditLog({
 				action: "DELETE",

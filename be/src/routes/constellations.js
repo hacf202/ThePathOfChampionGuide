@@ -1,17 +1,9 @@
 // be/src/routes/constellations.js
 import express from "express";
-import {
-	GetItemCommand,
-	PutItemCommand,
-	DeleteItemCommand,
-	ScanCommand,
-} from "@aws-sdk/client-dynamodb";
-import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
+import { getDb } from "../config/mongo.js";
 import cacheManager from "../utils/cacheManager.js";
-import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { requireAdmin } from "../middleware/requireAdmin.js";
-import { scanAll } from "../utils/dynamoUtils.js";
 
 const router = express.Router();
 const CONSTELLATIONS_TABLE = "guidePocChampionConstellation";
@@ -25,8 +17,8 @@ async function getCachedConstellations() {
 	let cachedData = await constellationCache.get(CACHE_KEY);
 
 	if (!cachedData) {
-		const rawItems = await scanAll(client, { TableName: CONSTELLATIONS_TABLE });
-		cachedData = rawItems.map(item => unmarshall(item));
+		const db = getDb();
+		cachedData = await db.collection(CONSTELLATIONS_TABLE).find({}).toArray();
 
 		// Sắp xếp mặc định theo tên A-Z
 		cachedData.sort((a, b) =>
@@ -70,19 +62,14 @@ router.get("/:constellationID", async (req, res) => {
 		const cachedData = await constellationCache.get(CACHE_KEY);
 		if (cachedData) return res.json(cachedData);
 
-		// 2. Query DynamoDB
-		const command = new GetItemCommand({
-			TableName: CONSTELLATIONS_TABLE,
-			Key: marshall({ constellationID }),
-		});
-
-		const { Item } = await client.send(command);
+		const db = getDb();
+		const Item = await db.collection(CONSTELLATIONS_TABLE).findOne({ constellationID });
 
 		if (!Item) {
 			return res.status(404).json({ error: "Không tìm thấy chòm sao." });
 		}
 
-		const data = unmarshall(Item);
+		const data = Item;
 
 		// 3. Set Cache
 		await constellationCache.set(CACHE_KEY, data);
@@ -128,12 +115,12 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 		// Xóa cờ isNew nếu có gửi từ frontend
 		delete data.isNew;
 
-		const command = new PutItemCommand({
-			TableName: CONSTELLATIONS_TABLE,
-			Item: marshall(data, { removeUndefinedValues: true }),
-		});
-
-		await client.send(command);
+		const db = getDb();
+		await db.collection(CONSTELLATIONS_TABLE).replaceOne(
+			{ constellationID: data.constellationID },
+			data,
+			{ upsert: true }
+		);
 
 		// Xóa cache để dữ liệu mới được hiển thị ngay
 		await constellationCache.del(`const_detail_${data.constellationID}`);
@@ -158,11 +145,8 @@ router.delete(
 		const { constellationID } = req.params;
 		try {
 			// Kiểm tra sự tồn tại trước khi xóa
-			const checkCmd = new GetItemCommand({
-				TableName: CONSTELLATIONS_TABLE,
-				Key: marshall({ constellationID }),
-			});
-			const { Item } = await client.send(checkCmd);
+			const db = getDb();
+			const Item = await db.collection(CONSTELLATIONS_TABLE).findOne({ constellationID });
 
 			if (!Item) {
 				return res
@@ -170,12 +154,7 @@ router.delete(
 					.json({ error: "Không tìm thấy chòm sao để xóa." });
 			}
 
-			await client.send(
-				new DeleteItemCommand({
-					TableName: CONSTELLATIONS_TABLE,
-					Key: marshall({ constellationID }),
-				}),
-			);
+			await db.collection(CONSTELLATIONS_TABLE).deleteOne({ constellationID });
 
 			// Xóa Cache
 			await constellationCache.del(`const_detail_${constellationID}`);

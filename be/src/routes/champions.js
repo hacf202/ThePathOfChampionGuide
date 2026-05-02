@@ -1,14 +1,7 @@
 // src/routes/champions.js
 import express from "express";
-import {
-	PutItemCommand,
-	DeleteItemCommand,
-	GetItemCommand,
-	QueryCommand,
-} from "@aws-sdk/client-dynamodb";
-import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
 import cacheManager from "../utils/cacheManager.js";
-import client from "../config/db.js";
+import { getDb } from "../config/mongo.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { requireAdmin } from "../middleware/requireAdmin.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
@@ -209,15 +202,13 @@ router.get("/:championID/full", async (req, res) => {
 
 	try {
 		// 1. Fetch dữ liệu cơ bản (Tướng + Chòm sao) song song
-		const [champRes, constRes] = await Promise.all([
-			client.send(new GetItemCommand({ TableName: CHAMPIONS_TABLE, Key: marshall({ championID }) })),
-			client.send(new GetItemCommand({ TableName: "guidePocChampionConstellation", Key: marshall({ constellationID: championID }) }))
+		const db = getDb();
+		const [champion, constellation] = await Promise.all([
+			db.collection(CHAMPIONS_TABLE).findOne({ championID }),
+			db.collection("guidePocChampionConstellation").findOne({ constellationID: championID })
 		]);
 
-		if (!champRes.Item) return res.status(404).json({ error: "Không tìm thấy tướng." });
-
-		const champion = unmarshall(champRes.Item);
-		const constellation = constRes.Item ? unmarshall(constRes.Item) : null;
+		if (!champion) return res.status(404).json({ error: "Không tìm thấy tướng." });
 
 		// 2. Thu thập tất cả ID cần resolve (Hỗ trợ cả định dạng String cũ và Object mới)
 		const powerIds = new Set([
@@ -262,15 +253,11 @@ router.get("/:championID/full", async (req, res) => {
 			batchFetchByIds("guidePocRunes", "runeCode", Array.from(runeIds)),
 			batchFetchByIds("guidePocCardList", "cardCode", Array.from(cardIds)),
 			batchFetchByIds("guidePocBonusStar", "bonusStarID", Array.from(bonusStarIds)),
-			client.send(new QueryCommand({
-				TableName: "guidePocPlayStyleRating",
-				KeyConditionExpression: "championID = :cid",
-				ExpressionAttributeValues: marshall({ ":cid": championID }),
-			}))
+			db.collection("guidePocPlayStyleRating").find({ championID }).toArray()
 		]);
 
 		// 4. Xử lý Ratings (Cộng đồng + Cá nhân)
-		const ratingsList = allRatings.Items ? allRatings.Items.map(r => unmarshall(r)) : [];
+		const ratingsList = allRatings || [];
 		let personalRating = null;
 		
 		// Check token nếu có để lấy rating cá nhân
@@ -365,28 +352,19 @@ router.get("/:championID", async (req, res) => {
 			return res.json(cachedChampion);
 		}
 
-		const command = new GetItemCommand({
-			TableName: CHAMPIONS_TABLE,
-			Key: marshall({ championID }),
-		});
-
-		const { Item } = await client.send(command);
+		const db = getDb();
+		const Item = await db.collection(CHAMPIONS_TABLE).findOne({ championID });
 
 		if (!Item) {
 			return res.status(404).json({ error: "Không tìm thấy tướng yêu cầu." });
 		}
 
-		const championData = unmarshall(Item);
+		const championData = Item;
 
 		// Thêm phần tính toán điểm trung bình từ cộng đồng
 		try {
-			const ratingCommand = new QueryCommand({
-				TableName: "guidePocPlayStyleRating",
-				KeyConditionExpression: "championID = :cid",
-				ExpressionAttributeValues: marshall({ ":cid": championID }),
-			});
-			const { Items: rItems } = await client.send(ratingCommand);
-			const allRatings = rItems ? rItems.map(r => unmarshall(r)) : [];
+			const rItems = await db.collection("guidePocPlayStyleRating").find({ championID }).toArray();
+			const allRatings = rItems || [];
 
 			if (allRatings.length > 0) {
 				const sum = {
@@ -489,11 +467,8 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 	};
 
 	try {
-		const checkCmd = new GetItemCommand({
-			TableName: CHAMPIONS_TABLE,
-			Key: marshall({ championID }),
-		});
-		const { Item } = await client.send(checkCmd);
+		const db = getDb();
+		const Item = await db.collection(CHAMPIONS_TABLE).findOne({ championID });
 
 		if (isNew === true) {
 			if (Item) {
@@ -507,15 +482,11 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 			}
 		}
 
-		const command = new PutItemCommand({
-			TableName: CHAMPIONS_TABLE,
-			Item: marshall(cleanData, { removeUndefinedValues: true }),
-			...(isNew === true && {
-				ConditionExpression: "attribute_not_exists(championID)",
-			}),
-		});
-
-		await client.send(command);
+		await db.collection(CHAMPIONS_TABLE).replaceOne(
+			{ championID },
+			cleanData,
+			{ upsert: true }
+		);
 		
 		// Ghi log thay đổi
 		await createAuditLog({
@@ -523,7 +494,7 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 			entityType: "champion",
 			entityId: championID,
 			entityName: cleanData.name,
-			oldData: Item ? unmarshall(Item) : null,
+			oldData: Item ? Item : null,
 			newData: cleanData,
 			user: req.user
 		});
@@ -568,24 +539,16 @@ router.delete(
 		const id = championID.trim();
 
 		try {
-			const getCmd = new GetItemCommand({
-				TableName: CHAMPIONS_TABLE,
-				Key: marshall({ championID: id }),
-			});
-			const { Item } = await client.send(getCmd);
+			const db = getDb();
+			const Item = await db.collection(CHAMPIONS_TABLE).findOne({ championID: id });
 
 			if (!Item) {
 				return res.status(404).json({ error: "Không tìm thấy tướng để xóa." });
 			}
 
-			const deleteCmd = new DeleteItemCommand({
-				TableName: CHAMPIONS_TABLE,
-				Key: marshall({ championID: id }),
-			});
+			await db.collection(CHAMPIONS_TABLE).deleteOne({ championID: id });
 
-			await client.send(deleteCmd);
-
-			const deletedChampion = unmarshall(Item);
+			const deletedChampion = Item;
 
 			// Ghi log thay đổi
 			await createAuditLog({

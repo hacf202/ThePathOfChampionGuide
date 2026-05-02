@@ -1,16 +1,8 @@
 // src/routes/builds.js
 import express from "express";
-import {
-	PutItemCommand,
-	UpdateItemCommand,
-	DeleteItemCommand,
-	GetItemCommand,
-	QueryCommand,
-} from "@aws-sdk/client-dynamodb";
-import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
+import { getDb } from "../config/mongo.js";
 import { v4 as uuidv4 } from "uuid";
 
-import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import {
 	prepareBuildForDynamo,
@@ -38,24 +30,14 @@ router.get("/top-by-champion/:championID", async (req, res) => {
 	const limit = parseInt(req.query.limit) || 10;
 
 	try {
-		const command = new QueryCommand({
-			TableName: BUILDS_TABLE,
-			IndexName: "championID-index",
-			KeyConditionExpression: "championID = :championID",
-			// Chỉ lấy các build được phép hiển thị công khai
-			FilterExpression: "#display = :display",
-			ExpressionAttributeNames: { "#display": "display" },
-			ExpressionAttributeValues: marshall({
-				":championID": championID,
-				":display": "true",
-			}),
-			ScanIndexForward: false, // DESC (views cao nhất lên đầu)
-			Limit: limit,
-		});
+		const db = getDb();
+		let Items = await db.collection(BUILDS_TABLE).find({ championID, display: { $in: [true, "true"] } })
+			.sort({ views: -1 })
+			.limit(limit)
+			.toArray();
 
-		const { Items } = await client.send(command);
 		let builds = Items
-			? Items.map(item => normalizeBuildFromDynamo(unmarshall(item)))
+			? Items.map(item => normalizeBuildFromDynamo(item))
 			: [];
 
 		// Làm giàu tên hiển thị
@@ -289,15 +271,10 @@ router.get("/my-builds", authenticateCognitoToken, async (req, res) => {
 	const currentPage = parseInt(page);
 
 	try {
-		const command = new QueryCommand({
-			TableName: BUILDS_TABLE,
-			IndexName: "creator-index",
-			KeyConditionExpression: "creator = :creator",
-			ExpressionAttributeValues: marshall({ ":creator": creator }),
-		});
-		const { Items } = await client.send(command);
+		const db = getDb();
+		let Items = await db.collection(BUILDS_TABLE).find({ creator }).toArray();
 		let items = Items
-			? Items.map(item => normalizeBuildFromDynamo(unmarshall(item)))
+			? Items.map(item => normalizeBuildFromDynamo(item))
 			: [];
 
 		// 🟢 Lấy từ điển để hỗ trợ tìm kiếm Cổ vật / Kỹ năng giống hệt public builds
@@ -439,32 +416,20 @@ router.get("/:id", async (req, res) => {
 	}
 
 	try {
-		const { Item } = await client.send(
-			new GetItemCommand({
-				TableName: BUILDS_TABLE,
-				Key: marshall({ id }),
-			}),
-		);
+		const db = getDb();
+		const Item = await db.collection(BUILDS_TABLE).findOne({ id });
 
 		if (!Item) return res.status(404).json({ error: "Build not found" });
 
-		const buildData = unmarshall(Item);
+		const buildData = Item;
 		const build = normalizeBuildFromDynamo(buildData);
 		const isPublic = buildData.display === true || buildData.display === "true";
 
 		if (isPublic) {
-			client
-				.send(
-					new UpdateItemCommand({
-						TableName: BUILDS_TABLE,
-						Key: marshall({ id }),
-						UpdateExpression:
-							"SET #views = if_not_exists(#views, :zero) + :inc",
-						ExpressionAttributeNames: { "#views": "views" },
-						ExpressionAttributeValues: marshall({ ":inc": 1, ":zero": 0 }),
-					}),
-				)
-				.catch(e => console.error("View increment error:", e));
+			db.collection(BUILDS_TABLE).updateOne(
+				{ id },
+				{ $inc: { views: 1 } }
+			).catch(e => console.error("View increment error:", e));
 
 			// Làm giàu tên hiển thị cho chi tiết đơn lẻ
 			const userMap = await getUserNames([build.creator]);
@@ -530,12 +495,8 @@ router.post("/", authenticateCognitoToken, async (req, res) => {
 	});
 
 	try {
-		await client.send(
-			new PutItemCommand({
-				TableName: BUILDS_TABLE,
-				Item: marshall(build, { removeUndefinedValues: true }),
-			}),
-		);
+		const db = getDb();
+		await db.collection(BUILDS_TABLE).insertOne(build);
 
 		if (display === true) invalidateUserBuildsCache(req.user.sub);
 
@@ -575,65 +536,32 @@ router.put("/:id", authenticateCognitoToken, async (req, res) => {
 	const userSub = req.user.sub;
 
 	try {
-		const { Item } = await client.send(
-			new GetItemCommand({ TableName: BUILDS_TABLE, Key: marshall({ id }) }),
-		);
+		const db = getDb();
+		const Item = await db.collection(BUILDS_TABLE).findOne({ id });
 		if (!Item) return res.status(404).json({ error: "Build not found" });
 
-		const oldBuild = unmarshall(Item);
+		const oldBuild = Item;
 		if (oldBuild.sub !== userSub) {
 			return res.status(403).json({ error: "Unauthorized" });
 		}
 
-		let updateExpression = "SET";
-		const expressionAttributeNames = {};
-		const expressionAttributeValues = {};
-		let hasUpdates = false;
-
-		const fields = {
-			description,
-			relicSetIds,
-			powerIds,
-			runeIds,
-			star,
-			display,
-			regions,
-		};
-
+		const fieldsToUpdate = {};
 		Object.entries(fields).forEach(([key, value]) => {
 			if (value !== undefined) {
 				hasUpdates = true;
-				const attrKey = `#${key}`;
-				const valKey = `:${key}`;
-				updateExpression += ` ${attrKey} = ${valKey},`;
-				expressionAttributeNames[attrKey] = key;
-
-				if (key === "display") {
-					expressionAttributeValues[valKey] = value === true ? "true" : "false";
-				} else {
-					expressionAttributeValues[valKey] = value;
-				}
+				fieldsToUpdate[key] = key === "display" ? (value === true || value === "true") : value;
 			}
 		});
 
 		if (!hasUpdates)
 			return res.status(400).json({ error: "No fields to update" });
 
-		updateExpression = updateExpression.slice(0, -1);
-
-		const command = new UpdateItemCommand({
-			TableName: BUILDS_TABLE,
-			Key: marshall({ id }),
-			UpdateExpression: updateExpression,
-			ExpressionAttributeNames: expressionAttributeNames,
-			ExpressionAttributeValues: marshall(expressionAttributeValues, {
-				removeUndefinedValues: true,
-			}),
-			ReturnValues: "ALL_NEW",
-		});
-
-		const { Attributes } = await client.send(command);
-		const updatedBuild = normalizeBuildFromDynamo(unmarshall(Attributes));
+		const updatedBuildData = await db.collection(BUILDS_TABLE).findOneAndUpdate(
+			{ id },
+			{ $set: fieldsToUpdate },
+			{ returnDocument: 'after' }
+		);
+		const updatedBuild = normalizeBuildFromDynamo(updatedBuildData);
 
 		const wasPublic = oldBuild.display === true || oldBuild.display === "true";
 		const isNowPublic = updatedBuild.display === true;
@@ -665,12 +593,11 @@ router.delete("/:id", authenticateCognitoToken, async (req, res) => {
 	const userSub = req.user.sub;
 
 	try {
-		const { Item } = await client.send(
-			new GetItemCommand({ TableName: BUILDS_TABLE, Key: marshall({ id }) }),
-		);
+		const db = getDb();
+		const Item = await db.collection(BUILDS_TABLE).findOne({ id });
 		if (!Item) return res.status(404).json({ error: "Build not found" });
 
-		const build = unmarshall(Item);
+		const build = Item;
 		if (build.sub !== userSub) {
 			return res.status(403).json({ error: "Unauthorized" });
 		}
@@ -679,9 +606,7 @@ router.delete("/:id", authenticateCognitoToken, async (req, res) => {
 			invalidateUserBuildsCache(req.user.sub);
 		}
 
-		await client.send(
-			new DeleteItemCommand({ TableName: BUILDS_TABLE, Key: marshall({ id }) }),
-		);
+		await db.collection(BUILDS_TABLE).deleteOne({ id });
 
 		await createAuditLog({
 			action: "DELETE",
@@ -704,26 +629,17 @@ router.patch("/:id/like", async (req, res) => {
 	const { id } = req.params;
 
 	try {
-		const { Item } = await client.send(
-			new GetItemCommand({
-				TableName: BUILDS_TABLE,
-				Key: marshall({ id }),
-			}),
-		);
+		const db = getDb();
+		const Item = await db.collection(BUILDS_TABLE).findOne({ id });
 
 		if (!Item) return res.status(404).json({ error: "Build not found" });
 
-		const build = unmarshall(Item);
+		const build = Item;
 
-		const result = await client.send(
-			new UpdateItemCommand({
-				TableName: BUILDS_TABLE,
-				Key: marshall({ id }),
-				UpdateExpression: "SET #like = if_not_exists(#like, :zero) + :inc",
-				ExpressionAttributeNames: { "#like": "like" },
-				ExpressionAttributeValues: marshall({ ":inc": 1, ":zero": 0 }),
-				ReturnValues: "UPDATED_NEW",
-			}),
+		const result = await db.collection(BUILDS_TABLE).findOneAndUpdate(
+			{ id },
+			{ $inc: { like: 1 } },
+			{ returnDocument: 'after' }
 		);
 
 		if (build.display === true || build.display === "true") {
@@ -739,9 +655,7 @@ router.patch("/:id/like", async (req, res) => {
 			invalidateUserBuildsCache(userId);
 		}
 
-		const newLikeCount = result.Attributes
-			? unmarshall(result.Attributes).like
-			: (Number(build.like) || 0) + 1;
+		const newLikeCount = result ? result.like : (Number(build.like) || 0) + 1;
 
 		res.json({ like: newLikeCount });
 	} catch (error) {

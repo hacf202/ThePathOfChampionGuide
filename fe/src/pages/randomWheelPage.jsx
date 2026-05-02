@@ -7,7 +7,8 @@ import { Loader2 } from "lucide-react";
 import { useTranslation } from "../hooks/useTranslation"; // 🟢 Import Hook
 
 // Import dữ liệu bản đồ cố định
-import mapsData from "../assets/data/map.json";
+// Đã loại bỏ map.json, chuyển sang fetch từ API
+
 
 // --- HÀM TIỆN ÍCH: Sắp xếp theo tên ---
 const sortByName = (a, b) => {
@@ -35,34 +36,55 @@ function RandomizerPage() {
 		try {
 			const queryLimit = "?page=1&limit=-1";
 
-			const [championsRes, relicsRes, itemsRes, powersRes, runesRes] =
-				await Promise.all([
+			const [
+				championsRes,
+				relicsRes,
+				itemsRes,
+				powersRes,
+				runesRes,
+				adventuresRes,
+			] = await Promise.all([
 					fetch(`${backendUrl}/api/champions${queryLimit}`),
 					fetch(`${backendUrl}/api/relics${queryLimit}`),
 					fetch(`${backendUrl}/api/items${queryLimit}`),
 					// Đã sửa lỗi 404: Gọi đến API /api/powers và thêm query filter types=General Power
 					fetch(`${backendUrl}/api/powers${queryLimit}&types=General Power`),
 					fetch(`${backendUrl}/api/runes${queryLimit}`),
+					fetch(`${backendUrl}/api/adventures${queryLimit}`),
 				]);
 
-			if (!championsRes.ok || !relicsRes.ok || !itemsRes.ok || !powersRes.ok) {
+			if (
+				!championsRes.ok ||
+				!relicsRes.ok ||
+				!itemsRes.ok ||
+				!powersRes.ok ||
+				!adventuresRes.ok
+			) {
 				throw new Error(tUI("randomWheel.errorLoad"));
 			}
 
-			const [champData, relicData, itemData, powerData, runeData] =
-				await Promise.all([
-					championsRes.json(),
-					relicsRes.json(),
-					itemsRes.json(),
-					powersRes.json(),
-					runesRes.json(),
-				]);
+			const [
+				champData,
+				relicData,
+				itemData,
+				powerData,
+				runeData,
+				adventureData,
+			] = await Promise.all([
+				championsRes.json(),
+				relicsRes.json(),
+				itemsRes.json(),
+				powersRes.json(),
+				runesRes.json(),
+				adventuresRes.json(),
+			]);
 
 			const championsList = champData.items || champData || [];
 			const relicList = relicData.items || relicData || [];
 			const itemList = itemData.items || itemData || [];
 			const powerList = powerData.items || powerData || [];
 			const runeList = runeData.items || runeData || [];
+			const adventureList = adventureData.items || adventureData || [];
 
 			const initialData = {
 				champions: {
@@ -73,7 +95,9 @@ function RandomizerPage() {
 				maps: {
 					key: "maps",
 					title: tUI("shared.entitiesPlural.adventure"),
-					items: [...mapsData].sort(sortByName),
+					items: adventureList
+						.map(a => ({ ...a, name: a.adventureName }))
+						.sort(sortByName),
 				},
 				relics: {
 					key: "relics",

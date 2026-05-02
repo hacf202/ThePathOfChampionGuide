@@ -1,18 +1,8 @@
 import express from "express";
-import {
-	GetItemCommand,
-	ScanCommand,
-	PutItemCommand,
-	DeleteItemCommand,
-	UpdateItemCommand,
-} from "@aws-sdk/client-dynamodb";
-import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
+import { getDb } from "../config/mongo.js";
 import cacheManager from "../utils/cacheManager.js";
-
-import client from "../config/db.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { requireAdmin } from "../middleware/requireAdmin.js";
-import { scanAll } from "../utils/dynamoUtils.js";
 import { createAuditLog } from "../utils/auditLogger.js";
 
 const router = express.Router();
@@ -48,9 +38,9 @@ router.get("/", async (req, res) => {
 			return res.status(200).json(cached);
 		}
 
-		// 2. Gọi DynamoDB
-		const rawItems = await scanAll(client, { TableName: GUIDES_TABLE });
-		const guides = rawItems.map(item => unmarshall(item));
+		// 2. Gọi MongoDB
+		const db = getDb();
+		const guides = await db.collection(GUIDES_TABLE).find({}).toArray();
 
 		const responseData = {
 			success: true,
@@ -89,25 +79,16 @@ router.get("/:slug", async (req, res) => {
 		}
 
 		// 2. GỌI DB & TĂNG VIEW
-		// Lưu ý: Dữ liệu trong DB trường 'views' BẮT BUỘC phải là Number (N).
-		// Nếu 'views' đang là String (S), lệnh này sẽ lỗi ValidationException.
-		const params = {
-			TableName: GUIDES_TABLE,
-			Key: marshall({ slug: slug }),
-			// Logic: views = views cũ + 1. Nếu chưa có views thì bắt đầu từ 0 + 1
-			UpdateExpression: "SET #views = if_not_exists(#views, :start) + :inc",
-			ExpressionAttributeNames: { "#views": "views" },
-			ExpressionAttributeValues: marshall({
-				":inc": 1,
-				":start": 0,
-			}),
-			ConditionExpression: "attribute_exists(slug)",
-			ReturnValues: "ALL_NEW",
-		};
+		const db = getDb();
+		const guide = await db.collection(GUIDES_TABLE).findOneAndUpdate(
+			{ slug: slug },
+			{ $inc: { views: 1 } },
+			{ returnDocument: 'after' }
+		);
 
-		const command = new UpdateItemCommand(params);
-		const { Attributes } = await client.send(command);
-		const guide = unmarshall(Attributes);
+		if (!guide) {
+			return res.status(404).json({ success: false, message: "Không tìm thấy bài viết." });
+		}
 
 		// 3. Lưu Cache
 		await cache.set(cacheKey, guide);
@@ -144,12 +125,9 @@ router.post("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 				.json({ success: false, message: "Thiếu thông tin bắt buộc." });
 		}
 
-		const checkParams = {
-			TableName: GUIDES_TABLE,
-			Key: marshall({ slug: guideData.slug }),
-		};
-		const checkExisting = await client.send(new GetItemCommand(checkParams));
-		if (checkExisting.Item) {
+		const db = getDb();
+		const checkExisting = await db.collection(GUIDES_TABLE).findOne({ slug: guideData.slug });
+		if (checkExisting) {
 			return res
 				.status(400)
 				.json({ success: false, message: "Slug đã tồn tại." });
@@ -165,12 +143,7 @@ router.post("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 			updateDate: todayStr, // VD: "12-12-2025"
 		};
 
-		const params = {
-			TableName: GUIDES_TABLE,
-			Item: marshall(preparedData, { removeUndefinedValues: true }),
-		};
-
-		await client.send(new PutItemCommand(params));
+		await db.collection(GUIDES_TABLE).insertOne(preparedData);
 
 		// Ghi log thay đổi
 		await createAuditLog({
@@ -215,15 +188,10 @@ router.put(
 			const todayStr = getCurrentDate();
 
 			// 1. Lấy dữ liệu CŨ
-			const getOldItemParams = {
-				TableName: GUIDES_TABLE,
-				Key: marshall({ slug: slug }),
-			};
-			const { Item: oldItemRaw } = await client.send(
-				new GetItemCommand(getOldItemParams)
-			);
+			const db = getDb();
+			const oldItem = await db.collection(GUIDES_TABLE).findOne({ slug: slug });
 
-			if (!oldItemRaw) {
+			if (!oldItem) {
 				return res
 					.status(404)
 					.json({
@@ -231,7 +199,6 @@ router.put(
 						message: "Không tìm thấy bài viết để cập nhật.",
 					});
 			}
-			const oldItem = unmarshall(oldItemRaw);
 
 			// 2. Gộp dữ liệu
 			const finalData = {
@@ -247,12 +214,11 @@ router.put(
 			};
 
 			// 3. Ghi vào DB
-			const putParams = {
-				TableName: GUIDES_TABLE,
-				Item: marshall(finalData, { removeUndefinedValues: true }),
-			};
-
-			await client.send(new PutItemCommand(putParams));
+			await db.collection(GUIDES_TABLE).replaceOne(
+				{ slug: slug },
+				finalData,
+				{ upsert: true }
+			);
 
 			// Ghi log thay đổi
 			await createAuditLog({
@@ -293,15 +259,11 @@ router.delete(
 	async (req, res) => {
 		try {
 			const { slug } = req.params;
-			const params = {
-				TableName: GUIDES_TABLE,
-				Key: marshall({ slug: slug }),
-			};
+			const db = getDb();
+			const Item = await db.collection(GUIDES_TABLE).findOne({ slug: slug });
+			const oldData = Item ? Item : null;
 
-			const { Item } = await client.send(new GetItemCommand(params));
-			const oldData = Item ? unmarshall(Item) : null;
-
-			await client.send(new DeleteItemCommand(params));
+			await db.collection(GUIDES_TABLE).deleteOne({ slug: slug });
 
 			// Ghi log thay đổi
 			await createAuditLog({

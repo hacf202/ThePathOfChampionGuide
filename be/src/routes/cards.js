@@ -1,14 +1,7 @@
 // be/src/routes/cards.js
 import express from "express";
-import {
-	PutItemCommand,
-	DeleteItemCommand,
-	GetItemCommand,
-	QueryCommand,
-} from "@aws-sdk/client-dynamodb";
-import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
 import cacheManager from "../utils/cacheManager.js";
-import client from "../config/db.js";
+import { getDb } from "../config/mongo.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { requireAdmin } from "../middleware/requireAdmin.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
@@ -233,18 +226,14 @@ router.get("/:cardCode", async (req, res) => {
 		const cached = await cardCache.get(CACHE_KEY);
 		if (cached) return res.json(cached);
 
-		const command = new GetItemCommand({
-			TableName: CARDS_TABLE,
-			Key: marshall({ cardCode }),
-		});
-
-		const { Item } = await client.send(command);
+		const db = getDb();
+		const Item = await db.collection(CARDS_TABLE).findOne({ cardCode });
 
 		if (!Item) {
 			return res.status(404).json({ error: "Không tìm thấy lá bài." });
 		}
 
-		const cardData = unmarshall(Item);
+		const cardData = Item;
 
 		// Resolve associatedCardRefs thành objects đầy đủ
 		if (cardData.associatedCardRefs?.length > 0) {
@@ -288,11 +277,8 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 	};
 
 	try {
-		const checkCmd = new GetItemCommand({
-			TableName: CARDS_TABLE,
-			Key: marshall({ cardCode }),
-		});
-		const { Item } = await client.send(checkCmd);
+		const db = getDb();
+		const Item = await db.collection(CARDS_TABLE).findOne({ cardCode });
 
 		if (isNew === true && Item) {
 			return res
@@ -305,11 +291,10 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 				.json({ error: "Lá bài không tồn tại để cập nhật." });
 		}
 
-		await client.send(
-			new PutItemCommand({
-				TableName: CARDS_TABLE,
-				Item: marshall(cleanData, { removeUndefinedValues: true }),
-			}),
+		await db.collection(CARDS_TABLE).replaceOne(
+			{ cardCode },
+			cleanData,
+			{ upsert: true }
 		);
 
 		await createAuditLog({
@@ -317,7 +302,7 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 			entityType: "card",
 			entityId: cardCode,
 			entityName: cleanData.cardName,
-			oldData: Item ? unmarshall(Item) : null,
+			oldData: Item ? Item : null,
 			newData: cleanData,
 			user: req.user
 		});
@@ -352,26 +337,18 @@ router.delete(
 		const id = cardCode.trim();
 
 		try {
-			const getCmd = new GetItemCommand({
-				TableName: CARDS_TABLE,
-				Key: marshall({ cardCode: id }),
-			});
-			const { Item } = await client.send(getCmd);
+			const db = getDb();
+			const Item = await db.collection(CARDS_TABLE).findOne({ cardCode: id });
 
 			if (!Item) {
 				return res.status(404).json({ error: "Không tìm thấy lá bài để xóa." });
 			}
 
-			await client.send(
-				new DeleteItemCommand({
-					TableName: CARDS_TABLE,
-					Key: marshall({ cardCode: id }),
-				}),
-			);
+			await db.collection(CARDS_TABLE).deleteOne({ cardCode: id });
 
 			await invalidateCardCache(id);
 
-			const deletedCard = unmarshall(Item);
+			const deletedCard = Item;
 
 			// Ghi log thay đổi
 			await createAuditLog({

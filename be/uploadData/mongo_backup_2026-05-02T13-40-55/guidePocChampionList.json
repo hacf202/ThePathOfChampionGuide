@@ -82,7 +82,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -295,7 +295,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -507,7 +507,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -702,7 +702,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -911,7 +911,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -1346,7 +1346,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -1538,7 +1538,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -1736,7 +1736,7 @@
     "translations": {
       "en": {
         "name": "Evelynn",
-        "description": "-Evelynn sở hữu khả năng tăng chỉ số cho bài quân ở mọi nơi khi thăng cáp và có thể thăng cấp nhiều lần từ đó khiến cho bài quân của bạn áp đảo chỉ số so với đối thủ.\\n-Các lá bài nổi bật có thể kể đến như Sultur, [cd:06SH034|Domination|icon,img-full], Vora, Steem. Các bài quân có khả năng triệu hồi yêu linh và kích điều kiện thăng cấp cho [cd:06RU025|Evelynn|icon,img-full].\\n-Với lối chơi thăng cấp nhiều lần nên [cd:06RU025|Evelynn|icon,img-full] đặc biệt tương tác mạnh với các cổ vật mang hiệu ứng thăng cấp mạnh mẽ như Lưỡi kiếm cuồng nộ, Di sản Crownguard.\\n-Các sức mạnh nên chọn khi phiêu lưu là các sức mạnh tăng năng lượng giúp triệu hồi [cd:06RU025|Evelynn|icon,img-full] sớm và các sức mạnh tăng chỉ số cho bài quân vì khi combo chung với yêu linh bạn sẽ nhận được lượng chỉ số cộng thêm gấp đôi bình thường.\\n",
+        "description": "-Evelynn sở hữu khả năng tăng chỉ số cho bài quân ở mọi nơi khi thăng cáp và có thể thăng cấp nhiều lần từ đó khiến cho bài quân của bạn áp đảo chỉ số so với đối thủ.\\n-Các lá bài nổi bật có thể kể đến như Sultur, Domination, Vora, Steem. Các bài quân có khả năng triệu hồi yêu linh và kích điều kiện thăng cấp cho Evelynn.\\n-Với lối chơi thăng cấp nhiều lần nên Evelynn đặc biệt tương tác mạnh với các cổ vật mang hiệu ứng thăng cấp mạnh mẽ như Lưỡi kiếm cuồng nộ, Di sản Crownguard.\\n-Các sức mạnh nên chọn khi phiêu lưu là các sức mạnh tăng năng lượng giúp triệu hồi Evelynn sớm và các sức mạnh tăng chỉ số cho bài quân vì khi combo chung với yêu linh bạn sẽ nhận được lượng chỉ số cộng thêm gấp đôi bình thường.\\n",
         "regions": [
           "Runeterra"
         ],
@@ -1747,7 +1747,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -1764,7 +1764,7 @@
       "P0451",
       "P0176"
     ],
-    "description": "-Evelynn sở hữu khả năng tăng chỉ số cho bài quân ở mọi nơi khi thăng cáp và có thể thăng cấp nhiều lần từ đó khiến cho bài quân của bạn áp đảo chỉ số so với đối thủ.\\n-Các lá bài nổi bật có thể kể đến như Sultur, [cd:06SH034|Domination|icon,img-full], Vora, Steem. Các bài quân có khả năng triệu hồi yêu linh và kích điều kiện thăng cấp cho [cd:06RU025|Evelynn|icon,img-full].\\n-Với lối chơi thăng cấp nhiều lần nên [cd:06RU025|Evelynn|icon,img-full] đặc biệt tương tác mạnh với các cổ vật mang hiệu ứng thăng cấp mạnh mẽ như Lưỡi kiếm cuồng nộ, Di sản Crownguard.\\n-Các sức mạnh nên chọn khi phiêu lưu là các sức mạnh tăng năng lượng giúp triệu hồi [cd:06RU025|Evelynn|icon,img-full] sớm và các sức mạnh tăng chỉ số cho bài quân vì khi combo chung với yêu linh bạn sẽ nhận được lượng chỉ số cộng thêm gấp đôi bình thường.\\n",
+    "description": "-Evelynn sở hữu khả năng tăng chỉ số cho bài quân ở mọi nơi khi thăng cáp và có thể thăng cấp nhiều lần từ đó khiến cho bài quân của bạn áp đảo chỉ số so với đối thủ.\\n-Các lá bài nổi bật có thể kể đến như Sultur, Domination, Vora, Steem. Các bài quân có khả năng triệu hồi yêu linh và kích điều kiện thăng cấp cho Evelynn.\\n-Với lối chơi thăng cấp nhiều lần nên Evelynn đặc biệt tương tác mạnh với các cổ vật mang hiệu ứng thăng cấp mạnh mẽ như Lưỡi kiếm cuồng nộ, Di sản Crownguard.\\n-Các sức mạnh nên chọn khi phiêu lưu là các sức mạnh tăng năng lượng giúp triệu hồi Evelynn sớm và các sức mạnh tăng chỉ số cho bài quân vì khi combo chung với yêu linh bạn sẽ nhận được lượng chỉ số cộng thêm gấp đôi bình thường.\\n",
     "startingDeck": {
       "referenceCards": [
         {
@@ -1993,7 +1993,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -2185,7 +2185,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -2369,7 +2369,7 @@
     "translations": {
       "en": {
         "name": "Samira",
-        "description": "-[cd:07NX007|Samira|icon,img-full] mang cho mình khả năng giảm tiêu hao mạnh mẽ khi kích cưỡng đoạt, cộng thêm chỉ số cho bài quân khi bạn dùng đủ 3 lá bài.\\n-Các lá bài mạnh: Phát bắn điệu nghệ gây sát thương thẳng vào nhà chính và kích cưỡng đoạt, Pháo binh dũng cảm giúp bạn kích cưỡng đoạt và là 1 bài quân có chỉ số tốt,Bàn tay tử thần gây lượng sát thương tốt.\\n-Các sức mạnh nên chọn khi phiêu lưu là các sức mạnh cộng thêm DMG bài phép và giảm tiêu hao bài phép vì [cd:07NX007|Samira|icon,img-full] sỡ hữu rất nhiều bài phép tiêu hao thấp và cũng cần dùng nhiều bài để lên cấp.\\n-Đánh [cd:07NX007|Samira|icon,img-full] bạn nên kích cưỡng đoạt mỗi vòng đấu để lấy giảm tiêu hao vì buff này có khả năng giữ sang vòng sau và cũng để bạn triệu hồi các bài quân mạnh mẽ sớm. ",
+        "description": "-Samira mang cho mình khả năng giảm tiêu hao mạnh mẽ khi kích cưỡng đoạt, cộng thêm chỉ số cho bài quân khi bạn dùng đủ 3 lá bài.\\n-Các lá bài mạnh: Phát bắn điệu nghệ gây sát thương thẳng vào nhà chính và kích cưỡng đoạt, Pháo binh dũng cảm giúp bạn kích cưỡng đoạt và là 1 bài quân có chỉ số tốt,Bàn tay tử thần gây lượng sát thương tốt.\\n-Các sức mạnh nên chọn khi phiêu lưu là các sức mạnh cộng thêm DMG bài phép và giảm tiêu hao bài phép vì Samira sỡ hữu rất nhiều bài phép tiêu hao thấp và cũng cần dùng nhiều bài để lên cấp.\\n-Đánh Samira bạn nên kích cưỡng đoạt mỗi vòng đấu để lấy giảm tiêu hao vì buff này có khả năng giữ sang vòng sau và cũng để bạn triệu hồi các bài quân mạnh mẽ sớm. ",
         "regions": [
           "Noxus"
         ],
@@ -2380,7 +2380,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -2397,7 +2397,7 @@
       "P0056",
       "P0062"
     ],
-    "description": "-[cd:07NX007|Samira|icon,img-full] mang cho mình khả năng giảm tiêu hao mạnh mẽ khi kích cưỡng đoạt, cộng thêm chỉ số cho bài quân khi bạn dùng đủ 3 lá bài.\\n-Các lá bài mạnh: Phát bắn điệu nghệ gây sát thương thẳng vào nhà chính và kích cưỡng đoạt, Pháo binh dũng cảm giúp bạn kích cưỡng đoạt và là 1 bài quân có chỉ số tốt,Bàn tay tử thần gây lượng sát thương tốt.\\n-Các sức mạnh nên chọn khi phiêu lưu là các sức mạnh cộng thêm DMG bài phép và giảm tiêu hao bài phép vì [cd:07NX007|Samira|icon,img-full] sỡ hữu rất nhiều bài phép tiêu hao thấp và cũng cần dùng nhiều bài để lên cấp.\\n-Đánh [cd:07NX007|Samira|icon,img-full] bạn nên kích cưỡng đoạt mỗi vòng đấu để lấy giảm tiêu hao vì buff này có khả năng giữ sang vòng sau và cũng để bạn triệu hồi các bài quân mạnh mẽ sớm. ",
+    "description": "-Samira mang cho mình khả năng giảm tiêu hao mạnh mẽ khi kích cưỡng đoạt, cộng thêm chỉ số cho bài quân khi bạn dùng đủ 3 lá bài.\\n-Các lá bài mạnh: Phát bắn điệu nghệ gây sát thương thẳng vào nhà chính và kích cưỡng đoạt, Pháo binh dũng cảm giúp bạn kích cưỡng đoạt và là 1 bài quân có chỉ số tốt,Bàn tay tử thần gây lượng sát thương tốt.\\n-Các sức mạnh nên chọn khi phiêu lưu là các sức mạnh cộng thêm DMG bài phép và giảm tiêu hao bài phép vì Samira sỡ hữu rất nhiều bài phép tiêu hao thấp và cũng cần dùng nhiều bài để lên cấp.\\n-Đánh Samira bạn nên kích cưỡng đoạt mỗi vòng đấu để lấy giảm tiêu hao vì buff này có khả năng giữ sang vòng sau và cũng để bạn triệu hồi các bài quân mạnh mẽ sớm. ",
     "startingDeck": {
       "referenceCards": [
         {
@@ -2589,7 +2589,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -2807,7 +2807,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -3226,7 +3226,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -3668,7 +3668,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -3883,7 +3883,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -3905,7 +3905,7 @@
       "P0067",
       "P0451"
     ],
-    "description": "-Yassuo Anh Hùng Lãng Kiếm vị tướng có tiêu hao cao nhất của game với 15 tiêu hao, nhưng cũng sở hữu sức mạnh bá đạo nhất khi cho phép hủy diệt bài quân mạnh nhất của đối thủ khi Yasuo Hoa Linh được triệu hoặc tấn công. Với cơ chế giảm tiêu hao nhờ dẫn bão bạn có thể sử dụng các lá bài có tiêu hao cao cực dễ dàng.\\n-Sức mạnh chủ yếu của Yasuo Hoa Linh đến từ việc hủy diệt kẻ địch và khả năng giảm tiêu hao  nhờ dẫn bão để sử các lá bài mạnh mẽ từ sớm.\\n-Về cổ vật thì với cơ chế dẫn bão càng dùng nhiều lá bài thì giảm tiêu hao càng nhiều, vì thế Lõi Công Nghệ Hoàn Hảo và Hòa Khí Ma Pháp là lựa chọn cực kì tốt. Nếu bạn muốn triệu hồi Yasuo sớm bạn cũng có thể dùng Đệ Tử Bóng Đêm, Găng Tay [k:Spirit|Linh Hồn] hoặc Hàn Băng Mộ. Đương nhiên bạn cũng có thể dùng Phong Kiếm của Yasuo cho Yasuo [k:Champion|Anh Hùng] Lãng Kiếm để lấy 1 năng lượng khởi đầu.\\n-Về ngọc thì bạn có thể chọn Tàn Tích Gió để các bài quân được giảm tiêu hao nhận thêm chỉ số.\\n-Yasuo có thể dùng tốt các sức mạnh tạo bài 0 tiêu hao như Sản Phẩm Giả Mạo, Sự [cd:06PZ025|Cô Độc|icon,img-full] Ngọt Ngào, Giác Quan Hoang Dã, Lừa Lọc Chí Tử các sức mạnh này cho phép Yasuo Hoa Linh tích dẫn bão dễ dàng hơn.",
+    "description": "-Yassuo Anh Hùng Lãng Kiếm vị tướng có tiêu hao cao nhất của game với 15 tiêu hao, nhưng cũng sở hữu sức mạnh bá đạo nhất khi cho phép hủy diệt bài quân mạnh nhất của đối thủ khi Yasuo Hoa Linh được triệu hoặc tấn công. Với cơ chế giảm tiêu hao nhờ dẫn bão bạn có thể sử dụng các lá bài có tiêu hao cao cực dễ dàng.\\n-Sức mạnh chủ yếu của Yasuo Hoa Linh đến từ việc hủy diệt kẻ địch và khả năng giảm tiêu hao  nhờ dẫn bão để sử các lá bài mạnh mẽ từ sớm.\\n-Về cổ vật thì với cơ chế dẫn bão càng dùng nhiều lá bài thì giảm tiêu hao càng nhiều, vì thế Lõi Công Nghệ Hoàn Hảo và Hòa Khí Ma Pháp là lựa chọn cực kì tốt. Nếu bạn muốn triệu hồi Yasuo sớm bạn cũng có thể dùng Đệ Tử Bóng Đêm, Găng Tay [k:Spirit|Linh Hồn] hoặc Hàn Băng Mộ. Đương nhiên bạn cũng có thể dùng Phong Kiếm của Yasuo cho Yasuo [k:Champion|Anh Hùng] Lãng Kiếm để lấy 1 năng lượng khởi đầu.\\n-Về ngọc thì bạn có thể chọn Tàn Tích Gió để các bài quân được giảm tiêu hao nhận thêm chỉ số.\\n-Yasuo có thể dùng tốt các sức mạnh tạo bài 0 tiêu hao như Sản Phẩm Giả Mạo, Sự Cô Độc Ngọt Ngào, Giác Quan Hoang Dã, Lừa Lọc Chí Tử các sức mạnh này cho phép Yasuo Hoa Linh tích dẫn bão dễ dàng hơn.",
     "startingDeck": {
       "referenceCards": [
         {
@@ -4103,7 +4103,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -4316,7 +4316,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -4533,7 +4533,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -4837,7 +4837,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -5043,7 +5043,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -5256,7 +5256,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -5462,7 +5462,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -5657,7 +5657,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -5857,7 +5857,7 @@
     "translations": {
       "en": {
         "name": "Spirit Blossom Evelynn",
-        "description": "-[cd:06RU025|Evelynn|icon,img-full] Chiêu Tình Yêu Thần hay [cd:06RU025|Evelynn|icon,img-full] Hoa Linh là vị tướng với lối đanh mê hoặc bài quân đối thủ,\"\"Lối đánh gậy ông đập lưng ông\"\" dùng chính bài quân mạnh mẽ của đối thủ tấn công ngược lại đối thủ, kẻ địch càng mạnh [cd:06RU025|Evelynn|icon,img-full] Hoa Linh càng khỏe.\\n-Mê Hoặc cho phép bạn cướp đi bài quân của đối thủ trong vòng này, vừa tước đi sức mạnh của đối phương vừa bổ sung thêm một bài quân mạnh mẽ cho bản thân. Một lối đánh mới mẽ và cực kì thú vị.\\n-[cd:06RU025|Evelynn|icon,img-full] kết hợp cực tốt với các cổ vật tăng máu và rất cần năng lương do đó Sức Mạnh Khỉ Đá và Găng Tinh Vân Sư là 2 lựa chọn mạnh mẽ được đặt lên làm lựa chọn hàng đầu khi xây dựng cổ vật cho cô nàng này, ngọc Giáp Linh Hồn cũng là lựa chọn mạnh mẽ đóng góp vào lối chơi này.\\n-Các sức mạnh nên chọn cho [cd:06RU025|Evelynn|icon,img-full] là các sức mạnh tăng chỉ số và hồi năng lượng do vị tướng này rất cần bài quân để triển khai và vận hành.\\n-Về vật phẩm khuyến kích là các vật phẩm tăng máu hoặc giảm tiêu hao cho cô nàng.",
+        "description": "-Evelynn Chiêu Tình Yêu Thần hay Evelynn Hoa Linh là vị tướng với lối đanh mê hoặc bài quân đối thủ,\"\"Lối đánh gậy ông đập lưng ông\"\" dùng chính bài quân mạnh mẽ của đối thủ tấn công ngược lại đối thủ, kẻ địch càng mạnh Evelynn Hoa Linh càng khỏe.\\n-Mê Hoặc cho phép bạn cướp đi bài quân của đối thủ trong vòng này, vừa tước đi sức mạnh của đối phương vừa bổ sung thêm một bài quân mạnh mẽ cho bản thân. Một lối đánh mới mẽ và cực kì thú vị.\\n-Evelynn kết hợp cực tốt với các cổ vật tăng máu và rất cần năng lương do đó Sức Mạnh Khỉ Đá và Găng Tinh Vân Sư là 2 lựa chọn mạnh mẽ được đặt lên làm lựa chọn hàng đầu khi xây dựng cổ vật cho cô nàng này, ngọc Giáp Linh Hồn cũng là lựa chọn mạnh mẽ đóng góp vào lối chơi này.\\n-Các sức mạnh nên chọn cho Evelynn là các sức mạnh tăng chỉ số và hồi năng lượng do vị tướng này rất cần bài quân để triển khai và vận hành.\\n-Về vật phẩm khuyến kích là các vật phẩm tăng máu hoặc giảm tiêu hao cho cô nàng.",
         "regions": [
           "SpiritBlossom",
           "Runeterra"
@@ -5869,7 +5869,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -5892,7 +5892,7 @@
       "P0056",
       "P0116"
     ],
-    "description": "-Evelynn Chiêu Tình Yêu Thần hay Evelynn Hoa Linh là vị tướng với lối đanh mê hoặc bài quân đối thủ,\"\"Lối đánh gậy ông đập lưng ông\"\" dùng chính bài quân mạnh mẽ của đối thủ tấn công ngược lại đối thủ, kẻ địch càng mạnh Evelynn Hoa Linh càng khỏe.\\n-Mê Hoặc cho phép bạn cướp đi bài quân của đối thủ trong vòng này, vừa tước đi sức mạnh của đối phương vừa bổ sung thêm một bài quân mạnh mẽ cho bản thân. Một lối đánh mới mẽ và cực kì thú vị.\\n-Evelynn kết hợp cực tốt với các cổ vật tăng máu và rất cần năng lương do đó Sức Mạnh Khỉ Đá và Găng Tinh Vân Sư là 2 lựa chọn mạnh mẽ được đặt lên làm lựa chọn hàng đầu khi xây dựng cổ vật cho cô nàng này, ngọc Giáp [k:Spirit|Linh Hồn] cũng là lựa chọn mạnh mẽ đóng góp vào lối chơi này.\\n-Các sức mạnh nên chọn cho [cd:06RU025|Evelynn|icon,img-full] là các sức mạnh tăng chỉ số và hồi năng lượng do vị tướng này rất cần bài quân để triển khai và vận hành.\\n-Về vật phẩm khuyến kích là các vật phẩm tăng máu hoặc giảm tiêu hao cho cô nàng.",
+    "description": "-Evelynn Chiêu Tình Yêu Thần hay Evelynn Hoa Linh là vị tướng với lối đanh mê hoặc bài quân đối thủ,\"\"Lối đánh gậy ông đập lưng ông\"\" dùng chính bài quân mạnh mẽ của đối thủ tấn công ngược lại đối thủ, kẻ địch càng mạnh Evelynn Hoa Linh càng khỏe.\\n-Mê Hoặc cho phép bạn cướp đi bài quân của đối thủ trong vòng này, vừa tước đi sức mạnh của đối phương vừa bổ sung thêm một bài quân mạnh mẽ cho bản thân. Một lối đánh mới mẽ và cực kì thú vị.\\n-Evelynn kết hợp cực tốt với các cổ vật tăng máu và rất cần năng lương do đó Sức Mạnh Khỉ Đá và Găng Tinh Vân Sư là 2 lựa chọn mạnh mẽ được đặt lên làm lựa chọn hàng đầu khi xây dựng cổ vật cho cô nàng này, ngọc Giáp [k:Spirit|Linh Hồn] cũng là lựa chọn mạnh mẽ đóng góp vào lối chơi này.\\n-Các sức mạnh nên chọn cho Evelynn là các sức mạnh tăng chỉ số và hồi năng lượng do vị tướng này rất cần bài quân để triển khai và vận hành.\\n-Về vật phẩm khuyến kích là các vật phẩm tăng máu hoặc giảm tiêu hao cho cô nàng.",
     "startingDeck": {
       "referenceCards": [
         {
@@ -6274,7 +6274,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -6715,7 +6715,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -6917,7 +6917,7 @@
     "translations": {
       "en": {
         "name": "Vi",
-        "description": "-Vi là 1 tướng combo cực mạnh bằng các lá bài tiêu hao thấp từ 1-3 tiêu hao.\n-Sức mạnh của Vi chủ yếu nằm ở khả năng sử dụng và rút bài liên tục nhờ vào sức mạnh, từ đó tăng tiến cho vị tướng này.\n-Lối chơi của Vi chia ra làm 2 hướng, trước khi có chòm C6 Chúng Ta Thống Trị Phố Phường thì vi sẽ đánh bằng máu theo sức mạnh 3 sao là Đấm Không Thương Tiếc sẽ cho máu và khí lực mỗi khi rút bài và cổ vật Sức Mạnh Khỉ Đá cho phép gây sát thương dựa trên máu. Lối chơi thứ 2 khi có C6 Chúng Ta Thống Trị Phố Phường là việc bạn đánh bằng việc tích sát thương cho quân bằng cách dùng thật nhiều lá bài từ đó bài quân của bạn sẽ có sức tấn công siêu cao, cổ vật cho Vi theo lối chơi này là Nhà Thông Thái Phá Thành x3.  Ngoài ra cũng có những lối chơi với cách xây dựng cổ vật khác như Bộ Bài Đầy Ắp, Quái Thú Bên Trong, Khiên Đen,....\n-Các sức mạnh có thể chọn cho Vi trong phiêu lưu tốt nhất sẽ là các sức mạnh giảm tiêu hao vì Vi sẽ cần dùng rất nhiều bài để mạnh, một số lựa chọn như Rút Nhanh, Xả Phép Hàng Loạt, Cảm Hứng Dữ Dội,...\n-Đây là 1 vị tướng khá không quá mạnh và nổi bật cần phải có điều kiện mới có thể phát huy được tối đa sức mạnh.",
+        "description": "-Vi là 1 tướng combo cực mạnh bằng các lá bài tiêu hao thấp từ 1-3 tiêu hao.\\n-Sức mạnh của Vi chủ yếu nằm ở khả năng sử dụng và rút bài liên tục nhờ vào sức mạnh, từ đó tăng tiến cho vị tướng này.\\n-Lối chơi của Vi chia ra làm 2 hướng, trước khi có chòm C6 [p:P0510|Chúng Ta Thống Trị Phố Phường|icon] thì vi sẽ đánh bằng máu theo sức mạnh 3 sao là [p:P0034|Đấm Không Thương Tiếc|icon] sẽ cho máu và khí lực mỗi khi rút bài và cổ vật [r:R0091|Sức Mạnh Khỉ Đá|icon] cho phép gây sát thương dựa trên máu. Lối chơi thứ 2 khi có C6 [p:P0510|Chúng Ta Thống Trị Phố Phường|icon] là việc bạn đánh bằng việc tích sát thương cho quân bằng cách dùng thật nhiều lá bài từ đó bài quân của bạn sẽ có sức tấn công siêu cao, cổ vật cho Vi theo lối chơi này là [r:R0038|Nhà Thông Thái Phá Thành|icon] x3.  Ngoài ra cũng có những lối chơi với cách xây dựng cổ vật khác như [r:R0116|Bộ Bài Đầy Ắp|icon], [r:R0080|Quái Thú Bên Trong|icon], [r:R0114|Khiên Đen|icon],....\\n-Các sức mạnh có thể chọn cho Vi trong phiêu lưu tốt nhất sẽ là các sức mạnh giảm tiêu hao vì Vi sẽ cần dùng rất nhiều bài để mạnh, một số lựa chọn như [p:P0056|Rút Nhanh|icon], [p:P0113|Xả Phép Hàng Loạt|icon], [p:P0084|Cảm Hứng Dữ Dội|icon],...\\n-Đây là 1 vị tướng khá không quá mạnh và nổi bật cần phải có điều kiện mới có thể phát huy được tối đa sức mạnh.",
         "regions": [
           "PiltoverZaun"
         ],
@@ -6928,7 +6928,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -6945,7 +6945,7 @@
       "P0113",
       "P0375"
     ],
-    "description": "-Vi là 1 tướng combo cực mạnh bằng các lá bài tiêu hao thấp từ 1-3 tiêu hao.\n-Sức mạnh của Vi chủ yếu nằm ở khả năng sử dụng và rút bài liên tục nhờ vào sức mạnh, từ đó tăng tiến cho vị tướng này.\n-Lối chơi của Vi chia ra làm 2 hướng, trước khi có chòm C6 Chúng Ta Thống Trị Phố Phường thì vi sẽ đánh bằng máu theo sức mạnh 3 sao là Đấm Không Thương Tiếc sẽ cho máu và khí lực mỗi khi rút bài và cổ vật [k:Power|Sức Mạnh] Khỉ Đá cho phép gây sát thương dựa trên máu. Lối chơi thứ 2 khi có C6 Chúng Ta Thống Trị Phố Phường là việc bạn đánh bằng việc tích sát thương cho quân bằng cách dùng thật nhiều lá bài từ đó bài quân của bạn sẽ có sức tấn công siêu cao, cổ vật cho Vi theo lối chơi này là Nhà Thông Thái Phá Thành x3.  Ngoài ra cũng có những lối chơi với cách xây dựng cổ vật khác như Bộ Bài Đầy Ắp, Quái Thú Bên Trong, Khiên Đen,....\n-Các sức mạnh có thể chọn cho Vi trong phiêu lưu tốt nhất sẽ là các sức mạnh giảm tiêu hao vì Vi sẽ cần dùng rất nhiều bài để mạnh, một số lựa chọn như Rút [k:Fast|Nhanh], Xả Phép Hàng Loạt, Cảm Hứng Dữ Dội,...\n-Đây là 1 vị tướng khá không quá mạnh và nổi bật cần phải có điều kiện mới có thể phát huy được tối đa sức mạnh.",
+    "description": "-Vi là 1 tướng combo cực mạnh bằng các lá bài tiêu hao thấp từ 1-3 tiêu hao.\\n-Sức mạnh của Vi chủ yếu nằm ở khả năng sử dụng và rút bài liên tục nhờ vào sức mạnh, từ đó tăng tiến cho vị tướng này.\\n-Lối chơi của Vi chia ra làm 2 hướng, trước khi có chòm C6 [p:P0510|Chúng Ta Thống Trị Phố Phường|icon] thì vi sẽ đánh bằng máu theo sức mạnh 3 sao là [p:P0034|Đấm Không Thương Tiếc|icon] sẽ cho máu và khí lực mỗi khi rút bài và cổ vật [r:R0091|Sức Mạnh Khỉ Đá|icon] cho phép gây sát thương dựa trên máu. Lối chơi thứ 2 khi có C6 [p:P0510|Chúng Ta Thống Trị Phố Phường|icon] là việc bạn đánh bằng việc tích sát thương cho quân bằng cách dùng thật nhiều lá bài từ đó bài quân của bạn sẽ có sức tấn công siêu cao, cổ vật cho Vi theo lối chơi này là [r:R0038|Nhà Thông Thái Phá Thành|icon] x3.  Ngoài ra cũng có những lối chơi với cách xây dựng cổ vật khác như [r:R0116|Bộ Bài Đầy Ắp|icon], [r:R0080|Quái Thú Bên Trong|icon], [r:R0114|Khiên Đen|icon],....\\n-Các sức mạnh có thể chọn cho Vi trong phiêu lưu tốt nhất sẽ là các sức mạnh giảm tiêu hao vì Vi sẽ cần dùng rất nhiều bài để mạnh, một số lựa chọn như [p:P0056|Rút Nhanh|icon], [p:P0113|Xả Phép Hàng Loạt|icon], [p:P0084|Cảm Hứng Dữ Dội|icon],...\\n-Đây là 1 vị tướng khá không quá mạnh và nổi bật cần phải có điều kiện mới có thể phát huy được tối đa sức mạnh.",
     "startingDeck": {
       "referenceCards": [
         {
@@ -7138,7 +7138,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -7355,7 +7355,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -7575,7 +7575,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -7771,7 +7771,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -8217,7 +8217,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -8682,7 +8682,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -8922,7 +8922,7 @@
       "P0069",
       "P0327"
     ],
-    "description": "-[cd:03MT087|Aurelion Sol|icon,img-full] Ác Long Thượng Giới, vị tướng đặc biệt không thể sở hữu một cách bình thường mà phải tích lũy và nâng cấp dần thông qua việc mua mảnh trong cửa hàng vinh quang, chính vì thế sức mạnh của [cd:03MT087|Aurelion Sol|icon,img-full] vượt trội lên trên tất cả.\\n-Là vị tướng duy nhất có mốc sao tối đa là 4 Ác Long mang khả năng hủy duyệt mạnh mẽ, với việc giảm tiêu hao của các lá bài anh hùng khi dùng bài được tạo, kết hợp cùng việc khi triệu hồi thì thăng cấp anh hùng, mang đến cho Sol sức mạnh tuyệt đối.\\n-Hơi Thở Hỏa Tinh cho phép nhân đôi chỉ số của bài quân xuất trận khiến Sol không chỉ áp đảo về số lượng mà còn cả chất lượng.\\n-Những cổ vật và sức mạnh phù hợp cho [cd:03MT087|Aurelion Sol|icon,img-full] là những thứ có khả năng tạo bài ví dụ như: Lõi Công Nghệ Hoàn Hảo, Hòa Khí Ma Pháp, Sự [cd:06PZ025|Cô Độc|icon,img-full] Ngọt Ngào, Giác Quan Hoang Dã, Sản Phẩm Giả Mạo.\\n",
+    "description": "-[cd:03MT087|Aurelion Sol|icon,img-full] Ác Long Thượng Giới, vị tướng đặc biệt không thể sở hữu một cách bình thường mà phải tích lũy và nâng cấp dần thông qua việc mua mảnh trong cửa hàng vinh quang, chính vì thế sức mạnh của [cd:03MT087|Aurelion Sol|icon,img-full] vượt trội lên trên tất cả.\\n-Là vị tướng duy nhất có mốc sao tối đa là 4 Ác Long mang khả năng hủy duyệt mạnh mẽ, với việc giảm tiêu hao của các lá bài anh hùng khi dùng bài được tạo, kết hợp cùng việc khi triệu hồi thì thăng cấp anh hùng, mang đến cho Sol sức mạnh tuyệt đối.\\n-Hơi Thở Hỏa Tinh cho phép nhân đôi chỉ số của bài quân xuất trận khiến Sol không chỉ áp đảo về số lượng mà còn cả chất lượng.\\n-Những cổ vật và sức mạnh phù hợp cho [cd:03MT087|Aurelion Sol|icon,img-full] là những thứ có khả năng tạo bài ví dụ như: Lõi Công Nghệ Hoàn Hảo, Hòa Khí Ma Pháp, Sự Cô Độc Ngọt Ngào, Giác Quan Hoang Dã, Sản Phẩm Giả Mạo.\\n",
     "startingDeck": {
       "referenceCards": [],
       "baseCards": [
@@ -9097,7 +9097,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -9516,7 +9516,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -9725,7 +9725,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -9934,7 +9934,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -10157,7 +10157,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -10549,7 +10549,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -10758,7 +10758,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -10969,7 +10969,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -11286,7 +11286,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -11495,7 +11495,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -11708,7 +11708,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -12685,7 +12685,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -12880,7 +12880,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -13098,7 +13098,7 @@
     "translations": {
       "en": {
         "name": "Ahri",
-        "description": "-Ahri có lối chơi xoay quanh việc thu về, thông thường thì khi bạn thu về chỉ số và đặc điểm sẽ mất, nhưng với sức mạnh Lời Thì Thầm Từ Kiếp Trước cho phép Ahri giữ lại các chỉ số, đặc điểm được ban vĩnh viễn và còn được giảm tiêu hao.\n-Khi bạn triệu hồi hoặc thu về thì sẽ được ban linh hồn, qua đó gia tăng chỉ số một cách nhanh chóng.\n-Ahri kết hợp tốt với các cổ vật, vật phẩm giảm tiêu hao hoặc kích hoạt hiệu ứng triệu hồi / xuất trận.",
+        "description": "-Ahri có lối chơi xoay quanh việc thu về, thông thường thì khi bạn thu về chỉ số và đặc điểm sẽ mất, nhưng với sức mạnh [p:Lời Thì Thầm Từ Kiếp Trước] cho phép Ahri giữ lại các chỉ số, đặc điểm được ban vĩnh viễn và còn được giảm tiêu hao.\\n-Khi bạn triệu hồi hoặc thu về thì sẽ được ban linh hồn, qua đó gia tăng chỉ số một cách nhanh chóng.\\n-Ahri kết hợp tốt với các cổ vật, vật phẩm giảm tiêu hao hoặc kích hoạt hiệu ứng triệu hồi / xuất trận.",
         "regions": [
           "Ionia"
         ],
@@ -13127,7 +13127,7 @@
       "P0069",
       "P0084"
     ],
-    "description": "-Ahri có lối chơi xoay quanh việc thu về, thông thường thì khi bạn thu về chỉ số và đặc điểm sẽ mất, nhưng với sức mạnh [cd:04NX002|Lời Thì Thầm|icon,img-full] Từ Kiếp Trước cho phép Ahri giữ lại các chỉ số, đặc điểm được ban vĩnh viễn và còn được giảm tiêu hao.\n-Khi bạn triệu hồi hoặc thu về thì sẽ được ban linh hồn, qua đó gia tăng chỉ số một cách nhanh chóng.\n-Ahri kết hợp tốt với các cổ vật, vật phẩm giảm tiêu hao hoặc kích hoạt hiệu ứng triệu hồi / xuất trận.",
+    "description": "-Ahri có lối chơi xoay quanh việc thu về, thông thường thì khi bạn thu về chỉ số và đặc điểm sẽ mất, nhưng với sức mạnh [p:P0531|Lời Thì Thầm Từ Kiếp Trước|icon] cho phép Ahri giữ lại các chỉ số, đặc điểm được ban vĩnh viễn và còn được giảm tiêu hao.\\n-Khi bạn triệu hồi hoặc thu về thì sẽ được ban linh hồn, qua đó gia tăng chỉ số một cách nhanh chóng.\\n-Ahri kết hợp tốt với các cổ vật, vật phẩm giảm tiêu hao hoặc kích hoạt hiệu ứng triệu hồi / xuất trận.",
     "startingDeck": {
       "referenceCards": [
         {
@@ -13309,7 +13309,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -13504,7 +13504,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -13717,7 +13717,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -14140,7 +14140,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -14336,7 +14336,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -14724,7 +14724,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -14919,7 +14919,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -15114,7 +15114,7 @@
     "translations": {
       "en": {
         "name": "Nilah",
-        "description": "-Nilah là một tướng sẽ tập trung sức mạnh ở việc rút bài và dùng các lá bài phù du nhờ hiệu ứng nhân đôi lá bài từ Hiện Thân Của Niềm Vui.\n-Lá một tướng tiêu hao thấp và rút bài nhiều lối chơi của Nilah sẽ xoay quanh các sức mạnh giảm tiêu hao như Cảm Hứng Dữ Dội, Rút Nhanh hoặc cũng có thể chọn Thỏa Thuận Chớp Nhoáng giúp kích sức mạnh của tướng dễ dàng hơn.\n-Một vài cột vật tốt cho Nilah như Xẻng Của Kẻ Đào Mộ, Băng Cầu, Lời Thề Hộ Vệ, Ngọc Tinh Tú hoặc cổ vật mới gần đây là Binh Đoàn Vệ Binh.\n-Nhìn chung đây là 1 tướng thời kỳ đầu nên sức mạnh còn hạn chế nhưng nếu dùng để chơi đầu game thì cũng không quá tệ.",
+        "description": "-[cd:08BW008|Nilah|icon] là một tướng sẽ tập trung sức mạnh ở việc rút bài và dùng các lá bài phù du nhờ hiệu ứng nhân đôi lá bài từ [p:P0320|Hiện Thân Của Niềm Vui|icon].\\n-Lá một tướng tiêu hao thấp và rút bài nhiều lối chơi của [cd:08BW008|Nilah|icon] sẽ xoay quanh các sức mạnh giảm tiêu hao như [p:P0084|Cảm Hứng Dữ Dội|icon], [p:P0056|Rút Nhanh|icon] hoặc cũng có thể chọn [p:P0105|Thỏa Thuận Chớp Nhoáng|icon] giúp kích sức mạnh của tướng dễ dàng hơn.\\n-Một vài cột vật tốt cho [cd:08BW008|Nilah|icon] như [r:R0014|Xẻng Của Kẻ Đào Mộ|icon], [r:R0052|Băng Cầu|icon], [r:R0064|Lời Thề Hộ Vệ|icon], [r:R0043|Ngọc Tinh Tú|icon] hoặc cổ vật mới gần đây là [r:R0159|Binh Đoàn Vệ Binh|icon].\\n-Nhìn chung đây là 1 tướng thời kỳ đầu nên sức mạnh còn hạn chế nhưng nếu dùng để chơi đầu game thì cũng không quá tệ.",
         "regions": [
           "Bilgewater"
         ],
@@ -15125,7 +15125,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -15142,7 +15142,7 @@
       "P0451",
       "P0176"
     ],
-    "description": "-Nilah là một tướng sẽ tập trung sức mạnh ở việc rút bài và dùng các lá bài phù du nhờ hiệu ứng nhân đôi lá bài từ Hiện Thân Của Niềm Vui.\n-Lá một tướng tiêu hao thấp và rút bài nhiều lối chơi của Nilah sẽ xoay quanh các sức mạnh giảm tiêu hao như Cảm Hứng Dữ Dội, Rút [k:Fast|Nhanh] hoặc cũng có thể chọn Thỏa Thuận Chớp Nhoáng giúp kích sức mạnh của tướng dễ dàng hơn.\n-Một vài cột vật tốt cho Nilah như Xẻng Của Kẻ Đào Mộ, Băng Cầu, Lời Thề Hộ Vệ, Ngọc Tinh Tú hoặc cổ vật mới gần đây là Binh Đoàn Vệ Binh.\n-Nhìn chung đây là 1 tướng thời kỳ đầu nên sức mạnh còn hạn chế nhưng nếu dùng để chơi đầu game thì cũng không quá tệ.",
+    "description": "-[cd:08BW008|Nilah|icon] là một tướng sẽ tập trung sức mạnh ở việc rút bài và dùng các lá bài phù du nhờ hiệu ứng nhân đôi lá bài từ [p:P0320|Hiện Thân Của Niềm Vui|icon].\\n-Lá một tướng tiêu hao thấp và rút bài nhiều lối chơi của [cd:08BW008|Nilah|icon] sẽ xoay quanh các sức mạnh giảm tiêu hao như [p:P0084|Cảm Hứng Dữ Dội|icon], [p:P0056|Rút Nhanh|icon] hoặc cũng có thể chọn [p:P0105|Thỏa Thuận Chớp Nhoáng|icon] giúp kích sức mạnh của tướng dễ dàng hơn.\\n-Một vài cột vật tốt cho [cd:08BW008|Nilah|icon] như [r:R0014|Xẻng Của Kẻ Đào Mộ|icon], [r:R0052|Băng Cầu|icon], [r:R0064|Lời Thề Hộ Vệ|icon], [r:R0043|Ngọc Tinh Tú|icon] hoặc cổ vật mới gần đây là [r:R0159|Binh Đoàn Vệ Binh|icon].\\n-Nhìn chung đây là 1 tướng thời kỳ đầu nên sức mạnh còn hạn chế nhưng nếu dùng để chơi đầu game thì cũng không quá tệ.",
     "startingDeck": {
       "referenceCards": [],
       "baseCards": [
@@ -15333,7 +15333,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -15546,7 +15546,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -15768,7 +15768,7 @@
     "translations": {
       "en": {
         "name": "Aatrox",
-        "description": "-Quỷ Kiếm Darkin, lối chơi kiểm soát bằng cách sử dụng các trang bị Darkin. \n-Sức mạnh của [cd:06RU026|Aatrox|icon,img-full] nằm phần lớn ở sức mạnh Xiềng Xích Địa Ngục giúp giảm tiêu hao bài trên tay khi đồng minh mang trang bị ra đòn, nghĩa là bạn ra đòn bằng bài quân mang trang bị càng nhiều thì những lá bài trên tay bàng càng dễ sử dụng, khi mở khóa mốc sao Trang Bị Tận Răng thì bài quân có thêm +2|+2 làm cho các bài quân của bạn trở nên cứng cáp và trao đổi hiệu quả hơn nhiều.\n-Vì là 1 tướng cần set up nên [cd:06RU026|Aatrox|icon,img-full]  rất tốn năng lượng nên bạn có thể nâng hoặc lấy các sức mạnh, vật phẩm liên qua đến giảm năng lượng để dễ triển khai hơn, với sức mạnh thì tốt nhất là Pháp Thuật cho bạn năng lượng bài phép để lắp trang bị hoặc những sức mạnh triệu hồi quân khi bắt đầu trận đấu để thay vì việc bỏ năng lượng ra để triệu hồi quân sau đó lắp trang bị thì giờ bạn chỉ cần lắp trang bị lên bài quân có sẵn trên bàn (tin tôi đi nó sẽ hiệu giúp bạn triển khai hiệu quả hơn rất nhiều :D)\n-Có 1 mẹo giúp bạn có 2 [cd:06RU026|Aatrox|icon,img-full]  là bạn hãy lắp trang bị Darkin cho một tùy tùng khác sau đó dùng Chiến binh tận thế thì bạn sẽ có được 2 [cd:06RU026|Aatrox|icon,img-full]. Cách làm sẽ là lắp 1 trang bị bất kì vào [cd:06RU026|Aatrox|icon,img-full] để tháo trang bị Darkin của hắn ra -> lắp trang bị Quỷ Kiếm Darkin vào tùy tùng khác -> dùng Chiến binh tận thế. ",
+        "description": "-[cd:06RU026T1|Quỷ Kiếm Darkin|icon,img-full], lối chơi kiểm soát bằng cách sử dụng các trang bị Darkin. \\n-Sức mạnh của [c:C076|Aatrox |icon,img-full]nằm phần lớn ở sức mạnh [p:P0158|Xiềng Xích Địa Ngục|icon] giúp giảm tiêu hao bài trên tay khi đồng minh mang trang bị ra đòn, nghĩa là bạn ra đòn bằng bài quân mang trang bị càng nhiều thì những lá bài trên tay bàng càng dễ sử dụng, khi mở khóa mốc sao [p:P0389|Trang Bị Tận Răng|icon] thì bài quân có thêm +2|+2 làm cho các bài quân của bạn trở nên cứng cáp và trao đổi hiệu quả hơn nhiều.\\n-Vì là 1 tướng cần set up nên [cd:06RU026|Aatrox |icon] rất tốn năng lượng nên bạn có thể nâng hoặc lấy các sức mạnh, vật phẩm liên qua đến giảm năng lượng để dễ triển khai hơn, với sức mạnh thì tốt nhất là [p:P0111|Pháp Thuật|icon] cho bạn năng lượng bài phép để lắp trang bị hoặc những sức mạnh triệu hồi quân khi bắt đầu trận đấu để thay vì việc bỏ năng lượng ra để triệu hồi quân sau đó lắp trang bị thì giờ bạn chỉ cần lắp trang bị lên bài quân có sẵn trên bàn (tin tôi đi nó sẽ hiệu giúp bạn triển khai hiệu quả hơn rất nhiều :D)\\n-Có 1 mẹo giúp bạn có 2 [cd:06RU026|Aatrox |icon] là bạn hãy lắp trang bị Darkin cho một tùy tùng khác sau đó dùng [cd:06RU026T7|Chiến binh tận thế|icon] thì bạn sẽ có được 2 [cd:06RU026|Aatrox|icon]. Cách làm sẽ là lắp 1 trang bị bất kì vào [cd:06RU026|Aatrox|icon] để tháo trang bị Darkin của hắn ra -> lắp trang bị [cd:06RU026T1|Quỷ Kiếm Darkin|icon,img-full] vào tùy tùng khác -> dùng [cd:06RU026T7|Chiến binh tận thế|icon]. ",
         "regions": [
           "Runeterra"
         ],
@@ -15796,7 +15796,7 @@
       "P0389",
       "P0053"
     ],
-    "description": "-[cd:06RU026T1|Quỷ Kiếm Darkin|icon,img-full], lối chơi kiểm soát bằng cách sử dụng các trang bị Darkin. \n-Sức mạnh của Aatrox nằm phần lớn ở sức mạnh Xiềng Xích Địa Ngục giúp giảm tiêu hao bài trên tay khi đồng minh mang trang bị ra đòn, nghĩa là bạn ra đòn bằng bài quân mang trang bị càng nhiều thì những lá bài trên tay bàng càng dễ sử dụng, khi mở khóa mốc sao Trang Bị Tận Răng thì bài quân có thêm +2|+2 làm cho các bài quân của bạn trở nên cứng cáp và trao đổi hiệu quả hơn nhiều.\n-Vì là 1 tướng cần set up nên Aatrox  rất tốn năng lượng nên bạn có thể nâng hoặc lấy các sức mạnh, vật phẩm liên qua đến giảm năng lượng để dễ triển khai hơn, với sức mạnh thì tốt nhất là Pháp Thuật cho bạn năng lượng bài phép để lắp trang bị hoặc những sức mạnh triệu hồi quân khi bắt đầu trận đấu để thay vì việc bỏ năng lượng ra để triệu hồi quân sau đó lắp trang bị thì giờ bạn chỉ cần lắp trang bị lên bài quân có sẵn trên bàn (tin tôi đi nó sẽ hiệu giúp bạn triển khai hiệu quả hơn rất nhiều :D)\n-Có 1 mẹo giúp bạn có 2 Aatrox  là bạn hãy lắp trang bị Darkin cho một tùy tùng khác sau đó dùng Chiến binh tận thế thì bạn sẽ có được 2 Aatrox. Cách làm sẽ là lắp 1 trang bị bất kì vào Aatrox để tháo trang bị Darkin của hắn ra -> lắp trang bị [cd:06RU026T1|Quỷ Kiếm Darkin|icon,img-full] vào tùy tùng khác -> dùng Chiến binh tận thế. ",
+    "description": "-[cd:06RU026T1|Quỷ Kiếm Darkin|icon,img-full], lối chơi kiểm soát bằng cách sử dụng các trang bị Darkin. \\n-Sức mạnh của [c:C076|Aatrox |icon,img-full]nằm phần lớn ở sức mạnh [p:P0158|Xiềng Xích Địa Ngục|icon] giúp giảm tiêu hao bài trên tay khi đồng minh mang trang bị ra đòn, nghĩa là bạn ra đòn bằng bài quân mang trang bị càng nhiều thì những lá bài trên tay bàng càng dễ sử dụng, khi mở khóa mốc sao [p:P0389|Trang Bị Tận Răng|icon] thì bài quân có thêm +2|+2 làm cho các bài quân của bạn trở nên cứng cáp và trao đổi hiệu quả hơn nhiều.\\n-Vì là 1 tướng cần set up nên [cd:06RU026|Aatrox |icon] rất tốn năng lượng nên bạn có thể nâng hoặc lấy các sức mạnh, vật phẩm liên qua đến giảm năng lượng để dễ triển khai hơn, với sức mạnh thì tốt nhất là [p:P0111|Pháp Thuật|icon] cho bạn năng lượng bài phép để lắp trang bị hoặc những sức mạnh triệu hồi quân khi bắt đầu trận đấu để thay vì việc bỏ năng lượng ra để triệu hồi quân sau đó lắp trang bị thì giờ bạn chỉ cần lắp trang bị lên bài quân có sẵn trên bàn (tin tôi đi nó sẽ hiệu giúp bạn triển khai hiệu quả hơn rất nhiều :D)\\n-Có 1 mẹo giúp bạn có 2 [cd:06RU026|Aatrox |icon] là bạn hãy lắp trang bị Darkin cho một tùy tùng khác sau đó dùng [cd:06RU026T7|Chiến binh tận thế|icon] thì bạn sẽ có được 2 [cd:06RU026|Aatrox|icon]. Cách làm sẽ là lắp 1 trang bị bất kì vào [cd:06RU026|Aatrox|icon] để tháo trang bị Darkin của hắn ra -> lắp trang bị [cd:06RU026T1|Quỷ Kiếm Darkin|icon,img-full] vào tùy tùng khác -> dùng [cd:06RU026T7|Chiến binh tận thế|icon]. ",
     "startingDeck": {
       "referenceCards": [
         {
@@ -16123,7 +16123,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -16322,7 +16322,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -16339,7 +16339,7 @@
       "P0118",
       "P0058"
     ],
-    "description": "-Kayle mang lối chơi tăng tiến sức mạnh siêu mạnh mẽ từ việc nhận chỉ số từ mọi nguồn và ban ngược lượng chỉ số đó về lại trên tay.\\n-Các lá bài mạnh: Phước lành của Mikhael, Học giả hiến sinh, Khiên trời giáng, Nữ vệ Solari. Các lá bài giúp bạn có khả năng nhận chỉ số và câu kéo đến khi triệu hồi được Kayle. [cd:06RU001T3|Chuông|icon,img-full] Mikhael có khả năng xóa cảm tử nếu bạn chưa biết.\\n-Sức mạnh của Kayle là khi bài quân trên bàn đấu nhận chỉ số lượng chỉ số đó sẽ được ban ngược lại trên tay, mọi nguồn chỉ số đều tính hết nên khả năng tương tác với các sức mạnh trong phiêu lưu của Kayle cực cao và với cổ vật sức mạnh của Kayle còn tương tác được với Bí kỹ bài quân trên tay sẽ nhận được gấp đôi chỉ số của bài phép.\\n-Các sức mạnh nên chọn khi phiêu đương nhiên là các sức mạnh cộng chỉ số cho Kayle rồi.\\n-Bạn có thể làm 1 combo để phòng thủ với Học giả hiến sinh và Khiên trời giáng khi có thể chặn 1 bài quân và choáng 1 con, sau khi Học giả hiến sinh trăn trối sẽ tạo lại 1 lá Khiên trời giáng nữa.",
+    "description": "-Kayle mang lối chơi tăng tiến sức mạnh siêu mạnh mẽ từ việc nhận chỉ số từ mọi nguồn và ban ngược lượng chỉ số đó về lại trên tay.\\n-Các lá bài mạnh: Phước lành của Mikhael, Học giả hiến sinh, Khiên trời giáng, Nữ vệ Solari. Các lá bài giúp bạn có khả năng nhận chỉ số và câu kéo đến khi triệu hồi được Kayle. Chuông Mikhael có khả năng xóa cảm tử nếu bạn chưa biết.\\n-Sức mạnh của Kayle là khi bài quân trên bàn đấu nhận chỉ số lượng chỉ số đó sẽ được ban ngược lại trên tay, mọi nguồn chỉ số đều tính hết nên khả năng tương tác với các sức mạnh trong phiêu lưu của Kayle cực cao và với cổ vật sức mạnh của Kayle còn tương tác được với Bí kỹ bài quân trên tay sẽ nhận được gấp đôi chỉ số của bài phép.\\n-Các sức mạnh nên chọn khi phiêu đương nhiên là các sức mạnh cộng chỉ số cho Kayle rồi.\\n-Bạn có thể làm 1 combo để phòng thủ với Học giả hiến sinh và Khiên trời giáng khi có thể chặn 1 bài quân và choáng 1 con, sau khi Học giả hiến sinh trăn trối sẽ tạo lại 1 lá Khiên trời giáng nữa.",
     "startingDeck": {
       "referenceCards": [
         {
@@ -16549,7 +16549,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -16740,7 +16740,7 @@
     "translations": {
       "en": {
         "name": "Illaoi",
-        "description": "-Illaoi có khả năng tấn công mạnh mẽ từ việc tăng chỉ số cho bản thân và xúc tu. Sở hữu sức mạnh phù hợp cùng khả năng cộng dồn mạnh mẽ Illaoi có thể OTK kẻ địch tron 1 vòng đấu với cổ vật phù hơp.\\n-Các lá bài nổi bật: Lời nguyện cầu được hồi đáp, Âm vang biển cả, Con mắt của [cd:06BW011|Nagakabouros|icon,img-full]. Những lá bài mạnh mẽ cho phép rút bài, triệu hồi xúc tu để phòng thủ đến lúc triệu hồi được [cd:06BW006|Illaoi|icon,img-full].\\n-Các sức mạnh nên chọn khi phiêu lưu là cá sức mạnh giúp triệu hồi được [cd:06BW006|Illaoi|icon,img-full] sớm và giảm tiêu hao bài phép vì các bài phép cũng đóng một vai trò rất quan trọng trong lối chơi của [cd:06BW006|Illaoi|icon,img-full].\\n-Về cách chơi và cách combo bạn hãy phòng thủ cho đến vòng 3 và hãy đảm bảo rằng bạn có sẵn 1 bài quân trên sân để có thể combo cùng Mảnh sao biến đổi nếu có và nếu bài quân đó là xúc tu thì càng tốt. Bạn sẽ triệu hồi Illao và dùng [cd:06BW006|Illaoi|icon,img-full] hấp thụ 1 bài quân đồng mình để bà ta gây đủ lượng DMG cần thiết để lên cấp sau đó hãy tiến công thêm lần nữa là được lúc đấy hãy hấp thụ xúc tu nếu bạn cảm giác bạn đã đủ sát thương kết thúc ván đấu.",
+        "description": "-Illaoi có khả năng tấn công mạnh mẽ từ việc tăng chỉ số cho bản thân và xúc tu. Sở hữu sức mạnh phù hợp cùng khả năng cộng dồn mạnh mẽ Illaoi có thể OTK kẻ địch tron 1 vòng đấu với cổ vật phù hơp.\\n-Các lá bài nổi bật: Lời nguyện cầu được hồi đáp, Âm vang biển cả, Con mắt của Nagakabouros. Những lá bài mạnh mẽ cho phép rút bài, triệu hồi xúc tu để phòng thủ đến lúc triệu hồi được Illaoi.\\n-Các sức mạnh nên chọn khi phiêu lưu là cá sức mạnh giúp triệu hồi được Illaoi sớm và giảm tiêu hao bài phép vì các bài phép cũng đóng một vai trò rất quan trọng trong lối chơi của Illaoi.\\n-Về cách chơi và cách combo bạn hãy phòng thủ cho đến vòng 3 và hãy đảm bảo rằng bạn có sẵn 1 bài quân trên sân để có thể combo cùng Mảnh sao biến đổi nếu có và nếu bài quân đó là xúc tu thì càng tốt. Bạn sẽ triệu hồi Illao và dùng Illaoi hấp thụ 1 bài quân đồng mình để bà ta gây đủ lượng DMG cần thiết để lên cấp sau đó hãy tiến công thêm lần nữa là được lúc đấy hãy hấp thụ xúc tu nếu bạn cảm giác bạn đã đủ sát thương kết thúc ván đấu.",
         "regions": [
           "Bilgewater"
         ],
@@ -16760,7 +16760,7 @@
       "P0113",
       "P0325"
     ],
-    "description": "-Illaoi có khả năng tấn công mạnh mẽ từ việc tăng chỉ số cho bản thân và xúc tu. Sở hữu sức mạnh phù hợp cùng khả năng cộng dồn mạnh mẽ Illaoi có thể OTK kẻ địch tron 1 vòng đấu với cổ vật phù hơp.\\n-Các lá bài nổi bật: Lời nguyện cầu được hồi đáp, Âm vang biển cả, Con mắt của [cd:06BW011|Nagakabouros|icon,img-full]. Những lá bài mạnh mẽ cho phép rút bài, triệu hồi xúc tu để phòng thủ đến lúc triệu hồi được [cd:06BW006|Illaoi|icon,img-full].\\n-Các sức mạnh nên chọn khi phiêu lưu là cá sức mạnh giúp triệu hồi được [cd:06BW006|Illaoi|icon,img-full] sớm và giảm tiêu hao bài phép vì các bài phép cũng đóng một vai trò rất quan trọng trong lối chơi của [cd:06BW006|Illaoi|icon,img-full].\\n-Về cách chơi và cách combo bạn hãy phòng thủ cho đến vòng 3 và hãy đảm bảo rằng bạn có sẵn 1 bài quân trên sân để có thể combo cùng Mảnh sao biến đổi nếu có và nếu bài quân đó là xúc tu thì càng tốt. Bạn sẽ triệu hồi Illao và dùng [cd:06BW006|Illaoi|icon,img-full] hấp thụ 1 bài quân đồng mình để bà ta gây đủ lượng DMG cần thiết để lên cấp sau đó hãy tiến công thêm lần nữa là được lúc đấy hãy hấp thụ xúc tu nếu bạn cảm giác bạn đã đủ sát thương kết thúc ván đấu.",
+    "description": "-Illaoi có khả năng tấn công mạnh mẽ từ việc tăng chỉ số cho bản thân và xúc tu. Sở hữu sức mạnh phù hợp cùng khả năng cộng dồn mạnh mẽ Illaoi có thể OTK kẻ địch tron 1 vòng đấu với cổ vật phù hơp.\\n-Các lá bài nổi bật: Lời nguyện cầu được hồi đáp, Âm vang biển cả, Con mắt của Nagakabouros. Những lá bài mạnh mẽ cho phép rút bài, triệu hồi xúc tu để phòng thủ đến lúc triệu hồi được Illaoi.\\n-Các sức mạnh nên chọn khi phiêu lưu là cá sức mạnh giúp triệu hồi được Illaoi sớm và giảm tiêu hao bài phép vì các bài phép cũng đóng một vai trò rất quan trọng trong lối chơi của Illaoi.\\n-Về cách chơi và cách combo bạn hãy phòng thủ cho đến vòng 3 và hãy đảm bảo rằng bạn có sẵn 1 bài quân trên sân để có thể combo cùng Mảnh sao biến đổi nếu có và nếu bài quân đó là xúc tu thì càng tốt. Bạn sẽ triệu hồi Illao và dùng Illaoi hấp thụ 1 bài quân đồng mình để bà ta gây đủ lượng DMG cần thiết để lên cấp sau đó hãy tiến công thêm lần nữa là được lúc đấy hãy hấp thụ xúc tu nếu bạn cảm giác bạn đã đủ sát thương kết thúc ván đấu.",
     "startingDeck": {
       "referenceCards": [],
       "baseCards": [
@@ -17224,7 +17224,7 @@
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -17450,15 +17450,14 @@
         "description": "Nunu tướng mới của LOR, đây là tướng đánh theo lối chơi lăn cầu tuyết, với cách chơi chủ đạo xoay quanh lá cầu tuyết và Nunu.\\nBằng việc xuất trận 1 bài quân, bạn sẽ tăng chỉ số có các bài quân có trong bộ bài, tăng nhiều hơn nếu là Yeti hoặc bài quân 5+ tiêu hao. \\nSức mạnh của Nunu nằm ở việc tạo các lá cầu tuyết, tích chỉ số, rút bài và lặp lại vòng lặp đó đến khi chỉ số bạn cộng đủ nhiều, giống với 1 quả cầu tuyết đang lăn sẽ to dần vậy. \\nLối chơi tương tự Ahri hoa linh và Viego, bạn sẽ gọi các bài quân cảm tử có thách đấu và chỉ số cao sau đó công lên.\\nCổ vật cho Nunu & Willum sẽ là Kéo Cắt Ma Quái giúp vị tướng này triệu hồi nhiều cầu tuyết và thăng cấp nhanh hơn, Tìm Thấy Thần Tài cũng là 1 sự lựa chọn đáng cân nhắc khi mang cho Nunu bạn sẽ rút bài quân 1 tiêu hao và tỉ lệ rút được Cầu Tuyết là rất cao, Dấu Vết Tử Thần sẽ Nunu bất tử khi tấn công giúp bạn tích Cầu Tuyết dễ dàng hơn mà không sợ mất tướng nữa, Mảnh Sao Biến Đổi 1 cổ vật hỗ trợ cũng rất tốt khi đi kèm với Kéo khi đó bạn vừa tích Cầu Tuyết nhanh vừa tăng tiến được chỉ số cho Nunu.\\nNhìn chung lối chơi của Nunu không quá đột phá với các vị tướng khác của Freljrod, cũng không quá mới mẽ khi trước đó đã có Ahri Hoa Linh và Viego có cách chơi tương tự, nhưng dù sao cũng là một tướng khá tốt mà bạn nên thử.\\n--EVIN-- ('-'  )",
         "regions": [
           "Freljord"
-        ],
-        "descriptionRaw": "Nunu tướng mới của LOR, đây là tướng đánh theo lối chơi lăn cầu tuyết, với cách chơi chủ đạo xoay quanh lá cầu tuyết và Nunu.\\nBằng việc xuất trận 1 bài quân, bạn sẽ tăng chỉ số có các bài quân có trong bộ bài, tăng nhiều hơn nếu là Yeti hoặc bài quân 5+ tiêu hao. \\nSức mạnh của Nunu nằm ở việc tạo các lá cầu tuyết, tích chỉ số, rút bài và lặp lại vòng lặp đó đến khi chỉ số bạn cộng đủ nhiều, giống với 1 quả cầu tuyết đang lăn sẽ to dần vậy. \\nLối chơi tương tự Ahri hoa linh và Viego, bạn sẽ gọi các bài quân cảm tử có thách đấu và chỉ số cao sau đó công lên.\\nCổ vật cho Nunu & Willum sẽ là Kéo Cắt Ma Quái giúp vị tướng này triệu hồi nhiều cầu tuyết và thăng cấp nhanh hơn, Tìm Thấy Thần Tài cũng là 1 sự lựa chọn đáng cân nhắc khi mang cho Nunu bạn sẽ rút bài quân 1 tiêu hao và tỉ lệ rút được Cầu Tuyết là rất cao, Dấu Vết Tử Thần sẽ Nunu bất tử khi tấn công giúp bạn tích Cầu Tuyết dễ dàng hơn mà không sợ mất tướng nữa, Mảnh Sao Biến Đổi 1 cổ vật hỗ trợ cũng rất tốt khi đi kèm với Kéo khi đó bạn vừa tích Cầu Tuyết nhanh vừa tăng tiến được chỉ số cho Nunu.\\nNhìn chung lối chơi của Nunu không quá đột phá với các vị tướng khác của Freljrod, cũng không quá mới mẽ khi trước đó đã có Ahri Hoa Linh và Viego có cách chơi tương tự, nhưng dù sao cũng là một tướng khá tốt mà bạn nên thử.\\n--EVIN-- ('-'  )"
+        ]
       }
     },
     "ratings": {
       "damage": 5,
       "synergy": 5,
       "defense": 5,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 5,
       "consistency": 5,
       "speed": 5
@@ -17476,7 +17475,7 @@
       "P0062",
       "P0327"
     ],
-    "description": "Nunu tướng mới của LOR, đây là tướng đánh theo lối chơi lăn cầu tuyết, với cách chơi chủ đạo xoay quanh lá cầu tuyết và Nunu.\\nBằng việc xuất trận 1 bài quân, bạn sẽ tăng chỉ số có các bài quân có trong bộ bài, tăng nhiều hơn nếu là Yeti hoặc bài quân 5+ tiêu hao. \\nSức mạnh của Nunu nằm ở việc tạo các lá cầu tuyết, tích chỉ số, rút bài và lặp lại vòng lặp đó đến khi chỉ số bạn cộng đủ nhiều, giống với 1 quả cầu tuyết đang lăn sẽ to dần vậy. \\nLối chơi tương tự Ahri hoa linh và Viego, bạn sẽ gọi các bài quân cảm tử có thách đấu và chỉ số cao sau đó công lên.\\nCổ vật cho Nunu & Willum sẽ là Kéo Cắt Ma Quái giúp vị tướng này triệu hồi nhiều cầu tuyết và thăng cấp nhanh hơn, Tìm Thấy Thần Tài cũng là 1 sự lựa chọn đáng cân nhắc khi mang cho Nunu bạn sẽ rút bài quân 1 tiêu hao và tỉ lệ rút được [cd:98FR025|Cầu Tuyết|icon,img-full] là rất cao, Dấu Vết Tử Thần sẽ Nunu bất tử khi tấn công giúp bạn tích [cd:98FR025|Cầu Tuyết|icon,img-full] dễ dàng hơn mà không sợ mất tướng nữa, Mảnh Sao Biến Đổi 1 cổ vật hỗ trợ cũng rất tốt khi đi kèm với Kéo khi đó bạn vừa tích [cd:98FR025|Cầu Tuyết|icon,img-full] nhanh vừa tăng tiến được chỉ số cho Nunu.\\nNhìn chung lối chơi của Nunu không quá đột phá với các vị tướng khác của Freljrod, cũng không quá mới mẽ khi trước đó đã có Ahri Hoa Linh và Viego có cách chơi tương tự, nhưng dù sao cũng là một tướng khá tốt mà bạn nên thử.\\n--EVIN--",
+    "description": "Nunu tướng mới của LOR, đây là tướng đánh theo lối chơi lăn cầu tuyết, với cách chơi chủ đạo xoay quanh lá cầu tuyết và Nunu.\\nBằng việc xuất trận 1 bài quân, bạn sẽ tăng chỉ số có các bài quân có trong bộ bài, tăng nhiều hơn nếu là Yeti hoặc bài quân 5+ tiêu hao. \\nSức mạnh của Nunu nằm ở việc tạo các lá cầu tuyết, tích chỉ số, rút bài và lặp lại vòng lặp đó đến khi chỉ số bạn cộng đủ nhiều, giống với 1 quả cầu tuyết đang lăn sẽ to dần vậy. \\nLối chơi tương tự Ahri hoa linh và Viego, bạn sẽ gọi các bài quân cảm tử có thách đấu và chỉ số cao sau đó công lên.\\nCổ vật cho Nunu & Willum sẽ là Kéo Cắt Ma Quái giúp vị tướng này triệu hồi nhiều cầu tuyết và thăng cấp nhanh hơn, Tìm Thấy Thần Tài cũng là 1 sự lựa chọn đáng cân nhắc khi mang cho Nunu bạn sẽ rút bài quân 1 tiêu hao và tỉ lệ rút được Cầu Tuyết là rất cao, Dấu Vết Tử Thần sẽ Nunu bất tử khi tấn công giúp bạn tích Cầu Tuyết dễ dàng hơn mà không sợ mất tướng nữa, Mảnh Sao Biến Đổi 1 cổ vật hỗ trợ cũng rất tốt khi đi kèm với Kéo khi đó bạn vừa tích Cầu Tuyết nhanh vừa tăng tiến được chỉ số cho Nunu.\\nNhìn chung lối chơi của Nunu không quá đột phá với các vị tướng khác của Freljrod, cũng không quá mới mẽ khi trước đó đã có Ahri Hoa Linh và Viego có cách chơi tương tự, nhưng dù sao cũng là một tướng khá tốt mà bạn nên thử.\\n--EVIN--",
     "startingDeck": {
       "referenceCards": [
         {
@@ -17591,8 +17590,7 @@
     },
     "tags": [
       "Snowball"
-    ],
-    "descriptionRaw": "Nunu tướng mới của LOR, đây là tướng đánh theo lối chơi lăn cầu tuyết, với cách chơi chủ đạo xoay quanh lá cầu tuyết và Nunu.\\nBằng việc xuất trận 1 bài quân, bạn sẽ tăng chỉ số có các bài quân có trong bộ bài, tăng nhiều hơn nếu là Yeti hoặc bài quân 5+ tiêu hao. \\nSức mạnh của Nunu nằm ở việc tạo các lá cầu tuyết, tích chỉ số, rút bài và lặp lại vòng lặp đó đến khi chỉ số bạn cộng đủ nhiều, giống với 1 quả cầu tuyết đang lăn sẽ to dần vậy. \\nLối chơi tương tự Ahri hoa linh và Viego, bạn sẽ gọi các bài quân cảm tử có thách đấu và chỉ số cao sau đó công lên.\\nCổ vật cho Nunu & Willum sẽ là Kéo Cắt Ma Quái giúp vị tướng này triệu hồi nhiều cầu tuyết và thăng cấp nhanh hơn, Tìm Thấy Thần Tài cũng là 1 sự lựa chọn đáng cân nhắc khi mang cho Nunu bạn sẽ rút bài quân 1 tiêu hao và tỉ lệ rút được Cầu Tuyết là rất cao, Dấu Vết Tử Thần sẽ Nunu bất tử khi tấn công giúp bạn tích Cầu Tuyết dễ dàng hơn mà không sợ mất tướng nữa, Mảnh Sao Biến Đổi 1 cổ vật hỗ trợ cũng rất tốt khi đi kèm với Kéo khi đó bạn vừa tích Cầu Tuyết nhanh vừa tăng tiến được chỉ số cho Nunu.\\nNhìn chung lối chơi của Nunu không quá đột phá với các vị tướng khác của Freljrod, cũng không quá mới mẽ khi trước đó đã có Ahri Hoa Linh và Viego có cách chơi tương tự, nhưng dù sao cũng là một tướng khá tốt mà bạn nên thử.\\n--EVIN--"
+    ]
   },
   {
     "relicSets": [
@@ -17656,7 +17654,7 @@
     "translations": {
       "en": {
         "name": "Udyr",
-        "description": "-Udyr là 1 tướng đánh bằng bài quân, các bài phép và hiệu ứng tăng chỉ số.\n-Lối chơi chủ dạo sẽ xoay quanh các lá Đổi Thế Võ, với áp đảo, hồi phục, cộng chỉ số và gây sát thương.\n-Nhìn chung lối chơi của Udyr sẽ là việc bạn dùng các lá Đổi Thế Võ để cường hóa 1 bài quân chủ lực thường là Udyr để đánh carry, nên là khá dễ bị khắc chế khi gặp các hiệu ứng khó chịu như choáng và đóng băng.\n-Các triển khai tốt nhất cho vị tướng này trong lúc đi game là tìm các vật phẩm, cổ vật, và sức mạnh để có thể triệu hồi được Udyr sớm để buff chỉ số.\n-Sức mạnh ưu tiên nên lấy cho Udyr là các sức mạnh giảm tiêu hao bài phép hoặc hồi năng lượng bài phép. Cũng có thể lấy Chia Sẻ Phú Quý để nhân đôi hiệu ứng từ lá Đổi Thế Võ hoặc Thống Trị để có thể nhận lá Đổi Thế Võ mỗi vòng.\n-Về cổ vật thì Bí Kỹ là lựa chọn tốt nhất khiUdyr có khá nhiều bài phép ban chỉ số và xoay quanh lối chơi này, Lựa Chọn Của Tinh Tú nếu bạn muốn đánh carry bằng Udyr, Máy Sao Chép Hóa Kỹ để nhân đôi hiệu ứng phép nếu muốn hoặc Sách Ẩn để dùng được nhiều bài phép hơn.",
+        "description": "-[cd:05FR013|Udyr|icon,img-full] là 1 tướng đánh bằng bài quân, các bài phép và hiệu ứng tăng chỉ số.\\n-Lối chơi chủ dạo sẽ xoay quanh các lá [cd:05FR010|Đổi Thế Võ|icon,img-full], với áp đảo, hồi phục, cộng chỉ số và gây sát thương.\\n-Nhìn chung lối chơi của [cd:05FR013|Udyr |icon,img-full]sẽ là việc bạn dùng các lá [cd:05FR010|Đổi Thế Võ|icon,img-full] để cường hóa 1 bài quân chủ lực thường là [cd:05FR013|Udyr|icon,img-full] để đánh carry, nên là khá dễ bị khắc chế khi gặp các hiệu ứng khó chịu như choáng và đóng băng.\\n-Các triển khai tốt nhất cho vị tướng này trong lúc đi game là tìm các vật phẩm, cổ vật, và sức mạnh để có thể triệu hồi được [cd:05FR013|Udyr|icon,img-full] sớm để buff chỉ số.\\n-Sức mạnh ưu tiên nên lấy cho [cd:05FR013|Udyr|icon,img-full] là các sức mạnh giảm tiêu hao bài phép hoặc hồi năng lượng bài phép. Cũng có thể lấy [p:P0118|Chia Sẻ Phú Quý|icon,img-full] để nhân đôi hiệu ứng từ lá [cd:05FR010|Đổi Thế Võ|icon,img-full] hoặc [p:P0112|Thống Trị|icon,img-full] để có thể nhận lá [cd:05FR010|Đổi Thế Võ|icon,img-full] mỗi vòng.\\n-Về cổ vật thì [r:R0085|Bí Kỹ|icon,img-full] là lựa chọn tốt nhất khi[cd:05FR013|Udyr|icon,img-full] có khá nhiều bài phép ban chỉ số và xoay quanh lối chơi này, [r:R0058|Lựa Chọn Của Tinh Tú|icon,img-full] nếu bạn muốn đánh carry bằng [cd:05FR013|Udyr|icon,img-full], [r:R0048|Máy Sao Chép Hóa Kỹ|icon,img-full] để nhân đôi hiệu ứng phép nếu muốn hoặc [r:R0113|Sách Ẩn|icon,img-full] để dùng được nhiều bài phép hơn.",
         "regions": [
           "Freljord"
         ],
@@ -17687,7 +17685,7 @@
       "P0223",
       "P0084"
     ],
-    "description": "-Udyr là 1 tướng đánh bằng bài quân, các bài phép và hiệu ứng tăng chỉ số.\n-Lối chơi chủ dạo sẽ xoay quanh các lá [cd:05FR010|Đổi Thế Võ|icon,img-full], với áp đảo, hồi phục, cộng chỉ số và gây sát thương.\n-Nhìn chung lối chơi của Udyr sẽ là việc bạn dùng các lá [cd:05FR010|Đổi Thế Võ|icon,img-full] để cường hóa 1 bài quân chủ lực thường là Udyr để đánh carry, nên là khá dễ bị khắc chế khi gặp các hiệu ứng khó chịu như choáng và đóng băng.\n-Các triển khai tốt nhất cho vị tướng này trong lúc đi game là tìm các vật phẩm, cổ vật, và sức mạnh để có thể triệu hồi được Udyr sớm để buff chỉ số.\n-Sức mạnh ưu tiên nên lấy cho Udyr là các sức mạnh giảm tiêu hao bài phép hoặc hồi năng lượng bài phép. Cũng có thể lấy Chia Sẻ Phú Quý để nhân đôi hiệu ứng từ lá [cd:05FR010|Đổi Thế Võ|icon,img-full] hoặc Thống Trị để có thể nhận lá [cd:05FR010|Đổi Thế Võ|icon,img-full] mỗi vòng.\n-Về cổ vật thì Bí Kỹ là lựa chọn tốt nhất khiUdyr có khá nhiều bài phép ban chỉ số và xoay quanh lối chơi này, Lựa Chọn Của Tinh Tú nếu bạn muốn đánh carry bằng Udyr, Máy Sao Chép Hóa Kỹ để nhân đôi hiệu ứng phép nếu muốn hoặc Sách Ẩn để dùng được nhiều bài phép hơn.",
+    "description": "-[cd:05FR013|Udyr|icon,img-full] là 1 tướng đánh bằng bài quân, các bài phép và hiệu ứng tăng chỉ số.\\n-Lối chơi chủ dạo sẽ xoay quanh các lá [cd:05FR010|Đổi Thế Võ|icon,img-full], với áp đảo, hồi phục, cộng chỉ số và gây sát thương.\\n-Nhìn chung lối chơi của [cd:05FR013|Udyr |icon,img-full]sẽ là việc bạn dùng các lá [cd:05FR010|Đổi Thế Võ|icon,img-full] để cường hóa 1 bài quân chủ lực thường là [cd:05FR013|Udyr|icon,img-full] để đánh carry, nên là khá dễ bị khắc chế khi gặp các hiệu ứng khó chịu như choáng và đóng băng.\\n-Các triển khai tốt nhất cho vị tướng này trong lúc đi game là tìm các vật phẩm, cổ vật, và sức mạnh để có thể triệu hồi được [cd:05FR013|Udyr|icon,img-full] sớm để buff chỉ số.\\n-Sức mạnh ưu tiên nên lấy cho [cd:05FR013|Udyr|icon,img-full] là các sức mạnh giảm tiêu hao bài phép hoặc hồi năng lượng bài phép. Cũng có thể lấy [p:P0118|Chia Sẻ Phú Quý|icon,img-full] để nhân đôi hiệu ứng từ lá [cd:05FR010|Đổi Thế Võ|icon,img-full] hoặc [p:P0112|Thống Trị|icon,img-full] để có thể nhận lá [cd:05FR010|Đổi Thế Võ|icon,img-full] mỗi vòng.\\n-Về cổ vật thì [r:R0085|Bí Kỹ|icon,img-full] là lựa chọn tốt nhất khi[cd:05FR013|Udyr|icon,img-full] có khá nhiều bài phép ban chỉ số và xoay quanh lối chơi này, [r:R0058|Lựa Chọn Của Tinh Tú|icon,img-full] nếu bạn muốn đánh carry bằng [cd:05FR013|Udyr|icon,img-full], [r:R0048|Máy Sao Chép Hóa Kỹ|icon,img-full] để nhân đôi hiệu ứng phép nếu muốn hoặc [r:R0113|Sách Ẩn|icon,img-full] để dùng được nhiều bài phép hơn.",
     "startingDeck": {
       "referenceCards": [
         {
@@ -17876,15 +17874,14 @@
         "regions": [
           "BandleCity",
           "Ionia"
-        ],
-        "descriptionRaw": "( '-') idk"
+        ]
       }
     },
     "ratings": {
       "damage": 10,
       "synergy": 10,
       "defense": 10,
-      "playstyleNote": "",
+      "playstyleNote": null,
       "independence": 10,
       "consistency": 10,
       "speed": 10
@@ -17898,7 +17895,6 @@
     },
     "tags": [
       "maika"
-    ],
-    "descriptionRaw": "('-'  ) idk\\nhãm hại thành viên khác\\nvô hiệu hóa tinh tú\\nsiêu mạnh????"
+    ]
   }
 ]

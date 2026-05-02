@@ -1,15 +1,8 @@
 // be/src/routes/bosses.js
 import express from "express";
-import {
-	PutItemCommand,
-	DeleteItemCommand,
-	GetItemCommand,
-} from "@aws-sdk/client-dynamodb";
-import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
-import client from "../config/db.js";
+import { getDb } from "../config/mongo.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { requireAdmin } from "../middleware/requireAdmin.js";
-import { scanAll } from "../utils/dynamoUtils.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
 import { createAuditLog } from "../utils/auditLogger.js";
 import { AppError, asyncHandler } from "../middleware/errorMiddleware.js";
@@ -90,14 +83,11 @@ router.get("/", asyncHandler(async (req, res) => {
  */
 router.get("/:bossID", asyncHandler(async (req, res) => {
 	const { bossID } = req.params;
-	const command = new GetItemCommand({
-		TableName: BOSS_TABLE,
-		Key: marshall({ bossID }),
-	});
-	const { Item } = await client.send(command);
+	const db = getDb();
+	const Item = await db.collection(BOSS_TABLE).findOne({ bossID });
 	if (!Item) throw new AppError("Không tìm thấy Boss.", 404);
 
-	const bossData     = unmarshall(Item);
+	const bossData = Item;
 	const resolvedBoss = await resolveBossPowers(bossData);
 	res.json(resolvedBoss);
 }));
@@ -124,11 +114,11 @@ router.post("/resolve", asyncHandler(async (req, res) => {
 		return res.json(resolvedFromCache);
 	}
 
-	// Nếu thiếu, fetch song song từ DynamoDB
+	// Nếu thiếu, fetch song song từ MongoDB
 	const fetchPromises = uniqueIds.map(async bossID => {
-		const cmd = new GetItemCommand({ TableName: BOSS_TABLE, Key: marshall({ bossID }) });
-		const { Item } = await client.send(cmd);
-		return Item ? unmarshall(Item) : null;
+		const db = getDb();
+		const Item = await db.collection(BOSS_TABLE).findOne({ bossID });
+		return Item ? Item : null;
 	});
 	const results = (await Promise.all(fetchPromises)).filter(Boolean);
 	res.json(results);
@@ -146,11 +136,8 @@ router.put("/", authenticateCognitoToken, requireAdmin, asyncHandler(async (req,
 		throw new AppError("bossID và bossName là bắt buộc.", 400);
 	}
 
-	const checkCommand = new GetItemCommand({
-		TableName: BOSS_TABLE,
-		Key: marshall({ bossID: bossID.trim() }),
-	});
-	const { Item } = await client.send(checkCommand);
+	const db = getDb();
+	const Item = await db.collection(BOSS_TABLE).findOne({ bossID: bossID.trim() });
 	const exists = !!Item;
 
 	if (isNew && exists)  throw new AppError(`Mã Boss "${bossID}" đã tồn tại.`, 409);
@@ -159,17 +146,14 @@ router.put("/", authenticateCognitoToken, requireAdmin, asyncHandler(async (req,
 	const dataToSave = { ...data };
 	delete dataToSave.isNew;
 
-	await client.send(new PutItemCommand({
-		TableName: BOSS_TABLE,
-		Item: marshall(dataToSave, { removeUndefinedValues: true }),
-	}));
+	await db.collection(BOSS_TABLE).replaceOne({ bossID }, dataToSave, { upsert: true });
 
 	await createAuditLog({
 		action: isNew ? "CREATE" : "UPDATE",
 		entityType: "boss",
 		entityId: bossID,
 		entityName: dataToSave.bossName,
-		oldData: Item ? unmarshall(Item) : null,
+		oldData: Item ? Item : null,
 		newData: dataToSave,
 		user: req.user,
 	});
@@ -190,13 +174,13 @@ router.put("/", authenticateCognitoToken, requireAdmin, asyncHandler(async (req,
 router.delete("/:bossID", authenticateCognitoToken, requireAdmin, asyncHandler(async (req, res) => {
 	const { bossID } = req.params;
 
-	const getItemCmd = new GetItemCommand({ TableName: BOSS_TABLE, Key: marshall({ bossID }) });
-	const { Item } = await client.send(getItemCmd);
-	const oldData = Item ? unmarshall(Item) : null;
+	const db = getDb();
+	const Item = await db.collection(BOSS_TABLE).findOne({ bossID });
+	const oldData = Item ? Item : null;
 
 	if (!Item) throw new AppError(`Không tìm thấy Boss "${bossID}" để xóa.`, 404);
 
-	await client.send(new DeleteItemCommand({ TableName: BOSS_TABLE, Key: marshall({ bossID }) }));
+	await db.collection(BOSS_TABLE).deleteOne({ bossID });
 
 	await createAuditLog({
 		action: "DELETE",

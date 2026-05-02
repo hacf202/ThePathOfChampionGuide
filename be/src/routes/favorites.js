@@ -1,14 +1,6 @@
 // src/routes/favorites.js
 import express from "express";
-import {
-	PutItemCommand,
-	DeleteItemCommand,
-	GetItemCommand,
-	QueryCommand,
-} from "@aws-sdk/client-dynamodb";
-import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
-
-import client from "../config/db.js";
+import { getDb } from "../config/mongo.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { normalizeBuildFromDynamo } from "../utils/dynamodb.js";
 import { invalidatePublicBuildsCache } from "../utils/buildCache.js";
@@ -36,16 +28,11 @@ router.get("/favorites", authenticateCognitoToken, async (req, res) => {
 		const pageSize = parseInt(limit);
 		const currentPage = parseInt(page);
 
-		// Lấy danh sách ID build đã thích từ FAVORITES_TABLE
-		const { Items: favItems } = await client.send(
-			new QueryCommand({
-				TableName: FAVORITES_TABLE,
-				IndexName: "user_sub-index",
-				KeyConditionExpression: "user_sub = :userSub",
-				ExpressionAttributeValues: marshall({ ":userSub": userSub }),
-				ScanIndexForward: false, // Lấy cái mới nhất trước
-			}),
-		);
+		const db = getDb();
+		const favItems = await db.collection(FAVORITES_TABLE)
+			.find({ user_sub: userSub })
+			.sort({ createdAt: -1 })
+			.toArray();
 
 		if (!favItems || favItems.length === 0) {
 			return res.json({
@@ -58,16 +45,11 @@ router.get("/favorites", authenticateCognitoToken, async (req, res) => {
 		// Lấy chi tiết build từ BUILDS_TABLE
 		const allBuilds = await Promise.all(
 			favItems.map(async fItem => {
-				const favData = unmarshall(fItem);
-				const { Item } = await client.send(
-					new GetItemCommand({
-						TableName: BUILDS_TABLE,
-						Key: marshall({ id: favData.id }),
-					}),
-				);
+				const favData = fItem;
+				const Item = await db.collection(BUILDS_TABLE).findOne({ id: favData.id });
 				if (!Item) return null;
 
-				const build = normalizeBuildFromDynamo(unmarshall(Item));
+				const build = normalizeBuildFromDynamo(Item);
 				// Gắn thêm ngày Favorite để sắp xếp
 				return { ...build, favAt: favData.createdAt };
 			}),
@@ -148,54 +130,34 @@ router.patch("/:id/favorite", authenticateCognitoToken, async (req, res) => {
 	const username = req.user["cognito:username"] || "Anonymous";
 
 	try {
-		const { Item: buildItem } = await client.send(
-			new GetItemCommand({
-				TableName: BUILDS_TABLE,
-				Key: marshall({ id: buildId }),
-			}),
-		);
+		const db = getDb();
+		const buildItem = await db.collection(BUILDS_TABLE).findOne({ id: buildId });
 		if (!buildItem) return res.status(404).json({ error: "Build not found" });
 
-		const build = normalizeBuildFromDynamo(unmarshall(buildItem));
+		const build = normalizeBuildFromDynamo(buildItem);
 
-		// Kiểm tra trạng thái hiện tại (Dùng Query để tìm PK + SK)
-		const { Items } = await client.send(
-			new QueryCommand({
-				TableName: FAVORITES_TABLE,
-				KeyConditionExpression: "id = :buildId AND user_sub = :userSub",
-				ExpressionAttributeValues: marshall({
-					":buildId": buildId,
-					":userSub": userSub,
-				}),
-			}),
-		);
+		// Kiểm tra trạng thái hiện tại
+		const Items = await db.collection(FAVORITES_TABLE).find({
+			id: buildId,
+			user_sub: userSub,
+		}).toArray();
 
 		let isFavorited = false;
 		if (Items?.length > 0) {
-			await client.send(
-				new DeleteItemCommand({
-					TableName: FAVORITES_TABLE,
-					Key: marshall({ id: buildId, user_sub: userSub }),
-				}),
-			);
+			await db.collection(FAVORITES_TABLE).deleteOne({
+				id: buildId,
+				user_sub: userSub,
+			});
 		} else {
 			isFavorited = true;
-			await client.send(
-				new PutItemCommand({
-					TableName: FAVORITES_TABLE,
-					Item: marshall(
-						{
-							id: buildId,
-							user_sub: userSub,
-							username,
-							championName: build.championName,
-							creatorName: build.creatorName || "Vô Danh",
-							createdAt: new Date().toISOString(),
-						},
-						{ removeUndefinedValues: true },
-					),
-				}),
-			);
+			await db.collection(FAVORITES_TABLE).insertOne({
+				id: buildId,
+				user_sub: userSub,
+				username,
+				championName: build.championName,
+				creatorName: build.creatorName || "Vô Danh",
+				createdAt: new Date().toISOString(),
+			});
 		}
 
 		// Invalidate cache công khai để cập nhật số lượng yêu thích nếu cần
@@ -224,17 +186,11 @@ router.get(
 		const { id: buildId } = req.params;
 		const userSub = req.user.sub;
 		try {
-			const { Count } = await client.send(
-				new QueryCommand({
-					TableName: FAVORITES_TABLE,
-					KeyConditionExpression: "id = :buildId AND user_sub = :userSub",
-					ExpressionAttributeValues: marshall({
-						":buildId": buildId,
-						":userSub": userSub,
-					}),
-					Select: "COUNT",
-				}),
-			);
+			const db = getDb();
+			const Count = await db.collection(FAVORITES_TABLE).countDocuments({
+				id: buildId,
+				user_sub: userSub,
+			});
 			res.json({ isFavorited: Count > 0 });
 		} catch (error) {
 			res.status(500).json({ error: "Error checking status" });
@@ -248,15 +204,8 @@ router.get(
 router.get("/:id/favorite/count", async (req, res) => {
 	const { id: buildId } = req.params;
 	try {
-		const { Count } = await client.send(
-			new QueryCommand({
-				TableName: FAVORITES_TABLE,
-				IndexName: "id-index",
-				KeyConditionExpression: "id = :buildId",
-				ExpressionAttributeValues: marshall({ ":buildId": buildId }),
-				Select: "COUNT",
-			}),
-		);
+		const db = getDb();
+		const Count = await db.collection(FAVORITES_TABLE).countDocuments({ id: buildId });
 		res.json({ count: Count || 0 });
 	} catch (error) {
 		res.json({ count: 0 });
@@ -278,17 +227,11 @@ router.get("/favorites/batch", authenticateCognitoToken, async (req, res) => {
 		const results = await Promise.all(
 			buildIds.map(async buildId => {
 				try {
-					const { Count } = await client.send(
-						new QueryCommand({
-							TableName: FAVORITES_TABLE,
-							KeyConditionExpression: "id = :buildId AND user_sub = :userSub",
-							ExpressionAttributeValues: marshall({
-								":buildId": buildId,
-								":userSub": userSub,
-							}),
-							Select: "COUNT",
-						}),
-					);
+					const db = getDb();
+					const Count = await db.collection(FAVORITES_TABLE).countDocuments({
+						id: buildId,
+						user_sub: userSub,
+					});
 					return { id: buildId, isFavorited: Count > 0 };
 				} catch {
 					return { id: buildId, isFavorited: false };
@@ -321,15 +264,8 @@ router.get("/favorites/count/batch", async (req, res) => {
 		const results = await Promise.all(
 			buildIds.map(async buildId => {
 				try {
-					const { Count } = await client.send(
-						new QueryCommand({
-							TableName: FAVORITES_TABLE,
-							IndexName: "id-index",
-							KeyConditionExpression: "id = :buildId",
-							ExpressionAttributeValues: marshall({ ":buildId": buildId }),
-							Select: "COUNT",
-						}),
-					);
+					const db = getDb();
+					const Count = await db.collection(FAVORITES_TABLE).countDocuments({ id: buildId });
 					return { id: buildId, count: Count || 0 };
 				} catch {
 					return { id: buildId, count: 0 };

@@ -1,14 +1,6 @@
 // be/src/routes/auditLogs.js
 import express from "express";
-import {
-	ScanCommand,
-	QueryCommand,
-	GetItemCommand,
-	PutItemCommand,
-	DeleteItemCommand,
-} from "@aws-sdk/client-dynamodb";
-import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
-import client from "../config/db.js";
+import { getDb } from "../config/mongo.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { requireAdmin } from "../middleware/requireAdmin.js";
 import cacheManager from "../utils/cacheManager.js";
@@ -36,101 +28,41 @@ router.get("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 		const pageSize = parseInt(limit);
 		const currentPage = parseInt(page);
 
-		let indexName = "LogTypeTimestampIndex";
-		let keyConditionExpression = "logType = :logType";
-		let expressionAttributeValues = { ":logType": "LOG" };
-		let expressionAttributeNames = {};
-		let filterExpressions = [];
+		const db = getDb();
+		const query = {};
 
 		// Các bộ lọc linh hoạt (FilterExpression)
 		if (entityType) {
-			// Nếu lọc theo entityType, ta chọn index theo entityType
-			indexName = "EntityTypeTimestampIndex";
-			keyConditionExpression = "entityType = :entityType";
-			expressionAttributeValues = { ":entityType": entityType };
-		} else if (action) {
-			// Nếu không có entityType nhưng có action, ta chọn action index
-			indexName = "ActionTimestampIndex";
-			keyConditionExpression = "#action = :action";
-			expressionAttributeNames["#action"] = "action";
-			expressionAttributeValues = { ":action": action };
-		} else if (userId) {
-			// Nếu không có cả trên nhưng có userId, chọn user index
-			indexName = "UserTimestampIndex";
-			keyConditionExpression = "userId = :userId";
-			expressionAttributeValues = { ":userId": userId };
+			query.entityType = entityType;
 		}
-
-		// Xử lý lọc chéo và lọc ngày tháng bằng FilterExpression
-		if (entityType && indexName !== "EntityTypeTimestampIndex") {
-			filterExpressions.push("entityType = :entityType");
-			expressionAttributeValues[":entityType"] = entityType;
+		if (action) {
+			query.action = action;
 		}
-		if (action && indexName !== "ActionTimestampIndex") {
-			filterExpressions.push("#action = :action");
-			expressionAttributeNames["#action"] = "action";
-			expressionAttributeValues[":action"] = action;
-		}
-		if (userId && indexName !== "UserTimestampIndex") {
-			filterExpressions.push("userId = :userId");
-			expressionAttributeValues[":userId"] = userId;
+		if (userId) {
+			query.userId = userId;
 		}
 
 		// Lọc thời gian (Timestamp)
 		if (startDate || endDate) {
-			expressionAttributeNames["#timestamp"] = "timestamp";
-			if (startDate && endDate) {
-				filterExpressions.push("#timestamp BETWEEN :startDate AND :endDate");
-				expressionAttributeValues[":startDate"] = startDate;
-				expressionAttributeValues[":endDate"] = endDate;
-			} else if (startDate) {
-				filterExpressions.push("#timestamp >= :startDate");
-				expressionAttributeValues[":startDate"] = startDate;
-			} else if (endDate) {
-				filterExpressions.push("#timestamp <= :endDate");
-				expressionAttributeValues[":endDate"] = endDate;
-			}
+			query.timestamp = {};
+			if (startDate) query.timestamp.$gte = startDate;
+			if (endDate) query.timestamp.$lte = endDate;
 		}
-
-		const queryParams = {
-			TableName: AUDIT_LOG_TABLE,
-			IndexName: indexName,
-			KeyConditionExpression: keyConditionExpression,
-			ExpressionAttributeValues: marshall(expressionAttributeValues, { removeUndefinedValues: true }),
-			ScanIndexForward: false, // Mới nhất trước
-			Limit: pageSize,
-		};
-
-		if (Object.keys(expressionAttributeNames).length > 0) {
-			queryParams.ExpressionAttributeNames = expressionAttributeNames;
-		}
-		if (filterExpressions.length > 0) {
-			queryParams.FilterExpression = filterExpressions.join(" AND ");
-		}
-
-		const command = new QueryCommand(queryParams);
-		let { Items, LastEvaluatedKey } = await client.send(command);
 		
-		let logs = Items ? Items.map(item => unmarshall(item)) : [];
-
-		// --- FALLBACK LOGIC ---
-		// Nếu Query mặc định (LogTypeTimestampIndex) không có dữ liệu, 
-		// thử Scan một lần để lấy các log cũ chưa có logType
-		if (logs.length === 0 && indexName === "LogTypeTimestampIndex") {
-			console.log("No logs found via Index. Falling back to Scan for old data...");
-			const scanParams = {
-				TableName: AUDIT_LOG_TABLE,
-				Limit: pageSize,
-			};
-			const scanCommand = new ScanCommand(scanParams);
-			const scanResult = await client.send(scanCommand);
-			if (scanResult.Items && scanResult.Items.length > 0) {
-				logs = scanResult.Items.map(item => unmarshall(item));
-				// Sắp xếp tay vì Scan không tự sắp xếp
-				logs.sort((a, b) => b.timestamp.localeCompare(a.timestamp));
-				LastEvaluatedKey = scanResult.LastEvaluatedKey;
-			}
+		// Fallback logType (trong DynamoDB thì query theo LOG, MongoDB ta query tất cả nếu không có filter)
+		if (!entityType && !action && !userId && !startDate && !endDate) {
+			// Query mặc định: Có thể lọc logType = "LOG" hoặc lấy hết
 		}
+
+		const totalItems = await db.collection(AUDIT_LOG_TABLE).countDocuments(query);
+		const totalPages = Math.ceil(totalItems / pageSize);
+
+		let logs = await db.collection(AUDIT_LOG_TABLE)
+			.find(query)
+			.sort({ timestamp: -1 })
+			.skip((currentPage - 1) * pageSize)
+			.limit(pageSize)
+			.toArray();
 		
 		// Parse JSON strings back to objects
 		logs = logs.map(log => ({
@@ -144,9 +76,10 @@ router.get("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 			pagination: {
 				currentPage,
 				pageSize,
-				totalItems: logs.length,
+				totalItems,
+				totalPages
 			},
-			lastEvaluatedKey: LastEvaluatedKey ? unmarshall(LastEvaluatedKey) : null
+			lastEvaluatedKey: null // No longer used in MongoDB pagination
 		});
 
 	} catch (error) {
@@ -192,16 +125,10 @@ router.post("/rollback/:logId", authenticateCognitoToken, requireAdmin, async (r
 
 	try {
 		// 1. Lấy thông tin log
-		// Sử dụng Scan + Filter thay vì GetItem vì cấu trúc Primary Key của bảng log có thể phức tạp (composite key)
-		const scanLogCmd = new ScanCommand({
-			TableName: AUDIT_LOG_TABLE,
-			FilterExpression: "logId = :logId",
-			ExpressionAttributeValues: marshall({ ":logId": logId })
-		});
-		const { Items } = await client.send(scanLogCmd);
-		if (!Items || Items.length === 0) return res.status(404).json({ error: "Không tìm thấy nhật ký này." });
+		const db = getDb();
+		const log = await db.collection(AUDIT_LOG_TABLE).findOne({ logId });
+		if (!log) return res.status(404).json({ error: "Không tìm thấy nhật ký này." });
 
-		const log = unmarshall(Items[0]);
 		const { entityType, entityId, action, oldData: oldDataRaw, newData: newDataRaw } = log;
 		
 		const tableInfo = ENTITY_TABLE_MAP[entityType];
@@ -213,20 +140,16 @@ router.post("/rollback/:logId", authenticateCognitoToken, requireAdmin, async (r
 		// 2. Thực hiện khôi phục
 		if (action === "CREATE") {
 			// Rollback CREATE -> DELETE
-			const deleteCmd = new DeleteItemCommand({
-				TableName: tableInfo.table,
-				Key: marshall({ [tableInfo.key]: entityId })
-			});
-			await client.send(deleteCmd);
+			await db.collection(tableInfo.table).deleteOne({ [tableInfo.key]: entityId });
 		} else if (action === "UPDATE" || action === "DELETE") {
 			// Rollback UPDATE/DELETE -> Restore oldData
 			if (!oldData) return res.status(400).json({ error: "Không có dữ liệu cũ để khôi phục." });
 			
-			const restoreCmd = new PutItemCommand({
-				TableName: tableInfo.table,
-				Item: marshall(oldData, { removeUndefinedValues: true })
-			});
-			await client.send(restoreCmd);
+			await db.collection(tableInfo.table).replaceOne(
+				{ [tableInfo.key]: entityId },
+				oldData,
+				{ upsert: true }
+			);
 		}
 
 		// 3. Ghi log hoàn tác

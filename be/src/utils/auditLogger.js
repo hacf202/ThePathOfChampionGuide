@@ -1,8 +1,6 @@
 // be/src/utils/auditLogger.js
-import { PutItemCommand } from "@aws-sdk/client-dynamodb";
-import { marshall } from "@aws-sdk/util-dynamodb";
+import { getDb } from "../config/mongo.js";
 import { v4 as uuidv4 } from "uuid";
-import client from "../config/db.js";
 
 const AUDIT_LOG_TABLE = "guidePocAuditLogs";
 
@@ -42,12 +40,8 @@ export async function createAuditLog({
 			newData: newData ? JSON.stringify(newData) : null,
 		};
 
-		const command = new PutItemCommand({
-			TableName: AUDIT_LOG_TABLE,
-			Item: marshall(logEntry, { removeUndefinedValues: true }),
-		});
-
-		await client.send(command);
+		const db = getDb();
+		await db.collection(AUDIT_LOG_TABLE).insertOne(logEntry);
 		console.log(`Audit Log created: ${action} ${entityType} ${entityId}`);
 	} catch (error) {
 		console.error("Lỗi khi ghi Audit Log:", error);

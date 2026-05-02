@@ -72462,20 +72462,20 @@
     ],
     "translations": {
       "en": {
-        "description": "",
+        "description": null,
         "gameAbsolutePath": "https://images.pocguide.top/cards/99MT003en.webp",
         "regions": [
           "Targon"
         ],
         "cardName": "Starlight Stag",
         "type": "Unit",
-        "descriptionRaw": ""
+        "descriptionRaw": null
       }
     },
     "rarity": "None",
     "associatedCardRefs": [],
-    "descriptionRaw": "",
-    "description": "",
+    "descriptionRaw": null,
+    "description": null,
     "cardName": "Hươu Tinh Quang",
     "type": "unit"
   },
@@ -72531,6 +72531,32 @@
     "descriptionRaw": "Khi ta được triệu hồi, gài 2 lá Bẫy Bom Mù vào 8 lá bài ở  trên cùng trong bộ bài của đối thủ",
     "description": "Khi ta được triệu hồi, gài 2 lá [cd:05PZ008|Bẫy Bom Mù|icon] vào 8 lá bài ở  trên cùng trong bộ bài của đối thủ",
     "cardName": "Chồn Rác Thuần Hóa",
+    "type": "unit"
+  },
+  {
+    "cardCode": "99PZ118",
+    "gameAbsolutePath": "https://images.pocguide.top/cards/99PZ118.webp",
+    "cost": 1,
+    "regions": [
+      "Piltover & Zaun"
+    ],
+    "translations": {
+      "en": {
+        "description": "",
+        "gameAbsolutePath": "https://images.pocguide.top/cards/99PZ118en.webp",
+        "regions": [
+          "Piltover & Zaun"
+        ],
+        "cardName": "Augmented Poro",
+        "type": "Unit",
+        "descriptionRaw": ""
+      }
+    },
+    "rarity": "None",
+    "associatedCardRefs": [],
+    "descriptionRaw": "",
+    "description": "",
+    "cardName": "Poro Cường Hóa",
     "type": "unit"
   },
   {

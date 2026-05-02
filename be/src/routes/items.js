@@ -1,13 +1,7 @@
 // be/src/routes/items.js
 import express from "express";
-import {
-	PutItemCommand,
-	DeleteItemCommand,
-	GetItemCommand,
-} from "@aws-sdk/client-dynamodb";
-import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
 import cacheManager from "../utils/cacheManager.js";
-import client from "../config/db.js";
+import { getDb } from "../config/mongo.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
 import { createAuditLog } from "../utils/auditLogger.js";
@@ -36,16 +30,12 @@ router.get("/:itemCode", async (req, res) => {
 	if (cachedItem) return res.json(cachedItem);
 
 	try {
-		const command = new GetItemCommand({
-			TableName: ITEMS_TABLE,
-			Key: marshall({ itemCode: id }),
-		});
-
-		const { Item } = await client.send(command);
+		const db = getDb();
+		const Item = await db.collection(ITEMS_TABLE).findOne({ itemCode: id });
 		if (!Item)
 			return res.status(404).json({ error: `Không tìm thấy vật phẩm: ${id}` });
 
-		const itemData = unmarshall(Item);
+		const itemData = Item;
 		await itemCache.set(CACHE_KEY, itemData);
 
 		res.json(itemData);
@@ -171,11 +161,8 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 			.json({ error: "Mã vật phẩm (itemCode) là bắt buộc." });
 
 	try {
-		const checkCommand = new GetItemCommand({
-			TableName: ITEMS_TABLE,
-			Key: marshall({ itemCode: itemCode.trim() }),
-		});
-		const { Item } = await client.send(checkCommand);
+		const db = getDb();
+		const Item = await db.collection(ITEMS_TABLE).findOne({ itemCode: itemCode.trim() });
 		const exists = !!Item;
 
 		if (isNew && exists) {
@@ -193,20 +180,19 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 		const dataToSave = { ...itemData };
 		delete dataToSave.isNew;
 
-		await client.send(
-			new PutItemCommand({
-				TableName: ITEMS_TABLE,
-				Item: marshall(dataToSave, { removeUndefinedValues: true }),
-			}),
+		await db.collection(ITEMS_TABLE).replaceOne(
+			{ itemCode: dataToSave.itemCode },
+			dataToSave,
+			{ upsert: true }
 		);
-		
+
 		// Ghi log thay đổi
 		await createAuditLog({
 			action: isNew ? "CREATE" : "UPDATE",
 			entityType: "item",
 			entityId: itemCode,
 			entityName: dataToSave.name,
-			oldData: Item ? unmarshall(Item) : null,
+			oldData: Item ? Item : null,
 			newData: dataToSave,
 			user: req.user
 		});
@@ -230,19 +216,11 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
 router.delete("/:itemCode", authenticateCognitoToken, async (req, res) => {
 	const { itemCode } = req.params;
 	try {
-		const getItemCmd = new GetItemCommand({
-			TableName: ITEMS_TABLE,
-			Key: marshall({ itemCode }),
-		});
-		const { Item } = await client.send(getItemCmd);
-		const oldData = Item ? unmarshall(Item) : null;
+		const db = getDb();
+		const Item = await db.collection(ITEMS_TABLE).findOne({ itemCode });
+		const oldData = Item ? Item : null;
 
-		await client.send(
-			new DeleteItemCommand({
-				TableName: ITEMS_TABLE,
-				Key: marshall({ itemCode }),
-			}),
-		);
+		await db.collection(ITEMS_TABLE).deleteOne({ itemCode });
 
 		// Ghi log thay đổi
 		await createAuditLog({
