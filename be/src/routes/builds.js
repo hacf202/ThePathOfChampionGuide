@@ -21,7 +21,7 @@ import { getUserNames } from "../utils/userCache.js";
 import { getCachedChampions, getCachedRelics, getCachedPowers } from "../services/dataService.js";
 
 const router = express.Router();
-const BUILDS_TABLE = "Builds";
+const BUILDS_TABLE = "guidePocBuilds";
 
 // GET /api/builds/top-by-champion/:championID
 // Lấy danh sách build có views cao nhất của 1 tướng (sử dụng GSI)
@@ -274,7 +274,7 @@ router.get("/my-builds", authenticateCognitoToken, async (req, res) => {
 		const db = getDb();
 		let Items = await db.collection(BUILDS_TABLE).find({ creator }).toArray();
 		let items = Items
-			? Items.map(item => normalizeBuildFromDynamo(item))
+			? Items.map(item => normalizeDisplay(item))
 			: [];
 
 		// 🟢 Lấy từ điển để hỗ trợ tìm kiếm Cổ vật / Kỹ năng giống hệt public builds
@@ -545,9 +545,20 @@ router.put("/:id", authenticateCognitoToken, async (req, res) => {
 			return res.status(403).json({ error: "Unauthorized" });
 		}
 
+		const allowedFields = [
+			"description",
+			"relicSetIds",
+			"powerIds",
+			"runeIds",
+			"star",
+			"display",
+			"regions",
+		];
+
+		let hasUpdates = false;
 		const fieldsToUpdate = {};
-		Object.entries(fields).forEach(([key, value]) => {
-			if (value !== undefined) {
+		Object.entries(req.body).forEach(([key, value]) => {
+			if (allowedFields.includes(key) && value !== undefined) {
 				hasUpdates = true;
 				fieldsToUpdate[key] = key === "display" ? (value === true || value === "true") : value;
 			}
@@ -556,12 +567,12 @@ router.put("/:id", authenticateCognitoToken, async (req, res) => {
 		if (!hasUpdates)
 			return res.status(400).json({ error: "No fields to update" });
 
-		const updatedBuildData = await db.collection(BUILDS_TABLE).findOneAndUpdate(
+		const result = await db.collection(BUILDS_TABLE).findOneAndUpdate(
 			{ id },
 			{ $set: fieldsToUpdate },
 			{ returnDocument: 'after' }
 		);
-		const updatedBuild = normalizeDisplay(updatedBuildData);
+		const updatedBuild = normalizeDisplay(result);
 
 		const wasPublic = oldBuild.display === true || oldBuild.display === "true";
 		const isNowPublic = updatedBuild.display === true;

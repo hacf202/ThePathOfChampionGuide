@@ -11,7 +11,7 @@ import { removeAccents } from "../utils/vietnameseUtils.js";
 import { createAuditLog } from "../utils/auditLogger.js";
 
 const router = express.Router();
-const BUILDS_TABLE = "Builds";
+const BUILDS_TABLE = "guidePocBuilds";
 
 // Tăng TTL lên 5 phút cho Admin để giảm thiểu Scan liên tục
 const adminBuildCache = new NodeCache({ stdTTL: 300, checkperiod: 60 });
@@ -279,7 +279,7 @@ router.post("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 
 		res.status(201).json({
 			message: "Tạo build thành công",
-			build: normalizeBuildFromDynamo(newBuild),
+			build: normalizeDisplay(newBuild),
 		});
 	} catch (error) {
 		console.error("Lỗi tạo build:", error);
@@ -334,7 +334,7 @@ router.put("/:id", authenticateCognitoToken, requireAdmin, async (req, res) => {
 			{ $set: fieldsToUpdate },
 			{ returnDocument: 'after' }
 		);
-		const updatedBuild = normalizeBuildFromDynamo(updatedBuildData);
+		const updatedBuild = normalizeDisplay(updatedBuildData);
 
 		await createAuditLog({
 			action: "UPDATE",

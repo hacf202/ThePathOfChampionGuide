@@ -8,7 +8,7 @@ import { removeAccents } from "../utils/vietnameseUtils.js";
 import { getUserNames } from "../utils/userCache.js";
 
 const router = express.Router();
-const BUILDS_TABLE = "Builds";
+const BUILDS_TABLE = "guidePocBuilds";
 const FAVORITES_TABLE = "guidePocFavoriteBuilds";
 
 /**

@@ -51,7 +51,7 @@ async function createIndexes() {
     console.log("Đang tạo index cho Nhóm 2 (UGC)...");
 
     // Bảng Builds
-    const buildsCol = db.collection("Builds");
+    const buildsCol = db.collection("guidePocBuilds");
     await buildsCol.createIndex({ id: 1 }, { unique: true });
     // Dùng cho API top-by-champion
     await buildsCol.createIndex({ championID: 1, display: 1, views: -1 });
@@ -70,7 +70,7 @@ async function createIndexes() {
     await favCol.createIndex({ user_sub: 1, createdAt: -1 });
 
     // Bảng Comments
-    const cmtCol = db.collection("Comments");
+    const cmtCol = db.collection("guidePocComments");
     // Khóa chính
     await cmtCol.createIndex({ buildId: 1, id: 1 }, { unique: true });
     // Lấy comment của 1 bài build

@@ -72,10 +72,16 @@ class AsyncCache {
 	async flushAll() {
 		if (this.useRedis) {
 			try {
-				// Lưu ý: Vercel KV không có flushAll cho từng namespace dễ dàng, 
-				// chúng ta phải scan keys hoặc xóa thủ công nếu cần.
-				// Ở đây tạm thời flush cục bộ và log cảnh báo.
-				console.warn(`[Cache:${this.name}] flushAll called. Global Redis flush is not scoped to namespace.`);
+				const pattern = `${this._getRedisKey("")}*`;
+				let cursor = "0";
+				do {
+					const [nextCursor, keys] = await kv.scan(cursor, "MATCH", pattern, "COUNT", 100);
+					cursor = nextCursor;
+					if (keys.length > 0) {
+						await kv.del(...keys);
+					}
+				} while (cursor !== "0");
+				console.log(`[Cache:${this.name}] Redis cache flushed for pattern: ${pattern}`);
 			} catch (error) {
 				console.error(`[Cache:${this.name}] Redis FLUSH error:`, error);
 			}

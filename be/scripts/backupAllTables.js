@@ -46,6 +46,8 @@ const ALL_COLLECTIONS = [
     { name: "guidePocFavoriteBuilds",         file: "guidePocFavoriteBuilds.json",         sortKey: null },
     { name: "guidePocPlayStyleRating",        file: "guidePocPlayStyleRating.json",        sortKey: "championID" },
     { name: "guidePocAuditLogs",              file: "guidePocAuditLogs.json",              sortKey: "timestamp" },
+    { name: "guidePocBuilds",                 file: "guidePocBuilds.json",                 sortKey: "createdAt" },
+    { name: "guidePocComments",               file: "guidePocComments.json",               sortKey: "createdAt" },
 ];
 
 /**

@@ -6,8 +6,8 @@ import { invalidatePublicBuildsCache } from "../utils/buildCache.js";
 import { getUserNames } from "../utils/userCache.js";
 
 const router = express.Router();
-const BUILDS_TABLE = "Builds";
-const COMMENTS_TABLE = "Comments";
+const BUILDS_TABLE = "guidePocBuilds";
+const COMMENTS_TABLE = "guidePocComments";
 
 /**
  * @route   GET /api/builds/:buildId/comments

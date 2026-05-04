@@ -110,7 +110,28 @@
 		"selectPlaceholder": "Chọn tùy chọn",
 		"description": "Mô tả",
 		"itemType": "Loại vật phẩm",
-		"searchPlaceholder": "Tìm theo tên hoặc mô tả..."
+		"searchPlaceholder": "Tìm theo tên hoặc mô tả...",
+		"hide":"Ẩn",
+		"show": "Hiển thị",
+		"done": "Hoàn tất"
+	},
+	"themeSettings": {
+		"title": "Cá nhân hóa giao diện",
+		"mainTheme": "Chủ đề chính",
+		"solidLight": "Solid Light",
+		"solidDark": "Solid Dark",
+		"artworkMode": "Artwork Mode",
+		"primaryColor": "Màu chủ đạo (Primary)",
+		"currentHue": "Current Hue",
+		"artworkGallery": "Thư viện Artwork (Auto Dark)",
+		"bgBrightness": "Độ sáng ảnh nền",
+		"brightest": "Sáng nhất",
+		"darkest": "Tối nhất",
+		"uploadImage": "Tải ảnh từ máy",
+		"processing": "Đang xử lý...",
+		"activateArtwork": "Chọn \"Artwork Mode\" phía trên để kích hoạt thư viện",
+		"errorTooLarge": "Ảnh quá lớn! Vui lòng chọn ảnh < 10MB.",
+		"errorProcess": "Không thể xử lý ảnh này. Vui lòng thử ảnh khác."
 	},
 	"cardList": {
 		"title": "Thư Viện Lá Bài",
@@ -562,6 +583,8 @@
 			"hitRate": "Tỷ lệ Hit",
 			"totalRequests": "Tổng yêu cầu",
 			"confirm": "Xác nhận xóa?",
+			"confirmTitle": "Xác nhận xóa Cache",
+			"confirmText": "Bạn có chắc chắn muốn xóa toàn bộ dữ liệu cache không? Hệ thống sẽ phải tải lại dữ liệu từ cơ sở dữ liệu.",
 			"confirmBtn": "Xác nhận",
 			"cancelBtn": "Hủy",
 			"moduleName": "Tên Module",

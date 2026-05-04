@@ -4,6 +4,7 @@ import { Moon, Sun, Palette, Image as ImageIcon, Check, MousePointer2, Upload, A
 import { compressImage } from "../../utils/imageUtils";
 import Modal from "./modal";
 import Button from "./button";
+import { useTranslation } from "../../hooks/useTranslation";
 
 const BACKGROUND_PRESETS = [
     { name: "JoeJiJi", url: "https://images.pocguide.top/backgrounds/BG1.webp" },
@@ -28,6 +29,7 @@ const ThemeSettings = ({ isOpen, onClose }) => {
         selectArtworkMode 
     } = useTheme();
 
+    const { tUI } = useTranslation();
     const fileInputRef = useRef(null);
 
     // Mode detection
@@ -40,7 +42,7 @@ const ThemeSettings = ({ isOpen, onClose }) => {
 
         // Preliminary size check (10MB limit for source)
         if (file.size > 10 * 1024 * 1024) {
-             alert("Ảnh quá lớn! Vui lòng chọn ảnh < 10MB.");
+             alert(tUI("themeSettings.errorTooLarge"));
              return;
         }
 
@@ -60,7 +62,7 @@ const ThemeSettings = ({ isOpen, onClose }) => {
                     setBgImage(compressedUrl);
                 } catch (err) {
                     console.error("Lỗi nén ảnh:", err);
-                    alert("Không thể xử lý ảnh này. Vui lòng thử ảnh khác.");
+                    alert(tUI("themeSettings.errorProcess"));
                 } finally {
                     setIsCompressing(false);
                 }
@@ -73,31 +75,31 @@ const ThemeSettings = ({ isOpen, onClose }) => {
     };
 
     return (
-        <Modal isOpen={isOpen} onClose={onClose} title="Cá nhân hóa giao diện" maxWidth="max-w-xl">
-            <div className="space-y-8 p-1">
-                <input 
-                    type="file" 
-                    ref={fileInputRef} 
-                    onChange={handleFileUpload} 
-                    accept="image/*" 
-                    className="hidden" 
-                />
+        <Modal isOpen={isOpen} onClose={onClose} title={tUI("themeSettings.title")} maxWidth="max-w-xl">
+            <input 
+                type="file" 
+                ref={fileInputRef} 
+                onChange={handleFileUpload} 
+                accept="image/*" 
+                className="hidden" 
+            />
+            <div className="space-y-4 p-1 max-h-[70vh] overflow-y-auto pr-2 custom-scrollbar">
                 
                 {/* 1. Main Theme Selection */}
                 <section>
                     <h3 className="text-xs font-black uppercase tracking-[0.2em] text-text-secondary mb-4 flex items-center gap-2 opacity-60">
-                         Chủ đề chính
+                         {tUI("themeSettings.mainTheme")}
                     </h3>
-                    <div className="grid grid-cols-3 gap-4">
+                    <div className="grid grid-cols-3 gap-2">
                         {[
-                            { id: "light", icon: Sun, label: "Solid Light", action: () => selectSolidMode("light") },
-                            { id: "dark", icon: Moon, label: "Solid Dark", action: () => selectSolidMode("dark") },
-                            { id: "artwork", icon: ImageIcon, label: "Artwork Mode", action: selectArtworkMode },
+                            { id: "light", icon: Sun, label: tUI("themeSettings.solidLight"), action: () => selectSolidMode("light") },
+                            { id: "dark", icon: Moon, label: tUI("themeSettings.solidDark"), action: () => selectSolidMode("dark") },
+                            { id: "artwork", icon: ImageIcon, label: tUI("themeSettings.artworkMode"), action: selectArtworkMode },
                         ].map((mode) => (
                             <button
                                 key={mode.id}
                                 onClick={mode.action}
-                                className={`flex flex-col items-center justify-center gap-3 p-5 rounded-3xl border-2 transition-all duration-300 relative group overflow-hidden ${
+                                className={`flex flex-col items-center justify-center gap-3 p-2 rounded-3xl border-2 transition-all duration-300 relative group overflow-hidden ${
                                     currentMode === mode.id 
                                     ? "border-primary-500 bg-primary-100/10 text-primary-600 shadow-lg shadow-primary-500/10" 
                                     : "border-border hover:border-border-hover text-text-secondary bg-surface-bg/50"
@@ -116,9 +118,9 @@ const ThemeSettings = ({ isOpen, onClose }) => {
                 </section>
 
                 {/* 2. Primary Color Customization */}
-                <section className="bg-input-bg/40 p-6 rounded-[32px] border border-border">
+                <section className="bg-input-bg/40 p-2 rounded-[32px] border border-border">
                     <h3 className="text-xs font-black uppercase tracking-[0.2em] text-text-secondary mb-6 flex items-center gap-2 opacity-60">
-                        <Palette className="w-4 h-4" /> Màu chủ đạo (Primary)
+                        <Palette className="w-4 h-4" /> {tUI("themeSettings.primaryColor")}
                     </h3>
                     <div className="space-y-6">
                         <div className="relative group">
@@ -147,7 +149,7 @@ const ThemeSettings = ({ isOpen, onClose }) => {
                                     style={{ backgroundColor: `hsl(${primaryHue}, 65%, 45%)` }}
                                 />
                                 <div className="flex flex-col">
-                                    <span className="text-[10px] font-black text-text-secondary uppercase tracking-widest leading-none mb-1">Current Hue</span>
+                                    <span className="text-[10px] font-black text-text-secondary uppercase tracking-widest leading-none mb-1">{tUI("themeSettings.currentHue")}</span>
                                     <span className="text-sm font-bold text-text-primary leading-none tracking-tight">{primaryHue}° HSL</span>
                                 </div>
                             </div>
@@ -159,14 +161,14 @@ const ThemeSettings = ({ isOpen, onClose }) => {
                 {/* 3. Artwork Gallery (Visible when in artwork mode) */}
                 <section className={`transition-all duration-500 ${isArtwork ? "opacity-100 translate-y-0" : "opacity-30 pointer-events-none -translate-y-2 grayscale"}`}>
                     <h3 className="text-xs font-black uppercase tracking-[0.2em] text-text-secondary mb-4 flex items-center gap-2 opacity-60">
-                        <ImageIcon className="w-4 h-4" /> Thư viện Artwork (Auto Dark)
+                        <ImageIcon className="w-4 h-4" /> {tUI("themeSettings.artworkGallery")}
                     </h3>
                     
                     {/* Artwork Brightness Slider */}
                     <div className="mb-6 bg-input-bg/60 p-4 rounded-2xl border border-border/50">
                         <div className="flex justify-between items-center mb-3">
                             <span className="text-[10px] font-black uppercase tracking-widest text-text-secondary flex items-center gap-2">
-                                <Sun className="w-3 h-3" /> Độ sáng ảnh nền
+                                <Sun className="w-3 h-3" /> {tUI("themeSettings.bgBrightness")}
                             </span>
                             <span className="text-[10px] font-bold text-primary-600 bg-primary-500/10 px-2 py-0.5 rounded-full">
                                 {Math.round((1 - bgOpacity) * 100)}%
@@ -183,8 +185,8 @@ const ThemeSettings = ({ isOpen, onClose }) => {
                             disabled={!isArtwork}
                         />
                         <div className="flex justify-between mt-2 px-1">
-                            <span className="text-[9px] font-bold text-text-secondary/50 uppercase tracking-tighter">Sáng nhất</span>
-                            <span className="text-[9px] font-bold text-text-secondary/50 uppercase tracking-tighter">Tối nhất</span>
+                            <span className="text-[9px] font-bold text-text-secondary/50 uppercase tracking-tighter">{tUI("themeSettings.brightest")}</span>
+                            <span className="text-[9px] font-bold text-text-secondary/50 uppercase tracking-tighter">{tUI("themeSettings.darkest")}</span>
                         </div>
                     </div>
 
@@ -201,7 +203,7 @@ const ThemeSettings = ({ isOpen, onClose }) => {
                                 <Upload className="w-6 h-6 text-primary-600 group-hover:scale-110 transition-transform" />
                             )}
                             <span className="text-[9px] font-black text-text-primary uppercase tracking-widest text-center px-2">
-                                {isCompresing ? "Đang xử lý..." : "Tải ảnh từ máy"}
+                                {isCompresing ? tUI("themeSettings.processing") : tUI("themeSettings.uploadImage")}
                             </span>
                         </button>
                         {BACKGROUND_PRESETS.map((preset) => (
@@ -228,14 +230,14 @@ const ThemeSettings = ({ isOpen, onClose }) => {
                     </div>
                     {!isArtwork && (
                         <p className="text-[10px] text-center mt-3 text-text-secondary font-bold uppercase tracking-widest animate-pulse">
-                            Chọn "Artwork Mode" phía trên để kích hoạt thư viện
+                            {tUI("themeSettings.activateArtwork")}
                         </p>
                     )}
                 </section>
 
                 <div className="pt-4 border-t border-border flex justify-end">
                     <Button variant="primary" onClick={onClose} rounded="2xl" className="px-8 py-3 font-black tracking-widest uppercase text-xs">
-                        Hoàn tất
+                        {tUI("common.done")}
                     </Button>
                 </div>
             </div>

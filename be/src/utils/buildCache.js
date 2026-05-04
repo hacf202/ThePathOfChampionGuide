@@ -3,7 +3,7 @@ import { normalizeDisplay } from "./dbHelpers.js";
 import { getUserNames } from "./userCache.js";
 import cacheManager from "./cacheManager.js";
 
-const BUILDS_TABLE = "Builds";
+const BUILDS_TABLE = "guidePocBuilds";
 // Sử dụng cacheManager để quản lý bộ nhớ đệm theo userId (TTL 1 giờ)
 const publicBuildsCache = cacheManager.getOrCreateCache("public_builds", { 
 	stdTTL: 3600, 
