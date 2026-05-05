@@ -1,4 +1,39 @@
 
+## Log thay đổi 2026-05-05 (Champion Items Dashboard & SubChampions Integration)
+
+### ✅ Tích hợp Dữ liệu & MongoDB
+- **Di chuyển Dữ liệu**: Đã di chuyển toàn bộ dữ liệu tĩnh của hệ thống tướng phụ từ file JSON (`guidePocSubChampions.json`) sang **MongoDB**.
+- **Seed Script**: Tạo và thực thi script `seedSubChampions.js` để tự động hóa quá trình đẩy dữ liệu lên cơ sở dữ liệu.
+- **Tối ưu hóa API**: Refactor thành phần frontend để tìm nạp trực tiếp qua endpoint `/api/sub-champions`, giảm bớt gánh nặng bundle size ở phía Client.
+- **Logic Gợi ý**: Cải thiện thuật toán tìm kiếm và tính toán tỷ lệ xuất hiện (pool size) dựa trên phương pháp giao nhau (`&&`) thay vì hợp (`||`). Điều này mang lại kết quả lọc chính xác nhất với các vật phẩm (items) được chọn.
+
+### ✅ Đồng bộ Giao diện (Theme & Tailwind CSS)
+- **Chuẩn hóa Màu sắc**: Loại bỏ hoàn toàn các lớp màu tĩnh bị mã hóa cứng (hardcoded) như `bg-slate-950`, `bg-slate-900`, `text-slate-200`, `text-cyan-400`.
+- **Hệ thống CSS Variables**: Sử dụng đồng nhất hệ thống biến giao diện chung trong file `tailwind.config.cjs`:
+  - Nền trang chủ đạo: `bg-page-bg`
+  - Nền các khung/box: `bg-surface-bg`, `bg-surface-hover`
+  - Màu chữ: `text-text-primary`, `text-text-secondary`
+  - Màu chủ đạo (Primary): Chuyển đổi từ `cyan` sang dải màu hệ thống `primary-500`, `primary-400`, v.v.
+  - Viền (Border): `border-border`, `border-border/50`
+- **Kết quả**: Dashboard hiển thị liền mạch với toàn bộ ứng dụng, dễ dàng tương thích với các chế độ sáng/tối (Dark/Light mode) trong tương lai.
+
+### ✅ Tối ưu Trải nghiệm Người dùng (UX) & Layout
+- **Thanh bên (Sidebar) Cố định**: 
+  - Đã loại bỏ hoàn toàn nút bật/tắt (Toggle) thanh danh sách tướng.
+  - Thanh danh sách (Sidebar) nay được thiết lập để **luôn luôn hiển thị** ở bên trái, giúp người dùng dễ dàng chuyển đổi tướng đang xem mọi lúc.
+- **Cuộn tùy chỉnh (Custom Scrollbar)**: Tối ưu thanh cuộn trên cả PC và Mobile cho từng Panel riêng biệt (danh sách tướng, danh sách vật phẩm đã chọn, và gợi ý tướng phụ).
+- **Phản hồi Tương tác (Feedback)**: Thêm các hiệu ứng `hover:scale-105`, `ring-1`, đổ bóng `shadow-lg` nhằm gia tăng cảm giác cao cấp.
+
+### ✅ Hệ thống Đa ngôn ngữ (i18n)
+- **Cấu trúc Dữ liệu JSON**:
+  - Phát hiện và sửa lỗi đặt sai vị trí của từ điển `bestSubChampion` bên trong object `shared` của file `vi.json`.
+  - Di chuyển `bestSubChampion` ra cấu trúc root cấp 1, đồng nhất với cấu trúc của `en.json`.
+- **Khóa Không Dấu (Unaccented Keys)**:
+  - Cập nhật hàm ánh xạ các nút (buttons) độ hiếm của hệ thống.
+  - Sửa lỗi sử dụng hàm `toLowerCase()` sinh ra các khóa có dấu tiếng Việt (ví dụ: `thường`). Thay vào đó, sử dụng ánh xạ cứng về các khóa không dấu được định nghĩa sẵn trong từ điển: `thuong`, `hiem`, `suthi`.
+
+---
+
 ## Log thay đổi 2026-04-24 (Relics Data Enhancement & Localization Refactor)
 
 ### ✅ Nâng cấp dữ liệu Cổ Vật (Relics Data Enhancement)
