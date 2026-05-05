@@ -48,6 +48,7 @@ const ALL_COLLECTIONS = [
     { name: "guidePocAuditLogs",              file: "guidePocAuditLogs.json",              sortKey: "timestamp" },
     { name: "guidePocBuilds",                 file: "guidePocBuilds.json",                 sortKey: "createdAt" },
     { name: "guidePocComments",               file: "guidePocComments.json",               sortKey: "createdAt" },
+    { name: "guidePocSubChampions",           file: "guidePocSubChampions.json",           sortKey: "cardCode" },
 ];
 
 /**
