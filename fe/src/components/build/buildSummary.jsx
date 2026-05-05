@@ -1,6 +1,6 @@
 // src/components/build/buildSummary.jsx
 import React, { memo, useMemo, useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
 	Star,
 	Eye,
@@ -39,6 +39,7 @@ const BuildSummary = ({
 	const { user, token } = useAuth();
 	const { language, tUI, tDynamic } = useTranslation(); // 🟢 Khởi tạo tUI và tDynamic
 	const navigate = useNavigate();
+	const location = useLocation();
 	const apiUrl = import.meta.env.VITE_API_URL;
 	const menuRef = useRef(null);
 	const descriptionRef = useRef(null);
@@ -516,7 +517,7 @@ const BuildSummary = ({
 						variant='primary'
 						onClick={() => {
 							setShowLoginModal(false);
-							navigate("/auth?mode=login");
+							navigate(`/auth?mode=login&redirect=${encodeURIComponent(location.pathname + location.search)}`);
 						}}
 					>
 						{tUI("common.login")}

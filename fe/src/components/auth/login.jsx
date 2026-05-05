@@ -90,7 +90,6 @@ const Login = ({ onSwitchToRegister, onSuccess }) => {
 			msg => {
 				setIsLoading(false);
 				onSuccess(msg);
-				navigate("/", { replace: true });
 			},
 			err => {
 				setLoginErrors({

@@ -8,7 +8,7 @@ import {
 	MapPin,
 	ExternalLink,
 } from "lucide-react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import Button from "../common/button";
 import Modal from "../common/modal";
@@ -50,6 +50,7 @@ const CommentForm = ({
 	const [content, setContent] = useState(initialValue);
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const navigate = useNavigate();
+	const location = useLocation();
 
 	const handleSubmit = async e => {
 		e.preventDefault();
@@ -100,7 +101,7 @@ const CommentForm = ({
 				<div className='flex items-center gap-3 text-text-secondary text-sm'>
 					<User size={18} /> <span>{tUI("comments.loginToComment")}</span>
 				</div>
-				<Button size='sm' onClick={() => navigate("/auth?mode=login")}>
+				<Button size='sm' onClick={() => navigate(`/auth?mode=login&redirect=${encodeURIComponent(location.pathname + location.search)}`)}>
 					{tUI("common.login")}
 				</Button>
 			</div>

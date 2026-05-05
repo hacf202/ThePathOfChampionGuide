@@ -4,7 +4,7 @@ const BACKEND_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
 const getAuthToken = () => {
 	// Đã sửa: Loại bỏ cảnh báo khi không có token vì đây là hành vi bình thường của khách vãng lai
-	return localStorage.getItem("token") || localStorage.getItem("accessToken");
+	return localStorage.getItem("token") || localStorage.getItem("access_token");
 };
 
 const createUrl = endpoint => {

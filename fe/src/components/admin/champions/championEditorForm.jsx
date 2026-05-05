@@ -57,6 +57,7 @@ const ChampionEditorForm = memo(
 
 		const [formData, setFormData] = useState({
 			championID: "",
+			cardCode: "",
 			name: "",
 			cost: 0,
 			maxStar: 3,
@@ -109,6 +110,7 @@ const ChampionEditorForm = memo(
 			if (champion) {
 				const processedData = {
 					...champion,
+					cardCode: champion.cardCode || "",
 					tags: champion.tags || champion.tag || [],
 					itemIds: champion.itemIds || champion.defaultItems || [],
 					adventurePowerIds:
@@ -354,14 +356,23 @@ const ChampionEditorForm = memo(
 						</h3>
 						<div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
 							<div className='md:col-span-2 space-y-5'>
-								<InputField
-									label={tUI("admin.championForm.idLabel")}
-									name='championID'
-									value={formData.championID || ""}
-									onChange={handleInputChange}
-									required
-									disabled={!formData.isNew}
-								/>
+								<div className='grid grid-cols-2 gap-4'>
+									<InputField
+										label={tUI("admin.championForm.idLabel")}
+										name='championID'
+										value={formData.championID || ""}
+										onChange={handleInputChange}
+										required
+										disabled={!formData.isNew}
+									/>
+									<InputField
+										label="Card Code (Mã lá bài)"
+										name='cardCode'
+										value={formData.cardCode || ""}
+										onChange={handleInputChange}
+										placeholder="VD: 01DE012"
+									/>
+								</div>
 								<div className='grid grid-cols-2 gap-4'>
 									<InputField
 										label={tUI("admin.championForm.nameLabel")}

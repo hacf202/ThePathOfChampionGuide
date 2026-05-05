@@ -70,6 +70,39 @@ router.get("/users/:username", async (req, res) => {
 });
 
 /**
+ * 2b. GET /api/user/info/:sub - Lấy thông tin công khai qua SUB (Dùng cho comment/audit)
+ */
+router.get("/user/info/:sub", async (req, res) => {
+	const { sub } = req.params;
+
+	const cachedData = await userCache.get(sub);
+	if (cachedData) return res.json(cachedData);
+
+	try {
+		const command = new AdminGetUserCommand({
+			UserPoolId: COGNITO_USER_POOL_ID,
+			Username: sub,
+		});
+		const { UserAttributes } = await cognitoClient.send(command);
+		const nameAttr = UserAttributes.find(attr => attr.Name === "name");
+
+		const publicProfile = {
+			sub,
+			name: nameAttr ? nameAttr.Value : "Người chơi",
+		};
+
+		await userCache.set(sub, publicProfile);
+		res.json(publicProfile);
+	} catch (error) {
+		if (error.name === "UserNotFoundException") {
+			// Thử tìm theo batch hoặc trả về mặc định nếu không thấy
+			return res.json({ sub, name: "Người chơi" });
+		}
+		res.status(500).json({ error: "Could not fetch user info" });
+	}
+});
+
+/**
  * 3. POST /api/user/change-password
  */
 router.post(

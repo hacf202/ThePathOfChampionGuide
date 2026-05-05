@@ -1,6 +1,6 @@
 // components/layout/DesktopNavbar.jsx
 import React, { useContext, useState, useRef, useEffect } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext.jsx";
 import { useTheme } from "../../context/ThemeContext.jsx";
 import ThemeSettings from "../common/ThemeSettings.jsx";
@@ -42,6 +42,7 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 	const { user, logout, isAdmin } = useContext(AuthContext);
 	const { theme, toggleTheme } = useTheme();
 	const navigate = useNavigate();
+	const location = useLocation();
 
 	const [isProfileOpen, setIsProfileOpen] = useState(false);
 	const [isItemsDropdownOpen, setIsItemsDropdownOpen] = useState(false);
@@ -104,7 +105,7 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 
 	return (
 		<>
-			<header className='bg-header-bg text-header-text p-2 shadow-xl sticky top-0 z-50 font-secondary hidden xl:block'>
+			<header className='bg-header-bg text-header-text p-2 shadow-xl sticky top-0 z-[100] font-secondary hidden xl:block'>
 				<div className='w-full px-6 flex justify-between items-center'>
 					<div className='flex items-center gap-8 flex-1'>
 						<NavLink
@@ -292,6 +293,14 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 												{tUI("nav.championRatings")}
 											</NavLink>
 											<NavLink
+												to='/tools/champion-items'
+												className={dropdownLinkClass}
+												onClick={handleNavClick}
+											>
+												<Package className='w-5 h-5' />{" "}
+												{tUI("nav.championItems") || "Item cho tướng"}
+											</NavLink>
+											<NavLink
 												to='/introduction'
 												className={dropdownLinkClass}
 												onClick={handleNavClick}
@@ -428,7 +437,7 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 							</div>
 						) : (
 							<NavLink
-								to='/auth?mode=login'
+								to={`/auth?mode=login&redirect=${encodeURIComponent(location.pathname + location.search)}`}
 								onClick={handleNavClick}
 								className='flex items-center gap-2 py-2 px-4 rounded-lg bg-btn-primary-bg text-btn-primary-text hover:bg-btn-primary-hover-bg transition-all hover:scale-105 whitespace-nowrap flex-shrink-0'
 							>

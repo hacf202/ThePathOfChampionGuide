@@ -7,6 +7,8 @@ import { requireAdmin } from "../middleware/requireAdmin.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
 import { createAuditLog } from "../utils/auditLogger.js";
 import { getCachedCards, invalidateCardCache } from "../services/dataService.js";
+import fs from 'fs';
+import path from 'path';
 
 const router = express.Router();
 const CARDS_TABLE = "guidePocCardList";
@@ -112,17 +114,21 @@ router.get("/", async (req, res) => {
 		const paginatedItemsRaw = pageSize < 0 ? filtered : filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
 		// Tinh gọn dữ liệu (Projection) cho danh sách để giảm dung lượng gói tin
+		const normalizeArray = (val) => {
+			if (Array.isArray(val)) return val;
+			if (typeof val === 'string' && val.trim()) return [val.trim()];
+			return [];
+		};
+
 		const paginatedItems = paginatedItemsRaw.map(c => ({
 			cardCode: c.cardCode,
 			cardName: c.cardName,
 			cost: c.cost,
+			regions: normalizeArray(c.regions),
 			rarity: c.rarity,
-			regions: c.regions,
-			type: c.type,
-			description: c.description,
-			descriptionRaw: c.descriptionRaw,
+			keywords: normalizeArray(c.keywords),
+			subtypes: normalizeArray(c.subtypes),
 			gameAbsolutePath: c.gameAbsolutePath,
-			associatedCardRefs: c.associatedCardRefs || [],
 			translations: c.translations ? {
 				en: {
 					cardName: c.translations.en?.cardName,
@@ -130,7 +136,8 @@ router.get("/", async (req, res) => {
 					descriptionRaw: c.translations.en?.descriptionRaw,
 					gameAbsolutePath: c.translations.en?.gameAbsolutePath,
 					type: c.translations.en?.type,
-					regions: c.translations.en?.regions
+					regions: normalizeArray(c.translations.en?.regions),
+					keywords: normalizeArray(c.translations.en?.keywords)
 				}
 			} : undefined
 		}));
@@ -224,26 +231,68 @@ router.get("/:cardCode", async (req, res) => {
 
 	try {
 		const cached = await cardCache.get(CACHE_KEY);
-		if (cached) return res.json(cached);
+		let cardData = cached;
 
-		const db = getDb();
-		const Item = await db.collection(CARDS_TABLE).findOne({ cardCode });
+		// Chuẩn hóa dữ liệu: đảm bảo các trường danh sách luôn là mảng
+		const normalizeArray = (val) => {
+			if (Array.isArray(val)) return val;
+			if (typeof val === 'string' && val.trim()) return [val.trim()];
+			return [];
+		};
 
-		if (!Item) {
-			return res.status(404).json({ error: "Không tìm thấy lá bài." });
+		if (!cardData) {
+			const db = getDb();
+			const Item = await db.collection(CARDS_TABLE).findOne({ cardCode });
+
+			if (!Item) {
+				return res.status(404).json({ error: "Không tìm thấy lá bài." });
+			}
+			cardData = Item;
+			delete cardData._id;
 		}
 
-		const cardData = Item;
-		delete cardData._id;
+		cardData.keywords = normalizeArray(cardData.keywords);
+		cardData.subtypes = normalizeArray(cardData.subtypes);
+		if (cardData.translations?.en) {
+			cardData.translations.en.keywords = normalizeArray(cardData.translations.en.keywords);
+			cardData.translations.en.regions = normalizeArray(cardData.translations.en.regions);
+		}
 
-		// Resolve associatedCardRefs thành objects đầy đủ
-		if (cardData.associatedCardRefs?.length > 0) {
-			const allCards = await getCachedCards();
-			cardData.associatedCards = cardData.associatedCardRefs
-				.map(code => allCards.find(c => c.cardCode === code))
-				.filter(Boolean);
-		} else {
-			cardData.associatedCards = [];
+		// Fallback: Nếu thiếu keywords hoặc subtypes (do lỗi migration hoặc cache cũ), lấy từ backup JSON
+		if (cardData.keywords.length === 0 || cardData.subtypes.length === 0) {
+			try {
+				const backupPath = path.resolve(process.cwd(), 'uploadData/mongo_backup_2026-05-02T13-40-55/guidePocCardList.json');
+				if (fs.existsSync(backupPath)) {
+					const backupContent = fs.readFileSync(backupPath, 'utf8');
+					const backupData = JSON.parse(backupContent);
+					const backupCard = backupData.find(c => c.cardCode === cardCode);
+					if (backupCard) {
+						if (cardData.keywords.length === 0) cardData.keywords = normalizeArray(backupCard.keywords);
+						if (cardData.subtypes.length === 0) cardData.subtypes = normalizeArray(backupCard.subtypes);
+						
+						if (!cardData.translations) cardData.translations = {};
+						if (!cardData.translations.en) cardData.translations.en = {};
+						
+						if (!cardData.translations.en.keywords || cardData.translations.en.keywords.length === 0) {
+							cardData.translations.en.keywords = normalizeArray(backupCard.translations?.en?.keywords);
+						}
+					}
+				}
+			} catch (e) {
+				console.error("Lỗi khi lấy dữ liệu fallback từ JSON:", e);
+			}
+		}
+
+		// Resolve associatedCardRefs thành objects đầy đủ (nếu chưa có associatedCards)
+		if (!cardData.associatedCards || cardData.associatedCards.length === 0) {
+			if (cardData.associatedCardRefs?.length > 0) {
+				const allCards = await getCachedCards();
+				cardData.associatedCards = cardData.associatedCardRefs
+					.map(code => allCards.find(c => c.cardCode === code))
+					.filter(Boolean);
+			} else {
+				cardData.associatedCards = [];
+			}
 		}
 
 		await cardCache.set(CACHE_KEY, cardData);

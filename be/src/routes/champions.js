@@ -486,9 +486,9 @@ router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 			}
 		}
 
-		await db.collection(CHAMPIONS_TABLE).replaceOne(
+		await db.collection(CHAMPIONS_TABLE).updateOne(
 			{ championID },
-			cleanData,
+			{ $set: cleanData },
 			{ upsert: true }
 		);
 		

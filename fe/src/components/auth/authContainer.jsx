@@ -18,11 +18,25 @@ const AuthContainer = () => {
 
 	const showBackButton = location.key !== "default";
 
-	const handleLoginSuccess = () => navigate("/builds");
-	const handleRegisterSuccess = () => setSearchParams({ mode: "login" });
+	const handleLoginSuccess = () => {
+		const redirectTo = searchParams.get("redirect") || "/builds";
+		navigate(redirectTo, { replace: true });
+	};
+	const handleRegisterSuccess = () => {
+		const redirect = searchParams.get("redirect");
+		const params = { mode: "login" };
+		if (redirect) params.redirect = redirect;
+		setSearchParams(params);
+	};
 
-	const switchToRegister = () => setSearchParams({ mode: "register" });
-	const switchToLogin = () => setSearchParams({ mode: "login" });
+	const switchToRegister = () => {
+		searchParams.set("mode", "register");
+		setSearchParams(searchParams);
+	};
+	const switchToLogin = () => {
+		searchParams.set("mode", "login");
+		setSearchParams(searchParams);
+	};
 
 	const handleBack = () => {
 		if (showBackButton) {

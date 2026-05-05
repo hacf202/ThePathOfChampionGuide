@@ -1,6 +1,6 @@
 // src/components/build/buildDetail.jsx
 import React, { useState, useEffect, useMemo, useCallback } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import {
 	Star,
 	ThumbsUp,
@@ -61,6 +61,7 @@ const BuildDetailSkeleton = () => (
 const BuildDetail = () => {
 	const { buildId } = useParams();
 	const navigate = useNavigate();
+	const location = useLocation();
 	const { user, token } = useAuth();
 	const { tUI, tDynamic } = useTranslation(); // 🟢 Khởi tạo tUI và tDynamic
 	const apiUrl = import.meta.env.VITE_API_URL;
@@ -496,7 +497,7 @@ const BuildDetail = () => {
 							variant='primary'
 							onClick={() => {
 								setShowLoginModal(false);
-								navigate("/auth?mode=login");
+								navigate(`/auth?mode=login&redirect=${encodeURIComponent(location.pathname + location.search)}`);
 							}}
 						>
 							{tUI("common.login")}

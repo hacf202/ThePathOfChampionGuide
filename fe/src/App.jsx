@@ -48,6 +48,7 @@ import SubChampionList from "./pages/subChampionList.jsx";
 import ResourceListPage from "./pages/resourceListPage.jsx";
 import BossListPage from "./pages/BossListPage.jsx";
 import BossDetailPage from "./components/boss/BossDetailPage.jsx";
+import ChampionItems from "./pages/championItems.jsx";
 
 import ErrorPage from "./pages/ErrorPage.jsx";
 
@@ -81,7 +82,7 @@ function MainContentContainer() {
 
 	const isAdmin = location.pathname.startsWith("/admin");
 	// Danh sách các trang full-width
-	const fullWidthPaths = ["/", "/randomizer", "/home", "/introduction", "/simulator/vaults", "/tools/ratings"];
+	const fullWidthPaths = ["/", "/randomizer", "/home", "/introduction", "/simulator/vaults", "/tools/ratings", "/tools/champion-items"];
 	const isFullWidth = isAdmin || fullWidthPaths.includes(location.pathname);
 
 	useEffect(() => {
@@ -116,7 +117,8 @@ function AppLayout() {
 		location.pathname === "/randomizer" ||
 		location.pathname === "/introduction" ||
 		location.pathname === "/simulator/vaults" ||
-		location.pathname === "/tools/ratings";
+		location.pathname === "/tools/ratings" ||
+		location.pathname === "/tools/champion-items";
 
 	return (
 		<div
@@ -160,6 +162,7 @@ const router = createBrowserRouter([
 			{ path: "simulator/vaults", element: <VaultSimulator /> },
 			{ path: "sub-champions", element: <SubChampionList /> },
 			{ path: "tools/ratings", element: <ChampionRatingPage /> },
+			{ path: "tools/champion-items", element: <ChampionItems /> },
 			{ path: "profile", element: <Profile /> },
 			{ path: "champions", element: <Champions /> },
 			{ path: "champion/:championID", element: <ChampionDetail /> },

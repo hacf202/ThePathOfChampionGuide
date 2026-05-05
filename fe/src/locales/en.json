@@ -563,6 +563,8 @@
 		"nav": {
 			"dashboard": "Dashboard",
 			"champion": "Champions",
+			"championItems": "Champion Items",
+			"subchampions": "Sub Champions",
 			"power": "Powers",
 			"bonusStar": "Bonus Stars",
 			"relic": "Relics",
@@ -1285,7 +1287,9 @@
 		"cancel": "Cancel",
 		"customTheme": "Custom Theme",
 		"newChampion": "New Champion",
-		"bosses": "Boss List"
+		"bosses": "Boss List",
+		"subChampions": "Sub Champions",
+		"championItems": "Champion Items"
 	},
 	"bossList": {
 		"pageTitle": "Boss List",
@@ -1600,19 +1604,29 @@
 		}
 	},
 	"bestSubChampion": {
-		"title": "Find Best Sub Champion",
+		"title": "Find Best Sub-Champion",
 		"description": "Search for reinforcement champions with the optimal item pool for your strategy.",
 		"selectMain": "Select Main Champion",
 		"selectItem": "Select Desired Item",
-		"searchChampion": "Search champion name...",
+		"searchChampion": "Search champion...",
 		"searchItem": "Search item name...",
-		"compatibleItems": "Compatible Items",
-		"recommendedSubs": "Recommended Sub Champions",
-		"probability": "Item Appearance Probability",
-		"poolSize": "Total Item Pool Size",
+		"compatibleItems": "Items",
+		"recommendedSubs": "Best Sub-Champions",
+		"probability": "Appearance Probability",
+		"poolSize": "Pool",
 		"noCompatibleItems": "No compatible items found for this champion.",
 		"selectMainFirst": "Please select a main champion first.",
 		"loading": "Calculating...",
-		"results": "Recommended Results"
+		"results": "Recommended Results",
+		"hintSelect": "Select at least one item to analyze sub-champions",
+		"clear": "Clear",
+		"vuiLongChonTuongChinhTruoc": "Please select a main champion first.",
+		"vatPham": "Items",
+		"timKiemTuong": "Search champion...",
+		"goiYTuongPhuToiUu": "Best Sub-Champions",
+		"chonItNhatMotVatPham": "Select at least one item to analyze sub-champions",
+		"xoa": "Clear",
+		"nangLuong": "Cost",
+		"beVatPham": "Pool"
 	}
 }

@@ -701,23 +701,33 @@
 				"rollback": "Hoàn tác",
 				"rollbackConfirm": "Bạn có chắc chắn muốn hoàn tác thay đổi này? Hành động này sẽ ghi đè dữ liệu hiện tại."
 			}
-		},
-		"bestSubChampion": {
-			"title": "Tìm Tướng Phụ Tốt Nhất",
-			"description": "Tìm kiếm các tướng hỗ trợ có bể vật phẩm tối ưu cho chiến thuật của bạn.",
-			"selectMain": "Chọn Tướng Chính",
-			"selectItem": "Chọn Vật Phẩm Mong Muốn",
-			"searchChampion": "Tìm tên tướng...",
-			"searchItem": "Tìm tên vật phẩm...",
-			"compatibleItems": "Các vật phẩm phù hợp",
-			"recommendedSubs": "Đề xuất Tướng Phụ",
-			"probability": "Tỉ lệ xuất hiện vật phẩm",
-			"poolSize": "Tổng số vật phẩm trong bể",
-			"noCompatibleItems": "Không tìm thấy vật phẩm nào phù hợp với tướng này.",
-			"selectMainFirst": "Vui lòng chọn tướng chính trước.",
-			"loading": "Đang tính toán...",
-			"results": "Kết quả đề xuất"
 		}
+	},
+	"bestSubChampion": {
+		"title": "Tìm Tướng Phụ Tốt Nhất",
+		"description": "Tìm kiếm các tướng hỗ trợ có bể vật phẩm tối ưu cho chiến thuật của bạn.",
+		"selectMain": "Chọn Tướng Chính",
+		"selectItem": "Chọn Vật Phẩm Mong Muốn",
+		"searchChampion": "Tìm kiếm tướng...",
+		"searchItem": "Tìm tên vật phẩm...",
+		"compatibleItems": "Vật phẩm",
+		"recommendedSubs": "Gợi ý tướng phụ tối ưu",
+		"probability": "Tỉ lệ xuất hiện vật phẩm",
+		"poolSize": "Pool",
+		"noCompatibleItems": "Không tìm thấy vật phẩm nào phù hợp với tướng này.",
+		"selectMainFirst": "Vui lòng chọn tướng chính trước.",
+		"loading": "Đang tính toán...",
+		"results": "Kết quả đề xuất",
+		"hintSelect": "Chọn ít nhất một vật phẩm để phân tích tướng phụ",
+		"clear": "Xóa",
+		"vuiLongChonTuongChinhTruoc": "Vui lòng chọn tướng chính trước.",
+		"vatPham": "Vật phẩm",
+		"timKiemTuong": "Tìm kiếm tướng...",
+		"goiYTuongPhuToiUu": "Gợi ý tướng phụ tối ưu",
+		"chonItNhatMotVatPham": "Chọn ít nhất một vật phẩm để phân tích tướng phụ",
+		"xoa": "Xóa",
+		"nangLuong": "Năng lượng",
+		"beVatPham": "Pool"
 	},
 	"tierList": {
 		"pageTitle": "Bảng Xếp Hạng - POC GUIDE",
@@ -1301,7 +1311,9 @@
 		"confirmLogoutDesc": "Bạn có chắc chắn muốn kết thúc phiên làm việc này không?",
 		"customTheme": "Cá nhân hóa",
 		"newChampion": "Tướng mới",
-		"bosses": "Danh sách Boss"
+		"bosses": "Danh sách Boss",
+		"subChampions": "Tướng phụ",
+		"championItems": "Vật phẩm Tướng"
 	},
 	"bossList": {
 		"pageTitle": "Danh sách Boss",

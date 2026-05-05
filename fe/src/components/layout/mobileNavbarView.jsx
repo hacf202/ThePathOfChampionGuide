@@ -1,6 +1,6 @@
 // components/layout/MobileSidebar.jsx
 import React, { useContext, useState, useRef, useEffect } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext.jsx";
 import { useTheme } from "../../context/ThemeContext.jsx";
 import ThemeSettings from "../common/ThemeSettings.jsx";
@@ -46,6 +46,7 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 	const { user, logout, isAdmin } = useContext(AuthContext);
 	const { theme, toggleTheme } = useTheme();
 	const navigate = useNavigate();
+	const location = useLocation();
 
 	const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 	const [isItemsDropdownOpen, setIsItemsDropdownOpen] = useState(false);
@@ -96,7 +97,7 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 	return (
 		<>
 			{/* Mobile Header */}
-			<header className='bg-header-bg text-header-text p-2 shadow-xl sticky top-0 z-50 xl:hidden flex items-center justify-between h-14 overflow-visible'>
+			<header className='bg-header-bg text-header-text p-2 shadow-xl sticky top-0 z-[100] xl:hidden flex items-center justify-between h-14 overflow-visible'>
 				{/* Logo Section */}
 				<div className="flex items-center gap-2 flex-shrink-0">
 					<NavLink to='/' className='flex items-center gap-2' onClick={closeSidebar}>
@@ -218,7 +219,7 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 										className={dropdownLinkClass}
 										onClick={closeSidebar}
 									>
-										<Users className='w-4 h-4' /> {tUI("nav.subChampions") || "Sub-Champions"}
+										<Users className='w-4 h-4' /> {tUI("nav.subChampions")}
 									</NavLink>
 									<NavLink
 										to='/items'
@@ -346,6 +347,14 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 										{tUI("nav.championRatings")}
 									</NavLink>
 									<NavLink
+										to='/tools/champion-items'
+										className={dropdownLinkClass}
+										onClick={closeSidebar}
+									>
+										<Package className='w-4 h-4' />{" "}
+										{tUI("nav.championItems") || "Item cho tướng"}
+									</NavLink>
+									<NavLink
 										to='/introduction'
 										className={dropdownLinkClass}
 										onClick={closeSidebar}
@@ -458,7 +467,7 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 							</>
 						) : (
 							<NavLink
-								to='/auth?mode=login'
+								to={`/auth?mode=login&redirect=${encodeURIComponent(location.pathname + location.search)}`}
 								className='flex items-center gap-3 px-3 py-2 rounded-lg bg-btn-primary-bg text-btn-primary-text hover:bg-btn-primary-hover-bg'
 								onClick={closeSidebar}
 							>
