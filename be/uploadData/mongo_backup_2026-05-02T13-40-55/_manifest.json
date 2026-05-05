@@ -85,6 +85,18 @@
       "file": "guidePocAuditLogs.json",
       "count": 0,
       "success": true
+    },
+    {
+      "collection": "guidePocSubChampions",
+      "file": "guidePocSubChampions.json",
+      "count": 78,
+      "success": true
+    },
+    {
+      "collection": "guidePocItemRequirements",
+      "file": "guidePocItemRequirements.json",
+      "count": 181,
+      "success": true
     }
   ],
   "totalItems": 4407,

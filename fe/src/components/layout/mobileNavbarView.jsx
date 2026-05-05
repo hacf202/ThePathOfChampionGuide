@@ -39,6 +39,7 @@ import {
 	Palette,
 	Search,
 	Book,
+	Users,
 } from "lucide-react";
 
 function MobileSidebar({ language, handleLanguageChange, tUI }) {
@@ -211,6 +212,13 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 										onClick={closeSidebar}
 									>
 										<Swords className='w-4 h-4' /> {tUI("nav.champions")}
+									</NavLink>
+									<NavLink
+										to='/sub-champions'
+										className={dropdownLinkClass}
+										onClick={closeSidebar}
+									>
+										<Users className='w-4 h-4' /> {tUI("nav.subChampions") || "Sub-Champions"}
 									</NavLink>
 									<NavLink
 										to='/items'

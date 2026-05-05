@@ -65,7 +65,13 @@
 			"equipment": "Equipment",
 			"ability": "Ability",
 			"trap": "Trap",
-			"other": "Other"
+			"other": "Other",
+			"Bài Quân": "Unit",
+			"Bài Phép": "Spell",
+			"Địa Danh": "Landmark",
+			"Trang Bị": "Equipment",
+			"Kỹ Năng": "Ability",
+			"Bẫy": "Trap"
 		}
 	},
 	"common": {
@@ -1266,6 +1272,7 @@
 		"randomizer": "Randomizer",
 		"about": "About",
 		"vaultSimulator": "Vault Simulator",
+		"bestSubChampion": "Best Sub Champion",
 		"championRatings": "Champion Ratings",
 		"guides": "Guides",
 		"language": "Language",
@@ -1591,5 +1598,21 @@
 			"wildFragments": "Wild Fragments",
 			"xpNeeded": "XP Needed"
 		}
+	},
+	"bestSubChampion": {
+		"title": "Find Best Sub Champion",
+		"description": "Search for reinforcement champions with the optimal item pool for your strategy.",
+		"selectMain": "Select Main Champion",
+		"selectItem": "Select Desired Item",
+		"searchChampion": "Search champion name...",
+		"searchItem": "Search item name...",
+		"compatibleItems": "Compatible Items",
+		"recommendedSubs": "Recommended Sub Champions",
+		"probability": "Item Appearance Probability",
+		"poolSize": "Total Item Pool Size",
+		"noCompatibleItems": "No compatible items found for this champion.",
+		"selectMainFirst": "Please select a main champion first.",
+		"loading": "Calculating...",
+		"results": "Recommended Results"
 	}
 }

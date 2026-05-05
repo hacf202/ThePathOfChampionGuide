@@ -40,4 +40,7 @@ export const CACHE_KEYS = {
 		ALL: "all_cards_data",
 		DETAIL: (id) => `card_detail_${id}`,
 	},
+	ITEM_REQUIREMENTS: {
+		ALL: "all_item_requirements",
+	},
 };

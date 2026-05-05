@@ -26,6 +26,7 @@ const adventureCache = cacheManager.getOrCreateCache("adventures", { stdTTL: 864
 const cardCache      = cacheManager.getOrCreateCache("cards",      { stdTTL: 86400, checkperiod: 60 });
 const guideCache     = cacheManager.getOrCreateCache("guides",     { stdTTL: 86400, checkperiod: 120 });
 const resourceCache  = cacheManager.getOrCreateCache("resources",  { stdTTL: 86400, checkperiod: 120 });
+const subChampionCache = cacheManager.getOrCreateCache("sub_champions", { stdTTL: 86400, checkperiod: 60 });
 
 // --- Table Names ---
 const TABLES = {
@@ -39,6 +40,7 @@ const TABLES = {
 	CARDS:      "guidePocCardList",
 	GUIDES:     "guidePocGuideList",
 	RESOURCES:  "guidePocResourceList",
+	SUB_CHAMPIONS:     "guidePocSubChampions",
 };
 
 // ─────────────────────────────────────────────────────────────
@@ -106,9 +108,14 @@ export async function getCachedRelics() {
 	return loadAll(relicCache, CACHE_KEYS.RELICS.ALL, TABLES.RELICS);
 }
 
-/** Lấy toàn bộ Vật phẩm (Items) từ RAM hoặc MongoDB */
+/** Lấy toàn bộ Vật phẩm (Items) */
 export async function getCachedItems() {
 	return loadAll(itemCache, CACHE_KEYS.ITEMS.ALL, TABLES.ITEMS);
+}
+
+/** Lấy toàn bộ Tướng hỗ trợ (Reinforcements) */
+export async function getCachedSubChampions() {
+	return loadAll(subChampionCache, "all_sub_champions", TABLES.SUB_CHAMPIONS, "name");
 }
 
 /** Lấy toàn bộ Ngọc (Runes) từ RAM hoặc MongoDB */

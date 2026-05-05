@@ -35,6 +35,7 @@ import {
 	Moon,
 	Palette,
 	Book,
+	Users,
 } from "lucide-react";
 
 function DesktopNavbar({ language, handleLanguageChange, tUI }) {
@@ -155,6 +156,13 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 												onClick={handleNavClick}
 											>
 												<Swords className='w-5 h-5' /> {tUI("nav.champions")}
+											</NavLink>
+											<NavLink
+												to='/sub-champions'
+												className={dropdownLinkClass}
+												onClick={handleNavClick}
+											>
+												<Users className='w-5 h-5' /> {tUI("nav.subChampions") || "Sub-Champions"}
 											</NavLink>
 											<NavLink
 												to='/items'

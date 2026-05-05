@@ -35,10 +35,9 @@ router.get("/:itemCode", async (req, res) => {
 		if (!Item)
 			return res.status(404).json({ error: `Không tìm thấy vật phẩm: ${id}` });
 
-		const itemData = Item;
-		await itemCache.set(CACHE_KEY, itemData);
+		await itemCache.set(CACHE_KEY, Item);
 
-		res.json(itemData);
+		res.json(Item);
 	} catch (error) {
 		console.error(`Lỗi lấy chi tiết vật phẩm ${id}:`, error);
 		res.status(500).json({ error: "Lỗi hệ thống." });
@@ -113,11 +112,17 @@ router.get("/", async (req, res) => {
 		});
 
 		const totalItems = filtered.length;
-		const totalPages = Math.ceil(totalItems / pageSize);
-		const paginatedItems = filtered.slice(
-			(currentPage - 1) * pageSize,
-			currentPage * pageSize,
-		);
+		const totalPages = pageSize > 0 ? Math.ceil(totalItems / pageSize) : 1;
+		
+		let paginatedItems;
+		if (pageSize < 0) {
+			paginatedItems = filtered;
+		} else {
+			paginatedItems = filtered.slice(
+				(currentPage - 1) * pageSize,
+				currentPage * pageSize,
+			);
+		}
 
 		res.json({
 			items: paginatedItems,

@@ -44,6 +44,7 @@ import TierListIndex from "./pages/tierList.jsx";
 import VaultSimulator from "./pages/vaultSimulator.jsx";
 import CardList from "./pages/cardList.jsx";
 import ChampionRatingPage from "./pages/championRatingPage.jsx";
+import SubChampionList from "./pages/subChampionList.jsx";
 import ResourceListPage from "./pages/resourceListPage.jsx";
 import BossListPage from "./pages/BossListPage.jsx";
 import BossDetailPage from "./components/boss/BossDetailPage.jsx";
@@ -114,7 +115,8 @@ function AppLayout() {
 		location.pathname === "/home" ||
 		location.pathname === "/randomizer" ||
 		location.pathname === "/introduction" ||
-		location.pathname === "/simulator/vaults";
+		location.pathname === "/simulator/vaults" ||
+		location.pathname === "/tools/ratings";
 
 	return (
 		<div
@@ -156,6 +158,7 @@ const router = createBrowserRouter([
 			{ path: "home", element: <Home /> },
 			{ path: "randomizer", element: <RandomizerPage /> },
 			{ path: "simulator/vaults", element: <VaultSimulator /> },
+			{ path: "sub-champions", element: <SubChampionList /> },
 			{ path: "tools/ratings", element: <ChampionRatingPage /> },
 			{ path: "profile", element: <Profile /> },
 			{ path: "champions", element: <Champions /> },

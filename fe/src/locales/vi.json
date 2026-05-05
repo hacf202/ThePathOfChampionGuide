@@ -65,7 +65,13 @@
 			"equipment": "Trang bị",
 			"ability": "Kỹ năng",
 			"trap": "Bẫy",
-			"other": "Khác"
+			"other": "Khác",
+			"Bài Quân": "Bài Quân",
+			"Bài Phép": "Bài Phép",
+			"Địa Danh": "Địa Danh",
+			"Trang Bị": "Trang Bị",
+			"Kỹ Năng": "Kỹ Năng",
+			"Bẫy": "Bẫy"
 		}
 	},
 	"common": {
@@ -168,6 +174,8 @@
 		"bosses": "trùm"
 	},
 	"adventureMap": {
+		"vaultSimulator": "Mở hòm simulator",
+		"guides": "Hướng dẫn chi tiết",
 		"detailTitle": "Chi tiết bản đồ",
 		"detailDesc": "Hướng dẫn chi tiết bản đồ",
 		"errorLoad": "Không thể tải thông tin bản đồ này.",
@@ -693,6 +701,22 @@
 				"rollback": "Hoàn tác",
 				"rollbackConfirm": "Bạn có chắc chắn muốn hoàn tác thay đổi này? Hành động này sẽ ghi đè dữ liệu hiện tại."
 			}
+		},
+		"bestSubChampion": {
+			"title": "Tìm Tướng Phụ Tốt Nhất",
+			"description": "Tìm kiếm các tướng hỗ trợ có bể vật phẩm tối ưu cho chiến thuật của bạn.",
+			"selectMain": "Chọn Tướng Chính",
+			"selectItem": "Chọn Vật Phẩm Mong Muốn",
+			"searchChampion": "Tìm tên tướng...",
+			"searchItem": "Tìm tên vật phẩm...",
+			"compatibleItems": "Các vật phẩm phù hợp",
+			"recommendedSubs": "Đề xuất Tướng Phụ",
+			"probability": "Tỉ lệ xuất hiện vật phẩm",
+			"poolSize": "Tổng số vật phẩm trong bể",
+			"noCompatibleItems": "Không tìm thấy vật phẩm nào phù hợp với tướng này.",
+			"selectMainFirst": "Vui lòng chọn tướng chính trước.",
+			"loading": "Đang tính toán...",
+			"results": "Kết quả đề xuất"
 		}
 	},
 	"tierList": {
@@ -1265,6 +1289,7 @@
 		"randomizer": "Vòng quay",
 		"about": "Giới thiệu",
 		"vaultSimulator": "Giả lập mở rương",
+		"bestSubChampion": "Tìm tướng phụ tốt nhất",
 		"championRatings": "Đánh giá Tướng",
 		"guides": "Bài Viết",
 		"language": "Ngôn ngữ",
