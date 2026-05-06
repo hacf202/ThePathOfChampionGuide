@@ -43,7 +43,7 @@ export const useCardData = (queryParams, state, tUI) => {
 				
 				if (isMatch) {
 					// Nếu khớp, lấy mã thẻ gốc (ví dụ 01IO012T2 -> 01IO012)
-					const baseCode = (c.cardCode || "").split("T")[0];
+					const baseCode = (c.cardCode || "").substring(0, 7);
 					matchingCodes.add(baseCode);
 				}
 			});
