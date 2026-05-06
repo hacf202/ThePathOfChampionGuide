@@ -1,0 +1,2017 @@
+[
+  {
+    "Bosses": [
+      {
+        "mapBonusPower": [
+          "P0492"
+        ],
+        "bossID": "B001",
+        "note": "đầu game giết 1 con đừng để nó đầy sân là được, hạn chế giết quá nhiều poro không thì bạn sẽ phải chả gió."
+      },
+      {
+        "mapBonusPower": [
+          "P0492"
+        ],
+        "bossID": "B008",
+        "note": "Con này thì bình thường không quá khó chịu, chủ yếu đừng để nó cộng đồn quá nhiều chỉ số bằng cách không đển bàn đấu bên boss đầy khi kết thúc vòng đấu."
+      },
+      {
+        "mapBonusPower": [
+          "P0492"
+        ],
+        "bossID": "B005",
+        "note": "Công rất nhiều sát thương rất to và có cả áp đảo, nên cân nhắc trước khi đi. Các đối phó tốt nhất là có nhiều hiệu ứng khống chế như đóng băng, choáng, bất động,..."
+      },
+      {
+        "mapBonusPower": [
+          "P0492"
+        ],
+        "bossID": "B007",
+        "note": "Con này không quá khó chịu. Nó sẽ hồi phục khá nhiều nhờ vào đặc điểm hút máu nên là chỉ công khi bạn có đột kích, thách đấu hoặc áp đảo đấm thẳng vào nhà chính, còn không nếu bạn có các bài phép giết quân thì đánh cũng khá dễ"
+      },
+      {
+        "mapBonusPower": [
+          "P0492"
+        ],
+        "bossID": "B002",
+        "note": "Có rất nhiều rút bài, bài phép khó chịu và Có Deny. Không khó nhưng cũng không dễ chịu."
+      },
+      {
+        "mapBonusPower": [
+          "P0492"
+        ],
+        "bossID": "B006",
+        "note": "Boss này sẽ bắt bài quân mạnh nhất của bạn khi nó triệu hồi bài quân đầu mỗi vòng, nên là đợi nó triệu hồi 1 con quân rồi hãy triệu hồi các bài quân quan trọng của bản thân."
+      },
+      {
+        "mapBonusPower": [
+          "P0492"
+        ],
+        "bossID": "B004",
+        "note": "Đánh nhanh diệt gọn với con này là được, càng đánh lâu nguy cơ thua của bạn càng cao. Boss này chỉ có 1 bài phép gây sát thương duy nhất có thể đe dọa được bài quân và nhà chính của bạn nên cũng dễ đối phó."
+      },
+      {
+        "mapBonusPower": [
+          "P0492"
+        ],
+        "bossID": "B003",
+        "note": "Boss này đánh bằng bài quân huyền ảo nhiều nhưng khá dễ đối phó khi bạn có choáng hoặc đóng băng, chỉ cần chặn được việc bài quân cảm tử bên boss đánh vào nhà chính của bạn là được, boss sẽ hết bài khá nhanh."
+      },
+      {
+        "mapBonusPower": [
+          "P0492"
+        ],
+        "bossID": "B009",
+        "note": "Đây là 1 boss hơi khó chịu, khả năng scale dmg rất nhiều, có các bài phép choáng và thu về khó chịu, nên cân nhắc khi đi. ĐẶC BIỆT boss này khắc chế khá nhiều những tướng có lối chơi solo carry vì nó choáng quân mạnh nhất của bạn đầu mỗi vòng."
+      },
+      {
+        "mapBonusPower": [
+          "P0492"
+        ],
+        "bossID": "B013",
+        "note": "Né được thì né :)) bình thường Karma đã rất khó chịu thì Karma Sett là gấp 10 lần độ khó chịu cũng như độ đột biến khi có Xu giúp cho boss nó mua thì kinh vcl luôn. Nhưng khắc chế cũng khá đơn giản đó là bạn tiêu diệt được Karma sớm là được đừng để nó đứng sân quá lâu."
+      },
+      {
+        "mapBonusPower": [
+          "P0492"
+        ],
+        "bossID": "B014",
+        "note": "Đây là một boss cũng khá khó chịu, với lượng sát thương cực lớn từ các bài quân và còn ra đòn, bài quân huyền ảo,... Nhưng đối phó không khó, bắt đầu Zed chỉ có 3 HP khá dễ để tiêu diệt và khi tiêu diệt được Zed thì độ khó của con boss này đã giảm đi 1 nữa. Boss có 1 lá Deny bài phép 3- tiêu hao và gây ngược dmg lại nhà chính rất khó chịu :))"
+      },
+      {
+        "mapBonusPower": [
+          "P0492"
+        ],
+        "bossID": "B015",
+        "note": "Về cơ bản thì là bạn target con quân nào thì nó sẽ swap với những con bên cạnh, để ý xíu là đi được."
+      },
+      {
+        "mapBonusPower": [
+          "P0492"
+        ],
+        "bossID": "B050",
+        "note": "Đừng để nó có quá nhiều quân trên sàn, Boss scale khá ghê với 2 power, càng nhiều quân thì nó càng khỏe càng sống lâu bạn càng khó giết. Nên là vào boss này thì end nhanh hoặc dọn sạch quân nó mỗi vòng,  từ 2 quân trở xuống thì nó sẽ không scale được."
+      },
+      {
+        "mapBonusPower": [
+          "P0492"
+        ],
+        "bossID": "B018",
+        "note": "Con này khá khó chịu, cách đối phó đơn giản nhất là đừng để nó chạm vào nhà chính của bạn nhiều, càng chạm nhiều bạn càng dễ vào thế dầu ăn, nó mua thì bạn khỏi thở luôn. Bạn cũng có thể giết con Zinneia thì nó sẽ đỡ múa và đỡ khó chịu hơn."
+      },
+      {
+        "mapBonusPower": [
+          "P0492"
+        ],
+        "bossID": "B051",
+        "note": "Con boss bình thường nhất và có lòng nhất từ nhất, đôi khi nó còn giúp mình :)))"
+      },
+      {
+        "mapBonusPower": [
+          "P0492"
+        ],
+        "bossID": "B017",
+        "note": "Quân khá là nhiều và chỉ số khá to, nhưng không có áp đảo đánh cũng dễ thở có quân để thủ là được."
+      },
+      {
+        "mapBonusPower": [
+          "P0492"
+        ],
+        "bossID": "B016",
+        "note": "Con này khi nó gọi quân mỗi vòng thì nó sẽ ra đòn ngẫu nhiên lên 1 quân của bạn, hên xui thôi, không quá khó để đánh đâu."
+      },
+      {
+        "mapBonusPower": [
+          "P0492"
+        ],
+        "bossID": "B019",
+        "note": "Gà Kiếm này mạnh vcl, dmg rất to, công rất nhiều, mấy con thủ yếu hoặc chậm đầu game rất khó để chơi. Cách đơn giản để giảm bớt áp lực là diệt được con Irelia ở vòng đầu vì nó chỉ có 3 máu thôi, càng để nó scale càng dễ chết. từ vòng 2 Azir sẽ thăng cấp và hơi áp lực, diệt được Azir quân của boss  sẽ mất áp đảo lúc đó thì sẽ rất dễ chơi."
+      },
+      {
+        "mapBonusPower": [
+          "P0541"
+        ],
+        "bossID": "B020",
+        "note": "Đánh nhây vơi con này thì khó mà sống, nó choáng rất khó chịu nên tốt nhất là thắng nhanh hoặc né con boss này ra."
+      },
+      {
+        "mapBonusPower": [
+          "P0541"
+        ],
+        "bossID": "B049",
+        "note": "con này dmg rất to nhưng bù lại máu quân rất mòng thủ khá dễ, muốn yên tâm hơn thì có choáng hoặc đóng băng thì đi ez."
+      },
+      {
+        "mapBonusPower": [],
+        "bossID": "B045",
+        "note": "Con này cũng khá dễ di quân và cơ chế không có gì đặc biệt nhiều lắm."
+      },
+      {
+        "mapBonusPower": [
+          "P0541"
+        ],
+        "bossID": "B023",
+        "note": "Boss này chủ yếu sẽ rỉa máu của bạn rất nhiều, sát thương của nó cao nên là bạn có nhiều máu nhà chính, hồi phục từ hút máu thì hãy đi con này."
+      },
+      {
+        "mapBonusPower": [
+          "P0541"
+        ],
+        "bossID": "B022",
+        "note": "Con này bình thường không có gì nổi bật, đánh lâu thì nó sẽ scale máu, rỉa máu nhà chính bạn từ từ nhưng không quá nhiều đâu."
+      },
+      {
+        "mapBonusPower": [
+          "P0541"
+        ],
+        "bossID": "B046",
+        "note": "Con này có vài cái choáng hơi khó chịu, chủ yếu là câu giờ bạn, bài quân và cơ chế thì không có gì đặc biệt."
+      },
+      {
+        "mapBonusPower": [
+          "P0541"
+        ],
+        "bossID": "B025",
+        "note": "Draven sẽ được triệu hồi sau mỗi vòng nếu chưa có nên về cơ bản hạn chế giết Draven, khi Draven công thì sẽ có song kích nên cách tốt nhất là dùng choáng, đóng băng để cản hoặc diệt nó luôn trước khi nó công. Boss này ở lượt đầu bạn cứ skip thoải mái đến khi bên boss dùng lá Tên Lửa, lúc đó là lượt của bạn bạn muốn làm gì cũng được."
+      },
+      {
+        "mapBonusPower": [
+          "P0541"
+        ],
+        "bossID": "B024",
+        "note": "Con này thì 1 là thắng nhanh, 2 là phải có rất nhiều hồi phục hoăc nhà chính kiên cường, 3 là phải đánh thật kỹ vì nó burn rất ghê, khi có Annie trên sân 1 lưỡi dao = 8 dmg, có Jhin trên sân thì rất dễ ăn choáng và bị rỉa máu nhà chính, nó còn có cả 2 lá choáng là Hậu Đài Viên và con Yone. Nên là cân nhắc trước khi đánh, xác định thắng nhanh thắng gọn hoặc giết được 2 con tướng của boss sớm thì hãy đi."
+      },
+      {
+        "mapBonusPower": [
+          "P0541"
+        ],
+        "bossID": "B028",
+        "note": "Cơ bản thì con quân đoàn cướp bóc này nó sẽ có cảm tử nên là một là giết luôn hai là giết để nó không công được thì rất dễ chơi, còn lại thì nó không có gì quá khó chịu đâu."
+      },
+      {
+        "mapBonusPower": [
+          "P0541"
+        ],
+        "bossID": "B044",
+        "note": "Đừng bị thương hoặc diệt sạch quân nó :D"
+      },
+      {
+        "mapBonusPower": [
+          "P0541"
+        ],
+        "bossID": "B029",
+        "note": "Nó ra đòn thì thêm dmg, giết con tầm vọng thì dễ chơi hơn nhiều, cơ bản thì có hiệu ứng choáng đóng bằng thì đi dễ, không thì đánh bình thường đừng để nó ra đòn nhiều quá là được."
+      },
+      {
+        "mapBonusPower": [
+          "P0541"
+        ],
+        "bossID": "B027",
+        "note": "ĐỪNG CÓ KÉO BẤT KỲ MỘT CON QUÂN NÀO CỦA NÓ bạn sẽ thắng."
+      },
+      {
+        "mapBonusPower": [
+          "P0541"
+        ],
+        "bossID": "B043",
+        "note": "Dễ~~~~~"
+      },
+      {
+        "mapBonusPower": [
+          "P0541"
+        ],
+        "bossID": "B026",
+        "note": "Con này đơn giản là câu thời gian của bạn, nó không có gì khó chịu hết, chủ yếu bạn sẽ bị rỉa một ít máu nhà chính do dính nấm."
+      },
+      {
+        "mapBonusPower": [
+          "P0541"
+        ],
+        "bossID": "B030",
+        "note": "Con này hơi khó lường tùy tình huống mà xử lý, chủ yếu bạn sẽ cần xử lý 2 thứ: thứ nhất con Swain nó sẽ choáng quân của bạn nên là giết nó được thì giết nhanh luôn. Thứ 2 đừng để con Teemo chạm được vào nhà chính của bạn diệt được thì diệt luôn. Chỉ vậy thôi chủ yếu là bạn sẽ rút bài rồi dính nấm và quân bạn bị choáng, xử lý 2 con tướng của nó là được."
+      },
+      {
+        "mapBonusPower": [
+          "P0541"
+        ],
+        "bossID": "B031",
+        "note": "Con này thì đơn giản là đừng giết quá nhiều quân Poro quá thôi, nên dồn lực thắng trong 1 vòng hạn chế đánh lẻ từng vòng và kéo dài về sau, đừng để sàng của bên boss đầy khi hết vòng bọn Poro scale thêm đặc điểm với chỉ số thì khó thở lắm."
+      },
+      {
+        "mapBonusPower": [
+          "P0999"
+        ],
+        "bossID": "B035",
+        "note": "Con này thì không có gì đặc biệt, chủ yếu nó sẽ có mấy con Rồng Nhí để hút máu lại câu giờ các thứ thôi."
+      },
+      {
+        "mapBonusPower": [
+          "P0999"
+        ],
+        "bossID": "B047",
+        "note": "Boss này đơn giản là nó scale chỉ số từ ngọc thạch nhưng không có áp đảo nên cũng khá dễ chơi."
+      },
+      {
+        "mapBonusPower": [
+          "P0999"
+        ],
+        "bossID": "B041",
+        "note": "Quân của bạn sẽ nhận buồn bã mỗi khi boss kích hoạt câu chuyên nên là nếu bài quân bạn tăng chỉ số được thì không có gì quá khó khăn hết đâu."
+      },
+      {
+        "mapBonusPower": [
+          "P0999"
+        ],
+        "bossID": "B032",
+        "note": "Mỗi vòng nó tăng tiêu hao 1 lá ngẫu nhiên không quá ảnh hưởng đến bạn, chỉ cần tập trung đối phó với mấy con huyền ảo là được còn lại thì không có áp đảo nên không phải lo."
+      },
+      {
+        "mapBonusPower": [
+          "P0999"
+        ],
+        "bossID": "B033",
+        "note": "Quân của bạn sẽ bị giảm dmg rất nhiều từ nguyền rủa nên có một số cách đối phó sau: bạn có thể đợi boss dùng bớt năng lượng rồi hãy thả quân xuống, nếu dư mana thì bị nguyên hãy gỡ luôn đừng để quá lâu, nếu không gỡ được nguyền thì xác định là vừa tốn slot bàn vừa kẹt bài nguyên trên tay cách duy nhất là bỏ con quân đó, con rồng bất từ ban không giết được nên là hãy choáng hoặc đóng bằng nó khi nó tấn công là được. Mọi thứ còn lại tùy tính huống game."
+      },
+      {
+        "mapBonusPower": [
+          "P0999"
+        ],
+        "bossID": "B048",
+        "note": "Con này thì chỉ cần khống chế để chặn con thẩm phán áp đảo là được còn lại đỉnh hay đáy là do nhân phẩm của bạn. "
+      },
+      {
+        "mapBonusPower": [
+          "P0999"
+        ],
+        "bossID": "B034",
+        "note": "dễ đối phó có quân chặn huyền ảo là được."
+      },
+      {
+        "mapBonusPower": [
+          "P0999"
+        ],
+        "bossID": "B042",
+        "note": "Hãy cố gắng giết con ra đòn tăng dmg cho lá Bóng Tối bằng bài phép hoặc đột kích thách đấu gì đó, tóm lại không cho nó ra đòn để tích dmg cho Bóng Tối là được. Bạn sẽ không muốn ăn một lá Bóng Tối được tích dmg và X3 sát thương đâu."
+      },
+      {
+        "mapBonusPower": [
+          "P0999"
+        ],
+        "bossID": "B036",
+        "note": "Rất nhiều biến số trong con boss này, diệt Vex sớm quân bạn đỡ dính nhiều buồn bã, diệt Norra nhà chính bạn dễ thở hơn, Rồng Ngàn Tuổi Chỉ Xuất trận khi mà nó có sử giả rồng thiên hoặc tích được quá nhiều ân huệ rồng. Nếu bạn bốc trúng SECRET Ledros thì.... :D"
+      },
+      {
+        "mapBonusPower": [
+          "P0999"
+        ],
+        "bossID": "B037",
+        "note": "Con Mordekaiser mới là con nguy hiểm và cần được chú tâm, Morgana chỉ đóng vai trò tạo 1 chút khó chịu và có hồi phục thôi, chủ yếu bạn nên cố gắng tiêu giệt Mordekaiser càng nhanh càng tốt bắt giữ quân cũng được, khi đó gần như game của bạn sẽ đơn giản hơn rất nhiều"
+      },
+      {
+        "mapBonusPower": [
+          "P0999"
+        ],
+        "bossID": "B038",
+        "note": "Con này dễ, nó thả ra con quân nào bạn diệt con quân đó là được vì đa phần những bài quân của boss này có tiêu hao khá cao, cũng không có quá nhiều bài phép khó chịu nên là rất dễ đối phó"
+      },
+      {
+        "mapBonusPower": [
+          "P0999"
+        ],
+        "bossID": "B039",
+        "note": "Với con này thì gần như là nó đánh với phong cách solo carry nên là có đóng băng, choáng hoặc bắt giữ luôn thủ sẵn trên tay là sẽ đi được thôi."
+      },
+      {
+        "mapBonusPower": [
+          "P0999"
+        ],
+        "bossID": "B040",
+        "note": "Đến với boss khó nhất. Đầu tiên nhà chính của boss không nhận dmg khi có 2+ tướng trở lên, phải luôn luôn nhớ muốn thắng phải giết tướng trước. Thứ 2 kết thúc vòng đấu Poro sẽ hóa thành tướng nên là được thì đảm bảo tiêu diệt sạch poro trước kết thúc lượt hoặc là có công cụ diệt nhanh các tướng của boss. Thứ 3 đây là thứ đột biến nhất của Zoe, con boss này có câm lặng, đóng băng tiến công, có Deny, có chôn vùi dưới băng nên là phải có khiên phép cho các bài quân quan trọng của bạn thì mới dễ chơi được. Thứ 4 con này có 1 con Chiến Mão Stat 90|90 có áp đảo và được gọi ra siêu tốc nên là trên tinh thần phải giữ 1 lá để đối phó với nó. Thứ 5 có 2 con Cithia Trăng Trối Tiến Công nên là hạn chế giết nó trừ khi bạn chắc chắc mình không bị lật kèo và thua ngược. Thứ 6 Con CHIP có bất khả xâm phạm."
+      }
+    ],
+    "nodes": [
+      {
+        "position": {
+          "x": 31.9,
+          "y": 96
+        },
+        "nodeType": "Start",
+        "nodeID": "n1",
+        "nextNodes": [
+          "n2"
+        ],
+        "bosses": []
+      },
+      {
+        "position": {
+          "x": 26.7,
+          "y": 95.9
+        },
+        "nodeType": "Power",
+        "nodeID": "n2",
+        "nextNodes": [
+          "n3"
+        ],
+        "bosses": []
+      },
+      {
+        "position": {
+          "x": 23.9,
+          "y": 93.4
+        },
+        "nodeType": "Mini Boss",
+        "nodeID": "n3",
+        "nextNodes": [
+          "n4"
+        ],
+        "bosses": [
+          "B001"
+        ]
+      },
+      {
+        "position": {
+          "x": 27.3,
+          "y": 91.3
+        },
+        "nodeType": "Champion Node",
+        "nodeID": "n4",
+        "nextNodes": [
+          "n5",
+          "n9"
+        ],
+        "bosses": []
+      },
+      {
+        "position": {
+          "x": 47.7,
+          "y": 94.5
+        },
+        "nodeType": "Mini Boss",
+        "nodeID": "n5",
+        "nextNodes": [
+          "n6"
+        ],
+        "bosses": [
+          "B006",
+          "B002",
+          "B005",
+          "B008"
+        ]
+      },
+      {
+        "position": {
+          "x": 50.8,
+          "y": 90.3
+        },
+        "nodeType": "Encounter",
+        "nodeID": "n6",
+        "nextNodes": [
+          "n7"
+        ],
+        "bosses": []
+      },
+      {
+        "position": {
+          "x": 44.4,
+          "y": 89.2
+        },
+        "nodeType": "Mini Boss",
+        "nodeID": "n7",
+        "nextNodes": [
+          "n8"
+        ],
+        "bosses": [
+          "B006",
+          "B002",
+          "B005",
+          "B008"
+        ]
+      },
+      {
+        "position": {
+          "x": 44.6,
+          "y": 85.8
+        },
+        "nodeType": "Encounter",
+        "nodeID": "n8",
+        "nextNodes": [
+          "n14"
+        ],
+        "bosses": []
+      },
+      {
+        "position": {
+          "x": 9.2,
+          "y": 92.4
+        },
+        "nodeType": "Mini Boss",
+        "nodeID": "n9",
+        "nextNodes": [
+          "n10"
+        ],
+        "bosses": [
+          "B009",
+          "B004",
+          "B007",
+          "B003",
+          "B008"
+        ]
+      },
+      {
+        "position": {
+          "x": 11.1,
+          "y": 88.3
+        },
+        "nodeType": "Encounter",
+        "nodeID": "n10",
+        "nextNodes": [
+          "n11"
+        ],
+        "bosses": []
+      },
+      {
+        "position": {
+          "x": 18.1,
+          "y": 87.7
+        },
+        "nodeType": "Mini Boss",
+        "nodeID": "n11",
+        "nextNodes": [
+          "n12"
+        ],
+        "bosses": [
+          "B007",
+          "B009",
+          "B004",
+          "B003",
+          "B008"
+        ]
+      },
+      {
+        "position": {
+          "x": 21.1,
+          "y": 85.3
+        },
+        "nodeType": "Encounter",
+        "nodeID": "n12",
+        "nextNodes": [
+          "n13"
+        ],
+        "bosses": []
+      },
+      {
+        "position": {
+          "x": 25.3,
+          "y": 84.6
+        },
+        "nodeType": "Boss",
+        "nodeID": "n13",
+        "nextNodes": [
+          "n15"
+        ],
+        "bosses": [
+          "B014"
+        ]
+      },
+      {
+        "position": {
+          "x": 38.5,
+          "y": 86.7
+        },
+        "nodeType": "Boss",
+        "nodeID": "n14",
+        "nextNodes": [
+          "n15"
+        ],
+        "bosses": [
+          "B013"
+        ]
+      },
+      {
+        "position": {
+          "x": 32.8,
+          "y": 85.6
+        },
+        "nodeType": "Healer",
+        "nodeID": "n15",
+        "nextNodes": [
+          "n16",
+          "n20"
+        ],
+        "bosses": []
+      },
+      {
+        "position": {
+          "x": 27.7,
+          "y": 81.2
+        },
+        "nodeType": "Mini Boss",
+        "nodeID": "n16",
+        "nextNodes": [
+          "n17"
+        ],
+        "bosses": [
+          "B017",
+          "B051",
+          "B016"
+        ]
+      },
+      {
+        "position": {
+          "x": 23.2,
+          "y": 80.2
+        },
+        "nodeType": "Encounter",
+        "nodeID": "n17",
+        "nextNodes": [
+          "n18"
+        ],
+        "bosses": []
+      },
+      {
+        "position": {
+          "x": 15.1,
+          "y": 79.6
+        },
+        "nodeType": "Mini Boss",
+        "nodeID": "n18",
+        "nextNodes": [
+          "n19"
+        ],
+        "bosses": [
+          "B017",
+          "B051",
+          "B016"
+        ]
+      },
+      {
+        "position": {
+          "x": 24.7,
+          "y": 77.4
+        },
+        "nodeType": "Encounter",
+        "nodeID": "n19",
+        "nextNodes": [
+          "n24"
+        ],
+        "bosses": []
+      },
+      {
+        "position": {
+          "x": 38.3,
+          "y": 83.1
+        },
+        "nodeType": "Mini Boss",
+        "nodeID": "n20",
+        "nextNodes": [
+          "n21"
+        ],
+        "bosses": [
+          "B050",
+          "B015",
+          "B018"
+        ]
+      },
+      {
+        "position": {
+          "x": 44.6,
+          "y": 81.5
+        },
+        "nodeType": "Encounter",
+        "nodeID": "n21",
+        "nextNodes": [
+          "n22"
+        ],
+        "bosses": []
+      },
+      {
+        "position": {
+          "x": 48.8,
+          "y": 79.3
+        },
+        "nodeType": "Mini Boss",
+        "nodeID": "n22",
+        "nextNodes": [
+          "n23"
+        ],
+        "bosses": [
+          "B015",
+          "B018",
+          "B050"
+        ]
+      },
+      {
+        "position": {
+          "x": 43.2,
+          "y": 76.9
+        },
+        "nodeType": "Encounter",
+        "nodeID": "n23",
+        "nextNodes": [
+          "n24"
+        ],
+        "bosses": []
+      },
+      {
+        "position": {
+          "x": 37,
+          "y": 75.2
+        },
+        "nodeType": "Boss",
+        "nodeID": "n24",
+        "nextNodes": [
+          "n25"
+        ],
+        "bosses": [
+          "B019"
+        ]
+      },
+      {
+        "position": {
+          "x": 4,
+          "y": 61.6
+        },
+        "nodeType": "Power",
+        "nodeID": "n25",
+        "nextNodes": [
+          "n26",
+          "n30"
+        ],
+        "bosses": []
+      },
+      {
+        "position": {
+          "x": 6.8,
+          "y": 56
+        },
+        "nodeType": "Mini Boss",
+        "nodeID": "n26",
+        "nextNodes": [
+          "n27"
+        ],
+        "bosses": [
+          "B046",
+          "B022",
+          "B023"
+        ]
+      },
+      {
+        "position": {
+          "x": 13.6,
+          "y": 54.5
+        },
+        "nodeType": "Encounter",
+        "nodeID": "n27",
+        "nextNodes": [
+          "n28"
+        ],
+        "bosses": []
+      },
+      {
+        "position": {
+          "x": 20.5,
+          "y": 54.4
+        },
+        "nodeType": "Mini Boss",
+        "nodeID": "n28",
+        "nextNodes": [
+          "n29"
+        ],
+        "bosses": [
+          "B022",
+          "B046",
+          "B023"
+        ]
+      },
+      {
+        "position": {
+          "x": 26.9,
+          "y": 54.3
+        },
+        "nodeType": "Encounter",
+        "nodeID": "n29",
+        "nextNodes": [
+          "n35"
+        ],
+        "bosses": []
+      },
+      {
+        "position": {
+          "x": 12.9,
+          "y": 61.1
+        },
+        "nodeType": "Mini Boss",
+        "nodeID": "n30",
+        "nextNodes": [
+          "n31"
+        ],
+        "bosses": [
+          "B021",
+          "B045",
+          "B049",
+          "B020"
+        ]
+      },
+      {
+        "position": {
+          "x": 18.9,
+          "y": 59.5
+        },
+        "nodeType": "Encounter",
+        "nodeID": "n31",
+        "nextNodes": [
+          "n32"
+        ],
+        "bosses": []
+      },
+      {
+        "position": {
+          "x": 24.8,
+          "y": 61.3
+        },
+        "nodeType": "Mini Boss",
+        "nodeID": "n32",
+        "nextNodes": [
+          "n33"
+        ],
+        "bosses": [
+          "B045",
+          "B049",
+          "B020",
+          "B021"
+        ]
+      },
+      {
+        "position": {
+          "x": 32,
+          "y": 60.9
+        },
+        "nodeType": "Encounter",
+        "nodeID": "n33",
+        "nextNodes": [
+          "n34"
+        ],
+        "bosses": []
+      },
+      {
+        "position": {
+          "x": 39.2,
+          "y": 60.7
+        },
+        "nodeType": "Boss",
+        "nodeID": "n34",
+        "nextNodes": [
+          "n36"
+        ],
+        "bosses": [
+          "B025"
+        ]
+      },
+      {
+        "position": {
+          "x": 37.3,
+          "y": 54
+        },
+        "nodeType": "Boss",
+        "nodeID": "n35",
+        "nextNodes": [
+          "n36"
+        ],
+        "bosses": [
+          "B024"
+        ]
+      },
+      {
+        "position": {
+          "x": 43.6,
+          "y": 56.4
+        },
+        "nodeType": "Healer",
+        "nodeID": "n36",
+        "nextNodes": [
+          "n37",
+          "n41"
+        ],
+        "bosses": []
+      },
+      {
+        "position": {
+          "x": 48,
+          "y": 52.3
+        },
+        "nodeType": "Mini Boss",
+        "nodeID": "n37",
+        "nextNodes": [
+          "n38"
+        ],
+        "bosses": [
+          "B026",
+          "B043",
+          "B027"
+        ]
+      },
+      {
+        "position": {
+          "x": 52.8,
+          "y": 50.5
+        },
+        "nodeType": "Encounter",
+        "nodeID": "n38",
+        "nextNodes": [
+          "n39"
+        ],
+        "bosses": []
+      },
+      {
+        "position": {
+          "x": 57,
+          "y": 52.6
+        },
+        "nodeType": "Mini Boss",
+        "nodeID": "n39",
+        "nextNodes": [
+          "n40"
+        ],
+        "bosses": [
+          "B026",
+          "B043",
+          "B027"
+        ]
+      },
+      {
+        "position": {
+          "x": 66.1,
+          "y": 53.3
+        },
+        "nodeType": "Encounter",
+        "nodeID": "n40",
+        "nextNodes": [
+          "n45"
+        ],
+        "bosses": []
+      },
+      {
+        "position": {
+          "x": 51.7,
+          "y": 59.9
+        },
+        "nodeType": "Mini Boss",
+        "nodeID": "n41",
+        "nextNodes": [
+          "n42"
+        ],
+        "bosses": [
+          "B028",
+          "B044",
+          "B029"
+        ]
+      },
+      {
+        "position": {
+          "x": 57.3,
+          "y": 59.2
+        },
+        "nodeType": "Encounter",
+        "nodeID": "n42",
+        "nextNodes": [
+          "n43"
+        ],
+        "bosses": []
+      },
+      {
+        "position": {
+          "x": 65.7,
+          "y": 58.7
+        },
+        "nodeType": "Mini Boss",
+        "nodeID": "n43",
+        "nextNodes": [
+          "n44"
+        ],
+        "bosses": [
+          "B028",
+          "B044",
+          "B029"
+        ]
+      },
+      {
+        "position": {
+          "x": 71.3,
+          "y": 57.1
+        },
+        "nodeType": "Encounter",
+        "nodeID": "n44",
+        "nextNodes": [
+          "n45"
+        ],
+        "bosses": []
+      },
+      {
+        "position": {
+          "x": 76.5,
+          "y": 50.7
+        },
+        "nodeType": "Boss",
+        "nodeID": "n45",
+        "nextNodes": [
+          "n46"
+        ],
+        "bosses": [
+          "B030"
+        ]
+      },
+      {
+        "position": {
+          "x": 78.1,
+          "y": 43.7
+        },
+        "nodeType": "Shop",
+        "nodeID": "n46",
+        "nextNodes": [
+          "n47"
+        ],
+        "bosses": []
+      },
+      {
+        "position": {
+          "x": 78.4,
+          "y": 37.7
+        },
+        "nodeType": "Boss",
+        "nodeID": "n47",
+        "nextNodes": [
+          "n48"
+        ],
+        "bosses": [
+          "B031"
+        ]
+      },
+      {
+        "position": {
+          "x": 73.4,
+          "y": 28.8
+        },
+        "nodeType": "Power",
+        "nodeID": "n48",
+        "nextNodes": [
+          "n49",
+          "n53"
+        ],
+        "bosses": []
+      },
+      {
+        "position": {
+          "x": 65.6,
+          "y": 26.5
+        },
+        "nodeType": "Mini Boss",
+        "nodeID": "n49",
+        "nextNodes": [
+          "n50"
+        ],
+        "bosses": [
+          "B032",
+          "B047",
+          "B035",
+          "B041"
+        ]
+      },
+      {
+        "position": {
+          "x": 56.3,
+          "y": 25.4
+        },
+        "nodeType": "Encounter",
+        "nodeID": "n50",
+        "nextNodes": [
+          "n51"
+        ],
+        "bosses": []
+      },
+      {
+        "position": {
+          "x": 62.5,
+          "y": 23.1
+        },
+        "nodeType": "Mini Boss",
+        "nodeID": "n51",
+        "nextNodes": [
+          "n52"
+        ],
+        "bosses": [
+          "B035",
+          "B047",
+          "B041",
+          "B032"
+        ]
+      },
+      {
+        "position": {
+          "x": 70.5,
+          "y": 21.8
+        },
+        "nodeType": "Encounter",
+        "nodeID": "n52",
+        "nextNodes": [
+          "n57"
+        ],
+        "bosses": []
+      },
+      {
+        "position": {
+          "x": 80.7,
+          "y": 26.7
+        },
+        "nodeType": "Mini Boss",
+        "nodeID": "n53",
+        "nextNodes": [
+          "n54"
+        ],
+        "bosses": [
+          "B048",
+          "B034",
+          "B033",
+          "B042"
+        ]
+      },
+      {
+        "position": {
+          "x": 88.5,
+          "y": 24.8
+        },
+        "nodeType": "Encounter",
+        "nodeID": "n54",
+        "nextNodes": [
+          "n55"
+        ],
+        "bosses": []
+      },
+      {
+        "position": {
+          "x": 83.5,
+          "y": 23.4
+        },
+        "nodeType": "Mini Boss",
+        "nodeID": "n55",
+        "nextNodes": [
+          "n56"
+        ],
+        "bosses": [
+          "B033",
+          "B048",
+          "B034",
+          "B042"
+        ]
+      },
+      {
+        "position": {
+          "x": 76.9,
+          "y": 21.7
+        },
+        "nodeType": "Encounter",
+        "nodeID": "n56",
+        "nextNodes": [
+          "n58"
+        ],
+        "bosses": []
+      },
+      {
+        "position": {
+          "x": 70.2,
+          "y": 17.8
+        },
+        "nodeType": "Boss",
+        "nodeID": "n57",
+        "nextNodes": [
+          "n59"
+        ],
+        "bosses": [
+          "B036"
+        ]
+      },
+      {
+        "position": {
+          "x": 78.8,
+          "y": 18
+        },
+        "nodeType": "Boss",
+        "nodeID": "n58",
+        "nextNodes": [
+          "n59"
+        ],
+        "bosses": [
+          "B037"
+        ]
+      },
+      {
+        "position": {
+          "x": 75.1,
+          "y": 14.8
+        },
+        "nodeType": "Encounter",
+        "nodeID": "n59",
+        "nextNodes": [
+          "n60"
+        ],
+        "bosses": []
+      },
+      {
+        "position": {
+          "x": 78.2,
+          "y": 12
+        },
+        "nodeType": "Mini Boss",
+        "nodeID": "n60",
+        "nextNodes": [
+          "n61"
+        ],
+        "bosses": [
+          "B038"
+        ]
+      },
+      {
+        "position": {
+          "x": 77.3,
+          "y": 8.2
+        },
+        "nodeType": "Mini Boss",
+        "nodeID": "n61",
+        "nextNodes": [
+          "n62"
+        ],
+        "bosses": [
+          "B039"
+        ]
+      },
+      {
+        "position": {
+          "x": 76.6,
+          "y": 3.3
+        },
+        "nodeType": "Boss",
+        "nodeID": "n62",
+        "nextNodes": [],
+        "bosses": [
+          "B040"
+        ]
+      }
+    ],
+    "adventureName": "Có Bạn Tốt Thế Này...",
+    "difficulty": 10,
+    "championXP": 11970,
+    "background": "https://images.pocguide.top/backgrounds/zoe.webp",
+    "specialRules": [
+      "P0996",
+      "P1002"
+    ],
+    "translations": {
+      "en": {
+        "adventureName": "With Friends Like These...",
+        "typeAdventure": "Nightmare Adventures"
+      }
+    },
+    "requirement": {
+      "champions": [
+        "C076",
+        "C063",
+        "C006",
+        "C015",
+        "C017",
+        "C058",
+        "C060",
+        "C039",
+        "C043",
+        "C081",
+        "C032",
+        "C067",
+        "C069",
+        "C014",
+        "C009",
+        "C029",
+        "C028",
+        "C024",
+        "C001",
+        "C021",
+        "C041",
+        "C079",
+        "C049",
+        "C078",
+        "C031",
+        "C035",
+        "C074",
+        "C065",
+        "C046",
+        "C016",
+        "C042",
+        "C056",
+        "C020",
+        "C004",
+        "C054",
+        "C002",
+        "C005",
+        "C083",
+        "C018",
+        "C075",
+        "C012",
+        "C013",
+        "C051",
+        "C082",
+        "C047",
+        "C066",
+        "C036",
+        "C072",
+        "C033",
+        "C040",
+        "C045",
+        "C044",
+        "C034",
+        "C062",
+        "C048",
+        "C055",
+        "C052",
+        "C022",
+        "C026",
+        "C053",
+        "C019"
+      ],
+      "regions": []
+    },
+    "rewards": [
+      {
+        "items": [
+          {
+            "name": "Thùng Tinh Tú Bạch Kim Targon",
+            "count": 1
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Xu Vinh Danh",
+            "count": 500
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Mảnh Ghép Bí Ẩn",
+            "count": 500
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Pha Lê Sao Băng Hoa Linh Lục Địa",
+            "count": 1
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Pha Lê Sao Băng Shurima",
+            "count": 1
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Pha Lê Sao Băng Quần Đảo Bóng Đêm",
+            "count": 1
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Pha Lê Sao Băng Bilgewater",
+            "count": 1
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Pha Lê Sao Băng Runeterra",
+            "count": 1
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Pha Lê Sao Băng Piltover & Zaun",
+            "count": 1
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Pha Lê Sao Băng Noxus",
+            "count": 1
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Pha Lê Sao Băng Ionia",
+            "count": 1
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Pha Lê Sao Băng Freljord",
+            "count": 1
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Pha Lê Sao Băng Demacia",
+            "count": 1
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": " Pha Lê Sao Băng Bandle City",
+            "count": 1
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Mảnh Sao Băng Hoa Linh Lục Địa",
+            "count": 50
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Thùng Tinh Tú Vàng Targon",
+            "count": 1
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Mảnh Sao Băng Targon",
+            "count": 50
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Thùng Tinh Tú Vàng Shurima",
+            "count": 1
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Mảnh Sao Băng Shurima",
+            "count": 50
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Thùng Tinh Tú Vàng Quần Đảo Bóng Đêm",
+            "count": 1
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Mảnh Sao Băng Quần Đảo Bóng Đêm",
+            "count": 50
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Thùng Tinh Tú Vàng Bilgewater",
+            "count": 1
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Mảnh Sao Băng Bilgewater",
+            "count": 50
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Thùng Tinh Tú Vàng Runeterra",
+            "count": 1
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Mảnh Sao Băng Runeterra",
+            "count": 50
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Thùng Tinh Tú Vàng Piltover & Zaun",
+            "count": 1
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Mảnh Sao Băng Piltover & Zaun",
+            "count": 50
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Thùng Tinh Tú Vàng Noxus",
+            "count": 1
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Mảnh Sao Băng Noxus",
+            "count": 50
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Thùng Tinh Tú Vàng Ionia",
+            "count": 1
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Mảnh Sao Băng Ionia",
+            "count": 50
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Thùng Tinh Tú Vàng Freljord",
+            "count": 1
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Mảnh Sao Băng Freljord",
+            "count": 50
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Thùng Tinh Tú Vàng Demacia",
+            "count": 1
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Mảnh Sao Băng Demacia",
+            "count": 50
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Thùng Tinh Tú Vàng Thành Phố Bandle",
+            "count": 1
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Mảnh Sao Băng Thành Phố Bandle",
+            "count": 50
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Hòm Thần Tích Vàng",
+            "count": 1
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Thùng Đá Quý Lớn Shurima",
+            "count": 1
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Thùng Đá Quý Lớn Quần Đảo Bóng Đêm",
+            "count": 1
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Thùng Đá Quý Lớn Bilgewater",
+            "count": 1
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Thùng Đá Quý Lớn Runeterra",
+            "count": 1
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Thùng Đá Quý Lớn Piltover & Zaun",
+            "count": 1
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Thùng Đá Quý Lớn Noxus",
+            "count": 1
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Thùng Đá Quý Lớn Ionia",
+            "count": 1
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Thùng Đá Quý Lớn Freljord",
+            "count": 1
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Thùng Đá Quý Lớn Demacia",
+            "count": 1
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Thùng Đá Quý Lớn Thành Phố Bandle",
+            "count": 1
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Thùng Đá Quý Lớn Targon",
+            "count": 1
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Đá Quý Shurima",
+            "count": 100
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Đá Quý Quần Đảo Bóng Đêm",
+            "count": 100
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Đá Quý Bilgewater",
+            "count": 100
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Đá Quý Runeterra",
+            "count": 100
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Đá Quý Piltover & Zaun",
+            "count": 100
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Đá Quý Noxus",
+            "count": 100
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Đá Quý Ionia",
+            "count": 100
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Đá Quý Freljord",
+            "count": 100
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Đá Quý Demacia",
+            "count": 100
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Đá Quý Thành Phố Bandle",
+            "count": 100
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Đá Quý Targon",
+            "count": 100
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "name": "Xu Vinh Danh",
+            "count": 50
+          },
+          {
+            "name": "Điểm Huyền Thoại",
+            "count": 10000
+          }
+        ]
+      }
+    ],
+    "adventureID": "M001",
+    "typeAdventure": "Ác Mộng",
+    "assetAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/03MT009-full.png?3b7d7"
+  }
+]

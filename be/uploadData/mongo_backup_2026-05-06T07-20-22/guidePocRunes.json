@@ -1,0 +1,721 @@
+[
+  {
+    "translations": {
+      "en": {
+        "name": "Spell Burn",
+        "description": "When you play a spell, deal 1 to the enemy Nexus.",
+        "region": "Spirit Blossom",
+        "descriptionRaw": "When you play a spell, deal 1 to the enemy Nexus.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0059-full.png?488d0",
+    "region": "Hoa Linh Lục Địa",
+    "descriptionRaw": "Khi sử dụng 1 bài phép đồng minh, gây 1 sát thương lên Nhà Chính của đối thủ.",
+    "description": "Khi sử dụng 1 bài phép đồng minh, gây 1 sát thương lên Nhà Chính của đối thủ.",
+    "assetAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0059.png?91325",
+    "name": "Hỏa Thuật",
+    "runeCode": "P0059",
+    "type": [
+      "Sức Mạnh",
+      "Ngọc"
+    ]
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Endless Wealth",
+        "description": "Get 200 additional gold after each combat encounter.",
+        "region": "Spirit Blossom",
+        "descriptionRaw": "Get 200 additional gold after each combat encounter.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0073-full.png?6754b",
+    "region": "Hoa Linh Lục Địa",
+    "descriptionRaw": "Nhận thêm 200 vàng sau mỗi trận giao tranh.",
+    "description": "Nhận thêm 200 vàng sau mỗi trận giao tranh.",
+    "assetAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0073.png?5a68e",
+    "name": "Phú Quý Bất Tận",
+    "runeCode": "P0073",
+    "type": [
+      "Sức Mạnh",
+      "Ngọc"
+    ]
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Wild Inspiration",
+        "description": "Your created cards cost 1 less.",
+        "region": "Spirit Blossom",
+        "descriptionRaw": "Your created cards cost 1 less.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0084-full.png?6754b",
+    "region": "Hoa Linh Lục Địa",
+    "descriptionRaw": "Giảm 1 tiêu hao cho các lá bài đồng minh được tạo ra.",
+    "description": "Giảm 1 tiêu hao cho các lá bài đồng minh được tạo ra.",
+    "assetAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0084.png?c0665",
+    "name": "Cảm Hứng Dữ Dội",
+    "runeCode": "P0084",
+    "type": [
+      "Sức Mạnh",
+      "Ngọc"
+    ]
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Flexible Gameplan",
+        "description": "Game Start: Draw 2.",
+        "region": "Spirit Blossom",
+        "descriptionRaw": "Game Start: Draw 2.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0097-full.png?6754b",
+    "region": "Hoa Linh Lục Địa",
+    "descriptionRaw": "Bắt Đầu Trận Đấu: Rút 2 lá bài.",
+    "description": "Bắt Đầu Trận Đấu: Rút 2 lá bài.",
+    "assetAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0097.png?f582a",
+    "name": "Chiến Thuật Linh Động",
+    "runeCode": "P0097",
+    "type": [
+      "Sức Mạnh",
+      "Ngọc"
+    ]
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Immortality",
+        "description": "Game Start: Heal your Nexus 10.",
+        "region": "Spirit Blossom",
+        "descriptionRaw": "Game Start: Heal your Nexus 10.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0099-full.png?6754b",
+    "region": "Hoa Linh Lục Địa",
+    "descriptionRaw": "Bắt Đầu Trận Đấu: Hồi 10 máu cho Nhà Chính của ngươi.",
+    "description": "Bắt Đầu Trận Đấu: Hồi 10 máu cho Nhà Chính của ngươi.",
+    "assetAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0099.png?43a39",
+    "name": "Bất Tử",
+    "runeCode": "P0099",
+    "type": [
+      "Sức Mạnh",
+      "Ngọc"
+    ]
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Overprepared",
+        "description": "Game Start: Create a random equipment in hand. It costs 2 less.",
+        "region": "Spirit Blossom",
+        "descriptionRaw": "Game Start: Create a random equipment in hand. It costs 2 less.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0220-full.png?6754b",
+    "region": "Hoa Linh Lục Địa",
+    "descriptionRaw": "Bắt Đầu Trận Đấu: Tạo trên tay 1 lá trang bị ngẫu nhiên. Lá bài đó được giảm 2 tiêu hao.",
+    "description": "Bắt Đầu Trận Đấu: Tạo trên tay 1 lá trang bị ngẫu nhiên. Lá bài đó được giảm 2 tiêu hao.",
+    "assetAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0220.png?0f4ec",
+    "name": "Chuẩn Bị Kỹ Lưỡng",
+    "runeCode": "P0220",
+    "type": [
+      "Sức Mạnh",
+      "Ngọc"
+    ]
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "The Craftsman's Favor",
+        "description": "[k:RoundStart|Round Start]: Create a Fleeting [cd:06FR012T1|Time and Dedication|icon,img-full] in hand.",
+        "region": "Spirit Blossom",
+        "descriptionRaw": "Round Start: Create a Fleeting Time and Dedication in hand.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0224-full.png?6754b",
+    "region": "Hoa Linh Lục Địa",
+    "descriptionRaw": "Bắt Đầu Vòng Đấu: Tạo trên tay 1 lá Thời Gian và Công Sức Phù Du.",
+    "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Tạo trên tay 1 lá [cd:06FR012T1|Thời Gian và Công Sức|icon,img-full] Phù Du.",
+    "assetAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0224.png?83b64",
+    "name": "Đặc Ân Người Thợ",
+    "runeCode": "P0224",
+    "type": [
+      "Sức Mạnh",
+      "Ngọc"
+    ]
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Phantom Pranks",
+        "description": "When an ally dies, deal 1 to the enemy Nexus.",
+        "region": "Spirit Blossom",
+        "descriptionRaw": "When an ally dies, deal 1 to the enemy Nexus.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0377-full.png?6754b",
+    "region": "Hoa Linh Lục Địa",
+    "descriptionRaw": "Khi 1 đồng minh hy sinh, gây 1 sát thương lên Nhà Chính của đối thủ.",
+    "description": "Khi 1 đồng minh hy sinh, gây 1 sát thương lên Nhà Chính của đối thủ.",
+    "assetAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0377.png?305de",
+    "name": "Trò Đùa Ma Mãnh",
+    "runeCode": "P0377",
+    "type": [
+      "Sức Mạnh",
+      "Ngọc"
+    ]
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Haunting Hall",
+        "description": "Allies have Hallowed.",
+        "region": "Spirit Blossom",
+        "descriptionRaw": "Allies have Hallowed.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0388-full.png?60f4d",
+    "region": "Hoa Linh Lục Địa",
+    "descriptionRaw": "Đồng minh nhận Ước Nguyện.",
+    "description": "Đồng minh nhận Ước Nguyện.",
+    "assetAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0388.png?6c4b7",
+    "name": "Hành Lang Ma Ám",
+    "runeCode": "P0388",
+    "type": [
+      "Sức Mạnh",
+      "Ngọc"
+    ]
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Explosive Finale",
+        "description": "When an enemy dies outside of combat, deal 4 to the enemy Nexus.",
+        "region": "Spirit Blossom",
+        "descriptionRaw": "When an enemy dies outside of combat, deal 4 to the enemy Nexus.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0466-full.png?7a7fc",
+    "region": "Hoa Linh Lục Địa",
+    "descriptionRaw": "Khi một kẻ địch bị tiêu diệt ngoài giao tranh, gây 4 sát thương lên Nhà Chính của đối thủ.",
+    "description": "Khi một kẻ địch bị tiêu diệt ngoài giao tranh, gây 4 sát thương lên Nhà Chính của đối thủ.",
+    "assetAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0466.png?44349",
+    "name": "Hồi Kết Bùng Nổ",
+    "runeCode": "P0466",
+    "type": [
+      "Sức Mạnh",
+      "Ngọc"
+    ]
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Biggledust Sprinkle",
+        "description": "When you summon a created ally, grant it +1|+1.",
+        "region": "Spirit Blossom",
+        "descriptionRaw": "When you summon a created ally, grant it +1|+1.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0540-full.png?ffa6c",
+    "region": "Hoa Linh Lục Địa",
+    "descriptionRaw": "Khi triệu hồi một đồng minh được tạo ra, ban +1|+1 cho đồng minh đó.",
+    "description": "Khi triệu hồi một đồng minh được tạo ra, ban +1|+1 cho đồng minh đó.",
+    "assetAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0540.png?233f4",
+    "name": "Hạt Nấm Lùn",
+    "runeCode": "P0540",
+    "type": [
+      "Sức Mạnh",
+      "Ngọc"
+    ]
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Early Bird",
+        "description": "Game Start: [k:Summon|Summon] the weakest follower from your deck.",
+        "region": "Spirit Blossom",
+        "descriptionRaw": "Game Start: Summon the weakest follower from your deck.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0604-full.png?6754b",
+    "region": "Hoa Linh Lục Địa",
+    "descriptionRaw": "Bắt Đầu Trận Đấu: Triệu hồi tùy tùng Yếu Nhất từ bộ bài của ngươi.",
+    "description": "Bắt Đầu Trận Đấu: Triệu hồi tùy tùng Yếu Nhất từ bộ bài của ngươi.",
+    "assetAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0604.png?eafcb",
+    "name": "Cú Mèo Bắt Sâu",
+    "runeCode": "P0604",
+    "type": [
+      "Sức Mạnh",
+      "Ngọc"
+    ]
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Fortifications",
+        "description": "Your Nexus has [k:Tough|Tough].",
+        "region": "Spirit Blossom",
+        "descriptionRaw": "Your Nexus has Tough.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0625-full.png?882f2",
+    "region": "Hoa Linh Lục Địa",
+    "descriptionRaw": "Nhà chính của ngươi có Kiên Cường.",
+    "description": "Nhà chính của ngươi có [k:Tough|Kiên Cường].",
+    "assetAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0625.png?2182e",
+    "name": "Gia Cố",
+    "runeCode": "P0625",
+    "type": [
+      "Sức Mạnh",
+      "Ngọc"
+    ]
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Gemcrafting",
+        "description": "When you play a spell, grant a random ally in hand +1|+1.",
+        "region": "Spirit Blossom",
+        "descriptionRaw": "When you play a spell, grant a random ally in hand +1|+1.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0682-full.png?60f4d",
+    "region": "Hoa Linh Lục Địa",
+    "descriptionRaw": "Khi ngươi sử dụng 1 bài phép, ban +1|+1 cho 1 đồng minh ngẫu nhiên trên tay.",
+    "description": "Khi ngươi sử dụng 1 bài phép, ban +1|+1 cho 1 đồng minh ngẫu nhiên trên tay.",
+    "assetAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0682.png?6c4b7",
+    "name": "Chế Tạo Ngọc",
+    "runeCode": "P0682",
+    "type": [
+      "Sức Mạnh",
+      "Ngọc"
+    ]
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Thieves in the Night",
+        "description": "Stolen allies have [k:Elusive|Elusive].",
+        "region": "Spirit Blossom",
+        "descriptionRaw": "Stolen allies have Elusive.",
+        "rarity": "Legendary"
+      }
+    },
+    "rarity": "Huyền Thoại",
+    "assetFullAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0694-full.png?f04fb",
+    "region": "Hoa Linh Lục Địa",
+    "descriptionRaw": "Đồng minh bị cướp có Huyền Ảo.",
+    "description": "Đồng minh bị cướp có [k:Elusive|Huyền Ảo].",
+    "assetAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0694.png?f04fb",
+    "name": "Trộm Đêm",
+    "runeCode": "P0694",
+    "type": [
+      "Ngọc"
+    ]
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Irresistible Charms",
+        "description": "Each Game, Charm the first enemy follower summoned.",
+        "region": "Spirit Blossom",
+        "descriptionRaw": "Each Game, Charm the first enemy follower summoned.",
+        "rarity": "Legendary"
+      }
+    },
+    "rarity": "Huyền Thoại",
+    "assetFullAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0735-full.png?a40ad",
+    "region": "Hoa Linh Lục Địa",
+    "descriptionRaw": "Mỗi trận đấu, Mê Hoặc tùy tùng đầu tiên mà đối thủ triệu hồi",
+    "description": "Mỗi trận đấu, Mê Hoặc tùy tùng đầu tiên mà đối thủ triệu hồi",
+    "assetAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0735.png?a40ad",
+    "name": "Hấp Dẫn Khó Cưỡng",
+    "runeCode": "P0735",
+    "type": [
+      "Ngọc"
+    ]
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Spiritual Awakening",
+        "description": "[k:Ephemeral|Ephemeral] allies have +3|+3.",
+        "region": "Spirit Blossom",
+        "descriptionRaw": "Ephemeral allies have +3|+3.",
+        "rarity": "Legendary"
+      }
+    },
+    "rarity": "Huyền Thoại",
+    "assetFullAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0736-full.png?8ce37",
+    "region": "Hoa Linh Lục Địa",
+    "descriptionRaw": "Đồng minh Cảm Tử nhận +3|+3.",
+    "description": "Đồng minh [k:Ephemeral|Cảm Tử] nhận +3|+3.",
+    "assetAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0736.png?1552e",
+    "name": "Thức Tỉnh Linh Hồn",
+    "runeCode": "P0736",
+    "type": [
+      "Ngọc"
+    ]
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Windborne Remains",
+        "description": "When you play a cost reduced unit, grant it +3|+3.",
+        "region": "Spirit Blossom",
+        "descriptionRaw": "When you play a cost reduced unit, grant it +3|+3.",
+        "rarity": "Legendary"
+      }
+    },
+    "rarity": "Huyền Thoại",
+    "assetFullAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0803-full.png?84f17",
+    "region": "Hoa Linh Lục Địa",
+    "descriptionRaw": "Khi ngươi sử dụng 1 bài quân được giảm tiêu hao, ban cho nó +3|+3.",
+    "description": "Khi ngươi sử dụng 1 bài quân được giảm tiêu hao, ban cho nó +3|+3.",
+    "assetAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0803.png?a1f6c",
+    "name": "Tàn Tích Gió",
+    "runeCode": "P0803",
+    "type": [
+      "Ngọc"
+    ]
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Complete the Cycle",
+        "description": "When a champion or An icon representing the keyword Lor ephemeral [k:Ephemeral|Ephemeral] ally kills an enemy, refill your spell mana.",
+        "region": "Spirit Blossom",
+        "descriptionRaw": "When a champion or An icon representing the keyword Lor ephemeral Ephemeral ally kills an enemy, refill your spell mana.",
+        "rarity": "Legendary"
+      }
+    },
+    "rarity": "Huyền Thoại",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0819-full.png",
+    "region": "Hoa Linh Lục Địa",
+    "descriptionRaw": "Khi một anh hùng hoặc một đồng minh Cảm Tử tiêu diệt một kẻ địch, hồi đầy năng lượng bài phép của ngươi.",
+    "description": "Khi một anh hùng hoặc một đồng minh [k:Ephemeral|Cảm Tử] tiêu diệt một kẻ địch, hồi đầy năng lượng bài phép của ngươi.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0819.png",
+    "name": "Hoàn Thành Chu Kỳ Tuần Hoàn",
+    "runeCode": "P0819",
+    "type": [
+      "Ngọc"
+    ]
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Signing Bonus",
+        "description": "[k:Follower|Follower]s you acquire throughout the adventure have Studded Leather.",
+        "region": "Spirit Blossom",
+        "descriptionRaw": "Followers you acquire throughout the adventure have Studded Leather.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0850-full.png?6754b",
+    "region": "Hoa Linh Lục Địa",
+    "descriptionRaw": "Tùy tùng ngươi đã thu thập được trong chuyến phiêu lưu có Áo Da Tán Đinh.",
+    "description": "Tùy tùng ngươi đã thu thập được trong chuyến phiêu lưu có Áo Da Tán Đinh.",
+    "assetAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0850.png?9de4b",
+    "name": "Quà Gia Nhập",
+    "runeCode": "P0850",
+    "type": [
+      "Ngọc"
+    ]
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Champion's Strength",
+        "description": "Allied [k:Champion|Champion]s have +2|+2.",
+        "region": "Spirit Blossom",
+        "descriptionRaw": "Allied Champions have +2|+2.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0852-full.png?6754b",
+    "region": "Hoa Linh Lục Địa",
+    "descriptionRaw": "Các anh hùng đồng minh nhận +2|+2.",
+    "description": "Các anh hùng đồng minh nhận +2|+2.",
+    "assetAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0852.png?3f3d5",
+    "name": "Sức Mạnh Anh Hùng",
+    "runeCode": "P0852",
+    "type": [
+      "Ngọc"
+    ]
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Savvy Shopper",
+        "description": "+200 [k:Gold|Gold], +10% to find Epic powers and items.",
+        "region": "Spirit Blossom",
+        "descriptionRaw": "+200 Gold, +10% to find Epic powers and items.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0853-full.png?6754b",
+    "region": "Hoa Linh Lục Địa",
+    "descriptionRaw": "+200 Vàng, +10% cơ hội tìm thấy sức mạnh và trang bị Sử Thi.",
+    "description": "+200 [k:Gold|Vàng], +10% cơ hội tìm thấy sức mạnh và trang bị Sử Thi.",
+    "assetAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0853.png?b0c6e",
+    "name": "Khách Hàng Thông Thái",
+    "runeCode": "P0853",
+    "type": [
+      "Ngọc"
+    ]
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Infiltrators",
+        "description": "Unblocked allies have +2|+0.",
+        "region": "Spirit Blossom",
+        "descriptionRaw": "Unblocked allies have +2|+0.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0854-full.png?6754b",
+    "region": "Hoa Linh Lục Địa",
+    "descriptionRaw": "Đồng minh không bị chặn đòn nhận +2|0.",
+    "description": "Đồng minh không bị chặn đòn nhận +2|0.",
+    "assetAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0854.png?d93ed",
+    "name": "Kẻ Xâm Nhập",
+    "runeCode": "P0854",
+    "type": [
+      "Ngọc"
+    ]
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "False Loyalty",
+        "description": "Stolen allies have +1|+1.",
+        "region": "Spirit Blossom",
+        "descriptionRaw": "Stolen allies have +1|+1.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0855-full.png?4eb5a",
+    "region": "Hoa Linh Lục Địa",
+    "descriptionRaw": "Đồng minh bị cướp có +1|+1.",
+    "description": "Đồng minh bị cướp có +1|+1.",
+    "assetAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0855.png?28332",
+    "name": "Trung Thành Giả Tạo",
+    "runeCode": "P0855",
+    "type": [
+      "Ngọc"
+    ]
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Taste of Sorcery",
+        "description": "Game Start: Refill your spell mana.",
+        "region": "Spirit Blossom",
+        "descriptionRaw": "Game Start: Refill your spell mana.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0856-full.png?6754b",
+    "region": "Hoa Linh Lục Địa",
+    "descriptionRaw": "Bắt Đầu Trận Đấu: Hồi đầy năng lượng bài phép.",
+    "description": "Bắt Đầu Trận Đấu: Hồi đầy năng lượng bài phép.",
+    "assetAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0856.png?30cb0",
+    "name": "Nếm Mùi Ma Thuật",
+    "runeCode": "P0856",
+    "type": [
+      "Ngọc"
+    ]
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Spirit Armor",
+        "description": "When you summon an ally, grant it +0|+3.",
+        "region": "Spirit Blossom",
+        "descriptionRaw": "When you summon an ally, grant it +0|+3.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0857-full.png?6754b",
+    "region": "Hoa Linh Lục Địa",
+    "descriptionRaw": "Khi ngươi triệu hồi 1 đồng minh, ban +0|+3 cho đồng minh đó.",
+    "description": "Khi ngươi triệu hồi 1 đồng minh, ban +0|+3 cho đồng minh đó.",
+    "assetAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0857.png?1b79b",
+    "name": "Giáp Linh Hồn",
+    "runeCode": "P0857",
+    "type": [
+      "Ngọc"
+    ]
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Reconnaissance",
+        "description": "Each round, the first time an ally [k:Strike|Strike]s the enemy Nexus, draw 1.",
+        "region": "Spirit Blossom",
+        "descriptionRaw": "Each round, the first time an ally Strikes the enemy Nexus, draw 1.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0858-full.png?6754b",
+    "region": "Hoa Linh Lục Địa",
+    "descriptionRaw": "Mỗi vòng, lần đầu tiên đồng minh Ra Đòn lên Nhà Chính của đối thủ, rút 1 lá bài.",
+    "description": "Mỗi vòng, lần đầu tiên đồng minh [k:Strike|Ra Đòn] lên Nhà Chính của đối thủ, rút 1 lá bài.",
+    "assetAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0858.png?95901",
+    "name": "Đội Trinh Thám",
+    "runeCode": "P0858",
+    "type": [
+      "Ngọc"
+    ]
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Omniscience",
+        "description": "+20 Vision, +2 [k:Reroll|Reroll]s.",
+        "region": "Spirit Blossom",
+        "descriptionRaw": "+20 Vision, +2 Rerolls.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0859-full.png?6754b",
+    "region": "Hoa Linh Lục Địa",
+    "descriptionRaw": "+20 Tầm Nhìn, + 2 Lượt Đổi.",
+    "description": "+20 Tầm Nhìn, + 2 [k:Reroll|Lượt Đổi].",
+    "assetAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0859.png?ea943",
+    "name": "Thông Suốt",
+    "runeCode": "P0859",
+    "type": [
+      "Ngọc"
+    ]
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Puffcap Proliferation",
+        "description": "When you damage the enemy Nexus, plant that many [cd:01PZ022|Poison Puffcap|icon,img-full]s in the enemy deck.",
+        "region": "Spirit Blossom",
+        "descriptionRaw": "When you damage the enemy Nexus, plant that many Poison Puffcaps in the enemy deck.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0860-full.png?dfeec",
+    "region": "Hoa Linh Lục Địa",
+    "descriptionRaw": "Khi ngươi gây sát thương lên Nhà Chính của đối thủ, gài lượng bài Nấm Độc tương đương với lượng sát thương đó lên bộ bài của đối thủ.",
+    "description": "Khi ngươi gây sát thương lên Nhà Chính của đối thủ, gài lượng bài [cd:01PZ022|Nấm Độc|icon,img-full] tương đương với lượng sát thương đó lên bộ bài của đối thủ.",
+    "assetAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0860.png?f8cc9",
+    "name": "Nấm Độc Sinh Sôi",
+    "runeCode": "P0860",
+    "type": [
+      "Ngọc"
+    ]
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Keep it Flowing",
+        "description": "[k:RoundStart|Round Start]: Flow: Draw 1.",
+        "region": "Spirit Blossom",
+        "descriptionRaw": "Round Start: Flow: Draw 1.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0861-full.png?dfeec",
+    "region": "Hoa Linh Lục Địa",
+    "descriptionRaw": "Bắt Đầu Vòng Đấu: Nhịp: Rút 1 lá bài.",
+    "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Nhịp: Rút 1 lá bài.",
+    "assetAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0861.png?91b93",
+    "name": "Để Thủy Triều Lên",
+    "runeCode": "P0861",
+    "type": [
+      "Ngọc"
+    ]
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Arcane Empowerment",
+        "description": "Your spells and Skills deal 1 extra damage.",
+        "region": "Spirit Blossom",
+        "descriptionRaw": "Your spells and Skills deal 1 extra damage.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0864-full.png?9346e",
+    "region": "Hoa Linh Lục Địa",
+    "descriptionRaw": "Bài phép và Kỹ Năng của ngươi gây thêm 1 sát thương.",
+    "description": "Bài phép và Kỹ Năng của ngươi gây thêm 1 sát thương.",
+    "assetAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0864.png?54e22",
+    "name": "Bí Thuật Cường Hóa",
+    "runeCode": "P0864",
+    "type": [
+      "Sức Mạnh",
+      "Ngọc"
+    ]
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Secrets of the Spirits",
+        "description": "When an [k:Ephemeral|Ephemeral] ally gains stats, it gains twice that many instead.",
+        "region": "Spirit Blossom",
+        "descriptionRaw": "When an Ephemeral ally gains stats, it gains twice that many instead.",
+        "rarity": "Legendary"
+      }
+    },
+    "rarity": "Huyền Thoại",
+    "assetFullAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0891-full.png?67380",
+    "region": "Hoa Linh Lục Địa",
+    "descriptionRaw": "Khi 1 đồng minh Cảm Tử nhận chỉ số, chỉ số nhận được tăng gấp 2 lần.",
+    "description": "Khi 1 đồng minh [k:Ephemeral|Cảm Tử] nhận chỉ số, chỉ số nhận được tăng gấp 2 lần.",
+    "assetAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/P0891.png?a6d14",
+    "name": "Bí Mật Linh Hồn",
+    "runeCode": "P0891",
+    "type": [
+      "Ngọc"
+    ]
+  }
+]

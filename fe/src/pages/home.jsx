@@ -31,8 +31,7 @@ const BACKGROUND_IMAGES = [
 	"https://images.pocguide.top/backgrounds/BG8.webp",
 	"https://images.pocguide.top/backgrounds/BG9.webp",
 	"https://images.pocguide.top/backgrounds/BG10.webp",
-	"https://dd.b.pvp.net/7_3_0/set5/vi_vn/img/cards/05FR013T4-full.png",
-	"https://dd.b.pvp.net/7_3_0/set5/vi_vn/img/cards/05FR013-full.png"
+	"https://images.pocguide.top/backgrounds/MAINBG.webp"
 ];
 
 const Home = () => {
@@ -52,7 +51,7 @@ const Home = () => {
 		{ to: "/tools/ratings", icon: Dices, label: tUI("nav.championRatings"), img: BACKGROUND_IMAGES[9], top: "50%", left: "2%", size: "w-20 h-20 lg:w-36 lg:h-36" },
 		{ to: "/cards", icon: GalleryHorizontal, label: tUI("nav.cards"), img: BACKGROUND_IMAGES[7], top: "2%", left: "64%", size: "w-24 h-24 lg:w-40 lg:h-40" },
 		{ to: "/resources", icon: Archive, label: tUI("nav.resources"), img: BACKGROUND_IMAGES[6], top: "40%", left: "25%", size: "w-20 h-20 lg:w-44 lg:h-44" },
-		{ to: "/champion/C084", icon: Star, label: tUI("nav.newChampion"), img: BACKGROUND_IMAGES[10], top: "0%", left: "49%", size: "w-20 h-20 lg:w-48 lg:h-48" },
+		{ to: "/champion/C085", icon: Star, label: tUI("nav.newChampion"), img: BACKGROUND_IMAGES[0], top: "0%", left: "49%", size: "w-20 h-20 lg:w-48 lg:h-48" },
 	];
 
 	useEffect(() => {
@@ -102,7 +101,7 @@ const Home = () => {
 			<section className='relative w-full h-[calc(100vh-56px)] bg-surface-bg/0 overflow-hidden flex items-center justify-center'>
 				<div className='absolute inset-0 z-0 select-none overflow-hidden bg-surface-bg/20'>
 					<img
-						src={BACKGROUND_IMAGES[11]}
+						src={BACKGROUND_IMAGES[10]}
 						alt='Hero'
 						fetchpriority='high'
 						decoding='async'

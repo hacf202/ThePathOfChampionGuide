@@ -11,6 +11,7 @@ import {
 	getCachedAdventures,
 	getCachedResources
 } from "../services/dataService.js";
+import { getPublicBuilds } from "../utils/buildCache.js";
 
 const router = express.Router();
 
@@ -33,7 +34,8 @@ router.get("/", async (req, res) => {
 			guidesData,
 			bosses,
 			adventures,
-			resources
+			resources,
+			publicBuildsData
 		] = await Promise.all([
 			getCachedChampions(),
 			getCachedRelics(),
@@ -44,10 +46,12 @@ router.get("/", async (req, res) => {
 			getCachedGuides(),
 			getCachedBosses(),
 			getCachedAdventures(),
-			getCachedResources()
+			getCachedResources(),
+			getPublicBuilds("global")
 		]);
 
 		const guides = guidesData.data || guidesData; // Xử lý wrap data nếu có
+		const builds = publicBuildsData.items || [];
 
 		// 2. Định nghĩa các trang tĩnh
 		const staticPages = [
@@ -58,9 +62,22 @@ router.get("/", async (req, res) => {
 			"/items",
 			"/cards",
 			"/tierlist",
+			"/tierlist/champions",
+			"/tierlist/relics",
 			"/guides",
 			"/introduction",
-			"/resources"
+			"/resources",
+			"/randomizer",
+			"/simulator/vaults",
+			"/sub-champions",
+			"/tools/ratings",
+			"/tools/champion-items",
+			"/builds",
+			"/runes",
+			"/maps",
+			"/bosses",
+			"/about-us",
+			"/terms-of-use"
 		];
 
 		// 3. Xây dựng nội dung XML
@@ -165,6 +182,15 @@ router.get("/", async (req, res) => {
 			xml += `    <loc>${BASE_URL}/resource/${encodeURIComponent(resItem.resourceId)}</loc>\n`;
 			xml += `    <changefreq>monthly</changefreq>\n`;
 			xml += `    <priority>0.6</priority>\n`;
+			xml += `  </url>\n`;
+		});
+
+		// Thêm Builds
+		builds.forEach(build => {
+			xml += `  <url>\n`;
+			xml += `    <loc>${BASE_URL}/builds/detail/${encodeURIComponent(build.id)}</loc>\n`;
+			xml += `    <changefreq>weekly</changefreq>\n`;
+			xml += `    <priority>0.7</priority>\n`;
 			xml += `  </url>\n`;
 		});
 

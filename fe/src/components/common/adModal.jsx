@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Gift } from "lucide-react";
+import { X } from "lucide-react";
 import GoogleAd from "./googleAd";
 
 const AdModal = () => {
@@ -48,28 +48,24 @@ const AdModal = () => {
                             initial={{ opacity: 0, scale: 0.9, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                            className="relative bg-surface-bg border border-border rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden flex flex-col z-10"
+                            className="relative bg-surface-bg border border-border rounded-xl shadow-2xl w-full max-w-lg overflow-hidden flex flex-col z-10"
                         >
                             {/* Header */}
-                            <div className="flex items-center justify-between p-4 border-b border-border bg-surface-hover/30">
-                                <h3 className="text-xl font-bold font-primary text-primary-500 flex items-center gap-2">
-                                    <Gift size={20} /> Ủng hộ dự án POC GUIDE
+                            <div className="flex items-center justify-between p-3 border-b border-border bg-surface-hover/30">
+                                <h3 className="text-sm font-bold font-primary text-primary-500">
+                                    Ủng hộ dự án POC GUIDE
                                 </h3>
                                 <button
                                     onClick={() => setIsOpen(false)}
                                     className="p-1 rounded-md hover:bg-white/10 text-text-secondary hover:text-white transition-colors"
                                 >
-                                    <X size={20} />
+                                    <X size={18} />
                                 </button>
                             </div>
 
                             {/* Body (Quảng cáo) */}
-                            <div className="p-4 flex flex-col items-center justify-center min-h-[300px] bg-surface-bg/50">
-                                <p className="text-sm text-text-secondary mb-2 text-center max-w-lg leading-relaxed">
-                                    Cảm ơn bạn đã đồng hành cùng POC GUIDE! Việc xem quảng cáo giúp chúng tôi duy trì máy chủ và tiếp tục phát triển các tính năng mới.
-                                </p>
-                                
-                                <div className="w-full flex justify-center items-center bg-black/20 rounded-xl overflow-hidden min-h-[250px] relative border border-border/50">
+                            <div className="p-3 flex flex-col items-center justify-center bg-surface-bg/50">
+                                <div className="w-full flex justify-center items-center bg-black/20 rounded-lg overflow-hidden min-h-[250px] relative border border-border/50">
                                     <GoogleAd slot='2943049680' format='auto' />
                                 </div>
                             </div>
