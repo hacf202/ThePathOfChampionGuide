@@ -32,10 +32,8 @@ export const useCardData = (queryParams, state, tUI) => {
 				const textSources = [
 					c.cardName,
 					c.cardCode,
-					c.description,
 					c.descriptionRaw,
 					c.translations?.en?.cardName,
-					c.translations?.en?.description,
 					c.translations?.en?.descriptionRaw,
 					...(c.keywords || []),
 					...(c.translations?.en?.keywords || [])

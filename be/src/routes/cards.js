@@ -88,10 +88,8 @@ router.get("/", async (req, res) => {
 				// Các trường dữ liệu để tìm kiếm
 				const textSources = [
 					c.cardName,
-					c.description,
 					c.descriptionRaw,
 					c.translations?.en?.cardName,
-					c.translations?.en?.description,
 					c.translations?.en?.descriptionRaw,
 					...(c.keywords || []),
 					...(c.translations?.en?.keywords || [])
@@ -125,7 +123,6 @@ router.get("/", async (req, res) => {
 		const paginatedItems = paginatedItemsRaw.map(c => ({
 			cardCode: c.cardCode,
 			cardName: c.cardName,
-			description: c.description,
 			descriptionRaw: c.descriptionRaw,
 			type: c.type,
 			cost: c.cost,
@@ -137,7 +134,6 @@ router.get("/", async (req, res) => {
 			translations: c.translations ? {
 				en: {
 					cardName: c.translations.en?.cardName,
-					description: c.translations.en?.description,
 					descriptionRaw: c.translations.en?.descriptionRaw,
 					gameAbsolutePath: c.translations.en?.gameAbsolutePath,
 					type: c.translations.en?.type,
