@@ -92,7 +92,9 @@ router.get("/", async (req, res) => {
 					c.descriptionRaw,
 					c.translations?.en?.cardName,
 					c.translations?.en?.description,
-					c.translations?.en?.descriptionRaw
+					c.translations?.en?.descriptionRaw,
+					...(c.keywords || []),
+					...(c.translations?.en?.keywords || [])
 				].filter(Boolean).map(text => removeAccents(text.toLowerCase()));
 
 				// Kiểm tra: Mọi từ trong keyword phải xuất hiện ở ÍT NHẤT 1 trường dữ liệu

@@ -36,7 +36,9 @@ export const useCardData = (queryParams, state, tUI) => {
 					c.descriptionRaw,
 					c.translations?.en?.cardName,
 					c.translations?.en?.description,
-					c.translations?.en?.descriptionRaw
+					c.translations?.en?.descriptionRaw,
+					...(c.keywords || []),
+					...(c.translations?.en?.keywords || [])
 				].filter(Boolean).map(text => removeAccents(text.toLowerCase()));
 
 				const isMatch = searchWords.every(word => textSources.some(source => source.includes(word)));
@@ -69,7 +71,11 @@ export const useCardData = (queryParams, state, tUI) => {
 		}
 		if (types?.length > 0) {
 			filtered = filtered.filter(c => 
-				types.some(t => t.toLowerCase() === (c.type || "").toLowerCase())
+				types.some(t => {
+					const typeVi = (c.type || "").toLowerCase();
+					const typeEn = (c.translations?.en?.type || "").toLowerCase();
+					return t.toLowerCase() === typeVi || t.toLowerCase() === typeEn;
+				})
 			);
 		}
 		if (costs?.length > 0) {
