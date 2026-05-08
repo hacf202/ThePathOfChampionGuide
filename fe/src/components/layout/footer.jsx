@@ -16,7 +16,7 @@ function Footer() {
 						<a href='/' className='inline-block mb-4'>
 							<img
 								src={LogoBlack}
-								alt='Genshin Guide Logo'
+								alt='Poc Guide Logo'
 								className='h-10 w-auto'
 								loading='lazy'
 							/>

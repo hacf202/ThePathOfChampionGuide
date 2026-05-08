@@ -1,25 +1,25 @@
 {
-  "backupDate": "2026-05-06T00:20:34.355Z",
+  "backupDate": "2026-05-08T10:50:32.990Z",
   "dbName": "guidePoc",
   "results": [
     {
       "collection": "guidePocChampionList",
-      "count": 85,
+      "count": 86,
       "success": true
     },
     {
       "collection": "guidePocChampionConstellation",
-      "count": 85,
+      "count": 86,
       "success": true
     },
     {
       "collection": "guidePocPowers",
-      "count": 842,
+      "count": 852,
       "success": true
     },
     {
       "collection": "guidePocRelics",
-      "count": 146,
+      "count": 147,
       "success": true
     },
     {
@@ -34,12 +34,12 @@
     },
     {
       "collection": "guidePocBonusStar",
-      "count": 305,
+      "count": 308,
       "success": true
     },
     {
       "collection": "guidePocCardList",
-      "count": 2661,
+      "count": 2662,
       "success": true
     },
     {
@@ -69,7 +69,7 @@
     },
     {
       "collection": "guidePocAuditLogs",
-      "count": 210,
+      "count": 228,
       "success": true
     },
     {
@@ -88,6 +88,6 @@
       "success": true
     }
   ],
-  "totalItems": 4888,
-  "duration": "9.6s"
+  "totalItems": 4923,
+  "duration": "11.0s"
 }

@@ -5,23 +5,23 @@ export const RequirementIcon = ({ type }) => {
 	switch (type) {
 		case "Fragment":
 			src =
-				"https://wpocimg.s3.ap-southeast-2.amazonaws.com/icons/Wild_Fragment_icon.png";
+				"https://images.pocguide.top/icon/15px-PoC_Wild_Fragment_icon.webp";
 			break;
 		case "Crystal":
 			src =
-				"https://wiki.leagueoflegends.com/en-us/images/thumb/PoC_Star_Crystal_icon.png/20px-PoC_Star_Crystal_icon.png?59fc0";
+				"https://images.pocguide.top/icon/40px-PoC_Star_Crystal_icon.webp";
 			break;
 		case "Nova Crystal":
 			src =
-				"https://wiki.leagueoflegends.com/en-us/images/thumb/PoC_Nova_Crystal_icon.png/20px-PoC_Nova_Crystal_icon.png?c3074";
+				"https://images.pocguide.top/icon/40px-PoC_Nova_Crystal_icon.webp";
 			break;
 		case "Gemstone":
 			src =
-				"https://wiki.leagueoflegends.com/en-us/images/thumb/PoC_Gemstone_icon.png/20px-PoC_Gemstone_icon.png?e6e65";
+				"https://images.pocguide.top/icon/40px-PoC_Gemstone_icon.webp";
 			break;
 		default:
 			src =
-				"https://wpocimg.s3.ap-southeast-2.amazonaws.com/icons/Wild_Fragment_icon.png";
+				"https://images.pocguide.top/icon/15px-PoC_Wild_Fragment_icon.webp";
 	}
 	return (
 		<img

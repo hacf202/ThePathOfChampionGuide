@@ -237,22 +237,30 @@ export const getEntityData = (value, type, lang = "vi") => {
 	switch (type) {
 		case "k": 
 		case "keyword": {
-			// Tìm trong primary (đúng ngôn ngữ) trước
-			const found = primarySources.find(item => 
-				normalize(item.name) === searchKey || 
-				normalize(item.nameRef) === searchKey
-			) || fallbackSources.find(item => 
+			let matches = primarySources.filter(item => 
 				normalize(item.name) === searchKey || 
 				normalize(item.nameRef) === searchKey
 			);
+			if (matches.length === 0) {
+				matches = fallbackSources.filter(item => 
+					normalize(item.name) === searchKey || 
+					normalize(item.nameRef) === searchKey
+				);
+			}
 			
-			if (found) return {
-				name: found.name,
-				description: found.description,
-				nameRef: found.nameRef,
-				icon: found.icon,
-				type: "keyword"
-			};
+			if (matches.length > 0) {
+				const exactRefMatch = matches.find(item => normalize(item.nameRef) === searchKey);
+				const withIcon = matches.find(item => item.icon);
+				const found = exactRefMatch && exactRefMatch.icon ? exactRefMatch : (withIcon || exactRefMatch || matches[0]);
+
+				return {
+					name: found.name,
+					description: found.description,
+					nameRef: found.nameRef,
+					icon: found.icon,
+					type: "keyword"
+				};
+			}
 			break;
 		}
 

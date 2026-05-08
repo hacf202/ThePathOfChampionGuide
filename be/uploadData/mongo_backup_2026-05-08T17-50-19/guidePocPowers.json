@@ -1965,11 +1965,11 @@
       }
     },
     "rarity": "Đặc Biệt",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01001.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01001.webp",
     "descriptionRaw": "+10 máu Nhà Chính, +1 năng lượng khởi điểm, +1 lá bài khởi đầu.",
     "description": "+10 máu Nhà Chính, +1 năng lượng khởi điểm, +1 lá bài khởi đầu.",
     "name": "Kẻ Thù Hiểm Độc",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01001.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01001.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -1985,11 +1985,11 @@
       }
     },
     "rarity": "Thường",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01002.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01002.webp",
     "descriptionRaw": "Bắt Đầu Vòng Đấu: Hồi lại năng lượng bài phép của TẤT CẢ Người Chơi.",
     "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Hồi lại năng lượng bài phép của TẤT CẢ Người Chơi.",
     "name": "Hung Thần Đại Dương",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01002.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01002.webp",
     "type": [
       "Foe Power"
     ]
@@ -2005,11 +2005,11 @@
       }
     },
     "rarity": "Thường",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01003.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01003.webp",
     "descriptionRaw": "Bắt Đầu Vòng Đấu: Địch Thủ có 50% cơ hội tạo trên tay 1 lá Cổ Vật May Mắn. Người Chơi có 25% cơ hội.",
     "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Địch Thủ có 50% cơ hội tạo trên tay 1 lá [cd:04SH098|Cổ Vật May Mắn|icon,img-full]. Người Chơi có 25% cơ hội.",
     "name": "Phi Vụ Gian Nan",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01003.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01003.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -2025,11 +2025,11 @@
       }
     },
     "rarity": "Thường",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01004.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01004.webp",
     "descriptionRaw": "Bắt Đầu Vòng Đấu: Tạo 1 lá Từ Chối Phù Du trên tay Địch Thủ. Lá đó có 2 tiêu hao.",
     "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Tạo 1 lá [cd:01IO049|Từ Chối|icon,img-full] Phù Du trên tay Địch Thủ. Lá đó có 2 tiêu hao.",
     "name": "Ma Pháp Vô Dạng",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01004.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01004.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -2045,11 +2045,11 @@
       }
     },
     "rarity": "Thường",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01005.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01005.webp",
     "descriptionRaw": "Khi Địch Thủ tấn công, chúng triệu hồi 1 Poro 1 tiêu hao ngẫu nhiên ở vị trí tấn công.",
     "description": "Khi Địch Thủ tấn công, chúng triệu hồi 1 Poro 1 tiêu hao ngẫu nhiên ở vị trí tấn công.",
     "name": "Trượt Siêu Mượt",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01005.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01005.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -2065,11 +2065,11 @@
       }
     },
     "rarity": "Thường",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01006.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01006.webp",
     "descriptionRaw": "TẤT CẢ bài quân có \"Cưỡng Đoạt: Ban cho ta +1|+1.\"",
     "description": "TẤT CẢ bài quân có \"[k:Plunder|Cưỡng Đoạt]: Ban cho ta +1|+1.\"",
     "name": "Đồ Tể Chặn Đòn",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01006.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01006.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -2085,11 +2085,11 @@
       }
     },
     "rarity": "Thường",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01007.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01007.webp",
     "descriptionRaw": "Bắt Đầu Trận Đấu: TẤT CẢ người chơi triệu hồi 1 lá Đài Thiên Văn Hextech.",
     "description": "Bắt Đầu Trận Đấu: TẤT CẢ người chơi triệu hồi 1 lá Đài Thiên Văn Hextech.",
     "name": "Sức Mạnh Quan Sát",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01007.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01007.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -2125,13 +2125,13 @@
       }
     },
     "rarity": "Thường",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01009.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01009.webp",
     "descriptionRaw": "Bắt Đầu Trận Đấu: Địch Thủ triệu hồi 1 lá Khỉ Đuôi Nổ.",
     "description": "Bắt Đầu Trận Đấu: Địch Thủ triệu hồi 1 lá [cd:02BW034T1|Khỉ Đuôi Nổ|icon,img-full].",
     "name": "Kéc Kéc",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01009.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01009.webp",
     "type": [
-      "Monthly Challenge Power"
+      "Foe Power"
     ]
   },
   {
@@ -2166,11 +2166,11 @@
       }
     },
     "rarity": "Thường",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01010.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01010.webp",
     "descriptionRaw": "Bắt Đầu Trận Đấu: Địch Thủ triệu hồi 1 lá Đấu Trường Noxkraya.",
     "description": "Bắt Đầu Trận Đấu: Địch Thủ triệu hồi 1 lá [cd:03NX004|Đấu Trường Noxkraya|icon,img-full].",
     "name": "Trò Tiêu Khiển Noxus",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01010.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01010.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -2186,11 +2186,11 @@
       }
     },
     "rarity": "Thường",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01011.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01011.webp",
     "descriptionRaw": "Bắt Đầu Vòng Đấu: Nếu người chơi có năng lượng bài phép, Địch Thủ đánh cắp 1 năng lượng bài phép.",
     "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Nếu người chơi có năng lượng bài phép, Địch Thủ đánh cắp 1 năng lượng bài phép.",
     "name": "Cá Đuối Rình Rập",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01011.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01011.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -2206,11 +2206,11 @@
       }
     },
     "rarity": "Thường",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01012.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01012.webp",
     "descriptionRaw": "TẤT CẢ bài phép và kỹ năng gây thêm 1 sát thương.",
     "description": "TẤT CẢ bài phép và kỹ năng gây thêm 1 sát thương.",
     "name": "Lửa Bập Bùng",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01012.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01012.webp",
     "type": [
       "Monthly Challenge Power",
       "Foe Power"
@@ -2227,11 +2227,11 @@
       }
     },
     "rarity": "Thường",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01013.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01013.webp",
     "descriptionRaw": "Bài quân của Địch Thủ sở hữu: \"Tấn Công Nhà Chính: Tạo trên tay 1 lá Quỷ Dữ Bóng Tối.\"",
     "description": "Bài quân của Địch Thủ sở hữu: \"[k:Attack|Tấn Công] Nhà Chính: Tạo trên tay 1 lá [cd:01IO013|Quỷ Dữ Bóng Tối|icon,img-full].\"",
     "name": "Bóng Tối Ập Đến",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01013.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01013.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -2247,11 +2247,11 @@
       }
     },
     "rarity": "Thường",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01014.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01014.webp",
     "descriptionRaw": "Bắt Đầu Trận Đấu: TẤT CẢ người chơi bắt đầu với 3 năng lượng bài phép.",
     "description": "Bắt Đầu Trận Đấu: TẤT CẢ người chơi bắt đầu với 3 năng lượng bài phép.",
     "name": "Lan Tỏa Cổ Thuật",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01014.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01014.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -2267,11 +2267,11 @@
       }
     },
     "rarity": "Thường",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01015.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01015.webp",
     "descriptionRaw": "Bắt Đầu Trận Đấu: Địch Thủ triệu hồi 1 lá Gấu Đá Ngủ Đông.",
     "description": "Bắt Đầu Trận Đấu: Địch Thủ triệu hồi 1 lá [cd:04SH042|Gấu Đá Ngủ Đông|icon,img-full].",
     "name": "Chào Buổi Sáng, Đồ Cau Có",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01015.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01015.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -2287,11 +2287,11 @@
       }
     },
     "rarity": "Thường",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01016.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01016.webp",
     "descriptionRaw": "Bắt Đầu Vòng Đấu: Làm Choáng bài quân Yếu Nhất của người chơi.",
     "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: [k:Stun|Làm Choáng] bài quân Yếu Nhất của người chơi.",
     "name": "Sắt Thép Sáng Lóa",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01016.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01016.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -2307,11 +2307,11 @@
       }
     },
     "rarity": "Thường",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01017.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01017.webp",
     "descriptionRaw": "TẤT CẢ bài quân có \"Ra Đòn: Nhân đôi Sức Mạnh của ta.\"",
     "description": "TẤT CẢ bài quân có \"Ra Đòn: Nhân đôi [k:Power|Sức Mạnh] của ta.\"",
     "name": "Tập Luyện Trong Rừng",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01017.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01017.webp",
     "type": [
       "Foe Power"
     ]
@@ -2327,11 +2327,11 @@
       }
     },
     "rarity": "Thường",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01018.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01018.webp",
     "descriptionRaw": "Bắt Đầu Trận Đấu: TẤT CẢ người chơi triệu hồi 1 lá Pháp Sư Phản Chiếu.",
     "description": "Bắt Đầu Trận Đấu: TẤT CẢ người chơi triệu hồi 1 lá [cd:05BC151|Pháp Sư Phản Chiếu|icon,img-full].",
     "name": "Ảo Ảnh Ánh Sáng",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01018.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01018.webp",
     "type": [
       "Foe Power"
     ]
@@ -2347,11 +2347,11 @@
       }
     },
     "rarity": "Thường",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01019.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01019.webp",
     "descriptionRaw": "Khi 1 bài quân hy sinh, ban +1|+1 cho 1 bài quân ngẫu nhiên trên tay người chơi sở hữu bài quân đó.",
     "description": "Khi 1 bài quân hy sinh, ban +1|+1 cho 1 bài quân ngẫu nhiên trên tay người chơi sở hữu bài quân đó.",
     "name": "Bóng Tối Dai Dẳng",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01019.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01019.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -2387,11 +2387,11 @@
       }
     },
     "rarity": "Thường",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01020.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01020.webp",
     "descriptionRaw": "Bắt Đầu Trận Đấu: TẤT CẢ người chơi triệu hồi 1 lá Hải Tặc Thiện Xạ.",
     "description": "Bắt Đầu Trận Đấu: TẤT CẢ người chơi triệu hồi 1 lá [cd:02BW060|Hải Tặc Thiện Xạ|icon,img-full].",
     "name": "Xạ Thủ Tàn Nhẫn",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01020.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01020.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -2407,11 +2407,11 @@
       }
     },
     "rarity": "Hiếm",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01021.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01021.webp",
     "descriptionRaw": "Bắt Đầu Trận Đấu: TẤT CẢ người chơi bắt đầu với 10 ngọc năng lượng.",
     "description": "Bắt Đầu Trận Đấu: TẤT CẢ người chơi bắt đầu với 10 ngọc năng lượng.",
     "name": "Thiền Hướng",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01021.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01021.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -2427,11 +2427,11 @@
       }
     },
     "rarity": "Thường",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01022.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01022.webp",
     "descriptionRaw": "Bắt Đầu Vòng Đấu: Biến đổi tùy tùng mạnh nhất của người chơi thành 1 lá Sóc 1|1 và Câm Lặng nó trong vòng này.",
     "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Biến đổi tùy tùng mạnh nhất của người chơi thành 1 lá Sóc 1|1 và Câm Lặng nó trong vòng này.",
     "name": "Adoribus!",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01022.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01022.webp",
     "type": [
       "Foe Power"
     ]
@@ -2447,11 +2447,11 @@
       }
     },
     "rarity": "Hiếm",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01023.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01023.webp",
     "descriptionRaw": "Bắt Đầu Vòng Đấu: Gây 1 sát thương lên tất cả các bài quân bị thương của người chơi.",
     "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Gây 1 sát thương lên tất cả các bài quân bị thương của người chơi.",
     "name": "Thống Khổ",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01023.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01023.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -2467,11 +2467,11 @@
       }
     },
     "rarity": "Hiếm",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01024.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01024.webp",
     "descriptionRaw": "Những bài quân bị thương của người chơi Không Thể Chặn Đòn.",
     "description": "Những bài quân bị thương của người chơi Không Thể Chặn Đòn.",
     "name": "Bất Lực",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01024.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01024.webp",
     "type": [
       "Monthly Challenge Power",
       "Foe Power"
@@ -2488,11 +2488,11 @@
       }
     },
     "rarity": "Hiếm",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01025.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01025.webp",
     "descriptionRaw": "Khi Địch Thủ tấn công, Làm Choáng bài quân yếu nhất của người chơi.",
     "description": "Khi Địch Thủ tấn công, [k:Stun|Làm Choáng] bài quân yếu nhất của người chơi.",
     "name": "Càn Quét Sân Khấu",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01025.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01025.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -2508,11 +2508,11 @@
       }
     },
     "rarity": "Hiếm",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01026.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01026.webp",
     "descriptionRaw": "Bài quân ở vị trí tấn công của Địch Thủ được nhận +1|+0.",
     "description": "Bài quân ở vị trí tấn công của Địch Thủ được nhận +1|+0.",
     "name": "Đón Nhận Bóng Tối",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01026.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01026.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -2528,11 +2528,11 @@
       }
     },
     "rarity": "Hiếm",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01027.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01027.webp",
     "descriptionRaw": "Bắt Đầu Trận Đấu: Địch Thủ triệu hồi 1 lá Pháp Sư Phản Chiếu 0|8.",
     "description": "Bắt Đầu Trận Đấu: Địch Thủ triệu hồi 1 lá [cd:05BC151|Pháp Sư Phản Chiếu|icon,img-full] 0|8.",
     "name": "Ảo Ảnh Ánh Sáng",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01027.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01027.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -2609,11 +2609,11 @@
       }
     },
     "rarity": "Hiếm",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01030.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01030.webp",
     "descriptionRaw": "Bắt Đầu Vòng Đấu: Hồi 3 máu cho Nhà Chính của Địch Thủ.",
     "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Hồi 3 máu cho Nhà Chính của Địch Thủ.",
     "name": "Tri Thức Được Khai Sáng",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01030.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01030.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -2629,11 +2629,11 @@
       }
     },
     "rarity": "Hiếm",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01031.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01031.webp",
     "descriptionRaw": "Mỗi vòng đấu, lá bài Quần Đảo Bóng Đêm đầu tiên của người chơi được giảm 1 tiêu hao để xuất trận.",
     "description": "Mỗi vòng đấu, lá bài Quần Đảo Bóng Đêm đầu tiên của người chơi được giảm 1 tiêu hao để xuất trận.",
     "name": "Linh Hồn Than Khóc",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01031.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01031.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -2649,11 +2649,11 @@
       }
     },
     "rarity": "Hiếm",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01032.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01032.webp",
     "descriptionRaw": "Bài quân của người chơi nhận Tiến Hóa.",
     "description": "Bài quân của người chơi nhận [k:Evolve|Tiến Hóa].",
     "name": "Chọn Lọc Phi Tự Nhiên",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01032.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01032.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -2689,11 +2689,11 @@
       }
     },
     "rarity": "Hiếm",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01034.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01034.webp",
     "descriptionRaw": "Bài quân của Địch Thủ được nhận Hồi Phục.",
     "description": "Bài quân của Địch Thủ được nhận [k:Regeneration|Hồi Phục].",
     "name": "Nghỉ Xả Hơi",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01034.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01034.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -2709,11 +2709,11 @@
       }
     },
     "rarity": "Hiếm",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01035.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01035.webp",
     "descriptionRaw": "Bắt Đầu Vòng Đấu: Đóng Băng bài quân Mạnh Nhất của người chơi.",
     "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: [k:Frostbite|Đóng Băng] bài quân [k:Mạnh Nhất|Mạnh Nhất|no-icon] của người chơi.",
     "name": "Buốt Da Thấu Thịt",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01035.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01035.webp",
     "type": [
       "Foe Power"
     ]
@@ -2729,11 +2729,11 @@
       }
     },
     "rarity": "Hiếm",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01036.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01036.webp",
     "descriptionRaw": "Bắt Đầu Vòng Đấu: Nếu Địch Thủ có lượt tấn công, chúng triệu hồi 1 lá Màn Sương Xâm Chiếm.",
     "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Nếu Địch Thủ có lượt tấn công, chúng triệu hồi 1 lá [cd:04SI045|Màn Sương Xâm Chiếm|icon,img-full].",
     "name": "Sương Biến Ảo",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01036.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01036.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -2749,11 +2749,11 @@
       }
     },
     "rarity": "Hiếm",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01037.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01037.webp",
     "descriptionRaw": "Mỗi vòng đấu, lần đầu tiên Địch Thủ triệu hồi 1 bài quân, ban Khí Lực cho bài quân đó.",
     "description": "Mỗi vòng đấu, lần đầu tiên Địch Thủ triệu hồi 1 bài quân, ban [k:Impact|Khí Lực] cho bài quân đó.",
     "name": "Lọc Da Xẻ Thịt",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01037.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01037.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -2769,11 +2769,11 @@
       }
     },
     "rarity": "Hiếm",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01038.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01038.webp",
     "descriptionRaw": "Khi bài quân của Địch Thủ tấn công, ban +2|+0 cho bài quân mạnh nhất ở vị trí tấn công.",
     "description": "Khi bài quân của Địch Thủ tấn công, ban +2|+0 cho bài quân mạnh nhất ở vị trí tấn công.",
     "name": "Kỷ Nguyên Chinh Phục",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01038.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01038.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -2789,11 +2789,11 @@
       }
     },
     "rarity": "Hiếm",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01039.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01039.webp",
     "descriptionRaw": "Mỗi vòng đấu, lá bài Noxus đầu tiên của người chơi được giảm 1 tiêu hao để xuất trận.",
     "description": "Mỗi vòng đấu, lá bài Noxus đầu tiên của người chơi được giảm 1 tiêu hao để xuất trận.",
     "name": "Sức Mạnh Kiên Cường",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01039.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01039.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -2829,11 +2829,11 @@
       }
     },
     "rarity": "Hiếm",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01040.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01040.webp",
     "descriptionRaw": "Bắt Đầu Trận Đấu: Địch Thủ triệu hồi 1 lá Đỉnh Targon. Kết Thúc Vòng Đấu: TẤT CẢ người chơi rút 1 lá bài.",
     "description": "Bắt Đầu Trận Đấu: Địch Thủ triệu hồi 1 lá Đỉnh Targon. [k:RoundEnd|Kết Thúc Vòng Đấu]: TẤT CẢ người chơi rút 1 lá bài.",
     "name": "Đỉnh Núi",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01040.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01040.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -2849,11 +2849,11 @@
       }
     },
     "rarity": "Hiếm",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01041.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01041.webp",
     "descriptionRaw": "Mỗi vòng đấu, lá bài Bilgewater đầu tiên của người chơi được giảm 1 tiêu hao để xuất trận.",
     "description": "Mỗi vòng đấu, lá bài Bilgewater đầu tiên của người chơi được giảm 1 tiêu hao để xuất trận.",
     "name": "Cẩu Ca Mặn Mòi",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01041.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01041.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -2869,11 +2869,11 @@
       }
     },
     "rarity": "Hiếm",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01042.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01042.webp",
     "descriptionRaw": "Mỗi vòng đấu, lá bài Shurima đầu tiên của người chơi được giảm 1 tiêu hao để xuất trận.",
     "description": "Mỗi vòng đấu, lá bài Shurima đầu tiên của người chơi được giảm 1 tiêu hao để xuất trận.",
     "name": "Lướt Trên Cồn Cát",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01042.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01042.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -2889,11 +2889,11 @@
       }
     },
     "rarity": "Hiếm",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01043.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01043.webp",
     "descriptionRaw": "Mỗi vòng đấu, lá bài Thành Phố Bandle đầu tiên của người chơi được giảm 1 tiêu hao để xuất trận.",
     "description": "Mỗi vòng đấu, lá bài Thành Phố Bandle đầu tiên của người chơi được giảm 1 tiêu hao để xuất trận.",
     "name": "Cổng Dịch Chuyển Bí Ẩn",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01043.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01043.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -2909,11 +2909,11 @@
       }
     },
     "rarity": "Hiếm",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01044.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01044.webp",
     "descriptionRaw": "Mỗi vòng đấu, lá bài Demacia đầu tiên của người chơi được giảm 1 tiêu hao để xuất trận.",
     "description": "Mỗi vòng đấu, lá bài Demacia đầu tiên của người chơi được giảm 1 tiêu hao để xuất trận.",
     "name": "Bổn Phận Phục Tùng",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01044.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01044.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -2949,11 +2949,11 @@
       }
     },
     "rarity": "Hiếm",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01046.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01046.webp",
     "descriptionRaw": "Mỗi vòng đấu, lá bài Piltover & Zaun đầu tiên của người chơi được giảm 1 tiêu hao để xuất trận.",
     "description": "Mỗi vòng đấu, lá bài Piltover & Zaun đầu tiên của người chơi được giảm 1 tiêu hao để xuất trận.",
     "name": "Nghiên Cứu Đột Phá",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01046.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01046.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -2969,11 +2969,11 @@
       }
     },
     "rarity": "Hiếm",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01047.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01047.webp",
     "descriptionRaw": "Bắt Đầu Vòng Đấu: Mỗi người chơi nhận 1 ngọc năng lượng.",
     "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Mỗi người chơi nhận 1 ngọc năng lượng.",
     "name": "Ma Thuật Hoang Dại",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01047.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01047.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -2989,11 +2989,11 @@
       }
     },
     "rarity": "Hiếm",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01048.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01048.webp",
     "descriptionRaw": "Mỗi vòng đấu, lá bài Targon đầu tiên của người chơi được giảm 1 tiêu hao để xuất trận.",
     "description": "Mỗi vòng đấu, lá bài Targon đầu tiên của người chơi được giảm 1 tiêu hao để xuất trận.",
     "name": "Chỉ Dẫn Từ Thượng Giới",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01048.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01048.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -3009,11 +3009,11 @@
       }
     },
     "rarity": "Hiếm",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01049.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01049.webp",
     "descriptionRaw": "Mỗi vòng đấu, lá bài Freljord đầu tiên của người chơi được giảm 1 tiêu hao để xuất trận.",
     "description": "Mỗi vòng đấu, lá bài Freljord đầu tiên của người chơi được giảm 1 tiêu hao để xuất trận.",
     "name": "Sương Giá Cô Đọng",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01049.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01049.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -3089,11 +3089,11 @@
       }
     },
     "rarity": "Sử Thi",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01052.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01052.webp",
     "descriptionRaw": "Bắt Đầu Vòng Đấu: Trao +2|+0 và Áp Đảo cho bài quân mạnh nhất của Địch Thủ trong vòng này.",
     "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Trao +2|+0 và [k:Overwhelm|Áp Đảo] cho bài quân mạnh nhất của Địch Thủ trong vòng này.",
     "name": "Cây Hút Fan",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01052.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01052.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -3189,11 +3189,11 @@
       }
     },
     "rarity": "Sử Thi",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01057.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01057.webp",
     "descriptionRaw": "Bắt Đầu Vòng Đấu: Địch Thủ triệu hồi 1 lá Đường Núi Lở nếu chưa có lá bài này.",
     "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Địch Thủ triệu hồi 1 lá [cd:04MT001|Đường Núi Lở|icon,img-full] nếu chưa có lá bài này.",
     "name": "Quậy Tưng Nào",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01057.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01057.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -3209,11 +3209,11 @@
       }
     },
     "rarity": "Sử Thi",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01058.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01058.webp",
     "descriptionRaw": "Khi người chơi không còn lá bài nào trên tay, bài quân của họ nhận +2|+2.",
     "description": "Khi người chơi không còn lá bài nào trên tay, bài quân của họ nhận +2|+2.",
     "name": "Không Ngoảnh Lại",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01058.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01058.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -3229,11 +3229,11 @@
       }
     },
     "rarity": "Sử Thi",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01059.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01059.webp",
     "descriptionRaw": "Bắt Đầu Vòng Đấu: Tiêu diệt TẤT CẢ bài quân, sau đó hồi sinh chúng.",
     "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Tiêu diệt TẤT CẢ bài quân, sau đó hồi sinh chúng.",
     "name": "Biên Niên Sử Tàn Ác",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01059.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01059.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -3269,11 +3269,11 @@
       }
     },
     "rarity": "Sử Thi",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01060.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01060.webp",
     "descriptionRaw": "Bắt Đầu Vòng Đấu: Gây 3 sát thương lên tất cả các bài quân bị thương của người chơi.",
     "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Gây 3 sát thương lên tất cả các bài quân bị thương của người chơi.",
     "name": "Thống Khổ",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01060.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01060.webp",
     "type": [
       "Monthly Challenge Power",
       "Foe Power"
@@ -3310,11 +3310,11 @@
       }
     },
     "rarity": "Sử Thi",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01062.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01062.webp",
     "descriptionRaw": "Bắt Đầu Vòng Đấu: Gây 1 sát thương lên tất cả các bài quân của người chơi.",
     "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Gây 1 sát thương lên tất cả các bài quân của người chơi.",
     "name": "Cứng Như Đá",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01062.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01062.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -3330,11 +3330,11 @@
       }
     },
     "rarity": "Sử Thi",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01063.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01063.webp",
     "descriptionRaw": "Khi Địch Thủ triệu hồi 1 bài quân, ban +0|+3 cho bài quân đó.",
     "description": "Khi Địch Thủ triệu hồi 1 bài quân, ban +0|+3 cho bài quân đó.",
     "name": "Yến Tiệc Siêu Hạng",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01063.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01063.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -3350,11 +3350,11 @@
       }
     },
     "rarity": "Sử Thi",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01064.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01064.webp",
     "descriptionRaw": "Khi người chơi rút 1 lá bài, đặt tiêu hao của lá bài đó thành 3.",
     "description": "Khi người chơi rút 1 lá bài, đặt tiêu hao của lá bài đó thành 3.",
     "name": "Con Số Ma Thuật",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01064.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01064.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -3410,11 +3410,11 @@
       }
     },
     "rarity": "Sử Thi",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01067.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01067.webp",
     "descriptionRaw": "Khi bắt đầu vòng 7, Địch Thủ triệu hồi 1 anh hùng cấp 2 ngẫu nhiên.",
     "description": "Khi bắt đầu vòng 7, Địch Thủ triệu hồi 1 anh hùng cấp 2 ngẫu nhiên.",
     "name": "Khẩn Cầu Ứng Cứu",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01067.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01067.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -3430,11 +3430,11 @@
       }
     },
     "rarity": "Sử Thi",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01068.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01068.webp",
     "descriptionRaw": "Khi người chơi BẤT KỲ sử dụng 1 bài phép, sao chép hiệu ứng bài phép đó lên cùng mục tiêu.",
     "description": "Khi người chơi BẤT KỲ sử dụng 1 bài phép, sao chép hiệu ứng bài phép đó lên cùng mục tiêu.",
     "name": "Bản Sao Lặp Lại",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01068.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01068.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -3450,11 +3450,11 @@
       }
     },
     "rarity": "Sử Thi",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01069.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01069.webp",
     "descriptionRaw": "Bắt Đầu Trận Đấu: Người chơi bắt đầu với 2 ngọc năng lượng cộng thêm, nhưng sẽ không được nhận thêm khi vòng đấu bắt đầu.",
     "description": "Bắt Đầu Trận Đấu: Người chơi bắt đầu với 2 ngọc năng lượng cộng thêm, nhưng sẽ không được nhận thêm khi vòng đấu bắt đầu.",
     "name": "Phong Cách Tối Giản",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01069.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01069.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -3510,11 +3510,11 @@
       }
     },
     "rarity": "Sử Thi",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01071.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01071.webp",
     "descriptionRaw": "Bắt Đầu Vòng Đấu: Ban +0|+1 cho bài quân của Địch Thủ.",
     "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Ban +0|+1 cho bài quân của Địch Thủ.",
     "name": "Chống Chọi",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01071.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01071.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -3530,11 +3530,11 @@
       }
     },
     "rarity": "Sử Thi",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01072.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01072.webp",
     "descriptionRaw": "Kết Thúc Vòng Đấu: Gây 1 sát thương lên Nhà Chính của người chơi với mỗi bài quân của Địch Thủ.",
     "description": "[k:RoundEnd|Kết Thúc Vòng Đấu]: Gây 1 sát thương lên Nhà Chính của người chơi với mỗi bài quân của Địch Thủ.",
     "name": "Xuất Huyết",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01072.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01072.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -3550,11 +3550,11 @@
       }
     },
     "rarity": "Sử Thi",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01073.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01073.webp",
     "descriptionRaw": "Bài quân của Địch Thủ nhận +1|+1 cho mỗi đặc điểm mà chúng có.",
     "description": "Bài quân của Địch Thủ nhận +1|+1 cho mỗi đặc điểm mà chúng có.",
     "name": "Hơn Cả Máu Thịt",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01073.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01073.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -3590,11 +3590,11 @@
       }
     },
     "rarity": "Sử Thi",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01075.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01075.webp",
     "descriptionRaw": "Khi bài quân của Địch Thủ tấn công, Làm Choáng bài quân yếu nhất của người chơi và Địch Thủ rút 1 lá bài.",
     "description": "Khi bài quân của Địch Thủ tấn công, [k:Stun|Làm Choáng] bài quân yếu nhất của người chơi và Địch Thủ rút 1 lá bài.",
     "name": "Cuồng Phong Tích Tụ",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01075.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01075.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -3710,11 +3710,11 @@
       }
     },
     "rarity": "Sử Thi",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01080.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01080.webp",
     "descriptionRaw": "Khi người chơi sử dụng 1 bài phép, tạo 1 bản sao Phù Du trên tay Địch Thủ.",
     "description": "Khi người chơi sử dụng 1 bài phép, tạo 1 bản sao Phù Du trên tay Địch Thủ.",
     "name": "Rò Rỉ Năng Lượng",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01080.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01080.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -3730,11 +3730,11 @@
       }
     },
     "rarity": "Sử Thi",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01081.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01081.webp",
     "descriptionRaw": "Bắt Đầu Trận Đấu: Người chơi triệu hồi 1 lá Cây Cổ Thụ Bandle.",
     "description": "Bắt Đầu Trận Đấu: Người chơi triệu hồi 1 lá [cd:05BC194|Cây Cổ Thụ Bandle|icon,img-full].",
     "name": "Bí Thuật Bandle",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01081.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01081.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -3750,11 +3750,11 @@
       }
     },
     "rarity": "Huyền Thoại",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01082.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01082.webp",
     "descriptionRaw": "Khi người chơi triệu hồi 1 bài quân, đặt chỉ số của lá bài đó thành 1|1.",
     "description": "Khi người chơi triệu hồi 1 bài quân, đặt chỉ số của lá bài đó thành 1|1.",
     "name": "Vặt Vãnh",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01082.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01082.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -3770,11 +3770,11 @@
       }
     },
     "rarity": "Huyền Thoại",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01083.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01083.webp",
     "descriptionRaw": "Bắt Đầu Trận Đấu: Địch Thủ triệu hồi 1 lá Vực Gió Hú.",
     "description": "Bắt Đầu Trận Đấu: Địch Thủ triệu hồi 1 lá [cd:03FR009|Vực Gió Hú|icon,img-full].",
     "name": "Chào Mừng Tới Cầu Đồ Tể",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01083.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01083.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -3790,11 +3790,11 @@
       }
     },
     "rarity": "Huyền Thoại",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01084.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01084.webp",
     "descriptionRaw": "Bắt Đầu Vòng Đấu: Địch Thủ hồi sinh 1 bản sao Cảm Tử của tuỳ tùng mạnh nhất đã hy sinh.",
     "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Địch Thủ hồi sinh 1 bản sao [k:Ephemeral|Cảm Tử] của tuỳ tùng mạnh nhất đã hy sinh.",
     "name": "Dư Ảnh",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01084.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01084.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -3850,11 +3850,11 @@
       }
     },
     "rarity": "Thường",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01003.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01087.webp",
     "descriptionRaw": "Bắt Đầu Trận Đấu: Địch Thủ triệu hồi 1 lá Tư Dinh Chiến Tướng. Khi lá Tu Dinh Chiến Tướng của Địch Thủ hoàn thành đếm ngược, Địch Thủ trộm 1 ngọc năng lượng từ người chơi và triệu hồi 1 lá Tư Dinh Chiến Tướng.",
     "description": "Bắt Đầu Trận Đấu: Địch Thủ triệu hồi 1 lá [cd:04SH130T1|Tư Dinh Chiến Tướng|icon,img-full]. Khi lá Tu Dinh Chiến Tướng của Địch Thủ hoàn thành đếm ngược, Địch Thủ trộm 1 ngọc năng lượng từ người chơi và triệu hồi 1 lá [cd:04SH130T1|Tư Dinh Chiến Tướng|icon,img-full].",
     "name": "Đánh Cắp Quân Lương",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01003.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01087.webp",
     "type": [
       "Monthly Challenge Power",
       "Foe Power"
@@ -3871,11 +3871,11 @@
       }
     },
     "rarity": "Sử Thi",
-    "assetFullAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01064.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01088.webp",
     "descriptionRaw": "Bắt Đầu Vòng Đấu: Địch Thủ triệu hồi Ụ Súng tiếp theo.",
     "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Địch Thủ triệu hồi Ụ Súng tiếp theo.",
     "name": "Cường Hóa Liên Tục",
-    "assetAbsolutePath": "https://wpocimg.s3.ap-southeast-2.amazonaws.com/powers/P01064.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01088.webp",
     "type": [
       "Monthly Challenge Power"
     ]
@@ -5101,6 +5101,86 @@
     "type": [
       "Foe Power"
     ]
+  },
+  {
+    "powerCode": "P01145",
+    "name": "Mật Khẩu Là Gì?",
+    "rarity": "Thường",
+    "description": "[k:Bắt Đầu Vòng Đấu|Bắt Đầu Vòng Đấu|no-icon]: [k:Địch Thủ|Địch Thủ|no-icon] triệu hồi một lá [cd:06PZ019|Gác Cổng Zaun|icon] với Sức Mạnh bằng 0 nếu chưa có lá nào.",
+    "type": [
+      "Foe Power"
+    ],
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01145.webp",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01145.webp",
+    "translations": {
+      "en": {
+        "name": "What's The Password?",
+        "rarity": "Common",
+        "description": "[k:Round Start|Round Start|no-icon]: The [k:foe|foe|no-icon] summons a [cd:06PZ019|Zaun Bouncer|icon] with 0 power if they don't have one.",
+        "descriptionRaw": "Round Start: The foe summons a Zaun Bouncer with 0 power if they don't have one."
+      }
+    },
+    "descriptionRaw": "Bắt Đầu Vòng Đấu: Địch Thủ triệu hồi một lá Gác Cổng Zaun với Sức Mạnh bằng 0 nếu chưa có lá nào."
+  },
+  {
+    "powerCode": "P01146",
+    "name": "Phế Liệu Đánh Cắp",
+    "rarity": "Thường",
+    "description": "Khi BẤT KỲ người chơi nào bỏ 1 lá bài, người chơi đó sẽ triệu hồi 1 lá [cd:01PZ032|Cua Phế Liệu|icon].",
+    "type": [
+      "Foe Power"
+    ],
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01146.webp",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01146.webp",
+    "translations": {
+      "en": {
+        "name": "Stolen Scrap",
+        "rarity": "Common",
+        "description": "When ANY player discards a card, they summon a [cd:01PZ032|Scrap Scuttler|icon].",
+        "descriptionRaw": "When ANY player discards a card, they summon a Scrap Scuttler."
+      }
+    },
+    "descriptionRaw": "Khi BẤT KỲ người chơi nào bỏ 1 lá bài, người chơi đó sẽ triệu hồi 1 lá Cua Phế Liệu."
+  },
+  {
+    "powerCode": "P01147",
+    "name": "Đói Khát",
+    "rarity": "Thường",
+    "description": "[k:Bắt Đầu Vòng Đấu|Bắt Đầu Vòng Đấu|no-icon]: [k:Địch Thủ|Địch Thủ|no-icon] tạo trên tay 1 lá [cd:98PZ001T4|Mùi Máu|icon], hoặc nếu đã có sẵn, giảm 1 tiêu hao của lá bài đó.",
+    "type": [
+      "Foe Power"
+    ],
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01147.webp",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01147.webp",
+    "translations": {
+      "en": {
+        "name": "Eternal Hunger",
+        "rarity": "Common",
+        "description": "[k:Round Start|Round Start|no-icon]: The [k:Foe|Foe|no-icon] creates a  [cd:98PZ001T4|Blood Hunt|icon] in hand, or if they have one, reduces its cost by 1.",
+        "descriptionRaw": "Round Start: The Foe creates a  Blood Hunt in hand, or if they have one, reduces its cost by 1."
+      }
+    },
+    "descriptionRaw": "Bắt Đầu Vòng Đấu: Địch Thủ tạo trên tay 1 lá Mùi Máu, hoặc nếu đã có sẵn, giảm 1 tiêu hao của lá bài đó."
+  },
+  {
+    "powerCode": "P01148",
+    "name": "Cầm Lao Lên Nào!",
+    "rarity": "Thường",
+    "description": "Khi [k:Địch Thủ|Địch Thủ|no-icon] tấn công, ban +1|+0 cho bài quân 1 tiêu hao của chúng.",
+    "type": [
+      "Foe Power"
+    ],
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01148.webp",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01148.webp",
+    "translations": {
+      "en": {
+        "name": "Man the Harpoons!",
+        "rarity": "Common",
+        "description": "When the [k:Foe|Foe|no-icon] attacks, grant their 1 cost units +1|+0.",
+        "descriptionRaw": "When the Foe attacks, grant their 1 cost units +1|+0."
+      }
+    },
+    "descriptionRaw": "Khi Địch Thủ tấn công, ban +1|+0 cho bài quân 1 tiêu hao của chúng."
   },
   {
     "powerCode": "P0115",
@@ -15139,11 +15219,11 @@
       }
     },
     "rarity": "Hiếm",
-    "assetFullAbsolutePath": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/runeStar.png",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/runeStar.webp",
     "descriptionRaw": "Đây là ô để gắn sao ngọc",
     "description": "Đây là ô để gắn sao ngọc",
     "name": "Sao ngọc",
-    "assetAbsolutePath": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/runeStar.png",
+    "assetAbsolutePath": "https://images.pocguide.top/powers/runeStar.webp",
     "type": [
       "Star Power"
     ]
@@ -16925,6 +17005,126 @@
     "type": [
       "Defiance Power",
       "Foe Power"
+    ]
+  },
+  {
+    "powerCode": "P1020",
+    "translations": {
+      "en": {
+        "name": "Celestial Herald",
+        "description": "+1 Starting Mana.\nWhen you [k:Invoke|Invoke] or [k:Manifest|Manifest], grant allies +1|+0.",
+        "descriptionRaw": "+1 Starting Mana.\nWhen you Invoke or Manifest, grant allies +1|+0.",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_5_0/adventure/vi_vn/img/powers/P1020-full.png",
+    "descriptionRaw": "+1 Năng Lượng Khởi Điểm.\nKhi ngươi Hiệu Triệu hoặc Hình Thành, ban cho các đồng minh +1|+0.",
+    "description": "+1 Năng Lượng Khởi Điểm.\nKhi ngươi [k:Invoke|Hiệu Triệu] hoặc [k:Manifest|Hình Thành], ban cho các đồng minh +1|+0.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_5_0/adventure/vi_vn/img/powers/P1020.png",
+    "name": "Sứ Giả Thượng Giới",
+    "type": [
+      "General Power"
+    ]
+  },
+  {
+    "powerCode": "P1021",
+    "translations": {
+      "en": {
+        "name": "More Sparkles! II",
+        "description": "Adventure Start: Grant each Celestial card 2 random items for this adventure.",
+        "descriptionRaw": "Adventure Start: Grant each Celestial card 2 random items for this adventure.",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_5_0/adventure/vi_vn/img/powers/P1021-full.png",
+    "descriptionRaw": "Bắt Đầu Phiêu Lưu: Ban cho mỗi lá bài Thượng Giới 2 trang bị ngẫu nhiên cho cuộc phiêu lưu này.",
+    "description": "Bắt Đầu Phiêu Lưu: Ban cho mỗi lá bài Thượng Giới 2 trang bị ngẫu nhiên cho cuộc phiêu lưu này.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_5_0/adventure/vi_vn/img/powers/P1021.png",
+    "name": "Lấp La Lấp Lánh! II",
+    "type": [
+      "Star Power"
+    ]
+  },
+  {
+    "powerCode": "P1022",
+    "translations": {
+      "en": {
+        "name": "Whoa, Cool Star Power!",
+        "description": "Cards you [k:Invoke|Invoke] or [k:Manifest|Manifest] have their cost reduced by half their base cost, rounded up.",
+        "descriptionRaw": "Cards you Invoke or Manifest have their cost reduced by half their base cost, rounded up.",
+        "rarity": "Legendary"
+      }
+    },
+    "rarity": "Huyền thoại",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_5_0/adventure/vi_vn/img/powers/P1022-full.png",
+    "descriptionRaw": "Các lá bài ngươi Hiệu Triệu hoặc Hình Thành sẽ được giảm một nửa tiêu hao so với tiêu hao cơ bản, làm tròn lên.",
+    "description": "Các lá bài ngươi [k:Invoke|Hiệu Triệu] hoặc [k:Manifest|Hình Thành] sẽ được giảm một nửa tiêu hao so với tiêu hao cơ bản, làm tròn lên.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_5_0/adventure/vi_vn/img/powers/P1022.png",
+    "name": "Chà, Sức Mạnh Sao Ngầu Quá!",
+    "type": [
+      "Star Power"
+    ]
+  },
+  {
+    "powerCode": "P1023",
+    "translations": {
+      "en": {
+        "name": "More Sparkles!",
+        "description": "Adventure Start: Grant each Celestial card a random item for this adventure.",
+        "descriptionRaw": "Adventure Start: Grant each Celestial card a random item for this adventure.",
+        "rarity": "Common"
+      }
+    },
+    "rarity": "Thường",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_5_0/adventure/vi_vn/img/powers/P1023-full.png",
+    "descriptionRaw": "Bắt Đầu Phiêu Lưu: Ban cho mỗi lá bài Thượng Giới một trang bị ngẫu nhiên cho cuộc phiêu lưu này.",
+    "description": "Bắt Đầu Phiêu Lưu: Ban cho mỗi lá bài Thượng Giới một trang bị ngẫu nhiên cho cuộc phiêu lưu này.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_5_0/adventure/vi_vn/img/powers/P1023.png",
+    "name": "Lấp La Lấp Lánh!",
+    "type": [
+      "Star Power"
+    ]
+  },
+  {
+    "powerCode": "P1038",
+    "translations": {
+      "en": {
+        "name": "Portal Jump",
+        "description": "Your [k:Slow|Slow] Celestial spells accelerate to [k:Fast|Fast].",
+        "descriptionRaw": "Your Slow Celestial spells accelerate to Fast.",
+        "rarity": "Rare"
+      }
+    },
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_5_0/adventure/vi_vn/img/powers/P1038-full.png",
+    "descriptionRaw": "Các bài phép Thượng Giới Chậm của ngươi sẽ được tăng tốc lên Nhanh.",
+    "description": "Các bài phép Thượng Giới [k:Slow|Chậm] của ngươi sẽ được tăng tốc lên [k:Fast|Nhanh].",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_5_0/adventure/vi_vn/img/powers/P1038.png",
+    "name": "Vòng Xuyên Thấu",
+    "type": [
+      "Star Power"
+    ]
+  },
+  {
+    "powerCode": "P1039",
+    "translations": {
+      "en": {
+        "name": "Celestial Herald II",
+        "description": "+2 Starting Mana.\nWhen you [k:Invoke|Invoke] or [k:Manifest|Manifest], grant allies +1|+1.",
+        "descriptionRaw": "+2 Starting Mana.\nWhen you Invoke or Manifest, grant allies +1|+1.",
+        "rarity": "Epic"
+      }
+    },
+    "rarity": "Sử thi",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_5_0/adventure/vi_vn/img/powers/P1039-full.png",
+    "descriptionRaw": "+2 Năng Lượng Khởi Điểm.\nKhi ngươi Hiệu Triệu hoặc Hình Thành, ban cho các đồng minh +1|+1.",
+    "description": "+2 Năng Lượng Khởi Điểm.\nKhi ngươi [k:Invoke|Hiệu Triệu] hoặc [k:Manifest|Hình Thành], ban cho các đồng minh +1|+1.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_5_0/adventure/vi_vn/img/powers/P1039.png",
+    "name": "Sứ Giả Thượng Giới II",
+    "type": [
+      "Star Power"
     ]
   }
 ]

@@ -90733,6 +90733,32 @@
     "subtypes": []
   },
   {
+    "cardCode": "99BW001",
+    "cardName": "Hooked Help",
+    "cost": 4,
+    "rarity": "None",
+    "regions": [
+      "Bilgewater"
+    ],
+    "type": "spell",
+    "description": "Một đồng minh [k:Bắt Giữ|Bắt Giữ|icon] một kẻ địch,",
+    "descriptionRaw": "Một đồng minh Bắt Giữ một kẻ địch,",
+    "gameAbsolutePath": "https://images.pocguide.top/cards/99BW001.webp",
+    "associatedCardRefs": [],
+    "translations": {
+      "en": {
+        "cardName": "Hooked Help",
+        "description": "An ally [k:Capture|Captures|icon] an enemy.",
+        "descriptionRaw": "An ally Captures an enemy.",
+        "gameAbsolutePath": "https://images.pocguide.top/cards/99BW001en.webp",
+        "regions": [
+          "Bilgewater"
+        ],
+        "type": "Spell"
+      }
+    }
+  },
+  {
     "cardCode": "99FR002",
     "gameAbsolutePath": "https://images.pocguide.top/cards/99FR002.webp",
     "cost": 4,

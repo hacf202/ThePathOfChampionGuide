@@ -9320,13 +9320,13 @@
     "packageName": "Reinforcement of Mel",
     "name": "Mel",
     "cardCode": "98PZ006",
-    "fullAbsolutePath": "https://wiki.leagueoflegends.com/en-us/images/98PZ006-full.png?862bb",
+    "fullAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/en_us/img/cards/98PZ006-full.png",
     "cards": [
       {
         "cardCode": "98PZ006",
         "name": "Mel",
         "count": 2,
-        "image": "https://wiki.leagueoflegends.com/en-us/images/98PZ006.png?862bb"
+        "image": "https://dd.b.pvp.net/7_3_0/tpoc/en_us/img/cards/98PZ006.png"
       },
       {
         "cardCode": "01PZ027",
@@ -9338,7 +9338,7 @@
         "cardCode": "98PZ008",
         "name": "Solar Snare",
         "count": 2,
-        "image": "https://wiki.leagueoflegends.com/en-us/images/98PZ008.png"
+        "image": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98PZ008.png"
       }
     ],
     "Vật phẩm tương thích": [

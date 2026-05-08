@@ -16,7 +16,7 @@
           {
             "type": "image",
             "alt": "3 ô cổ vật trên tướng",
-            "src": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/relicSlot.jpg"
+            "src": "https://images.pocguide.top/guides/.webp"
           }
         ]
       },
@@ -55,7 +55,7 @@
           {
             "type": "image",
             "alt": "Nâng cấp ô cổ vật lên Sử Thi",
-            "src": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/relicforge.jpg"
+            "src": "https://images.pocguide.top/guides/.webp"
           }
         ]
       },
@@ -64,7 +64,7 @@
         "title": "02. Cách thu thập Cổ vật",
         "sublist": [
           {
-            "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/relicchest.jpg",
+            "image": "https://images.pocguide.top/guides/.webp",
             "title": "2.1. Rương Thần Tích",
             "list": [
               "<strong>Rương Thần Tích Đồng</strong>: cổ vật Thường/Hiếm",
@@ -75,25 +75,25 @@
             "desc": "Đây là nguồn chính để các bạn nhận được cổ vật trong Con Đường Anh Hùng và được chia thành 3 loại:"
           },
           {
-            "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/emporium.jpg",
+            "image": "https://images.pocguide.top/guides/.webp",
             "title": "2.2. Cửa Hiệu",
             "imageAlt": "Cửa Hiệu bán cổ vật",
             "desc": "Bạn có thể dùng <strong>bụi sao</strong> để mua các vật phẩm trong <strong>Cửa Hiệu</strong>, bao gồm các cổ vật hiếm và <strong>Rương Thần Tích Vàng</strong>. Bụi sao có thể kiếm được từ việc mở rương, hoàn thành các thử thách nhiệm vụ phiêu lưu."
           },
           {
-            "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/GloryShop.jpg",
+            "image": "https://images.pocguide.top/guides/.webp",
             "title": "2.3. Cửa Hàng Vinh Danh",
             "imageAlt": "Cửa hàng Vinh Danh bán cổ vật",
             "desc": "Dùng xu Vinh Danh để đổi <strong>cổ vật Sử Thi Đặc Trưng</strong> (Trấn – các cổ vật này không thể nhận được thông qua việc mở Rương Thần Tích) trong <strong>cửa hàng vinh danh</strong> được làm mới mỗi sáng chủ nhật. Ngoài ra còn có thể mua rương thần tích bạc tại đây với giá 10 xu vinh danh/rương (giới hạn 5 rương mỗi tháng). Bạn có thể nhận xu vinh danh từ <strong>Con Đường Vinh Danh</strong>."
           },
           {
-            "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/weeklyquests.jpg",
+            "image": "https://images.pocguide.top/guides/.webp",
             "title": "2.4. Nhiệm vụ hàng tuần",
             "imageAlt": "Nhiệm vụ hàng tuần trong PoC",
             "desc": "Hoàn thành các nhiệm vụ phiêu lưu tuần sẽ nhận được phần thưởng rương thần tích."
           },
           {
-            "image": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/bundlerelic.jpg",
+            "image": "https://images.pocguide.top/guides/.webp",
             "title": "2.5. Gói Bundle cổ vật",
             "imageAlt": "Gói bundle cổ vật",
             "desc": "Các gói bundle được bán trong cửa hàng và được mua bằng xu với các loại tài nguyên đa dạng bao gồm cổ vật Sử Thi Đặc Trưng (Trấn), mảnh tướng, đá quý, mảnh sao băng,..."
@@ -182,8 +182,8 @@
     ],
     "updateDate": "2025-12-12",
     "slug": "relic-guide",
-    "views": 391,
-    "thumbnail": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/thumbnailRelic.jpg",
+    "views": 393,
+    "thumbnail": "https://images.pocguide.top/guides/.webp",
     "publishedDate": "2025-11-23",
     "tags": [
       "relic"
@@ -212,7 +212,7 @@
           {
             "type": "image",
             "alt": "Giao diện Con Đường Anh Hùng",
-            "src": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/giaodiencdah.jpg"
+            "src": "https://images.pocguide.top/guides/.webp"
           }
         ]
       },
@@ -236,7 +236,7 @@
           {
             "type": "image",
             "alt": "Hướng Dẫn Chơi Con Đường Anh Hùng",
-            "src": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/bosslissandra.jpg"
+            "src": "https://images.pocguide.top/guides/.webp"
           }
         ]
       },
@@ -255,7 +255,7 @@
           {
             "type": "image",
             "alt": "Mở Khóa và Nâng Cấp Tướng",
-            "src": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/unlockchampion.jpg"
+            "src": "https://images.pocguide.top/guides/.webp"
           },
           {
             "type": "paragraph",
@@ -264,7 +264,7 @@
           {
             "type": "image",
             "alt": "Nâng Sao Tướng",
-            "src": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/upgradestar.jpg"
+            "src": "https://images.pocguide.top/guides/.webp"
           }
         ]
       },
@@ -283,7 +283,7 @@
           {
             "type": "image",
             "alt": "Hệ Thống Sức Mạnh Của Tướng",
-            "src": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/powerlist.jpg"
+            "src": "https://images.pocguide.top/guides/.webp"
           }
         ]
       },
@@ -306,7 +306,7 @@
           {
             "type": "image",
             "alt": "Hệ Thống Cổ Vật Dành Cho Tướng",
-            "src": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/relic.jpg"
+            "src": "https://images.pocguide.top/guides/.webp"
           },
           {
             "type": "paragraph",
@@ -315,7 +315,7 @@
           {
             "type": "image",
             "alt": "Cửa Hiệu bán cổ vật",
-            "src": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/emporium.jpg"
+            "src": "https://images.pocguide.top/guides/.webp"
           }
         ]
       },
@@ -330,7 +330,7 @@
           {
             "type": "image",
             "alt": "Bản Đồ Phiêu Lưu",
-            "src": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/map.jpg"
+            "src": "https://images.pocguide.top/guides/.webp"
           },
           {
             "type": "paragraph",
@@ -339,7 +339,7 @@
           {
             "type": "image",
             "alt": "Bản Đồ Phiêu Lưu hàng tuần",
-            "src": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/weeklyquests.jpg"
+            "src": "https://images.pocguide.top/guides/.webp"
           },
           {
             "type": "paragraph",
@@ -348,7 +348,7 @@
           {
             "type": "image",
             "alt": "Bản Đồ Phiêu Lưu sự kiện",
-            "src": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/eventmap.jpg"
+            "src": "https://images.pocguide.top/guides/.webp"
           }
         ]
       },
@@ -360,8 +360,8 @@
     ],
     "updateDate": "2025-12-12",
     "slug": "starter-guide",
-    "views": 377,
-    "thumbnail": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/thumbcdah.jpg",
+    "views": 381,
+    "thumbnail": "https://images.pocguide.top/guides/.webp",
     "publishedDate": "2025-11-23",
     "tags": [
       "general"
@@ -1293,7 +1293,7 @@
     ],
     "updateDate": "07-02-2026",
     "slug": "thu-thach-thang",
-    "views": 662,
+    "views": 668,
     "thumbnail": "https://dd.b.pvp.net/6_3_0/set3/vi_vn/img/cards/03MT087T1-full.png",
     "publishedDate": "2026-02-07",
     "tags": [

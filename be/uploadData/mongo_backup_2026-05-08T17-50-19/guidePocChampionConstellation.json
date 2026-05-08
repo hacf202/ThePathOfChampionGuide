@@ -1670,7 +1670,7 @@
   },
   {
     "championName": "Jack",
-    "backgroundImage": "https://wiki.leagueoflegends.com/en-us/images/07BW002T2-full.png?9b809",
+    "backgroundImage": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW002T2-full.png",
     "nodes": [
       {
         "requirements": [
@@ -1794,7 +1794,7 @@
   },
   {
     "championName": "Evelynn",
-    "backgroundImage": "https://wiki.leagueoflegends.com/en-us/images/06RU025T5-alt-full.png?20fb0",
+    "backgroundImage": "https://dd.b.pvp.net/7_3_0/set6/en_us/img/cards/06RU025T5-full.png",
     "nodes": [
       {
         "requirements": [
@@ -2217,7 +2217,7 @@
   },
   {
     "championName": "Samira",
-    "backgroundImage": "https://wiki.leagueoflegends.com/en-us/images/07NX007T1-full.png?09b1d",
+    "backgroundImage": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07NX007T1-full.png",
     "nodes": [
       {
         "requirements": [
@@ -2517,7 +2517,7 @@
   },
   {
     "championName": "Sett",
-    "backgroundImage": "https://wiki.leagueoflegends.com/en-us/images/07IO011T1-full.png?a556ad",
+    "backgroundImage": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO011T1-full.png",
     "nodes": [
       {
         "requirements": [
@@ -3422,7 +3422,7 @@
   },
   {
     "championName": "Master Yi Cổ Kiếm Tông Sư",
-    "backgroundImage": "https://wiki.leagueoflegends.com/en-us/images/98SB030-full.png?6d23a",
+    "backgroundImage": "https://dd.b.pvp.net/7_3_0/tpoc/en_us/img/cards/98SB030-full.png",
     "nodes": [
       {
         "requirements": [
@@ -4128,7 +4128,7 @@
   },
   {
     "championName": "Pyke",
-    "backgroundImage": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/Pykebg.png",
+    "backgroundImage": "https://images.pocguide.top/constellationBackgroundImages/Pykebg.webp",
     "nodes": [
       {
         "requirements": [
@@ -4429,7 +4429,7 @@
   },
   {
     "championName": "Yasuo Anh Hùng Lãng Kiếm",
-    "backgroundImage": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/Yasuosbbg.png",
+    "backgroundImage": "https://images.pocguide.top/constellationBackgroundImages/Yasuosbbg.webp",
     "nodes": [
       {
         "requirements": [
@@ -5137,7 +5137,7 @@
   },
   {
     "championName": "Jayce",
-    "backgroundImage": "https://wiki.leagueoflegends.com/en-us/images/05PZ022T1-full.png?b0feb",
+    "backgroundImage": "https://dd.b.pvp.net/7_3_0/set5/en_us/img/cards/05PZ022T9-full.png",
     "nodes": [
       {
         "requirements": [
@@ -5797,7 +5797,7 @@
   },
   {
     "championName": "Gwen",
-    "backgroundImage": "https://wiki.leagueoflegends.com/en-us/images/06SI012-full.png?0bfd7",
+    "backgroundImage": "https://dd.b.pvp.net/7_3_0/set6/en_us/img/cards/06SI012-full.png",
     "nodes": [
       {
         "requirements": [
@@ -7232,7 +7232,7 @@
   },
   {
     "championName": "Bard",
-    "backgroundImage": "https://wiki.leagueoflegends.com/en-us/images/06RU001T4-full.png?8fefd",
+    "backgroundImage": "https://dd.b.pvp.net/7_3_0/set6/en_us/img/cards/06RU001T4-full.png",
     "nodes": [
       {
         "requirements": [
@@ -7294,7 +7294,7 @@
   },
   {
     "championName": "Kindred Lang Dương Vô Thường",
-    "backgroundImage": "https://wiki.leagueoflegends.com/en-us/images/thumb/98SB044T1-full.png/1920px-98SB044T1-full.png?2f55c",
+    "backgroundImage": "https://dd.b.pvp.net/7_3_0/tpoc/en_us/img/cards/98SB044T1-full.png",
     "nodes": [
       {
         "requirements": [
@@ -7702,7 +7702,7 @@
   },
   {
     "championName": "Caitlyn",
-    "backgroundImage": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/Caitlynbg.png",
+    "backgroundImage": "https://images.pocguide.top/constellationBackgroundImages/Caitlynbg.webp",
     "nodes": [
       {
         "requirements": [
@@ -9449,7 +9449,7 @@
   },
   {
     "championName": "Ashe",
-    "backgroundImage": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/Ashebg.png",
+    "backgroundImage": "https://images.pocguide.top/constellationBackgroundImages/Ashebg.webp",
     "nodes": [
       {
         "requirements": [
@@ -9750,7 +9750,7 @@
   },
   {
     "championName": "Twisted Fate",
-    "backgroundImage": "https://wiki.leagueoflegends.com/en-us/images/thumb/02BW026-full.png/1920px-02BW026T3-full.png?86695",
+    "backgroundImage": "https://dd.b.pvp.net/7_3_0/set2/en_us/img/cards/02BW026-full.png",
     "nodes": [
       {
         "requirements": [
@@ -10357,7 +10357,7 @@
   },
   {
     "championName": "Mel",
-    "backgroundImage": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/Melbg.png",
+    "backgroundImage": "https://images.pocguide.top/constellationBackgroundImages/Melbg.webp",
     "nodes": [
       {
         "requirements": [
@@ -12238,7 +12238,7 @@
   },
   {
     "championName": "Kai'sa",
-    "backgroundImage": "https://wiki.leagueoflegends.com/en-us/images/06SH009T2-full.png?ff10a",
+    "backgroundImage": "https://dd.b.pvp.net/7_3_0/set6/en_us/img/cards/06SH009T2-full.png",
     "nodes": [
       {
         "requirements": [
@@ -13197,7 +13197,7 @@
   },
   {
     "championName": "Yuumi",
-    "backgroundImage": "https://wiki.leagueoflegends.com/en-us/images/05BC029T5-full.png",
+    "backgroundImage": "https://dd.b.pvp.net/7_3_0/set5/vi_vn/img/cards/05BC029T5-full.png",
     "nodes": [
       {
         "requirements": [
@@ -13802,7 +13802,7 @@
   },
   {
     "championName": "Volibear",
-    "backgroundImage": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/Volibearbg.png",
+    "backgroundImage": "https://images.pocguide.top/constellationBackgroundImages/Volibearbg.webp",
     "nodes": [
       {
         "requirements": [
@@ -14463,7 +14463,7 @@
   },
   {
     "championName": "Anivia",
-    "backgroundImage": "https://wiki.leagueoflegends.com/en-us/images/01FR024-full.png?684ca",
+    "backgroundImage": "https://dd.b.pvp.net/7_3_0/set1/vi_vn/img/cards/01FR024-full.png",
     "nodes": [
       {
         "requirements": [
@@ -14762,7 +14762,7 @@
   },
   {
     "championName": "Jax",
-    "backgroundImage": "https://wiki.leagueoflegends.com/en-us/images/06RU008T7-full.png?ac406",
+    "backgroundImage": "https://dd.b.pvp.net/4_2_0/set6cde/en_us/img/cards/06RU008T7-full.png",
     "nodes": [
       {
         "requirements": [
@@ -14824,7 +14824,7 @@
   },
   {
     "championName": "Annie",
-    "backgroundImage": "https://wiki.leagueoflegends.com/en-us/images/thumb/06NX012T1-full.png/1920px-06NX012T1-full.png?c8f94",
+    "backgroundImage": "https://dd.b.pvp.net/7_3_0/set6/en_us/img/cards/06NX012T1-full.png",
     "nodes": [
       {
         "requirements": [
@@ -15188,7 +15188,7 @@
   },
   {
     "championName": "Viego",
-    "backgroundImage": "https://wiki.leagueoflegends.com/en-us/images/04SI055T2-full.png?64454",
+    "backgroundImage": "https://dd.b.pvp.net/7_3_0/set4/en_us/img/cards/04SI055T2-full.png",
     "nodes": [
       {
         "requirements": [
@@ -15486,7 +15486,7 @@
   },
   {
     "championName": "Ahri",
-    "backgroundImage": "https://wiki.leagueoflegends.com/en-us/images/05IO004T2-full.png?7eb24",
+    "backgroundImage": "https://dd.b.pvp.net/7_3_0/set5/en_us/img/cards/05IO004T2-full.png",
     "nodes": [
       {
         "requirements": [
@@ -16741,7 +16741,7 @@
   },
   {
     "championName": "Leblanc",
-    "backgroundImage": "https://wiki.leagueoflegends.com/en-us/images/04NX004T2-full.png?7f634",
+    "backgroundImage": "https://dd.b.pvp.net/7_3_0/set4/en_us/img/cards/04NX004T2-full.png",
     "nodes": [
       {
         "requirements": [
@@ -16803,7 +16803,7 @@
   },
   {
     "championName": "Ekko",
-    "backgroundImage": "https://wiki.leagueoflegends.com/en-us/images/04PZ001T3-full.png?139c3",
+    "backgroundImage": "https://dd.b.pvp.net/7_3_0/set4/vi_vn/img/cards/04PZ001T3-full.png",
     "nodes": [
       {
         "requirements": [
@@ -17165,7 +17165,7 @@
   },
   {
     "championName": "Gnar",
-    "backgroundImage": "https://wiki.leagueoflegends.com/en-us/images/05BC161-full.png?cb101",
+    "backgroundImage": "https://dd.b.pvp.net/7_3_0/set5/vi_vn/img/cards/05BC161-full.png",
     "nodes": [
       {
         "requirements": [
@@ -18549,7 +18549,7 @@
   },
   {
     "championName": "Kayle",
-    "backgroundImage": "https://wiki.leagueoflegends.com/en-us/images/06MT008-full.png?9a96e",
+    "backgroundImage": "https://dd.b.pvp.net/7_3_0/set6cde/vi_vn/img/cards/06MT008-full.png",
     "nodes": [
       {
         "requirements": [
@@ -19152,7 +19152,7 @@
   },
   {
     "championName": "Illaoi",
-    "backgroundImage": "https://wiki.leagueoflegends.com/en-us/images/06BW006T1-full.png?d4f10",
+    "backgroundImage": "https://dd.b.pvp.net/7_3_0/set6/vi_vn/img/cards/06BW006T1-full.png",
     "nodes": [
       {
         "requirements": [
@@ -19214,7 +19214,7 @@
   },
   {
     "championName": "Azir",
-    "backgroundImage": "https://wpocpicture.s3.us-east-1.amazonaws.com/images/Azirbg.png",
+    "backgroundImage": "https://images.pocguide.top/constellationBackgroundImages/Azirbg.webp",
     "nodes": [
       {
         "requirements": [
@@ -20412,6 +20412,308 @@
       }
     ],
     "constellationID": "C084"
+  },
+  {
+    "constellationID": "C085",
+    "championName": "Zoe",
+    "backgroundImage": "https://dd.b.pvp.net/7_3_0/set3/en_us/img/cards/03MT009T1-full.png",
+    "nodes": [
+      {
+        "nodeID": "n1",
+        "nodeType": "starPower",
+        "position": {
+          "x": 15.2,
+          "y": 16.4
+        },
+        "nextNodes": [
+          "n2"
+        ],
+        "requirements": [
+          {
+            "type": "Fragment",
+            "value": 10
+          }
+        ],
+        "isRecommended": true,
+        "powerCode": "P1023"
+      },
+      {
+        "nodeID": "n2",
+        "nodeType": "starPower",
+        "position": {
+          "x": 20.2,
+          "y": 42.8
+        },
+        "nextNodes": [
+          "n3"
+        ],
+        "requirements": [
+          {
+            "type": "Fragment",
+            "value": 20
+          }
+        ],
+        "isRecommended": true,
+        "powerCode": "P1020"
+      },
+      {
+        "nodeID": "n3",
+        "nodeType": "starPower",
+        "position": {
+          "x": 28.6,
+          "y": 62.9
+        },
+        "nextNodes": [
+          "n4",
+          "n9"
+        ],
+        "requirements": [
+          {
+            "type": "Fragment",
+            "value": 40
+          }
+        ],
+        "isRecommended": true,
+        "powerCode": "P1021"
+      },
+      {
+        "nodeID": "n4",
+        "nodeType": "starPower",
+        "position": {
+          "x": 45,
+          "y": 44.2
+        },
+        "nextNodes": [
+          "n9",
+          "n8",
+          "n7"
+        ],
+        "requirements": [
+          {
+            "type": "Fragment",
+            "value": 60
+          },
+          {
+            "type": "Crystal",
+            "value": 10
+          }
+        ],
+        "isRecommended": true,
+        "powerCode": "P1038"
+      },
+      {
+        "nodeID": "n5",
+        "nodeType": "starPower",
+        "position": {
+          "x": 50,
+          "y": 75.4
+        },
+        "nextNodes": [
+          "n12",
+          "n13"
+        ],
+        "requirements": [
+          {
+            "type": "Fragment",
+            "value": 80
+          },
+          {
+            "type": "Crystal",
+            "value": 40
+          }
+        ],
+        "isRecommended": true,
+        "powerCode": "P1039"
+      },
+      {
+        "nodeID": "n6",
+        "nodeType": "starPower",
+        "position": {
+          "x": 75.2,
+          "y": 39
+        },
+        "nextNodes": [],
+        "requirements": [
+          {
+            "type": "Fragment",
+            "value": 100
+          },
+          {
+            "type": "Nova Crystal",
+            "value": 1
+          }
+        ],
+        "isRecommended": true,
+        "powerCode": "P1022"
+      },
+      {
+        "nodeID": "n7",
+        "nodeType": "bonusStar",
+        "position": {
+          "x": 55.4,
+          "y": 33.8
+        },
+        "nextNodes": [
+          "n11"
+        ],
+        "requirements": [
+          {
+            "type": "Fragment",
+            "value": 40
+          }
+        ],
+        "isRecommended": true,
+        "bonusStarID": "C0118"
+      },
+      {
+        "nodeID": "n8",
+        "nodeType": "bonusStar",
+        "position": {
+          "x": 41.8,
+          "y": 23.8
+        },
+        "nextNodes": [
+          "n14"
+        ],
+        "requirements": [
+          {
+            "type": "Fragment",
+            "value": 40
+          }
+        ],
+        "isRecommended": true,
+        "bonusStarID": "C0166"
+      },
+      {
+        "nodeID": "n9",
+        "nodeType": "bonusStar",
+        "position": {
+          "x": 47.1,
+          "y": 57.1
+        },
+        "nextNodes": [
+          "n5",
+          "n10"
+        ],
+        "requirements": [
+          {
+            "type": "Fragment",
+            "value": 40
+          }
+        ],
+        "isRecommended": true,
+        "bonusStarID": "C0306"
+      },
+      {
+        "nodeID": "n10",
+        "nodeType": "bonusStar",
+        "position": {
+          "x": 66.9,
+          "y": 51.9
+        },
+        "nextNodes": [
+          "n6"
+        ],
+        "requirements": [
+          {
+            "type": "Fragment",
+            "value": 40
+          }
+        ],
+        "isRecommended": true,
+        "bonusStarID": "C0307"
+      },
+      {
+        "nodeID": "n11",
+        "nodeType": "bonusStar",
+        "position": {
+          "x": 69.9,
+          "y": 25.9
+        },
+        "nextNodes": [
+          "n6"
+        ],
+        "requirements": [
+          {
+            "type": "Fragment",
+            "value": 40
+          }
+        ],
+        "isRecommended": true,
+        "bonusStarID": "C0308"
+      },
+      {
+        "nodeID": "n12",
+        "nodeType": "bonusStarGem",
+        "position": {
+          "x": 53.7,
+          "y": 94.3
+        },
+        "nextNodes": [
+          "n13",
+          "n15"
+        ],
+        "requirements": [
+          {
+            "type": "Gemstone",
+            "value": 150
+          }
+        ],
+        "isRecommended": false,
+        "bonusStarID": "C0006"
+      },
+      {
+        "nodeID": "n13",
+        "nodeType": "bonusStarGem",
+        "position": {
+          "x": 61.1,
+          "y": 66.2
+        },
+        "nextNodes": [],
+        "requirements": [
+          {
+            "type": "Gemstone",
+            "value": 250
+          }
+        ],
+        "isRecommended": false,
+        "bonusStarID": "C0007"
+      },
+      {
+        "nodeID": "n14",
+        "nodeType": "bonusStarGem",
+        "position": {
+          "x": 39.6,
+          "y": 8.9
+        },
+        "nextNodes": [],
+        "requirements": [
+          {
+            "type": "Gemstone",
+            "value": 250
+          }
+        ],
+        "isRecommended": false,
+        "bonusStarID": "C0137"
+      },
+      {
+        "nodeID": "n15",
+        "nodeType": "bonusStarGem",
+        "position": {
+          "x": 70.1,
+          "y": 73.3
+        },
+        "nextNodes": [],
+        "requirements": [
+          {
+            "type": "Gemstone",
+            "value": 350
+          }
+        ],
+        "isRecommended": false,
+        "bonusStarID": "C0009"
+      }
+    ]
   },
   {
     "championName": "Maika",
