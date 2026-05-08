@@ -125,6 +125,9 @@ router.get("/", async (req, res) => {
 		const paginatedItems = paginatedItemsRaw.map(c => ({
 			cardCode: c.cardCode,
 			cardName: c.cardName,
+			description: c.description,
+			descriptionRaw: c.descriptionRaw,
+			type: c.type,
 			cost: c.cost,
 			regions: normalizeArray(c.regions),
 			rarity: c.rarity,
