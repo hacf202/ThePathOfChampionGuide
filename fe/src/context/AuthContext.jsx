@@ -43,16 +43,30 @@ export const AuthProvider = ({ children }) => {
 	const [isAdmin, setIsAdmin] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
 
-	// Khôi phục phiên đăng nhập từ localStorage khi F5 trang
+	// Khôi phục phiên đăng nhập từ localStorage hoặc URL Hash (cho reset password)
 	useEffect(() => {
-		const storedToken = localStorage.getItem("token");
+		// 1. Kiểm tra fragment URL cho reset password token (Supabase recovery flow)
+		const hash = window.location.hash;
+		let sessionToken = null;
+		
+		if (hash && hash.includes("access_token=") && hash.includes("type=recovery")) {
+			const params = new URLSearchParams(hash.substring(1));
+			sessionToken = params.get("access_token");
+			if (sessionToken) {
+				handleLogin(sessionToken);
+				// Xóa hash để URL đẹp hơn
+				window.history.replaceState(null, null, window.location.pathname);
+			}
+		}
+
+		const storedToken = sessionToken || localStorage.getItem("token");
 
 		if (storedToken) {
 			const payload = decodeJwtPayload(storedToken);
 			if (payload && payload.exp * 1000 > Date.now()) {
 				handleLogin(storedToken, payload);
 			} else {
-				logout();
+				if (!sessionToken) logout(); // Không logout nếu vừa lấy token từ link
 			}
 		}
 		setIsLoading(false);
@@ -66,6 +80,7 @@ export const AuthProvider = ({ children }) => {
 		if (decoded) {
 			setUser({
 				sub: decoded.sub,
+				username: decoded.user_metadata?.username || decoded.email?.split("@")[0],
 				name: decoded.user_metadata?.name || decoded.email?.split("@")[0],
 				email: decoded.email,
 			});
@@ -94,9 +109,9 @@ export const AuthProvider = ({ children }) => {
 		localStorage.removeItem("refresh_token");
 	};
 
-	const signUp = async (username, email, password, onSuccess, onError) => {
+	const signUp = async (username, displayName, email, password, onSuccess, onError) => {
 		try {
-			await authService.signUp(email, password, username);
+			await authService.signUp(email, password, username, displayName);
 			onSuccess("Đăng ký thành công! Vui lòng đăng nhập hoặc kiểm tra email.");
 		} catch (error) {
 			onError(error.message);
@@ -161,6 +176,17 @@ export const AuthProvider = ({ children }) => {
 		}
 	};
 
+	const resetPassword = async (newPassword) => {
+		if (!token) throw new Error("Phiên làm việc đã hết hạn. Vui lòng nhấp lại vào link trong email.");
+		
+		try {
+			const data = await authService.resetPassword(newPassword, token);
+			return data;
+		} catch (error) {
+			throw error;
+		}
+	};
+
 	const getUserNameBySub = async sub => {
 		try {
 			const data = await authService.getUserNameBySub(sub);
@@ -190,6 +216,7 @@ export const AuthProvider = ({ children }) => {
 		confirmPasswordReset,
 		changeName,
 		changePassword,
+		resetPassword,
 		getUserNameBySub,
 	};
 

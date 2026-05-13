@@ -13,6 +13,7 @@ const Register = ({ onClose, onSwitchToLogin }) => {
 	const { signUp } = useContext(AuthContext);
 
 	const [username, setUsername] = useState("");
+	const [displayName, setDisplayName] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
@@ -21,6 +22,7 @@ const Register = ({ onClose, onSwitchToLogin }) => {
 
 	const [errors, setErrors] = useState({
 		username: "",
+		displayName: "",
 		email: "",
 		password: "",
 		confirmPassword: "",
@@ -30,11 +32,13 @@ const Register = ({ onClose, onSwitchToLogin }) => {
 	const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
 	const validateForm = () => {
-		const err = { username: "", email: "", password: "", confirmPassword: "" };
+		const err = { username: "", displayName: "", email: "", password: "", confirmPassword: "" };
 
-		if (!username.trim()) err.username = tUI("auth.error.usernameReq");
+		if (!username.trim()) err.username = "Tên đăng nhập không được để trống";
 		else if (/[^a-zA-Z0-9_]/.test(username))
-			err.username = tUI("auth.error.usernameFormat");
+			err.username = "Tên đăng nhập chỉ được chứa chữ cái, số và dấu gạch dưới";
+
+		if (!displayName.trim()) err.displayName = "Tên hiển thị không được để trống";
 
 		if (!email) err.email = tUI("auth.error.emailReq");
 		else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
@@ -50,7 +54,7 @@ const Register = ({ onClose, onSwitchToLogin }) => {
 			err.confirmPassword = tUI("auth.error.passMismatch");
 
 		setErrors(err);
-		return !err.username && !err.email && !err.password && !err.confirmPassword;
+		return !err.username && !err.displayName && !err.email && !err.password && !err.confirmPassword;
 	};
 
 	const handleRegister = async e => {
@@ -62,6 +66,7 @@ const Register = ({ onClose, onSwitchToLogin }) => {
 
 		signUp(
 			username.trim(),
+			displayName.trim(),
 			email.trim(),
 			password,
 			() => {
@@ -85,13 +90,24 @@ const Register = ({ onClose, onSwitchToLogin }) => {
 
 					<InputField
 						type='text'
-						placeholder={tUI("auth.usernameLabel")}
+						placeholder="Tên đăng nhập (Dùng để đăng nhập)"
 						value={username}
 						onChange={e => setUsername(e.target.value)}
 						disabled={isLoading}
 						error={errors.username}
 						className='w-full'
 						autoComplete='username'
+					/>
+
+					<InputField
+						type='text'
+						placeholder="Tên hiển thị (Tên mọi người nhìn thấy)"
+						value={displayName}
+						onChange={e => setDisplayName(e.target.value)}
+						disabled={isLoading}
+						error={errors.displayName}
+						className='w-full'
+						autoComplete='name'
 					/>
 
 					<InputField

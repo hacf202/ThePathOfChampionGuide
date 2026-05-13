@@ -136,10 +136,10 @@ const Profile = () => {
 					<div className='md:col-span-1'>
 						<div className='bg-surface-bg rounded-2xl p-6 border border-border flex flex-col items-center justify-center shadow-lg'>
 							<div className='w-32 h-32 rounded-full bg-gradient-to-tr from-primary-500 to-purple-600 flex items-center justify-center text-4xl font-bold text-white mb-4 shadow-inner'>
-								{user.name?.charAt(0)?.toUpperCase() || "U"}
+								{user.name?.charAt(0)?.toUpperCase() || user.username?.charAt(0)?.toUpperCase() || "U"}
 							</div>
 							<h2 className='text-xl font-bold text-text-primary mb-1 text-center truncate w-full'>
-								{user.name}
+								{user.name || user.username}
 							</h2>
 							<p className='text-sm text-text-secondary mb-4 bg-surface-hover px-3 py-1 rounded-full border border-border'>
 								{user.isAdmin ? "Admin" : "Member"}
@@ -155,6 +155,15 @@ const Profile = () => {
 							</h3>
 
 							<div className='space-y-6'>
+								<div>
+									<label className='block text-sm font-medium text-text-secondary mb-2'>
+										Tên tài khoản (Dùng để đăng nhập):
+									</label>
+									<div className='bg-surface-hover p-3 rounded-lg border border-border text-text-secondary cursor-not-allowed'>
+										{user.username}
+									</div>
+								</div>
+
 								<div>
 									<label className='block text-sm font-medium text-text-secondary mb-2'>
 										{tUI("profile.displayName")}

@@ -3,11 +3,12 @@ import { backendApiRequest } from "./apiHelper.js";
 
 // --- Các hàm gọi tới Backend của bạn ---
 
-export const signUp = (email, password, name) => {
+export const signUp = (email, password, username, displayName) => {
 	return backendApiRequest("/api/auth/register", "POST", {
 		email,
 		password,
-		name
+		username,
+		name: displayName
 	});
 };
 
@@ -64,4 +65,10 @@ export const changePassword = (
 
 export const getUserNameBySub = sub => {
 	return backendApiRequest(`/api/user/info/${sub}`);
+};
+
+export const resetPassword = (newPassword, token) => {
+	return backendApiRequest("/api/auth/reset-password-link", "POST", {
+		newPassword
+	}, token);
 };

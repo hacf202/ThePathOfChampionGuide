@@ -109,8 +109,12 @@ const Login = ({ onSwitchToRegister, onSuccess }) => {
 			forgotEmail,
 			msg => {
 				setSuccess(msg);
-				setForgotStep(2);
 				setIsLoading(false);
+				// Quay lại login sau vài giây hoặc giữ nguyên thông báo
+				setTimeout(() => {
+					setIsForgotPassword(false);
+					setSuccess("");
+				}, 6000);
 			},
 			err => {
 				setForgotErrors({ ...forgotErrors, email: mapAuthError(err, tUI) });
@@ -204,103 +208,24 @@ const Login = ({ onSwitchToRegister, onSuccess }) => {
 					) : (
 						<>
 							{success && (
-								<p className='text-success mb-4 text-sm text-center'>
-									{success}
-								</p>
+								<div className='bg-success/10 border border-success/20 p-4 rounded-lg mb-6'>
+									<p className='text-success text-sm text-center font-medium'>
+										{success}
+									</p>
+									<p className='text-text-secondary text-xs text-center mt-2'>
+										Vui lòng kiểm tra hộp thư đến (và cả thư rác) để nhấp vào link đặt lại mật khẩu.
+									</p>
+								</div>
 							)}
-							<div className='mb-4'>
-								<InputField
-									label={tUI("auth.otpLabel")}
-									type='text'
-									value={otp}
-									onChange={e => setOtp(e.target.value)}
-									placeholder={tUI("auth.otpPlaceholder")}
-									disabled={isLoading}
-									error={forgotErrors.otp}
-									className='w-full'
-									autoComplete='one-time-code'
-									onKeyDown={e => e.key === "Enter" && handleConfirmReset()}
-								/>
-							</div>
-							<div className='mb-4'>
-								<InputField
-									label={tUI("auth.newPassLabel")}
-									type={showNewPassword ? "text" : "password"}
-									value={newPassword}
-									onChange={e => setNewPassword(e.target.value)}
-									disabled={isLoading}
-									error={forgotErrors.newPassword}
-									className='w-full'
-									autoComplete='new-password'
-									rightIcon={
-										<button
-											type='button'
-											onClick={() => setShowNewPassword(!showNewPassword)}
-											className='text-text-secondary hover:text-text-primary'
-											tabIndex={-1}
-										>
-											{showNewPassword ? (
-												<EyeOff size={18} />
-											) : (
-												<Eye size={18} />
-											)}
-										</button>
-									}
-									onKeyDown={e => e.key === "Enter" && handleConfirmReset()}
-								/>
-							</div>
-							<div className='mb-4'>
-								<InputField
-									label={tUI("auth.confirmNewPassLabel")}
-									type={showConfirmNewPassword ? "text" : "password"}
-									value={confirmNewPassword}
-									onChange={e => setConfirmNewPassword(e.target.value)}
-									disabled={isLoading}
-									error={forgotErrors.confirmNewPassword}
-									className='w-full'
-									autoComplete='new-password'
-									rightIcon={
-										<button
-											type='button'
-											onClick={() =>
-												setShowConfirmNewPassword(!showConfirmNewPassword)
-											}
-											className='text-text-secondary hover:text-text-primary'
-											tabIndex={-1}
-										>
-											{showConfirmNewPassword ? (
-												<EyeOff size={18} />
-											) : (
-												<Eye size={18} />
-											)}
-										</button>
-									}
-									onKeyDown={e => e.key === "Enter" && handleConfirmReset()}
-								/>
-							</div>
-							<div className='text-xs text-text-secondary mb-6'>
-								{tUI("auth.passHint")}
-							</div>
-							<div className='flex flex-col sm:flex-row justify-between items-center mt-4 gap-4'>
+							<div className='flex justify-center'>
 								<Button
-									onClick={handleConfirmReset}
-									disabled={isLoading}
-									className='w-full sm:w-auto'
-									iconLeft={
-										isLoading && <Loader2 className='animate-spin' size={16} />
-									}
-								>
-									{isLoading
-										? tUI("auth.processing")
-										: tUI("auth.resetPassword")}
-								</Button>
-								<button
 									type='button'
-									onClick={() => setForgotStep(1)}
-									className='text-sm underline text-text-link hover:text-primary-700 w-full sm:w-auto'
+									onClick={() => setIsForgotPassword(false)}
+									variant='outline'
+									className='w-full'
 								>
-									{tUI("auth.resendCode")}
-								</button>
+									{tUI("auth.backToLogin")}
+								</Button>
 							</div>
 						</>
 					)}
@@ -323,7 +248,7 @@ const Login = ({ onSwitchToRegister, onSuccess }) => {
 							type='text'
 							value={username}
 							onChange={e => setUsername(e.target.value)}
-							placeholder={tUI("auth.usernamePlaceholder")}
+							placeholder="Tên tài khoản hoặc Email"
 							disabled={isLoading}
 							error={loginErrors.username}
 							className='w-full'

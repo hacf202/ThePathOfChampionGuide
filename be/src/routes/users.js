@@ -90,14 +90,28 @@ router.post(
 	"/user/change-password",
 	authenticateCognitoToken,
 	async (req, res) => {
-		const { proposedPassword } = req.body;
+		const { previousPassword, proposedPassword } = req.body;
 
 		if (!proposedPassword) {
-			return res.status(400).json({ error: "New password is required" });
+			return res.status(400).json({ error: "Mật khẩu mới không được để trống" });
+		}
+
+		if (!previousPassword) {
+			return res.status(400).json({ error: "Mật khẩu cũ là bắt buộc để xác nhận" });
 		}
 
 		try {
-			// Yêu cầu token hợp lệ (đã có nhờ middleware) để update
+			// 1. Xác thực mật khẩu cũ bằng cách thử đăng nhập
+			const { error: signInError } = await supabase.auth.signInWithPassword({
+				email: req.user.email,
+				password: previousPassword,
+			});
+
+			if (signInError) {
+				return res.status(401).json({ error: "Mật khẩu cũ không chính xác" });
+			}
+
+			// 2. Nếu mật khẩu cũ đúng, tiến hành cập nhật mật khẩu mới
 			const { error } = await supabase.auth.admin.updateUserById(
 				req.user.id,
 				{ password: proposedPassword }
@@ -105,9 +119,10 @@ router.post(
 
 			if (error) throw error;
 
-			res.json({ message: "Password changed successfully" });
+			res.json({ message: "Đổi mật khẩu thành công" });
 		} catch (error) {
-			res.status(400).json({ error: error.message || "Could not change password" });
+			console.error("Change password error:", error);
+			res.status(400).json({ error: error.message || "Không thể đổi mật khẩu" });
 		}
 	},
 );
@@ -131,7 +146,7 @@ router.put("/user/change-name", authenticateCognitoToken, async (req, res) => {
 			{ upsert: true }
 		);
 
-		// Cập nhật metadata trong Supabase nếu muốn đồng bộ 2 chiều
+		// Cập nhật metadata trong Supabase (chỉ đổi name hiển thị, giữ username)
 		await supabase.auth.admin.updateUserById(sub, { user_metadata: { name: name.trim() } });
 
 		await userCache.del(sub);
@@ -214,7 +229,7 @@ router.get("/users", async (req, res) => {
 
 		// Format lại kết quả cho giống với client hiện tại mong đợi
 		const formattedItems = paginatedItems.map(u => ({
-			username: u.email ? u.email.split('@')[0] : u._id,
+			username: u.username || (u.email ? u.email.split('@')[0] : u._id),
 			name: u.name || "Người chơi",
 			enabled: true,
 			status: "CONFIRMED",

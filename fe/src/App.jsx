@@ -51,6 +51,7 @@ import BossDetailPage from "./components/boss/BossDetailPage.jsx";
 import ChampionItems from "./pages/championItems.jsx";
 
 import ErrorPage from "./pages/ErrorPage.jsx";
+import ResetPassword from "./pages/ResetPassword.jsx";
 
 
 // Đăng nhập / Đăng ký
@@ -164,6 +165,7 @@ const router = createBrowserRouter([
 			{ path: "tools/ratings", element: <ChampionRatingPage /> },
 			{ path: "tools/champion-items", element: <ChampionItems /> },
 			{ path: "profile", element: <Profile /> },
+			{ path: "reset-password", element: <ResetPassword /> },
 			{ path: "champions", element: <Champions /> },
 			{ path: "champion/:championID", element: <ChampionDetail /> },
 			{ path: "relics", element: <Relics /> },

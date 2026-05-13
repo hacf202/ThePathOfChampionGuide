@@ -11,7 +11,8 @@ const router = express.Router();
 const registerSchema = z.object({
 	email: z.string().email("Email is invalid"),
 	password: z.string().min(6, "Password must be at least 6 characters"),
-	name: z.string().min(2, "Name must be at least 2 characters").optional(),
+	username: z.string().min(3, "Tên đăng nhập phải có ít nhất 3 ký tự"),
+	name: z.string().min(2, "Tên hiển thị phải có ít nhất 2 ký tự").optional(),
 });
 
 const forgotPasswordSchema = z.object({
@@ -27,23 +28,24 @@ const confirmPasswordSchema = z.object({
 // POST /api/auth/register
 router.post("/register", async (req, res, next) => {
 	try {
-		const { email, password, name } = registerSchema.parse(req.body);
+		const { email, password, username, name } = registerSchema.parse(req.body);
 
 		const db = getDb();
 		const usersCol = db.collection("guidePocUsers");
 
 		// Kiểm tra trùng lặp Username
-		const requestedName = name || email.split("@")[0];
-		const existingUser = await usersCol.findOne({ name: requestedName });
+		const existingUser = await usersCol.findOne({ username: username });
 		if (existingUser) {
-			return res.status(400).json({ error: "Tên tài khoản này đã có người sử dụng. Vui lòng chọn tên khác." });
+			return res.status(400).json({ error: "Tên đăng nhập này đã có người sử dụng. Vui lòng chọn tên khác." });
 		}
+
+		const displayName = name || username;
 
 		const { data, error } = await supabase.auth.admin.createUser({
 			email,
 			password,
 			email_confirm: true,
-			user_metadata: { name: requestedName }
+			user_metadata: { name: displayName, username: username }
 		});
 
 		if (error) {
@@ -59,7 +61,8 @@ router.post("/register", async (req, res, next) => {
 				{
 					$set: {
 						email: data.user.email,
-						name: name || email.split("@")[0],
+						username: username,
+						name: displayName,
 						createdAt: new Date(),
 					}
 				},
@@ -88,7 +91,7 @@ router.post("/login", async (req, res, next) => {
 		// Nếu không có dấu @ -> Có thể là Username -> Tìm email trong MongoDB
 		if (!identifier.includes("@")) {
 			const db = getDb();
-			const userRecord = await db.collection("guidePocUsers").findOne({ name: identifier });
+			const userRecord = await db.collection("guidePocUsers").findOne({ username: identifier });
 			if (userRecord && userRecord.email) {
 				targetEmail = userRecord.email;
 			} else {
@@ -126,7 +129,7 @@ router.post("/forgot-password", async (req, res, next) => {
 	}
 });
 
-// POST /api/auth/confirm-password-reset
+// POST /api/auth/confirm-password-reset (Giữ lại cho tương thích ngược nếu còn dùng OTP)
 router.post("/confirm-password-reset", async (req, res, next) => {
 	try {
 		const { email, code, newPassword } = confirmPasswordSchema.parse(req.body);
@@ -134,6 +137,28 @@ router.post("/confirm-password-reset", async (req, res, next) => {
 		res.json(result);
 	} catch (error) {
 		next(error);
+	}
+});
+
+// POST /api/auth/reset-password-link (Dùng cho luồng Link Reset)
+import { authenticateToken } from "../middleware/authenticate.js";
+router.post("/reset-password-link", authenticateToken, async (req, res) => {
+	const { newPassword } = req.body;
+	if (!newPassword || newPassword.length < 8) {
+		return res.status(400).json({ error: "Mật khẩu mới phải có ít nhất 8 ký tự" });
+	}
+
+	try {
+		// Vì middleware authenticateToken đã xác thực token từ link email
+		// ta có thể dùng chính token đó để cập nhật password qua admin hoặc chính user đó
+		const { error } = await supabase.auth.admin.updateUserById(req.user.id, {
+			password: newPassword
+		});
+
+		if (error) throw error;
+		res.json({ message: "Đặt lại mật khẩu thành công" });
+	} catch (error) {
+		res.status(400).json({ error: error.message || "Không thể đặt lại mật khẩu" });
 	}
 });
 

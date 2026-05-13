@@ -4,8 +4,7 @@ import { supabase } from "../config/supabase.js";
 export const authService = {
 	forgotPassword: async (email) => {
 		const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-			// Điền URL frontend của bạn vào đây nếu cần redirect sau khi click link email
-			// redirectTo: process.env.FRONTEND_URL + "/reset-password",
+			redirectTo: (process.env.FRONTEND_URL || 'http://localhost:5173') + "/reset-password",
 		});
 
 		if (error) {
@@ -14,7 +13,7 @@ export const authService = {
 			throw customError;
 		}
 
-		return { message: "Mã đặt lại mật khẩu đã được gửi đến email" };
+		return { message: "Link đặt lại mật khẩu đã được gửi đến email của bạn" };
 	},
 
 	// Supabase thường dùng token từ link email thay vì mã code 6 số như Cognito
