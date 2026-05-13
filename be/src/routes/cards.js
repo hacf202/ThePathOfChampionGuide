@@ -103,24 +103,23 @@ router.get("/", async (req, res) => {
 		const [field, order] = sort.split("-");
 		filtered.sort((a, b) => {
 			// Đặc biệt: Ưu tiên loại Anh hùng (Champion) lên đầu cho các kiểu sắp xếp
-			// Nếu người dùng muốn "Tiêu hao thấp-cao" nhưng Anh hùng lên trước
 			const typeA = (a.translations?.en?.type || a.type || "").toLowerCase();
 			const typeB = (b.translations?.en?.type || b.type || "").toLowerCase();
-			const isChampA = typeA === "champion";
-			const isChampB = typeB === "champion";
+			const isChampA = typeA === "champion" || typeA === "anh hùng";
+			const isChampB = typeB === "champion" || typeB === "anh hùng";
 
 			if (isChampA && !isChampB) return -1;
 			if (!isChampA && isChampB) return 1;
 
-			// Sau đó mới đến logic sắp xếp theo field
+			// Sau đó mới đến logic sắp xếp theo field (trong cùng nhóm Champion hoặc cùng nhóm thường)
 			const targetField = field === "championCost" ? "cost" : field;
-			let vA = a[targetField] ?? "";
-			let vB = b[targetField] ?? "";
+			let vA = a[targetField] ?? 0;
+			let vB = b[targetField] ?? 0;
 			
-			if (typeof vA === "string") {
+			if (typeof vA === "string" && typeof vB === "string") {
 				return order === "asc" ? vA.localeCompare(vB) : vB.localeCompare(vA);
 			}
-			return order === "asc" ? vA - vB : vB - vA;
+			return order === "asc" ? Number(vA) - Number(vB) : Number(vB) - Number(vA);
 		});
 
 		const totalItems = filtered.length;
