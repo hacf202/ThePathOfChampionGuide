@@ -61,8 +61,9 @@ const Profile = () => {
 			setErrorMessage(tUI("profile.error.nameReq"));
 			return;
 		}
-		if (!/^[a-zA-Z0-9\s]+$/.test(name)) {
-			setErrorMessage(tUI("profile.error.nameInvalid"));
+		// Cho phép chữ cái (bao gồm có dấu), số và khoảng trắng
+		if (!/^[\p{L}\p{N}\s]+$/u.test(name)) {
+			setErrorMessage("Tên hiển thị không được chứa ký tự đặc biệt");
 			return;
 		}
 
