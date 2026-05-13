@@ -102,8 +102,21 @@ router.get("/", async (req, res) => {
 
 		const [field, order] = sort.split("-");
 		filtered.sort((a, b) => {
-			let vA = a[field] ?? "";
-			let vB = b[field] ?? "";
+			// Đặc biệt: Ưu tiên loại Anh hùng (Champion) lên đầu cho các kiểu sắp xếp
+			// Nếu người dùng muốn "Tiêu hao thấp-cao" nhưng Anh hùng lên trước
+			const typeA = (a.translations?.en?.type || a.type || "").toLowerCase();
+			const typeB = (b.translations?.en?.type || b.type || "").toLowerCase();
+			const isChampA = typeA === "champion";
+			const isChampB = typeB === "champion";
+
+			if (isChampA && !isChampB) return -1;
+			if (!isChampA && isChampB) return 1;
+
+			// Sau đó mới đến logic sắp xếp theo field
+			const targetField = field === "championCost" ? "cost" : field;
+			let vA = a[targetField] ?? "";
+			let vB = b[targetField] ?? "";
+			
 			if (typeof vA === "string") {
 				return order === "asc" ? vA.localeCompare(vB) : vB.localeCompare(vA);
 			}

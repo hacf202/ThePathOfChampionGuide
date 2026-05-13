@@ -73,11 +73,7 @@ const MarkupRenderer = memo(({ text, className = "" }) => {
 				const hasIcon = !!data?.icon;
 				// "Gộp toàn bộ option thành 1": Từ khóa luôn hiện cả tên và từ khóa (nếu có icon), hoặc chỉ từ khóa (nếu không có icon)
 				// Tên = data.name, Từ khóa = tagValue (Ref)
-				const displayLabel = hasIcon 
-					? (data && data.name && tagValue && data.name.toLowerCase() !== tagValue.toLowerCase() 
-						? `${data.name} (${tagValue})` 
-						: (data?.name || tagLabel))
-					: tagLabel;
+				const displayLabel = data?.name || tagLabel;
 
 				return (
 					<MarkupTooltip

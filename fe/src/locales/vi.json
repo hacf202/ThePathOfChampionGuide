@@ -985,6 +985,7 @@
 		"nameAsc": "Tên A-Z",
 		"nameDesc": "Tên Z-A",
 		"costAsc": "Tiêu hao thấp-cao",
+		"championCostAsc": "Tiêu hao (Thấp-Cao)",
 		"costDesc": "Tiêu hao cao-thấp",
 		"createdAtDesc": "Mới nhất",
 		"createdAtAsc": "Cũ nhất",

@@ -9,7 +9,7 @@ export const useCardFilters = (tUI, dynamicFilters) => {
 	const { state, actions, queryParams } = useGenericFilters({
 		prefix: "cards",
 		initialCustomFilters: { rarities: [], regions: [], types: [], costs: [] },
-		defaultSort: "cost-asc",
+		defaultSort: "championCost-asc",
 		itemsPerPage: 20,
 		extraParams: { onlyBase: "true" }, // Chỉ hiển thị lá bài gốc (không phải token)
 	});
@@ -72,8 +72,9 @@ export const useCardFilters = (tUI, dynamicFilters) => {
 	const sortOptions = useMemo(() => [
 		{ value: "cardName-asc", label: tUI("sort.nameAsc") || "Tên (A-Z)" },
 		{ value: "cardName-desc", label: tUI("sort.nameDesc") || "Tên (Z-A)" },
-		{ value: "cost-asc", label: tUI("sort.costAsc") || "Tiêu hao (Thấp-Cao)" },
-		{ value: "cost-desc", label: tUI("sort.costDesc") || "Tiêu hao (Cao-Thấp)" },
+		{ value: "championCost-asc", label: tUI("sort.championCostAsc") || "Tiêu hao (Thấp-Cao)" },
+		{ value: "cost-asc", label: tUI("sort.costAsc") || "Tiêu hao thấp-cao" },
+		{ value: "cost-desc", label: tUI("sort.costDesc") || "Tiêu hao cao-thấp" },
 	], [tUI]);
 
 	const optionsMap = useMemo(() => 
