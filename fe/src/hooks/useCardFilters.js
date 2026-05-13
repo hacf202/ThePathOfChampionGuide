@@ -9,7 +9,7 @@ export const useCardFilters = (tUI, dynamicFilters) => {
 	const { state, actions, queryParams } = useGenericFilters({
 		prefix: "cards",
 		initialCustomFilters: { rarities: [], regions: [], types: [], costs: [] },
-		defaultSort: "cardName-asc",
+		defaultSort: "cost-asc",
 		itemsPerPage: 20,
 		extraParams: { onlyBase: "true" }, // Chỉ hiển thị lá bài gốc (không phải token)
 	});

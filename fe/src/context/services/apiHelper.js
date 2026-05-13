@@ -1,5 +1,4 @@
 // fe/src/context/services/apiHelper.js
-const COGNITO_URL = "https://cognito-idp.us-east-1.amazonaws.com";
 const BACKEND_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
 const getAuthToken = () => {
@@ -15,32 +14,6 @@ const createUrl = endpoint => {
 		: `/api${cleanEndpoint}`;
 	return `${cleanBase}${finalEndpoint}`;
 };
-
-export async function cognitoApiRequest(target, body) {
-	const response = await fetch(COGNITO_URL, {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/x-amz-json-1.1",
-			"X-Amz-Target": target,
-		},
-		body: JSON.stringify(body),
-	});
-
-	if (!response.ok) {
-		const errorText = await response.text();
-		console.error(`AWS Cognito Error (${target}):`, errorText);
-
-		let errorMessage = `Lỗi Cognito ${response.status}`;
-		try {
-			const errorJson = JSON.parse(errorText);
-			errorMessage = errorJson.message || errorJson.__type || errorMessage;
-		} catch (e) {
-			errorMessage = errorText || errorMessage;
-		}
-		throw new Error(errorMessage);
-	}
-	return response.json();
-}
 
 export async function backendApiRequest(
 	endpoint,

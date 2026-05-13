@@ -164,6 +164,7 @@ const Login = ({ onSwitchToRegister, onSuccess }) => {
 									disabled={isLoading}
 									error={forgotErrors.username}
 									className='w-full'
+									autoComplete='username'
 									onKeyDown={e => e.key === "Enter" && handleSendResetCode()}
 								/>
 							</div>
@@ -176,6 +177,7 @@ const Login = ({ onSwitchToRegister, onSuccess }) => {
 									disabled={isLoading}
 									error={forgotErrors.email}
 									className='w-full'
+									autoComplete='email'
 									onKeyDown={e => e.key === "Enter" && handleSendResetCode()}
 								/>
 							</div>
@@ -216,6 +218,7 @@ const Login = ({ onSwitchToRegister, onSuccess }) => {
 									disabled={isLoading}
 									error={forgotErrors.otp}
 									className='w-full'
+									autoComplete='one-time-code'
 									onKeyDown={e => e.key === "Enter" && handleConfirmReset()}
 								/>
 							</div>
@@ -228,6 +231,7 @@ const Login = ({ onSwitchToRegister, onSuccess }) => {
 									disabled={isLoading}
 									error={forgotErrors.newPassword}
 									className='w-full'
+									autoComplete='new-password'
 									rightIcon={
 										<button
 											type='button'
@@ -254,6 +258,7 @@ const Login = ({ onSwitchToRegister, onSuccess }) => {
 									disabled={isLoading}
 									error={forgotErrors.confirmNewPassword}
 									className='w-full'
+									autoComplete='new-password'
 									rightIcon={
 										<button
 											type='button'
@@ -322,6 +327,7 @@ const Login = ({ onSwitchToRegister, onSuccess }) => {
 							disabled={isLoading}
 							error={loginErrors.username}
 							className='w-full'
+							autoComplete='username'
 							onKeyDown={e => e.key === "Enter" && handleLogin()}
 						/>
 					</div>
@@ -336,6 +342,7 @@ const Login = ({ onSwitchToRegister, onSuccess }) => {
 							disabled={isLoading}
 							error={loginErrors.password}
 							className='w-full'
+							autoComplete='current-password'
 							rightIcon={
 								<button
 									type='button'

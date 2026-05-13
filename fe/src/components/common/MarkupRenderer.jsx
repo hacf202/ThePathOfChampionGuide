@@ -60,7 +60,7 @@ const MarkupRenderer = memo(({ text, className = "" }) => {
 					)}
 					{!onlyIcon && (
 						<span className="whitespace-pre-wrap leading-none">
-							{tagLabel}
+							{content}
 						</span>
 					)}
 				</span>
@@ -69,8 +69,42 @@ const MarkupRenderer = memo(({ text, className = "" }) => {
 
 		switch (tagType) {
 			case "k": 
-			case "keyword":
-				return renderWithTooltip(tagLabel, "text-yellow-500 hover:text-yellow-400");
+			case "keyword": {
+				const hasIcon = !!data?.icon;
+				// "Gộp toàn bộ option thành 1": Từ khóa luôn hiện cả tên và từ khóa (nếu có icon), hoặc chỉ từ khóa (nếu không có icon)
+				// Tên = data.name, Từ khóa = tagValue (Ref)
+				const displayLabel = hasIcon 
+					? (data && data.name && tagValue && data.name.toLowerCase() !== tagValue.toLowerCase() 
+						? `${data.name} (${tagValue})` 
+						: (data?.name || tagLabel))
+					: tagLabel;
+
+				return (
+					<MarkupTooltip
+						key={index}
+						title={displayLabel}
+						description={data?.description}
+						icon={data?.icon}
+						fullImage={data?.fullImage}
+						options={tagOptions}
+						rarity={data?.rarity}
+						type={data?.type || tagType}
+					>
+						<span className="inline-flex items-baseline font-bold cursor-help transition-all duration-200 border-b border-white/0 hover:border-current text-yellow-500 hover:text-yellow-400">
+							{hasIcon && data?.icon && (
+								<img 
+									src={data.icon} 
+									alt={tagLabel} 
+									className="w-4 h-4 object-contain mr-1 flex-shrink-0 translate-y-[2px]" 
+								/>
+							)}
+							<span className="whitespace-pre-wrap leading-none">
+								{displayLabel}
+							</span>
+						</span>
+					</MarkupTooltip>
+				);
+			}
 
 			case "c": 
 			case "champion":

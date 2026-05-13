@@ -1,46 +1,49 @@
 // src/services/authService.js
-import {
-	ForgotPasswordCommand,
-	ConfirmForgotPasswordCommand,
-	AdminGetUserCommand,
-} from "@aws-sdk/client-cognito-identity-provider";
-import { cognitoClient } from "../config/cognito.js";
-
-const COGNITO_APP_CLIENT_ID = process.env.COGNITO_APP_CLIENT_ID;
-const COGNITO_USER_POOL_ID = process.env.COGNITO_USER_POOL_ID;
+import { supabase } from "../config/supabase.js";
 
 export const authService = {
-	forgotPassword: async (username, email) => {
-		// Verify if user exists and email matches
-		const getUserCmd = new AdminGetUserCommand({
-			UserPoolId: COGNITO_USER_POOL_ID,
-			Username: username,
+	forgotPassword: async (email) => {
+		const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+			// Điền URL frontend của bạn vào đây nếu cần redirect sau khi click link email
+			// redirectTo: process.env.FRONTEND_URL + "/reset-password",
 		});
-		const { UserAttributes } = await cognitoClient.send(getUserCmd);
-		const userEmail = UserAttributes.find(a => a.Name === "email")?.Value;
 
-		if (email && userEmail && userEmail.toLowerCase() !== email.toLowerCase()) {
-			const error = new Error("Tài khoản hoặc email không chính xác");
+		if (error) {
+			const customError = new Error(error.message || "Tài khoản hoặc email không chính xác");
+			customError.statusCode = 400;
+			throw customError;
+		}
+
+		return { message: "Mã đặt lại mật khẩu đã được gửi đến email" };
+	},
+
+	// Supabase thường dùng token từ link email thay vì mã code 6 số như Cognito
+	// Tuy nhiên Supabase cũng hỗ trợ OTP code
+	confirmPasswordReset: async (email, code, newPassword) => {
+		// 1. Xác thực OTP
+		const { data: sessionData, error: verifyError } = await supabase.auth.verifyOtp({
+			email,
+			token: code,
+			type: "recovery",
+		});
+
+		if (verifyError) {
+			const error = new Error("Mã xác nhận không hợp lệ hoặc đã hết hạn");
 			error.statusCode = 400;
 			throw error;
 		}
 
-		const command = new ForgotPasswordCommand({
-			ClientId: COGNITO_APP_CLIENT_ID,
-			Username: username,
+		// 2. Cập nhật mật khẩu mới
+		const { data: updateData, error: updateError } = await supabase.auth.updateUser({
+			password: newPassword
 		});
-		await cognitoClient.send(command);
-		return { message: "Mã đặt lại mật khẩu đã được gửi đến email" };
-	},
 
-	confirmPasswordReset: async (username, code, newPassword) => {
-		const command = new ConfirmForgotPasswordCommand({
-			ClientId: COGNITO_APP_CLIENT_ID,
-			Username: username,
-			ConfirmationCode: code,
-			Password: newPassword,
-		});
-		await cognitoClient.send(command);
+		if (updateError) {
+			const error = new Error("Không thể đặt lại mật khẩu. Vui lòng thử lại sau.");
+			error.statusCode = 400;
+			throw error;
+		}
+
 		return { message: "Đặt lại mật khẩu thành công" };
 	},
 };

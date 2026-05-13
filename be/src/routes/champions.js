@@ -5,7 +5,7 @@ import { getDb } from "../config/mongo.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { requireAdmin } from "../middleware/requireAdmin.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
-import { verifier } from "../config/cognito.js";
+import { supabase } from "../config/supabase.js";
 import { createAuditLog } from "../utils/auditLogger.js";
 import {
 	getCachedChampions,
@@ -268,8 +268,10 @@ router.get("/:championID/full", async (req, res) => {
 		if (authHeader && authHeader.startsWith("Bearer ")) {
 			const token = authHeader.split(" ")[1];
 			try {
-				const payload = await verifier.verify(token);
-				personalRating = ratingsList.find(r => r.userID === payload.sub || r.sub === payload.sub);
+				const { data } = await supabase.auth.getUser(token);
+				if (data && data.user) {
+					personalRating = ratingsList.find(r => r.userID === data.user.id || r.sub === data.user.id);
+				}
 			} catch (e) {
 				// Token invalid, bỏ qua personal rating
 			}

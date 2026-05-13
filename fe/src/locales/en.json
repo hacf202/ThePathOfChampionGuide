@@ -119,7 +119,8 @@
 		"searchPlaceholder": "Search by name or description...",
 		"hide":"Hide",
 		"show": "Show",
-		"done": "Done"
+		"done": "Done",
+		"selectedItems": "Select multiple items"
 	},
 	"themeSettings": {
 		"title": "Personalize Interface",
@@ -1284,12 +1285,13 @@
 		"login": "Login",
 		"confirmLogoutTitle": "Confirm Logout",
 		"confirmLogoutDesc": "Are you sure you want to log out?",
-		"cancel": "Cancel",
 		"customTheme": "Custom Theme",
 		"newChampion": "New Champion",
 		"bosses": "Boss List",
 		"subChampions": "Sub Champions",
-		"championItems": "Champion Items"
+		"championItems": "Champion Items",
+		"cancel": "Cancel",
+		"confirm": "Confirm"
 	},
 	"bossList": {
 		"pageTitle": "Boss List",

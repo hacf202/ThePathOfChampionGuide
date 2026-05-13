@@ -117,9 +117,10 @@
 		"description": "Mô tả",
 		"itemType": "Loại vật phẩm",
 		"searchPlaceholder": "Tìm theo tên hoặc mô tả...",
-		"hide":"Ẩn",
+		"hide": "Ẩn",
 		"show": "Hiển thị",
-		"done": "Hoàn tất"
+		"done": "Hoàn tất",
+		"selectedItems": "Chọn nhiều mục"
 	},
 	"themeSettings": {
 		"title": "Cá nhân hóa giao diện",
@@ -1313,7 +1314,9 @@
 		"newChampion": "Tướng mới",
 		"bosses": "Danh sách Boss",
 		"subChampions": "Tướng phụ",
-		"championItems": "Vật phẩm Tướng"
+		"championItems": "Vật phẩm Tướng",
+		"cancel": "Hủy",
+		"confirm": "Xác nhận"
 	},
 	"bossList": {
 		"pageTitle": "Danh sách Boss",

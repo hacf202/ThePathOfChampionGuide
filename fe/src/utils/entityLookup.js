@@ -11,7 +11,6 @@ import { initMarkupResources } from "./markupUtils.js";
 const dataStore = {
 	en: {
 		keywords: globalsEn.keywords || [],
-		vocabTerms: globalsEn.vocabTerms || [],
 		champions: [],
 		relics: [],
 		powers: [],
@@ -22,7 +21,6 @@ const dataStore = {
 	},
 	vi: {
 		keywords: globalsVi.keywords || [],
-		vocabTerms: globalsVi.vocabTerms || [],
 		champions: [],
 		relics: [],
 		powers: [],
@@ -226,25 +224,24 @@ export const getEntityData = (value, type, lang = "vi") => {
 	const db = dataStore[cur];
 
 	// Ưu tiên nguồn đúng ngôn ngữ trước, fallback sang ngôn ngữ còn lại
-	const primarySources = cur === "en"
-		? [...(globalsEn.keywords || []), ...(globalsEn.vocabTerms || [])]
-		: [...(globalsVi.keywords || []), ...(globalsVi.vocabTerms || [])];
-	const fallbackSources = cur === "en"
-		? [...(globalsVi.keywords || []), ...(globalsVi.vocabTerms || [])]
-		: [...(globalsEn.keywords || []), ...(globalsEn.vocabTerms || [])];
+	const primarySources = cur === "en" ? globalsEn.keywords || [] : globalsVi.keywords || [];
+	const fallbackSources = cur === "en" ? globalsVi.keywords || [] : globalsEn.keywords || [];
 	const allSources = [...primarySources, ...fallbackSources];
 
 	switch (type) {
 		case "k": 
 		case "keyword": {
+			let finalSearchKey = searchKey;
+			if (searchKey === "foe's") finalSearchKey = "foe";
+
 			let matches = primarySources.filter(item => 
-				normalize(item.name) === searchKey || 
-				normalize(item.nameRef) === searchKey
+				normalize(item.name) === finalSearchKey || 
+				normalize(item.nameRef) === finalSearchKey
 			);
 			if (matches.length === 0) {
 				matches = fallbackSources.filter(item => 
-					normalize(item.name) === searchKey || 
-					normalize(item.nameRef) === searchKey
+					normalize(item.name) === finalSearchKey || 
+					normalize(item.nameRef) === finalSearchKey
 				);
 			}
 			
@@ -424,7 +421,7 @@ export const getAllEntities = (type, lang = "vi") => {
 			name: (cur === "en" ? i.translations?.en?.name : null) || i.name, 
 			nameEn: i.translations?.en?.name || "" 
 		}));
-		case "k": return [...db.keywords, ...db.vocabTerms].map(k => ({ 
+		case "k": return db.keywords.map(k => ({ 
 			id: k.nameRef, 
 			name: k.name, 
 			nameEn: k.nameRef || "" 

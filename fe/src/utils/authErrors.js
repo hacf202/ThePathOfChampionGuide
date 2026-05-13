@@ -9,22 +9,22 @@ export const mapAuthError = (err, tUI) => {
 
 	const error = err.toString();
 
-	if (error.includes("NotAuthorizedException"))
+	if (error.includes("NotAuthorizedException") || error.includes("Invalid login credentials"))
 		return tUI("auth.error.invalidCredentials");
 	
-	if (error.includes("UserNotConfirmedException"))
+	if (error.includes("UserNotConfirmedException") || error.includes("Email not confirmed"))
 		return tUI("auth.error.notConfirmed");
 	
-	if (error.includes("UserNotFoundException"))
+	if (error.includes("UserNotFoundException") || error.includes("User not found"))
 		return tUI("auth.error.userNotFound");
 	
 	if (error.includes("PasswordResetRequiredException"))
 		return tUI("auth.error.passwordResetRequired");
 	
-	if (error.includes("LimitExceededException") || error.includes("TooManyRequestsException"))
+	if (error.includes("LimitExceededException") || error.includes("TooManyRequestsException") || error.includes("rate limit"))
 		return tUI("auth.error.tooManyRequests");
 	
-	if (error.includes("UsernameExistsException"))
+	if (error.includes("UsernameExistsException") || error.includes("User already registered"))
 		return tUI("auth.error.accountExists");
 
 	if (error.includes("CodeMismatchException"))

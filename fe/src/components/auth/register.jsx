@@ -1,7 +1,6 @@
 // src/pages/auth/Register.jsx
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext.jsx";
-import OTPConfirmation from "./OTPConfirmation";
 import InputField from "../common/inputField";
 import Button from "../common/button";
 import { Loader2, Eye, EyeOff } from "lucide-react";
@@ -11,7 +10,7 @@ import { mapAuthError } from "../../utils/authErrors";
 
 const Register = ({ onClose, onSwitchToLogin }) => {
 	const { tUI } = useTranslation();
-	const { signUp, resendConfirmationCode } = useContext(AuthContext);
+	const { signUp } = useContext(AuthContext);
 
 	const [username, setUsername] = useState("");
 	const [email, setEmail] = useState("");
@@ -70,32 +69,8 @@ const Register = ({ onClose, onSwitchToLogin }) => {
 				setIsLoading(false);
 			},
 			async errMessage => {
-				const isExistError =
-					errMessage.includes("exists") ||
-					errMessage.includes("UsernameExistsException");
-
-				if (isExistError) {
-					// Nếu tài khoản tồn tại nhưng chưa xác minh, thử gửi lại mã
-					await resendConfirmationCode(
-						username.trim(),
-						msg => {
-							alert(tUI("auth.error.accountExistsUnconfirmed"));
-							setStep(2);
-							setIsLoading(false);
-						},
-						err => {
-							// Nếu gửi lại mã thất bại (VD: bị block do gửi quá nhiều), hiển thị lỗi đó thay vì chỉ báo "đã tồn tại"
-							setErrors({
-								...errors,
-								username: mapAuthError(err, tUI),
-							});
-							setIsLoading(false);
-						},
-					);
-				} else {
-					setErrors({ ...errors, username: mapAuthError(errMessage, tUI) });
-					setIsLoading(false);
-				}
+				setErrors({ ...errors, username: mapAuthError(errMessage, tUI) });
+				setIsLoading(false);
 			},
 		);
 	};
@@ -116,6 +91,7 @@ const Register = ({ onClose, onSwitchToLogin }) => {
 						disabled={isLoading}
 						error={errors.username}
 						className='w-full'
+						autoComplete='username'
 					/>
 
 					<InputField
@@ -126,6 +102,7 @@ const Register = ({ onClose, onSwitchToLogin }) => {
 						disabled={isLoading}
 						error={errors.email}
 						className='w-full'
+						autoComplete='email'
 					/>
 
 					<InputField
@@ -136,6 +113,7 @@ const Register = ({ onClose, onSwitchToLogin }) => {
 						disabled={isLoading}
 						error={errors.password}
 						className='w-full'
+						autoComplete='new-password'
 						rightIcon={
 							<button
 								type='button'
@@ -156,6 +134,7 @@ const Register = ({ onClose, onSwitchToLogin }) => {
 						disabled={isLoading}
 						error={errors.confirmPassword}
 						className='w-full'
+						autoComplete='new-password'
 						rightIcon={
 							<button
 								type='button'
@@ -191,11 +170,21 @@ const Register = ({ onClose, onSwitchToLogin }) => {
 					</div>
 				</form>
 			) : (
-				<OTPConfirmation
-					username={username}
-					onSuccess={() => setTimeout(() => onClose(), 2000)}
-					onClose={onClose}
-				/>
+				<div className="text-center py-8">
+					<div className="w-16 h-16 bg-success/20 text-success rounded-full flex items-center justify-center mx-auto mb-4">
+						<svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+						</svg>
+					</div>
+					<h3 className="text-xl font-bold text-text-primary mb-2">Đăng ký thành công!</h3>
+					<p className="text-text-secondary mb-6">
+						Tài khoản của bạn đã được tạo và sẵn sàng sử dụng. 
+						Bạn có thể sử dụng Email <span className="font-semibold">{email}</span> để khôi phục mật khẩu nếu quên.
+					</p>
+					<Button onClick={onSwitchToLogin} className="w-full">
+						Đăng nhập ngay
+					</Button>
+				</div>
 			)}
 		</div>
 	);

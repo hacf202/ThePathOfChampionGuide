@@ -5,7 +5,8 @@ export const requireAdmin = (req, res, next) => {
 		return res.status(401).json({ error: "Token verification required" });
 	}
 
-	const groups = req.user["cognito:groups"] || [];
+	// Supabase custom claims (metadata) hoặc tương thích Cognito
+	const groups = req.user.app_metadata?.groups || req.user.user_metadata?.groups || req.user["cognito:groups"] || [];
 	if (!groups.includes("admin")) {
 		return res
 			.status(403)

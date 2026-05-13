@@ -40,20 +40,14 @@ import dbStatsRouter from "./src/routes/dbStats.js";
 
 // Kiểm tra các biến môi trường cần thiết
 const requiredEnvVars = [
-	"AWS_REGION", //khu vực
-	"AWS_ACCESS_KEY_ID", //Key IAM user
-	"AWS_SECRET_ACCESS_KEY", //Secret key của IAM user đó
-	"COGNITO_USER_POOL_ID", //id của user pool
-	"COGNITO_APP_CLIENT_ID", //client id của app
-	"FRONTEND_URL", //domain fe
+	"SUPABASE_URL",
+	"SUPABASE_ANON_KEY",
+	"FRONTEND_URL",
 ];
-const missingEnvVars = requiredEnvVars.filter(varName => !process.env[varName]); //trả về 1 mảng mới missingEnvVars chứa các biến môi tường bị thiếu.
+const missingEnvVars = requiredEnvVars.filter(varName => !process.env[varName]);
 if (missingEnvVars.length > 0) {
-	console.error("Lỗi: Thiếu các biến môi trường:", missingEnvVars.join(", "));
-
-	if (!process.env.VERCEL) {
-		process.exit(1); //nếu lỗi thiếu biến không phải trên vercel thì thoát.
-	}
+	console.warn("Cảnh báo: Thiếu các biến môi trường:", missingEnvVars.join(", "));
+	// Không exit ngay để dev không bị crash khi đang dev
 }
 
 const app = express(); //khởi tạo backend

@@ -27,8 +27,8 @@ Dự án cung cấp cho cộng đồng người chơi một nơi để tra cứu
 - **💬 Hệ thống bình luận:** Bình luận trực tiếp trên từng bản build và bài hướng dẫn.
 - **🎲 Tiện ích:** Vòng quay ngẫu nhiên (Random Champion Wheel), Bản đồ Adventure Maps, Tier List.
 - **🌐 Song ngữ Việt - Anh:** Toàn bộ giao diện có thể chuyển đổi ngôn ngữ linh hoạt.
-- **🔐 Xác thực an toàn**: Đăng ký, đăng nhập và xác minh OTP qua AWS Cognito.
 - **🎨 Cá nhân hóa Giao diện**: Hệ thống Theme 3 chế độ (**Solid Light**, **Solid Dark**, và **Artwork Mode**) giúp tùy biến trải nghiệm thị giác theo sở thích cá nhân.
+- **🔐 Xác thực an toàn**: Đăng ký, đăng nhập nhanh chóng hỗ trợ cả Email và Username qua **Supabase Auth**.
 
 ### 🛡️ Dành cho Quản trị viên (Admin CMS)
 
@@ -66,10 +66,10 @@ Dự án được xây dựng theo kiến trúc hiện đại, **tách biệt ho
 | Công nghệ | Mô tả |
 |---|---|
 | **Node.js + Express.js** | RESTful API Server |
-| **AWS DynamoDB** | NoSQL Database - khả năng mở rộng cực cao |
-| **AWS Cognito** | Quản lý định danh, JWT Token, OTP |
+| **MongoDB (Atlas)** | Cơ sở dữ liệu chính cho toàn bộ dữ liệu game và người dùng |
+| **Supabase Auth** | Quản lý định danh, JWT Token, bảo mật app_metadata |
 | **Cloudflare R2** | Lưu trữ ảnh (object storage) |
-| **node-cache** | In-memory caching tăng tốc phản hồi API |
+| **Upstash Redis** | Caching tăng tốc phản hồi API |
 | **Vercel** | Serverless Functions deployment |
 
 ---
@@ -80,11 +80,11 @@ Dự án được xây dựng theo kiến trúc hiện đại, **tách biệt ho
 ThePathOfChampionGuide/
 ├── be/                         # Backend Node.js
 │   ├── src/
-│   ├── config/             # Cấu hình AWS (Cognito, DynamoDB, R2)
-│   ├── middleware/         # Middleware xác thực (auth) & phân quyền (admin)
+│   ├── config/             # Cấu hình MongoDB, Supabase, R2
+│   ├── middleware/         # Middleware xác thực & phân quyền (Admin Role)
 │   ├── routes/             # 21 API route modules (champions, builds, auth, cards...)
 │   └── utils/              # Caching, xử lý chuỗi tiếng Việt, utilities dùng chung
-│   ├── uploadData/             # Scripts migrate/seed dữ liệu ban đầu lên DynamoDB
+│   ├── uploadData/         # Dữ liệu JSON & scripts migrate lên MongoDB
 │   ├── server.js               # Entry point Express server
 │   ├── vercel.json             # Cấu hình deploy Serverless Vercel cho API
 │   └── package.json
@@ -139,13 +139,13 @@ npm install
 Tạo file `.env` trong thư mục `be/` với các biến sau:
 
 ```env
-AWS_REGION=us-east-1
-AWS_ACCESS_KEY_ID=your_access_key
-AWS_SECRET_ACCESS_KEY=your_secret_key
-COGNITO_USER_POOL_ID=your_pool_id
-COGNITO_APP_CLIENT_ID=your_client_id
 FRONTEND_URL=http://localhost:5173
 PORT=3000
+MONGODB_URI=your_mongodb_atlas_uri
+MONGODB_DB_NAME=guidePoc
+SUPABASE_URL=your_supabase_url
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+REDIS_URL=your_upstash_redis_url
 R2_ACCOUNT_ID=your_r2_account_id
 R2_ACCESS_KEY_ID=your_r2_access_key
 R2_SECRET_ACCESS_KEY=your_r2_secret_key

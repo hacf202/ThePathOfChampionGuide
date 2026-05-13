@@ -28,14 +28,21 @@ function loadTerms() {
                     ref: item.nameRef,
                     priority: (type === 'keywords' ? 2 : 1) + (item.icon ? 10 : 0)
                 });
+                if (item.nameRef === "Foe") {
+                    termMap[lang].push({
+                        name: item.name + "'s",
+                        ref: item.nameRef,
+                        priority: (type === 'keywords' ? 2 : 1) + (item.icon ? 10 : 0) - 0.1
+                    });
+                }
             }
         });
     };
 
-    process(vi.keywords, 'vi', 'keywords');
-    process(vi.vocabTerms, 'vi', 'vocabTerms');
-    process(en.keywords, 'en', 'keywords');
-    process(en.vocabTerms, 'en', 'vocabTerms');
+    process(vi.keywords || [], 'vi', 'keywords');
+    process(vi.vocabTerms || [], 'vi', 'vocabTerms');
+    process(en.keywords || [], 'en', 'keywords');
+    process(en.vocabTerms || [], 'en', 'vocabTerms');
 
     // Sort by name length descending (primary) and priority descending (secondary)
     const sorter = (a, b) => {
