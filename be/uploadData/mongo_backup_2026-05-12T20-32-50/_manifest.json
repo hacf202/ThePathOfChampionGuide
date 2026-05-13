@@ -1,5 +1,5 @@
 {
-  "backupDate": "2026-05-08T10:50:32.990Z",
+  "backupDate": "2026-05-12T13:33:02.893Z",
   "dbName": "guidePoc",
   "results": [
     {
@@ -14,7 +14,7 @@
     },
     {
       "collection": "guidePocPowers",
-      "count": 852,
+      "count": 860,
       "success": true
     },
     {
@@ -69,7 +69,7 @@
     },
     {
       "collection": "guidePocAuditLogs",
-      "count": 228,
+      "count": 241,
       "success": true
     },
     {
@@ -88,6 +88,6 @@
       "success": true
     }
   ],
-  "totalItems": 4923,
-  "duration": "11.0s"
+  "totalItems": 4944,
+  "duration": "10.0s"
 }

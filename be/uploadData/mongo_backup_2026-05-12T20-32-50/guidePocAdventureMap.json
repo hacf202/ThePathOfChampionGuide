@@ -41,7 +41,7 @@
           "P0492"
         ],
         "bossID": "B006",
-        "note": "Boss này sẽ bắt bài quân mạnh nhất của bạn khi nó triệu hồi bài quân đầu mỗi vòng, nên là đợi nó triệu hồi 1 con quân rồi hãy triệu hồi các bài quân quan trọng của bản thân."
+        "note": "Boss này sẽ bắt bài quân [k:Strongest|mạnh nhất] của bạn khi nó triệu hồi bài quân đầu mỗi vòng, nên là đợi nó triệu hồi 1 con quân rồi hãy triệu hồi các bài quân quan trọng của bản thân."
       },
       {
         "mapBonusPower": [
@@ -62,7 +62,7 @@
           "P0492"
         ],
         "bossID": "B009",
-        "note": "Đây là 1 boss hơi khó chịu, khả năng scale dmg rất nhiều, có các bài phép choáng và thu về khó chịu, nên cân nhắc khi đi. ĐẶC BIỆT boss này khắc chế khá nhiều những tướng có lối chơi solo carry vì nó choáng quân mạnh nhất của bạn đầu mỗi vòng."
+        "note": "Đây là 1 boss hơi khó chịu, khả năng scale dmg rất nhiều, có các bài phép choáng và thu về khó chịu, nên cân nhắc khi đi. ĐẶC BIỆT boss này khắc chế khá nhiều những tướng có lối chơi solo carry vì nó choáng quân [k:Strongest|mạnh nhất] của bạn đầu mỗi vòng."
       },
       {
         "mapBonusPower": [
@@ -76,7 +76,7 @@
           "P0492"
         ],
         "bossID": "B014",
-        "note": "Đây là một boss cũng khá khó chịu, với lượng sát thương cực lớn từ các bài quân và còn ra đòn, bài quân huyền ảo,... Nhưng đối phó không khó, bắt đầu Zed chỉ có 3 HP khá dễ để tiêu diệt và khi tiêu diệt được Zed thì độ khó của con boss này đã giảm đi 1 nữa. Boss có 1 lá Deny bài phép 3- tiêu hao và gây ngược dmg lại nhà chính rất khó chịu :))"
+        "note": "Đây là một boss cũng khá khó chịu, với lượng sát thương cực lớn từ các bài quân và còn [k:Strike|ra đòn], bài quân huyền ảo,... Nhưng đối phó không khó, bắt đầu Zed chỉ có 3 HP khá dễ để tiêu diệt và khi tiêu diệt được Zed thì độ khó của con boss này đã giảm đi 1 nữa. Boss có 1 lá Deny bài phép 3- tiêu hao và gây ngược dmg lại nhà chính rất khó chịu :))"
       },
       {
         "mapBonusPower": [
@@ -118,7 +118,7 @@
           "P0492"
         ],
         "bossID": "B016",
-        "note": "Con này khi nó gọi quân mỗi vòng thì nó sẽ ra đòn ngẫu nhiên lên 1 quân của bạn, hên xui thôi, không quá khó để đánh đâu."
+        "note": "Con này khi nó gọi quân mỗi vòng thì nó sẽ [k:Strike|ra đòn] ngẫu nhiên lên 1 quân của bạn, hên xui thôi, không quá khó để đánh đâu."
       },
       {
         "mapBonusPower": [
@@ -200,7 +200,7 @@
           "P0541"
         ],
         "bossID": "B029",
-        "note": "Nó ra đòn thì thêm dmg, giết con tầm vọng thì dễ chơi hơn nhiều, cơ bản thì có hiệu ứng choáng đóng bằng thì đi dễ, không thì đánh bình thường đừng để nó ra đòn nhiều quá là được."
+        "note": "Nó [k:Strike|ra đòn] thì thêm dmg, giết con tầm vọng thì dễ chơi hơn nhiều, cơ bản thì có hiệu ứng choáng đóng bằng thì đi dễ, không thì đánh bình thường đừng để nó [k:Strike|ra đòn] nhiều quá là được."
       },
       {
         "mapBonusPower": [
@@ -291,7 +291,7 @@
           "P0999"
         ],
         "bossID": "B042",
-        "note": "Hãy cố gắng giết con ra đòn tăng dmg cho lá Bóng Tối bằng bài phép hoặc đột kích thách đấu gì đó, tóm lại không cho nó ra đòn để tích dmg cho Bóng Tối là được. Bạn sẽ không muốn ăn một lá Bóng Tối được tích dmg và X3 sát thương đâu."
+        "note": "Hãy cố gắng giết con [k:Strike|ra đòn] tăng dmg cho lá Bóng Tối bằng bài phép hoặc đột kích thách đấu gì đó, tóm lại không cho nó [k:Strike|ra đòn] để tích dmg cho Bóng Tối là được. Bạn sẽ không muốn ăn một lá Bóng Tối được tích dmg và X3 sát thương đâu."
       },
       {
         "mapBonusPower": [

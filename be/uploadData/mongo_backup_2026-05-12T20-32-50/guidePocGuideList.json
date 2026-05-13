@@ -118,9 +118,9 @@
           "R0048",
           "R0065"
         ],
-        "caption": "Bảng top các cổ vật được người viết đánh giá mạnh nhất hiện tại",
+        "caption": "Bảng top các cổ vật được người viết đánh giá [k:Strongest|mạnh nhất] hiện tại",
         "type": "table",
-        "title": "03. Top các cổ vật mạnh nhất hiện tại",
+        "title": "03. Top các cổ vật [k:Strongest|mạnh nhất] hiện tại",
         "rows": [
           [
             "Găng Tinh Vân Sư",
@@ -182,7 +182,7 @@
     ],
     "updateDate": "2025-12-12",
     "slug": "relic-guide",
-    "views": 393,
+    "views": 396,
     "thumbnail": "https://images.pocguide.top/guides/.webp",
     "publishedDate": "2025-11-23",
     "tags": [
@@ -360,7 +360,7 @@
     ],
     "updateDate": "2025-12-12",
     "slug": "starter-guide",
-    "views": 381,
+    "views": 383,
     "thumbnail": "https://images.pocguide.top/guides/.webp",
     "publishedDate": "2025-11-23",
     "tags": [
@@ -683,7 +683,7 @@
               ],
               [
                 "Adoribus!",
-                "Bắt Đầu Vòng Đấu: Biến đổi tùy tùng mạnh nhất của người chơi thành 1 lá Sóc 1|1 và Câm Lặng nó trong vòng này.",
+                "Bắt Đầu Vòng Đấu: Biến đổi tùy tùng [k:Strongest|mạnh nhất] của người chơi thành 1 lá Sóc 1|1 và [k:Silenced|Câm Lặng] nó trong vòng này.",
                 "Chọn tướng đánh carry không phụ thuộc quá nhiều vào tùy tùng",
                 "Varus, Vayne, Vex, Viego, Viktor, Yasuo, Nidalee, Miss Fortune, Kindred Hoa Linh, Jayce, Leblanc, Gwen, Diana, Ahri "
               ],
@@ -719,7 +719,7 @@
               ],
               [
                 "Bóng Tối Ập Đến",
-                "Bài quân của Địch Thủ sở hữu: \"Tấn Công Nhà Chính: Tạo trên tay 1 lá Quỷ Dữ Bóng Tối.\"",
+                "Bài quân của Địch Thủ sở hữu: \"[k:NexusStrike|Tấn Công Nhà Chính]: Tạo trên tay 1 lá Quỷ Dữ Bóng Tối.\"",
                 null,
                 "Bất kỳ"
               ],
@@ -737,7 +737,7 @@
               ],
               [
                 "Buốt Da Thấu Thịt",
-                "Bắt Đầu Vòng Đấu: Đóng Băng bài quân Mạnh Nhất của người chơi.",
+                "Bắt Đầu Vòng Đấu: Đóng Băng bài quân [k:Strongest|Mạnh Nhất] của người chơi.",
                 "Hạn chế dùng tướng solo carry, dùng tướng dàn quân có nhiều nguồn dmg hoặc dùng cổ vật Sức Mạnh Khỉ Đá",
                 "Akshan, Ambessa, Twisted Fate, Pyke, Norra, Aatrox, Ahri, Elise, Evelynn, Garen, Leona, Jax, Sett, Warwick, Viego, Tryndamere, Volibear, Yasuo Hoa Linh, Yuumi, Viktor, Vua Poro"
               ],
@@ -755,7 +755,7 @@
               ],
               [
                 "Càn Quét Sân Khấu",
-                "Khi Địch Thủ tấn công, Làm Choáng bài quân yếu nhất của người chơi.",
+                "Khi Địch Thủ tấn công, Làm Choáng bài quân [k:Weakest|yếu nhất] của người chơi.",
                 "Nên dùng tướng có nhiều bài quân",
                 "Bất kỳ"
               ],
@@ -767,7 +767,7 @@
               ],
               [
                 "Cây Hút Fan",
-                "Bắt Đầu Vòng Đấu: Trao +2|+0 và Áp Đảo cho bài quân mạnh nhất của Địch Thủ trong vòng này.",
+                "Bắt Đầu Vòng Đấu: Trao +2|+0 và Áp Đảo cho bài quân [k:Strongest|mạnh nhất] của Địch Thủ trong vòng này.",
                 "Nên dùng tướng có đóng băng hoặc choáng ",
                 "Bất kỳ"
               ],
@@ -815,7 +815,7 @@
               ],
               [
                 "Cuồng Phong Tích Tụ",
-                "Khi bài quân của Địch Thủ tấn công, Làm Choáng bài quân yếu nhất của người chơi và Địch Thủ rút 1 lá bài.",
+                "Khi bài quân của Địch Thủ tấn công, Làm Choáng bài quân [k:Weakest|yếu nhất] của người chơi và Địch Thủ rút 1 lá bài.",
                 null,
                 "Bất kỳ"
               ],
@@ -857,7 +857,7 @@
               ],
               [
                 "Dư Ảnh",
-                "Bắt Đầu Vòng Đấu: Địch Thủ hồi sinh 1 bản sao Cảm Tử của tuỳ tùng mạnh nhất đã hy sinh.",
+                "Bắt Đầu Vòng Đấu: Địch Thủ hồi sinh 1 bản sao Cảm Tử của tuỳ tùng [k:Strongest|mạnh nhất] đã hy sinh.",
                 "Hạn chế để tùy tùng quá mạnh của bản bạn hy sinh",
                 "Bất kỳ"
               ],
@@ -935,7 +935,7 @@
               ],
               [
                 "Kẻ Tiếp Sức",
-                "Bắt Đầu Vòng Đấu: Trao +3|+3 cho đồng minh yếu nhất của người chơi trong vòng này.",
+                "Bắt Đầu Vòng Đấu: Trao +3|+3 cho đồng minh [k:Weakest|yếu nhất] của người chơi trong vòng này.",
                 null,
                 "Bất kỳ"
               ],
@@ -965,7 +965,7 @@
               ],
               [
                 "Kỷ Nguyên Chinh Phục",
-                "Khi bài quân của Địch Thủ tấn công, ban +2|+0 cho bài quân mạnh nhất ở vị trí tấn công.",
+                "Khi bài quân của Địch Thủ tấn công, ban +2|+0 cho bài quân [k:Strongest|mạnh nhất] ở vị trí tấn công.",
                 null,
                 "Bất kỳ"
               ],
@@ -1001,7 +1001,7 @@
               ],
               [
                 "Ma Pháp Vô Dạng",
-                "Bắt Đầu Vòng Đấu: Tạo 1 lá Từ Chối Phù Du trên tay Địch Thủ. Lá đó có 2 tiêu hao.",
+                "Bắt Đầu Vòng Đấu: Tạo 1 lá Từ Chối [k:Fleeting|Phù Du] trên tay Địch Thủ. Lá đó có 2 tiêu hao.",
                 null,
                 "Bất kỳ "
               ],
@@ -1043,13 +1043,13 @@
               ],
               [
                 "Rò Rỉ Năng Lượng",
-                "Khi người chơi sử dụng 1 bài phép, tạo 1 bản sao Phù Du trên tay Địch Thủ.",
+                "Khi người chơi sử dụng 1 bài phép, tạo 1 bản sao [k:Fleeting|Phù Du] trên tay Địch Thủ.",
                 null,
                 "Bất kỳ"
               ],
               [
                 "Sắt Thép Sáng Lóa",
-                "Bắt Đầu Vòng Đấu: Làm Choáng bài quân Yếu Nhất của người chơi.",
+                "Bắt Đầu Vòng Đấu: Làm Choáng bài quân [k:Weakest|Yếu Nhất] của người chơi.",
                 null,
                 "Bất kỳ"
               ],
@@ -1061,7 +1061,7 @@
               ],
               [
                 "Sức Mạnh Demacia II",
-                "Khi 1 đồng minh Ra Đòn, ban +2|+2 cho đồng minh đó.",
+                "Khi 1 đồng minh [k:Strike|Ra Đòn], ban +2|+2 cho đồng minh đó.",
                 "Tướng có khả năng thắng nhanh",
                 "Bất kỳ"
               ],
@@ -1103,14 +1103,14 @@
               ],
               [
                 "Tăng Thêm Chút Xíu",
-                "Bắt Đầu Vòng Đấu: Trao +1|+0 cho bài quân mạnh nhất của Địch Thủ trong vòng này với mỗi lá bài trên tay của người chơi.",
+                "Bắt Đầu Vòng Đấu: Trao +1|+0 cho bài quân [k:Strongest|mạnh nhất] của Địch Thủ trong vòng này với mỗi lá bài trên tay của người chơi.",
                 "Ưu tiên dùng tướng có choáng hoặc đóng băng",
                 "Bất kỳ"
               ],
               [
                 "Tập Luyện Trong Rừng",
-                "TẤT CẢ bài quân có \"Ra Đòn: Nhân đôi Sức Mạnh của ta.\"",
-                "Nên dùng các tướng có khả năng ra đòn nhiều lần",
+                "TẤT CẢ bài quân có \"[k:Strike|Ra Đòn]: Nhân đôi Sức Mạnh của ta.\"",
+                "Nên dùng các tướng có khả năng [k:Strike|ra đòn] nhiều lần",
                 "Diana, Ambessa, Vayne, Yuumi, Tryndamere, Sett, Azir "
               ],
               [
@@ -1293,7 +1293,7 @@
     ],
     "updateDate": "07-02-2026",
     "slug": "thu-thach-thang",
-    "views": 668,
+    "views": 670,
     "thumbnail": "https://dd.b.pvp.net/6_3_0/set3/vi_vn/img/cards/03MT087T1-full.png",
     "publishedDate": "2026-02-07",
     "tags": [
