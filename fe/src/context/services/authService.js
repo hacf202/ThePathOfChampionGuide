@@ -72,3 +72,9 @@ export const resetPassword = (newPassword, token) => {
 		newPassword
 	}, token);
 };
+
+export const refreshSession = (refreshToken) => {
+	return backendApiRequest("/api/auth/refresh", "POST", {
+		refreshToken
+	});
+};

@@ -45,35 +45,56 @@ export const AuthProvider = ({ children }) => {
 
 	// Khôi phục phiên đăng nhập từ localStorage hoặc URL Hash (cho reset password)
 	useEffect(() => {
-		// 1. Kiểm tra fragment URL cho reset password token (Supabase recovery flow)
-		const hash = window.location.hash;
-		let sessionToken = null;
-		
-		if (hash && hash.includes("access_token=") && hash.includes("type=recovery")) {
-			const params = new URLSearchParams(hash.substring(1));
-			sessionToken = params.get("access_token");
-			if (sessionToken) {
-				handleLogin(sessionToken);
-				// Xóa hash để URL đẹp hơn
-				window.history.replaceState(null, null, window.location.pathname);
+		const checkAuth = async () => {
+			// 1. Kiểm tra fragment URL cho reset password token (Supabase recovery flow)
+			const hash = window.location.hash;
+			let sessionToken = null;
+			
+			if (hash && hash.includes("access_token=") && hash.includes("type=recovery")) {
+				const params = new URLSearchParams(hash.substring(1));
+				sessionToken = params.get("access_token");
+				if (sessionToken) {
+					handleLogin(sessionToken);
+					// Xóa hash để URL đẹp hơn
+					window.history.replaceState(null, null, window.location.pathname);
+				}
 			}
-		}
 
-		const storedToken = sessionToken || localStorage.getItem("token");
+			const storedToken = sessionToken || localStorage.getItem("token");
+			const storedRefreshToken = localStorage.getItem("refreshToken");
 
-		if (storedToken) {
-			const payload = decodeJwtPayload(storedToken);
-			if (payload && payload.exp * 1000 > Date.now()) {
-				handleLogin(storedToken, payload);
-			} else {
-				if (!sessionToken) logout(); // Không logout nếu vừa lấy token từ link
+			if (storedToken) {
+				const payload = decodeJwtPayload(storedToken);
+				const isExpired = payload && payload.exp * 1000 < Date.now();
+
+				if (payload && !isExpired) {
+					handleLogin(storedToken, payload);
+				} else if (storedRefreshToken) {
+					// Thử refresh nếu token cũ hết hạn nhưng có refresh token
+					try {
+						const data = await authService.refreshSession(storedRefreshToken);
+						if (data.token) {
+							handleLogin(data.token, null, data.refreshToken);
+						} else {
+							logout();
+						}
+					} catch (e) {
+						console.error("Session refresh failed", e);
+						logout();
+					}
+				} else {
+					logout();
+				}
 			}
-		}
-		setIsLoading(false);
+			setIsLoading(false);
+		};
+
+		checkAuth();
 	}, []);
 
-	const handleLogin = (accessToken, payload = null) => {
+	const handleLogin = (accessToken, payload = null, refreshToken = null) => {
 		localStorage.setItem("token", accessToken);
+		if (refreshToken) localStorage.setItem("refreshToken", refreshToken);
 		setToken(accessToken);
 
 		const decoded = payload || decodeJwtPayload(accessToken);
@@ -92,7 +113,7 @@ export const AuthProvider = ({ children }) => {
 		try {
 			const data = await authService.initiateAuth(email, password);
 			if (data.token) {
-				handleLogin(data.token);
+				handleLogin(data.token, null, data.refreshToken);
 				onSuccess("Đăng nhập thành công!");
 			}
 		} catch (error) {
@@ -105,6 +126,7 @@ export const AuthProvider = ({ children }) => {
 		setToken(null);
 		setIsAdmin(false);
 		localStorage.removeItem("token");
+		localStorage.removeItem("refreshToken");
 		localStorage.removeItem("access_token");
 		localStorage.removeItem("refresh_token");
 	};

@@ -111,6 +111,7 @@ router.post("/login", async (req, res, next) => {
 		res.json({
 			message: "Đăng nhập thành công",
 			token: data.session.access_token,
+			refreshToken: data.session.refresh_token,
 			user: data.user
 		});
 	} catch (error) {
@@ -160,6 +161,25 @@ router.post("/reset-password-link", authenticateToken, async (req, res) => {
 	} catch (error) {
 		res.status(400).json({ error: error.message || "Không thể đặt lại mật khẩu" });
 	}
+});
+
+// POST /api/auth/refresh
+router.post("/refresh", async (req, res) => {
+    const { refreshToken } = req.body;
+    if (!refreshToken) return res.status(400).json({ error: "Refresh token is required" });
+
+    try {
+        const { data, error } = await supabase.auth.refreshSession({ refresh_token: refreshToken });
+        if (error) throw error;
+
+        res.json({
+            token: data.session.access_token,
+            refreshToken: data.session.refresh_token,
+            user: data.user
+        });
+    } catch (error) {
+        res.status(401).json({ error: "Invalid refresh token" });
+    }
 });
 
 export default router;
