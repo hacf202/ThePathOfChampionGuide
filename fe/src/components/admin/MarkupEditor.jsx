@@ -143,11 +143,7 @@ const MarkupEditor = ({ value, onChange, placeholder = "Nhập nội dung..." })
 	}, [searchType, searchQuery, activeMenu]);
 
 	const menuItems = [
-		{ id: "k", label: "Từ khóa", type: "submenu", items: [
-			{ id: "k", label: "Icon + Chữ", options: ["icon"] },
-			{ id: "k", label: "Chỉ hiện Icon", options: ["only-icon", "icon"] },
-            { id: "k", label: "Chỉ hiện Chữ", options: ["no-icon"] },
-		]},
+		{ id: "k", label: "Từ khóa", type: "search" },
 		{ id: "v", label: "Chỉ số", type: "submenu", items: [
             { id: "v:cong", label: "Công (ATK)" },
             { id: "v:thu", label: "Thủ (HP)" },
