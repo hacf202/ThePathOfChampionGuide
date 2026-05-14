@@ -421,11 +421,15 @@ export const getAllEntities = (type, lang = "vi") => {
 			name: (cur === "en" ? i.translations?.en?.name : null) || i.name, 
 			nameEn: i.translations?.en?.name || "" 
 		}));
-		case "k": return db.keywords.map(k => ({ 
-			id: k.nameRef, 
-			name: k.name, 
-			nameEn: k.nameRef || "" 
-		}));
+		case "k": {
+			const enKeywords = globalsEn.keywords || [];
+			const enMap = new Map(enKeywords.map(k => [k.nameRef, k.name]));
+			return db.keywords.map(k => ({ 
+				id: k.nameRef, 
+				name: k.name, 
+				nameEn: enMap.get(k.nameRef) || k.nameRef || "" 
+			}));
+		}
 		case "rune": return db.runes.map(r => ({ 
 			id: r.runeCode, 
 			name: (cur === "en" ? r.translations?.en?.name : null) || r.name, 
