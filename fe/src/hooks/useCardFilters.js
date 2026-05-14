@@ -72,8 +72,7 @@ export const useCardFilters = (tUI, dynamicFilters) => {
 	const sortOptions = useMemo(() => [
 		{ value: "cardName-asc", label: tUI("sort.nameAsc") || "Tên (A-Z)" },
 		{ value: "cardName-desc", label: tUI("sort.nameDesc") || "Tên (Z-A)" },
-		{ value: "championCost-asc", label: tUI("sort.championCostAsc") || "Tiêu hao (Thấp-Cao)" },
-		{ value: "cost-asc", label: tUI("sort.costAsc") || "Tiêu hao thấp-cao" },
+		{ value: "championCost-asc", label: tUI("sort.championCostAsc") || "Tiêu hao thấp-cao" },
 		{ value: "cost-desc", label: tUI("sort.costDesc") || "Tiêu hao cao-thấp" },
 	], [tUI]);
 

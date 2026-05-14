@@ -10,14 +10,14 @@ import { useMarkupResolution } from "../../hooks/useMarkupResolution";
  * MarkupRenderer - Trình hiển thị văn bản đánh dấu nâng cao cho POC Guide
  * Hỗ trợ các thẻ: [type:value|label|options] và các thẻ định dạng HTML đơn giản
  */
-const MarkupRenderer = memo(({ text, className = "" }) => {
+const MarkupRenderer = memo(({ text, className = "", noTooltip = false }) => {
 	const { language } = useTranslation(); 
 	const { resolveEntities } = useMarkupResolution();
 	const segments = useMemo(() => parseMarkup(text), [text]);
 
 	useEffect(() => {
-		if (text) resolveEntities(text);
-	}, [text, resolveEntities]);
+		if (text && !noTooltip) resolveEntities(text);
+	}, [text, resolveEntities, noTooltip]);
 
 	if (!segments || segments.length === 0) return null;
 
@@ -30,109 +30,138 @@ const MarkupRenderer = memo(({ text, className = "" }) => {
 		const onlyIcon = tagOptions.includes("only-icon");
 		const noLink = tagOptions.includes("no-link");
 
-		const renderWithTooltip = (content, customColorClass = "", href = null, customDesc = undefined) => (
-			<MarkupTooltip
-				key={index}
-				title={data?.name || tagLabel}
-				description={customDesc !== undefined ? customDesc : data?.description}
-				icon={data?.icon}
-				fullImage={data?.fullImage}
-				options={tagOptions}
-				rarity={data?.rarity}
-				type={data?.type || tagType}
-				href={href}
-                items={tagOptions.reduce((acc, opt) => {
-                    const reserved = ["icon", "no-icon", "no-link", "only-icon", "img-full", "img-icon"];
-                    if (reserved.includes(opt.toLowerCase())) return acc;
-                    
-                    const resolvedItem = getEntityData(opt, "i", language) || getEntityData(opt, "r", language);
-                    if (resolvedItem) acc.push({ ...resolvedItem, itemCode: resolvedItem.id });
-                    return acc;
-                }, [])}
-			>
-				<span className={`inline-flex items-baseline font-bold cursor-help transition-all duration-200 border-b border-white/0 hover:border-current ${customColorClass}`}>
-					{showIcon && data?.icon && (
-						<img 
-							src={data.icon} 
-							alt={tagLabel} 
-							className={`w-4 h-4 object-contain ${onlyIcon ? "" : "mr-1"} flex-shrink-0 translate-y-[2px]`} 
-						/>
-					)}
-					{!onlyIcon && (
-						<span className="whitespace-pre-wrap leading-none">
-							{content}
-						</span>
-					)}
-				</span>
-			</MarkupTooltip>
-		);
+		const renderWithTooltip = (content, customColorClass = "", href = null, customDesc = undefined) => {
+            const innerContent = (
+                <span className={`inline-flex items-baseline font-bold transition-all duration-200 border-b border-white/0 hover:border-current ${customColorClass} ${noTooltip ? '' : 'cursor-help'}`}>
+                    {showIcon && data?.icon && (
+                        <img 
+                            src={data.icon} 
+                            alt={tagLabel} 
+                            className={`w-4 h-4 object-contain ${onlyIcon ? "" : "mr-1"} flex-shrink-0 translate-y-[2px]`} 
+                        />
+                    )}
+                    {!onlyIcon && (
+                        <span className="whitespace-pre-wrap leading-none">
+                            {content}
+                        </span>
+                    )}
+                </span>
+            );
+
+            if (noTooltip) return <span key={index}>{innerContent}</span>;
+
+            return (
+                <MarkupTooltip
+                    key={index}
+                    title={data?.name || tagLabel}
+                    description={customDesc !== undefined ? customDesc : data?.description}
+                    icon={data?.icon}
+                    fullImage={data?.fullImage}
+                    options={tagOptions}
+                    rarity={data?.rarity}
+                    type={data?.type || tagType}
+                    href={href}
+                    noTooltip={noTooltip}
+                    items={tagOptions.reduce((acc, opt) => {
+                        const reserved = ["icon", "no-icon", "no-link", "only-icon", "img-full", "img-icon"];
+                        if (reserved.includes(opt.toLowerCase())) return acc;
+                        
+                        const resolvedItem = getEntityData(opt, "i", language) || getEntityData(opt, "r", language);
+                        if (resolvedItem) acc.push({ ...resolvedItem, itemCode: resolvedItem.id });
+                        return acc;
+                    }, [])}
+                >
+                    {innerContent}
+                </MarkupTooltip>
+            );
+        };
 
 		switch (tagType) {
 			case "k": 
 			case "keyword": {
 				const hasIcon = !!data?.icon;
-				// "Gộp toàn bộ option thành 1": Từ khóa luôn hiện cả tên và từ khóa (nếu có icon), hoặc chỉ từ khóa (nếu không có icon)
-				// Tên = data.name, Từ khóa = tagValue (Ref)
-				const displayLabel = data?.name || tagLabel;
+				const displayLabel = tagLabel || data?.name || tagValue;
+                
+                // Phân loại màu sắc cho từ khóa (Premium)
+                const keywordColors = {
+                    "Lifesteal": "text-emerald-400",
+                    "Overwhelm": "text-orange-400",
+                    "Quick Attack": "text-yellow-400",
+                    "Regeneration": "text-green-400",
+                    "Barrier": "text-blue-300",
+                    "Tough": "text-slate-300",
+                    "Elusive": "text-purple-400",
+                    "Fury": "text-red-500",
+                    "Fearsome": "text-indigo-400",
+                };
+                
+                const colorClass = keywordColors[data?.nameRef] || keywordColors[tagValue] || "text-yellow-400";
+
+                const innerKeyword = (
+                    <span className={`inline-flex items-baseline font-bold transition-all duration-200 border-b border-white/0 hover:border-current ${colorClass} ${noTooltip ? '' : 'cursor-help'}`}>
+                        {hasIcon && data?.icon && (
+                            <img 
+                                src={data.icon} 
+                                alt={tagLabel} 
+                                className="w-4 h-4 object-contain mr-1 flex-shrink-0 translate-y-[2px]" 
+                            />
+                        )}
+                        <span className="whitespace-pre-wrap leading-none">
+                            {displayLabel}
+                        </span>
+                    </span>
+                );
+
+                if (noTooltip) return <span key={index}>{innerKeyword}</span>;
 
 				return (
 					<MarkupTooltip
 						key={index}
-						title={displayLabel}
+						title={data?.name || displayLabel}
 						description={data?.description}
 						icon={data?.icon}
 						fullImage={data?.fullImage}
 						options={tagOptions}
 						rarity={data?.rarity}
 						type={data?.type || tagType}
+                        noTooltip={noTooltip}
 					>
-						<span className="inline-flex items-baseline font-bold cursor-help transition-all duration-200 border-b border-white/0 hover:border-current text-yellow-500 hover:text-yellow-400">
-							{hasIcon && data?.icon && (
-								<img 
-									src={data.icon} 
-									alt={tagLabel} 
-									className="w-4 h-4 object-contain mr-1 flex-shrink-0 translate-y-[2px]" 
-								/>
-							)}
-							<span className="whitespace-pre-wrap leading-none">
-								{displayLabel}
-							</span>
-						</span>
+						{innerKeyword}
 					</MarkupTooltip>
 				);
 			}
 
 			case "c": 
 			case "champion":
-				return renderWithTooltip(tagLabel, "text-primary-500 hover:text-primary-400", noLink ? null : `/champion/${data?.id || tagValue}`, null);
+				return renderWithTooltip(tagLabel, "text-sky-400 hover:text-sky-300", noLink ? null : `/champion/${data?.id || tagValue}`, null);
 
 			case "r": 
 			case "relic":
-				return renderWithTooltip(tagLabel, "text-purple-500 hover:text-purple-400", noLink ? null : `/relic/${data?.id || tagValue}`);
+				return renderWithTooltip(tagLabel, "text-purple-400 hover:text-purple-300", noLink ? null : `/relic/${data?.id || tagValue}`);
 
 			case "p": 
 			case "power":
-				return renderWithTooltip(tagLabel, "text-blue-500 hover:text-blue-400", noLink ? null : `/power/${data?.id || tagValue}`);
+				return renderWithTooltip(tagLabel, "text-blue-400 hover:text-blue-300", noLink ? null : `/power/${data?.id || tagValue}`);
 
 			case "i": 
 			case "item":
-				return renderWithTooltip(tagLabel, "text-emerald-500 hover:text-emerald-400", noLink ? null : `/item/${data?.id || tagValue}`);
+				return renderWithTooltip(tagLabel, "text-emerald-400 hover:text-emerald-300", noLink ? null : `/item/${data?.id || tagValue}`);
 
 			case "cd": 
 			case "card":
-				return renderWithTooltip(tagLabel, "text-orange-500 hover:text-orange-400", noLink ? null : `/card/${data?.id || tagValue}`);
+				return renderWithTooltip(tagLabel, "text-orange-400 hover:text-orange-300", noLink ? null : `/card/${data?.id || tagValue}`);
 
 			case "res":
 			case "resource":
-				return renderWithTooltip(tagLabel, "text-amber-500 hover:text-amber-400 shadow-sm", noLink ? null : `/resource/${data?.id || tagValue}`);
+				return renderWithTooltip(tagLabel, "text-amber-400 hover:text-amber-300 shadow-sm", noLink ? null : `/resource/${data?.id || tagValue}`);
 
 			case "v": 
 			case "stat": { 
 				const styles = {
 					attack: "text-red-500", atk: "text-red-500", cong: "text-red-500",
-					health: "text-red-400", hp: "text-red-400", thu: "text-red-400",
-					mana: "text-blue-400", nangluong: "text-blue-400",
-					cost: "text-blue-500", tieuhao: "text-blue-500",
+					health: "text-rose-400", hp: "text-rose-400", thu: "text-rose-400",
+					mana: "text-sky-400", nangluong: "text-sky-400",
+					cost: "text-sky-500", tieuhao: "text-sky-500",
 					damage: "text-orange-500", 
 					level: "text-primary-500", 
 					gold: "text-yellow-500"

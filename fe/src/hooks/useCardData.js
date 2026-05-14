@@ -83,9 +83,20 @@ export const useCardData = (queryParams, state, tUI) => {
 		// Sắp xếp
 		const [field, order] = sortOrder.split("-");
 		filtered.sort((a, b) => {
-			let vA = a[field] ?? "";
-			let vB = b[field] ?? "";
-			if (typeof vA === "string") return order === "asc" ? vA.localeCompare(vB) : vB.localeCompare(vA);
+            // 1. Luôn xếp Champion ở đầu
+            const isAChamp = a.rarity === "Champion" || (a.type || "").toLowerCase() === "champion";
+            const isBChamp = b.rarity === "Champion" || (b.type || "").toLowerCase() === "champion";
+            if (isAChamp !== isBChamp) return isAChamp ? -1 : 1;
+
+            // 2. Sắp xếp theo trường dữ liệu yêu cầu
+            const sortField = field === "championCost" ? "cost" : field;
+			let vA = a[sortField] ?? "";
+			let vB = b[sortField] ?? "";
+			
+			if (typeof vA === "string") {
+                const cmp = vA.localeCompare(vB, language === 'vi' ? 'vi' : 'en');
+                return order === "asc" ? cmp : -cmp;
+            }
 			return order === "asc" ? vA - vB : vB - vA;
 		});
 

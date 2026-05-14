@@ -343,7 +343,7 @@
     "translations": {
       "en": {
         "name": "Luden's Tempest",
-        "description": "All of your spells and [k:Skill|skills] deal 1 extra damage.",
+        "description": "All of your spells and skills deal 1 extra damage.",
         "descriptionRaw": "All of your spells and skills deal 1 extra damage.",
         "rarity": "Rare"
       }
@@ -1283,7 +1283,7 @@
     "translations": {
       "en": {
         "name": "Spirit of the Buhru",
-        "description": "[k:PathPower|Power]: Allies that cost 1 or less have [k:Overwhelm|Overwhelm], [k:QuickStrike|Quick Attack], and [k:Fury|Fury].",
+        "description": "[k:Power|Power]: Allies that cost 1 or less have [k:Overwhelm|Overwhelm], [k:QuickStrike|Quick Attack], and [k:Fury|Fury].",
         "descriptionRaw": "Power: Allies that cost 1 or less have Overwhelm, Quick Attack, and Fury.",
         "rarity": "Epic"
       }
@@ -1294,7 +1294,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0079-full.png",
     "descriptionRaw": "Sức Mạnh: Các đồng minh 1- tiêu hao nhận Áp Đảo, Đột Kích và Cuồng Nộ.",
-    "description": "[k:PathPower|Sức Mạnh:] Các đồng minh 1- tiêu hao nhận [k:Overwhelm|Áp Đảo], [k:QuickStrike|Đột Kích] và [k:Fury|Cuồng Nộ].",
+    "description": "[k:Power|Sức Mạnh:] Các đồng minh 1- tiêu hao nhận [k:Overwhelm|Áp Đảo], [k:QuickStrike|Đột Kích] và [k:Fury|Cuồng Nộ].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0079.png",
     "name": "Linh Hồn Buhru",
     "type": "Chung"
@@ -1303,7 +1303,7 @@
     "translations": {
       "en": {
         "name": "The Beast Within",
-        "description": "[k:PathPower|Power]: Allies have [k:Overwhelm|Overwhelm], and if they have a subtype, +1|+1.",
+        "description": "[k:Power|Power]: Allies have [k:Overwhelm|Overwhelm], and if they have a subtype, +1|+1.",
         "descriptionRaw": "Power: Allies have Overwhelm, and if they have a subtype, +1|+1.",
         "rarity": "Epic"
       }
@@ -1314,7 +1314,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0080-full.png",
     "descriptionRaw": "Sức Mạnh: Đồng minh nhận Áp Đảo, và nếu có nhóm phụ, nhận thêm +1|+1.",
-    "description": "[k:PathPower|Sức Mạnh:] Đồng minh nhận [k:Overwhelm|Áp Đảo], và nếu có nhóm phụ, nhận thêm +1|+1.",
+    "description": "[k:Power|Sức Mạnh:] Đồng minh nhận [k:Overwhelm|Áp Đảo], và nếu có nhóm phụ, nhận thêm +1|+1.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0080.png",
     "name": "Quái Thú Bên Trong",
     "type": "Chung"
@@ -1343,7 +1343,7 @@
     "translations": {
       "en": {
         "name": "Starforged Gauntlets",
-        "description": "[k:PathPower|Power]: [k:GameStart|Game Start]: If I'm in deck or hand and [k:Titanic|Titanic], +1 Starting Mana. You can find Level 2 Champions when you [k:Invoke|Invoke] or [k:Manifest|Manifest].",
+        "description": "[k:Power|Power]: [k:GameStart|Game Start]: If I'm in deck or hand and [k:Titanic|Titanic], +1 Starting Mana. You can find Level 2 Champions when you [k:Invoke|Invoke] or [k:Manifest|Manifest].",
         "descriptionRaw": "Power: Game Start: If I'm in deck or hand and Titanic, +1 Starting Mana. You can find Level 2 Champions when you Invoke or Manifest.",
         "rarity": "Epic"
       }
@@ -1354,7 +1354,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0082-full.png",
     "descriptionRaw": "Sức mạnh: Bắt Đầu Trận Đấu: Nếu ta đang ở trong bộ bài hoặc trên tay và Khổng Lồ, +1 cho Năng Lượng Khởi Điểm. Ngươi có thể tìm thấy Anh Hùng Cấp 2 khi Hiệu Triệu hoặc Hình Thành.",
-    "description": "[k:PathPower|Sức mạnh]: [k:GameStart|Bắt Đầu Trận Đấu]: Nếu ta đang ở trong bộ bài hoặc trên tay và [k:Titanic|Khổng Lồ], +1 cho Năng Lượng Khởi Điểm. Ngươi có thể tìm thấy Anh Hùng Cấp 2 khi [k:Invoke|Hiệu Triệu] hoặc [k:Manifest|Hình Thành].",
+    "description": "[k:Power|Sức mạnh]: [k:GameStart|Bắt Đầu Trận Đấu]: Nếu ta đang ở trong bộ bài hoặc trên tay và [k:Titanic|Khổng Lồ], +1 cho Năng Lượng Khởi Điểm. Ngươi có thể tìm thấy Anh Hùng Cấp 2 khi [k:Invoke|Hiệu Triệu] hoặc [k:Manifest|Hình Thành].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0082.png",
     "name": "Găng Tinh Vân Sư",
     "type": "Trấn"
@@ -1403,7 +1403,7 @@
     "translations": {
       "en": {
         "name": "Secret Technique",
-        "description": "[k:PathPower|Power]: When an ally gains stats from a spell, it gains twice that many instead.",
+        "description": "[k:Power|Power]: When an ally gains stats from a spell, it gains twice that many instead.",
         "descriptionRaw": "Power: When an ally gains stats from a spell, it gains twice that many instead.",
         "rarity": "Epic"
       }
@@ -1414,7 +1414,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0085-full.png",
     "descriptionRaw": "Sức Mạnh: Khi 1 đồng minh nhận chỉ số từ 1 bài phép, chỉ số nhận được tăng gấp 2 lần.",
-    "description": "[k:PathPower|Sức Mạnh]: Khi 1 đồng minh nhận chỉ số từ 1 bài phép, chỉ số nhận được tăng gấp 2 lần.",
+    "description": "[k:Power|Sức Mạnh]: Khi 1 đồng minh nhận chỉ số từ 1 bài phép, chỉ số nhận được tăng gấp 2 lần.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0085.png",
     "name": "Bí Kỹ",
     "type": "Chung"
@@ -1423,7 +1423,7 @@
     "translations": {
       "en": {
         "name": "Spellweaver's Symphony",
-        "description": "[k:PathPower|Power]: When you gain the attack token, create a random spell that costs 2 from your regions in hand. It costs 0 and is [k:Fleeting|Fleeting].",
+        "description": "[k:Power|Power]: When you gain the attack token, create a random spell that costs 2 from your regions in hand. It costs 0 and is [k:Fleeting|Fleeting].",
         "descriptionRaw": "Power: When you gain the attack token, create a random spell that costs 2 from your regions in hand. It costs 0 and is Fleeting.",
         "rarity": "Epic"
       }
@@ -1434,7 +1434,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0086-full.png",
     "descriptionRaw": "Sức Mạnh: Khi nhận lượt tấn công, tạo trên tay 1 bài phép ngẫu nhiên có tiêu hao 2 từ khu vực của bạn. Lá bài đó có 0 tiêu hao và Phù Du.",
-    "description": "[k:PathPower|Sức Mạnh]: Khi nhận lượt tấn công, tạo trên tay 1 bài phép ngẫu nhiên có tiêu hao 2 từ khu vực của bạn. Lá bài đó có 0 tiêu hao và [k:Fleeting|Phù Du].",
+    "description": "[k:Power|Sức Mạnh]: Khi nhận lượt tấn công, tạo trên tay 1 bài phép ngẫu nhiên có tiêu hao 2 từ khu vực của bạn. Lá bài đó có 0 tiêu hao và [k:Fleeting|Phù Du].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0086.png",
     "name": "Hòa Khí Ma Pháp",
     "type": "Chung"
@@ -1483,7 +1483,7 @@
     "translations": {
       "en": {
         "name": "Strength of Stone",
-        "description": "+0|+2\n[k:PathPower|Power]: When you summon an ally, grant it +0|+1 and [k:Formidable|Formidable]",
+        "description": "+0|+2\n[k:Power|Power]: When you summon an ally, grant it +0|+1 and [k:Formidable|Formidable]",
         "descriptionRaw": "+0|+2Power: When you summon an ally, grant it +0|+1 and Formidable",
         "rarity": "Epic"
       }
@@ -1494,7 +1494,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0091-full.png",
     "descriptionRaw": "+0|+2Sức Mạnh: Khi ngươi triệu hồi 1 đồng minh, ban +0|+1 và Đáng Gờm cho đồng minh đó.",
-    "description": "+0|+2\n[k:PathPower|Sức Mạnh]: Khi ngươi triệu hồi 1 đồng minh, ban +0|+1 và [k:Formidable|Đáng Gờm] cho đồng minh đó.",
+    "description": "+0|+2\n[k:Power|Sức Mạnh]: Khi ngươi triệu hồi 1 đồng minh, ban +0|+1 và [k:Formidable|Đáng Gờm] cho đồng minh đó.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0091.png",
     "name": "Sức Mạnh Khỉ Đá",
     "type": "Chung"
@@ -1523,7 +1523,7 @@
     "translations": {
       "en": {
         "name": "Norra's Portal Accelerator",
-        "description": "[k:PathPower|Power]: [k:GameStart|Game Start]: If I'm [cd:06BC015T2|Norra|icon,img-full], +1 starting mana.\nWhen you summon a created ally, grant it [k:Impact|Impact].",
+        "description": "[k:Power|Power]: [k:GameStart|Game Start]: If I'm [cd:06BC015T2|Norra|icon,img-full], +1 starting mana.\nWhen you summon a created ally, grant it [k:Impact|Impact].",
         "descriptionRaw": "Power: Game Start: If I'm Norra, +1 starting mana.When you summon a created ally, grant it Impact.",
         "rarity": "Epic"
       }
@@ -1534,7 +1534,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0094-full.png",
     "descriptionRaw": "Sức Mạnh: Khởi Đầu Trận Đấu: Nếu ta Norra, +1 năng lượng khởi điểm.Khi triệu hồi 1 đồng minh được tạo ra, ban Khí Lực cho đồng minh đó.",
-    "description": "[k:PathPower|Sức Mạnh]: Khởi Đầu Trận Đấu: Nếu ta [cd:06BC015T2|Norra|icon,img-full], +1 năng lượng khởi điểm.\nKhi triệu hồi 1 đồng minh được tạo ra, ban [k:Impact|Khí Lực] cho đồng minh đó.",
+    "description": "[k:Power|Sức Mạnh]: Khởi Đầu Trận Đấu: Nếu ta [cd:06BC015T2|Norra|icon,img-full], +1 năng lượng khởi điểm.\nKhi triệu hồi 1 đồng minh được tạo ra, ban [k:Impact|Khí Lực] cho đồng minh đó.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0094.png",
     "name": "Cổng Gia Tốc Của Norra",
     "type": "Trấn"
@@ -1603,7 +1603,7 @@
     "translations": {
       "en": {
         "name": "Lux's Incandescent Baton",
-        "description": "[k:PathPower|Power]: If I'm Lux, +1 starting mana.\n[k:GameStart|Game Start]: Draw a follower that costs 2 or less and grant it Targon's Brace.",
+        "description": "[k:Power|Power]: If I'm Lux, +1 starting mana.\n[k:GameStart|Game Start]: Draw a follower that costs 2 or less and grant it Targon's Brace.",
         "descriptionRaw": "Power: If I'm Lux, +1 starting mana.Game Start: Draw a follower that costs 2 or less and grant it Targon's Brace.",
         "rarity": "Epic"
       }
@@ -1614,7 +1614,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0098-full.png",
     "descriptionRaw": "Sức Mạnh: Nếu ta là Lux, +1 Năng Lượng Khởi Điểm.Bắt Đầu Trận Đấu: Rút 1 tùy tùng 2- tiêu hao và trao cho lá đó Vòng Tay Targon.",
-    "description": "[k:PathPower|Sức Mạnh]: Nếu ta là Lux, +1 Năng Lượng Khởi Điểm.\n[k:GameStart|Bắt Đầu Trận Đấu]: Rút 1 tùy tùng 2- tiêu hao và trao cho lá đó Vòng Tay Targon.",
+    "description": "[k:Power|Sức Mạnh]: Nếu ta là Lux, +1 Năng Lượng Khởi Điểm.\n[k:GameStart|Bắt Đầu Trận Đấu]: Rút 1 tùy tùng 2- tiêu hao và trao cho lá đó Vòng Tay Targon.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0098.png",
     "name": "Gậy Bức Xạ Nhiệt Của Lux",
     "type": "Trấn"
@@ -1623,7 +1623,7 @@
     "translations": {
       "en": {
         "name": "Icon of Valhir",
-        "description": "[k:PathPower|Power]: Your elemental spells and [k:ElementalSkill|Skills] deal 2 extra damage.",
+        "description": "[k:Power|Power]: Your elemental spells and [k:Elemental Skill|Skills] deal 2 extra damage.",
         "descriptionRaw": "Power: Your elemental spells and Skills deal 2 extra damage.",
         "rarity": "Epic"
       }
@@ -1634,7 +1634,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0099-full.png",
     "descriptionRaw": "Sức Mạnh: Bài phép và Kỹ Năng nguyên tố của ngươi gây thêm 2 sát thương.",
-    "description": "[k:PathPower|Sức Mạnh]: Bài phép và [k:ElementalSkill|Kỹ Năng] nguyên tố của ngươi gây thêm 2 sát thương.",
+    "description": "[k:Power|Sức Mạnh]: Bài phép và [k:Elemental Skill|Kỹ Năng] nguyên tố của ngươi gây thêm 2 sát thương.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0099.png",
     "name": "Biểu Tượng Valhir",
     "type": "Trấn"
@@ -1643,7 +1643,7 @@
     "translations": {
       "en": {
         "name": "Shock & Awe",
-        "description": "[k:PathPower|Power]: When an ally that costs 1 or less attacks, [k:AttackSkillMark|AttackSkillMark] deal 1 to the enemy Nexus.",
+        "description": "[k:Power|Power]: When an ally that costs 1 or less attacks, [k:AttackSkillMark|] deal 1 to the enemy Nexus.",
         "descriptionRaw": "Power: When an ally that costs 1 or less attacks,  deal 1 to the enemy Nexus.",
         "rarity": "Epic"
       }
@@ -1654,7 +1654,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0100-full.png",
     "descriptionRaw": "Sức Mạnh: Khi 1 đồng minh 1- tiêu hao tấn công,  gây 1 sát thương lên Nhà Chính của đối thủ.",
-    "description": "[k:PathPower|Sức Mạnh]: Khi 1 đồng minh 1- tiêu hao tấn công, [k:AttackSkillMark|AttackSkillMark] gây 1 sát thương lên Nhà Chính của đối thủ.",
+    "description": "[k:Power|Sức Mạnh]: Khi 1 đồng minh 1- tiêu hao tấn công, [k:AttackSkillMark|] gây 1 sát thương lên Nhà Chính của đối thủ.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0100.png",
     "name": "Choáng Váng & Kinh Ngạc",
     "type": "Trấn"
@@ -1703,7 +1703,7 @@
     "translations": {
       "en": {
         "name": "Yasuo's Windblade",
-        "description": "[k:PathPower|Power]: If I'm [cd:01IO015T1|Yasuo|icon,img-full], +1 starting mana. When you [k:Recall|Recall] an enemy, increase its cost by 2.",
+        "description": "[k:Power|Power]: If I'm [cd:01IO015T1|Yasuo|icon,img-full], +1 starting mana. When you [k:Recall|Recall] an enemy, increase its cost by 2.",
         "descriptionRaw": "Power: If I'm Yasuo, +1 starting mana. When you Recall an enemy, increase its cost by 2.",
         "rarity": "Epic"
       }
@@ -1714,7 +1714,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0103-full.png",
     "descriptionRaw": "Sức Mạnh: Nếu ta là Yasuo, +1 Năng Lượng Khởi Điểm. Khi ngươi Thu Về một kẻ địch, tăng tiêu hao của lá đó thêm 2.",
-    "description": "[k:PathPower|Sức Mạnh]: Nếu ta là [cd:01IO015T1|Yasuo|icon,img-full], +1 Năng Lượng Khởi Điểm. Khi ngươi [k:Recall|Thu Về] một kẻ địch, tăng tiêu hao của lá đó thêm 2.",
+    "description": "[k:Power|Sức Mạnh]: Nếu ta là [cd:01IO015T1|Yasuo|icon,img-full], +1 Năng Lượng Khởi Điểm. Khi ngươi [k:Recall|Thu Về] một kẻ địch, tăng tiêu hao của lá đó thêm 2.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0103.png",
     "name": "Phong Kiếm của Yasuo",
     "type": "Trấn"
@@ -1723,7 +1723,7 @@
     "translations": {
       "en": {
         "name": "Swain's Raven Army",
-        "description": "[k:PathPower|Power]: [k:GameStart|Game Start]: [k:Drain|Drain] 5 from the enemy Nexus.\n[k:Play|Play]: If I'm [cd:02NX007T2|Swain|icon,img-full], refill your spell mana.",
+        "description": "[k:Power|Power]: [k:GameStart|Game Start]: [k:Drain|Drain] 5 from the enemy Nexus.\n[k:Play|Play]: If I'm [cd:02NX007T2|Swain|icon,img-full], refill your spell mana.",
         "descriptionRaw": "Power: Game Start: Drain 5 from the enemy Nexus.Play: If I'm Swain, refill your spell mana.\r\n\r\n",
         "rarity": "Epic"
       }
@@ -1734,7 +1734,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0104-full.png",
     "descriptionRaw": "Sức Mạnh: Bắt Đầu Trận Đấu: Hấp Thụ 5 máu từ Nhà Chính của đối thủ.Xuất Trận: Nếu ta là Swain, hồi đầy năng lượng bài phép.\r\n\r\n",
-    "description": "[k:PathPower|Sức Mạnh]: [k:GameStart|Bắt Đầu Trận Đấu]: [k:Drain|Hấp Thụ] 5 máu từ Nhà Chính của đối thủ.\n[k:Play|Xuất Trận]: Nếu ta là [cd:02NX007T2|Swain|icon,img-full], hồi đầy năng lượng bài phép.",
+    "description": "[k:Power|Sức Mạnh]: [k:GameStart|Bắt Đầu Trận Đấu]: [k:Drain|Hấp Thụ] 5 máu từ Nhà Chính của đối thủ.\n[k:Play|Xuất Trận]: Nếu ta là [cd:02NX007T2|Swain|icon,img-full], hồi đầy năng lượng bài phép.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0104.png",
     "name": "Đội Quân Quạ Của Swain",
     "type": "Trấn"
@@ -1763,7 +1763,7 @@
     "translations": {
       "en": {
         "name": "Deadly Harpoon",
-        "description": "+2|+0 and [k:Challenger|Challenger].\n[k:PathPower|Power]: [k:GameStart|Game Start]: Shuffle two Deaths From Below into your deck and grant Deaths From Below a random epic item.",
+        "description": "+2|+0 and [k:Challenger|Challenger].\n[k:Power|Power]: [k:GameStart|Game Start]: Shuffle two Deaths From Below into your deck and grant Deaths From Below a random epic item.",
         "descriptionRaw": "+2|+0 and Challenger.Power: Game Start: Shuffle two Deaths From Below into your deck and grant Deaths From Below a random epic item.",
         "rarity": "Epic"
       }
@@ -1774,7 +1774,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0106-full.png",
     "descriptionRaw": "+2|+0 và Thách Đấu.Sức Mạnh: Bắt Đầu Trận Đấu: Tráo 2 lá Tử Thần Đáy Sâu vào bộ bài của ngươi và ban 1 vật phẩm sử thi ngẫu nhiên cho Tử Thần Đáy Sâu.",
-    "description": "+2|+0 và [k:Challenger|Thách Đấu].\n[k:PathPower|Sức Mạnh]: [k:GameStart|Bắt Đầu Trận Đấu]: Tráo 2 lá [cd:04BW005T3|Tử Thần Đáy Sâu|icon,img-full] vào bộ bài của ngươi và ban 1 vật phẩm sử thi ngẫu nhiên cho [cd:04BW005T3|Tử Thần Đáy Sâu|icon,img-full].",
+    "description": "+2|+0 và [k:Challenger|Thách Đấu].\n[k:Power|Sức Mạnh]: [k:GameStart|Bắt Đầu Trận Đấu]: Tráo 2 lá [cd:04BW005T3|Tử Thần Đáy Sâu|icon,img-full] vào bộ bài của ngươi và ban 1 vật phẩm sử thi ngẫu nhiên cho [cd:04BW005T3|Tử Thần Đáy Sâu|icon,img-full].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0106.png",
     "name": "Móc Lao Chí Tử",
     "type": "Trấn"
@@ -1783,7 +1783,7 @@
     "translations": {
       "en": {
         "name": "Hextech Rifle",
-        "description": "[k:PathPower|Power]: [k:GameStart|Game Start]: Plant 6 Flashbomb Traps in the top 8 cards of the enemy deck. When a trap misses, replant it in the top 8 cards of the enemy deck.",
+        "description": "[k:Power|Power]: [k:GameStart|Game Start]: Plant 6 Flashbomb Traps in the top 8 cards of the enemy deck. When a trap misses, replant it in the top 8 cards of the enemy deck.",
         "descriptionRaw": "Power: Game Start: Plant 6 Flashbomb Traps in the top 8 cards of the enemy deck. When a trap misses, replant it in the top 8 cards of the enemy deck.",
         "rarity": "Epic"
       }
@@ -1794,7 +1794,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0107-full.png",
     "descriptionRaw": "Sức Mạnh: Bắt Đầu Trận Đấu: Gài 6 lá Bẫy Bom Mù lên 8 lá bài ở trên cùng trong bộ bài của đối thủ. Khi 1 lá Bài Bẫy biến mất, gài nó trở lại lên 8 lá bài ở trên cùng trong bộ bài của đối thủ.",
-    "description": "[k:PathPower|Sức Mạnh:] [k:GameStart|Bắt Đầu Trận Đấu]: Gài 6 lá [cd:05PZ008|Bẫy Bom Mù|icon,img-full] lên 8 lá bài ở trên cùng trong bộ bài của đối thủ. Khi 1 lá Bài Bẫy biến mất, gài nó trở lại lên 8 lá bài ở trên cùng trong bộ bài của đối thủ.",
+    "description": "[k:Power|Sức Mạnh:] [k:GameStart|Bắt Đầu Trận Đấu]: Gài 6 lá [cd:05PZ008|Bẫy Bom Mù|icon,img-full] lên 8 lá bài ở trên cùng trong bộ bài của đối thủ. Khi 1 lá Bài Bẫy biến mất, gài nó trở lại lên 8 lá bài ở trên cùng trong bộ bài của đối thủ.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0107.png",
     "name": "Súng Máy Công Nghệ",
     "type": "Trấn"
@@ -1843,7 +1843,7 @@
     "translations": {
       "en": {
         "name": "Big Guns",
-        "description": "[k:PathPower|Power]: Your spells and [k:Skill|skills] deal 1 extra damage.",
+        "description": "[k:Power|Power]: Your spells and skills deal 1 extra damage.",
         "descriptionRaw": "Power: Your spells and skills deal 1 extra damage.",
         "rarity": "Epic"
       }
@@ -1854,7 +1854,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0111-full.png",
     "descriptionRaw": "Sức Mạnh: Bài phép và kỹ năng đồng minh gây thêm 1 sát thương.",
-    "description": "[k:PathPower|Sức Mạnh]: Bài phép và kỹ năng đồng minh gây thêm 1 sát thương.",
+    "description": "[k:Power|Sức Mạnh]: Bài phép và kỹ năng đồng minh gây thêm 1 sát thương.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0111.png",
     "name": "Đại Bác",
     "type": "Chung"
@@ -1883,7 +1883,7 @@
     "translations": {
       "en": {
         "name": "Hidden Tome",
-        "description": "[k:PathPower|Power]: When you play or level up a champion, refill your spell mana.",
+        "description": "[k:Power|Power]: When you play or level up a champion, refill your spell mana.",
         "descriptionRaw": "Power: When you play or level up a champion, refill your spell mana.",
         "rarity": "Epic"
       }
@@ -1894,7 +1894,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0113-full.png",
     "descriptionRaw": "Sức Mạnh: Khi bạn sử dụng hoặc thăng cấp một anh hùng, hồi lại năng lượng bài phép của bạn.",
-    "description": "[k:PathPower|Sức Mạnh]: Khi bạn sử dụng hoặc thăng cấp một anh hùng, hồi lại năng lượng bài phép của bạn.",
+    "description": "[k:Power|Sức Mạnh]: Khi bạn sử dụng hoặc thăng cấp một anh hùng, hồi lại năng lượng bài phép của bạn.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0113.png",
     "name": "Sách Ẩn",
     "type": "Chung"
@@ -1903,7 +1903,7 @@
     "translations": {
       "en": {
         "name": "Black Shield",
-        "description": "[k:PathPower|Power]: When you summon an ally, grant it [k:SpellShield|SpellShield].",
+        "description": "[k:Power|Power]: When you summon an ally, grant it [k:SpellShield|SpellShield].",
         "descriptionRaw": "Power: When you summon an ally, grant it SpellShield.",
         "rarity": "Epic"
       }
@@ -1914,7 +1914,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0114-full.png",
     "descriptionRaw": "Sức Mạnh: Khi triệu hồi 1 đồng minh, ban Khiên Phép cho đồng minh đó.",
-    "description": "[k:PathPower|Sức Mạnh]: Khi triệu hồi 1 đồng minh, ban [k:SpellShield|Khiên Phép] cho đồng minh đó.",
+    "description": "[k:Power|Sức Mạnh]: Khi triệu hồi 1 đồng minh, ban [k:SpellShield|Khiên Phép] cho đồng minh đó.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0114.png",
     "name": "Khiên Đen",
     "type": "Chung"
@@ -1943,7 +1943,7 @@
     "translations": {
       "en": {
         "name": "Stacked Deck",
-        "description": "+200 Starting [k:Gold|Gold].\n[k:PathPower|Power]: Allies have +1|+1 for every 12 cards in your deck past 18 at game start.",
+        "description": "+200 Starting [k:Gold|Gold].\n[k:Power|Power]: Allies have +1|+1 for every 12 cards in your deck past 18 at game start.",
         "descriptionRaw": "+200 Starting Gold.Power: Allies have +1|+1 for every 12 cards in your deck past 18 at game start.",
         "rarity": "Epic"
       }
@@ -1954,7 +1954,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0116-full.png",
     "descriptionRaw": "+200 Vàng Khởi Điểm.Sức Mạnh: Đồng minh nhận +1|+1 với mỗi 12 lá bài vượt quá lá thứ 18 trong bộ bài của ngươi khi bắt đầu trận đấu.",
-    "description": "+200 [k:Gold|Vàng] Khởi Điểm.\n[k:PathPower|Sức Mạnh]: Đồng minh nhận +1|+1 với mỗi 12 lá bài vượt quá lá thứ 18 trong bộ bài của ngươi khi bắt đầu trận đấu.",
+    "description": "+200 [k:Gold|Vàng] Khởi Điểm.\n[k:Power|Sức Mạnh]: Đồng minh nhận +1|+1 với mỗi 12 lá bài vượt quá lá thứ 18 trong bộ bài của ngươi khi bắt đầu trận đấu.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0116.png",
     "name": "Bộ Bài Đầy Ắp",
     "type": "Chung"
@@ -1963,7 +1963,7 @@
     "translations": {
       "en": {
         "name": "Siren's Call",
-        "description": "[k:PathPower|Power]: [k:GameStart|Game Start]: Create an [cd:06RU025T5|Evelynn|icon,img-full] in hand. When you summon a Husk, it loses [k:Immobile|Immobile].",
+        "description": "[k:Power|Power]: [k:GameStart|Game Start]: Create an [cd:06RU025T5|Evelynn|icon,img-full] in hand. When you summon a Husk, it loses [k:Immobile|Immobile].",
         "descriptionRaw": "Power: Game Start: Create an Evelynn in hand. When you summon a Husk, it loses Immobile.",
         "rarity": "Epic"
       }
@@ -1974,7 +1974,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0117-full.png",
     "descriptionRaw": "Sức Mạnh: Bắt Đầu Trận Đấu: Tạo trên tay 1 lá Evelynn. Khi ngươi triệu hồi một Yêu Linh, nó sẽ mất Bất Động.",
-    "description": "[k:PathPower|Sức Mạnh:] [k:GameStart|Bắt Đầu Trận Đấu]: Tạo trên tay 1 lá [cd:06RU025T5|Evelynn|icon,img-full]. Khi ngươi triệu hồi một Yêu Linh, nó sẽ mất [k:Immobile|Bất Động].",
+    "description": "[k:Power|Sức Mạnh:] [k:GameStart|Bắt Đầu Trận Đấu]: Tạo trên tay 1 lá [cd:06RU025T5|Evelynn|icon,img-full]. Khi ngươi triệu hồi một Yêu Linh, nó sẽ mất [k:Immobile|Bất Động].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0117.png",
     "name": "Tiếng Gọi Của Tiên Cá",
     "type": "Trấn"
@@ -1983,7 +1983,7 @@
     "translations": {
       "en": {
         "name": "Defense Spending",
-        "description": "[k:PathPower|Power]: Your Nexus has [k:Tough|Tough]. \nI am Tech.",
+        "description": "[k:Power|Power]: Your Nexus has [k:Tough|Tough]. \nI am Tech.",
         "descriptionRaw": "Power: Your Nexus has Tough. I am Tech.",
         "rarity": "Epic"
       }
@@ -1994,7 +1994,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0118-full.png",
     "descriptionRaw": "Sức Mạnh: Nhà Chính của ngươi có Kiên Cường. Ta là Công Nghệ.",
-    "description": "[k:PathPower|Sức Mạnh]: Nhà Chính của ngươi có [k:Tough|Kiên Cường]. \nTa là Công Nghệ.",
+    "description": "[k:Power|Sức Mạnh]: Nhà Chính của ngươi có [k:Tough|Kiên Cường]. \nTa là Công Nghệ.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0118.png",
     "name": "Chi Tiêu Phòng Thủ",
     "type": "Trấn"
@@ -2003,7 +2003,7 @@
     "translations": {
       "en": {
         "name": "Essence Theft",
-        "description": "When you [k:Recall|Recall] another unit, grant me +1|+0.\n[k:PathPower|Power]: [k:GameStart|Game Start]: Create a [cd:03IO005|Homecoming|icon,img-full] in hand and grant it Double Time Watch.",
+        "description": "When you [k:Recall|Recall] another unit, grant me +1|+0.\n[k:Power|Power]: [k:GameStart|Game Start]: Create a [cd:03IO005|Homecoming|icon,img-full] in hand and grant it Double Time Watch.",
         "descriptionRaw": "When you Recall another unit, grant me +1|+0.Power: Game Start: Create a Homecoming in hand and grant it Double Time Watch.",
         "rarity": "Epic"
       }
@@ -2014,7 +2014,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0119-full.png",
     "descriptionRaw": "Khi ngươi Thu về một bài quân, ban cho ta +1|+0.Sức Mạnh: Bắt Đầu Trận Đấu: Tạo trên tay một lá Trở Về Nhà và ban cho nó Đồng Hồ Không Chờ Đợi.",
-    "description": "Khi ngươi [k:Recall|Thu về] một bài quân, ban cho ta +1|+0.\n[k:PathPower|Sức Mạnh]: [k:GameStart|Bắt Đầu Trận Đấu]: Tạo trên tay một lá [cd:03IO005|Trở Về Nhà|icon,img-full] và ban cho nó Đồng Hồ Không Chờ Đợi.",
+    "description": "Khi ngươi [k:Recall|Thu về] một bài quân, ban cho ta +1|+0.\n[k:Power|Sức Mạnh]: [k:GameStart|Bắt Đầu Trận Đấu]: Tạo trên tay một lá [cd:03IO005|Trở Về Nhà|icon,img-full] và ban cho nó Đồng Hồ Không Chờ Đợi.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0119.png",
     "name": "Kẻ Cắp Tinh Hoa",
     "type": "Trấn"
@@ -2043,7 +2043,7 @@
     "translations": {
       "en": {
         "name": "Harmless Scarecrow",
-        "description": "[k:PathPower|Power]: When you play a card that costs 3+ mana, [k:Terrify|Terrify] 1. While the enemy deck has 15 or fewer cards, allies have +2|+2 and [k:Overwhelm|Overwhelm].",
+        "description": "[k:Power|Power]: When you play a card that costs 3+ mana, [k:Terrify|Terrify] 1. While the enemy deck has 15 or fewer cards, allies have +2|+2 and [k:Overwhelm|Overwhelm].",
         "descriptionRaw": "Power: When you play a card that costs 3+ mana, Terrify 1. While the enemy deck has 15 or fewer cards, allies have +2|+2 and Overwhelm.",
         "rarity": "Epic"
       }
@@ -2054,7 +2054,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0121-full.png",
     "descriptionRaw": "Sức Mạnh: Khi ngươi sử dụng 1 lá bài 3+ tiêu hao, gây Khiếp Hãi 1. Khi bộ bài của kẻ địch có ít hơn 15 lá bài, các đồng minh được +2|+2 và Áp Đảo.",
-    "description": "[k:PathPower|Sức Mạnh:] Khi ngươi sử dụng 1 lá bài 3+ tiêu hao, gây [k:Terrify|Khiếp Hãi] 1. Khi bộ bài của kẻ địch có ít hơn 15 lá bài, các đồng minh được +2|+2 và [k:Overwhelm|Áp Đảo].",
+    "description": "[k:Power|Sức Mạnh:] Khi ngươi sử dụng 1 lá bài 3+ tiêu hao, gây [k:Terrify|Khiếp Hãi] 1. Khi bộ bài của kẻ địch có ít hơn 15 lá bài, các đồng minh được +2|+2 và [k:Overwhelm|Áp Đảo].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0121.png",
     "name": "Bù Nhìn Vô Hại",
     "type": "Trấn"
@@ -2063,7 +2063,7 @@
     "translations": {
       "en": {
         "name": "Cruel Experiments",
-        "description": "[k:PathPower|Power]: When you play an ally with 2+ Health, deal 1 to it and grant it [k:Overwhelm|Overwhelm] and [k:Impact|Impact].",
+        "description": "[k:Power|Power]: When you play an ally with 2+ Health, deal 1 to it and grant it [k:Overwhelm|Overwhelm] and [k:Impact|Impact].",
         "descriptionRaw": "Power: When you play an ally with 2+ Health, deal 1 to it and grant it Overwhelm and Impact.",
         "rarity": "Epic"
       }
@@ -2074,7 +2074,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0122-full.png",
     "descriptionRaw": "Sức Mạnh: Khi ngươi sử dụng 1 đồng minh với 2+ Máu, gây 1 sát thương lên đồng minh đó và ban cho đồng minh đó Áp Đảo và Khí Lực.",
-    "description": "[k:PathPower|Sức Mạnh]: Khi ngươi sử dụng 1 đồng minh với 2+ Máu, gây 1 sát thương lên đồng minh đó và ban cho đồng minh đó [k:Overwhelm|Áp Đảo] và [k:Impact|Khí Lực].",
+    "description": "[k:Power|Sức Mạnh]: Khi ngươi sử dụng 1 đồng minh với 2+ Máu, gây 1 sát thương lên đồng minh đó và ban cho đồng minh đó [k:Overwhelm|Áp Đảo] và [k:Impact|Khí Lực].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0122.png",
     "name": "Thí Nghiệm Tàn Nhẫn",
     "type": "Trấn"
@@ -2083,7 +2083,7 @@
     "translations": {
       "en": {
         "name": "Searing Brilliance",
-        "description": "[k:PathPower|Power]: [k:GameStart|Game Start]: Grant a random spell from your deck an item with \"-1 cost and draw 1\". Create 4 copies of it in your deck.",
+        "description": "[k:Power|Power]: [k:GameStart|Game Start]: Grant a random spell from your deck an item with \"-1 cost and draw 1\". Create 4 copies of it in your deck.",
         "descriptionRaw": "Power: Game Start: Grant a random spell from your deck an item with \"-1 cost and draw 1\". Create 4 copies of it in your deck.",
         "rarity": "Epic"
       }
@@ -2094,7 +2094,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0123-full.png",
     "descriptionRaw": "Sức Mạnh: Bắt Đầu Trận Đấu: Ban một bài phép ngẫu nhiên từ bộ bài với một vật phẩm với “Giảm 1 tiêu hao và rút 1 lá bài”. Tạo 4 bản sao của nó trong bộ bài.",
-    "description": "[k:PathPower|Sức Mạnh]: [k:GameStart|Bắt Đầu Trận Đấu]: Ban một bài phép ngẫu nhiên từ bộ bài với một vật phẩm với “Giảm 1 tiêu hao và rút 1 lá bài”. Tạo 4 bản sao của nó trong bộ bài.",
+    "description": "[k:Power|Sức Mạnh]: [k:GameStart|Bắt Đầu Trận Đấu]: Ban một bài phép ngẫu nhiên từ bộ bài với một vật phẩm với “Giảm 1 tiêu hao và rút 1 lá bài”. Tạo 4 bản sao của nó trong bộ bài.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0123.png",
     "name": "Hào Quang Rực Rỡ",
     "type": "Trấn"
@@ -2103,7 +2103,7 @@
     "translations": {
       "en": {
         "name": "Starfire Spellblade",
-        "description": "[k:PathPower|Power]: If I'm [cd:06MT008T2|Kayle|icon,img-full], +1 Starting Mana.\nI have +1|+0 for each encounter you've won this adventure.",
+        "description": "[k:Power|Power]: If I'm [cd:06MT008T2|Kayle|icon,img-full], +1 Starting Mana.\nI have +1|+0 for each encounter you've won this adventure.",
         "descriptionRaw": "Power: If I'm Kayle, +1 Starting Mana.I have +1|+0 for each encounter you've won this adventure.",
         "rarity": "Epic"
       }
@@ -2114,7 +2114,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0124-full.png",
     "descriptionRaw": "Sức Mạnh: Nếu ta là Kayle, +1 Năng Lượng Khởi Điểm.Ta được +1|+0 với mỗi trận giao tranh ngươi đã thắng trong cuộc phiêu lưu này.",
-    "description": "[k:PathPower|Sức Mạnh]: Nếu ta là [cd:06MT008T2|Kayle|icon,img-full], +1 Năng Lượng Khởi Điểm.\nTa được +1|+0 với mỗi trận giao tranh ngươi đã thắng trong cuộc phiêu lưu này.",
+    "description": "[k:Power|Sức Mạnh]: Nếu ta là [cd:06MT008T2|Kayle|icon,img-full], +1 Năng Lượng Khởi Điểm.\nTa được +1|+0 với mỗi trận giao tranh ngươi đã thắng trong cuộc phiêu lưu này.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0124.png",
     "name": "Kiếm Tinh Hỏa",
     "type": "Trấn"
@@ -2123,7 +2123,7 @@
     "translations": {
       "en": {
         "name": "Perfect Hex Core",
-        "description": "[k:PathPower|Power]: [k:RoundStart|Round Start]: Create a [cd:03PZ003T11|Hex Core Upgrade|icon,img-full] in hand. Your Hex Core Upgrades have Stopwatch and can upgrade any ally.",
+        "description": "[k:Power|Power]: [k:RoundStart|Round Start]: Create a [cd:03PZ003T11|Hex Core Upgrade|icon,img-full] in hand. Your Hex Core Upgrades have Stopwatch and can upgrade any ally.",
         "descriptionRaw": "Power: Round Start: Create a Hex Core Upgrade in hand. Your Hex Core Upgrades have Stopwatch and can upgrade any ally.",
         "rarity": "Epic"
       }
@@ -2134,7 +2134,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0125-full.png",
     "descriptionRaw": "Sức mạnh: Bắt Đầu Vòng Đấu: Tạo trên tay 1 lá Nâng Cấp Lõi Công Nghệ. Lá Nâng Cấp Lõi Công Nghệ có Đồng Hồ Ngưng Đọng và thể nâng cấp bất kỳ đồng minh nào.",
-    "description": "[k:PathPower|Sức mạnh]: [k:RoundStart|Bắt Đầu Vòng Đấu]: Tạo trên tay 1 lá [cd:03PZ003T11|Nâng Cấp Lõi Công Nghệ|icon,img-full]. Lá [cd:03PZ003T11|Nâng Cấp Lõi Công Nghệ|icon,img-full] có Đồng Hồ Ngưng Đọng và thể nâng cấp bất kỳ đồng minh nào.",
+    "description": "[k:Power|Sức mạnh]: [k:RoundStart|Bắt Đầu Vòng Đấu]: Tạo trên tay 1 lá [cd:03PZ003T11|Nâng Cấp Lõi Công Nghệ|icon,img-full]. Lá [cd:03PZ003T11|Nâng Cấp Lõi Công Nghệ|icon,img-full] có Đồng Hồ Ngưng Đọng và thể nâng cấp bất kỳ đồng minh nào.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0125.png",
     "name": "Lõi Công Nghệ Hoàn Hảo",
     "type": "Trấn"
@@ -2143,7 +2143,7 @@
     "translations": {
       "en": {
         "name": "Great Talons",
-        "description": "[k:PathPower|Power]: When you play a 6+ base cost unit, deal 2 to all enemies and the enemy Nexus.",
+        "description": "[k:Power|Power]: When you play a 6+ base cost unit, deal 2 to all enemies and the enemy Nexus.",
         "descriptionRaw": "Power: When you play a 6+ base cost unit, deal 2 to all enemies and the enemy Nexus.",
         "rarity": "Epic"
       }
@@ -2154,7 +2154,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0126-full.png",
     "descriptionRaw": "Sức mạnh: Khi sử dụng 1 bài quân có 6+ tiêu hao cơ bản, gây 2 sát thương lên tất cả đối thủ và Nhà Chính của chúng.",
-    "description": "[k:PathPower|Sức mạnh]: Khi sử dụng 1 bài quân có 6+ tiêu hao cơ bản, gây 2 sát thương lên tất cả đối thủ và Nhà Chính của chúng.",
+    "description": "[k:Power|Sức mạnh]: Khi sử dụng 1 bài quân có 6+ tiêu hao cơ bản, gây 2 sát thương lên tất cả đối thủ và Nhà Chính của chúng.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0126.png",
     "name": "Móng Vuốt Vĩ Đại",
     "type": "Trấn"
@@ -2163,7 +2163,7 @@
     "translations": {
       "en": {
         "name": "Scales of Judgment",
-        "description": "[k:PathPower|Power]: When you play a champion, it [k:Strike|strikes] the [k:Weakest|weakest] enemy. If it's [cd:04SH047T3|Nasus|icon,img-full], it also [k:Strike|strikes] the [k:Strongest|strongest] enemy.",
+        "description": "[k:Power|Power]: When you play a champion, it [k:Strike|strikes] the [k:Weakest|weakest] enemy. If it's [cd:04SH047T3|Nasus|icon,img-full], it also [k:Strike|strikes] the [k:Strongest|strongest] enemy.",
         "rarity": "Epic",
         "descriptionRaw": "Power: When you play a champion, it strikes the weakest enemy. If it's Nasus, it also strikes the strongest enemy."
       }
@@ -2174,7 +2174,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0127-full.png",
     "descriptionRaw": "Sức Mạnh: Khi ngươi xuất trận 1 anh hùng, anh hùng đó Ra Đòn lên kẻ địch yếu nhất. Nếu đó là Nasus, nó cũng Ra Đòn lên kẻ địch mạnh nhất.",
-    "description": "[k:PathPower|Sức Mạnh]: Khi ngươi xuất trận 1 anh hùng, anh hùng đó [k:Strike|Ra Đòn] lên kẻ địch [k:Weakest|yếu nhất]. Nếu đó là [cd:04SH047T3|Nasus|icon,img-full], nó cũng [k:Strike|Ra Đòn] lên kẻ địch [k:Strongest|mạnh nhất].",
+    "description": "[k:Power|Sức Mạnh]: Khi ngươi xuất trận 1 anh hùng, anh hùng đó [k:Strike|Ra Đòn] lên kẻ địch [k:Weakest|yếu nhất]. Nếu đó là [cd:04SH047T3|Nasus|icon,img-full], nó cũng [k:Strike|Ra Đòn] lên kẻ địch [k:Strongest|mạnh nhất].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0127.png",
     "name": "Cán Cân Phán Quyết",
     "type": "Trấn"
@@ -2203,7 +2203,7 @@
     "translations": {
       "en": {
         "name": "Protectors of Demacia",
-        "description": "[k:PathPower|Power]: When you level up an allied champion, summon [cd:01DE042T2|Lux|icon,img-full]. If you already have [cd:01DE042T2|Lux|icon,img-full], summon [cd:01DE012T1|Garen|icon,img-full] instead. If you have both and not [cd:05DE009T1|Galio|icon,img-full], summon [cd:05DE009T1|Galio|icon,img-full].",
+        "description": "[k:Power|Power]: When you level up an allied champion, summon [cd:01DE042T2|Lux|icon,img-full]. If you already have [cd:01DE042T2|Lux|icon,img-full], summon [cd:01DE012T1|Garen|icon,img-full] instead. If you have both and not [cd:05DE009T1|Galio|icon,img-full], summon [cd:05DE009T1|Galio|icon,img-full].",
         "descriptionRaw": "Power: When you level up an allied champion, summon Lux. If you already have Lux, summon Garen instead. If you have both and not Galio, summon Galio.",
         "rarity": "Epic"
       }
@@ -2214,7 +2214,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0130-full.png",
     "descriptionRaw": "Sức Mạnh: Khi ngươi thăng cấp cho 1 anh hùng đồng minh, triệu hồi Lux. Nếu ngươi đã có Lux, triệu hồi Garen. Nếu ngươi có cả hai nhưng chưa có Galio, triệu hồi Galio.",
-    "description": "[k:PathPower|Sức Mạnh]: Khi ngươi thăng cấp cho 1 anh hùng đồng minh, triệu hồi [cd:01DE042T2|Lux|icon,img-full]. Nếu ngươi đã có [cd:01DE042T2|Lux|icon,img-full], triệu hồi [cd:01DE012T1|Garen|icon,img-full]. Nếu ngươi có cả hai nhưng chưa có [cd:05DE009T1|Galio|icon,img-full], triệu hồi [cd:05DE009T1|Galio|icon,img-full].",
+    "description": "[k:Power|Sức Mạnh]: Khi ngươi thăng cấp cho 1 anh hùng đồng minh, triệu hồi [cd:01DE042T2|Lux|icon,img-full]. Nếu ngươi đã có [cd:01DE042T2|Lux|icon,img-full], triệu hồi [cd:01DE012T1|Garen|icon,img-full]. Nếu ngươi có cả hai nhưng chưa có [cd:05DE009T1|Galio|icon,img-full], triệu hồi [cd:05DE009T1|Galio|icon,img-full].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0130.png",
     "name": "Hộ Vệ Của Demacia",
     "type": "Trấn"
@@ -2223,7 +2223,7 @@
     "translations": {
       "en": {
         "name": "Warlord's Helmet",
-        "description": "+10 Nexus Health.\n[k:PathPower|Power]: If I'm [cd:01FR039T2|Tryndamere|icon,img-full], when you grant stats to a unit in your deck, grant twice as much.",
+        "description": "+10 Nexus Health.\n[k:Power|Power]: If I'm [cd:01FR039T2|Tryndamere|icon,img-full], when you grant stats to a unit in your deck, grant twice as much.",
         "descriptionRaw": "+10 Nexus Health.Power: If I'm Tryndamere, when you grant stats to a unit in your deck, grant twice as much.",
         "rarity": "Epic"
       }
@@ -2234,7 +2234,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0131-full.png",
     "descriptionRaw": "+10 Máu Nhà Chính.Sức mạnh: Nếu ta Tryndamere, khi ngươi ban chỉ số cho 1 bài quân trong bộ bài, ban cho bài quân đó 2 lần.",
-    "description": "+10 Máu Nhà Chính.\n[k:PathPower|Sức mạnh]: Nếu ta [cd:01FR039T2|Tryndamere|icon,img-full], khi ngươi ban chỉ số cho 1 bài quân trong bộ bài, ban cho bài quân đó 2 lần.",
+    "description": "+10 Máu Nhà Chính.\n[k:Power|Sức mạnh]: Nếu ta [cd:01FR039T2|Tryndamere|icon,img-full], khi ngươi ban chỉ số cho 1 bài quân trong bộ bài, ban cho bài quân đó 2 lần.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0131.png",
     "name": "Mũ Giáp Chiến Tướng",
     "type": "Trấn"
@@ -2243,7 +2243,7 @@
     "translations": {
       "en": {
         "name": "Scoundrel Hunter",
-        "description": "[k:Challenger|Challenger]\n[k:PathPower|Power]: When you play a champion, summon a [cd:04SH130T1|Warlord's Palace|icon,img-full] or [k:Advance|advance] it 2 rounds.",
+        "description": "[k:Challenger|Challenger]\n[k:Power|Power]: When you play a champion, summon a [cd:04SH130T1|Warlord's Palace|icon,img-full] or [k:Advance|advance] it 2 rounds.",
         "descriptionRaw": "ChallengerPower: When you play a champion, summon a Warlord's Palace or advance it 2 rounds.",
         "rarity": "Epic"
       }
@@ -2254,7 +2254,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0132-full.png",
     "descriptionRaw": "Thách ĐấuSức Mạnh: Khi ngươi xuất trận 1 anh hùng, triệu hồi 1 lá Tư Dinh Chiến Tướng hoặc Đẩy Nhanh lá bài đó lên 2 vòng.",
-    "description": "[k:Challenger|Thách Đấu]\n[k:PathPower|Sức Mạnh]: Khi ngươi xuất trận 1 anh hùng, triệu hồi 1 lá [cd:04SH130T1|Tư Dinh Chiến Tướng|icon,img-full] hoặc [k:Advance|Đẩy Nhanh] lá bài đó lên 2 vòng.",
+    "description": "[k:Challenger|Thách Đấu]\n[k:Power|Sức Mạnh]: Khi ngươi xuất trận 1 anh hùng, triệu hồi 1 lá [cd:04SH130T1|Tư Dinh Chiến Tướng|icon,img-full] hoặc [k:Advance|Đẩy Nhanh] lá bài đó lên 2 vòng.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0132.png",
     "name": "Thợ Săn Kẻ Vô Lại",
     "type": "Trấn"
@@ -2263,7 +2263,7 @@
     "translations": {
       "en": {
         "name": "Shield of Daybreak",
-        "description": "[k:PathPower|Power]: Allies with [k:Daybreak|Daybreak] have [k:Tough|Tough]. When an ally activates [k:Daybreak|Daybreak], grant allies +0|+1.",
+        "description": "[k:Power|Power]: Allies with [k:Daybreak|Daybreak] have [k:Tough|Tough]. When an ally activates [k:Daybreak|Daybreak], grant allies +0|+1.",
         "descriptionRaw": "Power: Allies with Daybreak have Tough. When an ally activates Daybreak, grant allies +0|+1.",
         "rarity": "Epic"
       }
@@ -2274,7 +2274,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0133-full.png",
     "descriptionRaw": "Sức mạnh: Đồng minh với Hừng Đông có Kiên Cường. Khi một đồng minh kích hoạt Hừng Đông, ban cho các đồng minh +0|+1.",
-    "description": "[k:PathPower|Sức mạnh]: Đồng minh với [k:Daybreak|Hừng Đông] có [k:Tough|Kiên Cường]. Khi một đồng minh kích hoạt [k:Daybreak|Hừng Đông], ban cho các đồng minh +0|+1.",
+    "description": "[k:Power|Sức mạnh]: Đồng minh với [k:Daybreak|Hừng Đông] có [k:Tough|Kiên Cường]. Khi một đồng minh kích hoạt [k:Daybreak|Hừng Đông], ban cho các đồng minh +0|+1.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0133.png",
     "name": "Khiên Mặt Trời",
     "type": "Trấn"
@@ -2283,7 +2283,7 @@
     "translations": {
       "en": {
         "name": "Deck of Destiny",
-        "description": "+1|+1\n[k:PathPower|Power]: [k:GameStart|Game Start]: Create a 1 cost [cd:98BW003|Wild Card|icon,img-full] in your deck for every 7 cards in your deck.",
+        "description": "+1|+1\n[k:Power|Power]: [k:GameStart|Game Start]: Create a 1 cost [cd:98BW003|Wild Card|icon,img-full] in your deck for every 7 cards in your deck.",
         "descriptionRaw": "+1|+1Power: Game Start: Create a 1 cost Wild Card in your deck for every 7 cards in your deck.",
         "rarity": "Epic"
       }
@@ -2294,7 +2294,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0134-full.png",
     "descriptionRaw": "Ban +1|+1Sức Mạnh: Bắt Đầu Trận Đấu: với mỗi 7 lá bài đã có trong bộ bài, tạo 1 lá bài Lá Bài Bí Ẩn 1 tiêu hao trong bộ bài của ngươi.",
-    "description": "Ban +1|+1\n[k:PathPower|Sức Mạnh]: [k:GameStart|Bắt Đầu Trận Đấu]: với mỗi 7 lá bài đã có trong bộ bài, tạo 1 lá bài [cd:98BW003|Lá Bài Bí Ẩn|icon,img-full] 1 tiêu hao trong bộ bài của ngươi.",
+    "description": "Ban +1|+1\n[k:Power|Sức Mạnh]: [k:GameStart|Bắt Đầu Trận Đấu]: với mỗi 7 lá bài đã có trong bộ bài, tạo 1 lá bài [cd:98BW003|Lá Bài Bí Ẩn|icon,img-full] 1 tiêu hao trong bộ bài của ngươi.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0134.png",
     "name": "Bộ Bài Định Mệnh",
     "type": "Trấn"
@@ -2343,7 +2343,7 @@
     "translations": {
       "en": {
         "name": "Whisper",
-        "description": "[k:PathPower|Power]: Your [k:Skill|Skills] deal 1 extra damage per [k:Stun|Stunned] enemy.",
+        "description": "[k:Power|Power]: Your [k:Skill|Skills] deal 1 extra damage per [k:Stun|Stunned] enemy.",
         "descriptionRaw": "Power: Your Skills deal 1 extra damage per Stunned enemy.",
         "rarity": "Epic"
       }
@@ -2354,7 +2354,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0137-full.png",
     "descriptionRaw": "Sức Mạnh: Kỹ Năng của ngươi gây thêm 1 sát thương trên mỗi kẻ địch bị Làm Choáng.",
-    "description": "[k:PathPower|Sức Mạnh]: [k:Skill|Kỹ Năng] của ngươi gây thêm 1 sát thương trên mỗi kẻ địch bị [k:Stun|Làm Choáng].",
+    "description": "[k:Power|Sức Mạnh]: [k:Skill|Kỹ Năng] của ngươi gây thêm 1 sát thương trên mỗi kẻ địch bị [k:Stun|Làm Choáng].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0137.png",
     "name": "Lời Thì Thầm",
     "type": "Trấn"
@@ -2394,7 +2394,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0139-full.png",
     "descriptionRaw": "Khiên Phép Kiên Cường\r\nTấn Công: Nếu ta là Thresh, triệu hồi một bản sao Cảm Tử ở vị trí tấn công của anh hùng với Sức Mạnh ít hơn từ bộ bài của ngươi.",
-    "description": "[k:SpellShield|Khiên Phép] [k:Tough|Kiên Cường]\n[k:Attack|Tấn Công]: Nếu ta là Thresh, triệu hồi một bản sao [k:Ephemeral|Cảm Tử] ở vị trí tấn công của anh hùng với [k:PathPower|Sức Mạnh]ít hơn từ bộ bài của ngươi.",
+    "description": "[k:SpellShield|Khiên Phép] [k:Tough|Kiên Cường]\n[k:Attack|Tấn Công]: Nếu ta là Thresh, triệu hồi một bản sao [k:Ephemeral|Cảm Tử] ở vị trí tấn công của anh hùng với [k:Power|Sức Mạnh]ít hơn từ bộ bài của ngươi.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0139.png",
     "name": "Đèn Lồng Linh Hồn",
     "type": "Trấn"
@@ -2403,7 +2403,7 @@
     "translations": {
       "en": {
         "name": "Attendant Spirits",
-        "description": "[k:PathPower|Power]: [k:Ephemeral|Ephemeral] allies have [k:Overwhelm|Overwhelm].\n[k:Play|Play]: If I'm a Spirit Blossom unit, Summon 2 Fox-Fires.",
+        "description": "[k:Power|Power]: [k:Ephemeral|Ephemeral] allies have [k:Overwhelm|Overwhelm].\n[k:Play|Play]: If I'm a Spirit Blossom unit, Summon 2 Fox-Fires.",
         "descriptionRaw": "Power: Ephemeral allies have Overwhelm.Play: If I'm a Spirit Blossom unit, Summon 2 Fox-Fires.",
         "rarity": "Epic"
       }
@@ -2414,7 +2414,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0140-full.png",
     "descriptionRaw": "Sức Mạnh: Đồng minh Cảm Tử có Áp Đảo.Xuất Trận: Nếu ta là một bài quân Hoa Linh Lục Địa, triệu hồi 2 lá Lửa Hồ Ly.",
-    "description": "[k:PathPower|Sức Mạnh]: Đồng minh [k:Ephemeral|Cảm Tử] có [k:Overwhelm|Áp Đảo].\n[k:Play|Xuất Trận]: Nếu ta là một bài quân Hoa Linh Lục Địa, triệu hồi 2 lá [cd:98SB007|Lửa Hồ Ly|icon,img-full].",
+    "description": "[k:Power|Sức Mạnh]: Đồng minh [k:Ephemeral|Cảm Tử] có [k:Overwhelm|Áp Đảo].\n[k:Play|Xuất Trận]: Nếu ta là một bài quân Hoa Linh Lục Địa, triệu hồi 2 lá [cd:98SB007|Lửa Hồ Ly|icon,img-full].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0140.png",
     "name": "Linh Hồn Hỗ Trợ",
     "type": "Trấn"
@@ -2423,7 +2423,7 @@
     "translations": {
       "en": {
         "name": "The Taker's Bow",
-        "description": "[k:PathPower|Power]: Attacking [k:Ephemeral|Ephemeral] allies can't take damage or die.",
+        "description": "[k:Power|Power]: Attacking [k:Ephemeral|Ephemeral] allies can't take damage or die.",
         "descriptionRaw": "Power: Attacking Ephemeral allies can't take damage or die.",
         "rarity": "Epic"
       }
@@ -2434,7 +2434,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0141-full.png",
     "descriptionRaw": "Sức Mạnh: Đồng minh Cảm Tử ở vị trí tấn công không thể nhận sát thương hoặc bị tiêu diệt.",
-    "description": "[k:PathPower|Sức Mạnh]: Đồng minh [k:Ephemeral|Cảm Tử] ở vị trí tấn công không thể nhận sát thương hoặc bị tiêu diệt.",
+    "description": "[k:Power|Sức Mạnh]: Đồng minh [k:Ephemeral|Cảm Tử] ở vị trí tấn công không thể nhận sát thương hoặc bị tiêu diệt.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0141.png",
     "name": "Cây Cung Sát Thủ",
     "type": "Trấn"
@@ -2483,7 +2483,7 @@
     "translations": {
       "en": {
         "name": "Emotional Support Bear",
-        "description": "[k:PathPower|Power]: [k:GameStart|Game Start]: Shuffle 3 [cd:06NX012T1|Tibbers|icon,img-full] into your deck.\nYour [cd:06NX012T1|Tibbers|icon,img-full] cost 2 less and have +5|+5.",
+        "description": "[k:Power|Power]: [k:GameStart|Game Start]: Shuffle 3 [cd:06NX012T1|Tibbers|icon,img-full] into your deck.\nYour [cd:06NX012T1|Tibbers|icon,img-full] cost 2 less and have +5|+5.",
         "descriptionRaw": "Power: Game Start: Shuffle 3 Tibbers into your deck.Your Tibbers cost 2 less and have +5|+5.",
         "rarity": "Epic"
       }
@@ -2494,7 +2494,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0144-full.png",
     "descriptionRaw": "Sức Mạnh: Bắt Đầu Trận Đấu: Tráo 3 lá Tibbers vào bộ bài của ngươi.Tibbers của ngươi giảm 2 tiêu hao và có +5|+5.",
-    "description": "[k:PathPower|Sức Mạnh]: [k:GameStart|Bắt Đầu Trận Đấu]: Tráo 3 lá [cd:06NX012T1|Tibbers|icon,img-full] vào bộ bài của ngươi.\n[cd:06NX012T1|Tibbers|icon,img-full] của ngươi giảm 2 tiêu hao và có +5|+5.",
+    "description": "[k:Power|Sức Mạnh]: [k:GameStart|Bắt Đầu Trận Đấu]: Tráo 3 lá [cd:06NX012T1|Tibbers|icon,img-full] vào bộ bài của ngươi.\n[cd:06NX012T1|Tibbers|icon,img-full] của ngươi giảm 2 tiêu hao và có +5|+5.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0144.png",
     "name": "Gấu Hỗ Trợ Tinh Thần",
     "type": "Trấn"
@@ -2543,7 +2543,7 @@
     "translations": {
       "en": {
         "name": "The Darkin Blade",
-        "description": "+0|+3 \n[k:PathPower|Power]: When you play or transform a Darkin, it [k:Strike|strikes] the [k:Weakest|weakest] enemy.",
+        "description": "+0|+3 \n[k:Power|Power]: When you play or transform a Darkin, it [k:Strike|strikes] the [k:Weakest|weakest] enemy.",
         "descriptionRaw": "+0|+3 Power: When you play or transform a Darkin, it strikes the weakest enemy.",
         "rarity": "Epic"
       }
@@ -2554,7 +2554,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0147-full.png",
     "descriptionRaw": "Ban +0|+3 Sức Mạnh: Khi ngươi xuất trận hoặc biến đổi 1 Darkin, bài quân đó Ra Đòn lên kẻ địch yếu nhất.",
-    "description": "Ban +0|+3 \n[k:PathPower|Sức Mạnh]: Khi ngươi xuất trận hoặc biến đổi 1 Darkin, bài quân đó [k:Strike|Ra Đòn] lên kẻ địch [k:Weakest|yếu nhất].",
+    "description": "Ban +0|+3 \n[k:Power|Sức Mạnh]: Khi ngươi xuất trận hoặc biến đổi 1 Darkin, bài quân đó [k:Strike|Ra Đòn] lên kẻ địch [k:Weakest|yếu nhất].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0147.png",
     "name": "Quỷ Kiếm Darkin",
     "type": "Trấn"
@@ -2603,7 +2603,7 @@
     "translations": {
       "en": {
         "name": "Queen's Embrace",
-        "description": "[k:Spirit|Spirit], [k:Impact|Impact], [k:Evolve|Evolve].\n[k:PathPower|Power]: [k:Fearsome|Fearsome] allies can only be blocked by units with 5+ Power.",
+        "description": "[k:Spirit|Spirit], [k:Impact|Impact], [k:Evolve|Evolve].\n[k:Power|Power]: [k:Fearsome|Fearsome] allies can only be blocked by units with 5+ Power.",
         "descriptionRaw": "Spirit, Impact, Evolve.Power: Fearsome allies can only be blocked by units with 5+ Power.",
         "rarity": "Epic"
       }
@@ -2614,7 +2614,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0150-full.png",
     "descriptionRaw": "Linh Hồn, Khí Lực, Tiến Hóa.Sức Mạnh: Đồng minh Đáng Sợ chỉ có thể bị chặn đòn bởi bài quân có 5 Sức Mạnh hoặc nhiều hơn.",
-    "description": "[k:Spirit|Linh Hồn], [k:Impact|Khí Lực], [k:Evolve|Tiến Hóa].\n[k:PathPower|Sức Mạnh]: Đồng minh [k:Fearsome|Đáng Sợ] chỉ có thể bị chặn đòn bởi bài quân có 5 [k:PathPower|Sức Mạnh]hoặc nhiều hơn.",
+    "description": "[k:Spirit|Linh Hồn], [k:Impact|Khí Lực], [k:Evolve|Tiến Hóa].\n[k:Power|Sức Mạnh]: Đồng minh [k:Fearsome|Đáng Sợ] chỉ có thể bị chặn đòn bởi bài quân có 5 [k:Power|Sức Mạnh]hoặc nhiều hơn.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0150.png",
     "name": "Vòng Tay Nữ Hoàng",
     "type": "Trấn"
@@ -2863,7 +2863,7 @@
     "translations": {
       "en": {
         "name": "Rhythms of Despair",
-        "description": "[k:PathPower|Power]: Allies in hand have [k:Nightfall|\"Nightfall]: Grant the [k:Weakest|weakest] enemy 2 [k:Gloom|Gloom].\"",
+        "description": "[k:PathPower|Power]: Allies in hand have [k:Nightfall|\"Nightfall]: Grant the weakest enemy 2 [k:Gloom|Gloom].\"",
         "descriptionRaw": "Power: Allies in hand have \"Nightfall: Grant the weakest enemy 2 Gloom.\"",
         "rarity": "EPIC"
       }
@@ -2874,7 +2874,7 @@
     "stack": "1",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0175-full.png",
     "descriptionRaw": "Sức Mạnh: Đồng minh trên tay có “Chạng Vạng: Ban cho kẻ địch yếu nhất 2 Buồn Bã”.",
-    "description": "[k:PathPower|Sức Mạnh]: Đồng minh trên tay có “[k:Nightfall|Chạng Vạng]: Ban cho kẻ địch [k:Weakest|yếu nhất] 2 [k:Gloom|Buồn Bã]”.",
+    "description": "[k:PathPower|Sức Mạnh]: Đồng minh trên tay có “[k:Nightfall|Chạng Vạng]: Ban cho kẻ địch yếu nhất 2 [k:Gloom|Buồn Bã]”.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0175.png",
     "name": "Nhịp Điệu Tuyệt Vọng",
     "type": "Chung"

@@ -1991,7 +1991,7 @@
     "translations": {
       "en": {
         "name": "Master Yi",
-        "description": "-[cd:06IO008|Master Yi|icon,img-full] có lối chơi bài phép buff chỉ số siêu khỏe và có khả năng OTK đối thủ nếu có Xả phép hàng loạt cùng bộ cổ vật phù hợp.\\n-Các lá bài nổi bật: Võ thuật Wuju, Xông pha, Nhập định. Các bài phép có khả năng buff mạnh mẽ cho phép Yi carry siêu khỏe.\\n-Các sức mạnh nên chọn khi phiêu lưu: Xả phép hàng loạt, cảm hứng dữ đội. Các sức mạnh liên quan đến bài phép đặc biệt là bài phép buff.\\n-Sức mạnh của Yi cho phép tạo lá Song luyện 1 tiêu hao khi sử dụng bài phép không [k:Fleeting|phù du], kết hợp cùng Võ thuật Wuju cho bạn khả năng combo rút bài siêu mạnh.  \\n-Các sức mạnh nên chọn khi phiêu lưu: Cảm hứng dữ dội, Xả phép hàng loạt, Pháp thuật. Các sức mạnh hỗ trợ việc dùng nhiều bài phép, bạn có thể OTK đối thủ nếu có cho mình Xả phép hàng loạt.",
+        "description": "-[cd:06IO008|Master Yi|icon,img-full] có lối chơi bài phép buff chỉ số siêu khỏe và có khả năng OTK đối thủ nếu có Xả phép hàng loạt cùng bộ cổ vật phù hợp.\\n-Các lá bài nổi bật: Võ thuật Wuju, Xông pha, Nhập định. Các bài phép có khả năng buff mạnh mẽ cho phép Yi carry siêu khỏe.\\n-Các sức mạnh nên chọn khi phiêu lưu: Xả phép hàng loạt, cảm hứng dữ đội. Các sức mạnh liên quan đến bài phép đặc biệt là bài phép buff.\\n-Sức mạnh của Yi cho phép tạo lá Song luyện 1 tiêu hao khi sử dụng bài phép không phù du, kết hợp cùng Võ thuật Wuju cho bạn khả năng combo rút bài siêu mạnh.  \\n-Các sức mạnh nên chọn khi phiêu lưu: Cảm hứng dữ dội, Xả phép hàng loạt, Pháp thuật. Các sức mạnh hỗ trợ việc dùng nhiều bài phép, bạn có thể OTK đối thủ nếu có cho mình Xả phép hàng loạt.",
         "regions": [
           "Ionia"
         ],
@@ -2019,7 +2019,7 @@
       "P0325",
       "P0112"
     ],
-    "description": "-[cd:06IO008|Master Yi|icon,img-full] có lối chơi bài phép buff chỉ số siêu khỏe và có khả năng OTK đối thủ nếu có Xả phép hàng loạt cùng bộ cổ vật phù hợp.\\n-Các lá bài nổi bật: Võ thuật Wuju, Xông pha, Nhập định. Các bài phép có khả năng buff mạnh mẽ cho phép Yi carry siêu khỏe.\\n-Các sức mạnh nên chọn khi phiêu lưu: Xả phép hàng loạt, cảm hứng dữ đội. Các sức mạnh liên quan đến bài phép đặc biệt là bài phép buff.\\n-Sức mạnh của Yi cho phép tạo lá Song luyện 1 tiêu hao khi sử dụng bài phép không [k:Fleeting|phù du], kết hợp cùng Võ thuật Wuju cho bạn khả năng combo rút bài siêu mạnh.  \\n-Các sức mạnh nên chọn khi phiêu lưu: Cảm hứng dữ dội, Xả phép hàng loạt, Pháp thuật. Các sức mạnh hỗ trợ việc dùng nhiều bài phép, bạn có thể OTK đối thủ nếu có cho mình Xả phép hàng loạt.",
+    "description": "-[cd:06IO008|Master Yi|icon,img-full] có lối chơi bài phép buff chỉ số siêu khỏe và có khả năng OTK đối thủ nếu có Xả phép hàng loạt cùng bộ cổ vật phù hợp.\\n-Các lá bài nổi bật: Võ thuật Wuju, Xông pha, Nhập định. Các bài phép có khả năng buff mạnh mẽ cho phép Yi carry siêu khỏe.\\n-Các sức mạnh nên chọn khi phiêu lưu: Xả phép hàng loạt, cảm hứng dữ đội. Các sức mạnh liên quan đến bài phép đặc biệt là bài phép buff.\\n-Sức mạnh của Yi cho phép tạo lá Song luyện 1 tiêu hao khi sử dụng bài phép không phù du, kết hợp cùng Võ thuật Wuju cho bạn khả năng combo rút bài siêu mạnh.  \\n-Các sức mạnh nên chọn khi phiêu lưu: Cảm hứng dữ dội, Xả phép hàng loạt, Pháp thuật. Các sức mạnh hỗ trợ việc dùng nhiều bài phép, bạn có thể OTK đối thủ nếu có cho mình Xả phép hàng loạt.",
     "startingDeck": {
       "referenceCards": [
         {
@@ -2184,7 +2184,7 @@
     "translations": {
       "en": {
         "name": "Garen",
-        "description": "-Garen sỡ hữu cách đánh trực diện bằng các bài quân mạnh mẽ thông qua [k:Strike|ra đòn] và nhận được chỉ số sau mỗi lần [k:Strike|ra đòn] đó.\\n-Các lá bài mạnh: Phi ưng trinh sát, Tinh mắt, Người giữ gươm Laurent. Các bài quân có các chỉ số vượt trội kèm theo khả năng thăng tiến sức mạnh sau những lần [k:Strike|ra đòn].\\n-Sức mạnh của Garen thể hiện ở việc [k:Strike|ra đòn] nhiều lần qua đó cộng dồn chỉ số, lối đánh dễ tiếp cận và dễ triển khai.\\n-Bạn nên chọn các sức mạnh có khả năng tăng chỉ số cho bài quân hoặc hỗ trợ bài quân [k:Strike|ra đòn] hoặc dàn sân nhanh.",
+        "description": "-Garen sỡ hữu cách đánh trực diện bằng các bài quân mạnh mẽ thông qua ra đòn và nhận được chỉ số sau mỗi lần ra đòn đó.\\n-Các lá bài mạnh: Phi ưng trinh sát, Tinh mắt, Người giữ gươm Laurent. Các bài quân có các chỉ số vượt trội kèm theo khả năng thăng tiến sức mạnh sau những lần ra đòn.\\n-Sức mạnh của Garen thể hiện ở việc ra đòn nhiều lần qua đó cộng dồn chỉ số, lối đánh dễ tiếp cận và dễ triển khai.\\n-Bạn nên chọn các sức mạnh có khả năng tăng chỉ số cho bài quân hoặc hỗ trợ bài quân ra đòn hoặc dàn sân nhanh.",
         "regions": [
           "Demacia"
         ],
@@ -2212,7 +2212,7 @@
       "P0386",
       "P0111"
     ],
-    "description": "-Garen sỡ hữu cách đánh trực diện bằng các bài quân mạnh mẽ thông qua [k:Strike|ra đòn] và nhận được chỉ số sau mỗi lần [k:Strike|ra đòn] đó.\\n-Các lá bài mạnh: Phi ưng trinh sát, Tinh mắt, Người giữ gươm Laurent. Các bài quân có các chỉ số vượt trội kèm theo khả năng thăng tiến sức mạnh sau những lần [k:Strike|ra đòn].\\n-Sức mạnh của Garen thể hiện ở việc [k:Strike|ra đòn] nhiều lần qua đó cộng dồn chỉ số, lối đánh dễ tiếp cận và dễ triển khai.\\n-Bạn nên chọn các sức mạnh có khả năng tăng chỉ số cho bài quân hoặc hỗ trợ bài quân [k:Strike|ra đòn] hoặc dàn sân nhanh.",
+    "description": "-Garen sỡ hữu cách đánh trực diện bằng các bài quân mạnh mẽ thông qua ra đòn và nhận được chỉ số sau mỗi lần ra đòn đó.\\n-Các lá bài mạnh: Phi ưng trinh sát, Tinh mắt, Người giữ gươm Laurent. Các bài quân có các chỉ số vượt trội kèm theo khả năng thăng tiến sức mạnh sau những lần ra đòn.\\n-Sức mạnh của Garen thể hiện ở việc ra đòn nhiều lần qua đó cộng dồn chỉ số, lối đánh dễ tiếp cận và dễ triển khai.\\n-Bạn nên chọn các sức mạnh có khả năng tăng chỉ số cho bài quân hoặc hỗ trợ bài quân ra đòn hoặc dàn sân nhanh.",
     "startingDeck": {
       "referenceCards": [
         {
@@ -3014,7 +3014,7 @@
     "translations": {
       "en": {
         "name": "Akshan",
-        "description": "-[cd:04SH130|Akshan|icon,img-full] là tướng có lối chơi đặc biệt với sự kết hợp giữa bài quân và địa danh.\\n-Khi địa danh đếm ngược bài quân được tăng sức mạnh và khi hoàn tất đếm ngược địa danh thì kích hoạt 2 thay vì 1 lần.\\n-[cd:04SH130|Akshan|icon,img-full] có khả năng [k:Strike|ra đòn] nhanh nhờ bài phép anh hùng để đẩy nhanh địa danh, giảm tiêu hao, dàn quân, rút bài nhờ tư dinh chiến tướng.\\n-Khả năng [k:Strike|ra đòn] siêu tốc nếu nâng đủ mốc giúp Ashan công hoặc thủ đều khá toàn diện.\\n-[cd:04SH130|Akshan|icon,img-full] có thể kết hợp với các cổ vật, sức mạnh chọn mục tiêu như Lõi Công Nghệ Hoàn Hảo, Đặc Ân Người Thợ để đẩy nhanh tốc độ lên cấp của [cd:04SH130|Akshan|icon,img-full].",
+        "description": "-[cd:04SH130|Akshan|icon,img-full] là tướng có lối chơi đặc biệt với sự kết hợp giữa bài quân và địa danh.\\n-Khi địa danh đếm ngược bài quân được tăng sức mạnh và khi hoàn tất đếm ngược địa danh thì kích hoạt 2 thay vì 1 lần.\\n-[cd:04SH130|Akshan|icon,img-full] có khả năng ra đòn nhanh nhờ bài phép anh hùng để đẩy nhanh địa danh, giảm tiêu hao, dàn quân, rút bài nhờ tư dinh chiến tướng.\\n-Khả năng ra đòn siêu tốc nếu nâng đủ mốc giúp Ashan công hoặc thủ đều khá toàn diện.\\n-[cd:04SH130|Akshan|icon,img-full] có thể kết hợp với các cổ vật, sức mạnh chọn mục tiêu như Lõi Công Nghệ Hoàn Hảo, Đặc Ân Người Thợ để đẩy nhanh tốc độ lên cấp của [cd:04SH130|Akshan|icon,img-full].",
         "regions": [
           "Shurima"
         ],
@@ -3042,7 +3042,7 @@
       "P0689",
       "P0062"
     ],
-    "description": "-[cd:04SH130|Akshan|icon,img-full] là tướng có lối chơi đặc biệt với sự kết hợp giữa bài quân và địa danh.\\n-Khi địa danh đếm ngược bài quân được tăng sức mạnh và khi hoàn tất đếm ngược địa danh thì kích hoạt 2 thay vì 1 lần.\\n-[cd:04SH130|Akshan|icon,img-full] có khả năng [k:Strike|ra đòn] nhanh nhờ bài phép anh hùng để đẩy nhanh địa danh, giảm tiêu hao, dàn quân, rút bài nhờ tư dinh chiến tướng.\\n-Khả năng [k:Strike|ra đòn] siêu tốc nếu nâng đủ mốc giúp Ashan công hoặc thủ đều khá toàn diện.\\n-[cd:04SH130|Akshan|icon,img-full] có thể kết hợp với các cổ vật, sức mạnh chọn mục tiêu như Lõi Công Nghệ Hoàn Hảo, Đặc Ân Người Thợ để đẩy nhanh tốc độ lên cấp của [cd:04SH130|Akshan|icon,img-full].",
+    "description": "-[cd:04SH130|Akshan|icon,img-full] là tướng có lối chơi đặc biệt với sự kết hợp giữa bài quân và địa danh.\\n-Khi địa danh đếm ngược bài quân được tăng sức mạnh và khi hoàn tất đếm ngược địa danh thì kích hoạt 2 thay vì 1 lần.\\n-[cd:04SH130|Akshan|icon,img-full] có khả năng ra đòn nhanh nhờ bài phép anh hùng để đẩy nhanh địa danh, giảm tiêu hao, dàn quân, rút bài nhờ tư dinh chiến tướng.\\n-Khả năng ra đòn siêu tốc nếu nâng đủ mốc giúp Ashan công hoặc thủ đều khá toàn diện.\\n-[cd:04SH130|Akshan|icon,img-full] có thể kết hợp với các cổ vật, sức mạnh chọn mục tiêu như Lõi Công Nghệ Hoàn Hảo, Đặc Ân Người Thợ để đẩy nhanh tốc độ lên cấp của [cd:04SH130|Akshan|icon,img-full].",
     "startingDeck": {
       "referenceCards": [
         {
@@ -3264,7 +3264,7 @@
       "P0113",
       "P0604"
     ],
-    "description": "-Master Yi Cổ Kiếm Tông Sư hay Master Yi Hoa Linh là vị tướng có lối chơi đánh bằng chỉ số và là tướng sở hữu cơ chế Nhu Động khi dùng bài phép lên đồng minh thì triệu hồi 1 bài quân cảm tử và dùng bài phép lên bài quân đó, giúp cho giá trị bài phép của Yi mang lại là gấp đôi hoặc gấp 4 nếu bạn có dùng Bí Kỹ.\\n-Như đã nói bài phép tăng chỉ số đối với Yi mang lại giá trị gấp nhiều lần kèm theo việc triệu hồi được rất nhiều bài quân, do đó Yi sẽ luôn chủ động trong cả lúc tấn công lẫn phòng thủ. Và do cơ chế nhu động bài phép được dùng thêm 1 lần nữa nên nghĩa là các vật phẩm trên bài phép sẽ kích hoạt thêm 1 lần trong lúc nhu động nó có thể là rút bài, ban vật phẩm thường, hiếm, sử thi.\\n-Master Yi Hoa Linh còn mạnh hơn nhiều nếu bạn sử dụng Ngọc hợp lý cho lối chơi, ví dụ bạn có thể kết hợp ngọc Bí Mật Của [k:Spirit|Linh Hồn] và cổ vật Bí Kỹ thì lượng chỉ số một bài phép mang lại sẽ gấp 4, Bài Học Số Hai kích hoạt thêm nhu động khi đó 1 bài phép sẽ mang lại giá trị gấp 8 lần bình thường. Hoặc cũng có thể dùng ngọc Giáp [k:Spirit|Linh Hồn] kèm [k:PathPower|Sức Mạnh] Khỉ Đá giúp bài quân của bạn vừa cứng cáp vừa có lượng sát thương cực kì lớn.",
+    "description": "-Master Yi Cổ Kiếm Tông Sư hay Master Yi Hoa Linh là vị tướng có lối chơi đánh bằng chỉ số và là tướng sở hữu cơ chế Nhu Động khi dùng bài phép lên đồng minh thì triệu hồi 1 bài quân cảm tử và dùng bài phép lên bài quân đó, giúp cho giá trị bài phép của Yi mang lại là gấp đôi hoặc gấp 4 nếu bạn có dùng Bí Kỹ.\\n-Như đã nói bài phép tăng chỉ số đối với Yi mang lại giá trị gấp nhiều lần kèm theo việc triệu hồi được rất nhiều bài quân, do đó Yi sẽ luôn chủ động trong cả lúc tấn công lẫn phòng thủ. Và do cơ chế nhu động bài phép được dùng thêm 1 lần nữa nên nghĩa là các vật phẩm trên bài phép sẽ kích hoạt thêm 1 lần trong lúc nhu động nó có thể là rút bài, ban vật phẩm thường, hiếm, sử thi.\\n-Master Yi Hoa Linh còn mạnh hơn nhiều nếu bạn sử dụng Ngọc hợp lý cho lối chơi, ví dụ bạn có thể kết hợp ngọc Bí Mật Của [k:Spirit|Linh Hồn] và cổ vật Bí Kỹ thì lượng chỉ số một bài phép mang lại sẽ gấp 4, Bài Học Số Hai kích hoạt thêm nhu động khi đó 1 bài phép sẽ mang lại giá trị gấp 8 lần bình thường. Hoặc cũng có thể dùng ngọc Giáp [k:Spirit|Linh Hồn] kèm [k:Power|Sức Mạnh] Khỉ Đá giúp bài quân của bạn vừa cứng cáp vừa có lượng sát thương cực kì lớn.",
     "startingDeck": {
       "referenceCards": [
         {
@@ -3890,7 +3890,7 @@
     "translations": {
       "en": {
         "name": "Spirit Blossom Yasuo",
-        "description": "-Yassuo Anh Hùng Lãng Kiếm vị tướng có tiêu hao cao nhất của game với 15 tiêu hao, nhưng cũng sở hữu sức mạnh bá đạo nhất khi cho phép hủy diệt bài quân [k:Strongest|mạnh nhất] của đối thủ khi Yasuo Hoa Linh được triệu hoặc tấn công. Với cơ chế giảm tiêu hao nhờ dẫn bão bạn có thể sử dụng các lá bài có tiêu hao cao cực dễ dàng.\\n-Sức mạnh chủ yếu của Yasuo Hoa Linh đến từ việc hủy diệt kẻ địch và khả năng giảm tiêu hao  nhờ dẫn bão để sử các lá bài mạnh mẽ từ sớm.\\n-Về cổ vật thì với cơ chế dẫn bão càng dùng nhiều lá bài thì giảm tiêu hao càng nhiều, vì thế Lõi Công Nghệ Hoàn Hảo và Hòa Khí Ma Pháp là lựa chọn cực kì tốt. Nếu bạn muốn triệu hồi Yasuo sớm bạn cũng có thể dùng Đệ Tử Bóng Đêm, Găng Tay Linh Hồn hoặc Hàn Băng Mộ. Đương nhiên bạn cũng có thể dùng Phong Kiếm của Yasuo cho Yasuo Anh Hùng Lãng Kiếm để lấy 1 năng lượng khởi đầu.\\n-Về ngọc thì bạn có thể chọn Tàn Tích Gió để các bài quân được giảm tiêu hao nhận thêm chỉ số.\\n-Yasuo có thể dùng tốt các sức mạnh tạo bài 0 tiêu hao như Sản Phẩm Giả Mạo, Sự Cô Độc Ngọt Ngào, Giác Quan Hoang Dã, Lừa Lọc Chí Tử các sức mạnh này cho phép Yasuo Hoa Linh tích dẫn bão dễ dàng hơn.",
+        "description": "-Yassuo Anh Hùng Lãng Kiếm vị tướng có tiêu hao cao nhất của game với 15 tiêu hao, nhưng cũng sở hữu sức mạnh bá đạo nhất khi cho phép hủy diệt bài quân mạnh nhất của đối thủ khi Yasuo Hoa Linh được triệu hoặc tấn công. Với cơ chế giảm tiêu hao nhờ dẫn bão bạn có thể sử dụng các lá bài có tiêu hao cao cực dễ dàng.\\n-Sức mạnh chủ yếu của Yasuo Hoa Linh đến từ việc hủy diệt kẻ địch và khả năng giảm tiêu hao  nhờ dẫn bão để sử các lá bài mạnh mẽ từ sớm.\\n-Về cổ vật thì với cơ chế dẫn bão càng dùng nhiều lá bài thì giảm tiêu hao càng nhiều, vì thế Lõi Công Nghệ Hoàn Hảo và Hòa Khí Ma Pháp là lựa chọn cực kì tốt. Nếu bạn muốn triệu hồi Yasuo sớm bạn cũng có thể dùng Đệ Tử Bóng Đêm, Găng Tay Linh Hồn hoặc Hàn Băng Mộ. Đương nhiên bạn cũng có thể dùng Phong Kiếm của Yasuo cho Yasuo Anh Hùng Lãng Kiếm để lấy 1 năng lượng khởi đầu.\\n-Về ngọc thì bạn có thể chọn Tàn Tích Gió để các bài quân được giảm tiêu hao nhận thêm chỉ số.\\n-Yasuo có thể dùng tốt các sức mạnh tạo bài 0 tiêu hao như Sản Phẩm Giả Mạo, Sự Cô Độc Ngọt Ngào, Giác Quan Hoang Dã, Lừa Lọc Chí Tử các sức mạnh này cho phép Yasuo Hoa Linh tích dẫn bão dễ dàng hơn.",
         "regions": [
           "SpiritBlossom"
         ],
@@ -3923,7 +3923,7 @@
       "P0067",
       "P0451"
     ],
-    "description": "-Yassuo Anh Hùng Lãng Kiếm vị tướng có tiêu hao cao nhất của game với 15 tiêu hao, nhưng cũng sở hữu sức mạnh bá đạo nhất khi cho phép hủy diệt bài quân [k:Strongest|mạnh nhất] của đối thủ khi Yasuo Hoa Linh được triệu hoặc tấn công. Với cơ chế giảm tiêu hao nhờ dẫn bão bạn có thể sử dụng các lá bài có tiêu hao cao cực dễ dàng.\\n-Sức mạnh chủ yếu của Yasuo Hoa Linh đến từ việc hủy diệt kẻ địch và khả năng giảm tiêu hao  nhờ dẫn bão để sử các lá bài mạnh mẽ từ sớm.\\n-Về cổ vật thì với cơ chế dẫn bão càng dùng nhiều lá bài thì giảm tiêu hao càng nhiều, vì thế Lõi Công Nghệ Hoàn Hảo và Hòa Khí Ma Pháp là lựa chọn cực kì tốt. Nếu bạn muốn triệu hồi Yasuo sớm bạn cũng có thể dùng Đệ Tử Bóng Đêm, Găng Tay [k:Spirit|Linh Hồn] hoặc Hàn Băng Mộ. Đương nhiên bạn cũng có thể dùng Phong Kiếm của Yasuo cho Yasuo [k:Champion|Anh Hùng] Lãng Kiếm để lấy 1 năng lượng khởi đầu.\\n-Về ngọc thì bạn có thể chọn Tàn Tích Gió để các bài quân được giảm tiêu hao nhận thêm chỉ số.\\n-Yasuo có thể dùng tốt các sức mạnh tạo bài 0 tiêu hao như Sản Phẩm Giả Mạo, Sự Cô Độc Ngọt Ngào, Giác Quan Hoang Dã, Lừa Lọc Chí Tử các sức mạnh này cho phép Yasuo Hoa Linh tích dẫn bão dễ dàng hơn.",
+    "description": "-Yassuo Anh Hùng Lãng Kiếm vị tướng có tiêu hao cao nhất của game với 15 tiêu hao, nhưng cũng sở hữu sức mạnh bá đạo nhất khi cho phép hủy diệt bài quân mạnh nhất của đối thủ khi Yasuo Hoa Linh được triệu hoặc tấn công. Với cơ chế giảm tiêu hao nhờ dẫn bão bạn có thể sử dụng các lá bài có tiêu hao cao cực dễ dàng.\\n-Sức mạnh chủ yếu của Yasuo Hoa Linh đến từ việc hủy diệt kẻ địch và khả năng giảm tiêu hao  nhờ dẫn bão để sử các lá bài mạnh mẽ từ sớm.\\n-Về cổ vật thì với cơ chế dẫn bão càng dùng nhiều lá bài thì giảm tiêu hao càng nhiều, vì thế Lõi Công Nghệ Hoàn Hảo và Hòa Khí Ma Pháp là lựa chọn cực kì tốt. Nếu bạn muốn triệu hồi Yasuo sớm bạn cũng có thể dùng Đệ Tử Bóng Đêm, Găng Tay [k:Spirit|Linh Hồn] hoặc Hàn Băng Mộ. Đương nhiên bạn cũng có thể dùng Phong Kiếm của Yasuo cho Yasuo [k:Champion|Anh Hùng] Lãng Kiếm để lấy 1 năng lượng khởi đầu.\\n-Về ngọc thì bạn có thể chọn Tàn Tích Gió để các bài quân được giảm tiêu hao nhận thêm chỉ số.\\n-Yasuo có thể dùng tốt các sức mạnh tạo bài 0 tiêu hao như Sản Phẩm Giả Mạo, Sự Cô Độc Ngọt Ngào, Giác Quan Hoang Dã, Lừa Lọc Chí Tử các sức mạnh này cho phép Yasuo Hoa Linh tích dẫn bão dễ dàng hơn.",
     "startingDeck": {
       "referenceCards": [
         {
@@ -5275,7 +5275,7 @@
     "translations": {
       "en": {
         "name": "Yasuo",
-        "description": "-Yasuo một vị tướng gần như công thủ toàn vẹn với khả năng choáng kẻ địch cực mạnh và nếu có c6 thì các bài quân bị choáng còn bị trả về tay khiến đối thủ bất lực.\\n-Các lá bài mạnh: Bão kiếm, cú đánh ngất ngư, Yone truy phong các lá bài có hiệu ứng choáng khó chịu và Tinh linh lốc xoáy tăng DMG mỗi khi choáng kẻ địch.\\n-Các sức mạnh nên chọn khi phiêu lưu: Xả phép hàng loạt, Khoan đã, Pháp thật.\\n-Yasuo nổi bật ở khả năng choáng kẻ địch và có riêng cho bản thân 1 cổ vật là Lưỡi kiếm cuồng nộ khi thăng cấp sẽ choáng tất cả bài quân đối thủ và khi choáng thì Yasou sẽ [k:Strike|ra đòn] lên các bài quân đó.",
+        "description": "-Yasuo một vị tướng gần như công thủ toàn vẹn với khả năng choáng kẻ địch cực mạnh và nếu có c6 thì các bài quân bị choáng còn bị trả về tay khiến đối thủ bất lực.\\n-Các lá bài mạnh: Bão kiếm, cú đánh ngất ngư, Yone truy phong các lá bài có hiệu ứng choáng khó chịu và Tinh linh lốc xoáy tăng DMG mỗi khi choáng kẻ địch.\\n-Các sức mạnh nên chọn khi phiêu lưu: Xả phép hàng loạt, Khoan đã, Pháp thật.\\n-Yasuo nổi bật ở khả năng choáng kẻ địch và có riêng cho bản thân 1 cổ vật là Lưỡi kiếm cuồng nộ khi thăng cấp sẽ choáng tất cả bài quân đối thủ và khi choáng thì Yasou sẽ ra đòn lên các bài quân đó.",
         "regions": [
           "Ionia"
         ],
@@ -5303,7 +5303,7 @@
       "P0086",
       "P0222"
     ],
-    "description": "-Yasuo một vị tướng gần như công thủ toàn vẹn với khả năng choáng kẻ địch cực mạnh và nếu có c6 thì các bài quân bị choáng còn bị trả về tay khiến đối thủ bất lực.\\n-Các lá bài mạnh: Bão kiếm, cú đánh ngất ngư, Yone truy phong các lá bài có hiệu ứng choáng khó chịu và Tinh linh lốc xoáy tăng DMG mỗi khi choáng kẻ địch.\\n-Các sức mạnh nên chọn khi phiêu lưu: Xả phép hàng loạt, Khoan đã, Pháp thật.\\n-Yasuo nổi bật ở khả năng choáng kẻ địch và có riêng cho bản thân 1 cổ vật là Lưỡi kiếm cuồng nộ khi thăng cấp sẽ choáng tất cả bài quân đối thủ và khi choáng thì Yasou sẽ [k:Strike|ra đòn] lên các bài quân đó.",
+    "description": "-Yasuo một vị tướng gần như công thủ toàn vẹn với khả năng choáng kẻ địch cực mạnh và nếu có c6 thì các bài quân bị choáng còn bị trả về tay khiến đối thủ bất lực.\\n-Các lá bài mạnh: Bão kiếm, cú đánh ngất ngư, Yone truy phong các lá bài có hiệu ứng choáng khó chịu và Tinh linh lốc xoáy tăng DMG mỗi khi choáng kẻ địch.\\n-Các sức mạnh nên chọn khi phiêu lưu: Xả phép hàng loạt, Khoan đã, Pháp thật.\\n-Yasuo nổi bật ở khả năng choáng kẻ địch và có riêng cho bản thân 1 cổ vật là Lưỡi kiếm cuồng nộ khi thăng cấp sẽ choáng tất cả bài quân đối thủ và khi choáng thì Yasou sẽ ra đòn lên các bài quân đó.",
     "startingDeck": {
       "referenceCards": [
         {
@@ -7195,7 +7195,7 @@
       "P0100",
       "P0075"
     ],
-    "description": "-Leona vị tướng với lối chơi dàn quân và ban chỉ số bằng Hừng Đông, lối đánh chậm nhưng chắc được khẳng định bởi việc các bài quân của Leona có chỉ số rất tốt và tăng tiến về giai đoạn sau cực kì ổn, bên cạnh đó các hiệu ứng Hừng Đông còn mang lại nhiều thứ cho Leona như choáng, câm lặng đều là các hiệu ứng mạnh mẽ để khống chế kẻ địch.\\n-Như đã nói lối chơi của Leona xoay quanh việc kích hoạt hiệu ứng Hừng Đông, nên là Rahvun và Leona là 2 bài quân chủ chốt giúp kích Hừng Đông liên tục tăng tiến cực mạnh cho các đồng minh và có cả hiệu ứng choáng do Leona mang lại.\\n-Về xây dựng cổ vật thì Leona có khá nhiều lựa chọn điển hình là Găng Tinh Vân Sư kết hợp cùng Ngọc Sáng Chói để lấy 1 ngọc năng lượng để giúp Leona được triệu hồi sớm hơn, cũng có thể dùng Kiên Mặt Trời và [k:PathPower|Sức Mạnh] Khỉ Đá nếu bạn muốn một lối chơi đánh bằng đáng gờm và tăng tiến khỏe, còn một lựa chọn khiêm tốn hơn nhưng cũng khá hiệu quả là Máy Sao Chép Hóa Kỹ để nhân đôi bài phép ở giai đoạn sau.\\n-Các vật phẩm và sức mạnh hướng đến cho Leona nên là các vật phẩm giảm tiêu hao hoặc ban khiên phép và các sức mạnh cho ngọc năng lượng để cho cô ta có thể xuất trận sớm. ",
+    "description": "-Leona vị tướng với lối chơi dàn quân và ban chỉ số bằng Hừng Đông, lối đánh chậm nhưng chắc được khẳng định bởi việc các bài quân của Leona có chỉ số rất tốt và tăng tiến về giai đoạn sau cực kì ổn, bên cạnh đó các hiệu ứng Hừng Đông còn mang lại nhiều thứ cho Leona như choáng, câm lặng đều là các hiệu ứng mạnh mẽ để khống chế kẻ địch.\\n-Như đã nói lối chơi của Leona xoay quanh việc kích hoạt hiệu ứng Hừng Đông, nên là Rahvun và Leona là 2 bài quân chủ chốt giúp kích Hừng Đông liên tục tăng tiến cực mạnh cho các đồng minh và có cả hiệu ứng choáng do Leona mang lại.\\n-Về xây dựng cổ vật thì Leona có khá nhiều lựa chọn điển hình là Găng Tinh Vân Sư kết hợp cùng Ngọc Sáng Chói để lấy 1 ngọc năng lượng để giúp Leona được triệu hồi sớm hơn, cũng có thể dùng Kiên Mặt Trời và [k:Power|Sức Mạnh] Khỉ Đá nếu bạn muốn một lối chơi đánh bằng đáng gờm và tăng tiến khỏe, còn một lựa chọn khiêm tốn hơn nhưng cũng khá hiệu quả là Máy Sao Chép Hóa Kỹ để nhân đôi bài phép ở giai đoạn sau.\\n-Các vật phẩm và sức mạnh hướng đến cho Leona nên là các vật phẩm giảm tiêu hao hoặc ban khiên phép và các sức mạnh cho ngọc năng lượng để cho cô ta có thể xuất trận sớm. ",
     "startingDeck": {
       "referenceCards": [
         {
@@ -8034,7 +8034,7 @@
     "translations": {
       "en": {
         "name": "Ashe",
-        "description": "-Ashe là vị tướng có lối chơi kiểm soát điển hình, khả năng đóng băng kiên tục, ngăn đối thủ chặn đòn, rút bài,  tăng chỉ số rất toàn diện.\\n-Có cho mình khả năng năng đóng băng 1 bài quân [k:Strongest|mạnh nhất] của đối thủ mỗi vòng giúp mang lại lợi thế lớn trong cả tấn công lẫn phòng thủ.\\n-Ahse sẽ mạnh mẽ hơn nhiều nếu kết hợp cùng sức mạnh Cầm Chân Đối Thủ.\\n-Món Quà Của Avarosa tương tác cực kỳ tốt với Đòn Đánh Suy Nhược khi giảm sức mạnh của bài quân kẻ địch thì tăng sức mạnh của bài quân trên tay.\\n--EVIN--",
+        "description": "-Ashe là vị tướng có lối chơi kiểm soát điển hình, khả năng đóng băng kiên tục, ngăn đối thủ chặn đòn, rút bài,  tăng chỉ số rất toàn diện.\\n-Có cho mình khả năng năng đóng băng 1 bài quân mạnh nhất của đối thủ mỗi vòng giúp mang lại lợi thế lớn trong cả tấn công lẫn phòng thủ.\\n-Ahse sẽ mạnh mẽ hơn nhiều nếu kết hợp cùng sức mạnh Cầm Chân Đối Thủ.\\n-Món Quà Của Avarosa tương tác cực kỳ tốt với Đòn Đánh Suy Nhược khi giảm sức mạnh của bài quân kẻ địch thì tăng sức mạnh của bài quân trên tay.\\n--EVIN--",
         "regions": [
           "Freljord"
         ],
@@ -8062,7 +8062,7 @@
       "P0083",
       "P0223"
     ],
-    "description": "-Ashe là vị tướng có lối chơi kiểm soát điển hình, khả năng đóng băng kiên tục, ngăn đối thủ chặn đòn, rút bài,  tăng chỉ số rất toàn diện.\\n-Có cho mình khả năng năng đóng băng 1 bài quân [k:Strongest|mạnh nhất] của đối thủ mỗi vòng giúp mang lại lợi thế lớn trong cả tấn công lẫn phòng thủ.\\n-Ahse sẽ mạnh mẽ hơn nhiều nếu kết hợp cùng sức mạnh Cầm Chân Đối Thủ.\\n-Món Quà Của Avarosa tương tác cực kỳ tốt với Đòn Đánh Suy Nhược khi giảm sức mạnh của bài quân kẻ địch thì tăng sức mạnh của bài quân trên tay.\\n--EVIN--",
+    "description": "-Ashe là vị tướng có lối chơi kiểm soát điển hình, khả năng đóng băng kiên tục, ngăn đối thủ chặn đòn, rút bài,  tăng chỉ số rất toàn diện.\\n-Có cho mình khả năng năng đóng băng 1 bài quân mạnh nhất của đối thủ mỗi vòng giúp mang lại lợi thế lớn trong cả tấn công lẫn phòng thủ.\\n-Ahse sẽ mạnh mẽ hơn nhiều nếu kết hợp cùng sức mạnh Cầm Chân Đối Thủ.\\n-Món Quà Của Avarosa tương tác cực kỳ tốt với Đòn Đánh Suy Nhược khi giảm sức mạnh của bài quân kẻ địch thì tăng sức mạnh của bài quân trên tay.\\n--EVIN--",
     "startingDeck": {
       "referenceCards": [
         {
@@ -8737,7 +8737,7 @@
       "P0223",
       "P0684"
     ],
-    "description": "-Mel vị tướng đặc biệt khi cho bạn khả năng gây sát thương áp đảo bằng bài phép, sở hữu sức mạnh[k:PathPower|Sức Mạnh] & Chiến Thuật giúp cho bài phép của Mel mạnh hơn sau mỗi lần sử dụng và Mel còn có Hy Sinh Cho Sự Tiến Bộ hỗ trợ cho khả năng dọn bàn khá tốt.\\n-Mel với lối đánh sẽ sử dụng 1 bài phép nhiều lần từ đó tối ưu hiệu quả gây sát thương và Ảnh Chiếu Của Tâm Hồn hỗ trợ cực kì tốt điều đó.\\n-Cổ vật tương tác cực tốt cho với Mel là Pháo Mũi [cd:02BW002|Tàu Dreadway|icon,img-full] tạo cho bạn nhiều lá bài phép gây sát thương siêu tốc.\\n-Về sức mạnh nên chọn thì ưu tiên các sức mạnh tăng sát thương cho bài phép, Trò Chơi Lật Bài, Hoàn Hảo, Sát Lực,...",
+    "description": "-Mel vị tướng đặc biệt khi cho bạn khả năng gây sát thương áp đảo bằng bài phép, sở hữu sức mạnh[k:Power|Sức Mạnh] & Chiến Thuật giúp cho bài phép của Mel mạnh hơn sau mỗi lần sử dụng và Mel còn có Hy Sinh Cho Sự Tiến Bộ hỗ trợ cho khả năng dọn bàn khá tốt.\\n-Mel với lối đánh sẽ sử dụng 1 bài phép nhiều lần từ đó tối ưu hiệu quả gây sát thương và Ảnh Chiếu Của Tâm Hồn hỗ trợ cực kì tốt điều đó.\\n-Cổ vật tương tác cực tốt cho với Mel là Pháo Mũi [cd:02BW002|Tàu Dreadway|icon,img-full] tạo cho bạn nhiều lá bài phép gây sát thương siêu tốc.\\n-Về sức mạnh nên chọn thì ưu tiên các sức mạnh tăng sát thương cho bài phép, Trò Chơi Lật Bài, Hoàn Hảo, Sát Lực,...",
     "startingDeck": {
       "baseCards": [
         {
@@ -9344,7 +9344,7 @@
     "translations": {
       "en": {
         "name": "Vayne",
-        "description": "-Vayne có khả năng tấn công nhiều lần trong 1 vòng đấu trung bình sẽ là 3 nếu bạn combo quen tay, và nếu Vayne của bạn đủ mạnh bạn có thể dứt điểm ngay trong 1 vòng hoặc là thăng cấp ngay sau vòng 2.\\n-Các lá bài mạnh: Thép Demacia lá trang bị cực tốt để kết hợp cùng Nhào lộn để lấy trinh sát, Chó sói tận trung mang khả năng lấp trang bị nhanh chóng với chỉ số tốt đặc biệt khi có bài quân đòng minh hi sinh thì tiêu hao còn được giảm mạnh, Kết án là bài mạnh mẽ với khả năng [k:Strike|ra đòn] phủ đầu kẻ địch mà không tốn tiêu hao nếu đã tấn công 2 lần trở lên.\\n-Các sức mạnh nên chọn khi phiêu lưu là các sức mạnh cộng chỉ số hoặc giảm tiêu hao của bài phép.\\n-Các combo 3 lần công thì bạn hãy tấn công bình thương 1 lần khi có lượt tấn công, sau đó dùng nhàu lộn lắp trang bị để phát động tấn công có trinh sát, sau đó thì tấn công thêm 1 lần nữa. Hoặc là khởi đầu tấn côn bằng các bài quân trinh sát, sau đó tấn công thường, sau đó dùng Nhào lộn.",
+        "description": "-Vayne có khả năng tấn công nhiều lần trong 1 vòng đấu trung bình sẽ là 3 nếu bạn combo quen tay, và nếu Vayne của bạn đủ mạnh bạn có thể dứt điểm ngay trong 1 vòng hoặc là thăng cấp ngay sau vòng 2.\\n-Các lá bài mạnh: Thép Demacia lá trang bị cực tốt để kết hợp cùng Nhào lộn để lấy trinh sát, Chó sói tận trung mang khả năng lấp trang bị nhanh chóng với chỉ số tốt đặc biệt khi có bài quân đòng minh hi sinh thì tiêu hao còn được giảm mạnh, Kết án là bài mạnh mẽ với khả năng ra đòn phủ đầu kẻ địch mà không tốn tiêu hao nếu đã tấn công 2 lần trở lên.\\n-Các sức mạnh nên chọn khi phiêu lưu là các sức mạnh cộng chỉ số hoặc giảm tiêu hao của bài phép.\\n-Các combo 3 lần công thì bạn hãy tấn công bình thương 1 lần khi có lượt tấn công, sau đó dùng nhàu lộn lắp trang bị để phát động tấn công có trinh sát, sau đó thì tấn công thêm 1 lần nữa. Hoặc là khởi đầu tấn côn bằng các bài quân trinh sát, sau đó tấn công thường, sau đó dùng Nhào lộn.",
         "regions": [
           "Demacia"
         ],
@@ -9364,7 +9364,7 @@
       "P0192",
       "P0112"
     ],
-    "description": "-Vayne có khả năng tấn công nhiều lần trong 1 vòng đấu trung bình sẽ là 3 nếu bạn combo quen tay, và nếu Vayne của bạn đủ mạnh bạn có thể dứt điểm ngay trong 1 vòng hoặc là thăng cấp ngay sau vòng 2.\\n-Các lá bài mạnh: [cd:06DE032|Thép Demacia|icon,img-full] lá trang bị cực tốt để kết hợp cùng Nhào lộn để lấy trinh sát, Chó sói tận trung mang khả năng lấp trang bị nhanh chóng với chỉ số tốt đặc biệt khi có bài quân đòng minh hi sinh thì tiêu hao còn được giảm mạnh, Kết án là bài mạnh mẽ với khả năng [k:Strike|ra đòn] phủ đầu kẻ địch mà không tốn tiêu hao nếu đã tấn công 2 lần trở lên.\\n-Các sức mạnh nên chọn khi phiêu lưu là các sức mạnh cộng chỉ số hoặc giảm tiêu hao của bài phép.\\n-Các combo 3 lần công thì bạn hãy tấn công bình thương 1 lần khi có lượt tấn công, sau đó dùng nhàu lộn lắp trang bị để phát động tấn công có trinh sát, sau đó thì tấn công thêm 1 lần nữa. Hoặc là khởi đầu tấn côn bằng các bài quân trinh sát, sau đó tấn công thường, sau đó dùng Nhào lộn.",
+    "description": "-Vayne có khả năng tấn công nhiều lần trong 1 vòng đấu trung bình sẽ là 3 nếu bạn combo quen tay, và nếu Vayne của bạn đủ mạnh bạn có thể dứt điểm ngay trong 1 vòng hoặc là thăng cấp ngay sau vòng 2.\\n-Các lá bài mạnh: [cd:06DE032|Thép Demacia|icon,img-full] lá trang bị cực tốt để kết hợp cùng Nhào lộn để lấy trinh sát, Chó sói tận trung mang khả năng lấp trang bị nhanh chóng với chỉ số tốt đặc biệt khi có bài quân đòng minh hi sinh thì tiêu hao còn được giảm mạnh, Kết án là bài mạnh mẽ với khả năng ra đòn phủ đầu kẻ địch mà không tốn tiêu hao nếu đã tấn công 2 lần trở lên.\\n-Các sức mạnh nên chọn khi phiêu lưu là các sức mạnh cộng chỉ số hoặc giảm tiêu hao của bài phép.\\n-Các combo 3 lần công thì bạn hãy tấn công bình thương 1 lần khi có lượt tấn công, sau đó dùng nhàu lộn lắp trang bị để phát động tấn công có trinh sát, sau đó thì tấn công thêm 1 lần nữa. Hoặc là khởi đầu tấn côn bằng các bài quân trinh sát, sau đó tấn công thường, sau đó dùng Nhào lộn.",
     "startingDeck": {
       "referenceCards": [],
       "baseCards": [
@@ -10583,7 +10583,7 @@
     "translations": {
       "en": {
         "name": "Shyvana",
-        "description": "-[cd:03DE011|Shyvana|icon,img-full] vị tướng rồi mang lối chơi tấn công mạnh mẽ nhờ vào lượng sát thương cực lớn từ các bài quân rồng và sức mạnh cơ bản mang lại.\\n-Với Bầy Đàn Cuồng Nộ cho phép tăng chỉ số cho các đồng minh rồng trên sân và trên tay mỗi khi tiêu diệt 1 bài quân, nhờ vào Hơi Thở Của Rồng cho phép [k:Strike|ra đòn] lên bài quân [k:Weakest|yếu nhất]. 2 sức mạnh này kết hợp hỗ trợ qua lại cực kỳ tốt vì mỗi khi giết quân thì tăng chỉ số mà tăng chỉ số thì dễ tiêu diệt quân hơn.\\n-Chòm 6 sao mang lại cho [cd:03DE011|Shyvana|icon,img-full] khả năng gọi bài quân tương tự Pyke, nó cho bạn khả năng dàn quân và áp đảo mạnh mẽ.\\n-Những cổ vật phù hợp với [cd:03DE011|Shyvana|icon,img-full] như: Dấu Vết Tử Thần cho phép cô tấn công thoải mái mà không lo nhận sát thương hoặc bị tiêu diệt ngoài ra còn kết hợp với [cd:03DE011|Shyvana|icon,img-full] khi tấn công oanh tạc chiến sẽ dễ dàng hơn. Quái Thú Bên Trong là một lựa chọn cực kỳ hợp vì có nhóm phụ là rồng và cho áp đảo đặc điểm mà những tướng đánh bằng bài quân cực kỳ cần. Đệ Tử Bóng Đêm cho khả năng triệu hồi rồng sớm và kích cuồng nộ. Bộ Bài Đầy Ấp để xây dựng chỉ số đồng đều cho tất cả bài quân. Linh Hồn Vang Vọng cho giảm tiêu hao bài phép anh hùng cũng dùng tốt vì bài phép anh hùng của [cd:03DE011|Shyvana|icon,img-full] khá mạnh nó cho cô khả năng rút bài, trao khiên, +2|+2 cho chỉ số chỉ với 1 tiêu hao.",
+        "description": "-[cd:03DE011|Shyvana|icon,img-full] vị tướng rồi mang lối chơi tấn công mạnh mẽ nhờ vào lượng sát thương cực lớn từ các bài quân rồng và sức mạnh cơ bản mang lại.\\n-Với Bầy Đàn Cuồng Nộ cho phép tăng chỉ số cho các đồng minh rồng trên sân và trên tay mỗi khi tiêu diệt 1 bài quân, nhờ vào Hơi Thở Của Rồng cho phép ra đòn lên bài quân yếu nhất. 2 sức mạnh này kết hợp hỗ trợ qua lại cực kỳ tốt vì mỗi khi giết quân thì tăng chỉ số mà tăng chỉ số thì dễ tiêu diệt quân hơn.\\n-Chòm 6 sao mang lại cho [cd:03DE011|Shyvana|icon,img-full] khả năng gọi bài quân tương tự Pyke, nó cho bạn khả năng dàn quân và áp đảo mạnh mẽ.\\n-Những cổ vật phù hợp với [cd:03DE011|Shyvana|icon,img-full] như: Dấu Vết Tử Thần cho phép cô tấn công thoải mái mà không lo nhận sát thương hoặc bị tiêu diệt ngoài ra còn kết hợp với [cd:03DE011|Shyvana|icon,img-full] khi tấn công oanh tạc chiến sẽ dễ dàng hơn. Quái Thú Bên Trong là một lựa chọn cực kỳ hợp vì có nhóm phụ là rồng và cho áp đảo đặc điểm mà những tướng đánh bằng bài quân cực kỳ cần. Đệ Tử Bóng Đêm cho khả năng triệu hồi rồng sớm và kích cuồng nộ. Bộ Bài Đầy Ấp để xây dựng chỉ số đồng đều cho tất cả bài quân. Linh Hồn Vang Vọng cho giảm tiêu hao bài phép anh hùng cũng dùng tốt vì bài phép anh hùng của [cd:03DE011|Shyvana|icon,img-full] khá mạnh nó cho cô khả năng rút bài, trao khiên, +2|+2 cho chỉ số chỉ với 1 tiêu hao.",
         "regions": [
           "Demacia"
         ],
@@ -10611,7 +10611,7 @@
       "P0075",
       "P0091"
     ],
-    "description": "-Shyvana vị tướng rồi mang lối chơi tấn công mạnh mẽ nhờ vào lượng sát thương cực lớn từ các bài quân rồng và sức mạnh cơ bản mang lại.\\n-Với Bầy Đàn Cuồng Nộ cho phép tăng chỉ số cho các đồng minh rồng trên sân và trên tay mỗi khi tiêu diệt 1 bài quân, nhờ vào Hơi Thở Của Rồng cho phép [k:Strike|ra đòn] lên bài quân [k:Weakest|yếu nhất]. 2 sức mạnh này kết hợp hỗ trợ qua lại cực kỳ tốt vì mỗi khi giết quân thì tăng chỉ số mà tăng chỉ số thì dễ tiêu diệt quân hơn.\\n-Chòm 6 sao mang lại cho Shyvana khả năng gọi bài quân tương tự Pyke, nó cho bạn khả năng dàn quân và áp đảo mạnh mẽ.\\n-Những cổ vật phù hợp với Shyvana như: Dấu Vết Tử Thần cho phép cô tấn công thoải mái mà không lo nhận sát thương hoặc bị tiêu diệt ngoài ra còn kết hợp với Shyvana khi tấn công oanh tạc chiến sẽ dễ dàng hơn. Quái Thú Bên Trong là một lựa chọn cực kỳ hợp vì có nhóm phụ là rồng và cho áp đảo đặc điểm mà những tướng đánh bằng bài quân cực kỳ cần. Đệ Tử Bóng Đêm cho khả năng triệu hồi rồng sớm và kích cuồng nộ. Bộ Bài Đầy Ấp để xây dựng chỉ số đồng đều cho tất cả bài quân. [k:Spirit|Linh Hồn] Vang Vọng cho giảm tiêu hao bài phép anh hùng cũng dùng tốt vì bài phép anh hùng của [cd:03DE011|Shyvana|icon,img-full] khá mạnh nó cho cô khả năng rút bài, trao khiên, +2|+2 cho chỉ số chỉ với 1 tiêu hao.",
+    "description": "-Shyvana vị tướng rồi mang lối chơi tấn công mạnh mẽ nhờ vào lượng sát thương cực lớn từ các bài quân rồng và sức mạnh cơ bản mang lại.\\n-Với Bầy Đàn Cuồng Nộ cho phép tăng chỉ số cho các đồng minh rồng trên sân và trên tay mỗi khi tiêu diệt 1 bài quân, nhờ vào Hơi Thở Của Rồng cho phép ra đòn lên bài quân yếu nhất. 2 sức mạnh này kết hợp hỗ trợ qua lại cực kỳ tốt vì mỗi khi giết quân thì tăng chỉ số mà tăng chỉ số thì dễ tiêu diệt quân hơn.\\n-Chòm 6 sao mang lại cho Shyvana khả năng gọi bài quân tương tự Pyke, nó cho bạn khả năng dàn quân và áp đảo mạnh mẽ.\\n-Những cổ vật phù hợp với Shyvana như: Dấu Vết Tử Thần cho phép cô tấn công thoải mái mà không lo nhận sát thương hoặc bị tiêu diệt ngoài ra còn kết hợp với Shyvana khi tấn công oanh tạc chiến sẽ dễ dàng hơn. Quái Thú Bên Trong là một lựa chọn cực kỳ hợp vì có nhóm phụ là rồng và cho áp đảo đặc điểm mà những tướng đánh bằng bài quân cực kỳ cần. Đệ Tử Bóng Đêm cho khả năng triệu hồi rồng sớm và kích cuồng nộ. Bộ Bài Đầy Ấp để xây dựng chỉ số đồng đều cho tất cả bài quân. [k:Spirit|Linh Hồn] Vang Vọng cho giảm tiêu hao bài phép anh hùng cũng dùng tốt vì bài phép anh hùng của [cd:03DE011|Shyvana|icon,img-full] khá mạnh nó cho cô khả năng rút bài, trao khiên, +2|+2 cho chỉ số chỉ với 1 tiêu hao.",
     "startingDeck": {
       "referenceCards": [
         {
@@ -11533,7 +11533,7 @@
     "translations": {
       "en": {
         "name": "Volibear",
-        "description": "-[cd:08FR001|Volibear|icon,img-full] có khả năng [k:Strike|ra đòn] mạnh mẽ khi triệu hồi các bài quân khổng lồ và khi thủ tiêu được kẻ địch bạn còn nhận được 2 Biểu tượng bão tốt giúp triệu hồi các khổng lồ tiếp theo dễ dàng hơn.\\n-Các lá bài mạnh: Lời khấn cầu sấm sét triệu hồi 1 Biểu tượng bão tố rút 1 lá bài, Cung thủ băng địa vừa đóng băng 1 bài quân vừa phong thủ được vừa rút bài được khi [k:Strike|ra đòn], Đóng băng siêu tốc giúp bạn phòng thủ và triệu hồi 2 Biểu tượng bão tố cùng 1 lá khổng lồ, Tiên tri của Vahir vừa giúp phong thủ tốt vừa triệu hồi Biểu tượng bão tố.\\n-Các sức mạnh nên chọn khi phiêu lưu: Khổng lồ thức tỉnh, Sức mạnh Trifarix, Thống trị.\\n-Các sức mạnh của [cd:08FR001|Volibear|icon,img-full] điều hướng đến việc triệu hồi Biểu tượng bão tố giúp gọi ra các bài quân khổn lồ dễ dàng hơn đặc biệt là [cd:08FR001|Volibear|icon,img-full] nên hãy cố gắng triệu hồi càng nhiều biểu tượng bão tố càng tốt.",
+        "description": "-[cd:08FR001|Volibear|icon,img-full] có khả năng ra đòn mạnh mẽ khi triệu hồi các bài quân khổng lồ và khi thủ tiêu được kẻ địch bạn còn nhận được 2 Biểu tượng bão tốt giúp triệu hồi các khổng lồ tiếp theo dễ dàng hơn.\\n-Các lá bài mạnh: Lời khấn cầu sấm sét triệu hồi 1 Biểu tượng bão tố rút 1 lá bài, Cung thủ băng địa vừa đóng băng 1 bài quân vừa phong thủ được vừa rút bài được khi ra đòn, Đóng băng siêu tốc giúp bạn phòng thủ và triệu hồi 2 Biểu tượng bão tố cùng 1 lá khổng lồ, Tiên tri của Vahir vừa giúp phong thủ tốt vừa triệu hồi Biểu tượng bão tố.\\n-Các sức mạnh nên chọn khi phiêu lưu: Khổng lồ thức tỉnh, Sức mạnh Trifarix, Thống trị.\\n-Các sức mạnh của [cd:08FR001|Volibear|icon,img-full] điều hướng đến việc triệu hồi Biểu tượng bão tố giúp gọi ra các bài quân khổn lồ dễ dàng hơn đặc biệt là [cd:08FR001|Volibear|icon,img-full] nên hãy cố gắng triệu hồi càng nhiều biểu tượng bão tố càng tốt.",
         "regions": [
           "Freljord"
         ],
@@ -11561,7 +11561,7 @@
       "P0116",
       "P0062"
     ],
-    "description": "-[cd:08FR001|Volibear|icon,img-full] có khả năng [k:Strike|ra đòn] mạnh mẽ khi triệu hồi các bài quân khổng lồ và khi thủ tiêu được kẻ địch bạn còn nhận được 2 Biểu tượng bão tốt giúp triệu hồi các khổng lồ tiếp theo dễ dàng hơn.\\n-Các lá bài mạnh: Lời khấn cầu sấm sét triệu hồi 1 Biểu tượng bão tố rút 1 lá bài, Cung thủ băng địa vừa đóng băng 1 bài quân vừa phong thủ được vừa rút bài được khi [k:Strike|ra đòn], Đóng băng siêu tốc giúp bạn phòng thủ và triệu hồi 2 Biểu tượng bão tố cùng 1 lá khổng lồ, Tiên tri của Vahir vừa giúp phong thủ tốt vừa triệu hồi Biểu tượng bão tố.\\n-Các sức mạnh nên chọn khi phiêu lưu: Khổng lồ thức tỉnh, Sức mạnh Trifarix, Thống trị.\\n-Các sức mạnh của [cd:08FR001|Volibear|icon,img-full] điều hướng đến việc triệu hồi Biểu tượng bão tố giúp gọi ra các bài quân khổn lồ dễ dàng hơn đặc biệt là [cd:08FR001|Volibear|icon,img-full] nên hãy cố gắng triệu hồi càng nhiều biểu tượng bão tố càng tốt.",
+    "description": "-[cd:08FR001|Volibear|icon,img-full] có khả năng ra đòn mạnh mẽ khi triệu hồi các bài quân khổng lồ và khi thủ tiêu được kẻ địch bạn còn nhận được 2 Biểu tượng bão tốt giúp triệu hồi các khổng lồ tiếp theo dễ dàng hơn.\\n-Các lá bài mạnh: Lời khấn cầu sấm sét triệu hồi 1 Biểu tượng bão tố rút 1 lá bài, Cung thủ băng địa vừa đóng băng 1 bài quân vừa phong thủ được vừa rút bài được khi ra đòn, Đóng băng siêu tốc giúp bạn phòng thủ và triệu hồi 2 Biểu tượng bão tố cùng 1 lá khổng lồ, Tiên tri của Vahir vừa giúp phong thủ tốt vừa triệu hồi Biểu tượng bão tố.\\n-Các sức mạnh nên chọn khi phiêu lưu: Khổng lồ thức tỉnh, Sức mạnh Trifarix, Thống trị.\\n-Các sức mạnh của [cd:08FR001|Volibear|icon,img-full] điều hướng đến việc triệu hồi Biểu tượng bão tố giúp gọi ra các bài quân khổn lồ dễ dàng hơn đặc biệt là [cd:08FR001|Volibear|icon,img-full] nên hãy cố gắng triệu hồi càng nhiều biểu tượng bão tố càng tốt.",
     "startingDeck": {
       "referenceCards": [
         {
@@ -12925,7 +12925,7 @@
     "translations": {
       "en": {
         "name": "Viego",
-        "description": "-Viego vị tướng có thể nói là [k:Strongest|mạnh nhất] ở Quần Đảo Bóng Đêm ở thời điểm hiện tại. Hắc Diệt Đế Vương sở hữu cho mình sức tấn công mạnh mẽ nhờ vào sức mạnh Tất Cả Phải Phục Tùng thứ mang đến cho hắn ta khả năng tăng tiến sức mạnh điên cuồng cho tất cả bài quân.\\n-Chòm sao của Viego bổ trợ chặt chẽ cho nhau với Bên Kia Màn Sương hồi những lá Màn Sương Xâm Chiếm và C6 tăng sức mạnh cho bài quân dựa trên số Màn Sương đã gọi, thêm nữa sức mạnh cao thì giúp giảm tiêu hao các bài quân trên tay nhờ Lãnh Thổ Sương Đen từ đó tạo ra 1 đội quân gần như bất tận càn quét tất cả.\\n-Lối xây dựng cổ vật của Viego cực kì đa dạng khi có thể tận dụng các cổ vật như Gươm Truy Tung, Mảnh Sao Biến Đổi, Đệ Tử Bóng Đêm, Kéo Cắt Ma Quái và cả Găng Tinh Vân Sư nữa. Mang đến sức mạnh áp đảo cho vị tướng này.\\n-Về các sức mạnh và vật phẩm cho Viego thì hãy ưu tiên các sức mạnh sức tấn công hoặc ban thêm chỉ số cho bài quân, vật phẩm thì lấy cho Hắc Điệt Đế Vương khiên phép và bất tử là đủ sức để tung hoành rồi.",
+        "description": "-Viego vị tướng có thể nói là mạnh nhất ở Quần Đảo Bóng Đêm ở thời điểm hiện tại. Hắc Diệt Đế Vương sở hữu cho mình sức tấn công mạnh mẽ nhờ vào sức mạnh Tất Cả Phải Phục Tùng thứ mang đến cho hắn ta khả năng tăng tiến sức mạnh điên cuồng cho tất cả bài quân.\\n-Chòm sao của Viego bổ trợ chặt chẽ cho nhau với Bên Kia Màn Sương hồi những lá Màn Sương Xâm Chiếm và C6 tăng sức mạnh cho bài quân dựa trên số Màn Sương đã gọi, thêm nữa sức mạnh cao thì giúp giảm tiêu hao các bài quân trên tay nhờ Lãnh Thổ Sương Đen từ đó tạo ra 1 đội quân gần như bất tận càn quét tất cả.\\n-Lối xây dựng cổ vật của Viego cực kì đa dạng khi có thể tận dụng các cổ vật như Gươm Truy Tung, Mảnh Sao Biến Đổi, Đệ Tử Bóng Đêm, Kéo Cắt Ma Quái và cả Găng Tinh Vân Sư nữa. Mang đến sức mạnh áp đảo cho vị tướng này.\\n-Về các sức mạnh và vật phẩm cho Viego thì hãy ưu tiên các sức mạnh sức tấn công hoặc ban thêm chỉ số cho bài quân, vật phẩm thì lấy cho Hắc Điệt Đế Vương khiên phép và bất tử là đủ sức để tung hoành rồi.",
         "regions": [
           "ShadowIsles"
         ],
@@ -12953,7 +12953,7 @@
       "P0116",
       "P0054"
     ],
-    "description": "-Viego vị tướng có thể nói là [k:Strongest|mạnh nhất] ở Quần Đảo Bóng Đêm ở thời điểm hiện tại. Hắc Diệt Đế Vương sở hữu cho mình sức tấn công mạnh mẽ nhờ vào sức mạnh Tất Cả Phải Phục Tùng thứ mang đến cho hắn ta khả năng tăng tiến sức mạnh điên cuồng cho tất cả bài quân.\\n-Chòm sao của Viego bổ trợ chặt chẽ cho nhau với Bên Kia Màn Sương hồi những lá [cd:04SI045|Màn Sương Xâm Chiếm|icon,img-full] và C6 tăng sức mạnh cho bài quân dựa trên số Màn Sương đã gọi, thêm nữa sức mạnh cao thì giúp giảm tiêu hao các bài quân trên tay nhờ Lãnh Thổ Sương Đen từ đó tạo ra 1 đội quân gần như bất tận càn quét tất cả.\\n-Lối xây dựng cổ vật của Viego cực kì đa dạng khi có thể tận dụng các cổ vật như Gươm Truy Tung, Mảnh Sao Biến Đổi, Đệ Tử Bóng Đêm, Kéo Cắt Ma Quái và cả Găng Tinh Vân Sư nữa. Mang đến sức mạnh áp đảo cho vị tướng này.\\n-Về các sức mạnh và vật phẩm cho Viego thì hãy ưu tiên các sức mạnh sức tấn công hoặc ban thêm chỉ số cho bài quân, vật phẩm thì lấy cho Hắc Điệt Đế Vương khiên phép và bất tử là đủ sức để tung hoành rồi.",
+    "description": "-Viego vị tướng có thể nói là mạnh nhất ở Quần Đảo Bóng Đêm ở thời điểm hiện tại. Hắc Diệt Đế Vương sở hữu cho mình sức tấn công mạnh mẽ nhờ vào sức mạnh Tất Cả Phải Phục Tùng thứ mang đến cho hắn ta khả năng tăng tiến sức mạnh điên cuồng cho tất cả bài quân.\\n-Chòm sao của Viego bổ trợ chặt chẽ cho nhau với Bên Kia Màn Sương hồi những lá [cd:04SI045|Màn Sương Xâm Chiếm|icon,img-full] và C6 tăng sức mạnh cho bài quân dựa trên số Màn Sương đã gọi, thêm nữa sức mạnh cao thì giúp giảm tiêu hao các bài quân trên tay nhờ Lãnh Thổ Sương Đen từ đó tạo ra 1 đội quân gần như bất tận càn quét tất cả.\\n-Lối xây dựng cổ vật của Viego cực kì đa dạng khi có thể tận dụng các cổ vật như Gươm Truy Tung, Mảnh Sao Biến Đổi, Đệ Tử Bóng Đêm, Kéo Cắt Ma Quái và cả Găng Tinh Vân Sư nữa. Mang đến sức mạnh áp đảo cho vị tướng này.\\n-Về các sức mạnh và vật phẩm cho Viego thì hãy ưu tiên các sức mạnh sức tấn công hoặc ban thêm chỉ số cho bài quân, vật phẩm thì lấy cho Hắc Điệt Đế Vương khiên phép và bất tử là đủ sức để tung hoành rồi.",
     "startingDeck": {
       "referenceCards": [
         {
@@ -13131,7 +13131,8 @@
       "I0044",
       "I0067",
       "I0118",
-      "I0015"
+      "I0015",
+      "I0212"
     ],
     "championID": "C063",
     "descriptionRaw": "-Ahri có lối chơi xoay quanh việc thu về, thông thường thì khi bạn thu về chỉ số và đặc điểm sẽ mất, nhưng với sức mạnh Lời Thì Thầm Từ Kiếp Trước cho phép Ahri giữ lại các chỉ số, đặc điểm được ban vĩnh viễn và còn được giảm tiêu hao.\n-Khi bạn triệu hồi hoặc thu về thì sẽ được ban linh hồn, qua đó gia tăng chỉ số một cách nhanh chóng.\n-Ahri kết hợp tốt với các cổ vật, vật phẩm giảm tiêu hao hoặc kích hoạt hiệu ứng triệu hồi / xuất trận.",
@@ -13186,17 +13187,6 @@
     ],
     "description": "-Ahri có lối chơi xoay quanh việc thu về, thông thường thì khi bạn thu về chỉ số và đặc điểm sẽ mất, nhưng với sức mạnh [p:P0531|Lời Thì Thầm Từ Kiếp Trước|icon] cho phép Ahri giữ lại các chỉ số, đặc điểm được ban vĩnh viễn và còn được giảm tiêu hao.\\n-Khi bạn triệu hồi hoặc thu về thì sẽ được ban linh hồn, qua đó gia tăng chỉ số một cách nhanh chóng.\\n-Ahri kết hợp tốt với các cổ vật, vật phẩm giảm tiêu hao hoặc kích hoạt hiệu ứng triệu hồi / xuất trận.",
     "startingDeck": {
-      "referenceCards": [
-        {
-          "itemCodes": [
-            {
-              "itemCode": "I0008",
-              "unlockLevel": 0
-            }
-          ],
-          "cardCode": "06IO004"
-        }
-      ],
       "baseCards": [
         {
           "itemCodes": [
@@ -13282,6 +13272,17 @@
           ],
           "cardCode": "03IO005"
         }
+      ],
+      "referenceCards": [
+        {
+          "itemCodes": [
+            {
+              "itemCode": "I0008",
+              "unlockLevel": 0
+            }
+          ],
+          "cardCode": "06IO004"
+        }
       ]
     },
     "tags": [],
@@ -13355,7 +13356,7 @@
     "translations": {
       "en": {
         "name": "Veigar",
-        "description": "-[cd:05BC093|Veigar|icon,img-full] nổi bật với bài phép bóng tối cộng đồn sát thương khả năng gây sát thương phép khổng lồ lên nhà chính của kẻ địch sau khi thăng cấp.\\n-Các lá bài mạnh: Rái cá bạch tuộc giúp bạn phòng thủ hồi năng lượng và chơi khăm kẻ địch, Bóng đèn ma quái mang khả năng tạo bài phép bóng tối, Gậy chọc gây sát thương tốt và rút bài, Kẻ biến hóa độc ác cộng thêm sát thương cho bóng tối khi [k:Strike|ra đòn], Phản xạ dưới áp lực chỏ khả năng phòng thủ mạnh mẽ hoặc kết hợp cùng giảm chỉ số để sốc chết các bài quân mạnh của đối phương.\\n-Các sức mạnh nên chọn khi phiêu lưu là các sức mạnh cộng sát thương cho bài phép hoặc giảm tiêu hao bài phép.\\n-Sức mạnh của [cd:05BC093|Veigar|icon,img-full] cho phép tạo lá bóng tối không tiêu hao sau mỗi vòng đấu và nó có tốc độ siêu tốc nên bạn có thể tận dụng đẻ tạo đột biến hoặc dứt điểm đối thủ mà đối phương không thể phản kháng.",
+        "description": "-[cd:05BC093|Veigar|icon,img-full] nổi bật với bài phép bóng tối cộng đồn sát thương khả năng gây sát thương phép khổng lồ lên nhà chính của kẻ địch sau khi thăng cấp.\\n-Các lá bài mạnh: Rái cá bạch tuộc giúp bạn phòng thủ hồi năng lượng và chơi khăm kẻ địch, Bóng đèn ma quái mang khả năng tạo bài phép bóng tối, Gậy chọc gây sát thương tốt và rút bài, Kẻ biến hóa độc ác cộng thêm sát thương cho bóng tối khi ra đòn, Phản xạ dưới áp lực chỏ khả năng phòng thủ mạnh mẽ hoặc kết hợp cùng giảm chỉ số để sốc chết các bài quân mạnh của đối phương.\\n-Các sức mạnh nên chọn khi phiêu lưu là các sức mạnh cộng sát thương cho bài phép hoặc giảm tiêu hao bài phép.\\n-Sức mạnh của [cd:05BC093|Veigar|icon,img-full] cho phép tạo lá bóng tối không tiêu hao sau mỗi vòng đấu và nó có tốc độ siêu tốc nên bạn có thể tận dụng đẻ tạo đột biến hoặc dứt điểm đối thủ mà đối phương không thể phản kháng.",
         "regions": [
           "BandleCity",
           "ShadowIsles"
@@ -13384,7 +13385,7 @@
       "P0067",
       "P0222"
     ],
-    "description": "-[cd:05BC093|Veigar|icon,img-full] nổi bật với bài phép bóng tối cộng đồn sát thương khả năng gây sát thương phép khổng lồ lên nhà chính của kẻ địch sau khi thăng cấp.\\n-Các lá bài mạnh: Rái cá bạch tuộc giúp bạn phòng thủ hồi năng lượng và chơi khăm kẻ địch, Bóng đèn ma quái mang khả năng tạo bài phép bóng tối, Gậy chọc gây sát thương tốt và rút bài, Kẻ biến hóa độc ác cộng thêm sát thương cho bóng tối khi [k:Strike|ra đòn], Phản xạ dưới áp lực chỏ khả năng phòng thủ mạnh mẽ hoặc kết hợp cùng giảm chỉ số để sốc chết các bài quân mạnh của đối phương.\\n-Các sức mạnh nên chọn khi phiêu lưu là các sức mạnh cộng sát thương cho bài phép hoặc giảm tiêu hao bài phép.\\n-Sức mạnh của [cd:05BC093|Veigar|icon,img-full] cho phép tạo lá bóng tối không tiêu hao sau mỗi vòng đấu và nó có tốc độ siêu tốc nên bạn có thể tận dụng đẻ tạo đột biến hoặc dứt điểm đối thủ mà đối phương không thể phản kháng.",
+    "description": "-[cd:05BC093|Veigar|icon,img-full] nổi bật với bài phép bóng tối cộng đồn sát thương khả năng gây sát thương phép khổng lồ lên nhà chính của kẻ địch sau khi thăng cấp.\\n-Các lá bài mạnh: Rái cá bạch tuộc giúp bạn phòng thủ hồi năng lượng và chơi khăm kẻ địch, Bóng đèn ma quái mang khả năng tạo bài phép bóng tối, Gậy chọc gây sát thương tốt và rút bài, Kẻ biến hóa độc ác cộng thêm sát thương cho bóng tối khi ra đòn, Phản xạ dưới áp lực chỏ khả năng phòng thủ mạnh mẽ hoặc kết hợp cùng giảm chỉ số để sốc chết các bài quân mạnh của đối phương.\\n-Các sức mạnh nên chọn khi phiêu lưu là các sức mạnh cộng sát thương cho bài phép hoặc giảm tiêu hao bài phép.\\n-Sức mạnh của [cd:05BC093|Veigar|icon,img-full] cho phép tạo lá bóng tối không tiêu hao sau mỗi vòng đấu và nó có tốc độ siêu tốc nên bạn có thể tận dụng đẻ tạo đột biến hoặc dứt điểm đối thủ mà đối phương không thể phản kháng.",
     "startingDeck": {
       "referenceCards": [
         {
@@ -14012,7 +14013,7 @@
       "P0385",
       "P0116"
     ],
-    "description": "-Darius vị tướng biểu tượng cho sức mạnh Noxus, trong con đường anh hùng thì Đại tướng sở hữu lối chơi thuần sức mạnh với các bài quân mạnh mẽ, áp đảo đối thủ bằng những đợt tấn với lượng sát thương cực nhiều.\\n-Sức mạnh làm nên đặc trưng của Darius đó là Mở Đường cho khả năng nhận lượt tấn công khi tấn công với 15+ sức mạnh và khi kết hợp cùng Đại Tướng Noxus giúp bạn áp đảo đối thủ về cả số lượng lẫn chất lượng bài quân với lượng sát thương khổng lồ.\\n-Đại tướng tương tác cực tốt với các sức mạnh, vật phẩm cổ vật ban chỉ số. Sức mạnh thì có Đại Quản Trường, Khổng Lồ thức Tỉnh, [k:PathPower|Sức Mạnh] Trifarix. Cổ vật thì có Bộ Bài Đầy Ấp, [cd:98SB041|Quái Thú|icon,img-full] Bên Trong. ",
+    "description": "-Darius vị tướng biểu tượng cho sức mạnh Noxus, trong con đường anh hùng thì Đại tướng sở hữu lối chơi thuần sức mạnh với các bài quân mạnh mẽ, áp đảo đối thủ bằng những đợt tấn với lượng sát thương cực nhiều.\\n-Sức mạnh làm nên đặc trưng của Darius đó là Mở Đường cho khả năng nhận lượt tấn công khi tấn công với 15+ sức mạnh và khi kết hợp cùng Đại Tướng Noxus giúp bạn áp đảo đối thủ về cả số lượng lẫn chất lượng bài quân với lượng sát thương khổng lồ.\\n-Đại tướng tương tác cực tốt với các sức mạnh, vật phẩm cổ vật ban chỉ số. Sức mạnh thì có Đại Quản Trường, Khổng Lồ thức Tỉnh, [k:Power|Sức Mạnh] Trifarix. Cổ vật thì có Bộ Bài Đầy Ấp, [cd:98SB041|Quái Thú|icon,img-full] Bên Trong. ",
     "startingDeck": {
       "referenceCards": [
         {
@@ -15181,7 +15182,7 @@
     "translations": {
       "en": {
         "name": "Nilah",
-        "description": "-[cd:08BW008|Nilah|icon] là một tướng sẽ tập trung sức mạnh ở việc rút bài và dùng các lá bài [k:Fleeting|phù du] nhờ hiệu ứng nhân đôi lá bài từ [p:P0320|Hiện Thân Của Niềm Vui|icon].\\n-Lá một tướng tiêu hao thấp và rút bài nhiều lối chơi của [cd:08BW008|Nilah|icon] sẽ xoay quanh các sức mạnh giảm tiêu hao như [p:P0084|Cảm Hứng Dữ Dội|icon], [p:P0056|Rút Nhanh|icon] hoặc cũng có thể chọn [p:P0105|Thỏa Thuận Chớp Nhoáng|icon] giúp kích sức mạnh của tướng dễ dàng hơn.\\n-Một vài cột vật tốt cho [cd:08BW008|Nilah|icon] như [r:R0014|Xẻng Của Kẻ Đào Mộ|icon], [r:R0052|Băng Cầu|icon], [r:R0064|Lời Thề Hộ Vệ|icon], [r:R0043|Ngọc Tinh Tú|icon] hoặc cổ vật mới gần đây là [r:R0159|Binh Đoàn Vệ Binh|icon].\\n-Nhìn chung đây là 1 tướng thời kỳ đầu nên sức mạnh còn hạn chế nhưng nếu dùng để chơi đầu game thì cũng không quá tệ.",
+        "description": "-[cd:08BW008|Nilah|icon] là một tướng sẽ tập trung sức mạnh ở việc rút bài và dùng các lá bài phù du nhờ hiệu ứng nhân đôi lá bài từ [p:P0320|Hiện Thân Của Niềm Vui|icon].\\n-Lá một tướng tiêu hao thấp và rút bài nhiều lối chơi của [cd:08BW008|Nilah|icon] sẽ xoay quanh các sức mạnh giảm tiêu hao như [p:P0084|Cảm Hứng Dữ Dội|icon], [p:P0056|Rút Nhanh|icon] hoặc cũng có thể chọn [p:P0105|Thỏa Thuận Chớp Nhoáng|icon] giúp kích sức mạnh của tướng dễ dàng hơn.\\n-Một vài cột vật tốt cho [cd:08BW008|Nilah|icon] như [r:R0014|Xẻng Của Kẻ Đào Mộ|icon], [r:R0052|Băng Cầu|icon], [r:R0064|Lời Thề Hộ Vệ|icon], [r:R0043|Ngọc Tinh Tú|icon] hoặc cổ vật mới gần đây là [r:R0159|Binh Đoàn Vệ Binh|icon].\\n-Nhìn chung đây là 1 tướng thời kỳ đầu nên sức mạnh còn hạn chế nhưng nếu dùng để chơi đầu game thì cũng không quá tệ.",
         "regions": [
           "Bilgewater"
         ],
@@ -15209,7 +15210,7 @@
       "P0451",
       "P0176"
     ],
-    "description": "-[cd:08BW008|Nilah|icon] là một tướng sẽ tập trung sức mạnh ở việc rút bài và dùng các lá bài [k:Fleeting|phù du] nhờ hiệu ứng nhân đôi lá bài từ [p:P0320|Hiện Thân Của Niềm Vui|icon].\\n-Lá một tướng tiêu hao thấp và rút bài nhiều lối chơi của [cd:08BW008|Nilah|icon] sẽ xoay quanh các sức mạnh giảm tiêu hao như [p:P0084|Cảm Hứng Dữ Dội|icon], [p:P0056|Rút Nhanh|icon] hoặc cũng có thể chọn [p:P0105|Thỏa Thuận Chớp Nhoáng|icon] giúp kích sức mạnh của tướng dễ dàng hơn.\\n-Một vài cột vật tốt cho [cd:08BW008|Nilah|icon] như [r:R0014|Xẻng Của Kẻ Đào Mộ|icon], [r:R0052|Băng Cầu|icon], [r:R0064|Lời Thề Hộ Vệ|icon], [r:R0043|Ngọc Tinh Tú|icon] hoặc cổ vật mới gần đây là [r:R0159|Binh Đoàn Vệ Binh|icon].\\n-Nhìn chung đây là 1 tướng thời kỳ đầu nên sức mạnh còn hạn chế nhưng nếu dùng để chơi đầu game thì cũng không quá tệ.",
+    "description": "-[cd:08BW008|Nilah|icon] là một tướng sẽ tập trung sức mạnh ở việc rút bài và dùng các lá bài phù du nhờ hiệu ứng nhân đôi lá bài từ [p:P0320|Hiện Thân Của Niềm Vui|icon].\\n-Lá một tướng tiêu hao thấp và rút bài nhiều lối chơi của [cd:08BW008|Nilah|icon] sẽ xoay quanh các sức mạnh giảm tiêu hao như [p:P0084|Cảm Hứng Dữ Dội|icon], [p:P0056|Rút Nhanh|icon] hoặc cũng có thể chọn [p:P0105|Thỏa Thuận Chớp Nhoáng|icon] giúp kích sức mạnh của tướng dễ dàng hơn.\\n-Một vài cột vật tốt cho [cd:08BW008|Nilah|icon] như [r:R0014|Xẻng Của Kẻ Đào Mộ|icon], [r:R0052|Băng Cầu|icon], [r:R0064|Lời Thề Hộ Vệ|icon], [r:R0043|Ngọc Tinh Tú|icon] hoặc cổ vật mới gần đây là [r:R0159|Binh Đoàn Vệ Binh|icon].\\n-Nhìn chung đây là 1 tướng thời kỳ đầu nên sức mạnh còn hạn chế nhưng nếu dùng để chơi đầu game thì cũng không quá tệ.",
     "startingDeck": {
       "referenceCards": [],
       "baseCards": [
@@ -15838,7 +15839,7 @@
     "translations": {
       "en": {
         "name": "Aatrox",
-        "description": "-[cd:06RU026T1|Quỷ Kiếm Darkin|icon,img-full], lối chơi kiểm soát bằng cách sử dụng các trang bị Darkin. \\n-Sức mạnh của [c:C076|Aatrox |icon,img-full]nằm phần lớn ở sức mạnh [p:P0158|Xiềng Xích Địa Ngục|icon] giúp giảm tiêu hao bài trên tay khi đồng minh mang trang bị [k:Strike|ra đòn], nghĩa là bạn [k:Strike|ra đòn] bằng bài quân mang trang bị càng nhiều thì những lá bài trên tay bàng càng dễ sử dụng, khi mở khóa mốc sao [p:P0389|Trang Bị Tận Răng|icon] thì bài quân có thêm +2|+2 làm cho các bài quân của bạn trở nên cứng cáp và trao đổi hiệu quả hơn nhiều.\\n-Vì là 1 tướng cần set up nên [cd:06RU026|Aatrox |icon] rất tốn năng lượng nên bạn có thể nâng hoặc lấy các sức mạnh, vật phẩm liên qua đến giảm năng lượng để dễ triển khai hơn, với sức mạnh thì tốt nhất là [p:P0111|Pháp Thuật|icon] cho bạn năng lượng bài phép để lắp trang bị hoặc những sức mạnh triệu hồi quân khi bắt đầu trận đấu để thay vì việc bỏ năng lượng ra để triệu hồi quân sau đó lắp trang bị thì giờ bạn chỉ cần lắp trang bị lên bài quân có sẵn trên bàn (tin tôi đi nó sẽ hiệu giúp bạn triển khai hiệu quả hơn rất nhiều :D)\\n-Có 1 mẹo giúp bạn có 2 [cd:06RU026|Aatrox |icon] là bạn hãy lắp trang bị Darkin cho một tùy tùng khác sau đó dùng [cd:06RU026T7|Chiến binh tận thế|icon] thì bạn sẽ có được 2 [cd:06RU026|Aatrox|icon]. Cách làm sẽ là lắp 1 trang bị bất kì vào [cd:06RU026|Aatrox|icon] để tháo trang bị Darkin của hắn ra -> lắp trang bị [cd:06RU026T1|Quỷ Kiếm Darkin|icon,img-full] vào tùy tùng khác -> dùng [cd:06RU026T7|Chiến binh tận thế|icon]. ",
+        "description": "-[cd:06RU026T1|Quỷ Kiếm Darkin|icon,img-full], lối chơi kiểm soát bằng cách sử dụng các trang bị Darkin. \\n-Sức mạnh của [c:C076|Aatrox |icon,img-full]nằm phần lớn ở sức mạnh [p:P0158|Xiềng Xích Địa Ngục|icon] giúp giảm tiêu hao bài trên tay khi đồng minh mang trang bị ra đòn, nghĩa là bạn ra đòn bằng bài quân mang trang bị càng nhiều thì những lá bài trên tay bàng càng dễ sử dụng, khi mở khóa mốc sao [p:P0389|Trang Bị Tận Răng|icon] thì bài quân có thêm +2|+2 làm cho các bài quân của bạn trở nên cứng cáp và trao đổi hiệu quả hơn nhiều.\\n-Vì là 1 tướng cần set up nên [cd:06RU026|Aatrox |icon] rất tốn năng lượng nên bạn có thể nâng hoặc lấy các sức mạnh, vật phẩm liên qua đến giảm năng lượng để dễ triển khai hơn, với sức mạnh thì tốt nhất là [p:P0111|Pháp Thuật|icon] cho bạn năng lượng bài phép để lắp trang bị hoặc những sức mạnh triệu hồi quân khi bắt đầu trận đấu để thay vì việc bỏ năng lượng ra để triệu hồi quân sau đó lắp trang bị thì giờ bạn chỉ cần lắp trang bị lên bài quân có sẵn trên bàn (tin tôi đi nó sẽ hiệu giúp bạn triển khai hiệu quả hơn rất nhiều :D)\\n-Có 1 mẹo giúp bạn có 2 [cd:06RU026|Aatrox |icon] là bạn hãy lắp trang bị Darkin cho một tùy tùng khác sau đó dùng [cd:06RU026T7|Chiến binh tận thế|icon] thì bạn sẽ có được 2 [cd:06RU026|Aatrox|icon]. Cách làm sẽ là lắp 1 trang bị bất kì vào [cd:06RU026|Aatrox|icon] để tháo trang bị Darkin của hắn ra -> lắp trang bị [cd:06RU026T1|Quỷ Kiếm Darkin|icon,img-full] vào tùy tùng khác -> dùng [cd:06RU026T7|Chiến binh tận thế|icon]. ",
         "regions": [
           "Runeterra"
         ],
@@ -15866,8 +15867,94 @@
       "P0389",
       "P0053"
     ],
-    "description": "-[cd:06RU026T1|Quỷ Kiếm Darkin|icon,img-full], lối chơi kiểm soát bằng cách sử dụng các trang bị Darkin. \\n-Sức mạnh của [c:C076|Aatrox |icon,img-full]nằm phần lớn ở sức mạnh [p:P0158|Xiềng Xích Địa Ngục|icon] giúp giảm tiêu hao bài trên tay khi đồng minh mang trang bị [k:Strike|ra đòn], nghĩa là bạn [k:Strike|ra đòn] bằng bài quân mang trang bị càng nhiều thì những lá bài trên tay bàng càng dễ sử dụng, khi mở khóa mốc sao [p:P0389|Trang Bị Tận Răng|icon] thì bài quân có thêm +2|+2 làm cho các bài quân của bạn trở nên cứng cáp và trao đổi hiệu quả hơn nhiều.\\n-Vì là 1 tướng cần set up nên [cd:06RU026|Aatrox |icon] rất tốn năng lượng nên bạn có thể nâng hoặc lấy các sức mạnh, vật phẩm liên qua đến giảm năng lượng để dễ triển khai hơn, với sức mạnh thì tốt nhất là [p:P0111|Pháp Thuật|icon] cho bạn năng lượng bài phép để lắp trang bị hoặc những sức mạnh triệu hồi quân khi bắt đầu trận đấu để thay vì việc bỏ năng lượng ra để triệu hồi quân sau đó lắp trang bị thì giờ bạn chỉ cần lắp trang bị lên bài quân có sẵn trên bàn (tin tôi đi nó sẽ hiệu giúp bạn triển khai hiệu quả hơn rất nhiều :D)\\n-Có 1 mẹo giúp bạn có 2 [cd:06RU026|Aatrox |icon] là bạn hãy lắp trang bị Darkin cho một tùy tùng khác sau đó dùng [cd:06RU026T7|Chiến binh tận thế|icon] thì bạn sẽ có được 2 [cd:06RU026|Aatrox|icon]. Cách làm sẽ là lắp 1 trang bị bất kì vào [cd:06RU026|Aatrox|icon] để tháo trang bị Darkin của hắn ra -> lắp trang bị [cd:06RU026T1|Quỷ Kiếm Darkin|icon,img-full] vào tùy tùng khác -> dùng [cd:06RU026T7|Chiến binh tận thế|icon]. ",
+    "description": "-[cd:06RU026T1|Quỷ Kiếm Darkin|icon,img-full], lối chơi kiểm soát bằng cách sử dụng các trang bị Darkin. \\n-Sức mạnh của [c:C076|Aatrox |icon,img-full]nằm phần lớn ở sức mạnh [p:P0158|Xiềng Xích Địa Ngục|icon] giúp giảm tiêu hao bài trên tay khi đồng minh mang trang bị ra đòn, nghĩa là bạn ra đòn bằng bài quân mang trang bị càng nhiều thì những lá bài trên tay bàng càng dễ sử dụng, khi mở khóa mốc sao [p:P0389|Trang Bị Tận Răng|icon] thì bài quân có thêm +2|+2 làm cho các bài quân của bạn trở nên cứng cáp và trao đổi hiệu quả hơn nhiều.\\n-Vì là 1 tướng cần set up nên [cd:06RU026|Aatrox |icon] rất tốn năng lượng nên bạn có thể nâng hoặc lấy các sức mạnh, vật phẩm liên qua đến giảm năng lượng để dễ triển khai hơn, với sức mạnh thì tốt nhất là [p:P0111|Pháp Thuật|icon] cho bạn năng lượng bài phép để lắp trang bị hoặc những sức mạnh triệu hồi quân khi bắt đầu trận đấu để thay vì việc bỏ năng lượng ra để triệu hồi quân sau đó lắp trang bị thì giờ bạn chỉ cần lắp trang bị lên bài quân có sẵn trên bàn (tin tôi đi nó sẽ hiệu giúp bạn triển khai hiệu quả hơn rất nhiều :D)\\n-Có 1 mẹo giúp bạn có 2 [cd:06RU026|Aatrox |icon] là bạn hãy lắp trang bị Darkin cho một tùy tùng khác sau đó dùng [cd:06RU026T7|Chiến binh tận thế|icon] thì bạn sẽ có được 2 [cd:06RU026|Aatrox|icon]. Cách làm sẽ là lắp 1 trang bị bất kì vào [cd:06RU026|Aatrox|icon] để tháo trang bị Darkin của hắn ra -> lắp trang bị [cd:06RU026T1|Quỷ Kiếm Darkin|icon,img-full] vào tùy tùng khác -> dùng [cd:06RU026T7|Chiến binh tận thế|icon]. ",
     "startingDeck": {
+      "baseCards": [
+        {
+          "itemCodes": [
+            {
+              "itemCode": "I0076",
+              "unlockLevel": 12
+            }
+          ],
+          "cardCode": "06SH005"
+        },
+        {
+          "itemCodes": [
+            {
+              "itemCode": "I0038",
+              "unlockLevel": 2
+            }
+          ],
+          "cardCode": "06DE029"
+        },
+        {
+          "itemCodes": [
+            {
+              "itemCode": "I0040",
+              "unlockLevel": 15
+            }
+          ],
+          "cardCode": "06BC029"
+        },
+        {
+          "itemCodes": [
+            {
+              "itemCode": "I0037",
+              "unlockLevel": 9
+            }
+          ],
+          "cardCode": "06DE011"
+        },
+        {
+          "itemCodes": [
+            {
+              "itemCode": "I0041",
+              "unlockLevel": 3
+            }
+          ],
+          "cardCode": "06SI006"
+        },
+        {
+          "itemCodes": [
+            {
+              "itemCode": "I0053",
+              "unlockLevel": 18
+            },
+            {
+              "itemCode": "I0066",
+              "unlockLevel": 24
+            }
+          ],
+          "cardCode": "06PZ037"
+        },
+        {
+          "itemCodes": [
+            {
+              "itemCode": "I0000",
+              "unlockLevel": 21
+            },
+            {
+              "itemCode": "I0055",
+              "unlockLevel": 27
+            }
+          ],
+          "cardCode": "06NX034"
+        },
+        {
+          "itemCodes": [
+            {
+              "itemCode": "I0037",
+              "unlockLevel": 6
+            }
+          ],
+          "cardCode": "06BC028"
+        },
+        {
+          "itemCodes": [],
+          "cardCode": "06RU026"
+        }
+      ],
       "referenceCards": [
         {
           "itemCodes": [
@@ -16024,92 +16111,6 @@
             }
           ],
           "cardCode": "06NX020T1"
-        }
-      ],
-      "baseCards": [
-        {
-          "itemCodes": [
-            {
-              "itemCode": "I0076",
-              "unlockLevel": 12
-            }
-          ],
-          "cardCode": "06SH005"
-        },
-        {
-          "itemCodes": [
-            {
-              "itemCode": "I0038",
-              "unlockLevel": 2
-            }
-          ],
-          "cardCode": "06DE029"
-        },
-        {
-          "itemCodes": [
-            {
-              "itemCode": "I0040",
-              "unlockLevel": 15
-            }
-          ],
-          "cardCode": "06BC029"
-        },
-        {
-          "itemCodes": [
-            {
-              "itemCode": "I0037",
-              "unlockLevel": 9
-            }
-          ],
-          "cardCode": "06DE011"
-        },
-        {
-          "itemCodes": [
-            {
-              "itemCode": "I0041",
-              "unlockLevel": 3
-            }
-          ],
-          "cardCode": "06SI006"
-        },
-        {
-          "itemCodes": [
-            {
-              "itemCode": "I0053",
-              "unlockLevel": 18
-            },
-            {
-              "itemCode": "I0066",
-              "unlockLevel": 24
-            }
-          ],
-          "cardCode": "06PZ037"
-        },
-        {
-          "itemCodes": [
-            {
-              "itemCode": "I0000",
-              "unlockLevel": 21
-            },
-            {
-              "itemCode": "I0055",
-              "unlockLevel": 27
-            }
-          ],
-          "cardCode": "06NX034"
-        },
-        {
-          "itemCodes": [
-            {
-              "itemCode": "I0037",
-              "unlockLevel": 6
-            }
-          ],
-          "cardCode": "06BC028"
-        },
-        {
-          "itemCodes": [],
-          "cardCode": "06RU026"
         }
       ]
     },
@@ -17935,7 +17936,7 @@
     ],
     "cardCode": "03MT009",
     "cost": 1,
-    "description": "-[cd:03MT009T1|Zoe|icon] là 1 tướng đánh xoay quanh các lá bài được tạo với lối chơi chủ đạo là [k:Invoke|Hiệu Triệu] các lá bài hoặc [k:Manifest|Hình Thành]. Nhưng chủ yếu vẫn sẽ là [k:Invoke|Hiệu Triệu] các lá bài Thượng Giới\\n-Đây là 1 tướng phụ thuộc rất nhiều vào việc Hiệu Triệu bài, toàn bộ sức mạnh của Zoe sẽ xoay quanh nó từ việc các lá bài Thượng Giới sẽ được thêm 2 vật phẩm trên mỗi lá bài thượng giới (2 vật phẩm này sẽ không thay đổi trong suốt quá trình phiêu lưu), bài phép Thượng Giới Chậm được Nâng thành Nhanh, khi Hiệu Triệu hoặc Hình Thành thì đồng minh trên sân nhận thêm chỉ số và các lá bài được Hình Thành hoặc Hiệu Triệu sẽ được giảm nữa tiêu hao (3 -> 2, 5 -> 3).  \\n-Vì thế để vận hành được Zoe 1 cách trơn tru thì bạn cần các lá bài có hiệu ứng Hiệu Triệu hoặc Hình Thành, bạn có thể tìm được từ 1 số nguồn như: 2 bài quân có hiệu ứng Hiệu Triệu có sẵn trong bộ bài, Bản Đồ Sao Siêu Ngầu được tạo bởi Zoe, các lá bài thu thập được trong quá trình phiêu lưu, Ngôi Sao Khám Phá giúp bài phép 3+ tiêu hao thu thập trong phiêu lưu của bạn có hiệu ứng Hiệu Triệu.\\n-Zoe đánh xoay quanh bài được tạo và bài phép nên các sức mạnh nên chọn là các sức mạnh liên quan đến việc giảm tiêu hao hoặc hồi năng lượng bài phép hoặc cũng có thể lấy các sức mạnh liên quan đến rút bài vì Zoe khá thiếu hiệu ứng này.\\n-Về vật phẩm thì chủ yếu sẽ đồn hết cho Zoe như Bất Diệt, Song Kích, các vật phẩm cộng chỉ số hoặc ban đặc điểm,...\\n-Điều kiện thắng của Zoe sẽ là thăng cấp được Zoe nên là nhiệm vụ tối thượng của bạn là giữ Zoe sống và giữ nhịp ván đấu bằng các lá bài thượng giới của mình.",
+    "description": "-[cd:03MT009T1|Zoe|icon] là 1 tướng đánh xoay quanh các lá bài được tạo với lối chơi chủ đạo là [k:Hiệu Triệu|Hiệu Triệu|no-icon] các lá bài hoặc [k:Hình Thành|Hình Thành|no-icon]. Nhưng chủ yếu vẫn sẽ là [k:Hiệu Triệu|Hiệu Triệu|no-icon] các lá bài Thượng Giới\\n-Đây là 1 tướng phụ thuộc rất nhiều vào việc Hiệu Triệu bài, toàn bộ sức mạnh của Zoe sẽ xoay quanh nó từ việc các lá bài Thượng Giới sẽ được thêm 2 vật phẩm trên mỗi lá bài thượng giới (2 vật phẩm này sẽ không thay đổi trong suốt quá trình phiêu lưu), bài phép Thượng Giới Chậm được Nâng thành Nhanh, khi Hiệu Triệu hoặc Hình Thành thì đồng minh trên sân nhận thêm chỉ số và các lá bài được Hình Thành hoặc Hiệu Triệu sẽ được giảm nữa tiêu hao (3 -> 2, 5 -> 3).  \\n-Vì thế để vận hành được Zoe 1 cách trơn tru thì bạn cần các lá bài có hiệu ứng Hiệu Triệu hoặc Hình Thành, bạn có thể tìm được từ 1 số nguồn như: 2 bài quân có hiệu ứng Hiệu Triệu có sẵn trong bộ bài, Bản Đồ Sao Siêu Ngầu được tạo bởi Zoe, các lá bài thu thập được trong quá trình phiêu lưu, Ngôi Sao Khám Phá giúp bài phép 3+ tiêu hao thu thập trong phiêu lưu của bạn có hiệu ứng Hiệu Triệu.\\n-Zoe đánh xoay quanh bài được tạo và bài phép nên các sức mạnh nên chọn là các sức mạnh liên quan đến việc giảm tiêu hao hoặc hồi năng lượng bài phép hoặc cũng có thể lấy các sức mạnh liên quan đến rút bài vì Zoe khá thiếu hiệu ứng này.\\n-Về vật phẩm thì chủ yếu sẽ đồn hết cho Zoe như Bất Diệt, Song Kích, các vật phẩm cộng chỉ số hoặc ban đặc điểm,...\\n-Điều kiện thắng của Zoe sẽ là thăng cấp được Zoe nên là nhiệm vụ tối thượng của bạn là giữ Zoe sống và giữ nhịp ván đấu bằng các lá bài thượng giới của mình.",
     "descriptionRaw": "-Zoe là 1 tướng đánh xoay quanh các lá bài được tạo với lối chơi chủ đạo là Hiệu Triệu các lá bài hoặc Hình Thành. Nhưng chủ yếu vẫn sẽ là Hiệu Triệu các lá bài Thượng Giới\n-Đây là 1 tướng phụ thuộc rất nhiều vào việc Hiệu Triệu bài, toàn bộ sức mạnh của Zoe sẽ xoay quanh nó từ việc các lá bài Thượng Giới sẽ được thêm 2 vật phẩm trên mỗi lá bài thượng giới (2 vật phẩm này sẽ không thay đổi trong suốt quá trình phiêu lưu), bài phép Thượng Giới Chậm được Nâng thành Nhanh, khi Hiệu Triệu hoặc Hình Thành thì đồng minh trên sân nhận thêm chỉ số và các lá bài được Hình Thành hoặc Hiệu Triệu sẽ được giảm nữa tiêu hao (3 -> 2, 5 -> 3).  \n-Vì thế để vận hành được Zoe 1 cách trơn tru thì bạn cần các lá bài có hiệu ứng Hiệu Triệu hoặc Hình Thành, bạn có thể tìm được từ 1 số nguồn như: 2 bài quân có hiệu ứng Hiệu Triệu có sẵn trong bộ bài, Bản Đồ Sao Siêu Ngầu được tạo bởi Zoe, các lá bài thu thập được trong quá trình phiêu lưu, Ngôi Sao Khám Phá giúp bài phép 3+ tiêu hao thu thập trong phiêu lưu của bạn có hiệu ứng Hiệu Triệu.\n-Zoe đánh xoay quanh bài được tạo và bài phép nên các sức mạnh nên chọn là các sức mạnh liên quan đến việc giảm tiêu hao hoặc hồi năng lượng bài phép hoặc cũng có thể lấy các sức mạnh liên quan đến rút bài vì Zoe khá thiếu hiệu ứng này.\n-Về vật phẩm thì chủ yếu sẽ đồn hết cho Zoe như Bất Diệt, Song Kích, các vật phẩm cộng chỉ số hoặc ban đặc điểm,...\n-Điều kiện thắng của Zoe sẽ là thăng cấp được Zoe nên là nhiệm vụ tối thượng của bạn là giữ Zoe sống và giữ nhịp ván đấu bằng các lá bài thượng giới của mình.",
     "itemIds": [
       "I0130",
@@ -18149,7 +18150,7 @@
     "translations": {
       "en": {
         "name": "Zoe",
-        "description": "-[cd:03MT009T1|Zoe|icon] là 1 tướng đánh xoay quanh các lá bài được tạo với lối chơi chủ đạo là [k:Invoke|Hiệu Triệu] các lá bài hoặc [k:Manifest|Hình Thành]. Nhưng chủ yếu vẫn sẽ là [k:Invoke|Hiệu Triệu] các lá bài Thượng Giới\\n-Đây là 1 tướng phụ thuộc rất nhiều vào việc Hiệu Triệu bài, toàn bộ sức mạnh của Zoe sẽ xoay quanh nó từ việc các lá bài Thượng Giới sẽ được thêm 2 vật phẩm trên mỗi lá bài thượng giới (2 vật phẩm này sẽ không thay đổi trong suốt quá trình phiêu lưu), bài phép Thượng Giới Chậm được Nâng thành Nhanh, khi Hiệu Triệu hoặc Hình Thành thì đồng minh trên sân nhận thêm chỉ số và các lá bài được Hình Thành hoặc Hiệu Triệu sẽ được giảm nữa tiêu hao (3 -> 2, 5 -> 3).  \\n-Vì thế để vận hành được Zoe 1 cách trơn tru thì bạn cần các lá bài có hiệu ứng Hiệu Triệu hoặc Hình Thành, bạn có thể tìm được từ 1 số nguồn như: 2 bài quân có hiệu ứng Hiệu Triệu có sẵn trong bộ bài, Bản Đồ Sao Siêu Ngầu được tạo bởi Zoe, các lá bài thu thập được trong quá trình phiêu lưu, Ngôi Sao Khám Phá giúp bài phép 3+ tiêu hao thu thập trong phiêu lưu của bạn có hiệu ứng Hiệu Triệu.\\n-Zoe đánh xoay quanh bài được tạo và bài phép nên các sức mạnh nên chọn là các sức mạnh liên quan đến việc giảm tiêu hao hoặc hồi năng lượng bài phép hoặc cũng có thể lấy các sức mạnh liên quan đến rút bài vì Zoe khá thiếu hiệu ứng này.\\n-Về vật phẩm thì chủ yếu sẽ đồn hết cho Zoe như Bất Diệt, Song Kích, các vật phẩm cộng chỉ số hoặc ban đặc điểm,...\\n-Điều kiện thắng của Zoe sẽ là thăng cấp được Zoe nên là nhiệm vụ tối thượng của bạn là giữ Zoe sống và giữ nhịp ván đấu bằng các lá bài thượng giới của mình.",
+        "description": "-[cd:03MT009T1|Zoe|icon] là 1 tướng đánh xoay quanh các lá bài được tạo với lối chơi chủ đạo là [k:Hiệu Triệu|Hiệu Triệu|no-icon] các lá bài hoặc [k:Hình Thành|Hình Thành|no-icon]. Nhưng chủ yếu vẫn sẽ là [k:Hiệu Triệu|Hiệu Triệu|no-icon] các lá bài Thượng Giới\\n-Đây là 1 tướng phụ thuộc rất nhiều vào việc Hiệu Triệu bài, toàn bộ sức mạnh của Zoe sẽ xoay quanh nó từ việc các lá bài Thượng Giới sẽ được thêm 2 vật phẩm trên mỗi lá bài thượng giới (2 vật phẩm này sẽ không thay đổi trong suốt quá trình phiêu lưu), bài phép Thượng Giới Chậm được Nâng thành Nhanh, khi Hiệu Triệu hoặc Hình Thành thì đồng minh trên sân nhận thêm chỉ số và các lá bài được Hình Thành hoặc Hiệu Triệu sẽ được giảm nữa tiêu hao (3 -> 2, 5 -> 3).  \\n-Vì thế để vận hành được Zoe 1 cách trơn tru thì bạn cần các lá bài có hiệu ứng Hiệu Triệu hoặc Hình Thành, bạn có thể tìm được từ 1 số nguồn như: 2 bài quân có hiệu ứng Hiệu Triệu có sẵn trong bộ bài, Bản Đồ Sao Siêu Ngầu được tạo bởi Zoe, các lá bài thu thập được trong quá trình phiêu lưu, Ngôi Sao Khám Phá giúp bài phép 3+ tiêu hao thu thập trong phiêu lưu của bạn có hiệu ứng Hiệu Triệu.\\n-Zoe đánh xoay quanh bài được tạo và bài phép nên các sức mạnh nên chọn là các sức mạnh liên quan đến việc giảm tiêu hao hoặc hồi năng lượng bài phép hoặc cũng có thể lấy các sức mạnh liên quan đến rút bài vì Zoe khá thiếu hiệu ứng này.\\n-Về vật phẩm thì chủ yếu sẽ đồn hết cho Zoe như Bất Diệt, Song Kích, các vật phẩm cộng chỉ số hoặc ban đặc điểm,...\\n-Điều kiện thắng của Zoe sẽ là thăng cấp được Zoe nên là nhiệm vụ tối thượng của bạn là giữ Zoe sống và giữ nhịp ván đấu bằng các lá bài thượng giới của mình.",
         "regions": [
           "Targon"
         ],

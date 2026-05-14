@@ -19,7 +19,7 @@
       },
       {
         "cardCode": "02DE001",
-        "name": "Concerted [k:Strike|Strike]",
+        "name": "Concerted Strike",
         "count": 2,
         "image": "https://dd.b.pvp.net/6_3_0/set2/vi_vn/img/cards/02DE001.png"
       }
@@ -90,7 +90,7 @@
       },
       {
         "cardCode": "01DE018",
-        "name": "Radiant [k:Strike|Strike]",
+        "name": "Radiant Strike",
         "count": 2,
         "image": "https://dd.b.pvp.net/6_3_0/set1/vi_vn/img/cards/01DE018.png"
       },
@@ -7925,7 +7925,7 @@
       },
       {
         "cardCode": "06SI015",
-        "name": "[k:Strike|Strike] Up The Band",
+        "name": "Strike Up The Band",
         "count": 2,
         "image": "https://dd.b.pvp.net/6_3_0/set6/vi_vn/img/cards/06SI015.png"
       }
@@ -9813,7 +9813,7 @@
       },
       {
         "cardCode": "98SB043",
-        "name": "[k:Fleeting|Fleeting] Spirits",
+        "name": "Fleeting Spirits",
         "count": 2,
         "image": "https://dd.b.pvp.net/6_9_0/tpoc/vi_vn/img/cards/98SB043.png"
       }

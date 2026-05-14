@@ -141,7 +141,7 @@
     "translations": {
       "en": {
         "name": "The Craftsman's Favor",
-        "description": "[k:RoundStart|Round Start]: Create a [k:Fleeting|Fleeting] [cd:06FR012T1|Time and Dedication|icon,img-full] in hand.",
+        "description": "[k:RoundStart|Round Start]: Create a Fleeting [cd:06FR012T1|Time and Dedication|icon,img-full] in hand.",
         "region": "Spirit Blossom",
         "descriptionRaw": "Round Start: Create a Fleeting Time and Dedication in hand.",
         "rarity": "Rare"
@@ -151,7 +151,7 @@
     "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0224-full.png",
     "region": "Hoa Linh Lục Địa",
     "descriptionRaw": "Bắt Đầu Vòng Đấu: Tạo trên tay 1 lá Thời Gian và Công Sức Phù Du.",
-    "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Tạo trên tay 1 lá [cd:06FR012T1|Thời Gian và Công Sức|icon,img-full] [k:Fleeting|Phù Du].",
+    "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Tạo trên tay 1 lá [cd:06FR012T1|Thời Gian và Công Sức|icon,img-full] Phù Du.",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0224.png",
     "name": "Đặc Ân Người Thợ",
     "runeCode": "P0224",
@@ -256,7 +256,7 @@
     "translations": {
       "en": {
         "name": "Early Bird",
-        "description": "Game Start: [k:Summon|Summon] the [k:Weakest|weakest] follower from your deck.",
+        "description": "Game Start: [k:Summon|Summon] the weakest follower from your deck.",
         "region": "Spirit Blossom",
         "descriptionRaw": "Game Start: Summon the weakest follower from your deck.",
         "rarity": "Rare"
@@ -266,7 +266,7 @@
     "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0604-full.png",
     "region": "Hoa Linh Lục Địa",
     "descriptionRaw": "Bắt Đầu Trận Đấu: Triệu hồi tùy tùng Yếu Nhất từ bộ bài của ngươi.",
-    "description": "Bắt Đầu Trận Đấu: Triệu hồi tùy tùng [k:Weakest|Yếu Nhất] từ bộ bài của ngươi.",
+    "description": "Bắt Đầu Trận Đấu: Triệu hồi tùy tùng Yếu Nhất từ bộ bài của ngươi.",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0604.png",
     "name": "Cú Mèo Bắt Sâu",
     "runeCode": "P0604",
@@ -677,7 +677,7 @@
     "translations": {
       "en": {
         "name": "Arcane Empowerment",
-        "description": "Your spells and [k:Skill|Skills] deal 1 extra damage.",
+        "description": "Your spells and Skills deal 1 extra damage.",
         "region": "Spirit Blossom",
         "descriptionRaw": "Your spells and Skills deal 1 extra damage.",
         "rarity": "Common"
@@ -687,7 +687,7 @@
     "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0864-full.png",
     "region": "Hoa Linh Lục Địa",
     "descriptionRaw": "Bài phép và Kỹ Năng của ngươi gây thêm 1 sát thương.",
-    "description": "Bài phép và [k:Skill|Kỹ Năng] của ngươi gây thêm 1 sát thương.",
+    "description": "Bài phép và Kỹ Năng của ngươi gây thêm 1 sát thương.",
     "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0864.png",
     "name": "Bí Thuật Cường Hóa",
     "runeCode": "P0864",

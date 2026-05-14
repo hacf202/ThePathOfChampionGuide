@@ -31,7 +31,7 @@ router.get("/", async (req, res) => {
 			regions = "",  // Noxus, Ionia, etc.
 			types = "",    // Unit, Spell, Landmark, Equipment
 			costs = "",    // 0, 1, 2, ...
-			sort = "cardName-asc",
+			sort = "championCost-asc",
 			onlyBase = "false", // Nếu true, chỉ trả về lá bài gốc (không có hậu tố T)
 		} = req.query;
 

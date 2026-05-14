@@ -1,6 +1,5 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, lazy, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
-import { stripMarkup } from "../../utils/markupUtils";
 import {
 	useFloating,
 	autoUpdate,
@@ -19,6 +18,8 @@ import { useTranslation } from "../../hooks/useTranslation";
 import { Link } from "react-router-dom";
 import SafeImage from "../common/SafeImage";
 
+// Import động để tránh circular dependency với MarkupRenderer
+const MarkupRenderer = lazy(() => import("./MarkupRenderer"));
 
 /**
  * MarkupTooltip - Phiên bản cao cấp dành cho Administrator và Người dùng
@@ -36,6 +37,7 @@ const MarkupTooltip = ({
 	href, 
     items = [],
 	compact = false,
+    noTooltip = false, // Prop mới để chặn tooltip lồng nhau vô hạn
 	children 
 }) => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -63,9 +65,9 @@ const MarkupTooltip = ({
 	const hover = useHover(context, { 
 		delay: 150,
 		move: false,
-		enabled: true 
+		enabled: !noTooltip // Nếu noTooltip thì không kích hoạt hover
 	});
-	const click = useClick(context);
+	const click = useClick(context, { enabled: !noTooltip });
 	const dismiss = useDismiss(context);
 	const role = useRole(context, { role: "tooltip" });
 
@@ -104,12 +106,12 @@ const MarkupTooltip = ({
 			<span
 				ref={refs.setReference}
 				{...getReferenceProps()}
-				className="inline-flex items-baseline"
+				className={`inline-flex items-baseline ${noTooltip ? '' : 'cursor-help'}`}
 			>
 				{children}
 			</span>
 
-			{isOpen && (
+			{!noTooltip && isOpen && (
 				<FloatingPortal>
 					<div
 						ref={refs.setFloating}
@@ -148,7 +150,12 @@ const MarkupTooltip = ({
 
                                 {displayDescription && (
                                     <div className="text-slate-200 text-[13px] leading-relaxed whitespace-pre-wrap font-medium">
-                                        {stripMarkup(displayDescription)}
+                                        <Suspense fallback={<span>{displayDescription}</span>}>
+                                            <MarkupRenderer 
+                                                text={displayDescription} 
+                                                noTooltip={true} // Đệ quy nhưng chặn Tooltip lồng
+                                            />
+                                        </Suspense>
                                     </div>
                                 )}
 
@@ -164,12 +171,12 @@ const MarkupTooltip = ({
                                 )}
                             </div>
 
-                            {/* Floating Items (Tái sử dụng style từ CardHoverTooltip) */}
+                            {/* Floating Items */}
                             {items && items.length > 0 && (
                                 <div className='absolute right-[-18px] sm:right-[-22px] top-1/2 -translate-y-1/2 flex flex-col gap-0 z-10'>
                                     {items.map((item, idx) => {
-                                        const itemName = tDynamic(item, "name") || "Item";
-                                        const itemImg = item.assetAbsolutePath || item.image || "/fallback-image.svg";
+                                        const itemName = item.name || "Item";
+                                        const itemImg = item.assetAbsolutePath || item.icon || "/fallback-image.svg";
 
                                         return (
                                             <Link
