@@ -1,6 +1,6 @@
 // src/components/admin/championEditor.jsx
 import { useState, memo, useEffect, useCallback, useMemo } from "react";
-import { useNavigate, Link, Routes, Route, useParams } from "react-router-dom";
+import { useNavigate, Link, Routes, Route, useParams, useSearchParams } from "react-router-dom";
 import ChampionCard from "../../champion/championCard.jsx";
 import Button from "../../common/button";
 import { removeAccents } from "../../../utils/vietnameseUtils";
@@ -200,14 +200,17 @@ function ChampionEditor() {
 	const [items, setItems] = useState([]);
 	const [cards, setCards] = useState([]);
 
-	const [searchInput, setSearchInput] = useState("");
-	const [searchTerm, setSearchTerm] = useState("");
-	const [selectedRegions, setSelectedRegions] = useState([]);
-	const [selectedCosts, setSelectedCosts] = useState([]);
-	const [selectedMaxStars, setSelectedMaxStars] = useState([]);
-	const [selectedTags, setSelectedTags] = useState([]);
-	const [sortOrder, setSortOrder] = useState("name-asc");
-	const [currentPage, setCurrentPage] = useState(1);
+	const [searchParams, setSearchParams] = useSearchParams();
+
+	// Initialize state from URL
+	const [searchInput, setSearchInput] = useState(searchParams.get("q") || "");
+	const [searchTerm, setSearchTerm] = useState(searchParams.get("q") || "");
+	const [selectedRegions, setSelectedRegions] = useState(searchParams.get("regions")?.split(",").filter(Boolean) || []);
+	const [selectedCosts, setSelectedCosts] = useState(searchParams.get("costs")?.split(",").map(Number).filter(n => !isNaN(n)) || []);
+	const [selectedMaxStars, setSelectedMaxStars] = useState(searchParams.get("maxstars")?.split(",").map(Number).filter(n => !isNaN(n)) || []);
+	const [selectedTags, setSelectedTags] = useState(searchParams.get("tags")?.split(",").filter(Boolean) || []);
+	const [sortOrder, setSortOrder] = useState(searchParams.get("sort") || "name-asc");
+	const [currentPage, setCurrentPage] = useState(Number(searchParams.get("page")) || 1);
 
 	const [isLoading, setIsLoading] = useState(true);
 	const [isSaving, setIsSaving] = useState(false);

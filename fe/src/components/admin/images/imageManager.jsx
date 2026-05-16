@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, memo, useMemo } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import {
 	getR2Folders,
@@ -8,6 +9,7 @@ import {
 	updateImageR2,
 	createR2Folder,
 	deleteR2Folder,
+	getBucketStats,
 } from "../../../context/services/apiHelper";
 import PageTitle from "../../common/pageTitle";
 import Button from "../../common/button";
@@ -27,6 +29,13 @@ import {
 	CheckCircle,
 	ZoomIn,
 	ZoomOut,
+	ChevronRight,
+	HardDrive,
+	Folder,
+	ExternalLink,
+	RefreshCw,
+	ChevronLeft,
+	ArrowLeft,
 } from "lucide-react";
 
 const formatBytes = (bytes, decimals = 2) => {
@@ -39,8 +48,11 @@ const formatBytes = (bytes, decimals = 2) => {
 };
 
 const ImageManager = memo(() => {
+	const { folderName } = useParams();
+	const navigate = useNavigate();
+	
 	const [folders, setFolders] = useState([]);
-	const [currentFolder, setCurrentFolder] = useState("");
+	const currentFolder = useMemo(() => folderName || "", [folderName]);
 	const [images, setImages] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [uploading, setUploading] = useState(false);
@@ -63,25 +75,19 @@ const ImageManager = memo(() => {
 	const [updatingKey, setUpdatingKey] = useState(null);
 
 	// ---- Data Fetching ----
-	const loadFolders = async (selectLast = false) => {
+	const loadFolders = async () => {
 		try {
 			const data = await getR2Folders();
 			const list = data.folders || [];
 			setFolders(list);
-			if (list.length > 0 && !currentFolder) {
-				setCurrentFolder(list[0]);
-			} else if (selectLast && list.length > 0) {
-				setCurrentFolder(list[list.length - 1]);
-			}
 		} catch (err) {
 			console.error("Lỗi tải thư mục", err);
 		}
 	};
 
-	const loadBucketStats = async () => {
+	const loadBucketStatsData = async () => {
 		setStatsLoading(true);
 		try {
-			const { getBucketStats } = await import("../../../context/services/apiHelper");
 			const data = await getBucketStats();
 			setBucketStats(data || { totalSize: 0, totalFiles: 0 });
 		} catch (err) {
@@ -93,16 +99,14 @@ const ImageManager = memo(() => {
 
 	useEffect(() => {
 		loadFolders();
-		loadBucketStats();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+		loadBucketStatsData();
 	}, []);
 
 	useEffect(() => {
 		if (currentFolder) {
 			loadImages();
-			setSelectedFiles([]); // Reset files when changing folder
+			setSelectedFiles([]); 
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currentFolder]);
 
 	const loadImages = async () => {
@@ -115,7 +119,7 @@ const ImageManager = memo(() => {
 				icon: "error",
 				title: "Lỗi",
 				text: "Không thể tải danh sách ảnh.",
-				confirmButtonColor: "#3b82f6",
+				confirmButtonColor: "var(--color-primary-500)",
 			});
 		} finally {
 			setLoading(false);
@@ -142,12 +146,12 @@ const ImageManager = memo(() => {
 			inputLabel: "Tên thư mục",
 			inputPlaceholder: "Không dấu, không khoảng cách...",
 			showCancelButton: true,
-			confirmButtonColor: "#3b82f6",
-			cancelButtonColor: "#6b7280",
+			confirmButtonColor: "var(--color-primary-500)",
+			cancelButtonColor: "var(--color-text-secondary)",
 			confirmButtonText: "Tạo ngay",
 			cancelButtonText: "Hủy",
-			background: "#1f2937",
-			color: "#f3f4f6",
+			background: "var(--color-surface-bg)",
+			color: "var(--color-text-primary)",
 			inputValidator: (value) => {
 				if (!value) return "Bạn cần nhập tên thư mục!";
 				if (/\s/.test(value)) return "Tên thư mục không được chứa khoảng trắng!";
@@ -169,57 +173,61 @@ const ImageManager = memo(() => {
 				position: "top-end",
 			});
 			
-			await loadFolders(true);
+			await loadFolders();
+			navigate(`/admin/images/${name}`);
 		} catch (err) {
 			Swal.fire({
 				icon: "error",
 				title: "Lỗi",
 				text: err.message || "Không thể tạo thư mục.",
-				confirmButtonColor: "#3b82f6",
+				confirmButtonColor: "var(--color-primary-500)",
 			});
 		}
 	};
 
-	const handleDeleteFolder = async () => {
-		if (!currentFolder) return;
+	const handleDeleteFolder = async (e, folder) => {
+		e.stopPropagation();
+		const folderToDelete = folder || currentFolder;
 		
 		const result = await Swal.fire({
 			title: "CẢNH BÁO NGUY HIỂM",
-			text: `Bạn sẽ xóa toàn bộ thư mục "${currentFolder}" và TẤT CẢ ảnh bên trong. Hành động này không thể hoàn tác!`,
+			text: `Bạn sẽ xóa toàn bộ thư mục "${folderToDelete}" và TẤT CẢ ảnh bên trong. Hành động này không thể hoàn tác!`,
 			icon: "error",
 			showCancelButton: true,
-			confirmButtonColor: "#ef4444",
-			cancelButtonColor: "#6b7280",
+			confirmButtonColor: "var(--color-danger-500)",
+			cancelButtonColor: "var(--color-text-secondary)",
 			confirmButtonText: "Tôi chấp nhận rủi ro, hãy xóa!",
 			cancelButtonText: "Hủy bỏ",
-			background: "#1f2937",
-			color: "#f3f4f6",
+			background: "var(--color-surface-bg)",
+			color: "var(--color-text-primary)",
 		});
 
 		if (!result.isConfirmed) return;
 
 		try {
 			setLoading(true);
-			await deleteR2Folder(currentFolder);
+			await deleteR2Folder(folderToDelete);
 			
 			Swal.fire({
 				icon: "success",
 				title: "Đã xóa!",
-				text: `Thư mục "${currentFolder}" đã được loại bỏ.`,
+				text: `Thư mục "${folderToDelete}" đã được loại bỏ.`,
 				timer: 2000,
 				showConfirmButton: false,
 				toast: true,
 				position: "top-end",
 			});
 			
-			setCurrentFolder("");
+			if (folderToDelete === currentFolder) {
+				navigate("/admin/images");
+			}
 			await loadFolders();
 		} catch (err) {
 			Swal.fire({
 				icon: "error",
 				title: "Lỗi",
 				text: "Không thể xóa thư mục. Vui lòng kiểm tra lại.",
-				confirmButtonColor: "#3b82f6",
+				confirmButtonColor: "var(--color-primary-500)",
 			});
 		} finally {
 			setLoading(false);
@@ -270,13 +278,13 @@ const ImageManager = memo(() => {
 			setSelectedFiles([]);
 			if (fileInputRef.current) fileInputRef.current.value = "";
 			loadImages();
-			loadBucketStats();
+			loadBucketStatsData();
 		} catch (err) {
 			Swal.fire({
 				icon: "error",
 				title: "Lỗi tải lên",
 				text: err.message || "Đã có lỗi xảy ra.",
-				confirmButtonColor: "#3b82f6",
+				confirmButtonColor: "var(--color-primary-500)",
 			});
 		} finally {
 			setUploading(false);
@@ -289,12 +297,12 @@ const ImageManager = memo(() => {
 			text: "Ảnh sẽ bị xóa vĩnh viễn khỏi Cloudflare R2.",
 			icon: "warning",
 			showCancelButton: true,
-			confirmButtonColor: "#ef4444",
-			cancelButtonColor: "#6b7280",
+			confirmButtonColor: "var(--color-danger-500)",
+			cancelButtonColor: "var(--color-text-secondary)",
 			confirmButtonText: "Xóa ngay",
 			cancelButtonText: "Hủy",
-			background: "#1f2937",
-			color: "#f3f4f6",
+			background: "var(--color-surface-bg)",
+			color: "var(--color-text-primary)",
 		});
 
 		if (!result.isConfirmed) return;
@@ -302,7 +310,7 @@ const ImageManager = memo(() => {
 		try {
 			await deleteImageR2(key);
 			setImages((prev) => prev.filter((img) => img.key !== key));
-			loadBucketStats();
+			loadBucketStatsData();
 			
 			Swal.fire({
 				icon: "success",
@@ -317,7 +325,7 @@ const ImageManager = memo(() => {
 				icon: "error",
 				title: "Lỗi",
 				text: "Không thể xóa ảnh.",
-				confirmButtonColor: "#3b82f6",
+				confirmButtonColor: "var(--color-primary-500)",
 			});
 		}
 	};
@@ -345,7 +353,7 @@ const ImageManager = memo(() => {
 				icon: "error",
 				title: "Lỗi",
 				text: "Không thể cập nhật ảnh.",
-				confirmButtonColor: "#3b82f6",
+				confirmButtonColor: "var(--color-primary-500)",
 			});
 		} finally {
 			setUploading(false);
@@ -366,453 +374,346 @@ const ImageManager = memo(() => {
 		});
 	};
 
-	// ---- Image Grid Zoom Classes ----
 	const getGridColsClass = (zoom) => {
 		switch (zoom) {
-			case 1: // Rất nhỏ
-				return "grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-2";
-			case 2: // Nhỏ
-				return "grid-cols-3 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-3";
-			case 3: // Trung bình (Mặc định)
-				return "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4";
-			case 4: // Lớn
-				return "grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5";
-			case 5: // Rất lớn
-				return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6";
-			default:
-				return "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4";
+			case 1: return "grid-cols-5 sm:grid-cols-7 md:grid-cols-9 lg:grid-cols-11 gap-2";
+			case 2: return "grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-3";
+			case 3: return "grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4";
+			case 4: return "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5";
+			case 5: return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6";
+			default: return "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4";
 		}
 	};
 
 	return (
-		<div className="p-4 md:p-6 space-y-4 bg-page-bg h-full text-text-primary font-sans">
-			<PageTitle title="Quản Lý Ảnh Cloudflare R2" />
-
-			{/* TOOLBAR & CONTROLS */}
-			<div className="flex flex-col lg:flex-row gap-6">
-				{/* L Cột: Folder Select & Stats */}
-				<div className="w-full lg:w-1/4 space-y-4">
-					<div className="bg-surface-bg border border-border rounded-xl p-4 shadow-sm flex flex-col gap-3">
-						<div className="flex items-center justify-between">
-							<span className="text-xs font-bold text-gray-400 uppercase tracking-wider flex items-center gap-2">
-								<ImageIcon size={14} /> Thư Mục
-							</span>
-							<div className="flex items-center gap-3">
-								<button
-									type="button"
-									onClick={handleCreateFolder}
-									className="text-blue-500 hover:text-blue-400 p-1 rounded-md hover:bg-blue-500/10 transition-colors"
-									title="Thêm thư mục"
-								>
-									<FolderPlus size={16} />
-								</button>
-								<button
-									type="button"
-									onClick={handleDeleteFolder}
-									className="text-red-500 hover:text-red-400 p-1 rounded-md hover:bg-red-500/10 transition-colors"
-									title="Xóa thư mục hiện tại"
-								>
-									<FolderMinus size={16} />
-								</button>
-							</div>
-						</div>
-						<select
-							value={currentFolder}
-							onChange={(e) => setCurrentFolder(e.target.value)}
-							className="w-full bg-page-bg border border-border text-text-primary p-2.5 rounded-lg focus:ring-2 focus:ring-blue-500/50 outline-none transition-all"
+		<div className="flex flex-col h-full bg-page-bg text-text-primary">
+			{/* HEADER: Breadcrumbs & Search */}
+			<header className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6">
+				<div className="flex items-center gap-3">
+					{currentFolder && (
+						<button 
+							onClick={() => navigate("/admin/images")}
+							className="p-2 rounded-xl bg-surface-bg border border-border text-text-secondary hover:text-primary-500 transition-all shadow-sm"
 						>
-							{folders.map((f) => (
-								<option key={f} value={f} style={{ backgroundColor: 'var(--color-dropdown-bg)', color: 'var(--color-dropdown-item-text)' }}>
-									{f}
-								</option>
-							))}
-						</select>
-						{currentFolder && (
-							<div className="space-y-1.5 mt-2 px-1">
-								<div className="text-[10px] text-gray-500 flex justify-between uppercase">
-									<span>Trong thư mục:</span>
-									<span className="font-semibold text-text-primary">
-										{images.length} ảnh
-									</span>
-								</div>
-								<div className="text-[10px] text-gray-500 flex justify-between uppercase">
-									<span>Dung lượng:</span>
-									<span className="font-semibold text-text-primary">
-										{formatBytes(currentFolderSize)}
-									</span>
-								</div>
-							</div>
-						)}
-					</div>
-
-					{/* BUCKET STORAGE STATS CARD */}
-					<div className="bg-surface-bg border border-border rounded-xl p-4 shadow-sm space-y-3">
-						<span className="text-xs font-bold text-gray-400 uppercase tracking-wider flex items-center gap-2">
-							<UploadCloud size={14} /> Hệ Thống Bucket
-						</span>
-						<div className="space-y-2">
-							<div className="w-full bg-page-bg/50 h-1.5 rounded-full overflow-hidden">
-								<div
-									className="bg-blue-500 h-full rounded-full transition-all duration-500"
-									style={{
-										width: `${Math.min(100, (bucketStats.totalSize / (1024 * 1024 * 1024)) * 100)}%`,
-									}}
-								></div>
-							</div>
-							<div className="flex flex-col gap-1">
-								<div className="flex justify-between text-[11px]">
-									<span className="text-gray-500">Tổng lưu trữ:</span>
-									<span className="font-bold text-text-primary">
-										{formatBytes(bucketStats.totalSize)}
-									</span>
-								</div>
-								<div className="flex justify-between text-[11px]">
-									<span className="text-gray-500">Số lượng tệp:</span>
-									<span className="font-bold text-text-primary">
-										{bucketStats.totalFiles.toLocaleString()}
-									</span>
-								</div>
-							</div>
+							<ArrowLeft size={18} />
+						</button>
+					)}
+					<div className="flex flex-col">
+						<div className="flex items-center gap-1.5 text-text-secondary text-xs font-medium mb-0.5">
+							<span className="hover:text-primary-500 cursor-pointer" onClick={() => navigate("/admin")}>Admin</span>
+							<ChevronRight size={12} />
+							<span className="hover:text-primary-500 cursor-pointer" onClick={() => navigate("/admin/images")}>Images</span>
+							{currentFolder && (
+								<>
+									<ChevronRight size={12} />
+									<span className="text-primary-500 font-bold">{currentFolder}</span>
+								</>
+							)}
 						</div>
+						<h1 className="text-2xl font-bold tracking-tight">{currentFolder || "Thư Viện Ảnh R2"}</h1>
 					</div>
 				</div>
 
-				{/* R Cột: Dropzone & Upload */}
-				<div className="w-full lg:w-3/4">
-					<div
-						className={`relative w-full h-32 md:h-40 rounded-xl border-2 border-dashed flex flex-col items-center justify-center p-4 text-center transition-all bg-surface-bg/30
-                 ${
-										isDragging
-											? "border-blue-500 bg-blue-500/5"
-											: "border-border hover:border-gray-500 hover:bg-surface-bg/50"
-									}
-                 ${selectedFiles.length > 0 ? "pt-2" : ""}`}
-						onDragOver={onDragOver}
-						onDragLeave={onDragLeave}
-						onDrop={onDrop}
-					>
-						{/* Background Icon */}
-						{selectedFiles.length === 0 && (
-							<UploadCloud
-								className={`w-10 h-10 mb-2 transition-colors ${
-									isDragging ? "text-blue-500" : "text-gray-400"
-								}`}
-							/>
-						)}
-
-						{selectedFiles.length === 0 ? (
-							<>
-								<h3 className="text-sm font-semibold text-text-primary mb-1 relative z-10">
-									Kéo thả ảnh vào đây để tải lên thư mục{" "}
-									<span className="text-blue-500">{currentFolder}</span>
-								</h3>
-								<p className="text-xs text-gray-500 mb-3 relative z-10">
-									Hỗ trợ .PNG, .JPG, .WEBP
-								</p>
-								<Button
-									variant="outline"
-									size="sm"
-									onClick={() => fileInputRef.current?.click()}
-									className="relative z-10"
-								>
-									Chọn File từ máy
-								</Button>
-							</>
-						) : (
-							<div className="w-full h-full flex flex-col">
-								<div className="flex justify-between items-center mb-3">
-									<h4 className="text-sm font-medium text-text-primary flex items-center gap-2">
-										<CheckCircle size={16} className="text-emerald-500" />
-										Đã chọn {selectedFiles.length} file
-									</h4>
-									<div className="flex gap-2">
-										<Button
-											size="sm"
-											variant="outline"
-											onClick={() => setSelectedFiles([])}
-											disabled={uploading}
-										>
-											Hủy
-										</Button>
-										<Button
-											size="sm"
-											onClick={handleUpload}
-											disabled={uploading}
-											iconLeft={!uploading && <UploadCloud size={16} />}
-										>
-											{uploading ? "Đang tải lên..." : "Tải lên ngay"}
-										</Button>
-									</div>
-								</div>
-								<div className="flex-1 overflow-y-auto w-full custom-scrollbar pr-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 text-left">
-									{selectedFiles.map((f, i) => (
-										<div
-											key={i}
-											className="flex items-center justify-between p-2 rounded bg-page-bg border border-border"
-										>
-											<div className="truncate text-xs flex-1 mr-2 text-text-primary">
-												{f.name}
-												<span className="text-gray-500 ml-2">
-													({formatBytes(f.size)})
-												</span>
-											</div>
-											<button
-												onClick={() => removeSelectedFile(i)}
-												disabled={uploading}
-												className="text-gray-400 hover:text-red-500"
-											>
-												<X size={14} />
-											</button>
-										</div>
-									))}
-								</div>
-							</div>
-						)}
-
-						{/* Hidden Multiple File Input */}
+				<div className="flex items-center gap-3 w-full md:w-auto">
+					<div className="relative flex-1 md:w-72">
+						<Search className="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary" size={16} />
 						<input
-							type="file"
-							multiple
-							ref={fileInputRef}
-							onChange={onFileSelect}
-							className="hidden"
-							accept="image/*"
+							type="text"
+							placeholder={currentFolder ? "Tìm trong thư mục..." : "Tìm thư mục..."}
+							value={searchTerm}
+							onChange={(e) => setSearchTerm(e.target.value)}
+							className="w-full pl-9 pr-4 py-2 bg-surface-bg border border-border rounded-xl text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 outline-none transition-all"
 						/>
 					</div>
+					<Button 
+						variant="primary" 
+						size="md" 
+						onClick={currentFolder ? () => fileInputRef.current?.click() : handleCreateFolder}
+						iconLeft={currentFolder ? <UploadCloud size={18} /> : <FolderPlus size={18} />}
+						className="shadow-lg shadow-primary-500/20 whitespace-nowrap"
+					>
+						{currentFolder ? "Upload" : "Tạo Thư Mục"}
+					</Button>
 				</div>
-			</div>
+			</header>
 
-			<hr className="border-t border-border/50" />
-
-			{/* LIST CONTROLS (Search, Zoom & Layout Toggle) */}
-			<div className="flex flex-col md:flex-row justify-between items-center gap-4 bg-surface-bg p-3 rounded-xl border border-border shadow-sm">
-				<div className="relative w-full md:w-80">
-					<Search
-						className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
-						size={16}
-					/>
-					<input
-						type="text"
-						placeholder="Tìm kiếm ảnh theo tên..."
-						value={searchTerm}
-						onChange={(e) => setSearchTerm(e.target.value)}
-						className="w-full pl-9 pr-4 py-2 bg-page-bg border border-border rounded-lg text-text-primary focus:ring-2 focus:ring-blue-500/50 outline-none text-sm transition-all"
-					/>
-				</div>
-
-				<div className="flex items-center gap-4 w-full md:w-auto">
-					{/* Zoom Controls (Only show in Grid View) */}
-					{viewMode === "grid" && (
-						<div className="flex items-center gap-2 px-3 py-1.5 bg-page-bg border border-border rounded-lg flex-1 md:flex-none justify-center">
-							<button
-								onClick={() => setZoomLevel((z) => Math.max(1, z - 1))}
-								className="text-gray-400 hover:text-blue-500 transition-colors"
-								title="Thu nhỏ"
-							>
-								<ZoomOut size={16} />
-							</button>
-							<input
-								type="range"
-								min="1"
-								max="5"
-								step="1"
-								value={zoomLevel}
-								onChange={(e) => setZoomLevel(parseInt(e.target.value))}
-								className="w-20 sm:w-24 accent-blue-500 cursor-pointer"
-								title="Điều chỉnh kích cỡ lưới"
-							/>
-							<button
-								onClick={() => setZoomLevel((z) => Math.min(5, z + 1))}
-								className="text-gray-400 hover:text-blue-500 transition-colors"
-								title="Phóng to"
-							>
-								<ZoomIn size={16} />
-							</button>
+			{/* STATS & TOOLS BAR */}
+			<div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+				{/* Storage Card */}
+				<div className="bg-surface-bg border border-border rounded-2xl p-4 shadow-sm flex items-center gap-4">
+					<div className="p-3 rounded-xl bg-primary-500/10 text-primary-500">
+						<HardDrive size={24} />
+					</div>
+					<div className="flex-1">
+						<p className="text-[10px] font-bold text-text-secondary uppercase tracking-wider">Lưu trữ R2</p>
+						<p className="text-lg font-bold">{formatBytes(bucketStats.totalSize)} / 10 GB</p>
+						<div className="w-full bg-page-bg h-1 rounded-full mt-2 overflow-hidden">
+							<div 
+								className="bg-primary-500 h-full rounded-full transition-all duration-1000" 
+								style={{ width: `${Math.min(100, (bucketStats.totalSize / (10 * 1024 * 1024 * 1024)) * 100)}%` }}
+							></div>
 						</div>
-					)}
-
-					{/* View Mode Toggle */}
-					<div className="flex items-center bg-page-bg border border-border p-1 rounded-lg">
-						<button
-							onClick={() => setViewMode("grid")}
-							className={`p-1.5 rounded-md transition-all ${
-								viewMode === "grid"
-									? "bg-surface-bg text-blue-500 shadow-sm"
-									: "text-gray-500 hover:text-text-primary"
-							}`}
-							title="Chế độ phân lưới"
-						>
-							<LayoutGrid size={18} />
-						</button>
-						<button
-							onClick={() => setViewMode("list")}
-							className={`p-1.5 rounded-md transition-all ${
-								viewMode === "list"
-									? "bg-surface-bg text-blue-500 shadow-sm"
-									: "text-gray-500 hover:text-text-primary"
-							}`}
-							title="Chế độ danh sách"
-						>
-							<ListIcon size={18} />
-						</button>
 					</div>
 				</div>
-			</div>
 
-			{/* Hidden Single File Input for Update */}
-			<input
-				type="file"
-				ref={updateFileInputRef}
-				onChange={handleUpdateChange}
-				className="hidden"
-				accept="image/*"
-			/>
+				{/* Files Card */}
+				<div className="bg-surface-bg border border-border rounded-2xl p-4 shadow-sm flex items-center gap-4">
+					<div className="p-3 rounded-xl bg-emerald-500/10 text-emerald-500">
+						<ImageIcon size={24} />
+					</div>
+					<div>
+						<p className="text-[10px] font-bold text-text-secondary uppercase tracking-wider">Tổng tệp tin</p>
+						<p className="text-lg font-bold">{bucketStats.totalFiles.toLocaleString()}</p>
+					</div>
+				</div>
 
-			{/* IMAGE DISPLAY */}
-			{loading ? (
-				<div className="py-20">
-					<LoadingState text="Đang tải thư viện ảnh..." />
-				</div>
-			) : filteredImages.length === 0 ? (
-				<div className="py-20 text-center text-gray-500 flex flex-col items-center gap-3">
-					<ImageIcon size={40} className="text-gray-600/50" />
-					<p>
-						{searchTerm
-							? "Không tìm thấy ảnh nào khớp với từ khóa."
-							: "Thư mục này hiện tại đang trống."}
-					</p>
-				</div>
-			) : viewMode === "grid" ? (
-				/* ---- GRID VIEW ---- */
-				<div className={`grid ${getGridColsClass(zoomLevel)}`}>
-					{filteredImages.map((img) => (
-						<div
-							key={img.key}
-							className="bg-surface-bg border border-border p-2 rounded-xl group relative hover:border-blue-500/50 hover:shadow-lg transition-all"
-						>
-							<div className="w-full aspect-square bg-page-bg rounded-lg flex items-center justify-center overflow-hidden relative">
-								<img
-									src={img.url}
-									alt={img.key}
-									className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
-									loading="lazy"
-								/>
-								<div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center gap-2 transition-all duration-300 backdrop-blur-[2px]">
-									<button
-										onClick={() => copyUrl(img.url)}
-										className="flex items-center justify-center gap-1.5 bg-blue-600 hover:bg-blue-500 text-white px-3 py-1.5 rounded-md text-[11px] font-medium w-24 transition-colors"
-									>
-										<Copy size={12} /> Sao chép
-									</button>
-									<button
-										onClick={() => {
-											setUpdatingKey(img.key);
-											updateFileInputRef.current.click();
-										}}
-										className="flex items-center justify-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1.5 rounded-md text-[11px] font-medium w-24 transition-colors"
-									>
-										<Edit3 size={12} /> Thay thế
-									</button>
-									<button
-										onClick={() => handleDeleteImage(img.key)}
-										className="flex items-center justify-center gap-1.5 bg-red-600 hover:bg-red-500 text-white px-3 py-1.5 rounded-md text-[11px] font-medium w-24 transition-colors"
-									>
-										<Trash2 size={12} /> Xóa ảnh
-									</button>
+				{/* Folder Info Card (Current) */}
+				{currentFolder ? (
+					<div className="md:col-span-2 bg-surface-bg border border-border rounded-2xl p-4 shadow-sm flex items-center justify-between">
+						<div className="flex items-center gap-4">
+							<div className="p-3 rounded-xl bg-amber-500/10 text-amber-500">
+								<Folder size={24} />
+							</div>
+							<div>
+								<p className="text-[10px] font-bold text-text-secondary uppercase tracking-wider">Thư mục hiện tại</p>
+								<div className="flex items-center gap-2">
+									<p className="text-lg font-bold text-primary-500">{currentFolder}</p>
+									<span className="text-xs text-text-secondary">({images.length} tệp • {formatBytes(currentFolderSize)})</span>
 								</div>
 							</div>
-							<div className="mt-3 flex flex-col items-center">
-								<p
-									className="text-[11px] truncate text-gray-400 font-medium px-1 w-full text-center"
-									title={img.key.split("/").pop()}
+						</div>
+						<button 
+							onClick={handleDeleteFolder}
+							className="p-2 text-danger-500 hover:bg-danger-500/10 rounded-xl transition-all"
+							title="Xóa thư mục"
+						>
+							<FolderMinus size={20} />
+						</button>
+					</div>
+				) : (
+					<div className="md:col-span-2 flex items-center justify-end gap-2 px-2">
+						<button onClick={loadFolders} className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-text-secondary hover:text-primary-500 transition-all">
+							<RefreshCw size={16} className={statsLoading ? "animate-spin" : ""} /> Làm mới danh sách
+						</button>
+					</div>
+				)}
+			</div>
+
+			{/* CONTENT AREA */}
+			<div className="flex-1 min-h-0">
+				{currentFolder && (
+					<div className="flex items-center justify-between mb-4">
+						<div className="flex items-center gap-3">
+							<div className="flex items-center bg-surface-bg border border-border p-1 rounded-xl shadow-sm">
+								<button
+									onClick={() => setViewMode("grid")}
+									className={`p-1.5 rounded-lg transition-all ${viewMode === "grid" ? "bg-primary-500 text-white" : "text-text-secondary hover:bg-surface-hover"}`}
 								>
-									{img.key.split("/").pop()}
-								</p>
-								<span className="text-[9px] text-gray-500 mt-0.5">
-									{formatBytes(img.size)}
-								</span>
+									<LayoutGrid size={18} />
+								</button>
+								<button
+									onClick={() => setViewMode("list")}
+									className={`p-1.5 rounded-lg transition-all ${viewMode === "list" ? "bg-primary-500 text-white" : "text-text-secondary hover:bg-surface-hover"}`}
+								>
+									<ListIcon size={18} />
+								</button>
+							</div>
+							{viewMode === "grid" && (
+								<div className="flex items-center gap-3 px-3 py-1.5 bg-surface-bg border border-border rounded-xl">
+									<ZoomOut size={14} className="text-text-secondary" />
+									<input
+										type="range"
+										min="1" max="5" step="1"
+										value={zoomLevel}
+										onChange={(e) => setZoomLevel(parseInt(e.target.value))}
+										className="w-24 accent-primary-500 cursor-pointer"
+									/>
+									<ZoomIn size={14} className="text-text-secondary" />
+								</div>
+							)}
+						</div>
+					</div>
+				)}
+
+				<div 
+					className={`h-full overflow-y-auto custom-scrollbar pb-10 ${isDragging ? "ring-2 ring-primary-500 ring-inset bg-primary-500/5" : ""}`}
+					onDragOver={currentFolder ? onDragOver : null}
+					onDragLeave={currentFolder ? onDragLeave : null}
+					onDrop={currentFolder ? onDrop : null}
+				>
+					{loading ? (
+						<div className="h-64 flex items-center justify-center">
+							<LoadingState text="Đang truy xuất dữ liệu..." />
+						</div>
+					) : !currentFolder ? (
+						/* FOLDER GRID VIEW (ROOT) */
+						<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 animate-in fade-in slide-in-from-bottom-4">
+							{folders.filter(f => f.toLowerCase().includes(searchTerm.toLowerCase())).map(f => (
+								<div 
+									key={f}
+									onClick={() => navigate(`/admin/images/${f}`)}
+									className="group bg-surface-bg border border-border rounded-2xl p-6 cursor-pointer hover:border-primary-500/50 hover:shadow-xl hover:shadow-primary-500/5 transition-all relative overflow-hidden"
+								>
+									<div className="absolute top-0 right-0 w-24 h-24 bg-primary-500/5 rounded-full -mr-8 -mt-8 group-hover:scale-150 transition-transform duration-500"></div>
+									<div className="relative z-10 flex flex-col items-center text-center">
+										<div className="w-16 h-16 rounded-2xl bg-primary-500/10 text-primary-500 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-primary-500 group-hover:text-white transition-all duration-300">
+											<Folder size={32} />
+										</div>
+										<h3 className="font-bold text-lg mb-1 group-hover:text-primary-500 transition-colors">{f}</h3>
+										<p className="text-xs text-text-secondary font-medium">Bấm để quản lý</p>
+									</div>
+								</div>
+							))}
+							<div 
+								onClick={handleCreateFolder}
+								className="bg-page-bg border-2 border-dashed border-border rounded-2xl p-6 cursor-pointer hover:border-primary-500/50 hover:bg-primary-500/5 transition-all flex flex-col items-center justify-center text-text-secondary hover:text-primary-500"
+							>
+								<FolderPlus size={32} className="mb-2" />
+								<span className="font-bold">Tạo thư mục mới</span>
 							</div>
 						</div>
-					))}
-				</div>
-			) : (
-				/* ---- LIST VIEW ---- */
-				<div className="bg-surface-bg border border-border rounded-xl overflow-hidden shadow-sm">
-					<div className="overflow-x-auto">
-						<table className="w-full text-left text-sm whitespace-nowrap">
-							<thead className="bg-page-bg text-gray-400 border-b border-border text-xs uppercase">
-								<tr>
-									<th className="px-5 py-3 font-semibold">Hình Ảnh</th>
-									<th className="px-5 py-3 font-semibold">Dung Lượng</th>
-									<th className="px-5 py-3 font-semibold text-right">
-										Hành Động
-									</th>
-								</tr>
-							</thead>
-							<tbody className="divide-y divide-theme-border/50">
-								{filteredImages.map((img) => (
-									<tr
-										key={img.key}
-										className="hover:bg-page-bg/50 transition-colors"
-									>
-										<td className="px-5 py-2">
-											<div className="w-12 h-12 rounded-lg bg-page-bg border border-border p-1 flex items-center justify-center">
-												<img
-													src={img.url}
-													alt={img.key}
-													className="max-h-full max-w-full object-contain"
-													loading="lazy"
-												/>
-											</div>
-										</td>
-										<td className="px-5 py-2">
-											<div className="flex flex-col">
-												<span className="font-medium text-text-primary truncate max-w-[200px] md:max-w-md">
-													{img.key.split("/").pop()}
-												</span>
-												<span className="text-[10px] text-gray-500 font-mono truncate max-w-[200px] md:max-w-md">
-													{img.url}
-												</span>
-											</div>
-										</td>
-										<td className="px-5 py-2">
-											<span className="text-xs text-gray-500">
-												{formatBytes(img.size)}
-											</span>
-										</td>
-										<td className="px-5 py-2 text-right space-x-2">
-											<button
-												onClick={() => copyUrl(img.url)}
-												className="p-1.5 text-gray-400 hover:text-blue-500 hover:bg-blue-500/10 rounded-md transition-colors"
-												title="Copy URL"
-											>
-												<Copy size={16} />
+					) : filteredImages.length === 0 ? (
+						/* EMPTY STATE */
+						<div className="h-96 flex flex-col items-center justify-center text-center gap-4 text-text-secondary">
+							<div className="w-20 h-20 rounded-3xl bg-surface-bg border border-border flex items-center justify-center shadow-sm">
+								<ImageIcon size={40} className="opacity-20" />
+							</div>
+							<div>
+								<p className="text-lg font-bold text-text-primary">Thư mục trống</p>
+								<p className="text-sm">Thư mục này chưa có hình ảnh nào.</p>
+								{selectedFiles.length === 0 && (
+									<Button variant="outline" size="sm" className="mt-4" onClick={() => fileInputRef.current?.click()}>
+										Tải ảnh lên ngay
+									</Button>
+								)}
+							</div>
+						</div>
+					) : viewMode === "grid" ? (
+						/* IMAGE GRID VIEW */
+						<div className={`grid ${getGridColsClass(zoomLevel)} animate-in fade-in`}>
+							{filteredImages.map((img) => (
+								<div key={img.key} className="bg-surface-bg border border-border rounded-2xl overflow-hidden group relative hover:border-primary-500 hover:shadow-2xl hover:shadow-primary-500/10 transition-all duration-300">
+									<div className="aspect-square bg-page-bg/50 flex items-center justify-center relative overflow-hidden">
+										<img
+											src={img.url}
+											alt={img.key}
+											className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500"
+											loading="lazy"
+										/>
+										<div className="absolute inset-0 bg-primary-950/80 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col items-center justify-center gap-2">
+											<button onClick={() => copyUrl(img.url)} className="w-28 flex items-center justify-center gap-2 py-1.5 bg-white text-black rounded-lg text-[10px] font-bold hover:bg-primary-500 hover:text-white transition-all">
+												<Copy size={12} /> Sao chép Link
 											</button>
-											<button
-												onClick={() => {
-													setUpdatingKey(img.key);
-													updateFileInputRef.current.click();
-												}}
-												className="p-1.5 text-gray-400 hover:text-emerald-500 hover:bg-emerald-500/10 rounded-md transition-colors"
-												title="Replace Image"
-											>
-												<Edit3 size={16} />
+											<button onClick={() => { setUpdatingKey(img.key); updateFileInputRef.current.click(); }} className="w-28 flex items-center justify-center gap-2 py-1.5 bg-primary-500 text-white rounded-lg text-[10px] font-bold hover:bg-primary-600 transition-all">
+												<Edit3 size={12} /> Thay thế
 											</button>
-											<button
-												onClick={() => handleDeleteImage(img.key)}
-												className="p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-500/10 rounded-md transition-colors"
-												title="Delete Image"
-											>
-												<Trash2 size={16} />
+											<button onClick={() => handleDeleteImage(img.key)} className="w-28 flex items-center justify-center gap-2 py-1.5 bg-danger-500/20 text-danger-500 border border-danger-500/50 rounded-lg text-[10px] font-bold hover:bg-danger-500 hover:text-white transition-all">
+												<Trash2 size={12} /> Xóa ảnh
 											</button>
-										</td>
+										</div>
+									</div>
+									<div className="p-3 border-t border-border/50">
+										<p className="text-[10px] font-bold truncate text-center mb-1" title={img.key.split("/").pop()}>
+											{img.key.split("/").pop()}
+										</p>
+										<p className="text-[9px] text-text-secondary text-center font-medium">{formatBytes(img.size)}</p>
+									</div>
+								</div>
+							))}
+						</div>
+					) : (
+						/* LIST VIEW */
+						<div className="bg-surface-bg border border-border rounded-2xl overflow-hidden shadow-sm">
+							<table className="w-full text-left text-sm">
+								<thead className="bg-page-bg/50 border-b border-border text-[10px] uppercase font-bold text-text-secondary tracking-wider">
+									<tr>
+										<th className="px-6 py-4">Xem trước</th>
+										<th className="px-6 py-4">Tên tệp tin</th>
+										<th className="px-6 py-4">Dung lượng</th>
+										<th className="px-6 py-4 text-right">Hành động</th>
 									</tr>
-								))}
-							</tbody>
-						</table>
+								</thead>
+								<tbody className="divide-y divide-border/50">
+									{filteredImages.map((img) => (
+										<tr key={img.key} className="hover:bg-primary-500/[0.02] transition-colors group">
+											<td className="px-6 py-3">
+												<div className="w-10 h-10 rounded-lg bg-page-bg border border-border p-1">
+													<img src={img.url} alt="" className="w-full h-full object-contain" />
+												</div>
+											</td>
+											<td className="px-6 py-3">
+												<div className="flex flex-col">
+													<span className="font-bold text-text-primary text-xs">{img.key.split("/").pop()}</span>
+													<span className="text-[10px] text-text-secondary truncate max-w-xs md:max-w-md">{img.url}</span>
+												</div>
+											</td>
+											<td className="px-6 py-3 font-mono text-[10px] text-text-secondary">
+												{formatBytes(img.size)}
+											</td>
+											<td className="px-6 py-3 text-right">
+												<div className="flex items-center justify-end gap-1">
+													<button onClick={() => copyUrl(img.url)} className="p-2 text-text-secondary hover:text-primary-500 hover:bg-primary-500/10 rounded-lg transition-all"><Copy size={14} /></button>
+													<button onClick={() => { setUpdatingKey(img.key); updateFileInputRef.current.click(); }} className="p-2 text-text-secondary hover:text-emerald-500 hover:bg-emerald-500/10 rounded-lg transition-all"><Edit3 size={14} /></button>
+													<button onClick={() => handleDeleteImage(img.key)} className="p-2 text-text-secondary hover:text-danger-500 hover:bg-danger-500/10 rounded-lg transition-all"><Trash2 size={14} /></button>
+												</div>
+											</td>
+										</tr>
+									))}
+								</tbody>
+							</table>
+						</div>
+					)}
+				</div>
+			</div>
+
+			{/* UPLOAD FLOATING BAR */}
+			{selectedFiles.length > 0 && (
+				<div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-xl px-4 animate-in slide-in-from-bottom-8">
+					<div className="bg-surface-bg border border-primary-500/30 shadow-2xl shadow-primary-500/20 rounded-2xl p-4 backdrop-blur-xl">
+						<div className="flex items-center justify-between gap-4">
+							<div className="flex items-center gap-3">
+								<div className="w-10 h-10 rounded-xl bg-primary-500 text-white flex items-center justify-center">
+									<UploadCloud size={20} />
+								</div>
+								<div>
+									<p className="text-sm font-bold">Sẵn sàng tải lên</p>
+									<p className="text-xs text-text-secondary">
+										Giới hạn: <span className="font-bold text-amber-500">Tối đa 20 ảnh / lần tải</span> • {currentFolder}
+									</p>
+								</div>
+							</div>
+							<div className="flex items-center gap-2">
+								<button 
+									onClick={() => setSelectedFiles([])}
+									className="px-4 py-2 text-sm font-bold text-text-secondary hover:text-text-primary transition-all"
+								>
+									Hủy
+								</button>
+								<Button 
+									variant="primary" 
+									size="sm" 
+									onClick={handleUpload}
+									disabled={uploading}
+								>
+									{uploading ? "Đang tải..." : "Tải lên ngay"}
+								</Button>
+							</div>
+						</div>
+						<div className="mt-3 flex gap-1 overflow-x-auto pb-1 custom-scrollbar">
+							{selectedFiles.map((f, i) => (
+								<div key={i} className="flex-shrink-0 px-2 py-1 bg-page-bg border border-border rounded-md text-[9px] font-medium flex items-center gap-1">
+									<span className="truncate max-w-[80px]">{f.name}</span>
+									<X size={10} className="cursor-pointer hover:text-danger-500" onClick={() => removeSelectedFile(i)} />
+								</div>
+							))}
+						</div>
 					</div>
 				</div>
 			)}
+
+			{/* HIDDEN INPUTS */}
+			<input type="file" multiple ref={fileInputRef} onChange={onFileSelect} className="hidden" accept="image/*" />
+			<input type="file" ref={updateFileInputRef} onChange={handleUpdateChange} className="hidden" accept="image/*" />
 		</div>
 	);
 });

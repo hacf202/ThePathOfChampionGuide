@@ -143,7 +143,7 @@
 	"cardList": {
 		"title": "Thư Viện Lá Bài",
 		"heading": "Khám Phá Lá Bài",
-		"metaDesc": "Thư viện đầy đủ các lá bài trong Path of Champions (Legends of Runeterra). Tìm kiếm và xem chi tiết chỉ số, hiệu ứng.",
+		"metaDesc": "Danh sách các lá bài. Tìm kiếm và xem chi tiết chỉ số, hiệu ứng.",
 		"searchLabel": "Tìm kiếm lá bài",
 		"placeholder": "Nhập tên lá bài chính xác...",
 		"notFound": "Không tìm thấy lá bài nào.",
@@ -167,7 +167,7 @@
 	},
 	"mapList": {
 		"pageTitle": "Danh Sách Bản Đồ",
-		"pageDescription": "Tổng hợp tất cả bản đồ (Adventures) và Boss trong trò chơi.",
+		"pageDescription": "Tổng hợp tất cả bản đồ và boss trong trò chơi.",
 		"searchPlaceholder": "Tìm kiếm bản đồ...",
 		"difficulty": "Độ khó",
 		"allDifficulties": "Tất cả độ khó",
@@ -836,7 +836,7 @@
 	"itemList": {
 		"title": "Danh sách vật phẩm",
 		"heading": "Danh Sách Vật Phẩm",
-		"metaDesc": "POC GUIDE: Vật phẩm Path of Champions...",
+		"metaDesc": "Danh sách vật phẩm trong game với thông tin chi tiết về từng vật phẩm.",
 		"searchLabel": "Tìm kiếm vật phẩm",
 		"placeholder": "Tên vật phẩm...",
 		"notFound": "Không tìm thấy vật phẩm phù hợp.",
@@ -846,7 +846,7 @@
 	"powerList": {
 		"title": "Danh sách sức mạnh",
 		"heading": "Danh Sách Sức Mạnh",
-		"metaDesc": "POC GUIDE: Dữ liệu sức mạnh Path of Champions...",
+		"metaDesc": "Danh sách sức mạnh trong game với thông tin chi tiết về từng sức mạnh.",
 		"searchLabel": "Tìm kiếm sức mạnh",
 		"placeholder": "Tên sức mạnh...",
 		"notFound": "Không tìm thấy sức mạnh phù hợp.",
@@ -855,7 +855,7 @@
 	"relicList": {
 		"title": "Danh sách cổ vật",
 		"heading": "Danh Sách Cổ Vật",
-		"metaDesc": "Dữ liệu đầy đủ cổ vật Path of Champions.",
+		"metaDesc": "Danh sách cổ vật trong game với thông tin chi tiết về từng cổ vật.",
 		"searchLabel": "Tìm kiếm cổ vật",
 		"placeholder": "Tên cổ vật...",
 		"notFound": "Không tìm thấy cổ vật phù hợp.",
@@ -867,7 +867,7 @@
 	"runeList": {
 		"title": "Danh sách ngọc bổ trợ",
 		"heading": "Danh Sách Ngọc",
-		"metaDesc": "POC GUIDE: Danh sách Ngọc bổ trợ...",
+		"metaDesc": "Danh sách ngọc bổ trợ trong game với thông tin chi tiết về từng ngọc.",
 		"searchLabel": "Tìm kiếm ngọc",
 		"placeholder": "Tên ngọc...",
 		"notFound": "Không tìm thấy ngọc phù hợp.",
@@ -894,7 +894,7 @@
 		"errorLoad": "Không thể tải dữ liệu vòng quay từ máy chủ"
 	},
 	"metadata": {
-		"defaultDescription": "Cẩm nang hướng dẫn Path of Champions (Legends of Runeterra) chuyên nghiệp. Cập nhật Tier List, Build và Relics mới nhất.",
+		"defaultDescription": "Hướng dẫn các bộ cổ vật tướng, cập nhật mọi thứ về game.",
 		"defaultKeywords": "Huyền Thoại Runeterra, Path of Champions Tiếng Việt, Cẩm nang POC, Hướng dẫn tướng LoR, Xây dựng tướng POC, Cổ vật POC, Sức mạnh POC, Tier list tướng, Cách chơi Path of Champions, Dữ liệu LoR, Mô phỏng mở rương, Hướng dẫn chơi POC, game thẻ bài LoR"
 	},
 	"buildSummary": {
@@ -965,7 +965,18 @@
 		"tags": "Thẻ",
 		"sortBy": "Sắp xếp",
 		"resetFilter": "Đặt lại bộ lọc",
-		"unknownChampion": "Tướng không xác định"
+		"unknownChampion": "Tướng không xác định",
+		"pageDescription": "Danh sách tướng trong game. Tìm kiếm, lọc và khám phá thông tin chi tiết về từng tướng."
+	},
+	"subChampionList": {
+		"title": "Danh sách Tướng Phụ",
+		"heading": "DANH SÁCH TƯỚNG PHỤ",
+		"pageDescription": "Khám phá các gói viện trợ và các thẻ bài đi kèm của từng vị tướng phụ.",
+		"metaDesc": "Danh sách các gói viện trợ tướng phụ trong Path of Champions.",
+		"searchPlaceholder": "Tìm kiếm tướng hoặc gói...",
+		"cardListLabel": "Danh sách thẻ bài",
+		"copies": "bản sao",
+		"notFound": "Không tìm thấy tướng phụ nào phù hợp."
 	},
 	"buildList": {
 		"title": "Danh sách Build",
@@ -1321,7 +1332,7 @@
 	},
 	"bossList": {
 		"pageTitle": "Danh sách Boss",
-		"pageDescription": "Tra cứu thông tin, sức mạnh và mẹo đối đầu với các Boss trong Path of Champions.",
+		"pageDescription": "Tra cứu thông tin và mẹo đối đầu với các boss.",
 		"heading": "Danh sách Boss",
 		"searchPlaceholder": "Tìm tên Boss...",
 		"notFound": "Không tìm thấy Boss nào."
@@ -1572,7 +1583,7 @@
 	},
 	"resourceList": {
 		"pageTitle": "Tài Nguyên & Rương",
-		"pageDesc": "Thông tin chi tiết về các loại tiền tệ và vật phẩm trong Path of Champions.",
+		"pageDesc": "Thông tin chi tiết về các loại tiền tệ và vật phẩm.",
 		"searchPlaceholder": "Tìm kiếm tài nguyên...",
 		"acquisition": "Cách thu thập",
 		"usage": "Công dụng",

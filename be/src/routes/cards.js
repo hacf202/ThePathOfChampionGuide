@@ -44,7 +44,7 @@ router.get("/", async (req, res) => {
 
 		// 0. Lọc chỉ lấy lá bài gốc (không có hậu tố T sau phần số)
 		if (onlyBase === "true") {
-			filtered = filtered.filter(c => !/[A-Z]\d+T\d+$/.test(c.cardCode || ""));
+			filtered = filtered.filter(c => !/T\d+$/.test(c.cardCode || ""));
 		}
 
 		// 1. Lọc theo Rarity
@@ -105,8 +105,11 @@ router.get("/", async (req, res) => {
 			// Đặc biệt: Ưu tiên loại Anh hùng (Champion) lên đầu cho các kiểu sắp xếp
 			const typeA = (a.translations?.en?.type || a.type || "").toLowerCase();
 			const typeB = (b.translations?.en?.type || b.type || "").toLowerCase();
-			const isChampA = typeA === "champion" || typeA === "anh hùng";
-			const isChampB = typeB === "champion" || typeB === "anh hùng";
+			const rarityA = (a.rarity || "").toLowerCase();
+			const rarityB = (b.rarity || "").toLowerCase();
+
+			const isChampA = typeA === "champion" || typeA === "anh hùng" || typeA === "tướng" || rarityA === "champion";
+			const isChampB = typeB === "champion" || typeB === "anh hùng" || typeB === "tướng" || rarityB === "champion";
 
 			if (isChampA && !isChampB) return -1;
 			if (!isChampA && isChampB) return 1;

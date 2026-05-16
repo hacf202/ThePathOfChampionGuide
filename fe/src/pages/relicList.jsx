@@ -16,11 +16,14 @@ import SafeImage from "@/components/common/SafeImage";
 import MarkupRenderer from "../components/common/MarkupRenderer";
 
 const RelicSkeleton = () => (
-	<div className='flex items-center gap-3 sm:gap-4 bg-surface-bg p-3 sm:p-4 rounded-lg border border-border animate-pulse'>
-		<div className='w-12 h-12 sm:w-16 sm:h-16 bg-gray-700/50 rounded-md shrink-0' />
+	<div className='flex items-center gap-4 bg-surface-bg/40 p-4 rounded-2xl border border-white/5 animate-pulse'>
+		<div className='w-16 h-16 bg-white/10 rounded-xl shrink-0 border border-white/5' />
 		<div className='flex-grow space-y-3'>
-			<div className='h-5 w-2/3 bg-gray-700/50 rounded' />
-			<div className='h-4 w-1/3 bg-gray-700/50 rounded' />
+			<div className='h-5 w-3/4 bg-white/10 rounded-md' />
+			<div className='flex gap-2'>
+				<div className='h-4 w-12 bg-white/5 rounded-full' />
+				<div className='h-4 w-24 bg-white/5 rounded-full' />
+			</div>
 		</div>
 	</div>
 );

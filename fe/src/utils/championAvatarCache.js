@@ -34,8 +34,12 @@ export const getChampionAvatar = async championName => {
 			else if (Array.isArray(data)) champions = data;
 
 			avatarMap = champions.reduce((map, champ) => {
-				const url = champ?.assets?.[0]?.avatar || champ?.avatar;
+				let url = champ?.assets?.[0]?.avatar || champ?.avatar;
 				if (champ.name && url) {
+					// Nếu là path tương đối, thêm prefix API URL
+					if (url.startsWith("/") && !url.startsWith("//")) {
+						url = `${apiUrl}${url}`;
+					}
 					map[champ.name] = url;
 				}
 				return map;

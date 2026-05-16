@@ -57,6 +57,22 @@ const GenericListLayout = ({
 	const [showDesktopFilter, setShowDesktopFilter] = useState(false);
 	const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
 
+	// --- Internal Layout Stabilization ---
+	const [isReady, setIsReady] = useState(false);
+	useEffect(() => {
+		let timer;
+		if (!loading && (data?.length > 0 || isFiltered)) {
+			// Một khoảng nghỉ ngắn để đảm bảo DOM và các bộ lọc đã sẵn sàng
+			timer = setTimeout(() => setIsReady(true), 400);
+		} else if (loading) {
+			setIsReady(false);
+		}
+		return () => clearTimeout(timer);
+	}, [loading, data?.length, isFiltered]);
+
+	// Tính toán trạng thái hiển thị thực tế
+	const isActuallyLoading = loading || !isReady;
+
 	// Tính toán Class cho Lưới (Grid) dựa trên việc Sidebar đang mở hay đóng
 	const currentGridClass =
 		typeof gridClassName === "function"
@@ -131,20 +147,28 @@ const GenericListLayout = ({
 
 			<div className='font-secondary'>
 				{/* --- HEADER --- */}
-				<div className='flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-2 md:mb-6'>
-					<h1 className='text-3xl font-bold text-text-primary font-primary animate-glitch uppercase italic pr-4 pt-1'>
-						{heading}
-					</h1>
+				<div className='flex flex-col md:flex-row md:justify-between md:items-end gap-6 mb-8'>
+					<div className="space-y-2">
+						<h1 className='text-4xl md:text-6xl font-black text-text-primary font-primary uppercase italic tracking-tighter leading-none'>
+							{heading}
+						</h1>
+						{pageDescription && (
+							<p className="text-text-secondary font-secondary text-sm md:text-base opacity-70 max-w-2xl leading-relaxed">
+								{pageDescription}
+							</p>
+						)}
+					</div>
 
 					<div className='flex items-center gap-2 md:gap-4'>
 						{!showFilterToggle && onSearchChange && (
-							<div className="hidden lg:flex items-center w-64 xl:w-80">
+							<div className="hidden lg:flex items-center w-64 xl:w-80 relative group">
 								<InputField
 									value={searchValue}
 									onChange={e => onSearchChange(e.target.value)}
 									onKeyDown={e => e.key === "Enter" && onSearchSubmit()}
 									placeholder={searchPlaceholder || tUI("common.search")}
-									prefix={<Search size={18} className="text-text-secondary" />}
+									prefix={<Search size={18} className="text-text-secondary group-focus-within:text-primary-500 transition-colors" />}
+									className="bg-surface-bg/50 backdrop-blur-md border-border/50 focus:border-primary-500/50"
 								/>
 							</div>
 						)}
@@ -177,18 +201,18 @@ const GenericListLayout = ({
 				<div className='flex flex-col lg:flex-row items-start'>
 					{/* --- MAIN CONTENT (GRID DANH SÁCH) --- */}
 					<div
-						className={`w-full transition-[flex] duration-300 ease-in-out ${(showFilterToggle && showDesktopFilter) ? "lg:flex-[3] xl:lg:flex-[4]" : "lg:flex-[1]"}`}
+						className={`w-full transition-all duration-500 ease-in-out ${(showFilterToggle && showDesktopFilter) ? "lg:flex-[3] xl:lg:flex-[4]" : "lg:flex-[1]"}`}
 					>
 						<div className='bg-surface-bg rounded-lg border border-border p-2 sm:p-4 shadow-sm min-h-[500px] relative overflow-visible'>
-							<AnimatePresence mode='wait'>
-								{loading && (!isInfiniteScroll || data.length === 0) ? (
+							<AnimatePresence mode='wait' initial={false}>
+								{isActuallyLoading && (!isInfiniteScroll || data.length === 0) ? (
 									<motion.div
 										key='skeleton'
 										initial={{ opacity: 0 }}
 										animate={{ opacity: 1 }}
 										exit={{ opacity: 0 }}
-										transition={{ duration: 0.15 }}
-										className={`grid ${currentGridClass} gap-4 sm:gap-6`}
+										transition={{ duration: 0.3 }}
+										className={`grid ${currentGridClass} gap-4 sm:gap-6 md:gap-8`}
 									>
 										{[...Array(skeletonCount)].map((_, i) => (
 											<React.Fragment key={i}>
@@ -199,26 +223,25 @@ const GenericListLayout = ({
 								) : (
 									<motion.div
 										key='content'
-										initial={{ opacity: 0, y: 10 }}
-										animate={{ opacity: 1, y: 0 }}
-										exit={{ opacity: 0, y: -10 }}
-										transition={{ duration: 0.2, ease: "easeOut" }}
+										initial={{ opacity: 0 }}
+										animate={{ opacity: 1 }}
+										exit={{ opacity: 0 }}
+										transition={{ duration: 0.5, ease: "easeOut" }}
 									>
 										{data && data.length > 0 ? (
 											<>
 												<div
-													className={`grid ${currentGridClass} gap-4 sm:gap-6`}
+													className={`grid ${currentGridClass} gap-4 sm:gap-6 md:gap-8 grid-auto-rows-min items-start`}
 												>
 													{data.map((item, index) => (
-														<motion.div
+														<div
 															key={
-																item.id || item._id || item.powerCode || index
+																item.cardCode || item.id || item._id || item.powerCode || index
 															}
-															layout
-															className={typeof itemClassName === 'function' ? itemClassName(item) : (itemClassName || '')}
+															className={`relative isolate ${typeof itemClassName === 'function' ? itemClassName(item) : (itemClassName || '')}`}
 														>
 															{renderItem(item)}
-														</motion.div>
+														</div>
 													))}
 												</div>
 												
@@ -324,51 +347,72 @@ const GenericListLayout = ({
 									width: 0,
 									opacity: 0,
 									marginLeft: 0,
-									overflow: "hidden",
 								}}
 								animate={{
 									width: "auto",
 									opacity: 1,
 									marginLeft: "1.5rem",
-									transitionEnd: { overflow: "visible" },
 								}}
 								exit={{
 									width: 0,
 									opacity: 0,
 									marginLeft: 0,
-									overflow: "hidden",
 								}}
-								transition={{ duration: 0.3, ease: "easeInOut" }}
+								transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
 								className='hidden lg:block sticky top-24 h-fit z-40'
 							>
-								<div className='w-[224px] xl:w-[256px] p-4 rounded-lg border border-border bg-surface-bg space-y-4 shadow-sm relative'>
-									<label className='block text-sm font-medium text-text-secondary'>
-										{tUI("common.search")}
-									</label>
-									<InputField
-										value={searchValue}
-										onChange={e => onSearchChange(e.target.value)}
-										onKeyDown={e => e.key === "Enter" && onSearchSubmit()}
-										placeholder={searchPlaceholder || tUI("common.search")}
-									/>
-									<Button
-										onClick={onSearchSubmit}
-										className='w-full mt-2 hover:animate-pulse-focus'
-									>
-										<Search size={16} className='mr-2' /> {tUI("common.search")}
-									</Button>
+								<div className='w-[240px] xl:w-[280px] p-5 rounded-3xl border border-white/10 bg-surface-bg/60 backdrop-blur-2xl space-y-5 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.3)] relative overflow-hidden isolate'>
+									{/* Background Glow */}
+									<div className="absolute -top-20 -right-20 w-40 h-40 bg-primary-500/10 blur-[60px] rounded-full -z-10" />
+									
+									<div className="space-y-3">
+										<label className='block text-[10px] font-black uppercase tracking-[0.2em] text-text-secondary/60 ml-1'>
+											{tUI("common.search")}
+										</label>
+										<div className="relative group">
+											<InputField
+												value={searchValue}
+												onChange={e => onSearchChange(e.target.value)}
+												onKeyDown={e => e.key === "Enter" && onSearchSubmit()}
+												placeholder={searchPlaceholder || tUI("common.search")}
+												className="bg-white/5 border-white/10 focus:border-primary-500/50 rounded-xl"
+											/>
+											<button 
+												onClick={onSearchSubmit}
+												className="absolute right-3 top-1/2 -translate-y-1/2 text-text-secondary hover:text-primary-500 transition-colors"
+											>
+												<Search size={18} />
+											</button>
+										</div>
+									</div>
 
 									{/* Các filter riêng biệt được truyền từ ngoài vào */}
-									{renderFilters()}
+									<div className="space-y-5">
+										{isActuallyLoading ? (
+											<div className="space-y-6">
+												{[...Array(4)].map((_, i) => (
+													<div key={i} className="space-y-2">
+														<div className="h-3 w-20 bg-white/10 rounded animate-pulse" />
+														<div className="h-10 w-full bg-white/5 rounded-xl border border-white/5 animate-pulse" />
+													</div>
+												))}
+											</div>
+										) : (
+											renderFilters()
+										)}
+									</div>
 
-									<Button
-										variant='outline'
-										onClick={onResetFilters}
-										className='w-full'
-									>
-										<RotateCw size={16} className='mr-2' />{" "}
-										{tUI("championList.resetFilter")}
-									</Button>
+									<div className="pt-2 space-y-3">
+										<Button
+											variant='outline'
+											onClick={onResetFilters}
+											disabled={isActuallyLoading}
+											className='w-full rounded-xl border-white/10 hover:bg-white/5 flex items-center justify-center gap-2 py-3 disabled:opacity-50'
+										>										
+											<RotateCw size={14} className='group-hover:rotate-180 transition-transform duration-500' />{" "}
+											<span className="text-[10px] font-bold uppercase tracking-wider">{tUI("championList.resetFilter")}</span>
+										</Button>
+									</div>
 								</div>
 							</motion.aside>
 						)}
@@ -416,7 +460,15 @@ const GenericListLayout = ({
 										exit={{ height: 0, opacity: 0, overflow: "hidden" }}
 									>
 										<div className='pt-4 space-y-4 border-t border-border mt-3'>
-											{renderFilters()}
+											{isActuallyLoading ? (
+												<div className="space-y-4">
+													{[...Array(3)].map((_, i) => (
+														<div key={i} className="h-10 w-full bg-border/50 rounded-lg animate-pulse" />
+													))}
+												</div>
+											) : (
+												renderFilters()
+											)}
 											<Button
 												variant='outline'
 												onClick={onResetFilters}

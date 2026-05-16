@@ -220,43 +220,41 @@ const AdminPanel = () => {
 
 	return (
 		<div className='flex h-full bg-page-bg font-secondary'>
-			{/* Overlay cho Mobile */}
-			{isSidebarOpen && (
-				<div
-					className='fixed inset-0 z-30 bg-black/50 xl:hidden'
-					onClick={() => setIsSidebarOpen(false)}
-				/>
+			{/* Mobile Menu Button - Floating when sidebar closed */}
+			{!isSidebarOpen && !isEditorMode && (
+				<button
+					onClick={() => setIsSidebarOpen(true)}
+					className='fixed top-4 left-4 z-50 p-2.5 rounded-xl bg-primary-500 text-white shadow-lg shadow-primary-500/30 xl:hidden transition-all active:scale-95'
+				>
+					<Menu size={20} />
+				</button>
 			)}
 
-			{/* Sidebar - Tự động ẩn hoàn toàn khi ở chế độ Editor Mode */}
+			{/* Sidebar */}
 			<aside
-				className={`fixed inset-y-0 left-0 z-40 bg-surface-bg border-r border-border flex flex-col shadow-lg
+				className={`fixed inset-y-0 left-0 z-40 bg-surface-bg border-r border-border flex flex-col shadow-xl
         transition-all duration-300 ease-in-out
         ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}
-        /* Logic responsive: Mobile full width khi mở, Desktop width tùy chỉnh */
         xl:relative xl:translate-x-0 xl:shadow-sm
         ${isEditorMode ? "xl:w-0 xl:overflow-hidden xl:border-none" : (isCollapsed ? "xl:w-20" : "xl:w-64")} 
         w-64`}
 			>
-				{/* Sidebar Header */}
-				<div className='flex items-center justify-between p-4 h-16 border-b border-border'>
+				{/* Sidebar Header - Logo & Title */}
+				<div className='flex items-center justify-between p-4 h-16 border-b border-border bg-surface-bg/50 backdrop-blur-md sticky top-0 z-10'>
 					<div
-						className={`text-2xl font-bold text-text-primary font-primary flex items-center gap-2 overflow-hidden whitespace-nowrap transition-all duration-300 ${
+						className={`text-2xl font-bold text-text-primary font-primary flex items-center gap-3 overflow-hidden whitespace-nowrap transition-all duration-300 ${
 							isCollapsed ? "justify-center w-full" : ""
 						}`}
 					>
-						<LayoutDashboard className='text-primary-500 flex-shrink-0' />
-						{/* Ẩn chữ Admin khi collapsed trên desktop */}
-						<span
-							className={`transition-opacity duration-300 ${
-								isCollapsed ? "xl:hidden opacity-0" : "opacity-100"
-							}`}
-						>
-							{tUI("admin.sidebar.title")}
-						</span>
+						<div className="w-10 h-10 rounded-xl bg-primary-500 flex items-center justify-center shadow-lg shadow-primary-500/20 flex-shrink-0">
+							<LayoutDashboard className='text-white' size={24} />
+						</div>
+						<div className={`flex flex-col transition-opacity duration-300 ${isCollapsed ? "xl:hidden opacity-0" : "opacity-100"}`}>
+							<span className="text-sm font-bold leading-tight">{tUI("admin.sidebar.title")}</span>
+							<span className="text-[10px] text-text-secondary uppercase tracking-tighter">Management System</span>
+						</div>
 					</div>
 
-					{/* Nút đóng sidebar trên Mobile */}
 					<button
 						onClick={() => setIsSidebarOpen(false)}
 						className='p-2 rounded-lg text-text-secondary hover:bg-surface-hover xl:hidden'
@@ -265,22 +263,25 @@ const AdminPanel = () => {
 					</button>
 				</div>
 
-				{/* Nút Toggle Sidebar (Chỉ hiện trên Desktop) */}
-				<div className='hidden xl:flex justify-end px-2 py-2 bg-primary-500 text-white shadow-md'>
+				{/* Desktop Toggle Button */}
+				<div className='hidden xl:flex px-4 py-2 border-b border-border/50'>
 					<button
 						onClick={() => setIsCollapsed(!isCollapsed)}
-						className=' flex p-1.5 w-full justify-end rounded-lg bg-surface-hover text-text-secondary hover:text-primary-500 hover:bg-btn-primary-bg/10  '
+						className='flex items-center gap-2 w-full p-2 rounded-lg text-text-secondary hover:bg-surface-hover hover:text-primary-500 transition-all text-xs font-bold uppercase tracking-widest'
 					>
 						{isCollapsed ? (
-							<ChevronRight size={18} />
+							<ChevronRight size={16} />
 						) : (
-							<ChevronLeft size={18} />
+							<>
+								<ChevronLeft size={16} />
+								<span>Thu gọn</span>
+							</>
 						)}
 					</button>
 				</div>
 
 				{/* Nav Menu */}
-				<nav className='flex-grow p-4 space-y-1 overflow-y-auto overflow-x-hidden'>
+				<nav className='flex-grow p-4 space-y-1 overflow-y-auto overflow-x-hidden custom-scrollbar'>
 					{navItems.map(item => (
 						<NavLink
 							key={item.id}
@@ -289,9 +290,9 @@ const AdminPanel = () => {
 							onClick={() => setIsSidebarOpen(false)}
 							title={isCollapsed ? item.label : ""}
 							className={({ isActive }) =>
-								`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+								`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 whitespace-nowrap ${
 									isActive
-										? "bg-primary-500 text-white shadow-md"
+										? "bg-primary-500 text-white shadow-lg shadow-primary-500/20"
 										: "text-text-secondary hover:bg-surface-hover hover:text-text-primary"
 								} ${isCollapsed ? "xl:justify-center xl:px-2" : ""}`
 							}
@@ -309,50 +310,38 @@ const AdminPanel = () => {
 						</NavLink>
 					))}
 				</nav>
-
-				{/* Footer */}
-				<div className='p-4 border-t border-border bg-page-bg overflow-hidden'>
-					<p
-						className={`text-xs text-center text-text-secondary whitespace-nowrap transition-all duration-300 ${
-							isCollapsed ? "xl:opacity-0" : "xl:opacity-100"
-						}`}
-					>
-						{tUI("admin.sidebar.footer")}
-					</p>
-				</div>
 			</aside>
 
-			{/* Main Content */}
-			<div className='flex-1 flex flex-col overflow-hidden'>
-				{/* Topbar - Ẩn khi ở chế độ Editor Mode để có nhiều không gian hơn */}
+			{/* Main Content Area */}
+			<div className='flex-1 flex flex-col min-w-0 overflow-hidden relative'>
+				{/* Topbar - Mini Breadcrumb style */}
 				{!isEditorMode && (
-					<header className='flex items-center justify-between h-10 md:h-16 bg-surface-bg border-b border-border px-6 flex-shrink-0 sticky top-0 z-20'>
-						<button
-							onClick={() => setIsSidebarOpen(true)}
-							className='p-2 rounded-lg text-text-secondary hover:bg-surface-hover hover:text-text-primary xl:hidden'
-						>
-							<Menu size={20} />
-						</button>
-
-						<div className='flex-1 flex justify-center xl:justify-start'>
-							<h1 className='text-2xl font-bold text-text-primary font-primary hidden sm:block'>
-								{currentNavItem?.label ||
-									tUI("admin.topbar.defaultTitle")}
-							</h1>
+					<header className='flex items-center justify-between h-14 bg-page-bg px-6 flex-shrink-0 z-20'>
+						<div className='flex items-center gap-4'>
+							<div className="hidden xl:block">
+								<h1 className='text-xl font-bold text-text-primary font-primary tracking-tight'>
+									{currentNavItem?.label || tUI("admin.topbar.defaultTitle")}
+								</h1>
+							</div>
 						</div>
+						
+						{/* Standardized "Add New" can be added here globally if needed, 
+						    but usually it's page-specific. We'll leave space for it. */}
+						<div id="admin-topbar-actions" className="flex items-center gap-2"></div>
 					</header>
 				)}
 
 				{/* Scrollable Content */}
-				<main className='flex-1 overflow-auto px-4 pb-4 lg:px-6 lg:pb-6'>
-					<Suspense
-						fallback={
-							<div className='flex items-center justify-center min-h-[400px]'>
-								<div className='animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500'></div>
-							</div>
-						}
-					>
-						<Routes>
+				<main className={`flex-1 overflow-auto custom-scrollbar ${isEditorMode ? "p-0" : "px-4 pb-4 lg:px-6 lg:pb-6"}`}>
+					<div className="max-w-[1600px] mx-auto h-full">
+						<Suspense
+							fallback={
+								<div className='flex items-center justify-center h-full'>
+									<div className='animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500'></div>
+								</div>
+							}
+						>
+							<Routes>
 							<Route index element={<DashboardHome navItems={navItems} />} />
 							<Route path='champions/*' element={<ChampionEditor />} />
 							<Route path='powers/*' element={<PowerEditor />} />
@@ -362,7 +351,8 @@ const AdminPanel = () => {
 							<Route path='builds/*' element={<BuildEditor />} />
 							<Route path='bonusStars/*' element={<BonusStarEditor />} />
 							<Route path='guides/*' element={<GuideEditor />} />
-							<Route path='images/*' element={<ImageManager />} />
+							<Route path='images/:folderName' element={<ImageManager />} />
+							<Route path='images' element={<ImageManager />} />
 							<Route path='audit-logs' element={<AuditLogList />} />
 							<Route path='bosses/*' element={<BossEditor />} />
 							<Route path='adventures/*' element={<AdventureMapEditor />} />
@@ -371,7 +361,8 @@ const AdminPanel = () => {
 							<Route path='analytics' element={<AnalyticsDashboard />} />
 							<Route path='db-stats' element={<DbStatsManager />} />
 						</Routes>
-					</Suspense>
+						</Suspense>
+					</div>
 				</main>
 			</div>
 		</div>

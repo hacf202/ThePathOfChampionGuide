@@ -11,10 +11,18 @@ import DropdownFilter from "../components/common/dropdownFilter";
 import ChampionCard from "../components/champion/championCard";
 
 const ChampionSkeleton = () => (
-	<div className='rounded-lg border border-border bg-surface-bg p-4 space-y-3 animate-pulse'>
-		<div className='aspect-[4/5] w-full bg-gray-700/50 rounded-md' />
-		<div className='h-4 w-3/4 bg-gray-700/50 mx-auto rounded' />
-		<div className='h-3 w-1/2 bg-gray-700/50 mx-auto rounded' />
+	<div className='relative w-full aspect-[340/500] bg-gray-800/40 rounded-lg overflow-hidden border border-white/5 animate-pulse'>
+		{/* Cost Badge Skeleton */}
+		<div className='absolute top-4 left-4 w-10 h-10 md:w-12 md:h-12 bg-white/10 rounded-full border border-white/10' />
+		
+		{/* Bottom Content Skeleton */}
+		<div className='absolute bottom-0 left-0 right-0 p-4 space-y-3 bg-gradient-to-t from-black/60 to-transparent'>
+			<div className='h-7 w-3/4 bg-white/10 rounded-md' />
+			<div className='flex gap-2'>
+				<div className='h-6 w-16 bg-white/5 rounded-full' />
+				<div className='h-6 w-20 bg-white/5 rounded-full' />
+			</div>
+		</div>
 	</div>
 );
 

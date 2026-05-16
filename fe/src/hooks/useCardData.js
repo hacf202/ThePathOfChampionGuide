@@ -1,72 +1,78 @@
 // fe/src/hooks/useCardData.js
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
+import { useTranslation } from "./useTranslation";
 import { removeAccents } from "../utils/vietnameseUtils";
 
+/**
+ * Hook logic mới: Tải toàn bộ dữ liệu một lần (Load-All)
+ * Giúp tránh hiện tượng nhảy dữ liệu giữa Server-side và Client-side.
+ */
 export const useCardData = (queryParams, state, tUI) => {
-	// State quản lý danh sách và phân trang
-	const [cards, setCards] = useState([]);
+	const { language } = useTranslation();
+	const [allCards, setAllCards] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
-	const [pagination, setPagination] = useState(null);
 	const [dynamicFilters, setDynamicFilters] = useState(null);
-	
-	// --- CƠ CHẾ LAYERED LOADING & SYNC ---
-	const [fullCards, setFullCards] = useState(null); // Toàn bộ dữ liệu ngầm
-	const [isSyncing, setIsSyncing] = useState(false);
-	const [preloadedPages, setPreloadedPages] = useState({}); // Cache các trang riêng lẻ
 
-	/**
-	 * Helper: Lọc dữ liệu tại trình duyệt (Robust Bilingual & Multi-field Search)
-	 */
-	const applyClientSideFilters = useCallback((allData, currentSearch, currentFilters, sortOrder) => {
-		let finalBaseCards = [];
-		const { rarities, regions, types, costs } = currentFilters;
+	// 1. Tải toàn bộ dữ liệu một lần duy nhất khi vào trang
+	useEffect(() => {
+		const loadData = async () => {
+			try {
+				setLoading(true);
+				// Gọi API lấy toàn bộ lá bài gốc
+				const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/cards`, { 
+					params: { limit: -1, onlyBase: "true" } 
+				});
+				const data = res.data.items || [];
+				setAllCards(data);
+				
+				// Trích xuất bộ lọc động từ dữ liệu thực tế
+				const filters = {
+					rarities: [...new Set(data.map(c => c.rarity || "None"))].sort(),
+					regions: [...new Set(data.flatMap(c => c.regions || []))].sort(),
+					types: [...new Set(data.map(c => (c.translations?.en?.type || c.type || "other").toLowerCase()))].sort(),
+					costs: [...new Set(data.map(c => Number(c.cost || 0)))].sort((a, b) => a - b),
+				};
+				setDynamicFilters(filters);
+				setError(null);
+			} catch (err) {
+				console.error("Error loading all cards:", err);
+				setError(tUI("common.error") || "Lỗi tải dữ liệu.");
+			} finally {
+				setLoading(false);
+			}
+		};
+		loadData();
+	}, [tUI]);
 
-		if (currentSearch) {
-			const searchWords = removeAccents(currentSearch.toLowerCase()).split(/\s+/).filter(Boolean);
-			
-			// 1. Tìm tất cả các lá bài (bao gồm cả Token) khớp với từ khóa
-			const matchingCodes = new Set();
-			allData.forEach(c => {
+	// 2. Logic Lọc & Phân trang tại Client (Sử dụng useMemo để tối ưu)
+	const filteredCards = useMemo(() => {
+		if (allCards.length === 0) return [];
+		
+		const { searchInput, customFilters, sortOrder } = state;
+		const { rarities, regions, types, costs } = customFilters || {};
+		
+		let filtered = [...allCards];
+
+		// A. Lọc Tìm kiếm (Bilingual & Accent-insensitive)
+		if (searchInput) {
+			const searchWords = removeAccents(searchInput.toLowerCase()).split(/\s+/).filter(Boolean);
+			filtered = filtered.filter(c => {
 				const textSources = [
 					c.cardName,
 					c.cardCode,
 					c.descriptionRaw,
 					c.translations?.en?.cardName,
 					c.translations?.en?.descriptionRaw,
-					...(c.keywords || []),
-					...(c.translations?.en?.keywords || [])
 				].filter(Boolean).map(text => removeAccents(text.toLowerCase()));
-
-				const isMatch = searchWords.every(word => textSources.some(source => source.includes(word)));
-				
-				if (isMatch) {
-					// Nếu khớp, lấy mã thẻ gốc (ví dụ 01IO012T2 -> 01IO012)
-					const baseCode = (c.cardCode || "").substring(0, 7);
-					matchingCodes.add(baseCode);
-				}
+				return searchWords.every(word => textSources.some(source => source.includes(word)));
 			});
-
-			// 2. Chỉ giữ lại các lá bài GỐC (không chứa T) có mã nằm trong matchingCodes
-			finalBaseCards = allData.filter(c => 
-				!/[A-Z]\d+T\d+$/.test(c.cardCode || "") && 
-				matchingCodes.has(c.cardCode)
-			);
-		} else {
-			// Nếu không tìm kiếm, mặc định chỉ lấy các lá bài gốc
-			finalBaseCards = allData.filter(c => !/[A-Z]\d+T\d+$/.test(c.cardCode || ""));
 		}
 
-		// 3. Áp dụng các bộ lọc khác (Rarity, Region, ...) trên danh sách thẻ gốc
-		let filtered = finalBaseCards;
-		
-		if (rarities?.length > 0) {
-			filtered = filtered.filter(c => rarities.includes(c.rarity));
-		}
-		if (regions?.length > 0) {
-			filtered = filtered.filter(c => c.regions?.some(r => regions.includes(r)));
-		}
+		// B. Áp dụng các bộ lọc Custom
+		if (rarities?.length > 0) filtered = filtered.filter(c => rarities.includes(c.rarity));
+		if (regions?.length > 0) filtered = filtered.filter(c => c.regions?.some(r => regions.includes(r)));
 		if (types?.length > 0) {
 			filtered = filtered.filter(c => 
 				types.some(t => {
@@ -76,134 +82,58 @@ export const useCardData = (queryParams, state, tUI) => {
 				})
 			);
 		}
-		if (costs?.length > 0) {
-			filtered = filtered.filter(c => costs.includes(String(c.cost)));
-		}
+		if (costs?.length > 0) filtered = filtered.filter(c => costs.includes(String(c.cost)));
 
-		// Sắp xếp
+		// C. Sắp xếp (Ưu tiên Tướng lên đầu)
 		const [field, order] = sortOrder.split("-");
 		filtered.sort((a, b) => {
-            // 1. Luôn xếp Champion ở đầu
-            const isAChamp = a.rarity === "Champion" || (a.type || "").toLowerCase() === "champion";
-            const isBChamp = b.rarity === "Champion" || (b.type || "").toLowerCase() === "champion";
-            if (isAChamp !== isBChamp) return isAChamp ? -1 : 1;
+			const checkIsChamp = (item) => {
+				const r = (item.rarity || "").toLowerCase();
+				const t = (item.type || "").toLowerCase();
+				const te = (item.translations?.en?.type || "").toLowerCase();
+				return r === "champion" || t === "champion" || t === "anh hùng" || t === "tướng" || te === "champion";
+			};
+			const isA = checkIsChamp(a);
+			const isB = checkIsChamp(b);
+			if (isA !== isB) return isA ? -1 : 1;
 
-            // 2. Sắp xếp theo trường dữ liệu yêu cầu
-            const sortField = field === "championCost" ? "cost" : field;
-			let vA = a[sortField] ?? "";
-			let vB = b[sortField] ?? "";
+			const targetField = field === "championCost" ? "cost" : field;
+			let vA = a[targetField] ?? "";
+			let vB = b[targetField] ?? "";
 			
 			if (typeof vA === "string") {
-                const cmp = vA.localeCompare(vB, language === 'vi' ? 'vi' : 'en');
-                return order === "asc" ? cmp : -cmp;
-            }
-			return order === "asc" ? vA - vB : vB - vA;
+				const cmp = vA.localeCompare(vB, language === 'vi' ? 'vi' : 'en');
+				return order === "asc" ? cmp : -cmp;
+			}
+			return order === "asc" ? Number(vA) - Number(vB) : Number(vB) - Number(vA);
 		});
 
 		return filtered;
-	}, []);
+	}, [allCards, state, language]);
 
-	/**
-	 * Logic Tải trước (Prefetch)
-	 */
-	const preloadNextPage = useCallback(async (nextPage, currentParams) => {
-		if (preloadedPages[nextPage] || fullCards) return;
-		try {
-			const nextParams = new URLSearchParams(currentParams);
-			nextParams.set("page", nextPage);
-			
-			const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/cards?${nextParams.toString()}`);
-			setPreloadedPages(prev => ({ ...prev, [nextPage]: res.data.items }));
-		} catch (e) {
-			console.warn("Prefetch failed", e);
-		}
-	}, [preloadedPages, fullCards]);
-
-	/**
-	 * Hàm fetch dữ liệu lá bài (Page-based)
-	 */
-	const fetchCards = useCallback(async (targetPage = 1, isNewSearch = false) => {
-		try {
-			setLoading(true);
-			if (isNewSearch) {
-				setCards([]);
-			}
-
-			// NẾU CÓ DỮ LIỆU ĐẦY ĐỦ -> LỌC TẠI TRÌNH DUYỆT (CLIENT-SIDE)
-			if (fullCards) {
-				const filtered = applyClientSideFilters(fullCards, state.searchTerm, state.customFilters, state.sortOrder);
-				const totalItems = filtered.length;
-				const pageSize = 20;
-				const pagData = {
-					totalItems,
-					totalPages: Math.ceil(totalItems / pageSize),
-					currentPage: targetPage,
-					pageSize
-				};
-				const slicedItems = filtered.slice((targetPage - 1) * pageSize, targetPage * pageSize);
-
-				setCards(slicedItems);
-				setPagination(pagData);
-				setLoading(false);
-				return;
-			}
-
-			// NẾU CHƯA CÓ DỮ LIỆU ĐẦY ĐỦ -> GỌI API (SERVER-SIDE)
-			const API_URL = `${import.meta.env.VITE_API_URL}/api/cards`;
-			const response = await axios.get(`${API_URL}?${queryParams}`);
-			const { items, pagination: pagData, availableFilters } = response.data;
-
-			if (availableFilters) {
-				setDynamicFilters(availableFilters);
-			}
-
-			setCards(items || []);
-			setPagination(pagData);
-			setError(null);
-
-			if (pagData.currentPage < pagData.totalPages) {
-				preloadNextPage(pagData.currentPage + 1, queryParams);
-			}
-		} catch (err) {
-			console.error("Error fetching cards:", err);
-			setError(tUI("common.error"));
-		} finally {
-			setLoading(false);
-		}
-	}, [tUI, queryParams, state.searchTerm, state.customFilters, state.sortOrder, fullCards, applyClientSideFilters, preloadNextPage]);
-
-	/**
-	 * Logic Đồng bộ toàn bộ dữ liệu (Full Sync)
-	 */
-	useEffect(() => {
-		const syncAll = async () => {
-			if (fullCards || isSyncing) return;
-			try {
-				setIsSyncing(true);
-				const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/cards`, { params: { limit: -1 } });
-				setFullCards(res.data.items || []);
-			} catch (e) {
-				console.error("Full Sync Error", e);
-			} finally {
-				setIsSyncing(false);
-			}
-		};
-
-		const timer = setTimeout(syncAll, 2000);
-		return () => clearTimeout(timer);
-	}, [fullCards, isSyncing]);
-
-	useEffect(() => {
-		fetchCards(state.currentPage, false);
-	}, [queryParams, fullCards]);
+	// 3. Logic Phân trang
+	const pageSize = 24;
+	const totalItems = filteredCards.length;
+	const totalPages = Math.ceil(totalItems / pageSize);
+	// Đảm bảo trang hiện tại không vượt quá tổng số trang
+	const currentPage = Math.min(state.currentPage, totalPages || 1);
+	
+	const paginatedCards = useMemo(() => {
+		const start = (currentPage - 1) * pageSize;
+		return filteredCards.slice(start, start + pageSize);
+	}, [filteredCards, currentPage, pageSize]);
 
 	return {
-		cards,
+		cards: paginatedCards,
 		loading,
 		error,
-		pagination,
+		pagination: {
+			totalItems,
+			totalPages,
+			currentPage,
+			pageSize
+		},
 		dynamicFilters,
-		isSyncing,
-		refetch: fetchCards
+		refetch: () => {} // Logic mới không cần refetch liên tục
 	};
 };

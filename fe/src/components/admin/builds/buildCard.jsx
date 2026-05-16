@@ -9,6 +9,7 @@ import {
 	ToggleRight,
 } from "lucide-react";
 import { getChampionAvatar } from "../../../utils/championAvatarCache.js";
+import SafeImage from "../../common/SafeImage";
 import { useTranslation } from "../../../hooks/useTranslation";
 
 const BuildCard = ({ build, onClick }) => {
@@ -57,10 +58,11 @@ const BuildCard = ({ build, onClick }) => {
 					{isLoading ? (
 						<div className='w-full h-full animate-pulse bg-gray-600' />
 					) : (
-						<img
-							src={avatarUrl || "https://via.placeholder.com/64"}
+						<SafeImage
+							src={avatarUrl}
 							alt={championName}
 							className='w-full h-full object-cover'
+							fallback="/fallback/fallback-image.svg"
 						/>
 					)}
 				</div>

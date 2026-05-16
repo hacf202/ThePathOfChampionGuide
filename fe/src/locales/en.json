@@ -143,7 +143,7 @@
 	"cardList": {
 		"title": "Card Gallery",
 		"heading": "Explore Cards",
-		"metaDesc": "Full library of cards in Path of Champions (Legends of Runeterra). Search and view stats and effects.",
+		"metaDesc": "All cards in Path of Champions.",
 		"searchLabel": "Search cards",
 		"placeholder": "Exact card name...",
 		"notFound": "No cards found.",
@@ -167,7 +167,7 @@
 	},
 	"mapList": {
 		"pageTitle": "Adventure Maps",
-		"pageDescription": "A complete collection of all adventures and bosses in the game.",
+		"pageDescription": "All adventure maps in Path of Champions.",
 		"searchPlaceholder": "Search maps...",
 		"difficulty": "Difficulty",
 		"allDifficulties": "All difficulties",
@@ -741,7 +741,7 @@
 	"itemList": {
 		"title": "Items List",
 		"heading": "Items List",
-		"metaDesc": "POC GUIDE: Path of Champions Items...",
+		"metaDesc": "All items in Path of Champions.",
 		"searchLabel": "Search Items",
 		"placeholder": "Item name...",
 		"notFound": "No matching items found.",
@@ -751,7 +751,7 @@
 	"powerList": {
 		"title": "Powers List",
 		"heading": "Powers List",
-		"metaDesc": "POC GUIDE: Path of Champions Powers...",
+		"metaDesc": "All powers in Path of Champions.",
 		"searchLabel": "Search Powers",
 		"placeholder": "Power name...",
 		"notFound": "No matching powers found.",
@@ -760,7 +760,7 @@
 	"relicList": {
 		"title": "Relics List",
 		"heading": "Relics List",
-		"metaDesc": "Comprehensive Relics Data for Path of Champions.",
+		"metaDesc": "All relics in Path of Champions.",
 		"searchLabel": "Search Relics",
 		"placeholder": "Relic name...",
 		"notFound": "No matching relics found.",
@@ -772,7 +772,7 @@
 	"runeList": {
 		"title": "Runes List",
 		"heading": "Runes List",
-		"metaDesc": "POC GUIDE: Runes list...",
+		"metaDesc": "All runes in Path of Champions.",
 		"searchLabel": "Search Runes",
 		"placeholder": "Rune name...",
 		"notFound": "No matching runes found.",
@@ -869,7 +869,7 @@
 		"noMoreComments": "No more comments"
 	},
 	"metadata": {
-		"defaultDescription": "Professional Path of Champions (Legends of Runeterra) guide. Updated Tier Lists, Builds, and latest Relics.",
+		"defaultDescription": "Complete database and guide for Legends of Runeterra's Path of Champions mode.",
 		"defaultKeywords": "Legends of Runeterra, Path of Champions, LoR PoC, PoC Guide, Champion Builds, Relics Tier List, Best Epic Relics, Power Tier List, Aurelion Sol Guide, LoR Strategy, Card Game Guide, PoC Database, Champion Ratings, Vault Simulator, LoR Wiki"
 	},
 	"buildSummary": {
@@ -940,7 +940,18 @@
 		"tags": "Tags",
 		"sortBy": "Sort By",
 		"resetFilter": "Reset Filters",
-		"unknownChampion": "Unknown Champion"
+		"unknownChampion": "Unknown Champion",
+		"pageDescription": "Browse all champions in Path of Champions and find best builds for each champion."
+	},
+	"subChampionList": {
+		"title": "Sub-Champions List",
+		"heading": "SUB-CHAMPIONS LIST",
+		"pageDescription": "Explore the support packages and accompanying cards for each sub-champion.",
+		"metaDesc": "List of sub-champion support packages in Path of Champions.",
+		"searchPlaceholder": "Search champions or packages...",
+		"cardListLabel": "List of cards",
+		"copies": "copies",
+		"notFound": "No matching sub-champions found."
 	},
 	"buildList": {
 		"title": "Build List",
@@ -1296,7 +1307,7 @@
 	},
 	"bossList": {
 		"pageTitle": "Boss List",
-		"pageDescription": "Look up information, powers, and encounter tips for Bosses in Path of Champions.",
+		"pageDescription": "All bosses in Path of Champions.",
 		"heading": "Boss List",
 		"searchPlaceholder": "Search Boss name...",
 		"notFound": "No Bosses found."
@@ -1547,7 +1558,7 @@
 	},
 	"resourceList": {
 		"pageTitle": "Resources & Loot",
-		"pageDesc": "Detailed information about currencies and items in Path of Champions.",
+		"pageDesc": "All resources and loot in Path of Champions.",
 		"searchPlaceholder": "Search resources...",
 		"acquisition": "Acquisition",
 		"usage": "Usage",

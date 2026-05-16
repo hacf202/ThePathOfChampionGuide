@@ -98,34 +98,60 @@ const Home = () => {
 			/>
 
 			{/* --- HERO MOODBOARD --- */}
-			<section className='relative w-full h-[calc(100vh-56px)] bg-surface-bg/0 overflow-hidden flex items-center justify-center'>
+			<section className='relative w-full h-[calc(100vh-56px)] bg-surface-bg/0 overflow-hidden flex items-center justify-center isolate'>
+				{/* BACKGROUND IMAGE & OVERLAYS */}
 				<div className='absolute inset-0 z-0 select-none overflow-hidden bg-surface-bg/20'>
 					<img
 						src={BACKGROUND_IMAGES[10]}
 						alt='Hero'
 						fetchpriority='high'
 						decoding='async'
-						className='w-full h-full object-cover grayscale-[0.2] opacity-90 blur-[3px] scale-110'
+						className='w-full h-full object-cover grayscale-[0.2] opacity-90 blur-[2px] scale-105 transition-transform duration-[20s] ease-linear animate-slow-zoom'
 					/>
-					<div className='absolute inset-0' />
+					
+					{/* Cinematic Vignette & Gradient Overlays */}
+					<div className='absolute inset-0 bg-gradient-to-t from-page-bg via-transparent to-transparent opacity-80' />
+					<div className='absolute inset-0 bg-gradient-to-b from-page-bg/20 via-transparent to-page-bg/40 opacity-60' />
+					<div className='absolute inset-0 shadow-[inset_0_0_150px_rgba(0,0,0,0.5)]' />
+
+					{/* GRAIN TEXTURE OVERLAY */}
+					<div className='absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay' 
+						style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/stardust.png")' }} />
+					
+					{/* SCANLINES EFFECT */}
+					<div className='absolute inset-0 opacity-[0.05] pointer-events-none'
+						style={{ background: 'repeating-linear-gradient(0deg, transparent, transparent 1px, #000 1px, #000 2px)', backgroundSize: '100% 4px' }} />
 				</div>
 
 				<div className='relative w-full h-full max-w-[1920px] mx-auto z-20 p-4'>
 					{/* PROMINENT TITLE */}
-					<div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none z-10 w-full px-2 md:px-16'>
-						<motion.h1 
-							initial={{ opacity: 0, scale: 0.8 }}
-							animate={{ opacity: 1, scale: 1 }}
-							transition={{ duration: 1 }}
-							className='text-6xl sm:text-7xl md:text-[10rem] lg:text-[14rem] font-black text-white uppercase leading-none tracking-tighter italic md:pr-12 mb-8'
-							style={{ filter: 'drop-shadow(0 20px 30px rgba(0, 0, 0, 1))' }}
+					<div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none z-30 w-full px-4 md:px-12 select-none'>
+						<motion.div
+							initial={{ opacity: 0, y: 20 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ duration: 1, ease: "easeOut" }}
 						>
-							<span>{tUI("home.heroTitle1")}</span> 
-							<br />
-							<span className='text-transparent bg-clip-text bg-gradient-to-br from-primary-600 via-primary-500 to-indigo-600 md:pr-16 inline-block'>
-								{tUI("home.heroTitle2")}
-							</span>
-						</motion.h1>
+							<motion.h1 
+								initial={{ scale: 0.9 }}
+								animate={{ scale: 1 }}
+								transition={{ duration: 1.5, ease: "easeOut" }}
+								className='text-6xl sm:text-7xl md:text-[10rem] lg:text-[14rem] font-black text-white uppercase leading-none tracking-tighter italic mb-8 select-none'
+								style={{ filter: 'drop-shadow(0 20px 50px rgba(0, 0, 0, 0.8))' }}
+							>
+								<span className="relative inline-block overflow-hidden pr-4 md:pr-8">
+									{tUI("home.heroTitle1")}
+									<motion.div 
+										className="absolute inset-0 bg-white/20 -translate-x-full skew-x-12"
+										animate={{ translateX: '200%' }}
+										transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", repeatDelay: 5 }}
+									/>
+								</span> 
+								<br />
+								<span className='text-transparent bg-clip-text bg-gradient-to-br from-primary-400 via-primary-600 to-indigo-700 inline-block filter drop-shadow-[0_0_30px_rgba(var(--color-primary-rgb),0.3)] pr-4 md:pr-8'>
+									{tUI("home.heroTitle2")}
+								</span>
+							</motion.h1>
+						</motion.div>
 					</div>
 
 					{/* TILES */}
@@ -135,23 +161,31 @@ const Home = () => {
 							drag
 							dragMomentum={false}
 							initial={{ opacity: 0, scale: 0 }}
-							animate={{ opacity: 1, scale: 1 }}
-							transition={{ duration: 0.5, delay: idx * 0.1 }}
+							animate={{ 
+								opacity: 1, 
+								scale: 1,
+								y: [0, -10, 0],
+							}}
+							transition={{ 
+								opacity: { duration: 0.5, delay: idx * 0.1 },
+								scale: { duration: 0.5, delay: idx * 0.1 },
+								y: { duration: 4 + Math.random() * 2, repeat: Infinity, ease: "easeInOut", delay: idx * 0.2 }
+							}}
 							onDragStart={() => (isDragging.current = true)}
 							onDragEnd={() => setTimeout(() => (isDragging.current = false), 50)}
-							className={`absolute group flex flex-col items-center cursor-grab`}
+							className={`absolute group flex flex-col items-center cursor-grab active:cursor-grabbing z-10`}
 							style={{ top: tile.top, left: tile.left }}
 						>
 							<div 
 								onClick={() => !isDragging.current && navigate(tile.to)}
-								className={`${tile.size} rounded-none border-2 border-white shadow-2xl overflow-hidden bg-surface-bg group-hover:border-primary-500 group-hover:scale-110 transition-all duration-500 select-none`}
+								className={`${tile.size} rounded-none border-[1px] border-white/40 shadow-2xl overflow-hidden bg-surface-bg/80 backdrop-blur-md group-hover:border-primary-500 group-hover:scale-110 group-hover:rotate-1 transition-all duration-500 select-none group-hover:shadow-primary-500/20 group-active:scale-95`}
 							>
-								<img src={tile.img} alt={tile.label} className='w-full h-full object-cover grayscale-[0.7] group-hover:grayscale-0 transition-all duration-700 pointer-events-none' />
-								<div className='absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all'>
-									<tile.icon className='w-1/4 h-1/4 text-primary-600' />
-								</div>
+								<img src={tile.img} alt={tile.label} className='w-full h-full object-cover grayscale-[0.8] group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700 pointer-events-none' />
+								
+								{/* Glass Reflection Overlay */}
+								<div className='absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity' />
 							</div>
-							<span className='mt-2 text-[9px] lg:text-[11px] tracking-[0.3em] uppercase text-white bg-surface-bg/80 backdrop-blur-md px-3 py-1 shadow-sm select-none pointer-events-none'>
+							<span className='mt-3 text-[9px] lg:text-[10px] tracking-[0.4em] uppercase text-white bg-black/60 backdrop-blur-xl border border-white/10 px-4 py-1.5 shadow-2xl select-none pointer-events-none translate-y-2 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300'>
 								{tile.label}
 							</span>
 						</motion.div>

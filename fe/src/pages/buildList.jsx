@@ -21,19 +21,24 @@ import { PlusCircle, Globe, Shield, Heart, Loader2 } from "lucide-react";
 
 // --- Skeleton Component ---
 const BuildSkeleton = () => (
-	<div className='rounded-lg border border-border bg-surface-bg p-4 space-y-4 animate-pulse'>
-		<div className='flex items-center gap-3'>
-			<div className='w-12 h-12 bg-gray-700/50 rounded-full' />
+	<div className='relative overflow-hidden rounded-2xl border border-white/5 bg-surface-bg/40 p-5 space-y-4 animate-pulse'>
+		{/* Top Info */}
+		<div className='flex items-center gap-4'>
+			<div className='w-14 h-14 bg-white/10 rounded-full border border-white/5' />
 			<div className='flex-1 space-y-2'>
-				<div className='h-4 w-3/4 bg-gray-700/50 rounded' />
-				<div className='h-3 w-1/2 bg-gray-700/50 rounded' />
+				<div className='h-5 w-2/3 bg-white/10 rounded-md' />
+				<div className='h-3 w-1/3 bg-white/5 rounded-full' />
 			</div>
 		</div>
-		<div className='h-24 w-full bg-gray-700/50 rounded-md' />
-		<div className='flex gap-2'>
-			<div className='h-8 w-8 bg-gray-700/50 rounded-full' />
-			<div className='h-8 w-8 bg-gray-700/50 rounded-full' />
-			<div className='h-8 w-8 bg-gray-700/50 rounded-full' />
+		
+		{/* Content Placeholder */}
+		<div className='h-24 w-full bg-white/5 rounded-xl border border-white/5' />
+		
+		{/* Bottom Actions */}
+		<div className='flex gap-2 pt-2'>
+			<div className='h-8 w-8 bg-white/10 rounded-full' />
+			<div className='h-8 w-8 bg-white/10 rounded-full' />
+			<div className='h-8 w-8 bg-white/10 rounded-full' />
 		</div>
 	</div>
 );

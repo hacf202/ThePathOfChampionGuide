@@ -74,9 +74,26 @@ async function getAllBuildsAdmin() {
 
 	if (!cachedData) {
 		const db = getDb();
+		
+		// Lấy toàn bộ build
 		const Items = await db.collection(BUILDS_TABLE).find({}).toArray();
+		
+		// Lấy danh sách tướng để map championID -> championName nếu bị thiếu
+		const champs = await db.collection("guidePocChampionList").find({}, { projection: { championID: 1, name: 1 } }).toArray();
+		const champIdMap = champs.reduce((acc, c) => {
+			acc[c.championID] = c.name;
+			return acc;
+		}, {});
+
 		cachedData = Items
-			? Items.map(item => normalizeDisplay(item))
+			? Items.map(item => {
+				const normalized = normalizeDisplay(item);
+				// Nếu thiếu championName nhưng có championID, tự động điền vào
+				if (!normalized.championName && normalized.championID) {
+					normalized.championName = champIdMap[normalized.championID] || "Unknown Champion";
+				}
+				return normalized;
+			})
 			: [];
 
 		// Sắp xếp mặc định

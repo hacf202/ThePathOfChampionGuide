@@ -11,8 +11,13 @@ import { useCardData } from "../hooks/useCardData.js";
  * Skeleton for Card Item
  */
 const CardSkeleton = () => (
-	<div className='rounded-xl border border-border bg-surface-bg p-0 overflow-hidden space-y-0 animate-pulse'>
-		<div className='aspect-[680/1024] w-full bg-gray-700/50' />
+	<div className='relative w-full aspect-[680/1024] bg-gray-800/40 rounded-xl overflow-hidden border border-white/5 animate-pulse shadow-lg'>
+		<div className='absolute inset-0 bg-gradient-to-t from-black/20 to-transparent' />
+		{/* Bottom placeholder */}
+		<div className='absolute bottom-0 left-0 right-0 p-4 space-y-2'>
+			<div className='h-4 w-3/4 bg-white/10 rounded-md' />
+			<div className='h-3 w-1/2 bg-white/5 rounded-full' />
+		</div>
 	</div>
 );
 
@@ -29,6 +34,20 @@ const CardList = () => {
 	
 	// 2. Quản lý Dữ liệu & Sync
 	const { cards, loading, error, pagination, dynamicFilters } = useCardData(queryParams, state, tUI);
+	const [isReady, setIsReady] = useState(false);
+
+	// Đảm bảo trang "sẵn sàng" sau khi tải dữ liệu
+	useEffect(() => {
+		let timer;
+		if (!loading && cards.length > 0) {
+			timer = setTimeout(() => setIsReady(true), 600);
+		} else if (loading) {
+			setIsReady(false);
+		}
+		return () => {
+			if (timer) clearTimeout(timer);
+		};
+	}, [loading, cards.length]);
 
 	// Đồng bộ bộ lọc động khi dữ liệu tải về
 	useEffect(() => {
@@ -50,7 +69,7 @@ const CardList = () => {
 			
 			// Data & Pagination
 			data={cards}
-			loading={loading}
+			loading={loading || !isReady}
 			pagination={pagination}
 			currentPage={state.currentPage}
 			onPageChange={(newPage) => actions.setCurrentPage(newPage)}
@@ -68,7 +87,8 @@ const CardList = () => {
 			
 			// Render
 			renderSkeleton={() => <CardSkeleton />}
-			skeletonCount={12}
+			skeletonCount={15}
+			gridClassName={(showFilter) => `grid-cols-2 sm:grid-cols-3 md:grid-cols-4 ${showFilter ? "xl:grid-cols-5" : "xl:grid-cols-6"} gap-4 md:gap-8`}
 			renderItem={(card) => (
 				<CardItem card={card} key={card.cardCode} />
 			)}

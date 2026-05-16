@@ -59,7 +59,9 @@ const SubChampionList = () => {
 
             {/* Card List */}
             <div className="p-2 sm:p-3 flex-1">
-                <p className="text-[9px] font-bold text-text-secondary uppercase tracking-widest mb-2 opacity-50">List of cards</p>
+                <p className="text-[9px] font-bold text-text-secondary uppercase tracking-widest mb-2 opacity-50">
+                    {tUI("subChampionList.cardListLabel")}
+                </p>
                 <div className="space-y-2">
                     {pkg.cards.map(card => (
                         <Link 
@@ -77,7 +79,9 @@ const SubChampionList = () => {
                             </div>
                             <div className="flex-1 min-w-0">
                                 <p className="text-xs font-bold text-text-primary truncate">{card.name}</p>
-                                <p className="text-[10px] text-text-secondary">x{card.count} bản sao</p>
+                                <p className="text-[10px] text-text-secondary">
+                                    x{card.count} {tUI("subChampionList.copies")}
+                                </p>
                             </div>
                             <ExternalLink className="w-3 h-3 opacity-0 group-hover/card:opacity-50 transition-opacity" />
                         </Link>
@@ -90,14 +94,14 @@ const SubChampionList = () => {
     return (
         <>
             <Helmet>
-                <title>Danh sách Tướng Phụ | POC GUIDE</title>
-                <meta name="description" content="Danh sách các gói viện trợ tướng phụ trong Path of Champions." />
+                <title>{tUI("subChampionList.title")} | POC GUIDE</title>
+                <meta name="description" content={tUI("subChampionList.metaDesc")} />
             </Helmet>
 
             <GenericListLayout
-                pageTitle="Danh sách Tướng Phụ"
-                pageDescription="Khám phá các gói viện trợ (Reinforcements) và các thẻ bài đi kèm của từng vị tướng phụ."
-                heading="DANH SÁCH TƯỚNG PHỤ"
+                pageTitle={tUI("subChampionList.title")}
+                pageDescription={tUI("subChampionList.pageDescription")}
+                heading={tUI("subChampionList.heading")}
                 data={subChamps}
                 loading={loading}
                 pagination={pagination}
@@ -106,11 +110,11 @@ const SubChampionList = () => {
                 searchValue={search}
                 onSearchChange={setSearch}
                 onSearchSubmit={handleSearchSubmit}
-                searchPlaceholder="Tìm kiếm tướng hoặc gói..."
+                searchPlaceholder={tUI("subChampionList.searchPlaceholder")}
                 renderItem={renderSubChampion}
                 gridClassName="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6"
                 showFilterToggle={false}
-                emptyMessage="Không tìm thấy tướng phụ nào phù hợp."
+                emptyMessage={tUI("subChampionList.notFound")}
                 renderFilters={() => null}
             />
         </>
