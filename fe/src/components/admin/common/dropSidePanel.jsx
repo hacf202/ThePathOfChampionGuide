@@ -475,9 +475,87 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 						</div>
 					</div>
 					<div className='text-sm text-slate-600 whitespace-pre-wrap leading-relaxed border-t border-slate-200 pt-3'>
-						{tooltipData.item.descriptionRaw ||
-						tooltipData.item.description ||
-						tooltipData.item.note ? (
+						{tooltipData.type === "boss" ? (
+							<div className='space-y-3'>
+								<p className='text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5'>
+									<Zap size={14} className='text-yellow-500 fill-yellow-500' /> Sức mạnh của Boss
+								</p>
+								{(() => {
+									const bossPowers = Array.isArray(tooltipData.item.power)
+										? tooltipData.item.power
+										: tooltipData.item.power
+											? [tooltipData.item.power]
+											: [];
+
+									const powerObjs = bossPowers
+										.map(powerId => {
+											return (cachedData.powers || []).find(
+												p => (p.powerCode || p.id || p._id) === powerId,
+											);
+										})
+										.filter(Boolean);
+
+									if (powerObjs.length === 0) {
+										return (
+											<p className='text-xs italic text-slate-400'>
+												Không có sức mạnh đặc biệt
+											</p>
+										);
+									}
+
+									return (
+										<div className='space-y-2 max-h-48 overflow-y-auto custom-scrollbar pr-1'>
+											{powerObjs.map((p, pIdx) => {
+												const pName = p.name || p.powerName || p.powerCode;
+												const pDesc =
+													tDynamic(p, "descriptionRaw") ||
+													tDynamic(p, "description") ||
+													p.description ||
+													"";
+												const pIcon = p.assetAbsolutePath || p.assetFullAbsolutePath;
+
+												return (
+													<div
+														key={pIdx}
+														className='bg-slate-50 border border-slate-100 p-2 rounded-lg flex items-start gap-2'
+													>
+														{pIcon ? (
+															<img
+																src={pIcon}
+																className='w-6 h-6 object-contain shrink-0 mt-0.5'
+																alt={pName}
+															/>
+														) : (
+															<div className='w-6 h-6 bg-yellow-500/10 rounded flex items-center justify-center shrink-0 mt-0.5'>
+																<Zap
+																	size={12}
+																	className='text-yellow-600 fill-yellow-500'
+																/>
+															</div>
+														)}
+														<div className='min-w-0 flex-1'>
+															<p className='font-bold text-xs text-slate-800 leading-tight'>
+																{pName}
+															</p>
+															{pDesc && (
+																<p
+																	className='text-[10px] text-slate-500 mt-1 leading-normal whitespace-pre-wrap'
+																	dangerouslySetInnerHTML={{
+																		__html: pDesc.replace(/\\n/g, "<br/>"),
+																	}}
+																/>
+															)}
+														</div>
+													</div>
+												);
+											})}
+										</div>
+									);
+								})()}
+							</div>
+						) : tooltipData.item.descriptionRaw ||
+						  tooltipData.item.description ||
+						  tooltipData.item.note ? (
 							<span
 								dangerouslySetInnerHTML={{
 									__html: (
