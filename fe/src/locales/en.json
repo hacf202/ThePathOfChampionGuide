@@ -31,7 +31,8 @@
 			"spiritBlossom": "Spirit Blossom",
 			"hoalinhlucdia": "Spirit Blossom",
 			"neutral": "Neutral",
-			"trunglap": "Neutral"
+			"trunglap": "Neutral",
+			"all": "Neutral"
 		},
 		"entities": {
 			"champion": "Champion",

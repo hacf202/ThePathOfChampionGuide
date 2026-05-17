@@ -148,7 +148,11 @@ export const useGenericFilters = ({
 
 	const setFilterValue = useCallback(
 		(filterKey, value) => {
-			setCustomFilters(prev => ({ ...prev, [filterKey]: value }));
+			let cleanValue = value;
+			if (Array.isArray(value) && value.length > 1) {
+				cleanValue = value.filter(v => String(v).toUpperCase() !== "ALL");
+			}
+			setCustomFilters(prev => ({ ...prev, [filterKey]: cleanValue }));
 			setCurrentPage(1);
 		},
 		[setCustomFilters, setCurrentPage],

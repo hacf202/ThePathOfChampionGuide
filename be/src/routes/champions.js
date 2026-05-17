@@ -71,7 +71,9 @@ router.get("/", async (req, res) => {
 
 		if (regions) {
 			const rList = regions.split(",");
-			filtered = filtered.filter(c => c.regions?.some(r => rList.includes(r)));
+			if (!rList.some(r => r.toUpperCase() === "ALL")) {
+				filtered = filtered.filter(c => c.regions?.some(r => rList.includes(r)));
+			}
 		}
 
 		if (costs) {
