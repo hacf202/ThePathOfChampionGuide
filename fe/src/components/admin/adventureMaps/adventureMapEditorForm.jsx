@@ -69,6 +69,42 @@ const StringArrayInput = ({ label, items, onChange, placeholder }) => (
 	</div>
 );
 
+const COMMON_REWARDS = [
+	{ value: "Điểm Huyền Thoại", label: "✨ Điểm Huyền Thoại" },
+	{ value: "Bụi Sao", label: "🌟 Bụi Sao" },
+	{ value: "Mảnh Vạn Năng", label: "🃏 Mảnh Vạn Năng" },
+	{ value: "Đá Quý", label: "💎 Đá Quý" },
+	{ value: "Rương Vũ Trụ Đồng", label: "📦 Rương Vũ Trụ Đồng" },
+	{ value: "Rương Vũ Trụ Bạc", label: "📦 Rương Vũ Trụ Bạc" },
+	{ value: "Rương Vũ Trụ Vàng", label: "📦 Rương Vũ Trụ Vàng" },
+	{ value: "Rương Vũ Trụ Bạch Kim", label: "📦 Rương Vũ Trụ Bạch Kim" },
+	{ value: "Rương Cổ Vật Thường", label: "👑 Rương Cổ Vật Thường" },
+	{ value: "Rương Cổ Vật Hiếm", label: "👑 Rương Cổ Vật Hiếm" },
+	{ value: "Rương Cổ Vật Sử Thi", label: "👑 Rương Cổ Vật Sử Thi" },
+	{ value: "Pha Lê Sao Băng Demacia", label: "🔮 Pha Lê Demacia" },
+	{ value: "Pha Lê Sao Băng Noxus", label: "🔮 Pha Lê Noxus" },
+	{ value: "Pha Lê Sao Băng Ionia", label: "🔮 Pha Lê Ionia" },
+	{ value: "Pha Lê Sao Băng Freljord", label: "🔮 Pha Lê Freljord" },
+	{ value: "Pha Lê Sao Băng Bilgewater", label: "🔮 Pha Lê Bilgewater" },
+	{ value: "Pha Lê Sao Băng Piltover & Zaun", label: "🔮 Pha Lê P&Z" },
+	{ value: "Pha Lê Sao Băng Quần Đảo Bóng Đêm", label: "🔮 Pha Lê Shadow Isles" },
+	{ value: "Pha Lê Sao Băng Shurima", label: "🔮 Pha Lê Shurima" },
+	{ value: "Pha Lê Sao Băng Targon", label: "🔮 Pha Lê Targon" },
+	{ value: "Pha Lê Sao Băng Bandle City", label: "🔮 Pha Lê Bandle City" },
+	{ value: "Pha Lê Sao Băng Runeterra", label: "🔮 Pha Lê Runeterra" },
+	{ value: "Mảnh Sao Băng Demacia", label: "☄️ Mảnh Sao Băng Demacia" },
+	{ value: "Mảnh Sao Băng Noxus", label: "☄️ Mảnh Sao Băng Noxus" },
+	{ value: "Mảnh Sao Băng Ionia", label: "☄️ Mảnh Sao Băng Ionia" },
+	{ value: "Mảnh Sao Băng Freljord", label: "☄️ Mảnh Sao Băng Freljord" },
+	{ value: "Mảnh Sao Băng Bilgewater", label: "☄️ Mảnh Sao Băng Bilgewater" },
+	{ value: "Mảnh Sao Băng Piltover & Zaun", label: "☄️ Mảnh Sao Băng P&Z" },
+	{ value: "Mảnh Sao Băng Quần Đảo Bóng Đêm", label: "☄️ Mảnh Sao Băng Shadow Isles" },
+	{ value: "Mảnh Sao Băng Shurima", label: "☄️ Mảnh Sao Băng Shurima" },
+	{ value: "Mảnh Sao Băng Targon", label: "☄️ Mảnh Sao Băng Targon" },
+	{ value: "Mảnh Sao Băng Bandle City", label: "☄️ Mảnh Sao Băng Bandle City" },
+	{ value: "Mảnh Sao Băng Runeterra", label: "☄️ Mảnh Sao Băng Runeterra" },
+];
+
 const AdventureMapEditorForm = memo(
 	({ item, cachedData, onSave, onCancel, onDelete, isSaving }) => {
 		const [formData, setFormData] = useState({});
@@ -116,6 +152,31 @@ const AdventureMapEditorForm = memo(
 				setFormData(cloned);
 			}
 		}, [item]);
+
+		const requirementChampsLength = formData.requirement?.champions?.length || 0;
+		const requirementRegionsLength = formData.requirement?.regions?.length || 0;
+
+		useEffect(() => {
+			if (!formData.requirement) return;
+			const reqCount = requirementChampsLength + requirementRegionsLength;
+			const targetCount = reqCount === 0 ? 1 : reqCount;
+			const currentRewards = formData.rewards || [];
+
+			if (currentRewards.length !== targetCount) {
+				setFormData(prev => {
+					let newRewards = [...(prev.rewards || [])];
+					if (newRewards.length < targetCount) {
+						while (newRewards.length < targetCount) {
+							newRewards.push({ items: [] });
+						}
+					} else if (newRewards.length > targetCount) {
+						newRewards = newRewards.slice(0, targetCount);
+					}
+					return { ...prev, rewards: newRewards };
+				});
+			}
+			// eslint-disable-next-line react-hooks/exhaustive-deps
+		}, [requirementChampsLength, requirementRegionsLength]);
 
 		const handleChange = e => {
 			const { name, value } = e.target;
@@ -460,7 +521,7 @@ const AdventureMapEditorForm = memo(
 														setFormData(p => ({ ...p, Bosses: arr }));
 													}
 												} catch (err) {
-													console.warn("Drag data không hợp lệ");
+													console.warn("Drag data không hợp lệ", err);
 												}
 											}}
 											onDragOver={e => e.preventDefault()}
@@ -842,105 +903,160 @@ const AdventureMapEditorForm = memo(
 
 					<section className='bg-surface-hover/30 p-5 rounded-xl border border-border shadow-sm'>
 						<div className='flex justify-between items-center mb-6 border-b border-border pb-3'>
-							<h3 className='font-bold text-lg border-l-4 border-yellow-500 pl-3'>
-								Phần thưởng (Rewards)
-							</h3>
-							<Button
-								type='button'
-								variant='outline'
-								size='sm'
-								onClick={() =>
-									setFormData(p => ({
-										...p,
-										rewards: [...(p.rewards || []), { items: [] }],
-									}))
-								}
-							>
-								<Plus size={16} className='mr-1' /> Thêm Gói Thưởng
-							</Button>
+							<div className='space-y-1'>
+								<h3 className='font-bold text-lg border-l-4 border-yellow-500 pl-3'>
+									Phần thưởng (Rewards)
+								</h3>
+								<p className='text-xs text-text-secondary pl-3'>
+									Số lượng gói phần thưởng được tự động đồng bộ theo Yêu cầu tham gia (Champions + Regions).
+								</p>
+							</div>
 						</div>
 						<div className='grid grid-cols-1 md:grid-cols-2 gap-5'>
-							{(formData.rewards || []).map((rewardPacket, pIdx) => (
-								<div
-									key={pIdx}
-									className='bg-surface-bg p-4 border border-border rounded-lg shadow-sm'
-								>
-									<div className='flex justify-between items-center mb-4 border-b border-border/50 pb-2'>
-										<span className='font-black text-yellow-500'>
-											GÓI {pIdx + 1}
-										</span>
-										<div className='flex gap-2'>
-											<Button
-												type='button'
-												variant='outline'
-												size='sm'
-												onClick={() => {
-													const r = [...formData.rewards];
-													r[pIdx].items.push({ name: "", count: 1 });
-													setFormData(p => ({ ...p, rewards: r }));
-												}}
-											>
-												<Plus size={14} className='mr-1' /> Vật phẩm
-											</Button>
-											<Button
-												type='button'
-												variant='ghost'
-												className='text-red-500 hover:bg-red-500/10'
-												onClick={() =>
-													setFormData(p => ({
-														...p,
-														rewards: p.rewards.filter((_, i) => i !== pIdx),
-													}))
-												}
-											>
-												<Trash2 size={16} />
-											</Button>
-										</div>
-									</div>
-									<div className='space-y-3'>
-										{rewardPacket.items.map((it, iIdx) => (
-											<div
-												key={iIdx}
-												className='flex gap-2 items-center bg-surface-hover p-2 rounded-md'
-											>
-												<InputField
-													placeholder='Tên vật phẩm (VD: Kho báu Vàng)'
-													value={it.name}
-													onChange={e => {
-														const r = [...formData.rewards];
-														r[pIdx].items[iIdx].name = e.target.value;
-														setFormData(p => ({ ...p, rewards: r }));
-													}}
-													className='flex-1'
-												/>
-												<InputField
-													type='number'
-													placeholder='SL'
-													value={it.count}
-													onChange={e => {
-														const r = [...formData.rewards];
-														r[pIdx].items[iIdx].count = Number(e.target.value);
-														setFormData(p => ({ ...p, rewards: r }));
-													}}
-													className='w-20'
-												/>
+							{(() => {
+								const flattenedRequirements = [
+									...(formData.requirement?.champions || []).map(cID => {
+										const champ = (cachedData.champions || []).find(
+											c => c.championCode === cID,
+										);
+										return {
+											type: "champion",
+											label: champ ? champ.name || champ.championName : cID,
+											icon: champ?.assetAbsolutePath || champ?.assetFullAbsolutePath,
+										};
+									}),
+									...(formData.requirement?.regions || []).map(rName => ({
+										type: "region",
+										label: `Tướng vùng ${rName}`,
+										icon: null,
+									})),
+								];
+
+								return (formData.rewards || []).map((rewardPacket, pIdx) => {
+									const linkedReq = flattenedRequirements[pIdx];
+									return (
+										<div
+											key={pIdx}
+											className='bg-surface-bg p-5 border border-border rounded-xl shadow-sm flex flex-col gap-4'
+										>
+											<div className='flex justify-between items-center mb-2 border-b border-border/50 pb-3'>
+												<div className='flex items-center gap-2.5 max-w-[75%]'>
+													<span className='font-black text-yellow-500 text-sm tracking-wider uppercase shrink-0'>
+														GÓI THƯỞNG #{pIdx + 1}
+													</span>
+													{linkedReq ? (
+														<span className='inline-flex items-center gap-1.5 px-2 py-0.5 bg-primary-500/10 text-primary-500 text-[10px] font-bold rounded-lg border border-primary-500/20 truncate' title={`Mở khóa bằng: ${linkedReq.label}`}>
+															{linkedReq.icon && (
+																<img
+																	src={linkedReq.icon}
+																	className='w-3.5 h-3.5 object-contain rounded-md shrink-0'
+																	alt=''
+																/>
+															)}
+															<span className='truncate'>Mở khóa: {linkedReq.label}</span>
+														</span>
+													) : (
+														<span className='inline-flex items-center gap-1 px-2 py-0.5 bg-yellow-500/10 text-yellow-600 dark:text-yellow-500 text-[10px] font-bold rounded-lg border border-yellow-500/20 shrink-0'>
+															Hoàn thành mặc định
+														</span>
+													)}
+												</div>
 												<Button
 													type='button'
-													variant='ghost'
-													className='text-red-500 p-2'
+													variant='outline'
+													size='sm'
 													onClick={() => {
 														const r = [...formData.rewards];
-														r[pIdx].items.splice(iIdx, 1);
+														r[pIdx].items.push({ name: "", count: 1 });
 														setFormData(p => ({ ...p, rewards: r }));
 													}}
 												>
-													<Trash2 size={16} />
+													<Plus size={14} className='mr-1' /> Vật phẩm
 												</Button>
 											</div>
-										))}
-									</div>
-								</div>
-							))}
+
+											<div className='space-y-3'>
+												{rewardPacket.items.map((it, iIdx) => (
+													<div
+														key={iIdx}
+														className='flex flex-wrap lg:flex-nowrap gap-2.5 items-center bg-surface-hover/50 p-2.5 rounded-xl border border-border/50 hover:bg-surface-hover transition-colors'
+													>
+														<InputField
+															placeholder='Tên vật phẩm...'
+															value={it.name}
+															onChange={e => {
+																const r = [...formData.rewards];
+																r[pIdx].items[iIdx].name = e.target.value;
+																setFormData(p => ({ ...p, rewards: r }));
+															}}
+															className='flex-1 min-w-[150px]'
+														/>
+
+														<select
+															className='bg-surface-bg border border-border rounded-xl px-2.5 py-1.5 text-xs text-text-primary outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all font-semibold shrink-0 cursor-pointer min-w-[130px]'
+															value={COMMON_REWARDS.some(opt => opt.value === it.name) ? it.name : ""}
+															onChange={e => {
+																const selectedVal = e.target.value;
+																if (selectedVal) {
+																	const r = [...formData.rewards];
+																	r[pIdx].items[iIdx].name = selectedVal;
+																	
+																	if (selectedVal === "Điểm Huyền Thoại") {
+																		r[pIdx].items[iIdx].count = 1000;
+																	} else if (selectedVal === "Bụi Sao") {
+																		r[pIdx].items[iIdx].count = 100;
+																	} else if (selectedVal === "Mảnh Vạn Năng") {
+																		r[pIdx].items[iIdx].count = 5;
+																	} else {
+																		r[pIdx].items[iIdx].count = 1;
+																	}
+																	setFormData(p => ({ ...p, rewards: r }));
+																}
+															}}
+														>
+															<option value=''>-- Chọn mẫu --</option>
+															{COMMON_REWARDS.map(opt => (
+																<option key={opt.value} value={opt.value}>
+																	{opt.label}
+																</option>
+															))}
+														</select>
+
+														<InputField
+															type='number'
+															placeholder='SL'
+															value={it.count}
+															onChange={e => {
+																const r = [...formData.rewards];
+																r[pIdx].items[iIdx].count = Number(e.target.value);
+																setFormData(p => ({ ...p, rewards: r }));
+															}}
+															className='w-16 shrink-0'
+														/>
+														<Button
+															type='button'
+															variant='ghost'
+															className='text-red-500 hover:text-red-400 hover:bg-red-500/10 p-2 rounded-lg shrink-0 transition-colors'
+															onClick={() => {
+																const r = [...formData.rewards];
+																r[pIdx].items.splice(iIdx, 1);
+																setFormData(p => ({ ...p, rewards: r }));
+															}}
+														>
+															<Trash2 size={16} />
+														</Button>
+													</div>
+												))}
+												{(!rewardPacket.items || rewardPacket.items.length === 0) && (
+													<p className='text-xs text-text-secondary italic text-center py-4 bg-surface-hover/20 rounded-xl border border-dashed border-border/50'>
+														Gói này chưa có vật phẩm nào. Bấm "Vật phẩm" để bổ sung.
+													</p>
+												)}
+											</div>
+										</div>
+									);
+								});
+							})()}
 						</div>
 					</section>
 				</div>
