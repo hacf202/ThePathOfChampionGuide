@@ -116,27 +116,6 @@ const RewardSection = ({ rewards }) => {
 			"wild_frags": "wild_frags",
 			"mysterious_fragment": "wild_frags",
 			"champ_frags": "champ_frags",
-
-			"bronze reliquary": "bronze_reliquary",
-			"silver reliquary": "silver_reliquary",
-			"gold reliquary": "gold_reliquary",
-			"bronze vault": "bronze_vault",
-			"silver vault": "silver_vault",
-			"gold vault": "gold_vault",
-			"platinum vault": "platinum_vault",
-			"diamond vault": "diamond_vault",
-			"silver star vessel": "silver_star_vessel",
-			"gold star vessel": "gold_star_vessel",
-			"platinum star vessel": "platinum_star_vessel",
-			"legend level": "legend_level",
-			"nova crystal": "nova_crystal",
-			"star crystal": "star_crystal",
-			"honor coin": "honor_coin",
-			"nova shard": "nova_shard",
-			"greater gemstone vessel": "greater_gemstone_vessel",
-			"wild fragments": "wild_frags",
-			"mysterious fragment": "wild_frags",
-			"champion fragments": "champ_frags",
 		};
 
 		const ICON_NAME_MAP = {
