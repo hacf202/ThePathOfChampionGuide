@@ -750,6 +750,8 @@ const AdventureMapEditorForm = memo(
 										<option value='Power'>⚡ Power</option>
 										<option value='Healer'>➕ Healer</option>
 										<option value='Start'>🚩 Start</option>
+										<option value='Shop'>🛒 Shop</option>
+										<option value='Champion Node'>💎 Champion Node</option>
 									</select>
 									<Button
 										type='button'
@@ -857,6 +859,24 @@ const AdventureMapEditorForm = memo(
 														}}
 														onClick={e => {
 															e.stopPropagation();
+															if ((e.ctrlKey || e.metaKey) && selectedNodeIndex !== null && selectedNodeIndex !== i) {
+																const startIdx = selectedNodeIndex;
+																setFormData(prev => {
+																	const nextNodes = [...(prev.nodes || [])];
+																	const startNode = nextNodes[startIdx];
+																	const targetNode = nextNodes[i];
+																	if (startNode && targetNode) {
+																		const currentNext = startNode.nextNodes || [];
+																		if (!currentNext.includes(targetNode.nodeID)) {
+																			nextNodes[startIdx] = {
+																				...startNode,
+																				nextNodes: [...currentNext, targetNode.nodeID],
+																			};
+																		}
+																	}
+																	return { ...prev, nodes: nextNodes };
+																});
+															}
 															setSelectedNodeIndex(i);
 														}}
 													/>
@@ -878,6 +898,24 @@ const AdventureMapEditorForm = memo(
 													}}
 													onClick={e => {
 														e.stopPropagation();
+														if ((e.ctrlKey || e.metaKey) && selectedNodeIndex !== null && selectedNodeIndex !== i) {
+															const startIdx = selectedNodeIndex;
+															setFormData(prev => {
+																const nextNodes = [...(prev.nodes || [])];
+																const startNode = nextNodes[startIdx];
+																const targetNode = nextNodes[i];
+																if (startNode && targetNode) {
+																	const currentNext = startNode.nextNodes || [];
+																	if (!currentNext.includes(targetNode.nodeID)) {
+																		nextNodes[startIdx] = {
+																			...startNode,
+																			nextNodes: [...currentNext, targetNode.nodeID],
+																		};
+																	}
+																}
+																return { ...prev, nodes: nextNodes };
+															});
+														}
 														setSelectedNodeIndex(i);
 													}}
 												>
