@@ -71,27 +71,44 @@ const StringArrayInput = ({ label, items, onChange, placeholder }) => (
 
 const COMMON_REWARDS = [
 	{ value: "Điểm Huyền Thoại", label: "✨ Điểm Huyền Thoại" },
-	{ value: "Bụi Sao", label: "🌟 Bụi Sao" },
-	{ value: "Mảnh Vạn Năng", label: "🃏 Mảnh Vạn Năng" },
+	{ value: "Bụi Tinh Tú", label: "🌟 Bụi Tinh Tú" },
+	{ value: "Mảnh Ghép Bí Ẩn", label: "🃏 Mảnh Ghép Bí Ẩn" },
+	{ value: "Mảnh Tướng", label: "🧩 Mảnh Tướng" },
 	{ value: "Đá Quý", label: "💎 Đá Quý" },
-	{ value: "Rương Vũ Trụ Đồng", label: "📦 Rương Vũ Trụ Đồng" },
-	{ value: "Rương Vũ Trụ Bạc", label: "📦 Rương Vũ Trụ Bạc" },
-	{ value: "Rương Vũ Trụ Vàng", label: "📦 Rương Vũ Trụ Vàng" },
-	{ value: "Rương Vũ Trụ Bạch Kim", label: "📦 Rương Vũ Trụ Bạch Kim" },
-	{ value: "Rương Cổ Vật Thường", label: "👑 Rương Cổ Vật Thường" },
-	{ value: "Rương Cổ Vật Hiếm", label: "👑 Rương Cổ Vật Hiếm" },
-	{ value: "Rương Cổ Vật Sử Thi", label: "👑 Rương Cổ Vật Sử Thi" },
-	{ value: "Pha Lê Sao Băng Demacia", label: "🔮 Pha Lê Demacia" },
-	{ value: "Pha Lê Sao Băng Noxus", label: "🔮 Pha Lê Noxus" },
-	{ value: "Pha Lê Sao Băng Ionia", label: "🔮 Pha Lê Ionia" },
-	{ value: "Pha Lê Sao Băng Freljord", label: "🔮 Pha Lê Freljord" },
-	{ value: "Pha Lê Sao Băng Bilgewater", label: "🔮 Pha Lê Bilgewater" },
-	{ value: "Pha Lê Sao Băng Piltover & Zaun", label: "🔮 Pha Lê P&Z" },
-	{ value: "Pha Lê Sao Băng Quần Đảo Bóng Đêm", label: "🔮 Pha Lê Shadow Isles" },
-	{ value: "Pha Lê Sao Băng Shurima", label: "🔮 Pha Lê Shurima" },
-	{ value: "Pha Lê Sao Băng Targon", label: "🔮 Pha Lê Targon" },
-	{ value: "Pha Lê Sao Băng Bandle City", label: "🔮 Pha Lê Bandle City" },
-	{ value: "Pha Lê Sao Băng Runeterra", label: "🔮 Pha Lê Runeterra" },
+	{ value: "Xu Vinh Danh", label: "🏅 Xu Vinh Danh" },
+	
+	// Kho Báu
+	{ value: "Kho Báu Đồng", label: "📦 Kho Báu Đồng" },
+	{ value: "Kho Báu Bạc", label: "📦 Kho Báu Bạc" },
+	{ value: "Kho Báu Vàng", label: "📦 Kho Báu Vàng" },
+	{ value: "Kho Báu Bạch Kim", label: "📦 Kho Báu Bạch Kim" },
+	{ value: "Kho Báu Kim Cương", label: "📦 Kho Báu Kim Cương" },
+	
+	// Hòm Thần Tích
+	{ value: "Hòm Thần Tích Đồng", label: "👑 Hòm Thần Tích Đồng" },
+	{ value: "Hòm Thần Tích Bạc", label: "👑 Hòm Thần Tích Bạc" },
+	{ value: "Hòm Thần Tích Vàng", label: "👑 Hòm Thần Tích Vàng" },
+
+	// Thùng Tinh Tú
+	{ value: "Thùng Tinh Tú Bạc", label: "🌌 Thùng Tinh Tú Bạc" },
+	{ value: "Thùng Tinh Tú Vàng", label: "🌌 Thùng Tinh Tú Vàng" },
+	{ value: "Thùng Tinh Tú Bạch Kim", label: "🌌 Thùng Tinh Tú Bạch Kim" },
+	{ value: "Thùng Đá Quý Lớn", label: "🌌 Thùng Đá Quý Lớn" },
+
+	// Pha Lê Sao Băng
+	{ value: "Pha Lê Sao Băng Demacia", label: "🔮 Pha Lê Sao Băng Demacia" },
+	{ value: "Pha Lê Sao Băng Noxus", label: "🔮 Pha Lê Sao Băng Noxus" },
+	{ value: "Pha Lê Sao Băng Ionia", label: "🔮 Pha Lê Sao Băng Ionia" },
+	{ value: "Pha Lê Sao Băng Freljord", label: "🔮 Pha Lê Sao Băng Freljord" },
+	{ value: "Pha Lê Sao Băng Bilgewater", label: "🔮 Pha Lê Sao Băng Bilgewater" },
+	{ value: "Pha Lê Sao Băng Piltover & Zaun", label: "🔮 Pha Lê Sao Băng P&Z" },
+	{ value: "Pha Lê Sao Băng Quần Đảo Bóng Đêm", label: "🔮 Pha Lê Sao Băng Shadow Isles" },
+	{ value: "Pha Lê Sao Băng Shurima", label: "🔮 Pha Lê Sao Băng Shurima" },
+	{ value: "Pha Lê Sao Băng Targon", label: "🔮 Pha Lê Sao Băng Targon" },
+	{ value: "Pha Lê Sao Băng Thành Phố Bandle", label: "🔮 Pha Lê Sao Băng Bandle" },
+	{ value: "Pha Lê Sao Băng Runeterra", label: "🔮 Pha Lê Sao Băng Runeterra" },
+
+	// Mảnh Sao Băng
 	{ value: "Mảnh Sao Băng Demacia", label: "☄️ Mảnh Sao Băng Demacia" },
 	{ value: "Mảnh Sao Băng Noxus", label: "☄️ Mảnh Sao Băng Noxus" },
 	{ value: "Mảnh Sao Băng Ionia", label: "☄️ Mảnh Sao Băng Ionia" },
@@ -101,7 +118,7 @@ const COMMON_REWARDS = [
 	{ value: "Mảnh Sao Băng Quần Đảo Bóng Đêm", label: "☄️ Mảnh Sao Băng Shadow Isles" },
 	{ value: "Mảnh Sao Băng Shurima", label: "☄️ Mảnh Sao Băng Shurima" },
 	{ value: "Mảnh Sao Băng Targon", label: "☄️ Mảnh Sao Băng Targon" },
-	{ value: "Mảnh Sao Băng Bandle City", label: "☄️ Mảnh Sao Băng Bandle City" },
+	{ value: "Mảnh Sao Băng Thành Phố Bandle", label: "☄️ Mảnh Sao Băng Bandle" },
 	{ value: "Mảnh Sao Băng Runeterra", label: "☄️ Mảnh Sao Băng Runeterra" },
 ];
 
