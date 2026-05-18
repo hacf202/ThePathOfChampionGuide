@@ -132,7 +132,15 @@ const AdventureMapEditorForm = memo(
 		const [mapSize, setMapSize] = useState({ width: 1000, height: 400 });
 		const [selectedNodeIndex, setSelectedNodeIndex] = useState(null);
 		const [selectedNodeType, setSelectedNodeType] = useState("Encounter");
+		const [contextMenu, setContextMenu] = useState(null);
 		const mapRef = useRef(null);
+
+		useEffect(() => {
+			if (!contextMenu) return;
+			const handleClose = () => setContextMenu(null);
+			document.addEventListener("click", handleClose);
+			return () => document.removeEventListener("click", handleClose);
+		}, [contextMenu]);
 
 		useEffect(() => {
 			if (!isMapVisible || !mapRef.current) return;
@@ -208,6 +216,7 @@ const AdventureMapEditorForm = memo(
 
 		const handleMapClick = useCallback(
 			e => {
+				if (contextMenu) return;
 				if (selectedNodeIndex === null || !mapRef.current) return;
 				const rect = mapRef.current.getBoundingClientRect();
 				const x = parseFloat(
@@ -228,7 +237,79 @@ const AdventureMapEditorForm = memo(
 					return { ...prev, nodes: nextNodes };
 				});
 			},
-			[selectedNodeIndex],
+			[selectedNodeIndex, contextMenu],
+		);
+
+		const handleMapContextMenu = useCallback(
+			e => {
+				e.preventDefault();
+				if (!mapRef.current) return;
+				const rect = mapRef.current.getBoundingClientRect();
+				const xPx = e.clientX - rect.left;
+				const yPx = e.clientY - rect.top;
+				const percentX = parseFloat(((xPx / rect.width) * 100).toFixed(1));
+				const percentY = parseFloat(((yPx / rect.height) * 100).toFixed(1));
+
+				// Tránh bị tràn hoặc cắt mất context menu ở các góc cạnh của bản đồ
+				const menuWidth = 208; // w-52 tương đương 208px
+				const menuHeight = 260; // Chiều cao tối đa ước lượng của menu
+
+				let renderX = xPx;
+				let renderY = yPx;
+
+				if (xPx + menuWidth > rect.width) {
+					renderX = rect.width - menuWidth - 10;
+				}
+				if (yPx + menuHeight > rect.height) {
+					renderY = rect.height - menuHeight - 10;
+				}
+				if (renderX < 10) renderX = 10;
+				if (renderY < 10) renderY = 10;
+
+				setContextMenu({
+					x: renderX,
+					y: renderY,
+					percentX,
+					percentY,
+				});
+			},
+			[],
+		);
+
+		const handleCreateNodeAtPos = useCallback(
+			(type, percentX, percentY) => {
+				setFormData(prev => {
+					const nextNodes = [...(prev.nodes || [])];
+					const newIndex = nextNodes.length + 1;
+
+					// Đảm bảo nodeID là duy nhất
+					let uniqueID = `n${newIndex}`;
+					let attempts = 0;
+					while (nextNodes.some(n => n.nodeID === uniqueID) && attempts < 100) {
+						attempts++;
+						uniqueID = `n${newIndex + attempts}`;
+					}
+
+					const newNode = {
+						nodeID: uniqueID,
+						nodeType: type,
+						bosses: [],
+						nextNodes: [],
+						position: { x: percentX, y: percentY },
+					};
+
+					const updatedNodes = [...nextNodes, newNode];
+
+					// Tự động focus/select node mới tạo sau khi DOM được render
+					setTimeout(() => {
+						setSelectedNodeIndex(updatedNodes.length - 1);
+					}, 50);
+
+					return { ...prev, nodes: updatedNodes };
+				});
+				setContextMenu(null);
+			},
+			[],
 		);
 
 		const handleNodeChange = useCallback((idx, field, val) => {
@@ -789,6 +870,7 @@ const AdventureMapEditorForm = memo(
 										style={{ aspectRatio: mapAspectRatio }}
 										ref={mapRef}
 										onClick={handleMapClick}
+										onContextMenu={handleMapContextMenu}
 									>
 										<img
 											src={formData.background || "/images/placeholder-bg.jpg"}
@@ -879,6 +961,11 @@ const AdventureMapEditorForm = memo(
 															}
 															setSelectedNodeIndex(i);
 														}}
+														onContextMenu={e => {
+															e.stopPropagation();
+															e.preventDefault();
+															setSelectedNodeIndex(i);
+														}}
 													/>
 												);
 											}
@@ -918,6 +1005,11 @@ const AdventureMapEditorForm = memo(
 														}
 														setSelectedNodeIndex(i);
 													}}
+													onContextMenu={e => {
+														e.stopPropagation();
+														e.preventDefault();
+														setSelectedNodeIndex(i);
+													}}
 												>
 													{getNodeIcon(n.nodeType)}
 													<span className='absolute -bottom-6 text-[10px] font-bold text-white bg-black/70 px-1.5 py-0.5 rounded shadow'>
@@ -926,6 +1018,67 @@ const AdventureMapEditorForm = memo(
 												</div>
 											);
 										})}
+
+										{/* Temporary indicator (pulsing red dot) at the exact right-click position */}
+										{contextMenu && (
+											<>
+												<div
+													className='absolute w-4.5 h-4.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-red-500 border border-white pointer-events-none z-40 animate-ping shadow-[0_0_10px_rgba(239,68,68,1)]'
+													style={{
+														left: `${contextMenu.percentX}%`,
+														top: `${contextMenu.percentY}%`,
+													}}
+												/>
+												<div
+													className='absolute w-3.5 h-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-red-600 border border-white pointer-events-none z-40 shadow-[0_0_8px_rgba(220,38,38,0.9)]'
+													style={{
+														left: `${contextMenu.percentX}%`,
+														top: `${contextMenu.percentY}%`,
+													}}
+												/>
+											</>
+										)}
+
+										{/* Custom Context Menu / Tooltip for Right-Click Node Creation */}
+										{contextMenu && (
+											<div
+												className='absolute bg-slate-900/95 backdrop-blur-md border border-slate-700/60 rounded-xl shadow-2xl p-2 w-52 z-50 animate-in fade-in zoom-in-95 duration-150 flex flex-col gap-1'
+												style={{
+													left: `${contextMenu.x}px`,
+													top: `${contextMenu.y}px`,
+												}}
+												onClick={e => e.stopPropagation()}
+											>
+												<div className='px-2 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-widest border-b border-slate-800/80 mb-1 flex justify-between items-center select-none'>
+													<span>Tạo Node tại đây</span>
+													<span className='font-mono text-slate-500'>
+														{contextMenu.percentX}% {contextMenu.percentY}%
+													</span>
+												</div>
+												<div className='max-h-60 overflow-y-auto custom-scrollbar flex flex-col gap-0.5'>
+													{NODE_TYPES_DATA.map(type => (
+														<button
+															key={type.nodeType}
+															type='button'
+															className='flex items-center gap-2.5 w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/10 transition-colors'
+															onClick={() =>
+																handleCreateNodeAtPos(
+																	type.nodeType,
+																	contextMenu.percentX,
+																	contextMenu.percentY,
+																)
+															}
+															title={type.description}
+														>
+															<span className='shrink-0 w-4 h-4 flex items-center justify-center'>
+																{getNodeIcon(type.nodeType)}
+															</span>
+															<span className='truncate'>{type.nodeType}</span>
+														</button>
+													))}
+												</div>
+											</div>
+										)}
 									</div>
 									<p className='text-xs text-text-secondary text-center italic'>
 										Click chọn Node ở danh sách bên dưới, sau đó bấm lên bản đồ
@@ -951,7 +1104,7 @@ const AdventureMapEditorForm = memo(
 								) : (
 									(formData.nodes || []).map((node, idx) => (
 										<AdventureNodeEditor
-											key={idx}
+											key={node.nodeID || idx}
 											index={idx}
 											node={node}
 											isSelected={selectedNodeIndex === idx}
@@ -962,7 +1115,11 @@ const AdventureMapEditorForm = memo(
 													...prev,
 													nodes: prev.nodes.filter((_, idx2) => idx2 !== i),
 												}));
-												if (selectedNodeIndex === i) setSelectedNodeIndex(null);
+												setSelectedNodeIndex(current => {
+													if (current === i) return null;
+													if (current > i) return current - 1;
+													return current;
+												});
 											}}
 											cachedData={cachedData}
 										/>

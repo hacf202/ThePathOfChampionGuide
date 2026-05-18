@@ -11,37 +11,56 @@ import AdminListLayout from "../common/adminListLayout";
 import { Loader2 } from "lucide-react";
 import { useTranslation } from "../../../hooks/useTranslation";
 import Swal from "sweetalert2";
+import MarkupRenderer from "../../common/MarkupRenderer";
 
 const CustomBossTooltip = ({ bossID, powers, cachedData, tUI }) => {
 	return (
-		<div className='flex flex-col gap-2'>
-			<div className='font-bold text-primary-400'>[ID: {bossID}]</div>
+		<div className='flex flex-col gap-3 max-w-[280px] p-1'>
+			<div className='font-bold text-primary-400 border-b border-slate-700/60 pb-1.5 mb-0.5 text-xs select-none'>
+				[ID: {bossID}]
+			</div>
 			{!powers || powers.length === 0 ? (
-				<div className='italic text-gray-400'>{tUI("admin.boss.noPowers")}</div>
+				<div className='italic text-slate-400 text-xs'>{tUI("admin.boss.noPowers")}</div>
 			) : (
-				powers.map((pCode, idx) => {
-					const powerItem = cachedData?.powers?.find(
-						p => p.powerCode === pCode,
-					);
-					const name = powerItem
-						? powerItem.translations?.vi?.name || powerItem.name
-						: pCode;
-					const icon =
-						powerItem?.assetAbsolutePath || "/images/placeholder.png";
+				<div className='flex flex-col gap-2.5 max-h-64 overflow-y-auto pr-1 custom-scrollbar'>
+					{powers.map((pCode, idx) => {
+						const powerItem = cachedData?.powers?.find(
+							p => p.powerCode === pCode,
+						);
+						const name = powerItem
+							? powerItem.translations?.vi?.name || powerItem.name
+							: pCode;
+						const description = powerItem
+							? powerItem.translations?.vi?.description ||
+							  powerItem.translations?.vi?.desc ||
+							  powerItem.description ||
+							  powerItem.desc ||
+							  ""
+							: "";
+						const icon =
+							powerItem?.assetAbsolutePath || "/images/placeholder.png";
 
-					return (
-						<div key={idx} className='flex items-center gap-3'>
-							<img
-								src={icon}
-								alt='icon'
-								className='w-8 h-8 rounded border border-gray-600 bg-gray-800 object-cover shrink-0'
-							/>
-							<span className='text-sm text-gray-200 line-clamp-2'>
-								{name}
-							</span>
-						</div>
-					);
-				})
+						return (
+							<div key={idx} className='flex gap-2.5 items-start border-b border-slate-800/60 pb-2 last:border-0 last:pb-0'>
+								<img
+									src={icon}
+									alt='icon'
+									className='w-7 h-7 rounded border border-slate-600 bg-slate-800 object-contain shrink-0 mt-0.5'
+								/>
+								<div className='flex flex-col min-w-0'>
+									<span className='text-xs font-bold text-yellow-400 leading-tight truncate'>
+										{name}
+									</span>
+									{description && (
+										<div className='text-[10px] text-slate-300 leading-normal mt-1'>
+											<MarkupRenderer text={description} noTooltip={true} />
+										</div>
+									)}
+								</div>
+							</div>
+						);
+					})}
+				</div>
 			)}
 		</div>
 	);

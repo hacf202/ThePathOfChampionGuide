@@ -494,6 +494,12 @@ export const AdventureNodeEditor = ({
 }) => {
 	const [isOpen, setIsOpen] = useState(false);
 
+	React.useEffect(() => {
+		if (isSelected) {
+			setIsOpen(true);
+		}
+	}, [isSelected]);
+
 	// MAP ICON MỚI DÀNH CHO HEADER BÊN CỘT TRÁI
 	const getIcon = type => {
 		const t = (type || "").toLowerCase();
@@ -527,6 +533,8 @@ export const AdventureNodeEditor = ({
 	const nodeInfo =
 		NODE_TYPES_DATA.find(t => t.nodeType === (node.nodeType || "Encounter")) ||
 		{};
+
+	const isBossOrMiniboss = (node.nodeType || "").toLowerCase().includes("boss");
 
 	return (
 		<div
@@ -619,15 +627,17 @@ export const AdventureNodeEditor = ({
 						</div>
 					</div>
 
-					<div className='bg-surface-hover/50 p-3 rounded-lg border border-border border-dashed'>
-						<DragDropArrayInput
-							label='Danh sách Kẻ địch / Boss (Kéo thả vào)'
-							data={node.bosses || []}
-							onChange={val => onChange(index, "bosses", val)}
-							cachedList={cachedData.bosses || []}
-							placeholder='Nhập ID hoặc Kéo thả'
-						/>
-					</div>
+					{isBossOrMiniboss && (
+						<div className='bg-surface-hover/50 p-3 rounded-lg border border-border border-dashed'>
+							<DragDropArrayInput
+								label='Danh sách Kẻ địch / Boss (Kéo thả vào)'
+								data={node.bosses || []}
+								onChange={val => onChange(index, "bosses", val)}
+								cachedList={cachedData.bosses || []}
+								placeholder='Nhập ID hoặc Kéo thả'
+							/>
+						</div>
+					)}
 				</div>
 			)}
 		</div>

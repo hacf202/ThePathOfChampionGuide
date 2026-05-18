@@ -8,6 +8,20 @@ import { useTranslation } from "../../../hooks/useTranslation";
 import EditorHeaderToolbar from "../common/editorHeaderToolbar";
 import ImagePreviewBox from "../common/imagePreviewBox";
 
+const stripMarkup = (text, keepNewlines = false) => {
+	if (!text) return "";
+	// 1. Thay thế các thẻ dạng [type:value|label|options] bằng label (hoặc value nếu không có label)
+	let clean = text.replace(/\[([a-z]+):([^\]|]+)(?:\|([^|\]]*))?(?:\|([^\]]*))?\]/gi, (match, type, value, label) => {
+		return label || value;
+	});
+	// 2. Loại bỏ các thẻ HTML tự đóng hoặc mở như <br/>, <b>, <i>, </b>, </i>
+	clean = clean.replace(/<(?:br|b|i)\/?>|<\/(?:b|i)>/gi, "");
+	// 3. Thay thế xuống dòng
+	clean = clean.replace(/\\n/g, keepNewlines ? "\n" : " ");
+	clean = clean.replace(/\n/g, keepNewlines ? "\n" : " ");
+	return clean.trim();
+};
+
 const BossEditorForm = memo(
 	({
 		item,
@@ -258,7 +272,8 @@ const BossEditorForm = memo(
 											return (
 												<div
 													key={index}
-													className='flex items-center gap-3 p-2.5 bg-surface-bg border border-border rounded-lg shadow-sm'
+													className='flex items-center gap-3 p-2.5 bg-surface-bg border border-border rounded-lg shadow-sm hover:border-yellow-500/40 transition-colors'
+													title={foundPower ? `${resolvedPowerName}\n\n${stripMarkup(tDynamic(foundPower, "description") || foundPower.description || "", true)}` : resolvedPowerName}
 												>
 													{/* Avatar Sức mạnh */}
 													<div className='w-10 h-10 shrink-0 bg-surface-hover/50 border border-border rounded-md flex items-center justify-center overflow-hidden'>
@@ -275,13 +290,20 @@ const BossEditorForm = memo(
 														)}
 													</div>
 
-													{/* Tên Sức mạnh */}
-													<div className='flex-1 font-semibold text-text-primary truncate'>
-														{resolvedPowerName}
-														{!foundPower && (
-															<span className='text-xs text-red-500 ml-2 font-normal'>
-																(Chưa rõ ID)
-															</span>
+													{/* Tên và Mô tả Sức mạnh */}
+													<div className='flex-1 min-w-0'>
+														<div className='font-semibold text-text-primary truncate'>
+															{resolvedPowerName}
+															{!foundPower && (
+																<span className='text-xs text-red-500 ml-2 font-normal'>
+																	(Chưa rõ ID)
+																</span>
+															)}
+														</div>
+														{foundPower && (
+															<p className='text-xs text-text-secondary mt-0.5 truncate leading-normal'>
+																{stripMarkup(tDynamic(foundPower, "description") || foundPower.description || "")}
+															</p>
 														)}
 													</div>
 
