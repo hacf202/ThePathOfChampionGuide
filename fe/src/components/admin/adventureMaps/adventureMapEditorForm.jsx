@@ -131,6 +131,7 @@ const AdventureMapEditorForm = memo(
 		const [mapAspectRatio, setMapAspectRatio] = useState("21/9");
 		const [mapSize, setMapSize] = useState({ width: 1000, height: 400 });
 		const [selectedNodeIndex, setSelectedNodeIndex] = useState(null);
+		const [selectedNodeType, setSelectedNodeType] = useState("Encounter");
 		const mapRef = useRef(null);
 
 		useEffect(() => {
@@ -736,30 +737,45 @@ const AdventureMapEditorForm = memo(
 								>
 									{isMapVisible ? "Ẩn Bản đồ" : "Hiện Bản đồ"}
 								</Button>
-								<Button
-									type='button'
-									size='sm'
-									variant='primary'
-									iconLeft={<Plus size={16} />}
-									onClick={() => {
-										const newIndex = (formData.nodes || []).length + 1;
-										setFormData(p => ({
-											...p,
-											nodes: [
-												...(p.nodes || []),
-												{
-													nodeID: `n${newIndex}`,
-													nodeType: "Encounter",
-													bosses: [],
-													nextNodes: [],
-													position: { x: 50, y: 50 },
-												},
-											],
-										}));
-									}}
-								>
-									Thêm Điểm (Node)
-								</Button>
+								<div className='flex items-center gap-2 bg-surface-hover/80 p-1.5 rounded-xl border border-border shrink-0 shadow-sm'>
+									<span className='text-xs font-bold text-text-secondary pl-1.5 select-none'>Loại Node:</span>
+									<select
+										value={selectedNodeType}
+										onChange={e => setSelectedNodeType(e.target.value)}
+										className='bg-surface-bg border border-border rounded-lg px-2.5 py-1 text-xs text-text-primary outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 font-bold cursor-pointer transition-all'
+									>
+										<option value='Encounter'>⚔️ Encounter</option>
+										<option value='Miniboss'>💀 Miniboss</option>
+										<option value='Boss'>🔥 Boss</option>
+										<option value='Power'>⚡ Power</option>
+										<option value='Healer'>➕ Healer</option>
+										<option value='Start'>🚩 Start</option>
+									</select>
+									<Button
+										type='button'
+										size='sm'
+										variant='primary'
+										iconLeft={<Plus size={16} />}
+										onClick={() => {
+											const newIndex = (formData.nodes || []).length + 1;
+											setFormData(p => ({
+												...p,
+												nodes: [
+													...(p.nodes || []),
+													{
+														nodeID: `n${newIndex}`,
+														nodeType: selectedNodeType,
+														bosses: [],
+														nextNodes: [],
+														position: { x: 50, y: 50 },
+													},
+												],
+											}));
+										}}
+									>
+										Thêm Điểm (Node)
+									</Button>
+								</div>
 							</div>
 						</div>
 
@@ -1020,9 +1036,9 @@ const AdventureMapEditorForm = memo(
 																	
 																	if (selectedVal === "Điểm Huyền Thoại") {
 																		r[pIdx].items[iIdx].count = 1000;
-																	} else if (selectedVal === "Bụi Sao") {
+																	} else if (selectedVal === "Bụi Tinh Tú") {
 																		r[pIdx].items[iIdx].count = 100;
-																	} else if (selectedVal === "Mảnh Vạn Năng") {
+																	} else if (selectedVal === "Mảnh Ghép Bí Ẩn") {
 																		r[pIdx].items[iIdx].count = 5;
 																	} else {
 																		r[pIdx].items[iIdx].count = 1;
