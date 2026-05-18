@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+// eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from "framer-motion";
 import { Gift, Eye, EyeOff } from "lucide-react";
 import Button from "../common/button";
@@ -8,7 +9,7 @@ import { removeAccents } from "../../utils/vietnameseUtils";
 import iconData from "../../assets/data/icon.json";
 
 const RewardSection = ({ rewards }) => {
-	const { tUI } = useTranslation();
+	const { tUI, language } = useTranslation();
 	const [isVisible, setIsVisible] = useState(true);
 
 	if (!rewards || rewards.length === 0) return null;
@@ -67,6 +68,7 @@ const RewardSection = ({ rewards }) => {
 		}
 
 		const REWARD_MAP = {
+			// Vietnamese Names
 			"hòm thần tích đồng": "bronze_reliquary",
 			"hòm thần tích bạc": "silver_reliquary",
 			"hòm thần tích vàng": "gold_reliquary",
@@ -80,6 +82,7 @@ const RewardSection = ({ rewards }) => {
 			"thùng tinh tú bạch kim": "platinum_star_vessel",
 			"điểm huyền thoại": "legend_level",
 			"bụi tinh tú": "stardust",
+			"bụi sao": "stardust",
 			"pha lê sao băng": "nova_crystal",
 			"pha lê tinh tú": "star_crystal",
 			"đá quý": "gemstone",
@@ -87,22 +90,93 @@ const RewardSection = ({ rewards }) => {
 			"mảnh sao băng": "nova_shard",
 			"thùng đá quý lớn": "greater_gemstone_vessel",
 			"mảnh ghép bí ẩn": "wild_frags",
+			"mảnh vạn năng": "wild_frags",
 			"mảnh tướng": "champ_frags",
+
+			// English Keys / Codes / Names
+			"bronze_reliquary": "bronze_reliquary",
+			"silver_reliquary": "silver_reliquary",
+			"gold_reliquary": "gold_reliquary",
+			"bronze_vault": "bronze_vault",
+			"silver_vault": "silver_vault",
+			"gold_vault": "gold_vault",
+			"platinum_vault": "platinum_vault",
+			"diamond_vault": "diamond_vault",
+			"silver_star_vessel": "silver_star_vessel",
+			"gold_star_vessel": "gold_star_vessel",
+			"platinum_star_vessel": "platinum_star_vessel",
+			"legend_level": "legend_level",
+			"stardust": "stardust",
+			"nova_crystal": "nova_crystal",
+			"star_crystal": "star_crystal",
+			"gemstone": "gemstone",
+			"honor_coin": "honor_coin",
+			"nova_shard": "nova_shard",
+			"greater_gemstone_vessel": "greater_gemstone_vessel",
+			"wild_frags": "wild_frags",
+			"mysterious_fragment": "wild_frags",
+			"champ_frags": "champ_frags",
+
+			"bronze reliquary": "bronze_reliquary",
+			"silver reliquary": "silver_reliquary",
+			"gold reliquary": "gold_reliquary",
+			"bronze vault": "bronze_vault",
+			"silver vault": "silver_vault",
+			"gold vault": "gold_vault",
+			"platinum vault": "platinum_vault",
+			"diamond vault": "diamond_vault",
+			"silver star vessel": "silver_star_vessel",
+			"gold star vessel": "gold_star_vessel",
+			"platinum star vessel": "platinum_star_vessel",
+			"legend level": "legend_level",
+			"nova crystal": "nova_crystal",
+			"star crystal": "star_crystal",
+			"honor coin": "honor_coin",
+			"nova shard": "nova_shard",
+			"greater gemstone vessel": "greater_gemstone_vessel",
+			"wild fragments": "wild_frags",
+			"mysterious fragment": "wild_frags",
+			"champion fragments": "champ_frags",
 		};
 
-		const lowerBase = baseName.toLowerCase();
+		const ICON_NAME_MAP = {
+			bronze_reliquary: "Hòm Thần Tích Đồng",
+			silver_reliquary: "Hòm Thần Tích Bạc",
+			gold_reliquary: "Hòm Thần Tích Vàng",
+			bronze_vault: "Kho Báu Đồng",
+			silver_vault: "Kho Báu Bạc",
+			gold_vault: "Kho Báu Vàng",
+			platinum_vault: "Kho Báu Bạch Kim",
+			diamond_vault: "Kho Báu Kim Cương",
+			silver_star_vessel: "Thùng Tinh Tú Bạc",
+			gold_star_vessel: "Thùng Tinh Tú Vàng",
+			platinum_star_vessel: "Thùng Tinh Tú Bạch Kim",
+			legend_level: "Điểm Huyền Thoại",
+			stardust: "Bụi Tinh Tú",
+			nova_crystal: "Pha Lê Sao Băng",
+			star_crystal: "Pha Lê Tinh Tú",
+			gemstone: "Đá Quý",
+			honor_coin: "Xu Vinh Danh",
+			nova_shard: "Mảnh Sao Băng",
+			greater_gemstone_vessel: "Thùng Đá Quý Lớn",
+			wild_frags: "Mảnh Ghép Bí Ẩn",
+			champ_frags: "Mảnh Tướng",
+		};
+
+		const lowerBase = baseName.toLowerCase().trim();
 		const baseKey = REWARD_MAP[lowerBase];
 		const translatedBase = baseKey ? tUI(`reward.${baseKey}`) : baseName;
 
-		// Xử lý ghép tên (Region + Tên Vật Phẩm)
+		// Xử lý ghép tên (đảo vị trí tự nhiên tùy theo ngôn ngữ Tiếng Việt hay Tiếng Anh)
 		const translatedName = translatedRegion
-			? `${translatedRegion} ${translatedBase}`
+			? (language === "vi" ? `${translatedBase} ${translatedRegion}` : `${translatedRegion} ${translatedBase}`)
 			: translatedBase;
 
+		const iconQueryName = baseKey ? ICON_NAME_MAP[baseKey] : baseName;
 		const mainIcon =
-			getRawIcon(baseName) !== "/fallback-image.svg"
-				? getRawIcon(baseName)
-				: getRawIcon(itemName);
+			getRawIcon(iconQueryName) !== "/fallback-image.svg"
+				? getRawIcon(iconQueryName)
+				: (getRawIcon(baseName) !== "/fallback-image.svg" ? getRawIcon(baseName) : getRawIcon(itemName));
 
 		const overlayIcon = detectedRegion ? getRawIcon(detectedRegion) : null;
 
