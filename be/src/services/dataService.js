@@ -60,7 +60,18 @@ async function loadAll(cache, cacheKey, tableName, sortField = "name") {
 			const { _id, ...rest } = item;
 			return rest;
 		});
-		data.sort((a, b) => (a[sortField] || "").localeCompare(b[sortField] || ""));
+		data.sort((a, b) => {
+			let vA = a[sortField];
+			let vB = b[sortField];
+			if (vA === undefined || vA === null) vA = "";
+			if (vB === undefined || vB === null) vB = "";
+
+			if (typeof vA === "number" && typeof vB === "number") {
+				return vA - vB;
+			}
+
+			return String(vA).localeCompare(String(vB));
+		});
 		await cache.set(cacheKey, data);
 	}
 	return data;

@@ -231,8 +231,8 @@ function BossEditor() {
 				body: JSON.stringify(data),
 			});
 			if (!res.ok) {
-				const err = await res.json().catch(() => ({ message: "Lưu thất bại." }));
-				throw new Error(err.message || "Lưu thất bại.");
+				const err = await res.json().catch(() => ({}));
+				throw new Error(err.error || err.message || "Lưu thất bại.");
 			}
 			await fetchAllData();
 			navigate("/admin/bosses");
@@ -285,8 +285,8 @@ function BossEditor() {
 			});
 			
 			if (!res.ok) {
-				const err = await res.json().catch(() => ({ message: "Xóa thất bại." }));
-				throw new Error(err.message || "Xóa thất bại.");
+				const err = await res.json().catch(() => ({}));
+				throw new Error(err.error || err.message || "Xóa thất bại.");
 			}
 
 			await fetchAllData();

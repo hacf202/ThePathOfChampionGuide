@@ -217,7 +217,7 @@ export const useCrudEditor = ({
 
 			if (!res.ok) {
 				const errorData = await res.json().catch(() => ({}));
-				throw new Error(errorData.message || `Lỗi server: ${res.status}`);
+				throw new Error(errorData.error || errorData.message || `Lỗi server: ${res.status}`);
 			}
 
 			// Reload dữ liệu mới
@@ -257,7 +257,10 @@ export const useCrudEditor = ({
 				},
 			);
 
-			if (!res.ok) throw new Error(`Lỗi xóa: ${res.status}`);
+			if (!res.ok) {
+				const errorData = await res.json().catch(() => ({}));
+				throw new Error(errorData.error || errorData.message || `Lỗi xóa: ${res.status}`);
+			}
 
 			// Cập nhật state local để UI phản hồi nhanh
 			setData(prev => prev.filter(i => i[idField] !== itemToDelete[idField]));
