@@ -333,7 +333,7 @@ const AdminPanel = () => {
 
 				{/* Scrollable Content */}
 				<main className={`flex-1 overflow-auto custom-scrollbar ${isEditorMode ? "p-0" : "px-4 pb-4 lg:px-6 lg:pb-6"}`}>
-					<div className="max-w-[1600px] mx-auto h-full">
+					<div className={`${isEditorMode ? "max-w-full w-full px-4 md:px-6" : "max-w-[1600px] mx-auto"} h-full`}>
 						<Suspense
 							fallback={
 								<div className='flex items-center justify-center h-full'>

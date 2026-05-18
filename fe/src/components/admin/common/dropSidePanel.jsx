@@ -1,5 +1,5 @@
 // src/pages/admin/DropDragSidePanel.jsx
-import { memo, useMemo, useState } from "react";
+import { memo, useMemo, useState, useRef, useEffect } from "react";
 import Button from "../../common/button";
 import InputField from "../../common/inputField";
 import SafeImage from "../../common/SafeImage";
@@ -15,6 +15,8 @@ import {
 	Users,
 	Skull,
 	CreditCard,
+	ChevronLeft,
+	ChevronRight,
 } from "lucide-react";
 import { removeAccents } from "../../../utils/vietnameseUtils";
 import { useTranslation } from "../../../hooks/useTranslation";
@@ -140,6 +142,50 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 	const [selectedRarities, setSelectedRarities] = useState([]);
 	const [selectedTypes, setSelectedTypes] = useState([]);
 	const [tooltipData, setTooltipData] = useState(null);
+
+	const tabsContainerRef = useRef(null);
+	const [showLeftArrow, setShowLeftArrow] = useState(false);
+	const [showRightArrow, setShowRightArrow] = useState(true);
+
+	const updateArrows = () => {
+		if (tabsContainerRef.current) {
+			const { scrollLeft, scrollWidth, clientWidth } = tabsContainerRef.current;
+			setShowLeftArrow(scrollLeft > 2);
+			setShowRightArrow(scrollLeft < scrollWidth - clientWidth - 2);
+		}
+	};
+
+	useEffect(() => {
+		const container = tabsContainerRef.current;
+		if (container) {
+			container.addEventListener("scroll", updateArrows);
+			updateArrows();
+			window.addEventListener("resize", updateArrows);
+		}
+		return () => {
+			if (container) {
+				container.removeEventListener("scroll", updateArrows);
+			}
+			window.removeEventListener("resize", updateArrows);
+		};
+	}, []);
+
+	useEffect(() => {
+		const timer = setTimeout(updateArrows, 100);
+		return () => clearTimeout(timer);
+	}, [activeTab]);
+
+	const handleScrollLeft = () => {
+		if (tabsContainerRef.current) {
+			tabsContainerRef.current.scrollBy({ left: -100, behavior: "smooth" });
+		}
+	};
+
+	const handleScrollRight = () => {
+		if (tabsContainerRef.current) {
+			tabsContainerRef.current.scrollBy({ left: 100, behavior: "smooth" });
+		}
+	};
 
 	const tabs = [
 		{ id: "champion", label: "Tướng", icon: <Users size={16} /> },
@@ -293,24 +339,49 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 						</h3>
 					</div>
 					
-					<div className='flex gap-1 overflow-x-auto custom-scrollbar pb-2 -mx-2 px-2'>
-						{tabs.map(tab => (
+					<div className='relative flex items-center group/tabs-nav px-1'>
+						{showLeftArrow && (
 							<button
-								key={tab.id}
-								onClick={() => {
-									setActiveTab(tab.id);
-									handleReset();
-								}}
-								className={`flex flex-col items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-bold transition-all min-w-[80px] shrink-0 border ${
-									activeTab === tab.id
-										? "bg-primary-500 border-primary-500 text-white shadow-lg shadow-primary-500/20"
-										: "bg-surface-hover/50 text-text-secondary hover:bg-surface-hover hover:text-text-primary border-transparent"
-								}`}
+								type='button'
+								onClick={handleScrollLeft}
+								className='absolute left-0 z-10 p-1.5 rounded-lg bg-surface-bg/95 hover:bg-surface-hover text-text-secondary hover:text-text-primary border border-border shadow-md backdrop-blur-sm -translate-x-1.5 transition-all active:scale-95'
 							>
-								{tab.icon}
-								<span className='text-[10px] uppercase tracking-tighter'>{tab.label}</span>
+								<ChevronLeft size={14} />
 							</button>
-						))}
+						)}
+
+						<div
+							ref={tabsContainerRef}
+							className='flex gap-1 overflow-x-hidden scroll-smooth pb-1 mx-auto w-full'
+						>
+							{tabs.map(tab => (
+								<button
+									key={tab.id}
+									onClick={() => {
+										setActiveTab(tab.id);
+										handleReset();
+									}}
+									className={`flex flex-col items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-bold transition-all min-w-[76px] shrink-0 border ${
+										activeTab === tab.id
+											? "bg-primary-500 border-primary-500 text-white shadow-lg shadow-primary-500/20"
+											: "bg-surface-hover/50 text-text-secondary hover:bg-surface-hover hover:text-text-primary border-transparent"
+									}`}
+								>
+									{tab.icon}
+									<span className='text-[10px] uppercase tracking-tighter'>{tab.label}</span>
+								</button>
+							))}
+						</div>
+
+						{showRightArrow && (
+							<button
+								type='button'
+								onClick={handleScrollRight}
+								className='absolute right-0 z-10 p-1.5 rounded-lg bg-surface-bg/95 hover:bg-surface-hover text-text-secondary hover:text-text-primary border border-border shadow-md backdrop-blur-sm translate-x-1.5 transition-all active:scale-95'
+							>
+								<ChevronRight size={14} />
+							</button>
+						)}
 					</div>
 				</div>
 
