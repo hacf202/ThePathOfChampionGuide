@@ -133,6 +133,7 @@ const AdventureMapEditorForm = memo(
 		const [selectedNodeIndex, setSelectedNodeIndex] = useState(null);
 		const [selectedNodeType, setSelectedNodeType] = useState("Encounter");
 		const [contextMenu, setContextMenu] = useState(null);
+		const [activeDragOverNodeIdx, setActiveDragOverNodeIdx] = useState(null);
 		const mapRef = useRef(null);
 
 		useEffect(() => {
@@ -214,6 +215,20 @@ const AdventureMapEditorForm = memo(
 			onSave(formData);
 		};
 
+		const getBossNamesString = useCallback(
+			bosses => {
+				if (!bosses || bosses.length === 0) return "";
+				const names = bosses.map(bId => {
+					const found = (cachedData?.bosses || []).find(
+						cb => getUniqueAdvId(cb) === bId.trim(),
+					);
+					return found ? getAdvName(found) : bId;
+				});
+				return ` (${names.join(", ")})`;
+			},
+			[cachedData],
+		);
+
 		const handleMapClick = useCallback(
 			e => {
 				if (contextMenu) return;
@@ -252,7 +267,8 @@ const AdventureMapEditorForm = memo(
 
 				// Tránh bị tràn hoặc cắt mất context menu ở các góc cạnh của bản đồ
 				const menuWidth = 208; // w-52 tương đương 208px
-				const menuHeight = 260; // Chiều cao tối đa ước lượng của menu
+				const maxMenuHeight = 260; // Chiều cao tối đa thực tế (~7 items hiển thị cùng lúc, cuộn cho các items còn lại)
+				const menuHeight = Math.min(maxMenuHeight, rect.height - 20);
 
 				let renderX = xPx;
 				let renderY = yPx;
@@ -271,6 +287,7 @@ const AdventureMapEditorForm = memo(
 					y: renderY,
 					percentX,
 					percentY,
+					maxListHeight: menuHeight - 50, // Trừ đi phần tiêu đề và padding
 				});
 			},
 			[],
@@ -353,6 +370,36 @@ const AdventureMapEditorForm = memo(
 
 			return <ShieldQuestion size={14} className='text-white' />;
 		};
+
+		const handleDropBossOnMapNode = useCallback((e, nodeIdx) => {
+			e.preventDefault();
+			e.stopPropagation();
+			try {
+				const dragged = JSON.parse(e.dataTransfer.getData("text/plain"));
+				if (dragged.type === "boss") {
+					const identifier = dragged.id || dragged.bossID || getUniqueAdvId(dragged) || dragged.name;
+					if (identifier) {
+						const trimmedId = identifier.trim();
+						setFormData(prev => {
+							const nextNodes = [...(prev.nodes || [])];
+							const nodeToUpdate = nextNodes[nodeIdx];
+							if (nodeToUpdate) {
+								const currentBosses = nodeToUpdate.bosses || [];
+								if (!currentBosses.includes(trimmedId)) {
+									nextNodes[nodeIdx] = {
+										...nodeToUpdate,
+										bosses: [...currentBosses, trimmedId]
+									};
+								}
+							}
+							return { ...prev, nodes: nextNodes };
+						});
+					}
+				}
+			} catch (err) {
+				console.warn("Drag data không hợp lệ hoặc không phải boss", err);
+			}
+		}, []);
 
 		return (
 			<form onSubmit={handleSubmit} className='space-y-6 pb-20'>
@@ -924,16 +971,32 @@ const AdventureMapEditorForm = memo(
 												NODE_TYPES_DATA.find(
 													t => t.nodeType === (n.nodeType || "Encounter"),
 												) || {};
+											const isNodeBossOrMiniboss = (n.nodeType || "").toLowerCase().includes("boss");
+
+											let bossImage = null;
+											let singleBossName = "";
+											if (n.bosses && n.bosses.length === 1) {
+												const singleBossId = n.bosses[0];
+												const bossData = (cachedData?.bosses || []).find(
+													b => getUniqueAdvId(b) === singleBossId,
+												);
+												if (bossData) {
+													bossImage = getAdvImage(bossData);
+													singleBossName = getAdvName(bossData);
+												}
+											}
 
 											if (nodeDisplayMode === "dot") {
 												return (
 													<div
 														key={i}
-														title={`${n.nodeID} - ${n.nodeType}\n${nodeInfo.description || ""}`}
+														title={`${n.nodeID} - ${n.nodeType}${getBossNamesString(n.bosses)}\n${nodeInfo.description || ""}`}
 														className={`absolute w-3 h-3 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white transition-all cursor-pointer ${
 															selectedNodeIndex === i
 																? "bg-red-500 scale-150 z-30 shadow-[0_0_10px_rgba(239,68,68,1)]"
-																: "bg-blue-500 z-20 hover:scale-125 hover:bg-red-400"
+																: activeDragOverNodeIdx === i
+																	? "bg-emerald-500 scale-150 z-35 shadow-[0_0_12px_rgba(16,185,129,1)]"
+																	: "bg-blue-500 z-20 hover:scale-125 hover:bg-red-400"
 														}`}
 														style={{
 															left: `${n.position?.x ?? 0}%`,
@@ -966,6 +1029,28 @@ const AdventureMapEditorForm = memo(
 															e.preventDefault();
 															setSelectedNodeIndex(i);
 														}}
+														onDragEnter={e => {
+															if (isNodeBossOrMiniboss) {
+																e.preventDefault();
+																setActiveDragOverNodeIdx(i);
+															}
+														}}
+														onDragLeave={e => {
+															if (activeDragOverNodeIdx === i) {
+																setActiveDragOverNodeIdx(null);
+															}
+														}}
+														onDragOver={e => {
+															if (isNodeBossOrMiniboss) {
+																e.preventDefault();
+															}
+														}}
+														onDrop={e => {
+															if (isNodeBossOrMiniboss) {
+																handleDropBossOnMapNode(e, i);
+																setActiveDragOverNodeIdx(null);
+															}
+														}}
 													/>
 												);
 											}
@@ -973,11 +1058,13 @@ const AdventureMapEditorForm = memo(
 											return (
 												<div
 													key={i}
-													title={`${n.nodeID} - ${n.nodeType}\n${nodeInfo.description || ""}`}
+													title={`${n.nodeID} - ${n.nodeType}${getBossNamesString(n.bosses)}\n${nodeInfo.description || ""}`}
 													className={`absolute w-7 h-7 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 flex items-center justify-center transition-all cursor-pointer ${
 														selectedNodeIndex === i
 															? "bg-red-500 border-white scale-125 z-30 shadow-[0_0_15px_rgba(239,68,68,0.8)]"
-															: "bg-black/80 border-white/60 z-20 hover:scale-110 hover:border-white"
+															: activeDragOverNodeIdx === i
+																? "bg-emerald-600 border-emerald-400 scale-125 z-35 shadow-[0_0_15px_rgba(16,185,129,0.8)]"
+																: "bg-black/80 border-white/60 z-20 hover:scale-110 hover:border-white"
 													}`}
 													style={{
 														left: `${n.position?.x ?? 0}%`,
@@ -1010,8 +1097,38 @@ const AdventureMapEditorForm = memo(
 														e.preventDefault();
 														setSelectedNodeIndex(i);
 													}}
+													onDragEnter={e => {
+														if (isNodeBossOrMiniboss) {
+															e.preventDefault();
+															setActiveDragOverNodeIdx(i);
+														}
+													}}
+													onDragLeave={e => {
+														if (activeDragOverNodeIdx === i) {
+															setActiveDragOverNodeIdx(null);
+														}
+													}}
+													onDragOver={e => {
+														if (isNodeBossOrMiniboss) {
+															e.preventDefault();
+														}
+													}}
+													onDrop={e => {
+														if (isNodeBossOrMiniboss) {
+															handleDropBossOnMapNode(e, i);
+															setActiveDragOverNodeIdx(null);
+														}
+													}}
 												>
-													{getNodeIcon(n.nodeType)}
+													{bossImage ? (
+														<img
+															src={bossImage}
+															alt={singleBossName || "Boss"}
+															className='w-full h-full object-cover rounded-full pointer-events-none'
+														/>
+													) : (
+														getNodeIcon(n.nodeType)
+													)}
 													<span className='absolute -bottom-6 text-[10px] font-bold text-white bg-black/70 px-1.5 py-0.5 rounded shadow'>
 														{n.nodeID || ""}
 													</span>
@@ -1055,7 +1172,10 @@ const AdventureMapEditorForm = memo(
 														{contextMenu.percentX}% {contextMenu.percentY}%
 													</span>
 												</div>
-												<div className='max-h-60 overflow-y-auto custom-scrollbar flex flex-col gap-0.5'>
+												<div
+													className='overflow-y-auto custom-scrollbar flex flex-col gap-0.5'
+													style={{ maxHeight: `${contextMenu.maxListHeight || 300}px` }}
+												>
 													{NODE_TYPES_DATA.map(type => (
 														<button
 															key={type.nodeType}

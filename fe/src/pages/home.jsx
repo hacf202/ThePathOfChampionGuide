@@ -363,6 +363,7 @@ const Home = () => {
 					</div>
 				</div>
 			</section>
+
 			{/* SECTION 5: QUICK TOOLS */}
 			<section className='py-10 px-1 md:px-6 max-w-7xl mx-auto'>
 				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10'>
@@ -387,7 +388,7 @@ const Home = () => {
 								className='text-text-primary font-bold flex items-center gap-3 group underline underline-offset-8 hover:text-primary-600'
 							>
 								{tool.btn}{" "}
-								<ChevronRight className='group-hover:translate-x-2 transition-transform w-6 h-6' />
+								<ChevronRight className="group-hover:translate-x-2 transition-transform w-6 h-6" />
 							</NavLink>
 						</div>
 					))}

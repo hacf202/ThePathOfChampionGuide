@@ -103,7 +103,7 @@
 		"description": "Điểm nâng cấp tướng. Cung cấp cơ hội chiêu mộ thêm Tướng (Champion) phụ hoặc thêm các trang bị cực mạnh cho Tướng đang có.",
 		"translations": {
 			"en": {
-				"description": "A champion upgrade node. Offers the chance to recruit an additional support Champion or add extremely powerful items to current Champions."
+				"description": "Champion upgrade node. Offers the chance to recruit an additional support Champion or add extremely powerful items to current Champions."
 			}
 		}
 	}

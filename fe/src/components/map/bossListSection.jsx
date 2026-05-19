@@ -72,7 +72,7 @@ const BossListSection = ({ resolvedBosses, adventure }) => {
 											</h3>
 
 											{combinedPowers.length > 0 ? (
-												<div className='grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2'>
+												<div className={`grid grid-cols-1 ${combinedPowers.length > 1 ? "sm:grid-cols-2" : ""} gap-3 mt-2`}>
 													{combinedPowers.map((p, pIdx) => (
 														<div key={pIdx} className='h-full'>
 															<ResolvedPowerCard powerOrId={p} />

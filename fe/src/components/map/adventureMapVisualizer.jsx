@@ -126,17 +126,26 @@ const AdventureNode = ({
 	};
 
 	let bossImage = null;
-	const nodeTypeLower = (node.nodeType || "").toLowerCase();
-	const isCombatNode =
-		nodeTypeLower.includes("boss") || nodeTypeLower.includes("mini");
-
-	if (isCombatNode && node.bosses && node.bosses.length === 1) {
+	if (node.bosses && node.bosses.length === 1) {
 		const singleBossId = node.bosses[0];
 		const bossData = resolvedBosses?.find(b => b.bossID === singleBossId);
-		if (bossData && bossData.background) {
-			bossImage = bossData.background;
+		if (bossData) {
+			bossImage =
+				bossData.assetAbsolutePath ||
+				bossData.image ||
+				bossData.avatar ||
+				bossData.assets?.[0]?.avatar ||
+				bossData.background ||
+				null;
 		}
 	}
+
+	const bossNames = (node.bosses || []).map(bId => {
+		const found = resolvedBosses?.find(rb => rb.bossID === bId);
+		return found ? found.bossName || found.name || bId : bId;
+	});
+	const bossNamesStr = bossNames.length > 0 ? ` (${bossNames.join(", ")})` : "";
+	const nodeTitle = `${node.nodeID} - ${node.nodeType}${bossNamesStr}`;
 
 	return (
 		<div
@@ -145,6 +154,7 @@ const AdventureNode = ({
 		>
 			<div
 				ref={nodeRef}
+				title={nodeTitle}
 				className='pointer-events-auto cursor-pointer'
 				style={{
 					transform: `scale(${inverseScale})`,
@@ -166,7 +176,7 @@ const AdventureNode = ({
 					<div
 						className={`relative flex items-center justify-center w-[25px] h-[25px] sm:w-[40px] sm:h-[40px] rounded-full border-2 overflow-hidden shadow-lg ${getBgColor(node.nodeType)}`}
 					>
-						{isCombatNode && bossImage ? (
+						{bossImage ? (
 							<SafeImage
 								src={bossImage}
 								alt='Boss Node'

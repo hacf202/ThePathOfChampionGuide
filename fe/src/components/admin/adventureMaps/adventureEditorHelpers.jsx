@@ -536,6 +536,17 @@ export const AdventureNodeEditor = ({
 
 	const isBossOrMiniboss = (node.nodeType || "").toLowerCase().includes("boss");
 
+	let bossImage = null;
+	if (node.bosses && node.bosses.length === 1) {
+		const singleBossId = node.bosses[0];
+		const bossData = (cachedData?.bosses || []).find(
+			b => getUniqueAdvId(b) === singleBossId,
+		);
+		if (bossData) {
+			bossImage = getAdvImage(bossData);
+		}
+	}
+
 	return (
 		<div
 			className={`border rounded-xl overflow-hidden mb-4 transition-all ${isSelected ? "border-red-500 ring-2 ring-red-500/20 shadow-md" : "border-border shadow-sm"}`}
@@ -552,7 +563,16 @@ export const AdventureNodeEditor = ({
 					</div>
 					<div className='flex flex-col'>
 						<span className='font-bold text-sm flex items-center gap-2'>
-							{getIcon(node.nodeType)} {node.nodeType || "Unknown Node"}
+							{bossImage ? (
+								<img
+									src={bossImage}
+									className='w-5 h-5 object-cover rounded-full border border-border shadow-sm shrink-0'
+									alt=''
+								/>
+							) : (
+								getIcon(node.nodeType)
+							)}{" "}
+							{node.nodeType || "Unknown Node"}
 							<span
 								className='pointer-events-auto cursor-help ml-1'
 								title={nodeInfo.description || "Chưa có thông tin mô tả."}
@@ -564,7 +584,16 @@ export const AdventureNodeEditor = ({
 							</span>
 						</span>
 						<span className='text-[10px] text-text-secondary font-medium mt-0.5 truncate max-w-[150px]'>
-							Bosses: {node.bosses?.length ? node.bosses.join(", ") : "None"}
+							Bosses: {(() => {
+								if (!node.bosses || node.bosses.length === 0) return "None";
+								const names = node.bosses.map(bId => {
+									const found = (cachedData?.bosses || []).find(
+										cb => getUniqueAdvId(cb) === bId,
+									);
+									return found ? getAdvName(found) : bId;
+								});
+								return names.join(", ");
+							})()}
 						</span>
 					</div>
 				</div>
