@@ -67,7 +67,6 @@ import AboutUs from "./components/about/aboutUs.jsx";
 import TermsOfUse from "./components/about/termsOfUse.jsx";
 import Introduction from "./components/about/introduction.jsx";
 import AnnouncementPopup from "./components/common/AnnouncementPopup";
-import AdModal from "./components/common/adModal";
 
 // Luồng admin
 import AdminPanel from "./components/admin/adminPanel.jsx";
@@ -131,7 +130,6 @@ function AppLayout() {
 		>
 			<Navbar />
 			<AnnouncementPopup />
-			{!isAdminRoute && <AdModal />}
 
 			{isSpecialRoute ? (
 				<MainContentContainer />

@@ -329,13 +329,18 @@ function PowerEditor() {
 		if (searchTerm) {
 			const term = removeAccents(searchTerm.toLowerCase());
 			result = result.filter(p => {
-				const nameMatch = removeAccents(
-					(tDynamic(p, "name") || "").toLowerCase(),
-				).includes(term);
-				const descMatch = removeAccents(
-					(tDynamic(p, "description") || "").toLowerCase(),
-				).includes(term);
-				return nameMatch || descMatch;
+				const searchableFields = [
+					p.name,                          // Tên VI
+					p.translations?.en?.name,         // Tên EN
+					p.description,                    // Mô tả VI
+					p.descriptionRaw,                 // Mô tả thuần VI
+					p.translations?.en?.description,  // Mô tả EN
+					p.translations?.en?.descriptionRaw, // Mô tả thuần EN
+					p.powerCode,                      // Tìm theo mã
+				];
+				return searchableFields.some(f =>
+					f && removeAccents(String(f).toLowerCase()).includes(term)
+				);
 			});
 		}
 

@@ -7,6 +7,7 @@ export const useMapDetailData = adventureID => {
 	const [resolvedRules, setResolvedRules] = useState([]);
 	const [resolvedBosses, setResolvedBosses] = useState([]);
 	const [resolvedChampions, setResolvedChampions] = useState([]);
+	const [resourceCache, setResourceCache] = useState({});
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 
@@ -100,10 +101,60 @@ export const useMapDetailData = adventureID => {
 					reqChampionsPromises,
 				]);
 
+				// 5. Fetch Special Blocks resources
+				const specialBlocks = advData.specialBlocks || [];
+				const idsByType = {};
+				specialBlocks.forEach(block => {
+					(block.items || []).forEach(item => {
+						if (item.id && item.type) {
+							let apiType = item.type;
+							if (item.type === "champion") apiType = "champions";
+							if (item.type === "boss") apiType = "bosses";
+							if (item.type === "item") apiType = "items";
+							if (item.type === "relic") apiType = "relics";
+							if (item.type === "power") apiType = "powers";
+							if (item.type === "rune") apiType = "runes";
+							if (item.type === "bonusStar") apiType = "bonusStars";
+							if (item.type === "card") apiType = "cards";
+							
+							if (!idsByType[apiType]) idsByType[apiType] = [];
+							idsByType[apiType].push(item.id);
+						}
+					});
+				});
+
+				const resolvePromises = Object.entries(idsByType).map(async ([type, ids]) => {
+					const uniqueIds = [...new Set(ids)];
+					const resolved = await api.resolve(type, uniqueIds);
+					return { type, resolved };
+				});
+
+				const resolvedResults = await Promise.all(resolvePromises);
+				const cache = {};
+				resolvedResults.forEach(({ type, resolved }) => {
+					resolved.forEach(res => {
+						const code = res.championCode || res.bossID || res.powerCode || res.relicCode || res.itemCode || res.runeCode || res.cardCode || res.bonusStarID || res.id || res._id;
+						if (code) {
+							let originalType = type;
+							if (type === "champions") originalType = "champion";
+							if (type === "bosses") originalType = "boss";
+							if (type === "items") originalType = "item";
+							if (type === "relics") originalType = "relic";
+							if (type === "powers") originalType = "power";
+							if (type === "runes") originalType = "rune";
+							if (type === "bonusStars") originalType = "bonusStar";
+							if (type === "cards") originalType = "card";
+
+							cache[`${originalType}_${code}`] = res;
+						}
+					});
+				});
+
 				if (isMounted) {
 					setResolvedRules(rulesData);
 					setResolvedBosses(finalBossesData);
 					setResolvedChampions(champsData);
+					setResourceCache(cache);
 				}
 			} catch (err) {
 				console.error(err);
@@ -127,6 +178,7 @@ export const useMapDetailData = adventureID => {
 		resolvedRules,
 		resolvedBosses,
 		resolvedChampions,
+		resourceCache,
 		loading,
 		error,
 	};

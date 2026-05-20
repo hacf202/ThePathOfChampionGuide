@@ -271,6 +271,7 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 					i.adventureName,
 					i.translations?.en?.name,
 					i.translations?.en?.cardName,
+					i.translations?.en?.bossName,
 					tDynamic(i, "description"),
 					tDynamic(i, "descriptionRaw"),
 					i.description,

@@ -67,9 +67,9 @@ const SubChampionList = () => {
                         <Link 
                             to={`/card/${card.cardCode}`}
                             key={card.cardCode}
-                            className="flex items-center gap-2 p-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-transparent hover:border-white/10 transition-all group/card"
+                            className="flex items-center gap-2 p-1.5 rounded-lg bg-slate-100/50 dark:bg-white/5 hover:bg-slate-200/50 dark:hover:bg-white/10 border border-border/30 dark:border-white/10 transition-all group/card"
                         >
-                            <div className="w-12 h-12 rounded-md flex-shrink-0 border border-white/10">
+                            <div className="w-12 h-12 rounded-md flex-shrink-0 border border-border/30 dark:border-white/10">
                                 <img 
                                     src={card.image} 
                                     alt={card.name} 

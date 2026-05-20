@@ -361,7 +361,7 @@ const GenericListLayout = ({
 								transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
 								className='hidden lg:block sticky top-24 h-fit z-40'
 							>
-								<div className='w-[240px] xl:w-[280px] p-5 rounded-3xl border border-white/10 bg-surface-bg/60 backdrop-blur-2xl space-y-5 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.3)] relative overflow-hidden isolate'>
+								<div className='w-[240px] xl:w-[280px] p-5 rounded-3xl border border-border dark:border-white/10 bg-surface-bg/60 backdrop-blur-2xl space-y-5 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.3)] relative overflow-hidden isolate'>
 									{/* Background Glow */}
 									<div className="absolute -top-20 -right-20 w-40 h-40 bg-primary-500/10 blur-[60px] rounded-full -z-10" />
 									
@@ -375,7 +375,7 @@ const GenericListLayout = ({
 												onChange={e => onSearchChange(e.target.value)}
 												onKeyDown={e => e.key === "Enter" && onSearchSubmit()}
 												placeholder={searchPlaceholder || tUI("common.search")}
-												className="bg-white/5 border-white/10 focus:border-primary-500/50 rounded-xl"
+												className="bg-input-bg dark:bg-white/5 border-input-border dark:border-white/10 focus:border-primary-500/50 rounded-xl"
 											/>
 											<button 
 												onClick={onSearchSubmit}
@@ -407,7 +407,7 @@ const GenericListLayout = ({
 											variant='outline'
 											onClick={onResetFilters}
 											disabled={isActuallyLoading}
-											className='w-full rounded-xl border-white/10 hover:bg-white/5 flex items-center justify-center gap-2 py-3 disabled:opacity-50'
+											className='w-full rounded-xl border-btn-secondary-border dark:border-white/10 hover:bg-btn-secondary-hover-bg dark:hover:bg-white/5 flex items-center justify-center gap-2 py-3 disabled:opacity-50'
 										>										
 											<RotateCw size={14} className='group-hover:rotate-180 transition-transform duration-500' />{" "}
 											<span className="text-[10px] font-bold uppercase tracking-wider">{tUI("championList.resetFilter")}</span>

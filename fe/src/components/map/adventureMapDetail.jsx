@@ -9,12 +9,14 @@ import {
 	Map as MapIcon,
 	Eye,
 	EyeOff,
+	Info,
 } from "lucide-react";
 
 import { useTranslation } from "../../hooks/useTranslation";
 import { useMapDetailData } from "../../hooks/useMapDetailData";
 import PageTitle from "../common/pageTitle";
 import Button from "../common/button";
+import MarkupRenderer from "../common/MarkupRenderer";
 
 // Import các sub-components đã được tách
 import MapDetailSkeleton from "./mapDetailSkeleton";
@@ -36,6 +38,7 @@ function AdventureMapDetail() {
 		resolvedRules,
 		resolvedBosses,
 		resolvedChampions,
+		resourceCache,
 		loading,
 		error,
 	} = useMapDetailData(adventureID);
@@ -177,12 +180,124 @@ function AdventureMapDetail() {
 									<Swords size={20} />{" "}
 									{tUI("adventureMap.specialRules") || "Luật Chơi Đặc Biệt"}
 								</h2>
-								<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
+								<div className={`grid grid-cols-1 ${resolvedRules.length > 1 ? "sm:grid-cols-2" : ""} gap-4`}>
 									{resolvedRules.map((power, idx) => (
 										<ResolvedPowerCard key={idx} powerOrId={power} />
 									))}
 								</div>
 							</section>
+						)}
+
+						{/* SPECIAL BLOCKS SECTION */}
+						{adventure.specialBlocks && adventure.specialBlocks.length > 0 && (
+							adventure.specialBlocks.map((block, blockIdx) => {
+								const blockTitle = tDynamic(block, "title") || block.title;
+								const blockDesc = tDynamic(block, "description") || block.description;
+								const hasItems = block.items && block.items.length > 0;
+
+								if (!blockTitle && !blockDesc && !hasItems) return null;
+
+								return (
+									<section key={blockIdx} className='bg-surface-bg border border-border rounded-xl p-3 md:p-5 shadow-sm w-full relative group overflow-hidden'>
+										<div className='absolute top-0 left-0 w-1 h-full bg-yellow-500/20 group-hover:bg-yellow-500 transition-colors' />
+										
+										{blockTitle && (
+											<h2 className='text-lg font-bold text-yellow-500 font-primary uppercase mb-2 flex items-center gap-2 border-b border-border pb-2'>
+												<Info size={18} className='text-yellow-500' />{" "}
+												{blockTitle}
+											</h2>
+										)}
+
+										{blockDesc && (
+											<p className='text-xs sm:text-sm text-text-secondary mb-4 leading-relaxed italic'>
+												{blockDesc}
+											</p>
+										)}
+
+										{hasItems && (
+											<div className='overflow-x-auto rounded-xl border border-border bg-surface-hover/20'>
+												<table className='w-full border-collapse text-left text-xs sm:text-sm'>
+													<thead>
+														<tr className='bg-surface-hover border-b border-border text-text-secondary uppercase text-[10px] font-black tracking-wider'>
+															<th className='p-3 w-12 text-center'>STT</th>
+															<th className='p-3 min-w-[150px]'>Tài nguyên</th>
+															<th className='p-3 w-28'>Phân loại</th>
+															<th className='p-3 min-w-[200px]'>Mô tả / Chi tiết</th>
+														</tr>
+													</thead>
+													<tbody className='divide-y divide-border/60'>
+														{block.items.map((it, itemIdx) => {
+															const resInfo = resourceCache[`${it.type}_${it.id}`] || {};
+															const name = tDynamic(resInfo, "name") || resInfo.cardName || resInfo.bossName || resInfo.adventureName || it.id;
+															const avatar = resInfo.avatar || resInfo.assetAbsolutePath || resInfo.assetFullAbsolutePath || "";
+															
+															const customNote = tDynamic(it, "note") || it.note;
+															const defaultDesc = tDynamic(resInfo, "descriptionRaw") || tDynamic(resInfo, "description") || resInfo.description || "";
+															const displayDesc = customNote || defaultDesc;
+
+															const typeLabels = {
+																champion: "Tướng",
+																boss: "Boss",
+																item: "Vật Phẩm",
+																relic: "Cổ Vật",
+																power: "Sức Mạnh",
+																rune: "Ngọc Cổ Ngữ",
+																bonusStar: "Sao Tinh Tú",
+																card: "Lá Bài"
+															};
+
+															const typeBadgeColors = {
+																champion: "bg-orange-500/10 text-orange-500 border-orange-500/20",
+																boss: "bg-red-500/10 text-red-500 border-red-500/20",
+																item: "bg-emerald-500/10 text-emerald-500 border-emerald-500/20",
+																relic: "bg-indigo-500/10 text-indigo-500 border-indigo-500/20",
+																power: "bg-purple-500/10 text-purple-500 border-purple-500/20",
+																rune: "bg-cyan-500/10 text-cyan-500 border-cyan-500/20",
+																bonusStar: "bg-yellow-500/10 text-yellow-500 border-yellow-500/20",
+																card: "bg-blue-500/10 text-blue-500 border-blue-500/20"
+															};
+
+															return (
+																<tr key={itemIdx} className='hover:bg-surface-hover/30 transition-colors'>
+																	<td className='p-3 text-center font-bold text-text-tertiary'>{itemIdx + 1}</td>
+																	<td className='p-3 font-semibold text-text-primary'>
+																		<div className='flex items-center gap-2.5'>
+																			{avatar ? (
+																				<img
+																					src={avatar}
+																					alt={name}
+																					className='w-12 h-12 rounded-lg object-contain bg-black/10 border border-border shrink-0'
+																				/>
+																			) : (
+																				<div className='w-12 h-12 rounded-lg bg-black/10 border border-border shrink-0 flex items-center justify-center text-[10px] text-text-tertiary font-bold uppercase'>
+																					{it.type.slice(0, 2)}
+																				</div>
+																			)}
+																			<span className='truncate max-w-[200px]' title={name}>{name}</span>
+																		</div>
+																	</td>
+																	<td className='p-3'>
+																		<span className={`inline-flex px-2 py-0.5 text-[10px] font-bold rounded-lg border ${typeBadgeColors[it.type] || "bg-slate-500/10 text-slate-500 border-slate-500/20"}`}>
+																			{typeLabels[it.type] || it.type}
+																		</span>
+																	</td>
+																	<td className='p-3 text-text-secondary leading-relaxed text-xs sm:text-sm whitespace-pre-line'>
+																		{displayDesc ? (
+																			<MarkupRenderer text={displayDesc} className='text-xs sm:text-sm' />
+																		) : (
+																			<span className='italic text-text-tertiary/60'>Không có thông tin</span>
+																		)}
+																	</td>
+																</tr>
+															);
+														})}
+													</tbody>
+												</table>
+											</div>
+										)}
+									</section>
+								);
+							})
 						)}
 
 						{/* SUB-COMPONENTS SECTIONS */}

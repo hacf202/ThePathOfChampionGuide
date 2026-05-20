@@ -92,6 +92,37 @@ export const AuthProvider = ({ children }) => {
 		checkAuth();
 	}, []);
 
+	// Tự động refresh token trước khi hết hạn 1 phút
+	useEffect(() => {
+		if (!token) return;
+
+		const payload = decodeJwtPayload(token);
+		if (!payload || !payload.exp) return;
+
+		const expiryTimeMs = payload.exp * 1000;
+		const timeUntilExpiryMs = expiryTimeMs - Date.now();
+
+		// Refresh trước khi hết hạn 1 phút (60 giây)
+		const bufferMs = 60 * 1000;
+		const delayMs = Math.max(1000, timeUntilExpiryMs - bufferMs);
+
+		const timer = setTimeout(async () => {
+			const storedRefreshToken = localStorage.getItem("refreshToken");
+			if (storedRefreshToken) {
+				try {
+					const data = await authService.refreshSession(storedRefreshToken);
+					if (data.token) {
+						handleLogin(data.token, null, data.refreshToken);
+					}
+				} catch (e) {
+					console.error("Auto token refresh failed", e);
+				}
+			}
+		}, delayMs);
+
+		return () => clearTimeout(timer);
+	}, [token]);
+
 	const handleLogin = (accessToken, payload = null, refreshToken = null) => {
 		localStorage.setItem("token", accessToken);
 		if (refreshToken) localStorage.setItem("refreshToken", refreshToken);

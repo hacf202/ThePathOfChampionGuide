@@ -50,14 +50,14 @@ export const useCardData = (queryParams, state, tUI) => {
 	const filteredCards = useMemo(() => {
 		if (allCards.length === 0) return [];
 		
-		const { searchInput, customFilters, sortOrder } = state;
+		const { searchTerm, customFilters, sortOrder } = state;
 		const { rarities, regions, types, costs } = customFilters || {};
 		
 		let filtered = [...allCards];
 
-		// A. Lọc Tìm kiếm (Bilingual & Accent-insensitive)
-		if (searchInput) {
-			const searchWords = removeAccents(searchInput.toLowerCase()).split(/\s+/).filter(Boolean);
+		// A. Lọc Tìm kiếm (Bilingual & Accent-insensitive) — Chỉ lọc khi nhấn Enter/nút tìm kiếm
+		if (searchTerm) {
+			const searchWords = removeAccents(searchTerm.toLowerCase()).split(/\s+/).filter(Boolean);
 			filtered = filtered.filter(c => {
 				const textSources = [
 					c.cardName,

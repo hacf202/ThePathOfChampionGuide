@@ -44,7 +44,10 @@ router.get("/", async (req, res) => {
 
 		// 0. Lọc chỉ lấy lá bài gốc (không có hậu tố T sau phần số)
 		if (onlyBase === "true") {
-			filtered = filtered.filter(c => !/T\d+$/.test(c.cardCode || ""));
+			filtered = filtered.filter(c => {
+				const code = c.cardCode || "";
+				return code.length <= 7 || !/T\d+$/.test(code);
+			});
 		}
 
 		// 1. Lọc theo Rarity
