@@ -54,6 +54,7 @@ import {
 	RELIC_STORAGE_KEY,
 } from "./tierListComponents";
 import { useTranslation } from "../../hooks/useTranslation";
+import { sampleRelicMapping } from "./relicSampleMapping";
 
 // --- 0. HÀM CHUẨN HÓA ĐỘ HIẾM ---
 const normalizeRarity = rarity => {
@@ -255,36 +256,36 @@ function TierListRelics() {
 	const getDefaultTiers = useCallback(
 		() => [
 			{
-				id: "tier-s-plus",
-				name: "S+",
+				id: "tier-0",
+				name: "0",
 				description: tUI("tierList.versatileStrong"),
 				color: "#ff3e3e",
 				items: [],
 			},
 			{
-				id: "tier-s",
-				name: "S",
+				id: "tier-0-5",
+				name: "0.5",
 				description: tUI("tierList.strongSpecific"),
 				color: "#ff7f7f",
 				items: [],
 			},
 			{
-				id: "tier-a",
-				name: "A",
+				id: "tier-1",
+				name: "1",
 				description: tUI("tierList.versatile"),
 				color: "#ffbf7f",
 				items: [],
 			},
 			{
-				id: "tier-b",
-				name: "B",
+				id: "tier-2",
+				name: "2",
 				description: tUI("tierList.decent"),
 				color: "#ffff7f",
 				items: [],
 			},
 			{
-				id: "tier-c",
-				name: "C",
+				id: "tier-3",
+				name: "3",
 				description: tUI("tierList.weak"),
 				color: "#7fff7f",
 				items: [],
@@ -295,91 +296,6 @@ function TierListRelics() {
 
 	const getSampleData = useCallback(
 		rawData => {
-			const sampleMapping = {
-				"tier-s-plus": ["R0082", "R0125", "R0080"],
-				"tier-s": [
-					"R0121",
-					"R0136",
-					"R0060",
-					"R0100",
-					"R0094",
-					"R0139",
-					"R0104",
-					"R0098",
-					"R0123",
-					"R0092",
-					"R0116",
-					"R0124",
-					"R0061",
-					"R0103",
-					"R0065",
-					"R0150",
-					"R0153",
-					"R0166"
-				],
-				"tier-a": [
-					"R0066",
-					"R0099",
-					"R0115",
-					"R0109",
-					"R0111",
-					"R0086",
-					"R0079",
-					"R0064",
-					"R0097",
-					"R0113",
-					"R0108",
-					"R0091",
-					"R0062",
-					"R0085",
-					"R0159",
-					"R0161"
-				],
-				"tier-b": [
-					"R0160",
-					"R0134",
-					"R0127",
-					"R0141",
-					"R0112",
-					"R0059",
-					"R0146",
-					"R0144",
-					"R0130",
-					"R0114",
-					"R0133",
-					"R0128",
-					"R0140",
-					"R0137",
-					"R0058",
-					"R0145",
-					"R0151",
-					"R0131",
-					"R0138",
-					"R0105",
-					"R0147",
-					"R0107",
-					"R0122",
-					"R0148",
-					"R0117",
-					"R0089",
-					"R0135",
-					"R0154",
-					"R0155",
-					"R0164"
-				],
-				"tier-c": [
-					"R0118",
-					"R0120",
-					"R0142",
-					"R0143",
-					"R0119",
-					"R0106",
-					"R0126",
-					"R0149",
-					"R0132",
-					"R0175"
-				],
-			};
 			const usedIds = new Set();
 			const sampleTiers = getDefaultTiers().map(tier => {
 				const targetIds = sampleMapping[tier.id] || [];

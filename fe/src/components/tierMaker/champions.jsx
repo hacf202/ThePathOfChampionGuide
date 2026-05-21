@@ -5,6 +5,7 @@ import React, {
 	useRef,
 	useMemo,
 	useCallback,
+	memo,
 } from "react";
 import {
 	DndContext,
@@ -16,6 +17,7 @@ import {
 	useSensors,
 	DragOverlay,
 	defaultDropAnimationSideEffects,
+	useDraggable,
 } from "@dnd-kit/core";
 import { createPortal } from "react-dom";
 import {
@@ -42,6 +44,7 @@ import {
 	GripVertical,
 	CheckSquare,
 	Square,
+	Copy,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import html2canvas from "html2canvas";
@@ -58,6 +61,9 @@ import {
 	LOCAL_STORAGE_KEY,
 } from "./tierListComponents";
 import { useTranslation } from "../../hooks/useTranslation";
+import { sampleChampionMapping } from "./championSampleMapping";
+
+
 
 // --- 1. ĐỊNH NGHĨA SKELETON (ĐẶT Ở ĐẦU FILE) ---
 const ChampionTierSkeleton = () => (
@@ -210,10 +216,39 @@ const SortableTierRow = ({
 	);
 };
 
+const DraggableRelic = memo(({ relic }) => {
+	const { attributes, listeners, setNodeRef, transform } = useDraggable({
+		id: `relic-${relic.id}`,
+		data: { type: "relic", relic },
+	});
+	const style = {
+		...(transform ? {
+			transform: CSS.Translate.toString(transform),
+			zIndex: 9999,
+		} : {}),
+		touchAction: "none",
+	};
+
+	return (
+		<div
+			ref={setNodeRef}
+			{...listeners}
+			{...attributes}
+			style={style}
+			data-no-select="true"
+			className="w-10 h-10 sm:w-12 sm:h-12 cursor-grab hover:scale-110 transition-transform bg-black/40 border border-white/10 rounded overflow-hidden flex-shrink-0 relative group"
+			title={relic.name}
+		>
+			<img src={relic.avatar} alt={relic.name} className="w-full h-full object-cover pointer-events-none" crossOrigin="anonymous" />
+		</div>
+	);
+});
+
 // --- 3. COMPONENT CHÍNH ---
 function TierListChampions({ initialChampions }) {
 	const { tUI, tDynamic } = useTranslation();
 	const [allChampionsRaw, setAllChampionsRaw] = useState([]);
+	const [allRelicsRaw, setAllRelicsRaw] = useState([]);
 	const [tiers, setTiers] = useState([]);
 	const [unranked, setUnranked] = useState([]);
 	const [activeId, setActiveId] = useState(null);
@@ -221,9 +256,13 @@ function TierListChampions({ initialChampions }) {
 	const [loading, setLoading] = useState(true);
 	const [isExporting, setIsExporting] = useState(false);
 	const [selectedIds, setSelectedIds] = useState([]);
-	const [selectionBox, setSelectionBox] = useState(null);
+	const boardRectRef = useRef(null);
+	const selectionDataRef = useRef({ startX: 0, startY: 0, currentX: 0, currentY: 0 });
+	const selectionBoxDivRef = useRef(null);
 	const [isSelecting, setIsSelecting] = useState(false);
 	const [searchInput, setSearchInput] = useState("");
+	const [championMenu, setChampionMenu] = useState(null);
+	const [relicSearchInput, setRelicSearchInput] = useState("");
 	const [searchTerm, setSearchTerm] = useState("");
 	const [selectedRegions, setSelectedRegions] = useState([]);
 	const [selectedCosts, setSelectedCosts] = useState([]);
@@ -248,8 +287,8 @@ function TierListChampions({ initialChampions }) {
 	const getDefaultTiers = useCallback(
 		() => [
 			{
-				id: "tier-s+",
-				name: "S+",
+				id: "tier-ss",
+				name: "SS",
 				description: tUI("tierList.godTier"),
 				color: "#ff3e3e",
 				items: [],
@@ -262,29 +301,29 @@ function TierListChampions({ initialChampions }) {
 				items: [],
 			},
 			{
-				id: "tier-a+",
-				name: "A+",
+				id: "tier-a",
+				name: "A",
 				description: tUI("tierList.veryStrong"),
 				color: "#ff9f40",
 				items: [],
 			},
 			{
-				id: "tier-a",
-				name: "A",
+				id: "tier-b",
+				name: "B",
 				description: tUI("tierList.good"),
 				color: "#ffbf7f",
 				items: [],
 			},
 			{
-				id: "tier-b",
-				name: "B",
+				id: "tier-c",
+				name: "C",
 				description: tUI("tierList.decent"),
 				color: "#ffff7f",
 				items: [],
 			},
 			{
-				id: "tier-c",
-				name: "C",
+				id: "tier-D",
+				name: "D",
 				description: tUI("tierList.weak"),
 				color: "#7fff7f",
 				items: [],
@@ -295,106 +334,9 @@ function TierListChampions({ initialChampions }) {
 
 	const getSampleData = useCallback(
 		rawData => {
-			const sampleMapping = {
-				"tier-s+": [
-					"C039",
-					"C043",
-					"C081",
-					"C014",
-					"C028",
-					"C024",
-					"C049",
-					"C074",
-					"C046",
-					"C016",
-					"C027",
-					"C075",
-					"C047",
-					"C036",
-					"C062",
-					"C048",
-					"C079",
-				],
-				"tier-s": [
-					"C063",
-					"C006",
-					"C060",
-					"C041",
-					"C031",
-					"C065",
-					"C042",
-					"C056",
-					"C018",
-					"C066",
-					"C033",
-					"C045",
-					"C055",
-					"C044",
-					"C026",
-					"C031",
-				],
-				"tier-a+": [
-					"C084",
-					"C076",
-					"C017",
-					"C015",
-					"C067",
-					"C050",
-					"C069",
-					"C009",
-					"C029",
-					"C080",
-					"C059",
-					"C021",
-					"C078",
-					"C077",
-					"C010",
-					"C020",
-					"C057",
-					"C004",
-					"C002",
-					"C005",
-					"C013",
-					"C037",
-					"C040",
-					"C008",
-					"C052",
-					"C022",
-					"C053",
-					"C068",
-					"C082",
-					"C072",
-					"C083",
-				],
-				"tier-a": [
-					"C058",
-					"C030",
-					"C032",
-					"C001",
-					"C023",
-					"C038",
-					"C035",
-					"C054",
-					"C012",
-					"C051",
-					"C034",
-				],
-				"tier-b": [
-					"C011",
-					"C007",
-					"C025",
-					"C003",
-					"C073",
-					"C061",
-					"C070",
-					"C064",
-					"C019",
-				],
-				"tier-c": [],
-			};
 			const usedIds = new Set();
 			const sampleTiers = getDefaultTiers().map(tier => {
-				const targetIds = sampleMapping[tier.id] || [];
+				const targetIds = sampleChampionMapping[tier.id] || [];
 				const items = rawData.filter(c => targetIds.includes(c.id));
 				items.forEach(i => usedIds.add(i.id));
 				return { ...tier, items };
@@ -428,13 +370,29 @@ function TierListChampions({ initialChampions }) {
 					maxStar: Number(c.maxStar) || 3,
 					tag: Array.isArray(c.tag) ? c.tag : [],
 					translations: c.translations,
+					equippedRelics: [null, null, null]
 				}));
 				setAllChampionsRaw(formatted);
+
+				const relicRes = await fetch(`${apiUrl}/api/relics?limit=-1`);
+				const relicData = await relicRes.json();
+				const formattedRelics = (relicData.items || relicData || []).map(r => ({
+					id: String(r.relicCode || r.relicID || r.id),
+					name: r.name,
+					avatar: r.image || "/fallback-relic.png",
+					rarity: r.rarity,
+				}));
+				setAllRelicsRaw(formattedRelics);
+
 				const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
 				if (saved) {
 					const parsed = JSON.parse(saved);
 					const hydrate = items =>
-						items.map(i => formatted.find(f => f.id === i.id)).filter(Boolean);
+						items.map(i => {
+							const baseId = String(i.id).split('-copy-')[0];
+							const found = formatted.find(f => f.id === baseId);
+							return found ? { ...found, id: i.id, equippedRelics: i.equippedRelics || [null, null, null] } : null;
+						}).filter(Boolean);
 					setTiers(parsed.tiers.map(t => ({ ...t, items: hydrate(t.items) })));
 					setUnranked(hydrate(parsed.unranked));
 				} else {
@@ -526,6 +484,12 @@ function TierListChampions({ initialChampions }) {
 		],
 	);
 
+	const filteredRelics = useMemo(() => {
+		if (!relicSearchInput.trim()) return allRelicsRaw;
+		const search = removeAccents(relicSearchInput.toLowerCase());
+		return allRelicsRaw.filter(r => removeAccents(r.name.toLowerCase()).includes(search));
+	}, [allRelicsRaw, relicSearchInput]);
+
 	const handleResetToSample = () => {
 		if (window.confirm(tUI("tierList.confirmResetToSample"))) {
 			const { sampleTiers, sampleUnranked } = getSampleData(allChampionsRaw);
@@ -540,37 +504,44 @@ function TierListChampions({ initialChampions }) {
 			e.target.closest("button") ||
 			e.target.tagName === "INPUT" ||
 			e.target.closest("[data-id]") ||
+			e.target.closest("[data-no-select]") ||
 			e.target.closest(".color-picker") ||
 			e.target.closest("[data-tier-handle]")
 		)
 			return;
 		const rect = boardRef.current.getBoundingClientRect();
+		boardRectRef.current = rect;
+		const startX = e.clientX - rect.left;
+		const startY = e.clientY - rect.top;
+		selectionDataRef.current = { startX, startY, currentX: startX, currentY: startY };
 		setIsSelecting(true);
-		setSelectionBox({
-			startX: e.clientX - rect.left,
-			startY: e.clientY - rect.top,
-			currentX: e.clientX - rect.left,
-			currentY: e.clientY - rect.top,
-		});
 		if (!e.shiftKey && !e.ctrlKey && !e.metaKey) setSelectedIds([]);
 	};
 	const onMouseMove = e => {
 		if (!isSelecting) return;
-		const rect = boardRef.current.getBoundingClientRect();
-		setSelectionBox(prev => ({
-			...prev,
-			currentX: e.clientX - rect.left,
-			currentY: e.clientY - rect.top,
-		}));
+		const rect = boardRectRef.current;
+		const currentX = e.clientX - rect.left;
+		const currentY = e.clientY - rect.top;
+		selectionDataRef.current.currentX = currentX;
+		selectionDataRef.current.currentY = currentY;
+
+		if (selectionBoxDivRef.current) {
+			const { startX, startY } = selectionDataRef.current;
+			selectionBoxDivRef.current.style.left = `${Math.min(startX, currentX)}px`;
+			selectionBoxDivRef.current.style.top = `${Math.min(startY, currentY)}px`;
+			selectionBoxDivRef.current.style.width = `${Math.abs(startX - currentX)}px`;
+			selectionBoxDivRef.current.style.height = `${Math.abs(startY - currentY)}px`;
+		}
 	};
 	const onMouseUp = e => {
 		if (!isSelecting) return;
-		const rect = boardRef.current.getBoundingClientRect();
+		const rect = boardRectRef.current;
+		const { startX, startY, currentX, currentY } = selectionDataRef.current;
 		const box = {
-			left: Math.min(selectionBox.startX, selectionBox.currentX),
-			top: Math.min(selectionBox.startY, selectionBox.currentY),
-			right: Math.max(selectionBox.startX, selectionBox.currentX),
-			bottom: Math.max(selectionBox.startY, selectionBox.currentY),
+			left: Math.min(startX, currentX),
+			top: Math.min(startY, currentY),
+			right: Math.max(startX, currentX),
+			bottom: Math.max(startY, currentY),
 		};
 		const temp = [];
 		boardRef.current.querySelectorAll("[data-id]").forEach(el => {
@@ -591,8 +562,22 @@ function TierListChampions({ initialChampions }) {
 				: [...new Set(temp)],
 		);
 		setIsSelecting(false);
-		setSelectionBox(null);
 	};
+
+	useEffect(() => {
+		const handleGlobalMouseUp = (e) => {
+			if (isSelecting) {
+				onMouseUp(e);
+			}
+		};
+
+		if (isSelecting) {
+			window.addEventListener("mouseup", handleGlobalMouseUp);
+		}
+		return () => {
+			window.removeEventListener("mouseup", handleGlobalMouseUp);
+		};
+	}, [isSelecting]);
 
 	const findContainer = id => {
 		if (id === "unranked" || unranked.some(i => i.id === id)) return "unranked";
@@ -600,9 +585,60 @@ function TierListChampions({ initialChampions }) {
 		return tier ? tier.id : null;
 	};
 
+	const handleRelicSlotClick = useCallback((championId, slotIndex, e, isRightClick = false) => {
+		const updateItem = (item) => {
+			if (item.id === championId) {
+				const newRelics = [...(item.equippedRelics || [null, null, null])];
+				newRelics[slotIndex] = null;
+				return { ...item, equippedRelics: newRelics };
+			}
+			return item;
+		};
+		setTiers(prev => prev.map(t => ({ ...t, items: t.items.map(updateItem) })));
+		setUnranked(prev => prev.map(updateItem));
+	}, []);
+
+	const handleChampionRightClick = useCallback((e, champId) => {
+		e.preventDefault();
+		setChampionMenu({
+			x: e.clientX,
+			y: e.clientY,
+			champId
+		});
+	}, []);
+
+	const handleDuplicate = (champId) => {
+		const duplicateItem = (item) => ({ ...item, id: `${item.id.split('-copy-')[0]}-copy-${Date.now()}` });
+
+		setUnranked(prev => {
+			const index = prev.findIndex(i => i.id === champId);
+			if (index !== -1) {
+				const newArr = [...prev];
+				newArr.splice(index + 1, 0, duplicateItem(prev[index]));
+				return newArr;
+			}
+			return prev;
+		});
+
+		setTiers(prev => prev.map(t => {
+			const index = t.items.findIndex(i => i.id === champId);
+			if (index !== -1) {
+				const newItems = [...t.items];
+				newItems.splice(index + 1, 0, duplicateItem(t.items[index]));
+				return { ...t, items: newItems };
+			}
+			return t;
+		}));
+	};
+
+	const handleDeleteChampion = (champId) => {
+		setUnranked(prev => prev.filter(i => i.id !== champId));
+		setTiers(prev => prev.map(t => ({ ...t, items: t.items.filter(i => i.id !== champId) })));
+	};
+
 	const handleDragOver = event => {
 		const { active, over } = event;
-		if (!over || activeType === "tier") return;
+		if (!over || activeType === "tier" || activeType === "relic") return;
 
 		const activeId = active.id;
 		const overId = over.id;
@@ -617,7 +653,16 @@ function TierListChampions({ initialChampions }) {
 				? selectedIds
 				: [activeId];
 			const moving = idsToMove
-				.map(id => allChampionsRaw.find(i => i.id === id))
+				.map(id => {
+					let found = unranked.find(c => c.id === id);
+					if (found) return found;
+					for (const t of tiers) {
+						found = t.items.find(c => c.id === id);
+						if (found) return found;
+					}
+					const baseId = id.split('-copy-')[0];
+					return allChampionsRaw.find(c => c.id === baseId);
+				})
 				.filter(Boolean);
 
 			setUnranked(prev => {
@@ -646,7 +691,6 @@ function TierListChampions({ initialChampions }) {
 				}),
 			);
 		} else if (activeId !== overId) {
-			// Reorder within same container
 			if (aCol === "unranked") {
 				setUnranked(prev => {
 					const oldIndex = prev.findIndex(i => i.id === activeId);
@@ -684,10 +728,36 @@ function TierListChampions({ initialChampions }) {
 						tiers.findIndex(t => t.id === over.id),
 					),
 				);
+		} else if (activeType === "relic") {
+			if (over && over.id) {
+				let championId = String(over.id);
+				if (championId.startsWith("relic-drop-")) {
+					championId = championId.replace("relic-drop-", "");
+				} else if (championId === "unranked" || String(championId).startsWith("t-")) {
+					return;
+				}
+
+				const relic = active.data.current?.relic;
+				if (relic) {
+					const updateItem = (item) => {
+						if (item.id === championId) {
+							const newRelics = [...(item.equippedRelics || [null, null, null])];
+							const emptyIndex = newRelics.findIndex(r => r === null);
+							if (emptyIndex !== -1) {
+								newRelics[emptyIndex] = relic;
+							} else {
+								newRelics.shift();
+								newRelics.push(relic);
+							}
+							return { ...item, equippedRelics: newRelics };
+						}
+						return item;
+					};
+					setTiers(prev => prev.map(t => ({ ...t, items: t.items.map(updateItem) })));
+					setUnranked(prev => prev.map(updateItem));
+				}
+			}
 		} else {
-			// Xử lý kéo thả item (kết thúc)
-			// Nếu cần làm sạch hoặc finalize gì đó, làm ở đây.
-			// Hiện tại handleDragOver đã xử lý việc di chuyển state.
 		}
 
 		setActiveId(null);
@@ -720,12 +790,69 @@ function TierListChampions({ initialChampions }) {
 		}
 	};
 
-	const activeItem = activeId
-		? allChampionsRaw.find(c => c.id === activeId)
-		: null;
+	const activeItem = useMemo(() => {
+		if (!activeId) return null;
+		if (activeType === "relic") {
+			return allRelicsRaw.find(r => `relic-${r.id}` === activeId);
+		}
+		let found = unranked.find(c => c.id === activeId);
+		if (found) return found;
+		for (const t of tiers) {
+			found = t.items.find(c => c.id === activeId);
+			if (found) return found;
+		}
+		const baseId = activeId.split('-copy-')[0];
+		return allChampionsRaw.find(c => c.id === baseId);
+	}, [activeId, activeType, allRelicsRaw, unranked, tiers, allChampionsRaw]);
+
+	const renderChampionMenu = () => {
+		if (!championMenu) return null;
+		const baseId = championMenu.champId.split('-copy-')[0];
+		let count = 0;
+		unranked.forEach(i => { if (i.id.split('-copy-')[0] === baseId) count++; });
+		tiers.forEach(t => t.items.forEach(i => { if (i.id.split('-copy-')[0] === baseId) count++; }));
+		const canDelete = count > 1;
+
+		return createPortal(
+			<div
+				className="fixed inset-0 z-[10000]"
+				onClick={() => setChampionMenu(null)}
+				onContextMenu={(e) => { e.preventDefault(); setChampionMenu(null); }}
+			>
+				<div
+					className="absolute bg-surface-bg border border-white/20 rounded-lg shadow-2xl py-1 w-40 text-sm overflow-hidden"
+					style={{ top: championMenu.y, left: championMenu.x }}
+					onClick={e => e.stopPropagation()}
+				>
+					<button
+						className="w-full text-left px-4 py-2 hover:bg-white/10 flex items-center gap-2"
+						onClick={() => {
+							handleDuplicate(championMenu.champId);
+							setChampionMenu(null);
+						}}
+					>
+						<Copy size={14} /> Nhân đôi
+					</button>
+					<button
+						className={`w-full text-left px-4 py-2 flex items-center gap-2 ${canDelete ? "hover:bg-red-500/20 text-red-400" : "opacity-50 cursor-not-allowed"}`}
+						onClick={() => {
+							if (canDelete) {
+								handleDeleteChampion(championMenu.champId);
+								setChampionMenu(null);
+							}
+						}}
+						disabled={!canDelete}
+					>
+						<Trash2 size={14} /> Xóa
+					</button>
+				</div>
+			</div>,
+			document.body
+		);
+	};
 
 	return (
-		<DndContext
+				<DndContext
 			sensors={sensors}
 			collisionDetection={rectIntersection}
 			onDragStart={e => {
@@ -819,27 +946,10 @@ function TierListChampions({ initialChampions }) {
 									onMouseUp={onMouseUp}
 									className='relative min-h-screen'
 								>
-									{isSelecting && selectionBox && (
-										<div
-											style={{
-												left: Math.min(
-													selectionBox.startX,
-													selectionBox.currentX,
-												),
-												top: Math.min(
-													selectionBox.startY,
-													selectionBox.currentY,
-												),
-												width: Math.abs(
-													selectionBox.startX - selectionBox.currentX,
-												),
-												height: Math.abs(
-													selectionBox.startY - selectionBox.currentY,
-												),
-											}}
-											className='absolute z-[9999] border border-primary-500 bg-primary-500/20 pointer-events-none'
-										/>
-									)}
+									<div
+										ref={selectionBoxDivRef}
+										className={`absolute border-2 border-primary-500 bg-primary-500/20 pointer-events-none z-[9999] ${isSelecting ? "block" : "hidden"}`}
+									/>
 									<div
 										ref={tierListRef}
 										className='bg-surface-bg border border-border rounded-lg flex flex-col gap-1 p-1 shadow-inner'
@@ -889,6 +999,11 @@ function TierListChampions({ initialChampions }) {
 																		id={item.id}
 																		avatar={item.avatar}
 																		title={tDynamic(item, "name")}
+																		showRelicSlots={true}
+																		equippedRelics={item.equippedRelics}
+																		onRelicSlotClick={handleRelicSlotClick}
+																		onContextMenu={handleChampionRightClick}
+																		isInTier={true}
 																	/>
 																</div>
 															))}
@@ -898,96 +1013,121 @@ function TierListChampions({ initialChampions }) {
 											))}
 										</SortableContext>
 									</div>
-									<div className='mt-8 p-4 bg-surface-bg border border-border rounded-lg shadow-sm'>
-										<div className='flex flex-col sm:flex-row justify-between items-center mb-4 gap-4'>
-											<h2 className='text-xs font-bold text-text-secondary uppercase tracking-widest'>
-												{tUI("tierList.warehouseChamps")} ({filteredUnranked.length})
-											</h2>
-											<div className='flex gap-2 w-full sm:w-auto'>
-												<Button
-													variant='outline'
-													size='sm'
-													onClick={() =>
-														setSelectedIds(filteredUnranked.map(c => c.id))
-													}
-													className='text-[10px] flex-1 sm:flex-none'
-												>
-													<CheckSquare size={14} className='mr-1' />{" "}
-													{tUI("randomWheel.selectAll")}
-												</Button>
-												<Button
-													variant='outline'
-													size='sm'
-													onClick={() => setSelectedIds([])}
-													className='text-[10px] flex-1 sm:flex-none'
-													disabled={selectedIds.length === 0}
-												>
-													<Square size={14} className='mr-1' />{" "}
-													{tUI("randomWheel.deselectAll")} ({selectedIds.length})
+									<div className='mt-8 flex flex-col lg:flex-row gap-8'>
+										<div className='flex-1 p-4 bg-surface-bg border border-border rounded-lg shadow-sm'>
+											<div className='flex flex-col sm:flex-row justify-between items-center mb-4 gap-4'>
+												<h2 className='text-xs font-bold text-text-secondary uppercase tracking-widest'>
+													{tUI("tierList.warehouseChamps")} ({filteredUnranked.length})
+												</h2>
+												<div className='flex gap-2 w-full sm:w-auto'>
+													<Button
+														variant='outline'
+														size='sm'
+														onClick={() =>
+															setSelectedIds(filteredUnranked.map(c => c.id))
+														}
+														className='text-[10px] flex-1 sm:flex-none'
+													>
+														<CheckSquare size={14} className='mr-1' />{" "}
+														{tUI("randomWheel.selectAll")}
+													</Button>
+													<Button
+														variant='outline'
+														size='sm'
+														onClick={() => setSelectedIds([])}
+														className='text-[10px] flex-1 sm:flex-none'
+														disabled={selectedIds.length === 0}
+													>
+														<Square size={14} className='mr-1' />{" "}
+														{tUI("randomWheel.deselectAll")} ({selectedIds.length})
+													</Button>
+												</div>
+											</div>
+											<div className='grid grid-cols-2 lg:grid-cols-5 gap-3 mb-6 relative z-10'>
+												<InputField
+													value={searchInput}
+													onChange={e => setSearchInput(e.target.value)}
+													onKeyDown={e => e.key === "Enter" && handleSearch()}
+													placeholder={tUI("championList.searchPlaceholder")}
+												/>
+												<MultiSelectFilter
+													options={filterOptions.regions}
+													selectedValues={selectedRegions}
+													onChange={setSelectedRegions}
+													placeholder={tUI("championList.region")}
+												/>
+												<MultiSelectFilter
+													options={filterOptions.costs}
+													selectedValues={selectedCosts}
+													onChange={setSelectedCosts}
+													placeholder={tUI("championList.cost")}
+												/>
+												<MultiSelectFilter
+													options={filterOptions.maxStars}
+													selectedValues={selectedMaxStars}
+													onChange={setSelectedMaxStars}
+													placeholder={tUI("championList.maxStars")}
+												/>
+												<Button variant='outline' onClick={handleResetFilters}>
+													<RotateCw size={14} className='mr-2' /> {tUI("common.reset")}
 												</Button>
 											</div>
+											<DroppableZone
+												id='unranked'
+												className='min-h-[300px] border-2 border-dashed border-white/5 rounded-xl p-4 bg-black/10 flex flex-wrap gap-2 content-start'
+											>
+												{unranked.map(item =>
+													filteredUnranked.some(f => f.id === item.id) ? (
+														<div
+															key={item.id}
+															data-id={item.id}
+															className={`rounded-md transition-all cursor-pointer ${selectedIds.includes(item.id) ? "ring-2 ring-primary-500 ring-offset-2 ring-offset-surface-bg scale-90" : ""}`}
+															onClick={e => {
+																e.stopPropagation();
+																setSelectedIds(prev =>
+																	e.ctrlKey || e.metaKey || e.shiftKey
+																		? prev.includes(item.id)
+																			? prev.filter(x => x !== item.id)
+																			: [...prev, item.id]
+																		: prev.includes(item.id)
+																			? []
+																			: [item.id],
+																);
+															}}
+														>
+															<SortableItem
+																id={item.id}
+																avatar={item.avatar}
+																title={tDynamic(item, "name")}
+																showRelicSlots={true}
+																equippedRelics={item.equippedRelics}
+																onRelicSlotClick={handleRelicSlotClick}
+																onContextMenu={handleChampionRightClick}
+															/>
+														</div>
+													) : null,
+												)}
+											</DroppableZone>
 										</div>
-										<div className='grid grid-cols-2 lg:grid-cols-5 gap-3 mb-6 relative z-10'>
-											<InputField
-												value={searchInput}
-												onChange={e => setSearchInput(e.target.value)}
-												onKeyDown={e => e.key === "Enter" && handleSearch()}
-												placeholder={tUI("championList.searchPlaceholder")}
-											/>
-											<MultiSelectFilter
-												options={filterOptions.regions}
-												selectedValues={selectedRegions}
-												onChange={setSelectedRegions}
-												placeholder={tUI("championList.region")}
-											/>
-											<MultiSelectFilter
-												options={filterOptions.costs}
-												selectedValues={selectedCosts}
-												onChange={setSelectedCosts}
-												placeholder={tUI("championList.cost")}
-											/>
-											<MultiSelectFilter
-												options={filterOptions.maxStars}
-												selectedValues={selectedMaxStars}
-												onChange={setSelectedMaxStars}
-												placeholder={tUI("championList.maxStars")}
-											/>
-											<Button variant='outline' onClick={handleResetFilters}>
-												<RotateCw size={14} className='mr-2' /> {tUI("common.reset")}
-											</Button>
+										<div className='w-full lg:w-[400px] xl:w-[450px] p-4 bg-surface-bg border border-border rounded-lg shadow-sm flex flex-col' data-no-select="true">
+											<div className='flex justify-between items-center mb-4'>
+												<h2 className='text-xs font-bold text-text-secondary uppercase tracking-widest'>
+													{tUI("tierList.relicsPool")}
+												</h2>
+											</div>
+											<div className='mb-6'>
+												<InputField
+													value={relicSearchInput}
+													onChange={e => setRelicSearchInput(e.target.value)}
+													placeholder='Search relics...'
+												/>
+											</div>
+											<div className='flex-1 overflow-y-auto max-h-[600px] min-h-[300px] border-2 border-dashed border-white/5 rounded-xl p-4 bg-black/10 flex flex-wrap gap-2 content-start custom-scrollbar'>
+												{filteredRelics.map(relic => (
+													<DraggableRelic key={relic.id} relic={relic} />
+												))}
+											</div>
 										</div>
-										<DroppableZone
-											id='unranked'
-											className='min-h-[300px] border-2 border-dashed border-white/5 rounded-xl p-4 bg-black/10 flex flex-wrap gap-2 content-start'
-										>
-											{unranked.map(item =>
-												filteredUnranked.some(f => f.id === item.id) ? (
-													<div
-														key={item.id}
-														data-id={item.id}
-														className={`rounded-md transition-all cursor-pointer ${selectedIds.includes(item.id) ? "ring-2 ring-primary-500 ring-offset-2 ring-offset-surface-bg scale-90" : ""}`}
-														onClick={e => {
-															e.stopPropagation();
-															setSelectedIds(prev =>
-																e.ctrlKey || e.metaKey || e.shiftKey
-																	? prev.includes(item.id)
-																		? prev.filter(x => x !== item.id)
-																		: [...prev, item.id]
-																	: prev.includes(item.id)
-																		? []
-																		: [item.id],
-															);
-														}}
-													>
-														<SortableItem
-															id={item.id}
-															avatar={item.avatar}
-															title={tDynamic(item, "name")}
-														/>
-													</div>
-												) : null,
-											)}
-										</DroppableZone>
 									</div>
 								</div>
 							</motion.div>
@@ -1006,7 +1146,6 @@ function TierListChampions({ initialChampions }) {
 				>
 					{activeType === "tier" ? (
 						<div className='flex min-h-[60px] sm:min-h-[100px] w-[300px] sm:w-[600px] bg-surface-bg border-2 border-primary-500 rounded-lg overflow-hidden shadow-2xl opacity-90'>
-							{/* Placeholder bù đắp khoảng trống của Grip handle */}
 							<div className='w-6 sm:w-8 shrink-0 bg-black/20' />
 							<div
 								style={{
@@ -1020,12 +1159,18 @@ function TierListChampions({ initialChampions }) {
 								{tUI("tierList.movingRow")}
 							</div>
 						</div>
+					) : activeType === "relic" ? (
+						<div className="w-10 h-10 sm:w-12 sm:h-12 bg-black/40 border-2 border-primary-500 rounded overflow-hidden flex-shrink-0 shadow-2xl scale-125 z-[10000]">
+							<img src={activeItem?.avatar} alt={activeItem?.name} className="w-full h-full object-cover" crossOrigin="anonymous" />
+						</div>
 					) : (
 						<div className='relative'>
 							<SortableItem
 								id={activeId}
 								avatar={activeItem?.avatar}
 								isOverlay
+								showRelicSlots={true}
+								equippedRelics={activeItem?.equippedRelics}
 							/>
 							{selectedIds.length > 1 && selectedIds.includes(activeId) && (
 								<div className='absolute -top-2 -right-2 bg-primary-600 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center shadow-lg border-2 border-white'>
@@ -1037,6 +1182,7 @@ function TierListChampions({ initialChampions }) {
 				</DragOverlay>,
 				document.body
 			)}
+			{renderChampionMenu && renderChampionMenu()}
 		</DndContext>
 	);
 }

@@ -4,11 +4,34 @@ import { useSortable } from "@dnd-kit/sortable";
 import { useDroppable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 
+export const RelicSlot = memo(({ id, championId, slotIndex, relic, isInTier, onRelicSlotClick }) => {
+	return (
+		<div 
+			className={`flex-1 h-full cursor-pointer flex items-center justify-center relative transition-colors ${!relic && !isInTier ? 'bg-black/40 border border-white/10' : ''}`}
+			onClick={(e) => {
+				e.stopPropagation();
+				e.preventDefault();
+				if (onRelicSlotClick) onRelicSlotClick(championId, slotIndex, e);
+			}}
+			onContextMenu={(e) => {
+				e.stopPropagation();
+				e.preventDefault();
+				if (onRelicSlotClick) onRelicSlotClick(championId, slotIndex, e, true);
+			}}
+			data-no-dnd="true"
+		>
+			{relic ? (
+				<img src={relic.avatar} alt="relic" className="w-full h-full object-cover pointer-events-none drop-shadow-lg" crossOrigin='anonymous' />
+			) : null}
+		</div>
+	);
+});
+
 /**
  * Component hiển thị item (Tướng/Cổ vật) trong bảng Tier List
  */
 export const SortableItem = memo(
-	({ id, avatar, isOverlay, isSelected, onClick, title }) => {
+	({ id, avatar, isOverlay, isSelected, onClick, onContextMenu, title, showRelicSlots, equippedRelics, onRelicSlotClick, isInTier }) => {
 		const {
 			attributes,
 			listeners,
@@ -17,6 +40,11 @@ export const SortableItem = memo(
 			transition,
 			isDragging,
 		} = useSortable({ id });
+
+		const { isOver: isRelicOver, setNodeRef: setRelicDropRef } = useDroppable({
+			id: `relic-drop-${id}`,
+			data: { type: "champion-relic-drop" }
+		});
 
 		const [hasError, setHasError] = useState(false);
 
@@ -49,23 +77,70 @@ export const SortableItem = memo(
 				onClick={onClick}
 				data-id={id}
 				title={title}
-				className={`w-8 h-8 sm:w-20 sm:h-20 rounded cursor-grab active:cursor-grabbing shrink-0 select-none touch-none transition-all duration-200 ${
-					isSelected
-						? "ring-1 ring-primary-500 ring-offset-2 ring-offset-surface-bg scale-90 z-10"
-						: "ring-1 ring-white/10"
-				} ${
-					isOverlay
-						? "z-[1000] scale-110 ring-2 ring-primary-400 shadow-2xl"
-						: ""
-				}`}
+				className={`flex flex-col cursor-grab active:cursor-grabbing group rounded overflow-hidden`}
 			>
-				<img
-					src={displaySrc}
-					crossOrigin='anonymous'
-					className='rounded w-full h-full object-cover pointer-events-none'
-					alt='tier-item'
-					onError={() => setHasError(true)}
-				/>
+				{showRelicSlots ? (
+					<div 
+						ref={setRelicDropRef}
+						className={`relative w-[72px] sm:w-[96px] shrink-0 select-none touch-none rounded overflow-hidden shadow-lg border border-white/10 group cursor-grab active:cursor-grabbing transition-colors ${isRelicOver ? 'ring-2 ring-primary-500 bg-primary-500/20' : ''}`}
+						onContextMenu={(e) => {
+							if (onContextMenu) {
+								e.preventDefault();
+								e.stopPropagation();
+								onContextMenu(e, id);
+							}
+						}}
+					>
+						<div className={`w-full aspect-square ${
+							isSelected ? "ring-2 ring-primary-500 z-10" : ""
+						}`}>
+							<img src={displaySrc} crossOrigin='anonymous' className='w-full h-full object-cover pointer-events-none' alt='tier-item' onError={() => setHasError(true)} />
+						</div>
+						<div className="absolute bottom-0 left-0 right-0 flex w-full h-[24px] sm:h-[32px] bg-gradient-to-t from-black/80 via-black/40 to-transparent">
+							{[0, 1, 2].map((slotIndex) => (
+								<RelicSlot 
+									key={slotIndex} 
+									id={`relic-slot-${id}-${slotIndex}`} 
+									championId={id}
+									slotIndex={slotIndex}
+									relic={equippedRelics?.[slotIndex]} 
+									isInTier={isInTier}
+									onRelicSlotClick={onRelicSlotClick} 
+								/>
+							))}
+						</div>
+					</div>
+				) : (
+					<div 
+						ref={setRelicDropRef}
+						className={`w-8 h-8 sm:w-20 sm:h-20 shrink-0 select-none touch-none transition-all duration-200 ${
+							isSelected
+								? "ring-1 ring-primary-500 ring-offset-2 ring-offset-surface-bg scale-90 z-10"
+								: "ring-1 ring-white/10"
+						} ${
+							isOverlay
+								? "z-[1000] scale-110 ring-2 ring-primary-400 shadow-2xl"
+								: ""
+						} ${
+							isRelicOver ? "ring-2 ring-primary-500 bg-primary-500/20" : ""
+						}`}
+						onContextMenu={(e) => {
+							if (onContextMenu) {
+								e.preventDefault();
+								e.stopPropagation();
+								onContextMenu(e, id);
+							}
+						}}
+					>
+						<img
+							src={displaySrc}
+							crossOrigin='anonymous'
+							className='rounded-t sm:rounded w-full h-full object-cover pointer-events-none'
+							alt='tier-item'
+							onError={() => setHasError(true)}
+						/>
+					</div>
+				)}
 			</div>
 		);
 	},
