@@ -92,6 +92,7 @@ const RewardSection = ({ rewards }) => {
 			"mảnh ghép bí ẩn": "wild_frags",
 			"mảnh vạn năng": "wild_frags",
 			"mảnh tướng": "champ_frags",
+			"thùng ngọc hoa linh lục địa": "runic_vessel",
 
 			// English Keys / Codes / Names
 			"bronze_reliquary": "bronze_reliquary",
@@ -116,6 +117,7 @@ const RewardSection = ({ rewards }) => {
 			"wild_frags": "wild_frags",
 			"mysterious_fragment": "wild_frags",
 			"champ_frags": "champ_frags",
+			"runic_vessel": "runic_vessel",
 		};
 
 		const ICON_NAME_MAP = {
@@ -140,6 +142,7 @@ const RewardSection = ({ rewards }) => {
 			greater_gemstone_vessel: "Thùng Đá Quý Lớn",
 			wild_frags: "Mảnh Ghép Bí Ẩn",
 			champ_frags: "Mảnh Tướng",
+			runic_vessel: "Thùng Ngọc Hoa Linh Lục Địa",
 		};
 
 		const lowerBase = baseName.toLowerCase().trim();

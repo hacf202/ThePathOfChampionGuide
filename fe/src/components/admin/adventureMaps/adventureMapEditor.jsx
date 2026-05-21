@@ -163,7 +163,7 @@ function AdventureMapEditor() {
 			const timestamp = Date.now();
 			const fetchOptions = { cache: "no-store" };
 			const [advRes, powerRes, bossRes, champRes, itemRes, cardRes] = await Promise.all([
-				fetch(`${API_BASE_URL}/api/adventures?t=${timestamp}`, fetchOptions),
+				fetch(`${API_BASE_URL}/api/adventures?limit=-1&t=${timestamp}`, fetchOptions),
 				fetch(`${API_BASE_URL}/api/powers?limit=-1&t=${timestamp}`, fetchOptions),
 				fetch(`${API_BASE_URL}/api/bosses?limit=-1&t=${timestamp}`, fetchOptions),
 				fetch(`${API_BASE_URL}/api/champions?limit=-1&t=${timestamp}`, fetchOptions),

@@ -58,7 +58,8 @@
 	{
 		"name": "Hoa Linh Lục Địa",
 		"image": "https://images.pocguide.top/icon/Spirit_Blossom_LoR_Region.webp"
-	},{
+	},
+	{
 		"name": "SpiritBlossom",
 		"image": "https://images.pocguide.top/icon/Spirit_Blossom_LoR_Region.webp"
 	},
@@ -153,5 +154,13 @@
 	{
 		"name": "Mảnh Tướng",
 		"image": "https://images.pocguide.top/icon/15px-PoC_Wild_Fragment_icon.webp"
+	},
+	{
+		"name": "Thùng Ngọc Hoa Linh Lục Địa",
+		"image": "https://images.pocguide.top/icon/25px-PoC_Spirit_Blossom_Runic_Vessel_icon.webp"
+	},
+	{
+		"name": "Runic Vessel",
+		"image": "https://images.pocguide.top/icon/25px-PoC_Spirit_Blossom_Runic_Vessel_icon.webp"
 	}
 ]

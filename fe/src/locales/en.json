@@ -248,7 +248,8 @@
 		"nova_shard": "Nova Shard",
 		"greater_gemstone_vessel": "Greater Gemstone Vessel",
 		"wild_frags": "Wild Fragments",
-		"champ_frags": "Champion Fragments"
+		"champ_frags": "Champion Fragments",
+		"runic_vessel": "Runic Vessel"
 	},
 	"admin": {
 		"sidebar": {
