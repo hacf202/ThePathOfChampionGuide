@@ -90812,6 +90812,32 @@
     }
   },
   {
+    "cardCode": "99MT002",
+    "cardName": "The Path",
+    "cost": 2,
+    "rarity": "None",
+    "regions": [
+      "Targon"
+    ],
+    "type": "spell",
+    "description": "Ban cho 1 đồng minh \"Bắt Đầu Vòng Đấu: Ban cho ta +1|+1.\"",
+    "descriptionRaw": "Ban cho 1 đồng minh \"Bắt Đầu Vòng Đấu: Ban cho ta +1|+1.\"",
+    "gameAbsolutePath": "https://images.pocguide.top/cards/99MT002.webp",
+    "associatedCardRefs": [],
+    "translations": {
+      "en": {
+        "cardName": "The Path",
+        "description": "Grant an ally \"Round Start: Grant me +1|+1\".",
+        "descriptionRaw": "Grant an ally \"Round Start: Grant me +1|+1\".",
+        "gameAbsolutePath": "https://images.pocguide.top/cards/99MT002en.webp",
+        "regions": [
+          "Targon"
+        ],
+        "type": "Spell"
+      }
+    }
+  },
+  {
     "cardCode": "99MT003",
     "gameAbsolutePath": "https://images.pocguide.top/cards/99MT003.webp",
     "cost": 5,
@@ -90949,6 +90975,34 @@
     "cardName": "Cảnh Sát Trưởng Piltover",
     "type": "spell",
     "subtypes": []
+  },
+  {
+    "cardCode": "99PZ128",
+    "cardName": "Jolt",
+    "descriptionRaw": "Gây 1 sát thơng lên 1 tùy tùng địch thủ và 1 sát thương lên nhà chính.",
+    "type": "spell",
+    "cost": 2,
+    "regions": [
+      "Piltover & Zaun"
+    ],
+    "rarity": "None",
+    "keywords": [],
+    "subtypes": [],
+    "gameAbsolutePath": "https://images.pocguide.top/cards/99PZ128.webp",
+    "translations": {
+      "en": {
+        "cardName": "Jolt",
+        "descriptionRaw": "Deal 1 to an enemy follower and 1 to the enemy Nexus.",
+        "gameAbsolutePath": "https://images.pocguide.top/cards/99PZ128en.webp",
+        "type": "Spell",
+        "regions": [
+          "Piltover & Zaun"
+        ],
+        "keywords": [],
+        "description": "Deal 1 to an enemy follower and 1 to the enemy Nexus."
+      }
+    },
+    "description": "Gây 1 sát thơng lên 1 tùy tùng địch thủ và 1 sát thương lên nhà chính."
   },
   {
     "cardCode": "99PZ130",

@@ -16,7 +16,8 @@ class AsyncCache {
 		this.name = name;
 		this.options = options;
 		this.localCache = new NodeCache(options);
-		this.useRedis = !!kv;
+		// Kiểm tra Redis động (không cache tại construction time)
+		Object.defineProperty(this, 'useRedis', { get: () => !!kv });
 	}
 
 	/**
@@ -100,6 +101,27 @@ class AsyncCache {
 	keys() {
 		return this.localCache.keys();
 	}
+
+	/**
+	 * Đếm số key trên Redis cho namespace này
+	 */
+	async countRedisKeys() {
+		if (!this.useRedis) return this.localCache.keys().length;
+		try {
+			const pattern = `${this._getRedisKey("")}*`;
+			let cursor = "0";
+			let count = 0;
+			do {
+				const [nextCursor, keys] = await kv.scan(cursor, "MATCH", pattern, "COUNT", 100);
+				cursor = nextCursor;
+				count += keys.length;
+			} while (cursor !== "0");
+			return count;
+		} catch (error) {
+			console.error(`[Cache:${this.name}] Redis COUNT error:`, error);
+			return this.localCache.keys().length;
+		}
+	}
 }
 
 /**
@@ -151,9 +173,10 @@ export const flushCache = async (name) => {
 export const getStats = async () => {
 	const stats = [];
 	for (const [name, cache] of cacheRegistry.entries()) {
+		const keyCount = await cache.countRedisKeys();
 		stats.push({
 			name,
-			keys: cache.keys().length,
+			keys: keyCount,
 			stats: cache.getStats()
 		});
 	}

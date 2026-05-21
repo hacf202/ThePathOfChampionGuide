@@ -147,7 +147,7 @@ app.use("/api/search", searchRouter);
 app.use("/api/sub-champions", subChampionsRouter);
 app.use("/api/resources", resourcesRouter);
 app.use("/api/admin/analytics", analyticsRouter);
-app.use("/api/sitemap.xml", sitemapRouter);
+app.use("/api/sitemap", sitemapRouter);
 app.use("/api/admin/db-stats", dbStatsRouter);
 
 // API để kiểm tra "sức khỏe" của server

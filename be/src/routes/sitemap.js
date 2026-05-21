@@ -17,192 +17,207 @@ const router = express.Router();
 
 const BASE_URL = "https://www.pocguide.top";
 
+// Ngày hôm nay dùng làm lastmod fallback
+const today = () => new Date().toISOString().split("T")[0];
+
+/**
+ * Helper: tạo một <url> entry
+ */
+function urlEntry(loc, changefreq, priority, lastmod) {
+	return `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${lastmod || today()}</lastmod>\n    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n  </url>\n`;
+}
+
 /**
  * @route   GET /sitemap.xml
- * @desc    Tạo sitemap động chứa toàn bộ link của website
+ * @desc    Sitemap Index — trỏ tới các sitemap con
  */
-router.get("/", async (req, res) => {
+router.get("/", (req, res) => {
+	const subs = [
+		"static",
+		"champions",
+		"relics",
+		"powers",
+		"items",
+		"runes",
+		"cards",
+		"guides",
+		"bosses",
+		"maps",
+		"resources",
+		"builds",
+	];
+
+	let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+	xml += `<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+
+	subs.forEach(name => {
+		xml += `  <sitemap>\n`;
+		xml += `    <loc>${BASE_URL}/api/sitemap/${name}.xml</loc>\n`;
+		xml += `    <lastmod>${today()}</lastmod>\n`;
+		xml += `  </sitemap>\n`;
+	});
+
+	xml += `</sitemapindex>`;
+
+	res.header("Content-Type", "application/xml");
+	res.status(200).send(xml);
+});
+
+/**
+ * @route   GET /sitemap/static.xml
+ */
+router.get("/static.xml", (req, res) => {
+	const staticPages = [
+		{ path: "", priority: "1.0", changefreq: "daily" },
+		{ path: "/champions", priority: "0.9", changefreq: "weekly" },
+		{ path: "/relics", priority: "0.8", changefreq: "weekly" },
+		{ path: "/powers", priority: "0.8", changefreq: "weekly" },
+		{ path: "/items", priority: "0.7", changefreq: "weekly" },
+		{ path: "/cards", priority: "0.8", changefreq: "daily" },
+		{ path: "/tierlist", priority: "0.8", changefreq: "weekly" },
+		{ path: "/tierlist/champions", priority: "0.7", changefreq: "weekly" },
+		{ path: "/tierlist/relics", priority: "0.7", changefreq: "weekly" },
+		{ path: "/guides", priority: "0.9", changefreq: "weekly" },
+		{ path: "/introduction", priority: "0.6", changefreq: "monthly" },
+		{ path: "/resources", priority: "0.6", changefreq: "weekly" },
+		{ path: "/randomizer", priority: "0.5", changefreq: "monthly" },
+		{ path: "/simulator/vaults", priority: "0.7", changefreq: "weekly" },
+		{ path: "/sub-champions", priority: "0.6", changefreq: "weekly" },
+		{ path: "/tools/ratings", priority: "0.7", changefreq: "weekly" },
+		{ path: "/tools/champion-items", priority: "0.6", changefreq: "weekly" },
+		{ path: "/builds", priority: "0.8", changefreq: "daily" },
+		{ path: "/runes", priority: "0.6", changefreq: "monthly" },
+		{ path: "/maps", priority: "0.7", changefreq: "monthly" },
+		{ path: "/bosses", priority: "0.7", changefreq: "monthly" },
+		{ path: "/about-us", priority: "0.4", changefreq: "monthly" },
+		{ path: "/terms-of-use", priority: "0.3", changefreq: "monthly" },
+	];
+
+	let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+	xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+	staticPages.forEach(({ path, priority, changefreq }) => {
+		xml += urlEntry(`${BASE_URL}${path}`, changefreq, priority);
+	});
+	xml += `</urlset>`;
+
+	res.header("Content-Type", "application/xml");
+	res.status(200).send(xml);
+});
+
+/**
+ * Helper: tạo sub-sitemap XML cho một loại entity
+ */
+async function sendEntitySitemap(res, fetchFn, mapFn) {
 	try {
-		// 1. Fetch toàn bộ dữ liệu song song để tối ưu tốc độ
-		const [
-			champions,
-			relics,
-			powers,
-			items,
-			runes,
-			cards,
-			guidesData,
-			bosses,
-			adventures,
-			resources,
-			publicBuildsData
-		] = await Promise.all([
-			getCachedChampions(),
-			getCachedRelics(),
-			getCachedPowers(),
-			getCachedItems(),
-			getCachedRunes(),
-			getCachedCards(),
-			getCachedGuides(),
-			getCachedBosses(),
-			getCachedAdventures(),
-			getCachedResources(),
-			getPublicBuilds("global")
-		]);
-
-		const guides = guidesData.data || guidesData; // Xử lý wrap data nếu có
-		const builds = publicBuildsData.items || [];
-
-		// 2. Định nghĩa các trang tĩnh
-		const staticPages = [
-			"",
-			"/champions",
-			"/relics",
-			"/powers",
-			"/items",
-			"/cards",
-			"/tierlist",
-			"/tierlist/champions",
-			"/tierlist/relics",
-			"/guides",
-			"/introduction",
-			"/resources",
-			"/randomizer",
-			"/simulator/vaults",
-			"/sub-champions",
-			"/tools/ratings",
-			"/tools/champion-items",
-			"/builds",
-			"/runes",
-			"/maps",
-			"/bosses",
-			"/about-us",
-			"/terms-of-use"
-		];
-
-		// 3. Xây dựng nội dung XML
+		const data = await fetchFn();
 		let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
 		xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
-
-		// Thêm trang tĩnh
-		staticPages.forEach(page => {
-			xml += `  <url>\n`;
-			xml += `    <loc>${BASE_URL}${page}</loc>\n`;
-			xml += `    <changefreq>weekly</changefreq>\n`;
-			xml += `    <priority>${page === "" ? "1.0" : "0.8"}</priority>\n`;
-			xml += `  </url>\n`;
+		(Array.isArray(data) ? data : (data.data || data.items || [])).forEach(item => {
+			const entry = mapFn(item);
+			if (entry) xml += urlEntry(entry.loc, entry.changefreq, entry.priority, entry.lastmod);
 		});
-
-		// Thêm Champions
-		champions.forEach(c => {
-			xml += `  <url>\n`;
-			xml += `    <loc>${BASE_URL}/champion/${encodeURIComponent(c.championID)}</loc>\n`;
-			xml += `    <changefreq>weekly</changefreq>\n`;
-			xml += `    <priority>0.9</priority>\n`;
-			xml += `  </url>\n`;
-		});
-
-		// Thêm Relics
-		relics.forEach(r => {
-			xml += `  <url>\n`;
-			xml += `    <loc>${BASE_URL}/relic/${encodeURIComponent(r.relicCode)}</loc>\n`;
-			xml += `    <changefreq>monthly</changefreq>\n`;
-			xml += `    <priority>0.7</priority>\n`;
-			xml += `  </url>\n`;
-		});
-
-		// Thêm Powers
-		powers.forEach(p => {
-			xml += `  <url>\n`;
-			xml += `    <loc>${BASE_URL}/power/${encodeURIComponent(p.powerCode)}</loc>\n`;
-			xml += `    <changefreq>monthly</changefreq>\n`;
-			xml += `    <priority>0.6</priority>\n`;
-			xml += `  </url>\n`;
-		});
-
-		// Thêm Items
-		items.forEach(i => {
-			xml += `  <url>\n`;
-			xml += `    <loc>${BASE_URL}/item/${encodeURIComponent(i.itemCode)}</loc>\n`;
-			xml += `    <changefreq>monthly</changefreq>\n`;
-			xml += `    <priority>0.6</priority>\n`;
-			xml += `  </url>\n`;
-		});
-
-		// Thêm Runes
-		runes.forEach(run => {
-			xml += `  <url>\n`;
-			xml += `    <loc>${BASE_URL}/rune/${encodeURIComponent(run.runeCode)}</loc>\n`;
-			xml += `    <changefreq>monthly</changefreq>\n`;
-			xml += `    <priority>0.5</priority>\n`;
-			xml += `  </url>\n`;
-		});
-
-		// Thêm Cards
-		cards.forEach(card => {
-			xml += `  <url>\n`;
-			xml += `    <loc>${BASE_URL}/card/${encodeURIComponent(card.cardCode)}</loc>\n`;
-			xml += `    <changefreq>daily</changefreq>\n`;
-			xml += `    <priority>0.8</priority>\n`;
-			xml += `  </url>\n`;
-		});
-
-		// Thêm Guides
-		if (Array.isArray(guides)) {
-			guides.forEach(g => {
-				xml += `  <url>\n`;
-				xml += `    <loc>${BASE_URL}/guides/${encodeURIComponent(g.slug)}</loc>\n`;
-				xml += `    <changefreq>weekly</changefreq>\n`;
-				xml += `    <priority>0.8</priority>\n`;
-				xml += `  </url>\n`;
-			});
-		}
-
-		// Thêm Bosses
-		bosses.forEach(b => {
-			xml += `  <url>\n`;
-			xml += `    <loc>${BASE_URL}/boss/${encodeURIComponent(b.bossID)}</loc>\n`;
-			xml += `    <changefreq>monthly</changefreq>\n`;
-			xml += `    <priority>0.7</priority>\n`;
-			xml += `  </url>\n`;
-		});
-
-		// Thêm Adventures (Maps)
-		adventures.forEach(a => {
-			xml += `  <url>\n`;
-			xml += `    <loc>${BASE_URL}/map/${encodeURIComponent(a.adventureID)}</loc>\n`;
-			xml += `    <changefreq>monthly</changefreq>\n`;
-			xml += `    <priority>0.7</priority>\n`;
-			xml += `  </url>\n`;
-		});
-
-		// Thêm Resources
-		resources.forEach(resItem => {
-			xml += `  <url>\n`;
-			xml += `    <loc>${BASE_URL}/resource/${encodeURIComponent(resItem.resourceId)}</loc>\n`;
-			xml += `    <changefreq>monthly</changefreq>\n`;
-			xml += `    <priority>0.6</priority>\n`;
-			xml += `  </url>\n`;
-		});
-
-		// Thêm Builds
-		builds.forEach(build => {
-			xml += `  <url>\n`;
-			xml += `    <loc>${BASE_URL}/builds/detail/${encodeURIComponent(build.id)}</loc>\n`;
-			xml += `    <changefreq>weekly</changefreq>\n`;
-			xml += `    <priority>0.7</priority>\n`;
-			xml += `  </url>\n`;
-		});
-
 		xml += `</urlset>`;
-
-		// 4. Trả về kết quả với đúng Content-Type
 		res.header("Content-Type", "application/xml");
 		res.status(200).send(xml);
-
 	} catch (error) {
 		console.error("Lỗi tạo sitemap:", error);
 		res.status(500).send("Lỗi tạo sitemap");
+	}
+}
+
+router.get("/champions.xml", (req, res) => sendEntitySitemap(res, getCachedChampions, c => ({
+	loc: `${BASE_URL}/champion/${encodeURIComponent(c.championID)}`,
+	changefreq: "weekly", priority: "0.9",
+	lastmod: c.updatedAt ? new Date(c.updatedAt).toISOString().split("T")[0] : today(),
+})));
+
+router.get("/relics.xml", (req, res) => sendEntitySitemap(res, getCachedRelics, r => ({
+	loc: `${BASE_URL}/relic/${encodeURIComponent(r.relicCode)}`,
+	changefreq: "monthly", priority: "0.7",
+	lastmod: r.updatedAt ? new Date(r.updatedAt).toISOString().split("T")[0] : today(),
+})));
+
+router.get("/powers.xml", (req, res) => sendEntitySitemap(res, getCachedPowers, p => ({
+	loc: `${BASE_URL}/power/${encodeURIComponent(p.powerCode)}`,
+	changefreq: "monthly", priority: "0.6",
+	lastmod: p.updatedAt ? new Date(p.updatedAt).toISOString().split("T")[0] : today(),
+})));
+
+router.get("/items.xml", (req, res) => sendEntitySitemap(res, getCachedItems, i => ({
+	loc: `${BASE_URL}/item/${encodeURIComponent(i.itemCode)}`,
+	changefreq: "monthly", priority: "0.6",
+	lastmod: i.updatedAt ? new Date(i.updatedAt).toISOString().split("T")[0] : today(),
+})));
+
+router.get("/runes.xml", (req, res) => sendEntitySitemap(res, getCachedRunes, r => ({
+	loc: `${BASE_URL}/rune/${encodeURIComponent(r.runeCode)}`,
+	changefreq: "monthly", priority: "0.5",
+	lastmod: r.updatedAt ? new Date(r.updatedAt).toISOString().split("T")[0] : today(),
+})));
+
+router.get("/cards.xml", (req, res) => sendEntitySitemap(res, getCachedCards, c => ({
+	loc: `${BASE_URL}/card/${encodeURIComponent(c.cardCode)}`,
+	changefreq: "monthly", priority: "0.7",
+	lastmod: c.updatedAt ? new Date(c.updatedAt).toISOString().split("T")[0] : today(),
+})));
+
+router.get("/guides.xml", async (req, res) => {
+	try {
+		const guidesData = await getCachedGuides();
+		const guides = Array.isArray(guidesData) ? guidesData : (guidesData.data || []);
+		let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+		xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+		guides.forEach(g => {
+			xml += urlEntry(
+				`${BASE_URL}/guides/${encodeURIComponent(g.slug)}`,
+				"weekly", "0.9",
+				g.updatedAt ? new Date(g.updatedAt).toISOString().split("T")[0] : today()
+			);
+		});
+		xml += `</urlset>`;
+		res.header("Content-Type", "application/xml");
+		res.status(200).send(xml);
+	} catch (error) {
+		res.status(500).send("Lỗi tạo sitemap guides");
+	}
+});
+
+router.get("/bosses.xml", (req, res) => sendEntitySitemap(res, getCachedBosses, b => ({
+	loc: `${BASE_URL}/boss/${encodeURIComponent(b.bossID)}`,
+	changefreq: "monthly", priority: "0.7",
+	lastmod: b.updatedAt ? new Date(b.updatedAt).toISOString().split("T")[0] : today(),
+})));
+
+router.get("/maps.xml", (req, res) => sendEntitySitemap(res, getCachedAdventures, a => ({
+	loc: `${BASE_URL}/map/${encodeURIComponent(a.adventureID)}`,
+	changefreq: "monthly", priority: "0.7",
+	lastmod: a.updatedAt ? new Date(a.updatedAt).toISOString().split("T")[0] : today(),
+})));
+
+router.get("/resources.xml", (req, res) => sendEntitySitemap(res, getCachedResources, r => ({
+	loc: `${BASE_URL}/resource/${encodeURIComponent(r.resourceId)}`,
+	changefreq: "monthly", priority: "0.6",
+	lastmod: r.updatedAt ? new Date(r.updatedAt).toISOString().split("T")[0] : today(),
+})));
+
+router.get("/builds.xml", async (req, res) => {
+	try {
+		const publicBuildsData = await getPublicBuilds("global");
+		const builds = publicBuildsData.items || [];
+		let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+		xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+		builds.forEach(build => {
+			xml += urlEntry(
+				`${BASE_URL}/builds/detail/${encodeURIComponent(build.id)}`,
+				"weekly", "0.7",
+				build.updatedAt ? new Date(build.updatedAt).toISOString().split("T")[0] : today()
+			);
+		});
+		xml += `</urlset>`;
+		res.header("Content-Type", "application/xml");
+		res.status(200).send(xml);
+	} catch (error) {
+		res.status(500).send("Lỗi tạo sitemap builds");
 	}
 });
 

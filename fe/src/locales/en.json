@@ -1,4 +1,8 @@
 {
+	"metadata": {
+		"defaultDescription": "POC GUIDE - The best guide and database for Path of Champions mode in Legends of Runeterra. Champions, relics, powers, builds and strategies.",
+		"defaultKeywords": "Path of Champions, PoC Guide, Legends of Runeterra, LoR PoC, PoC champions, PoC relics, PoC powers, PoC items, PoC runes, PoC boss, adventure map, champion tier list, relic tier list, PoC builds, vault simulator, PoC strategy, PoC tips, PoC database, PoC wiki, best relics PoC, best champions PoC, PoC star level, PoC constellation, PoC card list"
+	},
 	"shared": {
 		"rarity": {
 			"common": "Common",

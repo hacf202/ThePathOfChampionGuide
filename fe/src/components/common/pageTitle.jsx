@@ -11,6 +11,7 @@ export default function PageTitle({
 	noIndex = false,
 	locale,
 	type = "website",
+	schema = null,   // Custom JSON-LD schema object (hoặc array) từ detail pages
 }) {
 	const { language, tUI } = useTranslation();
 	const location = useLocation();
@@ -69,7 +70,10 @@ export default function PageTitle({
 			<title>{fullTitle}</title>
 			<meta name='description' content={metaDescription} />
 			<meta name='keywords' content={metaKeywords} />
-			{noIndex && <meta name='robots' content='noindex, nofollow' />}
+			{noIndex
+				? <meta name='robots' content='noindex, nofollow' />
+				: <meta name='robots' content='index, follow' />
+			}
 
 			<link rel='canonical' href={canonicalUrl} />
 			<link rel='alternate' hrefLang='vi' href={canonicalUrl} />
@@ -94,6 +98,11 @@ export default function PageTitle({
 
 			<script type='application/ld+json'>{JSON.stringify(jsonLd)}</script>
 			<script type='application/ld+json'>{JSON.stringify(breadcrumbList)}</script>
+			{schema && (
+				<script type='application/ld+json'>
+					{JSON.stringify(Array.isArray(schema) ? schema : [schema])}
+				</script>
+			)}
 		</Helmet>
 	);
 }

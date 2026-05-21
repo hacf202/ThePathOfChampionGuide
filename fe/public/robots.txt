@@ -3,5 +3,6 @@ Allow: /
 Disallow: /admin/
 Disallow: /profile
 Disallow: /auth
+Disallow: /reset-password
 
-Sitemap: https://www.pocguide.top/api/sitemap.xml
+Sitemap: https://www.pocguide.top/api/sitemap

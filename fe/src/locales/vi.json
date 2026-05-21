@@ -1,4 +1,8 @@
 {
+	"metadata": {
+		"defaultDescription": "POC GUIDE - Cẩm nang và Cơ sở dữ liệu tốt nhất cho chế độ The Path of Champions trong Legends of Runeterra. Chiến thuật, cổ vật, sức mạnh và cách xây dựng tướng.",
+		"defaultKeywords": "Path of Champions, PoC Guide, Legends of Runeterra, LoR PoC, tướng PoC, cổ vật PoC, sức mạnh PoC, vật phẩm PoC, ngọc PoC, boss PoC, bản đồ phiêu lưu, bảng xếp hạng tướng, build PoC, vault simulator, hướng dẫn Path of Champions, PoC Vietnam, cẩm nang PoC tiếng Việt, tier list PoC, champion tier list, relic tier list, PoC star level, PoC constellation, PoC sub champion, PoC card list, PoC database, con đường anh hùng, hướng dẫn con đường anh hùng, con đường anh hùng tướng, con đường anh hùng cổ vật, con đường anh hùng build, con đường anh hùng chiến thuật, Huyền Thoại Runeterra con đường anh hùng"
+	},
 	"shared": {
 		"rarity": {
 			"common": "Thường",

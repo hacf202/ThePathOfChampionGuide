@@ -1,0 +1,5113 @@
+﻿[
+  {
+    "bossID": "B001",
+    "background": "https://images.pocguide.top/backgrounds/1920px-01FR008T1-hd-full.webp",
+    "bossName": "Poro Rạng Rỡ",
+    "translations": {
+      "en": {
+        "bossName": "Jubilant Poro"
+      }
+    },
+    "power": [
+      "P01086"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01086",
+        "name": "Siêu Cuồng Nộ",
+        "rarity": "Sử Thi",
+        "description": "Khi 1 lá Poro của [k:Foe|Địch Thủ] hy sinh, [k:Foe|Địch Thủ] tạo 1 bản sao của lá bài đó trong bộ bài và ban +2|+2 cho các bản sao của lá đó [k:Everywhere|Ở MỌI NƠI].",
+        "descriptionRaw": "Khi 1 lá Poro của Địch Thủ hy sinh, Địch Thủ tạo 1 bản sao của lá bài đó trong bộ bài và ban +2|+2 cho các bản sao của lá đó Ở MỌI NƠI.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Furry Fury",
+            "description": "When one of the [k:Foe|Foe]'s Poros die, the [k:Foe|Foe] creates a copy of it in deck and grants copies of it [k:Everywhere|Everywhere] +2|+2.",
+            "descriptionRaw": "When one of the Foe's Poros die, the Foe creates a copy of it in deck and grants copies of it Everywhere +2|+2.",
+            "rarity": "Epic"
+          }
+        },
+        "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0302.png",
+        "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0302.png"
+      }
+    ]
+  },
+  {
+    "bossID": "B002",
+    "background": "https://images.pocguide.top/backgrounds/1920px-01IO043-full.webp",
+    "bossName": "Ngự Thủy Sư",
+    "translations": {
+      "en": {
+        "bossName": "Rivershaper"
+      }
+    },
+    "power": [
+      "P01277"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01277",
+        "name": "Ma Pháp Vô Dạng",
+        "rarity": "Thường",
+        "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Tạo 1 lá [cd:01IO049|Từ Chối|icon,img-full] [k:Fleeting|Phù Du] trên tay [k:Foe|Địch Thủ]. Lá đó có 2 [k:Cost|tiêu hao].",
+        "descriptionRaw": "Bắt Đầu Vòng Đấu: Tạo 1 lá Từ Chối Phù Du trên tay Địch Thủ. Lá đó có 2 tiêu hao.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Formless Magic",
+            "description": "[k:RoundStart|Round Start]: Create a [k:Fleeting|Fleeting] [cd:01IO049|Deny|icon,img-full] in the [k:Foe|Foe]'s hand. It [k:Cost|cost] 2.",
+            "descriptionRaw": "Round Start: Create a Fleeting Deny in the Foe's hand. It cost 2.",
+            "rarity": "Common"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01277.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01277.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B003",
+    "background": "https://images.pocguide.top/backgrounds/1920px-01IO027-hd-full.webp",
+    "bossName": "Tiên Tri Bóng Đêm",
+    "translations": {
+      "en": {
+        "bossName": "Silent Shadowseer"
+      }
+    },
+    "power": [
+      "P01019"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01019",
+        "name": "Bóng Tối Dai Dẳng",
+        "rarity": "Thường",
+        "description": "Khi 1 bài quân hy sinh, ban +1|+1 cho 1 bài quân ngẫu nhiên trên tay người chơi sở hữu bài quân đó.",
+        "descriptionRaw": "Khi 1 bài quân hy sinh, ban +1|+1 cho 1 bài quân ngẫu nhiên trên tay người chơi sở hữu bài quân đó.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Bóng Tối Dai Dẳng",
+            "description": "Khi 1 bài quân hy sinh, ban +1|+1 cho 1 bài quân ngẫu nhiên trên tay người chơi sở hữu bài quân đó.",
+            "descriptionRaw": "Khi 1 bài quân hy sinh, ban +1|+1 cho 1 bài quân ngẫu nhiên trên tay người chơi sở hữu bài quân đó.",
+            "rarity": "Common"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01019.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01019.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B004",
+    "background": "https://images.pocguide.top/backgrounds/1920px-05BC151-full.webp",
+    "bossName": "Pháp Sư Phản Chiếu",
+    "translations": {
+      "en": {
+        "bossName": "Mirror Mage"
+      }
+    },
+    "power": [
+      "P01165"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01165",
+        "name": "Ảo Ảnh Ánh Sáng",
+        "rarity": "Hiếm",
+        "description": "Bắt Đầu Trận Đấu: [k:Foe|Địch Thủ] triệu hồi 1 lá [cd:05BC151|Pháp Sư Phản Chiếu|icon,img-full] 0|8.",
+        "descriptionRaw": "Bắt Đầu Trận Đấu: Địch Thủ triệu hồi 1 lá Pháp Sư Phản Chiếu 0|8.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Trick of The Light",
+            "description": "Game Start: The [k:Foe|Foe] summons a 0|8 [cd:05BC151|Mirror Mage|icon,img-full].",
+            "descriptionRaw": "Game Start: The Foe summons a 0|8 Mirror Mage.",
+            "rarity": "Rare"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01165.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01165.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B005",
+    "background": "https://images.pocguide.top/backgrounds/1920px-01FR026-full.webp",
+    "bossName": "Móng Sắt Đầu Đàn",
+    "translations": {
+      "en": {
+        "bossName": "Alpha Wildclaw"
+      }
+    },
+    "power": [
+      "P01085"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01085",
+        "name": "Thống Trị",
+        "rarity": "Sử Thi",
+        "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: [k:Foe|Địch Thủ] [k:Rally|Tiến Công].",
+        "descriptionRaw": "Bắt Đầu Vòng Đấu: Địch Thủ Tiến Công.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Domination",
+            "description": "[k:RoundStart|Round Start]: The [k:Foe|Foe] Rallies.",
+            "descriptionRaw": "Round Start: The Foe Rallies.",
+            "rarity": "Epic"
+          }
+        },
+        "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0112.png",
+        "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0112.png"
+      }
+    ]
+  },
+  {
+    "bossID": "B006",
+    "background": "https://images.pocguide.top/backgrounds/1920px-01FR048-full.webp",
+    "bossName": "Người Giăng Bẫy Avarosa",
+    "translations": {
+      "en": {
+        "bossName": "Avarosan Trapper"
+      }
+    },
+    "power": [
+      "P01079"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01079",
+        "name": "Bắt Được Ngươi Rồi!",
+        "rarity": "Sử Thi",
+        "description": "Lần đầu tiên [k:Foe|Địch Thủ] triệu hồi 1 bài quân mỗi vòng đấu, nó [cd:03NX018|Bắt Giữ|icon,img-full] bài quân [k:Strongest|Mạnh Nhất] của người chơi.",
+        "descriptionRaw": "Lần đầu tiên Địch Thủ triệu hồi 1 bài quân mỗi vòng đấu, nó Bắt Giữ bài quân Mạnh Nhất của người chơi.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Got The Beastie",
+            "description": "The first time the [k:Foe|Foe] summons a unit each round, it Captures the player's [k:Strongest|Strongest] unit.",
+            "descriptionRaw": "The first time the Foe summons a unit each round, it Captures the player's Strongest unit.",
+            "rarity": "Epic"
+          }
+        },
+        "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0133.png",
+        "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0133.png"
+      }
+    ]
+  },
+  {
+    "bossID": "B007",
+    "background": "https://images.pocguide.top/backgrounds/1920px-03IO009-full.webp",
+    "bossName": "Một Bữa Ăn Cân Bằng",
+    "translations": {
+      "en": {
+        "bossName": "A Balanced Meal"
+      }
+    },
+    "power": [
+      "P01078"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01078",
+        "name": "Trái Đắng",
+        "rarity": "Hiếm",
+        "description": "[k:RoundEnd|Kết Thúc Vòng Đấu]:  Nếu [k:Health|Máu] Nhà Chính của [k:Foe|Địch Thủ] lớn hơn khi [k:RoundStart|Bắt Đầu Vòng Đấu], gây lượng sát thương bằng với sự chênh lệch đó lên Nhà Chính của ngươi.",
+        "descriptionRaw": "Kết Thúc Vòng Đấu:  Nếu Máu Nhà Chính của Địch Thủ lớn hơn khi Bắt Đầu Vòng Đấu, gây lượng sát thương bằng với sự chênh lệch đó lên Nhà Chính của ngươi.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Bitter Fruit",
+            "description": "[k:RoundEnd|Round End]: If the [k:Foe|Foe]'s Nexus [k:Health|Health] is greater than it was at [k:RoundStart|Round Start], deal damage to your Nexus equal to the difference.",
+            "descriptionRaw": "Round End: If the Foe's Nexus Health is greater than it was at Round Start, deal damage to your Nexus equal to the difference.",
+            "rarity": "Rare"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01078.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01078.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B008",
+    "background": "https://images.pocguide.top/backgrounds/1920px-01IO045-hd-full.webp",
+    "bossName": "Dấu Hiệu Xuân Sang",
+    "translations": {
+      "en": {
+        "bossName": "Herald of Spring"
+      }
+    },
+    "power": [
+      "P01077"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01077",
+        "name": "Nhóm Hỗ Trợ",
+        "rarity": "Hiếm",
+        "description": "Khi 1 bài quân của [k:Foe|Địch Thủ] được [k:Support|Hỗ Trợ], ban +2|+2 cho bài quân đó.",
+        "descriptionRaw": "Khi 1 bài quân của Địch Thủ được Hỗ Trợ, ban +2|+2 cho bài quân đó.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Support Group",
+            "description": "When one of the [k:Foe|Foe]'s unit is Supported, grant it +2|+2.",
+            "descriptionRaw": "When one of the Foe's unit is Supported, grant it +2|+2.",
+            "rarity": "Rare"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01077.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01077.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B009",
+    "background": "https://images.pocguide.top/backgrounds/1920px-01IO008-full.webp",
+    "bossName": "Tinh Linh Lốc Xoáy",
+    "translations": {
+      "en": {
+        "bossName": "Fae Bladetwirler"
+      }
+    },
+    "power": [
+      "P01076"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01076",
+        "name": "Sắt Thép Sáng Lóa",
+        "rarity": "Hiếm",
+        "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: [k:Stun|Làm Choáng] bài quân [k:Strongest|Mạnh Nhất] của người chơi.",
+        "descriptionRaw": "Bắt Đầu Vòng Đấu: Làm Choáng bài quân Mạnh Nhất của người chơi.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Flash of Steel",
+            "description": "[k:RoundStart|Round Start]: [k:Stun|Stun] the player's [k:Strongest|Strongest] unit.",
+            "descriptionRaw": "Round Start: Stun the player's Strongest unit.",
+            "rarity": "Rare"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01076.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01076.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B010",
+    "background": "https://images.pocguide.top/backgrounds/1920px-01FR022-hd-full.webp",
+    "bossName": "Diều Hâu Tiền Báo",
+    "translations": {
+      "en": {
+        "bossName": "Omen Hawk"
+      }
+    },
+    "power": [
+      "P01074"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01074",
+        "name": "Tầm Nhìn Sức Mạnh",
+        "rarity": "Sử Thi",
+        "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Ban +20|+0 cho bài quân trên cùng trong bộ bài của [k:Foe|Địch Thủ].",
+        "descriptionRaw": "Bắt Đầu Vòng Đấu: Ban +20|+0 cho bài quân trên cùng trong bộ bài của Địch Thủ.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Vision Of Strength",
+            "description": "[k:RoundStart|Round Start]: Grant the top unit in the [k:Foe|Foe]'s deck +20|+0.",
+            "descriptionRaw": "Round Start: Grant the top unit in the Foe's deck +20|+0.",
+            "rarity": "Epic"
+          }
+        },
+        "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0136.png",
+        "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0136.png"
+      }
+    ]
+  },
+  {
+    "bossID": "B011",
+    "background": "https://images.pocguide.top/backgrounds/1920px-01FR014-hd-full.webp",
+    "bossName": "Yeti Tí Nị",
+    "translations": {
+      "en": {
+        "bossName": "Yeti Yearling"
+      }
+    },
+    "power": [
+      "P01066"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01066",
+        "name": "Yeti Giận Dữ",
+        "rarity": "Hiếm",
+        "description": "Khi 1 Yeti của [k:Foe|Địch Thủ] hy sinh, tạo 1 lá [cd:01FR028|Yeti Dữ Tợn|icon,img-full] trong 3 lá bài trên cùng ở bộ bài của [k:Foe|Địch Thủ], đồng thời ban +1|+1 và giảm 1 [k:Cost|tiêu hao] cho Yeti của [k:Foe|Địch Thủ] [k:Everywhere|Ở MỌI NƠI].",
+        "descriptionRaw": "Khi 1 Yeti của Địch Thủ hy sinh, tạo 1 lá Yeti Dữ Tợn trong 3 lá bài trên cùng ở bộ bài của Địch Thủ, đồng thời ban +1|+1 và giảm 1 tiêu hao cho Yeti của Địch Thủ Ở MỌI NƠI.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Angry Yetis",
+            "description": "When one of the [k:Foe|Foe]'s Yetis dies, create an  [cd:01FR028|Enraged Yeti|icon,img-full] in the top 3 cards of the [k:Foe|Foe]'s deck and grant the [k:Foe|Foe]'s Yetis [k:Everywhere|Everywhere] +1|+1 and reduce their costs by 1.",
+            "descriptionRaw": "When one of the Foe's Yetis dies, create an  Enraged Yeti in the top 3 cards of the Foe's deck and grant the Foe's Yetis Everywhere +1|+1 and reduce their costs by 1.",
+            "rarity": "Rare"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01066.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01066.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B012",
+    "background": "https://images.pocguide.top/backgrounds/1920px-01IO016-full.webp",
+    "bossName": "Phong Kiếm Hiền Nhân",
+    "translations": {
+      "en": {
+        "bossName": "Zephyr Sage"
+      }
+    },
+    "power": [
+      "P01269"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01269",
+        "name": "Ký Ức Nhân Đôi",
+        "rarity": "Sử Thi",
+        "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: [k:Foe|Địch Thủ] ban +3|+3 cho bài quân có [k:Cost|tiêu hao] thấp nhất trên tay, sau đó tạo một bản sao y hệt của lá đó trên tay.",
+        "descriptionRaw": "Bắt Đầu Vòng Đấu: Địch Thủ ban +3|+3 cho bài quân có tiêu hao thấp nhất trên tay, sau đó tạo một bản sao y hệt của lá đó trên tay.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Memories Multiplied",
+            "description": "[k:RoundStart|Round Start]: The [k:Foe|Foe] grants +3|+3 to their least expensive unit in hand, then creates an exact copy of it in hand.",
+            "rarity": "Epic",
+            "descriptionRaw": "Round Start: The Foe grants +3|+3 to their least expensive unit in hand, then creates an exact copy of it in hand."
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01269.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01269.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B013",
+    "background": "https://images.pocguide.top/backgrounds/1920px-01IO041-hd-full.webp",
+    "bossName": "Karma & Sett",
+    "translations": {
+      "en": {
+        "bossName": "Karma & Sett"
+      }
+    },
+    "power": [
+      "P01061",
+      "P01056"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01061",
+        "name": "Thiền Hướng",
+        "rarity": "Sử Thi",
+        "description": "Bắt Đầu Trận Đấu: TẤT CẢ người chơi bắt đầu với 10 ngọc năng lượng.",
+        "descriptionRaw": "Bắt Đầu Trận Đấu: TẤT CẢ người chơi bắt đầu với 10 ngọc năng lượng.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Guided Meditation",
+            "description": "Game Start: ALL players start with 10 mana gems.",
+            "descriptionRaw": "Game Start: ALL players start with 10 mana gems.",
+            "rarity": "Epic"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01061.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01061.webp"
+      },
+      {
+        "powerCode": "P01056",
+        "name": "Nhà Vô Địch Tranh Tài",
+        "rarity": "Sử Thi",
+        "description": "Khi [k:Foe|Địch Thủ] hồi lại năng lượng sẽ trao +1|+1 cho các anh hùng của chúng cho mỗi năng lượng được hồi lại.",
+        "descriptionRaw": "Khi Địch Thủ hồi lại năng lượng sẽ trao +1|+1 cho các anh hùng của chúng cho mỗi năng lượng được hồi lại.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Champions' Contest",
+            "description": "When the [k:Foe|Foe]'s refills mana, they grant their champions +1|+1 for each mana refilled.",
+            "descriptionRaw": "When the Foe's refills mana, they grant their champions +1|+1 for each mana refilled.",
+            "rarity": "Epic"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01056.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01056.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B014",
+    "background": "https://images.pocguide.top/backgrounds/1920px-03IO002-full.webp",
+    "bossName": "Lulu & Zed",
+    "translations": {
+      "en": {
+        "bossName": "Lulu & Zed"
+      }
+    },
+    "power": [
+      "P01065",
+      "P01022"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01065",
+        "name": "Lưỡi Gươm Trong Bóng Tối",
+        "rarity": "Sử Thi",
+        "description": "[k:RoundEnd|Kết Thúc Vòng Đấu]: Nếu Nhà Chính của Người Chơi đã nhận sát thương trong vòng này, bài quân [k:Strongest|mạnh nhất] của [k:Foe|Địch Thủ] sẽ [k:Strike|ra đòn] lên nó.",
+        "descriptionRaw": "Kết Thúc Vòng Đấu: Nếu Nhà Chính của Người Chơi đã nhận sát thương trong vòng này, bài quân mạnh nhất của Địch Thủ sẽ ra đòn lên nó.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Blade in Darkness",
+            "description": "[k:RoundEnd|Round End]: If the player's Nexus took damage this round, the [k:Foe|Foe]'s [k:Strongest|strongest] unit strikes it.",
+            "descriptionRaw": "Round End: If the player's Nexus took damage this round, the Foe's strongest unit strikes it.",
+            "rarity": "Epic"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01065.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01065.webp"
+      },
+      {
+        "powerCode": "P01022",
+        "name": "Adoribus!",
+        "rarity": "Thường",
+        "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Biến đổi tùy tùng [k:Strongest|mạnh nhất] của người chơi thành 1 lá [cd:03IO008T1|Sóc|icon,img-full] 1|1 và [k:Silenced|Câm Lặng] nó trong vòng này.",
+        "descriptionRaw": "Bắt Đầu Vòng Đấu: Biến đổi tùy tùng mạnh nhất của người chơi thành 1 lá Sóc 1|1 và Câm Lặng nó trong vòng này.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Adoribus!",
+            "description": "[k:RoundStart|Round Start]: Transform the player's [k:Strongest|Strongest] follower into a 1|1  [cd:03IO008T1|Squirrel|icon,img-full] and [k:Silence|Silence] it this round.",
+            "descriptionRaw": "Round Start: Transform the player's Strongest follower into a 1|1  Squirrel and Silence it this round.",
+            "rarity": "Common"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01022.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01022.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B015",
+    "background": "https://images.pocguide.top/backgrounds/1920px-04IO009-full.webp",
+    "bossName": "Vũ Công",
+    "translations": {
+      "en": {
+        "bossName": "The Dancers"
+      }
+    },
+    "power": [
+      "P01108"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01108",
+        "name": "Vũ Điệu Đơn Sơ",
+        "rarity": "Hiếm",
+        "description": "Khi một bài quân của [k:Foe|Địch Thủ] bị chọn làm mục tiêu, nó sẽ hoán đổi với một bài quân ngẫu nhiên bên cạnh.",
+        "descriptionRaw": "Khi một bài quân của Địch Thủ bị chọn làm mục tiêu, nó sẽ hoán đổi với một bài quân ngẫu nhiên bên cạnh.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Simple Choreography",
+            "description": "When a [k:Foe|Foe]'s unit is targeted, it swaps with a random neighbor.",
+            "descriptionRaw": "When a Foe's unit is targeted, it swaps with a random neighbor.",
+            "rarity": "Rare"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01108.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01108.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B016",
+    "background": "https://images.pocguide.top/backgrounds/1920px-04SH032-full.webp",
+    "bossName": "Nữ Quái Nghiền Xương",
+    "translations": {
+      "en": {
+        "bossName": "Callous Bonecrusher"
+      }
+    },
+    "power": [
+      "P01055"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01055",
+        "name": "Hỗn Chiến Hung Thần Cát",
+        "rarity": "Sử Thi",
+        "description": "Mỗi vòng đấu, lần đầu tiên [k:Foe|Địch Thủ] sử dụng 1 bài quân, bài quân đó sẽ [k:Strike|ra đòn] lên một trong những bài quân ngẫu nhiên của người chơi.",
+        "descriptionRaw": "Mỗi vòng đấu, lần đầu tiên Địch Thủ sử dụng 1 bài quân, bài quân đó sẽ ra đòn lên một trong những bài quân ngẫu nhiên của người chơi.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Sandthrasher's Brawl",
+            "description": "Each round, the first time the [k:Foe|Foe] plays a unit, it strikes one of the player's units at random.",
+            "descriptionRaw": "Each round, the first time the Foe plays a unit, it strikes one of the player's units at random.",
+            "rarity": "Epic"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01055.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01055.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B017",
+    "background": "https://images.pocguide.top/backgrounds/1920px-04SH057-full.webp",
+    "bossName": "Thống Chến Nhiệt Huyết",
+    "translations": {
+      "en": {
+        "bossName": "Sneak Into The City"
+      }
+    },
+    "power": [
+      "P0719"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P0719",
+        "name": "Bảo Vệ Thành Phố",
+        "rarity": "Thường",
+        "description": "Bắt Đầu Trận Đấu: [k:Foe|Địch Thủ] triệu hồi 1 lá [cd:04SH051|Ngai Vàng Đế Vương|icon,img-full].",
+        "descriptionRaw": "Bắt Đầu Trận Đấu: Địch Thủ triệu hồi 1 lá Ngai Vàng Đế Vương.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "City Watch",
+            "description": "Game Start: The [k:Foe|Foe] summons an [cd:04SH051|Emperor's Dais|icon,img-full].",
+            "descriptionRaw": "Game Start: The Foe summons an Emperor's Dais.",
+            "rarity": "Common"
+          }
+        },
+        "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0719.png",
+        "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0719-full.png"
+      }
+    ]
+  },
+  {
+    "bossID": "B018",
+    "background": "https://images.pocguide.top/backgrounds/1920px-04IO002-full.webp",
+    "bossName": "Zinneia, Khúc Cao Trảo Đanh Thép",
+    "translations": {
+      "en": {
+        "bossName": "Zinneia, Steel Crescendo"
+      }
+    },
+    "power": [
+      "P01053"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01053",
+        "name": "Vũ Điệu Cuối Cùng",
+        "rarity": "Hiếm",
+        "description": "Bài quân của [k:Foe|Địch Thủ] có: [k:NexusStrike|Tấn Công Nhà Chính]: Giảm 2 [k:Cost|tiêu hao] cho Zinneia - Khúc Cao Trào Đanh Thép đồng minh [k:Everywhere|ở mọi nơi].",
+        "descriptionRaw": "Bài quân của Địch Thủ có: Tấn Công Nhà Chính: Giảm 2 tiêu hao cho Zinneia - Khúc Cao Trào Đanh Thép đồng minh ở mọi nơi.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Working Overtime",
+            "description": "The [k:Foe|Foe]'s units have: [k:NexusStrike|Nexus Strike]: Reduce the [k:Cost|cost] of allied  [cd:04IO002|Zinneia, Steel Crescendo|icon,img-full] [k:Everywhere|everywhere] by 2.",
+            "descriptionRaw": "The Foe's units have: Nexus Strike: Reduce the cost of allied  Zinneia, Steel Crescendo everywhere by 2.",
+            "rarity": "Rare"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01053.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01053.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B019",
+    "background": "https://images.pocguide.top/backgrounds/1920px-04SH003-full.webp",
+    "bossName": "Azir & Irelia",
+    "translations": {
+      "en": {
+        "bossName": "Azir & Irelia"
+      }
+    },
+    "power": [
+      "P01051",
+      "P01050"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01051",
+        "name": "Đạo Quân Hoàng Đế",
+        "rarity": "Sử Thi",
+        "description": "[cd:04SH003T1|Chiến Binh Cát|icon,img-full] của [k:Foe|Địch Thủ] [k:Everywhere|Ở Mọi Nơi] được nhận +2|+0.",
+        "descriptionRaw": "Chiến Binh Cát của Địch Thủ Ở Mọi Nơi được nhận +2|+0.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "The Emperor's Army",
+            "description": "The [k:Foe|Foe]'s  Sand Soldiers have +2|+0.",
+            "descriptionRaw": "The Foe's  Sand Soldiers have +2|+0.",
+            "rarity": "Epic"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01051.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01051.webp"
+      },
+      {
+        "powerCode": "P01050",
+        "name": "Vũ Kiếm Vô Tận",
+        "rarity": "Sử Thi",
+        "description": "Khi [k:Foe|Địch Thủ] có [k:BladeDance|Vũ Kiếm], ban +1|+1 cho bài quân [k:Strongest|mạnh nhất] của chúng và bài quân đó [k:AttackSkillMark|tấn công] với [cd:04IO010|Lưỡi Kiếm|icon,img-full].",
+        "descriptionRaw": "Khi Địch Thủ có Vũ Kiếm, ban +1|+1 cho bài quân mạnh nhất của chúng và bài quân đó tấn công với Lưỡi Kiếm.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Infinite Blade Waltz",
+            "description": "When the [k:Foe|Foe] [cd:04IO010|Blade|icon,img-full] Dances, they grant their [k:Strongest|strongest] unit +1|+1 and it attacks with the  Blades.",
+            "descriptionRaw": "When the Foe Blade Dances, they grant their strongest unit +1|+1 and it attacks with the  Blades.",
+            "rarity": "Epic"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01050.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01050.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B020",
+    "background": "https://images.pocguide.top/backgrounds/1920px-01NX036-hd-full.webp",
+    "bossName": "Đấu Sĩ Ngưu Vương",
+    "translations": {
+      "en": {
+        "bossName": "Minotaur Reckoner"
+      }
+    },
+    "power": [
+      "P01109"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01109",
+        "name": "Đấu Sĩ Lồng Sắt",
+        "rarity": "Hiếm",
+        "description": "[k:RoundEnd|Kết Thúc Vòng Đấu]: Gây 4 sát thương lên các bài quân Bị Choáng của người chơi.",
+        "descriptionRaw": "Kết Thúc Vòng Đấu: Gây 4 sát thương lên các bài quân Bị Choáng của người chơi.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Pit Fight",
+            "description": "[k:RoundEnd|Round End]: Deal 4 to the player's Stunned units.",
+            "descriptionRaw": "Round End: Deal 4 to the player's Stunned units.",
+            "rarity": "Hiếm"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01109.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01109.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B021",
+    "background": "https://images.pocguide.top/backgrounds/1920px-01PZ044-full.webp",
+    "bossName": "Hóa-Tặc Nghệ Sĩ",
+    "translations": {
+      "en": {
+        "bossName": "Chempunk Shredder"
+      }
+    },
+    "power": [
+      "P01008"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01008",
+        "name": "Màn Diễn Choáng Ngợp",
+        "rarity": "Hiếm",
+        "description": "Khi có 1 bài quân của người chơi bị thương, [k:Stun|Làm Choáng] nó trong vòng này.",
+        "descriptionRaw": "Khi có 1 bài quân của người chơi bị thương, Làm Choáng nó trong vòng này.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Stunning Performance",
+            "description": "When one of the player's units is damaged, [k:Stun|Stun] it this round.",
+            "descriptionRaw": "When one of the player's units is damaged, Stun it this round.",
+            "rarity": "Rare"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01008.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01008.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B022",
+    "background": "https://images.pocguide.top/backgrounds/1920px-01NX005-full.webp",
+    "bossName": "Huyết Hầu",
+    "translations": {
+      "en": {
+        "bossName": "Crimson Aristocrat"
+      }
+    },
+    "power": [
+      "P01033"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01033",
+        "name": "Đỏ Như Môi Nàng",
+        "rarity": "Thường",
+        "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Gây 1 sát thương lên tất cả bài quân, sau đó ban +0|+3 cho bài quân của [k:Foe|Địch Thủ].",
+        "descriptionRaw": "Bắt Đầu Vòng Đấu: Gây 1 sát thương lên tất cả bài quân, sau đó ban +0|+3 cho bài quân của Địch Thủ.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Red As Her Lips",
+            "description": "[k:RoundStart|Round Start]: Deal 1 to all units, then grant the [k:Foe|Foe]'s units +0|+3.",
+            "descriptionRaw": "Round Start: Deal 1 to all units, then grant the Foe's units +0|+3.",
+            "rarity": "Common"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01033.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01033.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B023",
+    "background": "https://images.pocguide.top/backgrounds/1920px-06NX015-full.webp",
+    "bossName": "Học Trò Hồn Thuật",
+    "translations": {
+      "en": {
+        "bossName": "Manasoul Student"
+      }
+    },
+    "power": [
+      "P01045"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01045",
+        "name": "Tập Trung Toàn Trường",
+        "rarity": "Thường",
+        "description": "Bắt Đầu Trận Đấu: TẤT CẢ người chơi triệu hồi 1 lá [cd:06NX015|Học Trò Hồn Thuật|icon,img-full].",
+        "descriptionRaw": "Bắt Đầu Trận Đấu: TẤT CẢ người chơi triệu hồi 1 lá Học Trò Hồn Thuật.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "School Assembly",
+            "description": "Game Start: ALL players summon a  [cd:06NX015|Manasoul Student|icon,img-full].",
+            "descriptionRaw": "Game Start: ALL players summon a  Manasoul Student.",
+            "rarity": "Common"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01045.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01045.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B024",
+    "background": "https://images.pocguide.top/backgrounds/1920px-06RU002-full.webp",
+    "bossName": "Jhin & Annie",
+    "translations": {
+      "en": {
+        "bossName": "Jhin & Annie"
+      }
+    },
+    "power": [
+      "P01089",
+      "P01012"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01089",
+        "name": "Kế Hoạch Tỉ Mỉ",
+        "rarity": "Hiếm",
+        "description": "Bài quân của người chơi có: [k:NexusStrike|Tấn Công Nhà Chính]: Tạo trên tay [k:Foe|Địch Thủ] 1 lá [cd:01NX043|Lưỡi Dao|icon,img-full] [k:Fleeting|Phù Du].",
+        "descriptionRaw": "Bài quân của người chơi có: Tấn Công Nhà Chính: Tạo trên tay Địch Thủ 1 lá Lưỡi Dao Phù Du.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Elaborate Plans",
+            "description": "The player's units have:  [k:NexusStrike|Nexus Strike]: Create a [k:Fleeting|Fleeting]  [cd:01NX043|Blade's Edge|icon,img-full] in the [k:Foe|Foe]'s hand.\n",
+            "descriptionRaw": "The player's units have:  Nexus Strike: Create a Fleeting  Blade's Edge in the Foe's hand.\n",
+            "rarity": "Rare"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01089.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01089.webp"
+      },
+      {
+        "powerCode": "P01012",
+        "name": "Lửa Bập Bùng",
+        "rarity": "Thường",
+        "description": "TẤT CẢ bài phép và [k:Skill|kỹ năng] gây thêm 1 sát thương.",
+        "descriptionRaw": "TẤT CẢ bài phép và kỹ năng gây thêm 1 sát thương.",
+        "type": [
+          "Foe Power",
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Lửa Bập Bùng",
+            "description": "ALL spells and Skills deal 1 extra damage.",
+            "descriptionRaw": "ALL spells and Skills deal 1 extra damage.",
+            "rarity": "Common"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01012.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01012.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B025",
+    "background": "https://images.pocguide.top/backgrounds/1920px-01NX020-full.webp",
+    "bossName": "Draven & Jinx",
+    "translations": {
+      "en": {
+        "bossName": "Draven & Jinx"
+      }
+    },
+    "power": [
+      "P01090",
+      "P01091"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01090",
+        "name": "Đấu Sĩ Chúa Tể",
+        "rarity": "Sử Thi",
+        "description": "[k:RoundEnd|Kết Thúc Vòng Đấu]: [k:Foe|Địch Thủ] triệu hồi [cd:01NX020|Draven|icon,img-full] nếu không có hắn trên bàn. Khi [cd:01NX020|Draven|icon,img-full] [k:AttackSkillMark|tấn công], trao +1|+0 và [k:DoubleStrike|Song Kích] cho hắn trong vòng này.",
+        "descriptionRaw": "Kết Thúc Vòng Đấu: Địch Thủ triệu hồi Draven nếu không có hắn trên bàn. Khi Draven tấn công, trao +1|+0 và Song Kích cho hắn trong vòng này.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "God Among Gladiators",
+            "description": "[k:RoundEnd|Round End]: The [k:Foe|Foe] summons [cd:01NX020|Draven|icon,img-full] if he isn't in [k:PlaySkillMark|play]. When [cd:01NX020|Draven|icon,img-full] attacks, give him +1|+0 and [k:DoubleStrike|Double Attack] this round.",
+            "descriptionRaw": "Round End: The Foe summons Draven if he isn't in play. When Draven attacks, give him +1|+0 and Double Attack this round.",
+            "rarity": "Epic"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01090.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01090.webp"
+      },
+      {
+        "powerCode": "P01091",
+        "name": "Tên Lửa Nổ Bùm!",
+        "rarity": "Sử Thi",
+        "description": "Khi [k:Foe|Địch Thủ] [k:AttackSkillMark|tấn công], chúng sẽ sử dụng [cd:01PZ040T2|Tên Lửa Đạn Đạo Siêu Khủng Khiếp!|icon,img-full].",
+        "descriptionRaw": "Khi Địch Thủ tấn công, chúng sẽ sử dụng Tên Lửa Đạn Đạo Siêu Khủng Khiếp!.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Rockets Go Boom!",
+            "description": "When the [k:Foe|Foe] attacks, they [k:PlaySkillMark|play]  [cd:01PZ040T2|Super Mega Death Rocket!|icon,img-full].",
+            "descriptionRaw": "When the Foe attacks, they play  Super Mega Death Rocket!.",
+            "rarity": "Epic"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01091.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01091.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B026",
+    "background": "https://images.pocguide.top/backgrounds/1920px-07PZ013-full.webp",
+    "bossName": "Đài Tưởng Niệm Hầm Thải",
+    "translations": {
+      "en": {
+        "bossName": "Sump Monument"
+      }
+    },
+    "power": [
+      "P01095"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01095",
+        "name": "Vua Chồn",
+        "rarity": "Thường",
+        "description": "Bắt Đầu Trận Đấu: [k:Foe|Địch Thủ] triệu hồi một lá [cd:07PZ013|Đài Tượng Niệm Hầm Thải|icon,img-full].",
+        "descriptionRaw": "Bắt Đầu Trận Đấu: Địch Thủ triệu hồi một lá Đài Tượng Niệm Hầm Thải.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "King of the Whumps",
+            "description": "Game Start: The [k:Foe|foe] summons a  [cd:07PZ013|Sump Monument|icon,img-full].",
+            "descriptionRaw": "Game Start: The foe summons a  Sump Monument.",
+            "rarity": "Common"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01095.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01095.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B027",
+    "background": "https://images.pocguide.top/backgrounds/08BC018-full.webp",
+    "bossName": "Cạm Bẫy Ngọt Ngào",
+    "translations": {
+      "en": {
+        "bossName": "The Sweet Trap"
+      }
+    },
+    "power": [
+      "P01092"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01092",
+        "name": "Hoàn Thành Đặt Bẫy",
+        "rarity": "Hiếm",
+        "description": "Bài quân của [k:Foe|Địch Thủ] có [k:Vulnerable|Kích Động]. Khi một kẻ địch bị [k:Challenger|Thách Đấu], giảm 10 [k:Cost|tiêu hao] năng lượng bài phép trên tay của [k:Foe|Địch Thủ] trong vòng này.",
+        "descriptionRaw": "Bài quân của Địch Thủ có Kích Động. Khi một kẻ địch bị Thách Đấu, giảm 10 tiêu hao năng lượng bài phép trên tay của Địch Thủ trong vòng này.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "The Trap is Set",
+            "description": "The [k:Foe|Foe]'s units are [k:Vulnerable|Vulnerable]. When an enemy is Challenged reduce the [k:Cost|cost] of spells in the [k:Foe|Foe]'s hand by 10 this round.\n",
+            "descriptionRaw": "The Foe's units are Vulnerable. When an enemy is Challenged reduce the cost of spells in the Foe's hand by 10 this round.\n",
+            "rarity": "Rare"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01092.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01092.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B028",
+    "background": "https://images.pocguide.top/backgrounds/1920px-01NX021-hd-full.webp",
+    "bossName": "Quân Đoàn Cướp Bóc",
+    "translations": {
+      "en": {
+        "bossName": "Legion Marauder"
+      }
+    },
+    "power": [
+      "P01107"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01107",
+        "name": "Chúng Tới Này!",
+        "rarity": "Thường",
+        "description": "Khi [k:Foe|Địch Thủ] triệu hồi 1 bài quân [cd:01NX021|Quân Đoàn Cướp Bóc|icon,img-full], tráo 1 lá [cd:01NX021|Quân Đoàn Cướp Bóc|icon,img-full] vào bộ bài của [k:Foe|Địch Thủ].",
+        "descriptionRaw": "Khi Địch Thủ triệu hồi 1 bài quân Quân Đoàn Cướp Bóc, tráo 1 lá Quân Đoàn Cướp Bóc vào bộ bài của Địch Thủ.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Here They Come!",
+            "description": "When the [k:Foe|Foe] summons a  [cd:01NX021|Legion Marauder|icon,img-full], shuffle a  [cd:01NX021|Legion Marauder|icon,img-full] into the [k:Foe|Foe]'s deck.",
+            "descriptionRaw": "When the Foe summons a  Legion Marauder, shuffle a  Legion Marauder into the Foe's deck.",
+            "rarity": "Commnon"
+          }
+        },
+        "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0220.png",
+        "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0220.png"
+      }
+    ]
+  },
+  {
+    "bossID": "B029",
+    "background": "https://images.pocguide.top/backgrounds/1920px-01NX031-hd-full.webp",
+    "bossName": "Kẻ Tầm Vọng Trifarix",
+    "translations": {
+      "en": {
+        "bossName": "Trifarian Gloryseeker"
+      }
+    },
+    "power": [
+      "P01094"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01094",
+        "name": "Diễu Binh",
+        "rarity": "Hiếm",
+        "description": "Khi 1 bài quân của [k:Foe|Địch Thủ] [k:Strike|ra đòn] gây 5+ sát thương, ban +2|+2 cho bài quân đó.",
+        "descriptionRaw": "Khi 1 bài quân của Địch Thủ ra đòn gây 5+ sát thương, ban +2|+2 cho bài quân đó.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Militant March",
+            "description": "When one of the [k:Foe|Foe]'s units strikes for 5+ damage, grant it +2|+2.\n",
+            "descriptionRaw": "When one of the Foe's units strikes for 5+ damage, grant it +2|+2.\n",
+            "rarity": "Rare"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01094.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01094.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B030",
+    "background": "https://images.pocguide.top/backgrounds/1920px-02NX007-full.webp",
+    "bossName": "Teemo & Swain",
+    "translations": {
+      "en": {
+        "bossName": "Teemo & Swain"
+      }
+    },
+    "power": [
+      "P01110",
+      "P01060"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01110",
+        "name": "Mưu Kế Trinh Sát",
+        "rarity": "Huyền Thoại",
+        "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: [k:Foe|Địch Thủ] gài 15 lá [cd:01PZ022|Nấm Độc|icon,img-full] vào bộ bài của người chơi.",
+        "descriptionRaw": "Bắt Đầu Vòng Đấu: Địch Thủ gài 15 lá Nấm Độc vào bộ bài của người chơi.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "The Scout's Scheme",
+            "description": "[k:RoundStart|Round Start]: The [k:Foe|Foe] plants 15 Poison Puffcaps in the player's deck.",
+            "descriptionRaw": "Round Start: The Foe plants 15 Poison Puffcaps in the player's deck.",
+            "rarity": "Legendary"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01093.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01093.webp"
+      },
+      {
+        "powerCode": "P01060",
+        "name": "Thống Khổ",
+        "rarity": "Sử Thi",
+        "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Gây 3 sát thương lên tất cả các bài quân bị thương của người chơi.",
+        "descriptionRaw": "Bắt Đầu Vòng Đấu: Gây 3 sát thương lên tất cả các bài quân bị thương của người chơi.",
+        "type": [
+          "Foe Power",
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Suffer",
+            "description": "[k:RoundStart|Round Start]: Deal 3 to all the player's damaged units.",
+            "descriptionRaw": "Round Start: Deal 3 to all the player's damaged units.",
+            "rarity": "Epic"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01060.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01060.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B031",
+    "background": "https://images.pocguide.top/backgrounds/1920px-01NX034-full.webp",
+    "bossName": "Poro Tình Cảm",
+    "translations": {
+      "en": {
+        "bossName": "Affectionate Poro"
+      }
+    },
+    "power": [
+      "P01086"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01086",
+        "name": "Siêu Cuồng Nộ",
+        "rarity": "Sử Thi",
+        "description": "Khi 1 lá Poro của [k:Foe|Địch Thủ] hy sinh, [k:Foe|Địch Thủ] tạo 1 bản sao của lá bài đó trong bộ bài và ban +2|+2 cho các bản sao của lá đó [k:Everywhere|Ở MỌI NƠI].",
+        "descriptionRaw": "Khi 1 lá Poro của Địch Thủ hy sinh, Địch Thủ tạo 1 bản sao của lá bài đó trong bộ bài và ban +2|+2 cho các bản sao của lá đó Ở MỌI NƠI.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Furry Fury",
+            "description": "When one of the [k:Foe|Foe]'s Poros die, the [k:Foe|Foe] creates a copy of it in deck and grants copies of it [k:Everywhere|Everywhere] +2|+2.",
+            "descriptionRaw": "When one of the Foe's Poros die, the Foe creates a copy of it in deck and grants copies of it Everywhere +2|+2.",
+            "rarity": "Epic"
+          }
+        },
+        "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0302.png",
+        "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0302.png"
+      }
+    ]
+  },
+  {
+    "bossID": "B032",
+    "background": "https://images.pocguide.top/backgrounds/1920px-05BC005-full.webp",
+    "bossName": "Tảo Nữ",
+    "translations": {
+      "en": {
+        "bossName": "Kelp Maidens"
+      }
+    },
+    "power": [
+      "P01096"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01096",
+        "name": "Giai Điệu Phân Tâm",
+        "rarity": "Thường",
+        "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: 1 lá bài ngẫu nhiên trên tay Người Chơi sẽ tăng 2 [k:Cost|tiêu hao] trong vòng này.",
+        "descriptionRaw": "Bắt Đầu Vòng Đấu: 1 lá bài ngẫu nhiên trên tay Người Chơi sẽ tăng 2 tiêu hao trong vòng này.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Distracting Melody",
+            "description": "[k:RoundStart|Round Start]: A random card in the player's hand costs 2 more this round.\n",
+            "descriptionRaw": "Round Start: A random card in the player's hand costs 2 more this round.\n",
+            "rarity": "Common"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01096.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01096.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B033",
+    "background": "https://images.pocguide.top/backgrounds/1920px-08SI040-full.webp",
+    "bossName": "Nỗi Kinh Hãi",
+    "translations": {
+      "en": {
+        "bossName": "The Dread"
+      }
+    },
+    "power": [
+      "P0544"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P0544",
+        "name": "Chết Khiếp",
+        "rarity": "Sử Thi",
+        "description": "[k:RoundEnd|Kết Thúc Vòng Đấu]; Ban cho bài quân của người chơi –1|–0, sau đó tiêu diệt toàn bộ bài quân của người chơi với 0 [k:Power|Sức mạnh].",
+        "descriptionRaw": "Kết Thúc Vòng Đấu; Ban cho bài quân của người chơi –1|–0, sau đó tiêu diệt toàn bộ bài quân của người chơi với 0 Sức mạnh.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Die of Fright",
+            "description": "[k:RoundEnd|Round End]: Grant the player's units -1|-0, then kill all the player's units with 0 [k:Power|Power].",
+            "descriptionRaw": "Round End: Grant the player's units -1|-0, then kill all the player's units with 0 Power.",
+            "rarity": "Epic"
+          }
+        },
+        "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0544.png",
+        "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0544-full.png"
+      }
+    ]
+  },
+  {
+    "bossID": "B034",
+    "background": "https://images.pocguide.top/backgrounds/1920px-03MT030-full.webp",
+    "bossName": "Học Giả Thiên Văn",
+    "translations": {
+      "en": {
+        "bossName": "Stargazer"
+      }
+    },
+    "power": [
+      "P01098"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01098",
+        "name": "Món Quà Tinh Tú",
+        "rarity": "Hiếm",
+        "description": "Bài quân của [k:Foe|Địch Thủ] được nhận +0|+1. [k:RoundStart|Bắt Đầu Vòng Đấu]: Tạo 1 lá [cd:03MT080T1|Món Quà Từ Suối Tiên|icon,img-full] [k:Fleeting|Phù Du] trên tay [k:Foe|Địch Thủ].",
+        "descriptionRaw": "Bài quân của Địch Thủ được nhận +0|+1. Bắt Đầu Vòng Đấu: Tạo 1 lá Món Quà Từ Suối Tiên Phù Du trên tay Địch Thủ.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Star's Gift",
+            "description": "The [k:Foe|Foe]'s units have +0|+1. [k:RoundStart|Round Start]: Create a [k:Fleeting|Fleeting]  [cd:03MT080T1|Spring Gifts|icon,img-full] in the [k:Foe|Foe]'s hand.\n",
+            "descriptionRaw": "The Foe's units have +0|+1. Round Start: Create a Fleeting  Spring Gifts in the Foe's hand.\n",
+            "rarity": "Rare"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01098.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01098.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B035",
+    "background": "https://images.pocguide.top/backgrounds/1920px-03MT100-full.webp",
+    "bossName": "Rồng Nhật Thực",
+    "translations": {
+      "en": {
+        "bossName": "Eclipse Dragon"
+      }
+    },
+    "power": [
+      "P01097"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01097",
+        "name": "Lưỡi Kiếm Hoàng Hôn",
+        "rarity": "Hiếm",
+        "description": "Khi [k:Foe|Địch Thủ] kích hoạt [k:Daybreak|Hừng Đông], chúng sẽ triệu hồi [cd:02IO003T1|Tiểu Long|icon,img-full].\nKhi [k:Foe|Địch Thủ] kích hoạt [k:Nightfall|Chạng Vạng], chúng ban cho Rồng [k:Everywhere|ở mọi nơi] +1|+0.",
+        "descriptionRaw": "Khi Địch Thủ kích hoạt Hừng Đông, chúng sẽ triệu hồi Tiểu Long.\nKhi Địch Thủ kích hoạt Chạng Vạng, chúng ban cho Rồng ở mọi nơi +1|+0.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Twilight's Edge",
+            "description": "When the [k:Foe|Foe] activates [k:Daybreak|Daybreak], they summon a  [cd:02IO003T1|Dragonling|icon,img-full]. When the [k:Foe|Foe] activates [k:Nightfall|Nightfall], they grant their Dragons [k:Everywhere|everywhere] +1|+0.",
+            "descriptionRaw": "When the Foe activates Daybreak, they summon a  Dragonling. When the Foe activates Nightfall, they grant their Dragons everywhere +1|+0.",
+            "rarity": "Rare"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01097.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01097.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B036",
+    "background": "https://images.pocguide.top/backgrounds/1920px-08RU014-full.webp",
+    "bossName": "Rồng Ngàn Tuổi & Norra & Vex",
+    "translations": {
+      "en": {
+        "bossName": "Elder Dragon & Norra & Vex"
+      }
+    },
+    "power": [
+      "P01099",
+      "P01100",
+      "P0528"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01099",
+        "name": "Kỷ Nguyên Của Rồng",
+        "rarity": "Sử Thi",
+        "description": "Bắt Đầu Trận Đấu: [k:Foe|Địch Thủ] triệu hồi hai lá [cd:03MT014|Sứ Giả Rồng Thiêng|icon,img-full].",
+        "descriptionRaw": "Bắt Đầu Trận Đấu: Địch Thủ triệu hồi hai lá Sứ Giả Rồng Thiêng.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Age of Dragons",
+            "description": "Game Start: The [k:Foe|Foe] summons two  [cd:03MT014|Herald of Dragons|icon,img-full].",
+            "descriptionRaw": "Game Start: The Foe summons two  Herald of Dragons.",
+            "rarity": "Epic"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01099.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01099.webp"
+      },
+      {
+        "powerCode": "P01100",
+        "name": "Càng Đông Càng Vui",
+        "rarity": "Hiếm",
+        "description": "[k:RoundEnd|Kết Thúc Vòng Đấu]: Nếu [k:Foe|Địch Thủ] chưa triệu hồi hoặc tạo một bài quân trong vòng này, chúng sẽ gài 1 lá [cd:06BC015T3|Cổng Dịch Chuyển Kỳ Bí|icon,img-full] trong 4 lá bài trên cùng của bộ bài.",
+        "descriptionRaw": "Kết Thúc Vòng Đấu: Nếu Địch Thủ chưa triệu hồi hoặc tạo một bài quân trong vòng này, chúng sẽ gài 1 lá Cổng Dịch Chuyển Kỳ Bí trong 4 lá bài trên cùng của bộ bài.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "The More The Merrier",
+            "description": "[k:RoundEnd|Round End]: If the [k:Foe|Foe] didn't summon a created unit this round, they plant a Mysterlous Portal in the top 4 cards of their deck.",
+            "descriptionRaw": "Round End: If the Foe didn't summon a created unit this round, they plant a Mysterlous Portal in the top 4 cards of their deck.",
+            "rarity": "Rare"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01100.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01100.webp"
+      },
+      {
+        "powerCode": "P0528",
+        "name": "Bọn Chúng Cười Nhạo",
+        "rarity": "Hiếm",
+        "description": "Khi [k:Foe|Địch Thủ] triệu hồi 1 bài quân, ban [k:Gloom|Buồn Bã] cho các bài quân của người chơi có ít [k:Power|Sức Mạnh] hơn bài quân đó.",
+        "descriptionRaw": "Khi Địch Thủ triệu hồi 1 bài quân, ban Buồn Bã cho các bài quân của người chơi có ít Sức Mạnh hơn bài quân đó.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "They're All Laughing",
+            "description": "When the [k:Foe|Foe] summons a unit, grant [k:Gloom|Gloom] to the player's units with less [k:Power|power] than it.",
+            "descriptionRaw": "When the Foe summons a unit, grant Gloom to the player's units with less power than it.",
+            "rarity": "Rare"
+          }
+        },
+        "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0528.png",
+        "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0528-full.png"
+      }
+    ]
+  },
+  {
+    "bossID": "B037",
+    "background": "https://images.pocguide.top/backgrounds/1920px-08MT003T4-full.webp",
+    "bossName": "Morgana & Mordekaiser",
+    "translations": {
+      "en": {
+        "bossName": "Morgana & Mordekaiser"
+      }
+    },
+    "power": [
+      "P01101",
+      "P01102"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01101",
+        "name": "Chia Sẻ Lời Nguyền",
+        "rarity": "Sử Thi",
+        "description": "[k:RoundEnd|Kết Thúc Vòng Đấu]: [k:Foe|Địch Thủ] [k:Curse|Nguyền Rủa] bài quân [k:Strongest|mạnh nhất] của người chơi với [cd:08MT003T11|Trói Buộc|icon,img-full].",
+        "descriptionRaw": "Kết Thúc Vòng Đấu: Địch Thủ Nguyền Rủa bài quân mạnh nhất của người chơi với Trói Buộc.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Share In My Curse",
+            "description": "[k:RoundEnd|Round End]: The [k:Foe|Foe] Curses the Player's [k:Strongest|Strongest] unit with  [cd:08MT003T11|Shackles|icon,img-full].",
+            "descriptionRaw": "Round End: The Foe Curses the Player's Strongest unit with  Shackles.",
+            "rarity": "Epic"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01101.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01101.webp"
+      },
+      {
+        "powerCode": "P01102",
+        "name": "Đi Vào Tử Địa",
+        "rarity": "Sử Thi",
+        "description": "Khi [k:Foe|Địch Thủ] [k:AttackSkillMark|tấn công], chúng triệu hồi 1 lá [cd:08SI042|Mordekaiser|icon,img-full] cấp 2 [k:Ephemeral|Cảm Tử] ở vị trí [k:AttackSkillMark|tấn công].",
+        "descriptionRaw": "Khi Địch Thủ tấn công, chúng triệu hồi 1 lá Mordekaiser cấp 2 Cảm Tử ở vị trí tấn công.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Into The Death Realm",
+            "description": "When the [k:Foe|Foe] attacks, they summon an attacking, [k:Ephemeral|Ephemeral], Level 2, [cd:08SI042|Mordekaiser|icon,img-full].",
+            "descriptionRaw": "When the Foe attacks, they summon an attacking, Ephemeral, Level 2, Mordekaiser.",
+            "rarity": "Epic"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01102.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01102.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B038",
+    "background": "https://images.pocguide.top/backgrounds/1920px-03MT001-full.webp",
+    "bossName": "Chồn Tinh Lén Lút",
+    "translations": {
+      "en": {
+        "bossName": "Sneaky Zeebles"
+      }
+    },
+    "power": [
+      "P01103"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01103",
+        "name": "Chiêu Trò Lén Lút",
+        "rarity": "Hiếm",
+        "description": "Khi [k:Foe|Địch Thủ] triệu hồi 1 bài quân, ban các đặc điểm của bài quân này cho 1 bài quân được [k:Foe|Địch Thủ] triệu hồi trước đó.",
+        "descriptionRaw": "Khi Địch Thủ triệu hồi 1 bài quân, ban các đặc điểm của bài quân này cho 1 bài quân được Địch Thủ triệu hồi trước đó.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Sneaky Trick",
+            "description": "When the [k:Foe|Foe] summons a unit, grant its keyword to the previous unit the [k:Foe|Foe] summoned.",
+            "descriptionRaw": "When the Foe summons a unit, grant its keyword to the previous unit the Foe summoned.",
+            "rarity": "Rare"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01103.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01103.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B039",
+    "background": "https://images.pocguide.top/backgrounds/1920px-01FR043-full.webp",
+    "bossName": "Trái Tim Poro",
+    "translations": {
+      "en": {
+        "bossName": "Heart of the Fluft"
+      }
+    },
+    "power": [
+      "P01326"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01326",
+        "name": "Tận Thế Poro",
+        "rarity": "Sử Thi",
+        "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: [k:Foe|Địch Thủ] triệu hồi 1 lá Poro 1 [k:Cost|tiêu hao] ngẫu nhiên. Sau đó nếu [k:Foe|Địch Thủ] có 5+ bài quân, chúng tạo trên tay 1 lá [cd:01FR043|Trái Tim Poro|icon,img-full] 0 [k:Cost|tiêu hao].",
+        "descriptionRaw": "Bắt Đầu Vòng Đấu: Địch Thủ triệu hồi 1 lá Poro 1 tiêu hao ngẫu nhiên. Sau đó nếu Địch Thủ có 5+ bài quân, chúng tạo trên tay 1 lá Trái Tim Poro 0 tiêu hao.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "The Poropocalypse",
+            "description": "[k:RoundStart|Round Start]: The [k:Foe|Foe] summons a random 1 [k:Cost|cost] Poro. Then if the [k:Foe|Foe] has 5+ units, they create a 0 [k:Cost|cost] [cd:01FR043|Heart of the Fluft|icon,img-full] in hand.",
+            "descriptionRaw": "Round Start: The Foe summons a random 1 cost Poro. Then if the Foe has 5+ units, they create a 0 cost Heart of the Fluft in hand.",
+            "rarity": "Epic"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01326.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01326.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B040",
+    "background": "https://images.pocguide.top/backgrounds/1920px-03MT009-full.webp",
+    "bossName": "Zoe & Vua Poro",
+    "translations": {
+      "en": {
+        "bossName": "Zoe & The Poro King"
+      }
+    },
+    "power": [
+      "P1000",
+      "P01106"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P1000",
+        "name": "Muôn Năm",
+        "rarity": "Huyền Thoại",
+        "description": "Chừng nào [k:Foe|Địch Thủ] có từ 2 anh hùng trở lên, Nhà Chính của chúng sẽ không thể nhận sát thương.",
+        "descriptionRaw": "Chừng nào Địch Thủ có từ 2 anh hùng trở lên, Nhà Chính của chúng sẽ không thể nhận sát thương.",
+        "type": [
+          "Defiance Power",
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Forever",
+            "description": "As long as the [k:Foe|Foe] has 2+ champions, their Nexus can't take damage.",
+            "descriptionRaw": "As long as the Foe has 2+ champions, their Nexus can't take damage.",
+            "rarity": "Legendary"
+          }
+        },
+        "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P1000.png",
+        "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P1000-full.png"
+      },
+      {
+        "powerCode": "P01106",
+        "name": "Bạn Thân",
+        "rarity": "Huyền Thoại",
+        "description": "[k:RoundEnd|Kết Thúc Vòng Đấu]: Biến đổi những tùy tùng Poro của [k:Foe|Địch Thủ] thành các anh hùng mới từ khu vực của chúng.",
+        "descriptionRaw": "Kết Thúc Vòng Đấu: Biến đổi những tùy tùng Poro của Địch Thủ thành các anh hùng mới từ khu vực của chúng.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Best Friends",
+            "description": "[k:RoundEnd|Round End]: Transform the [k:Foe|Foe]'s Poro followers into new champions from their region.",
+            "descriptionRaw": "Round End: Transform the Foe's Poro followers into new champions from their region.",
+            "rarity": "Legendary"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01106.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01106.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B041",
+    "background": "https://images.pocguide.top/backgrounds/1920px-09SI014-full.webp",
+    "bossName": "Một Nhà Thơ Quá Thân Thiện",
+    "translations": {
+      "en": {
+        "bossName": "A Too-Friendly Poet"
+      }
+    },
+    "power": [
+      "P0807"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P0807",
+        "name": "Bài Thơ Xúc Động",
+        "rarity": "Hiếm",
+        "description": "Khi một Kẻ địch kích hoạt một Câu Chuyện, ban [k:Gloom|Buồn Bã] cho đồng minh.",
+        "descriptionRaw": "Khi một Kẻ địch kích hoạt một Câu Chuyện, ban Buồn Bã cho đồng minh.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Sappy Sonnets",
+            "description": "When the [k:Foe|Foe] activates a Story, grant allies [k:Gloom|Gloom].",
+            "descriptionRaw": "When the Foe activates a Story, grant allies Gloom.",
+            "rarity": "Rare"
+          }
+        },
+        "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0807.png",
+        "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0807-full.png"
+      }
+    ]
+  },
+  {
+    "bossID": "B042",
+    "background": "https://images.pocguide.top/backgrounds/1920px-05BC098-full.webp",
+    "bossName": "Giấc Ngủ Không Chợp Mắt",
+    "translations": {
+      "en": {
+        "bossName": "Sleepless Slumber"
+      }
+    },
+    "power": [
+      "P0527"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P0527",
+        "name": "Bóng Đêm Bất Tận",
+        "rarity": "Hiếm",
+        "description": "Khi [k:Foe|Địch Thủ] [k:AttackSkillMark|tấn công], chúng sẽ sử dụng một lá [cd:05SI029|Bóng Tối|icon,img-full] nhắm vào Nhà Chính của người chơi.",
+        "descriptionRaw": "Khi Địch Thủ tấn công, chúng sẽ sử dụng một lá Bóng Tối nhắm vào Nhà Chính của người chơi.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "The Relentless Dark",
+            "description": "When the [k:Foe|Foe] attacks, they [k:PlaySkillMark|play] a [cd:05SI029|Darkness|icon,img-full] targeting the player's Nexus.",
+            "descriptionRaw": "When the Foe attacks, they play a Darkness targeting the player's Nexus.",
+            "rarity": "Rare"
+          }
+        },
+        "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0527.png",
+        "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0527-full.png"
+      }
+    ]
+  },
+  {
+    "bossID": "B043",
+    "background": "https://images.pocguide.top/backgrounds/1920px-05BC100-full.webp",
+    "bossName": "Cún Nấm Độc",
+    "translations": {
+      "en": {
+        "bossName": "Puffcap Pup"
+      }
+    },
+    "power": [
+      "P01110"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01110",
+        "name": "Mưu Kế Trinh Sát",
+        "rarity": "Huyền Thoại",
+        "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: [k:Foe|Địch Thủ] gài 15 lá [cd:01PZ022|Nấm Độc|icon,img-full] vào bộ bài của người chơi.",
+        "descriptionRaw": "Bắt Đầu Vòng Đấu: Địch Thủ gài 15 lá Nấm Độc vào bộ bài của người chơi.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "The Scout's Scheme",
+            "description": "[k:RoundStart|Round Start]: The [k:Foe|Foe] plants 15 Poison Puffcaps in the player's deck.",
+            "descriptionRaw": "Round Start: The Foe plants 15 Poison Puffcaps in the player's deck.",
+            "rarity": "Legendary"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01093.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01093.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B044",
+    "background": "https://images.pocguide.top/backgrounds/1920px-01NX026-full.webp",
+    "bossName": "Kẻ Liều Lĩnh Trifarix",
+    "translations": {
+      "en": {
+        "bossName": "Reckless Trifarian"
+      }
+    },
+    "power": [
+      "P01179"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01179",
+        "name": "Bất Lực",
+        "rarity": "Hiếm",
+        "description": "Những bài quân bị thương của người chơi [k:CantBlock|Không Thể Chặn Đòn].",
+        "descriptionRaw": "Những bài quân bị thương của người chơi Không Thể Chặn Đòn.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Incapacitation",
+            "description": "The player's damaged units [k:CantBlock|Can't Block].",
+            "descriptionRaw": "The player's damaged units Can't Block.",
+            "rarity": "Rare"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01179.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01179.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B045",
+    "background": "https://images.pocguide.top/backgrounds/1920px-04PZ016-full.webp",
+    "bossName": "Khỉ Nổ Tung",
+    "translations": {
+      "en": {
+        "bossName": "Boom Baboon"
+      }
+    },
+    "power": [
+      "P01028"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01028",
+        "name": "Khỉ Đạn Đạo",
+        "rarity": "Hiếm",
+        "description": "Khi [k:Foe|Địch Thủ] [k:AttackSkillMark|tấn công], chúng sẽ triệu hồi 1 lá [cd:01PZ012|Lựu Đạn Ma Hỏa!|icon,img-full] [k:Challenger|Thách Đấu] bài quân [k:Strongest|mạnh nhất] của người chơi.",
+        "descriptionRaw": "Khi Địch Thủ tấn công, chúng sẽ triệu hồi 1 lá Lựu Đạn Ma Hỏa! Thách Đấu bài quân mạnh nhất của người chơi.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Monkey Munitions",
+            "description": "When the [k:Foe|Foe] attacks, they summon a [cd:01PZ012|Flame Chompers!|icon,img-full] Challenging the player's [k:Strongest|strongest] unit.",
+            "descriptionRaw": "When the Foe attacks, they summon a Flame Chompers! Challenging the player's strongest unit.",
+            "rarity": "Rare"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01028.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01028.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B046",
+    "background": "https://images.pocguide.top/backgrounds/1920px-06IO003-full.webp",
+    "bossName": "Hậu Đài Viên",
+    "translations": {
+      "en": {
+        "bossName": "The Stagehand"
+      }
+    },
+    "power": [
+      "P01112"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01112",
+        "name": "Khuất Sáng",
+        "rarity": "Hiếm",
+        "description": "Khi [k:Foe|Địch Thủ] [k:Stun|Làm Choáng] 1 kẻ địch, trao +2|+1 cho bài quân [k:Strongest|mạnh nhất] của [k:Foe|Địch Thủ] trong vòng này.",
+        "descriptionRaw": "Khi Địch Thủ Làm Choáng 1 kẻ địch, trao +2|+1 cho bài quân mạnh nhất của Địch Thủ trong vòng này.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Blackout",
+            "description": "When the [k:Foe|Foe] Stuns an enemy, give the [k:Foe|Foe]'s [k:Strongest|strongest] unit +2|+1 this round.",
+            "descriptionRaw": "When the Foe Stuns an enemy, give the Foe's strongest unit +2|+1 this round.",
+            "rarity": "Rare"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01112.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01112.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B047",
+    "background": "https://images.pocguide.top/backgrounds/1920px-08MT030-full.webp",
+    "bossName": "Rồng Ngọc Thạch",
+    "translations": {
+      "en": {
+        "bossName": "Gem Dragon"
+      }
+    },
+    "power": [
+      "P01113"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01113",
+        "name": "Thu Hoạch Ngọc Lâu Dài",
+        "rarity": "Thường",
+        "description": "Khi một trong các bài quân của [k:Foe|Địch Thủ] sống sót sau sát thương, [k:Foe|Địch Thủ] tạo ra một lá 0 [k:Cost|tiêu hao] [cd:03MT092T1|Ngọc Thạch|icon,img-full] trên tay.",
+        "descriptionRaw": "Khi một trong các bài quân của Địch Thủ sống sót sau sát thương, Địch Thủ tạo ra một lá 0 tiêu hao Ngọc Thạch trên tay.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Enduring Gemharvest",
+            "description": "When the [k:Foe|Foe]'s units survives damage the [k:Foe|Foe] creates a 0 [k:Cost|cost]  [cd:03MT092T1|Gem|icon,img-full] in hand.",
+            "descriptionRaw": "When the Foe's units survives damage the Foe creates a 0 cost  Gem in hand.",
+            "rarity": "Common"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01113.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01113.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B048",
+    "background": "https://images.pocguide.top/backgrounds/1920px-03MT012-full.webp",
+    "bossName": "Thẩm Phán Toàn Quyền",
+    "translations": {
+      "en": {
+        "bossName": "Arbiter of the Peak"
+      }
+    },
+    "power": [
+      "P01233"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01233",
+        "name": "Đỉnh Núi",
+        "rarity": "Hiếm",
+        "description": "Bắt Đầu Trận Đấu: [k:Foe|Địch Thủ] triệu hồi 1 lá [cd:03MT064|Đỉnh Targon|icon,img-full]. [k:RoundEnd|Kết Thúc Vòng Đấu]: TẤT CẢ người chơi rút 1 lá bài.",
+        "descriptionRaw": "Bắt Đầu Trận Đấu: Địch Thủ triệu hồi 1 lá Đỉnh Targon. Kết Thúc Vòng Đấu: TẤT CẢ người chơi rút 1 lá bài.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Mountain Peak",
+            "description": "Game Start: The [k:Foe|Foe] summons a  [cd:03MT064|Targon's Peak|icon,img-full]. [k:RoundEnd|Round End]: All players draw a card.",
+            "descriptionRaw": "Game Start: The Foe summons a  Targon's Peak. Round End: All players draw a card.",
+            "rarity": "Rare"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01233a.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01233a.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B049",
+    "background": "https://images.pocguide.top/backgrounds/1920px-01NX003-hd-full.webp",
+    "bossName": "Nhà Cái Đấu Trường",
+    "translations": {
+      "en": {
+        "bossName": "Arena Bookie"
+      }
+    },
+    "power": [
+      "P01029"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01029",
+        "name": "Tăng Thêm Chút Xíu",
+        "rarity": "Hiếm",
+        "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Trao +1|+0 cho bài quân [k:Strongest|mạnh nhất] của [k:Foe|Địch Thủ] trong vòng này với mỗi lá bài trên tay của người chơi.",
+        "descriptionRaw": "Bắt Đầu Vòng Đấu: Trao +1|+0 cho bài quân mạnh nhất của Địch Thủ trong vòng này với mỗi lá bài trên tay của người chơi.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "A Little off the Top",
+            "description": "[k:RoundStart|Round Start]: Give the [k:Foe|Foe]'s [k:Strongest|Strongest] unit +1|+0 for each card in the player's hand.\n",
+            "descriptionRaw": "Round Start: Give the Foe's Strongest unit +1|+0 for each card in the player's hand.\n",
+            "rarity": "Rare"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01029.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01029.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B050",
+    "background": "https://images.pocguide.top/backgrounds/1920px-04IO001-full.webp",
+    "bossName": "Nhạc Sĩ Chiến Trường",
+    "translations": {
+      "en": {
+        "bossName": "Field Musicians"
+      }
+    },
+    "power": [
+      "P01054"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01054",
+        "name": "Âm Hưởng Hoàn Mỹ",
+        "rarity": "Thường",
+        "description": "[k:RoundEnd|Kết Thúc Vòng Đấu]: Nếu [k:Foe|Địch Thủ] có 3+ bài quân, ban cho chúng +2|+2.",
+        "descriptionRaw": "Kết Thúc Vòng Đấu: Nếu Địch Thủ có 3+ bài quân, ban cho chúng +2|+2.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Perfect Harmony",
+            "description": "[k:RoundStart|Round Start]: If the [k:Foe|Foe] has 3+ units, grant them +2|+2.",
+            "descriptionRaw": "Round Start: If the Foe has 3+ units, grant them +2|+2.",
+            "rarity": "Thường"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01054.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01054.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B051",
+    "background": "https://images.pocguide.top/backgrounds/1920px-04SH128-full.webp",
+    "bossName": "Lãng Khách Vekaura",
+    "translations": {
+      "en": {
+        "bossName": "Vekauran Vagabond"
+      }
+    },
+    "power": [
+      "P01227"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01227",
+        "name": "Đánh Cắp Quân Lương",
+        "rarity": "Thường",
+        "description": "Bắt Đầu Trận Đấu: [k:Foe|Địch Thủ] triệu hồi 1 lá [cd:04SH130T1|Tư Dinh Chiến Tướng|icon,img-full]. Khi lá [cd:04SH130T1|Tư Dinh Chiến Tướng|icon,img-full] của [k:Foe|Địch Thủ] hoàn thành [k:Countdown|đếm ngược], [k:Foe|Địch Thủ] trộm 1 ngọc năng lượng từ người chơi và triệu hồi 1 lá [cd:04SH130T1|Tư Dinh Chiến Tướng|icon,img-full].",
+        "descriptionRaw": "Bắt Đầu Trận Đấu: Địch Thủ triệu hồi 1 lá Tư Dinh Chiến Tướng. Khi lá Tư Dinh Chiến Tướng của Địch Thủ hoàn thành đếm ngược, Địch Thủ trộm 1 ngọc năng lượng từ người chơi và triệu hồi 1 lá Tư Dinh Chiến Tướng.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Đánh Cắp Quân Lương",
+            "description": "Bắt Đầu Trận Đấu: Địch Thủ triệu hồi 1 lá Tư Dinh Chiến Tướng. Khi lá Tư Dinh Chiến Tướng của Địch Thủ hoàn thành đếm ngược, Địch Thủ trộm 1 ngọc năng lượng từ người chơi và triệu hồi 1 lá Tư Dinh Chiến Tướng.",
+            "descriptionRaw": "Bắt Đầu Trận Đấu: Địch Thủ triệu hồi 1 lá Tư Dinh Chiến Tướng. Khi lá Tư Dinh Chiến Tướng của Địch Thủ hoàn thành đếm ngược, Địch Thủ trộm 1 ngọc năng lượng từ người chơi và triệu hồi 1 lá Tư Dinh Chiến Tướng.",
+            "rarity": "Common"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01227.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01227.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B052",
+    "background": "https://images.pocguide.top/backgrounds/1920px-04PZ016-full.webp",
+    "bossName": "Khỉ Nổ Tung",
+    "translations": {
+      "en": {
+        "bossName": "Boom Baboon"
+      }
+    },
+    "power": [
+      "P01028"
+    ],
+    "resolvedPowers": [
+      {
+        "powerCode": "P01028",
+        "name": "Khỉ Đạn Đạo",
+        "rarity": "Hiếm",
+        "description": "Khi [k:Foe|Địch Thủ] [k:AttackSkillMark|tấn công], chúng sẽ triệu hồi 1 lá [cd:01PZ012|Lựu Đạn Ma Hỏa!|icon,img-full] [k:Challenger|Thách Đấu] bài quân [k:Strongest|mạnh nhất] của người chơi.",
+        "descriptionRaw": "Khi Địch Thủ tấn công, chúng sẽ triệu hồi 1 lá Lựu Đạn Ma Hỏa! Thách Đấu bài quân mạnh nhất của người chơi.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Monkey Munitions",
+            "description": "When the [k:Foe|Foe] attacks, they summon a [cd:01PZ012|Flame Chompers!|icon,img-full] Challenging the player's [k:Strongest|strongest] unit.",
+            "descriptionRaw": "When the Foe attacks, they summon a Flame Chompers! Challenging the player's strongest unit.",
+            "rarity": "Rare"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01028.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01028.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B053",
+    "bossName": "Khỉ Nổ Tung",
+    "power": [],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04PZ016-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Boom Baboon"
+      }
+    }
+  },
+  {
+    "bossID": "B054",
+    "bossName": "Chủ Quán Chợ Đen",
+    "power": [
+      "P01115"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01PZ002-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Back Alley Barkeep"
+      }
+    },
+    "resolvedPowers": []
+  },
+  {
+    "bossID": "B055",
+    "bossName": "Chồn Rác Hôi Thối",
+    "power": [
+      "P01116"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-05PZ035-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Stinky Whump"
+      }
+    }
+  },
+  {
+    "bossID": "B056",
+    "bossName": "Cỗ Máy Mô Phỏng",
+    "power": [
+      "P01117"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-03PZ010-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Mechanized Mimic"
+      }
+    }
+  },
+  {
+    "bossID": "B057",
+    "bossName": "Voltician Bất Ổn",
+    "power": [
+      "P01118"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01PZ024-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Unstable Voltician"
+      }
+    }
+  },
+  {
+    "bossID": "B058",
+    "bossName": "Teemo",
+    "power": [
+      "P01119"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01PZ008T2-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Teemo"
+      }
+    }
+  },
+  {
+    "bossID": "B059",
+    "bossName": "Hải Tặc Thiện Xạ",
+    "power": [],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02BW060-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Crackshot Corsair"
+      }
+    }
+  },
+  {
+    "bossID": "B060",
+    "bossName": "Thợ Săn Tiền Thưởng",
+    "power": [
+      "P01120"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02BW005-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Hired Gun"
+      }
+    }
+  },
+  {
+    "bossID": "B061",
+    "bossName": "Tượng Thần Đầu Khỉ",
+    "power": [
+      "P01121"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02BW034T1-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Monkey Idol"
+      }
+    }
+  },
+  {
+    "bossID": "B062",
+    "bossName": "Thằn Lằn Lịch Lãm",
+    "power": [
+      "P01122"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-03BW002-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Lounging Lizard"
+      }
+    }
+  },
+  {
+    "bossID": "B063",
+    "bossName": "Kẻ Đánh Bạc Hàng Hải",
+    "power": [
+      "P01123"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02BW007-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Brash Gambler"
+      }
+    }
+  },
+  {
+    "bossID": "B064",
+    "bossName": "Miss Fortune",
+    "power": [
+      "P01124"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02BW022T2-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Miss Fortune"
+      }
+    }
+  },
+  {
+    "bossID": "B065",
+    "bossName": "Thạch Linh Giám",
+    "power": [],
+    "background": "https://images.pocguide.top/backgrounds/1920px-03DE015-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Stony Suppressor"
+      }
+    }
+  },
+  {
+    "bossID": "B066",
+    "bossName": "Poro Can Đảm",
+    "power": [
+      "P01125"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01DE049-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Plucky Poro"
+      }
+    }
+  },
+  {
+    "bossID": "B067",
+    "bossName": "Diều Hâu Tiền Báo",
+    "power": [
+      "P01126"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01FR022-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Omen Hawk"
+      }
+    }
+  },
+  {
+    "bossID": "B068",
+    "bossName": "Phi Ưng Truy Sát",
+    "power": [
+      "P01127"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01DE029-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Fleetfeather Tracker"
+      }
+    }
+  },
+  {
+    "bossID": "B069",
+    "bossName": "Bạch Lang",
+    "power": [
+      "P01128"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02FR009-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Wolfrider"
+      }
+    }
+  },
+  {
+    "bossID": "B070",
+    "bossName": "Ashe",
+    "power": [
+      "P01129"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01FR038-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Ashe"
+      }
+    }
+  },
+  {
+    "bossID": "B071",
+    "bossName": "Diễn Giả Rạng Đông",
+    "power": [
+      "P01130"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01DE031-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Dawnspeakers"
+      }
+    }
+  },
+  {
+    "bossID": "B072",
+    "bossName": "Nữ Tặc Tay Mơ",
+    "power": [
+      "P01131"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01FR035-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Unscarred Reaver"
+      }
+    }
+  },
+  {
+    "bossID": "B073",
+    "bossName": "Thợ Rèn Vũ Khí",
+    "power": [
+      "P01132"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01DE034-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Battlesmith"
+      }
+    }
+  },
+  {
+    "bossID": "B074",
+    "bossName": "Chủ Quán Tốt Bụng",
+    "power": [
+      "P01133"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01FR050-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Kindly Tavernkeeper"
+      }
+    }
+  },
+  {
+    "bossID": "B075",
+    "bossName": "Garen",
+    "power": [
+      "P01134"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01DE012-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Garen"
+      }
+    }
+  },
+  {
+    "bossID": "B076",
+    "bossName": "Môn Sinh Võ Học",
+    "power": [],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01IO042-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Sparring Student"
+      }
+    }
+  },
+  {
+    "bossID": "B077",
+    "bossName": "Tinh Linh Lốc Xoáy",
+    "power": [
+      "P01016"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01IO008-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Fae Bladetwirler"
+      }
+    }
+  },
+  {
+    "bossID": "B078",
+    "bossName": "Cún Nấm Độc",
+    "power": [
+      "P01136"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-05BC100-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Puffcap Pup"
+      }
+    }
+  },
+  {
+    "bossID": "B079",
+    "bossName": "Dấu Hiệu Xuân Sang",
+    "power": [
+      "P01135"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01IO045-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Herald of Spring"
+      }
+    }
+  },
+  {
+    "bossID": "B081",
+    "bossName": "Fizz",
+    "power": [
+      "P01002"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02BW046-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Fizz"
+      }
+    }
+  },
+  {
+    "bossID": "B082",
+    "bossName": "Sóc Đô Con",
+    "power": [
+      "P01017"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-03IO011-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Swole Squirrel"
+      }
+    }
+  },
+  {
+    "bossID": "B083",
+    "bossName": "Kẻ Biến Hóa Độc Ác",
+    "power": [
+      "P01137"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-05BC098-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Twisted Catalyzer"
+      }
+    }
+  },
+  {
+    "bossID": "B084",
+    "bossName": "Người Chăm Lo Greenglade",
+    "power": [
+      "P01138"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01IO019-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Greenglade Caretaker"
+      }
+    }
+  },
+  {
+    "bossID": "B085",
+    "bossName": "Pháp Sư Phản Chiếu",
+    "power": [
+      "P01018"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-05BC151-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Mirror Mage"
+      }
+    }
+  },
+  {
+    "bossID": "B086",
+    "bossName": "Lulu",
+    "power": [
+      "P01022"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-03IO002-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Lulu"
+      }
+    }
+  },
+  {
+    "bossID": "B087",
+    "bossName": "Ghé Thăm Học Viện",
+    "power": [
+      "P01139"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01PZ018-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Check Out The Academy"
+      }
+    },
+    "resolvedPowers": [
+      {
+        "powerCode": "P01139",
+        "name": "Đến Giờ Học",
+        "rarity": "Thường",
+        "description": "Nếu [k:Foe|Địch Thủ] [k:AttackSkillMark|tấn công] một bài quân với [k:QuickStrike|Đột Kích], các bài quân ở vị trí [k:AttackSkillMark|tấn công] của chúng có +1|+0.",
+        "descriptionRaw": "Nếu Địch Thủ tấn công một bài quân với Đột Kích, các bài quân ở vị trí tấn công của chúng có +1|+0.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Lesson Time",
+            "description": "[k:RoundStart|Round Start]: If the [k:Foe|Foe] has a unit with [k:QuickStrike|Quick Attack], their attacking units have +1|+0.",
+            "rarity": "Common",
+            "descriptionRaw": "Round Start: If the Foe has a unit with Quick Attack, their attacking units have +1|+0."
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01139.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01139.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B088",
+    "bossName": "Điều Tra Về Những Ồn Ào",
+    "power": [
+      "P01140"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02PZ005-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Investigate The Commotion"
+      }
+    },
+    "resolvedPowers": [
+      {
+        "powerCode": "P01140",
+        "name": "Thẩm Vấn",
+        "rarity": "Thường",
+        "description": "Khi [k:Foe|Địch Thủ] rút 1 lá bài, bài quân đó được giảm 1 [k:Cost|tiêu hao] trong vòng này.",
+        "descriptionRaw": "Khi Địch Thủ rút 1 lá bài, bài quân đó được giảm 1 tiêu hao trong vòng này.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Interrogate",
+            "description": "When the [k:Foe|Foe] draws 1, it [k:Cost|cost] one less this round.",
+            "rarity": "Common",
+            "descriptionRaw": "When the Foe draws 1, it cost one less this round."
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01140.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01140.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B089",
+    "bossName": "Đại Học Piltover",
+    "power": [
+      "P01141"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-03PZ001-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "The University of Piltover"
+      }
+    },
+    "resolvedPowers": [
+      {
+        "powerCode": "P01141",
+        "name": "Bài Kiểm Tra Cuối Cùng",
+        "rarity": "Thường",
+        "description": "Bắt Đầu Trận Đấu: [k:Foe|Địch Thủ] triệu hồi [cd:03PZ001|Đại Học Piltover|icon,img-full].",
+        "descriptionRaw": "Bắt Đầu Trận Đấu: Địch Thủ triệu hồi Đại Học Piltover.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "The Final Test",
+            "description": "Game Start: The [k:Foe|Foe] summons a [cd:03PZ001|The University of Piltover|icon,img-full].",
+            "rarity": "Thường",
+            "descriptionRaw": "Game Start: The Foe summons a The University of Piltover."
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01141.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01141.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B090",
+    "bossName": "Xưởng Chế Lõi Công Nghệ",
+    "power": [
+      "P01142"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-03PZ020-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Hexcore Foundry"
+      }
+    },
+    "resolvedPowers": [
+      {
+        "powerCode": "P01142",
+        "name": "Làm Việc Ngoài Giờ",
+        "rarity": "Thường",
+        "description": "Bắt Đầu Trận Đấu: [k:Foe|Địch Thủ] triệu hồi một lá [cd:03PZ020|Xưởng Chế Lõi Công Nghệ|icon,img-full].",
+        "descriptionRaw": "Bắt Đầu Trận Đấu: Địch Thủ triệu hồi một lá Xưởng Chế Lõi Công Nghệ.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Working Overtime",
+            "description": "Game Start: The [k:Foe|Foe] summons a [cd:03PZ020|Hexcore Foundry|icon,img-full].",
+            "rarity": "Common",
+            "descriptionRaw": "Game Start: The Foe summons a Hexcore Foundry."
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01142.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01142.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B091",
+    "bossName": "Ambessa",
+    "power": [
+      "P01143"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-98NX003-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Ambessa"
+      }
+    }
+  },
+  {
+    "bossID": "B092",
+    "bossName": "Theo Bước Đám Đông Ở Rowdy",
+    "power": [
+      "P01145"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-06PZ019-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Follow the Rowdy Crowd"
+      }
+    },
+    "resolvedPowers": [
+      {
+        "powerCode": "P01145",
+        "name": "Mật Khẩu Là Gì?",
+        "rarity": "Thường",
+        "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: [k:Foe|Địch Thủ] triệu hồi một lá [cd:06PZ019|Gác Cổng Zaun|icon,img-full] với [k:Power|Sức Mạnh] bằng 0 nếu chưa có lá nào.",
+        "descriptionRaw": "Bắt Đầu Vòng Đấu: Địch Thủ triệu hồi một lá Gác Cổng Zaun với Sức Mạnh bằng 0 nếu chưa có lá nào.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "What's The Password?",
+            "rarity": "Common",
+            "description": "[k:RoundStart|Round Start]: The [k:Foe|foe] summons a [cd:06PZ019|Zaun Bouncer|icon,img-full] with 0 [k:Power|power] if they don't have one.",
+            "descriptionRaw": "Round Start: The foe summons a Zaun Bouncer with 0 power if they don't have one."
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01145.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01145.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B093",
+    "bossName": "Hỏi Đường",
+    "power": [
+      "P01144"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01PZ045-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Ask For Directions"
+      }
+    },
+    "resolvedPowers": [
+      {
+        "powerCode": "P01144",
+        "name": "Vụ Cướp Nhẹ Nhàng",
+        "rarity": "Thường",
+        "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Người chơi rút một lá bài, và ban [k:Fleeting|Phù Du] cho một lá bài ngẫu nhiên trên tay mà họ có đủ [k:Cost|tiêu hao] để dùng.",
+        "descriptionRaw": "Bắt Đầu Vòng Đấu: Người chơi rút một lá bài, và ban Phù Du cho một lá bài ngẫu nhiên trên tay mà họ có đủ tiêu hao để dùng.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Gentle Mugging",
+            "description": "[k:RoundStart|Round Start]: The Player draws 1, then grants [k:Fleeting|Fleeting] to a random card they can afford.",
+            "rarity": "",
+            "descriptionRaw": "Round Start: The Player draws 1, then grants Fleeting to a random card they can afford."
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01144.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01144.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B094",
+    "bossName": "Hóa-Tặc Móc Túi",
+    "power": [
+      "P01146"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01PZ043-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Chempunk Pickpocket"
+      }
+    },
+    "resolvedPowers": [
+      {
+        "powerCode": "P01146",
+        "name": "Phế Liệu Đánh Cắp",
+        "rarity": "Thường",
+        "description": "Khi BẤT KỲ người chơi nào bỏ 1 lá bài, người chơi đó sẽ triệu hồi 1 lá [cd:01PZ032|Cua Phế Liệu|icon,img-full].",
+        "descriptionRaw": "Khi BẤT KỲ người chơi nào bỏ 1 lá bài, người chơi đó sẽ triệu hồi 1 lá Cua Phế Liệu.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Stolen Scrap",
+            "rarity": "Common",
+            "description": "When ANY player discards a card, they summon a [cd:01PZ032|Scrap Scuttler|icon,img-full].",
+            "descriptionRaw": "When ANY player discards a card, they summon a Scrap Scuttler."
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01146.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01146.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B095",
+    "bossName": "Warwick",
+    "power": [
+      "P01147"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-98PZ001-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Warwick"
+      }
+    }
+  },
+  {
+    "bossID": "B096",
+    "bossName": "Đốc Công Tóc Dựng",
+    "power": [
+      "P01148"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02BW055-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Jagged Taskmaster"
+      }
+    },
+    "resolvedPowers": [
+      {
+        "powerCode": "P01148",
+        "name": "Cầm Lao Lên Nào!",
+        "rarity": "Thường",
+        "description": "Khi [k:Foe|Địch Thủ] [k:AttackSkillMark|tấn công], ban +1|+0 cho bài quân 1 [k:Cost|tiêu hao] của chúng.",
+        "descriptionRaw": "Khi Địch Thủ tấn công, ban +1|+0 cho bài quân 1 tiêu hao của chúng.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Man the Harpoons!",
+            "rarity": "Common",
+            "description": "When the [k:Foe|Foe] attacks, grant their 1 [k:Cost|cost] units +1|+0.",
+            "descriptionRaw": "When the Foe attacks, grant their 1 cost units +1|+0."
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01148.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01148.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B097",
+    "bossName": "Kato Và Shiraza",
+    "power": [
+      "P01149"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01NX024-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Kato and Shiraza"
+      }
+    },
+    "resolvedPowers": [
+      {
+        "powerCode": "P01149",
+        "name": "Cặp Đôi Quyền Lực",
+        "rarity": "Thường",
+        "description": "Bài quân [k:SpellOverwhelm|Áp Đảo] của [k:Foe|Địch thủ] được nhận +2|+0.",
+        "descriptionRaw": "Bài quân Áp Đảo của Địch thủ được nhận +2|+0.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Power Couple",
+            "rarity": "Common",
+            "description": "The [k:Foe|Foe]'s units with [k:SpellOverwhelm|Overwhelm] have +2|+0.",
+            "descriptionRaw": "The Foe's units with Overwhelm have +2|+0."
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01149.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01149.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B098",
+    "bossName": "Đồ Tể Gai Góc",
+    "power": [
+      "P01006"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02BW058-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Jagged Butcher"
+      }
+    },
+    "resolvedPowers": [
+      {
+        "powerCode": "P01006",
+        "name": "Đồ Tể Chặn Đòn",
+        "rarity": "Thường",
+        "description": "TẤT CẢ bài quân có \"[k:Plunder|Cưỡng Đoạt]: Ban cho ta +1|+1.\"",
+        "descriptionRaw": "TẤT CẢ bài quân có \"Cưỡng Đoạt: Ban cho ta +1|+1.\"",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Đồ Tể Chặn Đòn",
+            "description": "TẤT CẢ bài quân có \"Cưỡng Đoạt: Ban cho ta +1|+1.\"",
+            "descriptionRaw": "TẤT CẢ bài quân có \"Cưỡng Đoạt: Ban cho ta +1|+1.\"",
+            "rarity": "Common"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01006.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01006.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B099",
+    "bossName": "Quân Đoàn Cướp Bóc",
+    "power": [
+      "P01150"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01NX021-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Legion Marauder"
+      }
+    },
+    "resolvedPowers": [
+      {
+        "powerCode": "P01150",
+        "name": "Chúng Tới Này!",
+        "rarity": "Thường",
+        "description": "Bắt Đầu Trận Đấu: [k:Foe|Địch Thủ] tạo trên tay 1 lá [cd:01NX021|Quân Đoàn Cướp Bóc|icon,img-full].",
+        "descriptionRaw": "Bắt Đầu Trận Đấu: Địch Thủ tạo trên tay 1 lá Quân Đoàn Cướp Bóc.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Here They Come!",
+            "rarity": "Common",
+            "description": "Game Start: The [k:Foe|Foe] creates a [cd:01NX021|Legion Marauder|icon,img-full] in hand.",
+            "descriptionRaw": "Game Start: The Foe creates a Legion Marauder in hand."
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01150.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01150.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B100",
+    "bossName": "Swain",
+    "power": [
+      "P01023"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02NX007-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Swain"
+      }
+    }
+  },
+  {
+    "bossID": "B101",
+    "bossName": "Tượng Thần Đầu Khỉ",
+    "power": [
+      "P01156"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02BW034-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Monkey Idol"
+      }
+    }
+  },
+  {
+    "bossID": "B102",
+    "bossName": "Kẻ Tầm Vọng Trifarix",
+    "power": [
+      "P01151"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01NX031-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Trifarian Gloryseeker"
+      }
+    }
+  },
+  {
+    "bossID": "B103",
+    "bossName": "Huyết Đồ",
+    "power": [
+      "P01153"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01NX030-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Crimson Disciple"
+      }
+    }
+  },
+  {
+    "bossID": "B104",
+    "bossName": "Thủy Thủ Nhỏ Mọn",
+    "power": [
+      "P01152"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02BW008-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Petty Officer"
+      }
+    }
+  },
+  {
+    "bossID": "B105",
+    "bossName": "Cá Sấu Thủy Triều",
+    "power": [
+      "P01154"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02BW028-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Riptide Rex"
+      }
+    }
+  },
+  {
+    "bossID": "B106",
+    "bossName": "Gangplank",
+    "power": [
+      "P01155"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02BW032-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Gangplank"
+      }
+    }
+  },
+  {
+    "bossID": "B107",
+    "bossName": "Đài Thiên Văn Hextech",
+    "power": [
+      "P01320"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-99PZ115-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Hextech Observatory"
+      }
+    }
+  },
+  {
+    "bossID": "B108",
+    "bossName": "Jae Medarda",
+    "power": [
+      "P01356"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01PZ035-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Jae Medarda"
+      }
+    }
+  },
+  {
+    "bossID": "B109",
+    "bossName": "Long Nhãn",
+    "power": [
+      "P01273"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02IO003-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Eye of the Dragon"
+      }
+    }
+  },
+  {
+    "bossID": "B110",
+    "bossName": "Phi Công Nghiệp Dư",
+    "power": [
+      "P01342"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01PZ009-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Amateur Aeronaut"
+      }
+    }
+  },
+  {
+    "bossID": "B111",
+    "bossName": "Tiên Tri Bóng Đêm",
+    "power": [
+      "P01186"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01IO027-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Silent Shadowseer"
+      }
+    }
+  },
+  {
+    "bossID": "B112",
+    "bossName": "Karma",
+    "power": [
+      "P01021"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01IO041-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Karma"
+      }
+    }
+  },
+  {
+    "bossID": "B113",
+    "bossName": "Thủy Thủ Dũng Cảm",
+    "power": [
+      "P01267"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01PZ042-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Intrepid Mariner"
+      }
+    }
+  },
+  {
+    "bossID": "B114",
+    "bossName": "Viện Sĩ Thông Minh",
+    "power": [
+      "P01290"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01PZ055-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Astute Academic"
+      }
+    }
+  },
+  {
+    "bossID": "B115",
+    "bossName": "Dấu Hiệu Xuân Sang",
+    "power": [
+      "P01297"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01IO045-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Herald of Spring"
+      }
+    }
+  },
+  {
+    "bossID": "B116",
+    "bossName": "Ezreal",
+    "power": [
+      "P01275"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01PZ036-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Ezreal"
+      }
+    }
+  },
+  {
+    "bossID": "B117",
+    "bossName": "Môn Sinh Võ Học",
+    "power": [
+      "P01333"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01IO042-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Sparring Student"
+      }
+    }
+  },
+  {
+    "bossID": "B118",
+    "bossName": "Vệ Binh Giáp Sắt",
+    "power": [
+      "P01244"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01DE009-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Brightsteel Protector"
+      }
+    }
+  },
+  {
+    "bossID": "B119",
+    "bossName": "Ren Hắc Đao",
+    "power": [
+      "P01185"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01IO007-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Ren Shadowblade"
+      }
+    }
+  },
+  {
+    "bossID": "B120",
+    "bossName": "Cithria Xứ Cloudfield",
+    "power": [
+      "P01225"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01DE039-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Cithria of Cloudfield"
+      }
+    }
+  },
+  {
+    "bossID": "B121",
+    "bossName": "Fiora",
+    "power": [
+      "P01346"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01DE045-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Fiora"
+      }
+    }
+  },
+  {
+    "bossID": "B122",
+    "bossName": "Tầm Pháp Tưởng Khách",
+    "power": [
+      "P01283"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01DE048-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Mageseeker Inciter"
+      }
+    }
+  },
+  {
+    "bossID": "B123",
+    "bossName": "Yusari",
+    "power": [
+      "P01328"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01IO048-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Yusari"
+      }
+    }
+  },
+  {
+    "bossID": "B124",
+    "bossName": "Mẫn Linh Vút Bay",
+    "power": [
+      "P01370"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04DE015-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Swiftwing Flight"
+      }
+    }
+  },
+  {
+    "bossID": "B125",
+    "bossName": "Phong Kiếm Hiền Nhân",
+    "power": [
+      "P01375"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01IO016-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Zephyr Sage"
+      }
+    }
+  },
+  {
+    "bossID": "B126",
+    "bossName": "Zed",
+    "power": [
+      "P01065"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01IO009-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Zed"
+      }
+    }
+  },
+  {
+    "bossID": "B127",
+    "bossName": "Quái Thú Đáy Sâu",
+    "power": [
+      "P01182"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02BW041-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "The Beast Below"
+      }
+    }
+  },
+  {
+    "bossID": "B128",
+    "bossName": "Kẻ Hủy Diệt Của Biển Sâu",
+    "power": [
+      "P01210"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02BW056-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Devourer of the Depths"
+      }
+    }
+  },
+  {
+    "bossID": "B129",
+    "bossName": "Nữ Tặc Tay Mơ",
+    "power": [
+      "P01377"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01FR035-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Unscarred Reaver"
+      }
+    }
+  },
+  {
+    "bossID": "B130",
+    "bossName": "Sói Săn",
+    "power": [
+      "P01176"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01FR049-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Stalking Wolf"
+      }
+    }
+  },
+  {
+    "bossID": "B131",
+    "bossName": "Thủy Quái Gom Xác Tàu",
+    "power": [
+      "P01262"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02BW030-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Shipwreck Hoarder"
+      }
+    }
+  },
+  {
+    "bossID": "B132",
+    "bossName": "Sejuani",
+    "power": [
+      "P01378"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02FR002-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Sejuani"
+      }
+    }
+  },
+  {
+    "bossID": "B133",
+    "bossName": "Poro Rạng Rỡ",
+    "power": [
+      "P01379"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01FR008T1-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Jubilant Poro"
+      }
+    }
+  },
+  {
+    "bossID": "B134",
+    "bossName": "Huyền Nhãn",
+    "power": [
+      "P01332"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02BW037-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Abyssal Eye"
+      }
+    }
+  },
+  {
+    "bossID": "B135",
+    "bossName": "Thầy Tu Hoang Dã",
+    "power": [
+      "P01279"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01FR047-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Feral Mystic"
+      }
+    }
+  },
+  {
+    "bossID": "B136",
+    "bossName": "Thợ Săn Quái Ngư",
+    "power": [
+      "P01362"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02BW039-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Jaull Hunters"
+      }
+    }
+  },
+  {
+    "bossID": "B137",
+    "bossName": "Nautilus",
+    "power": [
+      "P01330"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02BW053-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Nautilus"
+      }
+    }
+  },
+  {
+    "bossID": "B138",
+    "bossName": "Đấu Trường Noxkraya",
+    "power": [
+      "P01380"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-03NX004-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Noxkraya Arena"
+      }
+    }
+  },
+  {
+    "bossID": "B139",
+    "bossName": "Học Giả Thiên Văn",
+    "power": [
+      "P01285"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-03MT030-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Stargazer"
+      }
+    }
+  },
+  {
+    "bossID": "B140",
+    "bossName": "Kẻ Phá Khiên Trifarix",
+    "power": [
+      "P01337"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01NX041-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Trifarian Shieldbreaker"
+      }
+    }
+  },
+  {
+    "bossID": "B141",
+    "bossName": "Sứ Giả Khuyển Linh",
+    "power": [
+      "P01381"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-03MT018-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "The Messenger"
+      }
+    }
+  },
+  {
+    "bossID": "B142",
+    "bossName": "Zoe",
+    "power": [
+      "P01296"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-03MT009-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Zoe"
+      }
+    }
+  },
+  {
+    "bossID": "B143",
+    "bossName": "Darius",
+    "power": [
+      "P01371"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01NX038-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Darius"
+      }
+    }
+  },
+  {
+    "bossID": "B144",
+    "bossName": "Hộ Vệ Quảng Trường",
+    "power": [
+      "P01243"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01PZ006-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Plaza Guardian"
+      }
+    }
+  },
+  {
+    "bossID": "B145",
+    "bossName": "Máy Nghiền Hoàng Kim",
+    "power": [
+      "P01343"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01PZ059-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Golden Crushbot"
+      }
+    }
+  },
+  {
+    "bossID": "B146",
+    "bossName": "Gian Thương",
+    "power": [
+      "P01309"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04SH056-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Profiteer"
+      }
+    }
+  },
+  {
+    "bossID": "B147",
+    "bossName": "Poro Chắp Vá",
+    "power": [
+      "P01217"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-03PZ019-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Patched Porobot"
+      }
+    }
+  },
+  {
+    "bossID": "B148",
+    "bossName": "Azir",
+    "power": [
+      "P01051"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04SH003-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Azir"
+      }
+    }
+  },
+  {
+    "bossID": "B149",
+    "bossName": "Xưởng Chế Lõi Công Nghệ",
+    "power": [
+      "P01270"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-03PZ020-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Hexcore Foundry"
+      }
+    }
+  },
+  {
+    "bossID": "B150",
+    "bossName": "Đứa Con Của Sa Mạc",
+    "power": [
+      "P01319"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04SH089-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Desert Naturalist"
+      }
+    }
+  },
+  {
+    "bossID": "B151",
+    "bossName": "T-Hex",
+    "power": [
+      "P01223"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01PZ015-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "T-Hex"
+      }
+    }
+  },
+  {
+    "bossID": "B152",
+    "bossName": "Raz Bloodmane",
+    "power": [
+      "P01350"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04SH015-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Raz Bloodmane"
+      }
+    }
+  },
+  {
+    "bossID": "B153",
+    "bossName": "Viktor",
+    "power": [
+      "P01256"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-03PZ003-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Viktor"
+      }
+    }
+  },
+  {
+    "bossID": "B154",
+    "bossName": "Đấu Trường Noxkraya",
+    "power": [
+      "P01382"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-03NX004-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Noxkraya Arena"
+      }
+    }
+  },
+  {
+    "bossID": "B155",
+    "bossName": "Kato Và Shiraza",
+    "power": [
+      "P01197"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01NX024-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Kato and Shiraza"
+      }
+    }
+  },
+  {
+    "bossID": "B156",
+    "bossName": "Lee Sin",
+    "power": [
+      "P01274"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02IO006-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Lee Sin"
+      }
+    }
+  },
+  {
+    "bossID": "B157",
+    "bossName": "Long Giác",
+    "power": [
+      "P01352"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02IO004-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Horns of the Dragon"
+      }
+    }
+  },
+  {
+    "bossID": "B158",
+    "bossName": "Đấu Sĩ Tàn Ác",
+    "power": [
+      "P01211"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01NX045-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Savage Reckoner"
+      }
+    }
+  },
+  {
+    "bossID": "B159",
+    "bossName": "Long Vệ Sư",
+    "power": [
+      "P01372"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02IO002-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Scales of the Dragon"
+      }
+    }
+  },
+  {
+    "bossID": "B160",
+    "bossName": "Draven",
+    "power": [
+      "P01090"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01NX020-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Draven"
+      }
+    }
+  },
+  {
+    "bossID": "B161",
+    "bossName": "Món Ăn Bà Nấu",
+    "power": [
+      "P01166"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-98SB004-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Grandma's Cooking"
+      }
+    }
+  },
+  {
+    "bossID": "B162",
+    "bossName": "Một Nơi Quá Yên Tĩnh",
+    "power": [
+      "P01242"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-09IO058-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "A Too Quiet Place"
+      }
+    }
+  },
+  {
+    "bossID": "B163",
+    "bossName": "Cuộc Hội Ngộ Bùng Nổ",
+    "power": [
+      "P01307"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-05BC027-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "An Explosive Encounter"
+      }
+    }
+  },
+  {
+    "bossID": "B164",
+    "bossName": "Một Nhà Thơ Quá Thân Thiện",
+    "power": [
+      "P01170"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-09SI014-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "A Too-Friendly Poet"
+      }
+    }
+  },
+  {
+    "bossID": "B165",
+    "bossName": "Kẻ Ngấu Nghiến Sầu Thương",
+    "power": [
+      "P01272"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-98SB013-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "The Sorrow Eater"
+      }
+    }
+  },
+  {
+    "bossID": "B166",
+    "bossName": "Hồ Ly Tinh",
+    "power": [
+      "P0785"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-98SB020-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "The Fox Spirit"
+      }
+    }
+  },
+  {
+    "bossID": "B167",
+    "bossName": "Khách Không Mời",
+    "power": [
+      "P01236"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01IO052-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Unwelcome Guests"
+      }
+    }
+  },
+  {
+    "bossID": "B169",
+    "bossName": "Tiếng Vọng Quá Khứ",
+    "power": [
+      "P01232"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-06MT047-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Echoes of the Past"
+      }
+    }
+  },
+  {
+    "bossID": "B170",
+    "bossName": "Siêu Lừa Thực Thụ",
+    "power": [
+      "P01248",
+      "P01383"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04NX007-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Prankster At Hearth"
+      }
+    }
+  },
+  {
+    "bossID": "B171",
+    "bossName": "Nhóc Trượt Cát",
+    "power": [
+      "P01359"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04SH038-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Rock Hopper"
+      }
+    }
+  },
+  {
+    "bossID": "B172",
+    "bossName": "Irelia",
+    "power": [
+      "P01050"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04IO005-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Irelia"
+      }
+    }
+  },
+  {
+    "bossID": "B173",
+    "bossName": "Trinh Sát Sa Mạc",
+    "power": [
+      "P01294"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04SH041-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Sai Scout"
+      }
+    }
+  },
+  {
+    "bossID": "B174",
+    "bossName": "Người Chăm Lo Greenglade",
+    "power": [
+      "P01357"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01IO019-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Greenglade Caretaker"
+      }
+    }
+  },
+  {
+    "bossID": "B175",
+    "bossName": "Đứa Con Của Sa Mạc",
+    "power": [
+      "P01384"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04SH089-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Desert Naturalist"
+      }
+    }
+  },
+  {
+    "bossID": "B176",
+    "bossName": "Kai'sa",
+    "power": [
+      "P01349"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-06SH009-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Kai'sa"
+      }
+    }
+  },
+  {
+    "bossID": "B177",
+    "bossName": "Nhện Con",
+    "power": [
+      "P01201"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01SI002-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Spiderling"
+      }
+    }
+  },
+  {
+    "bossID": "B178",
+    "bossName": "Chiến Binh Camavor",
+    "power": [
+      "P01385"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04SI054-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Camavoran Soldier"
+      }
+    }
+  },
+  {
+    "bossID": "B179",
+    "bossName": "Sói Săn",
+    "power": [
+      "P01177"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01FR049-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Stalking Wolf"
+      }
+    },
+    "resolvedPowers": [
+      {
+        "powerCode": "P01177",
+        "name": "Băng Địa",
+        "rarity": "Hiếm",
+        "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Trao [k:Vulnerable|Kích Động] cho đồng minh [k:Strongest|mạnh nhất] của người chơi trong vòng này.",
+        "descriptionRaw": "Bắt Đầu Vòng Đấu: Trao Kích Động cho đồng minh mạnh nhất của người chơi trong vòng này.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Frozen Earth",
+            "description": "Give the player's [k:Strongest|strongest] ally [k:Vulnerable|Vulnerable] this round.",
+            "descriptionRaw": "Give the player's strongest ally Vulnerable this round.",
+            "rarity": "Common"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01177.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01177.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B180",
+    "bossName": "Bóng Ma",
+    "power": [
+      "P01299"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01SI014-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Mistwraith"
+      }
+    }
+  },
+  {
+    "bossID": "B181",
+    "bossName": "Tryndamere",
+    "power": [
+      "P01361"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01FR039-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Tryndamere"
+      }
+    }
+  },
+  {
+    "bossID": "B182",
+    "bossName": "Thiên Ma Xá Tội",
+    "power": [
+      "P01365"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01SI058-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Ethereal Remitter"
+      }
+    }
+  },
+  {
+    "bossID": "B183",
+    "bossName": "Chủ Quán Tốt Bụng",
+    "power": [
+      "P01291"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01FR050-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Kindly Tavernkeeper"
+      }
+    }
+  },
+  {
+    "bossID": "B184",
+    "bossName": "Yêu Tinh Evershade",
+    "power": [
+      "P01162"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-03SI001-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Evershade Stalker"
+      }
+    }
+  },
+  {
+    "bossID": "B185",
+    "bossName": "Thresh",
+    "power": [
+      "P01235"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01SI052-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Thresh"
+      }
+    }
+  },
+  {
+    "bossID": "B186",
+    "bossName": "Rồng Đất",
+    "power": [
+      "P01306"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-05DE015-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Mountain Drake"
+      }
+    }
+  },
+  {
+    "bossID": "B187",
+    "bossName": "Rồng Lửa",
+    "power": [
+      "P01249"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-08NX003-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Infernal Drake"
+      }
+    }
+  },
+  {
+    "bossID": "B188",
+    "bossName": "Rồng Camavor",
+    "power": [
+      "P01386"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04SI028-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Camavoran Dragon"
+      }
+    }
+  },
+  {
+    "bossID": "B189",
+    "bossName": "Long Nữ",
+    "power": [
+      "P01172"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-03DE011-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "The Half-Dragon"
+      }
+    }
+  },
+  {
+    "bossID": "B190",
+    "bossName": "Rồng Gió",
+    "power": [
+      "P01310"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-08DE025-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Cloud Drake"
+      }
+    }
+  },
+  {
+    "bossID": "B191",
+    "bossName": "Rồng Nước",
+    "power": [
+      "P01318"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-08IO012-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Ocean Drake"
+      }
+    }
+  },
+  {
+    "bossID": "B192",
+    "bossName": "Rồng Kỳ Dị",
+    "power": [
+      "P01254"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-08BC004-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Peculiar Dragon"
+      }
+    }
+  },
+  {
+    "bossID": "B193",
+    "bossName": "Rồng Băng Đen",
+    "power": [
+      "P01221"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-08FR030-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Blackened Ice Dragon"
+      }
+    }
+  },
+  {
+    "bossID": "B194",
+    "bossName": "Long Lực",
+    "power": [
+      "P01099"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-08RU014-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "The Dragonsire"
+      }
+    }
+  },
+  {
+    "bossID": "B195",
+    "bossName": "Tiên Phong Bất Khuất",
+    "power": [
+      "P01174"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01DE016-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Dauntless Vanguard"
+      }
+    }
+  },
+  {
+    "bossID": "B196",
+    "bossName": "Chiến Binh Camavor",
+    "power": [
+      "P01327"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04SI054-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Camavoran Soldier"
+      }
+    }
+  },
+  {
+    "bossID": "B197",
+    "bossName": "Viego",
+    "power": [
+      "P01252"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04SI055-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Viego"
+      }
+    }
+  },
+  {
+    "bossID": "B198",
+    "bossName": "Sứ Giả Khuyển Linh",
+    "power": [
+      "P01220"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-03MT018-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "The Messenger"
+      }
+    }
+  },
+  {
+    "bossID": "B199",
+    "bossName": "Thợ Rèn Vũ Khí",
+    "power": [
+      "P01340"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01DE034-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Battlesmith"
+      }
+    }
+  },
+  {
+    "bossID": "B200",
+    "bossName": "Diễn Giả Rạng Đông",
+    "power": [
+      "P01292"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01DE031-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Dawnspeakers"
+      }
+    }
+  },
+  {
+    "bossID": "B201",
+    "bossName": "Galio",
+    "power": [
+      "P01191",
+      "P01209"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-05DE009-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Galio"
+      }
+    }
+  },
+  {
+    "bossID": "B202",
+    "bossName": "Galio",
+    "power": [
+      "P01160",
+      "P01209"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-05DE009-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Galio"
+      }
+    }
+  },
+  {
+    "bossID": "B203",
+    "bossName": "Galio",
+    "power": [
+      "P01247",
+      "P01209"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-05DE009-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Galio"
+      }
+    }
+  },
+  {
+    "bossID": "B204",
+    "bossName": "Nhện Con",
+    "power": [
+      "P01202"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01SI002-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Spiderling"
+      }
+    }
+  },
+  {
+    "bossID": "B205",
+    "bossName": "Tianna Crownguard",
+    "power": [
+      "P01215"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01DE002-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Tianna Crownguard"
+      }
+    }
+  },
+  {
+    "bossID": "B206",
+    "bossName": "Bóng Hình Trong Bị Cây",
+    "power": [
+      "P0521"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-07SH013T6-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Shadow In the Brush"
+      }
+    }
+  },
+  {
+    "bossID": "B207",
+    "bossName": "Lời Chế Nhạo Độc Ác",
+    "power": [
+      "P0528"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-09BC003-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Vicious Mockery"
+      }
+    }
+  },
+  {
+    "bossID": "B208",
+    "bossName": "Nỗi Kinh Hãi",
+    "power": [
+      "P0522"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-08SI040-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "The Dread"
+      }
+    }
+  },
+  {
+    "bossID": "B209",
+    "bossName": "Hội Chứng Sợ Biển",
+    "power": [
+      "P0525"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04BW007-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Thalassophobia"
+      }
+    }
+  },
+  {
+    "bossID": "B210",
+    "bossName": "Elise",
+    "power": [
+      "P0524"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01SI053-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Elise"
+      }
+    }
+  },
+  {
+    "bossID": "B211",
+    "bossName": "Cái Chết Tái Nhợt",
+    "power": [
+      "P0526"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04SI007-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "The Pale Death"
+      }
+    }
+  },
+  {
+    "bossID": "B212",
+    "bossName": "Sống Sót Qua Đêm Tối",
+    "power": [
+      "P0533"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01SI055-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Survive The Night"
+      }
+    }
+  },
+  {
+    "bossID": "B213",
+    "bossName": "Cú Lao Mình Kinh Hoàng",
+    "power": [
+      "P0523"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04MT001-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Sickening Plunge"
+      }
+    }
+  },
+  {
+    "bossID": "B214",
+    "bossName": "Nỗi Hận Thù Lan Tỏa",
+    "power": [
+      "P0534"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02SI002-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Creeping Hatred"
+      }
+    }
+  },
+  {
+    "bossID": "B215",
+    "bossName": "Fiddlesticks",
+    "power": [
+      "P01163"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-98RU004-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Fiddlesticks"
+      }
+    }
+  },
+  {
+    "bossID": "B216",
+    "bossName": "Đánh Cắp Đồ Của Ngươi",
+    "power": [
+      "P0716"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-06BW026-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Steal Your Gear"
+      }
+    }
+  },
+  {
+    "bossID": "B217",
+    "bossName": "Hãy Theo Dõi Một Dấu Vết",
+    "power": [
+      "P0711"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04SH001-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Follow A Lead"
+      }
+    }
+  },
+  {
+    "bossID": "B218",
+    "bossName": "Hãy Chiêu Mộ Twisted Fate",
+    "power": [
+      "P0709"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02BW026-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Recruit Twisted Fate"
+      }
+    }
+  },
+  {
+    "bossID": "B219",
+    "bossName": "Hãy Chiêu Mộ Akshan",
+    "power": [
+      "P0706"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04SH130-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Recruit Akshan"
+      }
+    }
+  },
+  {
+    "bossID": "B220",
+    "bossName": "Hãy Chiêu Mộ Sett",
+    "power": [
+      "P0713"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-07IO011-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Recruit Sett"
+      }
+    }
+  },
+  {
+    "bossID": "B221",
+    "bossName": "Màn Kết Vĩ Đại",
+    "power": [
+      "P0714"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04SH034-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "The Grand Finale"
+      }
+    }
+  },
+  {
+    "bossID": "B222",
+    "bossName": "Hãy Theo Đuổi Ezreal",
+    "power": [
+      "P0712"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04SH055-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Pursue Ezreal"
+      }
+    }
+  },
+  {
+    "bossID": "B223",
+    "bossName": "Hãy Tìm Thông Tin Liên Lạc Của Ezreal",
+    "power": [
+      "P0720"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02BW006-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Find Ezreal's Contacts"
+      }
+    }
+  },
+  {
+    "bossID": "B224",
+    "bossName": "Đi Qua Những Cồn Cát",
+    "power": [
+      "P0715"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-08SH002-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Travel The Dunes"
+      }
+    }
+  },
+  {
+    "bossID": "B225",
+    "bossName": "Tiến Vào Nơi Ẩn Náu",
+    "power": [
+      "P0708"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04SH097-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Enter The Hideout"
+      }
+    }
+  },
+  {
+    "bossID": "B226",
+    "bossName": "Ezreal, Sa Ngã",
+    "power": [
+      "P0707"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01PZ036-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Ezreal, Corrupted The Dunes"
+      }
+    }
+  },
+  {
+    "bossID": "B227",
+    "bossName": "Lẻn Vào Thành Phố",
+    "power": [
+      "P0719"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04SH057-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Sneak Into The City"
+      }
+    }
+  },
+  {
+    "bossID": "B228",
+    "bossName": "Aurelion Sol",
+    "power": [
+      "P01387"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-03MT087-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Aurelion Sol"
+      }
+    }
+  },
+  {
+    "bossID": "B229",
+    "bossName": "Ashe",
+    "power": [
+      "P01035"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01FR038-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Ashe"
+      }
+    }
+  },
+  {
+    "bossID": "B230",
+    "bossName": "Caitlyn",
+    "power": [
+      "P01388"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-05PZ006-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Caitlyn"
+      }
+    }
+  },
+  {
+    "bossID": "B231",
+    "bossName": "Fiora",
+    "power": [
+      "P01415"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01DE045-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Fiora"
+      }
+    },
+    "resolvedPowers": []
+  },
+  {
+    "bossID": "B232",
+    "bossName": "Fizz",
+    "power": [
+      "P01392"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02BW046-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Fizz"
+      }
+    }
+  },
+  {
+    "bossID": "B233",
+    "bossName": "Gangplank",
+    "power": [
+      "P01413"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02BW032-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Gangplank"
+      }
+    },
+    "resolvedPowers": []
+  },
+  {
+    "bossID": "B234",
+    "bossName": "Jinx",
+    "power": [
+      "P01091"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01PZ040-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Jinx"
+      }
+    }
+  },
+  {
+    "bossID": "B235",
+    "bossName": "Katarina",
+    "power": [
+      "P01389"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01NX042T2-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Katarina"
+      }
+    }
+  },
+  {
+    "bossID": "B236",
+    "bossName": "Miss Fortune",
+    "power": [
+      "P01390"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02BW022-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Miss Fortune"
+      }
+    }
+  },
+  {
+    "bossID": "B237",
+    "bossName": "Swain",
+    "power": [
+      "P01060"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02NX007-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Swain"
+      }
+    }
+  },
+  {
+    "bossID": "B238",
+    "bossName": "Tahm Kench",
+    "power": [
+      "P01391"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-03BW004-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Tahm Kench"
+      }
+    }
+  },
+  {
+    "bossID": "B239",
+    "bossName": "Yasuo",
+    "power": [
+      "P01222"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01IO015T1-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Yasuo"
+      }
+    }
+  },
+  {
+    "bossID": "B240",
+    "bossName": "Poppy",
+    "power": [
+      "P01414"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-05BC041-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Poppy"
+      }
+    },
+    "resolvedPowers": []
+  },
+  {
+    "bossID": "B241",
+    "bossName": "Jhin",
+    "power": [
+      "P01089"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-06RU002-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Jhin"
+      }
+    },
+    "resolvedPowers": [
+      {
+        "powerCode": "P01089",
+        "name": "Kế Hoạch Tỉ Mỉ",
+        "rarity": "Hiếm",
+        "description": "Bài quân của người chơi có: [k:NexusStrike|Tấn Công Nhà Chính]: Tạo trên tay [k:Foe|Địch Thủ] 1 lá [cd:01NX043|Lưỡi Dao|icon,img-full] [k:Fleeting|Phù Du].",
+        "descriptionRaw": "Bài quân của người chơi có: Tấn Công Nhà Chính: Tạo trên tay Địch Thủ 1 lá Lưỡi Dao Phù Du.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Elaborate Plans",
+            "description": "The player's units have:  [k:NexusStrike|Nexus Strike]: Create a [k:Fleeting|Fleeting]  [cd:01NX043|Blade's Edge|icon,img-full] in the [k:Foe|Foe]'s hand.\n",
+            "descriptionRaw": "The player's units have:  Nexus Strike: Create a Fleeting  Blade's Edge in the Foe's hand.\n",
+            "rarity": "Rare"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01089.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01089.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B242",
+    "bossName": "Môn Sinh Võ Học",
+    "power": [
+      "P01334"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01IO042-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Sparring Student"
+      }
+    },
+    "resolvedPowers": []
+  },
+  {
+    "bossID": "B243",
+    "bossName": "Sát Thủ Bóng Đêm",
+    "power": [
+      "P01314"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01IO057-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Shadow Assassin"
+      }
+    }
+  },
+  {
+    "bossID": "B244",
+    "bossName": "Poro Trượt Tuyết",
+    "power": [
+      "P01393"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-05BC140-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Poro Sled"
+      }
+    }
+  },
+  {
+    "bossID": "B245",
+    "bossName": "Phán Quan Draklorn",
+    "power": [
+      "P01192"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04FR006-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Draklorn Inquisitor"
+      }
+    }
+  },
+  {
+    "bossID": "B246",
+    "bossName": "Ánh Nhìn Hủy Diệt",
+    "power": [
+      "P01298"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-03FR003-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "It That Stares"
+      }
+    }
+  },
+  {
+    "bossID": "B247",
+    "bossName": "Ác Thần Lang Thang",
+    "power": [
+      "P01161"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01FR052-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "She Who Wanders"
+      }
+    }
+  },
+  {
+    "bossID": "B248",
+    "bossName": "Anivia",
+    "power": [
+      "P01271"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01FR024-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Anivia"
+      }
+    }
+  },
+  {
+    "bossID": "B249",
+    "bossName": "Ornn",
+    "power": [
+      "P01304"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-06FR011-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Ornn"
+      }
+    }
+  },
+  {
+    "bossID": "B250",
+    "bossName": "Trundle",
+    "power": [
+      "P01212"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-03FR006-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Trundle"
+      }
+    }
+  },
+  {
+    "bossID": "B251",
+    "bossName": "Lissandra",
+    "power": [
+      "P01312"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04FR005-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Lissandra"
+      }
+    }
+  },
+  {
+    "bossID": "B252",
+    "bossName": "Khe Núi Hoang Vu",
+    "power": [
+      "P01293"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04FR014-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Bilghted Ravine"
+      }
+    }
+  },
+  {
+    "bossID": "B253",
+    "bossName": "Tiên Tri Chết Chóc",
+    "power": [
+      "P01208"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-05FR005-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Bone Scryer"
+      }
+    },
+    "resolvedPowers": [
+      {
+        "powerCode": "P01208",
+        "name": "Chịu Đựng Sự Vĩnh Hằng",
+        "rarity": "Sử Thi",
+        "description": "Bài quân của [k:Foe|Địch Thủ] được nhận [k:Regeneration|Hồi Phục]. [k:RoundStart|Bắt Đầu Vòng Đấu]: Đặt TẤT CẢ bài quân về 0 [k:Power|Sức Mạnh] và ban cho chúng [k:Formidable|Đáng Gờm].",
+        "descriptionRaw": "Bài quân của Địch Thủ được nhận Hồi Phục. Bắt Đầu Vòng Đấu: Đặt TẤT CẢ bài quân về 0 Sức Mạnh và ban cho chúng Đáng Gờm.",
+        "type": [
+          "Foe Power"
+        ],
+        "translations": {
+          "en": {
+            "name": "Endure the Endless",
+            "description": "The [k:Foe|Foe]'s units have [k:Regeneration|Regeneration]. [k:RoundStart|Round Start]: Set ALL units to 0 [k:Power|Power] and grant them [k:Fearsome|Fearsome].",
+            "descriptionRaw": "The Foe's units have Regeneration. Round Start: Set ALL units to 0 Power and grant them Fearsome.",
+            "rarity": "Epic"
+          }
+        },
+        "assetAbsolutePath": "https://images.pocguide.top/powers/P01208.webp",
+        "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01208.webp"
+      }
+    ]
+  },
+  {
+    "bossID": "B254",
+    "bossName": "Cún Hàn Băng",
+    "power": [
+      "P01180"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-07FR008-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Frostcoat Cub"
+      }
+    }
+  },
+  {
+    "bossID": "B255",
+    "bossName": "Poro Trượt Tuyết",
+    "power": [
+      "P01394"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-05BC140-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Poro Sled"
+      }
+    }
+  },
+  {
+    "bossID": "B256",
+    "bossName": "Long Phụ Bảo Hộ",
+    "power": [
+      "P01396"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-06DE036-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Protective Broodfather"
+      }
+    }
+  },
+  {
+    "bossID": "B257",
+    "bossName": "Pháp Sư Băng Địa",
+    "power": [
+      "P01263"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01FR040-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Rimetusk Shaman"
+      }
+    }
+  },
+  {
+    "bossID": "B258",
+    "bossName": "Scarmother Vrynna",
+    "power": [
+      "P01321"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01FR013-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Scarmother Vrynna"
+      }
+    }
+  },
+  {
+    "bossID": "B259",
+    "bossName": "Vuốt Thú Tuyết",
+    "power": [
+      "P01397"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-07FR010-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Snowy Razorclaw"
+      }
+    }
+  },
+  {
+    "bossID": "B260",
+    "bossName": "Tiên Tri Chiêm Tinh",
+    "power": [
+      "P01164"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01FR032-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Starlit Seer"
+      }
+    }
+  },
+  {
+    "bossID": "B261",
+    "bossName": "Vực Gió Hú",
+    "power": [
+      "P01204"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-03FR009-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "The Howling Abyss"
+      }
+    }
+  },
+  {
+    "bossID": "B262",
+    "bossName": "Troll Ăn Xác",
+    "power": [
+      "P01311"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-03FR007-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Troll Scavenger"
+      }
+    }
+  },
+  {
+    "bossID": "B263",
+    "bossName": "Cai Quản Bộ Tộc",
+    "power": [
+      "P01351"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-06FR040-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Warden of the Tribes"
+      }
+    }
+  },
+  {
+    "bossID": "B264",
+    "bossName": "Sên Ngài Trổ Tơ",
+    "power": [
+      "P01305"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-06FR027-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Woolly Snailmoth"
+      }
+    }
+  },
+  {
+    "bossID": "B265",
+    "bossName": "Khổng Lồ Lò Rèn",
+    "power": [
+      "P01398"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-06FR023-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Wrought Colossus"
+      }
+    }
+  },
+  {
+    "bossID": "B266",
+    "bossName": "Ngài Broadmane",
+    "power": [
+      "P01363"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-06NX024-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Lord Broadmane"
+      }
+    }
+  },
+  {
+    "bossID": "B267",
+    "bossName": "Nghệ Nhân",
+    "power": [
+      "P01331"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-06IO004-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "The Maker"
+      }
+    }
+  }
+]
