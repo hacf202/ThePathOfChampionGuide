@@ -90759,6 +90759,32 @@
     }
   },
   {
+    "cardCode": "99BW002",
+    "cardName": "Dust Up Diplomacy",
+    "cost": 1,
+    "rarity": "None",
+    "regions": [
+      "Bilgewater"
+    ],
+    "type": "spell",
+    "description": "Rút 1 lá bài, gây 1 sát thương lên nhà chính và tất cả bài quân của địch thủ và triệu hồi một tùy tùng 1 tiêu hao ngẫu nhiên.",
+    "descriptionRaw": "Rút 1 lá bài, gây 1 sát thương lên nhà chính và tất cả bài quân của địch thủ và triệu hồi một tùy tùng 1 tiêu hao ngẫu nhiên.",
+    "gameAbsolutePath": "https://images.pocguide.top/cards/99BW002.webp",
+    "associatedCardRefs": [],
+    "translations": {
+      "en": {
+        "cardName": "Dust Up Diplomacy",
+        "description": "Draw 1, deal 1 to all enemies and the enemy Nexus, and summon a random 1 cost follower.",
+        "descriptionRaw": "Draw 1, deal 1 to all enemies and the enemy Nexus, and summon a random 1 cost follower.",
+        "gameAbsolutePath": "https://images.pocguide.top/cards/99BW002en.webp",
+        "regions": [
+          "Bilgewater"
+        ],
+        "type": "Spell"
+      }
+    }
+  },
+  {
     "cardCode": "99FR002",
     "gameAbsolutePath": "https://images.pocguide.top/cards/99FR002.webp",
     "cost": 4,

@@ -90,6 +90,7 @@ router.get("/", async (req, res) => {
 			filtered = filtered.filter(c => {
 				// Các trường dữ liệu để tìm kiếm
 				const textSources = [
+					c.cardCode,
 					c.cardName,
 					c.descriptionRaw,
 					c.translations?.en?.cardName,

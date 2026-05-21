@@ -9,6 +9,7 @@ import AdventureMapEditorForm from "./adventureMapEditorForm";
 import AdminListLayout from "../common/adminListLayout";
 import { Loader2 } from "lucide-react";
 import Swal from "sweetalert2";
+import { useTranslation } from "../../../hooks/useTranslation";
 
 // Đã thêm ghi chú cấu trúc ngầm định của Bosses để đồng bộ dữ liệu
 const NEW_ADV_TEMPLATE = {
@@ -150,9 +151,14 @@ function AdventureMapEditor() {
 	const [searchInput, setSearchInput] = useState("");
 	const [searchTerm, setSearchTerm] = useState("");
 	const [currentPage, setCurrentPage] = useState(1);
+	const [filterDifficulty, setFilterDifficulty] = useState([]);
+	const [filterType, setFilterType] = useState([]);
+	const [sortBy, setSortBy] = useState("diff_desc");
 	const [isLoading, setIsLoading] = useState(true);
 	const [isSaving, setIsSaving] = useState(false);
 	const [isDragPanelOpen, setIsDragPanelOpen] = useState(true);
+
+	const { tUI } = useTranslation();
 
 	const API_BASE_URL = import.meta.env.VITE_API_URL;
 	const navigate = useNavigate();
@@ -293,8 +299,36 @@ function AdventureMapEditor() {
 				removeAccents((i.adventureName || "").toLowerCase()).includes(term),
 			);
 		}
+		
+		if (filterDifficulty.length > 0) {
+			result = result.filter(i => filterDifficulty.includes(String(i.difficulty)));
+		}
+		if (filterType.length > 0) {
+			result = result.filter(i => filterType.includes(i.typeAdventure));
+		}
+		
+		result.sort((a, b) => {
+			if (sortBy === "id_asc") return String(a.adventureID).localeCompare(String(b.adventureID));
+			if (sortBy === "id_desc") return String(b.adventureID).localeCompare(String(a.adventureID));
+			if (sortBy === "xp_asc") return (a.championXP || 0) - (b.championXP || 0);
+			if (sortBy === "xp_desc") return (b.championXP || 0) - (a.championXP || 0);
+			if (sortBy === "diff_asc") return (a.difficulty || 0) - (b.difficulty || 0);
+			if (sortBy === "diff_desc") return (b.difficulty || 0) - (a.difficulty || 0);
+			return 0;
+		});
+
 		return result;
-	}, [items, searchTerm]);
+	}, [items, searchTerm, filterDifficulty, filterType, sortBy]);
+
+	const uniqueDifficulties = useMemo(() => {
+		const diffs = Array.from(new Set(items.map(i => i.difficulty).filter(d => d !== null && d !== undefined)));
+		return diffs.sort((a, b) => a - b).map(d => ({ label: `${d} Sao`, value: String(d) }));
+	}, [items]);
+
+	const uniqueTypes = useMemo(() => {
+		const types = Array.from(new Set(items.map(i => i.typeAdventure).filter(Boolean)));
+		return types.sort().map(t => ({ label: t, value: t }));
+	}, [items]);
 
 	const sidePanelProps = {
 		searchPlaceholder: "Tìm Adventure...",
@@ -320,6 +354,44 @@ function AdventureMapEditor() {
 		onResetFilters: () => {
 			setSearchInput("");
 			setSearchTerm("");
+			setFilterDifficulty([]);
+			setFilterType([]);
+			setSortBy("diff_desc");
+			setCurrentPage(1);
+		},
+		multiFilterConfigs: [
+			{
+				label: tUI("mapList.difficulty") || "Cấp Sao",
+				placeholder: "Chọn cấp sao...",
+				options: uniqueDifficulties,
+				selectedValues: filterDifficulty,
+				onChange: (vals) => {
+					setFilterDifficulty(vals);
+					setCurrentPage(1);
+				},
+			},
+			{
+				label: tUI("mapList.type") || "Loại Phiêu Lưu",
+				placeholder: "Chọn loại...",
+				options: uniqueTypes,
+				selectedValues: filterType,
+				onChange: (vals) => {
+					setFilterType(vals);
+					setCurrentPage(1);
+				},
+			},
+		],
+		sortOptions: [
+			{ label: tUI("mapList.sort.difficultyDesc") || "Độ khó cao - thấp", value: "diff_desc" },
+			{ label: tUI("mapList.sort.difficultyAsc") || "Độ khó thấp - cao", value: "diff_asc" },
+			{ label: tUI("mapList.sort.championXPDesc") || "Kinh nghiệm cao - thấp", value: "xp_desc" },
+			{ label: tUI("mapList.sort.championXPAsc") || "Kinh nghiệm thấp - cao", value: "xp_asc" },
+			{ label: tUI("mapList.sort.adventureIDDesc") || "ID cao - thấp", value: "id_desc" },
+			{ label: tUI("mapList.sort.adventureIDAsc") || "ID thấp - cao", value: "id_asc" },
+		],
+		sortSelectedValue: sortBy,
+		onSortChange: val => {
+			setSortBy(val);
 			setCurrentPage(1);
 		},
 	};

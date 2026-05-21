@@ -213,7 +213,7 @@ const Login = ({ onSwitchToRegister, onSuccess }) => {
 										{success}
 									</p>
 									<p className='text-text-secondary text-xs text-center mt-2'>
-										Vui lòng kiểm tra hộp thư đến (và cả thư rác) để nhấp vào link đặt lại mật khẩu.
+										{tUI("auth.checkEmailNotice")}
 									</p>
 								</div>
 							)}
@@ -248,7 +248,7 @@ const Login = ({ onSwitchToRegister, onSuccess }) => {
 							type='text'
 							value={username}
 							onChange={e => setUsername(e.target.value)}
-							placeholder="Tên tài khoản hoặc Email"
+							placeholder={tUI("auth.usernameOrEmailPlaceholder")}
 							disabled={isLoading}
 							error={loginErrors.username}
 							className='w-full'

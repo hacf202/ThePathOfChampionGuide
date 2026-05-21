@@ -4,7 +4,7 @@ import { getDb } from "../config/mongo.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { requireAdmin } from "../middleware/requireAdmin.js";
 import { createAuditLog } from "../utils/auditLogger.js";
-import { getCachedAdventures, invalidateAdventureCache } from "../services/dataService.js";
+import { getCachedAdventures, invalidateAdventureCache, getCachedBosses } from "../services/dataService.js";
 
 const router = express.Router();
 const ADVENTURE_TABLE = "guidePocAdventureMap";
@@ -17,7 +17,8 @@ router.get("/", async (req, res) => {
 			limit = 24,
 			searchTerm = "",
 			difficulty = "",
-			sort = "difficulty-asc",
+			type = "",
+			sort = "difficulty-desc",
 		} = req.query;
 
 		const pageSize = parseInt(limit);
@@ -25,12 +26,14 @@ router.get("/", async (req, res) => {
 
 		// Lấy từ DataService (RAM → MongoDB)
 		let allAdventures = await getCachedAdventures();
+		let allBosses = await getCachedBosses();
 
 		// 2. Trích xuất bộ lọc động (Dynamic Filters)
 		const availableFilters = {
 			difficulties: [...new Set(allAdventures.map(a => Number(a.difficulty)))]
 				.filter(Boolean)
 				.sort((a, b) => a - b),
+			types: [...new Set(allAdventures.map(a => a.typeAdventure))].filter(Boolean).sort(),
 		};
 
 		// 3. Thực hiện lọc (Filtering)
@@ -39,10 +42,27 @@ router.get("/", async (req, res) => {
 		if (searchTerm) {
 			const { removeAccents } = await import("../utils/vietnameseUtils.js");
 			const searchKey = removeAccents(searchTerm.toLowerCase());
+
+			const bossMap = allBosses.reduce((acc, b) => {
+				acc[b.bossID] = {
+					nameVn: removeAccents((b.bossName || b.name || "").toLowerCase()),
+					nameEn: removeAccents((b.translations?.en?.bossName || b.translations?.en?.name || "").toLowerCase()),
+				};
+				return acc;
+			}, {});
+
 			filtered = filtered.filter(a => {
 				const nameVn = removeAccents(a.adventureName || "");
 				const nameEn = removeAccents(a.translations?.en?.adventureName || "");
-				return nameVn.includes(searchKey) || nameEn.includes(searchKey);
+				const advID = (a.adventureID || "").toLowerCase();
+				
+				const hasBossMatch = (a.Bosses || []).some(b => {
+					const bInfo = bossMap[b.bossID];
+					if (!bInfo) return false;
+					return bInfo.nameVn.includes(searchKey) || bInfo.nameEn.includes(searchKey) || (b.bossID || "").toLowerCase().includes(searchKey);
+				});
+
+				return nameVn.includes(searchKey) || nameEn.includes(searchKey) || advID.includes(searchKey) || hasBossMatch;
 			});
 		}
 
@@ -51,15 +71,20 @@ router.get("/", async (req, res) => {
 			filtered = filtered.filter(a => dList.includes(Number(a.difficulty)));
 		}
 
+		if (type) {
+			const tList = type.split(",");
+			filtered = filtered.filter(a => tList.includes(a.typeAdventure));
+		}
+
 		// 4. Sắp xếp (Sorting)
 		const [field, order] = sort.split("-");
 		filtered.sort((a, b) => {
 			let vA = a[field] ?? "";
 			let vB = b[field] ?? "";
-			if (typeof vA === "string") {
+			if (typeof vA === "string" && typeof vB === "string") {
 				return order === "asc" ? vA.localeCompare(vB) : vB.localeCompare(vA);
 			}
-			return order === "asc" ? vA - vB : vB - vA;
+			return order === "asc" ? Number(vA) - Number(vB) : Number(vB) - Number(vA);
 		});
 
 		// 5. Phân trang (Pagination)

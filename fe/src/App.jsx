@@ -51,7 +51,7 @@ import BossDetailPage from "./components/boss/BossDetailPage.jsx";
 import ChampionItems from "./pages/championItems.jsx";
 
 import ErrorPage from "./pages/ErrorPage.jsx";
-import ResetPassword from "./pages/ResetPassword.jsx";
+import ResetPassword from "./components/auth/ResetPassword.jsx";
 
 
 // Đăng nhập / Đăng ký

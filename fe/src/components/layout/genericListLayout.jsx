@@ -61,14 +61,14 @@ const GenericListLayout = ({
 	const [isReady, setIsReady] = useState(false);
 	useEffect(() => {
 		let timer;
-		if (!loading && (data?.length > 0 || isFiltered)) {
+		if (!loading) {
 			// Một khoảng nghỉ ngắn để đảm bảo DOM và các bộ lọc đã sẵn sàng
 			timer = setTimeout(() => setIsReady(true), 400);
-		} else if (loading) {
+		} else {
 			setIsReady(false);
 		}
 		return () => clearTimeout(timer);
-	}, [loading, data?.length, isFiltered]);
+	}, [loading]);
 
 	// Tính toán trạng thái hiển thị thực tế
 	const isActuallyLoading = loading || !isReady;
@@ -361,9 +361,11 @@ const GenericListLayout = ({
 								transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
 								className='hidden lg:block sticky top-24 h-fit z-40'
 							>
-								<div className='w-[240px] xl:w-[280px] p-5 rounded-3xl border border-border dark:border-white/10 bg-surface-bg/60 backdrop-blur-2xl space-y-5 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.3)] relative overflow-hidden isolate'>
+								<div className='w-[240px] xl:w-[280px] p-5 rounded-3xl border border-border dark:border-white/10 bg-surface-bg/60 backdrop-blur-2xl space-y-5 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.3)] relative overflow-visible isolate'>
 									{/* Background Glow */}
-									<div className="absolute -top-20 -right-20 w-40 h-40 bg-primary-500/10 blur-[60px] rounded-full -z-10" />
+									<div className="absolute inset-0 overflow-hidden rounded-3xl -z-10 pointer-events-none">
+										<div className="absolute -top-20 -right-20 w-40 h-40 bg-primary-500/10 blur-[60px] rounded-full" />
+									</div>
 									
 									<div className="space-y-3">
 										<label className='block text-[10px] font-black uppercase tracking-[0.2em] text-text-secondary/60 ml-1'>

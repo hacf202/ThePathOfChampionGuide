@@ -45,14 +45,16 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 	const location = useLocation();
 
 	const [isProfileOpen, setIsProfileOpen] = useState(false);
-	const [isItemsDropdownOpen, setIsItemsDropdownOpen] = useState(false);
+	const [isDatabaseDropdownOpen, setIsDatabaseDropdownOpen] = useState(false);
+	const [isAdventuresDropdownOpen, setIsAdventuresDropdownOpen] = useState(false);
 	const [isToolsDropdownOpen, setIsToolsDropdownOpen] = useState(false);
 	const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false);
 	const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 	const [isThemeSettingsOpen, setIsThemeSettingsOpen] = useState(false);
 
 	const profileMenuRef = useRef(null);
-	const itemsDropdownRef = useRef(null);
+	const databaseDropdownRef = useRef(null);
+	const adventuresDropdownRef = useRef(null);
 	const toolsDropdownRef = useRef(null);
 	const langDropdownRef = useRef(null);
 
@@ -65,7 +67,8 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 
 	const closeAllMenus = () => {
 		setIsProfileOpen(false);
-		setIsItemsDropdownOpen(false);
+		setIsDatabaseDropdownOpen(false);
+		setIsAdventuresDropdownOpen(false);
 		setIsToolsDropdownOpen(false);
 		setIsLangDropdownOpen(false);
 	};
@@ -74,7 +77,8 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 		const handleClickOutside = event => {
 			const refs = [
 				{ ref: profileMenuRef, setter: setIsProfileOpen },
-				{ ref: itemsDropdownRef, setter: setIsItemsDropdownOpen },
+				{ ref: databaseDropdownRef, setter: setIsDatabaseDropdownOpen },
+				{ ref: adventuresDropdownRef, setter: setIsAdventuresDropdownOpen },
 				{ ref: toolsDropdownRef, setter: setIsToolsDropdownOpen },
 				{ ref: langDropdownRef, setter: setIsLangDropdownOpen },
 			];
@@ -125,15 +129,15 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 
 							<div
 								className='relative'
-								ref={itemsDropdownRef}
-								onMouseEnter={() => setIsItemsDropdownOpen(true)}
-								onMouseLeave={() => setIsItemsDropdownOpen(false)}
+								ref={databaseDropdownRef}
+								onMouseEnter={() => setIsDatabaseDropdownOpen(true)}
+								onMouseLeave={() => setIsDatabaseDropdownOpen(false)}
 							>
-								<button className='flex items-center gap-2 px-4 rounded-lg hover:bg-nav-hover-bg transition-all'>
-									<Package className='w-6 h-6' /> {tUI("nav.itemsTitle")}
+								<button className='flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-nav-hover-bg transition-all'>
+									<Package className='w-6 h-6' /> {tUI("nav.databaseTitle") || "Từ Điển"}
 									<svg
 										className={`w-4 h-4 transition-transform ${
-											isItemsDropdownOpen ? "rotate-180" : ""
+											isDatabaseDropdownOpen ? "rotate-180" : ""
 										}`}
 										fill='none'
 										stroke='currentColor'
@@ -148,85 +152,80 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 									</svg>
 								</button>
 
-								{isItemsDropdownOpen && (
+								{isDatabaseDropdownOpen && (
 									<div className='absolute z-50 left-0 top-full pt-1'>
 										<div className='w-48 bg-modal-bg border border-dropdown-border rounded-lg shadow-xl py-2'>
-											<NavLink
-												to='/champions'
-												className={dropdownLinkClass}
-												onClick={handleNavClick}
-											>
+											<NavLink to='/champions' className={dropdownLinkClass} onClick={handleNavClick}>
 												<Swords className='w-5 h-5' /> {tUI("nav.champions")}
 											</NavLink>
-											<NavLink
-												to='/sub-champions'
-												className={dropdownLinkClass}
-												onClick={handleNavClick}
-											>
+											<NavLink to='/sub-champions' className={dropdownLinkClass} onClick={handleNavClick}>
 												<Users className='w-5 h-5' /> {tUI("nav.subChampions") || "Sub-Champions"}
 											</NavLink>
-											<NavLink
-												to='/items'
-												className={dropdownLinkClass}
-												onClick={handleNavClick}
-											>
-												<Package className='w-5 h-5' /> {tUI("nav.items")}
-											</NavLink>
-											<NavLink
-												to='/relics'
-												className={dropdownLinkClass}
-												onClick={handleNavClick}
-											>
+											<NavLink to='/relics' className={dropdownLinkClass} onClick={handleNavClick}>
 												<Sparkles className='w-5 h-5' /> {tUI("nav.relics")}
 											</NavLink>
-											<NavLink
-												to='/powers'
-												className={dropdownLinkClass}
-												onClick={handleNavClick}
-											>
+											<NavLink to='/items' className={dropdownLinkClass} onClick={handleNavClick}>
+												<Package className='w-5 h-5' /> {tUI("nav.items")}
+											</NavLink>
+											<NavLink to='/powers' className={dropdownLinkClass} onClick={handleNavClick}>
 												<Zap className='w-5 h-5' /> {tUI("nav.powers")}
 											</NavLink>
-											<NavLink
-												to='/runes'
-												className={dropdownLinkClass}
-												onClick={handleNavClick}
-											>
+											<NavLink to='/runes' className={dropdownLinkClass} onClick={handleNavClick}>
 												<Gem className='w-5 h-5' /> {tUI("nav.runes")}
 											</NavLink>
-											<NavLink
-												to='/maps'
-												className={dropdownLinkClass}
-												onClick={handleNavClick}
-											>
-												<Map className='w-5 h-5' /> {tUI("nav.maps")}
-											</NavLink>
-											<NavLink
-												to='/bosses'
-												className={dropdownLinkClass}
-												onClick={handleNavClick}
-											>
-												<Swords className='w-5 h-5' /> {tUI("nav.bosses")}
-											</NavLink>
-											<NavLink
-												to='/builds'
-												className={dropdownLinkClass}
-												onClick={handleNavClick}
-											>
-												<ScrollText className='w-5 h-5' /> {tUI("nav.builds")}
-											</NavLink>
-											<NavLink
-												to='/cards'
-												className={dropdownLinkClass}
-												onClick={handleNavClick}
-											>
+											<NavLink to='/cards' className={dropdownLinkClass} onClick={handleNavClick}>
 												<BookOpen className='w-5 h-5' /> {tUI("nav.cards")}
 											</NavLink>
-											<NavLink
-												to='/resources'
-												className={dropdownLinkClass}
-												onClick={handleNavClick}
-											>
+											<NavLink to='/resources' className={dropdownLinkClass} onClick={handleNavClick}>
 												<Book className='w-5 h-5' /> {tUI("nav.resources")}
+											</NavLink>
+										</div>
+									</div>
+								)}
+							</div>
+
+							<div
+								className='relative'
+								ref={adventuresDropdownRef}
+								onMouseEnter={() => setIsAdventuresDropdownOpen(true)}
+								onMouseLeave={() => setIsAdventuresDropdownOpen(false)}
+							>
+								<button className='flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-nav-hover-bg transition-all'>
+									<Map className='w-6 h-6' /> {tUI("nav.adventuresTitle") || "Phiêu Lưu"}
+									<svg
+										className={`w-4 h-4 transition-transform ${
+											isAdventuresDropdownOpen ? "rotate-180" : ""
+										}`}
+										fill='none'
+										stroke='currentColor'
+										viewBox='0 0 24 24'
+									>
+										<path
+											strokeLinecap='round'
+											strokeLinejoin='round'
+											strokeWidth={2}
+											d='M19 9l-7 7-7-7'
+										/>
+									</svg>
+								</button>
+
+								{isAdventuresDropdownOpen && (
+									<div className='absolute z-50 left-0 top-full pt-1'>
+										<div className='w-48 bg-modal-bg border border-dropdown-border rounded-lg shadow-xl py-2'>
+											<NavLink to='/maps' className={dropdownLinkClass} onClick={handleNavClick}>
+												<Map className='w-5 h-5' /> {tUI("nav.maps")}
+											</NavLink>
+											<NavLink to='/bosses' className={dropdownLinkClass} onClick={handleNavClick}>
+												<Swords className='w-5 h-5' /> {tUI("nav.bosses")}
+											</NavLink>
+											<NavLink to='/guides' className={dropdownLinkClass} onClick={handleNavClick}>
+												<BookMarked className='w-5 h-5' /> {tUI("nav.guides")}
+											</NavLink>
+											<NavLink to='/builds' className={dropdownLinkClass} onClick={handleNavClick}>
+												<ScrollText className='w-5 h-5' /> {tUI("nav.builds")}
+											</NavLink>
+											<NavLink to='/tierlist' className={dropdownLinkClass} onClick={handleNavClick}>
+												<BarChartHorizontalBig className='w-5 h-5' /> {tUI("nav.tierList")}
 											</NavLink>
 										</div>
 									</div>
@@ -260,59 +259,20 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 								{isToolsDropdownOpen && (
 									<div className='absolute z-50 left-0 top-full pt-1'>
 										<div className='w-48 bg-modal-bg border border-dropdown-border rounded-lg shadow-xl py-2'>
-											<NavLink
-												to='/tierlist'
-												className={dropdownLinkClass}
-												onClick={handleNavClick}
-											>
-												<BarChartHorizontalBig className='w-5 h-5' />{" "}
-												{tUI("nav.tierList")}
+											<NavLink to='/simulator/vaults' className={dropdownLinkClass} onClick={handleNavClick}>
+												<Gift className='w-5 h-5' /> {tUI("nav.vaultSimulator")}
 											</NavLink>
-											<NavLink
-												to='/randomizer'
-												className={dropdownLinkClass}
-												onClick={handleNavClick}
-											>
-												<LoaderPinwheel className='w-5 h-5' />{" "}
-												{tUI("nav.randomizer")}
+											<NavLink to='/randomizer' className={dropdownLinkClass} onClick={handleNavClick}>
+												<LoaderPinwheel className='w-5 h-5' /> {tUI("nav.randomizer")}
 											</NavLink>
-											<NavLink
-												to='/simulator/vaults'
-												className={dropdownLinkClass}
-												onClick={handleNavClick}
-											>
-												<Gift className='w-5 h-5' />{" "}
-												{tUI("nav.vaultSimulator")}
+											<NavLink to='/tools/ratings' className={dropdownLinkClass} onClick={handleNavClick}>
+												<Star className='w-5 h-5' /> {tUI("nav.championRatings")}
 											</NavLink>
-											<NavLink
-												to='/tools/ratings'
-												className={dropdownLinkClass}
-												onClick={handleNavClick}
-											>
-												<Star className='w-5 h-5' />{" "}
-												{tUI("nav.championRatings")}
+											<NavLink to='/tools/champion-items' className={dropdownLinkClass} onClick={handleNavClick}>
+												<Package className='w-5 h-5' /> {tUI("nav.championItems") || "Item cho tướng"}
 											</NavLink>
-											<NavLink
-												to='/tools/champion-items'
-												className={dropdownLinkClass}
-												onClick={handleNavClick}
-											>
-												<Package className='w-5 h-5' />{" "}
-												{tUI("nav.championItems") || "Item cho tướng"}
-											</NavLink>
-											<NavLink
-												to='/introduction'
-												className={dropdownLinkClass}
-												onClick={handleNavClick}
-											>
+											<NavLink to='/introduction' className={dropdownLinkClass} onClick={handleNavClick}>
 												<BookOpen className='w-5 h-5' /> {tUI("nav.about")}
-											</NavLink>
-											<NavLink
-												to='/guides'
-												className={dropdownLinkClass}
-												onClick={handleNavClick}
-											>
-												<BookMarked className='w-5 h-5' /> {tUI("nav.guides")}
 											</NavLink>
 										</div>
 									</div>

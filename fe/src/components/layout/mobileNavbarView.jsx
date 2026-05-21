@@ -49,7 +49,8 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 	const location = useLocation();
 
 	const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-	const [isItemsDropdownOpen, setIsItemsDropdownOpen] = useState(false);
+	const [isDatabaseDropdownOpen, setIsDatabaseDropdownOpen] = useState(false);
+	const [isAdventuresDropdownOpen, setIsAdventuresDropdownOpen] = useState(false);
 	const [isToolsDropdownOpen, setIsToolsDropdownOpen] = useState(false);
 	const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false);
 	const [isHeaderLangOpen, setIsHeaderLangOpen] = useState(false);
@@ -69,7 +70,8 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 
 	const closeSidebar = () => {
 		setIsSidebarOpen(false);
-		setIsItemsDropdownOpen(false);
+		setIsDatabaseDropdownOpen(false);
+		setIsAdventuresDropdownOpen(false);
 		setIsToolsDropdownOpen(false);
 		setIsLangDropdownOpen(false);
 	};
@@ -180,109 +182,92 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 
 					<nav className='flex-1 p-4 space-y-1 text-header-text'>
 
-						{/* Menu Vật Phẩm */}
+						{/* Menu Từ Điển */}
 						<div>
 							<button
-								onClick={() => setIsItemsDropdownOpen(!isItemsDropdownOpen)}
+								onClick={() => setIsDatabaseDropdownOpen(!isDatabaseDropdownOpen)}
 								className='w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-black/10 transition-all'
 							>
 								<div className='flex items-center gap-3'>
-									<Package className='w-5 h-5' /> {tUI("nav.itemsTitle")}
+									<Package className='w-5 h-5' /> {tUI("nav.databaseTitle") || "Từ Điển"}
 								</div>
 								<svg
 									className={`w-4 h-4 transition-transform ${
-										isItemsDropdownOpen ? "rotate-180" : ""
+										isDatabaseDropdownOpen ? "rotate-180" : ""
 									}`}
 									fill='none'
 									stroke='currentColor'
 									viewBox='0 0 24 24'
 								>
-									<path
-										strokeLinecap='round'
-										strokeLinejoin='round'
-										strokeWidth={2}
-										d='M19 9l-7 7-7-7'
-									/>
+									<path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M19 9l-7 7-7-7' />
 								</svg>
 							</button>
-							{isItemsDropdownOpen && (
+							{isDatabaseDropdownOpen && (
 								<div className='ml-6 mt-1 space-y-1 border-l-2 border-gray-600 pl-3'>
-									<NavLink
-										to='/champions'
-										className={dropdownLinkClass}
-										onClick={closeSidebar}
-									>
+									<NavLink to='/champions' className={dropdownLinkClass} onClick={closeSidebar}>
 										<Swords className='w-4 h-4' /> {tUI("nav.champions")}
 									</NavLink>
-									<NavLink
-										to='/sub-champions'
-										className={dropdownLinkClass}
-										onClick={closeSidebar}
-									>
+									<NavLink to='/sub-champions' className={dropdownLinkClass} onClick={closeSidebar}>
 										<Users className='w-4 h-4' /> {tUI("nav.subChampions")}
 									</NavLink>
-									<NavLink
-										to='/items'
-										className={dropdownLinkClass}
-										onClick={closeSidebar}
-									>
-										<Package className='w-4 h-4' /> {tUI("nav.items")}
-									</NavLink>
-									<NavLink
-										to='/relics'
-										className={dropdownLinkClass}
-										onClick={closeSidebar}
-									>
+									<NavLink to='/relics' className={dropdownLinkClass} onClick={closeSidebar}>
 										<Sparkles className='w-4 h-4' /> {tUI("nav.relics")}
 									</NavLink>
-									<NavLink
-										to='/powers'
-										className={dropdownLinkClass}
-										onClick={closeSidebar}
-									>
+									<NavLink to='/items' className={dropdownLinkClass} onClick={closeSidebar}>
+										<Package className='w-4 h-4' /> {tUI("nav.items")}
+									</NavLink>
+									<NavLink to='/powers' className={dropdownLinkClass} onClick={closeSidebar}>
 										<Zap className='w-4 h-4' /> {tUI("nav.powers")}
 									</NavLink>
-									<NavLink
-										to='/runes'
-										className={dropdownLinkClass}
-										onClick={closeSidebar}
-									>
+									<NavLink to='/runes' className={dropdownLinkClass} onClick={closeSidebar}>
 										<Gem className='w-4 h-4' /> {tUI("nav.runes")}
 									</NavLink>
-									<NavLink
-										to='/maps'
-										className={dropdownLinkClass}
-										onClick={closeSidebar}
-									>
-										<Map className='w-4 h-4' /> {tUI("nav.maps")}
-									</NavLink>
-									<NavLink
-										to='/bosses'
-										className={dropdownLinkClass}
-										onClick={closeSidebar}
-									>
-										<Swords className='w-4 h-4' /> {tUI("nav.bosses")}
-									</NavLink>
-									<NavLink
-										to='/builds'
-										className={dropdownLinkClass}
-										onClick={closeSidebar}
-									>
-										<ScrollText className='w-4 h-4' /> {tUI("nav.builds")}
-									</NavLink>
-									<NavLink
-										to='/cards'
-										className={dropdownLinkClass}
-										onClick={closeSidebar}
-									>
+									<NavLink to='/cards' className={dropdownLinkClass} onClick={closeSidebar}>
 										<BookOpen className='w-4 h-4' /> {tUI("nav.cards")}
 									</NavLink>
-									<NavLink
-										to='/resources'
-										className={dropdownLinkClass}
-										onClick={closeSidebar}
-									>
+									<NavLink to='/resources' className={dropdownLinkClass} onClick={closeSidebar}>
 										<Book className='w-4 h-4' /> {tUI("nav.resources")}
+									</NavLink>
+								</div>
+							)}
+						</div>
+
+						{/* Menu Phiêu Lưu */}
+						<div>
+							<button
+								onClick={() => setIsAdventuresDropdownOpen(!isAdventuresDropdownOpen)}
+								className='w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-black/10 transition-all'
+							>
+								<div className='flex items-center gap-3'>
+									<Map className='w-5 h-5' /> {tUI("nav.adventuresTitle") || "Phiêu Lưu"}
+								</div>
+								<svg
+									className={`w-4 h-4 transition-transform ${
+										isAdventuresDropdownOpen ? "rotate-180" : ""
+									}`}
+									fill='none'
+									stroke='currentColor'
+									viewBox='0 0 24 24'
+								>
+									<path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M19 9l-7 7-7-7' />
+								</svg>
+							</button>
+							{isAdventuresDropdownOpen && (
+								<div className='ml-6 mt-1 space-y-1 border-l-2 border-gray-600 pl-3'>
+									<NavLink to='/maps' className={dropdownLinkClass} onClick={closeSidebar}>
+										<Map className='w-4 h-4' /> {tUI("nav.maps")}
+									</NavLink>
+									<NavLink to='/bosses' className={dropdownLinkClass} onClick={closeSidebar}>
+										<Swords className='w-4 h-4' /> {tUI("nav.bosses")}
+									</NavLink>
+									<NavLink to='/guides' className={dropdownLinkClass} onClick={closeSidebar}>
+										<BookMarked className='w-4 h-4' /> {tUI("nav.guides")}
+									</NavLink>
+									<NavLink to='/builds' className={dropdownLinkClass} onClick={closeSidebar}>
+										<ScrollText className='w-4 h-4' /> {tUI("nav.builds")}
+									</NavLink>
+									<NavLink to='/tierlist' className={dropdownLinkClass} onClick={closeSidebar}>
+										<BarChartHorizontalBig className='w-4 h-4' /> {tUI("nav.tierList")}
 									</NavLink>
 								</div>
 							)}
@@ -305,68 +290,25 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 									stroke='currentColor'
 									viewBox='0 0 24 24'
 								>
-									<path
-										strokeLinecap='round'
-										strokeLinejoin='round'
-										strokeWidth={2}
-										d='M19 9l-7 7-7-7'
-									/>
+									<path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M19 9l-7 7-7-7' />
 								</svg>
 							</button>
 							{isToolsDropdownOpen && (
 								<div className='ml-6 mt-1 space-y-1 border-l-2 border-gray-600 pl-3'>
-									<NavLink
-										to='/tierlist'
-										className={dropdownLinkClass}
-										onClick={closeSidebar}
-									>
-										<BarChartHorizontalBig className='w-4 h-4' />{" "}
-										{tUI("nav.tierList")}
-									</NavLink>
-									<NavLink
-										to='/randomizer'
-										className={dropdownLinkClass}
-										onClick={closeSidebar}
-									>
-										<LoaderPinwheel className='w-4 h-4' />{" "}
-										{tUI("nav.randomizer")}
-									</NavLink>
-									<NavLink
-										to='/simulator/vaults'
-										className={dropdownLinkClass}
-										onClick={closeSidebar}
-									>
+									<NavLink to='/simulator/vaults' className={dropdownLinkClass} onClick={closeSidebar}>
 										<Gift className='w-4 h-4' /> {tUI("nav.vaultSimulator")}
 									</NavLink>
-									<NavLink
-										to='/tools/ratings'
-										className={dropdownLinkClass}
-										onClick={closeSidebar}
-									>
-										<Star className='w-4 h-4' />{" "}
-										{tUI("nav.championRatings")}
+									<NavLink to='/randomizer' className={dropdownLinkClass} onClick={closeSidebar}>
+										<LoaderPinwheel className='w-4 h-4' /> {tUI("nav.randomizer")}
 									</NavLink>
-									<NavLink
-										to='/tools/champion-items'
-										className={dropdownLinkClass}
-										onClick={closeSidebar}
-									>
-										<Package className='w-4 h-4' />{" "}
-										{tUI("nav.championItems") || "Item cho tướng"}
+									<NavLink to='/tools/ratings' className={dropdownLinkClass} onClick={closeSidebar}>
+										<Star className='w-4 h-4' /> {tUI("nav.championRatings")}
 									</NavLink>
-									<NavLink
-										to='/introduction'
-										className={dropdownLinkClass}
-										onClick={closeSidebar}
-									>
+									<NavLink to='/tools/champion-items' className={dropdownLinkClass} onClick={closeSidebar}>
+										<Package className='w-4 h-4' /> {tUI("nav.championItems") || "Item cho tướng"}
+									</NavLink>
+									<NavLink to='/introduction' className={dropdownLinkClass} onClick={closeSidebar}>
 										<BookOpen className='w-4 h-4' /> {tUI("nav.about")}
-									</NavLink>
-									<NavLink
-										to='/guides'
-										className={dropdownLinkClass}
-										onClick={closeSidebar}
-									>
-										<BookMarked className='w-4 h-4' /> {tUI("nav.guides")}
 									</NavLink>
 								</div>
 							)}

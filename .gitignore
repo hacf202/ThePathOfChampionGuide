@@ -29,3 +29,6 @@ dist-ssr
 .env.local
 .env.*.local.env
 
+# Custom ignores
+design-system/
+.agent/

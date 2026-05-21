@@ -63,6 +63,14 @@
 			"guide": "Guides",
 			"resource": "Resources"
 		},
+		"adventureTypes": {
+			"phieuLuuKhapTheGioi": "World Adventures",
+			"huyenThoaiArcane": "Arcane Legends",
+			"nguoiKhongLoCuaRuneterra": "Titans of Runeterra",
+			"hoaLinhLucDia": "Spirit Blossom",
+			"tenCuopRuneterra": "Scoundrels of Runeterra",
+			"acMong": "Nightmares"
+		},
 		"cardType": {
 			"unit": "Unit",
 			"spell": "Spell",
@@ -122,7 +130,7 @@
 		"description": "Description",
 		"itemType": "Item Type",
 		"searchPlaceholder": "Search by name or description...",
-		"hide":"Hide",
+		"hide": "Hide",
 		"show": "Show",
 		"done": "Done",
 		"selectedItems": "Select multiple items"
@@ -176,8 +184,19 @@
 		"searchPlaceholder": "Search maps...",
 		"difficulty": "Difficulty",
 		"allDifficulties": "All difficulties",
+		"type": "Adventure Type",
+		"allTypes": "All types",
 		"star": "Star",
-		"bosses": "Bosses"
+		"bosses": "Bosses",
+		"sort": {
+			"difficultyDesc": "Difficulty High - Low",
+			"difficultyAsc": "Difficulty Low - High",
+			"championXPDesc": "Experience High - Low",
+			"championXPAsc": "Experience Low - High",
+			"adventureIDDesc": "ID High - Low",
+			"adventureIDAsc": "ID Low - High",
+			"adventureNameAsc": "Name (A-Z)"
+		}
 	},
 	"adventureMap": {
 		"detailTitle": "Map Details",
@@ -713,6 +732,7 @@
 	"tierList": {
 		"pageTitle": "Tier List Maker - POC GUIDE",
 		"relicPageTitle": "Relic Tier List Maker",
+		"relicsPool": "Relics Pool",
 		"tabChampions": "CHAMPIONS",
 		"tabRelics": "RELICS",
 		"addRow": "Add Tier",
@@ -726,12 +746,12 @@
 		"movingRow": "Moving row...",
 		"itemSelection": "Selection List",
 		"dropHint": "Drop items here...",
-		"godTier": "God Tier - Unstoppable",
-		"overpowered": "Overpowered - Very Strong",
-		"veryStrong": "Very Strong / Consistent",
-		"good": "Good / Highly Effective",
-		"decent": "Decent / Usable",
-		"weak": "Weak / Needs buff",
+		"godTier": "OP",
+		"overpowered": "Very Strong",
+		"veryStrong": "Strong",
+		"good": "Good",
+		"decent": "Decent",
+		"weak": "Weak",
 		"versatileStrong": "Extremely Versatile & Strong",
 		"strongSpecific": "Strong in specific scenarios",
 		"versatile": "Versatile Pick",
@@ -873,10 +893,6 @@
 		"communityDiscussions": "Community Discussions",
 		"loadMore": "Load more comments",
 		"noMoreComments": "No more comments"
-	},
-	"metadata": {
-		"defaultDescription": "Complete database and guide for Legends of Runeterra's Path of Champions mode.",
-		"defaultKeywords": "Legends of Runeterra, Path of Champions, LoR PoC, PoC Guide, Champion Builds, Relics Tier List, Best Epic Relics, Power Tier List, Aurelion Sol Guide, LoR Strategy, Card Game Guide, PoC Database, Champion Ratings, Vault Simulator, LoR Wiki"
 	},
 	"buildSummary": {
 		"me": "Me",
@@ -1078,16 +1094,20 @@
 		"noData": "No data available for this section."
 	},
 	"home": {
-		"databaseTitle": "Game Database",
-		"databaseDesc": "Quickly look up detailed information about all items, relics, powers, and runes in the game.",
+		"heroTitle1": "THE PATH",
+		"heroTitle2": "OF CHAMPIONS",
+		"champListDesc": "Detailed powers, gameplay, and upgrade tips for each hero.",
+		"databaseTitle": "THE GRAND DATABASE",
+		"databaseDesc": "Explore every detail about champions, relics, runes, and other items.",
+		"toolsTitle1": "UTILITIES",
+		"toolsTitle2": "SUPPORT TOOLS",
+		"aboutDesc": "Learn about the POC Guide project and its contributors",
 		"monthlyChallengeAlt": "Monthly Challenge",
 		"loading": "INITIALIZING POC GUIDE...",
 		"pageTitle": "POC GUIDE - The Path of Champions",
 		"pageDesc": "The most professional Wiki & Guide for Path of Champions",
 		"lootTitle": "Loot & Resources",
 		"lootDesc": "Discover how to collect and use currencies and treasures in-game.",
-		"heroTitle1": "PATH OF",
-		"heroTitle2": "CHAMPIONS",
 		"btnExplore": "EXPLORE NOW",
 		"btnNewChampion": "NEW CHAMPIONS",
 		"scrollDown": "Scroll down",
@@ -1095,7 +1115,6 @@
 		"resourceTitle2": "RESOURCES",
 		"resourceDesc": "Everything you need to become a Runeterra master",
 		"viewAllChamps": "VIEW ALL CHAMPIONS",
-		"champListDesc": "Detailed powers, gameplay, and upgrade tips for each hero.",
 		"relicVault": "Relics Vault",
 		"relicVaultDesc": "The most optimal relic combinations for each champion.",
 		"monthlyEvent": "Monthly Event",
@@ -1118,7 +1137,14 @@
 		"footerCTA3": "Adventure",
 		"btnExploreNow": "EXPLORE NOW",
 		"vaultSimulatorTitle": "Vault Simulator",
-		"vaultSimulatorDesc": "Test your luck with the Cosmic Vault opening simulator. See the drop rates for the rarest champion fragments and relics!"
+		"vaultSimulatorDesc": "Test your luck with the Cosmic Vault opening simulator. See the drop rates for the rarest champion fragments and relics!",
+		"gameplayTitle1": "GAMEPLAY",
+		"gameplayTitle2": "STRATEGY",
+		"gameplayDesc": "Master the Path of Champions with comprehensive champion guides and community builds.",
+		"adventuresTitle1": "ADVENTURES",
+		"adventuresTitle2": "& BOSSES",
+		"adventuresDesc": "Conquer the toughest maps, defeat legendary bosses, and read deep-dive guides.",
+		"toolsTitle": "TOOLS & UTILITIES"
 	},
 	"auth": {
 		"loginRegisterTitle": "Login / Register",
@@ -1127,6 +1153,7 @@
 		"registerTitle": "Register New Account",
 		"usernameLabel": "Username",
 		"usernamePlaceholder": "Enter username",
+		"usernameOrEmailPlaceholder": "Username or Email",
 		"emailLabel": "Email",
 		"passwordLabel": "Password",
 		"passwordPlaceholder": "Enter password",
@@ -1149,6 +1176,22 @@
 		"processing": "Processing...",
 		"verifyOtpTitle": "Verify OTP",
 		"verifyBtn": "Verify",
+		"checkEmailNotice": "Please check your inbox (and spam folder) to click the reset password link.",
+		"resetPage": {
+			"successTitle": "Success!",
+			"successDesc": "Your password has been updated. You will be redirected to the homepage shortly.",
+			"backHomeBtn": "Back to Home",
+			"title": "Reset Password",
+			"desc": "Please enter a new password for your account.",
+			"newPassLabel": "New Password",
+			"newPassPlaceholder": "At least 8 characters",
+			"confirmPassLabel": "Confirm Password",
+			"confirmPassPlaceholder": "Re-enter new password",
+			"submitBtn": "Update Password",
+			"passMin": "Password must be at least 8 characters",
+			"passMismatch": "Passwords do not match",
+			"tokenExpired": "Cannot reset password. The link may have expired."
+		},
 		"error": {
 			"usernameReq": "Please enter username",
 			"usernameFormat": "Only letters, numbers, and underscores allowed",
@@ -1282,6 +1325,8 @@
 		"champions": "Champion List",
 		"tierList": "Tier List",
 		"itemsTitle": "Game Database",
+		"databaseTitle": "Game Database",
+		"adventuresTitle": "Adventures & Guides",
 		"items": "Item List",
 		"relics": "Relic List",
 		"powers": "Power List",
@@ -1307,6 +1352,7 @@
 		"newChampion": "New Champion",
 		"bosses": "Boss List",
 		"subChampions": "Sub Champions",
+		"supportChampions": "Support Champions",
 		"championItems": "Champion Items",
 		"cancel": "Cancel",
 		"confirm": "Confirm"

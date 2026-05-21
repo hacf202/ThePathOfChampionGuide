@@ -101,11 +101,13 @@ const GuideList = () => {
 
 	const filtered = useMemo(() => {
 		if (!search.trim()) return guides;
-		const q = removeAccents(search);
+		const q = removeAccents(search.toLowerCase());
 		return guides.filter(g =>
-			removeAccents(g.title || "").includes(q) ||
-			removeAccents(g.description || "").includes(q) ||
-			removeAccents(g.author || "").includes(q),
+			removeAccents((g.title || "").toLowerCase()).includes(q) ||
+			removeAccents((g.description || "").toLowerCase()).includes(q) ||
+			removeAccents((g.author || "").toLowerCase()).includes(q) ||
+			(g.slug || "").toLowerCase().includes(q) ||
+			(g.id || g._id || "").toLowerCase().includes(q)
 		);
 	}, [guides, search]);
 

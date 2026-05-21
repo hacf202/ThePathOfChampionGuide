@@ -83,12 +83,14 @@ router.get("/", async (req, res) => {
 				const descVn = removeAccents(r.description || "");
 				const nameEn = removeAccents(r.translations?.en?.name || "");
 				const descEn = removeAccents(r.translations?.en?.description || "");
+				const runeCode = (r.runeCode || r.id || "").toLowerCase();
 
 				return (
 					nameVn.includes(searchKey) ||
 					descVn.includes(searchKey) ||
 					nameEn.includes(searchKey) ||
-					descEn.includes(searchKey)
+					descEn.includes(searchKey) ||
+					runeCode.includes(searchKey)
 				);
 			});
 		}

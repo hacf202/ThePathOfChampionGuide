@@ -1,5 +1,5 @@
 {
-  "backupDate": "2026-05-21T02:31:14.688Z",
+  "backupDate": "2026-05-21T19:52:51.588Z",
   "dbName": "guidePoc",
   "results": [
     {
@@ -14,7 +14,7 @@
     },
     {
       "collection": "guidePocPowers",
-      "count": 1050,
+      "count": 1069,
       "success": true
     },
     {
@@ -39,17 +39,17 @@
     },
     {
       "collection": "guidePocCardList",
-      "count": 2665,
+      "count": 2666,
       "success": true
     },
     {
       "collection": "guidePocBosses",
-      "count": 265,
+      "count": 338,
       "success": true
     },
     {
       "collection": "guidePocAdventureMap",
-      "count": 24,
+      "count": 48,
       "success": true
     },
     {
@@ -69,7 +69,7 @@
     },
     {
       "collection": "guidePocAuditLogs",
-      "count": 771,
+      "count": 960,
       "success": true
     },
     {
@@ -88,6 +88,6 @@
       "success": true
     }
   ],
-  "totalItems": 5903,
-  "duration": "12.3s"
+  "totalItems": 6209,
+  "duration": "9.5s"
 }

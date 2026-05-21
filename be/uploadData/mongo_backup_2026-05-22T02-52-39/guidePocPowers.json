@@ -2086,9 +2086,9 @@
     ],
     "translations": {
       "en": {
-        "name": "Cá Đuối Rình Rập",
-        "description": "Bắt Đầu Vòng Đấu: Nếu người chơi có năng lượng bài phép, Địch Thủ đánh cắp 1 năng lượng bài phép.",
-        "descriptionRaw": "Bắt Đầu Vòng Đấu: Nếu người chơi có năng lượng bài phép, Địch Thủ đánh cắp 1 năng lượng bài phép.",
+        "name": "Sneaky Manta",
+        "description": "[k:RoundStart|Round Start|icon]: If the player has spell mana, the [k:Foe|Foe|icon] steals 1.",
+        "descriptionRaw": "Round Start: If the player has spell mana, the Foe steals 1.",
         "rarity": "Common"
       }
     },
@@ -5330,7 +5330,7 @@
     ],
     "translations": {
       "en": {
-        "name": "Vengeance",
+        "name": " Retribution",
         "description": "When the [k:Foe|Foe]'s units [k:AttackSkillMark|attack], grant units in [k:PlaySkillMark|play] and in hand +1|+1.",
         "descriptionRaw": "When the Foe's units attack, grant units in play and in hand +1|+1.",
         "rarity": "Rare"
@@ -5570,9 +5570,9 @@
     ],
     "translations": {
       "en": {
-        "name": "Bóng Tối Vô Tận",
-        "description": "Lần đầu tiên Địch Thủ cho xuất trận 1 bài quân mỗi vòng, chúng sử dụng ngẫu nhiên Bóng Tối lên 1 trong các đồng minh hoặc Nhà Chính của chúng.",
-        "descriptionRaw": "Lần đầu tiên Địch Thủ cho xuất trận 1 bài quân mỗi vòng, chúng sử dụng ngẫu nhiên Bóng Tối lên 1 trong các đồng minh hoặc Nhà Chính của chúng.",
+        "name": "Unlimited Darkness",
+        "description": "The first time the [k:Foe|Foe|icon] plays a unit each round, it plays [cd:05SI029|Darkness|icon] randomly on one of the player's allies or their Nexus.",
+        "descriptionRaw": "The first time the Foe plays a unit each round, it plays Darkness randomly on one of the player's allies or their Nexus.",
         "rarity": "Epic"
       }
     },
@@ -6030,9 +6030,9 @@
     ],
     "translations": {
       "en": {
-        "name": "Con Mồi Cùng Đường",
-        "description": "Bắt Đầu Trận Đấu: Địch Thủ triệu hồi một lá Rồng Hóa Kỹ và Trói Buộc lá bài đó 4 lần.",
-        "descriptionRaw": "Bắt Đầu Trận Đấu: Địch Thủ triệu hồi một lá Rồng Hóa Kỹ và Trói Buộc lá bài đó 4 lần.",
+        "name": "Cornered Captive",
+        "description": "Game Start: The Foe summons a [cd:08PZ028|Chemtech Drake|icon] and [cd:08MT003T11|Shackles|icon] it four times.",
+        "descriptionRaw": "Game Start: The Foe summons a Chemtech Drake and Shackles it four times.",
         "rarity": "Rare"
       }
     },
@@ -6070,9 +6070,9 @@
     ],
     "translations": {
       "en": {
-        "name": "Cơn Thịnh Nộ Của Nagakabouros",
-        "description": "Khi Địch Thủ sử dụng một lá bài, chúng sẽ Triệu Gọi 1 lá bài.",
-        "descriptionRaw": "Khi Địch Thủ sử dụng một lá bài, chúng sẽ Triệu Gọi 1 lá bài.",
+        "name": "Wrath of Nagakabouros",
+        "description": "When the [k:Foe|Foe|icon] plays a card, they [k:Spawn|Spawn|icon] 1.",
+        "descriptionRaw": "When the Foe plays a card, they Spawn 1.",
         "rarity": "Common"
       }
     },
@@ -6258,26 +6258,6 @@
     },
     "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0123.png",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0123-full.png"
-  },
-  {
-    "powerCode": "P01230",
-    "name": "Đến Giờ Học",
-    "rarity": "Hiếm",
-    "description": "Khi các bài quân của [k:Foe|Địch Thủ] [k:AttackSkillMark|tấn công], chúng chia sẻ các Đặc Điểm của chúng with các bài quân ở vị trí [k:AttackSkillMark|tấn công] trong vòng này.",
-    "descriptionRaw": "Khi các bài quân của Địch Thủ tấn công, chúng chia sẻ các Đặc Điểm của chúng with các bài quân ở vị trí tấn công trong vòng này.",
-    "type": [
-      "Foe Power"
-    ],
-    "translations": {
-      "en": {
-        "name": "Đến Giờ Học",
-        "description": "Khi các bài quân của Địch Thủ tấn công, chúng chia sẻ các Đặc Điểm của chúng with các bài quân ở vị trí tấn công trong vòng này.",
-        "descriptionRaw": "Khi các bài quân của Địch Thủ tấn công, chúng chia sẻ các Đặc Điểm của chúng with các bài quân ở vị trí tấn công trong vòng này.",
-        "rarity": "Rare"
-      }
-    },
-    "assetAbsolutePath": "https://images.pocguide.top/powers/P01230.webp",
-    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01230.webp"
   },
   {
     "powerCode": "P01232",
@@ -6750,7 +6730,7 @@
     ],
     "translations": {
       "en": {
-        "name": "No Mercy",
+        "name": "No Quarter",
         "description": "The [k:Foe|Foe]'s units with [k:Barrier|Barrier] have Double [k:Strike|Strike].",
         "descriptionRaw": "The Foe's units with Barrier have Double Strike.",
         "rarity": "Rare"
@@ -7070,7 +7050,7 @@
     ],
     "translations": {
       "en": {
-        "name": "Gift from the Mother",
+        "name": "Greatmother's Gifts",
         "description": "Game Start: The [k:Foe|Foe] shuffles 10 random 6+ [k:Cost|cost] spells into their deck and reduces their [k:Cost|cost] by 3.",
         "descriptionRaw": "Game Start: The Foe shuffles 10 random 6+ cost spells into their deck and reduces their cost by 3.",
         "rarity": "Rare"
@@ -7538,26 +7518,6 @@
     },
     "assetAbsolutePath": "https://images.pocguide.top/powers/P01307.webp",
     "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01307.webp"
-  },
-  {
-    "powerCode": "P01308",
-    "name": "Phế Liệu Đánh Cắp",
-    "rarity": "Thường",
-    "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: [k:Foe|Địch Thủ] triệu hồi 1 lá [cd:01PZ032|Cua Phế Liệu|icon,img-full] nếu chưa có lá bài này. [cd:01PZ032|Cua Phế Liệu|icon,img-full] của lá bài đó có +2|+0.",
-    "descriptionRaw": "Bắt Đầu Vòng Đấu: Địch Thủ triệu hồi 1 lá Cua Phế Liệu nếu chưa có lá bài này. Cua Phế Liệu của lá bài đó có +2|+0.",
-    "type": [
-      "Foe Power"
-    ],
-    "translations": {
-      "en": {
-        "name": "Phế Liệu Đánh Cắp",
-        "description": "Bắt Đầu Vòng Đấu: Địch Thủ triệu hồi 1 lá Cua Phế Liệu nếu chưa có lá bài này. Cua Phế Liệu của lá bài đó có +2|+0.",
-        "descriptionRaw": "Bắt Đầu Vòng Đấu: Địch Thủ triệu hồi 1 lá Cua Phế Liệu nếu chưa có lá bài này. Cua Phế Liệu của lá bài đó có +2|+0.",
-        "rarity": "Common"
-      }
-    },
-    "assetAbsolutePath": "https://images.pocguide.top/powers/P01308.webp",
-    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01308.webp"
   },
   {
     "powerCode": "P01309",
@@ -8451,9 +8411,9 @@
     ],
     "translations": {
       "en": {
-        "name": "Tuyệt Kỹ Alpha",
-        "description": "Khi Địch Thủ tấn công, đổi bài quân tấn công của chúng với bản sao Cảm Tử.",
-        "descriptionRaw": "Khi Địch Thủ tấn công, đổi bài quân tấn công của chúng với bản sao Cảm Tử.",
+        "name": "Alpha Strike",
+        "description": "When the [k:Foe|Foe|icon] attacks, they swap their attackers with exact [k:Ephemeral|Ephemeral|icon] copies.",
+        "descriptionRaw": "When the Foe attacks, they swap their attackers with exact Ephemeral copies.",
         "rarity": "Legendary"
       }
     },
@@ -8591,9 +8551,9 @@
     ],
     "translations": {
       "en": {
-        "name": "Vua Trò Chơi",
-        "description": "Khi một người chơi bất kỳ gây 2+ Sát thương cho một Nhà Chính, họ rút 1 lá bài. Người chơi rút hết bài trong bộ bài của mình trước sẽ chiến thắng. Nếu bộ bài của ngươi có ít hơn 40 lá bài, Địch Thủ sẽ cho ngươi mượn bài của chúng.",
-        "descriptionRaw": "Khi một người chơi bất kỳ gây 2+ Sát thương cho một Nhà Chính, họ rút 1 lá bài. Người chơi rút hết bài trong bộ bài của mình trước sẽ chiến thắng. Nếu bộ bài của ngươi có ít hơn 40 lá bài, Địch Thủ sẽ cho ngươi mượn bài của chúng.",
+        "name": "King Of Games",
+        "description": "When any player deals 2+ damage to a Nexs, they draw 1. The first player to overdraw their deck wins.\nIf your deck has less than 40 cards, the Foe lends you theirs.",
+        "descriptionRaw": "When any player deals 2+ damage to a Nexs, they draw 1. The first player to overdraw their deck wins.\nIf your deck has less than 40 cards, the Foe lends you theirs.",
         "rarity": "Epic"
       }
     },
@@ -9741,6 +9701,166 @@
     "descriptionRaw": "Bắt Đầu Vòng Đấu: Nếu Địch Thủ có lượt tấn công, chúng Đóng Băng bài quân Mạnh Nhất của người chơi và triệu hồi 1 lá Bầy Sói Nanh Trắng."
   },
   {
+    "powerCode": "P01422",
+    "name": "Dậy Sóng",
+    "rarity": "Sử Thi",
+    "description": "Bắt Đầu Vòng Đấu: TẤT CẢ NGƯỜI CHƠI hồi năng lượng bài phép và rút 1 lá bài phép nếu có thể.",
+    "type": [
+      "Foe Power"
+    ],
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01422.webp",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01422.webp",
+    "translations": {
+      "en": {
+        "name": "Surging Tides",
+        "rarity": "Epic",
+        "description": "[k:RoundStart|Round Start|icon]: ALL players refill their spell mana and draw a spell if able.",
+        "descriptionRaw": "Round Start: ALL players refill their spell mana and draw a spell if able."
+      }
+    },
+    "descriptionRaw": "Bắt Đầu Vòng Đấu: TẤT CẢ NGƯỜI CHƠI hồi năng lượng bài phép và rút 1 lá bài phép nếu có thể."
+  },
+  {
+    "powerCode": "P01423",
+    "name": "Sương Biến Ảo",
+    "rarity": "Sử Thi",
+    "description": "[k:RoundStart|Bắt Đầu Vòng Đấu|icon]: Nếu [k:Foe|Địch Thủ|icon] có lượt tấn công, chúng triệu hồi 1 lá [cd:04SI045|Màn Sương Xâm Chiếm|icon] với một vật phẩm và ban +1|+1 [cd:04SI045|Màn Sương Xâm Chiếm|icon] [k:Everywhere|Ở Mọi Nơi|icon].",
+    "type": [
+      "Foe Power"
+    ],
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01423.webp",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01423.webp",
+    "translations": {
+      "en": {
+        "name": "Shifting Mists",
+        "rarity": "Epic",
+        "description": "[k:RoundStart|Round Start|icon]: If the [k:Foe|Foe|icon] has the attack token, they summon a [cd:04SI045|Encroaching Mists|icon] with an Item and grants [cd:04SI045|Encroaching Mist|icon] [k:Everywhere|EVERYWHERE|icon] +1|+1.",
+        "descriptionRaw": "Round Start: If the Foe has the attack token, they summon a Encroaching Mists with an Item and grants Encroaching Mist EVERYWHERE +1|+1."
+      }
+    },
+    "descriptionRaw": "Bắt Đầu Vòng Đấu: Nếu Địch Thủ có lượt tấn công, chúng triệu hồi 1 lá Màn Sương Xâm Chiếm với một vật phẩm và ban +1|+1 Màn Sương Xâm Chiếm Ở Mọi Nơi."
+  },
+  {
+    "powerCode": "P01424",
+    "name": "Điệp Khúc Biển Cả",
+    "rarity": "Thường",
+    "description": "Khi người chơi bất kỳ sử dụng bài phép, ban [k:Elusive|Huyền Ảo|icon] cho đồng minh [k:Weakest|yếu nhất|icon] của người chơi đó trong vòng này.",
+    "type": [
+      "Foe Power"
+    ],
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01424.webp",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01424.webp",
+    "translations": {
+      "en": {
+        "name": "Ocean's Verse",
+        "rarity": "Common",
+        "description": "When either player plays a spell, give their [k:Weakest|weakest|icon] ally [k:Elusive|Elusive|icon] this round.",
+        "descriptionRaw": "When either player plays a spell, give their weakest ally Elusive this round."
+      }
+    },
+    "descriptionRaw": "Khi người chơi bất kỳ sử dụng bài phép, ban Huyền Ảo cho đồng minh yếu nhất của người chơi đó trong vòng này."
+  },
+  {
+    "powerCode": "P01425",
+    "name": "Túi Tiền Của Người Chiến Thắng",
+    "rarity": "Hiếm",
+    "description": "Khi [k:Foe|Địch Thủ|icon] [k:AttackSkillMark|tấn công|icon] Nhà Chính của ngươi, chúng tạo trên tay 1 lá [cd:07IO011T5|Xu|icon].",
+    "type": [
+      "Foe Power"
+    ],
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01425.webp",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01425.webp",
+    "translations": {
+      "en": {
+        "name": "Winner's Purse",
+        "rarity": "Rare",
+        "description": "When the [k:Foe|Foe|icon] [k:Strike|strikes|icon] your Nexus, they create a [cd:07IO011T5|Coin|icon] in hand.",
+        "descriptionRaw": "When the Foe strikes your Nexus, they create a Coin in hand."
+      }
+    },
+    "descriptionRaw": "Khi Địch Thủ tấn công Nhà Chính của ngươi, chúng tạo trên tay 1 lá Xu."
+  },
+  {
+    "powerCode": "P01426",
+    "name": "Ta Chưa Xong Với Ngươi Đâu",
+    "rarity": "Sử Thi",
+    "description": "Khi [k:Foe|Địch Thủ|icon] có lượt tấn công, ban cho đồng minh [k:Strongest|mạnh nhất|icon] của chúng [k:Deathless|Bất Diệt|icon].",
+    "type": [
+      "Foe Power"
+    ],
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01426.webp",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01426.webp",
+    "translations": {
+      "en": {
+        "name": "I'm Not Done With You",
+        "rarity": "Epic",
+        "description": "When the [k:Foe|Foe|icon] gains the attack token, grant their [k:Strongest|strongest|icon] ally [k:Deathless|Deathless|icon].",
+        "descriptionRaw": "When the Foe gains the attack token, grant their strongest ally Deathless."
+      }
+    },
+    "descriptionRaw": "Khi Địch Thủ có lượt tấn công, ban cho đồng minh mạnh nhất của chúng Bất Diệt."
+  },
+  {
+    "powerCode": "P01427",
+    "name": "Gia Cố",
+    "rarity": "Hiếm",
+    "description": "Nhà Chính của [k:Foe|Địch Thủ|icon] nhận [k:Tough|Kiên Cường|icon].",
+    "type": [
+      "Foe Power"
+    ],
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0625.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0625.png",
+    "translations": {
+      "en": {
+        "name": " Fortifications",
+        "rarity": "Rare",
+        "description": "The [k:Foe|Foe's|icon] Nexus is [k:Tough|Tough|icon].",
+        "descriptionRaw": "The Foe's Nexus is Tough."
+      }
+    },
+    "descriptionRaw": "Nhà Chính của Địch Thủ nhận Kiên Cường."
+  },
+  {
+    "powerCode": "P01428",
+    "name": "Nắm Bắt Lợi Thế",
+    "rarity": "Hiếm",
+    "description": "Khi [k:Foe|Địch Thủ|icon] có lượt tấn công, cho bài quân chưa nhận sát thương của chúng [k:Barrier|Lá Chắn|icon] trong vòng này.",
+    "type": [
+      "Foe Power"
+    ],
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01428.webp",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01428.webp",
+    "translations": {
+      "en": {
+        "name": " Press The Advantage",
+        "rarity": "Rare",
+        "description": "When the Foe gains the attack token, give their undamaged units [k:Barrier|Barrier|icon] this round.",
+        "descriptionRaw": "When the Foe gains the attack token, give their undamaged units Barrier this round."
+      }
+    },
+    "descriptionRaw": "Khi Địch Thủ có lượt tấn công, cho bài quân chưa nhận sát thương của chúng Lá Chắn trong vòng này."
+  },
+  {
+    "powerCode": "P01429",
+    "name": "Solo Tự Do",
+    "rarity": "Hiếm",
+    "description": "Khi người chơi rút hoặc tạo trên tay một bản sao của lá họ [k:Behold|Chứng Kiến|icon], biến đổi nó thành 1 lá bài mới cùng loại và cùng lượng tiêu hao.",
+    "type": [
+      "Foe Power"
+    ],
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01429.webp",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01429.webp",
+    "translations": {
+      "en": {
+        "name": " Freestyle Solo",
+        "rarity": "Rare",
+        "description": "When the player draws or creates in hand a copy of a card they [k:Behold|Behold|icon], transform it into a new card of the same type and cost.",
+        "descriptionRaw": "When the player draws or creates in hand a copy of a card they Behold, transform it into a new card of the same type and cost."
+      }
+    },
+    "descriptionRaw": "Khi người chơi rút hoặc tạo trên tay một bản sao của lá họ Chứng Kiến, biến đổi nó thành 1 lá bài mới cùng loại và cùng lượng tiêu hao."
+  },
+  {
     "powerCode": "P0143",
     "name": "Ánh Sáng Cuối Cùng Của Icathia II",
     "rarity": "Sử Thi",
@@ -9761,6 +9881,206 @@
     "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0143-full.png"
   },
   {
+    "powerCode": "P01430",
+    "name": "Ánh Sáng Của Marai",
+    "rarity": "Hiếm",
+    "description": "Bài quân của [k:Foe|Địch Thủ|icon] có [k:Attune|Hồi Lực|icon].",
+    "type": [
+      "Foe Power"
+    ],
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01430.webp",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01430.webp",
+    "translations": {
+      "en": {
+        "name": "Light of The Marai",
+        "rarity": "Rare",
+        "description": "The [k:Foe|Foe's|icon] units have [k:Attune|Attune|icon].",
+        "descriptionRaw": "The Foe's units have Attune."
+      }
+    },
+    "descriptionRaw": "Bài quân của Địch Thủ có Hồi Lực."
+  },
+  {
+    "powerCode": "P01431",
+    "name": "Bóng Hình Ma Ám",
+    "rarity": "Hiếm",
+    "description": "Khi một trong những bài quân của người chơi bị tiêu diệt, các bản sao khác của nó trên tay hoặc trên bộ bài trở nên [k:Ephemeral|Cảm Tử|icon] và có 0 tiêu hao.",
+    "type": [
+      "Foe Power"
+    ],
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01431.webp",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01431.webp",
+    "translations": {
+      "en": {
+        "name": "Haunting Presence",
+        "rarity": "Rare",
+        "description": "When one of the player's units dies, copies of it in hand and deck become [k:Ephemeral|Ephemeral|icon] and cost 0.",
+        "descriptionRaw": "When one of the player's units dies, copies of it in hand and deck become Ephemeral and cost 0."
+      }
+    },
+    "descriptionRaw": "Khi một trong những bài quân của người chơi bị tiêu diệt, các bản sao khác của nó trên tay hoặc trên bộ bài trở nên Cảm Tử và có 0 tiêu hao."
+  },
+  {
+    "powerCode": "P01432",
+    "name": "Lưỡi Kiếm Trong Bóng Tối",
+    "rarity": "Sử Thi",
+    "description": "[k:RoundEnd|Kết Thúc Vòng Đấu|icon]: Gây 4 sát thương lên Nhà Chính của người chơi. Giảm 2 sát thương với mỗi lá bài người chơi đã sử dụng trong vòng này.",
+    "type": [
+      "Foe Power"
+    ],
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01432.webp",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01432.webp",
+    "translations": {
+      "en": {
+        "name": "Blades In The Dark",
+        "rarity": "Epic",
+        "description": "[k:RoundEnd|Round End|icon]: Deal 4 to the player's Nexus. Reduce the damage by 2 for each card the player played this round.",
+        "descriptionRaw": "Round End: Deal 4 to the player's Nexus. Reduce the damage by 2 for each card the player played this round."
+      }
+    },
+    "descriptionRaw": "Kết Thúc Vòng Đấu: Gây 4 sát thương lên Nhà Chính của người chơi. Giảm 2 sát thương với mỗi lá bài người chơi đã sử dụng trong vòng này."
+  },
+  {
+    "powerCode": "P01433",
+    "name": "Nguy Hiểm Tăng Cường",
+    "rarity": "Sử Thi",
+    "description": "Khi người chơi nhận lượt tấn công, tăng chỉ số của bài quân [k:Weakest|Yếu Nhất|icon] của [k:Foe|Địch Thủ|icon] lên 1 so với bài quân [k:Strongest|Mạnh Nhất|icon] của người chơi.",
+    "type": [
+      "Foe Power"
+    ],
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01433.webp",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01433.webp",
+    "translations": {
+      "en": {
+        "name": "Threat Escalation",
+        "rarity": "Epic",
+        "description": "When the player gains the atack token, grow the [k:Foe|Foe's|icon] [k:Weakest|weakest|icon] unit's stats to one more than the [k:Strongest|strongest|icon] unit's stats.",
+        "descriptionRaw": "When the player gains the atack token, grow the Foe's weakest unit's stats to one more than the strongest unit's stats."
+      }
+    },
+    "descriptionRaw": "Khi người chơi nhận lượt tấn công, tăng chỉ số của bài quân Yếu Nhất của Địch Thủ lên 1 so với bài quân Mạnh Nhất của người chơi."
+  },
+  {
+    "powerCode": "P01434",
+    "name": "Dồn Sức Hỗn Chiến",
+    "rarity": "Hiếm",
+    "description": "Khi một người chơi sử dụng một bài quân với 5+ Sức Mạnh, ban cho nó [k:CantBlock|Không Thể Chặn Đòn|icon]. Nó sẽ phát động tấn công.",
+    "type": [
+      "Foe Power"
+    ],
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01434.webp",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01434.webp",
+    "translations": {
+      "en": {
+        "name": "All Out Brawl",
+        "rarity": "Rare",
+        "description": "When any player plays a unit with +5 power, grant it [k:CantBlock|Can't Block|icon]. It starts a free attack.",
+        "descriptionRaw": "When any player plays a unit with +5 power, grant it Can't Block. It starts a free attack."
+      }
+    },
+    "descriptionRaw": "Khi một người chơi sử dụng một bài quân với 5+ Sức Mạnh, ban cho nó Không Thể Chặn Đòn. Nó sẽ phát động tấn công."
+  },
+  {
+    "powerCode": "P01435",
+    "name": "Hoa Mắt",
+    "rarity": "Sử Thi",
+    "description": "Mỗi vòng đấu, lần đầu mỗi người chơi chọn mục tiêu một bài quân bằng bài phép, sao chép bài phép đó lên cùng mục tiêu.",
+    "type": [
+      "Foe Power"
+    ],
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01435.webp",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01435.webp",
+    "translations": {
+      "en": {
+        "name": "Seeing Double",
+        "rarity": "Epic",
+        "description": "The first time each player targets a single unit with a spell each round, copy it with the same targets.",
+        "descriptionRaw": "The first time each player targets a single unit with a spell each round, copy it with the same targets."
+      }
+    },
+    "descriptionRaw": "Mỗi vòng đấu, lần đầu mỗi người chơi chọn mục tiêu một bài quân bằng bài phép, sao chép bài phép đó lên cùng mục tiêu."
+  },
+  {
+    "powerCode": "P01436",
+    "name": "Quay Và Chia",
+    "rarity": "Huyền Thoại",
+    "description": "[k:RoundStart|Bắt Đầu Vòng Đấu|icon]: Ban [k:Fleeting|Phù Du|icon] cho 3 lá bài ngoài cùng bên trái trên tay người chơi.",
+    "type": [
+      "Foe Power"
+    ],
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01436.webp",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01436.webp",
+    "translations": {
+      "en": {
+        "name": "Wheel and Deal",
+        "rarity": "Legendary",
+        "description": "[k:RoundStart|Round Start|icon]: Grant the leftmost 3 cards in the player's hand [k:Fleeting|Fleeting|icon].",
+        "descriptionRaw": "Round Start: Grant the leftmost 3 cards in the player's hand Fleeting."
+      }
+    },
+    "descriptionRaw": "Bắt Đầu Vòng Đấu: Ban Phù Du cho 3 lá bài ngoài cùng bên trái trên tay người chơi."
+  },
+  {
+    "powerCode": "P01437",
+    "name": "Sức Mạnh Demacia II",
+    "rarity": "Sử Thi",
+    "description": "Khi 1 bài quân của [k:Foe|Địch Thủ|icon] [k:Strike|ra đòn|icon], ban +2|+2 cho bài quân đó.",
+    "type": [
+      "Foe Power"
+    ],
+    "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0012.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0012.png",
+    "translations": {
+      "en": {
+        "name": "Demacian Might II",
+        "rarity": "Epic",
+        "description": "When one of the [k:Foe|Foe's|icon] units [k:Strike|strikes|icon], grant it +2|+2.",
+        "descriptionRaw": "When one of the Foe's units strikes, grant it +2|+2."
+      }
+    },
+    "descriptionRaw": "Khi 1 bài quân của Địch Thủ ra đòn, ban +2|+2 cho bài quân đó."
+  },
+  {
+    "powerCode": "P01438",
+    "name": "Thiết Bị Hóa-Kỹ",
+    "rarity": "Sử Thi",
+    "description": "Cả hai người chơi tạo ra các lá bài với ít hơn 1 tiêu hao và gây 1 sát thương lên Nhà Chính của mình khi chơi.",
+    "type": [
+      "Foe Power"
+    ],
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01438.webp",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01438.webp",
+    "translations": {
+      "en": {
+        "name": "Chemtech Contraptions",
+        "rarity": "Epic",
+        "description": "Both players' created cards cost 1 less and deal 1 to their Nexus when played.",
+        "descriptionRaw": "Both players' created cards cost 1 less and deal 1 to their Nexus when played."
+      }
+    },
+    "descriptionRaw": "Cả hai người chơi tạo ra các lá bài với ít hơn 1 tiêu hao và gây 1 sát thương lên Nhà Chính của mình khi chơi."
+  },
+  {
+    "powerCode": "P01439",
+    "name": "Tua Rua Vô Số",
+    "rarity": "Thường",
+    "description": "[k:RoundStart|Bắt Đầu Vòng Đấu|icon]: TẤT CẢ người chơi [k:Spawn|Triệu Gọi|icon] 1 xúc tu.",
+    "type": [
+      "Foe Power"
+    ],
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01439.webp",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01439.webp",
+    "translations": {
+      "en": {
+        "name": "Multiplying Tendrils",
+        "rarity": "Common",
+        "description": "[k:RoundStart|Round Start|icon]: ALL players [k:Spawn|Spawn|icon] 1.",
+        "descriptionRaw": "Round Start: ALL players Spawn 1."
+      }
+    },
+    "descriptionRaw": "Bắt Đầu Vòng Đấu: TẤT CẢ người chơi Triệu Gọi 1 xúc tu."
+  },
+  {
     "powerCode": "P0144",
     "name": "Tinh Hoa Chết Chóc",
     "rarity": "Hiếm",
@@ -9779,6 +10099,66 @@
     },
     "assetAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0144.png",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/6_9_0/adventure/vi_vn/img/powers/P0144-full.png"
+  },
+  {
+    "powerCode": "P01440",
+    "name": "Không Gian Lận",
+    "rarity": "Sử Thi",
+    "description": "Mỗi Vòng Đấu, lần đầu tiên người chơi tạo trên tay 1 lá bài, [k:Foe|Địch Thủ|icon] sẽ đánh cắp lá bài đó. Lá bài đó có 0 tiêu hao và [k:Fleeting|Phù Du|icon].",
+    "type": [
+      "Foe Power"
+    ],
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01440.webp",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01440.webp",
+    "translations": {
+      "en": {
+        "name": "Ante Up",
+        "rarity": "Epic",
+        "description": "Each round, the first time the player creates a card in hand, the [k:Foe|Foe|icon] steals it. It costs 0 and is [k:Fleeting|Fleeting|icon].",
+        "descriptionRaw": "Each round, the first time the player creates a card in hand, the Foe steals it. It costs 0 and is Fleeting."
+      }
+    },
+    "descriptionRaw": "Mỗi Vòng Đấu, lần đầu tiên người chơi tạo trên tay 1 lá bài, Địch Thủ sẽ đánh cắp lá bài đó. Lá bài đó có 0 tiêu hao và Phù Du."
+  },
+  {
+    "powerCode": "P01441",
+    "name": "Phế Liệu Đánh Cắp",
+    "rarity": "Thường",
+    "description": "[k:RoundStart|Bắt Đầu Vòng Đấu|icon]: [k:Foe|Địch Thủ|icon] triệu hồi 1 lá [cd:01PZ032|Cua Phế Liệu|icon] nếu chưa có lá bài này. [cd:01PZ032|Cua Phế Liệu|icon] của lá bài đó +2|+0.",
+    "type": [
+      "Foe Power"
+    ],
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01146.webp",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01146.webp",
+    "translations": {
+      "en": {
+        "name": "Stolen Scrap",
+        "rarity": "Common",
+        "description": "[k:RoundStart|Round Start|icon]: The [k:Foe|Foe|icon] summons a  [cd:01PZ032|Scrap Scuttler|icon] if it doesn't have one. Its [cd:01PZ032|Scrap Scuttlers|icon] have +2|+0.",
+        "descriptionRaw": "Round Start: The Foe summons a  Scrap Scuttler if it doesn't have one. Its Scrap Scuttlers have +2|+0."
+      }
+    },
+    "descriptionRaw": "Bắt Đầu Vòng Đấu: Địch Thủ triệu hồi 1 lá Cua Phế Liệu nếu chưa có lá bài này. Cua Phế Liệu của lá bài đó +2|+0."
+  },
+  {
+    "powerCode": "P01442",
+    "name": "Đến Giờ Học",
+    "rarity": "Hiếm",
+    "description": "Khi các bài quân của [k:Foe|Địch Thủ|icon] tấn công, chúng chia sẻ Đặc Điểm của chúng với các bài quân ở vị trí tấn công trong vòng này.",
+    "type": [
+      "Foe Power"
+    ],
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01442.webp",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01442.webp",
+    "translations": {
+      "en": {
+        "name": "Lesson Time",
+        "rarity": "Rare",
+        "description": "When The [k:Foe|Foe's|icon] units attack, they share their keywords with all attacking units this round.",
+        "descriptionRaw": "When The Foe's units attack, they share their keywords with all attacking units this round."
+      }
+    },
+    "descriptionRaw": "Khi các bài quân của Địch Thủ tấn công, chúng chia sẻ Đặc Điểm của chúng với các bài quân ở vị trí tấn công trong vòng này."
   },
   {
     "powerCode": "P0145",

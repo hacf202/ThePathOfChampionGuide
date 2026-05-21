@@ -490,9 +490,11 @@ function ChampionDetail() {
 							{/* HEADER SECTION (Avatar + Name + Description) */}
 							<div className='flex flex-col md:flex-row border border-border gap-4 rounded-xl bg-surface-bg sm:p-6 shadow-sm overflow-hidden'>
 								<SafeImage
-									className='h-[300px] w-full md:w-[300px] object-contain rounded-lg mt-4'
+									className='h-[300px] w-full md:w-[300px] object-contain rounded-lg mt-4 transform-gpu will-change-transform'
 									src={champion.assets?.[0]?.avatar}
 									alt={tDynamic(champion, "name")}
+									fetchpriority='high'
+									decoding='async'
 								/>
 								<div className='flex-1'>
 									<div className='flex flex-col sm:flex-row sm:justify-between p-1 gap-2'>

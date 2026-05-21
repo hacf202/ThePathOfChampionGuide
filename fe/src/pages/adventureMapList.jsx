@@ -110,6 +110,13 @@ export default function MapList() {
 						onChange={vals => actions.setFilterValue("difficulty", vals)}
 						placeholder={tUI("mapList.allDifficulties") || "Tất cả độ khó"}
 					/>
+					<MultiSelectFilter
+						label={tUI("mapList.type") || "Loại Phiêu Lưu"}
+						options={optionsMap.type || []}
+						selectedValues={state.customFilters?.type || []}
+						onChange={vals => actions.setFilterValue("type", vals)}
+						placeholder={tUI("mapList.allTypes") || "Tất cả loại"}
+					/>
 					<DropdownFilter
 						label={tUI("championList.sortBy")}
 						options={sortOptions || []}

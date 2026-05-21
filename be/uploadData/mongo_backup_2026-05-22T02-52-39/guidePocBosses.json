@@ -1,4 +1,4 @@
-﻿[
+[
   {
     "bossID": "B001",
     "background": "https://images.pocguide.top/backgrounds/1920px-01FR008T1-hd-full.webp",
@@ -607,7 +607,7 @@
     "bossName": "Thống Chến Nhiệt Huyết",
     "translations": {
       "en": {
-        "bossName": "Sneak Into The City"
+        "bossName": "Inspiring Marshal"
       }
     },
     "power": [
@@ -5107,6 +5107,963 @@
     "translations": {
       "en": {
         "bossName": "The Maker"
+      }
+    }
+  },
+  {
+    "bossID": "B268",
+    "bossName": "Zap Sprayfin",
+    "power": [
+      "P01190"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02BW038-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Zap Sprayfin"
+      }
+    }
+  },
+  {
+    "bossID": "B269",
+    "bossName": "Nhạc Sĩ Móc Túi",
+    "power": [
+      "P01237"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02BW050-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Smooth Soloist"
+      }
+    }
+  },
+  {
+    "bossID": "B270",
+    "bossName": "Inh Tai Nhức Óc",
+    "power": [
+      "P01261"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-05BC084-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Squeaker"
+      }
+    }
+  },
+  {
+    "bossID": "B271",
+    "bossName": "Chỉ Huy Hạm Đội Giáp Xác",
+    "power": [
+      "P01169"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-05BW011-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Fleet Admiral Shelly"
+      }
+    }
+  },
+  {
+    "bossID": "B272",
+    "bossName": "Poppy",
+    "power": [
+      "P01303"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-05BC041-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Poppy"
+      }
+    }
+  },
+  {
+    "bossID": "B273",
+    "bossName": "Giọng Nam Cao Kinh Hoàng",
+    "power": [
+      "P01317"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-05BC096-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Tenor of Terror"
+      }
+    }
+  },
+  {
+    "bossID": "B274",
+    "bossName": "Huấn Luyện Viên Cá Mập",
+    "power": [
+      "P01205"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-05BC010-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Shark Trainer"
+      }
+    }
+  },
+  {
+    "bossID": "B275",
+    "bossName": "Fizz",
+    "power": [
+      "P01171"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02BW046-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Fizz"
+      }
+    }
+  },
+  {
+    "bossID": "B276",
+    "bossName": "Hải Tặc Thiện Xạ",
+    "power": [
+      "P0553"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02BW060-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Crackshot Corsair"
+      }
+    }
+  },
+  {
+    "bossID": "B277",
+    "bossName": "Kiếm Sư Laurent",
+    "power": [
+      "P01399"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01DE055-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Laurent Duelist"
+      }
+    }
+  },
+  {
+    "bossID": "B278",
+    "bossName": "Fiora",
+    "power": [
+      "P01347"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01DE045-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Fiora"
+      }
+    }
+  },
+  {
+    "bossID": "B279",
+    "bossName": "Bóng Hình Trong Bị Cây",
+    "power": [
+      "P0543"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-07SH013T6-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Shadow In the Brush"
+      }
+    }
+  },
+  {
+    "bossID": "B280",
+    "bossName": "Elise",
+    "power": [
+      "P0539"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01SI053-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Elise"
+      }
+    }
+  },
+  {
+    "bossID": "B281",
+    "bossName": "Cái Chết Tái Nhợt",
+    "power": [
+      "P0538"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04SI007-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "The Pale Death"
+      }
+    }
+  },
+  {
+    "bossID": "B282",
+    "bossName": "Sống Sót Qua Đêm Tối",
+    "power": [
+      "P0542"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01SI055-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Survive The Night"
+      }
+    }
+  },
+  {
+    "bossID": "B283",
+    "bossName": "Nhạc Sĩ Chiến Trường",
+    "power": [
+      "P01167"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04IO001-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Field Musicians"
+      }
+    }
+  },
+  {
+    "bossID": "B284",
+    "bossName": "Jack",
+    "power": [
+      "P01245"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-07BW002-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Jack"
+      }
+    }
+  },
+  {
+    "bossID": "B285",
+    "bossName": "Sett",
+    "power": [
+      "P01295"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-07IO011-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Sett"
+      }
+    }
+  },
+  {
+    "bossID": "B286",
+    "bossName": "Nữ Danh Ca Marai",
+    "power": [
+      "P01424"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-05BW013-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Marai Songstress"
+      }
+    },
+    "resolvedPowers": []
+  },
+  {
+    "bossID": "B287",
+    "bossName": "Zap Sprayfin",
+    "power": [
+      "P01011"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02BW038-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Zap Sprayfin"
+      }
+    },
+    "resolvedPowers": []
+  },
+  {
+    "bossID": "B288",
+    "bossName": "Nasus",
+    "power": [
+      "P01400"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04SH047-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Nasus"
+      }
+    }
+  },
+  {
+    "bossID": "B289",
+    "bossName": "Mordekaiser",
+    "power": [
+      "P01102"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-08SI042-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Mordekaiser"
+      }
+    }
+  },
+  {
+    "bossID": "B290",
+    "bossName": "Hỏa Binh Avarosa",
+    "power": [
+      "P01188"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01FR041-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Avarosan Hearthguard"
+      }
+    }
+  },
+  {
+    "bossID": "B291",
+    "bossName": "Nữ Tặc Tay Mơ",
+    "power": [
+      "P01335"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01FR035-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Unscarred Reaver"
+      }
+    }
+  },
+  {
+    "bossID": "B292",
+    "bossName": "Malphite",
+    "power": [
+      "P0615"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04MT008T1-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Malphite"
+      }
+    }
+  },
+  {
+    "bossID": "B293",
+    "bossName": "Volibear",
+    "power": [
+      "P0614"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-08FR001-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Volibear"
+      }
+    }
+  },
+  {
+    "bossID": "B294",
+    "bossName": "Rồng Camavor",
+    "power": [
+      "P01189"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04SI028-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Camavoran Dragon"
+      }
+    }
+  },
+  {
+    "bossID": "B295",
+    "bossName": "Nhện Con",
+    "power": [
+      "P01200"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01SI002-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Spiderling"
+      }
+    }
+  },
+  {
+    "bossID": "B296",
+    "bossName": "Danh Ca Bập Bẹ",
+    "power": [
+      "P01266"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-05BC184-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Babbling Balladeers"
+      }
+    }
+  },
+  {
+    "bossID": "B297",
+    "bossName": "Norra",
+    "power": [
+      "P01100"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-06BC015-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Norra"
+      }
+    }
+  },
+  {
+    "bossID": "B298",
+    "bossName": "Cún Nấm Độc",
+    "power": [
+      "P01288"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-05BC100-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Puffcap Pup"
+      }
+    }
+  },
+  {
+    "bossID": "B299",
+    "bossName": "Kalista",
+    "power": [
+      "P01364"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01SI030-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Kalista"
+      }
+    }
+  },
+  {
+    "bossID": "B300",
+    "bossName": "Kayle",
+    "power": [
+      "P01173"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-06MT008-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Kayle"
+      }
+    }
+  },
+  {
+    "bossID": "B301",
+    "bossName": "Nami",
+    "power": [
+      "P01284"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-05BW005-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Nami"
+      }
+    },
+    "resolvedPowers": []
+  },
+  {
+    "bossID": "B302",
+    "bossName": "Bard",
+    "power": [
+      "P01224"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-06RU001-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Bard"
+      }
+    }
+  },
+  {
+    "bossID": "B303",
+    "bossName": "Seraphine",
+    "power": [
+      "P01324"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-06PZ021-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Seraphine"
+      }
+    }
+  },
+  {
+    "bossID": "B304",
+    "bossName": "Braum",
+    "power": [
+      "P01354"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01FR009-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Braum"
+      }
+    }
+  },
+  {
+    "bossID": "B305",
+    "bossName": "Jarvan IV",
+    "power": [
+      "P01264"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04DE008-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Jarvan IV"
+      }
+    }
+  },
+  {
+    "bossID": "B306",
+    "bossName": "Món Ăn Bà Nấu",
+    "power": [
+      "P0805"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-98SB004-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Grandma's Cooking"
+      }
+    }
+  },
+  {
+    "bossID": "B307",
+    "bossName": "Cuộc Hội Ngộ Bùng Nổ",
+    "power": [
+      "P0806"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-05BC027-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "An Explosive Encounter"
+      }
+    }
+  },
+  {
+    "bossID": "B308",
+    "bossName": "Siêu Lừa Thực Thụ",
+    "power": [
+      "P01248",
+      "P0808"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04NX007-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Prankster At Hearth"
+      }
+    }
+  },
+  {
+    "bossID": "B309",
+    "bossName": "Akshan",
+    "power": [
+      "P01286"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04SH130-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Akshan"
+      }
+    }
+  },
+  {
+    "bossID": "B310",
+    "bossName": "Samira",
+    "power": [
+      "P0684"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-07NX007-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Samira"
+      }
+    }
+  },
+  {
+    "bossID": "B311",
+    "bossName": "Nocturne",
+    "power": [
+      "P01401"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-03SI005-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Nocturne"
+      }
+    }
+  },
+  {
+    "bossID": "B312",
+    "bossName": "Diana",
+    "power": [
+      "P01246"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-03MT056-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Diana"
+      }
+    }
+  },
+  {
+    "bossID": "B313",
+    "bossName": "Veigar",
+    "power": [
+      "P01187"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-05BC093-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Veigar"
+      }
+    }
+  },
+  {
+    "bossID": "B314",
+    "bossName": "Master Yi",
+    "power": [
+      "P01360"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-06IO008-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Master Yi"
+      }
+    }
+  },
+  {
+    "bossID": "B315",
+    "bossName": "Morgana",
+    "power": [
+      "P01101"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-08MT003-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Morgana"
+      }
+    }
+  },
+  {
+    "bossID": "B316",
+    "bossName": "Twisted Fate",
+    "power": [
+      "P01369"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02BW026-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Twisted Fate"
+      }
+    }
+  },
+  {
+    "bossID": "B317",
+    "bossName": "Hãy Chiêu Mộ Sett",
+    "power": [
+      "P01055"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-07IO011-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Recruit Sett"
+      }
+    }
+  },
+  {
+    "bossID": "B318",
+    "bossName": "Tùy Phái Tàn Tích",
+    "power": [
+      "P01198"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04SH055-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Ruin Runner"
+      }
+    }
+  },
+  {
+    "bossID": "B319",
+    "bossName": "Chủ Sòng Trung Thực",
+    "power": [
+      "P01440"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-08BW037-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Honest Croupier"
+      }
+    },
+    "resolvedPowers": []
+  },
+  {
+    "bossID": "B320",
+    "bossName": "Quái Thú Sa Mạc",
+    "power": [
+      "P01181"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-08SH002-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Dune Swallower"
+      }
+    }
+  },
+  {
+    "bossID": "B321",
+    "bossName": "Người Cai Quản Thánh Địa",
+    "power": [
+      "P0708"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04SH097-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Sanctum Conservator"
+      }
+    }
+  },
+  {
+    "bossID": "B322",
+    "bossName": "Ezreal",
+    "power": [
+      "P01402"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01PZ036-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Ezreal"
+      }
+    }
+  },
+  {
+    "bossID": "B323",
+    "bossName": "Kẻ Mộ Đạo Buhru",
+    "power": [
+      "P01322"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-06BW026-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Buhru Cultist"
+      }
+    }
+  },
+  {
+    "bossID": "B324",
+    "bossName": "Tiểu Quỷ Xứ Zaun",
+    "power": [
+      "P01366"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01PZ045-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Zaunite Urchin"
+      }
+    }
+  },
+  {
+    "bossID": "B325",
+    "bossName": "Gác Cổng Zaun",
+    "power": [
+      "P01282"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-06PZ019-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Zaun Bouncer"
+      }
+    }
+  },
+  {
+    "bossID": "B326",
+    "bossName": "Tinh Linh Già Cả",
+    "power": [
+      "P01302"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-05BC183-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Grandfather Fae"
+      }
+    }
+  },
+  {
+    "bossID": "B327",
+    "bossName": "Pháp Sư Thời Gian Học Việc",
+    "power": [
+      "P0711"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04SH001-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Aspiring Chronomancer"
+      }
+    }
+  },
+  {
+    "bossID": "B328",
+    "bossName": "Đồng Hồ Cai Quản",
+    "power": [
+      "P0714"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-04SH034-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "The Grand Finale"
+      }
+    }
+  },
+  {
+    "bossID": "B329",
+    "bossName": "Illaoi",
+    "power": [
+      "P01219"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-06BW006-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Illaoi"
+      }
+    },
+    "resolvedPowers": []
+  },
+  {
+    "bossID": "B330",
+    "bossName": "Garen",
+    "power": [
+      "P01404"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01DE012-hd-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Garen"
+      }
+    }
+  },
+  {
+    "bossID": "B331",
+    "bossName": "Ambessa",
+    "power": [
+      "P01403"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-98NX003-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Ambessa"
+      }
+    }
+  },
+  {
+    "bossID": "B332",
+    "bossName": "Gác Công Zaun",
+    "power": [
+      "P01145"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-06PZ019-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Follow the Rowdy Crowd"
+      }
+    }
+  },
+  {
+    "bossID": "B333",
+    "bossName": "Tiểu Quỷ Xứ Zaun",
+    "power": [
+      "P01366"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01PZ045-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Ask For Directions"
+      }
+    }
+  },
+  {
+    "bossID": "B334",
+    "bossName": "Hóa-Tặc Móc Túi",
+    "power": [
+      "P01441"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01PZ043-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Chempunk Pickpocket"
+      }
+    },
+    "resolvedPowers": []
+  },
+  {
+    "bossID": "B335",
+    "bossName": "Rồng Hóa Kỹ",
+    "power": [
+      "P01216"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-08PZ028-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Chemtech Drake"
+      }
+    }
+  },
+  {
+    "bossID": "B336",
+    "bossName": "Thần Đồng Học Viện",
+    "power": [
+      "P01442"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01PZ018-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Check Out The Academy"
+      }
+    },
+    "resolvedPowers": []
+  },
+  {
+    "bossID": "B337",
+    "bossName": "Cảnh Binh Tuần Tra",
+    "power": [
+      "P01140"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-02PZ005-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Investigate The Commotion"
+      }
+    }
+  },
+  {
+    "bossID": "B338",
+    "bossName": "Karma",
+    "power": [
+      "P01061"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/01IO041T1-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Karma"
+      }
+    }
+  },
+  {
+    "bossID": "B339",
+    "bossName": "Teemo",
+    "power": [
+      "P01110"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01PZ008-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Teemo"
+      }
+    }
+  },
+  {
+    "bossID": "B340",
+    "bossName": "Lux",
+    "power": [
+      "P01405"
+    ],
+    "background": "https://images.pocguide.top/backgrounds/1920px-01DE042-full.webp",
+    "translations": {
+      "en": {
+        "bossName": "Lux"
       }
     }
   }

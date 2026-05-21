@@ -82,12 +82,14 @@ router.get("/", async (req, res) => {
 				const descVn = removeAccents(p.description || "");
 				const nameEn = removeAccents(p.translations?.en?.name || "");
 				const descEn = removeAccents(p.translations?.en?.description || "");
+				const powerCode = (p.powerCode || p.id || "").toLowerCase();
 
 				return (
 					nameVn.includes(searchKey) ||
 					descVn.includes(searchKey) ||
 					nameEn.includes(searchKey) ||
-					descEn.includes(searchKey)
+					descEn.includes(searchKey) ||
+					powerCode.includes(searchKey)
 				);
 			});
 		}

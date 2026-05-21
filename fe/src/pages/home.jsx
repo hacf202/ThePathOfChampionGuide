@@ -17,8 +17,24 @@ import {
 	Map,
 	GalleryHorizontal,
 	Archive,
-	Star
+	Star,
+	ArrowRight,
+	Users,
+	Wrench
 } from "lucide-react";
+
+const fadeInUp = {
+	hidden: { opacity: 0, y: 40 },
+	visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+};
+
+const staggerContainer = {
+	hidden: { opacity: 0 },
+	visible: {
+		opacity: 1,
+		transition: { staggerChildren: 0.15 }
+	}
+};
 
 const BACKGROUND_IMAGES = [
 	"https://images.pocguide.top/backgrounds/BG1.webp", // Ahri (Hero)
@@ -26,7 +42,7 @@ const BACKGROUND_IMAGES = [
 	"https://images.pocguide.top/backgrounds/BG4.webp", // Lux (Archive)
 	"https://images.pocguide.top/backgrounds/BG2.webp", // Monthly (Tactical)
 	"https://images.pocguide.top/backgrounds/BG3.webp", // Deck (Workshop)
-	"https://images.pocguide.top/backgrounds/BG6.webp", 
+	"https://images.pocguide.top/backgrounds/BG6.webp",
 	"https://images.pocguide.top/backgrounds/BG7.webp",
 	"https://images.pocguide.top/backgrounds/BG8.webp",
 	"https://images.pocguide.top/backgrounds/BG9.webp",
@@ -101,23 +117,25 @@ const Home = () => {
 			<section className='relative w-full h-[calc(100vh-56px)] bg-surface-bg/0 overflow-hidden flex items-center justify-center isolate'>
 				{/* BACKGROUND IMAGE & OVERLAYS */}
 				<div className='absolute inset-0 z-0 select-none overflow-hidden bg-surface-bg/20'>
-					<img
-						src={BACKGROUND_IMAGES[10]}
-						alt='Hero'
-						fetchpriority='high'
-						decoding='async'
-						className='w-full h-full object-cover grayscale-[0.2] opacity-90 blur-[2px] scale-105 transition-transform duration-[20s] ease-linear animate-slow-zoom'
-					/>
-					
+					<div className='absolute inset-0 grayscale-[0.2] blur-[2px] transform-gpu'>
+						<img
+							src={BACKGROUND_IMAGES[10]}
+							alt='Hero'
+							fetchpriority='high'
+							decoding='async'
+							className='w-full h-full object-cover opacity-90 scale-105 transition-transform duration-[20s] ease-linear animate-slow-zoom will-change-transform'
+						/>
+					</div>
+
 					{/* Cinematic Vignette & Gradient Overlays */}
 					<div className='absolute inset-0 bg-gradient-to-t from-page-bg via-transparent to-transparent opacity-80' />
 					<div className='absolute inset-0 bg-gradient-to-b from-page-bg/20 via-transparent to-page-bg/40 opacity-60' />
 					<div className='absolute inset-0 shadow-[inset_0_0_150px_rgba(0,0,0,0.5)]' />
 
 					{/* GRAIN TEXTURE OVERLAY */}
-					<div className='absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay' 
+					<div className='absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay'
 						style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/stardust.png")' }} />
-					
+
 					{/* SCANLINES EFFECT */}
 					<div className='absolute inset-0 opacity-[0.05] pointer-events-none'
 						style={{ background: 'repeating-linear-gradient(0deg, transparent, transparent 1px, #000 1px, #000 2px)', backgroundSize: '100% 4px' }} />
@@ -131,7 +149,7 @@ const Home = () => {
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ duration: 1, ease: "easeOut" }}
 						>
-							<motion.h1 
+							<motion.h1
 								initial={{ scale: 0.9 }}
 								animate={{ scale: 1 }}
 								transition={{ duration: 1.5, ease: "easeOut" }}
@@ -140,12 +158,12 @@ const Home = () => {
 							>
 								<span className="relative inline-block overflow-hidden pr-4 md:pr-8">
 									{tUI("home.heroTitle1")}
-									<motion.div 
+									<motion.div
 										className="absolute inset-0 bg-white/20 -translate-x-full skew-x-12"
 										animate={{ translateX: '200%' }}
 										transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", repeatDelay: 5 }}
 									/>
-								</span> 
+								</span>
 								<br />
 								<span className='text-transparent bg-clip-text bg-gradient-to-br from-primary-400 via-primary-600 to-indigo-700 inline-block filter drop-shadow-[0_0_30px_rgba(var(--color-primary-rgb),0.3)] pr-4 md:pr-8'>
 									{tUI("home.heroTitle2")}
@@ -161,12 +179,12 @@ const Home = () => {
 							drag
 							dragMomentum={false}
 							initial={{ opacity: 0, scale: 0 }}
-							animate={{ 
-								opacity: 1, 
+							animate={{
+								opacity: 1,
 								scale: 1,
 								y: [0, -10, 0],
 							}}
-							transition={{ 
+							transition={{
 								opacity: { duration: 0.5, delay: idx * 0.1 },
 								scale: { duration: 0.5, delay: idx * 0.1 },
 								y: { duration: 4 + Math.random() * 2, repeat: Infinity, ease: "easeInOut", delay: idx * 0.2 }
@@ -176,12 +194,12 @@ const Home = () => {
 							className={`absolute group flex flex-col items-center cursor-grab active:cursor-grabbing z-10`}
 							style={{ top: tile.top, left: tile.left }}
 						>
-							<div 
+							<div
 								onClick={() => !isDragging.current && navigate(tile.to)}
-								className={`${tile.size} rounded-none border-[1px] border-white/40 shadow-2xl overflow-hidden bg-surface-bg/80 backdrop-blur-md group-hover:border-primary-500 group-hover:scale-110 group-hover:rotate-1 transition-all duration-500 select-none group-hover:shadow-primary-500/20 group-active:scale-95`}
+								className={`${tile.size} rounded-none border-[1px] border-white/40 shadow-2xl overflow-hidden bg-surface-bg/80 backdrop-blur-md group-hover:border-primary-500 group-hover:scale-110 group-hover:rotate-1 transition-all duration-300 select-none group-hover:shadow-primary-500/20 group-active:scale-95`}
 							>
 								<img src={tile.img} alt={tile.label} className='w-full h-full object-cover grayscale-[0.8] group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700 pointer-events-none' />
-								
+
 								{/* Glass Reflection Overlay */}
 								<div className='absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity' />
 							</div>
@@ -193,206 +211,237 @@ const Home = () => {
 				</div>
 			</section>
 
-			{/* SECTION 2: BENTO GRID */}
-			<section className='py-10 px-1 md:px-6 max-w-7xl mx-auto'>
-				<div className='flex flex-col md:flex-row justify-between items-end mb-16 gap-6'>
-					<div>
-						<h2 className='text-5xl md:text-7xl font-bold uppercase mb-4 tracking-tighter text-text-primary'>
-							{tUI("home.resourceTitle1")}{" "}
-							<span className='text-primary-600'>
-								{tUI("home.resourceTitle2")}
-							</span>
-						</h2>
-						<p className='text-text-secondary text-xl font-secondary'>
-							{tUI("home.resourceDesc")}
-						</p>
-					</div>
-					<NavLink
-						to='/champions'
-						className='flex items-center gap-2 text-primary-600 hover:text-primary-700 font-bold text-xl underline underline-offset-8 transition-all'
-					>
-						{tUI("home.viewAllChamps")} <ChevronRight className='w-6 h-6' />
-					</NavLink>
-				</div>
+			{/* SECTION 2: GAMEPLAY & STRATEGY */}
+			<section className='py-12 md:py-20 px-3 md:px-8 lg:px-12 w-full max-w-[1600px] mx-auto'>
+				<motion.div
+					variants={fadeInUp}
+					initial="hidden"
+					whileInView="visible"
+					viewport={{ once: true, margin: "-100px" }}
+					className='mb-10 md:mb-16 text-center md:text-left'
+				>
+					<h3 className='flex items-center justify-center md:justify-start gap-2 text-primary-500 font-bold uppercase tracking-widest mb-2 md:mb-3 text-xs md:text-sm'>
+						<Swords className='w-4 h-4 md:w-5 md:h-5' /> {tUI("home.gameplayTitle1") || "LỐI CHƠI"}
+					</h3>
+					<h2 className='text-3xl md:text-6xl font-bold mb-3 md:mb-4 text-text-primary uppercase tracking-tighter'>
+						{tUI("home.gameplayTitle2") || "CHIẾN THUẬT"}
+					</h2>
+					<p className='text-text-secondary text-base md:text-lg font-secondary max-w-2xl mx-auto md:mx-0'>
+						{tUI("home.gameplayDesc") || "Chinh phục Con Đường Anh Hùng với hướng dẫn chi tiết và cộng đồng mạnh mẽ."}
+					</p>
+				</motion.div>
 
-				<div className='grid grid-cols-1 md:grid-cols-4 gap-8'>
-					<NavLink
-						to='/champions'
-						className='md:col-span-2 group relative min-h-[500px] rounded-[40px] overflow-hidden border border-border shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] transition-all hover:-translate-y-2'
-					>
-						<div
-							className='absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-1000'
-							style={{ backgroundImage: `url(${BACKGROUND_IMAGES[1]})` }}
-						/>
-						<div className='absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent' />
-						<div className='absolute bottom-0 left-0 p-5 md:p-10'>
-							<div className='p-4 bg-red-600 rounded-2xl w-fit mb-6 shadow-xl shadow-red-600/30'>
-								<Swords className='w-10 h-10 text-white' />
-							</div>
-							<h3 className='text-5xl font-bold mb-4 uppercase tracking-tighter text-white'>
-								{tUI("championList.heading")}
-							</h3>
-							<p className='text-slate-200 text-xl font-secondary'>
-								{tUI("home.champListDesc")}
-							</p>
-						</div>
-					</NavLink>
-
-					<NavLink
-						to='/builds'
-						className='md:col-span-2 group relative min-h-[500px] rounded-[40px] overflow-hidden border border-border shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] transition-all hover:-translate-y-2'
-					>
-						<div
-							className='absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-1000'
-							style={{ backgroundImage: `url(${BACKGROUND_IMAGES[3]})` }}
-						/>
-						<div className='absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent' />
-						<div className='absolute bottom-0 left-0 p-5 md:p-10'>
-							<div className='p-4 bg-emerald-600 rounded-2xl w-fit mb-6 shadow-xl shadow-emerald-600/30'>
-								<Sparkles className='w-10 h-10 text-white' />
-							</div>
-							<h3 className='text-5xl font-bold mb-4 uppercase tracking-tighter text-white'>
-								{tUI("home.relicVault")}
-							</h3>
-							<p className='text-slate-200 text-xl font-secondary'>
-								{tUI("home.relicVaultDesc")}
-							</p>
-						</div>
-					</NavLink>
-				</div>
-			</section>
-
-			{/* SECTION 3: DATABASE & RESOURCES */}
-			<section className='py-10 px-1 md:px-6 max-w-7xl mx-auto'>
-				<div className='flex flex-col md:flex-row justify-between items-end mb-16 gap-6'>
-					<div>
-						<h2 className='text-5xl md:text-7xl font-bold uppercase mb-4 tracking-tighter text-text-primary'>
-							{tUI("home.databaseTitle")}
-						</h2>
-						<p className='text-text-secondary text-xl font-secondary max-w-2xl'>
-							{tUI("home.databaseDesc")}
-						</p>
-					</div>
-				</div>
-
-				<div className='grid grid-cols-1 md:grid-cols-4 gap-6 auto-rows-[180px] md:auto-rows-[200px]'>
+				<motion.div
+					variants={staggerContainer}
+					initial="hidden"
+					whileInView="visible"
+					viewport={{ once: true, margin: "-50px" }}
+					className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8'
+				>
 					{[
-						{ to: "/items", label: tUI("nav.items"), icon: Package, color: "orange", img: BACKGROUND_IMAGES[4], span: "md:col-span-2 md:row-span-2" },
-						{ to: "/relics", label: tUI("nav.relics"), icon: Sparkles, color: "cyan", img: BACKGROUND_IMAGES[0], span: "md:col-span-2 md:row-span-1" },
-						{ to: "/powers", label: tUI("nav.powers"), icon: Zap, color: "yellow", img: BACKGROUND_IMAGES[1], span: "md:col-span-2 md:row-span-1" },
-						{ to: "/cards", label: tUI("cardList.title"), icon: GalleryHorizontal, color: "indigo", img: BACKGROUND_IMAGES[2], span: "md:col-span-2 md:row-span-2" },
-						{ to: "/runes", label: tUI("nav.runes"), icon: Gem, color: "pink", img: BACKGROUND_IMAGES[6], span: "md:col-span-1 md:row-span-1" },
-						{ to: "/resources", label: tUI("nav.resources"), icon: Archive, color: "amber", img: BACKGROUND_IMAGES[8], span: "md:col-span-1 md:row-span-1" },
-						{ to: "/maps", label: tUI("nav.maps"), icon: Map, color: "green", img: BACKGROUND_IMAGES[5], span: "md:col-span-1 md:row-span-1" },
-						{ to: "/introduction", label: tUI("nav.about"), icon: BookOpen, color: "blue", img: BACKGROUND_IMAGES[3], span: "md:col-span-1 md:row-span-1" },
+						{ to: "/champions", label: tUI("championList.heading"), icon: Swords, color: "primary", img: BACKGROUND_IMAGES[1] },
+						{ to: "/sub-champions", label: tUI("nav.supportChampions") || "Tướng Phụ", icon: Users, color: "indigo", desc: "" },
+						{ to: "/builds", label: tUI("nav.builds"), icon: Sparkles, color: "emerald", desc: "" }
 					].map((item, idx) => (
-						<NavLink
-							key={idx}
-							to={item.to}
-							className={`group relative ${item.span} rounded-[40px] overflow-hidden border border-border transition-all hover:shadow-[0_45px_70px_-20px_rgba(0,0,0,0.3)] hover:-translate-y-2 active:scale-95 hover:border-primary-500/50 shadow-[0_15px_35px_-8px_rgba(0,0,0,0.15)] isolate`}
-						>
-							{/* Background Image with Cinematic Overlay */}
-							<div 
-								className='absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-110'
-								style={{ backgroundImage: `url(${item.img})` }}
-							/>
-							<div className='absolute inset-0 bg-gradient-to-t from-gray-950/90 via-gray-950/40 to-transparent' />
-							
-							{/* Content Layout */}
-							<div className='absolute inset-0 p-8 md:p-5 md:p-10 flex flex-col justify-end h-full w-full'>
-								<div className={`p-5 bg-white/10 backdrop-blur-xl border border-white/20 text-white rounded-2xl shadow-2xl w-fit mb-6 transition-all group-hover:bg-${item.color}-500/40 group-hover:scale-110 group-hover:rotate-12`}>
-									<item.icon className='w-8 h-8 md:w-10 md:h-10' />
+						<motion.div variants={fadeInUp} key={idx} className='group block rounded-[24px] md:rounded-[30px] overflow-visible'>
+							<div className="relative h-48 md:h-56 rounded-[24px] md:rounded-[30px] overflow-hidden shadow-lg">
+								<div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style={{ backgroundImage: `url(${item.img || BACKGROUND_IMAGES[idx === 1 ? 5 : 3]})` }} />
+							</div>
+							<div className={`relative -mt-10 mx-3 p-5 md:-mt-12 md:mx-4 md:p-6 bg-surface-bg/95 backdrop-blur-2xl rounded-[20px] shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)] border border-border/50 text-center z-10 transition-all duration-300 group-hover:-translate-y-2 group-hover:border-${item.color}-500/50`}>
+								<div className={`absolute -top-5 md:-top-6 left-1/2 -translate-x-1/2 bg-${item.color}-600 p-2.5 md:p-3 rounded-full border-4 border-page-bg shadow-lg text-white`}>
+									<item.icon className="w-5 h-5 md:w-6 md:h-6" />
 								</div>
-								<h3 className={`font-black uppercase tracking-tighter text-white drop-shadow-2xl ${item.span.includes("row-span-2") ? "text-3xl md:text-6xl" : "text-3xl md:text-4xl"}`}>
+								<h3 className={`text-xl md:text-2xl font-bold mt-3 md:mt-4 mb-2 md:mb-4 uppercase tracking-tighter text-text-primary group-hover:text-${item.color}-500 transition-colors`}>
 									{item.label}
 								</h3>
-							</div>
-
-							{/* Dynamic Aura Glow */}
-							<div className={`absolute top-0 left-0 w-full h-full bg-gradient-to-br from-${item.color}-500/0 to-${item.color}-500/5 opacity-0 group-hover:opacity-100 transition-opacity`} />
-							<div className={`absolute -top-20 -right-20 w-40 h-40 bg-${item.color}-500/20 blur-[80px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
-						</NavLink>
-					))}
-				</div>
-			</section>
-
-			{/* SECTION 4: MONTHLY CHALLENGE */}
-			<section className='relative py-10 overflow-hidden'>
-				<div className='absolute top-0 right-0 w-[600px] h-[600px] bg-primary-200/20 blur-[150px] -z-10' />
-				<div className='absolute bottom-0 left-0 w-[600px] h-[600px] bg-primary-100/10 blur-[150px] -z-10' />
-
-				<div className='max-w-7xl mx-auto px-1 md:px-6'>
-					<div className='bg-surface-bg border border-border rounded-[60px] p-5 md:p-10 lg:p-20 backdrop-blur-2xl relative shadow-2xl shadow-border/50'>
-						<div className='grid grid-cols-1 lg:grid-cols-2 gap-20 items-center'>
-							<div className='order-2 lg:order-1'>
-								<div className='flex items-center gap-4 text-primary-600 mb-8 font-bold tracking-[0.3em] uppercase text-sm'>
-									<Trophy className='w-8 h-8' />
-									<span>{tUI("home.monthlyEvent")}</span>
-								</div>
-								<h2 className='text-5xl md:text-8xl font-bold uppercase mb-10 leading-[0.9] tracking-tighter text-text-primary'>
-									{tUI("home.monthlyTitle1")} <br />
-									<span className='text-primary-600'>
-										{tUI("home.monthlyTitle2")}
-									</span>
-								</h2>
-								<p className='text-2xl text-text-secondary mb-12 leading-relaxed font-secondary opacity-90'>
-									{tUI("home.monthlyDesc")}
-								</p>
-								<NavLink
-									to='/guides/thu-thach-thang'
-									className='inline-flex items-center gap-6 px-12 py-6 bg-gray-900 text-white font-bold rounded-2xl text-2xl hover:bg-primary-600 transition-all shadow-xl active:scale-95'
-								>
-									{tUI("home.btnViewGuides")}{" "}
-									<ChevronRight className='w-8 h-8' />
+								{item.desc && (
+									<p className="text-text-secondary font-secondary text-sm md:text-base mb-4 line-clamp-2">
+										{item.desc}
+									</p>
+								)}
+								<NavLink to={item.to} className={`inline-flex items-center gap-2 text-${item.color}-500 font-bold uppercase text-xs md:text-sm group-hover:text-${item.color}-400 transition-colors`}>
+									Read More <ArrowRight className="w-3 h-3 md:w-4 md:h-4 transition-transform group-hover:translate-x-1" />
 								</NavLink>
 							</div>
-							<div className='order-1 lg:order-2 relative group'>
-								<img
-									src={BACKGROUND_IMAGES[2]}
-									alt={tUI("home.monthlyChallengeAlt")}
-									className='rounded-[40px] shadow-2xl border border-border scale-105 rotate-2 group-hover:rotate-0 transition-all duration-700'
-								/>
-								<div className='absolute -bottom-8 -left-8 bg-primary-600 p-8 rounded-3xl hidden md:block animate-pulse shadow-2xl'>
-									<p className='font-bold text-4xl mb-1 text-white'>70/70</p>
-									<p className='text-sm uppercase tracking-widest font-black text-white'>
-										{tUI("home.challengeStages")}
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
+						</motion.div>
+					))}
+				</motion.div>
+			</section>
+
+			{/* SECTION 3: THE GRAND DATABASE */}
+			<section className='py-12 md:py-20 bg-black/5'>
+				<div className='w-full max-w-[1600px] mx-auto px-3 md:px-8 lg:px-12'>
+					<motion.div
+						variants={fadeInUp}
+						initial="hidden"
+						whileInView="visible"
+						viewport={{ once: true, margin: "-100px" }}
+						className='mb-10 md:mb-16 text-center'
+					>
+						<h3 className='flex items-center justify-center gap-2 text-primary-500 font-bold uppercase tracking-widest mb-2 md:mb-3 text-xs md:text-sm'>
+							<Package className='w-4 h-4 md:w-5 md:h-5' /> {tUI("home.databaseTitle")}
+						</h3>
+						<h2 className='text-3xl md:text-6xl font-bold mb-3 md:mb-4 text-text-primary uppercase tracking-tighter'>
+							{tUI("home.databaseTitle")}
+						</h2>
+						<p className='text-text-secondary text-base md:text-lg font-secondary max-w-2xl mx-auto px-4'>
+							{tUI("home.databaseDesc")}
+						</p>
+					</motion.div>
+
+					<motion.div
+						variants={staggerContainer}
+						initial="hidden"
+						whileInView="visible"
+						viewport={{ once: true, margin: "-50px" }}
+						className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6'
+					>
+						{[
+							{ to: "/relics", label: tUI("nav.relics"), icon: Sparkles, color: "cyan", img: BACKGROUND_IMAGES[0], desc: "Khám phá hàng trăm Cổ Vật mạnh mẽ để trang bị cho Tướng." },
+							{ to: "/items", label: tUI("nav.items"), icon: Package, color: "orange", img: BACKGROUND_IMAGES[4], desc: "Tổng hợp các Vật Phẩm rớt ra trong quá trình phiêu lưu." },
+							{ to: "/powers", label: tUI("nav.powers"), icon: Zap, color: "yellow", img: BACKGROUND_IMAGES[1], desc: "Danh sách Sức Mạnh Nội Tại giúp định hình lối chơi của bạn." },
+							{ to: "/runes", label: tUI("nav.runes"), icon: Gem, color: "pink", img: BACKGROUND_IMAGES[6], desc: "Hệ thống Ngọc bổ trợ và hiệu ứng nâng cấp sức mạnh." },
+							{ to: "/cards", label: tUI("cardList.title") || "Cards", icon: GalleryHorizontal, color: "indigo", img: BACKGROUND_IMAGES[2], desc: "Tra cứu toàn bộ thẻ bài xuất hiện trong Path of Champions." },
+							{ to: "/resources", label: tUI("nav.resources"), icon: Archive, color: "amber", img: BACKGROUND_IMAGES[8], desc: "Chi tiết về Mảnh Tướng, Bụi Sao, và các tài nguyên khác." },
+						].map((item, idx) => (
+							<motion.div variants={fadeInUp} key={idx} className="h-full">
+								<NavLink
+									to={item.to}
+									className={`relative flex flex-col h-full gap-3 md:gap-4 p-5 md:p-8 rounded-[24px] md:rounded-[30px] bg-surface-bg border border-border shadow-lg transition-all overflow-hidden hover:shadow-2xl hover:-translate-y-2 group hover:border-${item.color}-500/50`}
+								>
+									{/* Subtle Background Image */}
+									<div
+										className="absolute inset-0 bg-cover bg-center opacity-10 group-hover:opacity-20 transition-opacity duration-500 group-hover:scale-110"
+										style={{ backgroundImage: `url(${item.img})` }}
+									/>
+									<div className="absolute inset-0 bg-gradient-to-t from-surface-bg via-surface-bg/90 to-surface-bg/50" />
+
+									<div className="relative z-10 flex items-start gap-4 md:gap-5">
+										<div className={`flex-shrink-0 p-3 md:p-4 rounded-xl md:rounded-2xl bg-${item.color}-500/10 text-${item.color}-500 group-hover:bg-${item.color}-500 group-hover:text-white transition-colors duration-300 shadow-inner`}>
+											<item.icon className='w-6 h-6 md:w-8 md:h-8' />
+										</div>
+										<div className="flex flex-col h-full">
+											<h3 className={`text-xl md:text-2xl font-bold uppercase tracking-tighter text-text-primary group-hover:text-${item.color}-500 transition-colors mb-1 md:mb-2`}>
+												{item.label}
+											</h3>
+											<p className="text-text-secondary font-secondary text-xs md:text-sm leading-relaxed mb-3 md:mb-4">
+												{item.desc}
+											</p>
+											<span className={`inline-flex items-center gap-1 md:gap-2 text-xs md:text-sm font-bold uppercase tracking-wider text-${item.color}-500 opacity-80 group-hover:opacity-100 transition-opacity mt-auto`}>
+												Khám phá ngay <ArrowRight className="w-3 h-3 md:w-4 md:h-4 transition-transform group-hover:translate-x-2" />
+											</span>
+										</div>
+									</div>
+								</NavLink>
+							</motion.div>
+						))}
+					</motion.div>
 				</div>
 			</section>
 
-			{/* SECTION 5: QUICK TOOLS */}
-			<section className='py-10 px-1 md:px-6 max-w-7xl mx-auto'>
-				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10'>
+			{/* SECTION 4: ADVENTURES & BOSSES */}
+			<section className='py-12 md:py-20 px-3 md:px-8 lg:px-12 w-full max-w-[1600px] mx-auto'>
+				<motion.div
+					variants={fadeInUp}
+					initial="hidden"
+					whileInView="visible"
+					viewport={{ once: true, margin: "-100px" }}
+					className='mb-10 md:mb-16 text-center md:text-left'
+				>
+					<h3 className='flex items-center justify-center md:justify-start gap-2 text-red-500 font-bold uppercase tracking-widest mb-2 md:mb-3 text-xs md:text-sm'>
+						<Map className='w-4 h-4 md:w-5 md:h-5' /> {tUI("home.adventuresTitle1") || "PHIÊU LƯU"}
+					</h3>
+					<h2 className='text-3xl md:text-6xl font-bold mb-3 md:mb-4 text-text-primary uppercase tracking-tighter'>
+						{tUI("home.adventuresTitle2") || "& TRÙM"}
+					</h2>
+					<p className='text-text-secondary text-base md:text-lg font-secondary max-w-2xl mx-auto md:mx-0'>
+						{tUI("home.adventuresDesc")}
+					</p>
+				</motion.div>
+
+				<motion.div
+					variants={staggerContainer}
+					initial="hidden"
+					whileInView="visible"
+					viewport={{ once: true, margin: "-50px" }}
+					className='grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8'
+				>
 					{[
-						{ to: "/randomizer", label: tUI("home.luckyWheel"), desc: tUI("home.luckyWheelDesc"), icon: Dices, color1: "primary-100", btn: tUI("home.tryNow"), iconColor: "primary-600" },
-						{ to: "/tools/ratings", label: tUI("nav.championRatings"), desc: tUI("ratings.subtitle"), icon: Star, color1: "orange-100", btn: tUI("home.viewAllChamps"), iconColor: "orange-600" },
-						{ to: "/tierlist", label: tUI("home.tierListTitle"), desc: tUI("home.tierListDesc"), icon: Trophy, color1: "purple-100", btn: tUI("home.viewTierList"), iconColor: "purple-600" },
-						{ to: "/resources", label: tUI("home.lootTitle"), desc: tUI("home.lootDesc"), icon: Archive, color1: "amber-100", btn: tUI("home.tryNow"), iconColor: "amber-600" },
-						{ to: "/guides", label: tUI("home.pocGuidesTitle"), desc: tUI("home.pocGuidesDesc"), icon: BookOpen, color1: "emerald-100", btn: tUI("home.learnToPlay"), iconColor: "emerald-600" },
-						{ to: "/vault-simulator", label: tUI("nav.vaultSimulator"), desc: tUI("vaultSimulator.description"), icon: Archive, color1: "amber-100", btn: tUI("home.tryNow"), iconColor: "amber-600" },
+						{ to: "/maps", label: tUI("nav.maps"), icon: Map, color: "red", img: BACKGROUND_IMAGES[2] },
+						{ to: "/bosses", label: tUI("nav.bosses"), icon: Crown, color: "purple", img: BACKGROUND_IMAGES[8] },
+						{ to: "/guides", label: tUI("nav.guides"), icon: BookOpen, color: "blue", img: BACKGROUND_IMAGES[7] },
+					].map((item, idx) => (
+						<motion.div variants={fadeInUp} key={idx} className='group block rounded-[24px] md:rounded-[30px] overflow-visible'>
+							<div className="relative h-48 md:h-56 rounded-[24px] md:rounded-[30px] overflow-hidden shadow-lg">
+								<div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style={{ backgroundImage: `url(${item.img})` }} />
+							</div>
+							<div className={`relative -mt-10 mx-3 p-5 md:-mt-12 md:mx-4 md:p-6 bg-surface-bg/95 backdrop-blur-2xl rounded-[20px] shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)] border border-border/50 text-center z-10 transition-all duration-300 group-hover:-translate-y-2 group-hover:border-${item.color}-500/50`}>
+								<div className={`absolute -top-5 md:-top-6 left-1/2 -translate-x-1/2 bg-${item.color}-600 p-2.5 md:p-3 rounded-full border-4 border-page-bg shadow-lg text-white`}>
+									<item.icon className="w-5 h-5 md:w-6 md:h-6" />
+								</div>
+								<h3 className={`text-xl md:text-2xl font-bold mt-3 md:mt-4 mb-2 md:mb-4 uppercase tracking-tighter text-text-primary group-hover:text-${item.color}-500 transition-colors`}>
+									{item.label}
+								</h3>
+								<NavLink to={item.to} className={`inline-flex items-center gap-2 text-${item.color}-500 font-bold uppercase text-xs md:text-sm group-hover:text-${item.color}-400 transition-colors`}>
+									Read More <ArrowRight className="w-3 h-3 md:w-4 md:h-4 transition-transform group-hover:translate-x-1" />
+								</NavLink>
+							</div>
+						</motion.div>
+					))}
+				</motion.div>
+			</section>
+
+			{/* SECTION 5: TOOLS & UTILITIES */}
+			<section className='py-12 md:py-20 px-3 md:px-8 lg:px-12 w-full max-w-[1600px] mx-auto'>
+				<motion.div
+					variants={fadeInUp}
+					initial="hidden"
+					whileInView="visible"
+					viewport={{ once: true, margin: "-100px" }}
+					className='mb-10 md:mb-16 text-center'
+				>
+					<h3 className='flex items-center justify-center gap-2 text-primary-500 font-bold uppercase tracking-widest mb-2 md:mb-3 text-xs md:text-sm'>
+						<Wrench className='w-4 h-4 md:w-5 md:h-5' /> {tUI("home.toolsTitle")}
+					</h3>
+					<h2 className='text-3xl md:text-6xl font-bold mb-3 md:mb-4 text-text-primary uppercase tracking-tighter'>
+						{tUI("home.toolsTitle")}
+					</h2>
+				</motion.div>
+
+				<motion.div
+					variants={staggerContainer}
+					initial="hidden"
+					whileInView="visible"
+					viewport={{ once: true, margin: "-50px" }}
+					className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6'
+				>
+					{[
+						{ to: "/simulator/vaults", label: tUI("nav.vaultSimulator") || "Vault Simulator", desc: tUI("vaultSimulator.description"), icon: Archive, color: "amber" },
+						{ to: "/randomizer", label: tUI("home.luckyWheel"), desc: tUI("home.luckyWheelDesc"), icon: Dices, color: "primary" },
+						{ to: "/tools/ratings", label: tUI("nav.championRatings"), desc: tUI("ratings.subtitle"), icon: Star, color: "orange" },
+						{ to: "/introduction", label: tUI("nav.about"), desc: tUI("home.aboutDesc") || "Learn about the project", icon: BookOpen, color: "blue" },
 					].map((tool, idx) => (
-						<div key={idx} className={`bg-gradient-to-br from-${tool.color1} to-surface-bg p-5 md:p-10 rounded-[40px] border border-border shadow-xl shadow-border/30 transition-all hover:scale-105`}>
-							<tool.icon className={`w-16 h-16 text-${tool.iconColor} mb-8`} />
-							<h3 className='text-3xl font-bold mb-6 uppercase tracking-tighter text-text-primary'>
-								{tool.label}
-							</h3>
-							<p className='text-text-secondary mb-10 text-lg font-secondary leading-relaxed line-clamp-2'>
-								{tool.desc}
-							</p>
+						<motion.div variants={fadeInUp} key={idx} className="h-full">
 							<NavLink
 								to={tool.to}
-								className='text-text-primary font-bold flex items-center gap-3 group underline underline-offset-8 hover:text-primary-600'
+								className={`group h-full flex flex-col items-center text-center p-6 md:p-8 rounded-[24px] md:rounded-[30px] bg-surface-bg border border-border shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 hover:border-${tool.color}-500/50`}
 							>
-								{tool.btn}{" "}
-								<ChevronRight className="group-hover:translate-x-2 transition-transform w-6 h-6" />
+								<div className={`p-4 md:p-5 rounded-full bg-${tool.color}-500/10 text-${tool.color}-500 group-hover:bg-${tool.color}-500 group-hover:text-white transition-colors duration-300 mb-4 md:mb-6`}>
+									<tool.icon className="w-8 h-8 md:w-10 md:h-10" />
+								</div>
+								<h3 className={`text-lg md:text-xl font-bold mb-2 md:mb-3 uppercase tracking-tighter text-text-primary group-hover:text-${tool.color}-500 transition-colors`}>
+									{tool.label}
+								</h3>
+								<p className='text-text-secondary text-xs md:text-sm font-secondary line-clamp-3 mb-4 md:mb-6 flex-grow'>
+									{tool.desc}
+								</p>
+								<div className={`inline-flex items-center gap-1 md:gap-2 text-${tool.color}-500 font-bold uppercase text-xs md:text-sm`}>
+									{tUI("home.tryNow") || "Explore"} <ArrowRight className="w-3 h-3 md:w-4 md:h-4 transition-transform group-hover:translate-x-1" />
+								</div>
 							</NavLink>
-						</div>
+						</motion.div>
 					))}
-				</div>
+				</motion.div>
 			</section>
 
 			{/* FOOTER CTA */}
@@ -405,7 +454,7 @@ const Home = () => {
 				</h2>
 				<NavLink
 					to='/champions'
-					className='inline-flex items-center gap-6 px-6 md:px-10 py-8 bg-primary-600 rounded-full text-3xl font-black text-white hover:scale-110 active:scale-95 transition-all shadow-2xl shadow-primary-600/40'
+					className='inline-flex items-center gap-6 px-6 md:px-10 py-8 bg-primary-600 rounded-full text-3xl font-black text-white hover:-translate-y-2 hover:shadow-primary-600/60 active:scale-95 transition-all shadow-2xl shadow-primary-600/40 focus:outline-none focus:ring-4 focus:ring-primary-500/50'
 				>
 					{tUI("home.btnExploreNow")} <ChevronRight className='w-10 h-10' />
 				</NavLink>

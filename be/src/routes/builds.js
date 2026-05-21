@@ -134,6 +134,9 @@ router.get("/", async (req, res) => {
 		if (searchTerm) {
 			const searchKey = removeAccents(searchTerm.toLowerCase());
 			filtered = filtered.filter(b => {
+				const buildIdStr = (b.id || "").toLowerCase();
+				if (buildIdStr.includes(searchKey)) return true;
+
 				// A. Kiểm tra tên Tướng (Việt & Anh)
 				const cInfo = champMap[b.championID];
 				if (cInfo) {
@@ -284,6 +287,9 @@ router.get("/my-builds", authenticateCognitoToken, async (req, res) => {
 		if (searchTerm) {
 			const searchKey = removeAccents(searchTerm.toLowerCase());
 			items = items.filter(b => {
+				const buildIdStr = (b.id || "").toLowerCase();
+				if (buildIdStr.includes(searchKey)) return true;
+
 				const cInfo = champMap[b.championID];
 				if (cInfo) {
 					const champNameVi = removeAccents(cInfo.vi.toLowerCase());

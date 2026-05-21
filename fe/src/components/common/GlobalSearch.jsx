@@ -67,7 +67,7 @@ function searchInIndex(index, query, cat) {
 	const q = norm(query);
 	if (!q || !index?.[cat.key]) return [];
 	return index[cat.key]
-		.filter(item => norm(item.nameVi).includes(q) || norm(item.nameEn).includes(q))
+		.filter(item => norm(item.nameVi).includes(q) || norm(item.nameEn).includes(q) || norm(String(item.id || "")).includes(q))
 		.slice(0, MAX_PER_CATEGORY)
 		.map(item => ({ id: item.id, name: item.nameVi || item.nameEn, category: cat }));
 }

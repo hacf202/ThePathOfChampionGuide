@@ -63,9 +63,9 @@ router.get("/", async (req, res) => {
 			filtered = filtered.filter(c => {
 				const nameVn = removeAccents(c.name || "");
 				const nameEn = removeAccents(c.translations?.en?.name || "");
+				const championID = (c.championID || "").toLowerCase();
 
-				// CHỈ TÌM KIẾM THEO TÊN (Tiếng Việt hoặc Tiếng Anh)
-				return nameVn.includes(searchKey) || nameEn.includes(searchKey);
+				return nameVn.includes(searchKey) || nameEn.includes(searchKey) || championID.includes(searchKey);
 			});
 		}
 

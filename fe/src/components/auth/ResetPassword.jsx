@@ -1,12 +1,14 @@
 
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext.jsx";
-import InputField from "../components/common/inputField";
-import Button from "../components/common/button";
+import { useAuth } from "../../context/AuthContext.jsx";
+import InputField from "../common/inputField";
+import Button from "../common/button";
 import { Eye, EyeOff, Loader2, CheckCircle2 } from "lucide-react";
+import { useTranslation } from "../../hooks/useTranslation";
 
 const ResetPassword = () => {
+    const { tUI } = useTranslation();
     const navigate = useNavigate();
     const { resetPassword } = useAuth();
 
@@ -26,12 +28,12 @@ const ResetPassword = () => {
         setError("");
 
         if (newPassword.length < 8) {
-            setError("Mật khẩu phải có ít nhất 8 ký tự");
+            setError(tUI("auth.resetPage.passMin"));
             return;
         }
 
         if (newPassword !== confirmPassword) {
-            setError("Mật khẩu xác nhận không khớp");
+            setError(tUI("auth.resetPage.passMismatch"));
             return;
         }
 
@@ -49,7 +51,7 @@ const ResetPassword = () => {
             setIsSuccess(true);
             setTimeout(() => navigate("/"), 3000);
         } catch (err) {
-            setError(err.message || "Không thể đặt lại mật khẩu. Link có thể đã hết hạn.");
+            setError(err.message || tUI("auth.resetPage.tokenExpired"));
         } finally {
             setIsLoading(false);
         }
@@ -63,30 +65,30 @@ const ResetPassword = () => {
                         <div className="flex justify-center">
                             <CheckCircle2 size={64} className="text-success" />
                         </div>
-                        <h2 className="text-2xl font-bold text-text-primary">Thành công!</h2>
+                        <h2 className="text-2xl font-bold text-text-primary">{tUI("auth.resetPage.successTitle")}</h2>
                         <p className="text-text-secondary">
-                            Mật khẩu của bạn đã được cập nhật. Bạn sẽ được chuyển về trang chủ trong giây lát.
+                            {tUI("auth.resetPage.successDesc")}
                         </p>
                         <Button onClick={() => navigate("/")} className="w-full">
-                            Về trang chủ ngay
+                            {tUI("auth.resetPage.backHomeBtn")}
                         </Button>
                     </div>
                 ) : (
                     <>
                         <h2 className="text-2xl font-bold text-text-primary mb-2 text-center font-primary">
-                            Đặt lại mật khẩu
+                            {tUI("auth.resetPage.title")}
                         </h2>
                         <p className="text-text-secondary text-sm text-center mb-8">
-                            Vui lòng nhập mật khẩu mới cho tài khoản của bạn.
+                            {tUI("auth.resetPage.desc")}
                         </p>
 
                         <form onSubmit={handleSubmit} className="space-y-6">
                             <InputField
-                                label="Mật khẩu mới"
+                                label={tUI("auth.resetPage.newPassLabel")}
                                 type={showPassword ? "text" : "password"}
                                 value={newPassword}
                                 onChange={(e) => setNewPassword(e.target.value)}
-                                placeholder="Ít nhất 8 ký tự"
+                                placeholder={tUI("auth.resetPage.newPassPlaceholder")}
                                 disabled={isLoading}
                                 rightIcon={
                                     <button
@@ -101,11 +103,11 @@ const ResetPassword = () => {
                             />
 
                             <InputField
-                                label="Xác nhận mật khẩu"
+                                label={tUI("auth.resetPage.confirmPassLabel")}
                                 type={showPassword ? "text" : "password"}
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
-                                placeholder="Nhập lại mật khẩu mới"
+                                placeholder={tUI("auth.resetPage.confirmPassPlaceholder")}
                                 disabled={isLoading}
                             />
 
@@ -121,7 +123,7 @@ const ResetPassword = () => {
                                 disabled={isLoading}
                                 iconLeft={isLoading && <Loader2 className="animate-spin" size={18} />}
                             >
-                                {isLoading ? "Đang xử lý..." : "Cập nhật mật khẩu"}
+                                {isLoading ? tUI("auth.processing") : tUI("auth.resetPage.submitBtn")}
                             </Button>
                         </form>
                     </>
