@@ -78,12 +78,12 @@ const ChampionTierSkeleton = () => (
 		<div className='bg-surface-bg border border-border rounded-lg p-1 space-y-1'>
 			{[1, 2, 3, 4, 5].map(i => (
 				<div key={i} className='flex h-20 sm:h-28 bg-white/5 rounded'>
-					<div className='w-20 sm:w-36 bg-gray-700/30 shrink-0' />
-					<div className='flex-1 p-2 flex gap-2'>
-						{[1, 2, 3, 4].map(j => (
+					<div className='w-12 sm:w-36 bg-gray-700/30 shrink-0' />
+					<div className='flex-1 p-2 flex gap-1 sm:gap-2'>
+						{[1, 2, 3, 4, 5, 6, 7].map(j => (
 							<div
 								key={j}
-								className='w-12 h-12 sm:w-20 sm:h-20 bg-gray-700/20 rounded'
+								className='w-[38px] h-[38px] sm:w-[96px] sm:h-[96px] bg-gray-700/20 rounded'
 							/>
 						))}
 					</div>
@@ -131,17 +131,17 @@ const SortableTierRow = ({
 					{...attributes}
 					{...listeners}
 					data-tier-handle='true'
-					className='w-6 sm:w-8 flex items-center justify-center cursor-grab active:cursor-grabbing hover:bg-white/5 text-text-secondary opacity-0 group-hover:opacity-100 transition-opacity'
+					className='w-6 sm:w-8 flex items-center justify-center cursor-grab active:cursor-grabbing hover:bg-white/5 text-text-secondary opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity touch-none'
 				>
 					<GripVertical size={20} />
 				</div>
 			)}
 			<div
 				style={{ backgroundColor: tier.color }}
-				className='relative w-20 sm:w-36 flex flex-col items-center justify-center p-1 text-black shrink-0'
+				className='relative w-12 sm:w-36 flex flex-col items-center justify-center p-1 text-black shrink-0'
 			>
 				<input
-					className='bg-transparent text-center w-full font-bold border-none focus:ring-0 text-sm sm:text-3xl uppercase'
+					className='bg-transparent text-center w-full font-bold border-none focus:ring-0 text-sm sm:text-3xl uppercase px-0'
 					value={tier.name}
 					onChange={e =>
 						setTiers(
@@ -277,7 +277,7 @@ function TierListChampions({ initialChampions }) {
 	const sensors = useSensors(
 		useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
 		useSensor(TouchSensor, {
-			activationConstraint: { delay: 300, tolerance: 6 },
+			activationConstraint: { delay: 150, tolerance: 5 },
 		}),
 		useSensor(KeyboardSensor, {
 			coordinateGetter: sortableKeyboardCoordinates,
@@ -333,12 +333,28 @@ function TierListChampions({ initialChampions }) {
 	);
 
 	const getSampleData = useCallback(
-		rawData => {
+		(rawData, relicsData = []) => {
 			const usedIds = new Set();
 			const sampleTiers = getDefaultTiers().map(tier => {
-				const targetIds = sampleChampionMapping[tier.id] || [];
-				const items = rawData.filter(c => targetIds.includes(c.id));
-				items.forEach(i => usedIds.add(i.id));
+				const mappingItems = sampleChampionMapping[tier.id] || [];
+				const items = [];
+				mappingItems.forEach(mapping => {
+					const isObj = typeof mapping === "object";
+					const targetId = isObj ? mapping.id : mapping;
+					const found = rawData.find(c => c.id === targetId);
+					if (found) {
+						let equippedRelics = [null, null, null];
+						if (isObj && mapping.relics) {
+							equippedRelics = mapping.relics.map(rId => 
+								rId ? relicsData.find(r => r.id === rId) || null : null
+							);
+							while (equippedRelics.length < 3) equippedRelics.push(null);
+							equippedRelics = equippedRelics.slice(0, 3);
+						}
+						items.push({ ...found, equippedRelics });
+						usedIds.add(found.id);
+					}
+				});
 				return { ...tier, items };
 			});
 			const sampleUnranked = rawData.filter(c => !usedIds.has(c.id));
@@ -396,7 +412,7 @@ function TierListChampions({ initialChampions }) {
 					setTiers(parsed.tiers.map(t => ({ ...t, items: hydrate(t.items) })));
 					setUnranked(hydrate(parsed.unranked));
 				} else {
-					const { sampleTiers, sampleUnranked } = getSampleData(formatted);
+					const { sampleTiers, sampleUnranked } = getSampleData(formatted, formattedRelics);
 					setTiers(sampleTiers);
 					setUnranked(sampleUnranked);
 				}
@@ -490,9 +506,28 @@ function TierListChampions({ initialChampions }) {
 		return allRelicsRaw.filter(r => removeAccents(r.name.toLowerCase()).includes(search));
 	}, [allRelicsRaw, relicSearchInput]);
 
+	const groupedRelics = useMemo(() => {
+		const normalize = r => {
+			if (!r) return "THƯỜNG";
+			const u = String(r).toUpperCase().trim();
+			if (u === "SỬ THI" || u === "EPIC") return "SỬ THI";
+			if (u === "HIẾM" || u === "RARE") return "HIẾM";
+			return "THƯỜNG";
+		};
+		const groups = {
+			"SỬ THI": [],
+			"HIẾM": [],
+			"THƯỜNG": []
+		};
+		filteredRelics.forEach(relic => {
+			groups[normalize(relic.rarity)].push(relic);
+		});
+		return groups;
+	}, [filteredRelics]);
+
 	const handleResetToSample = () => {
 		if (window.confirm(tUI("tierList.confirmResetToSample"))) {
-			const { sampleTiers, sampleUnranked } = getSampleData(allChampionsRaw);
+			const { sampleTiers, sampleUnranked } = getSampleData(allChampionsRaw, allRelicsRaw);
 			setTiers(sampleTiers);
 			setUnranked(sampleUnranked);
 			setSelectedIds([]);
@@ -1122,10 +1157,21 @@ function TierListChampions({ initialChampions }) {
 													placeholder='Search relics...'
 												/>
 											</div>
-											<div className='flex-1 overflow-y-auto max-h-[600px] min-h-[300px] border-2 border-dashed border-white/5 rounded-xl p-4 bg-black/10 flex flex-wrap gap-2 content-start custom-scrollbar'>
-												{filteredRelics.map(relic => (
-													<DraggableRelic key={relic.id} relic={relic} />
-												))}
+											<div className='flex-1 overflow-y-auto max-h-[600px] min-h-[300px] border-2 border-dashed border-white/5 rounded-xl p-4 bg-black/10 flex flex-col gap-4 content-start custom-scrollbar'>
+												{Object.entries(groupedRelics).map(([rarity, items]) => 
+													items.length > 0 ? (
+														<div key={rarity}>
+															<h3 className='text-[10px] font-bold text-text-tertiary uppercase mb-2 ml-1 opacity-60'>
+																{rarity}
+															</h3>
+															<div className='flex flex-wrap gap-2'>
+																{items.map(relic => (
+																	<DraggableRelic key={relic.id} relic={relic} />
+																))}
+															</div>
+														</div>
+													) : null
+												)}
 											</div>
 										</div>
 									</div>
@@ -1151,7 +1197,7 @@ function TierListChampions({ initialChampions }) {
 								style={{
 									backgroundColor: tiers.find(t => t.id === activeId)?.color,
 								}}
-								className='w-20 sm:w-36 flex items-center justify-center font-bold text-sm sm:text-3xl text-black uppercase shrink-0'
+								className='w-12 sm:w-36 flex items-center justify-center font-bold text-sm sm:text-3xl text-black uppercase shrink-0'
 							>
 								{tiers.find(t => t.id === activeId)?.name}
 							</div>

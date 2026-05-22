@@ -10,6 +10,7 @@ import Modal from "../common/modal.jsx";
 import Button from "../common/button.jsx";
 import Logo from "/favicon.ico";
 import { motion, AnimatePresence } from "framer-motion";
+import DonateModal from "../common/DonateModal.jsx";
 
 import {
 	User,
@@ -40,6 +41,7 @@ import {
 	Search,
 	Book,
 	Users,
+	Coffee,
 } from "lucide-react";
 
 function MobileSidebar({ language, handleLanguageChange, tUI }) {
@@ -57,6 +59,7 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 	const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 	const [isThemeSettingsOpen, setIsThemeSettingsOpen] = useState(false);
 	const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
+	const [isDonateOpen, setIsDonateOpen] = useState(false);
 
 	const sidebarRef = useRef(null);
 	const headerLangRef = useRef(null);
@@ -163,14 +166,29 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 				</div>
 			</header>
 
-			{/* Sidebar - mở từ bên PHẢI để nhất quán với nút hamburger */}
-			<div
-				ref={sidebarRef}
-				className={`fixed inset-y-0 right-0 z-50 w-72 bg-header-bg shadow-2xl transform transition-transform duration-300 ease-in-out ${
-					isSidebarOpen ? "translate-x-0" : "translate-x-full"
-				} xl:hidden overflow-y-auto`}
-			>
-				<div className='flex flex-col h-full'>
+			<AnimatePresence>
+				{isSidebarOpen && (
+					<>
+						{/* Overlay */}
+						<motion.div
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							exit={{ opacity: 0 }}
+							transition={{ duration: 0.3 }}
+							className='fixed inset-0 bg-black bg-opacity-50 z-40 xl:hidden'
+							onClick={closeSidebar}
+						/>
+
+						{/* Sidebar - mở từ bên PHẢI để nhất quán với nút hamburger */}
+						<motion.div
+							ref={sidebarRef}
+							initial={{ x: "100%" }}
+							animate={{ x: 0 }}
+							exit={{ x: "100%" }}
+							transition={{ type: "spring", damping: 25, stiffness: 200 }}
+							className="fixed inset-y-0 right-0 z-50 w-64 bg-header-bg shadow-2xl xl:hidden overflow-y-auto"
+						>
+							<div className='flex flex-col h-full'>
 					<div className='flex items-center justify-between p-3 border-b border-gray-700'>
 						<div className='flex items-center gap-2'>
 							<img src={Logo} alt='Logo' className='h-8 w-auto rounded' />
@@ -202,34 +220,41 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 									<path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M19 9l-7 7-7-7' />
 								</svg>
 							</button>
-							{isDatabaseDropdownOpen && (
-								<div className='ml-6 mt-1 space-y-1 border-l-2 border-gray-600 pl-3'>
-									<NavLink to='/champions' className={dropdownLinkClass} onClick={closeSidebar}>
-										<Swords className='w-4 h-4' /> {tUI("nav.champions")}
-									</NavLink>
-									<NavLink to='/sub-champions' className={dropdownLinkClass} onClick={closeSidebar}>
-										<Users className='w-4 h-4' /> {tUI("nav.subChampions")}
-									</NavLink>
-									<NavLink to='/relics' className={dropdownLinkClass} onClick={closeSidebar}>
-										<Sparkles className='w-4 h-4' /> {tUI("nav.relics")}
-									</NavLink>
-									<NavLink to='/items' className={dropdownLinkClass} onClick={closeSidebar}>
-										<Package className='w-4 h-4' /> {tUI("nav.items")}
-									</NavLink>
-									<NavLink to='/powers' className={dropdownLinkClass} onClick={closeSidebar}>
-										<Zap className='w-4 h-4' /> {tUI("nav.powers")}
-									</NavLink>
-									<NavLink to='/runes' className={dropdownLinkClass} onClick={closeSidebar}>
-										<Gem className='w-4 h-4' /> {tUI("nav.runes")}
-									</NavLink>
-									<NavLink to='/cards' className={dropdownLinkClass} onClick={closeSidebar}>
-										<BookOpen className='w-4 h-4' /> {tUI("nav.cards")}
-									</NavLink>
-									<NavLink to='/resources' className={dropdownLinkClass} onClick={closeSidebar}>
-										<Book className='w-4 h-4' /> {tUI("nav.resources")}
-									</NavLink>
-								</div>
-							)}
+							<AnimatePresence>
+								{isDatabaseDropdownOpen && (
+									<motion.div 
+										initial={{ height: 0, opacity: 0 }}
+										animate={{ height: "auto", opacity: 1 }}
+										exit={{ height: 0, opacity: 0 }}
+										className='ml-6 mt-1 space-y-1 border-l-2 border-gray-600 pl-3 overflow-hidden'
+									>
+										<NavLink to='/champions' className={dropdownLinkClass} onClick={closeSidebar}>
+											<Swords className='w-4 h-4' /> {tUI("nav.champions")}
+										</NavLink>
+										<NavLink to='/sub-champions' className={dropdownLinkClass} onClick={closeSidebar}>
+											<Users className='w-4 h-4' /> {tUI("nav.subChampions")}
+										</NavLink>
+										<NavLink to='/relics' className={dropdownLinkClass} onClick={closeSidebar}>
+											<Sparkles className='w-4 h-4' /> {tUI("nav.relics")}
+										</NavLink>
+										<NavLink to='/items' className={dropdownLinkClass} onClick={closeSidebar}>
+											<Package className='w-4 h-4' /> {tUI("nav.items")}
+										</NavLink>
+										<NavLink to='/powers' className={dropdownLinkClass} onClick={closeSidebar}>
+											<Zap className='w-4 h-4' /> {tUI("nav.powers")}
+										</NavLink>
+										<NavLink to='/runes' className={dropdownLinkClass} onClick={closeSidebar}>
+											<Gem className='w-4 h-4' /> {tUI("nav.runes")}
+										</NavLink>
+										<NavLink to='/cards' className={dropdownLinkClass} onClick={closeSidebar}>
+											<BookOpen className='w-4 h-4' /> {tUI("nav.cards")}
+										</NavLink>
+										<NavLink to='/resources' className={dropdownLinkClass} onClick={closeSidebar}>
+											<Book className='w-4 h-4' /> {tUI("nav.resources")}
+										</NavLink>
+									</motion.div>
+								)}
+							</AnimatePresence>
 						</div>
 
 						{/* Menu Phiêu Lưu */}
@@ -252,25 +277,35 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 									<path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M19 9l-7 7-7-7' />
 								</svg>
 							</button>
-							{isAdventuresDropdownOpen && (
-								<div className='ml-6 mt-1 space-y-1 border-l-2 border-gray-600 pl-3'>
-									<NavLink to='/maps' className={dropdownLinkClass} onClick={closeSidebar}>
-										<Map className='w-4 h-4' /> {tUI("nav.maps")}
-									</NavLink>
-									<NavLink to='/bosses' className={dropdownLinkClass} onClick={closeSidebar}>
-										<Swords className='w-4 h-4' /> {tUI("nav.bosses")}
-									</NavLink>
-									<NavLink to='/guides' className={dropdownLinkClass} onClick={closeSidebar}>
-										<BookMarked className='w-4 h-4' /> {tUI("nav.guides")}
-									</NavLink>
-									<NavLink to='/builds' className={dropdownLinkClass} onClick={closeSidebar}>
-										<ScrollText className='w-4 h-4' /> {tUI("nav.builds")}
-									</NavLink>
-									<NavLink to='/tierlist' className={dropdownLinkClass} onClick={closeSidebar}>
-										<BarChartHorizontalBig className='w-4 h-4' /> {tUI("nav.tierList")}
-									</NavLink>
-								</div>
-							)}
+							<AnimatePresence>
+								{isAdventuresDropdownOpen && (
+									<motion.div 
+										initial={{ height: 0, opacity: 0 }}
+										animate={{ height: "auto", opacity: 1 }}
+										exit={{ height: 0, opacity: 0 }}
+										className='ml-6 mt-1 space-y-1 border-l-2 border-gray-600 pl-3 overflow-hidden'
+									>
+										<NavLink to='/maps' className={dropdownLinkClass} onClick={closeSidebar}>
+											<Map className='w-4 h-4' /> {tUI("nav.maps")}
+										</NavLink>
+										<NavLink to='/bosses' className={dropdownLinkClass} onClick={closeSidebar}>
+											<Swords className='w-4 h-4' /> {tUI("nav.bosses")}
+										</NavLink>
+										<NavLink to='/guides' className={dropdownLinkClass} onClick={closeSidebar}>
+											<BookMarked className='w-4 h-4' /> {tUI("nav.guides")}
+										</NavLink>
+										<NavLink to='/builds' className={dropdownLinkClass} onClick={closeSidebar}>
+											<ScrollText className='w-4 h-4' /> {tUI("nav.builds")}
+										</NavLink>
+										<NavLink to='/tools/ratings' className={dropdownLinkClass} onClick={closeSidebar}>
+											<Star className='w-4 h-4' /> {tUI("nav.championRatings")}
+										</NavLink>
+										<NavLink to='/tierlist' className={dropdownLinkClass} onClick={closeSidebar}>
+											<BarChartHorizontalBig className='w-4 h-4' /> {tUI("nav.tierList")}
+										</NavLink>
+									</motion.div>
+								)}
+							</AnimatePresence>
 						</div>
 
 						{/* Menu Công Cụ */}
@@ -293,25 +328,29 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 									<path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M19 9l-7 7-7-7' />
 								</svg>
 							</button>
-							{isToolsDropdownOpen && (
-								<div className='ml-6 mt-1 space-y-1 border-l-2 border-gray-600 pl-3'>
-									<NavLink to='/simulator/vaults' className={dropdownLinkClass} onClick={closeSidebar}>
-										<Gift className='w-4 h-4' /> {tUI("nav.vaultSimulator")}
-									</NavLink>
-									<NavLink to='/randomizer' className={dropdownLinkClass} onClick={closeSidebar}>
-										<LoaderPinwheel className='w-4 h-4' /> {tUI("nav.randomizer")}
-									</NavLink>
-									<NavLink to='/tools/ratings' className={dropdownLinkClass} onClick={closeSidebar}>
-										<Star className='w-4 h-4' /> {tUI("nav.championRatings")}
-									</NavLink>
-									<NavLink to='/tools/champion-items' className={dropdownLinkClass} onClick={closeSidebar}>
-										<Package className='w-4 h-4' /> {tUI("nav.championItems") || "Item cho tướng"}
-									</NavLink>
-									<NavLink to='/introduction' className={dropdownLinkClass} onClick={closeSidebar}>
-										<BookOpen className='w-4 h-4' /> {tUI("nav.about")}
-									</NavLink>
-								</div>
-							)}
+							<AnimatePresence>
+								{isToolsDropdownOpen && (
+									<motion.div 
+										initial={{ height: 0, opacity: 0 }}
+										animate={{ height: "auto", opacity: 1 }}
+										exit={{ height: 0, opacity: 0 }}
+										className='ml-6 mt-1 space-y-1 border-l-2 border-gray-600 pl-3 overflow-hidden'
+									>
+										<NavLink to='/simulator/vaults' className={dropdownLinkClass} onClick={closeSidebar}>
+											<Gift className='w-4 h-4' /> {tUI("nav.vaultSimulator")}
+										</NavLink>
+										<NavLink to='/randomizer' className={dropdownLinkClass} onClick={closeSidebar}>
+											<LoaderPinwheel className='w-4 h-4' /> {tUI("nav.randomizer")}
+										</NavLink>
+										<NavLink to='/tools/champion-items' className={dropdownLinkClass} onClick={closeSidebar}>
+											<Package className='w-4 h-4' /> {tUI("nav.championItems") || "Item cho tướng"}
+										</NavLink>
+										<NavLink to='/introduction' className={dropdownLinkClass} onClick={closeSidebar}>
+											<BookOpen className='w-4 h-4' /> {tUI("nav.about")}
+										</NavLink>
+									</motion.div>
+								)}
+							</AnimatePresence>
 						</div>
 
 						{/* Menu Chọn Ngôn Ngữ */}
@@ -339,28 +378,35 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 									/>
 								</svg>
 							</button>
-							{isLangDropdownOpen && (
-								<div className='ml-6 mt-1 space-y-1 border-l-2 border-gray-600 pl-3'>
-									<button
-										onClick={() => {
-											handleLanguageChange("vi");
-											closeSidebar();
-										}}
-										className={`w-full text-left flex items-center gap-2 px-4 py-2 text-sm hover:bg-black/10  ${language === "vi" ? "font-bold  text-nav-link-text" : ""}`}
+							<AnimatePresence>
+								{isLangDropdownOpen && (
+									<motion.div 
+										initial={{ height: 0, opacity: 0 }}
+										animate={{ height: "auto", opacity: 1 }}
+										exit={{ height: 0, opacity: 0 }}
+										className='ml-6 mt-1 space-y-1 border-l-2 border-gray-600 pl-3 overflow-hidden'
 									>
-										Tiếng Việt
-									</button>
-									<button
-										onClick={() => {
-											handleLanguageChange("en");
-											closeSidebar();
-										}}
-										className={`w-full text-left flex items-center gap-2 px-4 py-2 text-sm hover:bg-black/10   ${language === "en" ? "font-bold  text-nav-link-text" : ""}`}
-									>
-										English
-									</button>
-								</div>
-							)}
+										<button
+											onClick={() => {
+												handleLanguageChange("vi");
+												closeSidebar();
+											}}
+											className={`w-full text-left flex items-center gap-2 px-4 py-2 text-sm hover:bg-black/10  ${language === "vi" ? "font-bold  text-nav-link-text" : ""}`}
+										>
+											Tiếng Việt
+										</button>
+										<button
+											onClick={() => {
+												handleLanguageChange("en");
+												closeSidebar();
+											}}
+											className={`w-full text-left flex items-center gap-2 px-4 py-2 text-sm hover:bg-black/10   ${language === "en" ? "font-bold  text-nav-link-text" : ""}`}
+										>
+											English
+										</button>
+									</motion.div>
+								)}
+							</AnimatePresence>
 						</div>
 
 						{/* Menu Giao Diện - Repositioned near Language */}
@@ -372,6 +418,16 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 							className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-black/10 text-sm transition-all text-header-text"
 						>
 							<Palette className="w-5 h-5" /> {tUI("nav.customTheme") || "Cá nhân hóa giao diện"}
+						</button>
+
+						<button 
+							onClick={() => {
+								setIsDonateOpen(true);
+								setIsSidebarOpen(false);
+							}}
+							className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-black/10 text-sm transition-all text-header-text"
+						>
+							<Coffee className="w-5 h-5" /> {tUI("nav.donateBtn")}
 						</button>
 
 						<div className='my-3 border-t border-gray-700'></div>
@@ -417,16 +473,11 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 							</NavLink>
 						)}
 					</nav>
-				</div>
-			</div>
-
-			{/* Overlay */}
-			{isSidebarOpen && (
-				<div
-					className='fixed inset-0 bg-black bg-opacity-50 z-40 xl:hidden'
-					onClick={closeSidebar}
-				></div>
-			)}
+						</div>
+					</motion.div>
+					</>
+				)}
+			</AnimatePresence>
 
 			{/* Logout Modal */}
 			<Modal
@@ -454,6 +505,11 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 			<ThemeSettings 
 				isOpen={isThemeSettingsOpen} 
 				onClose={() => setIsThemeSettingsOpen(false)} 
+			/>
+
+			<DonateModal 
+				isOpen={isDonateOpen} 
+				onClose={() => setIsDonateOpen(false)} 
 			/>
 		</>
 	);

@@ -9,6 +9,8 @@ import GlobalSearch from "../common/GlobalSearch.jsx";
 import Modal from "../common/modal.jsx";
 import Button from "../common/button.jsx";
 import Logo from "/favicon.ico";
+import { motion, AnimatePresence } from "framer-motion";
+import DonateModal from "../common/DonateModal.jsx";
 
 import {
 	User,
@@ -36,6 +38,7 @@ import {
 	Palette,
 	Book,
 	Users,
+	Coffee,
 } from "lucide-react";
 
 function DesktopNavbar({ language, handleLanguageChange, tUI }) {
@@ -51,6 +54,7 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 	const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false);
 	const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 	const [isThemeSettingsOpen, setIsThemeSettingsOpen] = useState(false);
+	const [isDonateOpen, setIsDonateOpen] = useState(false);
 
 	const profileMenuRef = useRef(null);
 	const databaseDropdownRef = useRef(null);
@@ -152,36 +156,44 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 									</svg>
 								</button>
 
-								{isDatabaseDropdownOpen && (
-									<div className='absolute z-50 left-0 top-full pt-1'>
-										<div className='w-48 bg-modal-bg border border-dropdown-border rounded-lg shadow-xl py-2'>
-											<NavLink to='/champions' className={dropdownLinkClass} onClick={handleNavClick}>
-												<Swords className='w-5 h-5' /> {tUI("nav.champions")}
-											</NavLink>
-											<NavLink to='/sub-champions' className={dropdownLinkClass} onClick={handleNavClick}>
-												<Users className='w-5 h-5' /> {tUI("nav.subChampions") || "Sub-Champions"}
-											</NavLink>
-											<NavLink to='/relics' className={dropdownLinkClass} onClick={handleNavClick}>
-												<Sparkles className='w-5 h-5' /> {tUI("nav.relics")}
-											</NavLink>
-											<NavLink to='/items' className={dropdownLinkClass} onClick={handleNavClick}>
-												<Package className='w-5 h-5' /> {tUI("nav.items")}
-											</NavLink>
-											<NavLink to='/powers' className={dropdownLinkClass} onClick={handleNavClick}>
-												<Zap className='w-5 h-5' /> {tUI("nav.powers")}
-											</NavLink>
-											<NavLink to='/runes' className={dropdownLinkClass} onClick={handleNavClick}>
-												<Gem className='w-5 h-5' /> {tUI("nav.runes")}
-											</NavLink>
-											<NavLink to='/cards' className={dropdownLinkClass} onClick={handleNavClick}>
-												<BookOpen className='w-5 h-5' /> {tUI("nav.cards")}
-											</NavLink>
-											<NavLink to='/resources' className={dropdownLinkClass} onClick={handleNavClick}>
-												<Book className='w-5 h-5' /> {tUI("nav.resources")}
-											</NavLink>
-										</div>
-									</div>
-								)}
+								<AnimatePresence>
+									{isDatabaseDropdownOpen && (
+										<motion.div 
+											initial={{ opacity: 0, y: -10 }}
+											animate={{ opacity: 1, y: 0 }}
+											exit={{ opacity: 0, y: -10 }}
+											transition={{ duration: 0.2 }}
+											className='absolute z-50 left-0 top-full pt-1'
+										>
+											<div className='w-48 bg-modal-bg border border-dropdown-border rounded-lg shadow-xl py-2'>
+												<NavLink to='/champions' className={dropdownLinkClass} onClick={handleNavClick}>
+													<Swords className='w-5 h-5' /> {tUI("nav.champions")}
+												</NavLink>
+												<NavLink to='/sub-champions' className={dropdownLinkClass} onClick={handleNavClick}>
+													<Users className='w-5 h-5' /> {tUI("nav.subChampions") || "Sub-Champions"}
+												</NavLink>
+												<NavLink to='/relics' className={dropdownLinkClass} onClick={handleNavClick}>
+													<Sparkles className='w-5 h-5' /> {tUI("nav.relics")}
+												</NavLink>
+												<NavLink to='/items' className={dropdownLinkClass} onClick={handleNavClick}>
+													<Package className='w-5 h-5' /> {tUI("nav.items")}
+												</NavLink>
+												<NavLink to='/powers' className={dropdownLinkClass} onClick={handleNavClick}>
+													<Zap className='w-5 h-5' /> {tUI("nav.powers")}
+												</NavLink>
+												<NavLink to='/runes' className={dropdownLinkClass} onClick={handleNavClick}>
+													<Gem className='w-5 h-5' /> {tUI("nav.runes")}
+												</NavLink>
+												<NavLink to='/cards' className={dropdownLinkClass} onClick={handleNavClick}>
+													<BookOpen className='w-5 h-5' /> {tUI("nav.cards")}
+												</NavLink>
+												<NavLink to='/resources' className={dropdownLinkClass} onClick={handleNavClick}>
+													<Book className='w-5 h-5' /> {tUI("nav.resources")}
+												</NavLink>
+											</div>
+										</motion.div>
+									)}
+								</AnimatePresence>
 							</div>
 
 							<div
@@ -209,27 +221,38 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 									</svg>
 								</button>
 
-								{isAdventuresDropdownOpen && (
-									<div className='absolute z-50 left-0 top-full pt-1'>
-										<div className='w-48 bg-modal-bg border border-dropdown-border rounded-lg shadow-xl py-2'>
-											<NavLink to='/maps' className={dropdownLinkClass} onClick={handleNavClick}>
-												<Map className='w-5 h-5' /> {tUI("nav.maps")}
-											</NavLink>
-											<NavLink to='/bosses' className={dropdownLinkClass} onClick={handleNavClick}>
-												<Swords className='w-5 h-5' /> {tUI("nav.bosses")}
-											</NavLink>
-											<NavLink to='/guides' className={dropdownLinkClass} onClick={handleNavClick}>
-												<BookMarked className='w-5 h-5' /> {tUI("nav.guides")}
-											</NavLink>
-											<NavLink to='/builds' className={dropdownLinkClass} onClick={handleNavClick}>
-												<ScrollText className='w-5 h-5' /> {tUI("nav.builds")}
-											</NavLink>
-											<NavLink to='/tierlist' className={dropdownLinkClass} onClick={handleNavClick}>
-												<BarChartHorizontalBig className='w-5 h-5' /> {tUI("nav.tierList")}
-											</NavLink>
-										</div>
-									</div>
-								)}
+								<AnimatePresence>
+									{isAdventuresDropdownOpen && (
+										<motion.div 
+											initial={{ opacity: 0, y: -10 }}
+											animate={{ opacity: 1, y: 0 }}
+											exit={{ opacity: 0, y: -10 }}
+											transition={{ duration: 0.2 }}
+											className='absolute z-50 left-0 top-full pt-1'
+										>
+											<div className='w-48 bg-modal-bg border border-dropdown-border rounded-lg shadow-xl py-2'>
+												<NavLink to='/maps' className={dropdownLinkClass} onClick={handleNavClick}>
+													<Map className='w-5 h-5' /> {tUI("nav.maps")}
+												</NavLink>
+												<NavLink to='/bosses' className={dropdownLinkClass} onClick={handleNavClick}>
+													<Swords className='w-5 h-5' /> {tUI("nav.bosses")}
+												</NavLink>
+												<NavLink to='/guides' className={dropdownLinkClass} onClick={handleNavClick}>
+													<BookMarked className='w-5 h-5' /> {tUI("nav.guides")}
+												</NavLink>
+												<NavLink to='/builds' className={dropdownLinkClass} onClick={handleNavClick}>
+													<ScrollText className='w-5 h-5' /> {tUI("nav.builds")}
+												</NavLink>
+												<NavLink to='/tools/ratings' className={dropdownLinkClass} onClick={handleNavClick}>
+													<Star className='w-5 h-5' /> {tUI("nav.championRatings")}
+												</NavLink>
+												<NavLink to='/tierlist' className={dropdownLinkClass} onClick={handleNavClick}>
+													<BarChartHorizontalBig className='w-5 h-5' /> {tUI("nav.tierList")}
+												</NavLink>
+											</div>
+										</motion.div>
+									)}
+								</AnimatePresence>
 							</div>
 
 							<div
@@ -256,30 +279,34 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 										/>
 									</svg>
 								</button>
-								{isToolsDropdownOpen && (
-									<div className='absolute z-50 left-0 top-full pt-1'>
-										<div className='w-48 bg-modal-bg border border-dropdown-border rounded-lg shadow-xl py-2'>
-											<NavLink to='/simulator/vaults' className={dropdownLinkClass} onClick={handleNavClick}>
-												<Gift className='w-5 h-5' /> {tUI("nav.vaultSimulator")}
-											</NavLink>
-											<NavLink to='/randomizer' className={dropdownLinkClass} onClick={handleNavClick}>
-												<LoaderPinwheel className='w-5 h-5' /> {tUI("nav.randomizer")}
-											</NavLink>
-											<NavLink to='/tools/ratings' className={dropdownLinkClass} onClick={handleNavClick}>
-												<Star className='w-5 h-5' /> {tUI("nav.championRatings")}
-											</NavLink>
-											<NavLink to='/tools/champion-items' className={dropdownLinkClass} onClick={handleNavClick}>
-												<Package className='w-5 h-5' /> {tUI("nav.championItems") || "Item cho tướng"}
-											</NavLink>
-											<NavLink to='/introduction' className={dropdownLinkClass} onClick={handleNavClick}>
-												<BookOpen className='w-5 h-5' /> {tUI("nav.about")}
-											</NavLink>
-										</div>
-									</div>
-								)}
+								<AnimatePresence>
+									{isToolsDropdownOpen && (
+										<motion.div 
+											initial={{ opacity: 0, y: -10 }}
+											animate={{ opacity: 1, y: 0 }}
+											exit={{ opacity: 0, y: -10 }}
+											transition={{ duration: 0.2 }}
+											className='absolute z-50 left-0 top-full pt-1'
+										>
+											<div className='w-48 bg-modal-bg border border-dropdown-border rounded-lg shadow-xl py-2'>
+												<NavLink to='/simulator/vaults' className={dropdownLinkClass} onClick={handleNavClick}>
+													<Gift className='w-5 h-5' /> {tUI("nav.vaultSimulator")}
+												</NavLink>
+												<NavLink to='/randomizer' className={dropdownLinkClass} onClick={handleNavClick}>
+													<LoaderPinwheel className='w-5 h-5' /> {tUI("nav.randomizer")}
+												</NavLink>
+												<NavLink to='/tools/champion-items' className={dropdownLinkClass} onClick={handleNavClick}>
+													<Package className='w-5 h-5' /> {tUI("nav.championItems") || "Item cho tướng"}
+												</NavLink>
+												<NavLink to='/introduction' className={dropdownLinkClass} onClick={handleNavClick}>
+													<BookOpen className='w-5 h-5' /> {tUI("nav.about")}
+												</NavLink>
+											</div>
+										</motion.div>
+									)}
+								</AnimatePresence>
 							</div>
 						</nav>
-						
 					</div>
 
 					<div className='flex items-center gap-2'>
@@ -322,39 +349,56 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 								</svg>
 							</button>
 
-							{isLangDropdownOpen && (
-								<div className='absolute z-50 right-0 top-full pt-1'>
-									<div className='w-32 bg-dropdown-bg border border-dropdown-border rounded-lg shadow-xl py-2'>
-										<button
-											onClick={() => {
-												handleLanguageChange("vi");
-												closeAllMenus();
-											}}
-											className={`w-full flex items-center px-4 py-2 text-sm   hover:bg-dropdown-item-hover-bg ${
-												language === "vi"
-													? "font-bold text-dropdown-item-text"
-													: "text-dropdown-item-text"
-											}`}
-										>
-											Tiếng Việt
-										</button>
-										<button
-											onClick={() => {
-												handleLanguageChange("en");
-												closeAllMenus();
-											}}
-											className={`w-full flex items-center px-4 py-2 text-sm   hover:bg-dropdown-item-hover-bg ${
-												language === "en"
-													? "font-bold  text-dropdown-item-text"
-													: "text-dropdown-item-text"
-											}`}
-										>
-											English
-										</button>
-									</div>
-								</div>
-							)}
+							<AnimatePresence>
+								{isLangDropdownOpen && (
+									<motion.div 
+										initial={{ opacity: 0, y: -10 }}
+										animate={{ opacity: 1, y: 0 }}
+										exit={{ opacity: 0, y: -10 }}
+										transition={{ duration: 0.2 }}
+										className='absolute z-50 right-0 top-full pt-1'
+									>
+										<div className='w-32 bg-dropdown-bg border border-dropdown-border rounded-lg shadow-xl py-2'>
+											<button
+												onClick={() => {
+													handleLanguageChange("vi");
+													closeAllMenus();
+												}}
+												className={`w-full flex items-center px-4 py-2 text-sm   hover:bg-dropdown-item-hover-bg ${
+													language === "vi"
+														? "font-bold text-dropdown-item-text"
+														: "text-dropdown-item-text"
+												}`}
+											>
+												Tiếng Việt
+											</button>
+											<button
+												onClick={() => {
+													handleLanguageChange("en");
+													closeAllMenus();
+												}}
+												className={`w-full flex items-center px-4 py-2 text-sm   hover:bg-dropdown-item-hover-bg ${
+													language === "en"
+														? "font-bold  text-dropdown-item-text"
+														: "text-dropdown-item-text"
+												}`}
+											>
+												English
+											</button>
+										</div>
+									</motion.div>
+								)}
+							</AnimatePresence>
 						</div>
+
+						{/* Nút Donate */}
+						<button 
+							onClick={() => setIsDonateOpen(true)}
+							className="p-2.5 rounded-lg hover:bg-nav-hover-bg transition-all"
+							title={tUI("nav.donateTitle")}
+						>
+							<Coffee className="w-5 h-5" />
+						</button>
 
 						{user ? (
 							<div className='relative' ref={profileMenuRef}>
@@ -365,35 +409,43 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 									<span className='text-sm font-medium whitespace-nowrap truncate max-w-[100px] lg:max-w-[150px] xl:max-w-[200px] text-right'>{user.name}</span>
 									<User className='h-7 w-7 xl:h-8 xl:w-8 flex-shrink-0' />
 								</button>
-								{isProfileOpen && (
-									<div className='absolute z-50 right-0 top-full pt-1'>
-										<div className='w-56 bg-dropdown-bg border border-dropdown-border rounded-lg shadow-xl py-2'>
-											<NavLink
-												to='/profile'
-												className={dropdownLinkClass}
-												onClick={handleNavClick}
-											>
-												<Settings className='w-4 h-4' /> {tUI("nav.profile")}
-											</NavLink>
-											{isAdmin && (
+								<AnimatePresence>
+									{isProfileOpen && (
+										<motion.div 
+											initial={{ opacity: 0, y: -10 }}
+											animate={{ opacity: 1, y: 0 }}
+											exit={{ opacity: 0, y: -10 }}
+											transition={{ duration: 0.2 }}
+											className='absolute z-50 right-0 top-full pt-1'
+										>
+											<div className='w-56 bg-dropdown-bg border border-dropdown-border rounded-lg shadow-xl py-2'>
 												<NavLink
-													to='/admin'
-													className={`${dropdownLinkClass} font-semibold`}
+													to='/profile'
+													className={dropdownLinkClass}
 													onClick={handleNavClick}
 												>
-													<Shield className='w-4 h-4' />
-													{tUI("nav.admin")}
+													<Settings className='w-4 h-4' /> {tUI("nav.profile")}
 												</NavLink>
-											)}
-											<button
-												onClick={() => setIsLogoutModalOpen(true)}
-												className={`${dropdownLinkClass} w-full text-left`}
-											>
-												<LogOut className='w-4 h-4' /> {tUI("nav.logout")}
-											</button>
-										</div>
-									</div>
-								)}
+												{isAdmin && (
+													<NavLink
+														to='/admin'
+														className={`${dropdownLinkClass} font-semibold`}
+														onClick={handleNavClick}
+													>
+														<Shield className='w-4 h-4' />
+														{tUI("nav.admin")}
+													</NavLink>
+												)}
+												<button
+													onClick={() => setIsLogoutModalOpen(true)}
+													className={`${dropdownLinkClass} w-full text-left`}
+												>
+													<LogOut className='w-4 h-4' /> {tUI("nav.logout")}
+												</button>
+											</div>
+										</motion.div>
+									)}
+								</AnimatePresence>
 							</div>
 						) : (
 							<NavLink
@@ -433,6 +485,11 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 			<ThemeSettings 
 				isOpen={isThemeSettingsOpen} 
 				onClose={() => setIsThemeSettingsOpen(false)} 
+			/>
+
+			<DonateModal 
+				isOpen={isDonateOpen} 
+				onClose={() => setIsDonateOpen(false)} 
 			/>
 		</>
 	);

@@ -82,7 +82,7 @@ export const SortableItem = memo(
 				{showRelicSlots ? (
 					<div 
 						ref={setRelicDropRef}
-						className={`relative w-[72px] sm:w-[96px] shrink-0 select-none touch-none rounded overflow-hidden shadow-lg border border-white/10 group cursor-grab active:cursor-grabbing transition-colors ${isRelicOver ? 'ring-2 ring-primary-500 bg-primary-500/20' : ''}`}
+						className={`relative w-[38px] sm:w-[96px] shrink-0 select-none touch-none rounded overflow-hidden shadow-lg border border-white/10 group cursor-grab active:cursor-grabbing transition-colors ${isRelicOver ? 'ring-2 ring-primary-500 bg-primary-500/20' : ''}`}
 						onContextMenu={(e) => {
 							if (onContextMenu) {
 								e.preventDefault();
@@ -96,7 +96,7 @@ export const SortableItem = memo(
 						}`}>
 							<img src={displaySrc} crossOrigin='anonymous' className='w-full h-full object-cover pointer-events-none' alt='tier-item' onError={() => setHasError(true)} />
 						</div>
-						<div className="absolute bottom-0 left-0 right-0 flex w-full h-[24px] sm:h-[32px] bg-gradient-to-t from-black/80 via-black/40 to-transparent">
+						<div className="absolute bottom-0 left-0 right-0 flex w-full h-[12px] sm:h-[32px] bg-gradient-to-t from-black/80 via-black/40 to-transparent">
 							{[0, 1, 2].map((slotIndex) => (
 								<RelicSlot 
 									key={slotIndex} 
@@ -113,7 +113,7 @@ export const SortableItem = memo(
 				) : (
 					<div 
 						ref={setRelicDropRef}
-						className={`w-8 h-8 sm:w-20 sm:h-20 shrink-0 select-none touch-none transition-all duration-200 ${
+						className={`w-[38px] h-[38px] sm:w-20 sm:h-20 shrink-0 select-none touch-none transition-all duration-200 ${
 							isSelected
 								? "ring-1 ring-primary-500 ring-offset-2 ring-offset-surface-bg scale-90 z-10"
 								: "ring-1 ring-white/10"
