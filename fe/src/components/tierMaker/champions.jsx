@@ -140,30 +140,40 @@ const SortableTierRow = ({
 				style={{ backgroundColor: tier.color }}
 				className='relative w-12 sm:w-36 flex flex-col items-center justify-center p-1 text-black shrink-0'
 			>
-				<input
-					className='bg-transparent text-center w-full font-bold border-none focus:ring-0 text-sm sm:text-3xl uppercase px-0'
-					value={tier.name}
-					onChange={e =>
-						setTiers(
-							tiers.map(t =>
-								t.id === tier.id ? { ...t, name: e.target.value } : t,
-							),
-						)
-					}
-					readOnly={isExporting}
-				/>
-				<input
-					className='bg-transparent text-center w-full text-[9px] sm:text-[12px] italic border-none focus:ring-0 opacity-60 mt-1'
-					value={tier.description}
-					onChange={e =>
-						setTiers(
-							tiers.map(t =>
-								t.id === tier.id ? { ...t, description: e.target.value } : t,
-							),
-						)
-					}
-					readOnly={isExporting}
-				/>
+				{isExporting ? (
+					<div className='bg-transparent text-center w-full font-bold border-none focus:ring-0 text-sm sm:text-3xl uppercase px-0'>
+						{tier.name}
+					</div>
+				) : (
+					<input
+						className='bg-transparent text-center w-full font-bold border-none focus:ring-0 text-sm sm:text-3xl uppercase px-0'
+						value={tier.name}
+						onChange={e =>
+							setTiers(
+								tiers.map(t =>
+									t.id === tier.id ? { ...t, name: e.target.value } : t,
+								),
+							)
+						}
+					/>
+				)}
+				{isExporting ? (
+					<div className='bg-transparent text-center w-full text-[9px] sm:text-[12px] italic border-none focus:ring-0 opacity-60 mt-1 break-words'>
+						{tier.description}
+					</div>
+				) : (
+					<input
+						className='bg-transparent text-center w-full text-[9px] sm:text-[12px] italic border-none focus:ring-0 opacity-60 mt-1'
+						value={tier.description}
+						onChange={e =>
+							setTiers(
+								tiers.map(t =>
+									t.id === tier.id ? { ...t, description: e.target.value } : t,
+								),
+							)
+						}
+					/>
+				)}
 				{!isExporting && (
 					<button
 						onClick={e => {
@@ -285,58 +295,21 @@ function TierListChampions({ initialChampions }) {
 	);
 
 	const getDefaultTiers = useCallback(
-		() => [
-			{
-				id: "tier-ss",
-				name: "SS",
-				description: tUI("tierList.godTier"),
-				color: "#ff3e3e",
-				items: [],
-			},
-			{
-				id: "tier-s",
-				name: "S",
-				description: tUI("tierList.overpowered"),
-				color: "#ff7f7f",
-				items: [],
-			},
-			{
-				id: "tier-a",
-				name: "A",
-				description: tUI("tierList.veryStrong"),
-				color: "#ff9f40",
-				items: [],
-			},
-			{
-				id: "tier-b",
-				name: "B",
-				description: tUI("tierList.good"),
-				color: "#ffbf7f",
-				items: [],
-			},
-			{
-				id: "tier-c",
-				name: "C",
-				description: tUI("tierList.decent"),
-				color: "#ffff7f",
-				items: [],
-			},
-			{
-				id: "tier-D",
-				name: "D",
-				description: tUI("tierList.weak"),
-				color: "#7fff7f",
-				items: [],
-			},
-		],
-		[tUI],
+		() => sampleChampionMapping.map(tier => ({
+			id: tier.id,
+			name: tier.name,
+			description: tier.description,
+			color: tier.color,
+			items: []
+		})),
+		[]
 	);
 
 	const getSampleData = useCallback(
 		(rawData, relicsData = []) => {
 			const usedIds = new Set();
-			const sampleTiers = getDefaultTiers().map(tier => {
-				const mappingItems = sampleChampionMapping[tier.id] || [];
+			const sampleTiers = sampleChampionMapping.map(tier => {
+				const mappingItems = tier.items || [];
 				const items = [];
 				mappingItems.forEach(mapping => {
 					const isObj = typeof mapping === "object";
@@ -360,7 +333,7 @@ function TierListChampions({ initialChampions }) {
 			const sampleUnranked = rawData.filter(c => !usedIds.has(c.id));
 			return { sampleTiers, sampleUnranked };
 		},
-		[getDefaultTiers],
+		[],
 	);
 
 	useEffect(() => {
