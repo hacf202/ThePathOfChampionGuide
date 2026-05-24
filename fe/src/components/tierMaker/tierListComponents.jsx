@@ -146,10 +146,10 @@ export const SortableItem = memo(
 	},
 );
 
-export const DroppableZone = ({ id, children, className }) => {
+export const DroppableZone = ({ id, children, className, style }) => {
 	const { setNodeRef } = useDroppable({ id });
 	return (
-		<div ref={setNodeRef} className={className}>
+		<div ref={setNodeRef} className={className} style={style}>
 			{children}
 		</div>
 	);

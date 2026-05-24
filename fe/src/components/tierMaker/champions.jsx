@@ -48,6 +48,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import html2canvas from "html2canvas";
+import Modal from "../../components/common/modal";
 import PageTitle from "../../components/common/pageTitle";
 import Button from "../../components/common/button";
 import InputField from "../../components/common/inputField";
@@ -102,6 +103,7 @@ const SortableTierRow = ({
 	showColorPicker,
 	setShowColorPicker,
 	setUnranked,
+	requestConfirm,
 	children,
 }) => {
 	const { tUI } = useTranslation();
@@ -208,14 +210,13 @@ const SortableTierRow = ({
 			{!isExporting && (
 				<button
 					onClick={() => {
-						if (
-							window.confirm(
-								tUI("tierList.confirmDeleteRow").replace("{name}", tier.name),
-							)
-						) {
-							setUnranked(prev => [...prev, ...tier.items]);
-							setTiers(prev => prev.filter(t => t.id !== tier.id));
-						}
+						requestConfirm(
+							tUI("tierList.confirmDeleteRow").replace("{name}", tier.name),
+							() => {
+								setUnranked(prev => [...prev, ...tier.items]);
+								setTiers(prev => prev.filter(t => t.id !== tier.id));
+							}
+						);
 					}}
 					className='md:px-3 text-red-400 hover:text-red-500 opacity-0 group-hover:opacity-100 self-center'
 				>
@@ -279,6 +280,11 @@ function TierListChampions({ initialChampions }) {
 	const [selectedMaxStars, setSelectedMaxStars] = useState([]);
 	const [selectedTags, setSelectedTags] = useState([]);
 	const [showColorPicker, setShowColorPicker] = useState(null);
+	const [confirmConfig, setConfirmConfig] = useState({ isOpen: false, message: "", onConfirm: null });
+
+	const requestConfirm = useCallback((message, onConfirm) => {
+		setConfirmConfig({ isOpen: true, message, onConfirm });
+	}, []);
 
 	const tierListRef = useRef(null);
 	const boardRef = useRef(null);
@@ -499,12 +505,12 @@ function TierListChampions({ initialChampions }) {
 	}, [filteredRelics]);
 
 	const handleResetToSample = () => {
-		if (window.confirm(tUI("tierList.confirmResetToSample"))) {
+		requestConfirm(tUI("tierList.confirmResetToSample"), () => {
 			const { sampleTiers, sampleUnranked } = getSampleData(allChampionsRaw, allRelicsRaw);
 			setTiers(sampleTiers);
 			setUnranked(sampleUnranked);
 			setSelectedIds([]);
-		}
+		});
 	};
 
 	const onMouseDown = e => {
@@ -934,10 +940,17 @@ function TierListChampions({ initialChampions }) {
 											</Button>
 											<Button
 												onClick={() => {
-													if (window.confirm(tUI("tierList.confirmClearAll"))) {
-														setTiers(getDefaultTiers());
+													requestConfirm(tUI("tierList.confirmClearAll"), () => {
+														setTiers([
+															{ id: "tier-ss", name: "SS", description: "", color: "#ff3e3e", items: [] },
+															{ id: "tier-s", name: "S", description: "", color: "#ff7f7f", items: [] },
+															{ id: "tier-a", name: "A", description: "", color: "#ffbf7f", items: [] },
+															{ id: "tier-b", name: "B", description: "", color: "#ffff7f", items: [] },
+															{ id: "tier-c", name: "C", description: "", color: "#7fff7f", items: [] },
+															{ id: "tier-d", name: "D", description: "", color: "#7fffff", items: [] }
+														]);
 														setUnranked([...allChampionsRaw]);
-													}
+													});
 												}}
 												variant='danger'
 												className='p-2'
@@ -976,6 +989,7 @@ function TierListChampions({ initialChampions }) {
 													showColorPicker={showColorPicker}
 													setShowColorPicker={setShowColorPicker}
 													setUnranked={setUnranked}
+													requestConfirm={requestConfirm}
 												>
 													<SortableContext
 														items={tier.items.map(i => i.id)}
@@ -1082,7 +1096,8 @@ function TierListChampions({ initialChampions }) {
 											</div>
 											<DroppableZone
 												id='unranked'
-												className='min-h-[300px] border-2 border-dashed border-white/5 rounded-xl p-4 bg-black/10 flex flex-wrap gap-2 content-start'
+												className='overflow-y-auto custom-scrollbar border-2 border-dashed border-white/5 rounded-xl p-4 bg-black/10 flex flex-wrap gap-2 content-start'
+												style={{ height: '600px' }}
 											>
 												{unranked.map(item =>
 													filteredUnranked.some(f => f.id === item.id) ? (
@@ -1130,7 +1145,10 @@ function TierListChampions({ initialChampions }) {
 													placeholder='Search relics...'
 												/>
 											</div>
-											<div className='flex-1 overflow-y-auto max-h-[600px] min-h-[300px] border-2 border-dashed border-white/5 rounded-xl p-4 bg-black/10 flex flex-col gap-4 content-start custom-scrollbar'>
+											<div 
+												className='overflow-y-auto border-2 border-dashed border-white/5 rounded-xl p-4 bg-black/10 flex flex-col gap-4 content-start custom-scrollbar'
+												style={{ height: '600px' }}
+											>
 												{Object.entries(groupedRelics).map(([rarity, items]) => 
 													items.length > 0 ? (
 														<div key={rarity}>
@@ -1202,6 +1220,33 @@ function TierListChampions({ initialChampions }) {
 				document.body
 			)}
 			{renderChampionMenu && renderChampionMenu()}
+			<Modal
+				isOpen={confirmConfig.isOpen}
+				onClose={() => setConfirmConfig({ isOpen: false, message: "", onConfirm: null })}
+				title={tUI("common.confirm") || "Xác nhận"}
+				maxWidth="max-w-sm"
+			>
+				<div className="flex flex-col gap-6 p-2">
+					<p className="text-text-secondary text-base">{confirmConfig.message}</p>
+					<div className="flex justify-end gap-3 mt-4">
+						<Button
+							variant="outline"
+							onClick={() => setConfirmConfig({ isOpen: false, message: "", onConfirm: null })}
+						>
+							{tUI("common.cancel") || "Hủy"}
+						</Button>
+						<Button
+							variant="danger"
+							onClick={() => {
+								if (confirmConfig.onConfirm) confirmConfig.onConfirm();
+								setConfirmConfig({ isOpen: false, message: "", onConfirm: null });
+							}}
+						>
+							{tUI("common.confirm") || "Đồng ý"}
+						</Button>
+					</div>
+				</div>
+			</Modal>
 		</DndContext>
 	);
 }
