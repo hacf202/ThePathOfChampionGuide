@@ -12,6 +12,7 @@ import {
 	batchFetchByIds,
 	invalidateChampionCache,
 } from "../services/dataService.js";
+import kv from "../utils/redis.js";
 
 const router = express.Router();
 const CHAMPIONS_TABLE = "guidePocChampionList";
@@ -26,6 +27,17 @@ export { getCachedChampions } from "../services/dataService.js";
  */
 router.get("/", async (req, res) => {
 	try {
+		const queryParamsStr = new URLSearchParams(req.query).toString();
+		const cacheKey = `api:champions:${queryParamsStr}`;
+
+		if (kv) {
+			const cachedData = await kv.get(cacheKey);
+			if (cachedData) {
+				res.setHeader("Content-Type", "application/json");
+				return res.send(cachedData);
+			}
+		}
+
 		const {
 			page = 1,
 			limit = 24,
@@ -117,7 +129,7 @@ router.get("/", async (req, res) => {
 
 		const totalPages = pageSize > 0 ? Math.ceil(totalItems / pageSize) : 1;
 
-		res.json({
+		const responseData = {
 			items: paginatedItems,
 			pagination: {
 				totalItems,
@@ -126,7 +138,13 @@ router.get("/", async (req, res) => {
 				pageSize: pageSize < 0 ? totalItems : pageSize,
 			},
 			availableFilters,
-		});
+		};
+
+		if (kv) {
+			await kv.setex(cacheKey, 300, JSON.stringify(responseData));
+		}
+
+		res.json(responseData);
 	} catch (error) {
 		console.error("Lỗi Backend:", error);
 		res.status(500).json({ error: "Lỗi hệ thống." });

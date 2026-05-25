@@ -130,6 +130,8 @@ export default function ConstellationMap({ constellationInfo }) {
 
 	const [zoom, setZoom] = useState(1);
 	const [pan, setPan] = useState({ x: 0, y: 0 });
+	const panRef = useRef({ x: 0, y: 0 });
+	const containerRef = useRef(null);
 
 	const [isPointerDown, setIsPointerDown] = useState(false);
 	const [isDragging, setIsDragging] = useState(false);
@@ -156,16 +158,24 @@ export default function ConstellationMap({ constellationInfo }) {
 	const handlePointerDown = (clientX, clientY) => {
 		setIsPointerDown(true);
 		setIsDragging(false);
-		setDragStart({ x: clientX - pan.x, y: clientY - pan.y });
+		setDragStart({ x: clientX - panRef.current.x, y: clientY - panRef.current.y });
 	};
 
 	const handlePointerMove = (clientX, clientY) => {
 		if (!isPointerDown) return;
 		setIsDragging(true);
-		setPan({
-			x: clientX - dragStart.x,
-			y: clientY - dragStart.y,
-		});
+		
+		const newPanX = clientX - dragStart.x;
+		const newPanY = clientY - dragStart.y;
+		
+		// Direct DOM mutation to avoid React re-renders on every mouse move
+		if (containerRef.current) {
+			containerRef.current.style.transform = `translate(${newPanX}px, ${newPanY}px) scale(${zoom})`;
+		}
+		
+		// We still need to keep pan state updated for when drag ends or zoom changes
+		panRef.current = { x: newPanX, y: newPanY };
+		
 		setHoveredNode(null);
 	};
 
@@ -173,6 +183,8 @@ export default function ConstellationMap({ constellationInfo }) {
 		setIsPointerDown(false);
 		if (dragTimeout.current) clearTimeout(dragTimeout.current);
 		dragTimeout.current = setTimeout(() => setIsDragging(false), 50);
+		// Sync the state so re-renders use the correct pan values
+		setPan({ x: panRef.current.x, y: panRef.current.y });
 	};
 
 	const handleMouseDown = e => handlePointerDown(e.clientX, e.clientY);
@@ -196,6 +208,7 @@ export default function ConstellationMap({ constellationInfo }) {
 	const handleReset = () => {
 		setZoom(1);
 		setPan({ x: 0, y: 0 });
+		panRef.current = { x: 0, y: 0 };
 	};
 
 	const screenW = typeof window !== "undefined" ? window.innerWidth : 1000;
@@ -296,6 +309,7 @@ export default function ConstellationMap({ constellationInfo }) {
 			</div>
 
 			<div
+				ref={containerRef}
 				className={`w-full h-full origin-center bg-black ${!isDragging ? "transition-transform duration-300 ease-out" : ""}`}
 				style={{
 					transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,

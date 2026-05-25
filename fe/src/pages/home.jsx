@@ -53,7 +53,6 @@ const BACKGROUND_IMAGES = [
 const Home = () => {
 	const { tUI } = useTranslation();
 	const navigate = useNavigate();
-	const [isLoading, setIsLoading] = useState(true);
 	const isDragging = useRef(false);
 
 	const TILES = [
@@ -71,39 +70,8 @@ const Home = () => {
 	];
 
 	useEffect(() => {
-		const preloadImages = async () => {
-			const promises = BACKGROUND_IMAGES.map(src => {
-				return new Promise(resolve => {
-					const img = new Image();
-					img.src = src;
-					img.onload = resolve;
-					img.onerror = resolve;
-				});
-			});
-			await Promise.all(promises);
-			setTimeout(() => setIsLoading(false), 500);
-		};
-		preloadImages();
+		// Images will be loaded naturally by the browser, no artificial delay needed.
 	}, []);
-
-	if (isLoading) {
-		return (
-			<div className='fixed inset-0 z-50 bg-page-bg p-4 flex flex-col'>
-				{/* Skeleton Navbar */}
-				<div className='h-16 w-full bg-border rounded-2xl animate-pulse mb-8'></div>
-				{/* Skeleton Hero Section */}
-				<div className='flex-grow flex flex-col items-center justify-center w-full max-w-5xl mx-auto gap-6'>
-					<div className='h-8 w-32 bg-border rounded-full animate-pulse mb-4'></div>
-					<div className='h-16 md:h-24 w-3/4 bg-border rounded-3xl animate-pulse'></div>
-					<div className='h-6 md:h-8 w-1/2 bg-border rounded-full animate-pulse mb-8'></div>
-					<div className='flex flex-col sm:flex-row gap-6'>
-						<div className='h-14 w-48 bg-border rounded-full animate-pulse'></div>
-						<div className='h-14 w-48 bg-border rounded-full animate-pulse'></div>
-					</div>
-				</div>
-			</div>
-		);
-	}
 
 	return (
 		<div className='bg-page-bg text-text-primary font-primary selection:bg-primary-500 selection:text-white'>

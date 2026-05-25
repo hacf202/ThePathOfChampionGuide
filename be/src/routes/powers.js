@@ -7,6 +7,7 @@ import { removeAccents } from "../utils/vietnameseUtils.js";
 import { createAuditLog } from "../utils/auditLogger.js";
 import { CACHE_KEYS } from "../utils/cacheKeys.js";
 import { getCachedPowers, invalidatePowerCache } from "../services/dataService.js";
+import kv from "../utils/redis.js";
 
 const router = express.Router();
 const POWERS_TABLE = "guidePocPowers";
@@ -52,6 +53,17 @@ router.get("/:powerCode", async (req, res) => {
  */
 router.get("/", async (req, res) => {
 	try {
+		const queryParamsStr = new URLSearchParams(req.query).toString();
+		const cacheKey = `api:powers:${queryParamsStr}`;
+
+		if (kv) {
+			const cachedData = await kv.get(cacheKey);
+			if (cachedData) {
+				res.setHeader("Content-Type", "application/json");
+				return res.send(cachedData);
+			}
+		}
+
 		const {
 			page = 1,
 			limit = 24,
@@ -131,11 +143,17 @@ router.get("/", async (req, res) => {
 			paginatedItems = filtered;
 		}
 
-		res.json({
+		const responseData = {
 			items: paginatedItems,
 			pagination: { totalItems, totalPages, currentPage, pageSize: pageSize > 0 ? pageSize : totalItems },
 			availableFilters,
-		});
+		};
+
+		if (kv) {
+			await kv.setex(cacheKey, 300, JSON.stringify(responseData));
+		}
+
+		res.json(responseData);
 	} catch (error) {
 		console.error("Lỗi API Powers:", error);
 		res.status(500).json({ error: "Không thể lấy danh sách sức mạnh." });

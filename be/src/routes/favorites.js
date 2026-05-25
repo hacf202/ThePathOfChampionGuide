@@ -224,24 +224,17 @@ router.get("/favorites/batch", authenticateCognitoToken, async (req, res) => {
 	if (buildIds.length === 0) return res.json({});
 
 	try {
-		const results = await Promise.all(
-			buildIds.map(async buildId => {
-				try {
-					const db = getDb();
-					const Count = await db.collection(FAVORITES_TABLE).countDocuments({
-						id: buildId,
-						user_sub: userSub,
-					});
-					return { id: buildId, isFavorited: Count > 0 };
-				} catch {
-					return { id: buildId, isFavorited: false };
-				}
-			}),
+		const db = getDb();
+		const Items = await db.collection(FAVORITES_TABLE).find({
+			id: { $in: buildIds },
+			user_sub: userSub,
+		}).project({ id: 1 }).toArray();
+
+		const favoritedSet = new Set(Items.map(item => item.id));
+		const statusMap = Object.fromEntries(
+			buildIds.map(id => [id, favoritedSet.has(id)])
 		);
 
-		const statusMap = Object.fromEntries(
-			results.map(r => [r.id, r.isFavorited]),
-		);
 		res.setHeader("Cache-Control", "no-store");
 		res.json(statusMap);
 	} catch (error) {
@@ -261,19 +254,17 @@ router.get("/favorites/count/batch", async (req, res) => {
 	if (buildIds.length === 0) return res.json({});
 
 	try {
-		const results = await Promise.all(
-			buildIds.map(async buildId => {
-				try {
-					const db = getDb();
-					const Count = await db.collection(FAVORITES_TABLE).countDocuments({ id: buildId });
-					return { id: buildId, count: Count || 0 };
-				} catch {
-					return { id: buildId, count: 0 };
-				}
-			}),
-		);
+		const db = getDb();
+		const results = await db.collection(FAVORITES_TABLE).aggregate([
+			{ $match: { id: { $in: buildIds } } },
+			{ $group: { _id: "$id", count: { $sum: 1 } } }
+		]).toArray();
 
-		const countMap = Object.fromEntries(results.map(r => [r.id, r.count]));
+		const countMap = Object.fromEntries(buildIds.map(id => [id, 0]));
+		results.forEach(r => {
+			countMap[r._id] = r.count;
+		});
+
 		res.json(countMap);
 	} catch (error) {
 		console.error("Batch count error:", error);

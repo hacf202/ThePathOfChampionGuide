@@ -495,6 +495,7 @@ function ChampionDetail() {
 									alt={tDynamic(champion, "name")}
 									fetchpriority='high'
 									decoding='async'
+									loading='eager'
 								/>
 								<div className='flex-1'>
 									<div className='flex flex-col sm:flex-row sm:justify-between p-1 gap-2'>

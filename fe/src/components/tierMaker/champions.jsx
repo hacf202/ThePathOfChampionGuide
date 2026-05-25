@@ -621,6 +621,18 @@ function TierListChampions({ initialChampions }) {
 		});
 	}, []);
 
+	const handleChampionClick = useCallback((e, champId) => {
+		if (e.shiftKey || e.ctrlKey || e.metaKey) {
+			setSelectedIds(prev =>
+				prev.includes(champId)
+					? prev.filter(id => id !== champId)
+					: [...prev, champId],
+			);
+		} else {
+			setSelectedIds([champId]);
+		}
+	}, []);
+
 	const handleDuplicate = (champId) => {
 		const duplicateItem = (item) => ({ ...item, id: `${item.id.split('-copy-')[0]}-copy-${Date.now()}` });
 
@@ -1005,15 +1017,7 @@ function TierListChampions({ initialChampions }) {
 																	data-id={item.id}
 																	onClick={e => {
 																		e.stopPropagation();
-																		setSelectedIds(prev =>
-																			e.ctrlKey || e.metaKey || e.shiftKey
-																				? prev.includes(item.id)
-																					? prev.filter(x => x !== item.id)
-																					: [...prev, item.id]
-																				: prev.includes(item.id)
-																					? []
-																					: [item.id],
-																		);
+																		handleChampionClick(e, item.id);
 																	}}
 																	className={`rounded-md transition-all ${selectedIds.includes(item.id) ? "ring-2 ring-primary-500 ring-offset-2 ring-offset-surface-bg scale-90" : ""}`}
 																>
@@ -1107,15 +1111,7 @@ function TierListChampions({ initialChampions }) {
 															className={`rounded-md transition-all cursor-pointer ${selectedIds.includes(item.id) ? "ring-2 ring-primary-500 ring-offset-2 ring-offset-surface-bg scale-90" : ""}`}
 															onClick={e => {
 																e.stopPropagation();
-																setSelectedIds(prev =>
-																	e.ctrlKey || e.metaKey || e.shiftKey
-																		? prev.includes(item.id)
-																			? prev.filter(x => x !== item.id)
-																			: [...prev, item.id]
-																		: prev.includes(item.id)
-																			? []
-																			: [item.id],
-																);
+																handleChampionClick(e, item.id);
 															}}
 														>
 															<SortableItem

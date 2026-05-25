@@ -17,7 +17,7 @@ import DropdownFilter from "../components/common/dropdownFilter";
 import Button from "../components/common/button";
 import BuildCreation from "../components/build/buildCreation";
 import BuildSummary from "../components/build/buildSummary";
-import { PlusCircle, Globe, Shield, Heart, Loader2 } from "lucide-react";
+import { PlusCircle, Globe, Shield, Heart, Loader2, PlaySquare } from "lucide-react";
 
 // --- Skeleton Component ---
 const BuildSkeleton = () => (
@@ -172,6 +172,8 @@ const Builds = () => {
 								)}
 							</div>
 
+
+
 							{/* Nút Tạo Mới - ẩn ở mobile, hiện ở sm+ */}
 							{user ? (
 								<Button
@@ -237,8 +239,8 @@ const Builds = () => {
 				skeletonCount={6}
 				gridClassName={showDesktopFilter =>
 					showDesktopFilter
-						? "grid-cols-1 lg:grid-cols-2"
-						: "grid-cols-1 lg:grid-cols-2 xl:grid-cols-4"
+						? "grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3"
+						: "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
 				}
 				// --- Quản lý Tìm kiếm ---
 				searchValue={state.searchInput}

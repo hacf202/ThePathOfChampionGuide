@@ -6,6 +6,7 @@ import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
 import { createAuditLog } from "../utils/auditLogger.js";
 import { getCachedRunes, invalidateRuneCache } from "../services/dataService.js";
+import kv from "../utils/redis.js";
 
 const router = express.Router();
 const RUNES_TABLE = "guidePocRunes";
@@ -55,6 +56,17 @@ router.get("/:runeCode", async (req, res) => {
  */
 router.get("/", async (req, res) => {
 	try {
+		const queryParamsStr = new URLSearchParams(req.query).toString();
+		const cacheKey = `api:runes:${queryParamsStr}`;
+
+		if (kv) {
+			const cachedData = await kv.get(cacheKey);
+			if (cachedData) {
+				res.setHeader("Content-Type", "application/json");
+				return res.send(cachedData);
+			}
+		}
+
 		const {
 			page = 1,
 			limit = 24,
@@ -116,11 +128,17 @@ router.get("/", async (req, res) => {
 			currentPage * pageSize,
 		);
 
-		res.json({
+		const responseData = {
 			items: paginatedItems,
 			pagination: { totalItems, totalPages, currentPage, pageSize },
 			availableFilters,
-		});
+		};
+
+		if (kv) {
+			await kv.setex(cacheKey, 300, JSON.stringify(responseData));
+		}
+
+		res.json(responseData);
 	} catch (error) {
 		console.error("Lỗi API Runes:", error);
 		res.status(500).json({ error: "Không thể lấy danh sách ngọc." });

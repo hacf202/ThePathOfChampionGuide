@@ -9,7 +9,7 @@ const userCache = cacheManager.getOrCreateCache("users", { stdTTL: 3600, checkpe
 export async function getUserNames(usernames) {
 	if (!usernames || usernames.length === 0) return {};
 
-	const uniqueNames = [...new Set(usernames)];
+	const uniqueNames = [...new Set(usernames.filter(Boolean))];
 	const result = {};
 	const namesToFetch = [];
 

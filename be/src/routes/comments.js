@@ -4,6 +4,7 @@ import { getDb } from "../config/mongo.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { invalidatePublicBuildsCache } from "../utils/buildCache.js";
 import { getUserNames } from "../utils/userCache.js";
+import { v4 as uuidv4 } from "uuid";
 
 const router = express.Router();
 const BUILDS_TABLE = "guidePocBuilds";
@@ -100,49 +101,29 @@ router.get("/comments/latest", async (req, res) => {
 			: undefined;
 
 		const db = getDb();
-		let rootComments = [];
-		let lastEvaluatedKey = exclusiveStartKey;
 		const ROOT_LIMIT = 24;
 
-		while (rootComments.length < ROOT_LIMIT) {
-			let query = db.collection(COMMENTS_TABLE).find({ type: "comment" }).sort({ createdAt: -1 }).limit(50);
-			if (lastEvaluatedKey) {
-				query = query.filter({ $and: [{ type: "comment" }, { createdAt: { $lt: lastEvaluatedKey.createdAt } }] });
-			}
-
-			const batch = await query.toArray();
-			if (batch.length === 0) break;
-
-			const roots = batch.filter(c => !c.parentId);
-			rootComments.push(...roots);
-
-			lastEvaluatedKey = batch[batch.length - 1];
-			if (rootComments.length >= ROOT_LIMIT) break;
+		let query = { type: "comment", parentId: null };
+		if (exclusiveStartKey) {
+			query.createdAt = { $lt: exclusiveStartKey.createdAt };
 		}
 
-		if (rootComments.length > ROOT_LIMIT)
-			rootComments = rootComments.slice(0, ROOT_LIMIT);
+		let rootComments = await db.collection(COMMENTS_TABLE)
+			.find(query)
+			.sort({ createdAt: -1 })
+			.limit(ROOT_LIMIT)
+			.toArray();
 
-		const buildIdsOfRoots = [...new Set(rootComments.map(c => c.buildId))];
+		let lastEvaluatedKey = rootComments.length > 0 ? rootComments[rootComments.length - 1] : null;
 		let allCommentsToReturn = [...rootComments];
 
-		if (buildIdsOfRoots.length > 0) {
-			const repliesPromises = buildIdsOfRoots.map(async bId => {
-				return await db.collection(COMMENTS_TABLE).find({ buildId: bId }).toArray();
-			});
-
-			const results = await Promise.all(repliesPromises);
-			const potentialReplies = results.flat();
+		if (rootComments.length > 0) {
 			const rootIds = rootComments.map(c => c.id);
-			const validReplies = potentialReplies.filter(
-				c => c.parentId && rootIds.includes(c.parentId),
-			);
+			const validReplies = await db.collection(COMMENTS_TABLE)
+				.find({ type: "comment", parentId: { $in: rootIds } })
+				.toArray();
 
-			allCommentsToReturn.push(
-				...validReplies.filter(
-					r => !allCommentsToReturn.find(a => a.id === r.id),
-				),
-			);
+			allCommentsToReturn.push(...validReplies);
 		}
 
 		const uniqueBuildIds = [

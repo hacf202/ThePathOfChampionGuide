@@ -55,6 +55,14 @@ const app = express(); //khởi tạo backend
 // --- Middleware ---
 app.use(helmet()); // Bảo vệ các HTTP header
 app.use(compression()); // Nén dữ liệu truyền tải (Gzip)
+// Cấu hình Morgan để ẩn bớt chuỗi ids dài trong log
+morgan.token('url', (req) => {
+	let url = req.originalUrl || req.url;
+	if (url.includes('ids=') && url.includes('batch')) {
+		return url.replace(/ids=[^&]+/, 'ids=<batch_hidden>');
+	}
+	return url;
+});
 app.use(morgan("dev")); // Ghi log request ra console
 /*
 GET, PUT, POST, DELETE: Phương thức gọi (Method).

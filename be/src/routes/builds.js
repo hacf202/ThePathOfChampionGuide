@@ -9,58 +9,30 @@ import {
 	prepareDisplayForSave,
 } from "../utils/dbHelpers.js";
 import {
-	getPublicBuilds,
-	invalidatePublicBuildsCache,
 	invalidateUserBuildsCache,
 } from "../utils/buildCache.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
 import { createAuditLog } from "../utils/auditLogger.js";
 import { getUserNames } from "../utils/userCache.js";
+import cacheManager from "../utils/cacheManager.js";
+import kv from "../utils/redis.js";
 
-// Tận dụng cache đã có sẵn thay vì scan lại DB - import từ DataService (không import chéo từ routes)
 import { getCachedChampions, getCachedRelics, getCachedPowers } from "../services/dataService.js";
 
 const router = express.Router();
 const BUILDS_TABLE = "guidePocBuilds";
+const availableFiltersCache = cacheManager.getOrCreateCache("available_filters", { stdTTL: 3600 });
+const searchDictionariesCache = cacheManager.getOrCreateCache("search_dictionaries", { stdTTL: 3600 });
 
-// GET /api/builds/top-by-champion/:championID
-// Lấy danh sách build có views cao nhất của 1 tướng (sử dụng GSI)
-router.get("/top-by-champion/:championID", async (req, res) => {
-	const { championID } = req.params;
-	const limit = parseInt(req.query.limit) || 10;
-
-	try {
-		const db = getDb();
-		let Items = await db.collection(BUILDS_TABLE).find({ championID, display: { $in: [true, "true"] } })
-			.sort({ views: -1 })
-			.limit(limit)
-			.toArray();
-
-		let builds = Items
-			? Items.map(item => normalizeDisplay(item))
-			: [];
-
-		// Làm giàu tên hiển thị
-		if (builds.length > 0) {
-			const usernames = [...new Set(builds.map(i => i.creator))];
-			const userMap = await getUserNames(usernames);
-			builds = builds.map(item => ({
-				...item,
-				creatorName: userMap[item.creator] || item.creator,
-			}));
-		}
-
-		res.json(builds);
-	} catch (error) {
-		console.error("Error getting top builds by champion:", error);
-		res.status(500).json({ error: "Could not retrieve top builds" });
-	}
-});
+// --- UTILITY FUNCTIONS ---
 
 /**
- * Lấy danh sách tướng, cổ vật, sức mạnh từ cache đã có (không scan lại DB)
+ * Builds and caches search dictionaries (champion, relic, power maps) to avoid recreating them on every request.
  */
 async function getSearchDictionaries() {
+	let dicts = await searchDictionariesCache.get("maps");
+	if (dicts) return dicts;
+
 	const [champs, relics, powers] = await Promise.all([
 		getCachedChampions(),
 		getCachedRelics(),
@@ -83,315 +55,242 @@ async function getSearchDictionaries() {
 		if (p.powerCode) powerMap[p.powerCode] = { vi: p.name || "", en: p.translations?.en?.name || "" };
 	});
 
-	return { champMap, relicMap, powerMap };
+	dicts = { champMap, relicMap, powerMap };
+	await searchDictionariesCache.set("maps", dicts);
+	return dicts;
 }
 
 /**
- * @route   GET /api/builds
- * @desc    Lấy danh sách build công khai với bộ lọc và phân trang
+ * Helper to build common query logic for builds (public and user-specific)
  */
+async function buildBuildsQueryObj(reqQuery, baseQuery = {}) {
+	const {
+		searchTerm = "",
+		championIDs = "",
+		regions = "",
+		stars = "",
+		sort = "createdAt-desc",
+	} = reqQuery;
+
+	let query = { ...baseQuery };
+
+	// 1. Build Query for Filters
+	if (championIDs) {
+		query.championID = { $in: championIDs.split(",") };
+	}
+	if (regions) {
+		query.regions = { $in: regions.split(",") };
+	}
+	if (stars) {
+		const sList = stars.split(",").map(Number);
+		const sListStr = stars.split(",");
+		query.star = { $in: [...sList, ...sListStr] };
+	}
+
+	// 2. Build Query for Search Term
+	if (searchTerm) {
+		const { champMap, relicMap, powerMap } = await getSearchDictionaries();
+		const searchKey = removeAccents(searchTerm.toLowerCase());
+		
+		const matchingChampIds = Object.keys(champMap).filter(id => 
+			removeAccents(champMap[id].vi.toLowerCase()).includes(searchKey) || 
+			removeAccents(champMap[id].en.toLowerCase()).includes(searchKey)
+		);
+		const matchingRelicIds = Object.keys(relicMap).filter(id => 
+			removeAccents(relicMap[id].vi.toLowerCase()).includes(searchKey) || 
+			removeAccents(relicMap[id].en.toLowerCase()).includes(searchKey)
+		);
+		const matchingPowerIds = Object.keys(powerMap).filter(id => 
+			removeAccents(powerMap[id].vi.toLowerCase()).includes(searchKey) || 
+			removeAccents(powerMap[id].en.toLowerCase()).includes(searchKey)
+		);
+
+		const regexPattern = new RegExp(searchKey, 'i');
+		const searchOr = [
+			{ description: regexPattern },
+			{ creator: regexPattern }
+		];
+
+		if (matchingChampIds.length > 0) searchOr.push({ championID: { $in: matchingChampIds } });
+		if (matchingRelicIds.length > 0) searchOr.push({ relicSetIds: { $in: matchingRelicIds } });
+		if (matchingPowerIds.length > 0) searchOr.push({ powerIds: { $in: matchingPowerIds } });
+
+		query.$or = searchOr;
+	}
+
+	// 3. Build Sort Object
+	const [field, order] = sort.split("-");
+	let sortObj = {};
+	const sortDir = order === "asc" ? 1 : -1;
+	if (field === "championName") {
+		sortObj["championID"] = sortDir;
+	} else {
+		sortObj[field || "createdAt"] = sortDir;
+	}
+
+	return { query, sortObj };
+}
+
+
+// --- ROUTES ---
+
+// GET /api/builds/top-by-champion/:championID
+router.get("/top-by-champion/:championID", async (req, res) => {
+	const { championID } = req.params;
+	const limit = parseInt(req.query.limit) || 10;
+
+	try {
+		const db = getDb();
+		const Items = await db.collection(BUILDS_TABLE)
+			.find({ championID, display: { $in: [true, "true"] } })
+			.sort({ views: -1 })
+			.limit(limit)
+			.toArray();
+
+		let builds = Items.map(normalizeDisplay);
+
+		if (builds.length > 0) {
+			const usernames = [...new Set(builds.map(i => i.creator).filter(Boolean))];
+			const userMap = await getUserNames(usernames);
+			builds = builds.map(item => ({
+				...item,
+				creatorName: item.creator ? (userMap[item.creator] || item.creator) : "Người chơi ẩn danh",
+			}));
+		}
+
+		res.json(builds);
+	} catch (error) {
+		console.error("Error getting top builds by champion:", error);
+		res.status(500).json({ error: "Could not retrieve top builds" });
+	}
+});
+
+// GET /api/builds
 router.get("/", async (req, res) => {
 	try {
-		const {
-			page = 1,
-			limit = 24,
-			searchTerm = "",
-			championIDs = "",
-			regions = "",
-			stars = "",
-			sort = "createdAt-desc",
-		} = req.query;
+		// Use stable stringify for query to generate consistent cache key
+		const queryParamsStr = new URLSearchParams(req.query).toString();
+		const cacheKey = `api:builds:public:${queryParamsStr}`;
 
+		if (kv) {
+			const cachedData = await kv.get(cacheKey);
+			if (cachedData) {
+				return res.json(JSON.parse(cachedData));
+			}
+		}
+
+		const { page = 1, limit = 24 } = req.query;
 		const pageSize = parseInt(limit);
 		const currentPage = parseInt(page);
+		const db = getDb();
 
-		// 0. Xác định userId để dùng Cache riêng (nếu có thể)
-		let userId = "global";
-		const authHeader = req.headers.authorization;
-		if (authHeader && authHeader.startsWith("Bearer ")) {
-			const token = authHeader.split(" ")[1];
-			try {
-				const payload = JSON.parse(atob(token.split(".")[1]));
-				userId = payload.sub || "global";
-			} catch (e) {}
+		const { query, sortObj } = await buildBuildsQueryObj(req.query, { display: { $in: [true, "true"] } });
+
+		// Cache available filters logic asynchronously if missing
+		let availableFilters = await availableFiltersCache.get("global");
+		if (!availableFilters) {
+			availableFilters = {
+				championIDs: (await db.collection(BUILDS_TABLE).aggregate([
+					{ $match: { display: { $in: [true, "true"] } } },
+					{ $group: { _id: "$championID" } }
+				]).toArray()).map(d => d._id).filter(Boolean).sort(),
+				regions: (await db.collection(BUILDS_TABLE).aggregate([
+					{ $match: { display: { $in: [true, "true"] } } },
+					{ $unwind: "$regions" },
+					{ $group: { _id: "$regions" } }
+				]).toArray()).map(d => d._id).filter(Boolean).sort()
+			};
+			await availableFiltersCache.set("global", availableFilters);
 		}
 
-		// 1. Lấy toàn bộ build công khai từ Cache theo User
-		const { items: allBuilds } = await getPublicBuilds(userId);
-
-		// 2. Lấy bộ từ điển tìm kiếm
-		const { champMap, relicMap, powerMap } = await getSearchDictionaries();
-
-		// 3. TRÍCH XUẤT BỘ LỌC ĐỘNG
-		const availableFilters = {
-			championIDs: [...new Set(allBuilds.map(b => b.championID))].sort(),
-			regions: [...new Set(allBuilds.flatMap(b => b.regions || []))].sort(),
-		};
-
-		// 4. THỰC HIỆN LỌC (Filtering)
-		let filtered = [...allBuilds];
-
-		if (searchTerm) {
-			const searchKey = removeAccents(searchTerm.toLowerCase());
-			filtered = filtered.filter(b => {
-				const buildIdStr = (b.id || "").toLowerCase();
-				if (buildIdStr.includes(searchKey)) return true;
-
-				// A. Kiểm tra tên Tướng (Việt & Anh)
-				const cInfo = champMap[b.championID];
-				if (cInfo) {
-					const champNameVi = removeAccents(cInfo.vi.toLowerCase());
-					const champNameEn = removeAccents(cInfo.en.toLowerCase());
-					if (
-						champNameVi.includes(searchKey) ||
-						champNameEn.includes(searchKey)
-					) {
-						return true;
-					}
-				}
-
-				// B. Kiểm tra Mô tả của bài Build
-				const desc = removeAccents((b.description || "").toLowerCase());
-				if (desc.includes(searchKey)) return true;
-
-				// C. Kiểm tra Cổ vật (Việt & Anh)
-				if (Array.isArray(b.relicSetIds)) {
-					for (const rId of b.relicSetIds) {
-						const rInfo = relicMap[rId];
-						if (rInfo) {
-							if (
-								removeAccents(rInfo.vi.toLowerCase()).includes(searchKey) ||
-								removeAccents(rInfo.en.toLowerCase()).includes(searchKey)
-							) {
-								return true;
-							}
-						}
-					}
-				}
-
-				// D. Kiểm tra Sức mạnh (Việt & Anh)
-				if (Array.isArray(b.powerIds)) {
-					for (const pId of b.powerIds) {
-						const pInfo = powerMap[pId];
-						if (pInfo) {
-							if (
-								removeAccents(pInfo.vi.toLowerCase()).includes(searchKey) ||
-								removeAccents(pInfo.en.toLowerCase()).includes(searchKey)
-							) {
-								return true;
-							}
-						}
-					}
-				}
-
-				return false;
-			});
-		}
-
-		if (championIDs) {
-			const cList = championIDs.split(",");
-			filtered = filtered.filter(b => cList.includes(b.championID));
-		}
-
-		if (regions) {
-			const rList = regions.split(",");
-			filtered = filtered.filter(b => b.regions?.some(r => rList.includes(r)));
-		}
-
-		if (stars) {
-			const sList = stars.split(",");
-			filtered = filtered.filter(b => sList.includes(String(b.star)));
-		}
-
-		// 5. SẮP XẾP (Sorting)
-		const [field, order] = sort.split("-");
-		filtered.sort((a, b) => {
-			let vA = a[field] ?? "";
-			let vB = b[field] ?? "";
-			
-			if (field === "championName") {
-				vA = champMap[a.championID]?.vi || "";
-				vB = champMap[b.championID]?.vi || "";
-			}
-
-			if (field === "createdAt") {
-				return order === "asc"
-					? new Date(vA) - new Date(vB)
-					: new Date(vB) - new Date(vA);
-			}
-
-			if (typeof vA === "number" && typeof vB === "number") {
-				return order === "asc" ? vA - vB : vB - vA;
-			}
-
-			return order === "asc"
-				? String(vA).localeCompare(String(vB))
-				: String(vB).localeCompare(String(vA));
-		});
-
-		const totalItems = filtered.length;
+		const totalItems = await db.collection(BUILDS_TABLE).countDocuments(query);
 		
-		let paginatedItems;
-		let totalPages;
-		
+		let paginatedItems = [];
+		let totalPages = 1;
+
 		if (pageSize > 0) {
 			totalPages = Math.ceil(totalItems / pageSize);
-			paginatedItems = filtered.slice(
-				(currentPage - 1) * pageSize,
-				currentPage * pageSize,
-			);
+			paginatedItems = await db.collection(BUILDS_TABLE)
+				.find(query)
+				.sort(sortObj)
+				.skip((currentPage - 1) * pageSize)
+				.limit(pageSize)
+				.toArray();
 		} else {
-			// Nếu limit <= 0 (như limit=-1), lấy toàn bộ
-			totalPages = 1;
-			paginatedItems = filtered;
+			paginatedItems = await db.collection(BUILDS_TABLE)
+				.find(query)
+				.sort(sortObj)
+				.toArray();
 		}
 
-		res.json({
+		paginatedItems = paginatedItems.map(normalizeDisplay);
+
+		if (paginatedItems.length > 0) {
+			const usernames = [...new Set(paginatedItems.map(i => i.creator).filter(Boolean))];
+			const userMap = await getUserNames(usernames);
+			paginatedItems = paginatedItems.map(item => ({
+				...item,
+				creatorName: item.creator ? (userMap[item.creator] || item.creator) : "Người chơi ẩn danh",
+			}));
+		}
+
+		const responseData = {
 			items: paginatedItems,
 			pagination: { totalItems, totalPages, currentPage, pageSize: pageSize > 0 ? pageSize : totalItems },
 			availableFilters,
-		});
+		};
+		
+		// Cache for 5 minutes (300 seconds)
+		if (kv) {
+			await kv.setex(cacheKey, 300, JSON.stringify(responseData));
+		}
+
+		res.json(responseData);
 	} catch (error) {
 		console.error("Error getting public builds:", error);
 		res.status(500).json({ error: "Could not retrieve builds" });
 	}
 });
 
+// GET /api/builds/my-builds
 router.get("/my-builds", authenticateCognitoToken, async (req, res) => {
 	const creator = req.user["cognito:username"];
-
-	// 🟢 Nhận tham số từ Frontend
-	const {
-		page = 1,
-		limit = 24,
-		searchTerm = "",
-		regions = "",
-		stars = "",
-		sort = "createdAt-desc",
-	} = req.query;
-
+	const { page = 1, limit = 24 } = req.query;
 	const pageSize = parseInt(limit);
 	const currentPage = parseInt(page);
 
 	try {
 		const db = getDb();
-		let Items = await db.collection(BUILDS_TABLE).find({ creator }).toArray();
-		let items = Items
-			? Items.map(item => normalizeDisplay(item))
-			: [];
+		const { query, sortObj } = await buildBuildsQueryObj(req.query, { creator });
 
-		// 🟢 Lấy từ điển để hỗ trợ tìm kiếm Cổ vật / Kỹ năng giống hệt public builds
-		const { champMap, relicMap, powerMap } = await getSearchDictionaries();
-
-		// 🟢 1. Lọc theo từ khóa (Tên tướng, Mô tả, Cổ vật, Kỹ năng)
-		if (searchTerm) {
-			const searchKey = removeAccents(searchTerm.toLowerCase());
-			items = items.filter(b => {
-				const buildIdStr = (b.id || "").toLowerCase();
-				if (buildIdStr.includes(searchKey)) return true;
-
-				const cInfo = champMap[b.championID];
-				if (cInfo) {
-					const champNameVi = removeAccents(cInfo.vi.toLowerCase());
-					const champNameEn = removeAccents(cInfo.en.toLowerCase());
-					if (champNameVi.includes(searchKey) || champNameEn.includes(searchKey))
-						return true;
-				}
-
-				const desc = removeAccents((b.description || "").toLowerCase());
-				if (desc.includes(searchKey)) return true;
-
-				if (Array.isArray(b.relicSetIds)) {
-					for (const rId of b.relicSetIds) {
-						const rInfo = relicMap[rId];
-						if (
-							rInfo &&
-							(removeAccents(rInfo.vi.toLowerCase()).includes(searchKey) ||
-								removeAccents(rInfo.en.toLowerCase()).includes(searchKey))
-						) {
-							return true;
-						}
-					}
-				}
-
-				if (Array.isArray(b.powerIds)) {
-					for (const pId of b.powerIds) {
-						const pInfo = powerMap[pId];
-						if (
-							pInfo &&
-							(removeAccents(pInfo.vi.toLowerCase()).includes(searchKey) ||
-								removeAccents(pInfo.en.toLowerCase()).includes(searchKey))
-						) {
-							return true;
-						}
-					}
-				}
-
-				return false;
-			});
-		}
-
-		// 🟢 2. Lọc theo vùng và sao
-		if (regions) {
-			const rList = regions.split(",");
-			items = items.filter(b => b.regions?.some(r => rList.includes(r)));
-		}
-
-		if (stars) {
-			const sList = stars.split(",");
-			items = items.filter(b => sList.includes(String(b.star)));
-		}
-
-		// 🟢 3. Sắp xếp
-		const [field, order] = sort.split("-");
-		items.sort((a, b) => {
-			let vA = a[field] ?? "";
-			let vB = b[field] ?? "";
-			
-			if (field === "championName") {
-				vA = champMap[a.championID]?.vi || "";
-				vB = champMap[b.championID]?.vi || "";
-			}
-
-			if (field === "createdAt") {
-				return order === "asc"
-					? new Date(vA) - new Date(vB)
-					: new Date(vB) - new Date(vA);
-			}
-
-			if (typeof vA === "number" && typeof vB === "number") {
-				return order === "asc" ? vA - vB : vB - vA;
-			}
-
-			return order === "asc"
-				? String(vA).localeCompare(String(vB))
-				: String(vB).localeCompare(String(vA));
-		});
-
-		const totalItems = items.length;
+		const totalItems = await db.collection(BUILDS_TABLE).countDocuments(query);
 		
-		let paginatedItems;
-		let totalPages;
-		
+		let paginatedItems = [];
+		let totalPages = 1;
+
 		if (pageSize > 0) {
 			totalPages = Math.ceil(totalItems / pageSize);
-			paginatedItems = items.slice(
-				(currentPage - 1) * pageSize,
-				currentPage * pageSize,
-			);
+			paginatedItems = await db.collection(BUILDS_TABLE)
+				.find(query)
+				.sort(sortObj)
+				.skip((currentPage - 1) * pageSize)
+				.limit(pageSize)
+				.toArray();
 		} else {
-			// Nếu limit <= 0 (như limit=-1), lấy toàn bộ
-			totalPages = 1;
-			paginatedItems = items;
+			paginatedItems = await db.collection(BUILDS_TABLE)
+				.find(query)
+				.sort(sortObj)
+				.toArray();
 		}
 
-		// Làm giàu tên hiển thị
+		paginatedItems = paginatedItems.map(normalizeDisplay);
+
 		if (paginatedItems.length > 0) {
-			const usernames = [...new Set(paginatedItems.map(i => i.creator))];
+			const usernames = [...new Set(paginatedItems.map(i => i.creator).filter(Boolean))];
 			const userMap = await getUserNames(usernames);
 			paginatedItems = paginatedItems.map(item => ({
 				...item,
-				creatorName: userMap[item.creator] || item.creator,
+				creatorName: item.creator ? (userMap[item.creator] || item.creator) : "Người chơi ẩn danh",
 			}));
 		}
 
@@ -427,30 +326,24 @@ router.get("/:id", async (req, res) => {
 
 		if (!Item) return res.status(404).json({ error: "Build not found" });
 
-		const buildData = Item;
-		const build = normalizeDisplay(buildData);
-		const isPublic = buildData.display === true || buildData.display === "true";
+		const build = normalizeDisplay(Item);
+		const isPublic = Item.display === true || Item.display === "true";
 
 		if (isPublic) {
 			db.collection(BUILDS_TABLE).updateOne(
 				{ id },
 				{ $inc: { views: 1 } }
 			).catch(e => console.error("View increment error:", e));
-
-			// Làm giàu tên hiển thị cho chi tiết đơn lẻ
-			const userMap = await getUserNames([build.creator]);
-			build.creatorName = userMap[build.creator] || build.creator;
-
-			return res.json(build);
-		}
-
-		if (!userSub || build.sub !== userSub) {
+		} else if (!userSub || build.sub !== userSub) {
 			return res.status(404).json({ error: "Build not found or not public" });
 		}
 
-		// Làm giàu tên hiển thị cho chi tiết đơn lẻ
-		const userMap = await getUserNames([build.creator]);
-		build.creatorName = userMap[build.creator] || build.creator;
+		if (build.creator) {
+			const userMap = await getUserNames([build.creator]);
+			build.creatorName = userMap[build.creator] || build.creator;
+		} else {
+			build.creatorName = "Người chơi ẩn danh";
+		}
 
 		res.json(build);
 	} catch (error) {
@@ -461,7 +354,6 @@ router.get("/:id", async (req, res) => {
 
 // POST /api/builds
 router.post("/", authenticateCognitoToken, async (req, res) => {
-	// Sử dụng đúng các tên mảng dựa trên ID như schema đã chốt
 	const {
 		championID,
 		description = "",
@@ -473,14 +365,8 @@ router.post("/", authenticateCognitoToken, async (req, res) => {
 		regions = [],
 	} = req.body;
 
-	if (
-		!championID ||
-		!Array.isArray(relicSetIds) ||
-		relicSetIds.length === 0
-	) {
-		return res
-			.status(400)
-			.json({ error: "Champion ID and relicSetIds are required." });
+	if (!championID || !Array.isArray(relicSetIds) || relicSetIds.length === 0) {
+		return res.status(400).json({ error: "Champion ID and relicSetIds are required." });
 	}
 
 	const build = {
@@ -529,24 +415,13 @@ router.post("/", authenticateCognitoToken, async (req, res) => {
 // PUT /api/builds/:id
 router.put("/:id", authenticateCognitoToken, async (req, res) => {
 	const { id } = req.params;
-	// Sử dụng đúng các tên mảng dựa trên ID như schema đã chốt
-	const {
-		description,
-		relicSetIds,
-		powerIds,
-		runeIds,
-		star,
-		display,
-		regions,
-	} = req.body;
 	const userSub = req.user.sub;
 
 	try {
 		const db = getDb();
-		const Item = await db.collection(BUILDS_TABLE).findOne({ id });
-		if (!Item) return res.status(404).json({ error: "Build not found" });
+		const oldBuild = await db.collection(BUILDS_TABLE).findOne({ id });
+		if (!oldBuild) return res.status(404).json({ error: "Build not found" });
 
-		const oldBuild = Item;
 		if (oldBuild.sub !== userSub) {
 			return res.status(403).json({ error: "Unauthorized" });
 		}
@@ -570,8 +445,7 @@ router.put("/:id", authenticateCognitoToken, async (req, res) => {
 			}
 		});
 
-		if (!hasUpdates)
-			return res.status(400).json({ error: "No fields to update" });
+		if (!hasUpdates) return res.status(400).json({ error: "No fields to update" });
 
 		const result = await db.collection(BUILDS_TABLE).findOneAndUpdate(
 			{ id },
@@ -611,10 +485,9 @@ router.delete("/:id", authenticateCognitoToken, async (req, res) => {
 
 	try {
 		const db = getDb();
-		const Item = await db.collection(BUILDS_TABLE).findOne({ id });
-		if (!Item) return res.status(404).json({ error: "Build not found" });
+		const build = await db.collection(BUILDS_TABLE).findOne({ id });
+		if (!build) return res.status(404).json({ error: "Build not found" });
 
-		const build = Item;
 		if (build.sub !== userSub) {
 			return res.status(403).json({ error: "Unauthorized" });
 		}
@@ -647,11 +520,9 @@ router.patch("/:id/like", async (req, res) => {
 
 	try {
 		const db = getDb();
-		const Item = await db.collection(BUILDS_TABLE).findOne({ id });
+		const build = await db.collection(BUILDS_TABLE).findOne({ id });
 
-		if (!Item) return res.status(404).json({ error: "Build not found" });
-
-		const build = Item;
+		if (!build) return res.status(404).json({ error: "Build not found" });
 
 		const result = await db.collection(BUILDS_TABLE).findOneAndUpdate(
 			{ id },

@@ -10,6 +10,7 @@ const SafeImage = ({
 	loading = "lazy",
 	width, // Thêm prop width
 	height, // Thêm prop height
+	...props
 }) => {
 	const getOptimizedSrc = (originalSrc) => {
 		if (!originalSrc || typeof originalSrc !== "string") return originalSrc;
@@ -53,6 +54,7 @@ const SafeImage = ({
 			onError={handleError}
 			loading={loading}
 			crossOrigin={crossOrigin}
+			{...props}
 		/>
 	);
 };
