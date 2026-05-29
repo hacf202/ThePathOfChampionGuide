@@ -8697,8 +8697,8 @@
         "rarity": "Rare"
       }
     },
-    "assetAbsolutePath": "https://images.pocguide.top/powers/P01376.webp",
-    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01376.webp"
+    "assetAbsolutePath": "https://images.pocguide.top/powers/runeStar.webp",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/runeStar.webp"
   },
   {
     "powerCode": "P01377",
@@ -10159,6 +10159,26 @@
       }
     },
     "descriptionRaw": "Khi các bài quân của Địch Thủ tấn công, chúng chia sẻ Đặc Điểm của chúng với các bài quân ở vị trí tấn công trong vòng này."
+  },
+  {
+    "powerCode": "P01443",
+    "name": "Kỷ Nguyên Khởi Đầu",
+    "rarity": "Hiếm",
+    "description": "[k:RoundStart|Bắt Đầu Vòng Đấu|icon]: Giảm 1 tiêu hao của những lá bài với 4+ tiêu hao trên tay.",
+    "type": [
+      "General Power"
+    ],
+    "assetAbsolutePath": "https://images.pocguide.top/powers/P01443.webp",
+    "assetFullAbsolutePath": "https://images.pocguide.top/powers/P01443.webp",
+    "translations": {
+      "en": {
+        "name": "Dawning Age",
+        "rarity": "Rare",
+        "description": "[k:RoundStart|Round Start|icon]: Reduce the cost of your 4+ cost cards in hand by 1.",
+        "descriptionRaw": "Round Start: Reduce the cost of your 4+ cost cards in hand by 1."
+      }
+    },
+    "descriptionRaw": "Bắt Đầu Vòng Đấu: Giảm 1 tiêu hao của những lá bài với 4+ tiêu hao trên tay."
   },
   {
     "powerCode": "P0145",

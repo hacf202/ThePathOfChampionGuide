@@ -1,7 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "framer-motion";
 import PageTitle from "../components/common/pageTitle";
+import CinematicSection from "../components/home/CinematicSection";
+import CinematicCard from "../components/home/CinematicCard";
 import { useTranslation } from "../hooks/useTranslation";
 import {
 	Swords,
@@ -54,110 +56,6 @@ const BACKGROUND_IMAGES = [
 	"https://images.pocguide.top/backgrounds/MAINBG.webp"
 ];
 
-// Nâng cấp: Thêm Parallax Scroll Animation cho CinematicSection
-const CinematicSection = ({ title1, title2, bgImage, children, reverse = false }) => {
-	const ref = useRef(null);
-	const { scrollYProgress } = useScroll({
-		target: ref,
-		offset: ["start end", "end start"]
-	});
-	
-	// Hiệu ứng cuộn cho ảnh nền (Parallax không delay)
-	const backgroundY = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
-	const textY = useTransform(scrollYProgress, [0, 1], ["-40px", "40px"]);
-
-	return (
-		<section ref={ref} className='relative w-full min-h-[90vh] lg:min-h-screen bg-[#05050A] overflow-hidden flex items-center justify-center isolate py-16 lg:py-24'>
-			<div className='absolute inset-0 z-0 select-none overflow-hidden bg-black'>
-				{/* 100% Opacity, No Grayscale, Parallax Y */}
-				<motion.div 
-					className='absolute inset-0 -top-[20%] -bottom-[20%] transform-gpu'
-					style={{ y: backgroundY }}
-				>
-					<img
-						src={bgImage}
-						alt='Background'
-						loading='lazy'
-						className='w-full h-full object-cover scale-[1.1] transition-transform duration-[30s] ease-linear hover:scale-[1.15] will-change-transform opacity-100'
-					/>
-				</motion.div>
-				
-				{/* Gradients to keep text readable but let colors pop (Dark gradient instead of page-bg) */}
-				<div className='absolute inset-0 bg-gradient-to-t from-[#05050A] via-[#05050A]/60 to-transparent opacity-95' />
-				<div className='absolute inset-0 bg-gradient-to-b from-[#05050A]/90 via-transparent to-transparent opacity-80' />
-				
-				{/* GRAIN TEXTURE */}
-				<div className='absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay'
-					style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/stardust.png")' }} />
-			</div>
-
-			<div className='relative w-full h-full max-w-[1920px] mx-auto z-20 p-4 md:px-12 flex flex-col justify-center overflow-visible'>
-				{/* Tiêu đề bay theo parallax nhẹ */}
-				<motion.div 
-					style={{ y: textY }}
-					className={`pointer-events-none z-30 w-full px-4 select-none mb-8 lg:mb-16 overflow-visible ${reverse ? 'lg:text-right text-center' : 'lg:text-left text-center'}`}
-				>
-					<motion.div
-						initial={{ opacity: 0, scale: 0.9 }}
-						whileInView={{ opacity: 1, scale: 1 }}
-						viewport={{ once: true, margin: "-100px" }}
-						transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-						className="overflow-visible"
-					>
-						{/* Fix chữ tiêu đề: Đẩy title1 lên 100% opacity */}
-						<h2 className='text-5xl sm:text-7xl md:text-[8rem] lg:text-[11rem] font-black uppercase leading-[0.85] tracking-tighter italic text-white filter drop-shadow-[0_10px_20px_rgba(0,0,0,0.9)] overflow-visible w-full max-w-[100vw]'>
-							<span className="inline-block pr-12 lg:pr-24 overflow-visible">{title1}</span> <br />
-							<span className='text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.9)] relative inline-block pr-12 lg:pr-24 overflow-visible'>
-								{title2}
-							</span>
-						</h2>
-					</motion.div>
-				</motion.div>
-				<div className="z-40 w-full px-2 lg:px-4">
-					{children}
-				</div>
-			</div>
-		</section>
-	);
-};
-
-// Nâng cấp: Thêm 3D Hover & Glow mượt hơn cho Cards
-const CinematicCard = ({ to, icon: Icon, title, desc, img, small = false }) => {
-	return (
-		<motion.div variants={fadeInUp} className="h-full group cursor-pointer" whileHover={{ scale: 1.02 }} transition={{ duration: 0.4, ease: "easeOut" }}>
-			<NavLink
-				to={to}
-				className={`relative flex flex-col h-full ${small ? 'min-h-[180px] p-5' : 'min-h-[250px] lg:min-h-[350px] p-6 lg:p-8'} rounded-2xl lg:rounded-none border-[1px] border-white/10 bg-[#05050A] overflow-hidden transition-all duration-500 hover:border-primary-400 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.9)] hover:shadow-[0_0_40px_-5px_rgba(var(--color-primary-rgb),0.5)]`}
-			>
-				<img src={img} alt={title} className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-[1s] ease-out group-hover:scale-110 pointer-events-none" />
-				{/* Đảm bảo gradient đen đủ đậm để đọc chữ dễ dàng */}
-				<div className="absolute inset-0 bg-gradient-to-t from-[#05050A] via-[#05050A]/70 to-transparent pointer-events-none opacity-90 group-hover:opacity-100 transition-opacity duration-500" />
-				
-				<div className="relative z-10 flex flex-col h-full justify-end">
-					<div className="mb-auto">
-						<Icon className={`${small ? 'w-8 h-8' : 'w-10 h-10 lg:w-12 lg:h-12'} text-white group-hover:text-primary-300 transition-all duration-500 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)] group-hover:scale-110`} />
-					</div>
-					<h3 className={`${small ? 'text-xl md:text-2xl' : 'text-2xl md:text-3xl lg:text-4xl'} font-black uppercase tracking-tighter text-white mb-2 group-hover:text-primary-300 transition-colors drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]`}>
-						{title}
-					</h3>
-					<div className="grid grid-rows-[0fr] lg:group-hover:grid-rows-[1fr] transition-[grid-template-rows] duration-500 ease-in-out">
-						<div className="overflow-hidden">
-							<p className="text-white/90 font-secondary text-xs sm:text-sm md:text-base leading-relaxed pt-2 pb-1 opacity-0 lg:group-hover:opacity-100 transition-opacity duration-500 delay-100 drop-shadow-[0_2px_5px_rgba(0,0,0,0.8)]">
-								{desc}
-							</p>
-						</div>
-					</div>
-					<p className="lg:hidden text-white/90 font-secondary text-xs mt-2 leading-relaxed drop-shadow-[0_2px_5px_rgba(0,0,0,0.8)]">
-						{desc}
-					</p>
-				</div>
-				
-				{/* Neon Glow Corner Upgrade */}
-				<div className="absolute -top-16 -right-16 w-40 h-40 bg-primary-500/0 blur-[50px] rounded-full group-hover:bg-primary-500/60 transition-all duration-700 pointer-events-none mix-blend-screen" />
-			</NavLink>
-		</motion.div>
-	);
-};
 
 const Home = () => {
 	const { tUI } = useTranslation();
@@ -228,7 +126,7 @@ const Home = () => {
 								initial={{ scale: 0.9 }}
 								animate={{ scale: 1 }}
 								transition={{ duration: 1.5, ease: "easeOut" }}
-								className='text-6xl sm:text-7xl md:text-[10rem] lg:text-[14rem] font-black text-white uppercase leading-none tracking-tighter italic mb-8 select-none'
+								className='text-5xl sm:text-7xl md:text-[10rem] lg:text-[14rem] font-black text-white uppercase leading-none tracking-tighter italic mb-8 select-none'
 								style={{ filter: 'drop-shadow(0 20px 50px rgba(0, 0, 0, 0.8))' }}
 							>
 								<span className="relative inline-block overflow-hidden pr-4 md:pr-8">
@@ -266,7 +164,7 @@ const Home = () => {
 							}}
 							onDragStart={() => (isDragging.current = true)}
 							onDragEnd={() => setTimeout(() => (isDragging.current = false), 50)}
-							className={`absolute group flex flex-col items-center cursor-grab active:cursor-grabbing z-10`}
+							className={`absolute group flex-col items-center cursor-grab active:cursor-grabbing z-10 ${tile.mobileHidden ? 'hidden lg:flex' : 'flex'}`}
 							style={{ top: tile.top, left: tile.left }}
 						>
 							<div
@@ -400,7 +298,7 @@ const Home = () => {
 					<div className='absolute inset-0 bg-gradient-to-t from-[#05050A] via-[#05050A]/90 to-[#05050A]/60 opacity-95' />
 					<div className='absolute inset-0 bg-gradient-to-b from-[#05050A] via-transparent to-transparent opacity-90' />
 				</div>
-				<div className='absolute top-0 left-1/2 -translate-x-1/2 w-full lg:w-[1000px] h-[500px] bg-primary-600/20 blur-[200px] -z-10 rounded-full animate-pulse-slow' />
+				<div className='absolute top-0 left-1/2 -translate-x-1/2 w-full lg:w-[1000px] h-[500px] bg-primary-600/20 md:blur-[200px] blur-[100px] -z-10 rounded-full animate-pulse-slow' />
 				
 				<motion.div 
 					initial={{ opacity: 0, scale: 0.9 }}

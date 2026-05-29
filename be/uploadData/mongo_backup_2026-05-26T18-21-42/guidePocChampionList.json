@@ -1119,7 +1119,7 @@
       "P0377",
       "P0067",
       "P0727",
-      "P09000"
+      "P01376"
     ],
     "translations": {
       "en": {
@@ -3214,7 +3214,7 @@
       {
         "fullAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB030T2-full.png",
         "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/tpoc/vi_vn/img/cards/98SB030.png",
-        "avatar": "https://images.pocguide.top/avatarChampions/MasterYi.webp"
+        "avatar": "https://images.pocguide.top/avatarChampions/SpiritBlossomMasterYi.webp"
       }
     ],
     "powerStarIds": [
@@ -3224,7 +3224,7 @@
       "P0093",
       "P0067",
       "P0887",
-      "P09000"
+      "P01376"
     ],
     "translations": {
       "en": {
@@ -3266,30 +3266,6 @@
     ],
     "description": "-Master Yi Cổ Kiếm Tông Sư hay Master Yi Hoa Linh là vị tướng có lối chơi đánh bằng chỉ số và là tướng sở hữu cơ chế Nhu Động khi dùng bài phép lên đồng minh thì triệu hồi 1 bài quân cảm tử và dùng bài phép lên bài quân đó, giúp cho giá trị bài phép của Yi mang lại là gấp đôi hoặc gấp 4 nếu bạn có dùng Bí Kỹ.\\n-Như đã nói bài phép tăng chỉ số đối với Yi mang lại giá trị gấp nhiều lần kèm theo việc triệu hồi được rất nhiều bài quân, do đó Yi sẽ luôn chủ động trong cả lúc tấn công lẫn phòng thủ. Và do cơ chế nhu động bài phép được dùng thêm 1 lần nữa nên nghĩa là các vật phẩm trên bài phép sẽ kích hoạt thêm 1 lần trong lúc nhu động nó có thể là rút bài, ban vật phẩm thường, hiếm, sử thi.\\n-Master Yi Hoa Linh còn mạnh hơn nhiều nếu bạn sử dụng Ngọc hợp lý cho lối chơi, ví dụ bạn có thể kết hợp ngọc Bí Mật Của [k:Spirit|Linh Hồn] và cổ vật Bí Kỹ thì lượng chỉ số một bài phép mang lại sẽ gấp 4, Bài Học Số Hai kích hoạt thêm nhu động khi đó 1 bài phép sẽ mang lại giá trị gấp 8 lần bình thường. Hoặc cũng có thể dùng ngọc Giáp [k:Spirit|Linh Hồn] kèm [k:Power|Sức Mạnh] Khỉ Đá giúp bài quân của bạn vừa cứng cáp vừa có lượng sát thương cực kì lớn.",
     "startingDeck": {
-      "referenceCards": [
-        {
-          "itemCodes": [],
-          "cardCode": "98SB025T2"
-        },
-        {
-          "itemCodes": [
-            {
-              "itemCode": "I0006",
-              "unlockLevel": 0
-            }
-          ],
-          "cardCode": "01IO022"
-        },
-        {
-          "itemCodes": [
-            {
-              "itemCode": "I0007",
-              "unlockLevel": 0
-            }
-          ],
-          "cardCode": "98SB030T3"
-        }
-      ],
       "baseCards": [
         {
           "itemCodes": [],
@@ -3370,6 +3346,30 @@
             }
           ],
           "cardCode": "08IO019"
+        }
+      ],
+      "referenceCards": [
+        {
+          "itemCodes": [],
+          "cardCode": "98SB025T2"
+        },
+        {
+          "itemCodes": [
+            {
+              "itemCode": "I0006",
+              "unlockLevel": 0
+            }
+          ],
+          "cardCode": "01IO022"
+        },
+        {
+          "itemCodes": [
+            {
+              "itemCode": "I0007",
+              "unlockLevel": 0
+            }
+          ],
+          "cardCode": "98SB030T3"
         }
       ]
     },
@@ -3885,7 +3885,7 @@
       "P0101",
       "P0067",
       "P0742",
-      "P09000"
+      "P01376"
     ],
     "translations": {
       "en": {
@@ -3925,30 +3925,6 @@
     ],
     "description": "-Yassuo Anh Hùng Lãng Kiếm vị tướng có tiêu hao cao nhất của game với 15 tiêu hao, nhưng cũng sở hữu sức mạnh bá đạo nhất khi cho phép hủy diệt bài quân mạnh nhất của đối thủ khi Yasuo Hoa Linh được triệu hoặc tấn công. Với cơ chế giảm tiêu hao nhờ dẫn bão bạn có thể sử dụng các lá bài có tiêu hao cao cực dễ dàng.\\n-Sức mạnh chủ yếu của Yasuo Hoa Linh đến từ việc hủy diệt kẻ địch và khả năng giảm tiêu hao  nhờ dẫn bão để sử các lá bài mạnh mẽ từ sớm.\\n-Về cổ vật thì với cơ chế dẫn bão càng dùng nhiều lá bài thì giảm tiêu hao càng nhiều, vì thế Lõi Công Nghệ Hoàn Hảo và Hòa Khí Ma Pháp là lựa chọn cực kì tốt. Nếu bạn muốn triệu hồi Yasuo sớm bạn cũng có thể dùng Đệ Tử Bóng Đêm, Găng Tay [k:Spirit|Linh Hồn] hoặc Hàn Băng Mộ. Đương nhiên bạn cũng có thể dùng Phong Kiếm của Yasuo cho Yasuo [k:Champion|Anh Hùng] Lãng Kiếm để lấy 1 năng lượng khởi đầu.\\n-Về ngọc thì bạn có thể chọn Tàn Tích Gió để các bài quân được giảm tiêu hao nhận thêm chỉ số.\\n-Yasuo có thể dùng tốt các sức mạnh tạo bài 0 tiêu hao như Sản Phẩm Giả Mạo, Sự Cô Độc Ngọt Ngào, Giác Quan Hoang Dã, Lừa Lọc Chí Tử các sức mạnh này cho phép Yasuo Hoa Linh tích dẫn bão dễ dàng hơn.",
     "startingDeck": {
-      "referenceCards": [
-        {
-          "itemCodes": [],
-          "cardCode": "98SB032"
-        },
-        {
-          "itemCodes": [
-            {
-              "itemCode": "I0042",
-              "unlockLevel": 0
-            }
-          ],
-          "cardCode": "98SB033"
-        },
-        {
-          "itemCodes": [
-            {
-              "itemCode": "I0187",
-              "unlockLevel": 0
-            }
-          ],
-          "cardCode": "98SB036"
-        }
-      ],
       "baseCards": [
         {
           "itemCodes": [],
@@ -4033,6 +4009,30 @@
             }
           ],
           "cardCode": "98SB035"
+        }
+      ],
+      "referenceCards": [
+        {
+          "itemCodes": [],
+          "cardCode": "98SB032"
+        },
+        {
+          "itemCodes": [
+            {
+              "itemCode": "I0042",
+              "unlockLevel": 0
+            }
+          ],
+          "cardCode": "98SB033"
+        },
+        {
+          "itemCodes": [
+            {
+              "itemCode": "I0187",
+              "unlockLevel": 0
+            }
+          ],
+          "cardCode": "98SB036"
         }
       ]
     },
@@ -5885,7 +5885,7 @@
       "P0732",
       "P0067",
       "P0728",
-      "P09000"
+      "P01376"
     ],
     "translations": {
       "en": {
@@ -5927,26 +5927,6 @@
     ],
     "description": "-Evelynn Chiêu Tình Yêu Thần hay Evelynn Hoa Linh là vị tướng với lối đanh mê hoặc bài quân đối thủ,\"\"Lối đánh gậy ông đập lưng ông\"\" dùng chính bài quân mạnh mẽ của đối thủ tấn công ngược lại đối thủ, kẻ địch càng mạnh Evelynn Hoa Linh càng khỏe.\\n-Mê Hoặc cho phép bạn cướp đi bài quân của đối thủ trong vòng này, vừa tước đi sức mạnh của đối phương vừa bổ sung thêm một bài quân mạnh mẽ cho bản thân. Một lối đánh mới mẽ và cực kì thú vị.\\n-Evelynn kết hợp cực tốt với các cổ vật tăng máu và rất cần năng lương do đó Sức Mạnh Khỉ Đá và Găng Tinh Vân Sư là 2 lựa chọn mạnh mẽ được đặt lên làm lựa chọn hàng đầu khi xây dựng cổ vật cho cô nàng này, ngọc Giáp [k:Spirit|Linh Hồn] cũng là lựa chọn mạnh mẽ đóng góp vào lối chơi này.\\n-Các sức mạnh nên chọn cho Evelynn là các sức mạnh tăng chỉ số và hồi năng lượng do vị tướng này rất cần bài quân để triển khai và vận hành.\\n-Về vật phẩm khuyến kích là các vật phẩm tăng máu hoặc giảm tiêu hao cho cô nàng.",
     "startingDeck": {
-      "referenceCards": [
-        {
-          "itemCodes": [
-            {
-              "itemCode": "I0049",
-              "unlockLevel": 0
-            }
-          ],
-          "cardCode": "98SB015"
-        },
-        {
-          "itemCodes": [
-            {
-              "itemCode": "I0064",
-              "unlockLevel": 0
-            }
-          ],
-          "cardCode": "98SB018"
-        }
-      ],
       "baseCards": [
         {
           "itemCodes": [],
@@ -6028,6 +6008,26 @@
             {
               "itemCode": "I0058",
               "unlockLevel": 3
+            }
+          ],
+          "cardCode": "98SB018"
+        }
+      ],
+      "referenceCards": [
+        {
+          "itemCodes": [
+            {
+              "itemCode": "I0049",
+              "unlockLevel": 0
+            }
+          ],
+          "cardCode": "98SB015"
+        },
+        {
+          "itemCodes": [
+            {
+              "itemCode": "I0064",
+              "unlockLevel": 0
             }
           ],
           "cardCode": "98SB018"
@@ -6291,7 +6291,7 @@
       "P0745",
       "P0763",
       "P0067",
-      "P09000",
+      "P01376",
       "P0746"
     ],
     "translations": {
@@ -6334,34 +6334,6 @@
     ],
     "description": "-Kindred Lang Dương Vô Thương là Thần Chết của Ionia với bản dịch tiếng Việt là Sát Thủ, một vị tướng có cơ chế đặc biệt là  có hiệu ứng bất tử không thể nhận sát thương hoặc bị tiêu diệt. Kindred là nỗi ác mộng cho toàn bộ đối thủ, khi bị đánh dấu đồng nghĩa với việc sẽ nhận một lượng lớn sát thương tư Vũ Điệu Xạ Tiễn hoặc bị Quái Thú Cuồng Loạn tấn công liên tục.\\n-Chỉ cần gọi được Kindred gần như cái kết đã được ấn định cho đối thủ, khi đã tiêu diệt 5 kẻ địch bị đánh dấu lúc đó con quái vật  thật sự sẽ được sinh ra khi Kindred hợp thể cùng Sói tạo ra một tướng không thể bị đánh bại với lượng chỉ số khổng lồ san bằng tất cả.\\n-Các sức mạnh nên chọn cho Kindred Hoa Linh là các sức mạnh tăng sát thương bài phép hoặc hồi năng lượng giúp bạn luôn nắm thế chủ động.\\n-Về ngọc thì lựa chọn tốt nhất là Cảm Hứng Dữ Dội giúp giảm tiêu hao bài được tạo và kết hợp cực tốt với cổ vật [k:Spirit|Linh Hồn] Vang Vọng, Kế Đối Phó Của Đại Tướng.",
     "startingDeck": {
-      "referenceCards": [
-        {
-          "itemCodes": [],
-          "cardCode": "98SB047"
-        },
-        {
-          "itemCodes": [],
-          "cardCode": "98SB021"
-        },
-        {
-          "itemCodes": [
-            {
-              "itemCode": "I0161",
-              "unlockLevel": 0
-            }
-          ],
-          "cardCode": "98SB040"
-        },
-        {
-          "itemCodes": [
-            {
-              "itemCode": "I0040",
-              "unlockLevel": 0
-            }
-          ],
-          "cardCode": "98SB041"
-        }
-      ],
       "baseCards": [
         {
           "itemCodes": [],
@@ -6446,6 +6418,34 @@
             }
           ],
           "cardCode": "98SB046"
+        }
+      ],
+      "referenceCards": [
+        {
+          "itemCodes": [],
+          "cardCode": "98SB047"
+        },
+        {
+          "itemCodes": [],
+          "cardCode": "98SB021"
+        },
+        {
+          "itemCodes": [
+            {
+              "itemCode": "I0161",
+              "unlockLevel": 0
+            }
+          ],
+          "cardCode": "98SB040"
+        },
+        {
+          "itemCodes": [
+            {
+              "itemCode": "I0040",
+              "unlockLevel": 0
+            }
+          ],
+          "cardCode": "98SB041"
         }
       ]
     },
@@ -7378,7 +7378,7 @@
       "P0695",
       "P0067",
       "P0696",
-      "P09000"
+      "P01376"
     ],
     "translations": {
       "en": {
@@ -7418,34 +7418,6 @@
     ],
     "description": "-[cd:98SB031|Teemo Phong Linh Tiểu Quái|icon,img-full] hay Teemo Hoa Linh vị tướng có lối chơi gài nấm, xé bài, cướp bài của đối thủ. Teemo Hoa Linh  có thể nói là vị tướng mạnh và có lối chơi thú vị nhất nếu bạn đầu tư tài nguyên đầy đủ cho vị tướng này hoặc tù túng khó triển khai nếu thiếu cổ vật hoặc chòm sao.\\n-Sở hữu cho bản thân khả năng tạo bài của kẻ địch khi lá bài đó dính bẫy giúp cho Teemo tạo bài liên tục với tiêu hao được giảm cực nhiều. Với Hohohoho khi kẻ địch rút 1 lá bài với 5+ bẫy thì địch thủ phải rút thêm, kết hợp cùng cổ vật Súng Máy Công Nghệ gài lại bẫy vào bộ bài và với Cây Sáo [cd:03MT001T1|Tinh Ranh|icon,img-full] cho phép Teemo gài nấm bằng với lượng sát thương mà con chồn này gây ra. Ngọc Nấm Sinh Sôi còn cho khả năng gài nấm bằng với sát thương gây lên nhà chính. Từ tất cả những thứ trên bạn có thể tạo ra một vòng lặp rút bài vô hạn cho kẻ địch khiến kẻ địch thua vì hết bài nếu nấm của bạn gài vào bộ bài đối thủ đủ nhiều.\\n",
     "startingDeck": {
-      "referenceCards": [
-        {
-          "itemCodes": [],
-          "cardCode": "01PZ022"
-        },
-        {
-          "itemCodes": [
-            {
-              "itemCode": "I0049",
-              "unlockLevel": 0
-            }
-          ],
-          "cardCode": "05BC209"
-        },
-        {
-          "itemCodes": [
-            {
-              "itemCode": "I0034",
-              "unlockLevel": 0
-            }
-          ],
-          "cardCode": "05BC100"
-        },
-        {
-          "itemCodes": [],
-          "cardCode": "98SB003"
-        }
-      ],
       "baseCards": [
         {
           "itemCodes": [],
@@ -7530,6 +7502,34 @@
             }
           ],
           "cardCode": "98SB004"
+        }
+      ],
+      "referenceCards": [
+        {
+          "itemCodes": [],
+          "cardCode": "01PZ022"
+        },
+        {
+          "itemCodes": [
+            {
+              "itemCode": "I0049",
+              "unlockLevel": 0
+            }
+          ],
+          "cardCode": "05BC209"
+        },
+        {
+          "itemCodes": [
+            {
+              "itemCode": "I0034",
+              "unlockLevel": 0
+            }
+          ],
+          "cardCode": "05BC100"
+        },
+        {
+          "itemCodes": [],
+          "cardCode": "98SB003"
         }
       ]
     },

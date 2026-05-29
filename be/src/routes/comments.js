@@ -69,8 +69,8 @@ router.post(
 				buildId: buildId,
 				content: content.trim(),
 				sub: req.user.sub, // Lưu thống nhất vào trường 'sub'
-				username: req.user["cognito:username"] || "Anonymous",
-				displayName: req.user.name || req.user["cognito:username"] || "Anonymous",
+				username: req.user.user_metadata?.user_name || req.user.user_metadata?.name || req.user.email?.split('@')[0] || req.user["cognito:username"] || "Anonymous",
+				displayName: req.user.user_metadata?.full_name || req.user.user_metadata?.name || req.user.email?.split('@')[0] || req.user.name || req.user["cognito:username"] || "Anonymous",
 				createdAt: new Date().toISOString(),
 				parentId,
 				replyToUsername,

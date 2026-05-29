@@ -66,7 +66,9 @@ export const useGenericData = (
 			if (err.name === 'AbortError') return; // Bỏ qua lỗi nếu request bị hủy
 			setError(err.message);
 		} finally {
-			setLoading(false);
+			if (!signal.aborted) {
+				setLoading(false);
+			}
 		}
 	}, [endpoint, queryParams, tUI, idKey]);
 

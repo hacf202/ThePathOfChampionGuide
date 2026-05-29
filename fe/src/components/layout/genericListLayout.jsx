@@ -230,20 +230,28 @@ const GenericListLayout = ({
 									>
 										{data && data.length > 0 ? (
 											<>
-												<div
+												<motion.div
+													layout
 													className={`grid ${currentGridClass} gap-4 sm:gap-6 md:gap-8 grid-auto-rows-min items-start`}
 												>
-													{data.map((item, index) => (
-														<div
-															key={
-																item.cardCode || item.id || item._id || item.powerCode || index
-															}
-															className={`relative isolate ${typeof itemClassName === 'function' ? itemClassName(item) : (itemClassName || '')}`}
-														>
-															{renderItem(item)}
-														</div>
-													))}
-												</div>
+													<AnimatePresence mode='popLayout'>
+														{data.map((item, index) => (
+															<motion.div
+																layout
+																initial={{ opacity: 0, scale: 0.95 }}
+																animate={{ opacity: 1, scale: 1 }}
+																exit={{ opacity: 0, scale: 0.95 }}
+																transition={{ duration: 0.4, type: "spring", bounce: 0.2 }}
+																key={
+																	item.cardCode || item.id || item._id || item.powerCode || index
+																}
+																className={`relative isolate ${typeof itemClassName === 'function' ? itemClassName(item) : (itemClassName || '')}`}
+															>
+																{renderItem(item)}
+															</motion.div>
+														))}
+													</AnimatePresence>
+												</motion.div>
 												
 												{/* --- TRIGGER TẢI THÊM (Sử dụng cho Infinite Scroll) --- */}
 												{isInfiniteScroll && hasNextPage && (

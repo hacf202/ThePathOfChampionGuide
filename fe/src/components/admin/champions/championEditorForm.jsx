@@ -40,6 +40,17 @@ import {
 } from "./championEditorHelpers";
 import iconRegions from "../../../assets/data/icon.json";
 
+const convertToEmbedUrl = (url) => {
+	if (!url) return "";
+	const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+	const match = url.match(regExp);
+
+	if (match && match[2].length === 11) {
+		return `https://www.youtube.com/embed/${match[2]}`;
+	}
+	return url;
+};
+
 const ChampionEditorForm = memo(
 	({
 		champion,
@@ -68,7 +79,9 @@ const ChampionEditorForm = memo(
 			adventurePowerIds: [],
 			itemIds: [],
 			runeIds: [],
-			relicSets: champion?.relicSets?.length ? champion.relicSets : [[]],
+			relicSets: champion?.relicSets?.length 
+				? champion.relicSets.map(set => Array.isArray(set) ? { items: set, description: "", videoLink: "" } : set)
+				: [{ items: [], description: "", videoLink: "" }],
 			assets: [{ fullAbsolutePath: "", gameAbsolutePath: "", avatar: "" }],
 			videoLink: "",
 			translations: {
@@ -116,7 +129,9 @@ const ChampionEditorForm = memo(
 					adventurePowerIds:
 						champion.adventurePowerIds || champion.adventurePowers || [],
 					runeIds: champion.runeIds || champion.rune || [],
-					relicSets: champion.relicSets?.length ? champion.relicSets : [[]],
+					relicSets: champion.relicSets?.length 
+						? champion.relicSets.map(set => Array.isArray(set) ? { items: set, description: "", videoLink: "" } : set)
+						: [{ items: [], description: "", videoLink: "" }],
 					assets: champion.assets?.length
 						? champion.assets
 						: [{ fullAbsolutePath: "", gameAbsolutePath: "", avatar: "" }],
@@ -439,7 +454,7 @@ const ChampionEditorForm = memo(
 								<InputField
 									name='videoLink'
 									value={formData.videoLink || ""}
-									onChange={handleInputChange}
+									onChange={e => setFormData(prev => ({ ...prev, videoLink: convertToEmbedUrl(e.target.value) }))}
 									placeholder='https://www.youtube.com/embed/...'
 								/>
 							</div>
@@ -848,7 +863,7 @@ const ChampionEditorForm = memo(
 								{(formData.relicSets || []).map((set, idx) => (
 									<div
 										key={idx}
-										className='relative bg-surface-hover/20 p-4 rounded-xl border border-border'
+										className='relative bg-surface-hover/20 p-4 rounded-xl border border-border flex flex-col gap-4'
 									>
 										{/* Nút xóa Set */}
 										<button
@@ -864,18 +879,50 @@ const ChampionEditorForm = memo(
 											{tUI("admin.championForm.deleteSet")}
 										</button>
 
-										{/* ĐÃ ÁP DỤNG COMPONENT DragDropArrayInput */}
+										{/* Drag Drop Relics */}
 										<DragDropArrayInput
 											label={tUI("admin.championForm.relicSuggest", { idx: idx + 1 })}
-											data={set || []}
+											data={set.items || []}
 											onChange={d => {
 												const newSets = [...(formData.relicSets || [])];
-												newSets[idx] = d;
+												newSets[idx] = { ...newSets[idx], items: d };
 												setFormData({ ...formData, relicSets: newSets });
 											}}
 											cachedData={dataLookup.relics}
 											allowDuplicates={true}
 										/>
+										
+										{/* Description */}
+										<div className='flex flex-col gap-2'>
+											<label className='block font-semibold text-text-primary text-sm'>
+												{tUI("admin.championForm.descLabel")}
+											</label>
+											<MarkupEditor
+												value={set.description || ""}
+												onChange={({ markup, raw }) => {
+													const newSets = [...(formData.relicSets || [])];
+													newSets[idx] = { ...newSets[idx], description: markup, descriptionRaw: raw };
+													setFormData({ ...formData, relicSets: newSets });
+												}}
+												placeholder="Nhập mô tả bộ cổ vật..."
+											/>
+										</div>
+
+										{/* Video Link */}
+										<div className='flex flex-col gap-2'>
+											<label className='block font-semibold text-text-primary text-sm'>
+												{tUI("admin.championForm.videoLabel")}
+											</label>
+											<InputField
+												value={set.videoLink || ""}
+												onChange={e => {
+													const newSets = [...(formData.relicSets || [])];
+													newSets[idx] = { ...newSets[idx], videoLink: convertToEmbedUrl(e.target.value) };
+													setFormData({ ...formData, relicSets: newSets });
+												}}
+												placeholder="https://www.youtube.com/embed/..."
+											/>
+										</div>
 									</div>
 								))}
 							</div>
@@ -886,7 +933,7 @@ const ChampionEditorForm = memo(
 								onClick={() =>
 									setFormData(prev => ({
 										...prev,
-										relicSets: [...(prev.relicSets || []), []],
+										relicSets: [...(prev.relicSets || []), { items: [], description: "", videoLink: "" }],
 									}))
 								}
 								className='w-max mt-2 border-dashed border-primary-500 text-primary-500 hover:bg-primary-500/10'

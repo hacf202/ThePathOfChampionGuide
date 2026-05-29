@@ -240,7 +240,15 @@ router.get("/:championID/full", async (req, res) => {
 			...(champion.powerStarIds || []),
 			...(constellation?.nodes?.map(n => n.powerCode).filter(Boolean) || [])
 		]);
-		const relicIds = new Set((champion.relicSets || []).flat());
+		const extractRelicCodes = (sets) => {
+			if (!Array.isArray(sets)) return [];
+			return sets.flatMap(s => {
+				if (Array.isArray(s)) return s;
+				if (typeof s === "object" && s !== null) return s.items || [];
+				return [];
+			});
+		};
+		const relicIds = new Set(extractRelicCodes(champion.relicSets));
 		
 		const extractItemCodes = (cards) => {
 			if (!Array.isArray(cards)) return [];

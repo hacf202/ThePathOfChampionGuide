@@ -211,7 +211,9 @@ npm run dev
 
 ## 🤝 Đóng góp (Contributing)
 
-Mọi Pull Request, Issue và góp ý đều được chào đón. Vui lòng đọc qua cấu trúc dự án trước khi đóng góp để đảm bảo code nhất quán với các chuẩn đã thiết lập.
+Mọi Pull Request, Issue và góp ý đều được chào đón. Vui lòng đọc qua cấu trúc dự án trước khi đóng góp để đảm bảo code nhất quán với các chuẩn đã thiết lập:
+- **Kiến trúc Component (Component-based)**: Luôn viết code giao diện dưới dạng các module component độc lập, mỗi component đảm nhận một chức năng cụ thể và gom lại thành trang hoàn chỉnh.
+- **Thống nhất Code Style**: Đảm bảo duy trì một phong cách code thống nhất từ đầu đến cuối dự án (cách đặt tên biến, cấu trúc thư mục, chuẩn format).
 
 ---
 

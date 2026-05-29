@@ -27,6 +27,8 @@ function ChampionCard({ champion }) {
 				src={imageUrl}
 				alt={championName}
 				loading='lazy'
+				width={340}
+				height={500}
 			/>
 
 			{/* Năng lượng của tướng - Đã được ghim cố định ở góc trên bên trái */}
@@ -69,6 +71,8 @@ function ChampionCard({ champion }) {
 										src={regionIcon.image}
 										alt={translatedRegion}
 										className='w-6 h-6 md:w-8 md:h-8 flex-shrink-0'
+										width={64}
+										height={64}
 									/>
 								)}
 								{/* Ẩn tên trên màn hình nhỏ, hiện từ md trở lên */}

@@ -174,5 +174,31 @@
     "sub": "d4882408-b0d1-70bc-e3d3-13ef8cb11069",
     "buildId": "global",
     "type": "comment"
+  },
+  {
+    "id": "976a17d6-8917-4ba3-95c0-0ece142d3889",
+    "buildId": "ad294cc9-c241-423b-992f-33bd17bb5f6b",
+    "content": "halo",
+    "sub": "6e85d6a8-c632-4039-ae7d-154a82d00727",
+    "username": "Anonymous",
+    "displayName": "Anonymous",
+    "createdAt": "2026-05-25T01:27:12.291Z",
+    "parentId": null,
+    "replyToUsername": null,
+    "championName": null,
+    "type": "comment"
+  },
+  {
+    "id": "d84e96f8-5188-4153-a3f7-e774f585b5ed",
+    "buildId": "ad294cc9-c241-423b-992f-33bd17bb5f6b",
+    "content": "chao bro",
+    "sub": "e78b7915-9f7e-40f7-84ef-119c24070063",
+    "username": "Anonymous",
+    "displayName": "Anonymous",
+    "createdAt": "2026-05-25T20:15:17.122Z",
+    "parentId": "976a17d6-8917-4ba3-95c0-0ece142d3889",
+    "replyToUsername": null,
+    "championName": null,
+    "type": "comment"
   }
 ]

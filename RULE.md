@@ -20,9 +20,10 @@ Với mọi yêu cầu (trừ sửa lỗi cú pháp đơn giản), AI **bắt bu
 5. **Cập nhật Sơ đồ (Update NDE)**: Mọi thay đổi liên quan đến quan hệ, cấu trúc, logic đều phải cập nhật lại vào `project.nde`.
 
 ## 2. Quy tắc Hệ thống (Architecture Guidelines)
-1. **Frontend**: Xử lý dựa trên React.js logic hiện có.
-2. **Ngôn ngữ (i18n)**: Mọi text hiển thị trên UI đều phải mapping qua `locales/vi.json` và `en.json`. KHÔNG hardcode văn bản trong mọi tình huống.
-3. **Cập nhật sơ đồ (BẮT BUỘC)**: Mọi thay đổi liên quan đến mối quan hệ giữa các component, logic xử lý, routing hoặc cấu trúc dữ liệu **phải được cập nhật ngay lập tức** vào file [project.nde](file:///d:/ThePathOfChampionGuide/project.nde) trước khi báo cáo hoàn thành.
+1. **Frontend**: Xử lý dựa trên React.js logic hiện có. Bắt buộc viết code giao diện dưới dạng **các module component nhỏ**, mỗi component đảm nhiệm một chức năng duy nhất (single responsibility) và gom lại thành một trang hoàn chỉnh.
+2. **Thống nhất Code Style**: Phải thống nhất một phong cách viết code từ đầu đến cuối dự án (từ cách đặt tên, cách chia file, đến cách sử dụng hook).
+3. **Ngôn ngữ (i18n)**: Mọi text hiển thị trên UI đều phải mapping qua `locales/vi.json` và `en.json`. KHÔNG hardcode văn bản trong mọi tình huống.
+
 
 ## 3. Quy tắc Bộ nhớ và Tri thức (Memory & Knowledge)
 - **today.md / task.md**: Ghi lại công việc, lỗi nhỏ và đặc biệt là **những thay đổi chính** sau mỗi lần tự động kết luận/sửa code.

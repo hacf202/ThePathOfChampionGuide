@@ -3,14 +3,17 @@ import react from "@vitejs/plugin-react";
 import { nodePolyfills } from "vite-plugin-node-polyfills";
 import { fileURLToPath } from "url";
 import path from "path";
+import { viteSingleFile } from "vite-plugin-singlefile";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // https://vite.dev/config/
 export default defineConfig({
+	base: './',
 	plugins: [
 		react(),
+		viteSingleFile(),
 
 		nodePolyfills({
 			global: true,
@@ -25,50 +28,6 @@ export default defineConfig({
 		outDir: "dist",
 		emptyOutDir: true,
 		sourcemap: false,
-		chunkSizeWarningLimit: 1000,
-		rollupOptions: {
-			output: {
-				manualChunks(id) {
-					if (id.includes("node_modules")) {
-						// 1. UI Libraries (Leaf/Standalone components)
-						if (
-							id.includes("lucide-react") ||
-							id.includes("framer-motion") ||
-							id.includes("react-icons") ||
-							id.includes("@heroicons") ||
-							id.includes("sweetalert2") ||
-							id.includes("react-toastify")
-						) {
-							return "vendor-ui";
-						}
-
-						// 2. Framework & Core (Highly interconnected logic)
-						// Grouping React and AWS Amplify together as they are tightly coupled via UI-React wrappers
-						if (
-							id.includes("/react/") ||
-							id.includes("/react-dom/") ||
-							id.includes("/react-router/") ||
-							id.includes("/react-router-dom/") ||
-							id.includes("/scheduler/") ||
-							id.includes("/use-sync-external-store/") ||
-							id.includes("/react-is/") ||
-							id.includes("/prop-types/") ||
-							id.includes("/object-assign/") ||
-							id.includes("aws-amplify") ||
-							id.includes("@aws-amplify") ||
-							id.includes("amazon-cognito-identity-js") ||
-							id.includes("@aws-sdk")
-						) {
-							return "vendor-framework";
-						}
-
-						// 3. Default: Let Vite handle orphans automatically (including recharts/d3).
-						// Do NOT add a chart chunk — recharts depends on React,
-						// and splitting it causes "forwardRef of undefined" at runtime.
-						// DO NOT return a catch-all "vendor-utils" as it creates massive circular dependency loops.
-					}
-				},
-			},
-		},
+		chunkSizeWarningLimit: 10000,
 	},
 });

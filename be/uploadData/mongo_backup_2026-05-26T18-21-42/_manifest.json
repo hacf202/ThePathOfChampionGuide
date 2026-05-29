@@ -1,5 +1,5 @@
 {
-  "backupDate": "2026-05-21T19:52:51.588Z",
+  "backupDate": "2026-05-26T11:21:56.350Z",
   "dbName": "guidePoc",
   "results": [
     {
@@ -14,7 +14,7 @@
     },
     {
       "collection": "guidePocPowers",
-      "count": 1069,
+      "count": 1070,
       "success": true
     },
     {
@@ -69,17 +69,17 @@
     },
     {
       "collection": "guidePocAuditLogs",
-      "count": 960,
+      "count": 970,
       "success": true
     },
     {
       "collection": "guidePocBuilds",
-      "count": 93,
+      "count": 94,
       "success": true
     },
     {
       "collection": "guidePocComments",
-      "count": 15,
+      "count": 17,
       "success": true
     },
     {
@@ -88,6 +88,6 @@
       "success": true
     }
   ],
-  "totalItems": 6209,
-  "duration": "9.5s"
+  "totalItems": 6223,
+  "duration": "11.6s"
 }

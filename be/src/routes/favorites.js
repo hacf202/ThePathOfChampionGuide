@@ -127,7 +127,7 @@ router.get("/favorites", authenticateCognitoToken, async (req, res) => {
 router.patch("/:id/favorite", authenticateCognitoToken, async (req, res) => {
 	const { id: buildId } = req.params;
 	const userSub = req.user.sub;
-	const username = req.user["cognito:username"] || "Anonymous";
+	const username = req.user.user_metadata?.user_name || req.user.user_metadata?.name || req.user.email?.split('@')[0] || req.user["cognito:username"] || "Anonymous";
 
 	try {
 		const db = getDb();

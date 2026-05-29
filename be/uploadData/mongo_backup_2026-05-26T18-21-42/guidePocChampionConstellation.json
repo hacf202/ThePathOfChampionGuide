@@ -1395,7 +1395,7 @@
           "n9"
         ],
         "isRecommended": true,
-        "powerCode": "P09000",
+        "powerCode": "P01376",
         "position": {
           "x": 59.6,
           "y": 41.7
@@ -3552,7 +3552,7 @@
           "n11"
         ],
         "isRecommended": true,
-        "powerCode": "P09000",
+        "powerCode": "P01376",
         "position": {
           "x": 32,
           "y": 41.5
@@ -4556,7 +4556,7 @@
           "n8"
         ],
         "isRecommended": true,
-        "powerCode": "P09000",
+        "powerCode": "P01376",
         "position": {
           "x": 64.5,
           "y": 31.9
@@ -6956,7 +6956,7 @@
           "n11"
         ],
         "isRecommended": true,
-        "powerCode": "P09000",
+        "powerCode": "P01376",
         "position": {
           "x": 17.4,
           "y": 55
@@ -7404,7 +7404,7 @@
           "n15"
         ],
         "isRecommended": true,
-        "powerCode": "P09000",
+        "powerCode": "P01376",
         "position": {
           "x": 59.6,
           "y": 19.2
@@ -9042,7 +9042,7 @@
           "n21"
         ],
         "isRecommended": true,
-        "powerCode": "P09000",
+        "powerCode": "P01376",
         "position": {
           "x": 66.1,
           "y": 51.1

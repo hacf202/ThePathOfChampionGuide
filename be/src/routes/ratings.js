@@ -124,7 +124,7 @@ router.post("/:championID", authenticateCognitoToken, async (req, res) => {
 	const { championID } = req.params;
 	const { ratings, comment } = req.body;
 	const userSub = req.user.sub;
-	const username = req.user["cognito:username"] || req.user.name || "Anonymous";
+	const username = req.user.user_metadata?.user_name || req.user.user_metadata?.name || req.user.email?.split('@')[0] || req.user["cognito:username"] || req.user.name || "Anonymous";
 
 	if (!ratings || typeof ratings !== "object") {
 		return res.status(400).json({ error: "Dữ liệu đánh giá không hợp lệ." });
