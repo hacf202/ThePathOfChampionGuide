@@ -26,6 +26,13 @@ const MarkupEditor = ({ value, onChange, placeholder = "Nhập nội dung..." })
 	const [activeMenu, setActiveMenu] = useState("main"); // main | search | submenu_id
 	const [searchType, setSearchType] = useState("");
 	const [searchQuery, setSearchQuery] = useState("");
+
+    // Autocomplete states
+	const [autoSuggestions, setAutoSuggestions] = useState([]);
+	const [autoQuery, setAutoQuery] = useState("");
+	const [autoIndex, setAutoIndex] = useState(0);
+	const [autoActive, setAutoActive] = useState(false);
+	const [cursorWordStart, setCursorWordStart] = useState(0);
     
     // Visibility Toggles
     const [showPreview, setShowPreview] = useState(false);
@@ -142,6 +149,62 @@ const MarkupEditor = ({ value, onChange, placeholder = "Nhập nội dung..." })
 		).slice(0, 5);
 	}, [searchType, searchQuery, activeMenu]);
 
+	const getCombinedEntities = () => {
+		return [
+			...getAllEntities("c").map(e => ({...e, type: "c", typeName: "Tướng"})),
+			...getAllEntities("r").map(e => ({...e, type: "r", typeName: "Cổ vật"})),
+			...getAllEntities("p").map(e => ({...e, type: "p", typeName: "Sức mạnh"})),
+			...getAllEntities("i").map(e => ({...e, type: "i", typeName: "Vật phẩm"})),
+			...getAllEntities("k").map(e => ({...e, type: "k", typeName: "Từ khóa"})),
+			...getAllEntities("cd").map(e => ({...e, type: "cd", typeName: "Thẻ bài"})),
+		];
+	};
+
+	const applyAutocomplete = (index = autoIndex, asMarkup = true) => {
+		const selected = autoSuggestions[index];
+		if (!selected) return;
+
+		const cursorPos = textareaRef.current.selectionStart;
+		const textBeforeCursor = value.substring(0, cursorPos);
+		const matchIndex = textBeforeCursor.toLowerCase().lastIndexOf(autoQuery.toLowerCase());
+		const finalBefore = value.substring(0, matchIndex >= 0 ? matchIndex : cursorPos - autoQuery.length);
+		const after = value.substring(cursorPos);
+
+		const tag = asMarkup ? `[${selected.type}:${selected.id}|${selected.name}]` : selected.name;
+		const newValue = finalBefore + tag + after;
+
+		onChange({ markup: newValue, raw: stripMarkup(newValue) });
+		setAutoActive(false);
+
+		setTimeout(() => {
+			if (textareaRef.current) {
+				textareaRef.current.focus();
+				const newPos = finalBefore.length + tag.length;
+				textareaRef.current.setSelectionRange(newPos, newPos);
+			}
+		}, 0);
+	};
+
+	const handleKeyDown = (e) => {
+		if (autoActive && autoSuggestions.length > 0) {
+			if (e.key === "ArrowDown") {
+				e.preventDefault();
+				setAutoIndex(prev => (prev + 1) % autoSuggestions.length);
+			} else if (e.key === "ArrowUp") {
+				e.preventDefault();
+				setAutoIndex(prev => (prev - 1 + autoSuggestions.length) % autoSuggestions.length);
+			} else if (e.key === "Tab") {
+				e.preventDefault();
+				applyAutocomplete(autoIndex, true); // Complete as Markup
+			} else if (e.key === "Enter") {
+				e.preventDefault();
+				applyAutocomplete(autoIndex, false); // Complete as plain text
+			} else if (e.key === "Escape") {
+				setAutoActive(false);
+			}
+		}
+	};
+
 	const menuItems = [
 		{ id: "k", label: "Từ khóa", type: "search" },
 		{ id: "v", label: "Chỉ số", type: "submenu", items: [
@@ -185,9 +248,9 @@ const MarkupEditor = ({ value, onChange, placeholder = "Nhập nội dung..." })
     };
 
 	return (
-		<div className="flex flex-col gap-3 w-full animate-fadeIn">
+		<div className="flex flex-col gap-3 w-full animate-fadeIn focus-within:z-50 relative">
 			{/* Toolbar phía trên input */}
-            <div className="flex items-center justify-between px-1">
+			<div className="flex items-center justify-between px-1">
                 <div className="flex items-center gap-1">
                     {/* Đã loại bỏ các nút Quick Markup theo yêu cầu */}
                 </div>
@@ -222,12 +285,69 @@ const MarkupEditor = ({ value, onChange, placeholder = "Nhập nội dung..." })
 					onChange={(e) => {
 						const newValue = e.target.value;
 						onChange({ markup: newValue, raw: stripMarkup(newValue) });
+
+						const cursorPos = e.target.selectionStart;
+						const textBeforeCursor = newValue.substring(0, cursorPos);
+						
+						const lastPartMatch = textBeforeCursor.match(/([^\[\]\|\n,\.]{2,40})$/);
+						if (lastPartMatch) {
+							const queryRaw = lastPartMatch[1];
+							const words = queryRaw.trimStart().split(/\s+/);
+							const query = words.slice(-4).join(" ").trim();
+							
+							if (query.length >= 2 && !textBeforeCursor.endsWith("  ")) {
+								const combined = getCombinedEntities();
+								const q = query.toLowerCase();
+								
+								// First try exact starting match, then includes
+								const filtered = combined.filter(e => 
+									e.name.toLowerCase().includes(q) || 
+									(e.nameEn && e.nameEn.toLowerCase().includes(q))
+								).slice(0, 8);
+								
+								if (filtered.length > 0) {
+									setAutoSuggestions(filtered);
+									setAutoQuery(query);
+									setAutoActive(true);
+									setAutoIndex(0);
+									return;
+								}
+							}
+						}
+						setAutoActive(false);
 					}}
+					onKeyDown={handleKeyDown}
 					onMouseUp={handleSelect}
-					onKeyUp={handleSelect}
+					onKeyUp={(e) => {
+						if (e.key !== "ArrowUp" && e.key !== "ArrowDown" && e.key !== "Tab" && e.key !== "Escape") {
+							handleSelect(e);
+						}
+					}}
 					placeholder={placeholder}
 					className="w-full min-h-[140px] p-3 bg-input-bg border border-input-border rounded-xl text-input-text text-sm focus:border-input-focus-border focus:ring-1 focus:ring-primary-500 outline-none transition-all resize-y font-sans leading-relaxed shadow-inner scrollbar-thin overflow-y-auto"
 				/>
+
+				{autoActive && autoSuggestions.length > 0 && (
+					<div className="absolute z-[999] bg-gray-900 border border-white/10 shadow-2xl rounded-lg overflow-hidden flex flex-col min-w-[300px] backdrop-blur-xl mt-1 left-0 top-full">
+						<div className="p-1.5 flex flex-col gap-0.5 max-h-56 overflow-y-auto scrollbar-thin scrollbar-thumb-white/20">
+							<div className="text-[9px] text-gray-500 uppercase tracking-wider px-2 py-1 flex justify-between border-b border-white/10 mb-1">
+								<span>Tab (Chèn thẻ) | Enter (Chèn chữ)</span>
+								<span>Esc để đóng</span>
+							</div>
+							{autoSuggestions.map((item, idx) => (
+								<button
+									key={idx}
+									type="button"
+									onClick={() => applyAutocomplete(idx, true)}
+									className={`px-2 py-1.5 text-xs rounded text-left transition-colors flex justify-between items-center ${idx === autoIndex ? "bg-primary-500/30 text-white" : "text-gray-300 hover:bg-white/5"}`}
+								>
+									<span className="font-bold truncate mr-2">{item.name}</span>
+									<span className="text-[9px] opacity-70 whitespace-nowrap bg-black/20 px-1.5 py-0.5 rounded">[{item.typeName}]</span>
+								</button>
+							))}
+						</div>
+					</div>
+				)}
 
 				
 					{showToolbar && (

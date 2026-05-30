@@ -1,4 +1,4 @@
-// fe/src/components/admin/cards/cardEditor.jsx
+// fe/src/features/cards/admin/cardEditor.jsx
 import { useState, memo, useEffect, useCallback, useMemo } from "react";
 import { useNavigate, Link, Routes, Route, useParams } from "react-router-dom";
 import GenericCard from "@/components/common/genericCard";

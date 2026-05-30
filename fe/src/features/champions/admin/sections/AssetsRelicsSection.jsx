@@ -111,11 +111,11 @@ const AssetsRelicsSection = memo(({ formData, setFormData, dataLookup, handleTra
 			</div>
 
 			<div className='flex flex-col gap-4 pt-4 border-t border-border'>
-				<div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
+				<div className='grid grid-cols-1 xl:grid-cols-2 gap-8'>
 					{(formData.relicSets || []).map((set, idx) => (
 						<div
 							key={idx}
-							className='relative bg-surface-hover/20 p-4 rounded-xl border border-border flex flex-col gap-4'
+							className='relative bg-surface-hover/20 p-4 rounded-xl border border-border flex flex-col gap-4 focus-within:z-50'
 						>
 							<button
 								type='button'

@@ -45,7 +45,7 @@ const BuildEditor = lazy(() => import("@/features/builds/admin/buildEditor"));
 const GuideEditor = lazy(() => import("@/features/guides/admin/guideEditor"));
 const ImageManager = lazy(() => import("./images/imageManager"));
 const AuditLogList = lazy(() => import("./auditLogs/AuditLogList"));
-const CardEditor = lazy(() => import("./cards/cardEditor"));
+const CardEditor = lazy(() => import("@/features/cards/admin/cardEditor"));
 const CacheManager = lazy(() => import("./cache/cacheManager"));
 const AnalyticsDashboard = lazy(() => import("./analytics/AnalyticsDashboard"));
 const DbStatsManager = lazy(() => import("./dbStats/dbStatsManager"));
