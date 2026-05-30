@@ -140,7 +140,7 @@ const MarkupEditor = ({ value, onChange, placeholder = "Nhập nội dung..." })
 		if (!searchType || activeMenu !== "search") return [];
 		const all = getAllEntities(searchType);
 		const q = searchQuery.trim().toLowerCase();
-		if (!q) return all.slice(0, 5); // Show first 5 if query is just spaces
+		if (!q) return all.slice(0, 5);
 
 		return all.filter(e => 
 			e.name.toLowerCase().includes(q) || 
@@ -148,6 +148,11 @@ const MarkupEditor = ({ value, onChange, placeholder = "Nhập nội dung..." })
 			e.id?.toLowerCase().includes(q)
 		).slice(0, 5);
 	}, [searchType, searchQuery, activeMenu]);
+
+	const removeAccents = (str) => {
+		if (!str) return "";
+		return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+	};
 
 	const getCombinedEntities = () => {
 		return [
@@ -165,9 +170,10 @@ const MarkupEditor = ({ value, onChange, placeholder = "Nhập nội dung..." })
 		if (!selected) return;
 
 		const cursorPos = textareaRef.current.selectionStart;
-		const textBeforeCursor = value.substring(0, cursorPos);
-		const matchIndex = textBeforeCursor.toLowerCase().lastIndexOf(autoQuery.toLowerCase());
-		const finalBefore = value.substring(0, matchIndex >= 0 ? matchIndex : cursorPos - autoQuery.length);
+		// The string to replace starts exactly before the '@' trigger
+		const replaceStart = cursorPos - (autoQuery.length + 1); 
+		
+		const finalBefore = value.substring(0, Math.max(0, replaceStart));
 		const after = value.substring(cursorPos);
 
 		const tag = asMarkup ? `[${selected.type}:${selected.id}|${selected.name}]` : selected.name;
@@ -289,25 +295,35 @@ const MarkupEditor = ({ value, onChange, placeholder = "Nhập nội dung..." })
 						const cursorPos = e.target.selectionStart;
 						const textBeforeCursor = newValue.substring(0, cursorPos);
 						
-						const lastPartMatch = textBeforeCursor.match(/([^\[\]\|\n,\.]{2,40})$/);
-						if (lastPartMatch) {
-							const queryRaw = lastPartMatch[1];
-							const words = queryRaw.trimStart().split(/\s+/);
-							const query = words.slice(-4).join(" ").trim();
+						// Chỉ bắt đầu gợi ý khi gõ ký tự @
+						const triggerMatch = textBeforeCursor.match(/@([^@\[\]\|\n,\.]{0,40})$/);
+						
+						if (triggerMatch) {
+							const query = triggerMatch[1].trimStart(); // Cho phép gõ "@ yasuo" hoặc "@yasuo"
 							
-							if (query.length >= 2 && !textBeforeCursor.endsWith("  ")) {
+							if (!textBeforeCursor.endsWith("  ")) {
 								const combined = getCombinedEntities();
-								const q = query.toLowerCase();
+								const q = removeAccents(query);
 								
-								// First try exact starting match, then includes
-								const filtered = combined.filter(e => 
-									e.name.toLowerCase().includes(q) || 
-									(e.nameEn && e.nameEn.toLowerCase().includes(q))
-								).slice(0, 8);
+								const filtered = combined.filter(e => {
+									if (!q) return true; // Nếu chỉ gõ @ thì hiện tất cả (cắt 8 cái đầu)
+									const nameNorm = removeAccents(e.name);
+									const nameEnNorm = removeAccents(e.nameEn);
+									return nameNorm.includes(q) || nameEnNorm.includes(q);
+								}).sort((a, b) => {
+									if (!q) return 0;
+									const aNameNorm = removeAccents(a.name);
+									const bNameNorm = removeAccents(b.name);
+									const aStarts = aNameNorm.startsWith(q) || removeAccents(a.nameEn).startsWith(q);
+									const bStarts = bNameNorm.startsWith(q) || removeAccents(b.nameEn).startsWith(q);
+									if (aStarts && !bStarts) return -1;
+									if (!aStarts && bStarts) return 1;
+									return 0;
+								}).slice(0, 8);
 								
 								if (filtered.length > 0) {
 									setAutoSuggestions(filtered);
-									setAutoQuery(query);
+									setAutoQuery(triggerMatch[1]); // Giữ lại nguyên gốc để tính độ dài thay thế
 									setAutoActive(true);
 									setAutoIndex(0);
 									return;
