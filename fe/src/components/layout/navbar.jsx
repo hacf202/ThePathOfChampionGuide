@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import DesktopNavbar from "./desktopNavbarView";
 import MobileSidebar from "./mobileNavbarView";
-import { useTranslation } from "../../hooks/useTranslation";
+import { useTranslation } from "@/hooks/useTranslation";
 import { LoaderPinwheel } from "lucide-react";
 
 function Navbar() {

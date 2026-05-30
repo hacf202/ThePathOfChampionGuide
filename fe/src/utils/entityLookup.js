@@ -1,6 +1,6 @@
 import axios from "axios";
-import globalsEn from "../assets/data/globals-en_us.json";
-import globalsVi from "../assets/data/globals-vi_vn.json";
+import globalsEn from "@/assets/data/globals-en_us.json";
+import globalsVi from "@/assets/data/globals-vi_vn.json";
 import { initMarkupResources } from "./markupUtils.js";
 
 /**

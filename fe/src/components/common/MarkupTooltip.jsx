@@ -13,10 +13,10 @@ import {
 	useInteractions,
 	FloatingPortal,
 } from "@floating-ui/react";
-import { getRarityKey } from "../../utils/i18nHelpers";
-import { useTranslation } from "../../hooks/useTranslation";
+import { getRarityKey } from "@/utils/i18nHelpers";
+import { useTranslation } from "@/hooks/useTranslation";
 import { Link } from "react-router-dom";
-import SafeImage from "../common/SafeImage";
+import SafeImage from "@/components/common/SafeImage";
 
 // Import động để tránh circular dependency với MarkupRenderer
 const MarkupRenderer = lazy(() => import("./MarkupRenderer"));

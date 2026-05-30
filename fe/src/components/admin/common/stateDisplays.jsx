@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { Loader2 } from "lucide-react";
-import { useTranslation } from "../../../hooks/useTranslation";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export const LoadingState = memo(({ text }) => {
 	const { tUI } = useTranslation();

@@ -1,7 +1,7 @@
 // src/components/common/pageTitle.jsx
 import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
-import { useTranslation } from "../../hooks/useTranslation";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function PageTitle({
 	title = "",

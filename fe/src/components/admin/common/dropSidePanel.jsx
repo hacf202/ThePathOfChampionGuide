@@ -1,8 +1,8 @@
 // src/pages/admin/DropDragSidePanel.jsx
 import { memo, useMemo, useState, useRef, useEffect } from "react";
-import Button from "../../common/button";
-import InputField from "../../common/inputField";
-import SafeImage from "../../common/SafeImage";
+import Button from "@/components/common/button";
+import InputField from "@/components/common/inputField";
+import SafeImage from "@/components/common/SafeImage";
 import {
 	Search,
 	Package,
@@ -18,8 +18,8 @@ import {
 	ChevronLeft,
 	ChevronRight,
 } from "lucide-react";
-import { removeAccents } from "../../../utils/vietnameseUtils";
-import { useTranslation } from "../../../hooks/useTranslation";
+import { removeAccents } from "@/utils/vietnameseUtils";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const getUniqueId = item => {
 	if (!item) return null;
@@ -98,8 +98,7 @@ const DropDragItem = memo(({ item, type, setTooltipData, showImages = true }) =>
 	};
 
 	return (
-		<div
-			draggable
+		<div draggable
 			onDragStart={handleDragStart}
 			onMouseEnter={handleMouseEnter}
 			onMouseLeave={handleMouseLeave}
@@ -470,7 +469,7 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 					)}
 				</div>
 
-				<div className='flex-1 overflow-y-auto p-4 custom-scrollbar bg-surface-hover/30'>
+				<div className='flex-1 overflow-y-auto p-4-scrollbar bg-surface-hover/30'>
 					{filteredItems.length > 0 ? (
 						<div className='space-y-3'>
 							{filteredItems.slice(0, 100).map((item, idx) => (
@@ -576,7 +575,7 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 									}
 
 									return (
-										<div className='space-y-2 max-h-48 overflow-y-auto custom-scrollbar pr-1'>
+										<div className='space-y-2 max-h-48 overflow-y-auto-scrollbar pr-1'>
 											{powerObjs.map((p, pIdx) => {
 												const pName = p.name || p.powerName || p.powerCode;
 												const pDesc =

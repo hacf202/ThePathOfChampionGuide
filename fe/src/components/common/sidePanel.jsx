@@ -5,7 +5,7 @@ import MultiSelectFilter from "./multiSelectFilter";
 import DropdownFilter from "./dropdownFilter";
 import Button from "./button";
 import { Search, Plus, RotateCw, XCircle } from "lucide-react";
-import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook
+import { useTranslation } from "@/hooks/useTranslation"; // 🟢 Import Hook
 
 const SidePanel = memo(
 	({

@@ -1,10 +1,10 @@
 import { memo, useMemo, useEffect } from "react";
-import { parseMarkup } from "../../utils/markupParser";
-import { getRarityKey } from "../../utils/i18nHelpers";
-import { getEntityData } from "../../utils/entityLookup";
+import { parseMarkup } from "@/utils/markupParser";
+import { getRarityKey } from "@/utils/i18nHelpers";
+import { getEntityData } from "@/utils/entityLookup";
 import MarkupTooltip from "./MarkupTooltip"; 
-import { useTranslation } from "../../hooks/useTranslation"; 
-import { useMarkupResolution } from "../../hooks/useMarkupResolution"; 
+import { useTranslation } from "@/hooks/useTranslation"; 
+import { useMarkupResolution } from "@/hooks/useMarkupResolution"; 
 
 /**
  * MarkupRenderer - Trình hiển thị văn bản đánh dấu nâng cao cho POC Guide
@@ -30,9 +30,9 @@ const MarkupRenderer = memo(({ text, className = "", noTooltip = false }) => {
 		const onlyIcon = tagOptions.includes("only-icon");
 		const noLink = tagOptions.includes("no-link");
 
-		const renderWithTooltip = (content, customColorClass = "", href = null, customDesc = undefined) => {
+		const renderWithTooltip = (content, ColorClass = "", href = null, Desc = undefined) => {
             const innerContent = (
-                <span className={`inline-flex items-baseline font-bold transition-all duration-200 border-b border-white/0 hover:border-current ${customColorClass} ${noTooltip ? '' : 'cursor-help'}`}>
+                <span className={`inline-flex items-baseline font-bold transition-all duration-200 border-b border-white/0 hover:border-current ${ColorClass} ${noTooltip ? '' : 'cursor-help'}`}>
                     {showIcon && data?.icon && (
                         <img 
                             src={data.icon} 
@@ -54,7 +54,7 @@ const MarkupRenderer = memo(({ text, className = "", noTooltip = false }) => {
                 <MarkupTooltip
                     key={index}
                     title={data?.name || tagLabel}
-                    description={customDesc !== undefined ? customDesc : data?.description}
+                    description={Desc !== undefined ? Desc : data?.description}
                     icon={data?.icon}
                     fullImage={data?.fullImage}
                     options={tagOptions}

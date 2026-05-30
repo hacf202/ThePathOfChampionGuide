@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
-import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook Đa ngôn ngữ
+import { useTranslation } from "@/hooks/useTranslation"; // 🟢 Import Hook Đa ngôn ngữ
 
 const Modal = ({ isOpen, onClose, title, children, maxWidth = "max-w-md" }) => {
 	const { tUI } = useTranslation(); // 🟢 Khởi tạo Hook
@@ -51,7 +51,7 @@ const Modal = ({ isOpen, onClose, title, children, maxWidth = "max-w-md" }) => {
 				</div>
 
 				{/* Content */}
-				<div className='p-1 md:p-4 overflow-y-auto custom-scrollbar flex-grow'>
+				<div className='p-1 md:p-4 overflow-y-auto-scrollbar flex-grow'>
 					{children}
 				</div>
 			</div>

@@ -1,16 +1,16 @@
 // components/layout/MobileSidebar.jsx
 import React, { useContext, useState, useRef, useEffect } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext.jsx";
-import { useTheme } from "../../context/ThemeContext.jsx";
-import ThemeSettings from "../common/ThemeSettings.jsx";
-import GlobalSearch from "../common/GlobalSearch.jsx";
+import { AuthContext } from "@/context/AuthContext.jsx";
+import { useTheme } from "@/context/ThemeContext.jsx";
+import ThemeSettings from "@/components/common/ThemeSettings.jsx";
+import GlobalSearch from "@/components/common/GlobalSearch.jsx";
 
-import Modal from "../common/modal.jsx";
-import Button from "../common/button.jsx";
+import Modal from "@/components/common/modal.jsx";
+import Button from "@/components/common/button.jsx";
 import Logo from "/favicon.ico";
-import { motion, AnimatePresence } from "framer-motion";
-import DonateModal from "../common/DonateModal.jsx";
+
+import DonateModal from "@/components/common/DonateModal.jsx";
 
 import {
 	User,
@@ -115,32 +115,23 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 
 				{/* Search & Menu Section */}
 				<div className="flex-1 flex items-center justify-end gap-1 ml-2 min-w-0">
-					<motion.div 
+					<div 
 						className="relative h-10 flex items-center justify-end"
-						animate={{ 
-							width: isMobileSearchOpen ? "150px" : "40px"
-						}}
 						transition={{ type: "spring", damping: 25, stiffness: 200 }}
 					>
-						<AnimatePresence mode="wait">
+						
 							{!isMobileSearchOpen ? (
-								<motion.button
+								<button
 									key="search-icon"
-									initial={{ opacity: 0, scale: 0.8 }}
-									animate={{ opacity: 1, scale: 1 }}
-									exit={{ opacity: 0, scale: 0.8 }}
 									onClick={() => setIsMobileSearchOpen(true)}
 									className='p-2 rounded-lg hover:bg-black/10 transition-all text-header-text flex-shrink-0'
 									aria-label="Tìm kiếm"
 								>
 									<Search className='w-5 h-5' />
-								</motion.button>
+								</button>
 							) : (
-								<motion.div 
+								<div 
 									key="search-input"
-									initial={{ opacity: 0, x: 20 }}
-									animate={{ opacity: 1, x: 0 }}
-									exit={{ opacity: 0, x: 20 }}
 									className="w-full"
 								>
 									<GlobalSearch 
@@ -148,10 +139,10 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 										showClose={true} 
 										onClose={() => setIsMobileSearchOpen(false)} 
 									/>
-								</motion.div>
+								</div>
 							)}
-						</AnimatePresence>
-					</motion.div>
+						
+					</div>
 				</div>
 
 				<div className="flex items-center gap-1 flex-shrink-0">
@@ -166,25 +157,19 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 				</div>
 			</header>
 
-			<AnimatePresence>
+			
 				{isSidebarOpen && (
 					<>
 						{/* Overlay */}
-						<motion.div
-							initial={{ opacity: 0 }}
-							animate={{ opacity: 1 }}
-							exit={{ opacity: 0 }}
+						<div
 							transition={{ duration: 0.3 }}
 							className='fixed inset-0 bg-black bg-opacity-50 z-40 xl:hidden'
 							onClick={closeSidebar}
 						/>
 
 						{/* Sidebar - mở từ bên PHẢI để nhất quán với nút hamburger */}
-						<motion.div
+						<div
 							ref={sidebarRef}
-							initial={{ x: "100%" }}
-							animate={{ x: 0 }}
-							exit={{ x: "100%" }}
 							transition={{ type: "spring", damping: 25, stiffness: 200 }}
 							className="fixed inset-y-0 right-0 z-50 w-64 bg-header-bg shadow-2xl xl:hidden overflow-y-auto"
 						>
@@ -220,12 +205,9 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 									<path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M19 9l-7 7-7-7' />
 								</svg>
 							</button>
-							<AnimatePresence>
+							
 								{isDatabaseDropdownOpen && (
-									<motion.div 
-										initial={{ height: 0, opacity: 0 }}
-										animate={{ height: "auto", opacity: 1 }}
-										exit={{ height: 0, opacity: 0 }}
+									<div 
 										className='ml-6 mt-1 space-y-1 border-l-2 border-gray-600 pl-3 overflow-hidden'
 									>
 										<NavLink to='/champions' className={dropdownLinkClass} onClick={closeSidebar}>
@@ -252,9 +234,9 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 										<NavLink to='/resources' className={dropdownLinkClass} onClick={closeSidebar}>
 											<Book className='w-4 h-4' /> {tUI("nav.resources")}
 										</NavLink>
-									</motion.div>
+									</div>
 								)}
-							</AnimatePresence>
+							
 						</div>
 
 						{/* Menu Phiêu Lưu */}
@@ -277,12 +259,9 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 									<path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M19 9l-7 7-7-7' />
 								</svg>
 							</button>
-							<AnimatePresence>
+							
 								{isAdventuresDropdownOpen && (
-									<motion.div 
-										initial={{ height: 0, opacity: 0 }}
-										animate={{ height: "auto", opacity: 1 }}
-										exit={{ height: 0, opacity: 0 }}
+									<div 
 										className='ml-6 mt-1 space-y-1 border-l-2 border-gray-600 pl-3 overflow-hidden'
 									>
 										<NavLink to='/maps' className={dropdownLinkClass} onClick={closeSidebar}>
@@ -303,9 +282,9 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 										<NavLink to='/tierlist' className={dropdownLinkClass} onClick={closeSidebar}>
 											<BarChartHorizontalBig className='w-4 h-4' /> {tUI("nav.tierList")}
 										</NavLink>
-									</motion.div>
+									</div>
 								)}
-							</AnimatePresence>
+							
 						</div>
 
 						{/* Menu Công Cụ */}
@@ -328,12 +307,9 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 									<path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M19 9l-7 7-7-7' />
 								</svg>
 							</button>
-							<AnimatePresence>
+							
 								{isToolsDropdownOpen && (
-									<motion.div 
-										initial={{ height: 0, opacity: 0 }}
-										animate={{ height: "auto", opacity: 1 }}
-										exit={{ height: 0, opacity: 0 }}
+									<div 
 										className='ml-6 mt-1 space-y-1 border-l-2 border-gray-600 pl-3 overflow-hidden'
 									>
 										<NavLink to='/simulator/vaults' className={dropdownLinkClass} onClick={closeSidebar}>
@@ -348,9 +324,9 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 										<NavLink to='/introduction' className={dropdownLinkClass} onClick={closeSidebar}>
 											<BookOpen className='w-4 h-4' /> {tUI("nav.about")}
 										</NavLink>
-									</motion.div>
+									</div>
 								)}
-							</AnimatePresence>
+							
 						</div>
 
 						{/* Menu Chọn Ngôn Ngữ */}
@@ -378,12 +354,9 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 									/>
 								</svg>
 							</button>
-							<AnimatePresence>
+							
 								{isLangDropdownOpen && (
-									<motion.div 
-										initial={{ height: 0, opacity: 0 }}
-										animate={{ height: "auto", opacity: 1 }}
-										exit={{ height: 0, opacity: 0 }}
+									<div 
 										className='ml-6 mt-1 space-y-1 border-l-2 border-gray-600 pl-3 overflow-hidden'
 									>
 										<button
@@ -404,9 +377,9 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 										>
 											English
 										</button>
-									</motion.div>
+									</div>
 								)}
-							</AnimatePresence>
+							
 						</div>
 
 						{/* Menu Giao Diện - Repositioned near Language */}
@@ -474,10 +447,10 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 						)}
 					</nav>
 						</div>
-					</motion.div>
+					</div>
 					</>
 				)}
-			</AnimatePresence>
+			
 
 			{/* Logout Modal */}
 			<Modal

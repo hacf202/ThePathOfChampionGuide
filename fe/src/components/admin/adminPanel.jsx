@@ -28,21 +28,21 @@ import {
 	BarChart3,
 	Database,
 } from "lucide-react";
-import { useTranslation } from "../../hooks/useTranslation";
+import { useTranslation } from "@/hooks/useTranslation";
 
 // Lazy load các editor
-const ChampionEditor = lazy(() => import("./champions/championEditor"));
-const PowerEditor = lazy(() => import("./powers/powerEditor"));
-const RelicEditor = lazy(() => import("./relics/relicEditor"));
-const ItemEditor = lazy(() => import("./items/itemEditor"));
-const RuneEditor = lazy(() => import("./runes/runeEditor"));
-const BonusStarEditor = lazy(() => import("./bonusStars/bonusStarEditor"));
-const BossEditor = lazy(() => import("./bosses/bossEditor"));
+const ChampionEditor = lazy(() => import("@/features/champions/admin/championEditor"));
+const PowerEditor = lazy(() => import("@/features/powers/admin/powerEditor"));
+const RelicEditor = lazy(() => import("@/features/relics/admin/relicEditor"));
+const ItemEditor = lazy(() => import("@/features/items/admin/itemEditor"));
+const RuneEditor = lazy(() => import("@/features/runes/admin/runeEditor"));
+const BonusStarEditor = lazy(() => import("@/features/bonusStars/admin/bonusStarEditor"));
+const BossEditor = lazy(() => import("@/features/bosses/admin/bossEditor"));
 const AdventureMapEditor = lazy(
-	() => import("./adventureMaps/adventureMapEditor"),
+	() => import("@/features/adventureMaps/admin/adventureMapEditor"),
 );
-const BuildEditor = lazy(() => import("./builds/buildEditor"));
-const GuideEditor = lazy(() => import("./guides/guideEditor"));
+const BuildEditor = lazy(() => import("@/features/builds/admin/buildEditor"));
+const GuideEditor = lazy(() => import("@/features/guides/admin/guideEditor"));
 const ImageManager = lazy(() => import("./images/imageManager"));
 const AuditLogList = lazy(() => import("./auditLogs/AuditLogList"));
 const CardEditor = lazy(() => import("./cards/cardEditor"));
@@ -281,7 +281,7 @@ const AdminPanel = () => {
 				</div>
 
 				{/* Nav Menu */}
-				<nav className='flex-grow p-4 space-y-1 overflow-y-auto overflow-x-hidden custom-scrollbar'>
+				<nav className='flex-grow p-4 space-y-1 overflow-y-auto overflow-x-hidden-scrollbar'>
 					{navItems.map(item => (
 						<NavLink
 							key={item.id}
@@ -313,7 +313,7 @@ const AdminPanel = () => {
 			</aside>
 
 			{/* Main Content Area */}
-			<div className='flex-1 flex flex-col min-w-0 overflow-hidden relative'>
+			<div className='flex-1 flex flex-col min-w-0 min-h-0 overflow-y-auto relative'>
 				{/* Topbar - Mini Breadcrumb style */}
 				{!isEditorMode && (
 					<header className='flex items-center justify-between h-14 bg-page-bg px-6 flex-shrink-0 z-20'>
@@ -332,8 +332,8 @@ const AdminPanel = () => {
 				)}
 
 				{/* Scrollable Content */}
-				<main className={`flex-1 overflow-auto custom-scrollbar ${isEditorMode ? "p-0" : "px-4 pb-4 lg:px-6 lg:pb-6"}`}>
-					<div className={`${isEditorMode ? "max-w-full w-full px-4 md:px-6" : "max-w-[1600px] mx-auto"} h-full`}>
+				<main className={`flex-1 overflow-auto-scrollbar ${isEditorMode ? "p-0" : "px-4 pb-4 lg:px-6 lg:pb-6"}`}>
+					<div className={`${isEditorMode ? "max-w-full w-full px-4 md:px-6" : "max-w-[1600px] mx-auto"}`}>
 						<Suspense
 							fallback={
 								<div className='flex items-center justify-center h-full'>

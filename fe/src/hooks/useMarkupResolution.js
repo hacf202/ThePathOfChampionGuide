@@ -1,8 +1,8 @@
 // fe/src/hooks/useMarkupResolution.js
 import { useState, useCallback } from "react";
 import axios from "axios";
-import { parseMarkup } from "../utils/markupParser";
-import { initEntities, checkCache, markInvestigated, markPending, clearPending } from "../utils/entityLookup";
+import { parseMarkup } from "@/utils/markupParser";
+import { initEntities, checkCache, markInvestigated, markPending, clearPending } from "@/utils/entityLookup";
 import { useTranslation } from "./useTranslation";
 
 const API_BASE = import.meta.env.VITE_API_URL;

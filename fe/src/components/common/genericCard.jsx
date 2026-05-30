@@ -14,9 +14,11 @@ import {
 	arrow,
 } from "@floating-ui/react";
 import RarityIcon from "./rarityIcon";
-import { useTranslation } from "../../hooks/useTranslation";
-import { removeAccents } from "../../utils/vietnameseUtils";
+import { useTranslation } from "@/hooks/useTranslation";
+import { removeAccents } from "@/utils/vietnameseUtils";
 import MarkupRenderer from "./MarkupRenderer";
+
+import { HoverCard } from "@/components/common/animations";
 
 const GenericCard = ({
 	item,
@@ -99,43 +101,45 @@ const GenericCard = ({
 	return (
 		<>
 			{/* --- Component Card --- */}
-			<div
-				ref={refs.setReference}
-				{...getReferenceProps()}
-				className='hover:scale-105 transition-transform duration-200 cursor-pointer h-full'
-				onClick={onClick}
-			>
-				<div className='group relative flex items-center gap-4 bg-surface-bg p-4 rounded-lg hover:bg-surface-hover transition border border-border h-full'>
-					{/* Phần Ảnh */}
-					<div className='flex-shrink-0'>
-						<img
-							src={imageSrc}
-							alt={itemName}
-							loading='lazy'
-							className='w-16 h-16 object-cover rounded-md border border-border-secondary'
-						/>
-					</div>
+				<HoverCard>
+					<div
+						ref={refs.setReference}
+						{...getReferenceProps()}
+						className='cursor-pointer h-full'
+						onClick={onClick}
+					>
+						<div className='group relative flex items-center gap-4 bg-surface-bg p-4 rounded-lg hover:bg-surface-hover transition border border-border h-full w-full'>
+							{/* Phần Ảnh */}
+							<div className='flex-shrink-0'>
+								<img
+									src={imageSrc}
+									alt={itemName}
+									loading='lazy'
+									className='w-16 h-16 object-cover rounded-md border border-border-secondary'
+								/>
+							</div>
 
-					{/* Phần Thông tin */}
-					<div className='flex-grow min-w-0'>
-						<h3 className='font-bold text-lg text-text-primary font-primary truncate'>
-							{itemName}
-						</h3>
-						<div className='flex items-center flex-wrap gap-x-2 gap-y-0.5 text-sm text-text-secondary mt-1 min-w-0'>
-							{item.rarity ? (
-								<>
-									<RarityIcon rarity={item.rarity} />
-									<span className='truncate'>{getTranslatedRarity(item.rarity)}</span>
-								</>
-							) : (
-								<span className='italic text-xs text-text-tertiary truncate'>
-									{renderNodeTypeLabel()}
-								</span>
-							)}
+							{/* Phần Thông tin */}
+							<div className='flex-grow min-w-0'>
+								<h3 className='font-bold text-lg text-text-primary font-primary truncate'>
+									{itemName}
+								</h3>
+								<div className='flex items-center flex-wrap gap-x-2 gap-y-0.5 text-sm text-text-secondary mt-1 min-w-0'>
+									{item.rarity ? (
+										<>
+											<RarityIcon rarity={item.rarity} />
+											<span className='truncate'>{getTranslatedRarity(item.rarity)}</span>
+										</>
+									) : (
+										<span className='italic text-xs text-text-tertiary truncate'>
+											{renderNodeTypeLabel()}
+										</span>
+									)}
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>
+				</HoverCard>
 
 			{/* --- Tooltip sử dụng Portal --- */}
 			{isOpen && (customTooltip || description || displayId) && (
@@ -146,8 +150,7 @@ const GenericCard = ({
 						{...getFloatingProps()}
 						className='z-[9999] w-72 p-3 bg-gray-900 text-white text-sm rounded-lg shadow-xl border border-gray-700 pointer-events-none'
 					>
-						{customTooltip ? (
-							customTooltip
+						{customTooltip ? (customTooltip
 						) : (
 							<div className='flex flex-col gap-1'>
 								{displayId && (

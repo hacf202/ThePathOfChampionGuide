@@ -1,7 +1,7 @@
 import React from 'react';
 import Modal from './modal';
 import { Coffee } from 'lucide-react';
-import { useTranslation } from '../../hooks/useTranslation';
+import { useTranslation } from '@/hooks/useTranslation';
 
 const DonateModal = ({ isOpen, onClose }) => {
 	const { tUI } = useTranslation();

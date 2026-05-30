@@ -1,6 +1,6 @@
 // src/hooks/useMapDetailData.js
 import { useState, useEffect } from "react";
-import { api } from "../context/services/apiHelper";
+import { api } from "@/context/services/apiHelper";
 
 export const useMapDetailData = adventureID => {
 	const [adventure, setAdventure] = useState(null);

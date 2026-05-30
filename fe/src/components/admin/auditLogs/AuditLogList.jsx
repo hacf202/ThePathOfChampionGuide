@@ -1,7 +1,7 @@
 // fe/src/components/admin/auditLogs/AuditLogList.jsx
 import React, { useState, useEffect } from "react";
-import { useAuth } from "../../../context/AuthContext";
-import { useTranslation } from "../../../hooks/useTranslation";
+import { useAuth } from "@/context/AuthContext";
+import { useTranslation } from "@/hooks/useTranslation";
 import { 
 	History, 
 	Filter, 

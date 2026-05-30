@@ -39,7 +39,7 @@ export const mapAuthError = (err, tUI) => {
 	if (error.includes("InternalErrorException"))
 		return tUI("auth.error.internalError");
 
-	// If it contains "Lỗi Cognito", it might be a custom text we tossed in apiHelper
+	// If it contains "Lỗi Cognito", it might be a text we tossed in apiHelper
 	// Let's try to return the raw message if it's already translated or just the general error
 	if (error.startsWith("Lỗi Cognito")) {
 		return error;

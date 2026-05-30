@@ -18,54 +18,54 @@ import { AuthProvider } from "./context/AuthContext.jsx";
 import { ThemeProvider } from "./context/ThemeContext.jsx";
 
 // Trang chi tiết
-import ChampionDetail from "./components/champion/championDetail.jsx";
-import RelicDetail from "./components/relic/relicDetail.jsx";
-import PowerDetail from "./components/power/powerDetail.jsx";
-import ItemDetail from "./components/item/itemDetail.jsx";
-import BuildDetail from "./components/build/buildDetail.jsx";
-import RuneDetail from "./components/rune/runeDetail.jsx";
-import GuideDetail from "./components/guide/guideDetail.jsx";
-import AdventureMapDetail from "./components/map/adventureMapDetail.jsx";
-import CardDetail from "./components/card/cardDetail.jsx";
-import ResourceDetailPage from "./components/resource/resourceDetailPage.jsx";
+import ChampionDetail from "@/features/champions/components/championDetail.jsx";
+import RelicDetail from "@/features/relics/components/relicDetail.jsx";
+import PowerDetail from "@/features/powers/components/powerDetail.jsx";
+import ItemDetail from "@/features/items/components/itemDetail.jsx";
+import BuildDetail from "@/features/builds/components/buildDetail.jsx";
+import RuneDetail from "@/features/runes/components/runeDetail.jsx";
+import GuideDetail from "@/features/guides/components/guideDetail.jsx";
+import AdventureMapDetail from "@/features/adventureMaps/components/adventureMapDetail.jsx";
+import CardDetail from "@/features/cards/components/cardDetail.jsx";
+import ResourceDetailPage from "@/features/resources/pages/resourceDetailPage.jsx";
 
 // Trang chính
 import Home from "./pages/home.jsx";
-import Champions from "./pages/championList.jsx";
-import Relics from "./pages/relicList.jsx";
-import Powers from "./pages/powerList.jsx";
-import Items from "./pages/itemList.jsx";
-import Builds from "./pages/buildList.jsx";
-import Runes from "./pages/runeList.jsx";
-import Maps from "./pages/adventureMapList.jsx";
-import RandomizerPage from "./pages/randomWheelPage.jsx";
-import GuideListPage from "./pages/guideListPage.jsx";
-import TierListIndex from "./pages/tierList.jsx";
-import VaultSimulator from "./pages/vaultSimulator.jsx";
-import CardList from "./pages/cardList.jsx";
-import ChampionRatingPage from "./pages/championRatingPage.jsx";
-import SubChampionList from "./pages/subChampionList.jsx";
-import ResourceListPage from "./pages/resourceListPage.jsx";
-import BossListPage from "./pages/BossListPage.jsx";
-import BossDetailPage from "./components/boss/BossDetailPage.jsx";
-import ChampionItems from "./pages/championItems.jsx";
+import Champions from "@/features/champions/pages/championList.jsx";
+import Relics from "@/features/relics/pages/relicList.jsx";
+import Powers from "@/features/powers/pages/powerList.jsx";
+import Items from "@/features/items/pages/itemList.jsx";
+import Builds from "@/features/builds/pages/buildList.jsx";
+import Runes from "@/features/runes/pages/runeList.jsx";
+import Maps from "@/features/adventureMaps/pages/adventureMapList.jsx";
+import RandomizerPage from "@/features/tools/randomWheel/pages/randomWheelPage.jsx";
+import GuideListPage from "@/features/guides/pages/guideListPage.jsx";
+import TierListIndex from "@/features/tools/tierList/tierList.jsx";
+import VaultSimulator from "@/features/tools/vaultSimulator/vaultSimulator.jsx";
+import CardList from "@/features/cards/pages/cardList.jsx";
+import ChampionRatingPage from "@/features/tools/championRating/championRatingPage.jsx";
+import SubChampionList from "@/features/champions/pages/subChampionList.jsx";
+import ResourceListPage from "@/features/resources/pages/resourceListPage.jsx";
+import BossListPage from "@/features/bosses/pages/BossListPage.jsx";
+import BossDetailPage from "@/features/bosses/components/BossDetailPage.jsx";
+import ChampionItems from "@/features/tools/championItems/pages/championItems.jsx";
 
 import ErrorPage from "./pages/ErrorPage.jsx";
-import ResetPassword from "./components/auth/ResetPassword.jsx";
+import ResetPassword from "@/features/auth/pages/ResetPassword.jsx";
 
 
 // Đăng nhập / Đăng ký
-import AuthContainer from "./components/auth/authContainer.jsx";
-import Profile from "./components/auth/profile.jsx";
+import AuthContainer from "@/features/auth/pages/authContainer.jsx";
+import Profile from "@/features/auth/pages/profile.jsx";
 
 // Layout chung
 import Navbar from "./components/layout/navbar.jsx";
 import Footer from "./components/layout/footer.jsx";
 
 // Trang thông tin
-import AboutUs from "./components/about/aboutUs.jsx";
-import TermsOfUse from "./components/about/termsOfUse.jsx";
-import Introduction from "./components/about/introduction.jsx";
+import AboutUs from "@/features/about/pages/aboutUs.jsx";
+import TermsOfUse from "@/features/about/pages/termsOfUse.jsx";
+import Introduction from "@/features/about/pages/introduction.jsx";
 
 // Luồng admin
 import AdminPanel from "./components/admin/adminPanel.jsx";
@@ -108,7 +108,7 @@ function AppLayout() {
 	const location = useLocation();
 	const isAdminRoute = location.pathname.startsWith("/admin");
 
-	// Danh sách các trang không cần bọc container phụ (đã có layout riêng hoặc là full-width)
+	// Danh sách các trang không cần bọc container phụ (đã có riêng hoặc là full-width)
 	const isSpecialRoute = 
 		isAdminRoute ||
 		location.pathname === "/" ||

@@ -1,9 +1,9 @@
 import { useState, memo, useEffect } from "react";
-import Button from "../../common/button";
-import Modal from "../../common/modal";
+import Button from "@/components/common/button";
+import Modal from "@/components/common/modal";
 import { PanelRightClose, PanelRightOpen, AlertTriangle } from "lucide-react";
-import { useTranslation } from "../../../hooks/useTranslation";
-import useUnsavedChanges from "../../../hooks/useUnsavedChanges";
+import { useTranslation } from "@/hooks/useTranslation";
+import useUnsavedChanges from "@/hooks/useUnsavedChanges";
 
 const EditorHeaderToolbar = memo(
 	({

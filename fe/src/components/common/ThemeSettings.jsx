@@ -1,11 +1,11 @@
 import React, { useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { useTheme } from "../../context/ThemeContext";
+
+import { useTheme } from "@/context/ThemeContext";
 import { Moon, Sun, Palette, Image as ImageIcon, Check, MousePointer2, Upload, AlertCircle, Loader2, Sparkles, SlidersHorizontal } from "lucide-react";
-import { compressImage } from "../../utils/imageUtils";
+import { compressImage } from "@/utils/imageUtils";
 import Modal from "./modal";
 import Button from "./button";
-import { useTranslation } from "../../hooks/useTranslation";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const BACKGROUND_PRESETS = [
     { name: "JoeJiJi", url: "https://images.pocguide.top/backgrounds/BG1.webp" },
@@ -90,7 +90,7 @@ const ThemeSettings = ({ isOpen, onClose }) => {
                 accept="image/*" 
                 className="hidden" 
             />
-            <div className="space-y-8 p-2 max-h-[80vh] overflow-y-auto pr-3 custom-scrollbar">
+            <div className="space-y-8 p-2 max-h-[80vh] overflow-y-auto pr-3-scrollbar">
                 
                 {/* 1. Main Theme Selection */}
                 <section className="space-y-4">
@@ -105,10 +105,8 @@ const ThemeSettings = ({ isOpen, onClose }) => {
                             { id: "dark", icon: Moon, label: tUI("themeSettings.solidDark"), action: () => selectSolidMode("dark") },
                             { id: "artwork", icon: ImageIcon, label: tUI("themeSettings.artworkMode"), action: selectArtworkMode },
                         ].map((mode) => (
-                            <motion.button
+                            <button
                                 key={mode.id}
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.98 }}
                                 onClick={mode.action}
                                 className={`group relative flex flex-col items-center justify-center gap-3 p-4 rounded-[2rem] border transition-all duration-500 ${
                                     currentMode === mode.id 
@@ -122,14 +120,13 @@ const ThemeSettings = ({ isOpen, onClose }) => {
                                 <span className="text-[10px] font-black uppercase tracking-widest">{mode.label}</span>
                                 
                                 {currentMode === mode.id && (
-                                    <motion.div 
-                                        layoutId="active-theme"
+                                    <div
                                         className="absolute inset-0 border-2 border-primary-500 rounded-[2rem] pointer-events-none"
                                         initial={false}
                                         transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                                     />
                                 )}
-                            </motion.button>
+                            </button>
                         ))}
                     </div>
                 </section>
@@ -185,12 +182,9 @@ const ThemeSettings = ({ isOpen, onClose }) => {
                 </section>
 
                 {/* 3. Artwork Customization */}
-                <AnimatePresence mode="wait">
+                
                     {isArtwork && (
-                        <motion.section
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.95 }}
+                        <section
                             className="space-y-6"
                         >
                             <div className="flex flex-col">
@@ -238,9 +232,7 @@ const ThemeSettings = ({ isOpen, onClose }) => {
                             {/* Preset Grid */}
                             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                                 {/* Custom Upload */}
-                                <motion.button
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
+                                <button
                                     onClick={() => !isCompresing && fileInputRef.current.click()}
                                     disabled={isCompresing}
                                     className={`relative aspect-video rounded-3xl overflow-hidden border-2 border-dashed border-primary-500/20 hover:border-primary-500/50 bg-primary-500/5 transition-all group ${isCompresing ? "opacity-50" : ""}`}
@@ -259,13 +251,11 @@ const ThemeSettings = ({ isOpen, onClose }) => {
                                             </>
                                         )}
                                     </div>
-                                </motion.button>
+                                </button>
 
                                 {BACKGROUND_PRESETS.map((preset) => (
-                                    <motion.button
+                                    <button
                                         key={preset.name}
-                                        whileHover={{ scale: 1.02 }}
-                                        whileTap={{ scale: 0.98 }}
                                         onClick={() => setBgImage(preset.url)}
                                         className={`relative aspect-video rounded-3xl overflow-hidden border-2 transition-all duration-500 group ${
                                             bgImage === preset.url 
@@ -285,24 +275,22 @@ const ThemeSettings = ({ isOpen, onClose }) => {
                                                 </div>
                                             </div>
                                         )}
-                                    </motion.button>
+                                    </button>
                                 ))}
                             </div>
-                        </motion.section>
+                        </section>
                     )}
-                </AnimatePresence>
+                
 
                 {!isArtwork && (
-                    <motion.div 
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
+                    <div 
                         className="flex items-center justify-center gap-3 p-6 rounded-[2rem] bg-amber-500/5 border border-amber-500/20"
                     >
                         <AlertCircle className="w-5 h-5 text-amber-500" />
                         <p className="text-[10px] font-black text-amber-500/80 uppercase tracking-widest text-center">
                             {tUI("themeSettings.activateArtwork")}
                         </p>
-                    </motion.div>
+                    </div>
                 )}
 
                 <div className="pt-6 border-t border-white/10 flex justify-end gap-3">

@@ -2,7 +2,7 @@
 import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import { useTranslation } from "./useTranslation";
-import { removeAccents } from "../utils/vietnameseUtils";
+import { removeAccents } from "@/utils/vietnameseUtils";
 
 /**
  * Hook logic mới: Tải toàn bộ dữ liệu một lần (Load-All)

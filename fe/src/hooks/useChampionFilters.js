@@ -2,8 +2,8 @@
 import { useMemo } from "react";
 import { usePersistentState } from "./usePersistentState";
 import { useGenericFilters } from "./useGenericFilters";
-import { removeAccents } from "../utils/vietnameseUtils";
-import iconRegions from "../assets/data/icon.json";
+import { removeAccents } from "@/utils/vietnameseUtils";
+import iconRegions from "@/assets/data/icon.json";
 
 export const useChampionFilters = (tUI, dynamicFilters) => {
 	// 1. Gọi Hook dùng chung (Tự động lo liệu việc đồng bộ URL)

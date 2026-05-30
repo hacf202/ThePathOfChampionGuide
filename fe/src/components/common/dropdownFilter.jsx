@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
-import { useTranslation } from "../../hooks/useTranslation"; // 🟢 Import Hook Đa ngôn ngữ
+import { useTranslation } from "@/hooks/useTranslation"; // 🟢 Import Hook Đa ngôn ngữ
 
 function DropdownFilter({
 	label,
@@ -65,7 +65,7 @@ function DropdownFilter({
 				/>
 			</button>
 			{isOpen && (
-				<div className='absolute z-[99] w-full mt-1 bg-modal-bg border border-dropdown-border rounded-md shadow-lg max-h-60 overflow-y-auto custom-scrollbar animate-slide-down'>
+				<div className='absolute z-[99] w-full mt-1 bg-modal-bg border border-dropdown-border rounded-md shadow-lg max-h-60 overflow-y-auto-scrollbar animate-slide-down'>
 					{options.map((option, index) => {
 						const isSelected = selectedValue === option.value;
 						return (

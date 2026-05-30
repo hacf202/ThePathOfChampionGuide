@@ -2,7 +2,7 @@
 import React, { memo } from "react";
 import LogoBlack from "/favicon.ico";
 import { Youtube, Facebook } from "lucide-react";
-import { useTranslation } from "../../hooks/useTranslation";
+import { useTranslation } from "@/hooks/useTranslation";
 
 function Footer() {
 	const { tUI } = useTranslation();

@@ -1,7 +1,7 @@
 // src/hooks/useBuildFilters.js
 import { useMemo } from "react";
 import { useGenericFilters } from "./useGenericFilters";
-import iconRegionsData from "../assets/data/icon.json";
+import iconRegionsData from "@/assets/data/icon.json";
 
 export const useBuildFilters = (tUI, dynamicFilters = {}) => {
 	const { state, actions, queryParams } = useGenericFilters({

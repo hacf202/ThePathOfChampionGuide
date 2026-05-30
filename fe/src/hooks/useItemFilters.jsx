@@ -1,8 +1,8 @@
 // src/hooks/useItemFilters.jsx
 import React, { useMemo, useCallback } from "react";
 import { useGenericFilters } from "./useGenericFilters";
-import RarityIcon from "../components/common/rarityIcon";
-import { getRarityKey } from "../utils/i18nHelpers";
+import RarityIcon from "@/components/common/rarityIcon";
+import { getRarityKey } from "@/utils/i18nHelpers";
 
 export const useItemFilters = (tUI, t, dynamicFilters, knownItems) => {
 	// 1. GỌI HOOK CHUNG

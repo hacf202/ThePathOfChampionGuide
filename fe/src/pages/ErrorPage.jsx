@@ -1,10 +1,10 @@
 import React from "react";
 import { useRouteError, Link } from "react-router-dom";
-import { motion } from "framer-motion";
+
 import { Home, AlertTriangle, RefreshCw } from "lucide-react";
-import { useTranslation } from "../hooks/useTranslation";
-import Navbar from "../components/layout/navbar";
-import Footer from "../components/layout/footer";
+import { useTranslation } from "@/hooks/useTranslation";
+import Navbar from "@/components/layout/navbar";
+import Footer from "@/components/layout/footer";
 
 const ErrorPage = () => {
     const error = useRouteError();
@@ -23,19 +23,13 @@ const ErrorPage = () => {
                 <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-500/10 rounded-full blur-[120px] -z-10 animate-pulse" />
                 <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-[120px] -z-10 animate-pulse transition-all duration-1000" />
 
-                <motion.div 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
+                <div 
                     transition={{ duration: 0.6 }}
                     className="max-w-lg w-full text-center"
                 >
                     {/* Icon Section */}
                     <div className="mb-8 flex justify-center">
-                        <motion.div 
-                            animate={{ 
-                                rotate: [0, 5, -5, 0],
-                                y: [0, -10, 0]
-                            }}
+                        <div 
                             transition={{ 
                                 repeat: Infinity, 
                                 duration: 4, 
@@ -52,7 +46,7 @@ const ErrorPage = () => {
                             ) : (
                                 <AlertTriangle size={120} className="text-yellow-400 drop-shadow-[0_0_25px_rgba(250,204,21,0.3)]" />
                             )}
-                        </motion.div>
+                        </div>
                     </div>
 
                     {/* Content Section */}
@@ -90,7 +84,7 @@ const ErrorPage = () => {
                             {tUI("common.retry")}
                         </button>
                     </div>
-                </motion.div>
+                </div>
             </main>
 
             <Footer />

@@ -1,6 +1,6 @@
 // src/components/layout/GenericListLayout.jsx
 import React, { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+
 import {
 	Search,
 	RotateCw,
@@ -10,10 +10,17 @@ import {
 	ChevronLeft,
 	ChevronRight,
 } from "lucide-react";
-import Button from "../common/button";
-import InputField from "../common/inputField";
-import PageTitle from "../common/pageTitle";
-import { useTranslation } from "../../hooks/useTranslation";
+import Button from "@/components/common/button";
+import InputField from "@/components/common/inputField";
+import PageTitle from "@/components/common/pageTitle";
+import { useTranslation } from "@/hooks/useTranslation";
+import { StaggerContainer, StaggerItem } from "@/components/common/animations";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { Flip } from "gsap/Flip";
+import { flushSync } from "react-dom";
+
+gsap.registerPlugin(Flip);
 
 const GenericListLayout = ({
 	pageTitle,
@@ -46,7 +53,6 @@ const GenericListLayout = ({
 	emptyMessage, // Thông báo khi không có dữ liệu
 	customHeaderActions = null, // Nút bấm tùy chỉnh ở góc trên cùng (VD: Tạo Build)
 	customTabs = null, // Các tab chuyển đổi (VD: Community / My Builds)
-
 	// --- Layout Customization ---
 	gridClassName, // Chuỗi class hoặc Hàm nhận vào showDesktopFilter trả về chuỗi class
 	itemClassName, // Hàm nhận vào item trả về chuỗi class (VD: 'col-span-full')
@@ -56,6 +62,31 @@ const GenericListLayout = ({
 	const { tUI } = useTranslation();
 	const [showDesktopFilter, setShowDesktopFilter] = useState(false);
 	const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
+
+	const desktopFilterRef = useRef(null);
+	const mobileFilterRef = useRef(null);
+
+	useGSAP(() => {
+		if (showDesktopFilter && desktopFilterRef.current) {
+			// Stagger items inside
+			gsap.fromTo(".filter-content-item", 
+				{ x: 20, opacity: 0 },
+				{ x: 0, opacity: 1, duration: 0.4, stagger: 0.05, ease: "power2.out", delay: 0.1 }
+			);
+		}
+	}, [showDesktopFilter]);
+
+	useGSAP(() => {
+		if (isMobileFilterOpen && mobileFilterRef.current) {
+			gsap.to(mobileFilterRef.current, { height: "auto", opacity: 1, duration: 0.4, ease: "power3.out" });
+			gsap.fromTo(".mobile-filter-item",
+				{ y: -10, opacity: 0 },
+				{ y: 0, opacity: 1, duration: 0.3, stagger: 0.05, ease: "power2.out", delay: 0.1 }
+			);
+		} else if (mobileFilterRef.current) {
+			gsap.to(mobileFilterRef.current, { height: 0, opacity: 0, duration: 0.3, ease: "power3.in" });
+		}
+	}, [isMobileFilterOpen]);
 
 	// --- Internal Layout Stabilization ---
 	const [isReady, setIsReady] = useState(false);
@@ -80,12 +111,36 @@ const GenericListLayout = ({
 			: gridClassName ||
 				`grid-cols-2 md:grid-cols-3 ${showDesktopFilter ? "xl:grid-cols-4" : "xl:grid-cols-5"}`;
 
+	const flipState = useRef(null);
+
+	const handleToggleDesktopFilter = () => {
+		// Chỉ animate layout trên desktop khi Flip.getState có thể tìm thấy thẻ
+		if (window.innerWidth >= 1024) {
+			flipState.current = Flip.getState(".flip-item, .flip-container, .flip-sidebar");
+		}
+		setShowDesktopFilter(!showDesktopFilter);
+	};
+
+	// Xử lý Flip animation một cách an toàn thông qua useLayoutEffect (tránh lỗi bấm quá nhanh)
+	React.useLayoutEffect(() => {
+		if (flipState.current) {
+			Flip.from(flipState.current, {
+				duration: 0.5,
+				ease: "power2.inOut",
+				// Loại bỏ absolute: true để không làm sập layout container gây nhảy thanh chuyển trang
+				nested: true,
+				props: "opacity,marginLeft"
+			});
+			flipState.current = null;
+		}
+	}, [showDesktopFilter]);
+
 	// Xử lý phím tắt (Trái/Phải để chuyển trang, Tab để đóng/mở Filter)
 	useEffect(() => {
 		const handleKeyDown = event => {
 			if (event.key === "Tab") {
 				event.preventDefault();
-				setShowDesktopFilter(prev => !prev);
+				handleToggleDesktopFilter();
 				return;
 			}
 			// Bỏ qua phím tắt nếu người dùng đang gõ chữ vào ô input
@@ -177,7 +232,7 @@ const GenericListLayout = ({
 							<div className='hidden lg:flex items-center relative group'>
 								<Button
 									variant='outline'
-									onClick={() => setShowDesktopFilter(!showDesktopFilter)}
+									onClick={handleToggleDesktopFilter}
 									className='flex items-center gap-2'
 								>
 									{showDesktopFilter ? (
@@ -201,16 +256,13 @@ const GenericListLayout = ({
 				<div className='flex flex-col lg:flex-row items-start'>
 					{/* --- MAIN CONTENT (GRID DANH SÁCH) --- */}
 					<div
-						className={`w-full transition-all duration-500 ease-in-out ${(showFilterToggle && showDesktopFilter) ? "lg:flex-[3] xl:lg:flex-[4]" : "lg:flex-[1]"}`}
+						className={`w-full flip-container ${(showFilterToggle && showDesktopFilter) ? "lg:flex-[3] xl:flex-[4]" : "lg:flex-[1]"}`}
 					>
 						<div className='bg-surface-bg rounded-lg border border-border p-2 sm:p-4 shadow-sm min-h-[500px] relative overflow-visible'>
-							<AnimatePresence mode='wait' initial={false}>
+							
 								{isActuallyLoading && (!isInfiniteScroll || data.length === 0) ? (
-									<motion.div
+									<div
 										key='skeleton'
-										initial={{ opacity: 0 }}
-										animate={{ opacity: 1 }}
-										exit={{ opacity: 0 }}
 										transition={{ duration: 0.3 }}
 										className={`grid ${currentGridClass} gap-4 sm:gap-6 md:gap-8`}
 									>
@@ -219,39 +271,30 @@ const GenericListLayout = ({
 												{renderSkeleton()}
 											</React.Fragment>
 										))}
-									</motion.div>
+									</div>
 								) : (
-									<motion.div
+									<div
 										key='content'
-										initial={{ opacity: 0 }}
-										animate={{ opacity: 1 }}
-										exit={{ opacity: 0 }}
 										transition={{ duration: 0.5, ease: "easeOut" }}
 									>
 										{data && data.length > 0 ? (
 											<>
-												<motion.div
-													layout
+												<StaggerContainer
 													className={`grid ${currentGridClass} gap-4 sm:gap-6 md:gap-8 grid-auto-rows-min items-start`}
 												>
-													<AnimatePresence mode='popLayout'>
+													
 														{data.map((item, index) => (
-															<motion.div
-																layout
-																initial={{ opacity: 0, scale: 0.95 }}
-																animate={{ opacity: 1, scale: 1 }}
-																exit={{ opacity: 0, scale: 0.95 }}
-																transition={{ duration: 0.4, type: "spring", bounce: 0.2 }}
-																key={
-																	item.cardCode || item.id || item._id || item.powerCode || index
-																}
-																className={`relative isolate ${typeof itemClassName === 'function' ? itemClassName(item) : (itemClassName || '')}`}
+															<div
+																key={item.cardCode || item.id || item._id || item.powerCode || index}
+																className={`relative isolate flip-item ${typeof itemClassName === 'function' ? itemClassName(item) : (itemClassName || '')}`}
 															>
-																{renderItem(item)}
-															</motion.div>
+																<StaggerItem className="w-full h-full">
+																	{renderItem(item)}
+																</StaggerItem>
+															</div>
 														))}
-													</AnimatePresence>
-												</motion.div>
+													
+												</StaggerContainer>
 												
 												{/* --- TRIGGER TẢI THÊM (Sử dụng cho Infinite Scroll) --- */}
 												{isInfiniteScroll && hasNextPage && (
@@ -308,13 +351,11 @@ const GenericListLayout = ({
 														size={64}
 														className='mx-auto opacity-10'
 													/>
-													<motion.div 
-														initial={{ scale: 0 }}
-														animate={{ scale: 1 }}
+													<div 
 														className="absolute -right-2 -bottom-2 bg-primary-500/10 p-2 rounded-full"
 													>
 														<Search size={20} className="text-primary-500/40" />
-													</motion.div>
+													</div>
 												</div>
 												
 												<h3 className='text-2xl font-primary font-bold text-text-primary mb-2'>
@@ -340,93 +381,79 @@ const GenericListLayout = ({
 												)}
 											</div>
 										)}
-									</motion.div>
+									</div>
 								)}
-							</AnimatePresence>
+							
 						</div>
 					</div>
 
 					{/* --- BỘ LỌC DESKTOP --- */}
-					<AnimatePresence initial={false}>
-						{(showFilterToggle && showDesktopFilter) && (
-							<motion.aside
-								key='desktop-filter'
-								initial={{
-									width: 0,
-									opacity: 0,
-									marginLeft: 0,
-								}}
-								animate={{
-									width: "auto",
-									opacity: 1,
-									marginLeft: "1.5rem",
-								}}
-								exit={{
-									width: 0,
-									opacity: 0,
-									marginLeft: 0,
-								}}
-								transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-								className='hidden lg:block sticky top-24 h-fit z-40'
-							>
-								<div className='w-[240px] xl:w-[280px] p-5 rounded-3xl border border-border dark:border-white/10 bg-surface-bg/60 backdrop-blur-2xl space-y-5 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.3)] relative overflow-visible isolate'>
-									{/* Background Glow */}
-									<div className="absolute inset-0 overflow-hidden rounded-3xl -z-10 pointer-events-none">
-										<div className="absolute -top-20 -right-20 w-40 h-40 bg-primary-500/10 blur-[60px] rounded-full" />
-									</div>
-									
-									<div className="space-y-3">
-										<label className='block text-[10px] font-black uppercase tracking-[0.2em] text-text-secondary/60 ml-1'>
-											{tUI("common.search")}
-										</label>
-										<div className="relative group">
-											<InputField
-												value={searchValue}
-												onChange={e => onSearchChange(e.target.value)}
-												onKeyDown={e => e.key === "Enter" && onSearchSubmit()}
-												placeholder={searchPlaceholder || tUI("common.search")}
-												className="bg-input-bg dark:bg-white/5 border-input-border dark:border-white/10 focus:border-primary-500/50 rounded-xl"
-											/>
-											<button 
-												onClick={onSearchSubmit}
-												className="absolute right-3 top-1/2 -translate-y-1/2 text-text-secondary hover:text-primary-500 transition-colors"
-											>
-												<Search size={18} />
-											</button>
-										</div>
-									</div>
-
-									{/* Các filter riêng biệt được truyền từ ngoài vào */}
-									<div className="space-y-5">
-										{isActuallyLoading ? (
-											<div className="space-y-6">
-												{[...Array(4)].map((_, i) => (
-													<div key={i} className="space-y-2">
-														<div className="h-3 w-20 bg-white/10 rounded animate-pulse" />
-														<div className="h-10 w-full bg-white/5 rounded-xl border border-white/5 animate-pulse" />
-													</div>
-												))}
-											</div>
-										) : (
-											renderFilters()
-										)}
-									</div>
-
-									<div className="pt-2 space-y-3">
-										<Button
-											variant='outline'
-											onClick={onResetFilters}
-											disabled={isActuallyLoading}
-											className='w-full rounded-xl border-btn-secondary-border dark:border-white/10 hover:bg-btn-secondary-hover-bg dark:hover:bg-white/5 flex items-center justify-center gap-2 py-3 disabled:opacity-50'
-										>										
-											<RotateCw size={14} className='group-hover:rotate-180 transition-transform duration-500' />{" "}
-											<span className="text-[10px] font-bold uppercase tracking-wider">{tUI("championList.resetFilter")}</span>
-										</Button>
+					{showFilterToggle && (
+						<aside
+							key='desktop-filter'
+							ref={desktopFilterRef}
+							className={`hidden lg:block sticky top-24 h-fit z-40 overflow-hidden flip-sidebar ${
+								showDesktopFilter ? "w-[240px] xl:w-[280px] opacity-100 ml-6 lg:ml-8" : "w-0 opacity-0 ml-0"
+							}`}
+						>
+							<div className='w-[240px] xl:w-[280px] p-5 rounded-3xl border border-border dark:border-white/10 bg-surface-bg space-y-5 relative isolate'>
+								{/* Background Glow */}
+								<div className="absolute inset-0 overflow-hidden rounded-3xl -z-10 pointer-events-none">
+									<div className="absolute -top-20 -right-20 w-40 h-40 bg-primary-500/10 blur-[60px] rounded-full" />
+								</div>
+								
+								<div className="space-y-3 filter-content-item">
+									<label className='block text-[10px] font-black uppercase tracking-[0.2em] text-text-secondary/60 ml-1'>
+										{tUI("common.search")}
+									</label>
+									<div className="relative group">
+										<InputField
+											value={searchValue}
+											onChange={e => onSearchChange(e.target.value)}
+											onKeyDown={e => e.key === "Enter" && onSearchSubmit()}
+											placeholder={searchPlaceholder || tUI("common.search")}
+											className="bg-input-bg dark:bg-white/5 border-input-border dark:border-white/10 focus:border-primary-500/50 rounded-xl"
+										/>
+										<button 
+											onClick={onSearchSubmit}
+											className="absolute right-3 top-1/2 -translate-y-1/2 text-text-secondary hover:text-primary-500 transition-colors"
+										>
+											<Search size={18} />
+										</button>
 									</div>
 								</div>
-							</motion.aside>
-						)}
-					</AnimatePresence>
+
+								{/* Các filter riêng biệt được truyền từ ngoài vào */}
+								<div className="space-y-5 filter-content-item">
+									{isActuallyLoading ? (
+										<div className="space-y-6">
+											{[...Array(4)].map((_, i) => (
+												<div key={i} className="space-y-2">
+													<div className="h-3 w-20 bg-white/10 rounded animate-pulse" />
+													<div className="h-10 w-full bg-white/5 rounded-xl border border-white/5 animate-pulse" />
+												</div>
+											))}
+										</div>
+									) : (
+										renderFilters()
+									)}
+								</div>
+
+								<div className="pt-2 space-y-3 filter-content-item">
+									<Button
+										variant='outline'
+										onClick={onResetFilters}
+										disabled={isActuallyLoading}
+										className='w-full rounded-xl border-btn-secondary-border dark:border-white/10 hover:bg-btn-secondary-hover-bg dark:hover:bg-white/5 flex items-center justify-center gap-2 py-3 disabled:opacity-50'
+									>										
+										<RotateCw size={14} className='group-hover:rotate-180 transition-transform duration-500' />{" "}
+										<span className="text-[10px] font-bold uppercase tracking-wider">{tUI("championList.resetFilter")}</span>
+									</Button>
+								</div>
+							</div>
+						</aside>
+					)}
+					
 
 					{/* --- BỘ LỌC MOBILE --- */}
 					{(searchValue !== undefined || onSearchChange) && (
@@ -458,39 +485,37 @@ const GenericListLayout = ({
 									</Button>
 								)}
 							</div>
-							<AnimatePresence>
-								{isMobileFilterOpen && (
-									<motion.div
-										initial={{ height: 0, opacity: 0, overflow: "hidden" }}
-										animate={{
-											height: "auto",
-											opacity: 1,
-											transitionEnd: { overflow: "visible" },
-										}}
-										exit={{ height: 0, opacity: 0, overflow: "hidden" }}
-									>
+							
+								<div
+									ref={mobileFilterRef}
+									className="overflow-hidden"
+									style={{ height: isMobileFilterOpen ? "auto" : 0, opacity: isMobileFilterOpen ? 1 : 0 }}
+								>
+									<div className='overflow-hidden'>
 										<div className='pt-4 space-y-4 border-t border-border mt-3'>
 											{isActuallyLoading ? (
-												<div className="space-y-4">
+												<div className="space-y-4 mobile-filter-item">
 													{[...Array(3)].map((_, i) => (
 														<div key={i} className="h-10 w-full bg-border/50 rounded-lg animate-pulse" />
 													))}
 												</div>
 											) : (
-												renderFilters()
+												<div className="mobile-filter-item">
+													{renderFilters()}
+												</div>
 											)}
 											<Button
 												variant='outline'
 												onClick={onResetFilters}
-												className='w-full mt-4'
+												className='w-full mt-4 mobile-filter-item'
 											>
 												<RotateCw size={16} className='mr-2' />{" "}
 												{tUI("championList.resetFilter")}
 											</Button>
 										</div>
-									</motion.div>
-								)}
-							</AnimatePresence>
+									</div>
+								</div>
+							
 						</div>
 					</div>
 					)}

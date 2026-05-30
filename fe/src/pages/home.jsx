@@ -1,10 +1,17 @@
 import React, { useEffect, useRef } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "framer-motion";
-import PageTitle from "../components/common/pageTitle";
-import CinematicSection from "../components/home/CinematicSection";
-import CinematicCard from "../components/home/CinematicCard";
-import { useTranslation } from "../hooks/useTranslation";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { Draggable } from "gsap/Draggable";
+
+gsap.registerPlugin(Draggable);
+
+import { SlideUp } from "@/components/common/animations";
+
+import PageTitle from "@/components/common/pageTitle";
+import CinematicSection from "@/components/home/components/CinematicSection";
+import CinematicCard from "@/components/home/components/CinematicCard";
+import { useTranslation } from "@/hooks/useTranslation";
 import {
 	Swords,
 	Dices,
@@ -28,19 +35,7 @@ import {
 	HelpCircle
 } from "lucide-react";
 
-// Tăng cường animation mượt mà hơn
-const fadeInUp = {
-	hidden: { opacity: 0, y: 60, filter: "blur(10px)" },
-	visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
-};
 
-const staggerContainer = {
-	hidden: { opacity: 0 },
-	visible: {
-		opacity: 1,
-		transition: { staggerChildren: 0.2 }
-	}
-};
 
 const BACKGROUND_IMAGES = [
 	"https://images.pocguide.top/backgrounds/BG1.webp",
@@ -76,7 +71,71 @@ const Home = () => {
 		{ to: "/champion/C085", icon: Star, label: tUI("nav.newChampion"), img: BACKGROUND_IMAGES[0], top: "0%", left: "49%", size: "w-20 h-20 lg:w-48 lg:h-48", mobileHidden: false },
 	];
 
-	useEffect(() => {}, []);
+	const containerRef = useRef(null);
+	const tilesRef = useRef([]);
+
+	useGSAP(() => {
+		// Tiêu đề hero slide up nhẹ nhàng
+		gsap.from(".hero-title", {
+			y: 50,
+			opacity: 0,
+			duration: 1.5,
+			ease: "power3.out",
+		});
+
+		// Hiệu ứng ánh sáng chạy qua chữ
+		gsap.to(".title-shine", {
+			x: "200%",
+			duration: 3,
+			repeat: -1,
+			ease: "power2.inOut",
+			repeatDelay: 5
+		});
+
+		// Floating animations and Draggable cho từng tile
+		tilesRef.current.forEach((tile, idx) => {
+			if (!tile) return;
+
+			// Entry animation
+			gsap.fromTo(tile, 
+				{ opacity: 0, scale: 0.8, y: 50 },
+				{
+					opacity: 1,
+					scale: 1,
+					y: 0,
+					duration: 1,
+					ease: "back.out(1.5)",
+					delay: 0.2 + idx * 0.1,
+					onComplete: () => {
+						// Sau khi entry xong thì mới float
+						gsap.to(tile, {
+							y: "+=15",
+							duration: 3 + Math.random() * 2,
+							repeat: -1,
+							yoyo: true,
+							ease: "sine.inOut",
+							delay: Math.random() * 2
+						});
+					}
+				}
+			);
+		});
+
+		// Khởi tạo Draggable
+		Draggable.create(tilesRef.current, {
+			type: "x,y",
+			bounds: containerRef.current,
+			inertia: true,
+			zIndexBoost: true,
+			onDragStart: () => {
+				isDragging.current = true;
+			},
+			onDragEnd: () => {
+				// Prevent click from firing immediately after drag
+				setTimeout(() => (isDragging.current = false), 50);
+			}
+		});
+	}, { scope: containerRef });
 
 	return (
 		<div className='bg-[#05050A] text-text-primary font-primary selection:bg-primary-500 selection:text-white overflow-x-hidden'>
@@ -114,57 +173,34 @@ const Home = () => {
 						style={{ background: 'repeating-linear-gradient(0deg, transparent, transparent 1px, #000 1px, #000 2px)', backgroundSize: '100% 4px' }} />
 				</div>
 
-				<div className='relative w-full h-full max-w-[1920px] mx-auto z-20 p-4'>
+				<div className='relative w-full h-full max-w-[1920px] mx-auto z-20 p-4' ref={containerRef}>
 					{/* PROMINENT TITLE */}
 					<div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none z-30 w-full px-4 md:px-12 select-none'>
-						<motion.div
-							initial={{ opacity: 0, y: 20 }}
-							animate={{ opacity: 1, y: 0 }}
-							transition={{ duration: 1, ease: "easeOut" }}
-						>
-							<motion.h1
-								initial={{ scale: 0.9 }}
-								animate={{ scale: 1 }}
-								transition={{ duration: 1.5, ease: "easeOut" }}
-								className='text-5xl sm:text-7xl md:text-[10rem] lg:text-[14rem] font-black text-white uppercase leading-none tracking-tighter italic mb-8 select-none'
+						<div>
+							<h1
+								className='hero-title text-5xl sm:text-7xl md:text-[10rem] lg:text-[14rem] font-black text-white uppercase leading-none tracking-tighter italic mb-8 select-none'
 								style={{ filter: 'drop-shadow(0 20px 50px rgba(0, 0, 0, 0.8))' }}
 							>
 								<span className="relative inline-block overflow-hidden pr-4 md:pr-8">
 									{tUI("home.heroTitle1")}
-									<motion.div
-										className="absolute inset-0 bg-white/20 -translate-x-full skew-x-12"
-										animate={{ translateX: '200%' }}
-										transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", repeatDelay: 5 }}
+									<div
+										className="title-shine absolute inset-0 bg-white/20 -translate-x-full skew-x-12"
 									/>
 								</span>
 								<br />
 								<span className='text-transparent bg-clip-text bg-gradient-to-br from-primary-400 via-primary-600 to-indigo-700 inline-block filter drop-shadow-[0_0_30px_rgba(var(--color-primary-rgb),0.3)] pr-4 md:pr-8'>
 									{tUI("home.heroTitle2")}
 								</span>
-							</motion.h1>
-						</motion.div>
+							</h1>
+						</div>
 					</div>
 
 					{/* TILES */}
 					{TILES.map((tile, idx) => (
-						<motion.div
+						<div
 							key={idx}
-							drag
-							dragMomentum={false}
-							initial={{ opacity: 0, scale: 0 }}
-							animate={{
-								opacity: 1,
-								scale: 1,
-								y: [0, -10, 0],
-							}}
-							transition={{
-								opacity: { duration: 0.5, delay: idx * 0.1 },
-								scale: { duration: 0.5, delay: idx * 0.1 },
-								y: { duration: 4 + Math.random() * 2, repeat: Infinity, ease: "easeInOut", delay: idx * 0.2 }
-							}}
-							onDragStart={() => (isDragging.current = true)}
-							onDragEnd={() => setTimeout(() => (isDragging.current = false), 50)}
-							className={`absolute group flex-col items-center cursor-grab active:cursor-grabbing z-10 ${tile.mobileHidden ? 'hidden lg:flex' : 'flex'}`}
+							ref={el => (tilesRef.current[idx] = el)}
+							className={`absolute group flex-col items-center cursor-grab active:cursor-grabbing z-10 opacity-0 ${tile.mobileHidden ? 'hidden lg:flex' : 'flex'}`}
 							style={{ top: tile.top, left: tile.left }}
 						>
 							<div
@@ -179,7 +215,7 @@ const Home = () => {
 							<span className='mt-3 text-[9px] lg:text-[10px] tracking-[0.4em] uppercase text-white bg-black/60 backdrop-blur-xl border border-white/10 px-4 py-1.5 shadow-2xl select-none pointer-events-none translate-y-2 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300'>
 								{tile.label}
 							</span>
-						</motion.div>
+						</div>
 					))}
 				</div>
 			</section>
@@ -191,17 +227,13 @@ const Home = () => {
 				bgImage={BACKGROUND_IMAGES[1]}
 				reverse={false}
 			>
-				<motion.div
-					variants={staggerContainer}
-					initial="hidden"
-					whileInView="visible"
-					viewport={{ once: true, margin: "-150px" }}
+				<div
 					className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto'
 				>
 					<CinematicCard to="/champions" icon={Swords} title={tUI("championList.heading") || "Danh Sách Tướng"} desc="Khám phá toàn bộ danh sách Tướng, chỉ số cơ bản, kỹ năng và cách tối ưu hóa sức mạnh." img={BACKGROUND_IMAGES[0]} />
 					<CinematicCard to="/builds" icon={Crown} title={tUI("nav.builds") || "Builds Tối Ưu"} desc="Tham khảo các bản build mạnh mẽ nhất kết hợp giữa Tướng, Cổ Vật và Sức Mạnh Nội Tại." img={BACKGROUND_IMAGES[3]} />
 					<CinematicCard to="/sub-champions" icon={Users} title={tUI("nav.supportChampions") || "Tướng Phụ"} desc="Phân tích sức mạnh và khả năng phối hợp của các Tướng Phụ trong mỗi lượt đi." img={BACKGROUND_IMAGES[5]} />
-				</motion.div>
+				</div>
 			</CinematicSection>
 
 			{/* --- SECTION 3: TÀI NGUYÊN (DATABASE) --- */}
@@ -211,11 +243,7 @@ const Home = () => {
 				bgImage={BACKGROUND_IMAGES[4]}
 				reverse={true}
 			>
-				<motion.div
-					variants={staggerContainer}
-					initial="hidden"
-					whileInView="visible"
-					viewport={{ once: true, margin: "-150px" }}
+				<div
 					className='grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 ml-auto max-w-7xl'
 				>
 					<CinematicCard small to="/relics" icon={Sparkles} title={tUI("nav.relics")} desc="Cổ Vật cường hóa Tướng." img={BACKGROUND_IMAGES[8]} />
@@ -224,7 +252,7 @@ const Home = () => {
 					<CinematicCard small to="/runes" icon={Gem} title={tUI("nav.runes")} desc="Ngọc Bổ Trợ (Runes)." img={BACKGROUND_IMAGES[6]} />
 					<CinematicCard small to="/cards" icon={GalleryHorizontal} title={tUI("nav.cards")} desc="Thẻ bài trong game." img={BACKGROUND_IMAGES[9]} />
 					<CinematicCard small to="/resources" icon={Archive} title={tUI("nav.resources")} desc="Mảnh Tướng & Bụi Sao." img={BACKGROUND_IMAGES[5]} />
-				</motion.div>
+				</div>
 			</CinematicSection>
 
 			{/* --- SECTION 4: PHIÊU LƯU & CÔNG CỤ (ADVENTURES & TOOLS) --- */}
@@ -234,11 +262,7 @@ const Home = () => {
 				bgImage={BACKGROUND_IMAGES[9]}
 				reverse={false}
 			>
-				<motion.div
-					variants={staggerContainer}
-					initial="hidden"
-					whileInView="visible"
-					viewport={{ once: true, margin: "-150px" }}
+				<div
 					className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto'
 				>
 					<CinematicCard to="/maps" icon={Map} title={tUI("nav.maps")} desc="Bản đồ các khu vực, thông tin nhánh rẽ và phần thưởng chi tiết." img={BACKGROUND_IMAGES[2]} />
@@ -247,7 +271,7 @@ const Home = () => {
 					<CinematicCard to="/simulator/vaults" icon={Archive} title={tUI("nav.vaultSimulator") || "Vault Simulator"} desc="Giả lập mở rương để kiểm tra tỷ lệ rớt đồ và mảnh tướng." img={BACKGROUND_IMAGES[4]} />
 					<CinematicCard to="/randomizer" icon={Dices} title={tUI("home.luckyWheel") || "Randomizer"} desc="Tạo ngẫu nhiên Tướng và thử thách cho các pha chạy tự do." img={BACKGROUND_IMAGES[1]} />
 					<CinematicCard to="/guides" icon={BookOpen} title={tUI("nav.guides")} desc="Hướng dẫn chiến thuật từ cơ bản đến nâng cao từ cộng đồng." img={BACKGROUND_IMAGES[3]} />
-				</motion.div>
+				</div>
 			</CinematicSection>
 
 			{/* --- SECTION 5: BẢNG XẾP HẠNG & META (TIER LIST) --- */}
@@ -257,17 +281,13 @@ const Home = () => {
 				bgImage={BACKGROUND_IMAGES[7]}
 				reverse={true}
 			>
-				<motion.div
-					variants={staggerContainer}
-					initial="hidden"
-					whileInView="visible"
-					viewport={{ once: true, margin: "-150px" }}
+				<div
 					className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-6xl ml-auto'
 				>
 					<CinematicCard to="/tierlist/champions" icon={Trophy} title={"Bảng Xếp Hạng Tướng"} desc="Xếp hạng sức mạnh (Tier List) của tất cả Tướng trong Meta hiện tại." img={BACKGROUND_IMAGES[1]} />
 					<CinematicCard to="/tierlist/relics" icon={Sparkles} title={"Bảng Xếp Hạng Cổ Vật"} desc="Đánh giá độ hiệu quả và tính linh hoạt của các Cổ Vật (Relic Tier List)." img={BACKGROUND_IMAGES[8]} />
 					<CinematicCard to="/tools/ratings" icon={Zap} title={"Đánh Giá Sức Mạnh"} desc="Xem biểu đồ phân tích và đánh giá chi tiết sức mạnh của từng vị Tướng." img={BACKGROUND_IMAGES[4]} />
-				</motion.div>
+				</div>
 			</CinematicSection>
 
 			{/* --- SECTION 6: CẨM NANG & THÔNG TIN (GUIDES & INFO) --- */}
@@ -277,17 +297,13 @@ const Home = () => {
 				bgImage={BACKGROUND_IMAGES[6]}
 				reverse={false}
 			>
-				<motion.div
-					variants={staggerContainer}
-					initial="hidden"
-					whileInView="visible"
-					viewport={{ once: true, margin: "-150px" }}
+				<div
 					className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto'
 				>
 					<CinematicCard to="/guides" icon={BookOpen} title={"Bài Viết Hướng Dẫn"} desc="Tuyển tập các bài hướng dẫn chi tiết từ cộng đồng game thủ." img={BACKGROUND_IMAGES[3]} small />
 					<CinematicCard to="/introduction" icon={HelpCircle} title={"Cơ Chế Trò Chơi"} desc="Giới thiệu và giải thích các cơ chế hoạt động của The Path of Champions." img={BACKGROUND_IMAGES[5]} small />
 					<CinematicCard to="/about-us" icon={Users} title={"Về Chúng Tôi"} desc="Thông tin về đội ngũ phát triển và mục tiêu của dự án." img={BACKGROUND_IMAGES[10]} small />
-				</motion.div>
+				</div>
 			</CinematicSection>
 
 			{/* FOOTER CTA */}
@@ -300,12 +316,7 @@ const Home = () => {
 				</div>
 				<div className='absolute top-0 left-1/2 -translate-x-1/2 w-full lg:w-[1000px] h-[500px] bg-primary-600/20 md:blur-[200px] blur-[100px] -z-10 rounded-full animate-pulse-slow' />
 				
-				<motion.div 
-					initial={{ opacity: 0, scale: 0.9 }}
-					whileInView={{ opacity: 1, scale: 1 }}
-					viewport={{ once: true, margin: "-100px" }}
-					transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-				>
+				<div>
 					<h2 className='text-5xl md:text-7xl lg:text-[10rem] font-black uppercase mb-12 lg:mb-20 tracking-tighter italic leading-none text-white/90 drop-shadow-2xl overflow-visible w-full'>
 						<span className="inline-block pr-6 -mr-6 lg:pr-12 lg:-mr-12 overflow-visible">
 							{tUI("home.footerCTA1")}
@@ -325,7 +336,7 @@ const Home = () => {
 						{tUI("home.btnExploreNow")} 
 						<ChevronRight className='w-8 h-8 lg:w-12 lg:h-12 group-hover:translate-x-4 transition-transform duration-500' />
 					</NavLink>
-				</motion.div>
+				</div>
 				
 				<p className='mt-24 lg:mt-40 text-white/50 uppercase tracking-[0.5em] lg:tracking-[1em] text-[10px] lg:text-sm font-black'>
 					POC GUIDE - LEGEND OF RUNETERRA - 2026

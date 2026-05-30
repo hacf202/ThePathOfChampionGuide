@@ -1,8 +1,8 @@
 // fe/src/hooks/useCardFilters.js
 import { useMemo } from "react";
 import { useGenericFilters } from "./useGenericFilters";
-import { removeAccents } from "../utils/vietnameseUtils";
-import iconRegions from "../assets/data/icon.json";
+import { removeAccents } from "@/utils/vietnameseUtils";
+import iconRegions from "@/assets/data/icon.json";
 
 export const useCardFilters = (tUI, dynamicFilters) => {
 	// 1. Khởi tạo Hook dùng chung (Tự động lo liệu việc đồng bộ URL)

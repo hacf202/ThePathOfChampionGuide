@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { ChevronDown, Check } from "lucide-react";
 import SafeImage from "./SafeImage";
-import { useTranslation } from "../../hooks/useTranslation";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const MultiSelectFilter = ({
 	label,
@@ -94,7 +94,7 @@ const MultiSelectFilter = ({
 
 			{/* Dropdown Menu */}
 			{isOpen && (
-				<div className='absolute z-[99] w-full mt-1.5 bg-modal-bg border border-border rounded-lg shadow-xl max-h-64 overflow-y-auto animate-slide-down custom-scrollbar'>
+				<div className='absolute z-[99] w-full mt-1.5 bg-modal-bg border border-border rounded-lg shadow-xl max-h-64 overflow-y-auto animate-slide-down-scrollbar'>
 					{options.length > 0 ? (
 						<div className='py-1'>
 							{options.map(option => {

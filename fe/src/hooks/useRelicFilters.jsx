@@ -1,7 +1,7 @@
 import { useMemo, useCallback } from "react";
 import { useGenericFilters } from "./useGenericFilters"; // Import hook chung
-import RarityIcon from "../components/common/rarityIcon";
-import { getRarityKey, getTypeKey } from "../utils/i18nHelpers";
+import RarityIcon from "@/components/common/rarityIcon";
+import { getRarityKey, getTypeKey } from "@/utils/i18nHelpers";
 
 export const useRelicFilters = (tUI, t, dynamicFilters, knownRelics) => {
 	// 1. GỌI HOOK CHUNG

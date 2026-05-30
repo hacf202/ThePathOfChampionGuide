@@ -1,16 +1,16 @@
 // components/layout/DesktopNavbar.jsx
 import React, { useContext, useState, useRef, useEffect } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext.jsx";
-import { useTheme } from "../../context/ThemeContext.jsx";
-import ThemeSettings from "../common/ThemeSettings.jsx";
-import GlobalSearch from "../common/GlobalSearch.jsx";
+import { AuthContext } from "@/context/AuthContext.jsx";
+import { useTheme } from "@/context/ThemeContext.jsx";
+import ThemeSettings from "@/components/common/ThemeSettings.jsx";
+import GlobalSearch from "@/components/common/GlobalSearch.jsx";
 
-import Modal from "../common/modal.jsx";
-import Button from "../common/button.jsx";
+import Modal from "@/components/common/modal.jsx";
+import Button from "@/components/common/button.jsx";
 import Logo from "/favicon.ico";
-import { motion, AnimatePresence } from "framer-motion";
-import DonateModal from "../common/DonateModal.jsx";
+
+import DonateModal from "@/components/common/DonateModal.jsx";
 
 import {
 	User,
@@ -156,12 +156,9 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 									</svg>
 								</button>
 
-								<AnimatePresence>
+								
 									{isDatabaseDropdownOpen && (
-										<motion.div 
-											initial={{ opacity: 0, y: -10 }}
-											animate={{ opacity: 1, y: 0 }}
-											exit={{ opacity: 0, y: -10 }}
+										<div 
 											transition={{ duration: 0.2 }}
 											className='absolute z-50 left-0 top-full pt-1'
 										>
@@ -191,9 +188,9 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 													<Book className='w-5 h-5' /> {tUI("nav.resources")}
 												</NavLink>
 											</div>
-										</motion.div>
+										</div>
 									)}
-								</AnimatePresence>
+								
 							</div>
 
 							<div
@@ -221,12 +218,9 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 									</svg>
 								</button>
 
-								<AnimatePresence>
+								
 									{isAdventuresDropdownOpen && (
-										<motion.div 
-											initial={{ opacity: 0, y: -10 }}
-											animate={{ opacity: 1, y: 0 }}
-											exit={{ opacity: 0, y: -10 }}
+										<div 
 											transition={{ duration: 0.2 }}
 											className='absolute z-50 left-0 top-full pt-1'
 										>
@@ -250,9 +244,9 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 													<BarChartHorizontalBig className='w-5 h-5' /> {tUI("nav.tierList")}
 												</NavLink>
 											</div>
-										</motion.div>
+										</div>
 									)}
-								</AnimatePresence>
+								
 							</div>
 
 							<div
@@ -279,12 +273,9 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 										/>
 									</svg>
 								</button>
-								<AnimatePresence>
+								
 									{isToolsDropdownOpen && (
-										<motion.div 
-											initial={{ opacity: 0, y: -10 }}
-											animate={{ opacity: 1, y: 0 }}
-											exit={{ opacity: 0, y: -10 }}
+										<div 
 											transition={{ duration: 0.2 }}
 											className='absolute z-50 left-0 top-full pt-1'
 										>
@@ -302,9 +293,9 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 													<BookOpen className='w-5 h-5' /> {tUI("nav.about")}
 												</NavLink>
 											</div>
-										</motion.div>
+										</div>
 									)}
-								</AnimatePresence>
+								
 							</div>
 						</nav>
 					</div>
@@ -349,12 +340,9 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 								</svg>
 							</button>
 
-							<AnimatePresence>
+							
 								{isLangDropdownOpen && (
-									<motion.div 
-										initial={{ opacity: 0, y: -10 }}
-										animate={{ opacity: 1, y: 0 }}
-										exit={{ opacity: 0, y: -10 }}
+									<div 
 										transition={{ duration: 0.2 }}
 										className='absolute z-50 right-0 top-full pt-1'
 									>
@@ -386,9 +374,9 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 												English
 											</button>
 										</div>
-									</motion.div>
+									</div>
 								)}
-							</AnimatePresence>
+							
 						</div>
 
 						{/* Nút Donate */}
@@ -409,12 +397,9 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 									<span className='text-sm font-medium whitespace-nowrap truncate max-w-[100px] lg:max-w-[150px] xl:max-w-[200px] text-right'>{user.name}</span>
 									<User className='h-7 w-7 xl:h-8 xl:w-8 flex-shrink-0' />
 								</button>
-								<AnimatePresence>
+								
 									{isProfileOpen && (
-										<motion.div 
-											initial={{ opacity: 0, y: -10 }}
-											animate={{ opacity: 1, y: 0 }}
-											exit={{ opacity: 0, y: -10 }}
+										<div 
 											transition={{ duration: 0.2 }}
 											className='absolute z-50 right-0 top-full pt-1'
 										>
@@ -443,9 +428,9 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 													<LogOut className='w-4 h-4' /> {tUI("nav.logout")}
 												</button>
 											</div>
-										</motion.div>
+										</div>
 									)}
-								</AnimatePresence>
+								
 							</div>
 						) : (
 							<NavLink

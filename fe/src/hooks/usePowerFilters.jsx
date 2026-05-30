@@ -1,8 +1,8 @@
 // src/hooks/usePowerFilters.js
 import React, { useMemo, useCallback } from "react";
 import { useGenericFilters } from "./useGenericFilters";
-import RarityIcon from "../components/common/rarityIcon";
-import { getRarityKey, getTypeKey } from "../utils/i18nHelpers";
+import RarityIcon from "@/components/common/rarityIcon";
+import { getRarityKey, getTypeKey } from "@/utils/i18nHelpers";
 
 export const usePowerFilters = (tUI, t, dynamicFilters, knownPowers) => {
 	const { state, actions, queryParams } = useGenericFilters({

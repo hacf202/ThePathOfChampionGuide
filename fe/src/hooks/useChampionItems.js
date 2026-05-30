@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from 'react';
-import itemData from '../assets/data/filteredPocItems.json';
+import itemData from '@/assets/data/filteredPocItems.json';
 
 const positiveKeywords = [
   "Tough", "Challenger", "Elusive", "Overwhelm", "Quick Attack", 

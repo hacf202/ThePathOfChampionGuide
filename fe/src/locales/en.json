@@ -267,7 +267,7 @@
 		"honor_coin": "Honor Coin",
 		"nova_shard": "Nova Shard",
 		"greater_gemstone_vessel": "Greater Gemstone Vessel",
-		"wild_frags": "Wild Fragments",
+		"wild_frags": "Wild Fragment",
 		"champ_frags": "Champion Fragments",
 		"runic_vessel": "Runic Vessel"
 	},
@@ -1529,7 +1529,7 @@
 		},
 		"loot": {
 			"champ_frags": "Champion Fragments",
-			"wild_frags": "Wild Fragments",
+			"wild_frags": "Wild Fragment",
 			"stardust": "Stardust",
 			"cosmic_blessing": "Greater Cosmic Blessing",
 			"star_crystal": "Star Crystal",

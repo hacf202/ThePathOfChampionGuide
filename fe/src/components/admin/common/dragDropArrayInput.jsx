@@ -20,7 +20,7 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import { createPortal } from "react-dom";
 import { XCircle, GripVertical } from "lucide-react";
-import SafeImage from "../../common/SafeImage";
+import SafeImage from "@/components/common/SafeImage";
 
 // --- 1. COMPONENT HÀNG MỤC (SORTABLE) ---
 const SortableArrayItem = memo(({ id, index, info, displayName, imgUrl, handleRemoveItem }) => {

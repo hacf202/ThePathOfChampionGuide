@@ -1,8 +1,8 @@
 // src/hooks/useRuneFilters.jsx
 import React, { useMemo, useCallback } from "react";
 import { useGenericFilters } from "./useGenericFilters";
-import RarityIcon from "../components/common/rarityIcon";
-import { getRarityKey } from "../utils/i18nHelpers";
+import RarityIcon from "@/components/common/rarityIcon";
+import { getRarityKey } from "@/utils/i18nHelpers";
 
 export const useRuneFilters = (tUI, t, dynamicFilters, knownRunes) => {
 	const { state, actions, queryParams } = useGenericFilters({

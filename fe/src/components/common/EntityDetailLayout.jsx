@@ -1,6 +1,6 @@
 import { memo, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+
 import { ChevronLeft, XCircle } from "lucide-react";
 import PageTitle from "./pageTitle";
 import Button from "./button";
@@ -71,22 +71,16 @@ function EntityDetailLayout({
 		<div className='animate-fadeIn'>
 			<PageTitle title={pageTitle} description={pageDescription} keywords={pageKeywords} type='article' />
 
-			<AnimatePresence mode='wait'>
+			
 				{loading ? (
-					<motion.div
+					<div
 						key='skeleton'
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						exit={{ opacity: 0 }}
-					>
+						>
 						<EntityDetailSkeleton />
-					</motion.div>
+					</div>
 				) : (
-					<motion.div
+					<div
 						key='content'
-						initial={{ opacity: 0, y: 10 }}
-						animate={{ opacity: 1, y: 0 }}
-						exit={{ opacity: 0, y: -10 }}
 						transition={{ duration: 0.3 }}
 						className='max-w-[1200px] mx-auto p-0 sm:p-6 text-text-primary font-secondary'
 					>
@@ -156,9 +150,9 @@ function EntityDetailLayout({
 								</div>
 							)}
 						</div>
-					</motion.div>
+					</div>
 				)}
-			</AnimatePresence>
+			
 		</div>
 	);
 }

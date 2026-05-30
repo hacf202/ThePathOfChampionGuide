@@ -10,10 +10,10 @@ import {
 	createR2Folder,
 	deleteR2Folder,
 	getBucketStats,
-} from "../../../context/services/apiHelper";
-import PageTitle from "../../common/pageTitle";
-import Button from "../../common/button";
-import { LoadingState } from "../common/stateDisplays";
+} from "@/context/services/apiHelper";
+import PageTitle from "@/components/common/pageTitle";
+import Button from "@/components/common/button";
+import { LoadingState } from "@/components/admin/common/stateDisplays";
 import {
 	UploadCloud,
 	Search,
@@ -536,7 +536,7 @@ const ImageManager = memo(() => {
 				)}
 
 				<div 
-					className={`h-full overflow-y-auto custom-scrollbar pb-10 ${isDragging ? "ring-2 ring-primary-500 ring-inset bg-primary-500/5" : ""}`}
+					className={`h-full overflow-y-auto-scrollbar pb-10 ${isDragging ? "ring-2 ring-primary-500 ring-inset bg-primary-500/5" : ""}`}
 					onDragOver={currentFolder ? onDragOver : null}
 					onDragLeave={currentFolder ? onDragLeave : null}
 					onDrop={currentFolder ? onDrop : null}
@@ -699,7 +699,7 @@ const ImageManager = memo(() => {
 								</Button>
 							</div>
 						</div>
-						<div className="mt-3 flex gap-1 overflow-x-auto pb-1 custom-scrollbar">
+						<div className="mt-3 flex gap-1 overflow-x-auto pb-1-scrollbar">
 							{selectedFiles.map((f, i) => (
 								<div key={i} className="flex-shrink-0 px-2 py-1 bg-page-bg border border-border rounded-md text-[9px] font-medium flex items-center gap-1">
 									<span className="truncate max-w-[80px]">{f.name}</span>

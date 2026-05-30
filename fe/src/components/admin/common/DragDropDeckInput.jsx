@@ -20,8 +20,8 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import { createPortal } from "react-dom";
 import { XCircle, Trash2, Plus, GripVertical } from "lucide-react";
-import { useTranslation } from "../../../hooks/useTranslation";
-import SafeImage from "../../common/SafeImage";
+import { useTranslation } from "@/hooks/useTranslation";
+import SafeImage from "@/components/common/SafeImage";
 
 // --- 1. COMPONENT HÀNG LÁ BÀI (SORTABLE) ---
 const SortableCardRow = memo(({ 
@@ -29,7 +29,7 @@ const SortableCardRow = memo(({
 	cardEntry, 
 	cardInfo, 
 	cardName, 
-	cardImg, 
+	cardImg,
 	dragOverIdx, 
 	handleDropOnCard, 
 	handleMouseEnter, 

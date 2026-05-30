@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useMemo } from "react";
 import axios from "axios";
-import { preloadAllEntities } from "../../utils/entityLookup";
+import { preloadAllEntities } from "@/utils/entityLookup";
 import {
 	useFloating,
 	autoUpdate,
@@ -9,10 +9,10 @@ import {
 	flip,
 	inline,
 } from "@floating-ui/react";
-import { AnimatePresence, motion } from "framer-motion";
-import { getAllEntities, initEntities } from "../../utils/entityLookup";
-import MarkupRenderer from "../common/MarkupRenderer";
-import { stripMarkup } from "../../utils/markupUtils";
+
+import { getAllEntities, initEntities } from "@/utils/entityLookup";
+import MarkupRenderer from "@/components/common/MarkupRenderer";
+import { stripMarkup } from "@/utils/markupUtils";
 import { Eye, Code, Type, Bold, Highlighter, Search, XCircle, ChevronDown, ChevronUp, Swords, Shield, Zap } from "lucide-react";
 
 /**
@@ -229,14 +229,11 @@ const MarkupEditor = ({ value, onChange, placeholder = "Nhập nội dung..." })
 					className="w-full min-h-[140px] p-3 bg-input-bg border border-input-border rounded-xl text-input-text text-sm focus:border-input-focus-border focus:ring-1 focus:ring-primary-500 outline-none transition-all resize-y font-sans leading-relaxed shadow-inner scrollbar-thin overflow-y-auto"
 				/>
 
-				<AnimatePresence>
+				
 					{showToolbar && (
-						<motion.div
+						<div
 							ref={refs.setFloating}
 							style={floatingStyles}
-							initial={{ opacity: 0, y: 5 }}
-							animate={{ opacity: 1, y: 0 }}
-							exit={{ opacity: 0 }}
 							className="z-[999] bg-gray-900 border border-white/10 shadow-2xl rounded-lg overflow-hidden flex flex-col min-w-[200px] backdrop-blur-xl"
 						>
 							{activeMenu === "main" ? (
@@ -275,7 +272,7 @@ const MarkupEditor = ({ value, onChange, placeholder = "Nhập nội dung..." })
 											onChange={e => setSearchQuery(e.target.value)}
 										/>
 									</div>
-									<div className="flex flex-col gap-0.5 max-h-48 overflow-y-auto custom-scrollbar">
+									<div className="flex flex-col gap-0.5 max-h-48 overflow-y-auto-scrollbar">
 										{filteredEntities.map(e => (
 											<button
                                                 key={e.id}
@@ -313,18 +310,15 @@ const MarkupEditor = ({ value, onChange, placeholder = "Nhập nội dung..." })
                                     </div>
                                 </div>
                             )}
-						</motion.div>
+						</div>
 					)}
-				</AnimatePresence>
+				
 			</div>
 
 			{/* Row Previews - Toggleable */}
-            <AnimatePresence>
+            
                 {(showPreview || showRaw) && (
-                    <motion.div 
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
+                    <div 
                         className="grid grid-cols-1 md:grid-cols-2 gap-3 overflow-hidden"
                     >
                         {showPreview && (
@@ -348,9 +342,9 @@ const MarkupEditor = ({ value, onChange, placeholder = "Nhập nội dung..." })
                                 </div>
                             </div>
                         )}
-                    </motion.div>
+                    </div>
                 )}
-            </AnimatePresence>
+            
 		</div>
 	);
 };

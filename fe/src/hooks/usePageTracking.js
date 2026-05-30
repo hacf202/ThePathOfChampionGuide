@@ -1,7 +1,7 @@
 // fe/src/hooks/usePageTracking.js
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 
 /**
  * usePageTracking Hook

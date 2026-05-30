@@ -5,7 +5,7 @@ import {
 	CheckCircle2, AlertCircle, Info, Activity, Search, 
 	Cpu, Clock, Terminal, Globe, ChevronRight, Library
 } from "lucide-react";
-import { useTranslation } from "../../../hooks/useTranslation";
+import { useTranslation } from "@/hooks/useTranslation";
 import Swal from "sweetalert2";
 
 const API_ADMIN_CACHE = `${import.meta.env.VITE_API_URL}/api/admin/cache`;

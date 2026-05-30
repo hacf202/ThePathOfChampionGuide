@@ -1,6 +1,6 @@
 // src/hooks/useTranslation.js
 import { useContext, useCallback } from "react";
-import { LanguageContext } from "../context/LanguageContext";
+import { LanguageContext } from "@/context/LanguageContext";
 
 export const useTranslation = () => {
 	// Lấy thêm dictionaries và isLangLoading từ Context

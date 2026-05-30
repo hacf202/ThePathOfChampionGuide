@@ -1,15 +1,15 @@
 // fe/src/components/admin/cards/cardEditor.jsx
 import { useState, memo, useEffect, useCallback, useMemo } from "react";
 import { useNavigate, Link, Routes, Route, useParams } from "react-router-dom";
-import GenericCard from "../../common/genericCard";
-import Button from "../../common/button";
-import { removeAccents } from "../../../utils/vietnameseUtils";
-import SidePanel from "../../common/sidePanel";
+import GenericCard from "@/components/common/genericCard";
+import Button from "@/components/common/button";
+import { removeAccents } from "@/utils/vietnameseUtils";
+import SidePanel from "@/components/common/sidePanel";
 import CardEditorForm from "./cardEditorForm";
-import { useTranslation } from "../../../hooks/useTranslation";
-import AdminListLayout from "../common/adminListLayout";
-import { LoadingState, ErrorState } from "../common/stateDisplays";
-import { invalidateEntityCache } from "../../../utils/entityLookup";
+import { useTranslation } from "@/hooks/useTranslation";
+import AdminListLayout from "@/components/admin/common/adminListLayout";
+import { LoadingState, ErrorState } from "@/components/admin/common/stateDisplays";
+import { invalidateEntityCache } from "@/utils/entityLookup";
 import Swal from "sweetalert2";
 
 const NEW_CARD_TEMPLATE = {

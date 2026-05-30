@@ -4,7 +4,7 @@ import {
 	Users, Eye, TrendingUp, BarChart3, Clock, 
 	Activity, Globe, MousePointer2, RefreshCw, AlertCircle 
 } from "lucide-react";
-import { useTranslation } from "../../../hooks/useTranslation";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const API_ADMIN_ANALYTICS = `${import.meta.env.VITE_API_URL}/api/admin/analytics`;
 

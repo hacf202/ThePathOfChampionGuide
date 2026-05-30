@@ -2,7 +2,7 @@
 import { useState, useCallback, useMemo, useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import { usePersistentState } from "./usePersistentState";
-import { removeAccents } from "../utils/vietnameseUtils";
+import { removeAccents } from "@/utils/vietnameseUtils";
 
 /**
  * Hook dùng chung cho mọi danh sách: Lọc, Tìm kiếm, Phân trang và Tự động đồng bộ URL
@@ -105,8 +105,7 @@ export const useGenericFilters = ({
 	}, [
 		currentPage,
 		sortOrder,
-		searchTerm,
-		customFilters,
+		searchTerm, customFilters,
 		defaultSort,
 		setSearchParams,
 	]);
@@ -191,8 +190,7 @@ export const useGenericFilters = ({
 			searchInput,
 			searchTerm,
 			sortOrder,
-			currentPage,
-			customFilters,
+			currentPage, customFilters,
 		},
 		actions: {
 			setSearchInput,

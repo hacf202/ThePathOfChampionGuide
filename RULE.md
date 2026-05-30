@@ -2,36 +2,108 @@
 
 Đây là file bộ quy tắc ứng xử duy nhất cho AI (SSOT - Single Source of Truth). Bất cứ lúc nào AI vận hành dự án này, hãy tuân theo các chỉ mục sau:
 
-## 0. Quy tắc cốt lõi (Core Rule)
-- **BẮT BUỘC ĐỌC SƠ ĐỒ DỰ ÁN**: Trước khi thực hiện bất kỳ thay đổi nào liên quan đến cấu trúc, logic hoặc thêm tính năng mới, AI **phải đọc file [project.nde](file:///d:/ThePathOfChampionGuide/project.nde)** để hiểu rõ mối quan hệ giữa các component, route và dữ liệu của hệ thống.
+---
+
+## 0. Quy tắc cốt lõi (Core Rules)
+
+- **ĐỌC CẤU TRÚC DỰ ÁN TRƯỚC**: Trước khi thực hiện bất kỳ thay đổi nào liên quan đến cấu trúc, logic hoặc tính năng mới, AI phải đọc `README.md` để hiểu kiến trúc tổng thể.
+- **KHÔNG thay đổi Data Flow**: Các lớp data fetching (`hooks/`, Context API) và chuỗi props hiện có phải được giữ nguyên. Chỉ thêm, không phá vỡ.
+- **Chạy `npm run build` sau mọi thay đổi cấu trúc**: Vite rất khắt khe với lỗi import/export. Sau mọi thao tác di chuyển file hoặc đổi tên, bắt buộc build để kiểm chứng.
+
+---
 
 ## 1. Tiêu chí tối cao (Delivery Standards)
-- **Ưu tiên Độ chính xác hơn Tốc độ (Accuracy > Speed)**: Thà chậm mà chắc. Làm việc tỉ mỉ, kiểm tra kỹ lưỡng các thay đổi trước khi báo cáo kết quả.
-- **Tự động kết luận và Hành động (Auto-conclude & Apply)**: Được phép tự động kết luận lỗi và sửa đổi hệ thống cho những công việc nằm trong phạm vi hiểu biết, **tuy nhiên bắt buộc phải ghi lại những thay đổi chính vào file .md** (ví dụ `walkthrough.md` hoặc `today.md`) để dễ dàng theo vết (tracking).
-- **Tuyệt đối không đoán mò**: Không sử dụng các cụm từ như "có vẻ đúng", "chắc là được".
-- **Hỏi lại khi không chắc chắn (Ask instead of guess)**: Bất cứ khi nào không chắc chắn về cấu trúc, hoặc không hiểu rõ ý định của user, **bắt buộc phải dừng lại và đặt câu hỏi** trước khi viết code.
+
+- **Độ chính xác > Tốc độ**: Làm việc tỉ mỉ, kiểm tra kỹ trước khi báo cáo kết quả.
+- **Tự động kết luận và Hành động**: Được phép tự sửa các lỗi rõ ràng (typo, import sai, i18n thiếu key) mà không cần hỏi lại.
+- **Hỏi lại khi không chắc chắn**: Bất cứ khi nào không chắc về ý định của user hoặc ảnh hưởng của thay đổi, **dừng lại và đặt câu hỏi** trước khi viết code.
+- **Tuyệt đối không đoán mò**: Không dùng "có vẻ đúng", "chắc là được".
 
 ### 1.1. Quy trình Lập kế hoạch (Planning Process)
-Với mọi yêu cầu (trừ sửa lỗi cú pháp đơn giản), AI **bắt buộc** thực hiện theo các bước:
-1. **Nghiên cứu (Research)**: Tìm hiểu kỹ mã nguồn và sơ đồ `project.nde`.
-2. **Lập Kế hoạch (Plan)**: Tạo file `implementation_plan.md` mô tả từng bước thực hiện.
-3. **Phê duyệt (Approval)**: Đợi người dùng phản hồi và chấp thuận kế hoạch.
+
+Với mọi yêu cầu phức tạp (trừ sửa lỗi đơn giản), AI **bắt buộc** thực hiện:
+1. **Nghiên cứu (Research)**: Đọc mã nguồn liên quan, xác định scope ảnh hưởng.
+2. **Lập Kế hoạch (Plan)**: Tạo `implementation_plan.md` mô tả từng bước.
+3. **Phê duyệt (Approval)**: Đợi người dùng chấp thuận kế hoạch.
 4. **Thực thi (Execute)**: Chỉ thực hiện sau khi có sự đồng ý.
-5. **Cập nhật Sơ đồ (Update NDE)**: Mọi thay đổi liên quan đến quan hệ, cấu trúc, logic đều phải cập nhật lại vào `project.nde`.
+5. **Xác minh (Verify)**: Chạy build hoặc test để xác nhận không có lỗi.
 
-## 2. Quy tắc Hệ thống (Architecture Guidelines)
-1. **Frontend**: Xử lý dựa trên React.js logic hiện có. Bắt buộc viết code giao diện dưới dạng **các module component nhỏ**, mỗi component đảm nhiệm một chức năng duy nhất (single responsibility) và gom lại thành một trang hoàn chỉnh.
-2. **Thống nhất Code Style**: Phải thống nhất một phong cách viết code từ đầu đến cuối dự án (từ cách đặt tên, cách chia file, đến cách sử dụng hook).
-3. **Ngôn ngữ (i18n)**: Mọi text hiển thị trên UI đều phải mapping qua `locales/vi.json` và `en.json`. KHÔNG hardcode văn bản trong mọi tình huống.
+---
 
+## 2. Quy tắc Kiến trúc (Architecture Guidelines)
 
-## 3. Quy tắc Bộ nhớ và Tri thức (Memory & Knowledge)
-- **today.md / task.md**: Ghi lại công việc, lỗi nhỏ và đặc biệt là **những thay đổi chính** sau mỗi lần tự động kết luận/sửa code.
-- **walkthrough.md**: Tổng hợp các thay đổi đã hoàn thành để báo cáo cho người dùng.
-- **projects.md / goals.md**: Nơi lưu trữ tầm nhìn dài hạn.
-- **Ghi nhận tri thức mới**: Bắt buộc **phải ghi nhận những tri thức mới** (logic mới, cấu trúc dữ liệu mới, component mới phức tạp) vào tài liệu dự án mỗi khi có tính năng/chức năng quan trọng được sinh ra. 
-- **active-tasks.json**: Cập nhật tiến độ liên tục khi bắt đầu và hoàn thành 1 task.
+### 2.1. Cấu trúc Feature-based
 
-## 4. Ranh giới vận hành (Boundaries)
-- **Được phép thực thi và tự kết luận**: Sửa lỗi cú pháp, chỉnh i18n, cập nhật tính năng theo định hướng đã thống nhất (phải ghi log vào `.md`).
-- **Bắt buộc hỏi lại (Human Review)**: Khi không hiểu rõ yêu cầu, khi thay đổi core database, cài thêm thư viện lớn, hoặc đụng chạm đến core architecture.
+Dự án theo kiến trúc **Feature-based**. Mỗi tính năng có thư mục riêng trong `src/features/<name>/`:
+
+```
+features/<name>/
+├── pages/        # Các trang routable (được đăng ký trong App.jsx)
+├── components/   # Components chuyên biệt của feature này
+├── hooks/        # Custom hooks riêng của feature (nếu có)
+└── admin/        # Giao diện quản trị (nếu có)
+```
+
+**Quy tắc phân loại:**
+- `src/features/<name>/` — Tất cả code chuyên biệt của một tính năng
+- `src/components/common/` — Shared UI (Button, Modal, PageTitle, Animations...)
+- `src/components/layout/` — Navbar, Footer, GenericListLayout
+- `src/components/admin/` — Hệ thống Admin CMS
+- `src/hooks/` — Chỉ các hook **thực sự dùng chung** (useTranslation, useGenericData, useGenericFilters, usePageTracking, usePersistentState...)
+- `src/pages/` — Chỉ `home.jsx` và `ErrorPage.jsx` (global pages)
+- `src/utils/` — Pure utility functions
+- `src/context/` — React Contexts + API services
+
+### 2.2. Quy tắc Component
+
+- Mỗi component đảm nhận **một chức năng duy nhất** (Single Responsibility).
+- Component quá lớn (> 300 dòng logic) nên được chia nhỏ theo sub-components.
+- Import luôn dùng alias `@/` thay vì đường dẫn tương đối `../../../`.
+
+### 2.3. Animation
+
+- Dự án dùng **GSAP** (không dùng Framer Motion — đã gỡ bỏ).
+- Sử dụng `useGSAP`, `gsap.to()`, `GSAP Flip`, `StaggerContainer/StaggerItem` từ `@/components/common/animations`.
+- KHÔNG thêm prop `transition={}` vào thẻ HTML thuần — đây là syntax Framer Motion, sẽ gây lỗi.
+
+---
+
+## 3. Quy tắc i18n (Đa ngôn ngữ)
+
+- **Bắt buộc 100%**: Mọi văn bản hiển thị trên UI phải mapping qua `locales/vi.json` và `locales/en.json`.
+- **KHÔNG hardcode** văn bản tiếng Việt hay tiếng Anh trong JSX.
+- Khi thêm key mới, cập nhật **cả hai file** `vi.json` và `en.json` cùng lúc.
+- Sử dụng `tUI("key.path")` cho UI text, `tDynamic(obj, "field")` cho dữ liệu động từ DB.
+
+---
+
+## 4. Quy tắc Bộ nhớ và Tri thức (Memory & Knowledge)
+
+- **task.md**: TODO list tiến độ công việc hiện tại.
+- **walkthrough.md**: Tổng hợp thay đổi đã hoàn thành để báo cáo.
+- **implementation_plan.md**: Kế hoạch chi tiết trước khi thực thi.
+- Ghi nhận tri thức mới (logic phức tạp, cấu trúc dữ liệu mới) vào tài liệu dự án.
+
+---
+
+## 5. Ranh giới vận hành (Operational Boundaries)
+
+| Loại thay đổi | Quyền hành động |
+|---|---|
+| Sửa lỗi cú pháp, typo, import sai | ✅ Tự động sửa, không cần hỏi |
+| Cập nhật i18n (thêm/sửa key) | ✅ Tự động, không cần hỏi |
+| Di chuyển file, đổi cấu trúc nhỏ | ✅ Tự động + chạy build kiểm chứng |
+| Thêm tính năng mới theo định hướng đã thống nhất | ✅ Lập kế hoạch → Thực thi |
+| Thay đổi core architecture | ⛔ Bắt buộc hỏi trước |
+| Thay đổi Data Flow, schema database | ⛔ Bắt buộc hỏi trước |
+| Cài thêm thư viện lớn mới | ⛔ Bắt buộc hỏi trước |
+| Xóa file/thư mục lớn | ⛔ Bắt buộc hỏi trước |
+
+---
+
+## 6. Tính năng đặc thù cần lưu ý
+
+- **GSAP Flip**: Dùng `useLayoutEffect` (không phải `useEffect`) khi dùng `Flip.getState()` trong `genericListLayout.jsx` để tránh layout shift khi toggle filter.
+- **Admin Scroll**: Trang Admin Editor (`/admin/champions/:id`) dùng `overflow-y-auto` trên main container, KHÔNG dùng `overflow-hidden`.
+- **Vault Simulator**: `LootItem` dùng key `vaultSimulator.loot.champ_frags` (không phải `champFrag`) để lấy tên "Mảnh Tướng".
+- **Build verification**: Sau mọi thay đổi cấu trúc lớn, chạy `npm run build` trong `/fe` để kiểm tra không có lỗi import.

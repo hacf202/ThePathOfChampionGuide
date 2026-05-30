@@ -1,10 +1,10 @@
 import { useState, memo, useEffect } from "react";
 import Swal from "sweetalert2";
-import InputField from "../../common/inputField";
-import { useTranslation } from "../../../hooks/useTranslation";
-import EditorHeaderToolbar from "../common/editorHeaderToolbar";
-import ImagePreviewBox from "../common/imagePreviewBox";
-import MarkupEditor from "../MarkupEditor";
+import InputField from "@/components/common/inputField";
+import { useTranslation } from "@/hooks/useTranslation";
+import EditorHeaderToolbar from "@/components/admin/common/editorHeaderToolbar";
+import ImagePreviewBox from "@/components/admin/common/imagePreviewBox";
+import MarkupEditor from "@/components/admin/MarkupEditor";
 
 const CardEditorForm = memo(({ card, onSave, onCancel, onDelete, isSaving }) => {
 	const [formData, setFormData] = useState({});

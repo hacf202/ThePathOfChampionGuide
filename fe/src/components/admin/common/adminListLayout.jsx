@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { useSearchParams } from "react-router-dom";
-import Button from "../../common/button";
-import SidePanel from "../../common/sidePanel";
-import { useTranslation } from "../../../hooks/useTranslation";
+import Button from "@/components/common/button";
+import SidePanel from "@/components/common/sidePanel";
+import { useTranslation } from "@/hooks/useTranslation";
 import { Filter, X, Plus, Search, RotateCw, ChevronLeft, ChevronRight } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
+
 
 const AdminListLayout = ({
 	dataLength,
@@ -95,7 +95,7 @@ const AdminListLayout = ({
 			</div>
 
 			{/* Left Content Area */}
-			<div className='flex-1 min-w-0 bg-surface-bg/30 rounded-2xl p-4 lg:p-6 order-2 lg:order-1 overflow-auto custom-scrollbar'>
+			<div className='flex-1 min-w-0 bg-surface-bg/30 rounded-2xl p-4 lg:p-6 order-2 lg:order-1 overflow-auto-scrollbar'>
 				{/* Top Actions for Mobile (Filter Toggle) */}
 				<div className="lg:hidden flex justify-between items-center mb-4">
 					<span className="text-sm font-bold text-text-secondary">{dataLength} Kết quả</span>
@@ -193,20 +193,14 @@ const AdminListLayout = ({
 			</aside>
 
 			{/* Mobile Drawer Overlay */}
-			<AnimatePresence>
+			
 				{isMobilePanelOpen && (
 					<>
-						<motion.div
-							initial={{ opacity: 0 }}
-							animate={{ opacity: 1 }}
-							exit={{ opacity: 0 }}
+						<div
 							onClick={() => setIsMobilePanelOpen(false)}
 							className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] lg:hidden"
 						/>
-						<motion.div
-							initial={{ x: "100%" }}
-							animate={{ x: 0 }}
-							exit={{ x: "100%" }}
+						<div
 							transition={{ type: "spring", damping: 25, stiffness: 200 }}
 							className="fixed top-0 right-0 bottom-0 w-[85%] max-w-sm bg-surface-bg z-[70] lg:hidden shadow-2xl flex flex-col"
 						>
@@ -226,10 +220,10 @@ const AdminListLayout = ({
 									Áp dụng bộ lọc
 								</Button>
 							</div>
-						</motion.div>
+						</div>
 					</>
 				)}
-			</AnimatePresence>
+			
 		</div>
 	);
 };

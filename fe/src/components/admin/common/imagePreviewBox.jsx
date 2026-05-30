@@ -1,5 +1,5 @@
 import { memo } from "react";
-import SafeImage from "../../common/SafeImage";
+import SafeImage from "@/components/common/SafeImage";
 
 const ImagePreviewBox = memo(
 	({

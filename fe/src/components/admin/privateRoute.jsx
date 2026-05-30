@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext.jsx"; // Hãy chắc chắn đường dẫn đến AuthContext là chính xác
+import { AuthContext } from "@/context/AuthContext.jsx"; // Hãy chắc chắn đường dẫn đến AuthContext là chính xác
 
 /**
  * Component "Người gác cổng" để bảo vệ các route.
