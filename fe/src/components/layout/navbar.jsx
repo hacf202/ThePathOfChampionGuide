@@ -1,5 +1,5 @@
 // components/layout/Navbar.jsx
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import DesktopNavbar from "./desktopNavbarView";
 import MobileSidebar from "./mobileNavbarView";
 import { useTranslation } from "@/hooks/useTranslation";
@@ -8,6 +8,24 @@ import { LoaderPinwheel } from "lucide-react";
 function Navbar() {
 	const { language, toggleLanguage, tUI } = useTranslation();
 	const [isChangingLanguage, setIsChangingLanguage] = useState(false);
+	const [isNavVisible, setIsNavVisible] = useState(true);
+	const lastScrollY = useRef(0);
+
+	useEffect(() => {
+		const handleScroll = () => {
+			const currentY = window.scrollY;
+			if (currentY < 10) {
+				setIsNavVisible(true);
+			} else if (currentY > lastScrollY.current) {
+				setIsNavVisible(false);
+			} else {
+				setIsNavVisible(true);
+			}
+			lastScrollY.current = currentY;
+		};
+		window.addEventListener("scroll", handleScroll, { passive: true });
+		return () => window.removeEventListener("scroll", handleScroll);
+	}, []);
 
 	// Hàm xử lý chuyển đổi ngôn ngữ có kèm loading
 	const handleLanguageChange = targetLang => {
@@ -41,11 +59,13 @@ function Navbar() {
 				language={language}
 				handleLanguageChange={handleLanguageChange}
 				tUI={tUI}
+				isNavVisible={isNavVisible}
 			/>
 			<MobileSidebar
 				language={language}
 				handleLanguageChange={handleLanguageChange}
 				tUI={tUI}
+				isNavVisible={isNavVisible}
 			/>
 		</>
 	);

@@ -41,7 +41,7 @@ import {
 	Coffee,
 } from "lucide-react";
 
-function DesktopNavbar({ language, handleLanguageChange, tUI }) {
+function DesktopNavbar({ language, handleLanguageChange, tUI, isNavVisible }) {
 	const { user, logout, isAdmin } = useContext(AuthContext);
 	const { theme, toggleTheme } = useTheme();
 	const navigate = useNavigate();
@@ -55,8 +55,6 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 	const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 	const [isThemeSettingsOpen, setIsThemeSettingsOpen] = useState(false);
 	const [isDonateOpen, setIsDonateOpen] = useState(false);
-	const [isNavVisible, setIsNavVisible] = useState(true);
-	const lastScrollY = useRef(0);
 
 	const profileMenuRef = useRef(null);
 	const databaseDropdownRef = useRef(null);
@@ -98,22 +96,6 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 
 		document.addEventListener("mousedown", handleClickOutside);
 		return () => document.removeEventListener("mousedown", handleClickOutside);
-	}, []);
-
-	useEffect(() => {
-		const handleScroll = () => {
-			const currentY = window.scrollY;
-			if (currentY < 10) {
-				setIsNavVisible(true);
-			} else if (currentY > lastScrollY.current) {
-				setIsNavVisible(false);
-			} else {
-				setIsNavVisible(true);
-			}
-			lastScrollY.current = currentY;
-		};
-		window.addEventListener("scroll", handleScroll, { passive: true });
-		return () => window.removeEventListener("scroll", handleScroll);
 	}, []);
 
 	const navLinkClass = ({ isActive }) =>

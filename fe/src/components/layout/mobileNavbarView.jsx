@@ -44,7 +44,7 @@ import {
 	Coffee,
 } from "lucide-react";
 
-function MobileSidebar({ language, handleLanguageChange, tUI }) {
+function MobileSidebar({ language, handleLanguageChange, tUI, isNavVisible }) {
 	const { user, logout, isAdmin } = useContext(AuthContext);
 	const { theme, toggleTheme } = useTheme();
 	const navigate = useNavigate();
@@ -60,8 +60,6 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 	const [isThemeSettingsOpen, setIsThemeSettingsOpen] = useState(false);
 	const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
 	const [isDonateOpen, setIsDonateOpen] = useState(false);
-	const [isNavVisible, setIsNavVisible] = useState(true);
-	const lastScrollY = useRef(0);
 
 	const sidebarRef = useRef(null);
 	const headerLangRef = useRef(null);
@@ -97,23 +95,6 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 		document.addEventListener("mousedown", handleClickOutside);
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 	}, []);
-
-	useEffect(() => {
-		const handleScroll = () => {
-			if (isSidebarOpen) return;
-			const currentY = window.scrollY;
-			if (currentY < 10) {
-				setIsNavVisible(true);
-			} else if (currentY > lastScrollY.current) {
-				setIsNavVisible(false);
-			} else {
-				setIsNavVisible(true);
-			}
-			lastScrollY.current = currentY;
-		};
-		window.addEventListener("scroll", handleScroll, { passive: true });
-		return () => window.removeEventListener("scroll", handleScroll);
-	}, [isSidebarOpen]);
 
 	const dropdownLinkClass =
 		"flex items-center gap-2 px-4 py-2 text-sm hover:bg-black/10 ";
