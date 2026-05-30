@@ -94,7 +94,7 @@ function MainContentContainer() {
 		<main
 			className={`flex-grow ${
 				isAdmin
-					? 'overflow-hidden flex flex-col h-screen'
+					? 'overflow-hidden flex flex-col flex-1'
 					: !isFullWidth ? "container mx-auto sm:px-4 py-2 sm:py-8 min-h-[80vh]" : "min-h-screen"
 			}`}
 		>
@@ -123,9 +123,10 @@ function AppLayout() {
 		<div
 			className={
 				isAdminRoute
-					? "flex flex-col h-screen overflow-hidden"
+					? "flex flex-col overflow-hidden pt-14"
 					: "flex flex-col min-h-screen overflow-x-hidden pt-14"
 			}
+			style={isAdminRoute ? { height: '100vh' } : undefined}
 		>
 			<Navbar />
 
