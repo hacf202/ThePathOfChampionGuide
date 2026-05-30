@@ -55,6 +55,8 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 	const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 	const [isThemeSettingsOpen, setIsThemeSettingsOpen] = useState(false);
 	const [isDonateOpen, setIsDonateOpen] = useState(false);
+	const [isNavVisible, setIsNavVisible] = useState(true);
+	const lastScrollY = useRef(0);
 
 	const profileMenuRef = useRef(null);
 	const databaseDropdownRef = useRef(null);
@@ -98,6 +100,21 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 	}, []);
 
+	useEffect(() => {
+		const handleScroll = () => {
+			const currentY = window.scrollY;
+			if (currentY < 10) {
+				setIsNavVisible(true);
+			} else if (currentY > lastScrollY.current) {
+				setIsNavVisible(false);
+			} else {
+				setIsNavVisible(true);
+			}
+			lastScrollY.current = currentY;
+		};
+		window.addEventListener("scroll", handleScroll, { passive: true });
+		return () => window.removeEventListener("scroll", handleScroll);
+	}, []);
 
 	const navLinkClass = ({ isActive }) =>
 		`flex items-center gap-2 py-2 px-4 rounded-lg transition-all duration-200 hover:bg-nav-hover-bg hover:scale-105 text-nav-link-text relative ${
@@ -113,7 +130,13 @@ function DesktopNavbar({ language, handleLanguageChange, tUI }) {
 
 	return (
 		<>
-			<header className='bg-header-bg text-header-text p-2 shadow-xl sticky top-0 z-[100] font-secondary hidden xl:block'>
+			<header
+				className='bg-header-bg text-header-text p-2 shadow-xl fixed top-0 left-0 right-0 z-[100] font-secondary hidden xl:block'
+				style={{
+					transform: isNavVisible ? 'translateY(0)' : 'translateY(-100%)',
+					transition: 'transform 0.3s ease',
+				}}
+			>
 				<div className='w-full px-6 flex justify-between items-center'>
 					<div className='flex items-center gap-8 flex-1'>
 						<NavLink

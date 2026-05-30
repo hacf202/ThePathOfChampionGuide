@@ -457,8 +457,6 @@ function ChampionDetail() {
 							</Button>
 
 							<ChampionHeader champion={champion} tDynamic={tDynamic} tUI={tUI} />
-							
-							<ChampionVideo champion={champion} tUI={tUI} />
 
 							{isFullDataLoading ? (
 								<div className="flex flex-col items-center justify-center py-20 space-y-4">
@@ -467,14 +465,6 @@ function ChampionDetail() {
 								</div>
 							) : (
 								<>
-							{/* COMMUNITY EVALUATION SECTION (Radar Chart) */}
-							<ChampionPlaystyleChart
-								champion={champion}
-								onRefresh={initData}
-								initialAllRatings={allRatings}
-								initialMyRating={myRating}
-							/>
-
 							{/* CONSTELLATION SECTION */}
 							{constellationInfo.nodes.length > 0 && (
 								<div className="bg-surface-bg border border-border rounded-xl p-1 sm:p-6 shadow-sm mt-6 overflow-hidden">
@@ -492,6 +482,17 @@ function ChampionDetail() {
 									</div>
 								</div>
 							)}
+
+							{/* COMMUNITY EVALUATION SECTION (Radar Chart) */}
+							<ChampionPlaystyleChart
+								champion={champion}
+								onRefresh={initData}
+								initialAllRatings={allRatings}
+								initialMyRating={myRating}
+							/>
+
+							{/* VIDEO SECTION */}
+							<ChampionVideo champion={champion} tUI={tUI} />
 
 							{/* STARTING DECK SECTION */}
 							<ChampionStartingDeck

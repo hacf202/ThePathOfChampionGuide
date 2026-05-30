@@ -60,6 +60,8 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 	const [isThemeSettingsOpen, setIsThemeSettingsOpen] = useState(false);
 	const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
 	const [isDonateOpen, setIsDonateOpen] = useState(false);
+	const [isNavVisible, setIsNavVisible] = useState(true);
+	const lastScrollY = useRef(0);
 
 	const sidebarRef = useRef(null);
 	const headerLangRef = useRef(null);
@@ -96,13 +98,36 @@ function MobileSidebar({ language, handleLanguageChange, tUI }) {
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 	}, []);
 
+	useEffect(() => {
+		const handleScroll = () => {
+			if (isSidebarOpen) return;
+			const currentY = window.scrollY;
+			if (currentY < 10) {
+				setIsNavVisible(true);
+			} else if (currentY > lastScrollY.current) {
+				setIsNavVisible(false);
+			} else {
+				setIsNavVisible(true);
+			}
+			lastScrollY.current = currentY;
+		};
+		window.addEventListener("scroll", handleScroll, { passive: true });
+		return () => window.removeEventListener("scroll", handleScroll);
+	}, [isSidebarOpen]);
+
 	const dropdownLinkClass =
 		"flex items-center gap-2 px-4 py-2 text-sm hover:bg-black/10 ";
 
 	return (
 		<>
 			{/* Mobile Header */}
-			<header className='bg-header-bg text-header-text p-2 shadow-xl sticky top-0 z-[100] xl:hidden flex items-center justify-between h-14 overflow-visible'>
+			<header
+				className='bg-header-bg text-header-text p-2 shadow-xl fixed top-0 left-0 right-0 z-[100] xl:hidden flex items-center justify-between h-14 overflow-visible'
+				style={{
+					transform: isNavVisible ? 'translateY(0)' : 'translateY(-100%)',
+					transition: 'transform 0.3s ease',
+				}}
+			>
 				{/* Logo Section */}
 				<div className="flex items-center gap-2 flex-shrink-0">
 					<NavLink to='/' className='flex items-center gap-2' onClick={closeSidebar}>

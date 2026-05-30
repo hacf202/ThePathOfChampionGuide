@@ -124,7 +124,7 @@ function AppLayout() {
 			className={
 				isAdminRoute
 					? "flex flex-col h-screen overflow-hidden"
-					: "flex flex-col min-h-screen overflow-x-hidden"
+					: "flex flex-col min-h-screen overflow-x-hidden pt-14"
 			}
 		>
 			<Navbar />
