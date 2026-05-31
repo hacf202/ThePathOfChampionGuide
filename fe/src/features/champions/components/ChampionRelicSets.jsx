@@ -6,7 +6,7 @@ const ChampionRelicSets = ({ relicSetsToRender, tUI }) => {
 	if (!relicSetsToRender || relicSetsToRender.length === 0) return null;
 
 	return (
-		<div className="bg-surface-bg border border-border rounded-2xl p-1 sm:p-4 shadow-lg shadow-black/10 mt-8 backdrop-blur-md">
+		<div className="bg-surface-bg border border-border rounded-2xl p-1 sm:p-4 shadow-lg shadow-black/10 mt-8">
 			<h2 className='text-xl sm:text-2xl font-bold font-primary text-primary-400 border-b border-border/60 pb-4 mb-6 flex items-center gap-3'>
 				<span className="w-1.5 h-6 bg-primary-500 rounded-full" />
 				{tUI("championDetail.relicSets") || "Cổ vật đề xuất"}

@@ -8,7 +8,6 @@ import GlobalSearch from "@/components/common/GlobalSearch.jsx";
 
 import Modal from "@/components/common/modal.jsx";
 import Button from "@/components/common/button.jsx";
-import Logo from "/favicon.ico";
 
 import DonateModal from "@/components/common/DonateModal.jsx";
 
@@ -112,7 +111,7 @@ function MobileSidebar({ language, handleLanguageChange, tUI, isNavVisible }) {
 				{/* Logo Section */}
 				<div className="flex items-center gap-2 flex-shrink-0">
 					<NavLink to='/' className='flex items-center gap-2' onClick={closeSidebar}>
-						<img src={Logo} alt='Logo' className='h-8 w-auto rounded' />
+						<img src="/favicon.ico" alt='Logo' className='h-8 w-auto rounded' />
 						<span className='font-primary text-xl whitespace-nowrap'>
 							POC GUIDE
 						</span>
@@ -182,7 +181,7 @@ function MobileSidebar({ language, handleLanguageChange, tUI, isNavVisible }) {
 							<div className='flex flex-col h-full'>
 					<div className='flex items-center justify-between p-3 border-b border-gray-700'>
 						<div className='flex items-center gap-2'>
-							<img src={Logo} alt='Logo' className='h-8 w-auto rounded' />
+							<img src="/favicon.ico" alt='Logo' className='h-8 w-auto rounded' />
 							<span className='font-primary text-xl text-header-text'>
 								POC GUIDE
 							</span>

@@ -8,7 +8,6 @@ import GlobalSearch from "@/components/common/GlobalSearch.jsx";
 
 import Modal from "@/components/common/modal.jsx";
 import Button from "@/components/common/button.jsx";
-import Logo from "/favicon.ico";
 
 import DonateModal from "@/components/common/DonateModal.jsx";
 
@@ -127,7 +126,7 @@ function DesktopNavbar({ language, handleLanguageChange, tUI, isNavVisible }) {
 							onClick={handleNavClick}
 						>
 							<img
-								src={Logo}
+								src="/favicon.ico"
 								alt='Logo'
 								className='h-10 w-auto object-contain rounded-lg transition-transform duration-300 group-hover:scale-110'
 							/>

@@ -86,9 +86,13 @@ const BuildSummary = ({
 			return;
 		}
 		const checkOverflow = () => {
-			setIsDescriptionOverflowing(
-				element.scrollHeight > DESCRIPTION_MAX_HEIGHT,
-			);
+			window.requestAnimationFrame(() => {
+				if (element) {
+					setIsDescriptionOverflowing(
+						element.scrollHeight > DESCRIPTION_MAX_HEIGHT,
+					);
+				}
+			});
 		};
 		const resizeObserver = new ResizeObserver(checkOverflow);
 		resizeObserver.observe(element);

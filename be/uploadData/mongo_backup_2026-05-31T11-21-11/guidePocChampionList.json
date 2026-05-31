@@ -1054,36 +1054,56 @@
   },
   {
     "relicSets": [
-      [
-        "R0116",
-        "R0091",
-        "R0080"
-      ],
-      [
-        "R0092",
-        "R0116",
-        "R0080"
-      ],
-      [
-        "R0046",
-        "R0013",
-        "R0048"
-      ],
-      [
-        "R0092",
-        "R0114",
-        "R0140"
-      ],
-      [
-        "R0061",
-        "R0052",
-        "R0052"
-      ],
-      [
-        "R0091",
-        "R0138",
-        "R0045"
-      ]
+      {
+        "items": [
+          "R0116",
+          "R0091",
+          "R0080"
+        ],
+        "description": "[r:R0116|Bộ Bài Đầy Ắp] trong bộ này đóng vai trò thăng tiến chỉ số về giai đoạn sau cho quân, [r:R0080|Quái Thú Bên Trong] cho [k:Overwhelm|Áp Đảo] và [r:R0091|Sức Mạnh Khỉ Đá] giúp bài quân có thêm sát thương ngay khi triệu hồi khi kết hợp cùng ngọc [p:P0857|Giáp Linh Hồn].",
+        "videoLink": "",
+        "descriptionRaw": "Bộ Bài Đầy Ắp trong bộ này đóng vai trò thăng tiến chỉ số về giai đoạn sau cho quân, Quái Thú Bên Trong cho Áp Đảo và Sức Mạnh Khỉ Đá giúp bài quân có thêm sát thương ngay khi triệu hồi khi kết hợp cùng ngọc Giáp Linh Hồn."
+      },
+      {
+        "items": [
+          "R0092",
+          "R0116",
+          "R0080"
+        ],
+        "description": "Ahri Hoa Linh khi tấn công sẽ triệu hồi [cd:98SB007|Lửa Hồ Ly] với chỉ số bằng với bài phép có tiêu hao cao nhất đã dùng, vì vậy có thể dùng [r:R0092|Kéo Cắt Ma Quái] để nhân đôi [cd:98SB007|Lửa Hồ Ly] đó thêm 1 quân nữa giúp tối ưu sát thương, tương tự thì [r:R0116|Bộ Bài Đầy Ắp] cho chỉ số và [r:R0080|Quái Thú Bên Trong] sẽ cho [k:Overwhelm|Áp Đảo].",
+        "videoLink": "",
+        "descriptionRaw": "Ahri Hoa Linh khi tấn công sẽ triệu hồi Lửa Hồ Ly với chỉ số bằng với bài phép có tiêu hao cao nhất đã dùng, vì vậy có thể dùng Kéo Cắt Ma Quái để nhân đôi Lửa Hồ Ly đó thêm 1 quân nữa giúp tối ưu sát thương, tương tự thì Bộ Bài Đầy Ắp cho chỉ số và Quái Thú Bên Trong sẽ cho Áp Đảo."
+      },
+      {
+        "items": [
+          "R0092",
+          "R0114",
+          "R0140"
+        ],
+        "description": "[r:R0092|Kéo Cắt Ma Quái] cho phép nhân đôi bài quân được hỗ trợ và ban cảm tử, thường sẽ được sử dụng để nhân đôi [cd:98SB007|Lửa Hồ Ly] của Ahri, [r:R0114|Khiên Đen] ban khiên phép cho quân giúp quân được an toàn hơn, [r:R0140|Linh Hồn Hỗ Trợ] giúp bài quân cảm tử có [k:Overwhelm|Áp Đảo] bên cạnh đó còn gọi thêm 2 [cd:98SB007|Lửa Hồ Ly] khi xuất trận tướng đó, giúp cho thêm sát thương.",
+        "videoLink": "",
+        "descriptionRaw": "Kéo Cắt Ma Quái cho phép nhân đôi bài quân được hỗ trợ và ban cảm tử, thường sẽ được sử dụng để nhân đôi Lửa Hồ Ly của Ahri, Khiên Đen ban khiên phép cho quân giúp quân được an toàn hơn, Linh Hồn Hỗ Trợ giúp bài quân cảm tử có Áp Đảo bên cạnh đó còn gọi thêm 2 Lửa Hồ Ly khi xuất trận tướng đó, giúp cho thêm sát thương."
+      },
+      {
+        "items": [
+          "R0091",
+          "R0092",
+          "R0045"
+        ],
+        "description": "[r:R0091|Sức Mạnh Khỉ Đá] giúp quân có thêm máu và [k:Formidable|Đáng Gờm] giúp quân của bạn đánh bằng máu, cộng thêm ngọc [p:P0857|Giáp Linh Hồn] cho thêm 3 máu nữa quân của bạn sẽ có chỉ số cực tốt ngay khi vừa triệu hồi, [r:R0092|Kéo Cắt Ma Quái] sẽ nhân đôi quân và [r:R0045|Mảnh Sao Biến Đổi] sẽ hấp thụ chỉ số của quân được hỗ trợ giúp cho Ahri khỏe hơn thay vì việc quân cảm tử ra đòn và tự chết. Lưu ý [r:R0092|Kéo Cắt Ma Quái] phải được đặt trên [r:R0045|Mảnh Sao Biến Đổi] để combo có thể hoạt động được.",
+        "videoLink": "",
+        "descriptionRaw": "Sức Mạnh Khỉ Đá giúp quân có thêm máu và Đáng Gờm giúp quân của bạn đánh bằng máu, cộng thêm ngọc Giáp Linh Hồn cho thêm 3 máu nữa quân của bạn sẽ có chỉ số cực tốt ngay khi vừa triệu hồi, Kéo Cắt Ma Quái sẽ nhân đôi quân và Mảnh Sao Biến Đổi sẽ hấp thụ chỉ số của quân được hỗ trợ giúp cho Ahri khỏe hơn thay vì việc quân cảm tử ra đòn và tự chết. Lưu ý Kéo Cắt Ma Quái phải được đặt trên Mảnh Sao Biến Đổi để combo có thể hoạt động được."
+      },
+      {
+        "items": [
+          "R0091",
+          "R0080",
+          "R0062"
+        ],
+        "description": "[r:R0091|Sức Mạnh Khỉ Đá] cho thêm máu và quân đánh bằng máu, mạnh hơn khi kết hợp cùng [p:P0857|Giáp Linh Hồn]. [r:R0080|Quái Thú Bên Trong] cho [k:Overwhelm|Áp Đảo]. [r:R0062|Tìm Thấy Thần Tài] cho bạn rút thêm 1 lá bài 3 tiêu hao và đặt về 0 và ban cho 1 vật phẩm sử thi khá tốt.",
+        "videoLink": "",
+        "descriptionRaw": "Sức Mạnh Khỉ Đá cho thêm máu và quân đánh bằng máu, mạnh hơn khi kết hợp cùng Giáp Linh Hồn. Quái Thú Bên Trong cho Áp Đảo. Tìm Thấy Thần Tài cho bạn rút thêm 1 lá bài 3 tiêu hao và đặt về 0 và ban cho 1 vật phẩm sử thi khá tốt."
+      }
     ],
     "regions": [
       "Hoa Linh Lục Địa",
@@ -1099,7 +1119,14 @@
       "I0044",
       "I0067",
       "I0070",
-      "I0012"
+      "I0012",
+      "I0210",
+      "I0040",
+      "I0042",
+      "I0075",
+      "I0123",
+      "I0212",
+      "I0208"
     ],
     "championID": "C006",
     "descriptionRaw": "-Ahri Chiêu Hồn nổi bậc với lối chơi đánh xoay quanh bài quân cảm tử là Lửa Hồ Ly.\\n-Nhờ việc triệu hồi được rất nhiều Lửa Hồ Ly thông qua việc sử dụng bài phép 1 tiêu hao trở lên với chỉ số phụ thuộc vào tiêu hao bài phép bạn sử dụng.\\n-Ahri Chiêu Hồn có khả năng đánh nhanh thắng nhanh khi kết hợp cũng các cổ vật tăng chỉ số và ban áp đảo như Quái Thú Bên Trong, Sức Mạnh Khỉ Đá, Linh Hồn Buhru, Bộ Bài Đầy Ấp.\\n-Ahri Chiêu Hồn còn có cả Ngọc bổ trợ đầy mạnh mẽ hỗ trợ cho lối chơi này là Giáp Linh Hồn.",
@@ -1156,7 +1183,12 @@
       "P0451",
       "P0024",
       "P0223",
-      "P0083"
+      "P0083",
+      "P0380",
+      "P0067",
+      "P0540",
+      "P0327",
+      "P0375"
     ],
     "description": "-Ahri Chiêu Hồn nổi bậc với lối chơi đánh xoay quanh bài quân cảm tử là Lửa Hồ Ly.\\n-Nhờ việc triệu hồi được rất nhiều Lửa Hồ Ly thông qua việc sử dụng bài phép 1 tiêu hao trở lên với chỉ số phụ thuộc vào tiêu hao bài phép bạn sử dụng.\\n-Ahri Chiêu Hồn có khả năng đánh nhanh thắng nhanh khi kết hợp cũng các cổ vật tăng chỉ số và ban áp đảo như Quái Thú Bên Trong, Sức Mạnh Khỉ Đá, [k:Spirit|Linh Hồn] Buhru, Bộ Bài Đầy Ấp.\\n-Ahri Chiêu Hồn còn có cả Ngọc bổ trợ đầy mạnh mẽ hỗ trợ cho lối chơi này là Giáp [k:Spirit|Linh Hồn].",
     "startingDeck": {
@@ -1328,8 +1360,8 @@
     "cost": 4,
     "assets": [
       {
-        "fullAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW002T2-full.png",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW002.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW002T2-full.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW002.png",
         "avatar": "https://images.pocguide.top/avatarChampions/Jack.webp"
       }
     ],
@@ -2364,8 +2396,8 @@
     "cost": 2,
     "assets": [
       {
-        "fullAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX007T1-full.png",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX007.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX007T1-full.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX007.png",
         "avatar": "https://images.pocguide.top/avatarChampions/Samira.webp"
       }
     ],
@@ -2574,8 +2606,8 @@
     "cost": 5,
     "assets": [
       {
-        "fullAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO011T1-full.png",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO011.png",
+        "fullAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO011T1-full.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO011.png",
         "avatar": "https://images.pocguide.top/avatarChampions/Sett.webp"
       }
     ],
@@ -2942,40 +2974,98 @@
       ]
     },
     "tags": [],
-    "cardCode": "01SI053"
+    "cardCode": "01SI053",
+    "communityRatings": {
+      "damage": 8,
+      "defense": 7.7,
+      "speed": 8.3,
+      "consistency": 7.7,
+      "synergy": 7.7,
+      "independence": 7.3,
+      "count": 3,
+      "communityOnlyAvg": {
+        "damage": 9.5,
+        "defense": 9,
+        "speed": 10,
+        "consistency": 9,
+        "synergy": 9,
+        "independence": 8.5,
+        "userCount": 2
+      }
+    }
   },
   {
     "relicSets": [
-      [
-        "R0125",
-        "R0109",
-        "R0048"
-      ],
-      [
-        "R0061",
-        "R0052",
-        "R0052"
-      ],
-      [
-        "R0064",
-        "R0043",
-        "R0043"
-      ],
-      [
-        "R0125",
-        "R0113",
-        "R0048"
-      ],
-      [
-        "R0058",
-        "R0061",
-        "R0125"
-      ],
-      [
-        "R0061",
-        "R0125",
-        "R0113"
-      ]
+      {
+        "items": [
+          "R0125",
+          "R0109",
+          "R0048"
+        ],
+        "description": "[r:R0125|Lõi Công Nghệ Hoàn Hảo] giúp đẩy nhanh các lá địa danh [cd:04SH130T1|Tư Dinh Chiến Tướng] và [cd:04SH130T6|Kho Báu Của Chiến Tướng] ngoài ra còn kích hoạt điều kiện dùng bài phép [cd:04SH131|Bắn Dây Móc]. Hàn Băng Mộ sẽ hoàn thành đếm ngược ở vòng 4 và cho bạn 2 con [cd:04SH130|Akshan]. [r:R0048|Máy Sao Chép Hóa Kỹ] giúp cho các bài phép được nhân lên nhiều lần, càng nhiều [cd:04SH130|Akshan] thì [r:R0048|Máy Sao Chép Hóa Kỹ] kích được càng nhiều lần, ngoài ra nếu có C6 khi bạn hoàn thành đếm ngược [cd:04SH130T1|Tư Dinh Chiến Tướng] thì sẽ đánh cắp 1 ngọc năng lượng của kẻ địch giúp đạt đủ mốc 6 năng lượng sớm hơn.",
+        "videoLink": "",
+        "descriptionRaw": "Lõi Công Nghệ Hoàn Hảo giúp đẩy nhanh các lá địa danh Tư Dinh Chiến Tướng và Kho Báu Của Chiến Tướng ngoài ra còn kích hoạt điều kiện dùng bài phép Bắn Dây Móc. Hàn Băng Mộ sẽ hoàn thành đếm ngược ở vòng 4 và cho bạn 2 con Akshan. Máy Sao Chép Hóa Kỹ giúp cho các bài phép được nhân lên nhiều lần, càng nhiều Akshan thì Máy Sao Chép Hóa Kỹ kích được càng nhiều lần, ngoài ra nếu có C6 khi bạn hoàn thành đếm ngược Tư Dinh Chiến Tướng thì sẽ đánh cắp 1 ngọc năng lượng của kẻ địch giúp đạt đủ mốc 6 năng lượng sớm hơn."
+      },
+      {
+        "items": [
+          "R0061",
+          "R0052",
+          "R0052"
+        ],
+        "description": "Combo cơ bản càng triệu hồi [c:C015|Akshan] nhiều lần, [r:R0052|Băng Cầu] sẽ càng ban nhiểu vật phẩm cho bộ bài, [r:R0061|Linh Hồn Vang Vọng] để tăng tỉ lệ [r:R0052|Băng Cầu] ban vật phẩm cho lá [cd:04SH130|Akshan].",
+        "videoLink": "",
+        "descriptionRaw": "Combo cơ bản càng triệu hồi Akshan nhiều lần, Băng Cầu sẽ càng ban nhiểu vật phẩm cho bộ bài, Linh Hồn Vang Vọng để tăng tỉ lệ Băng Cầu ban vật phẩm cho lá Akshan."
+      },
+      {
+        "items": [
+          "R0064",
+          "R0043",
+          "R0043"
+        ],
+        "description": "Trung bình các tướng 2 tiêu hao, [c:C015|Akshan] cũng không phải ngoại lệ khi có thể dùng tốt [r:R0064|Lời Thề Hộ Vệ] do có thể triệu hồi tướng sớm, [r:R0043|Ngọc Tinh Tú] giảm tiêu hao cho các anh hùng và thêm chỉ số.",
+        "videoLink": "",
+        "descriptionRaw": "Trung bình các tướng 2 tiêu hao, Akshan cũng không phải ngoại lệ khi có thể dùng tốt Lời Thề Hộ Vệ do có thể triệu hồi tướng sớm, Ngọc Tinh Tú giảm tiêu hao cho các anh hùng và thêm chỉ số."
+      },
+      {
+        "items": [
+          "R0125",
+          "R0113",
+          "R0048"
+        ],
+        "description": "Tương tự bộ 1, [r:R0125|Lõi Công Nghệ Hoàn Hảo] giúp đếm ngược địa danh nhanh hơn, kích bài phép anh hùng. [r:R0048|Máy Sao Chép Hóa Kỹ] giúp nhân đôi bài phép. [r:R0113|Sách Ẩn] giúp cho bạn dễ chơi hơn ở giai đoạn đầu nhờ việc hồi đầy năng lượng bài phép khi xuất trận hoặc thăng cấp anh hùng.",
+        "videoLink": "",
+        "descriptionRaw": "Tương tự bộ 1, Lõi Công Nghệ Hoàn Hảo giúp đếm ngược địa danh nhanh hơn, kích bài phép anh hùng. Máy Sao Chép Hóa Kỹ giúp nhân đôi bài phép. Sách Ẩn giúp cho bạn dễ chơi hơn ở giai đoạn đầu nhờ việc hồi đầy năng lượng bài phép khi xuất trận hoặc thăng cấp anh hùng."
+      },
+      {
+        "items": [
+          "R0058",
+          "R0061",
+          "R0125"
+        ],
+        "description": "Trong bộ này [c:C015|Akshan] sẽ đóng vai trò solo carry, [r:R0058|Lựa Chọn Của Tinh Tú] tăng thêm chỉ số khi dùng bài được tạo hoặc bài chọn mục tiêu của [p:P0693|Định Mệnh], ngoài ra khi đủ 10 sức mạnh trở lên còn được thêm [k:Challenger|Thách Đấu], [k:Overwhelm|Áp Đảo], [k:Regeneration|Hồi Phục]. [r:R0061|Linh Hồn Vang Vọng] giúp bạn có nhiều [cd:04SH130|Akshan] trên tay hơn để vận hành combo và còn giảm tiêu hao bài phép anh hùng nữa. [r:R0125|Lõi Công Nghệ Hoàn Hảo] cổ vật này vừa là bài được tạo sẽ tăng dmg cho [cd:04SH130|Akshan], cho thêm đặc điểm và kích điều kiện để sử dụng bài phép anh hùng.",
+        "videoLink": "",
+        "descriptionRaw": "Trong bộ này Akshan sẽ đóng vai trò solo carry, Lựa Chọn Của Tinh Tú tăng thêm chỉ số khi dùng bài được tạo hoặc bài chọn mục tiêu của Định Mệnh, ngoài ra khi đủ 10 sức mạnh trở lên còn được thêm Thách Đấu, Áp Đảo, Hồi Phục. Linh Hồn Vang Vọng giúp bạn có nhiều Akshan trên tay hơn để vận hành combo và còn giảm tiêu hao bài phép anh hùng nữa. Lõi Công Nghệ Hoàn Hảo cổ vật này vừa là bài được tạo sẽ tăng dmg cho Akshan, cho thêm đặc điểm và kích điều kiện để sử dụng bài phép anh hùng."
+      },
+      {
+        "items": [
+          "R0061",
+          "R0125",
+          "R0113"
+        ],
+        "description": "Lối xây dựng cổ vật này với [r:R0061|Linh Hồn Vang Vọng] giúp có nhiều [cd:04SH130|Akshan] và giảm tiêu hao bài phép anh hùng. [r:R0125|Lõi Công Nghệ Hoàn Hảo] vừa đẩy nhanh địa danh [cd:04SH130T1|Tư Dinh Chiến Tướng] và [cd:04SH130T6|Kho Báu Của Chiến Tướng] vừa kích điều kiện sử dụng bài phép anh hùng và thêm đặc điểm cho Akshan. [r:R0113|Sách Ẩn] dùng để hồi năng lượng cho phép bạn dùng [cd:04SH131|Bắn Dây Móc] vừa dọn quân, vừa gây sát thương lên nhà chính và đẩy nhanh địa danh.",
+        "videoLink": "",
+        "descriptionRaw": "Lối xây dựng cổ vật này với Linh Hồn Vang Vọng giúp có nhiều Akshan và giảm tiêu hao bài phép anh hùng. Lõi Công Nghệ Hoàn Hảo vừa đẩy nhanh địa danh Tư Dinh Chiến Tướng và Kho Báu Của Chiến Tướng vừa kích điều kiện sử dụng bài phép anh hùng và thêm đặc điểm cho Akshan. Sách Ẩn dùng để hồi năng lượng cho phép bạn dùng Bắn Dây Móc vừa dọn quân, vừa gây sát thương lên nhà chính và đẩy nhanh địa danh."
+      },
+      {
+        "items": [
+          "R0125",
+          "R0061",
+          "R0080"
+        ],
+        "description": "Cách xây dựng cổ vật này sẽ thiên về việc bạn gọi nhiều quân ra trước, sau đó dùng [r:R0125|Lõi Công Nghệ Hoàn Hảo] để đẩy nhanh địa danh tăng sát thương cho bài quân, [r:R0061|Linh Hồn Vang Vọng] cho nhiều [cd:04SH130|Akshan] để triệu hồi và đẩy nhanh địa danh dễ hơn, [r:R0080|Quái Thú Bên Trong] cho [k:Overwhelm|Áp Đảo] để tối ưu sát thương từ các bài quân.",
+        "videoLink": "",
+        "descriptionRaw": "Cách xây dựng cổ vật này sẽ thiên về việc bạn gọi nhiều quân ra trước, sau đó dùng Lõi Công Nghệ Hoàn Hảo để đẩy nhanh địa danh tăng sát thương cho bài quân, Linh Hồn Vang Vọng cho nhiều Akshan để triệu hồi và đẩy nhanh địa danh dễ hơn, Quái Thú Bên Trong cho Áp Đảo để tối ưu sát thương từ các bài quân."
+      }
     ],
     "regions": [
       "Shurima"
@@ -2985,12 +3075,17 @@
       "I0012",
       "I0070",
       "I0123",
-      "I0014",
       "I0130",
       "I0118",
       "I0072",
       "I0068",
-      "I0067"
+      "I0067",
+      "I0111",
+      "I0210",
+      "I0015",
+      "I0212",
+      "I0211",
+      "I0041"
     ],
     "championID": "C015",
     "descriptionRaw": "-Akshan là tướng có lối chơi đặc biệt với sự kết hợp giữa bài quân và địa danh.\\n-Khi địa danh đếm ngược bài quân được tăng sức mạnh và khi hoàn tất đếm ngược địa danh thì kích hoạt 2 thay vì 1 lần.\\n-Akshan có khả năng ra đòn nhanh nhờ bài phép anh hùng để đẩy nhanh địa danh, giảm tiêu hao, dàn quân, rút bài nhờ tư dinh chiến tướng.\\n-Khả năng ra đòn siêu tốc nếu nâng đủ mốc giúp Ashan công hoặc thủ đều khá toàn diện.\\n-Akshan có thể kết hợp với các cổ vật, sức mạnh chọn mục tiêu như Lõi Công Nghệ Hoàn Hảo, Đặc Ân Người Thợ để đẩy nhanh tốc độ lên cấp của Akshan.",
@@ -3040,33 +3135,15 @@
       "P0116",
       "P0056",
       "P0689",
-      "P0062"
+      "P0062",
+      "P0053",
+      "P0100",
+      "P0375",
+      "P0192",
+      "P0105"
     ],
     "description": "-[cd:04SH130|Akshan|icon,img-full] là tướng có lối chơi đặc biệt với sự kết hợp giữa bài quân và địa danh.\\n-Khi địa danh đếm ngược bài quân được tăng sức mạnh và khi hoàn tất đếm ngược địa danh thì kích hoạt 2 thay vì 1 lần.\\n-[cd:04SH130|Akshan|icon,img-full] có khả năng ra đòn nhanh nhờ bài phép anh hùng để đẩy nhanh địa danh, giảm tiêu hao, dàn quân, rút bài nhờ tư dinh chiến tướng.\\n-Khả năng ra đòn siêu tốc nếu nâng đủ mốc giúp Ashan công hoặc thủ đều khá toàn diện.\\n-[cd:04SH130|Akshan|icon,img-full] có thể kết hợp với các cổ vật, sức mạnh chọn mục tiêu như Lõi Công Nghệ Hoàn Hảo, Đặc Ân Người Thợ để đẩy nhanh tốc độ lên cấp của [cd:04SH130|Akshan|icon,img-full].",
     "startingDeck": {
-      "referenceCards": [
-        {
-          "itemCodes": [],
-          "cardCode": "04SH130T1"
-        },
-        {
-          "itemCodes": [],
-          "cardCode": "06FR012T1"
-        },
-        {
-          "itemCodes": [],
-          "cardCode": "04SH130T6"
-        },
-        {
-          "itemCodes": [
-            {
-              "itemCode": "I0108",
-              "unlockLevel": 0
-            }
-          ],
-          "cardCode": "04SH131"
-        }
-      ],
       "baseCards": [
         {
           "itemCodes": [
@@ -3151,6 +3228,29 @@
             }
           ],
           "cardCode": "04SH129"
+        }
+      ],
+      "referenceCards": [
+        {
+          "itemCodes": [],
+          "cardCode": "04SH130T1"
+        },
+        {
+          "itemCodes": [],
+          "cardCode": "06FR012T1"
+        },
+        {
+          "itemCodes": [],
+          "cardCode": "04SH130T6"
+        },
+        {
+          "itemCodes": [
+            {
+              "itemCode": "I0108",
+              "unlockLevel": 0
+            }
+          ],
+          "cardCode": "04SH131"
         }
       ]
     },
@@ -3378,36 +3478,56 @@
   },
   {
     "relicSets": [
-      [
-        "R0080",
-        "R0116",
-        "R0040"
-      ],
-      [
-        "R0013",
-        "R0020",
-        "R0075"
-      ],
-      [
-        "R0080",
-        "R0116",
-        "R0114"
-      ],
-      [
-        "R0020",
-        "R0001",
-        "R0040"
-      ],
-      [
-        "R0082",
-        "R0092",
-        "R0059"
-      ],
-      [
-        "R0059",
-        "R0112",
-        "R0089"
-      ]
+      {
+        "items": [
+          "R0080",
+          "R0116",
+          "R0040"
+        ],
+        "description": "[r:R0080|Quái Thú Bên Trong] sẽ cho [k:Overwhelm|Áp Đảo] cho quân do các bài quân của [c:C017|Ambessa] có tăng tiến sức mạnh rất nhiều. [r:R0116|Bộ Bài Đầy Ắp] cho thêm chỉ số ngay khi triệu hồi quân, ngoài ra việc bạn mua nhiều bài không quá ảnh hưởng đến lối chơi của Ambessa do mọi bài quân của Ambessa đều có thể carry được nếu đủ chỉ số. [r:R0040|Gươm Truy Tung] khi bạn triệu hồi sẽ ra đòn và tiêu diệt bài quân yếu nhất sau đó sẽ cho bạn 1 lá [cd:04NX022T1|Đột Kích Nửa Đêm] cho tấn công thêm 1 lần nữa, sẽ kết hợp cực tốt với tướng phụ có [k:Scout|Trinh Sát] cho bạn thêm lượt tấn công.",
+        "videoLink": "",
+        "descriptionRaw": "Quái Thú Bên Trong sẽ cho Áp Đảo cho quân do các bài quân của Ambessa có tăng tiến sức mạnh rất nhiều. Bộ Bài Đầy Ắp cho thêm chỉ số ngay khi triệu hồi quân, ngoài ra việc bạn mua nhiều bài không quá ảnh hưởng đến lối chơi của Ambessa do mọi bài quân của Ambessa đều có thể carry được nếu đủ chỉ số. Gươm Truy Tung khi bạn triệu hồi sẽ ra đòn và tiêu diệt bài quân yếu nhất sau đó sẽ cho bạn 1 lá Đột Kích Nửa Đêm cho tấn công thêm 1 lần nữa, sẽ kết hợp cực tốt với tướng phụ có Trinh Sát cho bạn thêm lượt tấn công."
+      },
+      {
+        "items": [
+          "R0080",
+          "R0116",
+          "R0114"
+        ],
+        "description": "Tương tự bộ 1, nhưng giờ sẽ đánh thuần theo hướng bài quân hơn, bất kỳ bài quân nào cũng có thể carry được, [r:R0080|Quái Thú Bên Trong] cho [k:Overwhelm|Áp Đảo], [r:R0116|Bộ Bài Đầy Ắp] cho chỉ số và [r:R0114|Khiên Đen] cho [k:SpellShield|Khiên Phép] cho quân.",
+        "videoLink": "",
+        "descriptionRaw": "Tương tự bộ 1, nhưng giờ sẽ đánh thuần theo hướng bài quân hơn, bất kỳ bài quân nào cũng có thể carry được, Quái Thú Bên Trong cho Áp Đảo, Bộ Bài Đầy Ắp cho chỉ số và Khiên Đen cho Khiên Phép cho quân."
+      },
+      {
+        "items": [
+          "R0159",
+          "R0020",
+          "R0040"
+        ],
+        "description": "Bộ này sẽ là [c:C017|Ambessa] solo carry, [r:R0159|Binh Đoàn Vệ Binh] cho Ambessa thêm chỉ số và đặc điểm khi nhận sát thương, [r:R0020|Kế Đối Phó Của Đại Tướng] để dùng bài phép anh hùng diệt quân và tiến công, [r:R0040|Gươm Truy Tung] sẽ diệt quân và tạo lá [cd:04NX022T1|Đột Kích Nửa Đêm] khi triệu hồi.",
+        "videoLink": "",
+        "descriptionRaw": "Bộ này sẽ là Ambessa solo carry, Binh Đoàn Vệ Binh cho Ambessa thêm chỉ số và đặc điểm khi nhận sát thương, Kế Đối Phó Của Đại Tướng để dùng bài phép anh hùng diệt quân và tiến công, Gươm Truy Tung sẽ diệt quân và tạo lá Đột Kích Nửa Đêm khi triệu hồi."
+      },
+      {
+        "items": [
+          "R0082",
+          "R0092",
+          "R0059"
+        ],
+        "description": "Trong bộ này [r:R0082|Găng Tinh Vân Sư] sẽ cho 1 ngọc năng lượng, [r:R0092|Kéo Cắt Ma Quái] cho thên 2 sức mạnh và nhân đôi quân được hỗi trợ để thêm dmg, [r:R0059|Dấu Vết Tử Thần] cho thêm 1 sức mạnh nữa vừa đủ để kích hoạt [r:R0082|Găng Tinh Vân Sư] và giúp cho Ambessa bất tử khi đang tấn công.",
+        "videoLink": "",
+        "descriptionRaw": "Trong bộ này Găng Tinh Vân Sư sẽ cho 1 ngọc năng lượng, Kéo Cắt Ma Quái cho thên 2 sức mạnh và nhân đôi quân được hỗi trợ để thêm dmg, Dấu Vết Tử Thần cho thêm 1 sức mạnh nữa vừa đủ để kích hoạt Găng Tinh Vân Sư và giúp cho Ambessa bất tử khi đang tấn công."
+      },
+      {
+        "items": [
+          "R0091",
+          "R0113",
+          "R0080"
+        ],
+        "description": "[r:R0091|Sức Mạnh Khỉ Đá] thêm máu cho quân và đánh bằng máu, do có C4 nên các bài quân được chọn mục tiêu sẽ có khiên nên không quá lo về việc mất máu. [r:R0080|Quái Thú Bên Trong] sẽ cho [k:Overwhelm|Áp Đảo] cho bài quân. Còn [r:R0113|Sách Ẩn] khi triệu hồi anh hùng giúp bạn hồi lại năng lượng bài phép để dùng lá [cd:98NX007|Quân Dịch], [cd:98NX004|Hành Quyết Công Khai] hoặc các bài phép khác.",
+        "videoLink": "",
+        "descriptionRaw": "Sức Mạnh Khỉ Đá thêm máu cho quân và đánh bằng máu, do có C4 nên các bài quân được chọn mục tiêu sẽ có khiên nên không quá lo về việc mất máu. Quái Thú Bên Trong sẽ cho Áp Đảo cho bài quân. Còn Sách Ẩn khi triệu hồi anh hùng giúp bạn hồi lại năng lượng bài phép để dùng lá Quân Dịch, Hành Quyết Công Khai hoặc các bài phép khác."
+      }
     ],
     "communityRatings": {
       "damage": 6,
@@ -3440,7 +3560,12 @@
       "I0075",
       "I0070",
       "I0012",
-      "I0069"
+      "I0069",
+      "I0211",
+      "I0212",
+      "I0118",
+      "I0019",
+      "I0045"
     ],
     "championID": "C017",
     "descriptionRaw": "-Ambessa sở hữu sức mạnh vượt trội với khả năng tăng tiến sức mạnh nhanh chóng cho các bài quân cùng loại.\\n-Sở hữu sức mạnh Huấn Luyện Đội Hình cho phép bài quân cùng tên nhận thêm máu và sức mạnh mỗi lần tấn công. Tấn công với càng nhiều bài quân cùng tên bài quân đó càng mạnh.\\n-Sức mạnh phù hợp cho Ambessa là các sức mạnh triệu hồi 2 bài quân khi bắt đầu trận, Chậm Mà Chắc, Pháp Thuật, Thống Trị,...\\n- Cổ vật Kéo Cắt Ma Quái, Bộ Bài Đầy Ấp kết hợp cực tốt với khả năng tăng tiến sức mạnh của Ambessa.",
@@ -3472,13 +3597,13 @@
       }
     },
     "ratings": {
-      "damage": 5,
-      "synergy": 5,
+      "damage": 6,
+      "synergy": 4,
       "defense": 5,
       "playstyleNote": null,
-      "independence": 5,
-      "consistency": 5,
-      "speed": 5
+      "independence": 6.5,
+      "consistency": 4.5,
+      "speed": 4.5
     },
     "runeIds": [],
     "adventurePowerIds": [
@@ -3490,30 +3615,15 @@
       "P0100",
       "P0053",
       "P0451",
-      "P0112"
+      "P0112",
+      "P0118",
+      "P0115",
+      "P0327",
+      "P0380",
+      "P0067"
     ],
     "description": "-Ambessa sở hữu sức mạnh vượt trội với khả năng tăng tiến sức mạnh nhanh chóng cho các bài quân cùng loại.\\n-Sở hữu sức mạnh Huấn Luyện Đội Hình cho phép bài quân cùng tên nhận thêm máu và sức mạnh mỗi lần tấn công. Tấn công với càng nhiều bài quân cùng tên bài quân đó càng mạnh.\\n-Sức mạnh phù hợp cho Ambessa là các sức mạnh triệu hồi 2 bài quân khi bắt đầu trận, [k:Slow|Chậm] Mà Chắc, Pháp Thuật, Thống Trị,...\\n- Cổ vật Kéo Cắt Ma Quái, Bộ Bài Đầy Ấp kết hợp cực tốt với khả năng tăng tiến sức mạnh của [cd:98NX003|Ambessa|icon,img-full].",
     "startingDeck": {
-      "referenceCards": [
-        {
-          "itemCodes": [
-            {
-              "itemCode": "I0055",
-              "unlockLevel": 0
-            }
-          ],
-          "cardCode": "98NX007"
-        },
-        {
-          "itemCodes": [
-            {
-              "itemCode": "I0012",
-              "unlockLevel": 0
-            }
-          ],
-          "cardCode": "01NX024"
-        }
-      ],
       "baseCards": [
         {
           "itemCodes": [
@@ -3595,6 +3705,26 @@
             {
               "itemCode": "I0007",
               "unlockLevel": 3
+            }
+          ],
+          "cardCode": "01NX024"
+        }
+      ],
+      "referenceCards": [
+        {
+          "itemCodes": [
+            {
+              "itemCode": "I0055",
+              "unlockLevel": 0
+            }
+          ],
+          "cardCode": "98NX007"
+        },
+        {
+          "itemCodes": [
+            {
+              "itemCode": "I0012",
+              "unlockLevel": 0
             }
           ],
           "cardCode": "01NX024"
@@ -4037,7 +4167,25 @@
       ]
     },
     "tags": [],
-    "cardCode": "98SB037"
+    "cardCode": "98SB037",
+    "communityRatings": {
+      "damage": 5,
+      "defense": 5.5,
+      "speed": 3,
+      "consistency": 6,
+      "synergy": 7.5,
+      "independence": 5,
+      "count": 2,
+      "communityOnlyAvg": {
+        "damage": 5,
+        "defense": 6,
+        "speed": 1,
+        "consistency": 7,
+        "synergy": 10,
+        "independence": 5,
+        "userCount": 1
+      }
+    }
   },
   {
     "relicSets": [
@@ -6450,7 +6598,25 @@
       ]
     },
     "tags": [],
-    "cardCode": "98SB044T1"
+    "cardCode": "98SB044T1",
+    "communityRatings": {
+      "damage": 6,
+      "defense": 6.5,
+      "speed": 6,
+      "consistency": 6.5,
+      "synergy": 7,
+      "independence": 3.5,
+      "count": 2,
+      "communityOnlyAvg": {
+        "damage": 7,
+        "defense": 8,
+        "speed": 7,
+        "consistency": 8,
+        "synergy": 9,
+        "independence": 2,
+        "userCount": 1
+      }
+    }
   },
   {
     "relicSets": [
@@ -7534,7 +7700,25 @@
       ]
     },
     "tags": [],
-    "cardCode": "98SB031"
+    "cardCode": "98SB031",
+    "communityRatings": {
+      "damage": 6.5,
+      "defense": 5.5,
+      "speed": 5.5,
+      "consistency": 6.5,
+      "synergy": 7.5,
+      "independence": 4,
+      "count": 2,
+      "communityOnlyAvg": {
+        "damage": 8,
+        "defense": 6,
+        "speed": 6,
+        "consistency": 8,
+        "synergy": 10,
+        "independence": 3,
+        "userCount": 1
+      }
+    }
   },
   {
     "relicSets": [
@@ -8879,22 +9063,22 @@
       ]
     ],
     "communityRatings": {
-      "damage": 7.5,
-      "synergy": 7.5,
-      "defense": 7.5,
-      "count": 2,
+      "damage": 8.3,
+      "defense": 8,
+      "speed": 7.7,
+      "consistency": 7.3,
+      "synergy": 8.3,
+      "independence": 8.3,
+      "count": 3,
       "communityOnlyAvg": {
         "damage": 10,
+        "defense": 9.5,
+        "speed": 9,
+        "consistency": 8.5,
         "synergy": 10,
-        "userCount": 1,
-        "defense": 10,
         "independence": 10,
-        "consistency": 8,
-        "speed": 8
-      },
-      "independence": 7.5,
-      "consistency": 6.5,
-      "speed": 6.5
+        "userCount": 2
+      }
     },
     "regions": [
       "Targon"
@@ -12070,36 +12254,61 @@
   },
   {
     "relicSets": [
-      [
-        "R0007",
-        "R0007",
-        "R0017"
-      ],
-      [
-        "R0007",
-        "R0017",
-        "R0017"
-      ],
-      [
-        "R0007",
-        "R0048",
-        "R0099"
-      ],
-      [
-        "R0099",
-        "R0048",
-        "R0143"
-      ],
-      [
-        "R0082",
-        "R0026",
-        "R0048"
-      ],
-      [
-        "R0048",
-        "R0020",
-        "R0007"
-      ]
+      {
+        "items": [
+          "R0007",
+          "R0017",
+          "R0048"
+        ],
+        "description": "[r:R0007|Thiên Thần Hộ Mệnh] cho Anivia bất tử, khi bị tiêu diệt sẽ triệu hồi 1 trứng và 1 Anivia bị choáng, [r:R0017|Bão Tố Luden] sẽ giúp tăng sát thương dựa trên số lượng Anivia càng nhiều thì càng hiệu quả, [r:R0048|Máy Sao Chép Hóa Kỹ] tương tự càng nhiều Anivia thì bài phép sẽ được nhân lên nhiều lần. ",
+        "videoLink": "",
+        "descriptionRaw": "Thiên Thần Hộ Mệnh cho Anivia bất tử, khi bị tiêu diệt sẽ triệu hồi 1 trứng và 1 Anivia bị choáng, Bão Tố Luden sẽ giúp tăng sát thương dựa trên số lượng Anivia càng nhiều thì càng hiệu quả, Máy Sao Chép Hóa Kỹ tương tự càng nhiều Anivia thì bài phép sẽ được nhân lên nhiều lần. "
+      },
+      {
+        "items": [
+          "R0007",
+          "R0017",
+          "R0017"
+        ],
+        "description": "",
+        "videoLink": ""
+      },
+      {
+        "items": [
+          "R0007",
+          "R0048",
+          "R0099"
+        ],
+        "description": "",
+        "videoLink": ""
+      },
+      {
+        "items": [
+          "R0099",
+          "R0048",
+          "R0143"
+        ],
+        "description": "",
+        "videoLink": ""
+      },
+      {
+        "items": [
+          "R0082",
+          "R0026",
+          "R0048"
+        ],
+        "description": "",
+        "videoLink": ""
+      },
+      {
+        "items": [
+          "R0048",
+          "R0020",
+          "R0007"
+        ],
+        "description": "",
+        "videoLink": ""
+      }
     ],
     "regions": [
       "Freljord"
@@ -12113,7 +12322,13 @@
       "I0012",
       "I0123",
       "I0075",
-      "I0079"
+      "I0079",
+      "I0118",
+      "I0206",
+      "I0044",
+      "I0050",
+      "I0212",
+      "I0069"
     ],
     "championID": "C058",
     "descriptionRaw": "-Anivia Á Thần mạnh mẽ của Freljord có khả năng kiểm soát bàn đấu mạnh mẽ nhờ các bài phép nguyên tố, khả năng tích cộng dồn ngọc năng lượng để đạt khai sáng cực kỳ sớm.\\n-Khả năng hồi sinh và tạo nhiều bản sao tướng của Anivia sẽ trở nên cực kỳ bá đạo khi kết hợp cùng Thiên Thần Hộ Mệnh và Cả Bão Tố Luden giúp cộng dồn sát thương kỹ năng và bài phép.\\n-Sức mạnh của Anivia sẽ được phát huy tối đa khi đi kèm cùng các vật phẩm sử dụng kỹ năng nguyên tố hoặc các bài phép nguyên tố có tiêu hao thấp để kích hoạt khai sáng sớm nhất có thể.\\n",
@@ -12163,7 +12378,12 @@
       "P0444",
       "P0075",
       "P0083",
-      "P0475"
+      "P0475",
+      "P0062",
+      "P0113",
+      "P0864",
+      "P0325",
+      "P0055"
     ],
     "description": "-[cd:01FR024|Anivia|icon,img-full] Á Thần mạnh mẽ của Freljord có khả năng kiểm soát bàn đấu mạnh mẽ nhờ các bài phép nguyên tố, khả năng tích cộng dồn ngọc năng lượng để đạt khai sáng cực kỳ sớm.\\n-Khả năng hồi sinh và tạo nhiều bản sao tướng của [cd:01FR024|Anivia|icon,img-full] sẽ trở nên cực kỳ bá đạo khi kết hợp cùng Thiên Thần Hộ Mệnh và Cả Bão Tố Luden giúp cộng dồn sát thương kỹ năng và bài phép.\\n-Sức mạnh của [cd:01FR024|Anivia|icon,img-full] sẽ được phát huy tối đa khi đi kèm cùng các vật phẩm sử dụng kỹ năng nguyên tố hoặc các bài phép nguyên tố có tiêu hao thấp để kích hoạt khai sáng sớm nhất có thể.\\n",
     "startingDeck": {
@@ -13067,36 +13287,96 @@
   },
   {
     "relicSets": [
-      [
-        "R0064",
-        "R0043",
-        "R0043"
-      ],
-      [
-        "R0061",
-        "R0052",
-        "R0052"
-      ],
-      [
-        "R0037",
-        "R0038",
-        "R0015"
-      ],
-      [
-        "R0113",
-        "R0037",
-        "R0038"
-      ],
-      [
-        "R0061",
-        "R0113",
-        "R0037"
-      ],
-      [
-        "R0085",
-        "R0113",
-        "R0037"
-      ]
+      {
+        "items": [
+          "R0064",
+          "R0043",
+          "R0043"
+        ],
+        "description": "Bộ này đánh bằng cách triệu hồi Ahri, [r:R0064|Lời Thề Hộ Vệ] kích hoạt rút được tướng và [r:R0043|Ngọc Tinh Tú] sẽ giảm 4 tiêu hao cho tướng giúp bạn gọi 1 quân cực mạnh dễ dàng.\n",
+        "videoLink": "",
+        "descriptionRaw": "Bộ này đánh bằng cách triệu hồi Ahri, Lời Thề Hộ Vệ kích hoạt rút được tướng và Ngọc Tinh Tú sẽ giảm 4 tiêu hao cho tướng giúp bạn gọi 1 quân cực mạnh dễ dàng.\n"
+      },
+      {
+        "items": [
+          "R0061",
+          "R0052",
+          "R0052"
+        ],
+        "description": "Bộ này sẽ hoạt động bằng cách triệu hồi [c:C063|Ahri] nhiều lần, từ đó kích hoạt [r:R0052|Băng Cầu] để ban vật phẩm sử thi cho bộ bài, [r:R0061|Linh Hồn Vang Vọng] đóng vai trò tăng tỉ lệ rút Ahri, giảm tiêu hao bài phép anh hùng giúp thu về dễ hơn, tăng số lượng Ahri trong bộ bài từ đó tăng tỉ lệ lá này nhận được vật phẩm từ [r:R0052|Băng Cầu].",
+        "videoLink": "",
+        "descriptionRaw": "Bộ này sẽ hoạt động bằng cách triệu hồi Ahri nhiều lần, từ đó kích hoạt Băng Cầu để ban vật phẩm sử thi cho bộ bài, Linh Hồn Vang Vọng đóng vai trò tăng tỉ lệ rút Ahri, giảm tiêu hao bài phép anh hùng giúp thu về dễ hơn, tăng số lượng Ahri trong bộ bài từ đó tăng tỉ lệ lá này nhận được vật phẩm từ Băng Cầu."
+      },
+      {
+        "items": [
+          "R0037",
+          "R0038",
+          "R0015"
+        ],
+        "description": "Lối xây dựng cổ vật xoay quanh việc bạn đôi chỉ số bằng [r:R0037|Anh Hùng Ca], khi xuất trận [c:C063|Ahri] sẽ được hồi năng lượng bài phép nhờ [r:R0015|Bí Chương Thất Truyền] từ đó sẽ có năng lượng để dùng lá [cd:01DE044|Trí Dũng Song Toàn], [r:R0038|Nhà Thông Thái Phá Thành] sẽ đóng vai trò gây sát thương lên nhà chính kẻ địch dựa trên sức mạnh khi xuất trận. ",
+        "videoLink": "",
+        "descriptionRaw": "Lối xây dựng cổ vật xoay quanh việc bạn đôi chỉ số bằng Anh Hùng Ca, khi xuất trận Ahri sẽ được hồi năng lượng bài phép nhờ Bí Chương Thất Truyền từ đó sẽ có năng lượng để dùng lá Trí Dũng Song Toàn, Nhà Thông Thái Phá Thành sẽ đóng vai trò gây sát thương lên nhà chính kẻ địch dựa trên sức mạnh khi xuất trận. "
+      },
+      {
+        "items": [
+          "R0113",
+          "R0037",
+          "R0038"
+        ],
+        "description": "Tương tự bộ 3, nhưng bạn sử dụng [r:R0113|Sách Ẩn] sẽ tốt hơn ở việc khi thăng cấp hoặc gọi anh hùng khác vẫn được hồi năng lượng.",
+        "videoLink": "",
+        "descriptionRaw": "Tương tự bộ 3, nhưng bạn sử dụng Sách Ẩn sẽ tốt hơn ở việc khi thăng cấp hoặc gọi anh hùng khác vẫn được hồi năng lượng."
+      },
+      {
+        "items": [
+          "R0061",
+          "R0113",
+          "R0037"
+        ],
+        "description": "Bộ cổ vật này sẽ hoạt động tốt khi [c:C063|Ahri] có C6 vì khi sở hữu C6 bạn thu về 1 bài quân sẽ ra đòn lên nhà chính địch thủ. [r:R0061|Linh Hồn Vang Vọng] sẽ giúp bạn có nhiều lá bài phép thu về để dùng, [r:R0113|Sách Ẩn] cho bạn hồi năng lượng, [r:R0037|Anh Hùng Ca] giúp gấp đôi chỉ số cho Ahri. Cách combo sẽ là xuất trận Ahri, dùng bài phép [cd:01DE044|Trí Dũng Song Toàn] lên Ahri và sau đó thu về Ahri, lặp lại combo đó đến khi bạn thắng.",
+        "videoLink": "",
+        "descriptionRaw": "Bộ cổ vật này sẽ hoạt động tốt khi Ahri có C6 vì khi sở hữu C6 bạn thu về 1 bài quân sẽ ra đòn lên nhà chính địch thủ. Linh Hồn Vang Vọng sẽ giúp bạn có nhiều lá bài phép thu về để dùng, Sách Ẩn cho bạn hồi năng lượng, Anh Hùng Ca giúp gấp đôi chỉ số cho Ahri. Cách combo sẽ là xuất trận Ahri, dùng bài phép Trí Dũng Song Toàn lên Ahri và sau đó thu về Ahri, lặp lại combo đó đến khi bạn thắng."
+      },
+      {
+        "items": [
+          "R0085",
+          "R0113",
+          "R0037"
+        ],
+        "description": "Tương tự bộ 5, nhưng thay vì việc dùng [r:R0061|Linh Hồn Vang Vọng] bạn có thể dùng [r:R0085|Bí Kỹ] lượng chỉ số nhận được gấp đôi từ [r:R0037|Anh Hùng Ca] bù lại sẽ ít combo liên tục được.",
+        "videoLink": "",
+        "descriptionRaw": "Tương tự bộ 5, nhưng thay vì việc dùng Linh Hồn Vang Vọng bạn có thể dùng Bí Kỹ lượng chỉ số nhận được gấp đôi từ Anh Hùng Ca bù lại sẽ ít combo liên tục được."
+      },
+      {
+        "items": [
+          "R0061",
+          "R0095",
+          "R0095"
+        ],
+        "description": "Bộ này dùng để xuất trận Ahri nhiều lần, ban [k:Gloom|Buồn Bã] tới chết, chắc vậy :))",
+        "videoLink": "",
+        "descriptionRaw": "Bộ này dùng để xuất trận Ahri nhiều lần, ban Buồn Bã tới chết, chắc vậy :))"
+      },
+      {
+        "items": [
+          "R0061",
+          "R0062",
+          "R0065"
+        ],
+        "description": "Trong bộ này [r:R0061|Linh Hồn Vang Vọng] giúp giảm tiêu hao bài phép anh hùng và có nhiều Ahri hơn, [r:R0062|Tìm Thấy Thần Tài] giúp cho bạn rút được bài 1 tiêu hao trong đó có lá thu về của Ahri, [r:R0065|Thuốc Nổ Nén Chặt] giúp Ahri luôn có 0 tiêu hao dễ combo lặp vô hạn gõ nhà để thắng hơn. Lưu ý bộ này dùng cho C6 [p:P0547|Quà Chia Tay] để gây sát thương từ việc thu về,  trong quá trình phiêu lưu cắt hết các lá 1 tiêu hao chỉ để lại lá [cd:05IO023|Hôn Gió] để [r:R0062|Tìm Thấy Thần Tài] chắc chắn rút trúng lá này.",
+        "videoLink": "",
+        "descriptionRaw": "Trong bộ này Linh Hồn Vang Vọng giúp giảm tiêu hao bài phép anh hùng và có nhiều Ahri hơn, Tìm Thấy Thần Tài giúp cho bạn rút được bài 1 tiêu hao trong đó có lá thu về của Ahri, Thuốc Nổ Nén Chặt giúp Ahri luôn có 0 tiêu hao dễ combo lặp vô hạn gõ nhà để thắng hơn. Lưu ý bộ này dùng cho C6 Quà Chia Tay để gây sát thương từ việc thu về,  trong quá trình phiêu lưu cắt hết các lá 1 tiêu hao chỉ để lại lá Hôn Gió để Tìm Thấy Thần Tài chắc chắn rút trúng lá này."
+      },
+      {
+        "items": [
+          "R0038",
+          "R0090",
+          "R0049"
+        ],
+        "description": "Trong bộ này [r:R0038|Nhà Thông Thái Phá Thành] đóng vai trò gây sát thương lên nhà chính đối thủ, [r:R0090|Thu Thập Cái Ác] giúp dọn sàn bên chủ yếu là bên đối thủ vì Ahri theo lối chơi này sẽ Solo Carry, [r:R0049|Mai Giáp Hóa Hư Không] giúp bạn lấy các đặc điểm của bài quân hy sinh từ cả địch lẫn ta, trong bộ này thì sẽ là từ việc [r:R0090|Thu Thập Cái Ác] giết quân đối thủ. Lưu ý nên có nhiều Ahri trên tay để dễ vận hành hơn.",
+        "videoLink": "",
+        "descriptionRaw": "Trong bộ này Nhà Thông Thái Phá Thành đóng vai trò gây sát thương lên nhà chính đối thủ, Thu Thập Cái Ác giúp dọn sàn bên chủ yếu là bên đối thủ vì Ahri theo lối chơi này sẽ Solo Carry, Mai Giáp Hóa Hư Không giúp bạn lấy các đặc điểm của bài quân hy sinh từ cả địch lẫn ta, trong bộ này thì sẽ là từ việc Thu Thập Cái Ác giết quân đối thủ. Lưu ý nên có nhiều Ahri trên tay để dễ vận hành hơn."
+      }
     ],
     "communityRatings": {
       "damage": 9,
@@ -13127,12 +13407,16 @@
       "I0078",
       "I0040",
       "I0045",
-      "I0014",
-      "I0044",
       "I0067",
       "I0118",
       "I0015",
-      "I0212"
+      "I0212",
+      "I0037",
+      "I0210",
+      "I0041",
+      "I0208",
+      "I0113",
+      "I0211"
     ],
     "championID": "C063",
     "descriptionRaw": "-Ahri có lối chơi xoay quanh việc thu về, thông thường thì khi bạn thu về chỉ số và đặc điểm sẽ mất, nhưng với sức mạnh Lời Thì Thầm Từ Kiếp Trước cho phép Ahri giữ lại các chỉ số, đặc điểm được ban vĩnh viễn và còn được giảm tiêu hao.\n-Khi bạn triệu hồi hoặc thu về thì sẽ được ban linh hồn, qua đó gia tăng chỉ số một cách nhanh chóng.\n-Ahri kết hợp tốt với các cổ vật, vật phẩm giảm tiêu hao hoặc kích hoạt hiệu ứng triệu hồi / xuất trận.",
@@ -13183,7 +13467,11 @@
       "P0090",
       "P0067",
       "P0069",
-      "P0084"
+      "P0084",
+      "P0375",
+      "P0908",
+      "P0684",
+      "P0056"
     ],
     "description": "-Ahri có lối chơi xoay quanh việc thu về, thông thường thì khi bạn thu về chỉ số và đặc điểm sẽ mất, nhưng với sức mạnh [p:P0531|Lời Thì Thầm Từ Kiếp Trước|icon] cho phép Ahri giữ lại các chỉ số, đặc điểm được ban vĩnh viễn và còn được giảm tiêu hao.\\n-Khi bạn triệu hồi hoặc thu về thì sẽ được ban linh hồn, qua đó gia tăng chỉ số một cách nhanh chóng.\\n-Ahri kết hợp tốt với các cổ vật, vật phẩm giảm tiêu hao hoặc kích hoạt hiệu ứng triệu hồi / xuất trận.",
     "startingDeck": {
@@ -15771,36 +16059,86 @@
   },
   {
     "relicSets": [
-      [
-        "R0080",
-        "R0040",
-        "R0040"
-      ],
-      [
-        "R0080",
-        "R0082",
-        "R0026"
-      ],
-      [
-        "R0080",
-        "R0116",
-        "R0114"
-      ],
-      [
-        "R0020",
-        "R0019",
-        "R0019"
-      ],
-      [
-        "R0080",
-        "R0113",
-        "R0116"
-      ],
-      [
-        "R0147",
-        "R0082",
-        "R0080"
-      ]
+      {
+        "items": [
+          "R0080",
+          "R0040",
+          "R0040"
+        ],
+        "description": "Bộ cổ vật này dùng để đánh theo phong cách Aatrox làm carry chính với 2 [r:R0040|gươm truy tung|icon], khi triệu hồi sẽ ra đòn giảm tiêu hao cho bài trên tay và hồi máu, [r:R0080|quái thú bên trong|icon] cho [k:Overwhelm|áp đảo|icon] và thêm chỉ số cho bài quân có nhóm phụ. \nLưu ý bắt buộc phải có [cd:06RU026|Aatrox|icon] và triệu hồi được tướng để vận hành tốt nhất, nên là các vật phẩm giảm tiêu hao nên được ưu tiên.",
+        "videoLink": "",
+        "descriptionRaw": "Bộ cổ vật này dùng để đánh theo phong cách Aatrox làm carry chính với 2 gươm truy tung, khi triệu hồi sẽ ra đòn giảm tiêu hao cho bài trên tay và hồi máu, quái thú bên trong cho áp đảo và thêm chỉ số cho bài quân có nhóm phụ. \nLưu ý bắt buộc phải có Aatrox và triệu hồi được tướng để vận hành tốt nhất, nên là các vật phẩm giảm tiêu hao nên được ưu tiên."
+      },
+      {
+        "items": [
+          "R0080",
+          "R0082",
+          "R0026"
+        ],
+        "description": "Bộ này lấy 1 ngọc năng lượng để lấy 1 ngọc năng lượng sớm. Để dễ dàng gọi quân và lắp trang bị hơn, không quá phụ thuộc vào [cd:06RU026|aatrox|icon]. [r:R0080|Quái thú bên trong|icon] để tối ưu sát thương và 1 chút chỉ số.",
+        "videoLink": "",
+        "descriptionRaw": "Bộ này lấy 1 ngọc năng lượng để lấy 1 ngọc năng lượng sớm. Để dễ dàng gọi quân và lắp trang bị hơn, không quá phụ thuộc vào aatrox. Quái thú bên trong để tối ưu sát thương và 1 chút chỉ số."
+      },
+      {
+        "items": [
+          "R0080",
+          "R0116",
+          "R0114"
+        ],
+        "description": "Bộ này mỗi cổ vật có vai trò riêng, [r:R0080|Quái thú|icon] sẽ cho bạn [k:Overwhelm|áp đảo|icon] và chỉ số cho các quân có nhóm phụ, [r:R0116|bộ bài đầy ắp|icon] cộng thêm chỉ số cho quân dựa trên số bài đang có, [r:R0114|khiên đen|icon] ban [k:SpellShield|khiên phép|icon] cho quân giúp quân bạn an toàn hơn. Nhìn chung đây là 1 bộ cổ vật vận hành xoay quanh tùy tùng không quá phụ thuộc tướng, nhưng sẽ hơi chậm do thiếu ngọc năng lượng, bạn sẽ phải mua nhiều bài để mạnh về giai đoạn sau.",
+        "videoLink": "",
+        "descriptionRaw": "Bộ này mỗi cổ vật có vai trò riêng, Quái thú sẽ cho bạn áp đảo và chỉ số cho các quân có nhóm phụ, bộ bài đầy ắp cộng thêm chỉ số cho quân dựa trên số bài đang có, khiên đen ban khiên phép cho quân giúp quân bạn an toàn hơn. Nhìn chung đây là 1 bộ cổ vật vận hành xoay quanh tùy tùng không quá phụ thuộc tướng, nhưng sẽ hơi chậm do thiếu ngọc năng lượng, bạn sẽ phải mua nhiều bài để mạnh về giai đoạn sau."
+      },
+      {
+        "items": [
+          "R0159",
+          "R0049",
+          "R0020"
+        ],
+        "description": "Bộ cổ vật này vận hành theo kiểu [cd:06RU026|Aatrox|icon] solo carry với việc kế đối phó tạo bài phép anh hùng và [cd:06RU026|Aatrox|icon] sẽ lần lượt dọn bàn bên kia, mỗi lần nhận sát thương sẽ nhận được thêm chỉ số nhờ [r:R0159|Binh Đoàn Vệ Binh|icon], bạn có thể thay thế bằng [r:R0019|Thắt Lưng Cuồng Binh|icon] cũng được, [r:R0049|Mai Giáp Hóa Hư Không|icon] sẽ cho bạn lấy các đặc điểm của bài quân hy sinh, tối ưu nhất sẽ là [k:Lifesteal|hút máu|icon]. Lưu ý bộ cổ vật này tối ưu nhất khi bạn gọi được [cd:06RU026|Aatrox|icon] sớm để vận hành, điều kiện tốt nhất là [cd:06RU026|Aatrox|icon] có vật phẩm [i:I0210|Bùa Xanh|icon] để hồi lại năng lượng sau mỗi lần ra đòn.",
+        "videoLink": "",
+        "descriptionRaw": "Bộ cổ vật này vận hành theo kiểu Aatrox solo carry với việc kế đối phó tạo bài phép anh hùng và Aatrox sẽ lần lượt dọn bàn bên kia, mỗi lần nhận sát thương sẽ nhận được thêm chỉ số nhờ Binh Đoàn Vệ Binh, bạn có thể thay thế bằng Thắt Lưng Cuồng Binh cũng được, Mai Giáp Hóa Hư Không sẽ cho bạn lấy các đặc điểm của bài quân hy sinh, tối ưu nhất sẽ là hút máu. Lưu ý bộ cổ vật này tối ưu nhất khi bạn gọi được Aatrox sớm để vận hành, điều kiện tốt nhất là Aatrox có vật phẩm Bùa Xanh để hồi lại năng lượng sau mỗi lần ra đòn."
+      },
+      {
+        "items": [
+          "R0080",
+          "R0113",
+          "R0116"
+        ],
+        "description": "Bộ này cách vận hành vẫn là mua bài để tăng tiến chỉ số về giai đoạn sau, [r:R0080|quái thú|icon] để tối ưu chỉ số, [r:R0113|Sách Ẩn|icon] sẽ đặc biệt 1 chút khi bạn nên chọn các tướng phụ 1-2-3 tiêu hao để triệu hồi sớm hồi năng lượng bài phép và lắp trang bị, tướng càng thấp tiêu hao càng tốt, càng dễ thăng cấp càng tốt để tối ưu sách ẩn.",
+        "videoLink": "",
+        "descriptionRaw": "Bộ này cách vận hành vẫn là mua bài để tăng tiến chỉ số về giai đoạn sau, quái thú để tối ưu chỉ số, Sách Ẩn sẽ đặc biệt 1 chút khi bạn nên chọn các tướng phụ 1-2-3 tiêu hao để triệu hồi sớm hồi năng lượng bài phép và lắp trang bị, tướng càng thấp tiêu hao càng tốt, càng dễ thăng cấp càng tốt để tối ưu sách ẩn."
+      },
+      {
+        "items": [
+          "R0147",
+          "R0082",
+          "R0080"
+        ],
+        "description": "Bộ này cũng sẽ giống bộ 2. [r:R0080|Quái Thú Bên Trong|icon] để tối ưu sát thương, [r:R0082|Găng Tinh Vân Sư|icon] để có thêm Ngọc Năng Lượng, [r:R0147|Quỷ Kiếm Darkin|icon] ngoài việc cung cấp chỉ số để kích hoạt găng thì còn giúp các bài quân Darkin ra đòn giúp dọn bàn và giảm tiêu hao tốt hơn.",
+        "videoLink": "",
+        "descriptionRaw": "Bộ này cũng sẽ giống bộ 2. Quái Thú Bên Trong để tối ưu sát thương, Găng Tinh Vân Sư để có thêm Ngọc Năng Lượng, Quỷ Kiếm Darkin ngoài việc cung cấp chỉ số để kích hoạt găng thì còn giúp các bài quân Darkin ra đòn giúp dọn bàn và giảm tiêu hao tốt hơn."
+      },
+      {
+        "items": [
+          "R0109",
+          "R0159",
+          "R0020"
+        ],
+        "description": "Tương tự bộ 4 nhưng bạn sẽ không cần quan tâm đến việc triệu hồi [cd:06RU026|Aatrox|icon] sớm. [cd:06RU026|Aatrox|icon] sẽ được gọi từ [r:R0109|Hàn Băng Mộ|icon] tại vòng 4, việc bạn cần làm là thủ từ đầu đến lúc [cd:06RU026|Aatrox|icon] được gọi ra, phần còn lại sẽ là sân chơi cho [cd:06RU026|Aatrox|icon] solo carry.",
+        "videoLink": "",
+        "descriptionRaw": "Tương tự bộ 4 nhưng bạn sẽ không cần quan tâm đến việc triệu hồi Aatrox sớm. Aatrox sẽ được gọi từ Hàn Băng Mộ tại vòng 4, việc bạn cần làm là thủ từ đầu đến lúc Aatrox được gọi ra, phần còn lại sẽ là sân chơi cho Aatrox solo carry."
+      },
+      {
+        "items": [
+          "R0007",
+          "R0049",
+          "R0040"
+        ],
+        "description": "Mai giáp hóa hư không sẽ giữ lại bất tử từ [r:R0007|Thiên Thần Hộ Mệnh|icon], giúp [cd:06RU026|Aatrox|icon] gần như không thể chết được, kết hợp cùng gươm truy tung giúp ra đòn giảm tiêu hao, dọn sàn, hồi máu.",
+        "videoLink": "",
+        "descriptionRaw": "Mai giáp hóa hư không sẽ giữ lại bất tử từ Thiên Thần Hộ Mệnh, giúp Aatrox gần như không thể chết được, kết hợp cùng gươm truy tung giúp ra đòn giảm tiêu hao, dọn sàn, hồi máu."
+      }
     ],
     "regions": [
       "Runeterra"
@@ -15815,7 +16153,12 @@
       "I0050",
       "I0123",
       "I0045",
-      "I0040"
+      "I0040",
+      "I0079",
+      "I0210",
+      "I0070",
+      "I0212",
+      "I0211"
     ],
     "championID": "C076",
     "descriptionRaw": "-Quỷ Kiếm Darkin, lối chơi kiểm soát bằng cách sử dụng các trang bị Darkin. \n-Sức mạnh của Aatrox nằm phần lớn ở sức mạnh Xiềng Xích Địa Ngục giúp giảm tiêu hao bài trên tay khi đồng minh mang trang bị ra đòn, nghĩa là bạn ra đòn bằng bài quân mang trang bị càng nhiều thì những lá bài trên tay bàng càng dễ sử dụng, khi mở khóa mốc sao Trang Bị Tận Răng thì bài quân có thêm +2|+2 làm cho các bài quân của bạn trở nên cứng cáp và trao đổi hiệu quả hơn nhiều.\n-Vì là 1 tướng cần set up nên Aatrox  rất tốn năng lượng nên bạn có thể nâng hoặc lấy các sức mạnh, vật phẩm liên qua đến giảm năng lượng để dễ triển khai hơn, với sức mạnh thì tốt nhất là Pháp Thuật cho bạn năng lượng bài phép để lắp trang bị hoặc những sức mạnh triệu hồi quân khi bắt đầu trận đấu để thay vì việc bỏ năng lượng ra để triệu hồi quân sau đó lắp trang bị thì giờ bạn chỉ cần lắp trang bị lên bài quân có sẵn trên bàn (tin tôi đi nó sẽ hiệu giúp bạn triển khai hiệu quả hơn rất nhiều :D)\n-Có 1 mẹo giúp bạn có 2 Aatrox  là bạn hãy lắp trang bị Darkin cho một tùy tùng khác sau đó dùng Chiến binh tận thế thì bạn sẽ có được 2 Aatrox. Cách làm sẽ là lắp 1 trang bị bất kì vào Aatrox để tháo trang bị Darkin của hắn ra -> lắp trang bị Quỷ Kiếm Darkin vào tùy tùng khác -> dùng Chiến binh tận thế. ",
@@ -15865,7 +16208,12 @@
       "P0451",
       "P0111",
       "P0389",
-      "P0053"
+      "P0053",
+      "P0084",
+      "P0100",
+      "P0109",
+      "P0113",
+      "P01443"
     ],
     "description": "-[cd:06RU026T1|Quỷ Kiếm Darkin|icon,img-full], lối chơi kiểm soát bằng cách sử dụng các trang bị Darkin. \\n-Sức mạnh của [c:C076|Aatrox |icon,img-full]nằm phần lớn ở sức mạnh [p:P0158|Xiềng Xích Địa Ngục|icon] giúp giảm tiêu hao bài trên tay khi đồng minh mang trang bị ra đòn, nghĩa là bạn ra đòn bằng bài quân mang trang bị càng nhiều thì những lá bài trên tay bàng càng dễ sử dụng, khi mở khóa mốc sao [p:P0389|Trang Bị Tận Răng|icon] thì bài quân có thêm +2|+2 làm cho các bài quân của bạn trở nên cứng cáp và trao đổi hiệu quả hơn nhiều.\\n-Vì là 1 tướng cần set up nên [cd:06RU026|Aatrox |icon] rất tốn năng lượng nên bạn có thể nâng hoặc lấy các sức mạnh, vật phẩm liên qua đến giảm năng lượng để dễ triển khai hơn, với sức mạnh thì tốt nhất là [p:P0111|Pháp Thuật|icon] cho bạn năng lượng bài phép để lắp trang bị hoặc những sức mạnh triệu hồi quân khi bắt đầu trận đấu để thay vì việc bỏ năng lượng ra để triệu hồi quân sau đó lắp trang bị thì giờ bạn chỉ cần lắp trang bị lên bài quân có sẵn trên bàn (tin tôi đi nó sẽ hiệu giúp bạn triển khai hiệu quả hơn rất nhiều :D)\\n-Có 1 mẹo giúp bạn có 2 [cd:06RU026|Aatrox |icon] là bạn hãy lắp trang bị Darkin cho một tùy tùng khác sau đó dùng [cd:06RU026T7|Chiến binh tận thế|icon] thì bạn sẽ có được 2 [cd:06RU026|Aatrox|icon]. Cách làm sẽ là lắp 1 trang bị bất kì vào [cd:06RU026|Aatrox|icon] để tháo trang bị Darkin của hắn ra -> lắp trang bị [cd:06RU026T1|Quỷ Kiếm Darkin|icon,img-full] vào tùy tùng khác -> dùng [cd:06RU026T7|Chiến binh tận thế|icon]. ",
     "startingDeck": {

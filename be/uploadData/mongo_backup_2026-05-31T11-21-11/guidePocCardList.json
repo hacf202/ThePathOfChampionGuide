@@ -70055,7 +70055,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BC005.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BC005.png",
     "cardCode": "07BC005",
     "cost": 2,
     "regions": [
@@ -70064,7 +70064,7 @@
     "translations": {
       "en": {
         "description": null,
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BC005.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BC005.png",
         "regions": [
           "Bandle City"
         ],
@@ -70092,7 +70092,7 @@
     ]
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BC009.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BC009.png",
     "cardCode": "07BC009",
     "cost": 1,
     "regions": [
@@ -70101,7 +70101,7 @@
     "translations": {
       "en": {
         "description": "Deal 1 to a unit. Create a [cd:07BC009T1|Perilous Pastry|icon,img-full] in hand.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BC009.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BC009.png",
         "regions": [
           "Bandle City"
         ],
@@ -70127,7 +70127,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BC009T1.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BC009T1.png",
     "cardCode": "07BC009T1",
     "cost": 2,
     "regions": [
@@ -70136,7 +70136,7 @@
     "translations": {
       "en": {
         "description": "Deal 1 to anything. ",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BC009T1.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BC009T1.png",
         "regions": [
           "Bandle City"
         ],
@@ -70195,7 +70195,7 @@
     ]
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BC015.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BC015.png",
     "cardCode": "07BC015",
     "cost": 3,
     "regions": [
@@ -70204,7 +70204,7 @@
     "translations": {
       "en": {
         "description": "Pick a follower. Create a 1 cost copy of it in hand and set its stats to 1|1.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BC015.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BC015.png",
         "regions": [
           "Bandle City"
         ],
@@ -70317,7 +70317,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW001.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW001.png",
     "cardCode": "07BW001",
     "cost": 4,
     "regions": [
@@ -70326,7 +70326,7 @@
     "translations": {
       "en": {
         "description": "When you refill mana, create a Fleeting random follower in hand you can exactly afford.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW001.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW001.png",
         "regions": [
           "Bilgewater"
         ],
@@ -70344,7 +70344,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW002.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW002.png",
     "cardCode": "07BW002",
     "cost": 4,
     "regions": [
@@ -70353,7 +70353,7 @@
     "translations": {
       "en": {
         "description": "[k:Strike|Strike]: Create a Coin in hand.\r\nWhen you refill mana, heal me 1 for each mana refilled.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW002.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW002.png",
         "regions": [
           "Bilgewater"
         ],
@@ -70381,7 +70381,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW002T1.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW002T1.png",
     "cardCode": "07BW002T1",
     "cost": 4,
     "regions": [
@@ -70390,7 +70390,7 @@
     "translations": {
       "en": {
         "description": "Deal 3 to a unit. If this kills it, create 2 Coins in hand.\r\nCreate a Jack in your deck.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW002T1.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW002T1.png",
         "regions": [
           "Bilgewater"
         ],
@@ -70418,7 +70418,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW002T2.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW002T2.png",
     "cardCode": "07BW002T2",
     "cost": 4,
     "regions": [
@@ -70427,7 +70427,7 @@
     "translations": {
       "en": {
         "description": "[k:Strike|Strike]: Create 2 Coins in hand.\r\nWhen you refill mana, grant me +1|+0 and heal me 1 for each mana refilled.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW002T2.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW002T2.png",
         "regions": [
           "Bilgewater"
         ],
@@ -70457,7 +70457,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW003.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW003.png",
     "cardCode": "07BW003",
     "cost": 1,
     "regions": [
@@ -70466,7 +70466,7 @@
     "translations": {
       "en": {
         "description": "[k:LastBreath|Last Breath]: Create a Coin in hand.\r\n",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW003.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW003.png",
         "regions": [
           "Bilgewater"
         ],
@@ -70492,7 +70492,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW004.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW004.png",
     "cardCode": "07BW004",
     "cost": 7,
     "regions": [
@@ -70501,7 +70501,7 @@
     "translations": {
       "en": {
         "description": "When I'm summoned, draw a Jack.\r\nWhen you summon an ally, create a Fleeting Prize Fight in hand.\r\nWhen an ally survives damage, grant it [k:Brash|Brash].",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW004.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW004.png",
         "regions": [
           "Bilgewater"
         ],
@@ -70530,7 +70530,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW006.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW006.png",
     "cardCode": "07BW006",
     "cost": 4,
     "regions": [
@@ -70539,7 +70539,7 @@
     "translations": {
       "en": {
         "description": "Deal 3 to a unit. If this kills it, create 2 Coins in hand.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW006.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW006.png",
         "regions": [
           "Bilgewater"
         ],
@@ -70565,7 +70565,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW008.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW008.png",
     "cardCode": "07BW008",
     "cost": 1,
     "regions": [
@@ -70574,7 +70574,7 @@
     "translations": {
       "en": {
         "description": "An ally and an enemy strike each other. They can't drop below 1 [k:Health|Health] from this strike.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW008.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW008.png",
         "regions": [
           "Bilgewater"
         ],
@@ -70598,7 +70598,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW013.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW013.png",
     "cardCode": "07BW013",
     "cost": 5,
     "regions": [
@@ -70607,7 +70607,7 @@
     "translations": {
       "en": {
         "description": "[k:Plunder|Plunder]: Create 3 Coins in hand.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW013.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW013.png",
         "regions": [
           "Bilgewater"
         ],
@@ -70633,7 +70633,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW014.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW014.png",
     "cardCode": "07BW014",
     "cost": 3,
     "regions": [
@@ -70642,7 +70642,7 @@
     "translations": {
       "en": {
         "description": "When I'm summoned, create a Fleeting [cd:07BW008|Prize Fight|icon,img-full] in hand.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW014.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW014.png",
         "regions": [
           "Bilgewater"
         ],
@@ -70668,7 +70668,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW018.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW018.png",
     "cardCode": "07BW018",
     "cost": 2,
     "regions": [
@@ -70677,7 +70677,7 @@
     "translations": {
       "en": {
         "description": "When you refill mana, grant me +1|+0 for each mana refilled.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW018.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW018.png",
         "regions": [
           "Bilgewater"
         ],
@@ -70697,7 +70697,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW021.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW021.png",
     "cardCode": "07BW021",
     "cost": 3,
     "regions": [
@@ -70706,7 +70706,7 @@
     "translations": {
       "en": {
         "description": "[k:Plunder|Plunder]: [k:Summon|Summon] a random 1 cost follower and grant it [k:Brash|Brash].",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW021.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW021.png",
         "regions": [
           "Bilgewater"
         ],
@@ -70732,7 +70732,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW025.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW025.png",
     "cardCode": "07BW025",
     "cost": 4,
     "regions": [
@@ -70741,7 +70741,7 @@
     "translations": {
       "en": {
         "description": "When you activate [k:Plunder|Plunder], draw 1 and grant it Fleeting.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW025.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW025.png",
         "regions": [
           "Bilgewater"
         ],
@@ -70765,7 +70765,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW026.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW026.png",
     "cardCode": "07BW026",
     "cost": 4,
     "regions": [
@@ -70774,7 +70774,7 @@
     "translations": {
       "en": {
         "description": "Plunder: I cost 2 less.\r\nDraw 2 at the next [k:RoundStart|Round Start] and grant them Fleeting.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW026.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW026.png",
         "regions": [
           "Bilgewater"
         ],
@@ -70800,7 +70800,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW027.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW027.png",
     "cardCode": "07BW027",
     "cost": 2,
     "regions": [
@@ -70809,7 +70809,7 @@
     "translations": {
       "en": {
         "description": "[k:Plunder|Plunder]: Refill 1 spell mana and create a random 1 cost spell from your regions in hand.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW027.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW027.png",
         "regions": [
           "Bilgewater"
         ],
@@ -70936,7 +70936,7 @@
     ]
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW040.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW040.png",
     "cardCode": "07BW040",
     "cost": 2,
     "regions": [
@@ -70945,7 +70945,7 @@
     "translations": {
       "en": {
         "description": "When I'm summoned, create a Fleeting Mako in hand.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW040.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW040.png",
         "regions": [
           "Bilgewater"
         ],
@@ -70972,7 +70972,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW040T1.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW040T1.png",
     "cardCode": "07BW040T1",
     "cost": 4,
     "regions": [
@@ -70981,7 +70981,7 @@
     "translations": {
       "en": {
         "description": "When I'm summoned, create a Fleeting Bull in hand.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW040T1.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW040T1.png",
         "regions": [
           "Bilgewater"
         ],
@@ -71007,7 +71007,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW040T2.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW040T2.png",
     "cardCode": "07BW040T2",
     "cost": 6,
     "regions": [
@@ -71016,7 +71016,7 @@
     "translations": {
       "en": {
         "description": "When I'm summoned, [k:Rally|Rally].",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW040T2.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW040T2.png",
         "regions": [
           "Bilgewater"
         ],
@@ -71040,7 +71040,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW041.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07BW041.png",
     "cardCode": "07BW041",
     "cost": 2,
     "regions": [
@@ -71049,7 +71049,7 @@
     "translations": {
       "en": {
         "description": "[k:Strike|Strike]: Create a Coin in hand.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW041.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW041.png",
         "regions": [
           "Bilgewater"
         ],
@@ -71145,7 +71145,7 @@
     ]
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07DE002.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07DE002.png",
     "cardCode": "07DE002",
     "cost": 4,
     "regions": [
@@ -71154,7 +71154,7 @@
     "translations": {
       "en": {
         "description": "An ally with 4+ [k:Power|Power] Captures a unit or an ally Captures a landmark.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07DE002.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07DE002.png",
         "regions": [
           "Demacia"
         ],
@@ -71178,7 +71178,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07DE002T1.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07DE002T1.png",
     "cardCode": "07DE002T1",
     "cost": 4,
     "regions": [
@@ -71187,7 +71187,7 @@
     "translations": {
       "en": {
         "description": "An ally Captures a landmark.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07DE002T1.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07DE002T1.png",
         "regions": [
           "Demacia"
         ],
@@ -71211,7 +71211,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07DE002T2.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07DE002T2.png",
     "cardCode": "07DE002T2",
     "cost": 4,
     "regions": [
@@ -71220,7 +71220,7 @@
     "translations": {
       "en": {
         "description": "An ally with 4+ [k:Power|Power] Captures a unit.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07DE002T2.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07DE002T2.png",
         "regions": [
           "Demacia"
         ],
@@ -71244,7 +71244,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07DE005.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07DE005.png",
     "cardCode": "07DE005",
     "cost": 2,
     "regions": [
@@ -71253,7 +71253,7 @@
     "translations": {
       "en": {
         "description": "Give an ally +2|+2 this round.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07DE005.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07DE005.png",
         "regions": [
           "Demacia"
         ],
@@ -71277,7 +71277,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07DE008.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07DE008.png",
     "cardCode": "07DE008",
     "cost": 4,
     "regions": [
@@ -71286,7 +71286,7 @@
     "translations": {
       "en": {
         "description": "When I'm summoned, draw a unit.\r\nWhen you summon an ally, grow its stats to equal its cost.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07DE008.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07DE008.png",
         "regions": [
           "Demacia"
         ],
@@ -71436,7 +71436,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07FR005.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07FR005.png",
     "cardCode": "07FR005",
     "cost": 3,
     "regions": [
@@ -71445,7 +71445,7 @@
     "translations": {
       "en": {
         "description": "I don't take damage from allied spells or Skills.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07FR005.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07FR005.png",
         "regions": [
           "Freljord"
         ],
@@ -71465,7 +71465,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07FR008.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07FR008.png",
     "cardCode": "07FR008",
     "cost": 2,
     "regions": [
@@ -71474,7 +71474,7 @@
     "translations": {
       "en": {
         "description": "Spend 6 mana to play me as [cd:07FR008T1|Frostcoat Mother|icon,img-full] instead.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07FR008.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07FR008.png",
         "regions": [
           "Freljord"
         ],
@@ -71496,7 +71496,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07FR008T1.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07FR008T1.png",
     "cardCode": "07FR008T1",
     "cost": 6,
     "regions": [
@@ -71505,7 +71505,7 @@
     "translations": {
       "en": {
         "description": null,
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07FR008T1.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07FR008T1.png",
         "regions": [
           "Freljord"
         ],
@@ -71531,7 +71531,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07FR008T2.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07FR008T2.png",
     "cardCode": "07FR008T2",
     "cost": 2,
     "regions": [
@@ -71540,7 +71540,7 @@
     "translations": {
       "en": {
         "description": null,
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07FR008T2.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07FR008T2.png",
         "regions": [
           "Freljord"
         ],
@@ -71562,7 +71562,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07FR009.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07FR009.png",
     "cardCode": "07FR009",
     "cost": 3,
     "regions": [
@@ -71571,7 +71571,7 @@
     "translations": {
       "en": {
         "description": "When I'm summoned, I Improvise.\r\nEach round, the first time you Forge or Equip an ally, heal your Nexus 1.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07FR009.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07FR009.png",
         "regions": [
           "Freljord"
         ],
@@ -71849,7 +71849,7 @@
     ]
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO007.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO007.png",
     "cardCode": "07IO007",
     "cost": 4,
     "regions": [
@@ -71858,7 +71858,7 @@
     "translations": {
       "en": {
         "description": "[k:Stun|Stun] 2 enemies and create a Coin in hand.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO007.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO007.png",
         "regions": [
           "Ionia"
         ],
@@ -71884,7 +71884,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO009.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO009.png",
     "cardCode": "07IO009",
     "cost": 2,
     "regions": [
@@ -71893,7 +71893,7 @@
     "translations": {
       "en": {
         "description": "Nexus [k:Strike|Strike]: Create a Coin in hand.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO009.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO009.png",
         "regions": [
           "Ionia"
         ],
@@ -71919,7 +71919,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO011.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO011.png",
     "cardCode": "07IO011",
     "cost": 5,
     "regions": [
@@ -71928,7 +71928,7 @@
     "translations": {
       "en": {
         "description": "The first time I would drop below 1 Health while attacking, give me [k:Barrier|Barrier] instead.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO011.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO011.png",
         "regions": [
           "Ionia"
         ],
@@ -71957,7 +71957,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO011T1.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO011T1.png",
     "cardCode": "07IO011T1",
     "cost": 5,
     "regions": [
@@ -71966,7 +71966,7 @@
     "translations": {
       "en": {
         "description": "While I'm attacking, I can't take damage or die.\r\nEach round, create a [cd:07IO011T4|Show Stopper|icon,img-full] in hand once you've spent 12+ mana that round. ",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO011T1.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO011T1.png",
         "regions": [
           "Ionia"
         ],
@@ -71994,7 +71994,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO011T2.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO011T2.png",
     "cardCode": "07IO011T2",
     "cost": 4,
     "regions": [
@@ -72003,7 +72003,7 @@
     "translations": {
       "en": {
         "description": "[k:Stun|Stun] 2 enemies and create a Coin in hand.\r\nCreate a Sett in your deck.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO011T2.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO011T2.png",
         "regions": [
           "Ionia"
         ],
@@ -72031,7 +72031,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO011T4.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO011T4.png",
     "cardCode": "07IO011T4",
     "cost": 0,
     "regions": [
@@ -72040,7 +72040,7 @@
     "translations": {
       "en": {
         "description": "Obliterate an enemy. Deal 1 to all other enemies and the enemy Nexus.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO011T4.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO011T4.png",
         "regions": [
           "Ionia"
         ],
@@ -72068,7 +72068,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO011T5.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO011T5.png",
     "cardCode": "07IO011T5",
     "cost": 1,
     "regions": [
@@ -72077,7 +72077,7 @@
     "translations": {
       "en": {
         "description": "Coins stack.\r\nRefill 1 mana.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO011T5.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO011T5.png",
         "regions": [
           "Ionia"
         ],
@@ -72101,7 +72101,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO012.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO012.png",
     "cardCode": "07IO012",
     "cost": 3,
     "regions": [
@@ -72110,7 +72110,7 @@
     "translations": {
       "en": {
         "description": "When I'm summoned, create a Fleeting Bout Security in hand and grant other Bout Security +1|+1.\r\nEmpowered 5: [k:QuickStrike|Quick Attack].",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO012.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO012.png",
         "regions": [
           "Ionia"
         ],
@@ -72130,7 +72130,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO013.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO013.png",
     "cardCode": "07IO013",
     "cost": 3,
     "regions": [
@@ -72139,7 +72139,7 @@
     "translations": {
       "en": {
         "description": "When I'm summoned, create a Coin in hand.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO013.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO013.png",
         "regions": [
           "Ionia"
         ],
@@ -72161,7 +72161,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO014.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO014.png",
     "cardCode": "07IO014",
     "cost": 5,
     "regions": [
@@ -72170,7 +72170,7 @@
     "translations": {
       "en": {
         "description": "Play: The next time you play a unit this round, summon an exact [k:Ephemeral|Ephemeral] copy of it.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO014.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO014.png",
         "regions": [
           "Ionia"
         ],
@@ -72194,7 +72194,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO017.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO017.png",
     "cardCode": "07IO017",
     "cost": 5,
     "regions": [
@@ -72203,7 +72203,7 @@
     "translations": {
       "en": {
         "description": "Draw 2 and create 2 Coins in hand.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO017.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO017.png",
         "regions": [
           "Ionia"
         ],
@@ -72229,7 +72229,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO019.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO019.png",
     "cardCode": "07IO019",
     "cost": 4,
     "regions": [
@@ -72238,7 +72238,7 @@
     "translations": {
       "en": {
         "description": "[k:Play|Play]: Heal an ally or your Nexus 3 and create a Coin in hand.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO019.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO019.png",
         "regions": [
           "Ionia"
         ],
@@ -72260,7 +72260,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO020.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO020.png",
     "cardCode": "07IO020",
     "cost": 2,
     "regions": [
@@ -72269,7 +72269,7 @@
     "translations": {
       "en": {
         "description": "[k:Recall|Recall] an ally and create a Coin in hand, or spend 5 mana to [k:Recall|Recall] an enemy and create a Coin in hand.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO020.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO020.png",
         "regions": [
           "Ionia"
         ],
@@ -72295,7 +72295,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO020T1.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO020T1.png",
     "cardCode": "07IO020T1",
     "cost": 2,
     "regions": [
@@ -72304,7 +72304,7 @@
     "translations": {
       "en": {
         "description": "[k:Recall|Recall] an ally and create a Coin in hand.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO020T1.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO020T1.png",
         "regions": [
           "Ionia"
         ],
@@ -72330,7 +72330,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO020T2.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO020T2.png",
     "cardCode": "07IO020T2",
     "cost": 5,
     "regions": [
@@ -72339,7 +72339,7 @@
     "translations": {
       "en": {
         "description": "[k:Recall|Recall] an enemy and create a Coin in hand.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO020T2.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO020T2.png",
         "regions": [
           "Ionia"
         ],
@@ -72365,7 +72365,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO023.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO023.png",
     "cardCode": "07IO023",
     "cost": 8,
     "regions": [
@@ -72374,7 +72374,7 @@
     "translations": {
       "en": {
         "description": "Play: [k:Recall|Recall] the strongest enemy. If you've spent 16+ mana this round, [k:Recall|Recall] all enemies instead. ",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO023.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO023.png",
         "regions": [
           "Ionia"
         ],
@@ -72400,7 +72400,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO023T1.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO023T1.png",
     "cardCode": "07IO023T1",
     "cost": 0,
     "regions": [
@@ -72409,7 +72409,7 @@
     "translations": {
       "en": {
         "description": "[k:Recall|Recall] the strongest enemy. If you've spent 16+ mana this round, [k:Recall|Recall] all enemies instead.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO023T1.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO023T1.png",
         "regions": [
           "Ionia"
         ],
@@ -72532,7 +72532,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO046.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO046.png",
     "cardCode": "07IO046",
     "cost": 5,
     "regions": [
@@ -72541,7 +72541,7 @@
     "translations": {
       "en": {
         "description": "Other Bird allies have +1|+0 and [k:QuickStrike|Quick Attack].",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO046.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO046.png",
         "regions": [
           "Ionia"
         ],
@@ -72559,7 +72559,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO047.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07IO047.png",
     "cardCode": "07IO047",
     "cost": 7,
     "regions": [
@@ -72568,7 +72568,7 @@
     "translations": {
       "en": {
         "description": "Each round, the first time you play another follower, summon an exact copy of it. If your board is full, grant its stats and keywords to me instead.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO047.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07IO047.png",
         "regions": [
           "Ionia"
         ],
@@ -72619,7 +72619,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07MT001.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07MT001.png",
     "cardCode": "07MT001",
     "cost": 2,
     "regions": [
@@ -72628,7 +72628,7 @@
     "translations": {
       "en": {
         "description": "Deal 4 to an enemy that attacked this round or is [k:Stun|Stun]ned.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07MT001.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07MT001.png",
         "regions": [
           "Targon"
         ],
@@ -72652,7 +72652,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07MT003.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07MT003.png",
     "cardCode": "07MT003",
     "cost": 2,
     "regions": [
@@ -72661,7 +72661,7 @@
     "translations": {
       "en": {
         "description": "[k:RoundStart|Round Start]: Heal me and your Nexus 1.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07MT003.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07MT003.png",
         "regions": [
           "Targon"
         ],
@@ -72711,7 +72711,7 @@
   },
   {
     "cardCode": "07MT007",
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07MT007.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07MT007.png",
     "cost": 2,
     "regions": [
       "Targon"
@@ -72719,7 +72719,7 @@
     "translations": {
       "en": {
         "description": "[k:LastBreath|Last Breath]: Create in hand copies of the first 3 spells you played on me. ",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07MT007.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07MT007.png",
         "regions": [
           "Targon"
         ],
@@ -72869,7 +72869,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX001.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX001.png",
     "cardCode": "07NX001",
     "cost": 2,
     "regions": [
@@ -72878,7 +72878,7 @@
     "translations": {
       "en": {
         "description": "Play: Deal 1 to the enemy Nexus or activate an ally's [k:Plunder|Plunder] effect.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07NX001.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07NX001.png",
         "regions": [
           "Noxus"
         ],
@@ -72898,7 +72898,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX001T1.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX001T1.png",
     "cardCode": "07NX001T1",
     "cost": 2,
     "regions": [
@@ -72907,7 +72907,7 @@
     "translations": {
       "en": {
         "description": "Play: Activate an ally's [k:Plunder|Plunder] effect.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07NX001T1.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07NX001T1.png",
         "regions": [
           "Noxus"
         ],
@@ -72927,7 +72927,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX001T2.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX001T2.png",
     "cardCode": "07NX001T2",
     "cost": 2,
     "regions": [
@@ -72936,7 +72936,7 @@
     "translations": {
       "en": {
         "description": "[k:Play|Play]: Deal 1 to the enemy Nexus.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07NX001T2.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07NX001T2.png",
         "regions": [
           "Noxus"
         ],
@@ -72956,7 +72956,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX003.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX003.png",
     "cardCode": "07NX003",
     "cost": 1,
     "regions": [
@@ -72965,7 +72965,7 @@
     "translations": {
       "en": {
         "description": "Give an ally +2|+0 this round.\r\n[k:Plunder|Plunder]: Give it +2|+1 instead.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07NX003.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07NX003.png",
         "regions": [
           "Noxus"
         ],
@@ -72991,7 +72991,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX004.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX004.png",
     "cardCode": "07NX004",
     "cost": 5,
     "regions": [
@@ -73000,7 +73000,7 @@
     "translations": {
       "en": {
         "description": "When I'm summoned, activate all ally [k:Plunder|Plunder] effects.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07NX004.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07NX004.png",
         "regions": [
           "Noxus"
         ],
@@ -73024,7 +73024,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX005.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX005.png",
     "cardCode": "07NX005",
     "cost": 6,
     "regions": [
@@ -73033,7 +73033,7 @@
     "translations": {
       "en": {
         "description": "When I'm summoned, I Improvise.\r\n[k:Plunder|Plunder]: Forge other allies.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07NX005.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07NX005.png",
         "regions": [
           "Noxus"
         ],
@@ -73051,7 +73051,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX006.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX006.png",
     "cardCode": "07NX006",
     "cost": 4,
     "regions": [
@@ -73060,7 +73060,7 @@
     "translations": {
       "en": {
         "description": "[k:Plunder|Plunder]: Double my power.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07NX006.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07NX006.png",
         "regions": [
           "Noxus"
         ],
@@ -73086,7 +73086,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX007.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX007.png",
     "cardCode": "07NX007",
     "cost": 2,
     "regions": [
@@ -73095,7 +73095,7 @@
     "translations": {
       "en": {
         "description": "[k:Plunder|Plunder] or strike: Create a Flair in hand if you don't already have one.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07NX007.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07NX007.png",
         "regions": [
           "Noxus"
         ],
@@ -73123,7 +73123,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX007T1.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX007T1.png",
     "cardCode": "07NX007T1",
     "cost": 2,
     "regions": [
@@ -73132,7 +73132,7 @@
     "translations": {
       "en": {
         "description": "[k:Plunder|Plunder] or strike: Create a Flair in hand if you don't already have one.\r\nWhen you play 6 cards, [k:Rally|Rally]. Resets when you start a round with the attack token. ",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07NX007T1.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07NX007T1.png",
         "regions": [
           "Noxus"
         ],
@@ -73160,7 +73160,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX007T2.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX007T2.png",
     "cardCode": "07NX007T2",
     "cost": 1,
     "regions": [
@@ -73169,7 +73169,7 @@
     "translations": {
       "en": {
         "description": "Give an ally +2|+0 this round.\r\n[k:Plunder|Plunder]: Give it +2|+1 instead.\r\nCreate a [cd:07NX007|Samira|icon,img-full] in your deck.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07NX007T2.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07NX007T2.png",
         "regions": [
           "Noxus"
         ],
@@ -73197,7 +73197,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX007T5.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX007T5.png",
     "cardCode": "07NX007T5",
     "cost": 1,
     "regions": [
@@ -73206,7 +73206,7 @@
     "translations": {
       "en": {
         "description": "Give an allied Samira [k:Challenger|Challenger] this round.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07NX007T5.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07NX007T5.png",
         "regions": [
           "Noxus"
         ],
@@ -73233,7 +73233,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX007T6.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX007T6.png",
     "cardCode": "07NX007T6",
     "cost": 1,
     "regions": [
@@ -73242,7 +73242,7 @@
     "translations": {
       "en": {
         "description": "Deal 1 to the enemy Nexus.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07NX007T6.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07NX007T6.png",
         "regions": [
           "Noxus"
         ],
@@ -73269,7 +73269,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX007T8.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX007T8.png",
     "cardCode": "07NX007T8",
     "cost": 1,
     "regions": [
@@ -73278,7 +73278,7 @@
     "translations": {
       "en": {
         "description": "Give an allied Samira [k:Challenger|Challenger] this round or deal 1 to the enemy Nexus.\r\n",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07NX007T8.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07NX007T8.png",
         "regions": [
           "Noxus"
         ],
@@ -73304,7 +73304,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX008.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX008.png",
     "cardCode": "07NX008",
     "cost": 1,
     "regions": [
@@ -73313,7 +73313,7 @@
     "translations": {
       "en": {
         "description": "[k:Plunder|Plunder]: Grant me +2|+0.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07NX008.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07NX008.png",
         "regions": [
           "Noxus"
         ],
@@ -73339,7 +73339,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX009.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX009.png",
     "cardCode": "07NX009",
     "cost": 1,
     "regions": [
@@ -73348,7 +73348,7 @@
     "translations": {
       "en": {
         "description": "Deal 1 to the enemy Nexus. The next time an ally strikes the Nexus this round, create a [cd:07NX009|Stylish Shot|icon,img-full] in hand.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07NX009.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07NX009.png",
         "regions": [
           "Noxus"
         ],
@@ -73372,7 +73372,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX014.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX014.png",
     "cardCode": "07NX014",
     "cost": 3,
     "regions": [
@@ -73381,7 +73381,7 @@
     "translations": {
       "en": {
         "description": "[k:Plunder|Plunder]: I cost 2 less.\r\nDeal 1 to anything and [k:Stun|Stun] an enemy.\r\n",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07NX014.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07NX014.png",
         "regions": [
           "Noxus"
         ],
@@ -73407,7 +73407,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX015.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07NX015.png",
     "cardCode": "07NX015",
     "cost": 3,
     "regions": [
@@ -73416,7 +73416,7 @@
     "translations": {
       "en": {
         "description": "[k:Plunder|Plunder]: Grant allies +1|+0.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07NX015.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07NX015.png",
         "regions": [
           "Noxus"
         ],
@@ -73576,7 +73576,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07PZ005.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07PZ005.png",
     "cardCode": "07PZ005",
     "cost": 4,
     "regions": [
@@ -73585,7 +73585,7 @@
     "translations": {
       "en": {
         "description": "Deal 1 to an enemy and the enemy Nexus. Discard up to 2 to increase the damage by 1 for each card discarded.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07PZ005.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07PZ005.png",
         "regions": [
           "Piltover & Zaun"
         ],
@@ -73603,7 +73603,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07PZ009.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07PZ009.png",
     "cardCode": "07PZ009",
     "cost": 4,
     "regions": [
@@ -73612,7 +73612,7 @@
     "translations": {
       "en": {
         "description": "Play: [k:Predict|Predict], then draw 1 and reduce its cost by 1.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07PZ009.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07PZ009.png",
         "regions": [
           "Piltover & Zaun"
         ],
@@ -73737,7 +73737,7 @@
     ]
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07PZ017.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07PZ017.png",
     "cardCode": "07PZ017",
     "cost": 2,
     "regions": [
@@ -73746,7 +73746,7 @@
     "translations": {
       "en": {
         "description": "When you play a spell, plant 1 [cd:05PZ008|Flashbomb Trap|icon,img-full] in the top 8 cards of the enemy deck.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07PZ017.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07PZ017.png",
         "regions": [
           "Piltover & Zaun"
         ],
@@ -74535,7 +74535,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07SH008.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07SH008.png",
     "cardCode": "07SH008",
     "cost": 6,
     "regions": [
@@ -74544,7 +74544,7 @@
     "translations": {
       "en": {
         "description": "Start a free attack with an exact [k:Ephemeral|Ephemeral] copy of each Cat ally.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07SH008.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07SH008.png",
         "regions": [
           "Shurima"
         ],
@@ -74971,7 +74971,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07SH018.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07SH018.png",
     "cardCode": "07SH018",
     "cost": 3,
     "regions": [
@@ -74980,7 +74980,7 @@
     "translations": {
       "en": {
         "description": "When I'm summoned, create at the bottom of your deck two random level 2 champions that aren't in your hand, deck, or play.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07SH018.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07SH018.png",
         "regions": [
           "Shurima"
         ],
@@ -75000,7 +75000,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07SH023.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07SH023.png",
     "cardCode": "07SH023",
     "cost": 7,
     "regions": [
@@ -75009,7 +75009,7 @@
     "translations": {
       "en": {
         "description": "I have +1|+0 for each [k:Ephemeral|Ephemeral] ally you've summoned this game. ",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07SH023.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07SH023.png",
         "regions": [
           "Shurima"
         ],
@@ -75446,7 +75446,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07SI001.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07SI001.png",
     "cardCode": "07SI001",
     "cost": 5,
     "regions": [
@@ -75455,7 +75455,7 @@
     "translations": {
       "en": {
         "description": "Kill ALL units with 3 or less [k:Power|Power].",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07SI001.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07SI001.png",
         "regions": [
           "Shadow Isles"
         ],
@@ -75479,7 +75479,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07SI002.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07SI002.png",
     "cardCode": "07SI002",
     "cost": 2,
     "regions": [
@@ -75488,7 +75488,7 @@
     "translations": {
       "en": {
         "description": "Kill a follower with 3 or less [k:Power|Power], or spend 3 mana to kill a champion with 3 or less [k:Power|Power].\r\n",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07SI002.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07SI002.png",
         "regions": [
           "Shadow Isles"
         ],
@@ -75512,7 +75512,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07SI002T1.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07SI002T1.png",
     "cardCode": "07SI002T1",
     "cost": 2,
     "regions": [
@@ -75521,7 +75521,7 @@
     "translations": {
       "en": {
         "description": "Kill a follower with 3 or less [k:Power|Power].",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07SI002T1.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07SI002T1.png",
         "regions": [
           "Shadow Isles"
         ],
@@ -75545,7 +75545,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07SI002T2.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07SI002T2.png",
     "cardCode": "07SI002T2",
     "cost": 3,
     "regions": [
@@ -75554,7 +75554,7 @@
     "translations": {
       "en": {
         "description": "Kill a champion with 3 or less [k:Power|Power].",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07SI002T2.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07SI002T2.png",
         "regions": [
           "Shadow Isles"
         ],
@@ -75611,7 +75611,7 @@
     "subtypes": []
   },
   {
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07SI007.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/vi_vn/img/cards/07SI007.png",
     "cardCode": "07SI007",
     "cost": 4,
     "regions": [
@@ -75620,7 +75620,7 @@
     "translations": {
       "en": {
         "description": "Each round, the first time another ally dies, draw 1.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07SI007.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07SI007.png",
         "regions": [
           "Shadow Isles"
         ],
@@ -86690,7 +86690,7 @@
   },
   {
     "cardCode": "98FR028",
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_4_0/tpoc/vi_vn/img/cards/98FR028.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_4_0/tpoc/vi_vn/img/cards/98FR028.png",
     "cost": 3,
     "regions": [
       "Freljord"
@@ -86698,7 +86698,7 @@
     "translations": {
       "en": {
         "description": "Grant a Mastered Stance to an ally.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_4_0/tpoc/en_us/img/cards/98FR028.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_4_0/tpoc/en_us/img/cards/98FR028.png",
         "regions": [
           "Freljord"
         ],
@@ -86728,7 +86728,7 @@
   },
   {
     "cardCode": "98FR028T1",
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_4_0/tpoc/vi_vn/img/cards/98FR028T1.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_4_0/tpoc/vi_vn/img/cards/98FR028T1.png",
     "cost": 3,
     "regions": [
       "Freljord"
@@ -86736,7 +86736,7 @@
     "translations": {
       "en": {
         "description": "Grant an ally +2|+1 and [k:Overwhelm|Overwhelm]. Give it [k:Challenger|Challenger] this round.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_4_0/tpoc/en_us/img/cards/98FR028T1.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_4_0/tpoc/en_us/img/cards/98FR028T1.png",
         "regions": [
           "Freljord"
         ],
@@ -86761,7 +86761,7 @@
   },
   {
     "cardCode": "98FR028T2",
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_4_0/tpoc/vi_vn/img/cards/98FR028T2.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_4_0/tpoc/vi_vn/img/cards/98FR028T2.png",
     "cost": 3,
     "regions": [
       "Freljord"
@@ -86769,7 +86769,7 @@
     "translations": {
       "en": {
         "description": "[k:Forge|Forge] an ally. Deal 1 to all enemies and the enemy Nexus.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_4_0/tpoc/en_us/img/cards/98FR028T2.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_4_0/tpoc/en_us/img/cards/98FR028T2.png",
         "regions": [
           "Freljord"
         ],
@@ -86794,7 +86794,7 @@
   },
   {
     "cardCode": "98FR028T3",
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_4_0/tpoc/vi_vn/img/cards/98FR028T3.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_4_0/tpoc/vi_vn/img/cards/98FR028T3.png",
     "cost": 3,
     "regions": [
       "Freljord"
@@ -86802,7 +86802,7 @@
     "translations": {
       "en": {
         "description": "Grant an ally +1|+2 and [k:Regeneration|Regeneration]. Give it [k:Barrier|Barrier] this round.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_4_0/tpoc/en_us/img/cards/98FR028T3.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_4_0/tpoc/en_us/img/cards/98FR028T3.png",
         "regions": [
           "Freljord"
         ],
@@ -86827,7 +86827,7 @@
   },
   {
     "cardCode": "98FR028T4",
-    "gameAbsolutePath": "http://dd.b.pvp.net/7_4_0/tpoc/vi_vn/img/cards/98FR028T4.png",
+    "gameAbsolutePath": "https://dd.b.pvp.net/7_4_0/tpoc/vi_vn/img/cards/98FR028T4.png",
     "cost": 3,
     "regions": [
       "Freljord"
@@ -86835,7 +86835,7 @@
     "translations": {
       "en": {
         "description": "Grant an ally +2|+2 and [k:Stun|Stun] the strongest enemy.",
-        "gameAbsolutePath": "http://dd.b.pvp.net/7_4_0/tpoc/en_us/img/cards/98FR028T4.png",
+        "gameAbsolutePath": "https://dd.b.pvp.net/7_4_0/tpoc/en_us/img/cards/98FR028T4.png",
         "regions": [
           "Freljord"
         ],

@@ -287,6 +287,9 @@ const MarkupEditor = ({ value, onChange, placeholder = "Nhập nội dung..." })
 						textareaRef.current = node;
 						refs.setReference(node);
 					}}
+					data-gramm="false"
+					data-gramm_editor="false"
+					data-enable-grammarly="false"
 					value={value}
 					onChange={(e) => {
 						const newValue = e.target.value;
@@ -402,6 +405,7 @@ const MarkupEditor = ({ value, onChange, placeholder = "Nhập nội dung..." })
 										<button type="button" onClick={() => setActiveMenu("main")} className="text-gray-400 hover:text-white text-xs">←</button>
 										<input 
 											autoFocus
+											data-gramm="false"
 											className="bg-transparent text-[10px] text-white outline-none w-full"
 											placeholder="Tìm..."
 											value={searchQuery}

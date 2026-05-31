@@ -1,6 +1,6 @@
 // src/components/Footer.jsx
 import React, { memo } from "react";
-import LogoBlack from "/favicon.ico";
+import { Link } from "react-router-dom";
 import { Youtube, Facebook } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
 
@@ -14,12 +14,11 @@ function Footer() {
 					{/* === CỘT 1: Logo & Mô tả === */}
 					<div className='md:col-span-3'>
 						<a href='/' className='inline-block mb-4'>
-							<img
-								src={LogoBlack}
-								alt='Poc Guide Logo'
-								className='h-10 w-auto'
-								loading='lazy'
-							/>
+							<img 
+							src="/favicon.ico" 
+							alt="PoC Guide Logo" 
+							className="h-10 w-10 sm:h-12 sm:w-12 object-contain"
+						/>
 						</a>
 						<p className='text-sm leading-relaxed'>
 							<b className='font-bold'>POC GUIDE (Path of champions)</b>

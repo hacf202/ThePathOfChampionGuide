@@ -19,6 +19,25 @@
     "userSub": "c4882458-b0c1-7094-b62d-4a098bc96e83"
   },
   {
+    "championID": "C014",
+    "userSub": "fe54b8e0-8d99-4639-acd2-79a58fa9f9e6",
+    "username": "NNN",
+    "ratings": {
+      "damage": 10,
+      "defense": 9,
+      "speed": 10,
+      "consistency": 8,
+      "synergy": 8,
+      "independence": 7
+    },
+    "comment": "",
+    "reviewType": "CHAMPION_REVIEW",
+    "championName": "Elise",
+    "championImage": "https://images.pocguide.top/avatarChampions/Elise.webp",
+    "createdAt": "2026-05-29T18:16:43.035Z",
+    "updatedAt": "2026-05-29T18:16:43.035Z"
+  },
+  {
     "championName": "Ambessa",
     "reviewType": "CHAMPION_REVIEW",
     "ratings": {
@@ -38,6 +57,25 @@
     "userSub": "348804a8-3021-708f-3f7b-cf19389967d9"
   },
   {
+    "championID": "C019",
+    "userSub": "fe54b8e0-8d99-4639-acd2-79a58fa9f9e6",
+    "username": "NNN",
+    "ratings": {
+      "damage": 5,
+      "defense": 6,
+      "speed": 1,
+      "consistency": 7,
+      "synergy": 10,
+      "independence": 5
+    },
+    "comment": "",
+    "reviewType": "CHAMPION_REVIEW",
+    "championName": "Yasuo Anh Hùng Lãng Kiếm",
+    "championImage": "https://images.pocguide.top/avatarChampions/SpiritBlossomYasuo.webp",
+    "createdAt": "2026-05-29T18:22:02.495Z",
+    "updatedAt": "2026-05-29T18:22:02.495Z"
+  },
+  {
     "championName": "Yasuo",
     "reviewType": "CHAMPION_REVIEW",
     "ratings": {
@@ -55,6 +93,44 @@
     "username": "tpn01042003",
     "championImage": "https://images.pocguide.top/avatarChampions/Yasuo.webp",
     "userSub": "c4882458-b0c1-7094-b62d-4a098bc96e83"
+  },
+  {
+    "championID": "C031",
+    "userSub": "fe54b8e0-8d99-4639-acd2-79a58fa9f9e6",
+    "username": "NNN",
+    "ratings": {
+      "damage": 7,
+      "defense": 8,
+      "speed": 7,
+      "consistency": 8,
+      "synergy": 9,
+      "independence": 2
+    },
+    "comment": "",
+    "reviewType": "CHAMPION_REVIEW",
+    "championName": "Kindred Lang Dương Vô Thường",
+    "championImage": "https://images.pocguide.top/avatarChampions/SpiritBlossomKindred.webp",
+    "createdAt": "2026-05-29T18:20:08.754Z",
+    "updatedAt": "2026-05-29T18:20:08.754Z"
+  },
+  {
+    "championID": "C036",
+    "userSub": "fe54b8e0-8d99-4639-acd2-79a58fa9f9e6",
+    "username": "NNN",
+    "ratings": {
+      "damage": 8,
+      "defense": 6,
+      "speed": 6,
+      "consistency": 8,
+      "synergy": 10,
+      "independence": 3
+    },
+    "comment": "",
+    "reviewType": "CHAMPION_REVIEW",
+    "championName": "Teemo Phong Linh Tiểu Quái",
+    "championImage": "https://images.pocguide.top/avatarChampions/SpiritBlossomTeemo.webp",
+    "createdAt": "2026-05-29T18:21:02.733Z",
+    "updatedAt": "2026-05-29T18:21:02.734Z"
   },
   {
     "championName": "Jhin",
@@ -93,6 +169,25 @@
     "username": "tpn01042003",
     "championImage": "https://images.pocguide.top/avatarChampions/AurelionSol.webp",
     "userSub": "c4882458-b0c1-7094-b62d-4a098bc96e83"
+  },
+  {
+    "championID": "C043",
+    "userSub": "fe54b8e0-8d99-4639-acd2-79a58fa9f9e6",
+    "username": "NNN",
+    "ratings": {
+      "damage": 10,
+      "defense": 9,
+      "speed": 10,
+      "consistency": 9,
+      "synergy": 10,
+      "independence": 10
+    },
+    "comment": "",
+    "reviewType": "CHAMPION_REVIEW",
+    "championName": "Aurelion Sol",
+    "championImage": "https://images.pocguide.top/avatarChampions/AurelionSol.webp",
+    "createdAt": "2026-05-29T18:17:42.666Z",
+    "updatedAt": "2026-05-29T18:17:42.666Z"
   },
   {
     "championName": "Lux: rạng ngời",

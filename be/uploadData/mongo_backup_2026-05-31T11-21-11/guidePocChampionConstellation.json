@@ -1670,7 +1670,7 @@
   },
   {
     "championName": "Jack",
-    "backgroundImage": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW002T2-full.png",
+    "backgroundImage": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07BW002T2-full.png",
     "nodes": [
       {
         "requirements": [
@@ -2217,7 +2217,7 @@
   },
   {
     "championName": "Samira",
-    "backgroundImage": "http://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07NX007T1-full.png",
+    "backgroundImage": "https://dd.b.pvp.net/7_3_0/set7/en_us/img/cards/07NX007T1-full.png",
     "nodes": [
       {
         "requirements": [

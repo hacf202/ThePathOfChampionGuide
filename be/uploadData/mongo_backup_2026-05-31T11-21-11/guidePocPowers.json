@@ -21351,7 +21351,7 @@
     "description": "+1 Năng Lượng Khởi Điểm.\nKhi ngươi [k:Invoke|Hiệu Triệu] hoặc [k:Manifest|Hình Thành], ban cho các đồng minh +1|+0.",
     "descriptionRaw": "+1 Năng Lượng Khởi Điểm.\nKhi ngươi Hiệu Triệu hoặc Hình Thành, ban cho các đồng minh +1|+0.",
     "type": [
-      "General Power"
+      "Star Power"
     ],
     "translations": {
       "en": {
