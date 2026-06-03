@@ -21345,6 +21345,26 @@
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/powers/P1015-full.png"
   },
   {
+    "powerCode": "P1019",
+    "name": "Bước Nhảy Niềm Tin",
+    "rarity": "Huyền Thoại",
+    "description": "Mỗi vòng, lần đầu tiên ngươi [k:Spawn|Triệu Gọi], triệu hồi một lá [cd:06BW011T2|Xúc Tu Của Nagakabouros]. Hiệu ứng này có 3% cơ hội triệu hồi [cd:06BW011|Nagakabouros] thay thế, tỷ lệ này sẽ tăng lên mỗi vòng. ",
+    "descriptionRaw": "Mỗi vòng, lần đầu tiên ngươi Triệu Gọi, triệu hồi một lá Xúc Tu Của Nagakabouros. Hiệu ứng này có 3% cơ hội triệu hồi Nagakabouros thay thế, tỷ lệ này sẽ tăng lên mỗi vòng. ",
+    "type": [
+      "Star Power"
+    ],
+    "translations": {
+      "en": {
+        "name": "Leap of Faith",
+        "description": "Each round, the first time you [k:Spawn|Spawn], summon a [cd:06BW011T2|Nagakabouros' Tentacle]. This has a 3% chance to summon [cd:06BW011|Nagakabouros] instead, increased each round. ",
+        "descriptionRaw": "Each round, the first time you Spawn, summon a Nagakabouros' Tentacle. This has a 3% chance to summon Nagakabouros instead, increased each round. ",
+        "rarity": "Legendary"
+      }
+    },
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_6_0/adventure/vi_vn/img/powers/P1019.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_6_0/adventure/vi_vn/img/powers/P1019-full.png"
+  },
+  {
     "powerCode": "P1020",
     "name": "Sứ Giả Thượng Giới",
     "rarity": "Sử Thi",
@@ -21425,6 +21445,206 @@
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_5_0/adventure/vi_vn/img/powers/P1023-full.png"
   },
   {
+    "powerCode": "P1024",
+    "name": "Thu Thập Linh Hồn",
+    "rarity": "Hiếm",
+    "description": "Mỗi vòng, lá bài đầu tiên mà [k:Foe|Địch Thủ] [k:PlaySkillMark|xuất trận] sẽ được giảm 1 [k:Cost|tiêu hao] tương ứng với mỗi bài quân đã bị hạ gục trong trận này.",
+    "descriptionRaw": "Mỗi vòng, lá bài đầu tiên mà Địch Thủ xuất trận sẽ được giảm 1 tiêu hao tương ứng với mỗi bài quân đã bị hạ gục trong trận này.",
+    "type": [
+      "Foe Power"
+    ],
+    "translations": {
+      "en": {
+        "name": "Soul Harvest",
+        "description": "Each round, the first card the [k:Foe|Foe] [k:PlaySkillMark|play]s [k:Cost|cost]s 1 less for each unit that died this game.",
+        "descriptionRaw": "Each round, the first card the Foe plays costs 1 less for each unit that died this game.",
+        "rarity": "Rare"
+      }
+    },
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_6_0/adventure/vi_vn/img/powers/P1024.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_6_0/adventure/vi_vn/img/powers/P1024-full.png"
+  },
+  {
+    "powerCode": "P1025",
+    "name": "Biển Cả Báo Thù",
+    "rarity": "Hiếm",
+    "description": "[k:RoundEnd|Kết Thúc Vòng Đấu]: [k:Foe|Địch Thủ] [k:Spawn|Triệu Gọi] bằng với sát thương mà Nhà Chính của chúng đã nhận trong vòng này.",
+    "descriptionRaw": "Kết Thúc Vòng Đấu: Địch Thủ Triệu Gọi bằng với sát thương mà Nhà Chính của chúng đã nhận trong vòng này.",
+    "type": [
+      "Star Power"
+    ],
+    "translations": {
+      "en": {
+        "name": "Sea's Revenge",
+        "description": "[k:RoundEnd|Round End]: The [k:Foe|Foe] [k:Spawn|Spawn]s equal to the damage their Nexus received this round.",
+        "descriptionRaw": "Round End: The Foe Spawns equal to the damage their Nexus received this round.",
+        "rarity": "Rare"
+      }
+    },
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_6_0/adventure/vi_vn/img/powers/P1025.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_6_0/adventure/vi_vn/img/powers/P1025-full.png"
+  },
+  {
+    "powerCode": "P1026",
+    "name": "Quân Đoàn Linh Hoạt",
+    "rarity": "Hiếm",
+    "description": "Khi [k:Foe|Địch Thủ] có nhiều hơn 3 bài quân với 1 [k:Cost|tiêu hao], chúng sẽ có [k:Scout|Trinh Sát].",
+    "descriptionRaw": "Khi Địch Thủ có nhiều hơn 3 bài quân với 1 tiêu hao, chúng sẽ có Trinh Sát.",
+    "type": [
+      "Foe Power"
+    ],
+    "translations": {
+      "en": {
+        "name": "Agility in Numbers",
+        "description": "While the [k:Foe|Foe] has 3 or more 1 [k:Cost|cost] units, they have [k:Scout|Scout].",
+        "descriptionRaw": "While the Foe has 3 or more 1 cost units, they have Scout.",
+        "rarity": "Rare"
+      }
+    },
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_6_0/adventure/vi_vn/img/powers/P1026.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_6_0/adventure/vi_vn/img/powers/P1026-full.png"
+  },
+  {
+    "powerCode": "P1027",
+    "name": "Sẵn Sàng Tấn Công!",
+    "rarity": "Hiếm",
+    "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Nếu [k:Foe|Địch Thủ] có lượt [k:AttackSkillMark|tấn công], bài quân 1 [k:Cost|tiêu hao] [k:Strongest|mạnh nhất] của chúng sẽ bắt đầu Phát Động [k:AttackSkillMark|Tấn Công].",
+    "descriptionRaw": "Bắt Đầu Vòng Đấu: Nếu Địch Thủ có lượt tấn công, bài quân 1 tiêu hao mạnh nhất của chúng sẽ bắt đầu Phát Động Tấn Công.",
+    "type": [
+      "Foe Power"
+    ],
+    "translations": {
+      "en": {
+        "name": "Press the Attack!",
+        "description": "[k:RoundStart|Round Start]: If the [k:Foe|Foe] has the [k:AttackSkillMark|attack] token, their [k:Strongest|strongest] 1 [k:Cost|cost] unit starts a free [k:AttackSkillMark|attack].",
+        "descriptionRaw": "Round Start: If the Foe has the attack token, their strongest 1 cost unit starts a free attack.",
+        "rarity": "Rare"
+      }
+    },
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_6_0/adventure/vi_vn/img/powers/P1027.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_6_0/adventure/vi_vn/img/powers/P1027-full.png"
+  },
+  {
+    "powerCode": "P1028",
+    "name": "Sức Mạnh Đại Mẫu",
+    "rarity": "Sử Thi",
+    "description": "Khi một lá [cd:06BW006T3|Xúc Tu] của [k:Foe|Địch Thủ] [k:AttackSkillMark|tấn công], nhân đôi [k:Power|Sức Mạnh] của nó.",
+    "descriptionRaw": "Khi một lá Xúc Tu của Địch Thủ tấn công, nhân đôi Sức Mạnh của nó.",
+    "type": [
+      "Foe Power"
+    ],
+    "translations": {
+      "en": {
+        "name": "Great Mother’s Might",
+        "description": "When one of the [k:Foe|Foe's] [cd:06BW006T3|Tentacle] [k:AttackSkillMark|attack]s, double its [k:Power|Power].",
+        "descriptionRaw": "When one of the Foe's Tentacle attacks, double its Power.",
+        "rarity": "Epic"
+      }
+    },
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_6_0/adventure/vi_vn/img/powers/P1028.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_6_0/adventure/vi_vn/img/powers/P1028-full.png"
+  },
+  {
+    "powerCode": "P1029",
+    "name": "CHỨNG KIẾN!",
+    "rarity": "Sử Thi",
+    "description": "Những tùy tùng không phải [cd:06BW006T3|Xúc Tu] có [k:Ephemeral|Cảm Tử].[k:RoundStart|Bắt Đầu Vòng Đấu]: Nếu người chơi không có anh hùng, triệu hồi anh hùng [k:Weakest|yếu nhất] từ trên tay hoặc trên bộ bài của họ. Nếu không thể triệu hồi, phá hủy Nhà Chính của người chơi đó.",
+    "descriptionRaw": "Những tùy tùng không phải Xúc Tu có Cảm Tử.Bắt Đầu Vòng Đấu: Nếu người chơi không có anh hùng, triệu hồi anh hùng yếu nhất từ trên tay hoặc trên bộ bài của họ. Nếu không thể triệu hồi, phá hủy Nhà Chính của người chơi đó.",
+    "type": [
+      "Foe Power"
+    ],
+    "translations": {
+      "en": {
+        "name": "BEHOLD!",
+        "description": "Non-[cd:06BW006T3|Tentacle] followers have [k:Ephemeral|Ephemeral].[k:RoundStart|Round Start]: If the [k:PlaySkillMark|play]er doesn't have a champion, summon the [k:Weakest|weakest] one from their hand or deck. If one can't be summoned, destroy the [k:PlaySkillMark|play]er's Nexus.",
+        "descriptionRaw": "Non-Tentacle followers have Ephemeral.Round Start: If the player doesn't have a champion, summon the weakest one from their hand or deck. If one can't be summoned, destroy the player's Nexus.",
+        "rarity": "Epic"
+      }
+    },
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_6_0/adventure/vi_vn/img/powers/P1029.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_6_0/adventure/vi_vn/img/powers/P1029-full.png"
+  },
+  {
+    "powerCode": "P1030",
+    "name": "Tiếng Gọi Mãng Xà",
+    "rarity": "Hiếm",
+    "description": "Khi [k:Foe|Địch Thủ] sử dụng một bài quân, chúng sẽ [k:Spawn|Triệu Gọi] bằng với mức [k:Cost|tiêu hao] của bài quân đó.",
+    "descriptionRaw": "Khi Địch Thủ sử dụng một bài quân, chúng sẽ Triệu Gọi bằng với mức tiêu hao của bài quân đó.",
+    "type": [
+      "Foe Power"
+    ],
+    "translations": {
+      "en": {
+        "name": "Call of the Serpent",
+        "description": "When the [k:Foe|Foe] [k:PlaySkillMark|play]s a unit, they [k:Spawn|Spawn] equal to its [k:Cost|cost].",
+        "descriptionRaw": "When the Foe plays a unit, they Spawn equal to its cost.",
+        "rarity": "Rare"
+      }
+    },
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_6_0/adventure/vi_vn/img/powers/P1030.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_6_0/adventure/vi_vn/img/powers/P1030-full.png"
+  },
+  {
+    "powerCode": "P1031",
+    "name": "Thử Thách Cuối Cùng",
+    "rarity": "Huyền Thoại",
+    "description": "Lá [cd:06BW006T3|Xúc Tu] có 3 [k:Power|Sức Mạnh] hoặc ít hơn nhận [k:Elusive|Huyền Ảo]. Lá [cd:06BW006T3|Xúc Tu] có 12 [k:Power|Sức Mạnh] hoặc nhiều hơn nhận [k:Overwhelm|Áp Đảo].[k:RoundStart|Bắt Đầu Vòng Đấu]: [k:Foe|Địch Thủ] triệu hồi 3 lá [cd:06BW006T3|Xúc Tu].",
+    "descriptionRaw": "Lá Xúc Tu có 3 Sức Mạnh hoặc ít hơn nhận Huyền Ảo. Lá Xúc Tu có 12 Sức Mạnh hoặc nhiều hơn nhận Áp Đảo.Bắt Đầu Vòng Đấu: Địch Thủ triệu hồi 3 lá Xúc Tu.",
+    "type": [
+      "Foe Power"
+    ],
+    "translations": {
+      "en": {
+        "name": "Final Ordeal",
+        "description": "[cd:06BW006T3|Tentacles] with 3 or less [k:Power|Power] have [k:Elusive|Elusive]. [cd:06BW006T3|Tentacles] with 12 or more [k:Power|Power] have [k:Overwhelm|Overwhelm].[k:RoundStart|Round Start]: The [k:Foe|Foe] summons 3 [cd:06BW006T3|Tentacles].",
+        "descriptionRaw": "Tentacles with 3 or less Power have Elusive. Tentacles with 12 or more Power have Overwhelm.Round Start: The Foe summons 3 Tentacles.",
+        "rarity": "Legendary"
+      }
+    },
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_6_0/adventure/vi_vn/img/powers/P1031.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_6_0/adventure/vi_vn/img/powers/P1031-full.png"
+  },
+  {
+    "powerCode": "P1032",
+    "name": "Du Hành Thần Nữ",
+    "rarity": "Sử Thi",
+    "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Nếu [k:Foe|Địch Thủ] có lượt [k:AttackSkillMark|tấn công], chúng sẽ [k:Spawn|Triệu Gọi] bằng với số lá bài trên tay người chơi.",
+    "descriptionRaw": "Bắt Đầu Vòng Đấu: Nếu Địch Thủ có lượt tấn công, chúng sẽ Triệu Gọi bằng với số lá bài trên tay người chơi.",
+    "type": [
+      "Foe Power"
+    ],
+    "translations": {
+      "en": {
+        "name": "Goddess of Motion",
+        "description": "[k:RoundStart|Round Start]: If the [k:Foe|Foe] has the [k:AttackSkillMark|attack] token, they [k:Spawn|Spawn] equal to the number of cards in the [k:PlaySkillMark|play]er's hand.",
+        "descriptionRaw": "Round Start: If the Foe has the attack token, they Spawn equal to the number of cards in the player's hand.",
+        "rarity": "Epic"
+      }
+    },
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_6_0/adventure/vi_vn/img/powers/P1032.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_6_0/adventure/vi_vn/img/powers/P1032-full.png"
+  },
+  {
+    "powerCode": "P1033",
+    "name": "Chuyến Phà Cuối Cùng",
+    "rarity": "Sử Thi",
+    "description": "Khi một bài quân không phải [cd:06BW006T3|Xúc Tu] của [k:Foe|Địch Thủ] bị hạ gục, chúng sẽ [k:Spawn|Triệu Gọi] số lượng bằng với [k:Power|Sức Mạnh] của đơn vị đó.",
+    "descriptionRaw": "Khi một bài quân không phải Xúc Tu của Địch Thủ bị hạ gục, chúng sẽ Triệu Gọi số lượng bằng với Sức Mạnh của đơn vị đó.",
+    "type": [
+      "Foe Power"
+    ],
+    "translations": {
+      "en": {
+        "name": "The Last Ferry",
+        "description": "When one of the [k:Foe|Foe's] non-[cd:06BW006T3|Tentacle] unit dies, they [k:Spawn|Spawn] equal to its [k:Power|Power].",
+        "descriptionRaw": "When one of the Foe's non-Tentacle unit dies, they Spawn equal to its Power.",
+        "rarity": "Epic"
+      }
+    },
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_6_0/adventure/vi_vn/img/powers/P1033.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_6_0/adventure/vi_vn/img/powers/P1033-full.png"
+  },
+  {
     "powerCode": "P1038",
     "name": "Vòng Xuyên Thấu",
     "rarity": "Hiếm",
@@ -21463,6 +21683,46 @@
     },
     "assetAbsolutePath": "https://dd.b.pvp.net/7_5_0/adventure/vi_vn/img/powers/P1039.png",
     "assetFullAbsolutePath": "https://dd.b.pvp.net/7_5_0/adventure/vi_vn/img/powers/P1039-full.png"
+  },
+  {
+    "powerCode": "P1040",
+    "name": "Thử Thách Linh Hồn II",
+    "rarity": "Sử Thi",
+    "description": "+2 Năng Lượng Khởi Đầu.[k:RoundStart|Bắt Đầu Vòng Đấu]: Ban [k:Vulnerable|Kích Động] cho kẻ địch [k:Weakest|yếu nhất] và +1|+1 cho [cd:06BW006T3|Xúc Tu] đồng minh [k:Everywhere|ở mọi nơi].",
+    "descriptionRaw": "+2 Năng Lượng Khởi Đầu.Bắt Đầu Vòng Đấu: Ban Kích Động cho kẻ địch yếu nhất và +1|+1 cho Xúc Tu đồng minh ở mọi nơi.",
+    "type": [
+      "Star Power"
+    ],
+    "translations": {
+      "en": {
+        "name": "Test of Spirit II",
+        "description": "+2 Starting Mana.[k:RoundStart|Round Start]: Grant the [k:Weakest|weakest] enemy [k:Vulnerable|Vulnerable] and grant allied [cd:06BW006T3|Tentacles] [k:Everywhere|everywhere] +1|+1.",
+        "descriptionRaw": "+2 Starting Mana.Round Start: Grant the weakest enemy Vulnerable and grant allied Tentacles everywhere +1|+1.",
+        "rarity": "Epic"
+      }
+    },
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_6_0/adventure/vi_vn/img/powers/P1040.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_6_0/adventure/vi_vn/img/powers/P1040-full.png"
+  },
+  {
+    "powerCode": "P1058",
+    "name": "Du Hành Thần Nữ II",
+    "rarity": "Huyền Thoại",
+    "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Nếu [k:Foe|Địch Thủ] có lượt [k:AttackSkillMark|tấn công], chúng sẽ [k:Spawn|Triệu Gọi] bằng với ba lần số lá bài trên tay người chơi.",
+    "descriptionRaw": "Bắt Đầu Vòng Đấu: Nếu Địch Thủ có lượt tấn công, chúng sẽ Triệu Gọi bằng với ba lần số lá bài trên tay người chơi.",
+    "type": [
+      "Foe Power"
+    ],
+    "translations": {
+      "en": {
+        "name": "Goddess of Motion II",
+        "description": "[k:RoundStart|Round Start]: If the [k:Foe|Foe] has the [k:AttackSkillMark|attack] token, they [k:Spawn|Spawn] equal to three times the number of cards in the [k:PlaySkillMark|play]er's hand.",
+        "descriptionRaw": "Round Start: If the Foe has the attack token, they Spawn equal to three times the number of cards in the player's hand.",
+        "rarity": "Legendary"
+      }
+    },
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_6_0/adventure/vi_vn/img/powers/P1058.png",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_6_0/adventure/vi_vn/img/powers/P1058-full.png"
   },
   {
     "powerCode": "P1375",

@@ -71,13 +71,13 @@ const CinematicSection = ({ title1, title2, bgImage, children, reverse = false }
 				{/* Tiêu đề bay theo parallax nhẹ */}
 				<div 
 					ref={textRef}
-					className={`pointer-events-none z-30 w-full px-4 select-none mb-8 lg:mb-16 overflow-visible ${reverse ? 'lg:text-right text-center' : 'lg:text-left text-center'}`}
+					className={`pointer-events-none z-30 w-full px-4 select-none mb-8 lg:mb-16 overflow-visible ${reverse ? 'text-right' : 'text-left'}`}
 				>
 					<div
 						className="overflow-visible"
 					>
 						{/* Fix chữ tiêu đề: Đẩy title1 lên 100% opacity */}
-						<h2 className='text-4xl sm:text-6xl md:text-[8rem] lg:text-[11rem] font-black uppercase leading-[0.85] tracking-tighter italic text-white filter drop-shadow-[0_10px_20px_rgba(0,0,0,0.9)] overflow-visible w-full max-w-[100vw]'>
+						<h2 className='text-4xl sm:text-6xl md:text-[8rem] lg:text-[11rem] font-black uppercase leading-[0.85] tracking-tighter italic text-white filter drop-shadow-[0_10px_20px_rgba(0,0,0,0.9)] overflow-visible w-full max-w-[100vw] whitespace-nowrap'>
 							<span className="inline-block pr-12 lg:pr-24 overflow-visible">{title1}</span> <br />
 							<span className='text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.9)] relative inline-block pr-12 lg:pr-24 overflow-visible'>
 								{title2}

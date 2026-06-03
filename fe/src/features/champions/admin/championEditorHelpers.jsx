@@ -511,14 +511,21 @@ export const NodeEditor = ({
 					droppedItem = list.find(p => p.name ===ged.name);
 
 				if (droppedItem) {
+					const itemID = uniqueId || getUniqueId(droppedItem);
 					const updates = {
 						nodeName: droppedItem.name, // Giữ tương thích
 						description:
 							droppedItem.descriptionRaw || droppedItem.description || "",
 					};
 					// Lưu chuẩn ID vào CSDL
-					if (dragged.type === "power") updates.powerCode = uniqueId;
-					if (dragged.type === "bonusStar") updates.bonusStarID = uniqueId;
+					if (dragged.type === "power") {
+						updates.powerCode = itemID;
+						updates.nodeType = "starPower";
+					}
+					if (dragged.type === "bonusStar") {
+						updates.bonusStarID = itemID;
+						updates.nodeType = "bonusStar";
+					}
 
 					onMultiChange(index, updates);
 				}

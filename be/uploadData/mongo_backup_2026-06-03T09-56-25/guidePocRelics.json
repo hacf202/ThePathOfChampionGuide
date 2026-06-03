@@ -2938,5 +2938,25 @@
     "assetAbsolutePath": "https://dd.b.pvp.net/7_5_0/adventure/vi_vn/img/relics/R0180.png",
     "name": "Cún Vũ Trụ!!!",
     "type": "Trấn"
+  },
+  {
+    "translations": {
+      "en": {
+        "name": "Harsh Lesson",
+        "description": "[k:Regeneration|Regeneration]When I'm blocked, your [k:Strongest|strongest] Tentacle [k:Strike|strike]s my blocker.[k:PlaySkillMark|Play]: [k:Spawn|Spawn] 2.",
+        "descriptionRaw": "RegenerationWhen I'm blocked, your strongest Tentacle strikes my blocker.Play: Spawn 2.",
+        "rarity": "Epic"
+      }
+    },
+    "relicCode": "R0181",
+    "image": "https://images.pocguide.top/relics/R0181.webp",
+    "rarity": "SỬ THI",
+    "stack": "1",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_6_0/adventure/vi_vn/img/relics/R0181-full.png",
+    "descriptionRaw": "Hồi PhụcKhi ta bị chặn đòn, Xúc Tu mạnh nhất của ngươi sẽ tấn công kẻ chặn đòn ta.Xuất Trận: Triệu Gọi 2.",
+    "description": "[k:Regeneration|Hồi Phục]Khi ta bị chặn đòn, Xúc Tu [k:Strongest|mạnh nhất] của ngươi sẽ [k:AttackSkillMark|tấn công] kẻ chặn đòn ta.[k:PlaySkillMark|Xuất Trận]: [k:Spawn|Triệu Gọi] 2.",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_6_0/adventure/vi_vn/img/relics/R0181.png",
+    "name": "Lời Răn Khắc Nghiệt",
+    "type": "Trấn"
   }
 ]

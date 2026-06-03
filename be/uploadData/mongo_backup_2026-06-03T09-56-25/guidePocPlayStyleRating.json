@@ -1,24 +1,5 @@
 [
   {
-    "championName": "Elise",
-    "reviewType": "CHAMPION_REVIEW",
-    "ratings": {
-      "damage": 9,
-      "synergy": 10,
-      "independence": 10,
-      "defense": 9,
-      "consistency": 10,
-      "speed": 10
-    },
-    "updatedAt": "2026-03-30T21:25:30.315Z",
-    "createdAt": "2026-03-30T21:25:30.315Z",
-    "championID": "C014",
-    "comment": "",
-    "username": "tpn01042003",
-    "championImage": "https://images.pocguide.top/avatarChampions/Elise.webp",
-    "userSub": "c4882458-b0c1-7094-b62d-4a098bc96e83"
-  },
-  {
     "championID": "C014",
     "userSub": "fe54b8e0-8d99-4639-acd2-79a58fa9f9e6",
     "username": "NNN",
@@ -36,6 +17,25 @@
     "championImage": "https://images.pocguide.top/avatarChampions/Elise.webp",
     "createdAt": "2026-05-29T18:16:43.035Z",
     "updatedAt": "2026-05-29T18:16:43.035Z"
+  },
+  {
+    "championName": "Elise",
+    "reviewType": "CHAMPION_REVIEW",
+    "ratings": {
+      "damage": 9,
+      "synergy": 10,
+      "independence": 10,
+      "defense": 9,
+      "consistency": 10,
+      "speed": 10
+    },
+    "updatedAt": "2026-03-30T21:25:30.315Z",
+    "createdAt": "2026-03-30T21:25:30.315Z",
+    "championID": "C014",
+    "comment": "",
+    "username": "tpn01042003",
+    "championImage": "https://images.pocguide.top/avatarChampions/Elise.webp",
+    "userSub": "c4882458-b0c1-7094-b62d-4a098bc96e83"
   },
   {
     "championName": "Ambessa",
@@ -131,6 +131,25 @@
     "championImage": "https://images.pocguide.top/avatarChampions/SpiritBlossomTeemo.webp",
     "createdAt": "2026-05-29T18:21:02.733Z",
     "updatedAt": "2026-05-29T18:21:02.734Z"
+  },
+  {
+    "championID": "C041",
+    "userSub": "776e9467-111d-4ace-bd02-7fb8b93b8afb",
+    "username": "TheVirtuoso",
+    "ratings": {
+      "damage": 10,
+      "defense": 10,
+      "speed": 9,
+      "consistency": 9,
+      "synergy": 10,
+      "independence": 8
+    },
+    "comment": "",
+    "reviewType": "CHAMPION_REVIEW",
+    "championName": "Jhin",
+    "championImage": "https://images.pocguide.top/avatarChampions/Jhin.webp",
+    "createdAt": "2026-06-02T11:39:52.872Z",
+    "updatedAt": "2026-06-02T11:39:52.872Z"
   },
   {
     "championName": "Jhin",

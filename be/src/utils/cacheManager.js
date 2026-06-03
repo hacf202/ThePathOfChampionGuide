@@ -1,5 +1,10 @@
 import NodeCache from "node-cache";
 import kv from "./redis.js";
+import { gzip, gunzip } from "zlib";
+import util from "util";
+
+const gzipAsync = util.promisify(gzip);
+const gunzipAsync = util.promisify(gunzip);
 
 /**
  * cacheRegistry - Lưu trữ tất cả các instance cache đã được tạo để quản lý tập trung.
@@ -30,12 +35,21 @@ class AsyncCache {
 	async get(key) {
 		if (this.useRedis) {
 			try {
-				const val = await kv.get(this._getRedisKey(key));
+				const val = await kv.getBuffer(this._getRedisKey(key));
 				if (val) {
 					try {
-						return JSON.parse(val);
+						// Thử giải nén (với dữ liệu mới) bất đồng bộ để không block event loop
+						const decompressedBuf = await gunzipAsync(val);
+						const decompressed = decompressedBuf.toString("utf-8");
+						return JSON.parse(decompressed);
 					} catch (e) {
-						return val; // Nếu không parse được thì trả về string
+						// Nếu lỗi giải nén, fallback về dữ liệu cũ (chưa nén)
+						const strVal = val.toString("utf-8");
+						try {
+							return JSON.parse(strVal);
+						} catch (e2) {
+							return strVal;
+						}
 					}
 				}
 				return null;
@@ -50,10 +64,15 @@ class AsyncCache {
 		const finalTTL = ttl || this.options.stdTTL;
 		if (this.useRedis) {
 			try {
-				const stringVal = typeof value === 'object' ? JSON.stringify(value) : value;
-				await kv.set(this._getRedisKey(key), stringVal, "EX", finalTTL);
+				const stringVal = typeof value === 'object' ? JSON.stringify(value) : String(value);
+				// Nén bất đồng bộ để tối ưu hiệu suất Node.js event loop
+				const compressedVal = await gzipAsync(stringVal);
+				await kv.set(this._getRedisKey(key), compressedVal, "EX", finalTTL);
 			} catch (error) {
-				console.error(`[Cache:${this.name}] Redis SET error:`, error);
+				console.error(`[Cache:${this.name}] Redis SET error:`, error.message);
+                if (error.message.includes("OOM")) {
+                    console.error(`[Cache:${this.name}] Lỗi tràn bộ nhớ Redis! Dữ liệu sẽ chỉ được lưu trên Local Cache.`);
+                }
 			}
 		}
 		return this.localCache.set(key, value, finalTTL);

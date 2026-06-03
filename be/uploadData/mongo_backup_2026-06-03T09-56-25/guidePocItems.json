@@ -7178,5 +7178,44 @@
         "Unit Items"
       ]
     }
+  },
+  {
+    "translations": {
+      "en": {
+        "requirements": "No specific requirements.",
+        "descriptionRaw": "Attune. When I'm summoned, Spawn equal to my cost.",
+        "name": "Ocean's Command",
+        "requirementsRaw": "No specific requirements.",
+        "description": "[k:Attune|Attune]. When I'm summoned, [k:Spawn|Spawn] equal to my [k:Cost|cost].",
+        "type": [
+          "Unit Items"
+        ],
+        "rarity": "Rare"
+      }
+    },
+    "requirements": "Không có yêu cầu cụ thể.",
+    "requirementsRaw": "Không có yêu cầu cụ thể.",
+    "rarity": "Hiếm",
+    "assetFullAbsolutePath": "https://dd.b.pvp.net/7_6_0/adventure/vi_vn/img/items/I0214-full.png",
+    "descriptionRaw": "Hồi Lực.Khi ta được triệu hồi, Triệu Gọi bằng tiêu hao của ta.",
+    "description": "[k:Attune|Hồi Lực].Khi ta được triệu hồi, [k:Spawn|Triệu Gọi] bằng [k:Cost|tiêu hao] của ta.",
+    "itemCode": "I0214",
+    "assetAbsolutePath": "https://dd.b.pvp.net/7_6_0/adventure/vi_vn/img/items/I0214.png",
+    "name": "Mệnh Lệnh Biển Cả",
+    "type": [
+      "Vật Phẩm Tùy Tùng"
+    ],
+    "logic": {
+      "minCost": null,
+      "maxCost": null,
+      "forbiddenKeywords": [],
+      "requiresSubtype": false,
+      "requiresPositiveKeyword": false,
+      "requiresOtherCondition": null,
+      "cannotBeChampion": false,
+      "type": [
+        "Unit Items"
+      ]
+    }
   }
 ]
