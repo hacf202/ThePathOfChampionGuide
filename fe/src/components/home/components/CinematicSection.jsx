@@ -59,8 +59,8 @@ const CinematicSection = ({ title1, title2, bgImage, children, reverse = false }
 				</div>
 				
 				{/* Gradients to keep text readable but let colors pop (Dark gradient instead of page-bg) */}
-				<div className='absolute inset-0 bg-gradient-to-t from-[#05050A] via-[#05050A]/60 to-transparent opacity-95' />
-				<div className='absolute inset-0 bg-gradient-to-b from-[#05050A]/90 via-transparent to-transparent opacity-80' />
+				<div className='absolute inset-0 bg-gradient-to-t from-[#05050A] via-[#05050A]/60 to-transparent opacity-50' />
+				<div className='absolute inset-0 bg-gradient-to-b from-[#05050A]/90 via-transparent to-transparent opacity-30' />
 				
 				{/* GRAIN TEXTURE */}
 				<div className='absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay'

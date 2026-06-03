@@ -200,7 +200,7 @@ header {
 
 .dark.has-bg-image {
 	--color-surface-bg: rgba(19, 24, 37, 0.178); /* Gần như Slate-900 đặc nhưng có độ sâu tinh tế */
-	--color-modal-bg:  rgba(18, 23, 36, 0.925); /* Đặc biệt dành cho chế độ Ảnh nền */
+	--color-modal-bg:  #121724; /* Đặc biệt dành cho chế độ Ảnh nền, không trong suốt */
 	--color-border: rgba(255, 255, 255, 0.1);
 	--color-text-secondary: #bdbdbd; /* Tối hơn nữa để giảm chói */
 

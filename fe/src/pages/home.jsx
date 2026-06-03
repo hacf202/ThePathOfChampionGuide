@@ -149,7 +149,7 @@ const Home = () => {
 			<section className='relative w-full h-[calc(100vh-56px)] bg-surface-bg/0 overflow-hidden flex items-center justify-center isolate'>
 				{/* BACKGROUND IMAGE & OVERLAYS */}
 				<div className='absolute inset-0 z-0 select-none overflow-hidden bg-surface-bg/20'>
-					<div className='absolute inset-0 grayscale-[0.2] transform-gpu'>
+					<div className='absolute inset-0 grayscale-0 transform-gpu'>
 						<img
 							src={BACKGROUND_IMAGES[10]}
 							alt='Hero'
@@ -160,8 +160,8 @@ const Home = () => {
 					</div>
 
 					{/* Cinematic Vignette & Gradient Overlays */}
-					<div className='absolute inset-0 bg-gradient-to-t from-page-bg via-transparent to-transparent opacity-80' />
-					<div className='absolute inset-0 bg-gradient-to-b from-page-bg/20 via-transparent to-page-bg/40 opacity-60' />
+					<div className='absolute inset-0 bg-gradient-to-t from-page-bg via-transparent to-transparent opacity-40' />
+					<div className='absolute inset-0 bg-gradient-to-b from-page-bg/20 via-transparent to-page-bg/40 opacity-20' />
 					<div className='absolute inset-0 shadow-[inset_0_0_150px_rgba(0,0,0,0.5)]' />
 
 					{/* GRAIN TEXTURE OVERLAY */}
@@ -207,7 +207,7 @@ const Home = () => {
 								onClick={() => !isDragging.current && navigate(tile.to)}
 								className={`${tile.size} rounded-none border-[1px] border-white/40 shadow-2xl overflow-hidden bg-surface-bg/80 backdrop-blur-md group-hover:border-primary-500 group-hover:scale-110 group-hover:rotate-1 transition-all duration-300 select-none group-hover:shadow-primary-500/20 group-active:scale-95`}
 							>
-								<img src={tile.img} alt={tile.label} className='w-full h-full object-cover grayscale-[0.8] group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700 pointer-events-none' />
+								<img src={tile.img} alt={tile.label} className='w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700 pointer-events-none' />
 
 								{/* Glass Reflection Overlay */}
 								<div className='absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity' />
@@ -310,9 +310,9 @@ const Home = () => {
 			<section className='py-20 lg:py-40 text-center border-t border-white/10 relative overflow-hidden isolate px-4 bg-[#05050A]'>
 				{/* Cinematic Background & Overlay */}
 				<div className='absolute inset-0 -z-20'>
-					<img src={BACKGROUND_IMAGES[2]} className='w-full h-full object-cover opacity-60 mix-blend-luminosity' alt='' />
-					<div className='absolute inset-0 bg-gradient-to-t from-[#05050A] via-[#05050A]/90 to-[#05050A]/60 opacity-95' />
-					<div className='absolute inset-0 bg-gradient-to-b from-[#05050A] via-transparent to-transparent opacity-90' />
+					<img src={BACKGROUND_IMAGES[2]} className='w-full h-full object-cover opacity-80' alt='' />
+					<div className='absolute inset-0 bg-gradient-to-t from-[#05050A] via-[#05050A]/90 to-[#05050A]/60 opacity-70' />
+					<div className='absolute inset-0 bg-gradient-to-b from-[#05050A] via-transparent to-transparent opacity-60' />
 				</div>
 				<div className='absolute top-0 left-1/2 -translate-x-1/2 w-full lg:w-[1000px] h-[500px] bg-primary-600/20 md:blur-[200px] blur-[100px] -z-10 rounded-full animate-pulse-slow' />
 				

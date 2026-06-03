@@ -4,6 +4,7 @@ import { createPortal } from "react-dom";
 import { RenderRequirements } from "@/features/champions/components/requirementIcon";
 import { useTranslation } from "@/hooks/useTranslation";
 import { ZoomIn, ZoomOut, RefreshCcw } from "lucide-react";
+import MarkupRenderer from "@/components/common/MarkupRenderer";
 
 const ConstellationNode = ({
 	power,
@@ -401,18 +402,15 @@ export default function ConstellationMap({ constellationInfo }) {
 				!isDragging &&
 				createPortal(
 					<div
-						className='fixed bg-surface-bg border border-primary-500 rounded-lg shadow-2xl p-3 z-[9999] pointer-events-none'
+						className='fixed bg-modal-bg border border-primary-500 rounded-lg shadow-2xl p-3 z-[9999] pointer-events-none'
 						style={tooltipStyle}
 					>
 						<h3 className='text-primary-500 font-bold text-sm uppercase mb-1'>
 							{hoveredNode.name}
 						</h3>
-						<div
-							className='text-text-secondary text-xs leading-relaxed'
-							dangerouslySetInnerHTML={{
-								__html: hoveredNode.description,
-							}}
-						/>
+						<div className='text-text-secondary text-xs leading-relaxed'>
+							<MarkupRenderer text={hoveredNode.description} />
+						</div>
 
 						<div
 							className='absolute top-full border-8 border-transparent border-t-primary-500'

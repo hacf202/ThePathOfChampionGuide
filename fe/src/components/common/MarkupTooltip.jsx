@@ -119,7 +119,7 @@ const MarkupTooltip = ({
 						{...getFloatingProps()}
 						className='pointer-events-auto'
 					>
-						<div className={`bg-slate-950/95 backdrop-blur-xl text-white rounded-xl shadow-2xl border-2 ${theme.border} ${theme.glow} overflow-hidden 
+						<div className={`bg-slate-950 text-white rounded-xl shadow-2xl border-2 ${theme.border} ${theme.glow} overflow-hidden 
 							${isSpecialType ? 'w-[280px] sm:w-[320px]' : compact ? 'max-w-[260px]' : 'max-w-[320px] min-w-[200px]'} 
 							animate-in fade-in zoom-in-95 duration-200`}
 						>
