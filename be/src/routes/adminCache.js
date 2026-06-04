@@ -107,6 +107,7 @@ router.get("/redis-info", authenticateCognitoToken, requireAdmin, async (req, re
 			version: infoObj.redis_version,
 			uptime: infoObj.uptime_in_seconds,
 			memory: infoObj.used_memory_human,
+			memory_peak: infoObj.used_memory_peak_human,
 			clients: infoObj.connected_clients,
 			raw: infoObj
 		});
@@ -148,6 +149,61 @@ router.get("/redis-keys", authenticateCognitoToken, requireAdmin, async (req, re
 		});
 	} catch (error) {
 		console.error("[AdminCache] Error scanning Redis keys:", error);
+		res.status(500).json({ error: error.message });
+	}
+});
+
+/**
+ * @route   GET /api/admin/cache/redis-categories
+ * @desc    Phân loại các key trong Redis
+ * @access  Private (Admin only)
+ */
+router.get("/redis-categories", authenticateCognitoToken, requireAdmin, async (req, res) => {
+	try {
+		if (!kv) {
+			return res.status(200).json({ categories: [], total: 0 });
+		}
+
+		let cursor = "0";
+		const categories = {};
+		let total = 0;
+		
+		let iterations = 0;
+		do {
+			const [nextCursor, keys] = await kv.scan(cursor, "MATCH", "*", "COUNT", 100);
+			cursor = nextCursor;
+			
+			keys.forEach(key => {
+				let prefix = 'khác';
+				const parts = key.split(':');
+				if (parts.length > 1) {
+					prefix = parts[0] + ':' + parts[1].split('?')[0].split('_')[0]; 
+				} else {
+					prefix = parts[0].split('_')[0];
+				}
+
+				if (key.startsWith('api:champions:')) prefix = 'API: Champions List & Filters';
+				else if (key.startsWith('champion_detail_')) prefix = 'Cache: Champion Details';
+				else if (key.startsWith('api:')) prefix = 'API: ' + parts[1].split('?')[0];
+				else if (key.startsWith('poc:')) prefix = 'System: ' + parts[1];
+
+				categories[prefix] = (categories[prefix] || 0) + 1;
+				total++;
+			});
+			
+			iterations++;
+		} while (cursor !== "0" && iterations < 500);
+
+		const resultList = Object.entries(categories)
+			.map(([name, count]) => ({ name, count }))
+			.sort((a, b) => b.count - a.count);
+
+		res.status(200).json({ 
+			categories: resultList,
+			total
+		});
+	} catch (error) {
+		console.error("[AdminCache] Error categorizing Redis keys:", error);
 		res.status(500).json({ error: error.message });
 	}
 });

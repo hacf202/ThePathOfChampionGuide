@@ -1044,6 +1044,14 @@ export const sampleChampionMapping = [
 					"R0139",
 					"R0061"
 				]
+			},
+			{
+				"id": "C080",
+				"relics": [
+					"R0181",
+					"R0001",
+					"R0045"
+				]
 			}
 		]
 	},

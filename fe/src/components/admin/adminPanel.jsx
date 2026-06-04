@@ -1,5 +1,7 @@
 // src/pages/admin/AdminPanel.jsx
-import React, { useState, lazy, Suspense } from "react";
+import React, { useState, lazy, Suspense, useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 import {
 	NavLink,
 	Routes,
@@ -27,8 +29,12 @@ import {
 	History,
 	BarChart3,
 	Database,
+	Users,
+	Eye,
+	TrendingUp
 } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
+import { useAnalyticsStats, MetricCard, AnalyticsRealtime, AnalyticsTopPages } from "./analytics/AnalyticsDashboard";
 
 // Lazy load các editor
 const ChampionEditor = lazy(() => import("@/features/champions/admin/championEditor"));
@@ -50,39 +56,133 @@ const CacheManager = lazy(() => import("./cache/cacheManager"));
 const AnalyticsDashboard = lazy(() => import("./analytics/AnalyticsDashboard"));
 const DbStatsManager = lazy(() => import("./dbStats/dbStatsManager"));
 
-// Component DashboardHome
+const DashboardNavCard = ({ item, navigate, idx }) => {
+	const colors = [
+		"text-white bg-blue-500 shadow-lg shadow-blue-500/20 group-hover:bg-blue-400 group-hover:scale-110",
+		"text-white bg-emerald-500 shadow-lg shadow-emerald-500/20 group-hover:bg-emerald-400 group-hover:scale-110",
+		"text-white bg-amber-500 shadow-lg shadow-amber-500/20 group-hover:bg-amber-400 group-hover:scale-110",
+		"text-white bg-purple-500 shadow-lg shadow-purple-500/20 group-hover:bg-purple-400 group-hover:scale-110",
+		"text-white bg-rose-500 shadow-lg shadow-rose-500/20 group-hover:bg-rose-400 group-hover:scale-110",
+		"text-white bg-cyan-500 shadow-lg shadow-cyan-500/20 group-hover:bg-cyan-400 group-hover:scale-110",
+	];
+	const colorClass = colors[idx % colors.length];
+
+	return (
+		<button
+			onClick={() => navigate(item.path)}
+			className='nav-card group flex flex-col justify-between p-5 bg-surface-bg/90 backdrop-blur-md border border-border/80 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer text-left'
+		>
+			<div className="flex items-start justify-between w-full mb-6">
+				<div className={`p-3 rounded-2xl transition-all duration-300 ${colorClass}`}>
+					<item.icon className='h-6 w-6' />
+				</div>
+				<div className="w-8 h-8 rounded-full flex items-center justify-center bg-surface-hover/80 text-text-tertiary group-hover:bg-primary-500 group-hover:text-white transition-all">
+					<ChevronRight size={16} />
+				</div>
+			</div>
+			<div className="flex flex-col">
+				<h4 className="font-bold text-text-primary text-base group-hover:text-primary-500 transition-colors">
+					{item.label}
+				</h4>
+				<p className="text-[10px] font-bold text-text-secondary mt-1 uppercase tracking-widest opacity-70">
+					Truy cập module
+				</p>
+			</div>
+		</button>
+	);
+};
+
 const DashboardHome = ({ navItems }) => {
 	const navigate = useNavigate();
 	const { tUI } = useTranslation();
-	
+	const { stats, loading } = useAnalyticsStats();
+	const containerRef = useRef();
+
+	useGSAP(() => {
+		gsap.from(".nav-card", {
+			y: 30,
+			opacity: 0,
+			duration: 0.5,
+			stagger: 0.05,
+			ease: "power2.out",
+			clearProps: "all"
+		});
+		gsap.from(".dashboard-anim", {
+			y: 30,
+			opacity: 0,
+			duration: 0.5,
+			stagger: 0.1,
+			ease: "power2.out",
+			delay: 0.1,
+			clearProps: "all"
+		});
+	}, { scope: containerRef });
 
 	return (
-		<>
-			<h1 className='text-4xl font-bold text-text-primary font-primary mb-2'>
-				{tUI("admin.dashboard.welcome")}
-			</h1>
-			<p className='text-lg text-text-secondary mb-8'>
-				{tUI("admin.dashboard.overview")}
-			</p>
+		<div ref={containerRef} className="space-y-8 pb-12 animate-fadeIn">
+			{/* Header */}
+			<section className="mb-8">
+				<h1 className='text-3xl font-black text-text-primary font-primary mb-2 tracking-tight dashboard-anim'>
+					{tUI("admin.dashboard.welcome") || "Tổng quan Hệ thống"}
+				</h1>
+				<p className='text-sm text-text-secondary font-medium dashboard-anim'>
+					{tUI("admin.dashboard.overview") || "Theo dõi các chỉ số quan trọng và truy cập nhanh các tính năng quản trị."}
+				</p>
+			</section>
 
-			<div>
-				<h3 className='text-xl font-semibold text-text-primary mb-6 font-primary'>
-					{tUI("admin.dashboard.selectManage")}
-				</h3>
-				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
-					{navItems.slice(1).map(item => (
-						<button
-							key={item.path}
-							onClick={() => navigate(item.path)}
-							className='group flex items-center gap-3 px-6 py-4 bg-btn-primary-bg text-btn-primary-text font-semibold rounded-xl shadow-md hover:bg-btn-primary-hover-bg transition-all duration-200 transform hover:scale-105 hover:shadow-lg'
-						>
-							<item.icon className='h-6 w-6 flex-shrink-0' />
-							<span>{item.label}</span>
-						</button>
-					))}
-				</div>
+			<div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
+				{/* Left Column: Action Grid (66%) */}
+				<section className="xl:col-span-2 space-y-6">
+					<div className="flex items-center justify-between border-b border-border/50 pb-3 dashboard-anim">
+						<h3 className='text-lg font-black text-text-primary font-primary uppercase tracking-tight flex items-center gap-2'>
+							<LayoutDashboard className="text-primary-500" size={20} />
+							{tUI("admin.dashboard.selectManage") || "Quản lý Chức năng"}
+						</h3>
+					</div>
+					<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5'>
+						{navItems.slice(1).map((item, idx) => {
+							if (item.id === "analytics") return null;
+							return <DashboardNavCard key={item.path} item={item} navigate={navigate} idx={idx} />;
+						})}
+					</div>
+				</section>
+
+				{/* Right Column: Analytics Sidebar (33%) */}
+				<section className="xl:col-span-1 space-y-5">
+					<div className="flex items-center justify-between border-b border-border/50 pb-3 dashboard-anim">
+						<h3 className='text-lg font-black text-text-primary font-primary uppercase tracking-tight flex items-center gap-2'>
+							<BarChart3 className="text-emerald-500" size={20} />
+							Phân tích nhanh
+						</h3>
+					</div>
+					
+					{loading && !stats ? (
+						<div className="h-40 animate-pulse bg-surface-bg border border-border rounded-3xl flex items-center justify-center dashboard-anim">
+							<p className="text-text-tertiary font-bold text-xs uppercase tracking-widest">Đang tải biểu đồ...</p>
+						</div>
+					) : (
+						<div className="flex flex-col gap-4">
+							<div className="dashboard-anim">
+								<MetricCard icon={<Users size={20}/>} label="Trực tuyến" value={stats?.onlineUsers || 0} color="emerald" />
+							</div>
+							<div className="dashboard-anim">
+								<MetricCard icon={<Eye size={20}/>} label="Lượt xem API" value={stats?.totalViews?.toLocaleString() || 0} color="blue" />
+							</div>
+							<div className="dashboard-anim">
+								<AnalyticsRealtime stats={stats} />
+							</div>
+						</div>
+					)}
+				</section>
 			</div>
-		</>
+
+			{/* Bottom Section: Top Pages */}
+			{!loading && stats && (
+				<section className="mt-8 pt-8 border-t border-border/50 dashboard-anim">
+					<AnalyticsTopPages stats={stats} tUI={tUI} />
+				</section>
+			)}
+		</div>
 	);
 };
 

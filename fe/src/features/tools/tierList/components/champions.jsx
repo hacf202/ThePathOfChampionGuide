@@ -1095,7 +1095,7 @@ function TierListChampions({ initialChampions }) {
 											</div>
 											<DroppableZone
 												id='unranked'
-												className='overflow-y-auto-scrollbar border-2 border-dashed border-white/5 rounded-xl p-4 bg-black/10 flex flex-wrap gap-2 content-start'
+												className='overflow-y-auto custom-scrollbar border-2 border-dashed border-white/5 rounded-xl p-4 bg-black/10 flex flex-wrap gap-2 content-start'
 												style={{ height: '600px' }}
 											>
 												{unranked.map(item =>
@@ -1137,7 +1137,7 @@ function TierListChampions({ initialChampions }) {
 												/>
 											</div>
 											<div 
-												className='overflow-y-auto border-2 border-dashed border-white/5 rounded-xl p-4 bg-black/10 flex flex-col gap-4 content-start-scrollbar'
+												className='overflow-y-auto custom-scrollbar border-2 border-dashed border-white/5 rounded-xl p-4 bg-black/10 flex flex-col gap-4 content-start'
 												style={{ height: '600px' }}
 											>
 												{Object.entries(groupedRelics).map(([rarity, items]) => 

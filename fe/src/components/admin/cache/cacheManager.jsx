@@ -1,12 +1,15 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import axios from "axios";
 import { 
 	Trash2, RefreshCw, Database, HardDrive, ShieldAlert, 
-	CheckCircle2, AlertCircle, Info, Activity, Search, 
-	Cpu, Clock, Terminal, Globe, ChevronRight, Library
+	AlertCircle, Activity, Search, Cpu, Clock, Terminal, 
+	Globe, ChevronRight, Library, LayoutGrid, Server
 } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
 import Swal from "sweetalert2";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { InfoTooltip } from "../analytics/AnalyticsDashboard";
 
 const API_ADMIN_CACHE = `${import.meta.env.VITE_API_URL}/api/admin/cache`;
 
@@ -16,31 +19,33 @@ const CacheManager = () => {
 	const [stats, setStats] = useState([]);
 	const [redisInfo, setRedisInfo] = useState(null);
 	const [redisKeys, setRedisKeys] = useState([]);
+	const [redisCategories, setRedisCategories] = useState([]);
 	const [keyPattern, setKeyPattern] = useState("*");
 	const [loading, setLoading] = useState(false);
 	const [rowLoading, setRowLoading] = useState({});
+	const containerRef = useRef();
 
-	// --- Actions ---
+	useGSAP(() => {
+		gsap.from(".gsap-element", {
+			y: 20,
+			opacity: 0,
+			duration: 0.4,
+			stagger: 0.05,
+			ease: "power2.out",
+			clearProps: "all"
+		});
+	}, { dependencies: [activeTab, loading, redisCategories.length, redisKeys.length], scope: containerRef });
 
 	const fetchStats = useCallback(async (silent = false) => {
 		if (!silent) setLoading(true);
 		try {
 			const token = localStorage.getItem("token");
-			const timestamp = Date.now();
-			const response = await axios.get(`${API_ADMIN_CACHE}/stats?t=${timestamp}`, {
+			const response = await axios.get(`${API_ADMIN_CACHE}/stats?t=${Date.now()}`, {
 				headers: { Authorization: `Bearer ${token}` }
 			});
 			setStats(response.data || []);
 		} catch (error) {
 			console.error("Error fetching cache stats:", error);
-			if (!silent) {
-				Swal.fire({
-					icon: "error",
-					title: "Lỗi kết nối",
-					text: "Không thể lấy thông tin Cache từ máy chủ.",
-					confirmButtonColor: "#3b82f6",
-				});
-			}
 		} finally {
 			if (!silent) setLoading(false);
 		}
@@ -76,14 +81,27 @@ const CacheManager = () => {
 		}
 	}, []);
 
+	const fetchRedisCategories = useCallback(async (silent = false) => {
+		try {
+			const token = localStorage.getItem("token");
+			const response = await axios.get(`${API_ADMIN_CACHE}/redis-categories`, {
+				headers: { Authorization: `Bearer ${token}` }
+			});
+			setRedisCategories(response.data.categories || []);
+		} catch (error) {
+			console.error("Error fetching Redis categories:", error);
+		}
+	}, []);
+
 	useEffect(() => {
 		if (activeTab === "overview") {
 			fetchStats();
 		} else {
 			fetchRedisInfo();
+			fetchRedisCategories();
 			fetchRedisKeys(keyPattern);
 		}
-	}, [activeTab, fetchStats, fetchRedisInfo, fetchRedisKeys, keyPattern]);
+	}, [activeTab, fetchStats, fetchRedisInfo, fetchRedisKeys, fetchRedisCategories, keyPattern]);
 
 	const handleClearAll = async () => {
 		const result = await Swal.fire({
@@ -93,8 +111,8 @@ const CacheManager = () => {
 			showCancelButton: true,
 			confirmButtonColor: "#ef4444",
 			cancelButtonColor: "#6b7280",
-			confirmButtonText: tUI("admin.cache.confirmBtn") || "Vâng, xóa tất cả!",
-			cancelButtonText: tUI("admin.cache.cancelBtn") || "Hủy bỏ",
+			confirmButtonText: "Xóa tất cả",
+			cancelButtonText: "Hủy bỏ",
 			background: "#1f2937",
 			color: "#f3f4f6",
 		});
@@ -107,24 +125,10 @@ const CacheManager = () => {
 			await axios.delete(`${API_ADMIN_CACHE}/clear-all`, {
 				headers: { Authorization: `Bearer ${token}` }
 			});
-			
 			await fetchStats(true);
-			
-			Swal.fire({
-				icon: "success",
-				title: tUI("admin.cache.clearSuccess") || "Đã làm sạch!",
-				timer: 2000,
-				showConfirmButton: false,
-				toast: true,
-				position: "top-end",
-			});
+			Swal.fire({ icon: "success", title: "Đã làm sạch!", timer: 2000, showConfirmButton: false, toast: true, position: "top-end" });
 		} catch (error) {
-			Swal.fire({
-				icon: "error",
-				title: "Lỗi",
-				text: error.response?.data?.error || "Không thể xóa cache.",
-				confirmButtonColor: "#3b82f6",
-			});
+			Swal.fire({ icon: "error", title: "Lỗi", text: error.response?.data?.error || "Không thể xóa cache.", confirmButtonColor: "#3b82f6" });
 		} finally {
 			setLoading(false);
 		}
@@ -137,24 +141,10 @@ const CacheManager = () => {
 			await axios.delete(`${API_ADMIN_CACHE}/clear/${name}`, {
 				headers: { Authorization: `Bearer ${token}` }
 			});
-			
 			await fetchStats(true);
-
-			Swal.fire({
-				icon: "success",
-				title: tUI("admin.cache.purgeSuccess", { name }) || "Đã xóa!",
-				timer: 2000,
-				showConfirmButton: false,
-				toast: true,
-				position: "top-end",
-			});
+			Swal.fire({ icon: "success", title: "Đã xóa!", timer: 2000, showConfirmButton: false, toast: true, position: "top-end" });
 		} catch (error) {
-			Swal.fire({
-				icon: "error",
-				title: "Lỗi",
-				text: error.response?.data?.error || `Lỗi khi xóa cache ${name}.`,
-				confirmButtonColor: "#3b82f6",
-			});
+			Swal.fire({ icon: "error", title: "Lỗi", text: error.response?.data?.error || `Lỗi khi xóa cache ${name}.`, confirmButtonColor: "#3b82f6" });
 		} finally {
 			setRowLoading(prev => ({ ...prev, [name]: false }));
 		}
@@ -163,7 +153,7 @@ const CacheManager = () => {
 	const handleDeleteRedisKey = async (key) => {
 		const result = await Swal.fire({
 			title: "Xác nhận xóa key?",
-			text: tUI("admin.cache.redis.deleteConfirm", { key }) || `Bạn có chắc muốn xóa key "${key}"?`,
+			text: `Bạn có chắc muốn xóa key "${key}"?`,
 			icon: "warning",
 			showCancelButton: true,
 			confirmButtonColor: "#ef4444",
@@ -181,434 +171,363 @@ const CacheManager = () => {
 			await axios.delete(`${API_ADMIN_CACHE}/redis-key/${encodeURIComponent(key)}`, {
 				headers: { Authorization: `Bearer ${token}` }
 			});
-			
 			fetchRedisKeys(keyPattern, true);
-
-			Swal.fire({
-				icon: "success",
-				title: tUI("admin.cache.redis.deleteSuccess") || "Đã xóa key!",
-				timer: 1500,
-				showConfirmButton: false,
-				toast: true,
-				position: "top-end",
-			});
+			Swal.fire({ icon: "success", title: "Đã xóa key!", timer: 1500, showConfirmButton: false, toast: true, position: "top-end" });
 		} catch (error) {
-			Swal.fire({
-				icon: "error",
-				title: "Lỗi",
-				text: error.response?.data?.error || "Không thể xóa key.",
-				confirmButtonColor: "#3b82f6",
-			});
+			Swal.fire({ icon: "error", title: "Lỗi", text: "Không thể xóa key.", confirmButtonColor: "#3b82f6" });
 		} finally {
 			setRowLoading(prev => ({ ...prev, [key]: false }));
 		}
 	};
 
-	// --- Render Helpers ---
-
 	const totalKeys = stats.reduce((acc, curr) => acc + (curr.keys || 0), 0);
 	const totalHits = stats.reduce((acc, curr) => acc + (curr.stats?.hits || 0), 0);
 	const totalMisses = stats.reduce((acc, curr) => acc + (curr.stats?.misses || 0), 0);
-	const hitRate = totalHits + totalMisses > 0 
-		? ((totalHits / (totalHits + totalMisses)) * 100).toFixed(1) 
-		: 0;
+	const hitRate = totalHits + totalMisses > 0 ? ((totalHits / (totalHits + totalMisses)) * 100).toFixed(1) : 0;
+
+	const systemCats = redisCategories.filter(c => c.name.startsWith("System:"));
+	const apiCats = redisCategories.filter(c => c.name.startsWith("API:") || c.name.startsWith("Cache:"));
+	const otherCats = redisCategories.filter(c => !c.name.startsWith("System:") && !c.name.startsWith("API:") && !c.name.startsWith("Cache:"));
 
 	return (
-		<div className="max-w-7xl animate-fadeIn font-secondary">
-			{/* Header */}
-			<header className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+		<div ref={containerRef} className="max-w-7xl pb-16 font-secondary">
+			{/* --- TOP HEADER & NAVIGATION --- */}
+			<div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10 gsap-element">
 				<div>
 					<h1 className="text-3xl font-black text-text-primary mb-2 flex items-center gap-3 font-primary uppercase tracking-tight">
-						<div className="p-2 bg-primary-500 rounded-xl">
-							<Database className="h-7 w-7 text-white" />
+						<div className="p-2.5 bg-gradient-to-br from-primary-500 to-blue-600 rounded-2xl shadow-lg shadow-primary-500/20">
+							<Database className="h-6 w-6 text-white" />
 						</div>
-						{tUI("admin.cache.title")}
+						Quản trị Bộ nhớ đệm
 					</h1>
-					<p className="text-text-secondary max-w-2xl font-medium">
-						{tUI("admin.cache.subtitle")}
+					<p className="text-text-secondary text-sm font-medium">
+						Kiểm soát và tối ưu hóa hệ thống lưu trữ đệm (Cache) và kết nối Redis.
 					</p>
 				</div>
-				<div className="flex gap-2">
-					<button
-						onClick={() => activeTab === "overview" ? fetchStats() : (fetchRedisInfo() || fetchRedisKeys(keyPattern))}
-						disabled={loading}
-						className="group flex items-center gap-2 px-4 py-2.5 bg-surface-bg border border-border rounded-xl hover:bg-surface-hover hover:border-primary-500/50 transition-all text-sm font-bold shadow-sm"
-					>
-						<RefreshCw size={18} className={`${loading ? "animate-spin" : "group-hover:rotate-180 transition-transform duration-500"}`} />
-						{tUI("admin.common.refresh") || "Làm mới"}
-					</button>
-					{activeTab === "overview" && (
+				
+				<div className="flex flex-col sm:flex-row items-center gap-4">
+					{/* Segmented Control */}
+					<div className="flex p-1 bg-surface-hover/30 border border-border/50 rounded-xl w-full sm:w-auto shadow-inner">
 						<button
-							onClick={handleClearAll}
-							disabled={loading || stats.length === 0}
-							className="flex items-center gap-2 px-6 py-2.5 bg-red-500 text-white font-bold rounded-xl hover:bg-red-600 transition-all shadow-lg shadow-red-500/20 disabled:opacity-50"
+							onClick={() => setActiveTab("overview")}
+							className={`flex-1 sm:flex-none flex items-center justify-center gap-2 px-6 py-2 rounded-lg text-sm font-bold transition-all ${
+								activeTab === "overview" ? "bg-surface-bg text-text-primary shadow-sm ring-1 ring-border" : "text-text-tertiary hover:text-text-primary hover:bg-surface-hover/50"
+							}`}
 						>
-							<Trash2 size={18} />
-							{tUI("admin.cache.clearAll")}
+							<LayoutGrid size={16} className={activeTab === "overview" ? "text-primary-500" : ""} />
+							Tổng quan
 						</button>
-					)}
+						<button
+							onClick={() => setActiveTab("redis")}
+							className={`flex-1 sm:flex-none flex items-center justify-center gap-2 px-6 py-2 rounded-lg text-sm font-bold transition-all ${
+								activeTab === "redis" ? "bg-surface-bg text-text-primary shadow-sm ring-1 ring-border" : "text-text-tertiary hover:text-text-primary hover:bg-surface-hover/50"
+							}`}
+						>
+							<Server size={16} className={activeTab === "redis" ? "text-amber-500" : ""} />
+							Redis Console
+						</button>
+					</div>
+					
+					{/* Action Buttons */}
+					<div className="flex items-center gap-2 w-full sm:w-auto">
+						<button
+							onClick={() => activeTab === "overview" ? fetchStats() : (fetchRedisInfo() || fetchRedisKeys(keyPattern))}
+							disabled={loading}
+							className="flex-1 sm:flex-none flex items-center justify-center p-2.5 bg-surface-bg border border-border rounded-xl hover:bg-surface-hover transition-colors text-text-secondary hover:text-primary-500 shadow-sm disabled:opacity-50"
+							title="Làm mới dữ liệu"
+						>
+							<RefreshCw size={18} className={`${loading ? "animate-spin" : ""}`} />
+						</button>
+						{activeTab === "overview" && stats.length > 0 && (
+							<button
+								onClick={handleClearAll}
+								disabled={loading}
+								className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-red-500/10 text-red-500 border border-red-500/20 rounded-xl hover:bg-red-500 hover:text-white transition-all text-sm font-bold shadow-sm"
+							>
+								<Trash2 size={16} />
+								<span className="hidden sm:inline">Xóa tất cả</span>
+							</button>
+						)}
+					</div>
 				</div>
-			</header>
-
-			{/* Tabs Navigation */}
-			<div className="flex gap-2 mb-8 p-1.5 bg-surface-bg border border-border rounded-2xl w-fit">
-				<TabButton 
-					active={activeTab === "overview"} 
-					onClick={() => setActiveTab("overview")} 
-					icon={<Activity size={18} />}
-					label={tUI("admin.cache.tabs.overview") || "Tổng quan"}
-				/>
-				<TabButton 
-					active={activeTab === "redis"} 
-					onClick={() => setActiveTab("redis")} 
-					icon={<Terminal size={18} />}
-					label={tUI("admin.cache.tabs.redis") || "Redis Manager"}
-				/>
 			</div>
 
-			{activeTab === "overview" ? (
-				<>
-					{/* Overview Cards */}
-					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-						<StatCard 
-							icon={<Library className="h-6 w-6" />} 
-							label={tUI("admin.cache.totalModules")} 
-							value={stats.length} 
-							color="primary"
-						/>
-						<StatCard 
-							icon={<Database className="h-6 w-6" />} 
-							label={tUI("admin.cache.totalRecords")} 
-							value={totalKeys} 
-							color="amber"
-						/>
-						<StatCard 
-							icon={<Activity className="h-6 w-6" />} 
-							label={tUI("admin.cache.hitRate") || "Tỷ lệ Hit"} 
-							value={`${hitRate}%`} 
-							color="emerald"
-						/>
-						<StatCard 
-							icon={<Globe className="h-6 w-6" />} 
-							label={tUI("admin.cache.totalRequests") || "Tổng yêu cầu"} 
-							value={totalHits + totalMisses} 
-							color="blue"
-						/>
+			{/* --- TAB CONTENT: OVERVIEW --- */}
+			{activeTab === "overview" && (
+				<div className="space-y-8">
+					{/* Stat Cards */}
+					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+						<StatCard icon={<Library />} label="Tổng Modules" value={stats.length} color="blue" tooltip="Số lượng module chức năng đang được lưu cache (ví dụ: Champions, Items)." />
+						<StatCard icon={<Database />} label="Tổng Records" value={totalKeys} color="amber" tooltip="Tổng số bản ghi (key) đang được lưu giữ thực tế trong Redis." />
+						<StatCard icon={<Activity />} label="Tỷ lệ Hit" value={`${hitRate}%`} color="emerald" tooltip="Tỷ lệ tìm thấy dữ liệu trong bộ nhớ đệm (Cache Hit). Tỷ lệ càng cao (>70%) chứng tỏ hệ thống chạy càng mượt." />
+						<StatCard icon={<Globe />} label="Tổng Yêu cầu" value={totalHits + totalMisses} color="purple" tooltip="Tổng số lượt truy cập (bao gồm cả Hit và Miss) tới hệ thống Cache." />
 					</div>
 
-					{/* Modules Table */}
-					<div className="bg-surface-bg border border-border rounded-3xl overflow-hidden shadow-xl shadow-black/5">
-						<div className="overflow-x-auto">
-							<table className="w-full text-left border-collapse">
-								<thead>
-									<tr className="bg-surface-hover/30 text-text-tertiary text-[10px] uppercase tracking-widest font-black border-b border-border">
-										<th className="px-6 py-5">{tUI("admin.cache.moduleName")}</th>
-										<th className="px-6 py-5 text-center">{tUI("admin.cache.cachedKeys")}</th>
-										<th className="px-6 py-5 text-center">{tUI("admin.cache.hits")}</th>
-										<th className="px-6 py-5 text-center">{tUI("admin.cache.misses")}</th>
-										<th className="px-6 py-5 text-center">Hiệu quả</th>
-										<th className="px-6 py-5 text-right">{tUI("admin.cache.actions")}</th>
-									</tr>
-								</thead>
-								<tbody className="divide-y divide-border">
-									{stats.length > 0 ? stats.map((item) => {
-										const itemTotal = (item.stats?.hits || 0) + (item.stats?.misses || 0);
-										const itemRate = itemTotal > 0 ? (((item.stats?.hits || 0) / itemTotal) * 100).toFixed(0) : 0;
-										
-										return (
-											<tr key={item.name} className="hover:bg-surface-hover/20 transition-colors group">
-												<td className="px-6 py-5">
-													<div className="flex items-center gap-3">
-														<div className="h-2 w-2 rounded-full bg-primary-500 shadow-[0_0_8px_rgba(59,130,246,0.5)]" />
-														<span className="text-sm font-black text-text-primary uppercase tracking-tight group-hover:text-primary-400 transition-colors">
-															{item.name}
-														</span>
-													</div>
-												</td>
-												<td className="px-6 py-5 text-center font-mono font-bold text-text-primary text-base">
-													{item.keys}
-												</td>
-												<td className="px-6 py-5 text-center text-emerald-400 font-mono font-bold">
-													{item.stats?.hits || 0}
-												</td>
-												<td className="px-6 py-5 text-center text-amber-400 font-mono font-bold">
-													{item.stats?.misses || 0}
-												</td>
-												<td className="px-6 py-5 text-center">
-													<div className="flex flex-col items-center gap-1.5">
-														<div className="w-20 h-1.5 bg-white/5 rounded-full overflow-hidden">
-															<div 
-																className={`h-full transition-all duration-1000 ease-out ${itemRate > 70 ? 'bg-emerald-500' : itemRate > 40 ? 'bg-amber-500' : 'bg-red-500'}`}
-																style={{ width: `${itemRate}%` }}
-															/>
-														</div>
-														<span className="text-[10px] font-black text-text-tertiary">{itemRate}%</span>
-													</div>
-												</td>
-												<td className="px-6 py-5 text-right">
-													<button
-														onClick={() => handleClearCache(item.name)}
-														disabled={rowLoading[item.name] || loading}
-														className="p-2.5 text-text-tertiary hover:text-white hover:bg-red-500 rounded-xl transition-all disabled:opacity-30 active:scale-95 shadow-sm"
-														title="Clear Module Cache"
-													>
-														{rowLoading[item.name] ? (
-															<RefreshCw size={18} className="animate-spin" />
-														) : (
-															<Trash2 size={18} />
-														)}
-													</button>
-												</td>
-											</tr>
-										);
-									}) : (
-										<tr>
-											<td colSpan="6" className="px-6 py-24 text-center">
-												{loading ? (
-													<div className="flex flex-col items-center gap-4">
-														<div className="relative">
-															<Database className="text-primary-500/20" size={48} />
-															<div className="absolute inset-0 flex items-center justify-center">
-																<RefreshCw className="animate-spin text-primary-500" size={24} />
-															</div>
-														</div>
-														<p className="text-text-tertiary font-bold animate-pulse uppercase tracking-widest text-xs">
-															{tUI("admin.cache.statsLoading")}
-														</p>
-													</div>
-												) : (
-													<div className="flex flex-col items-center gap-4 text-text-tertiary">
-														<AlertCircle size={48} className="opacity-20" />
-														<p className="font-bold uppercase tracking-widest text-xs">
-															{tUI("admin.cache.statsEmpty")}
-														</p>
-													</div>
-												)}
-											</td>
-										</tr>
-									)}
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</>
-			) : (
-				/* Redis Console Tab */
-				<div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-					{/* Sidebar: Redis Info */}
-					<div className="lg:col-span-1 space-y-6">
-						<section className="bg-surface-bg border border-border rounded-3xl p-6 shadow-xl">
-							<h3 className="text-lg font-black text-text-primary mb-6 flex items-center gap-2 uppercase tracking-tight border-b border-border pb-4">
-								<Cpu size={20} className="text-primary-500" />
-								{tUI("admin.cache.redis.infoTitle") || "Redis Server"}
-							</h3>
-							
-							{redisInfo ? (
-								<div className="space-y-4">
-									<InfoRow 
-										label={tUI("admin.cache.redis.connected") || "Trạng thái"} 
-										value={redisInfo.connected ? "ONLINE" : "OFFLINE"} 
-										status={redisInfo.connected ? "success" : "error"}
-									/>
-									<InfoRow label={tUI("admin.cache.redis.version") || "Phiên bản"} value={redisInfo.version} />
-									<InfoRow 
-										label={tUI("admin.cache.redis.uptime") || "Uptime"} 
-										value={formatUptime(redisInfo.uptime)} 
-										icon={<Clock size={14} />}
-									/>
-									<InfoRow 
-										label={tUI("admin.cache.redis.memory") || "Bộ nhớ"} 
-										value={redisInfo.memory} 
-										icon={<HardDrive size={14} />}
-									/>
-									<InfoRow 
-										label={tUI("admin.cache.redis.clients") || "Kết nối"} 
-										value={redisInfo.clients} 
-										icon={<Globe size={14} />}
-									/>
-								</div>
-							) : (
-								<div className="flex items-center justify-center py-10 animate-pulse">
-									<p className="text-text-tertiary text-sm font-bold">Đang tải thông tin...</p>
-								</div>
-							)}
-						</section>
-
-						<div className="p-5 bg-primary-500/5 border border-primary-500/10 rounded-2xl">
-							<div className="flex items-center gap-2 text-primary-400 font-bold text-xs uppercase tracking-widest mb-2">
-								<Terminal size={14} />
-								Console Message
+					{/* Modules List (Floating Rows) */}
+					<div className="space-y-4">
+						<h3 className="text-sm font-black text-text-secondary uppercase tracking-widest px-2 gsap-element flex items-center gap-2">
+							<LayoutGrid size={16} /> Danh sách Modules
+						</h3>
+						
+						{loading && stats.length === 0 ? (
+							<div className="py-20 flex flex-col items-center justify-center gsap-element">
+								<RefreshCw className="animate-spin text-primary-500 mb-4" size={32} />
+								<p className="text-text-tertiary font-bold text-sm uppercase tracking-widest">Đang tải dữ liệu...</p>
 							</div>
-							<p className="text-xs text-text-tertiary leading-relaxed">
-								Hệ thống đang kết nối trực tiếp tới Redis instance thông qua <b>ioredis</b>. 
-								Mọi thao tác xóa key sẽ có hiệu lực ngay lập tức trên toàn hệ thống.
-							</p>
-						</div>
-					</div>
-
-					{/* Main: Key Explorer */}
-					<div className="lg:col-span-2 space-y-6">
-						<section className="bg-surface-bg border border-border rounded-3xl shadow-xl flex flex-col h-full min-h-[600px]">
-							<div className="p-6 border-b border-border flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-surface-hover/10">
-								<h3 className="text-lg font-black text-text-primary flex items-center gap-2 uppercase tracking-tight">
-									<Search size={20} className="text-primary-500" />
-									{tUI("admin.cache.redis.explorerTitle") || "Key Explorer"}
-								</h3>
-								
-								<div className="relative flex-grow max-w-md">
-									<div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-										<Terminal size={16} className="text-text-tertiary" />
-									</div>
-									<input
-										type="text"
-										value={keyPattern}
-										onChange={(e) => setKeyPattern(e.target.value)}
-										onKeyDown={(e) => e.key === "Enter" && fetchRedisKeys(keyPattern)}
-										placeholder={tUI("admin.cache.redis.searchPlaceholder") || "Search keys..."}
-										className="w-full bg-page-bg border border-border rounded-xl py-2 pl-10 pr-4 text-sm focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all font-mono"
-									/>
-									<button 
-										onClick={() => fetchRedisKeys(keyPattern)}
-										className="absolute inset-y-0 right-0 px-3 text-primary-500 hover:text-primary-400 font-bold text-xs"
-									>
-										SCAN
-									</button>
-								</div>
+						) : stats.length === 0 ? (
+							<div className="py-20 flex flex-col items-center justify-center gsap-element bg-surface-bg border border-border border-dashed rounded-3xl">
+								<AlertCircle className="text-text-tertiary opacity-30 mb-4" size={48} />
+								<p className="text-text-tertiary font-bold text-sm uppercase tracking-widest">Không có dữ liệu cache</p>
 							</div>
-
-							<div className="flex-1 overflow-auto p-0">
-								{redisKeys.length > 0 ? (
-									<div className="divide-y divide-border">
-										{redisKeys.map((key) => (
-											<div key={key} className="flex items-center justify-between p-4 hover:bg-surface-hover/30 transition-all group">
-												<div className="flex items-center gap-3 overflow-hidden">
-													<ChevronRight size={14} className="text-primary-500 opacity-0 group-hover:opacity-100 transition-all -ml-2" />
-													<code className="text-sm font-mono text-text-primary truncate font-bold bg-white/5 px-2 py-1 rounded">
-														{key}
-													</code>
+						) : (
+							<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+								{stats.map((item) => {
+									const itemTotal = (item.stats?.hits || 0) + (item.stats?.misses || 0);
+									const itemRate = itemTotal > 0 ? (((item.stats?.hits || 0) / itemTotal) * 100).toFixed(0) : 0;
+									const rateColor = itemRate > 70 ? 'bg-emerald-500' : itemRate > 40 ? 'bg-amber-500' : 'bg-red-500';
+									
+									return (
+										<div key={item.name} className="gsap-element group p-5 bg-surface-bg border border-border rounded-2xl hover:border-primary-500/30 hover:shadow-xl hover:shadow-primary-500/5 transition-all flex flex-col gap-4 relative overflow-hidden">
+											<div className="absolute top-0 right-0 p-4 opacity-[0.02] group-hover:opacity-[0.05] transition-opacity pointer-events-none">
+												<Database size={64} />
+											</div>
+											
+											<div className="flex items-start justify-between relative z-10">
+												<div className="flex items-center gap-3">
+													<div className="w-10 h-10 rounded-xl bg-surface-hover/50 flex items-center justify-center border border-border/50 text-text-secondary group-hover:text-primary-500 transition-colors">
+														<Library size={20} />
+													</div>
+													<div>
+														<h4 className="font-bold text-text-primary capitalize text-base group-hover:text-primary-400 transition-colors">{item.name}</h4>
+														<p className="text-[10px] text-text-tertiary uppercase tracking-widest mt-0.5">Module Cache</p>
+													</div>
 												</div>
 												<button
-													onClick={() => handleDeleteRedisKey(key)}
-													disabled={rowLoading[key] || loading}
-													className="opacity-0 group-hover:opacity-100 p-2 text-text-tertiary hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-all"
-													title="Delete Key"
+													onClick={() => handleClearCache(item.name)}
+													disabled={rowLoading[item.name] || loading}
+													className="p-2 text-text-tertiary hover:bg-red-500/10 hover:text-red-500 rounded-lg transition-all active:scale-95 bg-surface-hover/30"
+													title={`Clear ${item.name}`}
 												>
-													{rowLoading[key] ? <RefreshCw size={16} className="animate-spin" /> : <Trash2 size={16} />}
+													{rowLoading[item.name] ? <RefreshCw size={16} className="animate-spin" /> : <Trash2 size={16} />}
 												</button>
 											</div>
-										))}
-									</div>
-								) : (
-									<div className="h-full flex flex-col items-center justify-center py-20 text-text-tertiary">
-										<Terminal size={40} className="opacity-10 mb-4" />
-										<p className="text-sm font-bold uppercase tracking-widest opacity-50">
-											{tUI("admin.cache.redis.noKeys") || "No keys found"}
-										</p>
-									</div>
-								)}
+											
+											<div className="grid grid-cols-2 gap-2 relative z-10">
+												<div className="p-3 bg-surface-hover/30 rounded-xl border border-border/30">
+													<p className="text-[10px] text-text-tertiary uppercase tracking-widest mb-1">Số lượng Key</p>
+													<p className="font-black text-lg text-text-primary font-mono">{item.keys}</p>
+												</div>
+												<div className="p-3 bg-surface-hover/30 rounded-xl border border-border/30">
+													<p className="text-[10px] text-text-tertiary uppercase tracking-widest mb-1 flex items-center justify-between">
+														Hits / Misses
+													</p>
+													<p className="font-black text-sm text-text-primary font-mono mt-1">
+														<span className="text-emerald-400">{item.stats?.hits || 0}</span>
+														<span className="text-text-tertiary font-normal mx-1">/</span>
+														<span className="text-amber-400">{item.stats?.misses || 0}</span>
+													</p>
+												</div>
+											</div>
+
+											<div className="relative z-10 pt-2 border-t border-border/50">
+												<div className="flex justify-between text-[10px] font-bold uppercase tracking-widest mb-1.5">
+													<span className="text-text-tertiary">Hiệu suất (Hit Rate)</span>
+													<span className={itemRate > 70 ? 'text-emerald-400' : itemRate > 40 ? 'text-amber-400' : 'text-red-400'}>{itemRate}%</span>
+												</div>
+												<div className="w-full h-1.5 bg-surface-hover rounded-full overflow-hidden">
+													<div className={`h-full ${rateColor} transition-all duration-1000 ease-out`} style={{ width: `${itemRate}%` }} />
+												</div>
+											</div>
+										</div>
+									);
+								})}
 							</div>
-							
-							<div className="p-4 border-t border-border bg-surface-hover/5 flex justify-between items-center">
-								<span className="text-[10px] font-black text-text-tertiary uppercase tracking-widest">
-									FOUND {redisKeys.length} KEYS
-								</span>
-								<button 
-									onClick={() => fetchRedisKeys(keyPattern)}
-									className="text-[10px] font-black text-primary-500 hover:text-primary-400 uppercase tracking-widest flex items-center gap-1 transition-colors"
-								>
-									<RefreshCw size={10} />
-									{tUI("admin.cache.redis.refreshKeys") || "Làm mới"}
-								</button>
-							</div>
-						</section>
+						)}
 					</div>
 				</div>
 			)}
-			
-			{/* Bottom Warning */}
-			<div className="mt-8 p-6 bg-amber-500/5 border border-amber-500/20 rounded-3xl flex items-start gap-4 backdrop-blur-md">
-				<div className="p-3 bg-amber-500/20 rounded-2xl text-amber-500 shrink-0 shadow-lg shadow-amber-500/10">
-					<ShieldAlert size={24} />
+
+			{/* --- TAB CONTENT: REDIS MANAGER --- */}
+			{activeTab === "redis" && (
+				<div className="flex flex-col gap-8">
+					{/* Redis Server Metrics */}
+					{redisInfo ? (
+						<div className="gsap-element grid grid-cols-2 md:grid-cols-5 gap-4">
+							<ServerMetric label="Trạng thái" value={redisInfo.connected ? "ONLINE" : "OFFLINE"} icon={<Cpu size={16}/>} highlight={redisInfo.connected ? 'text-emerald-400' : 'text-red-400'} glow={redisInfo.connected ? 'shadow-emerald-500/10' : 'shadow-red-500/10'} />
+							<ServerMetric label="Phiên bản" value={redisInfo.version} icon={<Server size={16}/>} />
+							<ServerMetric label="Uptime" value={formatUptime(redisInfo.uptime)} icon={<Clock size={16}/>} />
+							<ServerMetric label="Bộ nhớ" subValue={`/ ${redisInfo.memory_peak || 'N/A'} (Peak)`} value={redisInfo.memory} icon={<HardDrive size={16}/>} highlight="text-primary-400" glow="shadow-primary-500/10" />
+							<ServerMetric label="Kết nối" value={redisInfo.clients} icon={<Globe size={16}/>} />
+						</div>
+					) : (
+						<div className="h-24 animate-pulse bg-surface-bg border border-border rounded-3xl" />
+					)}
+
+					{/* Categories */}
+					{redisCategories.length > 0 && (
+						<div className="gsap-element space-y-4">
+							<h3 className="text-sm font-black text-text-secondary uppercase tracking-widest px-2 flex items-center gap-2">
+								<Database size={16} /> Phân loại Dữ liệu
+							</h3>
+							<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+								<CategoryColumn title="System Data" icon={<ShieldAlert size={14} />} items={systemCats} color="primary" />
+								<CategoryColumn title="API Cache" icon={<Activity size={14} />} items={apiCats} color="emerald" />
+								<CategoryColumn title="Khác" icon={<Library size={14} />} items={otherCats} color="amber" />
+							</div>
+						</div>
+					)}
+
+					{/* Key Explorer */}
+					<div className="gsap-element bg-surface-bg border border-border rounded-3xl shadow-sm flex flex-col overflow-hidden">
+						{/* Explorer Header */}
+						<div className="p-4 sm:p-6 border-b border-border bg-surface-hover/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+							<h3 className="text-base font-black text-text-primary flex items-center gap-2 uppercase tracking-tight">
+								<Search size={18} className="text-primary-500" /> Key Explorer
+							</h3>
+							
+							<div className="relative w-full sm:max-w-md group">
+								<div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+									<Terminal size={16} className="text-text-tertiary group-focus-within:text-primary-500 transition-colors" />
+								</div>
+								<input
+									type="text"
+									value={keyPattern}
+									onChange={(e) => setKeyPattern(e.target.value)}
+									onKeyDown={(e) => e.key === "Enter" && fetchRedisKeys(keyPattern)}
+									placeholder="Nhập pattern tìm kiếm (vd: api:*)..."
+									className="w-full bg-surface-bg border border-border rounded-2xl py-2.5 pl-12 pr-16 text-sm font-mono focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all shadow-inner"
+								/>
+								<button 
+									onClick={() => fetchRedisKeys(keyPattern)}
+									className="absolute inset-y-1.5 right-1.5 px-3 bg-primary-500/10 text-primary-500 hover:bg-primary-500 hover:text-white rounded-xl font-bold text-xs transition-colors flex items-center gap-1"
+								>
+									<Search size={12}/> Scan
+								</button>
+							</div>
+						</div>
+
+						{/* Explorer Body */}
+						<div className="flex-1 max-h-[400px] overflow-y-auto overflow-auto-scrollbar p-2">
+							{redisKeys.length > 0 ? (
+								<div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+									{redisKeys.map((key) => (
+										<div key={key} className="flex items-center justify-between p-3 bg-surface-bg hover:bg-surface-hover/50 border border-border/50 rounded-xl transition-all group">
+											<div className="flex items-center gap-3 overflow-hidden pr-2">
+												<ChevronRight size={14} className="text-primary-500 opacity-0 group-hover:opacity-100 transition-all -ml-4 group-hover:ml-0" />
+												<code className="text-xs font-mono text-text-primary truncate font-bold bg-white/5 px-2 py-1 rounded border border-white/5">
+													{key}
+												</code>
+											</div>
+											<button
+												onClick={() => handleDeleteRedisKey(key)}
+												disabled={rowLoading[key] || loading}
+												className="p-1.5 text-text-tertiary hover:text-white hover:bg-red-500 rounded-lg transition-all active:scale-95 opacity-50 group-hover:opacity-100 shrink-0"
+												title="Xóa Key"
+											>
+												{rowLoading[key] ? <RefreshCw size={14} className="animate-spin" /> : <Trash2 size={14} />}
+											</button>
+										</div>
+									))}
+								</div>
+							) : (
+								<div className="flex flex-col items-center justify-center py-16 text-text-tertiary">
+									<Terminal size={40} className="opacity-10 mb-4" />
+									<p className="text-xs font-bold uppercase tracking-widest opacity-50">Không tìm thấy key nào</p>
+								</div>
+							)}
+						</div>
+						
+						{/* Explorer Footer */}
+						<div className="p-3 border-t border-border bg-surface-hover/20 flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-text-tertiary">
+							<span>Đã tìm thấy <span className="text-primary-400 mx-1 text-xs">{redisKeys.length}</span> Keys</span>
+							<span>Kết nối trực tiếp qua ioredis</span>
+						</div>
+					</div>
 				</div>
-				<div>
-					<h4 className="text-amber-400 font-black text-sm uppercase tracking-widest mb-1">Cảnh báo bảo mật & Hiệu suất</h4>
-					<p className="text-sm text-text-secondary leading-relaxed font-medium">
-						{tUI("admin.cache.warning")}
-					</p>
-				</div>
-			</div>
+			)}
 		</div>
 	);
 };
 
-// --- Sub-components ---
+// --- Sub Components ---
 
-const TabButton = ({ active, onClick, icon, label }) => (
-	<button
-		onClick={onClick}
-		className={`flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-black transition-all tracking-tight ${
-			active 
-				? "bg-primary-500 text-white shadow-lg shadow-primary-500/20" 
-				: "text-text-tertiary hover:text-text-primary hover:bg-surface-hover/50"
-		}`}
-	>
-		{icon}
-		{label}
-	</button>
-);
-
-const StatCard = ({ icon, label, value, color }) => {
+const StatCard = ({ icon, label, value, color, tooltip="" }) => {
 	const colorMap = {
-		primary: "bg-primary-500/10 text-primary-500 border-primary-500/20 shadow-primary-500/5",
-		amber: "bg-amber-500/10 text-amber-500 border-amber-500/20 shadow-amber-500/5",
-		emerald: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20 shadow-emerald-500/5",
-		blue: "bg-blue-500/10 text-blue-400 border-blue-500/20 shadow-blue-500/5",
+		primary: "text-primary-500 from-primary-500/10 to-transparent border-primary-500/20",
+		amber: "text-amber-500 from-amber-500/10 to-transparent border-amber-500/20",
+		emerald: "text-emerald-400 from-emerald-500/10 to-transparent border-emerald-500/20",
+		blue: "text-blue-400 from-blue-500/10 to-transparent border-blue-500/20",
+		purple: "text-purple-400 from-purple-500/10 to-transparent border-purple-500/20",
 	};
 
 	return (
-		<div className="p-6 bg-surface-bg border border-border rounded-[2rem] shadow-sm hover:shadow-2xl transition-all duration-500 group hover:-translate-y-2 relative overflow-hidden">
-			<div className="absolute top-0 right-0 p-4 opacity-[0.03] transition-opacity group-hover:opacity-[0.08]">
-				{icon}
+		<div className={`gsap-element p-5 bg-surface-bg border rounded-[2rem] shadow-sm relative overflow-hidden group hover:-translate-y-1 transition-all duration-300 ${colorMap[color] || colorMap.primary}`}>
+			<div className={`absolute inset-0 bg-gradient-to-br opacity-50 ${colorMap[color] || colorMap.primary} pointer-events-none`} />
+			<div className="absolute -top-6 -right-6 p-4 opacity-5 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-12 pointer-events-none">
+				{React.cloneElement(icon, { size: 100 })}
 			</div>
-			<div className="flex items-center gap-5 relative z-10">
-				<div className={`p-4 rounded-2xl transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 shadow-inner ${colorMap[color] || colorMap.primary}`}>
-					{icon}
+			<div className="flex items-center gap-4 relative z-10">
+				<div className={`p-3 rounded-2xl bg-surface-bg border shadow-inner transition-transform duration-300 group-hover:scale-110 ${colorMap[color] || colorMap.primary}`}>
+					{React.cloneElement(icon, { size: 20 })}
 				</div>
 				<div>
-					<p className="text-[10px] text-text-tertiary uppercase tracking-[0.25em] font-black mb-1.5 opacity-60">
+					<p className="text-[10px] text-text-tertiary uppercase tracking-[0.2em] font-black mb-0.5 flex items-center">
 						{label}
+						{tooltip && <InfoTooltip text={tooltip} />}
 					</p>
-					<p className="text-3xl font-black text-text-primary tracking-tighter">
-						{value}
-					</p>
+					<p className="text-2xl font-black text-text-primary tracking-tighter">{value}</p>
 				</div>
 			</div>
 		</div>
 	);
 };
 
-const InfoRow = ({ label, value, status, icon }) => (
-	<div className="flex items-center justify-between py-2.5 border-b border-border/50 last:border-0 group">
-		<span className="text-xs font-bold text-text-tertiary flex items-center gap-2 group-hover:text-text-secondary transition-colors">
-			{icon}
-			{label}
-		</span>
-		<span className={`text-xs font-black tracking-tight ${
-			status === "success" ? "text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded" : 
-			status === "error" ? "text-red-400 bg-red-400/10 px-2 py-0.5 rounded" : 
-			"text-text-primary"
-		}`}>
-			{value}
-		</span>
+const ServerMetric = ({ label, value, subValue, icon, highlight = "text-text-primary", glow = "" }) => (
+	<div className={`p-4 bg-surface-bg border border-border rounded-2xl shadow-sm flex flex-col gap-2 relative overflow-hidden group hover:border-border/80 transition-colors ${glow && `hover:shadow-lg ${glow}`}`}>
+		<div className="flex items-center gap-2 text-[10px] uppercase font-black tracking-widest text-text-tertiary group-hover:text-text-secondary transition-colors">
+			{icon} {label}
+		</div>
+		<div className="font-mono">
+			<span className={`text-base font-black ${highlight}`}>{value}</span>
+			{subValue && <span className="text-xs text-text-tertiary ml-1">{subValue}</span>}
+		</div>
 	</div>
 );
+
+const CategoryColumn = ({ title, icon, items, color }) => {
+	if (!items || items.length === 0) return null;
+	const colorMap = {
+		primary: "text-primary-500 bg-primary-500/10 border-primary-500/20",
+		emerald: "text-emerald-500 bg-emerald-500/10 border-emerald-500/20",
+		amber: "text-amber-500 bg-amber-500/10 border-amber-500/20",
+	};
+	
+	return (
+		<div className="p-4 bg-surface-bg border border-border rounded-3xl shadow-sm flex flex-col h-full">
+			<h4 className="text-[11px] font-black text-text-secondary uppercase tracking-widest mb-4 flex items-center gap-2 border-b border-border/50 pb-3">
+				<span className={colorMap[color].split(' ')[0]}>{icon}</span> {title}
+			</h4>
+			<div className="space-y-2 flex-1">
+				{items.map(cat => (
+					<div key={cat.name} className="flex items-center justify-between group hover:bg-surface-hover/50 p-2.5 rounded-xl transition-all border border-transparent hover:border-border/50">
+						<span className="text-xs font-bold text-text-tertiary group-hover:text-text-primary transition-colors truncate max-w-[70%]">
+							{cat.name.replace("System: ", "").replace("API: ", "").replace("Cache: ", "")}
+						</span>
+						<span className={`text-[10px] font-black px-2 py-0.5 rounded-lg ${colorMap[color]}`}>
+							{cat.count}
+						</span>
+					</div>
+				))}
+			</div>
+		</div>
+	);
+};
 
 const formatUptime = (seconds) => {
 	if (!seconds) return "N/A";
 	const days = Math.floor(seconds / 86400);
 	const hours = Math.floor((seconds % 86400) / 3600);
 	const mins = Math.floor((seconds % 3600) / 60);
-	
 	if (days > 0) return `${days}d ${hours}h`;
 	if (hours > 0) return `${hours}h ${mins}m`;
 	return `${mins}m ${Math.floor(seconds % 60)}s`;

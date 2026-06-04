@@ -392,11 +392,11 @@ const GenericListLayout = ({
 						<aside
 							key='desktop-filter'
 							ref={desktopFilterRef}
-							className={`hidden lg:block sticky top-24 h-fit z-40 overflow-hidden flip-sidebar ${
-								showDesktopFilter ? "w-[240px] xl:w-[280px] opacity-100 ml-6 lg:ml-8" : "w-0 opacity-0 ml-0"
+							className={`hidden lg:block sticky top-24 h-fit z-40 flip-sidebar ${
+								showDesktopFilter ? "w-[240px] xl:w-[280px] opacity-100 ml-6 lg:ml-8 overflow-visible" : "w-0 opacity-0 ml-0 overflow-hidden"
 							}`}
 						>
-							<div className='w-[240px] xl:w-[280px] p-5 rounded-3xl border border-border dark:border-white/10 bg-surface-bg space-y-5 relative isolate'>
+							<div className='w-[240px] xl:w-[280px] p-5 rounded-3xl border border-border dark:border-white/10 bg-surface-hover-bg shadow-md space-y-5 relative isolate'>
 								{/* Background Glow */}
 								<div className="absolute inset-0 overflow-hidden rounded-3xl -z-10 pointer-events-none">
 									<div className="absolute -top-20 -right-20 w-40 h-40 bg-primary-500/10 blur-[60px] rounded-full" />
@@ -424,7 +424,7 @@ const GenericListLayout = ({
 								</div>
 
 								{/* Các filter riêng biệt được truyền từ ngoài vào */}
-								<div className="space-y-5 filter-content-item">
+								<div className="space-y-5 filter-content-item relative z-50">
 									{isActuallyLoading ? (
 										<div className="space-y-6">
 											{[...Array(4)].map((_, i) => (
