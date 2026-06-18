@@ -1,6 +1,7 @@
 // src/features/tools/cardGuess/pages/cardGuessPage.jsx
 import React, { useState, useEffect, useCallback, useMemo, useContext } from "react";
-import { Loader2, RotateCcw, BarChart3, Shuffle, Calendar, Infinity, SkipForward, Swords, Info, Trophy } from "lucide-react";
+import { useParams, useNavigate } from "react-router-dom";
+import { Loader2, RotateCcw, BarChart3, Shuffle, Calendar, Infinity, SkipForward, Info, Trophy, Heart } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
 import PageTitle from "@/components/common/pageTitle";
 import { AuthContext } from "@/context/AuthContext.jsx";
@@ -9,9 +10,11 @@ import CardSearchInput from "@/features/tools/cardGuess/components/CardSearchInp
 import GuessHistory from "@/features/tools/cardGuess/components/GuessHistory";
 import EventLeaderboard from "@/features/tools/cardGuess/components/EventLeaderboard";
 import GameStats, { getStats, recordWin, recordLoss } from "@/features/tools/cardGuess/components/GameStats";
+import Modal from "@/components/common/modal";
 
 const LOCAL_STORAGE_KEY = "card_guess_active_session";
 const DEVICE_ID_KEY = "card_guess_device_id";
+const PLAYER_NAME_KEY = "card_guess_player_name";
 
 const getDeviceId = () => {
 	let id = localStorage.getItem(DEVICE_ID_KEY);
@@ -22,19 +25,27 @@ const getDeviceId = () => {
 	return id;
 };
 
+const getStoredPlayerName = () => localStorage.getItem(PLAYER_NAME_KEY) || "";
+
 const toFullArtUrl = (url) => url ? url.replace(/(\.[a-zA-Z]+)$/, "-full$1") : "";
 
 const CardGuessPage = () => {
 	const { tUI, language } = useTranslation();
 	const backendUrl = import.meta.env.VITE_API_URL;
 	const { token, user } = useContext(AuthContext);
+	const { gameMode } = useParams();
+	const navigate = useNavigate();
 
 	// Data
 	const [allCards, setAllCards] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 
+	// Tự động fallback URL
+	const validModes = ["daily", "unlimited"];
+	const initialMode = validModes.includes(gameMode) ? gameMode : "daily";
+
 	// Game state
-	const [mode, setMode] = useState("daily"); // "daily" | "unlimited" | "hard"
+	const [mode, setMode] = useState(initialMode); // "daily" | "unlimited"
 	const [sessionId, setSessionId] = useState(null);
 	const [targetCard, setTargetCard] = useState(null);
 	const [guesses, setGuesses] = useState([]);
@@ -47,6 +58,13 @@ const CardGuessPage = () => {
 	const [showStats, setShowStats] = useState(false);
 	const [gameKey, setGameKey] = useState(0);
 	const [isRestored, setIsRestored] = useState(false);
+	
+	// Unlimited Run state
+	const [runState, setRunState] = useState(null);
+	const [showNameModal, setShowNameModal] = useState(false);
+	const [showGiveUpModal, setShowGiveUpModal] = useState(false);
+	const [tempPlayerName, setTempPlayerName] = useState(getStoredPlayerName());
+	const [dailySolvers, setDailySolvers] = useState(0);
 
 	// Fetch all cards initially for local search input
 	useEffect(() => {
@@ -101,22 +119,32 @@ const CardGuessPage = () => {
 			if (!res.ok) throw new Error("Failed to load game state");
 			const data = await res.json();
 			
-			setSessionId(data.sessionId);
-			setMaxGuesses(data.maxGuesses);
-			setCropSeed(data.cropSeed);
-			setGuesses(data.guesses || []);
-			setGameStatus(data.isCompleted ? (data.won ? "won" : "lost") : "playing");
-			setHintLevel(data.isCompleted ? 5 : (data.guesses?.length || 0));
-			
-			if (data.isCompleted && data.targetCard) {
-				setTargetCard(data.targetCard);
-				fetchGlobalStats(data.targetCard.cardCode);
+			if (selectedMode === "unlimited" && data.requireNewRun) {
+				// Cần tạo Run mới, hiện popup
+				setShowNameModal(true);
+				setGameStatus("waiting");
+				setTargetCard(null);
 			} else {
-				setTargetCard({
-					cardCode: "event_hidden",
-					isPartial: true,
-					...data.targetAttributes
-				});
+				setSessionId(data.sessionId);
+				setMaxGuesses(data.maxGuesses || 5);
+				setCropSeed(data.cropSeed);
+				setGuesses(data.guesses || []);
+				setGameStatus(data.isCompleted ? (data.won ? "won" : "lost") : "playing");
+				setHintLevel(data.isCompleted ? 5 : (data.guesses?.length || 0));
+				
+				if (data.run) setRunState(data.run);
+				if (data.dailySolversCount !== undefined) setDailySolvers(data.dailySolversCount);
+				
+				if (data.isCompleted && data.targetCard) {
+					setTargetCard(data.targetCard);
+					fetchGlobalStats(data.targetCard.cardCode);
+				} else if (data.targetAttributes) {
+					setTargetCard({
+						cardCode: "event_hidden",
+						isPartial: true,
+						...data.targetAttributes
+					});
+				}
 			}
 		} catch (e) {
 			console.error("Error loading game state:", e);
@@ -128,32 +156,150 @@ const CardGuessPage = () => {
 
 	useEffect(() => {
 		if (allCards.length > 0 && !isRestored) {
+			let finalMode = mode;
 			try {
-				const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
-				if (saved) {
-					const data = JSON.parse(saved);
-					setMode(data.mode === "event" ? "daily" : data.mode);
+				if (!gameMode) {
+					// Nếu không có mode ở URL, lấy từ local storage rồi redirect
+					const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
+					if (saved) {
+						const data = JSON.parse(saved);
+						let savedMode = data.mode === "event" || data.mode === "hard" ? "daily" : data.mode;
+						if (validModes.includes(savedMode)) {
+							finalMode = savedMode;
+						}
+					}
+					navigate(`/tools/card-guess/${finalMode}`, { replace: true });
+				} else if (gameMode !== mode) {
+					// Đồng bộ state nếu URL thay đổi
+					setMode(gameMode);
+					finalMode = gameMode;
 				}
 			} catch (e) {
 				console.error("Lỗi parse session mode:", e);
 			}
-			// Automatically start backend session
-			loadGameState(mode);
+			loadGameState(finalMode);
 		}
-	}, [allCards, isRestored, mode, loadGameState]);
+	}, [allCards, isRestored, mode, gameMode, navigate, loadGameState]);
 
-	// Save mode to local storage
 	useEffect(() => {
-		const data = { mode };
-		localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
-	}, [mode]);
+		if (isRestored && gameMode && gameMode !== mode) {
+			setTargetCard(null);
+			setGuesses([]);
+			setGameStatus("playing");
+			setRunState(null);
+			setMode(gameMode);
+			loadGameState(gameMode);
+		}
+	}, [gameMode]);
 
-	const pickCard = useCallback(() => {
-		setShowStats(false);
-		setGlobalStats(null);
-		setGameKey((k) => k + 1);
-		loadGameState(mode);
-	}, [mode, loadGameState]);
+	useEffect(() => {
+		if (isRestored) {
+			localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({ mode }));
+		}
+	}, [mode, isRestored]);
+
+	const startNewUnlimitedRun = async (playerName) => {
+		if (playerName) localStorage.setItem(PLAYER_NAME_KEY, playerName);
+		setIsLoading(true);
+		try {
+			const headers = { "Content-Type": "application/json" };
+			if (token) headers.Authorization = `Bearer ${token}`;
+
+			const res = await fetch(`${backendUrl}/api/guess-game/unlimited/new-run`, {
+				method: "POST",
+				headers,
+				body: JSON.stringify({ deviceId: getDeviceId(), playerName: playerName || "Guest" })
+			});
+			const data = await res.json();
+			
+			setSessionId(data.sessionId);
+			setMaxGuesses(data.maxGuesses || 5);
+			setCropSeed(data.cropSeed);
+			setGuesses([]);
+			setGameStatus("playing");
+			setHintLevel(0);
+			setRunState(data.run);
+			setTargetCard({ cardCode: "event_hidden", isPartial: true, ...data.targetAttributes });
+			setShowNameModal(false);
+			setShowStats(false);
+		} catch (e) {
+			console.error("Lỗi tạo Run:", e);
+		} finally {
+			setIsLoading(false);
+		}
+	};
+
+	const handleCloseNameModal = () => {
+		setShowNameModal(false);
+		if (!runState && !targetCard) {
+			handleModeChange("daily");
+		}
+	};
+
+	const pickNextCardUnlimited = async () => {
+		setIsLoading(true);
+		try {
+			const headers = { "Content-Type": "application/json" };
+			if (token) headers.Authorization = `Bearer ${token}`;
+
+			const res = await fetch(`${backendUrl}/api/guess-game/unlimited/next`, {
+				method: "POST",
+				headers,
+				body: JSON.stringify({ deviceId: getDeviceId() })
+			});
+			const data = await res.json();
+			if (data.error) throw new Error(data.error);
+
+			setSessionId(data.sessionId);
+			setMaxGuesses(data.maxGuesses || 5);
+			setCropSeed(data.cropSeed);
+			setGuesses([]);
+			setGameStatus("playing");
+			setHintLevel(0);
+			setRunState(data.run);
+			setTargetCard({ cardCode: "event_hidden", isPartial: true, ...data.targetAttributes });
+			setGameKey((k) => k + 1);
+		} catch (e) {
+			console.error("Lỗi lấy card tiếp:", e);
+		} finally {
+			setIsLoading(false);
+		}
+	};
+
+	const confirmGiveUp = useCallback(
+		async () => {
+			if (gameStatus !== "playing" || !sessionId) return;
+			setShowGiveUpModal(false);
+
+			try {
+				const headers = { "Content-Type": "application/json" };
+				if (token) headers.Authorization = `Bearer ${token}`;
+
+				const res = await fetch(`${backendUrl}/api/guess-game/give-up`, {
+					method: "POST",
+					headers,
+					body: JSON.stringify({ sessionId })
+				});
+				const data = await res.json();
+				if (data.error) throw new Error(data.error);
+
+				setGameStatus("lost");
+				setHintLevel(5);
+				setTargetCard(data.targetCard);
+				fetchGlobalStats(data.targetCard.cardCode);
+				
+				if (mode === "daily") {
+					setTimeout(() => setShowStats(true), 1500);
+					setStats(recordLoss());
+				} else if (mode === "unlimited") {
+					setRunState(data.run);
+				}
+			} catch (e) {
+				console.error("Give up error:", e);
+			}
+		},
+		[gameStatus, sessionId, backendUrl, token, fetchGlobalStats, mode, tUI]
+	);
 
 	const handleGuess = useCallback(
 		async (guessedCard) => {
@@ -179,11 +325,13 @@ const CardGuessPage = () => {
 					setHintLevel(5);
 					setTargetCard(data.targetCard);
 					fetchGlobalStats(data.targetCard.cardCode);
-					setTimeout(() => setShowStats(true), 1500);
-
-					// Local stats
-					const updated = data.won ? recordWin(newGuesses.length) : recordLoss();
-					setStats(updated);
+					
+					if (mode === "daily") {
+						setTimeout(() => setShowStats(true), 1500);
+						setStats(data.won ? recordWin(newGuesses.length) : recordLoss());
+					} else if (mode === "unlimited") {
+						setRunState(data.run);
+					}
 				} else {
 					setHintLevel(data.hintLevel);
 				}
@@ -191,27 +339,16 @@ const CardGuessPage = () => {
 				console.error("Guess error:", e);
 			}
 		},
-		[gameStatus, sessionId, guesses, backendUrl, token, fetchGlobalStats]
+		[gameStatus, sessionId, guesses, backendUrl, token, fetchGlobalStats, mode]
 	);
-
-	const handleSkip = useCallback(() => {
-		if (gameStatus !== "playing" || !targetCard || targetCard.isPartial) return;
-		// Skipping is tricky with backend state because backend doesn't have a "skip" endpoint.
-		// However, the backend will mark it lost if guesses max out.
-		// For simplicity, we can't easily skip without knowing the answer. We could hide the button.
-	}, [gameStatus, targetCard]);
 
 	const handleModeChange = useCallback(
 		(newMode) => {
 			if (newMode !== mode) {
-				setMode(newMode);
-				setTargetCard(null);
-				setGuesses([]);
-				setGameStatus("playing");
-				loadGameState(newMode);
+				navigate(`/tools/card-guess/${newMode}`);
 			}
 		},
-		[mode, loadGameState]
+		[mode, navigate]
 	);
 
 	const getCardName = useCallback(
@@ -243,11 +380,11 @@ const CardGuessPage = () => {
 		const rawDesc = language === "en" ? card.translations?.en?.descriptionRaw : card.descriptionRaw;
 		const desc = language === "en" ? card.translations?.en?.description : card.description;
 		let text = rawDesc || desc || "";
-		if (!text) return tUI("cardGuess.hints.noEffect", "Không có hiệu ứng");
+		if (!text) return tUI("cardGuess.hints.noEffect");
 		text = text.replace(/<[^>]*>/g, "");
 		const words = text.trim().split(/\s+/);
-		if (words.length <= 5) return text;
-		return words.slice(0, 5).join(" ") + "...";
+		if (words.length <= 3) return text;
+		return words.slice(0, 3).join(" ") + ".....";
 	}, [language, tUI]);
 
 	const guessedCodes = useMemo(() => guesses.map((g) => g.cardCode), [guesses]);
@@ -269,13 +406,75 @@ const CardGuessPage = () => {
 				description={tUI("cardGuess.pageDesc")}
 			/>
 
+			{/* Modal Nhập Tên cho Unlimited Run */}
+			<Modal isOpen={showNameModal} onClose={handleCloseNameModal} title={tUI("cardGuess.run.riotIdPrompt", "Nhập Tên / Riot ID")} size="md">
+				<div className="p-4 space-y-6">
+					<div>
+						<input 
+							type="text" 
+							placeholder={tUI("cardGuess.run.enterRiotId", "Ví dụ: LuKhachQuaDuong#666")}
+							className="w-full px-4 py-3 rounded-xl bg-surface-bg border border-border focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition-all"
+							value={tempPlayerName}
+							onChange={(e) => setTempPlayerName(e.target.value)}
+							autoFocus
+							onKeyDown={(e) => {
+								if (e.key === "Enter") startNewUnlimitedRun(tempPlayerName);
+							}}
+						/>
+					</div>
+					<div className="flex gap-3 justify-end">
+						<button 
+							onClick={() => startNewUnlimitedRun("Guest")}
+							className="px-5 py-2.5 rounded-xl font-bold text-sm bg-surface-bg border-2 border-border hover:bg-surface-hover transition-colors"
+						>
+							{tUI("cardGuess.run.playAsGuest", "Chơi Khách")}
+						</button>
+						<button 
+							onClick={() => startNewUnlimitedRun(tempPlayerName)}
+							disabled={!tempPlayerName.trim()}
+							className="px-5 py-2.5 rounded-xl font-bold text-sm bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-lg hover:shadow-primary-500/20 disabled:opacity-50 disabled:cursor-not-allowed"
+						>
+							{tUI("cardGuess.run.startRun", "Bắt đầu chơi")}
+						</button>
+					</div>
+				</div>
+			</Modal>
+
+			{/* Modal Xác nhận Bỏ cuộc */}
+			<Modal isOpen={showGiveUpModal} onClose={() => setShowGiveUpModal(false)} title={tUI("cardGuess.giveUp", "Đầu hàng 🏳️")} size="sm">
+				<div className="p-6 space-y-6 text-center">
+					<p className="text-text-secondary font-medium">
+						{tUI("cardGuess.giveUpConfirm", "Bạn có chắc chắn muốn bỏ cuộc và lật mở lá bài này?")}
+					</p>
+					{mode === "unlimited" && (
+						<p className="text-red-400 font-bold text-sm mt-2">
+							{tUI("cardGuess.run.endRunWarning", "Cảnh báo: Hành động này sẽ kết thúc Run hiện tại của bạn!")}
+						</p>
+					)}
+					<div className="flex gap-3 justify-center mt-6">
+						<button 
+							onClick={() => setShowGiveUpModal(false)}
+							className="px-6 py-2.5 rounded-xl font-bold text-sm bg-surface-bg border-2 border-border hover:bg-surface-hover transition-colors"
+						>
+							{tUI("common.cancel", "Hủy")}
+						</button>
+						<button 
+							onClick={confirmGiveUp}
+							className="px-6 py-2.5 rounded-xl font-bold text-sm bg-red-500/20 text-red-500 border-2 border-red-500/30 hover:bg-red-500 hover:text-white transition-all shadow-lg hover:shadow-red-500/20"
+						>
+							{tUI("cardGuess.giveUp", "Đầu hàng 🏳️")}
+						</button>
+					</div>
+				</div>
+			</Modal>
+
 			<div className="absolute inset-0 z-0 pointer-events-none">
 				<div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.03]" />
 				<div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-primary-500/5 blur-[150px] rounded-full" />
 				<div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-blue-500/5 blur-[120px] rounded-full" />
 			</div>
 
-			<div className="max-w-4xl mx-auto py-6 px-4 lg:px-8 relative z-10">
+			<div className="max-w-4xl mx-auto pt-6 pb-32 px-4 lg:px-8 relative z-10">
 				<header className="mb-8 text-center">
 					<h1 className="text-4xl md:text-6xl font-black mb-3 leading-tight tracking-tighter uppercase">
 						<span className="text-text-primary">{tUI("cardGuess.titleMain")} </span>
@@ -309,20 +508,9 @@ const CardGuessPage = () => {
 					}`}
 					>
 						<Infinity className="w-4 h-4" />
-						{tUI("cardGuess.mode.unlimited", "Tự do")}
+						{tUI("cardGuess.mode.unlimited", "Vô Hạn")}
 					</button>
-					<button
-						onClick={() => handleModeChange("hard")}
-						className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm uppercase tracking-wider transition-all duration-300 backdrop-blur-xl ${
-						mode === "hard"
-							? "bg-red-500/20 text-red-400 border-2 border-red-500/40 shadow-lg shadow-red-500/10"
-							: "bg-surface-bg text-text-secondary border-2 border-border hover:border-red-500/30"
-					}`}
-					>
-						<Swords className="w-4 h-4" />
-						{tUI("cardGuess.mode.hard", "Khó")}
-					</button>
-
+					
 					<button
 						onClick={() => setShowStats((s) => !s)}
 						className="ml-2 p-2.5 rounded-xl bg-surface-bg backdrop-blur-xl text-text-secondary border-2 border-border hover:border-primary-500/30 transition-all"
@@ -330,15 +518,43 @@ const CardGuessPage = () => {
 						<BarChart3 className="w-5 h-5" />
 					</button>
 				</div>
+				
+				{/* Hiển thị số người đã giải Daily */}
+				{mode === "daily" && dailySolvers > 0 && !showStats && (
+					<div className="text-center mb-6 text-sm font-semibold text-text-secondary">
+						<Trophy className="inline-block w-4 h-4 mr-1 text-yellow-500 mb-0.5" />
+						{tUI("cardGuess.run.dailySolvers", "Số người đã giải hôm nay: {count}").replace("{count}", dailySolvers)}
+					</div>
+				)}
+
+				{/* HUD hiển thị Mạng và Điểm cho Unlimited Run */}
+				{mode === "unlimited" && runState && !showNameModal && (
+					<div className="flex justify-between items-center mb-6 px-6 py-3 bg-surface-bg border border-border rounded-2xl shadow-sm">
+						<div className="flex items-center gap-2">
+							<span className="text-sm font-bold text-text-secondary uppercase">{tUI("cardGuess.run.lives", "Mạng")}:</span>
+							<div className="flex gap-1">
+								{Array.from({ length: 3 }).map((_, i) => (
+									<Heart key={i} className={`w-5 h-5 ${i < runState.lives ? "fill-red-500 text-red-500" : "text-gray-600/30"}`} />
+								))}
+							</div>
+						</div>
+						<div className="flex items-center gap-2">
+							<span className="text-sm font-bold text-text-secondary uppercase">{tUI("cardGuess.run.currentScore", "Điểm hiện tại")}:</span>
+							<span className="text-xl font-black text-primary-500">{runState.score}</span>
+						</div>
+					</div>
+				)}
 
 				{showStats && (
 					<div className="mb-8 flex flex-col gap-6">
 						<div className="p-6 rounded-3xl bg-surface-bg backdrop-blur-xl border border-border shadow-xl">
 							<EventLeaderboard />
 						</div>
-						<div className="p-6 rounded-3xl bg-surface-bg backdrop-blur-xl border border-border shadow-xl">
-							<GameStats stats={stats} globalStats={globalStats} />
-						</div>
+						{mode === "daily" && (
+							<div className="p-6 rounded-3xl bg-surface-bg backdrop-blur-xl border border-border shadow-xl">
+								<GameStats stats={stats} globalStats={globalStats} />
+							</div>
+						)}
 					</div>
 				)}
 
@@ -347,22 +563,24 @@ const CardGuessPage = () => {
 						<CardCropViewer
 							key={gameKey}
 							imageUrl={gameStatus === "playing" ? `${backendUrl}/api/guess-game/image/${sessionId}` : toFullArtUrl(getCardImage(targetCard))}
+							fallbackUrl={getCardImage(targetCard)}
 							hintLevel={hintLevel}
 							cropSeed={cropSeed}
 							revealed={gameStatus !== "playing"}
 							mode={mode}
 						/>
 
-						{gameStatus === "playing" && guesses.length >= 2 && mode !== "hard" && !targetCard.isPartial && (
+						{gameStatus === "playing" && guesses.length >= 3 && !targetCard.isPartial && (
 							<div className="flex items-center gap-2 px-4 py-3 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-300 backdrop-blur-xl animate-in fade-in zoom-in duration-500 max-w-xl mx-auto w-full justify-center">
 								<Info className="w-5 h-5 shrink-0" />
 								<span className="text-sm font-semibold text-center leading-relaxed">
-									{tUI("cardGuess.hints.descHint", "Gợi ý: ")} {getHintDescription(targetCard)}
+									{tUI("cardGuess.hints.descHint")} {getHintDescription(targetCard)}
 								</span>
 							</div>
 						)}
 
-						{gameStatus === "won" && (
+						{/* Màn hình kết quả nếu Run chưa kết thúc, hoặc Daily đã xong */}
+						{gameStatus === "won" && (!runState || runState.status === "playing") && (
 							<div className="text-center animate-in fade-in slide-in-from-bottom-3 duration-500">
 								<div className="text-2xl font-black text-green-400 uppercase tracking-wider mb-1">
 									🎉 {tUI("cardGuess.correct")}
@@ -376,7 +594,7 @@ const CardGuessPage = () => {
 							</div>
 						)}
 
-						{gameStatus === "lost" && (
+						{gameStatus === "lost" && (!runState || runState.status === "playing") && (
 							<div className="text-center animate-in fade-in slide-in-from-bottom-3 duration-500">
 								<div className="text-2xl font-black text-red-400 uppercase tracking-wider mb-1">
 									💀 {tUI("cardGuess.gameOver")}
@@ -389,6 +607,31 @@ const CardGuessPage = () => {
 								</div>
 							</div>
 						)}
+						
+						{/* Màn hình Run Over (Chỉ dành cho Unlimited khi hết mạng) */}
+						{runState && runState.status === "completed" && (
+							<div className="text-center animate-in fade-in zoom-in duration-500 bg-red-500/10 border border-red-500/30 rounded-3xl p-8 max-w-md mx-auto mt-4">
+								<div className="text-4xl font-black text-red-500 uppercase tracking-wider mb-2">
+									{tUI("cardGuess.run.runOver", "Kết Thúc Run!")}
+								</div>
+								<div className="text-sm text-text-secondary uppercase tracking-widest mb-1">
+									{tUI("cardGuess.run.finalScore", "Tổng Điểm")}
+								</div>
+								<div className="text-6xl font-black text-primary-500 mb-6 drop-shadow-[0_0_15px_rgba(var(--primary-500),0.5)]">
+									{runState.score}
+								</div>
+								<div className="text-sm text-text-secondary mb-4">
+									{tUI("cardGuess.theAnswerWas")}: <strong>{getCardName(targetCard)}</strong>
+								</div>
+								<button
+									onClick={() => setShowNameModal(true)}
+									className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-gradient-to-r from-primary-600 to-primary-500 text-white font-black uppercase tracking-wider shadow-lg hover:scale-105 transition-all text-sm"
+								>
+									<RotateCcw className="w-5 h-5" />
+									{tUI("cardGuess.run.newRun", "Chơi Lại (New Run)")}
+								</button>
+							</div>
+						)}
 
 						{gameStatus === "playing" && (
 							<div className="text-sm font-bold text-text-secondary uppercase tracking-wider">
@@ -397,20 +640,28 @@ const CardGuessPage = () => {
 						)}
 
 						{gameStatus === "playing" && (
-							<CardSearchInput
-								cards={allCards}
-								onGuess={handleGuess}
-								disabled={gameStatus !== "playing"}
-								guessedCodes={guessedCodes}
-							/>
+							<div className="flex flex-col items-center gap-4 w-full">
+								<CardSearchInput
+									cards={allCards}
+									onGuess={handleGuess}
+									disabled={gameStatus !== "playing"}
+									guessedCodes={guessedCodes}
+								/>
+								<button 
+									onClick={() => setShowGiveUpModal(true)}
+									className="text-sm text-red-400 hover:text-red-300 font-bold transition-colors flex items-center gap-1 opacity-80 hover:opacity-100"
+								>
+									{tUI("cardGuess.giveUp", "Đầu hàng 🏳️")}
+								</button>
+							</div>
 						)}
 
 						<div className="flex items-center gap-3">
-							{gameStatus !== "playing" && (
+							{gameStatus !== "playing" && (!runState || runState.status === "playing") && (
 								<>
-									{(mode === "unlimited" || mode === "hard") && (
+									{mode === "unlimited" && (
 										<button
-											onClick={pickCard}
+											onClick={pickNextCardUnlimited}
 											className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-primary-600 to-primary-500 text-white font-black uppercase tracking-wider shadow-lg shadow-primary-500/20 hover:shadow-primary-500/40 hover:scale-105 transition-all text-sm"
 										>
 											<Shuffle className="w-4 h-4" />

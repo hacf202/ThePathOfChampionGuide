@@ -1729,6 +1729,8 @@
 		"guessesLeft": "Còn {count} lượt đoán",
 		"guessesUsed": "lượt",
 		"guessHistory": "Lịch sử đoán",
+		"giveUp": "Kết Thúc Sớm",
+		"giveUpConfirm": "Bạn có chắc chắn muốn kết thúc sớm và xem đáp án không?",
 		"hints": {
 			"region": "Vùng",
 			"rarity": " Độ Hiếm",
@@ -1739,9 +1741,7 @@
 		},
 		"mode": {
 			"daily": "Hàng ngày",
-			"unlimited": "Tự do",
-			"hard": "Khó",
-			"event": "Sự kiện"
+			"unlimited": "Vô Hạn"
 		},
 		"stats": {
 			"title": "Thống kê",
@@ -1760,9 +1760,23 @@
 			"all": "Tổng hợp",
 			"player": "Người Chơi",
 			"score": "Điểm",
-			"solved": "Số lần giải",
+			"solved": "Đoán đúng",
 			"empty": "Chưa có dữ liệu xếp hạng. Hãy là người đầu tiên!",
-			"cards": "thẻ"
+			"cards": "thẻ",
+			"avgTime": "Thời gian (s)"
+		},
+		"run": {
+			"riotIdPrompt": "Nhập Tên / Riot ID để xếp hạng",
+			"playAsGuest": "Khách",
+			"enterRiotId": "Nhập tên hoặc Riot ID",
+			"startRun": "Bắt đầu chơi",
+			"lives": "Mạng",
+			"currentScore": "Điểm hiện tại",
+			"runOver": "Kết Thúc Run!",
+			"finalScore": "Tổng Điểm",
+			"newRun": "Chơi Lại (New Run)",
+			"dailySolvers": "Số người đã giải hôm nay: {count}",
+			"endRunWarning": "Cảnh báo: Hành động này sẽ kết thúc Run hiện tại của bạn!"
 		}
 	}
 }

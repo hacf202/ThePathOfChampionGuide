@@ -1730,6 +1730,8 @@
 		"guessesLeft": "{count} guesses left",
 		"guessesUsed": "guesses",
 		"guessHistory": "Guess History",
+		"giveUp": "Give up",
+		"giveUpConfirm": "Are you sure you want to give up and reveal the card?",
 		"hints": {
 			"region": "Region",
 			"rarity": "Rarity",
@@ -1740,9 +1742,7 @@
 		},
 		"mode": {
 			"daily": "Daily",
-			"unlimited": "Unlimited",
-			"hard": "Hard",
-			"event": "Event"
+			"unlimited": "Survival Run"
 		},
 		"stats": {
 			"title": "Statistics",
@@ -1763,7 +1763,21 @@
 			"score": "Score",
 			"solved": "Solved",
 			"empty": "No leaderboard data yet. Be the first!",
-			"cards": "cards"
+			"cards": "cards",
+			"avgTime": "Avg Time (s)"
+		},
+		"run": {
+			"riotIdPrompt": "Enter Name / Riot ID for ranking",
+			"playAsGuest": "Play as Guest",
+			"enterRiotId": "E.g: Faker#NA1",
+			"startRun": "Start Survival Run",
+			"lives": "Lives",
+			"currentScore": "Current Score",
+			"runOver": "Run Over!",
+			"finalScore": "Final Score",
+			"newRun": "Start New Run",
+			"dailySolvers": "Players solved today: {count}",
+			"endRunWarning": "Warning: This will end your current Run completely!"
 		}
 	}
 }

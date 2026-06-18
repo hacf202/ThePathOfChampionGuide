@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Trophy, Medal, Loader2, Calendar } from "lucide-react";
+import { Trophy, Medal, Loader2, Calendar, Clock } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
 
 const EventLeaderboard = () => {
 	const [leaders, setLeaders] = useState([]);
 	const [loading, setLoading] = useState(true);
-	const [activeTab, setActiveTab] = useState("all"); // "all", "daily", "hard", "unlimited"
+	const [activeTab, setActiveTab] = useState("unlimited"); // "daily", "unlimited"
 	const backendUrl = import.meta.env.VITE_API_URL;
 	const { tUI } = useTranslation();
 
@@ -28,8 +28,28 @@ const EventLeaderboard = () => {
 	}, [backendUrl, activeTab]);
 
 	if (loading) {
-		return <div className="flex justify-center p-8"><Loader2 className="animate-spin text-purple-500 w-8 h-8" /></div>;
+		return <div className="flex justify-center p-8"><Loader2 className="animate-spin text-primary-500 w-8 h-8" /></div>;
 	}
+
+	const getScore = (leader) => {
+		if (activeTab === "all") return leader.score;
+		if (activeTab === "daily") return leader.dailyScore;
+		if (activeTab === "unlimited") return leader.unlimitedBestScore;
+		return 0;
+	};
+
+	const getSolved = (leader) => {
+		if (activeTab === "all") return leader.solvedPuzzles;
+		if (activeTab === "daily") return leader.dailySolved;
+		if (activeTab === "unlimited") return leader.unlimitedRunsPlayed;
+		return 0;
+	};
+
+	const getDuration = (leader) => {
+		if (activeTab === "daily") return leader.dailyDuration;
+		if (activeTab === "unlimited") return leader.unlimitedBestRunDuration;
+		return null;
+	};
 
 	return (
 		<div className="w-full">
@@ -44,10 +64,8 @@ const EventLeaderboard = () => {
 			{/* Tabs */}
 			<div className="flex flex-wrap justify-center gap-2 mb-6">
 				{[
-					{ id: "all", label: tUI("cardGuess.leaderboard.all") },
-					{ id: "daily", label: tUI("cardGuess.mode.daily") },
-					{ id: "hard", label: tUI("cardGuess.mode.hard") },
-					{ id: "unlimited", label: tUI("cardGuess.mode.unlimited") }
+					{ id: "unlimited", label: tUI("cardGuess.mode.unlimited") },
+					{ id: "daily", label: tUI("cardGuess.mode.daily") }
 				].map(tab => (
 					<button
 						key={tab.id}
@@ -69,21 +87,31 @@ const EventLeaderboard = () => {
 						<tr className="bg-black/20 border-b border-border">
 							<th className="py-4 px-4 font-bold text-text-secondary w-16 text-center">#</th>
 							<th className="py-4 px-4 font-bold text-text-secondary">{tUI("cardGuess.leaderboard.player")}</th>
+							{activeTab !== "all" && (
+								<th className="py-4 px-4 font-bold text-text-secondary text-right hidden md:table-cell">
+									<div className="flex items-center justify-end gap-1">
+										<Clock className="w-4 h-4" />
+										{tUI("cardGuess.leaderboard.avgTime", "Time (s)")}
+									</div>
+								</th>
+							)}
+							<th className="py-4 px-4 font-bold text-text-secondary text-right hidden sm:table-cell">
+								{activeTab === "unlimited" ? tUI("cardGuess.leaderboard.solved") : "Runs"}
+							</th>
 							<th className="py-4 px-4 font-bold text-text-secondary text-right">{tUI("cardGuess.leaderboard.score")}</th>
-							<th className="py-4 px-4 font-bold text-text-secondary text-right hidden sm:table-cell">{tUI("cardGuess.leaderboard.solved")}</th>
 						</tr>
 					</thead>
 					<tbody>
 						{leaders.length === 0 ? (
 							<tr>
-								<td colSpan={4} className="text-center py-8 text-text-secondary">
+								<td colSpan={5} className="text-center py-8 text-text-secondary">
 									{tUI("cardGuess.leaderboard.empty")}
 								</td>
 							</tr>
 						) : (
 							leaders.map((leader, index) => (
 								<tr 
-									key={leader.userId} 
+									key={leader._id || index} 
 									className="border-b border-white/5 hover:bg-white/5 transition-colors"
 								>
 									<td className="py-3 px-4 text-center font-black">
@@ -94,17 +122,22 @@ const EventLeaderboard = () => {
 									</td>
 									<td className="py-3 px-4 font-bold text-text-primary flex items-center gap-2">
 										<div className="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-500 to-blue-500 flex items-center justify-center text-white text-xs shadow-inner">
-											{leader.userName?.charAt(0).toUpperCase()}
+											{leader.userName?.charAt(0).toUpperCase() || "G"}
 										</div>
-										{leader.userName}
+										{leader.userName || "Guest"}
+									</td>
+									{activeTab !== "all" && (
+										<td className="py-3 px-4 text-right font-medium text-text-secondary hidden md:table-cell">
+											{getDuration(leader) ? getDuration(leader).toFixed(1) + "s" : "-"}
+										</td>
+									)}
+									<td className="py-3 px-4 text-right font-medium text-text-secondary hidden sm:table-cell">
+										{getSolved(leader)}
 									</td>
 									<td className="py-3 px-4 text-right">
 										<span className="font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400 text-lg">
-											{activeTab === "all" ? leader.score : leader[`${activeTab}Score`]}
+											{getScore(leader)}
 										</span>
-									</td>
-									<td className="py-3 px-4 text-right font-medium text-text-secondary hidden sm:table-cell">
-										{activeTab === "all" ? leader.solvedPuzzles : leader[`${activeTab}Solved`]} <span className="text-xs">{tUI("cardGuess.leaderboard.cards")}</span>
 									</td>
 								</tr>
 							))

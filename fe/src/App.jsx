@@ -82,8 +82,8 @@ function MainContentContainer() {
 
 	const isAdmin = location.pathname.startsWith("/admin");
 	// Danh sách các trang full-width
-	const fullWidthPaths = ["/", "/randomizer", "/home", "/introduction", "/simulator/vaults", "/tools/ratings", "/tools/champion-items", "/tools/card-guess"];
-	const isFullWidth = isAdmin || fullWidthPaths.includes(location.pathname);
+	const fullWidthPaths = ["/", "/randomizer", "/home", "/introduction", "/simulator/vaults", "/tools/ratings", "/tools/champion-items"];
+	const isFullWidth = isAdmin || fullWidthPaths.includes(location.pathname) || location.pathname.startsWith("/tools/card-guess");
 
 	useEffect(() => {
 		if (!location.pathname.startsWith("/admin")) {
@@ -119,10 +119,10 @@ function AppLayout() {
 		location.pathname === "/simulator/vaults" ||
 		location.pathname === "/tools/ratings" ||
 		location.pathname === "/tools/champion-items" ||
-		location.pathname === "/tools/card-guess";
+		location.pathname.startsWith("/tools/card-guess");
 
 	// Danh sách các trang không hiển thị Footer
-	const isNoFooterRoute = isAdminRoute || location.pathname === "/tools/card-guess";
+	const isNoFooterRoute = isAdminRoute || location.pathname.startsWith("/tools/card-guess");
 
 	return (
 		<div
@@ -167,6 +167,7 @@ const router = createBrowserRouter([
 			{ path: "tools/ratings", element: <ChampionRatingPage /> },
 			{ path: "tools/champion-items", element: <ChampionItems /> },
 			{ path: "tools/card-guess", element: <CardGuessPage /> },
+			{ path: "tools/card-guess/:gameMode", element: <CardGuessPage /> },
 			{ path: "profile", element: <Profile /> },
 			{ path: "reset-password", element: <ResetPassword /> },
 			{ path: "champions", element: <Champions /> },

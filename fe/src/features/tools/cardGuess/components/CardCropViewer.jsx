@@ -9,11 +9,11 @@ import SafeImage from "@/components/common/SafeImage";
  * cropSize là % viewport so với ảnh gốc (nhỏ hơn = zoom vào sâu hơn).
  */
 const HINT_LEVELS = [
-	{ cropSize: 15, label: "🔍 x5" },
+	{ cropSize: 15, label: "🔍 x6.6" },
+	{ cropSize: 20, label: "🔍 x5" },
 	{ cropSize: 25, label: "🔍 x4" },
-	{ cropSize: 40, label: "🔍 x3" },
-	{ cropSize: 60, label: "🔍 x2" },
-	{ cropSize: 80, label: "🔍 x1" },
+	{ cropSize: 35, label: "🔍 x3" },
+	{ cropSize: 50, label: "🔍 x2" },
 	{ cropSize: 100, label: "👁️" },
 ];
 
@@ -24,7 +24,7 @@ const HINT_LEVELS_HARD = [
 	{ cropSize: 100, label: "👁️" },
 ];
 
-const CardCropViewer = ({ imageUrl, hintLevel = 0, cropSeed = 0, revealed = false, mode = "unlimited" }) => {
+const CardCropViewer = ({ imageUrl, fallbackUrl, hintLevel = 0, cropSeed = 0, revealed = false, mode = "unlimited" }) => {
 	const containerRef = useRef();
 	const imageRef = useRef();
 
@@ -102,13 +102,18 @@ const CardCropViewer = ({ imageUrl, hintLevel = 0, cropSeed = 0, revealed = fals
 				ease: "power2.out",
 			});
 		} else {
-			// Smooth zoom out transition
-			gsap.to(imageRef.current, {
-				scale: scale,
-				objectPosition: `${cropPosition.x}% ${cropPosition.y}%`,
-				duration: 0.6,
-				ease: "power2.out",
-			});
+			// Lấy scale hiện tại từ inline style hoặc GSAP cache, nếu không có thì mặc định bằng scale mới (tránh flash scale=1)
+			const currentScale = gsap.getProperty(imageRef.current, "scale") || scale;
+			gsap.fromTo(
+				imageRef.current,
+				{ scale: currentScale },
+				{
+					scale: scale,
+					objectPosition: `${cropPosition.x}% ${cropPosition.y}%`,
+					duration: 0.6,
+					ease: "power2.out",
+				}
+			);
 		}
 	}, [hintLevel, revealed, scale, cropPosition]);
 
@@ -142,6 +147,7 @@ const CardCropViewer = ({ imageUrl, hintLevel = 0, cropSeed = 0, revealed = fals
 				<SafeImage
 					ref={imageRef}
 					src={blobUrl || imageUrl}
+					fallback={fallbackUrl || "/fallback-image.svg"}
 					alt="Mystery card"
 					draggable={false}
 					className={`absolute inset-0 w-full h-full z-10 select-none pointer-events-none ${revealed ? "object-contain" : "object-cover"}`}

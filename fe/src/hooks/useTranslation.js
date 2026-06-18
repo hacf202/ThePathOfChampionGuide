@@ -43,12 +43,18 @@ export const useTranslation = () => {
 				if (result && result[k] !== undefined) {
 					result = result[k];
 				} else {
-					return key; // Trả về nguyên gốc key nếu không tìm thấy, không fallback.
+					return typeof options === "string" ? options : key; // Trả về fallback hoặc key gốc
 				}
 			}
 
 			// NẾU KẾT QUẢ LÀ CHUỖI VÀ CÓ OPTIONS -> XỬ LÝ INTERPOLATION (THAY THẾ BIẾN)
-			if (typeof result === "string" && Object.keys(options).length > 0) {
+			if (
+				typeof result === "string" &&
+				options &&
+				typeof options === "object" &&
+				!Array.isArray(options) &&
+				Object.keys(options).length > 0
+			) {
 				let interpolated = result;
 				Object.keys(options).forEach(optKey => {
 					const value = options[optKey];
