@@ -290,10 +290,10 @@ const CardGuessPage = () => {
 				
 				if (mode === "daily") {
 					setTimeout(() => setShowStats(true), 1500);
-					setStats(recordLoss());
 				} else if (mode === "unlimited") {
 					setRunState(data.run);
 				}
+				setStats(recordLoss());
 			} catch (e) {
 				console.error("Give up error:", e);
 			}
@@ -328,10 +328,10 @@ const CardGuessPage = () => {
 					
 					if (mode === "daily") {
 						setTimeout(() => setShowStats(true), 1500);
-						setStats(data.won ? recordWin(newGuesses.length) : recordLoss());
 					} else if (mode === "unlimited") {
 						setRunState(data.run);
 					}
+					setStats(data.won ? recordWin(newGuesses.length) : recordLoss());
 				} else {
 					setHintLevel(data.hintLevel);
 				}
@@ -552,7 +552,7 @@ const CardGuessPage = () => {
 						</div>
 						{mode === "daily" && (
 							<div className="p-6 rounded-3xl bg-surface-bg backdrop-blur-xl border border-border shadow-xl">
-								<GameStats stats={stats} globalStats={globalStats} />
+								<GameStats stats={stats} globalStats={globalStats} lastGuessCount={gameStatus === "won" ? guesses.length : null} />
 							</div>
 						)}
 					</div>

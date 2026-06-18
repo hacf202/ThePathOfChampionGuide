@@ -1750,7 +1750,8 @@
 			"globalTitle": "Global",
 			"globalPlayed": "Players",
 			"globalWon": "Correct",
-			"winRate": "Win Rate"
+			"winRate": "Win Rate",
+			"sameTries": "Players with same number of tries"
 		},
 		"filter": {
 			"title": "Filter",

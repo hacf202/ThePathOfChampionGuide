@@ -1749,7 +1749,8 @@
 			"globalTitle": "Cộng đồng",
 			"globalPlayed": "Số người chơi",
 			"globalWon": "Số người đúng",
-			"winRate": "Tỉ lệ đúng"
+			"winRate": "Tỉ lệ đúng",
+			"sameTries": "Người có cùng số lần đoán với bạn"
 		},
 		"filter": {
 			"title": "Lọc",

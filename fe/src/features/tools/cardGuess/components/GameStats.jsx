@@ -1,6 +1,6 @@
 // src/features/tools/cardGuess/components/GameStats.jsx
 import React from "react";
-import { Trophy, Flame, Target, BarChart3 } from "lucide-react";
+import { Trophy, Flame, Target, BarChart3, Users } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
 
 const STORAGE_KEY = "card_guess_stats";
@@ -64,7 +64,7 @@ const StatCard = ({ icon: Icon, label, value, accent = false }) => (
 	</div>
 );
 
-const GameStats = ({ stats: propStats, globalStats }) => {
+const GameStats = ({ stats: propStats, globalStats, lastGuessCount }) => {
 	const { tUI } = useTranslation();
 	const stats = propStats || getStats();
 
@@ -140,6 +140,18 @@ const GameStats = ({ stats: propStats, globalStats }) => {
 					<div className="text-center text-xs text-text-secondary mt-2">
 						{(globalStats.totalPlayed > 0 ? Math.round((globalStats.totalWon / globalStats.totalPlayed) * 100) : 0)}% {tUI("cardGuess.stats.winRate", "Tỉ lệ thắng")}
 					</div>
+					
+					{lastGuessCount != null && globalStats.distribution && (
+						<div className="mt-4 p-4 rounded-xl bg-primary-500/10 border border-primary-500/20 text-center">
+							<div className="flex items-center justify-center gap-2 text-primary-400 font-bold mb-1">
+								<Users className="w-5 h-5" />
+								<span>{globalStats.distribution[lastGuessCount] || 0}</span>
+							</div>
+							<div className="text-xs text-text-secondary uppercase tracking-wider">
+								{tUI("cardGuess.stats.sameTries", "Người có cùng số lần đoán với bạn")}
+							</div>
+						</div>
+					)}
 				</div>
 			)}
 		</div>
