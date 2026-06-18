@@ -557,4 +557,90 @@ router.get("/leaderboard", async (req, res) => {
 	}
 });
 
+// POST /api/guess-game/merge-account
+router.post("/merge-account", authenticateToken, async (req, res) => {
+	try {
+		const userId = req.user?.id;
+		const { deviceId } = req.body;
+
+		if (!userId) return res.status(401).json({ error: "Unauthorized" });
+		if (!deviceId) return res.status(400).json({ error: "Missing deviceId" });
+		if (userId === deviceId) return res.json({ success: true, message: "No merge needed" });
+
+		const db = getDb();
+		const userName = req.user?.user_metadata?.name || "Player";
+
+		// 1. Update Sessions
+		await db.collection("cardGuessSessions").updateMany(
+			{ identifier: deviceId },
+			{ $set: { identifier: userId, userId: userId } }
+		);
+
+		// 2. Update Unlimited Runs
+		await db.collection("cardGuessUnlimitedRuns").updateMany(
+			{ identifier: deviceId },
+			{ $set: { identifier: userId, userId: userId, playerName: userName } }
+		);
+
+		// 3. Merge Leaderboard
+		const guestRecord = await db.collection("cardGuessLeaderboard").findOne({ identifier: deviceId });
+		if (guestRecord) {
+			const userRecord = await db.collection("cardGuessLeaderboard").findOne({ identifier: userId });
+			
+			if (userRecord) {
+				// User already has a record, merge best scores
+				const bestDailyScore = Math.max(userRecord.dailyScore || 0, guestRecord.dailyScore || 0);
+				const bestDailyDuration = (bestDailyScore === guestRecord.dailyScore && guestRecord.dailyScore > (userRecord.dailyScore || 0)) 
+					? guestRecord.dailyDuration 
+					: userRecord.dailyDuration;
+				
+				const bestUnlimitedScore = Math.max(userRecord.unlimitedBestScore || 0, guestRecord.unlimitedBestScore || 0);
+				const bestUnlimitedDuration = (bestUnlimitedScore === guestRecord.unlimitedBestScore && guestRecord.unlimitedBestScore > (userRecord.unlimitedBestScore || 0))
+					? guestRecord.unlimitedBestRunDuration
+					: userRecord.unlimitedBestRunDuration;
+
+				await db.collection("cardGuessLeaderboard").updateOne(
+					{ identifier: userId },
+					{
+						$set: {
+							dailyScore: bestDailyScore,
+							dailyDuration: bestDailyDuration,
+							unlimitedBestScore: bestUnlimitedScore,
+							unlimitedBestRunDuration: bestUnlimitedDuration,
+							userName: userName,
+							lastUpdated: new Date()
+						},
+						$inc: { 
+							unlimitedRunsPlayed: guestRecord.unlimitedRunsPlayed || 0,
+							dailySolved: guestRecord.dailySolved || 0
+						}
+					}
+				);
+			} else {
+				// User has no record, just update identifier and name
+				await db.collection("cardGuessLeaderboard").updateOne(
+					{ identifier: deviceId },
+					{ 
+						$set: { 
+							identifier: userId, 
+							userId: userId, 
+							userName: userName 
+						} 
+					}
+				);
+			}
+
+			// Clean up guest record if user record existed (or if we already transferred it)
+			if (userRecord) {
+				await db.collection("cardGuessLeaderboard").deleteOne({ _id: guestRecord._id });
+			}
+		}
+
+		res.json({ success: true, message: "Account merged successfully" });
+	} catch (error) {
+		console.error("Error merging accounts:", error);
+		res.status(500).json({ error: "Internal server error" });
+	}
+});
+
 export default router;

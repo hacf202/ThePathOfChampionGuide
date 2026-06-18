@@ -36,6 +36,31 @@ const CardGuessPage = () => {
 	const { gameMode } = useParams();
 	const navigate = useNavigate();
 
+	// Auto-merge account when logged in
+	useEffect(() => {
+		const deviceId = getDeviceId();
+		if (token && deviceId) {
+			const hasMergedKey = `card_guess_merged_${deviceId}`;
+			if (!localStorage.getItem(hasMergedKey)) {
+				fetch(`${backendUrl}/api/guess-game/merge-account`, {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${token}`
+					},
+					body: JSON.stringify({ deviceId })
+				})
+				.then(res => res.json())
+				.then(data => {
+					if (data.success || data.message === "No merge needed") {
+						localStorage.setItem(hasMergedKey, "true");
+					}
+				})
+				.catch(err => console.error("Merge account failed:", err));
+			}
+		}
+	}, [token, backendUrl]);
+
 	// Data
 	const [allCards, setAllCards] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
