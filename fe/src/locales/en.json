@@ -1346,6 +1346,7 @@
 		"randomizer": "Randomizer",
 		"about": "About",
 		"vaultSimulator": "Vault Simulator",
+		"cardGuess": "Guess Card",
 		"bestSubChampion": "Best Sub Champion",
 		"championRatings": "Champion Ratings",
 		"guides": "Guides",
@@ -1708,5 +1709,61 @@
 		"xoa": "Clear",
 		"nangLuong": "Cost",
 		"beVatPham": "Pool"
+	},
+	"cardGuess": {
+		"pageTitle": "Guess the Card",
+		"pageDesc": "Look at a cropped part of the image and guess the card!",
+		"titleMain": "GUESS",
+		"titleSub": "THE CARD",
+		"searchPlaceholder": "Type a card name...",
+		"guessButton": "Guess",
+		"nextButton": "Next Card",
+		"skipButton": "Skip",
+		"correct": "Correct!",
+		"wrong": "Wrong!",
+		"gameOver": "Game Over!",
+		"theAnswerWas": "The answer was",
+		"streak": "Streak",
+		"maxStreak": "Best Streak",
+		"gamesPlayed": "Played",
+		"winRate": "Win Rate",
+		"guessesLeft": "{count} guesses left",
+		"guessesUsed": "guesses",
+		"guessHistory": "Guess History",
+		"hints": {
+			"region": "Region",
+			"rarity": "Rarity",
+			"cost": "Cost",
+			"type": "Type",
+			"descHint": "Hint:",
+			"noEffect": "No effect"
+		},
+		"mode": {
+			"daily": "Daily",
+			"unlimited": "Unlimited",
+			"hard": "Hard",
+			"event": "Event"
+		},
+		"stats": {
+			"title": "Statistics",
+			"distribution": "Guess Distribution",
+			"globalTitle": "Global",
+			"globalPlayed": "Players",
+			"globalWon": "Correct",
+			"winRate": "Win Rate"
+		},
+		"filter": {
+			"title": "Filter",
+			"matching": "matches"
+		},
+		"leaderboard": {
+			"title": "Event Leaderboard",
+			"all": "All",
+			"player": "Player",
+			"score": "Score",
+			"solved": "Solved",
+			"empty": "No leaderboard data yet. Be the first!",
+			"cards": "cards"
+		}
 	}
 }

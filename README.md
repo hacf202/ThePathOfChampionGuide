@@ -48,28 +48,28 @@ Dự án theo kiến trúc **tách biệt hoàn toàn Frontend - Backend**, kế
 
 ### Frontend (`/fe`)
 
-| Công nghệ | Phiên bản | Mô tả |
-|---|---|---|
-| **React.js + Vite** | 18 / 5 | Core framework & ultra-fast build tool |
-| **Tailwind CSS** | 3 | Utility-first CSS, Responsive Design |
-| **GSAP + @gsap/react** | 3 | Animation engine (Flip, Stagger, Draggable) |
-| **React Router DOM** | 6 | Điều hướng SPA với Data Router |
-| **@dnd-kit** | — | Kéo thả (Drag & Drop) cho Admin Editor |
-| **Recharts** | — | Biểu đồ Radar cho Champion Ratings |
-| **Lucide React** | — | Bộ icon nhất quán toàn dự án |
-| **i18n (vi.json / en.json)** | — | Đa ngôn ngữ Việt - Anh |
-| **React Helmet Async** | — | SEO & meta tags động |
+| Công nghệ                    | Phiên bản | Mô tả                                       |
+| ---------------------------- | --------- | ------------------------------------------- |
+| **React.js + Vite**          | 18 / 5    | Core framework & ultra-fast build tool      |
+| **Tailwind CSS**             | 3         | Utility-first CSS, Responsive Design        |
+| **GSAP + @gsap/react**       | 3         | Animation engine (Flip, Stagger, Draggable) |
+| **React Router DOM**         | 6         | Điều hướng SPA với Data Router              |
+| **@dnd-kit**                 | —         | Kéo thả (Drag & Drop) cho Admin Editor      |
+| **Recharts**                 | —         | Biểu đồ Radar cho Champion Ratings          |
+| **Lucide React**             | —         | Bộ icon nhất quán toàn dự án                |
+| **i18n (vi.json / en.json)** | —         | Đa ngôn ngữ Việt - Anh                      |
+| **React Helmet Async**       | —         | SEO & meta tags động                        |
 
 ### Backend (`/be`)
 
-| Công nghệ | Mô tả |
-|---|---|
-| **Node.js + Express.js** | RESTful API Server |
-| **MongoDB (Atlas)** | Cơ sở dữ liệu chính cho dữ liệu game và người dùng |
-| **Supabase Auth** | Quản lý định danh, JWT Token, phân quyền admin |
-| **Cloudflare R2** | Lưu trữ ảnh (object storage, CDN) |
-| **Upstash Redis** | Caching tăng tốc phản hồi API |
-| **Vercel** | Serverless deployment |
+| Công nghệ                | Mô tả                                              |
+| ------------------------ | -------------------------------------------------- |
+| **Node.js + Express.js** | RESTful API Server                                 |
+| **MongoDB (Atlas)**      | Cơ sở dữ liệu chính cho dữ liệu game và người dùng |
+| **Supabase Auth**        | Quản lý định danh, JWT Token, phân quyền admin     |
+| **Cloudflare R2**        | Lưu trữ ảnh (object storage, CDN)                  |
+| **Upstash Redis**        | Caching tăng tốc phản hồi API                      |
+| **Vercel**               | Serverless deployment                              |
 
 ---
 
@@ -167,6 +167,7 @@ ThePathOfChampionGuide/
 ## ⚙️ Cài đặt & Chạy cục bộ (Local Development)
 
 ### Yêu cầu
+
 - Node.js >= 18
 - npm >= 9
 - MongoDB Atlas (hoặc local)
@@ -232,26 +233,24 @@ npm run dev
 
 ## 🗺️ API Endpoints chính
 
-| Method | Endpoint | Mô tả |
-|--------|----------|--------|
-| `GET` | `/api/champions` | Danh sách tất cả tướng |
-| `GET` | `/api/champions/:id` | Chi tiết tướng (kèm ratings) |
-| `GET` | `/api/builds` | Danh sách build cộng đồng |
-| `POST` | `/api/builds` | Tạo build mới |
-| `GET` | `/api/powers` | Danh sách sức mạnh |
-| `GET` | `/api/relics` | Danh sách cổ vật |
-| `GET` | `/api/items` | Danh sách vật phẩm |
-| `GET` | `/api/runes` | Danh sách ngọc bổ trợ |
-| `GET` | `/api/cards` | Thư viện 2.300+ thẻ bài game |
-| `GET` | `/api/adventures` | Danh sách adventure maps |
-| `GET` | `/api/bosses` | Danh sách boss |
-| `GET` | `/api/guides` | Danh sách bài hướng dẫn |
-| `GET` | `/api/ratings` | Bảng đánh giá tướng cộng đồng |
-| `GET` | `/api/constellations` | Dữ liệu chòm sao tướng |
-| `POST` | `/api/auth/login` | Đăng nhập |
-| `POST` | `/api/auth/register` | Đăng ký |
-| `GET` | `/api/analytics` | Thống kê hệ thống (Admin) |
-| `GET` | `/api/admin/audit-logs` | Nhật ký thao tác Admin |
+| Method | Endpoint              | Mô tả                         |
+| ------ | --------------------- | ----------------------------- |
+| `GET`  | `/api/champions`      | Danh sách tất cả tướng        |
+| `GET`  | `/api/champions/:id`  | Chi tiết tướng (kèm ratings)  |
+| `GET`  | `/api/builds`         | Danh sách build cộng đồng     |
+| `POST` | `/api/builds`         | Tạo build mới                 |
+| `GET`  | `/api/powers`         | Danh sách sức mạnh            |
+| `GET`  | `/api/relics`         | Danh sách cổ vật              |
+| `GET`  | `/api/items`          | Danh sách vật phẩm            |
+| `GET`  | `/api/runes`          | Danh sách ngọc bổ trợ         |
+| `GET`  | `/api/cards`          | Thư viện 2.300+ thẻ bài game  |
+| `GET`  | `/api/adventures`     | Danh sách adventure maps      |
+| `GET`  | `/api/bosses`         | Danh sách boss                |
+| `GET`  | `/api/guides`         | Danh sách bài hướng dẫn       |
+| `GET`  | `/api/ratings`        | Bảng đánh giá tướng cộng đồng |
+| `GET`  | `/api/constellations` | Dữ liệu chòm sao tướng        |
+| `POST` | `/api/auth/login`     | Đăng nhập                     |
+| `POST` | `/api/auth/register`  | Đăng ký                       |
 
 ---
 

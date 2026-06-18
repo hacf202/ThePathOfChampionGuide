@@ -38,6 +38,7 @@ import {
 	Book,
 	Users,
 	Coffee,
+	Eye,
 } from "lucide-react";
 
 function DesktopNavbar({ language, handleLanguageChange, tUI, isNavVisible }) {
@@ -286,6 +287,9 @@ function DesktopNavbar({ language, handleLanguageChange, tUI, isNavVisible }) {
 											<div className='w-48 bg-modal-bg border border-dropdown-border rounded-lg shadow-xl py-2'>
 												<NavLink to='/simulator/vaults' className={dropdownLinkClass} onClick={handleNavClick}>
 													<Gift className='w-5 h-5' /> {tUI("nav.vaultSimulator")}
+												</NavLink>
+												<NavLink to='/tools/card-guess' className={dropdownLinkClass} onClick={handleNavClick}>
+													<Eye className='w-5 h-5' /> {tUI("nav.cardGuess", "Đoán Lá Bài")}
 												</NavLink>
 												<NavLink to='/randomizer' className={dropdownLinkClass} onClick={handleNavClick}>
 													<LoaderPinwheel className='w-5 h-5' /> {tUI("nav.randomizer")}

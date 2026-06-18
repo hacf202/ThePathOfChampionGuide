@@ -37,6 +37,7 @@ import { trackActivity } from "./src/middleware/trackActivity.js";
 import resourcesRouter from "./src/routes/resources.js";
 import sitemapRouter from "./src/routes/sitemap.js";
 import dbStatsRouter from "./src/routes/dbStats.js";
+import cardGuessGameLogicRouter from "./src/routes/cardGuessGameLogic.js";
 
 // Kiểm tra các biến môi trường cần thiết
 const requiredEnvVars = [
@@ -152,6 +153,7 @@ app.use("/api/ratings", ratingsRouter);
 app.use("/api/admin/cache", adminCacheRouter);
 app.use("/api/admin/audit-logs", auditLogsRouter);
 app.use("/api/search", searchRouter);
+app.use("/api/guess-game", cardGuessGameLogicRouter);
 app.use("/api/sub-champions", subChampionsRouter);
 app.use("/api/resources", resourcesRouter);
 app.use("/api/admin/analytics", analyticsRouter);

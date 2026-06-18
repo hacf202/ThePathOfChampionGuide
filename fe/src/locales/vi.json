@@ -1371,6 +1371,7 @@
 		"randomizer": "Vòng quay",
 		"about": "Giới thiệu",
 		"vaultSimulator": "Giả lập mở rương",
+		"cardGuess": "Đoán Lá Bài",
 		"bestSubChampion": "Tìm tướng phụ tốt nhất",
 		"championRatings": "Đánh giá Tướng",
 		"guides": "Bài Viết",
@@ -1706,6 +1707,62 @@
 			"type": "Loại",
 			"wildFragments": "Mảnh Ghép Bí Ẩn",
 			"xpNeeded": "XP Cần"
+		}
+	},
+	"cardGuess": {
+		"pageTitle": "Đoán Lá Bài",
+		"pageDesc": "Nhìn một phần hình ảnh và đoán tên lá bài!",
+		"titleMain": "ĐOÁN",
+		"titleSub": "LÁ BÀI",
+		"searchPlaceholder": "Nhập tên lá bài...",
+		"guessButton": "Đoán",
+		"nextButton": "Lá bài tiếp theo",
+		"skipButton": "Bỏ qua",
+		"correct": "Chính xác!",
+		"wrong": "Sai rồi!",
+		"gameOver": "Hết lượt!",
+		"theAnswerWas": "Đáp án là",
+		"streak": "Chuỗi thắng",
+		"maxStreak": "Chuỗi dài nhất",
+		"gamesPlayed": "Số ván",
+		"winRate": "Tỉ lệ thắng",
+		"guessesLeft": "Còn {count} lượt đoán",
+		"guessesUsed": "lượt",
+		"guessHistory": "Lịch sử đoán",
+		"hints": {
+			"region": "Vùng",
+			"rarity": " Độ Hiếm",
+			"cost": "Tiêu Hao",
+			"type": "Loại",
+			"descHint": "Gợi ý:",
+			"noEffect": "Không có hiệu ứng"
+		},
+		"mode": {
+			"daily": "Hàng ngày",
+			"unlimited": "Tự do",
+			"hard": "Khó",
+			"event": "Sự kiện"
+		},
+		"stats": {
+			"title": "Thống kê",
+			"distribution": "Phân bố đoán",
+			"globalTitle": "Cộng đồng",
+			"globalPlayed": "Số người chơi",
+			"globalWon": "Số người đúng",
+			"winRate": "Tỉ lệ đúng"
+		},
+		"filter": {
+			"title": "Lọc",
+			"matching": "kết quả"
+		},
+		"leaderboard": {
+			"title": "Bảng Xếp Hạng Sự Kiện",
+			"all": "Tổng hợp",
+			"player": "Người Chơi",
+			"score": "Điểm",
+			"solved": "Số lần giải",
+			"empty": "Chưa có dữ liệu xếp hạng. Hãy là người đầu tiên!",
+			"cards": "thẻ"
 		}
 	}
 }

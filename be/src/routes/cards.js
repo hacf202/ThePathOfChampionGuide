@@ -441,4 +441,66 @@ router.delete(
 	},
 );
 
+/**
+ * @route   POST /api/cards/guess-stats
+ * @desc    Record a completed card guess game
+ */
+router.post("/guess-stats", async (req, res) => {
+	try {
+		const { cardCode, won, guessesUsed, mode } = req.body;
+
+		if (!cardCode || typeof won !== "boolean" || typeof guessesUsed !== "number") {
+			return res.status(400).json({ error: "Dữ liệu không hợp lệ." });
+		}
+
+		const db = getDb();
+		const incrementPayload = {
+			totalPlayed: 1,
+			totalWon: won ? 1 : 0
+		};
+
+		if (won) {
+			incrementPayload[`distribution.${guessesUsed}`] = 1;
+		}
+
+		await db.collection("cardGuessStats").updateOne(
+			{ cardCode },
+			{ $inc: incrementPayload },
+			{ upsert: true }
+		);
+
+		res.status(200).json({ success: true });
+	} catch (error) {
+		console.error("Lỗi cập nhật card guess stats:", error);
+		res.status(500).json({ error: "Không thể lưu thông kê." });
+	}
+});
+
+/**
+ * @route   GET /api/cards/guess-stats/:cardCode
+ * @desc    Get global guess stats for a specific card
+ */
+router.get("/guess-stats/:cardCode", async (req, res) => {
+	try {
+		const { cardCode } = req.params;
+		const db = getDb();
+
+		const stats = await db.collection("cardGuessStats").findOne({ cardCode });
+
+		if (!stats) {
+			return res.status(200).json({
+				cardCode,
+				totalPlayed: 0,
+				totalWon: 0,
+				distribution: { "1": 0, "2": 0, "3": 0, "4": 0, "5": 0 }
+			});
+		}
+
+		res.status(200).json(stats);
+	} catch (error) {
+		console.error("Lỗi lấy card guess stats:", error);
+		res.status(500).json({ error: "Không thể lấy thông kê." });
+	}
+});
+
 export default router;

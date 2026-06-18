@@ -1,7 +1,7 @@
 // src/components/common/SafeImage.jsx
 import React, { useState, useEffect } from "react";
 
-const SafeImage = ({
+const SafeImage = React.forwardRef(({
 	src,
 	alt = "Image",
 	className = "",
@@ -11,7 +11,7 @@ const SafeImage = ({
 	width, // Thêm prop width
 	height, // Thêm prop height
 	...props
-}) => {
+}, ref) => {
 	const getOptimizedSrc = (originalSrc) => {
 		if (!originalSrc || typeof originalSrc !== "string") return originalSrc;
 		
@@ -48,15 +48,20 @@ const SafeImage = ({
 
 	return (
 		<img
+			ref={ref}
 			src={imgSrc}
 			alt={alt}
 			className={className}
+			crossOrigin={crossOrigin}
 			onError={handleError}
 			loading={loading}
-			crossOrigin={crossOrigin}
+			width={width}
+			height={height}
 			{...props}
 		/>
 	);
-};
+});
+
+SafeImage.displayName = "SafeImage";
 
 export default SafeImage;

@@ -41,6 +41,7 @@ import {
 	Book,
 	Users,
 	Coffee,
+	Eye,
 } from "lucide-react";
 
 function MobileSidebar({ language, handleLanguageChange, tUI, isNavVisible }) {
@@ -319,6 +320,9 @@ function MobileSidebar({ language, handleLanguageChange, tUI, isNavVisible }) {
 									>
 										<NavLink to='/simulator/vaults' className={dropdownLinkClass} onClick={closeSidebar}>
 											<Gift className='w-4 h-4' /> {tUI("nav.vaultSimulator")}
+										</NavLink>
+										<NavLink to='/tools/card-guess' className={dropdownLinkClass} onClick={closeSidebar}>
+											<Eye className='w-4 h-4' /> {tUI("nav.cardGuess", "Đoán Lá Bài")}
 										</NavLink>
 										<NavLink to='/randomizer' className={dropdownLinkClass} onClick={closeSidebar}>
 											<LoaderPinwheel className='w-4 h-4' /> {tUI("nav.randomizer")}

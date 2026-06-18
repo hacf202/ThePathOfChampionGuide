@@ -49,6 +49,7 @@ import ResourceListPage from "@/features/resources/pages/resourceListPage.jsx";
 import BossListPage from "@/features/bosses/pages/BossListPage.jsx";
 import BossDetailPage from "@/features/bosses/components/BossDetailPage.jsx";
 import ChampionItems from "@/features/tools/championItems/pages/championItems.jsx";
+import CardGuessPage from "@/features/tools/cardGuess/pages/cardGuessPage.jsx";
 
 import ErrorPage from "./pages/ErrorPage.jsx";
 import ResetPassword from "@/features/auth/pages/ResetPassword.jsx";
@@ -81,7 +82,7 @@ function MainContentContainer() {
 
 	const isAdmin = location.pathname.startsWith("/admin");
 	// Danh sách các trang full-width
-	const fullWidthPaths = ["/", "/randomizer", "/home", "/introduction", "/simulator/vaults", "/tools/ratings", "/tools/champion-items"];
+	const fullWidthPaths = ["/", "/randomizer", "/home", "/introduction", "/simulator/vaults", "/tools/ratings", "/tools/champion-items", "/tools/card-guess"];
 	const isFullWidth = isAdmin || fullWidthPaths.includes(location.pathname);
 
 	useEffect(() => {
@@ -117,7 +118,11 @@ function AppLayout() {
 		location.pathname === "/introduction" ||
 		location.pathname === "/simulator/vaults" ||
 		location.pathname === "/tools/ratings" ||
-		location.pathname === "/tools/champion-items";
+		location.pathname === "/tools/champion-items" ||
+		location.pathname === "/tools/card-guess";
+
+	// Danh sách các trang không hiển thị Footer
+	const isNoFooterRoute = isAdminRoute || location.pathname === "/tools/card-guess";
 
 	return (
 		<div
@@ -141,7 +146,7 @@ function AppLayout() {
 				</div>
 			)}
 
-			{!isAdminRoute && <Footer />}
+			{!isNoFooterRoute && <Footer />}
 			<Analytics />
 		</div>
 	);
@@ -161,6 +166,7 @@ const router = createBrowserRouter([
 			{ path: "sub-champions", element: <SubChampionList /> },
 			{ path: "tools/ratings", element: <ChampionRatingPage /> },
 			{ path: "tools/champion-items", element: <ChampionItems /> },
+			{ path: "tools/card-guess", element: <CardGuessPage /> },
 			{ path: "profile", element: <Profile /> },
 			{ path: "reset-password", element: <ResetPassword /> },
 			{ path: "champions", element: <Champions /> },
