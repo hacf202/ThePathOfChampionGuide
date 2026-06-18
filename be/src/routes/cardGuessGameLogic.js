@@ -312,6 +312,14 @@ router.post("/guess", optionalAuth, async (req, res) => {
 			session.won = isCorrect;
 			session.completedAt = new Date();
 			session.durationSeconds = (session.completedAt - session.createdAt) / 1000;
+
+			const incrementPayload = { totalPlayed: 1, totalWon: isCorrect ? 1 : 0 };
+			if (isCorrect) incrementPayload[`distribution.${numGuesses}`] = 1;
+			await db.collection("cardGuessStats").updateOne(
+				{ cardCode: session.cardCode },
+				{ $inc: incrementPayload },
+				{ upsert: true }
+			);
 			
 			const points = isCorrect ? (pointsMap[numGuesses] || 0) : 0;
 			
@@ -434,6 +442,12 @@ router.post("/give-up", optionalAuth, async (req, res) => {
 		session.won = false;
 		session.completedAt = now;
 		session.durationSeconds = Math.round((now - new Date(session.createdAt)) / 1000);
+
+		await db.collection("cardGuessStats").updateOne(
+			{ cardCode: session.cardCode },
+			{ $inc: { totalPlayed: 1, totalWon: 0 } },
+			{ upsert: true }
+		);
 
 		// Thêm một dummy guess để cho biết là đã give up? Không bắt buộc.
 		
