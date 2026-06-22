@@ -439,8 +439,8 @@ router.get("/image/:sessionId", async (req, res) => {
 				const cx = w * (cropPositionX / 100);
 				const cy = h * (cropPositionY / 100);
 
-				const cropWidth = w * (cropPercent / 100) * 1.2; // 20% margin
-				const cropHeight = h * (cropPercent / 100) * 1.2;
+				const cropWidth = w * (cropPercent / 100) * 2.5; // 2.5x margin for transform-origin offsets
+				const cropHeight = h * (cropPercent / 100) * 2.5;
 
 				let left = Math.round(cx - cropWidth / 2);
 				let top = Math.round(cy - cropHeight / 2);
@@ -539,7 +539,12 @@ router.post("/guess", optionalAuth, async (req, res) => {
 		}
 
 		const updateResult = await db.collection("cardGuessSessions").updateOne(
-			{ _id: sessionId, isCompleted: false, "guesses.cardCode": { $ne: guessedCardCode } },
+			{ 
+				_id: sessionId, 
+				isCompleted: false, 
+				"guesses.cardCode": { $ne: guessedCardCode },
+				guesses: { $size: session.guesses.length } 
+			},
 			updateDoc
 		);
 

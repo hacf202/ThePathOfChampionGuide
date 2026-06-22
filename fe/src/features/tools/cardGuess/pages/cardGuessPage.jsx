@@ -357,7 +357,7 @@ const CardGuessPage = () => {
 				const data = await res.json();
 				if (data.error) throw new Error(data.error);
 
-				const newGuesses = [...guesses, guessedCard];
+				const newGuesses = [...guesses, data.guessedCard];
 				setGuesses(newGuesses);
 
 				if (data.isCompleted) {
