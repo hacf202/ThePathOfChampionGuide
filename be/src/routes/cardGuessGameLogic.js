@@ -456,9 +456,25 @@ router.get("/image/:sessionId", async (req, res) => {
 				const boxHeight = bottom - top;
 
 				if (boxWidth > 0 && boxHeight > 0) {
-					buffer = await image.extract({ left, top, width: boxWidth, height: boxHeight })
-						.webp({ quality: 80 })
-						.toBuffer();
+					const extracted = await image.extract({ left, top, width: boxWidth, height: boxHeight }).toBuffer();
+					
+					buffer = await sharp({
+						create: {
+							width: w,
+							height: h,
+							channels: 4,
+							background: { r: 0, g: 0, b: 0, alpha: 1 }
+						}
+					})
+					.composite([
+						{
+							input: extracted,
+							top: top,
+							left: left
+						}
+					])
+					.webp({ quality: 80 })
+					.toBuffer();
 					
 					finalContentType = "image/webp";
 				}

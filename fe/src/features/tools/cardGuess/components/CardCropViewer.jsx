@@ -100,10 +100,14 @@ const CardCropViewer = ({ imageUrl, fallbackUrl, hintLevel = 0, cropSeed = 0, re
 
 		if (revealed) {
 			// Reveal animation: flip + glow
-			gsap.fromTo(imageRef.current,
-				{ rotationY: 90, opacity: 0 },
-				{ rotationY: 0, opacity: 1, duration: 0.8, ease: "back.out(1.7)" }
-			);
+			gsap.to(imageRef.current, {
+				scale: 1,
+				xPercent: 0,
+				yPercent: 0,
+				objectPosition: "50% 50%",
+				duration: 0.8,
+				ease: "back.out(1.7)",
+			});
 			gsap.to(containerRef.current, {
 				borderColor: "rgba(var(--primary-500-rgb, 99, 102, 241), 0.6)",
 				boxShadow: "0 0 60px rgba(var(--primary-500-rgb, 99, 102, 241), 0.3)",
@@ -111,14 +115,22 @@ const CardCropViewer = ({ imageUrl, fallbackUrl, hintLevel = 0, cropSeed = 0, re
 				ease: "power2.out",
 			});
 		} else {
-			// Fade in when hint changes
+			// Lấy scale hiện tại từ inline style hoặc GSAP cache, nếu không có thì mặc định bằng scale mới (tránh flash scale=1)
+			const currentScale = gsap.getProperty(imageRef.current, "scale") || scale;
 			gsap.fromTo(
 				imageRef.current,
-				{ opacity: 0.5, scale: 0.95 },
-				{ opacity: 1, scale: 1, duration: 0.5, ease: "power2.out" }
+				{ scale: currentScale },
+				{
+					scale: scale,
+					xPercent: 50 - cropPosition.x,
+					yPercent: 50 - cropPosition.y,
+					objectPosition: `${cropPosition.x}% ${cropPosition.y}%`,
+					duration: 0.6,
+					ease: "power2.out",
+				}
 			);
 		}
-	}, [activeHintLevel, revealed]);
+	}, [activeHintLevel, revealed, scale, cropPosition]);
 
 	return (
 		<div 
@@ -154,7 +166,11 @@ const CardCropViewer = ({ imageUrl, fallbackUrl, hintLevel = 0, cropSeed = 0, re
 					alt="Mystery card"
 					draggable={false}
 					className={`absolute inset-0 w-full h-full z-10 select-none pointer-events-none ${revealed ? "object-contain" : "object-cover"}`}
-					style={{ transformOrigin: "center" }}
+					style={{
+						objectPosition: revealed ? "50% 50%" : `${cropPosition.x}% ${cropPosition.y}%`,
+						transform: revealed ? "translate(0%, 0%) scale(1)" : `translate(${50 - cropPosition.x}%, ${50 - cropPosition.y}%) scale(${scale})`,
+						transformOrigin: `${cropPosition.x}% ${cropPosition.y}%`,
+					}}
 					loading="eager"
 				/>
 
