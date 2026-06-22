@@ -29,6 +29,7 @@ const CardCropViewer = ({ imageUrl, fallbackUrl, hintLevel = 0, cropSeed = 0, re
 	const imageRef = useRef();
 
 	const [blobUrl, setBlobUrl] = useState(null);
+	const [activeHintLevel, setActiveHintLevel] = useState(hintLevel);
 
 	// Fetch image as Blob to prevent direct URL inspection
 	useEffect(() => {
@@ -39,6 +40,7 @@ const CardCropViewer = ({ imageUrl, fallbackUrl, hintLevel = 0, cropSeed = 0, re
 			// If already revealed, we don't strictly need a blob, but for consistency we can use the imageUrl directly
 			if (revealed) {
 				setBlobUrl(imageUrl);
+				setActiveHintLevel(hintLevel);
 				return;
 			}
 			try {
@@ -46,14 +48,24 @@ const CardCropViewer = ({ imageUrl, fallbackUrl, hintLevel = 0, cropSeed = 0, re
 				if (response.ok) {
 					const blob = await response.blob();
 					const url = URL.createObjectURL(blob);
-					setBlobUrl(url);
+					
+					// Pre-decode image to prevent flickering when swapping src
+					const img = new Image();
+					img.onload = () => {
+						setBlobUrl(url);
+						setActiveHintLevel(hintLevel);
+					};
+					img.src = url;
+					
 					urlToRevoke = url;
 				} else {
 					setBlobUrl(imageUrl); // Fallback
+					setActiveHintLevel(hintLevel);
 				}
 			} catch (e) {
 				console.error("Failed to fetch blob", e);
 				setBlobUrl(imageUrl); // Fallback
+				setActiveHintLevel(hintLevel);
 			}
 		};
 
@@ -62,7 +74,7 @@ const CardCropViewer = ({ imageUrl, fallbackUrl, hintLevel = 0, cropSeed = 0, re
 		return () => {
 			if (urlToRevoke) URL.revokeObjectURL(urlToRevoke);
 		};
-	}, [imageUrl, revealed]);
+	}, [imageUrl, revealed, hintLevel]);
 
 	// Vị trí crop ngẫu nhiên, được cố định bởi cropSeed
 	const cropPosition = useMemo(() => {
@@ -77,7 +89,7 @@ const CardCropViewer = ({ imageUrl, fallbackUrl, hintLevel = 0, cropSeed = 0, re
 	}, [cropSeed]);
 
 	const activeHintLevels = mode === "hard" ? HINT_LEVELS_HARD : HINT_LEVELS;
-	const currentHint = activeHintLevels[Math.min(hintLevel, activeHintLevels.length - 1)];
+	const currentHint = activeHintLevels[Math.min(activeHintLevel, activeHintLevels.length - 1)];
 	const cropPercent = currentHint.cropSize;
 
 	// Scale = 100 / cropSize, cho phép zoom vào vùng nhỏ
@@ -115,7 +127,7 @@ const CardCropViewer = ({ imageUrl, fallbackUrl, hintLevel = 0, cropSeed = 0, re
 				}
 			);
 		}
-	}, [hintLevel, revealed, scale, cropPosition]);
+	}, [activeHintLevel, revealed, scale, cropPosition]);
 
 	return (
 		<div 
