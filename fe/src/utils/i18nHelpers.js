@@ -39,9 +39,11 @@ export const getTypeKey = (rawType) => {
 		"trấn": "signature",
 		"tiêu thụ": "consumable",
 		"chung": "general",
+		"chiến dịch": "campaign",
 		"signature": "signature",
 		"consumable": "consumable",
-		"general": "general"
+		"general": "general",
+		"campaign": "campaign"
 	};
 	
 	return mapping[normalized] || normalized;

@@ -78,8 +78,8 @@ const getRandomCard = async (db) => {
 };
 
 // Thời gian sự kiện (Cài đặt thủ công tại đây)
-const EVENT_START_TIME = "2026-06-21T00:00:00.000Z";
-const EVENT_END_TIME = "2026-06-25T23:59:59.000Z";
+const EVENT_START_TIME = "2099-01-01T00:00:00Z"; // UTC (Khóa sự kiện - chờ mở lại)
+const EVENT_END_TIME = "2099-01-01T23:59:59Z";   // UTC
 
 const isEventActive = () => {
 	const start = new Date(EVENT_START_TIME);

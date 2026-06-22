@@ -290,7 +290,7 @@ function RelicEditor() {
 
 	const filterOptions = useMemo(() => {
 		const rarities = [...new Set(relics.map(r => r.rarity).filter(Boolean))];
-		const types = [...new Set(relics.map(r => r.type).filter(Boolean))];
+		const types = [...new Set(relics.flatMap(r => Array.isArray(r.type) ? r.type : (r.type ? [r.type] : [])))].filter(Boolean);
 		const stacks = [
 			...new Set(relics.map(r => String(r.stack)).filter(Boolean)),
 		];
@@ -333,8 +333,11 @@ function RelicEditor() {
 			result = result.filter(r => selectedRarities.includes(r.rarity));
 		}
 
-		if (selectedTypes.length) {
-			result = result.filter(r => selectedTypes.includes(r.type));
+		if (selectedTypes.length > 0) {
+			result = result.filter(r => {
+				const rTypes = Array.isArray(r.type) ? r.type : (r.type ? [r.type] : []);
+				return selectedTypes.some(t => rTypes.includes(t));
+			});
 		}
 
 		if (selectedStacks.length) {

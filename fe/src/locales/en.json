@@ -510,8 +510,14 @@
 			"cannotUndo": "? This action cannot be undone.",
 			"search": "Search",
 			"all": "All",
-			"sortIdAsc": "ID Ascending",
-			"sortIdDesc": "ID Descending",
+			"sortOrderAsc": "Sort Ascending",
+			"sortOrderDesc": "Sort Descending",
+			"time": {
+				"daysShort": "d",
+				"hoursShort": "h",
+				"minsShort": "m",
+				"secsShort": "s"
+			},
 			"add": "Add",
 			"remove": "Remove",
 			"addItem": "Add New",
@@ -1742,7 +1748,8 @@
 		},
 		"mode": {
 			"daily": "Daily",
-			"unlimited": "Survival Run"
+			"unlimited": "Survival Run",
+			"event": "Event"
 		},
 		"stats": {
 			"title": "Statistics",
@@ -1763,9 +1770,10 @@
 			"player": "Player",
 			"score": "Score",
 			"solved": "Solved",
+			"runs": "Runs",
 			"empty": "No leaderboard data yet. Be the first!",
 			"cards": "cards",
-			"avgTime": "Avg Time (s)"
+			"duration": "Duration"
 		},
 		"run": {
 			"riotIdPrompt": "Enter Name / Riot ID for ranking",
@@ -1779,6 +1787,22 @@
 			"newRun": "Start New Run",
 			"dailySolvers": "Players solved today: {count}",
 			"endRunWarning": "Warning: This will end your current Run completely!"
+		},
+		"rules": {
+			"title": "How to Play",
+			"p1": "The game will show you a small cropped section of a card's artwork from Path of Champions.",
+			"p2": "Your goal is to guess the name of the card within 5 attempts.",
+			"p3": "After each incorrect guess, the image will zoom out to give you a better hint. Text hints (card type, description) will appear after the 3rd attempt.",
+			"p4": "In Unlimited and Event modes, you start with 3 lives. If you fail to guess a card within 5 attempts (or give up), you lose 1 life. The run ends when your lives reach 0.",
+			"close": "Got it"
+		}
+	},
+	"relic": {
+		"types": {
+			"signature": "Signature",
+			"consumable": "Consumable",
+			"general": "General",
+			"campaign": "Campaign"
 		}
 	}
 }

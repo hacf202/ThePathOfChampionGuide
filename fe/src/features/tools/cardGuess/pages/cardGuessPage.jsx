@@ -88,6 +88,7 @@ const CardGuessPage = () => {
 	const [runState, setRunState] = useState(null);
 	const [showNameModal, setShowNameModal] = useState(false);
 	const [showGiveUpModal, setShowGiveUpModal] = useState(false);
+	const [showRulesModal, setShowRulesModal] = useState(false);
 	const [tempPlayerName, setTempPlayerName] = useState(getStoredPlayerName());
 	const [dailySolvers, setDailySolvers] = useState(0);
 
@@ -507,6 +508,24 @@ const CardGuessPage = () => {
 				</div>
 			</Modal>
 
+			{/* Modal Hướng Dẫn Chơi */}
+			<Modal isOpen={showRulesModal} onClose={() => setShowRulesModal(false)} title={tUI("cardGuess.rules.title", "Hướng dẫn chơi")} size="md">
+				<div className="p-6 space-y-4 text-text-secondary leading-relaxed">
+					<p>{tUI("cardGuess.rules.p1")}</p>
+					<p>{tUI("cardGuess.rules.p2")}</p>
+					<p>{tUI("cardGuess.rules.p3")}</p>
+					<p>{tUI("cardGuess.rules.p4")}</p>
+					<div className="flex justify-center mt-6 pt-4 border-t border-border">
+						<button 
+							onClick={() => setShowRulesModal(false)}
+							className="px-8 py-2.5 rounded-xl font-bold text-sm bg-primary-500/10 text-primary-500 hover:bg-primary-500 hover:text-white transition-all"
+						>
+							{tUI("cardGuess.rules.close", "Đã hiểu")}
+						</button>
+					</div>
+				</div>
+			</Modal>
+
 			<div className="absolute inset-0 z-0 pointer-events-none">
 				<div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.03]" />
 				<div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-primary-500/5 blur-[150px] rounded-full" />
@@ -521,8 +540,15 @@ const CardGuessPage = () => {
 							{tUI("cardGuess.titleSub")}
 						</span>
 					</h1>
-					<p className="text-text-secondary text-base md:text-lg max-w-xl mx-auto font-secondary">
+					<p className="text-lg text-text-secondary max-w-2xl mx-auto flex items-center justify-center gap-2">
 						{tUI("cardGuess.pageDesc")}
+						<button
+							onClick={() => setShowRulesModal(true)}
+							className="p-1.5 rounded-full hover:bg-surface-hover text-primary-400 transition-colors"
+							title={tUI("cardGuess.rules.title", "Hướng dẫn")}
+						>
+							<Info size={18} />
+						</button>
 					</p>
 				</header>
 

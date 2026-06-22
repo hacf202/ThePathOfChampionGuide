@@ -17,7 +17,9 @@
     "description": "[k:Challenger|Thách Đấu]",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0000.png",
     "name": "Lưỡi Kiếm Của Đại Kiếm Sư",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -25,7 +27,8 @@
         "name": "Crownguard Inheritance",
         "description": "When I level up, [k:Rally|Rally].",
         "descriptionRaw": "When I level up, Rally.",
-        "rarity": "Rare"
+        "rarity": "Rare",
+        "source": "Reward from Darius's 2* Campaign"
       }
     },
     "relicCode": "R0001",
@@ -37,7 +40,11 @@
     "description": "Khi ta thăng cấp, [k:Rally|Tiến Công].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0001.png",
     "name": "Di Sản Crownguard",
-    "type": "Chung"
+    "type": [
+      "Chung",
+      "Chiến Dịch"
+    ],
+    "source": "Thưởng từ chiến dịch 2* của Darius"
   },
   {
     "translations": {
@@ -57,7 +64,9 @@
     "description": "[k:Overwhelm|Áp Đảo]",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0002.png",
     "name": "Máy Nghiền Vua Troll",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -77,7 +86,9 @@
     "description": "+2|+1",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0003.png",
     "name": "Búa Chiến Caulfield",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -97,7 +108,9 @@
     "description": "+1|+2",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0004.png",
     "name": "Nắm Đấm Của Jaurim",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -117,7 +130,9 @@
     "description": "[k:QuickStrike|Đột Kích]",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0005.png",
     "name": "Phong Thần Kiếm",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -137,7 +152,9 @@
     "description": "[k:Regeneration|Hồi Phục]",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0006.png",
     "name": "Giáp Máu Warmog",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -157,7 +174,9 @@
     "description": "Bắt đầu chuyến phiêu lưu với +1 lượt Hồi Sinh\n[k:LastBreath|Trăng Trối]: Nếu đây là lần đầu tiên ta bị [k:Slay|Thủ Tiêu] trong trận đấu, hồi sinh ta với 1 Máu.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0007.png",
     "name": "Thiên Thần Hộ Mệnh",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -177,7 +196,9 @@
     "description": "Bắt đầu chuyến phiêu lưu với +2 lượt [k:Reroll|Đổi Lại]",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0008.png",
     "name": "Bản Mẫu Động Cơ Z",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -197,7 +218,9 @@
     "description": "[k:SpellShield|Khiên Phép]",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0009.png",
     "name": "Dây Chuyền Chữ Thập",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -217,7 +240,9 @@
     "description": "Nhận được thêm 50% vàng trong khi phiêu lưu.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0010.png",
     "name": "Trái Tim Vàng",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -237,7 +262,9 @@
     "description": "Khi ta thăng cấp, tạo trên tay 1 bản sao bài phép anh hùng của ta. Lá bài đó có 0 tiêu hao trong vòng này.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0011.png",
     "name": "Huy Hiệu Của Kẻ Lừa Đảo",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -245,7 +272,8 @@
         "name": "The Scourge's Stash",
         "description": "[k:Plunder|Plunder]: I cost 2 less.",
         "descriptionRaw": "Plunder: I cost 2 less.",
-        "rarity": "Rare"
+        "rarity": "Rare",
+        "source": "Reward from Lee Sin's 2* Campaign"
       }
     },
     "relicCode": "R0012",
@@ -257,7 +285,11 @@
     "description": "[k:Plunder|Cưỡng Đoạt]: Ta được giảm 2 tiêu hao.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0012.png",
     "name": "Kho Tàng Hiểm Họa",
-    "type": "Chung"
+    "type": [
+      "Chung",
+      "Chiến Dịch"
+    ],
+    "source": "Thưởng từ chiến dịch 2* của Lee Sin"
   },
   {
     "translations": {
@@ -265,7 +297,8 @@
         "name": "Archangel's Staff",
         "description": "[k:RoundStart|Round Start]: Refill your spell mana.",
         "descriptionRaw": "Round Start: Refill your spell mana.",
-        "rarity": "Rare"
+        "rarity": "Rare",
+        "source": "Reward from Jhin's 2* Campaign"
       }
     },
     "relicCode": "R0013",
@@ -277,7 +310,11 @@
     "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Hồi lại năng lượng bài phép.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0013.png",
     "name": "Quyền Trượng Thiên Thần",
-    "type": "Chung"
+    "type": [
+      "Chung",
+      "Chiến Dịch"
+    ],
+    "source": "Thưởng từ chiến dịch 2* của Jhin"
   },
   {
     "translations": {
@@ -285,7 +322,8 @@
         "name": "The Gravedigger's Spade",
         "description": "[k:RoundStart|Round Start]: Draw 1 and give it [k:Fleeting|Fleeting].",
         "descriptionRaw": "Round Start: Draw 1 and give it Fleeting.",
-        "rarity": "Rare"
+        "rarity": "Rare",
+        "source": "Reward from Illaoi's 2* Campaign"
       }
     },
     "relicCode": "R0014",
@@ -297,7 +335,11 @@
     "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Rút 1 lá bài và trao [k:Fleeting|Phù Du] cho lá bài đó.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0014.png",
     "name": "Xẻng Của Kẻ Đào Mộ",
-    "type": "Chung"
+    "type": [
+      "Chung",
+      "Chiến Dịch"
+    ],
+    "source": "Thưởng từ chiến dịch 2* của Illaoi"
   },
   {
     "translations": {
@@ -317,7 +359,9 @@
     "description": "[k:Play|Xuất Trận]: Hồi đầy năng lượng bài phép.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0015.png",
     "name": "Bí Chương Thất Truyền",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -337,7 +381,9 @@
     "description": "Khi ta được triệu hồi, gây 1 sát thương lên tất cả kẻ địch.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0016.png",
     "name": "Rìu Mãng Xà",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -345,7 +391,8 @@
         "name": "Luden's Tempest",
         "description": "All of your spells and skills deal 1 extra damage.",
         "descriptionRaw": "All of your spells and skills deal 1 extra damage.",
-        "rarity": "Rare"
+        "rarity": "Rare",
+        "source": "Reward from Lux's 2* Campaign"
       }
     },
     "relicCode": "R0017",
@@ -357,7 +404,11 @@
     "description": "Tất cả bài phép và kỹ năng đồng minh gây thêm 1 sát thương.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0017.png",
     "name": "Bão Tố Luden",
-    "type": "Chung"
+    "type": [
+      "Chung",
+      "Chiến Dịch"
+    ],
+    "source": "Thưởng từ chiến dịch 2* của Lux"
   },
   {
     "translations": {
@@ -377,7 +428,9 @@
     "description": "Khi ta được triệu hồi, [k:Stun|Làm Choáng] kẻ địch [k:Strongest|Mạnh Nhất].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0018.png",
     "name": "Băng Trượng Vĩnh Cửu",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -397,7 +450,9 @@
     "description": "Nếu ta nhận sát thương và sống sót, ban cho ta +2|+2.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0019.png",
     "name": "Thắt Lưng Cuồng Binh",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -405,7 +460,8 @@
         "name": "The Grand General's Counterplan",
         "description": "[k:RoundStart|Round Start]: Create a [k:Fleeting|Fleeting] copy of me in hand.",
         "descriptionRaw": "Round Start: Create a Fleeting copy of me in hand.",
-        "rarity": "Rare"
+        "rarity": "Rare",
+        "source": "Reward from Vi's 2* Campaign"
       }
     },
     "relicCode": "R0020",
@@ -417,7 +473,11 @@
     "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Tạo trên tay 1 bản sao [k:Fleeting|Phù Du] của ta.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0020.png",
     "name": "Kế Đối Phó Của Đại Tướng",
-    "type": "Chung"
+    "type": [
+      "Chung",
+      "Chiến Dịch"
+    ],
+    "source": "Thưởng từ chiến dịch 2* của Vi"
   },
   {
     "translations": {
@@ -437,7 +497,9 @@
     "description": "Khi ta được triệu hồi, tạo trên tay 2 lá [cd:02BW020|Bắn Cảnh Cáo|icon,img-full].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0021.png",
     "name": "Pháo Mũi Tàu Dreadway",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -457,7 +519,9 @@
     "description": "Bắt đầu chuyến phiêu lưu với +5 Hồi Phục",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0022.png",
     "name": "Quyền Trượng Tinh Nữ",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -477,7 +541,9 @@
     "description": "Đồng minh nhận [k:Challenger|Thách Đấu].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0023.png",
     "name": "Giá Đỡ Gươm Laurent",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -497,7 +563,9 @@
     "description": "[k:Attack|Tấn Công]: Ban cho ta +1|+1.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0024.png",
     "name": "Cuồng Đao Guinsoo",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -517,7 +585,9 @@
     "description": "Đồng minh nhận [k:Overwhelm|Áp Đảo].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0025.png",
     "name": "Vương Miện Của Vua Troll",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -537,7 +607,9 @@
     "description": "+0|+3 và [k:Sharpsight|Tinh Mắt].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0026.png",
     "name": "Ngọc Sáng Chói",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -557,7 +629,9 @@
     "description": "Ta nhận +1|+1 với mỗi 200 vàng ngươi sở hữu.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0027.png",
     "name": "Danh Tiếng Của Thợ Săn Tiền Thưởng",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -577,7 +651,9 @@
     "description": "[k:GameStart|Bắt Đầu Trận Đấu]: Tạo 2 bản sao của ta trong bộ bài.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0028.png",
     "name": "Chuỗi Kiềng Của Hóa Hình Sư",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -597,7 +673,9 @@
     "description": "+1|+1 và khi ta tiêu diệt 1 kẻ địch, ngươi nhận được 50 vàng. (Tối đa 2 kẻ địch mỗi ải)",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0029.png",
     "name": "Nhà Sưu Tầm",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -617,7 +695,9 @@
     "description": "+0|+1 và [k:Tough|Kiên Cường]",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0030.png",
     "name": "Vảy Tê Tê",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -625,7 +705,8 @@
         "name": "Tempest Blade",
         "description": "When I level up, [k:Stun|Stun] all enemies.",
         "descriptionRaw": "When I level up, Stun all enemies.",
-        "rarity": "Rare"
+        "rarity": "Rare",
+        "source": "Reward from Miss Fortune's 2* Campaign"
       }
     },
     "relicCode": "R0031",
@@ -637,7 +718,11 @@
     "description": "Khi ta thăng cấp, [k:Stun|Làm Choáng] tất cả kẻ địch.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0031.png",
     "name": "Lưỡi Kiếm Cuồng Nộ",
-    "type": "Chung"
+    "type": [
+      "Chung",
+      "Chiến Dịch"
+    ],
+    "source": "Thưởng từ chiến dịch 2* của Miss Fortune"
   },
   {
     "translations": {
@@ -657,7 +742,9 @@
     "description": "+1|+0 và [k:Fearsome|Đáng Sợ]",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0032.png",
     "name": "Ngọn Giáo Linh Hồn",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -677,7 +764,9 @@
     "description": "Nhà Chính của ngươi có [k:Tough|Kiên Cường].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0033.png",
     "name": "Khiên Trụ",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -685,7 +774,8 @@
         "name": "Riptide Battery",
         "description": "[k:Plunder|Plunder]: Play [cd:02BW028T1|Cannon Barrage|icon,img-full] a number of times equal to my cost.",
         "descriptionRaw": "Plunder: Play Cannon Barrage a number of times equal to my cost.",
-        "rarity": "Rare"
+        "rarity": "Rare",
+        "source": "Reward from Yasuo's 2* Campaign"
       }
     },
     "relicCode": "R0034",
@@ -697,7 +787,11 @@
     "description": "[k:Plunder|Cưỡng Đoạt]: Sử dụng [cd:02BW028T1|Mưa Đại Bác|icon,img-full] với số lần bằng với tiêu hao của ta.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0034.png",
     "name": "Năng Lượng Thủy Triều",
-    "type": "Chung"
+    "type": [
+      "Chung",
+      "Chiến Dịch"
+    ],
+    "source": "Thưởng từ chiến dịch 2* của Yasuo"
   },
   {
     "translations": {
@@ -717,7 +811,9 @@
     "description": "+1|+1 và khi ngươi chiến thắng 1 ải mà không phải nhận sát thương Nhà Chính, nhận 1 [k:Reroll|Lượt Đổi].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0035.png",
     "name": "Canh Bạc Của Thần Bài",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -725,7 +821,8 @@
         "name": "The Loose Cannon's Payload",
         "description": "When I'm summoned, discard your hand then create that many Pow-Pows in hand.",
         "descriptionRaw": "When I'm summoned, discard your hand then create that many Pow-Pows in hand.",
-        "rarity": "Rare"
+        "rarity": "Rare",
+        "source": "Reward from Garen's 2* Campaign"
       }
     },
     "relicCode": "R0036",
@@ -737,7 +834,11 @@
     "description": "Khi ta được triệu hồi, bỏ toàn bộ bài trên tay và tạo trên tay số lá Bằng Chíu tương ứng.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0036.png",
     "name": "Hỏa Lực Của Khẩu Pháo Nổi Loạn",
-    "type": "Chung"
+    "type": [
+      "Chung",
+      "Chiến Dịch"
+    ],
+    "source": "Thưởng từ chiến dịch 2* của Garen"
   },
   {
     "translations": {
@@ -745,7 +846,8 @@
         "name": "Hymn of Valor",
         "description": "When I'm summoned, create a [cd:01DE044|Redoubled Valor|icon,img-full] in hand. It costs 3.",
         "descriptionRaw": "When I'm summoned, create a Redoubled Valor in hand. It costs 3.",
-        "rarity": "Rare"
+        "rarity": "Rare",
+        "source": "Reward from Bard's 2* Campaign"
       }
     },
     "relicCode": "R0037",
@@ -757,7 +859,11 @@
     "description": "Khi ta được triệu hồi, tạo trên tay 1 lá [cd:01DE044|Trí Dũng Song Toàn|icon,img-full]. Lá bài đó có 3 tiêu hao.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0037.png",
     "name": "Anh Hùng Ca",
-    "type": "Chung"
+    "type": [
+      "Chung",
+      "Chiến Dịch"
+    ],
+    "source": "Thưởng từ chiến dịch 2* của Bard"
   },
   {
     "translations": {
@@ -777,7 +883,9 @@
     "description": "-1|-0\n[k:Play|Xuất Trận]: Ta [k:Strike|ra đòn] lên Nhà Chính của đối thủ.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0038.png",
     "name": "Nhà Thông Thái Phá Thành",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -797,7 +905,9 @@
     "description": "Khi ta được triệu hồi, trao [k:Vulnerable|Kích Động] cho kẻ địch trong vòng này.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0039.png",
     "name": "Chùy Chân Băng",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -805,7 +915,8 @@
         "name": "Stalker's Blade",
         "description": "When I'm summoned, I [k:Strike|strike] the [k:Weakest|weakest] enemy.",
         "descriptionRaw": "When I'm summoned, I strike the weakest enemy.",
-        "rarity": "Rare"
+        "rarity": "Rare",
+        "source": "Reward from Jinx's 2* Campaign"
       }
     },
     "relicCode": "R0040",
@@ -817,7 +928,11 @@
     "description": "Khi ta được triệu hồi, ta [k:Strike|Ra Đòn] lên kẻ địch [k:Weakest|Yếu Nhất].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0040.png",
     "name": "Gươm Truy Tung",
-    "type": "Chung"
+    "type": [
+      "Chung",
+      "Chiến Dịch"
+    ],
+    "source": "Thưởng từ chiến dịch 2* của Jinx"
   },
   {
     "translations": {
@@ -825,7 +940,8 @@
         "name": "Greenglade Shadeleaf",
         "description": "[k:Support|Support]: Grant my supported ally [k:Elusive|Elusive].",
         "descriptionRaw": "Support: Grant my supported ally Elusive.",
-        "rarity": "Rare"
+        "rarity": "Rare",
+        "source": "Reward from Annie's 2* Campaign"
       }
     },
     "relicCode": "R0041",
@@ -837,7 +953,11 @@
     "description": "[k:Support|Hỗ Trợ]: Ban [k:Elusive|Huyền Ảo] cho 1 đồng minh được ta hỗ trợ.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0041.png",
     "name": "Chiếc Lá Nương Bóng Greenglade",
-    "type": "Chung"
+    "type": [
+      "Chung",
+      "Chiến Dịch"
+    ],
+    "source": "Thưởng từ chiến dịch 2* của Annie"
   },
   {
     "translations": {
@@ -857,7 +977,9 @@
     "description": "Các anh hùng đồng minh được nhận +1|+1 và giảm 2 tiêu hao.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0043.png",
     "name": "Ngọc Tinh Tú",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -877,7 +999,9 @@
     "description": "Bắt Đầu Phiêu Lưu: Thêm 2 bản sao của 1 lá Anh Hùng ngẫu nhiên vào bộ bài. Gắn lên lá bài đó 1 vật phẩm Sử Thi ngẫu nhiên.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0044.png",
     "name": "Phụ Kiện Vệ Binh",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -897,7 +1021,9 @@
     "description": "[k:Support|Hỗ Trợ]: Hy sinh đồng minh được ta hỗ trợ và ban cho ta đặc điểm và chỉ số của đồng minh đó.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0045.png",
     "name": "Mảnh Sao Biến Đổi",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -917,7 +1043,9 @@
     "description": "[k:RoundStart|Bắt Đầu Vòng Đấu]: Tạo trên tay 1 lá [cd:03MT043|Sao Chổi Rơi|icon,img-full] [k:Fleeting|Phù Du].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0046.png",
     "name": "Thiên Thạch Bí Ẩn",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -937,7 +1065,9 @@
     "description": "+1|+1.\nNhiệm vụ: Giành chiến thắng trong 1 chuyến phiêu lưu ở độ khó 1 Sao hoặc thấp hơn.\nPhần thưởng: Nhận x10 lượng XP Anh Hùng thông thường",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0047.png",
     "name": "Tìm Kiếm Sự Thông Thái",
-    "type": "Tiêu Thụ"
+    "type": [
+      "Tiêu Thụ"
+    ]
   },
   {
     "translations": {
@@ -957,7 +1087,9 @@
     "description": "Khi ngươi sử dụng 1 bài phép, nếu ngươi có 6+ ngọc năng lượng, sao chép hiệu ứng bài phép đó lên cùng mục tiêu.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0048.png",
     "name": "Máy Sao Chép Hóa Kỹ",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -977,7 +1109,9 @@
     "description": "[k:Evolve|Tiến Hóa]\nKhi bài quân BẤT KỲ hy sinh, ban cho ta đặc điểm của bài quân đó.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0049.png",
     "name": "Mai Giáp Hóa Hư Không",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -997,7 +1131,9 @@
     "description": "[k:Scout|Trinh Sát]\n[k:RoundEnd|Kết Thúc Vòng Đấu]: Tráo ta vào bộ bài của ngươi.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0050.png",
     "name": "Cung Phong Linh",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -1017,7 +1153,9 @@
     "description": "Khi ta được triệu hồi, ban cho ta +1|+1 và 1 đặc điểm ngẫu nhiên với mỗi 30 lá đã bắt đầu trong bộ bài.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0051.png",
     "name": "Xẻng Vàng Ròng",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -1037,7 +1175,9 @@
     "description": "Khi ta được triệu hồi, ban vật phẩm Sử Thi cho 3 lá bài ngẫu nhiên trong bộ bài.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0052.png",
     "name": "Băng Cầu",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -1057,7 +1197,9 @@
     "description": "+1|+1 và triệu hồi 1 yêu linh ngẫu nhiên khi ta tiêu diệt 1 bài quân.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0053.png",
     "name": "Dấu Ấn Yêu Nữ",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -1077,7 +1219,9 @@
     "description": "[k:RoundEnd|Kết Thúc Vòng Đấu]: Ban cho ta [k:Impact|Khí Lực] 2 lần nếu ta ở trên tay (tối đa 10 [k:Impact|Khí Lực]).",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0054.png",
     "name": "Lồng Đèn Wriggle",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -1097,7 +1241,9 @@
     "description": "[k:Fated|Định Mệnh], [k:Augment|Nâng Cấp]\n[k:Empowered|Cường Hóa] 10: [k:Overwhelm|Áp Đảo], [k:Regeneration|Hồi Phục] và [k:Challenger|Thách Đấu].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0058.png",
     "name": "Lựa Chọn Của Tinh Tú",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -1117,7 +1263,9 @@
     "description": "+1|+0\nKhi ta tấn công, ta không thể nhận sát thương hoặc bị tiêu diệt.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0059.png",
     "name": "Dấu Vết Tử Thần",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -1137,7 +1285,9 @@
     "description": "Ta được giảm 1 tiêu hao với mỗi đồng minh trên bàn.\n[k:Play|Xuất Trận]: Gây 3 sát thương lên tất cả đồng minh khác.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0060.png",
     "name": "Đệ Tử Bóng Đêm",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -1157,7 +1307,9 @@
     "description": "[k:GameStart|Bắt Đầu Trận Đấu]: Tạo 7 bản sao của ta trong bộ bài. Giảm 1 tiêu hao cho Bài Phép Anh Hùng.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0061.png",
     "name": "Linh Hồn Vang Vọng",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -1177,7 +1329,9 @@
     "description": "[k:Play|Xuất Trận]: Rút lá bài có tiêu hao cao nhất và thấp hơn tiêu hao cơ bản của ta, ban cho lá đó 1 vật phẩm Sử Thi và giảm tiêu hao của lá đó về 0.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0062.png",
     "name": "Tìm Thấy Thần Tài",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -1197,7 +1351,9 @@
     "description": "[k:Play|Xuất Trận]: Tráo 5 anh hùng cấp 2 vào bộ bài và tăng gấp đôi chỉ số của họ, rồi rút 1 trong các lá đó.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0064.png",
     "name": "Lời Thề Hộ Vệ",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -1217,7 +1373,9 @@
     "description": "[k:Plunder|Cưỡng Đoạt]: Ta được giảm 2 tiêu hao.\nTa nhận +1|+1 với mỗi vòng đấu ngươi đã gây sát thương lên Nhà Chính của đối thủ.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0065.png",
     "name": "Thuốc Nổ Nén Chặt",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -1237,7 +1395,9 @@
     "description": "Khi ta được triệu hồi, tạo 2 bài quân 7+ tiêu hao ngẫu nhiên thuộc khu vực đồng minh và giảm tiêu hao của chúng đi một lượng bằng tiêu hao cơ bản của ta.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0066.png",
     "name": "Bằng Hữu Dịch Chuyển",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -1257,7 +1417,9 @@
     "description": "Nhiệm Vụ: Chiến Thắng 1 Cuộc Phiêu Lưu 3+ Sao\nPhần Thưởng: Nâng cấp 1 Ô Vật Phẩm Cổ Vật Hiếm của anh hùng này lên Sử Thi!",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0069.png",
     "name": "Tôi Luyện Linh Hồn (Tiêu Thụ)",
-    "type": "Tiêu Thụ"
+    "type": [
+      "Tiêu Thụ"
+    ]
   },
   {
     "translations": {
@@ -1277,7 +1439,9 @@
     "description": "[k:Support|Hỗ Trợ]: Tạo trên tay 1 bản sao 1|1 có 1 tiêu hao của đồng minh được hỗ trợ.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0075.png",
     "name": "Ngưng Tụ",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -1297,7 +1461,9 @@
     "description": "[k:Power|Sức Mạnh:] Các đồng minh 1- tiêu hao nhận [k:Overwhelm|Áp Đảo], [k:QuickStrike|Đột Kích] và [k:Fury|Cuồng Nộ].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0079.png",
     "name": "Linh Hồn Buhru",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -1317,7 +1483,9 @@
     "description": "[k:Power|Sức Mạnh:] Đồng minh nhận [k:Overwhelm|Áp Đảo], và nếu có nhóm phụ, nhận thêm +1|+1.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0080.png",
     "name": "Quái Thú Bên Trong",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -1337,7 +1505,9 @@
     "description": "[k:Support|Hỗ Trợ]: Biến đổi đồng minh được hỗ trợ thành 1 tùy tùng ngẫu nhiên có 3+ tiêu hao.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0081.png",
     "name": "Máy Biến Hình",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -1357,7 +1527,9 @@
     "description": "[k:Power|Sức mạnh]: [k:GameStart|Bắt Đầu Trận Đấu]: Nếu ta đang ở trong bộ bài hoặc trên tay và [k:Titanic|Khổng Lồ], +1 cho Năng Lượng Khởi Điểm. Ngươi có thể tìm thấy Anh Hùng Cấp 2 khi [k:Invoke|Hiệu Triệu] hoặc [k:Manifest|Hình Thành].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0082.png",
     "name": "Găng Tinh Vân Sư",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -1377,7 +1549,9 @@
     "description": "+1|+1.\nNhiệm vụ: Giành chiến thắng trong 1 chuyến phiêu lưu.\nPhần thưởng: Nhận x10 lượng XP Anh Hùng thông thường",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0083.png",
     "name": "Ngọc Trai Vũ Trụ Tuyệt Đỉnh (Tiêu Thụ)",
-    "type": "Tiêu Thụ"
+    "type": [
+      "Tiêu Thụ"
+    ]
   },
   {
     "translations": {
@@ -1397,7 +1571,9 @@
     "description": "+1|+1.\nNhiệm vụ: Giành chiến thắng trong 1 chuyến phiêu lưu.\nPhần thưởng: Nhận x5 lượng XP Anh Hùng thông thường",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0084.png",
     "name": "Ngọc Trai Vũ Trụ (Tiêu Thụ)",
-    "type": "Tiêu Thụ"
+    "type": [
+      "Tiêu Thụ"
+    ]
   },
   {
     "translations": {
@@ -1417,7 +1593,9 @@
     "description": "[k:Power|Sức Mạnh]: Khi 1 đồng minh nhận chỉ số từ 1 bài phép, chỉ số nhận được tăng gấp 2 lần.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0085.png",
     "name": "Bí Kỹ",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -1437,7 +1615,9 @@
     "description": "[k:Power|Sức Mạnh]: Khi nhận lượt tấn công, tạo trên tay 1 bài phép ngẫu nhiên có tiêu hao 2 từ khu vực của bạn. Lá bài đó có 0 tiêu hao và [k:Fleeting|Phù Du].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0086.png",
     "name": "Hòa Khí Ma Pháp",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -1457,7 +1637,9 @@
     "description": "[k:Challenger|Thách Đấu], [k:Tough|Kiên Cường], và [k:Overwhelm|Áp Đảo]",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0089.png",
     "name": "Trang Bị Hoàn Chỉnh",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -1477,7 +1659,9 @@
     "description": "[k:Play|Xuất Trận]: Gây 3 sát thương lên tất cả các đơn vị khác.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0090.png",
     "name": "Thu Thập Cái Ác",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -1497,7 +1681,9 @@
     "description": "+0|+2\n[k:Power|Sức Mạnh]: Khi ngươi triệu hồi 1 đồng minh, ban +0|+1 và [k:Formidable|Đáng Gờm] cho đồng minh đó.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0091.png",
     "name": "Sức Mạnh Khỉ Đá",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -1517,7 +1703,9 @@
     "description": "+2|+0\n[k:Support|Hỗ Trợ]: Nếu đồng minh được ta hỗ trợ là tùy tùng, ban [k:Ephemeral|Cảm Tử] cho nó và triệu hồi bản sao y hệt của đồng minh đó ở vị trí tấn công.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0092.png",
     "name": "Kéo Cắt Ma Quái",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -1537,7 +1725,9 @@
     "description": "[k:Power|Sức Mạnh]: Khởi Đầu Trận Đấu: Nếu ta [cd:06BC015T2|Norra|icon,img-full], +1 năng lượng khởi điểm.\nKhi triệu hồi 1 đồng minh được tạo ra, ban [k:Impact|Khí Lực] cho đồng minh đó.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0094.png",
     "name": "Cổng Gia Tốc Của Norra",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -1557,7 +1747,9 @@
     "description": "[k:Play|Xuất Trận]: Ban [k:Gloom|Buồn Bã] cho tất cả kẻ địch.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0095.png",
     "name": "Tuyệt Vọng Tột Cùng",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -1577,7 +1769,9 @@
     "description": "[k:Spirit|Linh Hồn] [k:Impact|Khí Lực]",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0096.png",
     "name": "Giấc Mơ Của Yordle",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -1597,7 +1791,9 @@
     "description": "[k:Spirit|Linh Hồn]\n[k:Attack|Tấn Công]: [k:Boost|Cường Hóa] tất cả bài quân.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0097.png",
     "name": "Rìu Tăng Sĩ Khí",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -1617,7 +1813,9 @@
     "description": "[k:Power|Sức Mạnh]: Nếu ta là Lux, +1 Năng Lượng Khởi Điểm.\n[k:GameStart|Bắt Đầu Trận Đấu]: Rút 1 tùy tùng 2- tiêu hao và trao cho lá đó Vòng Tay Targon.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0098.png",
     "name": "Gậy Bức Xạ Nhiệt Của Lux",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -1637,7 +1835,9 @@
     "description": "[k:Power|Sức Mạnh]: Bài phép và [k:Elemental Skill|Kỹ Năng] nguyên tố của ngươi gây thêm 2 sát thương.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0099.png",
     "name": "Biểu Tượng Valhir",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -1657,7 +1857,9 @@
     "description": "[k:Power|Sức Mạnh]: Khi 1 đồng minh 1- tiêu hao tấn công, [k:AttackSkillMark|] gây 1 sát thương lên Nhà Chính của đối thủ.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0100.png",
     "name": "Choáng Váng & Kinh Ngạc",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -1677,7 +1879,9 @@
     "description": "+1|+1.\nNhiệm vụ: Giành chiến thắng trong 1 chuyến phiêu lưu.\nPhần thưởng: Nhận x5 lượng XP Anh Hùng thông thường",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0101.png",
     "name": "Phước Lành Vũ Trụ (Tiêu Thụ)",
-    "type": "Tiêu Thụ"
+    "type": [
+      "Tiêu Thụ"
+    ]
   },
   {
     "translations": {
@@ -1697,7 +1901,9 @@
     "description": "+1|+1.\nNhiệm vụ: Giành chiến thắng trong 1 chuyến phiêu lưu.\nPhần thưởng: Nhận x10 lượng XP Anh Hùng thông thường",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0102.png",
     "name": "Siêu Phước Lành Vũ Trụ (Tiêu Thụ)",
-    "type": "Tiêu Thụ"
+    "type": [
+      "Tiêu Thụ"
+    ]
   },
   {
     "translations": {
@@ -1717,7 +1923,9 @@
     "description": "[k:Power|Sức Mạnh]: Nếu ta là [cd:01IO015T1|Yasuo|icon,img-full], +1 Năng Lượng Khởi Điểm. Khi ngươi [k:Recall|Thu Về] một kẻ địch, tăng tiêu hao của lá đó thêm 2.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0103.png",
     "name": "Phong Kiếm của Yasuo",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -1737,7 +1945,9 @@
     "description": "[k:Power|Sức Mạnh]: [k:GameStart|Bắt Đầu Trận Đấu]: [k:Drain|Hấp Thụ] 5 máu từ Nhà Chính của đối thủ.\n[k:Play|Xuất Trận]: Nếu ta là [cd:02NX007T2|Swain|icon,img-full], hồi đầy năng lượng bài phép.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0104.png",
     "name": "Đội Quân Quạ Của Swain",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -1757,7 +1967,9 @@
     "description": "+1|+2.\nKhi ta thăng cấp, hồi lại 3 năng lượng. Nếu ta là [cd:05PZ022T9|Jayce|icon,img-full], hồi lại 6 năng lượng thay vì 3.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0105.png",
     "name": "Pin Hextech Của Jayce",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -1777,7 +1989,9 @@
     "description": "+2|+0 và [k:Challenger|Thách Đấu].\n[k:Power|Sức Mạnh]: [k:GameStart|Bắt Đầu Trận Đấu]: Tráo 2 lá [cd:04BW005T3|Tử Thần Đáy Sâu|icon,img-full] vào bộ bài của ngươi và ban 1 vật phẩm sử thi ngẫu nhiên cho [cd:04BW005T3|Tử Thần Đáy Sâu|icon,img-full].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0106.png",
     "name": "Móc Lao Chí Tử",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -1797,7 +2011,9 @@
     "description": "[k:Power|Sức Mạnh:] [k:GameStart|Bắt Đầu Trận Đấu]: Gài 6 lá [cd:05PZ008|Bẫy Bom Mù|icon,img-full] lên 8 lá bài ở trên cùng trong bộ bài của đối thủ. Khi 1 lá Bài Bẫy biến mất, gài nó trở lại lên 8 lá bài ở trên cùng trong bộ bài của đối thủ.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0107.png",
     "name": "Súng Máy Công Nghệ",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -1817,7 +2033,9 @@
     "description": "3 [k:Impact|Khí Lực]\n[k:Play|Xuất Trận]: Nếu ta có 10+ Sức Mạnh, ban cho ta [k:Barrier|Lá Chắn] và phát động tấn công, [k:Challenger|Thách Đấu] kẻ địch [k:Strongest|mạnh nhất].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0108.png",
     "name": "Tả Xung Hữu Đột ",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -1837,7 +2055,9 @@
     "description": "[k:GameStart|Bắt Đầu Trận Đấu]: Nếu ta đang ở trong bộ bài hoặc trên tay, triệu hồi 1 lá [cd:09FR014T1|Tháp Bão Tố|icon,img-full] với [k:Countdown|Đếm Ngược] Từ 4: Triệu hồi ta.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0109.png",
     "name": "Hàn Băng Mộ",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -1857,7 +2077,9 @@
     "description": "[k:Power|Sức Mạnh]: Bài phép và kỹ năng đồng minh gây thêm 1 sát thương.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0111.png",
     "name": "Đại Bác",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -1877,7 +2099,9 @@
     "description": "[k:Play|Xuất Trận], [k:Attack|Tấn Công] và [k:RoundStart|Bắt Đầu Vòng Đấu]: [k:Forge|Tôi Luyện] ta.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0112.png",
     "name": "Chỉ Số Thích Nghi",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -1897,7 +2121,9 @@
     "description": "[k:Power|Sức Mạnh]: Khi bạn sử dụng hoặc thăng cấp một anh hùng, hồi lại năng lượng bài phép của bạn.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0113.png",
     "name": "Sách Ẩn",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -1917,7 +2143,9 @@
     "description": "[k:Power|Sức Mạnh]: Khi triệu hồi 1 đồng minh, ban [k:SpellShield|Khiên Phép] cho đồng minh đó.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0114.png",
     "name": "Khiên Đen",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -1937,7 +2165,9 @@
     "description": "+3 [k:Reroll|Lượt Đổi]\n+10% tìm thấy sức mạnh và trang bị Sử Thi.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0115.png",
     "name": "Gian Lận",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -1957,7 +2187,9 @@
     "description": "+200 [k:Gold|Vàng] Khởi Điểm.\n[k:Power|Sức Mạnh]: Đồng minh nhận +1|+1 với mỗi 12 lá bài vượt quá lá thứ 18 trong bộ bài của ngươi khi bắt đầu trận đấu.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0116.png",
     "name": "Bộ Bài Đầy Ắp",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -1977,7 +2209,9 @@
     "description": "[k:Power|Sức Mạnh:] [k:GameStart|Bắt Đầu Trận Đấu]: Tạo trên tay 1 lá [cd:06RU025T5|Evelynn|icon,img-full]. Khi ngươi triệu hồi một Yêu Linh, nó sẽ mất [k:Immobile|Bất Động].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0117.png",
     "name": "Tiếng Gọi Của Tiên Cá",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -1997,7 +2231,9 @@
     "description": "[k:Power|Sức Mạnh]: Nhà Chính của ngươi có [k:Tough|Kiên Cường]. \nTa là Công Nghệ.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0118.png",
     "name": "Chi Tiêu Phòng Thủ",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -2017,7 +2253,9 @@
     "description": "Khi ngươi [k:Recall|Thu về] một bài quân, ban cho ta +1|+0.\n[k:Power|Sức Mạnh]: [k:GameStart|Bắt Đầu Trận Đấu]: Tạo trên tay một lá [cd:03IO005|Trở Về Nhà|icon,img-full] và ban cho nó Đồng Hồ Không Chờ Đợi.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0119.png",
     "name": "Kẻ Cắp Tinh Hoa",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -2037,7 +2275,9 @@
     "description": "[k:Overwhelm|Áp Đảo]\n[k:Attack|Tấn công]: Gây 2 sát thương lên Nhà Chính của đối thủ. Nếu đã tấn công trong vòng này, gây 2 sát thương lên tất cả kẻ địch.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0120.png",
     "name": "Đao Xích Long Khuyển",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -2057,7 +2297,9 @@
     "description": "[k:Power|Sức Mạnh:] Khi ngươi sử dụng 1 lá bài 3+ tiêu hao, gây [k:Terrify|Khiếp Hãi] 1. Khi bộ bài của kẻ địch có ít hơn 15 lá bài, các đồng minh được +2|+2 và [k:Overwhelm|Áp Đảo].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0121.png",
     "name": "Bù Nhìn Vô Hại",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -2077,7 +2319,9 @@
     "description": "[k:Power|Sức Mạnh]: Khi ngươi sử dụng 1 đồng minh với 2+ Máu, gây 1 sát thương lên đồng minh đó và ban cho đồng minh đó [k:Overwhelm|Áp Đảo] và [k:Impact|Khí Lực].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0122.png",
     "name": "Thí Nghiệm Tàn Nhẫn",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -2097,7 +2341,9 @@
     "description": "[k:Power|Sức Mạnh]: [k:GameStart|Bắt Đầu Trận Đấu]: Ban một bài phép ngẫu nhiên từ bộ bài với một vật phẩm với “Giảm 1 tiêu hao và rút 1 lá bài”. Tạo 4 bản sao của nó trong bộ bài.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0123.png",
     "name": "Hào Quang Rực Rỡ",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -2117,7 +2363,9 @@
     "description": "[k:Power|Sức Mạnh]: Nếu ta là [cd:06MT008T2|Kayle|icon,img-full], +1 Năng Lượng Khởi Điểm.\nTa được +1|+0 với mỗi trận giao tranh ngươi đã thắng trong cuộc phiêu lưu này.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0124.png",
     "name": "Kiếm Tinh Hỏa",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -2137,7 +2385,9 @@
     "description": "[k:Power|Sức mạnh]: [k:RoundStart|Bắt Đầu Vòng Đấu]: Tạo trên tay 1 lá [cd:03PZ003T11|Nâng Cấp Lõi Công Nghệ|icon,img-full]. Lá [cd:03PZ003T11|Nâng Cấp Lõi Công Nghệ|icon,img-full] có Đồng Hồ Ngưng Đọng và thể nâng cấp bất kỳ đồng minh nào.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0125.png",
     "name": "Lõi Công Nghệ Hoàn Hảo",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -2157,7 +2407,9 @@
     "description": "[k:Power|Sức mạnh]: Khi sử dụng 1 bài quân có 6+ tiêu hao cơ bản, gây 2 sát thương lên tất cả đối thủ và Nhà Chính của chúng.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0126.png",
     "name": "Móng Vuốt Vĩ Đại",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -2177,7 +2429,9 @@
     "description": "[k:Power|Sức Mạnh]: Khi ngươi xuất trận 1 anh hùng, anh hùng đó [k:Strike|Ra Đòn] lên kẻ địch [k:Weakest|yếu nhất]. Nếu đó là [cd:04SH047T3|Nasus|icon,img-full], nó cũng [k:Strike|Ra Đòn] lên kẻ địch [k:Strongest|mạnh nhất].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0127.png",
     "name": "Cán Cân Phán Quyết",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -2197,7 +2451,9 @@
     "description": "[k:Deep|Sâu Thẳm] và ta là Quái Vật Biển.\nKhi ta được triệu hồi, nếu ngươi không phải là [k:Deep|Sâu Thẳm], [k:Toss|Quăng] bằng với tiêu hao của ta.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0128.png",
     "name": "Kho Báu Dưới Biển Sâu",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -2217,7 +2473,9 @@
     "description": "[k:Power|Sức Mạnh]: Khi ngươi thăng cấp cho 1 anh hùng đồng minh, triệu hồi [cd:01DE042T2|Lux|icon,img-full]. Nếu ngươi đã có [cd:01DE042T2|Lux|icon,img-full], triệu hồi [cd:01DE012T1|Garen|icon,img-full]. Nếu ngươi có cả hai nhưng chưa có [cd:05DE009T1|Galio|icon,img-full], triệu hồi [cd:05DE009T1|Galio|icon,img-full].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0130.png",
     "name": "Hộ Vệ Của Demacia",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -2237,7 +2495,9 @@
     "description": "+10 Máu Nhà Chính.\n[k:Power|Sức mạnh]: Nếu ta [cd:01FR039T2|Tryndamere|icon,img-full], khi ngươi ban chỉ số cho 1 bài quân trong bộ bài, ban cho bài quân đó 2 lần.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0131.png",
     "name": "Mũ Giáp Chiến Tướng",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -2257,7 +2517,9 @@
     "description": "[k:Challenger|Thách Đấu]\n[k:Power|Sức Mạnh]: Khi ngươi xuất trận 1 anh hùng, triệu hồi 1 lá [cd:04SH130T1|Tư Dinh Chiến Tướng|icon,img-full] hoặc [k:Advance|Đẩy Nhanh] lá bài đó lên 2 vòng.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0132.png",
     "name": "Thợ Săn Kẻ Vô Lại",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -2277,7 +2539,9 @@
     "description": "[k:Power|Sức mạnh]: Đồng minh với [k:Daybreak|Hừng Đông] có [k:Tough|Kiên Cường]. Khi một đồng minh kích hoạt [k:Daybreak|Hừng Đông], ban cho các đồng minh +0|+1.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0133.png",
     "name": "Khiên Mặt Trời",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -2297,7 +2561,9 @@
     "description": "Ban +1|+1\n[k:Power|Sức Mạnh]: [k:GameStart|Bắt Đầu Trận Đấu]: với mỗi 7 lá bài đã có trong bộ bài, tạo 1 lá bài [cd:98BW003|Lá Bài Bí Ẩn|icon,img-full] 1 tiêu hao trong bộ bài của ngươi.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0134.png",
     "name": "Bộ Bài Định Mệnh",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -2317,7 +2583,9 @@
     "description": "+2|+0 và [k:Overwhelm|Áp Đảo].\nKhi ta tiêu diệt 1 kẻ địch trong giao tranh, tạo trên tay 2 lá [cd:07IO011T5|Xu|icon,img-full].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0135.png",
     "name": "Túi Tiền Anh Hùng",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -2337,7 +2605,9 @@
     "description": "[k:SpellShield|Khiên Phép]\nKhi ta gây sát thương, cài lượng bài [cd:01PZ022|Nấm Độc|icon,img-full] bằng với lượng sát thương đó lên bộ bài của đối thủ.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0136.png",
     "name": "Cây Sáo Tinh Ranh",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -2357,7 +2627,9 @@
     "description": "[k:Power|Sức Mạnh]: [k:Skill|Kỹ Năng] của ngươi gây thêm 1 sát thương trên mỗi kẻ địch bị [k:Stun|Làm Choáng].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0137.png",
     "name": "Lời Thì Thầm",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -2377,7 +2649,9 @@
     "description": "Khi ta được triệu hồi hoặc khi [k:RoundStart|Bắt Đầu Vòng Đấu]: Ta trộm đến 3 Máu từ một bài quân ngẫu nhiên của đối thủ. Nó không thể có ít hơn 1 máu.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0138.png",
     "name": "Nỗi Buồn Xuyên Thấu",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -2397,7 +2671,9 @@
     "description": "[k:SpellShield|Khiên Phép] [k:Tough|Kiên Cường]\n[k:Attack|Tấn Công]: Nếu ta là Thresh, triệu hồi một bản sao [k:Ephemeral|Cảm Tử] ở vị trí tấn công của anh hùng với [k:Power|Sức Mạnh]ít hơn từ bộ bài của ngươi.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0139.png",
     "name": "Đèn Lồng Linh Hồn",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -2417,7 +2693,9 @@
     "description": "[k:Power|Sức Mạnh]: Đồng minh [k:Ephemeral|Cảm Tử] có [k:Overwhelm|Áp Đảo].\n[k:Play|Xuất Trận]: Nếu ta là một bài quân Hoa Linh Lục Địa, triệu hồi 2 lá [cd:98SB007|Lửa Hồ Ly|icon,img-full].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0140.png",
     "name": "Linh Hồn Hỗ Trợ",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -2437,7 +2715,9 @@
     "description": "[k:Power|Sức Mạnh]: Đồng minh [k:Ephemeral|Cảm Tử] ở vị trí tấn công không thể nhận sát thương hoặc bị tiêu diệt.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0141.png",
     "name": "Cây Cung Sát Thủ",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -2457,7 +2737,9 @@
     "description": "[k:Overwhelm|Áp Đảo]\n[k:GameStart|Bắt Đầu Trận Đấu]: Nếu ta là một bài quân Hoa Linh Lục Địa, đặt tiêu hao của ta thành 10.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0142.png",
     "name": "Găng Tay Linh Hồn",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -2477,7 +2759,9 @@
     "description": "[k:Tough|Kiên Cường]\n[k:Play|Xuất Trận]: [k:Frostbite|Đóng Băng] kẻ địch [k:Strongest|mạnh nhất]. Nếu ta là [cd:01FR024T3|Anivia|icon,img-full], thì [k:Frostbite|Đóng Băng] TẤT CẢ kẻ địch.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0143.png",
     "name": "Hơi Thở Băng Giá",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -2497,7 +2781,9 @@
     "description": "[k:Power|Sức Mạnh]: [k:GameStart|Bắt Đầu Trận Đấu]: Tráo 3 lá [cd:06NX012T1|Tibbers|icon,img-full] vào bộ bài của ngươi.\n[cd:06NX012T1|Tibbers|icon,img-full] của ngươi giảm 2 tiêu hao và có +5|+5.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0144.png",
     "name": "Gấu Hỗ Trợ Tinh Thần",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -2517,7 +2803,9 @@
     "description": "Nếu ta là một bài quân Hoa Linh Lục Địa, ta được giảm 1 tiêu hao mỗi vòng đấu ngươi đã chọn 1 đồng minh làm mục tiêu.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0145.png",
     "name": "Lưỡi Dao Cổ Xưa",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -2537,7 +2825,9 @@
     "description": "Ban +2|+0 và [k:Challenger|Thách Đấu].\n[k:Play|Xuất Trận]: Sử dụng [cd:03NX018|Bắt Giữ|icon,img-full] lên kẻ địch [k:Strongest|mạnh nhất].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0146.png",
     "name": "Đại Tướng Noxus",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -2557,7 +2847,9 @@
     "description": "Ban +0|+3 \n[k:Power|Sức Mạnh]: Khi ngươi xuất trận hoặc biến đổi 1 Darkin, bài quân đó [k:Strike|Ra Đòn] lên kẻ địch [k:Weakest|yếu nhất].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0147.png",
     "name": "Quỷ Kiếm Darkin",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -2577,7 +2869,9 @@
     "description": "Ban +1|+1\nNếu ta là Thể Thăng Hoa, ta được giảm 1 tiêu hao.\n[k:Play|Xuất Trận]: Đẩy lá [cd:04SH062|Đĩa Mặt Trời Bị Chôn Vùi|icon,img-full] lên 3 vòng.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0148.png",
     "name": "Quyền Trượng Azir",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -2597,7 +2891,9 @@
     "description": "Nếu ta là Rồng, ta có +4|+0 và [k:Overwhelm|Áp Đảo]. Nếu không, ta có +2|+0 và [k:Fury|Cuồng Nộ].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0149.png",
     "name": "Ngọc Rồng",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -2617,7 +2913,9 @@
     "description": "[k:Spirit|Linh Hồn], [k:Impact|Khí Lực], [k:Evolve|Tiến Hóa].\n[k:Power|Sức Mạnh]: Đồng minh [k:Fearsome|Đáng Sợ] chỉ có thể bị chặn đòn bởi bài quân có 5 [k:Power|Sức Mạnh]hoặc nhiều hơn.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0150.png",
     "name": "Vòng Tay Nữ Hoàng",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -2637,7 +2935,9 @@
     "description": "Ban +1|+1, [k:Regeneration|Hồi Phục]\nTa được giảm 1 tiêu hao với mỗi Poro đồng minh trên bàn.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0151.png",
     "name": "Món Ăn Hoàng Gia",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -2657,7 +2957,9 @@
     "description": "[k:SpellShield|Khiên Phép], [k:Challenger|Thách Đấu]\nMỗi vòng, lần đầu tiên sát thương được hồi phục từ ta khi ngươi không có lượt tấn công, [k:Rally|Tiến Công].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0153.png",
     "name": "Quyền Trượng Thượng Giới",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -2677,7 +2979,9 @@
     "description": "[k:Play|Xuất Trận]: Tráo 3 lá [cd:98FR025|Cầu Tuyết|icon,img-full] vào bộ bài của ngươi.\n[k:Attack|Tấn Công]: Ban +1|+1 cho ta và tất cả những lá [cd:98FR025|Cầu Tuyết|icon,img-full] trong bộ bài của ngươi.",
     "name": "Hướng Dẫn Phát Hiện Yeti",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_3_0/adventure/vi_vn/img/relics/R0154.png",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -2697,7 +3001,9 @@
     "description": "[k:PathPower|Sức Mạnh]: Khi ngươi triệu hồi một lá [cd:05FR010|Đổi Thế Võ|icon,img-full], hồi 2 máu cho Nhà Chính của ngươi và hồi 1 năng lượng bài phép.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0155.png",
     "name": "Dây Chuyền Tự Lực",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -2717,7 +3023,9 @@
     "description": "[k:Barrier|Lá Chắn]\r\nNếu ta nhận sát thương và sống sót, ban cho ta +3|+3 và một đặc điểm ngẫu nhiên.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0159.png",
     "name": "Binh Đoàn Vệ Binh",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -2737,7 +3045,9 @@
     "description": "Khi ta được triệu hồi hoặc [k:Attack|Tấn Công]: Gây 1 sát thương lên tất cả kẻ địch.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0160.png",
     "name": "Lưỡi Kiếm Lốc Xoáy",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -2757,7 +3067,9 @@
     "description": "[k:PathPower|Sức Mạnh]: Mỗi vòng, lần đầu ngươi sử dụng 1 bài phép với 6 tiêu hao hoặc nhiều hơn, hồi lại năng lượng tương đương với tiêu hao của bài phép đó.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0161.png",
     "name": "Sức Mạnh Đổi Mới",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -2777,7 +3089,9 @@
     "description": "[k:Play|Xuất Trận]: Tạo trên tay 3 lá bài ngẫu nhiên. Chúng là [k:Fleeting|Phù Du] và có 1 tiêu hao.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0162.png",
     "name": "Hỗn Loạn Tạm Thời",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -2797,7 +3111,9 @@
     "description": "Ban +1|+0 và [k:Quick Strike|Đột Kích].\n[k:PathPower|Sức Mạnh]: [k:RoundStart|Bắt Đầu Vòng Đấu]: Nếu ngươi có lượt tấn công, ban [k:Scout|Trinh Sát] cho một đồng minh ngẫu nhiên.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0164.png",
     "name": "Mệnh Lệnh Biệt Kích",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -2817,7 +3133,9 @@
     "description": "Ban +2|+0 và [k:Deathless|Bất Diệt].\n[k:PathPower|Sức Mạnh]: Khi 1 đồng minh hy sinh, gây 1 sát thương lên Nhà Chính của đối thủ.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0166.png",
     "name": "Cái Giá Của Sự Báo Thù",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -2837,7 +3155,9 @@
     "description": "Khi ngươi sử dụng 1 đồng minh khác, gây 1 sát thương lên đồng minh đó và ban cho ta +1|+1.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0169.png",
     "name": "Dấu Án Máu",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -2857,7 +3177,9 @@
     "description": "Đồng minh có [k:Impact|Khí Lực].",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0170.png",
     "name": "Đầy Sức Mạnh",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -2877,7 +3199,9 @@
     "description": "[k:PathPower|Sức Mạnh]: Đồng minh trên tay có “[k:Nightfall|Chạng Vạng]: Ban cho kẻ địch yếu nhất 2 [k:Gloom|Buồn Bã]”.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0175.png",
     "name": "Nhịp Điệu Tuyệt Vọng",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -2897,7 +3221,9 @@
     "description": "Bắt Đầu Trận Đấu: Thêm 10 lá bài ngẫu nhiên vào bộ bài của ngươi. Mỗi lá bài nhận một vật phẩm Thường, một vật phẩm Hiếm và một vật phẩm Sử Thi.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0177.png",
     "name": "Lá Bài May Rủi",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -2917,7 +3243,9 @@
     "description": "[k:Play|Xuất Trận]: Thu nhỏ kẻ địch [k:Strongest|mạnh nhất] và biến nó thành chỉ số của ta.\n",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_4_0/adventure/vi_vn/img/relics/R0178.png",
     "name": "Mưa Tên Lửa",
-    "type": "Chung"
+    "type": [
+      "Chung"
+    ]
   },
   {
     "translations": {
@@ -2937,7 +3265,9 @@
     "description": "[k:SpellShield|Khiên Phép]\n[k:Play|Xuất Trận]: [k:Invoke|Hiệu Triệu] một lá Thượng Giới có 7 tiêu hao hoặc nhiều hơn. Ngươi có thể tìm thấy lá Aurelion Sol trong lượt [k:Invoke|Hiệu Triệu] này.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_5_0/adventure/vi_vn/img/relics/R0180.png",
     "name": "Cún Vũ Trụ!!!",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   },
   {
     "translations": {
@@ -2957,6 +3287,8 @@
     "description": "[k:Regeneration|Hồi Phục]Khi ta bị chặn đòn, Xúc Tu [k:Strongest|mạnh nhất] của ngươi sẽ [k:AttackSkillMark|tấn công] kẻ chặn đòn ta.[k:PlaySkillMark|Xuất Trận]: [k:Spawn|Triệu Gọi] 2.",
     "assetAbsolutePath": "https://dd.b.pvp.net/7_6_0/adventure/vi_vn/img/relics/R0181.png",
     "name": "Lời Răn Khắc Nghiệt",
-    "type": "Trấn"
+    "type": [
+      "Trấn"
+    ]
   }
 ]

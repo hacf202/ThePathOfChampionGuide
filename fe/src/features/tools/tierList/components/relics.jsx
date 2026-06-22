@@ -325,7 +325,7 @@ function TierListRelics() {
 						name: r.name,
 						avatar: r.image || "/fallback-relic.png",
 						rarity: normalizeRarity(r.rarity),
-						type: r.type || "Chung",
+						type: Array.isArray(r.type) ? r.type : (r.type ? [r.type] : ["Chung"]),
 						descriptionRaw: r.descriptionRaw || "",
 						translations: r.translations,
 					})),
@@ -375,7 +375,7 @@ function TierListRelics() {
 				.filter(Boolean)
 				.sort()
 				.map(v => ({ value: v, label: v })),
-			types: [...new Set(allRelicsRaw.map(r => r.type))]
+			types: [...new Set(allRelicsRaw.flatMap(r => Array.isArray(r.type) ? r.type : (r.type ? [r.type] : [])))]
 				.filter(Boolean)
 				.sort()
 				.map(v => ({ value: v, label: v })),
@@ -396,7 +396,7 @@ function TierListRelics() {
 					matchesSearch &&
 					(selectedRarities.length === 0 ||
 						selectedRarities.includes(r.rarity)) &&
-					(selectedTypes.length === 0 || selectedTypes.includes(r.type))
+					(selectedTypes.length === 0 || selectedTypes.some(t => (Array.isArray(r.type) ? r.type : (r.type ? [r.type] : [])).includes(t)))
 				);
 			}),
 		[unranked, searchTerm, selectedRarities, selectedTypes, tDynamic],

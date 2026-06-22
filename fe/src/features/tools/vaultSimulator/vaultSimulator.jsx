@@ -210,7 +210,7 @@ const VaultSimulator = () => {
 				// Lọc Cổ vật: Chấp nhận cả 'general' hoặc 'chung'
 				const filteredRelics = Array.isArray(rawRelics)
 					? rawRelics.filter(r => {
-							const typeKey = getTypeKey(r.type);
+							const typeKey = getTypeKey(Array.isArray(r.type) ? r.type[0] : r.type);
 							const rarityKey = getRarityKey(r.rarity);
 							return (
 								typeKey === "general" &&

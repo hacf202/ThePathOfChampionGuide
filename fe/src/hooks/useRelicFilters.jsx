@@ -30,7 +30,7 @@ export const useRelicFilters = (tUI, t, dynamicFilters, knownRelics) => {
 		const uniqueRarities = Array.from(new Set(dynamicFilters.rarities || []));
 		const rawTypes = dynamicFilters.types?.length
 			? dynamicFilters.types
-			: knownRelics.map(r => r.type).filter(Boolean);
+			: knownRelics.flatMap(r => Array.isArray(r.type) ? r.type : (r.type ? [r.type] : [])).filter(Boolean);
 		const rawStacks = dynamicFilters.stacks?.length
 			? dynamicFilters.stacks
 			: knownRelics.map(r => r.stack).filter(Boolean);

@@ -514,6 +514,12 @@
 			"all": "Tất cả",
 			"sortIdAsc": "ID Tăng Dần",
 			"sortIdDesc": "ID Giảm Dần",
+			"time": {
+				"daysShort": " ngày",
+				"hoursShort": "h",
+				"minsShort": "m",
+				"secsShort": "s"
+			},
 			"add": "Thêm",
 			"remove": "Xóa",
 			"addItem": "Thêm mới",
@@ -1740,8 +1746,9 @@
 			"noEffect": "Không có hiệu ứng"
 		},
 		"mode": {
-			"daily": "Hàng ngày",
-			"unlimited": "Vô Hạn"
+			"daily": "Thử thách Ngày",
+			"unlimited": "Chế độ Vô hạn",
+			"event": "Sự kiện"
 		},
 		"stats": {
 			"title": "Thống kê",
@@ -1762,9 +1769,10 @@
 			"player": "Người Chơi",
 			"score": "Điểm",
 			"solved": "Đoán đúng",
+			"runs": "Số lượt chơi",
 			"empty": "Chưa có dữ liệu xếp hạng. Hãy là người đầu tiên!",
 			"cards": "thẻ",
-			"avgTime": "Thời gian (s)"
+			"duration": "Thời gian"
 		},
 		"run": {
 			"riotIdPrompt": "Nhập Tên / Riot ID để xếp hạng",
@@ -1778,6 +1786,22 @@
 			"newRun": "Chơi Lại (New Run)",
 			"dailySolvers": "Số người đã giải hôm nay: {count}",
 			"endRunWarning": "Cảnh báo: Hành động này sẽ kết thúc Run hiện tại của bạn!"
+		},
+		"rules": {
+			"title": "Hướng dẫn chơi",
+			"p1": "Trò chơi sẽ cho bạn xem một góc nhỏ của hình ảnh một lá bài trong Path of Champions.",
+			"p2": "Nhiệm vụ của bạn là tìm ra tên của lá bài đó trong vòng tối đa 5 lượt.",
+			"p3": "Mỗi lần đoán sai, hình ảnh sẽ được mở rộng ra thêm để gợi ý cho bạn. Sau lần đoán thứ 3, gợi ý bằng chữ (loại thẻ, mô tả) sẽ hiện ra.",
+			"p4": "Ở chế độ Vô Hạn và Sự Kiện, bạn có 3 mạng. Mỗi lần hết 5 lượt mà không đoán ra (hoặc bỏ cuộc), bạn mất 1 mạng. Trò chơi kết thúc khi số mạng về 0.",
+			"close": "Đã hiểu"
+		}
+	},
+	"relic": {
+		"types": {
+			"signature": "Trấn",
+			"consumable": "Tiêu thụ",
+			"general": "Chung",
+			"campaign": "Chiến dịch"
 		}
 	}
 }

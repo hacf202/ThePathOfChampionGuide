@@ -54,6 +54,21 @@ const EventLeaderboard = () => {
 		return null;
 	};
 
+	const formatTime = (totalSeconds) => {
+		if (!totalSeconds) return "-";
+		const d = Math.floor(totalSeconds / 86400);
+		const h = Math.floor((totalSeconds % 86400) / 3600);
+		const m = Math.floor((totalSeconds % 3600) / 60);
+		const s = Math.floor(totalSeconds % 60);
+		
+		const parts = [];
+		if (d > 0) parts.push(`${d}${tUI("common.time.daysShort", "d")}`);
+		if (h > 0) parts.push(`${h}${tUI("common.time.hoursShort", "h")}`);
+		if (m > 0) parts.push(`${m}${tUI("common.time.minsShort", "m")}`);
+		if (s > 0 || parts.length === 0) parts.push(`${s}${tUI("common.time.secsShort", "s")}`);
+		return parts.join(" ");
+	};
+
 	return (
 		<div className="w-full">
 			<div className="flex items-center gap-3 mb-6 justify-center">
@@ -95,7 +110,7 @@ const EventLeaderboard = () => {
 								<th className="py-4 px-4 font-bold text-text-secondary text-right hidden md:table-cell">
 									<div className="flex items-center justify-end gap-1">
 										<Clock className="w-4 h-4" />
-										{tUI("cardGuess.leaderboard.avgTime", "Time (s)")}
+										{tUI("cardGuess.leaderboard.duration", "Thời gian")}
 									</div>
 								</th>
 							)}
@@ -132,7 +147,7 @@ const EventLeaderboard = () => {
 									</td>
 									{activeTab !== "all" && (
 										<td className="py-3 px-4 text-right font-medium text-text-secondary hidden md:table-cell">
-											{getDuration(leader) ? getDuration(leader).toFixed(1) + "s" : "-"}
+											{formatTime(getDuration(leader))}
 										</td>
 									)}
 									<td className="py-3 px-4 text-right font-medium text-text-secondary hidden sm:table-cell">

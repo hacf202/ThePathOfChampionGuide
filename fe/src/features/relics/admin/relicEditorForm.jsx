@@ -66,7 +66,7 @@ const RelicEditorForm = memo(
 			const { name, value } = e.target;
 			setFormData(prev => ({
 				...prev,
-				[name]: name === "stack" ? parseInt(value) || 1 : value,
+				[name]: name === "stack" ? parseInt(value) || 1 : (name === "type" ? value.split(',').map(s => s.trim()).filter(Boolean) : value),
 			}));
 		};
 
@@ -156,7 +156,7 @@ const RelicEditorForm = memo(
 							<input
 								type='text'
 								name='type'
-								value={formData.type || ""}
+								value={Array.isArray(formData.type) ? formData.type.join(", ") : (formData.type || "")}
 								onChange={handleInputChange}
 								placeholder='Chung, Trấn...'
 								className='w-full p-2.5 rounded-lg border border-border bg-surface-bg text-text-primary outline-none focus:ring-2 focus:ring-primary-500 transition'
