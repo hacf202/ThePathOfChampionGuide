@@ -439,8 +439,8 @@ router.get("/image/:sessionId", async (req, res) => {
 				const cx = w * (cropPositionX / 100);
 				const cy = h * (cropPositionY / 100);
 
-				const cropWidth = w * (cropPercent / 100) * 2.5; // 2.5x margin for transform-origin offsets
-				const cropHeight = h * (cropPercent / 100) * 2.5;
+				const cropWidth = w * (cropPercent / 100) * 1.2; // 20% margin
+				const cropHeight = h * (cropPercent / 100) * 1.2;
 
 				let left = Math.round(cx - cropWidth / 2);
 				let top = Math.round(cy - cropHeight / 2);

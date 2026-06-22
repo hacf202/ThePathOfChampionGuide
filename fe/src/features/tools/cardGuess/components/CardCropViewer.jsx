@@ -103,6 +103,8 @@ const CardCropViewer = ({ imageUrl, fallbackUrl, hintLevel = 0, cropSeed = 0, re
 			// Reveal animation: flip + glow
 			gsap.to(imageRef.current, {
 				scale: 1,
+				xPercent: 0,
+				yPercent: 0,
 				objectPosition: "50% 50%",
 				duration: 0.8,
 				ease: "back.out(1.7)",
@@ -121,6 +123,8 @@ const CardCropViewer = ({ imageUrl, fallbackUrl, hintLevel = 0, cropSeed = 0, re
 				{ scale: currentScale },
 				{
 					scale: scale,
+					xPercent: 50 - cropPosition.x,
+					yPercent: 50 - cropPosition.y,
 					objectPosition: `${cropPosition.x}% ${cropPosition.y}%`,
 					duration: 0.6,
 					ease: "power2.out",
@@ -165,7 +169,7 @@ const CardCropViewer = ({ imageUrl, fallbackUrl, hintLevel = 0, cropSeed = 0, re
 					className={`absolute inset-0 w-full h-full z-10 select-none pointer-events-none ${revealed ? "object-contain" : "object-cover"}`}
 					style={{
 						objectPosition: revealed ? "50% 50%" : `${cropPosition.x}% ${cropPosition.y}%`,
-						transform: revealed ? "scale(1)" : `scale(${scale})`,
+						transform: revealed ? "translate(0%, 0%) scale(1)" : `translate(${50 - cropPosition.x}%, ${50 - cropPosition.y}%) scale(${scale})`,
 						transformOrigin: `${cropPosition.x}% ${cropPosition.y}%`,
 					}}
 					loading="eager"
