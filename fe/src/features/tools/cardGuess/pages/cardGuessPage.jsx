@@ -66,7 +66,7 @@ const CardGuessPage = () => {
 	const [isLoading, setIsLoading] = useState(true);
 
 	// Tự động fallback URL
-	const validModes = ["daily", "unlimited"];
+	const validModes = ["daily", "unlimited", "event"];
 	const initialMode = validModes.includes(gameMode) ? gameMode : "daily";
 
 	// Game state
@@ -144,7 +144,14 @@ const CardGuessPage = () => {
 			if (!res.ok) throw new Error("Failed to load game state");
 			const data = await res.json();
 			
-			if (selectedMode === "unlimited" && data.requireNewRun) {
+			if (data.error === "Event closed") {
+				setGameStatus("locked");
+				setIsRestored(true);
+				setIsLoading(false);
+				return;
+			}
+			
+			if ((selectedMode === "unlimited" || selectedMode === "event") && data.requireNewRun) {
 				// Cần tạo Run mới, hiện popup
 				setShowNameModal(true);
 				setGameStatus("waiting");
@@ -223,19 +230,24 @@ const CardGuessPage = () => {
 		}
 	}, [mode, isRestored]);
 
-	const startNewUnlimitedRun = async (playerName) => {
+	const startNewContinuousRun = async (playerName) => {
 		if (playerName) localStorage.setItem(PLAYER_NAME_KEY, playerName);
 		setIsLoading(true);
 		try {
 			const headers = { "Content-Type": "application/json" };
 			if (token) headers.Authorization = `Bearer ${token}`;
 
-			const res = await fetch(`${backendUrl}/api/guess-game/unlimited/new-run`, {
+			const endpoint = mode === "event" ? "/api/guess-game/event/new-run" : "/api/guess-game/unlimited/new-run";
+			const res = await fetch(`${backendUrl}${endpoint}`, {
 				method: "POST",
 				headers,
 				body: JSON.stringify({ deviceId: getDeviceId(), playerName: playerName || "Guest" })
 			});
 			const data = await res.json();
+			if (data.error) {
+				alert(data.error);
+				return;
+			}
 			
 			setSessionId(data.sessionId);
 			setMaxGuesses(data.maxGuesses || 5);
@@ -261,13 +273,14 @@ const CardGuessPage = () => {
 		}
 	};
 
-	const pickNextCardUnlimited = async () => {
+	const pickNextCardContinuous = async () => {
 		setIsLoading(true);
 		try {
 			const headers = { "Content-Type": "application/json" };
 			if (token) headers.Authorization = `Bearer ${token}`;
 
-			const res = await fetch(`${backendUrl}/api/guess-game/unlimited/next`, {
+			const endpoint = mode === "event" ? "/api/guess-game/event/next" : "/api/guess-game/unlimited/next";
+			const res = await fetch(`${backendUrl}${endpoint}`, {
 				method: "POST",
 				headers,
 				body: JSON.stringify({ deviceId: getDeviceId() })
@@ -286,6 +299,7 @@ const CardGuessPage = () => {
 			setGameKey((k) => k + 1);
 		} catch (e) {
 			console.error("Lỗi lấy card tiếp:", e);
+			alert(e.message);
 		} finally {
 			setIsLoading(false);
 		}
@@ -443,19 +457,19 @@ const CardGuessPage = () => {
 							onChange={(e) => setTempPlayerName(e.target.value)}
 							autoFocus
 							onKeyDown={(e) => {
-								if (e.key === "Enter") startNewUnlimitedRun(tempPlayerName);
+								if (e.key === "Enter") startNewContinuousRun(tempPlayerName);
 							}}
 						/>
 					</div>
 					<div className="flex gap-3 justify-end">
 						<button 
-							onClick={() => startNewUnlimitedRun("Guest")}
+							onClick={() => startNewContinuousRun("Guest")}
 							className="px-5 py-2.5 rounded-xl font-bold text-sm bg-surface-bg border-2 border-border hover:bg-surface-hover transition-colors"
 						>
 							{tUI("cardGuess.run.playAsGuest", "Chơi Khách")}
 						</button>
 						<button 
-							onClick={() => startNewUnlimitedRun(tempPlayerName)}
+							onClick={() => startNewContinuousRun(tempPlayerName)}
 							disabled={!tempPlayerName.trim()}
 							className="px-5 py-2.5 rounded-xl font-bold text-sm bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-lg hover:shadow-primary-500/20 disabled:opacity-50 disabled:cursor-not-allowed"
 						>
@@ -535,6 +549,17 @@ const CardGuessPage = () => {
 						<Infinity className="w-4 h-4" />
 						{tUI("cardGuess.mode.unlimited", "Vô Hạn")}
 					</button>
+					<button
+						onClick={() => handleModeChange("event")}
+						className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm uppercase tracking-wider transition-all duration-300 backdrop-blur-xl ${
+						mode === "event"
+							? "bg-primary-500/20 text-primary-400 border-2 border-primary-500/40 shadow-lg shadow-primary-500/10"
+							: "bg-surface-bg text-text-secondary border-2 border-border hover:border-primary-500/30"
+					}`}
+					>
+						<Trophy className="w-4 h-4" />
+						{tUI("cardGuess.mode.event", "Sự kiện")}
+					</button>
 					
 					<button
 						onClick={() => setShowStats((s) => !s)}
@@ -552,8 +577,8 @@ const CardGuessPage = () => {
 					</div>
 				)}
 
-				{/* HUD hiển thị Mạng và Điểm cho Unlimited Run */}
-				{mode === "unlimited" && runState && !showNameModal && (
+				{/* HUD hiển thị Mạng và Điểm cho Unlimited Run / Event */}
+				{(mode === "unlimited" || mode === "event") && runState && !showNameModal && (
 					<div className="flex justify-between items-center mb-6 px-6 py-3 bg-surface-bg border border-border rounded-2xl shadow-sm">
 						<div className="flex items-center gap-2">
 							<span className="text-sm font-bold text-text-secondary uppercase">{tUI("cardGuess.run.lives", "Mạng")}:</span>
@@ -567,6 +592,18 @@ const CardGuessPage = () => {
 							<span className="text-sm font-bold text-text-secondary uppercase">{tUI("cardGuess.run.currentScore", "Điểm hiện tại")}:</span>
 							<span className="text-xl font-black text-primary-500">{runState.score}</span>
 						</div>
+					</div>
+				)}
+
+				{gameStatus === "locked" && (
+					<div className="text-center py-20 px-4">
+						<div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-red-500/10 text-red-500 mb-6">
+							<Clock className="w-10 h-10" />
+						</div>
+						<h2 className="text-3xl font-black mb-3">SỰ KIỆN CHƯA MỞ HOẶC ĐÃ KẾT THÚC</h2>
+						<p className="text-text-secondary max-w-md mx-auto">
+							Chế độ này chỉ mở trong một khoảng thời gian nhất định. Vui lòng quay lại sau!
+						</p>
 					</div>
 				)}
 
@@ -684,9 +721,9 @@ const CardGuessPage = () => {
 						<div className="flex items-center gap-3">
 							{gameStatus !== "playing" && (!runState || runState.status === "playing") && (
 								<>
-									{mode === "unlimited" && (
+									{(mode === "unlimited" || mode === "event") && (
 										<button
-											onClick={pickNextCardUnlimited}
+											onClick={pickNextCardContinuous}
 											className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-primary-600 to-primary-500 text-white font-black uppercase tracking-wider shadow-lg shadow-primary-500/20 hover:shadow-primary-500/40 hover:scale-105 transition-all text-sm"
 										>
 											<Shuffle className="w-4 h-4" />

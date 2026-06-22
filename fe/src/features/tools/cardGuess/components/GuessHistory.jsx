@@ -84,29 +84,6 @@ const GuessHistory = ({ guesses = [], targetCard }) => {
 		return card.regions || [];
 	};
 
-	const compareAttribute = (guessVal, targetVal) => {
-		if (!guessVal || !targetVal) return "wrong";
-		const gv = String(guessVal).toLowerCase();
-		const tv = String(targetVal).toLowerCase();
-		return gv === tv ? "correct" : "wrong";
-	};
-
-	const compareCost = (guessCost, targetCost) => {
-		const g = Number(guessCost ?? 0);
-		const t = Number(targetCost ?? 0);
-		if (g === t) return "correct";
-		return g < t ? "higher" : "lower";
-	};
-
-	const compareRegions = (guessRegions, targetRegions) => {
-		const gSet = new Set((guessRegions || []).map(r => r.toLowerCase()));
-		const tSet = new Set((targetRegions || []).map(r => r.toLowerCase()));
-		
-		if (gSet.size === tSet.size && [...gSet].every(r => tSet.has(r))) return "correct";
-		if ([...gSet].some(r => tSet.has(r))) return "partial";
-		return "wrong";
-	};
-
 	return (
 		<div className="w-full max-w-2xl mx-auto">
 			<h3 className="text-sm font-bold text-text-secondary uppercase tracking-widest mb-4 flex items-center gap-2">
@@ -159,17 +136,17 @@ const GuessHistory = ({ guesses = [], targetCard }) => {
 									<AttributeCell
 										label={tUI("cardGuess.hints.region")}
 										value={guessRegions[0] || "?"}
-										status={compareRegions(guessRegions, targetRegions)}
+										status={guess.diffs?.region || "wrong"}
 									/>
 									<AttributeCell
 										label={tUI("cardGuess.hints.rarity")}
 										value={guess.rarity || "?"}
-										status={compareAttribute(guess.rarity, targetCard?.rarity)}
+										status={guess.diffs?.rarity || "wrong"}
 									/>
 									<AttributeCell
 										label={tUI("cardGuess.hints.cost")}
 										value={String(guess.cost ?? "?")}
-										status={compareCost(guess.cost, targetCard?.cost)}
+										status={guess.diffs?.cost || "wrong"}
 									/>
 								</div>
 							</div>

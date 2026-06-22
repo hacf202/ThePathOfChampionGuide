@@ -35,19 +35,22 @@ const EventLeaderboard = () => {
 		if (activeTab === "all") return leader.score;
 		if (activeTab === "daily") return leader.dailyScore;
 		if (activeTab === "unlimited") return leader.unlimitedBestScore;
+		if (activeTab === "event") return leader.bestScore;
 		return 0;
 	};
 
 	const getSolved = (leader) => {
 		if (activeTab === "all") return leader.solvedPuzzles;
 		if (activeTab === "daily") return leader.dailySolved;
-		if (activeTab === "unlimited") return leader.unlimitedRunsPlayed;
+		if (activeTab === "unlimited") return leader.unlimitedBestSolved || 0;
+		if (activeTab === "event") return leader.bestSolved || 0;
 		return 0;
 	};
 
 	const getDuration = (leader) => {
 		if (activeTab === "daily") return leader.dailyDuration;
 		if (activeTab === "unlimited") return leader.unlimitedBestRunDuration;
+		if (activeTab === "event") return leader.bestRunDuration;
 		return null;
 	};
 
@@ -65,7 +68,8 @@ const EventLeaderboard = () => {
 			<div className="flex flex-wrap justify-center gap-2 mb-6">
 				{[
 					{ id: "unlimited", label: tUI("cardGuess.mode.unlimited") },
-					{ id: "daily", label: tUI("cardGuess.mode.daily") }
+					{ id: "daily", label: tUI("cardGuess.mode.daily") },
+					{ id: "event", label: tUI("cardGuess.mode.event", "Sự kiện") }
 				].map(tab => (
 					<button
 						key={tab.id}
@@ -96,7 +100,7 @@ const EventLeaderboard = () => {
 								</th>
 							)}
 							<th className="py-4 px-4 font-bold text-text-secondary text-right hidden sm:table-cell">
-								{activeTab === "unlimited" ? tUI("cardGuess.leaderboard.solved") : "Runs"}
+								{tUI("cardGuess.leaderboard.solved", "Đoán đúng")}
 							</th>
 							<th className="py-4 px-4 font-bold text-text-secondary text-right">{tUI("cardGuess.leaderboard.score")}</th>
 						</tr>

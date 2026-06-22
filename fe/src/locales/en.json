@@ -1770,7 +1770,7 @@
 		"run": {
 			"riotIdPrompt": "Enter Name / Riot ID for ranking",
 			"playAsGuest": "Play as Guest",
-			"enterRiotId": "E.g: Faker#NA1",
+			"enterRiotId": "Enter your riot id",
 			"startRun": "Start Survival Run",
 			"lives": "Lives",
 			"currentScore": "Current Score",
