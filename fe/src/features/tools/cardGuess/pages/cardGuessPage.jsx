@@ -1,7 +1,7 @@
 // src/features/tools/cardGuess/pages/cardGuessPage.jsx
 import React, { useState, useEffect, useCallback, useMemo, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Loader2, RotateCcw, BarChart3, Shuffle, Calendar, Infinity, SkipForward, Info, Trophy, Heart } from "lucide-react";
+import { Loader2, RotateCcw, BarChart3, Shuffle, Calendar, Infinity, SkipForward, Info, Trophy, Heart, Clock } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
 import PageTitle from "@/components/common/pageTitle";
 import { AuthContext } from "@/context/AuthContext.jsx";
