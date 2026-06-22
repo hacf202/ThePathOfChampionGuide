@@ -411,12 +411,12 @@ router.get("/image/:sessionId", async (req, res) => {
 		// Prevent image inspect cheat by blacking out unrevealed regions
 		if (!session.isCompleted) {
 			const HINT_LEVELS = [
-				{ cropSize: 15 },
-				{ cropSize: 20 },
+				{ cropSize: 7 },
+				{ cropSize: 10 },
+				{ cropSize: 13 },
+				{ cropSize: 18 },
+				{ cropSize: 21 },
 				{ cropSize: 25 },
-				{ cropSize: 35 },
-				{ cropSize: 50 },
-				{ cropSize: 100 },
 			];
 			const maxAllowedHintLevel = session.guesses ? session.guesses.length : 0;
 			const hintLevelIndex = Math.min(maxAllowedHintLevel, HINT_LEVELS.length - 1);
@@ -436,32 +436,34 @@ router.get("/image/:sessionId", async (req, res) => {
 				const cropPositionX = 20 + seededRandom(seed) * 60;
 				const cropPositionY = 20 + seededRandom(seed + 1) * 60;
 
-				const cx = w * (cropPositionX / 100);
-				const cy = h * (cropPositionY / 100);
+				const S = Math.max(w, h);
+				const cx_orig = w * (cropPositionX / 100);
+				const cy_orig = h * (cropPositionY / 100);
+				
+				const cx_square = S * (cropPositionX / 100);
+				const cy_square = S * (cropPositionY / 100);
 
-				const cropWidth = w * (cropPercent / 100) * 1.2; // 20% margin
-				const cropHeight = h * (cropPercent / 100) * 1.2;
+				const canvasSize = Math.max(1, Math.round(S * (cropPercent / 100)));
 
-				let left = Math.round(cx - cropWidth / 2);
-				let top = Math.round(cy - cropHeight / 2);
-				let right = Math.round(cx + cropWidth / 2);
-				let bottom = Math.round(cy + cropHeight / 2);
+				let left_orig = Math.round(cx_orig - canvasSize / 2);
+				let top_orig = Math.round(cy_orig - canvasSize / 2);
 
-				left = Math.max(0, left);
-				top = Math.max(0, top);
-				right = Math.min(w, right);
-				bottom = Math.min(h, bottom);
+				let extractLeft = Math.max(0, left_orig);
+				let extractTop = Math.max(0, top_orig);
 
-				const boxWidth = right - left;
-				const boxHeight = bottom - top;
+				let pasteLeft = extractLeft - left_orig;
+				let pasteTop = extractTop - top_orig;
+
+				let boxWidth = Math.min(w - extractLeft, canvasSize - pasteLeft);
+				let boxHeight = Math.min(h - extractTop, canvasSize - pasteTop);
 
 				if (boxWidth > 0 && boxHeight > 0) {
-					const extracted = await image.extract({ left, top, width: boxWidth, height: boxHeight }).toBuffer();
+					const extracted = await image.extract({ left: extractLeft, top: extractTop, width: boxWidth, height: boxHeight }).toBuffer();
 					
 					buffer = await sharp({
 						create: {
-							width: w,
-							height: h,
+							width: canvasSize,
+							height: canvasSize,
 							channels: 4,
 							background: { r: 0, g: 0, b: 0, alpha: 1 }
 						}
@@ -469,8 +471,8 @@ router.get("/image/:sessionId", async (req, res) => {
 					.composite([
 						{
 							input: extracted,
-							top: top,
-							left: left
+							top: pasteTop,
+							left: pasteLeft
 						}
 					])
 					.webp({ quality: 80 })

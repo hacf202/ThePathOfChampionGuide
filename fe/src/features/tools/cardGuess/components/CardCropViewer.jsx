@@ -9,19 +9,12 @@ import SafeImage from "@/components/common/SafeImage";
  * cropSize là % viewport so với ảnh gốc (nhỏ hơn = zoom vào sâu hơn).
  */
 const HINT_LEVELS = [
-	{ cropSize: 15, label: "🔍 x6.6" },
-	{ cropSize: 20, label: "🔍 x5" },
-	{ cropSize: 25, label: "🔍 x4" },
-	{ cropSize: 35, label: "🔍 x3" },
-	{ cropSize: 50, label: "🔍 x2" },
-	{ cropSize: 100, label: "👁️" },
-];
-
-const HINT_LEVELS_HARD = [
+	{ cropSize: 7, label: "🔍 x14" },
 	{ cropSize: 10, label: "🔍 x10" },
-	{ cropSize: 15, label: "🔍 x6" },
-	{ cropSize: 20, label: "🔍 x5" },
-	{ cropSize: 100, label: "👁️" },
+	{ cropSize: 13, label: "🔍 x7.6" },
+	{ cropSize: 18, label: "🔍 x5.5" },
+	{ cropSize: 21, label: "🔍 x4.7" },
+	{ cropSize: 25, label: "👁️" },
 ];
 
 const CardCropViewer = ({ imageUrl, fallbackUrl, hintLevel = 0, cropSeed = 0, revealed = false, mode = "unlimited" }) => {
@@ -76,35 +69,23 @@ const CardCropViewer = ({ imageUrl, fallbackUrl, hintLevel = 0, cropSeed = 0, re
 		};
 	}, [imageUrl, revealed, hintLevel]);
 
-	// Vị trí crop ngẫu nhiên, được cố định bởi cropSeed
-	const cropPosition = useMemo(() => {
-		const seededRandom = (seed) => {
-			const x = Math.sin(seed * 9301 + 49297) * 233280;
-			return x - Math.floor(x);
-		};
-		return {
-			x: 20 + seededRandom(cropSeed) * 60,
-			y: 20 + seededRandom(cropSeed + 1) * 60,
-		};
-	}, [cropSeed]);
-
-	const activeHintLevels = mode === "hard" ? HINT_LEVELS_HARD : HINT_LEVELS;
+	const activeHintLevels = HINT_LEVELS;
 	const currentHint = activeHintLevels[Math.min(activeHintLevel, activeHintLevels.length - 1)];
 	const cropPercent = currentHint.cropSize;
 
-	// Scale = 100 / cropSize, cho phép zoom vào vùng nhỏ
-	const scale = 100 / cropPercent;
+	const previousCropPercent = useRef(cropPercent);
+
+	useEffect(() => {
+		previousCropPercent.current = cropPercent;
+	}, [cropPercent]);
 
 	useGSAP(() => {
 		if (!imageRef.current) return;
 
 		if (revealed) {
-			// Reveal animation: flip + glow
+			// Reveal animation: lật ảnh full và phát sáng
 			gsap.to(imageRef.current, {
 				scale: 1,
-				xPercent: 0,
-				yPercent: 0,
-				objectPosition: "50% 50%",
 				duration: 0.8,
 				ease: "back.out(1.7)",
 			});
@@ -115,22 +96,19 @@ const CardCropViewer = ({ imageUrl, fallbackUrl, hintLevel = 0, cropSeed = 0, re
 				ease: "power2.out",
 			});
 		} else {
-			// Lấy scale hiện tại từ inline style hoặc GSAP cache, nếu không có thì mặc định bằng scale mới (tránh flash scale=1)
-			const currentScale = gsap.getProperty(imageRef.current, "scale") || scale;
+			const ratio = cropPercent / previousCropPercent.current;
+			
 			gsap.fromTo(
 				imageRef.current,
-				{ scale: currentScale },
+				{ scale: ratio },
 				{
-					scale: scale,
-					xPercent: 50 - cropPosition.x,
-					yPercent: 50 - cropPosition.y,
-					objectPosition: `${cropPosition.x}% ${cropPosition.y}%`,
+					scale: 1,
 					duration: 0.6,
 					ease: "power2.out",
 				}
 			);
 		}
-	}, [activeHintLevel, revealed, scale, cropPosition]);
+	}, [activeHintLevel, revealed, cropPercent]);
 
 	return (
 		<div 
@@ -145,7 +123,7 @@ const CardCropViewer = ({ imageUrl, fallbackUrl, hintLevel = 0, cropSeed = 0, re
 				className={`relative overflow-hidden border-2 transition-all duration-700 ${
 					revealed
 						? "w-[90vw] max-w-3xl aspect-video rounded-3xl border-primary-500/60 bg-black/60 backdrop-blur-xl"
-						: "w-52 h-52 sm:w-72 sm:h-72 rounded-2xl border-primary-500/30 bg-gray-900/60"
+						: "w-40 h-40 sm:w-52 sm:h-52 rounded-2xl border-primary-500/30 bg-gray-900/60"
 				} shadow-2xl`}
 			>
 				{/* Ambient glow behind */}
@@ -167,9 +145,7 @@ const CardCropViewer = ({ imageUrl, fallbackUrl, hintLevel = 0, cropSeed = 0, re
 					draggable={false}
 					className={`absolute inset-0 w-full h-full z-10 select-none pointer-events-none ${revealed ? "object-contain" : "object-cover"}`}
 					style={{
-						objectPosition: revealed ? "50% 50%" : `${cropPosition.x}% ${cropPosition.y}%`,
-						transform: revealed ? "translate(0%, 0%) scale(1)" : `translate(${50 - cropPosition.x}%, ${50 - cropPosition.y}%) scale(${scale})`,
-						transformOrigin: `${cropPosition.x}% ${cropPosition.y}%`,
+						transformOrigin: "50% 50%",
 					}}
 					loading="eager"
 				/>

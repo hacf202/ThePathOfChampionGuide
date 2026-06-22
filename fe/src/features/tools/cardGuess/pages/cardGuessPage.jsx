@@ -650,12 +650,11 @@ const CardGuessPage = () => {
 					<div className="flex flex-col items-center gap-6">
 						<CardCropViewer
 							key={gameKey}
-							imageUrl={gameStatus === "playing" ? `${backendUrl}/api/guess-game/image/${sessionId}?v=${guesses.length}` : toFullArtUrl(getCardImage(targetCard))}
+							imageUrl={gameStatus === "playing" ? `${backendUrl}/api/guess-game/image/${sessionId}?v=${guesses.length}&t=${Date.now()}` : toFullArtUrl(getCardImage(targetCard))}
 							fallbackUrl={getCardImage(targetCard)}
 							hintLevel={hintLevel}
 							cropSeed={cropSeed}
 							revealed={gameStatus !== "playing"}
-							mode={mode}
 						/>
 
 						{gameStatus === "playing" && guesses.length >= 3 && !targetCard.isPartial && (
