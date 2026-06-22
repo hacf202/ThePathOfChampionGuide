@@ -587,7 +587,7 @@ const CardGuessPage = () => {
 					<div className="flex flex-col items-center gap-6">
 						<CardCropViewer
 							key={gameKey}
-							imageUrl={gameStatus === "playing" ? `${backendUrl}/api/guess-game/image/${sessionId}` : toFullArtUrl(getCardImage(targetCard))}
+							imageUrl={gameStatus === "playing" ? `${backendUrl}/api/guess-game/image/${sessionId}?v=${guesses.length}` : toFullArtUrl(getCardImage(targetCard))}
 							fallbackUrl={getCardImage(targetCard)}
 							hintLevel={hintLevel}
 							cropSeed={cropSeed}

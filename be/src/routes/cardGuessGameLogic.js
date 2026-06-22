@@ -1,5 +1,6 @@
 import express from "express";
 import crypto from "crypto";
+import sharp from "sharp";
 import { authenticateToken } from "../middleware/authenticate.js";
 import { getDb } from "../config/mongo.js";
 
@@ -262,9 +263,83 @@ router.get("/image/:sessionId", async (req, res) => {
 		
 		const contentType = imageRes.headers.get("content-type");
 		const arrayBuffer = await imageRes.arrayBuffer();
-		const buffer = Buffer.from(arrayBuffer);
+		let buffer = Buffer.from(arrayBuffer);
+		let finalContentType = contentType || "image/png";
 
-		res.setHeader("Content-Type", contentType || "image/png");
+		// Prevent image inspect cheat by blacking out unrevealed regions
+		if (!session.isCompleted) {
+			const HINT_LEVELS = [
+				{ cropSize: 15 },
+				{ cropSize: 20 },
+				{ cropSize: 25 },
+				{ cropSize: 35 },
+				{ cropSize: 50 },
+				{ cropSize: 100 },
+			];
+			const maxAllowedHintLevel = session.guesses ? session.guesses.length : 0;
+			const hintLevelIndex = Math.min(maxAllowedHintLevel, HINT_LEVELS.length - 1);
+			const cropPercent = HINT_LEVELS[hintLevelIndex].cropSize;
+
+			if (cropPercent < 100) {
+				const image = sharp(buffer);
+				const metadata = await image.metadata();
+				const w = metadata.width;
+				const h = metadata.height;
+
+				const seed = session.cropSeed || 0;
+				const seededRandom = (s) => {
+					const x = Math.sin(s * 9301 + 49297) * 233280;
+					return x - Math.floor(x);
+				};
+				const cropPositionX = 20 + seededRandom(seed) * 60;
+				const cropPositionY = 20 + seededRandom(seed + 1) * 60;
+
+				const cx = w * (cropPositionX / 100);
+				const cy = h * (cropPositionY / 100);
+
+				const cropWidth = w * (cropPercent / 100) * 1.2; // 20% margin
+				const cropHeight = h * (cropPercent / 100) * 1.2;
+
+				let left = Math.round(cx - cropWidth / 2);
+				let top = Math.round(cy - cropHeight / 2);
+				let right = Math.round(cx + cropWidth / 2);
+				let bottom = Math.round(cy + cropHeight / 2);
+
+				left = Math.max(0, left);
+				top = Math.max(0, top);
+				right = Math.min(w, right);
+				bottom = Math.min(h, bottom);
+
+				const boxWidth = right - left;
+				const boxHeight = bottom - top;
+
+				if (boxWidth > 0 && boxHeight > 0) {
+					const extracted = await image.extract({ left, top, width: boxWidth, height: boxHeight }).toBuffer();
+					
+					buffer = await sharp({
+						create: {
+							width: w,
+							height: h,
+							channels: 4,
+							background: { r: 0, g: 0, b: 0, alpha: 1 }
+						}
+					})
+					.composite([
+						{
+							input: extracted,
+							top: top,
+							left: left
+						}
+					])
+					.webp({ quality: 80 })
+					.toBuffer();
+					
+					finalContentType = "image/webp";
+				}
+			}
+		}
+
+		res.setHeader("Content-Type", finalContentType);
 		res.setHeader("Cache-Control", "public, max-age=3600");
 		res.setHeader("Access-Control-Allow-Origin", "*");
 		res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
