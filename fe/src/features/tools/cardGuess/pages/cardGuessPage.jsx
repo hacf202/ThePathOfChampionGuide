@@ -29,6 +29,67 @@ const getStoredPlayerName = () => localStorage.getItem(PLAYER_NAME_KEY) || "";
 
 const toFullArtUrl = (url) => url ? url.replace(/(\.[a-zA-Z]+)$/, "-full$1") : "";
 
+const EventCountdown = ({ startTime, endTime, gameStatus }) => {
+	const { tUI } = useTranslation();
+	const [now, setNow] = useState(new Date().getTime());
+
+	useEffect(() => {
+		const interval = setInterval(() => setNow(new Date().getTime()), 1000);
+		return () => clearInterval(interval);
+	}, []);
+
+	if (!startTime || !endTime) return null;
+
+	const startMs = new Date(startTime).getTime();
+	const endMs = new Date(endTime).getTime();
+
+	if (now < startMs) {
+		const diff = startMs - now;
+		const d = Math.floor(diff / 86400000);
+		const h = Math.floor((diff / 3600000) % 24);
+		const m = Math.floor((diff / 60000) % 60);
+		const s = Math.floor((diff / 1000) % 60);
+		return (
+			<div className="text-center py-20 px-4">
+				<div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-blue-500/10 text-blue-500 mb-6">
+					<Clock className="w-10 h-10" />
+				</div>
+				<h2 className="text-3xl font-black mb-3">{tUI("cardGuess.event.notStarted", "SỰ KIỆN CHƯA BẮT ĐẦU")}</h2>
+				<div className="text-4xl font-black text-blue-400 font-mono">
+					{d}d {h}h {m}m {s}s
+				</div>
+			</div>
+		);
+	} else if (now > endMs) {
+		return (
+			<div className="text-center py-20 px-4">
+				<div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-red-500/10 text-red-500 mb-6">
+					<Clock className="w-10 h-10" />
+				</div>
+				<h2 className="text-3xl font-black mb-3">{tUI("cardGuess.event.ended", "SỰ KIỆN ĐÃ KẾT THÚC")}</h2>
+				<p className="text-text-secondary max-w-md mx-auto">
+					{tUI("cardGuess.event.endedDesc", "Cảm ơn bạn đã tham gia. Hẹn gặp lại trong các sự kiện tiếp theo!")}
+				</p>
+			</div>
+		);
+	} else if (gameStatus !== "locked") {
+		const diff = endMs - now;
+		const d = Math.floor(diff / 86400000);
+		const h = Math.floor((diff / 3600000) % 24);
+		const m = Math.floor((diff / 60000) % 60);
+		const s = Math.floor((diff / 1000) % 60);
+		return (
+			<div className="text-center mb-6 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-500">
+				<div className="font-bold mb-1 uppercase tracking-wider text-sm">{tUI("cardGuess.event.endsIn", "Sự kiện kết thúc sau:")}</div>
+				<div className="text-2xl font-black font-mono">
+					{d}d {h}h {m}m {s}s
+				</div>
+			</div>
+		);
+	}
+	return null;
+};
+
 const CardGuessPage = () => {
 	const { tUI, language } = useTranslation();
 	const backendUrl = import.meta.env.VITE_API_URL;
@@ -91,6 +152,16 @@ const CardGuessPage = () => {
 	const [showRulesModal, setShowRulesModal] = useState(false);
 	const [tempPlayerName, setTempPlayerName] = useState(getStoredPlayerName());
 	const [dailySolvers, setDailySolvers] = useState(0);
+	const [eventStatus, setEventStatus] = useState(null);
+
+	useEffect(() => {
+		if (mode === "event") {
+			fetch(`${backendUrl}/api/guess-game/event-status`)
+				.then(res => res.json())
+				.then(data => setEventStatus(data))
+				.catch(e => console.error("Error fetching event status:", e));
+		}
+	}, [mode, backendUrl]);
 
 	// Fetch all cards initially for local search input
 	useEffect(() => {
@@ -447,31 +518,38 @@ const CardGuessPage = () => {
 			/>
 
 			{/* Modal Nhập Tên cho Unlimited Run */}
-			<Modal isOpen={showNameModal} onClose={handleCloseNameModal} title={tUI("cardGuess.run.riotIdPrompt", "Nhập Tên / Riot ID")} size="md">
+			<Modal isOpen={showNameModal} onClose={handleCloseNameModal} title={mode === "event" ? tUI("cardGuess.run.riotIdPromptEvent", "Nhập chính xác Riot ID") : tUI("cardGuess.run.riotIdPrompt", "Nhập Tên / Riot ID")} size="md">
 				<div className="p-4 space-y-6">
 					<div>
 						<input 
 							type="text" 
-							placeholder={tUI("cardGuess.run.enterRiotId", "Ví dụ: LuKhachQuaDuong#666")}
+							placeholder={mode === "event" ? tUI("cardGuess.run.enterRiotIdEvent", "Ví dụ: LuKhachQuaDuong#VN1") : tUI("cardGuess.run.enterRiotId", "Ví dụ: LuKhachQuaDuong#666")}
 							className="w-full px-4 py-3 rounded-xl bg-surface-bg border border-border focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition-all"
 							value={tempPlayerName}
 							onChange={(e) => setTempPlayerName(e.target.value)}
 							autoFocus
 							onKeyDown={(e) => {
-								if (e.key === "Enter") startNewContinuousRun(tempPlayerName);
+								if (e.key === "Enter" && tempPlayerName.trim()) startNewContinuousRun(tempPlayerName);
 							}}
 						/>
+						{mode === "event" && (
+							<p className="text-sm text-amber-500 font-medium mt-3">
+								{tUI("cardGuess.run.eventRiotIdWarning", "Lưu ý: Bắt buộc nhập chính xác Riot ID (kèm #tag) để nhận thưởng. Tên sai sẽ không được chấp nhận.")}
+							</p>
+						)}
 					</div>
 					<div className="flex gap-3 justify-end">
-						<button 
-							onClick={() => startNewContinuousRun("Guest")}
-							className="px-5 py-2.5 rounded-xl font-bold text-sm bg-surface-bg border-2 border-border hover:bg-surface-hover transition-colors"
-						>
-							{tUI("cardGuess.run.playAsGuest", "Chơi Khách")}
-						</button>
+						{mode !== "event" && (
+							<button 
+								onClick={() => startNewContinuousRun("Guest")}
+								className="px-5 py-2.5 rounded-xl font-bold text-sm bg-surface-bg border-2 border-border hover:bg-surface-hover transition-colors"
+							>
+								{tUI("cardGuess.run.playAsGuest", "Chơi Khách")}
+							</button>
+						)}
 						<button 
 							onClick={() => startNewContinuousRun(tempPlayerName)}
-							disabled={!tempPlayerName.trim()}
+							disabled={!tempPlayerName.trim() || (mode === "event" && (tempPlayerName.trim().toLowerCase() === "guest" || tempPlayerName.trim().toLowerCase() === "khách"))}
 							className="px-5 py-2.5 rounded-xl font-bold text-sm bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-lg hover:shadow-primary-500/20 disabled:opacity-50 disabled:cursor-not-allowed"
 						>
 							{tUI("cardGuess.run.startRun", "Bắt đầu chơi")}
@@ -621,7 +699,17 @@ const CardGuessPage = () => {
 					</div>
 				)}
 
-				{gameStatus === "locked" && (
+				{mode === "event" && eventStatus && (
+					<EventCountdown startTime={eventStatus.startTime} endTime={eventStatus.endTime} gameStatus={gameStatus} />
+				)}
+
+				{mode === "event" && gameStatus === "locked" && !eventStatus && (
+					<div className="text-center py-20 px-4">
+						<Loader2 className="w-8 h-8 animate-spin text-primary-500 mx-auto" />
+					</div>
+				)}
+
+				{mode !== "event" && gameStatus === "locked" && (
 					<div className="text-center py-20 px-4">
 						<div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-red-500/10 text-red-500 mb-6">
 							<Clock className="w-10 h-10" />

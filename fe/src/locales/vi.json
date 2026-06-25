@@ -1794,14 +1794,12 @@
 			"p3": "Mỗi lần đoán sai, hình ảnh sẽ được mở rộng ra thêm để gợi ý cho bạn. Sau lần đoán thứ 3, gợi ý bằng chữ (loại thẻ, mô tả) sẽ hiện ra.",
 			"p4": "Ở chế độ Vô Hạn và Sự Kiện, bạn có 3 mạng. Mỗi lần hết 5 lượt mà không đoán ra (hoặc bỏ cuộc), bạn mất 1 mạng. Trò chơi kết thúc khi số mạng về 0.",
 			"close": "Đã hiểu"
-		}
-	},
-	"relic": {
-		"types": {
-			"signature": "Trấn",
-			"consumable": "Tiêu thụ",
-			"general": "Chung",
-			"campaign": "Chiến dịch"
+		},
+		"event": {
+			"notStarted": "SỰ KIỆN BẮT ĐẦU SAU",
+			"endsIn": "Sự kiện kết thúc sau:",
+			"ended": "SỰ KIỆN ĐÃ KẾT THÚC",
+			"endedDesc": "Cảm ơn bạn đã tham gia. Hẹn gặp lại trong các sự kiện tiếp theo!"
 		}
 	}
 }

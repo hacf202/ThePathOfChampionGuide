@@ -270,7 +270,7 @@ const Home = () => {
 					<CinematicCard to="/tools/champion-items" icon={Users} title={"Tướng Phụ Tương Thích"} desc="Tra cứu và tìm kiếm Tướng Phụ (Sub-champion) phù hợp nhất với Tướng chính dựa trên vật phẩm." img={BACKGROUND_IMAGES[7]} />
 					<CinematicCard to="/simulator/vaults" icon={Archive} title={tUI("nav.vaultSimulator") || "Vault Simulator"} desc="Giả lập mở rương để kiểm tra tỷ lệ rớt đồ và mảnh tướng." img={BACKGROUND_IMAGES[4]} />
 					<CinematicCard to="/randomizer" icon={Dices} title={tUI("home.luckyWheel") || "Randomizer"} desc="Tạo ngẫu nhiên Tướng và thử thách cho các pha chạy tự do." img={BACKGROUND_IMAGES[1]} />
-					<CinematicCard to="/guides" icon={BookOpen} title={tUI("nav.guides")} desc="Hướng dẫn chiến thuật từ cơ bản đến nâng cao từ cộng đồng." img={BACKGROUND_IMAGES[3]} />
+					<CinematicCard to="/tools/card-guess/event" icon={Clock} title={"Sự Kiện Đoán Thẻ Bài"} desc="Tham gia sự kiện giới hạn: Thử tài đoán tên thẻ bài qua hình ảnh và đua top nhận thưởng." img={BACKGROUND_IMAGES[10]} />
 				</div>
 			</CinematicSection>
 

@@ -1795,14 +1795,12 @@
 			"p3": "After each incorrect guess, the image will zoom out to give you a better hint. Text hints (card type, description) will appear after the 3rd attempt.",
 			"p4": "In Unlimited and Event modes, you start with 3 lives. If you fail to guess a card within 5 attempts (or give up), you lose 1 life. The run ends when your lives reach 0.",
 			"close": "Got it"
-		}
-	},
-	"relic": {
-		"types": {
-			"signature": "Signature",
-			"consumable": "Consumable",
-			"general": "General",
-			"campaign": "Campaign"
+		},
+		"event": {
+			"notStarted": "EVENT HAS NOT STARTED YET",
+			"endsIn": "Event ends in:",
+			"ended": "EVENT HAS ENDED",
+			"endedDesc": "Thank you for participating. See you in the next events!"
 		}
 	}
 }

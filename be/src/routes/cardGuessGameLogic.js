@@ -78,8 +78,8 @@ const getRandomCard = async (db) => {
 };
 
 // Thời gian sự kiện (Cài đặt thủ công tại đây)
-const EVENT_START_TIME = "2099-01-01T00:00:00Z"; // UTC (Khóa sự kiện - chờ mở lại)
-const EVENT_END_TIME = "2099-01-01T23:59:59Z";   // UTC
+const EVENT_START_TIME = "2026-06-26T13:00:00Z"; // 20:00 26/06/2026 GMT+7
+const EVENT_END_TIME = "2026-06-28T13:00:00Z";   // 20:00 28/06/2026 GMT+7
 
 const isEventActive = () => {
 	const start = new Date(EVENT_START_TIME);
@@ -142,13 +142,13 @@ const mapSessionToResponse = async (db, session) => {
 		maxGuesses: 5,
 		cropSeed: session.cropSeed,
 		targetAttributes: targetCard ? {
-			type: targetCard.type,
+			type: session.guesses?.length >= 3 ? targetCard.type : undefined,
 			descriptionRaw: session.guesses?.length >= 3 ? targetCard.descriptionRaw : undefined,
 			translations: targetCard.translations ? Object.fromEntries(
 				Object.entries(targetCard.translations).map(([lang, data]) => [
 					lang, 
 					{ 
-						type: data.type,
+						type: session.guesses?.length >= 3 ? data.type : undefined,
 						descriptionRaw: session.guesses?.length >= 3 ? data.descriptionRaw : undefined
 					}
 				])
@@ -248,6 +248,7 @@ router.post("/unlimited/new-run", optionalAuth, newRunLimiter, async (req, res) 
 		const targetCard = await getRandomCard(db);
 
 		let finalPlayerName = String(playerName || "").trim();
+		if (finalPlayerName.length > 50) finalPlayerName = finalPlayerName.substring(0, 50);
 		if (!finalPlayerName || finalPlayerName.toLowerCase() === "guest" || finalPlayerName.toLowerCase() === "khách") {
 			finalPlayerName = `Guest#${identifier.substring(0, 4).toUpperCase()}`;
 		}
@@ -316,6 +317,13 @@ router.post("/event/new-run", optionalAuth, newRunLimiter, async (req, res) => {
 		if (!isEventActive()) return res.status(400).json({ error: "Event is closed" });
 		const { deviceId, playerName } = req.body;
 		if (!playerName || !playerName.trim()) return res.status(400).json({ error: "Riot ID required" });
+		
+		const finalPlayerName = playerName.trim();
+		if (finalPlayerName.length > 50) return res.status(400).json({ error: "Riot ID too long" });
+		if (finalPlayerName.toLowerCase() === "guest" || finalPlayerName.toLowerCase() === "khách") {
+			return res.status(400).json({ error: "Vui lòng nhập Riot ID hợp lệ, không dùng tên Khách" });
+		}
+		
 		const db = getDb();
 		const userId = req.user?.sub;
 		const identifier = userId || deviceId || crypto.randomUUID();
@@ -624,56 +632,58 @@ router.post("/guess", optionalAuth, async (req, res) => {
 
 						// Update Leaderboard
 						if (session.mode === "unlimited") {
-							const playerRecord = await db.collection("cardGuessLeaderboard").findOne({ identifier: run.identifier });
-							if (!playerRecord || newScore > (playerRecord.unlimitedBestScore || 0)) {
-								await db.collection("cardGuessLeaderboard").updateOne(
-									{ identifier: run.identifier },
+							await db.collection("cardGuessLeaderboard").updateOne(
+								{ identifier: run.identifier },
+								{
+									$set: { userName: run.playerName },
+									$inc: { unlimitedRunsPlayed: 1 }
+								},
+								{ upsert: true }
+							);
+							await db.collection("cardGuessLeaderboard").updateOne(
+								{
+									identifier: run.identifier,
+									$or: [
+										{ unlimitedBestScore: { $lt: newScore } },
+										{ unlimitedBestScore: newScore, unlimitedBestRunDuration: { $gt: finalDuration } },
+										{ unlimitedBestScore: { $exists: false } }
+									]
+								},
+								{
+									$set: {
+										unlimitedBestScore: newScore,
+										unlimitedBestRunDuration: finalDuration,
+										unlimitedBestSolved: solvedCount,
+										lastUpdated: new Date()
+									}
+								}
+							);
+						} else if (session.mode === "event") {
+							if (isEventActive()) {
+								await db.collection("cardGuessEventLeaderboard").updateOne(
+									{ riotId: run.playerName },
+									{ $inc: { runsPlayed: 1 } },
+									{ upsert: true }
+								);
+								await db.collection("cardGuessEventLeaderboard").updateOne(
+									{
+										riotId: run.playerName,
+										$or: [
+											{ bestScore: { $lt: newScore } },
+											{ bestScore: newScore, bestRunDuration: { $gt: finalDuration } },
+											{ bestScore: { $exists: false } }
+										]
+									},
 									{
 										$set: {
 											userName: run.playerName,
-											unlimitedBestScore: newScore,
-											unlimitedBestRunDuration: finalDuration,
-											unlimitedBestSolved: solvedCount,
+											bestScore: newScore,
+											bestRunDuration: finalDuration,
+											bestSolved: solvedCount,
 											lastUpdated: new Date()
-										},
-										$inc: { unlimitedRunsPlayed: 1 }
-									},
-									{ upsert: true }
-								);
-							} else {
-								await db.collection("cardGuessLeaderboard").updateOne(
-									{ identifier: run.identifier },
-									{
-										$set: { userName: run.playerName },
-										$inc: { unlimitedRunsPlayed: 1 }
+										}
 									}
 								);
-							}
-						} else if (session.mode === "event") {
-							if (isEventActive()) {
-								const playerRecord = await db.collection("cardGuessEventLeaderboard").findOne({ riotId: run.playerName });
-								if (!playerRecord || newScore > (playerRecord.bestScore || 0)) {
-									await db.collection("cardGuessEventLeaderboard").updateOne(
-										{ riotId: run.playerName },
-										{
-											$set: {
-												userName: run.playerName,
-												bestScore: newScore,
-												bestRunDuration: finalDuration,
-												bestSolved: solvedCount,
-												lastUpdated: new Date()
-											},
-											$inc: { runsPlayed: 1 }
-										},
-										{ upsert: true }
-									);
-								} else {
-									await db.collection("cardGuessEventLeaderboard").updateOne(
-										{ riotId: run.playerName },
-										{ $inc: { runsPlayed: 1 } },
-										{ upsert: true }
-									);
-								}
 							}
 						}
 					}
@@ -755,55 +765,60 @@ router.post("/give-up", optionalAuth, async (req, res) => {
 					}
 				};
 				if (session.mode === "unlimited") {
-					const playerRecord = await db.collection("cardGuessLeaderboard").findOne({ identifier: run.identifier });
-					if (!playerRecord || run.score > (playerRecord.unlimitedBestScore || 0)) {
-						await db.collection("cardGuessLeaderboard").updateOne(
-							{ identifier: run.identifier },
+					await db.collection("cardGuessLeaderboard").updateOne(
+						{ identifier: run.identifier },
+						{
+							$set: { userName: run.playerName, userId: run.userId },
+							$inc: { unlimitedRunsPlayed: 1 }
+						},
+						{ upsert: true }
+					);
+
+					await db.collection("cardGuessLeaderboard").updateOne(
+						{
+							identifier: run.identifier,
+							$or: [
+								{ unlimitedBestScore: { $lt: run.score } },
+								{ unlimitedBestScore: run.score, unlimitedBestRunDuration: { $gt: updateOps.$set.durationSeconds } },
+								{ unlimitedBestScore: { $exists: false } }
+							]
+						},
+						{
+							$set: {
+								unlimitedBestScore: run.score,
+								unlimitedBestRunDuration: updateOps.$set.durationSeconds,
+								unlimitedBestSolved: solvedCount,
+								lastUpdated: now
+							}
+						}
+					);
+				} else if (session.mode === "event") {
+					if (isEventActive()) {
+						await db.collection("cardGuessEventLeaderboard").updateOne(
+							{ riotId: run.playerName },
+							{ $inc: { runsPlayed: 1 } },
+							{ upsert: true }
+						);
+
+						await db.collection("cardGuessEventLeaderboard").updateOne(
+							{
+								riotId: run.playerName,
+								$or: [
+									{ bestScore: { $lt: run.score } },
+									{ bestScore: run.score, bestRunDuration: { $gt: updateOps.$set.durationSeconds } },
+									{ bestScore: { $exists: false } }
+								]
+							},
 							{
 								$set: {
 									userName: run.playerName,
-									userId: run.userId,
-									unlimitedBestScore: run.score,
-									unlimitedBestRunDuration: updateOps.$set.durationSeconds,
-									unlimitedBestSolved: solvedCount,
+									bestScore: run.score,
+									bestRunDuration: updateOps.$set.durationSeconds,
+									bestSolved: solvedCount,
 									lastUpdated: now
-								},
-								$inc: { unlimitedRunsPlayed: 1 }
-							},
-							{ upsert: true }
+								}
+							}
 						);
-					} else {
-						await db.collection("cardGuessLeaderboard").updateOne(
-							{ identifier: run.identifier },
-							{ $inc: { unlimitedRunsPlayed: 1 } },
-							{ upsert: true }
-						);
-					}
-				} else if (session.mode === "event") {
-					if (isEventActive()) {
-						const playerRecord = await db.collection("cardGuessEventLeaderboard").findOne({ riotId: run.playerName });
-						if (!playerRecord || run.score > (playerRecord.bestScore || 0)) {
-							await db.collection("cardGuessEventLeaderboard").updateOne(
-								{ riotId: run.playerName },
-								{
-									$set: {
-										userName: run.playerName,
-										bestScore: run.score,
-										bestRunDuration: updateOps.$set.durationSeconds,
-										bestSolved: solvedCount,
-										lastUpdated: now
-									},
-									$inc: { runsPlayed: 1 }
-								},
-								{ upsert: true }
-							);
-						} else {
-							await db.collection("cardGuessEventLeaderboard").updateOne(
-								{ riotId: run.playerName },
-								{ $inc: { runsPlayed: 1 } },
-								{ upsert: true }
-							);
-						}
 					}
 				}
 				
@@ -833,6 +848,15 @@ router.post("/give-up", optionalAuth, async (req, res) => {
 		console.error("Error in guess-game/give-up:", error);
 		res.status(500).json({ error: "Internal server error" });
 	}
+});
+
+// GET /api/guess-game/event-status
+router.get("/event-status", async (req, res) => {
+	res.json({
+		startTime: EVENT_START_TIME,
+		endTime: EVENT_END_TIME,
+		isActive: isEventActive()
+	});
 });
 
 // GET /api/guess-game/leaderboard
