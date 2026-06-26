@@ -401,7 +401,7 @@ const CardGuessPage = () => {
 				
 				if (mode === "daily") {
 					setTimeout(() => setShowStats(true), 1500);
-				} else if (mode === "unlimited") {
+				} else if (mode === "unlimited" || mode === "event") {
 					setRunState(data.run);
 				}
 				setStats(recordLoss());
@@ -439,7 +439,7 @@ const CardGuessPage = () => {
 					
 					if (mode === "daily") {
 						setTimeout(() => setShowStats(true), 1500);
-					} else if (mode === "unlimited") {
+					} else if (mode === "unlimited" || mode === "event") {
 						setRunState(data.run);
 					}
 					setStats(data.won ? recordWin(newGuesses.length) : recordLoss());
