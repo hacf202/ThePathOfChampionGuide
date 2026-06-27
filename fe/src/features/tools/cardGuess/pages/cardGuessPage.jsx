@@ -171,13 +171,18 @@ const CardGuessPage = () => {
 				const res = await fetch(`${backendUrl}/api/cards?limit=-1&onlyBase=true`);
 				const data = await res.json();
 				const cards = data.items || data || [];
-				const validCards = cards.filter((c) => {
-					if (!c.gameAbsolutePath || !c.cardName || /T\d+$/.test(c.cardCode)) return false;
+				const uniqueCardsMap = new Map();
+				cards.forEach(c => {
+					if (!c.gameAbsolutePath || !c.cardName || /T\d+$/.test(c.cardCode)) return;
 					const typeVi = (c.type || "").toLowerCase();
 					const typeEn = (c.translations?.en?.type || "").toLowerCase();
-					return typeVi.includes("quân") || typeEn === "unit" || typeVi === "champion" || typeEn === "champion";
+					if (typeVi.includes("quân") || typeEn === "unit" || typeVi === "champion" || typeEn === "champion") {
+						if (!uniqueCardsMap.has(c.cardCode)) {
+							uniqueCardsMap.set(c.cardCode, c);
+						}
+					}
 				});
-				setAllCards(validCards);
+				setAllCards(Array.from(uniqueCardsMap.values()));
 			} catch (error) {
 				console.error("Error fetching cards:", error);
 			} finally {
