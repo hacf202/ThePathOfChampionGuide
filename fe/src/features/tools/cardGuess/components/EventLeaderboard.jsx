@@ -8,7 +8,7 @@ const EventLeaderboard = () => {
 	const [activeTab, setActiveTab] = useState("unlimited"); // "daily", "unlimited"
 	const [page, setPage] = useState(1);
 	const [totalPages, setTotalPages] = useState(1);
-	const limit = 20;
+	const limit = 10;
 	const backendUrl = import.meta.env.VITE_API_URL;
 	const { tUI } = useTranslation();
 
