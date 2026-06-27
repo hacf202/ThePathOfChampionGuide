@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Trophy, Medal, Loader2, Calendar, Clock } from "lucide-react";
+import { Trophy, Medal, Loader2, Calendar, Clock, ChevronLeft, ChevronRight } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
 
 const EventLeaderboard = () => {
 	const [leaders, setLeaders] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [activeTab, setActiveTab] = useState("unlimited"); // "daily", "unlimited"
+	const [page, setPage] = useState(1);
+	const [totalPages, setTotalPages] = useState(1);
+	const limit = 20;
 	const backendUrl = import.meta.env.VITE_API_URL;
 	const { tUI } = useTranslation();
 
@@ -13,10 +16,11 @@ const EventLeaderboard = () => {
 		const fetchLeaderboard = async () => {
 			setLoading(true);
 			try {
-				const res = await fetch(`${backendUrl}/api/guess-game/leaderboard?mode=${activeTab}`);
+				const res = await fetch(`${backendUrl}/api/guess-game/leaderboard?mode=${activeTab}&page=${page}&limit=${limit}`);
 				if (res.ok) {
 					const data = await res.json();
-					setLeaders(data);
+					setLeaders(data.data || []);
+					setTotalPages(data.totalPages || 1);
 				}
 			} catch (e) {
 				console.error(e);
@@ -25,7 +29,7 @@ const EventLeaderboard = () => {
 			}
 		};
 		fetchLeaderboard();
-	}, [backendUrl, activeTab]);
+	}, [backendUrl, activeTab, page]);
 
 	if (loading) {
 		return <div className="flex justify-center p-8"><Loader2 className="animate-spin text-primary-500 w-8 h-8" /></div>;
@@ -88,7 +92,10 @@ const EventLeaderboard = () => {
 				].map(tab => (
 					<button
 						key={tab.id}
-						onClick={() => setActiveTab(tab.id)}
+						onClick={() => {
+							setActiveTab(tab.id);
+							setPage(1);
+						}}
 						className={`px-4 py-2 rounded-full font-bold text-sm transition-all ${
 							activeTab === tab.id 
 								? "bg-primary-500 text-white shadow-[0_0_15px_rgba(var(--primary-500-rgb,99,102,241),0.5)]" 
@@ -134,10 +141,13 @@ const EventLeaderboard = () => {
 									className="border-b border-white/5 hover:bg-white/5 transition-colors"
 								>
 									<td className="py-3 px-2 sm:px-4 text-center font-black">
-										{index === 0 ? <Medal className="w-6 h-6 mx-auto text-yellow-400 drop-shadow-md" /> :
-										 index === 1 ? <Medal className="w-6 h-6 mx-auto text-gray-300 drop-shadow-md" /> :
-										 index === 2 ? <Medal className="w-6 h-6 mx-auto text-amber-600 drop-shadow-md" /> :
-										 <span className="text-text-secondary">{index + 1}</span>}
+										{(() => {
+											const rank = (page - 1) * limit + index;
+											if (rank === 0) return <Medal className="w-6 h-6 mx-auto text-yellow-400 drop-shadow-md" />;
+											if (rank === 1) return <Medal className="w-6 h-6 mx-auto text-gray-300 drop-shadow-md" />;
+											if (rank === 2) return <Medal className="w-6 h-6 mx-auto text-amber-600 drop-shadow-md" />;
+											return <span className="text-text-secondary">{rank + 1}</span>;
+										})()}
 									</td>
 									<td className="py-3 px-2 sm:px-4 font-bold text-text-primary flex items-center gap-1 sm:gap-2 max-w-[120px] sm:max-w-[200px] md:max-w-none">
 										<div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gradient-to-tr from-purple-500 to-blue-500 flex items-center justify-center text-white text-[10px] sm:text-xs shadow-inner shrink-0">
@@ -164,6 +174,31 @@ const EventLeaderboard = () => {
 					</tbody>
 				</table>
 			</div>
+
+			{/* Pagination Controls */}
+			{totalPages > 1 && (
+				<div className="flex justify-center items-center gap-4 mt-6">
+					<button
+						onClick={() => setPage(p => Math.max(1, p - 1))}
+						disabled={page === 1}
+						className="p-2 rounded-full bg-surface-bg/50 text-text-secondary hover:text-white hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+					>
+						<ChevronLeft className="w-5 h-5" />
+					</button>
+					<div className="flex gap-2">
+						<span className="text-sm font-medium text-text-secondary">
+							{tUI("cardGuess.leaderboard.page", "Trang")} {page} / {totalPages}
+						</span>
+					</div>
+					<button
+						onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+						disabled={page === totalPages}
+						className="p-2 rounded-full bg-surface-bg/50 text-text-secondary hover:text-white hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+					>
+						<ChevronRight className="w-5 h-5" />
+					</button>
+				</div>
+			)}
 		</div>
 	);
 };

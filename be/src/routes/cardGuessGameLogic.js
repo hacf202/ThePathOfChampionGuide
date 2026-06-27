@@ -862,16 +862,29 @@ router.get("/event-status", async (req, res) => {
 // GET /api/guess-game/leaderboard
 router.get("/leaderboard", async (req, res) => {
 	try {
-		const { mode = "all" } = req.query;
+		const { mode = "all", page = 1, limit = 10 } = req.query;
+		const pageNum = parseInt(page) || 1;
+		const limitNum = parseInt(limit) || 10;
+		const skip = (pageNum - 1) * limitNum;
+
 		const db = getDb();
 
 		if (mode === "event") {
+			const matchQuery = { bestScore: { $exists: true, $gt: 0 } };
+			const total = await db.collection("cardGuessEventLeaderboard").countDocuments(matchQuery);
 			const eventLeaders = await db.collection("cardGuessEventLeaderboard")
-				.find({ bestScore: { $exists: true, $gt: 0 } })
+				.find(matchQuery)
 				.sort({ bestScore: -1, bestRunDuration: 1, lastUpdated: 1 })
-				.limit(50)
+				.skip(skip)
+				.limit(limitNum)
 				.toArray();
-			return res.json(eventLeaders);
+			return res.json({
+				data: eventLeaders,
+				total,
+				page: pageNum,
+				limit: limitNum,
+				totalPages: Math.ceil(total / limitNum)
+			});
 		}
 
 		let sortQuery = { score: -1, lastUpdated: 1 };
@@ -882,13 +895,21 @@ router.get("/leaderboard", async (req, res) => {
 		if (mode === "daily") matchQuery = { dailyScore: { $exists: true, $gt: 0 } };
 		if (mode === "unlimited") matchQuery = { unlimitedBestScore: { $exists: true, $gt: 0 } };
 
+		const total = await db.collection("cardGuessLeaderboard").countDocuments(matchQuery);
 		const leaders = await db.collection("cardGuessLeaderboard")
 			.find(matchQuery)
 			.sort(sortQuery)
-			.limit(50)
+			.skip(skip)
+			.limit(limitNum)
 			.toArray();
 			
-		res.json(leaders);
+		res.json({
+			data: leaders,
+			total,
+			page: pageNum,
+			limit: limitNum,
+			totalPages: Math.ceil(total / limitNum)
+		});
 	} catch (error) {
 		console.error("Error fetching leaderboard:", error);
 		res.status(500).json({ error: "Internal server error" });
