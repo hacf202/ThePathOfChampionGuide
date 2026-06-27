@@ -723,11 +723,11 @@ const CardGuessPage = () => {
 
 				{showStats && (
 					<div className="mb-8 flex flex-col gap-6">
-						<div className="p-6 rounded-3xl bg-surface-bg backdrop-blur-xl border border-border shadow-xl">
+						<div className="p-2 sm:p-6 rounded-3xl bg-surface-bg backdrop-blur-xl border border-border shadow-xl overflow-hidden">
 							<EventLeaderboard />
 						</div>
 						{mode === "daily" && (
-							<div className="p-6 rounded-3xl bg-surface-bg backdrop-blur-xl border border-border shadow-xl">
+							<div className="p-2 sm:p-6 rounded-3xl bg-surface-bg backdrop-blur-xl border border-border shadow-xl">
 								<GameStats stats={stats} globalStats={globalStats} lastGuessCount={gameStatus === "won" ? guesses.length : null} />
 							</div>
 						)}

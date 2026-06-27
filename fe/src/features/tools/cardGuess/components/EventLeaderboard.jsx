@@ -104,20 +104,20 @@ const EventLeaderboard = () => {
 				<table className="w-full text-left border-collapse">
 					<thead>
 						<tr className="bg-black/20 border-b border-border">
-							<th className="py-4 px-4 font-bold text-text-secondary w-16 text-center">#</th>
-							<th className="py-4 px-4 font-bold text-text-secondary">{tUI("cardGuess.leaderboard.player")}</th>
+							<th className="py-4 px-2 sm:px-4 font-bold text-text-secondary w-10 sm:w-16 text-center">#</th>
+							<th className="py-4 px-2 sm:px-4 font-bold text-text-secondary">{tUI("cardGuess.leaderboard.player")}</th>
 							{activeTab !== "all" && (
-								<th className="py-4 px-4 font-bold text-text-secondary text-right hidden md:table-cell">
+								<th className="py-4 px-2 sm:px-4 font-bold text-text-secondary text-right hidden md:table-cell">
 									<div className="flex items-center justify-end gap-1">
 										<Clock className="w-4 h-4" />
 										{tUI("cardGuess.leaderboard.duration", "Thời gian")}
 									</div>
 								</th>
 							)}
-							<th className="py-4 px-4 font-bold text-text-secondary text-right hidden sm:table-cell">
+							<th className="py-4 px-2 sm:px-4 font-bold text-text-secondary text-right hidden sm:table-cell">
 								{tUI("cardGuess.leaderboard.solved", "Đoán đúng")}
 							</th>
-							<th className="py-4 px-4 font-bold text-text-secondary text-right">{tUI("cardGuess.leaderboard.score")}</th>
+							<th className="py-4 px-2 sm:px-4 font-bold text-text-secondary text-right">{tUI("cardGuess.leaderboard.score")}</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -133,27 +133,27 @@ const EventLeaderboard = () => {
 									key={leader._id || index} 
 									className="border-b border-white/5 hover:bg-white/5 transition-colors"
 								>
-									<td className="py-3 px-4 text-center font-black">
+									<td className="py-3 px-2 sm:px-4 text-center font-black">
 										{index === 0 ? <Medal className="w-6 h-6 mx-auto text-yellow-400 drop-shadow-md" /> :
 										 index === 1 ? <Medal className="w-6 h-6 mx-auto text-gray-300 drop-shadow-md" /> :
 										 index === 2 ? <Medal className="w-6 h-6 mx-auto text-amber-600 drop-shadow-md" /> :
 										 <span className="text-text-secondary">{index + 1}</span>}
 									</td>
-									<td className="py-3 px-4 font-bold text-text-primary flex items-center gap-2">
-										<div className="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-500 to-blue-500 flex items-center justify-center text-white text-xs shadow-inner">
+									<td className="py-3 px-2 sm:px-4 font-bold text-text-primary flex items-center gap-1 sm:gap-2 max-w-[120px] sm:max-w-[200px] md:max-w-none">
+										<div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gradient-to-tr from-purple-500 to-blue-500 flex items-center justify-center text-white text-[10px] sm:text-xs shadow-inner shrink-0">
 											{leader.userName?.charAt(0).toUpperCase() || "G"}
 										</div>
-										{leader.userName || "Guest"}
+										<span className="truncate">{leader.userName || "Guest"}</span>
 									</td>
 									{activeTab !== "all" && (
-										<td className="py-3 px-4 text-right font-medium text-text-secondary hidden md:table-cell">
+										<td className="py-3 px-2 sm:px-4 text-right font-medium text-text-secondary hidden md:table-cell">
 											{formatTime(getDuration(leader))}
 										</td>
 									)}
-									<td className="py-3 px-4 text-right font-medium text-text-secondary hidden sm:table-cell">
+									<td className="py-3 px-2 sm:px-4 text-right font-medium text-text-secondary hidden sm:table-cell">
 										{getSolved(leader)}
 									</td>
-									<td className="py-3 px-4 text-right">
+									<td className="py-3 px-2 sm:px-4 text-right">
 										<span className="font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400 text-lg">
 											{getScore(leader)}
 										</span>
