@@ -38,7 +38,7 @@ import {
 
 
 const BACKGROUND_IMAGES = [
-	"https://images.pocguide.top/backgrounds/1920px-06BW006T1-full.webp",
+	"https://images.pocguide.top/backgrounds/1920px-01SI042-full.webp",
 	"https://images.pocguide.top/backgrounds/BG5.webp",
 	"https://images.pocguide.top/backgrounds/BG4.webp",
 	"https://images.pocguide.top/backgrounds/BG2.webp",
@@ -48,7 +48,7 @@ const BACKGROUND_IMAGES = [
 	"https://images.pocguide.top/backgrounds/BG8.webp",
 	"https://images.pocguide.top/backgrounds/BG9.webp",
 	"https://images.pocguide.top/backgrounds/BG10.webp",
-	"https://images.pocguide.top/backgrounds/1920px-06BW011-full.webp"
+	"https://images.pocguide.top/backgrounds/1920px-01SI042T1-full.webp"
 ];
 
 
@@ -68,7 +68,7 @@ const Home = () => {
 		{ to: "/tools/ratings", icon: Dices, label: tUI("nav.championRatings"), img: BACKGROUND_IMAGES[9], top: "50%", left: "2%", size: "w-20 h-20 lg:w-36 lg:h-36", mobileHidden: false },
 		{ to: "/cards", icon: GalleryHorizontal, label: tUI("nav.cards"), img: BACKGROUND_IMAGES[7], top: "2%", left: "64%", size: "w-24 h-24 lg:w-40 lg:h-40", mobileHidden: true },
 		{ to: "/resources", icon: Archive, label: tUI("nav.resources"), img: BACKGROUND_IMAGES[6], top: "40%", left: "25%", size: "w-20 h-20 lg:w-44 lg:h-44", mobileHidden: true },
-		{ to: "/champion/C080", icon: Star, label: tUI("nav.newChampion"), img: BACKGROUND_IMAGES[0], top: "0%", left: "49%", size: "w-20 h-20 lg:w-48 lg:h-48", mobileHidden: false },
+		{ to: "/champion/C086", icon: Star, label: tUI("nav.newChampion"), img: BACKGROUND_IMAGES[0], top: "0%", left: "49%", size: "w-20 h-20 lg:w-48 lg:h-48", mobileHidden: false },
 	];
 
 	const containerRef = useRef(null);

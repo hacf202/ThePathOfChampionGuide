@@ -105,7 +105,7 @@ router.get("/", async (req, res) => {
 			rarities: [...new Set(allRelics.map(r => r.rarity))]
 				.filter(Boolean)
 				.sort(),
-			types: [...new Set(allRelics.map(r => r.type))].filter(Boolean).sort(),
+			types: [...new Set(allRelics.flatMap(r => Array.isArray(r.type) ? r.type : (r.type ? [r.type] : [])))].sort(),
 			stacks: [...new Set(allRelics.map(r => String(r.stack)))]
 				.filter(Boolean)
 				.sort(),
@@ -136,7 +136,10 @@ router.get("/", async (req, res) => {
 		}
 		if (types) {
 			const tList = types.split(",");
-			filtered = filtered.filter(r => tList.includes(r.type));
+			filtered = filtered.filter(r => {
+				const rTypes = Array.isArray(r.type) ? r.type : (r.type ? [r.type] : []);
+				return rTypes.some(t => tList.includes(t));
+			});
 		}
 		if (stacks) {
 			const sList = stacks.split(",");
