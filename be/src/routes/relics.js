@@ -77,7 +77,10 @@ router.get("/:relicCode", async (req, res) => {
  */
 router.get("/", async (req, res) => {
 	try {
-		const queryParamsStr = new URLSearchParams(req.query).toString();
+		const cleanQuery = { ...req.query };
+		delete cleanQuery.t;
+		delete cleanQuery._;
+		const queryParamsStr = new URLSearchParams(cleanQuery).toString();
 		const cacheKey = `api:relics:${queryParamsStr}`;
 
 		if (kv) {
@@ -102,7 +105,7 @@ router.get("/", async (req, res) => {
 		const allRelics = await getCachedRelics();
 
 		const availableFilters = {
-			rarities: [...new Set(allRelics.map(r => r.rarity))]
+			rarities: [...new Set(allRelics.flatMap(r => Array.isArray(r.rarity) ? r.rarity : (r.rarity ? [r.rarity] : [])))]
 				.filter(Boolean)
 				.sort(),
 			types: [...new Set(allRelics.flatMap(r => Array.isArray(r.type) ? r.type : (r.type ? [r.type] : [])))].sort(),

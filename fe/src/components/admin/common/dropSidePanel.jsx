@@ -233,7 +233,7 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 
 	const rarityOptions = useMemo(() => {
 		const rarities = [
-			...new Set(currentData.map(i => i.rarity).filter(Boolean)),
+			...new Set(currentData.flatMap(i => Array.isArray(i.rarity) ? i.rarity : [i.rarity]).filter(Boolean)),
 		].sort();
 		return rarities.map(r => ({ value: r, label: r }));
 	}, [currentData]);
@@ -241,19 +241,15 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 	const typeOptions = useMemo(() => {
 		let types = [];
 		if (activeTab === "relic") {
-			types = [...new Set(currentData.map(i => i.type).filter(Boolean))];
+			types = currentData.flatMap(i => Array.isArray(i.type) ? i.type : [i.type]);
 		} else if (activeTab === "power") {
-			types = [
-				...new Set(currentData.flatMap(i => i.type || []).filter(Boolean)),
-			];
+			types = currentData.flatMap(i => Array.isArray(i.type) ? i.type : [i.type]);
 		} else if (activeTab === "bonusStar") {
-			types = [...new Set(currentData.map(i => i.nodeType).filter(Boolean))];
+			types = currentData.flatMap(i => Array.isArray(i.nodeType) ? i.nodeType : [i.nodeType]);
 		} else if (activeTab === "champion") {
-			types = [
-				...new Set(currentData.flatMap(i => i.regions || []).filter(Boolean)),
-			];
+			types = currentData.flatMap(i => Array.isArray(i.regions) ? i.regions : [i.regions]);
 		}
-		return types.sort().map(t => ({ value: t, label: t }));
+		return [...new Set(types.filter(Boolean))].sort().map(t => ({ value: t, label: t }));
 	}, [currentData, activeTab]);
 
 	const filteredItems = useMemo(() => {
@@ -297,18 +293,21 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 		}
 
 		if (selectedTypes.length > 0) {
-			if (activeTab === "relic") {
-				filtered = filtered.filter(i => selectedTypes.includes(i.type));
-			} else if (activeTab === "power") {
-				filtered = filtered.filter(i =>
-					i.type?.some(t => selectedTypes.includes(t)),
-				);
+			if (activeTab === "relic" || activeTab === "power") {
+				filtered = filtered.filter(i => {
+					const types = Array.isArray(i.type) ? i.type : [i.type];
+					return types.some(t => selectedTypes.includes(t));
+				});
 			} else if (activeTab === "bonusStar") {
-				filtered = filtered.filter(i => selectedTypes.includes(i.nodeType));
+				filtered = filtered.filter(i => {
+					const types = Array.isArray(i.nodeType) ? i.nodeType : [i.nodeType];
+					return types.some(t => selectedTypes.includes(t));
+				});
 			} else if (activeTab === "champion") {
-				filtered = filtered.filter(i =>
-					i.regions?.some(r => selectedTypes.includes(r)),
-				);
+				filtered = filtered.filter(i => {
+					const types = Array.isArray(i.regions) ? i.regions : [i.regions];
+					return types.some(t => selectedTypes.includes(t));
+				});
 			}
 		}
 

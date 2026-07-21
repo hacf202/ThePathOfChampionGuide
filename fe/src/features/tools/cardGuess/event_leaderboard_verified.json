@@ -1,0 +1,84 @@
+{
+  "invalidRunsCount": 0,
+  "invalidRuns": [],
+  "leaderboard": [
+    {
+      "riotId": "RGE Kunn #0708",
+      "bestScore": 1406,
+      "bestRunDuration": 166083.332,
+      "bestSolved": 279
+    },
+    {
+      "riotId": "MeoK Agent Pepe #2109",
+      "bestScore": 1049,
+      "bestRunDuration": 53902.018,
+      "bestSolved": 197
+    },
+    {
+      "riotId": "Ahri Bank#1006",
+      "bestScore": 455,
+      "bestRunDuration": 60313.73,
+      "bestSolved": 75
+    },
+    {
+      "riotId": "chuahe#5869",
+      "bestScore": 444,
+      "bestRunDuration": 8021,
+      "bestSolved": 84
+    },
+    {
+      "riotId": "SoraLor#2810",
+      "bestScore": 249,
+      "bestRunDuration": 4479,
+      "bestSolved": 45
+    },
+    {
+      "riotId": "ThợSănNgườiLùn#1m82",
+      "bestScore": 197,
+      "bestRunDuration": 5574.107,
+      "bestSolved": 47
+    },
+    {
+      "riotId": "Bất Tri Hoả#1503",
+      "bestScore": 48,
+      "bestRunDuration": 1379.815,
+      "bestSolved": 9
+    },
+    {
+      "riotId": "Evin LOR#2004",
+      "bestScore": 42,
+      "bestRunDuration": 524,
+      "bestSolved": 8
+    },
+    {
+      "riotId": "TheWalkingDev#835",
+      "bestScore": 30,
+      "bestRunDuration": 31375.014,
+      "bestSolved": 7
+    },
+    {
+      "riotId": "Susanboi #9987",
+      "bestScore": 28,
+      "bestRunDuration": 1411,
+      "bestSolved": 6
+    },
+    {
+      "riotId": "Hoàng Hà",
+      "bestScore": 0,
+      "bestRunDuration": 3,
+      "bestSolved": 0
+    },
+    {
+      "riotId": "Cót ca cót Kled #2003",
+      "bestScore": 0,
+      "bestRunDuration": 4,
+      "bestSolved": 0
+    },
+    {
+      "riotId": "Test#123",
+      "bestScore": 0,
+      "bestRunDuration": 11,
+      "bestSolved": 0
+    }
+  ]
+}

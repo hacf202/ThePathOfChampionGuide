@@ -53,7 +53,10 @@ router.get("/:powerCode", async (req, res) => {
  */
 router.get("/", async (req, res) => {
 	try {
-		const queryParamsStr = new URLSearchParams(req.query).toString();
+		const cleanQuery = { ...req.query };
+		delete cleanQuery.t;
+		delete cleanQuery._;
+		const queryParamsStr = new URLSearchParams(cleanQuery).toString();
 		const cacheKey = `api:powers:${queryParamsStr}`;
 
 		if (kv) {
