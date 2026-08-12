@@ -7,7 +7,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const TEMP_DIR = path.join(__dirname, '../uploadData/temp');
-const BACKUP_DIR = path.join(__dirname, '../uploadData/mongo_backup_2026-07-14T23-41-53');
+const uploadDataDir = path.join(__dirname, '../uploadData');
+const backupDirs = fs.readdirSync(uploadDataDir).filter(dir => dir.startsWith('mongo_backup_'));
+const BACKUP_DIR = backupDirs.length > 0 
+    ? path.join(uploadDataDir, backupDirs.sort().reverse()[0]) 
+    : path.join(uploadDataDir, 'mongo_backup_2026-07-14T23-41-53');
 const PROCESSED_DIR = path.join(__dirname, '../uploadData/processed_temp');
 
 function toTitleCase(str) {

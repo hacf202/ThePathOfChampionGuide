@@ -7,7 +7,7 @@ import { SearchSuggestions } from "./search/SearchSuggestions";
 import { SearchResults } from "./search/SearchResults";
 
 function GlobalSearch({ compact = false, showClose = false, onClose = null }) {
-    const { tUI } = useTranslation();
+    const { tUI, language } = useTranslation();
 
     const {
         query, setQuery,
@@ -19,7 +19,7 @@ function GlobalSearch({ compact = false, showClose = false, onClose = null }) {
         recentSearches, setRecentSearches,
         containerRef, inputRef, listRef,
         handleSelect, handleKeyDown
-    } = useGlobalSearch(onClose);
+    } = useGlobalSearch(onClose, language);
 
     const grouped = results.reduce((acc, item) => {
         const k = item.category.key;

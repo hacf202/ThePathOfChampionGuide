@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { CATEGORIES, GUIDE_CATEGORY, MAX_PER_CATEGORY, API_URL, getSearchIndex, searchInIndex, _searchIndex } from "./searchConfig";
 
-export function useGlobalSearch(onClose) {
+export function useGlobalSearch(onClose, language = "vi") {
     const navigate = useNavigate();
 
     const containerRef = useRef(null);
@@ -83,7 +83,7 @@ export function useGlobalSearch(onClose) {
 
         const clientResults = [];
         for (const cat of CATEGORIES) {
-            clientResults.push(...searchInIndex(_searchIndex, query, cat));
+            clientResults.push(...searchInIndex(_searchIndex, query, cat, language));
         }
         setResults(clientResults);
         setIsOpen(true);
