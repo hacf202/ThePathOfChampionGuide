@@ -50,5 +50,8 @@ Tài liệu này tóm tắt các bước tự động hóa (hoặc bán tự đ�
 ## 7. Đưa lên Cơ Sở Dữ Liệu (MongoDB)
 - **Mục tiêu:** Update dữ liệu cuối cùng vào Database thực.
 - **Cách làm:**
-  - **Script:** Chạy lệnh `db.collection('...').updateOne({ code: ... }, { $set: data }, { upsert: true })` cho từng item mới.
-  - Hoặc đơn giản là copy đoạn JSON chuẩn vừa tạo rồi import trực tiếp qua MongoDB Compass.
+  - **Script:** Sử dụng `bulkWrite` với lệnh `replaceOne` (hoặc `updateOne`) kết hợp `upsert: true` dựa trên Primary Key (như `id`, `powerCode`, `slug`). Tuyệt đối **KHÔNG** dùng lệnh `insertMany` cho dữ liệu backup để tránh sinh ra bản sao rác.
+  - **Lưu ý CỰC KỲ QUAN TRỌNG (Tránh lỗi trùng lặp dữ liệu):**
+    - Các file backup được xuất ra thường bị xóa trường `_id` mặc định của MongoDB. Nếu import ngây thơ bằng MongoDB Compass hoặc `insertMany`, MongoDB sẽ tự động cấp `_id` mới và tạo ra các bản ghi trùng lặp (Duplicate Records) cho cùng một ID logic.
+    - **Bắt buộc:** Đảm bảo script `createMongoIndexes.js` đã được chạy thành công trên Database để tạo các ràng buộc `unique: true` cho mọi bảng (VD: `{ id: 1 }` cho bảng Builds, `{ slug: 1 }` cho Guides).
+    - Nếu phát hiện DB bị trùng, phải chạy script `deduplicateDatabase.cjs` để gom nhóm, xóa rác giữ lại bản mới nhất trước khi có thể tạo Unique Index.
