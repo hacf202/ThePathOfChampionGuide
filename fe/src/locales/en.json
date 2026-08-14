@@ -512,6 +512,8 @@
 			"all": "All",
 			"sortOrderAsc": "Sort Ascending",
 			"sortOrderDesc": "Sort Descending",
+			"sortIdAsc": "ID Ascending",
+			"sortIdDesc": "ID Descending",
 			"time": {
 				"daysShort": "d",
 				"hoursShort": "h",
@@ -525,6 +527,7 @@
 			"langVI": "Language: Vietnamese (Default)",
 			"langEN": "Language: English (Optional)",
 			"refresh": "Refresh"
+
 		},
 		"dropSidePanel": {
 			"tabs": {

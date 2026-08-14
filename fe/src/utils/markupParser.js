@@ -33,7 +33,7 @@ export const parseMarkup = text => {
 				type: "tag",
 				tagType: match[1].toLowerCase(),
 				tagValue: match[2],
-				tagLabel: match[3] || match[2],
+				tagLabel: match[3] || null,
 				tagOptions: match[4] ? match[4].split(",").map(opt => opt.trim()) : [],
 				original: match[0],
 			});

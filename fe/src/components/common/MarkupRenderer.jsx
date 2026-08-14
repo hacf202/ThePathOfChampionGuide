@@ -25,6 +25,16 @@ const MarkupRenderer = memo(({ text, className = "", noTooltip = false }) => {
 		const { tagType, tagValue, tagLabel, tagOptions = [] } = segment;
 		const data = getEntityData(tagValue, tagType, language);
 		
+		const getAutoLabel = () => {
+			if (!tagLabel) return data?.name || tagValue;
+			if (data && (tagLabel === data.nameEn || tagLabel === data.nameVi || tagLabel === data.name)) {
+				return data.name;
+			}
+			return tagLabel;
+		};
+
+		const displayLabelToUse = getAutoLabel();
+		
 		// Tùy chọn hiển thị
 		const showIcon = (tagOptions.includes("icon") || (tagType === "k" && data?.icon)) && !tagOptions.includes("no-icon");
 		const onlyIcon = tagOptions.includes("only-icon");
@@ -48,13 +58,13 @@ const MarkupRenderer = memo(({ text, className = "", noTooltip = false }) => {
                 </span>
             );
 
-            if (noTooltip) return <span key={index}>{innerContent}</span>;
+            if (noTooltip) return innerContent;
 
             return (
                 <MarkupTooltip
                     key={index}
-                    title={data?.name || tagLabel}
-                    description={Desc !== undefined ? Desc : data?.description}
+                    title={data?.name || displayLabelToUse}
+                    description={Desc != null ? Desc : data?.description}
                     icon={data?.icon}
                     fullImage={data?.fullImage}
                     options={tagOptions}
@@ -80,7 +90,7 @@ const MarkupRenderer = memo(({ text, className = "", noTooltip = false }) => {
 			case "k": 
 			case "keyword": {
 				const hasIcon = !!data?.icon;
-				const displayLabel = tagLabel || data?.name || tagValue;
+				const displayLabel = displayLabelToUse;
                 
                 // Phân loại màu sắc cho từ khóa (Premium)
                 const keywordColors = {
@@ -133,27 +143,27 @@ const MarkupRenderer = memo(({ text, className = "", noTooltip = false }) => {
 
 			case "c": 
 			case "champion":
-				return renderWithTooltip(tagLabel, "text-sky-400 hover:text-sky-300", noLink ? null : `/champion/${data?.id || tagValue}`, null);
+				return renderWithTooltip(displayLabelToUse, "text-sky-400 hover:text-sky-300", noLink ? null : `/champion/${data?.id || tagValue}`, null);
 
 			case "r": 
 			case "relic":
-				return renderWithTooltip(tagLabel, "text-purple-400 hover:text-purple-300", noLink ? null : `/relic/${data?.id || tagValue}`);
+				return renderWithTooltip(displayLabelToUse, "text-purple-400 hover:text-purple-300", noLink ? null : `/relic/${data?.id || tagValue}`);
 
 			case "p": 
 			case "power":
-				return renderWithTooltip(tagLabel, "text-blue-400 hover:text-blue-300", noLink ? null : `/power/${data?.id || tagValue}`);
+				return renderWithTooltip(displayLabelToUse, "text-blue-400 hover:text-blue-300", noLink ? null : `/power/${data?.id || tagValue}`);
 
 			case "i": 
 			case "item":
-				return renderWithTooltip(tagLabel, "text-emerald-400 hover:text-emerald-300", noLink ? null : `/item/${data?.id || tagValue}`);
+				return renderWithTooltip(displayLabelToUse, "text-emerald-400 hover:text-emerald-300", noLink ? null : `/item/${data?.id || tagValue}`);
 
 			case "cd": 
 			case "card":
-				return renderWithTooltip(tagLabel, "text-orange-400 hover:text-orange-300", noLink ? null : `/card/${data?.id || tagValue}`);
+				return renderWithTooltip(displayLabelToUse, "text-orange-400 hover:text-orange-300", noLink ? null : `/card/${data?.id || tagValue}`);
 
 			case "res":
 			case "resource":
-				return renderWithTooltip(tagLabel, "text-amber-400 hover:text-amber-300 shadow-sm", noLink ? null : `/resource/${data?.id || tagValue}`);
+				return renderWithTooltip(displayLabelToUse, "text-amber-400 hover:text-amber-300 shadow-sm", noLink ? null : `/resource/${data?.id || tagValue}`);
 
 			case "v": 
 			case "stat": { 
@@ -169,7 +179,7 @@ const MarkupRenderer = memo(({ text, className = "", noTooltip = false }) => {
 				const colorClass = styles[tagValue.toLowerCase()] || "text-green-500";
 				return (
 					<span key={index} className={`font-mono font-black drop-shadow-sm ${colorClass}`}>
-						{tagLabel}
+						{tagLabel || tagValue}
 					</span>
 				);
 			}
@@ -181,7 +191,7 @@ const MarkupRenderer = memo(({ text, className = "", noTooltip = false }) => {
 				return (
 					<span key={index} className="inline-flex items-center text-yellow-500 font-bold drop-shadow-sm">
 						{stars}
-						<span className="ml-1 text-[10px] text-text-secondary uppercase">({tagLabel})</span>
+						<span className="ml-1 text-[10px] text-text-secondary uppercase">({tagLabel || tagValue})</span>
 					</span>
 				);
 			}
@@ -200,20 +210,20 @@ const MarkupRenderer = memo(({ text, className = "", noTooltip = false }) => {
 				if (key === "special") {
 					return (
 						<span key={index} className='font-black bg-gradient-to-r from-pink-400 to-blue-500 bg-clip-text text-transparent uppercase text-[11px]'>
-							{tagLabel}
+							{tagLabel || tagValue}
 						</span>
 					);
 				}
 
 				return (
 					<span key={index} className={`font-black uppercase text-[10px] tracking-widest ${styles[key] || "text-text-primary"}`}>
-						{tagLabel}
+						{tagLabel || tagValue}
 					</span>
 				);
 			}
 
 			default:
-				return <span key={index} className="underline decoration-dotted decoration-border">{tagLabel}</span>;
+				return <span key={index} className="underline decoration-dotted decoration-border">{tagLabel || tagValue}</span>;
 		}
 	};
 

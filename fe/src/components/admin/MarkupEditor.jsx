@@ -14,12 +14,14 @@ import { getAllEntities, initEntities } from "@/utils/entityLookup";
 import MarkupRenderer from "@/components/common/MarkupRenderer";
 import { stripMarkup } from "@/utils/markupUtils";
 import { Eye, Code, Type, Bold, Highlighter, Search, XCircle, ChevronDown, ChevronUp, Swords, Shield, Zap } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 /**
  * AdminMarkupEditor - Trình soạn thảo chuyên dụng cho Admin
  * Hỗ trợ bôi đen -> Gán thẻ Markup nhanh chóng.
  */
 const MarkupEditor = ({ value, onChange, placeholder = "Nhập nội dung..." }) => {
+	const { language } = useTranslation();
 	const textareaRef = useRef(null);
 	const [showToolbar, setShowToolbar] = useState(false);
 	const [selection, setSelection] = useState({ start: 0, end: 0, text: "" });
@@ -136,32 +138,34 @@ const MarkupEditor = ({ value, onChange, placeholder = "Nhập nội dung..." })
 		setShowToolbar(false);
 	};
 
-	const filteredEntities = useMemo(() => {
-		if (!searchType || activeMenu !== "search") return [];
-		const all = getAllEntities(searchType);
-		const q = searchQuery.trim().toLowerCase();
-		if (!q) return all.slice(0, 5);
-
-		return all.filter(e => 
-			e.name.toLowerCase().includes(q) || 
-			(e.nameEn && e.nameEn.toLowerCase().includes(q)) ||
-			e.id?.toLowerCase().includes(q)
-		).slice(0, 5);
-	}, [searchType, searchQuery, activeMenu]);
-
 	const removeAccents = (str) => {
 		if (!str) return "";
 		return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 	};
 
+	const filteredEntities = useMemo(() => {
+		if (!searchType || activeMenu !== "search") return [];
+		const all = getAllEntities(searchType, language);
+		const q = removeAccents(searchQuery.trim());
+		if (!q) return all.slice(0, 5);
+
+		return all.filter(e => {
+			const nameNorm = removeAccents(e.name);
+			const nameEnNorm = removeAccents(e.nameEn || "");
+			const idNorm = e.id?.toLowerCase() || "";
+			return nameNorm.includes(q) || nameEnNorm.includes(q) || idNorm.includes(q);
+		}).slice(0, 5);
+	}, [searchType, searchQuery, activeMenu, language]);
+
+
 	const getCombinedEntities = () => {
 		return [
-			...getAllEntities("c").map(e => ({...e, type: "c", typeName: "Tướng"})),
-			...getAllEntities("r").map(e => ({...e, type: "r", typeName: "Cổ vật"})),
-			...getAllEntities("p").map(e => ({...e, type: "p", typeName: "Sức mạnh"})),
-			...getAllEntities("i").map(e => ({...e, type: "i", typeName: "Vật phẩm"})),
-			...getAllEntities("k").map(e => ({...e, type: "k", typeName: "Từ khóa"})),
-			...getAllEntities("cd").map(e => ({...e, type: "cd", typeName: "Thẻ bài"})),
+			...getAllEntities("c", language).map(e => ({...e, type: "c", typeName: language === "en" ? "Champion" : "Tướng"})),
+			...getAllEntities("r", language).map(e => ({...e, type: "r", typeName: language === "en" ? "Relic" : "Cổ vật"})),
+			...getAllEntities("p", language).map(e => ({...e, type: "p", typeName: language === "en" ? "Power" : "Sức mạnh"})),
+			...getAllEntities("i", language).map(e => ({...e, type: "i", typeName: language === "en" ? "Item" : "Vật phẩm"})),
+			...getAllEntities("k", language).map(e => ({...e, type: "k", typeName: language === "en" ? "Keyword" : "Từ khóa"})),
+			...getAllEntities("cd", language).map(e => ({...e, type: "cd", typeName: language === "en" ? "Card" : "Thẻ bài"})),
 		];
 	};
 
@@ -211,37 +215,39 @@ const MarkupEditor = ({ value, onChange, placeholder = "Nhập nội dung..." })
 		}
 	};
 
+	const isEn = language === "en";
+
 	const menuItems = [
-		{ id: "k", label: "Từ khóa", type: "search" },
-		{ id: "v", label: "Chỉ số", type: "submenu", items: [
-            { id: "v:cong", label: "Công (ATK)" },
-            { id: "v:thu", label: "Thủ (HP)" },
-            { id: "v:tieuhao", label: "Tiêu hao (Cost)" },
-            { id: "v:nangluong", label: "Năng lượng" },
-            { id: "v:damage", label: "Sát thương" },
-            { id: "v:gold", label: "Vàng (Gold)" },
-        ]},
-        { id: "cap", label: "Cấp sao", type: "submenu", items: [
-            { id: "cap:1", label: "1 Sao" },
-            { id: "cap:2", label: "2 Sao" },
-            { id: "cap:3", label: "3 Sao" },
-            { id: "cap:4", label: "4 Sao" },
-            { id: "cap:5", label: "5 Sao" },
-            { id: "cap:6", label: "6 Sao" },
-        ]},
-        { id: "ra", label: "Độ hiếm", type: "submenu", items: [
-            { id: "ra:common", label: "Thường (Common)" },
-            { id: "ra:rare", label: "Hiếm (Rare)" },
-            { id: "ra:epic", label: "Sử thi (Epic)" },
-            { id: "ra:legendary", label: "Huyền thoại" },
-            { id: "ra:special", label: "Đặc biệt" },
-        ]},
-		{ id: "c", label: "Tướng", type: "search" },
-		{ id: "r", label: "Cổ vật", type: "search" },
-		{ id: "p", label: "Sức mạnh", type: "search" },
-		{ id: "i", label: "Vật phẩm", type: "search" },
-		{ id: "cd", label: "Thẻ bài", type: "search" },
-		{ id: "unmarkup", label: "Gỡ Markup", type: "action" },
+		{ id: "k", label: isEn ? "Keyword" : "Từ khóa", type: "search" },
+		{ id: "v", label: isEn ? "Stats" : "Chỉ số", type: "submenu", items: [
+			{ id: "v:cong", label: isEn ? "Attack (ATK)" : "Công (ATK)" },
+			{ id: "v:thu", label: isEn ? "Health (HP)" : "Thủ (HP)" },
+			{ id: "v:tieuhao", label: isEn ? "Cost" : "Tiêu hao (Cost)" },
+			{ id: "v:nangluong", label: isEn ? "Mana" : "Năng lượng" },
+			{ id: "v:damage", label: isEn ? "Damage" : "Sát thương" },
+			{ id: "v:gold", label: isEn ? "Gold" : "Vàng (Gold)" },
+		]},
+		{ id: "cap", label: isEn ? "Star Level" : "Cấp sao", type: "submenu", items: [
+			{ id: "cap:1", label: isEn ? "1 Star" : "1 Sao" },
+			{ id: "cap:2", label: isEn ? "2 Star" : "2 Sao" },
+			{ id: "cap:3", label: isEn ? "3 Star" : "3 Sao" },
+			{ id: "cap:4", label: isEn ? "4 Star" : "4 Sao" },
+			{ id: "cap:5", label: isEn ? "5 Star" : "5 Sao" },
+			{ id: "cap:6", label: isEn ? "6 Star" : "6 Sao" },
+		]},
+		{ id: "ra", label: isEn ? "Rarity" : "Độ hiếm", type: "submenu", items: [
+			{ id: "ra:common", label: isEn ? "Common" : "Thường (Common)" },
+			{ id: "ra:rare", label: isEn ? "Rare" : "Hiếm (Rare)" },
+			{ id: "ra:epic", label: isEn ? "Epic" : "Sử thi (Epic)" },
+			{ id: "ra:legendary", label: isEn ? "Legendary" : "Huyền thoại" },
+			{ id: "ra:special", label: isEn ? "Special" : "Đặc biệt" },
+		]},
+		{ id: "c", label: isEn ? "Champion" : "Tướng", type: "search" },
+		{ id: "r", label: isEn ? "Relic" : "Cổ vật", type: "search" },
+		{ id: "p", label: isEn ? "Power" : "Sức mạnh", type: "search" },
+		{ id: "i", label: isEn ? "Item" : "Vật phẩm", type: "search" },
+		{ id: "cd", label: isEn ? "Card" : "Thẻ bài", type: "search" },
+		{ id: "unmarkup", label: isEn ? "Remove Markup" : "Gỡ Markup", type: "action" },
 	];
 
     const handleQuickTag = (prefix) => {
@@ -266,17 +272,17 @@ const MarkupEditor = ({ value, onChange, placeholder = "Nhập nội dung..." })
                         type="button"
                         onClick={() => setShowPreview(!showPreview)}
                         className={`flex items-center gap-1.5 px-2 py-1 rounded-md text-[9px] font-black uppercase tracking-tight transition-all ${showPreview ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20" : "bg-surface-hover/50 text-text-tertiary border border-border/50"}`}
-                        title="Ẩn/Hiện ô xem trước nội dung sau khi render"
+                        title={isEn ? "Toggle rendered preview" : "Ẩn/Hiện ô xem trước nội dung sau khi render"}
                     >
-                        <Eye size={12} /> {showPreview ? "Ẩn" : "Hiện"} Layout
+                        <Eye size={12} /> {showPreview ? (isEn ? "Hide" : "Ẩn") : (isEn ? "Show" : "Hiện")} Layout
                     </button>
                     <button 
                         type="button"
                         onClick={() => setShowRaw(!showRaw)}
                         className={`flex items-center gap-1.5 px-2 py-1 rounded-md text-[9px] font-black uppercase tracking-tight transition-all ${showRaw ? "bg-primary-500/10 text-primary-600 border border-border/50" : "bg-surface-hover/50 text-text-tertiary border border-border/50"}`}
-                        title="Ẩn/Hiện nội dung thô (không có markup)"
+                        title={isEn ? "Toggle raw unformatted content" : "Ẩn/Hiện nội dung thô (không có markup)"}
                     >
-                        <Code size={12} /> {showRaw ? "Hiện" : "Ẩn"} Thô
+                        <Code size={12} /> {showRaw ? (isEn ? "Hide" : "Ẩn") : (isEn ? "Show" : "Hiện")} {isEn ? "Raw" : "Thô"}
                     </button>
                 </div>
             </div>

@@ -252,6 +252,8 @@ export const getEntityData = (value, type, lang = "vi") => {
 
 				return {
 					name: found.name,
+					nameEn: exactRefMatch ? exactRefMatch.nameRef : (withIcon ? withIcon.nameRef : matches[0].nameRef),
+					nameVi: found.name,
 					description: found.description,
 					nameRef: found.nameRef,
 					icon: found.icon,
@@ -278,6 +280,8 @@ export const getEntityData = (value, type, lang = "vi") => {
 				return {
 					id: found.championID || found.cardCode,
 					name: trans?.name || trans?.cardName || found.name || found.cardName,
+					nameEn: found.translations?.en?.name || found.translations?.en?.cardName || found.name || found.cardName,
+					nameVi: found.name || found.cardName,
 					description: trans?.description || found.description,
 					icon: found.assets?.[0]?.avatar || found.gameAbsolutePath,
 					fullImage: found.assets?.[0]?.gameAbsolutePath || found.gameAbsolutePath,
@@ -299,6 +303,8 @@ export const getEntityData = (value, type, lang = "vi") => {
 				return {
 					id: found.relicCode,
 					name: trans?.name || found.name,
+					nameEn: found.translations?.en?.name || found.name,
+					nameVi: found.name,
 					description: trans?.description || found.description,
 					rarity: trans?.rarity || found.rarity,
 					icon: found.assetAbsolutePath,
@@ -321,6 +327,8 @@ export const getEntityData = (value, type, lang = "vi") => {
 				return {
 					id: found.powerCode,
 					name: trans?.name || found.name,
+					nameEn: found.translations?.en?.name || found.name,
+					nameVi: found.name,
 					description: trans?.description || found.description,
 					rarity: trans?.rarity || found.rarity,
 					icon: found.assetAbsolutePath,
@@ -340,6 +348,8 @@ export const getEntityData = (value, type, lang = "vi") => {
 			if (foundItem) return {
 				id: foundItem.itemCode,
 				name: (cur === "en" ? foundItem.translations?.en?.name : null) || foundItem.name,
+				nameEn: foundItem.translations?.en?.name || foundItem.name,
+				nameVi: foundItem.name,
 				description: (cur === "en" ? foundItem.translations?.en?.description : null) || foundItem.description,
 				icon: foundItem.assetAbsolutePath,
 				type: "item"
@@ -359,6 +369,8 @@ export const getEntityData = (value, type, lang = "vi") => {
 				return {
 					id: found.cardCode,
 					name: trans?.cardName || found.cardName,
+					nameEn: found.translations?.en?.cardName || found.cardName,
+					nameVi: found.cardName,
 					description: trans?.description || found.description,
 					descriptionRaw: trans?.descriptionRaw || found.descriptionRaw,
 					icon: found.gameAbsolutePath,
@@ -381,6 +393,8 @@ export const getEntityData = (value, type, lang = "vi") => {
 				return {
 					id: found.id,
 					name: isEn ? found.name_en : found.name,
+					nameEn: found.name_en || found.name,
+					nameVi: found.name,
 					description: isEn ? found.description_en : found.description,
 					icon: found.icon,
 					type: "resource"
