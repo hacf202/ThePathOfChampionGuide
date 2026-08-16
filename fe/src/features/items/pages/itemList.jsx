@@ -77,8 +77,9 @@ function ItemList() {
 
 	return (
 		<GenericListLayout
-			pageTitle={tUI("itemList.title")}
-			pageDescription={tUI("itemList.metaDesc")}
+			pageTitle={tUI("itemList.title") || "Danh Sách Trang Bị PoC"}
+			pageDescription={tUI("itemList.metaDesc") || "Tổng hợp tất cả Trang Bị (Items) trong chế độ Con Đường Anh Hùng (PoC) Legends of Runeterra."}
+			pageKeywords="danh sách trang bị poc, item list path of champions, tất cả item lor pve, poc items"
 			heading={tUI("itemList.heading")}
 			data={items}
 			loading={loading}

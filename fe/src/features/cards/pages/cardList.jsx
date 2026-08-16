@@ -95,14 +95,14 @@ const CardList = () => {
 			renderFilters={() => (
 				<div className="space-y-6">
 					<MultiSelectFilter
-						label={tUI("common.rarity") || "Độ hiếm"}
+						label={tUI("common.rarity")}
 						options={optionsMap.rarities || []}
 						selectedValues={state.customFilters?.rarities || []}
 						onChange={(vals) => actions.setFilterValue("rarities", vals)}
 					/>
 
 					<MultiSelectFilter
-						label={tUI("common.region") || "Khu vực"}
+						label={tUI("common.region")}
 						options={optionsMap.regions || []}
 						selectedValues={state.customFilters?.regions || []}
 						onChange={(vals) => actions.setFilterValue("regions", vals)}

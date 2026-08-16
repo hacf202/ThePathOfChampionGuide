@@ -7,23 +7,19 @@
 export const getRarityKey = (rawRarity) => {
 	if (!rawRarity) return "unknown";
 	
-	const normalized = String(rawRarity).toLowerCase().trim();
+	const normalized = String(rawRarity).normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/Đ/g, "D").toLowerCase().trim();
 	
 	const mapping = {
-		"thường": "common",
-		"hiếm": "rare",
-		"sử thi": "epic",
-		"huyền thoại": "legendary",
-		"đặc biệt": "special",
-		"dacbiet": "special",
-		"common": "common",
-		"rare": "rare",
-		"epic": "epic",
-		"legendary": "legendary",
-		"special": "special"
+		"thuong": "common",
+		"hiem": "rare",
+		"su thi": "epic",
+		"huyen thoai": "legendary",
+		"dac biet": "special",
+		"none": "none",
+		"champion": "champion"
 	};
 	
-	return mapping[normalized] || normalized;
+	return mapping[normalized] || normalized.replace(/[^a-z0-9]/g, '');
 };
 
 /**
@@ -33,20 +29,21 @@ export const getRarityKey = (rawRarity) => {
 export const getTypeKey = (rawType) => {
 	if (!rawType) return "unknown";
 	
-	const normalized = String(rawType).toLowerCase().trim();
+	const normalized = String(rawType).normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/Đ/g, "D").toLowerCase().trim();
 	
 	const mapping = {
-		"trấn": "signature",
-		"tiêu thụ": "consumable",
+		"tran": "signature",
+		"tieu thu": "consumable",
 		"chung": "general",
-		"chiến dịch": "campaign",
-		"signature": "signature",
-		"consumable": "consumable",
-		"general": "general",
-		"campaign": "campaign"
+		"chien dich": "campaign",
+		"arcane power": "arcane",
+		"champion level power": "championlevel",
+		"debuff power": "debuff",
+		"defiance power": "defiance",
+		"encounter power": "encounter"
 	};
 	
-	return mapping[normalized] || normalized;
+	return mapping[normalized] || normalized.replace(/[^a-z0-9]/g, '');
 };
 
 /**
@@ -56,16 +53,15 @@ export const getTypeKey = (rawType) => {
 export const getRegionKey = (rawRegion) => {
 	if (!rawRegion) return "unknown";
 	
-	const normalized = String(rawRegion).toLowerCase().trim();
+	const normalized = String(rawRegion).normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/Đ/g, "D").toLowerCase().trim();
 	
 	const mapping = {
-		"hoa linh lục địa": "spiritblossom",
-		"thành phố bandle": "bandlecity",
-		"quần đảo bóng đêm": "shadowisles",
-		"spiritblossom": "spiritblossom",
-		"bandlecity": "bandlecity",
-		"shadowisles": "shadowisles"
+		"hoa linh luc dia": "spiritblossom",
+		"thanh pho bandle": "bandlecity",
+		"quan dao bong dem": "shadowisles",
+		"quanao bong aem": "shadowisles",
+		"trung lap": "neutral"
 	};
 	
-	return mapping[normalized] || normalized;
+	return mapping[normalized] || normalized.replace(/[^a-z0-9]/g, '');
 };

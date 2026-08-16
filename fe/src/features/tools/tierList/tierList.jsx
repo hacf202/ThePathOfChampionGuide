@@ -38,8 +38,9 @@ function TierListIndex() {
 		<div className='animate-fadeIn'>
 			{/* 🟢 Tiêu đề trang đa ngôn ngữ */}
 			<PageTitle
-				title={tUI("tierList.pageTitle")}
-				description={tUI("metadata.defaultDescription")}
+				title={tUI("tierList.pageTitle") || "Bảng Xếp Hạng Tướng & Cổ Vật PoC"}
+				description={tUI("tierList.pageDesc") || "Bảng xếp hạng (Tier List) cập nhật mới nhất cho tướng và cổ vật trong chế độ Con Đường Anh Hùng (PoC) Legends of Runeterra."}
+				keywords="tier list poc, bảng xếp hạng tướng poc, best champions path of champions, lor pve tier list, xếp hạng cổ vật poc"
 			/>
 
 			<div className='max-w-[1400px] mx-auto py-4 sm:py-8 font-secondary'>

@@ -87,8 +87,9 @@ function RelicList() {
 
 	return (
 		<GenericListLayout
-			pageTitle={tUI("relicList.title")}
-			pageDescription={tUI("relicList.metaDesc")}
+			pageTitle={tUI("relicList.title") || "Danh Sách Cổ Vật PoC"}
+			pageDescription={tUI("relicList.metaDesc") || "Tổng hợp tất cả Cổ Vật (Relics) trong chế độ Con Đường Anh Hùng (PoC) Legends of Runeterra. Tra cứu kỹ năng và cách lấy cổ vật dễ dàng."}
+			pageKeywords="danh sách cổ vật poc, relic list path of champions, cách lấy cổ vật lor, poc relics, lor pve relics"
 			heading={tUI("relicList.heading")}
 			// --- Quản lý Dữ liệu ---
 			data={relics}

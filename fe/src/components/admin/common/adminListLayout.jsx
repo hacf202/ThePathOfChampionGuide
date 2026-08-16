@@ -120,7 +120,7 @@ const AdminListLayout = ({
 							{emptyMessageTitle || tUI("common.notFound")}
 						</p>
 						<p className="text-text-secondary max-w-xs mx-auto text-sm">
-							{emptyMessageSub || tUI("admin.rune.tryOtherFilter")}
+							{emptyMessageSub || tUI("admin.common.tryOtherFilter")}
 						</p>
 						<Button variant="outline" size="sm" className="mt-6" onClick={sidePanelProps.onResetFilters}>
 							Xóa bộ lọc

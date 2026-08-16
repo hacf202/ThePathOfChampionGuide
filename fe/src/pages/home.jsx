@@ -140,8 +140,9 @@ const Home = () => {
 	return (
 		<div className='bg-[#05050A] text-text-primary font-primary selection:bg-primary-500 selection:text-white overflow-x-hidden'>
 			<PageTitle
-				title={tUI("home.pageTitle")}
-				description={tUI("home.pageDesc")}
+				title={tUI("home.pageTitle") || "POC GUIDE - Hướng Dẫn Con Đường Anh Hùng"}
+				description={tUI("home.pageDesc") || "Trang bách khoa toàn thư đầy đủ nhất về Con Đường Anh Hùng (The Path of Champions) trong Huyền Thoại Runeterra. Hướng dẫn cách chơi, build đồ, tra cứu cổ vật và vượt mọi thử thách."}
+				keywords="poc guide, hướng dẫn con đường anh hùng, the path of champions guide, legends of runeterra pve, lor poc guide, build tướng poc"
 				type='website'
 			/>
 
@@ -267,10 +268,10 @@ const Home = () => {
 				>
 					<CinematicCard to="/maps" icon={Map} title={tUI("nav.maps")} desc="Bản đồ các khu vực, thông tin nhánh rẽ và phần thưởng chi tiết." img={BACKGROUND_IMAGES[2]} />
 					<CinematicCard to="/bosses" icon={Crown} title={tUI("nav.bosses")} desc="Phân tích điểm yếu và chiến thuật đối đầu các Trùm nguy hiểm nhất." img={BACKGROUND_IMAGES[8]} />
-					<CinematicCard to="/tools/champion-items" icon={Users} title={"Tướng Phụ Tương Thích"} desc="Tra cứu và tìm kiếm Tướng Phụ (Sub-champion) phù hợp nhất với Tướng chính dựa trên vật phẩm." img={BACKGROUND_IMAGES[7]} />
+					<CinematicCard to="/tools/champion-items" icon={Users} title={tUI("home.subChampTitle")} desc="Tra cứu và tìm kiếm Tướng Phụ (Sub-champion) phù hợp nhất với Tướng chính dựa trên vật phẩm." img={BACKGROUND_IMAGES[7]} />
 					<CinematicCard to="/simulator/vaults" icon={Archive} title={tUI("nav.vaultSimulator") || "Vault Simulator"} desc="Giả lập mở rương để kiểm tra tỷ lệ rớt đồ và mảnh tướng." img={BACKGROUND_IMAGES[4]} />
 					<CinematicCard to="/randomizer" icon={Dices} title={tUI("home.luckyWheel") || "Randomizer"} desc="Tạo ngẫu nhiên Tướng và thử thách cho các pha chạy tự do." img={BACKGROUND_IMAGES[1]} />
-					<CinematicCard to="/tools/card-guess/event" icon={Clock} title={"Sự Kiện Đoán Thẻ Bài"} desc="Tham gia sự kiện giới hạn: Thử tài đoán tên thẻ bài qua hình ảnh và đua top nhận thưởng." img={BACKGROUND_IMAGES[10]} />
+					<CinematicCard to="/tools/card-guess/event" icon={Clock} title={tUI("home.cardGuessEventTitle")} desc="Tham gia sự kiện giới hạn: Thử tài đoán tên thẻ bài qua hình ảnh và đua top nhận thưởng." img={BACKGROUND_IMAGES[10]} />
 				</div>
 			</CinematicSection>
 
@@ -284,9 +285,9 @@ const Home = () => {
 				<div
 					className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-6xl ml-auto'
 				>
-					<CinematicCard to="/tierlist/champions" icon={Trophy} title={"Bảng Xếp Hạng Tướng"} desc="Xếp hạng sức mạnh (Tier List) của tất cả Tướng trong Meta hiện tại." img={BACKGROUND_IMAGES[1]} />
-					<CinematicCard to="/tierlist/relics" icon={Sparkles} title={"Bảng Xếp Hạng Cổ Vật"} desc="Đánh giá độ hiệu quả và tính linh hoạt của các Cổ Vật (Relic Tier List)." img={BACKGROUND_IMAGES[8]} />
-					<CinematicCard to="/tools/ratings" icon={Zap} title={"Đánh Giá Sức Mạnh"} desc="Xem biểu đồ phân tích và đánh giá chi tiết sức mạnh của từng vị Tướng." img={BACKGROUND_IMAGES[4]} />
+					<CinematicCard to="/tierlist/champions" icon={Trophy} title={tUI("home.champTierListTitle")} desc="Xếp hạng sức mạnh (Tier List) của tất cả Tướng trong Meta hiện tại." img={BACKGROUND_IMAGES[1]} />
+					<CinematicCard to="/tierlist/relics" icon={Sparkles} title={tUI("home.relicTierListTitle")} desc="Đánh giá độ hiệu quả và tính linh hoạt của các Cổ Vật (Relic Tier List)." img={BACKGROUND_IMAGES[8]} />
+					<CinematicCard to="/tools/ratings" icon={Zap} title={tUI("home.ratingsTitle")} desc="Xem biểu đồ phân tích và đánh giá chi tiết sức mạnh của từng vị Tướng." img={BACKGROUND_IMAGES[4]} />
 				</div>
 			</CinematicSection>
 
@@ -300,9 +301,9 @@ const Home = () => {
 				<div
 					className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto'
 				>
-					<CinematicCard to="/guides" icon={BookOpen} title={"Bài Viết Hướng Dẫn"} desc="Tuyển tập các bài hướng dẫn chi tiết từ cộng đồng game thủ." img={BACKGROUND_IMAGES[3]} small />
-					<CinematicCard to="/introduction" icon={HelpCircle} title={"Cơ Chế Trò Chơi"} desc="Giới thiệu và giải thích các cơ chế hoạt động của The Path of Champions." img={BACKGROUND_IMAGES[5]} small />
-					<CinematicCard to="/about-us" icon={Users} title={"Về Chúng Tôi"} desc="Thông tin về đội ngũ phát triển và mục tiêu của dự án." img={BACKGROUND_IMAGES[10]} small />
+					<CinematicCard to="/guides" icon={BookOpen} title={tUI("home.guidesListTitle")} desc="Tuyển tập các bài hướng dẫn chi tiết từ cộng đồng game thủ." img={BACKGROUND_IMAGES[3]} small />
+					<CinematicCard to="/introduction" icon={HelpCircle} title={tUI("home.gameMechanicsTitle")} desc="Giới thiệu và giải thích các cơ chế hoạt động của The Path of Champions." img={BACKGROUND_IMAGES[5]} small />
+					<CinematicCard to="/about-us" icon={Users} title={tUI("home.aboutUsTitle")} desc="Thông tin về đội ngũ phát triển và mục tiêu của dự án." img={BACKGROUND_IMAGES[10]} small />
 				</div>
 			</CinematicSection>
 

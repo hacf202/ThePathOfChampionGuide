@@ -76,8 +76,9 @@ function PowerList() {
 
 	return (
 		<GenericListLayout
-			pageTitle={tUI("powerList.title")}
-			pageDescription={tUI("powerList.metaDesc")}
+			pageTitle={tUI("powerList.title") || "Danh Sách Sức Mạnh PoC"}
+			pageDescription={tUI("powerList.metaDesc") || "Tổng hợp tất cả Sức Mạnh (Powers) trong chế độ Con Đường Anh Hùng (PoC) Legends of Runeterra."}
+			pageKeywords="danh sách sức mạnh poc, power list path of champions, tất cả power lor pve, poc powers"
 			heading={tUI("powerList.heading")}
 			data={powers}
 			loading={loading}

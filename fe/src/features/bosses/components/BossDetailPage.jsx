@@ -121,9 +121,9 @@ function BossDetailPage() {
 	return (
 		<div className='animate-fadeIn font-secondary max-w-[1100px] mx-auto p-0 sm:p-6 pb-20'>
 			<PageTitle 
-				title={`${bossName} - ${tUI("bossDetail.pageTitle") || "Boss Detail"}`} 
-				description={`${tUI("bossDetail.pageDescriptionPrefix") || "Chi tiết sức mạnh và mẹo đối đầu với Boss"} ${bossName}`}
-				keywords={`${bossName}, boss, LoR boss, PoC boss, strategy ${bossName}, guide ${bossName}`}
+				title={bossName ? `${bossName} | ${tUI("bossDetail.pageTitle") || "Boss Detail"}` : (tUI("bossDetail.pageTitle") || "Boss Detail")} 
+				description={bossName ? `Hướng dẫn chi tiết cách đánh boss ${bossName} trong Con Đường Anh Hùng (PoC). Các bài (cards) và sức mạnh (powers) của ${bossName} là gì?` : (tUI("bossDetail.pageDescriptionPrefix") || "Chi tiết sức mạnh và mẹo đối đầu với Boss")}
+				keywords={bossName ? `${bossName}, cách đánh boss ${bossName}, đánh bại ${bossName} poc, ${bossName} poc guide, boss guide lor pve` : ""}
 			/>
 
 			<div className='mb-4 flex items-center justify-between px-2 sm:px-0'>

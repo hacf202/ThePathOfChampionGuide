@@ -38,7 +38,7 @@ export const useRelicFilters = (tUI, t, dynamicFilters, knownRelics) => {
 		return [
 			{
 				key: "rarities",
-				label: tUI("admin.filters.rarityLabel") || "Độ hiếm",
+				label: tUI("common.rarity"),
 				options: uniqueRarities.map(r => ({
 					value: r,
 					label: getTranslatedRarity(
@@ -50,7 +50,7 @@ export const useRelicFilters = (tUI, t, dynamicFilters, knownRelics) => {
 			},
 			{
 				key: "types",
-				label: tUI("admin.filters.typeLabel") || "Loại",
+				label: tUI("common.type"),
 				options: Array.from(new Set(rawTypes)).map(t_val => {
 					const key = getTypeKey(t_val);
 					return {
@@ -61,7 +61,7 @@ export const useRelicFilters = (tUI, t, dynamicFilters, knownRelics) => {
 			},
 			{
 				key: "stacks",
-				label: tUI("admin.filters.stackLabel") || "Cộng dồn",
+				label: tUI("common.stack"),
 				options: Array.from(new Set(rawStacks)).map(s => ({
 					value: s,
 					label: tUI("relicList.stackLabel").replace("{{count}}", s) || s,

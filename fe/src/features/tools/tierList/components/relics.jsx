@@ -298,7 +298,7 @@ function TierListRelics() {
 		rawData => {
 			const usedIds = new Set();
 			const sampleTiers = getDefaultTiers().map(tier => {
-				const targetIds = sampleMapping[tier.id] || [];
+				const targetIds = sampleRelicMapping[tier.id] || [];
 				const items = rawData.filter(r => targetIds.includes(r.id));
 				items.forEach(i => usedIds.add(i.id));
 				return { ...tier, items };
@@ -320,7 +320,7 @@ function TierListRelics() {
 				const res = await fetch(`${apiUrl}/api/relics?limit=-1`);
 				const data = await res.json();
 				const formatted = sortItemsByName(
-					(data.items || []).map((r, index) => ({
+					(data.items || []).map(r => ({
 						id: String(r.relicCode || r.relicID || r.id),
 						name: r.name,
 						avatar: r.image || "/fallback-relic.png",

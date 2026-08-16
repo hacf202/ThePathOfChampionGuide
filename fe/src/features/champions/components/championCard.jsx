@@ -7,6 +7,8 @@ import { removeAccents } from "@/utils/vietnameseUtils";
 import SafeImage from "@/components/common/SafeImage";
 import { useTranslation } from "@/hooks/useTranslation"; // 🟢 Import Hook Đa ngôn ngữ
 import { HoverCard } from "@/components/common/animations";
+import { getRegionKey } from "@/utils/i18nHelpers";
+
 
 function ChampionCard({ champion }) {
 	// 🟢 Sử dụng tUI cho text tĩnh và tDynamic cho text từ DB
@@ -54,12 +56,10 @@ function ChampionCard({ champion }) {
 				<div className='flex items-center gap-2 mt-2'>
 					{/* Lặp qua mảng `regions` để lấy tên hiển thị */}
 					{champion.regions?.map(regionName => {
-						const regionIcon = iconRegions.find(r => r.name === regionName);
+						const regionIcon = iconRegions.find(r => getRegionKey(r.name) === getRegionKey(regionName));
 
 						// Tạo key từ tên gốc (VD: "Piltover & Zaun" -> "piltoverzaun")
-						const regionKey = removeAccents(regionName)
-							.toLowerCase()
-							.replace(/[^a-z0-9]/g, "");
+						const regionKey = getRegionKey(regionName);
 						// Lấy tên đã dịch từ tUI, nếu không có thì fallback về tên gốc
 						const translatedRegion = tUI(`shared.region.${regionKey}`) || regionName;
 

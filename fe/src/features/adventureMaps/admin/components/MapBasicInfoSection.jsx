@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from "@/hooks/useTranslation";
 import { Package } from 'lucide-react';
 import InputField from '@/components/common/inputField';
 
@@ -11,9 +12,7 @@ const MapBasicInfoSection = ({ formData, setFormData }) => {
 	return (
 		<section className='bg-surface-hover/30 p-5 rounded-xl border border-border shadow-sm flex flex-col'>
 			<h3 className='font-bold mb-4 text-lg border-l-4 border-emerald-500 pl-3 flex items-center gap-2'>
-				<Package size={20} className='text-emerald-500' />
-				Thông tin cơ bản
-			</h3>
+				<Package size={20} className='text-emerald-500' />{tUI("admin.adventureMap.basicInfo")}</h3>
 			<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4'>
 				<InputField
 					label='Độ khó (Difficulty)'

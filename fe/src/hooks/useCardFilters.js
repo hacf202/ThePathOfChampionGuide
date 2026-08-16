@@ -1,8 +1,9 @@
 // fe/src/hooks/useCardFilters.js
 import { useMemo } from "react";
 import { useGenericFilters } from "./useGenericFilters";
-import { removeAccents } from "@/utils/vietnameseUtils";
 import iconRegions from "@/assets/data/icon.json";
+import { getRegionKey, getRarityKey, getTypeKey } from "@/utils/i18nHelpers";
+
 
 export const useCardFilters = (tUI, dynamicFilters) => {
 	// 1. Khởi tạo Hook dùng chung (Tự động lo liệu việc đồng bộ URL)
@@ -21,27 +22,21 @@ export const useCardFilters = (tUI, dynamicFilters) => {
 		return [
 			{
 				key: "rarities",
-				label: tUI("common.rarity") || "Độ hiếm",
+				label: tUI("common.rarity"),
 				options: (dynamicFilters.rarities || []).map(r => ({
-					label: tUI(`shared.rarity.${r.toLowerCase()}`) || r,
+					label: tUI(`shared.rarity.${getRarityKey(r)}`) || r,
 					value: r
 				}))
 			},
 			{
 				key: "regions",
-				label: tUI("common.region") || "Khu vực",
+				label: tUI("common.region"),
 				options: (dynamicFilters.regions || []).map(r => {
 					// 1. Tìm trong icon.json để lấy tên tiếng Việt chuẩn hoặc khớp mã
-					const iconRegion = iconRegions.find(i => 
-						i.name === r || 
-						i.nameRef === r || 
-						i.nameRef === r.replace(/[\s&]+/g, '')
-					);
+					const iconRegion = iconRegions.find(i => getRegionKey(i.name) === getRegionKey(r));
 					const targetName = iconRegion ? iconRegion.name : r;
-					// 2. Slugify tên tiếng Việt để ra key (ví dụ: 'Quần Đảo Bóng Đêm' -> 'quandaobongdem')
-					const regionKey = removeAccents(targetName)
-						.toLowerCase()
-						.replace(/[^a-z0-9]/g, "");
+					// 2. Lấy key chuẩn
+					const regionKey = getRegionKey(targetName);
 
 					return {
 						value: r,
@@ -54,7 +49,7 @@ export const useCardFilters = (tUI, dynamicFilters) => {
 				key: "types",
 				label: tUI("common.type") || "Loại bài",
 				options: (dynamicFilters.types || []).map(t => ({
-					label: tUI(`shared.cardType.${t.toLowerCase()}`) || t,
+					label: tUI(`shared.cardType.${getTypeKey(t)}`) || t,
 					value: t
 				}))
 			},

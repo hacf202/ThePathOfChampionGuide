@@ -235,14 +235,14 @@ const CardEditorForm = memo(({ card, onSave, onCancel, onDelete, isSaving }) => 
                                             descriptionRaw: raw
                                         }));
                                     }}
-                                    placeholder="Nhập mô tả lá bài..."
+                                    placeholder={tUI("admin.cardForm.descriptionPlaceholder")}
                                 />
                             </div>
                         </div>
 
                         <div className="pt-2">
                              <InputField
-                                label="Mã thẻ bài liên quan (associatedCardRefs - phân tách bằng dấu phẩy)"
+                                label={tUI("admin.cardForm.associatedCardsLabel")}
                                 value={formData.associatedCardRefs || ""}
                                 onChange={(e) => handleArrayChange('associatedCardRefs', e.target.value)}
                                 placeholder="01NX001, 01NX002..."

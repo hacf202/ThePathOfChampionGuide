@@ -92,9 +92,9 @@ function RelicDetail() {
 			loading={loading}
 			error={error}
 			onBack={() => navigate(-1)}
-			pageTitle={relicName || tUI("relicDetail.title")}
-			pageDescription={`${tUI("relicDetail.metaDesc")} ${relicName}`}
-			pageKeywords={`${relicName}, relic, ${relicRarity}, LoR relic, PoC relic`}
+			pageTitle={relicName ? `${relicName} | ${tUI("relicDetail.title")}` : tUI("relicDetail.title")}
+			pageDescription={relicName ? `Hướng dẫn chi tiết về cổ vật (relic) ${relicName} trong chế độ Con Đường Anh Hùng (PoC) Legends of Runeterra. ${relicName} nên dùng cho tướng nào hiệu quả nhất?` : tUI("relicDetail.metaDesc")}
+			pageKeywords={relicName ? `${relicName}, cổ vật ${relicName}, hướng dẫn cổ vật poc, ${relicName} relic poc, ${relicName} cho tướng nào, ${relicRarity}, LoR relic, PoC relic pve` : ""}
 			imageSrc={relic?.assetAbsolutePath}
 			name={relicName}
 			rarity={relicRarity}

@@ -72,8 +72,9 @@ function ChampionList() {
 
 	return (
 		<GenericListLayout
-			pageTitle={tUI("championList.title")}
-			pageDescription={tUI("championList.pageDescription")}
+			pageTitle={tUI("championList.title") || "Danh Sách Tướng PoC"}
+			pageDescription={tUI("championList.pageDescription") || "Danh sách toàn bộ Tướng (Champions) trong chế độ Con Đường Anh Hùng (PoC) Legends of Runeterra. Tra cứu nhanh lối chơi, sức mạnh sao, và cổ vật khuyên dùng."}
+			pageKeywords="danh sách tướng poc, champion list path of champions, tất cả tướng lor pve, poc champions, tra cứu tướng poc"
 			heading={tUI("championList.heading")}
 			data={champions}
 			loading={loading}

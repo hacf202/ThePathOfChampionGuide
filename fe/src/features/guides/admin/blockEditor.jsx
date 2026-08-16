@@ -247,7 +247,7 @@ const BlockItem = ({ block, index, onUpdate, onDelete }) => {
 														onUpdate({ ...block, headers: nh, rows: nr });
 													}}
 													className='opacity-0 group-hover:opacity-100 text-red-500 hover:bg-red-500 hover:text-white p-0.5 rounded transition-all shrink-0'
-													title='Xóa cột'
+													title={tUI('admin.blockEditor.deleteColumn')}
 												>
 													<XCircle size={14} />
 												</button>
@@ -261,7 +261,7 @@ const BlockItem = ({ block, index, onUpdate, onDelete }) => {
 								{/* Data rows */}
 								{rows.length === 0 ? (
 									<div className='py-6 text-center text-text-tertiary text-sm italic'>
-										Chưa có dòng nào. Nhấn "+ Thêm Dòng" để bắt đầu.
+										Chưa có dòng nào. Nhấn {tUI("admin.blockEditor.addRow")} để bắt đầu.
 									</div>
 								) : rows.map((row, rIdx) => (
 									<div key={rIdx} className='flex border-t border-border group hover:bg-surface-hover/20 transition-colors'>
@@ -291,7 +291,7 @@ const BlockItem = ({ block, index, onUpdate, onDelete }) => {
 													handleChange("rows", nr);
 												}}
 												className='opacity-0 group-hover:opacity-100 text-red-500 hover:text-white hover:bg-red-500 p-1.5 rounded-lg transition-all'
-												title='Xóa dòng'
+												title={tUI('admin.blockEditor.deleteRow')}
 											>
 												<Trash2 size={14} />
 											</button>
@@ -481,7 +481,7 @@ const BlockItem = ({ block, index, onUpdate, onDelete }) => {
 						<button
 							onClick={onDelete}
 							className='px-3 text-red-400 hover:text-white hover:bg-red-500 opacity-0 group-hover:opacity-100 transition-all'
-							title='Xóa Block này'
+							title={tUI('admin.blockEditor.deleteBlock')}
 						>
 							<Trash2 size={16} />
 						</button>
@@ -530,7 +530,7 @@ const BlockEditor = ({
 						>
 							{blocks.length === 0 && (
 								<p className='text-text-tertiary italic text-sm absolute'>
-									Chưa có nội dung. Bấm nút bên dưới để thêm.
+									{tUI("admin.common.emptyList")}
 								</p>
 							)}
 							{blocks.map((block, index) => (

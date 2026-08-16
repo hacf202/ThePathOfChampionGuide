@@ -49,9 +49,9 @@ function GlobalSearch({ compact = false, showClose = false, onClose = null }) {
                 <div
                     className="absolute top-full mt-2 left-0 w-full
                         bg-[var(--color-modal-bg)] border border-[var(--color-border)]
-                        rounded-xl shadow-2xl z-[9999] overflow-hidden"
+                        rounded-xl shadow-2xl z-[9999] overflow-hidden flex flex-col max-h-[60vh] sm:max-h-[400px]"
                 >
-                    <div ref={listRef} className="max-h-[70vh] overflow-y-auto-scrollbar">
+                    <div ref={listRef} className="overflow-y-auto custom-scrollbar flex-1">
                         {query.length < 2 && (
                             <SearchSuggestions
                                 recentSearches={recentSearches}
@@ -97,7 +97,7 @@ function GlobalSearch({ compact = false, showClose = false, onClose = null }) {
                     </div>
 
                     {hasResults && (
-                        <div className="hidden sm:flex items-center gap-3 px-3 py-1.5 border-t border-[var(--color-border)] text-[10px] text-[var(--color-text-secondary)]">
+                        <div className="hidden sm:flex items-center gap-3 px-3 py-1.5 border-t border-[var(--color-border)] text-[10px] text-[var(--color-text-secondary)] shrink-0 bg-[var(--color-modal-bg)]">
                             <span>
                                 <kbd className="px-1 py-0.5 rounded bg-[var(--color-surface-bg)] border border-[var(--color-border)] font-mono text-[9px] mr-0.5">↑↓</kbd>
                                 điều hướng

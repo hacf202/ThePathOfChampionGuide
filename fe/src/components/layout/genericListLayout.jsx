@@ -25,6 +25,7 @@ gsap.registerPlugin(Flip);
 const GenericListLayout = ({
 	pageTitle,
 	pageDescription,
+	pageKeywords,
 	heading,
 
 	// --- Data & Pagination ---
@@ -197,8 +198,12 @@ const GenericListLayout = ({
 	};
 
 	return (
-		<div className='animate-fadeIn'>
-			<PageTitle title={pageTitle} description={pageDescription} />
+		<div className='bg-[#05050A] text-text-primary min-h-screen font-secondary overflow-hidden flex flex-col relative'>
+			<PageTitle
+				title={pageTitle}
+				description={pageDescription}
+				keywords={pageKeywords}
+			/>
 
 			<div className='font-secondary'>
 				{/* --- HEADER --- */}

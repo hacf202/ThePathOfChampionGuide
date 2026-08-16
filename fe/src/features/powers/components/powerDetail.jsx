@@ -88,9 +88,9 @@ function PowerDetail() {
 			loading={loading}
 			error={error}
 			onBack={() => navigate(-1)}
-			pageTitle={powerName || tUI("powerDetail.title")}
-			pageDescription={`${tUI("powerDetail.metaDesc")} ${powerName}`}
-			pageKeywords={`${powerName}, power, ${powerRarity}, LoR power, PoC power`}
+			pageTitle={powerName ? `${powerName} | ${tUI("powerDetail.title")}` : tUI("powerDetail.title")}
+			pageDescription={powerName ? `Sức mạnh (Power) ${powerName} trong chế độ Con Đường Anh Hùng (PoC). Thông tin chi tiết, cách hoạt động và tướng nào nên lấy sức mạnh này nhất.` : tUI("powerDetail.metaDesc")}
+			pageKeywords={powerName ? `${powerName}, sức mạnh ${powerName}, ${powerName} power poc, ${powerRarity}, LoR power pve, PoC power guide` : ""}
 			imageSrc={power?.assetAbsolutePath}
 			name={powerName}
 			rarity={powerRarity}

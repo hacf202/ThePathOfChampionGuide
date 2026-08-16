@@ -15,6 +15,7 @@ import {
 } from "@floating-ui/react";
 import RarityIcon from "./rarityIcon";
 import { useTranslation } from "@/hooks/useTranslation";
+import { getRarityKey } from "@/utils/i18nHelpers";
 import { removeAccents } from "@/utils/vietnameseUtils";
 import MarkupRenderer from "./MarkupRenderer";
 
@@ -91,10 +92,8 @@ const GenericCard = ({
 			return dynTrans;
 		}
 
-		// Chuẩn hóa: loại bỏ dấu và ký tự đặc biệt ("Sử Thi" -> "suthi")
-		const normalizedKey = removeAccents(rawRarity)
-			.toLowerCase()
-			.replace(/[^a-z0-9]/g, "");
+		// Chuẩn hóa
+		const normalizedKey = getRarityKey(rawRarity);
 		return tUI(`shared.rarity.${normalizedKey}`) || rawRarity;
 	};
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from "@/hooks/useTranslation";
 import { REGION_OPTIONS } from '@/features/adventureMaps/admin/components/mapEditorConstants';
 
 const RegionArrayInput = ({ label, items, onChange }) => {
@@ -34,7 +35,7 @@ const RegionArrayInput = ({ label, items, onChange }) => {
 						}
 					}}
 				>
-					<option value=''>-- Chọn vùng --</option>
+					<option value=''>{tUI("admin.adventureMap.selectRegion")}</option>
 					{availableRegions.map(opt => (
 						<option key={opt.value} value={opt.value}>
 							{opt.label}

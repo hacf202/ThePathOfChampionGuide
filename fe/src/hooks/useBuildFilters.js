@@ -28,7 +28,7 @@ export const useBuildFilters = (tUI, dynamicFilters = {}) => {
 		return [
 			{
 				key: "regions",
-				label: tUI("common.region") || "Khu vực",
+				label: tUI("common.region"),
 				options: (dynamicFilters.regions || []).map(name => ({
 					value: name,
 					label: name,

@@ -153,7 +153,7 @@ const GuideList = () => {
 					type='text'
 					value={search}
 					onChange={e => setSearch(e.target.value)}
-					placeholder='Tìm kiếm bài viết...'
+					placeholder={tUI('guideList.searchPlaceholder')}
 					className='w-full pl-9 pr-9 py-2.5 rounded-xl border border-border bg-surface-bg text-text-primary placeholder-text-tertiary text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/50 transition'
 				/>
 				{search && (

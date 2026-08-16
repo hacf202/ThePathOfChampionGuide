@@ -38,7 +38,7 @@ export const useItemFilters = (tUI, t, dynamicFilters, knownItems) => {
 		return [
 			{
 				key: "rarities",
-				label: tUI("common.rarity") || "Độ hiếm",
+				label: tUI("common.rarity"),
 				options: uniqueRarities.map(r => {
 					const sampleItem = knownItems.find(i => i.rarity === r);
 					return {

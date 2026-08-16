@@ -57,7 +57,7 @@ const BuildEditWrapper = ({ items, onSave, onDelete, isSaving }) => {
 		return (
 			<div className='flex flex-col items-center justify-center py-20 text-[var(--color-text-secondary)]'>
 				<p className='text-xl mb-4'>
-					{tUI("admin.build.notFoundId")} {id}
+					{tUI("admin.common.notFoundId")} {id}
 				</p>
 				<Button onClick={() => navigate("/admin/builds")} variant='primary'>
 					{tUI("admin.common.backToList")}
@@ -199,7 +199,7 @@ function BuildEditor() {
 			
 			Swal.fire({
 				icon: "success",
-				title: "Đã lưu!",
+				title: tUI("admin.common.saveSuccess"),
 				text: tUI("admin.common.saveSuccess"),
 				timer: 2000,
 				showConfirmButton: false,
@@ -209,7 +209,7 @@ function BuildEditor() {
 		} catch (e) {
 			Swal.fire({
 				icon: "error",
-				title: "Lỗi",
+				title: tUI("admin.common.errorOccurred"),
 				text: e.message || tUI("admin.common.errorOccurred"),
 				confirmButtonColor: "#3b82f6",
 			});
@@ -220,14 +220,14 @@ function BuildEditor() {
 
 	const handleDeleteItem = async id => {
 		const result = await Swal.fire({
-			title: "Xác nhận xóa?",
+			title: tUI("admin.common.deleteConfirm"),
 			text: "Bản dựng này sẽ bị xóa vĩnh viễn!",
 			icon: "warning",
 			showCancelButton: true,
 			confirmButtonColor: "#ef4444",
 			cancelButtonColor: "#6b7280",
-			confirmButtonText: "Vâng, xóa nó!",
-			cancelButtonText: "Hủy bỏ",
+			confirmButtonText: tUI("admin.common.delete"),
+			cancelButtonText: tUI("admin.common.cancel"),
 			background: "#1f2937",
 			color: "#f3f4f6",
 		});
@@ -247,7 +247,7 @@ function BuildEditor() {
 			
 			Swal.fire({
 				icon: "success",
-				title: "Đã xóa!",
+				title: tUI("admin.common.deleteSuccess"),
 				text: tUI("admin.common.deleteSuccess"),
 				timer: 2000,
 				showConfirmButton: false,
@@ -257,7 +257,7 @@ function BuildEditor() {
 		} catch (e) {
 			Swal.fire({
 				icon: "error",
-				title: "Lỗi",
+				title: tUI("admin.common.errorOccurred"),
 				text: e.message || tUI("admin.common.deleteFailed"),
 				confirmButtonColor: "#3b82f6",
 			});
@@ -267,8 +267,8 @@ function BuildEditor() {
 	};
 
 	const sidePanelProps = {
-		searchPlaceholder: tUI("admin.build.searchPlaceholder"),
-		resetLabel: tUI("admin.build.resetFilter"),
+		searchPlaceholder: tUI("admin.common.searchPlaceholder"),
+		resetLabel: tUI("admin.common.resetFilter"),
 		searchInput,
 		onSearchInputChange: e => setSearchInput(e.target.value),
 		onSearch: () => {
@@ -316,8 +316,8 @@ function BuildEditor() {
 							currentPage={currentPage}
 							onPageChange={setCurrentPage}
 							sidePanelProps={sidePanelProps}
-							emptyMessageTitle={tUI("admin.build.notFound")}
-							emptyMessageSub={tUI("admin.build.tryOtherFilter")}
+							emptyMessageTitle={tUI("admin.common.notFound")}
+							emptyMessageSub={tUI("admin.common.tryOtherFilter")}
 						>
 							<div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 relative'>
 								{isLoading && items.length > 0 && (

@@ -64,9 +64,9 @@ const RuneListView = memo(
 				currentPage={currentPage}
 				onPageChange={onPageChange}
 				sidePanelProps={sidePanelProps}
-				emptyMessageTitle={tUI("admin.rune.notFound")}
+				emptyMessageTitle={tUI("admin.common.notFound")}
 				emptyMessageSub={
-					tUI("admin.rune.tryOtherFilter")
+					tUI("admin.common.tryOtherFilter")
 				}
 			>
 				<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6'>
@@ -115,7 +115,7 @@ const RuneEditWrapper = ({
 		return (
 			<div className='flex flex-col items-center justify-center py-20 text-text-secondary'>
 				<p className='text-xl mb-4'>
-					{tUI("admin.rune.notFoundId")} {id}
+					{tUI("admin.common.notFoundId")} {id}
 				</p>
 				<Button onClick={handleBack} variant='primary'>
 					{tUI("admin.common.backToList")}
@@ -219,7 +219,7 @@ function RuneEditor() {
 			
 			Swal.fire({
 				icon: "success",
-				title: "Đã lưu!",
+				title: tUI("admin.common.saveSuccess"),
 				text: result.message || tUI("admin.common.saveSuccess"),
 				timer: 2000,
 				showConfirmButton: false,
@@ -229,7 +229,7 @@ function RuneEditor() {
 		} catch (e) {
 			Swal.fire({
 				icon: "error",
-				title: "Lỗi",
+				title: tUI("admin.common.errorOccurred"),
 				text: e.message || tUI("admin.common.errorOccurred"),
 				confirmButtonColor: "#3b82f6",
 			});
@@ -242,14 +242,14 @@ function RuneEditor() {
 		if (!id) return;
 		
 		const result = await Swal.fire({
-			title: "Xác nhận xóa?",
+			title: tUI("admin.common.deleteConfirm"),
 			text: "Bạn sẽ không thể khôi phục lại dữ liệu này!",
 			icon: "warning",
 			showCancelButton: true,
 			confirmButtonColor: "#ef4444",
 			cancelButtonColor: "#6b7280",
-			confirmButtonText: "Vâng, xóa nó!",
-			cancelButtonText: "Hủy bỏ",
+			confirmButtonText: tUI("admin.common.delete"),
+			cancelButtonText: tUI("admin.common.cancel"),
 			background: "#1f2937",
 			color: "#f3f4f6",
 		});
@@ -272,7 +272,7 @@ function RuneEditor() {
 			
 			Swal.fire({
 				icon: "success",
-				title: "Đã xóa!",
+				title: tUI("admin.common.deleteSuccess"),
 				text: tUI("admin.common.deleteSuccess"),
 				timer: 2000,
 				showConfirmButton: false,
@@ -282,7 +282,7 @@ function RuneEditor() {
 		} catch (e) {
 			Swal.fire({
 				icon: "error",
-				title: "Lỗi",
+				title: tUI("admin.common.errorOccurred"),
 				text: e.message || tUI("admin.common.deleteFailed"),
 				confirmButtonColor: "#3b82f6",
 			});
@@ -311,8 +311,8 @@ function RuneEditor() {
 				{ value: "id-desc", label: tUI("admin.common.sortIdDesc") || "ID (Giảm dần)" },
 				{ value: "name-asc", label: tUI("admin.common.sortNameAsc") },
 				{ value: "name-desc", label: tUI("admin.common.sortNameDesc") },
-				{ value: "rarity-asc", label: tUI("admin.rune.sortRarityAsc") },
-				{ value: "rarity-desc", label: tUI("admin.rune.sortRarityDesc") },
+				{ value: "rarity-asc", label: tUI("admin.common.sortRarityAsc") },
+				{ value: "rarity-desc", label: tUI("admin.common.sortRarityDesc") },
 			],
 		};
 	}, [runes, tUI]);
@@ -383,9 +383,9 @@ function RuneEditor() {
 	]);
 
 	const sidePanelProps = {
-		searchPlaceholder: tUI("admin.rune.searchPlaceholder"),
-		addLabel: tUI("admin.rune.addNew"),
-		resetLabel: tUI("admin.rune.resetFilter"),
+		searchPlaceholder: tUI("admin.common.searchPlaceholder"),
+		addLabel: tUI("admin.common.addNew"),
+		resetLabel: tUI("admin.common.resetFilter"),
 		searchInput,
 		onSearchInputChange: e => setSearchInput(e.target.value),
 		onSearch: () => {
@@ -408,21 +408,21 @@ function RuneEditor() {
 		},
 		multiFilterConfigs: [
 			{
-				label: tUI("admin.rune.region"),
+				label: tUI("common.region"),
 				options: filterOptions.regions,
 				selectedValues: selectedRegions,
 				onChange: setSelectedRegions,
 				placeholder: tUI("admin.rune.allRegions"),
 			},
 			{
-				label: tUI("admin.rune.rarity"),
+				label: tUI("common.rarity"),
 				options: filterOptions.rarities,
 				selectedValues: selectedRarities,
 				onChange: setSelectedRarities,
 				placeholder: tUI("admin.rune.allRarities"),
 			},
 			{
-				label: tUI("admin.rune.type"),
+				label: tUI("common.type"),
 				options: filterOptions.types,
 				selectedValues: selectedTypes,
 				onChange: setSelectedTypes,

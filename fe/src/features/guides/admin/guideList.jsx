@@ -62,14 +62,14 @@ const GuideList = () => {
 		if (!slug) return;
 		
 		const result = await Swal.fire({
-			title: "Xác nhận xóa?",
-			text: `${tUI("common.deleteConfirmPrefix") || "Bạn muốn xóa bài viết: "}${slug}?`,
+			title: tUI("admin.common.deleteConfirm"),
+			text: `${tUI("admin.common.deleteConfirm")} (${slug})`,
 			icon: "warning",
 			showCancelButton: true,
 			confirmButtonColor: "#ef4444",
 			cancelButtonColor: "#6b7280",
-			confirmButtonText: "Vâng, xóa nó!",
-			cancelButtonText: "Hủy bỏ",
+			confirmButtonText: tUI("admin.common.delete"),
+			cancelButtonText: tUI("admin.common.cancel"),
 			background: "#1f2937",
 			color: "#f3f4f6",
 		});
@@ -85,7 +85,7 @@ const GuideList = () => {
 			
 			Swal.fire({
 				icon: "success",
-				title: "Đã xóa!",
+				title: tUI("admin.common.deleteSuccess"),
 				text: "Bài viết đã được gỡ bỏ.",
 				timer: 2000,
 				showConfirmButton: false,
@@ -95,8 +95,8 @@ const GuideList = () => {
 		} catch (err) {
 			Swal.fire({
 				icon: "error",
-				title: "Lỗi",
-				text: tUI("common.error") || "Có lỗi xảy ra khi xóa bài viết.",
+				title: tUI("admin.common.errorOccurred"),
+				text: tUI("common.error") || "Error deleting guide.",
 				confirmButtonColor: "#3b82f6",
 			});
 		} finally {

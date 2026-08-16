@@ -156,14 +156,14 @@ const DbStatsManager = () => {
 					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
 						<StatCard
 							icon={<HardDrive size={22} />}
-							label="Đã dùng (Storage)"
+							label={tUI("admin.dbStats.storageUsed")}
 							value={`${overview.storage.totalStorageMB} MB`}
 							sub={`/ ${overview.storage.limitMB} MB giới hạn`}
 							color={storageStatus === "ok" ? "emerald" : storageStatus === "warning" ? "amber" : "red"}
 						/>
 						<StatCard
 							icon={<FileText size={22} />}
-							label="Dữ liệu thực"
+							label={tUI("admin.dbStats.actualData")}
 							value={`${overview.storage.dataStorageMB} MB`}
 							sub="Không tính index"
 						/>
@@ -174,7 +174,7 @@ const DbStatsManager = () => {
 						/>
 						<StatCard
 							icon={<Layers size={22} />}
-							label="Tổng documents"
+							label={tUI("admin.dbStats.totalDocuments")}
 							value={overview.objects.total.toLocaleString()}
 							sub={`${overview.objects.collections} collections`}
 							color="primary"
@@ -329,7 +329,7 @@ const DbStatsManager = () => {
 													<button
 														onClick={() => setEditingRow({ name: col.name, value: col.limit })}
 														className="opacity-0 group-hover:opacity-100 p-2 text-text-tertiary hover:text-primary-400 hover:bg-primary-500/10 rounded-xl transition-all"
-														title="Sửa giới hạn"
+														title={tUI("admin.dbStats.editLimit")}
 													>
 														<Edit3 size={16} />
 													</button>

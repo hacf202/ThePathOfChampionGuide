@@ -413,7 +413,7 @@ const MarkupEditor = ({ value, onChange, placeholder = "Nhập nội dung..." })
 											autoFocus
 											data-gramm="false"
 											className="bg-transparent text-[10px] text-white outline-none w-full"
-											placeholder="Tìm..."
+											placeholder={tUI("admin.markupEditor.search")}
 											value={searchQuery}
 											onChange={e => setSearchQuery(e.target.value)}
 										/>

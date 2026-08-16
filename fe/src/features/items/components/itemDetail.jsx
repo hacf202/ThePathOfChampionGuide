@@ -100,9 +100,9 @@ function ItemDetail() {
 			loading={loading}
 			error={error}
 			onBack={() => navigate(-1)}
-			pageTitle={itemName || tUI("itemDetail.title")}
-			pageDescription={`${tUI("itemDetail.metaDesc")} ${itemName}`}
-			pageKeywords={`${itemName}, item, ${itemRarity}, LoR item, PoC item`}
+			pageTitle={itemName ? `${itemName} | ${tUI("itemDetail.title")}` : tUI("itemDetail.title")}
+			pageDescription={itemName ? `Mọi thông tin về trang bị (item) ${itemName} trong chế độ Con Đường Anh Hùng (PoC) Legends of Runeterra. ${itemName} xuất hiện khi nào?` : tUI("itemDetail.metaDesc")}
+			pageKeywords={itemName ? `${itemName}, trang bị ${itemName}, ${itemName} item poc, ${itemRarity}, LoR item pve, PoC item` : ""}
 			imageSrc={item?.assetAbsolutePath}
 			name={itemName}
 			rarity={itemRarity}

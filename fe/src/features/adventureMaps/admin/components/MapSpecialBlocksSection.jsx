@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from "@/hooks/useTranslation";
 import { Info, Plus } from 'lucide-react';
 import Button from '@/components/common/button';
 import SpecialBlockEditor from '@/features/adventureMaps/admin/components/SpecialBlockEditor';
@@ -12,9 +13,7 @@ const MapSpecialBlocksSection = ({ formData, setFormData, cachedData }) => {
 						<Info size={18} className='text-yellow-500' />
 						Yêu cầu / Mô tả đặc biệt (Special Blocks)
 					</h3>
-					<p className='text-xs text-text-secondary pl-3 mt-1'>
-						Thiết lập các khối ghi chú đặc biệt cho bản đồ. Kéo thả tài nguyên từ Sidebar bên phải vào mỗi block.
-					</p>
+					<p className='text-xs text-text-secondary pl-3 mt-1'>{tUI("admin.adventureMap.specialBlocksDesc")}</p>
 				</div>
 				<Button
 					type='button'
@@ -31,13 +30,12 @@ const MapSpecialBlocksSection = ({ formData, setFormData, cachedData }) => {
 						setFormData(p => ({ ...p, specialBlocks: blocks }));
 					}}
 				>
-					<Plus size={14} className='mr-1' /> Thêm Block
-				</Button>
+					<Plus size={14} className='mr-1' />{tUI("admin.adventureMap.addBlock")}</Button>
 			</div>
 
 			{(!formData.specialBlocks || formData.specialBlocks.length === 0) ? (
 				<div className='py-8 text-center text-text-secondary italic text-sm bg-surface-bg/30 rounded-xl border border-dashed border-border/50'>
-					Chưa có block đặc biệt nào. Bấm "Thêm Block" để tạo mới.
+					Chưa có block đặc biệt nào. Bấm tUI("admin.adventureMap.addBlock") để tạo mới.
 				</div>
 			) : (
 				<div className='space-y-6'>

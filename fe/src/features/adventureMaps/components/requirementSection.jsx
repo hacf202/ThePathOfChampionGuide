@@ -7,6 +7,8 @@ import SafeImage from "@/components/common/SafeImage";
 import { useTranslation } from "@/hooks/useTranslation";
 import { removeAccents } from "@/utils/vietnameseUtils";
 import iconData from "@/assets/data/icon.json";
+import { getRegionKey } from "@/utils/i18nHelpers";
+
 
 const RequirementSection = ({ resolvedChampions, adventure }) => {
 	const { tUI, tDynamic } = useTranslation();
@@ -38,9 +40,7 @@ const RequirementSection = ({ resolvedChampions, adventure }) => {
 	const getRegionIcon = regionName => getRawIcon(regionName);
 
 	const getTranslatedRegion = regionName => {
-		const regionKey = removeAccents(regionName)
-			.toLowerCase()
-			.replace(/[^a-z0-9]/g, "");
+		const regionKey = getRegionKey(regionName);
 		return tUI(`shared.region.${regionKey}`) || regionName;
 	};
 

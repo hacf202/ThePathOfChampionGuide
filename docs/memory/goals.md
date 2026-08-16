@@ -8,6 +8,7 @@
 3. **✅ Tự động hóa**: Hoàn thiện tính năng **Auto-Scan** mô tả bài trong Admin.
 4. **✅ Dashboard & Logs**: Tích hợp Audit Logs để theo dõi thao tác quản trị.
 5. **✅ Đồng bộ Triple-Theme**: Hoàn tất hệ thống 3 chế độ màu (Sáng, Tối, Ảnh nền) trên toàn ứng dụng.
+6. **✅ Refactor & Fix i18n (Hoàn tất)**: Rút gọn `en.json` & `vi.json`, đồng nhất text filters, loại bỏ text cứng tiếng Việt ở Admin, fix bug key sai (`about.whoWeAre5`, `intro.card2Desc`, `auth.error.passLower`), thêm namespace `randomWheel` vào en, chuẩn hóa `bestSubChampion` keys.
 
 ## Kế hoạch tương lai (Future Milestones)
 1. **Giao diện Client Overhaul**: Cấu trúc lại trang danh sách tướng (Champion List) cho hiện đại hơn.

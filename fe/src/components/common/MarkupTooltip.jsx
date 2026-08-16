@@ -119,7 +119,7 @@ const MarkupTooltip = ({
 						{...getFloatingProps()}
 						className='pointer-events-auto'
 					>
-						<div className={`bg-slate-950 text-white rounded-xl shadow-2xl border-2 ${theme.border} ${theme.glow} overflow-hidden 
+						<div className={`bg-slate-950 text-white rounded-xl shadow-2xl border-2 ${theme.border} ${theme.glow} overflow-hidden flex flex-col max-h-[60vh] sm:max-h-[400px] 
 							${isSpecialType ? 'w-[280px] sm:w-[320px]' : compact ? 'max-w-[260px]' : 'max-w-[320px] min-w-[200px]'} 
 							animate-in fade-in zoom-in-95 duration-200`}
 						>
@@ -131,13 +131,13 @@ const MarkupTooltip = ({
 
                             {/* Ảnh hiển thị (Nếu có) */}
                             {(showFullImg || isSpecialType) && fullImage && (
-                                <div className="w-full h-32 sm:h-40 bg-black/40 flex justify-center items-center p-2">
+                                <div className="w-full h-32 sm:h-40 bg-black/40 flex justify-center items-center p-2 shrink-0">
                                     <img src={fullImage} alt="" className="h-full w-auto object-contain drop-shadow-xl" />
                                 </div>
                             )}
 
-                            <div className="p-4">
-                                <div className="flex items-center gap-3 mb-3">
+                            <div className="p-4 overflow-y-auto custom-scrollbar flex-1">
+                                <div className="flex items-center gap-3 mb-3 shrink-0">
                                     {icon && !showFullImg && (
                                         <div className={`w-10 h-10 p-1.5 rounded-lg bg-white/5 border ${theme.border} flex-shrink-0`}>
                                             <img src={icon} alt="" className="w-full h-full object-contain" />

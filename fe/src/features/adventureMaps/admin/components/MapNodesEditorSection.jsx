@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useTranslation } from "@/hooks/useTranslation";
 import { CircleDot, Eye, EyeOff, Plus, Skull, ShieldQuestion, Zap, Image as ImageIcon, Flag, HandMetal, AlertCircle, ShoppingBag, Package, HelpCircle, Diamond } from 'lucide-react';
 import Button from '@/components/common/button';
 import { AdventureLine, AdventureConnections, AdventureNodeEditor, getUniqueAdvId, getAdvName, getAdvImage, NODE_TYPES_DATA } from '@/features/adventureMaps/admin/adventureEditorHelpers';
@@ -194,7 +195,7 @@ const MapNodesEditorSection = ({ formData, setFormData, cachedData }) => {
 				}
 			}
 		} catch (err) {
-			console.warn("Drag data không hợp lệ hoặc không phải boss", err);
+			console.warn(tUI("admin.adventureMap.invalidDragData"), err);
 		}
 	}, [setFormData]);
 
@@ -223,7 +224,7 @@ const MapNodesEditorSection = ({ formData, setFormData, cachedData }) => {
 							)
 						}
 					>
-						{nodeDisplayMode === "icon" ? "Chế độ Chấm" : "Chế độ Icon"}
+						{nodeDisplayMode === "icon" ? tUI("admin.adventureMap.dotMode") : tUI("admin.adventureMap.iconMode")}
 					</Button>
 
 					<Button
@@ -235,10 +236,10 @@ const MapNodesEditorSection = ({ formData, setFormData, cachedData }) => {
 							isMapVisible ? <EyeOff size={16} /> : <Eye size={16} />
 						}
 					>
-						{isMapVisible ? "Ẩn Bản đồ" : "Hiện Bản đồ"}
+						{isMapVisible ? tUI("admin.adventureMap.hideMap") : tUI("admin.adventureMap.showMap")}
 					</Button>
 					<div className='flex items-center gap-2 bg-surface-hover/80 p-1.5 rounded-xl border border-border shrink-0 shadow-sm'>
-						<span className='text-xs font-bold text-text-secondary pl-1.5 select-none'>Loại Node:</span>
+						<span className='text-xs font-bold text-text-secondary pl-1.5 select-none'>{tUI("admin.adventureMap.nodeTypeLabel")}</span>
 						<select
 							value={selectedNodeType}
 							onChange={e => setSelectedNodeType(e.target.value)}

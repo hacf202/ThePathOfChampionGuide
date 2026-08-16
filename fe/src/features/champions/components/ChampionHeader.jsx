@@ -3,6 +3,8 @@ import { Star } from "lucide-react";
 import SafeImage from "@/components/common/SafeImage";
 import MarkupRenderer from "@/components/common/MarkupRenderer";
 import iconRegions from "@/assets/data/icon.json";
+import { getRegionKey } from "@/utils/i18nHelpers";
+
 
 const ChampionHeader = ({ champion, tDynamic, tUI }) => {
 	const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
@@ -40,7 +42,7 @@ const ChampionHeader = ({ champion, tDynamic, tUI }) => {
 							<img
 								key={i}
 								src={
-									iconRegions.find(item => item.name === r)
+									iconRegions.find(item => getRegionKey(item.name) === getRegionKey(r))
 										?.image || "/fallback-image.svg"
 								}
 								alt={r}

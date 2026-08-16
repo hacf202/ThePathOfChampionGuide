@@ -14,6 +14,8 @@ import AdminListLayout from "@/components/admin/common/adminListLayout.jsx";
 import { LoadingState, ErrorState } from "@/components/admin/common/stateDisplays";
 import { invalidateEntityCache } from "@/utils/entityLookup";
 import Swal from "sweetalert2";
+import { getRegionKey } from "@/utils/i18nHelpers";
+
 
 const NEW_CHAMPION_TEMPLATE = {
 	championID: "",
@@ -63,7 +65,7 @@ const ChampionListView = memo(
 				onPageChange={onPageChange}
 				sidePanelProps={sidePanelProps}
 				emptyMessageTitle={tUI("common.notFound")}
-				emptyMessageSub={tUI("admin.build.tryOtherFilter")}
+				emptyMessageSub={tUI("admin.common.tryOtherFilter")}
 			>
 				<div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6'>
 					{paginatedChampions.map(champion => (
@@ -149,7 +151,7 @@ const ChampionEditWrapper = ({
 		return (
 			<div className='flex flex-col items-center justify-center py-20 text-text-secondary'>
 				<p className='text-xl mb-4'>
-					{tUI("admin.build.notFoundId")} {id}
+					{tUI("admin.common.notFoundId")} {id}
 				</p>
 				<Button onClick={handleBack} variant='primary'>
 					{tUI("admin.common.backToList")}
@@ -325,7 +327,7 @@ function ChampionEditor() {
 			
 			Swal.fire({
 				icon: "success",
-				title: "Đã lưu!",
+				title: tUI("admin.common.saveSuccess"),
 				text: tUI("admin.common.saveSuccess"),
 				timer: 2000,
 				showConfirmButton: false,
@@ -335,7 +337,7 @@ function ChampionEditor() {
 		} catch (e) {
 			Swal.fire({
 				icon: "error",
-				title: "Lỗi",
+				title: tUI("admin.common.errorOccurred"),
 				text: e.message,
 				confirmButtonColor: "#3b82f6",
 			});
@@ -348,14 +350,14 @@ function ChampionEditor() {
 		if (!championID) return;
 		
 		const result = await Swal.fire({
-			title: "Xác nhận xóa?",
+			title: tUI("admin.common.deleteConfirm"),
 			text: "Tất cả dữ liệu liên quan đến tướng này (bao gồm cả Chòm sao) sẽ bị xóa vĩnh viễn!",
 			icon: "warning",
 			showCancelButton: true,
 			confirmButtonColor: "#ef4444",
 			cancelButtonColor: "#6b7280",
-			confirmButtonText: "Vâng, xóa nó!",
-			cancelButtonText: "Hủy bỏ",
+			confirmButtonText: tUI("admin.common.delete"),
+			cancelButtonText: tUI("admin.common.cancel"),
 			background: "#1f2937",
 			color: "#f3f4f6",
 		});
@@ -383,7 +385,7 @@ function ChampionEditor() {
 			
 			Swal.fire({
 				icon: "success",
-				title: "Đã xóa!",
+				title: tUI("admin.common.deleteSuccess"),
 				text: tUI("admin.common.deleteSuccess"),
 				timer: 2000,
 				showConfirmButton: false,
@@ -393,7 +395,7 @@ function ChampionEditor() {
 		} catch (e) {
 			Swal.fire({
 				icon: "error",
-				title: "Lỗi",
+				title: tUI("admin.common.errorOccurred"),
 				text: e.message,
 				confirmButtonColor: "#3b82f6",
 			});
@@ -410,7 +412,7 @@ function ChampionEditor() {
 			.map(r => ({
 				value: r,
 				label: r,
-				iconUrl: iconRegions.find(i => i.name === r)?.image || "",
+				iconUrl: iconRegions.find(i => getRegionKey(i.name) === getRegionKey(r))?.image || "",
 			}));
 
 		const costs = [...new Set(safeChampions.map(c => Number(c.cost)))]

@@ -141,7 +141,7 @@ const ImageManager = memo(() => {
 	// ---- Folder Actions ----
 	const handleCreateFolder = async () => {
 		const { value: name } = await Swal.fire({
-			title: "Tạo thư mục mới",
+			title: tUI("admin.imageManager.createFolder"),
 			input: "text",
 			inputLabel: "Tên thư mục",
 			inputPlaceholder: "Không dấu, không khoảng cách...",
@@ -485,7 +485,7 @@ const ImageManager = memo(() => {
 						<button 
 							onClick={handleDeleteFolder}
 							className="p-2 text-danger-500 hover:bg-danger-500/10 rounded-xl transition-all"
-							title="Xóa thư mục"
+							title={tUI("admin.imageManager.deleteFolder")}
 						>
 							<FolderMinus size={20} />
 						</button>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from "@/hooks/useTranslation";
 import { DragDropArrayInput } from '@/features/adventureMaps/admin/adventureEditorHelpers';
 import RegionArrayInput from '@/features/adventureMaps/admin/components/RegionArrayInput';
 
@@ -20,7 +21,7 @@ const MapRequirementsSection = ({ formData, setFormData, cachedData }) => {
 							}))
 						}
 						cachedList={cachedData.champions || []}
-						placeholder='Kéo thả ID Tướng vào đây...'
+						placeholder={tUI("admin.adventureMap.dragChampionId")}
 					/>
 					<div className='border-t border-border/50 pt-4 mt-4'>
 						<RegionArrayInput
@@ -48,7 +49,7 @@ const MapRequirementsSection = ({ formData, setFormData, cachedData }) => {
 							setFormData(p => ({ ...p, specialRules: arr }))
 						}
 						cachedList={cachedData.powers || []}
-						placeholder='Kéo thả ID Power vào đây...'
+						placeholder={tUI("admin.adventureMap.dragPowerId")}
 					/>
 				</div>
 			</div>

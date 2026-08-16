@@ -128,9 +128,9 @@ const GuideDetail = () => {
 	return (
 		<div className='min-h-screen bg-page-bg'>
 			<PageTitle
-				title={`${guide.title} | POC GUIDE`}
+				title={`${guide.title} | Hướng dẫn PoC`}
 				description={guide.title}
-				keywords={`${guide.title}, hướng dẫn LoR, PoC guide, cẩm nang Path of Champions`}
+				keywords={`${guide.title}, hướng dẫn con đường anh hùng, lor pve guide, cẩm nang Path of Champions, the path of champions guide`}
 				type='article'
 			/>
 

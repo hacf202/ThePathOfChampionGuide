@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from "@/hooks/useTranslation";
 import { Plus, Trash2, Zap } from 'lucide-react';
 import Button from '@/components/common/button';
 import InputField from '@/components/common/inputField';
@@ -215,7 +216,7 @@ const MapBossesSection = ({ formData, setFormData, cachedData }) => {
 											setFormData(p => ({ ...p, Bosses: newBosses }));
 										}}
 										cachedList={cachedData.powers || []}
-										placeholder='Kéo thả ID Power vào đây...'
+										placeholder={tUI("admin.adventureMap.dragPowerId")}
 									/>
 								</div>
 							</div>

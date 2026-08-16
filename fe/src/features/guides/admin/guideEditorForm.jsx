@@ -131,7 +131,7 @@ const GuideForm = ({ slug }) => {
 			
 			Swal.fire({
 				icon: "success",
-				title: "Đã lưu!",
+				title: tUI("admin.common.saveSuccess"),
 				text: "Bài viết đã được cập nhật thành công.",
 				timer: 2000,
 				showConfirmButton: false,
@@ -141,8 +141,8 @@ const GuideForm = ({ slug }) => {
 		} catch (err) {
 			Swal.fire({
 				icon: "error",
-				title: "Lỗi",
-				text: tUI("common.error") || "Có lỗi xảy ra khi lưu bài viết.",
+				title: tUI("admin.common.errorOccurred"),
+				text: tUI("common.error") || "Error saving guide.",
 				confirmButtonColor: "#3b82f6",
 			});
 		} finally {
@@ -327,7 +327,7 @@ const GuideForm = ({ slug }) => {
 							{/* Blocks */}
 							{formData.content.length === 0 ? (
 								<div className='text-center py-8 text-text-tertiary text-sm italic'>
-									Chưa có nội dung. Thêm block ở cột bên trái.
+									{tUI("admin.common.emptyList") || "No content."}
 								</div>
 							) : (
 								<div className='text-sm'>

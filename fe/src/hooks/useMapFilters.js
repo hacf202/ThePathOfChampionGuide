@@ -31,7 +31,7 @@ export const useMapFilters = (tUI, dynamicFilters) => {
 		return [
 			{
 				key: "difficulty",
-				label: tUI("mapList.difficulty") || "Độ khó",
+				label: tUI("mapList.difficulty"),
 				options: (dynamicFilters.difficulties || []).map(d => ({
 					value: d.toString(),
 					label: `${d} ★`,
@@ -39,7 +39,7 @@ export const useMapFilters = (tUI, dynamicFilters) => {
 			},
 			{
 				key: "type",
-				label: tUI("mapList.type") || "Loại Phiêu Lưu",
+				label: tUI("mapList.type"),
 				options: (dynamicFilters.types || []).map(t => {
 					// Chuyển đổi tên type (VD: "Hoa Linh Lục Địa" -> "hoaLinhLucDia")
 					const toCamel = (str) => {

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from "@/hooks/useTranslation";
 import Button from '@/components/common/button';
 import InputField from '@/components/common/inputField';
 import { getItemInfo } from '@/features/adventureMaps/admin/components/mapEditorConstants';
@@ -100,9 +101,7 @@ const SpecialBlockEditor = ({ block, bIdx, formData, setFormData, cachedData }) 
 					variant='danger'
 					size='sm'
 					onClick={handleRemoveBlock}
-				>
-					Xóa Block
-				</Button>
+				>{tUI("admin.adventureMap.deleteBlock")}</Button>
 			</div>
 
 			{/* Title & Description inputs */}
@@ -116,7 +115,7 @@ const SpecialBlockEditor = ({ block, bIdx, formData, setFormData, cachedData }) 
 							r[bIdx].title = e.target.value;
 							setFormData(p => ({ ...p, specialBlocks: r }));
 						}}
-						placeholder='Ví dụ: Foe Powers'
+						placeholder={tUI("admin.adventureMap.exampleFoePowers")}
 					/>
 					<InputField
 						label='Dòng mô tả (VI - Không bắt buộc)'
@@ -126,7 +125,7 @@ const SpecialBlockEditor = ({ block, bIdx, formData, setFormData, cachedData }) 
 							r[bIdx].description = e.target.value;
 							setFormData(p => ({ ...p, specialBlocks: r }));
 						}}
-						placeholder='Ví dụ: In this adventure, all Foes have 3 powers...'
+						placeholder={tUI("admin.adventureMap.exampleDesc")}
 					/>
 				</div>
 				<div className='space-y-3'>
@@ -173,9 +172,7 @@ const SpecialBlockEditor = ({ block, bIdx, formData, setFormData, cachedData }) 
 					${isDragOver ? "border-primary-500 bg-primary-500/10" : "border-border bg-surface-hover/30"}`}
 				>
 					{(!block.items || block.items.length === 0) ? (
-						<div className='flex flex-col items-center justify-center flex-1 text-text-tertiary italic text-xs py-6 opacity-60'>
-							Kéo thả bất kỳ tài nguyên nào từ Sidebar bên phải vào đây...
-						</div>
+						<div className='flex flex-col items-center justify-center flex-1 text-text-tertiary italic text-xs py-6 opacity-60'>{tUI("admin.adventureMap.dragResourceHere")}</div>
 					) : (
 						<div className='space-y-3'>
 							{block.items.map((it, iIdx) => {
@@ -185,14 +182,14 @@ const SpecialBlockEditor = ({ block, bIdx, formData, setFormData, cachedData }) 
 								
 								// Local type badges
 								const typeLabels = {
-									champion: "Tướng",
+									champion: tUI("admin.adventureMap.champion"),
 									boss: "Boss",
-									item: "Vật Phẩm",
-									relic: "Cổ Vật",
-									power: "Sức Mạnh",
-									rune: "Ngọc Cổ Ngữ",
-									bonusStar: "Sao Tinh Tú",
-									card: "Lá Bài"
+									item: tUI("admin.adventureMap.item"),
+									relic: tUI("admin.adventureMap.relic"),
+									power: tUI("admin.adventureMap.power"),
+									rune: tUI("admin.adventureMap.rune"),
+									bonusStar: tUI("admin.adventureMap.bonusStar"),
+									card: tUI("admin.adventureMap.card")
 								};
 
 								return (

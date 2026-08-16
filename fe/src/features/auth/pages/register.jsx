@@ -90,7 +90,7 @@ const Register = ({ onClose, onSwitchToLogin }) => {
 
 					<InputField
 						type='text'
-						placeholder="Tên đăng nhập (Dùng để đăng nhập)"
+						placeholder={tUI("auth.usernameLoginHint")}
 						value={username}
 						onChange={e => setUsername(e.target.value)}
 						disabled={isLoading}
@@ -101,7 +101,7 @@ const Register = ({ onClose, onSwitchToLogin }) => {
 
 					<InputField
 						type='text'
-						placeholder="Tên hiển thị (Tên mọi người nhìn thấy)"
+						placeholder={tUI("auth.displayNameHint")}
 						value={displayName}
 						onChange={e => setDisplayName(e.target.value)}
 						disabled={isLoading}

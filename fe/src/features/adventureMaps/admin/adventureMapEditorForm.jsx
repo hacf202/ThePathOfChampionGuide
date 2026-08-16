@@ -1,5 +1,6 @@
 import React, { useState, memo, useEffect } from "react";
 import Button from "@/components/common/button";
+import { useTranslation } from "@/hooks/useTranslation";
 import MapBasicInfoSection from "@/features/adventureMaps/admin/components/MapBasicInfoSection";
 import MapRequirementsSection from "@/features/adventureMaps/admin/components/MapRequirementsSection";
 import MapSpecialBlocksSection from "@/features/adventureMaps/admin/components/MapSpecialBlocksSection";
@@ -9,6 +10,7 @@ import MapRewardsSection from "@/features/adventureMaps/admin/components/MapRewa
 
 const AdventureMapEditorForm = memo(
 	({ item, cachedData, onSave, onCancel, onDelete, isSaving }) => {
+		const { tUI } = useTranslation();
 		const [formData, setFormData] = useState({});
 
 		useEffect(() => {
@@ -87,9 +89,7 @@ const AdventureMapEditorForm = memo(
 								variant='danger'
 								onClick={() => onDelete(formData.adventureID)}
 								disabled={isSaving}
-							>
-								Xóa
-							</Button>
+							>{tUI("admin.common.remove")}</Button>
 						)}
 						<Button
 							type='submit'

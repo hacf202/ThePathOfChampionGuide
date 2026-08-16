@@ -14,7 +14,7 @@ const CompatibleItemsGrid = ({
     <div className="xl:w-[380px] 2xl:w-[450px] h-[300px] sm:h-[400px] xl:h-auto bg-surface-bg/80 rounded-3xl border border-border/50 p-2 sm:p-6 flex flex-col shrink-0 overflow-hidden shadow-2xl">
       <div className="flex items-center justify-between mb-4 px-2">
         <h3 className="text-[10px] sm:text-xs font-bold text-text-secondary uppercase tracking-widest flex items-center gap-2">
-          <ChevronRight className="w-3 h-3 text-primary-500" /> {tUI("bestSubChampion.vatPham")}
+          <ChevronRight className="w-3 h-3 text-primary-500" /> {tUI("bestSubChampion.compatibleItems")}
         </h3>
         {selectedItems.length > 0 && (
           <button 

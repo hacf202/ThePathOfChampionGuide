@@ -77,8 +77,9 @@ function BossListPage() {
 
 	return (
 		<GenericListLayout
-			pageTitle={tUI("bossList.pageTitle") || "Boss Encyclopedia"}
-			pageDescription={tUI("bossList.pageDescription") || "Tra cứu thông tin, sức mạnh và mẹo đối đầu với các Boss trong Path of Champions."}
+			pageTitle={tUI("bossList.pageTitle") || "Danh Sách Boss PoC"}
+			pageDescription={tUI("bossList.pageDescription") || "Tra cứu thông tin, sức mạnh và mẹo đối đầu với các Boss trong Con Đường Anh Hùng (Path of Champions)."}
+			pageKeywords="danh sách boss poc, cách đánh boss lor, boss list path of champions, hướng dẫn đánh boss poc, pve boss guide lor"
 			heading={tUI("bossList.heading") || "Boss Encyclopedia"}
 			
 			data={bosses}

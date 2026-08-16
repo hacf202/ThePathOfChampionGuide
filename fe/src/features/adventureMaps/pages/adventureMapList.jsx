@@ -104,14 +104,14 @@ export default function MapList() {
 			renderFilters={() => (
 				<>
 					<MultiSelectFilter
-						label={tUI("mapList.difficulty") || "Độ khó"}
+						label={tUI("mapList.difficulty")}
 						options={optionsMap.difficulty || []}
 						selectedValues={state.customFilters?.difficulty || []}
 						onChange={vals => actions.setFilterValue("difficulty", vals)}
 						placeholder={tUI("mapList.allDifficulties") || "Tất cả độ khó"}
 					/>
 					<MultiSelectFilter
-						label={tUI("mapList.type") || "Loại Phiêu Lưu"}
+						label={tUI("mapList.type")}
 						options={optionsMap.type || []}
 						selectedValues={state.customFilters?.type || []}
 						onChange={vals => actions.setFilterValue("type", vals)}

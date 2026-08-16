@@ -17,7 +17,7 @@ const ChampionItemsSidebar = ({
       <div className="relative group">
         <input
           type="text"
-          placeholder={tUI("bestSubChampion.timKiemTuong")}
+          placeholder={tUI("bestSubChampion.searchChampion")}
           className="w-full bg-surface-bg border border-border rounded-xl pl-10 pr-4 py-2 sm:py-2.5 text-xs focus:outline-none focus:border-primary-500/50 transition-all"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}

@@ -131,7 +131,7 @@ function MobileSidebar({ language, handleLanguageChange, tUI, isNavVisible }) {
 									key="search-icon"
 									onClick={() => setIsMobileSearchOpen(true)}
 									className='p-2 rounded-lg hover:bg-black/10 transition-all text-header-text flex-shrink-0'
-									aria-label="Tìm kiếm"
+									aria-label={tUI("nav.search")}
 								>
 									<Search className='w-5 h-5' />
 								</button>

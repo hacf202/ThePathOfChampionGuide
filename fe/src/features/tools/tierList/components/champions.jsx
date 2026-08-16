@@ -63,6 +63,8 @@ import {
 } from "@/features/tools/tierList/components/tierListComponents";
 import { useTranslation } from "@/hooks/useTranslation";
 import { sampleChampionMapping } from "@/features/tools/tierList/components/championSampleMapping";
+import { getRegionKey } from "@/utils/i18nHelpers";
+
 
 
 
@@ -431,7 +433,7 @@ function TierListChampions({ initialChampions }) {
 					value: name,
 					label: name,
 					iconUrl:
-						iconRegions.find(r => r.name === name)?.image ??
+						iconRegions.find(r => getRegionKey(r.name) === getRegionKey(name))?.image ??
 						"/fallback-image.svg",
 				})),
 			costs: [...new Set(allChampionsRaw.map(c => c.cost))]

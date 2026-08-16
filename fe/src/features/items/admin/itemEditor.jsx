@@ -62,10 +62,10 @@ const ItemListView = memo(
 				onPageChange={onPageChange}
 				sidePanelProps={sidePanelProps}
 				emptyMessageTitle={
-					tUI("admin.item.notFound")
+					tUI("admin.common.notFound")
 				}
 				emptyMessageSub={
-					tUI("admin.item.tryOtherFilter")
+					tUI("admin.common.tryOtherFilter")
 				}
 			>
 				<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6'>
@@ -114,7 +114,7 @@ const ItemEditWrapper = ({
 		return (
 			<div className='flex flex-col items-center justify-center py-20 text-text-secondary'>
 				<p className='text-xl mb-4'>
-					{tUI("admin.item.notFoundId")} {id}
+					{tUI("admin.common.notFoundId")} {id}
 				</p>
 				<Button onClick={handleBack} variant='primary'>
 					{tUI("admin.common.backToList")}
@@ -215,7 +215,7 @@ function ItemEditor() {
 			
 			Swal.fire({
 				icon: "success",
-				title: "Đã lưu!",
+				title: tUI("admin.common.saveSuccess"),
 				text: result.message || tUI("admin.common.saveSuccess"),
 				timer: 2000,
 				showConfirmButton: false,
@@ -225,7 +225,7 @@ function ItemEditor() {
 		} catch (e) {
 			Swal.fire({
 				icon: "error",
-				title: "Lỗi",
+				title: tUI("admin.common.errorOccurred"),
 				text: e.message || tUI("admin.common.errorOccurred"),
 				confirmButtonColor: "#3b82f6",
 			});
@@ -238,14 +238,14 @@ function ItemEditor() {
 		if (!id) return;
 		
 		const result = await Swal.fire({
-			title: "Xác nhận xóa?",
+			title: tUI("admin.common.deleteConfirm"),
 			text: "Bạn sẽ không thể khôi phục lại dữ liệu này!",
 			icon: "warning",
 			showCancelButton: true,
 			confirmButtonColor: "#ef4444",
 			cancelButtonColor: "#6b7280",
-			confirmButtonText: "Vâng, xóa nó!",
-			cancelButtonText: "Hủy bỏ",
+			confirmButtonText: tUI("admin.common.delete"),
+			cancelButtonText: tUI("admin.common.cancel"),
 			background: "#1f2937",
 			color: "#f3f4f6",
 		});
@@ -268,7 +268,7 @@ function ItemEditor() {
 			
 			Swal.fire({
 				icon: "success",
-				title: "Đã xóa!",
+				title: tUI("admin.common.deleteSuccess"),
 				text: tUI("admin.common.deleteSuccess"),
 				timer: 2000,
 				showConfirmButton: false,
@@ -278,7 +278,7 @@ function ItemEditor() {
 		} catch (e) {
 			Swal.fire({
 				icon: "error",
-				title: "Lỗi",
+				title: tUI("admin.common.errorOccurred"),
 				text: e.message || tUI("admin.common.deleteFailed"),
 				confirmButtonColor: "#3b82f6",
 			});
@@ -300,11 +300,11 @@ function ItemEditor() {
 				{ value: "name-desc", label: tUI("admin.common.sortNameDesc") },
 				{
 					value: "rarity-asc",
-					label: tUI("admin.item.sortRarityAsc"),
+					label: tUI("admin.common.sortRarityAsc"),
 				},
 				{
 					value: "rarity-desc",
-					label: tUI("admin.item.sortRarityDesc"),
+					label: tUI("admin.common.sortRarityDesc"),
 				},
 			],
 		};
@@ -358,9 +358,9 @@ function ItemEditor() {
 
 	const sidePanelProps = {
 		searchPlaceholder:
-			tUI("admin.item.searchPlaceholder"),
-		addLabel: tUI("admin.item.addNew"),
-		resetLabel: tUI("admin.item.resetFilter"),
+			tUI("admin.common.searchPlaceholder"),
+		addLabel: tUI("admin.common.addNew"),
+		resetLabel: tUI("admin.common.resetFilter"),
 		searchInput,
 		onSearchInputChange: e => setSearchInput(e.target.value),
 		onSearch: () => {
@@ -381,7 +381,7 @@ function ItemEditor() {
 		},
 		multiFilterConfigs: [
 			{
-				label: tUI("admin.item.rarity"),
+				label: tUI("common.rarity"),
 				options: filterOptions.rarities,
 				selectedValues: selectedRarities,
 				onChange: setSelectedRarities,

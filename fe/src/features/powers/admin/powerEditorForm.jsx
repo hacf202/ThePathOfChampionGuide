@@ -44,9 +44,7 @@ const ArrayInputComponent = ({
 					size='sm'
 					onClick={handleAddItem}
 					iconLeft={<Plus size={16} />}
-				>
-					Thêm
-				</Button>
+				>{tUI("admin.common.add")}</Button>
 			</div>
 
 			<div className='space-y-2'>
@@ -67,16 +65,14 @@ const ArrayInputComponent = ({
 								type='button'
 								onClick={() => handleRemoveItem(index)}
 								className='p-2 text-red-500 hover:bg-red-500/10 rounded-md font-bold'
-								title='Xóa'
+								title={tUI("admin.common.remove")}
 							>
 								X
 							</button>
 						</div>
 					))
 				) : (
-					<p className='text-sm italic text-text-tertiary bg-surface-bg p-3 rounded-md border border-dashed border-border'>
-						Không có mục nào. Nhấn "Thêm" để tạo mới.
-					</p>
+					<p className='text-sm italic text-text-tertiary bg-surface-bg p-3 rounded-md border border-dashed border-border'>{tUI("admin.common.emptyList")}</p>
 				)}
 			</div>
 		</div>

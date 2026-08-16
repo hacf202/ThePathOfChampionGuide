@@ -1,5 +1,5 @@
-// src/components/admin/adventureEditorHelpers.jsx
 import React, { useState, useMemo } from "react";
+import { useTranslation } from "@/hooks/useTranslation";
 import Swal from "sweetalert2";
 import Button from "@/components/common/button";
 import InputField from "@/components/common/inputField";
@@ -58,6 +58,7 @@ export const DragDropArrayInput = ({
 	cachedList = [],
 	placeholder = "Kéo thả ID vào đây",
 }) => {
+	const { tUI } = useTranslation();
 	const handleItemChange = (index, newValue) => {
 		const newData = [...data];
 		newData[index] = newValue;
@@ -102,9 +103,7 @@ export const DragDropArrayInput = ({
 					size='sm'
 					onClick={() => onChange([...data, ""])}
 					iconLeft={<Plus size={16} />}
-				>
-					Thêm
-				</Button>
+				>{tUI("admin.common.add")}</Button>
 			</div>
 
 			<div

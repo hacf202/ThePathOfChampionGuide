@@ -50,8 +50,8 @@ const CardListView = memo(
 				currentPage={currentPage}
 				onPageChange={onPageChange}
 				sidePanelProps={sidePanelProps}
-				emptyMessageTitle={tUI("admin.card.notFound")}
-				emptyMessageSub={tUI("admin.card.tryOtherFilter")}
+				emptyMessageTitle={tUI("admin.common.notFound")}
+				emptyMessageSub={tUI("admin.common.tryOtherFilter")}
 			>
 				<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4'>
 					{paginatedItems.map(card => (
@@ -120,7 +120,7 @@ const CardEditWrapper = ({ cards, onSave, onDelete, isSaving, sidePanelProps }) 
 		return (
 			<div className='flex flex-col items-center justify-center py-20 text-text-secondary'>
 				<p className='text-xl mb-4'>
-					{tUI("admin.card.notFoundId")} {id}
+					{tUI("admin.common.notFoundId")} {id}
 				</p>
 				<Button onClick={handleBack} variant='primary'>
 					{tUI("admin.common.backToList")}
@@ -217,7 +217,7 @@ function CardEditor() {
 			
 			Swal.fire({
 				icon: "success",
-				title: "Đã lưu!",
+				title: tUI("admin.common.saveSuccess"),
 				text: result.message || tUI("admin.common.saveSuccess"),
 				timer: 2000,
 				showConfirmButton: false,
@@ -227,7 +227,7 @@ function CardEditor() {
 		} catch (e) {
 			Swal.fire({
 				icon: "error",
-				title: "Lỗi",
+				title: tUI("admin.common.errorOccurred"),
 				text: e.message || tUI("admin.common.errorOccurred"),
 				confirmButtonColor: "#3b82f6",
 			});
@@ -240,14 +240,14 @@ function CardEditor() {
 		if (!id) return;
 		
 		const result = await Swal.fire({
-			title: "Xác nhận xóa?",
-			text: "Bạn có chắc chắn muốn xóa lá bài này? Dữ liệu không thể khôi phục!",
+			title: tUI("admin.common.deleteConfirm"),
+			text: tUI("admin.common.deleteConfirmTitle") || "Bạn có chắc chắn muốn xóa?",
 			icon: "warning",
 			showCancelButton: true,
 			confirmButtonColor: "#ef4444",
 			cancelButtonColor: "#6b7280",
-			confirmButtonText: "Vâng, xóa nó!",
-			cancelButtonText: "Hủy bỏ",
+			confirmButtonText: tUI("admin.common.delete"),
+			cancelButtonText: tUI("admin.common.cancel"),
 			background: "#1f2937",
 			color: "#f3f4f6",
 		});
@@ -271,7 +271,7 @@ function CardEditor() {
 			
 			Swal.fire({
 				icon: "success",
-				title: "Đã xóa!",
+				title: tUI("admin.common.deleteSuccess"),
 				text: tUI("admin.common.deleteSuccess"),
 				timer: 2000,
 				showConfirmButton: false,
@@ -281,7 +281,7 @@ function CardEditor() {
 		} catch (e) {
 			Swal.fire({
 				icon: "error",
-				title: "Lỗi",
+				title: tUI("admin.common.errorOccurred"),
 				text: e.message || tUI("admin.common.deleteFailed"),
 				confirmButtonColor: "#3b82f6",
 			});
@@ -344,9 +344,9 @@ function CardEditor() {
 	}, [cards, searchTerm, sortOrder, selectedRegions, selectedRarities, selectedTypes, selectedCosts]);
 
 	const sidePanelProps = {
-		searchPlaceholder: tUI("admin.card.searchPlaceholder"),
-		addLabel: tUI("admin.card.addNew"),
-		resetLabel: tUI("admin.card.resetFilter"),
+		searchPlaceholder: tUI("admin.common.searchPlaceholder"),
+		addLabel: tUI("admin.common.addNew"),
+		resetLabel: tUI("admin.common.resetFilter"),
 		searchInput,
 		onSearchInputChange: e => setSearchInput(e.target.value),
 		onSearch: () => {
@@ -369,10 +369,10 @@ function CardEditor() {
 			setCurrentPage(1);
 		},
 		multiFilterConfigs: [
-			{ label: "Khu vực", options: filterOptions.regions, selectedValues: selectedRegions, onChange: setSelectedRegions },
-			{ label: "Độ hiếm", options: filterOptions.rarities, selectedValues: selectedRarities, onChange: setSelectedRarities },
-			{ label: "Loại bài", options: filterOptions.types, selectedValues: selectedTypes, onChange: setSelectedTypes },
-			{ label: "Mana", options: filterOptions.costs, selectedValues: selectedCosts, onChange: setSelectedCosts },
+			{ label: tUI("common.region") || "Khu vực", options: filterOptions.regions, selectedValues: selectedRegions, onChange: setSelectedRegions },
+			{ label: tUI("common.rarity") || "Độ hiếm", options: filterOptions.rarities, selectedValues: selectedRarities, onChange: setSelectedRarities },
+			{ label: tUI("common.type") || "Loại bài", options: filterOptions.types, selectedValues: selectedTypes, onChange: setSelectedTypes },
+			{ label: tUI("common.cost") || "Mana", options: filterOptions.costs, selectedValues: selectedCosts, onChange: setSelectedCosts },
 		],
 		sortOptions: filterOptions.sort,
 		sortSelectedValue: sortOrder,

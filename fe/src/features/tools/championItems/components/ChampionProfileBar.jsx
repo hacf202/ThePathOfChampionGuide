@@ -19,7 +19,7 @@ const ChampionProfileBar = ({ championDetails }) => {
         </h2>
         <div className="flex items-center gap-2 mt-0.5 sm:mt-1">
           <span className="text-[8px] sm:text-[10px] font-bold text-text-secondary uppercase tracking-widest">
-            {tUI("bestSubChampion.nangLuong")}: {championDetails?.cost}
+            {tUI("common.cost")}: {championDetails?.cost}
           </span>
         </div>
       </div>

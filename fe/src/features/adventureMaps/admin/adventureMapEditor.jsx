@@ -39,6 +39,7 @@ const AdvListView = memo(
 		onPageChange,
 		sidePanelProps,
 	}) => {
+		const { tUI } = useTranslation();
 		return (
 			<AdminListLayout
 				dataLength={paginatedItems.length}
@@ -46,7 +47,7 @@ const AdvListView = memo(
 				currentPage={currentPage}
 				onPageChange={onPageChange}
 				sidePanelProps={sidePanelProps}
-				emptyMessageTitle="Không tìm thấy Adventure nào."
+				emptyMessageTitle={tUI("admin.common.notFound")}
 			>
 				<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6'>
 					{paginatedItems.map((item) => (
@@ -105,10 +106,8 @@ const AdvEditWrapper = ({
 	if (!selectedItem && id !== "new" && items.length > 0) {
 		return (
 			<div className='flex flex-col items-center justify-center py-20'>
-				<p className='text-xl mb-4'>Không tìm thấy ID {id}</p>
-				<Button onClick={handleBack} variant='primary'>
-					Quay lại
-				</Button>
+				<p className='text-xl mb-4'>{tUI("admin.common.notFoundId")} {id}</p>
+				<Button onClick={handleBack} variant='primary'>{tUI("admin.common.backToList")}</Button>
 			</div>
 		);
 	}
@@ -223,8 +222,8 @@ function AdventureMapEditor() {
 			
 			Swal.fire({
 				icon: "success",
-				title: "Đã lưu!",
-				text: "Bản đồ phiêu lưu đã được cập nhật thành công.",
+				title: tUI("admin.common.saveSuccess"),
+				text: tUI("admin.adventureMap.saveSuccessSub"),
 				timer: 2000,
 				showConfirmButton: false,
 				toast: true,
@@ -233,8 +232,8 @@ function AdventureMapEditor() {
 		} catch (e) {
 			Swal.fire({
 				icon: "error",
-				title: "Lỗi",
-				text: e.message || "Không thể lưu dữ liệu.",
+				title: tUI("admin.common.errorOccurred"),
+				text: e.message || tUI("admin.common.saveFailedSub"),
 				confirmButtonColor: "#3b82f6",
 			});
 		} finally {
@@ -246,14 +245,14 @@ function AdventureMapEditor() {
 		if (!id) return;
 		
 		const result = await Swal.fire({
-			title: "Xác nhận xóa?",
-			text: "Bạn sẽ không thể khôi phục lại bản đồ phiêu lưu này!",
+			title: tUI("admin.common.deleteConfirm"),
+			text: tUI("admin.adventureMap.deleteConfirmSub"),
 			icon: "warning",
 			showCancelButton: true,
 			confirmButtonColor: "#ef4444",
 			cancelButtonColor: "#6b7280",
-			confirmButtonText: "Vâng, xóa nó!",
-			cancelButtonText: "Hủy bỏ",
+			confirmButtonText: tUI("admin.common.delete"),
+			cancelButtonText: tUI("admin.common.cancel"),
 			background: "#1f2937",
 			color: "#f3f4f6",
 		});
@@ -272,7 +271,7 @@ function AdventureMapEditor() {
 			
 			Swal.fire({
 				icon: "success",
-				title: "Đã xóa!",
+				title: tUI("admin.common.deleteSuccess"),
 				text: "Bản đồ đã được loại bỏ.",
 				timer: 2000,
 				showConfirmButton: false,
@@ -282,7 +281,7 @@ function AdventureMapEditor() {
 		} catch (e) {
 			Swal.fire({
 				icon: "error",
-				title: "Lỗi",
+				title: tUI("admin.common.errorOccurred"),
 				text: e.message || "Không thể xóa bản đồ.",
 				confirmButtonColor: "#3b82f6",
 			});
@@ -322,7 +321,7 @@ function AdventureMapEditor() {
 
 	const uniqueDifficulties = useMemo(() => {
 		const diffs = Array.from(new Set(items.map(i => i.difficulty).filter(d => d !== null && d !== undefined)));
-		return diffs.sort((a, b) => a - b).map(d => ({ label: `${d} Sao`, value: String(d) }));
+		return diffs.sort((a, b) => a - b).map(d => ({ label: `${d} ${tUI("admin.adventureMap.star")}`, value: String(d) }));
 	}, [items]);
 
 	const uniqueTypes = useMemo(() => {
@@ -331,9 +330,9 @@ function AdventureMapEditor() {
 	}, [items]);
 
 	const sidePanelProps = {
-		searchPlaceholder: "Tìm Adventure...",
-		addLabel: "Thêm Adventure",
-		resetLabel: "Xóa bộ lọc",
+		searchPlaceholder: tUI("admin.common.searchPlaceholder"),
+		addLabel: tUI("admin.common.addNew"),
+		resetLabel: tUI("admin.common.resetFilter"),
 		searchInput,
 		onSearchInputChange: e => setSearchInput(e.target.value),
 		onSearchKeyDown: e => {
@@ -362,7 +361,7 @@ function AdventureMapEditor() {
 		multiFilterConfigs: [
 			{
 				label: tUI("mapList.difficulty") || "Cấp Sao",
-				placeholder: "Chọn cấp sao...",
+				placeholder: tUI("admin.adventureMap.selectDifficulty"),
 				options: uniqueDifficulties,
 				selectedValues: filterDifficulty,
 				onChange: (vals) => {
@@ -371,8 +370,8 @@ function AdventureMapEditor() {
 				},
 			},
 			{
-				label: tUI("mapList.type") || "Loại Phiêu Lưu",
-				placeholder: "Chọn loại...",
+				label: tUI("mapList.type"),
+				placeholder: tUI("admin.adventureMap.selectType"),
 				options: uniqueTypes,
 				selectedValues: filterType,
 				onChange: (vals) => {

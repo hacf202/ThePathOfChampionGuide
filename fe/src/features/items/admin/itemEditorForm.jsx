@@ -199,7 +199,7 @@ const ItemEditorForm = memo(
 										const val = e.target.value;
 										setFormData(prev => ({ ...prev, type: val.split(",").map(s => s.trim()).filter(Boolean) }));
 									}}
-									placeholder="Vật Phẩm Phép, Vật Phẩm Tùy Tùng..."
+									placeholder={tUI("admin.itemForm.itemTypePlaceholder")}
 								/>
 								<div className="flex flex-wrap gap-1.5 mt-1">
 									{["Vật Phẩm Phép", "Vật Phẩm Tùy Tùng", "Vật Phẩm Anh Hùng", "Vật Phẩm Đặc Biệt", "Vật Phẩm Trang Bị", "Vật Phẩm Địa Danh", "Vật Phẩm Chung", "Vật Phẩm Di Vật"].map(t => (
@@ -250,7 +250,7 @@ const ItemEditorForm = memo(
 											requirementsRaw: raw,
 										}))
 									}
-									placeholder="Yêu cầu cụ thể của vật phẩm..."
+									placeholder={tUI("admin.itemForm.requirementPlaceholder")}
 								/>
 							</div>
 						</div>

@@ -11,7 +11,7 @@ const SubChampionRecommendations = ({
   return (
     <div className="flex-grow bg-surface-bg rounded-3xl border border-border/50 p-2 sm:p-6 flex flex-col min-h-0 shadow-xl">
       <h3 className="text-[10px] sm:text-xs font-bold text-text-secondary uppercase tracking-widest flex items-center gap-2 mb-3 sm:mb-6 px-2">
-        <ChevronRight className="w-3 h-3 text-primary-500" /> {tUI("bestSubChampion.goiYTuongPhuToiUu")}
+        <ChevronRight className="w-3 h-3 text-primary-500" /> {tUI("bestSubChampion.recommendedSubs")}
       </h3>
 
       <div className="flex-grow overflow-y-auto pr-1-scrollbar">
@@ -19,7 +19,7 @@ const SubChampionRecommendations = ({
           <div className="h-full min-h-[150px] flex flex-col items-center justify-center text-center opacity-40">
             <Search className="w-6 h-6 sm:w-8 sm:h-8 mb-4" />
             <p className="text-[9px] sm:text-[10px] font-bold uppercase tracking-tighter">
-              {tUI("bestSubChampion.chonItNhatMotVatPham")}
+              {tUI("bestSubChampion.hintSelect")}
             </p>
           </div>
         ) : (
@@ -41,7 +41,7 @@ const SubChampionRecommendations = ({
                     </div>
                     <div className="flex flex-col items-end shrink-0">
                       <span className="text-[7px] sm:text-[8px] font-bold text-text-secondary uppercase leading-none mb-0.5">
-                        {tUI("bestSubChampion.beVatPham")}: {sub.poolSize}
+                        {tUI("bestSubChampion.poolSize")}: {sub.poolSize}
                       </span>
                       <span className="text-sm sm:text-xl font-black text-primary-400 drop-shadow-lg leading-none">
                         {Math.round(sub.score * 100)}%

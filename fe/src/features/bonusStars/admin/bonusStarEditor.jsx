@@ -47,10 +47,10 @@ const BonusStarListView = memo(
 				onPageChange={onPageChange}
 				sidePanelProps={sidePanelProps}
 				emptyMessageTitle={
-					tUI("admin.bonusStar.notFound")
+					tUI("admin.common.notFound")
 				}
 				emptyMessageSub={
-					tUI("admin.bonusStar.tryOtherFilter")
+					tUI("admin.common.tryOtherFilter")
 				}
 			>
 				<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6'>
@@ -110,7 +110,7 @@ const BonusStarEditWrapper = ({
 		return (
 			<div className='flex flex-col items-center justify-center py-20 text-text-secondary'>
 				<p className='text-xl mb-4'>
-					{tUI("admin.bonusStar.notFoundId")} {id}
+					{tUI("admin.common.notFoundId")} {id}
 				</p>
 				<Button onClick={handleBack} variant='primary'>
 					{tUI("admin.common.backToList")}
@@ -212,7 +212,7 @@ function BonusStarEditor() {
 			
 			Swal.fire({
 				icon: "success",
-				title: "Đã lưu!",
+				title: tUI("admin.common.saveSuccess"),
 				text: result.message || tUI("admin.common.saveSuccess"),
 				timer: 2000,
 				showConfirmButton: false,
@@ -222,7 +222,7 @@ function BonusStarEditor() {
 		} catch (e) {
 			Swal.fire({
 				icon: "error",
-				title: "Lỗi",
+				title: tUI("admin.common.errorOccurred"),
 				text: e.message || tUI("admin.common.errorOccurred"),
 				confirmButtonColor: "#3b82f6",
 			});
@@ -235,14 +235,14 @@ function BonusStarEditor() {
 		if (!id) return;
 		
 		const result = await Swal.fire({
-			title: "Xác nhận xóa?",
+			title: tUI("admin.common.deleteConfirm"),
 			text: tUI("admin.common.deleteConfirm") || "Bạn có chắc chắn muốn xóa dữ liệu này?",
 			icon: "warning",
 			showCancelButton: true,
 			confirmButtonColor: "#ef4444",
 			cancelButtonColor: "#6b7280",
-			confirmButtonText: "Vâng, xóa nó!",
-			cancelButtonText: "Hủy bỏ",
+			confirmButtonText: tUI("admin.common.delete"),
+			cancelButtonText: tUI("admin.common.cancel"),
 			background: "#1f2937",
 			color: "#f3f4f6",
 		});
@@ -262,7 +262,7 @@ function BonusStarEditor() {
 			
 			Swal.fire({
 				icon: "success",
-				title: "Đã xóa!",
+				title: tUI("admin.common.deleteSuccess"),
 				text: tUI("admin.common.deleteSuccess"),
 				timer: 2000,
 				showConfirmButton: false,
@@ -272,7 +272,7 @@ function BonusStarEditor() {
 		} catch (e) {
 			Swal.fire({
 				icon: "error",
-				title: "Lỗi",
+				title: tUI("admin.common.errorOccurred"),
 				text: e.message || tUI("admin.common.deleteFailed"),
 				confirmButtonColor: "#3b82f6",
 			});
@@ -339,7 +339,7 @@ function BonusStarEditor() {
 	}, [items, searchTerm, selectedTypes, sortOrder, tDynamic]);
 
 	const sidePanelProps = {
-		searchPlaceholder: tUI("admin.bonusStar.searchPlaceholder"),
+		searchPlaceholder: tUI("admin.common.searchPlaceholder"),
 		addLabel: tUI("admin.bonusStar.addLabel"),
 		resetLabel: tUI("admin.bonusStar.resetLabel"),
 		searchInput,

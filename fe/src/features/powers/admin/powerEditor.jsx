@@ -63,10 +63,10 @@ const PowerListView = memo(
 				onPageChange={onPageChange}
 				sidePanelProps={sidePanelProps}
 				emptyMessageTitle={
-					tUI("admin.power.notFound")
+					tUI("admin.common.notFound")
 				}
 				emptyMessageSub={
-					tUI("admin.power.tryOtherFilter")
+					tUI("admin.common.tryOtherFilter")
 				}
 			>
 				<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6'>
@@ -121,7 +121,7 @@ const PowerEditWrapper = ({
 		return (
 			<div className='flex flex-col items-center justify-center py-20 text-text-secondary'>
 				<p className='text-xl mb-4'>
-					{tUI("admin.power.notFoundId")} {id}
+					{tUI("admin.common.notFoundId")} {id}
 				</p>
 				<button onClick={handleBack} className='btn-primary'>
 					{tUI("admin.common.backToList")}
@@ -223,7 +223,7 @@ function PowerEditor() {
 			
 			Swal.fire({
 				icon: "success",
-				title: "Đã lưu!",
+				title: tUI("admin.common.saveSuccess"),
 				text: result.message || tUI("admin.common.saveSuccess"),
 				timer: 2000,
 				showConfirmButton: false,
@@ -233,7 +233,7 @@ function PowerEditor() {
 		} catch (e) {
 			Swal.fire({
 				icon: "error",
-				title: "Lỗi",
+				title: tUI("admin.common.errorOccurred"),
 				text: e.message || tUI("admin.common.errorOccurred"),
 				confirmButtonColor: "#3b82f6",
 			});
@@ -246,14 +246,14 @@ function PowerEditor() {
 		if (!id) return;
 		
 		const result = await Swal.fire({
-			title: "Xác nhận xóa?",
+			title: tUI("admin.common.deleteConfirm"),
 			text: "Bạn sẽ không thể khôi phục lại dữ liệu này!",
 			icon: "warning",
 			showCancelButton: true,
 			confirmButtonColor: "#ef4444",
 			cancelButtonColor: "#6b7280",
-			confirmButtonText: "Vâng, xóa nó!",
-			cancelButtonText: "Hủy bỏ",
+			confirmButtonText: tUI("admin.common.delete"),
+			cancelButtonText: tUI("admin.common.cancel"),
 			background: "#1f2937",
 			color: "#f3f4f6",
 		});
@@ -276,7 +276,7 @@ function PowerEditor() {
 			
 			Swal.fire({
 				icon: "success",
-				title: "Đã xóa!",
+				title: tUI("admin.common.deleteSuccess"),
 				text: tUI("admin.common.deleteSuccess"),
 				timer: 2000,
 				showConfirmButton: false,
@@ -286,7 +286,7 @@ function PowerEditor() {
 		} catch (e) {
 			Swal.fire({
 				icon: "error",
-				title: "Lỗi",
+				title: tUI("admin.common.errorOccurred"),
 				text: e.message || tUI("admin.common.deleteFailed"),
 				confirmButtonColor: "#3b82f6",
 			});
@@ -309,16 +309,16 @@ function PowerEditor() {
 			sort: [
 				{
 					value: "id-asc",
-					label: tUI("admin.power.sortIdAsc"),
+					label: tUI("admin.common.sortIdAsc"),
 				},
 				{
 					value: "id-desc",
-					label: tUI("admin.power.sortIdDesc"),
+					label: tUI("admin.common.sortIdDesc"),
 				},
 				{ value: "name-asc", label: tUI("admin.common.sortNameAsc") },
 				{ value: "name-desc", label: tUI("admin.common.sortNameDesc") },
-				{ value: "rarity-asc", label: tUI("admin.power.sortRarityAsc") },
-				{ value: "rarity-desc", label: tUI("admin.power.sortRarityDesc") },
+				{ value: "rarity-asc", label: tUI("admin.common.sortRarityAsc") },
+				{ value: "rarity-desc", label: tUI("admin.common.sortRarityDesc") },
 			],
 		};
 	}, [powers, tUI]);
@@ -392,9 +392,9 @@ function PowerEditor() {
 	]);
 
 	const sidePanelProps = {
-		searchPlaceholder: tUI("admin.power.searchPlaceholder"),
-		addLabel: tUI("admin.power.addNew"),
-		resetLabel: tUI("admin.power.resetFilter"),
+		searchPlaceholder: tUI("admin.common.searchPlaceholder"),
+		addLabel: tUI("admin.common.addNew"),
+		resetLabel: tUI("admin.common.resetFilter"),
 		searchInput,
 		onSearchInputChange: e => setSearchInput(e.target.value),
 		onSearch: () => {
@@ -416,14 +416,14 @@ function PowerEditor() {
 		},
 		multiFilterConfigs: [
 			{
-				label: tUI("admin.power.rarity"),
+				label: tUI("common.rarity"),
 				options: filterOptions.rarities,
 				selectedValues: selectedRarities,
 				onChange: setSelectedRarities,
 				placeholder: tUI("admin.power.allRarities"),
 			},
 			{
-				label: tUI("admin.power.type"),
+				label: tUI("common.type"),
 				options: filterOptions.types,
 				selectedValues: selectedTypes,
 				onChange: setSelectedTypes,

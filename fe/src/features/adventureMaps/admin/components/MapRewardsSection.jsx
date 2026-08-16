@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from "@/hooks/useTranslation";
 import { Plus, Trash2 } from 'lucide-react';
 import Button from '@/components/common/button';
 import InputField from '@/components/common/inputField';
@@ -18,7 +19,7 @@ const MapRewardsSection = ({ formData, setFormData, cachedData }) => {
 		}),
 		...(formData.requirement?.regions || []).map(rName => ({
 			type: "region",
-			label: `Tướng vùng ${rName}`,
+			label: `${tUI("admin.adventureMap.regionChampion")} ${rName}`,
 			icon: null,
 		})),
 	];
@@ -45,11 +46,9 @@ const MapRewardsSection = ({ formData, setFormData, cachedData }) => {
 						>
 							<div className='flex justify-between items-center mb-2 border-b border-border/50 pb-3'>
 								<div className='flex items-center gap-2.5 max-w-[75%]'>
-									<span className='font-black text-yellow-500 text-sm tracking-wider uppercase shrink-0'>
-										GÓI THƯỞNG #{pIdx + 1}
-									</span>
+									<span className='font-black text-yellow-500 text-sm tracking-wider uppercase shrink-0'>{tUI("admin.adventureMap.rewardPackage")} #{pIdx + 1}</span>
 									{linkedReq ? (
-										<span className='inline-flex items-center gap-1.5 px-2 py-0.5 bg-primary-500/10 text-primary-500 text-[10px] font-bold rounded-lg border border-primary-500/20 truncate' title={`Mở khóa bằng: ${linkedReq.label}`}>
+										<span className='inline-flex items-center gap-1.5 px-2 py-0.5 bg-primary-500/10 text-primary-500 text-[10px] font-bold rounded-lg border border-primary-500/20 truncate' title={`${tUI("admin.adventureMap.unlockedBy")} ${linkedReq.label}`}>
 											{linkedReq.icon && (
 												<img
 													src={linkedReq.icon}
@@ -57,12 +56,10 @@ const MapRewardsSection = ({ formData, setFormData, cachedData }) => {
 													alt=''
 												/>
 											)}
-											<span className='truncate'>Mở khóa: {linkedReq.label}</span>
+											<span className='truncate'>{tUI("admin.adventureMap.unlocked")} {linkedReq.label}</span>
 										</span>
 									) : (
-										<span className='inline-flex items-center gap-1 px-2 py-0.5 bg-yellow-500/10 text-yellow-600 dark:text-yellow-500 text-[10px] font-bold rounded-lg border border-yellow-500/20 shrink-0'>
-											Hoàn thành mặc định
-										</span>
+										<span className='inline-flex items-center gap-1 px-2 py-0.5 bg-yellow-500/10 text-yellow-600 dark:text-yellow-500 text-[10px] font-bold rounded-lg border border-yellow-500/20 shrink-0'>{tUI("admin.adventureMap.defaultCompletion")}</span>
 									)}
 								</div>
 								<Button
@@ -75,8 +72,7 @@ const MapRewardsSection = ({ formData, setFormData, cachedData }) => {
 										setFormData(p => ({ ...p, rewards: r }));
 									}}
 								>
-									<Plus size={14} className='mr-1' /> Vật phẩm
-								</Button>
+									<Plus size={14} className='mr-1' />{tUI("admin.adventureMap.itemText")}</Button>
 							</div>
 
 							<div className='space-y-3'>
@@ -107,11 +103,11 @@ const MapRewardsSection = ({ formData, setFormData, cachedData }) => {
 																	r[pIdx].items[iIdx].name = selectedVal;
 																}
 																
-																if (selectedVal === "Điểm Huyền Thoại") {
+																if (selectedVal === tUI("admin.adventureMap.legendLevel")) {
 																	r[pIdx].items[iIdx].count = 1000;
-																} else if (selectedVal === "Bụi Tinh Tú") {
+																} else if (selectedVal === tUI("admin.adventureMap.stardust")) {
 																	r[pIdx].items[iIdx].count = 100;
-																} else if (selectedVal === "Mảnh Ghép Bí Ẩn") {
+																} else if (selectedVal === tUI("admin.adventureMap.wildFragment")) {
 																	r[pIdx].items[iIdx].count = 5;
 																} else {
 																	r[pIdx].items[iIdx].count = 1;
@@ -120,7 +116,7 @@ const MapRewardsSection = ({ formData, setFormData, cachedData }) => {
 															}
 														}}
 													>
-														<option value=''>-- Chọn mẫu --</option>
+														<option value=''>{tUI("admin.adventureMap.selectTemplate")}</option>
 														{COMMON_REWARDS.map(opt => (
 															<option key={opt.value} value={opt.value}>
 																{opt.label}
@@ -141,7 +137,7 @@ const MapRewardsSection = ({ formData, setFormData, cachedData }) => {
 																setFormData(p => ({ ...p, rewards: r }));
 															}}
 														>
-															<option value=''>-- Không vùng --</option>
+															<option value=''>{tUI("admin.adventureMap.noRegion")}</option>
 															{REGION_OPTIONS.map(opt => (
 																<option key={opt.value} value={opt.value}>
 																	{opt.label}
@@ -155,7 +151,7 @@ const MapRewardsSection = ({ formData, setFormData, cachedData }) => {
 											<div className='flex gap-2 w-full items-center'>
 												<div className='flex-1 min-w-0'>
 													<InputField
-														placeholder='Tên vật phẩm...'
+														placeholder={tUI("admin.adventureMap.itemName")}
 														value={it.name}
 														onChange={e => {
 															const r = [...formData.rewards];
@@ -198,7 +194,7 @@ const MapRewardsSection = ({ formData, setFormData, cachedData }) => {
 								})}
 								{(!rewardPacket.items || rewardPacket.items.length === 0) && (
 									<p className='text-xs text-text-secondary italic text-center py-4 bg-surface-hover/20 rounded-xl border border-dashed border-border/50'>
-										Gói này chưa có vật phẩm nào. Bấm "Vật phẩm" để bổ sung.
+										Gói này chưa có vật phẩm nào. Bấm tUI("admin.adventureMap.itemText") để bổ sung.
 									</p>
 								)}
 							</div>

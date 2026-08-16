@@ -6,6 +6,7 @@ import ChampionItemsSidebar from '@/features/tools/championItems/components/Cham
 import ChampionProfileBar from '@/features/tools/championItems/components/ChampionProfileBar';
 import CompatibleItemsGrid from '@/features/tools/championItems/components/CompatibleItemsGrid';
 import SubChampionRecommendations from '@/features/tools/championItems/components/SubChampionRecommendations';
+import { getRarityKey } from '@/utils/i18nHelpers';
 
 const ChampionItems = () => {
   const { tUI } = useTranslation();
@@ -45,9 +46,7 @@ const ChampionItems = () => {
           {['All', 'Thường', 'Hiếm', 'Sử Thi'].map(r => {
             let label = r;
             if (r === 'All') label = tUI("common.all") || "Tất cả";
-            else if (r === 'Thường') label = tUI("shared.rarity.thuong");
-            else if (r === 'Hiếm') label = tUI("shared.rarity.hiem");
-            else if (r === 'Sử Thi') label = tUI("shared.rarity.suthi");
+            else label = tUI(`shared.rarity.${getRarityKey(r)}`) || r;
 
             return (
               <button
@@ -84,7 +83,7 @@ const ChampionItems = () => {
             <div className="flex-grow bg-surface-hover/30 rounded-3xl border border-dashed border-border flex flex-col items-center justify-center text-text-secondary">
               <Zap className="w-12 h-12 mb-4 opacity-20" />
               <p className="font-primary font-bold tracking-widest uppercase text-sm">
-                {tUI("bestSubChampion.vuiLongChonTuongChinhTruoc")}
+                {tUI("bestSubChampion.selectMainFirst")}
               </p>
             </div>
           ) : (

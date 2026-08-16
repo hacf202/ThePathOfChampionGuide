@@ -31,7 +31,7 @@ export const useRuneFilters = (tUI, t, dynamicFilters, knownRunes) => {
 		return [
 			{
 				key: "rarities",
-				label: tUI("common.rarity") || "Độ hiếm",
+				label: tUI("common.rarity"),
 				options: uniqueRarities.map(r => {
 					const sampleRune = knownRunes.find(rune => rune.rarity === r);
 					return {

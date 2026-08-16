@@ -7,6 +7,8 @@ import SafeImage from "@/components/common/SafeImage";
 import { useTranslation } from "@/hooks/useTranslation";
 import { removeAccents } from "@/utils/vietnameseUtils";
 import iconData from "@/assets/data/icon.json";
+import { getRegionKey } from "@/utils/i18nHelpers";
+
 
 const RewardSection = ({ rewards }) => {
 	const { tUI, language } = useTranslation();
@@ -61,9 +63,7 @@ const RewardSection = ({ rewards }) => {
 		// --- LOGIC ĐA NGÔN NGỮ (I18N) ---
 		let translatedRegion = "";
 		if (detectedRegion) {
-			const regionKey = removeAccents(detectedRegion)
-				.toLowerCase()
-				.replace(/[^a-z0-9]/g, "");
+			const regionKey = getRegionKey(detectedRegion);
 			translatedRegion = tUI(`shared.region.${regionKey}`) || detectedRegion;
 		}
 

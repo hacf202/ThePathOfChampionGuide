@@ -32,7 +32,7 @@ export const usePowerFilters = (tUI, t, dynamicFilters, knownPowers) => {
 		return [
 			{
 				key: "rarities",
-				label: tUI("common.rarity") || "Độ hiếm",
+				label: tUI("common.rarity"),
 				options: uniqueRarities.map(r => {
 					const samplePower = knownPowers.find(p => p.rarity === r);
 					return {
@@ -44,12 +44,12 @@ export const usePowerFilters = (tUI, t, dynamicFilters, knownPowers) => {
 			},
 			{
 				key: "types",
-				label: tUI("common.type") || "Loại",
+				label: tUI("common.type"),
 				options: uniqueTypes.map(type => {
 					const key = getTypeKey(type);
 					return {
 						value: type,
-						label: tUI(`power.types.${key.toLowerCase().replace(/\s+/g, "")}`) || type,
+						label: tUI(`shared.type.${key}`) || type,
 					};
 				}),
 			},

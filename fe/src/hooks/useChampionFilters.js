@@ -4,6 +4,8 @@ import { usePersistentState } from "./usePersistentState";
 import { useGenericFilters } from "./useGenericFilters";
 import { removeAccents } from "@/utils/vietnameseUtils";
 import iconRegions from "@/assets/data/icon.json";
+import { getRegionKey } from "@/utils/i18nHelpers";
+
 
 export const useChampionFilters = (tUI, dynamicFilters) => {
 	// 1. Gọi Hook dùng chung (Tự động lo liệu việc đồng bộ URL)
@@ -36,7 +38,7 @@ export const useChampionFilters = (tUI, dynamicFilters) => {
 		return [
 			{
 				key: "regions",
-				label: tUI("common.region") || "Khu vực",
+				label: tUI("common.region"),
 				options: (dynamicFilters.regions || []).map(r => {
 					// 1. Tìm trong icon.json để lấy tên tiếng Việt chuẩn
 					const iconRegion = iconRegions.find(i => 
@@ -46,14 +48,12 @@ export const useChampionFilters = (tUI, dynamicFilters) => {
 					);
 					const targetName = iconRegion ? iconRegion.name : r;
 					// 2. Slugify tên tiếng Việt để ra key (ví dụ: 'Quần Đảo Bóng Đêm' -> 'quandaobongdem')
-					const regionKey = removeAccents(targetName)
-						.toLowerCase()
-						.replace(/[^a-z0-9]/g, "");
+					const regionKey = getRegionKey(targetName);
 
 					return {
 						value: r,
 						label: tUI(`shared.region.${regionKey}`) || r,
-						iconUrl: iconRegions.find(i => i.name === r || i.nameRef === r)?.image,
+						iconUrl: iconRegions.find(i => getRegionKey(i.name) === getRegionKey(r))?.image,
 					};
 				}),
 			},
