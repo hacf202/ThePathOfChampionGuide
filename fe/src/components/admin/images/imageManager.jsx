@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, memo, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { useTranslation } from "@/hooks/useTranslation";
 import {
 	getR2Folders,
 	getImagesByFolder,
@@ -50,6 +51,7 @@ const formatBytes = (bytes, decimals = 2) => {
 const ImageManager = memo(() => {
 	const { folderName } = useParams();
 	const navigate = useNavigate();
+	const { tUI } = useTranslation();
 	
 	const [folders, setFolders] = useState([]);
 	const currentFolder = useMemo(() => folderName || "", [folderName]);
