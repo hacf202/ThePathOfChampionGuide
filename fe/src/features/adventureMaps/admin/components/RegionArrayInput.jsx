@@ -3,6 +3,8 @@ import { useTranslation } from "@/hooks/useTranslation";
 import { REGION_OPTIONS } from '@/features/adventureMaps/admin/components/mapEditorConstants';
 
 const RegionArrayInput = ({ label, items, onChange }) => {
+	const { tUI } = useTranslation();
+
 	const currentItems = items || [];
 	const availableRegions = REGION_OPTIONS;
 	return (

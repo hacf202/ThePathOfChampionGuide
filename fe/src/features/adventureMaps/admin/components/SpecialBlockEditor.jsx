@@ -5,6 +5,8 @@ import InputField from '@/components/common/inputField';
 import { getItemInfo } from '@/features/adventureMaps/admin/components/mapEditorConstants';
 
 const SpecialBlockEditor = ({ block, bIdx, formData, setFormData, cachedData }) => {
+	const { tUI } = useTranslation();
+
 	const [isDragOver, setIsDragOver] = useState(false);
 
 	const handleDrop = e => {

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ExternalLink } from "lucide-react";
 import { removeAccents } from "@/utils/vietnameseUtils.js";
 import MarkupRenderer from "@/components/common/MarkupRenderer.jsx";
+import RichTextRenderer from "@/components/common/RichTextRenderer.jsx";
 import { useTranslation } from "@/hooks/useTranslation.js";
 
 const ContentBlock = ({ block, referenceData }) => {
@@ -334,14 +335,29 @@ const ContentBlock = ({ block, referenceData }) => {
 };
 
 const GuideContent = ({ content, referenceData }) => {
-	if (!content || !Array.isArray(content)) return null;
-	return (
-		<>
-			{content.map((block, index) => (
-				<ContentBlock key={index} block={block} referenceData={referenceData} />
-			))}
-		</>
-	);
+	if (!content) return null;
+
+	// Backward compatibility: If content is an array, it's the old block format
+	if (Array.isArray(content)) {
+		return (
+			<>
+				{content.map((block, index) => (
+					<ContentBlock key={index} block={block} referenceData={referenceData} />
+				))}
+			</>
+		);
+	}
+
+	// New format: content is an HTML string from TipTap Rich Text Editor
+	if (typeof content === 'string') {
+		return (
+			<div className="mt-6">
+				<RichTextRenderer content={content} className="tiptap-editor-content" />
+			</div>
+		);
+	}
+
+	return null;
 };
 
 export default GuideContent;

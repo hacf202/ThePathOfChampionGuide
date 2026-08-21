@@ -5,19 +5,34 @@ import { getEntityData } from "@/utils/entityLookup";
 import MarkupTooltip from "./MarkupTooltip"; 
 import { useTranslation } from "@/hooks/useTranslation"; 
 import { useMarkupResolution } from "@/hooks/useMarkupResolution"; 
+import RichTextRenderer from "./RichTextRenderer";
 
 /**
  * MarkupRenderer - Trình hiển thị văn bản đánh dấu nâng cao cho POC Guide
  * Hỗ trợ các thẻ: [type:value|label|options] và các thẻ định dạng HTML đơn giản
+ * Đã nâng cấp để tự động fallback sang RichTextRenderer nếu phát hiện nội dung HTML từ TipTap.
  */
 const MarkupRenderer = memo(({ text, className = "", noTooltip = false }) => {
 	const { language } = useTranslation(); 
 	const { resolveEntities } = useMarkupResolution();
-	const segments = useMemo(() => parseMarkup(text), [text]);
+
+	const isRichText = useMemo(() => {
+		if (!text || typeof text !== 'string') return false;
+		// Detect TipTap generated HTML
+		return text.includes('<p>') || text.includes('tiptap') || text.includes('entity-mention');
+	}, [text]);
+
+	const segments = useMemo(() => !isRichText ? parseMarkup(text) : [], [text, isRichText]);
 
 	useEffect(() => {
-		if (text && !noTooltip) resolveEntities(text);
-	}, [text, resolveEntities, noTooltip]);
+		if (text && !noTooltip && !isRichText) resolveEntities(text);
+	}, [text, resolveEntities, noTooltip, isRichText]);
+
+	if (!text) return null;
+
+	if (isRichText) {
+		return <RichTextRenderer content={text} className={className} />;
+	}
 
 	if (!segments || segments.length === 0) return null;
 

@@ -5,6 +5,8 @@ import Button from '@/components/common/button';
 import SpecialBlockEditor from '@/features/adventureMaps/admin/components/SpecialBlockEditor';
 
 const MapSpecialBlocksSection = ({ formData, setFormData, cachedData }) => {
+	const { tUI } = useTranslation();
+
 	return (
 		<section className='bg-surface-hover/30 p-5 rounded-xl border border-border space-y-6 shadow-sm'>
 			<div className='flex justify-between items-center border-b border-border pb-3'>

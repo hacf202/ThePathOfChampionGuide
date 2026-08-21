@@ -4,6 +4,8 @@ import { Package } from 'lucide-react';
 import InputField from '@/components/common/inputField';
 
 const MapBasicInfoSection = ({ formData, setFormData }) => {
+	const { tUI } = useTranslation();
+
 	const handleChange = e => {
 		const { name, value } = e.target;
 		setFormData(prev => ({ ...prev, [name]: value }));

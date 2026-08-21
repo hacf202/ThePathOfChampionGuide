@@ -21,7 +21,7 @@ import { useTranslation } from "@/hooks/useTranslation";
  * Hỗ trợ bôi đen -> Gán thẻ Markup nhanh chóng.
  */
 const MarkupEditor = ({ value, onChange, placeholder = "Nhập nội dung..." }) => {
-	const { language } = useTranslation();
+	const { language , tUI } = useTranslation();
 	const textareaRef = useRef(null);
 	const [showToolbar, setShowToolbar] = useState(false);
 	const [selection, setSelection] = useState({ start: 0, end: 0, text: "" });

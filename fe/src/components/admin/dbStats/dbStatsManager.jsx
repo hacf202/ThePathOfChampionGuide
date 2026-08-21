@@ -1,3 +1,4 @@
+import { useTranslation } from "@/hooks/useTranslation";
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import {
@@ -22,6 +23,8 @@ const statusLabel = { ok: "Bình thường", warning: "Cảnh báo", critical: "
 // ── Sub-components ──────────────────────────────────────────────────────────
 
 const StatCard = ({ icon, label, value, sub, color = "primary" }) => {
+	const { tUI } = useTranslation();
+
 	const colorMap = {
 		primary: "bg-primary-500/10 text-primary-500",
 		emerald: "bg-emerald-500/10 text-emerald-400",
@@ -43,6 +46,8 @@ const StatCard = ({ icon, label, value, sub, color = "primary" }) => {
 };
 
 const UsageBar = ({ percent, status }) => {
+	const { tUI } = useTranslation();
+
 	const clampedPercent = Math.min(percent, 100);
 	const color = statusColor[status]?.bar || "bg-primary-500";
 	return (
@@ -58,6 +63,8 @@ const UsageBar = ({ percent, status }) => {
 // ── Main Component ─────────────────────────────────────────────────────────
 
 const DbStatsManager = () => {
+	const { tUI } = useTranslation();
+
 	const [overview, setOverview] = useState(null);
 	const [collections, setCollections] = useState([]);
 	const [summary, setSummary] = useState(null);

@@ -6,6 +6,8 @@ import InputField from '@/components/common/inputField';
 import { COMMON_REWARDS, REGION_OPTIONS, REGIONAL_REWARD_BASES, getRegionalRewardInfo } from '@/features/adventureMaps/admin/components/mapEditorConstants';
 
 const MapRewardsSection = ({ formData, setFormData, cachedData }) => {
+	const { tUI } = useTranslation();
+
 	const flattenedRequirements = [
 		...(formData.requirement?.champions || []).map(cID => {
 			const champ = (cachedData.champions || []).find(

@@ -98,6 +98,7 @@ const AdvEditWrapper = ({
 		return found ? { ...found, isNew: false } : null;
 	}, [id, items]);
 
+	const { tUI } = useTranslation();
 	const handleBack = useCallback(
 		() => navigate("/admin/adventures"),
 		[navigate],

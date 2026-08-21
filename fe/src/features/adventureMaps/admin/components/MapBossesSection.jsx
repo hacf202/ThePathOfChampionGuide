@@ -6,6 +6,8 @@ import InputField from '@/components/common/inputField';
 import { DragDropArrayInput, getUniqueAdvId, getAdvName, getAdvImage } from '@/features/adventureMaps/admin/adventureEditorHelpers';
 
 const MapBossesSection = ({ formData, setFormData, cachedData }) => {
+	const { tUI } = useTranslation();
+
 	return (
 		<section className='bg-surface-hover/30 p-5 rounded-xl border border-border shadow-sm'>
 			<div className='flex justify-between items-center mb-6 border-b border-border pb-3'>

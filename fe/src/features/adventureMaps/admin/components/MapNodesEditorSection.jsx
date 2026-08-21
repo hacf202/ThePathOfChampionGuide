@@ -5,6 +5,8 @@ import Button from '@/components/common/button';
 import { AdventureLine, AdventureConnections, AdventureNodeEditor, getUniqueAdvId, getAdvName, getAdvImage, NODE_TYPES_DATA } from '@/features/adventureMaps/admin/adventureEditorHelpers';
 
 const MapNodesEditorSection = ({ formData, setFormData, cachedData }) => {
+	const { tUI } = useTranslation();
+
 	const [isMapVisible, setIsMapVisible] = useState(true);
 	const [nodeDisplayMode, setNodeDisplayMode] = useState("icon");
 	const [mapAspectRatio, setMapAspectRatio] = useState("21/9");

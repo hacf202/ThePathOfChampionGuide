@@ -4,6 +4,8 @@ import { DragDropArrayInput } from '@/features/adventureMaps/admin/adventureEdit
 import RegionArrayInput from '@/features/adventureMaps/admin/components/RegionArrayInput';
 
 const MapRequirementsSection = ({ formData, setFormData, cachedData }) => {
+	const { tUI } = useTranslation();
+
 	return (
 		<section className='grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch'>
 			<div className='bg-surface-hover/30 p-5 rounded-xl border border-border shadow-sm flex flex-col h-full'>

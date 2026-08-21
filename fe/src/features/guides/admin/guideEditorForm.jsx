@@ -3,11 +3,10 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "@/context/AuthContext";
 import { useTranslation } from "@/hooks/useTranslation";
-import BlockEditor from "@/features/guides/admin/blockEditor";
-import PreviewBlock from "@/features/guides/admin/previewBlock";
+import RichTextEditor from "@/components/admin/RichTextEditor";
 import Button from "@/components/common/button";
 import InputField from "@/components/common/inputField";
-import { BookOpen, List } from "lucide-react";
+import { List } from "lucide-react";
 import { removeAccents } from "@/utils/vietnameseUtils";
 import Swal from "sweetalert2";
 
@@ -28,7 +27,7 @@ const GuideForm = ({ slug }) => {
 		thumbnail: "",
 		author: "",
 		description: "",
-		content: [],
+		content: "",
 	});
 
 	const [initialData, setInitialData] = useState({});
@@ -43,7 +42,7 @@ const GuideForm = ({ slug }) => {
 
 	// Lấy danh sách section để hiển thị mục lục
 	const sections = useMemo(
-		() => formData.content.filter(b => b.type === "section"),
+		() => Array.isArray(formData.content) ? formData.content.filter(b => b.type === "section") : [],
 		[formData.content],
 	);
 
@@ -159,6 +158,12 @@ const GuideForm = ({ slug }) => {
 		setFormData(prev => ({ ...prev, [name]: value }));
 	};
 
+	const handleEditorChange = (html) => {
+		setFormData(prev => ({ ...prev, content: html }));
+	};
+
+
+
 	return (
 		<form
 			className='h-full pb-20'
@@ -181,10 +186,10 @@ const GuideForm = ({ slug }) => {
 				disableSave={!formData.title}
 			/>
 
-			{/* LAYOUT: Editor (trái) + Preview (phải) */}
-			<div className='px-3 pt-3 grid grid-cols-1 xl:grid-cols-[1fr,400px] 2xl:grid-cols-[1fr,460px] gap-3 items-start'>
+			{/* LAYOUT: Editor duy nhất */}
+			<div className='px-3 pt-3 max-w-6xl mx-auto space-y-3 mb-8'>
 
-				{/* ============ CỘT TRÁI: EDITOR ============ */}
+				{/* ============ EDITOR ============ */}
 				<div className='space-y-3 min-w-0'>
 					{/* THÔNG TIN CƠ BẢN */}
 					<div className='bg-surface-bg p-3 rounded-xl border border-border shadow-sm'>
@@ -239,106 +244,31 @@ const GuideForm = ({ slug }) => {
 						</div>
 					</div>
 
-					{/* BLOCK EDITOR */}
+					{/* TIER LIST BLOCK (Tách riêng theo plan) */}
+					<div className='bg-surface-bg rounded-xl border border-border shadow-sm'>
+						<div className='px-4 py-2 border-b border-border bg-surface-hover/30 font-bold uppercase text-[10px] tracking-widest text-text-primary flex justify-between'>
+							<span>Tier List (Tuỳ chọn)</span>
+						</div>
+						<div className='p-2.5 text-xs text-text-tertiary italic text-center'>
+							Phần Tier List đang được tách ra thành module riêng (Đang phát triển).
+						</div>
+					</div>
+
+					{/* RICH TEXT EDITOR */}
 					<div className='bg-surface-bg rounded-xl border border-border shadow-sm'>
 						<div className='px-4 py-2 border-b border-border bg-surface-hover/30 font-bold uppercase text-[10px] tracking-widest text-text-primary'>
 							Nội dung bài viết
 						</div>
 						<div className='p-2.5'>
-							<BlockEditor
-								blocks={formData.content}
-								setBlocks={updateBlocks}
-								referenceData={referenceData}
-							/>
-						</div>
-					</div>
-				</div>
-
-				{/* ============ CỘT PHẢI: PREVIEW TRỰC TIẾP ============ */}
-				<div className='xl:sticky xl:top-4 space-y-3 min-w-0'>
-
-					{/* PREVIEW BÀI VIẾT */}
-					<div className='bg-page-bg rounded-xl border border-border shadow-sm overflow-hidden'>
-						{/* Header preview */}
-						<div className='px-3 py-2 border-b border-border bg-surface-hover/40 flex items-center gap-2'>
-							<BookOpen size={13} className='text-emerald-500' />
-							<span className='text-[10px] font-black uppercase tracking-widest text-text-secondary'>
-								Xem trước
-							</span>
-							<span className='ml-auto text-[9px] text-text-tertiary italic'>
-								Cập nhật theo thời gian thực
-							</span>
-						</div>
-
-						{/* Nội dung preview */}
-						<div className='p-4 max-h-[calc(100dvh-240px)] overflow-y-auto-scrollbar'>
-							{/* Tiêu đề + mô tả */}
-							<div className='mb-5 pb-4 border-b border-border'>
-								<h1 className='text-xl font-black leading-tight text-text-primary mb-1.5'>
-									{formData.title || (
-										<span className='text-text-tertiary italic font-normal text-base'>
-											Tiêu đề bài viết...
-										</span>
-									)}
-								</h1>
-								{formData.description && (
-									<p className='text-xs text-text-secondary italic'>
-										{formData.description}
-									</p>
-								)}
-								{formData.author && (
-									<p className='text-[10px] text-text-tertiary mt-1'>
-										✍️ {formData.author}
-									</p>
-								)}
-							</div>
-
-							{/* Ảnh thumbnail */}
-							{formData.thumbnail && (
-								<img
-									src={formData.thumbnail}
-									className='w-full h-36 object-cover rounded-xl mb-4 shadow border border-border'
-									alt='Thumbnail'
-								/>
-							)}
-
-							{/* Mục lục - nằm sau tiêu đề, trước nội dung */}
-							{sections.length > 0 && (
-								<div className='mb-5 p-3 bg-surface-hover/30 rounded-xl border border-border'>
-									<div className='flex items-center gap-2 mb-2'>
-										<List size={12} className='text-primary-500' />
-										<span className='text-[10px] font-black uppercase tracking-widest text-text-secondary'>Mục lục</span>
-									</div>
-									<nav className='space-y-0.5'>
-										{sections.map((sec, i) => (
-											<a
-												key={i}
-												href={`#${removeAccents(sec.title || "")}`}
-												className='flex items-center gap-2 px-2 py-1 rounded text-[11px] text-text-secondary hover:bg-surface-hover hover:text-text-primary transition-colors group'
-											>
-												<span className='w-4 h-4 rounded text-[9px] font-black bg-primary-500/10 text-primary-500 flex items-center justify-center shrink-0'>{i + 1}</span>
-												<span className='truncate'>{sec.title || "(Chưa có tiêu đề)"}</span>
-											</a>
-										))}
-									</nav>
-								</div>
-							)}
-
-							{/* Blocks */}
-							{formData.content.length === 0 ? (
-								<div className='text-center py-8 text-text-tertiary text-sm italic'>
-									{tUI("admin.common.emptyList") || "No content."}
+							{Array.isArray(formData.content) ? (
+								<div className="text-center p-4 text-text-secondary bg-surface-hover rounded-lg border border-border italic text-sm">
+									Bài viết này sử dụng trình soạn thảo Block cũ. Việc chỉnh sửa sẽ được khóa. Xin hãy tạo mới hoặc cập nhật DB để dùng giao diện mới.
 								</div>
 							) : (
-								<div className='text-sm'>
-									{formData.content.map((block, i) => (
-										<PreviewBlock
-											key={i}
-											block={block}
-											referenceData={referenceData}
-										/>
-									))}
-								</div>
+								<RichTextEditor
+									value={formData.content || ""}
+									onChange={handleEditorChange}
+								/>
 							)}
 						</div>
 					</div>
