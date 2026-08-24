@@ -317,7 +317,7 @@ router.put("/:id", authenticateCognitoToken, requireAdmin, async (req, res) => {
 		if (!Item) return res.status(404).json({ error: "Build không tồn tại." });
 
 		const oldBuild = Item;
-		const oldDisplay = oldBuild.display === true || oldBuild.display === "true";
+		const oldDisplay = oldBuild.display === true;
 
 		const allowedFields = [
 			"championName",
@@ -389,7 +389,7 @@ router.delete(
 			if (!Item) return res.status(404).json({ error: "Build không tồn tại." });
 
 			const build = Item;
-			const wasPublic = build.display === true || build.display === "true";
+			const wasPublic = build.display === true;
 
 			await db.collection(BUILDS_TABLE).deleteOne({ id });
 

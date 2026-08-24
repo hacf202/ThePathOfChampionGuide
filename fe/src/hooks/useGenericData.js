@@ -1,8 +1,30 @@
 // src/hooks/useGenericData.js
 import { useState, useEffect, useCallback } from "react";
 
-// Bộ nhớ đệm toàn cục (Cache) để lưu trữ kết quả API theo queryParams
-const localCache = new Map();
+// Cache với TTL 5 phút và giới hạn 100 entry để tránh memory leak
+const CACHE_TTL_MS = 5 * 60 * 1000;  // 5 phút
+const CACHE_MAX_SIZE = 100;
+
+const localCache = new Map(); // { key → { data, timestamp } }
+
+function cacheGet(key) {
+	const entry = localCache.get(key);
+	if (!entry) return null;
+	if (Date.now() - entry.timestamp > CACHE_TTL_MS) {
+		localCache.delete(key);
+		return null;
+	}
+	return entry.data;
+}
+
+function cacheSet(key, data) {
+	// Evict entry cũ nhất nếu vượt giới hạn
+	if (localCache.size >= CACHE_MAX_SIZE) {
+		const firstKey = localCache.keys().next().value;
+		localCache.delete(firstKey);
+	}
+	localCache.set(key, { data, timestamp: Date.now() });
+}
 
 export const useGenericData = (
 	endpoint,
@@ -24,9 +46,9 @@ export const useGenericData = (
 	const fetchData = useCallback(async (signal) => {
 		const cacheKey = `${endpoint}?${queryParams}`;
 		
-		// 1. Kiểm tra Cache trước khi gọi API
-		if (localCache.has(cacheKey)) {
-			const cachedData = localCache.get(cacheKey);
+		// 1. Kiểm tra Cache có TTL trước khi gọi API
+		const cachedData = cacheGet(cacheKey);
+		if (cachedData) {
 			setDataList(cachedData.items);
 			setPagination(cachedData.pagination);
 			if (cachedData.availableFilters) setDynamicFilters(cachedData.availableFilters);
@@ -48,8 +70,8 @@ export const useGenericData = (
 			const data = await response.json();
 			const fetchedItems = data.items || [];
 
-			// 2. Lưu vào Cache
-			localCache.set(cacheKey, data);
+			// 2. Lưu vào Cache (kèm TTL)
+			cacheSet(cacheKey, data);
 
 			setDataList(fetchedItems);
 
@@ -66,7 +88,7 @@ export const useGenericData = (
 			if (err.name === 'AbortError') return; // Bỏ qua lỗi nếu request bị hủy
 			setError(err.message);
 		} finally {
-			if (!signal.aborted) {
+			if (!signal?.aborted) {
 				setLoading(false);
 			}
 		}
@@ -79,6 +101,15 @@ export const useGenericData = (
 		return () => controller.abort(); // Hủy request cũ nếu queryParams thay đổi hoặc component unmount
 	}, [fetchData]);
 
+	// refetch() dùng để gọi lại từ bên ngoài (vd: sau khi delete)
+	// Xóa cache entry hiện tại để buộc fetch mới từ API
+	const refetch = useCallback(() => {
+		const cacheKey = `${endpoint}?${queryParams}`;
+		localCache.delete(cacheKey);
+		const controller = new AbortController();
+		fetchData(controller.signal);
+	}, [endpoint, queryParams, fetchData]);
+
 	return {
 		dataList,
 		knownDict,
@@ -86,6 +117,6 @@ export const useGenericData = (
 		error,
 		pagination,
 		dynamicFilters,
-		refetch: fetchData,
+		refetch,
 	};
 };

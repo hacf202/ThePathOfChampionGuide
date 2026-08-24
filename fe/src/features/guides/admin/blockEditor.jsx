@@ -495,9 +495,9 @@ const BlockItem = ({ block, index, onUpdate, onDelete }) => {
 const BlockEditor = ({
 	blocks,
 	setBlocks,
-	referenceData,
 	parentId = "root",
 }) => {
+	const { tUI } = useTranslation();
 	const generateId = () =>
 		`block-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 

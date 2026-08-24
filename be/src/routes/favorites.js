@@ -161,7 +161,7 @@ router.patch("/:id/favorite", authenticateCognitoToken, async (req, res) => {
 		}
 
 		// Invalidate cache công khai để cập nhật số lượng yêu thích nếu cần
-		if (build.display === true || build.display === "true") {
+		if (build.display === true) {
 			await invalidatePublicBuildsCache();
 		}
 

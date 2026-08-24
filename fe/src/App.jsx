@@ -75,15 +75,19 @@ import PrivateRoute from "./components/admin/privateRoute.jsx";
 import usePageTracking from "./hooks/usePageTracking";
 import { initEntities } from "./utils/entityLookup";
 
+// Danh sách các route không cần bọc container (full-width / no-padding)
+const SPECIAL_ROUTES = ["/", "/home", "/randomizer", "/introduction", "/simulator/vaults", "/tools/ratings", "/tools/champion-items"];
+const CARD_GUESS_PREFIX = "/tools/card-guess";
+
 // --- Component chứa Logic Main Content ---
 function MainContentContainer() {
 	usePageTracking();
 	const location = useLocation();
 
 	const isAdmin = location.pathname.startsWith("/admin");
-	// Danh sách các trang full-width
-	const fullWidthPaths = ["/", "/randomizer", "/home", "/introduction", "/simulator/vaults", "/tools/ratings", "/tools/champion-items"];
-	const isFullWidth = isAdmin || fullWidthPaths.includes(location.pathname) || location.pathname.startsWith("/tools/card-guess");
+	const isFullWidth = isAdmin
+		|| SPECIAL_ROUTES.includes(location.pathname)
+		|| location.pathname.startsWith(CARD_GUESS_PREFIX);
 
 	useEffect(() => {
 		if (!location.pathname.startsWith("/admin")) {
@@ -109,20 +113,13 @@ function AppLayout() {
 	const location = useLocation();
 	const isAdminRoute = location.pathname.startsWith("/admin");
 
-	// Danh sách các trang không cần bọc container phụ (đã có riêng hoặc là full-width)
-	const isSpecialRoute = 
-		isAdminRoute ||
-		location.pathname === "/" ||
-		location.pathname === "/home" ||
-		location.pathname === "/randomizer" ||
-		location.pathname === "/introduction" ||
-		location.pathname === "/simulator/vaults" ||
-		location.pathname === "/tools/ratings" ||
-		location.pathname === "/tools/champion-items" ||
-		location.pathname.startsWith("/tools/card-guess");
+	const isSpecialRoute =
+		isAdminRoute
+		|| SPECIAL_ROUTES.includes(location.pathname)
+		|| location.pathname.startsWith(CARD_GUESS_PREFIX);
 
 	// Danh sách các trang không hiển thị Footer
-	const isNoFooterRoute = isAdminRoute || location.pathname.startsWith("/tools/card-guess");
+	const isNoFooterRoute = isAdminRoute || location.pathname.startsWith(CARD_GUESS_PREFIX);
 
 	return (
 		<div

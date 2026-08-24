@@ -1,9 +1,10 @@
-// src/routes/builds.js
 import express from "express";
 import { getDb } from "../config/mongo.js";
 import { v4 as uuidv4 } from "uuid";
+import { z } from "zod";
 
-import { authenticateCognitoToken } from "../middleware/authenticate.js";
+import { authenticateCognitoToken, optionalAuth } from "../middleware/authenticate.js";
+import { validateBody } from "../middleware/validateBody.js";
 import {
 	normalizeDisplay,
 	prepareDisplayForSave,
@@ -23,6 +24,11 @@ const router = express.Router();
 const BUILDS_TABLE = "guidePocBuilds";
 const availableFiltersCache = cacheManager.getOrCreateCache("available_filters", { stdTTL: 3600 });
 const searchDictionariesCache = cacheManager.getOrCreateCache("search_dictionaries", { stdTTL: 3600 });
+
+// In-memory rate limiter cho route /like: tối đa 5 lần / IP / phút
+const likeLimiterMap = new Map();
+const LIKE_LIMIT_MAX = 5;
+const LIKE_LIMIT_WINDOW_MS = 60 * 1000; // 1 phút
 
 // --- UTILITY FUNCTIONS ---
 
@@ -142,7 +148,7 @@ router.get("/top-by-champion/:championID", async (req, res) => {
 	try {
 		const db = getDb();
 		const Items = await db.collection(BUILDS_TABLE)
-			.find({ championID, display: { $in: [true, "true"] } })
+			.find({ championID, display: true })
 			.sort({ views: -1 })
 			.limit(limit)
 			.toArray();
@@ -184,18 +190,18 @@ router.get("/", async (req, res) => {
 		const currentPage = parseInt(page);
 		const db = getDb();
 
-		const { query, sortObj } = await buildBuildsQueryObj(req.query, { display: { $in: [true, "true"] } });
+		const { query, sortObj } = await buildBuildsQueryObj(req.query, { display: true });
 
 		// Cache available filters logic asynchronously if missing
 		let availableFilters = await availableFiltersCache.get("global");
 		if (!availableFilters) {
 			availableFilters = {
 				championIDs: (await db.collection(BUILDS_TABLE).aggregate([
-					{ $match: { display: { $in: [true, "true"] } } },
+					{ $match: { display: true } },
 					{ $group: { _id: "$championID" } }
 				]).toArray()).map(d => d._id).filter(Boolean).sort(),
 				regions: (await db.collection(BUILDS_TABLE).aggregate([
-					{ $match: { display: { $in: [true, "true"] } } },
+					{ $match: { display: true } },
 					{ $unwind: "$regions" },
 					{ $group: { _id: "$regions" } }
 				]).toArray()).map(d => d._id).filter(Boolean).sort()
@@ -305,20 +311,9 @@ router.get("/my-builds", authenticateCognitoToken, async (req, res) => {
 });
 
 // GET /api/builds/:id
-router.get("/:id", async (req, res) => {
+router.get("/:id", optionalAuth, async (req, res) => {
 	const { id } = req.params;
-	let userSub = null;
-
-	const authHeader = req.headers.authorization;
-	if (authHeader && authHeader.startsWith("Bearer ")) {
-		const token = authHeader.split(" ")[1];
-		try {
-			const payload = JSON.parse(atob(token.split(".")[1]));
-			userSub = payload.sub;
-		} catch (err) {
-			console.warn("Invalid token format");
-		}
-	}
+	const userSub = req.user?.sub || null;
 
 	try {
 		const db = getDb();
@@ -327,7 +322,7 @@ router.get("/:id", async (req, res) => {
 		if (!Item) return res.status(404).json({ error: "Build not found" });
 
 		const build = normalizeDisplay(Item);
-		const isPublic = Item.display === true || Item.display === "true";
+		const isPublic = Item.display === true;
 
 		if (isPublic) {
 			db.collection(BUILDS_TABLE).updateOne(
@@ -352,22 +347,29 @@ router.get("/:id", async (req, res) => {
 	}
 });
 
+const createBuildSchema = z.object({
+	championID: z.string().min(1, "Champion ID is required"),
+	description: z.string().default(""),
+	relicSetIds: z.array(z.string()).min(1, "At least one relic set is required"),
+	powerIds: z.array(z.string()).default([]),
+	runeIds: z.array(z.string()).default([]),
+	star: z.coerce.number().int().min(0).max(7).default(0),
+	display: z.coerce.boolean().default(false),
+	regions: z.array(z.string()).default([]),
+});
+
 // POST /api/builds
-router.post("/", authenticateCognitoToken, async (req, res) => {
+router.post("/", authenticateCognitoToken, validateBody(createBuildSchema), async (req, res) => {
 	const {
 		championID,
-		description = "",
-		relicSetIds = [],
-		powerIds = [],
-		runeIds = [],
-		star = 0,
-		display = false,
-		regions = [],
+		description,
+		relicSetIds,
+		powerIds,
+		runeIds,
+		star,
+		display,
+		regions,
 	} = req.body;
-
-	if (!championID || !Array.isArray(relicSetIds) || relicSetIds.length === 0) {
-		return res.status(400).json({ error: "Champion ID and relicSetIds are required." });
-	}
 
 	const build = {
 		id: uuidv4(),
@@ -441,7 +443,7 @@ router.put("/:id", authenticateCognitoToken, async (req, res) => {
 		Object.entries(req.body).forEach(([key, value]) => {
 			if (allowedFields.includes(key) && value !== undefined) {
 				hasUpdates = true;
-				fieldsToUpdate[key] = key === "display" ? (value === true || value === "true") : value;
+				fieldsToUpdate[key] = value;
 			}
 		});
 
@@ -454,7 +456,7 @@ router.put("/:id", authenticateCognitoToken, async (req, res) => {
 		);
 		const updatedBuild = normalizeDisplay(result);
 
-		const wasPublic = oldBuild.display === true || oldBuild.display === "true";
+		const wasPublic = oldBuild.display === true;
 		const isNowPublic = updatedBuild.display === true;
 
 		if (wasPublic || isNowPublic) {
@@ -492,7 +494,7 @@ router.delete("/:id", authenticateCognitoToken, async (req, res) => {
 			return res.status(403).json({ error: "Unauthorized" });
 		}
 
-		if (build.display === true || build.display === "true") {
+		if (build.display === true) {
 			invalidateUserBuildsCache(req.user.sub);
 		}
 
@@ -518,6 +520,22 @@ router.delete("/:id", authenticateCognitoToken, async (req, res) => {
 router.patch("/:id/like", async (req, res) => {
 	const { id } = req.params;
 
+	// Rate limiting: tối đa LIKE_LIMIT_MAX lần mỗi IP trong LIKE_LIMIT_WINDOW_MS
+	const ip = req.ip || req.headers["x-forwarded-for"] || "unknown";
+	const limiterKey = `like:${ip}`;
+	const now = Date.now();
+	const entry = likeLimiterMap.get(limiterKey);
+	if (entry) {
+		// Xóa các timestamp cũ ngoài cửa sổ thời gian
+		entry.timestamps = entry.timestamps.filter(t => now - t < LIKE_LIMIT_WINDOW_MS);
+		if (entry.timestamps.length >= LIKE_LIMIT_MAX) {
+			return res.status(429).json({ error: "Quá nhiều yêu cầu. Vui lòng thử lại sau." });
+		}
+		entry.timestamps.push(now);
+	} else {
+		likeLimiterMap.set(limiterKey, { timestamps: [now] });
+	}
+
 	try {
 		const db = getDb();
 		const build = await db.collection(BUILDS_TABLE).findOne({ id });
@@ -530,7 +548,7 @@ router.patch("/:id/like", async (req, res) => {
 			{ returnDocument: 'after' }
 		);
 
-		if (build.display === true || build.display === "true") {
+		if (build.display === true) {
 			let userId = "global";
 			const authHeader = req.headers.authorization;
 			if (authHeader && authHeader.startsWith("Bearer ")) {

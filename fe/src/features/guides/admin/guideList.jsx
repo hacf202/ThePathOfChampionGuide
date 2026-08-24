@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "@/context/AuthContext";
@@ -6,142 +6,96 @@ import { useTranslation } from "@/hooks/useTranslation";
 import Button from "@/components/common/button";
 import { Edit, Trash2, Eye } from "lucide-react";
 
-// IMPORT CÁC COMPONENT CHUNG
 import AdminListLayout from "@/components/admin/common/adminListLayout";
 import { LoadingState, ErrorState } from "@/components/admin/common/stateDisplays";
 import Swal from "sweetalert2";
-
-const ITEMS_PER_PAGE = 20;
+import { useGenericData } from "@/hooks/useGenericData";
+import { useGenericFilters } from "@/hooks/useGenericFilters";
 
 const GuideList = () => {
 	const { tUI, t } = useTranslation();
-	const [guides, setGuides] = useState([]);
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState(null);
-
-	const [searchInput, setSearchInput] = useState("");
-	const [searchTerm, setSearchTerm] = useState("");
-	const [currentPage, setCurrentPage] = useState(1);
-
-	const { token } = useAuth();
 	const navigate = useNavigate();
+	const { token } = useAuth();
 
-	const fetchGuides = async () => {
-		try {
-			setLoading(true);
-			const timestamp = Date.now();
-			const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/guides?t=${timestamp}`, {
-				headers: {
-					"Cache-Control": "no-cache",
-					Pragma: "no-cache",
-					Expires: "0",
-				},
-			});
-			if (res.data.success) {
-				const sorted = res.data.data.sort(
-					(a, b) =>
-						new Date(b.updateDate || b.publishedDate) -
-						new Date(a.updateDate || a.publishedDate),
-				);
-				setGuides(sorted);
-			}
-		} catch (err) {
-			console.error("Error loading guide list:", err);
-			setError(tUI("common.error"));
-		} finally {
-			setLoading(false);
-		}
-	};
+	const {
+		state,
+		actions,
+		queryParams,
+	} = useGenericFilters({
+		prefix: "adminGuides",
+		defaultSort: "updateDate-desc"
+	});
 
-	useEffect(() => {
-		fetchGuides();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	const {
+		dataList: guides,
+		loading,
+		error,
+		pagination,
+		refetch
+	} = useGenericData("guides", queryParams, tUI, "slug");
 
 	const handleDelete = async slug => {
 		if (!slug) return;
 		
-		const result = await Swal.fire({
-			title: tUI("admin.common.deleteConfirm"),
-			text: `${tUI("admin.common.deleteConfirm")} (${slug})`,
-			icon: "warning",
-			showCancelButton: true,
-			confirmButtonColor: "#ef4444",
-			cancelButtonColor: "#6b7280",
-			confirmButtonText: tUI("admin.common.delete"),
-			cancelButtonText: tUI("admin.common.cancel"),
-			background: "#1f2937",
-			color: "#f3f4f6",
-		});
+			const result = await Swal.fire({
+				title: tUI("admin.common.deleteConfirm"),
+				text: `${tUI("admin.common.deleteConfirm")} (${slug})`,
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#ef4444",
+				cancelButtonColor: "#6b7280",
+				confirmButtonText: tUI("admin.common.delete"),
+				cancelButtonText: tUI("admin.common.cancel"),
+				background: "#1f2937",
+				color: "#f3f4f6",
+			});
 
-		if (!result.isConfirmed) return;
+			if (!result.isConfirmed) return;
 
-		try {
-			setLoading(true);
-			await axios.delete(`${import.meta.env.VITE_API_URL}/api/guides/${slug}`, {
-				headers: { Authorization: `Bearer ${token}` },
-			});
-			setGuides(guides.filter(g => g.slug !== slug));
-			
-			Swal.fire({
-				icon: "success",
-				title: tUI("admin.common.deleteSuccess"),
-				text: "Bài viết đã được gỡ bỏ.",
-				timer: 2000,
-				showConfirmButton: false,
-				toast: true,
-				position: "top-end",
-			});
-		} catch (err) {
-			Swal.fire({
-				icon: "error",
-				title: tUI("admin.common.errorOccurred"),
-				text: tUI("common.error") || "Error deleting guide.",
-				confirmButtonColor: "#3b82f6",
-			});
-		} finally {
-			setLoading(false);
-		}
+			try {
+				await axios.delete(`${import.meta.env.VITE_API_URL}/api/guides/${slug}`, {
+					headers: { Authorization: `Bearer ${token}` },
+				});
+				refetch();
+				
+				Swal.fire({
+					icon: "success",
+					title: tUI("admin.common.deleteSuccess"),
+					text: tUI("guideList.admin.deleteSuccess"),
+					timer: 2000,
+					showConfirmButton: false,
+					toast: true,
+					position: "top-end",
+				});
+			} catch (error) {
+				console.error("Lỗi khi xóa bài viết:", error);
+				Swal.fire({
+					icon: "error",
+					title: tUI("admin.common.errorOccurred"),
+					text: tUI("common.error") || "Error deleting guide.",
+					confirmButtonColor: "#3b82f6",
+				});
+			}
 	};
-
-	const filteredGuides = useMemo(() => {
-		if (!searchTerm) return guides;
-		return guides.filter(g =>
-			t(g, "title").toLowerCase().includes(searchTerm.toLowerCase()),
-		);
-	}, [guides, searchTerm, t]);
 
 	const sidePanelProps = {
 		searchPlaceholder: tUI("common.searchPlaceholder"),
 		addLabel: tUI("common.addNew"),
 		resetLabel: tUI("common.resetFilter"),
-		searchInput,
-		onSearchInputChange: e => setSearchInput(e.target.value),
-		onSearch: () => {
-			setSearchTerm(searchInput.trim());
-			setCurrentPage(1);
-		},
+		searchInput: state.searchInput,
+		onSearchInputChange: actions.setSearchInput,
+		onSearch: actions.handleSearch,
 		onClearSearch: () => {
-			setSearchInput("");
-			setSearchTerm("");
+			actions.setSearchInput("");
+			actions.handleResetFilters();
 		},
 		onAddNew: () => navigate("new"),
-		onResetFilters: () => {
-			setSearchInput("");
-			setSearchTerm("");
-			setCurrentPage(1);
-		},
+		onResetFilters: actions.handleResetFilters,
 	};
 
 	if (loading && guides.length === 0)
 		return <LoadingState text={tUI("common.loading")} />;
 	if (error) return <ErrorState message={error} />;
-
-	const paginatedGuides = filteredGuides.slice(
-		(currentPage - 1) * ITEMS_PER_PAGE,
-		currentPage * ITEMS_PER_PAGE,
-	);
-	const totalPages = Math.ceil(filteredGuides.length / ITEMS_PER_PAGE);
 
 	return (
 		<div className='font-secondary'>
@@ -152,32 +106,29 @@ const GuideList = () => {
 			</div>
 
 			<AdminListLayout
-				dataLength={filteredGuides.length}
-				totalPages={totalPages}
-				currentPage={currentPage}
-				onPageChange={setCurrentPage}
+				dataLength={guides.length}
+				totalPages={pagination.totalPages}
+				currentPage={pagination.currentPage}
+				onPageChange={actions.setCurrentPage}
 				sidePanelProps={sidePanelProps}
-				emptyMessageTitle='Không tìm thấy bài viết'
-				emptyMessageSub='Vui lòng thử từ khóa khác'
+				emptyMessageTitle={tUI("guideList.admin.emptyTitle")}
+				emptyMessageSub={tUI("guideList.admin.emptyHint")}
 			>
 				<div className='bg-surface-bg rounded-xl border border-border overflow-hidden shadow-sm'>
 					<table className='w-full text-left border-collapse'>
-						<thead className='bg-surface-hover/50 text-text-secondary text-sm uppercase'>
+						<thead className='bg-surface-hover/30 border-b border-border text-[10px] uppercase tracking-widest text-text-tertiary'>
 							<tr>
 								<th className='px-6 py-4 font-semibold'>
-									{tUI("constellation.colName")}
-								</th>
-								<th className='px-6 py-4 font-semibold'>
-									{tUI("guideDetail.authorLabel")}
+									{tUI("admin.common.info")}
 								</th>
 								<th className='px-6 py-4 font-semibold hidden md:table-cell'>
 									{tUI("common.views")}
 								</th>
-								<th className='px-6 py-4 font-semibold text-right'>Thao tác</th>
+								<th className='px-6 py-4 font-semibold text-right'>{tUI("admin.common.actions")}</th>
 							</tr>
 						</thead>
 						<tbody className='divide-y divide-border'>
-							{paginatedGuides.map((guide, index) => (
+							{guides.map((guide, index) => (
 								<tr
 									key={guide.slug || index}
 									className='hover:bg-surface-hover/30 transition-colors'

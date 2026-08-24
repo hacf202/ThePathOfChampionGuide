@@ -1045,6 +1045,14 @@
     "dataError": "Lỗi dữ liệu",
     "contentSummary": "Tóm tắt nội dung"
   },
+  "guideList": {
+    "heading": "Quản lý bài viết",
+    "admin": {
+      "deleteSuccess": "Bài viết đã được gỡ bỏ thành công.",
+      "emptyTitle": "Không tìm thấy bài viết",
+      "emptyHint": "Vui lòng thử từ khóa khác"
+    }
+  },
   "comments": {
     "loginRequired": "Bạn cần đăng nhập để bình luận.",
     "postFailed": "Gửi bình luận thất bại",

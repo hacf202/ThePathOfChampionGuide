@@ -1085,6 +1085,14 @@
     "dataError": "Data Error",
     "contentSummary": "Content Summary"
   },
+  "guideList": {
+    "heading": "Manage Guides",
+    "admin": {
+      "deleteSuccess": "Guide has been removed successfully.",
+      "emptyTitle": "No guides found",
+      "emptyHint": "Please try a different keyword"
+    }
+  },
   "comments": {
     "loginRequired": "You must be logged in to comment.",
     "postFailed": "Failed to post comment",

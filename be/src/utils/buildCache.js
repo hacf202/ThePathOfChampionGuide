@@ -21,7 +21,7 @@ export const getPublicBuilds = async (userId = "global") => {
 	try {
 		console.log(`[BuildCache] Fetching fresh public builds for: ${userId}`);
 		const db = getDb();
-		let Items = await db.collection(BUILDS_TABLE).find({ display: { $in: [true, "true"] } }).toArray();
+		let Items = await db.collection(BUILDS_TABLE).find({ display: true }).toArray();
 
 		let items = Items
 			? Items.map(item => normalizeDisplay(item))

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "@/context/AuthContext";
@@ -7,7 +7,6 @@ import RichTextEditor from "@/components/admin/RichTextEditor";
 import Button from "@/components/common/button";
 import InputField from "@/components/common/inputField";
 import { List } from "lucide-react";
-import { removeAccents } from "@/utils/vietnameseUtils";
 import Swal from "sweetalert2";
 
 // IMPORT CÁC COMPONENT CHUNG
@@ -34,17 +33,6 @@ const GuideForm = ({ slug }) => {
 	const [isDirty, setIsDirty] = useState(false);
 	const [loading, setLoading] = useState(false);
 
-	const [referenceData, setReferenceData] = useState({
-		champions: {},
-		relics: {},
-		powers: {},
-	});
-
-	// Lấy danh sách section để hiển thị mục lục
-	const sections = useMemo(
-		() => Array.isArray(formData.content) ? formData.content.filter(b => b.type === "section") : [],
-		[formData.content],
-	);
 
 	// Dirty check
 	useEffect(() => {
@@ -52,25 +40,7 @@ const GuideForm = ({ slug }) => {
 		setIsDirty(isChanged);
 	}, [formData, initialData]);
 
-	// Fetch Reference Data (giữ lại để PreviewBlock backward-compat)
-	useEffect(() => {
-		const fetchRefs = async () => {
-			const baseUrl = import.meta.env.VITE_API_URL;
-			const [c, r, p] = await Promise.all([
-				axios.get(`${baseUrl}/api/champions?limit=-1`),
-				axios.get(`${baseUrl}/api/relics?limit=-1`),
-				axios.get(`${baseUrl}/api/powers?limit=-1`),
-			]);
-			const buildMap = (arr, key) =>
-				arr.reduce((acc, item) => ({ ...acc, [item[key]]: item }), {});
-			setReferenceData({
-				champions: buildMap(c.data.items || [], "championID"),
-				relics: buildMap(r.data.items || [], "relicCode"),
-				powers: buildMap(p.data.items || [], "powerCode"),
-			});
-		};
-		fetchRefs();
-	}, []);
+
 
 	// Load Guide Data
 	useEffect(() => {
@@ -137,7 +107,8 @@ const GuideForm = ({ slug }) => {
 				toast: true,
 				position: "top-end",
 			});
-		} catch (err) {
+		} catch (error) {
+			console.error("Error saving guide:", error);
 			Swal.fire({
 				icon: "error",
 				title: tUI("admin.common.errorOccurred"),
@@ -149,9 +120,7 @@ const GuideForm = ({ slug }) => {
 		}
 	};
 
-	const updateBlocks = newBlocks => {
-		setFormData(prev => ({ ...prev, content: newBlocks }));
-	};
+
 
 	const handleInputChange = e => {
 		const { name, value } = e.target;

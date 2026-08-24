@@ -2,17 +2,20 @@
 import express from "express";
 import cacheManager from "../utils/cacheManager.js";
 import { getDb } from "../config/mongo.js";
+import { z } from "zod";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { requireAdmin } from "../middleware/requireAdmin.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
 import { supabase } from "../config/supabase.js";
 import { createAuditLog } from "../utils/auditLogger.js";
+import { validateBody } from "../middleware/validateBody.js";
 import {
 	getCachedChampions,
 	batchFetchByIds,
 	invalidateChampionCache,
 } from "../services/dataService.js";
 import kv from "../utils/redis.js";
+import { calculateCommunityRatings } from "../utils/ratingUtils.js";
 
 const router = express.Router();
 const CHAMPIONS_TABLE = "guidePocChampionList";
@@ -308,33 +311,8 @@ router.get("/:championID/full", async (req, res) => {
 			}
 		}
 
-		if (ratingsList.length > 0) {
-			const sum = { damage: 0, defense: 0, speed: 0, consistency: 0, synergy: 0, independence: 0 };
-			ratingsList.forEach(r => {
-				Object.keys(sum).forEach(k => sum[k] += r.ratings[k] || 0);
-			});
-			const count = ratingsList.length;
-			const adminRatings = champion.ratings || { damage: 5, defense: 5, speed: 5, consistency: 5, synergy: 5, independence: 5 };
-			
-			champion.communityRatings = {
-				damage: parseFloat(((adminRatings.damage + sum.damage) / (count + 1)).toFixed(1)),
-				defense: parseFloat(((adminRatings.defense + sum.defense) / (count + 1)).toFixed(1)),
-				speed: parseFloat(((adminRatings.speed + sum.speed) / (count + 1)).toFixed(1)),
-				consistency: parseFloat(((adminRatings.consistency + sum.consistency) / (count + 1)).toFixed(1)),
-				synergy: parseFloat(((adminRatings.synergy + sum.synergy) / (count + 1)).toFixed(1)),
-				independence: parseFloat(((adminRatings.independence + sum.independence) / (count + 1)).toFixed(1)),
-				count: count + 1,
-				communityOnlyAvg: {
-					damage: parseFloat((sum.damage / count).toFixed(1)),
-					defense: parseFloat((sum.defense / count).toFixed(1)),
-					speed: parseFloat((sum.speed / count).toFixed(1)),
-					consistency: parseFloat((sum.consistency / count).toFixed(1)),
-					synergy: parseFloat((sum.synergy / count).toFixed(1)),
-					independence: parseFloat((sum.independence / count).toFixed(1)),
-					userCount: count
-				}
-			};
-		}
+		// Dùng hàm tập trung từ ratingUtils để tránh lặp code
+		champion.communityRatings = calculateCommunityRatings(champion.ratings, ratingsList);
 
 		// 5. Tìm tướng gợi ý (Cùng khu vực hoặc ngẫu nhiên)
 		const allChampions = await getCachedChampions();
@@ -398,62 +376,12 @@ router.get("/:championID", async (req, res) => {
 		const championData = Item;
 		delete championData._id;
 
-		// Thêm phần tính toán điểm trung bình từ cộng đồng
+		// Dùng hàm tập trung từ ratingUtils để tính điểm cộng đồng
+		// Frontend (Public) dùng communityRatings làm bộ chỉ số hiển thị chính.
+		// Admin vẫn thấy điểm gốc trong championData.ratings.
 		try {
 			const rItems = await db.collection("guidePocPlayStyleRating").find({ championID }).toArray();
-			const allRatings = rItems || [];
-
-			if (allRatings.length > 0) {
-				const sum = {
-					damage: 0,
-					defense: 0,
-					speed: 0,
-					consistency: 0,
-					synergy: 0,
-					independence: 0,
-				};
-				allRatings.forEach(r => {
-					sum.damage += r.ratings.damage || 0;
-					sum.defense += r.ratings.defense || 0;
-					sum.speed += r.ratings.speed || 0;
-					sum.consistency += r.ratings.consistency || 0;
-					sum.synergy += r.ratings.synergy || 0;
-					sum.independence += r.ratings.independence || 0;
-				});
-
-				const userCount = allRatings.length;
-				const totalCount = userCount + 1;
-
-				// Lấy điểm Admin làm gốc (coi như 1 lượt đánh giá)
-				const adminRatings = championData.ratings || {
-					damage: 5, defense: 5, speed: 5, consistency: 5, synergy: 5, independence: 5
-				};
-
-				// Tính điểm kết hợp dân chủ: (Admin + Tổng Cộng đồng) / (1 + Count)
-				championData.communityRatings = {
-					damage: parseFloat(((adminRatings.damage + sum.damage) / totalCount).toFixed(1)),
-					defense: parseFloat(((adminRatings.defense + sum.defense) / totalCount).toFixed(1)),
-					speed: parseFloat(((adminRatings.speed + sum.speed) / totalCount).toFixed(1)),
-					consistency: parseFloat(((adminRatings.consistency + sum.consistency) / totalCount).toFixed(1)),
-					synergy: parseFloat(((adminRatings.synergy + sum.synergy) / totalCount).toFixed(1)),
-					independence: parseFloat(((adminRatings.independence + sum.independence) / totalCount).toFixed(1)),
-					count: totalCount,
-					communityOnlyAvg: {
-						damage: parseFloat((sum.damage / userCount).toFixed(1)),
-						defense: parseFloat((sum.defense / userCount).toFixed(1)),
-						speed: parseFloat((sum.speed / userCount).toFixed(1)),
-						consistency: parseFloat((sum.consistency / userCount).toFixed(1)),
-						synergy: parseFloat((sum.synergy / userCount).toFixed(1)),
-						independence: parseFloat((sum.independence / userCount).toFixed(1)),
-						userCount: userCount
-					}
-				};
-				
-				// Frontend (Public) sẽ dùng communityRatings này làm bộ chỉ số hiển thị chính.
-				// Admin vẫn thấy điểm gốc trong championData.ratings.
-			} else {
-				championData.communityRatings = null;
-			}
+			championData.communityRatings = calculateCommunityRatings(championData.ratings, rItems);
 		} catch (rError) {
 			console.error("Lỗi khi tính điểm cộng đồng (Chi tiết):", rError);
 			championData.communityRatings = null;
@@ -467,32 +395,24 @@ router.get("/:championID", async (req, res) => {
 	}
 });
 
+const upsertChampionSchema = z.object({
+	championID: z.string()
+		.min(2, "championID phải từ 2-50 ký tự")
+		.max(50, "championID phải từ 2-50 ký tự")
+		.regex(/^[A-Za-z0-9_-]+$/, "championID chỉ được chứa chữ cái, số, gạch dưới và gạch ngang."),
+	name: z.string().min(1, "name là bắt buộc"),
+	maxStar: z.coerce.number().int().min(1, "maxStar phải là số từ 1-7.").max(7, "maxStar phải là số từ 1-7.").default(7),
+	isNew: z.boolean().optional(),
+}).passthrough();
+
 /**
  * @route   PUT /api/champions
  * @desc    Tạo mới hoặc cập nhật một tướng
  */
-router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
+router.put("/", authenticateCognitoToken, requireAdmin, validateBody(upsertChampionSchema), async (req, res) => {
 	const rawData = req.body;
-
-	if (!rawData.championID || !rawData.name?.trim()) {
-		return res.status(400).json({ error: "championID và name là bắt buộc." });
-	}
-
 	const championID = rawData.championID.trim();
-
-	if (championID.length < 2 || championID.length > 50) {
-		return res.status(400).json({ error: "championID phải từ 2-50 ký tự." });
-	}
-	if (!/^[A-Za-z0-9_-]+$/.test(championID)) {
-		return res.status(400).json({
-			error: "championID chỉ được chứa chữ cái, số, gạch dưới và gạch ngang.",
-		});
-	}
-
-	const maxStar = Number(rawData.maxStar) || 7;
-	if (!Number.isInteger(maxStar) || maxStar < 1 || maxStar > 7) {
-		return res.status(400).json({ error: "maxStar phải là số từ 1-7." });
-	}
+	const maxStar = rawData.maxStar;
 
 	const { isNew, communityRatings, _id, ...dataToSave } = rawData;
 

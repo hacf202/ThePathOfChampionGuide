@@ -42,7 +42,9 @@ import cardGuessGameLogicRouter from "./src/routes/cardGuessGameLogic.js";
 // Kiểm tra các biến môi trường cần thiết
 const requiredEnvVars = [
 	"SUPABASE_URL",
-	"SUPABASE_ANON_KEY",
+	"SUPABASE_SERVICE_ROLE_KEY",
+	"MONGODB_URI",
+	"MONGODB_DB_NAME",
 	"FRONTEND_URL",
 ];
 const missingEnvVars = requiredEnvVars.filter(varName => !process.env[varName]);

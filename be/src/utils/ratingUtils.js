@@ -5,6 +5,43 @@ import cacheManager from "./cacheManager.js";
 const championCache = cacheManager.getOrCreateCache("champions");
 
 /**
+ * Tính điểm trung bình cộng đồng từ danh sách ratings và điểm admin gốc.
+ * Hàm thuần túy (pure function), không phụ thuộc DB.
+ *
+ * @param {Object} adminRatings - Điểm gốc do admin đặt { damage, defense, speed, consistency, synergy, independence }
+ * @param {Array}  ratingsList  - Danh sách đánh giá của người dùng từ DB
+ * @returns {Object|null} - communityRatings object hoặc null nếu ratingsList rỗng
+ */
+export function calculateCommunityRatings(adminRatings, ratingsList) {
+	if (!ratingsList || ratingsList.length === 0) return null;
+
+	const KEYS = ["damage", "defense", "speed", "consistency", "synergy", "independence"];
+	const defaultAdmin = { damage: 5, defense: 5, speed: 5, consistency: 5, synergy: 5, independence: 5 };
+	const base = adminRatings || defaultAdmin;
+
+	const sum = Object.fromEntries(KEYS.map(k => [k, 0]));
+	ratingsList.forEach(r => {
+		KEYS.forEach(k => { sum[k] += r.ratings?.[k] || 0; });
+	});
+
+	const userCount = ratingsList.length;
+	const totalCount = userCount + 1; // +1 tính Admin như 1 lượt đánh giá
+
+	const combined = Object.fromEntries(
+		KEYS.map(k => [k, parseFloat(((base[k] + sum[k]) / totalCount).toFixed(1))])
+	);
+	const communityOnly = Object.fromEntries(
+		KEYS.map(k => [k, parseFloat((sum[k] / userCount).toFixed(1))])
+	);
+
+	return {
+		...combined,
+		count: totalCount,
+		communityOnlyAvg: { ...communityOnly, userCount },
+	};
+}
+
+/**
  * Tính toán lại điểm trung bình cộng đồng và cập nhật vào bảng ChampionList
  * @param {string} championID - ID của tướng cần đồng bộ
  */

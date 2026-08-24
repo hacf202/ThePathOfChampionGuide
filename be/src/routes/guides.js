@@ -16,11 +16,7 @@ const CACHE_KEY_LIST = "all_guides";
 const getDetailCacheKey = slug => `guide_${slug}`;
 
 const getCurrentDate = () => {
-	const date = new Date();
-	const day = date.getDate().toString().padStart(2, "0"); // Thêm số 0 nếu < 10
-	const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Tháng bắt đầu từ 0
-	const year = date.getFullYear();
-	return `${day}-${month}-${year}`;
+	return new Date().toISOString();
 };
 // ==========================================
 // PUBLIC ROUTES
@@ -32,24 +28,79 @@ const getCurrentDate = () => {
  */
 router.get("/", async (req, res) => {
 	try {
-		// 1. Kiểm tra Cache
-		const cached = await cache.get(CACHE_KEY_LIST);
-		if (cached) {
-			return res.status(200).json(cached);
+		const db = getDb();
+		const { page, limit, search } = req.query;
+
+		// Nếu không truyền page/limit, trả về cache (tương thích ngược cho Frontend cũ)
+		if (!page && !limit && !search) {
+			const cached = await cache.get(CACHE_KEY_LIST);
+			if (cached) {
+				return res.status(200).json(cached);
+			}
+
+			const guides = await db.collection(GUIDES_TABLE).find({}).sort({ updateDate: -1, publishedDate: -1 }).toArray();
+			
+			// Format cũ cho client cũ
+			const responseData = {
+				success: true,
+				count: guides.length,
+				data: guides,
+				// Format mới (optional, nhưng để sẵn)
+				items: guides,
+				pagination: { totalItems: guides.length, totalPages: 1, currentPage: 1, pageSize: guides.length }
+			};
+
+			await cache.set(CACHE_KEY_LIST, responseData);
+			return res.status(200).json(responseData);
 		}
 
-		// 2. Gọi MongoDB
-		const db = getDb();
-		const guides = await db.collection(GUIDES_TABLE).find({}).toArray();
+		// Tính năng Search & Pagination cho Admin / useGenericData
+		const { searchTerm, sort } = req.query;
+
+		let query = {};
+		if (searchTerm) {
+			query = {
+				$or: [
+					{ title: { $regex: searchTerm, $options: "i" } },
+					{ slug: { $regex: searchTerm, $options: "i" } },
+					{ author: { $regex: searchTerm, $options: "i" } }
+				]
+			};
+		}
+
+		// Parse sort: "updateDate-desc" => { updateDate: -1 }
+		let sortObj = { updateDate: -1, publishedDate: -1 }; // Mặc định
+		if (sort) {
+			const lastDash = sort.lastIndexOf("-");
+			if (lastDash !== -1) {
+				const field = sort.substring(0, lastDash);
+				const dir = sort.substring(lastDash + 1);
+				if (field) sortObj = { [field]: dir === "desc" ? -1 : 1 };
+			}
+		}
+
+		const pageSize = parseInt(limit) || 20;
+		const currentPage = parseInt(page) || 1;
+		const skip = (currentPage - 1) * pageSize;
+
+		const totalItems = await db.collection(GUIDES_TABLE).countDocuments(query);
+		const totalPages = Math.ceil(totalItems / pageSize);
+
+		const items = await db.collection(GUIDES_TABLE)
+			.find(query)
+			.sort(sortObj)
+			.skip(skip)
+			.limit(pageSize)
+			.toArray();
 
 		const responseData = {
+			items,
+			pagination: { totalItems, totalPages, currentPage, pageSize },
+			// Giữ lại format cũ cho an toàn
 			success: true,
-			count: guides.length,
-			data: guides,
+			count: items.length,
+			data: items,
 		};
-
-		// 3. Lưu Cache
-		await cache.set(CACHE_KEY_LIST, responseData);
 
 		res.status(200).json(responseData);
 	} catch (error) {

@@ -94,7 +94,7 @@ const PreviewBlock = ({ block, referenceData }) => {
 				</blockquote>
 			);
 
-		case "champion":
+		case "champion": {
 			const champ = referenceData?.champions?.[block.id];
 			if (!champ)
 				return (
@@ -139,8 +139,9 @@ const PreviewBlock = ({ block, referenceData }) => {
 					</div>
 				</div>
 			);
+		}
 
-		case "relic":
+		case "relic": {
 			const relic = referenceData?.relics?.[block.id];
 			if (!relic)
 				return (
@@ -185,8 +186,9 @@ const PreviewBlock = ({ block, referenceData }) => {
 					</div>
 				</div>
 			);
+		}
 
-		case "power":
+		case "power": {
 			const power = referenceData?.powers?.[block.id];
 			if (!power)
 				return (
@@ -209,6 +211,7 @@ const PreviewBlock = ({ block, referenceData }) => {
 					</div>
 				</div>
 			);
+		}
 
 		case "table":
 			return (
