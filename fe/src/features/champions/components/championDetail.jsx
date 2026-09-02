@@ -3,7 +3,7 @@ import { memo, useMemo, useState, useEffect, useCallback, useRef } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
 import iconRegions from "@/assets/data/icon.json";
-import { ChevronLeft, Star, XCircle } from "lucide-react";
+import { ChevronLeft, Star, XCircle, ArrowUp } from "lucide-react";
 import LatestComments from "@/features/comment/components/latestComments";
 import Button from "@/components/common/button";
 import PageTitle from "@/components/common/pageTitle";
@@ -36,6 +36,7 @@ import ChampionStartingDeck from "@/features/champions/components/ChampionStarti
 import ChampionRelicSets from "@/features/champions/components/ChampionRelicSets";
 import ChampionRecommendations from "@/features/champions/components/ChampionRecommendations";
 import ChampionSuggested from "@/features/champions/components/ChampionSuggested";
+import ChampionTableOfContents from "@/features/champions/components/ChampionTableOfContents";
 
 // --- THÀNH PHẦN SKELETON ---
 const ChampionDetailSkeleton = () => (
@@ -81,6 +82,36 @@ function ChampionDetail() {
 	const [loading, setLoading] = useState(true);
 	const [isFullDataLoading, setIsFullDataLoading] = useState(true);
 	const [error, setError] = useState(null);
+
+	// Nút Cuộn Lên Đầu Trang
+	const [showScrollTop, setShowScrollTop] = useState(false);
+	useEffect(() => {
+		const handleScroll = () => {
+			setShowScrollTop(window.scrollY > 500);
+		};
+		window.addEventListener("scroll", handleScroll);
+		return () => window.removeEventListener("scroll", handleScroll);
+	}, []);
+
+	const scrollToTop = () => {
+		window.scrollTo({ top: 0, behavior: "smooth" });
+	};
+
+	const championSchema = useMemo(() => {
+		if (!champion) return null;
+		return {
+			"@context": "https://schema.org",
+			"@type": ["Article", "TechArticle"],
+			"headline": `${tDynamic(champion, "name")} | ${tUI("championDetail.title") || "Guide"} | Path of Champions`,
+			"image": champion.assets?.[0]?.avatar || "",
+			"genre": "Video Game Guide",
+			"about": {
+				"@type": "VideoGameCharacter",
+				"name": tDynamic(champion, "name"),
+				"inLanguage": language === "vi" ? "vi-VN" : "en-US",
+			}
+		};
+	}, [champion, language, tDynamic, tUI]);
 
 	const [activeDeckTab, setActiveDeckTab] = useState("base");
 	const [topBuilds, setTopBuilds] = useState([]);
@@ -391,7 +422,7 @@ function ChampionDetail() {
 			.map((setObjOrArr, i) => {
 				const isArray = Array.isArray(setObjOrArr);
 				const relicsList = isArray ? setObjOrArr : (setObjOrArr.items || []);
-				const description = isArray ? "" : (setObjOrArr.description || "");
+				const description = isArray ? "" : (language === "en" && setObjOrArr.translations?.en?.description ? setObjOrArr.translations.en.description : (setObjOrArr.description || ""));
 				const video = isArray ? "" : (setObjOrArr.videoLink || "");
 				
 				return {
@@ -404,7 +435,7 @@ function ChampionDetail() {
 				};
 			})
 			.filter(s => s.relics.length > 0);
-	}, [champion, resolvedRelics]);
+	}, [champion, resolvedRelics, language]);
 
 	const starPowersList = useMemo(() => {
 		return constellationInfo.nodes.filter(n => n.nodeType === "starPower");
@@ -426,16 +457,30 @@ function ChampionDetail() {
 		);
 
 	return (
-		<div className='animate-fadeIn'>
-			<PageTitle
-				title={
-					champion ? `${tDynamic(champion, "name")} | ${tUI("championDetail.title")}` : tUI("championDetail.title")
-				}
-				description={champion ? `${tUI("championDetail.metaDesc")} ${tDynamic(champion, "name")}. Hướng dẫn cách build, chọn cổ vật (relic), và lối chơi cho ${tDynamic(champion, "name")} trong chế độ Con Đường Anh Hùng (PoC) Legends of Runeterra.` : tUI("championDetail.metaDesc")}
-				keywords={champion ? `${tDynamic(champion, "name")}, build ${tDynamic(champion, "name")} poc, build ${tDynamic(champion, "name")} pve, ${tDynamic(champion, "name")} lor pve, cách chơi ${tDynamic(champion, "name")} poc, cổ vật cho ${tDynamic(champion, "name")}, ${champion.regions?.join(", ")}` : ""}
-				type='article'
-			/>
-			<div className='max-w-[1200px] mx-auto p-0 sm:p-6 text-text-primary font-secondary'>
+		<>
+			{/* TABLE OF CONTENTS - Phải nằm ngoài tất cả thẻ cha có chứa CSS animate hoặc opacity để FIXED hoạt động chuẩn */}
+			<div 
+				className="hidden 2xl:block fixed top-40 w-[260px] z-10" 
+				style={{ left: 'calc(50% + 624px)' }}
+			>
+				<ChampionTableOfContents tUI={tUI} />
+			</div>
+
+			<div className='animate-fadeIn'>
+				<PageTitle
+					title={
+						champion ? `${tDynamic(champion, "name")} | ${tUI("championDetail.title")}` : tUI("championDetail.title")
+					}
+					description={champion ? `${tUI("championDetail.metaDesc")} ${tDynamic(champion, "name")}. Hướng dẫn cách build, chọn cổ vật (relic), và lối chơi cho ${tDynamic(champion, "name")} trong chế độ Con Đường Anh Hùng (PoC) Legends of Runeterra.` : tUI("championDetail.metaDesc")}
+					keywords={champion ? `${tDynamic(champion, "name")}, build ${tDynamic(champion, "name")} poc, build ${tDynamic(champion, "name")} pve, ${tDynamic(champion, "name")} lor pve, cách chơi ${tDynamic(champion, "name")} poc, cổ vật cho ${tDynamic(champion, "name")}, ${champion.regions?.join(", ")}` : ""}
+					type='article'
+					schema={championSchema}
+				/>
+			
+			<div className='relative w-full max-w-[1200px] mx-auto'>
+
+				{/* MAIN CONTENT */}
+				<div className='w-full p-0 sm:p-6 text-text-primary font-secondary relative'>
 				
 					{loading ? (
 						<div
@@ -458,66 +503,16 @@ function ChampionDetail() {
 
 							<ChampionHeader champion={champion} tDynamic={tDynamic} tUI={tUI} />
 
-							{isFullDataLoading ? (
-								<div className="flex flex-col items-center justify-center py-20 space-y-4">
-									<div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500"></div>
-									<p className="text-text-secondary animate-pulse">{tUI("common.loading") || "Đang tải dữ liệu chi tiết..."}</p>
-								</div>
-							) : (
-								<>
-							{/* CONSTELLATION SECTION */}
-							{constellationInfo.nodes.length > 0 && (
-								<div className="bg-surface-bg border border-border rounded-xl p-1 sm:p-6 shadow-sm mt-6 overflow-hidden">
-									<h2 className='p-1 text-lg sm:text-3xl font-semibold font-primary text-primary-500 flex items-center gap-3 border-b border-border mb-6'>
-										{tUI("championDetail.constellation")}
-									</h2>
-
-									<ConstellationMap constellationInfo={constellationInfo} />
-
-									<div className="mt-8">
-										<ConstellationTable
-											starPowersList={starPowersList}
-											bonusStarsList={bonusStarsList}
-										/>
-									</div>
-								</div>
-							)}
-
-							{/* COMMUNITY EVALUATION SECTION (Radar Chart) */}
-							<ChampionPlaystyleChart
-								champion={champion}
-								onRefresh={initData}
-								initialAllRatings={allRatings}
-								initialMyRating={myRating}
-							/>
-
-							{/* VIDEO SECTION */}
-							<ChampionVideo champion={champion} tUI={tUI} />
-
-							{/* STARTING DECK SECTION */}
-							<ChampionStartingDeck
-								champion={champion}
-								resolvedStartingCards={resolvedStartingCards}
-								resolvedItems={resolvedItems}
-								tDynamic={tDynamic}
-								tUI={tUI}
-								handleOpenCarousel={handleOpenCarousel}
-								activeDeckTab={activeDeckTab}
-								setActiveDeckTab={setActiveDeckTab}
-							/>
-
-							{/* LEVEL SECTION NHÚNG TRỰC TIẾP DƯỚI BOOLEAN STARTING DECK */}
-							{(champion.startingDeck?.baseCards?.length > 0 || champion.startingDeck?.referenceCards?.length > 0) && deckUpgrades.length > 0 && (
-								<ChampionLevelSection
-									deckUpgrades={deckUpgrades}
-									resolvedPowers={resolvedPowers}
-									onOpenCarousel={handleOpenCarousel}
-								/>
+							{/* RELIC SETS SECTION */}
+							{(!isFullDataLoading && relicSetsToRender.length > 0) && (
+								<div id="relic-sets"><ChampionRelicSets relicSetsToRender={relicSetsToRender} tUI={tUI} /></div>
 							)}
 
 							{/* TOP COMMUNITY BUILDS */}
-							{topBuilds.length > 0 && (
-								<div className="bg-surface-bg border border-border rounded-xl p-1 sm:p-6 shadow-sm mt-6">
+							{isFullDataLoading ? (
+								<div className="flex justify-center p-10"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-500"></div></div>
+							) : topBuilds.length > 0 && (
+								<div id="community-builds" className="bg-surface-bg border border-border rounded-xl p-1 sm:p-6 shadow-sm mt-6">
 									<div className="flex items-center justify-between border-b border-border mb-6 pb-2">
 										<h2 className='text-lg sm:text-3xl font-semibold font-primary text-primary-500'>
 											{tUI("championDetail.communityBuilds") || "Top Community Builds"}
@@ -549,36 +544,92 @@ function ChampionDetail() {
 								</div>
 							)}
 
-							{/* RELIC SETS SECTION */}
-							<ChampionRelicSets relicSetsToRender={relicSetsToRender} tUI={tUI} />
-
 							{/* RECOMMENDATIONS (Powers, Items, Runes) */}
-							<ChampionRecommendations
-								adventurePowersFull={adventurePowersFull}
-								defaultItemsFull={defaultItemsFull}
-								runesFull={runesFull}
-								tUI={tUI}
-							/>
+							{!isFullDataLoading && (
+								<div id="recommendations"><ChampionRecommendations
+									adventurePowersFull={adventurePowersFull}
+									defaultItemsFull={defaultItemsFull}
+									runesFull={runesFull}
+									tUI={tUI}
+								/></div>
+							)}
+
+							{/* LEVEL SECTION */}
+							{(!isFullDataLoading && deckUpgrades.length > 0) && (
+								<div id="level-section"><ChampionLevelSection
+									deckUpgrades={deckUpgrades}
+									resolvedPowers={resolvedPowers}
+									onOpenCarousel={handleOpenCarousel}
+								/></div>
+							)}
+
+							{/* STARTING DECK SECTION */}
+							{!isFullDataLoading && (
+								<div id="starting-deck"><ChampionStartingDeck
+									champion={champion}
+									resolvedStartingCards={resolvedStartingCards}
+									resolvedItems={resolvedItems}
+									tDynamic={tDynamic}
+									tUI={tUI}
+									handleOpenCarousel={handleOpenCarousel}
+									activeDeckTab={activeDeckTab}
+									setActiveDeckTab={setActiveDeckTab}
+								/></div>
+							)}
+
+							{/* CONSTELLATION SECTION */}
+							{(!isFullDataLoading && constellationInfo.nodes.length > 0) && (
+								<div id="constellation" className="bg-surface-bg border border-border rounded-xl p-1 sm:p-6 shadow-sm mt-6 overflow-hidden">
+									<h2 className='p-1 text-lg sm:text-3xl font-semibold font-primary text-primary-500 flex items-center gap-3 border-b border-border mb-6'>
+										{tUI("championDetail.constellation")}
+									</h2>
+
+									<ConstellationMap constellationInfo={constellationInfo} />
+
+									<div className="mt-8">
+										<ConstellationTable
+											starPowersList={starPowersList}
+											bonusStarsList={bonusStarsList}
+										/>
+									</div>
+								</div>
+							)}
+
+							{/* COMMUNITY EVALUATION SECTION (Radar Chart) */}
+							{!isFullDataLoading && (
+								<div id="playstyle-chart"><ChampionPlaystyleChart
+									champion={champion}
+									onRefresh={initData}
+									initialAllRatings={allRatings}
+									initialMyRating={myRating}
+								/></div>
+							)}
+
+							{/* VIDEO SECTION */}
+							{!isFullDataLoading && (
+								<div id="video-section"><ChampionVideo champion={champion} tUI={tUI} /></div>
+							)}
 
 							{/* SUGGESTED CHAMPIONS */}
-							<ChampionSuggested
-								suggestedChampions={suggestedChampions}
-								tUI={tUI}
-								tDynamic={tDynamic}
-							/>
-
-								</>
+							{!isFullDataLoading && (
+								<ChampionSuggested
+									suggestedChampions={suggestedChampions}
+									tUI={tUI}
+									tDynamic={tDynamic}
+								/>
 							)}
 
 							{/* COMMENTS SECTION */}
-							<div className='mt-8 bg-surface-bg border border-border rounded-xl p-1 sm:p-6 shadow-sm'>
+							<div id="comments" className='mt-8 bg-surface-bg border border-border rounded-xl p-1 sm:p-6 shadow-sm'>
 								<LatestComments championID={championID} />
 							</div>
-
 
 						</div>
 					)}
 				
+				</div>
+
+
 			</div>
 
 			{/* Card Carousel Modal — Render via Portal */}
@@ -589,7 +640,19 @@ function ChampionDetail() {
 					onClose={() => setCarouselOpen(false)}
 				/>
 			)}
+
+			{/* Scroll to top button */}
+			{showScrollTop && (
+				<button
+					onClick={scrollToTop}
+					className="fixed bottom-6 right-6 p-3 bg-primary-500 text-white rounded-full shadow-lg hover:bg-primary-600 transition-all z-50 animate-in fade-in slide-in-from-bottom-4"
+					aria-label="Scroll to top"
+				>
+					<ArrowUp size={24} />
+				</button>
+			)}
 		</div>
+		</>
 	);
 }
 

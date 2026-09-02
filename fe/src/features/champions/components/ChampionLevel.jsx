@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { Star } from "lucide-react";
 import SafeImage from "@/components/common/SafeImage";
 import { useTranslation } from "@/hooks/useTranslation";
@@ -83,21 +83,30 @@ function getLevelData(tUI, upgrades = []) {
 
 function ChampionLevel({ deckUpgrades, resolvedPowers, onOpenCarousel }) {
 	const { tUI, tDynamic, language } = useTranslation();
+	const [isExpanded, setIsExpanded] = useState(false);
 
 	const levels = useMemo(
 		() => getLevelData(tUI, deckUpgrades),
 		[tUI, deckUpgrades]
 	);
 
+	const displayedLevels = isExpanded ? levels : levels.slice(0, 5);
+
 	return (
 		<div className="bg-surface-bg border border-border rounded-xl p-1 sm:p-6 shadow-sm mt-6 overflow-hidden w-full flex flex-col">
 			{/* Header */}
-			<div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-border mb-6 gap-4">
+			<div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-border mb-6 gap-4 pb-2">
 				<div className="flex items-center gap-4">
 					<h2 className="p-1 text-lg sm:text-3xl font-semibold font-primary text-primary-500 flex items-center gap-3">
 						{tUI("championLevelRewards.title")}
 					</h2>
 				</div>
+				<button 
+					onClick={() => setIsExpanded(!isExpanded)}
+					className="text-sm font-bold text-primary-500 hover:underline px-2"
+				>
+					{isExpanded ? (tUI("championDetail.showLess") || "Thu gọn") : (tUI("common.viewAll") || "Xem tất cả")}
+				</button>
 			</div>
 
 			{/* Body (Table) */}
@@ -113,7 +122,7 @@ function ChampionLevel({ deckUpgrades, resolvedPowers, onOpenCarousel }) {
 								</tr>
 							</thead>
 							<tbody className="divide-y divide-border/50">
-								{levels.map((lvl) => (
+								{displayedLevels.map((lvl) => (
 									<tr
 										key={lvl.level}
 										className="group hover:bg-surface-hover/30 transition-colors"
@@ -216,6 +225,16 @@ function ChampionLevel({ deckUpgrades, resolvedPowers, onOpenCarousel }) {
 							</tbody>
 						</table>
 					</div>
+					{!isExpanded && (
+						<div className="w-full text-center py-3 bg-surface-hover/30 border-t border-border/50">
+							<button 
+								onClick={() => setIsExpanded(true)}
+								className="text-sm font-bold text-primary-500 hover:underline"
+							>
+								+ {levels.length - 5} {tUI("championLevelRewards.moreLevels") || "cấp độ khác"}
+							</button>
+						</div>
+					)}
 				</div>
 			</div>
 	);

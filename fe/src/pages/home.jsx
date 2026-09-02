@@ -58,17 +58,17 @@ const Home = () => {
 	const isDragging = useRef(false);
 
 	const TILES = [
-		{ to: "/champions", icon: Swords, label: tUI("nav.champions"), img: BACKGROUND_IMAGES[1], top: "15%", left: "10%", size: "w-28 h-28 lg:w-56 lg:h-56", mobileHidden: false },
-		{ to: "/builds", icon: Crown, label: tUI("nav.builds"), img: BACKGROUND_IMAGES[3], top: "30%", left: "85%", size: "w-20 h-20 lg:w-44 lg:h-44", mobileHidden: false },
-		{ to: "/items", icon: Package, label: tUI("nav.items"), img: BACKGROUND_IMAGES[4], top: "64%", left: "20%", size: "w-24 h-24 lg:w-48 lg:h-48", mobileHidden: true },
-		{ to: "/relics", icon: Sparkles, label: tUI("nav.relics"), img: BACKGROUND_IMAGES[8], top: "1%", left: "33%", size: "w-20 h-20 lg:w-40 lg:h-40", mobileHidden: true },
-		{ to: "/powers", icon: Zap, label: tUI("nav.powers"), img: BACKGROUND_IMAGES[5], top: "70%", left: "45%", size: "w-24 h-24 lg:w-48 lg:h-48", mobileHidden: false },
-		{ to: "/runes", icon: Gem, label: tUI("nav.runes"), img: BACKGROUND_IMAGES[6], top: "5%", left: "80%", size: "w-20 h-20 lg:w-40 lg:h-40", mobileHidden: true },
-		{ to: "/maps", icon: Map, label: tUI("nav.maps"), img: BACKGROUND_IMAGES[2], top: "65%", left: "75%", size: "w-18 h-18 lg:w-36 lg:h-36", mobileHidden: true },
-		{ to: "/tools/ratings", icon: Dices, label: tUI("nav.championRatings"), img: BACKGROUND_IMAGES[9], top: "50%", left: "2%", size: "w-20 h-20 lg:w-36 lg:h-36", mobileHidden: false },
-		{ to: "/cards", icon: GalleryHorizontal, label: tUI("nav.cards"), img: BACKGROUND_IMAGES[7], top: "2%", left: "64%", size: "w-24 h-24 lg:w-40 lg:h-40", mobileHidden: true },
-		{ to: "/resources", icon: Archive, label: tUI("nav.resources"), img: BACKGROUND_IMAGES[6], top: "40%", left: "25%", size: "w-20 h-20 lg:w-44 lg:h-44", mobileHidden: true },
-		{ to: "/champion/C023", icon: Star, label: tUI("nav.newChampion"), img: BACKGROUND_IMAGES[0], top: "5%", left: "49%", size: "w-20 h-20 lg:w-48 lg:h-48", mobileHidden: false },
+		{ to: "/champions", icon: Swords, label: tUI("nav.champions"), img: BACKGROUND_IMAGES[1], mobileHidden: false },
+		{ to: "/builds", icon: Crown, label: tUI("nav.builds"), img: BACKGROUND_IMAGES[3], mobileHidden: false },
+		{ to: "/items", icon: Package, label: tUI("nav.items"), img: BACKGROUND_IMAGES[4], mobileHidden: true },
+		{ to: "/relics", icon: Sparkles, label: tUI("nav.relics"), img: BACKGROUND_IMAGES[8], mobileHidden: true },
+		{ to: "/powers", icon: Zap, label: tUI("nav.powers"), img: BACKGROUND_IMAGES[5], mobileHidden: false },
+		{ to: "/runes", icon: Gem, label: tUI("nav.runes"), img: BACKGROUND_IMAGES[6], mobileHidden: true },
+		{ to: "/maps", icon: Map, label: tUI("nav.maps"), img: BACKGROUND_IMAGES[2], mobileHidden: true },
+		{ to: "/tools/ratings", icon: Dices, label: tUI("nav.championRatings"), img: BACKGROUND_IMAGES[9], mobileHidden: false },
+		{ to: "/cards", icon: GalleryHorizontal, label: tUI("nav.cards"), img: BACKGROUND_IMAGES[7], mobileHidden: true },
+		{ to: "/resources", icon: Archive, label: tUI("nav.resources"), img: BACKGROUND_IMAGES[6], mobileHidden: true },
+		{ to: "/champion/C023", icon: Star, label: tUI("nav.newChampion"), img: BACKGROUND_IMAGES[0], mobileHidden: false },
 	];
 
 	const containerRef = useRef(null);
@@ -109,7 +109,7 @@ const Home = () => {
 					onComplete: () => {
 						// Sau khi entry xong thì mới float
 						gsap.to(tile, {
-							y: "+=15",
+							y: "-=15",
 							duration: 3 + Math.random() * 2,
 							repeat: -1,
 							yoyo: true,
@@ -196,28 +196,31 @@ const Home = () => {
 						</div>
 					</div>
 
-					{/* TILES */}
-					{TILES.map((tile, idx) => (
-						<div
-							key={idx}
-							ref={el => (tilesRef.current[idx] = el)}
-							className={`absolute group flex-col items-center cursor-grab active:cursor-grabbing z-10 opacity-0 ${tile.mobileHidden ? 'hidden lg:flex' : 'flex'}`}
-							style={{ top: tile.top, left: tile.left }}
-						>
+					{/* TILES CONTAINER (Ngang bên dưới) */}
+					<div className='absolute bottom-12 left-0 w-full flex justify-center gap-4 lg:gap-6 flex-wrap px-4 z-40 pointer-events-none'>
+						{TILES.map((tile, idx) => (
 							<div
+								key={idx}
+								ref={el => (tilesRef.current[idx] = el)}
+								className={`relative group flex-col items-center justify-end cursor-grab active:cursor-grabbing opacity-0 pointer-events-auto ${tile.mobileHidden ? 'hidden lg:flex' : 'flex'}`}
 								onClick={() => !isDragging.current && navigate(tile.to)}
-								className={`${tile.size} rounded-none border-[1px] border-white/40 shadow-2xl overflow-hidden bg-surface-bg/80 backdrop-blur-md group-hover:border-primary-500 group-hover:scale-110 group-hover:rotate-1 transition-all duration-300 select-none group-hover:shadow-primary-500/20 group-active:scale-95`}
 							>
-								<img src={tile.img} alt={tile.label} className='w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700 pointer-events-none' />
+								{/* Text Outside & Above Tile with Black Badge */}
+								<span className='mb-2 lg:mb-3 text-[9px] lg:text-[10px] font-bold tracking-[0.2em] uppercase text-white bg-black/60 backdrop-blur-md border border-white/10 px-3 py-1 lg:px-4 lg:py-1.5 rounded-full shadow-2xl text-center pointer-events-none whitespace-nowrap group-hover:bg-primary-500/80 group-hover:border-primary-400 group-hover:-translate-y-1 group-hover:shadow-primary-500/50 transition-all duration-300'>
+									{tile.label}
+								</span>
 
-								{/* Glass Reflection Overlay */}
-								<div className='absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity' />
+								<div
+									className={`w-24 h-24 lg:w-32 lg:h-32 rounded-xl border-[1px] border-white/40 shadow-2xl overflow-hidden bg-surface-bg/80 backdrop-blur-md group-hover:border-primary-500 group-hover:scale-110 transition-all duration-300 select-none group-hover:shadow-primary-500/50 group-active:scale-95 flex items-center justify-center relative`}
+								>
+									<img src={tile.img} alt={tile.label} className='absolute inset-0 w-full h-full object-cover grayscale-[0.4] group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700 pointer-events-none' />
+
+									{/* Glass Reflection Overlay */}
+									<div className='absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none' />
+								</div>
 							</div>
-							<span className='mt-3 text-[9px] lg:text-[10px] tracking-[0.4em] uppercase text-white bg-black/60 backdrop-blur-xl border border-white/10 px-4 py-1.5 shadow-2xl select-none pointer-events-none translate-y-2 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300'>
-								{tile.label}
-							</span>
-						</div>
-					))}
+						))}
+					</div>
 				</div>
 			</section>
 

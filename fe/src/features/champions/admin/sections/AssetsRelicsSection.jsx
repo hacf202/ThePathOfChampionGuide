@@ -144,7 +144,7 @@ const AssetsRelicsSection = memo(({ formData, setFormData, dataLookup, handleTra
 							
 							<div className='flex flex-col gap-2'>
 								<label className='block font-semibold text-text-primary text-sm'>
-									{tUI("admin.championForm.descLabel")}
+									{tUI("admin.championForm.descLabel")} (VI)
 								</label>
 								<MarkupEditor
 									value={set.description || ""}
@@ -153,7 +153,26 @@ const AssetsRelicsSection = memo(({ formData, setFormData, dataLookup, handleTra
 										newSets[idx] = { ...newSets[idx], description: markup, descriptionRaw: raw };
 										setFormData({ ...formData, relicSets: newSets });
 									}}
-									placeholder="Nhập mô tả bộ cổ vật..."
+									placeholder="Nhập mô tả bộ cổ vật (VI)..."
+								/>
+							</div>
+							
+							<div className='flex flex-col gap-2'>
+								<label className='block font-semibold text-blue-400 text-sm'>
+									{tUI("admin.championForm.descLabel")} (EN)
+								</label>
+								<MarkupEditor
+									value={set.translations?.en?.description || ""}
+									onChange={({ markup, raw }) => {
+										const newSets = [...(formData.relicSets || [])];
+										const currentSet = newSets[idx];
+										if (!currentSet.translations) currentSet.translations = { en: {} };
+										if (!currentSet.translations.en) currentSet.translations.en = {};
+										currentSet.translations.en.description = markup;
+										currentSet.translations.en.descriptionRaw = raw;
+										setFormData({ ...formData, relicSets: newSets });
+									}}
+									placeholder="Enter relic set description (EN)..."
 								/>
 							</div>
 

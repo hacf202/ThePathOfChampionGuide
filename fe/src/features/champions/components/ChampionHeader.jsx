@@ -51,21 +51,21 @@ const ChampionHeader = ({ champion, tDynamic, tUI }) => {
 						))}
 					</div>
 				</div>
+				<div className="mt-2 mx-1 flex items-center justify-end">
+					<button
+						onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
+						className='text-primary-500 text-sm font-bold hover:underline px-2'
+					>
+						{isDescriptionExpanded
+							? tUI("championDetail.showLess")
+							: tUI("championDetail.showMore")}
+					</button>
+				</div>
 				<div
-					className={`mt-1 mx-1 p-2 border border-border rounded-lg bg-surface-bg-alt/30 ${!isDescriptionExpanded ? "overflow-y-auto h-48 sm:h-60" : "h-auto"}`}
+					className={`mt-2 mx-1 p-3 border border-border rounded-lg bg-surface-bg-alt/30 ${!isDescriptionExpanded ? "overflow-y-auto h-48 sm:h-60" : "h-auto"}`}
 				>
 					<MarkupRenderer text={tDynamic(champion, "description")} />
 				</div>
-				<button
-					onClick={() =>
-						setIsDescriptionExpanded(!isDescriptionExpanded)
-					}
-					className='text-primary-500 text-sm font-bold mt-2 ml-2 hover:underline'
-				>
-					{isDescriptionExpanded
-						? tUI("championDetail.showLess")
-						: tUI("championDetail.showMore")}
-				</button>
 			</div>
 		</div>
 	);
