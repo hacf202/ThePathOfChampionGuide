@@ -198,7 +198,7 @@ const GenericListLayout = ({
 	};
 
 	return (
-		<div className='bg-[#05050A] text-text-primary min-h-screen font-secondary overflow-hidden flex flex-col relative'>
+		<div className='text-text-primary min-h-screen font-secondary overflow-hidden flex flex-col relative'>
 			<PageTitle
 				title={pageTitle}
 				description={pageDescription}
@@ -263,7 +263,7 @@ const GenericListLayout = ({
 					<div
 						className={`w-full flip-container ${(showFilterToggle && showDesktopFilter) ? "lg:flex-[3] xl:flex-[4]" : "lg:flex-[1]"}`}
 					>
-						<div className='bg-surface-bg rounded-lg border border-border p-2 sm:p-4 shadow-sm min-h-[500px] relative overflow-visible'>
+						<div className='p-2 sm:p-4 min-h-[500px] relative overflow-visible'>
 							
 								{isActuallyLoading && (!isInfiniteScroll || data.length === 0) ? (
 									<div
