@@ -54,12 +54,16 @@ export const errorHandler = (err, req, res, next) => {
 
 	// --- Đảm bảo CORS headers ngay cả khi có lỗi ---
 	const origin = req.headers.origin;
-	const allowedOrigins = [
-		"https://www.pocguide.top",
-		"https://pocguide.top",
-		"https://guidepoc.vercel.app",
-		"http://localhost:5173",
-	];
+	// Đọc từ biến môi trường (nhất quán với server.js)
+	const allowedOrigins = process.env.CORS_ALLOWED_ORIGINS
+		? process.env.CORS_ALLOWED_ORIGINS.split(",")
+		: [
+				process.env.FRONTEND_URL,
+				"http://localhost:5173",
+				"https://guidepoc.vercel.app",
+				"https://www.pocguide.top",
+				"https://pocguide.top",
+			].filter(Boolean);
 	if (origin && allowedOrigins.includes(origin)) {
 		res.setHeader("Access-Control-Allow-Origin", origin);
 		res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");

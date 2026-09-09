@@ -54,9 +54,8 @@ router.get("/ranking/top", async (req, res) => {
 				championID: c.championID,
 				championName: c.name,
 				championImage: c.assets?.[0]?.avatar || "",
-				avgScore: c.communityRatings.damage, // Hoặc tính trung bình các chỉ số
 				ratings: c.communityRatings, 
-				// Tính điểm trung bình tổng quát (Dựa trên 6 chỉ số)
+				// Điểm trung bình tổng quát dựa trên 6 chỉ số
 				overallScore: parseFloat((
 					(c.communityRatings.damage + 
 					 c.communityRatings.defense + 
@@ -124,7 +123,10 @@ router.post("/:championID", authenticateCognitoToken, async (req, res) => {
 	const { championID } = req.params;
 	const { ratings, comment } = req.body;
 	const userSub = req.user.sub;
-	const username = req.user.user_metadata?.user_name || req.user.user_metadata?.name || req.user.email?.split('@')[0] || req.user["cognito:username"] || req.user.name || "Anonymous";
+	const username = req.user.user_metadata?.username
+		|| req.user.user_metadata?.name
+		|| req.user.email?.split('@')[0]
+		|| "Anonymous";
 
 	if (!ratings || typeof ratings !== "object") {
 		return res.status(400).json({ error: "Dữ liệu đánh giá không hợp lệ." });

@@ -4,6 +4,7 @@ import { z } from "zod";
 import { authService } from "../services/authService.js";
 import { supabase } from "../config/supabase.js";
 import { getDb } from "../config/mongo.js";
+import { authenticateToken } from "../middleware/authenticate.js";
 
 const router = express.Router();
 
@@ -142,7 +143,6 @@ router.post("/confirm-password-reset", async (req, res, next) => {
 });
 
 // POST /api/auth/reset-password-link (Dùng cho luồng Link Reset)
-import { authenticateToken } from "../middleware/authenticate.js";
 router.post("/reset-password-link", authenticateToken, async (req, res) => {
 	const { newPassword } = req.body;
 	if (!newPassword || newPassword.length < 8) {

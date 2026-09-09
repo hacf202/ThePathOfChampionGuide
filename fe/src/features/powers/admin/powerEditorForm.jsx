@@ -20,6 +20,8 @@ const ArrayInputComponent = ({
 	onChange,
 	placeholder = "Nhập giá trị...",
 }) => {
+	const { tUI } = useTranslation();
+
 	const handleItemChange = (index, newValue) => {
 		const newData = [...data];
 		newData[index] = newValue;

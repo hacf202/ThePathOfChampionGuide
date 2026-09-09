@@ -73,7 +73,7 @@ import AdminPanel from "./components/admin/adminPanel.jsx";
 import PrivateRoute from "./components/admin/privateRoute.jsx";
 
 import usePageTracking from "./hooks/usePageTracking";
-import { initEntities } from "./utils/entityLookup";
+import { preloadAllEntities } from "./utils/entityLookup";
 
 // Danh sách các route không cần bọc container (full-width / no-padding)
 const SPECIAL_ROUTES = ["/", "/home", "/randomizer", "/introduction", "/simulator/vaults", "/tools/ratings", "/tools/champion-items"];
@@ -216,7 +216,9 @@ function App() {
 	const { isLangLoading } = useTranslation();
 
 	useEffect(() => {
-		initEntities();
+		// Preload toàn bộ entity data (champions, relics, powers, items, runes, cards, resources)
+		// Đảm bảo tooltip và markup hiển thị đúng thông tin khi hover
+		preloadAllEntities();
 	}, []);
 
 	if (isLangLoading) {

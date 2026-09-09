@@ -2,6 +2,7 @@ import { memo, useMemo, useEffect } from "react";
 import { parseMarkup } from "@/utils/markupParser";
 import { getRarityKey } from "@/utils/i18nHelpers";
 import { getEntityData } from "@/utils/entityLookup";
+import { generateSlug } from "@/utils/slugify";
 import MarkupTooltip from "./MarkupTooltip"; 
 import { useTranslation } from "@/hooks/useTranslation"; 
 import { useMarkupResolution } from "@/hooks/useMarkupResolution"; 
@@ -158,7 +159,7 @@ const MarkupRenderer = memo(({ text, className = "", noTooltip = false }) => {
 
 			case "c": 
 			case "champion":
-				return renderWithTooltip(displayLabelToUse, "text-sky-400 hover:text-sky-300", noLink ? null : `/champion/${data?.id || tagValue}`, null);
+				return renderWithTooltip(displayLabelToUse, "text-sky-400 hover:text-sky-300", noLink ? null : `/champion/${generateSlug(data?.name || data?.id || tagValue)}`, null);
 
 			case "r": 
 			case "relic":

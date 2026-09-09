@@ -8,7 +8,7 @@ import { useTranslation } from "@/hooks/useTranslation";
 import { removeAccents } from "@/utils/vietnameseUtils";
 import iconData from "@/assets/data/icon.json";
 import { getRegionKey } from "@/utils/i18nHelpers";
-
+import { generateSlug } from "@/utils/slugify";
 
 const RequirementSection = ({ resolvedChampions, adventure }) => {
 	const { tUI, tDynamic } = useTranslation();
@@ -79,7 +79,7 @@ const RequirementSection = ({ resolvedChampions, adventure }) => {
 								return (
 									<Link
 										key={`champ-${i}`}
-										to={`/champion/${champ.championID || champ.id || champ.name}`}
+										to={`/champion/${generateSlug(champ.translations?.en?.name || champ.name || champ.championID || champ.id)}`}
 										title={tDynamic(champ, "name")}
 										className='group flex flex-col items-center gap-1 w-[70px]'
 									>

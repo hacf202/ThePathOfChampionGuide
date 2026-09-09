@@ -6,6 +6,7 @@ import { useChampionFilters } from "@/hooks/useChampionFilters";
 import { useChampionData } from "@/hooks/useChampionData";
 
 import GenericListLayout from "@/components/layout/genericListLayout";
+import { generateSlug } from "@/utils/slugify";
 import MultiSelectFilter from "@/components/common/multiSelectFilter";
 import DropdownFilter from "@/components/common/dropdownFilter";
 import ChampionCard from "@/features/champions/components/championCard";
@@ -90,7 +91,8 @@ function ChampionList() {
 			renderSkeleton={() => <ChampionSkeleton />}
 			renderItem={champion => (
 				<Link
-					to={`/champion/${champion.championID}`}
+					key={champion.championID}
+					to={`/champion/${generateSlug(champion.translations?.en?.name || champion.name)}`}
 					className='hover:scale-105 transition-transform duration-200 block'
 				>
 					<ChampionCard champion={champion} />

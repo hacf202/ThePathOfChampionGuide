@@ -1,7 +1,7 @@
 import express from "express";
 import crypto from "crypto";
 import sharp from "sharp";
-import { authenticateToken } from "../middleware/authenticate.js";
+import { authenticateToken, optionalAuth } from "../middleware/authenticate.js";
 import { getDb } from "../config/mongo.js";
 import rateLimit from "express-rate-limit";
 
@@ -16,13 +16,7 @@ const newRunLimiter = rateLimit({
 let dailyCardCache = { date: null, card: null };
 let allValidCardsCache = null;
 
-const optionalAuth = async (req, res, next) => {
-	const authHeader = req.headers.authorization;
-	if (authHeader && authHeader !== "Bearer null" && authHeader !== "Bearer undefined") {
-		return authenticateToken(req, res, next);
-	}
-	next();
-};
+// optionalAuth được import từ authenticate.js (đã xử lý đầy đủ các edge case)
 
 const getAllValidCards = async (db) => {
 	if (allValidCardsCache) return allValidCardsCache;

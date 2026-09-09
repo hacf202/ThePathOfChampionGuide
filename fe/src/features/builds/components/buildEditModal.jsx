@@ -2,26 +2,30 @@
 import React, { useState, useEffect } from "react";
 import BuildModal from "@/features/builds/components/buildModal";
 
+import { useLazyMetadata } from "@/hooks/useLazyMetadata";
+import { useTranslation } from "@/hooks/useTranslation";
+
 const BuildEditModal = ({
 	build,
 	isOpen,
 	onClose,
 	onConfirm,
-	championsList = [],
-	relicsList = [],
-	powersList = [],
-	runesList = [],
 }) => {
+	const { tUI } = useTranslation();
+	const { metadata, isLoadingMeta, fetchAllMetadata } = useLazyMetadata(tUI);
 	const [maxStar, setMaxStar] = useState(7);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	useEffect(() => {
+		if (isOpen) {
+			fetchAllMetadata();
+		}
 		if (!isOpen || !build?.championID) return;
 
 		const fetchMaxStar = async () => {
 			// Tìm nhanh trong list master
-			if (championsList.length > 0) {
-				const champion = championsList.find(
+			if (metadata.champions.length > 0) {
+				const champion = metadata.champions.find(
 					c => c.championID === build.championID,
 				);
 				if (champion) {
@@ -45,7 +49,7 @@ const BuildEditModal = ({
 
 		fetchMaxStar();
 		setIsModalOpen(true);
-	}, [isOpen, build?.championID, championsList]);
+	}, [isOpen, build?.championID, metadata.champions, fetchAllMetadata]);
 
 	const handleClose = () => {
 		setIsModalOpen(false);
@@ -67,10 +71,11 @@ const BuildEditModal = ({
 			isOpen={isModalOpen}
 			onClose={handleClose}
 			onConfirm={handleConfirm}
-			championsList={championsList}
-			relicsList={relicsList}
-			powersList={powersList}
-			runesList={runesList}
+			championsList={metadata.champions}
+			relicsList={metadata.relics}
+			powersList={metadata.powers}
+			runesList={metadata.runes}
+			isLoadingMeta={isLoadingMeta}
 			initialData={{
 				_id: build.id,
 				championID: build.championID || "",

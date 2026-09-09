@@ -229,9 +229,28 @@ router.get("/:championID/full", async (req, res) => {
 	try {
 		// 1. Fetch dữ liệu cơ bản (Tướng + Chòm sao) song song
 		const db = getDb();
+		
+		// XỬ LÝ SLUG: Nếu người dùng truyền lên slug thay vì ID
+		let finalChampionID = championID;
+		const allChampionsList = await getCachedChampions();
+		let foundChampion = allChampionsList.find(c => c.championID.toLowerCase() === championID.toLowerCase());
+		
+		if (!foundChampion) {
+			const toSlug = (text) => text ? text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/['"’]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') : "";
+			const reqSlug = championID.toLowerCase();
+			foundChampion = allChampionsList.find(c => {
+				return toSlug(c.translations?.en?.name) === reqSlug || toSlug(c.name) === reqSlug;
+			});
+			if (foundChampion) {
+				finalChampionID = foundChampion.championID;
+			} else {
+				return res.status(404).json({ error: "Không tìm thấy tướng." });
+			}
+		}
+
 		const [champion, constellation] = await Promise.all([
-			db.collection(CHAMPIONS_TABLE).findOne({ championID }),
-			db.collection("guidePocChampionConstellation").findOne({ constellationID: championID })
+			db.collection(CHAMPIONS_TABLE).findOne({ championID: finalChampionID }),
+			db.collection("guidePocChampionConstellation").findOne({ constellationID: finalChampionID })
 		]);
 
 		if (!champion) return res.status(404).json({ error: "Không tìm thấy tướng." });
@@ -358,16 +377,34 @@ router.get("/:championID", async (req, res) => {
 		return res.status(400).json({ error: "championID là bắt buộc." });
 	}
 
-	const CACHE_KEY = `champion_detail_${championID}`;
-
 	try {
+		// XỬ LÝ SLUG
+		let finalChampionID = championID;
+		const allChampionsList = await getCachedChampions();
+		let foundChampion = allChampionsList.find(c => c.championID.toLowerCase() === championID.toLowerCase());
+		
+		if (!foundChampion) {
+			const toSlug = (text) => text ? text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/['"’]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') : "";
+			const reqSlug = championID.toLowerCase();
+			foundChampion = allChampionsList.find(c => {
+				return toSlug(c.translations?.en?.name) === reqSlug || toSlug(c.name) === reqSlug;
+			});
+			if (foundChampion) {
+				finalChampionID = foundChampion.championID;
+			} else {
+				return res.status(404).json({ error: "Không tìm thấy tướng yêu cầu." });
+			}
+		}
+
+		const CACHE_KEY = `champion_detail_${finalChampionID}`;
+
 		const cachedChampion = await championCache.get(CACHE_KEY);
 		if (cachedChampion) {
 			return res.json(cachedChampion);
 		}
 
 		const db = getDb();
-		const Item = await db.collection(CHAMPIONS_TABLE).findOne({ championID });
+		const Item = await db.collection(CHAMPIONS_TABLE).findOne({ championID: finalChampionID });
 
 		if (!Item) {
 			return res.status(404).json({ error: "Không tìm thấy tướng yêu cầu." });

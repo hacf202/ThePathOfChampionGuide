@@ -20,9 +20,12 @@ class AsyncCache {
 	constructor(name, options) {
 		this.name = name;
 		this.options = options;
-		this.localCache = new NodeCache(options);
-		// Kiểm tra Redis động (không cache tại construction time)
+		// useClones: false rất quan trọng để không block Node.js Event Loop khi clone JSON 2MB
+		this.localCache = new NodeCache({ ...options, useClones: false });
+		// Kiểm tra Redis động
 		Object.defineProperty(this, 'useRedis', { get: () => !!kv });
+		// Chống Cache Stampede (Dogpile Effect)
+		this.pendingPromises = new Map();
 	}
 
 	/**
@@ -33,31 +36,57 @@ class AsyncCache {
 	}
 
 	async get(key) {
-		if (this.useRedis) {
-			try {
-				const val = await kv.getBuffer(this._getRedisKey(key));
-				if (val) {
-					try {
-						// Thử giải nén (với dữ liệu mới) bất đồng bộ để không block event loop
-						const decompressedBuf = await gunzipAsync(val);
-						const decompressed = decompressedBuf.toString("utf-8");
-						return JSON.parse(decompressed);
-					} catch (e) {
-						// Nếu lỗi giải nén, fallback về dữ liệu cũ (chưa nén)
-						const strVal = val.toString("utf-8");
-						try {
-							return JSON.parse(strVal);
-						} catch (e2) {
-							return strVal;
-						}
-					}
-				}
-				return null;
-			} catch (error) {
-				console.error(`[Cache:${this.name}] Redis GET error:`, error);
-			}
+		// 1. Kiểm tra L1 (Local Cache - RAM) trước tiên, độ trễ 0ms
+		const localVal = this.localCache.get(key);
+		if (localVal !== undefined) {
+			return localVal;
 		}
-		return this.localCache.get(key);
+
+		// 2. Nếu có request khác đang tải key này, đợi ké (Chống Stampede)
+		if (this.pendingPromises.has(key)) {
+			return this.pendingPromises.get(key);
+		}
+
+		// 3. Nếu L1 không có, tiến hành lấy từ L2 (Redis)
+		const fetchPromise = (async () => {
+			if (this.useRedis) {
+				try {
+					const val = await kv.getBuffer(this._getRedisKey(key));
+					if (val) {
+						let parsedResult;
+						try {
+							// Thử giải nén (với dữ liệu mới) bất đồng bộ để không block event loop
+							const decompressedBuf = await gunzipAsync(val);
+							const decompressed = decompressedBuf.toString("utf-8");
+							parsedResult = JSON.parse(decompressed);
+						} catch (e) {
+							// Nếu lỗi giải nén, fallback về dữ liệu cũ (chưa nén)
+							const strVal = val.toString("utf-8");
+							try {
+								parsedResult = JSON.parse(strVal);
+							} catch (e2) {
+								parsedResult = strVal;
+							}
+						}
+						
+						// Lưu lại vào L1 (Local Cache) để sử dụng cho lần sau
+						this.localCache.set(key, parsedResult, this.options.stdTTL);
+						return parsedResult;
+					}
+				} catch (error) {
+					console.error(`[Cache:${this.name}] Redis GET error:`, error);
+				}
+			}
+			return null;
+		})();
+
+		this.pendingPromises.set(key, fetchPromise);
+		try {
+			const result = await fetchPromise;
+			return result;
+		} finally {
+			this.pendingPromises.delete(key);
+		}
 	}
 
 	async set(key, value, ttl) {

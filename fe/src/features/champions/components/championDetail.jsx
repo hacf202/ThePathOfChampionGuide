@@ -18,6 +18,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useBatchFavoriteData } from "@/hooks/useBatchFavoriteData";
 import { useMarkupResolution } from "@/hooks/useMarkupResolution";
 import { initEntities } from "@/utils/entityLookup";
+import { generateSlug } from "@/utils/slugify"; // 🟢 Import slugify
 
 // Import các component chòm sao đã được tách
 import ConstellationMap from "@/features/champions/components/constellationMap";
@@ -28,7 +29,8 @@ import CardCarouselModal from "@/features/cards/components/CardCarouselModal.jsx
 import CardNameCell from "@/features/champions/components/CardNameCell";
 import ChampionLevelSection from "@/features/champions/components/ChampionLevel.jsx";
 import BuildSummary from "@/features/builds/components/buildSummary";
-import { useLazyMetadata } from "@/hooks/useLazyMetadata";
+// Removed useLazyMetadata
+import LazyLoadSection from "@/components/common/LazyLoadSection";
 
 import ChampionHeader from "@/features/champions/components/ChampionHeader";
 import ChampionVideo from "@/features/champions/components/ChampionVideo";
@@ -117,7 +119,7 @@ function ChampionDetail() {
 	const [topBuilds, setTopBuilds] = useState([]);
 	const { favoriteStatus, favoriteCounts, toggleFavorite } = useBatchFavoriteData(topBuilds, token);
 	const [loadingBuilds, setLoadingBuilds] = useState(false);
-	const { metadata, fetchAllMetadata } = useLazyMetadata(tUI);
+	// Removed useLazyMetadata
 
 	// --- Card Carousel Modal state ---
 	const [carouselOpen, setCarouselOpen] = useState(false);
@@ -153,13 +155,13 @@ function ChampionDetail() {
 	const fetchTopBuilds = useCallback(async () => {
 		try {
 			setLoadingBuilds(true);
-			const res = await fetch(`${apiUrl}/api/builds/top-by-champion/${championID}?limit=8`);
+			const activeID = champion?.championID || championID;
+			const res = await fetch(`${apiUrl}/api/builds/top-by-champion/${activeID}?limit=8`);
 			if (res.ok) {
 				const data = await res.json();
 				setTopBuilds(data);
 				if (data.length > 0) {
-					// Nếu có build, tải thêm metadata để render BuildSummary cho chuẩn
-					fetchAllMetadata();
+					// Backend tự động resolve relics, powers, runes
 				}
 			}
 		} catch (err) {
@@ -167,7 +169,7 @@ function ChampionDetail() {
 		} finally {
 			setLoadingBuilds(false);
 		}
-	}, [championID, apiUrl, fetchAllMetadata]);
+	}, [champion, championID, apiUrl]);
 
 	const handleFavoriteToggle = useCallback(async (buildId, newStatus, newCount) => {
 		await toggleFavorite(buildId, newStatus, newCount);
@@ -248,9 +250,17 @@ function ChampionDetail() {
 		initData();
 	}, [initData]);
 
+	// Thay thế URL (ReplaceState) sang dạng Slug thân thiện cho SEO nếu URL hiện tại đang là ID
 	useEffect(() => {
-		fetchTopBuilds();
-	}, [fetchTopBuilds]);
+		if (champion) {
+			const slug = generateSlug(champion.translations?.en?.name || champion.name);
+			if (championID !== slug) {
+				window.history.replaceState(null, "", `/champion/${slug}`);
+			}
+		}
+	}, [champion, championID]);
+
+	// fetchTopBuilds sẽ được gọi khi scroll tới khu vực Community Builds (thông qua LazyLoadSection)
 
 	// Xử lý dữ liệu hiển thị Đa ngôn ngữ cho Chòm sao
 	const constellationInfo = useMemo(() => {
@@ -469,10 +479,10 @@ function ChampionDetail() {
 			<div className='animate-fadeIn'>
 				<PageTitle
 					title={
-						champion ? `${tDynamic(champion, "name")} | ${tUI("championDetail.title")}` : tUI("championDetail.title")
+						champion ? `${tDynamic(champion, "name")} PoC Guide - Build & Relics tốt nhất | Path of Champions` : tUI("championDetail.title")
 					}
-					description={champion ? `${tUI("championDetail.metaDesc")} ${tDynamic(champion, "name")}. Hướng dẫn cách build, chọn cổ vật (relic), và lối chơi cho ${tDynamic(champion, "name")} trong chế độ Con Đường Anh Hùng (PoC) Legends of Runeterra.` : tUI("championDetail.metaDesc")}
-					keywords={champion ? `${tDynamic(champion, "name")}, build ${tDynamic(champion, "name")} poc, build ${tDynamic(champion, "name")} pve, ${tDynamic(champion, "name")} lor pve, cách chơi ${tDynamic(champion, "name")} poc, cổ vật cho ${tDynamic(champion, "name")}, ${champion.regions?.join(", ")}` : ""}
+					description={champion ? `Hướng dẫn cách chơi ${tDynamic(champion, "name")} chi tiết trong The Path of Champions (PoC) Legends of Runeterra. Khám phá các cổ vật (relics), kỹ năng và bộ bài mạnh nhất cho ${tDynamic(champion, "name")} tpoc.` : tUI("championDetail.metaDesc")}
+					keywords={champion ? `${tDynamic(champion, "name")}, ${tDynamic(champion, "name")} poc, ${tDynamic(champion, "name")} tpoc, ${tDynamic(champion, "name")} lor, ${tDynamic(champion, "name")} path of champions, thepathofchampions, poc guide, best relics cho ${tDynamic(champion, "name")}, ${tDynamic(champion, "name")} build` : ""}
 					type='article'
 					schema={championSchema}
 				/>
@@ -509,106 +519,118 @@ function ChampionDetail() {
 							)}
 
 							{/* TOP COMMUNITY BUILDS */}
-							{isFullDataLoading ? (
-								<div className="flex justify-center p-10"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-500"></div></div>
-							) : topBuilds.length > 0 && (
-								<div id="community-builds" className="bg-surface-bg border border-border rounded-xl p-1 sm:p-6 shadow-sm mt-6">
-									<div className="flex items-center justify-between border-b border-border mb-6 pb-2">
-										<h2 className='text-lg sm:text-3xl font-semibold font-primary text-primary-500'>
-											{tUI("championDetail.communityBuilds") || "Top Community Builds"}
-										</h2>
-										<Link 
-											to={`/builds/community?championIDs=${championID}`}
-											className="text-sm font-bold text-primary-500 hover:underline"
-										>
-											{tUI("common.viewAll") || "Xem tất cả"} →
-										</Link>
+							<LazyLoadSection id="community-builds" minHeight="300px" onVisible={fetchTopBuilds}>
+								{topBuilds.length > 0 && (
+									<div className="bg-surface-bg border border-border rounded-xl p-1 sm:p-6 shadow-sm mt-6">
+										<div className="flex items-center justify-between border-b border-border mb-6 pb-2">
+											<h2 className='text-lg sm:text-3xl font-semibold font-primary text-primary-500'>
+												{tUI("championDetail.communityBuilds") || "Top Community Builds"}
+											</h2>
+											<Link 
+												to={`/builds/community?championIDs=${champion?.championID || championID}`}
+												className="text-sm font-bold text-primary-500 hover:underline"
+											>
+												{tUI("common.viewAll") || "Xem tất cả"} →
+											</Link>
+										</div>
+										
+										<div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+											{topBuilds.map(build => (
+												<BuildSummary
+													key={build.id}
+													build={build}
+													championsList={metadata.champions}
+													relicsList={metadata.relics}
+													powersList={metadata.powers}
+													runesList={metadata.runes}
+													onBuildUpdate={fetchTopBuilds}
+													onFavoriteToggle={handleFavoriteToggle}
+													initialIsFavorited={!!favoriteStatus[build.id]}
+													initialLikeCount={favoriteCounts[build.id] || build.like || 0}
+												/>
+											))}
+										</div>
 									</div>
-									
-									<div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-										{topBuilds.map(build => (
-											<BuildSummary
-												key={build.id}
-												build={build}
-												championsList={metadata.champions}
-												relicsList={metadata.relics}
-												powersList={metadata.powers}
-												runesList={metadata.runes}
-												onBuildUpdate={fetchTopBuilds}
-												onFavoriteToggle={handleFavoriteToggle}
-												initialIsFavorited={!!favoriteStatus[build.id]}
-												initialLikeCount={favoriteCounts[build.id] || build.like || 0}
-											/>
-										))}
-									</div>
-								</div>
-							)}
+								)}
+							</LazyLoadSection>
 
 							{/* RECOMMENDATIONS (Powers, Items, Runes) */}
-							{!isFullDataLoading && (
-								<div id="recommendations"><ChampionRecommendations
-									adventurePowersFull={adventurePowersFull}
-									defaultItemsFull={defaultItemsFull}
-									runesFull={runesFull}
-									tUI={tUI}
-								/></div>
-							)}
+							<LazyLoadSection id="recommendations">
+								{!isFullDataLoading && (
+									<ChampionRecommendations
+										adventurePowersFull={adventurePowersFull}
+										defaultItemsFull={defaultItemsFull}
+										runesFull={runesFull}
+										tUI={tUI}
+									/>
+								)}
+							</LazyLoadSection>
 
 							{/* LEVEL SECTION */}
-							{(!isFullDataLoading && deckUpgrades.length > 0) && (
-								<div id="level-section"><ChampionLevelSection
-									deckUpgrades={deckUpgrades}
-									resolvedPowers={resolvedPowers}
-									onOpenCarousel={handleOpenCarousel}
-								/></div>
-							)}
+							<LazyLoadSection id="level-section">
+								{(!isFullDataLoading && deckUpgrades.length > 0) && (
+									<ChampionLevelSection
+										deckUpgrades={deckUpgrades}
+										resolvedPowers={resolvedPowers}
+										onOpenCarousel={handleOpenCarousel}
+									/>
+								)}
+							</LazyLoadSection>
 
 							{/* STARTING DECK SECTION */}
-							{!isFullDataLoading && (
-								<div id="starting-deck"><ChampionStartingDeck
-									champion={champion}
-									resolvedStartingCards={resolvedStartingCards}
-									resolvedItems={resolvedItems}
-									tDynamic={tDynamic}
-									tUI={tUI}
-									handleOpenCarousel={handleOpenCarousel}
-									activeDeckTab={activeDeckTab}
-									setActiveDeckTab={setActiveDeckTab}
-								/></div>
-							)}
+							<LazyLoadSection id="starting-deck">
+								{!isFullDataLoading && (
+									<ChampionStartingDeck
+										champion={champion}
+										resolvedStartingCards={resolvedStartingCards}
+										resolvedItems={resolvedItems}
+										tDynamic={tDynamic}
+										tUI={tUI}
+										handleOpenCarousel={handleOpenCarousel}
+										activeDeckTab={activeDeckTab}
+										setActiveDeckTab={setActiveDeckTab}
+									/>
+								)}
+							</LazyLoadSection>
 
 							{/* CONSTELLATION SECTION */}
-							{(!isFullDataLoading && constellationInfo.nodes.length > 0) && (
-								<div id="constellation" className="bg-surface-bg border border-border rounded-xl p-1 sm:p-6 shadow-sm mt-6 overflow-hidden">
-									<h2 className='p-1 text-lg sm:text-3xl font-semibold font-primary text-primary-500 flex items-center gap-3 border-b border-border mb-6'>
-										{tUI("championDetail.constellation")}
-									</h2>
+							<LazyLoadSection id="constellation" minHeight="600px">
+								{(!isFullDataLoading && constellationInfo.nodes.length > 0) && (
+									<div className="bg-surface-bg border border-border rounded-xl p-1 sm:p-6 shadow-sm mt-6 overflow-hidden">
+										<h2 className='p-1 text-lg sm:text-3xl font-semibold font-primary text-primary-500 flex items-center gap-3 border-b border-border mb-6'>
+											{tUI("championDetail.constellation")}
+										</h2>
 
-									<ConstellationMap constellationInfo={constellationInfo} />
+										<ConstellationMap constellationInfo={constellationInfo} />
 
-									<div className="mt-8">
-										<ConstellationTable
-											starPowersList={starPowersList}
-											bonusStarsList={bonusStarsList}
-										/>
+										<div className="mt-8">
+											<ConstellationTable
+												starPowersList={starPowersList}
+												bonusStarsList={bonusStarsList}
+											/>
+										</div>
 									</div>
-								</div>
-							)}
+								)}
+							</LazyLoadSection>
 
 							{/* COMMUNITY EVALUATION SECTION (Radar Chart) */}
-							{!isFullDataLoading && (
-								<div id="playstyle-chart"><ChampionPlaystyleChart
-									champion={champion}
-									onRefresh={initData}
-									initialAllRatings={allRatings}
-									initialMyRating={myRating}
-								/></div>
-							)}
+							<LazyLoadSection id="playstyle-chart">
+								{!isFullDataLoading && (
+									<ChampionPlaystyleChart
+										champion={champion}
+										onRefresh={initData}
+										initialAllRatings={allRatings}
+										initialMyRating={myRating}
+									/>
+								)}
+							</LazyLoadSection>
 
 							{/* VIDEO SECTION */}
-							{!isFullDataLoading && (
-								<div id="video-section"><ChampionVideo champion={champion} tUI={tUI} /></div>
-							)}
+							<LazyLoadSection id="video-section">
+								{!isFullDataLoading && (
+									<ChampionVideo champion={champion} tUI={tUI} />
+								)}
+							</LazyLoadSection>
 
 							{/* SUGGESTED CHAMPIONS */}
 							{!isFullDataLoading && (
@@ -620,9 +642,11 @@ function ChampionDetail() {
 							)}
 
 							{/* COMMENTS SECTION */}
-							<div id="comments" className='mt-8 bg-surface-bg border border-border rounded-xl p-1 sm:p-6 shadow-sm'>
-								<LatestComments championID={championID} />
-							</div>
+							<LazyLoadSection id="comments" className="mt-8" minHeight="300px">
+								<div className='bg-surface-bg border border-border rounded-xl p-1 sm:p-6 shadow-sm'>
+									<LatestComments championID={champion?.championID || championID} />
+								</div>
+							</LazyLoadSection>
 
 						</div>
 					)}

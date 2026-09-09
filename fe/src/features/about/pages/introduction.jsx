@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import PageTitle from "@/components/common/pageTitle";
 import SafeImage from "@/components/common/SafeImage";
 import { useTranslation } from "@/hooks/useTranslation"; // 🟢 Import Hook
+import { generateSlug } from "@/utils/slugify";
 
 function Introduction() {
 	const { tUI, tDynamic } = useTranslation(); // 🟢 Sử dụng tUI và tDynamic
@@ -174,7 +175,7 @@ function Introduction() {
 									return (
 										<Link
 											key={champ.championID || champ.name}
-											to={`/champion/${encodeURIComponent(champ.name)}`}
+											to={`/champion/${generateSlug(champ.translations?.en?.name || champ.name)}`}
 											className='group block bg-[var(--color-surface-bg)] p-5 rounded-xl border border-[var(--color-border)] text-center hover:border-[var(--color-primary-500)] hover:shadow-lg transition-all'
 										>
 											<div className='w-20 h-20 mx-auto mb-3 rounded-full overflow-hidden shadow-md group-hover:scale-110 transition-transform duration-300'>

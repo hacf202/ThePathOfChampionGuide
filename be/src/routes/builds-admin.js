@@ -2,42 +2,44 @@
 import express from "express";
 import { getDb } from "../config/mongo.js";
 import { v4 as uuidv4 } from "uuid";
-import NodeCache from "node-cache";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { requireAdmin } from "../middleware/requireAdmin.js";
 import { normalizeDisplay } from "../utils/dbHelpers.js";
 import { invalidatePublicBuildsCache } from "../utils/buildCache.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
 import { createAuditLog } from "../utils/auditLogger.js";
+import cacheManager from "../utils/cacheManager.js";
+import { getCachedChampions, getCachedRelics, getCachedPowers } from "../services/dataService.js";
 
 const router = express.Router();
 const BUILDS_TABLE = "guidePocBuilds";
 
-// Tăng TTL lên 5 phút cho Admin để giảm thiểu Scan liên tục
-const adminBuildCache = new NodeCache({ stdTTL: 300, checkperiod: 60 });
-// Cache từ điển để tìm kiếm Tiếng Anh / Tiếng Việt
-const dictionaryCache = new NodeCache({ stdTTL: 300, checkperiod: 60 });
+// Dùng cacheManager để quản lý tập trung, flush được từ /api/admin/cache
+const adminBuildCache = cacheManager.getOrCreateCache("admin_builds", { stdTTL: 300, checkperiod: 60 });
+const dictionaryCache = cacheManager.getOrCreateCache("admin_build_dicts", { stdTTL: 300, checkperiod: 60 });
 
 /**
- * Tải từ điển Tướng, Cổ vật, Sức mạnh để phục vụ tính năng tìm kiếm Đa ngôn ngữ
+ * Tải từ điển Tướng, Cổ vật, Sức mạnh — dùng dataService để tọn dụng cache tập trung
  */
 async function getSearchDictionaries() {
 	const CACHE_KEY = "builds_search_dicts_admin";
-	let dicts = dictionaryCache.get(CACHE_KEY);
+	let dicts = await dictionaryCache.get(CACHE_KEY);
 	if (dicts) return dicts;
 
 	dicts = { champMap: {}, relicMap: {}, powerMap: {} };
 
 	try {
-		const db = getDb();
-		const champsRes = await db.collection("guidePocChampionList").find({}).toArray();
-		const champs = champsRes || [];
+		// Dùng dataService thông qua cache tập trung thay vì tự query DB
+		const [champs, relics, powers] = await Promise.all([
+			getCachedChampions(),
+			getCachedRelics(),
+			getCachedPowers(),
+		]);
+
 		champs.forEach(c => {
 			if (c.name) dicts.champMap[c.name] = c.translations?.en?.name || "";
 		});
 
-		const relicsRes = await db.collection("guidePocRelics").find({}).toArray();
-		const relics = relicsRes || [];
 		relics.forEach(r => {
 			const id = r.relicCode || r.itemCode;
 			if (id)
@@ -47,8 +49,6 @@ async function getSearchDictionaries() {
 				};
 		});
 
-		const powersRes = await db.collection("guidePocPowers").find({}).toArray();
-		const powers = powersRes || [];
 		powers.forEach(p => {
 			if (p.powerCode)
 				dicts.powerMap[p.powerCode] = {
@@ -57,7 +57,7 @@ async function getSearchDictionaries() {
 				};
 		});
 
-		dictionaryCache.set(CACHE_KEY, dicts);
+		await dictionaryCache.set(CACHE_KEY, dicts);
 	} catch (error) {
 		console.error("Lỗi khi tải từ điển tìm kiếm (Admin):", error);
 	}
@@ -70,7 +70,7 @@ async function getSearchDictionaries() {
  */
 async function getAllBuildsAdmin() {
 	const CACHE_KEY = "admin_all_builds";
-	let cachedData = adminBuildCache.get(CACHE_KEY);
+	let cachedData = await adminBuildCache.get(CACHE_KEY);
 
 	if (!cachedData) {
 		const db = getDb();
@@ -78,8 +78,8 @@ async function getAllBuildsAdmin() {
 		// Lấy toàn bộ build
 		const Items = await db.collection(BUILDS_TABLE).find({}).toArray();
 		
-		// Lấy danh sách tướng để map championID -> championName nếu bị thiếu
-		const champs = await db.collection("guidePocChampionList").find({}, { projection: { championID: 1, name: 1 } }).toArray();
+		// Dùng dataService để lấy danh sách tướng (tận dụng cache tập trung)
+		const champs = await getCachedChampions();
 		const champIdMap = champs.reduce((acc, c) => {
 			acc[c.championID] = c.name;
 			return acc;
@@ -99,7 +99,7 @@ async function getAllBuildsAdmin() {
 		// Sắp xếp mặc định
 		cachedData.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
-		adminBuildCache.set(CACHE_KEY, cachedData);
+		await adminBuildCache.set(CACHE_KEY, cachedData);
 	}
 	return cachedData;
 }
@@ -268,7 +268,8 @@ router.post("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 	const newBuild = {
 		...buildData,
 		id,
-		creator: req.user["cognito:username"],
+		// Dùng username từ Supabase user_metadata (set lúc đăng ký)
+		creator: req.user.user_metadata?.username || req.user.email?.split('@')[0] || req.user.id,
 		sub: req.user.sub,
 		createdAt: new Date().toISOString(),
 		views: 0,
@@ -291,7 +292,7 @@ router.post("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 			user: req.user
 		});
 
-		adminBuildCache.del("admin_all_builds");
+		await adminBuildCache.del("admin_all_builds");
 		if (newBuild.display) invalidatePublicBuildsCache();
 
 		res.status(201).json({
@@ -363,7 +364,7 @@ router.put("/:id", authenticateCognitoToken, requireAdmin, async (req, res) => {
 			user: req.user
 		});
 
-		adminBuildCache.del("admin_all_builds");
+		await adminBuildCache.del("admin_all_builds");
 		if (oldDisplay || updatedBuild.display === true)
 			invalidatePublicBuildsCache();
 
@@ -403,7 +404,7 @@ router.delete(
 				user: req.user
 			});
 
-			adminBuildCache.del("admin_all_builds");
+			await adminBuildCache.del("admin_all_builds");
 			if (wasPublic) invalidatePublicBuildsCache();
 
 			res.json({ message: "Xóa build thành công" });

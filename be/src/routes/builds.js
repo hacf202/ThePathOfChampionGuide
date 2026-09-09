@@ -18,17 +18,46 @@ import { getUserNames } from "../utils/userCache.js";
 import cacheManager from "../utils/cacheManager.js";
 import kv from "../utils/redis.js";
 
-import { getCachedChampions, getCachedRelics, getCachedPowers } from "../services/dataService.js";
+import { getCachedChampions, getCachedRelics, getCachedPowers, getCachedRunes } from "../services/dataService.js";
 
 const router = express.Router();
 const BUILDS_TABLE = "guidePocBuilds";
 const availableFiltersCache = cacheManager.getOrCreateCache("available_filters", { stdTTL: 3600 });
 const searchDictionariesCache = cacheManager.getOrCreateCache("search_dictionaries", { stdTTL: 3600 });
 
-// In-memory rate limiter cho route /like: tối đa 5 lần / IP / phút
+// In-memory rate limiter cho route /like chỉ là fallback khi Redis unavailable
 const likeLimiterMap = new Map();
 const LIKE_LIMIT_MAX = 5;
 const LIKE_LIMIT_WINDOW_MS = 60 * 1000; // 1 phút
+
+/**
+ * Kiểm tra rate limit cho like endpoint.
+ * Ưu tiên Redis (serverless-safe), fallback về in-memory nếu Redis không khả dụng.
+ */
+async function checkLikeRateLimit(ip) {
+	if (kv) {
+		const key = `like_ratelimit:${ip}`;
+		try {
+			const count = await kv.incr(key);
+			if (count === 1) await kv.expire(key, 60);
+			return count > LIKE_LIMIT_MAX;
+		} catch {
+			// Redis lỗi → fallback in-memory
+		}
+	}
+	// Fallback: in-memory (chỉ hoạt động trong 1 process)
+	const key = `like:${ip}`;
+	const now = Date.now();
+	const entry = likeLimiterMap.get(key);
+	if (entry) {
+		entry.timestamps = entry.timestamps.filter(t => now - t < LIKE_LIMIT_WINDOW_MS);
+		if (entry.timestamps.length >= LIKE_LIMIT_MAX) return true;
+		entry.timestamps.push(now);
+	} else {
+		likeLimiterMap.set(key, { timestamps: [now] });
+	}
+	return false;
+}
 
 // --- UTILITY FUNCTIONS ---
 
@@ -137,6 +166,40 @@ async function buildBuildsQueryObj(reqQuery, baseQuery = {}) {
 	return { query, sortObj };
 }
 
+/**
+ * Backend Enrichment: Lắp ráp dữ liệu chi tiết của Relic, Power, Rune vào từng Build.
+ * Sử dụng bộ nhớ cache siêu tốc 0ms L1 để map mà không cần query DB.
+ */
+async function resolveBuildMetadata(builds) {
+	if (!builds || builds.length === 0) return builds;
+	
+	const [relics, powers, runes, champions] = await Promise.all([
+		getCachedRelics(),
+		getCachedPowers(),
+		getCachedRunes(),
+		getCachedChampions()
+	]);
+
+	return builds.map(b => {
+		const build = { ...b };
+		
+		if (build.relicSetIds) {
+			build.resolvedRelics = build.relicSetIds.map(id => relics.find(r => r.relicCode === id)).filter(Boolean);
+		}
+		if (build.powerIds) {
+			build.resolvedPowers = build.powerIds.map(id => powers.find(p => p.powerCode === id)).filter(Boolean);
+		}
+		if (build.runeIds) {
+			build.resolvedRunes = build.runeIds.map(id => runes.find(r => r.runeCode === id)).filter(Boolean);
+		}
+		if (build.championID) {
+			build.resolvedChampion = champions.find(c => c.championID === build.championID) || null;
+		}
+
+		return build;
+	});
+}
+
 
 // --- ROUTES ---
 
@@ -162,6 +225,8 @@ router.get("/top-by-champion/:championID", async (req, res) => {
 				...item,
 				creatorName: item.creator ? (userMap[item.creator] || item.creator) : "Người chơi ẩn danh",
 			}));
+			// Backend Enrichment
+			builds = await resolveBuildMetadata(builds);
 		}
 
 		res.json(builds);
@@ -238,6 +303,8 @@ router.get("/", async (req, res) => {
 				...item,
 				creatorName: item.creator ? (userMap[item.creator] || item.creator) : "Người chơi ẩn danh",
 			}));
+			// Backend Enrichment
+			paginatedItems = await resolveBuildMetadata(paginatedItems);
 		}
 
 		const responseData = {
@@ -260,7 +327,8 @@ router.get("/", async (req, res) => {
 
 // GET /api/builds/my-builds
 router.get("/my-builds", authenticateCognitoToken, async (req, res) => {
-	const creator = req.user["cognito:username"];
+	// Sử dụng username được lưu trong Supabase user_metadata khi đăng ký
+	const creator = req.user.user_metadata?.username || req.user.email?.split('@')[0] || req.user.id;
 	const { page = 1, limit = 24 } = req.query;
 	const pageSize = parseInt(limit);
 	const currentPage = parseInt(page);
@@ -298,6 +366,8 @@ router.get("/my-builds", authenticateCognitoToken, async (req, res) => {
 				...item,
 				creatorName: item.creator ? (userMap[item.creator] || item.creator) : "Người chơi ẩn danh",
 			}));
+			// Backend Enrichment
+			paginatedItems = await resolveBuildMetadata(paginatedItems);
 		}
 
 		res.json({
@@ -374,7 +444,8 @@ router.post("/", authenticateCognitoToken, validateBody(createBuildSchema), asyn
 	const build = {
 		id: uuidv4(),
 		sub: req.user.sub,
-		creator: req.user["cognito:username"],
+		// Dùng username từ Supabase user_metadata (set lúc đăng ký)
+		creator: req.user.user_metadata?.username || req.user.email?.split('@')[0] || req.user.id,
 		description,
 		championID,
 		relicSetIds,
@@ -520,20 +591,11 @@ router.delete("/:id", authenticateCognitoToken, async (req, res) => {
 router.patch("/:id/like", async (req, res) => {
 	const { id } = req.params;
 
-	// Rate limiting: tối đa LIKE_LIMIT_MAX lần mỗi IP trong LIKE_LIMIT_WINDOW_MS
+	// Rate limiting: kiểm tra qua Redis (serverless-safe)
 	const ip = req.ip || req.headers["x-forwarded-for"] || "unknown";
-	const limiterKey = `like:${ip}`;
-	const now = Date.now();
-	const entry = likeLimiterMap.get(limiterKey);
-	if (entry) {
-		// Xóa các timestamp cũ ngoài cửa sổ thời gian
-		entry.timestamps = entry.timestamps.filter(t => now - t < LIKE_LIMIT_WINDOW_MS);
-		if (entry.timestamps.length >= LIKE_LIMIT_MAX) {
-			return res.status(429).json({ error: "Quá nhiều yêu cầu. Vui lòng thử lại sau." });
-		}
-		entry.timestamps.push(now);
-	} else {
-		likeLimiterMap.set(limiterKey, { timestamps: [now] });
+	const isRateLimited = await checkLikeRateLimit(ip);
+	if (isRateLimited) {
+		return res.status(429).json({ error: "Quá nhiều yêu cầu. Vui lòng thử lại sau." });
 	}
 
 	try {

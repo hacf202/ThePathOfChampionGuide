@@ -26,6 +26,7 @@ import RatingModal from "@/features/champions/components/RatingModal";
 import MarkupTooltip from "@/components/common/MarkupTooltip";
 import Modal from "@/components/common/modal";
 import Button from "@/components/common/button";
+import { generateSlug } from "@/utils/slugify";
 
 const ChampionRatingPage = () => {
 	const { tUI, language } = useTranslation();
@@ -210,7 +211,7 @@ const ChampionRatingPage = () => {
 				<div className="p-5">
 					<div className="flex items-start justify-between mb-4">
 						<div className="flex items-center gap-3">
-							<Link to={`/champion/${review.championID}`} className="relative shrink-0">
+							<Link to={`/champion/${generateSlug(review.championName || review.championID)}`} className="relative shrink-0">
 								<img 
 									src={review.championImage || "/favicon.ico"} 
 									alt={review.championName}
@@ -218,7 +219,7 @@ const ChampionRatingPage = () => {
 								/>
 							</Link>
 							<div>
-								<Link to={`/champion/${review.championID}`} className="block font-primary text-xl text-text-primary hover:text-primary-500 transition-colors leading-tight">
+								<Link to={`/champion/${generateSlug(review.championName || review.championID)}`} className="block font-primary text-xl text-text-primary hover:text-primary-500 transition-colors leading-tight">
 									{review.championName}
 								</Link>
 								<div className="flex items-center gap-1.5 text-xs text-text-secondary mt-1">
@@ -284,7 +285,7 @@ const ChampionRatingPage = () => {
 							return (
 								<Link 
 									key={champ.championID} 
-									to={`/champion/${champ.championID}`}
+									to={`/champion/${generateSlug(champ.championName || champ.name || champ.championID)}`}
 									className="flex items-center justify-between group p-2 rounded-xl hover:bg-surface-hover transition-all"
 								>
 									<div className="flex items-center gap-3">

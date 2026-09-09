@@ -18,6 +18,8 @@
 
 import express from "express";
 import cacheManager from "../utils/cacheManager.js";
+import { authenticateToken } from "../middleware/authenticate.js";
+import { requireAdmin } from "../middleware/requireAdmin.js";
 
 // Tận dụng DataService (tránh lấy vòng lặp)
 import { 
@@ -168,8 +170,9 @@ router.get("/index", async (req, res) => {
 
 /**
  * POST /api/search/invalidate
+ * Chỉ admin mới được xóa search index cache.
  */
-router.post("/invalidate", async (req, res) => {
+router.post("/invalidate", authenticateToken, requireAdmin, async (req, res) => {
 	await searchIndexCache.del(CACHE_KEY);
 	res.json({ message: "Search index cache cleared.", key: CACHE_KEY });
 });

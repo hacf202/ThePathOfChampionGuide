@@ -92,9 +92,6 @@ const Builds = () => {
 
 	// --- 4. Hook Lazy Load Metadata (Chỉ gọi khi tạo Build) ---
 	const { metadata, isLoadingMeta, fetchAllMetadata } = useLazyMetadata(tUI);
-	useEffect(() => {
-		fetchAllMetadata();
-	}, [fetchAllMetadata]);
 
 	// --- Handlers ---
 	const changeTab = newTab => {
@@ -254,10 +251,6 @@ const Builds = () => {
 					<BuildSummary
 						key={build._id || build.id}
 						build={build}
-						championsList={metadata.champions}
-						relicsList={metadata.relics}
-						powersList={metadata.powers}
-						runesList={metadata.runes}
 						showDesktopFilter={state.showDesktopFilter}
 						isFavoritePage={activeTab === "favorites"}
 						onBuildUpdate={refetch}

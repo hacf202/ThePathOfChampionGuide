@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import { ChevronLeft, XCircle } from "lucide-react";
 import PageTitle from "./pageTitle";
+import { generateSlug } from "@/utils/slugify";
 import Button from "./button";
 import SafeImage from "./SafeImage";
 import MarkupRenderer from "./MarkupRenderer";
@@ -126,7 +127,7 @@ function EntityDetailLayout({
 										{compatibleChampions.map(champ => (
 											<Link
 												key={champ.championID || champ.id}
-												to={`/champion/${encodeURIComponent(champ.championID || champ.id)}`}
+												to={`/champion/${generateSlug(champ.name || champ.championID || champ.id)}`}
 												className='group rounded-2xl p-2 transition-all hover:shadow-lg hover:scale-[1.03] bg-surface-bg border border-border text-center flex flex-col h-full w-full max-w-[136px]'
 											>
 												<SafeImage

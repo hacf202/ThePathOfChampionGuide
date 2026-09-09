@@ -3,6 +3,7 @@ import express from "express";
 import { supabase } from "../config/supabase.js";
 import { getDb } from "../config/mongo.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
+import { requireAdmin } from "../middleware/requireAdmin.js";
 import cacheManager from "../utils/cacheManager.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
 
@@ -199,9 +200,9 @@ router.post("/users/batch", async (req, res) => {
 });
 
 /**
- * 6. GET /api/users - Danh sách User (Dành cho Admin hoặc Search)
+ * 6. GET /api/users - Danh sách User (Dành cho Admin)
  */
-router.get("/users", async (req, res) => {
+router.get("/users", authenticateCognitoToken, requireAdmin, async (req, res) => {
 	try {
 		const { searchTerm = "", page = 1, limit = 24 } = req.query;
 		const pageSize = parseInt(limit);

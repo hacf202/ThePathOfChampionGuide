@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Star } from "lucide-react";
 import SafeImage from "@/components/common/SafeImage";
+import { generateSlug } from "@/utils/slugify";
 
 const ChampionSuggested = ({ suggestedChampions, tUI, tDynamic }) => {
 	if (!suggestedChampions || suggestedChampions.length === 0) return null;
@@ -14,7 +15,7 @@ const ChampionSuggested = ({ suggestedChampions, tUI, tDynamic }) => {
 				{suggestedChampions.map(suggested => (
 					<Link
 						key={suggested.championID}
-						to={`/champion/${suggested.championID}`}
+						to={`/champion/${generateSlug(suggested.translations?.en?.name || suggested.name)}`}
 						className='group relative bg-surface-bg border border-border rounded-xl overflow-hidden hover:border-primary-500 transition-all hover:shadow-lg hover:shadow-primary-500/10'
 					>
 						<div className='aspect-[3/4] relative overflow-hidden'>

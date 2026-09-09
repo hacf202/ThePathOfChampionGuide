@@ -24,10 +24,6 @@ const DESCRIPTION_MAX_HEIGHT = 80;
 
 const BuildSummary = ({
 	build,
-	championsList = [],
-	relicsList = [],
-	powersList = [],
-	runesList = [],
 	style,
 	onBuildUpdate,
 	onBuildDelete,
@@ -198,10 +194,7 @@ const BuildSummary = ({
 	const normalizeName = val =>
 		val && typeof val === "object" ? val.S || "" : String(val || "");
 
-	const championData = useMemo(() => {
-		const id = normalizeName(build?.championID);
-		return championsList.find(c => c?.championID === id);
-	}, [championsList, build?.championID]);
+	const championData = build.resolvedChampion || null;
 
 	const championImage =
 		championData?.assets?.[0]?.avatar || "/fallback-image.svg";
@@ -209,30 +202,10 @@ const BuildSummary = ({
 		? tDynamic(championData, "name")
 		: normalizeName(build?.championID);
 
-	// 🟢 Ánh xạ ID sang Object thay vì Tên
-	const artifactItems = useMemo(
-		() =>
-			(build.relicSetIds || [])
-				.map(id => relicsList.find(r => r.relicCode === id))
-				.filter(Boolean), // Chặn việc render ra khoảng trống nếu chưa có data
-		[relicsList, build.relicSetIds],
-	);
-
-	const powerItems = useMemo(
-		() =>
-			(build.powerIds || [])
-				.map(id => powersList.find(p => p.powerCode === id))
-				.filter(Boolean),
-		[powersList, build.powerIds],
-	);
-
-	const runeItems = useMemo(
-		() =>
-			(build.runeIds || [])
-				.map(id => runesList.find(r => r.runeCode === id))
-				.filter(Boolean),
-		[runesList, build.runeIds],
-	);
+	// 🟢 Lấy trực tiếp từ Backend Enrichment (đã resolve) thay vì tự mapping bằng vòng lặp
+	const artifactItems = build.resolvedRelics || [];
+	const powerItems = build.resolvedPowers || [];
+	const runeItems = build.resolvedRunes || [];
 	// 🟢 Render Image nhận cả 1 Object (item) để có thể dịch tooltips tự động
 	const renderImageWithTooltip = (item, type, index) => {
 		if (!item) return null; // Bỏ qua an toàn nếu ID không tìm thấy
@@ -541,10 +514,6 @@ const BuildSummary = ({
 				onClose={() => setBuildToEdit(null)}
 				build={buildToEdit}
 				onConfirm={handleConfirmEdit}
-				championsList={championsList}
-				relicsList={relicsList}
-				powersList={powersList}
-				runesList={runesList}
 			/>
 		</>
 	);
