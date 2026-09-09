@@ -151,7 +151,7 @@
   }
   body {
     @apply bg-page-bg text-text-primary;
-    width: 100vw;
+    width: 100%;
     overflow-x: hidden;
   }
   html {

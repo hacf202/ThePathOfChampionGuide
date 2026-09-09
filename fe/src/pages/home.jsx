@@ -59,16 +59,16 @@ const Home = () => {
 
 	const TILES = [
 		{ to: "/champions", icon: Swords, label: tUI("nav.champions"), img: BACKGROUND_IMAGES[1], mobileHidden: false },
-		{ to: "/builds", icon: Crown, label: tUI("nav.builds"), img: BACKGROUND_IMAGES[3], mobileHidden: false },
+		{ to: "/builds", icon: Crown, label: tUI("nav.builds"), img: BACKGROUND_IMAGES[3], mobileHidden: true },
 		{ to: "/items", icon: Package, label: tUI("nav.items"), img: BACKGROUND_IMAGES[4], mobileHidden: true },
 		{ to: "/relics", icon: Sparkles, label: tUI("nav.relics"), img: BACKGROUND_IMAGES[8], mobileHidden: true },
-		{ to: "/powers", icon: Zap, label: tUI("nav.powers"), img: BACKGROUND_IMAGES[5], mobileHidden: false },
+		{ to: "/powers", icon: Zap, label: tUI("nav.powers"), img: BACKGROUND_IMAGES[5], mobileHidden: true },
 		{ to: "/runes", icon: Gem, label: tUI("nav.runes"), img: BACKGROUND_IMAGES[6], mobileHidden: true },
 		{ to: "/maps", icon: Map, label: tUI("nav.maps"), img: BACKGROUND_IMAGES[2], mobileHidden: true },
-		{ to: "/tools/ratings", icon: Dices, label: tUI("nav.championRatings"), img: BACKGROUND_IMAGES[9], mobileHidden: false },
+		{ to: "/tools/ratings", icon: Dices, label: tUI("nav.championRatings"), img: BACKGROUND_IMAGES[9], mobileHidden: true },
 		{ to: "/cards", icon: GalleryHorizontal, label: tUI("nav.cards"), img: BACKGROUND_IMAGES[7], mobileHidden: true },
 		{ to: "/resources", icon: Archive, label: tUI("nav.resources"), img: BACKGROUND_IMAGES[6], mobileHidden: true },
-		{ to: "/champion/aurelion-sol", icon: Star, label: tUI("nav.newChampion"), img: BACKGROUND_IMAGES[0], mobileHidden: false },
+		{ to: "/champion/garen", icon: Star, label: tUI("nav.newChampion"), img: BACKGROUND_IMAGES[0], mobileHidden: false },
 	];
 
 	const containerRef = useRef(null);

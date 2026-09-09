@@ -77,7 +77,7 @@ const CinematicSection = ({ title1, title2, bgImage, children, reverse = false }
 						className="overflow-visible"
 					>
 						{/* Fix chữ tiêu đề: Đẩy title1 lên 100% opacity */}
-						<h2 className='text-4xl sm:text-6xl md:text-[8rem] lg:text-[11rem] font-black uppercase leading-[0.85] tracking-tighter italic text-white filter drop-shadow-[0_10px_20px_rgba(0,0,0,0.9)] overflow-visible w-full max-w-[100vw] whitespace-nowrap'>
+						<h2 className='text-4xl sm:text-6xl md:text-[8rem] lg:text-[11rem] font-black uppercase leading-[0.85] tracking-tighter italic text-white filter drop-shadow-[0_10px_20px_rgba(0,0,0,0.9)] overflow-visible w-full max-w-full whitespace-nowrap'>
 							<span className="inline-block pr-12 lg:pr-24 overflow-visible">{title1}</span> <br />
 							<span className='text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.9)] relative inline-block pr-12 lg:pr-24 overflow-visible'>
 								{title2}
