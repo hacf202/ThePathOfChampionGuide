@@ -235,7 +235,9 @@ router.get("/:championID/full", async (req, res) => {
 		const allChampionsList = await getCachedChampions();
 		let foundChampion = allChampionsList.find(c => c.championID.toLowerCase() === championID.toLowerCase());
 		
-		if (!foundChampion) {
+		if (foundChampion) {
+			finalChampionID = foundChampion.championID;
+		} else {
 			const toSlug = (text) => text ? text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/['"’]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') : "";
 			const reqSlug = championID.toLowerCase();
 			foundChampion = allChampionsList.find(c => {
@@ -383,7 +385,9 @@ router.get("/:championID", async (req, res) => {
 		const allChampionsList = await getCachedChampions();
 		let foundChampion = allChampionsList.find(c => c.championID.toLowerCase() === championID.toLowerCase());
 		
-		if (!foundChampion) {
+		if (foundChampion) {
+			finalChampionID = foundChampion.championID;
+		} else {
 			const toSlug = (text) => text ? text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/['"’]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') : "";
 			const reqSlug = championID.toLowerCase();
 			foundChampion = allChampionsList.find(c => {
