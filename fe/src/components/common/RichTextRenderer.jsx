@@ -3,6 +3,8 @@ import parse, { attributesToProps, domToReact } from 'html-react-parser';
 import MarkupTooltip from './MarkupTooltip';
 import { getEntityData, preloadAllEntities } from '@/utils/entityLookup';
 import { useTranslation } from '@/hooks/useTranslation';
+import { parseMarkup } from '@/utils/markupParser';
+import MarkupTag from './MarkupTag';
 
 const RichTextRenderer = ({ content, className = '' }) => {
     const { language } = useTranslation();
@@ -76,6 +78,38 @@ const RichTextRenderer = ({ content, className = '' }) => {
                         </div>
                     </div>
                 );
+            }
+
+            // Parse custom [type:value|label|options] tags in text nodes
+            if (domNode.type === 'text' && domNode.data) {
+                const regex = /\[([a-z]+):([^\]|]+)(?:\|([^|\]]*))?(?:\|([^\]]*))?\]/gi;
+                if (regex.test(domNode.data)) {
+                    const segments = parseMarkup(domNode.data);
+                    return (
+                        <>
+                            {segments.map((segment, index) => {
+                                if (segment.type === 'text') {
+                                    return <React.Fragment key={index}>{segment.value}</React.Fragment>;
+                                }
+                                if (segment.type === 'tag') {
+                                    return <MarkupTag key={index} segment={segment} />;
+                                }
+                                if (segment.type === "html_open") {
+                                    switch (segment.tag) {
+                                        case "b": return <strong key={index} className='font-bold text-text-primary' />;
+                                        case "i": return <em key={index} className='italic' />;
+                                        case "br": return <br key={index} />;
+                                        default: return null;
+                                    }
+                                }
+                                if (segment.type === "html_close") {
+                                    return null;
+                                }
+                                return null;
+                            })}
+                        </>
+                    );
+                }
             }
         }
     };

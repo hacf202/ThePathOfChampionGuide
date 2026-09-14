@@ -539,10 +539,6 @@ function ChampionDetail() {
 												<BuildSummary
 													key={build.id}
 													build={build}
-													championsList={metadata.champions}
-													relicsList={metadata.relics}
-													powersList={metadata.powers}
-													runesList={metadata.runes}
 													onBuildUpdate={fetchTopBuilds}
 													onFavoriteToggle={handleFavoriteToggle}
 													initialIsFavorited={!!favoriteStatus[build.id]}
