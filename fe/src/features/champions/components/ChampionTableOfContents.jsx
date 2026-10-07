@@ -5,7 +5,7 @@ const ChampionTableOfContents = ({ tUI }) => {
 
 	const sections = [
 		{ id: "relic-sets", label: tUI("nav.relics") || "Cổ Vật Khuyên Dùng" },
-		{ id: "community-builds", label: tUI("championDetail.communityBuilds") || "Top Community Builds" },
+
 		{ id: "recommendations", label: tUI("nav.recommendations") || "Sức Mạnh & Vật Phẩm" },
 		{ id: "level-section", label: tUI("championLevelRewards.title") || "Nâng Cấp Cấp Độ" },
 		{ id: "starting-deck", label: tUI("championDetail.startingDeck") || "Bộ Bài Khởi Điểm" },

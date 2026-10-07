@@ -203,38 +203,6 @@ async function resolveBuildMetadata(builds) {
 
 // --- ROUTES ---
 
-// GET /api/builds/top-by-champion/:championID
-router.get("/top-by-champion/:championID", async (req, res) => {
-	const { championID } = req.params;
-	const limit = parseInt(req.query.limit) || 10;
-
-	try {
-		const db = getDb();
-		const Items = await db.collection(BUILDS_TABLE)
-			.find({ championID, display: true })
-			.sort({ views: -1 })
-			.limit(limit)
-			.toArray();
-
-		let builds = Items.map(normalizeDisplay);
-
-		if (builds.length > 0) {
-			const usernames = [...new Set(builds.map(i => i.creator).filter(Boolean))];
-			const userMap = await getUserNames(usernames);
-			builds = builds.map(item => ({
-				...item,
-				creatorName: item.creator ? (userMap[item.creator] || item.creator) : "Người chơi ẩn danh",
-			}));
-			// Backend Enrichment
-			builds = await resolveBuildMetadata(builds);
-		}
-
-		res.json(builds);
-	} catch (error) {
-		console.error("Error getting top builds by champion:", error);
-		res.status(500).json({ error: "Could not retrieve top builds" });
-	}
-});
 
 // GET /api/builds
 router.get("/", async (req, res) => {

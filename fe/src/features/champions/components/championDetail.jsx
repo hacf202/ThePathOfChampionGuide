@@ -28,7 +28,6 @@ import CardHoverTooltip from "@/features/champions/components/CardHoverTooltip";
 import CardCarouselModal from "@/features/cards/components/CardCarouselModal.jsx";
 import CardNameCell from "@/features/champions/components/CardNameCell";
 import ChampionLevelSection from "@/features/champions/components/ChampionLevel.jsx";
-import BuildSummary from "@/features/builds/components/buildSummary";
 // Removed useLazyMetadata
 import LazyLoadSection from "@/components/common/LazyLoadSection";
 
@@ -116,9 +115,6 @@ function ChampionDetail() {
 	}, [champion, language, tDynamic, tUI]);
 
 	const [activeDeckTab, setActiveDeckTab] = useState("base");
-	const [topBuilds, setTopBuilds] = useState([]);
-	const { favoriteStatus, favoriteCounts, toggleFavorite } = useBatchFavoriteData(topBuilds, token);
-	const [loadingBuilds, setLoadingBuilds] = useState(false);
 	// Removed useLazyMetadata
 
 	// --- Card Carousel Modal state ---
@@ -151,29 +147,6 @@ function ChampionDetail() {
 		setCarouselInitialIndex(0);
 		setCarouselOpen(true);
 	}, [apiUrl]);
-
-	const fetchTopBuilds = useCallback(async () => {
-		try {
-			setLoadingBuilds(true);
-			const activeID = champion?.championID || championID;
-			const res = await fetch(`${apiUrl}/api/builds/top-by-champion/${activeID}?limit=8`);
-			if (res.ok) {
-				const data = await res.json();
-				setTopBuilds(data);
-				if (data.length > 0) {
-					// Backend tự động resolve relics, powers, runes
-				}
-			}
-		} catch (err) {
-			console.error("Error fetching top builds:", err);
-		} finally {
-			setLoadingBuilds(false);
-		}
-	}, [champion, championID, apiUrl]);
-
-	const handleFavoriteToggle = useCallback(async (buildId, newStatus, newCount) => {
-		await toggleFavorite(buildId, newStatus, newCount);
-	}, [toggleFavorite]);
 
 
 	const initData = useCallback(async () => {
@@ -241,7 +214,6 @@ function ChampionDetail() {
 		// Reset states when switching champions
 		setChampion(null);
 		setConstellationData(null);
-		setTopBuilds([]);
 		setLoading(true);
 		setIsFullDataLoading(true);
 	}, [championID]);
@@ -260,7 +232,7 @@ function ChampionDetail() {
 		}
 	}, [champion, championID]);
 
-	// fetchTopBuilds sẽ được gọi khi scroll tới khu vực Community Builds (thông qua LazyLoadSection)
+	// Thay thế URL (ReplaceState) sang dạng Slug thân thiện cho SEO nếu URL hiện tại đang là ID
 
 	// Xử lý dữ liệu hiển thị Đa ngôn ngữ cho Chòm sao
 	const constellationInfo = useMemo(() => {
@@ -518,37 +490,7 @@ function ChampionDetail() {
 								<div id="relic-sets"><ChampionRelicSets relicSetsToRender={relicSetsToRender} tUI={tUI} /></div>
 							)}
 
-							{/* TOP COMMUNITY BUILDS */}
-							<LazyLoadSection id="community-builds" minHeight="300px" onVisible={fetchTopBuilds}>
-								{topBuilds.length > 0 && (
-									<div className="bg-surface-bg border border-border rounded-xl p-1 sm:p-6 shadow-sm mt-6">
-										<div className="flex items-center justify-between border-b border-border mb-6 pb-2">
-											<h2 className='text-lg sm:text-3xl font-semibold font-primary text-primary-500'>
-												{tUI("championDetail.communityBuilds") || "Top Community Builds"}
-											</h2>
-											<Link 
-												to={`/builds/community?championIDs=${champion?.championID || championID}`}
-												className="text-sm font-bold text-primary-500 hover:underline"
-											>
-												{tUI("common.viewAll") || "Xem tất cả"} →
-											</Link>
-										</div>
-										
-										<div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-											{topBuilds.map(build => (
-												<BuildSummary
-													key={build.id}
-													build={build}
-													onBuildUpdate={fetchTopBuilds}
-													onFavoriteToggle={handleFavoriteToggle}
-													initialIsFavorited={!!favoriteStatus[build.id]}
-													initialLikeCount={favoriteCounts[build.id] || build.like || 0}
-												/>
-											))}
-										</div>
-									</div>
-								)}
-							</LazyLoadSection>
+
 
 							{/* RECOMMENDATIONS (Powers, Items, Runes) */}
 							<LazyLoadSection id="recommendations">

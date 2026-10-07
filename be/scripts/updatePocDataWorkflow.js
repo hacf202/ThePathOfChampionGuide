@@ -66,8 +66,12 @@ function processCollection(collectionName, tempViFile, tempEnFile, idKey) {
     
     let addedCount = 0;
     
+    const forceUpdateKeys = ["P0171", "P0173", "I0072"];
+    let updatedCount = 0;
+    
     for (const viItem of viData) {
-        if (!existingMap.has(viItem[idKey])) {
+        const isForceUpdate = forceUpdateKeys.includes(viItem[idKey]);
+        if (!existingMap.has(viItem[idKey]) || isForceUpdate) {
             const enItem = enMap.get(viItem[idKey]) || {};
             
             const cleanDescVi = cleanDescriptionRaw(viItem.description || viItem.descriptionRaw);
@@ -99,9 +103,18 @@ function processCollection(collectionName, tempViFile, tempEnFile, idKey) {
                 newItem.type = ["Vật Phẩm Phép"];
             }
             
-            existingData.push(newItem);
-            addedCount++;
-            console.log(`[${collectionName}] Added new item: ${viItem[idKey]} - ${viItem.name}`);
+            if (isForceUpdate && existingMap.has(viItem[idKey])) {
+                 const index = existingData.findIndex(item => item[idKey] === viItem[idKey]);
+                 if (index !== -1) {
+                     existingData[index] = { ...existingData[index], ...newItem, translations: { ...existingData[index].translations, ...newItem.translations } };
+                     updatedCount++;
+                     console.log(`[${collectionName}] Force updated item: ${viItem[idKey]} - ${viItem.name}`);
+                 }
+            } else {
+                 existingData.push(newItem);
+                 addedCount++;
+                 console.log(`[${collectionName}] Added new item: ${viItem[idKey]} - ${viItem.name}`);
+            }
         }
     }
     

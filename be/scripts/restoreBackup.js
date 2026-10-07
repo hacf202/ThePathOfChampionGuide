@@ -23,23 +23,23 @@ if (!BACKUP_FOLDER) {
 }
 
 const ALL_COLLECTIONS = [
-    { name: "guidePocChampionList",           file: "guidePocChampionList.json" },
-    { name: "guidePocChampionConstellation",  file: "guidePocChampionConstellation.json" },
-    { name: "guidePocPowers",                 file: "guidePocPowers.json" },
-    { name: "guidePocRelics",                 file: "guidePocRelics.json" },
-    { name: "guidePocItems",                  file: "guidePocItems.json" },
-    { name: "guidePocRunes",                  file: "guidePocRunes.json" },
-    { name: "guidePocBonusStar",              file: "guidePocBonusStar.json" },
-    { name: "guidePocCardList",               file: "guidePocCardList.json" },
-    { name: "guidePocBosses",                 file: "guidePocBosses.json" },
-    { name: "guidePocAdventureMap",           file: "guidePocAdventureMap.json" },
-    { name: "guidePocGuideList",              file: "guidePocGuideList.json" },
-    { name: "guidePocFavoriteBuilds",         file: "guidePocFavoriteBuilds.json" },
-    { name: "guidePocPlayStyleRating",        file: "guidePocPlayStyleRating.json" },
-    { name: "guidePocAuditLogs",              file: "guidePocAuditLogs.json" },
-    { name: "guidePocBuilds",                 file: "guidePocBuilds.json" },
-    { name: "guidePocComments",               file: "guidePocComments.json" },
-    { name: "guidePocSubChampions",           file: "guidePocSubChampions.json" }
+    { name: "guidePocChampionList",           file: "guidePocChampionList.json",           sortKey: "championID" },
+    { name: "guidePocChampionConstellation",  file: "guidePocChampionConstellation.json",  sortKey: "constellationID" },
+    { name: "guidePocPowers",                 file: "guidePocPowers.json",                 sortKey: "powerCode" },
+    { name: "guidePocRelics",                 file: "guidePocRelics.json",                 sortKey: "relicCode" },
+    { name: "guidePocItems",                  file: "guidePocItems.json",                  sortKey: "itemCode" },
+    { name: "guidePocRunes",                  file: "guidePocRunes.json",                  sortKey: "runeCode" },
+    { name: "guidePocBonusStar",              file: "guidePocBonusStar.json",              sortKey: "bonusStarID" },
+    { name: "guidePocCardList",               file: "guidePocCardList.json",               sortKey: "cardCode" },
+    { name: "guidePocBosses",                 file: "guidePocBosses.json",                 sortKey: "bossID" },
+    { name: "guidePocAdventureMap",           file: "guidePocAdventureMap.json",           sortKey: "adventureID" },
+    { name: "guidePocGuideList",              file: "guidePocGuideList.json",              sortKey: "slug" },
+    { name: "guidePocFavoriteBuilds",         file: "guidePocFavoriteBuilds.json",         sortKey: null },
+    { name: "guidePocPlayStyleRating",        file: "guidePocPlayStyleRating.json",        sortKey: "championID" },
+    { name: "guidePocAuditLogs",              file: "guidePocAuditLogs.json",              sortKey: "timestamp" },
+    { name: "guidePocBuilds",                 file: "guidePocBuilds.json",                 sortKey: "id" },
+    { name: "guidePocComments",               file: "guidePocComments.json",               sortKey: "id" },
+    { name: "guidePocSubChampions",           file: "guidePocSubChampions.json",           sortKey: "cardCode" }
 ];
 
 async function restoreData() {
@@ -61,15 +61,28 @@ async function restoreData() {
             const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
             const collection = db.collection(collInfo.name);
             
-            // Xóa sạch dữ liệu cũ
-            await collection.deleteMany({});
-            
-            // Chèn dữ liệu mới
+            // Chèn dữ liệu mới bằng bulkWrite
             if (data.length > 0) {
-                await collection.insertMany(data);
+                if (collInfo.sortKey) {
+                    const operations = data.map(doc => {
+                        const { _id, ...rest } = doc; // Loại bỏ _id cũ nếu có
+                        return {
+                            replaceOne: {
+                                filter: { [collInfo.sortKey]: doc[collInfo.sortKey] },
+                                replacement: rest,
+                                upsert: true
+                            }
+                        };
+                    });
+                    const result = await collection.bulkWrite(operations);
+                    console.log(`✅ [${collInfo.name}] Upsert thành công: inserted ${result.upsertedCount}, modified ${result.modifiedCount}.`);
+                } else {
+                    // Xóa sạch dữ liệu cũ và insert nếu không có primary key
+                    await collection.deleteMany({});
+                    await collection.insertMany(data);
+                    console.log(`✅ [${collInfo.name}] Khôi phục thành công ${data.length} bản ghi.`);
+                }
             }
-            
-            console.log(`✅ [${collInfo.name}] Khôi phục thành công ${data.length} bản ghi.`);
         }
         console.log("🎉 Hoàn tất khôi phục cơ sở dữ liệu!");
     } catch (e) {
