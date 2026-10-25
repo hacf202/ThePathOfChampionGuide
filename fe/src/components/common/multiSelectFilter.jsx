@@ -44,7 +44,7 @@ const MultiSelectFilter = ({
 					className='w-5 h-5 object-contain flex-shrink-0'
 				/>
 			)}
-			<span className='truncate text-sm font-medium'>
+			<span className='truncate text-xs font-mono-tech uppercase font-medium'>
 				{option.label || option.value}
 			</span>
 		</div>
@@ -52,16 +52,16 @@ const MultiSelectFilter = ({
 
 	const displayContent =
 		selectedValues.length === 0 ? (
-			<span className='text-text-tertiary truncate'>{currentPlaceholder}</span>
+			<span className='tactical-text-dim text-xs font-mono-tech truncate'>{currentPlaceholder}</span>
 		) : selectedValues.length <= 2 ? (
-			<span className='truncate text-text-primary'>
+			<span className='truncate tactical-text-main text-xs font-mono-tech font-bold'>
 				{selectedValues
 					.map(val => options.find(opt => opt.value === val)?.label || val)
 					.filter(Boolean)
 					.join(", ")}
 			</span>
 		) : (
-			<span className='text-primary-500 font-bold'>
+			<span className='tactical-accent-lime font-mono-tech font-bold text-xs'>
 				{tUI("common.selectedItems").replace(
 					"{{count}}",
 					selectedValues.length,
@@ -72,48 +72,48 @@ const MultiSelectFilter = ({
 	return (
 		<div className='relative w-full select-none' ref={wrapperRef}>
 			{label && (
-				<label className='block text-xs font-semibold uppercase tracking-wider text-text-secondary mb-1.5 ml-1'>
+				<label className='block text-[11px] font-mono-tech font-bold uppercase tracking-wider tactical-text-dim mb-1.5 ml-1'>
 					{label}
 				</label>
 			)}
 			<button
 				type='button'
 				onClick={() => setIsOpen(!isOpen)}
-				className={`w-full flex justify-between items-center px-3 py-2 bg-input-bg border rounded-md text-left 
-                text-text-primary min-h-[42px] transition-all duration-200
-                ${isOpen ? "border-primary-500 ring-2 ring-primary-500/20 shadow-sm" : "border-input-border hover:border-border-hover"}`}
+				className={`w-full flex justify-between items-center px-3.5 py-2 tactical-card border clip-chamfer-sm text-left 
+                tactical-text-main min-h-[42px] transition-all duration-200
+                ${isOpen ? "!border-[var(--tactical-accent-cyan)] shadow-[0_0_15px_rgba(0,245,212,0.25)]" : "hover:border-[var(--tactical-accent-lime)]"}`}
 			>
-				<div className='flex-grow overflow-hidden mr-2'>{displayContent}</div>
+				<div className='flex-grow overflow-hidden mr-2 font-sans'>{displayContent}</div>
 				<ChevronDown
 					size={18}
-					className={`transition-transform duration-300 flex-shrink-0 text-text-tertiary ${
-						isOpen ? "rotate-180 text-primary-500" : ""
+					className={`transition-transform duration-300 flex-shrink-0 tactical-text-dim ${
+						isOpen ? "rotate-180 tactical-accent-cyan" : ""
 					}`}
 				/>
 			</button>
 
-			{/* Dropdown Menu */}
+			{/* Dropdown Menu chuẩn Tactical Panel */}
 			{isOpen && (
-				<div className='absolute z-[99] w-full mt-1.5 bg-modal-bg border border-border rounded-lg shadow-xl max-h-64 overflow-y-auto animate-slide-down-scrollbar'>
+				<div className='absolute z-[100] w-full mt-1.5 tactical-panel border-2 border-[var(--tactical-section-border)] rounded-xl shadow-2xl max-h-64 overflow-y-auto animate-slide-down-scrollbar backdrop-blur-xl'>
 					{options.length > 0 ? (
-						<div className='py-1'>
+						<div className='py-1 p-1'>
 							{options.map(option => {
 								const isSelected = selectedValues.includes(option.value);
 								return (
 									<div
 										key={option.value}
 										onClick={() => handleSelect(option.value)}
-										className={`flex items-center justify-between px-3 py-2.5 mx-1 my-0.5 rounded-md cursor-pointer   ${
+										className={`flex items-center justify-between px-3 py-2 my-0.5 clip-chamfer-sm cursor-pointer transition-colors ${
 											isSelected
-												? "bg-primary-500/10 text-primary-500"
-												: "text-text-primary hover:bg-dropdown-item-hover-bg"
+												? "bg-[var(--tactical-accent-lime)]/15 text-[var(--tactical-accent-lime)] font-bold border border-[var(--tactical-accent-lime)]/30"
+												: "tactical-text-main hover:bg-[var(--tactical-accent-cyan)]/10 hover:text-[var(--tactical-accent-cyan)]"
 										}`}
 									>
 										{renderOptionContent(option)}
 										{isSelected && (
 											<Check
 												size={16}
-												className='text-primary-500 flex-shrink-0 ml-2'
+												className='text-[var(--tactical-accent-lime)] flex-shrink-0 ml-2'
 											/>
 										)}
 									</div>
@@ -121,7 +121,7 @@ const MultiSelectFilter = ({
 							})}
 						</div>
 					) : (
-						<div className='p-4 text-center text-sm text-text-tertiary italic'>
+						<div className='p-4 text-center text-sm tactical-text-dim italic'>
 							{tUI("common.notFound") || "No options"}
 						</div>
 					)}

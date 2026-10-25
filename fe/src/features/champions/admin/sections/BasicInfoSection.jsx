@@ -68,6 +68,66 @@ const BasicInfoSection = memo(({ formData, setFormData, handleInputChange, handl
 							}
 						/>
 					</div>
+					<div className='grid grid-cols-2 gap-4'>
+						<InputField
+							label="Lối chơi / Play style (VI)"
+							name='playStyle'
+							value={formData.playStyle || ""}
+							onChange={handleInputChange}
+							placeholder="VD: Standard Aggro/Control"
+						/>
+						<InputField
+							label='Play style (EN)'
+							value={formData.translations?.en?.playStyle || ""}
+							onChange={e => handleTranslationChange("playStyle", e.target.value)}
+							placeholder="e.g., Standard Aggro/Control"
+						/>
+					</div>
+					<div className='grid grid-cols-2 gap-4'>
+						<InputField
+							label="Xếp hạng / Tier (VI)"
+							name='tier'
+							value={formData.tier || ""}
+							onChange={handleInputChange}
+							placeholder="VD: A Tier // Cân Bằng & Ổn Định"
+						/>
+						<InputField
+							label='Tier (EN)'
+							value={formData.translations?.en?.tier || ""}
+							onChange={e => handleTranslationChange("tier", e.target.value)}
+							placeholder="e.g., A Tier // Balanced & Consistent"
+						/>
+					</div>
+					<div className='grid grid-cols-2 gap-4'>
+						<InputField
+							label="Cấp Sao Tối Ưu / Optimal Star Level (VI)"
+							name='optimalStars'
+							value={formData.optimalStars || ""}
+							onChange={handleInputChange}
+							placeholder="VD: 3★ hoặc 3★ - 4★"
+						/>
+						<InputField
+							label='Optimal Star Level (EN)'
+							value={formData.translations?.en?.optimalStars || ""}
+							onChange={e => handleTranslationChange("optimalStars", e.target.value)}
+							placeholder="e.g., 3★ or 3★ - 4★"
+						/>
+					</div>
+					<div className='grid grid-cols-2 gap-4'>
+						<InputField
+							label="Ngưỡng Sức Mạnh / Power Spike (VI)"
+							name='powerSpike'
+							value={formData.powerSpike || ""}
+							onChange={handleInputChange}
+							placeholder="VD: 2★ (+1 Mana) & 3★ (Bùng nổ sát thương)"
+						/>
+						<InputField
+							label='Power Spike (EN)'
+							value={formData.translations?.en?.powerSpike || ""}
+							onChange={e => handleTranslationChange("powerSpike", e.target.value)}
+							placeholder="e.g., 2★ (+1 Mana) & 3★ (AoE Burst)"
+						/>
+					</div>
 				</div>
 
 				<ImagePreviewBox

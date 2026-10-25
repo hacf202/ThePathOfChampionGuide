@@ -3,7 +3,7 @@
 /* =========================================
  * 1. NHẬP FONT & ĐỊNH NGHĨA
  * ========================================= */
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Space+Grotesk:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;500;700&family=Open+Sans:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap");
 
 :root {
 	/* --- Phông chữ --- */
@@ -318,4 +318,343 @@ header {
 /* Lớp Glitch mới - Rút ngắn thời gian */
 .animate-glitch {
 	animation: loadingGlitch 1s ease-in-out forwards;
+}
+
+/* =========================================
+ * 19. TACTICAL UI UTILITIES
+ * ========================================= */
+.font-display {
+	font-family: "Anton", sans-serif;
+	letter-spacing: 0.03em;
+}
+
+.font-mono-tech {
+	font-family: "JetBrains Mono", monospace;
+}
+
+.bg-halftone {
+	background-image: radial-gradient(var(--tactical-halftone-dot, rgba(210, 255, 40, 0.07)) 1px, transparent 1px);
+	background-size: 16px 16px;
+}
+
+.bg-hazard-stripes {
+	background: repeating-linear-gradient(
+		-45deg,
+		var(--tactical-stripes-color, rgba(255, 255, 255, 0.02)),
+		var(--tactical-stripes-color, rgba(255, 255, 255, 0.02)) 12px,
+		transparent 12px,
+		transparent 24px
+	);
+}
+
+.stroke-giant {
+	-webkit-text-stroke: 1.5px var(--tactical-stroke-color, rgba(255, 255, 255, 0.07));
+	color: transparent;
+}
+
+.clip-chamfer {
+	clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
+}
+
+.clip-chamfer-sm {
+	clip-path: polygon(7px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%, 0 7px);
+}
+
+/* =========================================
+ * 20. TACTICAL THEME MODE ADAPTATIONS
+ * (Solid Light, Solid Dark, and Artwork Mode)
+ * ========================================= */
+
+:root {
+	/* Solid Light Mode defaults - High-Contrast Tactical Titanium & Pure White Surfaces */
+	--tactical-page-bg: #e6edf5;
+	--tactical-section-bg: #eef3f8;
+	--tactical-section-border: #94a3b8;
+	--tactical-card-bg: #ffffff;
+	--tactical-card-hover-bg: #f8fafc;
+	--tactical-card-border: #94a3b8;
+	--tactical-card-border-hover: #475569;
+	--tactical-panel-bg: #ffffff;
+	--tactical-inner-box: #f1f5f9;
+	--tactical-text-main: #0a0f1d;
+	--tactical-text-sub: #334155;
+	--tactical-text-dim: #64748b;
+	--tactical-stroke-color: rgba(10, 15, 29, 0.12);
+	--tactical-halftone-dot: rgba(10, 15, 29, 0.08);
+	--tactical-stripes-color: rgba(10, 15, 29, 0.04);
+	--tactical-tab-inactive-bg: #ffffff;
+	--tactical-tab-inactive-text: #0a0f1d;
+	--tactical-tab-inactive-border: #94a3b8;
+	--tactical-inspector-bg: #ffffff;
+	--tactical-inspector-header: #0a0f1d;
+	--tactical-chip-default-bg: #f1f5f9;
+	--tactical-chip-default-text: #0a0f1d;
+	--tactical-chip-default-border: #94a3b8;
+	--tactical-toc-bg: rgba(255, 255, 255, 0.96);
+	--tactical-toc-border: #94a3b8;
+	--tactical-toc-text: #0a0f1d;
+	--tactical-dropdown-bg: #ffffff;
+	--tactical-header-bg: rgba(241, 245, 249, 0.96);
+	/* Tactical High-Voltage Accents */
+	--tactical-accent-lime: #D2FF28;
+	--tactical-accent-lime-text: #D2FF28;
+	--tactical-accent-lime-fg: #D2FF28;
+	--tactical-accent-lime-bg: rgba(15, 23, 42, 0.9);
+	--tactical-accent-lime-border: rgba(210, 255, 40, 0.6);
+	--tactical-accent-cyan: #00F5D4;
+	--tactical-accent-cyan-text: #00F5D4;
+	--tactical-accent-cyan-fg: #00F5D4;
+	--tactical-accent-cyan-bg: rgba(15, 23, 42, 0.9);
+	--tactical-accent-cyan-border: rgba(0, 245, 212, 0.6);
+	--tactical-btn-primary-bg: #D2FF28;
+	--tactical-btn-primary-text: #000000;
+	--tactical-btn-primary-hover-bg: #000000;
+	--tactical-btn-primary-shadow: 0 4px 14px rgba(210, 255, 40, 0.4);
+	--tactical-tab-active-bg: #D2FF28;
+	--tactical-tab-active-text: #000000;
+	--tactical-tab-active-border: #000000;
+	--tactical-tab-active-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+	--tactical-bar-gradient: linear-gradient(90deg, #D2FF28, #00F5D4);
+}
+
+.dark {
+	/* Solid Dark Mode defaults */
+	--tactical-page-bg: #090a0f;
+	--tactical-section-bg: #090a0f;
+	--tactical-section-border: #262b38;
+	--tactical-card-bg: #12151e;
+	--tactical-card-hover-bg: #161a25;
+	--tactical-card-border: #262b38;
+	--tactical-card-border-hover: #4b5563;
+	--tactical-panel-bg: #12151e;
+	--tactical-inner-box: rgba(0, 0, 0, 0.6);
+	--tactical-text-main: #ffffff;
+	--tactical-text-sub: #cbd5e1;
+	--tactical-text-dim: #8e96aa;
+	--tactical-stroke-color: rgba(255, 255, 255, 0.07);
+	--tactical-halftone-dot: rgba(210, 255, 40, 0.07);
+	--tactical-stripes-color: rgba(255, 255, 255, 0.02);
+	--tactical-tab-inactive-bg: #12151e;
+	--tactical-tab-inactive-text: #d1d5db;
+	--tactical-tab-inactive-border: #262b38;
+	--tactical-inspector-bg: #12151e;
+	--tactical-inspector-header: rgba(0, 0, 0, 0.8);
+	--tactical-chip-default-bg: #1a1f2c;
+	--tactical-chip-default-text: #ffffff;
+	--tactical-chip-default-border: #4b5563;
+	--tactical-toc-bg: rgba(18, 21, 30, 0.95);
+	--tactical-toc-border: #262b38;
+	--tactical-toc-text: #ffffff;
+	--tactical-dropdown-bg: #0f131c;
+	--tactical-header-bg: rgba(9, 10, 15, 0.95);
+
+	/* High-Voltage Cyber Accents for Dark Mode */
+	--tactical-accent-lime: #D2FF28;
+	--tactical-accent-lime-text: #D2FF28;
+	--tactical-accent-lime-fg: #D2FF28;
+	--tactical-accent-lime-bg: rgba(210, 255, 40, 0.15);
+	--tactical-accent-lime-border: rgba(210, 255, 40, 0.5);
+	--tactical-accent-cyan: #00F5D4;
+	--tactical-accent-cyan-text: #00F5D4;
+	--tactical-accent-cyan-fg: #00F5D4;
+	--tactical-accent-cyan-bg: rgba(0, 245, 212, 0.15);
+	--tactical-accent-cyan-border: rgba(0, 245, 212, 0.5);
+	--tactical-btn-primary-bg: #D2FF28;
+	--tactical-btn-primary-text: #000000;
+	--tactical-btn-primary-hover-bg: #ffffff;
+	--tactical-btn-primary-shadow: 0 0 20px rgba(210, 255, 40, 0.35);
+	--tactical-tab-active-bg: #D2FF28;
+	--tactical-tab-active-text: #000000;
+	--tactical-tab-active-border: #D2FF28;
+	--tactical-tab-active-shadow: 0 0 15px rgba(210, 255, 40, 0.3);
+	--tactical-bar-gradient: linear-gradient(90deg, #D2FF28, #00F5D4);
+}
+
+.has-bg-image {
+	/* Artwork Background Mode defaults - Translucent Frosted Glass */
+	--tactical-page-bg: transparent;
+	--tactical-header-bg: rgba(9, 10, 15, 0.88);
+	--tactical-dropdown-bg: #0f131c;
+	--tactical-section-bg: rgba(9, 10, 15, 0.45);
+	--tactical-section-border: rgba(255, 255, 255, 0.1);
+	--tactical-card-bg: rgba(18, 21, 30, 0.72);
+	--tactical-card-hover-bg: rgba(26, 31, 44, 0.85);
+	--tactical-card-border: rgba(255, 255, 255, 0.12);
+	--tactical-card-border-hover: rgba(210, 255, 40, 0.6);
+	--tactical-panel-bg: rgba(18, 21, 30, 0.82);
+	--tactical-inner-box: rgba(0, 0, 0, 0.55);
+	--tactical-text-main: #ffffff;
+	--tactical-text-sub: #cbd5e1;
+	--tactical-text-dim: #94a3b8;
+	--tactical-stroke-color: rgba(255, 255, 255, 0.1);
+	--tactical-halftone-dot: rgba(210, 255, 40, 0.08);
+	--tactical-stripes-color: rgba(255, 255, 255, 0.03);
+	--tactical-tab-inactive-bg: rgba(18, 21, 30, 0.8);
+	--tactical-tab-inactive-text: #e2e8f0;
+	--tactical-tab-inactive-border: rgba(255, 255, 255, 0.15);
+	--tactical-inspector-bg: rgba(18, 21, 30, 0.88);
+	--tactical-inspector-header: rgba(0, 0, 0, 0.85);
+	--tactical-chip-default-bg: rgba(26, 31, 44, 0.8);
+	--tactical-chip-default-text: #ffffff;
+	--tactical-chip-default-border: rgba(255, 255, 255, 0.2);
+	--tactical-toc-bg: rgba(18, 21, 30, 0.85);
+	--tactical-toc-border: rgba(255, 255, 255, 0.15);
+	--tactical-toc-text: #ffffff;
+
+	/* High-Voltage Cyber Accents for Artwork Mode */
+	--tactical-accent-lime: #D2FF28;
+	--tactical-accent-lime-text: #D2FF28;
+	--tactical-accent-lime-fg: #D2FF28;
+	--tactical-accent-lime-bg: rgba(210, 255, 40, 0.15);
+	--tactical-accent-lime-border: rgba(210, 255, 40, 0.5);
+	--tactical-accent-cyan: #00F5D4;
+	--tactical-accent-cyan-text: #00F5D4;
+	--tactical-accent-cyan-fg: #00F5D4;
+	--tactical-accent-cyan-bg: rgba(0, 245, 212, 0.15);
+	--tactical-accent-cyan-border: rgba(0, 245, 212, 0.5);
+	--tactical-btn-primary-bg: #D2FF28;
+	--tactical-btn-primary-text: #000000;
+	--tactical-btn-primary-hover-bg: #ffffff;
+	--tactical-btn-primary-shadow: 0 0 20px rgba(210, 255, 40, 0.35);
+	--tactical-tab-active-bg: #D2FF28;
+	--tactical-tab-active-text: #000000;
+	--tactical-tab-active-border: #D2FF28;
+	--tactical-tab-active-shadow: 0 0 15px rgba(210, 255, 40, 0.3);
+	--tactical-bar-gradient: linear-gradient(90deg, #D2FF28, #00F5D4);
+}
+
+/* Glassmorphism blur when in Artwork Mode */
+.has-bg-image .tactical-section,
+.has-bg-image .tactical-card,
+.has-bg-image .tactical-panel,
+.has-bg-image .tactical-toc {
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+}
+
+/* Utility Classes */
+.tactical-page {
+	background-color: var(--tactical-page-bg);
+	color: var(--tactical-text-main);
+	transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.tactical-section {
+	background-color: var(--tactical-section-bg);
+	border-color: var(--tactical-section-border);
+	transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.tactical-card {
+	background-color: var(--tactical-card-bg);
+	border-color: var(--tactical-card-border);
+	color: var(--tactical-text-main);
+	transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+.tactical-card:hover {
+	background-color: var(--tactical-card-hover-bg);
+	border-color: var(--tactical-card-border-hover);
+}
+
+.tactical-panel {
+	background-color: var(--tactical-panel-bg);
+	border-color: var(--tactical-section-border);
+	transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.tactical-box {
+	background-color: var(--tactical-inner-box);
+	border-color: var(--tactical-card-border);
+}
+
+.tactical-tab-inactive {
+	background-color: var(--tactical-tab-inactive-bg);
+	color: var(--tactical-tab-inactive-text);
+	border-color: var(--tactical-tab-inactive-border);
+}
+
+.tactical-toc {
+	background-color: var(--tactical-toc-bg);
+	border-color: var(--tactical-toc-border);
+	color: var(--tactical-toc-text);
+}
+
+.tactical-text-main {
+	color: var(--tactical-text-main);
+}
+
+.tactical-text-sub {
+	color: var(--tactical-text-sub);
+}
+
+.tactical-text-dim {
+	color: var(--tactical-text-dim);
+}
+
+.tactical-accent-lime {
+	color: var(--tactical-accent-lime-text, #D2FF28);
+}
+
+:root .tactical-accent-lime {
+	color: #D2FF28;
+	-webkit-text-stroke: 1.2px #0a0f1d;
+	paint-order: stroke fill;
+	text-shadow: 2px 2px 0px #0a0f1d;
+}
+
+.dark .tactical-accent-lime,
+.has-bg-image .tactical-accent-lime {
+	color: #D2FF28;
+	-webkit-text-stroke: 0;
+	text-shadow: 0 0 20px rgba(210, 255, 40, 0.45);
+}
+
+.tactical-accent-cyan {
+	color: var(--tactical-accent-cyan-text, #00F5D4);
+}
+
+:root .tactical-accent-cyan {
+	color: #00F5D4;
+	-webkit-text-stroke: 1px #0a0f1d;
+	paint-order: stroke fill;
+	text-shadow: 1.5px 1.5px 0px #0a0f1d;
+}
+
+.dark .tactical-accent-cyan,
+.has-bg-image .tactical-accent-cyan {
+	color: #00F5D4;
+	-webkit-text-stroke: 0;
+	text-shadow: 0 0 20px rgba(0, 245, 212, 0.45);
+}
+
+.tactical-badge-lime {
+	background-color: var(--tactical-accent-lime-bg);
+	color: var(--tactical-accent-lime-text);
+	border: 1px solid var(--tactical-accent-lime-border);
+}
+
+.tactical-badge-cyan {
+	background-color: var(--tactical-accent-cyan-bg);
+	color: var(--tactical-accent-cyan-text);
+	border: 1px solid var(--tactical-accent-cyan-border);
+}
+
+.tactical-btn-primary {
+	background-color: var(--tactical-btn-primary-bg);
+	color: var(--tactical-btn-primary-text);
+	box-shadow: var(--tactical-btn-primary-shadow);
+	transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+}
+
+.tactical-btn-primary:hover {
+	background-color: var(--tactical-btn-primary-hover-bg);
+}
+
+.tactical-tab-active {
+	background-color: var(--tactical-tab-active-bg);
+	color: var(--tactical-tab-active-text);
+	border: 1px solid var(--tactical-tab-active-border);
+	box-shadow: var(--tactical-tab-active-shadow);
+	transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }

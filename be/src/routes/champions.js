@@ -31,12 +31,13 @@ export { getCachedChampions } from "../services/dataService.js";
 router.get("/", async (req, res) => {
 	try {
 		const cleanQuery = { ...req.query };
+		const isNoCache = Boolean(cleanQuery.t || cleanQuery._) || req.headers["cache-control"] === "no-cache" || req.headers["pragma"] === "no-cache";
 		delete cleanQuery.t;
 		delete cleanQuery._;
 		const queryParamsStr = new URLSearchParams(cleanQuery).toString();
 		const cacheKey = `api:champions:${queryParamsStr}`;
 
-		if (kv) {
+		if (kv && !isNoCache) {
 			const cachedData = await kv.get(cacheKey);
 			if (cachedData) {
 				res.setHeader("Content-Type", "application/json");
@@ -53,7 +54,11 @@ router.get("/", async (req, res) => {
 			tags = "",
 			maxStars = "",
 			sort = "name-asc",
+			fields = "",
+			summary = "false",
 		} = req.query;
+
+		const isSummary = summary === "true" || fields === "summary" || req.query.lean === "true";
 
 		const pageSize = parseInt(limit);
 		const currentPage = parseInt(page);
@@ -62,8 +67,11 @@ router.get("/", async (req, res) => {
 		const allChampions = await getCachedChampions();
 
 		// 2. TRÍCH XUẤT BỘ LỌC ĐỘNG (Dynamic Filters) - Đã đổi thành tags
+		const lang = req.query.lang || req.query.language;
 		const availableFilters = {
-			tags: [...new Set(allChampions.flatMap(c => c.tags || []))].sort(),
+			tags: lang === "en"
+				? [...new Set(allChampions.flatMap(c => (c.translations?.en?.tags?.length ? c.translations.en.tags : c.tags) || []))].filter(Boolean).sort()
+				: [...new Set(allChampions.flatMap(c => c.tags || []))].filter(Boolean).sort(),
 			regions: [...new Set(allChampions.flatMap(c => c.regions || []))].sort(),
 			costs: [...new Set(allChampions.map(c => Number(c.cost)))]
 				.filter(Boolean)
@@ -101,7 +109,10 @@ router.get("/", async (req, res) => {
 
 		if (tags) {
 			const tList = tags.split(",");
-			filtered = filtered.filter(c => c.tags?.some(t => tList.includes(t)));
+			filtered = filtered.filter(c => 
+				c.tags?.some(t => tList.includes(t)) ||
+				c.translations?.en?.tags?.some(t => tList.includes(t))
+			);
 		}
 
 		if (maxStars) {
@@ -134,6 +145,41 @@ router.get("/", async (req, res) => {
 		}
 
 		const totalPages = pageSize > 0 ? Math.ceil(totalItems / pageSize) : 1;
+
+		if (isSummary) {
+			paginatedItems = paginatedItems.map(c => ({
+				championID: c.championID,
+				cardCode: c.cardCode,
+				name: c.name,
+				title: c.title,
+				regions: c.regions || [],
+				cost: Number(c.cost) || 0,
+				maxStar: Number(c.maxStar) || 3,
+				tier: c.tier,
+				ratings: c.ratings,
+				playStyle: c.playStyle,
+				descriptionRaw: c.descriptionRaw || (c.description || "").replace(/<[^>]*>/g, "").trim(),
+				assets: Array.isArray(c.assets)
+					? c.assets.map(a => ({
+							avatar: a.avatar,
+							fullAbsolutePath: a.fullAbsolutePath,
+							gameAbsolutePath: a.gameAbsolutePath,
+						}))
+					: [],
+				tags: c.tags || [],
+				translations: c.translations
+					? {
+							en: {
+								name: c.translations.en?.name,
+								title: c.translations.en?.title,
+								descriptionRaw: c.translations.en?.descriptionRaw,
+								playStyle: c.translations.en?.playStyle,
+								tags: c.translations.en?.tags,
+							},
+						}
+					: undefined,
+			}));
+		}
 
 		const responseData = {
 			items: paginatedItems,
@@ -332,8 +378,8 @@ router.get("/:championID/full", async (req, res) => {
 			}
 		}
 
-		// Dùng hàm tập trung từ ratingUtils để tránh lặp code
-		champion.communityRatings = calculateCommunityRatings(champion.ratings, ratingsList);
+		// Dùng trực tiếp đánh giá của tác giả/admin từ champion.ratings
+		champion.communityRatings = champion.ratings || { damage: 5, defense: 5, synergy: 5, difficulty: 5 };
 
 		// 5. Tìm tướng gợi ý (Cùng khu vực hoặc ngẫu nhiên)
 		const allChampions = await getCachedChampions();
@@ -401,10 +447,13 @@ router.get("/:championID", async (req, res) => {
 		}
 
 		const CACHE_KEY = `champion_detail_${finalChampionID}`;
+		const isNoCache = Boolean(req.query.t || req.query._) || req.headers["cache-control"] === "no-cache" || req.headers["pragma"] === "no-cache";
 
-		const cachedChampion = await championCache.get(CACHE_KEY);
-		if (cachedChampion) {
-			return res.json(cachedChampion);
+		if (!isNoCache) {
+			const cachedChampion = await championCache.get(CACHE_KEY);
+			if (cachedChampion) {
+				return res.json(cachedChampion);
+			}
 		}
 
 		const db = getDb();
@@ -417,16 +466,8 @@ router.get("/:championID", async (req, res) => {
 		const championData = Item;
 		delete championData._id;
 
-		// Dùng hàm tập trung từ ratingUtils để tính điểm cộng đồng
-		// Frontend (Public) dùng communityRatings làm bộ chỉ số hiển thị chính.
-		// Admin vẫn thấy điểm gốc trong championData.ratings.
-		try {
-			const rItems = await db.collection("guidePocPlayStyleRating").find({ championID }).toArray();
-			championData.communityRatings = calculateCommunityRatings(championData.ratings, rItems);
-		} catch (rError) {
-			console.error("Lỗi khi tính điểm cộng đồng (Chi tiết):", rError);
-			championData.communityRatings = null;
-		}
+		// Dùng trực tiếp đánh giá của tác giả/admin từ championData.ratings
+		championData.communityRatings = championData.ratings || { damage: 5, defense: 5, synergy: 5, difficulty: 5 };
 
 		await championCache.set(CACHE_KEY, championData);
 		res.json(championData);
@@ -500,11 +541,16 @@ router.put("/", authenticateCognitoToken, requireAdmin, validateBody(upsertChamp
 		// Xóa cache qua DataService
 		await invalidateChampionCache(championID);
 
+		const responseChampion = {
+			...cleanData,
+			communityRatings: cleanData.ratings || { damage: 5, defense: 5, synergy: 5, difficulty: 5 }
+		};
+
 		res.json({
 			message: isNew
 				? "Tạo tướng mới thành công."
 				: "Cập nhật tướng thành công.",
-			champion: cleanData,
+			champion: responseChampion,
 		});
 	} catch (error) {
 		if (error.name === "ConditionalCheckFailedException") {

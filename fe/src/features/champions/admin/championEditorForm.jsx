@@ -84,6 +84,7 @@ const ChampionEditorForm = memo(
 			cost: 0,
 			maxStar: 3,
 			description: "",
+			descriptionRaw: "",
 			regions: [],
 			tags: [],
 			powerStarIds: [],
@@ -91,20 +92,23 @@ const ChampionEditorForm = memo(
 			itemIds: [],
 			runeIds: [],
 			relicSets: champion?.relicSets?.length 
-				? champion.relicSets.map(set => Array.isArray(set) ? { items: set, description: "", videoLink: "" } : set)
-				: [{ items: [], description: "", videoLink: "" }],
+				? champion.relicSets.map(set => Array.isArray(set) ? { items: set, title: "", recommendedStars: 6, comboSteps: [], proTips: [], description: "", videoLink: "" } : { ...set, recommendedStars: set.recommendedStars ?? 6, comboSteps: set.comboSteps || [], proTips: set.proTips || [] })
+				: [{ items: [], title: "", recommendedStars: 6, comboSteps: [], proTips: [], description: "", videoLink: "" }],
+			comboSteps: champion?.comboSteps || [],
+			proTips: champion?.proTips || [],
+			playStyle: "",
+			tier: "",
+			counter: "",
 			assets: [{ fullAbsolutePath: "", gameAbsolutePath: "", avatar: "" }],
 			videoLink: "",
 			translations: {
-				en: { name: "", description: "", regions: [], tags: [] },
+				en: { name: "", description: "", descriptionRaw: "", regions: [], tags: [], playStyle: "", tier: "", optimalStars: "", powerSpike: "", counter: "" },
 			},
 			ratings: {
 				damage: 5,
 				defense: 5,
-				speed: 5,
-				consistency: 5,
 				synergy: 5,
-				independence: 5,
+				difficulty: 5,
 				playstyleNote: "",
 			},
 			startingDeck: { baseCards: [], referenceCards: [] },
@@ -135,28 +139,41 @@ const ChampionEditorForm = memo(
 				const processedData = {
 					...champion,
 					cardCode: champion.cardCode || "",
+					playStyle: champion.playStyle || "",
+					tier: champion.tier || "",
+					counter: champion.counter || "",
 					tags: champion.tags || champion.tag || [],
 					itemIds: champion.itemIds || champion.defaultItems || [],
 					adventurePowerIds:
 						champion.adventurePowerIds || champion.adventurePowers || [],
 					runeIds: champion.runeIds || champion.rune || [],
-					relicSets: champion.relicSets?.length 
-						? champion.relicSets.map(set => Array.isArray(set) ? { items: set, description: "", videoLink: "" } : set)
-						: [{ items: [], description: "", videoLink: "" }],
+					relicSets: champion.relicSets?.length
+						? champion.relicSets.map(set => Array.isArray(set) ? { items: set, title: "", recommendedStars: 6, comboSteps: [], proTips: [], description: "", videoLink: "" } : { ...set, recommendedStars: set.recommendedStars ?? 6, comboSteps: set.comboSteps || [], proTips: set.proTips || [] })
+						: [{ items: [], title: "", recommendedStars: 6, comboSteps: [], proTips: [], description: "", videoLink: "" }],
+					comboSteps: champion.comboSteps || [],
+					proTips: champion.proTips || [],
 					assets: champion.assets?.length
 						? champion.assets
 						: [{ fullAbsolutePath: "", gameAbsolutePath: "", avatar: "" }],
-					translations: champion.translations || {
-						en: { name: "", description: "", regions: [], tags: [] },
+					translations: {
+						en: {
+							name: "",
+							description: "",
+							regions: [],
+							playStyle: "",
+							tier: "",
+							counter: "",
+							...(champion.translations?.en || {}),
+							tags: champion.translations?.en?.tags || [],
+						},
+						...(champion.translations || {}),
 					},
-					ratings: champion.ratings || {
-						damage: 5,
-						defense: 5,
-						speed: 5,
-						consistency: 5,
-						synergy: 5,
-						independence: 5,
-						playstyleNote: "",
+					ratings: {
+						damage: champion.ratings?.damage ?? 5,
+						defense: champion.ratings?.defense ?? 5,
+						synergy: champion.ratings?.synergy ?? 5,
+						difficulty: champion.ratings?.difficulty ?? 5,
+						playstyleNote: champion.ratings?.playstyleNote || "",
 					},
 				};
 
@@ -197,9 +214,21 @@ const ChampionEditorForm = memo(
 						.replace(/\\\\n/g, "\n")
 						.replace(/\\n/g, "\n");
 				}
+				if (typeof processedData.descriptionRaw === "string") {
+					processedData.descriptionRaw =
+						processedData.descriptionRaw
+							.replace(/\\\\n/g, "\n")
+							.replace(/\\n/g, "\n");
+				}
 				if (typeof processedData.translations?.en?.description === "string") {
 					processedData.translations.en.description =
 						processedData.translations.en.description
+							.replace(/\\\\n/g, "\n")
+							.replace(/\\n/g, "\n");
+				}
+				if (typeof processedData.translations?.en?.descriptionRaw === "string") {
+					processedData.translations.en.descriptionRaw =
+						processedData.translations.en.descriptionRaw
 							.replace(/\\\\n/g, "\n")
 							.replace(/\\n/g, "\n");
 				}
@@ -337,14 +366,23 @@ const ChampionEditorForm = memo(
 
 			if (typeof cleanData.description === "string")
 				cleanData.description = cleanData.description.replace(/\n/g, "\\n");
+			if (typeof cleanData.descriptionRaw === "string")
+				cleanData.descriptionRaw = cleanData.descriptionRaw.replace(/\n/g, "\\n");
 			if (typeof cleanData.translations?.en?.description === "string")
 				cleanData.translations.en.description =
 					cleanData.translations.en.description.replace(/\n/g, "\\n");
+			if (typeof cleanData.translations?.en?.descriptionRaw === "string")
+				cleanData.translations.en.descriptionRaw =
+					cleanData.translations.en.descriptionRaw.replace(/\n/g, "\\n");
 
-			// Thống nhất 1 loại Tag: Xóa tags trong translations nếu có
 			if (cleanData.translations?.en?.tags) {
-				delete cleanData.translations.en.tags;
+				cleanData.translations.en.tags = cleanData.translations.en.tags.filter(Boolean);
 			}
+			if (cleanData.tags) {
+				cleanData.tags = cleanData.tags.filter(Boolean);
+			}
+			cleanData.comboSteps = formData.comboSteps || [];
+			cleanData.proTips = formData.proTips || [];
 
 			const finalConstData = {
 				...constData,

@@ -1,90 +1,90 @@
 // src/components/champion/championCard.jsx
 import { memo } from "react";
-// Giả sử bạn có tệp này để lấy icon của các vùng, hãy đảm bảo đường dẫn chính xác
+import { Zap, Star } from "lucide-react";
 import iconRegions from "@/assets/data/icon.json";
-import { removeAccents } from "@/utils/vietnameseUtils";
-
 import SafeImage from "@/components/common/SafeImage";
-import { useTranslation } from "@/hooks/useTranslation"; // 🟢 Import Hook Đa ngôn ngữ
+import { useTranslation } from "@/hooks/useTranslation";
 import { HoverCard } from "@/components/common/animations";
 import { getRegionKey } from "@/utils/i18nHelpers";
 
-
 function ChampionCard({ champion }) {
-	// 🟢 Sử dụng tUI cho text tĩnh và tDynamic cho text từ DB
 	const { tUI, tDynamic } = useTranslation();
 
-	// Logic lấy URL hình ảnh, ưu tiên avatarUrl đã được xử lý trước, sau đó đến các đường dẫn khác
 	const imageUrl = champion.assets?.[0]?.avatar || "/fallback-image.svg";
-
-	// 🟢 Gọi tDynamic để lấy tên Tướng đã dịch (hoặc gọi tUI lấy tên mặc định nếu không có)
 	const championName =
 		tDynamic(champion, "name") || tUI("championList.unknownChampion");
 
 	return (
 		<HoverCard>
-			{/* Khung thẻ chính với các class CSS tiện ích của Tailwind */}
-			<div className='group relative w-full aspect-[340/500] bg-gray-800 rounded-lg overflow-hidden shadow-lg transform transition-all duration-300 hover:shadow-2xl'>
-			{/* Hình ảnh nền của tướng */}
-			<SafeImage
-				className='absolute object-cover w-full h-full transition-transform duration-300 group-hover:scale-105'
-				src={imageUrl}
-				alt={championName}
-				loading='lazy'
-				width={340}
-				height={500}
-			/>
+			{/* Khung thẻ chính chuẩn Tactical với clip-chamfer & border neon */}
+			<div className='group relative w-full aspect-[340/500] tactical-card border clip-chamfer overflow-hidden shadow-xl transition-all duration-300 hover:!border-[var(--tactical-accent-lime)] hover:shadow-[0_0_25px_rgba(210,255,40,0.22)]'>
+				{/* Góc viền phụ phong cách Cyber Tactical khi hover */}
+				<div className='absolute top-0 right-0 w-8 h-8 pointer-events-none border-t-2 border-r-2 border-[var(--tactical-accent-lime)]/0 group-hover:border-[var(--tactical-accent-lime)] transition-colors duration-300 z-10' />
 
-			{/* Năng lượng của tướng - Đã được ghim cố định ở góc trên bên trái */}
-			<div className='absolute top-4 left-4 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center bg-blue-600 border-2 border-white rounded-full text-lg md:text-xl font-bold shadow-md z-10 text-white'>
-				{champion.cost}
-			</div>
+				{/* Hình ảnh nền của tướng */}
+				<SafeImage
+					className='absolute object-cover w-full h-full transition-transform duration-500 group-hover:scale-105 contrast-105'
+					src={imageUrl}
+					alt={championName}
+					loading='lazy'
+					width={340}
+					height={500}
+				/>
 
-			{/* Lớp phủ gradient để làm nổi bật văn bản */}
-			<div className='absolute bottom-0 left-0 right-0 h-2/5 bg-gradient-to-t from-black/80 via-black/50 to-transparent' />
+				{/* Năng lượng (Mana / Cost) của tướng chuẩn Cyber Tech */}
+				<div className='absolute top-3 left-3 z-10 flex items-center gap-1.5 px-2.5 py-1 bg-black/85 backdrop-blur-md border border-blue-500/50 clip-chamfer-sm shadow-[0_0_12px_rgba(59,130,246,0.35)]'>
+					<Zap className='w-3.5 h-3.5 text-blue-400 fill-current' />
+					<span className='font-mono-tech font-bold text-sm md:text-base text-blue-400'>
+						{champion.cost ?? 0}
+					</span>
+				</div>
 
-			{/* Khung chứa thông tin chi tiết */}
-			<div className='absolute bottom-0 left-0 right-0 p-4 text-white'>
-				<div>
-					{/* Tên tướng */}
-					<h3 className='text-2xl font-bold truncate drop-shadow-lg'>
+				{/* Ngôi sao tối đa (Max Star) chuẩn phong cách Tactical */}
+				{champion.maxStar && (
+					<div className='absolute top-3 right-3 z-10 flex items-center gap-1 px-2 py-0.5 bg-black/85 backdrop-blur-md border border-amber-400/40 clip-chamfer-sm font-mono-tech text-xs text-amber-400 shadow-md'>
+						<span>{champion.maxStar}</span>
+						<Star className='w-3 h-3 fill-current' />
+					</div>
+				)}
+
+				{/* Lớp phủ gradient sâu để làm nổi bật văn bản */}
+				<div className='absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent' />
+
+				{/* Khung chứa thông tin chi tiết */}
+				<div className='absolute bottom-0 left-0 right-0 p-4 text-white z-10'>
+					{/* Tên tướng font-display Tactical */}
+					<h3 className='font-display text-2xl md:text-3xl uppercase italic tracking-wide text-white group-hover:text-[var(--tactical-accent-lime)] transition-colors drop-shadow-lg truncate'>
 						{championName}
 					</h3>
-				</div>
 
-				{/* Các vùng của tướng */}
-				<div className='flex items-center gap-2 mt-2'>
-					{/* Lặp qua mảng `regions` để lấy tên hiển thị */}
-					{champion.regions?.map(regionName => {
-						const regionIcon = iconRegions.find(r => getRegionKey(r.name) === getRegionKey(regionName));
+					{/* Các vùng của tướng */}
+					<div className='flex flex-wrap items-center gap-1.5 mt-2'>
+						{champion.regions?.map(regionName => {
+							const regionIcon = iconRegions.find(r => getRegionKey(r.name) === getRegionKey(regionName));
+							const regionKey = getRegionKey(regionName);
+							const translatedRegion = tUI(`shared.region.${regionKey}`) || regionName;
 
-						// Tạo key từ tên gốc (VD: "Piltover & Zaun" -> "piltoverzaun")
-						const regionKey = getRegionKey(regionName);
-						// Lấy tên đã dịch từ tUI, nếu không có thì fallback về tên gốc
-						const translatedRegion = tUI(`shared.region.${regionKey}`) || regionName;
-
-						return (
-							<div
-								key={regionName}
-								className='flex items-center gap-1 bg-black/50 px-2 py-1 rounded-full text-xs backdrop-blur-sm'
-							>
-								{regionIcon && (
-									<SafeImage
-										src={regionIcon.image}
-										alt={translatedRegion}
-										className='w-6 h-6 md:w-8 md:h-8 flex-shrink-0'
-										width={64}
-										height={64}
-									/>
-								)}
-								{/* Ẩn tên trên màn hình nhỏ, hiện từ md trở lên */}
-								<span className='hidden md:inline'>{translatedRegion}</span>
-							</div>
-						);
-					})}
+							return (
+								<div
+									key={regionName}
+									className='flex items-center gap-1.5 bg-black/75 border border-white/20 px-2 py-0.5 clip-chamfer-sm text-[11px] font-mono-tech uppercase backdrop-blur-md text-gray-100 group-hover:border-[var(--tactical-accent-cyan)]/60 transition-colors'
+								>
+									{regionIcon && (
+										<SafeImage
+											src={regionIcon.image}
+											alt={translatedRegion}
+											className='w-4 h-4 md:w-5 md:h-5 object-contain flex-shrink-0'
+											width={64}
+											height={64}
+										/>
+									)}
+									<span className='hidden sm:inline'>{translatedRegion}</span>
+								</div>
+							);
+						})}
+					</div>
 				</div>
 			</div>
-		</div>
 		</HoverCard>
 	);
 }

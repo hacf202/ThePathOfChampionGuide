@@ -8,10 +8,38 @@ export const LanguageContext = createContext();
 // Giúp không bị fetch lại file JSON nếu người dùng chuyển đổi qua lại nhiều lần
 const dictCache = {};
 
+// Hàm xác định ngôn ngữ ban đầu cho người dùng
+const getInitialLanguage = () => {
+	try {
+		// 1. Kiểm tra ngôn ngữ đã lưu trước đó trong localStorage
+		const saved = localStorage.getItem("appLanguage");
+		if (saved && (saved === "vi" || saved === "en")) {
+			return saved;
+		}
+
+		// 2. Lần đầu truy cập: kiểm tra ngôn ngữ trình duyệt của người dùng
+		if (typeof navigator !== "undefined") {
+			const browserLang = (
+				navigator.language ||
+				(navigator.languages && navigator.languages[0]) ||
+				""
+			).toLowerCase();
+
+			// Nếu trình duyệt là tiếng Việt -> dùng tiếng Việt
+			if (browserLang.startsWith("vi")) {
+				return "vi";
+			}
+		}
+	} catch (error) {
+		console.warn("Lỗi kiểm tra ngôn ngữ trình duyệt:", error);
+	}
+
+	// 3. Ngược lại nếu không phải tiếng Việt -> mặc định tiếng Anh
+	return "en";
+};
+
 export const LanguageProvider = ({ children }) => {
-	const [language, setLanguage] = useState(() => {
-		return localStorage.getItem("appLanguage") || "vi";
-	});
+	const [language, setLanguage] = useState(getInitialLanguage);
 
 	// Lưu trữ nội dung file JSON sau khi đã tải xong
 	const [dictionaries, setDictionaries] = useState({

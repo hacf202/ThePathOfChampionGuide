@@ -3,6 +3,7 @@ import express from "express";
 import cacheManager from "../utils/cacheManager.js";
 import { getDb } from "../config/mongo.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
+import { requireAdmin } from "../middleware/requireAdmin.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
 import { createAuditLog } from "../utils/auditLogger.js";
 import { getCachedItems, invalidateItemCache } from "../services/dataService.js";
@@ -158,7 +159,7 @@ router.post("/resolve", async (req, res) => {
  * @route   PUT /api/items
  * @desc    Tạo mới hoặc Cập nhật vật phẩm (Kiểm tra tồn tại)
  */
-router.put("/", authenticateCognitoToken, async (req, res) => {
+router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 	const itemData = req.body;
 	const { itemCode, isNew } = itemData;
 
@@ -221,7 +222,7 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
  * @route   DELETE /api/items/:itemCode
  * @desc    Xóa vật phẩm
  */
-router.delete("/:itemCode", authenticateCognitoToken, async (req, res) => {
+router.delete("/:itemCode", authenticateCognitoToken, requireAdmin, async (req, res) => {
 	const { itemCode } = req.params;
 	try {
 		const db = getDb();

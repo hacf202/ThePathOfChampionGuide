@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "strict": false,
+    "skipLibCheck": true,
+    "paths": {
+      "react": ["./fe/node_modules/@types/react"],
+      "react/*": ["./fe/node_modules/@types/react/*"],
+      "react-dom": ["./fe/node_modules/@types/react-dom"],
+      "lucide-react": ["./fe/node_modules/lucide-react"]
+    }
+  },
+  "include": [
+    "2xko_champion_detail_poc_guide.tsx"
+  ]
+}

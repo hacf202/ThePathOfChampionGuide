@@ -3,6 +3,7 @@ import express from "express";
 import cacheManager from "../utils/cacheManager.js";
 import { getDb } from "../config/mongo.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
+import { requireAdmin } from "../middleware/requireAdmin.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
 import { createAuditLog } from "../utils/auditLogger.js";
 import { getProxyImage } from "../utils/proxyImage.js";
@@ -37,7 +38,8 @@ router.get("/proxy-image", async (req, res) => {
 		res.set("Cache-Control", "public, max-age=31536000, immutable"); // Cache vĩnh viễn cho trình duyệt
 		res.send(data);
 	} catch (error) {
-		res.status(404).json({ error: "Không thể tải ảnh." });
+		const statusCode = error.statusCode || 400;
+		res.status(statusCode).json({ error: error.message || "Không thể tải ảnh." });
 	}
 });
 
@@ -213,7 +215,7 @@ router.post("/resolve", async (req, res) => {
  * @route   PUT /api/relics
  * @desc    Tạo mới hoặc cập nhật Cổ vật (Kiểm tra tồn tại)
  */
-router.put("/", authenticateCognitoToken, async (req, res) => {
+router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 	const relicData = req.body;
 	const { relicCode, isNew } = relicData;
 
@@ -276,7 +278,7 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
  * @route   DELETE /api/relics/:relicCode
  * @desc    Xóa cổ vật
  */
-router.delete("/:relicCode", authenticateCognitoToken, async (req, res) => {
+router.delete("/:relicCode", authenticateCognitoToken, requireAdmin, async (req, res) => {
 	const { relicCode } = req.params;
 	try {
 		const db = getDb();

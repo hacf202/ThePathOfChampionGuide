@@ -59,7 +59,6 @@ const Home = () => {
 
 	const TILES = [
 		{ to: "/champions", icon: Swords, label: tUI("nav.champions"), img: BACKGROUND_IMAGES[1], mobileHidden: false },
-		{ to: "/builds", icon: Crown, label: tUI("nav.builds"), img: BACKGROUND_IMAGES[3], mobileHidden: true },
 		{ to: "/items", icon: Package, label: tUI("nav.items"), img: BACKGROUND_IMAGES[4], mobileHidden: true },
 		{ to: "/relics", icon: Sparkles, label: tUI("nav.relics"), img: BACKGROUND_IMAGES[8], mobileHidden: true },
 		{ to: "/powers", icon: Zap, label: tUI("nav.powers"), img: BACKGROUND_IMAGES[5], mobileHidden: true },
@@ -235,7 +234,7 @@ const Home = () => {
 					className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto'
 				>
 					<CinematicCard to="/champions" icon={Swords} title={tUI("championList.heading") || "Danh Sách Tướng"} desc="Khám phá toàn bộ danh sách Tướng, chỉ số cơ bản, kỹ năng và cách tối ưu hóa sức mạnh." img={BACKGROUND_IMAGES[0]} />
-					<CinematicCard to="/builds" icon={Crown} title={tUI("nav.builds") || "Builds Tối Ưu"} desc="Tham khảo các bản build mạnh mẽ nhất kết hợp giữa Tướng, Cổ Vật và Sức Mạnh Nội Tại." img={BACKGROUND_IMAGES[3]} />
+					<CinematicCard to="/relics" icon={Sparkles} title={tUI("nav.relics") || "Kho Cổ Vật"} desc="Khám phá toàn bộ kho Cổ Vật phong phú từ Thường, Sử Thi đến Thần Thoại để nâng tầm sức mạnh Tướng." img={BACKGROUND_IMAGES[8]} />
 					<CinematicCard to="/sub-champions" icon={Users} title={tUI("nav.supportChampions") || "Tướng Phụ"} desc="Phân tích sức mạnh và khả năng phối hợp của các Tướng Phụ trong mỗi lượt đi." img={BACKGROUND_IMAGES[5]} />
 				</div>
 			</CinematicSection>

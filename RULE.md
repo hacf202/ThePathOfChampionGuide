@@ -107,3 +107,9 @@ features/<name>/
 - **Admin Scroll**: Trang Admin Editor (`/admin/champions/:id`) dùng `overflow-y-auto` trên main container, KHÔNG dùng `overflow-hidden`.
 - **Vault Simulator**: `LootItem` dùng key `vaultSimulator.loot.champ_frags` (không phải `champFrag`) để lấy tên "Mảnh Tướng".
 - **Build verification**: Sau mọi thay đổi cấu trúc lớn, chạy `npm run build` trong `/fe` để kiểm tra không có lỗi import.
+
+## 7. Kỷ Luật Token & Thao Tác (Token Discipline)
+
+- **Tác động trực tiếp đúng file đích:** Chỉ thao tác trực tiếp vào đúng file đích cần sửa, KHÔNG đọc hay grep dàn trải toàn dự án khi không có yêu cầu.
+- **Không tự ý chạy quy trình nặng:** TUYỆT ĐỐI KHÔNG tự ý khởi chạy browser agent hay các quy trình kiểm tra rườm rà làm phình token.
+- **Phản hồi đúng trọng tâm:** Phản hồi ngắn gọn, súc tích và đúng trọng tâm yêu cầu của người dùng.

@@ -119,6 +119,16 @@ const authLimiter = rateLimit({
 });
 app.use("/api/auth", authLimiter);
 
+// Rate limiting chung cho toàn bộ API (chống DoS / lạm dụng tài nguyên)
+const apiLimiter = rateLimit({
+	windowMs: 15 * 60 * 1000, // 15 phút
+	max: 600, // Giới hạn 600 requests/15 phút cho mỗi IP
+	message: { error: "Quá nhiều yêu cầu từ địa chỉ IP này. Vui lòng thử lại sau ít phút." },
+	standardHeaders: true,
+	legacyHeaders: false,
+});
+app.use("/api", apiLimiter);
+
 app.use(express.json({ limit: "5mb" }));
 app.use(trackActivity);
 

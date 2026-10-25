@@ -11,7 +11,6 @@ import {
 	getCachedAdventures,
 	getCachedResources
 } from "../services/dataService.js";
-import { getPublicBuilds } from "../utils/buildCache.js";
 
 const router = express.Router();
 
@@ -44,7 +43,6 @@ router.get("/", (req, res) => {
 		"bosses",
 		"maps",
 		"resources",
-		"builds",
 	];
 
 	let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
@@ -85,7 +83,6 @@ router.get("/static.xml", (req, res) => {
 		{ path: "/sub-champions", priority: "0.6", changefreq: "weekly" },
 		{ path: "/tools/ratings", priority: "0.7", changefreq: "weekly" },
 		{ path: "/tools/champion-items", priority: "0.6", changefreq: "weekly" },
-		{ path: "/builds", priority: "0.8", changefreq: "daily" },
 		{ path: "/runes", priority: "0.6", changefreq: "monthly" },
 		{ path: "/maps", priority: "0.7", changefreq: "monthly" },
 		{ path: "/bosses", priority: "0.7", changefreq: "monthly" },
@@ -199,26 +196,5 @@ router.get("/resources.xml", (req, res) => sendEntitySitemap(res, getCachedResou
 	changefreq: "monthly", priority: "0.6",
 	lastmod: r.updatedAt ? new Date(r.updatedAt).toISOString().split("T")[0] : today(),
 })));
-
-router.get("/builds.xml", async (req, res) => {
-	try {
-		const publicBuildsData = await getPublicBuilds("global");
-		const builds = publicBuildsData.items || [];
-		let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
-		xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
-		builds.forEach(build => {
-			xml += urlEntry(
-				`${BASE_URL}/builds/detail/${encodeURIComponent(build.id)}`,
-				"weekly", "0.7",
-				build.updatedAt ? new Date(build.updatedAt).toISOString().split("T")[0] : today()
-			);
-		});
-		xml += `</urlset>`;
-		res.header("Content-Type", "application/xml");
-		res.status(200).send(xml);
-	} catch (error) {
-		res.status(500).send("Lỗi tạo sitemap builds");
-	}
-});
 
 export default router;

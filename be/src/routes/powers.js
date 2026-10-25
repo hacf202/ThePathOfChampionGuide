@@ -3,6 +3,7 @@ import express from "express";
 import cacheManager from "../utils/cacheManager.js";
 import { getDb } from "../config/mongo.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
+import { requireAdmin } from "../middleware/requireAdmin.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
 import { createAuditLog } from "../utils/auditLogger.js";
 import { CACHE_KEYS } from "../utils/cacheKeys.js";
@@ -167,7 +168,7 @@ router.get("/", async (req, res) => {
  * @route   PUT /api/powers
  * @desc    Tạo mới hoặc Cập nhật sức mạnh (Kiểm tra tồn tại ID)
  */
-router.put("/", authenticateCognitoToken, async (req, res) => {
+router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 	const powerData = req.body;
 	const { powerCode, isNew } = powerData;
 
@@ -231,7 +232,7 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
  * @route   DELETE /api/powers/:powerCode
  * @desc    Xóa sức mạnh
  */
-router.delete("/:powerCode", authenticateCognitoToken, async (req, res) => {
+router.delete("/:powerCode", authenticateCognitoToken, requireAdmin, async (req, res) => {
 	const { powerCode } = req.params;
 	try {
 		// Lấy dữ liệu cũ để ghi log

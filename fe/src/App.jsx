@@ -1,14 +1,11 @@
 // src/App.jsx
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { 
 	createBrowserRouter, 
 	RouterProvider, 
-	Routes, 
-	Route, 
 	useLocation, 
 	Outlet,
-	Navigate,
-	useNavigate
+	Navigate 
 } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { Analytics } from "@vercel/analytics/react";
@@ -31,11 +28,11 @@ import ResourceDetailPage from "@/features/resources/pages/resourceDetailPage.js
 
 // Trang chính
 import Home from "./pages/home.jsx";
+import HomeTactical from "./pages/homeTactical.jsx";
 import Champions from "@/features/champions/pages/championList.jsx";
 import Relics from "@/features/relics/pages/relicList.jsx";
 import Powers from "@/features/powers/pages/powerList.jsx";
 import Items from "@/features/items/pages/itemList.jsx";
-import Builds from "@/features/builds/pages/buildList.jsx";
 import Runes from "@/features/runes/pages/runeList.jsx";
 import Maps from "@/features/adventureMaps/pages/adventureMapList.jsx";
 import RandomizerPage from "@/features/tools/randomWheel/pages/randomWheelPage.jsx";
@@ -76,7 +73,7 @@ import usePageTracking from "./hooks/usePageTracking";
 import { preloadAllEntities } from "./utils/entityLookup";
 
 // Danh sách các route không cần bọc container (full-width / no-padding)
-const SPECIAL_ROUTES = ["/", "/home", "/randomizer", "/introduction", "/simulator/vaults", "/tools/ratings", "/tools/champion-items"];
+const SPECIAL_ROUTES = ["/", "/home", "/home-tactical", "/home-classic", "/randomizer", "/introduction", "/simulator/vaults", "/tools/ratings", "/tools/champion-items"];
 const CARD_GUESS_PREFIX = "/tools/card-guess";
 
 // --- Component chứa Logic Main Content ---
@@ -87,7 +84,8 @@ function MainContentContainer() {
 	const isAdmin = location.pathname.startsWith("/admin");
 	const isFullWidth = isAdmin
 		|| SPECIAL_ROUTES.includes(location.pathname)
-		|| location.pathname.startsWith(CARD_GUESS_PREFIX);
+		|| location.pathname.startsWith(CARD_GUESS_PREFIX)
+		|| location.pathname.startsWith("/champion/");
 
 	useEffect(() => {
 		if (!location.pathname.startsWith("/admin")) {
@@ -116,7 +114,8 @@ function AppLayout() {
 	const isSpecialRoute =
 		isAdminRoute
 		|| SPECIAL_ROUTES.includes(location.pathname)
-		|| location.pathname.startsWith(CARD_GUESS_PREFIX);
+		|| location.pathname.startsWith(CARD_GUESS_PREFIX)
+		|| location.pathname.startsWith("/champion/");
 
 	// Danh sách các trang không hiển thị Footer
 	const isNoFooterRoute = isAdminRoute || location.pathname.startsWith(CARD_GUESS_PREFIX);
@@ -156,8 +155,10 @@ const router = createBrowserRouter([
 		element: <AppLayout />,
 		errorElement: <ErrorPage />,
 		children: [
-			{ index: true, element: <Home /> },
-			{ path: "home", element: <Home /> },
+			{ index: true, element: <HomeTactical /> },
+			{ path: "home", element: <HomeTactical /> },
+			{ path: "home-tactical", element: <HomeTactical /> },
+			{ path: "home-classic", element: <Home /> },
 			{ path: "randomizer", element: <RandomizerPage /> },
 			{ path: "simulator/vaults", element: <VaultSimulator /> },
 			{ path: "sub-champions", element: <SubChampionList /> },
@@ -175,8 +176,8 @@ const router = createBrowserRouter([
 			{ path: "power/:powerCode", element: <PowerDetail /> },
 			{ path: "items", element: <Items /> },
 			{ path: "item/:itemCode", element: <ItemDetail /> },
-			{ path: "builds", element: <Builds /> },
-			{ path: "builds/:tab", element: <Builds /> },
+			{ path: "builds", element: <Navigate to="/champions" replace /> },
+			{ path: "builds/:tab", element: <Navigate to="/champions" replace /> },
 			{ path: "builds/detail/:buildId", element: <BuildDetail /> },
 			{ path: "runes", element: <Runes /> },
 			{ path: "rune/:runeCode", element: <RuneDetail /> },

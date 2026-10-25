@@ -50,21 +50,25 @@ router.get("/ranking/top", async (req, res) => {
 		
 		const result = allChampions
 			.filter(c => c.communityRatings && c.communityRatings.count > 0)
-			.map(c => ({
-				championID: c.championID,
-				championName: c.name,
-				championImage: c.assets?.[0]?.avatar || "",
-				ratings: c.communityRatings, 
-				// Điểm trung bình tổng quát dựa trên 6 chỉ số
-				overallScore: parseFloat((
-					(c.communityRatings.damage + 
-					 c.communityRatings.defense + 
-					 c.communityRatings.speed + 
-					 c.communityRatings.consistency + 
-					 c.communityRatings.synergy + 
-					 c.communityRatings.independence) / 6
-				).toFixed(2))
-			}))
+			.map(c => {
+				const score = parseFloat((
+					(Number(c.communityRatings.damage || 0) + 
+					 Number(c.communityRatings.defense || 0) + 
+					 Number(c.communityRatings.speed || 0) + 
+					 Number(c.communityRatings.consistency || 0) + 
+					 Number(c.communityRatings.synergy || 0) + 
+					 Number(c.communityRatings.independence || 0)) / 6
+				).toFixed(2));
+				return {
+					championID: c.championID,
+					championName: c.name,
+					championImage: c.assets?.[0]?.avatar || "",
+					ratings: c.communityRatings, 
+					count: c.communityRatings.count || 0,
+					avgScore: score,
+					overallScore: score,
+				};
+			})
 			.sort((a, b) => b.overallScore - a.overallScore)
 			.slice(0, 10); // Lấy Top 10
 

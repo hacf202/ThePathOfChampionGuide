@@ -3,6 +3,7 @@ import express from "express";
 import cacheManager from "../utils/cacheManager.js";
 import { getDb } from "../config/mongo.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
+import { requireAdmin } from "../middleware/requireAdmin.js";
 import { removeAccents } from "../utils/vietnameseUtils.js";
 import { createAuditLog } from "../utils/auditLogger.js";
 import { getCachedRunes, invalidateRuneCache } from "../services/dataService.js";
@@ -170,7 +171,7 @@ router.post("/resolve", async (req, res) => {
  * @route   PUT /api/runes
  * @desc    Tạo mới hoặc Cập nhật ngọc (Kiểm tra tồn tại ID)
  */
-router.put("/", authenticateCognitoToken, async (req, res) => {
+router.put("/", authenticateCognitoToken, requireAdmin, async (req, res) => {
 	const runeData = req.body;
 	const { runeCode, isNew } = runeData;
 
@@ -231,7 +232,7 @@ router.put("/", authenticateCognitoToken, async (req, res) => {
  * @route   DELETE /api/runes/:runeCode
  * @desc    Xóa ngọc
  */
-router.delete("/:runeCode", authenticateCognitoToken, async (req, res) => {
+router.delete("/:runeCode", authenticateCognitoToken, requireAdmin, async (req, res) => {
 	const { runeCode } = req.params;
 	try {
 		const db = getDb();

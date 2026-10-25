@@ -12,16 +12,18 @@ import DropdownFilter from "@/components/common/dropdownFilter";
 import ChampionCard from "@/features/champions/components/championCard";
 
 const ChampionSkeleton = () => (
-	<div className='relative w-full aspect-[340/500] bg-gray-800/40 rounded-lg overflow-hidden border border-white/5 animate-pulse'>
+	<div className='relative w-full aspect-[340/500] tactical-card border border-white/10 clip-chamfer overflow-hidden animate-pulse bg-white/5'>
 		{/* Cost Badge Skeleton */}
-		<div className='absolute top-4 left-4 w-10 h-10 md:w-12 md:h-12 bg-white/10 rounded-full border border-white/10' />
+		<div className='absolute top-3 left-3 w-14 h-7 bg-white/10 clip-chamfer-sm border border-white/10' />
+		{/* Star Badge Skeleton */}
+		<div className='absolute top-3 right-3 w-12 h-6 bg-white/10 clip-chamfer-sm border border-white/10' />
 		
 		{/* Bottom Content Skeleton */}
-		<div className='absolute bottom-0 left-0 right-0 p-4 space-y-3 bg-gradient-to-t from-black/60 to-transparent'>
-			<div className='h-7 w-3/4 bg-white/10 rounded-md' />
+		<div className='absolute bottom-0 left-0 right-0 p-4 space-y-2.5 bg-gradient-to-t from-black/80 to-transparent'>
+			<div className='h-8 w-3/4 bg-white/10 clip-chamfer-sm' />
 			<div className='flex gap-2'>
-				<div className='h-6 w-16 bg-white/5 rounded-full' />
-				<div className='h-6 w-20 bg-white/5 rounded-full' />
+				<div className='h-5 w-16 bg-white/5 clip-chamfer-sm' />
+				<div className='h-5 w-20 bg-white/5 clip-chamfer-sm' />
 			</div>
 		</div>
 	</div>
@@ -65,7 +67,7 @@ function ChampionList() {
 
 	if (error) {
 		return (
-			<div className='flex justify-center py-20 text-red-500'>
+			<div className='flex justify-center py-20 text-red-500 font-mono-tech'>
 				{error.message || tUI("common.error")}
 			</div>
 		);
@@ -93,7 +95,7 @@ function ChampionList() {
 				<Link
 					key={champion.championID}
 					to={`/champion/${generateSlug(champion.translations?.en?.name || champion.name)}`}
-					className='hover:scale-105 transition-transform duration-200 block'
+					className='hover:scale-[1.03] transition-transform duration-300 block'
 				>
 					<ChampionCard champion={champion} />
 				</Link>

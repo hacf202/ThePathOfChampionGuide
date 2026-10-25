@@ -13,16 +13,16 @@ export function SearchInput({
 }) {
     return (
         <div
-            className={`flex items-center gap-2 rounded-lg border -all duration-200
-                bg-[var(--color-input-bg,rgba(0,0,0,0.2))]
-                border-[var(--color-border,rgba(255,255,255,0.1))]
-                hover:border-[var(--color-primary-400,#a78bfa)]
-                focus-within:border-[var(--color-primary-400,#a78bfa)]
-                focus-within:shadow-[0_0_0_2px_rgba(167,139,250,0.15)]
+            className={`flex items-center gap-2 clip-chamfer-sm border transition-all duration-200
+                bg-[var(--tactical-card-bg)]
+                border-[var(--tactical-card-border)]
+                hover:border-[var(--tactical-accent-lime)]
+                focus-within:border-[var(--tactical-accent-lime)]
+                focus-within:shadow-[0_0_10px_rgba(210,255,40,0.25)]
                 w-full ${compact ? "px-2 py-1" : "px-3 py-1.5"}
             `}
         >
-            <Search className={`flex-shrink-0 text-[var(--color-text-secondary)] ${compact ? "w-3.5 h-3.5" : "w-4 h-4"}`} />
+            <Search className={`flex-shrink-0 text-[var(--tactical-text-dim)] ${compact ? "w-3.5 h-3.5" : "w-4 h-4"}`} />
             <input
                 ref={inputRef}
                 type="text"
@@ -31,7 +31,7 @@ export function SearchInput({
                 onKeyDown={handleKeyDown}
                 onFocus={() => setIsOpen(true)}
                 placeholder={compact ? "Tìm kiếm..." : tUI("globalSearch.placeholder")}
-                className={`flex-1 bg-transparent text-[var(--color-text-primary)] placeholder-[var(--color-text-secondary)] outline-none min-w-0 ${compact ? "text-xs" : "text-sm"}`}
+                className={`flex-1 bg-transparent text-[var(--tactical-text-main)] placeholder-[var(--tactical-text-dim)] outline-none min-w-0 font-mono-tech ${compact ? "text-xs" : "text-xs"}`}
                 autoComplete="off"
                 spellCheck="false"
                 aria-label={tUI("globalSearch.ariaLabel")}

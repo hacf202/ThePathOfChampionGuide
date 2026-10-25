@@ -279,8 +279,10 @@ const ChampionRatingPage = () => {
 					) : (
 						topChampions.map((champ, index) => {
 							const isFourScale = champ.championID === "C041";
-							const displayScore = isFourScale ? ((champ.avgScore / 10) * 4).toFixed(1) : champ.avgScore.toFixed(1);
+							const score = Number(champ.avgScore ?? champ.overallScore ?? 0);
+							const displayScore = isFourScale ? ((score / 10) * 4).toFixed(1) : score.toFixed(1);
 							const maxScale = isFourScale ? 4 : 10;
+							const reviewCount = champ.count ?? champ.ratings?.count ?? 0;
 
 							return (
 								<Link 
@@ -302,7 +304,7 @@ const ChampionRatingPage = () => {
 										</div>
 										<div>
 											<div className="text-sm font-semibold text-text-primary group-hover:text-primary-500 transition-colors tracking-tight">{champ.championName}</div>
-											<div className="text-[10px] text-text-secondary uppercase font-bold">{champ.count} {tUI("ratings.ranking.reviewCount")}</div>
+											<div className="text-[10px] text-text-secondary uppercase font-bold">{reviewCount} {tUI("ratings.ranking.reviewCount")}</div>
 										</div>
 									</div>
 									<div className="text-right">

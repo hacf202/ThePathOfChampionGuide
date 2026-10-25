@@ -19,7 +19,7 @@ const AuthContainer = () => {
 	const showBackButton = location.key !== "default";
 
 	const handleLoginSuccess = () => {
-		const redirectTo = searchParams.get("redirect") || "/builds";
+		const redirectTo = searchParams.get("redirect") || "/champions";
 		navigate(redirectTo, { replace: true });
 	};
 	const handleRegisterSuccess = () => {

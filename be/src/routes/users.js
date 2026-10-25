@@ -31,6 +31,8 @@ router.get("/user/me", authenticateCognitoToken, async (req, res) => {
 	}
 });
 
+const escapeRegex = (str) => typeof str === "string" ? str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") : "";
+
 /**
  * 2. GET /api/users/:username - Lấy thông tin công khai (CÓ CACHE)
  */
@@ -42,9 +44,10 @@ router.get("/users/:username", async (req, res) => {
 
 	try {
 		const db = getDb();
-		// Tìm theo username hoặc email prefix trong MongoDB
+		const safeUsername = escapeRegex(username);
+		// Tìm theo username hoặc email prefix trong MongoDB (đã escape regex)
 		const user = await db.collection("guidePocUsers").findOne({ 
-			$or: [{ username: username }, { email: new RegExp('^' + username + '@', 'i') }] 
+			$or: [{ username: username }, { email: new RegExp('^' + safeUsername + '@', 'i') }] 
 		});
 
 		const publicProfile = {
@@ -212,10 +215,11 @@ router.get("/users", authenticateCognitoToken, requireAdmin, async (req, res) =>
 		let query = {};
 		
 		if (searchTerm) {
+			const safeSearch = escapeRegex(searchTerm);
 			query = {
 				$or: [
-					{ name: { $regex: searchTerm, $options: 'i' } },
-					{ email: { $regex: searchTerm, $options: 'i' } }
+					{ name: { $regex: safeSearch, $options: 'i' } },
+					{ email: { $regex: safeSearch, $options: 'i' } }
 				]
 			};
 		}

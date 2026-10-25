@@ -14,7 +14,7 @@ export const ThemeProvider = ({ children }) => {
     // 1. Core State
     const [theme, setTheme] = useState(() => {
         const saved = localStorage.getItem("theme-mode");
-        return saved || "light";
+        return saved || "dark";
     });
 
     const [primaryHue, setPrimaryHue] = useState(() => {

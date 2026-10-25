@@ -1,8 +1,7 @@
 // src/components/common/dropdownFilter.jsx
-
 import React, { useState, useRef, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
-import { useTranslation } from "@/hooks/useTranslation"; // 🟢 Import Hook Đa ngôn ngữ
+import { useTranslation } from "@/hooks/useTranslation";
 
 function DropdownFilter({
 	label,
@@ -12,11 +11,10 @@ function DropdownFilter({
 	placeholder,
 	renderOption,
 }) {
-	const { tUI } = useTranslation(); // 🟢 Khởi tạo Hook
+	const { tUI } = useTranslation();
 	const [isOpen, setIsOpen] = useState(false);
 	const dropdownRef = useRef(null);
 
-	// 🟢 Xử lý placeholder đa ngôn ngữ bằng tUI
 	const finalPlaceholder = placeholder || tUI("common.selectOption");
 
 	const handleSelect = value => {
@@ -44,44 +42,49 @@ function DropdownFilter({
 	return (
 		<div className='relative w-full' ref={dropdownRef}>
 			{label && (
-				<label className='block text-sm font-medium mb-1 text-text-secondary'>
+				<label className='block text-[11px] font-mono-tech font-bold uppercase tracking-wider tactical-text-dim mb-1.5 ml-1'>
 					{label}
 				</label>
 			)}
 			<button
 				type='button'
 				onClick={() => setIsOpen(!isOpen)}
-				className='w-full flex justify-between items-center p-2 bg-input-bg text-input-text rounded-md border border-input-border
-        text-left   duration-200 cursor-pointer
-        focus:outline-none focus:ring-0 focus:border-input-focus-border
-        hover:border-input-focus-border'
+				className={`w-full flex justify-between items-center px-3.5 py-2 tactical-card border clip-chamfer-sm text-left 
+                tactical-text-main min-h-[42px] transition-all duration-200
+                ${isOpen ? "!border-[var(--tactical-accent-cyan)] shadow-[0_0_15px_rgba(0,245,212,0.25)]" : "hover:border-[var(--tactical-accent-lime)]"}`}
 			>
-				<span className='truncate'>{displayedLabel}</span>
+				<span className='truncate font-sans text-xs sm:text-sm font-medium'>{displayedLabel}</span>
 				<ChevronDown
-					size={20}
-					className={`text-text-secondary transition-transform ${
-						isOpen ? "rotate-180" : ""
+					size={18}
+					className={`tactical-text-dim transition-transform ${
+						isOpen ? "rotate-180 tactical-accent-cyan" : ""
 					}`}
 				/>
 			</button>
 			{isOpen && (
-				<div className='absolute z-[99] w-full mt-1 bg-modal-bg border border-dropdown-border rounded-md shadow-lg max-h-60 overflow-y-auto-scrollbar animate-slide-down'>
-					{options.map((option, index) => {
-						const isSelected = selectedValue === option.value;
-						return (
-							<button
-								type='button'
-								key={`${option.value}-${index}`}
-								onClick={() => handleSelect(option.value)}
-								aria-selected={isSelected}
-								className='w-full text-left p-2 text-dropdown-item-text hover:bg-dropdown-item-hover-bg aria-selected:bg-dropdown-item-selected-bg cursor-pointer flex items-center justify-between'
-							>
-								<span>
-									{renderOption ? renderOption(option) : option.label}
-								</span>
-							</button>
-						);
-					})}
+				<div className='absolute z-[100] w-full mt-1.5 tactical-panel border-2 border-[var(--tactical-section-border)] rounded-xl shadow-2xl max-h-60 overflow-y-auto animate-slide-down-scrollbar backdrop-blur-xl'>
+					<div className="py-1 p-1">
+						{options.map((option, index) => {
+							const isSelected = selectedValue === option.value;
+							return (
+								<button
+									type='button'
+									key={`${option.value}-${index}`}
+									onClick={() => handleSelect(option.value)}
+									aria-selected={isSelected}
+									className={`w-full text-left px-3 py-2 my-0.5 clip-chamfer-sm cursor-pointer transition-colors flex items-center justify-between text-xs font-mono-tech uppercase ${
+										isSelected
+											? "bg-[var(--tactical-accent-lime)]/15 text-[var(--tactical-accent-lime)] font-bold border border-[var(--tactical-accent-lime)]/30"
+											: "tactical-text-main hover:bg-[var(--tactical-accent-cyan)]/10 hover:text-[var(--tactical-accent-cyan)]"
+									}`}
+								>
+									<span>
+										{renderOption ? renderOption(option) : option.label}
+									</span>
+								</button>
+							);
+						})}
+					</div>
 				</div>
 			)}
 		</div>

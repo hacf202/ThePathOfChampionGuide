@@ -14,6 +14,7 @@
 import cacheManager from "../utils/cacheManager.js";
 import { CACHE_KEYS } from "../utils/cacheKeys.js";
 import { getDb } from "../config/mongo.js";
+import kv from "../utils/redis.js";
 
 // --- Cache Instances ---
 const powerCache    = cacheManager.getOrCreateCache("powers",    { stdTTL: 86400, checkperiod: 60 });
@@ -195,7 +196,29 @@ export async function invalidateRuneCache(runeCode) {
 /** Xóa cache của Champions khi dữ liệu thay đổi */
 export async function invalidateChampionCache(championID) {
 	await championCache.del(CACHE_KEYS.CHAMPIONS.ALL);
-	if (championID) await championCache.del(CACHE_KEYS.CHAMPIONS.DETAIL(championID));
+	if (championID) {
+		await championCache.del(CACHE_KEYS.CHAMPIONS.DETAIL(championID));
+		await championCache.del(CACHE_KEYS.CHAMPIONS.DETAIL(championID.toLowerCase()));
+		await championCache.del(CACHE_KEYS.CHAMPIONS.DETAIL(championID.toUpperCase()));
+		await championCache.del(`champion_detail_${championID}`);
+		await championCache.del(`champion_detail_${championID.toLowerCase()}`);
+		await championCache.del(`champion_detail_${championID.toUpperCase()}`);
+	}
+	if (kv) {
+		try {
+			const pattern = "api:champions:*";
+			let cursor = "0";
+			do {
+				const [nextCursor, keys] = await kv.scan(cursor, "MATCH", pattern, "COUNT", 100);
+				cursor = nextCursor;
+				if (keys && keys.length > 0) {
+					await kv.del(...keys);
+				}
+			} while (cursor !== "0");
+		} catch (err) {
+			console.error("[DataService] Lỗi xóa Redis api:champions cache:", err);
+		}
+	}
 }
 
 /** Xóa toàn bộ cache của Bosses khi dữ liệu thay đổi */

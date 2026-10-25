@@ -1,10 +1,29 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import parse, { attributesToProps, domToReact } from 'html-react-parser';
+import DOMPurify from 'dompurify';
 import MarkupTooltip from './MarkupTooltip';
 import { getEntityData, preloadAllEntities } from '@/utils/entityLookup';
 import { useTranslation } from '@/hooks/useTranslation';
 import { parseMarkup } from '@/utils/markupParser';
 import MarkupTag from './MarkupTag';
+
+// Cấu hình DOMPurify để cho phép iframe Youtube và custom attributes nhưng lọc sạch script/XSS
+const sanitizeHtml = (html) => {
+    if (!html || typeof html !== 'string') return '';
+    return DOMPurify.sanitize(html, {
+        ADD_TAGS: ['iframe'],
+        ADD_ATTR: [
+            'data-entity-id',
+            'data-entity-type',
+            'data-entity-label',
+            'data-youtube-video',
+            'allowfullscreen',
+            'frameborder',
+            'target',
+            'rel'
+        ],
+    });
+};
 
 const RichTextRenderer = ({ content, className = '' }) => {
     const { language } = useTranslation();
@@ -114,9 +133,11 @@ const RichTextRenderer = ({ content, className = '' }) => {
         }
     };
 
+    const cleanContent = useMemo(() => sanitizeHtml(content), [content]);
+
     return (
         <div className={`prose prose-invert max-w-none text-text-secondary ${className}`}>
-            {parse(content, options)}
+            {parse(cleanContent, options)}
         </div>
     );
 };

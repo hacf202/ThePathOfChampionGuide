@@ -8,78 +8,32 @@ const RatingsSection = memo(({ formData, setFormData, champion, isDetailLoading,
 				<h4 className='text-sm font-bold text-primary-500 uppercase flex items-center gap-2'>
 					<Box size={18} /> {tUI("admin.championForm.ratingTitle")}
 				</h4>
-				<div className='flex items-center gap-3'>
-					{isDetailLoading && (
-						<span className='text-xs italic text-text-secondary -pulse'>
-							{tUI("admin.championForm.loadingCommunity")}
-						</span>
-					)}
-					{champion.communityRatings ? (
-						<button
-							type='button'
-							onClick={() => {
-								if (window.confirm(tUI("admin.championForm.syncConfirm") || "Do you want to sync?")) {
-									setFormData(prev => ({
-										...prev,
-										ratings: {
-											...prev.ratings,
-											damage: champion.communityRatings.damage,
-											defense: champion.communityRatings.defense,
-											speed: champion.communityRatings.speed,
-											consistency: champion.communityRatings.consistency,
-											synergy: champion.communityRatings.synergy,
-											independence: champion.communityRatings.independence,
-										}
-									}));
-								}
-							}}
-							className='text-xs font-bold text-white bg-primary-500 hover:bg-primary-600 px-3 py-1.5 rounded-lg flex items-center gap-2 shadow-sm -all'
-						>
-							<RefreshCcw size={14} /> {tUI("admin.championForm.syncCommunity")}
-						</button>
-					) : (
-						!isDetailLoading && (
-							<span className='text-[10px] text-text-secondary bg-surface-bg border px-2 py-1 rounded italic'>
-								{tUI("admin.championForm.noCommunityRating")}
-							</span>
-						)
-					)}
-				</div>
 			</div>
-
-			<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+			<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
 				{[
-					"damage",
-					"defense",
-					"speed",
-					"consistency",
-					"synergy",
-					"independence",
-				].map(criteria => (
-					<div key={criteria} className='flex flex-col gap-1'>
+					{ key: "damage", label: tUI("championDetail.ratings.damage") || "Sát thương" },
+					{ key: "defense", label: tUI("championDetail.ratings.defense") || "Phòng thủ" },
+					{ key: "synergy", label: tUI("championDetail.ratings.synergy") || "Khả năng phối hợp" },
+					{ key: "difficulty", label: tUI("championDetail.ratings.difficulty") || "Độ khó" },
+				].map(({ key, label }) => (
+					<div key={key} className='flex flex-col gap-1'>
 						<div className='flex justify-between items-center'>
-							<label className='text-sm font-semibold text-text-secondary capitalize'>
-								{tUI(`championDetail.ratings.${criteria}`)} (
-								{formData.ratings?.[criteria] || 5}/10)
+							<label className='text-sm font-semibold text-text-secondary'>
+								{label} ({formData.ratings?.[key] ?? 5}/10)
 							</label>
-							{champion.communityRatings?.[criteria] !== undefined && (
-								<span className='text-[10px] font-bold text-primary-400 bg-primary-500/10 px-1.5 py-0.5 rounded flex items-center gap-1'>
-									<Users size={10} /> {champion.communityRatings[criteria]}
-								</span>
-							)}
 						</div>
 						<input
 							type='range'
 							min='1'
 							max='10'
-							step='0.1'
-							value={formData.ratings?.[criteria] || 5}
+							step='0.5'
+							value={formData.ratings?.[key] ?? 5}
 							onChange={e =>
 								setFormData(prev => ({
 									...prev,
 									ratings: {
 										...prev.ratings,
-										[criteria]: Number(e.target.value),
+										[key]: Number(e.target.value),
 									},
 								}))
 							}

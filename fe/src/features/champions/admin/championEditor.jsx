@@ -24,22 +24,41 @@ const NEW_CHAMPION_TEMPLATE = {
 	cost: 1,
 	maxStar: 6,
 	description: "",
+	playStyle: "",
+	tier: "",
+	optimalStars: "",
+	powerSpike: "",
+	counter: "",
 	regions: [],
 	tags: [],
 	powerStarIds: [],
 	adventurePowerIds: [],
 	itemIds: [],
-	relicSets: [[]],
+	relicSets: [{ items: [], title: "", recommendedStars: 6, comboSteps: [], proTips: [], description: "", videoLink: "" }],
+	comboSteps: [],
+	proTips: [],
 	runeIds: [],
 	startingDeck: { baseCards: [], referenceCards: [] },
 	assets: [{ fullAbsolutePath: "", gameAbsolutePath: "", avatar: "" }],
 	videoLink: "",
+	ratings: {
+		damage: 5,
+		defense: 5,
+		synergy: 5,
+		difficulty: 5,
+		playstyleNote: "",
+	},
 	translations: {
 		en: {
 			name: "",
 			description: "",
 			regions: [],
 			tags: [],
+			playStyle: "",
+			tier: "",
+			optimalStars: "",
+			powerSpike: "",
+			counter: "",
 		},
 	},
 };
@@ -101,27 +120,48 @@ const ChampionEditWrapper = ({
 	const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 	// Fetch chi tiết khi id thay đổi (để lấy communityRatings)
-	useEffect(() => {
+	const fetchDetail = useCallback(async (bypassCache = false) => {
 		if (id && id !== "new") {
-			const fetchDetail = async () => {
-				try {
-					setIsDetailLoading(true);
-					const res = await fetch(`${API_BASE_URL}/api/champions/${id}`);
-					if (res.ok) {
-						const data = await res.json();
-						setFullChampionData(data);
-					}
-				} catch (err) {
-					console.error("Lỗi khi tải chi tiết tướng cho Admin:", err);
-				} finally {
-					setIsDetailLoading(false);
+			try {
+				setIsDetailLoading(true);
+				const url = bypassCache
+					? `${API_BASE_URL}/api/champions/${id}?t=${Date.now()}`
+					: `${API_BASE_URL}/api/champions/${id}`;
+				const res = await fetch(url, {
+					cache: bypassCache ? "no-store" : "default",
+					headers: bypassCache ? { "Cache-Control": "no-cache", Pragma: "no-cache" } : {},
+				});
+				if (res.ok) {
+					const data = await res.json();
+					setFullChampionData(data);
+					return data;
 				}
-			};
-			fetchDetail();
+			} catch (err) {
+				console.error("Lỗi khi tải chi tiết tướng cho Admin:", err);
+			} finally {
+				setIsDetailLoading(false);
+			}
 		} else {
 			setFullChampionData(null);
 		}
 	}, [id, API_BASE_URL]);
+
+	useEffect(() => {
+		fetchDetail();
+	}, [fetchDetail]);
+
+	const handleSave = useCallback(
+		async (champData, constData) => {
+			const res = await onSave(champData, constData);
+			if (res && res.success && res.savedChampion) {
+				setFullChampionData({ ...res.savedChampion });
+			} else {
+				await fetchDetail(true);
+			}
+			return res;
+		},
+		[onSave, fetchDetail],
+	);
 
 	const selectedChampion = useMemo(() => {
 		if (id === "new") return { ...NEW_CHAMPION_TEMPLATE };
@@ -170,7 +210,7 @@ const ChampionEditWrapper = ({
 						champion={selectedChampion}
 						constellation={selectedConstellation}
 						cachedData={cachedData}
-						onSave={onSave}
+						onSave={handleSave}
 						onCancel={handleBack}
 						onDelete={onDelete}
 						isSaving={isSaving}
@@ -322,9 +362,49 @@ function ChampionEditor() {
 
 			invalidateEntityCache("champions");
 
-			await fetchAllData();
-			navigate("/admin/champions");
-			
+			const savedChampion = champResult.champion || champData;
+
+			// Cập nhật ngay lập tức state danh sách champions trong bộ nhớ để không bị stale
+			setChampions(prev => {
+				if (!Array.isArray(prev)) return [savedChampion];
+				const exists = prev.some(c => c.championID === savedChampion.championID);
+				if (exists) {
+					return prev.map(c =>
+						c.championID === savedChampion.championID
+							? { ...c, ...savedChampion }
+							: c,
+					);
+				}
+				return [...prev, savedChampion];
+			});
+
+			if (constData && Object.keys(constData).length > 0) {
+				setConstellations(prev => {
+					if (!Array.isArray(prev)) return [constData];
+					const exists = prev.some(
+						c => c.constellationID === constData.constellationID,
+					);
+					if (exists) {
+						return prev.map(c =>
+							c.constellationID === constData.constellationID
+								? { ...c, ...constData }
+								: c,
+						);
+					}
+					return [...prev, constData];
+				});
+			}
+
+			// Tải lại toàn bộ dữ liệu mới nhất từ server ở chế độ cache-bust (chạy nền)
+			fetchAllData();
+
+			// Nếu tạo tướng mới thì chuyển hướng sang trang chỉnh sửa tướng đó
+			if (champData.isNew) {
+				navigate(`/admin/champions/${savedChampion.championID}`, {
+					replace: true,
+				});
+			}
+
 			Swal.fire({
 				icon: "success",
 				title: tUI("admin.common.saveSuccess"),
@@ -334,6 +414,8 @@ function ChampionEditor() {
 				toast: true,
 				position: "top-end",
 			});
+
+			return { success: true, savedChampion };
 		} catch (e) {
 			Swal.fire({
 				icon: "error",
@@ -341,6 +423,7 @@ function ChampionEditor() {
 				text: e.message,
 				confirmButtonColor: "#3b82f6",
 			});
+			return { success: false, error: e.message };
 		} finally {
 			setIsSaving(false);
 		}
@@ -421,7 +504,10 @@ function ChampionEditor() {
 		const maxStars = [...new Set(safeChampions.map(c => Number(c.maxStar)))]
 			.filter(Boolean)
 			.sort((a, b) => a - b);
-		const tags = [...new Set(safeChampions.flatMap(c => c.tags || []))].sort();
+		const tags = [...new Set(safeChampions.flatMap(c => [
+			...(c.tags || []),
+			...(c.translations?.en?.tags || []),
+		]))].filter(Boolean).sort();
 
 		return {
 			regions,
@@ -456,7 +542,10 @@ function ChampionEditor() {
 		if (selectedMaxStars.length)
 			result = result.filter(c => selectedMaxStars.includes(Number(c.maxStar)));
 		if (selectedTags.length)
-			result = result.filter(c => c.tags?.some(t => selectedTags.includes(t)));
+			result = result.filter(c =>
+				c.tags?.some(t => selectedTags.includes(t)) ||
+				c.translations?.en?.tags?.some(t => selectedTags.includes(t))
+			);
 
 		const [field, dir] = sortOrder.split("-");
 		result.sort((a, b) => {

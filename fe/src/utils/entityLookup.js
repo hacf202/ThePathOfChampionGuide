@@ -46,6 +46,21 @@ export const clearPending = (id, type) => {
     pendingIds.delete(`${type}:${id}`);
 };
 
+const entityListeners = new Set();
+export const subscribeEntities = (callback) => {
+    entityListeners.add(callback);
+    return () => entityListeners.delete(callback);
+};
+export const notifyEntitiesChanged = () => {
+    entityListeners.forEach(cb => {
+        try {
+            cb();
+        } catch (e) {
+            console.error("Entity listener error:", e);
+        }
+    });
+};
+
 /**
  * Kiếm tra xem thực thể đã có trong cache hoặc đang được tải hay không.
  */
@@ -151,6 +166,8 @@ export const initEntities = async (incomingData = [], type = "cards") => {
     if (storeType === "resources") {
         initMarkupResources(incomingData);
     }
+
+    notifyEntitiesChanged();
 };
 
 /**
@@ -211,6 +228,7 @@ export const invalidateEntityCache = (type = null) => {
     }
     // Reset singleton để lần preload tiếp theo sẽ fetch lại từ server
     preloadPromise = null;
+    notifyEntitiesChanged();
 };
 
 const normalize = str => (str || "").normalize("NFC").toLowerCase().replace(/\s+/g, " ").trim();
@@ -246,13 +264,20 @@ export const getEntityData = (value, type, lang = "vi") => {
 			}
 			
 			if (matches.length > 0) {
+				let matchedItem = matches[0];
+				if (matchedItem.nameRef) {
+					const inPrimary = primarySources.find(item => 
+						normalize(item.nameRef) === normalize(matchedItem.nameRef)
+					);
+					if (inPrimary) matchedItem = inPrimary;
+				}
 				const exactRefMatch = matches.find(item => normalize(item.nameRef) === searchKey);
 				const withIcon = matches.find(item => item.icon);
-				const found = exactRefMatch && exactRefMatch.icon ? exactRefMatch : (withIcon || exactRefMatch || matches[0]);
+				const found = exactRefMatch && exactRefMatch.icon ? exactRefMatch : (withIcon || matchedItem);
 
 				return {
 					name: found.name,
-					nameEn: exactRefMatch ? exactRefMatch.nameRef : (withIcon ? withIcon.nameRef : matches[0].nameRef),
+					nameEn: exactRefMatch ? exactRefMatch.nameRef : (withIcon ? withIcon.nameRef : found.nameRef),
 					nameVi: found.name,
 					description: found.description,
 					nameRef: found.nameRef,

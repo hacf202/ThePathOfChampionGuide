@@ -1,5 +1,5 @@
-import { memo } from "react";
-import { getEntityData } from "@/utils/entityLookup";
+import { memo, useState, useEffect } from "react";
+import { getEntityData, subscribeEntities } from "@/utils/entityLookup";
 import { generateSlug } from "@/utils/slugify";
 import { getRarityKey } from "@/utils/i18nHelpers";
 import MarkupTooltip from "./MarkupTooltip"; 
@@ -7,15 +7,22 @@ import { useTranslation } from "@/hooks/useTranslation";
 
 const MarkupTag = memo(({ segment, noTooltip = false }) => {
 	const { language } = useTranslation();
+	const [, setRevision] = useState(0);
+
+	useEffect(() => {
+		return subscribeEntities(() => setRevision(r => r + 1));
+	}, []);
+
 	const { tagType, tagValue, tagLabel, tagOptions = [] } = segment;
 	const data = getEntityData(tagValue, tagType, language);
 	
 	const getAutoLabel = () => {
-		if (!tagLabel) return data?.name || tagValue;
-		if (data && (tagLabel === data.nameEn || tagLabel === data.nameVi || tagLabel === data.name)) {
+		// Ưu tiên tham chiếu mã thực thể ở phía trước (tagValue) để lấy tên đúng theo ngôn ngữ
+		if (data?.name) {
 			return data.name;
 		}
-		return tagLabel;
+		// Fallback khi chưa có data trong cache hoặc không tìm thấy thực thể
+		return tagLabel || tagValue;
 	};
 
 	const displayLabelToUse = getAutoLabel();
@@ -31,7 +38,7 @@ const MarkupTag = memo(({ segment, noTooltip = false }) => {
 				{showIcon && data?.icon && (
 					<img 
 						src={data.icon} 
-						alt={tagLabel} 
+						alt={displayLabelToUse || tagLabel} 
 						className={`w-4 h-4 object-contain ${onlyIcon ? "" : "mr-1"} flex-shrink-0 translate-y-[2px]`} 
 					/>
 				)}
@@ -96,7 +103,7 @@ const MarkupTag = memo(({ segment, noTooltip = false }) => {
 					{hasIcon && data?.icon && (
 						<img 
 							src={data.icon} 
-							alt={tagLabel} 
+							alt={displayLabel || tagLabel} 
 							className="w-4 h-4 object-contain mr-1 flex-shrink-0 translate-y-[2px]" 
 						/>
 					)}

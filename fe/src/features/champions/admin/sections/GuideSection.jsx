@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { Youtube } from "lucide-react";
 import InputField from "@/components/common/inputField";
-import RichTextEditor from "@/components/admin/RichTextEditor";
+import MarkupEditor from "@/components/admin/MarkupEditor";
 
 const GuideSection = memo(({ formData, setFormData, updateTranslationFields, tUI, convertToEmbedUrl }) => {
 	return (
@@ -26,28 +26,28 @@ const GuideSection = memo(({ formData, setFormData, updateTranslationFields, tUI
 						<label className='block font-semibold text-text-primary text-sm'>
 							{tUI("admin.championForm.descLabel")} (VI)
 						</label>
-						<RichTextEditor
+						<MarkupEditor
 							value={formData.description || ""}
-							onChange={(html) =>
+							onChange={({ markup, raw }) =>
 								setFormData(prev => ({
 									...prev,
-									description: html,
-									descriptionRaw: html.replace(/<[^>]+>/g, ''),
+									description: markup,
+									descriptionRaw: raw,
 								}))
 							}
 							placeholder={tUI("admin.championForm.descPlaceholder")}
 						/>
 					</div>
 					<div className='flex flex-col gap-2'>
-						<label className='block font-semibold text-text-primary text-sm'>
+						<label className='block font-semibold text-blue-400 text-sm'>
 							{tUI("admin.championForm.descLabel")} (EN)
 						</label>
-						<RichTextEditor
+						<MarkupEditor
 							value={formData.translations?.en?.description || ""}
-							onChange={(html) =>
+							onChange={({ markup, raw }) =>
 								updateTranslationFields("en", {
-									description: html,
-									descriptionRaw: html.replace(/<[^>]+>/g, ''),
+									description: markup,
+									descriptionRaw: raw,
 								})
 							}
 							placeholder='Enter description, strategy, combos...'
