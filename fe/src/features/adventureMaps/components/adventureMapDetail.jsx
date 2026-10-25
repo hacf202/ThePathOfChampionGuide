@@ -58,7 +58,7 @@ function AdventureMapDetail() {
 	}
 
 	return (
-		<div className='animate-fadeIn font-secondary max-w-[1000px] mx-auto p-2 md:p-6 pb-20'>
+		<div className='animate-fadeIn font-primary selection:bg-[var(--tactical-accent-lime)] selection:text-black max-w-[1100px] mx-auto p-2 md:p-6 pb-20'>
 			<PageTitle
 				title={
 					adventure
@@ -68,137 +68,131 @@ function AdventureMapDetail() {
 				description={`${tUI("adventureMap.detailDesc") || "Hướng dẫn chi tiết bản đồ"} ${adventure?.adventureName || ""}`}
 				keywords={adventure ? `${tDynamic(adventure, "adventureName")}, adventure, LoR adventure, PoC map, ${adventure.difficulty} stars` : ""}
 			/>
-			<Button variant='outline' onClick={() => navigate(-1)} className='mb-4'>
-				<ChevronLeft size={18} /> {tUI("common.back") || "Quay lại"}
-			</Button>
+			<button
+				type="button"
+				onClick={() => navigate(-1)}
+				className='inline-flex items-center gap-2 px-4 py-2 tactical-card border border-[var(--tactical-card-border)] hover:border-[var(--tactical-accent-lime)] text-xs font-mono-tech font-bold uppercase text-[var(--tactical-text-main)] hover:text-[var(--tactical-accent-lime-fg)] transition-all clip-chamfer-sm shadow-sm group mb-4'
+			>
+				<ChevronLeft size={16} className='group-hover:-translate-x-0.5 transition-transform' />
+				<span>{tUI("common.back") || "Quay lại"}</span>
+			</button>
 
-			
-				{loading ? (
-					<div
-						key='skeleton'
-						className='w-full'
-					>
-						<MapDetailSkeleton />
-					</div>
-				) : (
-					<div
-						key='content'
-						className='flex flex-col space-y-8 w-full'
-					>
-						{/* HERO SECTION */}
-						<section className='relative rounded-2xl overflow-hidden border border-border shadow-md bg-surface-bg w-full'>
-							<div className='absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent z-10'></div>
-							<img
-								src={
-									adventure.assetAbsolutePath ||
-									adventure.background ||
-									"/images/placeholder-bg.jpg"
-								}
-								alt={tDynamic(adventure, "adventureName")}
-								className='w-full h-[250px] md:h-[350px] object-cover opacity-80'
-							/>
-							<div className='absolute bottom-0 left-0 w-full p-2 md:p-8 z-20 flex flex-col md:flex-row justify-between items-end gap-4'>
-								<div>
-									<div className='flex items-center gap-2 mb-2'>
-										<span className='bg-primary-500/20 text-yellow-400 border font-bold px-3 py-1 rounded-full text-sm flex items-center gap-1'>
-											{adventure.difficulty}{" "}
-											<Star size={14} className='fill-current' />
-										</span>
-										<span className='bg-primary-500/20 text-white border border-primary-500/50 px-3 py-1 rounded-full text-sm font-semibold'>
-											{tDynamic(adventure, "typeAdventure")}
-										</span>
-									</div>
-									<h1 className='text-3xl md:text-5xl font-primary font-bold text-white uppercase tracking-wide'>
-										{tDynamic(adventure, "adventureName")}
-									</h1>
-								</div>
-								<div className='bg-emerald-500/20 border border-emerald-500/50 text-white px-4 py-2 rounded-lg flex flex-col items-center'>
-									<span className='text-xs uppercase font-bold tracking-wider'>
-										{tUI("adventureMap.championXp") || "Champion XP"}
+			{loading ? (
+				<div key='skeleton' className='w-full'>
+					<MapDetailSkeleton />
+				</div>
+			) : (
+				<div key='content' className='flex flex-col space-y-8 w-full'>
+					{/* HERO SECTION */}
+					<section className='relative clip-chamfer overflow-hidden border-2 border-[var(--tactical-section-border)] tactical-panel shadow-2xl w-full'>
+						<div className='absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent z-10'></div>
+						<img
+							src={
+								adventure.assetAbsolutePath ||
+								adventure.background ||
+								"/images/placeholder-bg.jpg"
+							}
+							alt={tDynamic(adventure, "adventureName")}
+							className='w-full h-[250px] md:h-[350px] object-cover opacity-80'
+						/>
+						{/* Corner Cyber Notches */}
+						<div className="absolute top-0 right-0 w-8 h-8 pointer-events-none border-t-2 border-r-2 border-[var(--tactical-accent-cyan)]/40 z-20" />
+						<div className="absolute bottom-0 left-0 w-8 h-8 pointer-events-none border-b-2 border-l-2 border-[var(--tactical-accent-lime)]/40 z-20" />
+
+						<div className='absolute bottom-0 left-0 w-full p-4 md:p-8 z-20 flex flex-col md:flex-row justify-between items-end gap-4'>
+							<div>
+								<div className='flex items-center gap-2.5 mb-2.5'>
+									<span className='bg-black/85 text-amber-400 border border-amber-400/50 font-mono-tech font-bold px-3 py-1 clip-chamfer-sm text-xs flex items-center gap-1 shadow-md'>
+										{adventure.difficulty}{" "}
+										<Star size={13} className='fill-current' />
 									</span>
-									<span className='text-xl font-black'>
-										{adventure.championXP?.toLocaleString() || 0}
+									<span className='bg-black/85 text-[var(--tactical-accent-cyan)] border border-[var(--tactical-accent-cyan)]/50 px-3 py-1 clip-chamfer-sm text-xs font-mono-tech uppercase font-bold tracking-wider shadow-md'>
+										{tDynamic(adventure, "typeAdventure")}
 									</span>
 								</div>
+								<h1 className='text-3xl md:text-5xl font-display font-black text-white uppercase italic tracking-wide drop-shadow-lg leading-none'>
+									{tDynamic(adventure, "adventureName")}
+								</h1>
 							</div>
-						</section>
+							<div className='tactical-box border border-[var(--tactical-accent-lime)]/50 text-white px-5 py-2.5 clip-chamfer-sm flex flex-col items-center bg-black/85 shadow-[0_0_15px_rgba(210,255,40,0.2)]'>
+								<span className='text-[10px] font-mono-tech uppercase font-bold tracking-widest text-[var(--tactical-text-dim)]'>
+									{tUI("adventureMap.championXp") || "Champion XP"}
+								</span>
+								<span className='text-xl sm:text-2xl font-mono-tech font-black text-[var(--tactical-accent-lime)]'>
+									{adventure.championXP?.toLocaleString() || 0}
+								</span>
+							</div>
+						</div>
+					</section>
 
-						{/* MAP VISUALIZER SECTION */}
-						{adventure.nodes && adventure.nodes.length > 0 && (
-							<section className='bg-surface-bg border border-border rounded-xl p-2 md:p-4 shadow-sm w-full'>
-								<div className='flex justify-between items-center border-b border-border pb-2'>
-									<h2 className='text-xl font-bold text-pink-500 font-primary uppercase flex items-center gap-2'>
-										<MapIcon size={20} />{" "}
-										{tUI("adventureMap.adventureMapTitle") ||
-											"Bản Đồ Phiêu Lưu"}
-									</h2>
-									<Button
-										type='button'
-										size='sm'
-										variant='outline'
-										onClick={() => setIsMapVisible(!isMapVisible)}
-										iconLeft={
-											isMapVisible ? <EyeOff size={16} /> : <Eye size={16} />
-										}
-									>
+					{/* MAP VISUALIZER SECTION */}
+					{adventure.nodes && adventure.nodes.length > 0 && (
+						<section className='tactical-card clip-chamfer border border-[var(--tactical-card-border)] p-4 md:p-6 shadow-xl w-full'>
+							<div className='flex justify-between items-center border-b border-[var(--tactical-stroke-color)] pb-3'>
+								<h2 className='text-xl font-display font-black text-[var(--tactical-accent-cyan)] uppercase italic tracking-wide flex items-center gap-2'>
+									<MapIcon size={20} />{" "}
+									{tUI("adventureMap.adventureMapTitle") || "Bản Đồ Phiêu Lưu"}
+								</h2>
+								<button
+									type='button'
+									onClick={() => setIsMapVisible(!isMapVisible)}
+									className='inline-flex items-center gap-1.5 px-3 py-1.5 tactical-card border border-[var(--tactical-card-border)] hover:border-[var(--tactical-accent-cyan)] text-xs font-mono-tech font-bold uppercase text-[var(--tactical-text-main)] hover:text-[var(--tactical-accent-cyan-fg)] transition-all clip-chamfer-sm'
+								>
+									{isMapVisible ? <EyeOff size={15} /> : <Eye size={15} />}
+									<span>
 										{isMapVisible
 											? tUI("common.hide") || "Ẩn"
 											: tUI("common.show") || "Hiện"}
-									</Button>
-								</div>
+									</span>
+								</button>
+							</div>
 
-								
-									{isMapVisible && (
-										<div
-											className='overflow-hidden'
-										>
-											<div className='mt-4'>
-												<AdventureMapVisualizer
-													nodes={adventure.nodes}
-													background={adventure.background}
-													resolvedBosses={resolvedBosses}
-												/>
-											</div>
-										</div>
+							{isMapVisible && (
+								<div className='overflow-hidden mt-4'>
+									<AdventureMapVisualizer
+										nodes={adventure.nodes}
+										background={adventure.background}
+										resolvedBosses={resolvedBosses}
+									/>
+								</div>
+							)}
+						</section>
+					)}
+
+					{/* SPECIAL RULES SECTION */}
+					{resolvedRules.length > 0 && (
+						<section className='tactical-card clip-chamfer border border-[var(--tactical-card-border)] p-4 md:p-6 shadow-xl w-full'>
+							<h2 className='text-xl font-display font-black text-[var(--tactical-accent-lime)] uppercase italic tracking-wide mb-4 flex items-center gap-2 border-b border-[var(--tactical-stroke-color)] pb-3'>
+								<Swords size={20} />{" "}
+								{tUI("adventureMap.specialRules") || "Luật Chơi Đặc Biệt"}
+							</h2>
+							<div className={`grid grid-cols-1 ${resolvedRules.length > 1 ? "sm:grid-cols-2" : ""} gap-4`}>
+								{resolvedRules.map((power, idx) => (
+									<ResolvedPowerCard key={idx} powerOrId={power} />
+								))}
+							</div>
+						</section>
+					)}
+
+					{/* SPECIAL BLOCKS SECTION */}
+					{adventure.specialBlocks && adventure.specialBlocks.length > 0 && (
+						adventure.specialBlocks.map((block, blockIdx) => {
+							const blockTitle = tDynamic(block, "title") || block.title;
+							const blockDesc = tDynamic(block, "description") || block.description;
+							const hasItems = block.items && block.items.length > 0;
+
+							if (!blockTitle && !blockDesc && !hasItems) return null;
+
+							return (
+								<section key={blockIdx} className='tactical-card clip-chamfer border border-[var(--tactical-card-border)] p-4 md:p-6 shadow-xl w-full relative group overflow-hidden'>
+									<div className='absolute top-0 left-0 w-1.5 h-full bg-[var(--tactical-accent-lime)]' />
+									
+									{blockTitle && (
+										<h2 className='text-lg sm:text-xl font-display font-black text-[var(--tactical-accent-lime)] uppercase italic tracking-wide mb-2 flex items-center gap-2 border-b border-[var(--tactical-stroke-color)] pb-2'>
+											<Info size={18} className='text-[var(--tactical-accent-lime)]' />{" "}
+											{blockTitle}
+										</h2>
 									)}
-								
-							</section>
-						)}
-
-						{/* SPECIAL RULES SECTION */}
-						{resolvedRules.length > 0 && (
-							<section className='bg-surface-bg border border-border rounded-xl p-2 md:p-4 shadow-sm w-full'>
-								<h2 className='text-xl font-bold text-primary-500 font-primary uppercase mb-4 flex items-center gap-2 border-b border-border pb-2'>
-									<Swords size={20} />{" "}
-									{tUI("adventureMap.specialRules") || "Luật Chơi Đặc Biệt"}
-								</h2>
-								<div className={`grid grid-cols-1 ${resolvedRules.length > 1 ? "sm:grid-cols-2" : ""} gap-4`}>
-									{resolvedRules.map((power, idx) => (
-										<ResolvedPowerCard key={idx} powerOrId={power} />
-									))}
-								</div>
-							</section>
-						)}
-
-						{/* SPECIAL BLOCKS SECTION */}
-						{adventure.specialBlocks && adventure.specialBlocks.length > 0 && (
-							adventure.specialBlocks.map((block, blockIdx) => {
-								const blockTitle = tDynamic(block, "title") || block.title;
-								const blockDesc = tDynamic(block, "description") || block.description;
-								const hasItems = block.items && block.items.length > 0;
-
-								if (!blockTitle && !blockDesc && !hasItems) return null;
-
-								return (
-									<section key={blockIdx} className='bg-surface-bg border border-border rounded-xl p-3 md:p-5 shadow-sm w-full relative group overflow-hidden'>
-										<div className='absolute top-0 left-0 w-1 h-full bg-yellow-500/20 group-hover:bg-yellow-500 transition-colors' />
-										
-										{blockTitle && (
-											<h2 className='text-lg font-bold text-yellow-500 font-primary uppercase mb-2 flex items-center gap-2 border-b border-border pb-2'>
-												<Info size={18} className='text-yellow-500' />{" "}
-												{blockTitle}
-											</h2>
-										)}
 
 										{blockDesc && (
 											<p className='text-xs sm:text-sm text-text-secondary mb-4 leading-relaxed italic'>

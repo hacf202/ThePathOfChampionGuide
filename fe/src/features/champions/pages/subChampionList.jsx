@@ -42,34 +42,37 @@ const SubChampionList = () => {
     };
 
     const renderSubChampion = (pkg) => (
-        <div className="group bg-surface-bg border border-border rounded-xl overflow-hidden hover:border-primary-500/50 transition-all hover:shadow-2xl hover:shadow-primary-500/10 h-full flex flex-col">
+        <div className="tactical-card clip-chamfer group bg-[var(--tactical-card-bg)] border border-[var(--tactical-card-border)] hover:border-[var(--tactical-accent-lime)] hover:shadow-[0_0_15px_rgba(210,255,40,0.15)] transition-all h-full flex flex-col overflow-hidden">
             {/* Header/Banner */}
-            <div className="relative h-36 overflow-hidden flex-shrink-0">
+            <div className="relative h-36 overflow-hidden flex-shrink-0 border-b border-[var(--tactical-card-border)]">
                 <img 
                     src={pkg.fullAbsolutePath} 
                     alt={pkg.name}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     onError={(e) => e.target.src = '/fallback-champion.png'}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-surface-bg via-transparent to-transparent" />
-                <div className="absolute bottom-3 left-3 right-3">
-                    <h2 className="text-xl font-black text-white drop-shadow-md uppercase tracking-wider truncate">{pkg.name}</h2>
+                <div className="absolute inset-0 bg-gradient-to-t from-[var(--tactical-card-bg)] via-transparent to-transparent" />
+                <div className="absolute bottom-3 left-3 right-3 flex items-center gap-2">
+                    <div className='w-1 h-4 bg-[var(--tactical-accent-lime)] shadow-[0_0_6px_var(--tactical-accent-lime)]' />
+                    <h2 className="text-lg sm:text-xl font-bold font-display text-white uppercase tracking-wider drop-shadow-md truncate">
+                        {pkg.name}
+                    </h2>
                 </div>
             </div>
 
             {/* Card List */}
-            <div className="p-2 sm:p-3 flex-1">
-                <p className="text-[9px] font-bold text-text-secondary uppercase tracking-widest mb-2 opacity-50">
-                    {tUI("subChampionList.cardListLabel")}
+            <div className="p-3 sm:p-4 flex-1">
+                <p className="text-[10px] font-mono-tech font-bold text-[var(--tactical-accent-lime)] uppercase tracking-widest mb-2.5">
+                    // {tUI("subChampionList.cardListLabel")}
                 </p>
                 <div className="space-y-2">
                     {pkg.cards.map(card => (
                         <Link 
                             to={`/card/${card.cardCode}`}
                             key={card.cardCode}
-                            className="flex items-center gap-2 p-1.5 rounded-lg bg-slate-100/50 dark:bg-white/5 hover:bg-slate-200/50 dark:hover:bg-white/10 border border-border/30 dark:border-white/10 transition-all group/card"
+                            className="tactical-box clip-chamfer-sm flex items-center gap-2.5 p-2 bg-[var(--tactical-inner-box)] border border-[var(--tactical-card-border)] hover:border-[var(--tactical-accent-cyan)] transition-all group/card"
                         >
-                            <div className="w-12 h-12 rounded-md flex-shrink-0 border border-border/30 dark:border-white/10">
+                            <div className="w-11 h-11 clip-chamfer-sm flex-shrink-0 border border-[var(--tactical-card-border)] overflow-hidden bg-black/30">
                                 <img 
                                     src={card.image} 
                                     alt={card.name} 
@@ -78,12 +81,14 @@ const SubChampionList = () => {
                                 />
                             </div>
                             <div className="flex-1 min-w-0">
-                                <p className="text-xs font-bold text-text-primary truncate">{card.name}</p>
-                                <p className="text-[10px] text-text-secondary">
+                                <p className="text-xs font-bold text-text-primary truncate group-hover/card:text-[var(--tactical-accent-cyan)] transition-colors">
+                                    {card.name}
+                                </p>
+                                <p className="text-[10px] font-mono-tech text-[var(--tactical-accent-lime)]">
                                     x{card.count} {tUI("subChampionList.copies")}
                                 </p>
                             </div>
-                            <ExternalLink className="w-3 h-3 opacity-0 group-hover/card:opacity-50 transition-opacity" />
+                            <ExternalLink className="w-3.5 h-3.5 text-text-tertiary opacity-0 group-hover/card:opacity-100 group-hover/card:text-[var(--tactical-accent-cyan)] transition-opacity" />
                         </Link>
                     ))}
                 </div>

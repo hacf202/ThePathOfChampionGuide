@@ -8,23 +8,23 @@ import Button from "./button";
 import SafeImage from "./SafeImage";
 import MarkupRenderer from "./MarkupRenderer";
 
-// --- SKELETON LOADING CHUNG ---
+// --- SKELETON LOADING TACTICAL CHUNG ---
 export const EntityDetailSkeleton = () => (
-	<div className='max-w-[1200px] mx-auto p-0 sm:p-6 animate-pulse font-secondary'>
-		<div className='h-10 w-24 bg-gray-700/50 rounded mb-2 ml-1 sm:ml-0' />
-		<div className='bg-surface-bg border border-border rounded-lg p-4 sm:p-6 space-y-8'>
+	<div className='max-w-[1200px] mx-auto p-2 sm:p-6 animate-pulse font-primary space-y-6'>
+		<div className='h-9 w-28 bg-white/10 clip-chamfer-sm border border-white/10' />
+		<div className='tactical-panel border-2 border-[var(--tactical-section-border)] clip-chamfer p-4 sm:p-8 space-y-8'>
 			<div className='flex flex-col md:flex-row gap-6'>
-				<div className='w-full md:w-[300px] aspect-square bg-gray-700/50 rounded-lg' />
+				<div className='w-full md:w-[280px] aspect-square bg-white/5 clip-chamfer border border-white/10' />
 				<div className='flex-1 space-y-4'>
-					<div className='h-16 w-full bg-gray-700/50 rounded-lg' />
-					<div className='h-48 w-full bg-gray-700/50 rounded-lg' />
+					<div className='h-14 w-full bg-white/10 clip-chamfer-sm' />
+					<div className='h-40 w-full bg-white/5 clip-chamfer-sm border border-white/5' />
 				</div>
 			</div>
 			<div className='space-y-4'>
-				<div className='h-8 w-60 bg-gray-700/50 rounded' />
+				<div className='h-8 w-60 bg-white/10 clip-chamfer-sm' />
 				<div className='flex flex-wrap gap-3'>
 					{[...Array(6)].map((_, i) => (
-						<div key={i} className='h-32 w-28 bg-gray-700/30 rounded-lg' />
+						<div key={i} className='h-36 w-28 bg-white/5 clip-chamfer-sm border border-white/10' />
 					))}
 				</div>
 			</div>
@@ -54,106 +54,134 @@ function EntityDetailLayout({
 }) {
 	if (error) {
 		return (
-			<div className='p-10 text-center font-secondary'>
-				<div className='bg-surface-hover p-8 rounded-lg border border-border inline-block'>
-					<XCircle size={48} className='mx-auto mb-4 text-red-500 opacity-50' />
-					<p className='text-xl font-bold text-red-500'>
+			<div className='min-h-[60vh] flex items-center justify-center p-6 font-primary'>
+				<div className='tactical-card clip-chamfer border border-red-500/40 p-8 text-center max-w-md w-full shadow-2xl'>
+					<XCircle size={48} className='mx-auto mb-4 text-red-500 opacity-60' />
+					<p className='text-lg font-bold text-red-400 font-mono-tech uppercase tracking-wide'>
 						{labels.errorTitle}: {error}
 					</p>
-					<Button onClick={onBack} className='mt-6 mx-auto'>
-						<ChevronLeft size={18} /> {labels.back}
-					</Button>
+					<button
+						type="button"
+						onClick={onBack}
+						className='mt-6 px-5 py-2.5 tactical-card clip-chamfer-sm border hover:border-[var(--tactical-accent-lime)] hover:text-[var(--tactical-accent-lime)] text-xs font-mono-tech uppercase font-bold tracking-wider inline-flex items-center gap-2 transition-all'
+					>
+						<ChevronLeft size={16} /> {labels.back}
+					</button>
 				</div>
 			</div>
 		);
 	}
 
 	return (
-		<div className='animate-fadeIn'>
+		<div className='animate-fadeIn font-primary selection:bg-[var(--tactical-accent-lime)] selection:text-black'>
 			<PageTitle title={pageTitle} description={pageDescription} keywords={pageKeywords} type='article' />
 
-			
-				{loading ? (
-					<div
-						key='skeleton'
+			{loading ? (
+				<div key='skeleton'>
+					<EntityDetailSkeleton />
+				</div>
+			) : (
+				<div
+					key='content'
+					className='max-w-[1200px] mx-auto p-2 sm:p-6 text-[var(--tactical-text-main)] font-primary'
+				>
+					{/* Top Back Button */}
+					<div className='mb-4'>
+						<button
+							type="button"
+							onClick={onBack}
+							className='inline-flex items-center gap-2 px-4 py-2 tactical-card border border-[var(--tactical-card-border)] hover:border-[var(--tactical-accent-lime)] text-xs font-mono-tech font-bold uppercase text-[var(--tactical-text-main)] hover:text-[var(--tactical-accent-lime-fg)] transition-all clip-chamfer-sm shadow-sm group'
 						>
-						<EntityDetailSkeleton />
+							<ChevronLeft size={16} className='group-hover:-translate-x-0.5 transition-transform' />
+							<span>{labels.back}</span>
+						</button>
 					</div>
-				) : (
-					<div
-						key='content'
-						transition={{ duration: 0.3 }}
-						className='max-w-[1200px] mx-auto p-0 sm:p-6 text-text-primary font-secondary'
-					>
-						<Button variant='outline' onClick={onBack} className='mb-2 ml-1 sm:ml-0'>
-							<ChevronLeft size={18} /> {labels.back}
-						</Button>
 
-						<div className='relative mx-auto max-w-[1200px] border border-border p-1 sm:p-6 rounded-lg bg-surface-bg shadow-sm'>
-							{/* Phần Thông Tin Chính */}
-							<div className='flex flex-col md:flex-row gap-4 rounded-md bg-surface-hover'>
+					{/* Main Detail Terminal Panel */}
+					<div className='relative tactical-panel border-2 border-[var(--tactical-section-border)] clip-chamfer p-4 sm:p-8 shadow-2xl overflow-hidden'>
+						{/* Corner Cyber Notches */}
+						<div className="absolute top-0 right-0 w-8 h-8 pointer-events-none border-t-2 border-r-2 border-[var(--tactical-accent-cyan)]/40 z-10" />
+						<div className="absolute bottom-0 left-0 w-8 h-8 pointer-events-none border-b-2 border-l-2 border-[var(--tactical-accent-lime)]/40 z-10" />
+
+						{/* Hero Header Split */}
+						<div className='flex flex-col md:flex-row gap-6 items-stretch'>
+							{/* Left Image Holder */}
+							<div className='w-full md:w-[280px] shrink-0 tactical-box border border-[var(--tactical-card-border)] clip-chamfer p-4 bg-black/40 flex items-center justify-center relative group min-h-[240px]'>
 								<SafeImage
-									className='h-[300px] w-full md:w-[300px] object-contain rounded-lg bg-surface-bg/50 p-2'
+									className='h-[220px] w-full object-contain drop-shadow-2xl group-hover:scale-105 transition-transform duration-500'
 									src={imageSrc || "/fallback-image.svg"}
 									alt={name}
 								/>
-								<div className='flex-1 flex flex-col'>
-									<div className='flex flex-col border border-border sm:flex-row sm:justify-between rounded-lg p-2 text-2xl sm:text-4xl font-bold m-1 bg-surface-bg shadow-sm'>
-										<h1 className='font-primary'>{name}</h1>
+							</div>
+
+							{/* Right Specs & Description */}
+							<div className='flex-1 flex flex-col justify-between gap-4'>
+								<div>
+									{/* Title Bar */}
+									<div className='flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-[var(--tactical-stroke-color)] pb-4'>
+										<h1 className='text-3xl sm:text-5xl font-display font-black uppercase italic tracking-wide text-white drop-shadow-md leading-none'>
+											{name}
+										</h1>
 										{rarity && (
-											<h1 className='font-primary text-primary-500 uppercase'>
+											<span className='self-start sm:self-auto px-3 py-1 bg-black/80 border border-[var(--tactical-accent-cyan)] text-[var(--tactical-accent-cyan)] font-mono-tech text-xs font-bold uppercase tracking-widest clip-chamfer-sm shadow-[0_0_12px_rgba(0,245,212,0.3)]'>
 												{rarity}
-											</h1>
+											</span>
 										)}
 									</div>
+
+									{/* Description Content Box */}
 									{description && (
-										<div className='flex-1 mt-4'>
-											<div className='text-base sm:text-xl rounded-lg p-4 h-full min-h-[120px] leading-relaxed bg-surface-bg border text-text-secondary overflow-y-auto'>
-												<MarkupRenderer text={description} />
-											</div>
+										<div className='mt-4 tactical-card border-l-4 border-[var(--tactical-accent-lime)] p-4 sm:p-5 clip-chamfer-sm leading-relaxed text-sm sm:text-base text-[var(--tactical-text-main)] bg-[var(--tactical-card-bg)] shadow-inner'>
+											<MarkupRenderer text={description} />
 										</div>
 									)}
 								</div>
 							</div>
+						</div>
 
-							{/* Danh sách Tướng tương thích (Chỉ hiện nếu có hoặc là trang Item/Relic cần thiết) */}
-							{compatibleChampions.length > 0 && (
-								<>
-									<h2 className='text-xl sm:text-3xl font-semibold mt-8 mb-4 font-primary'>
+						{/* Compatible Champions Section */}
+						{compatibleChampions.length > 0 && (
+							<div className='mt-10 pt-8 border-t border-[var(--tactical-stroke-color)]'>
+								<div className='flex items-center gap-3 mb-5'>
+									<div className='w-2 h-5 bg-[var(--tactical-accent-lime)] clip-chamfer-sm' />
+									<h2 className='text-xl sm:text-2xl font-display font-black uppercase italic tracking-wide text-[var(--tactical-text-main)]'>
 										{labels.compatibleTitle}
 									</h2>
+								</div>
 
-									<div className='flex flex-wrap justify-center gap-4 rounded-md bg-surface-hover p-1 border border-border'>
-										{compatibleChampions.map(champ => (
-											<Link
-												key={champ.championID || champ.id}
-												to={`/champion/${generateSlug(champ.name || champ.championID || champ.id)}`}
-												className='group rounded-2xl p-2 transition-all hover:shadow-lg hover:scale-[1.03] bg-surface-bg border border-border text-center flex flex-col h-full w-full max-w-[136px]'
-											>
+								<div className='grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3 sm:gap-4'>
+									{compatibleChampions.map(champ => (
+										<Link
+											key={champ.championID || champ.id}
+											to={`/champion/${generateSlug(champ.name || champ.championID || champ.id)}`}
+											className='group flex flex-col items-center focus:outline-none'
+										>
+											<div className='relative w-full aspect-square overflow-hidden clip-chamfer-sm border-2 border-[var(--tactical-card-border)] group-hover:border-[var(--tactical-accent-lime)] transition-all duration-300 shadow-md group-hover:shadow-[0_0_18px_rgba(210,255,40,0.3)]'>
 												<SafeImage
-													className='w-full max-w-[120px] aspect-square mx-auto rounded-2xl object-cover border-2 border-border group-hover:border-primary-500'
+													className='w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500'
 													src={champ.image}
 													alt={champ.name}
 												/>
-												<h3 className='text-xs sm:text-sm font-semibold mt-1.5 text-text-primary group-hover:text-primary-500 leading-tight'>
-													{champ.name}
-												</h3>
-											</Link>
-										))}
-									</div>
-								</>
-							)}
-
-							{/* NỘI DUNG TÙY CHỈNH THÊM (Children) */}
-							{children && (
-								<div className='mt-8'>
-									{children}
+												<div className='absolute inset-x-0 bottom-0 h-1 bg-[var(--tactical-accent-lime)] opacity-0 group-hover:opacity-100 transition-opacity' />
+											</div>
+											<span className='mt-2 font-display text-xs sm:text-sm uppercase italic tracking-wider truncate max-w-full text-[var(--tactical-text-sub)] group-hover:text-[var(--tactical-accent-lime)] transition-colors'>
+												{champ.name}
+											</span>
+										</Link>
+									))}
 								</div>
-							)}
-						</div>
+							</div>
+						)}
+
+						{/* Custom Children */}
+						{children && (
+							<div className='mt-10 pt-8 border-t border-[var(--tactical-stroke-color)]'>
+								{children}
+							</div>
+						)}
 					</div>
-				)}
-			
+				</div>
+			)}
 		</div>
 	);
 }

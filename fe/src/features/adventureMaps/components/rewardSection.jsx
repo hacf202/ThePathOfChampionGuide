@@ -171,17 +171,21 @@ const RewardSection = ({ rewards }) => {
 	};
 
 	return (
-		<section className='bg-surface-bg border border-border rounded-xl p-2 md:p-4 shadow-sm w-full'>
-			<div className='flex justify-between items-center border-b border-border pb-2 mb-4'>
-				<h2 className='text-xl font-bold text-yellow-500 font-primary uppercase flex items-center gap-2'>
-					<Gift size={20} />{" "}
-					{tUI("adventureMap.rewardMilestone") || "Mốc Thưởng"}
-				</h2>
+		<section className='tactical-panel clip-chamfer border border-[var(--tactical-card-border)] bg-[var(--tactical-panel-bg)] p-3 md:p-5 w-full'>
+			<div className='flex justify-between items-center border-b border-[var(--tactical-card-border)] pb-3 mb-4'>
+				<div className='flex items-center gap-3'>
+					<div className='w-1 h-5 bg-[var(--tactical-accent-lime)] shadow-[0_0_8px_var(--tactical-accent-lime)]' />
+					<h2 className='text-lg sm:text-xl font-bold font-display uppercase tracking-wider text-[var(--tactical-accent-lime)] flex items-center gap-2'>
+						<Gift size={20} className='text-[var(--tactical-accent-lime)] drop-shadow-[0_0_6px_var(--tactical-accent-lime)]' />{" "}
+						{tUI("adventureMap.rewardMilestone") || "Mốc Thưởng"}
+					</h2>
+				</div>
 				<Button
 					type='button'
 					size='sm'
 					variant='outline'
 					onClick={() => setIsVisible(!isVisible)}
+					className='font-mono-tech uppercase text-xs tracking-wider border-[var(--tactical-card-border)] hover:border-[var(--tactical-accent-lime)] clip-chamfer-sm'
 					iconLeft={isVisible ? <EyeOff size={16} /> : <Eye size={16} />}
 				>
 					{isVisible
@@ -192,30 +196,28 @@ const RewardSection = ({ rewards }) => {
 
 			
 				{isVisible && (
-					<div
-						className='overflow-hidden'
-					>
-						<div className='rounded-lg overflow-hidden border border-border shadow-sm'>
+					<div className='overflow-hidden'>
+						<div className='tactical-box clip-chamfer-sm border border-[var(--tactical-card-border)] overflow-hidden'>
 							<div className='overflow-x-auto'>
 								<table className='w-full text-left border-collapse min-w-[600px]'>
 									<thead>
-										<tr className='bg-surface-hover/50 text-text-secondary text-xs sm:text-sm border-b border-border'>
-											<th className='py-3 px-3 sm:px-4 w-1/4 font-bold border-r border-border/50 uppercase tracking-wide'>
+										<tr className='bg-[var(--tactical-inner-box)] text-[var(--tactical-accent-lime)] font-display text-xs border-b border-[var(--tactical-card-border)] tracking-wider uppercase'>
+											<th className='py-3 px-3 sm:px-4 w-1/4 font-bold border-r border-[var(--tactical-card-border)]'>
 												{tUI("adventureMap.reward") || "Phần thưởng"}
 											</th>
-											<th className='py-3 px-3 sm:px-4 font-bold uppercase tracking-wide'>
+											<th className='py-3 px-3 sm:px-4 font-bold'>
 												{tUI("adventureMap.rewardList") ||
 													"Danh sách Phần Thưởng"}
 											</th>
 										</tr>
 									</thead>
-									<tbody className='divide-y divide-border'>
+									<tbody className='divide-y divide-[var(--tactical-card-border)]'>
 										{rewards.map((rewardPacket, idx) => (
 											<tr
 												key={idx}
-												className='hover:bg-surface-hover/40 transition-colors'
+												className='hover:bg-[var(--tactical-inner-box)]/50 transition-colors'
 											>
-												<td className='py-3 px-3 sm:px-4 align-middle border-r border-border/50 text-xs sm:text-sm font-semibold text-text-primary'>
+												<td className='py-3 px-3 sm:px-4 align-middle border-r border-[var(--tactical-card-border)] text-xs sm:text-sm font-mono-tech font-bold text-[var(--tactical-accent-lime)]'>
 													{tUI("adventureMap.milestone") || "Mốc thưởng"}{" "}
 													{idx + 1}
 												</td>
@@ -227,7 +229,7 @@ const RewardSection = ({ rewards }) => {
 															return (
 																<div
 																	key={i}
-																	className='flex items-center gap-2 bg-surface-bg px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg border border-border/80 shadow-sm'
+																	className='tactical-box clip-chamfer-sm flex items-center gap-2 bg-[var(--tactical-card-bg)] px-2.5 sm:px-3 py-1.5 sm:py-2 border border-[var(--tactical-card-border)] hover:border-[var(--tactical-accent-lime)] transition-colors'
 																>
 																	<div className='relative shrink-0'>
 																		<SafeImage
@@ -236,7 +238,7 @@ const RewardSection = ({ rewards }) => {
 																			className='w-6 h-6 sm:w-8 sm:h-8 object-contain'
 																		/>
 																		{parsedReward.overlayIcon && (
-																			<div className='absolute -bottom-1.5 -right-1.5 bg-surface-bg rounded-full p-0.5 border border-border shadow-sm'>
+																			<div className='absolute -bottom-1 -right-1 bg-[var(--tactical-panel-bg)] rounded-full p-0.5 border border-[var(--tactical-card-border)]'>
 																				<img
 																					src={parsedReward.overlayIcon}
 																					alt='region-overlay'
@@ -249,7 +251,7 @@ const RewardSection = ({ rewards }) => {
 																	<span className='text-xs sm:text-sm font-semibold text-text-primary whitespace-nowrap'>
 																		{parsedReward.translatedName}
 																	</span>
-																	<span className='text-[10px] sm:text-xs font-bold text-text-primary px-1.5 sm:px-2 py-0.5 rounded-full'>
+																	<span className='font-mono-tech text-[10px] sm:text-xs font-bold text-[var(--tactical-accent-lime)] bg-[var(--tactical-inner-box)] px-1.5 sm:px-2 py-0.5 border border-[var(--tactical-accent-lime)]/30'>
 																		x{item.count?.toLocaleString() || 1}
 																	</span>
 																</div>

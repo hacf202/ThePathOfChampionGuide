@@ -8,8 +8,10 @@ import { useTranslation } from "@/hooks/useTranslation";
 import { useMapFilters } from "@/hooks/useMapFilters";
 import { useGenericData } from "@/hooks/useGenericData";
 
+import SafeImage from "@/components/common/SafeImage";
+
 const MapSkeleton = () => (
-	<div className='w-full h-48 bg-surface-hover animate-pulse rounded-xl border border-border'></div>
+	<div className='w-full aspect-[16/11] tactical-card animate-pulse clip-chamfer border border-white/10 bg-white/5'></div>
 );
 
 export default function MapList() {
@@ -37,7 +39,7 @@ export default function MapList() {
 
 	if (error) {
 		return (
-			<div className='flex justify-center py-20 text-red-500'>
+			<div className='flex justify-center py-20 text-red-500 font-mono-tech'>
 				{error.message || tUI("common.error")}
 			</div>
 		);
@@ -66,34 +68,35 @@ export default function MapList() {
 				<Link
 					key={item.adventureID}
 					to={`/map/${item.adventureID}`}
-					className='block h-full group'
+					className='block h-full group focus:outline-none'
 				>
-					<div className='bg-surface-bg border border-border rounded-xl overflow-hidden shadow-sm hover:border-primary-500 transition-all h-full'>
-						<div className='relative w-full aspect-video bg-surface-hover'>
-							<img
+					<div className='tactical-card border border-[var(--tactical-card-border)] hover:border-[var(--tactical-accent-cyan)] clip-chamfer overflow-hidden shadow-lg transition-all duration-300 h-full flex flex-col hover:shadow-[0_0_25px_rgba(0,245,212,0.2)] hover:-translate-y-1'>
+						<div className='relative w-full aspect-video bg-black/40 overflow-hidden'>
+							<SafeImage
 								src={item.assetAbsolutePath || "/fallback-image.svg"}
 								alt={tDynamic(item, "adventureName")}
-								className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
-								onError={e => {
-									e.target.src = "/fallback-image.svg";
-								}}
+								className='w-full h-full object-cover group-hover:scale-110 transition-transform duration-500'
 							/>
-							<div className='absolute top-2 right-2 bg-black/70 text-yellow-400 font-bold px-2 py-1 rounded text-sm backdrop-blur-sm shadow-md'>
-								{item.difficulty} ★
+							<div className='absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent' />
+							<div className='absolute top-3 right-3 bg-black/85 border border-amber-400/50 text-amber-400 font-mono-tech font-bold px-2.5 py-0.5 clip-chamfer-sm text-xs backdrop-blur-md shadow-md flex items-center gap-1'>
+								<span>{item.difficulty}</span>
+								<span>★</span>
 							</div>
 						</div>
-						<div className='p-4'>
-							<h3 className='font-bold text-lg text-text-primary group-hover:text-primary-500 line-clamp-1'>
-								{tDynamic(item, "adventureName")}
-							</h3>
-							<p className='text-text-secondary text-sm mt-1 line-clamp-1'>
-								{tDynamic(item, "typeAdventure")}
-							</p>
-							<div className='mt-3 flex justify-between items-center border-t border-border pt-3'>
-								<span className='text-xs font-semibold text-emerald-500 bg-emerald-500/10 px-2 py-1 rounded'>
+						<div className='p-4 sm:p-5 flex-1 flex flex-col justify-between'>
+							<div>
+								<h3 className='font-display font-black text-lg sm:text-xl text-[var(--tactical-text-main)] group-hover:text-[var(--tactical-accent-cyan)] line-clamp-1 uppercase italic tracking-wide transition-colors'>
+									{tDynamic(item, "adventureName")}
+								</h3>
+								<p className='text-[var(--tactical-text-dim)] font-mono-tech text-xs mt-1 line-clamp-1 uppercase tracking-wider'>
+									{tDynamic(item, "typeAdventure")}
+								</p>
+							</div>
+							<div className='mt-4 flex justify-between items-center border-t border-[var(--tactical-stroke-color)] pt-3 text-xs font-mono-tech'>
+								<span className='px-2 py-0.5 bg-[var(--tactical-accent-lime)]/15 border border-[var(--tactical-accent-lime)]/40 text-[var(--tactical-accent-lime-fg)] font-bold clip-chamfer-sm'>
 									XP: {item.championXP || 0}
 								</span>
-								<span className='text-xs text-text-secondary'>
+								<span className='text-[var(--tactical-text-sub)] uppercase font-semibold'>
 									{item.Bosses?.length || 0} {tUI("mapList.bosses") || "Bosses"}
 								</span>
 							</div>

@@ -201,55 +201,51 @@ const ChampionRatingPage = () => {
 		const displayAvg = isFourPointScale ? ((rawAvg / 10) * 4).toFixed(1) : rawAvg.toFixed(1);
 
 		return (
-			<div className="group relative bg-surface-bg border border-border rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300">
-				<div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r opacity-30 ${
-					rawAvg >= 8 ? 'from-primary-500 to-orange-500' :
-					rawAvg >= 5 ? 'from-celestial-500 to-indigo-500' :
-					'from-gray-300 to-gray-200'
-				}`} />
+			<div className="group relative tactical-card clip-chamfer bg-[var(--tactical-card-bg)] border border-[var(--tactical-card-border)] hover:border-[var(--tactical-accent-lime)] hover:shadow-[0_0_15px_rgba(210,255,40,0.15)] transition-all duration-300">
+				<div className="absolute top-0 left-0 w-full h-1 bg-[var(--tactical-accent-lime)] opacity-70 shadow-[0_0_8px_var(--tactical-accent-lime)]" />
 				
 				<div className="p-5">
 					<div className="flex items-start justify-between mb-4">
 						<div className="flex items-center gap-3">
-							<Link to={`/champion/${generateSlug(review.championName || review.championID)}`} className="relative shrink-0">
+							<Link to={`/champion/${generateSlug(review.championName || review.championID)}`} className="relative shrink-0 clip-chamfer-sm">
 								<img 
 									src={review.championImage || "/favicon.ico"} 
 									alt={review.championName}
-									className="w-14 h-14 rounded-xl object-cover border border-border shadow-sm group-hover:scale-105 transition-transform"
+									className="w-14 h-14 clip-chamfer-sm object-cover border border-[var(--tactical-card-border)] shadow-sm group-hover:scale-105 transition-transform"
 								/>
 							</Link>
 							<div>
-								<Link to={`/champion/${generateSlug(review.championName || review.championID)}`} className="block font-primary text-xl text-text-primary hover:text-primary-500 transition-colors leading-tight">
+								<Link to={`/champion/${generateSlug(review.championName || review.championID)}`} className="block font-display uppercase tracking-wide text-lg text-text-primary group-hover:text-[var(--tactical-accent-lime)] transition-colors leading-tight">
 									{review.championName}
 								</Link>
-								<div className="flex items-center gap-1.5 text-xs text-text-secondary mt-1">
-									<User className="w-3 h-3" />
-									<span className="font-medium text-primary-500">{review.username}</span>
+								<div className="flex items-center gap-1.5 text-xs font-mono-tech text-text-secondary mt-1">
+									<User className="w-3 h-3 text-[var(--tactical-accent-lime)]" />
+									<span className="font-bold text-[var(--tactical-accent-lime)]">{review.username}</span>
 								</div>
 							</div>
 						</div>
 						<div className="text-right">
-							<span className="text-[10px] text-text-secondary uppercase tracking-widest block mb-1">{date}</span>
-							<div className="bg-modal-bg border border-primary-500/20 px-3 py-1 rounded-full text-sm font-black text-primary-500 shadow-sm inline-block">
+							<span className="text-[10px] font-mono-tech text-text-secondary uppercase tracking-widest block mb-1">{date}</span>
+							<div className="bg-[var(--tactical-inner-box)] border border-[var(--tactical-accent-lime)]/30 px-3 py-1 clip-chamfer-sm text-sm font-mono-tech font-bold text-[var(--tactical-accent-lime)] shadow-sm inline-block">
 								{displayAvg}/{maxScale}
 							</div>
 						</div>
 					</div>
 
 					<div className="grid grid-cols-2 gap-x-4 gap-y-3 mb-4 mt-6">
-						<StatBar label={tUI("rating.damage")} statKey="damage" value={review.ratings.damage} colorClass="bg-primary-500" maxScale={maxScale} />
-						<StatBar label={tUI("rating.defense")} statKey="defense" value={review.ratings.defense} colorClass="bg-primary-500" maxScale={maxScale} />
-						<StatBar label={tUI("rating.speed")} statKey="speed" value={review.ratings.speed} colorClass="bg-primary-500" maxScale={maxScale} />
-						<StatBar label={tUI("rating.consistency")} statKey="consistency" value={review.ratings.consistency} colorClass="bg-primary-500" maxScale={maxScale} />
-						<StatBar label={tUI("rating.synergy")} statKey="synergy" value={review.ratings.synergy} colorClass="bg-primary-500" maxScale={maxScale} />
-						<StatBar label={tUI("rating.independence")} statKey="independence" value={review.ratings.independence} colorClass="bg-primary-500" maxScale={maxScale} />
+						<StatBar label={tUI("rating.damage")} statKey="damage" value={review.ratings.damage} colorClass="bg-[var(--tactical-accent-lime)]" maxScale={maxScale} />
+						<StatBar label={tUI("rating.defense")} statKey="defense" value={review.ratings.defense} colorClass="bg-[var(--tactical-accent-cyan)]" maxScale={maxScale} />
+						<StatBar label={tUI("rating.speed")} statKey="speed" value={review.ratings.speed} colorClass="bg-[var(--tactical-accent-lime)]" maxScale={maxScale} />
+						<StatBar label={tUI("rating.consistency")} statKey="consistency" value={review.ratings.consistency} colorClass="bg-[var(--tactical-accent-cyan)]" maxScale={maxScale} />
+						<StatBar label={tUI("rating.synergy")} statKey="synergy" value={review.ratings.synergy} colorClass="bg-[var(--tactical-accent-lime)]" maxScale={maxScale} />
+						<StatBar label={tUI("rating.independence")} statKey="independence" value={review.ratings.independence} colorClass="bg-[var(--tactical-accent-cyan)]" maxScale={maxScale} />
 					</div>
 
 					{review.comment && (
-						<div className="mt-4 pt-4 border-t border-border">
-							<div className="flex gap-2">
-								<MessageSquare className="w-3 h-3 text-text-secondary opacity-50 mt-1 shrink-0" />
-								<p className="text-sm text-text-primary leading-relaxed italic line-clamp-2 opacity-80">
+						<div className="mt-4 pt-4 border-t border-[var(--tactical-card-border)]">
+							<div className="flex gap-2 bg-[var(--tactical-inner-box)] p-3 clip-chamfer-sm border border-[var(--tactical-card-border)]">
+								<MessageSquare className="w-3 h-3 text-[var(--tactical-accent-cyan)] shrink-0 mt-1" />
+								<p className="text-sm text-text-primary leading-relaxed italic line-clamp-2 opacity-90">
 									{review.comment}
 								</p>
 							</div>
@@ -264,17 +260,16 @@ const ChampionRatingPage = () => {
 		if (!loadingRankings && topChampions.length === 0) return null;
 
 		return (
-			<div className="bg-surface-bg border border-border rounded-2xl p-6 h-fit lg:sticky lg:top-24 shadow-sm">
-				<div className="flex items-center gap-3 mb-6 border-b border-border pb-4">
-					<div className="bg-primary-500/10 p-2 rounded-lg">
-						<Trophy className="w-6 h-6 text-primary-500" />
-					</div>
-					<h2 className="text-lg font-primary text-text-primary tracking-tight">{tUI("ratings.ranking.title")}</h2>
+			<div className="tactical-panel clip-chamfer bg-[var(--tactical-panel-bg)] border border-[var(--tactical-card-border)] p-6 h-fit lg:sticky lg:top-24 shadow-xl">
+				<div className="flex items-center gap-3 mb-6 border-b border-[var(--tactical-card-border)] pb-4">
+					<div className="w-1 h-5 bg-[var(--tactical-accent-lime)] shadow-[0_0_8px_var(--tactical-accent-lime)]" />
+					<Trophy className="w-5 h-5 text-[var(--tactical-accent-lime)]" />
+					<h2 className="text-lg font-display uppercase tracking-wider text-[var(--tactical-accent-lime)]">{tUI("ratings.ranking.title")}</h2>
 				</div>
-				<div className="space-y-4">
+				<div className="space-y-3">
 					{loadingRankings ? (
 						[...Array(5)].map((_, i) => (
-							<div key={i} className="h-12 bg-gray-50 animate-pulse rounded-xl" />
+							<div key={i} className="h-12 bg-[var(--tactical-inner-box)] animate-pulse clip-chamfer-sm" />
 						))
 					) : (
 						topChampions.map((champ, index) => {
@@ -288,28 +283,28 @@ const ChampionRatingPage = () => {
 								<Link 
 									key={champ.championID} 
 									to={`/champion/${generateSlug(champ.championName || champ.name || champ.championID)}`}
-									className="flex items-center justify-between group p-2 rounded-xl hover:bg-surface-hover transition-all"
+									className="flex items-center justify-between group p-2 clip-chamfer-sm border border-transparent hover:border-[var(--tactical-accent-lime)] hover:bg-[var(--tactical-inner-box)] transition-all"
 								>
 									<div className="flex items-center gap-3">
 										<div className="relative">
-											<img src={champ.championImage} className="w-11 h-11 rounded-lg object-cover border border-border shadow-sm" alt={champ.championName} />
-											<div className={`absolute -top-1.5 -left-1.5 w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold shadow-md ${
-												index === 0 ? 'bg-primary-500 text-white border-2 border-surface-bg' :
-												index === 1 ? 'bg-gray-400 text-white border-2 border-surface-bg' :
-												index === 2 ? 'bg-orange-600 text-white border-2 border-surface-bg' :
-												'bg-modal-bg text-text-secondary border border-border'
+											<img src={champ.championImage} className="w-11 h-11 clip-chamfer-sm object-cover border border-[var(--tactical-card-border)] shadow-sm" alt={champ.championName} />
+											<div className={`absolute -top-1.5 -left-1.5 w-5 h-5 clip-chamfer-sm flex items-center justify-center text-[10px] font-mono-tech font-bold shadow-md ${
+												index === 0 ? 'bg-[var(--tactical-accent-lime)] text-[var(--tactical-accent-lime-fg)]' :
+												index === 1 ? 'bg-[var(--tactical-accent-cyan)] text-[var(--tactical-accent-cyan-fg)]' :
+												index === 2 ? 'bg-orange-500 text-white' :
+												'bg-[var(--tactical-inner-box)] text-text-secondary border border-[var(--tactical-card-border)]'
 											}`}>
 												{index + 1}
 											</div>
 										</div>
 										<div>
-											<div className="text-sm font-semibold text-text-primary group-hover:text-primary-500 transition-colors tracking-tight">{champ.championName}</div>
-											<div className="text-[10px] text-text-secondary uppercase font-bold">{reviewCount} {tUI("ratings.ranking.reviewCount")}</div>
+											<div className="text-sm font-display uppercase tracking-wide text-text-primary group-hover:text-[var(--tactical-accent-lime)] transition-colors leading-tight">{champ.championName}</div>
+											<div className="text-[10px] font-mono-tech text-text-secondary uppercase">{reviewCount} {tUI("ratings.ranking.reviewCount")}</div>
 										</div>
 									</div>
 									<div className="text-right">
-										<div className="text-sm font-bold text-primary-500">{displayScore}/{maxScale}</div>
-										<div className="text-[8px] text-text-secondary uppercase tracking-tighter opacity-50">{tUI("ratings.ranking.avgScore")}</div>
+										<div className="text-sm font-mono-tech font-bold text-[var(--tactical-accent-lime)]">{displayScore}/{maxScale}</div>
+										<div className="text-[8px] font-mono-tech text-text-secondary uppercase tracking-tighter opacity-70">{tUI("ratings.ranking.avgScore")}</div>
 									</div>
 								</Link>
 							);
@@ -341,28 +336,34 @@ const ChampionRatingPage = () => {
 				{/* Top Section */}
 				<div className="relative z-10 mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
 					<div>
-						<h1 className="text-4xl md:text-6xl font-primary text-text-primary mb-4 tracking-tight">
+						<div className="flex items-center gap-2 mb-2">
+							<div className="w-1.5 h-6 bg-[var(--tactical-accent-lime)] shadow-[0_0_8px_var(--tactical-accent-lime)]" />
+							<span className="font-mono-tech text-xs uppercase tracking-widest text-[var(--tactical-accent-lime)] font-bold">
+								COMMUNITY INTELLIGENCE // RATINGS
+							</span>
+						</div>
+						<h1 className="text-4xl md:text-6xl font-bold font-display uppercase tracking-tight text-text-primary mb-3">
 							{tUI("nav.championRatings")}
 						</h1>
-						<p className="max-w-2xl text-lg text-text-secondary">
+						<p className="max-w-2xl text-base md:text-lg text-text-secondary">
 							{tUI("ratings.subtitle")}
 						</p>
 					</div>
 					<div className="flex items-center gap-3">
 						<Button
 							variant="secondary"
-							className="w-14 h-14 !p-0 rounded-2xl"
+							className="w-12 h-12 !p-0 clip-chamfer-sm border border-[var(--tactical-card-border)] hover:border-[var(--tactical-accent-lime)]"
 							onClick={() => setIsExplainModalOpen(true)}
 							title={tUI("rating.explanation")}
 						>
-							<HelpCircle className="w-6 h-6" />
+							<HelpCircle className="w-5 h-5 text-[var(--tactical-accent-lime)]" />
 						</Button>
 						<Button
 							variant="primary"
-							className="px-8 py-4 h-14 rounded-2xl"
+							className="px-6 py-3 h-12 clip-chamfer-sm font-mono-tech uppercase text-xs tracking-wider font-bold bg-[var(--tactical-accent-lime)] text-[var(--tactical-accent-lime-fg)] shadow-[0_0_12px_rgba(210,255,40,0.3)] hover:brightness-110"
 							onClick={() => setIsSelectChampOpen(true)}
 						>
-							<Plus className="w-5 h-5" />
+							<Plus className="w-4 h-4 mr-1.5" />
 							{tUI("ratings.addReview")}
 						</Button>
 					</div>
@@ -379,17 +380,17 @@ const ChampionRatingPage = () => {
 					{/* Main Content */}
 					<div className={showSidebar ? "lg:w-3/4" : "w-full max-w-5xl"}>
 						{/* Filters */}
-						<div className="bg-surface-bg border border-border rounded-2xl p-6 mb-8 shadow-sm">
+						<div className="tactical-panel clip-chamfer bg-[var(--tactical-panel-bg)] border border-[var(--tactical-card-border)] p-6 mb-8 shadow-xl">
 							<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
 								{/* Search */}
 								<div className="relative group">
-									<Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-secondary group-focus-within:text-primary-500 transition-colors" />
+									<Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--tactical-accent-lime)] transition-colors" />
 									<input 
 										type="text" 
 										placeholder={tUI("ratings.searchPlaceholder")}
 										value={searchTerm}
 										onChange={(e) => setSearchTerm(e.target.value)}
-										className="w-full bg-input-bg border border-border rounded-xl py-2.5 pl-10 pr-4 text-sm text-text-primary focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all placeholder:text-text-secondary/50"
+										className="tactical-box clip-chamfer-sm w-full bg-[var(--tactical-inner-box)] border border-[var(--tactical-card-border)] py-2.5 pl-10 pr-4 text-xs font-mono-tech text-text-primary focus:outline-none focus:border-[var(--tactical-accent-lime)] transition-all placeholder:text-text-secondary/50"
 									/>
 								</div>
 

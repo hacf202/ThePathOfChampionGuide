@@ -296,11 +296,11 @@ function RandomizerPage() {
 				title={tUI("randomWheel.pageTitle")}
 				description={tUI("randomWheel.pageDesc")}
 			/>
-			<div className='bg-page-bg min-h-screen flex relative overflow-hidden'>
+			<div className='bg-[var(--tactical-page-bg)] min-h-screen flex relative overflow-hidden'>
 				{isPanelOpen && (
 					<div
 						onClick={() => setIsPanelOpen(false)}
-						className='fixed inset-0 bg-black/20 z-20'
+						className='fixed inset-0 bg-black/40 backdrop-blur-xs z-20'
 					/>
 				)}
 
@@ -326,7 +326,7 @@ function RandomizerPage() {
 				{!isPanelOpen && (
 					<button
 						onClick={() => setIsPanelOpen(true)}
-						className='fixed top-1/2 right-0 -translate-y-1/2 bg-surface-bg text-text-primary p-3 rounded-l-lg shadow-lg z-40 hover:bg-surface-hover border border-border border-r-0 transition-all'
+						className='fixed top-1/2 right-0 -translate-y-1/2 bg-[var(--tactical-inner-box)] text-[var(--tactical-accent-lime)] p-3 clip-chamfer-sm shadow-xl z-40 hover:bg-[var(--tactical-card-bg)] border border-[var(--tactical-card-border)] hover:border-[var(--tactical-accent-lime)] transition-all'
 					>
 						<svg
 							xmlns='http://www.w3.org/2000/svg'

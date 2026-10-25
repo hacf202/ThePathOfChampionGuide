@@ -15,10 +15,10 @@ const GuideCard = ({ guide }) => {
 	return (
 		<Link
 			to={`/guides/${guide.slug}`}
-			className='group bg-surface-bg rounded-2xl overflow-hidden border border-border shadow-sm hover:shadow-lg hover:border-primary-500/40 transition-all duration-300 flex flex-col'
+			className='tactical-card clip-chamfer group bg-[var(--tactical-card-bg)] overflow-hidden border border-[var(--tactical-card-border)] hover:border-[var(--tactical-accent-lime)] hover:shadow-[0_0_15px_rgba(210,255,40,0.15)] transition-all duration-300 flex flex-col'
 		>
 			{/* Thumbnail */}
-			<div className='h-48 bg-surface-hover/30 overflow-hidden relative'>
+			<div className='h-48 bg-[var(--tactical-inner-box)] overflow-hidden relative border-b border-[var(--tactical-card-border)]'>
 				{guide.thumbnail ? (
 					<img
 						src={guide.thumbnail}
@@ -28,12 +28,12 @@ const GuideCard = ({ guide }) => {
 					/>
 				) : (
 					<div className='w-full h-full flex items-center justify-center'>
-						<BookOpen size={48} className='text-text-tertiary/30' />
+						<BookOpen size={48} className='text-[var(--tactical-accent-lime)]/20' />
 					</div>
 				)}
 				{/* Author badge */}
 				{guide.author && (
-					<div className='absolute bottom-2 left-2 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-sm text-white text-xs font-medium'>
+					<div className='absolute bottom-2 left-2 flex items-center gap-1.5 px-2.5 py-1 clip-chamfer-sm bg-[var(--tactical-panel-bg)]/90 backdrop-blur-sm border border-[var(--tactical-card-border)] text-[var(--tactical-accent-lime)] text-xs font-mono-tech font-bold'>
 						<PenTool size={11} />
 						{guide.author}
 					</div>
@@ -42,7 +42,7 @@ const GuideCard = ({ guide }) => {
 
 			{/* Body */}
 			<div className='p-5 flex-1 flex flex-col gap-3'>
-				<h2 className='text-base font-bold text-text-primary line-clamp-2 group-hover:text-primary-500 transition-colors leading-snug'>
+				<h2 className='text-base font-bold font-display uppercase tracking-wide text-text-primary line-clamp-2 group-hover:text-[var(--tactical-accent-lime)] transition-colors leading-snug'>
 					{title}
 				</h2>
 
@@ -53,18 +53,18 @@ const GuideCard = ({ guide }) => {
 				)}
 
 				{/* Meta */}
-				<div className='flex items-center gap-4 text-xs text-text-tertiary mt-auto pt-3 border-t border-border'>
+				<div className='flex items-center gap-4 text-xs font-mono-tech text-text-tertiary mt-auto pt-3 border-t border-[var(--tactical-card-border)]'>
 					{guide.publishedDate && (
 						<span className='flex items-center gap-1'>
-							<Calendar size={12} />
+							<Calendar size={12} className='text-[var(--tactical-accent-lime)]' />
 							{guide.publishedDate}
 						</span>
 					)}
 					<span className='flex items-center gap-1'>
-						<Eye size={12} />
+						<Eye size={12} className='text-[var(--tactical-accent-lime)]' />
 						{(guide.views || 0).toLocaleString()} {tUI("common.views")}
 					</span>
-					<span className='ml-auto flex items-center gap-1 text-primary-500 font-semibold group-hover:gap-2 transition-all'>
+					<span className='ml-auto flex items-center gap-1 text-[var(--tactical-accent-lime)] font-bold group-hover:gap-2 transition-all'>
 						{tUI("guideList.readMore")} <ArrowRight size={13} />
 					</span>
 				</div>
@@ -134,11 +134,11 @@ const GuideList = () => {
 
 			{/* ── Hero header ── */}
 			<div className='mb-10 text-center'>
-				<div className='inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-500/10 text-primary-500 text-xs font-bold uppercase tracking-widest mb-4'>
+				<div className='inline-flex items-center gap-2 px-3 py-1 clip-chamfer-sm bg-[var(--tactical-accent-lime)]/10 text-[var(--tactical-accent-lime)] text-xs font-mono-tech font-bold uppercase tracking-widest mb-4 border border-[var(--tactical-accent-lime)]/30'>
 					<BookOpen size={13} />
 					{tUI("guideList.pageTitle")}
 				</div>
-				<h1 className='text-3xl md:text-4xl font-extrabold text-text-primary mb-3 leading-tight'>
+				<h1 className='text-3xl md:text-5xl font-extrabold font-display uppercase tracking-tight text-text-primary mb-3 leading-tight'>
 					{tUI("guideList.heading")}
 				</h1>
 				<p className='text-text-secondary max-w-xl mx-auto'>
@@ -148,18 +148,18 @@ const GuideList = () => {
 
 			{/* ── Search ── */}
 			<div className='relative max-w-md mx-auto mb-8'>
-				<Search size={16} className='absolute left-3 top-1/2 -translate-y-1/2 text-text-tertiary' />
+				<Search size={16} className='absolute left-3.5 top-1/2 -translate-y-1/2 text-[var(--tactical-accent-lime)]' />
 				<input
 					type='text'
 					value={search}
 					onChange={e => setSearch(e.target.value)}
 					placeholder={tUI('guideList.searchPlaceholder')}
-					className='w-full pl-9 pr-9 py-2.5 rounded-xl border border-border bg-surface-bg text-text-primary placeholder-text-tertiary text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/50 transition'
+					className='tactical-box clip-chamfer-sm w-full pl-10 pr-10 py-2.5 border border-[var(--tactical-card-border)] bg-[var(--tactical-inner-box)] text-text-primary placeholder-text-tertiary text-sm font-mono-tech focus:outline-none focus:border-[var(--tactical-accent-lime)] transition'
 				/>
 				{search && (
 					<button
 						onClick={() => setSearch("")}
-						className='absolute right-3 top-1/2 -translate-y-1/2 text-text-tertiary hover:text-text-primary transition-colors'
+						className='absolute right-3 top-1/2 -translate-y-1/2 text-text-tertiary hover:text-[var(--tactical-accent-lime)] transition-colors'
 					>
 						<X size={14} />
 					</button>
@@ -168,9 +168,9 @@ const GuideList = () => {
 
 			{/* ── Stats bar ── */}
 			{search && (
-				<p className='text-center text-sm text-text-tertiary mb-6'>
-					Tìm thấy <strong className='text-text-primary'>{filtered.length}</strong> bài viết
-					{search && <> cho "<span className='text-primary-500'>{search}</span>"</>}
+				<p className='text-center text-sm font-mono-tech text-text-tertiary mb-6'>
+					Tìm thấy <strong className='text-[var(--tactical-accent-lime)]'>{filtered.length}</strong> bài viết
+					{search && <> cho "<span className='text-[var(--tactical-accent-cyan)]'>{search}</span>"</>}
 				</p>
 			)}
 

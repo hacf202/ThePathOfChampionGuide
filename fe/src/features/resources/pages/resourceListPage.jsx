@@ -65,13 +65,12 @@ const ResourceListPage = () => {
       renderItem={(item) => {
         if (item.isHeader) {
           return (
-            <div className="relative group">
-              <div className="absolute -inset-x-4 -inset-y-2 bg-primary-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity blur-lg" />
-              <div className="relative flex items-center gap-4 border-l-4 border-primary-500 pl-4 py-1">
-                <span className="text-2xl font-black text-text-primary tracking-tighter uppercase italic">
+            <div className="relative group my-2">
+              <div className="flex items-center gap-3 border-l-4 border-[var(--tactical-accent-lime)] pl-4 py-1.5">
+                <span className="text-2xl sm:text-3xl font-display font-black text-[var(--tactical-text-main)] tracking-wide uppercase italic">
                   {item.title}
                 </span>
-                <div className="h-[1px] flex-grow bg-gradient-to-r from-border via-border/50 to-transparent" />
+                <div className="h-[2px] flex-grow bg-gradient-to-r from-[var(--tactical-accent-lime)]/40 via-[var(--tactical-stroke-color)] to-transparent" />
               </div>
             </div>
           );
@@ -83,41 +82,40 @@ const ResourceListPage = () => {
         return (
           <Link
             to={`/resource/${item.id}`}
-            className="group relative flex flex-col items-center gap-5 bg-surface-bg/40 backdrop-blur-sm p-8 rounded-2xl transition-all duration-300 border border-border/60 hover:border-primary-500/50 hover:bg-surface-hover/20 hover:scale-[1.03] hover:shadow-2xl hover:shadow-primary-500/10"
+            className="group relative flex flex-col items-center gap-4 tactical-card clip-chamfer border border-[var(--tactical-card-border)] hover:border-[var(--tactical-accent-lime)] transition-all duration-300 p-6 shadow-md hover:shadow-[0_0_25px_rgba(210,255,40,0.2)] hover:-translate-y-1"
           >
             {/* Icon Container with Glow */}
-            <div className="relative w-32 h-32 flex items-center justify-center">
-               <div className="absolute inset-0 bg-primary-500/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-               <div className="w-28 h-28 flex items-center justify-center bg-surface-hover/40 rounded-3xl p-4 border border-border/50 shadow-inner group-hover:border-primary-500/30 transition-colors">
+            <div className="relative w-28 h-28 flex items-center justify-center">
+               <div className="absolute inset-0 bg-[var(--tactical-accent-lime)]/10 clip-chamfer blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+               <div className="w-24 h-24 flex items-center justify-center tactical-box clip-chamfer-sm p-3 border border-[var(--tactical-card-border)] group-hover:border-[var(--tactical-accent-lime)] transition-colors">
                  <SafeImage
                   src={item.icon}
                   alt={name}
-                  className="w-24 h-24 shrink-0 object-contain drop-shadow-2xl transition-transform duration-500 group-hover:scale-110"
+                  className="w-20 h-20 shrink-0 object-contain drop-shadow-xl transition-transform duration-500 group-hover:scale-110"
                 />
                </div>
             </div>
             
-            <div className="text-center space-y-2 max-w-full">
-              <h3 className="font-black text-2xl text-text-primary group-hover:text-primary-500 transition-colors leading-tight">
+            <div className="text-center space-y-1.5 max-w-full">
+              <h3 className="font-display font-bold text-lg sm:text-xl text-[var(--tactical-text-main)] group-hover:text-[var(--tactical-accent-lime)] transition-colors leading-tight uppercase italic tracking-wide">
                 {name}
               </h3>
               {desc && (
-                <p className="text-sm text-text-secondary line-clamp-2 min-h-[40px] leading-relaxed">
+                <p className="text-xs sm:text-sm text-[var(--tactical-text-sub)] line-clamp-2 min-h-[36px] leading-relaxed font-primary">
                   {stripMarkup(desc)}
                 </p>
               )}
             </div>
 
-            {/* Premium Indicator */}
-            <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-              <div className="w-2 h-2 rounded-full bg-primary-500 shadow-[0_0_10px_rgba(245,158,11,0.5)]" />
+            {/* Tactical Indicator Tag */}
+            <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+              <div className="w-2 h-2 clip-chamfer-sm bg-[var(--tactical-accent-lime)] shadow-[0_0_8px_rgba(210,255,40,0.6)]" />
             </div>
 
             {/* Hover Tooltip */}
-            <div className="absolute left-1/2 -translate-x-1/2 bottom-[110%] mb-3 w-72 p-4 bg-gray-900/95 backdrop-blur-md text-white text-sm rounded-xl shadow-2xl opacity-0 group-hover:opacity-100 transition-all duration-300 invisible group-hover:visible pointer-events-none z-50 border border-white/10 scale-95 group-hover:scale-100">
-              <div className="font-bold text-base mb-2 text-primary-400">{name}</div>
+            <div className="absolute left-1/2 -translate-x-1/2 bottom-[105%] mb-3 w-80 p-4 bg-slate-950/95 backdrop-blur-md text-[var(--tactical-text-main)] text-xs clip-chamfer-sm shadow-2xl opacity-0 group-hover:opacity-100 transition-all duration-300 invisible group-hover:visible pointer-events-none z-50 border border-[var(--tactical-accent-lime)]/40 scale-95 group-hover:scale-100 leading-relaxed">
+              <div className="font-display font-bold text-sm mb-1.5 text-[var(--tactical-accent-lime)] uppercase italic">{name}</div>
               {desc && <MarkupRenderer text={autoLinkResources(desc)} />}
-              <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-x-8 border-x-transparent border-t-8 border-t-gray-900/95"></div>
             </div>
           </Link>
         );

@@ -677,7 +677,7 @@ const VaultSimulator = () => {
 	};
 
 	return (
-		<div className='min-h-screen bg-page-bg text-text-primary selection:bg-primary-500 overflow-x-hidden font-primary relative'>
+		<div className='min-h-screen bg-[var(--tactical-page-bg)] text-text-primary overflow-x-hidden relative'>
 			<PageTitle
 				title={
 					tUI("vaultSimulator.titleMain") +
@@ -691,24 +691,27 @@ const VaultSimulator = () => {
 
 			{/* Ambient Background Elements */}
 			<div className='absolute inset-0 z-0 pointer-events-none'>
-				<div className='absolute top-0 left-0 w-full h-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:24px_24px] opacity-40' />
-				<div className='absolute -top-24 -left-24 w-96 h-96 bg-primary-500/5 blur-[120px] rounded-full' />
-				<div className='absolute top-1/2 -right-24 w-96 h-96 bg-blue-500/5 blur-[120px] rounded-full' />
+				<div className='absolute -top-24 -left-24 w-96 h-96 bg-[var(--tactical-accent-lime)]/5 blur-[120px] rounded-full' />
+				<div className='absolute top-1/2 -right-24 w-96 h-96 bg-[var(--tactical-accent-cyan)]/5 blur-[120px] rounded-full' />
 			</div>
 
 			<div className='max-w-7xl mx-auto py-4 sm:py-6 px-2 sm:px-4 lg:px-8 relative z-10'>
 				{/* Header */}
-				<header className='mb-6 sm:mb-10 text-center relative'>
+				<header className='mb-8 sm:mb-12 text-center relative'>
+					<div className='inline-flex items-center gap-2 px-3 py-1 clip-chamfer-sm bg-[var(--tactical-accent-lime)]/10 text-[var(--tactical-accent-lime)] text-xs font-mono-tech font-bold uppercase tracking-widest mb-3 border border-[var(--tactical-accent-lime)]/30'>
+						<Sparkles size={13} />
+						TACTICAL SIMULATOR // REWARDS
+					</div>
 
-					<h1 className='text-4xl md:text-7xl font-black mb-3 sm:mb-4 leading-tight tracking-tighter uppercase max-w-4xl mx-auto'>
+					<h1 className='text-3xl md:text-6xl font-black font-display mb-3 sm:mb-4 leading-tight tracking-tight uppercase max-w-4xl mx-auto'>
 						<span className='text-text-primary'>
 							{tUI("vaultSimulator.titleMain")}{" "}
 						</span>
-						<span className='text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-primary-400'>
+						<span className='text-[var(--tactical-accent-lime)] drop-shadow-[0_0_15px_rgba(210,255,40,0.4)]'>
 							{tUI("vaultSimulator.titleSub")}
 						</span>
 					</h1>
-					<p className='text-text-secondary text-xl max-w-2xl mx-auto font-secondary leading-relaxed'>
+					<p className='text-text-secondary text-base md:text-lg max-w-2xl mx-auto leading-relaxed'>
 						{tUI("vaultSimulator.description")}
 					</p>
 				</header>
@@ -718,22 +721,23 @@ const VaultSimulator = () => {
 					<>
 						{/* Selection Grid */}
 						<div className='space-y-10 sm:space-y-16 mb-16'>
-							{VAULT_GROUPS.map((group, groupIdx) => (
+							{VAULT_GROUPS.map((group) => (
 								<section key={group.id} className='space-y-4 sm:space-y-6'>
 									{/* Group Header */}
-									<div className='flex items-center gap-4 sm:gap-6'>
+									<div className='flex items-center gap-3 sm:gap-4'>
+										<div className='w-1.5 h-6 bg-[var(--tactical-accent-lime)] shadow-[0_0_8px_var(--tactical-accent-lime)]' />
 										<div className='flex-none text-text-primary'>
-											<h2 className='text-2xl sm:text-4xl font-black italic uppercase tracking-tighter flex items-center gap-3 sm:gap-4'>
-												<LayoutGrid className='w-6 h-6 sm:w-8 sm:h-8 text-primary-500' />
+											<h2 className='text-xl sm:text-2xl font-bold font-display uppercase tracking-wider text-[var(--tactical-accent-lime)] flex items-center gap-2 sm:gap-3'>
+												<LayoutGrid className='w-5 h-5 text-[var(--tactical-accent-lime)]' />
 												{tUI(group.titleKey)}
 											</h2>
 										</div>
-										<div className='h-[2px] flex-1 bg-gradient-to-r from-border via-border/50 to-transparent' />
+										<div className='h-[1px] flex-1 bg-[var(--tactical-card-border)]' />
 									</div>
 
 									{/* Group Grid */}
 									<div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6'>
-										{group.vaults.map((key, idx) => {
+										{group.vaults.map((key) => {
 											const config = VAULT_CONFIG[key];
 											if (!config) return null;
 											return (
@@ -745,7 +749,7 @@ const VaultSimulator = () => {
 														setOpenAmount(1);
 														setShowConfigModal(true);
 													}}
-													className={`group cursor-pointer relative flex flex-col items-center p-4 sm:p-6 rounded-3xl transition-all duration-500 overflow-hidden ${config.bg} backdrop-blur-sm border border-border shadow-md hover:shadow-xl`}
+													className='tactical-card clip-chamfer group cursor-pointer relative flex flex-col items-center p-4 sm:p-6 transition-all duration-300 overflow-hidden bg-[var(--tactical-card-bg)] border border-[var(--tactical-card-border)] hover:border-[var(--tactical-accent-lime)] hover:shadow-[0_0_20px_rgba(210,255,40,0.15)] shadow-md'
 												>
 													{/* Specific Info Button */}
 													<div 

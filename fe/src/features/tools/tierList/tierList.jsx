@@ -59,35 +59,41 @@ function TierListIndex() {
 						>
 							{/* Header: Title & Tab Switcher */}
 							<div className='mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4 px-2'>
-								<div>
-									<h1 className='text-3xl sm:text-5xl font-bold text-text-primary font-primary tracking-tight uppercase italic'>
-										<span className='text-primary-500'>POC</span>{" "}
-										{tUI("home.tierListTitle")}
-									</h1>
+								<div className='flex items-center gap-3'>
+									<div className='w-1.5 h-8 bg-[var(--tactical-accent-lime)] shadow-[0_0_8px_var(--tactical-accent-lime)]' />
+									<div>
+										<span className='font-mono-tech text-xs uppercase tracking-widest text-[var(--tactical-accent-lime)] font-bold'>
+											TACTICAL RANKINGS // TIER MATRIX
+										</span>
+										<h1 className='text-3xl sm:text-5xl font-bold text-text-primary font-display tracking-tight uppercase'>
+											<span className='text-[var(--tactical-accent-lime)]'>POC</span>{" "}
+											{tUI("home.tierListTitle")}
+										</h1>
+									</div>
 								</div>
 
 								{/* Tab Switcher */}
-								<div className='flex bg-surface-bg p-1 rounded-xl border border-border w-fit shadow-inner'>
+								<div className='tactical-box clip-chamfer-sm flex bg-[var(--tactical-inner-box)] p-1 border border-[var(--tactical-card-border)] w-fit'>
 									<button
 										onClick={() => navigate("/tierlist")}
-										className={`flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-bold transition-all duration-200 ${
+										className={`flex items-center gap-2 px-5 py-2 clip-chamfer-sm font-mono-tech text-xs uppercase tracking-wider font-bold transition-all duration-200 ${
 											isChampionsActive
-												? "bg-primary-500 text-white shadow-lg shadow-primary-500/20"
-												: "text-text-secondary hover:text-text-primary hover:bg-white/5"
+												? "bg-[var(--tactical-accent-lime)] text-[var(--tactical-accent-lime-fg)] shadow-[0_0_12px_rgba(210,255,40,0.3)]"
+												: "text-text-secondary hover:text-[var(--tactical-accent-lime)] hover:bg-white/5"
 										}`}
 									>
-										<Swords size={18} />
+										<Swords size={16} />
 										{tUI("tierList.tabChampions")}
 									</button>
 									<button
 										onClick={() => navigate("/tierlist/relics")}
-										className={`flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-bold transition-all duration-200 ${
+										className={`flex items-center gap-2 px-5 py-2 clip-chamfer-sm font-mono-tech text-xs uppercase tracking-wider font-bold transition-all duration-200 ${
 											isRelicsActive
-												? "bg-primary-500 text-white shadow-lg shadow-primary-500/20"
-												: "text-text-secondary hover:text-text-primary hover:bg-white/5"
+												? "bg-[var(--tactical-accent-lime)] text-[var(--tactical-accent-lime-fg)] shadow-[0_0_12px_rgba(210,255,40,0.3)]"
+												: "text-text-secondary hover:text-[var(--tactical-accent-lime)] hover:bg-white/5"
 										}`}
 									>
-										<Sparkles size={18} />
+										<Sparkles size={16} />
 										{tUI("tierList.tabRelics")}
 									</button>
 								</div>

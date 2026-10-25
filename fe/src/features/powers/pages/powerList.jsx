@@ -14,11 +14,14 @@ import SafeImage from "@/components/common/SafeImage";
 import MarkupRenderer from "@/components/common/MarkupRenderer";
 
 const PowerSkeleton = () => (
-	<div className='flex items-center gap-3 sm:gap-4 bg-surface-bg p-3 sm:p-4 rounded-lg border border-border animate-pulse'>
-		<div className='w-12 h-12 sm:w-16 sm:h-16 bg-gray-700/50 rounded-md shrink-0' />
-		<div className='flex-grow space-y-3'>
-			<div className='h-5 w-2/3 bg-gray-700/50 rounded' />
-			<div className='h-4 w-1/3 bg-gray-700/50 rounded' />
+	<div className='flex items-center gap-3.5 tactical-card p-3.5 clip-chamfer-sm border border-white/10 animate-pulse bg-white/5'>
+		<div className='w-14 h-14 bg-white/10 clip-chamfer-sm shrink-0 border border-white/10' />
+		<div className='flex-grow space-y-2.5'>
+			<div className='h-5 w-3/4 bg-white/10 clip-chamfer-sm' />
+			<div className='flex gap-2'>
+				<div className='h-4 w-14 bg-white/5 clip-chamfer-sm' />
+				<div className='h-4 w-20 bg-white/5 clip-chamfer-sm' />
+			</div>
 		</div>
 	</div>
 );
@@ -104,27 +107,30 @@ function PowerList() {
 				return (
 					<Link
 						to={`/power/${encodeURIComponent(power.powerCode)}`}
-						className='group relative flex items-center gap-3 sm:gap-4 bg-surface-bg p-2 sm:p-4 rounded-lg transition border border-border hover:border-primary-500'
+						className='group relative flex items-center gap-3.5 p-3 sm:p-3.5 tactical-card clip-chamfer-sm border border-[var(--tactical-card-border)] hover:border-[var(--tactical-accent-cyan)] transition-all duration-300 shadow-sm hover:shadow-[0_0_20px_rgba(0,245,212,0.18)]'
 					>
-						<SafeImage
-							src={power.assetAbsolutePath}
-							alt={powerName}
-							className='w-12 h-12 sm:w-16 sm:h-16 shrink-0 object-cover rounded-md group transition-all'
-							width={128}
-							height={128}
-						/>
+						<div className='w-12 h-12 sm:w-14 sm:h-14 shrink-0 relative overflow-hidden clip-chamfer-sm bg-black/40 border border-[var(--tactical-card-border)] group-hover:border-[var(--tactical-accent-cyan)] transition-colors p-1 flex items-center justify-center'>
+							<SafeImage
+								src={power.assetAbsolutePath}
+								alt={powerName}
+								className='w-full h-full object-contain group-hover:scale-110 transition-transform duration-300'
+								width={128}
+								height={128}
+							/>
+						</div>
 						<div className='flex-grow overflow-hidden'>
-							<h3 className='font-bold text-lg text-text-primary group-hover:text-primary-500 truncate'>
+							<h3 className='font-display font-bold uppercase italic tracking-wide text-sm sm:text-base text-[var(--tactical-text-main)] group-hover:text-[var(--tactical-accent-cyan)] truncate transition-colors'>
 								{powerName}
 							</h3>
-							<div className='flex items-center gap-2 text-sm text-text-secondary'>
+							<div className='flex items-center gap-2 text-xs font-mono-tech text-[var(--tactical-text-dim)] mt-1'>
 								<RarityIcon rarity={power.rarity} />
-								<span className='truncate'>{powerRarityTranslated}</span>
+								<span className='truncate uppercase'>{powerRarityTranslated}</span>
 							</div>
 						</div>
-						<div className='absolute left-1/2 -translate-x-1/2 bottom-full mb-3 w-72 p-4 bg-gray-900/95 backdrop-blur-sm text-white text-xs rounded-xl shadow-2xl opacity-0 group-hover:opacity-100 transition-all duration-300 invisible group-hover:visible pointer-events-none z-50 border border-white/10'>
+						{/* Tooltip hiển thị mô tả Tactical */}
+						<div className='absolute left-1/2 -translate-x-1/2 bottom-full mb-3 w-80 p-4 bg-slate-950/95 backdrop-blur-md text-[var(--tactical-text-main)] text-xs clip-chamfer-sm shadow-2xl opacity-0 group-hover:opacity-100 transition-all duration-300 invisible group-hover:visible pointer-events-none z-50 border border-[var(--tactical-accent-cyan)]/40 leading-relaxed'>
+							<div className='font-display font-bold text-sm text-[var(--tactical-accent-cyan)] mb-1 uppercase italic'>{powerName}</div>
 							<MarkupRenderer text={powerDesc} />
-							<div className='absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-x-8 border-x-transparent border-t-8 border-t-gray-900/95'></div>
 						</div>
 					</Link>
 				);

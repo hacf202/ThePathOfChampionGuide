@@ -13,26 +13,20 @@ import MarkupRenderer from "@/components/common/MarkupRenderer";
 import ResolvedPowerCard from "@/features/adventureMaps/components/resolvedPowerCard";
 
 const BossDetailSkeleton = () => (
-	<div className='max-w-[1100px] mx-auto p-4 md:p-6 animate-pulse space-y-10'>
-		{/* Breadcrumb Skeleton */}
-		<div className='flex justify-between items-center mb-6'>
-			<div className='h-8 w-32 bg-gray-700/30 rounded-lg' />
-			<div className='h-6 w-20 bg-gray-700/30 rounded-full' />
-		</div>
+	<div className='max-w-[1200px] mx-auto p-2 sm:p-6 animate-pulse space-y-8 font-primary'>
+		{/* Top bar */}
+		<div className='h-9 w-28 bg-white/10 clip-chamfer-sm border border-white/10' />
 		
 		{/* Hero Skeleton */}
-		<div className='relative h-[350px] md:h-[480px] bg-gray-700/20 rounded-[40px] border border-border/40' />
+		<div className='relative h-[320px] md:h-[420px] bg-white/5 clip-chamfer border border-white/10' />
 		
-		<div className='grid grid-cols-1 lg:grid-cols-12 gap-10'>
-			<div className='lg:col-span-8 space-y-10'>
-				{/* Section 1 */}
-				<div className='h-[300px] bg-gray-700/20 rounded-[32px] border border-border/40' />
-				{/* Section 2 */}
-				<div className='h-[200px] bg-gray-700/20 rounded-[32px] border border-border/40' />
+		<div className='grid grid-cols-1 lg:grid-cols-12 gap-6'>
+			<div className='lg:col-span-8 space-y-6'>
+				<div className='h-[280px] bg-white/5 clip-chamfer border border-white/10' />
+				<div className='h-[200px] bg-white/5 clip-chamfer border border-white/10' />
 			</div>
 			<div className='lg:col-span-4'>
-				{/* Sidebar */}
-				<div className='h-64 bg-gray-700/20 rounded-[32px] border border-border/40' />
+				<div className='h-64 bg-white/5 clip-chamfer border border-white/10' />
 			</div>
 		</div>
 	</div>
@@ -119,80 +113,79 @@ function BossDetailPage() {
 	const powers = boss.resolvedPowers || (boss.resolvedPower ? [boss.resolvedPower] : []);
 
 	return (
-		<div className='animate-fadeIn font-secondary max-w-[1100px] mx-auto p-0 sm:p-6 pb-20'>
+		<div className='animate-fadeIn font-primary selection:bg-rose-500 selection:text-white max-w-[1200px] mx-auto p-2 sm:p-6 pb-20'>
 			<PageTitle 
 				title={bossName ? `${bossName} | ${tUI("bossDetail.pageTitle") || "Boss Detail"}` : (tUI("bossDetail.pageTitle") || "Boss Detail")} 
 				description={bossName ? `Hướng dẫn chi tiết cách đánh boss ${bossName} trong Con Đường Anh Hùng (PoC). Các bài (cards) và sức mạnh (powers) của ${bossName} là gì?` : (tUI("bossDetail.pageDescriptionPrefix") || "Chi tiết sức mạnh và mẹo đối đầu với Boss")}
 				keywords={bossName ? `${bossName}, cách đánh boss ${bossName}, đánh bại ${bossName} poc, ${bossName} poc guide, boss guide lor pve` : ""}
 			/>
 
-			<div className='mb-4 flex items-center justify-between px-2 sm:px-0'>
-				<Button variant='ghost' onClick={() => navigate(-1)} className='group flex items-center gap-2 text-text-tertiary hover:text-primary-500 transition-colors'>
-					<ChevronLeft size={20} className='group-hover:-translate-x-1 transition-transform' /> 
-					<span className='font-bold uppercase tracking-widest text-xs'>{tUI("common.back") || "Quay lại"}</span>
-				</Button>
+			<div className='mb-4'>
+				<button
+					type="button"
+					onClick={() => navigate(-1)}
+					className='inline-flex items-center gap-2 px-4 py-2 tactical-card border border-[var(--tactical-card-border)] hover:border-rose-500 text-xs font-mono-tech font-bold uppercase text-[var(--tactical-text-main)] hover:text-rose-400 transition-all clip-chamfer-sm shadow-sm group'
+				>
+					<ChevronLeft size={16} className='group-hover:-translate-x-0.5 transition-transform' />
+					<span>{tUI("common.back") || "Quay lại"}</span>
+				</button>
 			</div>
 
-			<div className='flex flex-col space-y-3 sm:space-y-10'>
-				{/* HERO SECTION - COMPACT DESIGN */}
-				<section className='relative sm:rounded-[40px] overflow-hidden border-b sm:border border-border/60 bg-surface-bg shadow-2xl group min-h-[250px] md:min-h-[380px] flex items-end'>
+			<div className='flex flex-col space-y-6 sm:space-y-8'>
+				{/* HERO SECTION - TACTICAL ENCOUNTER BANNER */}
+				<section className='relative clip-chamfer overflow-hidden border-2 border-[var(--tactical-section-border)] tactical-panel shadow-2xl group min-h-[260px] md:min-h-[380px] flex items-end'>
 					{/* Gradient Overlays */}
 					<div className='absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent z-10' />
-					<div className='absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent z-10' />
+					<div className='absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-transparent z-10' />
 					
 					{/* Background Image */}
 					<div className='absolute inset-0 w-full h-full overflow-hidden'>
 						<SafeImage 
 							src={boss.background || bossImage} 
-							className='w-full h-full object-cover transition-transform duration-[3000ms] group-hover:scale-110 opacity-80 group-hover:opacity-100'
+							className='w-full h-full object-cover transition-transform duration-[3000ms] group-hover:scale-105 opacity-80 group-hover:opacity-100'
 						/>
 					</div>
+
+					{/* Corner Cyber Notches */}
+					<div className="absolute top-0 right-0 w-8 h-8 pointer-events-none border-t-2 border-r-2 border-rose-500/60 z-20" />
+					<div className="absolute bottom-0 left-0 w-8 h-8 pointer-events-none border-b-2 border-l-2 border-rose-500/40 z-20" />
 					
 					{/* Text Content */}
-					<div className='relative w-full p-4 md:p-14 z-20'>
-						<div 
-							transition={{ duration: 0.8, ease: "easeOut" }}
-							className='flex flex-col gap-3'
-						>
-							<div className='space-y-1'>
-								<h1 
-									transition={{ delay: 0.2, duration: 1 }}
-									className='text-3xl md:text-7xl font-primary font-black text-white uppercase italic tracking-tighter drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)]'
-								>
-									{bossName}
-								</h1>
-								
-								<div className='flex items-center gap-4 text-white/50 text-[10px] sm:text-xs font-bold uppercase tracking-widest'>
-									<div className='flex items-center gap-1.5'>
-										<Swords size={12} className='text-red-500' />
-										<span>Boss Encounter</span>
-									</div>
-									<div className='w-1 h-1 bg-white/20 rounded-full' />
-									<span>Path of Champions</span>
+					<div className='relative w-full p-4 md:p-10 z-20'>
+						<div className='flex flex-col gap-2'>
+							<div className='flex items-center gap-2 mb-1'>
+								<div className='flex items-center gap-1.5 px-3 py-1 bg-black/85 border border-rose-500/50 clip-chamfer-sm text-[11px] font-mono-tech uppercase font-bold text-rose-400 shadow-md'>
+									<Swords size={12} className='text-rose-500' />
+									<span>Boss Encounter</span>
+								</div>
+								<div className='px-2.5 py-1 bg-black/70 border border-white/15 clip-chamfer-sm text-[11px] font-mono-tech uppercase font-bold text-white/70'>
+									Path of Champions
 								</div>
 							</div>
+
+							<h1 className='text-3xl md:text-6xl font-display font-black text-white uppercase italic tracking-wide drop-shadow-lg leading-none'>
+								{bossName}
+							</h1>
 						</div>
 					</div>
 				</section>
 
-				<div className='grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-10'>
+				<div className='grid grid-cols-1 lg:grid-cols-12 gap-6'>
 					{/* MAIN CONTENT AREA */}
-					<div className='lg:col-span-8 space-y-3 sm:space-y-10'>
+					<div className='lg:col-span-8 space-y-6'>
 						{/* POWERS SECTION */}
-						<section className='bg-surface-bg sm:border border-border/40 sm:rounded-[32px] p-2 sm:p-8 shadow-sm relative group overflow-hidden'>
-							<div className='absolute top-0 left-0 w-1 h-full bg-primary-500/20 group-hover:bg-primary-500 transition-colors' />
+						<section className='tactical-card clip-chamfer border border-[var(--tactical-card-border)] p-4 sm:p-6 shadow-xl relative overflow-hidden'>
+							<div className='absolute top-0 left-0 w-1.5 h-full bg-rose-500' />
 							
-							<div className='flex items-center justify-between mb-3 sm:mb-8'>
-								<h2 className='text-xl sm:text-2xl font-black text-text-primary font-primary uppercase'>
+							<div className='flex items-center justify-between mb-4 pb-3 border-b border-[var(--tactical-stroke-color)]'>
+								<h2 className='text-xl sm:text-2xl font-display font-black text-[var(--tactical-text-main)] uppercase italic tracking-wide flex items-center gap-2'>
+									<Sparkles size={18} className='text-rose-500' />
 									{tUI("bossDetail.powers") || "Sức mạnh"}
 								</h2>
-								<div className='h-[1px] flex-1 bg-border/40 ml-6 hidden md:block' />
 							</div>
 							
 							{powers.length > 0 ? (
-								<div
-									className='flex flex-col gap-2 sm:gap-6'
-								>
+								<div className='flex flex-col gap-4'>
 									{powers.map((power, idx) => (
 										<div key={idx}>
 											<ResolvedPowerCard powerOrId={power} />
@@ -200,8 +193,8 @@ function BossDetailPage() {
 									))}
 								</div>
 							) : (
-								<div className='flex flex-col items-center justify-center py-10 text-center bg-surface-bg-alt/20 rounded-3xl border border-dashed border-border/60'>
-									<p className='text-text-tertiary italic text-sm font-medium'>
+								<div className='flex flex-col items-center justify-center py-8 text-center tactical-box clip-chamfer-sm border border-dashed border-[var(--tactical-card-border)]'>
+									<p className='text-[var(--tactical-text-dim)] italic text-xs font-mono-tech'>
 										{tUI("bossDetail.noSpecialPower") || "Không có sức mạnh đặc biệt."}
 									</p>
 								</div>
@@ -210,37 +203,37 @@ function BossDetailPage() {
 
 						{/* ENCOUNTER TIPS / NOTES (From Boss Object + Adventures) */}
 						{(boss.note || mapSpecificData.some(m => m.note)) && (
-							<section className='bg-surface-bg sm:border border-border/40 sm:rounded-[32px] p-2 sm:p-8 shadow-sm relative group overflow-hidden'>
-								<div className='absolute top-0 left-0 w-1 h-full bg-emerald-500/20 group-hover:bg-emerald-500 transition-colors' />
+							<section className='tactical-card clip-chamfer border border-[var(--tactical-card-border)] p-4 sm:p-6 shadow-xl relative overflow-hidden'>
+								<div className='absolute top-0 left-0 w-1.5 h-full bg-emerald-400' />
 								
-								<h2 className='text-xl sm:text-2xl font-black text-text-primary font-primary uppercase mb-3 sm:mb-8'>
+								<h2 className='text-xl sm:text-2xl font-display font-black text-[var(--tactical-text-main)] uppercase italic tracking-wide mb-4 pb-3 border-b border-[var(--tactical-stroke-color)]'>
 									{tUI("bossDetail.note") || "Mẹo đối đầu"}
 								</h2>
 								
-								<div className='space-y-3 sm:space-y-6'>
+								<div className='space-y-4'>
 									{boss.note && (
-										<div className='bg-emerald-500/5 border border-emerald-500/10 p-3 sm:p-6 rounded-[16px] sm:rounded-[24px] shadow-inner'>
+										<div className='tactical-card border-l-4 border-emerald-400 clip-chamfer-sm p-4 bg-[var(--tactical-card-bg)] shadow-inner'>
 											<MarkupRenderer 
 												text={boss.note} 
-												className='text-text-primary leading-relaxed text-sm sm:text-base' 
+												className='text-[var(--tactical-text-main)] leading-relaxed text-sm sm:text-base font-primary' 
 											/>
 										</div>
 									)}
 
 									{mapSpecificData.map((map, idx) => map.note && (
-										<div key={idx} className='relative pl-3 sm:pl-6 border-l-2 border-border/40'>
-											<h4 className='text-[10px] sm:text-xs font-black uppercase tracking-widest text-emerald-600 mb-1 sm:mb-2'>
+										<div key={idx} className='relative pl-3 sm:pl-4 border-l-2 border-[var(--tactical-card-border)]'>
+											<h4 className='text-xs font-mono-tech font-bold uppercase tracking-wider text-emerald-400 mb-2'>
 												{tUI("bossDetail.onMap") || "Trên bản đồ"}: {map.adventureName}
 											</h4>
-											<div className='bg-surface-bg-alt/30 p-2 sm:p-4 rounded-xl sm:rounded-2xl border border-border/30'>
+											<div className='tactical-box p-3.5 clip-chamfer-sm border border-[var(--tactical-card-border)]'>
 												<MarkupRenderer 
 													text={map.note} 
-													className='text-[13px] sm:text-sm text-text-secondary italic' 
+													className='text-xs sm:text-sm text-[var(--tactical-text-sub)] italic font-primary' 
 												/>
 												{map.bonusPowers.length > 0 && (
-													<div className='mt-2 sm:mt-3 flex flex-wrap gap-2 items-center'>
-														<span className='text-[9px] font-bold text-text-tertiary uppercase'>{tUI("bossDetail.bonusPowers") || "Sức mạnh bổ trợ"}:</span>
-														<div className='flex flex-col w-full gap-2'>
+													<div className='mt-3 flex flex-wrap gap-2 items-center border-t border-[var(--tactical-stroke-color)] pt-3'>
+														<span className='text-[10px] font-mono-tech uppercase font-bold text-[var(--tactical-text-dim)]'>{tUI("bossDetail.bonusPowers") || "Sức mạnh bổ trợ"}:</span>
+														<div className='flex flex-col w-full gap-2 mt-1'>
 															{map.bonusPowers.map((pId) => (
 																<ResolvedPowerCard key={pId} powerOrId={pId} />
 															))}
@@ -256,32 +249,32 @@ function BossDetailPage() {
 					</div>
 
 					{/* SIDEBAR AREA */}
-					<aside className='lg:col-span-4 space-y-3 sm:space-y-8'>
-						<div className='sticky top-24 space-y-3 sm:space-y-8'>
+					<aside className='lg:col-span-4 space-y-6'>
+						<div className='sticky top-20 space-y-6'>
 							{/* APPEARS AT SECTION */}
-							<section className='bg-surface-bg sm:border border-border/40 sm:rounded-[32px] p-2 sm:p-8 shadow-lg'>
-								<h2 className='text-lg sm:text-xl font-black text-text-primary font-primary uppercase mb-3 sm:mb-8'>
+							<section className='tactical-card clip-chamfer border border-[var(--tactical-card-border)] p-4 sm:p-6 shadow-xl'>
+								<h2 className='text-lg font-display font-black text-[var(--tactical-text-main)] uppercase italic tracking-wide mb-4 pb-3 border-b border-[var(--tactical-stroke-color)]'>
 									{tUI("bossDetail.appearsAt") || "Xuất hiện tại"}
 								</h2>
 								
 								{adventures.length > 0 ? (
-									<div className='space-y-2 sm:space-y-4'>
+									<div className='space-y-3'>
 										{adventures.map((adv) => (
 											<Link 
 												key={adv.adventureID}
 												to={`/map/${adv.adventureID}`}
-												className='group flex flex-col gap-2 p-2 sm:p-5 rounded-xl sm:rounded-2xl bg-surface-bg-alt/40 border border-border/60 hover:border-pink-500/50 hover:bg-pink-500/5 transition-all duration-300'
+												className='group flex flex-col gap-2 p-3 clip-chamfer-sm tactical-box border border-[var(--tactical-card-border)] hover:border-rose-500 transition-all duration-300'
 											>
-												<div className='flex items-center gap-2 sm:gap-4'>
-													<div className='w-10 h-10 sm:w-14 sm:h-14 rounded-lg sm:rounded-xl overflow-hidden shrink-0 border border-border shadow-md group-hover:shadow-pink-500/10'>
+												<div className='flex items-center gap-3'>
+													<div className='w-12 h-12 clip-chamfer-sm overflow-hidden shrink-0 border border-[var(--tactical-card-border)] bg-black/40 shadow-md group-hover:border-rose-500 transition-colors'>
 														<SafeImage src={adv.assetAbsolutePath || adv.background} className='w-full h-full object-cover group-hover:scale-110 transition-transform duration-500' />
 													</div>
 													<div className='flex-1 min-w-0'>
-														<h4 className='font-black text-text-primary text-[11px] sm:text-sm truncate uppercase tracking-tight group-hover:text-pink-500 transition-colors'>
+														<h4 className='font-display font-bold text-xs sm:text-sm truncate uppercase italic tracking-wide text-[var(--tactical-text-main)] group-hover:text-rose-400 transition-colors'>
 															{tDynamic(adv, "adventureName")}
 														</h4>
-														<div className='mt-0.5 flex items-center gap-2'>
-															<div className='flex items-center px-1.5 py-0.5 bg-pink-500/10 text-pink-500 rounded text-[8px] sm:text-[9px] font-black uppercase tracking-widest border border-pink-500/20'>
+														<div className='mt-1 flex items-center gap-2'>
+															<div className='flex items-center px-2 py-0.5 bg-black/85 text-amber-400 clip-chamfer-sm text-[10px] font-mono-tech font-bold uppercase tracking-wider border border-amber-400/40'>
 																{tUI("bossDetail.difficulty", { count: adv.difficulty }) || `${adv.difficulty} Stars`}
 															</div>
 														</div>
@@ -291,7 +284,7 @@ function BossDetailPage() {
 										))}
 									</div>
 								) : (
-									<div className='text-center py-6 text-text-tertiary italic text-xs bg-surface-bg-alt/20 rounded-2xl border border-dashed border-border/60'>
+									<div className='text-center py-6 text-[var(--tactical-text-dim)] italic text-xs font-mono-tech tactical-box clip-chamfer-sm border border-dashed border-[var(--tactical-card-border)]'>
 										{tUI("bossDetail.noMapsFound") || "Không tìm thấy bản đồ."}
 									</div>
 								)}

@@ -45,81 +45,78 @@ const RequirementSection = ({ resolvedChampions, adventure }) => {
 	};
 
 	return (
-		<section className='bg-surface-bg border border-border rounded-xl p-2 md:p-4 shadow-sm w-full'>
-			<div className='flex justify-between items-center border-b border-border pb-2 mb-4'>
-				<h2 className='text-xl font-bold text-primary-500 font-primary uppercase flex items-center gap-2'>
+		<section className='tactical-card clip-chamfer border border-[var(--tactical-card-border)] p-4 md:p-6 shadow-xl w-full'>
+			<div className='flex justify-between items-center border-b border-[var(--tactical-stroke-color)] pb-3 mb-5'>
+				<h2 className='text-xl font-display font-black text-[var(--tactical-accent-cyan)] uppercase italic tracking-wide flex items-center gap-2'>
 					<Compass size={20} />{" "}
 					{tUI("adventureMap.requirementTitle") || "Tướng / Khu Vực Yêu Cầu"}
 				</h2>
-				<Button
+				<button
 					type='button'
-					size='sm'
-					variant='outline'
 					onClick={() => setIsVisible(!isVisible)}
-					iconLeft={isVisible ? <EyeOff size={16} /> : <Eye size={16} />}
+					className='inline-flex items-center gap-1.5 px-3 py-1.5 tactical-card border border-[var(--tactical-card-border)] hover:border-[var(--tactical-accent-cyan)] text-xs font-mono-tech font-bold uppercase text-[var(--tactical-text-main)] hover:text-[var(--tactical-accent-cyan-fg)] transition-all clip-chamfer-sm'
 				>
-					{isVisible
-						? tUI("common.hide") || "Ẩn"
-						: tUI("common.show") || "Hiện"}
-				</Button>
+					{isVisible ? <EyeOff size={15} /> : <Eye size={15} />}
+					<span>
+						{isVisible
+							? tUI("common.hide") || "Ẩn"
+							: tUI("common.show") || "Hiện"}
+					</span>
+				</button>
 			</div>
 
-			
-				{isVisible && (
-					<div
-						className='overflow-hidden'
-					>
-						<div className='flex flex-wrap gap-4 pb-2'>
-							{resolvedChampions?.map((champ, i) => {
-								const avatarUrl =
-									champ.assets?.[0]?.avatar ||
-									champ.assets?.[0]?.fullAbsolutePath ||
-									champ.image ||
-									"/fallback-image.svg";
-								return (
-									<Link
-										key={`champ-${i}`}
-										to={`/champion/${generateSlug(champ.translations?.en?.name || champ.name || champ.championID || champ.id)}`}
-										title={tDynamic(champ, "name")}
-										className='group flex flex-col items-center gap-1 w-[70px]'
-									>
-										<div className='w-14 h-14 rounded-full border-2 border-border overflow-hidden group-hover:border-primary-500 transition-colors shadow-sm bg-surface-hover'>
-											<SafeImage
-												src={avatarUrl}
-												alt={tDynamic(champ, "name")}
-												className='w-full h-full object-cover'
-											/>
-										</div>
-										<span className='text-xs text-text-primary font-medium group-hover:text-primary-500 text-center truncate w-full'>
-											{tDynamic(champ, "name")}
-										</span>
-									</Link>
-								);
-							})}
-
-							{adventure?.requirement?.regions?.map((reg, i) => (
+			{isVisible && (
+				<div className='overflow-hidden'>
+					<div className='flex flex-wrap gap-4 pb-2'>
+						{resolvedChampions?.map((champ, i) => {
+							const avatarUrl =
+								champ.assets?.[0]?.avatar ||
+								champ.assets?.[0]?.fullAbsolutePath ||
+								champ.image ||
+								"/fallback-image.svg";
+							return (
 								<Link
-									key={`reg-${i}`}
-									to={`/champions?regions=${encodeURIComponent(reg)}`}
-									title={getTranslatedRegion(reg)}
-									className='group flex flex-col items-center gap-1 w-[70px]'
+									key={`champ-${i}`}
+									to={`/champion/${generateSlug(champ.translations?.en?.name || champ.name || champ.championID || champ.id)}`}
+									title={tDynamic(champ, "name")}
+									className='group flex flex-col items-center gap-1.5 w-[76px]'
 								>
-									<div className='w-14 h-14 rounded-full border-2 border-border overflow-hidden bg-surface-hover group-hover:border-blue-500 transition-colors shadow-sm flex items-center justify-center p-2'>
-										<img
-											src={getRegionIcon(reg)}
-											alt={reg}
-											className='w-full h-full object-contain'
+									<div className='w-14 h-14 clip-chamfer-sm border-2 border-[var(--tactical-card-border)] overflow-hidden group-hover:border-[var(--tactical-accent-lime)] transition-colors shadow-sm bg-black/40'>
+										<SafeImage
+											src={avatarUrl}
+											alt={tDynamic(champ, "name")}
+											className='w-full h-full object-cover group-hover:scale-110 transition-transform duration-300'
 										/>
 									</div>
-									<span className='text-xs text-text-primary font-medium group-hover:text-blue-500 text-center truncate w-full'>
-										{getTranslatedRegion(reg)}
+									<span className='text-xs font-display uppercase italic tracking-wider text-[var(--tactical-text-sub)] group-hover:text-[var(--tactical-accent-lime)] text-center truncate w-full transition-colors'>
+										{tDynamic(champ, "name")}
 									</span>
 								</Link>
-							))}
-						</div>
+							);
+						})}
+
+						{adventure?.requirement?.regions?.map((reg, i) => (
+							<Link
+								key={`reg-${i}`}
+								to={`/champions?regions=${encodeURIComponent(reg)}`}
+								title={getTranslatedRegion(reg)}
+								className='group flex flex-col items-center gap-1.5 w-[76px]'
+							>
+								<div className='w-14 h-14 clip-chamfer-sm border-2 border-[var(--tactical-card-border)] overflow-hidden bg-black/40 group-hover:border-[var(--tactical-accent-cyan)] transition-colors shadow-sm flex items-center justify-center p-2.5'>
+									<img
+										src={getRegionIcon(reg)}
+										alt={reg}
+										className='w-full h-full object-contain filter group-hover:scale-110 transition-transform duration-300'
+									/>
+								</div>
+								<span className='text-xs font-mono-tech text-[var(--tactical-text-dim)] group-hover:text-[var(--tactical-accent-cyan)] text-center truncate w-full uppercase transition-colors'>
+									{getTranslatedRegion(reg)}
+								</span>
+							</Link>
+						))}
 					</div>
-				)}
-			
+				</div>
+			)}
 		</section>
 	);
 };

@@ -22,17 +22,17 @@ import { useMarkupResolution } from "@/hooks/useMarkupResolution.js";
  * Skeleton Loading for Card Detail
  */
 const CardDetailSkeleton = () => (
-	<div className='max-w-[1200px] mx-auto p-0 sm:p-6 animate-pulse font-secondary'>
-		<div className='h-10 w-24 bg-gray-700/50 rounded mb-2 ml-1 sm:ml-0' />
-		<div className='bg-surface-bg border border-border rounded-lg p-4 sm:p-6 space-y-8'>
+	<div className='max-w-[1200px] mx-auto p-0 sm:p-6 animate-pulse'>
+		<div className='h-10 w-24 bg-[var(--tactical-card-bg)] clip-chamfer-sm border border-[var(--tactical-card-border)] mb-4 ml-1 sm:ml-0' />
+		<div className='tactical-panel clip-chamfer bg-[var(--tactical-panel-bg)] border border-[var(--tactical-card-border)] p-4 sm:p-8 space-y-8'>
 			<div className='flex flex-col md:flex-row gap-8'>
-				<div className='w-full md:w-1/2 aspect-[3/4] bg-gray-700/50 rounded-xl' />
+				<div className='w-full md:w-1/2 aspect-[680/1024] bg-[var(--tactical-card-bg)] clip-chamfer border border-[var(--tactical-card-border)]' />
 				<div className='flex-1 space-y-6'>
-					<div className='h-16 w-full bg-gray-700/50 rounded-lg' />
-					<div className='h-32 w-full bg-gray-700/30 rounded-lg' />
+					<div className='h-16 w-full bg-[var(--tactical-inner-box)] clip-chamfer-sm' />
+					<div className='h-32 w-full bg-[var(--tactical-inner-box)] clip-chamfer-sm' />
 					<div className='grid grid-cols-2 gap-4'>
-						<div className='h-20 bg-gray-700/20 rounded-lg' />
-						<div className='h-20 bg-gray-700/20 rounded-lg' />
+						<div className='h-20 bg-[var(--tactical-inner-box)] clip-chamfer-sm' />
+						<div className='h-20 bg-[var(--tactical-inner-box)] clip-chamfer-sm' />
 					</div>
 				</div>
 			</div>
@@ -139,24 +139,27 @@ const CardDetail = () => {
 				) : (
 					<div
 						key='content'
-						transition={{ duration: 0.3 }}
-						className='max-w-[1200px] mx-auto p-2 sm:p-6 text-text-primary font-secondary'
+						className='max-w-[1200px] mx-auto p-2 sm:p-6'
 					>
 						<div className="flex justify-between items-center mb-6">
-							<Button variant='outline' onClick={() => navigate(-1)} className="group">
+							<Button
+								variant='outline'
+								onClick={() => navigate(-1)}
+								className="group font-mono-tech uppercase text-xs tracking-wider border-[var(--tactical-card-border)] hover:border-[var(--tactical-accent-lime)] clip-chamfer-sm"
+							>
 								<ChevronLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
 								{tUI("common.back")}
 							</Button>
 						</div>
 
-						<div className='bg-surface-bg border border-border rounded-3xl overflow-hidden shadow-2xl p-4 sm:p-10 relative'>
-							<div className="absolute top-0 right-0 w-64 h-64 bg-primary-500/5 blur-[100px] pointer-events-none" />
+						<div className='tactical-panel clip-chamfer border border-[var(--tactical-card-border)] bg-[var(--tactical-panel-bg)] p-4 sm:p-10 relative shadow-2xl'>
+							<div className="absolute top-0 right-0 w-64 h-64 bg-[var(--tactical-accent-cyan)]/5 blur-[100px] pointer-events-none" />
 
 							<div className='flex flex-col lg:flex-row gap-12 relative z-10'>
 								{/* Left: Card Image — right-click / long-press to open carousel */}
 								<div className='lg:w-1/2 flex flex-col gap-6'>
 									<div
-										className='relative group rounded-2xl overflow-hidden border border-white/5 shadow-2xl bg-black/40 cursor-zoom-in'
+										className='relative group clip-chamfer overflow-hidden border border-[var(--tactical-card-border)] shadow-2xl bg-[var(--tactical-inner-box)] cursor-zoom-in hover:border-[var(--tactical-accent-cyan)] transition-colors'
 										onClick={() => openCarousel(0)}
 										onContextMenu={handleContextMenu}
 									>
@@ -165,13 +168,13 @@ const CardDetail = () => {
 											alt={cardName}
 											className='w-full h-auto object-contain transition-transform duration-700 group-hover:scale-[1.02]'
 										/>
-										<div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+										<div className="absolute inset-0 bg-gradient-to-t from-[var(--tactical-card-bg)]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
 
 										{/* Hint badge */}
 										{hasAssociated && (
-											<div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur border border-white/10 opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap">
-												<MousePointerClick size={12} className="text-primary-400" />
-												<span className="text-[10px] text-white/70 font-medium">
+											<div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-3 py-1.5 clip-chamfer-sm bg-[var(--tactical-panel-bg)]/90 backdrop-blur border border-[var(--tactical-accent-cyan)]/40 text-[var(--tactical-accent-cyan)] opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap font-mono-tech">
+												<MousePointerClick size={12} className="text-[var(--tactical-accent-cyan)]" />
+												<span className="text-[10px] font-bold">
 													{tUI("cardDetail.viewCountCards", { count: carouselCards.length })}
 												</span>
 											</div>
@@ -189,10 +192,10 @@ const CardDetail = () => {
 													<button
 														key={c.cardCode}
 														onClick={() => openCarousel(i)}
-														className={`flex-shrink-0 w-14 rounded-lg overflow-hidden border-2 transition-all hover:scale-105 ${
+														className={`flex-shrink-0 w-14 clip-chamfer-sm overflow-hidden border transition-all hover:scale-105 ${
 															i === 0
-																? "border-primary-500/60"
-																: "border-white/10 hover:border-primary-500/40"
+																? "border-[var(--tactical-accent-cyan)] shadow-[0_0_10px_rgba(0,245,212,0.3)]"
+																: "border-[var(--tactical-card-border)] hover:border-[var(--tactical-accent-cyan)]"
 														}`}
 														title={language === "en"
 															? (c.translations?.en?.cardName || c.cardName)
@@ -207,45 +210,45 @@ const CardDetail = () => {
 								</div>
 
 								{/* Right: Info Section */}
-								<div className='lg:w-1/2 flex flex-col gap-10'>
-									<div className='space-y-4'>
+								<div className='lg:w-1/2 flex flex-col gap-8'>
+									<div className='space-y-3'>
 										<div className='flex flex-wrap items-center gap-3'>
-											<span className='px-4 py-1 bg-primary-500/10 text-primary-400 text-[10px] font-bold rounded-full border border-primary-500/20 uppercase tracking-[0.2em]'>
+											<span className='px-3.5 py-1 bg-[var(--tactical-accent-cyan)]/10 text-[var(--tactical-accent-cyan)] text-[10px] font-mono-tech font-bold clip-chamfer-sm border border-[var(--tactical-accent-cyan)]/30 uppercase tracking-widest'>
 												{type}
 											</span>
-											<div className="flex items-center gap-2 px-3 py-1 bg-white/5 rounded-full border border-white/10">
+											<div className="flex items-center gap-2 px-3 py-1 bg-[var(--tactical-inner-box)] clip-chamfer-sm border border-[var(--tactical-card-border)]">
 												<RarityIcon rarity={card.rarity} size={14} />
-												<span className="text-xs font-bold text-text-secondary uppercase tracking-wider">
+												<span className="font-mono-tech text-xs font-bold text-text-secondary uppercase tracking-wider">
 													{tUI(`shared.rarity.${(card.rarity || "none").toLowerCase()}`)}
 												</span>
 											</div>
 										</div>
-										<h1 className='text-5xl sm:text-6xl font-bold font-primary text-text-primary uppercase italic tracking-tight'>
+										<h1 className='text-3xl sm:text-5xl font-bold font-display text-text-primary uppercase tracking-tight'>
 											{cardName}
 										</h1>
-										<div className="h-1 w-20 bg-primary-500 rounded-full" />
+										<div className="h-1 w-20 bg-[var(--tactical-accent-lime)] shadow-[0_0_8px_var(--tactical-accent-lime)]" />
 									</div>
 
 									{/* Stats Grid */}
-									<div className='grid grid-cols-2 sm:grid-cols-3 gap-4'>
+									<div className='grid grid-cols-2 sm:grid-cols-3 gap-3'>
 										{/* Cost */}
-										<div className='bg-white/5 p-5 rounded-2xl border border-white/10 flex flex-col items-center justify-center text-center'>
-											<div className='text-text-tertiary text-[10px] uppercase tracking-[0.15em] mb-3'>
+										<div className='tactical-box clip-chamfer-sm bg-[var(--tactical-inner-box)] p-4 border border-[var(--tactical-card-border)] flex flex-col items-center justify-center text-center'>
+											<div className='font-mono-tech text-text-tertiary text-[10px] uppercase tracking-widest mb-1'>
 												{tUI("cardDetail.cost")}
 											</div>
-											<div className='font-primary text-4xl text-blue-400 font-bold drop-shadow-[0_0_8px_rgba(96,165,250,0.3)]'>
+											<div className='font-mono-tech text-3xl text-[var(--tactical-accent-cyan)] font-bold drop-shadow-[0_0_8px_rgba(0,245,212,0.4)]'>
 												{card.cost}
 											</div>
 										</div>
 
 										{/* Regions */}
-										<div className='bg-white/5 p-5 rounded-2xl border border-white/10 flex flex-col items-center justify-center text-center col-span-1'>
-											<div className='text-text-tertiary text-[10px] uppercase tracking-[0.15em] mb-3'>
+										<div className='tactical-box clip-chamfer-sm bg-[var(--tactical-inner-box)] p-4 border border-[var(--tactical-card-border)] flex flex-col items-center justify-center text-center col-span-1'>
+											<div className='font-mono-tech text-text-tertiary text-[10px] uppercase tracking-widest mb-1'>
 												{tUI("cardDetail.regions")}
 											</div>
-											<div className='flex flex-wrap justify-center gap-2'>
+											<div className='flex flex-wrap justify-center gap-1.5 mt-1'>
 												{(card.regions || []).map((region, idx) => (
-													<span key={idx} className="px-3 py-1 bg-white/5 rounded-lg border border-white/10 text-xs font-bold text-text-primary">
+													<span key={idx} className="px-2 py-0.5 bg-[var(--tactical-card-bg)] clip-chamfer-sm border border-[var(--tactical-card-border)] text-xs font-mono-tech font-bold text-text-primary">
 														{region}
 													</span>
 												))}
@@ -253,25 +256,26 @@ const CardDetail = () => {
 										</div>
 
 										{/* Code */}
-										<div className='bg-white/5 p-5 rounded-2xl border border-white/10 flex flex-col items-center justify-center text-center col-span-2 sm:col-span-1'>
-											<div className='text-text-tertiary text-[10px] uppercase tracking-[0.15em] mb-3'>
+										<div className='tactical-box clip-chamfer-sm bg-[var(--tactical-inner-box)] p-4 border border-[var(--tactical-card-border)] flex flex-col items-center justify-center text-center col-span-2 sm:col-span-1'>
+											<div className='font-mono-tech text-text-tertiary text-[10px] uppercase tracking-widest mb-1'>
 												{tUI("cardDetail.cardCode")}
 											</div>
-											<div className='font-mono text-primary-400 font-bold text-lg'>
+											<div className='font-mono-tech text-[var(--tactical-accent-lime)] font-bold text-sm sm:text-base'>
 												{card.cardCode}
 											</div>
 										</div>
 									</div>
 
 									{/* Description Section */}
-									<div className='bg-surface-hover/50 backdrop-blur-md p-8 rounded-3xl border border-border shadow-inner'>
-										<div className="flex items-center gap-3 mb-6 border-b border-border pb-4">
-											<Info size={18} className="text-primary-400" />
-											<h3 className='font-primary text-xl font-bold text-text-primary uppercase tracking-wider'>
+									<div className='tactical-box clip-chamfer-sm bg-[var(--tactical-inner-box)] p-6 border border-[var(--tactical-card-border)]'>
+										<div className="flex items-center gap-3 mb-4 border-b border-[var(--tactical-card-border)] pb-3">
+											<div className='w-1 h-4 bg-[var(--tactical-accent-lime)] shadow-[0_0_6px_var(--tactical-accent-lime)]' />
+											<h3 className='font-display text-base sm:text-lg font-bold text-[var(--tactical-accent-lime)] uppercase tracking-wider flex items-center gap-2'>
+												<Info size={16} />
 												{tUI("cardDetail.description")}
 											</h3>
 										</div>
-										<div className='text-lg leading-relaxed text-text-secondary'>
+										<div className='text-sm sm:text-base leading-relaxed text-text-secondary'>
 											<MarkupRenderer text={description} />
 										</div>
 									</div>
@@ -281,18 +285,19 @@ const CardDetail = () => {
 
 						{/* Associated Cards Section */}
 						{card.associatedCards?.length > 0 && (
-							<div className='mt-8 bg-surface-hover/30 backdrop-blur-md p-8 rounded-3xl border border-border shadow-inner'>
-								<div className="flex items-center gap-3 mb-6 border-b border-border pb-4">
-									<Hash size={18} className="text-primary-400" />
-									<h3 className='font-primary text-xl font-bold text-text-primary uppercase tracking-wider'>
+							<div className='mt-8 tactical-panel clip-chamfer p-6 sm:p-8 border border-[var(--tactical-card-border)] bg-[var(--tactical-panel-bg)] shadow-xl'>
+								<div className="flex items-center gap-3 mb-6 border-b border-[var(--tactical-card-border)] pb-3">
+									<div className='w-1 h-5 bg-[var(--tactical-accent-cyan)] shadow-[0_0_8px_var(--tactical-accent-cyan)]' />
+									<h3 className='font-display text-lg sm:text-xl font-bold text-[var(--tactical-accent-cyan)] uppercase tracking-wider flex items-center gap-2'>
+										<Hash size={18} />
 										{tUI("cardDetail.associatedCards")}
 									</h3>
-									<span className='text-xs text-text-tertiary bg-white/5 px-2 py-1 rounded-full'>
+									<span className='font-mono-tech text-xs text-[var(--tactical-accent-cyan)] bg-[var(--tactical-inner-box)] px-2 py-0.5 clip-chamfer-sm border border-[var(--tactical-accent-cyan)]/30'>
 										{card.associatedCards.length}
 									</span>
 								</div>
 								<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-									{card.associatedCards.map((assoc, i) => {
+									{card.associatedCards.map((assoc) => {
 										const assocName = language === "en"
 											? (assoc.translations?.en?.cardName || assoc.cardName)
 											: assoc.cardName;
@@ -303,9 +308,9 @@ const CardDetail = () => {
 											<Link
 												key={assoc.cardCode}
 												to={`/card/${assoc.cardCode}`}
-												className="group flex flex-col gap-2 rounded-xl border border-border bg-white/5 p-2 hover:border-primary-500/50 hover:bg-primary-500/5 transition-all duration-200 text-left"
+												className="tactical-box clip-chamfer-sm group flex flex-col gap-2 border border-[var(--tactical-card-border)] bg-[var(--tactical-inner-box)] p-2 hover:border-[var(--tactical-accent-cyan)] transition-all duration-300 text-left"
 											>
-												<div className="rounded-lg overflow-hidden aspect-[680/1024] bg-black/20">
+												<div className="clip-chamfer-sm overflow-hidden aspect-[680/1024] bg-black/20">
 													<SafeImage
 														src={assocImg}
 														alt={assocName}
@@ -313,10 +318,10 @@ const CardDetail = () => {
 													/>
 												</div>
 												<div className="text-center px-1 pb-1">
-													<p className="text-xs font-bold text-text-primary leading-tight line-clamp-2 group-hover:text-primary-400 transition-colors">
+													<p className="text-xs font-bold text-text-primary leading-tight line-clamp-2 group-hover:text-[var(--tactical-accent-cyan)] transition-colors">
 														{assocName}
 													</p>
-													<p className="text-[10px] text-text-tertiary font-mono mt-1">
+													<p className="text-[10px] text-text-tertiary font-mono-tech mt-1">
 														{assoc.cardCode}
 													</p>
 												</div>

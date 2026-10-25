@@ -21,22 +21,22 @@ const CardItem = ({ card }) => {
 		: card.gameAbsolutePath;
 
 	return (
-		<Link to={`/card/${card.cardCode}`} className="block group h-fit overflow-hidden rounded-xl">
-			<div className='relative w-full aspect-[680/1024] bg-gray-800/40 rounded-xl overflow-hidden shadow-2xl border border-white/10 transform transition-all duration-700 group-hover:scale-105 group-hover:shadow-primary-500/20 group-hover:border-primary-500/40'>
+		<Link to={`/card/${card.cardCode}`} className="block group h-fit overflow-hidden clip-chamfer-sm">
+			<div className='relative w-full aspect-[680/1024] bg-[var(--tactical-card-bg)] clip-chamfer-sm overflow-hidden shadow-xl border border-[var(--tactical-card-border)] transform transition-all duration-500 group-hover:scale-105 group-hover:border-[var(--tactical-accent-cyan)] group-hover:shadow-[0_0_15px_rgba(0,245,212,0.2)]'>
 				<SafeImage
 					src={imageUrl}
 					alt={cardName}
-					className='absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110'
+					className='absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110'
 					loading='lazy'
 					width={340}
 					height={512}
 				/>
 
 				{/* Overlay for better text/detail visibility if added later */}
-				<div className='absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity' />
+				<div className='absolute inset-0 bg-gradient-to-t from-[var(--tactical-card-bg)]/80 via-transparent to-transparent opacity-80 group-hover:opacity-30 transition-opacity' />
 				
 				{/* Hover Glow */}
-				<div className='absolute inset-0 bg-primary-500/0 group-hover:bg-primary-500/10 transition-colors pointer-events-none' />
+				<div className='absolute inset-0 bg-[var(--tactical-accent-cyan)]/0 group-hover:bg-[var(--tactical-accent-cyan)]/5 transition-colors pointer-events-none' />
 			</div>
 		</Link>
 	);

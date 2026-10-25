@@ -11,12 +11,12 @@ import { useCardData } from "@/hooks/useCardData.js";
  * Skeleton for Card Item
  */
 const CardSkeleton = () => (
-	<div className='relative w-full aspect-[680/1024] bg-gray-800/40 rounded-xl overflow-hidden border border-white/5 animate-pulse shadow-lg'>
-		<div className='absolute inset-0 bg-gradient-to-t from-black/20 to-transparent' />
+	<div className='relative w-full aspect-[680/1024] bg-[var(--tactical-card-bg)] clip-chamfer-sm overflow-hidden border border-[var(--tactical-card-border)] animate-pulse shadow-md'>
+		<div className='absolute inset-0 bg-gradient-to-t from-[var(--tactical-inner-box)]/80 to-transparent' />
 		{/* Bottom placeholder */}
 		<div className='absolute bottom-0 left-0 right-0 p-4 space-y-2'>
-			<div className='h-4 w-3/4 bg-white/10 rounded-md' />
-			<div className='h-3 w-1/2 bg-white/5 rounded-full' />
+			<div className='h-4 w-3/4 bg-[var(--tactical-inner-box)]' />
+			<div className='h-3 w-1/2 bg-[var(--tactical-inner-box)]/70' />
 		</div>
 	</div>
 );

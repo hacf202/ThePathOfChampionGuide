@@ -617,17 +617,21 @@ const CardGuessPage = () => {
 
 			<div className="max-w-4xl mx-auto pt-6 pb-32 px-4 lg:px-8 relative z-10">
 				<header className="mb-8 text-center">
-					<h1 className="text-4xl md:text-6xl font-black mb-3 leading-tight tracking-tighter uppercase">
+					<div className="inline-flex items-center gap-2 px-3 py-1 clip-chamfer-sm bg-[var(--tactical-accent-lime)]/10 text-[var(--tactical-accent-lime)] text-xs font-mono-tech font-bold uppercase tracking-widest mb-3 border border-[var(--tactical-accent-lime)]/30">
+						<Trophy size={13} />
+						TACTICAL CHALLENGE // CARD GUESS
+					</div>
+					<h1 className="text-3xl md:text-5xl font-black font-display mb-3 leading-tight tracking-tight uppercase">
 						<span className="text-text-primary">{tUI("cardGuess.titleMain")} </span>
-						<span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-primary-400">
+						<span className="text-[var(--tactical-accent-lime)] drop-shadow-[0_0_12px_rgba(210,255,40,0.4)]">
 							{tUI("cardGuess.titleSub")}
 						</span>
 					</h1>
-					<p className="text-lg text-text-secondary max-w-2xl mx-auto flex items-center justify-center gap-2">
+					<p className="text-base text-text-secondary max-w-2xl mx-auto flex items-center justify-center gap-2">
 						{tUI("cardGuess.pageDesc")}
 						<button
 							onClick={() => setShowRulesModal(true)}
-							className="p-1.5 rounded-full hover:bg-surface-hover text-primary-400 transition-colors"
+							className="p-1.5 rounded-full hover:bg-[var(--tactical-inner-box)] text-[var(--tactical-accent-lime)] transition-colors"
 							title={tUI("cardGuess.rules.title", "Hướng dẫn")}
 						>
 							<Info size={18} />
@@ -638,10 +642,10 @@ const CardGuessPage = () => {
 				<div className="flex items-center justify-center gap-2 mb-8 flex-wrap">
 					<button
 						onClick={() => handleModeChange("daily")}
-						className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm uppercase tracking-wider transition-all duration-300 backdrop-blur-xl ${
+						className={`flex items-center gap-2 px-5 py-2.5 clip-chamfer-sm font-mono-tech font-bold text-xs uppercase tracking-wider transition-all duration-300 ${
 						mode === "daily"
-							? "bg-primary-500/20 text-primary-400 border-2 border-primary-500/40 shadow-lg shadow-primary-500/10"
-							: "bg-surface-bg text-text-secondary border-2 border-border hover:border-primary-500/30"
+							? "bg-[var(--tactical-accent-lime)] text-[var(--tactical-accent-lime-fg)] shadow-[0_0_12px_rgba(210,255,40,0.3)]"
+							: "bg-[var(--tactical-inner-box)] text-text-secondary border border-[var(--tactical-card-border)] hover:border-[var(--tactical-accent-lime)]"
 					}`}
 					>
 						<Calendar className="w-4 h-4" />
@@ -649,10 +653,10 @@ const CardGuessPage = () => {
 					</button>
 					<button
 						onClick={() => handleModeChange("unlimited")}
-						className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm uppercase tracking-wider transition-all duration-300 backdrop-blur-xl ${
+						className={`flex items-center gap-2 px-5 py-2.5 clip-chamfer-sm font-mono-tech font-bold text-xs uppercase tracking-wider transition-all duration-300 ${
 						mode === "unlimited"
-							? "bg-primary-500/20 text-primary-400 border-2 border-primary-500/40 shadow-lg shadow-primary-500/10"
-							: "bg-surface-bg text-text-secondary border-2 border-border hover:border-primary-500/30"
+							? "bg-[var(--tactical-accent-lime)] text-[var(--tactical-accent-lime-fg)] shadow-[0_0_12px_rgba(210,255,40,0.3)]"
+							: "bg-[var(--tactical-inner-box)] text-text-secondary border border-[var(--tactical-card-border)] hover:border-[var(--tactical-accent-lime)]"
 					}`}
 					>
 						<Infinity className="w-4 h-4" />
@@ -660,10 +664,10 @@ const CardGuessPage = () => {
 					</button>
 					<button
 						onClick={() => handleModeChange("event")}
-						className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm uppercase tracking-wider transition-all duration-300 backdrop-blur-xl ${
+						className={`flex items-center gap-2 px-5 py-2.5 clip-chamfer-sm font-mono-tech font-bold text-xs uppercase tracking-wider transition-all duration-300 ${
 						mode === "event"
-							? "bg-primary-500/20 text-primary-400 border-2 border-primary-500/40 shadow-lg shadow-primary-500/10"
-							: "bg-surface-bg text-text-secondary border-2 border-border hover:border-primary-500/30"
+							? "bg-[var(--tactical-accent-lime)] text-[var(--tactical-accent-lime-fg)] shadow-[0_0_12px_rgba(210,255,40,0.3)]"
+							: "bg-[var(--tactical-inner-box)] text-text-secondary border border-[var(--tactical-card-border)] hover:border-[var(--tactical-accent-lime)]"
 					}`}
 					>
 						<Trophy className="w-4 h-4" />
@@ -672,7 +676,7 @@ const CardGuessPage = () => {
 					
 					<button
 						onClick={() => setShowStats((s) => !s)}
-						className="ml-2 p-2.5 rounded-xl bg-surface-bg backdrop-blur-xl text-text-secondary border-2 border-border hover:border-primary-500/30 transition-all"
+						className="ml-2 p-2.5 clip-chamfer-sm bg-[var(--tactical-inner-box)] text-[var(--tactical-accent-lime)] border border-[var(--tactical-card-border)] hover:border-[var(--tactical-accent-lime)] transition-all"
 					>
 						<BarChart3 className="w-5 h-5" />
 					</button>
@@ -680,26 +684,26 @@ const CardGuessPage = () => {
 				
 				{/* Hiển thị số người đã giải Daily */}
 				{mode === "daily" && dailySolvers > 0 && !showStats && (
-					<div className="text-center mb-6 text-sm font-semibold text-text-secondary">
-						<Trophy className="inline-block w-4 h-4 mr-1 text-yellow-500 mb-0.5" />
+					<div className="text-center mb-6 text-sm font-mono-tech font-bold text-[var(--tactical-accent-lime)]">
+						<Trophy className="inline-block w-4 h-4 mr-1 text-[var(--tactical-accent-lime)] mb-0.5" />
 						{tUI("cardGuess.run.dailySolvers", "Số người đã giải hôm nay: {count}").replace("{count}", dailySolvers)}
 					</div>
 				)}
 
 				{/* HUD hiển thị Mạng và Điểm cho Unlimited Run / Event */}
 				{(mode === "unlimited" || mode === "event") && runState && !showNameModal && (
-					<div className="flex justify-between items-center mb-6 px-6 py-3 bg-surface-bg border border-border rounded-2xl shadow-sm">
+					<div className="flex justify-between items-center mb-6 px-6 py-3.5 tactical-panel clip-chamfer-sm bg-[var(--tactical-panel-bg)] border border-[var(--tactical-card-border)] shadow-md">
 						<div className="flex items-center gap-2">
-							<span className="text-sm font-bold text-text-secondary uppercase">{tUI("cardGuess.run.lives", "Mạng")}:</span>
-							<div className="flex gap-1">
+							<span className="text-xs font-mono-tech font-bold text-text-secondary uppercase">{tUI("cardGuess.run.lives", "Mạng")}:</span>
+							<div className="flex gap-1.5">
 								{Array.from({ length: 3 }).map((_, i) => (
-									<Heart key={i} className={`w-5 h-5 ${i < runState.lives ? "fill-red-500 text-red-500" : "text-gray-600/30"}`} />
+									<Heart key={i} className={`w-5 h-5 ${i < runState.lives ? "fill-red-500 text-red-500 drop-shadow-[0_0_6px_rgba(239,68,68,0.5)]" : "text-gray-600/30"}`} />
 								))}
 							</div>
 						</div>
 						<div className="flex items-center gap-2">
-							<span className="text-sm font-bold text-text-secondary uppercase">{tUI("cardGuess.run.currentScore", "Điểm hiện tại")}:</span>
-							<span className="text-xl font-black text-primary-500">{runState.score}</span>
+							<span className="text-xs font-mono-tech font-bold text-text-secondary uppercase">{tUI("cardGuess.run.currentScore", "Điểm hiện tại")}:</span>
+							<span className="text-2xl font-mono-tech font-bold text-[var(--tactical-accent-lime)] drop-shadow-[0_0_8px_rgba(210,255,40,0.3)]">{runState.score}</span>
 						</div>
 					</div>
 				)}
