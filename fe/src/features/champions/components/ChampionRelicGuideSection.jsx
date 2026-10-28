@@ -276,9 +276,6 @@ const ChampionRelicGuideSection = ({
 									<span className="px-2.5 py-0.5 tactical-tab-active font-display uppercase text-xs tracking-wider clip-chamfer-sm">
 										{tUI("championDetail.tactical.loadoutOverview") || "Chi Tiết Bộ Trang Bị"}
 									</span>
-									<span className="text-xs font-mono-tech tactical-accent-cyan font-bold">
-										{currentBuild.difficulty}
-									</span>
 								</div>
 							</div>
 

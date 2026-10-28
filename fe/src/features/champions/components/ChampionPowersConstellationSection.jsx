@@ -15,6 +15,7 @@ import {
 	Info,
 } from "lucide-react";
 import MarkupRenderer from "@/components/common/MarkupRenderer";
+import SafeImage from "@/components/common/SafeImage";
 import ConstellationMap from "@/features/champions/components/constellationMap";
 
 const ICONS = {
@@ -188,7 +189,12 @@ const ChampionPowersConstellationSection = ({
 			const attachedItems = (cData.itemCodes || [])
 				.map((codeObj) => {
 					const codeStr = typeof codeObj === "string" ? codeObj : codeObj.itemCode;
-					return resolvedItems.find((i) => i.itemCode === codeStr);
+					const found = resolvedItems.find((i) => i.itemCode === codeStr);
+					if (!found) return null;
+					return {
+						...found,
+						unlockLevel: typeof codeObj === "object" ? codeObj.unlockLevel : undefined,
+					};
 				})
 				.filter(Boolean);
 
@@ -208,6 +214,7 @@ const ChampionPowersConstellationSection = ({
 				description: cardObj
 					? tDynamic(cardObj, "description") || tDynamic(cardObj, "descriptionRaw")
 					: "",
+				attachedItems,
 				attachedItemText: itemNames ? `+ ${itemNames}` : null,
 				tip: itemNames
 					? `Đã được nâng cấp qua cấp độ tướng với vật phẩm: ${itemNames}`
@@ -408,11 +415,36 @@ const ChampionPowersConstellationSection = ({
 												))}
 											</div>
 
-											{item.attachedItemText && (
+											{item.attachedItems && item.attachedItems.length > 0 ? (
+												<div className="flex items-center gap-1.5 py-1">
+													{item.attachedItems.map((attItem, attIdx) => {
+														const attImg = attItem.assetAbsolutePath || attItem.image || "/fallback-image.svg";
+														const attName = tDynamic(attItem, "name") || attItem.name;
+														return (
+															<div
+																key={attIdx}
+																className="relative group/att w-7 h-7 sm:w-8 sm:h-8 rounded tactical-box border border-[var(--tactical-accent-cyan)]/60 flex items-center justify-center p-0.5 hover:border-[var(--tactical-accent-lime)] transition hover:scale-110 shadow-sm"
+																title={attName}
+															>
+																<SafeImage
+																	src={attImg}
+																	alt={attName}
+																	className="w-full h-full object-contain"
+																/>
+																{attItem.unlockLevel && (
+																	<span className="absolute -top-1 -right-1 bg-yellow-500 text-black text-[8px] font-bold px-1 rounded-full leading-none shadow">
+																		{attItem.unlockLevel}
+																	</span>
+																)}
+															</div>
+														);
+													})}
+												</div>
+											) : item.attachedItemText ? (
 												<div className="text-xs tactical-accent-cyan font-mono-tech font-bold">
 													<MarkupRenderer text={item.attachedItemText} />
 												</div>
-											)}
+											) : null}
 
 											<div className="text-xs tactical-text-sub line-clamp-2 pt-0.5 leading-relaxed">
 												<MarkupRenderer text={item.description} />
@@ -452,12 +484,36 @@ const ChampionPowersConstellationSection = ({
 												<div className="text-xs tactical-text-main leading-relaxed">
 													<MarkupRenderer text={item.description} />
 												</div>
-												{item.attachedItemText && (
+												{item.attachedItems && item.attachedItems.length > 0 ? (
+													<div className="pt-1 space-y-1.5">
+														<div className="text-[11px] font-bold uppercase tracking-wider tactical-accent-cyan">
+															{tUI("championDetail.tactical.attachedItem") || "Vật phẩm nâng cấp"}:
+														</div>
+														<div className="flex flex-wrap gap-2">
+															{item.attachedItems.map((attItem, attIdx) => {
+																const attImg = attItem.assetAbsolutePath || attItem.image || "/fallback-image.svg";
+																const attName = tDynamic(attItem, "name") || attItem.name;
+																return (
+																	<div
+																		key={attIdx}
+																		className="flex items-center gap-1.5 px-2 py-1 bg-black/50 border border-[var(--tactical-accent-cyan)]/40 rounded clip-chamfer-sm"
+																		title={attName}
+																	>
+																		<SafeImage src={attImg} alt={attName} className="w-5 h-5 object-contain" />
+																		<span className="text-xs tactical-accent-cyan font-mono-tech font-bold">
+																			{attName}
+																		</span>
+																	</div>
+																);
+															})}
+														</div>
+													</div>
+												) : item.attachedItemText ? (
 													<div className="text-xs tactical-accent-cyan font-mono-tech pt-1">
 														<strong>{tUI("championDetail.tactical.attachedItem") || "Vật phẩm nâng cấp"}:</strong>{" "}
 														<MarkupRenderer text={item.attachedItemText} />
 													</div>
-												)}
+												) : null}
 												<div className="pt-2 border-t border-inherit flex items-center justify-between text-[11px] font-mono-tech">
 													<span className="tactical-text-dim">
 														{tUI("championDetail.tactical.unlockCost") || "Điều kiện mở"}:
@@ -558,12 +614,45 @@ const ChampionPowersConstellationSection = ({
 											</div>
 										</div>
 
-										{selectedItem?.attachedItemText && (
+										{selectedItem?.attachedItems && selectedItem.attachedItems.length > 0 ? (
+											<div className="p-3 bg-[var(--tactical-accent-cyan)]/10 border border-[var(--tactical-accent-cyan)]/40 clip-chamfer-sm space-y-2">
+												<div className="text-xs uppercase font-bold tracking-wider tactical-accent-cyan">
+													{tUI("championDetail.tactical.attachedItem") || "Vật phẩm nâng cấp"}:
+												</div>
+												<div className="flex flex-col gap-2">
+													{selectedItem.attachedItems.map((attItem, attIdx) => {
+														const attImg = attItem.assetAbsolutePath || attItem.image || "/fallback-image.svg";
+														const attName = tDynamic(attItem, "name") || attItem.name;
+														const attDesc = tDynamic(attItem, "description") || attItem.description;
+														return (
+															<div
+																key={attIdx}
+																className="flex items-center gap-2.5 p-2 bg-black/50 border border-[var(--tactical-accent-cyan)]/30 rounded clip-chamfer-sm"
+															>
+																<div className="w-8 h-8 rounded border tactical-box flex items-center justify-center p-0.5 shrink-0 overflow-hidden">
+																	<SafeImage src={attImg} alt={attName} className="w-full h-full object-contain" />
+																</div>
+																<div className="min-w-0">
+																	<div className="text-xs font-bold tactical-accent-cyan truncate">
+																		{attName}
+																	</div>
+																	{attDesc && (
+																		<div className="text-[11px] tactical-text-sub line-clamp-2 leading-tight">
+																			<MarkupRenderer text={attDesc} />
+																		</div>
+																	)}
+																</div>
+															</div>
+														);
+													})}
+												</div>
+											</div>
+										) : selectedItem?.attachedItemText ? (
 											<div className="p-3 bg-[var(--tactical-accent-cyan)]/10 border border-[var(--tactical-accent-cyan)]/40 clip-chamfer-sm text-xs font-mono-tech tactical-accent-cyan">
 												<strong>{tUI("championDetail.tactical.attachedItem") || "Vật phẩm nâng cấp"}:</strong>{" "}
 												<MarkupRenderer text={selectedItem.attachedItemText} />
 											</div>
-										)}
+										) : null}
 
 										<div className="pt-3 border-t tactical-section flex items-center justify-between text-xs">
 											<span className="tactical-text-dim uppercase font-bold tracking-wider">

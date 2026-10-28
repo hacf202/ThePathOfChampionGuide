@@ -164,9 +164,6 @@ const ChampionPriorityItemsSection = ({
 											<h4 className="font-display text-base uppercase italic tracking-wide tactical-text-main truncate" title={entity.name}>
 												{entity.name}
 											</h4>
-											<div className="text-[11px] tactical-accent-cyan font-mono-tech">
-												{entity.typeLabel}
-											</div>
 										</div>
 									</div>
 
