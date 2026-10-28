@@ -102,7 +102,7 @@ const ChampionTableOfContents = ({ tUI }) => {
 						<div className="flex items-center space-x-2">
 							<span className="w-2 h-2 rounded-full bg-[var(--tactical-accent-lime)] animate-pulse" />
 							<span className="text-[11px] font-mono-tech uppercase tracking-widest tactical-accent-lime font-bold">
-								POC // MỤC LỤC
+								{tUI("championDetail.tactical.tocTitle") || "Mục Lục"}
 							</span>
 						</div>
 					) : (
@@ -113,7 +113,7 @@ const ChampionTableOfContents = ({ tUI }) => {
 						type="button"
 						onClick={() => setIsCollapsed(!isCollapsed)}
 						className="p-1 tactical-text-dim hover:tactical-text-main hover:tactical-box rounded transition"
-						title={isCollapsed ? "Mở rộng mục lục" : "Thu gọn"}
+						title={isCollapsed ? (tUI("championDetail.tactical.expandToc") || "Mở rộng mục lục") : (tUI("championDetail.tactical.collapseToc") || "Thu gọn")}
 					>
 						{isCollapsed ? <ChevronLeft className="w-3.5 h-3.5" /> : <ListCollapse className="w-3.5 h-3.5" />}
 					</button>

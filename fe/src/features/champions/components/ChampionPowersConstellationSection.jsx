@@ -55,16 +55,16 @@ function getLevelProgressData(tUI, upgrades = []) {
 		{ level: 17, exp: 1690, desc: tUI("championLevelRewards.rewards.supportCardsCommon") || "Đồ Thường cho Bộ Hỗ Trợ", icon: ICONS.common },
 		{ level: 18, exp: 1860, desc: tUI("championLevelRewards.rewards.findLegendary2") || "+2% Nhận Đồ Huyền Thoại", icon: ICONS.legendary },
 		{ level: 19, exp: 2040, desc: tUI("championLevelRewards.rewards.secondRelicRare") || "Nâng cấp Ô Cổ Vật 2 lên Hiếm", icon: ICONS.rareRelic },
-		{ level: 20, exp: 2220, desc: "Rút Tướng ở Lượt Đầu (Draw Champion at Game Start)", icon: ICONS.legendary },
+		{ level: 20, exp: 2220, desc: tUI("championLevelRewards.rewards.drawChampionStart") || "Rút Tướng ở Lượt Đầu (Draw Champion at Game Start)", icon: ICONS.legendary },
 		{ level: 21, exp: 2410 },
 		{ level: 22, exp: 2610, regen: 4 },
-		{ level: 23, exp: 2810, desc: "Vật Phẩm Hiếm cho Bài Hỗ Trợ", icon: ICONS.rare },
+		{ level: 23, exp: 2810, desc: tUI("championLevelRewards.rewards.supportCardsRare") || "Vật Phẩm Hiếm cho Bài Hỗ Trợ", icon: ICONS.rare },
 		{ level: 24, exp: 3020 },
 		{ level: 25, exp: 3230, desc: tUI("championLevelRewards.rewards.thirdRelicUnlocked") || "Mở khóa ô Cổ Vật 3", icon: ICONS.firstRelic },
 		{ level: 26, exp: 3450 },
 		{ level: 27, exp: 3670 },
 		{ level: 28, exp: 3900, health: 40 },
-		{ level: 29, exp: 4140, desc: "Vật Phẩm Sử Thi cho Tướng Phụ", icon: ICONS.epic },
+		{ level: 29, exp: 4140, desc: tUI("championLevelRewards.rewards.supportEpicItem") || "Vật Phẩm Sử Thi cho Tướng Phụ", icon: ICONS.epic },
 		{ level: 30, exp: 4370, desc: tUI("championLevelRewards.rewards.thirdRelicRare") || "Nâng cấp Ô Cổ Vật 3 lên Hiếm", icon: ICONS.rareRelic },
 	];
 
@@ -84,6 +84,7 @@ const ChampionPowersConstellationSection = ({
 	resolvedItems = [],
 	tUI,
 	tDynamic,
+	language = "vi",
 	onOpenCarousel,
 }) => {
 	// 4 Tabs theo chỉ định:
@@ -103,16 +104,15 @@ const ChampionPowersConstellationSection = ({
 			tierBadge: `${node.starLevel || idx + 1}★`,
 			name: node.name || `Star Power ${idx + 1}`,
 			badges: [
-				`${node.starLevel || idx + 1}★ Star Power`,
-				idx + 1 === 2 ? "+1 Starting Mana" : idx + 1 === 6 ? "Apex 6★ Power" : "Passive Synergy",
+				idx + 1 === 2 ? "+1 Starting Mana" : idx + 1 === 6 ? "Apex 6★ Power" : `${node.starLevel || idx + 1}★ ${tUI("championDetail.tactical.starPowerBadge") || "Star Power"}`,
 			],
 			cost: idx === 5 ? "Nova Crystal / Shards" : `${(idx + 1) * 10} Champion Fragments`,
 			img: node.image || champion?.assets?.[0]?.avatar,
 			description: node.description || "",
-			tip: "Kích hoạt thụ động vĩnh viễn suốt toàn bộ trận đấu.",
+			tip: tUI("championDetail.tactical.passiveGameLong") || "Permanently active passive effect throughout the entire game.",
 			raw: node,
 		}));
-	}, [starPowersList, champion]);
+	}, [starPowersList, champion, tUI]);
 
 	// Danh sách Bonus Stars
 	const formattedBonusStars = useMemo(() => {
@@ -128,10 +128,10 @@ const ChampionPowersConstellationSection = ({
 			cost: "Star Crystals / Gemstones",
 			img: node.image || "/images/placeholder.png",
 			description: node.description || "",
-			tip: "Nâng cấp chỉ số và mở rộng sức mạnh chòm sao.",
+			tip: tUI("championDetail.tactical.bonusStarTip") || "Stat upgrades and constellation enhancement.",
 			raw: node,
 		}));
-	}, [bonusStarsList]);
+	}, [bonusStarsList, tUI]);
 
 	// Danh sách Levels (hiển thị các cấp có nâng cấp quan trọng)
 	const formattedLevels = useMemo(() => {
@@ -273,40 +273,18 @@ const ChampionPowersConstellationSection = ({
 	};
 
 	return (
-		<section id="powers-constellation" className="py-20 border-b tactical-section relative bg-halftone">
+		<section id="powers-constellation" className="py-12 sm:py-20 border-b tactical-section relative bg-halftone">
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-				{/* Section Header + Core Synergy Callout Box */}
-				<div className="flex flex-col lg:flex-row lg:items-end justify-between mb-8 sm:mb-10 gap-4 sm:gap-6">
-					<div>
-						<div className="tactical-accent-lime font-bold uppercase tracking-widest text-[11px] sm:text-xs flex items-center space-x-2">
-							<span>{tUI("championDetail.tactical.powersSub") || "HỆ THỐNG NÂNG CẤP // BẬC TƯỚNG & CHÒM SAO"}</span>
-						</div>
-						<h2 className="font-display text-3xl sm:text-5xl lg:text-6xl uppercase italic tracking-tight tactical-text-main mt-1 sm:mt-2">
-							{tUI("championDetail.tactical.powersTitle") || "BẢNG SỨC MẠNH & CHÒM SAO"}
-						</h2>
-					</div>
-
-					{/* Core Synergy Engine Box - tối ưu kích thước trên mobile */}
-					<div className="tactical-panel border border-[var(--tactical-accent-cyan)]/50 p-3.5 sm:p-5 clip-chamfer max-w-xl shadow-lg">
-						<div className="flex items-center space-x-2">
-							<span className="px-2 py-0.5 tactical-tab-active font-bold text-[10px] sm:text-xs uppercase tracking-wider">
-								{tUI("championDetail.tactical.coreSynergy") || "CƠ CHẾ CỐT LÕI"}
-							</span>
-							<h3 className="font-display text-base sm:text-xl uppercase italic tracking-wide tactical-text-main truncate">
-								{tDynamic(champion, "name")} // CONSTELLATION ENGINE
-							</h3>
-						</div>
-						<p className="tactical-text-sub text-xs sm:text-sm mt-1.5 sm:mt-2 leading-relaxed">
-							{tDynamic(champion, "description")
-								? tDynamic(champion, "description").slice(0, 160) + "..."
-								: "Kết hợp giữa các mốc cấp độ, sức mạnh sao và các nút tăng thưởng để phát huy tối đa sức mạnh của vị tướng."}
-						</p>
-					</div>
+				{/* Section Header: Sạch sẽ, không subheader thừa */}
+				<div className="mb-6 sm:mb-8">
+					<h2 className="font-display text-3xl sm:text-4xl lg:text-5xl uppercase italic tracking-tight tactical-text-main">
+						{tUI("championDetail.tactical.powersTitle") || "Bảng Sức Mạnh & Chòm Sao"}
+					</h2>
 				</div>
 
-				{/* 4 Tabs Selector + Inspector / Star Map Toggle */}
-				<div className="flex flex-wrap items-center justify-between gap-4 mb-8 border-b tactical-section pb-4">
-					<div className="flex flex-wrap gap-2">
+				{/* 4 Tabs Selector + Inspector / Star Map Toggle (Tối ưu cuộn ngang mượt mà trên mobile) */}
+				<div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 sm:mb-8 border-b tactical-section pb-4">
+					<div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 sm:pb-0">
 						{[
 							{
 								key: "LEVELS",
@@ -324,7 +302,7 @@ const ChampionPowersConstellationSection = ({
 									key={tab.key}
 									type="button"
 									onClick={() => setActiveTab(tab.key)}
-									className={`font-display uppercase tracking-wider px-5 py-2 text-sm sm:text-base clip-chamfer-sm transition border ${
+									className={`font-display uppercase tracking-wider px-4 sm:px-5 py-2 text-xs sm:text-sm clip-chamfer-sm transition border shrink-0 whitespace-nowrap ${
 										isActive
 											? "tactical-tab-active"
 											: "tactical-tab-inactive hover:border-[var(--tactical-accent-lime)]"
@@ -337,11 +315,11 @@ const ChampionPowersConstellationSection = ({
 					</div>
 
 					{/* Toggle Inspector & Constellation Map */}
-					<div className="flex items-center tactical-box border p-1 clip-chamfer-sm">
+					<div className="flex items-center tactical-box border p-1 clip-chamfer-sm shrink-0 self-start sm:self-auto">
 						<button
 							type="button"
 							onClick={() => setPreviewMode("INSPECTOR")}
-							className={`px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition clip-chamfer-sm flex items-center gap-1.5 ${
+							className={`px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition clip-chamfer-sm flex items-center gap-1.5 whitespace-nowrap ${
 								previewMode === "INSPECTOR" ? "tactical-tab-active" : "tactical-text-dim hover:tactical-text-main"
 							}`}
 						>
@@ -351,7 +329,7 @@ const ChampionPowersConstellationSection = ({
 						<button
 							type="button"
 							onClick={() => setPreviewMode("STARMAP")}
-							className={`px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition clip-chamfer-sm flex items-center gap-1.5 ${
+							className={`px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition clip-chamfer-sm flex items-center gap-1.5 whitespace-nowrap ${
 								previewMode === "STARMAP" ? "tactical-tab-active" : "tactical-text-dim hover:tactical-text-main"
 							}`}
 						>
@@ -361,10 +339,34 @@ const ChampionPowersConstellationSection = ({
 					</div>
 				</div>
 
-				{/* 2-Column Tactical Moves Layout */}
-				<div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-					{/* Left Column (7 cols): List of Ability / Star Power / Milestone Rows */}
-					<div className="lg:col-span-7 space-y-3">
+				{/* Chế độ Bản Đồ Sao Toàn Diện (Hiển thị mượt mà trên CẢ MOBILE LẪN DESKTOP) */}
+				{previewMode === "STARMAP" ? (
+					<div className="tactical-panel border clip-chamfer p-2 sm:p-5 shadow-xl animate-fadeIn">
+						<div className="flex items-center justify-between mb-3 px-2">
+							<span className="text-xs font-mono-tech tactical-accent-lime font-bold uppercase">
+								// {tUI("championDetail.tactical.starMapMode") || "Bản Đồ Chòm Sao"}
+							</span>
+							<button
+								type="button"
+								onClick={() => setPreviewMode("INSPECTOR")}
+								className="text-xs tactical-accent-cyan hover:underline font-mono-tech"
+							>
+								{tUI("championDetail.tactical.backToList") || "← Quay lại danh sách"}
+							</button>
+						</div>
+						{constellationInfo?.nodes?.length > 0 ? (
+							<ConstellationMap constellationInfo={constellationInfo} />
+						) : (
+							<div className="p-10 text-center tactical-text-dim font-mono-tech text-xs">
+								{tUI("championDetail.tactical.noStarmap") || "Chưa có bản đồ chòm sao cho vị tướng này."}
+							</div>
+						)}
+					</div>
+				) : (
+					/* 2-Column Tactical Moves Layout */
+					<div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+						{/* Left Column (7 cols): List of Ability / Star Power / Milestone Rows */}
+						<div className="lg:col-span-7 space-y-3">
 						{currentList.map((item) => {
 							const isSelected = selectedItem && item.id === selectedItem.id;
 							return (
@@ -425,28 +427,20 @@ const ChampionPowersConstellationSection = ({
 									{/* Inline Mobile Detail Inspector (Chỉ hiển thị trên mobile khi mục được chọn để xem ngay lập tức mà không cần cuộn) */}
 									{isSelected && (
 										<div className="block lg:hidden mt-3 pt-3 border-t tactical-section animate-fadeIn space-y-3">
-											{item.img && (
+											{item.category === "STARTING_DECK" && item.img && (
 												<div
 													onClick={() => {
 														if (item.cardObj && onOpenCarousel) {
 															onOpenCarousel(item.cardObj, item.cardCode);
 														}
 													}}
-													className={`relative w-full bg-black/90 overflow-hidden clip-chamfer-sm flex items-center justify-center p-2 ${
-														item.category === "STARTING_DECK" ? "h-64 sm:h-72 cursor-pointer" : "h-44"
-													}`}
-													title={item.category === "STARTING_DECK" ? "Chạm để xem ảnh lá bài đầy đủ" : ""}
+													className="relative w-full bg-black/90 overflow-hidden clip-chamfer-sm flex items-center justify-center p-2 h-64 sm:h-72 cursor-pointer"
+													title="Chạm để xem ảnh lá bài đầy đủ"
 												>
 													<img
 														src={item.img}
 														alt={item.name}
-														className={`w-full h-full ${
-															item.category === "STARTING_DECK"
-																? "object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]"
-																: item.category === "LEVELS"
-																? "object-cover object-top opacity-85"
-																: "object-cover opacity-80"
-														}`}
+														className="w-full h-full object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]"
 													/>
 													<div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
 												</div>
@@ -503,12 +497,12 @@ const ChampionPowersConstellationSection = ({
 
 					{/* Right Column (5 cols): Sticky Inspector Monitor OR Interactive Constellation Map (Chỉ hiển thị trên desktop >= lg) */}
 					<div className="hidden lg:block lg:col-span-5 lg:sticky lg:top-24">
-						<div className="tactical-panel border-2 clip-chamfer overflow-hidden shadow-2xl">
+						<div className="tactical-panel border clip-chamfer overflow-hidden shadow-xl">
 							<div className="tactical-box px-5 py-3 border-b border-inherit flex items-center justify-between">
 								<div className="flex items-center space-x-2">
 									<span className="w-2.5 h-2.5 rounded-full bg-[var(--tactical-accent-lime)] animate-pulse" />
-									<span className="text-xs font-bold uppercase tracking-widest tactical-accent-lime">
-										{activeTab.replace("_", " ")} // TELEMETRY
+									<span className="text-xs font-bold uppercase tracking-wider tactical-accent-lime">
+										{tUI("championDetail.tactical.inspectorTitle") || "Chi Tiết Nâng Cấp"}
 									</span>
 								</div>
 								<span className="text-xs font-mono-tech tactical-accent-cyan font-bold">
@@ -516,7 +510,7 @@ const ChampionPowersConstellationSection = ({
 								</span>
 							</div>
 
-							{previewMode === "INSPECTOR" ? (
+							{previewMode === "INSPECTOR" && (
 								<div>
 									{/* Inspector Artwork / Card preview */}
 									<div className={`relative w-full bg-black overflow-hidden flex items-center justify-center ${
@@ -539,10 +533,6 @@ const ChampionPowersConstellationSection = ({
 
 										{selectedItem?.category !== "STARTING_DECK" && (
 											<div className="relative z-10 text-center px-6">
-												<div className="inline-flex items-center space-x-2 bg-black/85 border border-white/20 px-3 py-1 text-[11px] uppercase tracking-widest tactical-accent-cyan mb-2">
-													<Sparkles className="w-3.5 h-3.5" />
-													<span>{tUI("championDetail.tactical.inspectorMode") || "TELEMETRY DEMONSTRATION"}</span>
-												</div>
 												<h4 className="font-display text-3xl sm:text-4xl uppercase italic text-white drop-shadow-[0_4px_10px_rgba(0,0,0,0.9)]">
 													{selectedItem?.name || ""}
 												</h4>
@@ -551,7 +541,7 @@ const ChampionPowersConstellationSection = ({
 
 										<div className="absolute bottom-3 left-4 right-4 flex items-center justify-between tactical-box backdrop-blur px-4 py-2 border-l-4 border-[var(--tactical-accent-lime)] border">
 											<span className="text-[11px] font-bold uppercase tracking-widest tactical-text-dim">
-												{tUI("championDetail.tactical.nodeTier") || "NODE TIER"}
+												{tUI("championDetail.tactical.nodeTier") || "BẬC"}
 											</span>
 											<div>{selectedItem && renderChip(selectedItem.tierBadge)}</div>
 										</div>
@@ -575,7 +565,6 @@ const ChampionPowersConstellationSection = ({
 											</div>
 										)}
 
-
 										<div className="pt-3 border-t tactical-section flex items-center justify-between text-xs">
 											<span className="tactical-text-dim uppercase font-bold tracking-wider">
 												{tUI("championDetail.tactical.unlockCost") || "Điều kiện mở"}:
@@ -586,21 +575,11 @@ const ChampionPowersConstellationSection = ({
 										</div>
 									</div>
 								</div>
-							) : (
-								/* Starmap Interactive View */
-								<div className="p-2 sm:p-4 tactical-page">
-									{constellationInfo?.nodes?.length > 0 ? (
-										<ConstellationMap constellationInfo={constellationInfo} />
-									) : (
-										<div className="p-10 text-center tactical-text-dim font-mono-tech text-xs">
-											Chưa có bản đồ chòm sao cho vị tướng này.
-										</div>
-									)}
-								</div>
 							)}
 						</div>
 					</div>
 				</div>
+			)}
 			</div>
 		</section>
 	);

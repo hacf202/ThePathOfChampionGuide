@@ -9,6 +9,7 @@ const ChampionRosterSection = ({
 	currentChampion,
 	tUI,
 	tDynamic,
+	language = "vi",
 }) => {
 	if (!allChampions || allChampions.length === 0) return null;
 
@@ -26,22 +27,17 @@ const ChampionRosterSection = ({
 	if (roster.length === 0) return null;
 
 	return (
-		<section id="roster" className="py-20 border-b tactical-section">
+		<section id="roster" className="py-12 sm:py-20 border-b tactical-section">
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-				<div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
-					<div>
-						<div className="tactical-accent-lime font-bold uppercase tracking-widest text-xs sm:text-sm">
-							{tUI("championDetail.tactical.rosterSub") || "// CHỌN VỊ TƯỚNG TIẾP THEO ĐỂ TRA CỨU"}
-						</div>
-						<h2 className="font-display text-5xl sm:text-6xl uppercase italic tactical-text-main mt-1">
-							{tUI("championDetail.tactical.rosterTitle") || "KHÁM PHÁ CÁC TƯỚNG KHÁC"}
-						</h2>
-					</div>
+				<div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+					<h2 className="font-display text-3xl sm:text-4xl lg:text-5xl uppercase italic tactical-text-main">
+						{tUI("championDetail.tactical.rosterTitle") || "Khám Phá Các Tướng Khác"}
+					</h2>
 					<Link
 						to="/champions"
 						className="inline-flex items-center space-x-1.5 text-xs font-mono-tech uppercase tactical-accent-cyan hover:text-[var(--tactical-accent-lime)] transition"
 					>
-						<span>XEM TOÀN BỘ DANH SÁCH</span>
+						<span>{tUI("championDetail.tactical.viewAllRoster") || "XEM TOÀN BỘ DANH SÁCH"}</span>
 						<ChevronRight className="w-4 h-4" />
 					</Link>
 				</div>

@@ -161,15 +161,8 @@ const ChampionHeroSection = ({
 	return (
 		<section
 			id="hero"
-			className="relative overflow-hidden border-b tactical-section pt-10 pb-20 lg:py-20 bg-halftone bg-hazard-stripes"
+			className="relative overflow-hidden border-b tactical-section pt-8 pb-16 lg:py-16 bg-halftone"
 		>
-			{/* Giant Background Hollow Stroke Text */}
-			<div className="absolute -top-6 left-0 right-0 pointer-events-none select-none overflow-hidden">
-				<div className="font-display text-[8rem] sm:text-[14rem] lg:text-[18rem] leading-none uppercase italic stroke-giant tracking-tighter whitespace-nowrap">
-					{champName} // {regionName}
-				</div>
-			</div>
-
 			{/* Ambient Neon Glows */}
 			<div
 				className="absolute top-1/4 right-10 w-96 h-96 rounded-full blur-[140px] pointer-events-none opacity-20"
@@ -181,34 +174,30 @@ const ChampionHeroSection = ({
 			/>
 
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-				<div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-					{/* Left Column (7 cols): Title, Lore Quote, 2x2 Tactical Grid & 6-Axis Matrix */}
+				<div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+					{/* Left Column (7 cols): Title, Lore Quote, Integrated Tactical Stats & Ratings */}
 					<div className="lg:col-span-7 space-y-6">
-						{/* Top Slanted Status Bar */}
+						{/* Top Status Bar: Khu Vực + Max Stars */}
 						<div className="flex flex-wrap items-center gap-3">
-							<div className="inline-flex items-center space-x-2 tactical-card border border-[var(--tactical-accent-cyan)]/50 px-3.5 py-1 clip-chamfer-sm">
-								<span className="w-2 h-2 bg-[var(--tactical-accent-cyan)] rounded-full animate-ping" />
-								<span className="tactical-accent-cyan font-bold uppercase tracking-widest text-xs">
+							<div className="inline-flex items-center space-x-2 tactical-card border border-[var(--tactical-accent-cyan)]/40 px-3 py-1 clip-chamfer-sm">
+								<span className="w-2 h-2 bg-[var(--tactical-accent-cyan)] rounded-full animate-pulse" />
+								<span className="tactical-accent-cyan font-bold uppercase tracking-wider text-xs">
 									{regionName}
 								</span>
 							</div>
 
-							<div className="inline-flex items-center space-x-1.5 tactical-tab-active px-3 py-1 font-display uppercase text-xs tracking-wider transform -skew-x-12">
+							<div className="inline-flex items-center space-x-1.5 tactical-tab-active px-3 py-1 font-display uppercase text-xs tracking-wider clip-chamfer-sm">
 								<Star className="w-3.5 h-3.5 fill-current" />
-								<span>{tUI("championDetail.tactical.maxConstellation") || "MAX CONSTELLATION"} {champion.maxStar || 6}★</span>
+								<span>{tUI("championDetail.tactical.maxConstellation") || "Chòm Sao Tối Đa"} {champion.maxStar || 6}★</span>
 							</div>
-
-							<span className="font-mono-tech text-xs tactical-text-sub tactical-box px-2.5 py-1 border clip-chamfer-sm">
-								ID: {champion.championID}
-							</span>
 						</div>
 
 						{/* Giant Champion Name */}
-						<div className="flex items-baseline justify-between">
+						<div>
 							<h1
-								className="font-display text-6xl sm:text-8xl lg:text-9xl uppercase italic tracking-tight leading-none tactical-text-main"
+								className="font-display text-6xl sm:text-7xl lg:text-8xl uppercase italic tracking-tight leading-none tactical-text-main"
 								style={{
-									textShadow: `0 6px 0 ${palette.accent}30`,
+									textShadow: `0 4px 16px ${palette.accent}25`,
 								}}
 							>
 								{champName}
@@ -216,19 +205,19 @@ const ChampionHeroSection = ({
 						</div>
 
 						{/* Mobile-only Card & Splash Visualizer (Chỉ hiển thị trên mobile, nằm ngay dưới tên tướng) */}
-						<div className="block lg:hidden my-4 relative">
+						<div className="block lg:hidden my-3 relative">
 							<div className="relative mx-auto max-w-sm sm:max-w-md">
 								<div
-									className="absolute -inset-2 opacity-35 clip-chamfer blur-sm transition-colors duration-500"
+									className="absolute -inset-1.5 opacity-30 clip-chamfer blur-sm transition-colors duration-500"
 									style={{
 										background: `linear-gradient(135deg, ${palette.accent}, ${palette.secondary}, transparent)`,
 									}}
 								/>
-								<div className="relative tactical-panel border-2 clip-chamfer overflow-hidden group shadow-xl">
+								<div className="relative tactical-panel border clip-chamfer overflow-hidden group shadow-lg">
 									{/* Top Overlay */}
 									<div className="absolute top-3 left-3 right-3 z-20 flex items-center justify-between">
 										<div className="inline-flex items-center space-x-1 tactical-tab-active px-2.5 py-0.5 font-display uppercase text-[11px] tracking-wider clip-chamfer-sm">
-											<span>{tUI("championDetail.tactical.level1Form") || "LEVEL 1 FORM"}</span>
+											<span>{tUI("championDetail.tactical.level1Form") || "Dạng Cơ Bản"}</span>
 										</div>
 
 										<div className="flex items-center space-x-1.5 tactical-box border px-2 py-0.5 font-mono-tech text-[11px]">
@@ -245,11 +234,11 @@ const ChampionHeroSection = ({
 									</div>
 
 									{/* Main Splash Artwork */}
-									<div className="relative h-[340px] sm:h-[380px] w-full bg-black overflow-hidden">
+									<div className="relative h-[320px] sm:h-[360px] w-full bg-black overflow-hidden">
 										<img
 											src={splashImg}
 											alt={champName}
-											className="w-full h-full object-cover object-center contrast-110"
+											className="w-full h-full object-cover object-center contrast-105"
 										/>
 										<div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
 
@@ -257,8 +246,8 @@ const ChampionHeroSection = ({
 										{cardImg && (
 											<div
 												onClick={() => (currentCard || champion.cardCode) && onOpenCarousel && onOpenCarousel(currentCard, currentCard?.cardCode || champion.cardCode)}
-												className="absolute bottom-16 right-3 w-24 sm:w-28 drop-shadow-[0_8px_16px_rgba(0,0,0,0.9)] cursor-pointer"
-												title="Click to view full card"
+												className="absolute bottom-14 right-3 w-24 sm:w-28 drop-shadow-[0_8px_16px_rgba(0,0,0,0.9)] cursor-pointer"
+												title={tUI("championDetail.tactical.zoomCardHint") || "Click to zoom card"}
 											>
 												<SafeImage
 													src={cardImg}
@@ -299,144 +288,161 @@ const ChampionHeroSection = ({
 						</div>
 
 						{/* Lore & Tactical Quote */}
-						<div className="relative tactical-text-main text-sm sm:text-base leading-relaxed border-l-4 border-[var(--tactical-accent-lime)] pl-5 py-2 tactical-card backdrop-blur-sm clip-chamfer-sm">
-							<div className={!isDescriptionExpanded ? "line-clamp-4" : ""}>
+						<div className="relative tactical-text-main text-sm sm:text-base leading-relaxed border-l-4 border-[var(--tactical-accent-lime)] pl-4 py-2.5 tactical-card backdrop-blur-sm clip-chamfer-sm">
+							<div className={!isDescriptionExpanded ? "line-clamp-3" : ""}>
 								<MarkupRenderer text={tDynamic(champion, "description") || tDynamic(champion, "descriptionRaw")} />
 							</div>
-							{(tDynamic(champion, "description") || "").length > 250 && (
+							{(tDynamic(champion, "description") || "").length > 200 && (
 								<button
 									type="button"
 									onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
-									className="tactical-accent-lime text-xs font-mono-tech font-bold uppercase hover:underline mt-2 inline-flex items-center gap-1"
+									className="tactical-accent-lime text-xs font-mono-tech font-bold uppercase hover:underline mt-1.5 inline-flex items-center gap-1"
 								>
-									<span>{isDescriptionExpanded ? tUI("championDetail.showLess") : tUI("championDetail.showMore")}</span>
+									<span>{isDescriptionExpanded ? (tUI("championDetail.showLess") || "Thu gọn") : (tUI("championDetail.showMore") || "Xem thêm")}</span>
 									<ChevronRight className={`w-3.5 h-3.5 transition-transform ${isDescriptionExpanded ? "-rotate-90" : "rotate-90"}`} />
 								</button>
 							)}
 						</div>
 
-						{/* 2x2 Tactical Grid */}
-						<div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1">
-							{/* Region */}
-							<div className="tactical-card border p-4 clip-chamfer-sm hover:border-[var(--tactical-accent-lime)]/70 transition">
-								<div className="text-[11px] font-bold uppercase tracking-widest tactical-text-dim">
-									{tUI("championDetail.tactical.region") || "Khu Vực"}
-								</div>
-								<div className="text-base sm:text-lg font-bold tactical-text-main mt-1 flex items-center justify-between">
-									<span>{champion.regions?.join(" • ") || "Runeterra"}</span>
-									{champion.regions?.[0] && (
-										<img
-											src={
-												iconRegions.find((item) => getRegionKey(item.name) === getRegionKey(champion.regions[0]))
-													?.image || "/fallback-image.svg"
-											}
-											alt={champion.regions[0]}
-											className="w-7 h-7 object-contain"
-										/>
-									)}
-								</div>
-							</div>
-
-							{/* Play Style / Lối Chơi */}
-							<div className="tactical-card border p-4 clip-chamfer-sm hover:border-[var(--tactical-accent-lime)]/70 transition">
-								<div className="text-[11px] font-bold uppercase tracking-widest tactical-text-dim">
-									{tUI("championDetail.tactical.playStyle", "Lối Chơi")}
-								</div>
-								<div className="text-base sm:text-lg font-bold tactical-accent-cyan mt-1 flex items-center justify-between">
-									<span className="truncate">{tDynamic(champion, "playStyle") || champion.playStyle || "Standard Aggro/Control"}</span>
-									<span className="tactical-accent-cyan text-xs font-mono-tech">[02]</span>
-								</div>
-							</div>
-
-							{/* Tier / Xếp Hạng */}
-							<div className="tactical-card border p-4 clip-chamfer-sm hover:border-[var(--tactical-accent-lime)]/70 transition">
-								<div className="text-[11px] font-bold uppercase tracking-widest tactical-text-dim">
-									{tUI("championDetail.tactical.tier", "Xếp Hạng")}
-								</div>
-								<div className="text-sm sm:text-base font-semibold tactical-accent-lime mt-1">
-									{tDynamic(champion, "tier") || champion.tier || (stats.damage >= 8 ? "S Tier // Sát Thương Đột Biến" : "A Tier // Cân Bằng & Ổn Định")}
-								</div>
-							</div>
-
-							{/* Optimal Star Level */}
-							<div className="tactical-card border p-4 clip-chamfer-sm hover:border-[var(--tactical-accent-lime)]/70 transition">
-								<div className="text-[11px] font-bold uppercase tracking-widest tactical-text-dim flex items-center gap-1.5">
-									<Star className="w-3.5 h-3.5 text-amber-400 fill-current" />
-									<span>{tUI("championDetail.tactical.optimalStars", "Optimal Star Level")}</span>
-								</div>
-								<div className="text-sm sm:text-base font-bold text-amber-400 mt-1 flex items-center justify-between">
-									<span>{tDynamic(champion, "optimalStars") || champion.optimalStars || (champion.maxStar >= 6 ? "3★ - 4★" : "3★")}</span>
-									<span className="tactical-accent-cyan text-xs font-mono-tech">[REC]</span>
-								</div>
-							</div>
-
-							{/* Power Spike */}
-							<div className="tactical-card border p-4 clip-chamfer-sm hover:border-[var(--tactical-accent-lime)]/70 transition sm:col-span-2">
-								<div className="text-[11px] font-bold uppercase tracking-widest tactical-text-dim flex items-center gap-1.5">
-									<Zap className="w-3.5 h-3.5 text-yellow-400 fill-current" />
-									<span>{tUI("championDetail.tactical.powerSpike", "Power Spike")}</span>
-								</div>
-								<div className="text-xs sm:text-sm font-semibold tactical-text-main mt-1 line-clamp-2">
-									{tDynamic(champion, "powerSpike") || champion.powerSpike || (champion.counter ? champion.counter : "3★ // Tăng tốc nhịp độ & bùng nổ cơ chế chính")}
-								</div>
-							</div>
-						</div>
-
-						{/* 4-Axis Tactical Playstyle Matrix */}
-						<div className="tactical-card border p-4 sm:p-5 clip-chamfer-sm">
-							<div className="flex items-center justify-between mb-3">
-								<span className="text-xs font-bold uppercase tracking-widest tactical-accent-lime flex items-center gap-2">
-									<Activity className="w-4 h-4" />
-									{tUI("championDetail.tactical.playstyleRadar") || "Ma Trận Chỉ Số Chiến Thuật"}
-								</span>
-								<span className="text-[11px] font-mono-tech tactical-accent-cyan">
-									// 4-AXIS TELEMETRY
-								</span>
-							</div>
-
+						{/* Unified Tactical Overview Card */}
+						<div className="tactical-panel border p-5 clip-chamfer-sm shadow-md space-y-4">
+							{/* Row 1: Key Metadata Grid (4 Pillars) */}
 							<div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-								{statKeys.map((key) => {
-									const val = Number(stats[key]) || 5;
-									const defaultLabel = STAT_FALLBACK_LABELS[key]?.[language === "en" ? "en" : "vi"] || key;
-									const label = tUI(`championDetail.ratings.${key}`, defaultLabel);
-									return (
-										<div key={key} className="space-y-1">
-											<div className="flex justify-between text-xs">
-												<span className="tactical-text-sub font-bold uppercase truncate" title={label}>
-													{label}
-												</span>
-												<span className="font-mono-tech tactical-accent-lime font-bold">{val}/10</span>
+								{/* Khu Vực */}
+								<div className="tactical-box border p-3 clip-chamfer-sm">
+									<div className="text-[10px] font-bold uppercase tracking-wider tactical-text-dim">
+										{tUI("championDetail.tactical.region") || "Khu Vực"}
+									</div>
+									<div className="text-sm font-bold tactical-text-main mt-1 flex items-center justify-between">
+										<span className="truncate">{champion.regions?.join(" • ") || "Runeterra"}</span>
+										{champion.regions?.[0] && (
+											<img
+												src={
+													iconRegions.find((item) => getRegionKey(item.name) === getRegionKey(champion.regions[0]))
+														?.image || "/fallback-image.svg"
+												}
+												alt={champion.regions[0]}
+												className="w-5 h-5 object-contain shrink-0 ml-1"
+											/>
+										)}
+									</div>
+								</div>
+
+								{/* Lối Chơi */}
+								<div className="tactical-box border p-3 clip-chamfer-sm">
+									<div className="text-[10px] font-bold uppercase tracking-wider tactical-text-dim">
+										{tUI("championDetail.tactical.playStyle") || "Lối Chơi"}
+									</div>
+									<div className="text-xs sm:text-sm font-bold tactical-accent-cyan mt-1 leading-snug line-clamp-2" title={tDynamic(champion, "playStyle") || champion.playStyle}>
+										{tDynamic(champion, "playStyle") || champion.playStyle || "Aggro / Midrange"}
+									</div>
+								</div>
+
+								{/* Xếp Hạng */}
+								<div className="tactical-box border p-3 clip-chamfer-sm">
+									<div className="text-[10px] font-bold uppercase tracking-wider tactical-text-dim">
+										{tUI("championDetail.tactical.tier") || "Xếp Hạng"}
+									</div>
+									<div className="mt-1 leading-snug">
+										{(() => {
+											const rawTier = tDynamic(champion, "tier") || champion.tier || (stats.damage >= 8 ? "S Tier" : "A Tier");
+											const parts = rawTier.split("//");
+											const rank = parts[0]?.trim() || rawTier;
+											const sub = parts[1]?.trim();
+											return (
+												<>
+													<span className="text-xs sm:text-sm font-bold tactical-accent-lime">
+														{rank}
+													</span>
+													{sub && (
+														<span className="text-[10px] text-slate-300 block line-clamp-1 leading-tight mt-0.5">
+															{sub}
+														</span>
+													)}
+												</>
+											);
+										})()}
+									</div>
+								</div>
+
+								{/* Mốc Sao Tối Ưu */}
+								<div className="tactical-box border p-3 clip-chamfer-sm">
+									<div className="text-[10px] font-bold uppercase tracking-wider tactical-text-dim flex items-center gap-1">
+										<Star className="w-3 h-3 text-amber-400 fill-current" />
+										<span>{tUI("championDetail.tactical.optimalStars") || "Mốc Sao Đề Xuất"}</span>
+									</div>
+									<div className="text-sm font-bold text-amber-400 mt-1">
+										{tDynamic(champion, "optimalStars") || champion.optimalStars || (champion.maxStar >= 6 ? "3★ - 4★" : "3★")}
+									</div>
+								</div>
+							</div>
+
+							{/* Row 2: Power Spike Callout */}
+							<div className="tactical-box border px-3.5 py-2.5 clip-chamfer-sm flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
+								<div className="flex items-center gap-1.5 shrink-0">
+									<Zap className="w-3.5 h-3.5 text-yellow-400 fill-current" />
+									<span className="text-[11px] font-bold uppercase tracking-wider tactical-text-dim">
+										{tUI("championDetail.tactical.powerSpike") || "Ngưỡng Sức Mạnh"}:
+									</span>
+								</div>
+								<div className="text-xs sm:text-sm font-medium tactical-text-main line-clamp-1">
+									{tDynamic(champion, "powerSpike") || champion.powerSpike || (champion.counter ? champion.counter : (tUI("championDetail.tactical.defaultPowerSpike") || "3★: Major power spike & core synergy unlock"))}
+								</div>
+							</div>
+
+							{/* Row 3: Compact 4-Axis Telemetry Bars */}
+							<div className="pt-1">
+								<div className="flex items-center justify-between mb-2.5">
+									<span className="text-[11px] font-bold uppercase tracking-wider tactical-accent-lime flex items-center gap-1.5">
+										<Activity className="w-3.5 h-3.5" />
+										<span>{tUI("championDetail.tactical.playstyleRadar") || "Chỉ Số Đánh Giá"}</span>
+									</span>
+								</div>
+
+								<div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+									{statKeys.map((key) => {
+										const val = Number(stats[key]) || 5;
+										const defaultLabel = STAT_FALLBACK_LABELS[key]?.[language === "en" ? "en" : "vi"] || key;
+										const label = tUI(`championDetail.ratings.${key}`, defaultLabel);
+										return (
+											<div key={key} className="space-y-1">
+												<div className="flex justify-between text-[11px]">
+													<span className="tactical-text-sub font-medium truncate" title={label}>
+														{label}
+													</span>
+													<span className="font-mono-tech tactical-accent-lime font-bold">{val}/10</span>
+												</div>
+												<div className="w-full h-1.5 tactical-box border overflow-hidden rounded-full">
+													<div
+														className="h-full transition-all duration-500 rounded-full"
+														style={{
+															width: `${Math.min(100, Math.max(10, val * 10))}%`,
+															background: "var(--tactical-bar-gradient)",
+														}}
+													/>
+												</div>
 											</div>
-											<div className="w-full h-2 tactical-box border overflow-hidden">
-												<div
-													className="h-full transition-all duration-500"
-													style={{
-														width: `${Math.min(100, Math.max(10, val * 10))}%`,
-														background: "var(--tactical-bar-gradient)",
-													}}
-												/>
-											</div>
-										</div>
-									);
-								})}
+										);
+									})}
+								</div>
 							</div>
 						</div>
 
 						{/* Hero CTAs */}
-						<div className="pt-2 flex flex-wrap gap-4">
+						<div className="pt-1 flex flex-col sm:flex-row gap-3">
 							<a
 								href="#relic-builds"
-								className="tactical-btn-primary font-display uppercase tracking-wider text-base sm:text-lg px-7 py-3.5 clip-chamfer transition inline-flex items-center space-x-2.5"
+								className="tactical-btn-primary font-display uppercase tracking-wider text-sm sm:text-base px-6 py-2.5 clip-chamfer transition inline-flex items-center justify-center space-x-2 shadow-md hover:scale-[1.02] w-full sm:w-auto"
 							>
-								<Film className="w-5 h-5" />
+								<Film className="w-4 h-4" />
 								<span>{tUI("championDetail.tactical.viewRelics") || "Xem Bộ Cổ Vật"}</span>
 							</a>
 							<a
 								href="#powers-constellation"
-								className="tactical-card border tactical-text-main font-display uppercase tracking-wider text-base sm:text-lg px-7 py-3.5 clip-chamfer hover:border-[var(--tactical-accent-lime)] hover:text-[var(--tactical-accent-lime)] transition inline-flex items-center space-x-2"
+								className="tactical-card border tactical-text-main font-display uppercase tracking-wider text-sm sm:text-base px-6 py-2.5 clip-chamfer hover:border-[var(--tactical-accent-lime)] hover:text-[var(--tactical-accent-lime)] transition inline-flex items-center justify-center space-x-1.5 w-full sm:w-auto"
 							>
 								<span>{tUI("championDetail.tactical.exploreMoves") || "Sức Mạnh & Chòm Sao"}</span>
-								<ChevronRight className="w-5 h-5" />
+								<ChevronRight className="w-4 h-4" />
 							</a>
 						</div>
 					</div>
@@ -490,7 +496,7 @@ const ChampionHeroSection = ({
 										<div
 											onClick={() => (currentCard || champion.cardCode) && onOpenCarousel && onOpenCarousel(currentCard, currentCard?.cardCode || champion.cardCode)}
 											className="absolute bottom-20 right-4 w-28 sm:w-32 drop-shadow-[0_10px_20px_rgba(0,0,0,0.9)] cursor-pointer transform group-hover:-translate-y-2 transition duration-500"
-											title="Click to view full card"
+											title={tUI("championDetail.tactical.zoomCardHint") || "Click to zoom card"}
 										>
 											<SafeImage
 												src={cardImg}

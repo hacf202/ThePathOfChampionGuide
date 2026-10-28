@@ -394,12 +394,16 @@ function ChampionDetail() {
 			<PageTitle
 				title={
 					champion
-						? `${tDynamic(champion, "name")} PoC Guide - Build & Relics Tốt Nhất | Path of Champions`
+						? language === "en"
+							? `${tDynamic(champion, "name")} PoC Guide - Best Builds & Relics | Path of Champions`
+							: `${tDynamic(champion, "name")} PoC Guide - Build & Relics Tốt Nhất | Path of Champions`
 						: tUI("championDetail.title")
 				}
 				description={
 					champion
-						? `Hướng dẫn cách chơi ${tDynamic(champion, "name")} chi tiết trong The Path of Champions (PoC) Legends of Runeterra. Khám phá cổ vật, bộ bài và combo tối ưu.`
+						? language === "en"
+							? `Detailed ${tDynamic(champion, "name")} guide for The Path of Champions (PoC) Legends of Runeterra. Discover optimal relics, star powers, and combos.`
+							: `Hướng dẫn cách chơi ${tDynamic(champion, "name")} chi tiết trong The Path of Champions (PoC) Legends of Runeterra. Khám phá cổ vật, bộ bài và combo tối ưu.`
 						: tUI("championDetail.metaDesc")
 				}
 				keywords={

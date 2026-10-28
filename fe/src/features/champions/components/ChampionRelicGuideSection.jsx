@@ -14,11 +14,22 @@ import {
 } from "lucide-react";
 import MarkupRenderer from "@/components/common/MarkupRenderer";
 
+// Helper chuẩn hóa text thường cho combo steps, loại bỏ all-caps và tiền tố trùng lặp
+const formatComboText = (text) => {
+	if (!text) return "";
+	let cleaned = text.replace(/^(step|bước)\s*\d+\s*[:.-]\s*/i, "").trim();
+	if (cleaned === cleaned.toUpperCase() && cleaned.length > 5) {
+		cleaned = cleaned.charAt(0).toUpperCase() + cleaned.slice(1).toLowerCase();
+	}
+	return cleaned;
+};
+
 const ChampionRelicGuideSection = ({
 	champion,
 	relicSetsToRender = [],
 	tUI,
 	tDynamic,
+	language = "vi",
 }) => {
 	const [activeRelicTabIdx, setActiveRelicTabIdx] = useState(0);
 	const [selectedRelicSlotIdx, setSelectedRelicSlotIdx] = useState(0);
@@ -52,8 +63,9 @@ const ChampionRelicGuideSection = ({
 			const slots = (setObj.relics || []).slice(0, 3).map((r, sIdx) => ({
 				name: tDynamic(r, "name") || `Cổ vật ${sIdx + 1}`,
 				rarity: (r.rarity || (sIdx === 0 ? "EPIC" : "RARE")).toUpperCase(),
+				image: r.image || "",
 				icon: r.image ? (
-					<img src={r.image} alt="" className="w-8 h-8 object-contain" />
+					<img src={r.image} alt="" className="w-full h-full object-contain" />
 				) : (
 					"💎"
 				),
@@ -86,6 +98,24 @@ const ChampionRelicGuideSection = ({
 					phase: tDynamic(c, "phase") || c.phase || `Bước ${cIdx + 1}`,
 					action: tDynamic(c, "action") || c.action || "",
 				}))
+				: language === "en"
+				? [
+					{
+						step: 1,
+						phase: "Turn 1: Setup & Board Control",
+						action: `Deploy low-cost units to establish board presence. Conserve spell mana for crucial interaction.`,
+					},
+					{
+						step: 2,
+						phase: `Turn 2-3: Summon ${tDynamic(champion, "name")}`,
+						action: `Clear primary enemy threats and drop ${tDynamic(champion, "name")} onto the board to trigger relic passives.`,
+					},
+					{
+						step: 3,
+						phase: "Turn 4+: Nexus Decimation",
+						action: `Execute maximum combo damage utilizing cascaded relic synergies to close out the encounter.`,
+					},
+				]
 				: [
 					{
 						step: 1,
@@ -133,7 +163,7 @@ const ChampionRelicGuideSection = ({
 					: null,
 			};
 		});
-	}, [champion, relicSetsToRender, tDynamic]);
+	}, [champion, relicSetsToRender, tDynamic, language]);
 
 	// Reset slot khi đổi tab build
 	useEffect(() => {
@@ -147,27 +177,18 @@ const ChampionRelicGuideSection = ({
 	const activeVideo = currentBuild.videoShowcase;
 
 	return (
-		<section id="relic-builds" className="py-20 border-b tactical-section bg-hazard-stripes relative">
+		<section id="relic-builds" className="py-12 sm:py-20 border-b tactical-section bg-hazard-stripes relative">
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-				{/* Section Header */}
-				<div className="flex flex-col lg:flex-row lg:items-end justify-between mb-8 gap-6">
-					<div>
-						<div className="tactical-accent-lime font-bold uppercase tracking-widest text-xs sm:text-sm flex items-center gap-2">
-							<Film className="w-4 h-4 tactical-accent-cyan" />
-							<span>{tUI("championDetail.tactical.relicsSub") || "BỘ TRANG BỊ TỐI ƯU // ĐỒNG BỘ VIDEO CHI TIẾT"}</span>
-						</div>
-						<h2 className="font-display text-5xl sm:text-6xl uppercase italic tactical-text-main mt-1">
-							{tUI("championDetail.tactical.relicsTitle") || "BỘ CỔ VẬT & CHIẾN THUẬT VẬN HÀNH"}
-						</h2>
-					</div>
+				{/* Section Header: Sạch sẽ, không subheader rườm rà */}
+				<div className="mb-6 sm:mb-8">
+					<h2 className="font-display text-3xl sm:text-4xl lg:text-5xl uppercase italic tactical-text-main">
+						{tUI("championDetail.tactical.relicsTitle") || "Bộ Cổ Vật & Chiến Thuật Vận Hành"}
+					</h2>
 				</div>
 
-				{/* Build Selector Tabs */}
+				{/* Build Selector Tabs with embedded relic icons */}
 				<div className="mb-8">
-					<div className="text-xs font-mono-tech uppercase tracking-wider tactical-text-dim mb-3">
-						{tUI("championDetail.tactical.selectBuildPrompt") || "CHỌN BỘ TRANG BỊ ĐỂ XEM HƯỚNG DẪN & VIDEO"}
-					</div>
-					<div id="relic-build-tabs" className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+					<div id="relic-build-tabs" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
 						{normalizedBuilds.map((build, idx) => {
 							const isSelected = activeRelicTabIdx === idx;
 							const hasVideo = Boolean(build.videoShowcase);
@@ -185,15 +206,16 @@ const ChampionRelicGuideSection = ({
 											}
 										}
 									}}
-									className={`text-left p-4 border-l-4 transition-all clip-chamfer-sm flex flex-col justify-between gap-2 border tactical-card ${
+									className={`text-left p-3.5 sm:p-4 border-l-4 transition-all clip-chamfer-sm flex flex-col justify-between gap-2.5 border tactical-card ${
 										isSelected
 											? "!border-l-[var(--tactical-accent-lime)] shadow-md ring-1 ring-[var(--tactical-accent-lime)]/40"
 											: "border-l-transparent hover:!border-l-gray-400"
 									}`}
 								>
+									{/* Top Meta: Stars & Video badge */}
 									<div className="flex items-center justify-between gap-2 w-full">
 										<span
-											className={`text-[10px] font-mono-tech font-extrabold uppercase px-2 py-0.5 ${
+											className={`text-[10px] font-mono-tech font-extrabold uppercase px-2 py-0.5 clip-chamfer-sm ${
 												isSelected
 													? "tactical-tab-active"
 													: "tactical-box tactical-text-sub border"
@@ -203,27 +225,40 @@ const ChampionRelicGuideSection = ({
 										</span>
 
 										{hasVideo ? (
-											<span className="inline-flex items-center gap-1 text-[10px] font-mono-tech font-bold uppercase px-2 py-0.5 tactical-badge-cyan">
+											<span className="inline-flex items-center gap-1 text-[10px] font-mono-tech font-bold uppercase px-2 py-0.5 tactical-badge-cyan clip-chamfer-sm">
 												<Play className="w-2.5 h-2.5 fill-current" />
-												<span>{tUI("championDetail.tactical.videoReadyBadge") || "CÓ VIDEO"}</span>
+												<span>{tUI("championDetail.tactical.videoReadyBadge") || "Có Video"}</span>
 											</span>
 										) : (
-											<span className="inline-flex items-center gap-1 text-[10px] font-mono-tech uppercase px-2 py-0.5 tactical-box tactical-text-dim border">
+											<span className="inline-flex items-center gap-1 text-[10px] font-mono-tech uppercase px-2 py-0.5 tactical-box tactical-text-dim border clip-chamfer-sm">
 												<BookOpen className="w-2.5 h-2.5" />
-												<span>{tUI("championDetail.tactical.noVideoBadge") || "HƯỚNG DẪN CHỮ"}</span>
+												<span>{tUI("championDetail.tactical.noVideoBadge") || "Chiến Thuật"}</span>
 											</span>
 										)}
 									</div>
 
+									{/* Build Title */}
 									<div
-										className={`font-display text-xl sm:text-2xl uppercase italic tracking-wide ${
+										className={`font-display text-base sm:text-lg uppercase italic tracking-wide truncate ${
 											isSelected ? "tactical-accent-lime" : "tactical-text-main"
 										}`}
+										title={build.label}
 									>
 										{build.label}
 									</div>
 
-									
+									{/* Relic Icons Preview (3 icon Cổ Vật nằm ngay trong Tab card) */}
+									<div className="flex items-center gap-1.5 pt-2 border-t border-inherit/40 w-full">
+										{build.slots.map((s, sIdx) => (
+											<div
+												key={sIdx}
+												className="w-7 h-7 sm:w-8 sm:h-8 rounded tactical-box border flex items-center justify-center p-0.5 shrink-0 overflow-hidden shadow-sm"
+												title={s.name}
+											>
+												{s.icon}
+											</div>
+										))}
+									</div>
 								</button>
 							);
 						})}
@@ -232,41 +267,32 @@ const ChampionRelicGuideSection = ({
 
 				{/* MAIN 12-COLUMN SPLIT: Left (7 Cols) & Right (5 Cols Sticky Video) */}
 				<div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-					{/* LEFT COLUMN (7 Cols): Relic Slots + Synergy + Mulligan + Turn-by-Turn Combo + Pro Tips */}
+					{/* LEFT COLUMN (7 Cols): Relic Slots + Combo + Pro Tips */}
 					<div id="relic-build-detail" className="lg:col-span-7 space-y-6">
 						{/* Loadout Summary Banner */}
-						<div className="tactical-panel border-2 p-5 sm:p-6 clip-chamfer shadow-lg">
-							<div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+						<div className="tactical-panel border p-5 sm:p-6 clip-chamfer shadow-md">
+							<div className="flex flex-wrap items-center justify-between gap-2 mb-2">
 								<div className="flex items-center space-x-2">
-									<span className="px-2.5 py-0.5 tactical-tab-active font-display uppercase text-xs tracking-wider">
-										{tUI("championDetail.tactical.loadoutOverview") || "TỔNG QUAN BỘ TRANG BỊ"}
+									<span className="px-2.5 py-0.5 tactical-tab-active font-display uppercase text-xs tracking-wider clip-chamfer-sm">
+										{tUI("championDetail.tactical.loadoutOverview") || "Chi Tiết Bộ Trang Bị"}
 									</span>
 									<span className="text-xs font-mono-tech tactical-accent-cyan font-bold">
-										// {currentBuild.difficulty}
+										{currentBuild.difficulty}
 									</span>
 								</div>
-								<span className="text-xs font-mono-tech tactical-text-dim">
-									ID: {currentBuild.id.toUpperCase()}
-								</span>
 							</div>
 
-							<h3 className="font-display text-3xl uppercase italic tactical-text-main">
+							<h3 className="font-display text-2xl sm:text-3xl uppercase italic tactical-text-main mt-1">
 								{currentBuild.label}
 							</h3>
-							<div className="tactical-text-sub text-sm sm:text-base mt-2 leading-relaxed border-l-4 border-[var(--tactical-accent-cyan)] pl-4">
+							<div className="tactical-text-sub text-sm leading-relaxed mt-2 border-l-4 border-[var(--tactical-accent-cyan)] pl-3">
 								<MarkupRenderer text={currentBuild.summary} />
 							</div>
 
-							{/* 3 Interactive Relic Slots */}
+							{/* 3 Relic Slots (Trực quan, đầy đủ thông tin) */}
 							<div className="mt-6">
-								<div className="text-[11px] font-mono-tech uppercase tracking-wider tactical-accent-lime mb-2.5 flex items-center gap-1.5 font-bold">
-									<Crosshair className="w-3.5 h-3.5" />
-									<span>{tUI("championDetail.tactical.clickRelicPrompt") || "CLICK Ô CỔ VẬT ĐỂ XEM PHÂN TÍCH HIỆU ỨNG"}</span>
-								</div>
-
 								<div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
 									{currentBuild.slots.map((slot, i) => {
-										const isSlotSelected = selectedRelicSlotIdx === i;
 										const rarityBadge =
 											slot.rarity === "EPIC"
 												? "border-purple-500/50 text-purple-600 dark:text-purple-300 bg-purple-500/15"
@@ -277,18 +303,13 @@ const ChampionRelicGuideSection = ({
 										return (
 											<div
 												key={i}
-												onClick={() => setSelectedRelicSlotIdx(i)}
-												className={`cursor-pointer p-4 border-2 transition-all clip-chamfer-sm relative ${
-													isSlotSelected
-														? "tactical-card !border-[var(--tactical-accent-lime)] shadow-md"
-														: "tactical-box border hover:!border-gray-400"
-												}`}
+												className="p-3.5 border transition-all clip-chamfer-sm relative tactical-card hover:border-[var(--tactical-accent-lime)]/50"
 											>
 												<div className="flex items-center justify-between mb-2">
-													<span className="font-mono-tech text-[10px] tactical-text-dim font-bold">
-														SLOT 0{i + 1}
+													<span className="font-mono-tech text-[10px] tactical-text-dim font-bold uppercase">
+														{tUI("championDetail.tactical.slotLabel") || (language === "en" ? "SLOT" : "Ô")} 0{i + 1}
 													</span>
-													<span className={`text-[9px] font-bold uppercase px-1.5 py-0.5 border ${rarityBadge}`}>
+													<span className={`text-[9px] font-bold uppercase px-1.5 py-0.5 border clip-chamfer-sm ${rarityBadge}`}>
 														{slot.rarity}
 													</span>
 												</div>
@@ -297,81 +318,78 @@ const ChampionRelicGuideSection = ({
 													<div className="w-9 h-9 rounded tactical-box border flex items-center justify-center shrink-0">
 														{slot.icon}
 													</div>
-													<h4
-														className={`font-display text-lg uppercase italic leading-tight truncate ${
-															isSlotSelected ? "tactical-accent-lime" : "tactical-text-main"
-														}`}
-													>
+													<h4 className="font-display text-base uppercase italic leading-tight truncate tactical-accent-lime" title={slot.name}>
 														{slot.name}
 													</h4>
 												</div>
 
-												<div className="text-xs tactical-text-sub mt-2 line-clamp-3 leading-relaxed">
+												<div className="text-xs tactical-text-sub mt-2 leading-relaxed">
 													<MarkupRenderer text={slot.effect} />
 												</div>
 											</div>
 										);
 									})}
 								</div>
-
-								
 							</div>
 						</div>
 
-						{/* Interactive Turn-by-Turn Combo Execution */}
-						<div className="tactical-card border p-5 sm:p-6 clip-chamfer-sm">
-							<div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
-								<h4 className="font-display text-2xl uppercase italic tactical-accent-lime flex items-center gap-2">
+						{/* Turn-by-Turn Combo: Viết bằng TEXT THƯỜNG, phân cấp rõ ràng */}
+						<div className="tactical-card border p-4 sm:p-5 clip-chamfer-sm space-y-4">
+							<div className="flex items-center justify-between">
+								<h4 className="font-display text-xl sm:text-2xl uppercase italic tactical-accent-lime flex items-center gap-2">
 									<Terminal className="w-5 h-5" />
 									<span>{tUI("championDetail.tactical.comboTitle") || "Vận Hành Combo Từng Vòng Đấu"}</span>
 								</h4>
-								<span className="text-[11px] font-mono-tech tactical-accent-cyan tactical-box px-2.5 py-1 border border-[var(--tactical-accent-cyan)]/40 font-bold">
-									// STEP-BY-STEP EXECUTION
-								</span>
 							</div>
 
 							<div className="space-y-3">
-								{currentBuild.playGuide.comboSteps.map((cStep, idx) => (
-									<div
-										key={idx}
-										className="p-4 border-l-4 transition-all clip-chamfer-sm border tactical-box !border-l-[var(--tactical-accent-lime)]"
-									>
-										<div className="flex items-start space-x-2.5">
-											<span className="font-display text-base px-2.5 py-0.5 tactical-tab-active shrink-0">
-												{tUI("championDetail.tactical.stepLabel") || "BƯỚC"} {cStep.step}
-											</span>
-											<span className="font-display text-base sm:text-lg uppercase italic tactical-text-main">
-												{cStep.phase}
-											</span>
-										</div>
+								{currentBuild.playGuide.comboSteps.map((cStep, idx) => {
+									const phaseText = formatComboText(cStep.phase);
+									const actionText = formatComboText(cStep.action);
 
-										{cStep.action ? (
-											<p className="text-xs sm:text-sm tactical-text-sub leading-relaxed pl-1 mt-2">
-												{cStep.action}
-											</p>
-										) : null}
-									</div>
-								))}
+									return (
+										<div
+											key={idx}
+											className="p-3.5 sm:p-4 border-l-4 transition-all clip-chamfer-sm border tactical-box !border-l-[var(--tactical-accent-lime)] flex items-start gap-3"
+										>
+											<span className="text-xs font-mono-tech font-bold px-2 py-0.5 tactical-tab-active shrink-0 clip-chamfer-sm mt-0.5">
+												{tUI("championDetail.tactical.stepLabel") || "Bước"} {cStep.step || idx + 1}
+											</span>
+											<div className="space-y-1 min-w-0 flex-1">
+												{phaseText && (
+													<p className="text-sm sm:text-base font-medium normal-case leading-snug tactical-text-main">
+														{phaseText}
+													</p>
+												)}
+												{actionText && actionText !== phaseText && (
+													<p className="text-xs sm:text-sm tactical-text-sub normal-case leading-relaxed">
+														{actionText}
+													</p>
+												)}
+											</div>
+										</div>
+									);
+								})}
 							</div>
 						</div>
 
 						{/* Pro Synergy Tips (Chỉ hiển thị khi có mẹo) */}
 						{currentBuild.playGuide.proTips && currentBuild.playGuide.proTips.length > 0 && (
-							<div className="tactical-card border p-5 sm:p-6 clip-chamfer-sm">
-								<h4 className="font-display text-2xl uppercase italic tactical-text-main flex items-center gap-2 mb-3">
+							<div className="tactical-card border p-4 sm:p-5 clip-chamfer-sm space-y-3">
+								<h4 className="font-display text-xl sm:text-2xl uppercase italic tactical-text-main flex items-center gap-2">
 									<Shield className="w-5 h-5 tactical-accent-lime" />
-									<span>{tUI("championDetail.tactical.proTipsTitle") || "Mẹo Chuyên Sâu & Khắc Chế Boss"}</span>
+									<span>{tUI("championDetail.tactical.proTipsTitle") || "Mẹo Chuyên Sâu & Khắc Chế"}</span>
 								</h4>
-								<div className="space-y-2.5">
+								<div className="space-y-2">
 									{currentBuild.playGuide.proTips.map((tip, idx) => (
 										<div
 											key={idx}
-											className="tactical-box border p-3.5 flex items-start space-x-3"
+											className="tactical-box border p-3 flex items-start space-x-2.5 clip-chamfer-sm"
 										>
 											<span className="tactical-accent-lime font-mono-tech font-bold text-xs mt-0.5">
-												[0{idx + 1}]
+												•
 											</span>
-											<p className="text-xs sm:text-sm tactical-text-sub leading-relaxed">
+											<p className="text-xs sm:text-sm tactical-text-sub normal-case leading-relaxed">
 												{tip}
 											</p>
 										</div>
@@ -440,32 +458,38 @@ const ChampionRelicGuideSection = ({
 								</div>
 							) : (
 								/* Standby mode if no video */
-								<div className="p-6 space-y-5">
-									<div className="relative h-48 tactical-box border clip-chamfer-sm overflow-hidden flex flex-col items-center justify-center text-center p-6">
-										<div className="w-12 h-12 rounded-full tactical-card border border-[var(--tactical-accent-lime)]/60 flex items-center justify-center mx-auto tactical-accent-lime mb-2">
-											<VideoOff className="w-6 h-6" />
+								<div className="p-4 sm:p-6 space-y-4">
+									<div className="relative h-36 sm:h-44 tactical-box border clip-chamfer-sm overflow-hidden flex flex-col items-center justify-center text-center p-4">
+										<div className="w-10 h-10 rounded-full tactical-card border border-[var(--tactical-accent-lime)]/60 flex items-center justify-center mx-auto tactical-accent-lime mb-1.5">
+											<VideoOff className="w-5 h-5" />
 										</div>
-										<div className="font-display text-2xl uppercase italic tactical-text-main">
-											{tUI("championDetail.tactical.noVideoTitle") || "CHƯA CÓ VIDEO RIÊNG CHO BỘ NÀY"}
+										<div className="font-display text-lg sm:text-xl uppercase italic tactical-text-main">
+											{tUI("championDetail.tactical.noVideoTitle") || "Hướng Dẫn Chiến Thuật"}
 										</div>
-										<div className="text-[11px] font-mono-tech tactical-accent-cyan mt-1">
-											BUILD ID: {currentBuild.id.toUpperCase()} // TEXT TELEMETRY
-										</div>
+										<p className="text-xs tactical-text-sub mt-1 max-w-xs">
+											{tUI("championDetail.tactical.noVideoDesc") || (language === "en" ? "This loadout operates in text telemetry mode. Follow the turn-by-turn combo guide on the left." : "Bộ trang bị này hiện sử dụng hướng dẫn văn bản và combo chi tiết.")}
+										</p>
 									</div>
 
-									<p className="text-xs sm:text-sm tactical-text-sub leading-relaxed tactical-box p-4 border-l-4 border-[var(--tactical-accent-lime)] border">
-										{tUI("championDetail.tactical.noVideoDesc") || "Bộ cổ vật này hiện đang chạy ở chế độ văn bản chiến thuật. Bạn có thể tham khảo combo và mẹo chơi bên trái."}
-									</p>
-
-									{/* Quick Loadout Summary */}
-									<div className="tactical-box border p-4 space-y-2.5 font-mono-tech text-xs">
-										<div className="tactical-text-dim uppercase">ACTIVE RELIC LOADOUT SUMMARY:</div>
+									{/* Quick Loadout Summary gọn gàng, icon chuẩn kích thước */}
+									<div className="tactical-box border p-4 space-y-3 clip-chamfer-sm">
+										<div className="text-xs font-bold uppercase tracking-wider tactical-accent-lime flex items-center justify-between">
+											<span>{tUI("championDetail.tactical.relicListTitle") || "Cổ Vật Trong Bộ"}</span>
+											<span className="font-mono-tech text-[10px] tactical-text-dim">3/3 SLOTS</span>
+										</div>
 										{currentBuild.slots.map((s, idx) => (
-											<div key={idx} className="flex items-center justify-between border-b tactical-section pb-1.5">
-												<span className="tactical-text-main flex items-center gap-1.5">
-													<span>0{idx + 1}.</span> {s.icon} <span>{s.name}</span>
+											<div key={idx} className="flex items-center justify-between gap-3 border-b tactical-section pb-2 last:border-b-0 last:pb-0">
+												<div className="flex items-center gap-2.5 min-w-0">
+													<div className="w-8 h-8 rounded border tactical-box flex items-center justify-center p-0.5 shrink-0 overflow-hidden">
+														{s.icon}
+													</div>
+													<span className="text-xs font-medium tactical-text-main truncate" title={s.name}>
+														{s.name}
+													</span>
+												</div>
+												<span className="text-[10px] font-mono-tech font-bold uppercase px-1.5 py-0.5 border clip-chamfer-sm shrink-0 tactical-accent-lime">
+													{s.rarity}
 												</span>
-												<span className="tactical-accent-lime font-bold">{s.rarity}</span>
 											</div>
 										))}
 									</div>

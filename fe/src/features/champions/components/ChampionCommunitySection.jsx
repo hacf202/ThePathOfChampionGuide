@@ -459,23 +459,14 @@ const ChampionCommunitySection = ({ champion, tUI, tDynamic, language }) => {
 	if (!champion) return null;
 
 	return (
-		<section id="community" className="py-20 border-b tactical-section bg-hazard-stripes relative">
-			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-				{/* Section Header */}
+		<section id="community" className="py-12 sm:py-20 border-b tactical-section bg-hazard-stripes relative">
+			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
+				{/* Section Header: Sạch sẽ, không subheader thừa */}
 				<div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-					<div>
-						<div className="tactical-accent-lime font-bold uppercase tracking-widest text-xs sm:text-sm">
-							// {tUI("championDetail.tactical.discussionSub") || "KÊNH TRUYỀN TIN // ĐÓNG GÓP Ý KIẾN & KINH NGHIỆM CHIẾN THUẬT"}
-						</div>
-						<h2 className="font-display text-5xl sm:text-6xl uppercase italic tactical-text-main mt-1 flex items-center gap-3">
-							<MessageSquare className="w-10 h-10 tactical-accent-lime" />
-							<span>{tUI("championDetail.tactical.discussionTitle") || "BÌNH LUẬN & THẢO LUẬN"}</span>
-						</h2>
-					</div>
-
-					<span className="font-mono-tech text-xs tactical-accent-cyan tactical-box border px-3.5 py-2 clip-chamfer-sm self-start sm:self-end">
-						VERIFIED DUELISTS // {comments.length} ENTRIES
-					</span>
+					<h2 className="font-display text-3xl sm:text-4xl lg:text-5xl uppercase italic tactical-text-main flex items-center gap-3">
+						<MessageSquare className="w-8 h-8 sm:w-10 sm:h-10 tactical-accent-lime shrink-0" />
+						<span>{tUI("championDetail.tactical.discussionTitle") || "Bình Luận & Thảo Luận"}</span>
+					</h2>
 				</div>
 
 				{/* Input Form Box */}
@@ -525,12 +516,12 @@ const ChampionCommunitySection = ({ champion, tUI, tDynamic, language }) => {
 								{isLoadingMore ? (
 									<>
 										<Loader2 className="w-4 h-4 animate-spin" />
-										<span>ĐANG TẢI THÊM BÌNH LUẬN...</span>
+										<span>{tUI("championDetail.tactical.loadingMoreComments") || "ĐANG TẢI THÊM BÌNH LUẬN..."}</span>
 									</>
 								) : (
 									<>
 										<ChevronDown className="w-4 h-4" />
-										<span>XEM THÊM BÌNH LUẬN CŨ HƠN</span>
+										<span>{tUI("championDetail.tactical.loadOlderComments") || "XEM THÊM BÌNH LUẬN CŨ HƠN"}</span>
 									</>
 								)}
 							</button>
@@ -540,10 +531,10 @@ const ChampionCommunitySection = ({ champion, tUI, tDynamic, language }) => {
 					<div className="text-center py-16 tactical-text-dim font-mono-tech text-sm border-2 border-dashed tactical-card clip-chamfer p-8 space-y-2">
 						<MessageSquare className="w-8 h-8 text-gray-400 mx-auto" />
 						<div className="tactical-text-main font-display text-xl uppercase">
-							CHƯA CÓ BÌNH LUẬN NÀO
+							{tUI("championDetail.tactical.noCommentsHeader") || "CHƯA CÓ BÌNH LUẬN NÀO"}
 						</div>
 						<div className="text-xs tactical-text-dim">
-							Hãy là người đầu tiên để lại ý kiến hoặc chia sẻ mẹo chiến thuật cho vị tướng này!
+							{tUI("championDetail.tactical.noCommentsDesc") || "Hãy là người đầu tiên để lại ý kiến hoặc chia sẻ mẹo chiến thuật cho vị tướng này!"}
 						</div>
 					</div>
 				)}
