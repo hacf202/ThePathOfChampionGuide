@@ -92,6 +92,9 @@ export const stripMarkup = (text) => {
 	
 	// Xóa thẻ [type:id] -> id
 	result = result.replace(/\[([a-z]+):([^\]|]+)\]/gi, "$2");
+
+	// Xóa thẻ HTML định dạng cơ bản nếu có: <b>, <i>, <br/>
+	result = result.replace(/<\/?(b|i|br)\/?>/gi, "");
 	
 	return result;
 };

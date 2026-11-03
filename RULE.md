@@ -22,6 +22,7 @@
 ### 1.1. Quy trình Lập kế hoạch (Planning Process)
 
 Với mọi yêu cầu phức tạp (trừ sửa lỗi đơn giản), AI **bắt buộc** thực hiện:
+
 1. **Nghiên cứu (Research)**: Đọc mã nguồn liên quan, xác định scope ảnh hưởng.
 2. **Lập Kế hoạch (Plan)**: Tạo `implementation_plan.md` mô tả từng bước.
 3. **Phê duyệt (Approval)**: Đợi người dùng chấp thuận kế hoạch.
@@ -45,6 +46,7 @@ features/<name>/
 ```
 
 **Quy tắc phân loại:**
+
 - `src/features/<name>/` — Tất cả code chuyên biệt của một tính năng
 - `src/components/common/` — Shared UI (Button, Modal, PageTitle, Animations...)
 - `src/components/layout/` — Navbar, Footer, GenericListLayout
@@ -88,16 +90,16 @@ features/<name>/
 
 ## 5. Ranh giới vận hành (Operational Boundaries)
 
-| Loại thay đổi | Quyền hành động |
-|---|---|
-| Sửa lỗi cú pháp, typo, import sai | ✅ Tự động sửa, không cần hỏi |
-| Cập nhật i18n (thêm/sửa key) | ✅ Tự động, không cần hỏi |
-| Di chuyển file, đổi cấu trúc nhỏ | ✅ Tự động + chạy build kiểm chứng |
-| Thêm tính năng mới theo định hướng đã thống nhất | ✅ Lập kế hoạch → Thực thi |
-| Thay đổi core architecture | ⛔ Bắt buộc hỏi trước |
-| Thay đổi Data Flow, schema database | ⛔ Bắt buộc hỏi trước |
-| Cài thêm thư viện lớn mới | ⛔ Bắt buộc hỏi trước |
-| Xóa file/thư mục lớn | ⛔ Bắt buộc hỏi trước |
+| Loại thay đổi                                    | Quyền hành động                    |
+| ------------------------------------------------ | ---------------------------------- |
+| Sửa lỗi cú pháp, typo, import sai                | ✅ Tự động sửa, không cần hỏi      |
+| Cập nhật i18n (thêm/sửa key)                     | ✅ Tự động, không cần hỏi          |
+| Di chuyển file, đổi cấu trúc nhỏ                 | ✅ Tự động + chạy build kiểm chứng |
+| Thêm tính năng mới theo định hướng đã thống nhất | ✅ Lập kế hoạch → Thực thi         |
+| Thay đổi core architecture                       | ⛔ Bắt buộc hỏi trước              |
+| Thay đổi Data Flow, schema database              | ⛔ Bắt buộc hỏi trước              |
+| Cài thêm thư viện lớn mới                        | ⛔ Bắt buộc hỏi trước              |
+| Xóa file/thư mục lớn                             | ⛔ Bắt buộc hỏi trước              |
 
 ---
 
@@ -113,3 +115,15 @@ features/<name>/
 - **Tác động trực tiếp đúng file đích:** Chỉ thao tác trực tiếp vào đúng file đích cần sửa, KHÔNG đọc hay grep dàn trải toàn dự án khi không có yêu cầu.
 - **Không tự ý chạy quy trình nặng:** TUYỆT ĐỐI KHÔNG tự ý khởi chạy browser agent hay các quy trình kiểm tra rườm rà làm phình token.
 - **Phản hồi đúng trọng tâm:** Phản hồi ngắn gọn, súc tích và đúng trọng tâm yêu cầu của người dùng.
+
+---
+
+## 8. Quy Chuẩn Hành Văn Biên Soạn Dữ Liệu Tướng (Author Writing Style)
+
+Mọi nội dung biên soạn dữ liệu tướng trong `drafts.json` hoặc lưu vào MongoDB bắt buộc tuân theo chuẩn mực của tác giả (chi tiết tại `.agents/rules/author_writing_style.md`):
+
+- **Văn phong:** Ngôn ngữ game thủ thực chiến, dứt khoát, không dùng từ ngữ văn hoa sáo rỗng. Tuyệt đối không mở ngoặc `(...)` giải thích thừa.
+- **Ký hiệu sao:** Bắt buộc dùng `C2`, `C3`, `C6`.
+- **Mở đầu mô tả:** `[cd:MÃ|Tên] là tướng có lối chơi...`
+- **Luồng combo:** Bắt buộc có dòng flow mũi tên `Cách đánh chủ yếu của tướng này sẽ là [...] -> [...] -> [...]`.
+- **Bộ chuẩn mực đối soát:** Akshan (`C015`), Gwen (`C024`), Hecarim (`C086`), Yasuo (`C026`).

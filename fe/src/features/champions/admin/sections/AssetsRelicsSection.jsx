@@ -155,7 +155,10 @@ const AssetsRelicsSection = memo(({ formData, setFormData, dataLookup, handleTra
 						</button>
 					</div>
 
-					{(formData.comboSteps || []).map((stepItem, sIdx) => (
+					{(formData.comboSteps || []).map((stepItem, sIdx) => {
+						const phaseVal = typeof stepItem === "string" ? stepItem : typeof stepItem?.phase === "object" ? (stepItem.phase?.vi || "") : (stepItem?.phase || "");
+						const phaseEnVal = typeof stepItem === "object" ? (stepItem?.translations?.en?.phase || (typeof stepItem?.phase === "object" ? stepItem.phase?.en : "") || "") : "";
+						return (
 						<div key={sIdx} className='p-3 bg-surface-bg rounded-lg border border-border space-y-2 relative'>
 							<div className='flex items-center justify-between'>
 								<span className='text-xs font-bold text-text-secondary'>Bước {sIdx + 1}</span>
@@ -172,36 +175,51 @@ const AssetsRelicsSection = memo(({ formData, setFormData, dataLookup, handleTra
 									<XCircle size={16} />
 								</button>
 							</div>
-							<div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
-								<InputField
-									label="Nội dung bước (VI)"
-									value={stepItem.phase || ""}
-									onChange={e => {
-										const newSteps = [...(formData.comboSteps || [])];
-										newSteps[sIdx] = {
-											...newSteps[sIdx],
-											step: sIdx + 1,
-											phase: e.target.value,
-										};
-										setFormData({ ...formData, comboSteps: newSteps });
-									}}
-									placeholder="VD: Vòng 1: Khởi động & Kiểm soát..."
-								/>
-								<InputField
-									label="Step Description (EN)"
-									value={stepItem.translations?.en?.phase || ""}
-									onChange={e => {
-										const newSteps = [...(formData.comboSteps || [])];
-										if (!newSteps[sIdx].translations) newSteps[sIdx].translations = { en: {} };
-										if (!newSteps[sIdx].translations.en) newSteps[sIdx].translations.en = {};
-										newSteps[sIdx].translations.en.phase = e.target.value;
-										setFormData({ ...formData, comboSteps: newSteps });
-									}}
-									placeholder="e.g. Turn 1: Setup & Board Control..."
-								/>
+							<div className='grid grid-cols-1 md:grid-cols-2 gap-3'>
+								<div className='space-y-1'>
+									<label className='block text-xs font-semibold text-text-primary'>
+										Nội dung bước (VI)
+									</label>
+									<MarkupEditor
+										label={`Vận hành combo mặc định - Bước ${sIdx + 1} (VI)`}
+										value={phaseVal}
+										onChange={({ markup }) => {
+											const newSteps = [...(formData.comboSteps || [])];
+											newSteps[sIdx] = {
+												...(typeof newSteps[sIdx] === "object" ? newSteps[sIdx] : {}),
+												step: sIdx + 1,
+												phase: markup,
+											};
+											setFormData({ ...formData, comboSteps: newSteps });
+										}}
+										placeholder="VD: Vòng 1: Khởi động & Kiểm soát..."
+										compact
+									/>
+								</div>
+								<div className='space-y-1'>
+									<label className='block text-xs font-semibold text-blue-400'>
+										Step Description (EN)
+									</label>
+									<MarkupEditor
+										label={`Default Combo Steps - Step ${sIdx + 1} (EN)`}
+										value={phaseEnVal}
+										onChange={({ markup }) => {
+											const newSteps = [...(formData.comboSteps || [])];
+											const current = typeof newSteps[sIdx] === "object" ? newSteps[sIdx] : { step: sIdx + 1, phase: "" };
+											if (!current.translations) current.translations = { en: {} };
+											if (!current.translations.en) current.translations.en = {};
+											current.translations.en.phase = markup;
+											newSteps[sIdx] = current;
+											setFormData({ ...formData, comboSteps: newSteps });
+										}}
+										placeholder="e.g. Turn 1: Setup & Board Control..."
+										compact
+									/>
+								</div>
 							</div>
 						</div>
-					))}
+						);
+					})}
 				</div>
 
 				{/* Pro Tips Mặc Định */}
@@ -229,8 +247,8 @@ const AssetsRelicsSection = memo(({ formData, setFormData, dataLookup, handleTra
 					</div>
 
 					{(formData.proTips || []).map((tipItem, tIdx) => {
-						const tipVal = typeof tipItem === "string" ? tipItem : tipItem?.tip || "";
-						const tipEnVal = typeof tipItem === "object" ? tipItem?.translations?.en?.tip || "" : "";
+						const tipVal = typeof tipItem === "string" ? tipItem : typeof tipItem?.tip === "object" ? (tipItem.tip?.vi || "") : (tipItem?.tip || "");
+						const tipEnVal = typeof tipItem === "object" ? (tipItem?.translations?.en?.tip || (typeof tipItem?.tip === "object" ? tipItem.tip?.en : "") || "") : "";
 
 						return (
 							<div key={tIdx} className='p-3 bg-surface-bg rounded-lg border border-border space-y-2 relative'>
@@ -249,39 +267,49 @@ const AssetsRelicsSection = memo(({ formData, setFormData, dataLookup, handleTra
 										<XCircle size={16} />
 									</button>
 								</div>
-								<div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
-									<textarea
-										rows={2}
-										value={tipVal}
-										onChange={e => {
-											const newTips = [...(formData.proTips || [])];
-											const currentTip = newTips[tIdx];
-											if (typeof currentTip === "string") {
-												newTips[tIdx] = { tip: e.target.value, translations: { en: { tip: "" } } };
-											} else {
-												newTips[tIdx] = { ...currentTip, tip: e.target.value };
-											}
-											setFormData({ ...formData, proTips: newTips });
-										}}
-										className='w-full bg-input-bg border border-input-border p-2 rounded text-xs text-input-text placeholder:text-input-placeholder focus:border-primary-500 focus:outline-none'
-										placeholder="Nội dung mẹo chiến thuật mặc định (VI)..."
-									/>
-									<textarea
-										rows={2}
-										value={tipEnVal}
-										onChange={e => {
-											const newTips = [...(formData.proTips || [])];
-											const currentTip = newTips[tIdx];
-											const currentTipObj = typeof currentTip === "string" ? { tip: currentTip } : currentTip;
-											if (!currentTipObj.translations) currentTipObj.translations = { en: {} };
-											if (!currentTipObj.translations.en) currentTipObj.translations.en = {};
-											currentTipObj.translations.en.tip = e.target.value;
-											newTips[tIdx] = currentTipObj;
-											setFormData({ ...formData, proTips: newTips });
-										}}
-										className='w-full bg-input-bg border border-input-border p-2 rounded text-xs text-input-text placeholder:text-input-placeholder focus:border-primary-500 focus:outline-none'
-										placeholder="Default tactical tip content (EN)..."
-									/>
+								<div className='grid grid-cols-1 md:grid-cols-2 gap-3'>
+									<div className='space-y-1'>
+										<label className='block text-xs font-semibold text-text-primary'>
+											Nội dung mẹo chiến thuật (VI)
+										</label>
+										<MarkupEditor
+											label={`Mẹo chuyên sâu mặc định - Mẹo #${tIdx + 1} (VI)`}
+											value={tipVal}
+											onChange={({ markup }) => {
+												const newTips = [...(formData.proTips || [])];
+												const currentTip = newTips[tIdx];
+												if (typeof currentTip === "string") {
+													newTips[tIdx] = { tip: markup, translations: { en: { tip: "" } } };
+												} else {
+													newTips[tIdx] = { ...currentTip, tip: markup };
+												}
+												setFormData({ ...formData, proTips: newTips });
+											}}
+											placeholder="Nội dung mẹo chiến thuật mặc định (VI)..."
+											compact
+										/>
+									</div>
+									<div className='space-y-1'>
+										<label className='block text-xs font-semibold text-blue-400'>
+											Tactical Tip Content (EN)
+										</label>
+										<MarkupEditor
+											label={`Default Tactical Tip - Tip #${tIdx + 1} (EN)`}
+											value={tipEnVal}
+											onChange={({ markup }) => {
+												const newTips = [...(formData.proTips || [])];
+												const currentTip = newTips[tIdx];
+												const currentTipObj = typeof currentTip === "string" ? { tip: currentTip } : { ...currentTip };
+												if (!currentTipObj.translations) currentTipObj.translations = { en: {} };
+												if (!currentTipObj.translations.en) currentTipObj.translations.en = {};
+												currentTipObj.translations.en.tip = markup;
+												newTips[tIdx] = currentTipObj;
+												setFormData({ ...formData, proTips: newTips });
+											}}
+											placeholder="Default tactical tip content (EN)..."
+											compact
+										/>
+									</div>
 								</div>
 							</div>
 						);
@@ -410,7 +438,10 @@ const AssetsRelicsSection = memo(({ formData, setFormData, dataLookup, handleTra
 									</button>
 								</div>
 
-								{(set.comboSteps || []).map((stepItem, sIdx) => (
+								{(set.comboSteps || []).map((stepItem, sIdx) => {
+									const setPhaseVal = typeof stepItem === "string" ? stepItem : typeof stepItem?.phase === "object" ? (stepItem.phase?.vi || "") : (stepItem?.phase || "");
+									const setPhaseEnVal = typeof stepItem === "object" ? (stepItem?.translations?.en?.phase || (typeof stepItem?.phase === "object" ? stepItem.phase?.en : "") || "") : "";
+									return (
 									<div key={sIdx} className='p-3 bg-surface-bg rounded-lg border border-border space-y-2 relative'>
 										<div className='flex items-center justify-between'>
 											<span className='text-xs font-bold text-text-secondary'>Bước {sIdx + 1}</span>
@@ -426,33 +457,52 @@ const AssetsRelicsSection = memo(({ formData, setFormData, dataLookup, handleTra
 												<XCircle size={16} />
 											</button>
 										</div>
-										<div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
-											<InputField
-												label="Nội dung bước (VI)"
-												value={stepItem.phase || ""}
-												onChange={e => {
-													const newSets = [...(formData.relicSets || [])];
-													newSets[idx].comboSteps[sIdx].phase = e.target.value;
-													newSets[idx].comboSteps[sIdx].step = sIdx + 1;
-													setFormData({ ...formData, relicSets: newSets });
-												}}
-												placeholder="VD: Vòng 1: Khởi động & Kiểm soát"
-											/>
-											<InputField
-												label="Step Description (EN)"
-												value={stepItem.translations?.en?.phase || ""}
-												onChange={e => {
-													const newSets = [...(formData.relicSets || [])];
-													if (!newSets[idx].comboSteps[sIdx].translations) newSets[idx].comboSteps[sIdx].translations = { en: {} };
-													if (!newSets[idx].comboSteps[sIdx].translations.en) newSets[idx].comboSteps[sIdx].translations.en = {};
-													newSets[idx].comboSteps[sIdx].translations.en.phase = e.target.value;
-													setFormData({ ...formData, relicSets: newSets });
-												}}
-												placeholder="e.g., Turn 1: Setup & Control"
-											/>
+										<div className='grid grid-cols-1 md:grid-cols-2 gap-3'>
+											<div className='space-y-1'>
+												<label className='block text-xs font-semibold text-text-primary'>
+													Nội dung bước (VI)
+												</label>
+												<MarkupEditor
+													label={`Bộ cổ vật #${idx + 1} - Bước ${sIdx + 1} (VI)`}
+													value={setPhaseVal}
+													onChange={({ markup }) => {
+														const newSets = [...(formData.relicSets || [])];
+														const curStep = newSets[idx].comboSteps[sIdx] || {};
+														newSets[idx].comboSteps[sIdx] = {
+															...curStep,
+															step: sIdx + 1,
+															phase: markup,
+														};
+														setFormData({ ...formData, relicSets: newSets });
+													}}
+													placeholder="VD: Vòng 1: Khởi động & Kiểm soát"
+													compact
+												/>
+											</div>
+											<div className='space-y-1'>
+												<label className='block text-xs font-semibold text-blue-400'>
+													Step Description (EN)
+												</label>
+												<MarkupEditor
+													label={`Relic Set #${idx + 1} - Step ${sIdx + 1} (EN)`}
+													value={setPhaseEnVal}
+													onChange={({ markup }) => {
+														const newSets = [...(formData.relicSets || [])];
+														const curStep = newSets[idx].comboSteps[sIdx] || { step: sIdx + 1, phase: "" };
+														if (!curStep.translations) curStep.translations = { en: {} };
+														if (!curStep.translations.en) curStep.translations.en = {};
+														curStep.translations.en.phase = markup;
+														newSets[idx].comboSteps[sIdx] = curStep;
+														setFormData({ ...formData, relicSets: newSets });
+													}}
+													placeholder="e.g., Turn 1: Setup & Control"
+													compact
+												/>
+											</div>
 										</div>
 									</div>
-								))}
+									);
+								})}
 							</div>
 
 							{/* Pro Tips Riêng Cho Bộ Này (Tùy chọn) */}
@@ -485,8 +535,8 @@ const AssetsRelicsSection = memo(({ formData, setFormData, dataLookup, handleTra
 								</div>
 
 								{(set.proTips || []).map((tipItem, tIdx) => {
-									const tipVal = typeof tipItem === "string" ? tipItem : tipItem?.tip || "";
-									const tipEnVal = typeof tipItem === "object" ? tipItem?.translations?.en?.tip || "" : "";
+									const tipVal = typeof tipItem === "string" ? tipItem : typeof tipItem?.tip === "object" ? (tipItem.tip?.vi || "") : (tipItem?.tip || "");
+									const tipEnVal = typeof tipItem === "object" ? (tipItem?.translations?.en?.tip || (typeof tipItem?.tip === "object" ? tipItem.tip?.en : "") || "") : "";
 
 									return (
 										<div key={tIdx} className='p-3 bg-surface-bg rounded-lg border border-border space-y-2 relative'>
@@ -504,39 +554,49 @@ const AssetsRelicsSection = memo(({ formData, setFormData, dataLookup, handleTra
 													<XCircle size={16} />
 												</button>
 											</div>
-											<div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
-												<textarea
-													rows={2}
-													value={tipVal}
-													onChange={e => {
-														const newSets = [...(formData.relicSets || [])];
-														const currentTip = newSets[idx].proTips[tIdx];
-														if (typeof currentTip === "string") {
-															newSets[idx].proTips[tIdx] = { tip: e.target.value, translations: { en: { tip: "" } } };
-														} else {
-															newSets[idx].proTips[tIdx] = { ...currentTip, tip: e.target.value };
-														}
-														setFormData({ ...formData, relicSets: newSets });
-													}}
-													className='w-full bg-input-bg border border-input-border p-2 rounded text-xs text-input-text placeholder:text-input-placeholder focus:border-primary-500 focus:outline-none'
-													placeholder="Nội dung mẹo chiến thuật (VI)..."
-												/>
-												<textarea
-													rows={2}
-													value={tipEnVal}
-													onChange={e => {
-														const newSets = [...(formData.relicSets || [])];
-														const currentTip = newSets[idx].proTips[tIdx];
-														const currentTipObj = typeof currentTip === "string" ? { tip: currentTip } : currentTip;
-														if (!currentTipObj.translations) currentTipObj.translations = { en: {} };
-														if (!currentTipObj.translations.en) currentTipObj.translations.en = {};
-														currentTipObj.translations.en.tip = e.target.value;
-														newSets[idx].proTips[tIdx] = currentTipObj;
-														setFormData({ ...formData, relicSets: newSets });
-													}}
-													className='w-full bg-input-bg border border-input-border p-2 rounded text-xs text-input-text placeholder:text-input-placeholder focus:border-primary-500 focus:outline-none'
-													placeholder="Tactical tip content (EN)..."
-												/>
+											<div className='grid grid-cols-1 md:grid-cols-2 gap-3'>
+												<div className='space-y-1'>
+													<label className='block text-xs font-semibold text-text-primary'>
+														Nội dung mẹo chiến thuật (VI)
+													</label>
+													<MarkupEditor
+														label={`Bộ cổ vật #${idx + 1} - Mẹo #${tIdx + 1} (VI)`}
+														value={tipVal}
+														onChange={({ markup }) => {
+															const newSets = [...(formData.relicSets || [])];
+															const currentTip = newSets[idx].proTips[tIdx];
+															if (typeof currentTip === "string") {
+																newSets[idx].proTips[tIdx] = { tip: markup, translations: { en: { tip: "" } } };
+															} else {
+																newSets[idx].proTips[tIdx] = { ...currentTip, tip: markup };
+															}
+															setFormData({ ...formData, relicSets: newSets });
+														}}
+														placeholder="Nội dung mẹo chiến thuật (VI)..."
+														compact
+													/>
+												</div>
+												<div className='space-y-1'>
+													<label className='block text-xs font-semibold text-blue-400'>
+														Tactical Tip Content (EN)
+													</label>
+													<MarkupEditor
+														label={`Relic Set #${idx + 1} - Tip #${tIdx + 1} (EN)`}
+														value={tipEnVal}
+														onChange={({ markup }) => {
+															const newSets = [...(formData.relicSets || [])];
+															const currentTip = newSets[idx].proTips[tIdx];
+															const currentTipObj = typeof currentTip === "string" ? { tip: currentTip } : { ...currentTip };
+															if (!currentTipObj.translations) currentTipObj.translations = { en: {} };
+															if (!currentTipObj.translations.en) currentTipObj.translations.en = {};
+															currentTipObj.translations.en.tip = markup;
+															newSets[idx].proTips[tIdx] = currentTipObj;
+															setFormData({ ...formData, relicSets: newSets });
+														}}
+														placeholder="Tactical tip content (EN)..."
+														compact
+													/>
+												</div>
 											</div>
 										</div>
 									);
@@ -549,6 +609,7 @@ const AssetsRelicsSection = memo(({ formData, setFormData, dataLookup, handleTra
 									{tUI("admin.championForm.descLabel")} (VI)
 								</label>
 								<MarkupEditor
+									label={`Bộ cổ vật #${idx + 1} - ${tUI("admin.championForm.descLabel")} (VI)`}
 									value={set.description || ""}
 									onChange={({ markup, raw }) => {
 										const newSets = [...(formData.relicSets || [])];
@@ -564,6 +625,7 @@ const AssetsRelicsSection = memo(({ formData, setFormData, dataLookup, handleTra
 									{tUI("admin.championForm.descLabel")} (EN)
 								</label>
 								<MarkupEditor
+									label={`Relic Set #${idx + 1} - ${tUI("admin.championForm.descLabel")} (EN)`}
 									value={set.translations?.en?.description || ""}
 									onChange={({ markup, raw }) => {
 										const newSets = [...(formData.relicSets || [])];

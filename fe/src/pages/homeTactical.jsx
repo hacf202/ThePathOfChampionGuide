@@ -848,19 +848,19 @@ const HomeTactical = () => {
 
 	// Tướng Spotlight hiển thị trên Hero: Ưu tiên Garen hoặc tướng đầu tiên từ API
 	const champion = useMemo(() => {
-		if (formattedChampions.length === 0) return FEATURED_CHAMPION;
-		const found = formattedChampions.find(
-			(c) => c.cardCode === "01DE012" || c.name?.toLowerCase() === "garen"
-		);
-		if (found) {
-			return {
-				...found,
-				splashImg: FEATURED_CHAMPION.splashImg || found.portrait,
-				cardImg: FEATURED_CHAMPION.cardImg || found.cardImg,
-				palette: FEATURED_CHAMPION.palette,
-			};
-		}
-		return formattedChampions[0] || FEATURED_CHAMPION;
+    if (formattedChampions.length === 0) return FEATURED_CHAMPION;
+    const found = formattedChampions.find(
+        (c) => c.cardCode === "05SH014" || c.name?.toLowerCase() === "xerath"
+    );
+    if (found) {
+        return {
+            ...found,
+            splashImg: found.portrait || found.avatar,
+            cardImg: found.cardImg,
+            palette: found.palette,
+        };
+    }
+    return formattedChampions[0] || FEATURED_CHAMPION;
 	}, [formattedChampions]);
 
 	const palette = champion.palette || FEATURED_CHAMPION.palette;
@@ -1132,7 +1132,7 @@ const HomeTactical = () => {
 							<h1 className="text-5xl sm:text-7xl md:text-8xl font-display uppercase italic tracking-tight leading-none text-[var(--tactical-text-main)] drop-shadow-sm">
 								{isEn ? (
 									<>
-										<span className="block">PATH OF</span>
+										<span className="block">THE PATH OF</span>
 										<span className="block tactical-accent-lime drop-shadow-[0_0_30px_rgba(210,255,40,0.4)]">
 											CHAMPIONS
 										</span>

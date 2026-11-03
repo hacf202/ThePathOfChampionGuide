@@ -62,7 +62,7 @@ const ChampionPlaystyleChart = ({
 	const [showAllRatingsModal, setShowAllRatingsModal] = useState(false);
 	const [allRatings, setAllRatings] = useState(initialAllRatings);
 	const [myRating, setMyRating] = useState(initialMyRating);
-	const [isLoadingRatings, setIsLoadingRatings] = useState(false);
+	const [, setIsLoadingRatings] = useState(false);
 	const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 	const containerRef = useRef(null);
 
@@ -206,7 +206,7 @@ const ChampionPlaystyleChart = ({
 
 	const playstyleNote =
 		tDynamic(champion, "ratings.playstyleNote") ||
-		champion.ratings?.playstyleNote;
+		playstyleNote;
 	const criteriaKeys = [
 		"damage",
 		"defense",
@@ -367,12 +367,14 @@ const ChampionPlaystyleChart = ({
 					</div>
 
 					{/* Note nhỏ ở dưới */}
-					{champion.ratings?.playstyleNote && (
+					{playstyleNote && (
 						<div className='mt-8 pt-4 border-t border-border/50 text-xs text-text-secondary leading-relaxed italic'>
 							<span className='font-bold text-text-primary not-italic block mb-1 uppercase tracking-widest text-[10px] opacity-70'>
 								{tUI("championDetail.ratings.playstyleNote")}
 							</span>
-							{champion.ratings.playstyleNote}
+							{typeof playstyleNote === "object"
+								? playstyleNote?.vi || playstyleNote?.en || ""
+								: playstyleNote}
 						</div>
 					)}
 				</div>

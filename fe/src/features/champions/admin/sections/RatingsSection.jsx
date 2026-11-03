@@ -1,7 +1,18 @@
 import { memo } from "react";
-import { Box, RefreshCcw, Users } from "lucide-react";
+import { Box } from "lucide-react";
 
-const RatingsSection = memo(({ formData, setFormData, champion, isDetailLoading, tUI }) => {
+const RatingsSection = memo(({ formData, setFormData, tUI }) => {
+	const viPlaystyleNote =
+		typeof formData.ratings?.playstyleNote === "object"
+			? formData.ratings.playstyleNote?.vi || ""
+			: formData.ratings?.playstyleNote || "";
+
+	const enPlaystyleNote =
+		formData.translations?.en?.ratings?.playstyleNote ||
+		(typeof formData.ratings?.playstyleNote === "object"
+			? formData.ratings.playstyleNote?.en || ""
+			: "");
+
 	return (
 		<div className='flex flex-col gap-4 bg-surface-hover/30 p-4 rounded-xl border border-border py-6 mt-4'>
 			<div className='flex flex-col md:flex-row md:items-center justify-between gap-4 mb-2'>
@@ -49,7 +60,7 @@ const RatingsSection = memo(({ formData, setFormData, champion, isDetailLoading,
 					</label>
 					<textarea
 						rows={3}
-						value={formData.ratings?.playstyleNote || ""}
+						value={viPlaystyleNote}
 						onChange={e =>
 							setFormData(prev => ({
 								...prev,
@@ -69,9 +80,7 @@ const RatingsSection = memo(({ formData, setFormData, champion, isDetailLoading,
 					</label>
 					<textarea
 						rows={3}
-						value={
-							formData.translations?.en?.ratings?.playstyleNote || ""
-						}
+						value={enPlaystyleNote}
 						onChange={e =>
 							setFormData(prev => ({
 								...prev,

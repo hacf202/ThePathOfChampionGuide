@@ -36,8 +36,13 @@ Bóc tách các thông tin người dùng cung cấp:
 - Đối chiếu cơ chế với `https://runeterrarelics.com/champions/<slug>`.
 - **Nếu thiếu thông tin:** Dừng lại hỏi người dùng, tuyệt đối không tự bịa đặt dữ liệu.
 
-### Giai đoạn 3: Bọc thẻ Tag hệ thống (VI)
-Áp dụng thẻ markup: `[r:Rxxxx|Tên|icon]`, `[cd:CardCode|Tên|icon]`, `[k:Keyword|Tên|icon]`, `[i:Ixxxx|Tên|icon]`, `[p:Pxxxx|Tên|icon]`.
+### Giai đoạn 3: Bọc thẻ Tag hệ thống & Chuẩn Hóa Hành Văn (VI)
+- **Áp dụng triệt để Công thức Hành văn Tác giả** (tham khảo [.agents/rules/author_writing_style.md](file:///d:/ThePathOfChampionGuide/.agents/rules/author_writing_style.md)):
+  - Mở đầu trực diện: `[cd:MÃ|Tên] là tướng có lối chơi...`
+  - Bắt buộc phân tích mốc sao với ký hiệu `C2`, `C3`, `C6`.
+  - Luồng đánh chủ yếu bắt buộc dùng chuỗi mũi tên `->`.
+  - Tuyệt đối không mở ngoặc `(...)` giải thích thừa.
+- Áp dụng thẻ markup: `[r:Rxxxx|Tên|icon]`, `[cd:CardCode|Tên|icon]`, `[k:Keyword|Tên|icon]`, `[i:Ixxxx|Tên|icon]`, `[p:Pxxxx|Tên|icon]`.
 
 ### Giai đoạn 4: Biên dịch Tiếng Anh Chuẩn LoR (EN)
 - **Cấu trúc thẻ:** Giữ nguyên 100% ngoặc vuông và mã code, chỉ dịch tên hiển thị ở giữa.

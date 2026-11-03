@@ -18,7 +18,7 @@ import MarkupRenderer from "@/components/common/MarkupRenderer";
 const formatComboText = (text) => {
 	if (!text) return "";
 	let cleaned = text.replace(/^(step|bước)\s*\d+\s*[:.-]\s*/i, "").trim();
-	if (cleaned === cleaned.toUpperCase() && cleaned.length > 5) {
+	if (cleaned === cleaned.toUpperCase() && cleaned.length > 5 && !cleaned.includes("[")) {
 		cleaned = cleaned.charAt(0).toUpperCase() + cleaned.slice(1).toLowerCase();
 	}
 	return cleaned;
@@ -354,14 +354,14 @@ const ChampionRelicGuideSection = ({
 											</span>
 											<div className="space-y-1 min-w-0 flex-1">
 												{phaseText && (
-													<p className="text-sm sm:text-base font-medium normal-case leading-snug tactical-text-main">
-														{phaseText}
-													</p>
+													<div className="text-sm sm:text-base font-medium normal-case leading-snug tactical-text-main">
+														<MarkupRenderer text={phaseText} />
+													</div>
 												)}
 												{actionText && actionText !== phaseText && (
-													<p className="text-xs sm:text-sm tactical-text-sub normal-case leading-relaxed">
-														{actionText}
-													</p>
+													<div className="text-xs sm:text-sm tactical-text-sub normal-case leading-relaxed">
+														<MarkupRenderer text={actionText} />
+													</div>
 												)}
 											</div>
 										</div>
@@ -386,9 +386,9 @@ const ChampionRelicGuideSection = ({
 											<span className="tactical-accent-lime font-mono-tech font-bold text-xs mt-0.5">
 												•
 											</span>
-											<p className="text-xs sm:text-sm tactical-text-sub normal-case leading-relaxed">
-												{tip}
-											</p>
+											<div className="text-xs sm:text-sm tactical-text-sub normal-case leading-relaxed">
+												<MarkupRenderer text={tip} />
+											</div>
 										</div>
 									))}
 								</div>

@@ -27,6 +27,7 @@ const GuideSection = memo(({ formData, setFormData, updateTranslationFields, tUI
 							{tUI("admin.championForm.descLabel")} (VI)
 						</label>
 						<MarkupEditor
+							label={`${tUI("admin.championForm.descLabel")} (VI)`}
 							value={formData.description || ""}
 							onChange={({ markup, raw }) =>
 								setFormData(prev => ({
@@ -43,6 +44,7 @@ const GuideSection = memo(({ formData, setFormData, updateTranslationFields, tUI
 							{tUI("admin.championForm.descLabel")} (EN)
 						</label>
 						<MarkupEditor
+							label={`${tUI("admin.championForm.descLabel")} (EN)`}
 							value={formData.translations?.en?.description || ""}
 							onChange={({ markup, raw }) =>
 								updateTranslationFields("en", {

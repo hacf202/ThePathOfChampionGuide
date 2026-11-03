@@ -17,6 +17,7 @@ const EditorHeaderToolbar = memo(
 		disableSave = false,
 		isSidebarOpen = false,
 		onToggleSidebar = null, // Nếu truyền hàm này vào, nút đóng/mở sidebar mới xuất hiện
+		extraActions = null,
 	}) => {
 		const { tUI } = useTranslation();
 		const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -43,6 +44,7 @@ const EditorHeaderToolbar = memo(
 						)}
 					</div>
 					<div className='flex items-center gap-3'>
+						{extraActions}
 						{/* NÚT ĐÓNG/MỞ SIDEBAR */}
 						{onToggleSidebar && (
 							<Button

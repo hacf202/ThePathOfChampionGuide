@@ -242,7 +242,7 @@ function ChampionEditor() {
 	const [items, setItems] = useState([]);
 	const [cards, setCards] = useState([]);
 
-	const [searchParams, setSearchParams] = useSearchParams();
+	const [searchParams] = useSearchParams();
 
 	// Initialize state from URL
 	const [searchInput, setSearchInput] = useState(searchParams.get("q") || "");
@@ -316,7 +316,8 @@ function ChampionEditor() {
 			setPowers(powerData.items || []);
 			setItems(itemData.items || []);
 			setCards(cardData.items || []);
-		} catch (e) {
+		} catch (err) {
+			console.error("Error loading data:", err);
 			setError(tUI("admin.common.errorLoad"));
 		} finally {
 			setIsLoading(false);

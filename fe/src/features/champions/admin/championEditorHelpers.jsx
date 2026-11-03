@@ -154,11 +154,11 @@ export const ArrayInputComponent = ({
 	const handleDrop = (e, index) => {
 		e.preventDefault();
 		try {
-			constged = JSON.parse(e.dataTransfer.getData("text/plain"));
-			const identifier =ged.id ||ged.name;
+			const dragged = JSON.parse(e.dataTransfer.getData("text/plain"));
+			const identifier = dragged.id || dragged.name;
 			if (identifier) handleItemChange(index, identifier.trim());
 		} catch (err) {
-			console.warn("Drag data không hợp lệ");
+			console.warn("Drag data không hợp lệ", err);
 		}
 	};
 
@@ -497,18 +497,18 @@ export const NodeEditor = ({
 	const handleDropIntoNode = e => {
 		e.preventDefault();
 		try {
-			constged = JSON.parse(e.dataTransfer.getData("text/plain"));
-			const uniqueId =ged.id;
+			const dragged = JSON.parse(e.dataTransfer.getData("text/plain"));
+			const uniqueId = dragged.id;
 
-			if (dragged.type === "power" ||ged.type === "bonusStar") {
-				const list =ged.type === "power"
+			if (dragged.type === "power" ||dragged.type === "bonusStar") {
+				const list = dragged.type === "power"
 						? cachedData.powers || []
 						: cachedData.bonusStars || [];
 				let droppedItem = uniqueId
 					? list.find(p => getUniqueId(p) === uniqueId)
 					: null;
-				if (!droppedItem &&ged.name)
-					droppedItem = list.find(p => p.name ===ged.name);
+				if (!droppedItem &&dragged.name)
+					droppedItem = list.find(p => p.name === dragged.name);
 
 				if (droppedItem) {
 					const itemID = uniqueId || getUniqueId(droppedItem);
@@ -531,7 +531,7 @@ export const NodeEditor = ({
 				}
 			}
 		} catch (err) {
-			console.warn("Lỗi kéo thả vào Node");
+			console.warn("Lỗi kéo thả vào Node", err);
 		}
 	};
 
