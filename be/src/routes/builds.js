@@ -15,7 +15,7 @@ import {
 import { removeAccents } from "../utils/vietnameseUtils.js";
 import { createAuditLog } from "../utils/auditLogger.js";
 import { getUserNames } from "../utils/userCache.js";
-import cacheManager from "../utils/cacheManager.js";
+import cacheManager, { apiRouteCache } from "../utils/cacheManager.js";
 import kv from "../utils/redis.js";
 
 import { getCachedChampions, getCachedRelics, getCachedPowers, getCachedRunes } from "../services/dataService.js";
@@ -211,10 +211,11 @@ router.get("/", async (req, res) => {
 		const queryParamsStr = new URLSearchParams(req.query).toString();
 		const cacheKey = `api:builds:public:${queryParamsStr}`;
 
-		if (kv) {
-			const cachedData = await kv.get(cacheKey);
+		const isNoCache = Boolean(req.query.t || req.query._) || req.headers["cache-control"] === "no-cache";
+		if (!isNoCache) {
+			const cachedData = await apiRouteCache.get(cacheKey);
 			if (cachedData) {
-				return res.json(JSON.parse(cachedData));
+				return res.json(cachedData);
 			}
 		}
 
@@ -282,9 +283,7 @@ router.get("/", async (req, res) => {
 		};
 		
 		// Cache for 5 minutes (300 seconds)
-		if (kv) {
-			await kv.setex(cacheKey, 300, JSON.stringify(responseData));
-		}
+		apiRouteCache.set(cacheKey, responseData, 300);
 
 		res.json(responseData);
 	} catch (error) {

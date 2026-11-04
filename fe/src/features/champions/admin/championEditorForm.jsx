@@ -16,6 +16,7 @@ import StartingDeckSection from "./sections/StartingDeckSection";
 import ConstellationSection from "./sections/ConstellationSection";
 import AssetsRelicsSection from "./sections/AssetsRelicsSection";
 import RatingsSection from "./sections/RatingsSection";
+import SupportChampionsSection from "./sections/SupportChampionsSection";
 
 // Import helpers
 import { getUniqueId } from "@/features/champions/admin/championEditorHelpers";
@@ -106,6 +107,22 @@ const normalizeComboStepsData = (rawSteps) => {
 };
 
 // Helper chuẩn hóa các mẹo chiến thuật (proTips)
+
+// Helper chuẩn hóa dữ liệu tướng phụ khuyên dùng
+const normalizeSupportChampionsData = (rawSubs) => {
+	if (!Array.isArray(rawSubs)) return [];
+	return rawSubs
+		.map(sub => {
+			if (typeof sub === "string") {
+				return { cardCode: sub, name: "" };
+			}
+			return {
+				cardCode: sub?.cardCode || sub?.code || "",
+				name: sub?.name || "",
+			};
+		})
+		.filter(s => s.cardCode);
+};
 const normalizeProTipsData = (rawTips) => {
 	if (!Array.isArray(rawTips)) return [];
 	return rawTips.map(p => {
@@ -191,6 +208,7 @@ const ChampionEditorForm = memo(
 					ratings: { playstyleNote: "" },
 				},
 			},
+			supportChampions: normalizeSupportChampionsData(champion?.supportChampions || champion?.subChampionIds || champion?.recommendedSubChampions),
 			ratings: {
 				damage: 5,
 				defense: 5,
@@ -385,6 +403,7 @@ const ChampionEditorForm = memo(
 				items: buildLookup(cachedData.items),
 				runes: buildLookup(cachedData.runes),
 				cards: buildLookup(cachedData.cards),
+				subChampions: buildLookup(cachedData.subChampions),
 				regions: iconRegions.reduce((acc, r) => {
 					acc[r.name] = r;
 					const enMapping = {
@@ -621,6 +640,7 @@ const ChampionEditorForm = memo(
 				relicSets: formData.relicSets,
 				comboSteps: formData.comboSteps,
 				proTips: formData.proTips,
+				supportChampions: formData.supportChampions,
 				ratings: formData.ratings,
 				translations: formData.translations,
 			};
@@ -663,6 +683,7 @@ const ChampionEditorForm = memo(
 			if (cleanData.tags) {
 				cleanData.tags = cleanData.tags.filter(Boolean);
 			}
+			cleanData.supportChampions = normalizeSupportChampionsData(formData.supportChampions);
 			cleanData.comboSteps = formData.comboSteps || [];
 			cleanData.proTips = formData.proTips || [];
 			cleanData.relicSets = (formData.relicSets || []).map(set => ({
@@ -766,6 +787,13 @@ const ChampionEditorForm = memo(
 						tUI={tUI} 
 					/>
 
+					
+					<SupportChampionsSection 
+						formData={formData} 
+						setFormData={setFormData} 
+						cachedData={cachedData} 
+						tUI={tUI} 
+					/>
 					<RatingsSection 
 						formData={formData} 
 						setFormData={setFormData} 

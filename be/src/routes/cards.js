@@ -1,6 +1,6 @@
 // be/src/routes/cards.js
 import express from "express";
-import cacheManager from "../utils/cacheManager.js";
+import cacheManager, { apiRouteCache } from "../utils/cacheManager.js";
 import { getDb } from "../config/mongo.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { requireAdmin } from "../middleware/requireAdmin.js";
@@ -23,6 +23,19 @@ export { getCachedCards } from "../services/dataService.js";
  */
 router.get("/", async (req, res) => {
 	try {
+		const cleanQuery = { ...req.query };
+		const isNoCache = Boolean(cleanQuery.t || cleanQuery._) || req.headers["cache-control"] === "no-cache";
+		delete cleanQuery.t;
+		delete cleanQuery._;
+		const queryParamsStr = new URLSearchParams(cleanQuery).toString();
+		const cacheKey = `api:cards:${queryParamsStr}`;
+
+		if (!isNoCache) {
+			const cachedData = await apiRouteCache.get(cacheKey);
+			if (cachedData) {
+				return res.json(cachedData);
+			}
+		}
 		const {
 			page = 1,
 			limit = 24,
@@ -170,7 +183,7 @@ router.get("/", async (req, res) => {
 			costs: [...new Set(allCards.map(c => Number(c.cost || 0)))].sort((a, b) => a - b),
 		};
 
-		res.json({
+		const responseData = {
 			items: paginatedItems,
 			pagination: {
 				totalItems,
@@ -178,8 +191,10 @@ router.get("/", async (req, res) => {
 				currentPage,
 				pageSize: pageSize < 0 ? totalItems : pageSize,
 			},
-			availableFilters, // Gửi bộ lọc động về cho FE
-		});
+			availableFilters,
+		};
+		apiRouteCache.set(cacheKey, responseData, 300);
+		res.json(responseData);
 	} catch (error) {
 		console.error("Lỗi lấy danh sách cards:", error);
 		res.status(500).json({ error: "Lỗi hệ thống." });

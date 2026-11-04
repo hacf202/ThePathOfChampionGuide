@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 import {
 	Eye,
 	Compass,
@@ -13,6 +14,7 @@ import {
 	Lock,
 	CheckCircle2,
 	Info,
+	ArrowUpRight,
 } from "lucide-react";
 import MarkupRenderer from "@/components/common/MarkupRenderer";
 import SafeImage from "@/components/common/SafeImage";
@@ -101,38 +103,50 @@ const ChampionPowersConstellationSection = ({
 	const formattedStarPowers = useMemo(() => {
 		return starPowersList.map((node, idx) => ({
 			id: node.nodeID || `star-${idx + 1}`,
+			powerCode: node.powerCode || node.raw?.powerCode || (typeof node.nodeID === "string" && node.nodeID.startsWith("P") ? node.nodeID : null),
 			category: "STAR_POWERS",
 			tierBadge: `${node.starLevel || idx + 1}★`,
-			name: node.name || `Star Power ${idx + 1}`,
+			name: node.name || (language === "en" ? `Star Power ${idx + 1}` : `Ngôi sao sức mạnh ${idx + 1}`),
 			badges: [
-				idx + 1 === 2 ? "+1 Starting Mana" : idx + 1 === 6 ? "Apex 6★ Power" : `${node.starLevel || idx + 1}★ ${tUI("championDetail.tactical.starPowerBadge") || "Star Power"}`,
+				idx + 1 === 2
+					? "+1 Starting Mana"
+					: idx + 1 === 6
+					? (tUI("championDetail.tactical.apexPower") || "Apex 6★ Power")
+					: `${node.starLevel || idx + 1}★ ${tUI("championDetail.tactical.starPowerBadge") || "Star Power"}`,
 			],
-			cost: idx === 5 ? "Nova Crystal / Shards" : `${(idx + 1) * 10} Champion Fragments`,
+			cost: idx === 5
+				? (tUI("championDetail.tactical.novaShardsCost") || "Nova Crystal / Shards")
+				: `${(idx + 1) * 10} ${tUI("championDetail.tactical.championFragmentsCost") || "Champion Fragments"}`,
 			img: node.image || champion?.assets?.[0]?.avatar,
 			description: node.description || "",
 			tip: tUI("championDetail.tactical.passiveGameLong") || "Permanently active passive effect throughout the entire game.",
 			raw: node,
 		}));
-	}, [starPowersList, champion, tUI]);
+	}, [starPowersList, champion, tUI, language]);
 
 	// Danh sách Bonus Stars
 	const formattedBonusStars = useMemo(() => {
 		return bonusStarsList.map((node, idx) => ({
 			id: node.nodeID || `bonus-${idx}`,
+			powerCode: node.powerCode || node.raw?.powerCode,
 			category: "BONUS_STARS",
 			tierBadge: node.nodeType === "bonusStarGem" ? "GEM" : "BONUS",
-			name: node.name || `Bonus Star ${idx + 1}`,
+			name: node.name || (language === "en" ? `Bonus Star ${idx + 1}` : `Sao thưởng ${idx + 1}`),
 			badges: [
-				node.nodeType === "bonusStarGem" ? "Gemstone Node" : "Bonus Star Node",
-				node.isRecommended ? "Recommended" : "Constellation",
+				node.nodeType === "bonusStarGem"
+					? (tUI("championDetail.tactical.gemstoneNodeBadge") || "Gemstone Node")
+					: (tUI("championDetail.tactical.bonusStarNodeBadge") || "Bonus Star Node"),
+				node.isRecommended
+					? (tUI("championDetail.tactical.recommendedBadge") || "Recommended")
+					: (tUI("championDetail.tactical.constellationBadge") || "Constellation"),
 			],
-			cost: "Star Crystals / Gemstones",
+			cost: tUI("championDetail.tactical.starCrystalsCost") || "Star Crystals / Gemstones",
 			img: node.image || "/images/placeholder.png",
 			description: node.description || "",
 			tip: tUI("championDetail.tactical.bonusStarTip") || "Stat upgrades and constellation enhancement.",
 			raw: node,
 		}));
-	}, [bonusStarsList, tUI]);
+	}, [bonusStarsList, tUI, language]);
 
 	// Danh sách Levels (hiển thị các cấp có nâng cấp quan trọng)
 	const formattedLevels = useMemo(() => {
@@ -144,12 +158,18 @@ const ChampionPowersConstellationSection = ({
 					.join(" • ");
 				const mainDesc = [
 					lvl.desc,
-					lvl.health ? `Máu Nhà Chính: ${lvl.health} HP` : null,
-					lvl.regen ? `Hồi Máu Mỗi Trận: +${lvl.regen}` : null,
-					attachedCards ? `Nâng Cấp Bài: ${attachedCards}` : null,
+					lvl.health ? `${tUI("championDetail.tactical.nexusHealth") || (language === "en" ? "Nexus Health" : "Máu Nhà Chính")}: ${lvl.health} HP` : null,
+					lvl.regen ? `${tUI("championDetail.tactical.healPerGame") || (language === "en" ? "Heal Per Game" : "Hồi Máu Mỗi Trận")}: +${lvl.regen}` : null,
+					attachedCards ? `${tUI("championDetail.tactical.cardUpgrade") || (language === "en" ? "Deck Upgrade" : "Nâng Cấp Bài")}: ${attachedCards}` : null,
 				]
 					.filter(Boolean)
 					.join(" | ");
+
+				const deckCard = lvl.deckUpdates?.[0]?.card;
+				const cardImg = language === "en"
+					? (deckCard?.translations?.en?.gameAbsolutePath || deckCard?.gameAbsolutePath)
+					: deckCard?.gameAbsolutePath;
+				const lvlImg = cardImg || lvl.icon || champion?.assets?.[0]?.avatar || "/images/placeholder.png";
 
 				return {
 					id: `level-${lvl.level}`,
@@ -157,15 +177,23 @@ const ChampionPowersConstellationSection = ({
 					category: "LEVELS",
 					tierBadge: `LV ${lvl.level}`,
 					name: `Level ${lvl.level}`,
-					badges: [`Level ${lvl.level}`, lvl.deckUpdates?.length ? "Deck Upgrade" : "Stat Milestone"],
+					badges: [
+						`Level ${lvl.level}`,
+						lvl.deckUpdates?.length
+							? (tUI("championDetail.tactical.deckUpgradeMilestone") || (language === "en" ? "Deck Upgrade" : "Nâng cấp bài"))
+							: (tUI("championDetail.tactical.statMilestone") || (language === "en" ? "Stat Milestone" : "Mốc chỉ số")),
+					],
 					cost: `${lvl.exp} EXP`,
-					img: champion?.assets?.[0]?.avatar || champion?.gameAbsolutePath || "/images/placeholder.png",
+					img: lvlImg,
+					isCardUpgrade: !!cardImg,
+					cardObj: deckCard,
+					cardCode: deckCard?.cardCode,
 					description: mainDesc,
-					tip: `Cần đạt ${lvl.exp} kinh nghiệm tướng để mở khóa cấp độ này.`,
+					tip: (tUI("championDetail.tactical.levelExpRequirement") || (language === "en" ? "Requires {{exp}} Champion EXP to unlock this level." : "Cần đạt {{exp}} kinh nghiệm tướng để mở khóa cấp độ này.")).replace("{{exp}}", lvl.exp),
 					raw: lvl,
 				};
 			});
-	}, [levelData, tDynamic, champion]);
+	}, [levelData, tDynamic, champion, language, tUI]);
 
 	// Lọc danh sách Levels: Mặc định chỉ hiện mốc 8, 13, 19, 25, 30; bấm hiển thị thêm để xem toàn bộ
 	const displayedLevels = useMemo(() => {
@@ -200,30 +228,37 @@ const ChampionPowersConstellationSection = ({
 
 			const itemNames = attachedItems.map((i) => tDynamic(i, "name")).join(" + ");
 
+			const isEN = language === "en";
+			const cardImg = isEN
+				? (cardObj?.translations?.en?.gameAbsolutePath || cardObj?.gameAbsolutePath || champion?.assets?.[0]?.avatar)
+				: (cardObj?.gameAbsolutePath || champion?.assets?.[0]?.avatar);
+
 			return {
 				id: `deck-${cData.cardCode}-${idx}`,
 				category: "STARTING_DECK",
 				tierBadge: `${cardObj?.cost ?? 0}M`,
 				name: cardObj ? tDynamic(cardObj, "cardName") : cData.cardCode,
 				badges: [
-					cData.isRef ? "Reference Card" : "Base Starting Card",
+					cData.isRef
+						? (tUI("championDetail.tactical.referenceCardBadge") || (isEN ? "Reference Card" : "Lá Bài Liên Quan"))
+						: (tUI("championDetail.tactical.baseStartingCardBadge") || (isEN ? "Base Starting Card" : "Bài Khởi Đầu")),
 					cardObj?.type?.toUpperCase() || "UNIT",
 				],
 				cost: `${cardObj?.cost ?? 0} Mana`,
-				img: cardObj?.gameAbsolutePath || champion?.assets?.[0]?.avatar,
+				img: cardImg,
 				description: cardObj
 					? tDynamic(cardObj, "description") || tDynamic(cardObj, "descriptionRaw")
 					: "",
 				attachedItems,
 				attachedItemText: itemNames ? `+ ${itemNames}` : null,
 				tip: itemNames
-					? `Đã được nâng cấp qua cấp độ tướng với vật phẩm: ${itemNames}`
-					: "Lá bài nằm trong bộ bài xuất phát của tướng.",
+					? (tUI("championDetail.tactical.startingDeckUpgradedTip") || (isEN ? "Upgraded via champion levels with items: {{items}}" : "Đã được nâng cấp qua cấp độ tướng với vật phẩm: {{items}}")).replace("{{items}}", itemNames)
+					: (tUI("championDetail.tactical.startingDeckCardTip") || (isEN ? "Card included in champion's starting deck." : "Lá bài nằm trong bộ bài xuất phát của tướng.")),
 				cardCode: cData.cardCode,
 				cardObj,
 			};
 		});
-	}, [champion, resolvedStartingCards, resolvedItems, tDynamic]);
+	}, [champion, resolvedStartingCards, resolvedItems, tDynamic, language, tUI]);
 
 	// Danh sách hiển thị theo Tab đang chọn
 	const currentList = useMemo(() => {
@@ -254,6 +289,21 @@ const ChampionPowersConstellationSection = ({
 	const selectedItem = useMemo(() => {
 		return currentList.find((item) => item.id === selectedItemId) || currentList[0] || null;
 	}, [currentList, selectedItemId]);
+
+	// URL điều hướng chi tiết theo loại đối tượng
+	const getItemDetailUrl = (item) => {
+		if (!item) return null;
+		if (item.category === "STARTING_DECK" && item.cardCode) {
+			return `/card/${encodeURIComponent(item.cardCode)}`;
+		}
+		if ((item.category === "STAR_POWERS" || item.category === "BONUS_STARS") && item.powerCode) {
+			return `/power/${encodeURIComponent(item.powerCode)}`;
+		}
+		if (item.category === "LEVELS" && item.cardCode) {
+			return `/card/${encodeURIComponent(item.cardCode)}`;
+		}
+		return null;
+	};
 
 	// Render chip nút bấm Tactical
 	const renderChip = (inp) => {
@@ -371,31 +421,93 @@ const ChampionPowersConstellationSection = ({
 					</div>
 				) : (
 					/* 2-Column Tactical Moves Layout */
-					<div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+					<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
 						{/* Left Column (7 cols): List of Ability / Star Power / Milestone Rows */}
 						<div className="lg:col-span-7 space-y-3">
 						{currentList.map((item) => {
 							const isSelected = selectedItem && item.id === selectedItem.id;
+							const isCard = item.category === "STARTING_DECK" || item.isCardUpgrade;
+
 							return (
 								<div
 									key={item.id}
 									onClick={() => setSelectedItemId(item.id)}
-									className={`cursor-pointer border-l-4 p-4 sm:p-5 transition-all duration-200 flex flex-col gap-3 clip-chamfer-sm tactical-card border ${
+									className={`cursor-pointer border-l-4 p-3.5 sm:p-5 transition-all duration-200 flex flex-col gap-3 clip-chamfer-sm tactical-card border group ${
 										isSelected
 											? "!border-l-[var(--tactical-accent-lime)] shadow-md ring-1 ring-[var(--tactical-accent-lime)]/40"
 											: "border-l-transparent hover:!border-l-gray-400"
 									}`}
 								>
-									<div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-										<div className="space-y-2 min-w-0 flex-1">
-											<div className="flex items-center space-x-2.5">
-												<span
-													className={`font-display text-xl sm:text-2xl uppercase tracking-wide truncate ${
-														isSelected ? "tactical-accent-lime" : "tactical-text-main"
+									<div className="flex items-start gap-3 sm:gap-4">
+										{/* Hình ảnh/Icon lá bài hoặc Power */}
+										{item.img && (
+											<div
+												onClick={(e) => {
+													if (item.cardObj && onOpenCarousel) {
+														e.stopPropagation();
+														onOpenCarousel(item.cardObj, item.cardCode);
+													}
+												}}
+												className={`relative shrink-0 overflow-hidden clip-chamfer-sm bg-black/60 border transition-all duration-300 flex items-center justify-center ${
+													isCard
+														? "w-14 sm:w-16 md:w-20 aspect-[2/3] cursor-zoom-in"
+														: "w-14 h-14 sm:w-16 sm:h-16 aspect-square p-1"
+												} ${
+													isSelected
+														? "border-[var(--tactical-accent-lime)]/80 shadow-[0_0_12px_rgba(204,255,0,0.25)]"
+														: "border-white/10 group-hover:border-white/30"
+												}`}
+												title={item.cardObj ? (language === "en" ? "Click to view full card" : "Nhấp để xem ảnh lá bài đầy đủ") : item.name}
+											>
+												<SafeImage
+													src={item.img}
+													alt={item.name}
+													className={`w-full h-full transition-transform duration-300 group-hover:scale-105 ${
+														isCard
+															? "object-cover object-top"
+															: "object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
 													}`}
-												>
-													{item.name}
-												</span>
+													loading="lazy"
+												/>
+												{isCard && (
+													<div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
+														<Eye className="w-4 h-4 text-white drop-shadow" />
+													</div>
+												)}
+											</div>
+										)}
+
+										{/* Nội dung chi tiết */}
+										<div className="space-y-1.5 sm:space-y-2 min-w-0 flex-1">
+											<div className="flex items-start justify-between gap-2">
+												<div className="min-w-0 flex-1">
+													<span
+														className={`font-display text-lg sm:text-xl md:text-2xl uppercase tracking-wide truncate block ${
+															isSelected ? "tactical-accent-lime" : "tactical-text-main"
+														}`}
+													>
+														{item.name}
+													</span>
+												</div>
+												<div className="flex items-center space-x-1.5 shrink-0">
+													{getItemDetailUrl(item) && (
+														<NavLink
+															to={getItemDetailUrl(item)}
+															onClick={(e) => e.stopPropagation()}
+															className="p-1.5 text-gray-400 hover:text-[var(--tactical-accent-lime)] hover:border-[var(--tactical-accent-lime)] tactical-box border clip-chamfer-sm transition flex items-center justify-center group/btn"
+															title={
+																item.category === "STARTING_DECK" || item.isCardUpgrade
+																	? (tUI("championDetail.tactical.clickToViewCard") || (language === "en" ? "Click to view full card" : "Nhấp để xem ảnh lá bài đầy đủ"))
+																	: (tUI("championDetail.tactical.clickToViewPower") || (language === "en" ? "Click to view power details" : "Nhấp để xem chi tiết sức mạnh"))
+															}
+														>
+															<ArrowUpRight className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+														</NavLink>
+													)}
+													<div className="tactical-box px-2.5 py-1 sm:px-3 sm:py-1.5 border clip-chamfer-sm">
+														{renderChip(item.tierBadge)}
+													</div>
+												</div>
 											</div>
 
 											<div className="flex flex-wrap gap-1.5">
@@ -416,15 +528,17 @@ const ChampionPowersConstellationSection = ({
 											</div>
 
 											{item.attachedItems && item.attachedItems.length > 0 ? (
-												<div className="flex items-center gap-1.5 py-1">
+												<div className="flex items-center gap-1.5 py-0.5 sm:py-1">
 													{item.attachedItems.map((attItem, attIdx) => {
 														const attImg = attItem.assetAbsolutePath || attItem.image || "/fallback-image.svg";
 														const attName = tDynamic(attItem, "name") || attItem.name;
 														return (
-															<div
+															<NavLink
 																key={attIdx}
-																className="relative group/att w-7 h-7 sm:w-8 sm:h-8 rounded tactical-box border border-[var(--tactical-accent-cyan)]/60 flex items-center justify-center p-0.5 hover:border-[var(--tactical-accent-lime)] transition hover:scale-110 shadow-sm"
-																title={attName}
+																to={`/item/${encodeURIComponent(attItem.itemCode)}`}
+																onClick={(e) => e.stopPropagation()}
+																className="relative group/att w-7 h-7 sm:w-8 sm:h-8 rounded tactical-box border border-[var(--tactical-accent-cyan)]/60 flex items-center justify-center p-0.5 hover:border-[var(--tactical-accent-lime)] transition hover:scale-110 shadow-sm cursor-pointer"
+																title={`${attName} (${tUI("championDetail.tactical.clickToViewItem") || (language === "en" ? "Click to view item details" : "Nhấp xem chi tiết vật phẩm")})`}
 															>
 																<SafeImage
 																	src={attImg}
@@ -436,7 +550,7 @@ const ChampionPowersConstellationSection = ({
 																		{attItem.unlockLevel}
 																	</span>
 																)}
-															</div>
+															</NavLink>
 														);
 													})}
 												</div>
@@ -449,10 +563,6 @@ const ChampionPowersConstellationSection = ({
 											<div className="text-xs tactical-text-sub line-clamp-2 pt-0.5 leading-relaxed">
 												<MarkupRenderer text={item.description} />
 											</div>
-										</div>
-
-										<div className="flex items-center space-x-1 shrink-0 tactical-box px-3 py-2 border clip-chamfer-sm self-start sm:self-center">
-											{renderChip(item.tierBadge)}
 										</div>
 									</div>
 
@@ -467,7 +577,7 @@ const ChampionPowersConstellationSection = ({
 														}
 													}}
 													className="relative w-full bg-black/90 overflow-hidden clip-chamfer-sm flex items-center justify-center p-2 h-64 sm:h-72 cursor-pointer"
-													title="Chạm để xem ảnh lá bài đầy đủ"
+													title={tUI("championDetail.tactical.clickToViewCard") || (language === "en" ? "Tap to view full card" : "Chạm để xem ảnh lá bài đầy đủ")}
 												>
 													<img
 														src={item.img}
@@ -478,8 +588,23 @@ const ChampionPowersConstellationSection = ({
 												</div>
 											)}
 											<div className="p-3 tactical-box border border-[var(--tactical-accent-lime)]/40 clip-chamfer-sm space-y-2">
-												<div className="text-sm font-bold uppercase tracking-wide tactical-accent-lime">
-													{item.name}
+												<div className="flex items-center justify-between">
+													<div className="text-sm font-bold uppercase tracking-wide tactical-accent-lime">
+														{item.name}
+													</div>
+													{getItemDetailUrl(item) && (
+														<NavLink
+															to={getItemDetailUrl(item)}
+															className="p-1 text-gray-400 hover:text-[var(--tactical-accent-lime)] hover:border-[var(--tactical-accent-lime)] tactical-box border clip-chamfer-sm transition flex items-center justify-center"
+															title={
+																item.category === "STARTING_DECK" || item.isCardUpgrade
+																	? (tUI("championDetail.tactical.clickToViewCard") || "View card")
+																	: (tUI("championDetail.tactical.clickToViewPower") || "View power")
+															}
+														>
+															<ArrowUpRight className="w-3.5 h-3.5" />
+														</NavLink>
+													)}
 												</div>
 												<div className="text-xs tactical-text-main leading-relaxed">
 													<MarkupRenderer text={item.description} />
@@ -494,16 +619,18 @@ const ChampionPowersConstellationSection = ({
 																const attImg = attItem.assetAbsolutePath || attItem.image || "/fallback-image.svg";
 																const attName = tDynamic(attItem, "name") || attItem.name;
 																return (
-																	<div
+																	<NavLink
 																		key={attIdx}
-																		className="flex items-center gap-1.5 px-2 py-1 bg-black/50 border border-[var(--tactical-accent-cyan)]/40 rounded clip-chamfer-sm"
-																		title={attName}
+																		to={`/item/${encodeURIComponent(attItem.itemCode)}`}
+																		className="flex items-center gap-1.5 px-2 py-1 bg-black/50 border border-[var(--tactical-accent-cyan)]/40 hover:border-[var(--tactical-accent-lime)] rounded clip-chamfer-sm transition cursor-pointer"
+																		title={`${attName} (${tUI("championDetail.tactical.clickToViewItem") || (language === "en" ? "View item details" : "Xem chi tiết vật phẩm")})`}
 																	>
 																		<SafeImage src={attImg} alt={attName} className="w-5 h-5 object-contain" />
 																		<span className="text-xs tactical-accent-cyan font-mono-tech font-bold">
 																			{attName}
 																		</span>
-																	</div>
+																		<ArrowUpRight className="w-3 h-3 text-[var(--tactical-accent-cyan)] ml-0.5" />
+																	</NavLink>
 																);
 															})}
 														</div>
@@ -519,7 +646,7 @@ const ChampionPowersConstellationSection = ({
 														{tUI("championDetail.tactical.unlockCost") || "Điều kiện mở"}:
 													</span>
 													<span className="tactical-accent-cyan font-bold">
-														{item.cost || "Mặc định"}
+														{item.cost || tUI("championDetail.tactical.defaultCost") || (language === "en" ? "Default" : "Mặc định")}
 													</span>
 												</div>
 											</div>
@@ -551,9 +678,10 @@ const ChampionPowersConstellationSection = ({
 						)}
 					</div>
 
-					{/* Right Column (5 cols): Sticky Inspector Monitor OR Interactive Constellation Map (Chỉ hiển thị trên desktop >= lg) */}
-					<div className="hidden lg:block lg:col-span-5 lg:sticky lg:top-24">
-						<div className="tactical-panel border clip-chamfer overflow-hidden shadow-xl">
+					{/* Right Column (5 cols): Sticky Inspector Monitor (Chỉ hiển thị trên desktop >= lg) */}
+					<div className="hidden lg:block lg:col-span-5">
+						<div className="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto no-scrollbar">
+							<div className="tactical-panel border clip-chamfer overflow-hidden shadow-xl">
 							<div className="tactical-box px-5 py-3 border-b border-inherit flex items-center justify-between">
 								<div className="flex items-center space-x-2">
 									<span className="w-2.5 h-2.5 rounded-full bg-[var(--tactical-accent-lime)] animate-pulse" />
@@ -561,9 +689,24 @@ const ChampionPowersConstellationSection = ({
 										{tUI("championDetail.tactical.inspectorTitle") || "Chi Tiết Nâng Cấp"}
 									</span>
 								</div>
-								<span className="text-xs font-mono-tech tactical-accent-cyan font-bold">
-									{selectedItem?.cost || "ACTIVE"}
-								</span>
+								<div className="flex items-center gap-2">
+									<span className="text-xs font-mono-tech tactical-accent-cyan font-bold">
+										{selectedItem?.cost || "ACTIVE"}
+									</span>
+									{getItemDetailUrl(selectedItem) && (
+										<NavLink
+											to={getItemDetailUrl(selectedItem)}
+											className="p-1 text-gray-400 hover:text-[var(--tactical-accent-lime)] hover:border-[var(--tactical-accent-lime)] tactical-box border clip-chamfer-sm transition group/btn flex items-center justify-center"
+											title={
+												selectedItem?.category === "STARTING_DECK" || selectedItem?.isCardUpgrade
+													? (tUI("championDetail.tactical.clickToViewCard") || "View card")
+													: (tUI("championDetail.tactical.clickToViewPower") || "View power")
+											}
+										>
+											<ArrowUpRight className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+										</NavLink>
+									)}
+								</div>
 							</div>
 
 							{previewMode === "INSPECTOR" && (
@@ -625,16 +768,19 @@ const ChampionPowersConstellationSection = ({
 														const attName = tDynamic(attItem, "name") || attItem.name;
 														const attDesc = tDynamic(attItem, "description") || attItem.description;
 														return (
-															<div
+															<NavLink
 																key={attIdx}
-																className="flex items-center gap-2.5 p-2 bg-black/50 border border-[var(--tactical-accent-cyan)]/30 rounded clip-chamfer-sm"
+																to={`/item/${encodeURIComponent(attItem.itemCode)}`}
+																className="flex items-center gap-2.5 p-2 bg-black/50 border border-[var(--tactical-accent-cyan)]/30 hover:border-[var(--tactical-accent-lime)] rounded clip-chamfer-sm transition group/item cursor-pointer"
+																title={`${attName} (${tUI("championDetail.tactical.clickToViewItem") || (language === "en" ? "View item details" : "Xem chi tiết vật phẩm")})`}
 															>
 																<div className="w-8 h-8 rounded border tactical-box flex items-center justify-center p-0.5 shrink-0 overflow-hidden">
 																	<SafeImage src={attImg} alt={attName} className="w-full h-full object-contain" />
 																</div>
-																<div className="min-w-0">
-																	<div className="text-xs font-bold tactical-accent-cyan truncate">
-																		{attName}
+																<div className="min-w-0 flex-1">
+																	<div className="text-xs font-bold tactical-accent-cyan group-hover/item:text-[var(--tactical-accent-lime)] flex items-center justify-between">
+																		<span className="truncate">{attName}</span>
+																		<ArrowUpRight className="w-3.5 h-3.5 opacity-60 group-hover/item:opacity-100 group-hover/item:translate-x-0.5 group-hover/item:-translate-y-0.5 transition-all shrink-0 ml-1" />
 																	</div>
 																	{attDesc && (
 																		<div className="text-[11px] tactical-text-sub line-clamp-2 leading-tight">
@@ -642,7 +788,7 @@ const ChampionPowersConstellationSection = ({
 																		</div>
 																	)}
 																</div>
-															</div>
+															</NavLink>
 														);
 													})}
 												</div>
@@ -659,12 +805,13 @@ const ChampionPowersConstellationSection = ({
 												{tUI("championDetail.tactical.unlockCost") || "Điều kiện mở"}:
 											</span>
 											<span className="font-mono-tech tactical-accent-lime font-bold">
-												{selectedItem?.cost || "Mặc định"}
+												{selectedItem?.cost || tUI("championDetail.tactical.defaultCost") || (language === "en" ? "Default" : "Mặc định")}
 											</span>
 										</div>
 									</div>
 								</div>
 							)}
+						</div>
 						</div>
 					</div>
 				</div>

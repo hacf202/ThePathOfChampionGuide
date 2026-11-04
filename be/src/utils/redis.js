@@ -10,9 +10,15 @@ let kv = null;
 if (REDIS_URL) {
 	try {
 		kv = new Redis(REDIS_URL, {
-			// Tối ưu cho serverless: giảm số lượng retry và timeout để tránh treo function
+			// Tối ưu cho serverless và chống treo server:
 			maxRetriesPerRequest: 1,
-			connectTimeout: 10000,
+			connectTimeout: 5000,
+			commandTimeout: 3000, // Timeout sau 3s, không bao giờ để lệnh Redis treo vô tận
+			enableOfflineQueue: false, // Không queue lệnh khi offline/mất kết nối, fail nhanh để dùng memory fallback
+			retryStrategy(times) {
+				if (times > 3) return null; // Dừng retry sau 3 lần
+				return Math.min(times * 200, 1000);
+			},
 		});
 
 		kv.on("connect", () => console.log("[Redis] Connected to Redis instance via REDIS_URL."));

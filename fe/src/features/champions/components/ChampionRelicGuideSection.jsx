@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 import {
 	Film,
 	Play,
@@ -11,6 +12,7 @@ import {
 	Cpu,
 	Sparkles,
 	BookOpen,
+	ArrowUpRight,
 } from "lucide-react";
 import MarkupRenderer from "@/components/common/MarkupRenderer";
 
@@ -61,7 +63,8 @@ const ChampionRelicGuideSection = ({
 
 			// Format 3 relic slots
 			const slots = (setObj.relics || []).slice(0, 3).map((r, sIdx) => ({
-				name: tDynamic(r, "name") || `Cổ vật ${sIdx + 1}`,
+				name: tDynamic(r, "name") || (tUI("championDetail.tactical.relicSlotDefault") || (language === "en" ? `Relic ${sIdx + 1}` : `Cổ vật ${sIdx + 1}`)).replace("{{number}}", sIdx + 1),
+				relicCode: r.relicCode || r.id || (typeof r === "string" ? r : null),
 				rarity: (r.rarity || (sIdx === 0 ? "EPIC" : "RARE")).toUpperCase(),
 				image: r.image || "",
 				icon: r.image ? (
@@ -69,7 +72,7 @@ const ChampionRelicGuideSection = ({
 				) : (
 					"💎"
 				),
-				effect: tDynamic(r, "description") || tDynamic(r, "descriptionRaw") || "Cung cấp sức mạnh tăng cường đặc biệt cho tướng.",
+				effect: tDynamic(r, "description") || tDynamic(r, "descriptionRaw") || tUI("championDetail.tactical.relicDefaultEffect") || (language === "en" ? "Provides specialized enhancement power for the champion." : "Cung cấp sức mạnh tăng cường đặc biệt cho tướng."),
 				synergyNote: `Tương tác mạnh mẽ cùng nội tại của ${tDynamic(champion, "name")}, tối ưu hóa nhịp độ thi triển bài quân.`,
 			}));
 
@@ -266,7 +269,7 @@ const ChampionRelicGuideSection = ({
 				</div>
 
 				{/* MAIN 12-COLUMN SPLIT: Left (7 Cols) & Right (5 Cols Sticky Video) */}
-				<div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+				<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
 					{/* LEFT COLUMN (7 Cols): Relic Slots + Combo + Pro Tips */}
 					<div id="relic-build-detail" className="lg:col-span-7 space-y-6">
 						{/* Loadout Summary Banner */}
@@ -300,28 +303,41 @@ const ChampionRelicGuideSection = ({
 										return (
 											<div
 												key={i}
-												className="p-3.5 border transition-all clip-chamfer-sm relative tactical-card hover:border-[var(--tactical-accent-lime)]/50"
+												className="p-3.5 border transition-all clip-chamfer-sm relative tactical-card hover:border-[var(--tactical-accent-lime)]/50 flex flex-col justify-between"
 											>
-												<div className="flex items-center justify-between mb-2">
-													<span className="font-mono-tech text-[10px] tactical-text-dim font-bold uppercase">
-														{tUI("championDetail.tactical.slotLabel") || (language === "en" ? "SLOT" : "Ô")} 0{i + 1}
-													</span>
-													<span className={`text-[9px] font-bold uppercase px-1.5 py-0.5 border clip-chamfer-sm ${rarityBadge}`}>
-														{slot.rarity}
-													</span>
-												</div>
-
-												<div className="flex items-center space-x-2.5 my-1.5">
-													<div className="w-9 h-9 rounded tactical-box border flex items-center justify-center shrink-0">
-														{slot.icon}
+												<div>
+													<div className="flex items-center justify-between mb-2">
+														<span className="font-mono-tech text-[10px] tactical-text-dim font-bold uppercase">
+															{tUI("championDetail.tactical.slotLabel") || (language === "en" ? "SLOT" : "Ô")} 0{i + 1}
+														</span>
+														<div className="flex items-center gap-1.5">
+															<span className={`text-[9px] font-bold uppercase px-1.5 py-0.5 border clip-chamfer-sm ${rarityBadge}`}>
+																{slot.rarity}
+															</span>
+															{slot.relicCode && (
+																<NavLink
+																	to={`/relic/${encodeURIComponent(slot.relicCode)}`}
+																	className="p-1 text-gray-400 hover:text-[var(--tactical-accent-lime)] hover:border-[var(--tactical-accent-lime)] tactical-box border rounded clip-chamfer-sm transition group/btn flex items-center justify-center"
+																	title={`${slot.name} (${tUI("championDetail.tactical.clickToViewRelic") || (language === "en" ? "Click to view relic details" : "Nhấp xem chi tiết cổ vật")})`}
+																>
+																	<ArrowUpRight className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+																</NavLink>
+															)}
+														</div>
 													</div>
-													<h4 className="font-display text-base uppercase italic leading-tight truncate tactical-accent-lime" title={slot.name}>
-														{slot.name}
-													</h4>
-												</div>
 
-												<div className="text-xs tactical-text-sub mt-2 leading-relaxed">
-													<MarkupRenderer text={slot.effect} />
+													<div className="flex items-center space-x-2.5 my-1.5">
+														<div className="w-9 h-9 rounded tactical-box border flex items-center justify-center shrink-0">
+															{slot.icon}
+														</div>
+														<h4 className="font-display text-base uppercase italic leading-tight truncate tactical-accent-lime" title={slot.name}>
+															{slot.name}
+														</h4>
+													</div>
+
+													<div className="text-xs tactical-text-sub mt-2 leading-relaxed">
+														<MarkupRenderer text={slot.effect} />
+													</div>
 												</div>
 											</div>
 										);
@@ -397,8 +413,9 @@ const ChampionRelicGuideSection = ({
 					</div>
 
 					{/* RIGHT COLUMN (5 Cols, Sticky): VIDEO SHOWCASE MONITOR */}
-					<div className="lg:col-span-5 lg:sticky lg:top-24">
-						<div className="tactical-panel border-2 clip-chamfer overflow-hidden shadow-2xl">
+					<div className="lg:col-span-5">
+						<div className="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto no-scrollbar">
+							<div className="tactical-panel border-2 clip-chamfer overflow-hidden shadow-2xl">
 							{/* Top Telemetry Header */}
 							<div className="tactical-box px-5 py-3.5 border-b border-inherit flex items-center justify-between">
 								<div className="flex items-center space-x-2">
@@ -441,15 +458,32 @@ const ChampionRelicGuideSection = ({
 
 										{/* Equipped Relic Pills */}
 										<div className="flex flex-wrap gap-1.5 pt-1">
-											{currentBuild.slots.map((s, idx) => (
-												<span
-													key={idx}
-													className="text-[10px] font-mono-tech tactical-box border px-2.5 py-1 tactical-text-sub flex items-center gap-1"
-												>
-													<span>{s.icon}</span>
-													<span>{s.name}</span>
-												</span>
-											))}
+											{currentBuild.slots.map((s, idx) => {
+												const pillContent = (
+													<>
+														<span>{s.icon}</span>
+														<span className="truncate max-w-[120px]">{s.name}</span>
+														{s.relicCode && <ArrowUpRight className="w-3 h-3 opacity-60" />}
+													</>
+												);
+												return s.relicCode ? (
+													<NavLink
+														key={idx}
+														to={`/relic/${encodeURIComponent(s.relicCode)}`}
+														className="text-[10px] font-mono-tech tactical-box border hover:border-[var(--tactical-accent-lime)] px-2.5 py-1 tactical-text-sub hover:tactical-accent-lime transition flex items-center gap-1 cursor-pointer"
+														title={`${s.name} (${tUI("championDetail.tactical.clickToViewRelic") || (language === "en" ? "View relic details" : "Xem chi tiết cổ vật")})`}
+													>
+														{pillContent}
+													</NavLink>
+												) : (
+													<span
+														key={idx}
+														className="text-[10px] font-mono-tech tactical-box border px-2.5 py-1 tactical-text-sub flex items-center gap-1"
+													>
+														{pillContent}
+													</span>
+												);
+											})}
 										</div>
 									</div>
 								</div>
@@ -492,6 +526,7 @@ const ChampionRelicGuideSection = ({
 									</div>
 								</div>
 							)}
+						</div>
 						</div>
 					</div>
 				</div>

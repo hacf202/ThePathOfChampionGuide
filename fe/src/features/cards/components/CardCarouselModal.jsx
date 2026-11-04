@@ -4,6 +4,7 @@ import { createPortal } from "react-dom";
 import { X, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import SafeImage from "@/components/common/SafeImage";
 import { useTranslation } from "@/hooks/useTranslation";
+import { useNavigate } from "react-router-dom";
 
 /**
  * CardCarouselModal — Viewport-centered lightbox carousel.
@@ -12,6 +13,7 @@ import { useTranslation } from "@/hooks/useTranslation";
  */
 const CardCarouselModal = ({ cards, initialIndex = 0, onClose }) => {
 	const { language, tUI } = useTranslation();
+	const navigate = useNavigate();
 	const [index, setIndex] = useState(initialIndex);
 	const [direction, setDirection] = useState(0);
 	const stripRef = useRef(null);
@@ -275,6 +277,31 @@ const CardCarouselModal = ({ cards, initialIndex = 0, onClose }) => {
 								</button>
 							))}
 						</div>
+					)}
+					{/* Nút xem chi tiết lá bài dạng icon mũi tên gọn gàng */}
+					{current?.cardCode && (
+						<button
+							onClick={() => {
+								onClose();
+								navigate(`/card/${encodeURIComponent(current.cardCode)}`);
+							}}
+							title={tUI("championDetail.tactical.viewCardDetail") || (language === "en" ? "View Card Details" : "Xem Trang Chi Tiết Lá Bài")}
+							style={{
+								display: "flex",
+								alignItems: "center",
+								justifyContent: "center",
+								padding: "8px",
+								borderRadius: "50%",
+								background: "rgba(204, 255, 0, 0.15)",
+								border: "1px solid rgba(204, 255, 0, 0.4)",
+								color: "#CCFF00",
+								cursor: "pointer",
+								marginTop: 6,
+								transition: "all 0.2s",
+							}}
+						>
+							<ExternalLink size={16} />
+						</button>
 					)}
 				</div>
 			</div>

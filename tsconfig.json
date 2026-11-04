@@ -6,6 +6,8 @@
     "jsx": "react-jsx",
     "allowJs": true,
     "checkJs": false,
+    "noEmit": true,
+    "outDir": "./fe/dist",
     "strict": false,
     "skipLibCheck": true,
     "baseUrl": ".",

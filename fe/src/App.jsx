@@ -125,7 +125,7 @@ function AppLayout() {
 			className={
 				isAdminRoute
 					? "flex flex-col overflow-hidden pt-14"
-					: "flex flex-col min-h-screen overflow-x-hidden pt-14"
+					: "flex flex-col min-h-screen overflow-x-clip pt-14"
 			}
 			style={isAdminRoute ? { height: '100vh' } : undefined}
 		>

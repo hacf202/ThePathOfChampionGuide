@@ -17,10 +17,12 @@ const client = new MongoClient(uri, {
     strict: true,
     deprecationErrors: true,
   },
-  // Tối ưu cho Serverless (Vercel):
-  maxPoolSize: 10,                 // Giới hạn số kết nối cho mỗi instance
-  serverSelectionTimeoutMS: 5000, 
-  socketTimeoutMS: 45000,
+  maxPoolSize: 50,
+  minPoolSize: 2,
+  serverSelectionTimeoutMS: 30000, 
+  connectTimeoutMS: 30000,
+  // Đặt socketTimeoutMS lớn (3 phút) để việc đọc các bảng lớn (2600+ cards) qua mạng quốc tế không bị timeout
+  socketTimeoutMS: 180000,
 });
 
 let db = null;

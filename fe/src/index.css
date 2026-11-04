@@ -38,6 +38,20 @@
     background: rgba(100, 116, 139, 0.8);
   }
 
+  /* No Scrollbar Utility */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Overflow X Clip - Prevents horizontal scroll without breaking position: sticky */
+  .overflow-x-clip {
+    overflow-x: clip;
+  }
+
   /* Entry Animations */
   .animate-in {
     animation-duration: 500ms;

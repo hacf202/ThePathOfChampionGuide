@@ -13,6 +13,7 @@ import ChampionHeroSection from "@/features/champions/components/ChampionHeroSec
 import ChampionPowersConstellationSection from "@/features/champions/components/ChampionPowersConstellationSection";
 import ChampionRelicGuideSection from "@/features/champions/components/ChampionRelicGuideSection";
 import ChampionPriorityItemsSection from "@/features/champions/components/ChampionPriorityItemsSection";
+import ChampionSupportChampionsSection from "@/features/champions/components/ChampionSupportChampionsSection";
 import ChampionCommunitySection from "@/features/champions/components/ChampionCommunitySection";
 import ChampionRosterSection from "@/features/champions/components/ChampionRosterSection";
 
@@ -64,6 +65,7 @@ function ChampionDetail() {
 	const [resolvedRelics, setResolvedRelics] = useState([]);
 	const [resolvedRunes, setResolvedRunes] = useState([]);
 	const [resolvedStartingCards, setResolvedStartingCards] = useState([]);
+	const [resolvedSubChampions, setResolvedSubChampions] = useState([]);
 	const [allChampions, setAllChampions] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
@@ -163,6 +165,7 @@ function ChampionDetail() {
 					setResolvedRelics(resolvedData.relics || []);
 					setResolvedRunes(resolvedData.runes || []);
 					setResolvedStartingCards(resolvedData.cards || []);
+					setResolvedSubChampions(resolvedData.subChampions || []);
 
 					if (resolvedData.cards) {
 						initEntities(resolvedData.cards);
@@ -254,6 +257,7 @@ function ChampionDetail() {
 			const p = resolvedPowers.find((x) => x.powerCode === id);
 			return {
 				nodeID: `fallback-${i}`,
+				powerCode: id,
 				name: p ? tDynamic(p, "name") : id,
 				image: p?.assetAbsolutePath || "/images/placeholder.png",
 				description: p ? tDynamic(p, "description") || tDynamic(p, "descriptionRaw") : "",
@@ -390,7 +394,7 @@ function ChampionDetail() {
 		);
 
 	return (
-		<div className="min-h-screen tactical-page font-sans selection:bg-[var(--tactical-accent-lime)] selection:text-white dark:selection:text-black overflow-x-hidden">
+		<div className="min-h-screen tactical-page font-sans selection:bg-[var(--tactical-accent-lime)] selection:text-white dark:selection:text-black overflow-x-clip">
 			<PageTitle
 				title={
 					champion
@@ -467,7 +471,17 @@ function ChampionDetail() {
 						language={language}
 					/>
 
-					{/* 6. Section 5: Lưới Roster Các Tướng Đề Xuất Khác (Đưa lên trên phần bình luận) */}
+					{/* 5b. Section 5: Tướng Phụ Khuyên Dùng (Recommended Support Champions) */}
+					<ChampionSupportChampionsSection
+						champion={champion}
+						resolvedSubChampions={resolvedSubChampions}
+						tUI={tUI}
+						tDynamic={tDynamic}
+						language={language}
+						onOpenCarousel={handleOpenCarousel}
+					/>
+
+					{/* 6. Section 6: Lưới Roster Các Tướng Đề Xuất Khác (Đưa lên trên phần bình luận) */}
 					<ChampionRosterSection
 						allChampions={allChampions}
 						currentChampion={champion}

@@ -1,6 +1,6 @@
 // src/routes/champions.js
 import express from "express";
-import cacheManager from "../utils/cacheManager.js";
+import cacheManager, { apiRouteCache } from "../utils/cacheManager.js";
 import { getDb } from "../config/mongo.js";
 import { z } from "zod";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
@@ -37,11 +37,10 @@ router.get("/", async (req, res) => {
 		const queryParamsStr = new URLSearchParams(cleanQuery).toString();
 		const cacheKey = `api:champions:${queryParamsStr}`;
 
-		if (kv && !isNoCache) {
-			const cachedData = await kv.get(cacheKey);
+		if (!isNoCache) {
+			const cachedData = await apiRouteCache.get(cacheKey);
 			if (cachedData) {
-				res.setHeader("Content-Type", "application/json");
-				return res.send(cachedData);
+				return res.json(cachedData);
 			}
 		}
 
@@ -192,9 +191,7 @@ router.get("/", async (req, res) => {
 			availableFilters,
 		};
 
-		if (kv) {
-			await kv.setex(cacheKey, 300, JSON.stringify(responseData));
-		}
+		apiRouteCache.set(cacheKey, responseData, 300);
 
 		res.json(responseData);
 	} catch (error) {
@@ -348,16 +345,27 @@ router.get("/:championID/full", async (req, res) => {
 			...extractCardCodes(champion.startingDeck?.referenceCards)
 		]);
 		const bonusStarIds = new Set(constellation?.nodes?.map(n => n.bonusStarID).filter(Boolean) || []);
+		const extractSubChampionCodes = (subs) => {
+			if (!Array.isArray(subs)) return [];
+			return subs.map(s => typeof s === "string" ? s : (s.cardCode || s.code || s.id)).filter(Boolean);
+		};
+
+		const subChampionCodes = new Set([
+			...extractSubChampionCodes(champion.supportChampions),
+			...extractSubChampionCodes(champion.subChampionIds),
+			...extractSubChampionCodes(champion.recommendedSubChampions)
+		]);
 
 		// 3. Fetch tất cả dữ liệu liên quan song song (dùng batchFetchByIds từ DataService)
-		const [powers, relics, items, runes, cards, bonusStars, allRatings] = await Promise.all([
+		const [powers, relics, items, runes, cards, bonusStars, allRatings, subChampions] = await Promise.all([
 			batchFetchByIds("guidePocPowers", "powerCode", Array.from(powerIds)),
 			batchFetchByIds("guidePocRelics", "relicCode", Array.from(relicIds)),
 			batchFetchByIds("guidePocItems", "itemCode", Array.from(itemIds)),
 			batchFetchByIds("guidePocRunes", "runeCode", Array.from(runeIds)),
 			batchFetchByIds("guidePocCardList", "cardCode", Array.from(cardIds)),
 			batchFetchByIds("guidePocBonusStar", "bonusStarID", Array.from(bonusStarIds)),
-			db.collection("guidePocPlayStyleRating").find({ championID }).toArray()
+			db.collection("guidePocPlayStyleRating").find({ championID }).toArray(),
+			batchFetchByIds("guidePocSubChampions", "cardCode", Array.from(subChampionCodes))
 		]);
 
 		// 4. Xử lý Ratings (Cộng đồng + Cá nhân)
@@ -401,7 +409,8 @@ router.get("/:championID/full", async (req, res) => {
 				items,
 				runes,
 				cards,
-				bonusStars
+				bonusStars,
+				subChampions: subChampions || []
 			},
 			suggestedChampions,
 			allRatings: ratingsList,

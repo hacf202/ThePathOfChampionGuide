@@ -94,8 +94,10 @@ export function applyMarkup(text, lang = 'vi') {
         // We'll use a more robust approach: find and replace with a placeholder.
         
         const escapedName = term.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        // Avoid matching if already part of a [k:...] block
-        const regex = new RegExp(`(?<!\\[k:[^|]*\\|)${escapedName}(?![^[\\]]*\\])`, 'gi');
+        // Avoid matching if already part of a [k:...] block and respect word boundaries
+        const boundaryStart = lang === 'en' ? '\\b' : '(?<![\\p{L}\\p{N}])';
+        const boundaryEnd = lang === 'en' ? '\\b' : '(?![\\p{L}\\p{N}])';
+        const regex = new RegExp(`(?<!\\[k:[^|]*\\|)${boundaryStart}${escapedName}${boundaryEnd}(?![^[\\]]*\\])`, 'giu');
         
         result = result.replace(regex, (match) => {
             const placeholder = `__MARKUP_${replacements.length}__`;

@@ -38,7 +38,7 @@ import {
 
 
 const BACKGROUND_IMAGES = [
-	"https://images.pocguide.top/backgrounds/1920px-01DE012T1_Rugged-full.webp",
+	"https://dd.b.pvp.net/7_3_0/set5/vi_vn/img/cards/05SH014-full.png",
 	"https://images.pocguide.top/backgrounds/BG5.webp",
 	"https://images.pocguide.top/backgrounds/BG4.webp",
 	"https://images.pocguide.top/backgrounds/BG2.webp",
@@ -48,7 +48,7 @@ const BACKGROUND_IMAGES = [
 	"https://images.pocguide.top/backgrounds/BG8.webp",
 	"https://images.pocguide.top/backgrounds/BG9.webp",
 	"https://images.pocguide.top/backgrounds/BG10.webp",
-	"https://images.pocguide.top/backgrounds/1920px-01DE012_Rugged-full.webp"
+	"https://dd.b.pvp.net/7_3_0/set5/en_us/img/cards/05SH014T2-full.png"
 ];
 
 
@@ -67,7 +67,7 @@ const Home = () => {
 		{ to: "/tools/ratings", icon: Dices, label: tUI("nav.championRatings"), img: BACKGROUND_IMAGES[9], mobileHidden: true },
 		{ to: "/cards", icon: GalleryHorizontal, label: tUI("nav.cards"), img: BACKGROUND_IMAGES[7], mobileHidden: true },
 		{ to: "/resources", icon: Archive, label: tUI("nav.resources"), img: BACKGROUND_IMAGES[6], mobileHidden: true },
-		{ to: "/champion/garen", icon: Star, label: tUI("nav.newChampion"), img: BACKGROUND_IMAGES[0], mobileHidden: false },
+		{ to: "/champion/xerath", icon: Star, label: tUI("nav.newChampion"), img: BACKGROUND_IMAGES[0], mobileHidden: false },
 	];
 
 	const containerRef = useRef(null);

@@ -52,30 +52,47 @@ const TABLES = {
  * Nạp toàn bộ dữ liệu từ một bảng MongoDB vào cache (Generic).
  * @private
  */
+// Map chống Cache Stampede khi nhiều request nạp dữ liệu từ MongoDB cùng lúc
+const loadAllFlightMap = new Map();
+
 async function loadAll(cache, cacheKey, tableName, sortField = "name") {
-	let data = await cache.get(cacheKey);
-	if (!data) {
-		const db = getDb();
-		const rawItems = await db.collection(tableName).find({}).toArray();
-		data = rawItems.map(item => {
-			const { _id, ...rest } = item;
-			return rest;
-		});
-		data.sort((a, b) => {
-			let vA = a[sortField];
-			let vB = b[sortField];
-			if (vA === undefined || vA === null) vA = "";
-			if (vB === undefined || vB === null) vB = "";
+	let data = cache.localCache.get(cacheKey);
+	if (data) return data;
 
-			if (typeof vA === "number" && typeof vB === "number") {
-				return vA - vB;
-			}
-
-			return String(vA).localeCompare(String(vB));
-		});
-		await cache.set(cacheKey, data);
+	// Single-flight: Nếu đã có request đang truy vấn bảng này từ MongoDB, đợi dùng chung kết quả
+	if (loadAllFlightMap.has(cacheKey)) {
+		return loadAllFlightMap.get(cacheKey);
 	}
-	return data;
+
+	const fetchPromise = (async () => {
+		try {
+			const db = getDb();
+			const rawItems = await db.collection(tableName).find({}).toArray();
+			const items = rawItems.map(item => {
+				const { _id, ...rest } = item;
+				return rest;
+			});
+			items.sort((a, b) => {
+				let vA = a[sortField];
+				let vB = b[sortField];
+				if (vA === undefined || vA === null) vA = "";
+				if (vB === undefined || vB === null) vB = "";
+
+				if (typeof vA === "number" && typeof vB === "number") {
+					return vA - vB;
+				}
+
+				return String(vA).localeCompare(String(vB));
+			});
+			cache.localCache.set(cacheKey, items, cache.options.stdTTL);
+			return items;
+		} finally {
+			loadAllFlightMap.delete(cacheKey);
+		}
+	})();
+
+	loadAllFlightMap.set(cacheKey, fetchPromise);
+	return fetchPromise;
 }
 
 /**
@@ -277,4 +294,35 @@ export async function resolveBossPowers(bosses) {
 	}
 
 	return isArray ? items : items[0];
+}
+
+
+/**
+ * Pre-warm dữ liệu vào RAM L1 khi server khởi động.
+ * Chạy lần lượt từng bảng để không làm quá tải CPU hay kết nối của MongoDB Atlas.
+ */
+export async function prewarmCache() {
+	console.log("🔥 [Prewarm] Bắt đầu nạp cache RAM L1 nền cho toàn bộ dữ liệu...");
+	const tasks = [
+		{ name: "Champions", fn: getCachedChampions },
+		{ name: "Relics", fn: getCachedRelics },
+		{ name: "Items", fn: getCachedItems },
+		{ name: "Runes", fn: getCachedRunes },
+		{ name: "Bosses", fn: getCachedBosses },
+		{ name: "Adventures", fn: getCachedAdventures },
+		{ name: "Resources", fn: getCachedResources },
+		{ name: "Powers", fn: getCachedPowers },
+		{ name: "Cards", fn: getCachedCards },
+	];
+
+	for (const task of tasks) {
+		try {
+			const t0 = Date.now();
+			const result = await task.fn();
+			console.log(`🔥 [Prewarm] ${task.name} hoàn tất (${result?.length || 0} mục, ${Date.now() - t0}ms)`);
+		} catch (err) {
+			console.error(`🔥 [Prewarm] Lỗi nạp cache cho ${task.name}:`, err.message);
+		}
+	}
+	console.log("🔥 [Prewarm] Tất cả dữ liệu cốt lõi đã sẵn sàng trong RAM L1!");
 }

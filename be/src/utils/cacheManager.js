@@ -6,6 +6,9 @@ import util from "util";
 const gzipAsync = util.promisify(gzip);
 const gunzipAsync = util.promisify(gunzip);
 
+// Giới hạn payload tối đa đẩy lên Redis: 256KB. Dữ liệu lớn hơn sẽ chỉ lưu ở RAM L1 để tránh nghẽn socket xuyên lục địa.
+const MAX_REDIS_PAYLOAD_BYTES = 256 * 1024;
+
 /**
  * cacheRegistry - Lưu trữ tất cả các instance cache đã được tạo để quản lý tập trung.
  * Đối với Redis, chúng ta dùng prefix key để phân biệt các namespace.
@@ -47,11 +50,14 @@ class AsyncCache {
 			return this.pendingPromises.get(key);
 		}
 
-		// 3. Nếu L1 không có, tiến hành lấy từ L2 (Redis)
+		// 3. Nếu L1 không có, tiến hành lấy từ L2 (Redis) nếu Redis đã sẵn sàng (ready)
 		const fetchPromise = (async () => {
-			if (this.useRedis) {
+			if (this.useRedis && kv && kv.status === "ready") {
 				try {
-					const val = await kv.getBuffer(this._getRedisKey(key));
+					const val = await Promise.race([
+						kv.getBuffer(this._getRedisKey(key)),
+						new Promise((_, reject) => setTimeout(() => reject(new Error("Redis getBuffer timeout")), 1500))
+					]);
 					if (val) {
 						let parsedResult;
 						try {
@@ -74,7 +80,7 @@ class AsyncCache {
 						return parsedResult;
 					}
 				} catch (error) {
-					console.error(`[Cache:${this.name}] Redis GET error:`, error);
+					console.error(`[Cache:${this.name}] Redis GET error:`, error.message);
 				}
 			}
 			return null;
@@ -91,35 +97,47 @@ class AsyncCache {
 
 	async set(key, value, ttl) {
 		const finalTTL = ttl || this.options.stdTTL;
-		if (this.useRedis) {
-			try {
-				const stringVal = typeof value === 'object' ? JSON.stringify(value) : String(value);
-				// Nén bất đồng bộ để tối ưu hiệu suất Node.js event loop
-				const compressedVal = await gzipAsync(stringVal);
-				await kv.set(this._getRedisKey(key), compressedVal, "EX", finalTTL);
-			} catch (error) {
-				console.error(`[Cache:${this.name}] Redis SET error:`, error.message);
-                if (error.message.includes("OOM")) {
-                    console.error(`[Cache:${this.name}] Lỗi tràn bộ nhớ Redis! Dữ liệu sẽ chỉ được lưu trên Local Cache.`);
-                }
-			}
+		// 1. CẬP NHẬT L1 (Local Cache - RAM) TRƯỚC TIÊN (Độ trễ 0ms, không bao giờ chặn response!)
+		const localResult = this.localCache.set(key, value, finalTTL);
+
+		// 2. Đồng bộ ngầm lên L2 (Redis) không chặn luồng chính
+		if (this.useRedis && kv && kv.status === "ready") {
+			(async () => {
+				try {
+					const stringVal = typeof value === 'object' ? JSON.stringify(value) : String(value);
+					// Bỏ qua đồng bộ Redis cho các collection quá lớn để bảo vệ đường truyền
+					if (stringVal.length > MAX_REDIS_PAYLOAD_BYTES) {
+						return;
+					}
+					const compressedVal = await gzipAsync(stringVal);
+					await Promise.race([
+						kv.set(this._getRedisKey(key), compressedVal, "EX", finalTTL),
+						new Promise((_, reject) => setTimeout(() => reject(new Error("Redis set timeout")), 2500))
+					]);
+				} catch (error) {
+					console.error(`[Cache:${this.name}] Redis SET error:`, error.message);
+					if (error.message.includes("OOM")) {
+						console.error(`[Cache:${this.name}] Lỗi tràn bộ nhớ Redis! Dữ liệu sẽ chỉ được lưu trên Local Cache.`);
+					}
+				}
+			})();
 		}
-		return this.localCache.set(key, value, finalTTL);
+		return localResult;
 	}
 
 	async del(key) {
-		if (this.useRedis) {
+		if (this.useRedis && kv && kv.status === "ready") {
 			try {
 				await kv.del(this._getRedisKey(key));
 			} catch (error) {
-				console.error(`[Cache:${this.name}] Redis DEL error:`, error);
+				console.error(`[Cache:${this.name}] Redis DEL error:`, error.message);
 			}
 		}
 		return this.localCache.del(key);
 	}
 
 	async flushAll() {
-		if (this.useRedis) {
+		if (this.useRedis && kv && kv.status === "ready") {
 			try {
 				const pattern = `${this._getRedisKey("")}*`;
 				let cursor = "0";
@@ -132,7 +150,7 @@ class AsyncCache {
 				} while (cursor !== "0");
 				console.log(`[Cache:${this.name}] Redis cache flushed for pattern: ${pattern}`);
 			} catch (error) {
-				console.error(`[Cache:${this.name}] Redis FLUSH error:`, error);
+				console.error(`[Cache:${this.name}] Redis FLUSH error:`, error.message);
 			}
 		}
 		return this.localCache.flushAll();
@@ -154,7 +172,7 @@ class AsyncCache {
 	 * Đếm số key trên Redis cho namespace này
 	 */
 	async countRedisKeys() {
-		if (!this.useRedis) return this.localCache.keys().length;
+		if (!this.useRedis || !kv || kv.status !== "ready") return this.localCache.keys().length;
 		try {
 			const pattern = `${this._getRedisKey("")}*`;
 			let cursor = "0";
@@ -166,7 +184,7 @@ class AsyncCache {
 			} while (cursor !== "0");
 			return count;
 		} catch (error) {
-			console.error(`[Cache:${this.name}] Redis COUNT error:`, error);
+			console.error(`[Cache:${this.name}] Redis COUNT error:`, error.message);
 			return this.localCache.keys().length;
 		}
 	}
@@ -237,5 +255,14 @@ const cacheManager = {
 	flushCache,
 	getStats
 };
+
+/**
+ * Cache chuyên dụng cho các API routes (champions, powers, relics, runes, builds, cards,...)
+ * TTL: 5 phút. Hỗ trợ L1 RAM (0ms) + L2 Redis đồng bộ ngầm.
+ */
+export const apiRouteCache = cacheManager.getOrCreateCache("api_routes", {
+	stdTTL: 300,
+	checkperiod: 60,
+});
 
 export default cacheManager;

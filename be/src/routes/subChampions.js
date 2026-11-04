@@ -44,16 +44,16 @@ router.get('/', async (req, res) => {
         }
 
         const total = filtered.length;
-        const totalPages = Math.ceil(total / limitNum);
+        const totalPages = limitNum <= 0 ? 1 : Math.ceil(total / limitNum);
         const start = (pageNum - 1) * limitNum;
-        const paginatedData = filtered.slice(start, start + limitNum);
+        const paginatedData = limitNum <= 0 ? filtered : filtered.slice(start, start + limitNum);
 
         res.json({
             data: paginatedData,
             pagination: {
                 total,
-                page: pageNum,
-                limit: limitNum,
+                page: limitNum <= 0 ? 1 : pageNum,
+                limit: limitNum <= 0 ? total : limitNum,
                 totalPages
             }
         });

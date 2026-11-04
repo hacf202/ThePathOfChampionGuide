@@ -1,6 +1,6 @@
 // be/src/routes/powers.js
 import express from "express";
-import cacheManager from "../utils/cacheManager.js";
+import cacheManager, { apiRouteCache } from "../utils/cacheManager.js";
 import { getDb } from "../config/mongo.js";
 import { authenticateCognitoToken } from "../middleware/authenticate.js";
 import { requireAdmin } from "../middleware/requireAdmin.js";
@@ -60,11 +60,11 @@ router.get("/", async (req, res) => {
 		const queryParamsStr = new URLSearchParams(cleanQuery).toString();
 		const cacheKey = `api:powers:${queryParamsStr}`;
 
-		if (kv) {
-			const cachedData = await kv.get(cacheKey);
+		const isNoCache = Boolean(req.query.t || req.query._) || req.headers["cache-control"] === "no-cache";
+		if (!isNoCache) {
+			const cachedData = await apiRouteCache.get(cacheKey);
 			if (cachedData) {
-				res.setHeader("Content-Type", "application/json");
-				return res.send(cachedData);
+				return res.json(cachedData);
 			}
 		}
 
@@ -153,9 +153,7 @@ router.get("/", async (req, res) => {
 			availableFilters,
 		};
 
-		if (kv) {
-			await kv.setex(cacheKey, 300, JSON.stringify(responseData));
-		}
+		apiRouteCache.set(cacheKey, responseData, 300);
 
 		res.json(responseData);
 	} catch (error) {

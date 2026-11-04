@@ -7,6 +7,7 @@ import compression from "compression";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import { errorHandler } from "./src/middleware/errorMiddleware.js";
+import { prewarmCache } from "./src/services/dataService.js";
 
 // Import các router từ thư mục src/routes
 import authRouter from "./src/routes/auth.js";
@@ -198,6 +199,9 @@ export default app;
 
 // Khởi tạo kết nối MongoDB
 connectToMongoDB().then(() => {
+	if (!process.env.VERCEL) {
+		prewarmCache().catch(err => console.error("Lỗi prewarm cache:", err.message));
+	}
 	if (!process.env.VERCEL) {
 		const port = process.env.PORT; // Dùng port từ .env hoặc fallback 3001
 		app.listen(port, () => {

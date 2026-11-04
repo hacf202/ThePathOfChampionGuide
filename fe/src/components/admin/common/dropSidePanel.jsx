@@ -75,6 +75,7 @@ const DropDragItem = memo(({ item, type, setTooltipData, showImages = true }) =>
 	};
 
 	const imageUrl =
+		item.fullAbsolutePath ||
 		item.assetAbsolutePath ||
 		item.gameAbsolutePath ||
 		item.image ||
@@ -188,6 +189,7 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 
 	const tabs = [
 		{ id: "champion", label: "Tướng", icon: <Users size={16} /> },
+		{ id: "subChampion", label: "Tướng Phụ", icon: <Users size={16} /> },
 		{ id: "boss", label: "Boss", icon: <Skull size={16} /> },
 		{
 			id: "item",
@@ -220,6 +222,7 @@ const DropDragSidePanel = memo(({ cachedData }) => {
 	const currentData = useMemo(() => {
 		const map = {
 			champion: cachedData.champions || [],
+			subChampion: cachedData.subChampions || [],
 			boss: cachedData.bosses || [],
 			item: cachedData.items || [],
 			relic: cachedData.relics || [],

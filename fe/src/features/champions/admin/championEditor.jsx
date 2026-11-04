@@ -35,6 +35,7 @@ const NEW_CHAMPION_TEMPLATE = {
 	adventurePowerIds: [],
 	itemIds: [],
 	relicSets: [{ items: [], title: "", recommendedStars: 6, comboSteps: [], proTips: [], description: "", videoLink: "" }],
+	supportChampions: [],
 	comboSteps: [],
 	proTips: [],
 	runeIds: [],
@@ -241,6 +242,7 @@ function ChampionEditor() {
 	const [powers, setPowers] = useState([]);
 	const [items, setItems] = useState([]);
 	const [cards, setCards] = useState([]);
+	const [subChampions, setSubChampions] = useState([]);
 
 	const [searchParams] = useSearchParams();
 
@@ -277,6 +279,7 @@ function ChampionEditor() {
 				powerRes,
 				itemRes,
 				cardRes,
+				subRes,
 			] = await Promise.all([
 				fetch(`${API_BASE_URL}/api/champions?limit=-1&t=${timestamp}`, fetchOptions),
 				fetch(`${API_BASE_URL}/api/constellations?t=${timestamp}`, fetchOptions),
@@ -286,6 +289,7 @@ function ChampionEditor() {
 				fetch(`${API_BASE_URL}/api/powers?limit=-1&t=${timestamp}`, fetchOptions),
 				fetch(`${API_BASE_URL}/api/items?limit=-1&t=${timestamp}`, fetchOptions),
 				fetch(`${API_BASE_URL}/api/cards?limit=-1&t=${timestamp}`, fetchOptions),
+				fetch(`${API_BASE_URL}/api/sub-champions?limit=-1&t=${timestamp}`, fetchOptions),
 			]);
 
 			const [
@@ -297,6 +301,7 @@ function ChampionEditor() {
 				powerData,
 				itemData,
 				cardData,
+				subData,
 			] = await Promise.all([
 				champRes.json(),
 				constRes.json(),
@@ -306,6 +311,7 @@ function ChampionEditor() {
 				powerRes.json(),
 				itemRes.json(),
 				cardRes.json(),
+				subRes.json(),
 			]);
 
 			setChampions(champData.items || []);
@@ -316,6 +322,7 @@ function ChampionEditor() {
 			setPowers(powerData.items || []);
 			setItems(itemData.items || []);
 			setCards(cardData.items || []);
+			setSubChampions(Array.isArray(subData) ? subData : (subData.data || subData.items || []));
 		} catch (err) {
 			console.error("Error loading data:", err);
 			setError(tUI("admin.common.errorLoad"));
@@ -638,7 +645,7 @@ function ChampionEditor() {
 		onSortChange: setSortOrder,
 	};
 
-	const cachedData = { runes, relics, powers, items, cards, bonusStars, regions: [] };
+	const cachedData = { champions, runes, relics, powers, items, cards, bonusStars, subChampions, regions: [] };
 
 	// SỬ DỤNG COMPONENT LoadingState VÀ ErrorState
 	if (isLoading) return <LoadingState text={tUI("common.loading")} />;

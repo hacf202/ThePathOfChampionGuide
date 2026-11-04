@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo } from "react";
-import { ChevronRight, ListCollapse, ChevronLeft, Sparkles, Zap, Film, Compass, MessageSquare, Grid } from "lucide-react";
+import { ChevronRight, ListCollapse, ChevronLeft, Sparkles, Zap, Film, Compass, MessageSquare, Grid, Users } from "lucide-react";
 
 const ChampionTableOfContents = ({ tUI }) => {
 	const [activeId, setActiveId] = useState("hero");
@@ -32,15 +32,21 @@ const ChampionTableOfContents = ({ tUI }) => {
 				icon: Compass,
 			},
 			{
+				id: "support-champions",
+				label: tUI("championDetail.tactical.navSupportChampions") || "Tướng Phụ",
+				num: "05",
+				icon: Users,
+			},
+			{
 				id: "roster",
 				label: tUI("championDetail.tactical.navRoster") || "Tướng Khác",
-				num: "05",
+				num: "06",
 				icon: Grid,
 			},
 			{
 				id: "community",
 				label: tUI("championDetail.tactical.navDiscussion") || tUI("championDetail.tactical.navCommunity") || "Bình Luận & Thảo Luận",
-				num: "06",
+				num: "07",
 				icon: MessageSquare,
 			},
 		],

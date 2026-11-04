@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from "react";
+import { NavLink } from "react-router-dom";
 import {
 	Flame,
 	Sparkles,
@@ -8,6 +9,7 @@ import {
 	Award,
 	Star,
 	ChevronRight,
+	ArrowUpRight,
 } from "lucide-react";
 import MarkupRenderer from "@/components/common/MarkupRenderer";
 
@@ -144,40 +146,63 @@ const ChampionPriorityItemsSection = ({
 
 				{/* Full-width Responsive Priority Grid (3 cols on desktop) */}
 				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
-					{filteredEntities.map((entity) => (
-						<div
-							key={entity.id}
-							className="p-4 border transition-all clip-chamfer-sm tactical-card hover:border-[var(--tactical-accent-cyan)]/70 hover:shadow-md flex flex-col justify-between"
-						>
-							<div>
-								<div className="flex items-start justify-between gap-3 mb-2.5">
-									<div className="flex items-center space-x-3 min-w-0">
-										<div className="w-11 h-11 rounded tactical-box border flex items-center justify-center p-1 shrink-0 overflow-hidden">
-											<img
-												src={entity.icon}
-												alt={entity.name}
-												className="w-full h-full object-contain"
-											/>
+					{filteredEntities.map((entity) => {
+						const targetUrl = entity.code
+							? entity.category === "ITEMS"
+								? `/item/${encodeURIComponent(entity.code)}`
+								: entity.category === "POWERS"
+								? `/power/${encodeURIComponent(entity.code)}`
+								: entity.category === "RUNES"
+								? `/rune/${encodeURIComponent(entity.code)}`
+								: null
+							: null;
+
+						return (
+							<div
+								key={entity.id}
+								className="p-4 border transition-all clip-chamfer-sm tactical-card hover:border-[var(--tactical-accent-cyan)]/70 hover:shadow-md flex flex-col justify-between"
+							>
+								<div>
+									<div className="flex items-start justify-between gap-3 mb-2.5">
+										<div className="flex items-center space-x-3 min-w-0">
+											<div className="w-11 h-11 rounded tactical-box border flex items-center justify-center p-1 shrink-0 overflow-hidden">
+												<img
+													src={entity.icon}
+													alt={entity.name}
+													className="w-full h-full object-contain"
+												/>
+											</div>
+
+											<div className="min-w-0 flex-1">
+												<h4 className="font-display text-base uppercase italic tracking-wide tactical-text-main truncate" title={entity.name}>
+													{entity.name}
+												</h4>
+											</div>
 										</div>
 
-										<div className="min-w-0">
-											<h4 className="font-display text-base uppercase italic tracking-wide tactical-text-main truncate" title={entity.name}>
-												{entity.name}
-											</h4>
+										<div className="flex items-center gap-1.5 shrink-0">
+											<span className={`text-[9px] font-bold uppercase px-1.5 py-0.5 border clip-chamfer-sm ${getRarityBadge(entity.rarity)}`}>
+												{entity.rarity}
+											</span>
+											{targetUrl && (
+												<NavLink
+													to={targetUrl}
+													className="p-1 text-gray-400 hover:text-[var(--tactical-accent-lime)] hover:border-[var(--tactical-accent-lime)] tactical-box border rounded clip-chamfer-sm transition group/btn flex items-center justify-center"
+													title={entity.name}
+												>
+													<ArrowUpRight className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+												</NavLink>
+											)}
 										</div>
 									</div>
 
-									<span className={`text-[9px] font-bold uppercase px-1.5 py-0.5 border shrink-0 clip-chamfer-sm ${getRarityBadge(entity.rarity)}`}>
-										{entity.rarity}
-									</span>
-								</div>
-
-								<div className="text-xs tactical-text-sub line-clamp-3 leading-relaxed mt-2 pt-2 border-t border-inherit">
-									<MarkupRenderer text={entity.description} />
+									<div className="text-xs tactical-text-sub line-clamp-3 leading-relaxed mt-2 pt-2 border-t border-inherit">
+										<MarkupRenderer text={entity.description} />
+									</div>
 								</div>
 							</div>
-						</div>
-					))}
+						);
+					})}
 				</div>
 			</div>
 		</section>

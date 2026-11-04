@@ -6,6 +6,12 @@ import { api } from "@/context/services/apiHelper";
 import { generateSlug } from "@/utils/slugify";
 import SafeImage from "@/components/common/SafeImage";
 import {
+	SPOTLIGHT_CONFIG,
+	getSavedSpotlightChampion,
+	saveSpotlightChampion,
+	resolveSpotlightChampion,
+} from "@/config/spotlightConfig";
+import {
 	Swords,
 	Dices,
 	ChevronRight,
@@ -33,7 +39,7 @@ import {
 } from "lucide-react";
 
 const BACKGROUND_IMAGES = {
-	hero: "https://images.pocguide.top/backgrounds/1920px-01DE012_Rugged-full.webp",
+	hero: "https://dd.b.pvp.net/7_3_0/set5/en_us/img/cards/05SH014T2-full.png",
 	champions: "https://images.pocguide.top/backgrounds/BG5.webp",
 	relics: "https://images.pocguide.top/backgrounds/BG8.webp",
 	powers: "https://images.pocguide.top/backgrounds/BG7.webp",
@@ -47,23 +53,8 @@ const BACKGROUND_IMAGES = {
 	event: "https://images.pocguide.top/backgrounds/1920px-01DE012T1_Rugged-full.webp",
 };
 
-// --- Cấu hình Tướng Mới Nổi Bật trên Hero ---
-const FEATURED_CHAMPION = {
-	championID: "01DE012",
-	cardCode: "01DE012",
-	name: "Garen",
-	title: "Sức Mạnh Demacia",
-	cost: 5,
-	maxStar: 6,
-	link: "/champion/garen",
-	splashImg: "https://images.pocguide.top/backgrounds/1920px-01DE012_Rugged-full.webp",
-	cardImg: "https://dd.b.pvp.net/latest/set1/vi_vn/img/cards/01DE012.png",
-	tags: ["NEW 6★", "DEMACIA", "ELITE", "STRIKE", "RALLY"],
-	palette: {
-		accent: "#d2ff28",
-		secondary: "#00f0ff",
-	},
-};
+// --- Cấu hình Tướng Tiêu Điểm được quản lý tập trung tại src/config/spotlightConfig.js ---
+const FEATURED_CHAMPION = SPOTLIGHT_CONFIG.fallbackChampion;
 
 // --- Bảng tên khu vực chuẩn hóa theo ngôn ngữ ---
 const REGION_NAMES = {
@@ -846,22 +837,28 @@ const HomeTactical = () => {
 		return rawChampions.map((c) => formatChampionForShowcase(c, tDynamic, language));
 	}, [rawChampions, tDynamic, language]);
 
-	// Tướng Spotlight hiển thị trên Hero: Ưu tiên Garen hoặc tướng đầu tiên từ API
-	const champion = useMemo(() => {
-    if (formattedChampions.length === 0) return FEATURED_CHAMPION;
-    const found = formattedChampions.find(
-        (c) => c.cardCode === "05SH014" || c.name?.toLowerCase() === "xerath"
-    );
-    if (found) {
-        return {
-            ...found,
-            splashImg: found.portrait || found.avatar,
-            cardImg: found.cardImg,
-            palette: found.palette,
-        };
-    }
-    return formattedChampions[0] || FEATURED_CHAMPION;
+	// Tướng Spotlight hiển thị trên Hero Banner:
+	// Khởi tạo ngay từ localStorage (0ms) để loại bỏ hoàn toàn hiện tượng chớp nháy khi reload
+	const [spotlightChampion, setSpotlightChampion] = useState(() => getSavedSpotlightChampion());
+
+	// Tự động nhận diện tướng Spotlight mới nhất từ API (ưu tiên tag "Tướng Mới" hoặc config)
+	useEffect(() => {
+		if (formattedChampions.length > 0) {
+			const resolved = resolveSpotlightChampion(formattedChampions);
+			if (resolved) {
+				const fullSpotlight = {
+					...resolved,
+					splashImg: resolved.portrait || resolved.avatar || SPOTLIGHT_CONFIG.fallbackChampion.splashImg,
+					cardImg: resolved.cardImg || SPOTLIGHT_CONFIG.fallbackChampion.cardImg,
+					palette: resolved.palette || SPOTLIGHT_CONFIG.fallbackChampion.palette,
+				};
+				setSpotlightChampion(fullSpotlight);
+				saveSpotlightChampion(fullSpotlight);
+			}
+		}
 	}, [formattedChampions]);
+
+	const champion = spotlightChampion || SPOTLIGHT_CONFIG.fallbackChampion;
 
 	const palette = champion.palette || FEATURED_CHAMPION.palette;
 	const cardCost = champion.cost;
@@ -1097,7 +1094,7 @@ const HomeTactical = () => {
 				{/* Lớp phủ ảnh nền hòa trộn mờ */}
 				<div className="absolute inset-0 z-0 select-none overflow-hidden pointer-events-none">
 					<img
-						src={BACKGROUND_IMAGES.hero}
+						src={splashImg || BACKGROUND_IMAGES.hero}
 						alt="Hero Wallpaper"
 						className="w-full h-full object-cover opacity-15 scale-105 mix-blend-luminosity"
 					/>
