@@ -47,28 +47,25 @@ const ChampionSupportChampionsSection = ({
 	return (
 		<section
 			id="support-champions"
-			className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 border-b border-[var(--tactical-card-border)]"
+			className="py-12 sm:py-20 border-b tactical-section relative"
 		>
-			{/* Section Header */}
-			<div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
-				<div>
-					<div className="flex items-center gap-2 text-[var(--tactical-accent-lime)] text-xs font-mono-tech tracking-widest uppercase mb-1.5">
-						<Users className="w-4 h-4" />
-						<span>// 05 // {tUI("championDetail.tactical.supportChampionsHeader") || "SUPPORT PACKS"}</span>
+			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				{/* Section Header */}
+				<div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6 sm:mb-8">
+					<div>
+						<h2 className="font-display text-3xl sm:text-4xl lg:text-5xl uppercase italic tracking-tight tactical-text-main">
+							{tUI("championDetail.tactical.supportChampionsTitle") || "TƯỚNG PHỤ KHUYÊN DÙNG"}
+						</h2>
 					</div>
-					<h2 className="font-display text-2xl sm:text-3xl uppercase italic tracking-wider text-white">
-						{tUI("championDetail.tactical.supportChampionsTitle") || "TƯỚNG PHỤ KHUYÊN DÙNG"}
-					</h2>
+
+					<div className="flex items-center gap-2 self-start sm:self-auto font-mono-tech text-xs text-text-tertiary">
+						<span className="w-2 h-2 rounded-full bg-[var(--tactical-accent-lime)] animate-pulse" />
+						<span>{packList.length} {tUI("championDetail.tactical.supportPackagesLoaded") || "GÓI VIỆN TRỢ"}</span>
+					</div>
 				</div>
 
-				<div className="flex items-center gap-2 self-start sm:self-auto font-mono-tech text-xs text-text-tertiary">
-					<span className="w-2 h-2 rounded-full bg-[var(--tactical-accent-lime)] animate-pulse" />
-					<span>{packList.length} {tUI("championDetail.tactical.supportPackagesLoaded") || "GÓI VIỆN TRỢ"}</span>
-				</div>
-			</div>
-
-			{/* Grid of Support Champion Packs */}
-			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+				{/* Grid of Support Champion Packs */}
+				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
 				{packList.map((item, idx) => {
 					const { cardCode, name, details } = item;
 					const champName = details?.name || name || cardCode;
@@ -175,6 +172,7 @@ const ChampionSupportChampionsSection = ({
 						</div>
 					);
 				})}
+				</div>
 			</div>
 		</section>
 	);

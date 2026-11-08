@@ -115,7 +115,7 @@ export function applyMarkup(text, lang = 'vi') {
 }
 
 // Simple test execution
-const isMain = process.argv[1].endsWith('markupUtility.js');
+const isMain = process.argv[1] && process.argv[1].endsWith('markupUtility.js');
 if (isMain) {
     const testVi = "Khi ta được triệu hồi, ban cho ta Áp Đảo và Cảm Tử.";
     const testEn = "When I'm summoned, grant me Overwhelm and Ephemeral.";
