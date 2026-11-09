@@ -2202,5 +2202,11 @@
       "ended": "EVENT HAS ENDED",
       "endedDesc": "Thank you for participating. See you in the next events!"
     }
+  },
+  "systemNotice": {
+    "title": "Maintenance & Domain Change Notice",
+    "message": "The website will undergo a system upgrade and transition to a new domain in the near future.",
+    "acknowledge": "Understood",
+    "dontShowAgain": "Don't show again today"
   }
 }

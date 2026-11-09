@@ -2202,5 +2202,11 @@
       "ended": "SỰ KIỆN ĐÃ KẾT THÚC",
       "endedDesc": "Cảm ơn bạn đã tham gia. Hẹn gặp lại trong các sự kiện tiếp theo!"
     }
+  },
+  "systemNotice": {
+    "title": "Thông Báo Bảo Trì & Đổi Tên Miền",
+    "message": "Trang web sẽ tiến hành nâng cấp hệ thống và chuyển sang tên miền mới trong thời gian tới.",
+    "acknowledge": "Đã hiểu",
+    "dontShowAgain": "Không hiện lại hôm nay"
   }
 }

@@ -59,6 +59,7 @@ import Profile from "@/features/auth/pages/profile.jsx";
 // Layout chung
 import Navbar from "./components/layout/navbar.jsx";
 import Footer from "./components/layout/footer.jsx";
+import MaintenanceNoticeModal from "./components/common/MaintenanceNoticeModal.jsx";
 
 // Trang thông tin
 import AboutUs from "@/features/about/pages/aboutUs.jsx";
@@ -143,6 +144,7 @@ function AppLayout() {
 			)}
 
 			{!isNoFooterRoute && <Footer />}
+			{!isAdminRoute && <MaintenanceNoticeModal />}
 			<Analytics />
 		</div>
 	);

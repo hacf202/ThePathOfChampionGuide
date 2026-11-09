@@ -1077,7 +1077,7 @@ const HomeTactical = () => {
 				{/* Giant Background Hollow Stroke Text chuẩn trang Chi tiết Tướng */}
 				<div className="absolute -top-6 left-0 right-0 pointer-events-none select-none overflow-hidden">
 					<div className="font-display text-[8rem] sm:text-[14rem] lg:text-[18rem] leading-none uppercase italic stroke-giant tracking-tighter whitespace-nowrap">
-						{isEn ? "THE PATH OF CHAMPIONS // RUNETERRA ARCHIVE" : "CON ĐƯỜNG ANH HÙNG // KHO LƯU TRỮ"}
+						{isEn ? "THE PATH OF CHAMPIONS //" : "CON ĐƯỜNG ANH HÙNG //"}
 					</div>
 				</div>
 
@@ -1108,8 +1108,8 @@ const HomeTactical = () => {
 							<Radio className="w-3.5 h-3.5 tactical-accent-lime animate-pulse" />
 							<span className="font-mono-tech text-xs uppercase font-bold tracking-widest text-[var(--tactical-accent-lime)]">
 								{isEn
-									? "// THE PATH OF CHAMPIONS // RUNETERRA ARCHIVE"
-									: "// CON ĐƯỜNG ANH HÙNG // KHO LƯU TRỮ RUNETERRA"}
+									? "// THE PATH OF CHAMPIONS //"
+									: "// CON ĐƯỜNG ANH HÙNG //"}
 							</span>
 						</div>
 
